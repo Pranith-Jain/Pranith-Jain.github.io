@@ -454,9 +454,9 @@ function InstagramSection({
   carousel?: SocialContent['carousel'];
 }) {
   const [copied, setCopied] = useState(false);
-  // objectUrls[i] is either undefined (not yet fetched), null (loading), or a
-  // blob URL string (ready).
-  const [objectUrls, setObjectUrls] = useState<(string | null | undefined)[]>([]);
+  // objectUrls[i] is either undefined (not yet fetched), null (loading),
+  // 'error' (fetch failed for that slide), or a blob URL string (ready).
+  const [objectUrls, setObjectUrls] = useState<(string | null | undefined | 'error')[]>([]);
   const [fetchErr, setFetchErr] = useState<string | null>(null);
   const [downloading, setDownloading] = useState(false);
   // Track blob URLs created so we can revoke them on unmount.
@@ -481,18 +481,26 @@ function InstagramSection({
     let cancelled = false;
 
     async function fetchAll() {
-      const results: (string | null)[] = Array<null>(total).fill(null);
+      const results: (string | null | 'error')[] = Array<null>(total).fill(null);
       for (let i = 0; i < total; i++) {
         if (cancelled) break;
         try {
           const url = await getObjectUrl(`/social/carousel/${encodeURIComponent(slug)}/${i}.png`);
-          if (!cancelled) {
-            urlsRef.current.push(url);
-            results[i] = url;
-            setObjectUrls([...results]);
+          // Fix 1: if cleanup ran while the fetch was in flight, revoke
+          // the newly-created blob URL immediately and bail — never push it.
+          if (cancelled) {
+            URL.revokeObjectURL(url);
+            break;
           }
+          urlsRef.current.push(url);
+          results[i] = url;
+          setObjectUrls([...results]);
         } catch (e) {
           if (!cancelled) {
+            // Fix 4: mark only the failing slide as 'error' so the UI can
+            // distinguish a load failure from an in-progress load.
+            results[i] = 'error';
+            setObjectUrls([...results]);
             setFetchErr(e instanceof Error ? e.message : String(e));
           }
         }
@@ -551,7 +559,7 @@ function InstagramSection({
           readOnly
           value={caption}
           rows={5}
-          className="w-full bg-white dark:bg-[rgb(var(--surface-200))] rounded p-3 text-xs text-slate-700 dark:text-slate-300 font-mono leading-relaxed border border-slate-200 dark:border-[rgb(var(--border-400))] resize-none focus:outline-none"
+          className="w-full bg-white dark:bg-[rgb(var(--surface-200))] rounded p-3 text-xs text-slate-700 dark:text-slate-300 font-mono leading-relaxed border border-slate-200 dark:border-[rgb(var(--border-400))] resize-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:ring-offset-1"
           aria-label="Instagram caption"
         />
       </div>
@@ -566,44 +574,57 @@ function InstagramSection({
             <button
               onClick={downloadAll}
               disabled={downloading || objectUrls.every((u) => !u)}
+              aria-label={downloading ? 'Downloading slides…' : 'Download all slides'}
               className="px-2 py-0.5 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
             >
               {downloading ? '…' : 'Download all'}
             </button>
           </div>
 
-          {fetchErr && <p className="text-xs text-rose-600 dark:text-rose-400 mb-2">Slide load error: {fetchErr}</p>}
+          {/* Fix 3: aria-live so placeholder→image transitions and errors are
+              announced to screen readers without requiring assertive. */}
+          <div aria-live="polite">
+            {fetchErr && <p className="text-xs text-rose-600 dark:text-rose-400 mb-2">Slide load error: {fetchErr}</p>}
 
-          <div
-            className="flex gap-3 overflow-x-auto pb-2"
-            role="list"
-            aria-label={`Instagram carousel slides for ${slug}`}
-          >
-            {slides.map((slide, i) => {
-              const url = objectUrls[i];
-              return (
-                <div key={i} role="listitem" className="flex-shrink-0 flex flex-col items-center gap-1">
-                  {url ? (
-                    <img
-                      src={url}
-                      alt={`Carousel slide ${i + 1} of ${total}: ${slide.headline}`}
-                      className="w-40 h-40 object-cover rounded border border-slate-200 dark:border-[rgb(var(--border-400))]"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div
-                      className="w-40 h-40 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-100 dark:bg-[rgb(var(--surface-200))] flex items-center justify-center"
-                      aria-label={`Loading slide ${i + 1} of ${total}`}
-                    >
-                      <span className="text-xs text-slate-400 dark:text-slate-500">{url === null ? '…' : 'err'}</span>
-                    </div>
-                  )}
-                  <span className="text-micro text-slate-500 dark:text-slate-400">
-                    {i + 1}/{total}
-                  </span>
-                </div>
-              );
-            })}
+            <div
+              className="flex gap-3 overflow-x-auto pb-2"
+              role="list"
+              aria-label={`Instagram carousel slides for ${slug}`}
+            >
+              {slides.map((slide, i) => {
+                const url = objectUrls[i];
+                const isError = url === 'error';
+                const isLoading = url === null || url === undefined;
+                return (
+                  <div key={i} role="listitem" className="flex-shrink-0 flex flex-col items-center gap-1">
+                    {!isLoading && !isError && url ? (
+                      <img
+                        src={url}
+                        alt={`Carousel slide ${i + 1} of ${total}: ${slide.headline}`}
+                        className="w-40 h-40 object-cover rounded border border-slate-200 dark:border-[rgb(var(--border-400))]"
+                        loading="lazy"
+                      />
+                    ) : (
+                      // Fix 4: distinct aria-label for errored vs loading slides;
+                      // inner visual span is aria-hidden since the div announces it.
+                      <div
+                        className="w-40 h-40 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-100 dark:bg-[rgb(var(--surface-200))] flex items-center justify-center"
+                        aria-label={
+                          isError ? `Slide ${i + 1} of ${total} failed to load` : `Loading slide ${i + 1} of ${total}`
+                        }
+                      >
+                        <span aria-hidden="true" className="text-xs text-slate-400 dark:text-slate-500">
+                          {isError ? 'err' : '…'}
+                        </span>
+                      </div>
+                    )}
+                    <span className="text-micro text-slate-500 dark:text-slate-400">
+                      {i + 1}/{total}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       )}
@@ -839,11 +860,7 @@ function SchedulePanel({ slug, refreshTrigger = 0 }: { slug: string; refreshTrig
               >
                 {status === 'posted' ? 'Mark pending' : 'Mark posted'}
               </button>
-              <span className="text-micro text-slate-600 dark:text-slate-500">
-                {platform !== 'instagram'
-                  ? bestTimeHint(platform)
-                  : 'Best: Mon–Fri, 11am–1pm or 7–9pm (audience local).'}
-              </span>
+              <span className="text-micro text-slate-600 dark:text-slate-500">{bestTimeHint(platform)}</span>
             </div>
           );
         })}
