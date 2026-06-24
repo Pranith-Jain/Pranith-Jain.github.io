@@ -94,6 +94,53 @@ describe('admin routes', () => {
     expect(env.__store.has(`approved:${cand.key}`)).toBe(true);
   });
 
+  it('social approve sets status=approved, enqueues for autopost, and surfaces in the queue agenda', async () => {
+    const env = mockEnv();
+    const slug = 'cve-2026-1234-fortigate';
+    // Approve the twitter copy with a due (past) scheduledAt.
+    const approveRes = await app().request(
+      `/api/v1/admin/social-schedule/${slug}/twitter/approve`,
+      {
+        method: 'POST',
+        headers: { 'X-Admin-Token': 'sekret', 'content-type': 'application/json' },
+        body: JSON.stringify({ scheduledAt: '2026-06-25T09:00:00Z' }),
+      },
+      env
+    );
+    expect(approveRes.status).toBe(200);
+    const sched = JSON.parse(env.__store.get(`social-schedule:${slug}`) as string);
+    expect(sched.twitter.status).toBe('approved');
+    // Enqueued in the advisory autopost queue.
+    const queue = JSON.parse(env.__store.get('social-autopost-queue') as string);
+    expect(queue).toEqual([{ slug, platform: 'twitter' }]);
+    // Agenda endpoint resolves the queue against the schedule.
+    const agendaRes = await app().request(
+      '/api/v1/admin/social-queue',
+      { headers: { 'X-Admin-Token': 'sekret' } },
+      env
+    );
+    const agenda = (await agendaRes.json()) as any;
+    expect(agenda.autopostEnabled).toBe(false); // SOCIAL_AUTOPOST_ENABLED unset
+    expect(agenda.queue[0]).toMatchObject({ slug, platform: 'twitter', status: 'approved' });
+  });
+
+  it('social unapprove reverts status to pending', async () => {
+    const env = mockEnv();
+    const slug = 'cve-2026-1234-fortigate';
+    await app().request(
+      `/api/v1/admin/social-schedule/${slug}/linkedin/approve`,
+      { method: 'POST', headers: { 'X-Admin-Token': 'sekret' } },
+      env
+    );
+    await app().request(
+      `/api/v1/admin/social-schedule/${slug}/linkedin/unapprove`,
+      { method: 'POST', headers: { 'X-Admin-Token': 'sekret' } },
+      env
+    );
+    const sched = JSON.parse(env.__store.get(`social-schedule:${slug}`) as string);
+    expect(sched.linkedin.status).toBe('pending');
+  });
+
   it('skip removes a candidate', async () => {
     const env = mockEnv();
     env.__store.set(`candidates:cve:${cand.key}`, JSON.stringify(cand));

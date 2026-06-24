@@ -10,6 +10,9 @@ import {
   upsertSocialSchedule,
   markSocialPosted,
   isSocialPlatform,
+  approveSocialPlatform,
+  unapproveSocialPlatform,
+  readAutopostQueue,
 } from '../case-study/storage/social-schedule';
 import { postToTwitter, postToLinkedin } from '../case-study/posting/social-poster';
 import { approve, unapprove, listApproved, getApproved, countApproved } from '../case-study/storage/approved';
@@ -354,6 +357,71 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     if (!isSocialPlatform(platform)) return c.json({ error: 'platform must be twitter, linkedin, or instagram' }, 400);
     const schedule = await markSocialPosted(c.env.CASE_STUDIES, slug, platform);
     return c.json({ ok: true, schedule });
+  });
+
+  // Approve a platform's copy for auto-posting (status→approved + enqueue).
+  // Optional body { scheduledAt } sets when the drip cron may release it;
+  // when omitted it defaults to now (immediately due, drip still spaces them).
+  admin.post('/social-schedule/:slug/:platform/approve', async (c) => {
+    const slug = c.req.param('slug');
+    const platform = c.req.param('platform');
+    if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
+    if (!isSocialPlatform(platform)) return c.json({ error: 'platform must be twitter, linkedin, or instagram' }, 400);
+    const parsed = await safeJsonBody<{ scheduledAt?: string }>(c, { maxBytes: 1024 });
+    if ('error' in parsed) return parsed.error;
+    let scheduledAt: string | undefined;
+    const at = parsed.value?.scheduledAt ?? '';
+    if (at !== '') {
+      if (Number.isNaN(Date.parse(at))) return c.json({ error: 'invalid scheduledAt' }, 400);
+      scheduledAt = new Date(at).toISOString();
+    } else {
+      scheduledAt = new Date().toISOString(); // approve = due now (drip spaces out)
+    }
+    const schedule = await approveSocialPlatform(c.env.CASE_STUDIES, slug, platform, new Date(), scheduledAt);
+    return c.json({ ok: true, schedule });
+  });
+
+  // Revoke approval (status→pending). Stops the drip cron from posting it.
+  admin.post('/social-schedule/:slug/:platform/unapprove', async (c) => {
+    const slug = c.req.param('slug');
+    const platform = c.req.param('platform');
+    if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
+    if (!isSocialPlatform(platform)) return c.json({ error: 'platform must be twitter, linkedin, or instagram' }, 400);
+    const schedule = await unapproveSocialPlatform(c.env.CASE_STUDIES, slug, platform);
+    return c.json({ ok: true, schedule });
+  });
+
+  // Agenda for the content calendar: the auto-post queue resolved against each
+  // post's live schedule, sorted by scheduledAt. Includes the master-switch
+  // state so the UI can show whether the cron will actually post.
+  admin.get('/social-queue', async (c) => {
+    const queue = await readAutopostQueue(c.env.CASE_STUDIES);
+    const bySlug = new Map<string, Awaited<ReturnType<typeof getSocialSchedule>>>();
+    const items: Array<{
+      slug: string;
+      platform: string;
+      status: string;
+      scheduledAt?: string;
+      postUrl?: string;
+      error?: string;
+      attempts?: number;
+    }> = [];
+    for (const q of queue) {
+      if (!bySlug.has(q.slug)) bySlug.set(q.slug, await getSocialSchedule(c.env.CASE_STUDIES, q.slug));
+      const entry = bySlug.get(q.slug)?.[q.platform];
+      if (!entry) continue;
+      items.push({
+        slug: q.slug,
+        platform: q.platform,
+        status: entry.status,
+        scheduledAt: entry.scheduledAt,
+        postUrl: entry.postUrl,
+        error: entry.error,
+        attempts: entry.attempts,
+      });
+    }
+    items.sort((a, b) => (a.scheduledAt ?? '').localeCompare(b.scheduledAt ?? ''));
+    return c.json({ autopostEnabled: c.env.SOCIAL_AUTOPOST_ENABLED === 'true', queue: items });
   });
 
   admin.post('/social-schedule/:slug/:platform', async (c) => {
