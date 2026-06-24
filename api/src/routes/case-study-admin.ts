@@ -351,7 +351,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     const slug = c.req.param('slug');
     const platform = c.req.param('platform');
     if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
-    if (!isSocialPlatform(platform)) return c.json({ error: 'platform must be twitter or linkedin' }, 400);
+    if (!isSocialPlatform(platform)) return c.json({ error: 'platform must be twitter, linkedin, or instagram' }, 400);
     const schedule = await markSocialPosted(c.env.CASE_STUDIES, slug, platform);
     return c.json({ ok: true, schedule });
   });
@@ -360,7 +360,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     const slug = c.req.param('slug');
     const platform = c.req.param('platform');
     if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
-    if (!isSocialPlatform(platform)) return c.json({ error: 'platform must be twitter or linkedin' }, 400);
+    if (!isSocialPlatform(platform)) return c.json({ error: 'platform must be twitter, linkedin, or instagram' }, 400);
     const parsed = await safeJsonBody<{ scheduledAt?: string; status?: 'pending' | 'posted' }>(c, { maxBytes: 1024 });
     if ('error' in parsed) return parsed.error;
     const patch: { scheduledAt?: string; status?: 'pending' | 'posted' } = {};

@@ -2,10 +2,10 @@ import type { KVNamespace } from '@cloudflare/workers-types';
 import type { SocialSchedule, SocialScheduleEntry } from '../types';
 import { kv } from '../kv-keys';
 
-export type SocialPlatform = 'twitter' | 'linkedin';
+export type SocialPlatform = 'twitter' | 'linkedin' | 'instagram';
 
 export function isSocialPlatform(v: string): v is SocialPlatform {
-  return v === 'twitter' || v === 'linkedin';
+  return v === 'twitter' || v === 'linkedin' || v === 'instagram';
 }
 
 export async function getSocialSchedule(ns: KVNamespace, slug: string): Promise<SocialSchedule | null> {
