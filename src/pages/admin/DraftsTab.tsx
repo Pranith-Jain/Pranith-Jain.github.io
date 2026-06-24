@@ -178,6 +178,9 @@ export default function DraftsTab() {
               title: r.title,
               body: r.body,
               iocs: r.iocs,
+              // Include fresh QA score so DraftPreviewPanel doesn't show the
+              // pre-regen total after a successful regenerate.
+              quality: r.qa ?? preview.post.quality,
             },
             bodyHtml: r.bodyHtml,
           });
@@ -192,6 +195,16 @@ export default function DraftsTab() {
   }
 
   async function generateSocial(slug: string, platform: string) {
+    // TODO(#4): The correct call for a draft is:
+    //   POST /candidates/<candidateId>/generate?type=<type>  { formats: [platform] }
+    // because /social/<slug>/<platform> reads the published `posts:<slug>` KV key
+    // which doesn't exist yet for a draft, causing a 404.
+    // DraftEntry from GET /drafts does not include candidateId or the original
+    // candidate type. The backend /drafts list response needs to expose
+    // candidateId (and type) before this can be fixed here without an extra
+    // round-trip. Until then this endpoint will 404 when BLOG_APPROVAL_REQUIRED
+    // is on — the LI/Tw buttons in the Published tab work correctly once
+    // the draft is approved.
     const key = `${slug}:${platform}`;
     setSocialGen((prev) => ({ ...prev, [key]: 'busy' }));
     setActionMsg(null);
@@ -408,7 +421,10 @@ function DraftPreviewPanel({
       </div>
 
       <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-1">{post.title}</h1>
-      <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">{post.excerpt}</p>
+      <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
+        <span className="font-mono text-micro uppercase tracking-wider text-slate-400 mr-1.5">Excerpt</span>
+        {post.excerpt}
+      </p>
 
       {/* Rendered preview — exactly what /blog/:slug would serve once
           approved. Inline styles cover the essentials (headings + links

@@ -5,7 +5,7 @@ import { Modal } from '../../components/ui/Modal';
 interface Slot {
   slotAt: string;
   candidateId: string;
-  status: 'pending' | 'publishing' | 'published' | 'failed';
+  status: 'pending' | 'publishing' | 'published' | 'failed' | 'draft';
   publishedSlug?: string;
   error?: string;
 }
@@ -198,6 +198,11 @@ export default function ScheduleTab() {
                     >
                       Remove
                     </button>
+                  )}
+                  {s.status === 'draft' && (
+                    <span className="px-2 py-1 text-xs text-slate-500 dark:text-slate-400">
+                      Awaiting approval in the Drafts tab
+                    </span>
                   )}
                 </td>
               </tr>

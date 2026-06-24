@@ -3,7 +3,7 @@ import { getJson, postJson, postJsonWithBody } from './adminApi';
 
 interface Candidate {
   key: string;
-  type: 'cve' | 'actor' | 'malware' | 'ransom';
+  type: string;
   title: string;
   rationale: string;
   score: number;

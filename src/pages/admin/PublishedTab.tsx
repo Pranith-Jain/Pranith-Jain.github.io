@@ -60,6 +60,7 @@ interface SocialContent {
   instagram?: string;
   carousel?: { format: 'instagram'; slides: CarouselSlide[] };
   generatedAt: string;
+  hooks?: string[];
 }
 
 interface SocialEntry {
@@ -413,8 +414,11 @@ function SocialQueueAgenda() {
         <p className="text-xs text-slate-500 dark:text-slate-400">No items in queue.</p>
       ) : (
         <ul className="space-y-1" aria-label="Queued social posts">
-          {queue.map((item: SocialQueueItem, i: number) => (
-            <li key={i} className="flex flex-wrap items-center gap-2 text-xs text-slate-600 dark:text-slate-400">
+          {queue.map((item: SocialQueueItem) => (
+            <li
+              key={`${item.slug}-${item.platform}`}
+              className="flex flex-wrap items-center gap-2 text-xs text-slate-600 dark:text-slate-400"
+            >
               <span className="font-mono text-slate-500 dark:text-slate-500 whitespace-nowrap">
                 {item.scheduledAt ? new Date(item.scheduledAt).toLocaleString() : '—'}
               </span>
@@ -665,7 +669,7 @@ function InstagramSection({
     setDownloading(true);
     for (let i = 0; i < total; i++) {
       const url = objectUrls[i];
-      if (!url) continue;
+      if (!url || url === 'error') continue;
       const a = document.createElement('a');
       a.href = url;
       a.download = `${slug}-ig-${i + 1}.png`;
@@ -895,11 +899,24 @@ function SchedulePanel({ slug, refreshTrigger = 0 }: { slug: string; refreshTrig
   const [sched, setSched] = useState<SocialScheduleData | null>(null);
   const [busy, setBusy] = useState<SocialPlatform | null>(null);
   const [msg, setMsg] = useState<string | null>(null);
+  // Controlled datetime-local values per platform so Approve always reads the
+  // current typed value, not stale server state (bug fix: uncontrolled input
+  // would silently discard a new time typed before clicking Approve).
+  const [localTimes, setLocalTimes] = useState<Partial<Record<SocialPlatform, string>>>({});
 
   const loadSched = useCallback(async () => {
     try {
       const r = await getJson<{ schedule: SocialScheduleData | null }>(`/social-schedule/${encodeURIComponent(slug)}`);
       setSched(r.schedule);
+      // Initialise controlled inputs from the freshly-loaded schedule so any
+      // previously-saved times are reflected after a reload.
+      if (r.schedule) {
+        const times: Partial<Record<SocialPlatform, string>> = {};
+        for (const p of ['twitter', 'linkedin', 'instagram'] as SocialPlatform[]) {
+          times[p] = toLocalInput(r.schedule[p]?.scheduledAt);
+        }
+        setLocalTimes(times);
+      }
     } catch {
       /* schedule is optional */
     }
@@ -948,10 +965,13 @@ function SchedulePanel({ slug, refreshTrigger = 0 }: { slug: string; refreshTrig
     }
   }
 
-  async function handleApprove(platform: SocialPlatform, scheduledAt?: string) {
+  async function handleApprove(platform: SocialPlatform) {
     setBusy(platform);
     setMsg(null);
     try {
+      // Read the CURRENT controlled input value, not the stale server state.
+      const localValue = localTimes[platform] ?? '';
+      const scheduledAt = localValue ? new Date(localValue).toISOString() : undefined;
       const r = await approveSocialPlatform(slug, platform, scheduledAt);
       setSched(r.schedule as SocialScheduleData);
       setMsg(`${platform} approved`);
@@ -1056,7 +1076,8 @@ function SchedulePanel({ slug, refreshTrigger = 0 }: { slug: string; refreshTrig
 
               <input
                 type="datetime-local"
-                defaultValue={toLocalInput(entry?.scheduledAt)}
+                value={localTimes[platform] ?? ''}
+                onChange={(e) => setLocalTimes((prev) => ({ ...prev, [platform]: e.target.value }))}
                 onBlur={(e) => void saveTime(platform, e.target.value)}
                 disabled={busy === platform}
                 aria-label={`${platform} planned post time (saved on blur)`}
@@ -1067,7 +1088,7 @@ function SchedulePanel({ slug, refreshTrigger = 0 }: { slug: string; refreshTrig
               {/* Approve / Unapprove — twitter + linkedin only */}
               {canAutoPost && (status === 'pending' || status === 'failed') && (
                 <button
-                  onClick={() => void handleApprove(platform, entry?.scheduledAt)}
+                  onClick={() => void handleApprove(platform)}
                   disabled={busy === platform}
                   aria-label={`Approve ${platform} for auto-posting`}
                   className="px-2 py-0.5 border border-sky-200 dark:border-sky-700 rounded hover:bg-sky-50 dark:hover:bg-sky-900/30 disabled:opacity-50"
