@@ -30,4 +30,7 @@ export const kv = {
   /** AI-generated illustration bytes for a post (name = 'hero' | 'body1' …).
    *  Served publicly via GET /api/v1/blog-image/:slug/:name. */
   postImage: (slug: string, name: string) => `post-img:${slug}:${name}`,
+  /** Single blob of social engagement metrics keyed by `${slug}:${platform}`.
+   *  Read once for the analytics aggregate; refreshed by the metrics cron. */
+  socialMetrics: 'social-metrics',
 };

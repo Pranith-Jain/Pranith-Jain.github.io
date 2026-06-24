@@ -11,6 +11,7 @@ import {
   runPlannerNow,
   runPublisherNow,
   runSocialAutopostNow,
+  refreshSocialMetricsNow,
   type CaseStudyEnv,
 } from '../api/src/case-study/run';
 import { runTelegramArchive } from '../api/src/routes/telegram-archive';
@@ -245,6 +246,10 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           // configured rate. No-op unless SOCIAL_AUTOPOST_ENABLED === 'true'.
           fireAndForget.push(
             runSocialAutopostNow(env as unknown as CaseStudyEnv, csNow).catch(logCronFail('social-autopost'))
+          );
+          // Refresh tweet engagement metrics for recent posts (analytics loop).
+          fireAndForget.push(
+            refreshSocialMetricsNow(env as unknown as CaseStudyEnv, csNow).catch(logCronFail('social-metrics'))
           );
           fireAndForget.push(runTelegramArchive(env as unknown as ApiEnv).catch(logCronFail('telegram-archive')));
           if (env.FEEDS_QUEUE) {

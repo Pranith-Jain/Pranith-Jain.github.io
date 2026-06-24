@@ -55,6 +55,9 @@ import {
 } from './storage/social-schedule';
 import { postToTwitter, postToLinkedin } from './posting/social-poster';
 import { putPostImage } from './storage/post-images';
+import { fetchTweetMetrics, extractTweetId } from './analytics/tweet-metrics';
+import { upsertMetrics } from './storage/social-metrics';
+import type { MetricsRecord } from './analytics/analytics';
 import type { SocialContent } from './types';
 import { kv as csKvKeys } from './kv-keys';
 import { ACTOR_RSS_FEEDS, ADVISORY_RSS_FEEDS } from './config';
@@ -110,6 +113,9 @@ export interface CaseStudyEnv {
   X_ACCESS_TOKEN_SECRET?: string;
   /** LinkedIn OAuth 2.0 bearer token for auto-posting. */
   LINKEDIN_ACCESS_TOKEN?: string;
+  /** X (Twitter) app-only Bearer token — reads public_metrics for the
+   *  analytics refresh. Absent → tweet-metrics refresh is a no-op. */
+  X_API_BEARER_TOKEN?: string;
   /** Set to "true" to DISABLE AI blog illustrations (cost control). When
    *  unset, each published post gets an AI hero + in-body image (best-effort,
    *  falls back to the SVG hero on any failure). */
@@ -521,6 +527,43 @@ export async function runPublisherNow(env: CaseStudyEnv, now: Date) {
   }
 
   return result;
+}
+
+/**
+ * Refresh engagement metrics for recently-posted tweets. Rides the hourly
+ * cron. Bounded to the most recent K posts per tick for the subrequest
+ * budget, one batched metrics write. No-op without an X Bearer token.
+ * LinkedIn/Instagram metrics are entered manually (no read API for personal
+ * accounts).
+ */
+export async function refreshSocialMetricsNow(env: CaseStudyEnv, now: Date) {
+  if (!env.CASE_STUDIES || !env.X_API_BEARER_TOKEN) {
+    return { refreshed: 0, reason: !env.X_API_BEARER_TOKEN ? 'no-bearer' : 'no-kv' };
+  }
+  const index = await listPostIndex(env.CASE_STUDIES);
+  const recent = [...index].sort((a, b) => (b.publishedAt ?? '').localeCompare(a.publishedAt ?? '')).slice(0, 8);
+  const records: MetricsRecord[] = [];
+  for (const entry of recent) {
+    const sched = await getSocialSchedule(env.CASE_STUDIES, entry.slug);
+    const tw = sched?.twitter;
+    if (tw?.status !== 'posted' || !tw.postUrl) continue;
+    const id = extractTweetId(tw.postUrl);
+    if (!id) continue;
+    const metrics = await fetchTweetMetrics(id, env.X_API_BEARER_TOKEN);
+    if (metrics) {
+      records.push({
+        slug: entry.slug,
+        platform: 'twitter',
+        type: entry.type,
+        postUrl: tw.postUrl,
+        metrics,
+        fetchedAt: now.toISOString(),
+      });
+    }
+  }
+  await upsertMetrics(env.CASE_STUDIES, records);
+  console.log(JSON.stringify({ job: 'social-metrics', refreshed: records.length, ts: now.toISOString() }));
+  return { refreshed: records.length };
 }
 
 /**

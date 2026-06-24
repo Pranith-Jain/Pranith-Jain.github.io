@@ -14,6 +14,8 @@ import {
   unapproveSocialPlatform,
   readAutopostQueue,
 } from '../case-study/storage/social-schedule';
+import { getAllMetrics, upsertMetric } from '../case-study/storage/social-metrics';
+import { computeTypePerformance, engagementScore, type MetricsRecord } from '../case-study/analytics/analytics';
 import { postToTwitter, postToLinkedin } from '../case-study/posting/social-poster';
 import { approve, unapprove, listApproved, getApproved, countApproved } from '../case-study/storage/approved';
 import { getSchedule, setSchedule, markSlotStatus, removeSlot } from '../case-study/storage/schedule';
@@ -422,6 +424,54 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     }
     items.sort((a, b) => (a.scheduledAt ?? '').localeCompare(b.scheduledAt ?? ''));
     return c.json({ autopostEnabled: c.env.SOCIAL_AUTOPOST_ENABLED === 'true', queue: items });
+  });
+
+  // Analytics: per-post engagement (best-first) + the "what performs"
+  // aggregate by content type — the iteration-loop signal.
+  admin.get('/social-analytics', async (c) => {
+    const records = await getAllMetrics(c.env.CASE_STUDIES);
+    const posts = records
+      .map((r) => ({ ...r, engagement: engagementScore(r.metrics) }))
+      .sort((a, b) => b.engagement - a.engagement);
+    return c.json({ posts, byType: computeTypePerformance(records) });
+  });
+
+  // Manual metrics entry (LinkedIn / Instagram have no read API for personal
+  // accounts; the operator types the numbers in). Twitter is auto-refreshed.
+  admin.post('/social-metrics/:slug/:platform', async (c) => {
+    const slug = c.req.param('slug');
+    const platform = c.req.param('platform');
+    if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
+    if (!isSocialPlatform(platform)) return c.json({ error: 'platform must be twitter, linkedin, or instagram' }, 400);
+    const parsed = await safeJsonBody<{
+      impressions?: number;
+      likes?: number;
+      reposts?: number;
+      replies?: number;
+      clicks?: number;
+      postUrl?: string;
+    }>(c, { maxBytes: 1024 });
+    if ('error' in parsed) return parsed.error;
+    const b = parsed.value ?? {};
+    const num = (x: unknown) => (typeof x === 'number' && Number.isFinite(x) && x >= 0 ? x : undefined);
+    const index = await listPostIndex(c.env.CASE_STUDIES);
+    const entry = index.find((e) => e.slug === slug);
+    const record: MetricsRecord = {
+      slug,
+      platform,
+      type: entry?.type ?? 'analysis',
+      postUrl: typeof b.postUrl === 'string' ? b.postUrl : undefined,
+      metrics: {
+        impressions: num(b.impressions),
+        likes: num(b.likes),
+        reposts: num(b.reposts),
+        replies: num(b.replies),
+        clicks: num(b.clicks),
+      },
+      fetchedAt: new Date().toISOString(),
+    };
+    await upsertMetric(c.env.CASE_STUDIES, record);
+    return c.json({ ok: true, record });
   });
 
   admin.post('/social-schedule/:slug/:platform', async (c) => {

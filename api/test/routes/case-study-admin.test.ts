@@ -141,6 +141,35 @@ describe('admin routes', () => {
     expect(sched.linkedin.status).toBe('pending');
   });
 
+  it('manual metrics entry is stored and surfaced in the analytics aggregate', async () => {
+    const env = mockEnv();
+    const slug = 'cve-2026-1234-fortigate';
+    // Seed a post-index entry so the metric gets the right content type.
+    env.__store.set(
+      'posts:index',
+      JSON.stringify([{ slug, title: 'X', type: 'cve', excerpt: '', publishedAt: '2026-06-25T00:00:00Z', tags: [] }])
+    );
+    const post = await app().request(
+      `/api/v1/admin/social-metrics/${slug}/linkedin`,
+      {
+        method: 'POST',
+        headers: { 'X-Admin-Token': 'sekret', 'content-type': 'application/json' },
+        body: JSON.stringify({ impressions: 5000, likes: 120, replies: 8 }),
+      },
+      env
+    );
+    expect(post.status).toBe(200);
+    const analytics = await app().request(
+      '/api/v1/admin/social-analytics',
+      { headers: { 'X-Admin-Token': 'sekret' } },
+      env
+    );
+    const body = (await analytics.json()) as any;
+    expect(body.posts[0]).toMatchObject({ slug, platform: 'linkedin' });
+    expect(body.byType[0]).toMatchObject({ type: 'cve', posts: 1 });
+    expect(body.byType[0].totalImpressions).toBe(5000);
+  });
+
   it('skip removes a candidate', async () => {
     const env = mockEnv();
     env.__store.set(`candidates:cve:${cand.key}`, JSON.stringify(cand));
