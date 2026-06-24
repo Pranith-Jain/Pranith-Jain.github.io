@@ -84,7 +84,10 @@ export interface Post {
   publishedAt: string; // ISO 8601
   candidateId: string;
   body: string; // markdown
-  hero: string; // inline SVG
+  hero: string; // inline SVG (typographic banner; fallback when no AI hero)
+  /** Public URL of the AI-generated hero illustration, when one was produced.
+   *  The blog page prefers this over the SVG `hero`. */
+  heroImageUrl?: string;
   iocs: PostIOC[];
   tags: string[];
   sources: PostSource[];

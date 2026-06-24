@@ -65,6 +65,8 @@ export interface Env {
   SOCIAL_AUTOPOST_ENABLED?: string;
   /** Max auto-posts per platform per cron tick (drip rate). Default 1. */
   SOCIAL_DRIP_PER_TICK?: string;
+  /** Set "true" to disable AI blog illustrations (cost control). Default: on. */
+  BLOG_AI_IMAGES_DISABLED?: string;
   /** Public site origin, used for WS origin allow-listing and absolute URLs in
    *  the cron/scheduled paths. Optional — falls back to the canonical origin. */
   SITE_URL?: string;

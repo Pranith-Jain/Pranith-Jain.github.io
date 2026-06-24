@@ -54,6 +54,7 @@ import {
   recordAutopostResult,
 } from './storage/social-schedule';
 import { postToTwitter, postToLinkedin } from './posting/social-poster';
+import { putPostImage } from './storage/post-images';
 import type { SocialContent } from './types';
 import { kv as csKvKeys } from './kv-keys';
 import { ACTOR_RSS_FEEDS, ADVISORY_RSS_FEEDS } from './config';
@@ -109,6 +110,10 @@ export interface CaseStudyEnv {
   X_ACCESS_TOKEN_SECRET?: string;
   /** LinkedIn OAuth 2.0 bearer token for auto-posting. */
   LINKEDIN_ACCESS_TOKEN?: string;
+  /** Set to "true" to DISABLE AI blog illustrations (cost control). When
+   *  unset, each published post gets an AI hero + in-body image (best-effort,
+   *  falls back to the SVG hero on any failure). */
+  BLOG_AI_IMAGES_DISABLED?: string;
 }
 
 export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
@@ -489,6 +494,11 @@ export async function runPublisherNow(env: CaseStudyEnv, now: Date) {
         verifyRefs: env.KV_CACHE
           ? createBatchedCachedVerify({ kv: env.KV_CACHE, nowMs: n.getTime(), verify: liveVerifyUrls })
           : undefined,
+        // AI illustrations: on by default, disable via BLOG_AI_IMAGES_DISABLED.
+        aiImages:
+          env.BLOG_AI_IMAGES_DISABLED === 'true'
+            ? undefined
+            : { enabled: true, put: (slug, name, bytes) => putPostImage(env.CASE_STUDIES, slug, name, bytes) },
       }),
     putPost: (p) => putPost(env.CASE_STUDIES, p),
     putDraft: (p) => putDraft(env.CASE_STUDIES, p),

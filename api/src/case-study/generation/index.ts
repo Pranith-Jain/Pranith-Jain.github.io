@@ -4,6 +4,7 @@ import { buildPrompt, requiredSections } from './templates';
 import { runCompletion } from './ai-client';
 import { postProcess } from './post-process';
 import { renderHeroSvg } from './hero-svg';
+import { generateAiImage, buildHeroImagePrompt, buildBodyImagePrompt, injectBodyImage } from './ai-image';
 import { validateIocsLive, type IocValidationEnv } from './ioc-live-validation';
 import { verifyAndPruneReferences } from './verify-references';
 import type { LinkStatus } from '../../lib/verify-url';
@@ -241,6 +242,18 @@ export interface GeneratePostDeps {
    * (transient network/timeout — kept on the benefit of the doubt).
    */
   verifyRefs?: (urls: string[]) => Promise<Map<string, LinkStatus>>;
+  /**
+   * Optional AI-illustration generation. When present + enabled, generatePost
+   * produces a hero image and one in-body image via Workers AI, stores the
+   * bytes through `put`, sets `heroImageUrl`, and injects the body image as
+   * markdown. Absent/disabled → no images (the SVG hero is used). Every step
+   * is best-effort: a generation failure silently falls back. `put` is
+   * injected so the storage side stays out of this module.
+   */
+  aiImages?: {
+    enabled: boolean;
+    put: (slug: string, name: string, bytes: Uint8Array) => Promise<void>;
+  };
 }
 
 export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
@@ -391,6 +404,38 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
   const slug = `${candidate.key}-${slugify(candidate.title).slice(0, 40)}`.replace(/-+/g, '-');
   const hero = renderHeroSvg({ title: candidate.title, type: candidate.type });
 
+  // ── AI illustrations (best-effort) ───────────────────────────────────
+  // A hero image (preferred over the SVG banner on the blog page) + one
+  // in-body image. Any failure falls back silently — never blocks publish.
+  let heroImageUrl: string | undefined;
+  let bodyWithImages = finalBody;
+  if (deps.aiImages?.enabled) {
+    const promptCtx = { title: candidate.title, type: candidate.type };
+    try {
+      const heroBytes = await generateAiImage(ai, buildHeroImagePrompt(promptCtx));
+      if (heroBytes) {
+        await deps.aiImages.put(slug, 'hero', heroBytes);
+        heroImageUrl = `/api/v1/blog-image/${slug}/hero`;
+      }
+      const bodyBytes = await generateAiImage(ai, buildBodyImagePrompt(promptCtx));
+      if (bodyBytes) {
+        await deps.aiImages.put(slug, 'body1', bodyBytes);
+        bodyWithImages = injectBodyImage(finalBody, `/api/v1/blog-image/${slug}/body1`, candidate.title);
+      }
+      console.log(
+        JSON.stringify({
+          job: 'generate-post',
+          stage: 'ai-images',
+          candidate: candidate.key,
+          hero: !!heroImageUrl,
+          body: bodyWithImages !== finalBody,
+        })
+      );
+    } catch (err) {
+      console.warn('ai-image generation failed (using SVG hero):', err instanceof Error ? err.message : String(err));
+    }
+  }
+
   return {
     slug,
     type: candidate.type,
@@ -398,8 +443,9 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
     excerpt: excerptFrom(finalBody),
     publishedAt: now.toISOString(),
     candidateId: candidate.key,
-    body: finalBody,
+    body: bodyWithImages,
     hero,
+    heroImageUrl,
     iocs,
     tags: tagsFor(candidate),
     sources: finalSources,

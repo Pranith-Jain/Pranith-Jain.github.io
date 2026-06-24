@@ -27,4 +27,7 @@ export const kv = {
    *  The drip cron reads this one blob to find candidates, then confirms each
    *  against the authoritative per-slug schedule before posting. */
   socialAutopostQueue: 'social-autopost-queue',
+  /** AI-generated illustration bytes for a post (name = 'hero' | 'body1' …).
+   *  Served publicly via GET /api/v1/blog-image/:slug/:name. */
+  postImage: (slug: string, name: string) => `post-img:${slug}:${name}`,
 };

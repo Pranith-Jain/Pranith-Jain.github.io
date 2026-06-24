@@ -12,6 +12,7 @@ interface Post {
   publishedAt: string;
   body: string;
   hero: string;
+  heroImageUrl?: string;
   iocs: { type: string; value: string }[];
   tags: string[];
   sources?: { url: string; title: string }[];
@@ -423,7 +424,7 @@ export default function BlogPost() {
               width={1200}
               height={630}
               loading="lazy"
-              src={`data:image/svg+xml;utf8,${encodeURIComponent(post.hero)}`}
+              src={post.heroImageUrl ?? `data:image/svg+xml;utf8,${encodeURIComponent(post.hero)}`}
             />
 
             <header className="mb-8">
