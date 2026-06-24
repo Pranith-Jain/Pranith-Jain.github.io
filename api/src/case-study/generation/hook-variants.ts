@@ -61,7 +61,7 @@ export async function generateHookVariants(
         temperature: 0.9,
         maxTokens: 400,
       },
-      { groqKey, googleKey, quality: true }
+      { groqKey, googleKey, quality: true, preferGroq: true }
     );
     return parseHooks(res.text);
   } catch {

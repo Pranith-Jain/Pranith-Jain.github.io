@@ -399,7 +399,7 @@ async function generateWithValidation(
     const result = await runCompletion(
       ai,
       { system, user: prompt, temperature: 0.7, maxTokens },
-      { googleKey, groqKey, quality: true }
+      { googleKey, groqKey, quality: true, preferGroq: true }
     );
 
     lastText = platform === 'twitter' ? tidySocial(result.text) : tidyLinkedin(result.text);

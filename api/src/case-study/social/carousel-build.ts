@@ -93,7 +93,7 @@ export async function buildCarouselSlides(
         temperature: 0.6,
         maxTokens: 1200,
       },
-      { groqKey: deps.groqKey, googleKey: deps.googleKey, quality: true }
+      { groqKey: deps.groqKey, googleKey: deps.googleKey, quality: true, preferGroq: true }
     );
     const parsed = parseSlidesJson(res.text);
     if (parsed) {

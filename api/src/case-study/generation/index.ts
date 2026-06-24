@@ -62,7 +62,7 @@ async function verifyFacts(
         maxTokens: 1500,
         temperature: 0.1,
       },
-      { googleKey, groqKey, quality: true }
+      { googleKey, groqKey, quality: true, preferGroq: true }
     );
 
     const text = result.text.trim();
@@ -303,7 +303,7 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
   const completion = await runCompletion(
     ai,
     { system, user: user + factNote + outlineNote + notesBlock },
-    { googleKey, groqKey, quality: true }
+    { googleKey, groqKey, quality: true, preferGroq: true }
   );
 
   const factsText = JSON.stringify(candidate.evidence);
@@ -330,7 +330,7 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
           `Be specific and substantive (no thin sections, no repeated sentences, cite real sources). ` +
           `Only reference facts/CVEs present in the GROUND TRUTH DATA above; mark any historical CVE as context, not a finding.`,
       },
-      { googleKey, groqKey, quality: true }
+      { googleKey, groqKey, quality: true, preferGroq: true }
     );
     processed = postProcess({ type: candidate.type, raw: repair.text, factsText });
   }
