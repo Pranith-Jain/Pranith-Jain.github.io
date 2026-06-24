@@ -133,14 +133,9 @@ export async function discoverCves(deps: DiscoverDeps): Promise<Candidate[]> {
 
       const nvdUrl = `https://nvd.nist.gov/vuln/detail/${encodeURIComponent(k.cveID)}`;
       const nvdUrlResult = await verifyUrl(nvdUrl, 3000);
-      let nvdStatus: LinkStatus;
-      if (nvdUrlResult.ok) {
-        nvdStatus = 'ok';
-      } else if (nvdUrlResult.status !== null) {
-        nvdStatus = 'broken';
-      } else {
-        nvdStatus = 'unchecked';
-      }
+      // Nuanced verdict: 'broken' only for a confirmed-dead URL (404/410/
+      // soft-404/NXDOMAIN); WAF blocks + 5xx + timeouts stay 'unchecked'.
+      const nvdStatus: LinkStatus = nvdUrlResult.linkStatus;
       const sourceLinkStatuses: Record<string, LinkStatus> = {
         [nvdUrl]: nvdStatus,
       };

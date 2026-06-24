@@ -395,19 +395,15 @@ export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Ca
       }
 
       // Verify source URLs actually resolve. HEAD check with 3s timeout per URL.
-      // Distinguish HTTP errors (4xx/5xx → genuinely broken) from network errors
-      // (timeout, DNS failure → transient, leave as unchecked).
+      // verifyUrl now returns a nuanced `linkStatus`: 'broken' only for a
+      // confirmed-dead URL (404/410, soft-404, or NXDOMAIN). WAF blocks
+      // (403/429), 5xx, and timeouts come back 'unchecked' so a live source
+      // behind a bot-wall isn't wrongly dropped.
       const sourceLinkStatuses: Record<string, LinkStatus> = {};
       if (grounding.realSources.length > 0) {
         const statuses = await verifyUrls(grounding.realSources, 3000);
         for (const [url, result] of statuses) {
-          if (result.ok) {
-            sourceLinkStatuses[url] = 'ok';
-          } else if (result.status !== null) {
-            sourceLinkStatuses[url] = 'broken';
-          } else {
-            sourceLinkStatuses[url] = 'unchecked';
-          }
+          sourceLinkStatuses[url] = result.linkStatus;
         }
       }
 
