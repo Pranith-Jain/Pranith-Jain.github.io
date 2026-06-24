@@ -32,7 +32,9 @@ export async function discoverEuvd(deps: DiscoverEuvdDeps): Promise<Candidate[]>
       if (!v.id || !v.datePublished) continue;
       const pub = new Date(v.datePublished).getTime();
       if (!Number.isFinite(pub) || pub < cutoff) continue;
-      const key = topicKey('euvd', v.id.toLowerCase());
+      // v.id already starts with "EUVD-"; strip it so topicKey's own "euvd-"
+      // prefix isn't doubled (e.g. "euvd-euvd-2026-1001").
+      const key = topicKey('euvd', v.id.toLowerCase().replace(/^euvd-/, ''));
       const dedup = await deps.getDedup(key);
       const score = finalScore({
         recency: recencyScore(v.datePublished, deps.now),
