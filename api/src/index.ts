@@ -433,6 +433,7 @@ import { sandboxLookupHandler } from './routes/sandbox';
 import { sampleScanHandler } from './routes/sample-scan';
 import { irPlaybookHandler } from './routes/ir-playbooks';
 import { aiSummaryHandler } from './routes/ai-summary';
+import { aiItemSummaryHandler } from './routes/ai-item-summary';
 import { ttpExtractHandler } from './routes/ttp-extract';
 import { fivewHandler } from './routes/fivew';
 import { imageIocHandler } from './routes/image-ioc';
@@ -674,6 +675,7 @@ import {
   telegramChannelActionSchema,
   telegramBotRegisterSchema,
   aiSummarySchema,
+  aiItemSummarySchema,
   copilotInvestigateSchema,
   reportBuildSchema,
   huntingQuerySchema,
@@ -1292,6 +1294,7 @@ app.post('/api/v1/rag/index-all', async (c) => {
   return c.json({ ok: true, ...result });
 });
 app.post('/api/v1/ai-summary', validate('json', aiSummarySchema), aiSummaryHandler);
+app.post('/api/v1/ai-item-summary', validate('json', aiItemSummarySchema), aiItemSummaryHandler);
 // Phase 2: per-report AI primitives. Backs the /threatintel/report-analyzer
 // page and is also useful as standalone tools (TTP map, 5W grid, image-OCR).
 app.post('/api/v1/ttp-extract', ttpExtractHandler);

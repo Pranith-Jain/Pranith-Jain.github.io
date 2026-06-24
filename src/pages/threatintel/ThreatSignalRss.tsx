@@ -23,6 +23,8 @@ import { DataPageLayout } from '../../components/DataPageLayout';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { usePostSummaries } from '../../components/intel/usePostSummaries';
+import { PostSummary } from '../../components/intel/PostSummary';
 
 const AGGREGATE_URL = '/api/v1/rss/aggregate';
 
@@ -196,6 +198,16 @@ export default function ThreatSignalRss(): JSX.Element {
       return true;
     });
   }, [agg, query, activeSources, activeCategories, freshOnly]);
+
+  const postSummaries = usePostSummaries({
+    surface: 'Threat Research Feeds',
+    items: filtered.map((it) => ({
+      id: String(it.id),
+      title: it.title,
+      body: it.description ?? '',
+      source: it.sourceName,
+    })),
+  });
 
   const totalCount = agg?.items.length ?? 0;
   const healthySources = agg?.sources.filter((s) => !s.error || s.itemCount > 0) ?? [];
@@ -530,7 +542,7 @@ export default function ThreatSignalRss(): JSX.Element {
       {/* Posts grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         {filtered.map((it) => (
-          <PostCard key={it.id} item={it} />
+          <PostCard key={it.id} item={it} summary={postSummaries.get(String(it.id))} />
         ))}
       </div>
     </DataPageLayout>
@@ -539,7 +551,7 @@ export default function ThreatSignalRss(): JSX.Element {
 
 /* ── Post card ───────────────────────────────────────────────────── */
 
-function PostCard({ item }: { item: RssItem }): JSX.Element {
+function PostCard({ item, summary }: { item: RssItem; summary?: string }): JSX.Element {
   const cat = categoryStyle(item.category);
   return (
     <div className="group rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--surface-200))]/40 p-4 flex flex-col gap-2 transition-colors hover:border-brand-500/50 hover:bg-white/80 dark:hover:bg-[rgb(var(--surface-200)/0.6)]">
@@ -563,6 +575,8 @@ function PostCard({ item }: { item: RssItem }): JSX.Element {
       </div>
 
       {item.description && <p className="text-xs text-muted leading-relaxed line-clamp-3">{item.description}</p>}
+
+      <PostSummary text={summary} />
 
       <div className="flex flex-wrap items-center gap-2 mt-auto pt-2">
         {/* Source pill */}

@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { DataPageLayout, useInsideDataPageLayout } from '../../components/DataPageLayout';
 import { RefreshCw, ExternalLink, MessageSquare, Repeat, Heart, BarChart3, Search, Twitter } from 'lucide-react';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { usePostSummaries } from '../../components/intel/usePostSummaries';
+import { PostSummary } from '../../components/intel/PostSummary';
 
 interface LiveTweet {
   id: string;
@@ -131,6 +133,16 @@ export default function XLive(): JSX.Element {
       );
     });
   }, [data, search, activeHandle]);
+
+  const postSummaries = usePostSummaries({
+    surface: 'X Live Cybersec',
+    items: filtered.map((t) => ({
+      id: String(t.id),
+      title: t.text?.slice(0, 120) ?? '',
+      body: t.text ?? '',
+      source: t.author?.name ?? '',
+    })),
+  });
 
   const headerExtra = (
     <>
@@ -328,6 +340,7 @@ export default function XLive(): JSX.Element {
                     <p className="text-sm text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-words">
                       {t.text}
                     </p>
+                    <PostSummary text={postSummaries.get(String(t.id))} />
                     {t.tweetfeed_tags.length > 0 && (
                       <div className="mt-1.5 flex flex-wrap gap-1">
                         {t.tweetfeed_tags.map((tag) => (

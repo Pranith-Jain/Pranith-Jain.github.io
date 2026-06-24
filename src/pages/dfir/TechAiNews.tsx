@@ -12,6 +12,8 @@ import {
 import { SourceTogglePanel } from '../../components/threatintel/SourceTogglePanel';
 import { rssFeeds } from '../../data/rssFeeds';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { usePostSummaries } from '../../components/intel/usePostSummaries';
+import { PostSummary } from '../../components/intel/PostSummary';
 
 /**
  * Tech & AI News — sectioned aggregator for the non-threat half of "what's
@@ -164,6 +166,16 @@ export default function TechAiNews(): JSX.Element {
           .every((tok) => hay.includes(tok));
       });
   }, [items, urlToSection, activeSection, search]);
+
+  const postSummaries = usePostSummaries({
+    surface: 'Tech & AI News',
+    items: annotated.map(({ item }) => ({
+      id: String(item.link ?? `${item.title}-${item.pubDate}`),
+      title: item.title ?? '',
+      body: item.description ?? '',
+      source: item.source ?? '',
+    })),
+  });
 
   const sectionCounts = useMemo(() => {
     const counts: Record<string, number> = { all: items.length };
@@ -369,6 +381,7 @@ export default function TechAiNews(): JSX.Element {
                 {stripHtml(item.description)}
               </p>
             )}
+            <PostSummary text={postSummaries.get(String(item.link ?? `${item.title}-${item.pubDate}`))} />
           </li>
         ))}
       </ul>

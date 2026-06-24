@@ -11,6 +11,8 @@ import { AdmiraltyBadge } from '../../components/dfir/AdmiraltyBadge';
 import { gradeForLiveIoc } from '../../lib/dfir/admiralty-quick';
 import { LiveFreshnessPill } from '../../components/LiveFreshnessPill';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { usePostSummaries } from '../../components/intel/usePostSummaries';
+import { PostSummary } from '../../components/intel/PostSummary';
 import { sourceColor, sourcesSentence } from '../../lib/dfir/source-meta';
 
 type IocKind = 'ip' | 'url' | 'domain' | 'hash';
@@ -173,6 +175,16 @@ export default function LiveIocs(): JSX.Element {
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const pageItems = useMemo(() => filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE), [filtered, page]);
+
+  const postSummaries = usePostSummaries({
+    surface: 'Live IOC Stream',
+    items: pageItems.map((it) => ({
+      id: String(`${it.source}:${it.value}`),
+      title: it.value,
+      body: `${it.kind} · ${it.source} · ${it.context ?? ''}`,
+      source: it.source,
+    })),
+  });
 
   const toggleKind = (k: IocKind) =>
     setKindFilter((prev) => {
@@ -484,6 +496,7 @@ export default function LiveIocs(): JSX.Element {
                       </span>
                     )}
                   </div>
+                  <PostSummary text={postSummaries.get(String(`${it.source}:${it.value}`))} />
                 </div>
                 <div
                   className="shrink-0 text-right text-mini font-mono text-slate-500"

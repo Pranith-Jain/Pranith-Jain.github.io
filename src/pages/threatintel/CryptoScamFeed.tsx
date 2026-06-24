@@ -5,6 +5,8 @@ import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
 import { relativeAgo as shortRel } from '../../lib/relativeTime';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { usePostSummaries } from '../../components/intel/usePostSummaries';
+import { PostSummary } from '../../components/intel/PostSummary';
 
 interface CryptoScamItem {
   domain: string;
@@ -71,6 +73,16 @@ export default function CryptoScamFeed(): JSX.Element {
       return it.domain.includes(q);
     });
   }, [data, query, tldFilter]);
+
+  const postSummaries = usePostSummaries({
+    surface: 'Crypto Scam Domains',
+    items: filtered.map((it) => ({
+      id: String(it.domain),
+      title: it.domain,
+      body: `TLD: ${it.tld}`,
+      source: 'crypto-scam-feed',
+    })),
+  });
 
   useEffect(() => {
     setVisible(100);
@@ -233,10 +245,13 @@ export default function CryptoScamFeed(): JSX.Element {
           {filtered.slice(0, visible).map((it) => (
             <li
               key={it.domain}
-              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-3 py-2 font-mono text-tool flex items-center justify-between gap-2"
+              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-3 py-2 font-mono text-tool"
             >
-              <span className="truncate text-slate-800 dark:text-slate-200">{it.domain}</span>
-              <span className="text-mini text-slate-400 shrink-0">.{it.tld}</span>
+              <div className="flex items-center justify-between gap-2">
+                <span className="truncate text-slate-800 dark:text-slate-200">{it.domain}</span>
+                <span className="text-mini text-slate-400 shrink-0">.{it.tld}</span>
+              </div>
+              <PostSummary text={postSummaries.get(String(it.domain))} />
             </li>
           ))}
         </ul>
