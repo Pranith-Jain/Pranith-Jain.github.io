@@ -171,6 +171,61 @@ export function getSocialQueue(): Promise<SocialQueueResponse> {
   return getJson<SocialQueueResponse>('/social-queue');
 }
 
+// ─── Social analytics helpers ─────────────────────────────────────────────────
+
+export interface SocialPostMetrics {
+  impressions?: number;
+  likes?: number;
+  reposts?: number;
+  replies?: number;
+  clicks?: number;
+}
+
+export interface SocialAnalyticsPost {
+  slug: string;
+  platform: 'twitter' | 'linkedin' | 'instagram';
+  type: string;
+  postUrl?: string;
+  metrics: SocialPostMetrics;
+  fetchedAt: string;
+  engagement: number;
+}
+
+export interface SocialAnalyticsByType {
+  type: string;
+  posts: number;
+  totalEngagement: number;
+  avgEngagement: number;
+  totalImpressions: number;
+}
+
+export interface SocialAnalyticsResponse {
+  posts: SocialAnalyticsPost[];
+  byType: SocialAnalyticsByType[];
+}
+
+export interface SaveSocialMetricsResponse {
+  ok: boolean;
+  record: unknown;
+}
+
+/** Fetch engagement analytics for all posted social content. */
+export function getSocialAnalytics(): Promise<SocialAnalyticsResponse> {
+  return getJson<SocialAnalyticsResponse>('/social-analytics');
+}
+
+/** Store a manual metrics entry for a post + platform (LinkedIn / Instagram). */
+export function saveSocialMetrics(
+  slug: string,
+  platform: 'twitter' | 'linkedin' | 'instagram',
+  metrics: SocialPostMetrics & { postUrl?: string }
+): Promise<SaveSocialMetricsResponse> {
+  return postJsonWithBody<SaveSocialMetricsResponse>(
+    `/social-metrics/${encodeURIComponent(slug)}/${encodeURIComponent(platform)}`,
+    metrics
+  );
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 
 /**

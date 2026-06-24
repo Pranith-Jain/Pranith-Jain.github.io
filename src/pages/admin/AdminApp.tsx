@@ -14,6 +14,7 @@ import IntelBundleTab from './IntelBundleTab';
 import ApiKeysTab from './ApiKeysTab';
 import RetentionTab from './RetentionTab';
 import BriefingsTab from './BriefingsTab';
+import AnalyticsTab from './AnalyticsTab';
 
 type TabKey =
   | 'pending'
@@ -27,7 +28,8 @@ type TabKey =
   | 'intel'
   | 'apikeys'
   | 'briefings'
-  | 'retention';
+  | 'retention'
+  | 'analytics';
 
 const TABS: Array<{ key: TabKey; label: string }> = [
   { key: 'pending', label: 'Pending' },
@@ -42,6 +44,7 @@ const TABS: Array<{ key: TabKey; label: string }> = [
   { key: 'apikeys', label: 'API Keys' },
   { key: 'briefings', label: 'Briefings' },
   { key: 'retention', label: 'Retention' },
+  { key: 'analytics', label: 'Analytics' },
 ];
 
 const STAGES: Array<{ stage: 'discover' | 'plan' | 'publish'; label: string; hint: string }> = [
@@ -233,6 +236,7 @@ export default function AdminApp() {
         {active === 'apikeys' && <ApiKeysTab />}
         {active === 'briefings' && <BriefingsTab />}
         {active === 'retention' && <RetentionTab />}
+        {active === 'analytics' && <AnalyticsTab />}
       </section>
     </div>
   );
