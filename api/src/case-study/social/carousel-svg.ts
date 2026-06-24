@@ -27,7 +27,9 @@ function wrap(text: string, perLine: number, maxLines: number): string[] {
   const words = text.split(/\s+/).filter(Boolean);
   const lines: string[] = [];
   let cur = '';
-  for (const w of words) {
+  let wordIdx = 0;
+  for (; wordIdx < words.length; wordIdx++) {
+    const w = words[wordIdx]!;
     if ((cur + ' ' + w).trim().length > perLine && cur) {
       lines.push(cur);
       cur = w;
@@ -37,9 +39,12 @@ function wrap(text: string, perLine: number, maxLines: number): string[] {
     }
   }
   if (cur && lines.length < maxLines) lines.push(cur);
-  if (lines.length === maxLines) {
-    const rest = words.slice(lines.join(' ').split(/\s+/).length).join(' ');
-    if (rest) lines[maxLines - 1] = lines[maxLines - 1]!.replace(/\s*$/, '') + '…';
+  // If we filled maxLines and there are leftover words, append ellipsis.
+  if (lines.length === maxLines && wordIdx + 1 < words.length) {
+    const lastLine = lines[maxLines - 1];
+    if (lastLine !== undefined) {
+      lines[maxLines - 1] = lastLine.replace(/\s*$/, '') + '…';
+    }
   }
   return lines;
 }
@@ -113,8 +118,8 @@ export function renderCarouselSlideSvg(slide: ContentSlide, ctx: RenderCtx): str
     parts.push(textLines(bl, pad, cursorY, 56, `font-family="${BODY}" font-size="42" fill="${fg}"`));
   }
 
-  // Pager (not on the cover/hook slide).
-  if (kind !== 'hook') {
+  // Pager (on content/list/stat slides only, not on hook/cta).
+  if (kind !== 'hook' && kind !== 'cta') {
     parts.push(
       `<text x="${W - pad}" y="${H - 72}" text-anchor="end" font-family="${BODY}" font-size="32" fill="${isDark ? '#ffffff' : BRAND.colors.neutral[400]}">${ctx.index + 1} / ${ctx.total}</text>`
     );
