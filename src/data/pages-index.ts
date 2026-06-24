@@ -3534,6 +3534,13 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     group: 'threatintel',
   },
   {
+    path: '/threatintel/research-hub/research',
+    label: 'Research',
+    description: 'Research post index.',
+    sectionLabel: 'Threat Intel · Research',
+    group: 'threatintel',
+  },
+  {
     path: '/threatintel/research-hub/reports',
     label: 'Reports',
     description: 'Intelligence reports.',

@@ -1005,7 +1005,7 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
         // scanner (which appends), but only the weekly sweeps old rows.
         if (isWeekly) {
           try {
-            const tgDeleted = await cleanupLeakEntries(env.BRIEFINGS_DB, 7);
+            const tgDeleted = await cleanupLeakEntries(db, 7);
             if (tgDeleted > 0) {
               console.log(JSON.stringify({ job: 'telegram-cleanup', deleted: tgDeleted, max_age_days: 7 }));
             }

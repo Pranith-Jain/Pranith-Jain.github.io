@@ -185,6 +185,7 @@ const PAGE_ICON_OVERRIDES: Record<string, LucideIcon> = {
   '/threatintel/detections/yara': FileSearch,
   '/threatintel/detections/signal': Rss,
   // Research
+  '/threatintel/research-hub/research': ScrollText,
   '/threatintel/research-hub/reports': FileText,
   '/threatintel/research-hub/ai': Sparkles,
   '/threatintel/research-hub/writeups': BookOpen,
