@@ -46,6 +46,15 @@ import { generatePost } from './generation';
 import { liveVerifyUrls } from './generation/verify-references';
 import { createBatchedCachedVerify } from '../lib/verify-url-cache';
 import { generateSocialContent } from './generation/social';
+import { runSocialAutopost } from './posting/autopost';
+import {
+  getSocialSchedule,
+  readAutopostQueue,
+  writeAutopostQueue,
+  recordAutopostResult,
+} from './storage/social-schedule';
+import { postToTwitter, postToLinkedin } from './posting/social-poster';
+import type { SocialContent } from './types';
 import { kv as csKvKeys } from './kv-keys';
 import { ACTOR_RSS_FEEDS, ADVISORY_RSS_FEEDS } from './config';
 import { getSiteUrl } from '../lib/site-config';
@@ -87,6 +96,19 @@ export interface CaseStudyEnv {
    *  Used by the platform-data discovery runner to call /api/v1/*
    *  without going through the public URL + API-key gate. */
   SELF?: { fetch: (req: RequestInfo, init?: RequestInit) => Promise<Response> };
+  /** Master switch for social auto-posting. The drip cron is a no-op unless
+   *  this is the literal "true". Off by default — nothing auto-posts to live
+   *  accounts until this is explicitly set. */
+  SOCIAL_AUTOPOST_ENABLED?: string;
+  /** Max posts PER PLATFORM per cron tick (the drip rate). Default 1. */
+  SOCIAL_DRIP_PER_TICK?: string;
+  /** X (Twitter) OAuth 1.0a user-context credentials for auto-posting. */
+  X_API_KEY?: string;
+  X_API_KEY_SECRET?: string;
+  X_ACCESS_TOKEN?: string;
+  X_ACCESS_TOKEN_SECRET?: string;
+  /** LinkedIn OAuth 2.0 bearer token for auto-posting. */
+  LINKEDIN_ACCESS_TOKEN?: string;
 }
 
 export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
@@ -488,5 +510,60 @@ export async function runPublisherNow(env: CaseStudyEnv, now: Date) {
     );
   }
 
+  return result;
+}
+
+/**
+ * Drip auto-post tick. Called from the hourly cron. Releases approved + due
+ * X/LinkedIn posts at the configured drip rate. A pure no-op (no posting)
+ * unless SOCIAL_AUTOPOST_ENABLED === 'true' — the master safety switch.
+ * Instagram is never auto-posted. All gate logic lives in `runSocialAutopost`;
+ * this just wires it to KV + the real platform posters.
+ */
+export async function runSocialAutopostNow(env: CaseStudyEnv, now: Date) {
+  if (!env.CASE_STUDIES) {
+    return { enabled: false, posted: [], failed: [], skipped: 0, reason: 'no-kv' };
+  }
+  const ns = env.CASE_STUDIES;
+  const enabled = env.SOCIAL_AUTOPOST_ENABLED === 'true';
+  const drip = Math.max(1, Number(env.SOCIAL_DRIP_PER_TICK) || 1);
+
+  const result = await runSocialAutopost({
+    enabled,
+    now,
+    dripPerPlatform: drip,
+    readQueue: () => readAutopostQueue(ns),
+    writeQueue: (items) => writeAutopostQueue(ns, items),
+    getSchedule: (slug) => getSocialSchedule(ns, slug),
+    getContent: (slug) => ns.get(csKvKeys.social(slug), 'json') as Promise<SocialContent | null>,
+    recordResult: (slug, platform, r) => recordAutopostResult(ns, slug, platform, r, now).then(() => undefined),
+    post: async (platform, content) => {
+      if (platform === 'twitter') {
+        const r = await postToTwitter(content.twitter, {
+          apiKey: env.X_API_KEY ?? '',
+          apiKeySecret: env.X_API_KEY_SECRET ?? '',
+          accessToken: env.X_ACCESS_TOKEN ?? '',
+          accessTokenSecret: env.X_ACCESS_TOKEN_SECRET ?? '',
+        });
+        return { ok: r.ok, postUrl: r.postUrl, error: r.error };
+      }
+      if (!env.LINKEDIN_ACCESS_TOKEN) return { ok: false, error: 'linkedin_token_missing' };
+      const r = await postToLinkedin(content.linkedin, env.LINKEDIN_ACCESS_TOKEN);
+      return { ok: r.ok, postUrl: r.postUrl, error: r.error };
+    },
+  });
+
+  console.log(
+    JSON.stringify({
+      job: 'social-autopost',
+      enabled,
+      drip,
+      posted: result.posted.length,
+      failed: result.failed.length,
+      skipped: result.skipped,
+      reason: result.reason,
+      ts: now.toISOString(),
+    })
+  );
   return result;
 }

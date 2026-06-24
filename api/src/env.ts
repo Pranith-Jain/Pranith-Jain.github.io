@@ -131,6 +131,12 @@ export interface Env {
    *  cannot be auto-refreshed when it expires. */
   LINKEDIN_CLIENT_ID?: string;
   LINKEDIN_CLIENT_SECRET?: string;
+  /** Master switch for social auto-posting. The drip cron only posts when
+   *  this is the literal "true". Off by default — set via
+   *  `wrangler secret put SOCIAL_AUTOPOST_ENABLED` (or vars). */
+  SOCIAL_AUTOPOST_ENABLED?: string;
+  /** Max auto-posts PER PLATFORM per cron tick (drip rate). Default 1. */
+  SOCIAL_DRIP_PER_TICK?: string;
   /** MyThreatIntel REST API bearer token (set via
    *  `wrangler secret put MYTHREATINTEL_API_TOKEN`). Optional — the
    *  /api/v1/mti proxy degrades to 503 when unset, and the in-process

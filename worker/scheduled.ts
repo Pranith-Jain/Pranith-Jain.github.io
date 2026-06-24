@@ -6,7 +6,13 @@ import {
   sweepOldBriefings,
 } from '../api/src/lib/briefing-builder';
 import { buildLandscapeReport, writeLandscapeReport, expectedLandscapeSlug } from '../api/src/lib/landscape-builder';
-import { runDiscoveryNow, runPlannerNow, runPublisherNow, type CaseStudyEnv } from '../api/src/case-study/run';
+import {
+  runDiscoveryNow,
+  runPlannerNow,
+  runPublisherNow,
+  runSocialAutopostNow,
+  type CaseStudyEnv,
+} from '../api/src/case-study/run';
 import { runTelegramArchive } from '../api/src/routes/telegram-archive';
 import {
   runTelegramLeakScanner,
@@ -235,6 +241,11 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
             );
           }
           fireAndForget.push(runPublisherNow(env as unknown as CaseStudyEnv, csNow).catch(logCronFail('publisher')));
+          // Drip auto-post tick: releases approved + due X/LinkedIn posts at the
+          // configured rate. No-op unless SOCIAL_AUTOPOST_ENABLED === 'true'.
+          fireAndForget.push(
+            runSocialAutopostNow(env as unknown as CaseStudyEnv, csNow).catch(logCronFail('social-autopost'))
+          );
           fireAndForget.push(runTelegramArchive(env as unknown as ApiEnv).catch(logCronFail('telegram-archive')));
           if (env.FEEDS_QUEUE) {
             fireAndForget.push(enqueueAllFeeds(env.FEEDS_QUEUE).catch(logCronFail('live-iocs-enqueue')));
