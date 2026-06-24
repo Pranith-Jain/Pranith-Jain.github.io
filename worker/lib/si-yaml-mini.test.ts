@@ -7,8 +7,6 @@
  * root vitest config that already includes worker/).
  */
 import { describe, it, expect } from 'vitest';
-// @ts-expect-error - first line is a JSDoc comment; the parser file uses
-// non-null assertions on indexed access (intentional TS relaxation).
 import { parseMiniYaml, MiniYamlError } from '../../api/src/lib/si-yaml-mini';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';

@@ -61,8 +61,8 @@ describe('parseHtmlBasic', () => {
   it('extracts links from HTML', () => {
     const { links } = parseHtmlBasic('<a href="http://example.onion/page">click here</a>');
     expect(links).toHaveLength(1);
-    expect(links[0].href).toBe('http://example.onion/page');
-    expect(links[0].text).toBe('click here');
+    expect(links[0]!.href).toBe('http://example.onion/page');
+    expect(links[0]!.text).toBe('click here');
   });
 
   it('extracts body text from HTML', () => {

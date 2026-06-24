@@ -10,6 +10,9 @@
   "extends": "./tsconfig.json",
   // noEmit so a bare `tsc -p` is typecheck-only (api/tsconfig relies on the CLI
   // flag and has no noEmit — running this without --noEmit would spray .js).
-  "compilerOptions": { "noEmit": true },
+  "compilerOptions": {
+    "noEmit": true,
+    "types": ["@cloudflare/workers-types", "@cloudflare/vitest-pool-workers", "node"]
+  },
   "include": ["src/**/*.ts", "../worker/**/*.ts"]
 }

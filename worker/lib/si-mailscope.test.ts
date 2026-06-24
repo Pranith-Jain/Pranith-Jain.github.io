@@ -35,11 +35,11 @@ describe('si-mailscope: header parsing', () => {
 
   it('parses the hop chain (2 hops, first is most recent)', () => {
     expect(r.hops.length).toBe(2);
-    expect(r.hops[0].idx).toBe(1);
-    expect(r.hops[0].ip).toBe('203.0.113.55');
-    expect(r.hops[0].protocol.toLowerCase()).toContain('esmtps');
-    expect(r.hops[0].from).toContain('mx.evil-corp.tk');
-    expect(r.hops[0].tld).toBe('.tk');
+    expect(r.hops[0]!.idx).toBe(1);
+    expect(r.hops[0]!.ip).toBe('203.0.113.55');
+    expect(r.hops[0]!.protocol.toLowerCase()).toContain('esmtps');
+    expect(r.hops[0]!.from).toContain('mx.evil-corp.tk');
+    expect(r.hops[0]!.tld).toBe('.tk');
   });
 
   it('parses authentication results', () => {

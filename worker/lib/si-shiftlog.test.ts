@@ -10,13 +10,24 @@ import { describe, it, expect, beforeEach } from 'vitest';
  */
 class MemDb {
   tables: Record<string, Map<string, Record<string, unknown>>> = {};
-  prepare(sql: string) { return new Stmt(this, sql); }
+  prepare(sql: string) {
+    return new Stmt(this, sql);
+  }
 }
 class Stmt {
-  constructor(public db: MemDb, public sql: string) {}
+  constructor(
+    public db: MemDb,
+    public sql: string
+  ) {}
   params: unknown[] = [];
-  bind(...args: unknown[]) { this.params = args; return this; }
-  then<TResult1 = unknown, TResult2 = never>(onFulfilled?: ((v: unknown) => TResult1 | PromiseLike<TResult1>) | null, onRejected?: ((e: unknown) => TResult2 | PromiseLike<TResult2>) | null): Promise<unknown> {
+  bind(...args: unknown[]) {
+    this.params = args;
+    return this;
+  }
+  then<TResult1 = unknown, TResult2 = never>(
+    onFulfilled?: ((v: unknown) => TResult1 | PromiseLike<TResult1>) | null,
+    onRejected?: ((e: unknown) => TResult2 | PromiseLike<TResult2>) | null
+  ): Promise<unknown> {
     // The schema code does `db.prepare(sql).then(() => ...)` to chain
     // migrations, so `prepare(...)` must be a thenable that resolves to
     // a successful run() result. D1 in production returns Promise<any>
@@ -43,10 +54,11 @@ class Stmt {
     let rows = Array.from(t.values()).filter((v) => this.matches(conds, '', v));
     const orderMatch = this.sql.match(/ORDER BY (\w+)(?:\s+(ASC|DESC))?/i);
     if (orderMatch) {
-      const col = orderMatch[1];
+      const col = orderMatch[1]!;
       const dir = (orderMatch[2] ?? 'ASC').toUpperCase();
       rows.sort((a, b) => {
-        const av = String(a[col] ?? ''), bv = String(b[col] ?? '');
+        const av = String(a[col] ?? ''),
+          bv = String(b[col] ?? '');
         return dir === 'DESC' ? bv.localeCompare(av) : av.localeCompare(bv);
       });
     }
@@ -60,16 +72,18 @@ class Stmt {
     if (!tbl) return { success: true, meta: { changes: 0 } };
     const t = (this.db.tables[tbl] ??= new Map());
     if (/^INSERT\b/i.test(this.sql.trim())) {
-      const cols = (this.sql.match(/INSERT INTO \w+\s*\(([^)]+)\)\s*VALUES/i)?.[1] ?? '').split(',').map((s) => s.trim().replace(/^\d+:?\s*/, ''));
+      const cols = (this.sql.match(/INSERT INTO \w+\s*\(([^)]+)\)\s*VALUES/i)?.[1] ?? '')
+        .split(',')
+        .map((s) => s.trim().replace(/^\d+:?\s*/, ''));
       const vals = (this.sql.match(/VALUES\s*\(([^)]+)\)/i)?.[1] ?? '').split(',').map((s) => s.trim());
       const row: Record<string, unknown> = {};
       let pIdx = 0;
       for (let i = 0; i < cols.length; i++) {
         const v = vals[i] ?? '';
         if (/^NULL$/i.test(v)) {
-          row[cols[i]] = null;
+          row[cols[i]!] = null;
         } else {
-          row[cols[i]] = this.params[pIdx++];
+          row[cols[i]!] = this.params[pIdx++];
         }
       }
       const idKey = cols[0];
@@ -79,14 +93,14 @@ class Stmt {
     if (/^UPDATE/i.test(this.sql.trim())) {
       const m = this.sql.match(/SET\s+([\s\S]+?)\s+WHERE\s+(.+)$/i);
       if (!m) return { success: true, meta: { changes: 0 } };
-      const setClause = m[1];
-      const whereClause = m[2];
+      const setClause = m[1]!;
+      const whereClause = m[2]!;
       // Parse SET assignments — split on ',' not inside expressions
       const setParts = setClause.split(',').map((s) => s.trim().split(/\s*=\s*/));
       // Parse WHERE — only handle 'col = ?' (single) for now
       const whereMatch = whereClause.match(/(\w+)\s*=\s*\?/);
       if (!whereMatch) return { success: true, meta: { changes: 0 } };
-      const whereCol = whereMatch[1];
+      const whereCol = whereMatch[1]!;
       // Find which param is the WHERE value — it is always the last param.
       const whereVal = this.params[this.params.length - 1];
       let changes = 0;
@@ -97,7 +111,7 @@ class Stmt {
           if (i >= 0) {
             // The '= ?' position in the bound params: the SET col=? binds
             // appear in order, then the WHERE col=? is last.
-            row[c] = this.params[i];
+            row[c!] = this.params[i];
           }
         }
         changes++;
@@ -107,23 +121,27 @@ class Stmt {
     return { success: true, meta: { changes: 0 } };
   }
   private tblName(): string | null {
-    return (this.sql.match(/\b(?:FROM|INTO|UPDATE|TABLE|INDEX IF NOT EXISTS \w+ ON)\s+(\w+)/i)?.[1]) ?? null;
+    return this.sql.match(/\b(?:FROM|INTO|UPDATE|TABLE|INDEX IF NOT EXISTS \w+ ON)\s+(\w+)/i)?.[1] ?? null;
   }
   private whereClauses(): Array<{ col: string; op: string; val: unknown }> {
     const m = this.sql.match(/WHERE\s+([\s\S]+?)(?:\s+ORDER\s+BY|\s+LIMIT|$)/i);
     if (!m) return [];
-    return m[1].split(/\s+AND\s+/i).map((c) => {
+    return m[1]!.split(/\s+AND\s+/i).map((c) => {
       const eq = c.match(/(\w+)\s*(=|LIKE)\s*\?/i);
-      if (eq) return { col: eq[1], op: eq[2].toUpperCase(), val: undefined };
+      if (eq) return { col: eq[1]!, op: eq[2]!.toUpperCase(), val: undefined };
       const isNull = c.match(/(\w+)\s+IS\s+NULL/i);
-      if (isNull) return { col: isNull[1], op: 'IS NULL', val: undefined };
+      if (isNull) return { col: isNull[1]!, op: 'IS NULL', val: undefined };
       return { col: '', op: '', val: undefined };
     });
   }
-  private matches(conds: Array<{ col: string; op: string; val: unknown }>, _k: string, row: Record<string, unknown>): boolean {
+  private matches(
+    conds: Array<{ col: string; op: string; val: unknown }>,
+    _k: string,
+    row: Record<string, unknown>
+  ): boolean {
     if (conds.length === 0) return true;
     for (let i = 0; i < conds.length; i++) {
-      const c = conds[i];
+      const c = conds[i]!;
       if (c.op === 'IS NULL') {
         if (row[c.col] != null) return false;
       } else {
@@ -134,7 +152,9 @@ class Stmt {
   }
 }
 
-function env() { return { BRIEFINGS_DB: new MemDb() as unknown as D1Database }; }
+function env() {
+  return { BRIEFINGS_DB: new MemDb() as unknown as D1Database };
+}
 
 describe('si-shiftlog', () => {
   it('creates and reads an entry', async () => {
@@ -168,8 +188,8 @@ describe('si-shiftlog', () => {
     await new Promise((r) => setTimeout(r, 5));
     const b = await shiftlogCreate(e, { shift: 'night', author: 'b' });
     const all = await shiftlogList(e);
-    expect(all[0].id).toBe(b.id);
-    expect(all[1].id).toBe(a.id);
+    expect(all[0]!.id).toBe(b.id);
+    expect(all[1]!.id).toBe(a.id);
   });
 
   it('filters by author and shift', async () => {
@@ -179,7 +199,7 @@ describe('si-shiftlog', () => {
     await shiftlogCreate(e, { shift: 'night', author: 'b' });
     const aOnly = await shiftlogList(e, { author: 'a' });
     expect(aOnly.length).toBe(1);
-    expect(aOnly[0].shift).toBe('morning');
+    expect(aOnly[0]!.shift).toBe('morning');
   });
 
   it('updates an entry and closes it', async () => {

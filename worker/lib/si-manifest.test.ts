@@ -178,14 +178,14 @@ describe('filterSkills', () => {
     const idx = await loadSiIndex(assets);
     const out = filterSkills(idx, { category: 'Quick Scan' });
     expect(out).toHaveLength(1);
-    expect(out[0].slug).toBe('threat-pulse');
+    expect(out[0]!.slug).toBe('threat-pulse');
   });
 
   it('filters by keyword (case-insensitive, multi-field)', async () => {
     const { assets } = makeAssetsFixture();
     const idx = await loadSiIndex(assets);
-    expect(filterSkills(idx, { keyword: 'USER' })[0].slug).toBe('user-investigation');
-    expect(filterSkills(idx, { keyword: 'pulse' })[0].slug).toBe('threat-pulse');
+    expect(filterSkills(idx, { keyword: 'USER' })[0]!.slug).toBe('user-investigation');
+    expect(filterSkills(idx, { keyword: 'pulse' })[0]!.slug).toBe('threat-pulse');
     expect(filterSkills(idx, { keyword: 'investigate' })).toHaveLength(1);
     expect(filterSkills(idx, { keyword: 'nonsense-xyz' })).toHaveLength(0);
   });
@@ -211,7 +211,7 @@ describe('filterQueries', () => {
   it('filters by keyword across title/filename/domain/subdomain', async () => {
     const { assets } = makeAssetsFixture();
     const idx = await loadSiIndex(assets);
-    expect(filterQueries(idx, { keyword: 'aitm' })[0].slug).toBe('identity/aitm_threat_detection');
+    expect(filterQueries(idx, { keyword: 'aitm' })[0]!.slug).toBe('identity/aitm_threat_detection');
     expect(filterQueries(idx, { keyword: 'agent365' })).toHaveLength(1);
   });
 });
@@ -279,7 +279,7 @@ describe('loadDocsIndex / getDoc', () => {
     const { assets } = makeExtendedFixture();
     const idx = await loadDocsIndex(assets);
     expect(idx.count).toBe(2);
-    expect(idx.docs[0].slug).toBe('identity_protection');
+    expect(idx.docs[0]!.slug).toBe('identity_protection');
   });
 
   it('caches the docs index', async () => {

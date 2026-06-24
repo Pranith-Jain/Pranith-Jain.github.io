@@ -37,7 +37,7 @@ class Stmt {
     for (const [, v] of t) {
       let ok = true;
       for (let i = 0; i < conds.length; i++) {
-        const col = conds[i].match(/(\w+)\s*=\s*\?/)?.[1];
+        const col = conds[i]!.match(/(\w+)\s*=\s*\?/)?.[1];
         if (col && String(v[col]) !== String(this.params[i])) {
           ok = false;
           break;
@@ -57,10 +57,10 @@ class Stmt {
       const conds = where.split(/\s+AND\s+/i);
       rows = rows.filter((v) => {
         for (let i = 0; i < conds.length; i++) {
-          const c = conds[i];
+          const c = conds[i]!;
           const eq = c.match(/(\w+)\s*=\s*\?/);
           if (eq) {
-            if (String(v[eq[1]]) !== String(this.params[i])) return false;
+            if (String(v[eq[1]!]) !== String(this.params[i])) return false;
             continue;
           }
           const like = c.match(/\((\w+)\s+LIKE\s+\?|\s+(\w+)\s+LIKE\s+\?\)/i);
@@ -74,7 +74,7 @@ class Stmt {
     }
     const om = this.sql.match(/ORDER BY (\w+)(?:\s+(ASC|DESC))?/i);
     if (om) {
-      const col = om[1];
+      const col = om[1]!;
       const dir = (om[2] ?? 'ASC').toUpperCase();
       rows.sort((a, b) => {
         const av = String(a[col] ?? ''),
@@ -100,9 +100,9 @@ class Stmt {
       for (let i = 0; i < cols.length; i++) {
         const v = vals[i] ?? '';
         if (/^NULL$/i.test(v)) {
-          row[cols[i]] = null;
+          row[cols[i]!] = null;
         } else {
-          row[cols[i]] = this.params[pIdx++];
+          row[cols[i]!] = this.params[pIdx++];
         }
       }
       const idKey = cols[0];
@@ -112,13 +112,13 @@ class Stmt {
     if (/^UPDATE/i.test(this.sql.trim())) {
       const m = this.sql.match(/SET\s+([\s\S]+?)\s+WHERE\s+(\w+)\s*=\s*\?/i);
       if (!m) return { success: true, meta: { changes: 0 } };
-      const setCols = m[1].split(',').map((s) =>
+      const setCols = m[1]!.split(',').map((s) =>
         s
           .trim()
-          .split(/\s*=\s*/)[0]
+          .split(/\s*=\s*/)[0]!
           .trim()
       );
-      const whereCol = m[2];
+      const whereCol = m[2]!;
       const whereVal = this.params[this.params.length - 1];
       let changes = 0;
       for (const row of t.values()) {

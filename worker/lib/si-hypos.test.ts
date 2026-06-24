@@ -24,7 +24,7 @@ describe('si-hypos', () => {
     });
     expect(identity.hypotheses.length).toBeGreaterThan(0);
     // Should rank identity-relevant hypotheses high
-    const top = identity.hypotheses[0];
+    const top = identity.hypotheses[0]!;
     expect(top.mitre.some((m) => /T1078|T1098|T1003/.test(m))).toBe(true);
   });
 
