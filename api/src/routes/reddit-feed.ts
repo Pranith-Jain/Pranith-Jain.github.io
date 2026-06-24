@@ -54,25 +54,31 @@ function emptyFeed(warning: string): RedditFeedResponse {
  * with the older orphan-branch publishing approach.
  * Returns an empty feed (with a warning) if every source fails.
  */
-export async function fetchRedditFeed(env?: { ASSETS: Fetcher }): Promise<RedditFeedResponse> {
-  // Try ASSETS first (bundle-local, zero latency)
-  if (env?.ASSETS) {
-    try {
-      const url = new URL('https://placeholder');
-      url.pathname = REDDIT_FEED_ASSETS_PATH;
-      const r = await env.ASSETS.fetch(new Request(url));
-      if (r.ok) {
-        const data = (await r.json()) as RedditFeedResponse;
-        if (Array.isArray(data.items) && Array.isArray(data.subs)) return data;
-      }
-    } catch {
-      // fall through
-    }
-  }
+const FEED_RAW_URL =
+  'https://raw.githubusercontent.com/Pranith-Jain/Pranith-Jain.github.io/reddit-feed-data/reddit-feed.json';
 
-  // Fall back to raw.githubusercontent.com (orphan branch on the public repo)
-  const FEED_RAW_URL =
-    'https://raw.githubusercontent.com/Pranith-Jain/Pranith-Jain.github.io/reddit-feed-data/reddit-feed.json';
+function validFeed(data: unknown): data is RedditFeedResponse {
+  const d = data as RedditFeedResponse;
+  return !!d && Array.isArray(d.items) && Array.isArray(d.subs);
+}
+
+async function fromAssets(env?: { ASSETS: Fetcher }): Promise<RedditFeedResponse | null> {
+  if (!env?.ASSETS) return null;
+  try {
+    const url = new URL('https://placeholder');
+    url.pathname = REDDIT_FEED_ASSETS_PATH;
+    const r = await env.ASSETS.fetch(new Request(url));
+    if (r.ok) {
+      const data = await r.json();
+      if (validFeed(data)) return data;
+    }
+  } catch {
+    /* ignore */
+  }
+  return null;
+}
+
+async function fromRawBranch(): Promise<RedditFeedResponse | null> {
   try {
     const r = await fetch(FEED_RAW_URL, {
       headers: { 'user-agent': 'pranithjain-dfir/1.0', accept: 'application/json' },
@@ -80,14 +86,31 @@ export async function fetchRedditFeed(env?: { ASSETS: Fetcher }): Promise<Reddit
       signal: AbortSignal.timeout(10_000),
     });
     if (r.ok) {
-      const data = (await r.json()) as RedditFeedResponse;
-      if (Array.isArray(data.items) && Array.isArray(data.subs)) return data;
+      const data = await r.json();
+      if (validFeed(data)) return data;
     }
   } catch {
-    // fall through
+    /* ignore */
   }
+  return null;
+}
 
-  return emptyFeed('reddit feed unavailable — ASSETS and raw.githubusercontent.com both failed');
+export async function fetchRedditFeed(env?: { ASSETS: Fetcher }): Promise<RedditFeedResponse> {
+  // Serve whichever source is freshest. The deploy-bundled ASSETS snapshot only
+  // updates on deploy; the reddit-feed-data branch is refreshed every 30 min by
+  // the GitHub Action. Fetch both and pick the newer generated_at so the feed
+  // self-heals: between deploys the live branch wins, and if the branch/Action
+  // is down the bundled snapshot still serves. (Previously ASSETS was returned
+  // unconditionally, so a fresh branch never reached prod without a redeploy —
+  // the cause of the feed showing stale data when the Action stalled.)
+  const [assets, raw] = await Promise.all([fromAssets(env), fromRawBranch()]);
+  const candidates = [assets, raw].filter((d): d is RedditFeedResponse => d !== null);
+  if (candidates.length === 0) {
+    return emptyFeed('reddit feed unavailable — ASSETS and raw.githubusercontent.com both failed');
+  }
+  candidates.sort((a, b) => Date.parse(b.generated_at || '') - Date.parse(a.generated_at || ''));
+  const [freshest] = candidates;
+  return freshest ?? emptyFeed('reddit feed unavailable');
 }
 
 export const REDDIT_FEED_CACHE_KEY = 'https://reddit-feed-cache.internal/v11-raw';
