@@ -17,14 +17,13 @@
  * Wasm loading mirrors `og-raster.ts` — the wasm is bundled, the font
  * is fetched from ASSETS at runtime and memoised per isolate.
  */
-import { Resvg, initWasm } from '@resvg/resvg-wasm';
-import resvgWasm from '@resvg/resvg-wasm/index_bg.wasm';
+import { Resvg } from '@resvg/resvg-wasm';
 import type { Env } from '../env';
+import { ensureResvgWasm } from '../resvg-shared';
 
 /** Internal origin for ASSETS lookups — only the pathname is significant. */
 const ASSET_ORIGIN = 'https://si-png-assets.internal';
 
-let wasmReady: Promise<void> | null = null;
 let fontBuffers: Uint8Array[] | null = null;
 
 async function assetBytes(env: Env, path: string): Promise<Uint8Array> {
@@ -32,16 +31,6 @@ async function assetBytes(env: Env, path: string): Promise<Uint8Array> {
   const res = await env.ASSETS.fetch(new Request(`${ASSET_ORIGIN}${path}`));
   if (!res.ok) throw new Error(`si-png asset ${path} -> HTTP ${res.status}`);
   return new Uint8Array(await res.arrayBuffer());
-}
-
-function ensureWasm(): Promise<void> {
-  if (!wasmReady) {
-    wasmReady = initWasm(resvgWasm).catch((err) => {
-      wasmReady = null;
-      throw err;
-    });
-  }
-  return wasmReady;
 }
 
 async function ensureFonts(env: Env): Promise<Uint8Array[]> {
@@ -79,7 +68,7 @@ export async function svgDashboardToPng(env: Env, svg: string, opts: SvgToPngOpt
   if (!svg || svg.length < 32) {
     throw new Error('svg_to_png: empty or too-short svg input');
   }
-  await ensureWasm();
+  await ensureResvgWasm();
   const fonts = await ensureFonts(env);
   const resvg = new Resvg(svg, {
     fitTo: { mode: 'width', value: opts.width ?? 1400 },
