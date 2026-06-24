@@ -43,6 +43,8 @@ import { putDraft } from './storage/drafts';
 import { recordFailure } from './storage/failed';
 import { renderRss } from './rendering/rss';
 import { generatePost } from './generation';
+import { liveVerifyUrls } from './generation/verify-references';
+import { createBatchedCachedVerify } from '../lib/verify-url-cache';
 import { generateSocialContent } from './generation/social';
 import { kv as csKvKeys } from './kv-keys';
 import { ACTOR_RSS_FEEDS, ADVISORY_RSS_FEEDS } from './config';
@@ -54,6 +56,9 @@ import type { Candidate } from './types';
 /** The subset of bindings the case-study pipeline needs. */
 export interface CaseStudyEnv {
   CASE_STUDIES: KVNamespace;
+  /** Shared cache namespace; when present, reference-URL liveness verdicts
+   *  are cached across publishes (one blob read + write per generation). */
+  KV_CACHE?: KVNamespace;
   AI: unknown;
   ABUSECH_AUTH_KEY?: string;
   BRIEFINGS_DB?: D1Database;
@@ -414,7 +419,13 @@ export async function generateSocialForPost(slug: string, env: CaseStudyEnv, now
       console.warn(JSON.stringify({ job: 'auto-social', slug, status: 'post_not_found' }));
       return;
     }
-    const social = await generateSocialContent(post, env.AI as never, now, env.GROQ_API_KEY, env.GOOGLE_AI_STUDIO_API_KEY);
+    const social = await generateSocialContent(
+      post,
+      env.AI as never,
+      now,
+      env.GROQ_API_KEY,
+      env.GOOGLE_AI_STUDIO_API_KEY
+    );
     await env.CASE_STUDIES.put(csKvKeys.social(slug), JSON.stringify(social));
     console.log(JSON.stringify({ job: 'auto-social', slug, status: 'generated' }));
   } catch (err) {
@@ -442,7 +453,21 @@ export async function runPublisherNow(env: CaseStudyEnv, now: Date) {
     getApproved: (k) => getApproved(env.CASE_STUDIES, k),
     unapprove: (k) => unapprove(env.CASE_STUDIES, k),
     generatePost: (cand, n) =>
-      generatePost({ candidate: cand, ai: env.AI as never, now: n, groqKey: env.GROQ_API_KEY, googleKey: env.GOOGLE_AI_STUDIO_API_KEY, validationEnv }),
+      generatePost({
+        candidate: cand,
+        ai: env.AI as never,
+        now: n,
+        groqKey: env.GROQ_API_KEY,
+        googleKey: env.GOOGLE_AI_STUDIO_API_KEY,
+        validationEnv,
+        // Cache reference-URL liveness across publishes when a cache binding
+        // exists — one KV blob read + write per generation, vs. re-probing
+        // canonical hosts (nvd, cisa, …) on every post. Falls back to a live
+        // probe when KV_CACHE is unbound.
+        verifyRefs: env.KV_CACHE
+          ? createBatchedCachedVerify({ kv: env.KV_CACHE, nowMs: n.getTime(), verify: liveVerifyUrls })
+          : undefined,
+      }),
     putPost: (p) => putPost(env.CASE_STUDIES, p),
     putDraft: (p) => putDraft(env.CASE_STUDIES, p),
     refreshRss: async (index) => {
