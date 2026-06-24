@@ -4,7 +4,7 @@ import { runCompletion } from './ai-client';
 import { VOICE_IDENTITY, COPYWRITING_RULES, PIPELINE_OUTPUT_GUARDRAIL, QUALITY_CHECKS } from './copywriting';
 import { stripUntrustedUrls, findUngroundedCves, detectSlop } from '../../lib/ai-output-validator';
 import { slugify } from '../stable-keys';
-import type { CarouselSpec } from '../social/slide-spec';
+import type { CarouselSpec, ContentSlide } from '../social/slide-spec';
 import { buildCarouselSlides } from '../social/carousel-build';
 
 export interface SocialContent {
@@ -544,7 +544,6 @@ async function generateInstagramFromSource(
   src: SocialSource,
   post: Post,
   ai: Ai,
-  now: Date,
   groqKey?: string,
   googleKey?: string
 ): Promise<{ caption: string; quality?: SocialQuality; slides: Awaited<ReturnType<typeof buildCarouselSlides>> }> {
@@ -559,7 +558,7 @@ async function generateInstagramFromSource(
       googleKey,
       1200
     ).catch(() => ({ text: '', quality: undefined as SocialQuality | undefined })),
-    buildCarouselSlides(post, { ai, groqKey, googleKey }),
+    buildCarouselSlides(post, { ai, groqKey, googleKey }).catch(() => [] as ContentSlide[]),
   ]);
   return { caption: captionRes.text.slice(0, 2200), quality: captionRes.quality, slides };
 }
@@ -722,7 +721,7 @@ async function generateSocialFromSource(
       2000
     ),
     post
-      ? generateInstagramFromSource(src, post, ai, now, groqKey, googleKey)
+      ? generateInstagramFromSource(src, post, ai, groqKey, googleKey)
       : Promise.resolve({
           caption: '',
           quality: undefined as SocialQuality | undefined,
