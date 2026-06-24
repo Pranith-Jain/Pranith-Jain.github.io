@@ -95,6 +95,9 @@ export interface ChainAbuseResult {
   address: string;
   reports: ChainAbuseReport[];
   count: number;
+  /** Set when the lookup could not run (no credentials / upstream down); UI shows this instead of erroring. */
+  unavailable?: boolean;
+  note?: string;
 }
 
 // ─── Tor ──────────────────────────────────────────────────────────────────
@@ -350,19 +353,54 @@ export async function onionLookup(address: string): Promise<OnionLookupResult> {
 
 // ─── ChainAbuse BTC Abuse Check ───────────────────────────────────────────
 
-export async function btcAbuseCheck(address: string): Promise<ChainAbuseResult> {
-  const params = new URLSearchParams({ address });
-  const res = await fetch(`${CHAINABUSE_API}?${params}`, {
-    headers: { Accept: 'application/json', 'User-Agent': UA },
-  });
-  if (res.status === 404) {
-    return { address, reports: [], count: 0 };
+// ChainAbuse's public API now requires credentials (HTTP 401 unauthenticated).
+// Auth is HTTP Basic with the API key as both username and password. When no key
+// is configured — or the upstream fails — we degrade gracefully (empty + note)
+// rather than throwing, so the Dark Web Recon page never shows "upstream error".
+export async function btcAbuseCheck(address: string, apiKey?: string): Promise<ChainAbuseResult> {
+  if (!apiKey) {
+    return {
+      address,
+      reports: [],
+      count: 0,
+      unavailable: true,
+      note: 'BTC abuse lookup unavailable: ChainAbuse now requires an API key (set CHAINABUSE_API_KEY).',
+    };
   }
-  if (!res.ok) throw new Error(`ChainAbuse API error: HTTP ${res.status}`);
-  const data = (await res.json()) as { reports?: ChainAbuseReport[]; count?: number };
-  return {
-    address,
-    reports: data.reports ?? [],
-    count: data.count ?? 0,
-  };
+  try {
+    const params = new URLSearchParams({ address });
+    const res = await fetch(`${CHAINABUSE_API}?${params}`, {
+      headers: {
+        Accept: 'application/json',
+        'User-Agent': UA,
+        Authorization: `Basic ${btoa(`${apiKey}:${apiKey}`)}`,
+      },
+    });
+    if (res.status === 404) {
+      return { address, reports: [], count: 0 };
+    }
+    if (!res.ok) {
+      return {
+        address,
+        reports: [],
+        count: 0,
+        unavailable: true,
+        note: `BTC abuse lookup unavailable: ChainAbuse returned HTTP ${res.status}.`,
+      };
+    }
+    const data = (await res.json()) as { reports?: ChainAbuseReport[]; count?: number };
+    return {
+      address,
+      reports: data.reports ?? [],
+      count: data.count ?? 0,
+    };
+  } catch (err) {
+    return {
+      address,
+      reports: [],
+      count: 0,
+      unavailable: true,
+      note: `BTC abuse lookup unavailable: ${err instanceof Error ? err.message : 'upstream error'}.`,
+    };
+  }
 }

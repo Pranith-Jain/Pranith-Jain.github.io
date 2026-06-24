@@ -40,6 +40,8 @@ interface ChainAbuseResult {
   address: string;
   reports: ChainAbuseReport[];
   count: number;
+  unavailable?: boolean;
+  note?: string;
 }
 
 const TABS: Array<{
@@ -321,6 +323,17 @@ function OnionLookupResults({ data }: { data: OnionLookupResult }) {
 }
 
 function BtcAbuseResults({ data }: { data: ChainAbuseResult }) {
+  if (data.unavailable) {
+    return (
+      <div className="space-y-2">
+        <div className="flex items-center gap-2">
+          <span className="px-2 py-0.5 rounded text-xs font-medium bg-amber-500/20 text-amber-300">Unavailable</span>
+          <span className="text-xs text-gray-400 font-mono">{data.address}</span>
+        </div>
+        <p className="text-sm text-gray-400">{data.note ?? 'BTC abuse lookup is temporarily unavailable.'}</p>
+      </div>
+    );
+  }
   return (
     <div className="space-y-2">
       <div className="flex items-center gap-2">

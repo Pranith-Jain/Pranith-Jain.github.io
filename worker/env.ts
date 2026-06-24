@@ -38,6 +38,9 @@ export interface Env {
   HYBRID_ANALYSIS_API_KEY?: string;
   ABUSECH_AUTH_KEY?: string;
   RANSOMWARELIVE_API_KEY?: string;
+  /** ChainAbuse API key (free key at chainabuse.com) for BTC abuse lookups.
+   *  Optional — btc-abuse-check degrades gracefully when unset. */
+  CHAINABUSE_API_KEY?: string;
   // Case-study generation pipeline. These were previously only declared
   // on the api/ env type and accessed via `env as unknown as CaseStudyEnv`
   // casts inside the pipeline orchestrators — a missing secret would

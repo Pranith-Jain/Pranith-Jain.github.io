@@ -69,6 +69,9 @@ type Env = {
   /** Hudson Rock Cavalier API v3 key. Optional — MCP tools degrade to v2 free
    *  endpoints or return setup instructions when unset. */
   HUDSONROCK_API_KEY?: string;
+  /** ChainAbuse API key for btc_abuse_check. Optional — the tool degrades
+   *  gracefully (returns unavailable + note) when unset. */
+  CHAINABUSE_API_KEY?: string;
 };
 
 const API_BASE_DEFAULT = 'https://pranithjain.qzz.io';
@@ -2786,7 +2789,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         address: z.string().describe('Bitcoin address to check, e.g. "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"'),
       },
       async ({ address }) => {
-        const r = await btcAbuseCheck(address);
+        const r = await btcAbuseCheck(address, this.env.CHAINABUSE_API_KEY);
         return untrustedToolResult(r);
       }
     );

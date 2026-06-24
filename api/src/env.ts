@@ -40,6 +40,9 @@ export interface Env {
   URLSCAN_API_KEY?: string;
   HYBRID_ANALYSIS_API_KEY?: string;
   ABUSECH_AUTH_KEY?: string;
+  /** ChainAbuse API key (free key at chainabuse.com) for BTC abuse lookups.
+   *  Optional — /api/v1/darknet/btc-abuse-check degrades gracefully when unset. */
+  CHAINABUSE_API_KEY?: string;
   /** Spur.us API token for VPN/proxy/tor detection. Optional — the
    *  IOC check degrades to 'unsupported' when unset. */
   SPUR_API_KEY?: string;

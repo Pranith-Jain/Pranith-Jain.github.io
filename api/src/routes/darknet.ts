@@ -95,6 +95,6 @@ export async function onionLookupHandler(c: Context<{ Bindings: Env }>) {
 export async function btcAbuseCheckHandler(c: Context<{ Bindings: Env }>) {
   const address = c.req.query('address');
   if (!address) return c.json({ error: 'missing_address', message: '?address= parameter is required' }, 400);
-  const r = await btcAbuseCheck(address);
+  const r = await btcAbuseCheck(address, c.env.CHAINABUSE_API_KEY);
   return c.json(r);
 }
