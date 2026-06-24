@@ -175,7 +175,7 @@ export function LiveSignalStrip(): JSX.Element {
             scanned > 0
               ? `Out of ${scanned.toLocaleString()} indicators scanned across 18 feeds.`
               : 'Indicators on two or more independent feeds.',
-          href: '/threatintel/iocs/cross',
+          href: '/threatintel/iocs/correlation',
           accent: 'brand',
         };
       }
@@ -233,7 +233,7 @@ export function LiveSignalStrip(): JSX.Element {
               label: 'Cross-source IOC consensus',
               primary: '…',
               context: 'loading',
-              href: '/threatintel/iocs/cross',
+              href: '/threatintel/iocs/correlation',
               accent: 'brand' as const,
             },
           ]

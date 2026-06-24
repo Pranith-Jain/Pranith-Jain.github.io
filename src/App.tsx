@@ -206,6 +206,7 @@ const CveResourcesCatalog = lazy(() => import('./pages/dfir/CveResourcesCatalog'
 const CyberCrime = lazy(() => import('./pages/threatintel/CyberCrime'));
 const DarkWeb = lazy(() => import('./pages/threatintel/DarkWebOsintTools'));
 const DarkWebRecon = lazy(() => import('./pages/threatintel/DarkWebRecon'));
+const OnionWatch = lazy(() => import('./pages/dfir/OnionWatch'));
 const DarknetMarketsTimeline = lazy(() => import('./pages/threatintel/DarknetMarketsTimeline'));
 const DeepDarkCTI = lazy(() => import('./pages/threatintel/DeepDarkCTI'));
 const Detections = lazy(() => import('./pages/threatintel/Detections'));
@@ -571,6 +572,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/darkweb/ransom-map', Component: RansomwareMap },
   { path: '/threatintel/darkweb/ransomwhere', Component: Ransomwhere },
   { path: '/threatintel/darkweb/recon', Component: DarkWebRecon },
+  { path: '/threatintel/onion-watch', Component: OnionWatch },
   { path: '/threatintel/predictive/dashboard', Component: IntelDashboard },
   { path: '/threatintel/predictive/global-pulse', Component: GlobalPulse },
   { path: '/threatintel/predictive/threat-pulse', Component: ThreatPulse },
@@ -742,7 +744,6 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/threatintel/telegram-leaks', to: '/threatintel/telegram-monitor' },
   { path: '/threatintel/telegram-leaks/channels', to: '/threatintel/telegram-monitor' },
   { path: '/threatintel/telegram-leaks/stats', to: '/threatintel/telegram-monitor' },
-  { path: '/threatintel/onion-watch', to: '/threatintel/telegram-monitor' },
   { path: '/threatintel/tech-ai-news', to: '/threatintel/catalog?cat=social' },
   { path: '/threatintel/x-watch', to: '/threatintel/social/firehose' },
   { path: '/threatintel/x-live', to: '/threatintel/social/firehose' },
@@ -784,7 +785,7 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/threatintel/ransomware-map', to: '/threatintel/darkweb/ransom-activity' },
   { path: '/threatintel/ransomware-activity', to: '/threatintel/darkweb/ransom-activity' },
   { path: '/threatintel/ransom-report', to: '/threatintel/darkweb/ransom-activity' },
-  { path: '/threatintel/negotiations', to: '/threatintel/darkweb/ransom-activity' },
+  { path: '/threatintel/negotiations', to: '/threatintel/darkweb/ransom-activity?tab=negotiations' },
   { path: '/threatintel/breach-forums', to: '/threatintel/darkweb/forums' },
   { path: '/threatintel/darkweb-tools', to: '/threatintel/darkweb/watch' },
 

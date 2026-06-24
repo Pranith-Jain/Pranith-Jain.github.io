@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Activity, AlertTriangle, FileCode, MessageSquare, RefreshCw, ShieldAlert } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { ClusterTabs, RANSOMWARE_TABS } from '../../components/threatintel/ClusterTabs';
+import { useSearchParams } from 'react-router-dom';
 
 /**
  * ransomware.live PRO surface — consumes the server-side authenticated proxy
@@ -151,7 +152,12 @@ function RawJson({ value }: { value: unknown }) {
 }
 
 export default function RansomwareLive(): JSX.Element {
-  const [tab, setTab] = useState<TabId>('stats');
+  // Honour ?tab= so deep links (e.g. the /threatintel/negotiations redirect)
+  // land on the right tab instead of always defaulting to stats.
+  const [searchParams] = useSearchParams();
+  const requestedTab = searchParams.get('tab');
+  const initialTab: TabId = TABS.some((t) => t.id === requestedTab) ? (requestedTab as TabId) : 'stats';
+  const [tab, setTab] = useState<TabId>(initialTab);
   const [cache, setCache] = useState<Record<string, ProxyEnvelope>>({});
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
