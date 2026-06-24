@@ -144,6 +144,8 @@ export interface SocialContent {
   linkedin: string;
   instagram?: string;
   carousel?: CarouselSpec;
+  /** Alternative opening hooks (different angles) for A/B / manual selection. */
+  hooks?: string[];
   generatedAt: string;
 }
 

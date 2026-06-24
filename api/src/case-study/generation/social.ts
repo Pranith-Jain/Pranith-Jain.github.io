@@ -7,6 +7,7 @@ import { slugify } from '../stable-keys';
 import type { CarouselSpec, ContentSlide } from '../social/slide-spec';
 import { buildCarouselSlides } from '../social/carousel-build';
 import { buildHashtags } from './hashtags';
+import { generateHookVariants } from './hook-variants';
 
 export interface SocialContent {
   slug: string;
@@ -14,6 +15,8 @@ export interface SocialContent {
   linkedin: string;
   instagram?: string;
   carousel?: CarouselSpec;
+  /** Alternative opening hooks (different angles) for A/B / manual selection. */
+  hooks?: string[];
   generatedAt: string;
   _validation?: {
     twitter_quality?: SocialQuality;
@@ -714,7 +717,7 @@ async function generateSocialFromSource(
 ): Promise<SocialContent> {
   const factNote = extractVerifiedFacts(src.body);
 
-  const [twitterRes, linkedinRes, igRes] = await Promise.allSettled([
+  const [twitterRes, linkedinRes, igRes, hooksRes] = await Promise.allSettled([
     generateWithValidation(
       ai,
       SOCIAL_SYSTEM,
@@ -742,15 +745,18 @@ async function generateSocialFromSource(
           quality: undefined as SocialQuality | undefined,
           slides: [] as Awaited<ReturnType<typeof buildCarouselSlides>>,
         }),
+    generateHookVariants(src, ai, groqKey, googleKey),
   ]);
 
   const ig = igRes.status === 'fulfilled' ? igRes.value : { caption: '', quality: undefined, slides: [] };
+  const hooks = hooksRes.status === 'fulfilled' ? hooksRes.value : [];
   return {
     slug: src.slug,
     twitter: twitterRes.status === 'fulfilled' ? twitterRes.value.text : '',
     linkedin: linkedinRes.status === 'fulfilled' ? linkedinRes.value.text : '',
     instagram: ig.caption || undefined,
     carousel: ig.slides.length ? { format: 'instagram', slides: ig.slides } : undefined,
+    hooks: hooks.length ? hooks : undefined,
     generatedAt: now.toISOString(),
     _validation: {
       twitter_quality: twitterRes.status === 'fulfilled' ? twitterRes.value.quality : undefined,
