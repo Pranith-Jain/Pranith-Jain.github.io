@@ -62,6 +62,20 @@ export async function postJson<T>(path: string, init: RequestInit = {}): Promise
   return r.json() as Promise<T>;
 }
 
+/** Fetch a binary resource from the admin API with the admin token injected,
+ *  then return an object URL suitable for use in <img src> / <a href>.
+ *  The caller MUST revoke the returned URL (URL.revokeObjectURL) when done. */
+export async function getObjectUrl(path: string): Promise<string> {
+  const r = await fetch(BASE + path, { headers: headers() });
+  if (r.status === 401) {
+    handleUnauthorized();
+    throw new Error('unauthorized');
+  }
+  if (!r.ok) throw new Error(await extractError(r));
+  const blob = await r.blob();
+  return URL.createObjectURL(blob);
+}
+
 export async function postJsonWithBody<T>(path: string, body: unknown, init: RequestInit = {}): Promise<T> {
   const r = await fetch(BASE + path, {
     ...init,

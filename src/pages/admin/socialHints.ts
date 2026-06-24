@@ -1,4 +1,4 @@
-export type SocialPlatform = 'twitter' | 'linkedin';
+export type SocialPlatform = 'twitter' | 'linkedin' | 'instagram';
 
 /**
  * Static 2026 best-time-to-post guidance for a B2B / infosec audience.
