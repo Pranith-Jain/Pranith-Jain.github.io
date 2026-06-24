@@ -373,6 +373,13 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'MaliciousPackages',
       },
       {
+        path: '/threatintel/malware/supply-chain',
+        tabId: 'supply-chain',
+        label: 'Supply-Chain Incidents',
+        desc: 'Confirmed supply-chain compromise incidents — npm · PyPI · containers · AI agents. Data: supplychainattack.org.',
+        compVar: 'SupplyChainAttacks',
+      },
+      {
         path: '/threatintel/malware/malpedia',
         tabId: 'malpedia',
         label: 'Malpedia',
