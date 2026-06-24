@@ -5,6 +5,7 @@ import { requireAdminMiddleware } from '../lib/admin-auth';
 import { safeJsonBody } from '../lib/safe-body';
 import {
   listAllCandidates,
+  listCandidates,
   getCandidate,
   deleteCandidate,
   countAllCandidates,
@@ -153,21 +154,24 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     const typeHint = (c.req.query('type') ?? '') as CaseStudyType | '';
     const filterType = typeHint && TYPES.includes(typeHint as CaseStudyType) ? (typeHint as CaseStudyType) : null;
     const ns = c.env.CASE_STUDIES;
-    // List KEY NAMES only (no per-candidate body reads) and parse the stable
-    // key from the `candidates:<type>:<stableKey>` name — stable keys are
-    // slugified (no colons), so split(':') is safe. Keeps this to 1 list +
-    // N deletes + 1 batched suppress (≈ the existing GET /candidates cost),
-    // respecting the Free-plan 50-subrequests/invocation budget.
-    const prefix = filterType ? csKvKeys.candidatesPrefix(filterType) : csKvKeys.candidatesAllPrefix;
+    // Collect the REAL candidate stable keys from the blob CONTENTS. Candidates
+    // are stored as per-type blobs `candidates:<type>:all`, so parsing the KEY
+    // NAME yields the literal 'all' — the original bug that left every dismissed
+    // candidate un-suppressed (it re-appeared on the next discovery run). Read
+    // one blob per type (bounded by CANDIDATE_TYPES), then delete the blobs.
+    const types = filterType ? [filterType] : TYPES;
     const stableKeys: string[] = [];
+    for (const t of types) {
+      const list = await listCandidates(ns, t);
+      for (const cand of list) stableKeys.push(cand.key);
+    }
+    // Clear the type blobs (deleting `candidates:<type>:all` removes all
+    // candidates of that type).
+    const prefix = filterType ? csKvKeys.candidatesPrefix(filterType) : csKvKeys.candidatesAllPrefix;
     let cursor: string | undefined;
     for (let page = 0; page < 5; page += 1) {
       const res = await ns.list({ prefix, cursor });
-      for (const k of res.keys) {
-        await ns.delete(k.name);
-        const parts = k.name.split(':'); // candidates:<type>:<stableKey>
-        if (parts.length >= 3) stableKeys.push(parts.slice(2).join(':'));
-      }
+      for (const k of res.keys) await ns.delete(k.name);
       if (res.list_complete) break;
       cursor = res.cursor;
     }
@@ -332,7 +336,14 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     const schedule = await getSchedule(c.env.CASE_STUDIES);
     const slot = schedule.find((s) => s.candidateId === candidateId);
     if (!slot) return c.json({ error: 'slot not found' }, 404);
-    if (slot.status === 'published') return c.json({ error: 'cannot reschedule a published slot' }, 400);
+    // Block terminal/in-flight states: a 'published' slot is done; a 'draft'
+    // slot already ran the publisher (which unapproved the candidate), and a
+    // 'publishing' slot is mid-flight — rescheduling either resets it to
+    // 'pending' but getApproved() now returns null, so the publisher just
+    // re-fails it ("approved candidate missing") and orphans the draft.
+    if (slot.status === 'published' || slot.status === 'draft' || slot.status === 'publishing') {
+      return c.json({ error: `cannot reschedule a ${slot.status} slot` }, 400);
+    }
     const iso = new Date(slotAt).toISOString();
     await markSlotStatus(c.env.CASE_STUDIES, candidateId, 'pending', { slotAt: iso, error: undefined });
     return c.json({ ok: true, candidateId, slotAt: iso });
@@ -405,8 +416,14 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
       error?: string;
       attempts?: number;
     }> = [];
+    // One KV read per unique slug — cap it so a backed-up queue (up to 500
+    // entries) can't blow the Free-plan 50-subrequest/invocation budget.
+    const MAX_SCHEDULE_READS = 40;
     for (const q of queue) {
-      if (!bySlug.has(q.slug)) bySlug.set(q.slug, await getSocialSchedule(c.env.CASE_STUDIES, q.slug));
+      if (!bySlug.has(q.slug)) {
+        if (bySlug.size >= MAX_SCHEDULE_READS) break;
+        bySlug.set(q.slug, await getSocialSchedule(c.env.CASE_STUDIES, q.slug));
+      }
       const entry = bySlug.get(q.slug)?.[q.platform];
       if (!entry) continue;
       items.push({
@@ -476,15 +493,21 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     const platform = c.req.param('platform');
     if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
     if (!isSocialPlatform(platform)) return c.json({ error: 'platform must be twitter, linkedin, or instagram' }, 400);
-    const parsed = await safeJsonBody<{ scheduledAt?: string; status?: 'pending' | 'posted' }>(c, { maxBytes: 1024 });
+    type ScheduleStatus = 'pending' | 'approved' | 'posted' | 'failed';
+    const parsed = await safeJsonBody<{ scheduledAt?: string; status?: ScheduleStatus }>(c, { maxBytes: 1024 });
     if ('error' in parsed) return parsed.error;
-    const patch: { scheduledAt?: string; status?: 'pending' | 'posted' } = {};
+    const patch: { scheduledAt?: string; status?: ScheduleStatus } = {};
     if (parsed.value && 'scheduledAt' in parsed.value) {
       const at = parsed.value.scheduledAt ?? '';
       if (at !== '' && Number.isNaN(Date.parse(at))) return c.json({ error: 'invalid scheduledAt' }, 400);
       patch.scheduledAt = at === '' ? undefined : new Date(at).toISOString();
     }
-    if (parsed.value?.status === 'pending' || parsed.value?.status === 'posted') patch.status = parsed.value.status;
+    // Accept the full status union (was silently dropping 'approved'/'failed').
+    const ALLOWED_STATUS: ScheduleStatus[] = ['pending', 'approved', 'posted', 'failed'];
+    if (parsed.value?.status !== undefined) {
+      if (!ALLOWED_STATUS.includes(parsed.value.status)) return c.json({ error: 'invalid status' }, 400);
+      patch.status = parsed.value.status;
+    }
     const schedule = await upsertSocialSchedule(c.env.CASE_STUDIES, slug, platform, patch);
     return c.json({ ok: true, schedule });
   });
@@ -916,6 +939,9 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
       const res = await ns.list({ prefix: 'social:', cursor });
       for (const k of res.keys) {
         const rest = k.name.slice('social:'.length); // <slug> | <slug>:twitter | <slug>:linkedin
+        // `social:standalone:<key>...` is candidate-only content (no published
+        // post) — it must not surface as a blog-post social-state indicator.
+        if (rest.startsWith('standalone:')) continue;
         if (rest.endsWith(':twitter')) mark(rest.slice(0, -':twitter'.length), { twitter: true });
         else if (rest.endsWith(':linkedin')) mark(rest.slice(0, -':linkedin'.length), { linkedin: true });
         else if (rest && !rest.includes(':')) mark(rest, { twitter: true, linkedin: true });

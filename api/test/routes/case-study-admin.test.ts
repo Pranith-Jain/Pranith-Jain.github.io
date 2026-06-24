@@ -144,6 +144,25 @@ describe('admin routes', () => {
     expect(sched.linkedin.status).toBe('pending');
   });
 
+  it('skip-all suppresses the REAL candidate keys (not the blob "all") so they do not re-appear', async () => {
+    const env = mockEnv();
+    env.__store.set('candidates:cve:all', JSON.stringify([{ ...cand, key: 'cve-2026-9999', type: 'cve' }]));
+    const r = await app().request(
+      '/api/v1/admin/candidates/skip-all?type=cve',
+      { method: 'POST', headers: { 'X-Admin-Token': 'sekret' } },
+      env
+    );
+    expect(r.status).toBe(200);
+    const body = (await r.json()) as { cleared: number };
+    expect(body.cleared).toBe(1);
+    // The dedup index must suppress the real candidate key, never the blob 'all'.
+    const dedup = JSON.parse(env.__store.get('meta:dedup-index') as string) as Record<string, unknown>;
+    expect(Object.keys(dedup)).toContain('cve-2026-9999');
+    expect(Object.keys(dedup)).not.toContain('all');
+    // The candidate blob is cleared.
+    expect(env.__store.has('candidates:cve:all')).toBe(false);
+  });
+
   it('generate (the admin "approve" action) finds an analysis-type candidate — regression: type-list drift', async () => {
     const env = mockEnv();
     const analysisCand = { ...cand, key: 'agentic-prompt-injection', type: 'analysis' };
