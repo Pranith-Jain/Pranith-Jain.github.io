@@ -23,4 +23,8 @@ export const kv = {
   /** Manual-posting status/schedule for a post's social copy. Separate key
    *  so it never collides with the generated-content `social:*` keys. */
   socialSchedule: (slug: string) => `social-schedule:${slug}`,
+  /** Single advisory index of {slug, platform} entries awaiting auto-post.
+   *  The drip cron reads this one blob to find candidates, then confirms each
+   *  against the authoritative per-slug schedule before posting. */
+  socialAutopostQueue: 'social-autopost-queue',
 };
