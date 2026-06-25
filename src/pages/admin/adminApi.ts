@@ -43,7 +43,7 @@ async function extractError(r: Response): Promise<string> {
 }
 
 export async function getJson<T>(path: string, init: RequestInit = {}): Promise<T> {
-  const r = await fetch(BASE + path, { ...init, headers: headers() });
+  const r = await fetch(BASE + path, { ...init, headers: headers(), credentials: 'same-origin' });
   if (r.status === 401) {
     handleUnauthorized();
     throw new Error('unauthorized');
@@ -53,7 +53,7 @@ export async function getJson<T>(path: string, init: RequestInit = {}): Promise<
 }
 
 export async function postJson<T>(path: string, init: RequestInit = {}): Promise<T> {
-  const r = await fetch(BASE + path, { ...init, method: 'POST', headers: headers() });
+  const r = await fetch(BASE + path, { ...init, method: 'POST', headers: headers(), credentials: 'same-origin' });
   if (r.status === 401) {
     handleUnauthorized();
     throw new Error('unauthorized');
@@ -66,7 +66,7 @@ export async function postJson<T>(path: string, init: RequestInit = {}): Promise
  *  then return an object URL suitable for use in <img src> / <a href>.
  *  The caller MUST revoke the returned URL (URL.revokeObjectURL) when done. */
 export async function getObjectUrl(path: string): Promise<string> {
-  const r = await fetch(BASE + path, { headers: headers() });
+  const r = await fetch(BASE + path, { headers: headers(), credentials: 'same-origin' });
   if (r.status === 401) {
     handleUnauthorized();
     throw new Error('unauthorized');
@@ -82,6 +82,7 @@ export async function postJsonWithBody<T>(path: string, body: unknown, init: Req
     method: 'POST',
     headers: headers(),
     body: JSON.stringify(body),
+    credentials: 'same-origin',
   });
   if (r.status === 401) {
     handleUnauthorized();
@@ -98,7 +99,7 @@ export async function postJsonWithBody<T>(path: string, body: unknown, init: Req
 const BRIEFINGS_BASE = '/api/v1/briefings';
 
 export async function briefingsGet<T>(path: string): Promise<T> {
-  const r = await fetch(BRIEFINGS_BASE + path, { headers: headers() });
+  const r = await fetch(BRIEFINGS_BASE + path, { headers: headers(), credentials: 'same-origin' });
   if (r.status === 401) {
     handleUnauthorized();
     throw new Error('unauthorized');
@@ -108,7 +109,7 @@ export async function briefingsGet<T>(path: string): Promise<T> {
 }
 
 export async function briefingsPost<T>(path: string): Promise<T> {
-  const r = await fetch(BRIEFINGS_BASE + path, { method: 'POST', headers: headers() });
+  const r = await fetch(BRIEFINGS_BASE + path, { method: 'POST', headers: headers(), credentials: 'same-origin' });
   if (r.status === 401) {
     handleUnauthorized();
     throw new Error('unauthorized');
@@ -238,7 +239,7 @@ export async function probeAuth(): Promise<boolean> {
   const t = readAdminToken();
   if (!t) return false;
   try {
-    const r = await fetch(`${BASE}/health`, { headers: headers() });
+    const r = await fetch(`${BASE}/health`, { headers: headers(), credentials: 'same-origin' });
     return r.status !== 401;
   } catch {
     return false;

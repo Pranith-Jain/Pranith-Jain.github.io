@@ -232,7 +232,7 @@ export class InvestigatorAgentDO {
     // the authenticate('external-only') middleware still requires credentials
     // for non-same-origin requests. A signed internal token (HMAC-SHA256,
     // 5-min TTL) replaces the old spoofable X-Internal-Agent header.
-    const internalToken = await signInternalToken('investigator-do');
+    const internalToken = await signInternalToken('investigator-do', this.env.INTERNAL_TOKEN_SECRET);
     const tools = buildToolRegistry(this.env.SELF, undefined, { 'x-internal-token': internalToken });
 
     const stepNum = state.currentStep + 1;
@@ -402,7 +402,10 @@ export class InvestigatorAgentDO {
       };
 
       try {
-        const qa = await verifyReport(ai, state.query, state.queryType, result.report, state.steps, { groqKey, googleKey });
+        const qa = await verifyReport(ai, state.query, state.queryType, result.report, state.steps, {
+          groqKey,
+          googleKey,
+        });
 
         // Use the verified report (hallucinations removed, facts added).
         // Re-split the QA'd text so we can carry the action card through state.

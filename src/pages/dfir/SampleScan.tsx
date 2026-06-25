@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
+import { useNoindex } from '../../lib/use-noindex';
 import {
   AlertTriangle,
   Bug,
@@ -233,6 +234,7 @@ function ProviderRow({ r }: { r: ProviderResultWire }): JSX.Element {
 }
 
 export default function SampleScan(): JSX.Element {
+  useNoindex();
   const { samples, loaded } = useFeatures();
   const [, setFile] = useState<File | null>(null);
   const [hashInput, setHashInput] = useState('');

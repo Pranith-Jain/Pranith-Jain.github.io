@@ -39,7 +39,7 @@ describe('AdminApp', () => {
     expect(screen.getAllByText(/admin token/i).length).toBeGreaterThan(0);
   });
 
-  it('stores token and shows the admin shell on login', async () => {
+  it('stores session flag and shows the admin shell on login', async () => {
     global.fetch = vi.fn(async () => new Response(JSON.stringify({ pending: [] }))) as unknown as typeof fetch;
     render(
       <MemoryRouter>
@@ -51,17 +51,20 @@ describe('AdminApp', () => {
     });
     fireEvent.click(screen.getByRole('button', { name: /sign in/i }));
     await waitFor(() => {
-      expect(localStorage.getItem('adminToken')).toBe('sekret');
+      expect(localStorage.getItem('adminSessionActive')).toBe('true');
       expect(screen.getByText(/pending/i)).toBeInTheDocument();
     });
   });
 
   it('renders pending candidates and approves one', async () => {
-    localStorage.setItem('adminToken', 'sekret');
+    localStorage.setItem('adminSessionActive', 'true');
     const calls: string[] = [];
     global.fetch = vi.fn(async (url: RequestInfo | URL, init?: RequestInit) => {
       const u = String(url);
       calls.push(`${init?.method ?? 'GET'} ${u}`);
+      if (u.includes('/health')) {
+        return new Response(JSON.stringify({ ok: true }));
+      }
       if (u.endsWith('/candidates')) {
         return new Response(
           JSON.stringify({
@@ -88,6 +91,9 @@ describe('AdminApp', () => {
             result: { blog: { slug: 'test', title: 'Test', status: 'draft' } },
           })
         );
+      }
+      if (u.includes('/health')) {
+        return new Response(JSON.stringify({ ok: true }));
       }
       return new Response(JSON.stringify({ pending: [] }));
     }) as unknown as typeof fetch;

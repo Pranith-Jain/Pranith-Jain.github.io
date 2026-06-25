@@ -14,6 +14,16 @@ const LIMIT_KEYED = 120;
 const WINDOW_SEC = 60;
 
 /**
+ * Circuit-breaker for cache errors. After CACHE_ERROR_THRESHOLD consecutive
+ * errors, the rate limiter returns 503 instead of failing open. Resets after
+ * CACHE_ERROR_RESET_SEC. Prevents unlimited requests during a Cache-API outage.
+ */
+let cacheErrorCount = 0;
+let cacheErrorWindowStart = Date.now();
+const CACHE_ERROR_THRESHOLD = 5;
+const CACHE_ERROR_RESET_SEC = 60;
+
+/**
  * Public CTI export feeds. These ARE rate-limited (abuse protection on
  * cache-miss bursts) but via the Cache API token bucket below — NOT KV —
  * because the handlers do their own Cache-API lookup, so the Worker (and
@@ -30,6 +40,24 @@ const WINDOW_SEC = 60;
 const CACHE_RL_PREFIX: string[] = [];
 const CACHE_RL_EXACT = new Set<string>();
 
+/**
+ * Circuit-breaker check. Returns true if the cache is healthy (allow request
+ * to proceed), false if too many consecutive errors (return 503).
+ */
+function checkCacheHealth(): boolean {
+  const now = Date.now();
+  // Reset counter after the window expires
+  if (now - cacheErrorWindowStart > CACHE_ERROR_RESET_SEC * 1000) {
+    cacheErrorCount = 0;
+    cacheErrorWindowStart = now;
+  }
+  return cacheErrorCount < CACHE_ERROR_THRESHOLD;
+}
+
+function recordCacheError(): void {
+  cacheErrorCount++;
+}
+
 async function cacheApiRateLimit(c: Context<{ Bindings: Env }>, next: Next): Promise<Response | void> {
   const ip = c.req.header('cf-connecting-ip') ?? 'anon';
   const bucket = Math.floor(Date.now() / 1000 / WINDOW_SEC);
@@ -40,7 +68,13 @@ async function cacheApiRateLimit(c: Context<{ Bindings: Env }>, next: Next): Pro
     const hit = await cache.match(key);
     if (hit) count = parseInt(await hit.text(), 10) || 0;
   } catch {
-    return next(); // cache error — fail open
+    recordCacheError();
+    if (!checkCacheHealth()) {
+      return c.json({ error: 'service_degraded', message: 'rate limiter temporarily unavailable' }, 503, {
+        'retry-after': String(CACHE_ERROR_RESET_SEC),
+      });
+    }
+    return next(); // cache error — fail open (below threshold)
   }
   if (count >= LIMIT) {
     return c.json({ error: 'rate_limited', limit: LIMIT, window_seconds: WINDOW_SEC }, 429, {
@@ -52,7 +86,10 @@ async function cacheApiRateLimit(c: Context<{ Bindings: Env }>, next: Next): Pro
     });
   }
   c.executionCtx.waitUntil(
-    safeNullLog('cache-put-ratelimit', cache.put(key, new Response(String(count + 1), { headers: { 'cache-control': `max-age=${WINDOW_SEC}` } })))
+    safeNullLog(
+      'cache-put-ratelimit',
+      cache.put(key, new Response(String(count + 1), { headers: { 'cache-control': `max-age=${WINDOW_SEC}` } }))
+    )
   );
   return next();
 }
@@ -243,7 +280,13 @@ export async function rateLimit(c: Context<{ Bindings: Env }>, next: Next): Prom
       }
     }
   } catch {
-    return next(); // cache error — fail open
+    recordCacheError();
+    if (!checkCacheHealth()) {
+      return c.json({ error: 'service_degraded', message: 'rate limiter temporarily unavailable' }, 503, {
+        'retry-after': String(CACHE_ERROR_RESET_SEC),
+      });
+    }
+    return next(); // cache error — fail open (below threshold)
   }
 
   if (count >= limit) {

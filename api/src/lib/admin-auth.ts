@@ -110,7 +110,7 @@ export const requireAdminMiddleware: MiddlewareHandler<{ Bindings: Env }> = asyn
   // via a signed internal token (HMAC-SHA256, short TTL).
   const internalToken = c.req.header('x-internal-token') ?? '';
   if (internalToken) {
-    const result = await validateInternalToken(internalToken);
+    const result = await validateInternalToken(internalToken, c.env?.INTERNAL_TOKEN_SECRET);
     if (result.ok && ALLOWED_INTERNAL_CALLERS.has(result.caller)) {
       return next();
     }

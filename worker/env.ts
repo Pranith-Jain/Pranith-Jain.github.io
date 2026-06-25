@@ -73,4 +73,10 @@ export interface Env {
   /** Public site origin, used for WS origin allow-listing and absolute URLs in
    *  the cron/scheduled paths. Optional — falls back to the canonical origin. */
   SITE_URL?: string;
+  /** Secret for signing internal tokens (HMAC-SHA256). When set, replaces the
+   *  deterministic fallback. Set via `wrangler secret put INTERNAL_TOKEN_SECRET`. */
+  INTERNAL_TOKEN_SECRET?: string;
+  /** When set to "true", allows localhost dev origins in CORS and auth checks.
+   *  Unset in production to prevent local dev servers from authenticating. */
+  ALLOW_DEV_ORIGINS?: string;
 }

@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
+import { useNoindex } from '../../lib/use-noindex';
 import { Upload, Loader2, AlertTriangle, Shield, ExternalLink, Globe, FileText, Activity } from 'lucide-react';
 
 interface SandboxResult {
@@ -37,6 +38,7 @@ const SOURCE_ICONS: Record<string, typeof Shield> = {
 };
 
 export default function SandboxIntegration(): JSX.Element {
+  useNoindex();
   const [hash, setHash] = useState('');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<SandboxResponse | null>(null);

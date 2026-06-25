@@ -139,10 +139,25 @@ function buildSitemap(blogPosts = []) {
   const caseStudySlugs = readPublishedCaseStudySlugs();
   const researchSlugs = readPublishedResearchSlugs();
 
+  // Exclude malware/sample-related pages from the sitemap — Google Safe
+  // Browsing flags these as "uncommon download" or "malware" warnings.
+  // These are analysis tools, not download sites, but Google's heuristic
+  // treats them the same. Keep them accessible (just not indexed).
+  const SITEMAP_EXCLUDED = new Set([
+    '/threatintel/malware-vault',
+    '/threatintel/malware-sandbox',
+    '/threatintel/malware/vault',
+    '/threatintel/malware/sandbox',
+    '/dfir/malware-scan',
+    '/dfir/sample-scan',
+    '/dfir/sandbox',
+  ]);
+
   // Group prerender routes by their classifier group so the output keeps
   // the same sectioned layout the hand-edited sitemap had.
   const grouped = new Map();
   for (const path of prerenderRoutes) {
+    if (SITEMAP_EXCLUDED.has(path)) continue;
     const { group } = classifyRoute(path);
     if (!grouped.has(group)) grouped.set(group, []);
     grouped.get(group).push(path);

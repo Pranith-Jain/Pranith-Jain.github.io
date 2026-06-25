@@ -1,16 +1,40 @@
 import type { Env } from './env';
 import type { Env as ApiEnv } from '../api/src/env';
 import type { AgentState } from '../api/src/lib/agent/types';
+import { validateRawKey } from '../api/src/lib/auth';
 
 /**
  * Handle WebSocket upgrade for copilot chat sessions.
  * The WS connection stays alive across multiple messages — the client sends
  * { type: "message", content: "..." } and the server streams back step
  * events and the final response.
+ *
+ * Requires a valid API key to prevent unauthenticated Workers AI abuse
+ * (denial-of-wallet via unlimited agent investigations).
  */
 export async function handleChatWebSocket(request: Request, env: Env): Promise<Response> {
   if (request.headers.get('upgrade') !== 'websocket') {
     return new Response('Expected WebSocket upgrade', { status: 426 });
+  }
+
+  // Authenticate: require a valid API key. Without this, any page on the
+  // allowed origin could open unlimited chat sessions, each invoking
+  // Workers AI investigations (denial-of-wallet).
+  const authz = request.headers.get('authorization') ?? '';
+  const rawKey = /^Bearer\s+(\S+)/i.exec(authz)?.[1] ?? request.headers.get('x-api-key') ?? '';
+  const db = env.BRIEFINGS_DB;
+  if (!db || !rawKey) {
+    return new Response(JSON.stringify({ error: 'api key required for chat' }), {
+      status: 401,
+      headers: { 'content-type': 'application/json' },
+    });
+  }
+  const valid = await validateRawKey(db, rawKey);
+  if (!valid) {
+    return new Response(JSON.stringify({ error: 'invalid api key' }), {
+      status: 401,
+      headers: { 'content-type': 'application/json' },
+    });
   }
 
   const pair = new WebSocketPair();
@@ -18,15 +42,8 @@ export async function handleChatWebSocket(request: Request, env: Env): Promise<R
   const server = pair[1];
   server.accept();
 
-  const db = env.BRIEFINGS_DB;
-  if (!db) {
-    server.send(JSON.stringify({ type: 'error', error: 'Database not configured' }));
-    server.close();
-    return new Response(null, { status: 101, webSocket: client });
-  }
-
   // Ensure the sessions table exists
-  await db
+  await db!
     .prepare(
       `CREATE TABLE IF NOT EXISTS copilot_sessions (
         id TEXT PRIMARY KEY,
@@ -37,7 +54,19 @@ export async function handleChatWebSocket(request: Request, env: Env): Promise<R
     )
     .run();
 
-  let session: { id: string; messages: Array<{ role: string; content: string; agent_id?: string; query_type?: string; model_used?: string; processed_at?: string }>; created_at: string; updated_at: string } | null = null;
+  let session: {
+    id: string;
+    messages: Array<{
+      role: string;
+      content: string;
+      agent_id?: string;
+      query_type?: string;
+      model_used?: string;
+      processed_at?: string;
+    }>;
+    created_at: string;
+    updated_at: string;
+  } | null = null;
   let currentAgentId: string | null = null;
   let pollInterval: ReturnType<typeof setInterval> | null = null;
 
@@ -173,11 +202,12 @@ export async function handleChatWebSocket(request: Request, env: Env): Promise<R
 
               // Save session
               try {
-                await db!.prepare(
-                  `INSERT INTO copilot_sessions (id, messages_json, created_at, updated_at)
+                await db!
+                  .prepare(
+                    `INSERT INTO copilot_sessions (id, messages_json, created_at, updated_at)
                    VALUES (?, ?, ?, ?)
                    ON CONFLICT(id) DO UPDATE SET messages_json = excluded.messages_json, updated_at = excluded.updated_at`
-                )
+                  )
                   .bind(session.id, JSON.stringify(session.messages), session.created_at, new Date().toISOString())
                   .run();
               } catch {

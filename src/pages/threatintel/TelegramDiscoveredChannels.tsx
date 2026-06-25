@@ -71,6 +71,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
         method: 'POST',
         headers: { 'content-type': 'application/json', ...adminAuthHeaders() },
         body: JSON.stringify(action === 'approve' ? { handle, category: 'auto-discovered' } : { handle }),
+        credentials: 'same-origin',
       });
       if (res.status === 401 || res.status === 403) {
         setError('Admin token rejected — check the value and try again.');

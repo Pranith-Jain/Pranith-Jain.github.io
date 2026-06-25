@@ -5,32 +5,38 @@
  * which any external caller could forge. Tokens are HMAC-SHA256-signed
  * and expire after a short TTL (default 5 minutes).
  *
- * The signing secret is derived deterministically from a Worker-level
- * constant so that DOs and API routes in the SAME Worker can both
- * sign/validate tokens. Durable Objects run in their own isolate, so
- * module-level state is NOT shared — a random per-cold-start key would
- * cause cross-isolate HMAC mismatches. Using a deterministic derivation
- * (Worker name + salt) keeps the token proof-of-possession: an external
- * caller would need to know the Worker name to forge a valid HMAC.
+ * The signing secret is provided via the `INTERNAL_TOKEN_SECRET` Worker
+ * secret (set with `wrangler secret put INTERNAL_TOKEN_SECRET`). Both DOs
+ * and API routes receive the same secret through the env binding, so
+ * tokens are valid across isolates within the same Worker.
+ *
+ * FALLBACK: When `INTERNAL_TOKEN_SECRET` is not set (e.g. local dev),
+ * the module falls back to a deterministic derivation for backward
+ * compatibility. This path MUST NOT be used in production.
  */
 
 const TOKEN_TTL_MS = 5 * 60_000; // 5 minutes
 const SEP = '.';
-/** Deterministic salt — shared across all isolates in the same Worker. */
-const HMAC_SALT = 'pranithjain-internal-token-v1';
+/** Legacy deterministic fallback — only used when INTERNAL_TOKEN_SECRET is unset. */
+const FALLBACK_HMAC_SALT = 'pranithjain-internal-token-v1';
 
-/**
- * Deterministic HMAC key derived from the Worker name + salt.
- * Both DOs and API routes compute the same key, so tokens are valid
- * across isolates within the same Worker.
- */
-let _secret: CryptoKey | null = null;
+/** Cache the derived CryptoKey per secret value. */
+let _cachedSecret: string | null = null;
+let _cachedKey: CryptoKey | null = null;
 
-async function getSecret(): Promise<CryptoKey> {
-  if (_secret) return _secret;
-  const raw = new TextEncoder().encode(HMAC_SALT);
-  _secret = await crypto.subtle.importKey('raw', raw, { name: 'HMAC', hash: 'SHA-256' }, false, ['sign', 'verify']);
-  return _secret;
+async function getSecret(secret?: string): Promise<CryptoKey> {
+  const raw = secret ?? FALLBACK_HMAC_SALT;
+  if (_cachedSecret === raw && _cachedKey) return _cachedKey;
+  const key = await crypto.subtle.importKey(
+    'raw',
+    new TextEncoder().encode(raw),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign', 'verify']
+  );
+  _cachedSecret = raw;
+  _cachedKey = key;
+  return key;
 }
 
 export interface InternalTokenPayload {
@@ -43,12 +49,16 @@ export interface InternalTokenPayload {
 /**
  * Generate a signed internal token. Called by Durable Objects before
  * making in-process API calls via the SELF service binding.
+ *
+ * @param caller - Caller identity (e.g. 'investigator-do')
+ * @param secret - The INTERNAL_TOKEN_SECRET from env. When provided, uses
+ *   a cryptographically random secret instead of the deterministic fallback.
  */
-export async function signInternalToken(caller: string): Promise<string> {
-  const secret = await getSecret();
+export async function signInternalToken(caller: string, secret?: string): Promise<string> {
+  const key = await getSecret(secret);
   const payload: InternalTokenPayload = { caller, exp: Date.now() + TOKEN_TTL_MS };
   const data = new TextEncoder().encode(JSON.stringify(payload));
-  const sig = new Uint8Array(await crypto.subtle.sign('HMAC', secret, data));
+  const sig = new Uint8Array(await crypto.subtle.sign('HMAC', key, data));
   const sigHex = Array.from(sig, (b) => b.toString(16).padStart(2, '0')).join('');
   // payload is base64url so it's safe in a header value
   const payloadB64 = btoa(JSON.stringify(payload)).replace(/[=+/]/g, (c) => (c === '=' ? '' : c === '+' ? '-' : '_'));
@@ -60,8 +70,12 @@ export type InternalTokenResult = { ok: true; caller: string } | { ok: false; re
 /**
  * Validate a signed internal token. Returns the caller identity on
  * success, or a rejection reason on failure.
+ *
+ * @param token - The signed token to validate
+ * @param secret - The INTERNAL_TOKEN_SECRET from env. When provided, uses
+ *   the secret-based key instead of the deterministic fallback.
  */
-export async function validateInternalToken(token: string): Promise<InternalTokenResult> {
+export async function validateInternalToken(token: string, secret?: string): Promise<InternalTokenResult> {
   const sepIdx = token.lastIndexOf(SEP);
   if (sepIdx < 0) return { ok: false, reason: 'malformed token' };
 
@@ -97,7 +111,7 @@ export async function validateInternalToken(token: string): Promise<InternalToke
   }
 
   // Verify HMAC signature
-  const secret = await getSecret();
+  const key = await getSecret(secret);
   const data = new TextEncoder().encode(payloadJson);
   // Decode hex signature — must be even-length hex
   const hexPairs = sigHex.match(/.{2}/g);
@@ -105,7 +119,7 @@ export async function validateInternalToken(token: string): Promise<InternalToke
     return { ok: false, reason: 'invalid signature encoding' };
   }
   const sigBytes = new Uint8Array(hexPairs.map((h) => parseInt(h, 16)));
-  const valid = await crypto.subtle.verify('HMAC', secret, sigBytes, data);
+  const valid = await crypto.subtle.verify('HMAC', key, sigBytes, data);
   if (!valid) {
     return { ok: false, reason: 'invalid signature' };
   }

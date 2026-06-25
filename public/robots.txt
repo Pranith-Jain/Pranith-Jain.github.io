@@ -12,6 +12,17 @@ Disallow: /admin
 Disallow: /private/
 Disallow: /api/
 
+# Malware/sample-related pages — Google Safe Browsing flags these as
+# "uncommon download" or "malware" warnings. These are analysis tools,
+# not download sites, but Google's heuristic treats them the same.
+Disallow: /threatintel/malware-vault
+Disallow: /threatintel/malware-sandbox
+Disallow: /threatintel/malware/vault
+Disallow: /threatintel/malware/sandbox
+Disallow: /dfir/malware-scan
+Disallow: /dfir/sample-scan
+Disallow: /dfir/sandbox
+
 # AI answer-engine crawlers — explicitly allowed so blog/threat-intel content
 # is eligible to be cited in AI Overviews / ChatGPT / Perplexity / Claude /
 # Gemini / Copilot / Perplexity answers. Blocking any of these would make the

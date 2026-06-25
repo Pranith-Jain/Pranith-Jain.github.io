@@ -20,9 +20,33 @@ import type { Context, MiddlewareHandler, Next } from 'hono';
 import type { Env } from '../env';
 import { unauthorized } from './api-error';
 import { validateInternalToken, ALLOWED_INTERNAL_CALLERS } from './internal-token';
+import { getAllowedOrigins } from './site-config';
 
-/** Allowed origins that bypass API key requirement. */
-const ALLOWED_ORIGINS = new Set(['https://pranithjain.qzz.io', 'http://localhost:5173', 'http://localhost:8787']);
+/**
+ * Failed auth attempt tracker. Per-IP, in-memory, auto-expiring.
+ * Provides progressive backoff for repeated invalid API key attempts.
+ * Scope: per-Worker-isolate (resets on cold start), but combined with
+ * the per-IP rate limiter this closes the "rotate keys to brute-force"
+ * gap within a warm isolate's lifetime.
+ */
+const failedAuthAttempts = new Map<string, { count: number; firstAt: number }>();
+const FAILED_AUTH_WINDOW_MS = 15 * 60_000; // 15-minute tracking window
+const FAILED_AUTH_THRESHOLD = 10; // lockout after 10 failures
+
+function trackFailedAuth(ip: string): boolean {
+  const now = Date.now();
+  const entry = failedAuthAttempts.get(ip);
+  if (!entry || now - entry.firstAt > FAILED_AUTH_WINDOW_MS) {
+    failedAuthAttempts.set(ip, { count: 1, firstAt: now });
+    return false;
+  }
+  entry.count++;
+  return entry.count >= FAILED_AUTH_THRESHOLD;
+}
+
+function clearFailedAuth(ip: string): void {
+  failedAuthAttempts.delete(ip);
+}
 
 /**
  * OPEN_PUBLIC_READS emergency valve. When set, GET/HEAD reads bypass the
@@ -30,27 +54,22 @@ const ALLOWED_ORIGINS = new Set(['https://pranithjain.qzz.io', 'http://localhost
  * value is parsed by `valveOpenUntilMs`:
  *   - an ISO-8601 timestamp or epoch-millis → keyless reads allowed only while
  *     `now < that instant`, enforced identically by every isolate (stateless);
- *   - the legacy literal `'true'` → open but NON-expiring (logged at error level
- *     on every pass so it cannot silently become permanent — prefer a timestamp).
+ *   - the literal 'true' or unset → closed (the legacy non-expiring mode has
+ *     been removed for security — a forgotten valve leaves all reads open
+ *     indefinitely).
  *
- * The previous implementation tracked "first observed open" in a module-global
- * with a 1-hour auto-close. That never reliably closed: Worker module globals are
- * per-isolate and reset on every new isolate, so each fresh isolate re-opened the
- * valve and restarted its timer — leaving the valve effectively open forever.
- *
- * Returns the epoch-ms the valve is open until (Infinity for legacy 'true'),
- * or null when the valve is unset/blank/malformed (i.e. closed).
+ * Returns the epoch-ms the valve is open until,
+ * or null when the valve is unset/blank/malformed/expired (i.e. closed).
  */
 export function valveOpenUntilMs(raw: string | undefined | null): number | null {
   const v = (raw ?? '').trim();
-  if (v === '') return null;
-  if (v.toLowerCase() === 'true') return Number.POSITIVE_INFINITY; // legacy: open, non-expiring
+  if (v === '' || v.toLowerCase() === 'true') return null;
   if (/^\d{10,}$/.test(v)) {
     const ms = Number(v);
-    return Number.isFinite(ms) ? ms : null;
+    return Number.isFinite(ms) && ms > Date.now() ? ms : null;
   }
   const t = Date.parse(v); // ISO-8601
-  return Number.isNaN(t) ? null : t;
+  return Number.isNaN(t) || t <= Date.now() ? null : t;
 }
 
 /** Request paths that bypass API key auth — used for webhooks called by external services (Telegram, etc.). Handler-level auth (requireAdmin) still applies. */
@@ -107,8 +126,7 @@ function extractKey(c: Context<{ Bindings: Env }>): string | null {
  * admin gate, so honoring Sec-Fetch-Site does not weaken the posture.
  */
 function isSameOrigin(c: Context<{ Bindings: Env }>): boolean {
-  const allowed = new Set(ALLOWED_ORIGINS);
-  if (c.env?.SITE_URL) allowed.add(c.env.SITE_URL.replace(/\/$/, ''));
+  const allowed = new Set(getAllowedOrigins(c.env as { SITE_URL?: string; ALLOW_DEV_ORIGINS?: string }));
 
   const origin = c.req.header('origin') ?? '';
   // A present-but-foreign Origin means this is NOT our same-origin SPA — never
@@ -177,7 +195,7 @@ export function authenticate(mode: boolean | 'external-only'): MiddlewareHandler
     // that replaces the old spoofable X-Internal-Agent header.
     const internalToken = c.req.header('x-internal-token') ?? '';
     if (internalToken) {
-      const result = await validateInternalToken(internalToken);
+      const result = await validateInternalToken(internalToken, c.env?.INTERNAL_TOKEN_SECRET);
       if (result.ok && ALLOWED_INTERNAL_CALLERS.has(result.caller)) {
         return next();
       }
@@ -203,17 +221,14 @@ export function authenticate(mode: boolean | 'external-only'): MiddlewareHandler
     if (mode === 'external-only' && (c.req.method === 'GET' || c.req.method === 'HEAD')) {
       const openUntil = valveOpenUntilMs(c.env.OPEN_PUBLIC_READS);
       if (openUntil !== null && Date.now() < openUntil) {
-        const nonExpiring = openUntil === Number.POSITIVE_INFINITY;
-        console[nonExpiring ? 'error' : 'warn'](
+        console.warn(
           JSON.stringify({
-            level: nonExpiring ? 'error' : 'warn',
+            level: 'warn',
             event: 'open_public_reads_passthrough',
-            message: nonExpiring
-              ? "OPEN_PUBLIC_READS='true' — keyless reads are OPEN and NON-EXPIRING; set an ISO/epoch-ms expiry or unset to close."
-              : 'OPEN_PUBLIC_READS valve open — keyless reads allowed until expiry.',
+            message: 'OPEN_PUBLIC_READS valve open — keyless reads allowed until expiry.',
             path: new URL(c.req.url).pathname,
             method: c.req.method,
-            open_until: nonExpiring ? 'never' : new Date(openUntil).toISOString(),
+            open_until: new Date(openUntil).toISOString(),
           })
         );
         return next();
@@ -243,9 +258,20 @@ export function authenticate(mode: boolean | 'external-only'): MiddlewareHandler
       return next();
     }
     if (!user) {
+      const ip = c.req.header('cf-connecting-ip') ?? 'anon';
+      const locked = trackFailedAuth(ip);
+      if (locked) {
+        return c.json({ error: 'too_many_failed_attempts', message: 'try again later' }, 429, {
+          'retry-after': String(Math.ceil(FAILED_AUTH_WINDOW_MS / 1000)),
+        });
+      }
       if (required) return unauthorized(c, 'invalid api key');
       return next();
     }
+
+    // Successful auth — clear any failed attempt tracking for this IP.
+    const ip = c.req.header('cf-connecting-ip') ?? 'anon';
+    clearFailedAuth(ip);
 
     // Attach user context.
     (c as Context & { user: AuthUser }).user = user;

@@ -1,45 +1,38 @@
 /**
  * Operator admin token management.
  *
- * SECURITY: The token is stored in an HttpOnly cookie (set by
- * POST /api/v1/admin/session) so JavaScript cannot read it — this
- * prevents XSS from exfiltrating the token. The browser sends the
- * cookie automatically on every API request.
+ * SECURITY: The primary auth mechanism is an HttpOnly session cookie
+ * (set by POST /api/v1/admin/session). JavaScript cannot read HttpOnly
+ * cookies, so XSS cannot exfiltrate the token from the cookie jar.
+ * The browser sends the cookie automatically on every API request.
  *
- * The token is also kept in localStorage as a FALLBACK for:
- *   1. Non-browser API clients (curl, scripts) that can't use cookies
- *   2. Detecting whether the user has previously authenticated (UI state)
- *   3. Sending on legacy X-Admin-Token header during transition
+ * localStorage is used ONLY as a UI state hint (to show/hide the admin
+ * panel) — it does NOT store the token itself. The `adminAuthHeaders()`
+ * function returns empty headers; the browser sends the HttpOnly cookie
+ * automatically.
  *
- * The HttpOnly cookie is the PRIMARY auth mechanism. localStorage is
- * a secondary display/state hint only.
+ * For non-browser API clients (curl, scripts), use the
+ * `Authorization: Bearer <token>` header directly.
  */
 
-const STORAGE_KEY = 'adminToken';
-/** Auto-expire stored tokens after 1 hour to limit stale-token exposure. */
-const TOKEN_EXPIRY_MS = 60 * 60 * 1000;
-const TOKEN_TIMESTAMP_KEY = 'adminToken_setAt';
+const SESSION_STATE_KEY = 'adminSessionActive';
 
 export function readAdminToken(): string | null {
+  // No token in localStorage — rely on HttpOnly cookie.
+  // Return a non-null sentinel so UI knows a session exists.
   if (typeof window === 'undefined') return null;
   try {
-    const ts = window.localStorage.getItem(TOKEN_TIMESTAMP_KEY);
-    if (ts && Date.now() - Number(ts) > TOKEN_EXPIRY_MS) {
-      window.localStorage.removeItem(STORAGE_KEY);
-      window.localStorage.removeItem(TOKEN_TIMESTAMP_KEY);
-      return null;
-    }
-    return window.localStorage.getItem(STORAGE_KEY);
+    return window.localStorage.getItem(SESSION_STATE_KEY) === 'true' ? '__cookie__' : null;
   } catch {
     return null;
   }
 }
 
-export function writeAdminToken(token: string): void {
+export function writeAdminToken(_token: string): void {
   if (typeof window === 'undefined') return;
   try {
-    window.localStorage.setItem(STORAGE_KEY, token);
-    window.localStorage.setItem(TOKEN_TIMESTAMP_KEY, String(Date.now()));
+    // Store only a boolean flag — never the token itself.
+    window.localStorage.setItem(SESSION_STATE_KEY, 'true');
   } catch {
     // Storage quota or private browsing — non-fatal.
   }
@@ -48,27 +41,24 @@ export function writeAdminToken(token: string): void {
 export function clearAdminToken(): void {
   if (typeof window === 'undefined') return;
   try {
-    window.localStorage.removeItem(STORAGE_KEY);
-    window.localStorage.removeItem(TOKEN_TIMESTAMP_KEY);
+    window.localStorage.removeItem(SESSION_STATE_KEY);
   } catch {
     // non-fatal
   }
 }
 
 /**
- * Build headers with the admin token set on both `Authorization: Bearer`
- * and `X-Admin-Token` so every backend admin gate (case-study, intel-bundle,
- * briefings, campaigns, etc.) is reachable regardless of which header it
- * checks.
+ * Build headers for admin API requests.
  *
- * NOTE: When the HttpOnly session cookie is set, the browser sends it
- * automatically — these headers are redundant for cookie-capable clients
- * but are still included for backward compatibility with the legacy
- * header-based auth path.
+ * The HttpOnly session cookie is sent automatically by the browser —
+ * no token header is needed. Returns empty headers to avoid leaking
+ * any token value via JavaScript-accessible headers.
+ *
+ * NOTE: Non-browser clients (curl, scripts) should pass the token
+ * directly via `Authorization: Bearer <token>`.
  */
 export function adminAuthHeaders(): Record<string, string> {
-  const token = readAdminToken();
-  return token ? { Authorization: `Bearer ${token}`, 'X-Admin-Token': token } : {};
+  return {};
 }
 
 /**

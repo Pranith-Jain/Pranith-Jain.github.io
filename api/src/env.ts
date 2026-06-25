@@ -211,6 +211,12 @@ export interface Env {
    *  `wrangler.jsonc#vars.SITE_URL` — used for CORS, RSS links, and
    *  canonical URLs. Falls back to the hardcoded default. */
   SITE_URL?: string;
+  /** Secret for signing internal tokens (HMAC-SHA256). When set, replaces the
+   *  deterministic fallback. Set via `wrangler secret put INTERNAL_TOKEN_SECRET`. */
+  INTERNAL_TOKEN_SECRET?: string;
+  /** When set to "true", allows localhost dev origins in CORS and auth checks.
+   *  Unset in production to prevent local dev servers from authenticating. */
+  ALLOW_DEV_ORIGINS?: string;
   /** BuiltWith Domain API key (paid). Optional — when unset, the
    *  /api/v1/builtwith tech-stack lookup falls back to a free, self-contained
    *  heuristic that fingerprints the target's live HTTP headers + HTML body.
