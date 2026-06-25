@@ -38,11 +38,14 @@ export function Modal({
   useEffect(() => {
     if (!open) {
       document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
       previousFocus.current?.focus();
       return;
     }
     previousFocus.current = document.activeElement as HTMLElement;
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
     document.body.style.overflow = 'hidden';
+    document.body.style.paddingRight = `${scrollbarWidth}px`;
     // Move focus INTO the dialog on open — otherwise focus stays on the trigger
     // behind the backdrop and the Tab-trap below only engages once focus is
     // already inside (so the first Tab can escape to background content).
@@ -56,6 +59,7 @@ export function Modal({
     return () => {
       clearTimeout(t);
       document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
     };
   }, [open]);
 

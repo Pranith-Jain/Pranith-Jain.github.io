@@ -329,7 +329,6 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
           isMobileMenuOpen ? 'visible opacity-100' : 'invisible opacity-0'
         }`}
         id="mobile-menu"
-        ref={mobileMenuRef as React.RefObject<HTMLDivElement>}
         aria-hidden={!isMobileMenuOpen}
       >
         {/* Backdrop */}
@@ -341,14 +340,19 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
           aria-hidden="true"
         />
 
-        {/* Menu */}
+        {/* Menu — focus trap attached to the nav panel, not the backdrop overlay,
+            so Tab cycling stays within the interactive links. */}
         <nav
-          className={`absolute top-[72px] left-0 right-0 border-t border-[rgb(var(--border-400))] bg-white dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-100))] max-h-[calc(100dvh-80px)] overflow-y-auto transition-all duration-300 ${
+          ref={mobileMenuRef as React.RefObject<HTMLElement>}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobile navigation"
+          className={`absolute top-[env(safe-area-inset-top,0px)] left-0 right-0 border-t border-[rgb(var(--border-400))] bg-white dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-100))] max-h-[calc(100dvh-env(safe-area-inset-top,0px)-env(safe-area-inset-bottom,0px))] overflow-y-auto overscroll-contain transition-all duration-300 ${
             isMobileMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-3 opacity-0'
           }`}
-          aria-label="Mobile navigation"
+          style={{ WebkitOverflowScrolling: 'touch' }}
         >
-          <div className="flex flex-col p-4 space-y-1">
+          <div className="flex flex-col p-4 space-y-1 pt-[env(safe-area-inset-top,0px)]">
             {navLinks.map((link) => {
               if ('children' in link && link.children) {
                 return (
@@ -394,6 +398,8 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
               );
             })}
           </div>
+          {/* Safe area spacer for notched devices */}
+          <div className="h-[env(safe-area-inset-bottom,0px)]" />
         </nav>
       </div>
     </>

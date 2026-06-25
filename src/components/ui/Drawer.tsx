@@ -28,13 +28,16 @@ export function Drawer({ open, onClose, title, children, side = 'right', size = 
   // the panel on open, restores it to the trigger on close, and handles Esc.
   const containerRef = useFocusTrap({ isActive: open, onEscape: onClose });
 
-  // Body-scroll lock while the drawer is open (focus management lives in the
-  // useFocusTrap hook above).
+  // Body-scroll lock while the drawer is open, compensating for scrollbar
+  // width to prevent content reflow when the scrollbar disappears.
   useEffect(() => {
     if (!open) return;
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
     document.body.style.overflow = 'hidden';
+    document.body.style.paddingRight = `${scrollbarWidth}px`;
     return () => {
       document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
     };
   }, [open]);
 
