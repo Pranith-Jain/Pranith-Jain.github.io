@@ -13,6 +13,10 @@ export default tseslint.config(
       'worker-configuration.d.ts',
       '*.config.*',
       'scripts/',
+      '.wrangler-dryrun/',
+      '.wrangler/',
+      'public/sw.js',
+      'threatnexus-replication/dist/',
     ],
   },
 

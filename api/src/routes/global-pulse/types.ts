@@ -1,7 +1,5 @@
 /* ─── Types ─────────────────────────────────────────────────────────────── */
 
-import type { Context } from 'hono';
-
 export type PulseKind =
   | 'earthquake'
   | 'ioc_activity'

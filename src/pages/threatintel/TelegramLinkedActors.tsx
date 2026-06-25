@@ -539,7 +539,7 @@ function PivotCard({ pivot, onClearFilter }: { pivot: HandlePivot; onClearFilter
               <li key={a.id} className="text-xs">
                 <div className="flex flex-wrap items-baseline gap-2">
                   <Link
-                    to="/threatintel/actor-kb"
+                    to="/threatintel/catalog?cat=actors"
                     className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400"
                   >
                     {a.name}

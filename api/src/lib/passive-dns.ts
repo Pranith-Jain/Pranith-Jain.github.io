@@ -91,7 +91,6 @@ export interface FastFluxIndicator {
 // ── Configuration ───────────────────────────────────────────────────────
 
 const PASSIVE_DNS_FRESHNESS_HOURS = 6;
-const PASSIVE_DNS_CACHE_TTL_SECONDS = 6 * 3600;
 const PASSIVE_DNS_FETCH_TIMEOUT_MS = 10_000;
 const MAX_RECORDS_PER_SOURCE = 500;
 
@@ -328,7 +327,7 @@ async function fetchUrlscanIp(ip: string, token: string | undefined, signal: Abo
   }
 }
 
-async function fetchCrtSh(domain: string, signal: AbortSignal): Promise<SourceResult> {
+async function _fetchCrtSh(domain: string, signal: AbortSignal): Promise<SourceResult> {
   try {
     const res = await fetch(`https://crt.sh/?q=${encodeURIComponent(domain)}&output=json`, {
       signal,
@@ -367,7 +366,7 @@ async function fetchCrtSh(domain: string, signal: AbortSignal): Promise<SourceRe
   }
 }
 
-async function fetchCirclPdns(query: string, signal: AbortSignal): Promise<SourceResult> {
+async function _fetchCirclPdns(query: string, signal: AbortSignal): Promise<SourceResult> {
   try {
     const res = await fetch(`https://www.circl.lu/pdns/query/${encodeURIComponent(query)}`, {
       headers: { Accept: 'application/json' },
@@ -945,7 +944,7 @@ export async function scanForPhishingDomains(
 
   // Scan each domain for phishing patterns
   for (const domain of domains.slice(0, maxDomains)) {
-    const { is_phishing, patterns } = isPhishingPattern(domain);
+    const { is_phishing } = isPhishingPattern(domain);
     if (!is_phishing) continue;
 
     // Query passive DNS to get current resolution

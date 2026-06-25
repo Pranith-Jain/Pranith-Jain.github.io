@@ -83,7 +83,7 @@ async function selfFetch<T>(self: Fetcher, path: string): Promise<T | null> {
 const IPV4 = /^(\d{1,3}\.){3}\d{1,3}$/;
 const IPV6 = /^[0-9a-fA-F:]+$/;
 
-import { createSiRateLimiter, type SiRateLimiter, type RateLimitedProvider } from './si-rate-limit';
+import { createSiRateLimiter, type RateLimitedProvider } from './si-rate-limit';
 
 export function isValidIp(s: string): boolean {
   if (!s) return false;

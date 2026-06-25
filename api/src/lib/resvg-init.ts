@@ -1,1 +1,0 @@
-../../../worker/lib/resvg-init.ts

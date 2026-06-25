@@ -1,5 +1,4 @@
 import type { Context } from 'hono';
-import type { Env } from '../env';
 import {
   queryPassiveDns,
   reverseLookup,
@@ -54,7 +53,10 @@ export async function passiveDnsOverlapHandler(c: Context): Promise<Response> {
   const domainsParam = c.req.query('domains')?.trim();
   if (!domainsParam) return c.json({ error: 'domains parameter required (comma-separated)' }, 400);
 
-  const domains = domainsParam.split(',').map((d) => d.trim()).filter(Boolean);
+  const domains = domainsParam
+    .split(',')
+    .map((d) => d.trim())
+    .filter(Boolean);
   if (domains.length < 2) return c.json({ error: 'at least 2 domains required' }, 400);
 
   const db = c.env.BRIEFINGS_DB;

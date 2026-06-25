@@ -291,6 +291,39 @@ const ROUTES = [
   '/dfir/pgp-tool',
   '/dfir/tor-gateway',
 
+  // ── DFIR: investigator workbenches (6) — 0 API calls ──────────
+  '/dfir/domain-investigator',
+  '/dfir/ioc-investigate',
+  '/dfir/username-investigator',
+  '/dfir/yara-workbench',
+  '/dfir/stix-workbench',
+  '/dfir/malware-analyzer',
+
+  // ── DFIR: specialist tools (8) — 0 API calls ──────────────────
+  '/dfir/attack-navigator',
+  '/dfir/mitre-matrix',
+  '/dfir/vuln-toolkit',
+  '/dfir/sec-headers-live',
+  '/dfir/email-deliverability',
+  '/dfir/ioc-lifecycle',
+  '/dfir/osint-mapper',
+  '/dfir/multi-search',
+  '/dfir/notebooks',
+
+  // ── DFIR: triage & forensic tools (5) — 0 API calls ───────────
+  '/dfir/dnscope',
+  '/dfir/regscope',
+  '/dfir/tracer',
+  '/dfir/tracerules',
+  '/dfir/phone-osint',
+  '/dfir/weather-osint',
+  '/dfir/infostealer-intel',
+
+  // ── DFIR: AI agent tools (4) — 0 API calls ────────────────────
+  '/dfir/agent',
+  '/dfir/attmap-ai',
+  '/dfir/x-verdikt',
+
   // ── DFIR: tools that fetch /api/v1/* on mount (33) ────────────
   // Prerendered chrome + loading state, then client hydrates.
   '/dfir/ioc-check',
@@ -365,6 +398,8 @@ const ROUTES = [
   '/threatintel/telegram-monitor',
   '/threatintel/source-health',
   '/threatintel/soc-dashboard',
+  '/threatintel/telegram-iocs',
+  '/threatintel/malware/supply-chain',
 
   // ── ThreatIntel: static catalogs (5) — 0 API calls ────────────
   '/threatintel/awesome-lists',
@@ -416,6 +451,7 @@ const ROUTES = [
   '/threatintel/facilities',
   '/threatintel/deepdarkcti',
   '/threatintel/ransomware-live',
+  '/threatintel/ransomwhere',
   '/threatintel/infostealer',
   '/threatintel/feed-sources',
   '/threatintel/settings',

@@ -185,7 +185,6 @@ export function parseBooleanQuery(query: string): ParsedQuery {
 
   // Boolean parsing with precedence: NOT > AND > OR
   // Build a simple expression tree
-  const conditions: string[] = [];
   const andGroups: string[][] = [[]];
   const params: string[] = [];
   let currentNegated = false;

@@ -161,10 +161,6 @@ const BODY_FINGERPRINTS: Array<{ pattern: RegExp; category: string; name: string
 
 // ─── Open Ports (common web ports) ────────────────────────────────────────────
 
-const COMMON_PORTS = [
-  21, 22, 25, 53, 80, 110, 143, 443, 993, 995, 3306, 3389, 5432, 5900, 6379, 8080, 8443, 8888, 9200, 27017,
-];
-
 // ─── Main Handler ─────────────────────────────────────────────────────────────
 
 export async function domainWebcheckHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
@@ -354,7 +350,7 @@ async function probeTls(domain: string): Promise<TlsInfo> {
     });
     clearTimeout(timer);
 
-    const hsts = res.headers.get('strict-transport-security');
+    res.headers.get('strict-transport-security');
     const server = res.headers.get('server');
     const protocol = res.headers.get('alt-svc')?.includes('h3') ? 'HTTP/3 (QUIC)' : 'HTTP/2';
 

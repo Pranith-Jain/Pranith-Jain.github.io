@@ -3,7 +3,7 @@ import type { Env } from '../env';
 import { safeJsonBody } from '../lib/safe-body';
 import { badRequest, notFound, serviceUnavailable } from '../lib/api-error';
 import { requireAdmin } from '../lib/admin-auth';
-import { safeNull, safeNullLog } from '../lib/safe-catch';
+import { safeNullLog } from '../lib/safe-catch';
 
 interface ProviderVerdict {
   provider: string;
@@ -72,7 +72,8 @@ async function loadAll(kv: KVNamespace): Promise<ObservableEntry[]> {
   const raw = await safeNullLog('kv-get-observables', kv.get(KV_KEY, 'json'));
   const entries = (raw as ObservableEntry[]) ?? [];
   if (cache && entries.length > 0) {
-    safeNullLog('cache-put-observables',
+    safeNullLog(
+      'cache-put-observables',
       cache.put(
         OBS_CACHE_KEY,
         new Response(JSON.stringify(entries), {
@@ -88,7 +89,8 @@ async function saveAll(kv: KVNamespace, entries: ObservableEntry[]): Promise<voi
   await kv.put(KV_KEY, JSON.stringify(entries));
   const cache = cacheApi();
   if (cache) {
-    safeNullLog('cache-put-observables-save',
+    safeNullLog(
+      'cache-put-observables-save',
       cache.put(
         OBS_CACHE_KEY,
         new Response(JSON.stringify(entries), {

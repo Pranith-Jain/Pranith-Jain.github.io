@@ -1,5 +1,4 @@
 import type { Context } from 'hono';
-import type { Env } from '../env';
 import {
   addWatch,
   listWatches,
@@ -7,7 +6,6 @@ import {
   getWatch,
   listAlerts,
   getWatchlistStats,
-  ensureWatchlistTables,
   type IocType,
   type AlertChannel,
 } from '../lib/ioc-watchlist';

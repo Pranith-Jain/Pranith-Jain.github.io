@@ -11,7 +11,7 @@
  */
 
 import { readFile, writeFile, mkdir } from 'fs/promises';
-import { join, resolve, basename } from 'path';
+import { join, resolve } from 'path';
 import { existsSync } from 'fs';
 import { parseContentSpec } from './parser';
 import { generateLinkedInCarouselHTML, generateLinkedInPost } from './generators/linkedin';

@@ -170,7 +170,7 @@ export default function OnionWatch(): JSX.Element {
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
           Companion ransomware victim feed:{' '}
-          <Link to="/threatintel/darkweb" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/threatintel/catalog?cat=darkweb" className="text-brand-600 dark:text-brand-400 hover:underline">
             Dark Web Watch
           </Link>
           . Reachability is upstream-observed and your own Tor client may see different status. Treat any leak-site

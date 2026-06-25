@@ -11,10 +11,6 @@ import { BRAND } from '../brand';
 import type { ContentSpec } from '../content-spec';
 import { renderCarouselHTML } from '../carousel-renderer';
 
-function escapeMarkdown(s: string): string {
-  return s.replace(/[*_~`]/g, '\\$&');
-}
-
 export function generateLinkedInPost(spec: ContentSpec): string {
   const hook = spec.slides[0]?.headline ?? spec.title;
   const points = spec.slides

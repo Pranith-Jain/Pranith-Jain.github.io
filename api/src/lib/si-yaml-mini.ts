@@ -34,13 +34,6 @@ export function parseMiniYaml(src: string): Json {
     return lines[pos]!;
   }
 
-  function nextNonBlank(): string {
-    const l = peek();
-    if (l === undefined) throw new MiniYamlError('unexpected end of input', pos + 1);
-    pos++;
-    return l;
-  }
-
   function indentOf(line: string): number {
     const m = /^(\s*)/.exec(line);
     return m ? m[1]!.length : 0;

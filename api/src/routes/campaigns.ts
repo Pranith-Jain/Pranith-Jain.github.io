@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { requireAdmin } from '../lib/admin-auth';
-import { safeNull, safeNullLog } from '../lib/safe-catch';
+import { safeNullLog } from '../lib/safe-catch';
 
 /**
  * Campaign persistence — KV-backed save / list / detail / delete for

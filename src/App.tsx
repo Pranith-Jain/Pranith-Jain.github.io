@@ -786,10 +786,11 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   // ── Dark Web Hub ────────────────────────────────────────────────
   { path: '/threatintel/deepdarkcti', to: '/threatintel/darkweb/deepdark' },
   { path: '/threatintel/re-leaks', to: '/threatintel/darkweb/leaks' },
-  { path: '/threatintel/ransomware-map', to: '/threatintel/darkweb/ransom-activity' },
+  { path: '/threatintel/ransomware-map', to: '/threatintel/darkweb/ransom-map' },
   { path: '/threatintel/ransomware-activity', to: '/threatintel/darkweb/ransom-activity' },
-  { path: '/threatintel/ransom-report', to: '/threatintel/darkweb/ransom-activity' },
+  { path: '/threatintel/ransom-report', to: '/threatintel/darkweb/ransom-report' },
   { path: '/threatintel/negotiations', to: '/threatintel/darkweb/ransom-activity?tab=negotiations' },
+  { path: '/threatintel/ransomwhere', to: '/threatintel/darkweb/ransomwhere' },
   { path: '/threatintel/breach-forums', to: '/threatintel/darkweb/forums' },
   { path: '/threatintel/darkweb-tools', to: '/threatintel/darkweb/watch' },
 

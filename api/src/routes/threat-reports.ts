@@ -295,20 +295,9 @@ async function generateThreatAssessment(domain: string): Promise<ThreatAssessmen
   const baseDomain = domain.replace(/^(https?:\/\/)?(www\.)?/, '').split('/')[0] ?? domain;
 
   // DNS check
-  let hasMX = false;
   let hasSPF = false;
   let hasDMARC = false;
   let hasSSL = false;
-
-  try {
-    const dnsRes = await fetch(`https://dns.google/resolve?name=${baseDomain}&type=MX`, {
-      signal: AbortSignal.timeout(5000),
-    });
-    const dnsData = (await dnsRes.json()) as { Answer?: Array<{ type: number }> };
-    hasMX = (dnsData.Answer || []).some((a) => a.type === 15);
-  } catch {
-    /* */
-  }
 
   try {
     const txtRes = await fetch(`https://dns.google/resolve?name=${baseDomain}&type=TXT`, {

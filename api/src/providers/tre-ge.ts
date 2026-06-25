@@ -72,7 +72,7 @@ function mapVerdict(rep: string | undefined, score: number | undefined): Verdict
   return 'unknown';
 }
 
-export const trege: ProviderAdapter = async (indicator, _env, signal) => {
+export const trege: ProviderAdapter = async (indicator, _env, _signal) => {
   const now = new Date().toISOString();
   const base = (status: ProviderResult['status'], extra: Partial<ProviderResult> = {}): ProviderResult => ({
     source: 'tre-ge',

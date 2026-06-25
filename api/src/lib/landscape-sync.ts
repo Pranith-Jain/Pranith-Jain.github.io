@@ -30,8 +30,6 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { kvPutIfChanged } from './safe-catch';
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 // ── Constants ──────────────────────────────────────────────────────────
 export const OWASP_AI_LANDSCAPE_KV_KEY = 'owasp-ai-landscape:v1';
 export const OWASP_AI_LANDSCAPE_META_KEY = 'owasp-ai-landscape:meta:v1';

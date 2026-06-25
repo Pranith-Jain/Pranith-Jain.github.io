@@ -21,7 +21,7 @@ import { join, resolve, basename } from 'path';
 import { existsSync } from 'fs';
 import { parseContentSpec } from './parser';
 import { generateLinkedInCarouselHTML, generateLinkedInPost, generateLinkedInReadme } from './generators/linkedin';
-import { generateInstagramCarouselHTML, generateInstagramCaption } from './generators/instagram';
+import { generateInstagramCaption } from './generators/instagram';
 import { generateTwitterThreadText, generateTwitterPost } from './generators/twitter';
 import type { ContentSpec } from './content-spec';
 

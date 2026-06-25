@@ -231,7 +231,7 @@ export default function StatusPage(): JSX.Element {
           </p>
           <p className="mt-2 flex flex-wrap items-center gap-3">
             <Link
-              to="/threatintel/feeds/status"
+              to="/threatintel/source-health"
               className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline"
             >
               Full feed workbench →

@@ -1,6 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { safeNull, safeNullLog } from '../lib/safe-catch';
+import { safeNullLog } from '../lib/safe-catch';
 
 export type AssessmentStatus = 'draft' | 'review' | 'published' | 'archived';
 export type AssessmentType = 'actor' | 'campaign' | 'cve' | 'ransomware' | 'sector' | 'general';
@@ -72,7 +72,8 @@ async function loadAll(env: Env): Promise<Assessment[]> {
     const assessments: Assessment[] = results.filter((a): a is Assessment => a !== null);
     const sorted = assessments.sort((a, b) => b.created_at.localeCompare(a.created_at));
     if (cache && sorted.length > 0) {
-      safeNullLog('cache-put-assessment-index',
+      safeNullLog(
+        'cache-put-assessment-index',
         cache.put(
           INDEX_CACHE_KEY,
           new Response(JSON.stringify(sorted), { headers: { 'cache-control': `max-age=${INDEX_CACHE_TTL}` } })
@@ -187,7 +188,8 @@ export async function assessmentDetailHandler(c: Context<{ Bindings: Env }>): Pr
     if (!raw) return c.json({ error: 'assessment not found' }, 404);
     const assessment = JSON.parse(raw) as Assessment;
     if (cache) {
-      safeNullLog('cache-put-assessment-detail',
+      safeNullLog(
+        'cache-put-assessment-detail',
         cache.put(
           new Request(cacheKey),
           new Response(JSON.stringify(assessment), { headers: { 'cache-control': `max-age=${INDEX_CACHE_TTL}` } })
@@ -257,7 +259,10 @@ export async function assessmentDeleteHandler(c: Context<{ Bindings: Env }>): Pr
     const cache = cacheApi();
     if (cache) {
       safeNullLog('cache-delete-index', cache.delete(INDEX_CACHE_KEY));
-      safeNullLog('cache-delete-assessment-detail', cache.delete(new Request(`https://assessment-detail-cache.internal/v1/${id}`)));
+      safeNullLog(
+        'cache-delete-assessment-detail',
+        cache.delete(new Request(`https://assessment-detail-cache.internal/v1/${id}`))
+      );
     }
     return c.json({ ok: true, deleted: id });
   } catch (e) {

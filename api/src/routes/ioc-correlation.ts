@@ -196,7 +196,7 @@ export async function fetchIocCorrelation(env?: Env): Promise<IocCorrelationResp
   // SSLBL = abuse.ch botnet-C2 IPs (malicious-SSL pinned); drb-ra
   // domainC2s = C2 domains (complements the existing IPC2s); Botvrij =
   // curated OSINT domains.
-  const [sslblText, c2DomainText, botvrijDomainText, mtiIocResult] = await Promise.all([
+  const [sslblText, c2DomainText, _botvrijDomainText, mtiIocResult] = await Promise.all([
     fetchText('https://sslbl.abuse.ch/blacklist/sslipblacklist.csv'),
     fetchText('https://raw.githubusercontent.com/drb-ra/C2IntelFeeds/master/feeds/domainC2s.csv'),
     fetchText('https://www.botvrij.eu/data/ioclist.domain'),
@@ -426,7 +426,6 @@ export async function fetchIocCorrelation(env?: Env): Promise<IocCorrelationResp
   // consensus; a hash appearing in both MalwareBazaar AND a Telegram
   // leak jumps to source_count=2 and ranks higher.
   const tgResult = await ingestTelegramLeaksFromD1(env?.BRIEFINGS_DB, 7, 50);
-  let tgIocCount = 0;
   for (const e of tgResult.entries) {
     if (e.type === 'ipv4') add(ipBucket, e.value, 'telegram-leak', e.context, e.timestamp);
     else if (e.type === 'url') {
@@ -438,7 +437,6 @@ export async function fetchIocCorrelation(env?: Env): Promise<IocCorrelationResp
       }
     } else if (e.type === 'domain') add(domainBucket, norm(e.value), 'telegram-leak', e.context, e.timestamp);
     else if (e.type === 'hash') add(hashBucket, norm(e.value), 'telegram-leak', e.context, e.timestamp);
-    tgIocCount++;
   }
   trackSource('telegram-leak', tgResult.meta.ok, tgResult.meta.rowsScanned);
 

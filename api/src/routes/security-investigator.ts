@@ -28,7 +28,6 @@
  */
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { notFound, badRequest, internalError } from '../lib/api-error';
 
 const DATA_PREFIX = '/data/si';
 
@@ -431,7 +430,7 @@ export async function siScriptHandler(c: Context<{ Bindings: Env }>) {
   });
 }
 
-import { parseMiniYaml, MiniYamlError } from '../lib/si-yaml-mini';
+import { parseMiniYaml } from '../lib/si-yaml-mini';
 import { renderDashboard, type RenderManifest } from '../lib/si-svg-renderer';
 
 /**

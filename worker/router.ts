@@ -263,6 +263,39 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/pgp-tool', '/__prerendered/dfir__pgp-tool'],
   ['/dfir/tor-gateway', '/__prerendered/dfir__tor-gateway'],
 
+  // ── DFIR: investigator workbenches ────────────────────────────
+  ['/dfir/domain-investigator', '/__prerendered/dfir__domain-investigator'],
+  ['/dfir/ioc-investigate', '/__prerendered/dfir__ioc-investigate'],
+  ['/dfir/username-investigator', '/__prerendered/dfir__username-investigator'],
+  ['/dfir/yara-workbench', '/__prerendered/dfir__yara-workbench'],
+  ['/dfir/stix-workbench', '/__prerendered/dfir__stix-workbench'],
+  ['/dfir/malware-analyzer', '/__prerendered/dfir__malware-analyzer'],
+
+  // ── DFIR: specialist tools ───────────────────────────────────
+  ['/dfir/attack-navigator', '/__prerendered/dfir__attack-navigator'],
+  ['/dfir/mitre-matrix', '/__prerendered/dfir__mitre-matrix'],
+  ['/dfir/vuln-toolkit', '/__prerendered/dfir__vuln-toolkit'],
+  ['/dfir/sec-headers-live', '/__prerendered/dfir__sec-headers-live'],
+  ['/dfir/email-deliverability', '/__prerendered/dfir__email-deliverability'],
+  ['/dfir/ioc-lifecycle', '/__prerendered/dfir__ioc-lifecycle'],
+  ['/dfir/osint-mapper', '/__prerendered/dfir__osint-mapper'],
+  ['/dfir/multi-search', '/__prerendered/dfir__multi-search'],
+  ['/dfir/notebooks', '/__prerendered/dfir__notebooks'],
+
+  // ── DFIR: triage & forensic tools ────────────────────────────
+  ['/dfir/dnscope', '/__prerendered/dfir__dnscope'],
+  ['/dfir/regscope', '/__prerendered/dfir__regscope'],
+  ['/dfir/tracer', '/__prerendered/dfir__tracer'],
+  ['/dfir/tracerules', '/__prerendered/dfir__tracerules'],
+  ['/dfir/phone-osint', '/__prerendered/dfir__phone-osint'],
+  ['/dfir/weather-osint', '/__prerendered/dfir__weather-osint'],
+  ['/dfir/infostealer-intel', '/__prerendered/dfir__infostealer-intel'],
+
+  // ── DFIR: AI agent tools ─────────────────────────────────────
+  ['/dfir/agent', '/__prerendered/dfir__agent'],
+  ['/dfir/attmap-ai', '/__prerendered/dfir__attmap-ai'],
+  ['/dfir/x-verdikt', '/__prerendered/dfir__x-verdikt'],
+
   // ── DFIR: tools that fetch /api/v1/* on mount ─────────────────
   ['/dfir/ioc-check', '/__prerendered/dfir__ioc-check'],
   ['/dfir/phishing', '/__prerendered/dfir__phishing'],
@@ -346,10 +379,13 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/telegram-monitor', '/__prerendered/threatintel__telegram-monitor'],
   ['/threatintel/source-health', '/__prerendered/threatintel__source-health'],
   ['/threatintel/soc-dashboard', '/__prerendered/threatintel__soc-dashboard'],
+  ['/threatintel/telegram-iocs', '/__prerendered/threatintel__telegram-iocs'],
+  ['/threatintel/malware/supply-chain', '/__prerendered/threatintel__malware__supply-chain'],
 
   // ── ThreatIntel: live-feed surfaces ───────────────────────────
   ['/threatintel/pulse', '/__prerendered/threatintel__pulse'],
   ['/threatintel/ransomware-map', '/__prerendered/threatintel__ransomware-map'],
+  ['/threatintel/ransomwhere', '/__prerendered/threatintel__ransomwhere'],
   ['/threatintel/certstream', '/__prerendered/threatintel__certstream'],
   ['/threatintel/campaign-generator', '/__prerendered/threatintel__campaign-generator'],
   ['/threatintel/malicious-packages', '/__prerendered/threatintel__malicious-packages'],

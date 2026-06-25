@@ -574,7 +574,7 @@ function extractNodeModules(html: string): string[] {
   while ((m = re.exec(html)) !== null) {
     if (m[1]) refs.add(m[1]);
   }
-  const re2 = /node_modules[\/\\][a-z@\w.-]+/gi; // eslint-disable-line no-useless-escape
+  const re2 = /node_modules[/\\][a-z@\w.-]+/gi;
   while ((m = re2.exec(html)) !== null) {
     if (m[0]) refs.add(m[0]);
   }

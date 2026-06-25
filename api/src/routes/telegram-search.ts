@@ -32,7 +32,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { safeNullLog } from '../lib/safe-catch';
-import { badRequest, badGateway, validationError } from '../lib/api-error';
+import { badGateway, validationError } from '../lib/api-error';
 import { correlateHandle, type ActorHit } from '../lib/telegram-actor-correlate';
 
 const TGSTAT_BASE = 'https://tgstat.com';
@@ -301,7 +301,6 @@ export async function telegramSearchHandler(c: Context<{ Bindings: Env }>): Prom
 
   let results: TelegramSearchResult[] = [];
   const fetchedAt = new Date().toISOString();
-  let stale = false;
 
   if (cachedPayload) {
     // Re-attach a fresh generated_at for the client, but keep the
@@ -325,7 +324,6 @@ export async function telegramSearchHandler(c: Context<{ Bindings: Env }>): Prom
     // written previously under the same key.
     const stalePayload = await readStaleSearchCache(query);
     if (stalePayload) {
-      stale = true;
       warnings.push('tgstat upstream failed; serving previous result');
       const out: TelegramSearchResponse = {
         ...stalePayload.body,

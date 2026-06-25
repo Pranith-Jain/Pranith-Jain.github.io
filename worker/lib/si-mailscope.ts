@@ -1,4 +1,4 @@
-/* eslint-disable no-useless-escape, @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * MAILSCOPE — Email header parser.
  *

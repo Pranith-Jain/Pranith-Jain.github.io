@@ -9,11 +9,7 @@ import {
   infectionAnalysis,
   searchByUsername,
   searchByIp,
-  searchByStealer,
-  searchByKeyword,
-  advancedSearch,
   getAccount,
-  type HRSearchResponse,
   type HRStealerEntry,
 } from '../../../worker/lib/hudsonrock';
 

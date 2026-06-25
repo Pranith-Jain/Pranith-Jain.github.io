@@ -439,7 +439,7 @@ export default function DFIRPage(): JSX.Element {
               onChange={(e) => setIocInput(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' && iocInput.trim()) {
-                  navigate(`/dfir/ioc-check?indicator=${encodeURIComponent(iocInput.trim())}`);
+                  navigate(`/dfir/ioc-investigate?indicator=${encodeURIComponent(iocInput.trim())}`);
                 }
               }}
               placeholder="e.g. 8.8.8.8, evil.com, hash..."
@@ -450,7 +450,7 @@ export default function DFIRPage(): JSX.Element {
               type="button"
               onClick={() => {
                 if (iocInput.trim()) {
-                  navigate(`/dfir/ioc-check?indicator=${encodeURIComponent(iocInput.trim())}`);
+                  navigate(`/dfir/ioc-investigate?indicator=${encodeURIComponent(iocInput.trim())}`);
                 }
               }}
               disabled={!iocInput.trim()}

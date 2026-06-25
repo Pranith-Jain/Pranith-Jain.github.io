@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-escape */
 /**
  * PARSE-X — Raw text → clean artifacts.
  *
