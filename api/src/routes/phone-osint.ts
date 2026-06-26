@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { searchByUsername } from '../../../worker/lib/hudsonrock';
 
 /**
  * Phone OSINT — enrich a phone number with carrier, location, deep links, and dorks.
@@ -788,17 +789,14 @@ async function checkBreach(
   digits: string,
   env: Env
 ): Promise<{ checked: boolean; reason: string; stealerStats?: unknown }> {
+  if (!env.HUDSONROCK_API_KEY) {
+    return { checked: false, reason: 'HUDSONROCK_API_KEY not configured' };
+  }
   try {
-    const key = env.ADMIN_TOKEN;
-    const target = `/api/v1/hudsonrock/username?username=${encodeURIComponent(digits)}`;
-    const res = await env.SELF.fetch(`https://internal${target}`, {
-      headers: { authorization: `Bearer ${key}` },
-    });
-    if (!res.ok) return { checked: false, reason: `Hudson Rock returned ${res.status}` };
-    const data = await res.json();
-    return { checked: true, reason: 'ok', stealerStats: data };
+    const result = await searchByUsername(env, [digits]);
+    return { checked: true, reason: 'ok', stealerStats: result };
   } catch {
-    return { checked: false, reason: 'Hudson Rock integration unavailable' };
+    return { checked: false, reason: 'Hudson Rock API error' };
   }
 }
 
