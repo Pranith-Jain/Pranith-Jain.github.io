@@ -317,6 +317,12 @@ const dfir: SidebarConfig = {
         { label: 'IOC Investigator', href: '/dfir/ioc-investigate', icon: Search },
         { label: 'X-VERDIKT', href: '/dfir/x-verdikt', icon: Shield },
         { label: 'REGSCOPE', href: '/dfir/regscope', icon: FolderTree },
+        {
+          label: 'ORKL Library',
+          href: '/dfir/orkl',
+          icon: BookOpen,
+          description: 'Search the open-source threat intelligence library.',
+        },
         { label: 'Abuse Rep', href: '/dfir/abuse-rep', icon: ShieldAlert },
         { label: 'Email Defense', href: '/dfir/email-defense', icon: Zap },
         { label: 'Phishing', href: '/dfir/phishing', icon: ShieldAlert },

@@ -307,6 +307,7 @@ const YaraPage = lazy(() => import('./pages/threatintel/Yarahub'));
 
 const NotFound = lazy(() => import('./pages/NotFound'));
 const CampaignDetail = lazy(() => import('./pages/threatintel/CampaignDetail'));
+const OrklPage = lazy(() => import('./pages/dfir/Orkl'));
 const AbuseRepPage = lazy(() => import('./pages/dfir/AbuseRep'));
 const BehindTheReports = lazy(() => import('./pages/BehindTheReports'));
 const Sponsor = lazy(() => import('./pages/Sponsor'));
@@ -393,6 +394,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/status', Component: Status },
   { path: '/live', Component: Snapshots },
   { path: '/dfir', Component: DFIR },
+  { path: '/dfir/orkl', Component: OrklPage },
   { path: '/dfir/abuse-rep', Component: AbuseRepPage },
   { path: '/dfir/phishing', Component: Phishing },
   { path: '/dfir/whois-history', Component: WhoisHistory },

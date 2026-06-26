@@ -134,6 +134,14 @@ export const HUB_META: readonly HubMeta[] = [
         badge: 'new',
         keywords: ['x', 'twitter', 'verdict', 'consensus'],
       },
+      {
+        path: '/dfir/orkl',
+        tabId: 'orkl',
+        label: 'ORKL Library Search',
+        desc: 'Search the ORKL open-source threat intelligence library — reports, actors, CVEs from hundreds of sources.',
+        compVar: 'OrklPage',
+        keywords: ['orkl', 'threat intelligence', 'library', 'reports'],
+      },
     ],
   },
   {

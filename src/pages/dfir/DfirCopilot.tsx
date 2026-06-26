@@ -1,27 +1,46 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
-import { Bug, ExternalLink, Globe, Hash, Info, Loader2, Mail, Search, Shield, ShieldAlert, Zap } from 'lucide-react';
+import {
+  Bug,
+  ExternalLink,
+  Globe,
+  Hash,
+  Info,
+  Loader2,
+  Mail,
+  Search,
+  Shield,
+  ShieldAlert,
+  Zap,
+  FileText,
+  Sparkles,
+} from 'lucide-react';
+import { sanitizeAiHtml } from '../../lib/sanitize-html';
 
-interface EnrichmentResult {
-  provider: string;
-  status: 'malicious' | 'suspicious' | 'clean' | 'unknown' | 'error';
-  verdict?: string;
-  score?: number;
-  details?: string;
-  link?: string;
-  tags?: string[];
+interface Source {
+  name: string;
+  items: number;
+  data: unknown;
+}
+
+interface ConfidenceScore {
+  level: string;
+  score: number;
+  admiralty?: { reliability: string; credibility: number; label: string };
+  sources_contributing: number;
+  contradictory_sources: number;
+  reasoning: string;
 }
 
 interface CopilotResponse {
   query: string;
-  ioc_type: string;
-  confidence: number;
+  query_type: string;
   narrative: string;
-  results: EnrichmentResult[];
-  consensus: { verdict: string; confidence: number; sources_agreeing: number; total_sources: number };
-  recommendations: string[];
-  mitre_techniques?: string[];
+  sources: Source[];
+  model_used: string;
   processed_at: string;
+  _meta?: { total_sources: number; total_items: number };
+  confidence?: ConfidenceScore;
 }
 
 const IOC_PATTERNS = {
@@ -76,18 +95,6 @@ const IOC_COLORS: Record<string, string> = {
   unknown: 'text-slate-500',
 };
 
-const STATUS_COLORS: Record<string, string> = {
-  malicious: 'text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800/50',
-  suspicious:
-    'text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-950/30 border-orange-200 dark:border-orange-800/50',
-  clean:
-    'text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800/50',
-  unknown:
-    'text-slate-500 bg-slate-50 dark:bg-[rgb(var(--input-200)/0.3)] border-slate-200 dark:border-[rgb(var(--border-400))]/50',
-  error:
-    'text-slate-500 bg-slate-50 dark:bg-[rgb(var(--input-200)/0.3)] border-slate-200 dark:border-[rgb(var(--border-400))]/50',
-};
-
 const QUERY_EXAMPLES = [
   { label: '8.8.8.8', type: 'IP address', query: '8.8.8.8' },
   { label: 'google.com', type: 'Domain', query: 'google.com' },
@@ -95,12 +102,67 @@ const QUERY_EXAMPLES = [
   { label: 'd41d8cd98f00b204e9800998ecf8427e', type: 'MD5 hash', query: 'd41d8cd98f00b204e9800998ecf8427e' },
 ];
 
+function renderMarkdown(safeMd: string): string {
+  let html = safeMd
+    .replace(/### (.+)/g, '<h3 class="text-base font-semibold mt-4 mb-1.5">$1</h3>')
+    .replace(/## (.+)/g, '<h2 class="text-lg font-bold mt-5 mb-2">$1</h2>')
+    .replace(/# (.+)/g, '<h1 class="text-xl font-bold mt-5 mb-2">$1</h1>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+    .replace(
+      /`([^`]+)`/g,
+      '<code class="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-xs font-mono">$1</code>'
+    )
+    .replace(/^- (.+)$/gm, '<li class="ml-4 list-disc text-sm">$1</li>')
+    .replace(/^\d+\.\s(.+)$/gm, '<li class="ml-4 list-decimal text-sm">$1</li>')
+    .replace(/(<li.*<\/li>\n?)+/g, function (match) {
+      if (match.includes('list-decimal')) {
+        return `<ol class="space-y-1 my-1.5">${match}</ol>`;
+      }
+      return `<ul class="space-y-0.5 my-1.5">${match}</ul>`;
+    });
+
+  html = html
+    .split(/\n\n+/)
+    .map((block) => {
+      const trimmed = block.trim();
+      if (!trimmed) return '';
+      if (
+        trimmed.startsWith('<h') ||
+        trimmed.startsWith('<ul') ||
+        trimmed.startsWith('<ol') ||
+        trimmed.startsWith('<li')
+      )
+        return trimmed;
+      return `<p class="text-sm leading-relaxed mb-2">${trimmed}</p>`;
+    })
+    .join('\n');
+  return html;
+}
+
+const TYPE_BADGES: Record<string, { label: string; color: string }> = {
+  cve: { label: 'CVE', color: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300' },
+  ip: { label: 'IP', color: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300' },
+  domain: { label: 'Domain', color: 'bg-sky-100 text-sky-700 dark:bg-sky-500/10 dark:text-sky-300' },
+  hash: { label: 'Hash', color: 'bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300' },
+  actor: { label: 'Actor', color: 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300' },
+  ransomware: {
+    label: 'Ransomware',
+    color: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300',
+  },
+  generic: {
+    label: 'General',
+    color: 'bg-slate-100 text-slate-700 dark:bg-[rgb(var(--surface-300))] dark:text-slate-300',
+  },
+};
+
 export default function DfirCopilot(): JSX.Element {
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<CopilotResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [narrativeHtml, setNarrativeHtml] = useState('');
 
   const iocType = detectIOCType(query);
   const Icon = IOC_ICONS[iocType] || Search;
@@ -109,13 +171,33 @@ export default function DfirCopilot(): JSX.Element {
     inputRef.current?.focus();
   }, []);
 
+  useEffect(() => {
+    const md = result?.narrative;
+    if (!md) {
+      setNarrativeHtml('');
+      return;
+    }
+    let cancelled = false;
+    void (async () => {
+      const { default: DOMPurify } = await import('isomorphic-dompurify');
+      const safeMd = DOMPurify.sanitize(md, { ALLOWED_TAGS: [] });
+      const safe = await sanitizeAiHtml(renderMarkdown(safeMd));
+      if (!cancelled) setNarrativeHtml(safe);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [result?.narrative]);
+
+  const badge = result?.query_type ? TYPE_BADGES[result.query_type] : null;
+
   const investigate = useCallback(async (q: string) => {
     if (!q.trim()) return;
     setLoading(true);
     setError(null);
     setResult(null);
     try {
-      const res = await fetch(`/api/v1/copilot/investigate`, {
+      const res = await fetch('/api/v1/copilot/investigate', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ query: q.trim() }),
@@ -213,116 +295,117 @@ export default function DfirCopilot(): JSX.Element {
         </div>
       )}
 
+      {loading && (
+        <div className="py-16 text-center">
+          <Loader2 size={32} className="mx-auto mb-4 animate-spin text-brand-500" />
+          <p className="font-mono text-sm text-slate-500 dark:text-slate-400">Gathering intelligence…</p>
+          <p className="mt-1 font-mono text-xs text-slate-500 dark:text-slate-500">
+            Querying threat data sources and generating narrative
+          </p>
+        </div>
+      )}
+
       {result && (
         <div className="space-y-6">
-          {/* Consensus verdict */}
+          {/* Header card */}
           <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
-            <div className="flex items-center gap-3 mb-3">
-              <span
-                className={`text-xs font-mono font-semibold px-2.5 py-1 rounded border uppercase tracking-wider ${STATUS_COLORS[result.consensus.verdict]}`}
-              >
-                {result.consensus.verdict}
-              </span>
-              <span className="text-sm font-mono text-slate-900 dark:text-slate-100 font-semibold">
-                {result.consensus.sources_agreeing}/{result.consensus.total_sources} sources agree
-              </span>
-              <span className="text-xs font-mono text-slate-500">
-                {Math.round(result.consensus.confidence * 100)}% confidence
-              </span>
-            </div>
-            <p className="text-sm text-muted leading-relaxed">{result.narrative}</p>
-          </div>
-
-          {/* Per-source results */}
-          <div>
-            <h3 className="text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-400 mb-3">
-              Source Results
-            </h3>
-            <div className="grid gap-2 sm:grid-cols-2">
-              {result.results.map((r) => (
-                <div
-                  key={r.provider}
-                  className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3"
-                >
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-xs font-mono font-semibold text-slate-900 dark:text-slate-100">
-                      {r.provider}
-                    </span>
-                    <span
-                      className={`text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded border uppercase tracking-wider ${STATUS_COLORS[r.status]}`}
-                    >
-                      {r.status}
-                    </span>
-                    {r.score != null && <span className="text-[10px] font-mono text-slate-400 ml-auto">{r.score}</span>}
-                    {r.link && (
-                      <a
-                        href={r.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-[10px] font-mono text-brand-600 dark:text-brand-400 hover:underline ml-auto"
-                      >
-                        <ExternalLink size={10} />
-                      </a>
-                    )}
-                  </div>
-                  {r.verdict && <p className="text-[11px] text-slate-500 mt-1">{r.verdict}</p>}
-                  {r.tags && r.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-1 mt-1.5">
-                      {r.tags.map((t) => (
-                        <span
-                          key={t}
-                          className="text-[9px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Recommendations */}
-          {result.recommendations.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
-              <h3 className="text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-400 mb-2">
-                Recommended Actions
-              </h3>
-              <ul className="space-y-1.5">
-                {result.recommendations.map((r, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-muted">
-                    <span className="text-brand-600 dark:text-brand-400 mt-0.5">→</span>
-                    {r}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {/* MITRE techniques */}
-          {result.mitre_techniques && result.mitre_techniques.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
-              <h3 className="text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-400 mb-2">
-                MITRE ATT&CK Techniques
-              </h3>
-              <div className="flex flex-wrap gap-1.5">
-                {result.mitre_techniques.map((t) => (
-                  <span
-                    key={t}
-                    className="text-[10px] font-mono px-2 py-0.5 rounded border border-blue-500/30 bg-blue-500/10 text-blue-700 dark:text-blue-300"
-                  >
-                    {t}
+            <div className="flex items-start justify-between gap-4 mb-3">
+              <div className="flex flex-wrap items-center gap-3">
+                <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">{result.query}</h2>
+                {badge && (
+                  <span className={`rounded px-2 py-0.5 text-[10px] font-semibold uppercase ${badge.color}`}>
+                    {badge.label}
                   </span>
-                ))}
+                )}
               </div>
             </div>
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-xs text-slate-500">
+              <span>model: {result.model_used}</span>
+              {result._meta && (
+                <span>
+                  {result._meta.total_sources} sources · {result._meta.total_items} data points
+                </span>
+              )}
+              {result.confidence && (
+                <span
+                  className={`rounded px-1.5 py-0.5 ${
+                    result.confidence.score >= 70
+                      ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300'
+                      : result.confidence.score >= 40
+                        ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300'
+                        : 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300'
+                  }`}
+                  title={result.confidence.reasoning}
+                >
+                  confidence: {result.confidence.score}/100 ({result.confidence.level})
+                </span>
+              )}
+              <span>{new Date(result.processed_at).toLocaleString()}</span>
+            </div>
+            {result.sources.length > 0 && (
+              <div className="mt-3 border-t border-slate-100 pt-3 dark:border-[rgb(var(--border-400))]">
+                <div className="flex flex-wrap gap-1.5">
+                  {result.sources.map((s, i) => (
+                    <span
+                      key={s.name}
+                      className="inline-flex items-center gap-1 rounded border border-slate-200 bg-slate-50 px-2 py-0.5 font-mono text-[11px] text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400"
+                    >
+                      <span className="font-bold text-slate-400">{i + 1}.</span>
+                      {s.name}
+                      <span className="text-slate-400">({s.items})</span>
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Narrative report */}
+          <div className="overflow-hidden rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
+            <div className="flex items-center gap-2 border-b border-slate-100 bg-slate-50/80 px-6 py-3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.4)]">
+              <FileText size={15} className="text-brand-600 dark:text-brand-400" />
+              <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">Investigation Report</span>
+              {result._meta && (
+                <span className="ml-auto font-mono text-[11px] text-slate-400">
+                  {result._meta.total_items} data points across {result._meta.total_sources} sources
+                </span>
+              )}
+            </div>
+            <div
+              className="px-6 py-5 text-slate-800 dark:text-slate-200 [&_h2]:text-lg [&_h2]:font-bold [&_h2]:mt-6 [&_h2]:mb-2 [&_h2]:pb-1 [&_h2]:border-b [&_h2]:border-slate-100 [&_h2]:dark:border-[rgb(var(--border-400))] [&_h3]:text-base [&_h3]:font-semibold [&_h3]:mt-4 [&_h3]:mb-1.5 [&_p]:text-sm [&_p]:leading-relaxed [&_p]:mb-2 [&_p]:text-slate-700 [&_p]:dark:text-slate-300 [&_ul]:space-y-0.5 [&_ul]:my-1.5 [&_ol]:space-y-1 [&_ol]:my-1.5 [&_li]:ml-4 [&_li]:pl-1 [&_li]:text-sm [&_li]:text-slate-700 [&_li]:dark:text-slate-300 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:bg-slate-100 [&_code]:dark:bg-[rgb(var(--surface-200))] [&_code]:text-xs [&_code]:font-mono [&_code]:text-brand-700 [&_code]:dark:text-brand-300"
+              dangerouslySetInnerHTML={{ __html: narrativeHtml }}
+            />
+          </div>
+
+          {/* Source details */}
+          {result.sources.length > 0 && (
+            <details className="group">
+              <summary className="flex cursor-pointer items-center gap-2 text-sm font-medium text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300">
+                <Sparkles size={14} />
+                Raw source data ({result.sources.length} sources)
+              </summary>
+              <div className="mt-3 space-y-3">
+                {result.sources.map((s) => (
+                  <details
+                    key={s.name}
+                    className="rounded-lg border border-slate-200 bg-slate-50 p-3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.3)]"
+                  >
+                    <summary className="cursor-pointer text-xs font-medium">
+                      {s.name} ({s.items} items)
+                    </summary>
+                    <pre className="mt-2 max-h-48 overflow-auto overflow-x-auto rounded bg-slate-100 p-2 font-mono text-[11px] dark:bg-[rgb(var(--surface-200))]">
+                      {JSON.stringify(s.data, null, 2)}
+                    </pre>
+                  </details>
+                ))}
+              </div>
+            </details>
           )}
 
           {/* Metadata */}
           <div className="text-[11px] font-mono text-slate-500 flex items-center gap-2">
             <Info size={12} />
-            Investigated at {result.processed_at} · IOC type: {result.ioc_type}
+            Investigated at {result.processed_at} · IOC type: {result.query_type} · Model: {result.model_used}
           </div>
         </div>
       )}

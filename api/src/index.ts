@@ -461,6 +461,7 @@ import {
   pdCvesHandler,
   pdCveDetailHandler,
 } from './routes/projectdiscovery-intel';
+import { orklSearchHandler, orklEntryHandler, orklInfoHandler } from './routes/orkl';
 import { stopForumSpamHandler } from './routes/stopforumspam';
 import { urlscanIpHandler } from './routes/urlscan-ip';
 import { hackMyIpBreachHandler } from './routes/hackmyip';
@@ -993,6 +994,9 @@ app.get('/api/v1/takeover/check', takeoverCheckHandler);
 app.get('/api/v1/threat-map', threatMapHandler);
 app.get('/api/v1/feeds/aggregate', feedsAggregateHandler);
 app.get('/api/v1/rules', detectionRulesHandler);
+app.get('/api/v1/orkl/search', orklSearchHandler);
+app.get('/api/v1/orkl/entry/:uuid', orklEntryHandler);
+app.get('/api/v1/orkl/info', orklInfoHandler);
 app.get('/api/v1/deepdarkcti', deepDarkCtiHandler);
 app.get('/api/v1/stealer-forum-intel', stealerForumIntelHandler);
 app.get('/api/v1/secret-leaks', secretLeaksHandler);
@@ -1670,6 +1674,7 @@ import {
 } from './routes/threat-reports';
 
 import { emailOsnitProfileHandler, emailOsnitBulkHandler } from './routes/email-osnit-profile';
+import { emailRegistrationHandler, emailRegistrationPlatformsHandler } from './routes/email-registration';
 
 app.get('/api/v1/ddos/dashboard', ddosDashboardHandler);
 app.get('/api/v1/ddos/botnet-lookup', ddosBotnetLookupHandler);
@@ -1685,6 +1690,8 @@ app.get('/api/v1/threat-reports/external', threatReportExternalHandler);
 
 app.get('/api/v1/email-osnit/profile', emailOsnitProfileHandler);
 app.post('/api/v1/email-osnit/bulk', emailOsnitBulkHandler);
+app.get('/api/v1/email-registration', emailRegistrationHandler);
+app.get('/api/v1/email-registration/platforms', emailRegistrationPlatformsHandler);
 
 // Standardized 404 shape: matches the api-error contract ({ error, message })
 // so clients get a human-readable message, not just a bare error code.
