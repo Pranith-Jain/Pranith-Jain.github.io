@@ -141,52 +141,23 @@ const checkFlipkart: EmailChecker = async (email) => {
 const checkGitHub: EmailChecker = async (email) => {
   const url = 'https://github.com';
   try {
-    // Step 1: Get CSRF token and cookies from signup page
-    const pageRes = await fetch('https://github.com/signup', {
+    // GitHub blocks cloud IPs with 422 on all endpoints. Use the search API as fallback.
+    // The public search API doesn't require auth and can find users by email.
+    const searchRes = await fetch(`https://api.github.com/search/users?q=${encodeURIComponent(email)}+in:email`, {
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
       headers: {
-        'User-Agent':
-          'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
-        Accept: 'text/html,application/xhtml+xml',
+        'User-Agent': 'Mozilla/5.0 (compatible; EmailOSINT/1.0)',
+        Accept: 'application/vnd.github.v3+json',
       },
     });
-    const html = await pageRes.text();
-    // Try multiple CSRF patterns
-    const csrfMatch =
-      html.match(/name="authenticity_token"\s+value="([^"]+)"/) || html.match(/data-csrf="true"\s+value="([^"]+)"/);
-    if (!csrfMatch?.[1]) return err('github', 'GitHub', 'dev', url, 'CSRF not found');
-
-    // Extract cookies from the response for the follow-up request
-    const cookieHeader = pageRes.headers.get('set-cookie') || '';
-    const cookies = cookieHeader
-      .split(',')
-      .map((c) => c.split(';')[0]?.trim() || '')
-      .join('; ');
-
-    // Step 2: Check email with cookies
-    const checkRes = await fetch('https://github.com/email_validity_checks', {
-      method: 'POST',
-      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-      headers: {
-        'User-Agent':
-          'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
-        'Content-Type': 'application/x-www-form-urlencoded',
-        Origin: 'https://github.com',
-        Referer: 'https://github.com/signup',
-        'X-Requested-With': 'XMLHttpRequest',
-        ...(cookies ? { Cookie: cookies } : {}),
-      },
-      body: `authenticity_token=${encodeURIComponent(csrfMatch[1])}&value=${encodeURIComponent(email)}`,
-    });
-    const body = await checkRes.text();
-    if (checkRes.status === 422) {
-      // GitHub may rate limit; check response for clues
-      if (body.includes('already associated')) return ok('github', 'GitHub', 'dev', url);
-      return err('github', 'GitHub', 'dev', url, '422 rate limited or blocked');
+    if (searchRes.status === 403) return rateLimited('github', 'GitHub', 'dev', url);
+    if (!searchRes.ok) return err('github', 'GitHub', 'dev', url, `HTTP ${searchRes.status}`);
+    const data = (await searchRes.json()) as { total_count?: number; items?: Array<{ login: string }> };
+    if (data.total_count && data.total_count > 0) {
+      const username = data.items?.[0]?.login;
+      return ok('github', 'GitHub', 'dev', url, { username });
     }
-    if (body.includes('already associated with an account')) return ok('github', 'GitHub', 'dev', url);
-    if (body.includes('Email is available')) return no('github', 'GitHub', 'dev', url);
-    return err('github', 'GitHub', 'dev', url, `unexpected response (${checkRes.status})`);
+    return no('github', 'GitHub', 'dev', url);
   } catch {
     return err('github', 'GitHub', 'dev', url);
   }
@@ -230,28 +201,25 @@ const checkBitbucket: EmailChecker = async (email) => {
 const checkHackerRank: EmailChecker = async (email) => {
   const url = 'https://www.hackerrank.com';
   try {
-    // HackerRank's check_user endpoint is broken (500). Use a lightweight probe.
-    const res = await fetch(`https://www.hackerrank.com/auth/check_user?email=${encodeURIComponent(email)}`, {
+    // The old check_user endpoint is broken (500). Use the login API instead.
+    // It returns hacker_exists: true/false without actually logging in.
+    const res = await fetch('https://www.hackerrank.com/rest/auth/login', {
+      method: 'POST',
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
       headers: {
         'User-Agent':
           'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
+        'Content-Type': 'application/json',
       },
+      body: JSON.stringify({ login: email }),
     });
-    if (res.status === 500) {
-      // API is broken; return error so caller knows this platform is unreliable
-      return err('hackerrank', 'HackerRank', 'dev', url, 'API unavailable (500)');
-    }
-    const text = await res.text();
-    if (!text || text.trim() === '') return err('hackerrank', 'HackerRank', 'dev', url, 'empty response');
-    try {
-      const data = JSON.parse(text) as { exists?: boolean };
-      if (data.exists === true) return ok('hackerrank', 'HackerRank', 'dev', url);
-      if (data.exists === false) return no('hackerrank', 'HackerRank', 'dev', url);
-    } catch {
-      // Not JSON; check for HTML indicators
-      if (text.includes('already') || text.includes('taken')) return ok('hackerrank', 'HackerRank', 'dev', url);
-    }
+    if (!res.ok) return err('hackerrank', 'HackerRank', 'dev', url, `HTTP ${res.status}`);
+    const data = (await res.json()) as { hacker_exists?: boolean; errors?: string[] };
+    if (data.hacker_exists === true) return ok('hackerrank', 'HackerRank', 'dev', url);
+    if (data.hacker_exists === false) return no('hackerrank', 'HackerRank', 'dev', url);
+    // Fallback: check error messages
+    if (data.errors?.some((e: string) => e.includes('not find an account')))
+      return no('hackerrank', 'HackerRank', 'dev', url);
     return err('hackerrank', 'HackerRank', 'dev', url, 'unexpected response');
   } catch {
     return err('hackerrank', 'HackerRank', 'dev', url);
@@ -475,22 +443,19 @@ const checkCoinbase: EmailChecker = async (email) => {
 
 // ── Other ───────────────────────────────────────────────────────────────────
 
+async function gravatarMd5(email: string): Promise<string> {
+  const data = new TextEncoder().encode(email.toLowerCase().trim());
+  const hash = await crypto.subtle.digest('MD5', data);
+  return [...new Uint8Array(hash)].map((b) => b.toString(16).padStart(2, '0')).join('');
+}
+
 const checkGravatar: EmailChecker = async (email) => {
   const url = 'https://gravatar.com';
   try {
-    // Use the avatar URL with d=404 to check if a gravatar exists
-    // We need a proper MD5 hash - use a simple implementation
-    const emailLower = email.toLowerCase().trim();
-    // Simple DJB2 hash as fallback (not true MD5, but gravatar will 404 for invalid hashes)
-    // Instead, just check the profile endpoint directly
-    const res = await fetch(`https://en.gravatar.com/${emailLower}.json`, {
+    const hash = await gravatarMd5(email);
+    const res = await fetch(`https://en.gravatar.com/${hash}.json`, {
       signal: AbortSignal.timeout(5000),
-      redirect: 'manual',
     });
-    if (res.status === 302 || res.status === 301) {
-      // Redirect means profile exists
-      return ok('gravatar', 'Gravatar', 'other', url);
-    }
     if (res.ok) {
       const text = await res.text();
       if (!text || text.trim() === '') return no('gravatar', 'Gravatar', 'other', url);
