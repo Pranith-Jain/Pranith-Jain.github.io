@@ -551,6 +551,8 @@ const ROUTES = [
   '/threatintel/threat-actor-catalog',
   '/threatintel/threat-landscape',
   '/dfir/copilot',
+  '/dfir/orkl',
+  '/dfir/wifi-investigation',
 
   // ── ThreatIntel: hub pages (11) — Suspense-wrapped tabs, prerendered chrome ─
 ];

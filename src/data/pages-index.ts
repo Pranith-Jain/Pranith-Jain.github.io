@@ -543,6 +543,15 @@ const DFIR_PAGES: readonly PageEntry[] = [
     keywords: ['ai', 'assistant', 'chat'],
   },
   {
+    path: '/dfir/orkl',
+    label: 'ORKL Library Search',
+    description:
+      'Search the ORKL open-source threat intelligence library — reports, threat actors, CVEs from hundreds of sources.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+    keywords: ['orkl', 'threat intelligence', 'library', 'cti', 'reports'],
+  },
+  {
     path: '/dfir/dashboard',
     label: 'DFIR Dashboard (alias)',
     description: 'Alias for the DFIR landing page.',
@@ -1493,6 +1502,14 @@ const DFIR_PAGES: readonly PageEntry[] = [
     description: 'About the DFIR tool surface — what is covered, what is out of scope, and how to extend.',
     sectionLabel: 'DFIR · Tools',
     group: 'dfir',
+  },
+  {
+    path: '/dfir/wifi-investigation',
+    label: 'Wi-Fi Investigation',
+    description: 'Investigate a BSSID (MAC) or SSID (network name) — WiGLE lookup, MAC vendor, search pivots.',
+    sectionLabel: 'DFIR · Network & Domain',
+    group: 'dfir',
+    keywords: ['wifi', 'wireless', 'bssid', 'ssid', 'wigle', 'mac'],
   },
 
   /* ------------------------------------------------------------------ */
