@@ -218,6 +218,9 @@ export default function PhoneOsint(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
   const [input, setInput] = useState(searchParams.get('q') ?? '');
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [apiResult, setApiResult] = useState<Record<string, unknown> | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [apiError, setApiError] = useState<string | null>(null);
 
   const parsed = useMemo(() => parsePhone(input.trim()), [input]);
   const lookups = useMemo(() => buildLookups(input.trim()), [input]);
@@ -233,14 +236,28 @@ export default function PhoneOsint(): JSX.Element {
     [lookups, activeCategory]
   );
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const phone = input.trim();
     setSearchParams((prev) => {
       const out = new URLSearchParams(prev);
-      if (input.trim()) out.set('q', input.trim());
+      if (phone) out.set('q', phone);
       else out.delete('q');
       return out;
     });
+    if (!phone || !parsePhone(phone)) return;
+    setLoading(true);
+    setApiError(null);
+    setApiResult(null);
+    try {
+      const res = await fetch(`/api/v1/phone-osint?phone=${encodeURIComponent(phone)}`);
+      if (!res.ok) throw new Error(`API returned ${res.status}`);
+      setApiResult(await res.json());
+    } catch (err) {
+      setApiError(err instanceof Error ? err.message : 'Failed to fetch phone intel');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -295,6 +312,95 @@ export default function PhoneOsint(): JSX.Element {
               </div>
             )}
           </div>
+        </div>
+      )}
+
+      {/* Loading */}
+      {loading && (
+        <div className="mb-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 text-center">
+          <p className="text-sm font-mono text-slate-500 dark:text-slate-400">Investigating phone number...</p>
+        </div>
+      )}
+
+      {/* API Error */}
+      {apiError && (
+        <div className="mb-6 rounded-lg border border-amber-500/40 bg-amber-50 dark:bg-amber-950/30 p-4 text-sm font-mono text-amber-700 dark:text-amber-300">
+          {apiError}
+        </div>
+      )}
+
+      {/* API Result — carrier + breach details */}
+      {apiResult && (
+        <div className="mb-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+          <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-3">
+            Server-Side Intel
+          </h3>
+
+          {!!apiResult.carrier && (
+            <div className="mb-3 pb-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+              <p className="text-mini font-mono text-slate-400 mb-1">Carrier / Line Type</p>
+              <div className="flex flex-wrap gap-3 text-sm font-mono">
+                <span className="px-2 py-0.5 rounded bg-brand-500/10 text-brand-700 dark:text-brand-300 border border-brand-500/30">
+                  {(apiResult.carrier as Record<string, string>).type}
+                </span>
+                <span className="text-slate-600 dark:text-slate-300">
+                  {(apiResult.carrier as Record<string, string>).carrier}
+                </span>
+                <span className="text-slate-400">
+                  confidence: {(apiResult.carrier as Record<string, string>).confidence}
+                </span>
+              </div>
+            </div>
+          )}
+
+          {!!apiResult.numverify && (
+            <div className="mb-3 pb-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+              <p className="text-mini font-mono text-slate-400 mb-1">NumVerify API</p>
+              <div className="grid gap-1 sm:grid-cols-2 text-sm font-mono">
+                {Object.entries(apiResult.numverify as Record<string, string>).map(([k, v]) =>
+                  v ? (
+                    <div key={k}>
+                      <span className="text-slate-500 dark:text-slate-400">{k}:</span>{' '}
+                      <span className="text-slate-900 dark:text-slate-100">{v}</span>
+                    </div>
+                  ) : null
+                )}
+              </div>
+            </div>
+          )}
+
+          {!!apiResult.breach && (
+            <div className="mb-3 pb-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+              <p className="text-mini font-mono text-slate-400 mb-1">Breach Exposure</p>
+              <div className="text-sm font-mono">
+                {(apiResult.breach as Record<string, string>).checked ? (
+                  <span className="text-green-600 dark:text-green-400">Checked via Hudson Rock</span>
+                ) : (
+                  <span className="text-slate-500">{(apiResult.breach as Record<string, string>).reason}</span>
+                )}
+              </div>
+            </div>
+          )}
+
+          {Array.isArray(apiResult.dorks) && apiResult.dorks.length > 0 && (
+            <div className="mt-2">
+              <p className="text-mini font-mono text-slate-400 mb-2">Generated Dorks</p>
+              <div className="flex flex-wrap gap-1.5">
+                {(apiResult.dorks as Array<{ engine: string; query: string; url: string }>).map((d, i) => (
+                  <a
+                    key={i}
+                    href={d.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-mini font-mono px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1"
+                  >
+                    {d.engine}: {d.query.slice(0, 30)}
+                    {d.query.length > 30 ? '...' : ''} <ExternalLink size={9} className="opacity-60" />
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       )}
 

@@ -465,7 +465,6 @@ const KNOWN_VIP_NUMBERS: Record<string, string> = {
   '1866': 'Toll-free (US)',
   '1855': 'Toll-free (US)',
   '1844': 'Toll-free (US)',
-  '1800': 'Toll-free (US)',
   '1833': 'Toll-free (US)',
   '1900': 'Premium-rate (US)',
   '1976': 'Premium-rate (US)',
@@ -479,7 +478,9 @@ function stripFormatting(input: string): string {
   return input.replace(/[^0-9+]/g, '');
 }
 
-function parsePhone(raw: string): { e164: string; digits: string; countryCode: string; countryName: string; nationalNumber: string } | null {
+function parsePhone(
+  raw: string
+): { e164: string; digits: string; countryCode: string; countryName: string; nationalNumber: string } | null {
   let cleaned = stripFormatting(raw);
   if (cleaned.startsWith('+')) {
     cleaned = cleaned.slice(1);
@@ -491,7 +492,8 @@ function parsePhone(raw: string): { e164: string; digits: string; countryCode: s
   for (const code of Object.keys(COUNTRY_CODES).sort((a, b) => b.length - a.length)) {
     if (cleaned.startsWith(code)) {
       matchedCode = code;
-      matchedInfo = COUNTRY_CODES[code];
+      const entry = COUNTRY_CODES[code];
+      if (entry) matchedInfo = entry;
       break;
     }
   }
@@ -523,7 +525,15 @@ function detectLineType(parsed: ReturnType<typeof parsePhone>): { type: string; 
 
   if (countryCode === 'US' || countryCode === 'CA') {
     if (prefix3 === '900' || prefix4 === '976') return { type: 'premium', carrier: 'Premium-rate', confidence: 'high' };
-    if (prefix3 === '800' || prefix3 === '888' || prefix3 === '877' || prefix3 === '866' || prefix3 === '855' || prefix3 === '844' || prefix3 === '833') {
+    if (
+      prefix3 === '800' ||
+      prefix3 === '888' ||
+      prefix3 === '877' ||
+      prefix3 === '866' ||
+      prefix3 === '855' ||
+      prefix3 === '844' ||
+      prefix3 === '833'
+    ) {
       return { type: 'toll-free', carrier: 'Toll-free', confidence: 'high' };
     }
     if (prefix3 === '500' || prefix3 === '522' || prefix3 === '533' || prefix3 === '544' || prefix3 === '566') {
@@ -534,7 +544,15 @@ function detectLineType(parsed: ReturnType<typeof parsePhone>): { type: string; 
       const match = mobilePrefixes.find((m) => nationalNumber.startsWith(m.prefix));
       if (match) return { type: 'mobile', carrier: match.carrier, confidence: 'medium' };
     }
-    if (prefix3.startsWith('2') || prefix3.startsWith('3') || prefix3.startsWith('4') || prefix3.startsWith('6') || prefix3.startsWith('7') || prefix3.startsWith('8') || prefix3.startsWith('9')) {
+    if (
+      prefix3.startsWith('2') ||
+      prefix3.startsWith('3') ||
+      prefix3.startsWith('4') ||
+      prefix3.startsWith('6') ||
+      prefix3.startsWith('7') ||
+      prefix3.startsWith('8') ||
+      prefix3.startsWith('9')
+    ) {
       return { type: 'landline', carrier: 'Landline', confidence: 'low' };
     }
     return { type: 'unknown', carrier: 'Unknown', confidence: 'low' };
@@ -552,7 +570,12 @@ function detectLineType(parsed: ReturnType<typeof parsePhone>): { type: string; 
   }
 
   if (countryCode === 'IN') {
-    if (nationalNumber.startsWith('6') || nationalNumber.startsWith('7') || nationalNumber.startsWith('8') || nationalNumber.startsWith('9')) {
+    if (
+      nationalNumber.startsWith('6') ||
+      nationalNumber.startsWith('7') ||
+      nationalNumber.startsWith('8') ||
+      nationalNumber.startsWith('9')
+    ) {
       if (nationalNumber.startsWith('180') || nationalNumber.startsWith('186') || nationalNumber.startsWith('187')) {
         return { type: 'toll-free', carrier: 'India Toll-free', confidence: 'high' };
       }
@@ -565,7 +588,8 @@ function detectLineType(parsed: ReturnType<typeof parsePhone>): { type: string; 
     if (nationalNumber.startsWith('15') || nationalNumber.startsWith('16') || nationalNumber.startsWith('17')) {
       return { type: 'mobile', carrier: 'Germany Mobile (Telekom/O2/Vodafone)', confidence: 'medium' };
     }
-    if (nationalNumber.startsWith('800')) return { type: 'toll-free', carrier: 'Germany Toll-free', confidence: 'high' };
+    if (nationalNumber.startsWith('800'))
+      return { type: 'toll-free', carrier: 'Germany Toll-free', confidence: 'high' };
     return { type: 'landline', carrier: 'Germany Landline', confidence: 'low' };
   }
 
@@ -573,7 +597,18 @@ function detectLineType(parsed: ReturnType<typeof parsePhone>): { type: string; 
     if (nationalNumber.startsWith('6') || nationalNumber.startsWith('7')) {
       return { type: 'mobile', carrier: 'France Mobile (Orange/SFR/Bouygues/Free)', confidence: 'medium' };
     }
-    if (nationalNumber.startsWith('800') || nationalNumber.startsWith('801') || nationalNumber.startsWith('802') || nationalNumber.startsWith('803') || nationalNumber.startsWith('804') || nationalNumber.startsWith('805') || nationalNumber.startsWith('806') || nationalNumber.startsWith('807') || nationalNumber.startsWith('808') || nationalNumber.startsWith('809')) {
+    if (
+      nationalNumber.startsWith('800') ||
+      nationalNumber.startsWith('801') ||
+      nationalNumber.startsWith('802') ||
+      nationalNumber.startsWith('803') ||
+      nationalNumber.startsWith('804') ||
+      nationalNumber.startsWith('805') ||
+      nationalNumber.startsWith('806') ||
+      nationalNumber.startsWith('807') ||
+      nationalNumber.startsWith('808') ||
+      nationalNumber.startsWith('809')
+    ) {
       return { type: 'toll-free', carrier: 'France Toll-free', confidence: 'high' };
     }
     if (nationalNumber.startsWith('9')) return { type: 'mobile', carrier: 'France Mobile', confidence: 'medium' };
@@ -586,36 +621,99 @@ function detectLineType(parsed: ReturnType<typeof parsePhone>): { type: string; 
   return { type: 'landline', carrier: 'Landline (prefix heuristic)', confidence: 'low' };
 }
 
-function buildLookups(e164: string, digits: string, countryCode: string): Array<{ service: string; url: string; category: string; free: boolean }> {
+function buildLookups(
+  e164: string,
+  digits: string,
+  countryCode: string
+): Array<{ service: string; url: string; category: string; free: boolean }> {
   const lookups: Array<{ service: string; url: string; category: string; free: boolean }> = [];
 
   lookups.push({ service: 'WhatsApp', url: `https://wa.me/${digits}`, category: 'messaging', free: true });
   lookups.push({ service: 'Telegram', url: `https://t.me/+${digits}`, category: 'messaging', free: true });
-  lookups.push({ service: 'Viber', url: `viber://chat?number=${encodeURIComponent(e164)}`, category: 'messaging', free: true });
-  lookups.push({ service: 'TrueCaller', url: `https://www.truecaller.com/search/${countryCode.toLowerCase()}/${digits}`, category: 'lookup', free: true });
-  lookups.push({ service: 'NumLookup', url: `https://www.numlookup.com/lookup?number=${encodeURIComponent(digits)}&country=${countryCode}`, category: 'lookup', free: true });
-  lookups.push({ service: 'WhitePages', url: `https://www.whitepages.com/phone/${encodeURIComponent(digits)}`, category: 'directory', free: true });
-  lookups.push({ service: 'Sync.me', url: `https://sync.me/search/?type=phone&number=${encodeURIComponent(e164)}`, category: 'caller-id', free: true });
-  lookups.push({ service: 'Spokeo', url: `https://www.spokeo.com/phone-lookup/${encodeURIComponent(digits)}`, category: 'people-search', free: false });
-  lookups.push({ service: 'BeenVerified', url: `https://www.beenverified.com/phone/${encodeURIComponent(digits)}`, category: 'people-search', free: false });
-  lookups.push({ service: 'CallerID Test', url: `https://calleridtest.com/number/${encodeURIComponent(digits)}`, category: 'caller-id', free: true });
-  lookups.push({ service: 'PhoneInfoga (OSINT)', url: `https://phoneinfoga.toolsgo.xyz/?number=${encodeURIComponent(e164)}`, category: 'osint', free: true });
+  lookups.push({
+    service: 'Viber',
+    url: `viber://chat?number=${encodeURIComponent(e164)}`,
+    category: 'messaging',
+    free: true,
+  });
+  lookups.push({
+    service: 'TrueCaller',
+    url: `https://www.truecaller.com/search/${countryCode.toLowerCase()}/${digits}`,
+    category: 'lookup',
+    free: true,
+  });
+  lookups.push({
+    service: 'NumLookup',
+    url: `https://www.numlookup.com/lookup?number=${encodeURIComponent(digits)}&country=${countryCode}`,
+    category: 'lookup',
+    free: true,
+  });
+  lookups.push({
+    service: 'WhitePages',
+    url: `https://www.whitepages.com/phone/${encodeURIComponent(digits)}`,
+    category: 'directory',
+    free: true,
+  });
+  lookups.push({
+    service: 'Sync.me',
+    url: `https://sync.me/search/?type=phone&number=${encodeURIComponent(e164)}`,
+    category: 'caller-id',
+    free: true,
+  });
+  lookups.push({
+    service: 'Spokeo',
+    url: `https://www.spokeo.com/phone-lookup/${encodeURIComponent(digits)}`,
+    category: 'people-search',
+    free: false,
+  });
+  lookups.push({
+    service: 'BeenVerified',
+    url: `https://www.beenverified.com/phone/${encodeURIComponent(digits)}`,
+    category: 'people-search',
+    free: false,
+  });
+  lookups.push({
+    service: 'CallerID Test',
+    url: `https://calleridtest.com/number/${encodeURIComponent(digits)}`,
+    category: 'caller-id',
+    free: true,
+  });
+  lookups.push({
+    service: 'PhoneInfoga (OSINT)',
+    url: `https://phoneinfoga.toolsgo.xyz/?number=${encodeURIComponent(e164)}`,
+    category: 'osint',
+    free: true,
+  });
 
   if (countryCode === 'US' || countryCode === 'CA') {
     lookups.push({ service: 'FCC CNAM', url: `https://www.fcc.gov/caller-id`, category: 'regulatory', free: true });
-    lookups.push({ service: 'National Do Not Call', url: `https://www.donotcall.gov/`, category: 'regulatory', free: true });
+    lookups.push({
+      service: 'National Do Not Call',
+      url: `https://www.donotcall.gov/`,
+      category: 'regulatory',
+      free: true,
+    });
   }
   if (countryCode === 'GB') {
     lookups.push({ service: 'TPS (UK DNC)', url: `https://www.tpsonline.org.uk/`, category: 'regulatory', free: true });
   }
   if (countryCode === 'AU') {
-    lookups.push({ service: 'ACMA Spam Register', url: `https://www.acma.gov.au/spam-register`, category: 'regulatory', free: true });
+    lookups.push({
+      service: 'ACMA Spam Register',
+      url: `https://www.acma.gov.au/spam-register`,
+      category: 'regulatory',
+      free: true,
+    });
   }
 
   return lookups;
 }
 
-function buildDorks(digits: string, e164: string, countryCode: string): Array<{ engine: string; query: string; url: string }> {
+function buildDorks(
+  digits: string,
+  e164: string,
+  countryCode: string
+): Array<{ engine: string; query: string; url: string }> {
   const dorks: Array<{ engine: string; query: string; url: string }> = [];
 
   const escapedDigits = encodeURIComponent(`"${digits}"`);
@@ -686,7 +784,10 @@ function buildDorks(digits: string, e164: string, countryCode: string): Array<{ 
   return dorks;
 }
 
-async function checkBreach(digits: string, env: Env): Promise<{ checked: boolean; reason: string; stealerStats?: unknown }> {
+async function checkBreach(
+  digits: string,
+  env: Env
+): Promise<{ checked: boolean; reason: string; stealerStats?: unknown }> {
   try {
     const key = env.ADMIN_TOKEN;
     const target = `/api/v1/hudsonrock/username?username=${encodeURIComponent(digits)}`;
@@ -702,10 +803,12 @@ async function checkBreach(digits: string, env: Env): Promise<{ checked: boolean
 }
 
 async function tryNumVerify(digits: string, env: Env): Promise<Record<string, string> | null> {
-  const apiKey = env.NUMVERIFY_API_KEY;
+  const apiKey = (env as unknown as Record<string, unknown>).NUMVERIFY_API_KEY as string | undefined;
   if (!apiKey) return null;
   try {
-    const res = await fetch(`http://apilayer.net/api/validate?access_key=${apiKey}&number=${digits}&country_code=&format=1`);
+    const res = await fetch(
+      `https://apilayer.net/api/validate?access_key=${apiKey}&number=${digits}&country_code=&format=1`
+    );
     if (!res.ok) return null;
     const data = (await res.json()) as Record<string, unknown>;
     if (!data.valid) return null;
@@ -724,7 +827,7 @@ async function tryNumVerify(digits: string, env: Env): Promise<Record<string, st
   }
 }
 
-export async function phoneOsnitHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+export async function phoneOsintHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const raw = c.req.query('phone')?.trim();
   if (!raw) return c.json({ error: 'missing phone parameter' }, 400);
 

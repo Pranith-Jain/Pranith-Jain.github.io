@@ -550,6 +550,13 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'PhoneOsint',
       },
       {
+        path: '/dfir/wifi-investigation',
+        tabId: 'wifi-investigation',
+        label: 'Wi-Fi / BSSID Investigation',
+        desc: 'Wireless network — BSSID vendor lookup, SSID analysis, security flags.',
+        compVar: 'WifiInvestigation',
+      },
+      {
         path: '/dfir/weather-osint',
         tabId: 'weather-osint',
         label: 'Weather OSINT',

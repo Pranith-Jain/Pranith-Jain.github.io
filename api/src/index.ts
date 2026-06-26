@@ -109,7 +109,7 @@ import { phishingUrlsHandler } from './routes/phishing-urls';
 import { cryptoScamFeedHandler } from './routes/crypto-scam-feed';
 import { actorUsernamesHandler, actorUsernamesStatsHandler } from './routes/actor-usernames';
 import { usernameOsnitHandler } from './routes/username-osint';
-import { phoneOsnitHandler } from './routes/phone-osint';
+import { phoneOsintHandler } from './routes/phone-osint';
 import { reverseImageSearchHandler } from './routes/reverse-image-search';
 import { wifiInvestigationHandler } from './routes/wifi-investigation';
 import { scrapedintelUsernamesHandler } from './routes/scrapedintel-usernames';
@@ -1125,7 +1125,7 @@ app.get('/api/v1/crypto-scam-feed', cryptoScamFeedHandler);
 app.get('/api/v1/actor-usernames', actorUsernamesHandler);
 app.get('/api/v1/actor-usernames/stats', actorUsernamesStatsHandler);
 app.get('/api/v1/username-osint', usernameOsnitHandler);
-app.get('/api/v1/phone-osint', phoneOsnitHandler);
+app.get('/api/v1/phone-osint', phoneOsintHandler);
 app.get('/api/v1/reverse-image-search', reverseImageSearchHandler);
 app.get('/api/v1/wifi-investigation', wifiInvestigationHandler);
 // Live forum-handle search via threatactorusernames.com (ScrapedIntel). Cache +

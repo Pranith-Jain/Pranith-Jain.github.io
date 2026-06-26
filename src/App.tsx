@@ -125,6 +125,7 @@ const DfirCopilotPage = lazy(() => import('./pages/dfir/DfirCopilot'));
 const YaraWorkbench = lazy(() => import('./pages/dfir/YaraWorkbench'));
 const StixWorkbench = lazy(() => import('./pages/dfir/StixWorkbench'));
 const PhoneOsint = lazy(() => import('./pages/dfir/PhoneOsint'));
+const WifiInvestigation = lazy(() => import('./pages/dfir/WifiInvestigation'));
 const Wayback = lazy(() => import('./pages/dfir/Wayback'));
 const IpGeo = lazy(() => import('./pages/dfir/IpGeo'));
 const LogParser = lazy(() => import('./pages/dfir/LogParser'));
@@ -496,6 +497,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/yara-workbench', Component: YaraWorkbench },
   { path: '/dfir/stix-workbench', Component: StixWorkbench },
   { path: '/dfir/phone-osint', Component: PhoneOsint },
+  { path: '/dfir/wifi-investigation', Component: WifiInvestigation },
   { path: '/dfir/weather-osint', Component: WeatherOsint },
   { path: '/dfir/wayback', Component: Wayback },
   { path: '/dfir/ip-geo', Component: IpGeo },

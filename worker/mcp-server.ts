@@ -84,7 +84,7 @@ async function apiFetch<T>(self: Fetcher | undefined, path: string, apiKey?: str
   if (apiKey) {
     headers['authorization'] = `Bearer ${apiKey}`;
   }
-  const req = new Request(`${API_BASE_DEFAULT}${path}`, { ...init, headers });
+  const req = new Request(`${API_BASE_DEFAULT}${path}`, { ...init, headers, signal: AbortSignal.timeout(20000) });
   // Prefer the in-process SELF service binding (no public DNS/TLS hop back into
   // our own origin); fall back to a public fetch if the binding isn't present.
   const res = self ? await self.fetch(req) : await fetch(req);
@@ -487,7 +487,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
           `/api/v1/supply-chain-attacks${qs ? `?${qs}` : ''}`,
           this.apiKey
         );
-        return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
+        return untrustedToolResult(data);
       }
     );
 
@@ -517,7 +517,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
           `/api/v1/cert-in${qs ? `?${qs}` : ''}`,
           this.apiKey
         );
-        return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
+        return untrustedToolResult(data);
       }
     );
 
@@ -2468,7 +2468,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       async ({ workspace_id, format, default_tlp }) => {
         const url =
           format === 'flat'
-            ? `/api/v1/workspaces/${encodeURIComponent(workspace_id)}/export?format=stix`
+            ? `/api/v1/workspaces/${encodeURIComponent(workspace_id)}/export?format=flat`
             : `/api/v1/workspaces/${encodeURIComponent(workspace_id)}/export?format=stix`;
         const data = await apiFetch<Record<string, unknown>>(this.env.SELF, url, this.apiKey);
         return untrustedToolResult(data);
