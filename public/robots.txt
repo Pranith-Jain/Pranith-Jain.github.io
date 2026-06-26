@@ -12,6 +12,16 @@ Disallow: /admin
 Disallow: /private/
 Disallow: /api/
 
+# Binary asset directories — large WASM, gzip, and document files that
+# Google Safe Browsing flags as "harmful downloads" or "uncommon downloads".
+# These are runtime dependencies for client-side features (OCR, resume),
+# not downloadable content, but Google's heuristic treats them as such.
+Disallow: /tesseract/
+Disallow: /resume.docx
+Disallow: /*.docx
+Disallow: /*.gz
+Disallow: /*.wasm
+
 # Malware/sample-related pages — Google Safe Browsing flags these as
 # "uncommon download" or "malware" warnings. These are analysis tools,
 # not download sites, but Google's heuristic treats them the same.
