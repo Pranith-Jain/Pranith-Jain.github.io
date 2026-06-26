@@ -1248,6 +1248,20 @@ app.get('/api/v1/external-resources', listExternalResourcesHandler);
 app.post('/api/v1/external-resources', validate('json', createExternalResourceSchema), createExternalResourceHandler);
 app.delete('/api/v1/external-resources/:id', deleteExternalResourceHandler);
 registerBlogRoutes(app);
+// Admin routes MUST be registered BEFORE registerAdminRoutes(app) — the
+// case-study admin sub-app at /api/v1/admin has admin.use('*',
+// requireAdminMiddleware) which intercepts ALL requests under /api/v1/admin/.
+// If these come after, Hono's router matches the sub-app prefix first and
+// the auth gate fires before the handler ever runs, rejecting even the
+// session-create endpoint that intentionally accepts the token in the body.
+app.post('/api/v1/admin/keys', validate('json', adminApiKeyCreateSchema), createApiKeyHandler);
+app.get('/api/v1/admin/keys', listApiKeysHandler);
+app.delete('/api/v1/admin/keys/:id', revokeApiKeyHandler);
+app.post('/api/v1/admin/session', createSessionHandler);
+app.delete('/api/v1/admin/session', deleteSessionHandler);
+app.post('/api/v1/admin/purge', validate('json', adminPurgeSchema), purgeCacheHandler);
+app.post('/api/v1/admin/retention/run', validate('json', adminRetentionSchema), runRetentionHandler);
+app.post('/api/v1/admin/retention/telegram-cleanup', telegramCleanupHandler);
 registerAdminRoutes(app);
 app.get('/api/v1/malpedia/actor', malpediaActorHandler);
 app.get('/api/v1/malpedia/family', malpediaFamilyHandler);
@@ -1278,14 +1292,6 @@ app.get('/api/v1/x-live', xLiveHandler);
 app.get('/api/v1/x-firehose', xFirehoseHandler);
 app.get('/api/v1/x-claims', xClaimsHandler);
 app.get('/api/v1/x-search', xSearchHandler);
-app.post('/api/v1/admin/keys', validate('json', adminApiKeyCreateSchema), createApiKeyHandler);
-app.get('/api/v1/admin/keys', listApiKeysHandler);
-app.delete('/api/v1/admin/keys/:id', revokeApiKeyHandler);
-app.post('/api/v1/admin/session', createSessionHandler);
-app.delete('/api/v1/admin/session', deleteSessionHandler);
-app.post('/api/v1/admin/purge', validate('json', adminPurgeSchema), purgeCacheHandler);
-app.post('/api/v1/admin/retention/run', validate('json', adminRetentionSchema), runRetentionHandler);
-app.post('/api/v1/admin/retention/telegram-cleanup', telegramCleanupHandler);
 app.get('/api/v1/blocklists/pfsense', blocklistPfSenseHandler);
 app.get('/api/v1/blocklists/iptables', blocklistIptablesHandler);
 app.get('/api/v1/blocklists/suricata', blocklistSuricataHandler);
