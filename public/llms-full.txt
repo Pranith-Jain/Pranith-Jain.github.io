@@ -29,6 +29,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Certificate Transparency Monitor](https://pranithjain.qzz.io/dfir/ct-monitor) (dfir): Watch CT logs for new certificates matching your watchlist.
 - [Abuse Reputation](https://pranithjain.qzz.io/dfir/abuse-rep) (dfir): Cross-source reputation: AbuseIPDB, Spamhaus, OTX, URLhaus.
 - [X-VERDIKT Multi-Source Verdict](https://pranithjain.qzz.io/dfir/x-verdikt) (dfir): Streaming verdicts from X (Twitter) intelligence feeds.
+- [ORKL Library Search](https://pranithjain.qzz.io/dfir/orkl) (dfir): Search the ORKL open-source threat intelligence library — reports, actors, CVEs from hundreds of sources.
 - [Malware Analyzer](https://pranithjain.qzz.io/dfir/malware-analyzer) (dfir): PE / ELF / Mach-O static analysis with import hashing + section entropy.
 - [Infostealer Log Parser](https://pranithjain.qzz.io/dfir/stealer-parser) (dfir): Parse RedLine / Raccoon / Vidar / LummaC stealer logs — credentials, system, browser data.
 - [Bloom Filter Lookup](https://pranithjain.qzz.io/dfir/bloom) (dfir): Membership-test against a corpus of known-bad indicators.
@@ -189,6 +190,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Malware Vault](https://pranithjain.qzz.io/threatintel/malware/vault) (threatintel): Malware sample vault with hashes and metadata.
 - [Malware Sandbox](https://pranithjain.qzz.io/threatintel/malware/sandbox) (threatintel): Hash lookup across 10+ sandbox platforms — consensus verdict.
 - [Malicious Packages](https://pranithjain.qzz.io/threatintel/malware/packages) (threatintel): Malicious package tracking — npm, PyPI, RubyGems, Maven, NuGet.
+- [Supply-Chain Incidents](https://pranithjain.qzz.io/threatintel/malware/supply-chain) (threatintel): Confirmed supply-chain compromise incidents — npm · PyPI · containers · AI agents. Data: supplychainattack.org.
 - [Malpedia](https://pranithjain.qzz.io/threatintel/malware/malpedia) (threatintel): Malpedia malware encyclopedia — families, YARA, references.
 - [Maltrail Trails](https://pranithjain.qzz.io/threatintel/malware/maltrail) (threatintel): Maltrail detection trails for known malware.
 - [Feed Catalog](https://pranithjain.qzz.io/threatintel/feeds/catalog) (threatintel): Feed file browser with format and sample preview.
@@ -299,6 +301,8 @@ Drop-in configs: https://pranithjain.qzz.io/mcp/{claude-desktop,cursor,vscode-mc
 - [cve_health](https://pranithjain.qzz.io/mcp) (mcp:cve): Check the health of CVE data pipelines. Validates NVD API, EPSS API, CISA KEV, GitHub API rate limit, KV intel cache (EPSS coverage, KEV count, field completeness), and Exploit-DB mirror availability. Returns overall status (healthy/degraded/unhealthy) with per-check details.
 - [cve_poc_map](https://pranithjain.qzz.io/mcp) (mcp:cve): Get the cached CVE-to-GitHub-repo mapping. Pass ?id=CVE-XXXX-XXXXX for a single CVE, or ?year=YYYY for a year-scoped index of all mapped CVEs. Results are KV-cached for 24h.
 - [cyber_news](https://pranithjain.qzz.io/mcp) (mcp:other): Aggregate cybersecurity news from 11 RSS feeds across 5 tiers (Advisory, Exploit, Research, Vendor, Community). Supports tier filtering and keyword search. Sources: CISA, Rapid7, Packet Storm, BleepingComputer, Hacker News, GitHub Security, ZDI, Reddit netsec/exploitdev/bugbounty.
+- [email_check_registration](https://pranithjain.qzz.io/mcp) (mcp:other): Check which platforms an email address is registered on using site-specific APIs (not just HTTP status codes). Returns rich profile metadata when available. Inspired by kaifcodec/user-scanner (MIT, 2.4k stars). Checks 20+ platforms: GitHub, GitLab, Instagram, TikTok, Etsy, Spotify, Steam, and more.
+- [email_list_registration_platforms](https://pranithjain.qzz.io/mcp) (mcp:other): List all platforms available for email registration checking. Returns platform IDs, names, and categories.
 - [enrich_actor](https://pranithjain.qzz.io/mcp) (mcp:actor): Get a threat actor profile. Returns aliases, country attribution, MITRE ATT&CK techniques, known campaigns, and associated malware families.
 - [extract_fivew](https://pranithjain.qzz.io/mcp) (mcp:analysis): Extract the classic 5W grid (who/what/when/where/why) from a free-text report. Single LLM call; returns structured JSON with a per-grid confidence score.
 - [extract_iocs_from_image](https://pranithjain.qzz.io/mcp) (mcp:analysis): Fetch an image and run Workers AI vision over it to extract IOCs that are only visible in screenshots (IPs, domains, URLs, hashes, CVEs, emails). Returns the OCR text + the per-IOC confidence band.

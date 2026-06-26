@@ -2029,6 +2029,42 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       }
     );
 
+    // ── Email Registration Checker (site-specific API-based) ─────────────
+    this.tools(
+      'email_check_registration',
+      'Check which platforms an email address is registered on using site-specific APIs (not just HTTP status codes). Returns rich profile metadata when available. Inspired by kaifcodec/user-scanner (MIT, 2.4k stars). Checks 20+ platforms: GitHub, GitLab, Instagram, TikTok, Etsy, Spotify, Steam, and more.',
+      {
+        email: z.string().describe('Email address to check'),
+        platforms: z
+          .array(z.string())
+          .optional()
+          .describe('Filter to specific platforms (e.g. ["github","instagram","etsy"])'),
+      },
+      async ({ email, platforms }) => {
+        const p = new URLSearchParams({ email });
+        if (platforms?.length) p.set('platforms', platforms.join(','));
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/email-registration?${p}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'email_list_registration_platforms',
+      'List all platforms available for email registration checking. Returns platform IDs, names, and categories.',
+      {},
+      async () => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          '/api/v1/email-registration/platforms',
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+
     // ── Passive DNS Correlation Engine ──────────────────────────────────
     this.tools(
       'passive_dns_query',

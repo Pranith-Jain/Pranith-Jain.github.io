@@ -53,6 +53,7 @@ import { safebrowsing } from './safebrowsing';
 import { zoomeye } from './zoomeye';
 import { trege } from './tre-ge';
 import { intodns } from './intodns';
+import { opensourcemalware } from './opensourcemalware';
 
 export { PROVIDER_SUPPORT, PROVIDER_TIMEOUT_MS };
 
@@ -62,6 +63,7 @@ export const ADAPTERS: Record<ProviderId, ProviderAdapter> = {
   shodan,
   censys,
   netlas,
+  opensourcemalware,
   otx,
   urlscan,
   hybridanalysis,
@@ -185,6 +187,7 @@ export const PROVIDER_LABELS: Record<string, string> = {
   secrets: 'Secrets Scan',
   censys: 'Censys',
   netlas: 'Netlas',
+  opensourcemalware: 'OpenSourceMalware',
   criminalip: 'CriminalIP',
   digitalside: 'DigitalSide',
   webamon: 'Webamon Intel',
@@ -203,6 +206,7 @@ export function buildProviderEnv(env: {
   CENSYS_PAT?: string;
   CENSYS_ORG_ID?: string;
   NETLAS_API_KEY?: string;
+  OSM_API_KEY?: string;
   OTX_API_KEY?: string;
   URLSCAN_API_KEY?: string;
   HYBRID_ANALYSIS_API_KEY?: string;
@@ -225,6 +229,7 @@ export function buildProviderEnv(env: {
     CENSYS_PAT: env.CENSYS_PAT ?? '',
     CENSYS_ORG_ID: env.CENSYS_ORG_ID ?? '',
     NETLAS_API_KEY: env.NETLAS_API_KEY ?? '',
+    OSM_API_KEY: env.OSM_API_KEY,
     OTX_API_KEY: env.OTX_API_KEY ?? '',
     URLSCAN_API_KEY: env.URLSCAN_API_KEY ?? '',
     HYBRID_ANALYSIS_API_KEY: env.HYBRID_ANALYSIS_API_KEY ?? '',

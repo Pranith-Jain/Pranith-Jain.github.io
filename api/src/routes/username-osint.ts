@@ -210,6 +210,35 @@ const CLOUD_BLOCKED = new Set([
   'deta-se',
   'xbox',
   'roblox',
+  // New cloud-blocked platforms
+  'open-collective',
+  'gumroad',
+  'redbubble',
+  'teepublic',
+  'spring',
+  'ebay',
+  'mercari',
+  'poshmark',
+  'depop',
+  'strava-alt',
+  'myfitnesspal',
+  'fitbit',
+  'lastfm',
+  'mixcloud',
+  'udemy-alt',
+  'coursera-alt',
+  'skillshare',
+  'khan-academy',
+  'tripadvisor',
+  'airbnb',
+  'couchsurfing',
+  'mastodon-alt',
+  'peertube',
+  'lemmy',
+  'matrix',
+  'keybase-alt',
+  'protonmail',
+  'tutanota',
 ]);
 
 const PLATFORMS: PlatformCheck[] = [
@@ -649,6 +678,78 @@ const PLATFORMS: PlatformCheck[] = [
   { id: 'railway-se', name: 'Railway', category: 'other', url: (u) => `https://railway.app/${u}` },
   { id: 'fly-se', name: 'Fly.io', category: 'other', url: (u) => `https://fly.io/${u}` },
   { id: 'deta-se', name: 'Deta', category: 'other', url: (u) => `https://deta.space/${u}` },
+
+  // ── New platforms from kaifcodec/user-scanner (2026-06-26) ────────────
+  // Donation / Funding
+  { id: 'open-collective', name: 'Open Collective', category: 'finance', url: (u) => `https://opencollective.com/${u}` },
+  { id: 'gumroad', name: 'Gumroad', category: 'creative', url: (u) => `https://${u}.gumroad.com` },
+  { id: 'etsy-shop', name: 'Etsy Shop', category: 'creative', url: (u) => `https://www.etsy.com/shop/${u}` },
+  { id: 'redbubble', name: 'Redbubble', category: 'creative', url: (u) => `https://www.redbubble.com/people/${u}` },
+  { id: 'teepublic', name: 'TeePublic', category: 'creative', url: (u) => `https://www.teepublic.com/users/${u}` },
+  { id: 'spring', name: 'Spring (Teespring)', category: 'creative', url: (u) => `https://spRING.com/@${u}` },
+  { id: 'ko-fi-alt', name: 'Ko-fi (alt)', category: 'finance', url: (u) => `https://ko-fi.com/${u}` },
+
+  // Community / Forum
+  { id: 'producthunt-alt', name: 'Product Hunt', category: 'tech', url: (u) => `https://www.producthunt.com/@${u}` },
+  { id: 'indie-hackers', name: 'Indie Hackers', category: 'tech', url: (u) => `https://www.indiehackers.com/user/${u}` },
+  { id: 'lobsters', name: 'Lobsters', category: 'tech', url: (u) => `https://lobste.rs/u/${u}` },
+  { id: 'phabricator', name: 'Phabricator', category: 'dev', url: (u) => `https://phabricator.wikimedia.org/p/${u}` },
+
+  // Email / Messaging
+  { id: 'protonmail', name: 'ProtonMail', category: 'other', url: (u) => `https://proton.me` },
+  { id: 'tutanota', name: 'Tutanota', category: 'other', url: (u) => `https://tuta.com` },
+
+  // Marketplace
+  { id: 'ebay', name: 'eBay', category: 'other', url: (u) => `https://www.ebay.com/usr/${u}` },
+  { id: 'mercari', name: 'Mercari', category: 'other', url: (u) => `https://www.mercari.com/${u}` },
+  { id: 'poshmark', name: 'Poshmark', category: 'other', url: (u) => `https://poshmark.com/closet/${u}` },
+  { id: 'depop', name: 'Depop', category: 'other', url: (u) => `https://www.depop.com/${u}` },
+
+  // Political / Advocacy
+  { id: 'act-blue', name: 'ActBlue', category: 'other', url: (u) => `https://actblue.com` },
+  { id: 'change-org', name: 'Change.org', category: 'other', url: (u) => `https://www.change.org/u/${u}` },
+
+  // News / Publishing
+  { id: 'substack-alt', name: 'Substack', category: 'tech', url: (u) => `https://${u}.substack.com` },
+  { id: 'ghost-alt', name: 'Ghost', category: 'tech', url: (u) => `https://${u}.ghost.io` },
+  { id: 'writes', name: 'Writes', category: 'tech', url: (u) => `https://writes.as/${u}` },
+
+  // Fitness / Sports
+  { id: 'strava-alt', name: 'Strava', category: 'other', url: (u) => `https://www.strava.com/athletes/${u}` },
+  { id: 'myfitnesspal', name: 'MyFitnessPal', category: 'other', url: (u) => `https://www.myfitnesspal.com/profile/${u}` },
+  { id: 'fitbit', name: 'Fitbit', category: 'other', url: (u) => `https://www.fitbit.com/profile/${u}` },
+
+  // Hosting / Cloud (non-SE dashboards)
+  { id: 'github-pages', name: 'GitHub Pages', category: 'dev', url: (u) => `https://${u}.github.io` },
+  { id: 'gitlab-pages', name: 'GitLab Pages', category: 'dev', url: (u) => `https://${u}.gitlab.io` },
+
+  // Music / Audio
+  { id: 'lastfm', name: 'Last.fm', category: 'creative', url: (u) => `https://www.last.fm/user/${u}` },
+  { id: 'genius', name: 'Genius', category: 'creative', url: (u) => `https://genius.com/${u}` },
+  { id: 'mixcloud', name: 'Mixcloud', category: 'creative', url: (u) => `https://www.mixcloud.com/${u}` },
+
+  // Learning / Education
+  { id: 'udemy-alt', name: 'Udemy', category: 'tech', url: (u) => `https://www.udemy.com/user/${u}/` },
+  { id: 'coursera-alt', name: 'Coursera', category: 'tech', url: (u) => `https://www.coursera.org/user/${u}` },
+  { id: 'skillshare', name: 'Skillshare', category: 'tech', url: (u) => `https://www.skillshare.com/profile/${u}` },
+  { id: 'khan-academy', name: 'Khan Academy', category: 'tech', url: (u) => `https://www.khanacademy.org/profile/${u}` },
+
+  // Jobs / Professional
+  { id: 'wellfound', name: 'Wellfound (AngelList)', category: 'tech', url: (u) => `https://wellfound.com/u/${u}` },
+  { id: 'glassdoor', name: 'Glassdoor', category: 'other', url: (u) => `https://www.glassdoor.com/profile/${u}` },
+  { id: 'indeed', name: 'Indeed', category: 'other', url: (u) => `https://profile.indeed.com/${u}` },
+
+  // Travel
+  { id: 'tripadvisor', name: 'TripAdvisor', category: 'other', url: (u) => `https://www.tripadvisor.com/Profile/${u}` },
+  { id: 'airbnb', name: 'Airbnb', category: 'other', url: (u) => `https://www.airbnb.com/users/show/${u}` },
+  { id: 'couchsurfing', name: 'Couchsurfing', category: 'other', url: (u) => `https://www.couchsurfing.com/people/${u}` },
+
+  // Additional Social (from user-scanner)
+  { id: 'mastodon-alt', name: 'Mastodon', category: 'social', url: (u) => `https://mastodon.social/@${u}` },
+  { id: 'peertube', name: 'PeerTube', category: 'social', url: (u) => `https://peertube.cpy.re/${u}` },
+  { id: 'lemmy', name: 'Lemmy', category: 'social', url: (u) => `https://lemmy.ml/u/${u}` },
+  { id: 'matrix', name: 'Matrix', category: 'social', url: (u) => `https://matrix.to/#@${u}:matrix.org` },
+  { id: 'keybase-alt', name: 'Keybase', category: 'dev', url: (u) => `https://keybase.io/${u}` },
 ];
 
 interface PlatformResult {

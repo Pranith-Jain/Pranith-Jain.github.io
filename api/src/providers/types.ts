@@ -6,6 +6,7 @@ export type ProviderId =
   | 'shodan'
   | 'censys'
   | 'netlas'
+  | 'opensourcemalware'
   | 'otx'
   | 'urlscan'
   | 'hybridanalysis'
@@ -110,6 +111,9 @@ export interface ProviderEnv {
   CENSYS_PAT: string;
   CENSYS_ORG_ID: string;
   NETLAS_API_KEY: string;
+  /** OpenSourceMalware API token (free, generated at opensourcemalware.com → Settings → API Tokens).
+   *  Optional — the provider degrades to 'unsupported' when unset. */
+  OSM_API_KEY?: string;
   OTX_API_KEY: string;
   URLSCAN_API_KEY: string;
   HYBRID_ANALYSIS_API_KEY: string;
@@ -147,6 +151,7 @@ export const PROVIDER_SUPPORT: Record<ProviderId, IndicatorType[]> = {
   shodan: ['ipv4', 'ipv6', 'domain'],
   censys: ['ipv4', 'ipv6'],
   netlas: ['ipv4', 'ipv6'],
+  opensourcemalware: ['ipv4', 'ipv6', 'domain', 'url'],
   otx: ['ipv4', 'ipv6', 'domain', 'url', 'hash'],
   urlscan: ['url', 'domain'],
   hybridanalysis: ['hash'],
