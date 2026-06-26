@@ -77,6 +77,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [URL Reputation](https://pranithjain.qzz.io/dfir/url-rep) (dfir): Cross-source URL reputation — PhishTank, OpenPhish, Google Safe Browsing.
 - [Username Investigator (alias)](https://pranithjain.qzz.io/dfir/username-investigator) (dfir): Alias of /dfir/username — the canonical page.
 - [Phone OSINT](https://pranithjain.qzz.io/dfir/phone-osint) (dfir): Phone number — carrier, country, line type, breach presence.
+- [Wi-Fi / BSSID Investigation](https://pranithjain.qzz.io/dfir/wifi-investigation) (dfir): Wireless network — BSSID vendor lookup, SSID analysis, security flags.
 - [Weather OSINT](https://pranithjain.qzz.io/dfir/weather-osint) (dfir): Reverse geocoding + historical weather for a timestamp + coordinates.
 - [SOCMINT](https://pranithjain.qzz.io/dfir/socmint) (dfir): Social-media intelligence — X / Reddit / Telegram / Mastodon pivots.
 - [OSINT Mapper](https://pranithjain.qzz.io/dfir/osint-mapper) (dfir): Build a mind-map of an investigation — nodes are entities, edges are pivots.
@@ -354,8 +355,10 @@ Drop-in configs: https://pranithjain.qzz.io/mcp/{claude-desktop,cursor,vscode-mc
 - [passive_dns_overlap](https://pranithjain.qzz.io/mcp) (mcp:pdns): Find IPs shared between multiple domains (infrastructure overlap detection). Useful for mapping shared malicious hosting.
 - [passive_dns_query](https://pranithjain.qzz.io/mcp) (mcp:pdns): Query passive DNS for a domain or IP. Returns historical DNS resolutions, infrastructure migrations, and fast-flux detection. Sources: VirusTotal, URLscan, crt.sh, CIRCL.
 - [passive_dns_reverse](https://pranithjain.qzz.io/mcp) (mcp:pdns): Reverse passive DNS lookup: find all domains that historically resolved to a given IP. Reads from accumulated D1 cache.
+- [phone_osint](https://pranithjain.qzz.io/mcp) (mcp:other): Investigate a phone number — E.164 parsing, carrier/line-type detection, country lookup, messaging platform checks (WhatsApp/Telegram), breach exposure, and Google dorks. Returns structured JSON with parsed phone details, lookup URLs, and security flags.
 - [pivot_domain](https://pranithjain.qzz.io/mcp) (mcp:domain): Pivot across domains by shared registrant attributes. Find other domains owned by the same entity by matching registrant email, organization, nameservers, or registrar. Critical for mapping attacker infrastructure — if a malicious domain shares its registrant email with 50 other domains, those are likely all owned by the same threat actor.
 - [poc_scan](https://pranithjain.qzz.io/mcp) (mcp:other): Search GitHub for public exploit/PoC repositories for a CVE. Returns repo URLs, star counts, language, age, and whether the repo has actual code. Bypasses GitHub 1000-result limit via monthly pagination.
+- [reverse_image_search](https://pranithjain.qzz.io/mcp) (mcp:other): Generate reverse image search URLs across 8+ engines (Google Lens, Yandex, TinEye, Bing, Baidu, SauceNAO, IQDB, KarmaDecay). Validates image reachability and returns categorized deep links for manual investigation.
 - [scan_website](https://pranithjain.qzz.io/mcp) (mcp:exposure): Scan a website for security issues — checks security headers, SSL certificate, technologies, and potential vulnerabilities.
 - [search_malpedia](https://pranithjain.qzz.io/mcp) (mcp:search): Search Malpedia for malware families or threat actors. Returns matching entries with descriptions and references.
 - [search_malware](https://pranithjain.qzz.io/mcp) (mcp:search): Search for malware families. Returns family info, YARA rules, samples, and references from Malpedia.
@@ -411,6 +414,7 @@ Drop-in configs: https://pranithjain.qzz.io/mcp/{claude-desktop,cursor,vscode-mc
 - [validate_yara_rule](https://pranithjain.qzz.io/mcp) (mcp:detection): Validate a YARA rule syntax. Checks for balanced braces, required sections, and proper string definitions.
 - [watch_domain_ct](https://pranithjain.qzz.io/mcp) (mcp:domain): Add a domain to Certificate Transparency monitoring. Alerts on new subdomains, suspicious patterns, wildcard certs, and more. Uses crt.sh for unlimited free CT log queries.
 - [wayback_lookup](https://pranithjain.qzz.io/mcp) (mcp:domain): Check the Wayback Machine (archive.org) for historical snapshots of a URL. Useful for tracking website changes or recovering deleted content.
+- [wifi_investigation](https://pranithjain.qzz.io/mcp) (mcp:other): Investigate a wireless network by BSSID (MAC address) or SSID (network name). Returns OUI vendor lookup, MAC bit analysis (privacy/multicast), default SSID detection, WiGLE.net links, and security flags for rogue AP detection.
 - [ws_add_connection](https://pranithjain.qzz.io/mcp) (mcp:other): Define a relationship between two subjects in a workspace.
 - [ws_add_finding](https://pranithjain.qzz.io/mcp) (mcp:other): Log a finding with source, trust score, and confidence in a workspace.
 - [ws_add_subject](https://pranithjain.qzz.io/mcp) (mcp:other): Register a subject (entity) in a workspace investigation.

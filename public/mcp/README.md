@@ -1,6 +1,6 @@
 # DFIR-ThreatIntel MCP - tool catalog
 
-**131 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
+**134 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
 
 ## Quick start
 
@@ -14,7 +14,7 @@
 
 ## Tools by category
 
-### other (39)
+### other (42)
 
 - `btc_abuse_check` - Check a Bitcoin address for abuse/scam reports on ChainAbuse. Returns report count, categories (phishing, ransomware, scam, etc.), descriptions, and associated scam types. Useful for tracing illicit crypto transactions.
 - `cyber_news` - Aggregate cybersecurity news from 11 RSS feeds across 5 tiers (Advisory, Exploit, Research, Vendor, Community). Supports tier filtering and keyword search. Sources: CISA, Rapid7, Packet Storm, BleepingComputer, Hacker News, GitHub Security, ZDI, Reddit netsec/exploitdev/bugbounty.
@@ -29,7 +29,9 @@
 - `get_trending_iocs` - Get the most active IOCs in the last 24 hours. Returns indicators with highest observation counts and scores, useful for identifying emerging threats.
 - `lookup_mitre` - Look up a MITRE ATT&CK technique by ID. Returns technique name, description, tactics, mitigations, and detection guidance.
 - `onion_lookup` - Look up metadata for a .onion address via the CIRCL AIL Project. Returns first/last seen dates, status, tags, PGP keys, certificates, open ports, page title, and associated Bitcoin addresses. No API key required.
+- `phone_osint` - Investigate a phone number — E.164 parsing, carrier/line-type detection, country lookup, messaging platform checks (WhatsApp/Telegram), breach exposure, and Google dorks. Returns structured JSON with parsed phone details, lookup URLs, and security flags.
 - `poc_scan` - Search GitHub for public exploit/PoC repositories for a CVE. Returns repo URLs, star counts, language, age, and whether the repo has actual code. Bypasses GitHub 1000-result limit via monthly pagination.
+- `reverse_image_search` - Generate reverse image search URLs across 8+ engines (Google Lens, Yandex, TinEye, Bing, Baidu, SauceNAO, IQDB, KarmaDecay). Validates image reachability and returns categorized deep links for manual investigation.
 - `soc_cve_report` - Generate a SOC CVE intelligence report. Takes a list of up to 50 CVE IDs and bundles CVE lookup + PoC scan + health check into a downloadable CSV or Markdown report. Returns executive summary, CVSS/EPSS/KEV details, PoC repos, and pipeline health.
 - `tg_boolean_search` - Search Telegram leak messages with boolean AND/OR/NOT operators and field qualifiers. Fields: text, channel.title, channel.username, severity, leak_type. Supports wildcards (prefix*) and exact phrases ("quoted").
 - `tg_saved_search_create` - Save a Telegram boolean search query for one-click reuse.
@@ -44,6 +46,7 @@
 - `tor_search_onion` - Search for .onion sites using the Ahmia.fi search engine. Returns matching pages with title, URL, and description. Note: Ahmia selectively indexes .onion sites; not all dark web content is discoverable.
 - `tor_status` - Check the dark web access gateway status. Uses public tor2web gateways to reach .onion sites (no local Tor daemon required). Returns available gateways and method info.
 - `trace_crypto_address` - Trace a cryptocurrency wallet address. Returns balance, transaction history, and associated entities from blockchain explorers.
+- `wifi_investigation` - Investigate a wireless network by BSSID (MAC address) or SSID (network name). Returns OUI vendor lookup, MAC bit analysis (privacy/multicast), default SSID detection, WiGLE.net links, and security flags for rogue AP detection.
 - `ws_add_connection` - Define a relationship between two subjects in a workspace.
 - `ws_add_finding` - Log a finding with source, trust score, and confidence in a workspace.
 - `ws_add_subject` - Register a subject (entity) in a workspace investigation.

@@ -773,10 +773,8 @@ interface UsernameOsnitResponse {
 async function checkPlatform(username: string, platform: PlatformCheck): Promise<PlatformResult> {
   const url = platform.url(username);
   try {
-    const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
     const res = await fetch(url, {
-      signal: ctrl.signal,
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
       redirect: 'manual',
       headers: {
         'user-agent':
@@ -784,7 +782,6 @@ async function checkPlatform(username: string, platform: PlatformCheck): Promise
         accept: 'text/html,*/*',
       },
     });
-    clearTimeout(timer);
 
     if (platform.detect) {
       const status = platform.detect(res.status, res.headers);
