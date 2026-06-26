@@ -576,7 +576,8 @@ const checkNetflix: EmailChecker = async (email) => {
     const initRes = await fetch('https://www.netflix.com/', {
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Mobile Safari/537.36',
+        'User-Agent':
+          'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Mobile Safari/537.36',
       },
       redirect: 'manual',
     });
@@ -619,7 +620,8 @@ const checkNetflix: EmailChecker = async (email) => {
     if (!res.ok) return err('netflix', 'Netflix', 'entertainment', url, `HTTP ${res.status}`);
     const text = await res.text();
     if (text.includes('Welcome back!')) return ok('netflix', 'Netflix', 'entertainment', url);
-    if (text.includes('sign-up link') || text.includes('create your account')) return no('netflix', 'Netflix', 'entertainment', url);
+    if (text.includes('sign-up link') || text.includes('create your account'))
+      return no('netflix', 'Netflix', 'entertainment', url);
     return err('netflix', 'Netflix', 'entertainment', url, 'unexpected response');
   } catch {
     return err('netflix', 'Netflix', 'entertainment', url);
@@ -634,13 +636,15 @@ const checkAmazon: EmailChecker = async (email) => {
     const res = await fetch(signinUrl, {
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
       headers: {
-        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
+        'User-Agent':
+          'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
         Accept: 'text/html,application/xhtml+xml',
       },
       redirect: 'follow',
     });
     const html = await res.text();
-    if (html.includes('captcha') || html.includes('Robot Check')) return rateLimited('amazon', 'Amazon', 'shopping', url);
+    if (html.includes('captcha') || html.includes('Robot Check'))
+      return rateLimited('amazon', 'Amazon', 'shopping', url);
     // Extract form action
     const actionMatch = html.match(/action=["']([^"']*\/(?:ap\/signin|ax\/claim)[^"']*)["']/);
     if (!actionMatch?.[1]) return err('amazon', 'Amazon', 'shopping', url, 'no form action');
@@ -655,14 +659,16 @@ const checkAmazon: EmailChecker = async (email) => {
       method: 'POST',
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
       headers: {
-        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
+        'User-Agent':
+          'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: new URLSearchParams(fields).toString(),
       redirect: 'follow',
     });
     const postHtml = await postRes.text();
-    if (postHtml.includes('auth-password-missing-alert') || postHtml.includes('password')) return ok('amazon', 'Amazon', 'shopping', url);
+    if (postHtml.includes('auth-password-missing-alert') || postHtml.includes('password'))
+      return ok('amazon', 'Amazon', 'shopping', url);
     return no('amazon', 'Amazon', 'shopping', url);
   } catch {
     return err('amazon', 'Amazon', 'shopping', url);
@@ -689,7 +695,8 @@ const checkDropbox: EmailChecker = async (email) => {
     // 302 redirect means email exists (redirects to password page)
     if (res.status === 302) return ok('dropbox', 'Dropbox', 'other', url);
     const text = await res.text();
-    if (text.includes('not found') || text.includes('no account') || text.includes('invalid_email')) return no('dropbox', 'Dropbox', 'other', url);
+    if (text.includes('not found') || text.includes('no account') || text.includes('invalid_email'))
+      return no('dropbox', 'Dropbox', 'other', url);
     if (text.includes('password') || res.status === 200) return ok('dropbox', 'Dropbox', 'other', url);
     return err('dropbox', 'Dropbox', 'other', url, 'unexpected response');
   } catch {
@@ -697,17 +704,20 @@ const checkDropbox: EmailChecker = async (email) => {
   }
 };
 
-const checkAdobe: EmailChecker = async (email) => {
+const checkAdobe: EmailChecker = async (_email) => {
   const url = 'https://account.adobe.com';
   try {
     // Adobe's check endpoint returns HTML; use a different approach
-    const res = await fetch(`https://auth.services.adobe.com/en_US/index.html?callback=https%3A%2F%2Fims-na1.adobelogin.com%2Fims%2Fadobeid%2Fcreativecloud-web%2FAdobeID%2Ftoken&client_id=creativecloud-web&scope=AdobeID%2Copenid%2Ccreative_sdk%2Cgnav%2Csao.cce_private%2Cadditional_info.projectedProductContext&denied_callback=https%3A%2F%2Fims-na1.adobelogin.com%2Fims%2Fdenied%2Fcreativecloud-web&relay=&locale=en_US&flow_type=token&idp_flow_type=login`, {
-      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36',
-      },
-      redirect: 'manual',
-    });
+    const res = await fetch(
+      `https://auth.services.adobe.com/en_US/index.html?callback=https%3A%2F%2Fims-na1.adobelogin.com%2Fims%2Fadobeid%2Fcreativecloud-web%2FAdobeID%2Ftoken&client_id=creativecloud-web&scope=AdobeID%2Copenid%2Ccreative_sdk%2Cgnav%2Csao.cce_private%2Cadditional_info.projectedProductContext&denied_callback=https%3A%2F%2Fims-na1.adobelogin.com%2Fims%2Fdenied%2Fcreativecloud-web&relay=&locale=en_US&flow_type=token&idp_flow_type=login`,
+      {
+        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36',
+        },
+        redirect: 'manual',
+      }
+    );
     // If redirected to login page, email might exist
     if (res.status === 302 || res.status === 301) return ok('adobe', 'Adobe', 'other', url);
     return no('adobe', 'Adobe', 'other', url);
@@ -728,7 +738,7 @@ const checkNotion: EmailChecker = async (email) => {
       },
       body: JSON.stringify({ email }),
     });
-    const data = await res.json() as { status?: string; signupToken?: string };
+    const data = (await res.json()) as { status?: string; signupToken?: string };
     if (data.signupToken) return no('notion', 'Notion', 'tech', url);
     if (data.status === 'success') return ok('notion', 'Notion', 'tech', url);
     return err('notion', 'Notion', 'tech', url, 'unexpected response');
@@ -800,7 +810,7 @@ const checkAirbnb: EmailChecker = async (email) => {
       },
       body: JSON.stringify({ email }),
     });
-    const data = await res.json() as { exists?: boolean; error?: string };
+    const data = (await res.json()) as { exists?: boolean; error?: string };
     if (data.exists === true) return ok('airbnb', 'Airbnb', 'other', url);
     if (data.exists === false) return no('airbnb', 'Airbnb', 'other', url);
     return err('airbnb', 'Airbnb', 'other', url, data.error || 'unexpected response');
@@ -823,7 +833,7 @@ const checkBinance: EmailChecker = async (email) => {
       },
       body: JSON.stringify({ email }),
     });
-    const data = await res.json() as { data?: { isExist?: boolean } };
+    const data = (await res.json()) as { data?: { isExist?: boolean } };
     if (data.data?.isExist === true) return ok('binance', 'Binance', 'finance', url);
     if (data.data?.isExist === false) return no('binance', 'Binance', 'finance', url);
     return err('binance', 'Binance', 'finance', url, 'unexpected response');
@@ -855,9 +865,11 @@ const checkSkillshare: EmailChecker = async (email) => {
       if (res.status === 404) return no('skillshare', 'Skillshare', 'learning', url);
       return err('skillshare', 'Skillshare', 'learning', url, `HTTP ${res.status}`);
     }
-    const data = await res.json() as { exists?: boolean; available?: boolean; user_exists?: boolean };
-    if (data.exists === true || data.available === false || data.user_exists === true) return ok('skillshare', 'Skillshare', 'learning', url);
-    if (data.exists === false || data.available === true || data.user_exists === false) return no('skillshare', 'Skillshare', 'learning', url);
+    const data = (await res.json()) as { exists?: boolean; available?: boolean; user_exists?: boolean };
+    if (data.exists === true || data.available === false || data.user_exists === true)
+      return ok('skillshare', 'Skillshare', 'learning', url);
+    if (data.exists === false || data.available === true || data.user_exists === false)
+      return no('skillshare', 'Skillshare', 'learning', url);
     return err('skillshare', 'Skillshare', 'learning', url, 'unexpected response');
   } catch {
     return err('skillshare', 'Skillshare', 'learning', url);
@@ -876,7 +888,7 @@ const checkKhanAcademy: EmailChecker = async (email) => {
       },
       body: JSON.stringify({ email }),
     });
-    const data = await res.json() as { isTaken?: boolean; exists?: boolean };
+    const data = (await res.json()) as { isTaken?: boolean; exists?: boolean };
     if (data.isTaken === true || data.exists === true) return ok('khan-academy', 'Khan Academy', 'learning', url);
     if (data.isTaken === false || data.exists === false) return no('khan-academy', 'Khan Academy', 'learning', url);
     return err('khan-academy', 'Khan Academy', 'learning', url, 'unexpected response');
@@ -904,7 +916,7 @@ const checkWellfound: EmailChecker = async (email) => {
       },
       body: JSON.stringify({ email }),
     });
-    const data = await res.json() as { available?: boolean; exists?: boolean };
+    const data = (await res.json()) as { available?: boolean; exists?: boolean };
     if (data.available === false || data.exists === true) return ok('wellfound', 'Wellfound', 'tech', url);
     if (data.available === true || data.exists === false) return no('wellfound', 'Wellfound', 'tech', url);
     return err('wellfound', 'Wellfound', 'tech', url, 'unexpected response');
