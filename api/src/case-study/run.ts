@@ -8,6 +8,7 @@
 import { runDiscovery } from './discovery';
 import { mulberry32, dateSeed, weightedSampleByScore } from './discovery/sampling';
 import { discoverCves } from './discovery/cve';
+import { selfFetchJson } from '../lib/self-fetch';
 import { discoverActors } from './discovery/actor';
 import { discoverMalware } from './discovery/malware';
 import { discoverRansomware } from './discovery/ransomware';
@@ -268,14 +269,7 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
   // Shared platform API fetch — uses SELF service binding for in-process
   // calls so /api/v1/* endpoints don't hit the public API-key gate.
   const apiFetch: (path: string) => Promise<unknown> = async (path) => {
-    try {
-      const url = `https://pranithjain.qzz.io${path}`;
-      const r = env.SELF ? await env.SELF.fetch(new Request(url)) : await globalThis.fetch(new Request(url));
-      if (!r.ok) return null;
-      return r.json();
-    } catch {
-      return null;
-    }
+    return selfFetchJson<unknown>(env.SELF, path, env);
   };
 
   const allRunners: Record<string, () => Promise<Candidate[]>> = {
@@ -295,13 +289,8 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
         // Uses SELF service binding to bypass the public API-key gate.
         fetchReleaks: async () => {
           try {
-            const url = `/api/v1/victim-releaks`;
-            const r = env.SELF
-              ? await env.SELF.fetch(new Request(`https://pranithjain.qzz.io${url}`))
-              : await globalThis.fetch(new Request(`https://pranithjain.qzz.io${url}`));
-            if (!r.ok) return [];
-            const data = (await r.json()) as { releaks?: ReleakRow[] };
-            return data.releaks ?? [];
+            const data = await selfFetchJson<{ releaks?: ReleakRow[] }>(env.SELF, '/api/v1/victim-releaks', env);
+            return data?.releaks ?? [];
           } catch {
             return [];
           }

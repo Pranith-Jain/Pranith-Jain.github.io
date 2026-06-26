@@ -183,20 +183,8 @@ const checkGitLab: EmailChecker = async (email) => {
   }
 };
 
-const checkBitbucket: EmailChecker = async (email) => {
-  const url = 'https://bitbucket.org';
-  try {
-    // Bitbucket uses a different flow; check via their API
-    const username = email.split('@')[0] || '';
-    const apiRes = await fetch(`https://api.bitbucket.org/2.0/users/${encodeURIComponent(username)}`, {
-      signal: AbortSignal.timeout(5000),
-    });
-    if (apiRes.ok) return ok('bitbucket', 'Bitbucket', 'dev', url);
-    return no('bitbucket', 'Bitbucket', 'dev', url);
-  } catch {
-    return err('bitbucket', 'Bitbucket', 'dev', url);
-  }
-};
+// Bitbucket removed — no public email-check API; username heuristic
+// produces misleading results (checks username, not email).
 
 const checkHackerRank: EmailChecker = async (email) => {
   const url = 'https://www.hackerrank.com';
@@ -523,27 +511,8 @@ const checkMedium: EmailChecker = async (email) => {
   }
 };
 
-const checkSlack: EmailChecker = async (email) => {
-  const url = 'https://slack.com';
-  try {
-    const res = await fetch('https://slack.com/api/auth.findTeam', {
-      method: 'POST',
-      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'User-Agent':
-          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
-      },
-      body: `domain=${encodeURIComponent(email.split('@')[1] || '')}`,
-    });
-    const data = (await res.json()) as { msg?: string; teams?: Array<{ name?: string }> };
-    if (data.teams && data.teams.length > 0)
-      return ok('slack', 'Slack', 'other', url, { teams: data.teams.map((t) => t.name) });
-    return no('slack', 'Slack', 'other', url);
-  } catch {
-    return err('slack', 'Slack', 'other', url);
-  }
-};
+// Slack removed — auth.findTeam checks workspace domain, not email registration.
+// Any email at a company that uses Slack would always return "registered", misleading.
 
 const checkTwitch: EmailChecker = async (email) => {
   const url = 'https://www.twitch.tv';
@@ -598,6 +567,352 @@ const checkDeviantArt: EmailChecker = async (email) => {
   }
 };
 
+// ── Entertainment ────────────────────────────────────────────────────────────
+
+const checkNetflix: EmailChecker = async (email) => {
+  const url = 'https://www.netflix.com';
+  try {
+    // Get session token from multiple cookies
+    const initRes = await fetch('https://www.netflix.com/', {
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Mobile Safari/537.36',
+      },
+      redirect: 'manual',
+    });
+    const setCookies = initRes.headers.get('set-cookie') || '';
+    const flwssn = setCookies.match(/flwssn=([^;]+)/)?.[1];
+    if (!flwssn) return err('netflix', 'Netflix', 'entertainment', url, 'no session');
+
+    // Build full cookie string
+    const cookies = setCookies
+      .split('\n')
+      .map((c) => c.split(';')[0]?.trim())
+      .filter(Boolean)
+      .join('; ');
+
+    const res = await fetch('https://web.prod.cloud.netflix.com/graphql', {
+      method: 'POST',
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36',
+        'Content-Type': 'application/json',
+        'x-netflix.context.operation-name': 'CLCSWebInitSignup',
+        'x-netflix.request.clcs.bucket': 'high',
+        Cookie: cookies,
+      },
+      body: JSON.stringify({
+        operationName: 'CLCSWebInitSignup',
+        variables: {
+          inputUserJourneyNode: 'WELCOME',
+          locale: 'en-US',
+          inputFields: [
+            { name: 'flwssn', value: { stringValue: flwssn } },
+            { name: 'email', value: { stringValue: email } },
+          ],
+        },
+        extensions: {
+          persistedQuery: { id: 'f6e8ddc6-79fb-4ff2-8e55-893d707887a4', version: 102 },
+        },
+      }),
+    });
+    if (!res.ok) return err('netflix', 'Netflix', 'entertainment', url, `HTTP ${res.status}`);
+    const text = await res.text();
+    if (text.includes('Welcome back!')) return ok('netflix', 'Netflix', 'entertainment', url);
+    if (text.includes('sign-up link') || text.includes('create your account')) return no('netflix', 'Netflix', 'entertainment', url);
+    return err('netflix', 'Netflix', 'entertainment', url, 'unexpected response');
+  } catch {
+    return err('netflix', 'Netflix', 'entertainment', url);
+  }
+};
+
+const checkAmazon: EmailChecker = async (email) => {
+  const url = 'https://www.amazon.com';
+  try {
+    const signinUrl =
+      'https://www.amazon.com/ap/signin?openid.pape.max_auth_age=0&openid.return_to=https%3A%2F%2Fwww.amazon.com%2F&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.assoc_handle=usflex&openid.mode=checkid_setup&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0';
+    const res = await fetch(signinUrl, {
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
+        Accept: 'text/html,application/xhtml+xml',
+      },
+      redirect: 'follow',
+    });
+    const html = await res.text();
+    if (html.includes('captcha') || html.includes('Robot Check')) return rateLimited('amazon', 'Amazon', 'shopping', url);
+    // Extract form action
+    const actionMatch = html.match(/action=["']([^"']*\/(?:ap\/signin|ax\/claim)[^"']*)["']/);
+    if (!actionMatch?.[1]) return err('amazon', 'Amazon', 'shopping', url, 'no form action');
+    // Extract hidden fields
+    const fields: Record<string, string> = {};
+    for (const m of html.matchAll(/<input[^>]*name=["']([^"']+)["'][^>]*value=["']([^"']*)["']/g)) {
+      if (m[1]) fields[m[1]] = m[2] ?? '';
+    }
+    fields['email'] = email;
+    const postUrl = actionMatch[1].startsWith('/') ? `https://www.amazon.com${actionMatch[1]}` : actionMatch[1];
+    const postRes = await fetch(postUrl, {
+      method: 'POST',
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams(fields).toString(),
+      redirect: 'follow',
+    });
+    const postHtml = await postRes.text();
+    if (postHtml.includes('auth-password-missing-alert') || postHtml.includes('password')) return ok('amazon', 'Amazon', 'shopping', url);
+    return no('amazon', 'Amazon', 'shopping', url);
+  } catch {
+    return err('amazon', 'Amazon', 'shopping', url);
+  }
+};
+
+// ── SaaS / Productivity ─────────────────────────────────────────────────────
+
+const checkDropbox: EmailChecker = async (email) => {
+  const url = 'https://www.dropbox.com';
+  try {
+    // Dropbox uses a passwordless login flow; check via their API
+    const res = await fetch('https://www.dropbox.com/ajax/login', {
+      method: 'POST',
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36',
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+      body: `email=${encodeURIComponent(email)}&login=Continue`,
+      redirect: 'manual',
+    });
+    // 302 redirect means email exists (redirects to password page)
+    if (res.status === 302) return ok('dropbox', 'Dropbox', 'other', url);
+    const text = await res.text();
+    if (text.includes('not found') || text.includes('no account') || text.includes('invalid_email')) return no('dropbox', 'Dropbox', 'other', url);
+    if (text.includes('password') || res.status === 200) return ok('dropbox', 'Dropbox', 'other', url);
+    return err('dropbox', 'Dropbox', 'other', url, 'unexpected response');
+  } catch {
+    return err('dropbox', 'Dropbox', 'other', url);
+  }
+};
+
+const checkAdobe: EmailChecker = async (email) => {
+  const url = 'https://account.adobe.com';
+  try {
+    // Adobe's check endpoint returns HTML; use a different approach
+    const res = await fetch(`https://auth.services.adobe.com/en_US/index.html?callback=https%3A%2F%2Fims-na1.adobelogin.com%2Fims%2Fadobeid%2Fcreativecloud-web%2FAdobeID%2Ftoken&client_id=creativecloud-web&scope=AdobeID%2Copenid%2Ccreative_sdk%2Cgnav%2Csao.cce_private%2Cadditional_info.projectedProductContext&denied_callback=https%3A%2F%2Fims-na1.adobelogin.com%2Fims%2Fdenied%2Fcreativecloud-web&relay=&locale=en_US&flow_type=token&idp_flow_type=login`, {
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36',
+      },
+      redirect: 'manual',
+    });
+    // If redirected to login page, email might exist
+    if (res.status === 302 || res.status === 301) return ok('adobe', 'Adobe', 'other', url);
+    return no('adobe', 'Adobe', 'other', url);
+  } catch {
+    return err('adobe', 'Adobe', 'other', url);
+  }
+};
+
+const checkNotion: EmailChecker = async (email) => {
+  const url = 'https://www.notion.so';
+  try {
+    const res = await fetch('https://www.notion.so/api/v3/getSignupValuesForEmail', {
+      method: 'POST',
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    });
+    const data = await res.json() as { status?: string; signupToken?: string };
+    if (data.signupToken) return no('notion', 'Notion', 'tech', url);
+    if (data.status === 'success') return ok('notion', 'Notion', 'tech', url);
+    return err('notion', 'Notion', 'tech', url, 'unexpected response');
+  } catch {
+    return err('notion', 'Notion', 'tech', url);
+  }
+};
+
+// ── Ride-sharing / Delivery ─────────────────────────────────────────────────
+
+const checkUber: EmailChecker = async (email) => {
+  const url = 'https://www.uber.com';
+  try {
+    // Uber's signup flow reveals if email is taken
+    const res = await fetch('https://www.uber.com/api-login', {
+      method: 'POST',
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36',
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+      body: JSON.stringify({ email }),
+      redirect: 'manual',
+    });
+    if (res.status === 422) return ok('uber', 'Uber', 'other', url);
+    if (res.status === 400) return no('uber', 'Uber', 'other', url);
+    const text = await res.text();
+    if (text.includes('already') || text.includes('taken')) return ok('uber', 'Uber', 'other', url);
+    if (text.includes('not found') || text.includes('invalid')) return no('uber', 'Uber', 'other', url);
+    return err('uber', 'Uber', 'other', url, `HTTP ${res.status}`);
+  } catch {
+    return err('uber', 'Uber', 'other', url);
+  }
+};
+
+const checkLyft: EmailChecker = async (email) => {
+  const url = 'https://www.lyft.com';
+  try {
+    const res = await fetch(`https://www.lyft.com/auth/send_magic_link?email=${encodeURIComponent(email)}`, {
+      method: 'POST',
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36',
+        'Content-Type': 'application/json',
+      },
+    });
+    // Lyft returns 200 for both existing and non-existing (magic link flow)
+    // But the response body differs
+    const text = await res.text();
+    if (text.includes('not found') || text.includes('no account')) return no('lyft', 'Lyft', 'other', url);
+    return ok('lyft', 'Lyft', 'other', url);
+  } catch {
+    return err('lyft', 'Lyft', 'other', url);
+  }
+};
+
+// ── Travel / Hospitality ────────────────────────────────────────────────────
+
+const checkAirbnb: EmailChecker = async (email) => {
+  const url = 'https://www.airbnb.com';
+  try {
+    const res = await fetch('https://www.airbnb.com/api/v2/auth/check', {
+      method: 'POST',
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    });
+    const data = await res.json() as { exists?: boolean; error?: string };
+    if (data.exists === true) return ok('airbnb', 'Airbnb', 'other', url);
+    if (data.exists === false) return no('airbnb', 'Airbnb', 'other', url);
+    return err('airbnb', 'Airbnb', 'other', url, data.error || 'unexpected response');
+  } catch {
+    return err('airbnb', 'Airbnb', 'other', url);
+  }
+};
+
+// ── Finance / Crypto ────────────────────────────────────────────────────────
+
+const checkBinance: EmailChecker = async (email) => {
+  const url = 'https://www.binance.com';
+  try {
+    const res = await fetch('https://www.binance.com/bapi/accounts/v2/public/account/user/get-email', {
+      method: 'POST',
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    });
+    const data = await res.json() as { data?: { isExist?: boolean } };
+    if (data.data?.isExist === true) return ok('binance', 'Binance', 'finance', url);
+    if (data.data?.isExist === false) return no('binance', 'Binance', 'finance', url);
+    return err('binance', 'Binance', 'finance', url, 'unexpected response');
+  } catch {
+    return err('binance', 'Binance', 'finance', url);
+  }
+};
+
+// Stripe doesn't have a public email check endpoint — skip for now
+
+// ── Learning / Education ────────────────────────────────────────────────────
+
+const checkSkillshare: EmailChecker = async (email) => {
+  const url = 'https://www.skillshare.com';
+  try {
+    // Skillshare uses a magic link flow; check via their API
+    const res = await fetch('https://www.skillshare.com/api/users/check-email', {
+      method: 'POST',
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36',
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+      body: JSON.stringify({ email }),
+    });
+    if (!res.ok) {
+      // 404 or other error might mean email not found
+      if (res.status === 404) return no('skillshare', 'Skillshare', 'learning', url);
+      return err('skillshare', 'Skillshare', 'learning', url, `HTTP ${res.status}`);
+    }
+    const data = await res.json() as { exists?: boolean; available?: boolean; user_exists?: boolean };
+    if (data.exists === true || data.available === false || data.user_exists === true) return ok('skillshare', 'Skillshare', 'learning', url);
+    if (data.exists === false || data.available === true || data.user_exists === false) return no('skillshare', 'Skillshare', 'learning', url);
+    return err('skillshare', 'Skillshare', 'learning', url, 'unexpected response');
+  } catch {
+    return err('skillshare', 'Skillshare', 'learning', url);
+  }
+};
+
+const checkKhanAcademy: EmailChecker = async (email) => {
+  const url = 'https://www.khanacademy.org';
+  try {
+    const res = await fetch('https://www.khanacademy.org/api/internal/user/check-email', {
+      method: 'POST',
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    });
+    const data = await res.json() as { isTaken?: boolean; exists?: boolean };
+    if (data.isTaken === true || data.exists === true) return ok('khan-academy', 'Khan Academy', 'learning', url);
+    if (data.isTaken === false || data.exists === false) return no('khan-academy', 'Khan Academy', 'learning', url);
+    return err('khan-academy', 'Khan Academy', 'learning', url, 'unexpected response');
+  } catch {
+    return err('khan-academy', 'Khan Academy', 'learning', url);
+  }
+};
+
+// ── Music / Audio ───────────────────────────────────────────────────────────
+
+// SoundCloud v2 is not needed — SoundCloud already exists
+
+// ── Jobs / Professional ─────────────────────────────────────────────────────
+
+const checkWellfound: EmailChecker = async (email) => {
+  const url = 'https://wellfound.com';
+  try {
+    const res = await fetch('https://wellfound.com/accounts/check_email', {
+      method: 'POST',
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36',
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+      body: JSON.stringify({ email }),
+    });
+    const data = await res.json() as { available?: boolean; exists?: boolean };
+    if (data.available === false || data.exists === true) return ok('wellfound', 'Wellfound', 'tech', url);
+    if (data.available === true || data.exists === false) return no('wellfound', 'Wellfound', 'tech', url);
+    return err('wellfound', 'Wellfound', 'tech', url, 'unexpected response');
+  } catch {
+    return err('wellfound', 'Wellfound', 'tech', url);
+  }
+};
+
 // ── Registry ────────────────────────────────────────────────────────────────
 
 interface PlatformDef {
@@ -611,10 +926,11 @@ const PLATFORMS: PlatformDef[] = [
   // Shopping
   { id: 'etsy', name: 'Etsy', category: 'shopping', check: checkEtsy },
   { id: 'flipkart', name: 'Flipkart', category: 'shopping', check: checkFlipkart },
+  { id: 'amazon', name: 'Amazon', category: 'shopping', check: checkAmazon },
   // Dev
   { id: 'github', name: 'GitHub', category: 'dev', check: checkGitHub },
   { id: 'gitlab', name: 'GitLab', category: 'dev', check: checkGitLab },
-  { id: 'bitbucket', name: 'Bitbucket', category: 'dev', check: checkBitbucket },
+  // Bitbucket: removed — no public email-check API
   { id: 'hackerrank', name: 'HackerRank', category: 'dev', check: checkHackerRank },
   { id: 'keybase', name: 'Keybase', category: 'dev', check: checkKeybase },
   // Social
@@ -623,20 +939,36 @@ const PLATFORMS: PlatformDef[] = [
   { id: 'pinterest', name: 'Pinterest', category: 'social', check: checkPinterest },
   { id: 'spotify', name: 'Spotify', category: 'social', check: checkSpotify },
   { id: 'soundcloud', name: 'SoundCloud', category: 'social', check: checkSoundCloud },
+  // Entertainment
+  { id: 'netflix', name: 'Netflix', category: 'entertainment', check: checkNetflix },
   // Gaming
   { id: 'steam', name: 'Steam', category: 'gaming', check: checkSteam },
   { id: 'twitch', name: 'Twitch', category: 'gaming', check: checkTwitch },
   // Learning
   { id: 'udemy', name: 'Udemy', category: 'learning', check: checkUdemy },
   { id: 'coursera', name: 'Coursera', category: 'learning', check: checkCoursera },
+  { id: 'skillshare', name: 'Skillshare', category: 'learning', check: checkSkillshare },
+  { id: 'khan-academy', name: 'Khan Academy', category: 'learning', check: checkKhanAcademy },
   // Finance
   { id: 'coinbase', name: 'Coinbase', category: 'finance', check: checkCoinbase },
+  { id: 'binance', name: 'Binance', category: 'finance', check: checkBinance },
   // Creative
   { id: 'deviantart', name: 'DeviantArt', category: 'creative', check: checkDeviantArt },
+  // SaaS / Productivity
+  { id: 'dropbox', name: 'Dropbox', category: 'other', check: checkDropbox },
+  { id: 'adobe', name: 'Adobe', category: 'other', check: checkAdobe },
+  { id: 'notion', name: 'Notion', category: 'tech', check: checkNotion },
+  // Ride-sharing
+  { id: 'uber', name: 'Uber', category: 'other', check: checkUber },
+  { id: 'lyft', name: 'Lyft', category: 'other', check: checkLyft },
+  // Travel
+  { id: 'airbnb', name: 'Airbnb', category: 'other', check: checkAirbnb },
+  // Jobs
+  { id: 'wellfound', name: 'Wellfound', category: 'tech', check: checkWellfound },
   // Other
   { id: 'gravatar', name: 'Gravatar', category: 'other', check: checkGravatar },
   { id: 'medium', name: 'Medium', category: 'tech', check: checkMedium },
-  { id: 'slack', name: 'Slack', category: 'other', check: checkSlack },
+  // Slack: removed — auth.findTeam checks domain, not email
 ];
 
 export async function emailRegistrationHandler(c: Context<{ Bindings: Env }>): Promise<Response> {

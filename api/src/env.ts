@@ -36,6 +36,9 @@ export interface Env {
   CENSYS_PAT?: string;
   CENSYS_ORG_ID?: string;
   NETLAS_API_KEY?: string;
+  /** NumVerify API key (free at apilayer.net) for phone number validation and
+   *  carrier lookup. Optional — the phone-osint route degrades gracefully when unset. */
+  NUMVERIFY_API_KEY?: string;
   /** OpenSourceMalware API token (free at opensourcemalware.com → Settings → API Tokens).
    *  Optional — the provider degrades to 'unsupported' when unset. */
   OSM_API_KEY?: string;

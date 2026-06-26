@@ -801,7 +801,7 @@ async function checkBreach(
 }
 
 async function tryNumVerify(digits: string, env: Env): Promise<Record<string, string> | null> {
-  const apiKey = (env as unknown as Record<string, unknown>).NUMVERIFY_API_KEY as string | undefined;
+  const apiKey = env.NUMVERIFY_API_KEY;
   if (!apiKey) return null;
   try {
     const res = await fetch(

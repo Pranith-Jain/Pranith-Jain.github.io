@@ -326,6 +326,47 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       }
     );
 
+    // ── OpenSourceMalware Check ──────────────────────────────────────────
+    this.tools(
+      'si_osm_check',
+      'Check whether a package, container image, repository, URL, domain, IP, or crypto wallet is flagged as malicious in the OpenSourceMalware community threat database. Covers supply-chain threats (npm, PyPI, Maven, NuGet, etc.), container registries (Docker Hub, GHCR, Quay), and attacker infrastructure (domains, IPs, wallets).',
+      {
+        report_type: z.enum(['package', 'container', 'repository', 'url', 'domain', 'ip', 'wallet']).describe('Type of resource to check'),
+        resource: z.string().describe('Resource identifier — package name, image name, repo URL, domain, IP, wallet address, etc.'),
+        ecosystem: z.string().optional().describe('Ecosystem for packages (npm, pypi, maven, nuget, rubygems, packagist, crates, go, vscode, openvsx, brew, skills) or registry for containers (dockerhub, ghcr, quay)'),
+        version: z.string().optional().describe('Specific package or container version'),
+      },
+      async ({ report_type, resource, ecosystem, version }) => {
+        const p = new URLSearchParams({ report_type, resource });
+        if (ecosystem) p.set('ecosystem', ecosystem);
+        if (version) p.set('version', version);
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/opensourcemalware/check?${p.toString()}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'si_osm_latest',
+      'Retrieve the 100 most recent verified threat reports from OpenSourceMalware for any supported ecosystem (npm, pypi, crates, nuget, maven, go, packagist, rubygems, vscode, openvsx, brew, skills) or asset type (repository, domain, wallet, ip, url, container).',
+      {
+        ecosystem: z.string().optional().describe('Ecosystem or asset type (default: npm)'),
+      },
+      async ({ ecosystem }) => {
+        const p = new URLSearchParams();
+        if (ecosystem) p.set('ecosystem', ecosystem);
+        const qs = p.toString();
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/opensourcemalware/latest${qs ? `?${qs}` : ''}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+
     // ── CVE Lookup ───────────────────────────────────────────────────────
     this.tools(
       'lookup_cve',
@@ -2059,6 +2100,38 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         const data = await apiFetch<Record<string, unknown>>(
           this.env.SELF,
           '/api/v1/email-registration/platforms',
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+
+    // ── Username OSINT: Patterns + Profile Scraping ─────────────────────
+    this.tools(
+      'username_generate_patterns',
+      'Generate username variations for typosquatting detection and OSINT. Returns common patterns: leetspeak, double letters, prefix/suffix variations, dot/underscore/hyphen separators, number suffixes.',
+      {
+        username: z.string().describe('Base username to generate patterns for'),
+      },
+      async ({ username }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/username-osint/patterns?username=${encodeURIComponent(username)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'username_scrape_profiles',
+      'Scrape profile metadata (display name, bio, avatar, follower counts) from platforms where the username is found. Returns rich profile data, not just found/not-found.',
+      {
+        username: z.string().describe('Username to scrape profiles for'),
+      },
+      async ({ username }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/username-osint/profile?username=${encodeURIComponent(username)}`,
           this.apiKey
         );
         return untrustedToolResult(data);

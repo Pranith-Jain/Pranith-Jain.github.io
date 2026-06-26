@@ -696,8 +696,8 @@ const PLATFORMS: PlatformCheck[] = [
   { id: 'phabricator', name: 'Phabricator', category: 'dev', url: (u) => `https://phabricator.wikimedia.org/p/${u}` },
 
   // Email / Messaging
-  { id: 'protonmail', name: 'ProtonMail', category: 'other', url: (u) => `https://proton.me` },
-  { id: 'tutanota', name: 'Tutanota', category: 'other', url: (u) => `https://tuta.com` },
+  { id: 'protonmail', name: 'ProtonMail', category: 'other', url: () => `https://proton.me` },
+  { id: 'tutanota', name: 'Tutanota', category: 'other', url: () => `https://tuta.com` },
 
   // Marketplace
   { id: 'ebay', name: 'eBay', category: 'other', url: (u) => `https://www.ebay.com/usr/${u}` },
@@ -706,7 +706,7 @@ const PLATFORMS: PlatformCheck[] = [
   { id: 'depop', name: 'Depop', category: 'other', url: (u) => `https://www.depop.com/${u}` },
 
   // Political / Advocacy
-  { id: 'act-blue', name: 'ActBlue', category: 'other', url: (u) => `https://actblue.com` },
+  { id: 'act-blue', name: 'ActBlue', category: 'other', url: () => `https://actblue.com` },
   { id: 'change-org', name: 'Change.org', category: 'other', url: (u) => `https://www.change.org/u/${u}` },
 
   // News / Publishing
@@ -876,4 +876,252 @@ export async function usernameOsnitHandler(c: Context<{ Bindings: Env }>): Promi
   c.executionCtx.waitUntil(edgeCache.put(cacheKey, cacheable).catch(() => undefined));
 
   return c.json(body, 200, { 'cache-control': `public, max-age=${CACHE_TTL_SECONDS}`, 'x-cache': 'MISS' });
+}
+
+// ── Pattern Generation (typosquatting / username variations) ─────────────────
+
+interface PatternResult {
+  pattern: string;
+  username: string;
+  description: string;
+}
+
+function generatePatterns(username: string): PatternResult[] {
+  const patterns: PatternResult[] = [];
+  const lower = username.toLowerCase();
+  const upper = username.toUpperCase();
+
+  // Basic variations
+  patterns.push({ pattern: lower, username: lower, description: 'lowercase' });
+  patterns.push({ pattern: upper, username: upper, description: 'UPPERCASE' });
+  patterns.push({ pattern: 'camel', username: lower.charAt(0).toUpperCase() + lower.slice(1), description: 'CamelCase' });
+
+  // Dot/underscore/hyphen separators
+  if (!lower.includes('.')) {
+    patterns.push({ pattern: 'dot', username: lower.split('').join('.'), description: 'with dots (j.o.h.n)' });
+  }
+  if (!lower.includes('_')) {
+    patterns.push({ pattern: 'underscore', username: lower.split('').join('_'), description: 'with underscores (j_o_h_n)' });
+  }
+  if (!lower.includes('-')) {
+    patterns.push({ pattern: 'hyphen', username: lower.split('').join('-'), description: 'with hyphens (j-o-h-n)' });
+  }
+
+  // Common typosquatting patterns
+  patterns.push({ pattern: 'double-letter', username: lower + lower.charAt(lower.length - 1), description: 'double last letter' });
+  patterns.push({ pattern: 'prefix-the', username: 'the' + lower, description: 'prefixed with "the"' });
+  patterns.push({ pattern: 'prefix-im', username: 'im' + lower, description: 'prefixed with "im"' });
+  patterns.push({ pattern: 'suffix-underscore', username: lower + '_', description: 'trailing underscore' });
+  patterns.push({ pattern: 'suffix-dash', username: lower + '-', description: 'trailing hyphen' });
+  patterns.push({ pattern: 'suffix-official', username: lower + 'official', description: 'suffixed with "official"' });
+  patterns.push({ pattern: 'suffix-real', username: lower + 'real', description: 'suffixed with "real"' });
+  patterns.push({ pattern: 'suffix-hq', username: lower + 'hq', description: 'suffixed with "hq"' });
+
+  // Leetspeak variations
+  const leetMap: Record<string, string> = { a: '4', e: '3', i: '1', o: '0', s: '5', t: '7' };
+  let leet = lower;
+  for (const [char, replacement] of Object.entries(leetMap)) {
+    leet = leet.replace(new RegExp(char, 'g'), replacement);
+  }
+  if (leet !== lower) patterns.push({ pattern: 'leetspeak', username: leet, description: 'leetspeak (a→4, e→3, etc.)' });
+
+  // Number suffixes
+  for (const n of ['1', '2', '3', '01', '007', '69', '420', '1337']) {
+    patterns.push({ pattern: `suffix-${n}`, username: lower + n, description: `suffixed with "${n}"` });
+  }
+
+  // Underscore-separated words
+  if (lower.length > 3) {
+    const mid = Math.floor(lower.length / 2);
+    patterns.push({ pattern: 'split-underscore', username: lower.slice(0, mid) + '_' + lower.slice(mid), description: 'split with underscore' });
+  }
+
+  return patterns;
+}
+
+export async function usernamePatternsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const raw = c.req.query('username')?.trim();
+  if (!raw) return c.json({ error: 'missing username' }, 400);
+  const username = raw;
+  if (username.length < 2 || username.length > 64) return c.json({ error: 'username must be 2-64 chars' }, 400);
+
+  const patterns = generatePatterns(username);
+
+  return c.json({
+    username,
+    total_patterns: patterns.length,
+    patterns,
+  });
+}
+
+// ── Username Profile Scraping (extract bios, avatars, follower counts) ───────
+
+interface ProfileResult {
+  platform: string;
+  name: string;
+  category: string;
+  status: 'found' | 'not-found' | 'unknown' | 'error';
+  url: string;
+  profile?: {
+    displayName?: string;
+    bio?: string;
+    avatar?: string;
+    followers?: number;
+    following?: number;
+    location?: string;
+    verified?: boolean;
+  };
+}
+
+interface ProfileScrapeResponse {
+  username: string;
+  generated_at: string;
+  total_checked: number;
+  found: number;
+  results: ProfileResult[];
+  cached: boolean;
+}
+
+// Platforms that return useful profile metadata from their HTML
+const SCRAPE_PLATFORMS: Array<{
+  id: string;
+  name: string;
+  category: string;
+  url: (u: string) => string;
+  scrape: (html: string) => ProfileResult['profile'];
+}> = [
+  {
+    id: 'github',
+    name: 'GitHub',
+    category: 'dev',
+    url: (u) => `https://github.com/${u}`,
+    scrape: (html) => {
+      const bio = html.match(/<meta\s+name="description"\s+content="([^"]+)"/)?.[1];
+      const avatar = html.match(/<img\s+[^>]*class="[^"]*avatar[^"]*"[^>]*src="([^"]+)"/)?.[1];
+      const name = html.match(/<span\s+class="[^"]*p-name[^"]*"[^>]*>([^<]+)</)?.[1];
+      const location = html.match(/<span\s+class="[^"]*p-label[^"]*"[^>]*>([^<]+)</)?.[1];
+      return { displayName: name?.trim(), bio: bio?.trim(), avatar, location: location?.trim() };
+    },
+  },
+  {
+    id: 'twitter',
+    name: 'X / Twitter',
+    category: 'social',
+    url: (u) => `https://x.com/${u}`,
+    scrape: () => ({}), // Twitter blocks scraping
+  },
+  {
+    id: 'reddit',
+    name: 'Reddit',
+    category: 'social',
+    url: (u) => `https://www.reddit.com/user/${u}`,
+    scrape: (html) => {
+      const name = html.match(/<span[^>]*>([^<]{2,30})<\/span>/)?.[1];
+      return { displayName: name?.trim() };
+    },
+  },
+  {
+    id: 'twitch',
+    name: 'Twitch',
+    category: 'gaming',
+    url: (u) => `https://www.twitch.tv/${u}`,
+    scrape: (html) => {
+      const bio = html.match(/<meta\s+property="og:description"\s+content="([^"]+)"/)?.[1];
+      const avatar = html.match(/<meta\s+property="og:image"\s+content="([^"]+)"/)?.[1];
+      return { bio: bio?.trim(), avatar };
+    },
+  },
+  {
+    id: 'devto',
+    name: 'Dev.to',
+    category: 'dev',
+    url: (u) => `https://dev.to/${u}`,
+    scrape: (html) => {
+      const name = html.match(/<span[^>]*class="[^"]*crayons-subtitle-1[^"]*"[^>]*>([^<]+)/)?.[1];
+      const bio = html.match(/<meta\s+name="description"\s+content="([^"]+)"/)?.[1];
+      return { displayName: name?.trim(), bio: bio?.trim() };
+    },
+  },
+  {
+    id: 'producthunt',
+    name: 'Product Hunt',
+    category: 'tech',
+    url: (u) => `https://www.producthunt.com/@${u}`,
+    scrape: (html) => {
+      const bio = html.match(/<meta\s+name="description"\s+content="([^"]+)"/)?.[1];
+      return { bio: bio?.trim() };
+    },
+  },
+];
+
+export async function usernameProfileHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const raw = c.req.query('username')?.trim();
+  if (!raw) return c.json({ error: 'missing username' }, 400);
+  const username = raw;
+  if (username.length < 2 || username.length > 64) return c.json({ error: 'username must be 2-64 chars' }, 400);
+
+  // Edge cache
+  const edgeCache = (caches as unknown as { default: Cache }).default;
+  const cacheKey = new Request(`https://username-profile.internal/v1?u=${username.toLowerCase()}`);
+  const cached = await edgeCache.match(cacheKey);
+  if (cached) {
+    const body = await cached.json();
+    return c.json(body, 200, { 'cache-control': 'public, max-age=900', 'x-cache': 'HIT' });
+  }
+
+  const results: ProfileResult[] = [];
+  const queue = [...SCRAPE_PLATFORMS];
+
+  async function worker() {
+    while (queue.length > 0) {
+      const platform = queue.shift()!;
+      const url = platform.url(username);
+      try {
+        const res = await fetch(url, {
+          signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+          redirect: 'manual',
+          headers: {
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            accept: 'text/html,*/*',
+          },
+        });
+        const status =
+          res.status >= 200 && res.status < 300
+            ? 'found'
+            : res.status === 404 || res.status === 410
+              ? 'not-found'
+              : 'unknown';
+
+        if (status === 'found') {
+          const html = await res.text();
+          const profile = platform.scrape(html);
+          results.push({ platform: platform.id, name: platform.name, category: platform.category, status, url, profile });
+        } else {
+          results.push({ platform: platform.id, name: platform.name, category: platform.category, status, url });
+        }
+      } catch {
+        results.push({ platform: platform.id, name: platform.name, category: platform.category, status: 'error', url });
+      }
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(5, SCRAPE_PLATFORMS.length) }, worker));
+
+  const found = results.filter((r) => r.status === 'found').length;
+
+  const body: ProfileScrapeResponse = {
+    username,
+    generated_at: new Date().toISOString(),
+    total_checked: results.length,
+    found,
+    results,
+    cached: false,
+  };
+
+  const cacheable = new Response(JSON.stringify(body), {
+    status: 200,
+    headers: { 'content-type': 'application/json', 'cache-control': 'public, max-age=900' },
+  });
+  c.executionCtx.waitUntil(edgeCache.put(cacheKey, cacheable).catch(() => undefined));
+
+  return c.json(body, 200, { 'cache-control': 'public, max-age=900', 'x-cache': 'MISS' });
 }
