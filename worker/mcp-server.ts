@@ -2829,5 +2829,60 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(r);
       }
     );
+
+    // ── Phone OSINT ──────────────────────────────────────────────────────
+    this.tools(
+      'phone_osint',
+      'Investigate a phone number — E.164 parsing, carrier/line-type detection, country lookup, messaging platform checks (WhatsApp/Telegram), breach exposure, and Google dorks. Returns structured JSON with parsed phone details, lookup URLs, and security flags.',
+      {
+        phone: z
+          .string()
+          .describe('Phone number in E.164 (+15551234567), local (5551234567), or formatted ((555) 123-4567) format'),
+      },
+      async ({ phone }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/phone-osint?phone=${encodeURIComponent(phone)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+
+    // ── Reverse Image Search ─────────────────────────────────────────────
+    this.tools(
+      'reverse_image_search',
+      'Generate reverse image search URLs across 8+ engines (Google Lens, Yandex, TinEye, Bing, Baidu, SauceNAO, IQDB, KarmaDecay). Validates image reachability and returns categorized deep links for manual investigation.',
+      {
+        url: z.string().describe('Image URL to search for across reverse image engines'),
+      },
+      async ({ url }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/reverse-image-search?url=${encodeURIComponent(url)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+
+    // ── Wi-Fi / BSSID Investigation ──────────────────────────────────────
+    this.tools(
+      'wifi_investigation',
+      'Investigate a wireless network by BSSID (MAC address) or SSID (network name). Returns OUI vendor lookup, MAC bit analysis (privacy/multicast), default SSID detection, WiGLE.net links, and security flags for rogue AP detection.',
+      {
+        bssid: z.string().optional().describe('BSSID/MAC address, e.g. "AA:BB:CC:DD:EE:FF"'),
+        ssid: z.string().optional().describe('SSID/network name, e.g. "MyWiFi"'),
+      },
+      async ({ bssid, ssid }) => {
+        const param = bssid ? `bssid=${encodeURIComponent(bssid)}` : `ssid=${encodeURIComponent(ssid ?? '')}`;
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/wifi-investigation?${param}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
   }
 }

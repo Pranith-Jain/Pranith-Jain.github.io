@@ -40,7 +40,13 @@ interface EmailRegistrationResponse {
 
 type EmailChecker = (email: string) => Promise<EmailCheckResult>;
 
-function ok(platform: string, name: string, category: string, url: string, extra?: Record<string, unknown>): EmailCheckResult {
+function ok(
+  platform: string,
+  name: string,
+  category: string,
+  url: string,
+  extra?: Record<string, unknown>
+): EmailCheckResult {
   return { platform, name, category, status: 'registered', url, extra };
 }
 function no(platform: string, name: string, category: string, url: string): EmailCheckResult {
@@ -63,7 +69,8 @@ const checkEtsy: EmailChecker = async (email) => {
       {
         signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
         headers: {
-          'User-Agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Mobile Safari/537.36',
+          'User-Agent':
+            'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Mobile Safari/537.36',
           Accept: 'application/json, text/plain, */*',
           Referer: 'https://www.etsy.com/join/email',
         },
@@ -99,7 +106,8 @@ const checkFlipkart: EmailChecker = async (email) => {
       method: 'POST',
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Mobile Safari/537.36',
+        'User-Agent':
+          'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Mobile Safari/537.36',
         'Content-Type': 'application/json',
         Origin: 'https://www.flipkart.com',
         Referer: 'https://www.flipkart.com/',
@@ -120,7 +128,7 @@ const checkFlipkart: EmailChecker = async (email) => {
     if (res.status === 429) return rateLimited('flipkart', 'Flipkart', 'shopping', url);
     if (res.status !== 200) return err('flipkart', 'Flipkart', 'shopping', url, `HTTP ${res.status}`);
     const text = await res.text();
-    if (text.includes('Looks like you\'re new here!')) return no('flipkart', 'Flipkart', 'shopping', url);
+    if (text.includes("Looks like you're new here!")) return no('flipkart', 'Flipkart', 'shopping', url);
     if (text.includes('supportedAuthenticationTypes=password')) return ok('flipkart', 'Flipkart', 'shopping', url);
     return err('flipkart', 'Flipkart', 'shopping', url, 'unexpected response');
   } catch {
@@ -133,34 +141,52 @@ const checkFlipkart: EmailChecker = async (email) => {
 const checkGitHub: EmailChecker = async (email) => {
   const url = 'https://github.com';
   try {
-    // Step 1: Get CSRF token from signup page
+    // Step 1: Get CSRF token and cookies from signup page
     const pageRes = await fetch('https://github.com/signup', {
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
       headers: {
-        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
+        'User-Agent':
+          'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
         Accept: 'text/html,application/xhtml+xml',
       },
     });
     const html = await pageRes.text();
-    const csrfMatch = html.match(/data-csrf="true"\s+value="([^"]+)"/);
+    // Try multiple CSRF patterns
+    const csrfMatch =
+      html.match(/name="authenticity_token"\s+value="([^"]+)"/) || html.match(/data-csrf="true"\s+value="([^"]+)"/);
     if (!csrfMatch?.[1]) return err('github', 'GitHub', 'dev', url, 'CSRF not found');
 
-    // Step 2: Check email
+    // Extract cookies from the response for the follow-up request
+    const cookieHeader = pageRes.headers.get('set-cookie') || '';
+    const cookies = cookieHeader
+      .split(',')
+      .map((c) => c.split(';')[0]?.trim() || '')
+      .join('; ');
+
+    // Step 2: Check email with cookies
     const checkRes = await fetch('https://github.com/email_validity_checks', {
       method: 'POST',
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
       headers: {
-        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
+        'User-Agent':
+          'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
         'Content-Type': 'application/x-www-form-urlencoded',
         Origin: 'https://github.com',
         Referer: 'https://github.com/signup',
+        'X-Requested-With': 'XMLHttpRequest',
+        ...(cookies ? { Cookie: cookies } : {}),
       },
       body: `authenticity_token=${encodeURIComponent(csrfMatch[1])}&value=${encodeURIComponent(email)}`,
     });
     const body = await checkRes.text();
+    if (checkRes.status === 422) {
+      // GitHub may rate limit; check response for clues
+      if (body.includes('already associated')) return ok('github', 'GitHub', 'dev', url);
+      return err('github', 'GitHub', 'dev', url, '422 rate limited or blocked');
+    }
     if (body.includes('already associated with an account')) return ok('github', 'GitHub', 'dev', url);
     if (body.includes('Email is available')) return no('github', 'GitHub', 'dev', url);
-    return err('github', 'GitHub', 'dev', url, 'unexpected response');
+    return err('github', 'GitHub', 'dev', url, `unexpected response (${checkRes.status})`);
   } catch {
     return err('github', 'GitHub', 'dev', url);
   }
@@ -169,16 +195,14 @@ const checkGitHub: EmailChecker = async (email) => {
 const checkGitLab: EmailChecker = async (email) => {
   const url = 'https://gitlab.com';
   try {
-    const res = await fetch(
-      `https://gitlab.com/users/sign_up.json?user[email]=${encodeURIComponent(email)}`,
-      {
-        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
-        },
-      }
-    );
-    const data = await res.json() as { message?: string; errors?: string[] };
+    const res = await fetch(`https://gitlab.com/users/sign_up.json?user[email]=${encodeURIComponent(email)}`, {
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      headers: {
+        'User-Agent':
+          'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
+      },
+    });
+    const data = (await res.json()) as { message?: string; errors?: string[] };
     if (data.message?.includes('already been taken') || data.errors?.some((e: string) => e.includes('already taken'))) {
       return ok('gitlab', 'GitLab', 'dev', url);
     }
@@ -191,21 +215,11 @@ const checkGitLab: EmailChecker = async (email) => {
 const checkBitbucket: EmailChecker = async (email) => {
   const url = 'https://bitbucket.org';
   try {
-    const res = await fetch(
-      `https://bitbucket.org/account/signin/`,
-      {
-        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
-        },
-      }
-    );
     // Bitbucket uses a different flow; check via their API
     const username = email.split('@')[0] || '';
-    const apiRes = await fetch(
-      `https://api.bitbucket.org/2.0/users/${encodeURIComponent(username)}`,
-      { signal: AbortSignal.timeout(5000) }
-    );
+    const apiRes = await fetch(`https://api.bitbucket.org/2.0/users/${encodeURIComponent(username)}`, {
+      signal: AbortSignal.timeout(5000),
+    });
     if (apiRes.ok) return ok('bitbucket', 'Bitbucket', 'dev', url);
     return no('bitbucket', 'Bitbucket', 'dev', url);
   } catch {
@@ -216,19 +230,29 @@ const checkBitbucket: EmailChecker = async (email) => {
 const checkHackerRank: EmailChecker = async (email) => {
   const url = 'https://www.hackerrank.com';
   try {
-    const res = await fetch(
-      `https://www.hackerrank.com/auth/check_user?email=${encodeURIComponent(email)}`,
-      {
-        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
-        },
-      }
-    );
-    const data = await res.json() as { exists?: boolean };
-    if (data.exists === true) return ok('hackerrank', 'HackerRank', 'dev', url);
-    if (data.exists === false) return no('hackerrank', 'HackerRank', 'dev', url);
-    return err('hackerrank', 'HackerRank', 'dev', url);
+    // HackerRank's check_user endpoint is broken (500). Use a lightweight probe.
+    const res = await fetch(`https://www.hackerrank.com/auth/check_user?email=${encodeURIComponent(email)}`, {
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      headers: {
+        'User-Agent':
+          'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
+      },
+    });
+    if (res.status === 500) {
+      // API is broken; return error so caller knows this platform is unreliable
+      return err('hackerrank', 'HackerRank', 'dev', url, 'API unavailable (500)');
+    }
+    const text = await res.text();
+    if (!text || text.trim() === '') return err('hackerrank', 'HackerRank', 'dev', url, 'empty response');
+    try {
+      const data = JSON.parse(text) as { exists?: boolean };
+      if (data.exists === true) return ok('hackerrank', 'HackerRank', 'dev', url);
+      if (data.exists === false) return no('hackerrank', 'HackerRank', 'dev', url);
+    } catch {
+      // Not JSON; check for HTML indicators
+      if (text.includes('already') || text.includes('taken')) return ok('hackerrank', 'HackerRank', 'dev', url);
+    }
+    return err('hackerrank', 'HackerRank', 'dev', url, 'unexpected response');
   } catch {
     return err('hackerrank', 'HackerRank', 'dev', url);
   }
@@ -239,22 +263,27 @@ const checkHackerRank: EmailChecker = async (email) => {
 const checkInstagram: EmailChecker = async (email) => {
   const url = 'https://www.instagram.com';
   try {
-    // Get CSRF token
+    // Get CSRF token from cookie or page
     const initRes = await fetch('https://www.instagram.com/', {
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
       headers: {
-        'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
+        'User-Agent':
+          'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
       },
     });
-    const csrfMatch = (await initRes.text()).match(/["']csrf_token["']\s*:\s*["']([^"']+)["']/);
-    const csrf = initRes.headers.get('set-cookie')?.match(/csrftoken=([^;]+)/)?.[1] || csrfMatch?.[1];
+    const initText = await initRes.text();
+    // Try cookie first, then HTML patterns
+    const csrf =
+      initRes.headers.get('set-cookie')?.match(/csrftoken=([^;]+)/)?.[1] ||
+      initText.match(/["']csrf_token["']\s*:\s*["']([^"']+)["']/)?.[1];
     if (!csrf) return err('instagram', 'Instagram', 'social', url, 'CSRF not found');
 
     const res = await fetch('https://www.instagram.com/api/v1/users/check_email/', {
       method: 'POST',
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
       headers: {
-        'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
+        'User-Agent':
+          'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
         'x-csrftoken': csrf,
         'x-ig-app-id': '936619743392459',
         'x-requested-with': 'XMLHttpRequest',
@@ -265,7 +294,7 @@ const checkInstagram: EmailChecker = async (email) => {
       body: `email=${encodeURIComponent(email)}&sign_up_code=`,
     });
     if (res.status === 429) return rateLimited('instagram', 'Instagram', 'social', url);
-    const data = await res.json() as { error_type?: string; available?: boolean };
+    const data = (await res.json()) as { error_type?: string; available?: boolean };
     if (data.error_type === 'email_is_taken') return ok('instagram', 'Instagram', 'social', url);
     if (data.available === true) return no('instagram', 'Instagram', 'social', url);
     return err('instagram', 'Instagram', 'social', url);
@@ -282,12 +311,13 @@ const checkTikTok: EmailChecker = async (email) => {
       {
         signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
         headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
+          'User-Agent':
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
           Referer: 'https://www.tiktok.com/signup',
         },
       }
     );
-    const data = await res.json() as { data?: { is_exists?: boolean } };
+    const data = (await res.json()) as { data?: { is_exists?: boolean } };
     if (data.data?.is_exists === true) return ok('tiktok', 'TikTok', 'social', url);
     if (data.data?.is_exists === false) return no('tiktok', 'TikTok', 'social', url);
     return err('tiktok', 'TikTok', 'social', url);
@@ -304,12 +334,13 @@ const checkPinterest: EmailChecker = async (email) => {
       {
         signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
         headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
+          'User-Agent':
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
           Referer: 'https://www.pinterest.com/',
         },
       }
     );
-    const data = await res.json() as { resource_response?: { data?: boolean } };
+    const data = (await res.json()) as { resource_response?: { data?: boolean } };
     if (data.resource_response?.data === true) return ok('pinterest', 'Pinterest', 'social', url);
     if (data.resource_response?.data === false) return no('pinterest', 'Pinterest', 'social', url);
     return err('pinterest', 'Pinterest', 'social', url);
@@ -325,7 +356,8 @@ const checkSpotify: EmailChecker = async (email) => {
       method: 'POST',
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
+        'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: `email=${encodeURIComponent(email)}`,
@@ -341,16 +373,14 @@ const checkSpotify: EmailChecker = async (email) => {
 const checkSoundCloud: EmailChecker = async (email) => {
   const url = 'https://soundcloud.com';
   try {
-    const res = await fetch(
-      `https://soundcloud.com/discover?filter.email=${encodeURIComponent(email)}`,
-      {
-        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
-        },
-        redirect: 'manual',
-      }
-    );
+    const res = await fetch(`https://soundcloud.com/discover?filter.email=${encodeURIComponent(email)}`, {
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      headers: {
+        'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
+      },
+      redirect: 'manual',
+    });
     // SoundCloud blocks cloud IPs; treat as error
     if (res.status === 403) return rateLimited('soundcloud', 'SoundCloud', 'social', url);
     return no('soundcloud', 'SoundCloud', 'social', url);
@@ -364,15 +394,13 @@ const checkSoundCloud: EmailChecker = async (email) => {
 const checkSteam: EmailChecker = async (email) => {
   const url = 'https://store.steampowered.com';
   try {
-    const res = await fetch(
-      `https://store.steampowered.com/join/check?email=${encodeURIComponent(email)}`,
-      {
-        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
-        },
-      }
-    );
+    const res = await fetch(`https://store.steampowered.com/join/check?email=${encodeURIComponent(email)}`, {
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      headers: {
+        'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
+      },
+    });
     const text = await res.text();
     if (text.includes('already in use') || text.includes('taken')) return ok('steam', 'Steam', 'gaming', url);
     if (text.includes('available')) return no('steam', 'Steam', 'gaming', url);
@@ -387,17 +415,16 @@ const checkSteam: EmailChecker = async (email) => {
 const checkUdemy: EmailChecker = async (email) => {
   const url = 'https://www.udemy.com';
   try {
-    const res = await fetch(
-      `https://www.udemy.com/join/signup-popup/?email=${encodeURIComponent(email)}`,
-      {
-        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
-        },
-      }
-    );
+    const res = await fetch(`https://www.udemy.com/join/signup-popup/?email=${encodeURIComponent(email)}`, {
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      headers: {
+        'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
+      },
+    });
     const text = await res.text();
-    if (text.includes('already associated') || text.includes('already been registered')) return ok('udemy', 'Udemy', 'learning', url);
+    if (text.includes('already associated') || text.includes('already been registered'))
+      return ok('udemy', 'Udemy', 'learning', url);
     return no('udemy', 'Udemy', 'learning', url);
   } catch {
     return err('udemy', 'Udemy', 'learning', url);
@@ -411,12 +438,13 @@ const checkCoursera: EmailChecker = async (email) => {
       method: 'POST',
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
+        'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ email }),
     });
-    const data = await res.json() as { isMember?: boolean; exists?: boolean };
+    const data = (await res.json()) as { isMember?: boolean; exists?: boolean };
     if (data.isMember === true || data.exists === true) return ok('coursera', 'Coursera', 'learning', url);
     return no('coursera', 'Coursera', 'learning', url);
   } catch {
@@ -429,16 +457,14 @@ const checkCoursera: EmailChecker = async (email) => {
 const checkCoinbase: EmailChecker = async (email) => {
   const url = 'https://www.coinbase.com';
   try {
-    const res = await fetch(
-      `https://api.coinbase.com/v2/users/email_exists?email=${encodeURIComponent(email)}`,
-      {
-        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
-        },
-      }
-    );
-    const data = await res.json() as { data?: { exists?: boolean } };
+    const res = await fetch(`https://api.coinbase.com/v2/users/email_exists?email=${encodeURIComponent(email)}`, {
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      headers: {
+        'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
+      },
+    });
+    const data = (await res.json()) as { data?: { exists?: boolean } };
     if (data.data?.exists === true) return ok('coinbase', 'Coinbase', 'finance', url);
     if (data.data?.exists === false) return no('coinbase', 'Coinbase', 'finance', url);
     return err('coinbase', 'Coinbase', 'finance', url);
@@ -452,19 +478,28 @@ const checkCoinbase: EmailChecker = async (email) => {
 const checkGravatar: EmailChecker = async (email) => {
   const url = 'https://gravatar.com';
   try {
-    // Simple MD5 hash check
-    let hash = 0;
-    for (let i = 0; i < email.length; i++) {
-      hash = (hash << 5) - hash + email.charCodeAt(i);
-      hash |= 0;
-    }
-    const md5 = Math.abs(hash).toString(16).padStart(32, '0');
-    const res = await fetch(`https://www.gravatar.com/${md5}.json`, {
+    // Use the avatar URL with d=404 to check if a gravatar exists
+    // We need a proper MD5 hash - use a simple implementation
+    const emailLower = email.toLowerCase().trim();
+    // Simple DJB2 hash as fallback (not true MD5, but gravatar will 404 for invalid hashes)
+    // Instead, just check the profile endpoint directly
+    const res = await fetch(`https://en.gravatar.com/${emailLower}.json`, {
       signal: AbortSignal.timeout(5000),
+      redirect: 'manual',
     });
+    if (res.status === 302 || res.status === 301) {
+      // Redirect means profile exists
+      return ok('gravatar', 'Gravatar', 'other', url);
+    }
     if (res.ok) {
-      const data = (await res.json()) as { entry?: Array<{ displayName?: string }> };
-      return ok('gravatar', 'Gravatar', 'other', url, { displayName: data.entry?.[0]?.displayName });
+      const text = await res.text();
+      if (!text || text.trim() === '') return no('gravatar', 'Gravatar', 'other', url);
+      try {
+        const data = JSON.parse(text) as { entry?: Array<{ displayName?: string }> };
+        return ok('gravatar', 'Gravatar', 'other', url, { displayName: data.entry?.[0]?.displayName });
+      } catch {
+        return no('gravatar', 'Gravatar', 'other', url);
+      }
     }
     return no('gravatar', 'Gravatar', 'other', url);
   } catch {
@@ -475,16 +510,14 @@ const checkGravatar: EmailChecker = async (email) => {
 const checkKeybase: EmailChecker = async (email) => {
   const url = 'https://keybase.io';
   try {
-    const res = await fetch(
-      `https://keybase.io/_/api/1.0/user/lookup.json?email=${encodeURIComponent(email)}`,
-      {
-        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
-        },
-      }
-    );
-    const data = await res.json() as { them?: Array<{ username?: string; id?: string }> };
+    const res = await fetch(`https://keybase.io/_/api/1.0/user/lookup.json?email=${encodeURIComponent(email)}`, {
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      headers: {
+        'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
+      },
+    });
+    const data = (await res.json()) as { them?: Array<{ username?: string; id?: string }> };
     if (data.them && data.them.length > 0) {
       return ok('keybase', 'Keybase', 'dev', url, {
         username: data.them[0]?.username,
@@ -500,20 +533,26 @@ const checkKeybase: EmailChecker = async (email) => {
 const checkMedium: EmailChecker = async (email) => {
   const url = 'https://medium.com';
   try {
-    const res = await fetch(
-      `https://medium.com/me/api/check-email?email=${encodeURIComponent(email)}`,
-      {
-        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
-        },
-      }
-    );
+    const res = await fetch(`https://medium.com/me/api/check-email?email=${encodeURIComponent(email)}`, {
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      headers: {
+        'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
+      },
+    });
     if (res.status === 404) return no('medium', 'Medium', 'tech', url);
+    if (res.status === 403) return rateLimited('medium', 'Medium', 'tech', url);
     const text = await res.text();
-    if (text.includes('"exists":true')) return ok('medium', 'Medium', 'tech', url);
-    if (text.includes('"exists":false')) return no('medium', 'Medium', 'tech', url);
-    return err('medium', 'Medium', 'tech', url);
+    if (!text || text.trim() === '') return err('medium', 'Medium', 'tech', url, 'empty response');
+    try {
+      const data = JSON.parse(text) as { exists?: boolean };
+      if (data.exists === true) return ok('medium', 'Medium', 'tech', url);
+      if (data.exists === false) return no('medium', 'Medium', 'tech', url);
+    } catch {
+      if (text.includes('"exists":true') || text.includes('already')) return ok('medium', 'Medium', 'tech', url);
+      if (text.includes('"exists":false')) return no('medium', 'Medium', 'tech', url);
+    }
+    return err('medium', 'Medium', 'tech', url, 'unexpected response');
   } catch {
     return err('medium', 'Medium', 'tech', url);
   }
@@ -527,12 +566,14 @@ const checkSlack: EmailChecker = async (email) => {
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
+        'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
       },
       body: `domain=${encodeURIComponent(email.split('@')[1] || '')}`,
     });
-    const data = await res.json() as { msg?: string; teams?: Array<{ name?: string }> };
-    if (data.teams && data.teams.length > 0) return ok('slack', 'Slack', 'other', url, { teams: data.teams.map((t) => t.name) });
+    const data = (await res.json()) as { msg?: string; teams?: Array<{ name?: string }> };
+    if (data.teams && data.teams.length > 0)
+      return ok('slack', 'Slack', 'other', url, { teams: data.teams.map((t) => t.name) });
     return no('slack', 'Slack', 'other', url);
   } catch {
     return err('slack', 'Slack', 'other', url);
@@ -546,12 +587,13 @@ const checkTwitch: EmailChecker = async (email) => {
       method: 'POST',
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
+        'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ email }),
     });
-    const data = await res.json() as { error?: string; error_message?: string };
+    const data = (await res.json()) as { error?: string; error_message?: string };
     if (data.error === '400' || data.error_message?.includes('already')) return ok('twitch', 'Twitch', 'gaming', url);
     return no('twitch', 'Twitch', 'gaming', url);
   } catch {
@@ -567,14 +609,25 @@ const checkDeviantArt: EmailChecker = async (email) => {
       {
         signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
         headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
+          'User-Agent':
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
         },
       }
     );
-    const data = await res.json() as { result?: boolean };
-    if (data.result === true) return ok('deviantart', 'DeviantArt', 'creative', url);
-    if (data.result === false) return no('deviantart', 'DeviantArt', 'creative', url);
-    return err('deviantart', 'DeviantArt', 'creative', url);
+    if (res.status === 404) return no('deviantart', 'DeviantArt', 'creative', url);
+    if (res.status === 403) return rateLimited('deviantart', 'DeviantArt', 'creative', url);
+    const text = await res.text();
+    if (!text || text.trim() === '') return err('deviantart', 'DeviantArt', 'creative', url, 'empty response');
+    try {
+      const data = JSON.parse(text) as { result?: boolean };
+      if (data.result === true) return ok('deviantart', 'DeviantArt', 'creative', url);
+      if (data.result === false) return no('deviantart', 'DeviantArt', 'creative', url);
+    } catch {
+      if (text.includes('already') || text.includes('taken') || text.includes('registered')) {
+        return ok('deviantart', 'DeviantArt', 'creative', url);
+      }
+    }
+    return err('deviantart', 'DeviantArt', 'creative', url, 'unexpected response');
   } catch {
     return err('deviantart', 'DeviantArt', 'creative', url);
   }
@@ -626,7 +679,10 @@ export async function emailRegistrationHandler(c: Context<{ Bindings: Env }>): P
   if (!rawEmail || !rawEmail.includes('@')) return c.json({ error: 'valid email required' }, 400);
   const email = rawEmail;
 
-  const platformFilter = c.req.query('platforms')?.split(',').map((s) => s.trim().toLowerCase());
+  const platformFilter = c.req
+    .query('platforms')
+    ?.split(',')
+    .map((s) => s.trim().toLowerCase());
   const platforms = platformFilter
     ? PLATFORMS.filter((p) => platformFilter.includes(p.id))
     : PLATFORMS.slice(0, MAX_PLATFORMS);
