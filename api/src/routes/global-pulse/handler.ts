@@ -11,6 +11,7 @@ import type {
 import { GP_FEEDS, gpWarmKey, GLOBAL_PULSE_CACHE, CACHE_TTL } from './config';
 import { listBriefings } from '../../lib/briefing-builder';
 import { readKvJson } from './shared';
+import { selfFetchJson } from '../../lib/self-fetch';
 import {
   iocFromThreatMap,
   fromReddit,
@@ -121,13 +122,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     // a fresh invocation with no data. SELF.fetch() avoids the loopback.
     const self = c.env.SELF;
     const fetchDirect = async (path: string): Promise<unknown | null> => {
-      try {
-        const res = await self.fetch(new Request(`https://self${path}`, { signal: AbortSignal.timeout(10000) }));
-        if (!res.ok) return null;
-        return await res.json();
-      } catch {
-        return null;
-      }
+      return selfFetchJson<unknown>(self, path, c.env);
     };
 
     // Build list of all missing endpoints — fetch them all in parallel

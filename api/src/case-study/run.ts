@@ -101,6 +101,8 @@ export interface CaseStudyEnv {
    *  Used by the platform-data discovery runner to call /api/v1/*
    *  without going through the public URL + API-key gate. */
   SELF?: { fetch: (req: RequestInfo, init?: RequestInit) => Promise<Response> };
+  /** HMAC signing secret for internal tokens (self-fetch auth). */
+  INTERNAL_TOKEN_SECRET?: string;
   /** Master switch for social auto-posting. The drip cron is a no-op unless
    *  this is the literal "true". Off by default — nothing auto-posts to live
    *  accounts until this is explicitly set. */
