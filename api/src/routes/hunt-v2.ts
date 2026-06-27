@@ -115,20 +115,27 @@ async function selfFetchIocCheck(
   let done: IocDoneEvent | null = null;
   let eligible: string[] = [];
 
-  for (const line of text.split('\n')) {
-    if (line.startsWith('data: ')) {
-      try {
-        const data = JSON.parse(line.slice(6));
-        if (data.providers) {
-          eligible = data.providers;
-        } else if (data.source) {
-          providers.push(data as IocProviderResult);
-        } else if (data.verdict && data.contributing !== undefined) {
-          done = data as IocDoneEvent;
-        }
-      } catch {
-        /* skip malformed frame */
+  // SSE format: "event: X\ndata: {...}\n\n" — split on double-newline for events
+  const events = text.split('\n\n');
+  for (const evt of events) {
+    let eventType = '';
+    let eventData = '';
+    for (const line of evt.split('\n')) {
+      if (line.startsWith('event: ')) eventType = line.slice(7);
+      else if (line.startsWith('data: ')) eventData = line.slice(6);
+    }
+    if (!eventData) continue;
+    try {
+      const data = JSON.parse(eventData);
+      if (eventType === 'meta' || data.providers) {
+        eligible = data.providers ?? eligible;
+      } else if (eventType === 'result' || data.source) {
+        providers.push(data as IocProviderResult);
+      } else if (eventType === 'done' || (data.verdict && data.contributing !== undefined)) {
+        done = data as IocDoneEvent;
       }
+    } catch {
+      /* skip malformed frame */
     }
   }
 
