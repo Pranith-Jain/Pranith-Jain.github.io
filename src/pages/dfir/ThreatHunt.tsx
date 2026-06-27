@@ -7,6 +7,7 @@ interface ProviderHit {
   verdict: string;
   score: number;
   description: string;
+  tags: string[];
 }
 
 interface TelegramHit {
@@ -26,7 +27,7 @@ interface BreachHit {
 interface HuntV2Result {
   q: string;
   type: string;
-  ioc_providers: { hits: ProviderHit[]; malicious_count: number; max_score: number };
+  ioc_providers: { hits: ProviderHit[]; malicious_count: number; max_score: number; total_checked: number };
   telegram_leaks: { hits: TelegramHit[]; count: number };
   breach_data: { hits: BreachHit[]; count: number };
   whois: Record<string, unknown> | null;
@@ -40,6 +41,13 @@ const VERDICT_COLORS: Record<string, string> = {
   clean: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/40',
   unknown:
     'bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-muted border-slate-300 dark:border-[rgb(var(--border-400))]',
+};
+
+const PROVIDER_VERDICT_CHIP: Record<string, string> = {
+  malicious: 'bg-rose-500/15 text-rose-600 dark:text-rose-400',
+  suspicious: 'bg-amber-500/15 text-amber-600 dark:text-amber-400',
+  clean: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400',
+  unknown: 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400',
 };
 
 const CONFIDENCE_COLORS: Record<string, string> = {
@@ -85,7 +93,7 @@ export default function ThreatHunt(): JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialInput]);
 
-  const c = result?.composite;
+  const comp = result?.composite;
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <div className="animate-fade-in-up mb-8">
@@ -128,10 +136,10 @@ export default function ThreatHunt(): JSX.Element {
         </div>
       )}
 
-      {result && c && (
+      {result && comp && (
         <div className="animate-fade-in-up space-y-6">
           {/* Verdict banner */}
-          <div className={`rounded-xl border p-5 ${VERDICT_COLORS[c.verdict]}`}>
+          <div className={`rounded-xl border p-5 ${VERDICT_COLORS[comp.verdict]}`}>
             <div className="flex items-center gap-4 mb-3">
               <span className="text-xs font-mono px-2 py-1 rounded bg-white/20 text-inherit uppercase">
                 {result.type}
@@ -141,22 +149,30 @@ export default function ThreatHunt(): JSX.Element {
             <div className="flex flex-wrap gap-4">
               <div>
                 <p className="text-mini font-mono opacity-70 mb-0.5">Verdict</p>
-                <p className="text-xl font-bold font-display capitalize">{c.verdict}</p>
+                <p className="text-xl font-bold font-display capitalize">{comp.verdict}</p>
               </div>
               <div>
                 <p className="text-mini font-mono opacity-70 mb-0.5">Score</p>
-                <p className="text-xl font-bold font-display">{c.score}/100</p>
+                <p className="text-xl font-bold font-display">{comp.score}/100</p>
               </div>
               <div>
                 <p className="text-mini font-mono opacity-70 mb-0.5">Confidence</p>
-                <p className={`text-xl font-bold font-display capitalize ${CONFIDENCE_COLORS[c.confidence]}`}>
-                  {c.confidence}
+                <p className={`text-xl font-bold font-display capitalize ${CONFIDENCE_COLORS[comp.confidence]}`}>
+                  {comp.confidence}
                 </p>
               </div>
+              {result.ioc_providers.total_checked > 0 && (
+                <div>
+                  <p className="text-mini font-mono opacity-70 mb-0.5">Providers</p>
+                  <p className="text-xl font-bold font-display">
+                    {result.ioc_providers.hits.length}/{result.ioc_providers.total_checked}
+                  </p>
+                </div>
+              )}
             </div>
-            {c.summary.length > 0 && (
+            {comp.summary.length > 0 && (
               <div className="mt-3 space-y-1">
-                {c.summary.map((s) => (
+                {comp.summary.map((s) => (
                   <p key={s} className="text-xs font-mono opacity-80 flex items-center gap-2">
                     <Activity size={10} /> {s}
                   </p>
@@ -166,25 +182,57 @@ export default function ThreatHunt(): JSX.Element {
           </div>
 
           {/* IOC Providers */}
-          <Section icon={<Shield size={14} />} title="IOC Providers" count={result.ioc_providers.hits.length}>
+          <Section
+            icon={<Shield size={14} />}
+            title="IOC Providers"
+            count={result.ioc_providers.hits.length}
+            subtitle={
+              result.ioc_providers.total_checked > 0
+                ? `${result.ioc_providers.hits.length} with signals out of ${result.ioc_providers.total_checked} checked`
+                : undefined
+            }
+          >
             {result.ioc_providers.hits.length === 0 ? (
-              <p className="text-xs font-mono text-slate-500 py-2">No IOC provider hits</p>
+              <p className="text-xs font-mono text-slate-500 py-2">
+                {result.ioc_providers.total_checked > 0
+                  ? `Checked ${result.ioc_providers.total_checked} providers — no threat signals found`
+                  : 'No IOC provider hits'}
+              </p>
             ) : (
               <div className="space-y-1">
                 {result.ioc_providers.hits.map((h) => (
                   <div
                     key={h.source}
-                    className="flex items-center justify-between px-3 py-2 rounded-lg bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)]"
+                    className="px-3 py-2 rounded-lg bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)]"
                   >
-                    <div className="flex items-center gap-2">
-                      <span
-                        className={`text-micro font-mono px-1.5 py-0.5 rounded ${h.verdict === 'malicious' ? 'bg-rose-500/15 text-rose-600 dark:text-rose-400' : 'bg-amber-500/15 text-amber-600 dark:text-amber-400'}`}
-                      >
-                        {h.verdict}
-                      </span>
-                      <span className="text-xs font-mono font-medium">{h.source}</span>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <span
+                          className={`text-micro font-mono px-1.5 py-0.5 rounded ${PROVIDER_VERDICT_CHIP[h.verdict] ?? PROVIDER_VERDICT_CHIP.unknown}`}
+                        >
+                          {h.verdict}
+                        </span>
+                        <span className="text-xs font-mono font-medium">{h.source}</span>
+                      </div>
+                      <span className="text-xs font-mono text-slate-500">{h.score}/100</span>
                     </div>
-                    <span className="text-xs font-mono text-slate-500">{h.score}/100</span>
+                    {h.description && (
+                      <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">
+                        {h.description}
+                      </p>
+                    )}
+                    {h.tags.length > 0 && (
+                      <div className="flex flex-wrap gap-1 mt-1.5">
+                        {h.tags.slice(0, 6).map((t) => (
+                          <span
+                            key={t}
+                            className="text-micro font-mono px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
@@ -264,10 +312,10 @@ export default function ThreatHunt(): JSX.Element {
           {/* Deep links */}
           <div className="flex flex-wrap gap-3 pt-2">
             <a
-              href={`/dfir/ioc-check?indicator=${encodeURIComponent(result.q)}`}
+              href={`/dfir/ioc-investigate?indicator=${encodeURIComponent(result.q)}`}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-mono text-muted hover:border-brand-500/40 transition-colors"
             >
-              <ExternalLink size={12} /> Full IOC Check (39 providers)
+              <ExternalLink size={12} /> Full IOC Check (streaming)
             </a>
             <a
               href={`/dfir/breach?q=${encodeURIComponent(result.q)}`}
@@ -293,19 +341,22 @@ function Section({
   icon,
   title,
   count,
+  subtitle,
   children,
 }: {
   icon: JSX.Element;
   title: string;
   count: number;
+  subtitle?: string;
   children: React.ReactNode;
 }): JSX.Element {
   return (
     <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
-      <h2 className="font-display font-semibold text-sm flex items-center gap-2 mb-3">
+      <h2 className="font-display font-semibold text-sm flex items-center gap-2 mb-1">
         {icon} {title} {count > 0 && <span className="text-xs font-mono text-slate-500">({count})</span>}
       </h2>
-      {children}
+      {subtitle && <p className="text-mini font-mono text-slate-400 mb-3">{subtitle}</p>}
+      <div className={subtitle ? '' : 'mt-3'}>{children}</div>
     </div>
   );
 }
