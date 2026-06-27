@@ -5,7 +5,7 @@ import { ctLogs } from '../lib/crt-sh';
 import { safeNullLog } from '../lib/safe-catch';
 import { detectType } from '../lib/indicator';
 import { runIocProviders } from '../lib/ioc-providers';
-import type { ProviderResult } from '../providers/types';
+import type { ProviderResult, ProviderId } from '../providers/types';
 
 // ── Types ────────────────────────────────────────────────────────────────
 
@@ -223,10 +223,16 @@ export async function huntV2Handler(c: Context<{ Bindings: Env }>): Promise<Resp
 
   try {
     const [providerRun, telegram, breaches, whois, certs] = await Promise.all([
-      runIocProviders(q, c.env),
-      db ? checkTelegramLeaks(db, q, type) : Promise.resolve([] as TelegramHit[]),
-      checkBreaches(q, type),
-      type === 'domain' ? safeNullLog('rdap-lookup', rdapLookup(q)) : Promise.resolve(null),
+      runIocProviders(q, c.env).catch((err) => ({
+        collected: [] as ProviderResult[],
+        composite: { score: 0, verdict: 'unknown' as const, confidence: 'low' as const, contributing: 0 },
+        admiralty: { reliability: 'F' as const, credibility: 6, label: 'F6' },
+        eligible: [] as ProviderId[],
+        error: err instanceof Error ? err.message : String(err),
+      })),
+      db ? checkTelegramLeaks(db, q, type).catch(() => [] as TelegramHit[]) : Promise.resolve([] as TelegramHit[]),
+      checkBreaches(q, type).catch(() => [] as BreachHit[]),
+      type === 'domain' ? safeNullLog('rdap-lookup', rdapLookup(q)).catch(() => null) : Promise.resolve(null),
       type === 'domain' ? ctLogs(q).catch(() => []) : Promise.resolve([]),
     ]);
 
