@@ -2,9 +2,8 @@
  * Hunt v2 handler — deep-dive investigation across the full IOC provider
  * suite, Telegram leaks, breach databases, WHOIS, and certificate logs.
  *
- * Provider results come from the same fan-out as /api/v1/ioc/check (called
- * internally via SELF.fetch to avoid duplicate code paths and ensure the
- * same provider set/caching/circuit-breaking behavior).
+ * Runs the same provider adapters as /api/v1/ioc/check but without the
+ * SSE streaming layer — collects all results and returns a single JSON.
  */
 
 import type { Context } from 'hono';
@@ -13,7 +12,10 @@ import { rdapLookup } from '../lib/rdap';
 import { ctLogs } from '../lib/crt-sh';
 import { safeNullLog } from '../lib/safe-catch';
 import { detectType } from '../lib/indicator';
-import { signInternalToken } from '../lib/internal-token';
+import type { Indicator } from '../providers/types';
+import { isCircuitOpen, recordProviderFailure, recordProviderSuccess } from '../lib/circuit-breaker';
+import type { ProviderResult, ProviderId } from '../providers/types';
+import { ADAPTERS, buildProviderEnv, PROVIDER_SUPPORT, PROVIDER_TIMEOUT_MS } from '../providers';
 
 // ── Types ────────────────────────────────────────────────────────────────
 
@@ -67,79 +69,6 @@ interface HuntV2Response {
     confidence: 'low' | 'medium' | 'high';
     summary: string[];
   };
-}
-
-// ── Internal IOC check via SELF.fetch ────────────────────────────────────
-
-interface IocProviderResult {
-  source: string;
-  status: string;
-  score: number;
-  verdict: string;
-  raw_summary: Record<string, unknown>;
-  tags: string[];
-  error?: string;
-}
-
-interface IocDoneEvent {
-  score: number;
-  verdict: string;
-  confidence: string;
-  contributing: number;
-  total?: number;
-}
-
-/**
- * Call the IOC check endpoint internally (same Worker, via SELF.fetch) and
- * parse the SSE stream into provider results + composite score. This
- * reuses the exact same provider fan-out, caching, circuit-breaking, and
- * scoring as the streaming IOC checker — no code duplication.
- */
-async function selfFetchIocCheck(
-  indicator: string,
-  env: Env
-): Promise<{
-  providers: IocProviderResult[];
-  done: IocDoneEvent | null;
-  eligible: string[];
-}> {
-  const url = `/api/v1/ioc/check?indicator=${encodeURIComponent(indicator)}`;
-  const token = await signInternalToken('hunt-v2', env.INTERNAL_TOKEN_SECRET);
-  const res = await env.SELF.fetch(url, {
-    headers: { 'x-internal-token': token },
-  });
-  if (!res.ok) return { providers: [], done: null, eligible: [] };
-
-  const text = await res.text();
-  const providers: IocProviderResult[] = [];
-  let done: IocDoneEvent | null = null;
-  let eligible: string[] = [];
-
-  // SSE format: "event: X\ndata: {...}\n\n" — split on double-newline for events
-  const events = text.split('\n\n');
-  for (const evt of events) {
-    let eventType = '';
-    let eventData = '';
-    for (const line of evt.split('\n')) {
-      if (line.startsWith('event: ')) eventType = line.slice(7);
-      else if (line.startsWith('data: ')) eventData = line.slice(6);
-    }
-    if (!eventData) continue;
-    try {
-      const data = JSON.parse(eventData);
-      if (eventType === 'meta' || data.providers) {
-        eligible = data.providers ?? eligible;
-      } else if (eventType === 'result' || data.source) {
-        providers.push(data as IocProviderResult);
-      } else if (eventType === 'done' || (data.verdict && data.contributing !== undefined)) {
-        done = data as IocDoneEvent;
-      }
-    } catch {
-      /* skip malformed frame */
-    }
-  }
-
-  return { providers, done, eligible };
 }
 
 // ── Telegram leaks ───────────────────────────────────────────────────────
@@ -218,14 +147,73 @@ async function checkBreaches(value: string, type: string): Promise<BreachHit[]> 
   return results.flatMap((r) => (r.status === 'fulfilled' ? r.value : []));
 }
 
+// ── Provider fan-out (no cache — avoids Cache API issues) ────────────────
+
+const PROVIDER_CHUNK_SIZE = 10;
+
+async function runChunked<T>(items: T[], fn: (item: T) => Promise<void>, size: number): Promise<void> {
+  for (let i = 0; i < items.length; i += size) {
+    const chunk = items.slice(i, i + size);
+    await Promise.allSettled(chunk.map(fn));
+  }
+}
+
+async function runProviders(indicator: Indicator, env: Env): Promise<ProviderResult[]> {
+  const eligible = (Object.keys(ADAPTERS) as ProviderId[]).filter((p) => PROVIDER_SUPPORT[p].includes(indicator.type));
+  const providerEnv = buildProviderEnv(env);
+  const collected: ProviderResult[] = [];
+
+  await runChunked(
+    eligible,
+    async (p) => {
+      if (isCircuitOpen(p)) {
+        collected.push({
+          source: p,
+          status: 'unsupported',
+          score: 0,
+          verdict: 'unknown',
+          raw_summary: {},
+          tags: ['circuit-open'],
+          fetched_at: new Date().toISOString(),
+          cached: false,
+        });
+        return;
+      }
+      const signal = AbortSignal.timeout(PROVIDER_TIMEOUT_MS);
+      try {
+        const r = await ADAPTERS[p](indicator, providerEnv, signal);
+        collected.push(r);
+        if (r.status === 'ok') await recordProviderSuccess(p);
+        else recordProviderFailure(p);
+      } catch (err) {
+        recordProviderFailure(p);
+        collected.push({
+          source: p,
+          status: 'error',
+          score: 0,
+          verdict: 'unknown',
+          raw_summary: {},
+          tags: [],
+          error: err instanceof Error ? err.message : String(err),
+          fetched_at: new Date().toISOString(),
+          cached: false,
+        });
+      }
+    },
+    PROVIDER_CHUNK_SIZE
+  );
+
+  return collected;
+}
+
 // ── Provider results → HuntV2Response hits ───────────────────────────────
 
-function providerResultsToHits(collected: IocProviderResult[]): ProviderHit[] {
+function providerResultsToHits(collected: ProviderResult[]): ProviderHit[] {
   return collected
     .filter((r) => r.status === 'ok' && (r.verdict !== 'unknown' || r.score > 0))
     .map((r) => ({
       source: r.source,
-      verdict: r.verdict as ProviderHit['verdict'],
+      verdict: r.verdict,
       score: r.score,
       description:
         Object.entries(r.raw_summary)
@@ -302,20 +290,18 @@ export async function huntV2Handler(c: Context<{ Bindings: Env }>): Promise<Resp
   const type = detectType(q);
   if (type === 'unknown') return c.json({ error: 'unrecognized indicator type' }, 400);
 
+  const indicator: Indicator = { type, value: q };
+
   try {
-    const [iocCheck, telegram, breaches, whois, certs] = await Promise.all([
-      selfFetchIocCheck(q, c.env).catch(() => ({
-        providers: [] as IocProviderResult[],
-        done: null,
-        eligible: [] as string[],
-      })),
+    const [collected, telegram, breaches, whois, certs] = await Promise.all([
+      runProviders(indicator, c.env).catch(() => [] as ProviderResult[]),
       db ? checkTelegramLeaks(db, q, type).catch(() => [] as TelegramHit[]) : Promise.resolve([] as TelegramHit[]),
       checkBreaches(q, type).catch(() => [] as BreachHit[]),
       type === 'domain' ? safeNullLog('rdap-lookup', rdapLookup(q)).catch(() => null) : Promise.resolve(null),
       type === 'domain' ? ctLogs(q).catch(() => []) : Promise.resolve([]),
     ]);
 
-    const hits = providerResultsToHits(iocCheck.providers);
+    const hits = providerResultsToHits(collected);
     const composite = computeScore(hits, telegram.length, breaches.length);
     const certSubjects = [...new Set(certs.flatMap((c) => c.subjects))].slice(0, 10);
 
@@ -326,7 +312,7 @@ export async function huntV2Handler(c: Context<{ Bindings: Env }>): Promise<Resp
         hits,
         malicious_count: hits.filter((p) => p.verdict === 'malicious').length,
         max_score: hits.length ? Math.max(...hits.map((p) => p.score)) : 0,
-        total_checked: iocCheck.eligible.length,
+        total_checked: collected.length,
       },
       telegram_leaks: { hits: telegram.slice(0, 10), count: telegram.length },
       breach_data: { hits: breaches.slice(0, 10), count: breaches.length },
