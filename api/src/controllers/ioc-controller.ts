@@ -5,6 +5,8 @@ import { sseStream } from '../lib/sse';
 import { claimSseSlot, SSE_MAX_CONCURRENT } from '../lib/sse-concurrency';
 import { trackEvent, visitorCountry } from '../lib/analytics';
 import { runIocProviders } from '../lib/ioc-providers';
+import type { ProviderId } from '../providers/types';
+import { ADAPTERS, PROVIDER_SUPPORT } from '../providers';
 
 export interface IocController {
   check(c: Context<{ Bindings: Env }>): Response | Promise<Response>;
@@ -46,9 +48,11 @@ export function createIocController(): IocController {
         );
       }
 
+      const eligible = (Object.keys(ADAPTERS) as ProviderId[]).filter((p) => PROVIDER_SUPPORT[p].includes(type));
+
       return sseStream<unknown>(async (write) => {
-        const { composite, admiralty, eligible } = await runIocProviders(raw, c.env, (r) => write('result', r));
         write('meta', { type, value: raw.trim(), providers: eligible });
+        const { composite, admiralty } = await runIocProviders(raw, c.env, (r) => write('result', r));
         write('done', { ...composite, admiralty });
         trackEvent(c.env, 'ioc_check', {
           blobs: [type, composite.verdict, composite.confidence],
