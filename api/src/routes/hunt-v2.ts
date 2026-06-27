@@ -1,11 +1,18 @@
+/**
+ * Hunt v2 handler — deep-dive investigation across the full IOC provider
+ * suite, Telegram leaks, breach databases, WHOIS, and certificate logs.
+ *
+ * Provider results come from the same fan-out as /api/v1/ioc/check (called
+ * internally via SELF.fetch to avoid duplicate code paths and ensure the
+ * same provider set/caching/circuit-breaking behavior).
+ */
+
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { rdapLookup } from '../lib/rdap';
 import { ctLogs } from '../lib/crt-sh';
 import { safeNullLog } from '../lib/safe-catch';
 import { detectType } from '../lib/indicator';
-import { runIocProviders } from '../lib/ioc-providers';
-import type { ProviderResult, ProviderId } from '../providers/types';
 
 // ── Types ────────────────────────────────────────────────────────────────
 
@@ -59,6 +66,69 @@ interface HuntV2Response {
     confidence: 'low' | 'medium' | 'high';
     summary: string[];
   };
+}
+
+// ── Internal IOC check via SELF.fetch ────────────────────────────────────
+
+interface IocProviderResult {
+  source: string;
+  status: string;
+  score: number;
+  verdict: string;
+  raw_summary: Record<string, unknown>;
+  tags: string[];
+  error?: string;
+}
+
+interface IocDoneEvent {
+  score: number;
+  verdict: string;
+  confidence: string;
+  contributing: number;
+  total?: number;
+}
+
+/**
+ * Call the IOC check endpoint internally (same Worker, via SELF.fetch) and
+ * parse the SSE stream into provider results + composite score. This
+ * reuses the exact same provider fan-out, caching, circuit-breaking, and
+ * scoring as the streaming IOC checker — no code duplication.
+ */
+async function selfFetchIocCheck(
+  indicator: string,
+  env: Env
+): Promise<{
+  providers: IocProviderResult[];
+  done: IocDoneEvent | null;
+  eligible: string[];
+}> {
+  const url = `/api/v1/ioc/check?indicator=${encodeURIComponent(indicator)}`;
+  const res = await env.SELF.fetch(url);
+  if (!res.ok) return { providers: [], done: null, eligible: [] };
+
+  const text = await res.text();
+  const providers: IocProviderResult[] = [];
+  let done: IocDoneEvent | null = null;
+  let eligible: string[] = [];
+
+  for (const line of text.split('\n')) {
+    if (line.startsWith('data: ')) {
+      try {
+        const data = JSON.parse(line.slice(6));
+        if (data.providers) {
+          eligible = data.providers;
+        } else if (data.source) {
+          providers.push(data as IocProviderResult);
+        } else if (data.verdict && data.contributing !== undefined) {
+          done = data as IocDoneEvent;
+        }
+      } catch {
+        /* skip malformed frame */
+      }
+    }
+  }
+
+  return { providers, done, eligible };
 }
 
 // ── Telegram leaks ───────────────────────────────────────────────────────
@@ -139,12 +209,12 @@ async function checkBreaches(value: string, type: string): Promise<BreachHit[]> 
 
 // ── Provider results → HuntV2Response hits ───────────────────────────────
 
-function providerResultsToHits(collected: ProviderResult[]): ProviderHit[] {
+function providerResultsToHits(collected: IocProviderResult[]): ProviderHit[] {
   return collected
     .filter((r) => r.status === 'ok' && (r.verdict !== 'unknown' || r.score > 0))
     .map((r) => ({
       source: r.source,
-      verdict: r.verdict,
+      verdict: r.verdict as ProviderHit['verdict'],
       score: r.score,
       description:
         Object.entries(r.raw_summary)
@@ -222,13 +292,11 @@ export async function huntV2Handler(c: Context<{ Bindings: Env }>): Promise<Resp
   if (type === 'unknown') return c.json({ error: 'unrecognized indicator type' }, 400);
 
   try {
-    const [providerRun, telegram, breaches, whois, certs] = await Promise.all([
-      runIocProviders(q, c.env).catch((err) => ({
-        collected: [] as ProviderResult[],
-        composite: { score: 0, verdict: 'unknown' as const, confidence: 'low' as const, contributing: 0 },
-        admiralty: { reliability: 'F' as const, credibility: 6, label: 'F6' },
-        eligible: [] as ProviderId[],
-        error: err instanceof Error ? err.message : String(err),
+    const [iocCheck, telegram, breaches, whois, certs] = await Promise.all([
+      selfFetchIocCheck(q, c.env).catch(() => ({
+        providers: [] as IocProviderResult[],
+        done: null,
+        eligible: [] as string[],
       })),
       db ? checkTelegramLeaks(db, q, type).catch(() => [] as TelegramHit[]) : Promise.resolve([] as TelegramHit[]),
       checkBreaches(q, type).catch(() => [] as BreachHit[]),
@@ -236,7 +304,7 @@ export async function huntV2Handler(c: Context<{ Bindings: Env }>): Promise<Resp
       type === 'domain' ? ctLogs(q).catch(() => []) : Promise.resolve([]),
     ]);
 
-    const hits = providerResultsToHits(providerRun.collected);
+    const hits = providerResultsToHits(iocCheck.providers);
     const composite = computeScore(hits, telegram.length, breaches.length);
     const certSubjects = [...new Set(certs.flatMap((c) => c.subjects))].slice(0, 10);
 
@@ -247,7 +315,7 @@ export async function huntV2Handler(c: Context<{ Bindings: Env }>): Promise<Resp
         hits,
         malicious_count: hits.filter((p) => p.verdict === 'malicious').length,
         max_score: hits.length ? Math.max(...hits.map((p) => p.score)) : 0,
-        total_checked: providerRun.eligible.length,
+        total_checked: iocCheck.eligible.length,
       },
       telegram_leaks: { hits: telegram.slice(0, 10), count: telegram.length },
       breach_data: { hits: breaches.slice(0, 10), count: breaches.length },
