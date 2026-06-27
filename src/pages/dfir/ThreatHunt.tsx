@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Search, AlertTriangle, Shield, Globe, FileText, Activity, ExternalLink, Loader2 } from 'lucide-react';
 
 interface ProviderHit {
@@ -48,13 +49,15 @@ const CONFIDENCE_COLORS: Record<string, string> = {
 };
 
 export default function ThreatHunt(): JSX.Element {
-  const [query, setQuery] = useState('');
+  const [searchParams] = useSearchParams();
+  const initialInput = searchParams.get('indicator') ?? '';
+  const [query, setQuery] = useState(initialInput);
   const [hunting, setHunting] = useState(false);
   const [result, setResult] = useState<HuntV2Result | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const doHunt = async () => {
-    const q = query.trim();
+  const doHunt = async (override?: string) => {
+    const q = (override ?? query).trim();
     if (!q || q.length < 3) return;
     setHunting(true);
     setResult(null);
@@ -71,6 +74,16 @@ export default function ThreatHunt(): JSX.Element {
     }
     setHunting(false);
   };
+
+  const autoRanRef = useRef(false);
+  useEffect(() => {
+    if (autoRanRef.current) return;
+    if (initialInput && initialInput.length >= 3) {
+      autoRanRef.current = true;
+      doHunt(initialInput);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialInput]);
 
   const c = result?.composite;
   return (
