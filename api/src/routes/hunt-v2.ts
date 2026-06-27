@@ -13,6 +13,7 @@ import { rdapLookup } from '../lib/rdap';
 import { ctLogs } from '../lib/crt-sh';
 import { safeNullLog } from '../lib/safe-catch';
 import { detectType } from '../lib/indicator';
+import { signInternalToken } from '../lib/internal-token';
 
 // ── Types ────────────────────────────────────────────────────────────────
 
@@ -103,7 +104,10 @@ async function selfFetchIocCheck(
   eligible: string[];
 }> {
   const url = `/api/v1/ioc/check?indicator=${encodeURIComponent(indicator)}`;
-  const res = await env.SELF.fetch(url);
+  const token = await signInternalToken('hunt-v2', env.INTERNAL_TOKEN_SECRET);
+  const res = await env.SELF.fetch(url, {
+    headers: { 'x-internal-token': token },
+  });
   if (!res.ok) return { providers: [], done: null, eligible: [] };
 
   const text = await res.text();
