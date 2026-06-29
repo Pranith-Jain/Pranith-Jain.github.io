@@ -29,6 +29,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { detectType } from '../lib/indicator';
+import { signInternalToken } from '../lib/internal-token';
 
 type IndicatorType = 'ipv4' | 'ipv6' | 'domain' | 'url' | 'hash' | 'email' | 'cve' | 'unknown';
 
@@ -38,10 +39,18 @@ function isIp(t: IndicatorType): boolean {
   return t === 'ipv4' || t === 'ipv6';
 }
 
-async function selfFetch(self: Fetcher | undefined, path: string, init?: RequestInit): Promise<Response | null> {
+async function selfFetch(
+  self: Fetcher | undefined,
+  path: string,
+  token: string,
+  init?: RequestInit
+): Promise<Response | null> {
   try {
-    if (self) return await self.fetch(`${INTERNAL}${path}`, init);
-    return await fetch(`${INTERNAL}${path}`, init);
+    const headers = new Headers(init?.headers);
+    headers.set('x-internal-token', token);
+    const req = new Request(`${INTERNAL}${path}`, { ...init, headers });
+    if (self) return await self.fetch(req);
+    return await fetch(req);
   } catch {
     return null;
   }
@@ -90,6 +99,7 @@ export async function iocEnrichDeepHandler(c: Context<{ Bindings: Env }>): Promi
   const enc = encodeURIComponent(ind);
   const env = c.env;
   const self = (env as unknown as { SELF?: Fetcher }).SELF;
+  const token = await signInternalToken('api-enrich-deep', env.INTERNAL_TOKEN_SECRET);
 
   // Fan out per type. Each promise resolves to a SourceHit with success/error.
   const hits: Array<Promise<SourceHit>> = [];
@@ -100,7 +110,9 @@ export async function iocEnrichDeepHandler(c: Context<{ Bindings: Env }>): Promi
   //    AlienVault OTX, Google Safe Browsing, etc.) ───────────────────────
   hits.push(
     timeIt('reputation', () =>
-      selfFetch(self, `/api/v1/ioc/check?indicator=${enc}`).then((r) => (r ? r.json() : { error: 'no-response' }))
+      selfFetch(self, `/api/v1/ioc/check?indicator=${enc}`, token).then((r) =>
+        r ? r.json() : { error: 'no-response' }
+      )
     )
   );
 
@@ -110,14 +122,14 @@ export async function iocEnrichDeepHandler(c: Context<{ Bindings: Env }>): Promi
     if (dom) {
       hits.push(
         timeIt('domain-lookup', () =>
-          selfFetch(self, `/api/v1/domain/lookup?domain=${encodeURIComponent(dom)}`).then((r) =>
+          selfFetch(self, `/api/v1/domain/lookup?domain=${encodeURIComponent(dom)}`, token).then((r) =>
             r ? r.json() : { error: 'no-response' }
           )
         )
       );
       hits.push(
         timeIt('builtwith', () =>
-          selfFetch(self, `/api/v1/builtwith?domain=${encodeURIComponent(dom)}`).then((r) =>
+          selfFetch(self, `/api/v1/builtwith?domain=${encodeURIComponent(dom)}`, token).then((r) =>
             r ? r.json() : { error: 'no-response' }
           )
         )
@@ -127,7 +139,7 @@ export async function iocEnrichDeepHandler(c: Context<{ Bindings: Env }>): Promi
       // resolved domains — everything the deep-enrich view needs.
       hits.push(
         timeIt('webamon-search', () =>
-          selfFetch(self, `/api/v1/webamon/search?search=${encodeURIComponent(dom)}&size=20`).then((r) =>
+          selfFetch(self, `/api/v1/webamon/search?search=${encodeURIComponent(dom)}&size=20`, token).then((r) =>
             r ? r.json() : { error: 'no-response' }
           )
         )
@@ -138,7 +150,7 @@ export async function iocEnrichDeepHandler(c: Context<{ Bindings: Env }>): Promi
       if (triggerWebamonScan) {
         hits.push(
           timeIt('webamon-scan', () =>
-            selfFetch(self, `/api/v1/webamon/scan`, {
+            selfFetch(self, `/api/v1/webamon/scan`, token, {
               method: 'POST',
               headers: { 'content-type': 'application/json' },
               body: JSON.stringify({ submission_url: `https://${dom}` }),
@@ -148,21 +160,21 @@ export async function iocEnrichDeepHandler(c: Context<{ Bindings: Env }>): Promi
       }
       hits.push(
         timeIt('breach-domain', () =>
-          selfFetch(self, `/api/v1/breach/domain?domain=${encodeURIComponent(dom)}`).then((r) =>
+          selfFetch(self, `/api/v1/breach/domain?domain=${encodeURIComponent(dom)}`, token).then((r) =>
             r ? r.json() : { error: 'no-response' }
           )
         )
       );
       hits.push(
         timeIt('passive-dns', () =>
-          selfFetch(self, `/api/v1/passive-dns?q=${encodeURIComponent(dom)}`).then((r) =>
+          selfFetch(self, `/api/v1/passive-dns?q=${encodeURIComponent(dom)}`, token).then((r) =>
             r ? r.json() : { error: 'no-response' }
           )
         )
       );
       hits.push(
         timeIt('ct-certs', () =>
-          selfFetch(self, `/api/v1/ct-monitor/certs?domain=${encodeURIComponent(dom)}&days=90`).then((r) =>
+          selfFetch(self, `/api/v1/ct-monitor/certs?domain=${encodeURIComponent(dom)}&days=90`, token).then((r) =>
             r ? r.json() : { error: 'no-response' }
           )
         )
@@ -174,7 +186,7 @@ export async function iocEnrichDeepHandler(c: Context<{ Bindings: Env }>): Promi
   if (t === 'url') {
     hits.push(
       timeIt('urlscan', () =>
-        selfFetch(self, `/api/v1/url-preview?url=${enc}`).then((r) => (r ? r.json() : { error: 'no-response' }))
+        selfFetch(self, `/api/v1/url-preview?url=${enc}`, token).then((r) => (r ? r.json() : { error: 'no-response' }))
       )
     );
   }
@@ -183,23 +195,23 @@ export async function iocEnrichDeepHandler(c: Context<{ Bindings: Env }>): Promi
   if (isIp(t)) {
     hits.push(
       timeIt('ipinfo', () =>
-        selfFetch(self, `/api/v1/host?ip=${enc}`).then((r) => (r ? r.json() : { error: 'no-response' }))
+        selfFetch(self, `/api/v1/host?ip=${enc}`, token).then((r) => (r ? r.json() : { error: 'no-response' }))
       )
     );
 
     hits.push(
       timeIt('ip-geo', () =>
-        selfFetch(self, `/api/v1/ip-geo?ip=${enc}`).then((r) => (r ? r.json() : { error: 'no-response' }))
+        selfFetch(self, `/api/v1/ip-geo?ip=${enc}`, token).then((r) => (r ? r.json() : { error: 'no-response' }))
       )
     );
     hits.push(
       timeIt('passive-dns', () =>
-        selfFetch(self, `/api/v1/passive-dns?q=${enc}`).then((r) => (r ? r.json() : { error: 'no-response' }))
+        selfFetch(self, `/api/v1/passive-dns?q=${enc}`, token).then((r) => (r ? r.json() : { error: 'no-response' }))
       )
     );
     hits.push(
       timeIt('relationships', () =>
-        selfFetch(self, `/api/v1/relationship-graph?indicator=${enc}&q=${enc}`).then((r) =>
+        selfFetch(self, `/api/v1/relationship-graph?indicator=${enc}&q=${enc}`, token).then((r) =>
           r ? r.json() : { error: 'no-response' }
         )
       )
@@ -211,7 +223,7 @@ export async function iocEnrichDeepHandler(c: Context<{ Bindings: Env }>): Promi
     hits.push(
       timeIt('asn-graph', async () => {
         try {
-          const hostRes = await selfFetch(self, `/api/v1/host?ip=${enc}`);
+          const hostRes = await selfFetch(self, `/api/v1/host?ip=${enc}`, token);
           if (!hostRes) return { error: 'no-host-response' };
           const hostData = (await hostRes.json()) as
             | { asn?: string | number; network?: { asn?: string | number } }
@@ -219,7 +231,7 @@ export async function iocEnrichDeepHandler(c: Context<{ Bindings: Env }>): Promi
           const asn = hostData?.asn ?? hostData?.network?.asn;
           if (!asn) return { skipped: 'no-asn-on-host' };
           const asnStr = String(asn).toUpperCase().startsWith('AS') ? String(asn) : `AS${asn}`;
-          const asnRes = await selfFetch(self, `/api/v1/asn/lookup?asn=${encodeURIComponent(asnStr)}`);
+          const asnRes = await selfFetch(self, `/api/v1/asn/lookup?asn=${encodeURIComponent(asnStr)}`, token);
           return asnRes ? await asnRes.json() : { error: 'no-asn-response' };
         } catch (err) {
           return { error: err instanceof Error ? err.message : String(err) };
@@ -232,12 +244,16 @@ export async function iocEnrichDeepHandler(c: Context<{ Bindings: Env }>): Promi
   if (t === 'hash') {
     hits.push(
       timeIt('malwarebazaar', () =>
-        selfFetch(self, `/api/v1/malwarebazaar?hash=${enc}`).then((r) => (r ? r.json() : { error: 'no-response' }))
+        selfFetch(self, `/api/v1/malwarebazaar?hash=${enc}`, token).then((r) =>
+          r ? r.json() : { error: 'no-response' }
+        )
       )
     );
     hits.push(
       timeIt('sandbox', () =>
-        selfFetch(self, `/api/v1/sandbox/lookup?hash=${enc}`).then((r) => (r ? r.json() : { error: 'no-response' }))
+        selfFetch(self, `/api/v1/sandbox/lookup?hash=${enc}`, token).then((r) =>
+          r ? r.json() : { error: 'no-response' }
+        )
       )
     );
   }
@@ -246,17 +262,19 @@ export async function iocEnrichDeepHandler(c: Context<{ Bindings: Env }>): Promi
   if (t === 'cve') {
     hits.push(
       timeIt('cve-lookup', () =>
-        selfFetch(self, `/api/v1/cve/lookup?id=${enc}`).then((r) => (r ? r.json() : { error: 'no-response' }))
+        selfFetch(self, `/api/v1/cve/lookup?id=${enc}`, token).then((r) => (r ? r.json() : { error: 'no-response' }))
       )
     );
     hits.push(
       timeIt('cve-recent-context', () =>
-        selfFetch(self, `/api/v1/cve-recent?cve=${enc}`).then((r) => (r ? r.json() : { error: 'no-response' }))
+        selfFetch(self, `/api/v1/cve-recent?cve=${enc}`, token).then((r) => (r ? r.json() : { error: 'no-response' }))
       )
     );
     hits.push(
       timeIt('cve-threat-map', () =>
-        selfFetch(self, `/api/v1/cve-threat-map?cve=${enc}`).then((r) => (r ? r.json() : { error: 'no-response' }))
+        selfFetch(self, `/api/v1/cve-threat-map?cve=${enc}`, token).then((r) =>
+          r ? r.json() : { error: 'no-response' }
+        )
       )
     );
   }
@@ -267,12 +285,16 @@ export async function iocEnrichDeepHandler(c: Context<{ Bindings: Env }>): Promi
     // is pwned, what breaches, what data classes.
     hits.push(
       timeIt('breach-email', () =>
-        selfFetch(self, `/api/v1/breach/email?email=${enc}`).then((r) => (r ? r.json() : { error: 'no-response' }))
+        selfFetch(self, `/api/v1/breach/email?email=${enc}`, token).then((r) =>
+          r ? r.json() : { error: 'no-response' }
+        )
       )
     );
     hits.push(
       timeIt('reputation', () =>
-        selfFetch(self, `/api/v1/ioc/check?indicator=${enc}`).then((r) => (r ? r.json() : { error: 'no-response' }))
+        selfFetch(self, `/api/v1/ioc/check?indicator=${enc}`, token).then((r) =>
+          r ? r.json() : { error: 'no-response' }
+        )
       )
     );
     // Pivot on the email's domain — WHOIS, DNS, breach exposure of the org.
@@ -280,7 +302,7 @@ export async function iocEnrichDeepHandler(c: Context<{ Bindings: Env }>): Promi
     if (emailDomain) {
       hits.push(
         timeIt('domain-lookup', () =>
-          selfFetch(self, `/api/v1/domain/lookup?domain=${encodeURIComponent(emailDomain)}`).then((r) =>
+          selfFetch(self, `/api/v1/domain/lookup?domain=${encodeURIComponent(emailDomain)}`, token).then((r) =>
             r ? r.json() : { error: 'no-response' }
           )
         )
@@ -292,7 +314,7 @@ export async function iocEnrichDeepHandler(c: Context<{ Bindings: Env }>): Promi
   if (t === 'domain' || isIp(t)) {
     hits.push(
       timeIt('maltiverse', () =>
-        selfFetch(self, `/api/v1/maltiverse?q=${enc}`).then((r) => (r ? r.json() : { error: 'no-response' }))
+        selfFetch(self, `/api/v1/maltiverse?q=${enc}`, token).then((r) => (r ? r.json() : { error: 'no-response' }))
       )
     );
   }
