@@ -93,11 +93,14 @@ async function checkTelegramLeaks(db: D1Database, value: string, type: string): 
     }
     if (type === 'domain' || type === 'ip') {
       const like = `%${value}%`;
+      // Search both domains_found column AND message_text for broader matches
       const rows = await db
         .prepare(
-          'SELECT channel_name, message_text, collected_at FROM telegram_leak_entries WHERE domains_found LIKE ? LIMIT 20'
+          `SELECT channel_name, message_text, collected_at FROM telegram_leak_entries
+           WHERE domains_found LIKE ? OR message_text LIKE ?
+           LIMIT 20`
         )
-        .bind(like)
+        .bind(like, like)
         .all();
       return (rows.results ?? []).map((r) => ({
         channel: (r as Record<string, unknown>).channel_name as string,
@@ -141,9 +144,32 @@ async function checkHudsonRock(value: string, isEmail: boolean): Promise<BreachH
   }
 }
 
+async function checkDehashed(value: string, type: string): Promise<BreachHit[]> {
+  if (type !== 'email' && type !== 'domain') return [];
+  try {
+    // Dehashed has no free API — use HaveIBeenPwned's public breach list as a proxy
+    const domain = type === 'email' ? (value.split('@')[1] ?? value) : value;
+    const res = await fetch(`https://haveibeenpwned.com/api/v3/breaches?domain=${encodeURIComponent(domain)}`, {
+      headers: { 'user-agent': UA, 'hibp-api-key': '' },
+      signal: AbortSignal.timeout(5_000),
+    });
+    if (!res.ok) return [];
+    const data = (await res.json()) as Array<{ Name: string; BreachDate: string; DataClasses: string[] }>;
+    return data.slice(0, 5).map((b) => ({
+      name: b.Name,
+      source: 'haveibeenpwned',
+      breach_date: b.BreachDate,
+      data_classes: b.DataClasses,
+      description: `Data classes: ${b.DataClasses.join(', ')}`,
+    }));
+  } catch {
+    return [];
+  }
+}
+
 async function checkBreaches(value: string, type: string): Promise<BreachHit[]> {
   const isEmail = type === 'email';
-  const results = await Promise.allSettled([checkHudsonRock(value, isEmail)]);
+  const results = await Promise.allSettled([checkHudsonRock(value, isEmail), checkDehashed(value, type)]);
   return results.flatMap((r) => (r.status === 'fulfilled' ? r.value : []));
 }
 
@@ -302,13 +328,33 @@ export async function huntV2Handler(c: Context<{ Bindings: Env }>): Promise<Resp
       checkBreaches(q, type).catch(() => [] as BreachHit[]),
     ]);
 
-    // Run RDAP/CT separately so they can't crash the whole response
-    const [whois, certs] = await Promise.all([
-      type === 'domain' ? safeNullLog('rdap-lookup', rdapLookup(q)).catch(() => null) : Promise.resolve(null),
-      type === 'domain' ? ctLogs(q).catch(() => []) : Promise.resolve([]),
-    ]);
+    // Run RDAP/CT separately so they can't crash the whole response.
+    // RDAP results are cached in KV to avoid registry rate limits.
+    const rdapCacheKey = `hunt-rdap:${q}`;
+    let whois: Record<string, unknown> | null = null;
+    if (type === 'domain' && c.env.KV_CACHE) {
+      try {
+        const cached = await c.env.KV_CACHE.get(rdapCacheKey, 'json');
+        if (cached) {
+          whois = cached as Record<string, unknown>;
+        } else {
+          whois = (await safeNullLog('rdap-lookup', rdapLookup(q)).catch(() => null)) as unknown as Record<
+            string,
+            unknown
+          > | null;
+          if (whois && Object.keys(whois).length > 0) {
+            await c.env.KV_CACHE.put(rdapCacheKey, JSON.stringify(whois), { expirationTtl: 3600 });
+          }
+        }
+      } catch {
+        whois = null;
+      }
+    } else if (type === 'domain') {
+      whois = (await safeNullLog('rdap-lookup', rdapLookup(q)).catch(() => null)) as Record<string, unknown> | null;
+    }
+    const certs = type === 'domain' ? await ctLogs(q).catch(() => []) : [];
 
-    const hits = providerResultsToHits(collected);
+    const hits = providerResultsToHits(collected).sort((a, b) => b.score - a.score);
     const composite = computeScore(hits, telegram.length, breaches.length);
     const certSubjects = [...new Set(certs.flatMap((c) => c.subjects))].slice(0, 10);
 
@@ -324,9 +370,11 @@ export async function huntV2Handler(c: Context<{ Bindings: Env }>): Promise<Resp
       telegram_leaks: { hits: telegram.slice(0, 10), count: telegram.length },
       breach_data: { hits: breaches.slice(0, 10), count: breaches.length },
       whois: whois
-        ? Object.fromEntries(
-            Object.entries(whois).filter(([_, v]) => v != null && !(Array.isArray(v) && v.length === 0))
-          )
+        ? (Object.fromEntries(
+            Object.entries(whois as Record<string, unknown>).filter(
+              ([_, v]) => v != null && !(Array.isArray(v) && v.length === 0)
+            )
+          ) as Record<string, unknown>)
         : null,
       cert_logs: { count: certs.length, recent: certSubjects },
       composite,
