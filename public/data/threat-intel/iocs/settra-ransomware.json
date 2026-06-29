@@ -1,0 +1,15 @@
+{
+  "slug": "settra-ransomware",
+  "family": "Settra Ransomware",
+  "category": "ransomware",
+  "aliases": [],
+  "firstSeen": null,
+  "mitreTechniques": [],
+  "indicatorCount": 0,
+  "description": "💡INTEL",
+  "sizeBytes": 882,
+  "indicators": [],
+  "context": "💡INTEL\n========\n📌Initially appeared in late June 2026\n📌Announced 11 victims (as of now), topping the US\n📌Screenshots are shared as Proof of Hack on their DLS\n📌DLS hosted on NGINX Server\n📌Each Victim's detailed report is available on the victim leak page that details confidential information and their business model\n📌Threat Actors had setup dedicated Onion Domains for each Victim's Data Leak\n📌Vanity Domain Name is setup for main DLS\n\nONION DLS\n=========\nsettra5ldqwgtw5q7z5awbsvlksakyfojuc5slgrz5lvapune4fantqd.onion\n\nONION FS\n========\npbxvml6h3wz35qlr5muy2cg5jvjsd4qhjlsztmxj4lqkyohnfdrntqyd.onion\n26z3gms2rshr2zzedxhw5fbucilmgt2inhmxzmuhteyztpxohoqplgyd.onion\nttfy4zmtiaywfkkmykpxiwtlxkcr5ofvrhqgxxyspgwzbxkc3uze7jid.onion\nc3u3g7dz2yxkefci3x34jfvfa4gka4iogi4zfjkyxx2c536oqdld4kid.onion\n\nTOX: D288571294F08ADDFE46DF631194745143BE8B40F9F846379040DC40EB39BC2E8CE056B66927\n",
+  "references": [],
+  "llmSummary": null
+}

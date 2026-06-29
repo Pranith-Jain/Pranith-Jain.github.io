@@ -1,0 +1,15 @@
+{
+  "slug": "ransomedvc",
+  "family": "RansomedVC",
+  "category": "other",
+  "aliases": [],
+  "firstSeen": null,
+  "mitreTechniques": [],
+  "indicatorCount": 5,
+  "description": "The group had launched a new website with title \"RebornVC\" listing 2 victims, but not leaking the data",
+  "sizeBytes": 387,
+  "indicators": [],
+  "context": "The group had launched a new website with title \"RebornVC\" listing 2 victims, but not leaking the data\n\nransomed.biz\nHosted on nginx \nRegistered: 4th May 2025\n213.111.149.87 🇺🇦\n\n\nIOCs\n====\n66.63.187.65\n185.254.197.169\n45.141.233.204\n213.111.149.87\n107.150.0.19\nautoconfig.ransomed.biz\nautodiscover.ransomed.biz\ncdn.ransomed.biz\nmail.ransomed.biz\nmarket.ransomed.biz\nwww.ransomed.biz\t\n\n",
+  "references": [],
+  "llmSummary": null
+}

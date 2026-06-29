@@ -1,0 +1,15 @@
+{
+  "slug": "krybit-ransomware",
+  "family": "Krybit Ransomware",
+  "category": "ransomware",
+  "aliases": [],
+  "firstSeen": null,
+  "mitreTechniques": [],
+  "indicatorCount": 0,
+  "description": "krybitxdpxohsmjooeb3gbgpmdddreh6mnflzac6bnezz74b7yje67yd.onion",
+  "sizeBytes": 315,
+  "indicators": [],
+  "context": "krybitxdpxohsmjooeb3gbgpmdddreh6mnflzac6bnezz74b7yje67yd.onion\nkrybitx3fh5krdnhegyp2ob3lhizsaiadturtio3ginf7it5gsdgu2yd.onion\nkrybitqsdzwmhnitvwuhvsntfgf2wrhxveyxroxpc44c6gkft2cqldyd.onion\nkrybieodq754vlwufrsuxaswxb5zpxyibaawmed2jaduoz2e5m56hmid.onion\nkrybivdln3oc3twbin4budgznzq7dmcolldnsx455lspxxe23b56y5qd.onion\n",
+  "references": [],
+  "llmSummary": null
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "genielocker",
+  "family": "GenieLocker",
+  "category": "other",
+  "aliases": [],
+  "firstSeen": null,
+  "mitreTechniques": [],
+  "indicatorCount": 2,
+  "description": "Ransomware targeting Russia",
+  "sizeBytes": 103,
+  "indicators": [],
+  "context": "Ransomware targeting Russia\n\nMD5\n===\nd661cf666b9acbab7cfeae1127a261a9\nb893eafed0659f70d4ac250f09073723\n",
+  "references": [],
+  "llmSummary": null
+}

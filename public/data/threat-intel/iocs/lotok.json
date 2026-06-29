@@ -1,0 +1,15 @@
+{
+  "slug": "lotok",
+  "family": "Lotok",
+  "category": "other",
+  "aliases": [],
+  "firstSeen": null,
+  "mitreTechniques": [],
+  "indicatorCount": 1,
+  "description": "MD5: fa2efb3b704384a5fe40b382738657c1",
+  "sizeBytes": 661,
+  "indicators": [],
+  "context": "MD5: fa2efb3b704384a5fe40b382738657c1\nSHA-1: 20034f787772f74a0cb8b07b229e5805755c1e24\nSHA-256: 2457a3241ec13c77b4132d6c5923e63b51a4d05a96dc0ae249c92a43ed9c7c04\n\nMalware: Lotok Backdoor\nFileName: mysq1.exe\nFound: http://46.17.43.250:8081/\nIP: 46.17.43.250\nCountry: Russia\nASN: AS51659\nASN Name:  LLC Baxet\n\nINTERNALS\n=========\nCompiled: Go (1.15.0-X.XX.X)\nData Encoded: XOR, Base64\nHash: Murmur3\nEncryption: RC4 PRGA, AES, Salsa20, ChaCha\n\nSubmitted to: \nhttps://www.virustotal.com/gui/file/2457a3241ec13c77b4132d6c5923e63b51a4d05a96dc0ae249c92a43ed9c7c04/behavior\nhttps://bazaar.abuse.ch/sample/2457a3241ec13c77b4132d6c5923e63b51a4d05a96dc0ae249c92a43ed9c7c04/\n",
+  "references": [],
+  "llmSummary": null
+}
