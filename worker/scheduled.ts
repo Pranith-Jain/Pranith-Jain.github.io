@@ -46,6 +46,7 @@ import { scanForPhishingDomains, type PassiveDnsEnv } from '../api/src/lib/passi
 import type { D1Database } from '@cloudflare/workers-types';
 import { acquireCronLease, releaseCronLease, heartbeatCronLease } from './durable-objects/cron-lock';
 import { siCacheStats, loadSiIndex } from './lib/si-manifest';
+import { tiCacheStats, loadTiIndex } from './lib/threat-intel-manifest';
 
 // Lease TTL for the cron single-flight gate. Generous so it covers the
 // worst-case job window (the briefing build runs well past the old 120s) —
@@ -90,6 +91,24 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
     } catch (e) {
       console.log(
         JSON.stringify({ job: 'si-stats', status: 'failed', error: e instanceof Error ? e.message : String(e) })
+      );
+    }
+    // Threat Intel: log cache + manifest health once per cron tick.
+    try {
+      const idx = await loadTiIndex(env.ASSETS as unknown as Fetcher);
+      const cache = tiCacheStats();
+      console.log(
+        JSON.stringify({
+          job: 'ti-stats',
+          counts: idx.counts,
+          lastSyncedAt: idx.lastSyncedAt,
+          cacheHits: cache.cves.hits + cache.iocs.hits + cache.sectors.hits,
+          cacheMisses: cache.cves.misses + cache.iocs.misses + cache.sectors.misses,
+        })
+      );
+    } catch (e) {
+      console.log(
+        JSON.stringify({ job: 'ti-stats', status: 'failed', error: e instanceof Error ? e.message : String(e) })
       );
     }
   }
@@ -1060,6 +1079,21 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
                 error: err instanceof Error ? err.message : String(err),
               })
             );
+          }
+          // Weekly watchlist digest — sector-filtered, uses watched actors
+          if (isWeekly && db && env.KV_CACHE) {
+            try {
+              const { runWeeklyWatchlistDigest } = await import('../api/src/routes/watchlist');
+              await runWeeklyWatchlistDigest(db, env.KV_CACHE);
+            } catch (err) {
+              console.error(
+                JSON.stringify({
+                  job: 'watchlist-digest',
+                  status: 'failed',
+                  error: err instanceof Error ? err.message : String(err),
+                })
+              );
+            }
           }
         }
         // Wait for the parallel landscape sync to finish so the heartbeat

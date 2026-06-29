@@ -1,0 +1,15 @@
+{
+  "source": "synthetic (OpenThreat + cyber_threat_intel + Daily-Hunt references)",
+  "license": "MIT",
+  "replicatedAt": "2026-06-29",
+  "counts": {
+    "cves": 0,
+    "iocs": 0,
+    "sectors": 0,
+    "kevTotal": 0
+  },
+  "lastSyncedAt": null,
+  "cveIndex": [],
+  "iocIndex": [],
+  "sectors": []
+}

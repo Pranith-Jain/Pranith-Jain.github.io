@@ -17,6 +17,18 @@ import {
   siCacheStats,
   type SiSkillCategory,
 } from './lib/si-manifest';
+import {
+  loadTiIndex,
+  loadKevSnapshot,
+  getTiCve,
+  getTiIoc,
+  getTiSector,
+  filterCves,
+  filterIocs,
+  tiCacheStats,
+  type TiSeverity,
+  type TiIocIndexEntry,
+} from './lib/threat-intel-manifest';
 import { enrichIp, enrichIpsBatch, isValidIp, type EnrichResult } from './lib/si-enrich';
 import { buildStixBundle, type StixIndicator } from './lib/cti-ioc-export';
 import { kqlToAhUrl, kqlToAhUrlMarkdown } from './lib/kql-to-ah-url';
@@ -1429,6 +1441,173 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             license: idx.license,
             replicatedAt: idx.replicatedAt,
             cache: siCacheStats(),
+          });
+        }
+      );
+
+      // ── Threat Intel (TI) tools ────────────────────────────────────
+      // CVE/KEV catalog, IOC family database, and sector briefings.
+      // Data shipped in public/data/threat-intel/ via weekly sync.
+
+      this.tools(
+        'ti_list_cves',
+        'List CVEs from the threat-intel vertical (NVD + CISA KEV). CVEs are enriched with priority scoring (CVSS + KEV + recency). Filter by severity, KEV-only, vendor, recency, or keyword.',
+        {
+          severity: z
+            .enum(['critical', 'high', 'medium', 'low'])
+            .optional()
+            .describe('Filter by CVSS v3 severity band'),
+          kevOnly: z.boolean().optional().describe('Only return CVEs in CISA Known Exploited Vulnerabilities catalog'),
+          vendor: z.string().optional().describe('Case-insensitive substring match against vendor field'),
+          daysBack: z.number().int().min(1).max(365).optional().describe('Only CVEs published within this many days'),
+          minPriority: z.number().int().min(0).max(100).optional().describe('Minimum priority score (0-100)'),
+          keyword: z
+            .string()
+            .optional()
+            .describe('Case-insensitive substring match against CVE ID / vendor / product / description'),
+          limit: z.number().int().min(1).max(200).optional().describe('Max CVEs to return (default 50)'),
+        },
+        async ({ severity, kevOnly, vendor, daysBack, minPriority, keyword, limit }) => {
+          const idx = await loadTiIndex(ASSETS);
+          const cves = filterCves(idx, {
+            severity: severity as TiSeverity | undefined,
+            kevOnly,
+            vendor,
+            daysBack,
+            minPriority,
+            keyword,
+            limit: limit ?? 50,
+          });
+          return untrustedToolResult({
+            total: idx.counts.cves,
+            kevTotal: idx.counts.kevTotal,
+            returned: cves.length,
+            lastSyncedAt: idx.lastSyncedAt,
+            cves,
+          });
+        }
+      );
+
+      this.tools(
+        'ti_get_cve',
+        'Return the full CVE body with CVSS vector, CWE IDs, references, and (where populated) BSI description and LLM summary/recommended action. Use ti_list_cves first to discover CVE IDs.',
+        {
+          cveId: z.string().describe('CVE ID, e.g. "CVE-2026-1001". Case-insensitive.'),
+        },
+        async ({ cveId }) => {
+          const body = await getTiCve(ASSETS, cveId);
+          if (!body) {
+            return untrustedToolResult({
+              error: 'cve_not_found',
+              cveId,
+              hint: 'Call ti_list_cves first to see available CVEs.',
+            });
+          }
+          return untrustedToolResult(body);
+        }
+      );
+
+      this.tools(
+        'ti_list_kev',
+        'Return the full CISA Known Exploited Vulnerabilities (KEV) snapshot — actively exploited CVEs with required actions and due dates. Each entry includes vendor, product, short description, required action, and due date.',
+        {
+          vendor: z.string().optional().describe('Filter by vendor (case-insensitive substring)'),
+          limit: z.number().int().min(1).max(500).optional().describe('Max KEV entries to return (default 100)'),
+        },
+        async ({ vendor, limit }) => {
+          const kev = await loadKevSnapshot(ASSETS);
+          const needle = vendor?.toLowerCase();
+          const out = needle ? kev.filter((e) => e.vendor.toLowerCase().includes(needle)) : kev;
+          const sliced = out.slice(0, limit ?? 100);
+          return untrustedToolResult({
+            total: kev.length,
+            returned: sliced.length,
+            vendorFilter: vendor ?? null,
+            entries: sliced,
+          });
+        }
+      );
+
+      this.tools(
+        'ti_list_iocs',
+        'List IOC families (ransomware, malware, APT groups, C2 frameworks, stealers, phishing kits) from the threat-intel vertical, sourced from Daily-Hunt references and tracked by this Worker.',
+        {
+          category: z
+            .enum(['ransomware', 'malware', 'apt', 'c2', 'phishing', 'stealer', 'other'])
+            .optional()
+            .describe('Filter by IOC category'),
+          keyword: z
+            .string()
+            .optional()
+            .describe('Case-insensitive substring match against slug / family name / aliases / description'),
+          limit: z.number().int().min(1).max(100).optional().describe('Max families to return (default 50)'),
+        },
+        async ({ category, keyword, limit }) => {
+          const idx = await loadTiIndex(ASSETS);
+          const iocs = filterIocs(idx, {
+            category: category as TiIocIndexEntry['category'] | undefined,
+            keyword,
+            limit: limit ?? 50,
+          });
+          return untrustedToolResult({
+            total: idx.counts.iocs,
+            returned: iocs.length,
+            iocs,
+          });
+        }
+      );
+
+      this.tools(
+        'ti_get_ioc',
+        'Return the full IOC family body with indicators, MITRE techniques, context, and (where populated) LLM summary. Use ti_list_iocs first to discover family slugs.',
+        {
+          slug: z.string().describe('IOC family slug, e.g. "lockbit-4-0-ransomware". Get these from ti_list_iocs.'),
+        },
+        async ({ slug }) => {
+          const body = await getTiIoc(ASSETS, slug);
+          if (!body) {
+            return untrustedToolResult({
+              error: 'ioc_family_not_found',
+              slug,
+              hint: 'Call ti_list_iocs to see available families.',
+            });
+          }
+          return untrustedToolResult(body);
+        }
+      );
+
+      this.tools(
+        'ti_brief_sector',
+        'Return a sector-specific threat brief (Financial, Healthcare, or Government) from the threat-intel vertical. Each brief includes an executive summary, top N sector-relevant threats with risk assessments and recommended actions.',
+        {
+          sector: z.enum(['financial', 'healthcare', 'government']).describe('Target sector for the brief'),
+        },
+        async ({ sector }) => {
+          const body = await getTiSector(ASSETS, sector);
+          if (!body) {
+            return untrustedToolResult({
+              error: 'sector_not_found',
+              sector,
+              hint: 'Available sectors: financial, healthcare, government.',
+            });
+          }
+          return untrustedToolResult(body);
+        }
+      );
+
+      this.tools(
+        'ti_stats',
+        'Return cache + manifest stats for the Threat Intel data: index loaded, KEV loaded, body-cache sizes and hit ratios. Useful for diagnosing cold-start latency.',
+        {},
+        async () => {
+          const idx = await loadTiIndex(ASSETS);
+          return untrustedToolResult({
+            counts: idx.counts,
+            source: idx.source,
+            license: idx.license,
+            replicatedAt: idx.replicatedAt,
+            lastSyncedAt: idx.lastSyncedAt,
+            cache: tiCacheStats(),
           });
         }
       );

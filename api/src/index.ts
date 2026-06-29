@@ -265,6 +265,24 @@ import {
 } from './routes/malware-vault';
 import { copilotInvestigateHandler } from './routes/copilot';
 import { copilotChatHandler, copilotChatStreamHandler, copilotChatHistoryHandler } from './routes/copilot-chat';
+import { ssvcTriageHandler, ssvcGetHandler, ssvcStatsHandler } from './routes/ssvc-triage';
+import { dossierHandler, dossierGetHandler } from './routes/dossier';
+import {
+  watchlistActorsListHandler,
+  watchlistActorsAddHandler,
+  watchlistActorsDeleteHandler,
+  watchlistActorActivityHandler,
+  watchlistDigestGenerateHandler,
+  watchlistDigestsListHandler,
+  watchlistDigestGetHandler,
+} from './routes/watchlist';
+import {
+  veraChatHandler,
+  veraChatModesHandler,
+  veraChatStreamHandler,
+  veraChatHistoryHandler,
+  veraSessionsListHandler,
+} from './routes/vera';
 import { observeHandler } from './routes/observe';
 import { buildReportHandler, getReportHandler, streamReportHandler } from './routes/report';
 import { automationRunHandler } from './routes/automation';
@@ -786,6 +804,7 @@ import {
   siRenderHandler,
 } from './routes/security-investigator';
 import { siEdgeToolsRouter } from './routes/si-edge-tools';
+import { threatIntelRouter } from './routes/threat-intel-edge-tools';
 import {
   listNotebooksHandler,
   getNotebookHandler,
@@ -1317,6 +1336,15 @@ app.post('/api/v1/rag/index-all', async (c) => {
 });
 app.post('/api/v1/ai-summary', validate('json', aiSummarySchema), aiSummaryHandler);
 app.post('/api/v1/ai-item-summary', validate('json', aiItemSummarySchema), aiItemSummaryHandler);
+// SSVC-V triage — decision-model-as-a-service. CVE → Act/Prioritise/Track/Watch
+app.post('/api/v1/ssvc/triage', ssvcTriageHandler);
+app.get('/api/v1/ssvc/triage/:id', ssvcGetHandler);
+app.get('/api/v1/ssvc/stats', ssvcStatsHandler);
+
+// Threat Dossier — 5W+H + Diamond Model per entity
+app.post('/api/v1/dossier', dossierHandler);
+app.get('/api/v1/dossier/:type/:value', dossierGetHandler);
+
 // Phase 2: per-report AI primitives. Backs the /threatintel/report-analyzer
 // page and is also useful as standalone tools (TTP map, 5W grid, image-OCR).
 app.post('/api/v1/ttp-extract', ttpExtractHandler);
@@ -1330,6 +1358,12 @@ app.get('/api/v1/copilot/investigate', copilotInvestigateHandler);
 app.post('/api/v1/copilot/chat', copilotChatHandler);
 app.get('/api/v1/copilot/chat/:sessionId/stream', copilotChatStreamHandler);
 app.get('/api/v1/copilot/chat/:sessionId', copilotChatHistoryHandler);
+// Vera — multi-mode conversational CTI (4 chat modes: Ask, Investigate, Draft, Challenge)
+app.post('/api/v1/agents/chat', veraChatHandler);
+app.get('/api/v1/agents/chat/modes', veraChatModesHandler);
+app.get('/api/v1/agents/chat/:sessionId/stream', veraChatStreamHandler);
+app.get('/api/v1/agents/chat/:sessionId', veraChatHistoryHandler);
+app.get('/api/v1/agents/chat/sessions', veraSessionsListHandler);
 app.post('/api/v1/report/build', validate('json', reportBuildSchema), buildReportHandler);
 app.get('/api/v1/report/:id', getReportHandler);
 app.get('/api/v1/report/:id/stream', streamReportHandler);
@@ -1543,6 +1577,15 @@ app.get('/api/v1/ioc-watchlist/alerts', iocWatchlistAlertsHandler);
 app.get('/api/v1/ioc-watchlist/:id', iocWatchlistGetHandler);
 app.delete('/api/v1/ioc-watchlist/:id', iocWatchlistDeleteHandler);
 
+// ── Actor Watchlist & Weekly Digest ────────────────────────────────
+app.get('/api/v1/watchlist/actors', watchlistActorsListHandler);
+app.post('/api/v1/watchlist/actors', watchlistActorsAddHandler);
+app.delete('/api/v1/watchlist/actors/:id', watchlistActorsDeleteHandler);
+app.get('/api/v1/watchlist/actors/:actor/activity', watchlistActorActivityHandler);
+app.post('/api/v1/watchlist/digest', watchlistDigestGenerateHandler);
+app.get('/api/v1/watchlist/digests', watchlistDigestsListHandler);
+app.get('/api/v1/watchlist/digest/:id', watchlistDigestGetHandler);
+
 app.get('/api/v1/github-security', validate('query', githubSecuritySchema), gitHubSecurityHandler);
 app.get('/api/v1/github-security/recent/meta', gitHubSecurityRecentMetaHandler);
 
@@ -1620,6 +1663,10 @@ app.get('/api/v1/si/ref/:name', siRefHandler);
 app.get('/api/v1/si/routing-prompt', siRoutingPromptHandler);
 app.get('/api/v1/si/scripts', siScriptsHandler);
 app.get('/api/v1/si/scripts/:name', siScriptHandler);
+
+// Threat Intel vertical (OpenThreat + cyber_threat_intel + Daily-Hunt references).
+// CVE/KEV/IOC/sector briefs served from public/data/threat-intel/ via env.ASSETS.
+app.route('/api/v1', threatIntelRouter);
 
 // ── CTI Collector (VHunt-inspired IOC fusion + AI prediction + mutation) ──
 import {

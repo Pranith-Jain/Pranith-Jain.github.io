@@ -94,6 +94,15 @@ const PORTFOLIO_PAGES: readonly PageEntry[] = [
     group: 'portfolio',
   },
   {
+    path: '/threat-intel',
+    label: 'Threat Intel',
+    description:
+      'CVE catalog, CISA KEV, IOC families, and sector-specific threat briefs — aggregated from NVD, KEV, and Daily-Hunt references.',
+    sectionLabel: 'Portfolio',
+    group: 'portfolio',
+    keywords: ['cve', 'kev', 'ioc', 'sector', 'briefing', 'vulnerability', 'ransomware'],
+  },
+  {
     path: '/experience',
     label: 'Experience',
     description: 'Work history, role-by-role responsibilities, and the artifacts I owned.',
@@ -3901,6 +3910,29 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     description: 'Create a threat intelligence platform account.',
     sectionLabel: 'Threat Intel · Account',
     group: 'threatintel',
+  },
+  {
+    path: '/threatintel/profile',
+    label: 'Profile',
+    description: 'User profile and account settings for the threat intelligence platform.',
+    sectionLabel: 'Threat Intel · Account',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/vera',
+    label: 'Vera',
+    description: 'Vera — AI-powered investigative assistant for threat intelligence workflows.',
+    sectionLabel: 'Threat Intel · Tools',
+    group: 'threatintel',
+    keywords: ['vera', 'ai', 'assistant', 'investigation', 'chat'],
+  },
+  {
+    path: '/threatintel/agent-mesh',
+    label: 'Agent Mesh',
+    description: 'Live multi-agent orchestration — specialist transitions, tool calls, step timeline.',
+    sectionLabel: 'Threat Intel · Tools',
+    group: 'threatintel',
+    keywords: ['agent', 'mesh', 'orchestrator', 'specialist', 'workflow', 'investigation'],
   },
 ];
 
