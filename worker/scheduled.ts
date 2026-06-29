@@ -4,6 +4,7 @@ import {
   buildBriefing,
   writeBriefing,
   sweepOldBriefings,
+  briefingNeedsHeal,
 } from '../api/src/lib/briefing-builder';
 import { buildLandscapeReport, writeLandscapeReport, expectedLandscapeSlug } from '../api/src/lib/landscape-builder';
 import {
@@ -497,6 +498,48 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
 
           // (gp:warm feeds are warmed via the queue, off this invocation — see the
           // enqueueGpFeeds call at the top of this block.)
+
+          // === Briefing self-heal (hourly) ================================
+          // Check if today's daily (or Monday's weekly) is missing or
+          // degraded. The primary build fires at 00:30 UTC; this catches
+          // failures a few hours later when upstream feeds may have
+          // recovered.
+          if (db) {
+            try {
+              const isMonday = csNow.getUTCDay() === 1;
+              const healType: 'daily' | 'weekly' = isMonday ? 'weekly' : 'daily';
+              const now = Date.now();
+              const row = await db
+                .prepare('SELECT stats_json, body FROM briefings WHERE type = ? ORDER BY created_at DESC LIMIT 1')
+                .bind(healType)
+                .first<{ stats_json?: string | null; body?: string | null }>();
+              if (briefingNeedsHeal(row, { now, cooldownMs: 30 * 60_000 })) {
+                console.log(JSON.stringify({ job: 'briefing-heal', type: healType, status: 'rebuilding' }));
+                const briefing = await buildBriefing(healType, undefined, {
+                  nvdApiKey: env.NVD_API_KEY,
+                  env: env as unknown as ApiEnv,
+                });
+                await writeBriefing(db, briefing);
+                console.log(
+                  JSON.stringify({
+                    job: 'briefing-heal',
+                    type: healType,
+                    slug: briefing.slug,
+                    findings: briefing.stats.findings,
+                    iocs: briefing.stats.iocs,
+                  })
+                );
+              }
+            } catch (e) {
+              console.error(
+                JSON.stringify({
+                  job: 'briefing-heal',
+                  status: 'failed',
+                  error: e instanceof Error ? e.message : String(e),
+                })
+              );
+            }
+          }
 
           // === Watch engine ===
           try {
