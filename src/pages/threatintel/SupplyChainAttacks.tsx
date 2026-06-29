@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AlertOctagon, ExternalLink, ShieldAlert } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { SEVERITY_TONE } from '../../components/severity';
 
 interface AffectedEntity {
   name: string;
@@ -59,12 +60,6 @@ function safeHref(url: string): string | null {
   }
 }
 
-const SEVERITY_TONE: Record<string, string> = {
-  critical: 'border-rose-500/50 text-rose-600 dark:text-rose-400 bg-rose-500/10',
-  high: 'border-orange-500/50 text-orange-600 dark:text-orange-400 bg-orange-500/10',
-  medium: 'border-amber-500/50 text-amber-600 dark:text-amber-400 bg-amber-500/10',
-  low: 'border-slate-400/50 text-slate-500 bg-slate-400/10',
-};
 const STATUS_TONE: Record<string, string> = {
   active: 'border-rose-500/50 text-rose-600 dark:text-rose-400',
   contained: 'border-amber-500/50 text-amber-600 dark:text-amber-400',

@@ -5,6 +5,7 @@ import { useDebounce } from '../../hooks/useDebounce';
 import { relativeAgo } from '../../lib/relativeTime';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { useLastVisit, isNewSince } from '../../hooks';
+import { SEVERITY_TONE as SEV_TONE } from '../../components/severity';
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -73,10 +74,7 @@ type FirehoseItem = {
 };
 
 const SEVERITY_TONE: Record<Severity, string> = {
-  critical: 'border-rose-500/50 bg-rose-500/10 text-rose-700 dark:text-rose-300',
-  high: 'border-orange-500/50 bg-orange-500/10 text-orange-700 dark:text-orange-300',
-  medium: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
-  low: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500',
+  ...SEV_TONE,
   unknown: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500',
 };
 

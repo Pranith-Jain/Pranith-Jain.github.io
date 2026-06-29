@@ -4,6 +4,7 @@ import { RefreshCw, Shield, Hash, Globe, FileText, AlertTriangle, ExternalLink }
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { DataState } from '../../components/DataState';
 import { sanitizeUrl } from '../../lib/sanitize-url';
+import { SEVERITY_TONE } from '../../components/severity';
 
 interface LeakEntry {
   id: number;
@@ -103,13 +104,6 @@ function extractIocs(row: LeakEntry): Ioc[] {
   }
   return out;
 }
-
-const SEVERITY_TONE: Record<LeakEntry['severity'], string> = {
-  critical: 'border-rose-500/50 bg-rose-500/10 text-rose-700 dark:text-rose-300',
-  high: 'border-orange-500/50 bg-orange-500/10 text-orange-700 dark:text-orange-300',
-  medium: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
-  low: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500',
-};
 
 const IOC_TYPE_TONE: Record<Ioc['type'], string> = {
   hash: 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',

@@ -1,6 +1,6 @@
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { useTheme } from '../../hooks';
-import { ArrowLeft, Moon, Plug, Shield, Globe, Server, FileSearch, Cpu, Book, Bug, Sun, Terminal } from 'lucide-react';
+import { Plug, Moon, Sun } from 'lucide-react';
 
 /**
  * Public-facing integrations directory.
@@ -25,42 +25,42 @@ const INTEGRATIONS: Integration[] = [
   {
     name: 'VirusTotal',
     category: 'reputation',
-    icon: Shield,
+    icon: Plug,
     capability: 'Multi-engine AV verdicts on hashes, URLs, domains, IPs',
     status: 'optional',
   },
   {
     name: 'AbuseIPDB',
     category: 'reputation',
-    icon: Shield,
+    icon: Plug,
     capability: 'Community-reported abuse confidence score per IP',
     status: 'optional',
   },
   {
     name: 'AlienVault OTX',
     category: 'reputation',
-    icon: Bug,
+    icon: Plug,
     capability: 'Pulse subscriptions + cross-source IOC enrichment',
     status: 'live',
   },
   {
     name: 'GreyNoise',
     category: 'reputation',
-    icon: FileSearch,
+    icon: Plug,
     capability: 'Internet-background-noise classification (benign scanners vs. targeted activity)',
     status: 'optional',
   },
   {
     name: 'URLhaus',
     category: 'reputation',
-    icon: Shield,
+    icon: Plug,
     capability: 'Malware URL distribution feed (abuse.ch)',
     status: 'live',
   },
   {
     name: 'ThreatFox',
     category: 'reputation',
-    icon: Bug,
+    icon: Plug,
     capability: 'Recent IOC submissions tagged by malware family (abuse.ch)',
     status: 'live',
   },
@@ -68,35 +68,35 @@ const INTEGRATIONS: Integration[] = [
   {
     name: 'Shodan',
     category: 'recon',
-    icon: Server,
+    icon: Plug,
     capability: 'Host-enrichment for exposure scans (ports, banners, CVEs)',
     status: 'optional',
   },
   {
     name: 'Censys',
     category: 'recon',
-    icon: Globe,
+    icon: Plug,
     capability: 'Internet-scan host + certificate intelligence',
     status: 'optional',
   },
   {
     name: 'crt.sh',
     category: 'recon',
-    icon: Globe,
+    icon: Plug,
     capability: 'Certificate Transparency log search',
     status: 'live',
   },
   {
     name: 'CertStream',
     category: 'recon',
-    icon: Globe,
+    icon: Plug,
     capability: 'Real-time SSL/TLS issuance firehose with keyword highlight',
     status: 'live',
   },
   {
     name: 'CriminalIP',
     category: 'recon',
-    icon: Server,
+    icon: Plug,
     capability: 'Daily-curated C2 host feed (Mythic / Havoc / MeshAgent / Metasploit)',
     status: 'live',
   },
@@ -104,42 +104,42 @@ const INTEGRATIONS: Integration[] = [
   {
     name: 'Malware Bazaar',
     category: 'malware',
-    icon: FileSearch,
+    icon: Plug,
     capability: 'Recent malware samples + hash search (abuse.ch)',
     status: 'live',
   },
   {
     name: 'Hybrid Analysis',
     category: 'malware',
-    icon: FileSearch,
+    icon: Plug,
     capability: 'Sandbox detonation report search',
     status: 'optional',
   },
   {
     name: 'URLScan.io',
     category: 'malware',
-    icon: FileSearch,
+    icon: Plug,
     capability: 'URL screenshots, DOM analysis, and behavioural verdicts',
     status: 'optional',
   },
   {
     name: 'YARAify',
     category: 'malware',
-    icon: FileSearch,
+    icon: Plug,
     capability: 'YARA-rule matches against malware samples (abuse.ch)',
     status: 'live',
   },
   {
     name: 'Malpedia',
     category: 'malware',
-    icon: Book,
+    icon: Plug,
     capability: 'Malware family + actor encyclopaedia',
     status: 'live',
   },
   {
     name: 'Maltrail',
     category: 'malware',
-    icon: FileSearch,
+    icon: Plug,
     capability: 'Per-actor IOC lists imported from community trail files',
     status: 'live',
   },
@@ -147,14 +147,14 @@ const INTEGRATIONS: Integration[] = [
   {
     name: 'Have I Been Pwned',
     category: 'breach',
-    icon: Shield,
+    icon: Plug,
     capability: 'Breach catalogue + email/domain pwn lookups',
     status: 'live',
   },
   {
     name: 'EmailRep',
     category: 'breach',
-    icon: Bug,
+    icon: Plug,
     capability: 'Email reputation + breach-source attribution',
     status: 'optional',
   },
@@ -162,21 +162,21 @@ const INTEGRATIONS: Integration[] = [
   {
     name: 'X (Twitter) firehose',
     category: 'social',
-    icon: Terminal,
+    icon: Plug,
     capability: '70+ cybersec accounts streamed chronologically (cookie-authed)',
     status: 'live',
   },
   {
     name: 'Reddit',
     category: 'social',
-    icon: Terminal,
+    icon: Plug,
     capability: 'r/netsec, r/cybersecurity, r/blueteamsec post stream',
     status: 'live',
   },
   {
     name: 'Telegram',
     category: 'social',
-    icon: Terminal,
+    icon: Plug,
     capability: 'Public cybersec channel firehose (web preview, no Bot API)',
     status: 'live',
   },
@@ -184,28 +184,28 @@ const INTEGRATIONS: Integration[] = [
   {
     name: 'NVD 2.0',
     category: 'platform',
-    icon: Shield,
+    icon: Plug,
     capability: 'Recent CVE feed with CVSS + CPE enrichment',
     status: 'live',
   },
   {
     name: 'CISA KEV',
     category: 'platform',
-    icon: Shield,
+    icon: Plug,
     capability: 'Known-Exploited Vulnerabilities catalogue',
     status: 'live',
   },
   {
     name: 'EPSS',
     category: 'platform',
-    icon: Shield,
+    icon: Plug,
     capability: 'Exploit Prediction Scoring System',
     status: 'live',
   },
   {
     name: 'cvefeed.io',
     category: 'platform',
-    icon: Shield,
+    icon: Plug,
     capability: 'High-severity CVE syndication',
     status: 'live',
   },
@@ -213,21 +213,21 @@ const INTEGRATIONS: Integration[] = [
   {
     name: 'ransomware.live',
     category: 'platform',
-    icon: Bug,
+    icon: Plug,
     capability: 'Active ransomware victim listings + group attribution',
     status: 'live',
   },
   {
     name: 'MITRE ATT&CK',
     category: 'platform',
-    icon: Cpu,
+    icon: Plug,
     capability: 'Tactics, techniques, sub-techniques + Groups + Software',
     status: 'live',
   },
   {
     name: 'MITRE ATLAS',
     category: 'platform',
-    icon: Cpu,
+    icon: Plug,
     capability: 'Adversarial threat landscape for ML/AI systems',
     status: 'live',
   },
@@ -244,7 +244,7 @@ const CATEGORY_LABEL: Record<Integration['category'], string> = {
 
 const CATEGORY_ORDER: Integration['category'][] = ['reputation', 'recon', 'malware', 'breach', 'social', 'platform'];
 
-export default function Settings(): JSX.Element {
+export default function SettingsPage(): JSX.Element {
   const { isDark, toggleTheme } = useTheme();
   const byCategory = CATEGORY_ORDER.map((cat) => ({
     cat,
@@ -253,26 +253,20 @@ export default function Settings(): JSX.Element {
   const liveCount = INTEGRATIONS.filter((i) => i.status === 'live').length;
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="mb-8 animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <Plug size={26} className="text-brand-600 dark:text-brand-400" /> Integrations
-        </h1>
-        <p className="text-sm text-muted max-w-2xl">
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Plug size={26} />}
+      title="Integrations"
+      description={
+        <>
           External data sources wired into the platform.{' '}
           <span className="font-semibold text-slate-700 dark:text-slate-200">{liveCount} live</span> and serving the
           analyst-facing pages now. Items marked <em>optional</em> light up when the operator enables them; they fail
           soft until then so nothing else breaks.
-        </p>
-      </div>
-
+        </>
+      }
+      accentClass="text-brand-600 dark:text-brand-400"
+    >
       {/* ── Preferences ──────────────────────────────────────────── */}
       <section className="mb-10 animate-fade-in-up">
         <h2 className="font-display font-semibold text-base mb-3 text-slate-800 dark:text-slate-200">Preferences</h2>
@@ -306,13 +300,12 @@ export default function Settings(): JSX.Element {
             </h2>
             <div className="grid sm:grid-cols-2 gap-2">
               {items.map((i) => {
-                const Icon = i.icon;
                 return (
                   <div
                     key={i.name}
                     className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 flex items-start gap-3"
                   >
-                    <Icon size={16} className="text-slate-500 shrink-0 mt-0.5" />
+                    <Plug size={16} className="text-slate-500 shrink-0 mt-0.5" />
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2 flex-wrap">
                         <span className="font-medium text-sm">{i.name}</span>
@@ -337,6 +330,6 @@ export default function Settings(): JSX.Element {
           </section>
         ))}
       </div>
-    </div>
+    </DataPageLayout>
   );
 }

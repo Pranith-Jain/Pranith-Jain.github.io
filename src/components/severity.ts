@@ -32,3 +32,12 @@ export const SEVERITY_BAR: Record<Severity, string> = {
   low: 'bg-slate-400',
   info: 'bg-sky-500',
 };
+
+export type Tlp = 'white' | 'green' | 'amber' | 'red';
+
+export const TLP_COLORS: Record<Tlp, string> = {
+  white: 'bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-300',
+  green: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400',
+  amber: 'bg-amber-500/15 text-amber-600 dark:text-amber-400',
+  red: 'bg-rose-500/15 text-rose-600 dark:text-rose-400',
+};

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { Bell, BellOff, RefreshCw, CheckCircle, XCircle, AlertTriangle, Shield, Info, Skull } from 'lucide-react';
+import { TLP_COLORS as TLP } from '../../components/severity';
 
 interface Alert {
   id: string;
@@ -40,10 +41,11 @@ const SEVERITY_CONFIG: Record<string, { color: string; bg: string; icon: typeof 
 };
 
 const TLP_COLORS: Record<string, string> = {
-  RED: 'bg-red-600 text-white',
-  AMBER: 'bg-amber-500 text-white',
-  GREEN: 'bg-green-500 text-white',
-  CLEAR: 'bg-slate-300 text-slate-700 dark:bg-slate-600 dark:text-slate-200',
+  ...TLP,
+  RED: TLP.red,
+  AMBER: TLP.amber,
+  GREEN: TLP.green,
+  CLEAR: TLP.white,
 };
 
 const TOPIC_EMOJIS: Record<string, string> = {

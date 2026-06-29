@@ -22,12 +22,7 @@ import {
   type ThreatActor,
   type ActorType,
 } from '../../data/threatintel/threat-actor-catalog';
-
-/* ------------------------------------------------------------------ */
-/*  Types                                                              */
-/* ------------------------------------------------------------------ */
-
-type Severity = 'critical' | 'high' | 'medium' | 'low';
+import { SEVERITY_TONE, type Severity } from '../../components/severity';
 
 interface LeakEntry {
   id: number;
@@ -86,13 +81,6 @@ interface HandlePivot {
   /** Highest severity seen in the last 30d. */
   topSeverity: Severity | null;
 }
-
-const SEVERITY_TONE: Record<Severity, string> = {
-  critical: 'border-rose-500/50 bg-rose-500/10 text-rose-700 dark:text-rose-300',
-  high: 'border-orange-500/50 bg-orange-500/10 text-orange-700 dark:text-orange-300',
-  medium: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
-  low: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500',
-};
 
 const ACTOR_TYPE_TONE: Record<ActorType, string> = {
   apt: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',

@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback, type FormEvent } from 'react';
 import { BackLink } from '../../components/BackLink';
-import { SEVERITY_TONE } from '../../components/severity';
+import { SEVERITY_TONE, TLP_COLORS } from '../../components/severity';
 import { adminAuthHeaders } from '../../lib/admin-token';
 import {
   ArrowLeft,
@@ -62,12 +62,7 @@ const STATUS_COLORS: Record<string, string> = {
   closed: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400',
 };
 
-const TLP_COLORS: Record<string, string> = {
-  white: 'bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-muted',
-  green: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400',
-  amber: 'bg-amber-500/15 text-amber-600 dark:text-amber-400',
-  red: 'bg-rose-500/15 text-rose-600 dark:text-rose-400',
-};
+
 
 function relativeTime(iso: string): string {
   const diff = Date.now() - new Date(iso).getTime();

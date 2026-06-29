@@ -1772,6 +1772,14 @@ app.route('/api/v1/auth', authRoutes);
 app.route('/api/v1/orgs', orgRoutes);
 app.route('/api/v1/leaderboard', leaderboardRoutes);
 
+// Threat Intelligence vertical routes
+import tiFeedAggregateRoutes from './routes/ti-feed-aggregate';
+import tiAsmRoutes from './routes/ti-asm';
+import tiAiAnalysisRoutes from './routes/ti-ai-analysis';
+app.route('/api/v1/ti', tiFeedAggregateRoutes);
+app.route('/api/v1/ti', tiAsmRoutes);
+app.route('/api/v1/ti', tiAiAnalysisRoutes);
+
 // Standardized 404 shape: matches the api-error contract ({ error, message })
 // so clients get a human-readable message, not just a bare error code.
 app.notFound((c) => c.json({ error: 'not_found', message: 'route not found' }, 404));
