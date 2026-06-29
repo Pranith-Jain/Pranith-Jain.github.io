@@ -17,6 +17,7 @@ import { runFeedSourceById, type FeedDeps } from '../api/src/routes/live-iocs';
 import { writeSlice, type FeedQueueMessage } from '../api/src/lib/live-iocs-slices';
 import { gpWarmKey } from '../api/src/routes/global-pulse';
 import { concurrentMap } from '../api/src/lib/concurrent-map';
+import { signInternalToken } from '../api/src/lib/internal-token';
 
 // `gp:warm:<key>` slice TTL — 8h, matching the prior single-blob warmer. Outlives
 // the hourly rotation so a feed whose refresh fails keeps its last-good value.
@@ -63,8 +64,11 @@ export async function handleQueue(
         // OWN KV key, so there is no read-modify-write race across messages.
         const gp = msg.body?.gp;
         if (gp && typeof gp.key === 'string' && typeof gp.path === 'string') {
+          const token = await signInternalToken('queue-consumer', env.INTERNAL_TOKEN_SECRET);
           const res = await apiApp.fetch(
-            new Request(`https://gp-warm.internal${gp.path}`),
+            new Request(`https://gp-warm.internal${gp.path}`, {
+              headers: { 'x-internal-token': token },
+            }),
             env as unknown as ApiEnv as never,
             ctx
           );
