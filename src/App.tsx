@@ -14,7 +14,6 @@ import { LazyRoute } from './components/LazyRoute';
 import { FeaturesProvider } from './components/FeaturesProvider';
 import { McpProvider } from './components/ti-mindmap-mcp/McpContext';
 import { McpKeyBar } from './components/ti-mindmap-mcp/McpKeyBar';
-import { AuthProvider } from './contexts/AuthContext';
 
 const CommandPalette = lazy(() =>
   import('./components/dfir/CommandPalette').then((m) => ({ default: m.CommandPalette }))
@@ -36,6 +35,7 @@ const Skills = lazy(() => import('./pages/Skills'));
 const Experience = lazy(() => import('./pages/Experience'));
 const McpCatalog = lazy(() => import('./pages/McpCatalog'));
 const Status = lazy(() => import('./pages/Status'));
+const ThreatIntel = lazy(() => import('./pages/ThreatIntel'));
 const Projects = lazy(() => import('./pages/Projects'));
 const CaseStudy = lazy(() => import('./pages/CaseStudy'));
 const ResearchPostPage = lazy(() => import('./pages/threatintel/ResearchPost'));
@@ -322,6 +322,8 @@ const AdminApp = lazy(() => import('./pages/admin/AdminApp'));
 const AdminAnalyticsDashboard = lazy(() => import('./pages/admin/AnalyticsDashboard'));
 const EstateConfig = lazy(() => import('./pages/threatintel/EstateConfig'));
 const AlertFeed = lazy(() => import('./pages/threatintel/AlertFeed'));
+const VeraChat = lazy(() => import('./pages/threatintel/VeraChat'));
+const AgentMesh = lazy(() => import('./pages/threatintel/AgentMesh'));
 const RansomwareLive = lazy(() => import('./pages/threatintel/RansomwareLive'));
 const UrlReputation = lazy(() => import('./pages/dfir/UrlReputation'));
 const WhoisHistory = lazy(() => import('./pages/dfir/WhoisHistory'));
@@ -354,9 +356,6 @@ const RadarHome = lazy(() => import('./pages/radar/Home'));
 const RadarScanResults = lazy(() => import('./pages/radar/ScanResults'));
 const ArgusPage = lazy(() => import('./pages/Argus'));
 const CtiDashboard = lazy(() => import('./pages/threatintel/CtiDashboard'));
-const LoginPage = lazy(() => import('./pages/auth/LoginPage'));
-const RegisterPage = lazy(() => import('./pages/auth/RegisterPage'));
-const OrgSettings = lazy(() => import('./pages/threatintel/OrgSettings'));
 
 /**
  * /dfir/file?h=<hash> is the legacy entry point for the standalone hash
@@ -401,6 +400,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/snapshots', Component: Snapshots },
   { path: '/mcp', Component: McpCatalog },
   { path: '/status', Component: Status },
+  { path: '/threat-intel', Component: ThreatIntel },
   { path: '/live', Component: Snapshots },
   { path: '/dfir', Component: DFIR },
   { path: '/dfir/orkl', Component: OrklPage },
@@ -459,6 +459,8 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/research/:slug', Component: ResearchPostPage },
   { path: '/threatintel/ransomware-live', Component: RansomwareLive },
   { path: '/threatintel/alerts', Component: AlertFeed },
+  { path: '/threatintel/vera', Component: VeraChat },
+  { path: '/threatintel/agent-mesh', Component: AgentMesh },
   { path: '/threatintel/estate', Component: EstateConfig },
   { path: '/threatintel/infostealer/:slug', Component: InfostealerDetail },
   { path: '/dfir/owasp', Component: Owasp },
@@ -710,9 +712,6 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/radar/scan/:id', Component: RadarScanResults },
   { path: '/threatnexus', Component: ArgusPage },
   { path: '/threatintel/cti-dashboard', Component: CtiDashboard },
-  { path: '/login', Component: LoginPage },
-  { path: '/register', Component: RegisterPage },
-  { path: '/threatintel/org-settings', Component: OrgSettings },
 ];
 
 /** Legacy / renamed paths preserved as redirects so in-flight links don't 404. */
@@ -1090,9 +1089,7 @@ function App() {
   return (
     <BrowserRouter>
       <FeaturesProvider>
-        <AuthProvider>
-          <AppContent />
-        </AuthProvider>
+        <AppContent />
       </FeaturesProvider>
     </BrowserRouter>
   );

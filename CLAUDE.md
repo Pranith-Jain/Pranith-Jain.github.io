@@ -164,3 +164,47 @@ upstream sync is no longer needed (the data is now in `public/data/si/`).
 - `npx tsc --noEmit -p api/tsconfig.json` — zero SI-related errors
 - `npx vitest run` — 45/45 tests pass across `si-manifest.test.ts`, `si-rate-limit.test.ts`, `security-investigator.test.ts`
 - `npx wrangler deploy --dry-run` — 9.3 MB / 2.3 MB gzip, all bindings intact, `env.ASSETS` bound, resvg-wasm bundled, 20 references to SI render tools in the output `index.js`
+
+## Threat Intel vertical — CVE/KEV/IOC/sector brief (v1)
+
+A second data vertical replicating the SI pattern (`public/data/threat-intel/`, weekly cron sync, slim-index + per-slug JSON bodies read through `env.ASSETS`). Three upstream references feed the design:
+
+| Source                                                                    | What it brings                                                                     | License    |
+| ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------- |
+| [OpenThreat](https://github.com/hoodinformatik/OpenThreat)                | NVD + CISA KEV ingest, priority scoring (AGPL — design ref only, no code vendored) | AGPL-3.0   |
+| [cyber_threat_intel](https://github.com/NarendraKarki/cyber_threat_intel) | Sector briefing pipeline (Financial/Healthcare/Government)                         | MIT        |
+| [Daily-Hunt](https://github.com/TheRavenFile/Daily-Hunt)                  | 130+ IOC families (ransomware/malware/APT) as a knowledge base                     | Unlicensed |
+
+**Decision doc**: `docs/decisions/2026-06-29-threat-intel-vertical.md`
+
+**6 MCP tools** (new `ti_*` namespace, registered on `DFIR_MCP`):
+`ti_list_cves`, `ti_get_cve`, `ti_list_kev`, `ti_list_iocs`, `ti_get_ioc`, `ti_brief_sector`, `ti_stats`
+
+**9 REST routes** under `/api/v1/threat-intel/*` — all read-only, key-gated.
+
+**1 SPA route** at `/threat-intel` (lazy, 4 tabs: CVEs / KEV / IOC Families / Sector Briefs).
+
+**Files**:
+
+- `worker/lib/threat-intel-manifest.ts` — LRU loader + filter helpers + priority scoring
+- `worker/lib/threat-intel-manifest.test.ts` — 24 unit tests
+- `scripts/sync-threat-intel.mjs` — NVD + CISA KEV + Daily-Hunt fetch
+- `scripts/build-threat-intel.mjs` — normalize + score + slice into per-slug JSON
+- `worker/mcp-server.ts` — 7 `ti_*` tool registrations
+- `api/src/routes/threat-intel-edge-tools.ts` — 9 REST route handlers
+- `api/src/lib/threat-intel-manifest.ts` — symlink to `worker/lib/threat-intel-manifest.ts`
+- `src/pages/ThreatIntel.tsx` — SPA dashboard
+- `.github/workflows/threat-intel-sync.yml` — weekly sync workflow (Mon + Thu 05:30 UTC)
+- `docs/loops/threat-intel-sync.md` — loop template for manual sync
+- `public/data/threat-intel/` — generated manifest tree (not committed empty; populate via sync + build)
+
+**Sync pipeline** (matches `si-upstream-sync.yml` pattern):
+
+```bash
+node scripts/sync-threat-intel.mjs   # fetches NVD recent + CISA KEV + Daily-Hunt
+node scripts/build-threat-intel.mjs  # slices into public/data/threat-intel/
+```
+
+**To rebuild**: `node scripts/sync-threat-intel.mjs && node scripts/build-threat-intel.mjs`
+
+**Tests**: 24 vitest tests in `worker/lib/threat-intel-manifest.test.ts`

@@ -1,0 +1,71 @@
+name: Threat Intel sync (weekly)
+
+# Re-fetches NVD recent CVEs, CISA KEV, and Daily-Hunt IOC families,
+# then rebuilds the public/data/threat-intel/ manifest. If the data
+# changed, opens a PR with the diff so a human can review + merge.
+
+on:
+  schedule:
+    - cron: "30 5 * * 1,4"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install
+        run: npm ci --no-audit --no-fund || npm install --no-audit --no-fund
+
+      - name: Sync upstream (NVD + CISA KEV + Daily-Hunt)
+        run: node scripts/sync-threat-intel.mjs
+
+      - name: Build manifest
+        run: node scripts/build-threat-intel.mjs
+
+      - name: Show diff stat
+        run: |
+          echo "=== public/data/threat-intel/ changed files ==="
+          git status --short public/data/threat-intel/ | head -40
+          echo "=== staging folder size ==="
+          du -sh threat-intel-staging/ || true
+
+      - name: Open PR if data changed
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore(ti): sync threat intel from upstream sources"
+          title: "Threat Intel upstream sync — ${{ github.event.schedule || 'manual' }}"
+          body: |
+            Automated weekly sync of threat intelligence data.
+
+            Re-runs `scripts/sync-threat-intel.mjs` (NVD recent + CISA KEV +
+            Daily-Hunt sparse git clone) and `scripts/build-threat-intel.mjs`
+            (manifest rebuild). Review the diff in `public/data/threat-intel/`
+            and merge if the data looks correct.
+
+            Sources:
+            - NVD (recent CVEs, last 7 days)
+            - CISA Known Exploited Vulnerabilities catalog
+            - TheRavenFile/Daily-Hunt (IOC family files)
+
+            Trigger: `${{ github.event_name }}`
+            Run:     `${{ github.run_id }}`
+          branch: chore/threat-intel-sync
+          delete-branch: true
+          add-paths: |
+            public/data/threat-intel/
+            threat-intel-staging/
