@@ -59,6 +59,7 @@ import {
   Wallet,
   Wifi,
   Award,
+  Building2,
   Wrench,
   Zap,
   type LucideIcon,
@@ -254,6 +255,7 @@ const PAGE_ICON_OVERRIDES: Record<string, LucideIcon> = {
   '/threatintel/ransomware-live': Flame,
   '/threatintel/alerts': Bell,
   '/threatintel/estate': Shield,
+  '/threatintel/org-settings': Building2,
 
   '/threatintel/about': Scale,
   '/threatintel/tools/settings': Settings,

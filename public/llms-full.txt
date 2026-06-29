@@ -286,6 +286,10 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Observe](https://pranithjain.qzz.io/threatintel/predictive/observe) (threatintel): Observation dashboard — what is happening right now.
 - [SOC Dashboard](https://pranithjain.qzz.io/threatintel/soc-dashboard) (threatintel): Unified tactical SOC view — ransomware, vulnerabilities, and IOC stream panels.
 - [Live Center — Web OSINT](https://pranithjain.qzz.io/threatintel/live-center) (threatintel): Browser-based live OSINT tools with install, example, and reference URL per tool.
+- [Alert Feed](https://pranithjain.qzz.io/threatintel/alerts) (threatintel): Prioritised threat intelligence alerts — noise-filtered, confidence-scored, and matched to your estate.
+- [Ransomware Live](https://pranithjain.qzz.io/threatintel/ransomware-live) (threatintel): Live ransomware victim and group monitoring with sector/region filtering.
+- [Estate Config](https://pranithjain.qzz.io/threatintel/estate) (threatintel): Manage your digital estate — assets, tech stack, sector, and data types for personalised correlation.
+- [Organization Settings](https://pranithjain.qzz.io/threatintel/org-settings) (threatintel): Manage organizations, teams, and member invitations.
 
 ## MCP server (AI agent tools, 98 tools)
 
@@ -342,8 +346,8 @@ Drop-in configs: https://pranithjain.qzz.io/mcp/{claude-desktop,cursor,vscode-mc
 - [ioc_watchlist_stats](https://pranithjain.qzz.io/mcp) (mcp:ioc): Get watchlist dashboard stats: total watches, alerts by type, webhook delivery rate.
 - [list_briefings](https://pranithjain.qzz.io/mcp) (mcp:intel): List recent threat intelligence briefings (daily and weekly). Returns slug, date, type, and summary for each.
 - [lookup_asn](https://pranithjain.qzz.io/mcp) (mcp:domain): ASN intelligence lookup. Returns AS name, country, network ranges, RIR registration, and BGP peer info.
+- [lookup_cisa_kev](https://pranithjain.qzz.io/mcp) (mcp:other): Search the CISA Known Exploited Vulnerabilities (KEV) catalog. Filter by CVE ID, vendor, product, keyword, recency (days), or ransomware-only. Returns matching KEV entries with date_added, due_date, and ransomware status. The full catalog has 1,200+ actively-exploited vulnerabilities.
 - [lookup_cve](https://pranithjain.qzz.io/mcp) (mcp:cve): Look up a CVE by ID. Returns description, CVSS score, EPSS probability, CISA KEV status, affected products, and references.
-- [lookup_cisa_kev](https://pranithjain.qzz.io/mcp) (mcp:cve): Search the CISA Known Exploited Vulnerabilities (KEV) catalog. Filter by CVE ID, vendor, product, keyword, recency (days), or ransomware-only. Returns matching KEV entries with date_added, due_date, and ransomware status.
 - [lookup_domain](https://pranithjain.qzz.io/mcp) (mcp:domain): Domain intelligence lookup. Returns DNS records (A, AAAA, MX, NS, TXT, SOA), WHOIS/RDAP registration data, CT log (certificate transparency) entries, SPF/DKIM/DMARC email authentication analysis, and threat intel hits from blocklists and IOC feeds.
 - [lookup_ip_geo](https://pranithjain.qzz.io/mcp) (mcp:domain): Get IP geolocation, ASN, company, and privacy detection (VPN/proxy/tor/hosting). Uses IPinfo and Spur.us for anonymization detection.
 - [lookup_mitre](https://pranithjain.qzz.io/mcp) (mcp:other): Look up a MITRE ATT&CK technique by ID. Returns technique name, description, tactics, mitigations, and detection guidance.
@@ -369,8 +373,8 @@ Drop-in configs: https://pranithjain.qzz.io/mcp/{claude-desktop,cursor,vscode-mc
 - [search_triage](https://pranithjain.qzz.io/mcp) (mcp:search): Search Recorded Future Triage sandbox for malware samples by family, tag, hash, URL, or domain. Returns analysis results, behavioral reports, and extracted configs.
 - [si_enrich_ip](https://pranithjain.qzz.io/mcp) (mcp:si): Enrich a single IPv4/IPv6 address using the platform's IPinfo / AbuseIPDB / Shodan / Shodan-InternetDB / VPNAPI providers. Returns the same shape as upstream security-investigator/enrich_ips.py. Use si_enrich_ip_batch for up to 25 IPs in one call.
 - [si_enrich_ip_batch](https://pranithjain.qzz.io/mcp) (mcp:si): Enrich up to 25 IP addresses in one call. Returns an array of the same shape as si_enrich_ip. Order is preserved. IPs that fail validation are returned with a single "validator:failed" diagnostic and empty enrichment fields.
-- [si_enrich_ip_stix](https://pranithjain.qzz.io/mcp) (mcp:si): Enrich an IP address and return the results as a STIX 2.1 bundle. Combines si_enrich_ip with STIX 2.1 indicator, vulnerability, and relationship objects. Importable into OpenCTI, MISP, or any TAXII 2.1 consumer.
-- [si_enrich_ip_stix_batch](https://pranithjain.qzz.io/mcp) (mcp:si): Enrich up to 10 IP addresses and return all results in a single STIX 2.1 bundle. Each IP produces indicator + optional ASN + vulnerability objects. Returns per-IP enrichment data plus the merged STIX bundle.
+- [si_enrich_ip_stix](https://pranithjain.qzz.io/mcp) (mcp:si): Enrich an IP address and return the results as a STIX 2.1 bundle. Combines si_enrich_ip (IPinfo/AbuseIPDB/Shodan/VPNAPI) with STIX 2.1 indicator, vulnerability, and relationship objects. The bundle is importable into OpenCTI, MISP, or any TAXII 2.1 consumer. Returns both the enrichment data and the STIX bundle.
+- [si_enrich_ip_stix_batch](https://pranithjain.qzz.io/mcp) (mcp:si): Enrich up to 10 IP addresses and return all results in a single STIX 2.1 bundle. Each IP produces indicator + optional ASN + vulnerability objects. The combined bundle is importable into OpenCTI/MISP. Returns per-IP enrichment data plus the merged STIX bundle.
 - [si_get_automation](https://pranithjain.qzz.io/mcp) (mcp:si): Return a scheduled-workflow definition (Copilot App / GitHub Actions) for running the skills unattended. Three automations ship: daily-threat-pulse, daily-mcp-auth-health-check, weekly-threat-intel-campaign.
 - [si_get_doc](https://pranithjain.qzz.io/mcp) (mcp:si): Return the full markdown body of a single knowledge-base doc. Get slugs from si_list_docs.
 - [si_get_query](https://pranithjain.qzz.io/mcp) (mcp:si): Return the full markdown body of a single KQL query (Defender XDR / Sentinel hunting query, IoC correlation, or campaign playbook). Use si_list_queries first to discover slugs.

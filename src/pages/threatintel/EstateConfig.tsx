@@ -85,32 +85,50 @@ export default function EstateConfig() {
     data_types: [],
   });
   const [assets, setAssets] = useState<EstateAsset[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [newAsset, setNewAsset] = useState({ asset_type: 'domain', value: '', label: '', criticality: 'medium' });
   const [techInput, setTechInput] = useState('');
 
+  const loadData = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const [configRes, assetsRes] = await Promise.all([
+        fetch('/api/v1/estate/config'),
+        fetch('/api/v1/estate/assets'),
+      ]);
+      if (!configRes.ok || !assetsRes.ok) throw new Error('Failed to load estate data');
+      const configData = await configRes.json();
+      const assetsData = await assetsRes.json();
+      setConfig(configData);
+      setAssets(assetsData.assets ?? []);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Failed to load estate data');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    fetch('/api/v1/estate/config')
-      .then((r) => r.json())
-      .then(setConfig)
-      .catch(() => {});
-    fetch('/api/v1/estate/assets')
-      .then((r) => r.json())
-      .then((d) => setAssets(d.assets ?? []))
-      .catch(() => {});
+    loadData();
   }, []);
 
   const saveConfig = async () => {
     setSaving(true);
     try {
-      await fetch('/api/v1/estate/config', {
+      const res = await fetch('/api/v1/estate/config', {
         method: 'PUT',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify(config),
       });
+      if (!res.ok) throw new Error('Failed to save');
       setSaved(true);
       setTimeout(() => setSaved(false), 2000);
+    } catch {
+      setError('Failed to save configuration');
     } finally {
       setSaving(false);
     }
@@ -118,19 +136,28 @@ export default function EstateConfig() {
 
   const addAsset = async () => {
     if (!newAsset.value.trim()) return;
-    await fetch('/api/v1/estate/assets', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(newAsset),
-    });
-    setNewAsset({ asset_type: 'domain', value: '', label: '', criticality: 'medium' });
-    const d = await fetch('/api/v1/estate/assets').then((r) => r.json());
-    setAssets(d.assets ?? []);
+    try {
+      const res = await fetch('/api/v1/estate/assets', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(newAsset),
+      });
+      if (!res.ok) throw new Error('Failed to add asset');
+      setNewAsset({ asset_type: 'domain', value: '', label: '', criticality: 'medium' });
+      const d = await fetch('/api/v1/estate/assets').then((r) => r.json());
+      setAssets(d.assets ?? []);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Failed to add asset');
+    }
   };
 
   const deleteAsset = async (id: string) => {
-    await fetch(`/api/v1/estate/assets/${id}`, { method: 'DELETE' });
-    setAssets((prev) => prev.filter((a) => a.id !== id));
+    try {
+      await fetch(`/api/v1/estate/assets/${id}`, { method: 'DELETE' });
+      setAssets((prev) => prev.filter((a) => a.id !== id));
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Failed to delete asset');
+    }
   };
 
   const addTech = (t: string) => {
@@ -154,10 +181,13 @@ export default function EstateConfig() {
       title="Estate Configuration"
       description="Define your organisation's sector, region, tech stack, and assets for personalised threat intelligence correlation."
       icon={<Shield />}
+      loading={loading}
+      error={error}
+      onRetry={loadData}
     >
       {/* Profile */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        <div className="rounded-xl border border-slate-200/60 dark:border-white/10 bg-white dark:bg-white/5 p-6">
+        <div className="rounded-xl border border-slate-200/60 dark:border-slate-700 bg-white dark:bg-slate-800 p-6">
           <h3 className="font-semibold text-sm uppercase tracking-wider text-slate-500 mb-4">Organisation Profile</h3>
           <div className="space-y-4">
             <div>
@@ -165,7 +195,7 @@ export default function EstateConfig() {
               <select
                 value={config.sector}
                 onChange={(e) => setConfig((prev) => ({ ...prev, sector: e.target.value }))}
-                className="mt-1 w-full rounded-lg border border-slate-200 dark:border-white/10 bg-white dark:bg-black/20 px-3 py-2 text-sm"
+                className="mt-1 w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
               >
                 {SECTORS.map((s) => (
                   <option key={s.id} value={s.id}>
@@ -180,7 +210,7 @@ export default function EstateConfig() {
                 value={config.sub_sector}
                 onChange={(e) => setConfig((prev) => ({ ...prev, sub_sector: e.target.value }))}
                 placeholder="e.g. Payment Processing, Cloud Security"
-                className="mt-1 w-full rounded-lg border border-slate-200 dark:border-white/10 bg-white dark:bg-black/20 px-3 py-2 text-sm"
+                className="mt-1 w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
               />
             </div>
             <div>
@@ -188,7 +218,7 @@ export default function EstateConfig() {
               <select
                 value={config.region}
                 onChange={(e) => setConfig((prev) => ({ ...prev, region: e.target.value }))}
-                className="mt-1 w-full rounded-lg border border-slate-200 dark:border-white/10 bg-white dark:bg-black/20 px-3 py-2 text-sm"
+                className="mt-1 w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
               >
                 {REGIONS.map((r) => (
                   <option key={r.id} value={r.id}>
@@ -200,7 +230,7 @@ export default function EstateConfig() {
           </div>
         </div>
 
-        <div className="rounded-xl border border-slate-200/60 dark:border-white/10 bg-white dark:bg-white/5 p-6">
+        <div className="rounded-xl border border-slate-200/60 dark:border-slate-700 bg-white dark:bg-slate-800 p-6">
           <h3 className="font-semibold text-sm uppercase tracking-wider text-slate-500 mb-4">Tech Stack</h3>
           <div className="flex gap-2 mb-3">
             <input
@@ -208,7 +238,7 @@ export default function EstateConfig() {
               onChange={(e) => setTechInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addTech(techInput))}
               placeholder="Add technology (e.g. AWS, Azure, Kubernetes)"
-              className="flex-1 rounded-lg border border-slate-200 dark:border-white/10 bg-white dark:bg-black/20 px-3 py-2 text-sm"
+              className="flex-1 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
             />
             <button
               onClick={() => addTech(techInput)}
@@ -243,7 +273,7 @@ export default function EstateConfig() {
                 className={`px-2.5 py-1 rounded-full text-xs font-medium border transition-colors ${
                   config.data_types.includes(dt.id)
                     ? 'bg-amber-50 dark:bg-amber-900/20 border-amber-300 dark:border-amber-700 text-amber-700 dark:text-amber-300'
-                    : 'border-slate-200 dark:border-white/10 text-slate-500 hover:border-amber-300'
+                    : 'border-slate-200 dark:border-slate-700 text-slate-500 hover:border-amber-300'
                 }`}
               >
                 {dt.label}
@@ -262,13 +292,13 @@ export default function EstateConfig() {
       </button>
 
       {/* Assets */}
-      <div className="rounded-xl border border-slate-200/60 dark:border-white/10 bg-white dark:bg-white/5 p-6 mb-8">
+      <div className="rounded-xl border border-slate-200/60 dark:border-slate-700 bg-white dark:bg-slate-800 p-6 mb-8">
         <h3 className="font-semibold text-sm uppercase tracking-wider text-slate-500 mb-4">Monitored Assets</h3>
-        <div className="flex flex-wrap gap-3 mb-6 p-3 rounded-lg bg-slate-50 dark:bg-white/[0.03]">
+        <div className="flex flex-wrap gap-3 mb-6 p-3 rounded-lg bg-slate-50 dark:bg-slate-900/50">
           <select
             value={newAsset.asset_type}
             onChange={(e) => setNewAsset((prev) => ({ ...prev, asset_type: e.target.value }))}
-            className="rounded-lg border border-slate-200 dark:border-white/10 bg-white dark:bg-black/20 px-3 py-2 text-sm"
+            className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
           >
             <option value="domain">Domain</option>
             <option value="ip">IP</option>
@@ -283,18 +313,18 @@ export default function EstateConfig() {
             value={newAsset.value}
             onChange={(e) => setNewAsset((prev) => ({ ...prev, value: e.target.value }))}
             placeholder="Value (domain, IP, account ID...)"
-            className="flex-1 min-w-[200px] rounded-lg border border-slate-200 dark:border-white/10 bg-white dark:bg-black/20 px-3 py-2 text-sm"
+            className="flex-1 min-w-[200px] rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
           />
           <input
             value={newAsset.label}
             onChange={(e) => setNewAsset((prev) => ({ ...prev, label: e.target.value }))}
             placeholder="Label (optional)"
-            className="w-40 rounded-lg border border-slate-200 dark:border-white/10 bg-white dark:bg-black/20 px-3 py-2 text-sm"
+            className="w-40 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
           />
           <select
             value={newAsset.criticality}
             onChange={(e) => setNewAsset((prev) => ({ ...prev, criticality: e.target.value }))}
-            className="rounded-lg border border-slate-200 dark:border-white/10 bg-white dark:bg-black/20 px-3 py-2 text-sm"
+            className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
           >
             <option value="critical">Critical</option>
             <option value="high">High</option>
@@ -320,7 +350,7 @@ export default function EstateConfig() {
               return (
                 <div
                   key={a.id}
-                  className="flex items-center gap-3 p-3 rounded-lg border border-slate-200 dark:border-white/5 hover:bg-slate-50 dark:hover:bg-white/[0.03]"
+                  className="flex items-center gap-3 p-3 rounded-lg border border-slate-200 dark:border-slate-700/50 hover:bg-slate-50 dark:hover:bg-slate-700/30"
                 >
                   <Icon size={18} className="text-slate-400" />
                   <div className="flex-1 min-w-0">

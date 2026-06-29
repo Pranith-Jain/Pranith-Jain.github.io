@@ -2,7 +2,7 @@
   "$schema": "https://modelcontextprotocol.io/schemas/manifest/v1.json",
   "name": "DFIR-ThreatIntel-MCP",
   "version": "1.0.0",
-  "description": "DFIR + Threat Intel MCP server. 138 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
+  "description": "DFIR + Threat Intel MCP server. 141 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
   "transport": "streamable-http",
   "endpoint": "https://pranithjain.qzz.io/api/mcp",
   "auth": {
@@ -17,7 +17,7 @@
     }
   },
   "toolCount": 141,
-  "generatedAt": "2026-06-27T14:29:20.253Z",
+  "generatedAt": "2026-06-29T08:33:20.210Z",
   "tools": [
     {
       "name": "analyze_phishing_email",
@@ -260,13 +260,13 @@
       "category": "domain"
     },
     {
-      "name": "lookup_cve",
-      "description": "Look up a CVE by ID. Returns description, CVSS score, EPSS probability, CISA KEV status, affected products, and references.",
-      "category": "cve"
+      "name": "lookup_cisa_kev",
+      "description": "Search the CISA Known Exploited Vulnerabilities (KEV) catalog. Filter by CVE ID, vendor, product, keyword, recency (days), or ransomware-only. Returns matching KEV entries with date_added, due_date, and ransomware status. The full catalog has 1,200+ actively-exploited vulnerabilities.",
+      "category": "other"
     },
     {
-      "name": "lookup_cisa_kev",
-      "description": "Search the CISA Known Exploited Vulnerabilities (KEV) catalog. Filter by CVE ID, vendor, product, keyword, recency (days), or ransomware-only. Returns matching KEV entries with date_added, due_date, and ransomware status.",
+      "name": "lookup_cve",
+      "description": "Look up a CVE by ID. Returns description, CVSS score, EPSS probability, CISA KEV status, affected products, and references.",
       "category": "cve"
     },
     {
@@ -396,12 +396,12 @@
     },
     {
       "name": "si_enrich_ip_stix",
-      "description": "Enrich an IP address and return the results as a STIX 2.1 bundle. Combines si_enrich_ip with STIX 2.1 indicator, vulnerability, and relationship objects. Importable into OpenCTI, MISP, or any TAXII 2.1 consumer.",
+      "description": "Enrich an IP address and return the results as a STIX 2.1 bundle. Combines si_enrich_ip (IPinfo/AbuseIPDB/Shodan/VPNAPI) with STIX 2.1 indicator, vulnerability, and relationship objects. The bundle is importable into OpenCTI, MISP, or any TAXII 2.1 consumer. Returns both the enrichment data and the STIX bundle.",
       "category": "si"
     },
     {
       "name": "si_enrich_ip_stix_batch",
-      "description": "Enrich up to 10 IP addresses and return all results in a single STIX 2.1 bundle. Each IP produces indicator + optional ASN + vulnerability objects. Returns per-IP enrichment data plus the merged STIX bundle.",
+      "description": "Enrich up to 10 IP addresses and return all results in a single STIX 2.1 bundle. Each IP produces indicator + optional ASN + vulnerability objects. The combined bundle is importable into OpenCTI/MISP. Returns per-IP enrichment data plus the merged STIX bundle.",
       "category": "si"
     },
     {

@@ -264,7 +264,7 @@ export async function stixIpEnrichHandler(c: Context<{ Bindings: Env }>): Promis
   return c.json({
     enrichment,
     stix_bundle: bundle,
-    stix_object_count: bundle.objects?.length ?? 0,
+    stix_object_count: Array.isArray(bundle.objects) ? bundle.objects.length : 0,
   });
 }
 
@@ -379,7 +379,7 @@ export async function stixIpEnrichBatchHandler(c: Context<{ Bindings: Env }>): P
       valid_from: now,
       created_by_ref: identityId,
       object_marking_refs: [markingId],
-      confidence,
+      confidence: conf,
       labels: tags,
     });
 

@@ -2802,6 +2802,13 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     group: 'threatintel',
   },
   {
+    path: '/threatintel/org-settings',
+    label: 'Organization Settings',
+    description: 'Manage organizations, teams, and member invitations.',
+    sectionLabel: 'Threat Intel · Monitoring',
+    group: 'threatintel',
+  },
+  {
     path: '/threatintel/scam-watch',
     label: 'Scam Watch (alias)',
     description: 'Alias for the Social Hub scam view.',
@@ -3879,6 +3886,20 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     label: 'CVE List',
     description: 'Full CVE listing.',
     sectionLabel: 'Threat Intel · CVEs',
+    group: 'threatintel',
+  },
+  {
+    path: '/login',
+    label: 'Sign In',
+    description: 'Sign in to the threat intelligence platform.',
+    sectionLabel: 'Threat Intel · Account',
+    group: 'threatintel',
+  },
+  {
+    path: '/register',
+    label: 'Sign Up',
+    description: 'Create a threat intelligence platform account.',
+    sectionLabel: 'Threat Intel · Account',
     group: 'threatintel',
   },
 ];

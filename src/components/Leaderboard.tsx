@@ -93,7 +93,7 @@ export default function Leaderboard() {
             className={`px-3 py-1.5 text-xs font-mono rounded-lg transition-colors ${
               period === p
                 ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'text-slate-500 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
+                : 'text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700'
             }`}
           >
             {PERIOD_LABELS[p]}
@@ -126,7 +126,7 @@ export default function Leaderboard() {
                 {myProfile.xp}/{getXpForNextLevel(myProfile.level)} XP
               </span>
             </div>
-            <div className="h-1.5 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded-full overflow-hidden">
+            <div className="h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
               <div
                 className="h-full bg-brand-500 rounded-full transition-all"
                 style={{ width: `${Math.min((myProfile.xp / getXpForNextLevel(myProfile.level)) * 100, 100)}%` }}
@@ -137,13 +137,13 @@ export default function Leaderboard() {
       )}
 
       {/* Leaderboard List */}
-      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 overflow-hidden">
+      <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 overflow-hidden">
         {loading ? (
           <div className="p-8 text-center text-slate-400 text-sm">Loading...</div>
         ) : entries.length === 0 ? (
           <div className="p-8 text-center text-slate-400 text-sm">No entries yet</div>
         ) : (
-          <div className="divide-y divide-slate-100 dark:divide-slate-800/50">
+          <div className="divide-y divide-slate-100 dark:divide-slate-700/50">
             {entries.map((entry) => (
               <div
                 key={entry.user_id}
@@ -159,7 +159,7 @@ export default function Leaderboard() {
                 </div>
 
                 {/* Avatar */}
-                <div className="w-8 h-8 rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] flex items-center justify-center text-xs font-bold text-slate-600 dark:text-slate-400">
+                <div className="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-xs font-bold text-slate-600 dark:text-slate-400">
                   {(entry.display_name || 'U')[0].toUpperCase()}
                 </div>
 

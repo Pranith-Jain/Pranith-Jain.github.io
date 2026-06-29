@@ -1212,6 +1212,14 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Manage your digital estate — assets, tech stack, sector, and data types for personalised correlation.',
         compVar: 'EstateConfig',
       },
+      {
+        path: '/threatintel/org-settings',
+        tabId: 'org-settings',
+        label: 'Organization Settings',
+        desc: 'Manage organizations, teams, and member invitations.',
+        compVar: 'OrgSettings',
+        badge: 'new',
+      },
     ],
   },
 ];

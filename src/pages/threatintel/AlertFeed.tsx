@@ -64,9 +64,11 @@ export default function AlertFeed() {
   const [stats, setStats] = useState<AlertStats>({ total: 0, unread: 0, bySeverity: [] });
   const [filter, setFilter] = useState<string>('all');
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const loadAlerts = async () => {
     setLoading(true);
+    setError(null);
     try {
       const params = new URLSearchParams();
       if (filter !== 'all') params.set('severity', filter);
@@ -74,10 +76,13 @@ export default function AlertFeed() {
         fetch(`/api/v1/estate/alerts?${params}`),
         fetch('/api/v1/estate/alerts/stats'),
       ]);
+      if (!alertRes.ok || !statsRes.ok) throw new Error('Failed to load alerts');
       const alertData = await alertRes.json();
       const statsData = await statsRes.json();
       setAlerts(alertData.alerts ?? []);
       setStats(statsData);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Failed to load alerts');
     } finally {
       setLoading(false);
     }
@@ -106,6 +111,12 @@ export default function AlertFeed() {
       title="Alert Feed"
       description="Prioritised threat intelligence alerts — noise-filtered, confidence-scored, and matched to your estate."
       icon={<Bell />}
+      loading={loading && alerts.length === 0}
+      error={error}
+      onRetry={loadAlerts}
+      empty={!loading && alerts.length === 0 && !error}
+      emptyMessage="No alerts to show. Configure your estate to receive personalised threat intelligence."
+      emptyIcon={<BellOff size={32} className="text-slate-300" />}
     >
       {/* Stats bar */}
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-6">
@@ -119,7 +130,7 @@ export default function AlertFeed() {
               className={`rounded-xl border p-4 text-left transition-all ${
                 filter === sev
                   ? 'border-amber-500 dark:border-amber-400 bg-amber-50 dark:bg-amber-900/10'
-                  : 'border-slate-200/60 dark:border-white/10 bg-white dark:bg-white/5 hover:border-amber-300'
+                  : 'border-slate-200/60 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-amber-300'
               }`}
             >
               <div className="flex items-center gap-2 mb-1">
@@ -142,142 +153,126 @@ export default function AlertFeed() {
         </div>
         <button
           onClick={loadAlerts}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
         >
           <RefreshCw size={14} className={loading ? 'animate-spin' : ''} /> Refresh
         </button>
       </div>
 
-      {/* Alerts */}
-      {loading && alerts.length === 0 ? (
-        <div className="space-y-3">
-          {[...Array(5)].map((_, i) => (
-            <div key={i} className="h-24 rounded-xl bg-slate-100 dark:bg-white/5 animate-pulse" />
-          ))}
-        </div>
-      ) : alerts.length === 0 ? (
-        <div className="text-center py-16">
-          <BellOff size={48} className="mx-auto text-slate-300 mb-4" />
-          <p className="text-slate-500 font-medium">No alerts to show</p>
-          <p className="text-sm text-slate-400 mt-1">
-            Configure your estate to receive personalised threat intelligence.
-          </p>
-        </div>
-      ) : (
-        <div className="space-y-3">
-          {alerts.map((alert) => {
-            const cfg = SEVERITY_CONFIG[alert.severity] ?? SEVERITY_CONFIG.info;
-            const Icon = cfg.icon;
-            const hoursAgo = Math.floor((Date.now() - new Date(alert.created_at).getTime()) / 3600000);
+      {/* Alert cards */}
+      <div className="space-y-3">
+        {alerts.map((alert) => {
+          const cfg = SEVERITY_CONFIG[alert.severity] ?? SEVERITY_CONFIG.info;
+          const Icon = cfg.icon;
+          const hoursAgo = Math.floor((Date.now() - new Date(alert.created_at).getTime()) / 3600000);
 
-            return (
-              <div
-                key={alert.id}
-                className={`rounded-xl border p-4 transition-all ${
-                  !alert.read
-                    ? 'border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-900/5'
-                    : 'border-slate-200/60 dark:border-white/10 bg-white dark:bg-white/5'
-                }`}
-              >
-                <div className="flex items-start gap-3">
-                  <div className={`p-2 rounded-lg ${cfg.bg} ${cfg.color}`}>
-                    <Icon size={18} />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-start justify-between gap-2">
-                      <div>
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <h3 className="font-semibold text-sm">{alert.title}</h3>
-                          <span
-                            className={`text-xs px-1.5 py-0.5 rounded font-bold ${TLP_COLORS[alert.tlp] ?? TLP_COLORS.CLEAR}`}
-                          >
-                            TLP:{alert.tlp}
-                          </span>
-                          <span className={`text-xs px-1.5 py-0.5 rounded-full font-medium ${cfg.color} ${cfg.bg}`}>
-                            {alert.severity}
-                          </span>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-1 shrink-0">
-                        {!alert.read && (
-                          <button
-                            onClick={() => markRead(alert.id)}
-                            className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-white/5 text-slate-400 hover:text-green-500"
-                            title="Mark read"
-                          >
-                            <CheckCircle size={14} />
-                          </button>
-                        )}
-                        <button
-                          onClick={() => dismiss(alert.id)}
-                          className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-white/5 text-slate-400 hover:text-red-500"
-                          title="Dismiss"
-                        >
-                          <XCircle size={14} />
-                        </button>
-                      </div>
-                    </div>
-                    <p className="text-sm text-slate-500 mt-1 line-clamp-2">{alert.description}</p>
-                    <div className="flex items-center gap-3 mt-2 text-xs text-slate-400">
-                      <span>
-                        {hoursAgo < 1
-                          ? 'Just now'
-                          : hoursAgo < 24
-                            ? `${hoursAgo}h ago`
-                            : `${Math.floor(hoursAgo / 24)}d ago`}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        Confidence:
+          return (
+            <div
+              key={alert.id}
+              className={`rounded-xl border p-4 transition-all ${
+                !alert.read
+                  ? 'border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-900/5'
+                  : 'border-slate-200/60 dark:border-slate-700 bg-white dark:bg-slate-800'
+              }`}
+            >
+              <div className="flex items-start gap-3">
+                <div className={`p-2 rounded-lg ${cfg.bg} ${cfg.color}`}>
+                  <Icon size={18} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-start justify-between gap-2">
+                    <div>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <h3 className="font-semibold text-sm">{alert.title}</h3>
                         <span
-                          className={`font-medium ${
-                            alert.confidence >= 80
-                              ? 'text-green-500'
-                              : alert.confidence >= 60
-                                ? 'text-yellow-500'
-                                : 'text-slate-500'
-                          }`}
+                          className={`text-xs px-1.5 py-0.5 rounded font-bold ${TLP_COLORS[alert.tlp] ?? TLP_COLORS.CLEAR}`}
                         >
-                          {alert.confidence}%
+                          TLP:{alert.tlp}
                         </span>
-                      </span>
-                      {alert.source && <span>Source: {alert.source}</span>}
-                      {alert.matched_sector === 1 && (
-                        <span className="px-1.5 py-0.5 rounded bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 font-medium">
-                          Sector match
+                        <span className={`text-xs px-1.5 py-0.5 rounded-full font-medium ${cfg.color} ${cfg.bg}`}>
+                          {alert.severity}
                         </span>
-                      )}
+                      </div>
                     </div>
-                    {alert.topics.length > 0 && (
-                      <div className="flex flex-wrap gap-1.5 mt-2">
-                        {alert.topics.map((t) => (
-                          <span
-                            key={t}
-                            className="text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-white/5 text-slate-500"
-                          >
-                            {TOPIC_EMOJIS[t] ?? ''} {t}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                    {alert.matched_assets.length > 0 && (
-                      <div className="flex flex-wrap gap-1.5 mt-1.5">
-                        {alert.matched_assets.map((a) => (
-                          <span
-                            key={a}
-                            className="text-xs px-1.5 py-0.5 rounded bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 font-mono"
-                          >
-                            {a}
-                          </span>
-                        ))}
-                      </div>
+                    <div className="flex items-center gap-1 shrink-0">
+                      {!alert.read && (
+                        <button
+                          onClick={() => markRead(alert.id)}
+                          className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-400 hover:text-green-500"
+                          title="Mark read"
+                        >
+                          <CheckCircle size={14} />
+                        </button>
+                      )}
+                      <button
+                        onClick={() => dismiss(alert.id)}
+                        className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-400 hover:text-red-500"
+                        title="Dismiss"
+                      >
+                        <XCircle size={14} />
+                      </button>
+                    </div>
+                  </div>
+                  <p className="text-sm text-slate-500 mt-1 line-clamp-2">{alert.description}</p>
+                  <div className="flex items-center gap-3 mt-2 text-xs text-slate-400">
+                    <span>
+                      {hoursAgo < 1
+                        ? 'Just now'
+                        : hoursAgo < 24
+                          ? `${hoursAgo}h ago`
+                          : `${Math.floor(hoursAgo / 24)}d ago`}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      Confidence:
+                      <span
+                        className={`font-medium ${
+                          alert.confidence >= 80
+                            ? 'text-green-500'
+                            : alert.confidence >= 60
+                              ? 'text-yellow-500'
+                              : 'text-slate-500'
+                        }`}
+                      >
+                        {alert.confidence}%
+                      </span>
+                    </span>
+                    {alert.source && <span>Source: {alert.source}</span>}
+                    {alert.matched_sector === 1 && (
+                      <span className="px-1.5 py-0.5 rounded bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 font-medium">
+                        Sector match
+                      </span>
                     )}
                   </div>
+                  {alert.topics.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 mt-2">
+                      {alert.topics.map((t) => (
+                        <span
+                          key={t}
+                          className="text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-slate-500"
+                        >
+                          {TOPIC_EMOJIS[t] ?? ''} {t}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  {alert.matched_assets.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 mt-1.5">
+                      {alert.matched_assets.map((a) => (
+                        <span
+                          key={a}
+                          className="text-xs px-1.5 py-0.5 rounded bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 font-mono"
+                        >
+                          {a}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
-            );
-          })}
-        </div>
-      )}
+            </div>
+          );
+        })}
+      </div>
     </DataPageLayout>
   );
 }
