@@ -27,14 +27,17 @@ export async function planNextStep(
   currentStep: number,
   maxSteps: number,
   tools: AgentTool[],
-  opts: { groqKey?: string; googleKey?: string }
+  opts: { groqKey?: string; googleKey?: string; specialistContext?: string }
 ): Promise<PlannerOutput> {
   // The pre-plan exit decision (enough-results / near-limit / max-iterations)
   // is now owned by the loop engine and evaluated in the DO *before* this
   // function is called (see cti-loop.ts + InvestigatorAgentDO.advanceOneStep).
   // Reaching here means the loop chose to keep investigating, so we always plan.
   const toolDescriptions = describeTools(tools);
-  const system = buildCtiPlannerPrompt(toolDescriptions, maxSteps, queryType);
+  const specialistBlock = opts.specialistContext
+    ? `\n<specialist_context>\nThis query was routed to these specialist domains:\n${opts.specialistContext}\n</specialist_context>\n`
+    : '';
+  const system = buildCtiPlannerPrompt(toolDescriptions, maxSteps, queryType) + specialistBlock;
   const user = buildCtiUserPrompt(query, queryType, steps, currentStep, maxSteps);
   const input: CompletionInput = { system, user, maxTokens: 1200, temperature: 0.2 };
 

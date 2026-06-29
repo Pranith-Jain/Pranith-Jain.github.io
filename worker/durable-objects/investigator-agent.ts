@@ -8,6 +8,8 @@ import { observeStep } from '../../api/src/lib/agent/observer';
 import { synthesizeReport, splitSynthOutput } from '../../api/src/lib/agent/synthesizer';
 import { verifyReport } from '../../api/src/lib/agent/qa-verifier';
 import { signInternalToken } from '../../api/src/lib/internal-token';
+import { buildOrchestratorPlan } from '../../api/src/lib/agent/orchestrator';
+import { SPECIALIST_REGISTRY, getToolsForSpecialist } from '../../api/src/lib/agent/specialist-types';
 
 /** Truncate JSON-serializable data to a max char length. Returns valid JSON. */
 function truncateData(data: unknown, maxChars: number): unknown {
@@ -247,10 +249,31 @@ export class InvestigatorAgentDO {
       return await this.doSynthesize(state, ai, groqKey, googleKey, stepNum, stepStart, exit.reason);
     }
 
-    // ── PLAN ─────────────────────────────────────────────────────────
+    // ── PLAN (specialist-aware) ──────────────────────────────────────
+    // On step 1, build an orchestration plan that identifies which
+    // specialist agents should handle this query type. The specialist
+    // context is passed to the planner so it can prioritize the right
+    // tool subset for the query domain.
+    let specialistContext = '';
+    if (stepNum === 1) {
+      try {
+        const plan = await buildOrchestratorPlan(state.query, state.queryType, { groqKey, googleKey });
+        specialistContext = plan.specialistCalls
+          .map((d) => {
+            const def = SPECIALIST_REGISTRY[d.role];
+            const st = getToolsForSpecialist(d.role, tools);
+            return `  - ${def.label}: ${def.description} (tools: ${st.length} available)`;
+          })
+          .join('\n');
+      } catch {
+        // Orchestrator failure is non-fatal — fall through to default planner
+      }
+    }
+
     const plan = await planNextStep(ai, state.query, state.queryType, state.steps, stepNum, state.maxSteps, tools, {
       groqKey,
       googleKey,
+      specialistContext: specialistContext || undefined,
     });
 
     if (plan.shouldSynthesize) {

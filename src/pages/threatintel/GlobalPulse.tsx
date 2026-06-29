@@ -29,6 +29,8 @@ import {
   Play,
   Pause,
   Brain,
+  Wifi,
+  WifiOff,
 } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
@@ -42,6 +44,8 @@ import { NUCLEAR_FACILITIES } from '../../data/nuclear-facilities';
 import { fetchFireDetections } from '../../data/fire-detections';
 import { ThreatAnalysisPanel } from '../../components/threatintel/ThreatAnalysisPanel';
 import { CountryIntelPanel } from '../../components/threatintel/CountryIntelPanel';
+import { useGlobalPulse } from '../../hooks/useGlobalPulse';
+import { useActivityTracker } from '../../hooks/useActivityTracker';
 
 const PulseMap = lazy(() => import('./PulseMap'));
 const CtiGlobe = lazy(() => import('../../components/threatintel/cti/CtiGlobe'));
@@ -505,6 +509,12 @@ export default function GlobalPulse(): JSX.Element {
   const [regionFilter, setRegionFilter] = useState<'all' | 'mena'>('all');
   const loadIdRef = useRef(0);
 
+  // WebSocket real-time updates
+  const { connected: wsConnected, generatedAt: wsGeneratedAt } = useGlobalPulse();
+
+  // Activity tracking for gamification
+  const { trackActivity } = useActivityTracker();
+
   // Infrastructure search (Overpass API + Nominatim, inspired by Sightline MIT)
   const [infraQuery, setInfraQuery] = useState('');
   const [infraLoading, setInfraLoading] = useState(false);
@@ -699,6 +709,8 @@ export default function GlobalPulse(): JSX.Element {
       if (loadIdRef.current === myId) {
         setData(json);
         setLastUpdated(new Date().toISOString());
+        // Track activity for gamification (once per load, not spammy)
+        trackActivity('check-pulse', { eventCount: json.total_events });
         // Cache the last-good response so the next visit paints instantly
         // instead of waiting on the (cold ~10-20s) build behind a spinner.
         try {
@@ -887,8 +899,16 @@ export default function GlobalPulse(): JSX.Element {
   useEffect(() => {
     load();
   }, [load]);
+  // WebSocket-driven refresh: when the DO pushes new events, re-fetch the full
+  // data so the map and feed stay in sync. Falls back to polling when WS is
+  // disconnected or auto-refresh is paused.
   useEffect(() => {
-    if (!autoRefresh) {
+    if (wsConnected && wsGeneratedAt && autoRefresh) {
+      load();
+    }
+  }, [wsConnected, wsGeneratedAt, autoRefresh, load]);
+  useEffect(() => {
+    if (!autoRefresh || wsConnected) {
       if (intervalRef.current) clearInterval(intervalRef.current);
       return;
     }
@@ -896,7 +916,7 @@ export default function GlobalPulse(): JSX.Element {
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, [autoRefresh, load]);
+  }, [autoRefresh, load, wsConnected]);
 
   const toggleLayer = useCallback((layer: PulseKind) => {
     setActiveLayers((prev) => {
@@ -1098,8 +1118,13 @@ export default function GlobalPulse(): JSX.Element {
                     <RefreshCw size={11} className="animate-spin text-brand-500" />
                     <span className="text-eyebrow text-brand-600 dark:text-brand-400">SYNCING</span>
                   </span>
+                ) : wsConnected ? (
+                  <span className="inline-flex items-center gap-1.5" aria-label="Connected via WebSocket — real-time">
+                    <Wifi size={11} className="text-emerald-500" />
+                    <span className="text-eyebrow text-emerald-600 dark:text-emerald-400">REAL-TIME</span>
+                  </span>
                 ) : autoRefresh ? (
-                  <span className="inline-flex items-center gap-1.5" aria-label="Live — auto-refreshing">
+                  <span className="inline-flex items-center gap-1.5" aria-label="Live — polling">
                     <span className="relative flex h-2 w-2">
                       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
                       <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
@@ -1108,7 +1133,7 @@ export default function GlobalPulse(): JSX.Element {
                   </span>
                 ) : (
                   <span className="inline-flex items-center gap-1.5" aria-label="Paused">
-                    <span className="h-2 w-2 rounded-full bg-slate-400" />
+                    <WifiOff size={11} className="text-slate-400" />
                     <span className="text-eyebrow text-slate-500">PAUSED</span>
                   </span>
                 )}
@@ -1319,19 +1344,25 @@ export default function GlobalPulse(): JSX.Element {
                 title={autoRefresh ? 'Streaming — click to pause' : 'Paused — click to resume'}
                 className={`inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-lg border transition-colors ${
                   autoRefresh
-                    ? 'border-emerald-500/60 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
+                    ? wsConnected
+                      ? 'border-emerald-500/60 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
+                      : 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'
                     : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500'
                 }`}
               >
                 {autoRefresh ? (
-                  <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-                  </span>
+                  wsConnected ? (
+                    <Wifi size={12} className="text-emerald-500" />
+                  ) : (
+                    <span className="relative flex h-2 w-2">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                    </span>
+                  )
                 ) : (
-                  <span className="h-2 w-2 rounded-full bg-slate-400" />
+                  <WifiOff size={12} className="text-slate-400" />
                 )}
-                {autoRefresh ? 'Live' : 'Paused'}
+                {autoRefresh ? (wsConnected ? 'Real-time' : 'Live') : 'Paused'}
               </button>
               <button
                 type="button"

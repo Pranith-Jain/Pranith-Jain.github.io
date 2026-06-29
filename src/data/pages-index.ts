@@ -2786,6 +2786,22 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     group: 'threatintel',
   },
   {
+    path: '/threatintel/alerts',
+    label: 'Alert Feed',
+    description:
+      'Prioritised threat intelligence alerts — noise-filtered, confidence-scored, and matched to your estate.',
+    sectionLabel: 'Threat Intel · Monitoring',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/estate',
+    label: 'Estate Configuration',
+    description:
+      'Manage your digital estate — assets, tech stack, sector, and data types for personalised correlation.',
+    sectionLabel: 'Threat Intel · Monitoring',
+    group: 'threatintel',
+  },
+  {
     path: '/threatintel/scam-watch',
     label: 'Scam Watch (alias)',
     description: 'Alias for the Social Hub scam view.',
@@ -3750,6 +3766,20 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     path: '/threatintel/tools/stix',
     label: 'STIX',
     description: 'STIX bundle browser.',
+    sectionLabel: 'Threat Intel · Tools',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/tools/stix-ip-export',
+    label: 'STIX IP Enrichment',
+    description: 'Enrich IPs and export as STIX 2.1 bundle.',
+    sectionLabel: 'Threat Intel · Tools',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/tools/kev-catalog',
+    label: 'CISA KEV Catalog',
+    description: 'Search the CISA Known Exploited Vulnerabilities catalog.',
     sectionLabel: 'Threat Intel · Tools',
     group: 'threatintel',
   },

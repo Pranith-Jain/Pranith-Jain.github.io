@@ -14,6 +14,7 @@ import { LazyRoute } from './components/LazyRoute';
 import { FeaturesProvider } from './components/FeaturesProvider';
 import { McpProvider } from './components/ti-mindmap-mcp/McpContext';
 import { McpKeyBar } from './components/ti-mindmap-mcp/McpKeyBar';
+import { AuthProvider } from './contexts/AuthContext';
 
 const CommandPalette = lazy(() =>
   import('./components/dfir/CommandPalette').then((m) => ({ default: m.CommandPalette }))
@@ -194,6 +195,7 @@ const CampaignGenerator = lazy(() => import('./pages/threatintel/CampaignGenerat
 const CampaignLifecycle = lazy(() => import('./pages/threatintel/CampaignLifecycle'));
 const Campaigns = lazy(() => import('./pages/threatintel/Campaigns'));
 const CertStreamLive = lazy(() => import('./pages/threatintel/CertStreamLive'));
+const CisaKevCatalog = lazy(() => import('./pages/threatintel/CisaKevCatalog'));
 const CloudThreatLandscape = lazy(() => import('./pages/threatintel/CloudThreatLandscape'));
 const Copilot = lazy(() => import('./pages/threatintel/Copilot'));
 const CrossCampaignCorrelation = lazy(() => import('./pages/threatintel/CrossCampaignCorrelation'));
@@ -280,6 +282,7 @@ const SocIocs = lazy(() => import('./pages/threatintel/SocIocs'));
 const SocialFirehose = lazy(() => import('./pages/threatintel/SocialFirehose'));
 const SourceReliability = lazy(() => import('./pages/threatintel/SourceReliability'));
 const StixBundleBrowser = lazy(() => import('./pages/threatintel/StixBundleBrowser'));
+const StixIpExport = lazy(() => import('./pages/threatintel/StixIpExport'));
 const SupplyChainAttacks = lazy(() => import('./pages/threatintel/SupplyChainAttacks'));
 const SupplyChainIntelligence = lazy(() => import('./pages/threatintel/SupplyChainIntelligence'));
 const TechAiNews = lazy(() => import('./pages/dfir/TechAiNews'));
@@ -317,6 +320,8 @@ const BlogPost = lazy(() => import('./pages/BlogPost'));
 const Snapshots = lazy(() => import('./pages/Snapshots'));
 const AdminApp = lazy(() => import('./pages/admin/AdminApp'));
 const AdminAnalyticsDashboard = lazy(() => import('./pages/admin/AnalyticsDashboard'));
+const EstateConfig = lazy(() => import('./pages/threatintel/EstateConfig'));
+const AlertFeed = lazy(() => import('./pages/threatintel/AlertFeed'));
 const RansomwareLive = lazy(() => import('./pages/threatintel/RansomwareLive'));
 const UrlReputation = lazy(() => import('./pages/dfir/UrlReputation'));
 const WhoisHistory = lazy(() => import('./pages/dfir/WhoisHistory'));
@@ -349,6 +354,9 @@ const RadarHome = lazy(() => import('./pages/radar/Home'));
 const RadarScanResults = lazy(() => import('./pages/radar/ScanResults'));
 const ArgusPage = lazy(() => import('./pages/Argus'));
 const CtiDashboard = lazy(() => import('./pages/threatintel/CtiDashboard'));
+const LoginPage = lazy(() => import('./pages/auth/LoginPage'));
+const RegisterPage = lazy(() => import('./pages/auth/RegisterPage'));
+const OrgSettings = lazy(() => import('./pages/threatintel/OrgSettings'));
 
 /**
  * /dfir/file?h=<hash> is the legacy entry point for the standalone hash
@@ -450,6 +458,8 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/soc-dashboard', Component: SocDashboard },
   { path: '/threatintel/research/:slug', Component: ResearchPostPage },
   { path: '/threatintel/ransomware-live', Component: RansomwareLive },
+  { path: '/threatintel/alerts', Component: AlertFeed },
+  { path: '/threatintel/estate', Component: EstateConfig },
   { path: '/threatintel/infostealer/:slug', Component: InfostealerDetail },
   { path: '/dfir/owasp', Component: Owasp },
   { path: '/dfir/prompt-injection', Component: PromptInjection },
@@ -671,6 +681,8 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/tools/mcp', Component: McpSearch },
   { path: '/threatintel/tools/misp', Component: MispBrowser },
   { path: '/threatintel/tools/stix', Component: StixBundleBrowser },
+  { path: '/threatintel/tools/stix-ip-export', Component: StixIpExport },
+  { path: '/threatintel/tools/kev-catalog', Component: CisaKevCatalog },
   { path: '/threatintel/tools/investigations', Component: Investigations },
   { path: '/threatintel/tools/watches', Component: Watches },
   { path: '/threatintel/tools/workspaces', Component: Workspaces },
@@ -698,6 +710,9 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/radar/scan/:id', Component: RadarScanResults },
   { path: '/threatnexus', Component: ArgusPage },
   { path: '/threatintel/cti-dashboard', Component: CtiDashboard },
+  { path: '/login', Component: LoginPage },
+  { path: '/register', Component: RegisterPage },
+  { path: '/threatintel/org-settings', Component: OrgSettings },
 ];
 
 /** Legacy / renamed paths preserved as redirects so in-flight links don't 404. */
@@ -1075,7 +1090,9 @@ function App() {
   return (
     <BrowserRouter>
       <FeaturesProvider>
-        <AppContent />
+        <AuthProvider>
+          <AppContent />
+        </AuthProvider>
       </FeaturesProvider>
     </BrowserRouter>
   );

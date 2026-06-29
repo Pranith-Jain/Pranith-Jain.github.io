@@ -797,6 +797,7 @@ import {
   deleteEntryHandler,
   notebookStatsHandler,
 } from './routes/notebooks';
+import { estateRoutes } from './routes/estate';
 
 import {
   listWorkspacesHandler,
@@ -1517,6 +1518,9 @@ app.get('/api/v1/exposed-host', exposedHostHandler);
 app.get('/api/v1/exploit-db', validate('query', exploitDbSchema), exploitDbHandler);
 app.get('/api/v1/security-updates', validate('query', securityUpdatesSchema), securityUpdatesHandler);
 app.get('/api/v1/cisa-kev', validate('query', cisaKevSchema), cisaKevHandler);
+import { stixIpEnrichHandler, stixIpEnrichBatchHandler } from './routes/stix-ip-enrich';
+app.get('/api/v1/si/enrich-ip-stix', stixIpEnrichHandler);
+app.post('/api/v1/si/enrich-ip-stix-batch', stixIpEnrichBatchHandler);
 app.get('/api/v1/cert-in', validate('query', certInSchema), certInHandler);
 app.get('/api/v1/supply-chain-attacks', validate('query', supplyChainAttacksSchema), supplyChainAttacksHandler);
 app.get('/api/v1/k8s-cve', validate('query', k8sCveSchema), k8sCveHandler);
@@ -1709,6 +1713,17 @@ app.get('/api/v1/email-osnit/profile', emailOsnitProfileHandler);
 app.post('/api/v1/email-osnit/bulk', emailOsnitBulkHandler);
 app.get('/api/v1/email-registration', emailRegistrationHandler);
 app.get('/api/v1/email-registration/platforms', emailRegistrationPlatformsHandler);
+
+// Estate Configuration & Alert Feed (noise-to-signal foundation)
+app.route('/api/v1/estate', estateRoutes);
+
+// User authentication & organization management
+import authRoutes from './routes/auth';
+import orgRoutes from './routes/orgs';
+import leaderboardRoutes from './routes/leaderboard';
+app.route('/api/v1/auth', authRoutes);
+app.route('/api/v1/orgs', orgRoutes);
+app.route('/api/v1/leaderboard', leaderboardRoutes);
 
 // Standardized 404 shape: matches the api-error contract ({ error, message })
 // so clients get a human-readable message, not just a bare error code.

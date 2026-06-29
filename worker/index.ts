@@ -4,6 +4,7 @@ import { CronLockDO } from './durable-objects/cron-lock';
 import { ReportBuilderDO } from './durable-objects/report-builder';
 import { InvestigatorAgentDO } from './durable-objects/investigator-agent';
 import { RadarCrawlerDO } from './durable-objects/radar-crawler';
+import { GlobalPulseDO } from './durable-objects/global-pulse';
 import { DfirMcpServer } from './mcp-server';
 import { generateNonce, withSecurityHeaders } from './csp';
 import { fetchPrerenderedOrShell } from './router';
@@ -15,7 +16,7 @@ import { logStartupValidation } from './bindings';
 import { validateRawKey } from '../api/src/lib/auth';
 import type { Env } from './env';
 
-export { LiveFeedDO, DfirMcpServer, CronLockDO, ReportBuilderDO, InvestigatorAgentDO, RadarCrawlerDO };
+export { LiveFeedDO, DfirMcpServer, CronLockDO, ReportBuilderDO, InvestigatorAgentDO, RadarCrawlerDO, GlobalPulseDO };
 export type { Env };
 
 const ARGUS_ORIGIN = 'https://argus-threat-intel.pj-6a7.workers.dev';
@@ -167,6 +168,19 @@ export default {
       const h = new Headers(apiRes.headers);
       h.set('x-request-id', requestId);
       return new Response(apiRes.body, { status: apiRes.status, statusText: apiRes.statusText, headers: h });
+    }
+
+    // WebSocket upgrade — route to GlobalPulse Durable Object
+    if (url.pathname === '/api/v1/ws/global-pulse' && request.headers.get('upgrade') === 'websocket') {
+      if (!isWsOriginAllowed(request, env)) return new Response('forbidden origin', { status: 403 });
+      if (!env.GLOBAL_PULSE_DO) return new Response('WebSocket not configured', { status: 503 });
+      const doId = env.GLOBAL_PULSE_DO.idFromName('global');
+      try {
+        return await env.GLOBAL_PULSE_DO.get(doId).fetch(request);
+      } catch (err) {
+        console.error('GLOBAL_PULSE_DO fetch failed', err);
+        return new Response('WebSocket unavailable', { status: 503 });
+      }
     }
 
     // MCP server — DFIR & Threat Intel tools for AI agents. Wrap the response so

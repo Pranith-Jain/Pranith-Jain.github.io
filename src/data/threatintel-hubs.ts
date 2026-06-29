@@ -34,6 +34,7 @@
 
 import {
   AlertTriangle,
+  Bell,
   Brain,
   Bug,
   Cloud,
@@ -970,6 +971,22 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'StixBundleBrowser',
         badge: 'new',
       },
+      {
+        path: '/threatintel/tools/stix-ip-export',
+        tabId: 'stix-ip-export',
+        label: 'STIX IP Enrichment',
+        desc: 'Enrich IPs via IPinfo/AbuseIPDB/Shodan and export as STIX 2.1 bundle.',
+        compVar: 'StixIpExport',
+        badge: 'new',
+      },
+      {
+        path: '/threatintel/tools/kev-catalog',
+        tabId: 'kev-catalog',
+        label: 'CISA KEV Catalog',
+        desc: 'Search and filter the CISA Known Exploited Vulnerabilities catalog.',
+        compVar: 'CisaKevCatalog',
+        badge: 'new',
+      },
 
       {
         path: '/threatintel/tools/investigations',
@@ -1163,6 +1180,37 @@ export const HUB_META: readonly HubMeta[] = [
         label: 'Live Center — Web OSINT',
         desc: 'Browser-based live OSINT tools with install, example, and reference URL per tool.',
         compVar: 'LiveCenter',
+      },
+    ],
+  },
+  {
+    id: 'monitoring-estate',
+    label: 'Monitoring & Estate',
+    blurb: 'Noise-filtered alert feed, ransomware monitoring, and estate configuration.',
+    icon: Bell,
+    tone: 'text-amber-700 dark:text-amber-300 border-amber-500/30 bg-amber-500/10',
+    pages: [
+      {
+        path: '/threatintel/alerts',
+        tabId: 'alerts',
+        label: 'Alert Feed',
+        desc: 'Prioritised threat intelligence alerts — noise-filtered, confidence-scored, and matched to your estate.',
+        compVar: 'AlertFeed',
+      },
+      {
+        path: '/threatintel/ransomware-live',
+        tabId: 'ransomware-live',
+        label: 'Ransomware Live',
+        desc: 'Live ransomware victim and group monitoring with sector/region filtering.',
+        compVar: 'RansomwareLive',
+        badge: 'live',
+      },
+      {
+        path: '/threatintel/estate',
+        tabId: 'estate',
+        label: 'Estate Config',
+        desc: 'Manage your digital estate — assets, tech stack, sector, and data types for personalised correlation.',
+        compVar: 'EstateConfig',
       },
     ],
   },

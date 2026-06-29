@@ -24,6 +24,8 @@ export interface Env {
   INVESTIGATOR_AGENT: DurableObjectNamespace;
   /** Radar deep-crawl DO. */
   RADAR_CRAWLER?: DurableObjectNamespace;
+  /** Global Pulse real-time DO. */
+  GLOBAL_PULSE_DO?: DurableObjectNamespace;
   /** Producer binding for the live-IOC per-source feed fan-out (PR2). */
   FEEDS_QUEUE?: Queue<FeedQueueMessage>;
   NVD_API_KEY?: string;

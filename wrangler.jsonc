@@ -55,7 +55,8 @@
 			{ "name": "CRON_LOCK_DO", "class_name": "CronLockDO" },
 			{ "name": "REPORT_BUILDER", "class_name": "ReportBuilderDO" },
 			{ "name": "INVESTIGATOR_AGENT", "class_name": "InvestigatorAgentDO" },
-			{ "name": "RADAR_CRAWLER", "class_name": "RadarCrawlerDO" }
+			{ "name": "RADAR_CRAWLER", "class_name": "RadarCrawlerDO" },
+			{ "name": "GLOBAL_PULSE_DO", "class_name": "GlobalPulseDO" }
 		]
 	},
 	"triggers": {
@@ -73,7 +74,8 @@
 		{ "tag": "v3", "new_sqlite_classes": ["CronLockDO"] },
 		{ "tag": "v4", "new_sqlite_classes": ["ReportBuilderDO"] },
 		{ "tag": "v5", "new_sqlite_classes": ["InvestigatorAgentDO"] },
-		{ "tag": "v6", "new_sqlite_classes": ["RadarCrawlerDO"] }
+		{ "tag": "v6", "new_sqlite_classes": ["RadarCrawlerDO"] },
+		{ "tag": "v7", "new_sqlite_classes": ["GlobalPulseDO"] }
 	],
 	"analytics_engine_datasets": [
 		{ "binding": "AJ_analytics", "dataset": "PJ" }
