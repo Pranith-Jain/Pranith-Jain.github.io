@@ -9,7 +9,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { rdapLookup } from '../lib/rdap';
-import { ctLogs, type CtEntry } from '../lib/crt-sh';
+import { ctLogs } from '../lib/crt-sh';
 import { safeNullLog } from '../lib/safe-catch';
 import { detectType } from '../lib/indicator';
 import type { Indicator } from '../providers/types';
@@ -293,22 +293,19 @@ export async function huntV2Handler(c: Context<{ Bindings: Env }>): Promise<Resp
   const indicator: Indicator = { type, value: q };
 
   try {
-    const [collected, telegram, breaches, whois, certs] = await Promise.all([
+    const [collected, telegram, breaches] = await Promise.all([
       Promise.race([
         runProviders(indicator, c.env),
         new Promise<ProviderResult[]>((r) => setTimeout(() => r([]), 20_000)),
       ]).catch(() => [] as ProviderResult[]),
       db ? checkTelegramLeaks(db, q, type).catch(() => [] as TelegramHit[]) : Promise.resolve([] as TelegramHit[]),
       checkBreaches(q, type).catch(() => [] as BreachHit[]),
-      type === 'domain'
-        ? Promise.race([
-            safeNullLog('rdap-lookup', rdapLookup(q)),
-            new Promise<null>((r) => setTimeout(() => r(null), 8_000)),
-          ]).catch(() => null)
-        : Promise.resolve(null),
-      type === 'domain'
-        ? Promise.race([ctLogs(q), new Promise<CtEntry[]>((r) => setTimeout(() => r([]), 8_000))]).catch(() => [])
-        : Promise.resolve([]),
+    ]);
+
+    // Run RDAP/CT separately so they can't crash the whole response
+    const [whois, certs] = await Promise.all([
+      type === 'domain' ? safeNullLog('rdap-lookup', rdapLookup(q)).catch(() => null) : Promise.resolve(null),
+      type === 'domain' ? ctLogs(q).catch(() => []) : Promise.resolve([]),
     ]);
 
     const hits = providerResultsToHits(collected);
