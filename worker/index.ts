@@ -207,8 +207,10 @@ export default {
         }
       }
       // SSE transport for clients that use GET to establish a connection
-      // (VS Code, Cursor, MCP Inspector). Streamable-http transport for POST.
-      const isSse = url.pathname === '/api/mcp/sse';
+      // (VS Code, Cursor, MCP Inspector). Also handles POST messages to
+      // the session-specific /api/mcp/sse/message?sessionId=... endpoint.
+      // Streamable-http transport for /api/mcp (POST and GET-with-session).
+      const isSse = url.pathname.startsWith('/api/mcp/sse');
       const mcpRes = isSse
         ? await DfirMcpServer.serveSSE('/api/mcp/sse', { binding: 'DFIR_MCP' }).fetch(request, env, ctx)
         : await DfirMcpServer.serve('/api/mcp', { binding: 'DFIR_MCP' }).fetch(request, env, ctx);
