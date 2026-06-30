@@ -121,8 +121,8 @@ export default function SocIocs(): JSX.Element {
     return () => ctrl.abort();
   }, [load]);
 
-  const items = useMemo(() => data?.items ?? [], [data]);
-  const sources = useMemo(() => data?.sources ?? [], [data]);
+  const items = data?.items ?? [];
+  const sources = data?.sources ?? [];
 
   /* ─── Windowing (time) + kind filter (UI) ────────────────────── */
   // For totals/KPIs, count uses the time window but ignores the kind filter

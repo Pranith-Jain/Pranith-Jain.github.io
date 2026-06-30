@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 /**
  * Per-page "last visit" tracker, backed by localStorage.
@@ -41,14 +41,14 @@ export function useLastVisit(pageKey: string): LastVisit {
     return () => window.removeEventListener('storage', onStorage);
   }, [storageKey]);
 
-  const markVisited = () => {
+  const markVisited = useCallback(() => {
     if (typeof window === 'undefined') return;
     try {
       window.localStorage.setItem(storageKey, new Date().toISOString());
     } catch {
       /* ignore quota / private-mode */
     }
-  };
+  }, [storageKey]);
 
   return { previous, markVisited };
 }

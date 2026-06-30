@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 export function useScrollProgress() {
   const [progress, setProgress] = useState(0);
@@ -26,9 +26,9 @@ export function useScrollProgress() {
     };
   }, []);
 
-  const scrollToTop = () => {
+  const scrollToTop = useCallback(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  }, []);
 
   return { progress, showBackToTop, scrollToTop };
 }

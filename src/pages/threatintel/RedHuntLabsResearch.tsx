@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Search,
   ExternalLink,
@@ -279,7 +279,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
     }
   }, [tab]);
 
-  const section = useMemo(() => SECTIONS.find((s) => s.id === tab) ?? SECTIONS[0]!, [tab]);
+  const section = SECTIONS.find((s) => s.id === tab) ?? SECTIONS[0]!;
 
   const filteredTools = TOOLS;
   const filteredResearch = RESEARCH_ITEMS;

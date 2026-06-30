@@ -152,7 +152,7 @@ export default function SocVulns(): JSX.Element {
     return () => ctrl.abort();
   }, [load]);
 
-  const cves = useMemo(() => data?.cves ?? [], [data]);
+  const cves = data?.cves ?? [];
 
   /* ─── Windowing: filter CVEs to the last `windowDays` days ─────── */
   const inWindow = useMemo(() => {

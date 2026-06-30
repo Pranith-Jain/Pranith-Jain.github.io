@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Activity, AlertTriangle, FileCode, MessageSquare, RefreshCw, ShieldAlert } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { ClusterTabs, RANSOMWARE_TABS } from '../../components/threatintel/ClusterTabs';
@@ -166,7 +166,7 @@ export default function RansomwareLive(): JSX.Element {
   // a re-fetch even when we already have a cached envelope.
   const [refreshTick, setRefreshTick] = useState<Record<string, number>>({});
 
-  const active = useMemo(() => TABS.find((t) => t.id === tab) ?? TABS[0]!, [tab]);
+  const active = TABS.find((t) => t.id === tab) ?? TABS[0]!;
   const tick = refreshTick[active.resource] ?? 0;
 
   useEffect(() => {

@@ -151,7 +151,7 @@ export default function XVeridikt(): JSX.Element {
     return r;
   }, [results, filterVerdict, filterType]);
 
-  const uniqueTypes = useMemo(() => [...new Set(results.map((r) => r.type))], [results]);
+  const uniqueTypes = [...new Set(results.map((r) => r.type))];
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">

@@ -144,7 +144,7 @@ export default function CuratedCerts(): JSX.Element {
       .filter((s) => s.tools.length > 0);
   }, [data, query]);
 
-  const totalMatches = useMemo(() => filtered.reduce((n, s) => n + s.tools.length, 0), [filtered]);
+  const totalMatches = filtered.reduce((n, s) => n + s.tools.length, 0);
 
   const isOpen = (name: string): boolean => {
     if (openSet === null) return false;

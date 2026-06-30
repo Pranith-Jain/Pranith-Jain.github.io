@@ -135,7 +135,7 @@ export default function AgentMap(): JSX.Element {
     return layoutRing(graph.tools, 180, VIEW_W / 2, VIEW_H / 2);
   }, [graph]);
 
-  const posById = useMemo(() => Object.fromEntries(positions.map((p) => [p.id, p])), [positions]);
+  const posById = Object.fromEntries(positions.map((p) => [p.id, p]));
 
   // Risk-path edges to draw on top of the graph.
   const riskEdges = useMemo(() => {

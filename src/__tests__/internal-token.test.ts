@@ -61,23 +61,16 @@ describe('internal-token', () => {
     }
   });
 
-  it('works with the deterministic fallback (no secret)', async () => {
-    const token = await signInternalToken('report-builder-do');
-    const result = await validateInternalToken(token);
-
-    expect(result.ok).toBe(true);
-    if (result.ok) {
-      expect(result.caller).toBe('report-builder-do');
-    }
+  it('rejects when no secret is configured (fail-closed)', async () => {
+    await expect(signInternalToken('report-builder-do')).rejects.toThrow('INTERNAL_TOKEN_SECRET is not configured');
   });
 
-  it('fallback token is forgeable without the salt', async () => {
-    const token = await signInternalToken('cron');
-    // Validate with a different (wrong) secret — would fail if real secret were used
-    const result = await validateInternalToken(token, 'some-other-secret');
+  it('rejects validation when no secret is configured', async () => {
+    const token = await signInternalToken('cron', 'some-secret');
+    const result = await validateInternalToken(token);
     expect(result.ok).toBe(false);
     if (!result.ok) {
-      expect(result.reason).toBe('invalid signature');
+      expect(result.reason).toMatch(/secret/i);
     }
   });
 });

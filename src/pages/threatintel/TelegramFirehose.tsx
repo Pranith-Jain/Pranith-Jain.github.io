@@ -260,7 +260,7 @@ export default function TelegramFirehose(): JSX.Element {
   }, [items, debouncedQuery, sourceFilter, severityFilter, newOnly, lastVisit]);
 
   const visible = filtered.slice(0, PAGE_SIZE);
-  const newCount = useMemo(() => items.filter((it) => isNewSince(it.ts, lastVisit)).length, [items, lastVisit]);
+  const newCount = items.filter((it) => isNewSince(it.ts, lastVisit)).length;
 
   // ----------------- Render -----------------
   const toggleSource = (s: Source) => {

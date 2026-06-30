@@ -888,7 +888,7 @@ export default function AIReportShowcase(): JSX.Element {
     if (k) void doProbe(k);
   }, []);
 
-  const sample = useMemo(() => SAMPLE_REPORTS.find((r) => r.id === selectedId) ?? SAMPLE_REPORTS[0]!, [selectedId]);
+  const sample = SAMPLE_REPORTS.find((r) => r.id === selectedId) ?? SAMPLE_REPORTS[0]!;
 
   const runAnalyzer = useMemo(() => {
     return async (report: SampleReport) => {

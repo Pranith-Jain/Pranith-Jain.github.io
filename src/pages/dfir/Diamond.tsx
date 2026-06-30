@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Diamond as DiamondIcon, Loader2, RotateCcw, Download, ExternalLink, Wand2 } from 'lucide-react';
@@ -164,7 +164,7 @@ function Diamond(): JSX.Element {
     }
   }, [event]);
 
-  const filledCore = useMemo(() => DIAMOND_VERTICES.filter((v) => event[VERTEX_KEY[v.id]].trim()).length, [event]);
+  const filledCount = DIAMOND_VERTICES.filter((v) => event[VERTEX_KEY[v.id]].trim()).length;
 
   const update = (k: keyof EventForm, v: string) => setEvent((e) => ({ ...e, [k]: v }));
   const reset = () => setEvent(EMPTY_EVENT);
@@ -635,7 +635,7 @@ function Diamond(): JSX.Element {
               {active ? `${DIAMOND_VERTICES.find((v) => v.id === active)?.name}` : 'Vertices'}
             </h2>
             <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
-              {filledCore} / {DIAMOND_VERTICES.length} filled
+              {filledCount} / {DIAMOND_VERTICES.length} filled
             </span>
           </div>
           {active ? (

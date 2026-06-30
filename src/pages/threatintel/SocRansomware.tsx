@@ -88,7 +88,7 @@ export default function SocRansomware(): JSX.Element {
     return () => ctrl.abort();
   }, [load]);
 
-  const victims = useMemo(() => data?.victims ?? [], [data]);
+  const victims = data?.victims ?? [];
 
   /* ─── KPIs ─────────────────────────────────────────────────────── */
   const kpis = useMemo(() => {

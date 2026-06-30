@@ -124,10 +124,10 @@ export default function XFirehose(): JSX.Element {
     setVisible(60);
   }, [debouncedQuery, handleFilter, newOnly, data]);
 
-  const newCount = useMemo(() => {
+  const newCount = (() => {
     if (!data || !lastVisit) return 0;
     return data.items.filter((it) => isNewSince(it.pub_date, lastVisit)).length;
-  }, [data, lastVisit]);
+  })();
 
   useEffect(() => {
     if (!data) return;

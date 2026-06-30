@@ -127,7 +127,7 @@ export default function OnionWatch(): JSX.Element {
     return groups;
   }, [data, query, effectiveShowOffline, sortMode]);
 
-  const visibleMirrorCount = useMemo(() => visibleGroups.reduce((n, g) => n + g.mirrors.length, 0), [visibleGroups]);
+  const visibleMirrorCount = visibleGroups.reduce((n, g) => n + g.mirrors.length, 0);
 
   const copy = async (text: string, key: string) => {
     try {

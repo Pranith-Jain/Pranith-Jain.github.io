@@ -284,7 +284,7 @@ export default function DarkWeb(): JSX.Element {
     }
   }, [search, watchlist]);
 
-  const matchCount = useMemo(() => matched.filter((m) => m.watchMatches.length > 0).length, [matched]);
+  const matchCount = matched.filter((m) => m.watchMatches.length > 0).length;
   const perTermCount = useMemo(() => {
     const map: Record<string, number> = {};
     for (const term of watchlist) map[term] = 0;

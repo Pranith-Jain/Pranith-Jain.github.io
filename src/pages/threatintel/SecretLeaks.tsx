@@ -124,8 +124,8 @@ export default function SecretLeaks(): JSX.Element {
     };
   }, [refreshKey]);
 
-  const leaks = useMemo(() => data?.leaks ?? [], [data]);
-  const providers = useMemo(() => [...new Set(leaks.map((l) => l.provider))].sort(), [leaks]);
+  const leaks = data?.leaks ?? [];
+  const providers = [...new Set(leaks.map((l) => l.provider))].sort();
   const stats = data
     ? {
         totalSecrets: data.total_secrets,

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Crosshair, ChevronDown, ChevronRight, ExternalLink } from 'lucide-react';
@@ -130,7 +130,7 @@ export default function KillChain(): JSX.Element {
   const expandAll = () => setExpanded(new Set(KILL_CHAIN.map((p) => p.id)));
   const collapseAll = () => setExpanded(new Set());
 
-  const allOpen = useMemo(() => expanded.size === KILL_CHAIN.length, [expanded]);
+  const allOpen = expanded.size === KILL_CHAIN.length;
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">

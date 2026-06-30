@@ -198,7 +198,7 @@ export default function ExternalResources(): JSX.Element {
     setQuery('');
   };
 
-  const featuredCount = useMemo(() => merged.filter((r) => 'featured' in r).length, [merged]);
+  const featuredCount = merged.filter((r) => 'featured' in r).length;
 
   const submitToken = () => {
     const trimmed = tokenDraft.trim();
