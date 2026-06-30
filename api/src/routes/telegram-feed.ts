@@ -25,7 +25,7 @@ const CUSTOM_CHANNELS_KV_KEY = 'tg:custom-channels:v1';
 
 const FETCH_TIMEOUT_MS = 12_000;
 const CACHE_TTL = 30 * 60; // 30 minutes
-const CONCURRENCY = 4;
+const CONCURRENCY = 8;
 /** Per-channel cap. Channel HTML preview surfaces ~20 messages — keep the
  *  full preview window. Combined with the 7d cutoff below, this lifts the
  *  page from ~176 messages → up to ~440 across 22 channels with newer

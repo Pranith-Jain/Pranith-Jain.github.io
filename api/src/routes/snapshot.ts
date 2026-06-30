@@ -183,6 +183,34 @@ export async function readWarmTelegram(kv: KVNamespace | undefined): Promise<Tel
   return null;
 }
 
+/** Write a fetched telegram body to both the per-colo edge cache and the
+ *  global KV warm slice so subsequent requests skip the t.me fan-out. */
+async function warmTelegramCaches(c: Context<{ Bindings: Env }>, body: TelegramFeedResponse): Promise<void> {
+  try {
+    const cache = (caches as unknown as { default: Cache }).default;
+    await cache.put(
+      new Request(TELEGRAM_FEED_CACHE_KEY),
+      new Response(JSON.stringify(body), {
+        headers: { 'content-type': 'application/json', 'cache-control': 'public, max-age=1800' },
+      })
+    );
+    const kv = c.env.KV_CACHE;
+    if (kv) await kv.put(gpWarmKey('telegram'), JSON.stringify(body), { expirationTtl: 28800 });
+  } catch {
+    /* best-effort */
+  }
+}
+
+/** Fetch the live telegram feed in the background and write to caches. */
+async function warmTelegramCachesFromLive(c: Context<{ Bindings: Env }>): Promise<void> {
+  try {
+    const body = await fetchTelegramFeed(c.env.KV_CACHE);
+    await warmTelegramCaches(c, body);
+  } catch {
+    /* best-effort */
+  }
+}
+
 export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheKey = new Request(SNAPSHOT_CACHE_KEY);
@@ -204,20 +232,10 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
                 throw new Error('upstream error');
               }),
               safe(async () => {
-                // Prefer the hourly-warmed gp:warm:telegram slice (same in every
-                // colo) so a stale-snapshot rebuild heals to real data instantly
-                // instead of paying the ~17s t.me fan-out.
                 const warm = await readWarmTelegram(c.env.KV_CACHE);
                 if (warm) return warm;
                 const body = await fetchTelegramFeed();
-                // Replenish the KV warm slice so the next request (even on
-                // a different colo) hits the warm slice instead of rebuilding.
-                const kv = c.env.KV_CACHE;
-                if (kv) {
-                  c.executionCtx.waitUntil(
-                    kv.put(gpWarmKey('telegram'), JSON.stringify(body), { expirationTtl: 28800 }).catch(() => {})
-                  );
-                }
+                c.executionCtx.waitUntil(warmTelegramCaches(c, body));
                 return body;
               }),
               safe(() => aggregateFeeds(SCAM_FEED_URLS, 12, 6, { deadlineMs: FEED_DEADLINE_MS })),
@@ -285,47 +303,40 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
       if (result.upstreamOk) return result.body;
       throw new Error('all ransomware upstreams unreachable');
     }),
-    budgeted(async () => {
-      // Prefer the hourly-warmed gp:warm:telegram slice: the queue consumer
-      // writes it once/hour and KV is the same in every colo, avoiding the
-      // per-colo cold-cache rebuild (and the t.me fan-out timeout).
+    // Telegram is handled without budgeted() because the t.me fan-out
+    // (~22 previews × 1-3s each × 8 concurrency ≈ 3-10s) can straddle
+    // the 8s source budget. Instead we try the live rebuild, and if it
+    // doesn't complete within the budget window we serve empty + warm
+    // caches in background so the NEXT request finds data.
+    (async (): Promise<SourcePayload<unknown>> => {
       const warm = await readWarmTelegram(c.env.KV_CACHE);
-      if (warm) return warm;
-      // Per-colo edge cache next.
+      if (warm) return { ok: true, data: warm };
       const cached = await cache.match(TELEGRAM_FEED_CACHE_KEY);
-      if (cached) return (await cached.json()) as TelegramFeedResponse;
-      // Cold per-colo cache: a full rebuild fans out to ~22 t.me previews
-      // (~17s) — far over the 8s SOURCE_BUDGET_MS — which is exactly what made
-      // the "Cybersec Telegram firehose" card show "load error: upstream
-      // timeout" on any colo the warm cron hadn't touched. Don't block the
-      // budget on it: warm THIS colo's cache in the background and serve an
-      // empty payload for this build. The next request in this colo (and the
-      // SWR rebuild) read it warm. The standalone /telegram-feed route still
-      // rebuilds synchronously on demand, so the dedicated firehose page is
-      // unaffected.
-      c.executionCtx.waitUntil(
-        (async () => {
-          try {
-            const body = await fetchTelegramFeed();
-            await cache.put(
-              new Request(TELEGRAM_FEED_CACHE_KEY),
-              new Response(JSON.stringify(body), {
-                headers: { 'content-type': 'application/json', 'cache-control': 'public, max-age=1800' },
-              })
-            );
-            // Also write to KV so every colo sees the warm slice, not just
-            // this colo's edge cache. Without this, a cold-cache miss on any
-            // other colo returns empty and the "Cybersec Telegram firehose"
-            // card shows 0 posts until the queue consumer refreshes the slice.
-            const kv = c.env.KV_CACHE;
-            if (kv) await kv.put(gpWarmKey('telegram'), JSON.stringify(body), { expirationTtl: 28800 });
-          } catch {
-            /* best-effort warm */
-          }
-        })()
-      );
-      return { generated_at: new Date().toISOString(), channels: [], items: [], warnings: ['warming'] };
-    }),
+      if (cached) {
+        const json = (await cached.json()) as TelegramFeedResponse;
+        return { ok: true, data: json };
+      }
+      // Cold miss: race the live rebuild against the budget timer.
+      let bgWarm: Promise<void> | undefined;
+      const result = await Promise.race<SourcePayload<unknown>>([
+        fetchTelegramFeed(c.env.KV_CACHE).then((body): SourcePayload<unknown> => {
+          bgWarm = warmTelegramCaches(c, body);
+          return { ok: true, data: body };
+        }),
+        new Promise<SourcePayload<unknown>>((resolve) =>
+          setTimeout(() => {
+            // Budget expired: serve empty + warm caches in background.
+            bgWarm = warmTelegramCachesFromLive(c);
+            resolve({
+              ok: true,
+              data: { generated_at: new Date().toISOString(), channels: [], items: [], warnings: ['warming'] },
+            });
+          }, 10_000)
+        ),
+      ]);
+      if (bgWarm) c.executionCtx.waitUntil(bgWarm);
+      return result;
+    })(),
     budgeted(() => aggregateFeeds(SCAM_FEED_URLS, 12, 6, { deadlineMs: FEED_DEADLINE_MS })),
     budgeted(() => aggregateFeeds(THREAT_INTEL_FEED_URLS, 16, 4, { deadlineMs: FEED_DEADLINE_MS })),
     budgeted(() => aggregateFeeds(TECH_AI_FEED_URLS, 18, 3, { deadlineMs: FEED_DEADLINE_MS })),
