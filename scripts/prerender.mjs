@@ -257,6 +257,7 @@ const ROUTES = [
   '/dfir/yara',
   '/dfir/detection-lab',
   '/dfir/prompt-injection',
+  '/dfir/pi-taxonomy',
   '/dfir/mcp-audit',
   '/dfir/agent-map',
   '/dfir/cve-prioritizer',
@@ -270,10 +271,11 @@ const ROUTES = [
   '/dfir/k8s-rbac',
   '/dfir/terraform-scan',
 
-  // ── DFIR: API security (5) — 0 API calls ──────────────────────
+  // ── DFIR: API security (6) — 0 API calls ──────────────────────
   '/dfir/openapi-audit',
   '/dfir/sec-headers',
   '/dfir/secret-scan',
+  '/dfir/medusa-scan',
   '/dfir/graphql-audit',
   '/dfir/osv-scan',
 

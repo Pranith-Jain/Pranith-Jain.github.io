@@ -84,6 +84,7 @@ const Takeover = lazy(() => import('./pages/dfir/Takeover'));
 const StixBuilder = lazy(() => import('./pages/dfir/StixBuilder'));
 const Owasp = lazy(() => import('./pages/dfir/Owasp'));
 const PromptInjection = lazy(() => import('./pages/dfir/PromptInjection'));
+const PiTaxonomy = lazy(() => import('./pages/dfir/PiTaxonomy'));
 const McpAudit = lazy(() => import('./pages/dfir/McpAudit'));
 const KillChain = lazy(() => import('./pages/dfir/KillChain'));
 const Diamond = lazy(() => import('./pages/dfir/Diamond'));
@@ -131,6 +132,7 @@ const Wayback = lazy(() => import('./pages/dfir/Wayback'));
 const IpGeo = lazy(() => import('./pages/dfir/IpGeo'));
 const LogParser = lazy(() => import('./pages/dfir/LogParser'));
 const Blocklists = lazy(() => import('./pages/dfir/Blocklists'));
+const MedusaScanner = lazy(() => import('./pages/dfir/MedusaScanner'));
 
 const Socmint = lazy(() => import('./pages/dfir/Socmint'));
 const OsintMapper = lazy(() => import('./pages/dfir/OsintMapper'));
@@ -445,6 +447,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/sec-headers', Component: SecHeadersAnalyzer },
   { path: '/dfir/sec-headers-live', Component: SecHeadersLive },
   { path: '/dfir/secret-scan', Component: SecretScanner },
+  { path: '/dfir/medusa-scan', Component: MedusaScanner },
   { path: '/dfir/graphql-audit', Component: GraphqlAuditor },
   { path: '/dfir/osv-scan', Component: OsvScanner },
   { path: '/dfir/punycode', Component: Punycode },
@@ -465,6 +468,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/infostealer/:slug', Component: InfostealerDetail },
   { path: '/dfir/owasp', Component: Owasp },
   { path: '/dfir/prompt-injection', Component: PromptInjection },
+  { path: '/dfir/pi-taxonomy', Component: PiTaxonomy },
   { path: '/dfir/mcp-audit', Component: McpAudit },
   { path: '/dfir/kill-chain', Component: KillChain },
   { path: '/dfir/diamond', Component: Diamond },

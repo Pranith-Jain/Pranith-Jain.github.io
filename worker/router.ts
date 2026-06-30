@@ -215,6 +215,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/yara', '/__prerendered/dfir__yara'],
   ['/dfir/detection-lab', '/__prerendered/dfir__detection-lab'],
   ['/dfir/prompt-injection', '/__prerendered/dfir__prompt-injection'],
+  ['/dfir/pi-taxonomy', '/__prerendered/dfir__pi-taxonomy'],
   ['/dfir/mcp-audit', '/__prerendered/dfir__mcp-audit'],
   ['/dfir/agent-map', '/__prerendered/dfir__agent-map'],
   ['/dfir/cve-prioritizer', '/__prerendered/dfir__cve-prioritizer'],
@@ -232,6 +233,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/openapi-audit', '/__prerendered/dfir__openapi-audit'],
   ['/dfir/sec-headers', '/__prerendered/dfir__sec-headers'],
   ['/dfir/secret-scan', '/__prerendered/dfir__secret-scan'],
+  ['/dfir/medusa-scan', '/__prerendered/dfir__medusa-scan'],
   ['/dfir/graphql-audit', '/__prerendered/dfir__graphql-audit'],
   ['/dfir/osv-scan', '/__prerendered/dfir__osv-scan'],
 

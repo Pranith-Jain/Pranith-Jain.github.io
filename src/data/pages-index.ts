@@ -467,6 +467,14 @@ const DFIR_PAGES: readonly PageEntry[] = [
     keywords: ['llm', 'ai', 'injection', 'jailbreak'],
   },
   {
+    path: '/dfir/pi-taxonomy',
+    label: 'PI Taxonomy',
+    description: 'Arcanum Prompt Injection Taxonomy — 172 classified attack nodes for AI red teaming.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+    keywords: ['llm', 'ai', 'injection', 'taxonomy', 'red-team', 'attack', 'prompt'],
+  },
+  {
     path: '/dfir/zero-trust-ai-agents',
     label: 'Zero-Trust AI Agents',
     description: 'Threat model and reference architecture for zero-trust LLM agents.',

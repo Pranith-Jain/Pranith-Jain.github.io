@@ -1655,4 +1655,41 @@ export const RESOURCES: ExternalResource[] = [
       'Operational cyber defense platform with 20+ live tools across 7 domains: Threat Exchange (VERDIKT, X-VERDIKT, PARSE-X, DNSCOPE, MAILSCOPE), AI-powered runbooks (INSIGHT-AI, QUERYCRAFT-AI, FPLENS-AI, ATTMAP-AI, CHRONO-AI, MALBRIEF-AI, PROMPTVAULT, VERDIKT-AI), Detection Engineering (TRACERULES), Threat Hunting (HYPOS, PIVEX, TRACEPULSE), SOC Ops (QUICKTRACE, PHISHOPS, SHIFTLOG), Digital Forensics (REGSCOPE, MALBRIEF-AI), and IR (PHISHBOOK).',
     why: 'Comprehensive platform with tools across the full kill chain. Several tools are directly integrated into this platform (FPLENS, QUERYCRAFT, CHRONO, MALBRIEF, VERDIKT, PHISHOPS, PIVEX, TRACEPULSE, QUICKTRACE, PHISHBOOK).',
   },
+  // ── External resource additions (2026-06-30) ─────────────────────────
+  {
+    id: 'mitre-shahrukh',
+    name: 'MITRE ATT&CK (Shahrukh)',
+    url: 'https://mitre.heyshahrukh.me/',
+    kind: 'dashboard',
+    tags: ['threat-intel', 'dfir'],
+    description:
+      'Interactive MITRE ATT&CK navigation dashboard — browse techniques, sub-techniques, and mitigations across all ATT&CK domains (Enterprise, Mobile, ICS) with a clean card-based UI. Useful for rapid technique lookup and kill-chain mapping during threat-intel analysis.',
+  },
+  {
+    id: 'llm-pentest-hub',
+    name: 'LLMPenTestHub — AI/ML Roadmap for Pentesters',
+    url: 'https://anmolksachan.github.io/LLMPenTestHub/ai-ml-roadmap-for-pentester.html#phases',
+    kind: 'training',
+    tags: ['ai-security', 'vulnerability'],
+    description:
+      'Structured 7-phase roadmap for pentesters entering AI/ML security. Covers LLM fundamentals, prompt injection, jailbreaking, model extraction, poisoning, evasion, and AI red-teaming playbooks. Hands-on exercises with real-world attack scenarios and defense bypasses.',
+  },
+  {
+    id: 'soc-chef',
+    name: 'SOC Chef',
+    url: 'https://github.com/mr-r3b00t/soc_chef',
+    kind: 'tool',
+    tags: ['dfir', 'threat-intel'],
+    description:
+      'Detection engineering and SOC automation cookbook by mr-r3b00t. Collection of Sigma rules, YARA signatures, Splunk / KQL searches, and incident-response runbooks. Practical recipes for detection engineers building out their SIEM content library.',
+  },
+  {
+    id: 'cti-guide-2026',
+    name: 'CTI 2026 — The Ultimate Guide',
+    url: 'https://undercodetesting.com/cyber-threat-intelligence-2026-the-ultimate-guide-to-mastering-cti-ai-driven-defense-and-proactive-threat-hunting-video/',
+    kind: 'training',
+    tags: ['threat-intel', 'dfir', 'ai-security'],
+    description:
+      'Comprehensive 2026 guide to mastering Cyber Threat Intelligence — covers AI-driven defense, proactive threat hunting, CTI frameworks (Diamond Model, Kill Chain, ATT&CK), intelligence lifecycle, and practical tradecraft. Includes companion video walkthrough.',
+  },
 ];

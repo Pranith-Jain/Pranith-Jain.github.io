@@ -840,6 +840,13 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'PromptInjection',
       },
       {
+        path: '/dfir/pi-taxonomy',
+        tabId: 'pi-taxonomy',
+        label: 'PI Taxonomy',
+        desc: 'Arcanum Prompt Injection Taxonomy — 172 classified attack nodes.',
+        compVar: 'PiTaxonomy',
+      },
+      {
         path: '/dfir/mcp-audit',
         tabId: 'mcp-audit',
         label: 'MCP Audit',

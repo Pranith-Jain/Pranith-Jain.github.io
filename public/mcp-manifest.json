@@ -2,7 +2,7 @@
   "$schema": "https://modelcontextprotocol.io/schemas/manifest/v1.json",
   "name": "DFIR-ThreatIntel-MCP",
   "version": "1.0.0",
-  "description": "DFIR + Threat Intel MCP server. 141 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
+  "description": "DFIR + Threat Intel MCP server. 148 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
   "transport": "streamable-http",
   "endpoint": "https://pranithjain.qzz.io/api/mcp",
   "auth": {
@@ -16,8 +16,8 @@
       "listChanged": false
     }
   },
-  "toolCount": 141,
-  "generatedAt": "2026-06-29T08:33:20.210Z",
+  "toolCount": 148,
+  "generatedAt": "2026-06-30T07:29:19.067Z",
   "tools": [
     {
       "name": "analyze_phishing_email",
@@ -592,6 +592,41 @@
     {
       "name": "tg_timeline",
       "description": "Get Telegram message volume timeline data (messages per day) with severity breakdown. Useful for visualizing activity spikes.",
+      "category": "other"
+    },
+    {
+      "name": "ti_brief_sector",
+      "description": "Return a sector-specific threat brief (Financial, Healthcare, or Government) from the threat-intel vertical. Each brief includes an executive summary, top N sector-relevant threats with risk assessments and recommended actions.",
+      "category": "other"
+    },
+    {
+      "name": "ti_get_cve",
+      "description": "Return the full CVE body with CVSS vector, CWE IDs, references, and (where populated) BSI description and LLM summary/recommended action. Use ti_list_cves first to discover CVE IDs.",
+      "category": "other"
+    },
+    {
+      "name": "ti_get_ioc",
+      "description": "Return the full IOC family body with indicators, MITRE techniques, context, and (where populated) LLM summary. Use ti_list_iocs first to discover family slugs.",
+      "category": "other"
+    },
+    {
+      "name": "ti_list_cves",
+      "description": "List CVEs from the threat-intel vertical (NVD + CISA KEV). CVEs are enriched with priority scoring (CVSS + KEV + recency). Filter by severity, KEV-only, vendor, recency, or keyword.",
+      "category": "other"
+    },
+    {
+      "name": "ti_list_iocs",
+      "description": "List IOC families (ransomware, malware, APT groups, C2 frameworks, stealers, phishing kits) from the threat-intel vertical, sourced from Daily-Hunt references and tracked by this Worker.",
+      "category": "other"
+    },
+    {
+      "name": "ti_list_kev",
+      "description": "Return the full CISA Known Exploited Vulnerabilities (KEV) snapshot — actively exploited CVEs with required actions and due dates. Each entry includes vendor, product, short description, required action, and due date.",
+      "category": "other"
+    },
+    {
+      "name": "ti_stats",
+      "description": "Return cache + manifest stats for the Threat Intel data: index loaded, KEV loaded, body-cache sizes and hit ratios. Useful for diagnosing cold-start latency.",
       "category": "other"
     },
     {

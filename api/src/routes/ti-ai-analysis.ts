@@ -61,17 +61,26 @@ interface RiskScore {
 const ai = new Hono<{ Bindings: AiEnv }>();
 
 async function runAiPrompt(ai: Ai, prompt: string): Promise<string> {
-  const response = await ai.run('@cf/meta/llama-3.1-8b-instruct', {
-    messages: [{ role: 'user', content: prompt }],
-    max_tokens: 1024,
-  });
-  return (response as { response: string }).response;
+  try {
+    const response = await ai.run('@cf/meta/llama-3.1-8b-instruct', {
+      messages: [{ role: 'user', content: prompt }],
+      max_tokens: 1024,
+    });
+    return (response as { response: string }).response;
+  } catch (e) {
+    return `AI analysis unavailable: ${(e as Error).message || 'unknown error'}`;
+  }
 }
 
 ai.post('/analyze', async (c) => {
   const db = c.env.BRIEFINGS_DB;
   const kv = c.env.KV_CACHE;
   const aiModel = c.env.AI;
+
+  if (!aiModel) {
+    return c.json({ error: 'AI not available', message: 'Workers AI binding not configured' }, 503);
+  }
+
   const body = await c.req.json<{ indicator: string; type?: string }>();
 
   if (!body.indicator) {
@@ -118,6 +127,25 @@ Respond in JSON format:
 
   const aiResponse = await runAiPrompt(aiModel, prompt);
 
+  // If AI is unavailable, return fallback analysis
+  if (aiResponse.startsWith('AI analysis unavailable')) {
+    const fallbackAnalysis: ThreatAnalysis = {
+      indicator: body.indicator,
+      type: body.type || context.type || 'unknown',
+      risk_score: 50,
+      risk_level: 'medium',
+      confidence: 0.2,
+      summary: 'AI analysis unavailable. Manual review recommended.',
+      recommendations: ['Manual analysis required', 'Check threat intelligence databases', 'Monitor for changes'],
+      related_threats: [],
+      mitre_techniques: [],
+      first_seen: context.first_seen || new Date().toISOString(),
+      last_seen: context.last_seen || new Date().toISOString(),
+      sources: context.source_count || 0,
+    };
+    return c.json(fallbackAnalysis);
+  }
+
   let analysis: ThreatAnalysis;
   try {
     const parsed = JSON.parse(aiResponse);
@@ -158,6 +186,11 @@ Respond in JSON format:
 
 ai.post('/summarize', async (c) => {
   const aiModel = c.env.AI;
+
+  if (!aiModel) {
+    return c.json({ error: 'AI not available', message: 'Workers AI binding not configured' }, 503);
+  }
+
   const body = await c.req.json<{ text: string; type?: string }>();
 
   if (!body.text) {
@@ -184,6 +217,16 @@ Provide a structured summary in JSON:
 
   const response = await runAiPrompt(aiModel, prompt);
 
+  // Fallback if AI unavailable
+  if (response.startsWith('AI analysis unavailable')) {
+    return c.json({
+      summary: 'AI summarization unavailable. Manual review required.',
+      key_threats: [],
+      severity: 'unknown',
+      recommended_actions: ['Manual analysis required'],
+    });
+  }
+
   try {
     return c.json(JSON.parse(response));
   } catch {
@@ -193,7 +236,7 @@ Provide a structured summary in JSON:
 
 ai.post('/risk-score', async (c) => {
   const db = c.env.BRIEFINGS_DB;
-  const kv = c.env.KV_CACHE;
+  const _kv = c.env.KV_CACHE;
   const body = await c.req.json<{ indicators: string[]; context?: string }>();
 
   if (!body.indicators || body.indicators.length === 0) {
@@ -224,11 +267,11 @@ ai.post('/risk-score', async (c) => {
   };
 
   const overall = Math.round(
-    (breakdown.severity * 0.25 +
+    breakdown.severity * 0.25 +
       breakdown.exposure * 0.2 +
       breakdown.recency * 0.2 +
       breakdown.attribution * 0.2 +
-      breakdown.ioc_density * 0.15)
+      breakdown.ioc_density * 0.15
   );
 
   const factors: string[] = [];
@@ -260,6 +303,11 @@ ai.post('/risk-score', async (c) => {
 
 ai.post('/hunt', async (c) => {
   const aiModel = c.env.AI;
+
+  if (!aiModel) {
+    return c.json({ error: 'AI not available', message: 'Workers AI binding not configured' }, 503);
+  }
+
   const body = await c.req.json<{ scenario: string; platform?: string }>();
 
   if (!body.scenario) {
@@ -295,16 +343,41 @@ Respond in JSON:
 
   const response = await runAiPrompt(aiModel, prompt);
 
+  // Fallback if AI unavailable
+  if (response.startsWith('AI analysis unavailable')) {
+    return c.json({
+      queries: [
+        {
+          name: 'Manual query required',
+          platform: 'kql',
+          query: '// AI unavailable - generate queries manually',
+          description: body.scenario,
+          severity: 'medium',
+        },
+      ],
+    });
+  }
+
   try {
     return c.json(JSON.parse(response));
   } catch {
-    return c.json({ queries: [{ name: 'Fallback query', platform: 'kql', query: response.slice(0, 2000), description: body.scenario }] });
+    return c.json({
+      queries: [
+        { name: 'Fallback query', platform: 'kql', query: response.slice(0, 2000), description: body.scenario },
+      ],
+    });
   }
 });
 
 ai.post('/brief', async (c) => {
   const db = c.env.BRIEFINGS_DB;
   const aiModel = c.env.AI;
+  const _kv = c.env.KV_CACHE;
+
+  if (!aiModel) {
+    return c.json({ error: 'AI not available', message: 'Workers AI binding not configured' }, 503);
+  }
+
   const body = await c.req.json<{ topic?: string; hours?: number }>();
 
   const hours = body.hours || 24;
@@ -313,9 +386,21 @@ ai.post('/brief', async (c) => {
   const since = new Date(Date.now() - hours * 3600000).toISOString();
 
   const [ransomware, cves, iocs] = await Promise.all([
-    db.prepare("SELECT COUNT(*) as cnt FROM ransomware_groups WHERE created_at > ?").bind(since).first<{ cnt: number }>().catch(() => ({ cnt: 0 })),
-    db.prepare("SELECT COUNT(*) as cnt FROM cve_recent WHERE published_at > ?").bind(since).first<{ cnt: number }>().catch(() => ({ cnt: 0 })),
-    db.prepare("SELECT COUNT(*) as cnt FROM live_iocs WHERE first_seen > ?").bind(since).first<{ cnt: number }>().catch(() => ({ cnt: 0 })),
+    db
+      .prepare('SELECT COUNT(*) as cnt FROM ransomware_groups WHERE created_at > ?')
+      .bind(since)
+      .first<{ cnt: number }>()
+      .catch(() => ({ cnt: 0 })),
+    db
+      .prepare('SELECT COUNT(*) as cnt FROM cve_recent WHERE published_at > ?')
+      .bind(since)
+      .first<{ cnt: number }>()
+      .catch(() => ({ cnt: 0 })),
+    db
+      .prepare('SELECT COUNT(*) as cnt FROM live_iocs WHERE first_seen > ?')
+      .bind(since)
+      .first<{ cnt: number }>()
+      .catch(() => ({ cnt: 0 })),
   ]);
 
   const prompt = `Generate a threat intelligence brief covering: ${topic}
@@ -344,6 +429,18 @@ Format as JSON:
 
   const response = await runAiPrompt(aiModel, prompt);
 
+  // Fallback if AI unavailable
+  if (response.startsWith('AI analysis unavailable')) {
+    return c.json({
+      title: `Threat Brief: ${topic}`,
+      executive_summary: 'AI brief generation unavailable. Manual analysis required.',
+      key_developments: [],
+      risk_assessment: 'Unable to generate automated assessment',
+      recommended_actions: ['Manual threat analysis required', 'Review available intelligence feeds'],
+      outlook: 'Threat landscape assessment pending',
+    });
+  }
+
   try {
     return c.json(JSON.parse(response));
   } catch {
@@ -370,10 +467,15 @@ async function gatherIndicatorContext(db: D1Database, indicator: string): Promis
   };
 
   try {
-    const ioc = await db.prepare(`
+    const ioc = await db
+      .prepare(
+        `
       SELECT first_seen, last_seen, source, type
       FROM live_iocs WHERE indicator = ?
-    `).bind(indicator).first<{ first_seen: string; last_seen: string; source: string; type: string }>();
+    `
+      )
+      .bind(indicator)
+      .first<{ first_seen: string; last_seen: string; source: string; type: string }>();
 
     if (ioc) {
       context.first_seen = ioc.first_seen;
@@ -381,15 +483,25 @@ async function gatherIndicatorContext(db: D1Database, indicator: string): Promis
       context.type = ioc.type;
     }
 
-    const sources = await db.prepare(`
+    const sources = await db
+      .prepare(
+        `
       SELECT COUNT(DISTINCT source) as cnt FROM live_iocs WHERE indicator = ?
-    `).bind(indicator).first<{ cnt: number }>();
+    `
+      )
+      .bind(indicator)
+      .first<{ cnt: number }>();
     context.source_count = sources?.cnt ?? 0;
 
     if (indicator.startsWith('CVE-')) {
-      const cve = await db.prepare(`
+      const cve = await db
+        .prepare(
+          `
         SELECT cve_id, published_at FROM cve_recent WHERE cve_id = ?
-      `).bind(indicator).first<{ cve_id: string; published_at: string }>();
+      `
+        )
+        .bind(indicator)
+        .first<{ cve_id: string; published_at: string }>();
       if (cve) {
         context.associated_cves = [cve.cve_id];
         if (!context.first_seen) context.first_seen = cve.published_at;

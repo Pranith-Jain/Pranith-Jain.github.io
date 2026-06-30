@@ -46,7 +46,7 @@ function downloadCsv(entries: KevEntry[]) {
   URL.revokeObjectURL(url);
 }
 
-export default function CisaKevCatalog() {
+export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}): JSX.Element {
   const [data, setData] = useState<KevResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -133,6 +133,148 @@ export default function CisaKevCatalog() {
 
   const sortIcon = (col: typeof sortCol) => (sortCol === col ? (sortAsc ? ' \u2191' : ' \u2193') : '');
 
+  const body = (
+    <div className="space-y-4">
+      {/* KPI cards */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        {[
+          { label: 'Total', value: stats.total, color: 'text-slate-900 dark:text-slate-100' },
+          { label: 'Ransomware', value: stats.ransomware, color: 'text-red-600 dark:text-red-400' },
+          { label: 'Last 30d', value: stats.last30, color: 'text-amber-600 dark:text-amber-400' },
+          { label: 'Showing', value: filtered.length, color: 'text-brand-600 dark:text-brand-400' },
+        ].map((kpi) => (
+          <div
+            key={kpi.label}
+            className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-3"
+          >
+            <div className="text-xs text-slate-500 dark:text-slate-400">{kpi.label}</div>
+            <div className={`text-xl font-bold ${kpi.color}`}>{kpi.value.toLocaleString()}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Filters */}
+      <div className="flex flex-wrap gap-2 items-center">
+        <div className="relative flex-1 min-w-[200px]">
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search CVE, product, name..."
+            className="w-full pl-8 pr-3 py-2 text-sm rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/50"
+          />
+        </div>
+        <select
+          value={vendorFilter}
+          onChange={(e) => setVendorFilter(e.target.value)}
+          className="text-sm rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2"
+        >
+          <option value="">All vendors</option>
+          {vendors.slice(0, 100).map((v) => (
+            <option key={v} value={v}>
+              {v}
+            </option>
+          ))}
+        </select>
+        <select
+          value={daysFilter ?? ''}
+          onChange={(e) => setDaysFilter(e.target.value ? Number(e.target.value) : null)}
+          className="text-sm rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2"
+        >
+          <option value="">All time</option>
+          <option value="7">Last 7 days</option>
+          <option value="30">Last 30 days</option>
+          <option value="90">Last 90 days</option>
+          <option value="365">Last year</option>
+        </select>
+        <label className="inline-flex items-center gap-1.5 text-sm text-slate-700 dark:text-slate-300 cursor-pointer">
+          <input
+            type="checkbox"
+            checked={ransomwareOnly}
+            onChange={(e) => setRansomwareOnly(e.target.checked)}
+            className="rounded border-slate-300 dark:border-slate-600"
+          />
+          <AlertTriangle size={12} className="text-red-500" /> Ransomware only
+        </label>
+      </div>
+
+      {/* Table */}
+      <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50">
+              {[
+                { key: 'date_added' as const, label: 'Added' },
+                { key: 'cve_id' as const, label: 'CVE ID' },
+                { key: 'vendor_project' as const, label: 'Vendor' },
+                { label: 'Product' },
+                { label: 'Vulnerability' },
+                { label: 'Due' },
+                { label: 'Ransomware' },
+              ].map((col, i) => (
+                <th
+                  key={i}
+                  className={`px-3 py-2 text-left font-medium text-slate-600 dark:text-slate-300 ${col.key ? 'cursor-pointer hover:text-slate-900 dark:hover:text-white' : ''}`}
+                  onClick={col.key ? () => toggleSort(col.key!) : undefined}
+                >
+                  {col.label}
+                  {col.key ? sortIcon(col.key) : ''}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {filtered.slice(0, 200).map((v) => {
+              const overdue = v.due_date && new Date(v.due_date) < new Date();
+              return (
+                <tr
+                  key={v.cve_id}
+                  className="border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                >
+                  <td className="px-3 py-2 text-slate-500 dark:text-slate-400 whitespace-nowrap">{v.date_added}</td>
+                  <td className="px-3 py-2">
+                    <a
+                      href={`https://nvd.nist.gov/vuln/detail/${v.cve_id}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-brand-600 dark:text-brand-400 hover:underline font-mono text-xs"
+                    >
+                      {v.cve_id}
+                    </a>
+                  </td>
+                  <td className="px-3 py-2 text-slate-700 dark:text-slate-300">{v.vendor_project}</td>
+                  <td className="px-3 py-2 text-slate-700 dark:text-slate-300">{v.product}</td>
+                  <td className="px-3 py-2 text-slate-600 dark:text-slate-400 max-w-xs truncate">
+                    {v.vulnerability_name}
+                  </td>
+                  <td
+                    className={`px-3 py-2 whitespace-nowrap ${overdue ? 'text-red-600 dark:text-red-400 font-semibold' : 'text-slate-500 dark:text-slate-400'}`}
+                  >
+                    {v.due_date}
+                  </td>
+                  <td className="px-3 py-2">
+                    {v.known_ransomware_campaign_use === 'Known' ? (
+                      <span className="inline-flex items-center gap-1 text-xs font-medium text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30 px-2 py-0.5 rounded-full">
+                        <AlertTriangle size={10} /> Yes
+                      </span>
+                    ) : (
+                      <span className="text-xs text-slate-400">No</span>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+        {filtered.length > 200 && (
+          <div className="px-3 py-2 text-xs text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-slate-700">
+            Showing 200 of {filtered.length.toLocaleString()} results. Export CSV for full data.
+          </div>
+        )}
+      </div>
+    </div>
+  );
+  if (bare) return body;
   return (
     <DataPageLayout
       backTo="/threatintel"
@@ -169,145 +311,7 @@ export default function CisaKevCatalog() {
       empty={filtered.length === 0 && !loading}
       emptyMessage="No KEV entries match your filters."
     >
-      <div className="space-y-4">
-        {/* KPI cards */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          {[
-            { label: 'Total', value: stats.total, color: 'text-slate-900 dark:text-slate-100' },
-            { label: 'Ransomware', value: stats.ransomware, color: 'text-red-600 dark:text-red-400' },
-            { label: 'Last 30d', value: stats.last30, color: 'text-amber-600 dark:text-amber-400' },
-            { label: 'Showing', value: filtered.length, color: 'text-brand-600 dark:text-brand-400' },
-          ].map((kpi) => (
-            <div
-              key={kpi.label}
-              className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-3"
-            >
-              <div className="text-xs text-slate-500 dark:text-slate-400">{kpi.label}</div>
-              <div className={`text-xl font-bold ${kpi.color}`}>{kpi.value.toLocaleString()}</div>
-            </div>
-          ))}
-        </div>
-
-        {/* Filters */}
-        <div className="flex flex-wrap gap-2 items-center">
-          <div className="relative flex-1 min-w-[200px]">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search CVE, product, name..."
-              className="w-full pl-8 pr-3 py-2 text-sm rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/50"
-            />
-          </div>
-          <select
-            value={vendorFilter}
-            onChange={(e) => setVendorFilter(e.target.value)}
-            className="text-sm rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2"
-          >
-            <option value="">All vendors</option>
-            {vendors.slice(0, 100).map((v) => (
-              <option key={v} value={v}>
-                {v}
-              </option>
-            ))}
-          </select>
-          <select
-            value={daysFilter ?? ''}
-            onChange={(e) => setDaysFilter(e.target.value ? Number(e.target.value) : null)}
-            className="text-sm rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2"
-          >
-            <option value="">All time</option>
-            <option value="7">Last 7 days</option>
-            <option value="30">Last 30 days</option>
-            <option value="90">Last 90 days</option>
-            <option value="365">Last year</option>
-          </select>
-          <label className="inline-flex items-center gap-1.5 text-sm text-slate-700 dark:text-slate-300 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={ransomwareOnly}
-              onChange={(e) => setRansomwareOnly(e.target.checked)}
-              className="rounded border-slate-300 dark:border-slate-600"
-            />
-            <AlertTriangle size={12} className="text-red-500" /> Ransomware only
-          </label>
-        </div>
-
-        {/* Table */}
-        <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50">
-                {[
-                  { key: 'date_added' as const, label: 'Added' },
-                  { key: 'cve_id' as const, label: 'CVE ID' },
-                  { key: 'vendor_project' as const, label: 'Vendor' },
-                  { label: 'Product' },
-                  { label: 'Vulnerability' },
-                  { label: 'Due' },
-                  { label: 'Ransomware' },
-                ].map((col, i) => (
-                  <th
-                    key={i}
-                    className={`px-3 py-2 text-left font-medium text-slate-600 dark:text-slate-300 ${col.key ? 'cursor-pointer hover:text-slate-900 dark:hover:text-white' : ''}`}
-                    onClick={col.key ? () => toggleSort(col.key!) : undefined}
-                  >
-                    {col.label}
-                    {col.key ? sortIcon(col.key) : ''}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {filtered.slice(0, 200).map((v) => {
-                const overdue = v.due_date && new Date(v.due_date) < new Date();
-                return (
-                  <tr
-                    key={v.cve_id}
-                    className="border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50"
-                  >
-                    <td className="px-3 py-2 text-slate-500 dark:text-slate-400 whitespace-nowrap">{v.date_added}</td>
-                    <td className="px-3 py-2">
-                      <a
-                        href={`https://nvd.nist.gov/vuln/detail/${v.cve_id}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-brand-600 dark:text-brand-400 hover:underline font-mono text-xs"
-                      >
-                        {v.cve_id}
-                      </a>
-                    </td>
-                    <td className="px-3 py-2 text-slate-700 dark:text-slate-300">{v.vendor_project}</td>
-                    <td className="px-3 py-2 text-slate-700 dark:text-slate-300">{v.product}</td>
-                    <td className="px-3 py-2 text-slate-600 dark:text-slate-400 max-w-xs truncate">
-                      {v.vulnerability_name}
-                    </td>
-                    <td
-                      className={`px-3 py-2 whitespace-nowrap ${overdue ? 'text-red-600 dark:text-red-400 font-semibold' : 'text-slate-500 dark:text-slate-400'}`}
-                    >
-                      {v.due_date}
-                    </td>
-                    <td className="px-3 py-2">
-                      {v.known_ransomware_campaign_use === 'Known' ? (
-                        <span className="inline-flex items-center gap-1 text-xs font-medium text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30 px-2 py-0.5 rounded-full">
-                          <AlertTriangle size={10} /> Yes
-                        </span>
-                      ) : (
-                        <span className="text-xs text-slate-400">No</span>
-                      )}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-          {filtered.length > 200 && (
-            <div className="px-3 py-2 text-xs text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-slate-700">
-              Showing 200 of {filtered.length.toLocaleString()} results. Export CSV for full data.
-            </div>
-          )}
-        </div>
-      </div>
+      {body}
     </DataPageLayout>
   );
 }
