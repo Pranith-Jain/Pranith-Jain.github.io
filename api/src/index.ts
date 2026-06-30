@@ -160,7 +160,6 @@ import { alertCheckHandler } from './routes/alert-check';
 import { researchDigestHandler } from './routes/research-digest';
 import { darkwebIntelHandler } from './routes/darkweb-intel';
 import { knowledgeGraphHandler } from './routes/knowledge-graph';
-import { openapiHandler } from './routes/openapi';
 import {
   webamonSearchHandler,
   webamonScanHandler,
@@ -570,6 +569,29 @@ app.post('/api/v1/radar/scan', radarScanHandler);
 app.get('/api/v1/radar/scan/:id', radarGetScanHandler);
 app.get('/api/v1/radar/recent', radarRecentHandler);
 
+// ── IRONSIGHT (public, no auth required — proxy to free external APIs) ──
+app.use(
+  '/api/v1/ironsight/*',
+  cors({
+    origin: (_, c) => getSiteUrl(c.env as { SITE_URL?: string }),
+    allowHeaders: ['Content-Type'],
+    allowMethods: ['GET', 'OPTIONS'],
+    maxAge: 300,
+  })
+);
+app.use('/api/v1/ironsight/*', requestId);
+app.use('/api/v1/ironsight/*', csrfGuard);
+app.use('/api/v1/ironsight/*', looseValidation());
+app.use('/api/v1/ironsight/*', requestLogger);
+app.get('/api/v1/ironsight/alerts', ironsightAlertsHandler);
+app.get('/api/v1/ironsight/flights', ironsightFlightsHandler);
+app.get('/api/v1/ironsight/strikes', ironsightStrikesHandler);
+app.get('/api/v1/ironsight/regional', ironsightRegionalHandler);
+app.get('/api/v1/ironsight/markets', ironsightMarketsHandler);
+app.get('/api/v1/ironsight/crypto', ironsightCryptoHandler);
+app.get('/api/v1/ironsight/polymarket', ironsightPolymarketHandler);
+app.get('/api/v1/ironsight/fires', ironsightFiresHandler);
+
 app.use(
   '/api/v1/*',
   cors({
@@ -652,7 +674,6 @@ app.use('/api/v1/tracer/labels', requireAdminMiddleware);
 app.use('/api/v1/graph/ingest', requireAdminMiddleware);
 app.use('/api/v1/threat-intel/novelty/batch', requireAdminMiddleware);
 app.use('/api/v1/report/parse', requireAdminMiddleware);
-app.use('/api/v1/tracer/labels', requireAdminMiddleware);
 app.use('/api/v1/tracer/graphs', requireAdminMiddleware);
 app.use('/api/v1/crypto-monitor', requireAdminMiddleware);
 app.use('/api/v1/crypto-monitor/*', requireAdminMiddleware);
@@ -1129,14 +1150,6 @@ app.get('/api/v1/webamon/domain/:name', webamonDomainHandler);
 app.get('/api/v1/webamon/server/:ip', webamonServerHandler);
 app.get('/api/v1/webamon/resource/:sha256', webamonResourceHandler);
 app.get('/api/v1/global-pulse', globalPulseHandler);
-app.get('/api/v1/ironsight/alerts', ironsightAlertsHandler);
-app.get('/api/v1/ironsight/flights', ironsightFlightsHandler);
-app.get('/api/v1/ironsight/strikes', ironsightStrikesHandler);
-app.get('/api/v1/ironsight/regional', ironsightRegionalHandler);
-app.get('/api/v1/ironsight/markets', ironsightMarketsHandler);
-app.get('/api/v1/ironsight/crypto', ironsightCryptoHandler);
-app.get('/api/v1/ironsight/polymarket', ironsightPolymarketHandler);
-app.get('/api/v1/ironsight/fires', ironsightFiresHandler);
 app.post('/api/v1/threat-analysis', threatAnalysisHandler);
 app.post('/api/v1/ioc-extraction', iocExtractionHandler);
 app.post('/api/v1/mitre-mapping', mitreMappingHandler);
@@ -1150,7 +1163,6 @@ app.post('/api/v1/alert-check', alertCheckHandler);
 app.post('/api/v1/research-digest', researchDigestHandler);
 app.post('/api/v1/darkweb-intel', darkwebIntelHandler);
 app.post('/api/v1/knowledge-graph', knowledgeGraphHandler);
-app.get('/api/v1/openapi.json', openapiHandler);
 app.get('/api/v1/cve-recent', cveRecentHandler);
 app.get('/api/v1/cve-threat-map', cveThreatMapHandler);
 app.get('/api/v1/cve-poc-scan', cvePocScanHandler);
@@ -1400,7 +1412,6 @@ app.get('/api/v1/triage/search', triageSearchHandler);
 
 // ── Report Parser ─────────────────────────────────────────────────
 app.post('/api/v1/report/parse', reportParserHandler);
-app.post('/api/v1/report/ingest', reportIngestHandler);
 
 // ── IOC Lifecycle ─────────────────────────────────────────────────
 app.get('/api/v1/ioc-lifecycle', validate('query', iocLifecycleSchema), iocLifecycleHandler);
