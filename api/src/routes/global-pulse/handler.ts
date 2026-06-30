@@ -88,7 +88,13 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     const warm: Record<string, unknown> = {};
     if (kv) {
       const legacy = (await readKvJson(kv, 'gp:warm')) as Record<string, unknown> | null;
-      if (legacy) Object.assign(warm, legacy);
+      if (legacy && typeof legacy === 'object' && !Array.isArray(legacy)) {
+        for (const k of Object.keys(legacy)) {
+          if (Object.prototype.hasOwnProperty.call(legacy, k) && !k.startsWith('__')) {
+            (warm as Record<string, unknown>)[k] = (legacy as Record<string, unknown>)[k];
+          }
+        }
+      }
       const sliceVals = await Promise.all(GP_FEEDS.map((f) => readKvJson(kv, gpWarmKey(f.key))));
       GP_FEEDS.forEach((f, i) => {
         if (sliceVals[i] != null) warm[f.key] = sliceVals[i];

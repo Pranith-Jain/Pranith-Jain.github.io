@@ -17,7 +17,7 @@
     }
   },
   "toolCount": 148,
-  "generatedAt": "2026-06-30T07:29:19.067Z",
+  "generatedAt": "2026-06-30T11:34:49.385Z",
   "tools": [
     {
       "name": "analyze_phishing_email",
@@ -146,7 +146,7 @@
     },
     {
       "name": "get_live_iocs",
-      "description": "Get the latest live IOC feed — real-time indicators of compromise aggregated from 20+ sources including blocklists, tweet feeds, abuse.ch, and community submissions.",
+      "description": "Get the most recent live IOCs aggregated from 12+ providers (URLhaus, ThreatFox, AlienVault OTX, SANS ISC, etc). Items are normalized, allowlist-filtered (RFC 5737, vendor docs), and confidence-scored. Supports filtering by IOC kind.",
       "category": "intel"
     },
     {

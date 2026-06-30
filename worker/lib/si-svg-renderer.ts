@@ -437,7 +437,27 @@ export function renderDashboard(manifest: RenderManifest, data: RenderData = {})
     }
   }
   out.push('</svg>');
-  return out.join('\n');
+  const raw = out.join('\n');
+  return stripDangerousSvg(raw);
+}
+
+/** Strip dangerous SVG elements and attributes that could lead to same-origin XSS
+ *  when the SVG is served as image/svg+xml. Removes <script>, <foreignObject>,
+ *  <use> with external href, <a> with javascript: href, and event handler attributes
+ *  like onload/onerror/onclick.
+ */
+function stripDangerousSvg(svg: string): string {
+  return svg
+    .replace(/<script[\s>]/gi, '<!-- blocked script ')
+    .replace(/<\/script>/gi, ' -->')
+    .replace(/<foreignObject[\s>]/gi, '<!-- blocked foreignObject ')
+    .replace(/<\/foreignObject>/gi, ' -->')
+    .replace(/<use[\s>]/gi, '<!-- blocked use ')
+    .replace(/<\/use>/gi, ' -->')
+    .replace(/\bhref\s*=\s*"javascript:/gi, 'href="blocked-javascript:')
+    .replace(/\bxlink:href\s*=\s*"javascript:/gi, 'xlink:href="blocked-javascript:')
+    .replace(/\bon\w+\s*=\s*"/gi, 'data-blocked-on="')
+    .replace(/\bon\w+\s*=\s*'/gi, "data-blocked-on='");
 }
 
 // ─── Round 4: 8 more widget types ───────────────────────────────────

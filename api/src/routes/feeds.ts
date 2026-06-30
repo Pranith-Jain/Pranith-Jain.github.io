@@ -233,7 +233,6 @@ const ALLOWED_HOSTS = new Set([
   'countercept.com',
   'feeds.trendmicro.com',
   'intel471.com',
-  'internal.pranithjain.com',
   'labs.withsecure.com',
   'objective-see.org',
   'securitylabs.datadoghq.com',

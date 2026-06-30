@@ -565,6 +565,7 @@ app.use('/api/v1/radar/*', requestId);
 app.use('/api/v1/radar/*', csrfGuard);
 app.use('/api/v1/radar/*', looseValidation());
 app.use('/api/v1/radar/*', requestLogger);
+app.use('/api/v1/radar/*', rateLimit);
 app.post('/api/v1/radar/scan', radarScanHandler);
 app.get('/api/v1/radar/scan/:id', radarGetScanHandler);
 app.get('/api/v1/radar/recent', radarRecentHandler);
@@ -886,7 +887,7 @@ app.get('/api/v1/features', featuresHandler);
 app.get('/api/v1/openapi.json', (c) => {
   return c.json(generateOpenApiSpec(), 200, {
     'Cache-Control': 'public, max-age=3600',
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': getSiteUrl(c.env as { SITE_URL?: string }),
   });
 });
 
@@ -905,6 +906,21 @@ app.get('/api/docs', (c) => {
 });
 
 app.get('/api/v1/docs', (c) => c.redirect('/api/docs', 301));
+
+// CSP violation report collector. Browsers POST violation reports here
+// when a CSP directive is violated. Accept and discard — the data is
+// informational only.
+app.post('/api/v1/csp-report', async (c) => {
+  try {
+    const body = await c.req.json();
+    if (body && typeof body === 'object') {
+      console.log('CSP violation:', JSON.stringify(body).slice(0, 2000));
+    }
+  } catch {
+    // silently ignore malformed reports
+  }
+  return c.body(null, 204);
+});
 
 app.get('/api/v1/health/d1', async (c) => {
   const db = c.env.BRIEFINGS_DB;

@@ -1,10 +1,13 @@
 import type { Context } from 'hono';
+import { getSiteUrl } from '../lib/site-config';
 
-const CORS_HEADERS: Record<string, string> = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'GET, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type',
-};
+function corsHeaders(c: Context): Record<string, string> {
+  return {
+    'Access-Control-Allow-Origin': getSiteUrl(c.env as { SITE_URL?: string }),
+    'Access-Control-Allow-Methods': 'GET, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+  };
+}
 
 async function fetchWithTimeout(url: string, timeoutMs = 10000, init?: RequestInit): Promise<Response> {
   const controller = new AbortController();
@@ -30,7 +33,7 @@ export async function ironsightAlertsHandler(c: Context) {
       return c.json(
         { status: 'CLEAR', activeCount: 0, alerts: [], lastChecked: new Date().toISOString() },
         200,
-        CORS_HEADERS
+        corsHeaders(c)
       );
 
     const data: any = await res.json();
@@ -62,13 +65,13 @@ export async function ironsightAlertsHandler(c: Context) {
         lastChecked: new Date().toISOString(),
       },
       200,
-      CORS_HEADERS
+      corsHeaders(c)
     );
   } catch {
     return c.json(
       { status: 'CLEAR', activeCount: 0, alerts: [], lastChecked: new Date().toISOString(), error: 'fetch failed' },
       200,
-      CORS_HEADERS
+      corsHeaders(c)
     );
   }
 }
@@ -144,10 +147,14 @@ export async function ironsightFlightsHandler(c: Context) {
         updated: new Date().toISOString(),
       },
       200,
-      CORS_HEADERS
+      corsHeaders(c)
     );
   } catch {
-    return c.json({ total: 0, military: 0, flights: [], source: 'adsb.lol', error: 'fetch failed' }, 200, CORS_HEADERS);
+    return c.json(
+      { total: 0, military: 0, flights: [], source: 'adsb.lol', error: 'fetch failed' },
+      200,
+      corsHeaders(c)
+    );
   }
 }
 
@@ -216,9 +223,9 @@ export async function ironsightStrikesHandler(c: Context) {
       return true;
     });
     deduped.sort((a, b) => new Date(String(b.date)).getTime() - new Date(String(a.date)).getTime());
-    return c.json(deduped.slice(0, 25), 200, CORS_HEADERS);
+    return c.json(deduped.slice(0, 25), 200, corsHeaders(c));
   } catch {
-    return c.json([], 200, CORS_HEADERS);
+    return c.json([], 200, corsHeaders(c));
   }
 }
 
@@ -274,9 +281,9 @@ export async function ironsightRegionalHandler(c: Context) {
     }
     const order: Record<string, number> = { CRITICAL: 0, ALERT: 1, MONITORING: 2, CLEAR: 3 };
     alerts.sort((a, b) => (order[a.level] ?? 4) - (order[b.level] ?? 4));
-    return c.json({ alerts, updated: new Date().toISOString() }, 200, CORS_HEADERS);
+    return c.json({ alerts, updated: new Date().toISOString() }, 200, corsHeaders(c));
   } catch {
-    return c.json({ alerts: [], updated: new Date().toISOString() }, 200, CORS_HEADERS);
+    return c.json({ alerts: [], updated: new Date().toISOString() }, 200, corsHeaders(c));
   }
 }
 
@@ -322,9 +329,9 @@ export async function ironsightMarketsHandler(c: Context) {
         }
       })
     );
-    return c.json(results, 200, CORS_HEADERS);
+    return c.json(results, 200, corsHeaders(c));
   } catch {
-    return c.json([], 200, CORS_HEADERS);
+    return c.json([], 200, corsHeaders(c));
   }
 }
 
@@ -364,9 +371,9 @@ export async function ironsightCryptoHandler(c: Context) {
         changePercent: data?.binancecoin?.usd_24h_change ?? 0,
       },
     ];
-    return c.json(result, 200, CORS_HEADERS);
+    return c.json(result, 200, corsHeaders(c));
   } catch {
-    return c.json([], 200, CORS_HEADERS);
+    return c.json([], 200, corsHeaders(c));
   }
 }
 
@@ -410,9 +417,9 @@ export async function ironsightPolymarketHandler(c: Context) {
         continue;
       }
     }
-    return c.json({ markets: results, count: results.length, updated: new Date().toISOString() }, 200, CORS_HEADERS);
+    return c.json({ markets: results, count: results.length, updated: new Date().toISOString() }, 200, corsHeaders(c));
   } catch {
-    return c.json({ markets: [], count: 0, updated: new Date().toISOString() }, 200, CORS_HEADERS);
+    return c.json({ markets: [], count: 0, updated: new Date().toISOString() }, 200, corsHeaders(c));
   }
 }
 
@@ -437,7 +444,7 @@ export async function ironsightFiresHandler(c: Context) {
           updated: new Date().toISOString(),
         },
         200,
-        CORS_HEADERS
+        corsHeaders(c)
       );
     const header = lines[0].split(',');
     const latIdx = header.indexOf('latitude');
@@ -486,7 +493,7 @@ export async function ironsightFiresHandler(c: Context) {
         updated: new Date().toISOString(),
       },
       200,
-      CORS_HEADERS
+      corsHeaders(c)
     );
   } catch {
     return c.json(
@@ -499,7 +506,7 @@ export async function ironsightFiresHandler(c: Context) {
         error: 'fetch failed',
       },
       200,
-      CORS_HEADERS
+      corsHeaders(c)
     );
   }
 }

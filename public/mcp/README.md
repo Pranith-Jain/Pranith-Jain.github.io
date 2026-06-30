@@ -135,7 +135,7 @@
 ### intel (7)
 
 - `get_blocklists` - Get pre-generated firewall blocklists in pfSense, iptables, and Suricata formats. Derived from aggregated threat intel feeds.
-- `get_live_iocs` - Get the latest live IOC feed — real-time indicators of compromise aggregated from 20+ sources including blocklists, tweet feeds, abuse.ch, and community submissions.
+- `get_live_iocs` - Get the most recent live IOCs aggregated from 12+ providers (URLhaus, ThreatFox, AlienVault OTX, SANS ISC, etc). Items are normalized, allowlist-filtered (RFC 5737, vendor docs), and confidence-scored. Supports filtering by IOC kind.
 - `get_ransomware_activity` - Get recent ransomware activity — latest victims, group activity, and leak-site posts from ransomware.live and other trackers.
 - `get_relationships` - Get the relationship graph for an IOC — shows connections to threat actors, malware families, campaigns, CVEs, and other indicators.
 - `get_supply_chain_attacks` - Software supply-chain compromise incidents (npm/PyPI/container/AI-agent ecosystems) from supplychainattack.org — title, status, severity, ecosystems, attack vectors, blast radius, remediation, package IOCs, and GHSA sources. Filter by ecosystem/status/severity.

@@ -29,7 +29,7 @@ jobs:
           cache: npm
 
       - name: Install
-        run: npm ci --no-audit --no-fund || npm install --no-audit --no-fund
+        run: npm ci --no-fund || npm install --no-fund
 
       - name: Sync upstream (NVD + CISA KEV + Daily-Hunt)
         run: node scripts/sync-threat-intel.mjs

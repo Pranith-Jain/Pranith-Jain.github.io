@@ -25,15 +25,13 @@ const CALLER = 'cron';
  * Make an authenticated in-process fetch via the SELF service binding.
  * Returns null on any error (network, auth, non-OK status).
  */
-export async function selfFetchJson<T>(
-  self: SelfFetcher | undefined,
-  path: string,
-  env?: TokenEnv
-): Promise<T | null> {
+export async function selfFetchJson<T>(self: SelfFetcher | undefined, path: string, env?: TokenEnv): Promise<T | null> {
   if (!self) return null;
   try {
     const url = `https://pranithjain.qzz.io${path}`;
-    const token = await signInternalToken(CALLER, env?.INTERNAL_TOKEN_SECRET);
+    const tokenSecret = env?.INTERNAL_TOKEN_SECRET;
+    if (!tokenSecret) return null;
+    const token = await signInternalToken(CALLER, tokenSecret);
     const req = new Request(url, {
       headers: { accept: 'application/json', 'x-internal-token': token },
     });

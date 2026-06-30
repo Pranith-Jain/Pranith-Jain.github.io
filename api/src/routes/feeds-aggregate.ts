@@ -278,7 +278,6 @@ const ALLOWED_HOSTS = new Set([
   'countercept.com',
   'feeds.trendmicro.com',
   'intel471.com',
-  'internal.pranithjain.com',
   'labs.withsecure.com',
   'objective-see.org',
   'securitylabs.datadoghq.com',
@@ -426,12 +425,7 @@ function parseFeedBody(body: string, sourceUrl: string, host: string, perSource:
 }
 
 /** Parse JSON Feed v1.0/v1.1 items array. */
-function parseJsonFeedItems(
-  items: unknown[],
-  sourceUrl: string,
-  host: string,
-  perSource: number,
-): AggregatedItem[] {
+function parseJsonFeedItems(items: unknown[], sourceUrl: string, host: string, perSource: number): AggregatedItem[] {
   const out: AggregatedItem[] = [];
   for (const item of items) {
     if (!item || typeof item !== 'object') continue;

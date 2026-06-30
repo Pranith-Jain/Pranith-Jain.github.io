@@ -64,7 +64,12 @@ export async function handleQueue(
         // OWN KV key, so there is no read-modify-write race across messages.
         const gp = msg.body?.gp;
         if (gp && typeof gp.key === 'string' && typeof gp.path === 'string') {
-          const token = await signInternalToken('queue-consumer', env.INTERNAL_TOKEN_SECRET);
+          const tokenSecret = env.INTERNAL_TOKEN_SECRET;
+          if (!tokenSecret) {
+            console.error(JSON.stringify({ job: 'gp-warm-slice', error: 'INTERNAL_TOKEN_SECRET not configured' }));
+            return;
+          }
+          const token = await signInternalToken('queue-consumer', tokenSecret);
           const res = await apiApp.fetch(
             new Request(`https://gp-warm.internal${gp.path}`, {
               headers: { 'x-internal-token': token },

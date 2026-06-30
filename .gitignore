@@ -29,6 +29,12 @@ build
 .opencode/
 .codex/
 
+# Secrets and credentials
+*.pem
+*.key
+credentials*
+secrets*
+
 # OS
 .DS_Store
 Thumbs.db

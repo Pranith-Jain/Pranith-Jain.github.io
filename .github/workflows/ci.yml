@@ -25,7 +25,7 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-      - run: npm ci
+      - run: npm ci --no-fund
       # Zero-warning baseline: the codebase is currently clean (0 eslint
       # warnings across ~894 files after the no-explicit-any cleanup + the
       # hexagonal refactor). --max-warnings 0 keeps it that way — any new
@@ -43,7 +43,7 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-      - run: npm ci
+      - run: npm ci --no-fund
       # Two compilation units (root SPA + api/ worker). Run both — they catch
       # different things (root checks JSX + DOM types; api checks Workers /
       # Hono types under stricter `noUncheckedIndexedAccess`).
@@ -71,7 +71,7 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-      - run: npm ci
+      - run: npm ci --no-fund
       # Node:test suites for the data-pipeline scripts (mcp-manifest parser,
       # cert-in diff). These are unit tests for scripts that have no test
       # files in the vitest suite — they live under scripts/*.test.mjs and
@@ -89,7 +89,7 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-      - run: npm ci
+      - run: npm ci --no-fund
       # Verifies every protected lib (rule-convert, detection-engine, etc.)
       # has at least one test file and meets its per-module coverage
       # threshold. Falls back to a "test-exists" check if the coverage
@@ -116,7 +116,7 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-      - run: npm ci
+      - run: npm ci --no-fund
       # api/ has its own package.json + lockfile; @cloudflare/vitest-pool-workers
       # (used by api/vitest.config.ts) lives there, not in root deps. Install it
       # explicitly — root `npm ci` does not cover api/. --legacy-peer-deps because
@@ -142,7 +142,7 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-      - run: npm ci
+      - run: npm ci --no-fund
       - name: Build client
         run: npm run build:client
       - name: Budget check

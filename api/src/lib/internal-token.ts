@@ -10,41 +10,40 @@
  * and API routes receive the same secret through the env binding, so
  * tokens are valid across isolates within the same Worker.
  *
- * SECURITY: When `INTERNAL_TOKEN_SECRET` is not set, the module logs a
- * loud warning so operators know internal tokens are forgeable. Set the
- * secret with `wrangler secret put INTERNAL_TOKEN_SECRET`.
+ * SECURITY: The module FAILS CLOSED when `INTERNAL_TOKEN_SECRET` is not
+ * set — signing throws and validation rejects. This prevents the old
+ * behaviour where a hardcoded fallback made tokens forgeable by anyone
+ * with the source code.
+ *
+ * Set the secret with `wrangler secret put INTERNAL_TOKEN_SECRET`.
  */
 
 const TOKEN_TTL_MS = 5 * 60_000; // 5 minutes
 const SEP = '.';
-/** Dev-only deterministic fallback — blocked in production by a runtime check. */
-const FALLBACK_HMAC_SALT = 'pranithjain-internal-token-v1';
-
-let _fallbackWarningShown = false;
 
 /** Cache the derived CryptoKey per secret value. */
 let _cachedSecret: string | null = null;
 let _cachedKey: CryptoKey | null = null;
 
-async function getSecret(secret?: string): Promise<CryptoKey> {
-  const raw = secret ?? FALLBACK_HMAC_SALT;
-  if (!secret && !_fallbackWarningShown) {
-    _fallbackWarningShown = true;
-    console.warn(
-      '[internal-token] WARNING: INTERNAL_TOKEN_SECRET is not set. ' +
-        'Internal tokens are signed with a deterministic fallback and are forgeable. ' +
-        'Set the secret with `wrangler secret put INTERNAL_TOKEN_SECRET`.'
+function requireSecret(secret?: string): string {
+  if (!secret) {
+    throw new Error(
+      'INTERNAL_TOKEN_SECRET is not configured. ' + 'Set it with `wrangler secret put INTERNAL_TOKEN_SECRET`.'
     );
   }
-  if (_cachedSecret === raw && _cachedKey) return _cachedKey;
+  return secret;
+}
+
+async function getSecret(secret: string): Promise<CryptoKey> {
+  if (_cachedSecret === secret && _cachedKey) return _cachedKey;
   const key = await crypto.subtle.importKey(
     'raw',
-    new TextEncoder().encode(raw),
+    new TextEncoder().encode(secret),
     { name: 'HMAC', hash: 'SHA-256' },
     false,
     ['sign', 'verify']
   );
-  _cachedSecret = raw;
+  _cachedSecret = secret;
   _cachedKey = key;
   return key;
 }
@@ -64,8 +63,9 @@ export interface InternalTokenPayload {
  * @param secret - The INTERNAL_TOKEN_SECRET from env. When provided, uses
  *   a cryptographically random secret instead of the deterministic fallback.
  */
-export async function signInternalToken(caller: string, secret?: string): Promise<string> {
-  const key = await getSecret(secret);
+export async function signInternalToken(caller: string, secret: string): Promise<string> {
+  const raw = requireSecret(secret);
+  const key = await getSecret(raw);
   const payload: InternalTokenPayload = { caller, exp: Date.now() + TOKEN_TTL_MS };
   const data = new TextEncoder().encode(JSON.stringify(payload));
   const sig = new Uint8Array(await crypto.subtle.sign('HMAC', key, data));
@@ -86,6 +86,10 @@ export type InternalTokenResult = { ok: true; caller: string } | { ok: false; re
  *   the secret-based key instead of the deterministic fallback.
  */
 export async function validateInternalToken(token: string, secret?: string): Promise<InternalTokenResult> {
+  if (!secret) {
+    return { ok: false, reason: 'internal token secret not configured' };
+  }
+
   const sepIdx = token.lastIndexOf(SEP);
   if (sepIdx < 0) return { ok: false, reason: 'malformed token' };
 

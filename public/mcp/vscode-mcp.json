@@ -1,8 +1,8 @@
 {
   "servers": {
     "dfir-threatintel": {
-      "type": "sse",
-      "url": "https://pranithjain.qzz.io/api/mcp/sse",
+      "type": "http",
+      "url": "https://pranithjain.qzz.io/api/mcp",
       "headers": {
         "Authorization": "Bearer <your-api-key>"
       }

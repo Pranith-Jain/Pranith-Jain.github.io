@@ -234,7 +234,9 @@ export class InvestigatorAgentDO {
     // the authenticate('external-only') middleware still requires credentials
     // for non-same-origin requests. A signed internal token (HMAC-SHA256,
     // 5-min TTL) replaces the old spoofable X-Internal-Agent header.
-    const internalToken = await signInternalToken('investigator-do', this.env.INTERNAL_TOKEN_SECRET);
+    const tokenSecret = this.env.INTERNAL_TOKEN_SECRET;
+    if (!tokenSecret) throw new Error('INTERNAL_TOKEN_SECRET not configured');
+    const internalToken = await signInternalToken('investigator-do', tokenSecret);
     const tools = buildToolRegistry(this.env.SELF, undefined, { 'x-internal-token': internalToken });
 
     const stepNum = state.currentStep + 1;

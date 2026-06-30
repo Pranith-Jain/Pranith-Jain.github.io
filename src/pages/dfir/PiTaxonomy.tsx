@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { Shield, Search, X, ExternalLink, Lock, ChevronDown, ChevronUp } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 
@@ -99,7 +99,7 @@ export default function PiTaxonomy() {
       .finally(() => setLoading(false));
   }, []);
 
-  const filtered = useMemo(() => {
+  const getVisibleCards = useCallback(() => {
     if (!data) return [];
     const cats: Category[] = ['intents', 'techniques', 'evasions', 'inputs'];
     const results: { cat: Category; node: TaxonomyNode }[] = [];
@@ -240,13 +240,15 @@ export default function PiTaxonomy() {
         ))
       ) : (
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map(({ cat, node }) => (
+          {getVisibleCards().map(({ cat, node }) => (
             <Card key={node.code} cat={cat} node={node} onClick={() => setSelected({ cat, node })} />
           ))}
         </div>
       )}
 
-      {filtered.length === 0 && <div className="text-center py-12 text-slate-400">No results for "{search}"</div>}
+      {getVisibleCards().length === 0 && (
+        <div className="text-center py-12 text-slate-400">No results for "{search}"</div>
+      )}
 
       {/* Footer */}
       <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700 text-center">

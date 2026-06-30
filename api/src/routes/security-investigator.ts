@@ -580,7 +580,17 @@ export async function siRenderHandler(c: Context<{ Bindings: Env }>) {
 
   if (dataQuery && Object.keys(data).length === 0) {
     try {
-      data = JSON.parse(decodeURIComponent(dataQuery));
+      const parsed = JSON.parse(decodeURIComponent(dataQuery));
+      if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+        // Reject prototype-pollution payloads
+        const keys = Object.keys(parsed);
+        if (keys.some((k) => k === '__proto__' || k === 'constructor' || k === 'prototype')) {
+          return c.json({ error: 'invalid_data' }, 400, { 'Cache-Control': 'no-store' });
+        }
+        data = parsed as Record<string, unknown>;
+      } else if (parsed !== null) {
+        return c.json({ error: 'data_must_be_object' }, 400, { 'Cache-Control': 'no-store' });
+      }
     } catch (e) {
       return c.json({ error: 'data_parse_failed', message: e instanceof Error ? e.message : String(e) }, 400, {
         'Cache-Control': 'no-store',

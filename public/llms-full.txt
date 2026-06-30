@@ -86,6 +86,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Brand Impersonation](https://pranithjain.qzz.io/dfir/brand-impersonation) (dfir): Detect typosquats / look-alike domains targeting your brand.
 - [Image Fingerprint](https://pranithjain.qzz.io/dfir/image-fingerprint) (dfir): Perceptual hash (pHash, dHash) for image clustering & de-duplication.
 - [Screenshot Intel](https://pranithjain.qzz.io/dfir/screenshot-intel) (dfir): Extract text + URLs + indicators from a screenshot — OCR pipeline.
+- [IRONSIGHT OSINT](https://pranithjain.qzz.io/dfir/ironsight) (dfir): Real-time OSINT command center — alerts, flights, strikes, markets, satellite thermal.
 - [CVE Lookup](https://pranithjain.qzz.io/dfir/cve) (dfir): Single-CVE detail — NVD, KEV, EPSS, exploit availability.
 - [CVE Prioritizer](https://pranithjain.qzz.io/dfir/cve-prioritizer) (dfir): CVSS + EPSS + KEV + ransomware-use — single patch-priority call.
 - [CVE Resources Catalog](https://pranithjain.qzz.io/dfir/vuln-toolkit) (dfir): Curated list of CVE databases, exploit trackers, vendor PSIRTs.
@@ -126,6 +127,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Security Headers Analyzer](https://pranithjain.qzz.io/dfir/sec-headers) (dfir): CORS — CSP — HSTS — X-Frame-Options — graded report.
 - [Live Security Headers](https://pranithjain.qzz.io/dfir/sec-headers-live) (dfir): Third-party live HSTS/CSP/X-Frame-Options scan via IntoDNS.ai with ready-to-paste Nginx/Apache/Caddy/Cloudflare configs.
 - [Secret Scanner](https://pranithjain.qzz.io/dfir/secret-scan) (dfir): Scan a text blob / repo for API keys, tokens, private keys.
+- [Medusa Scanner](https://pranithjain.qzz.io/dfir/medusa-scan) (dfir): AI-first security scanner — SAST (Python/JS/Go/Rust/PHP), secrets, prompt injection detection. 140+ rules, runs entirely in browser.
 - [Google Dorks Builder](https://pranithjain.qzz.io/dfir/google-dorks) (dfir): Compose a Google dork for a target — site:, inurl:, filetype:.
 - [Log Parser](https://pranithjain.qzz.io/dfir/log-parser) (dfir): Generic log parser — pattern detection + anomaly highlighting.
 - [DFIR Copilot](https://pranithjain.qzz.io/dfir/copilot) (dfir): Conversational copilot — ask in plain English, get a runbook.
@@ -324,7 +326,7 @@ Drop-in configs: https://pranithjain.qzz.io/mcp/{claude-desktop,cursor,vscode-mc
 - [get_domain_history](https://pranithjain.qzz.io/mcp) (mcp:domain): Get the WHOIS history for a domain. Returns all historical registration snapshots, ownership changes, registrar changes, and nameserver changes over time. Essential for tracking domain ownership transfers and identifying infrastructure reuse by threat actors.
 - [get_feed_status](https://pranithjain.qzz.io/mcp) (mcp:other): Get the health and freshness status of all 30+ threat intelligence feed sources. Shows last update time, error rates, and data volume.
 - [get_ioc_lifecycle](https://pranithjain.qzz.io/mcp) (mcp:other): Get the lifecycle data for an IOC — when it first appeared, last seen, activity trend, and decay rate. Use this to understand if an indicator is still active or dormant.
-- [get_live_iocs](https://pranithjain.qzz.io/mcp) (mcp:intel): Get the latest live IOC feed — real-time indicators of compromise aggregated from 20+ sources including blocklists, tweet feeds, abuse.ch, and community submissions.
+- [get_live_iocs](https://pranithjain.qzz.io/mcp) (mcp:intel): Get the most recent live IOCs aggregated from 12+ providers (URLhaus, ThreatFox, AlienVault OTX, SANS ISC, etc). Items are normalized, allowlist-filtered (RFC 5737, vendor docs), and confidence-scored. Supports filtering by IOC kind.
 - [get_ransomware_activity](https://pranithjain.qzz.io/mcp) (mcp:intel): Get recent ransomware activity — latest victims, group activity, and leak-site posts from ransomware.live and other trackers.
 - [get_relationships](https://pranithjain.qzz.io/mcp) (mcp:intel): Get the relationship graph for an IOC — shows connections to threat actors, malware families, campaigns, CVEs, and other indicators.
 - [get_supply_chain_attacks](https://pranithjain.qzz.io/mcp) (mcp:intel): Software supply-chain compromise incidents (npm/PyPI/container/AI-agent ecosystems) from supplychainattack.org — title, status, severity, ecosystems, attack vectors, blast radius, remediation, package IOCs, and GHSA sources. Filter by ecosystem/status/severity.

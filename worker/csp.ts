@@ -20,8 +20,9 @@
 // server-built HTML (briefing print, RSS, OG image) that never need inline
 // scripts, so disallowing them means an injected inline <script> cannot execute
 // even if an output-escaping gap is reintroduced (defence-in-depth for CSP-1).
+const CSP_REPORT_URI = 'https://pranithjain.qzz.io/api/v1/csp-report';
 const CSP_API =
-  "default-src 'self';script-src 'self' 'wasm-unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net;style-src 'self' 'unsafe-inline';img-src 'self' data: https:;connect-src 'self' https://api.cloudflare.com https://cloudflare-dns.com https://cloudflareinsights.com https://*.cloudflareinsights.com https://unpkg.com https://mr-akuma.github.io https://nominatim.openstreetmap.org https://goxdr.fyi;frame-src 'none';font-src 'self' data:;frame-ancestors 'none';base-uri 'self';form-action 'self';object-src 'none'";
+  "default-src 'self';script-src 'self' 'wasm-unsafe-eval' https://static.cloudflareinsights.com;style-src 'self' 'unsafe-inline';img-src 'self' data: https:;connect-src 'self' https://api.cloudflare.com https://cloudflare-dns.com https://cloudflareinsights.com https://*.cloudflareinsights.com;frame-src 'none';font-src 'self' data:;frame-ancestors 'none';base-uri 'self';form-action 'self';object-src 'none';report-uri ${CSP_REPORT_URI}";
 
 export function cspHeader(nonce?: string): string {
   if (!nonce) return CSP_API;
@@ -41,6 +42,7 @@ export function cspHeader(nonce?: string): string {
     "base-uri 'self'",
     "form-action 'self'",
     "object-src 'none'",
+    `report-uri ${CSP_REPORT_URI}`,
   ].join(';');
 }
 

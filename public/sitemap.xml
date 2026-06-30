@@ -81,7 +81,7 @@
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
-  <!-- DFIR tools (160) -->
+  <!-- DFIR tools (161) -->
   <url>
     <loc>https://pranithjain.qzz.io/dfir/catalog</loc>
     <lastmod>2026-06-30</lastmod>
@@ -390,6 +390,12 @@
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/pi-taxonomy</loc>
+    <lastmod>2026-06-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pranithjain.qzz.io/dfir/ironsight</loc>
     <lastmod>2026-06-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

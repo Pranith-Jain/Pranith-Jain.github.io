@@ -29,6 +29,7 @@ import {
   type TiSeverity,
   type TiIocIndexEntry,
 } from './lib/threat-intel-manifest';
+import { validateRawKey } from '../api/src/lib/auth';
 import { enrichIp, enrichIpsBatch, isValidIp, type EnrichResult } from './lib/si-enrich';
 import { buildStixBundle, type StixIndicator } from './lib/cti-ioc-export';
 import { kqlToAhUrl, kqlToAhUrlMarkdown } from './lib/kql-to-ah-url';
@@ -334,16 +335,8 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     if (!db) {
       throw new Error('Auth backend unavailable');
     }
-    const enc = new TextEncoder().encode(rawKey);
-    const buf = await crypto.subtle.digest('SHA-256', enc);
-    const hash = Array.from(new Uint8Array(buf))
-      .map((b) => b.toString(16).padStart(2, '0'))
-      .join('');
-    const row = await db
-      .prepare('SELECT id FROM api_keys WHERE key_hash = ? AND revoked_at IS NULL')
-      .bind(hash)
-      .first<{ id: string }>();
-    if (!row) {
+    const user = await validateRawKey(db, rawKey);
+    if (!user) {
       throw new Error('Invalid API key');
     }
     this.apiKey = rawKey;

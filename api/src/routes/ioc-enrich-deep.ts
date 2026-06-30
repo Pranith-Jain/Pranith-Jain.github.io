@@ -99,7 +99,11 @@ export async function iocEnrichDeepHandler(c: Context<{ Bindings: Env }>): Promi
   const enc = encodeURIComponent(ind);
   const env = c.env;
   const self = (env as unknown as { SELF?: Fetcher }).SELF;
-  const token = await signInternalToken('api-enrich-deep', env.INTERNAL_TOKEN_SECRET);
+  const tokenSecret = env.INTERNAL_TOKEN_SECRET;
+  if (!tokenSecret) {
+    return c.json({ error: 'internal_token_not_configured' }, 503);
+  }
+  const token = await signInternalToken('api-enrich-deep', tokenSecret);
 
   // Fan out per type. Each promise resolves to a SourceHit with success/error.
   const hits: Array<Promise<SourceHit>> = [];

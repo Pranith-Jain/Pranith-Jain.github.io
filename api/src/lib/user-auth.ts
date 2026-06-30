@@ -10,7 +10,7 @@ import type { D1Database } from '@cloudflare/workers-types';
 
 /* ─── Password Hashing ────────────────────────────────────────────────────── */
 
-const PBKDF2_ITERATIONS = 100_000;
+const PBKDF2_ITERATIONS = 600_000;
 const KEY_LENGTH = 64;
 const SALT_LENGTH = 32;
 
@@ -78,9 +78,12 @@ function generateToken(): string {
     .join('');
 }
 
-function hashToken(token: string): string {
-  // We'll store raw for now, hash in a future iteration
-  return token;
+async function hashToken(token: string): Promise<string> {
+  const enc = new TextEncoder().encode(token);
+  const buf = await crypto.subtle.digest('SHA-256', enc);
+  return Array.from(new Uint8Array(buf))
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('');
 }
 
 /* ─── User Operations ──────────────────────────────────────────────────────── */
@@ -116,7 +119,7 @@ export async function createUser(
   const id = crypto.randomUUID();
   const passwordHash = await hashPassword(input.password);
   const verificationToken = generateToken();
-  const verificationHash = hashToken(verificationToken);
+  const verificationHash = await hashToken(verificationToken);
 
   await db.batch([
     db
@@ -196,14 +199,16 @@ export async function loginUser(
 
 async function createSession(db: D1Database, userId: string, token: string): Promise<void> {
   const sessionId = crypto.randomUUID();
+  const hash = await hashToken(token);
   await db
     .prepare(
       "INSERT INTO user_sessions (id, user_id, token_hash, expires_at) VALUES (?, ?, ?, datetime('now', '+30 days'))"
     )
-    .bind(sessionId, userId, token);
+    .bind(sessionId, userId, hash);
 }
 
 export async function validateSession(db: D1Database, token: string): Promise<User | null> {
+  const hash = await hashToken(token);
   const row = await db
     .prepare(
       `SELECT u.id, u.email, u.email_verified, u.display_name, u.avatar_url, u.created_at, u.last_login_at
@@ -211,13 +216,14 @@ export async function validateSession(db: D1Database, token: string): Promise<Us
        JOIN users u ON s.user_id = u.id
        WHERE s.token_hash = ? AND s.expires_at > datetime('now')`
     )
-    .bind(token)
+    .bind(hash)
     .first<User>();
   return row || null;
 }
 
 export async function deleteSession(db: D1Database, token: string): Promise<void> {
-  await db.prepare('DELETE FROM user_sessions WHERE token_hash = ?').bind(token).run();
+  const hash = await hashToken(token);
+  await db.prepare('DELETE FROM user_sessions WHERE token_hash = ?').bind(hash).run();
 }
 
 /* ─── Organization Operations ──────────────────────────────────────────────── */
