@@ -242,7 +242,7 @@ export function LivePulse(): JSX.Element {
               endpoint and same 18-feed copy as the root strip; the trust
               signal the platform actually exists to produce. */}
           <StatCell
-            to="/threatintel/iocs/cross"
+            to="/threatintel/iocs/correlation"
             label="Cross-source IOC consensus"
             icon={<Radio size={14} className="text-brand-600 dark:text-brand-400" aria-hidden="true" />}
             iconClass="bg-brand-500/10"

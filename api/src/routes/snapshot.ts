@@ -5,6 +5,7 @@ import { fetchTelegramFeed, TELEGRAM_FEED_CACHE_KEY, type TelegramFeedResponse }
 import { aggregateFeeds } from './feeds-aggregate';
 import { listBriefings } from '../lib/briefing-builder';
 import { safeNullLog } from '../lib/safe-catch';
+import { gpWarmKey } from './global-pulse/config';
 
 /**
  * Unified live-snapshot endpoint. Replaces six client-side fetches that the
@@ -174,7 +175,10 @@ function budgeted<T>(fn: () => Promise<T>, ms: number = SOURCE_BUDGET_MS): Promi
  */
 export async function readWarmTelegram(kv: KVNamespace | undefined): Promise<TelegramFeedResponse | null> {
   if (!kv) return null;
-  const warm = (await safeNullLog('kv-get-warm-telegram', kv.get('gp:warm:telegram', 'json'))) as TelegramFeedResponse | null;
+  const warm = (await safeNullLog(
+    'kv-get-warm-telegram',
+    kv.get('gp:warm:telegram', 'json')
+  )) as TelegramFeedResponse | null;
   if (warm?.items?.length || warm?.channels?.length) return warm;
   return null;
 }
@@ -205,7 +209,16 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
                 // instead of paying the ~17s t.me fan-out.
                 const warm = await readWarmTelegram(c.env.KV_CACHE);
                 if (warm) return warm;
-                return fetchTelegramFeed();
+                const body = await fetchTelegramFeed();
+                // Replenish the KV warm slice so the next request (even on
+                // a different colo) hits the warm slice instead of rebuilding.
+                const kv = c.env.KV_CACHE;
+                if (kv) {
+                  c.executionCtx.waitUntil(
+                    kv.put(gpWarmKey('telegram'), JSON.stringify(body), { expirationTtl: 28800 }).catch(() => {})
+                  );
+                }
+                return body;
               }),
               safe(() => aggregateFeeds(SCAM_FEED_URLS, 12, 6, { deadlineMs: FEED_DEADLINE_MS })),
               safe(() => aggregateFeeds(THREAT_INTEL_FEED_URLS, 16, 4, { deadlineMs: FEED_DEADLINE_MS })),
@@ -300,6 +313,12 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
                 headers: { 'content-type': 'application/json', 'cache-control': 'public, max-age=1800' },
               })
             );
+            // Also write to KV so every colo sees the warm slice, not just
+            // this colo's edge cache. Without this, a cold-cache miss on any
+            // other colo returns empty and the "Cybersec Telegram firehose"
+            // card shows 0 posts until the queue consumer refreshes the slice.
+            const kv = c.env.KV_CACHE;
+            if (kv) await kv.put(gpWarmKey('telegram'), JSON.stringify(body), { expirationTtl: 28800 });
           } catch {
             /* best-effort warm */
           }
