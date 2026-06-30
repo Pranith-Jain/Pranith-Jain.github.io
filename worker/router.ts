@@ -216,6 +216,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/detection-lab', '/__prerendered/dfir__detection-lab'],
   ['/dfir/prompt-injection', '/__prerendered/dfir__prompt-injection'],
   ['/dfir/pi-taxonomy', '/__prerendered/dfir__pi-taxonomy'],
+  ['/dfir/ironsight', '/__prerendered/dfir__ironsight'],
   ['/dfir/mcp-audit', '/__prerendered/dfir__mcp-audit'],
   ['/dfir/agent-map', '/__prerendered/dfir__agent-map'],
   ['/dfir/cve-prioritizer', '/__prerendered/dfir__cve-prioritizer'],

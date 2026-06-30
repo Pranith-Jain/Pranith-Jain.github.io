@@ -612,6 +612,14 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Extract text + URLs + indicators from a screenshot — OCR pipeline.',
         compVar: 'ScreenshotIntel',
       },
+      {
+        path: '/dfir/ironsight',
+        tabId: 'ironsight',
+        label: 'IRONSIGHT OSINT',
+        desc: 'Real-time OSINT command center — alerts, flights, strikes, markets, satellite thermal.',
+        compVar: 'Ironsight',
+        badge: 'live',
+      },
     ],
   },
   {

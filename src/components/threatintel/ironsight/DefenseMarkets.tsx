@@ -54,15 +54,13 @@ export default function DefenseMarkets() {
         key={i}
         className="flex items-center justify-between py-1 px-2 rounded hover:bg-slate-50 dark:hover:bg-slate-800/50"
       >
-        <span className="text-xs text-slate-700 dark:text-slate-200">{m.name}</span>
+        <span className="text-tool text-slate-700 dark:text-slate-200">{m.name}</span>
         <div className="flex items-center gap-3">
-          <span className="text-xs font-bold text-slate-800 dark:text-white">
+          <span className="text-tool font-bold text-slate-800 dark:text-white">
             {m.error ? 'N/A' : `$${fmtPrice(m.price)}`}
           </span>
           {!m.error && (
-            <span
-              className={`text-[10px] w-14 text-right ${m.changePercent >= 0 ? 'text-emerald-400' : 'text-red-400'}`}
-            >
+            <span className={`text-mini w-14 text-right ${m.changePercent >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
               {m.changePercent >= 0 ? '+' : ''}
               {m.changePercent.toFixed(2)}%
             </span>
@@ -72,10 +70,10 @@ export default function DefenseMarkets() {
     ));
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 p-4">
+    <div className="surface-card p-4">
       <div className="flex items-center gap-2 mb-3">
         <TrendingUp size={16} className="text-cyan-400" />
-        <h3 className="text-sm font-bold font-mono text-slate-700 dark:text-slate-200">DEFENSE & MARKETS</h3>
+        <h3 className="text-tool font-bold font-mono text-slate-700 dark:text-slate-200">DEFENSE & MARKETS</h3>
       </div>
       {loading ? (
         <div className="space-y-2">
@@ -86,21 +84,21 @@ export default function DefenseMarkets() {
       ) : (
         <div className="space-y-3">
           <div>
-            <div className="text-[10px] font-mono text-cyan-400 tracking-wider mb-1 px-2">INDICES</div>
+            <div className="text-mini font-mono text-cyan-400 tracking-wider mb-1 px-2">INDICES</div>
             {renderRows(indices)}
           </div>
           <div>
-            <div className="text-[10px] font-mono text-cyan-400 tracking-wider mb-1 px-2">DEFENSE CONTRACTORS</div>
+            <div className="text-mini font-mono text-cyan-400 tracking-wider mb-1 px-2">DEFENSE CONTRACTORS</div>
             {renderRows(defense)}
           </div>
           <div>
-            <div className="flex items-center gap-1 text-[10px] font-mono text-cyan-400 tracking-wider mb-1 px-2">
+            <div className="flex items-center gap-1 text-mini font-mono text-cyan-400 tracking-wider mb-1 px-2">
               <Coins size={10} /> CRYPTO
             </div>
             {renderRows(crypto)}
           </div>
           <div>
-            <div className="flex items-center gap-1 text-[10px] font-mono text-cyan-400 tracking-wider mb-1 px-2">
+            <div className="flex items-center gap-1 text-mini font-mono text-cyan-400 tracking-wider mb-1 px-2">
               <Fuel size={10} /> ENERGY
             </div>
             {renderRows(oil)}

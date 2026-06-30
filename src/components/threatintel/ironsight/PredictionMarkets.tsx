@@ -24,12 +24,9 @@ export default function PredictionMarkets() {
   const fetchMarkets = useCallback(async () => {
     try {
       const res = await fetch('/api/v1/ironsight/polymarket', { signal: AbortSignal.timeout(15000) });
-      if (res.ok) {
-        const data = await res.json();
-        setMarkets(data.markets || []);
-      }
+      if (res.ok) setMarkets((await res.json()).markets || []);
     } catch {
-      /* network error */
+      /* */
     }
     setLoading(false);
   }, []);
@@ -41,13 +38,13 @@ export default function PredictionMarkets() {
   }, [fetchMarkets]);
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 p-4">
+    <div className="surface-card p-4">
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <BarChart3 size={16} className="text-emerald-400" />
-          <h3 className="text-sm font-bold font-mono text-slate-700 dark:text-slate-200">PREDICTION MARKETS</h3>
+          <h3 className="text-tool font-bold font-mono text-slate-700 dark:text-slate-200">PREDICTION MARKETS</h3>
         </div>
-        <span className="text-[10px] font-mono text-slate-400">{markets.length} markets · Polymarket</span>
+        <span className="text-mini font-mono text-slate-400">{markets.length} markets · Polymarket</span>
       </div>
       <div className="space-y-2.5 max-h-64 overflow-y-auto custom-scrollbar">
         {loading ? (
@@ -57,7 +54,7 @@ export default function PredictionMarkets() {
             ))}
           </div>
         ) : markets.length === 0 ? (
-          <div className="text-center text-xs text-slate-400 py-4">No prediction markets found</div>
+          <div className="text-center text-tool text-slate-400 py-4">No prediction markets found</div>
         ) : (
           markets.map((m) => {
             const yes = m.outcomes.find((o) => o.label === 'Yes') || m.outcomes[0];
@@ -70,22 +67,21 @@ export default function PredictionMarkets() {
               >
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex-1 min-w-0">
-                    <div className="text-xs text-slate-700 dark:text-slate-200 leading-tight line-clamp-2">
+                    <div className="text-tool text-slate-700 dark:text-slate-200 leading-tight line-clamp-2">
                       {m.question}
                     </div>
-                    <div className="text-[9px] text-slate-400 mt-0.5">
+                    <div className="text-mini text-slate-400 mt-0.5">
                       Vol: {formatVol(m.volume24hr)} 24h · {formatVol(m.volumeTotal)} total
                     </div>
                   </div>
                   <div className="text-right shrink-0">
                     <div
-                      className="text-sm font-bold"
-                      style={{ color: price >= 70 ? '#22c55e' : price >= 40 ? '#f59e0b' : '#ef4444' }}
+                      className={`text-sm font-bold ${price >= 70 ? 'text-emerald-400' : price >= 40 ? 'text-amber-400' : 'text-red-400'}`}
                     >
                       {price}%
                     </div>
                     {change && (
-                      <div className={`text-[9px] ${parseFloat(change) >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+                      <div className={`text-mini ${parseFloat(change) >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
                         {parseFloat(change) >= 0 ? '+' : ''}
                         {change}%
                       </div>
@@ -94,12 +90,8 @@ export default function PredictionMarkets() {
                 </div>
                 <div className="mt-1 h-1.5 rounded overflow-hidden bg-slate-100 dark:bg-slate-800">
                   <div
-                    className="h-full rounded transition-all duration-500"
-                    style={{
-                      width: `${Math.max(price, 2)}%`,
-                      background: price >= 70 ? '#22c55e' : price >= 40 ? '#f59e0b' : '#ef4444',
-                      opacity: 0.8,
-                    }}
+                    className={`h-full rounded transition-all duration-500 ${price >= 70 ? 'bg-emerald-400' : price >= 40 ? 'bg-amber-400' : 'bg-red-400'}`}
+                    style={{ width: `${Math.max(price, 2)}%`, opacity: 0.8 }}
                   />
                 </div>
               </div>

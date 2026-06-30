@@ -17,10 +17,10 @@ interface CountryAlert {
 }
 
 const LEVEL_CONFIG: Record<string, { color: string; label: string }> = {
-  CLEAR: { color: '#22c55e', label: 'CLEAR' },
-  MONITORING: { color: '#3b82f6', label: 'MONITOR' },
-  ALERT: { color: '#f59e0b', label: 'ALERT' },
-  CRITICAL: { color: '#ef4444', label: 'CRITICAL' },
+  CLEAR: { color: 'text-emerald-400', label: 'CLEAR' },
+  MONITORING: { color: 'text-blue-400', label: 'MONITOR' },
+  ALERT: { color: 'text-amber-400', label: 'ALERT' },
+  CRITICAL: { color: 'text-red-400', label: 'CRITICAL' },
 };
 
 function timeAgo(date: string): string {
@@ -40,12 +40,9 @@ export default function RegionalThreats() {
   const fetchRegional = useCallback(async () => {
     try {
       const res = await fetch('/api/v1/ironsight/regional', { signal: AbortSignal.timeout(60000) });
-      if (res.ok) {
-        const data = await res.json();
-        setAlerts(data.alerts || []);
-      }
+      if (res.ok) setAlerts((await res.json()).alerts || []);
     } catch {
-      /* network error */
+      /* */
     }
     setLoading(false);
   }, []);
@@ -57,13 +54,13 @@ export default function RegionalThreats() {
   }, [fetchRegional]);
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 p-4">
+    <div className="surface-card p-4">
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <Globe size={16} className="text-purple-400" />
-          <h3 className="text-sm font-bold font-mono text-slate-700 dark:text-slate-200">REGIONAL THREAT MONITOR</h3>
+          <h3 className="text-tool font-bold font-mono text-slate-700 dark:text-slate-200">REGIONAL THREAT MONITOR</h3>
         </div>
-        <span className="text-[10px] font-mono text-slate-400">
+        <span className="text-mini font-mono text-slate-400">
           {alerts.filter((a) => a.level !== 'CLEAR').length} active
         </span>
       </div>
@@ -92,16 +89,13 @@ export default function RegionalThreats() {
                   }
                 >
                   <div className="flex items-center gap-1.5">
-                    <span className="text-[10px] text-slate-400">{isCollapsed ? '▸' : '▾'}</span>
+                    <span className="text-mini text-slate-400">{isCollapsed ? '▸' : '▾'}</span>
                     <span className="text-xs">{country.flag}</span>
-                    <span className="text-xs font-bold" style={{ color: country.color || '#888' }}>
+                    <span className="text-tool font-bold" style={{ color: country.color || '#888' }}>
                       {country.name}
                     </span>
                   </div>
-                  <span
-                    className="text-[9px] font-bold px-1.5 py-0.5 rounded"
-                    style={{ color: lvl.color, border: `1px solid ${lvl.color}30`, backgroundColor: `${lvl.color}10` }}
-                  >
+                  <span className={`text-mini font-bold px-1.5 py-0.5 rounded ${lvl.color} bg-current/10`}>
                     {lvl.label}
                   </span>
                 </div>
@@ -117,23 +111,13 @@ export default function RegionalThreats() {
                     >
                       <div className="flex items-start gap-1.5">
                         <span
-                          className="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0"
-                          style={{
-                            background:
-                              event.severity === 'critical'
-                                ? '#ef4444'
-                                : event.severity === 'high'
-                                  ? '#f97316'
-                                  : event.severity === 'medium'
-                                    ? '#f59e0b'
-                                    : '#3b82f6',
-                          }}
+                          className={`w-1.5 h-1.5 rounded-full mt-1.5 shrink-0 ${event.severity === 'critical' ? 'bg-red-400' : event.severity === 'high' ? 'bg-orange-400' : event.severity === 'medium' ? 'bg-amber-400' : 'bg-blue-400'}`}
                         />
                         <div className="min-w-0 flex-1">
-                          <p className="text-[10px] text-slate-700 dark:text-slate-200 leading-tight line-clamp-1">
+                          <p className="text-mini text-slate-700 dark:text-slate-200 leading-tight line-clamp-1">
                             {event.title}
                           </p>
-                          <span className="text-[9px] text-slate-400">
+                          <span className="text-mini text-slate-400">
                             {event.source} · {timeAgo(event.time)}
                           </span>
                         </div>

@@ -14,15 +14,14 @@ interface NavalVessel {
 }
 
 const NAVY_COLORS: Record<string, string> = {
-  'US Navy': '#3b82f6',
-  'Royal Navy': '#4488cc',
-  'French Navy': '#6666cc',
-  'Israeli Navy': '#06b6d4',
-  'Iran Navy': '#ef4444',
-  'IRGC Navy': '#ef4444',
-  'Saudi Navy': '#22c55e',
+  'US Navy': 'text-blue-400',
+  'Royal Navy': 'text-sky-400',
+  'French Navy': 'text-indigo-400',
+  'Israeli Navy': 'text-cyan-400',
+  'Iran Navy': 'text-red-400',
+  'IRGC Navy': 'text-red-400',
+  'Saudi Navy': 'text-emerald-400',
 };
-
 const TYPE_ICONS: Record<string, string> = {
   'Aircraft Carrier': '⛴',
   Destroyer: '🛥',
@@ -35,7 +34,7 @@ const TYPE_ICONS: Record<string, string> = {
   'Fast Attack Craft': '🚤',
 };
 
-const KNOWN_DEPLOYMENTS: NavalVessel[] = [
+const SHIPS: NavalVessel[] = [
   {
     name: 'USS Bataan',
     hull: 'LHD-5',
@@ -201,63 +200,57 @@ const KNOWN_DEPLOYMENTS: NavalVessel[] = [
 ];
 
 export default function NavalTracker() {
-  const ships = KNOWN_DEPLOYMENTS;
   const byNavy: Record<string, NavalVessel[]> = {};
-  ships.forEach((s) => {
+  SHIPS.forEach((s) => {
     if (!byNavy[s.navy]) byNavy[s.navy] = [];
     byNavy[s.navy].push(s);
   });
   const navyOrder = ['US Navy', 'Royal Navy', 'French Navy', 'Israeli Navy', 'Saudi Navy', 'Iran Navy', 'IRGC Navy'];
-  const sortedNavies = Object.keys(byNavy).sort(
+  const sorted = Object.keys(byNavy).sort(
     (a, b) =>
       (navyOrder.indexOf(a) === -1 ? 99 : navyOrder.indexOf(a)) -
       (navyOrder.indexOf(b) === -1 ? 99 : navyOrder.indexOf(b))
   );
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 p-4">
+    <div className="surface-card p-4">
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <Anchor size={16} className="text-blue-400" />
-          <h3 className="text-sm font-bold font-mono text-slate-700 dark:text-slate-200">NAVAL TRACKER</h3>
+          <h3 className="text-tool font-bold font-mono text-slate-700 dark:text-slate-200">NAVAL TRACKER</h3>
         </div>
-        <span className="text-[10px] font-mono text-slate-400">{ships.length} vessels · OSINT</span>
+        <span className="text-mini font-mono text-slate-400">{SHIPS.length} vessels · OSINT</span>
       </div>
       <div className="flex gap-3 mb-3 flex-wrap">
-        {['Persian Gulf', 'Red Sea', 'Eastern Med', 'Strait of Hormuz'].map((r) => {
-          const c = ships.filter((s) => s.region === r).length;
+        {(['Persian Gulf', 'Red Sea', 'Eastern Med', 'Strait of Hormuz'] as const).map((r) => {
+          const c = SHIPS.filter((s) => s.region === r).length;
           return c > 0 ? (
-            <span key={r} className="text-[10px] text-slate-400">
+            <span key={r} className="text-mini text-slate-400">
               <span className="text-cyan-400 font-bold">{c}</span> {r}
             </span>
           ) : null;
         })}
       </div>
       <div className="space-y-2 max-h-64 overflow-y-auto custom-scrollbar">
-        {sortedNavies.map((navy) => (
+        {sorted.map((navy) => (
           <div key={navy}>
             <div
-              className="text-[10px] font-bold font-mono tracking-wider mb-1"
-              style={{ color: NAVY_COLORS[navy] || '#888' }}
+              className={`text-mini font-bold font-mono tracking-wider mb-1 ${NAVY_COLORS[navy] || 'text-slate-400'}`}
             >
               {navy.toUpperCase()} ({byNavy[navy].length})
             </div>
             {byNavy[navy].map((ship, i) => (
               <div
                 key={i}
-                className="flex items-center justify-between py-1 px-2 rounded hover:bg-slate-50 dark:hover:bg-slate-800/50 text-xs"
+                className="flex items-center justify-between py-1 px-2 rounded hover:bg-slate-50 dark:hover:bg-slate-800/50"
               >
                 <div className="flex items-center gap-1.5">
-                  <span>{TYPE_ICONS[ship.type] || '🛥'}</span>
-                  <span className="font-medium text-slate-700 dark:text-slate-200">{ship.name}</span>
-                  <span className="text-[10px] text-slate-400 font-mono">{ship.hull}</span>
+                  <span className="text-xs">{TYPE_ICONS[ship.type] || '🛥'}</span>
+                  <span className="text-tool font-medium text-slate-700 dark:text-slate-200">{ship.name}</span>
+                  <span className="text-mini text-slate-400 font-mono">{ship.hull}</span>
                 </div>
                 <span
-                  className="text-[10px] px-1.5 py-0.5 rounded"
-                  style={{
-                    color: ship.status === 'Active' ? '#22c55e' : '#06b6d4',
-                    backgroundColor: ship.status === 'Active' ? 'rgba(34,197,94,0.1)' : 'rgba(6,182,212,0.1)',
-                  }}
+                  className={`text-mini px-1.5 py-0.5 rounded ${ship.status === 'Active' ? 'text-emerald-400 bg-emerald-500/10' : 'text-cyan-400 bg-cyan-500/10'}`}
                 >
                   {ship.status}
                 </span>

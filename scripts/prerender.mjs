@@ -258,6 +258,7 @@ const ROUTES = [
   '/dfir/detection-lab',
   '/dfir/prompt-injection',
   '/dfir/pi-taxonomy',
+  '/dfir/ironsight',
   '/dfir/mcp-audit',
   '/dfir/agent-map',
   '/dfir/cve-prioritizer',

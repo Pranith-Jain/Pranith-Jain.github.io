@@ -13,6 +13,7 @@ import { BackgroundLayer } from './components/BackgroundLayer';
 import { LazyRoute } from './components/LazyRoute';
 import { FeaturesProvider } from './components/FeaturesProvider';
 import { McpProvider } from './components/ti-mindmap-mcp/McpContext';
+import { AuthProvider } from './contexts/AuthContext';
 import { McpKeyBar } from './components/ti-mindmap-mcp/McpKeyBar';
 
 const CommandPalette = lazy(() =>
@@ -85,6 +86,7 @@ const StixBuilder = lazy(() => import('./pages/dfir/StixBuilder'));
 const Owasp = lazy(() => import('./pages/dfir/Owasp'));
 const PromptInjection = lazy(() => import('./pages/dfir/PromptInjection'));
 const PiTaxonomy = lazy(() => import('./pages/dfir/PiTaxonomy'));
+const Ironsight = lazy(() => import('./pages/dfir/Ironsight'));
 const McpAudit = lazy(() => import('./pages/dfir/McpAudit'));
 const KillChain = lazy(() => import('./pages/dfir/KillChain'));
 const Diamond = lazy(() => import('./pages/dfir/Diamond'));
@@ -469,6 +471,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/owasp', Component: Owasp },
   { path: '/dfir/prompt-injection', Component: PromptInjection },
   { path: '/dfir/pi-taxonomy', Component: PiTaxonomy },
+  { path: '/dfir/ironsight', Component: Ironsight },
   { path: '/dfir/mcp-audit', Component: McpAudit },
   { path: '/dfir/kill-chain', Component: KillChain },
   { path: '/dfir/diamond', Component: Diamond },
@@ -1092,9 +1095,11 @@ function PortfolioShell({
 function App() {
   return (
     <BrowserRouter>
-      <FeaturesProvider>
-        <AppContent />
-      </FeaturesProvider>
+      <AuthProvider>
+        <FeaturesProvider>
+          <AppContent />
+        </FeaturesProvider>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

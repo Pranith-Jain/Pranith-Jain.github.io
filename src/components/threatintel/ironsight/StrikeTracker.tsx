@@ -13,16 +13,20 @@ interface StrikeEvent {
 }
 
 const CATEGORY_CONFIG: Record<string, { icon: string; color: string }> = {
-  MISSILE: { icon: '🚀', color: '#ef4444' },
-  INTERCEPTION: { icon: '🛡', color: '#22c55e' },
-  DRONE: { icon: '✈', color: '#f59e0b' },
-  AIRSTRIKE: { icon: '💥', color: '#ef4444' },
-  ROCKET: { icon: '🎯', color: '#f97316' },
-  STRIKE: { icon: '⚡', color: '#f59e0b' },
-  REPORT: { icon: '📡', color: '#3b82f6' },
+  MISSILE: { icon: '🚀', color: 'text-red-400' },
+  INTERCEPTION: { icon: '🛡', color: 'text-emerald-400' },
+  DRONE: { icon: '✈', color: 'text-amber-400' },
+  AIRSTRIKE: { icon: '💥', color: 'text-red-400' },
+  ROCKET: { icon: '🎯', color: 'text-orange-400' },
+  STRIKE: { icon: '⚡', color: 'text-amber-400' },
+  REPORT: { icon: '📡', color: 'text-blue-400' },
 };
-
-const SEV_COLORS: Record<string, string> = { low: '#94a3b8', medium: '#f59e0b', high: '#f97316', critical: '#ef4444' };
+const SEV_COLORS: Record<string, string> = {
+  low: 'text-slate-400',
+  medium: 'text-amber-400',
+  high: 'text-orange-400',
+  critical: 'text-red-400',
+};
 
 function timeAgo(date: string): string {
   const s = Math.floor((Date.now() - new Date(date).getTime()) / 1000);
@@ -42,7 +46,7 @@ export default function StrikeTracker() {
       const res = await fetch('/api/v1/ironsight/strikes', { signal: AbortSignal.timeout(20000) });
       if (res.ok) setStrikes(await res.json());
     } catch {
-      /* network error */
+      /* */
     }
     setLoading(false);
   }, []);
@@ -53,32 +57,30 @@ export default function StrikeTracker() {
     return () => clearInterval(id);
   }, [fetchStrikes]);
 
+  const counts = strikes.reduce(
+    (acc, s) => {
+      acc[s.category] = (acc[s.category] || 0) + 1;
+      return acc;
+    },
+    {} as Record<string, number>
+  );
+
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 p-4">
+    <div className="surface-card p-4">
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <Flame size={16} className="text-red-400" />
-          <h3 className="text-sm font-bold font-mono text-slate-700 dark:text-slate-200">MISSILE / STRIKE TRACKER</h3>
+          <h3 className="text-tool font-bold font-mono text-slate-700 dark:text-slate-200">MISSILE / STRIKE TRACKER</h3>
         </div>
-        <span className="text-[10px] font-mono text-slate-400">{strikes.length} events</span>
+        <span className="text-mini font-mono text-slate-400">{strikes.length} events</span>
       </div>
       <div className="flex gap-2 mb-3 flex-wrap">
-        {Object.entries(
-          strikes.reduce(
-            (acc, s) => {
-              acc[s.category] = (acc[s.category] || 0) + 1;
-              return acc;
-            },
-            {} as Record<string, number>
-          )
-        ).map(([cat, count]) => {
+        {Object.entries(counts).map(([cat, count]) => {
           const c = CATEGORY_CONFIG[cat] || CATEGORY_CONFIG.REPORT;
           return (
-            <span key={cat} className="text-[10px] flex items-center gap-1">
+            <span key={cat} className="text-mini flex items-center gap-1">
               <span>{c.icon}</span>
-              <span className="font-bold" style={{ color: c.color }}>
-                {cat}
-              </span>
+              <span className={`font-bold ${c.color}`}>{cat}</span>
               <span className="text-slate-400">({count})</span>
             </span>
           );
@@ -92,7 +94,7 @@ export default function StrikeTracker() {
             ))}
           </div>
         ) : strikes.length === 0 ? (
-          <div className="text-center text-xs text-slate-400 py-4">No strike events detected</div>
+          <div className="text-center text-tool text-slate-400 py-4">No strike events detected</div>
         ) : (
           strikes.slice(0, 12).map((s, i) => {
             const c = CATEGORY_CONFIG[s.category] || CATEGORY_CONFIG.REPORT;
@@ -105,19 +107,14 @@ export default function StrikeTracker() {
                 className="block py-1.5 px-2 rounded hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
               >
                 <div className="flex items-center gap-2 mb-0.5">
-                  <span
-                    className="text-[10px] font-bold px-1.5 py-0.5 rounded"
-                    style={{ color: c.color, backgroundColor: `${c.color}15`, border: `1px solid ${c.color}30` }}
-                  >
+                  <span className={`text-mini font-bold px-1.5 py-0.5 rounded ${c.color} bg-current/10`}>
                     {s.category}
                   </span>
-                  <span className="text-[9px] font-bold" style={{ color: SEV_COLORS[s.severity] }}>
-                    {s.severity.toUpperCase()}
-                  </span>
-                  <span className="text-[10px] text-slate-400 ml-auto">{timeAgo(s.date)}</span>
+                  <span className={`text-mini font-bold ${SEV_COLORS[s.severity]}`}>{s.severity.toUpperCase()}</span>
+                  <span className="text-mini text-slate-400 ml-auto">{timeAgo(s.date)}</span>
                 </div>
-                <p className="text-xs text-slate-700 dark:text-slate-200 leading-tight line-clamp-1">{s.title}</p>
-                <span className="text-[9px] text-slate-400">
+                <p className="text-tool text-slate-700 dark:text-slate-200 leading-tight line-clamp-1">{s.title}</p>
+                <span className="text-mini text-slate-400">
                   {s.source} · {s.country}
                 </span>
               </a>
