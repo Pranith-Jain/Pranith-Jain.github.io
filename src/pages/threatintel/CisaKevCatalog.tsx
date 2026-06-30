@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Shield, Search, Download, ExternalLink, AlertTriangle } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
-import { fetchJson } from '../../lib/fetch-json';
+import { fetchJson } from '../../lib/fetch-helpers';
 
 interface KevEntry {
   cve_id: string;

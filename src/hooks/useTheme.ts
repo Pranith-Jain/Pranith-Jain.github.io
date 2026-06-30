@@ -38,6 +38,19 @@ export function useTheme() {
     }
   }, [theme]);
 
+  useEffect(() => {
+    function handleStorageChange(e: StorageEvent) {
+      if (e.key !== STORAGE_KEY) return;
+      const next = e.newValue as Theme | null;
+      if (next && THEME_VALUES.includes(next)) {
+        setTheme(next);
+      }
+    }
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
+
   const toggleTheme = useCallback(() => {
     setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
   }, []);

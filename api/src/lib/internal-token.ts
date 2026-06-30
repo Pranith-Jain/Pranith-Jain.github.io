@@ -10,15 +10,17 @@
  * and API routes receive the same secret through the env binding, so
  * tokens are valid across isolates within the same Worker.
  *
- * FALLBACK: When `INTERNAL_TOKEN_SECRET` is not set (e.g. local dev),
- * the module falls back to a deterministic derivation for backward
- * compatibility. This path MUST NOT be used in production.
+ * SECURITY: When `INTERNAL_TOKEN_SECRET` is not set, the module logs a
+ * loud warning so operators know internal tokens are forgeable. Set the
+ * secret with `wrangler secret put INTERNAL_TOKEN_SECRET`.
  */
 
 const TOKEN_TTL_MS = 5 * 60_000; // 5 minutes
 const SEP = '.';
-/** Legacy deterministic fallback — only used when INTERNAL_TOKEN_SECRET is unset. */
+/** Dev-only deterministic fallback — blocked in production by a runtime check. */
 const FALLBACK_HMAC_SALT = 'pranithjain-internal-token-v1';
+
+let _fallbackWarningShown = false;
 
 /** Cache the derived CryptoKey per secret value. */
 let _cachedSecret: string | null = null;
@@ -26,6 +28,14 @@ let _cachedKey: CryptoKey | null = null;
 
 async function getSecret(secret?: string): Promise<CryptoKey> {
   const raw = secret ?? FALLBACK_HMAC_SALT;
+  if (!secret && !_fallbackWarningShown) {
+    _fallbackWarningShown = true;
+    console.warn(
+      '[internal-token] WARNING: INTERNAL_TOKEN_SECRET is not set. ' +
+        'Internal tokens are signed with a deterministic fallback and are forgeable. ' +
+        'Set the secret with `wrangler secret put INTERNAL_TOKEN_SECRET`.'
+    );
+  }
   if (_cachedSecret === raw && _cachedKey) return _cachedKey;
   const key = await crypto.subtle.importKey(
     'raw',

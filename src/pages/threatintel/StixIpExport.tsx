@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import { FileText, Search, Download, Copy, Check, AlertTriangle } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
-import { fetchJson } from '../../lib/fetch-json';
+import { fetchJson } from '../../lib/fetch-helpers';
 
 interface EnrichResult {
   ip: string;

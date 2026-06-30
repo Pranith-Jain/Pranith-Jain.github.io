@@ -152,6 +152,7 @@ function isSameOrigin(c: Context<{ Bindings: Env }>): boolean {
 
 /**
  * Look up a hashed key in D1. Returns the key metadata or null.
+ * The last_used_at update is fire-and-forget (see authenticate middleware).
  */
 async function lookupKey(db: D1Database, hashed: string): Promise<AuthUser | null> {
   const row = await db
@@ -159,9 +160,20 @@ async function lookupKey(db: D1Database, hashed: string): Promise<AuthUser | nul
     .bind(hashed)
     .first<{ id: string; prefix: string; role: string }>();
   if (!row) return null;
-  // Touch last_used_at — fire-and-forget.
-  await db.prepare('UPDATE api_keys SET last_used_at = ? WHERE id = ?').bind(new Date().toISOString(), row.id).run();
   return { keyId: row.id, prefix: row.prefix, role: row.role as 'admin' | 'readonly' };
+}
+
+/**
+ * Touch last_used_at for a key — fire-and-forget. Call via waitUntil
+ * so it doesn't add latency to the request.
+ */
+function touchLastUsed(db: D1Database, keyId: string): Promise<void> {
+  return db
+    .prepare('UPDATE api_keys SET last_used_at = ? WHERE id = ?')
+    .bind(new Date().toISOString(), keyId)
+    .run()
+    .then(() => {})
+    .catch(() => {});
 }
 
 /**
@@ -272,6 +284,9 @@ export function authenticate(mode: boolean | 'external-only'): MiddlewareHandler
     // Successful auth — clear any failed attempt tracking for this IP.
     const ip = c.req.header('cf-connecting-ip') ?? 'anon';
     clearFailedAuth(ip);
+
+    // Touch last_used_at — fire-and-forget so it doesn't add request latency.
+    c.executionCtx.waitUntil(touchLastUsed(db, user.keyId));
 
     // Attach user context.
     (c as Context & { user: AuthUser }).user = user;

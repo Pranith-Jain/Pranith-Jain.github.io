@@ -137,4 +137,46 @@ describe('useTheme', () => {
 
     expect(result.current.theme).toBe('dark');
   });
+
+  it('should sync theme from another tab via storage event', () => {
+    const { result } = renderHook(() => useTheme());
+
+    expect(result.current.theme).toBe('light');
+
+    act(() => {
+      window.dispatchEvent(new StorageEvent('storage', { key: 'theme', newValue: 'dark' }));
+    });
+
+    expect(result.current.theme).toBe('dark');
+    expect(result.current.isDark).toBe(true);
+  });
+
+  it('should ignore storage events for other keys', () => {
+    const { result } = renderHook(() => useTheme());
+
+    act(() => {
+      window.dispatchEvent(new StorageEvent('storage', { key: 'other-key', newValue: 'dark' }));
+    });
+
+    expect(result.current.theme).toBe('light');
+  });
+
+  it('should ignore storage events with invalid theme values', () => {
+    const { result } = renderHook(() => useTheme());
+
+    act(() => {
+      window.dispatchEvent(new StorageEvent('storage', { key: 'theme', newValue: 'invalid' }));
+    });
+
+    expect(result.current.theme).toBe('light');
+  });
+
+  it('should clean up storage event listener on unmount', () => {
+    const removeSpy = vi.spyOn(window, 'removeEventListener');
+    const { unmount } = renderHook(() => useTheme());
+
+    unmount();
+
+    expect(removeSpy).toHaveBeenCalledWith('storage', expect.any(Function));
+  });
 });

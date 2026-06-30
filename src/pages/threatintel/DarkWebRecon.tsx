@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Globe, Search, Scan, Bitcoin, Network, ExternalLink, Loader2 } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
-import { fetchJson } from '../../lib/fetch-json';
+import { fetchJson } from '../../lib/fetch-helpers';
 
 type ToolTab = 'onion-search' | 'onion-lookup' | 'btc-check' | 'exit-check';
 

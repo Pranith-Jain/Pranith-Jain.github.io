@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { fetchJson } from '../../../lib/fetch-json';
+import { fetchJson } from '../../../lib/fetch-helpers';
 import type { CtiData, CtiPoint, CtiArc, ThreatCard, FeedItem, SectorSlice } from './geo';
 import {
   normalizeThreatMap,

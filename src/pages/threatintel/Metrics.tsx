@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AttackHeatmap } from '../../components/threatintel/AttackHeatmap';
 import { BackLink } from '../../components/BackLink';
-import { fetchJson } from '../../lib/fetch-json';
+import { fetchJson } from '../../lib/fetch-helpers';
 import { dedupRansomwareVictims } from '../../lib/dedup-ransomware';
 import {
   Activity,

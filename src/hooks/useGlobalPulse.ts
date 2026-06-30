@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useMemo } from 'react';
 import { useWebSocket } from './useWebSocket';
 
 interface PulseSnapshot {
@@ -26,15 +26,19 @@ export interface GlobalPulseState {
   generatedAt: string;
 }
 
+function buildWsUrl(path: string): string {
+  const protocol = typeof window !== 'undefined' ? (window.location.protocol === 'https:' ? 'wss:' : 'ws:') : 'ws:';
+  const host = typeof window !== 'undefined' ? window.location.host : 'localhost';
+  return `${protocol}//${host}${path}`;
+}
+
 export function useGlobalPulse(): GlobalPulseState {
   const [events, setEvents] = useState<PulseSnapshot[]>([]);
   const [generatedAt, setGeneratedAt] = useState('');
   const eventsRef = useRef(events);
   eventsRef.current = events;
 
-  const protocol = typeof window !== 'undefined' ? (window.location.protocol === 'https:' ? 'wss:' : 'ws:') : 'ws:';
-  const host = typeof window !== 'undefined' ? window.location.host : 'localhost';
-  const url = `${protocol}//${host}/api/v1/ws/global-pulse`;
+  const url = useMemo(() => buildWsUrl('/api/v1/ws/global-pulse'), []);
 
   const { connected } = useWebSocket<GlobalPulseMessage>(url, {
     onMessage: useCallback((msg: GlobalPulseMessage) => {

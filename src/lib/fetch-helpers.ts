@@ -14,16 +14,10 @@
  *   });
  */
 
-export class FetchError extends Error {
-  constructor(
-    public status: number,
-    message: string,
-    public body?: string
-  ) {
-    super(message);
-    this.name = 'FetchError';
-  }
-}
+import { ApiError } from './api-client';
+
+/** Alias for backward compat — catches as `instanceof ApiError` too. */
+export const FetchError = ApiError;
 
 /**
  * Safely parse a response as JSON. Handles non-JSON responses gracefully

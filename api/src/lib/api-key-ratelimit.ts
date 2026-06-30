@@ -18,6 +18,7 @@
 import type { Context, Next } from 'hono';
 import type { Env } from '../env';
 import type { D1Database } from '@cloudflare/workers-types';
+import type { AuthUser } from './auth';
 
 // Rate limit tiers per API key role
 const RATE_LIMITS: Record<string, { daily: number; perMinute: number }> = {
@@ -63,7 +64,13 @@ async function getUsage(db: D1Database, keyHash: string): Promise<UsageRecord> {
          FROM api_key_usage WHERE key_hash = ?`
       )
       .bind(keyHash)
-      .first<{ daily_count: number; minute_count: number; last_request_at: string; daily_bucket: string; minute_bucket: number }>();
+      .first<{
+        daily_count: number;
+        minute_count: number;
+        last_request_at: string;
+        daily_bucket: string;
+        minute_bucket: number;
+      }>();
 
     if (!row) {
       return { daily_count: 0, minute_count: 0, last_request_at: now.toISOString() };
@@ -103,7 +110,18 @@ async function incrementUsage(db: D1Database, keyHash: string, role: string): Pr
            minute_bucket = ?,
            last_request_at = ?`
       )
-      .bind(keyHash, role, today, currentMinute, now.toISOString(), today, currentMinute, today, currentMinute, now.toISOString())
+      .bind(
+        keyHash,
+        role,
+        today,
+        currentMinute,
+        now.toISOString(),
+        today,
+        currentMinute,
+        today,
+        currentMinute,
+        now.toISOString()
+      )
       .run();
   } catch {
     // Best-effort — don't block request on counter failure
@@ -128,17 +146,9 @@ export async function apiKeyRateLimit(c: Context<{ Bindings: Env }>, next: Next)
   const keyHash = await extractKeyHash(c);
   if (!keyHash) return next(); // No API key — fall through to IP-based limiting
 
-  // Look up key role from api_keys table
-  let role = 'readonly';
-  try {
-    const keyRow = await db
-      .prepare('SELECT role FROM api_keys WHERE key_hash = ? AND revoked_at IS NULL')
-      .bind(keyHash)
-      .first<{ role: string }>();
-    if (keyRow) role = keyRow.role;
-  } catch {
-    // If lookup fails, use default readonly limits
-  }
+  // Read role from the auth middleware's context instead of a redundant D1 query.
+  const user = (c as unknown as { user?: AuthUser }).user;
+  const role = user?.role ?? 'readonly';
 
   const limits = RATE_LIMITS[role] ?? DEFAULT_LIMIT;
   const usage = await getUsage(db, keyHash);

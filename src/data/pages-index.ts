@@ -1528,6 +1528,24 @@ const DFIR_PAGES: readonly PageEntry[] = [
     group: 'dfir',
     keywords: ['wifi', 'wireless', 'bssid', 'ssid', 'wigle', 'mac'],
   },
+  {
+    path: '/dfir/ironsight',
+    label: 'IronSight',
+    description:
+      'Geopolitical intelligence — Israel alerts, strike tracker, satellite imagery, military flights, and prediction markets.',
+    sectionLabel: 'DFIR · Tools',
+    group: 'dfir',
+    keywords: ['ironsight', 'geopolitical', 'israel', 'strike', 'satellite', 'military'],
+  },
+  {
+    path: '/dfir/medusa-scan',
+    label: 'Medusa Scanner',
+    description:
+      'Medusa vulnerability scanner — host analysis, port detection, service fingerprinting, and exploit matching.',
+    sectionLabel: 'DFIR · Tools',
+    group: 'dfir',
+    keywords: ['medusa', 'scanner', 'vulnerability', 'ports', 'exploit'],
+  },
 
   /* ------------------------------------------------------------------ */
   /*  3. Threat Intel                                                   */
