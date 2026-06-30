@@ -206,7 +206,12 @@ export default {
           );
         }
       }
-      const mcpRes = await DfirMcpServer.serve('/api/mcp', { binding: 'DFIR_MCP' }).fetch(request, env, ctx);
+      // SSE transport for clients that use GET to establish a connection
+      // (VS Code, Cursor, MCP Inspector). Streamable-http transport for POST.
+      const isSse = url.pathname === '/api/mcp/sse';
+      const mcpRes = isSse
+        ? await DfirMcpServer.serveSSE('/api/mcp/sse', { binding: 'DFIR_MCP' }).fetch(request, env, ctx)
+        : await DfirMcpServer.serve('/api/mcp', { binding: 'DFIR_MCP' }).fetch(request, env, ctx);
       return withSecurityHeaders(mcpRes);
     }
 
