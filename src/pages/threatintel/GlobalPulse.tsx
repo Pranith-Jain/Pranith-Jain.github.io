@@ -49,6 +49,14 @@ import { useActivityTracker } from '../../hooks/useActivityTracker';
 
 const PulseMap = lazy(() => import('./PulseMap'));
 const CtiGlobe = lazy(() => import('../../components/threatintel/cti/CtiGlobe'));
+const IsraelAlerts = lazy(() => import('../../components/threatintel/ironsight/IsraelAlerts'));
+const NavalTracker = lazy(() => import('../../components/threatintel/ironsight/NavalTracker'));
+const MilitaryFlights = lazy(() => import('../../components/threatintel/ironsight/MilitaryFlights'));
+const StrikeTracker = lazy(() => import('../../components/threatintel/ironsight/StrikeTracker'));
+const RegionalThreats = lazy(() => import('../../components/threatintel/ironsight/RegionalThreats'));
+const PredictionMarkets = lazy(() => import('../../components/threatintel/ironsight/PredictionMarkets'));
+const DefenseMarkets = lazy(() => import('../../components/threatintel/ironsight/DefenseMarkets'));
+const SatellitePanel = lazy(() => import('../../components/threatintel/ironsight/SatellitePanel'));
 
 /* ─── Types ─────────────────────────────────────────────────────────────── */
 
@@ -2050,6 +2058,62 @@ export default function GlobalPulse(): JSX.Element {
               onClose={() => setShowCountryIntel(false)}
             />
           )}
+
+          {/* ─── IRONSIGHT: OSINT Command Center ─── */}
+          <div className="mt-6">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="relative w-6 h-6">
+                <div className="absolute inset-0 rounded-full border border-cyan-500/30" />
+                <div className="absolute inset-1 rounded-full border border-cyan-500/20" />
+                <div
+                  className="absolute top-1/2 left-1/2 w-0.5 h-2.5 bg-cyan-500 origin-bottom animate-spin"
+                  style={{ transform: 'translateX(-50%)' }}
+                />
+              </div>
+              <div>
+                <h2 className="text-sm font-bold font-mono tracking-[3px] text-cyan-500">IRONSIGHT</h2>
+                <p className="text-[9px] text-slate-500 tracking-[2px]">
+                  OSINT COMMAND CENTER // REPLICATED FROM NoblerWorks-HQ/IRONSIGHT
+                </p>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+              <div className="lg:col-span-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <Suspense fallback={<div className="h-48 rounded-xl bg-slate-100 dark:bg-slate-800 animate-pulse" />}>
+                    <IsraelAlerts />
+                  </Suspense>
+                  <Suspense fallback={<div className="h-48 rounded-xl bg-slate-100 dark:bg-slate-800 animate-pulse" />}>
+                    <StrikeTracker />
+                  </Suspense>
+                </div>
+              </div>
+              <div>
+                <Suspense fallback={<div className="h-64 rounded-xl bg-slate-100 dark:bg-slate-800 animate-pulse" />}>
+                  <RegionalThreats />
+                </Suspense>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+              <Suspense fallback={<div className="h-48 rounded-xl bg-slate-100 dark:bg-slate-800 animate-pulse" />}>
+                <NavalTracker />
+              </Suspense>
+              <Suspense fallback={<div className="h-48 rounded-xl bg-slate-100 dark:bg-slate-800 animate-pulse" />}>
+                <MilitaryFlights />
+              </Suspense>
+              <Suspense fallback={<div className="h-48 rounded-xl bg-slate-100 dark:bg-slate-800 animate-pulse" />}>
+                <PredictionMarkets />
+              </Suspense>
+              <Suspense fallback={<div className="h-48 rounded-xl bg-slate-100 dark:bg-slate-800 animate-pulse" />}>
+                <DefenseMarkets />
+              </Suspense>
+            </div>
+            <div className="mt-4">
+              <Suspense fallback={<div className="h-48 rounded-xl bg-slate-100 dark:bg-slate-800 animate-pulse" />}>
+                <SatellitePanel />
+              </Suspense>
+            </div>
+          </div>
         </div>
       )}
     </DataPageLayout>

@@ -137,6 +137,16 @@ import { writeupsHandler } from './routes/writeups';
 import { cybercrimeHandler } from './routes/cybercrime';
 import { iocExplainHandler, iocRuleHandler } from './routes/ioc-verdict';
 import { globalPulseHandler } from './routes/global-pulse';
+import {
+  ironsightAlertsHandler,
+  ironsightFlightsHandler,
+  ironsightStrikesHandler,
+  ironsightRegionalHandler,
+  ironsightMarketsHandler,
+  ironsightCryptoHandler,
+  ironsightPolymarketHandler,
+  ironsightFiresHandler,
+} from './routes/ironsight';
 import { threatAnalysisHandler } from './routes/threat-analysis';
 import { iocExtractionHandler } from './routes/ioc-extraction';
 import { mitreMappingHandler } from './routes/mitre-mapping';
@@ -1119,6 +1129,14 @@ app.get('/api/v1/webamon/domain/:name', webamonDomainHandler);
 app.get('/api/v1/webamon/server/:ip', webamonServerHandler);
 app.get('/api/v1/webamon/resource/:sha256', webamonResourceHandler);
 app.get('/api/v1/global-pulse', globalPulseHandler);
+app.get('/api/v1/ironsight/alerts', ironsightAlertsHandler);
+app.get('/api/v1/ironsight/flights', ironsightFlightsHandler);
+app.get('/api/v1/ironsight/strikes', ironsightStrikesHandler);
+app.get('/api/v1/ironsight/regional', ironsightRegionalHandler);
+app.get('/api/v1/ironsight/markets', ironsightMarketsHandler);
+app.get('/api/v1/ironsight/crypto', ironsightCryptoHandler);
+app.get('/api/v1/ironsight/polymarket', ironsightPolymarketHandler);
+app.get('/api/v1/ironsight/fires', ironsightFiresHandler);
 app.post('/api/v1/threat-analysis', threatAnalysisHandler);
 app.post('/api/v1/ioc-extraction', iocExtractionHandler);
 app.post('/api/v1/mitre-mapping', mitreMappingHandler);
