@@ -571,17 +571,6 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       }
     );
 
-    // ── Live IOCs ────────────────────────────────────────────────────────
-    this.tools(
-      'get_live_iocs',
-      'Get the latest live IOC feed — real-time indicators of compromise aggregated from 20+ sources including blocklists, tweet feeds, abuse.ch, and community submissions.',
-      {},
-      async () => {
-        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/live-iocs', this.apiKey);
-        return untrustedToolResult(data);
-      }
-    );
-
     // ── Ransomware Recent ────────────────────────────────────────────────
     this.tools(
       'get_ransomware_activity',
