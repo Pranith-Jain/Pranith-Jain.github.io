@@ -25,6 +25,10 @@ build
 *.swo
 *~
 
+# Agent/tool configs with API keys
+.opencode/
+.codex/
+
 # OS
 .DS_Store
 Thumbs.db
