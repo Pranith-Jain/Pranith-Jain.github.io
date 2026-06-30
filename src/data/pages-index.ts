@@ -342,11 +342,13 @@ const DFIR_PAGES: readonly PageEntry[] = [
     group: 'dfir',
   },
   {
-    path: '/dfir/web-scan',
-    label: 'Web Scan',
-    description: 'Headless scan of a URL — TLS, redirects, technology fingerprint, and exposed endpoints.',
-    sectionLabel: 'DFIR · Triage',
+    path: '/dfir/medusa-scan',
+    label: 'Medusa Scanner',
+    description:
+      'Client-side code scanner — secrets detection (21 issuer types: Anthropic, OpenAI, PyPI, GitHub PATs, AWS, GCP, Stripe, Slack…), SAST (injection, XSS, SSRF, deserialization), and AI security (prompt injection, data exfiltration, tool shadowing). Paste code or scan files locally.',
+    sectionLabel: 'DFIR · Detection',
     group: 'dfir',
+    keywords: ['medusa', 'scanner', 'secrets', 'sast', 'ai-security', 'prompt-injection', 'leaked-keys', 'code-audit'],
   },
   {
     path: '/dfir/url-preview',
@@ -1536,15 +1538,6 @@ const DFIR_PAGES: readonly PageEntry[] = [
     sectionLabel: 'DFIR · Tools',
     group: 'dfir',
     keywords: ['ironsight', 'geopolitical', 'israel', 'strike', 'satellite', 'military'],
-  },
-  {
-    path: '/dfir/medusa-scan',
-    label: 'Medusa Scanner',
-    description:
-      'Medusa vulnerability scanner — host analysis, port detection, service fingerprinting, and exploit matching.',
-    sectionLabel: 'DFIR · Tools',
-    group: 'dfir',
-    keywords: ['medusa', 'scanner', 'vulnerability', 'ports', 'exploit'],
   },
 
   /* ------------------------------------------------------------------ */
