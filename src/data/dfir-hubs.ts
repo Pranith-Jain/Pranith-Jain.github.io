@@ -954,6 +954,15 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'SecretScanner',
       },
       {
+        path: '/dfir/medusa-scan',
+        tabId: 'medusa-scan',
+        label: 'Medusa Scanner',
+        desc: 'AI-first security scanner — SAST (Python/JS/Go/Rust/PHP), secrets, prompt injection detection. 140+ rules, runs entirely in browser.',
+        compVar: 'MedusaScanner',
+        badge: 'new',
+        keywords: ['sast', 'secrets', 'prompt injection', 'ai security', 'static analysis', 'medusa', 'code scan'],
+      },
+      {
         path: '/dfir/google-dorks',
         tabId: 'google-dorks',
         label: 'Google Dorks Builder',
