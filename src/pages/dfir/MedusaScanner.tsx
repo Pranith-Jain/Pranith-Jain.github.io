@@ -85,7 +85,6 @@ const CATEGORY_ICONS: Record<string, typeof Shield> = {
   misconfiguration: Server,
   'code-quality': FileText,
   hardcoded: FileText,
-  obfuscation: Brain,
   'error-handling': FileCode,
 };
 
@@ -327,7 +326,7 @@ export default function MedusaScanner(): JSX.Element {
 
   const counts = useMemo(() => {
     const c: Record<Severity, number> = { critical: 0, high: 0, medium: 0, low: 0, info: 0 };
-    result?.hits.forEach((x) => c[x.severity]++);
+    if (result) for (const x of result.hits) c[x.severity]++;
     return c;
   }, [result]);
 
