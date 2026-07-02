@@ -325,6 +325,7 @@ const ROUTES = [
 
   // ── DFIR: AI agent tools (4) — 0 API calls ────────────────────
   '/dfir/agent',
+  '/dfir/agent-enrich',
   '/dfir/attmap-ai',
   '/dfir/x-verdikt',
 

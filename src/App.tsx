@@ -155,6 +155,7 @@ const ScreenshotIntel = lazy(() => import('./pages/dfir/ScreenshotIntel'));
 const PeAnalyzer = lazy(() => import('./pages/dfir/PeAnalyzer'));
 const WebLogAnalyzer = lazy(() => import('./pages/dfir/WebLogAnalyzer'));
 const PrefetchAnalyzer = lazy(() => import('./pages/dfir/PrefetchAnalyzer'));
+const TieEnrich = lazy(() => import('./pages/dfir/TieEnrich'));
 
 const InsightAi = lazy(() => import('./pages/dfir/InsightAi'));
 const QuerycraftAi = lazy(() => import('./pages/dfir/QuerycraftAi'));
@@ -503,6 +504,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/powershell-deobf', Component: PowershellDeobf },
   { path: '/dfir/agent-map', Component: AgentMap },
   { path: '/dfir/agent', Component: AgentInvestigator },
+  { path: '/dfir/agent-enrich', Component: TieEnrich },
   { path: '/dfir/tabletop', Component: Tabletop },
   { path: '/dfir/grc', Component: Grc },
   { path: '/dfir/dlp-scan', Component: DlpScan },

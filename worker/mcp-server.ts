@@ -86,6 +86,8 @@ type Env = {
   /** ChainAbuse API key for btc_abuse_check. Optional — the tool degrades
    *  gracefully (returns unavailable + note) when unset. */
   CHAINABUSE_API_KEY?: string;
+  /** Autonomous investigator agent DO — used for deep enrichment analysis. */
+  INVESTIGATOR_AGENT?: DurableObjectNamespace;
 };
 
 const API_BASE_DEFAULT = 'https://pranithjain.qzz.io';
@@ -3358,6 +3360,67 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
           this.apiKey
         );
         return untrustedToolResult(data);
+      }
+    );
+
+    // ── Tie-Agent: IOC enrichment agent (cookbook pattern) ──────────
+    this.tools(
+      'si_enrich_agent',
+      'Enrich a single IOC (IP/hash/domain/URL) using the Threat Intel Enrichment Agent. Runs a multi-step autonomous investigation across 30+ providers (VirusTotal, AbuseIPDB, Shodan, PhantomCandle, Malpedia, etc.), extracts MITRE ATT&CK TTPs, and returns a structured threat assessment with per-provider diagnostics. For deep analysis, set \'deep: true\' to run the full multi-step chain with report generation (takes 10-30s).',
+      {
+        ioc: z.string().describe('The indicator to enrich — IPv4, IPv6, file hash (MD5/SHA1/SHA256), domain, or URL.'),
+        ioc_type: z
+          .enum(['ip', 'hash', 'domain', 'url'])
+          .describe('Type of the indicator (ip, hash, domain, or url). Auto-detection is not supported; specify explicitly.'),
+        deep: z
+          .boolean()
+          .optional()
+          .default(false)
+          .describe(
+            'When true, runs the multi-step autonomous investigator agent (3-5 steps, synthesizes a full report with QA). Takes 10-30s. When false (default), runs a fast deterministic enrichment (< 1s).'
+          ),
+      },
+      async ({ ioc, ioc_type, deep }) => {
+        if (deep) {
+          // Deep mode: trigger the autonomous investigator DO
+          const agentNs = this.env.INVESTIGATOR_AGENT;
+          if (!agentNs) {
+            return { content: [{ type: 'text', text: 'SECURITY: Investigator agent is not configured on this Worker.\n\n{ "error": "unavailable", "detail": "INVESTIGATOR_AGENT Durable Object not bound" }' }] };
+          }
+          const id = crypto.randomUUID();
+          const doId = agentNs.idFromName(id);
+          const stub = agentNs.get(doId);
+          const prompt = `Enrich this IOC: ${ioc} (type: ${ioc_type}). Investigate thoroughly — check reputation across multiple providers, map to known malware/actors if applicable, extract MITRE ATT&CK techniques, and assess overall risk. Return a structured threat assessment with an executive summary, key findings, risk score, and recommended actions.`;
+          await stub.fetch('https://agent/investigate', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ id, query: prompt, queryType: ioc_type, maxSteps: 4 }),
+          });
+
+          // Poll up to 30s for the result
+          for (let i = 0; i < 60; i++) {
+            await new Promise((r) => setTimeout(r, 500));
+            const stateRes = await stub.fetch(`https://agent/state?id=${encodeURIComponent(id)}`);
+            if (!stateRes.ok) break;
+            const state = (await stateRes.json()) as { status: string; report?: string; steps?: unknown[]; error?: string };
+            if (state.status === 'done') {
+              return { content: [{ type: 'text', text: state.report ?? 'Investigation complete but no report was generated.' }] };
+            }
+            if (state.status === 'error') {
+              return { content: [{ type: 'text', text: `SECURITY: Investigation errored.\n\n{ "error": "${(state.error ?? 'unknown').replace(/"/g, '\\"')}" }` }] };
+            }
+          }
+          return { content: [{ type: 'text', text: 'SECURITY: Investigation timed out after 30s.\n\n{ "error": "timeout" }' }] };
+        }
+
+        // Fast path: deterministic enrichment via SELF
+        const self = this.env.SELF;
+        if (!self) {
+          return { content: [{ type: 'text', text: 'SECURITY: SELF service binding is not available.\n\n{ "error": "unavailable" }' }] };
+        }
+        const { enrichIoc } = await import('./lib/tie-enrich');
+        const result = await enrichIoc(self, ioc, ioc_type);
+        return untrustedToolResult(result);
       }
     );
   }

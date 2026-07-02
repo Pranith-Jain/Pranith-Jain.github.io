@@ -437,6 +437,7 @@ import {
   agentSessionsHandler,
   agentDeleteHandler,
 } from './routes/agent';
+import { tieEnrichHandler, tieEnrichStateHandler, tieEnrichStreamHandler } from './routes/tie-enrich';
 import { attackNavigatorHandler } from './routes/attack-navigator';
 import { a3mMatrixHandler } from './routes/a3m-matrix';
 import { d3fendMatrixHandler } from './routes/d3fend-matrix';
@@ -1223,6 +1224,9 @@ app.delete('/api/v1/agent/:id', agentDeleteHandler);
 app.get('/api/v1/agent/sessions', agentSessionsHandler);
 app.get('/api/v1/agent/:id/stream', agentStreamHandler);
 app.get('/api/v1/agent/:id', agentStateHandler);
+app.post('/api/v1/tie/enrich', tieEnrichHandler);
+app.get('/api/v1/tie/enrich/:id', tieEnrichStateHandler);
+app.get('/api/v1/tie/enrich/:id/stream', tieEnrichStreamHandler);
 app.get('/api/v1/ioc-correlation', iocCorrelationHandler);
 app.post('/api/v1/ioc/explain', iocExplainHandler);
 app.post('/api/v1/ioc/rule', iocRuleHandler);
