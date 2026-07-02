@@ -10,7 +10,14 @@
  *       Bluesky/Mastodon ≈ 15 RSS fetches. Well within the 50-subrequest free plan.
  */
 import type { D1Database } from '@cloudflare/workers-types';
-import { fetchAuthedTimeline, fetchSearchTimeline, readAuthCookies, XAuthMissingError } from '../lib/twitter-auth-graphql';
+import {
+  fetchAuthedTimeline,
+  fetchSearchTimeline,
+  readAuthCookies,
+  XAuthMissingError,
+} from '../lib/twitter-auth-graphql';
+import { fetchTelegramFeed, type TelegramFeedItem } from './telegram-feed';
+import { fetchXFeed, type XFeedItem } from './x-feed';
 import type { Env } from '../env';
 
 // ─── Types ─────────────────────────────────────────────────────────────────
@@ -145,13 +152,7 @@ const INCIDENT_PATTERNS: Record<IncidentType, RegExp[]> = {
     /npm|pypi|crate|gems?\b.*\b(?:malicious|compromised)/i,
     /codecov|solarwinds|3cx|moveit|citrix/i,
   ],
-  zero_day: [
-    /0[\s-]?day/i,
-    /zero[\s-]?day/i,
-    /actively\s*exploited/i,
-    /in[\s-]?the[\s-]?wild/i,
-    /unpatched\s*vuln/i,
-  ],
+  zero_day: [/0[\s-]?day/i, /zero[\s-]?day/i, /actively\s*exploited/i, /in[\s-]?the[\s-]?wild/i, /unpatched\s*vuln/i],
   breach: [
     /(?:confirmed|suffered|experienced|hit\s*(?:by|with))\s*(?:a\s*)?breach/i,
     /data\s*breach/i,
@@ -160,50 +161,60 @@ const INCIDENT_PATTERNS: Record<IncidentType, RegExp[]> = {
     /cyber\s*(?:attack|incident)/i,
     /network\s*(?:compromised|breach|incident)/i,
   ],
-  ddos: [
-    /\bddos\b/i,
-    /denial[\s-]of[\s-]service/i,
-    /(?:taken\s*down|knocked\s*(?:offline|out))\s*(?:by|via|with)/i,
-  ],
+  ddos: [/\bddos\b/i, /denial[\s-]of[\s-]service/i, /(?:taken\s*down|knocked\s*(?:offline|out))\s*(?:by|via|with)/i],
   hacktivism: [
     /hacktivist/i,
     /(?:anonymous|ghostsec|killnet|no\s*name|ldz|mkv)\s*(?:claimed|hits?|attacks?)/i,
     /(?:political|ideological)\s*(?:hack|attack)/i,
   ],
-  other: [
-    /cyber(?:crime|security)/i,
-    /threat\s*actor/i,
-    /apt[\s-]?\d+/i,
-  ],
+  other: [/cyber(?:crime|security)/i, /threat\s*actor/i, /apt[\s-]?\d+/i],
 };
 
 const SEVERITY_KEYWORDS: Record<Severity, RegExp[]> = {
   critical: [
-    /critical/i, /emergency/i, /actively\s*exploited/i, /zero[\s-]?day/i,
+    /critical/i,
+    /emergency/i,
+    /actively\s*exploited/i,
+    /zero[\s-]?day/i,
     /(?:millions?|billions?)\s*(?:of\s*)?(?:records?|accounts?|users?)/i,
     /(?:hospital|power\s*grid|nuclear|military)/i,
   ],
   high: [
-    /high\s*severity/i, /major\s*(?:breach|attack|incident)/i,
+    /high\s*severity/i,
+    /major\s*(?:breach|attack|incident)/i,
     /(?:hundreds?\s*of\s*thousands?|thousands?)\s*(?:of\s*)?(?:records?|accounts?)/i,
-    /Fortune\s*500/i, /federal\s*agency/i,
+    /Fortune\s*500/i,
+    /federal\s*agency/i,
   ],
   medium: [
-    /medium\s*severity/i, /moderate/i,
+    /medium\s*severity/i,
+    /moderate/i,
     /(?:thousands?|tens?\s*of\s*thousands?)\s*(?:of\s*)?(?:records?|accounts?)/i,
   ],
-  low: [
-    /low\s*severity/i, /minor/i, /contained/i,
-  ],
-  info: [
-    /informational/i, /advisory/i, /heads[\s-]?up/i,
-  ],
+  low: [/low\s*severity/i, /minor/i, /contained/i],
+  info: [/informational/i, /advisory/i, /heads[\s-]?up/i],
 };
 
 const SECTOR_KEYWORDS: Record<Sector, RegExp[]> = {
   healthcare: [/health(?:care|care|system|hospital|clinic)/i, /medical/i, /pharma/i, /biotech/i, /FDA/i],
-  finance: [/bank(?:ing)?/i, /financial/i, /credit\s*union/i, /insurance/i, /fintech/i, /crypto(?:currency)?\s*(?:exchange|platform)/i],
-  government: [/federal/i, /state\s*government/i, /municipal/i, /agency/i, /department\s*of/i, /military/i, /pentagon/i, /doD/i],
+  finance: [
+    /bank(?:ing)?/i,
+    /financial/i,
+    /credit\s*union/i,
+    /insurance/i,
+    /fintech/i,
+    /crypto(?:currency)?\s*(?:exchange|platform)/i,
+  ],
+  government: [
+    /federal/i,
+    /state\s*government/i,
+    /municipal/i,
+    /agency/i,
+    /department\s*of/i,
+    /military/i,
+    /pentagon/i,
+    /doD/i,
+  ],
   education: [/university|college|school\s*district|education/i],
   technology: [/tech\s*company|software|SaaS|cloud|hosting|ISP|data\s*center/i],
   retail: [/retail|e[\s-]?commerce|store|shop|merchant/i],
@@ -220,13 +231,47 @@ const SECTOR_KEYWORDS: Record<Sector, RegExp[]> = {
 // ─── Known threat actors (common groups) ────────────────────────────────────
 
 const KNOWN_ACTORS = [
-  'lockbit', 'blackcat', 'alphv', 'cl0p', 'clop', 'play', 'akira', 'black basta',
-  'medusa', 'hunters', 'rhysida', 'monti', 'INC ransom', 'embargo', 'redansom',
-  'storm-0978', 'salt typhoon', 'scattered spider', 'lazarus', 'kimsuky',
-  'apt28', 'apt29', 'cozy bear', 'fancy bear', 'turla', 'darkhotel',
-  'charcoal typhoon', 'grizzly steppe', 'iron tiger', 'winnti',
-  'revil', 'ryuk', 'conti', 'darkside', 'maze', 'ransomexx',
-  'anonymous', 'ghostsec', 'killnet', 'no name', 'ldz',
+  'lockbit',
+  'blackcat',
+  'alphv',
+  'cl0p',
+  'clop',
+  'play',
+  'akira',
+  'black basta',
+  'medusa',
+  'hunters',
+  'rhysida',
+  'monti',
+  'INC ransom',
+  'embargo',
+  'redansom',
+  'storm-0978',
+  'salt typhoon',
+  'scattered spider',
+  'lazarus',
+  'kimsuky',
+  'apt28',
+  'apt29',
+  'cozy bear',
+  'fancy bear',
+  'turla',
+  'darkhotel',
+  'charcoal typhoon',
+  'grizzly steppe',
+  'iron tiger',
+  'winnti',
+  'revil',
+  'ryuk',
+  'conti',
+  'darkside',
+  'maze',
+  'ransomexx',
+  'anonymous',
+  'ghostsec',
+  'killnet',
+  'no name',
+  'ldz',
 ];
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
@@ -234,7 +279,9 @@ const KNOWN_ACTORS = [
 function generateId(): string {
   const ts = Date.now().toString(36);
   const rand = crypto.getRandomValues(new Uint8Array(8));
-  return `cp_${ts}-${Array.from(rand).map((b) => b.toString(16).padStart(2, '0')).join('')}`;
+  return `cp_${ts}-${Array.from(rand)
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('')}`;
 }
 
 function dedupHash(title: string, victim: string, platform: string): string {
@@ -288,13 +335,19 @@ function extractThreatActor(text: string): string | null {
     if (lower.includes(actor.toLowerCase())) return actor;
   }
   // Pattern: "Group X claims" or "attributed to Y"
-  const m = /(?:group|gang|crew|collective|apt|threat\s*actor)\s+(?:named?\s+)?["']?([A-Z][A-Za-z0-9\s-]+?)["']?\s*(?:claims?|hits?|attacks?|responsible)/i.exec(text);
+  const m =
+    /(?:group|gang|crew|collective|apt|threat\s*actor)\s+(?:named?\s+)?["']?([A-Z][A-Za-z0-9\s-]+?)["']?\s*(?:claims?|hits?|attacks?|responsible)/i.exec(
+      text
+    );
   return m?.[1]?.trim() ?? null;
 }
 
 function extractVictim(text: string): { name: string | null; domain: string | null } {
   // Pattern: "X confirmed/enuffers a breach" or "X data leaked"
-  const m = /([A-Z][A-Za-z0-9.&\s]{2,40})\s+(?:confirmed|suffered|experienced|hit\s*(?:by|with)|data\s*(?:leak|breach)|breach|compromised|hacked|leaked|attack)/i.exec(text);
+  const m =
+    /([A-Z][A-Za-z0-9.&\s]{2,40})\s+(?:confirmed|suffered|experienced|hit\s*(?:by|with)|data\s*(?:leak|breach)|breach|compromised|hacked|leaked|attack)/i.exec(
+      text
+    );
   const name = m?.[1]?.trim() ?? null;
   // Domain extraction
   const dm = /\b([a-z0-9-]+\.[a-z]{2,})\b/i.exec(text);
@@ -336,7 +389,11 @@ function extractTags(text: string): string[] {
   return tags;
 }
 
-function classifyIncident(text: string, platform: Platform, url: string): {
+function classifyIncident(
+  text: string,
+  _platform: Platform,
+  _url: string
+): {
   incident_type: IncidentType;
   severity: Severity;
   confidence: number;
@@ -391,11 +448,7 @@ interface RawPost {
 }
 
 /** Fetch recent posts from X accounts via authenticated GraphQL. */
-async function fetchXAccountPosts(
-  env: Env,
-  handles: string[],
-  sinceDays: number = 1
-): Promise<RawPost[]> {
+async function fetchXAccountPosts(env: Env, handles: string[], sinceDays: number = 1): Promise<RawPost[]> {
   const posts: RawPost[] = [];
   try {
     readAuthCookies(env);
@@ -435,11 +488,7 @@ async function fetchXAccountPosts(
 }
 
 /** Search X for breach/leak keywords via authenticated GraphQL. */
-async function fetchXSearchPosts(
-  env: Env,
-  queries: string[],
-  count: number = 20
-): Promise<RawPost[]> {
+async function fetchXSearchPosts(env: Env, queries: string[], count: number = 20): Promise<RawPost[]> {
   const posts: RawPost[] = [];
   try {
     readAuthCookies(env);
@@ -506,14 +555,39 @@ async function insertIncidents(db: D1Database, incidents: CyberPulseIncident[]):
   for (const inc of incidents) {
     batches.push(
       stmt.bind(
-        inc.id, inc.incident_type, inc.severity, inc.victim_name, inc.victim_domain,
-        inc.victim_sector, inc.victim_country, inc.threat_actor, inc.threat_actor_aliases,
-        inc.title, inc.description, inc.data_types_leaked, inc.records_count, inc.data_volume,
-        inc.source_platform, inc.source_url, inc.source_handle, inc.source_text,
-        inc.source_author, inc.source_avatar, inc.confidence, inc.classification_method,
-        inc.discovered_at, inc.reported_at, inc.updated_at, inc.dedup_hash,
-        inc.duplicate_of, inc.tags, inc.mitre_techniques, inc.source_likes,
-        inc.source_retweets, inc.source_replies, inc.source_views
+        inc.id,
+        inc.incident_type,
+        inc.severity,
+        inc.victim_name,
+        inc.victim_domain,
+        inc.victim_sector,
+        inc.victim_country,
+        inc.threat_actor,
+        inc.threat_actor_aliases,
+        inc.title,
+        inc.description,
+        inc.data_types_leaked,
+        inc.records_count,
+        inc.data_volume,
+        inc.source_platform,
+        inc.source_url,
+        inc.source_handle,
+        inc.source_text,
+        inc.source_author,
+        inc.source_avatar,
+        inc.confidence,
+        inc.classification_method,
+        inc.discovered_at,
+        inc.reported_at,
+        inc.updated_at,
+        inc.dedup_hash,
+        inc.duplicate_of,
+        inc.tags,
+        inc.mitre_techniques,
+        inc.source_likes,
+        inc.source_retweets,
+        inc.source_replies,
+        inc.source_views
       )
     );
   }
@@ -543,18 +617,127 @@ async function logScan(
       `INSERT INTO cyberpulse_scan_log (source, handle, query, scanned_at, items_found, incidents_created, incidents_deduped, duration_ms, error)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
     )
-    .bind(source, handle, query, new Date().toISOString(), itemsFound, incidentsCreated, incidentsDeduped, durationMs, error)
+    .bind(
+      source,
+      handle,
+      query,
+      new Date().toISOString(),
+      itemsFound,
+      incidentsCreated,
+      incidentsDeduped,
+      durationMs,
+      error
+    )
     .run();
+}
+
+// ─── Telegram & social feed converters ──────────────────────────────────────
+
+/** Telegram channels that report breaches/leaks/ransomware. */
+const TELEGRAM_BREACH_CHANNELS = new Set([
+  'falconfeedsio',
+  'RansomLook',
+  'secharvester',
+  'ctinow',
+  'BleepingComputer',
+  'TheHackerNews',
+  'cyber_security_channel',
+  'mythreatintel',
+  'vxunderground',
+  'IntCyberDigest',
+]);
+
+/** Convert a Telegram feed item to a RawPost for classification. */
+function telegramItemToRawPost(item: TelegramFeedItem): RawPost | null {
+  // Skip channels not relevant to breach/leak tracking
+  if (!TELEGRAM_BREACH_CHANNELS.has(item.channel_handle)) return null;
+  // Skip very short posts (likely not incident reports)
+  if (item.text.length < 40) return null;
+  return {
+    text: item.text,
+    url: item.permalink,
+    platform: 'telegram' as Platform,
+    handle: item.channel_handle,
+    author: item.channel_name,
+    avatar: null,
+    published_at: item.datetime,
+    likes: 0,
+    retweets: 0,
+    replies: 0,
+    views: parseViews(item.views),
+  };
+}
+
+function parseViews(views?: string): number {
+  if (!views) return 0;
+  const cleaned = views.replace(/[,.\s]/g, '').toLowerCase();
+  if (cleaned.endsWith('k')) return Math.round(parseFloat(cleaned) * 1000);
+  if (cleaned.endsWith('m')) return Math.round(parseFloat(cleaned) * 1_000_000);
+  return parseInt(cleaned, 10) || 0;
+}
+
+/** Convert a Bluesky/Mastodon feed item to a RawPost for classification. */
+function xFeedItemToRawPost(item: XFeedItem): RawPost | null {
+  // Skip very short posts
+  if (item.text.length < 40) return null;
+  return {
+    text: item.text,
+    url: item.link,
+    platform: item.platform as Platform,
+    handle: item.handle,
+    author: item.handle_name,
+    avatar: null,
+    published_at: item.pub_date,
+    likes: 0,
+    retweets: 0,
+    replies: 0,
+    views: 0,
+  };
+}
+
+/** Fetch Telegram breach/leak feed. */
+async function fetchTelegramBreachFeed(kv?: KVNamespace): Promise<RawPost[]> {
+  try {
+    const feed = await fetchTelegramFeed(kv);
+    return feed.items.map(telegramItemToRawPost).filter((p): p is RawPost => p !== null);
+  } catch {
+    return [];
+  }
+}
+
+/** Fetch Bluesky/Mastodon social feed. */
+async function fetchSocialBreachFeed(): Promise<RawPost[]> {
+  try {
+    const feed = await fetchXFeed();
+    return feed.items.map(xFeedItemToRawPost).filter((p): p is RawPost => p !== null);
+  } catch {
+    return [];
+  }
 }
 
 // ─── Main ingestion pipeline ────────────────────────────────────────────────
 
 const X_ACCOUNTS = [
-  'FalconFeedsIO', 'RansomLook', 'BleepingComputer', 'TheHackerNews',
-  'vxunderground', 'CyberSecurityKnow', 'MalwareTechBlog', 'TalosSecurity',
-  'unit42', 'Mandiant', 'RecordedFuture', 'FlashpointIntel',
-  'DarkTracer', 'SOCRadar', 'GroupIB', 'intel471',
-  'reaborhacks', 'darkleaks', 'dnaborhacks', 'paborhack',
+  'FalconFeedsIO',
+  'RansomLook',
+  'BleepingComputer',
+  'TheHackerNews',
+  'vxunderground',
+  'CyberSecurityKnow',
+  'MalwareTechBlog',
+  'TalosSecurity',
+  'unit42',
+  'Mandiant',
+  'RecordedFuture',
+  'FlashpointIntel',
+  'DarkTracer',
+  'SOCRadar',
+  'GroupIB',
+  'intel471',
+  'reaborhacks',
+  'darkleaks',
+  'dnaborhacks',
+  'paborhack',
 ];
 
 const X_SEARCH_QUERIES = [
@@ -568,10 +751,7 @@ const X_SEARCH_QUERIES = [
 ];
 
 /** Full ingestion pass — called by the hourly cron. */
-export async function runCyberPulseIngestion(
-  env: Env,
-  db: D1Database
-): Promise<IngestResult[]> {
+export async function runCyberPulseIngestion(env: Env, db: D1Database): Promise<IngestResult[]> {
   const results: IngestResult[] = [];
   const existingHashes = await getExistingDedupHashes(db, 48);
   const now = new Date().toISOString();
@@ -635,12 +815,36 @@ export async function runCyberPulseIngestion(
 
     const inserted = await insertIncidents(db, incidents);
     created += inserted;
-    await logScan(db, 'x_accounts', X_ACCOUNTS.join(','), null, xPosts.length, created, deduped, Date.now() - xStart, null);
-    results.push({ source: 'x_accounts', items_scanned: xPosts.length, incidents_created: created, incidents_deduped: deduped, errors: [], duration_ms: Date.now() - xStart });
+    await logScan(
+      db,
+      'x_accounts',
+      X_ACCOUNTS.join(','),
+      null,
+      xPosts.length,
+      created,
+      deduped,
+      Date.now() - xStart,
+      null
+    );
+    results.push({
+      source: 'x_accounts',
+      items_scanned: xPosts.length,
+      incidents_created: created,
+      incidents_deduped: deduped,
+      errors: [],
+      duration_ms: Date.now() - xStart,
+    });
   } catch (e) {
     const err = e instanceof Error ? e.message : String(e);
     await logScan(db, 'x_accounts', null, null, 0, 0, 0, Date.now() - xStart, err);
-    results.push({ source: 'x_accounts', items_scanned: 0, incidents_created: 0, incidents_deduped: 0, errors: [err], duration_ms: Date.now() - xStart });
+    results.push({
+      source: 'x_accounts',
+      items_scanned: 0,
+      incidents_created: 0,
+      incidents_deduped: 0,
+      errors: [err],
+      duration_ms: Date.now() - xStart,
+    });
   }
 
   // ── 2. X keyword search ──────────────────────────────────────────────
@@ -701,12 +905,216 @@ export async function runCyberPulseIngestion(
 
     const inserted = await insertIncidents(db, incidents);
     created += inserted;
-    await logScan(db, 'x_search', null, X_SEARCH_QUERIES.join(' | '), xSearchPosts.length, created, deduped, Date.now() - xSearchStart, null);
-    results.push({ source: 'x_search', items_scanned: xSearchPosts.length, incidents_created: created, incidents_deduped: deduped, errors: [], duration_ms: Date.now() - xSearchStart });
+    await logScan(
+      db,
+      'x_search',
+      null,
+      X_SEARCH_QUERIES.join(' | '),
+      xSearchPosts.length,
+      created,
+      deduped,
+      Date.now() - xSearchStart,
+      null
+    );
+    results.push({
+      source: 'x_search',
+      items_scanned: xSearchPosts.length,
+      incidents_created: created,
+      incidents_deduped: deduped,
+      errors: [],
+      duration_ms: Date.now() - xSearchStart,
+    });
   } catch (e) {
     const err = e instanceof Error ? e.message : String(e);
     await logScan(db, 'x_search', null, null, 0, 0, 0, Date.now() - xSearchStart, err);
-    results.push({ source: 'x_search', items_scanned: 0, incidents_created: 0, incidents_deduped: 0, errors: [err], duration_ms: Date.now() - xSearchStart });
+    results.push({
+      source: 'x_search',
+      items_scanned: 0,
+      incidents_created: 0,
+      incidents_deduped: 0,
+      errors: [err],
+      duration_ms: Date.now() - xSearchStart,
+    });
+  }
+
+  // ── 3. Telegram breach/leak channels ─────────────────────────────────
+  const tgStart = Date.now();
+  try {
+    const tgPosts = await fetchTelegramBreachFeed(env.KV_CACHE);
+    let created = 0;
+    let deduped = 0;
+    const incidents: CyberPulseIncident[] = [];
+
+    for (const post of tgPosts) {
+      const classification = classifyIncident(post.text, 'telegram', post.url);
+      if (classification.confidence < 0.3 && classification.incident_type === 'other') continue;
+
+      const hash = dedupHash(post.text.slice(0, 200), classification.victim_name ?? '', 'telegram');
+      if (existingHashes.has(hash)) {
+        deduped++;
+        continue;
+      }
+      existingHashes.add(hash);
+
+      incidents.push({
+        id: generateId(),
+        incident_type: classification.incident_type,
+        severity: classification.severity,
+        victim_name: classification.victim_name,
+        victim_domain: classification.victim_domain,
+        victim_sector: classification.victim_sector,
+        victim_country: null,
+        threat_actor: classification.threat_actor,
+        threat_actor_aliases: '[]',
+        title: post.text.slice(0, 200).replace(/\n/g, ' '),
+        description: post.text,
+        data_types_leaked: '[]',
+        records_count: classification.records_count,
+        data_volume: classification.data_volume,
+        source_platform: 'telegram',
+        source_url: post.url,
+        source_handle: post.handle,
+        source_text: post.text,
+        source_author: post.author,
+        source_avatar: null,
+        confidence: classification.confidence,
+        classification_method: 'keyword',
+        discovered_at: now,
+        reported_at: post.published_at,
+        updated_at: now,
+        dedup_hash: hash,
+        duplicate_of: null,
+        tags: JSON.stringify(classification.tags),
+        mitre_techniques: JSON.stringify(classification.mitre_techniques),
+        source_likes: 0,
+        source_retweets: 0,
+        source_replies: 0,
+        source_views: post.views,
+      });
+    }
+
+    const inserted = await insertIncidents(db, incidents);
+    created += inserted;
+    await logScan(
+      db,
+      'telegram',
+      TELEGRAM_BREACH_CHANNELS.size + ' channels',
+      null,
+      tgPosts.length,
+      created,
+      deduped,
+      Date.now() - tgStart,
+      null
+    );
+    results.push({
+      source: 'telegram',
+      items_scanned: tgPosts.length,
+      incidents_created: created,
+      incidents_deduped: deduped,
+      errors: [],
+      duration_ms: Date.now() - tgStart,
+    });
+  } catch (e) {
+    const err = e instanceof Error ? e.message : String(e);
+    await logScan(db, 'telegram', null, null, 0, 0, 0, Date.now() - tgStart, err);
+    results.push({
+      source: 'telegram',
+      items_scanned: 0,
+      incidents_created: 0,
+      incidents_deduped: 0,
+      errors: [err],
+      duration_ms: Date.now() - tgStart,
+    });
+  }
+
+  // ── 4. Bluesky + Mastodon social feed ─────────────────────────────────
+  const socialStart = Date.now();
+  try {
+    const socialPosts = await fetchSocialBreachFeed();
+    let created = 0;
+    let deduped = 0;
+    const incidents: CyberPulseIncident[] = [];
+
+    for (const post of socialPosts) {
+      const classification = classifyIncident(post.text, post.platform, post.url);
+      if (classification.confidence < 0.3 && classification.incident_type === 'other') continue;
+
+      const hash = dedupHash(post.text.slice(0, 200), classification.victim_name ?? '', post.platform);
+      if (existingHashes.has(hash)) {
+        deduped++;
+        continue;
+      }
+      existingHashes.add(hash);
+
+      incidents.push({
+        id: generateId(),
+        incident_type: classification.incident_type,
+        severity: classification.severity,
+        victim_name: classification.victim_name,
+        victim_domain: classification.victim_domain,
+        victim_sector: classification.victim_sector,
+        victim_country: null,
+        threat_actor: classification.threat_actor,
+        threat_actor_aliases: '[]',
+        title: post.text.slice(0, 200).replace(/\n/g, ' '),
+        description: post.text,
+        data_types_leaked: '[]',
+        records_count: classification.records_count,
+        data_volume: classification.data_volume,
+        source_platform: post.platform,
+        source_url: post.url,
+        source_handle: post.handle,
+        source_text: post.text,
+        source_author: post.author,
+        source_avatar: null,
+        confidence: classification.confidence,
+        classification_method: 'keyword',
+        discovered_at: now,
+        reported_at: post.published_at,
+        updated_at: now,
+        dedup_hash: hash,
+        duplicate_of: null,
+        tags: JSON.stringify(classification.tags),
+        mitre_techniques: JSON.stringify(classification.mitre_techniques),
+        source_likes: 0,
+        source_retweets: 0,
+        source_replies: 0,
+        source_views: 0,
+      });
+    }
+
+    const inserted = await insertIncidents(db, incidents);
+    created += inserted;
+    await logScan(
+      db,
+      'bluesky_mastodon',
+      null,
+      null,
+      socialPosts.length,
+      created,
+      deduped,
+      Date.now() - socialStart,
+      null
+    );
+    results.push({
+      source: 'bluesky_mastodon',
+      items_scanned: socialPosts.length,
+      incidents_created: created,
+      incidents_deduped: deduped,
+      errors: [],
+      duration_ms: Date.now() - socialStart,
+    });
+  } catch (e) {
+    const err = e instanceof Error ? e.message : String(e);
+    await logScan(db, 'bluesky_mastodon', null, null, 0, 0, 0, Date.now() - socialStart, err);
+    results.push({
+      source: 'bluesky_mastodon',
+      items_scanned: 0,
+      incidents_created: 0,
+      incidents_deduped: 0,
+      errors: [err],
+      duration_ms: Date.now() - socialStart,
+    });
   }
 
   return results;
