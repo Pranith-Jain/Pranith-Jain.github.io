@@ -11,15 +11,15 @@ export interface Env {
    *  its `incr` op, an atomic windowed counter for the admin rate-limit bucket
    *  (so a parallel burst can't bypass the brute-force cap). Optional — the
    *  rate limiter degrades to the per-colos Cache/KV path when it is unbound. */
-  CRON_LOCK_DO?: DurableObjectNamespace;
+  CRON_LOCK_DO: DurableObjectNamespace;
   /** Report-generation pipeline DO (Copilot full-report builder). */
-  REPORT_BUILDER?: DurableObjectNamespace;
+  REPORT_BUILDER: DurableObjectNamespace;
   /** Autonomous investigator agent DO. */
-  INVESTIGATOR_AGENT?: DurableObjectNamespace;
+  INVESTIGATOR_AGENT: DurableObjectNamespace;
   /** Live-feed WebSocket fan-out DO. */
-  LIVE_FEED_DO?: DurableObjectNamespace;
+  LIVE_FEED_DO: DurableObjectNamespace;
   /** DFIR MCP server DO. */
-  DFIR_MCP?: DurableObjectNamespace;
+  DFIR_MCP: DurableObjectNamespace;
   /** Radar deep-crawl DO. */
   RADAR_CRAWLER?: DurableObjectNamespace;
   /** Global Pulse real-time DO. */
@@ -254,5 +254,5 @@ export interface Env {
    *  @cloudflare/workers-types so the SVG-PNG renderer's `env.ASSETS.fetch(...)`
    *  call is fully typed end-to-end. Optional so api-only unit tests still
    *  compile when the binding is unbound. */
-  ASSETS?: Fetcher;
+  ASSETS: Fetcher;
 }
