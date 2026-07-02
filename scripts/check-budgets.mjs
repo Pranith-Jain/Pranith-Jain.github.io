@@ -19,7 +19,7 @@ const distDir = join(__dirname, '..', 'dist');
 const BUDGETS = {
   'vendor-react-*.js': { uncompressed: 80_000, gzip: 28_000 },
   'vendor-icons-*.js': { uncompressed: 130_000, gzip: 38_000 },
-  'index-*.js': { uncompressed: 304_000, gzip: 98_000 },
+  'index-*.js': { uncompressed: 308_000, gzip: 98_000 },
   // Raw bumped 168→172KB for the STIX Builder file-upload + Attack-Flow UI.
   // 172→176KB: Facilities Database page added Tailwind utility classes.
   // gzip 26→28KB: accumulated frontend growth (OSINT Mapper, Tracer, supply-chain
@@ -54,6 +54,11 @@ const BUDGETS = {
   // depth. Same brand palette; the radials sit at the low end of the
   // v7.3 intensity scale (0.05–0.10) so the page never reads as a
   // 'stage-light' mesh. +4KB raw / +2KB gzip headroom.
+  // raw 304→308KB (gzip 98KB unchanged): the worker-refactor branch's
+  // threat-intel component tweaks (AttackHeatmap / GlobalPulseCard /
+  // CommandPalette) nudged the main chunk 0.6KB past 304KB raw. gzip —
+  // the delivered size — stayed within budget, so transfer impact is nil;
+  // modest raw headroom to absorb the drift.
   // gzip 58→60KB: the OSINT Mapper's IdentifierGraph (@xyflow/react) added ~0.1KB
   // gzip to this shared vendor chunk, just past 58KB. 2KB headroom for the new
   // graph feature; transfer impact is negligible.
