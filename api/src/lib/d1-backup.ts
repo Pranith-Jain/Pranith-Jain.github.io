@@ -2,7 +2,7 @@
  * D1 Database Backup System
  *
  * Automated backup of critical D1 tables to KV for disaster recovery.
- * Runs on a daily cron and stores the latest 7 days of backups.
+ * Runs on a daily cron and stores the latest 30 days of backups.
  *
  * Tables backed up:
  *   - briefings (threat intel briefings)
@@ -37,7 +37,7 @@ const BACKUP_TABLES = [
   'domain_nameserver_index',
 ];
 
-const MAX_BACKUPS = 7; // Keep 7 days of backups
+const MAX_BACKUPS = 30; // Keep 30 days of backups
 const BACKUP_PREFIX = 'd1-backup:';
 
 /**
@@ -119,8 +119,8 @@ async function cleanupOldBackups(kv: KVNamespace, currentDate: string): Promise<
 
     // List all backup manifests
     // Hard cap on the page size so a runaway namespace (or a future bump
-    // to MAX_BACKUPS) can't pin a Worker invocation. 7 days of manifests is
-    // ~7 keys — 200 is generous slack.
+    // to MAX_BACKUPS) can't pin a Worker invocation. 30 days of manifests is
+    // ~30 keys — 200 is generous slack.
     const list = await kv.list({ prefix: `${BACKUP_PREFIX}`, limit: 200 });
     for (const key of list.keys) {
       const dateMatch = key.name.match(/d1-backup:(\d{4}-\d{2}-\d{2})/);
