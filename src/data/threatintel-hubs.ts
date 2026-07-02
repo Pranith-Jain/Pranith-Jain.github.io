@@ -635,6 +635,13 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Authenticated PRO surface — victim stats, recent cyberattacks, negotiations, and YARA packs.',
         compVar: 'RansomwareLive',
       },
+      {
+        path: '/threatintel/cyberpulse',
+        tabId: 'cyberpulse',
+        label: 'CyberPulse',
+        desc: 'Breach, leak & cybercrime incident tracker from X/Twitter, Telegram, Bluesky & Mastodon firehose.',
+        compVar: 'CyberPulse',
+      },
     ],
   },
   {

@@ -416,6 +416,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/facilities', '/__prerendered/threatintel__facilities'],
   ['/threatintel/deepdarkcti', '/__prerendered/threatintel__deepdarkcti'],
   ['/threatintel/ransomware-live', '/__prerendered/threatintel__ransomware-live'],
+  ['/threatintel/cyberpulse', '/__prerendered/threatintel__cyberpulse'],
   ['/threatintel/infostealer', '/__prerendered/threatintel__infostealer'],
   ['/threatintel/feed-sources', '/__prerendered/threatintel__feed-sources'],
   ['/threatintel/settings', '/__prerendered/threatintel__settings'],

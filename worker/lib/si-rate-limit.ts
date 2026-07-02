@@ -30,7 +30,7 @@
  * Durable Object instance).
  */
 
-export type RateLimitedProvider = 'ipinfo' | 'abuseipdb' | 'shodan' | 'shodan-internetdb' | 'vpnapi';
+export type RateLimitedProvider = 'ipinfo' | 'abuseipdb' | 'shodan' | 'shodan-internetdb' | 'vpnapi' | 'phantomcandle';
 
 export interface ProviderQuota {
   /** Provider identifier (matches the keys in env / diagnostics). */
@@ -52,6 +52,7 @@ export interface ProviderQuota {
  *   - shodan free: 100/month (essentially off for batch use)
  *   - shodan-internetdb: unlimited (no limiter)
  *   - vpnapi free: 1000/day
+ *   - phantomcandle free: ~1500/month ≈ 50/day
  *
  * The Worker tier is the same as the user tier — these caps protect
  * the platform's API keys, not just the per-client usage.
@@ -62,6 +63,7 @@ export const PROVIDER_QUOTAS: Record<RateLimitedProvider, ProviderQuota> = {
   shodan: { provider: 'shodan', windowMs: 24 * 60 * 60 * 1000, maxPerWindow: 5, enabled: true },
   'shodan-internetdb': { provider: 'shodan-internetdb', windowMs: 0, maxPerWindow: 0, enabled: false },
   vpnapi: { provider: 'vpnapi', windowMs: 24 * 60 * 60 * 1000, maxPerWindow: 1000, enabled: true },
+  phantomcandle: { provider: 'phantomcandle', windowMs: 24 * 60 * 60 * 1000, maxPerWindow: 50, enabled: true },
 };
 
 export interface RateLimitDecision {

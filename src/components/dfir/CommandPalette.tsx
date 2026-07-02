@@ -521,8 +521,11 @@ export function CommandPalette(): JSX.Element | null {
   // Counts per kind for the filter chip row, computed against the *full*
   // un-filtered index so the chip labels show the total per kind, not what
   // would survive the current chip's own filter.
-  const kindCounts = new Map<SearchKind, number>();
-  for (const e of fullIndex) kindCounts.set(e.kind, (kindCounts.get(e.kind) ?? 0) + 1);
+  const kindCounts = useMemo(() => {
+    const map = new Map<SearchKind, number>();
+    for (const e of fullIndex) map.set(e.kind, (map.get(e.kind) ?? 0) + 1);
+    return map;
+  }, [fullIndex]);
 
   return (
     <div

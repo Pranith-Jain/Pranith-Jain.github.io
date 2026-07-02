@@ -35,6 +35,7 @@ const NVD_LOOKBACK_DAYS = 7;
 const NVD_API = 'https://services.nvd.nist.gov/rest/json/cves/2.0';
 const KEV_URL = 'https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json';
 const DAILY_HUNT_REPO = 'https://github.com/TheRavenFile/Daily-Hunt.git';
+const ARGUS_TRENDING_URL = 'https://argus.rootxvishal.com/data/trending.json';
 
 function ensureStaging() {
   if (existsSync(STAGING)) {
@@ -93,16 +94,38 @@ function fetchDailyHunt() {
   });
 }
 
+async function fetchArgusTrending() {
+  console.log('• Argus trending feed');
+  // Optional — Argus may be unreachable; we continue with partial data.
+  // Build script handles a missing argus-trending.json gracefully.
+  const dest = join(STAGING, 'argus-trending.json');
+  try {
+    const res = await fetch(ARGUS_TRENDING_URL, {
+      headers: { 'user-agent': 'pranithjain-threat-intel-sync/1.0 (+https://pranithjain.qzz.io)' },
+    });
+    if (!res.ok) {
+      console.warn(`  ⚠ Argus returned ${res.status} — skipping trending data`);
+      return;
+    }
+    const text = await res.text();
+    writeFileSync(dest, text);
+    console.log(`    wrote ${text.length} bytes to ${dest}`);
+  } catch (err) {
+    console.warn(`  ⚠ Argus fetch failed: ${err instanceof Error ? err.message : err}`);
+  }
+}
+
 async function main() {
   console.log('Threat Intel sync — staging into', STAGING);
   ensureStaging();
 
-  // Order: CISA KEV (small, fast) → NVD (rate-limited, slow) → Daily-Hunt (git).
+  // Order: CISA KEV (small, fast) → NVD (rate-limited, slow) → Daily-Hunt (git) → Argus trending.
   // If any fails, the user keeps the previous good data because the
   // build script reads from staging only when it exists.
   await fetchKev();
   await fetchNvdRecent();
   fetchDailyHunt();
+  await fetchArgusTrending();
 
   console.log('\n✔ Staged. Next: node scripts/build-threat-intel.mjs');
 }

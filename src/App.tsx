@@ -129,6 +129,7 @@ const DfirCopilotPage = lazy(() => import('./pages/dfir/DfirCopilot'));
 const YaraWorkbench = lazy(() => import('./pages/dfir/YaraWorkbench'));
 const StixWorkbench = lazy(() => import('./pages/dfir/StixWorkbench'));
 const PhoneOsint = lazy(() => import('./pages/dfir/PhoneOsint'));
+const PhoneIntel = lazy(() => import('./pages/dfir/PhoneOsintNew'));
 const WifiInvestigation = lazy(() => import('./pages/dfir/WifiInvestigation'));
 const Wayback = lazy(() => import('./pages/dfir/Wayback'));
 const IpGeo = lazy(() => import('./pages/dfir/IpGeo'));
@@ -329,6 +330,7 @@ const AlertFeed = lazy(() => import('./pages/threatintel/AlertFeed'));
 const VeraChat = lazy(() => import('./pages/threatintel/VeraChat'));
 const AgentMesh = lazy(() => import('./pages/threatintel/AgentMesh'));
 const RansomwareLive = lazy(() => import('./pages/threatintel/RansomwareLive'));
+const CyberPulse = lazy(() => import('./pages/threatintel/CyberPulse'));
 const UrlReputation = lazy(() => import('./pages/dfir/UrlReputation'));
 const WhoisHistory = lazy(() => import('./pages/dfir/WhoisHistory'));
 const OpenDirectory = lazy(() => import('./pages/dfir/OpenDirectory'));
@@ -463,6 +465,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/soc-dashboard', Component: SocDashboard },
   { path: '/threatintel/research/:slug', Component: ResearchPostPage },
   { path: '/threatintel/ransomware-live', Component: RansomwareLive },
+  { path: '/threatintel/cyberpulse', Component: CyberPulse },
   { path: '/threatintel/alerts', Component: AlertFeed },
   { path: '/threatintel/vera', Component: VeraChat },
   { path: '/threatintel/agent-mesh', Component: AgentMesh },

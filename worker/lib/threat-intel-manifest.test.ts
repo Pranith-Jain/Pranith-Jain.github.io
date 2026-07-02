@@ -47,6 +47,8 @@ function makeAssetsFixture() {
         priorityScore: 92,
         description: 'remote code execution in widget',
         sizeBytes: 32,
+        argusHypeScore: null,
+        argusRising: null,
       },
       {
         cveId: 'CVE-2026-1002',
@@ -61,6 +63,8 @@ function makeAssetsFixture() {
         priorityScore: 35,
         description: 'cross-site scripting',
         sizeBytes: 22,
+        argusHypeScore: null,
+        argusRising: null,
       },
     ],
     iocIndex: [
@@ -268,6 +272,21 @@ describe('filterCves', () => {
     expect(filterCves(idx, { minPriority: 50 })).toHaveLength(1);
   });
 
+  it('filters by minArgusScore (excludes CVEs without Argus data)', async () => {
+    const { assets } = makeAssetsFixture();
+    const idx = await loadTiIndex(assets);
+    // Both test CVEs have argusHypeScore: null, so minArgusScore should exclude both
+    expect(filterCves(idx, { minArgusScore: 10 })).toHaveLength(0);
+    expect(filterCves(idx, { minArgusScore: 0 })).toHaveLength(0);
+  });
+
+  it('includes Argus-scored CVEs when minArgusScore is not set', async () => {
+    const { assets } = makeAssetsFixture();
+    const idx = await loadTiIndex(assets);
+    // No argus filter — both CVEs appear (argusHypeScore: null treated as "not set")
+    expect(filterCves(idx, {})).toHaveLength(2);
+  });
+
   it('filters by keyword', async () => {
     const { assets } = makeAssetsFixture();
     const idx = await loadTiIndex(assets);
@@ -332,6 +351,41 @@ describe('computePriorityScore', () => {
     });
     // 0 + 0 + 0.10 = 10
     expect(score).toBe(10);
+  });
+
+  it('incorporates argusHypeScore when provided', () => {
+    const now = Date.parse('2026-06-29T00:00:00Z');
+    // With argusHypeScore=100 (max), old CVE, no KEV:
+    //   0.40*1.0 + 0 + 0.10*0 + 0.15*1.0 = 0.55 → 55
+    const score = computePriorityScore({
+      cvssV3Score: 10,
+      inKev: false,
+      publishedAt: '2025-06-29T00:00:00Z',
+      nowMs: now,
+      argusHypeScore: 100,
+    });
+    expect(score).toBe(55);
+  });
+
+  it('uses original formula when argusHypeScore is null', () => {
+    const now = Date.parse('2026-06-29T00:00:00Z');
+    const old = '2025-06-29T00:00:00Z';
+    // argusHypeScore null — original formula: 0.55 + 0 + 0 = 55
+    const score = computePriorityScore({ cvssV3Score: 10, inKev: false, publishedAt: old, nowMs: now, argusHypeScore: null });
+    expect(score).toBe(55);
+  });
+
+  it('stays bounded at 100 with max argusHypeScore + KEV + recent', () => {
+    const now = Date.parse('2026-06-29T00:00:00Z');
+    // 0.40*1.0 + 0.35 + 0.10*1.0 + 0.15*1.0 = 1.0 → 100
+    const score = computePriorityScore({
+      cvssV3Score: 10,
+      inKev: true,
+      publishedAt: '2026-06-29T00:00:00Z',
+      nowMs: now,
+      argusHypeScore: 100,
+    });
+    expect(score).toBe(100);
   });
 });
 

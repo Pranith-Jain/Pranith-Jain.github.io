@@ -16,7 +16,7 @@
  * imported from `src/components/status/statusTones` so the two pages
  * stay byte-aligned. Do not redeclare them locally.
  */
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Activity, ExternalLink } from 'lucide-react';
 import { DataPageLayout } from '../components/DataPageLayout';
@@ -79,13 +79,22 @@ export default function StatusPage(): JSX.Element {
 
   const overall = data?.overall ?? 'cold';
   const PillIcon = PILL[overall].icon;
-  const counts = data?.rows.reduce(
-    (acc, r) => {
-      acc[r.status] = (acc[r.status] ?? 0) + 1;
-      return acc;
-    },
-    { ok: 0, degraded: 0, down: 0, cold: 0 } as Record<Status, number>
-  );
+  const counts = useMemo(() =>
+    data?.rows.reduce(
+      (acc, r) => {
+        acc[r.status] = (acc[r.status] ?? 0) + 1;
+        return acc;
+      },
+      { ok: 0, degraded: 0, down: 0, cold: 0 } as Record<Status, number>
+    ), [data]);
+
+  const sortedRows = useMemo(() =>
+    data?.rows
+      .slice()
+      .sort((a, b) => {
+        if (ORDER[a.status] !== ORDER[b.status]) return ORDER[a.status] - ORDER[b.status];
+        return a.label.localeCompare(b.label);
+      }) ?? [], [data]);
 
   return (
     <>
@@ -148,12 +157,7 @@ export default function StatusPage(): JSX.Element {
               Per-feed status
             </h2>
             <ul className="grid gap-2">
-              {data.rows
-                .slice()
-                .sort((a, b) => {
-                  if (ORDER[a.status] !== ORDER[b.status]) return ORDER[a.status] - ORDER[b.status];
-                  return a.label.localeCompare(b.label);
-                })
+              {sortedRows
                 .map((r) => {
                   const Icon = PILL[r.status].icon;
                   const cred = r.info_credibility !== undefined ? CREDIBILITY[r.info_credibility] : undefined;

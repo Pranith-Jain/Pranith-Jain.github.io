@@ -1,4 +1,4 @@
-import { memo, useState, useEffect, useRef, useCallback, type ReactNode } from 'react';
+import { memo, useMemo, useState, useEffect, useRef, useCallback, type ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown, Command } from 'lucide-react';
 import type { NavLink } from '../core/entities';
@@ -146,6 +146,9 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
     [navLinks]
   );
 
+  const mainLinks = useMemo(() => navLinks.filter((link) => link.label !== 'Home' && !link.cta), [navLinks]);
+  const ctaLinks = useMemo(() => navLinks.filter((link) => link.cta), [navLinks]);
+
   return (
     <>
       <header
@@ -172,9 +175,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
               and CTA-tagged links (Contact) are pulled out so they render
               as a button on the right, not as an inline pill. */}
           <nav className="hidden items-center gap-1 md:flex" aria-label="Main navigation">
-            {navLinks
-              .filter((link) => link.label !== 'Home' && !link.cta)
-              .map((link) => (
+            {mainLinks.map((link) => (
                 <div key={link.href} data-nav-href={link.href} className="relative">
                   {'children' in link && link.children ? (
                     <>
@@ -265,9 +266,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
                 hidden on mobile (the drawer surfaces Contact as its own
                 row). The arrow nudges the user toward action without being
                 shouty. */}
-            {navLinks
-              .filter((link) => link.cta)
-              .map((link) => (
+            {ctaLinks.map((link) => (
                 <Link
                   key={link.href}
                   to={link.href}

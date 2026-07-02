@@ -2814,6 +2814,14 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     group: 'threatintel',
   },
   {
+    path: '/threatintel/cyberpulse',
+    label: 'CyberPulse',
+    description: 'Breach, leak & cybercrime incident tracker — sourced from X/Twitter, Telegram, Bluesky & Mastodon firehose. Broader than ransom.live.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+    keywords: ['breach', 'leak', 'cybercrime', 'ransomware', 'extortion', 'data leak', 'credential leak', 'incident tracker'],
+  },
+  {
     path: '/threatintel/alerts',
     label: 'Alert Feed',
     description:

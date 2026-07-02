@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Activity, BarChart3, Gauge, Loader2 } from 'lucide-react';
 import { DataState } from '../../components/DataState';
 
@@ -140,15 +140,18 @@ function MaturityScorecard({ report }: { report: MaturityReport }): JSX.Element 
 
 function ReliabilityHistogram({ data }: { data: FeedStatusResponse }): JSX.Element {
   // Prefer the server-computed distribution; fall back to deriving from sources.
-  const dist: ReliabilityDistribution =
-    data.reliability_distribution ??
-    (data.sources ?? []).reduce<ReliabilityDistribution>((acc, s) => {
-      const k = s.reliability as ReliabilityGrade;
-      acc[k] = (acc[k] ?? 0) + 1;
-      return acc;
-    }, {});
   const grades: ReliabilityGrade[] = ['A', 'B', 'C', 'D', 'E', 'F'];
-  const total = grades.reduce((sum, g) => sum + (dist[g] ?? 0), 0);
+  const [dist, total] = useMemo(() => {
+    const d: ReliabilityDistribution =
+      data.reliability_distribution ??
+      (data.sources ?? []).reduce<ReliabilityDistribution>((acc, s) => {
+        const k = s.reliability as ReliabilityGrade;
+        acc[k] = (acc[k] ?? 0) + 1;
+        return acc;
+      }, {});
+    const t = grades.reduce((sum, g) => sum + (d[g] ?? 0), 0);
+    return [d, t] as const;
+  }, [data]);
   const max = Math.max(1, ...grades.map((g) => dist[g] ?? 0));
   return (
     <div>

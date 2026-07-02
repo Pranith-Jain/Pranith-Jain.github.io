@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, ChevronDown } from 'lucide-react';
 import type { SidebarConfig } from '../data/sidebar-nav';
@@ -84,7 +84,7 @@ function useExpandedGroups(pathname: string): [Set<string>, (title: string) => v
  */
 export function SidebarContent({ config }: { config: SidebarConfig }): JSX.Element {
   const location = useLocation();
-  const totalItems = config.groups.reduce((n, g) => n + g.items.length, 0);
+  const totalItems = useMemo(() => config.groups.reduce((n, g) => n + g.items.length, 0), [config]);
   const { activeBg, activeIcon, activeDot, focusRing } = toneClasses(config.tone);
   const [expanded, toggle] = useExpandedGroups(location.pathname);
 

@@ -150,7 +150,7 @@ export function IocSnapshotPanel(): JSX.Element {
     }
     return out;
   }, [data, watchlist]);
-  const totalWatched = Object.values(watchedBySource).reduce((a, b) => a + b, 0);
+  const totalWatched = useMemo(() => Object.values(watchedBySource).reduce((a, b) => a + b, 0), [watchedBySource]);
 
   return (
     <section className="mt-12 mb-6">

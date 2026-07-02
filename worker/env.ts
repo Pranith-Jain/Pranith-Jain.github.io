@@ -81,4 +81,9 @@ export interface Env {
   /** When set to "true", allows localhost dev origins in CORS and auth checks.
    *  Unset in production to prevent local dev servers from authenticating. */
   ALLOW_DEV_ORIGINS?: string;
+  /** PhantomCandle threat intel API credentials. Set via wrangler secrets.
+   *  Required for si_enrich_ip / si_enrich_ip_batch to query
+   *  phantomcandle.net for port-level threat attribution. */
+  PHANTOMCANDLE_USER?: string;
+  PHANTOMCANDLE_TOKEN?: string;
 }

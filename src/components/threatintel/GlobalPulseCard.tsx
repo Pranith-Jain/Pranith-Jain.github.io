@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Globe, ArrowRight } from 'lucide-react';
 import { preloadRoute } from '../../lib/route-preloaders';
@@ -42,9 +42,12 @@ export function GlobalPulseCard(): JSX.Element | null {
   if (failed) return null;
   if (!data) return null;
 
-  const critical = data.events.filter((e) => e.severity === 'critical').length;
-  const layerEntries = Object.entries(data.layers).filter(([, count]) => count > 0);
-  const topLayers = layerEntries.sort((a, b) => b[1] - a[1]).slice(0, 3);
+  const { critical, topLayers } = useMemo(() => {
+    const critical = data.events.filter((e) => e.severity === 'critical').length;
+    const layerEntries = Object.entries(data.layers).filter(([, count]) => count > 0);
+    const topLayers = layerEntries.sort((a, b) => b[1] - a[1]).slice(0, 3);
+    return { critical, topLayers };
+  }, [data]);
 
   return (
     <Link

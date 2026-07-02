@@ -46,6 +46,14 @@ export interface EnrichResult {
   shodan_tags?: string[];
   shodan_vulns?: string[];
   shodan_hostnames?: string[];
+  /** PhantomCandle threat category (1-17 enum). 1=APT trojan, etc. */
+  phantomcandle_category?: number;
+  /** PhantomCandle risk level (1-3). 3=high (APT/ransomware). */
+  phantomcandle_risk_level?: number;
+  /** PhantomCandle malware family name (e.g. "CobaltStrike"). */
+  phantomcandle_malicious_family?: string;
+  /** PhantomCandle campaign / group attribution (e.g. "SilverFox"). */
+  phantomcandle_campaign?: string;
   /** Per-provider latency + outcome, useful for debugging. */
   diagnostics: Array<{
     provider: string;
@@ -62,6 +70,8 @@ interface EnvWithSelf {
   SHODAN_API_KEY?: string;
   VPNAPI_TOKEN?: string;
   KV_CACHE?: KVNamespace;
+  PHANTOMCANDLE_USER?: string;
+  PHANTOMCANDLE_TOKEN?: string;
 }
 
 async function timed<T>(label: string, fn: () => Promise<T>): Promise<{ value?: T; ms: number; error?: string }> {
@@ -84,6 +94,74 @@ const IPV4 = /^(\d{1,3}\.){3}\d{1,3}$/;
 const IPV6 = /^[0-9a-fA-F:]+$/;
 
 import { createSiRateLimiter, type RateLimitedProvider } from './si-rate-limit';
+
+interface PhcResponse {
+  code: number;
+  msg: string;
+  data?: Array<{
+    ioc_type: string;
+    ioc_host: string;
+    ioc_port: string;
+    category: number;
+    risk_level: number;
+    confidence: number;
+    malicious_family: string;
+    campaign: string;
+    disservice: string;
+    first_seen: string;
+    tags: string[];
+    file_hash: string;
+    platform: string;
+    malicious_stamp: string;
+    status: string;
+    tpd: number;
+    base: number;
+    protocol: string;
+  }>;
+}
+
+async function phantomcandleFetch(
+  env: EnvWithSelf,
+  ip: string,
+  limiter: ReturnType<typeof createSiRateLimiter>,
+): Promise<{ value?: Record<string, unknown>; ms: number; error?: string; _rateLimited?: boolean; decision?: { retryAfterSeconds: number; limit: number } }> {
+  const label = 'phantomcandle';
+  const decision = await limiter.consume('phantomcandle');
+  if (!decision.allowed) {
+    const t0 = Date.now();
+    return {
+      _rateLimited: true,
+      decision: { retryAfterSeconds: decision.retryAfterSeconds, limit: decision.limit },
+      ms: Date.now() - t0,
+    };
+  }
+  return await timed(label, async () => {
+    if (!env.PHANTOMCANDLE_USER || !env.PHANTOMCANDLE_TOKEN) {
+      throw new Error('PHANTOMCANDLE_USER or PHANTOMCANDLE_TOKEN not set');
+    }
+    const res = await fetch('https://api.phantomcandle.net/api/search/ti', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        user: env.PHANTOMCANDLE_USER,
+        token: env.PHANTOMCANDLE_TOKEN,
+        ioc_type: 'ip',
+        ioc: ip,
+      }),
+    });
+    if (!res.ok) {
+      throw new Error(`phantomcandle returned ${res.status}`);
+    }
+    const body = (await res.json()) as PhcResponse;
+    if (body.code === 0 && body.data && body.data.length > 0) {
+      return body.data[0] as unknown as Record<string, unknown>;
+    }
+    if (body.code === 13) {
+      return {}; // miss — no data, but not an error
+    }
+    throw new Error(`phantomcandle error: code=${body.code} msg=${body.msg}`);
+  });
+}
 
 export function isValidIp(s: string): boolean {
   if (!s) return false;
@@ -121,12 +199,15 @@ export async function enrichIp(env: EnvWithSelf, ip: string): Promise<EnrichResu
   };
 
   // Run all providers in parallel. Each call records its own timing + status.
-  const [ipinfo, abuse, shodan, internetdb, vpn] = await Promise.all([
+  // PhantomCandle uses direct fetch (not SELF proxy) because there's no
+  // existing API route for it.
+  const [ipinfo, abuse, shodan, internetdb, vpn, phantomcandle] = await Promise.all([
     gated<Record<string, unknown>>('ipinfo', 'ipinfo', `/api/v1/ipinfo/${ip}`),
     gated<Record<string, unknown>>('abuseipdb', 'abuseipdb', `/api/v1/abuseipdb/${ip}`),
     gated<Record<string, unknown>>('shodan', 'shodan', `/api/v1/shodan/host/${ip}`),
     gated<Record<string, unknown>>('shodan-internetdb', 'shodan-internetdb', `/api/v1/shodan-internetdb/${ip}`),
     gated<Record<string, unknown>>('vpnapi', 'vpnapi', `/api/v1/vpnapi/${ip}`),
+    phantomcandleFetch(env, ip, limiter),
   ]);
 
   if ((ipinfo as { _rateLimited?: boolean })._rateLimited) {
@@ -261,6 +342,30 @@ export async function enrichIp(env: EnvWithSelf, ip: string): Promise<EnrichResu
       status: vpn.error ? 'failed' : 'skipped',
       ms: vpn.ms,
       error: vpn.error,
+    });
+  }
+
+  if ((phantomcandle as { _rateLimited?: boolean })._rateLimited) {
+    const d = (phantomcandle as { decision: { retryAfterSeconds: number; limit: number } }).decision;
+    result.diagnostics.push({
+      provider: 'phantomcandle',
+      status: 'rate_limited' as const,
+      ms: (phantomcandle as { ms: number }).ms,
+      error: `phantomcandle quota exhausted (limit ${d.limit}/window); retry in ${d.retryAfterSeconds}s`,
+    });
+  } else if ((phantomcandle as { value?: unknown }).value && Object.keys((phantomcandle as { value: Record<string, unknown> }).value).length > 0) {
+    const v = (phantomcandle as { value: Record<string, unknown> }).value;
+    result.phantomcandle_category = v.category as number | undefined;
+    result.phantomcandle_risk_level = v.risk_level as number | undefined;
+    result.phantomcandle_malicious_family = v.malicious_family as string | undefined;
+    result.phantomcandle_campaign = v.campaign as string | undefined;
+    result.diagnostics.push({ provider: 'phantomcandle', status: 'ok', ms: phantomcandle.ms });
+  } else {
+    result.diagnostics.push({
+      provider: 'phantomcandle',
+      status: (phantomcandle as { error?: string }).error ? 'failed' : 'skipped',
+      ms: (phantomcandle as { ms: number }).ms,
+      error: (phantomcandle as { error?: string }).error,
     });
   }
 

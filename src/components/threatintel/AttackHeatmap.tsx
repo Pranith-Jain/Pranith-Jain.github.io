@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Loader2 } from 'lucide-react';
 
 const TACTIC_ORDER = [
@@ -84,24 +84,27 @@ export function AttackHeatmap({
   if (error || !data) return null;
   if (data.aggregate_techniques.length === 0) return null;
 
-  const byTactic = new Map<string, AggregateTechnique[]>();
-  for (const t of data.aggregate_techniques) {
-    const list = byTactic.get(t.tactic) ?? [];
-    list.push(t);
-    byTactic.set(t.tactic, list);
-  }
+  const { byTactic, tacticKeys, maxCount, MAX_PER_TACTIC } = useMemo(() => {
+    const byTactic = new Map<string, AggregateTechnique[]>();
+    for (const t of data.aggregate_techniques) {
+      const list = byTactic.get(t.tactic) ?? [];
+      list.push(t);
+      byTactic.set(t.tactic, list);
+    }
 
-  const tacticSet = new Set(TACTIC_ORDER);
-  const ordered = TACTIC_ORDER.filter((t) => byTactic.has(t));
-  const extra = [...byTactic.keys()].filter((t) => !tacticSet.has(t)).sort();
-  const tacticKeys = [...ordered, ...extra];
+    const tacticSet = new Set(TACTIC_ORDER);
+    const ordered = TACTIC_ORDER.filter((t) => byTactic.has(t));
+    const extra = [...byTactic.keys()].filter((t) => !tacticSet.has(t)).sort();
+    const tacticKeys = [...ordered, ...extra];
 
-  for (const [, list] of byTactic) {
-    list.sort((a, b) => b.used_by_count - a.used_by_count);
-  }
+    for (const [, list] of byTactic) {
+      list.sort((a, b) => b.used_by_count - a.used_by_count);
+    }
 
-  const maxCount = Math.max(...data.aggregate_techniques.map((t) => t.used_by_count), 1);
-  const MAX_PER_TACTIC = 10;
+    const maxCount = Math.max(...data.aggregate_techniques.map((t) => t.used_by_count), 1);
+    const MAX_PER_TACTIC = 10;
+    return { byTactic, tacticKeys, maxCount, MAX_PER_TACTIC };
+  }, [data]);
 
   return (
     <section

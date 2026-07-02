@@ -114,7 +114,7 @@ export function ToolGrid({ group }: { group?: ToolGroup } = {}): JSX.Element {
   // The "External resources" block only belongs on the full, ungrouped grid.
   const filteredExternal = useMemo(() => (group ? [] : EXTERNAL.filter((t) => matches(t, q))), [group, q]);
 
-  const matchCount = filteredSections.reduce((n, s) => n + s.tools.length, 0) + filteredExternal.length;
+  const matchCount = useMemo(() => filteredSections.reduce((n, s) => n + s.tools.length, 0) + filteredExternal.length, [filteredSections, filteredExternal]);
 
   return (
     <div className="space-y-6">

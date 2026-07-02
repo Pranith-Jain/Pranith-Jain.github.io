@@ -25,7 +25,11 @@ const OUT = join(ROOT, 'public', 'data', 'threat-intel');
 const SECTORS = ['financial', 'healthcare', 'government'];
 
 // Same formula as worker/lib/threat-intel-manifest.ts (build-time copy).
-function computePriorityScore(cvssV3Score, inKev, publishedAt, nowMs = Date.now()) {
+// When argusHype (0-100) is provided, the weights shift from:
+//   0.55*cvss + 0.35*kev + 0.10*recency  →  1.00 max
+// to:
+//   0.40*cvss + 0.35*kev + 0.10*recency + 0.15*(argusHype/100)  →  1.00 max
+function computePriorityScore(cvssV3Score, inKev, publishedAt, argusHype = null, nowMs = Date.now()) {
   const cvssNorm = cvssV3Score == null ? 0 : Math.max(0, Math.min(1, cvssV3Score / 10));
   const kevBoost = inKev ? 0.35 : 0;
   const pub = Date.parse(publishedAt);
@@ -34,7 +38,9 @@ function computePriorityScore(cvssV3Score, inKev, publishedAt, nowMs = Date.now(
     const ageDays = (nowMs - pub) / 86_400_000;
     recency = Math.max(0, 1 - ageDays / 365);
   }
-  return Math.round(100 * (0.55 * cvssNorm + kevBoost + 0.1 * recency));
+  const cvssWeight = argusHype != null ? 0.4 : 0.55;
+  const argusBoost = argusHype != null ? 0.15 * Math.max(0, Math.min(1, argusHype / 100)) : 0;
+  return Math.round(100 * (cvssWeight * cvssNorm + kevBoost + 0.1 * recency + argusBoost));
 }
 
 function severityFromScore(score) {
@@ -94,6 +100,23 @@ for (const v of kevList) {
 }
 writeFileSync(join(OUT, 'cves', 'kev.json'), JSON.stringify(kevList.map((v) => kevByCve.get(v.cveID))));
 
+// ─── Argus trending feed ──────────────────────────────────────────────
+const argusRaw = readJsonIfExists(join(STAGING, 'argus-trending.json'));
+const argusByCve = new Map();
+if (argusRaw && Array.isArray(argusRaw.cves)) {
+  for (const cve of argusRaw.cves) {
+    argusByCve.set(cve.cve_id.toUpperCase(), {
+      hype: cve.hype ?? 0,
+      rising: cve.rising ?? 0,
+      reposCount: cve.repos?.count ?? 0,
+      reposStars: cve.repos?.stars ?? 0,
+    });
+  }
+  console.log(`    ${argusByCve.size} Argus-trending CVEs loaded`);
+} else {
+  console.log('    no Argus trending data — continuing without it');
+}
+
 // ─── NVD recent ───────────────────────────────────────────────────────
 const nvdJson = readJsonIfExists(join(STAGING, 'nvd-recent.json'));
 const nvdItems = nvdJson?.vulnerabilities ?? [];
@@ -119,12 +142,17 @@ for (const v of nvdItems) {
   const inKevSince = inKev ? kevByCve.get(id).dateAdded : null;
   const publishedAt = v.cve?.published ?? '';
   const lastModifiedAt = v.cve?.lastModified ?? '';
-  const priorityScore = computePriorityScore(cvssScore, inKev, publishedAt || lastModifiedAt);
+  const argusData = argusByCve.get(id.toUpperCase());
+  const argusHype = argusData?.hype ?? null;
+  const argusRising = argusData?.rising ?? null;
+  const priorityScore = computePriorityScore(cvssScore, inKev, publishedAt || lastModifiedAt, argusHype);
   const indexEntry = {
     cveId: id, publishedAt, lastModifiedAt,
     cvssV3Score: cvssScore, cvssV3Severity: cvssSeverity,
     vendor, product, inKev, inKevSince, priorityScore, description,
     sizeBytes: description.length,
+    argusHypeScore: argusHype,
+    argusRising,
   };
   cveIndex.push(indexEntry);
   const body = {

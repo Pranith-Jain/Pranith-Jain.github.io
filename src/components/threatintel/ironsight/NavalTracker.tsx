@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Anchor } from 'lucide-react';
 
 interface NavalVessel {
@@ -200,16 +201,23 @@ const SHIPS: NavalVessel[] = [
 ];
 
 export default function NavalTracker() {
-  const byNavy: Record<string, NavalVessel[]> = {};
-  SHIPS.forEach((s) => {
-    if (!byNavy[s.navy]) byNavy[s.navy] = [];
-    byNavy[s.navy].push(s);
-  });
+  const byNavy = useMemo(() => {
+    const result: Record<string, NavalVessel[]> = {};
+    SHIPS.forEach((s) => {
+      if (!result[s.navy]) result[s.navy] = [];
+      result[s.navy].push(s);
+    });
+    return result;
+  }, []);
   const navyOrder = ['US Navy', 'Royal Navy', 'French Navy', 'Israeli Navy', 'Saudi Navy', 'Iran Navy', 'IRGC Navy'];
-  const sorted = Object.keys(byNavy).sort(
-    (a, b) =>
-      (navyOrder.indexOf(a) === -1 ? 99 : navyOrder.indexOf(a)) -
-      (navyOrder.indexOf(b) === -1 ? 99 : navyOrder.indexOf(b))
+  const sorted = useMemo(
+    () =>
+      Object.keys(byNavy).sort(
+        (a, b) =>
+          (navyOrder.indexOf(a) === -1 ? 99 : navyOrder.indexOf(a)) -
+          (navyOrder.indexOf(b) === -1 ? 99 : navyOrder.indexOf(b))
+      ),
+    [byNavy]
   );
 
   return (

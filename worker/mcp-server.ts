@@ -1447,9 +1447,10 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             .string()
             .optional()
             .describe('Case-insensitive substring match against CVE ID / vendor / product / description'),
+          minArgusScore: z.number().int().min(0).max(100).optional().describe('Minimum Argus trending hype score (0-100). CVEs without Argus data are excluded when set.'),
           limit: z.number().int().min(1).max(200).optional().describe('Max CVEs to return (default 50)'),
         },
-        async ({ severity, kevOnly, vendor, daysBack, minPriority, keyword, limit }) => {
+        async ({ severity, kevOnly, vendor, daysBack, minPriority, keyword, minArgusScore, limit }) => {
           const idx = await loadTiIndex(ASSETS);
           const cves = filterCves(idx, {
             severity: severity as TiSeverity | undefined,
@@ -1458,6 +1459,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             daysBack,
             minPriority,
             keyword,
+            minArgusScore,
             limit: limit ?? 50,
           });
           return untrustedToolResult({

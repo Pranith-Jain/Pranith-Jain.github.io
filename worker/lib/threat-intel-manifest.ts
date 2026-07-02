@@ -37,6 +37,12 @@ export interface TiCveIndexEntry {
   priorityScore: number;
   description: string;
   sizeBytes: number;
+  /** Argus trending hype score (0-100), set only when the CVE appears
+   *  in the Argus trending feed. null when no Argus data is available
+   *  for this CVE. */
+  argusHypeScore: number | null;
+  /** Argus trending velocity delta. Positive = gaining attention. */
+  argusRising: number | null;
 }
 
 export interface TiKevEntry {
@@ -220,6 +226,9 @@ export interface TiListCvesOptions {
   minPriority?: number;
   keyword?: string;
   limit?: number;
+  /** Only return CVEs whose Argus hype score is >= this value (0-100).
+   *  CVEs without Argus data are excluded when this filter is active. */
+  minArgusScore?: number;
 }
 
 export interface TiListIocsOptions {
@@ -238,7 +247,7 @@ function severityFromScore(score: number | null): TiSeverity {
 }
 
 export function filterCves(idx: TiIndex, opts: TiListCvesOptions = {}): TiCveIndexEntry[] {
-  const { severity, kevOnly, vendor, daysBack, minPriority, keyword, limit = 100 } = opts;
+  const { severity, kevOnly, vendor, daysBack, minPriority, keyword, minArgusScore, limit = 100 } = opts;
   const needle = keyword?.toLowerCase();
   const now = Date.now();
   const cutoffMs = daysBack ? daysBack * 86_400_000 : null;
@@ -253,6 +262,9 @@ export function filterCves(idx: TiIndex, opts: TiListCvesOptions = {}): TiCveInd
     if (cutoffMs) {
       const pub = Date.parse(c.publishedAt);
       if (!isNaN(pub) && now - pub > cutoffMs) continue;
+    }
+    if (minArgusScore !== undefined) {
+      if (c.argusHypeScore === null || c.argusHypeScore < minArgusScore) continue;
     }
     if (needle) {
       const hay = `${c.cveId} ${c.vendor ?? ''} ${c.product ?? ''} ${c.description}`.toLowerCase();
@@ -283,20 +295,29 @@ export function filterIocs(idx: TiIndex, opts: TiListIocsOptions = {}): TiIocInd
 // ─── Priority scoring ───────────────────────────────────────────────────
 
 /**
- * Derive a 0-100 priority score from CVSS + KEV status + recency.
+ * Derive a 0-100 priority score from CVSS + KEV status + recency + (optional) Argus hype.
  * We intentionally re-derive this from first principles (per the AGPL
  * boundary on OpenThreat) — it's a small formula.
  *
+ * Without Argus:
  *   cvss_norm = clamp(cvss / 10, 0, 1)        0-1
- *   kev_boost = 0.35 if inKev else 0          binary jump for "exploited in the wild"
+ *   kev_boost = 0.35 if inKev else 0
  *   recency   = 1 - days_since_published/365  0-1, drops to 0 at 1 year
  *   score     = round(100 * (0.55 * cvss_norm + kev_boost + 0.10 * recency))
+ *
+ * With Argus hypeScore (0-100), the CVSS weight shifts to 0.40 and
+ * argus_norm = clamp(hypeScore / 100, 0, 1) gets a 0.15 weight:
+ *   score     = round(100 * (0.40 * cvss_norm + kev_boost + 0.10 * recency + 0.15 * argus_norm))
+ * Total weight always sums to ≤ 1.0, keeping the max at 100.
  */
 export function computePriorityScore(opts: {
   cvssV3Score: number | null;
   inKev: boolean;
   publishedAt: string;
   nowMs?: number;
+  /** Argus hype score (0-100). When provided, shifts CVSS weight and adds
+   *  a trending-signal factor. Pass null to use the original formula. */
+  argusHypeScore?: number | null;
 }): number {
   const cvssNorm = opts.cvssV3Score === null ? 0 : Math.max(0, Math.min(1, opts.cvssV3Score / 10));
   const kevBoost = opts.inKev ? 0.35 : 0;
@@ -307,7 +328,10 @@ export function computePriorityScore(opts: {
     const ageDays = (nowRef - pub) / 86_400_000;
     recency = Math.max(0, 1 - ageDays / 365);
   }
-  return Math.round(100 * (0.55 * cvssNorm + kevBoost + 0.1 * recency));
+  const hasArgus = opts.argusHypeScore != null;
+  const argusNorm = hasArgus ? Math.max(0, Math.min(1, opts.argusHypeScore! / 100)) : 0;
+  const cvssWeight = hasArgus ? 0.4 : 0.55;
+  return Math.round(100 * (cvssWeight * cvssNorm + kevBoost + 0.1 * recency + (hasArgus ? 0.15 * argusNorm : 0)));
 }
 
 // ─── Cache stats ───────────────────────────────────────────────────────

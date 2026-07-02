@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { Flame } from 'lucide-react';
 
 interface StrikeEvent {
@@ -57,13 +57,13 @@ export default function StrikeTracker() {
     return () => clearInterval(id);
   }, [fetchStrikes]);
 
-  const counts = strikes.reduce(
+  const counts = useMemo(() => strikes.reduce(
     (acc, s) => {
       acc[s.category] = (acc[s.category] || 0) + 1;
       return acc;
     },
     {} as Record<string, number>
-  );
+  ), [strikes]);
 
   return (
     <div className="surface-card p-4">

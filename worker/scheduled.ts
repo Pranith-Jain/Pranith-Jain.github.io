@@ -43,6 +43,7 @@ import { autoRunFeedJobs } from '../api/src/routes/feed-scheduler';
 import { enqueueAllFeeds } from '../api/src/routes/live-iocs';
 import { enqueueGpFeeds } from '../api/src/routes/global-pulse';
 import { scanForPhishingDomains, type PassiveDnsEnv } from '../api/src/lib/passive-dns';
+import { runCyberPulseIngestion } from '../api/src/routes/cyberpulse-ingest';
 import type { D1Database } from '@cloudflare/workers-types';
 import { acquireCronLease, releaseCronLease, heartbeatCronLease } from './durable-objects/cron-lock';
 import { siCacheStats, loadSiIndex } from './lib/si-manifest';
@@ -245,6 +246,35 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
             console.error(
               JSON.stringify({
                 job: 'telegram-watched-scrape',
+                status: 'failed',
+                error: e instanceof Error ? e.message : String(e),
+              })
+            );
+          }
+
+          // ── CyberPulse: breach/leak incident ingestion from social media firehose
+          // Runs after Telegram scan (shared burst window) but before cache-warm.
+          // Monitors X accounts + keyword search for breaches/leaks/cybercrime.
+          try {
+            if (env.BRIEFINGS_DB) {
+              const cpResults = await runCyberPulseIngestion(env as unknown as Record<string, unknown>, env.BRIEFINGS_DB);
+              const totalCreated = cpResults.reduce((s, r) => s + r.incidents_created, 0);
+              const totalDeduped = cpResults.reduce((s, r) => s + r.incidents_deduped, 0);
+              if (totalCreated > 0 || totalDeduped > 0) {
+                console.log(
+                  JSON.stringify({
+                    job: 'cyberpulse-ingest',
+                    incidents_created: totalCreated,
+                    incidents_deduped: totalDeduped,
+                    sources: cpResults.length,
+                  })
+                );
+              }
+            }
+          } catch (e) {
+            console.error(
+              JSON.stringify({
+                job: 'cyberpulse-ingest',
                 status: 'failed',
                 error: e instanceof Error ? e.message : String(e),
               })

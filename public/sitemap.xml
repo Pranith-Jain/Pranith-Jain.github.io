@@ -3,2684 +3,2684 @@
   <!-- Portfolio (6) -->
   <url>
     <loc>https://pranithjain.qzz.io/</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/about</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/skills</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/experience</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/projects</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/blog</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <!-- Misc (5) -->
   <url>
     <loc>https://pranithjain.qzz.io/behind-the-reports</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/sponsor</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/radar</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/admin</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/copilot</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <!-- Landings (2) -->
   <url>
     <loc>https://pranithjain.qzz.io/dfir</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <!-- DFIR tools (161) -->
   <url>
     <loc>https://pranithjain.qzz.io/dfir/catalog</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/vs</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/ai-rule-generator</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/fp-lens</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/threat-graph</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/attack-chain</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/hunting-query-generator</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/ir-playbooks</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/stealer-parser</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/taxii</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/bloom</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/whois-history</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/passive-dns</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/open-directory</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/diamond</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/owasp</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/lolbins</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/kill-chain</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/tabletop</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/grc</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/data-classification</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/privacy-hub</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/personal-security</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/timestamp</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/hash-calc</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/decode</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/encoder</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/punycode</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/dork-builder</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/brand-impersonation</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/image-fingerprint</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/reverse-image</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/exif</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/plist-protobuf</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/pcap-triage</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/registry-hive</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/evtx</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/sqlite</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/ios-backup</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/mobile-sqlite</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/apk-analyzer</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/pe</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/web-log</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/prefetch</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/powershell-deobf</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/screenshot-intel</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/rule-converter</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/rule-playground</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/yara</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/detection-lab</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/prompt-injection</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/pi-taxonomy</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/ironsight</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/mcp-audit</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/agent-map</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/cve-prioritizer</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/iam-analyzer</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/gcp-iam</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/azure-rbac</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/sg-analyzer</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/cloudtrail-triage</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/k8s-rbac</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/terraform-scan</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/openapi-audit</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/sec-headers</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/secret-scan</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/medusa-scan</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/graphql-audit</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/osv-scan</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/stix</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/stix-builder</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/nhi</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/jwt</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/privacy</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/zero-trust-ai-agents</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/pgp-tool</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/tor-gateway</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/domain-investigator</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/ioc-investigate</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/username-investigator</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/yara-workbench</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/stix-workbench</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/malware-analyzer</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/attack-navigator</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/mitre-matrix</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/vuln-toolkit</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/sec-headers-live</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/email-deliverability</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/ioc-lifecycle</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/osint-mapper</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/multi-search</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/notebooks</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/dnscope</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/regscope</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/tracer</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/tracerules</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/phone-osint</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/weather-osint</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/infostealer-intel</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/agent</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/attmap-ai</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/x-verdikt</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/ioc-check</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/phishing</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/domain</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/domain-rep</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/full-spectrum</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/exposure</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/exposed-host</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/dashboard</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/cve</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/cert-search</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/atlas</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/asn</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/breach</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/url-preview</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/extract</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/ioc-pivot</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/google-dorks</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/linux-triage</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/takeover</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/email-defense</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/dmarc-analyzer</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/dlp-scan</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/username</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/wayback</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/ip-geo</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/log-parser</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/socmint</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/tools/about</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/web-scan</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/eml</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/url-rep</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/email-rep</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/email-osnit</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/crypto-trace</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/insight-ai</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/querycraft-ai</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/chrono-ai</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/malbrief-ai</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/verdikt-ai</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/pivex</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/tracepulse</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/quicktrace</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/phishops</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/phishbook</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/abuse-rep</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/asset-intel</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/blocklists</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/ct-monitor</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/file</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/host-graph</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/identity-lookup</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/report-parser</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/report-composer</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/report-analyzer</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/threat-hunt</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/export-hub</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/copilot</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/orkl</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/wifi-investigation</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <!-- Threat Intel — pages (246) -->
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/catalog</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/actors/attribution</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/actors/catalog</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/actors/directory</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/actors/dna</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/actors/graph</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/actors/kb</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/actors/timeline</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/actors/usernames</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/campaigns/active</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/campaigns/cross</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/campaigns/generator</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/campaigns/lifecycle</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/cves/advisories</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/cves/cves</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/cves/exploitable</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/cves/k8s</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/cves/list</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/cves/resources</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/darkweb/bitcoin</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/darkweb/crime</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/darkweb/deepdark</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/darkweb/disclosures</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/darkweb/forums</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/darkweb/infostealer</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/darkweb/leaks</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/darkweb/markets</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/darkweb/ransom-activity</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/darkweb/ransom-map</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/darkweb/ransom-report</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/darkweb/ransomwhere</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/darkweb/recon</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/darkweb/watch</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/detections/detections</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/detections/disarm</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/detections/signal</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/detections/yara</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/external/awesome</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/external/external</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/external/supply</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/feeds/catalog</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/feeds/mythreatintel</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/feeds/quality</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/feeds/reliability</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/feeds/scheduler</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/feeds/sources</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/feeds/status</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/feeds/threatfeeds</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/infra/cloud</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/infra/domain</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/infra/infra</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/infra/webamon</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/iocs/aggregated</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/iocs/c2</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/iocs/correlation</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/iocs/cross</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/iocs/enrichment</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/iocs/entity</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/iocs/feeds</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/iocs/live</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/iocs/map</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/iocs/observable</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/iocs/soc</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/malware/iocs</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/malware/malpedia</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/malware/maltrail</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/malware/packages</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/osint/cli</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/osint/framework</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/osint/map</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/osint/secops</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/osint/certs</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/osint/toolbox</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/phishing/phish</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/phishing/scam</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/phishing/urls</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/predictive/analytics</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/predictive/analyze</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/predictive/assessments</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/predictive/certstream</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/predictive/dashboard</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/predictive/global-pulse</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/predictive/metrics</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/predictive/observe</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/predictive/pir</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/predictive/predictions</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/predictive/predictive</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/predictive/threat-pulse</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/social/crypto-scam</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/social/firehose</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/social/news</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/social/reddit</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/social/scraped-intel</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/social/telegram-channels</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/social/telegram-leaks</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/social/telegram-settings</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/social/telegram-stats</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/social/x-firehose</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/social/x-live</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/social/x-watch</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/tools/copilot</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/tools/graph</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/tools/investigations</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/tools/mcp</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/tools/misp</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/tools/settings</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/tools/stix</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/tools/unified-search</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/tools/watches</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/tools/workspaces</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/tools/tg-intel-search</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/tools/socradar-tools</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/wiki/f3ead</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/wiki/insider</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/wiki/llm</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/wiki/mitre</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/wiki/owasp</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/wiki/wiki</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/mitre</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/actor-kb</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/actor-dna</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/campaign-lifecycle</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/attribution</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/intelligence-gaps</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/cross-campaign</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/most-wanted</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/apt-tracker</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/extremists</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/predators</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/rules</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/about</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/external-resources</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/threatsignal</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/bitwire-blocklist</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/owasp-ai-landscape</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/curated-toolbox</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/redhunt-labs</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/redhunt-insights</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/ai-report</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/mcp-search</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/live-center</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/telegram</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/telegram-monitor</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/source-health</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/soc-dashboard</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/telegram-iocs</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/malware/supply-chain</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/awesome-lists</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/secops-tools</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/cve-resources</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/osint-framework</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/pulse</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/ransomware-map</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/certstream</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/campaign-generator</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/malicious-packages</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/x-watch</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/x-live</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/mythreatintel</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/cybersec</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/breach</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/reddit</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/x</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/status</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/metrics</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/soc-ransomware</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/soc-vulns</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/soc-iocs</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/correlation</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/actor-timeline</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/re-leaks</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/c2-tracker</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/signal</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/cve-list</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/threat-map</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/facilities</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/deepdarkcti</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/ransomware-live</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/ransomwhere</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/infostealer</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/feed-sources</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/settings</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/negotiations</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/maltrail</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/malpedia</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/breach-forums</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/domain-monitor</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/scam-watch</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/tech-ai-news</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/onion-watch</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/telegram-watch</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/telegram-settings</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/misp-browser</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/search</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/ioc-enrichment</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/copilot</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/copilot-chat</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/observe</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/watches</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/workspaces</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/threat-feeds</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/writeups</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/cyber-crime</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/ransomware-activity</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/live-iocs</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/assessments</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/feed-quality</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/ach</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/actor-usernames</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/aggregated-feeds</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/predictions</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/analyze</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/atlas</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/collection-slo</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/cross-correlate</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/crypto-scams</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/darkweb-tools</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/entity-resolution</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/feed-catalog</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/feed-scheduler</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/f3ead</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/insider-threat-matrix</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/intel-dashboard</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/investigations</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/malware-iocs</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/observable-db</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/phishing-wordlists</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/pir-dashboard</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/threat-actor-db</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/cti-dashboard</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/projectdiscovery</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/ransom-report</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/relationship-graph</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/source-reliability</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/telegram-leaks</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/telegram-leaks/channels</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/telegram-leaks/stats</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/yara</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/llm-threat-atlas</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/osint-map</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/osint-cli-tools</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/reports</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/stix-bundles</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/ioc-feeds</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/threat-actor-catalog</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/threat-landscape</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <!-- Threat Intel — research (14) -->
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/research-hub/ach</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/research-hub/ai</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/research-hub/attack-flow</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/research-hub/campaign-gen</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/research-hub/knowledge</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/research-hub/post</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/research-hub/redhunt</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/research-hub/redhunt-labs</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/research-hub/reports</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/research-hub/research</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/research-hub/signal</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/research-hub/volexity</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/research-hub/writeups</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/research</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <!-- Case studies (6) -->
   <url>
     <loc>https://pranithjain.qzz.io/projects/phishing-program-at-scale</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/projects/dmarc-enforcement-1300-domains</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/projects/phishing-triage-automation-n8n-mcp</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/projects/email-infra-automation-platform</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/projects/dfir-toolkit-design</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/projects/threat-intel-platform-build</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- Research articles (6) -->
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/research/nova-lockbit5-qilin-may-2026</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/research/ioc-consensus-noise-floor-may-2026</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/research/cobalt-strike-c2-dominance-may-2026</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/research/kev-vendor-concentration-may-2026</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/research/leak-listings-vs-hibp-may-2026</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/research/building-this-platform-may-2026</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
