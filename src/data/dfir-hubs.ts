@@ -877,6 +877,13 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'AgentInvestigator',
       },
       {
+        path: '/dfir/agent-enrich',
+        tabId: 'agent-enrich',
+        label: 'Agent Enrich',
+        desc: 'Enrich agent observables with external threat intel',
+        compVar: 'TieEnrich',
+      },
+      {
         path: '/dfir/agent-map',
         tabId: 'agent-map',
         label: 'Agent Map',

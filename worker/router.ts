@@ -297,6 +297,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
 
   // ── DFIR: AI agent tools ─────────────────────────────────────
   ['/dfir/agent', '/__prerendered/dfir__agent'],
+  ['/dfir/agent-enrich', '/__prerendered/dfir__agent-enrich'],
   ['/dfir/attmap-ai', '/__prerendered/dfir__attmap-ai'],
   ['/dfir/x-verdikt', '/__prerendered/dfir__x-verdikt'],
 

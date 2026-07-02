@@ -510,6 +510,14 @@ const DFIR_PAGES: readonly PageEntry[] = [
     keywords: ['ai', 'agent', 'llm'],
   },
   {
+    path: '/dfir/agent-enrich',
+    label: 'Agent Enrich',
+    description: 'Enrich agent observables — tool calls, prompts, and data flows with external threat intel.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+    keywords: ['ai', 'agent', 'enrich', 'threat-intel'],
+  },
+  {
     path: '/dfir/agent-map',
     label: 'Agent Map',
     description: 'Map of agent ↔ tool ↔ data dependencies — drift detection and policy gaps.',
