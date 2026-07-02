@@ -10,9 +10,8 @@
  *       Bluesky/Mastodon ≈ 15 RSS fetches. Well within the 50-subrequest free plan.
  */
 import type { D1Database } from '@cloudflare/workers-types';
-import { fetchAuthedTimeline, fetchSearchTimeline, readAuthCookies, XAuthMissingError, type AuthCookies } from '../lib/twitter-auth-graphql';
-
-type XEnv = { X_AUTH_TOKEN?: string; X_CT0?: string; X_BEARER?: string };
+import { fetchAuthedTimeline, fetchSearchTimeline, readAuthCookies, XAuthMissingError } from '../lib/twitter-auth-graphql';
+import type { Env } from '../env';
 
 // ─── Types ─────────────────────────────────────────────────────────────────
 
@@ -393,7 +392,7 @@ interface RawPost {
 
 /** Fetch recent posts from X accounts via authenticated GraphQL. */
 async function fetchXAccountPosts(
-  env: XEnv,
+  env: Env,
   handles: string[],
   sinceDays: number = 1
 ): Promise<RawPost[]> {
@@ -437,7 +436,7 @@ async function fetchXAccountPosts(
 
 /** Search X for breach/leak keywords via authenticated GraphQL. */
 async function fetchXSearchPosts(
-  env: XEnv,
+  env: Env,
   queries: string[],
   count: number = 20
 ): Promise<RawPost[]> {
@@ -570,7 +569,7 @@ const X_SEARCH_QUERIES = [
 
 /** Full ingestion pass — called by the hourly cron. */
 export async function runCyberPulseIngestion(
-  env: XEnv,
+  env: Env,
   db: D1Database
 ): Promise<IngestResult[]> {
   const results: IngestResult[] = [];

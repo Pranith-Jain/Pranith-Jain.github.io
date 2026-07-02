@@ -550,6 +550,14 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'PhoneOsint',
       },
       {
+        path: '/dfir/phone-intel',
+        tabId: 'phone-intel',
+        label: 'AI Phone Intel',
+        desc: 'AI-powered OSINT dashboard — phone/URL scanner with risk scoring.',
+        compVar: 'PhoneIntel',
+        badge: 'live',
+      },
+      {
         path: '/dfir/wifi-investigation',
         tabId: 'wifi-investigation',
         label: 'Wi-Fi / BSSID Investigation',

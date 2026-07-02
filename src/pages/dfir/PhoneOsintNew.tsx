@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
-import { Radar, Phone, Link2, Trash2, Scan, ExternalLink } from 'lucide-react';
+import { Radar, Phone, Link2, Trash2, Scan } from 'lucide-react';
 
 interface ScanResult {
   id: string;

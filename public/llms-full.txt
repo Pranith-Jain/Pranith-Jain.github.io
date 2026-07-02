@@ -77,6 +77,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [URL Reputation](https://pranithjain.qzz.io/dfir/url-rep) (dfir): Cross-source URL reputation — PhishTank, OpenPhish, Google Safe Browsing.
 - [Username Investigator (alias)](https://pranithjain.qzz.io/dfir/username-investigator) (dfir): Alias of /dfir/username — the canonical page.
 - [Phone OSINT](https://pranithjain.qzz.io/dfir/phone-osint) (dfir): Phone number — carrier, country, line type, breach presence.
+- [AI Phone Intel](https://pranithjain.qzz.io/dfir/phone-intel) (dfir): AI-powered OSINT dashboard — phone/URL scanner with risk scoring.
 - [Wi-Fi / BSSID Investigation](https://pranithjain.qzz.io/dfir/wifi-investigation) (dfir): Wireless network — BSSID vendor lookup, SSID analysis, security flags.
 - [Weather OSINT](https://pranithjain.qzz.io/dfir/weather-osint) (dfir): Reverse geocoding + historical weather for a timestamp + coordinates.
 - [SOCMINT](https://pranithjain.qzz.io/dfir/socmint) (dfir): Social-media intelligence — X / Reddit / Telegram / Mastodon pivots.
@@ -225,6 +226,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Ransomwhere](https://pranithjain.qzz.io/threatintel/darkweb/ransomwhere) (threatintel): Crypto wallet directory tied to known ransom groups.
 - [Dark Web Recon](https://pranithjain.qzz.io/threatintel/darkweb/recon) (threatintel): Search .onion sites, look up hidden service metadata, check BTC addresses for abuse, and scan Tor exit nodes.
 - [ransomware.live PRO](https://pranithjain.qzz.io/threatintel/ransomware-live) (threatintel): Authenticated PRO surface — victim stats, recent cyberattacks, negotiations, and YARA packs.
+- [CyberPulse](https://pranithjain.qzz.io/threatintel/cyberpulse) (threatintel): Breach, leak & cybercrime incident tracker from X/Twitter, Telegram, Bluesky & Mastodon firehose.
 - [Phish Feed](https://pranithjain.qzz.io/threatintel/phishing/phish) (threatintel): Phishing feed aggregation — fresh URLs and lure analysis.
 - [Phishing Wordlists](https://pranithjain.qzz.io/threatintel/phishing/urls) (threatintel): Phishing hunting wordlists — brand, gift-card, sextortion, BEC.
 - [Scam Watch](https://pranithjain.qzz.io/threatintel/phishing/scam) (threatintel): Scam watch and monitoring — pig-butchering, romance, investment.

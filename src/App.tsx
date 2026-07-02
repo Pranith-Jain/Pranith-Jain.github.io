@@ -519,6 +519,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/yara-workbench', Component: YaraWorkbench },
   { path: '/dfir/stix-workbench', Component: StixWorkbench },
   { path: '/dfir/phone-osint', Component: PhoneOsint },
+  { path: '/dfir/phone-intel', Component: PhoneIntel },
   { path: '/dfir/wifi-investigation', Component: WifiInvestigation },
   { path: '/dfir/weather-osint', Component: WeatherOsint },
   { path: '/dfir/wayback', Component: Wayback },

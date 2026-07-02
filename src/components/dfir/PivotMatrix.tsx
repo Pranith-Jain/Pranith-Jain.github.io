@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Search, Globe, FileText, Hash, Shield, ExternalLink, Users } from 'lucide-react';
 import type { Verdict } from '../../lib/dfir/types';
 
@@ -18,85 +19,89 @@ interface Pivot {
 }
 
 export function PivotMatrix({ type, value, verdict }: { type: string; value: string; verdict: Verdict }): JSX.Element {
-  const pivots: Pivot[] = [];
+  const pivots = useMemo(() => {
+    const arr: Pivot[] = [];
 
-  if (type === 'ipv4' || type === 'ipv6') {
-    pivots.push({
-      label: 'Domain lookup',
-      desc: 'Reverse DNS / RDAP / email auth',
-      icon: Globe,
-      href: `/dfir/domain/lookup?domain=${encodeURIComponent(value)}`,
-    });
-    pivots.push({
-      label: 'ASN enrichment',
-      desc: 'Shodan / Censys / Netlas',
-      icon: Shield,
-      href: `/dfir/asn/lookup?ip=${encodeURIComponent(value)}`,
-    });
-    pivots.push({
-      label: 'Geo IP',
-      desc: 'Location / ISP / carrier',
-      icon: Globe,
-      href: `/dfir/ip-geo?ip=${encodeURIComponent(value)}`,
-    });
-  }
+    if (type === 'ipv4' || type === 'ipv6') {
+      arr.push({
+        label: 'Domain lookup',
+        desc: 'Reverse DNS / RDAP / email auth',
+        icon: Globe,
+        href: `/dfir/domain/lookup?domain=${encodeURIComponent(value)}`,
+      });
+      arr.push({
+        label: 'ASN enrichment',
+        desc: 'Shodan / Censys / Netlas',
+        icon: Shield,
+        href: `/dfir/asn/lookup?ip=${encodeURIComponent(value)}`,
+      });
+      arr.push({
+        label: 'Geo IP',
+        desc: 'Location / ISP / carrier',
+        icon: Globe,
+        href: `/dfir/ip-geo?ip=${encodeURIComponent(value)}`,
+      });
+    }
 
-  if (type === 'domain') {
-    pivots.push({
-      label: 'Full exposure scan',
-      desc: 'Subdomains / certificates / email auth',
-      icon: Search,
-      href: `/dfir/exposure/scan?domain=${encodeURIComponent(value)}`,
-    });
-    pivots.push({
-      label: 'Certificate search',
-      desc: 'crt.sh certificate transparency',
-      icon: FileText,
-      href: `/dfir/cert-search?domain=${encodeURIComponent(value)}`,
-    });
-  }
+    if (type === 'domain') {
+      arr.push({
+        label: 'Full exposure scan',
+        desc: 'Subdomains / certificates / email auth',
+        icon: Search,
+        href: `/dfir/exposure/scan?domain=${encodeURIComponent(value)}`,
+      });
+      arr.push({
+        label: 'Certificate search',
+        desc: 'crt.sh certificate transparency',
+        icon: FileText,
+        href: `/dfir/cert-search?domain=${encodeURIComponent(value)}`,
+      });
+    }
 
-  if (type === 'hash') {
-    pivots.push({
-      label: 'MalwareBazaar',
-      desc: 'Sample metadata / signatures',
-      icon: Hash,
-      href: `https://bazaar.abuse.ch/browse.php?search=sha256:${encodeURIComponent(value)}`,
-      external: true,
-    });
-    pivots.push({
-      label: 'VirusTotal',
-      desc: 'Detection ratios / behaviour',
-      icon: Search,
-      href: `https://virustotal.com/gui/file/${encodeURIComponent(value)}`,
-      external: true,
-    });
-  }
+    if (type === 'hash') {
+      arr.push({
+        label: 'MalwareBazaar',
+        desc: 'Sample metadata / signatures',
+        icon: Hash,
+        href: `https://bazaar.abuse.ch/browse.php?search=sha256:${encodeURIComponent(value)}`,
+        external: true,
+      });
+      arr.push({
+        label: 'VirusTotal',
+        desc: 'Detection ratios / behaviour',
+        icon: Search,
+        href: `https://virustotal.com/gui/file/${encodeURIComponent(value)}`,
+        external: true,
+      });
+    }
 
-  if (type === 'url') {
-    pivots.push({
-      label: 'URLscan preview',
-      desc: 'Screenshots / DOM / requests',
-      icon: Search,
-      href: `https://urlscan.io/search/#${encodeURIComponent(value)}`,
-      external: true,
-    });
-  }
+    if (type === 'url') {
+      arr.push({
+        label: 'URLscan preview',
+        desc: 'Screenshots / DOM / requests',
+        icon: Search,
+        href: `https://urlscan.io/search/#${encodeURIComponent(value)}`,
+        external: true,
+      });
+    }
 
-  if (verdict === 'malicious' || verdict === 'suspicious') {
-    pivots.push({
-      label: 'ThreatFox lookup',
-      desc: 'C2 / malware family attribution',
-      icon: Shield,
-      href: `/dfir/ioc-check?indicator=${encodeURIComponent(value)}`,
-    });
-    pivots.push({
-      label: 'Actor KB',
-      desc: 'Check known actor TTPs',
-      icon: Users,
-      href: '/threatintel/actor-kb',
-    });
-  }
+    if (verdict === 'malicious' || verdict === 'suspicious') {
+      arr.push({
+        label: 'ThreatFox lookup',
+        desc: 'C2 / malware family attribution',
+        icon: Shield,
+        href: `/dfir/ioc-check?indicator=${encodeURIComponent(value)}`,
+      });
+      arr.push({
+        label: 'Actor KB',
+        desc: 'Check known actor TTPs',
+        icon: Users,
+        href: '/threatintel/actor-kb',
+      });
+    }
+
+    return arr;
+  }, [type, value, verdict]);
 
   if (pivots.length === 0) return <></>;
 

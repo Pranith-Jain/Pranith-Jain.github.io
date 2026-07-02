@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Search, ArrowRight, X } from 'lucide-react';
 import { SECTIONS, GROUP_META, MAIN_TOOL_COUNT, type Tool, type ToolGroup } from './tool-sections';
@@ -91,14 +91,14 @@ export function ToolSearchBar(): JSX.Element {
     node?.scrollIntoView({ block: 'nearest' });
   }, [active]);
 
-  function handleKey(e: React.KeyboardEvent): void {
+  const handleKey = useCallback((e: React.KeyboardEvent): void => {
     if (hits.length === 0) return;
     if (e.key === 'ArrowDown') {
       e.preventDefault();
       setActive((a) => Math.min(hits.length - 1, a + 1));
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
-      setActive((a) => Math.max(0, a - 1));
+      setActive((a) => Math.max(0, a + 1));
     } else if (e.key === 'Enter') {
       e.preventDefault();
       const hit = hits[active];
@@ -107,7 +107,7 @@ export function ToolSearchBar(): JSX.Element {
       setQuery('');
       inputRef.current?.blur();
     }
-  }
+  }, [hits, active, navigate]);
 
   return (
     <section className="mb-8 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 sm:p-5">

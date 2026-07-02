@@ -16,6 +16,8 @@ interface CveEntry {
   inKev: boolean;
   priorityScore: number;
   description: string;
+  argusHypeScore: number | null;
+  argusRising: number | null;
 }
 
 interface KevEntry {
@@ -67,6 +69,12 @@ function priorityBar(score: number): string {
   if (score >= 50) return 'bg-orange-500';
   if (score >= 20) return 'bg-yellow-500';
   return 'bg-gray-500';
+}
+
+function hypeColor(hype: number): string {
+  if (hype >= 70) return 'bg-purple-900/60 text-purple-300';
+  if (hype >= 40) return 'bg-indigo-900/60 text-indigo-300';
+  return 'bg-gray-800 text-gray-400';
 }
 
 export default function ThreatIntel() {
@@ -150,12 +158,17 @@ export default function ThreatIntel() {
                   <div className="flex items-center justify-between mb-1">
                     <div className="flex items-center gap-2">
                       <span className="font-mono text-sm font-semibold text-blue-400">{cve.cveId}</span>
-                      <span className={`text-xs font-medium ${severityColor(cve.cvssV3Severity)}`}>
-                        {cve.cvssV3Severity?.toUpperCase()}
-                      </span>
-                      {cve.inKev && (
-                        <span className="text-xs bg-red-900/60 text-red-300 px-1.5 py-0.5 rounded">KEV</span>
-                      )}
+                        <span className={`text-xs font-medium ${severityColor(cve.cvssV3Severity)}`}>
+                          {cve.cvssV3Severity?.toUpperCase()}
+                        </span>
+                        {cve.inKev && (
+                          <span className="text-xs bg-red-900/60 text-red-300 px-1.5 py-0.5 rounded">KEV</span>
+                        )}
+                        {cve.argusHypeScore != null && (
+                          <span className={`text-xs px-1.5 py-0.5 rounded ${hypeColor(cve.argusHypeScore)}`} title={`Argus trending: ${cve.argusHypeScore}/100${cve.argusRising ? ` (rising ${cve.argusRising > 0 ? '+' : ''}${cve.argusRising})` : ''}`}>
+                            {cve.argusHypeScore}{cve.argusRising ? (cve.argusRising > 0 ? '↑' : '↓') : ''}
+                          </span>
+                        )}
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="w-24 h-1.5 bg-gray-800 rounded-full overflow-hidden">

@@ -190,13 +190,12 @@ export async function cyberpulseIngestHandler(c: Context<{ Bindings: Env }>): Pr
   const adminCheck = requireAdmin(c);
   if (adminCheck) return adminCheck as Response;
 
-  const env = c.env as unknown as Record<string, unknown>;
-  const db = env.BRIEFINGS_DB as import('@cloudflare/workers-types').D1Database | undefined;
+  const db = (c.env as unknown as Record<string, unknown>).BRIEFINGS_DB as import('@cloudflare/workers-types').D1Database | undefined;
   if (!db) return c.json({ error: 'database not configured' }, 503);
 
   const start = Date.now();
   try {
-    const results = await runCyberPulseIngestion(env, db);
+    const results = await runCyberPulseIngestion(c.env, db);
     return c.json({
       ok: true,
       duration_ms: Date.now() - start,

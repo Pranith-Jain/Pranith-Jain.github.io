@@ -21,6 +21,10 @@ interface EnrichResult {
   shodan_tags?: string[];
   shodan_vulns?: string[];
   shodan_hostnames?: string[];
+  phantomcandle_category?: number;
+  phantomcandle_risk_level?: number;
+  phantomcandle_malicious_family?: string;
+  phantomcandle_campaign?: string;
   diagnostics: Array<{ provider: string; status: string; ms: number; error?: string }>;
 }
 
@@ -144,8 +148,8 @@ export default function StixIpExport() {
       maxWidthClass="max-w-6xl"
       description={
         <>
-          Enrich IP addresses via IPinfo/AbuseIPDB/Shodan/VPNAPI and export as a STIX 2.1 bundle. Import into OpenCTI,
-          MISP, or any TAXII 2.1 consumer.
+          Enrich IP addresses via IPinfo/AbuseIPDB/Shodan/VPNAPI/PhantomCandle and export as a STIX 2.1 bundle. Import
+          into OpenCTI, MISP, or any TAXII 2.1 consumer.
         </>
       }
       loading={loading}
@@ -268,6 +272,15 @@ export default function StixIpExport() {
                           {r.shodan_vulns.length > 5 && (
                             <span className="text-slate-400">+{r.shodan_vulns.length - 5} more</span>
                           )}
+                        </div>
+                      )}
+                      {r.phantomcandle_malicious_family && (
+                        <div className="col-span-2 text-red-600 dark:text-red-400">
+                          <span className="text-slate-400">Threat:</span>{' '}
+                          {r.phantomcandle_malicious_family}
+                          {r.phantomcandle_campaign ? ` (${r.phantomcandle_campaign})` : ''}
+                          {r.phantomcandle_category ? ` · cat:${r.phantomcandle_category}` : ''}
+                          {r.phantomcandle_risk_level ? ` · risk:${r.phantomcandle_risk_level}` : ''}
                         </div>
                       )}
                     </div>

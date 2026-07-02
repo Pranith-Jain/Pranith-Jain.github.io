@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useCallback, type FormEvent } from 'react';
+import { useEffect, useState, useRef, useCallback, useMemo, type FormEvent } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ToolDocs } from '../../components/dfir/ToolDocs';
 import { IocChip } from '../../components/dfir/IocChip';
@@ -394,6 +394,16 @@ export default function IocCheck(): JSX.Element {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialInput]);
+
+  const resultMap = useMemo(() => new Map(results.map(r => [r.source, r])), [results]);
+
+  const relatedTags = useMemo(() => results.flatMap((r) => r.tags), [results]);
+  const relatedFreeText = useMemo(
+    () => results.flatMap(
+      (r) => Object.values(r.raw_summary).filter((v) => typeof v === 'string') as string[]
+    ),
+    [results]
+  );
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
@@ -848,7 +858,7 @@ export default function IocCheck(): JSX.Element {
           ) : (
             <div className="grid sm:grid-cols-2 gap-3">
               {eligible.map((p) => {
-                const r = results.find((res) => res.source === p);
+                const r = resultMap.get(p);
                 if (r) return <IocResultRow key={p} r={r} />;
                 return (
                   <div
@@ -893,10 +903,8 @@ export default function IocCheck(): JSX.Element {
         <div className="mt-6">
           <RelatedActors
             hints={{
-              tags: results.flatMap((r) => r.tags),
-              free_text: results.flatMap(
-                (r) => Object.values(r.raw_summary).filter((v) => typeof v === 'string') as string[]
-              ),
+              tags: relatedTags,
+              free_text: relatedFreeText,
             }}
           />
         </div>
