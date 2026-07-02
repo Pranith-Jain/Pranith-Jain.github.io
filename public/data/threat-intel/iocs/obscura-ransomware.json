@@ -1,15 +1,1 @@
-{
-  "slug": "obscura-ransomware",
-  "family": "Obscura Ransomware",
-  "category": "ransomware",
-  "aliases": [],
-  "firstSeen": null,
-  "mitreTechniques": [],
-  "indicatorCount": 6,
-  "description": "DLS: obscurad3aphckihv7wptdxvdnl5emma6t3vikcf3c5oiiqndq6y6xad.onion",
-  "sizeBytes": 1170,
-  "indicators": [],
-  "context": "DLS: obscurad3aphckihv7wptdxvdnl5emma6t3vikcf3c5oiiqndq6y6xad.onion\nServer: nginx/1.22.1\n\nINTEL\n=====\n📌Initially found in September 2025\n📌Encrypted files are appended with .obscura\n📌Targets Windows Environment\n📌Executables are compiled in Go\n📌Infected about 9 Victims, US tops the list\n📌Most Data leaks are not available\n📌Previously, the Ransomware that used I2P was Pay2Key from Iran 🇮🇷\n📌Torrents are in I2P Network which is rare\n📌Most Targeted: Healthcare\n📌Read Me File are titled as: readme-obscura.txt\n\nMD5\n===\nb356ece2d8150fd0e7e673ae37033554\ne8c19bf10d044fe448a60e3fa0f60d58\n\nSUSPECIOUS IPs\n==============\n116.203.102.228\n159.65.200.220\n\nFILE SERVER\n===========\nrbyzt3xaewydfu4wfoccubrbf5gpqvl27viciyvljm3oq7tgnm4rktad.onion\n\nLINK\n====\nmagnet:?xt=urn:btih:f674678eaf055f62a96d5204c1a9c34e43e68d7f&dn=RelationMedia&tr=http://tracker2.postman.i2p/announce.php\nmagnet:?xt=urn:btih:c3cf6b6bc4d709b83148c0a234eb490f1b973e19&dn=Rulmaksan+Turkey&tr=http://tracker2.postman.i2p/announce.php\n\nTOX ID\n======\nAE55FC0EB1C25A5B081650108F9081E236DECE1CE08D2E185A6F15B9FB48E700210BED374643\n7521730C07CF45D363A627F32B3102F3F7FA72F36C2C5F9EAB0C7FBA4668527F62A90EF333E6\n",
-  "references": [],
-  "llmSummary": null
-}
+{"slug":"obscura-ransomware","family":"Obscura Ransomware","category":"ransomware","aliases":[],"firstSeen":null,"mitreTechniques":[],"indicatorCount":6,"description":"DLS: obscurad3aphckihv7wptdxvdnl5emma6t3vikcf3c5oiiqndq6y6xad.onion","sizeBytes":1170,"indicators":[],"context":"DLS: obscurad3aphckihv7wptdxvdnl5emma6t3vikcf3c5oiiqndq6y6xad.onion\nServer: nginx/1.22.1\n\nINTEL\n=====\n📌Initially found in September 2025\n📌Encrypted files are appended with .obscura\n📌Targets Windows Environment\n📌Executables are compiled in Go\n📌Infected about 9 Victims, US tops the list\n📌Most Data leaks are not available\n📌Previously, the Ransomware that used I2P was Pay2Key from Iran 🇮🇷\n📌Torrents are in I2P Network which is rare\n📌Most Targeted: Healthcare\n📌Read Me File are titled as: readme-obscura.txt\n\nMD5\n===\nb356ece2d8150fd0e7e673ae37033554\ne8c19bf10d044fe448a60e3fa0f60d58\n\nSUSPECIOUS IPs\n==============\n116.203.102.228\n159.65.200.220\n\nFILE SERVER\n===========\nrbyzt3xaewydfu4wfoccubrbf5gpqvl27viciyvljm3oq7tgnm4rktad.onion\n\nLINK\n====\nmagnet:?xt=urn:btih:f674678eaf055f62a96d5204c1a9c34e43e68d7f&dn=RelationMedia&tr=http://tracker2.postman.i2p/announce.php\nmagnet:?xt=urn:btih:c3cf6b6bc4d709b83148c0a234eb490f1b973e19&dn=Rulmaksan+Turkey&tr=http://tracker2.postman.i2p/announce.php\n\nTOX ID\n======\nAE55FC0EB1C25A5B081650108F9081E236DECE1CE08D2E185A6F15B9FB48E700210BED374643\n7521730C07CF45D363A627F32B3102F3F7FA72F36C2C5F9EAB0C7FBA4668527F62A90EF333E6\n","references":[],"llmSummary":null}

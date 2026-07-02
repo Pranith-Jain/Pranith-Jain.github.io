@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react';
+import { memo, useEffect, useId, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react';
 import { Link } from 'react-router-dom';
 import {
   AtSign,
@@ -147,9 +147,11 @@ export function IocChip({
       <span className={`inline-flex items-center ${sz.gap} ${skeletonFrame} ${className}`} aria-hidden="true">
         <span className={`${sz.icon} shrink-0 rounded-sm bg-slate-200 dark:bg-slate-700 animate-pulse`} />
         <span className="h-3 w-24 rounded bg-slate-200 dark:bg-slate-700 animate-pulse" />
-      </span>
-    );
-  }
+    </span>
+  );
+}
+
+export { memo(IocChip) as IocChip };
 
   const canonical = refang(value ?? '').trim();
   if (!canonical) return null;

@@ -1,15 +1,1 @@
-{
-  "slug": "bert-ransomware",
-  "family": "Bert Ransomware",
-  "category": "ransomware",
-  "aliases": [],
-  "firstSeen": null,
-  "mitreTechniques": [],
-  "indicatorCount": 10,
-  "description": "💡INTEL",
-  "sizeBytes": 1080,
-  "indicators": [],
-  "context": "💡INTEL\n=======\n📌Bert Group disovered in 6th April 2025; but have been active since Mid March 2025\n📌Targets both Windows and Linux Environment\n📌Linux ELF is the latest edition as the group started with Windows EXE\n📌Adds the extension .bert11 to the encrypted files\n📌Listed 6 victims (as of June 2025), 2 from US\n📌Victim data is stored in another server, not as same as DLS\n📌Both websites are powered by Apache/2.4.52 (Ubuntu)\n📌Uses Powershell file for disabling System Checks\n\n\n\n\nDLS: bertblogsoqmm4ow7nqyh5ik7etsmefdbf25stauecytvwy7tkgizhad.onion\nData Server: wtwdv3ss4d637dka7iafl7737ucykei7pluzc7is3mgo2vl5nmq7eeid.onion\n\nhttp://185.100.157.74/payload.exe\n185.100.157.74 \nhttp://169.254.169.254/latest/meta-data/ami-id \n169.254.169.254\n\n\nMD5\n===\n71dc9540eb03f2ed4d1b6496b13fe839 \n00fdc504be1788231aa7b7d2d1335893 \nd1013bbaa2f151195d563b2b65126fa3\n3e581aad42a2a9e080a4a676de42f015\nedec051ce461d62fbbd3abf09534b731\n5cab4fabffeb5903f684c936a90e0b46\n003291d904b89142bada57a9db732ae7\n29a2cc59a9ebd334103ce146bca38522\n38ce06bf89b28ccebf5a78404eb3818e (PS used by Bert Group)\n",
-  "references": [],
-  "llmSummary": null
-}
+{"slug":"bert-ransomware","family":"Bert Ransomware","category":"ransomware","aliases":[],"firstSeen":null,"mitreTechniques":[],"indicatorCount":10,"description":"💡INTEL","sizeBytes":1080,"indicators":[],"context":"💡INTEL\n=======\n📌Bert Group disovered in 6th April 2025; but have been active since Mid March 2025\n📌Targets both Windows and Linux Environment\n📌Linux ELF is the latest edition as the group started with Windows EXE\n📌Adds the extension .bert11 to the encrypted files\n📌Listed 6 victims (as of June 2025), 2 from US\n📌Victim data is stored in another server, not as same as DLS\n📌Both websites are powered by Apache/2.4.52 (Ubuntu)\n📌Uses Powershell file for disabling System Checks\n\n\n\n\nDLS: bertblogsoqmm4ow7nqyh5ik7etsmefdbf25stauecytvwy7tkgizhad.onion\nData Server: wtwdv3ss4d637dka7iafl7737ucykei7pluzc7is3mgo2vl5nmq7eeid.onion\n\nhttp://185.100.157.74/payload.exe\n185.100.157.74 \nhttp://169.254.169.254/latest/meta-data/ami-id \n169.254.169.254\n\n\nMD5\n===\n71dc9540eb03f2ed4d1b6496b13fe839 \n00fdc504be1788231aa7b7d2d1335893 \nd1013bbaa2f151195d563b2b65126fa3\n3e581aad42a2a9e080a4a676de42f015\nedec051ce461d62fbbd3abf09534b731\n5cab4fabffeb5903f684c936a90e0b46\n003291d904b89142bada57a9db732ae7\n29a2cc59a9ebd334103ce146bca38522\n38ce06bf89b28ccebf5a78404eb3818e (PS used by Bert Group)\n","references":[],"llmSummary":null}

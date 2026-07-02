@@ -1,15 +1,1 @@
-{
-  "slug": "osiris-ransomware",
-  "family": "Osiris Ransomware",
-  "category": "ransomware",
-  "aliases": [],
-  "firstSeen": null,
-  "mitreTechniques": [],
-  "indicatorCount": 1,
-  "description": "INTEL",
-  "sizeBytes": 291,
-  "indicators": [],
-  "context": "INTEL\n=====\n📌Found to be active since November 2025\n📌Targets Windows Environment\n📌Uses .Osiris extension for encrypted files\n📌Ransom note is titled as \"Osiris-MESSAGE.txt\"\n\nDLS\n===\nosirisbm3357xrccnid23nlyuqwzbgqheaei6dxvyi34tbkqr3bmvfid.onion\n\n\nMD5\n===\nc7af15f4bb7eb9e767dfa634adbc67f1\n",
-  "references": [],
-  "llmSummary": null
-}
+{"slug":"osiris-ransomware","family":"Osiris Ransomware","category":"ransomware","aliases":[],"firstSeen":null,"mitreTechniques":[],"indicatorCount":1,"description":"INTEL","sizeBytes":291,"indicators":[],"context":"INTEL\n=====\n📌Found to be active since November 2025\n📌Targets Windows Environment\n📌Uses .Osiris extension for encrypted files\n📌Ransom note is titled as \"Osiris-MESSAGE.txt\"\n\nDLS\n===\nosirisbm3357xrccnid23nlyuqwzbgqheaei6dxvyi34tbkqr3bmvfid.onion\n\n\nMD5\n===\nc7af15f4bb7eb9e767dfa634adbc67f1\n","references":[],"llmSummary":null}

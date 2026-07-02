@@ -1,15 +1,1 @@
-{
-  "slug": "team-underground-ransomware",
-  "family": "Team Underground Ransomware",
-  "category": "ransomware",
-  "aliases": [],
-  "firstSeen": null,
-  "mitreTechniques": [],
-  "indicatorCount": 6,
-  "description": "INTEL",
-  "sizeBytes": 970,
-  "indicators": [],
-  "context": "INTEL\n=====\n📌The group initially spotted in May 2024\n📌So far, they have compromised about 24 victims (as of June 2025)\n📌Affected countries includes: 🇨🇦 🇹🇼 🇰🇷 🇯🇵 🇫🇷 🇪🇸 🇸🇰 🇸🇬\n📌Most affected country is: Canada, Taiwan and S.Korea\n📌The group maintains DLS on Dark Web\n📌They began to advertise their group on Telegram Channels since February 2025\n📌Underground maintains seperate communication channel for negotiation on Dark Web\n📌Victim data is encrypted using BCrypt, DES\n\n\n\nDLS: 47glxkuxyayqrvugfumgsblrdagvrah7gttfscgzn56eyss5wg3uvmqd.onion\n\nChat: \nundgrddapc4reaunnrdrmnagvdelqfvmgycuvilgwb5uxm25sxawaoqd.onion\nehehqyhw3iev2vfso4vqs7kcrzltfebe5vbimq62p2ja7pslczs3q6qd.onion\n2nyysjgsfhnwizvbhjeklagbdbjz2z27meao7asl73zcqpb5cr4n4eyd.onion\n\n\n\nMD5\n====\nbbbf99de707dd28c938668d34c2e1b26\n3d01bdac70797938954bd5c60a34db3c\n80f4a1d42e2d4205cedf96909091cf84\n9c0be24942593c11acf79e4dd9af842e\n76a3ee4f0447ad47767d2b6f808b7fc6\n36a00142db6e258b6604efd7cc930dd8\n",
-  "references": [],
-  "llmSummary": null
-}
+{"slug":"team-underground-ransomware","family":"Team Underground Ransomware","category":"ransomware","aliases":[],"firstSeen":null,"mitreTechniques":[],"indicatorCount":6,"description":"INTEL","sizeBytes":970,"indicators":[],"context":"INTEL\n=====\n📌The group initially spotted in May 2024\n📌So far, they have compromised about 24 victims (as of June 2025)\n📌Affected countries includes: 🇨🇦 🇹🇼 🇰🇷 🇯🇵 🇫🇷 🇪🇸 🇸🇰 🇸🇬\n📌Most affected country is: Canada, Taiwan and S.Korea\n📌The group maintains DLS on Dark Web\n📌They began to advertise their group on Telegram Channels since February 2025\n📌Underground maintains seperate communication channel for negotiation on Dark Web\n📌Victim data is encrypted using BCrypt, DES\n\n\n\nDLS: 47glxkuxyayqrvugfumgsblrdagvrah7gttfscgzn56eyss5wg3uvmqd.onion\n\nChat: \nundgrddapc4reaunnrdrmnagvdelqfvmgycuvilgwb5uxm25sxawaoqd.onion\nehehqyhw3iev2vfso4vqs7kcrzltfebe5vbimq62p2ja7pslczs3q6qd.onion\n2nyysjgsfhnwizvbhjeklagbdbjz2z27meao7asl73zcqpb5cr4n4eyd.onion\n\n\n\nMD5\n====\nbbbf99de707dd28c938668d34c2e1b26\n3d01bdac70797938954bd5c60a34db3c\n80f4a1d42e2d4205cedf96909091cf84\n9c0be24942593c11acf79e4dd9af842e\n76a3ee4f0447ad47767d2b6f808b7fc6\n36a00142db6e258b6604efd7cc930dd8\n","references":[],"llmSummary":null}

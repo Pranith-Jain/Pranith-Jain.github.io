@@ -1,15 +1,1 @@
-{
-  "slug": "lynx-ransomware",
-  "family": "Lynx Ransomware",
-  "category": "ransomware",
-  "aliases": [],
-  "firstSeen": null,
-  "mitreTechniques": [],
-  "indicatorCount": 19,
-  "description": "TOR",
-  "sizeBytes": 1224,
-  "indicators": [],
-  "context": "TOR\n===\nlynxblog.net\nlynxch2k5xi35j7hlbmwl7d6u2oz4vp2wqp6qkwol624cod3d6iqiyqd.onion\nlynxchatly4zludmhmi75jrwhycnoqvkxb4prohxmyzf4euf5gjxroad.onion\nlynxblogxstgzsarfyk2pvhdv45igghb4zmthnzmsipzeoduruz3xwqd.onion\nlynxblogxutufossaeawlij3j3uikaloll5ko6grzhkwdclrjngrfoid.onion\nlynxblogoxllth4b46cfwlop5pfj4s7dyv37yuy7qn2ftan6gd72hsad.onion\nlynxblogmx3rbiwg3rpj4nds25hjsnrwkpxt5gaznetfikz4gz2csyad.onion\nlynxblogco7r37jt7p5wrmfxzqze7ghxw6rihzkqc455qluacwotciyd.onion\nlynxblogijy4jfoblgix2klxmkbgee4leoeuge7qt4fpfkj4zbi2sjyd.onion\nlynxblogtwatfsrwj3oatpejwxk5bngqcd5f7s26iskagfu7ouaomjad.onion\n\nMD5\n===\nb1d81e8bbecccc547645d17395538a2d\na20886a5b378624d16972db66bd4e7e1\nf16238836909d07f86154c5ccbade96a\n30656c737338818bee8cc3591e3f3dcc\n571684f28ce1cf4d8236dbd46ef6f7f0\n65c0c7c9fe6bc1d5296447aae6c6c14c\nd972bbbb3edb0e5ab5751b911f3dda17\n146d350fd6271b4411714c630d8cda87\nff458208c49836cdec92f0a4a7ba6afd\n67a44a38cc36becd6e2e9c20c27fd9ad\n3a39bcd9fc840b4e13042f916d9eb39a\nb47cdcdc179c5949ce18f4d161603901\n2348b069647af0a714ae1e005f73b522\n14a0ecf45aa72adb2b1f2ccca99f6faa\n57f45c0738af9cd49c61984ea99f83ca\n31a77e0d1c1b91eebec1f7cdcc1ab8b8\n74ae58a716aa834949388ee1574788e0\n0e521e0452f113cdf8b5c2fa6580db1f\n7e851829ee37bc0cf65a268d1d1baa7a\n",
-  "references": [],
-  "llmSummary": null
-}
+{"slug":"lynx-ransomware","family":"Lynx Ransomware","category":"ransomware","aliases":[],"firstSeen":null,"mitreTechniques":[],"indicatorCount":19,"description":"TOR","sizeBytes":1224,"indicators":[],"context":"TOR\n===\nlynxblog.net\nlynxch2k5xi35j7hlbmwl7d6u2oz4vp2wqp6qkwol624cod3d6iqiyqd.onion\nlynxchatly4zludmhmi75jrwhycnoqvkxb4prohxmyzf4euf5gjxroad.onion\nlynxblogxstgzsarfyk2pvhdv45igghb4zmthnzmsipzeoduruz3xwqd.onion\nlynxblogxutufossaeawlij3j3uikaloll5ko6grzhkwdclrjngrfoid.onion\nlynxblogoxllth4b46cfwlop5pfj4s7dyv37yuy7qn2ftan6gd72hsad.onion\nlynxblogmx3rbiwg3rpj4nds25hjsnrwkpxt5gaznetfikz4gz2csyad.onion\nlynxblogco7r37jt7p5wrmfxzqze7ghxw6rihzkqc455qluacwotciyd.onion\nlynxblogijy4jfoblgix2klxmkbgee4leoeuge7qt4fpfkj4zbi2sjyd.onion\nlynxblogtwatfsrwj3oatpejwxk5bngqcd5f7s26iskagfu7ouaomjad.onion\n\nMD5\n===\nb1d81e8bbecccc547645d17395538a2d\na20886a5b378624d16972db66bd4e7e1\nf16238836909d07f86154c5ccbade96a\n30656c737338818bee8cc3591e3f3dcc\n571684f28ce1cf4d8236dbd46ef6f7f0\n65c0c7c9fe6bc1d5296447aae6c6c14c\nd972bbbb3edb0e5ab5751b911f3dda17\n146d350fd6271b4411714c630d8cda87\nff458208c49836cdec92f0a4a7ba6afd\n67a44a38cc36becd6e2e9c20c27fd9ad\n3a39bcd9fc840b4e13042f916d9eb39a\nb47cdcdc179c5949ce18f4d161603901\n2348b069647af0a714ae1e005f73b522\n14a0ecf45aa72adb2b1f2ccca99f6faa\n57f45c0738af9cd49c61984ea99f83ca\n31a77e0d1c1b91eebec1f7cdcc1ab8b8\n74ae58a716aa834949388ee1574788e0\n0e521e0452f113cdf8b5c2fa6580db1f\n7e851829ee37bc0cf65a268d1d1baa7a\n","references":[],"llmSummary":null}

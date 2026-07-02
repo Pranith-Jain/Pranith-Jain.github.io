@@ -89,7 +89,7 @@ Each investigation analyzes:
 - **Microsoft Sentinel**: Read access to log analytics workspace
 - **Microsoft Defender for Endpoint**: Access to Advanced Hunting and device inventory
 - **Threat Intelligence Platform**: Access to ThreatIntelIndicators table
-- **IP Enrichment APIs**:
+- **IP Enrichment APIs**: 
   - ipinfo.io API token (configured in `config.json`)
   - vpnapi.io access
   - AbuseIPDB API access
@@ -98,7 +98,7 @@ Each investigation analyzes:
 
 - **Python Environment**: Version 3.8+ with virtual environment configured
 - **PowerShell**: Version 5.1+ or PowerShell Core 7+
-- **MCP Servers**:
+- **MCP Servers**: 
   - `sentinel-data` (Sentinel KQL queries)
   - `sentinel-tria` (Defender Advanced Hunting)
   - Proper authentication configured
@@ -120,21 +120,21 @@ Phase 1: Query Failed Connections (Parallel)
    ├── SecurityEvent (Windows failed logons)
    ├── W3CIISLog (IIS web server errors)
    └── DeviceNetworkEvents (network traffic)
-
+   
 Phase 2: IP Enrichment & Threat Intelligence (Parallel)
    ├── IP Enrichment Script (geolocation, VPN, abuse)
    └── Sentinel Threat Intelligence (ThreatIntelIndicators)
-
+   
 Phase 3: Security Incidents (Sequential)
    ├── Get Device ID from DeviceInfo
    └── Query SecurityIncident table
-
+   
 Phase 4: Vulnerability Assessment (Sequential)
    ├── Activate Advanced Hunting tools
    ├── Get MDE Machine ID
    ├── Activate Security Alert tools
    └── Query vulnerabilities
-
+   
 Phase 5: Generate Executive Report
    └── Create markdown report with findings
 ```
@@ -148,7 +148,6 @@ Phase 5: Generate Executive Report
 ```
 
 **Example Output:**
-
 ```
 [00:12] ✓ Failed connection queries completed (12 seconds) - 487 unique IPs identified, top 15 prioritized for enrichment
 [02:45] ✓ IP enrichment completed (153 seconds) - 12 IPs flagged in threat intelligence (100% confidence)
@@ -183,9 +182,9 @@ SecurityEvent
 | where EventID in (4625, 4771, 4776)
 | where isnotempty(IpAddress) and IpAddress != "-"
 | where IpAddress != "127.0.0.1"
-| summarize
-    FailedAttempts=count(),
-    FirstSeen=min(TimeGenerated),
+| summarize 
+    FailedAttempts=count(), 
+    FirstSeen=min(TimeGenerated), 
     LastSeen=max(TimeGenerated),
     TargetAccounts=make_set(Account, 10)
     by IpAddress, EventID
@@ -199,7 +198,6 @@ SecurityEvent
 ```
 
 **What This Captures:**
-
 - RDP brute force attacks (EventID 4625)
 - Kerberos authentication failures (EventID 4771)
 - NTLM authentication failures (EventID 4776)
@@ -220,9 +218,9 @@ W3CIISLog
 | where Computer =~ honeypot
 | where tolong(scStatus) >= 400
 | where cIP != "127.0.0.1" and cIP != "::1"
-| summarize
-    RequestCount=count(),
-    FirstSeen=min(TimeGenerated),
+| summarize 
+    RequestCount=count(), 
+    FirstSeen=min(TimeGenerated), 
     LastSeen=max(TimeGenerated),
     TargetedURIs=make_set(csUriStem, 10),
     StatusCodes=make_set(tolong(scStatus), 5)
@@ -232,7 +230,6 @@ W3CIISLog
 ```
 
 **What This Captures:**
-
 - SQL injection attempts
 - Cross-site scripting (XSS) probes
 - Path traversal attempts
@@ -258,9 +255,9 @@ DeviceNetworkEvents
 | where RemoteIP !startswith "192.168." and RemoteIP !startswith "10." and RemoteIP !startswith "172.16."
 | where RemoteIP !startswith "fe80:" and RemoteIP !startswith "fc00:" and RemoteIP !startswith "fd00:"
 | where RemoteIP !startswith "::ffff:"
-| summarize
-    ConnectionCount=count(),
-    FirstSeen=min(TimeGenerated),
+| summarize 
+    ConnectionCount=count(), 
+    FirstSeen=min(TimeGenerated), 
     LastSeen=max(TimeGenerated),
     TargetedPorts=make_set(LocalPort, 10),
     Actions=make_set(ActionType, 5)
@@ -270,7 +267,6 @@ DeviceNetworkEvents
 ```
 
 **What This Captures:**
-
 - Port scanning activity
 - Successful TCP connections to honeypot services
 - Multi-port reconnaissance patterns
@@ -288,7 +284,6 @@ After collecting all three result sets:
 2. **Select top 10-15 IPs for enrichment** (reduces API costs while maintaining intelligence value)
 
 3. **Save to temporary file:**
-
    ```json
    {
      "ips": ["203.0.113.42", "198.51.100.10", "192.0.2.50", ...]
@@ -308,7 +303,6 @@ After collecting all three result sets:
 **Output**: Enriched IP data with geolocation, VPN detection, abuse scores
 
 **Command:**
-
 ```powershell
 $env:PYTHONPATH = "C:\path\to\security-investigator"
 cd "C:\path\to\security-investigator"
@@ -317,15 +311,15 @@ cd "C:\path\to\security-investigator"
 
 **Enrichment Data Collected:**
 
-| Field                          | Source                         | Description             |
-| ------------------------------ | ------------------------------ | ----------------------- |
-| `ip`                           | Input                          | IP address              |
-| `city`, `region`, `country`    | ipinfo.io                      | Geolocation             |
-| `org`, `asn`                   | ipinfo.io                      | Network ownership       |
-| `is_vpn`, `is_proxy`, `is_tor` | ipinfo.io + vpnapi.io          | Anonymization detection |
-| `abuse_confidence_score`       | AbuseIPDB                      | Reputation (0-100)      |
-| `total_reports`                | AbuseIPDB                      | Community reports       |
-| `threat_description`           | Sentinel ThreatIntelIndicators | Threat intel match      |
+| Field | Source | Description |
+|-------|--------|-------------|
+| `ip` | Input | IP address |
+| `city`, `region`, `country` | ipinfo.io | Geolocation |
+| `org`, `asn` | ipinfo.io | Network ownership |
+| `is_vpn`, `is_proxy`, `is_tor` | ipinfo.io + vpnapi.io | Anonymization detection |
+| `abuse_confidence_score` | AbuseIPDB | Reputation (0-100) |
+| `total_reports` | AbuseIPDB | Community reports |
+| `threat_description` | Sentinel ThreatIntelIndicators | Threat intel match |
 
 #### Sentinel Threat Intelligence Query
 
@@ -346,7 +340,7 @@ ThreatIntelIndicators
 | extend TrafficLightProtocolLevel = tostring(parse_json(AdditionalFields).TLPLevel)
 | extend ActivityGroupNames = extract(@"ActivityGroup:(\S+)", 1, tostring(parse_json(Data).labels))
 | summarize arg_max(TimeGenerated, *) by NetworkSourceIP
-| project
+| project 
     TimeGenerated,
     IPAddress = NetworkSourceIP,
     ThreatDescription = Description,
@@ -359,7 +353,6 @@ ThreatIntelIndicators
 ```
 
 **Threat Intelligence Sources:**
-
 - Microsoft Threat Intelligence (MSTIC)
 - STIX/TAXII feeds
 - Community threat intel platforms
@@ -408,7 +401,7 @@ SecurityIncident
 | extend ProviderIncidentUrl = tostring(AdditionalData.providerIncidentUrl)
 | extend OwnerUPN = tostring(Owner.userPrincipalName)
 | extend LastModifiedTime = todatetime(LastModifiedTime)
-| summarize
+| summarize 
     Title = any(Title),
     Severity = any(Severity),
     Status = any(Status),
@@ -427,7 +420,6 @@ SecurityIncident
 **Incident Filtering Logic:**
 
 Only report as threats:
-
 - Status = "New" or "Active"
 - Classification NOT "BenignPositive"
 
@@ -450,9 +442,9 @@ activate_advanced_hunting_tools()
 **CRITICAL**: Microsoft Defender for Endpoint uses a different machine ID format (GUID) than Sentinel's DeviceId (SHA1 hash).
 
 ```kql
-DeviceInfo
-| where DeviceName =~ 'honeypot-server'
-| summarize arg_max(Timestamp, *)
+DeviceInfo 
+| where DeviceName =~ 'honeypot-server' 
+| summarize arg_max(Timestamp, *) 
 | project DeviceId, DeviceName, OSPlatform, OSVersion, PublicIP
 ```
 
@@ -471,7 +463,6 @@ mcp_sentinel-tria_GetDefenderMachineVulnerabilities({"id": "<MDE_MACHINE_ID>"})
 ```
 
 **Vulnerability Data Collected:**
-
 - CVE ID
 - Severity (Critical/High/Medium/Low)
 - CVSS Score
@@ -562,7 +553,7 @@ W3CIISLog
 | where TimeGenerated between (start .. end)
 | where Computer =~ honeypot
 | where csUriStem has_any ("'", "union", "select", "script", "../", "..\\", "cmd.exe", "powershell")
-| summarize
+| summarize 
     AttemptCount = count(),
     FirstSeen = min(TimeGenerated),
     LastSeen = max(TimeGenerated),
@@ -588,7 +579,7 @@ let honeypot = 'honeypot-server';
 DeviceNetworkEvents
 | where TimeGenerated between (start .. end)
 | where DeviceName =~ honeypot
-| summarize
+| summarize 
     DistinctPorts = dcount(RemotePort),
     PortsScanned = make_set(RemotePort),
     EventCount = count()
@@ -683,12 +674,12 @@ SecurityEvent
 
 #### Risk Level Classification
 
-| Risk Level   | Criteria                                                      |
-| ------------ | ------------------------------------------------------------- |
-| **CRITICAL** | Threat intelligence match + High abuse score (≥75)            |
-| **HIGH**     | Threat intelligence match OR Abuse score ≥75 OR Tor exit node |
-| **MEDIUM**   | VPN/Proxy + Moderate abuse (25-74) OR Abuse score ≥25         |
-| **LOW**      | Clean reputation + Residential ISP                            |
+| Risk Level | Criteria |
+|------------|----------|
+| **CRITICAL** | Threat intelligence match + High abuse score (≥75) |
+| **HIGH** | Threat intelligence match OR Abuse score ≥75 OR Tor exit node |
+| **MEDIUM** | VPN/Proxy + Moderate abuse (25-74) OR Abuse score ≥25 |
+| **LOW** | Clean reputation + Residential ISP |
 
 ---
 
@@ -701,7 +692,6 @@ SecurityEvent
 **Format**: 3 comprehensive paragraphs covering:
 
 **Paragraph 1 - Attack Overview & Threat Intelligence:**
-
 - Total unique attacking IPs (use full count from Phase 1)
 - Geographic distribution statistics
 - Threat intelligence hit rate (percentage)
@@ -709,36 +699,31 @@ SecurityEvent
 - Brief attack pattern mention
 
 **Example:**
-
 ```
-The honeypot-server honeypot successfully attracted and logged 487 unique attackers
-over a 48-hour period, capturing 12,456 attack attempts spanning credential brute
-force, web exploitation, and network reconnaissance. The honeypot's threat intelligence
-value is exceptional, with 78% of prioritized attackers (12 of 15 IPs) matching known
-malicious indicators at 100% confidence levels, and the discovery of 3 novel malicious
-IPs not previously cataloged. Attack patterns reveal opportunistic mass scanning from
+The honeypot-server honeypot successfully attracted and logged 487 unique attackers 
+over a 48-hour period, capturing 12,456 attack attempts spanning credential brute 
+force, web exploitation, and network reconnaissance. The honeypot's threat intelligence 
+value is exceptional, with 78% of prioritized attackers (12 of 15 IPs) matching known 
+malicious indicators at 100% confidence levels, and the discovery of 3 novel malicious 
+IPs not previously cataloged. Attack patterns reveal opportunistic mass scanning from 
 bulletproof hosting providers rather than targeted APT operations.
 ```
 
 **Paragraph 2 - Attack Landscape & Tactics:**
-
 - Dominant attack vectors with quantitative details
 - Sophisticated pattern highlights
 - Attacker behavior patterns
 - Active incidents requiring investigation
 
 **Paragraph 3 - Vulnerability Context & Value Proposition:**
-
 - Current vulnerability count and severity
 - CVE cross-reference with exploitation attempts
 - Exploitation risk assessment
 - Honeypot value conclusion
 
 **Key Metrics Table:**
-
 ```markdown
 **Key Metrics:**
-
 - **Total Attack Attempts:** 12,456
 - **Unique Attacking IPs:** 487
 - **Security Incidents Triggered:** 3 (1 active HIGH severity)
@@ -796,7 +781,6 @@ bulletproof hosting providers rather than targeted APT operations.
    - Attack Volume
 
 **Analysis:**
-
 - Threat intelligence match rate
 - MSTIC honeypot indicators
 - APT/threat actor attribution
@@ -808,7 +792,6 @@ bulletproof hosting providers rather than targeted APT operations.
 
 ```markdown
 ### Incident #2325: Multiple failed sign-in attempts
-
 - **Severity:** HIGH
 - **Status:** ACTIVE (NEW)
 - **Classification:** Undetermined
@@ -819,12 +802,11 @@ bulletproof hosting providers rather than targeted APT operations.
 - **Owner:** Unassigned
 - **Investigation Link:** [Open in Sentinel](https://...)
 
-**Critical Finding:** Active HIGH severity incident with credential access tactics
+**Critical Finding:** Active HIGH severity incident with credential access tactics 
 requires immediate investigation.
 ```
 
 **Incident Analysis:**
-
 - Classification breakdown
 - Detection effectiveness
 - False positive/benign positive rate
@@ -869,13 +851,12 @@ requires immediate investigation.
 **Total Critical CVEs:** 2  
 **Total High CVEs:** 5
 
-| CVE ID         | Severity | CVSS Score | Affected Product | Exploit Available | Publicly Disclosed |
-| -------------- | -------- | ---------- | ---------------- | ----------------- | ------------------ |
-| CVE-2023-XXXXX | Critical | 9.8        | Product X        | Yes               | Yes                |
+| CVE ID | Severity | CVSS Score | Affected Product | Exploit Available | Publicly Disclosed |
+|--------|----------|------------|------------------|-------------------|-------------------|
+| CVE-2023-XXXXX | Critical | 9.8 | Product X | Yes | Yes |
 ```
 
 **Cross-Reference with Attack Patterns:**
-
 - Assess if observed attacks targeted identified CVEs
 - Prioritize patching based on active exploitation attempts
 
@@ -885,10 +866,10 @@ requires immediate investigation.
 
 1. **MITRE ATT&CK Mapping**
 
-| Tactic             | Technique                                       | Evidence                       | IPs Involved                |
-| ------------------ | ----------------------------------------------- | ------------------------------ | --------------------------- |
+| Tactic | Technique | Evidence | IPs Involved |
+|--------|-----------|----------|--------------|
 | **Reconnaissance** | T1595.001 - Active Scanning: Scanning IP Blocks | Port scanning (TCP, 15+ ports) | 203.0.113.42 (487 attempts) |
-| **Initial Access** | T1190 - Exploit Public-Facing Application       | PHPUnit CVE-2017-9841          | 198.51.100.10 (44 requests) |
+| **Initial Access** | T1190 - Exploit Public-Facing Application | PHPUnit CVE-2017-9841 | 198.51.100.10 (44 requests) |
 
 2. **Attack Timeline**
    - Initial reconnaissance phase (time range)
@@ -906,14 +887,12 @@ requires immediate investigation.
 
 ```markdown
 **Detection Capability:**
-
 - **Unique Attacking IPs Logged:** 487
 - **Security Incidents Generated:** 3
 - **Coverage Percentage:** 0.6% (3 incidents / 487 attackers)
 - **False Negatives:** High (most attacks did not trigger incidents)
 
 **Threat Intelligence Value:**
-
 - **Novel IPs Discovered:** 3
 - **Known Threat Actor IPs Confirmed:** 12 (78% match rate)
 - **Enrichment Success Rate:** 100% (15/15 prioritized IPs)
@@ -930,14 +909,12 @@ requires immediate investigation.
 #### Section 9: Conclusion
 
 **Summary** (2-3 paragraphs):
-
 - Overall threat landscape assessment
 - Most significant findings
 - Incident detection effectiveness
 - Honeypot value proposition
 
 **Key Takeaways** (3-5 bullet points):
-
 - Primary finding with quantitative data
 - Secondary finding
 - Tertiary finding
@@ -1008,15 +985,15 @@ requires immediate investigation.
 
 ### Common Issues
 
-| Issue                                | Cause                                    | Solution                                                                |
-| ------------------------------------ | ---------------------------------------- | ----------------------------------------------------------------------- |
-| **No results from SecurityEvent**    | Device not sending Windows Security logs | Verify log forwarding configuration; check EventHub connectivity        |
-| **Missing honeypot in DeviceInfo**   | Device name mismatch                     | Try `contains` instead of `=~`; check Defender enrollment status        |
-| **W3CIISLog table not found**        | IIS logging not enabled                  | Enable IIS logging; verify ingestion to Sentinel                        |
-| **IP enrichment script fails**       | Missing API token or network issues      | Check `config.json` for ipinfo token; verify internet connectivity      |
-| **Date range returns empty results** | Incorrect date calculation               | Verify current date from context; apply +2 day rule correctly           |
-| **KQL query timeout**                | Query too broad or table too large       | Reduce `take` limit; narrow time range; add early filters               |
-| **MDE Machine ID not found**         | Using wrong DeviceId format              | Use Advanced Hunting to get GUID-format MDE ID (not Sentinel SHA1 hash) |
+| Issue | Cause | Solution |
+|-------|-------|----------|
+| **No results from SecurityEvent** | Device not sending Windows Security logs | Verify log forwarding configuration; check EventHub connectivity |
+| **Missing honeypot in DeviceInfo** | Device name mismatch | Try `contains` instead of `=~`; check Defender enrollment status |
+| **W3CIISLog table not found** | IIS logging not enabled | Enable IIS logging; verify ingestion to Sentinel |
+| **IP enrichment script fails** | Missing API token or network issues | Check `config.json` for ipinfo token; verify internet connectivity |
+| **Date range returns empty results** | Incorrect date calculation | Verify current date from context; apply +2 day rule correctly |
+| **KQL query timeout** | Query too broad or table too large | Reduce `take` limit; narrow time range; add early filters |
+| **MDE Machine ID not found** | Using wrong DeviceId format | Use Advanced Hunting to get GUID-format MDE ID (not Sentinel SHA1 hash) |
 
 ### Validation Checklist
 
@@ -1035,12 +1012,12 @@ Before delivering report, verify:
 
 ### Error Messages
 
-| Error                                                 | Meaning                                | Fix                                            |
-| ----------------------------------------------------- | -------------------------------------- | ---------------------------------------------- | ------------------- |
-| `TypeError: 'NoneType' object is not subscriptable`   | Missing expected field in API response | Add null checks; use default values            |
-| `SemanticError: Failed to resolve column 'IpAddress'` | Field name typo or wrong table         | Verify field exists with `                     | take 1` query first |
-| `ipinfo.io API error 429`                             | Rate limit exceeded                    | Add delays between requests; reduce batch size |
-| `Device not found in DeviceInfo`                      | Stale device record                    | Extend time range: `TimeGenerated > ago(90d)`  |
+| Error | Meaning | Fix |
+|-------|---------|-----|
+| `TypeError: 'NoneType' object is not subscriptable` | Missing expected field in API response | Add null checks; use default values |
+| `SemanticError: Failed to resolve column 'IpAddress'` | Field name typo or wrong table | Verify field exists with `| take 1` query first |
+| `ipinfo.io API error 429` | Rate limit exceeded | Add delays between requests; reduce batch size |
+| `Device not found in DeviceInfo` | Stale device record | Extend time range: `TimeGenerated > ago(90d)` |
 
 ---
 
@@ -1050,11 +1027,11 @@ Before delivering report, verify:
 
 **Current Date**: December 14, 2025
 
-| User Request    | Start Date | End Date   | Rule Applied        |
-| --------------- | ---------- | ---------- | ------------------- |
+| User Request | Start Date | End Date | Rule Applied |
+|--------------|------------|----------|--------------|
 | "Last 48 hours" | 2025-12-12 | 2025-12-16 | Real-time (+2 days) |
-| "Last 7 days"   | 2025-12-07 | 2025-12-16 | Real-time (+2 days) |
-| "Dec 10-12"     | 2025-12-10 | 2025-12-13 | Historical (+1 day) |
+| "Last 7 days" | 2025-12-07 | 2025-12-16 | Real-time (+2 days) |
+| "Dec 10-12" | 2025-12-10 | 2025-12-13 | Historical (+1 day) |
 
 ### Sample Investigation Timeline
 
@@ -1071,11 +1048,11 @@ Total Investigation Time: 5 minutes 39 seconds (339 seconds)
 
 ### File Naming Conventions
 
-| File Type                     | Naming Pattern                                                 | Example                                                           |
-| ----------------------------- | -------------------------------------------------------------- | ----------------------------------------------------------------- |
-| **IP List (Temp)**            | `temp/honeypot_ips_<timestamp>.json`                           | `temp/honeypot_ips_20251214_103245.json`                          |
-| **Investigation Data (Temp)** | `temp/honeypot_data_<timestamp>.json`                          | `temp/honeypot_data_20251214_103245.json`                         |
-| **Executive Report**          | `reports/Honeypot_Executive_Report_<hostname>_<YYYY-MM-DD>.md` | `reports/Honeypot_Executive_Report_honeypot-server_2025-12-14.md` |
+| File Type | Naming Pattern | Example |
+|-----------|----------------|---------|
+| **IP List (Temp)** | `temp/honeypot_ips_<timestamp>.json` | `temp/honeypot_ips_20251214_103245.json` |
+| **Investigation Data (Temp)** | `temp/honeypot_data_<timestamp>.json` | `temp/honeypot_data_20251214_103245.json` |
+| **Executive Report** | `reports/Honeypot_Executive_Report_<hostname>_<YYYY-MM-DD>.md` | `reports/Honeypot_Executive_Report_honeypot-server_2025-12-14.md` |
 
 ### Reference Links
 
@@ -1086,18 +1063,18 @@ Total Investigation Time: 5 minutes 39 seconds (339 seconds)
 
 ### Glossary
 
-| Term             | Definition                                                                                     |
-| ---------------- | ---------------------------------------------------------------------------------------------- |
-| **Honeypot**     | Decoy system designed to attract and log malicious activity for threat intelligence collection |
-| **IOC**          | Indicator of Compromise - artifacts observed that indicate potential intrusion                 |
-| **TTP**          | Tactics, Techniques, and Procedures - patterns of attacker behavior                            |
-| **MITRE ATT&CK** | Framework for categorizing adversary tactics and techniques                                    |
-| **APT**          | Advanced Persistent Threat - sophisticated, long-term threat actor                             |
-| **CVE**          | Common Vulnerabilities and Exposures - standardized vulnerability identifiers                  |
-| **CVSS**         | Common Vulnerability Scoring System - severity rating (0-10)                                   |
-| **TLP**          | Traffic Light Protocol - sensitivity classification (White/Green/Amber/Red)                    |
-| **STIX**         | Structured Threat Information eXpression - threat intel sharing format                         |
-| **TAXII**        | Trusted Automated eXchange of Intelligence Information - transport protocol                    |
+| Term | Definition |
+|------|------------|
+| **Honeypot** | Decoy system designed to attract and log malicious activity for threat intelligence collection |
+| **IOC** | Indicator of Compromise - artifacts observed that indicate potential intrusion |
+| **TTP** | Tactics, Techniques, and Procedures - patterns of attacker behavior |
+| **MITRE ATT&CK** | Framework for categorizing adversary tactics and techniques |
+| **APT** | Advanced Persistent Threat - sophisticated, long-term threat actor |
+| **CVE** | Common Vulnerabilities and Exposures - standardized vulnerability identifiers |
+| **CVSS** | Common Vulnerability Scoring System - severity rating (0-10) |
+| **TLP** | Traffic Light Protocol - sensitivity classification (White/Green/Amber/Red) |
+| **STIX** | Structured Threat Information eXpression - threat intel sharing format |
+| **TAXII** | Trusted Automated eXchange of Intelligence Information - transport protocol |
 
 ---
 
@@ -1108,4 +1085,4 @@ Total Investigation Time: 5 minutes 39 seconds (339 seconds)
 
 ---
 
-_This documentation was created for the Security Investigator honeypot investigation automation system. For technical support or questions, contact the Security Operations team._
+*This documentation was created for the Security Investigator honeypot investigation automation system. For technical support or questions, contact the Security Operations team.*

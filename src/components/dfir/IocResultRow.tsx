@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { VerdictChip } from './VerdictChip';
 import type { ProviderErrorCode, ProviderResultWire, SecretFindingWire } from '../../lib/dfir/types';
 
@@ -106,3 +107,5 @@ export function IocResultRow({ r }: { r: ProviderResultWire }): JSX.Element {
     </div>
   );
 }
+
+export { memo(IocResultRow) as IocResultRow };

@@ -1,19 +1,15 @@
 # Copy KQL Feature Implementation
 
 ## Overview
-
 Added "Copy KQL" buttons to investigation reports, enabling SOC analysts to easily copy and reuse KQL queries directly from the HTML report.
 
 ## Implementation Date
-
 November 23, 2025
 
 ## Changes Made
 
 ### 1. Data Model Update (`investigator.py`)
-
 **Added field to InvestigationResult dataclass:**
-
 ```python
 kql_queries: Optional[Dict[str, str]] = None  # Keys: section names, Values: KQL query strings
 ```
@@ -25,27 +21,21 @@ This field stores the actual KQL queries used during investigation, making them 
 **Note:** The compact report generator (now the default `report_generator.py`) implements Copy KQL functionality.
 
 #### CSS Styling
-
 Added `.kql-copy-button` styles with:
-
 - Blue theme matching Microsoft brand (#00a1f1)
 - Hover effects (darker blue #0078d4)
 - Active state (scale transform)
 - Visual feedback: Button shows "✓" in green (#7cbb00) for 2 seconds after copy
 
 #### JavaScript Functionality
-
 Added `copyKQL(event, queryType)` function:
-
 - Uses `navigator.clipboard.writeText()` API
 - Visual feedback: Button icon changes to "✓" and turns green for 2 seconds
 - Automatically opens Microsoft Sentinel Lake Explorer on first copy
 - Error handling with fallback
 
 #### Section Integration
-
 Copy KQL buttons are integrated into these sections:
-
 - IP Intelligence cards (per-IP queries auto-generated)
 - DLP Events section
 - Security Incidents section
@@ -55,42 +45,37 @@ Copy KQL buttons are integrated into these sections:
 - Anomalies section (in header)
 
 ### 3. Documentation Update (`.github/copilot-instructions.md`)
-
 - Added `kql_queries` field to InvestigationResult structure documentation
 - Created "KQL Queries Dictionary Pattern" section with example
 - Added notes about field being optional but highly recommended
 
 ### 4. Example Scripts
-
 Created two example scripts:
-
 - `investigation_example_with_kql.py`: Template showing how to populate kql_queries
 - Updated `investigation_user_7days_nov23_v2.py`: Full working example with all 6 KQL queries
 
 ## Supported Query Sections
 
-| Section                      | Key                | Description                                                        |
-| ---------------------------- | ------------------ | ------------------------------------------------------------------ |
-| Anomaly Detection            | `anomalies`        | Signinlogs_Anomalies_KQL_CL query                                  |
-| Sign-in Failures             | `signin_failures`  | Sign-in failures with detailed breakdown                           |
-| Audit Logs                   | `audit`            | AuditLogs query with aggregation                                   |
-| Office 365 Activity          | `activity_summary` | OfficeActivity query by RecordType/Operation                       |
-| Security Incidents           | `incidents`        | SecurityIncident joined with SecurityAlert                         |
-| DLP Events                   | `dlp`              | CloudAppEvents with DLP violations                                 |
-| **IP Intelligence** (per-IP) | `ip_{IP_ADDRESS}`  | Individual IP investigation query (dots replaced with underscores) |
+| Section | Key | Description |
+|---------|-----|-------------|
+| Anomaly Detection | `anomalies` | Signinlogs_Anomalies_KQL_CL query |
+| Sign-in Failures | `signin_failures` | Sign-in failures with detailed breakdown |
+| Audit Logs | `audit` | AuditLogs query with aggregation |
+| Office 365 Activity | `activity_summary` | OfficeActivity query by RecordType/Operation |
+| Security Incidents | `incidents` | SecurityIncident joined with SecurityAlert |
+| DLP Events | `dlp` | CloudAppEvents with DLP violations |
+| **IP Intelligence** (per-IP) | `ip_{IP_ADDRESS}` | Individual IP investigation query (dots replaced with underscores) |
 
 **Note:** The compact report automatically generates IP-specific queries. All other queries must be provided in the `kql_queries` dictionary when creating the InvestigationResult.
 
 ## IP Intelligence Copy KQL Feature (Added November 28, 2025)
 
 ### Overview
-
 The report now includes a "Copy KQL" button (📋) on each IP Intelligence card, enabling one-click access to comprehensive IP investigation queries that union multiple log sources.
 
 ### Implementation
 
 #### Report Generator (`report_generator.py`)
-
 **Automatic Query Generation**: In `_generate_html()` method, IP-specific queries are automatically generated for each IP address in the investigation:
 
 ```python
@@ -115,9 +100,7 @@ union isfuzzy=true
 **IP Card Button Integration**: Copy KQL button is embedded in each IP card header alongside the risk badge.
 
 ### Query Structure
-
 Each IP investigation query includes:
-
 - **Header comments**: IP address, location, organization, risk level
 - **Variable declaration**: `let TargetIP = "{ip_address}"; let TimeRange = 30d;`
 - **Five data sources** (union):
@@ -130,7 +113,6 @@ Each IP investigation query includes:
 - **Time-ordered results**: `order by TimeGenerated desc` for chronological investigation
 
 ### Benefits
-
 - **Efficiency**: Single query template per IP (stored once, referenced per card)
 - **Comprehensive**: Covers all major log sources for IP-based investigation
 - **Contextual**: Query comments include IP metadata (location, org, risk level)
@@ -161,13 +143,13 @@ result.kql_queries = {
 | where UserPrincipalName =~ 'user@domain.com'
 | extend Severity = case(...)
 | order by DetectedDateTime desc""",
-
+    
     'signin_failures': """union isfuzzy=true SigninLogs, AADNonInteractiveUserSignInLogs
 | where TimeGenerated between (datetime(2025-11-15) .. datetime(2025-11-22))
 | where UserPrincipalName =~ 'user@domain.com'
 | where ResultType != '0'
 | summarize FailureCount=count(), ...""",
-
+    
     # Add queries for: audit, activity_summary, dlp, incidents
 }
 
@@ -179,7 +161,6 @@ report_path = generator.generate(result)
 ## Testing
 
 Verified functionality in generated reports:
-
 - **Button Count**: 6+ Copy KQL buttons (section buttons + per-IP buttons)
 - **JavaScript**: All queries properly injected into `copyKQL()` function
 - **CSS**: All styles applied correctly
@@ -190,7 +171,6 @@ Verified functionality in generated reports:
 ## Browser Compatibility
 
 The `navigator.clipboard` API requires:
-
 - HTTPS or localhost (security requirement)
 - Modern browsers (Chrome 63+, Firefox 53+, Safari 13.1+, Edge 79+)
 - User gesture (button click) to access clipboard
@@ -229,7 +209,6 @@ The `navigator.clipboard` API requires:
 ## Backward Compatibility
 
 ✅ **Fully backward compatible**:
-
 - `kql_queries` field is optional (`Optional[Dict[str, str]] = None`)
 - If not provided, buttons simply don't appear in report
 - Existing investigation scripts work without modification

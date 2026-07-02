@@ -1,15 +1,1 @@
-{
-  "slug": "vect-ransomware",
-  "family": "Vect Ransomware",
-  "category": "ransomware",
-  "aliases": [],
-  "firstSeen": null,
-  "mitreTechniques": [],
-  "indicatorCount": 8,
-  "description": "ONION",
-  "sizeBytes": 411,
-  "indicators": [],
-  "context": "ONION\n=====\nbu7zr6fotni3qxxoxlcmpikwtp5mjzy7jkxt7akflnm2kwkbdtgtjuid.onion\nvectordntlcrlmfkcm4alni734tbcrnd5lk44v6sp4lqal6noqrgnbyd.onion\n\nMD5\n===\n9957cbadcaf9196f8bd65f6a1bbf9618\n5cce0d983f04d51d102a91b8353717fa\n8aa010937a7d2944412020576d24a943\n207b1a60f803d348c795d382f5aed9c3\n35e0df0f4bdc04dcbbd1473a2c03de36\n46fa8d029d3c473125ef6ce5adff3c54\ne96043deb51e8d85d9e32c6c571ec6bd\naa72609186042f1d7d01ce070306a9f2\n",
-  "references": [],
-  "llmSummary": null
-}
+{"slug":"vect-ransomware","family":"Vect Ransomware","category":"ransomware","aliases":[],"firstSeen":null,"mitreTechniques":[],"indicatorCount":8,"description":"ONION","sizeBytes":411,"indicators":[],"context":"ONION\n=====\nbu7zr6fotni3qxxoxlcmpikwtp5mjzy7jkxt7akflnm2kwkbdtgtjuid.onion\nvectordntlcrlmfkcm4alni734tbcrnd5lk44v6sp4lqal6noqrgnbyd.onion\n\nMD5\n===\n9957cbadcaf9196f8bd65f6a1bbf9618\n5cce0d983f04d51d102a91b8353717fa\n8aa010937a7d2944412020576d24a943\n207b1a60f803d348c795d382f5aed9c3\n35e0df0f4bdc04dcbbd1473a2c03de36\n46fa8d029d3c473125ef6ce5adff3c54\ne96043deb51e8d85d9e32c6c571ec6bd\naa72609186042f1d7d01ce070306a9f2\n","references":[],"llmSummary":null}

@@ -1,15 +1,1 @@
-{
-  "slug": "xss-forum-host",
-  "family": "XSS FORUM HOST",
-  "category": "other",
-  "aliases": [],
-  "firstSeen": null,
-  "mitreTechniques": [],
-  "indicatorCount": 23,
-  "description": "DOMAINS",
-  "sizeBytes": 456,
-  "indicators": [],
-  "context": "DOMAINS\n=======\nxss.is\nxss.as\ntheazot.xyz\ntheazot.icu\nxssforum7mmh3n56inuf2h73hvhnzobi7h2ytb3gvklrfqm7ut3xdnyd.onion\n\nIPs\n===\n36.27.28.27\n94.141.122.183\n141.94.220.176\n31.220.1.19\n185.191.126.49\n190.123.45.42\n37.187.25.182\n51.195.217.55\n151.80.100.90\n104.31.223.10\n172.67.151.52\n104.24.121.189\n104.24.120.189\n104.31.139.10\n104.27.132.189\n104.27.133.189\n104.27.145.150\n104.27.144.150\n104.31.84.252\n104.31.85.252\n172.67.146.165\n104.27.137.125\n104.27.136.125\n",
-  "references": [],
-  "llmSummary": null
-}
+{"slug":"xss-forum-host","family":"XSS FORUM HOST","category":"other","aliases":[],"firstSeen":null,"mitreTechniques":[],"indicatorCount":23,"description":"DOMAINS","sizeBytes":456,"indicators":[],"context":"DOMAINS\n=======\nxss.is\nxss.as\ntheazot.xyz\ntheazot.icu\nxssforum7mmh3n56inuf2h73hvhnzobi7h2ytb3gvklrfqm7ut3xdnyd.onion\n\nIPs\n===\n36.27.28.27\n94.141.122.183\n141.94.220.176\n31.220.1.19\n185.191.126.49\n190.123.45.42\n37.187.25.182\n51.195.217.55\n151.80.100.90\n104.31.223.10\n172.67.151.52\n104.24.121.189\n104.24.120.189\n104.31.139.10\n104.27.132.189\n104.27.133.189\n104.27.145.150\n104.27.144.150\n104.31.84.252\n104.31.85.252\n172.67.146.165\n104.27.137.125\n104.27.136.125\n","references":[],"llmSummary":null}

@@ -1,13 +1,11 @@
 # Microsoft Entra ID Identity Protection Integration
 
 ## Overview
-
 Microsoft Entra ID Identity Protection provides ML-powered risk detection integrated into security investigations. This document covers the complete implementation, workflow, and query patterns.
 
 ---
 
 ## Table of Contents
-
 1. [Integration Overview](#integration-overview)
 2. [Data Sources & Dataclasses](#data-sources--dataclasses)
 3. [Investigation Workflow](#investigation-workflow)
@@ -21,13 +19,11 @@ Microsoft Entra ID Identity Protection provides ML-powered risk detection integr
 ## Integration Overview
 
 ### What It Provides
-
 - **User Risk Profile**: Overall risk assessment from Microsoft's ML models
 - **Risk Detections**: Specific risk events (unlikely travel, unfamiliar features, anonymous IP, etc.)
 - **Risky Sign-ins**: Authentication attempts flagged as risky by Identity Protection
 
 ### Why It Matters
-
 1. **Cross-Validation**: Anomalies detected by Sentinel can be cross-referenced with Identity Protection
    - Example: Brazil IP appears in BOTH Sentinel anomalies AND Identity Protection risk detections
    - Confirms anomaly is not a false positive
@@ -54,7 +50,6 @@ Microsoft Entra ID Identity Protection provides ML-powered risk detection integr
 ### Core Dataclasses (investigator.py)
 
 #### RiskDetection
-
 Represents individual risk events detected by Identity Protection.
 
 ```python
@@ -73,7 +68,6 @@ class RiskDetection:
 ```
 
 #### RiskySignIn
-
 Sign-in events flagged as risky.
 
 ```python
@@ -96,7 +90,6 @@ class RiskySignIn:
 ```
 
 #### UserRiskProfile
-
 Overall user risk assessment.
 
 ```python
@@ -111,7 +104,6 @@ class UserRiskProfile:
 ```
 
 #### InvestigationResult Updates
-
 ```python
 @dataclass
 class InvestigationResult:
@@ -126,41 +118,33 @@ class InvestigationResult:
 ## Investigation Workflow
 
 ### Phase 1: Get User Object ID (REQUIRED FIRST)
-
 ```
 mcp_microsoft_mcp_microsoft_graph_suggest_queries("get user by email")
 mcp_microsoft_mcp_microsoft_graph_get("/v1.0/users/<UPN>?$select=id,displayName,userPrincipalName,onPremisesSecurityIdentifier")
 ```
-
 Extract `user_id` (Azure AD Object ID) and `onPremisesSecurityIdentifier` (Windows SID) from response for subsequent queries.
 
 ### Phase 2 (Batch 2): Query Identity Protection (Run in Parallel)
 
 **Step 1: Get User Risk Profile**
-
 ```
 mcp_microsoft_mcp_microsoft_graph_suggest_queries("get risky users by user id")
 mcp_microsoft_mcp_microsoft_graph_get("/v1.0/identityProtection/riskyUsers/<USER_ID>")
 ```
-
 Returns: riskLevel (low/medium/high/none), riskState (atRisk/confirmedCompromised/dismissed/remediated), riskDetail, riskLastUpdatedDateTime
 
 **Step 2: Get Risk Detections**
-
 ```
 mcp_microsoft_mcp_microsoft_graph_suggest_queries("get risk detections for user")
 mcp_microsoft_mcp_microsoft_graph_get("/v1.0/identityProtection/riskDetections?$filter=userId eq '<USER_ID>'&$select=id,detectedDateTime,riskEventType,riskLevel,riskState,riskDetail,ipAddress,location,activity,activityDateTime&$orderby=detectedDateTime desc&$top=5")
 ```
-
 Returns: Array of risk events (top 5 most recent) with riskEventType (unlikelyTravel, unfamiliarFeatures, anonymizedIPAddress, maliciousIPAddress, etc.), riskState, riskLevel, detectedDateTime, activity, ipAddress, location
 
 **Step 3: Get Risky Sign-ins**
-
 ```
 mcp_microsoft_mcp_microsoft_graph_suggest_queries("get risky sign-ins for user")
 mcp_microsoft_mcp_microsoft_graph_get("/beta/auditLogs/signIns?$filter=userPrincipalName eq '<UPN>' and (riskState eq 'atRisk' or riskState eq 'confirmedCompromised')&$select=id,createdDateTime,userPrincipalName,appDisplayName,ipAddress,location,riskState,riskLevelDuringSignIn,riskEventTypes_v2,riskDetail,status&$orderby=createdDateTime desc&$top=5")
 ```
-
 **NOTE**: Risky sign-ins are ONLY available in `/beta` endpoint, not `/v1.0`
 
 Returns: Array of sign-in events (top 5 most recent) with riskLevelDuringSignIn, riskEventTypes_v2, riskState, riskDetail, status (errorCode, failureReason)
@@ -197,7 +181,7 @@ let riskDetections = AADUserRiskEvents
 | where TimeGenerated between (startDate .. endDate)
 | where UserPrincipalName =~ targetUPN or UserId =~ targetUserId
 | extend LocationJson = parse_json(Location)
-| project
+| project 
     EventType = "RiskDetection",
     TimeGenerated,
     DetectedDateTime,
@@ -218,7 +202,7 @@ let riskySignins = SigninLogs
 | where TimeGenerated between (startDate .. endDate)
 | where UserPrincipalName =~ targetUPN or UserId =~ targetUserId
 | where RiskLevelDuringSignIn != "none" or RiskState in ("atRisk", "confirmedCompromised")
-| project
+| project 
     EventType = "RiskySignIn",
     TimeGenerated = CreatedDateTime,
     DetectedDateTime = CreatedDateTime,
@@ -243,7 +227,6 @@ union riskDetections, riskySignins
 ### Query Features
 
 **Unified Schema**: Both data sources transformed into common schema:
-
 - **EventType**: `RiskDetection` or `RiskySignIn`
 - **TimeGenerated**: Timestamp of the event
 - **DetectedDateTime**: When the risk was detected
@@ -267,25 +250,25 @@ union riskDetections, riskySignins
 
 ### Common riskEventType Values
 
-| Risk Event Type                      | Description                                        |
-| ------------------------------------ | -------------------------------------------------- |
-| **unlikelyTravel**                   | User traveled impossible distance between sign-ins |
-| **unfamiliarFeatures**               | Sign-in from unfamiliar location/device/IP         |
-| **anonymizedIPAddress**              | Sign-in from Tor, VPN, or proxy                    |
-| **maliciousIPAddress**               | Sign-in from known malicious IP                    |
-| **malwareInfectedIPAddress**         | Sign-in from IP with malware activity              |
-| **suspiciousIPAddress**              | Sign-in from suspicious IP patterns                |
-| **leakedCredentials**                | User credentials found in leak databases           |
-| **investigationsThreatIntelligence** | Microsoft threat intel flagged activity            |
+| Risk Event Type | Description |
+|----------------|-------------|
+| **unlikelyTravel** | User traveled impossible distance between sign-ins |
+| **unfamiliarFeatures** | Sign-in from unfamiliar location/device/IP |
+| **anonymizedIPAddress** | Sign-in from Tor, VPN, or proxy |
+| **maliciousIPAddress** | Sign-in from known malicious IP |
+| **malwareInfectedIPAddress** | Sign-in from IP with malware activity |
+| **suspiciousIPAddress** | Sign-in from suspicious IP patterns |
+| **leakedCredentials** | User credentials found in leak databases |
+| **investigationsThreatIntelligence** | Microsoft threat intel flagged activity |
 
 ### Risk State Transitions
 
-| Risk State               | Meaning                                                           | Action Required             |
-| ------------------------ | ----------------------------------------------------------------- | --------------------------- |
-| **atRisk**               | Active risk detection requiring investigation                     | ✅ Investigate now          |
-| **confirmedCompromised** | Admin confirmed account compromise                                | 🚨 Critical action required |
-| **dismissed**            | Admin reviewed and dismissed as false positive                    | ℹ️ No action needed         |
-| **remediated**           | Risk automatically resolved (e.g., password reset, MFA completed) | ✅ Resolved automatically   |
+| Risk State | Meaning | Action Required |
+|-----------|---------|-----------------|
+| **atRisk** | Active risk detection requiring investigation | ✅ Investigate now |
+| **confirmedCompromised** | Admin confirmed account compromise | 🚨 Critical action required |
+| **dismissed** | Admin reviewed and dismissed as false positive | ℹ️ No action needed |
+| **remediated** | Risk automatically resolved (e.g., password reset, MFA completed) | ✅ Resolved automatically |
 
 ### Risk Detail Examples
 
@@ -379,7 +362,6 @@ result.risky_signins = [
 ### Example 3: Sample Results
 
 **Risk Detection - Anonymized IP:**
-
 ```
 EventType: RiskDetection
 DetectedDateTime: 2025-11-24T21:20:32.912Z
@@ -393,7 +375,6 @@ Country: HK
 ```
 
 **Risky Sign-in - Unfamiliar Features:**
-
 ```
 EventType: RiskySignIn
 DetectedDateTime: 2025-11-23T01:42:17.175882Z
@@ -440,7 +421,6 @@ The report generator (`report_generator.py`) includes an Identity Protection sec
 ### Copy KQL Button
 
 Each report includes a **"📋 Copy KQL"** button in the Identity Protection section that:
-
 - Copies the comprehensive KQL query (shown above)
 - Pre-populates investigation parameters (dates, UPN, User ID)
 - Opens Microsoft Sentinel Lake Explorer on first click
@@ -451,16 +431,13 @@ Each report includes a **"📋 Copy KQL"** button in the Identity Protection sec
 ## Performance Notes
 
 ### Query Execution
-
 - Query scans two large tables (`AADUserRiskEvents`, `SigninLogs`)
 - Filters on `TimeGenerated` first for optimal performance
 - Uses `take 100` to limit result set size
 - Typical execution time: **3-5 seconds** for 30-day range
 
 ### Troubleshooting
-
 If no results, check:
-
 - User has Identity Protection license (P2 required)
 - Date range includes activity
 - User ID is correct (get from Microsoft Graph)

@@ -36,20 +36,17 @@ Output: a weekly ingest breakdown for the table plus a `TOTAL` row, with estimat
 > **Note:** `Usage.Quantity` is ingested/billed volume (MB) — an excellent ballpark for scan volume, but not a penny‑exact invoice match. `startofweek()` is Sunday‑based, so the first/last buckets may be partial weeks.
 
 > ⚠️ **Retention prerequisite — extend `Usage` retention for long-range estimates.** `Usage` is a standard Analytics-tier table that defaults to the workspace interactive retention (typically 90 days). If your `StartDate` reaches further back than that, the estimator **silently under-reports** — you just get fewer weekly rows, with no error. To make the estimator work over arbitrary windows:
->
-> - **Raise the `Usage` table's _total_ (long-term) retention** to your longest reporting horizon — up to 12 years (4,383 days). You do **not** need to extend _interactive_ retention; long-term retention is enough and far cheaper.
+> - **Raise the `Usage` table's *total* (long-term) retention** to your longest reporting horizon — up to 12 years (4,383 days). You do **not** need to extend *interactive* retention; long-term retention is enough and far cheaper.
 > - **The cost is negligible.** `Usage` is a tiny metering table (a few rows per `DataType` per day), so extending its retention adds essentially nothing to storage spend — unlike extending retention on a real telemetry table.
-> - **Minor caveat:** once the query reaches _beyond_ the interactive window, that portion is served from long-term retention (a search/Lake-tier read), so the estimator goes from strictly-free to a tiny billed scan. Because `Usage` is so small, it stays effectively free.
-> - **Authoritative spend** over long windows still comes from **Azure Cost Management / billing export** (longer retention, source of truth). Use this estimator for _volume/trend projection_; reconcile actual dollars against Cost Management.
+> - **Minor caveat:** once the query reaches *beyond* the interactive window, that portion is served from long-term retention (a search/Lake-tier read), so the estimator goes from strictly-free to a tiny billed scan. Because `Usage` is so small, it stays effectively free.
+> - **Authoritative spend** over long windows still comes from **Azure Cost Management / billing export** (longer retention, source of truth). Use this estimator for *volume/trend projection*; reconcile actual dollars against Cost Management.
 
 ---
 
 ## The best practices (ordered by cost impact)
 
 ### 1. Don't return raw wide rows — `project` narrow columns or `summarize`
-
-**This is the #1 cost driver.** A query that ends in a bare filter (or exports raw rows) materializes _every column_, including the fat firewall payload/message/JSON columns, for every matching row. Cut to the few columns you need **before** the end of the query, or aggregate.
-
+**This is the #1 cost driver.** A query that ends in a bare filter (or exports raw rows) materializes *every column*, including the fat firewall payload/message/JSON columns, for every matching row. Cut to the few columns you need **before** the end of the query, or aggregate.
 ```kql
 // EXPENSIVE — reads every column, including wide payloads
 FirewallLogs
@@ -62,38 +59,29 @@ FirewallLogs
 | where DeviceAction == "deny"
 | project TimeGenerated, SourceIP, DestinationIP, DestinationPort, RuleName
 ```
-
 **Red flags:** no `project` and no `summarize`; `project *`; selecting the raw payload/JSON column across the full range.
 
 ### 2. Put the time filter FIRST — and make it `TimeGenerated`
-
 Data Lake prunes by ingestion‑time partitions. If `TimeGenerated` isn't the very first `where`, pruning silently breaks and you scan the whole table.
-
 ```kql
 FirewallLogs
 | where TimeGenerated between (datetime(2026-03-01) .. datetime(2026-06-01))   // FIRST
 | where DeviceAction == "deny"
 | ...
 ```
+**Pruning killers:** `search *`, `union *`, or any `parse`/`extend`/`project`/`join` placed *before* the time filter. Also confirm the range bounds are intentional (a missing upper bound or `ago(90d)` typo silently widens the scan).
 
-**Pruning killers:** `search *`, `union *`, or any `parse`/`extend`/`project`/`join` placed _before_ the time filter. Also confirm the range bounds are intentional (a missing upper bound or `ago(90d)` typo silently widens the scan).
-
-### 3. Parse / `extend` / `mv-expand` wide columns _after_ the filter, never before
-
+### 3. Parse / `extend` / `mv-expand` wide columns *after* the filter, never before
 `parse_json` / `parse` / `extract` / `mv-expand` on a wide column **before** the row count is narrowed forces the engine to read that entire wide column for every row in range — this is the classic 80 TB pattern. Always filter rows down first, then parse.
 
 ### 4. Narrow the time range to what you actually need
-
 Wide‑open ranges scan more rows. If you don't need all 3 months at once, **chunk it** (e.g., 4 × ~3 weeks) so you can stop early once you find what you need.
 
 ### 5. Add selective filters right after the time filter
-
 Filter on the most selective columns next (action, port, source/dest IP, rule name) so the engine skips data blocks early.
 
 ### 6. Summarize for trends instead of exporting raw rows
-
 If the goal is counts/patterns, `summarize` / `top` / `percentile` rather than returning millions of raw events. Aggregations are cheap — testing showed a 30‑day `summarize` scanned barely more than a 1‑day one despite 28× the rows.
-
 ```kql
 FirewallLogs
 | where TimeGenerated between (datetime(2026-03-01) .. datetime(2026-06-01))
@@ -103,15 +91,12 @@ FirewallLogs
 ```
 
 ### 7. Avoid large‑to‑large joins over months
-
 A `join` between two big lake tables over a wide range multiplies the columns read on both sides. Filter and `project` both sides first, or `lookup` against a small set.
 
-### 8. Prefer `has` / `==` over `contains` / regex — for _speed_, not bytes
-
-`contains`, `matches regex`, and `has_cs` on free text force full‑text matching. **Note:** in testing this did **not** reduce bytes‑scanned versus `has` (the column is read either way) — the win is CPU and latency, plus correctness. Fix it, but it is **not** the lever that causes a runaway _cost_; columns 1–3 are.
+### 8. Prefer `has` / `==` over `contains` / regex — for *speed*, not bytes
+`contains`, `matches regex`, and `has_cs` on free text force full‑text matching. **Note:** in testing this did **not** reduce bytes‑scanned versus `has` (the column is read either way) — the win is CPU and latency, plus correctness. Fix it, but it is **not** the lever that causes a runaway *cost*; columns 1–3 are.
 
 ### 9. For recurring big‑history needs, use KQL Jobs — don't re‑scan interactively
-
 Run the expensive scan **once** as a scheduled Data Lake job that writes a curated/summarized output (e.g., to the Analytics tier), then query that small result repeatedly. Aggregating noisy traffic (allows, health checks) at this stage cuts both scan and storage cost.
 
 ---
@@ -180,22 +165,20 @@ CloudAppEvents
 ```
 
 **Notes & pitfalls (field-verified):**
-
 - **`contains`, not `has`** — Sentinel audit values (`SentinelAIToolRunCompleted`, `KQLQueryCompleted`) are CamelCase with no word boundaries, so `has "Completed"` returns **false** for all of them and silently drops MCP rows.
 - **`RawEventData` is a JSON string** — wrap in `parse_json(tostring(...))` and parse **once**.
 - **Query channels you'll see** (`Sources` column): `MCP (stdio)` / `MCP (HTTP)` = the Sentinel Data Lake MCP server; `MCP-Driven (Probable)` = RecordType 379 with `InterfaceNotProvided` (MCP queries the audit pipeline didn't tag as 403); `Portal (Lake Explorer)` = `msglakeexplorer@msec-msg`; `Scheduled Jobs` = `msgjobmanagement@msec-msg`; plus Security Copilot, Workbooks, Jupyter (`ipykernel_launcher.py`), Power BI (`PowerBIConnector`).
 - **UPN resolution is best-effort** — interactive users resolve via `SigninLogs`; service/portal identities (jobs, dashboards) keep their GUID/interface name in `Account`.
 - **Want a per-source rollup instead of per-user?** Swap the `summarize ... by UserId` to `by QuerySource` for a channel-level breakdown, or add `bin(TimeGenerated, 1d)` for a daily trend.
-- **Cost caveat:** this shows **who runs queries and how often/how long** — it is _activity_, not billed scan. `AvgDurationSec`/`MaxDurationSec` is the best in-table proxy for "expensive" queries; pair the heavy users with the Azure cost meter for the authoritative spend.
+- **Cost caveat:** this shows **who runs queries and how often/how long** — it is *activity*, not billed scan. `AvgDurationSec`/`MaxDurationSec` is the best in-table proxy for "expensive" queries; pair the heavy users with the Azure cost meter for the authoritative spend.
 
 ---
 
 ## Want the actual query text too?
 
-The same `CloudAppEvents` records carry the **full KQL body**, so you can see exactly _what_ each user ran — invaluable for spotting the expensive anti-patterns (`search *`, `union withsource=* *`, wide-column scans) and coaching the people running them.
+The same `CloudAppEvents` records carry the **full KQL body**, so you can see exactly *what* each user ran — invaluable for spotting the expensive anti-patterns (`search *`, `union withsource=* *`, wide-column scans) and coaching the people running them.
 
 The query text lives in different fields depending on the channel:
-
 - **Direct KQL (RecordType 379)** — `RawEventData.QueryText` holds the raw KQL (Portal Lake Explorer, Scheduled Jobs, Security Copilot, and probable-MCP all populate it).
 - **MCP tool calls (RecordType 403)** — the tool argument is in `RawEventData.InputParameters` as `{"query": "..."}`. For `query_lake` this is the KQL; for other tools it's that tool's input.
 
@@ -245,7 +228,6 @@ CloudAppEvents
 ```
 
 **Notes:**
-
 - **Anti-pattern hunting:** sort by `ExecDurationMs` (it's **milliseconds**, despite some UIs labeling seconds) and scan the `QueryContent` for the runaway shapes from this guide — `search *`, `union withsource=* *`, no leading `TimeGenerated` filter, or a wide payload column pulled across a long range. In practice these dominate the top of the list.
 - **`QueryContent` is trimmed to 500 chars** with `substring()` to keep the result readable — drop that line to capture the full query body (some are 2,000+ chars).
 - **Privacy note:** query bodies can embed indicators an analyst was hunting (domains, IPs, UPNs). Treat this output as sensitive and restrict who can run it.
@@ -257,15 +239,14 @@ CloudAppEvents
 
 Each Data Lake query result carries a `QueryResourceConsumption` block you can inspect to understand a query's footprint:
 
-| Field                                                                   | Meaning                                 |
-| ----------------------------------------------------------------------- | --------------------------------------- |
-| `input_dataset_statistics.extents.scanned`                              | data shards (extents) read              |
-| `input_dataset_statistics.rows.scanned`                                 | rows read                               |
-| `external_data.downloaded_bytes` / `downloaded_items`                   | lake (parquet) artifacts + bytes pulled |
-| `resource_usage.cpu.total cpu`, `memory.peak_per_node`, `ExecutionTime` | compute cost                            |
+| Field | Meaning |
+|---|---|
+| `input_dataset_statistics.extents.scanned` | data shards (extents) read |
+| `input_dataset_statistics.rows.scanned` | rows read |
+| `external_data.downloaded_bytes` / `downloaded_items` | lake (parquet) artifacts + bytes pulled |
+| `resource_usage.cpu.total cpu`, `memory.peak_per_node`, `ExecutionTime` | compute cost |
 
 **Important caveats (validated by testing on `AWSCloudTrail`):**
-
 - These stats reflect the **query engine's orchestration over the columnar store**, heavily optimized by pushdown. `downloaded_bytes` did **not** scale with rows (28× rows → 1.46× bytes) and did **not** change between `contains` and `has`.
 - Therefore **do not treat `downloaded_bytes` as the billed‑scan meter** — it under‑represents and doesn't track row‑level filters.
 - Use the **`Usage`‑table estimator (Rule #0)** for the cost ballpark, and confirm the authoritative billed figure in **Azure cost meters**, not from this block.

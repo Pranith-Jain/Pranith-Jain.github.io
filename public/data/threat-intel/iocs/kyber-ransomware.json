@@ -1,15 +1,1 @@
-{
-  "slug": "kyber-ransomware",
-  "family": "Kyber Ransomware",
-  "category": "ransomware",
-  "aliases": [],
-  "firstSeen": null,
-  "mitreTechniques": [],
-  "indicatorCount": 1,
-  "description": "IOC",
-  "sizeBytes": 277,
-  "indicators": [],
-  "context": "IOC\n===\n18498b1ff111ee9d9a037c280f75b720\n\nTOR DOMAIN\n==========\nkyblogtz6k3jtxnjjvluee5ec4g3zcnvyvbgsnq5thumphmqidkt7xid.onion: DLS\ntp7e2ekeoqqozyq2t3oy53tzbybvg6ehtinc7kjowtpvbkssprkdmuid.onion: FS\nminminnrdhcaddwll4zqvfd2vyqsgtgj473gjoehwna2v4sizdukheyd.onion: CHAT (UNIQUE)\n",
-  "references": [],
-  "llmSummary": null
-}
+{"slug":"kyber-ransomware","family":"Kyber Ransomware","category":"ransomware","aliases":[],"firstSeen":null,"mitreTechniques":[],"indicatorCount":1,"description":"IOC","sizeBytes":277,"indicators":[],"context":"IOC\n===\n18498b1ff111ee9d9a037c280f75b720\n\nTOR DOMAIN\n==========\nkyblogtz6k3jtxnjjvluee5ec4g3zcnvyvbgsnq5thumphmqidkt7xid.onion: DLS\ntp7e2ekeoqqozyq2t3oy53tzbybvg6ehtinc7kjowtpvbkssprkdmuid.onion: FS\nminminnrdhcaddwll4zqvfd2vyqsgtgj473gjoehwna2v4sizdukheyd.onion: CHAT (UNIQUE)\n","references":[],"llmSummary":null}
