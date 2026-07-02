@@ -20,6 +20,21 @@ import { fetchTelegramFeed, type TelegramFeedItem } from './telegram-feed';
 import { fetchXFeed, type XFeedItem } from './x-feed';
 import type { Env } from '../env';
 
+/**
+ * Optionally pre-fetched feed data, threaded in by the caller.
+ *
+ * The hourly cron already fetches the Telegram feed once (worker/scheduled.ts,
+ * telegram-leak-scanner) before this ingestion runs. Re-fetching the same t.me
+ * channels a second time in the same tick trips t.me's per-egress-IP burst
+ * throttle, so the duplicate fetch silently returns nothing and CyberPulse's
+ * Telegram source found 0 items every hour. Reusing the already-fetched items
+ * avoids the throttled duplicate burst entirely.
+ */
+export interface CyberPulsePrefetch {
+  telegramItems?: TelegramFeedItem[];
+  socialItems?: XFeedItem[];
+}
+
 // ─── Types ─────────────────────────────────────────────────────────────────
 
 export type IncidentType =
@@ -695,21 +710,24 @@ function xFeedItemToRawPost(item: XFeedItem): RawPost | null {
   };
 }
 
-/** Fetch Telegram breach/leak feed. */
-async function fetchTelegramBreachFeed(kv?: KVNamespace): Promise<RawPost[]> {
+/**
+ * Fetch Telegram breach/leak feed. When `items` is supplied (reused from the
+ * cron's earlier fetch) no new t.me request is made — see CyberPulsePrefetch.
+ */
+async function fetchTelegramBreachFeed(kv?: KVNamespace, items?: TelegramFeedItem[]): Promise<RawPost[]> {
   try {
-    const feed = await fetchTelegramFeed(kv);
-    return feed.items.map(telegramItemToRawPost).filter((p): p is RawPost => p !== null);
+    const feedItems = items ?? (await fetchTelegramFeed(kv)).items;
+    return feedItems.map(telegramItemToRawPost).filter((p): p is RawPost => p !== null);
   } catch {
     return [];
   }
 }
 
-/** Fetch Bluesky/Mastodon social feed. */
-async function fetchSocialBreachFeed(): Promise<RawPost[]> {
+/** Fetch Bluesky/Mastodon social feed. Reuses `items` when supplied. */
+async function fetchSocialBreachFeed(items?: XFeedItem[]): Promise<RawPost[]> {
   try {
-    const feed = await fetchXFeed();
-    return feed.items.map(xFeedItemToRawPost).filter((p): p is RawPost => p !== null);
+    const feedItems = items ?? (await fetchXFeed()).items;
+    return feedItems.map(xFeedItemToRawPost).filter((p): p is RawPost => p !== null);
   } catch {
     return [];
   }
@@ -751,7 +769,11 @@ const X_SEARCH_QUERIES = [
 ];
 
 /** Full ingestion pass — called by the hourly cron. */
-export async function runCyberPulseIngestion(env: Env, db: D1Database): Promise<IngestResult[]> {
+export async function runCyberPulseIngestion(
+  env: Env,
+  db: D1Database,
+  prefetched: CyberPulsePrefetch = {}
+): Promise<IngestResult[]> {
   const results: IngestResult[] = [];
   const existingHashes = await getExistingDedupHashes(db, 48);
   const now = new Date().toISOString();
@@ -940,7 +962,7 @@ export async function runCyberPulseIngestion(env: Env, db: D1Database): Promise<
   // ── 3. Telegram breach/leak channels ─────────────────────────────────
   const tgStart = Date.now();
   try {
-    const tgPosts = await fetchTelegramBreachFeed(env.KV_CACHE);
+    const tgPosts = await fetchTelegramBreachFeed(env.KV_CACHE, prefetched.telegramItems);
     let created = 0;
     let deduped = 0;
     const incidents: CyberPulseIncident[] = [];
@@ -1030,7 +1052,7 @@ export async function runCyberPulseIngestion(env: Env, db: D1Database): Promise<
   // ── 4. Bluesky + Mastodon social feed ─────────────────────────────────
   const socialStart = Date.now();
   try {
-    const socialPosts = await fetchSocialBreachFeed();
+    const socialPosts = await fetchSocialBreachFeed(prefetched.socialItems);
     let created = 0;
     let deduped = 0;
     const incidents: CyberPulseIncident[] = [];

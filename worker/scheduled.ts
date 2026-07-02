@@ -22,6 +22,7 @@ import {
   cleanupLeakEntries,
 } from '../api/src/routes/telegram-leak-monitor';
 import { fetchTelegramFeed } from '../api/src/routes/telegram-feed';
+import { fetchXFeed } from '../api/src/routes/x-feed';
 import { refreshVictimReleaksCache } from '../api/src/routes/victim-releaks';
 import { warmIntelBundles } from '../api/src/lib/intel-bundle-warm';
 import { checkWatches } from '../api/src/lib/watch-engine';
@@ -200,11 +201,14 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           // ~0 new leaks every hour (only manual triggers — a single clean burst —
           // worked). Also placed ahead of the briefing-rebuild early-return below,
           // so a rebuild hour can't skip leak scanning entirely.
+          // Hoisted so CyberPulse (below) can reuse this single Telegram fetch
+          // instead of issuing a second t.me burst that gets throttled to 0.
+          let telegramFeed: Awaited<ReturnType<typeof fetchTelegramFeed>> | undefined;
           try {
             if (env.BRIEFINGS_DB) {
-              const feed = await fetchTelegramFeed(env.KV_CACHE);
-              if (feed?.items?.length) {
-                const result = await runTelegramLeakScanner(env.BRIEFINGS_DB, feed.items);
+              telegramFeed = await fetchTelegramFeed(env.KV_CACHE);
+              if (telegramFeed?.items?.length) {
+                const result = await runTelegramLeakScanner(env.BRIEFINGS_DB, telegramFeed.items);
                 if (result.leaks_found > 0 || result.channels_discovered > 0) {
                   console.log(
                     JSON.stringify({
@@ -257,7 +261,15 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           // Monitors X accounts + keyword search for breaches/leaks/cybercrime.
           try {
             if (env.BRIEFINGS_DB) {
-              const cpResults = await runCyberPulseIngestion(env, env.BRIEFINGS_DB);
+              // Reuse the Telegram feed already fetched above (t.me throttles a
+              // second burst in the same tick). Fetch the Bluesky/Mastodon feed
+              // once here and thread it in too, so ingestion issues no duplicate
+              // feed requests of its own.
+              const socialFeed = await fetchXFeed().catch(() => undefined);
+              const cpResults = await runCyberPulseIngestion(env, env.BRIEFINGS_DB, {
+                telegramItems: telegramFeed?.items,
+                socialItems: socialFeed?.items,
+              });
               const totalCreated = cpResults.reduce((s, r) => s + r.incidents_created, 0);
               const totalDeduped = cpResults.reduce((s, r) => s + r.incidents_deduped, 0);
               if (totalCreated > 0 || totalDeduped > 0) {
