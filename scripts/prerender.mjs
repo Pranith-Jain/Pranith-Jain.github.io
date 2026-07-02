@@ -319,6 +319,7 @@ const ROUTES = [
   '/dfir/tracer',
   '/dfir/tracerules',
   '/dfir/phone-osint',
+  '/dfir/phone-intel',
   '/dfir/weather-osint',
   '/dfir/infostealer-intel',
 
@@ -401,6 +402,7 @@ const ROUTES = [
   '/threatintel/telegram-monitor',
   '/threatintel/source-health',
   '/threatintel/soc-dashboard',
+  '/threatintel/cyberpulse',
   '/threatintel/telegram-iocs',
   '/threatintel/malware/supply-chain',
 

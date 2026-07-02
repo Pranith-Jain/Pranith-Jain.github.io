@@ -291,6 +291,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/tracer', '/__prerendered/dfir__tracer'],
   ['/dfir/tracerules', '/__prerendered/dfir__tracerules'],
   ['/dfir/phone-osint', '/__prerendered/dfir__phone-osint'],
+  ['/dfir/phone-intel', '/__prerendered/dfir__phone-intel'],
   ['/dfir/weather-osint', '/__prerendered/dfir__weather-osint'],
   ['/dfir/infostealer-intel', '/__prerendered/dfir__infostealer-intel'],
 

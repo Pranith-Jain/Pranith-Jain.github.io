@@ -775,6 +775,14 @@ const DFIR_PAGES: readonly PageEntry[] = [
     group: 'dfir',
   },
   {
+    path: '/dfir/phone-intel',
+    label: 'Phone Intel',
+    description: 'Phone intelligence — carrier lookup, geolocation, device info, and breach exposure.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+    keywords: ['phone', 'carrier', 'geolocation', 'breach'],
+  },
+  {
     path: '/dfir/weather-osint',
     label: 'Weather OSINT',
     description: 'Geolocate a photo via weather, sun-angle, and shadow signals.',
@@ -2816,10 +2824,20 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/cyberpulse',
     label: 'CyberPulse',
-    description: 'Breach, leak & cybercrime incident tracker — sourced from X/Twitter, Telegram, Bluesky & Mastodon firehose. Broader than ransom.live.',
+    description:
+      'Breach, leak & cybercrime incident tracker — sourced from X/Twitter, Telegram, Bluesky & Mastodon firehose. Broader than ransom.live.',
     sectionLabel: 'Threat Intel · Live',
     group: 'threatintel',
-    keywords: ['breach', 'leak', 'cybercrime', 'ransomware', 'extortion', 'data leak', 'credential leak', 'incident tracker'],
+    keywords: [
+      'breach',
+      'leak',
+      'cybercrime',
+      'ransomware',
+      'extortion',
+      'data leak',
+      'credential leak',
+      'incident tracker',
+    ],
   },
   {
     path: '/threatintel/alerts',
