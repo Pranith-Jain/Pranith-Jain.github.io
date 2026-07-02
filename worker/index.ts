@@ -164,7 +164,7 @@ export default {
       if (!isWsOriginAllowed(request, env)) return new Response('forbidden origin', { status: 403 });
       // Chat WS is handled inline in the api app via a dedicated handler
       // Forward to api app which has the chat WS logic
-      const apiRes = await apiApp.fetch(request, env as never, ctx);
+      const apiRes = await apiApp.fetch(request, env as Env, ctx);
       const h = new Headers(apiRes.headers);
       h.set('x-request-id', requestId);
       return new Response(apiRes.body, { status: apiRes.status, statusText: apiRes.statusText, headers: h });
@@ -331,7 +331,7 @@ export default {
     // legacy /blog/rss.xml route
     if (url.pathname.startsWith('/api/') || url.pathname === '/blog/rss.xml') {
       try {
-        const apiRes = await apiApp.fetch(request, env as never, ctx);
+        const apiRes = await apiApp.fetch(request, env as Env, ctx);
         const h = new Headers(apiRes.headers);
         h.set('x-request-id', requestId);
         return withSecurityHeaders(

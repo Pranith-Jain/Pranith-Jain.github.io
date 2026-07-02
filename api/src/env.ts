@@ -10,12 +10,20 @@ export interface Env {
   /** Durable Object used as a globally-consistent single-flight lease AND, via
    *  its `incr` op, an atomic windowed counter for the admin rate-limit bucket
    *  (so a parallel burst can't bypass the brute-force cap). Optional — the
-   *  rate limiter degrades to the per-colo Cache/KV path when it is unbound. */
+   *  rate limiter degrades to the per-colos Cache/KV path when it is unbound. */
   CRON_LOCK_DO?: DurableObjectNamespace;
   /** Report-generation pipeline DO (Copilot full-report builder). */
   REPORT_BUILDER?: DurableObjectNamespace;
   /** Autonomous investigator agent DO. */
   INVESTIGATOR_AGENT?: DurableObjectNamespace;
+  /** Live-feed WebSocket fan-out DO. */
+  LIVE_FEED_DO?: DurableObjectNamespace;
+  /** DFIR MCP server DO. */
+  DFIR_MCP?: DurableObjectNamespace;
+  /** Radar deep-crawl DO. */
+  RADAR_CRAWLER?: DurableObjectNamespace;
+  /** Global Pulse real-time DO. */
+  GLOBAL_PULSE_DO?: DurableObjectNamespace;
   BRIEFINGS_DB?: D1Database;
   /** Emergency valve for the external-read API-key gate. When set to the string
    *  `'true'` (a Worker secret, so it can be toggled without a redeploy),
@@ -223,6 +231,13 @@ export interface Env {
   /** When set to "true", allows localhost dev origins in CORS and auth checks.
    *  Unset in production to prevent local dev servers from authenticating. */
   ALLOW_DEV_ORIGINS?: string;
+  /** PhantomCandle threat intel API credentials. Set via wrangler secrets.
+   *  Required for si_enrich_ip / si_enrich_ip_batch to query
+   *  phantomcandle.net for port-level threat attribution. */
+  PHANTOMCANDLE_USER?: string;
+  PHANTOMCANDLE_TOKEN?: string;
+  /** Set "true" to disable AI blog illustrations (cost control). Default: on. */
+  BLOG_AI_IMAGES_DISABLED?: string;
   /** BuiltWith Domain API key (paid). Optional — when unset, the
    *  /api/v1/builtwith tech-stack lookup falls back to a free, self-contained
    *  heuristic that fingerprints the target's live HTTP headers + HTML body.
