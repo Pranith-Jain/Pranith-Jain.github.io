@@ -44,7 +44,7 @@ function readSecretFindings(r: ProviderResultWire): SecretFindingWire[] {
   return raw.filter(isSecretFinding);
 }
 
-export function IocResultRow({ r }: { r: ProviderResultWire }): JSX.Element {
+function IocResultRowInner({ r }: { r: ProviderResultWire }): JSX.Element {
   const isSecretsProvider = r.source === 'secrets';
   const findings = isSecretsProvider ? readSecretFindings(r) : [];
   const findingCount = typeof r.raw_summary.finding_count === 'number' ? r.raw_summary.finding_count : findings.length;
@@ -108,4 +108,4 @@ export function IocResultRow({ r }: { r: ProviderResultWire }): JSX.Element {
   );
 }
 
-export { memo(IocResultRow) as IocResultRow };
+export const IocResultRow = memo(IocResultRowInner);

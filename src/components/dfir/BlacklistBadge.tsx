@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { ShieldAlert, ShieldCheck, ShieldQuestion } from 'lucide-react';
 import type { BlacklistCheck } from '../../lib/dfir/reputation';
 
@@ -13,7 +14,7 @@ interface Props {
  *   - blocked  → slate, ShieldQuestion  ("the DNSBL refused our query because we used a public DoH resolver — answer is unknown, NOT a positive listing")
  *   - clean    → emerald, ShieldCheck   ("the DNSBL responded with no records")
  */
-export function BlacklistBadge({ bl, compact, showName = true }: Props): JSX.Element {
+function BlacklistBadgeInner({ bl, compact, showName = true }: Props): JSX.Element {
   const size = compact ? 8 : 12;
   let tone: string;
   let label: string;
@@ -46,3 +47,5 @@ export function BlacklistBadge({ bl, compact, showName = true }: Props): JSX.Ele
     </span>
   );
 }
+
+export const BlacklistBadge = memo(BlacklistBadgeInner);

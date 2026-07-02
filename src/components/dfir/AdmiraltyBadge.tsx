@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 /**
  * NATO Admiralty Code badge — displays reliability × credibility grade
  * for an IOC based on source type and indicator type.
@@ -18,7 +20,7 @@ const RELIABILITY_COLORS: Record<string, string> = {
   F: 'text-slate-500 dark:text-slate-400 border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-100 dark:bg-[rgb(var(--surface-200))]',
 };
 
-export function AdmiraltyBadge({ admiralty, compact }: { admiralty: AdmiraltyGrade; compact?: boolean }): JSX.Element {
+function AdmiraltyBadgeInner({ admiralty, compact }: { admiralty: AdmiraltyGrade; compact?: boolean }): JSX.Element {
   const colors = RELIABILITY_COLORS[admiralty.reliability] ?? RELIABILITY_COLORS['F'];
 
   return (
@@ -33,3 +35,5 @@ export function AdmiraltyBadge({ admiralty, compact }: { admiralty: AdmiraltyGra
     </span>
   );
 }
+
+export const AdmiraltyBadge = memo(AdmiraltyBadgeInner);

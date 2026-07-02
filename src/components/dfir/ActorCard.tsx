@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import type { ThreatActor } from '../../data/dfir/threat-actors';
 
@@ -11,7 +12,7 @@ const SOPH_STYLES: Record<string, string> = {
     'bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-slate-500 border-slate-300 dark:border-[rgb(var(--border-400))]',
 };
 
-export function ActorCard({ actor }: { actor: ThreatActor }): JSX.Element {
+function ActorCardInner({ actor }: { actor: ThreatActor }): JSX.Element {
   return (
     <Link
       to={`/threatintel/actors/${actor.slug}`}
@@ -50,3 +51,5 @@ export function ActorCard({ actor }: { actor: ThreatActor }): JSX.Element {
     </Link>
   );
 }
+
+export const ActorCard = memo(ActorCardInner);

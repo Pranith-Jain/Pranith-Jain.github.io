@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { ChevronRight, FileText, Folder } from 'lucide-react';
 
 /** Mirrors api/src/lib/host-intel.ts HostArtifact. */
@@ -60,7 +60,7 @@ function TagBadge({ tag }: { tag: string }): JSX.Element {
   return <span className={`font-mono text-micro px-1.5 py-0.5 rounded border ${color}`}>{tag}</span>;
 }
 
-function ArtifactRow({ artifact }: { artifact: HostArtifact }): JSX.Element {
+function ArtifactRowInner({ artifact }: { artifact: HostArtifact }): JSX.Element {
   const [open, setOpen] = useState(false);
   const isDir = artifact.type === 'DIR';
   const mitre = artifact.tags.map((t) => TAG_MITRE[t]).find(Boolean);
@@ -141,6 +141,8 @@ function ArtifactRow({ artifact }: { artifact: HostArtifact }): JSX.Element {
     </>
   );
 }
+
+const ArtifactRow = memo(ArtifactRowInner);
 
 export function ArtifactTable({ artifacts }: { artifacts: HostArtifact[] }): JSX.Element {
   if (artifacts.length === 0) {

@@ -123,7 +123,7 @@ const SIZE: Record<
   },
 };
 
-export function IocChip({
+function IocChipInner({
   value,
   type,
   size = 'md',
@@ -147,11 +147,9 @@ export function IocChip({
       <span className={`inline-flex items-center ${sz.gap} ${skeletonFrame} ${className}`} aria-hidden="true">
         <span className={`${sz.icon} shrink-0 rounded-sm bg-slate-200 dark:bg-slate-700 animate-pulse`} />
         <span className="h-3 w-24 rounded bg-slate-200 dark:bg-slate-700 animate-pulse" />
-    </span>
-  );
-}
-
-export { memo(IocChip) as IocChip };
+      </span>
+    );
+  }
 
   const canonical = refang(value ?? '').trim();
   if (!canonical) return null;
@@ -360,3 +358,5 @@ function PivotMenu({ ioc, size }: { ioc: DetectedIoc; size: 'sm' | 'md' }): JSX.
     </span>
   );
 }
+
+export const IocChip = memo(IocChipInner);

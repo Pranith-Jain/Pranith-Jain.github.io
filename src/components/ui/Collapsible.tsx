@@ -1,4 +1,4 @@
-import { useState, useId, type ReactNode } from 'react';
+import { memo, useState, useId, type ReactNode } from 'react';
 import { ChevronDown } from 'lucide-react';
 
 export interface CollapsibleProps {
@@ -12,7 +12,7 @@ export interface CollapsibleProps {
   contentClassName?: string;
 }
 
-export function Collapsible({
+export function CollapsibleInner({
   title,
   children,
   open: controlledOpen,
@@ -69,6 +69,8 @@ export function Collapsible({
     </div>
   );
 }
+
+export const Collapsible = memo(CollapsibleInner);
 
 export interface AccordionProps {
   items: { id: string; title: string; content: ReactNode }[];
