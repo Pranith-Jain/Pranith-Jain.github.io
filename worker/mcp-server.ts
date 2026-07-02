@@ -30,6 +30,7 @@ import {
   type TiIocIndexEntry,
 } from './lib/threat-intel-manifest';
 import { validateRawKey } from '../api/src/lib/auth';
+import { signInternalToken } from '../api/src/lib/internal-token';
 import { enrichIp, enrichIpsBatch, isValidIp, type EnrichResult } from './lib/si-enrich';
 import { buildStixBundle, type StixIndicator } from './lib/cti-ioc-export';
 import { kqlToAhUrl, kqlToAhUrlMarkdown } from './lib/kql-to-ah-url';
@@ -88,6 +89,8 @@ type Env = {
   CHAINABUSE_API_KEY?: string;
   /** Autonomous investigator agent DO — used for deep enrichment analysis. */
   INVESTIGATOR_AGENT?: DurableObjectNamespace;
+  /** Secret for signing internal tokens (HMAC-SHA256). Used by tie-enrich for SELF calls. */
+  INTERNAL_TOKEN_SECRET?: string;
 };
 
 const API_BASE_DEFAULT = 'https://pranithjain.qzz.io';
@@ -1449,7 +1452,13 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             .string()
             .optional()
             .describe('Case-insensitive substring match against CVE ID / vendor / product / description'),
-          minArgusScore: z.number().int().min(0).max(100).optional().describe('Minimum Argus trending hype score (0-100). CVEs without Argus data are excluded when set.'),
+          minArgusScore: z
+            .number()
+            .int()
+            .min(0)
+            .max(100)
+            .optional()
+            .describe('Minimum Argus trending hype score (0-100). CVEs without Argus data are excluded when set.'),
           limit: z.number().int().min(1).max(200).optional().describe('Max CVEs to return (default 50)'),
         },
         async ({ severity, kevOnly, vendor, daysBack, minPriority, keyword, minArgusScore, limit }) => {
@@ -3366,12 +3375,14 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     // ── Tie-Agent: IOC enrichment agent (cookbook pattern) ──────────
     this.tools(
       'si_enrich_agent',
-      'Enrich a single IOC (IP/hash/domain/URL) using the Threat Intel Enrichment Agent. Runs a multi-step autonomous investigation across 30+ providers (VirusTotal, AbuseIPDB, Shodan, PhantomCandle, Malpedia, etc.), extracts MITRE ATT&CK TTPs, and returns a structured threat assessment with per-provider diagnostics. For deep analysis, set \'deep: true\' to run the full multi-step chain with report generation (takes 10-30s).',
+      "Enrich a single IOC (IP/hash/domain/URL) using the Threat Intel Enrichment Agent. Runs a multi-step autonomous investigation across 30+ providers (VirusTotal, AbuseIPDB, Shodan, PhantomCandle, Malpedia, etc.), extracts MITRE ATT&CK TTPs, and returns a structured threat assessment with per-provider diagnostics. For deep analysis, set 'deep: true' to run the full multi-step chain with report generation (takes 10-30s).",
       {
         ioc: z.string().describe('The indicator to enrich — IPv4, IPv6, file hash (MD5/SHA1/SHA256), domain, or URL.'),
         ioc_type: z
           .enum(['ip', 'hash', 'domain', 'url'])
-          .describe('Type of the indicator (ip, hash, domain, or url). Auto-detection is not supported; specify explicitly.'),
+          .describe(
+            'Type of the indicator (ip, hash, domain, or url). Auto-detection is not supported; specify explicitly.'
+          ),
         deep: z
           .boolean()
           .optional()
@@ -3385,7 +3396,14 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
           // Deep mode: trigger the autonomous investigator DO
           const agentNs = this.env.INVESTIGATOR_AGENT;
           if (!agentNs) {
-            return { content: [{ type: 'text', text: 'SECURITY: Investigator agent is not configured on this Worker.\n\n{ "error": "unavailable", "detail": "INVESTIGATOR_AGENT Durable Object not bound" }' }] };
+            return {
+              content: [
+                {
+                  type: 'text',
+                  text: 'SECURITY: Investigator agent is not configured on this Worker.\n\n{ "error": "unavailable", "detail": "INVESTIGATOR_AGENT Durable Object not bound" }',
+                },
+              ],
+            };
           }
           const id = crypto.randomUUID();
           const doId = agentNs.idFromName(id);
@@ -3402,24 +3420,48 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             await new Promise((r) => setTimeout(r, 500));
             const stateRes = await stub.fetch(`https://agent/state?id=${encodeURIComponent(id)}`);
             if (!stateRes.ok) break;
-            const state = (await stateRes.json()) as { status: string; report?: string; steps?: unknown[]; error?: string };
+            const state = (await stateRes.json()) as {
+              status: string;
+              report?: string;
+              steps?: unknown[];
+              error?: string;
+            };
             if (state.status === 'done') {
-              return { content: [{ type: 'text', text: state.report ?? 'Investigation complete but no report was generated.' }] };
+              return {
+                content: [
+                  { type: 'text', text: state.report ?? 'Investigation complete but no report was generated.' },
+                ],
+              };
             }
             if (state.status === 'error') {
-              return { content: [{ type: 'text', text: `SECURITY: Investigation errored.\n\n{ "error": "${(state.error ?? 'unknown').replace(/"/g, '\\"')}" }` }] };
+              return {
+                content: [
+                  {
+                    type: 'text',
+                    text: `SECURITY: Investigation errored.\n\n{ "error": "${(state.error ?? 'unknown').replace(/"/g, '\\"')}" }`,
+                  },
+                ],
+              };
             }
           }
-          return { content: [{ type: 'text', text: 'SECURITY: Investigation timed out after 30s.\n\n{ "error": "timeout" }' }] };
+          return {
+            content: [{ type: 'text', text: 'SECURITY: Investigation timed out after 30s.\n\n{ "error": "timeout" }' }],
+          };
         }
 
         // Fast path: deterministic enrichment via SELF
         const self = this.env.SELF;
         if (!self) {
-          return { content: [{ type: 'text', text: 'SECURITY: SELF service binding is not available.\n\n{ "error": "unavailable" }' }] };
+          return {
+            content: [
+              { type: 'text', text: 'SECURITY: SELF service binding is not available.\n\n{ "error": "unavailable" }' },
+            ],
+          };
         }
         const { enrichIoc } = await import('./lib/tie-enrich');
-        const result = await enrichIoc(self, ioc, ioc_type);
+        const secret = this.env.INTERNAL_TOKEN_SECRET;
+        const internalToken = secret ? await signInternalToken('tie-enrich', secret) : undefined;
+        const result = await enrichIoc(self, ioc, ioc_type, internalToken);
         return untrustedToolResult(result);
       }
     );

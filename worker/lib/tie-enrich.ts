@@ -11,187 +11,86 @@ export interface TieEnrichResult {
   diagnostics: Array<{ provider: string; status: 'ok' | 'skipped' | 'failed'; ms: number; error?: string }>;
 }
 
-interface DiagnosticAccumulator {
-  diag: TieEnrichResult['diagnostics'];
-}
-
-async function enrichIp(self: Fetcher, ioc: string, acc: DiagnosticAccumulator): Promise<Partial<TieEnrichResult>> {
+async function fetchJson(
+  self: Fetcher,
+  path: string,
+  internalToken?: string
+): Promise<{ data?: unknown; ok: boolean; ms: number }> {
   const t0 = Date.now();
+  const headers: Record<string, string> = { accept: 'application/json' };
+  if (internalToken) headers['x-internal-token'] = internalToken;
   try {
-    const [rep, geo, pc] = await Promise.allSettled([
-      self.fetch(`https://placeholder/api/v1/ioc/check?indicator=${encodeURIComponent(ioc)}`, {
-        headers: { 'x-internal-agent': 'tie-enrich', accept: 'application/json' },
-      }),
-      self.fetch(`https://placeholder/api/v1/ip-geo?ip=${encodeURIComponent(ioc)}`, {
-        headers: { 'x-internal-agent': 'tie-enrich', accept: 'application/json' },
-      }),
-      self.fetch(`https://placeholder/api/v1/ip/${encodeURIComponent(ioc)}/phantomcandle`, {
-        headers: { 'x-internal-agent': 'tie-enrich', accept: 'application/json' },
-      }),
-    ]);
-    const now = Date.now();
-    const check = rep.status === 'fulfilled' && rep.value.ok ? await rep.value.json() : undefined;
-    acc.diag.push({
-      provider: 'check_ioc',
-      status: check ? 'ok' : 'failed',
-      ms: now - t0,
-      error: rep.status === 'rejected' ? rep.reason?.message : undefined,
-    });
-    const geoData = geo.status === 'fulfilled' && geo.value.ok ? await geo.value.json() : undefined;
-    acc.diag.push({
-      provider: 'lookup_ip_geo',
-      status: geoData ? 'ok' : 'failed',
-      ms: now - t0,
-      error: geo.status === 'rejected' ? geo.reason?.message : undefined,
-    });
-    const pcData = pc.status === 'fulfilled' && pc.value.ok ? await pc.value.json() : undefined;
-    acc.diag.push({
-      provider: 'phantomcandle',
-      status: pcData ? 'ok' : 'skipped',
-      ms: now - t0,
-      error: pc.status === 'rejected' ? pc.reason?.message : undefined,
-    });
-    return { reputation: check, geo: geoData, phantomcandle: pcData };
+    const res = await self.fetch(`https://placeholder${path}`, { headers });
+    const ms = Date.now() - t0;
+    if (!res.ok) return { ok: false, ms };
+    return { data: await res.json(), ok: true, ms };
   } catch {
-    return {};
+    return { ok: false, ms: Date.now() - t0 };
   }
 }
 
-async function enrichHash(self: Fetcher, ioc: string, acc: DiagnosticAccumulator): Promise<Partial<TieEnrichResult>> {
-  const t0 = Date.now();
-  try {
-    const [rep, mal] = await Promise.allSettled([
-      self.fetch(`https://placeholder/api/v1/ioc/check?indicator=${encodeURIComponent(ioc)}`, {
-        headers: { 'x-internal-agent': 'tie-enrich', accept: 'application/json' },
-      }),
-      self.fetch(`https://placeholder/api/v1/search-malpedia?q=${encodeURIComponent(ioc)}`, {
-        headers: { 'x-internal-agent': 'tie-enrich', accept: 'application/json' },
-      }),
-    ]);
-    const now = Date.now();
-    const check = rep.status === 'fulfilled' && rep.value.ok ? await rep.value.json() : undefined;
-    acc.diag.push({
-      provider: 'check_ioc',
-      status: check ? 'ok' : 'failed',
-      ms: now - t0,
-      error: rep.status === 'rejected' ? rep.reason?.message : undefined,
-    });
-    const m = mal.status === 'fulfilled' && mal.value.ok ? await mal.value.json() : undefined;
-    acc.diag.push({
-      provider: 'search_malpedia',
-      status: m ? 'ok' : 'skipped',
-      ms: now - t0,
-      error: mal.status === 'rejected' ? mal.reason?.message : undefined,
-    });
-    return { reputation: check, malpedia: m };
-  } catch {
-    return {};
-  }
-}
-
-async function enrichDomain(self: Fetcher, ioc: string, acc: DiagnosticAccumulator): Promise<Partial<TieEnrichResult>> {
-  const t0 = Date.now();
-  try {
-    const [rep, dom] = await Promise.allSettled([
-      self.fetch(`https://placeholder/api/v1/ioc/check?indicator=${encodeURIComponent(ioc)}`, {
-        headers: { 'x-internal-agent': 'tie-enrich', accept: 'application/json' },
-      }),
-      self.fetch(`https://placeholder/api/v1/domain?domain=${encodeURIComponent(ioc)}`, {
-        headers: { 'x-internal-agent': 'tie-enrich', accept: 'application/json' },
-      }),
-    ]);
-    const now = Date.now();
-    const check = rep.status === 'fulfilled' && rep.value.ok ? await rep.value.json() : undefined;
-    acc.diag.push({
-      provider: 'check_ioc',
-      status: check ? 'ok' : 'failed',
-      ms: now - t0,
-      error: rep.status === 'rejected' ? rep.reason?.message : undefined,
-    });
-    const di = dom.status === 'fulfilled' && dom.value.ok ? await dom.value.json() : undefined;
-    acc.diag.push({
-      provider: 'lookup_domain',
-      status: di ? 'ok' : 'failed',
-      ms: now - t0,
-      error: dom.status === 'rejected' ? dom.reason?.message : undefined,
-    });
-    return { reputation: check, domainIntel: di };
-  } catch {
-    return {};
-  }
-}
-
-async function enrichUrl(self: Fetcher, ioc: string, acc: DiagnosticAccumulator): Promise<Partial<TieEnrichResult>> {
-  const t0 = Date.now();
-  try {
-    const [rep, ph] = await Promise.allSettled([
-      self.fetch(`https://placeholder/api/v1/ioc/check?indicator=${encodeURIComponent(ioc)}`, {
-        headers: { 'x-internal-agent': 'tie-enrich', accept: 'application/json' },
-      }),
-      self.fetch(`https://placeholder/api/v1/phishing/url?url=${encodeURIComponent(ioc)}`, {
-        headers: { 'x-internal-agent': 'tie-enrich', accept: 'application/json' },
-      }),
-    ]);
-    const now = Date.now();
-    const check = rep.status === 'fulfilled' && rep.value.ok ? await rep.value.json() : undefined;
-    acc.diag.push({
-      provider: 'check_ioc',
-      status: check ? 'ok' : 'failed',
-      ms: now - t0,
-      error: rep.status === 'rejected' ? rep.reason?.message : undefined,
-    });
-    const pa = ph.status === 'fulfilled' && ph.value.ok ? await ph.value.json() : undefined;
-    acc.diag.push({
-      provider: 'analyze_phishing_url',
-      status: pa ? 'ok' : 'skipped',
-      ms: now - t0,
-      error: ph.status === 'rejected' ? ph.reason?.message : undefined,
-    });
-    return { reputation: check, phishingAnalysis: pa };
-  } catch {
-    return {};
-  }
-}
-
+/**
+ * Enrich an IOC via authenticated in-process SELF calls.
+ *
+ * `internalToken` must be a signed internal token (mint it at the call site
+ * with `signInternalToken('tie-enrich', env.INTERNAL_TOKEN_SECRET)`) — without
+ * it the SELF calls hit the API key gate and every provider returns empty.
+ * Minting lives at the call site because this file is symlinked into
+ * `api/src/lib/` and cannot carry cross-tree relative imports.
+ */
 export async function enrichIoc(
   self: Fetcher,
   ioc: string,
-  iocType: 'ip' | 'hash' | 'domain' | 'url'
+  iocType: 'ip' | 'hash' | 'domain' | 'url',
+  internalToken?: string
 ): Promise<TieEnrichResult> {
-  const acc: DiagnosticAccumulator = { diag: [] };
-  let partial: Partial<TieEnrichResult> = {};
+  const result: TieEnrichResult = { ioc, iocType, diagnostics: [] };
 
-  if (iocType === 'ip') partial = await enrichIp(self, ioc, acc);
-  else if (iocType === 'hash') partial = await enrichHash(self, ioc, acc);
-  else if (iocType === 'domain') partial = await enrichDomain(self, ioc, acc);
-  else if (iocType === 'url') partial = await enrichUrl(self, ioc, acc);
-
-  // MITRE mapping — fire-and-forget for every type
-  try {
-    const t0 = Date.now();
-    const res = await self.fetch(`https://placeholder/api/v1/attack/extract?text=${encodeURIComponent(ioc)}`, {
-      headers: { 'x-internal-agent': 'tie-enrich', accept: 'application/json' },
-    });
-    if (res.ok) {
-      partial.mitre = await res.json();
-      acc.diag.push({ provider: 'extract_ttps', status: 'ok', ms: Date.now() - t0 });
-    } else {
-      acc.diag.push({ provider: 'extract_ttps', status: 'skipped', ms: Date.now() - t0 });
-    }
-  } catch {
-    acc.diag.push({ provider: 'extract_ttps', status: 'failed', ms: 0 });
+  if (iocType === 'ip') {
+    const [rep, geo, pc] = await Promise.all([
+      fetchJson(self, `/api/v1/ioc/check?indicator=${encodeURIComponent(ioc)}`, internalToken),
+      fetchJson(self, `/api/v1/ip-geo?ip=${encodeURIComponent(ioc)}`, internalToken),
+      fetchJson(self, `/api/v1/ip/${encodeURIComponent(ioc)}/phantomcandle`, internalToken),
+    ]);
+    if (rep.ok) result.reputation = rep.data;
+    result.diagnostics.push({ provider: 'check_ioc', status: rep.ok ? 'ok' : 'failed', ms: rep.ms });
+    if (geo.ok) result.geo = geo.data;
+    result.diagnostics.push({ provider: 'lookup_ip_geo', status: geo.ok ? 'ok' : 'failed', ms: geo.ms });
+    if (pc.ok) result.phantomcandle = pc.data;
+    result.diagnostics.push({ provider: 'phantomcandle', status: pc.ok ? 'ok' : 'skipped', ms: pc.ms });
+  } else if (iocType === 'hash') {
+    const [rep, mal] = await Promise.all([
+      fetchJson(self, `/api/v1/ioc/check?indicator=${encodeURIComponent(ioc)}`, internalToken),
+      fetchJson(self, `/api/v1/search-malpedia?q=${encodeURIComponent(ioc)}`, internalToken),
+    ]);
+    if (rep.ok) result.reputation = rep.data;
+    result.diagnostics.push({ provider: 'check_ioc', status: rep.ok ? 'ok' : 'failed', ms: rep.ms });
+    if (mal.ok) result.malpedia = mal.data;
+    result.diagnostics.push({ provider: 'search_malpedia', status: mal.ok ? 'ok' : 'skipped', ms: mal.ms });
+  } else if (iocType === 'domain') {
+    const [rep, dom] = await Promise.all([
+      fetchJson(self, `/api/v1/ioc/check?indicator=${encodeURIComponent(ioc)}`, internalToken),
+      fetchJson(self, `/api/v1/domain?domain=${encodeURIComponent(ioc)}`, internalToken),
+    ]);
+    if (rep.ok) result.reputation = rep.data;
+    result.diagnostics.push({ provider: 'check_ioc', status: rep.ok ? 'ok' : 'failed', ms: rep.ms });
+    if (dom.ok) result.domainIntel = dom.data;
+    result.diagnostics.push({ provider: 'lookup_domain', status: dom.ok ? 'ok' : 'failed', ms: dom.ms });
+  } else if (iocType === 'url') {
+    const [rep, ph] = await Promise.all([
+      fetchJson(self, `/api/v1/ioc/check?indicator=${encodeURIComponent(ioc)}`, internalToken),
+      fetchJson(self, `/api/v1/phishing/url?url=${encodeURIComponent(ioc)}`, internalToken),
+    ]);
+    if (rep.ok) result.reputation = rep.data;
+    result.diagnostics.push({ provider: 'check_ioc', status: rep.ok ? 'ok' : 'failed', ms: rep.ms });
+    if (ph.ok) result.phishingAnalysis = ph.data;
+    result.diagnostics.push({ provider: 'analyze_phishing_url', status: ph.ok ? 'ok' : 'skipped', ms: ph.ms });
   }
 
-  return {
-    ioc,
-    iocType,
-    reputation: partial.reputation,
-    geo: partial.geo,
-    phantomcandle: partial.phantomcandle,
-    domainIntel: partial.domainIntel,
-    phishingAnalysis: partial.phishingAnalysis,
-    malpedia: partial.malpedia,
-    mitre: partial.mitre,
-    diagnostics: acc.diag,
-  };
+  // MITRE extraction
+  const mitre = await fetchJson(self, `/api/v1/attack/extract?text=${encodeURIComponent(ioc)}`, internalToken);
+  if (mitre.ok) result.mitre = mitre.data;
+  result.diagnostics.push({ provider: 'extract_ttps', status: mitre.ok ? 'ok' : 'skipped', ms: mitre.ms });
+
+  return result;
 }

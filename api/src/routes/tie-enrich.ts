@@ -2,6 +2,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { badRequest, notFound, internalError, serviceUnavailable } from '../lib/api-error';
 import type { AgentState } from '../lib/agent/types';
+import { signInternalToken } from '../lib/internal-token';
 
 const CACHE_TTL = 60;
 
@@ -28,7 +29,9 @@ export async function tieEnrichHandler(c: Context<{ Bindings: Env }>): Promise<R
     if (!self) return serviceUnavailable(c, 'SELF binding not available');
 
     const { enrichIoc } = await import('../lib/tie-enrich');
-    const result = await enrichIoc(self, ioc, iocType);
+    const secret = c.env.INTERNAL_TOKEN_SECRET;
+    const internalToken = secret ? await signInternalToken('tie-enrich', secret) : undefined;
+    const result = await enrichIoc(self, ioc, iocType, internalToken);
     return c.json(result, 200, { 'Cache-Control': `public, max-age=${CACHE_TTL}` });
   }
 

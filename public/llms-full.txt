@@ -116,6 +116,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [PI Taxonomy](https://pranithjain.qzz.io/dfir/pi-taxonomy) (dfir): Arcanum Prompt Injection Taxonomy — 172 classified attack nodes.
 - [MCP Audit](https://pranithjain.qzz.io/dfir/mcp-audit) (dfir): Audit a Model Context Protocol server for tool-poisoning vectors.
 - [Agent Investigator](https://pranithjain.qzz.io/dfir/agent) (dfir): Investigate an autonomous agent — tool calls, prompt history, exfil.
+- [Agent Enrich](https://pranithjain.qzz.io/dfir/agent-enrich) (dfir): Enrich agent observables with external threat intel
 - [Agent Map](https://pranithjain.qzz.io/dfir/agent-map) (dfir): 
 - [INSIGHT-AI](https://pranithjain.qzz.io/dfir/insight-ai) (dfir): AI-assisted incident summarisation and pattern detection.
 - [QUERYCRAFT-AI](https://pranithjain.qzz.io/dfir/querycraft-ai) (dfir): AI-assisted KQL / SPL / Lucene generation.

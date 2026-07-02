@@ -516,8 +516,6 @@ export function CommandPalette(): JSX.Element | null {
     el?.scrollIntoView({ block: 'nearest' });
   }, [activeIdx, open]);
 
-  if (!open) return null;
-
   // Counts per kind for the filter chip row, computed against the *full*
   // un-filtered index so the chip labels show the total per kind, not what
   // would survive the current chip's own filter.
@@ -526,6 +524,8 @@ export function CommandPalette(): JSX.Element | null {
     for (const e of fullIndex) map.set(e.kind, (map.get(e.kind) ?? 0) + 1);
     return map;
   }, [fullIndex]);
+
+  if (!open) return null;
 
   return (
     <div

@@ -146,4 +146,10 @@ export async function validateInternalToken(token: string, secret?: string): Pro
  * to prevent an attacker from crafting tokens with arbitrary caller
  * values (even if they can't forge the signature, defence-in-depth).
  */
-export const ALLOWED_INTERNAL_CALLERS = new Set(['investigator-do', 'report-builder-do', 'cron', 'api-enrich-deep']);
+export const ALLOWED_INTERNAL_CALLERS = new Set([
+  'investigator-do',
+  'report-builder-do',
+  'cron',
+  'api-enrich-deep',
+  'tie-enrich',
+]);

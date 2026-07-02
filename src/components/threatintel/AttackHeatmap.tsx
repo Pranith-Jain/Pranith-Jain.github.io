@@ -71,20 +71,15 @@ export function AttackHeatmap({
     };
   }, []);
 
-  if (loading) {
-    return (
-      <section
-        className={`${mbClass} rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5 inline-flex items-center gap-2 font-mono text-sm text-slate-500`}
-      >
-        <Loader2 size={14} className="animate-spin" /> loading ATT&CK technique heatmap…
-      </section>
-    );
-  }
-
-  if (error || !data) return null;
-  if (data.aggregate_techniques.length === 0) return null;
-
-  const { byTactic, tacticKeys, maxCount, MAX_PER_TACTIC } = useMemo(() => {
+  const { byTactic, tacticKeys, maxCount, MAX_PER_TACTIC } = useMemo<{
+    byTactic: Map<string, AggregateTechnique[]>;
+    tacticKeys: string[];
+    maxCount: number;
+    MAX_PER_TACTIC: number;
+  }>(() => {
+    if (!data || data.aggregate_techniques.length === 0) {
+      return { byTactic: new Map(), tacticKeys: [], maxCount: 0, MAX_PER_TACTIC: 5 };
+    }
     const byTactic = new Map<string, AggregateTechnique[]>();
     for (const t of data.aggregate_techniques) {
       const list = byTactic.get(t.tactic) ?? [];
@@ -105,6 +100,19 @@ export function AttackHeatmap({
     const MAX_PER_TACTIC = 10;
     return { byTactic, tacticKeys, maxCount, MAX_PER_TACTIC };
   }, [data]);
+
+  if (loading) {
+    return (
+      <section
+        className={`${mbClass} rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5 inline-flex items-center gap-2 font-mono text-sm text-slate-500`}
+      >
+        <Loader2 size={14} className="animate-spin" /> loading ATT&CK technique heatmap…
+      </section>
+    );
+  }
+
+  if (error || !data) return null;
+  if (data.aggregate_techniques.length === 0) return null;
 
   return (
     <section

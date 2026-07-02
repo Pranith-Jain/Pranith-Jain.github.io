@@ -39,15 +39,16 @@ export function GlobalPulseCard(): JSX.Element | null {
     };
   }, []);
 
-  if (failed) return null;
-  if (!data) return null;
-
   const { critical, topLayers } = useMemo(() => {
+    if (!data) return { critical: 0, topLayers: [] };
     const critical = data.events.filter((e) => e.severity === 'critical').length;
     const layerEntries = Object.entries(data.layers).filter(([, count]) => count > 0);
     const topLayers = layerEntries.sort((a, b) => b[1] - a[1]).slice(0, 3);
     return { critical, topLayers };
   }, [data]);
+
+  if (failed) return null;
+  if (!data) return null;
 
   return (
     <Link
