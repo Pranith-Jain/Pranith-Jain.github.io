@@ -257,7 +257,7 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           // Monitors X accounts + keyword search for breaches/leaks/cybercrime.
           try {
             if (env.BRIEFINGS_DB) {
-              const cpResults = await runCyberPulseIngestion(env as unknown as Record<string, unknown>, env.BRIEFINGS_DB);
+              const cpResults = await runCyberPulseIngestion(env, env.BRIEFINGS_DB);
               const totalCreated = cpResults.reduce((s, r) => s + r.incidents_created, 0);
               const totalDeduped = cpResults.reduce((s, r) => s + r.incidents_deduped, 0);
               if (totalCreated > 0 || totalDeduped > 0) {
