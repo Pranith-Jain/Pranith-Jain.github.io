@@ -6,7 +6,7 @@ import {
   ShieldAlert,
   Crosshair,
   Package,
-  Link,
+  Link2,
   ExternalLink,
   Loader2,
   Search,
@@ -14,6 +14,7 @@ import {
 import { useDataFetch } from '../hooks/useDataFetch';
 import { api } from '../lib/api-client';
 import { memoryCache } from '../infrastructure/cache/memory-cache';
+import { DataPageLayout } from '../components/DataPageLayout';
 
 interface ArticleSource {
   id: number;
@@ -114,38 +115,38 @@ const TABS: { id: Tab; label: string; icon: React.ComponentType<{ className?: st
   { id: 'vulns', label: 'Vulnerabilities', icon: ShieldAlert },
   { id: 'hunting', label: 'Hunting', icon: Crosshair },
   { id: 'supplychain', label: 'Supply Chain', icon: Package },
-  { id: 'sources', label: 'Sources', icon: Link },
+  { id: 'sources', label: 'Sources', icon: Link2 },
 ];
 
-function impactClass(impact: string): string {
-  const s = impact.toLowerCase();
-  if (s.includes('critical')) return 'bg-red-900/60 text-red-300 border-red-800';
-  if (s.includes('high')) return 'bg-orange-900/60 text-orange-300 border-orange-800';
-  if (s.includes('medium')) return 'bg-yellow-900/60 text-yellow-300 border-yellow-800';
-  return 'bg-gray-800 text-gray-400 border-gray-700';
+const SEVERITY_STYLES: Record<string, string> = {
+  critical: 'text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40 border-rose-300 dark:border-rose-800',
+  high: 'text-orange-700 dark:text-orange-300 bg-orange-50 dark:bg-orange-950/40 border-orange-300 dark:border-orange-800',
+  medium: 'text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 border-amber-300 dark:border-amber-800',
+  low: 'text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/40 border-sky-300 dark:border-sky-800',
+} as const;
+
+const SEV_DEFAULT = 'text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/40 border-sky-300 dark:border-sky-800';
+
+function cvssColor(score: number): string {
+  if (score >= 9) return 'text-rose-600 dark:text-rose-400';
+  if (score >= 7) return 'text-orange-600 dark:text-orange-400';
+  if (score >= 4) return 'text-amber-600 dark:text-amber-400';
+  return 'text-emerald-600 dark:text-emerald-400';
 }
 
-function severityClass(severity: string): string {
-  const s = severity.toLowerCase();
-  if (s === 'critical') return 'bg-red-900/60 text-red-300 border-red-800';
-  if (s === 'high') return 'bg-orange-900/60 text-orange-300 border-orange-800';
-  if (s === 'medium') return 'bg-yellow-900/60 text-yellow-300 border-yellow-800';
-  return 'bg-gray-800 text-gray-400 border-gray-700';
+function exploitColor(status: string): string {
+  const s = (status ?? '').toLowerCase();
+  if (s.includes('active')) return SEVERITY_STYLES['critical'] ?? SEV_DEFAULT;
+  if (s.includes('functional') || s.includes('confirmed')) return SEVERITY_STYLES['high'] ?? SEV_DEFAULT;
+  return 'text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-950/40 border-slate-300 dark:border-slate-700';
 }
 
-function cvssClass(score: number): string {
-  if (score >= 9) return 'text-red-400';
-  if (score >= 7) return 'text-orange-400';
-  if (score >= 4) return 'text-yellow-400';
-  return 'text-green-400';
+function severityPill(s: string): string {
+  return SEVERITY_STYLES[s?.toLowerCase() ?? ''] ?? SEV_DEFAULT;
 }
 
-function exploitClass(status: string): string {
-  const s = status.toLowerCase();
-  if (s.includes('active')) return 'bg-red-900/60 text-red-300';
-  if (s.includes('functional') || s.includes('confirmed')) return 'bg-orange-900/60 text-orange-300';
-  return 'bg-gray-800 text-gray-400';
-}
+const CARD =
+  'rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1';
 
 export default function TiDashboard() {
   const [tab, setTab] = useState<Tab>('brief');
@@ -205,13 +206,8 @@ export default function TiDashboard() {
     }
   };
 
-  const getSourceTitle = (id: number) => {
-    return report?.sources.find((s) => s.id === id)?.title ?? `Source #${id}`;
-  };
-
-  const getSourceUrl = (id: number) => {
-    return report?.sources.find((s) => s.id === id)?.url ?? '#';
-  };
+  const getSourceTitle = (id: number) => report?.sources.find((s) => s.id === id)?.title ?? `Source #${id}`;
+  const getSourceUrl = (id: number) => report?.sources.find((s) => s.id === id)?.url ?? '#';
 
   const SEVERITY_LEVELS = ['Critical', 'High', 'Medium', 'Low'];
 
@@ -271,587 +267,586 @@ export default function TiDashboard() {
     });
   }, [report, severityFilter, keywordSearch]);
 
-  if (loading) {
-    return (
-      <div className="min-h-screen [background:rgb(var(--surface-100))] text-slate-100 dark:text-slate-200 flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-8 h-8 border-2 border-[rgb(var(--border-500))] border-t-brand-500 rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-muted text-sm">Loading threat intelligence report...</p>
-        </div>
-      </div>
-    );
-  }
+  const showFilter = tab === 'stories' || tab === 'actors' || tab === 'supplychain' || tab === 'vulns';
 
-  if (error && !error.includes('no_dashboard_found') && !error.includes('404')) {
-    return (
-      <div className="min-h-screen [background:rgb(var(--surface-100))] text-slate-100 dark:text-slate-200 flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-severity-critical mb-4">Failed to load report</p>
-          <p className="text-muted text-sm">{error}</p>
-        </div>
-      </div>
-    );
-  }
+  const errorMsg = error && !error.includes('no_dashboard_found') && !error.includes('404') ? error : null;
 
-  if (error && !report) {
-    return (
-      <div className="min-h-screen [background:rgb(var(--surface-100))] text-slate-100 dark:text-slate-200 flex items-center justify-center">
-        <div className="text-center max-w-md mx-auto px-4">
-          <FileText className="w-12 h-12 text-brand-400 mx-auto mb-4" />
-          <h2 className="text-lg font-semibold mb-2">No report available yet</h2>
-          <p className="text-muted text-sm mb-6">
-            The weekly threat intelligence report hasn't been generated yet. The first build runs on Monday at 00:45
-            UTC.
-          </p>
-          <button
-            onClick={handleBuild}
-            disabled={building}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-brand-600 hover:bg-brand-500 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-lg text-sm font-medium transition-colors"
-          >
-            {building ? <Loader2 className="w-4 h-4 animate-spin" /> : <Zap className="w-4 h-4" />}
-            {building ? 'Building...' : 'Build Now'}
-          </button>
-          {buildError && <p className="text-red-400 text-xs mt-3">{buildError}</p>}
-        </div>
-      </div>
-    );
-  }
-
-  if (!report) {
-    return (
-      <div className="min-h-screen [background:rgb(var(--surface-100))] text-slate-100 dark:text-slate-200 flex items-center justify-center">
-        <p className="text-muted">No dashboard report available. Run a build first.</p>
-      </div>
-    );
-  }
-
-  const scStats = (ecosystem: string) => {
-    const count = report.supply_chain_incidents.filter((s) => s.ecosystem === ecosystem).length;
-    return count;
-  };
+  const isEmpty = !loading && !report && !errorMsg;
 
   return (
-    <div className="min-h-screen [background:rgb(var(--surface-100))] text-slate-100 dark:text-slate-200">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6">
-        {/* Header */}
-        <header className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-3">
-            <div className="w-2 h-6 bg-brand-500 rounded" />
-            <div>
-              <h1 className="text-lg font-bold tracking-wider text-slate-100 dark:text-white">TI DASHBOARD</h1>
-              <p className="text-[0.65rem] font-semibold tracking-widest uppercase text-muted">
-                THREAT INTELLIGENCE REPORT
-              </p>
-            </div>
-          </div>
-        </header>
-
-        {/* Meta */}
-        <div className="flex items-center justify-between flex-wrap gap-3 mb-4">
-          <div className="flex items-center gap-2 text-sm text-muted">
-            <span>{formatDate(report.generated_at)}</span>
-          </div>
-          <div className="flex gap-2 flex-wrap">
-            <span className="text-xs [background:rgb(var(--hover-100))] text-muted px-2 py-1 rounded">
-              {report.metadata.documents_analyzed} sources
-            </span>
-            <span className="text-xs [background:rgb(var(--hover-100))] text-muted px-2 py-1 rounded">
-              {report.metadata.time_period_days} day window
-            </span>
-          </div>
+    <DataPageLayout
+      backTo="/threatintel"
+      backLabel="back to threat intel"
+      icon={<ShieldAlert className="h-6 w-6" />}
+      title="TI Dashboard"
+      description="Weekly threat intelligence report — IOCs, threat stories, actor profiles, critical vulnerabilities, hunting leads, and supply chain incidents."
+      maxWidthClass="max-w-6xl"
+      loading={loading}
+      error={errorMsg}
+      onRetry={refetch}
+      empty={isEmpty}
+      emptyMessage="No report available yet. The first build runs on Monday at 00:45 UTC."
+      headerExtra={
+        <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+          {report && (
+            <>
+              <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono">
+                {report.metadata.documents_analyzed} sources
+              </span>
+              <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono">
+                {report.metadata.time_period_days}d window
+              </span>
+              <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono">
+                {formatDate(report.generated_at)}
+              </span>
+            </>
+          )}
+          <button
+            type="button"
+            onClick={handleBuild}
+            disabled={building}
+            className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2.5 py-1 text-xs font-mono text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors disabled:opacity-50"
+          >
+            {building ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Zap className="h-3.5 w-3.5" />}
+            {building ? 'Building…' : 'Build now'}
+          </button>
+          {buildError && <span className="text-rose-600 dark:text-rose-400 text-xs">{buildError}</span>}
         </div>
-
-        {/* Metrics strip */}
-        <div className="grid grid-cols-5 max-sm:grid-cols-3 gap-px [background:rgb(var(--border-400))] rounded-lg overflow-hidden mb-5">
-          {[
-            { value: report.sources.length, label: 'Sources' },
-            { value: report.threat_stories.length, label: 'Threat Stories' },
-            { value: report.actor_profiles.length, label: 'Threat Actors' },
-            { value: report.critical_vulnerabilities.length, label: 'Critical Vulns' },
-            { value: report.hunting_leads.length, label: 'Hunting Leads' },
-          ].map((m) => (
-            <div key={m.label} className="surface-card p-4 text-center">
-              <div className="text-2xl font-bold text-slate-100 dark:text-white">{m.value}</div>
-              <div className="text-[0.65rem] font-semibold tracking-widest uppercase text-muted mt-1">{m.label}</div>
-            </div>
-          ))}
+      }
+    >
+      {!report ? (
+        <div className="text-center py-12">
+          <button
+            type="button"
+            onClick={handleBuild}
+            disabled={building}
+            className="inline-flex items-center gap-2 rounded-lg border border-brand-500 bg-brand-500 text-white px-4 py-2 text-sm font-medium hover:bg-brand-600 transition-colors disabled:opacity-50"
+          >
+            {building ? <Loader2 className="h-4 w-4 animate-spin" /> : <Zap className="h-4 w-4" />}
+            {building ? 'Building…' : 'Build Report'}
+          </button>
         </div>
+      ) : (
+        <>
+          {/* Metrics strip */}
+          <div className="grid grid-cols-5 max-sm:grid-cols-3 gap-2 mb-4">
+            {[
+              { value: report.sources.length, label: 'Sources' },
+              { value: report.threat_stories.length, label: 'Threat Stories' },
+              { value: report.actor_profiles.length, label: 'Actors' },
+              { value: report.critical_vulnerabilities.length, label: 'Critical Vulns' },
+              { value: report.hunting_leads.length, label: 'Hunting Leads' },
+            ].map((m) => (
+              <div key={m.label} className={`${CARD} p-3 text-center`}>
+                <div className="text-xl font-bold text-slate-900 dark:text-slate-100">{m.value}</div>
+                <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mt-0.5">
+                  {m.label}
+                </div>
+              </div>
+            ))}
+          </div>
 
-        {/* Nav tabs */}
-        <nav className="flex gap-px border-b border-[rgb(var(--border-400))] mb-6 overflow-x-auto">
-          {TABS.map((t) => (
-            <button
-              key={t.id}
-              onClick={() => setTab(t.id)}
-              className={`flex items-center gap-1.5 px-4 py-3 text-sm font-medium border-b-2 whitespace-nowrap transition-colors ${
-                tab === t.id ? 'border-brand-500 text-brand-400' : 'border-transparent text-muted hover:text-slate-300'
-              }`}
-            >
-              <t.icon className="w-4 h-4" />
-              <span className="max-sm:hidden">{t.label}</span>
-            </button>
-          ))}
-        </nav>
-
-        {/* Severity filter bar */}
-        {(tab === 'stories' || tab === 'actors' || tab === 'supplychain' || tab === 'vulns') && (
-          <div className="flex items-center gap-3 mb-4 flex-wrap">
-            <div className="relative">
-              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted" />
-              <input
-                type="text"
-                placeholder="Search keywords..."
-                value={keywordSearch}
-                onChange={(e) => setKeywordSearch(e.target.value)}
-                className="pl-8 pr-3 py-1.5 rounded-lg text-xs bg-[rgb(var(--hover-100))] border border-[rgb(var(--border-400))] text-slate-200 placeholder:text-muted focus:outline-none focus:border-brand-500 w-48"
-              />
-              {keywordSearch && (
-                <button
-                  onClick={() => setKeywordSearch('')}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 text-muted hover:text-slate-300"
-                >
-                  ×
-                </button>
-              )}
-            </div>
-            <div className="w-px h-5 bg-[rgb(var(--border-400))]" />
-            <span className="text-xs font-semibold tracking-widest uppercase text-muted">Severity:</span>
-            {SEVERITY_LEVELS.map((sev) => {
-              const active = severityFilter.includes(sev);
+          {/* Tabs */}
+          <div className="mb-3 flex flex-wrap gap-1.5">
+            {TABS.map((t) => {
+              const Icon = t.icon;
               return (
                 <button
-                  key={sev}
-                  onClick={() => toggleSeverity(sev)}
-                  className={`px-3 py-1 rounded-full text-xs font-medium transition-colors border ${
-                    active
-                      ? sev === 'Critical'
-                        ? 'bg-red-900/60 text-red-300 border-red-700'
-                        : sev === 'High'
-                          ? 'bg-orange-900/60 text-orange-300 border-orange-700'
-                          : sev === 'Medium'
-                            ? 'bg-yellow-900/60 text-yellow-300 border-yellow-700'
-                            : 'bg-gray-800 text-gray-300 border-gray-600'
-                      : 'bg-transparent text-muted border-[rgb(var(--border-400))] hover:border-slate-500'
+                  key={t.id}
+                  type="button"
+                  onClick={() => setTab(t.id)}
+                  className={`inline-flex items-center gap-1.5 text-mini font-mono rounded-full border px-2.5 py-1 transition-colors ${
+                    tab === t.id
+                      ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
+                      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400 dark:hover:border-slate-500'
                   }`}
                 >
-                  {sev}
+                  <Icon className="h-3.5 w-3.5" /> <span className="max-sm:hidden">{t.label}</span>
                 </button>
               );
             })}
-            {(severityFilter.length > 0 || keywordSearch) && (
-              <button
-                onClick={() => {
-                  setSeverityFilter([]);
-                  setKeywordSearch('');
-                }}
-                className="text-xs text-muted hover:text-slate-300 ml-1"
-              >
-                Clear
-              </button>
-            )}
           </div>
-        )}
 
-        {/* Brief tab */}
-        {tab === 'brief' && (
-          <div className="surface-card p-8 text-sm text-muted leading-relaxed">
-            {report.executive_brief ? (
-              report.executive_brief.split('\n').map((p, i) => (
-                <p key={i} className="mb-4 last:mb-0">
-                  {p}
-                </p>
-              ))
-            ) : (
-              <p className="text-muted italic">No executive brief available. Run an LLM enrichment build.</p>
-            )}
-          </div>
-        )}
-
-        {/* Stories tab */}
-        {tab === 'stories' && (
-          <div className="space-y-3">
-            {filteredStories.length === 0 && (
-              <p className="text-muted text-sm">No threat stories match the current filters.</p>
-            )}
-            {filteredStories.map((story, idx) => (
-              <div key={idx} className="surface-card overflow-hidden">
-                <div
-                  className="flex items-start gap-4 p-5 cursor-pointer hover:[background:rgb(var(--hover-100))] transition-colors"
-                  onClick={() => toggleStory(idx)}
+          {/* Severity filter bar */}
+          {showFilter && (
+            <div className="flex items-center gap-3 mb-4 flex-wrap">
+              <div className="relative">
+                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
+                <input
+                  type="text"
+                  placeholder="Search keywords…"
+                  value={keywordSearch}
+                  onChange={(e) => setKeywordSearch(e.target.value)}
+                  className="pl-8 pr-3 py-1.5 rounded-lg text-xs bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500 w-48"
+                />
+                {keywordSearch && (
+                  <button
+                    onClick={() => setKeywordSearch('')}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                  >
+                    ×
+                  </button>
+                )}
+              </div>
+              <div className="w-px h-5 bg-slate-200 dark:bg-[rgb(var(--border-400))]" />
+              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                Severity:
+              </span>
+              {SEVERITY_LEVELS.map((sev) => {
+                const active = severityFilter.includes(sev);
+                return (
+                  <button
+                    key={sev}
+                    onClick={() => toggleSeverity(sev)}
+                    className={`px-2.5 py-0.5 rounded-full text-xs font-mono transition-colors border ${
+                      active
+                        ? severityPill(sev)
+                        : 'bg-transparent text-slate-500 dark:text-slate-400 border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-slate-400'
+                    }`}
+                  >
+                    {sev}
+                  </button>
+                );
+              })}
+              {(severityFilter.length > 0 || keywordSearch) && (
+                <button
+                  onClick={() => {
+                    setSeverityFilter([]);
+                    setKeywordSearch('');
+                  }}
+                  className="text-xs text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 ml-1"
                 >
-                  <span className="font-mono text-xs text-muted pt-0.5 shrink-0">
-                    {String(idx + 1).padStart(2, '0')}
-                  </span>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-sm font-semibold text-slate-100 dark:text-slate-100 mb-1">{story.headline}</h3>
-                    <span
-                      className={`text-xs font-medium px-2 py-0.5 rounded border ${impactClass(story.impact_assessment)}`}
-                    >
-                      {story.impact_assessment}
-                    </span>
-                  </div>
+                  Clear
+                </button>
+              )}
+            </div>
+          )}
+
+          {/* Brief tab */}
+          {tab === 'brief' && (
+            <section className={`${CARD} p-6`}>
+              {report.executive_brief ? (
+                <div className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed space-y-3">
+                  {report.executive_brief.split('\n').map((p, i) => (
+                    <p key={i}>{p}</p>
+                  ))}
                 </div>
-                {expandedStories[idx] && (
-                  <div className="px-5 pb-5 border-t border-[rgb(var(--border-400))]">
-                    <div className="pt-4 text-sm text-muted leading-relaxed space-y-3">
-                      {story.narrative.split('\n').map((p, i) => p.trim() && <p key={i}>{p}</p>)}
+              ) : (
+                <p className="text-sm text-slate-500 dark:text-slate-400 italic">
+                  No executive brief available. Run an LLM enrichment build.
+                </p>
+              )}
+            </section>
+          )}
+
+          {/* Stories tab */}
+          {tab === 'stories' && (
+            <div className="space-y-3">
+              {filteredStories.length === 0 && <EmptyMsg message="No threat stories match the current filters." />}
+              {filteredStories.map((story, idx) => (
+                <div key={idx} className={`${CARD} overflow-hidden`}>
+                  <button
+                    type="button"
+                    className="w-full flex items-start gap-4 p-4 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--hover-100))] transition-colors"
+                    onClick={() => toggleStory(idx)}
+                  >
+                    <span className="font-mono text-xs text-slate-400 pt-0.5 shrink-0">
+                      {String(idx + 1).padStart(2, '0')}
+                    </span>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                        {story.headline}
+                      </h3>
+                      <span
+                        className={`text-xs font-mono px-2 py-0.5 rounded border ${severityPill(story.impact_assessment)}`}
+                      >
+                        {story.impact_assessment}
+                      </span>
                     </div>
-                    {story.timeline && story.timeline.length > 0 && (
-                      <div className="mt-5 pt-4 border-t border-[rgb(var(--border-400))]">
-                        <h4 className="text-xs font-bold uppercase tracking-widest text-muted mb-3">Timeline</h4>
-                        <div className="space-y-3">
-                          {story.timeline.map((evt, ei) => (
-                            <div key={ei} className="flex gap-3">
-                              <div className="w-2 h-2 mt-1.5 rounded-full bg-brand-500 shrink-0" />
-                              <div>
-                                <div className="text-xs font-semibold text-muted">{evt.date}</div>
-                                <div className="text-sm text-slate-300">{evt.event}</div>
-                                <div className="text-xs text-muted">{evt.significance}</div>
+                    <span className="text-slate-400 shrink-0 mt-1">{expandedStories[idx] ? '▲' : '▼'}</span>
+                  </button>
+                  {expandedStories[idx] && (
+                    <div className="px-5 pb-5 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+                      <div className="pt-4 text-sm text-slate-600 dark:text-slate-300 leading-relaxed space-y-3">
+                        {story.narrative.split('\n').map((p, i) => p.trim() && <p key={i}>{p}</p>)}
+                      </div>
+                      {story.timeline && story.timeline.length > 0 && (
+                        <div className="mt-5 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+                          <h4 className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
+                            Timeline
+                          </h4>
+                          <div className="space-y-3">
+                            {story.timeline.map((evt, ei) => (
+                              <div key={ei} className="flex gap-3">
+                                <div className="w-2 h-2 mt-1.5 rounded-full bg-brand-500 shrink-0" />
+                                <div>
+                                  <div className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                                    {evt.date}
+                                  </div>
+                                  <div className="text-sm text-slate-700 dark:text-slate-200">{evt.event}</div>
+                                  <div className="text-xs text-slate-500 dark:text-slate-400">{evt.significance}</div>
+                                </div>
                               </div>
-                            </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                      <div className="mt-5 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+                        <h4 className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+                          Action Required
+                        </h4>
+                        <p className="text-sm text-slate-600 dark:text-slate-300">{story.action_required}</p>
+                      </div>
+                      <div className="flex items-center gap-2 mt-4 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] flex-wrap">
+                        <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                          Sources:
+                        </span>
+                        {story.sources.map((srcId) => (
+                          <a
+                            key={srcId}
+                            href={getSourceUrl(srcId)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs font-mono text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-950/40 px-2 py-0.5 rounded hover:opacity-80"
+                            title={getSourceTitle(srcId)}
+                          >
+                            {srcId}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Actors tab */}
+          {tab === 'actors' && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {filteredActors.length === 0 && <EmptyMsg message="No actor profiles match the current filters." />}
+              {filteredActors.map((actor, idx) => (
+                <div key={idx} className={`${CARD} p-4`}>
+                  <div className="flex items-start gap-3 mb-3">
+                    <div className="w-9 h-9 rounded-lg bg-violet-50 dark:bg-violet-950/40 text-violet-600 dark:text-violet-400 flex items-center justify-center shrink-0 border border-violet-200 dark:border-violet-800">
+                      <User className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{actor.name}</h3>
+                      <span
+                        className={`text-xs font-mono px-2 py-0.5 rounded border ${severityPill(actor.motivation.includes('espionage') ? 'high' : actor.motivation.includes('financial') ? 'medium' : 'critical')}`}
+                      >
+                        {actor.motivation}
+                      </span>
+                    </div>
+                  </div>
+                  <p className="text-sm text-slate-600 dark:text-slate-300 mb-3">{actor.recent_activity}</p>
+                  <div className="space-y-2 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+                    {actor.aliases.length > 0 && (
+                      <div>
+                        <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                          Aliases
+                        </span>
+                        <p className="text-xs text-slate-600 dark:text-slate-300 mt-0.5">{actor.aliases.join(', ')}</p>
+                      </div>
+                    )}
+                    {actor.targets.length > 0 && (
+                      <div>
+                        <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                          Targets
+                        </span>
+                        <div className="flex flex-wrap gap-1 mt-1">
+                          {actor.targets.map((t, ti) => (
+                            <span
+                              key={ti}
+                              className="text-xs text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded"
+                            >
+                              {t}
+                            </span>
                           ))}
                         </div>
                       </div>
                     )}
-                    <div className="mt-5 pt-4 border-t border-[rgb(var(--border-400))]">
-                      <h4 className="text-xs font-bold uppercase tracking-widest text-muted mb-2">Action Required</h4>
-                      <p className="text-sm text-muted">{story.action_required}</p>
-                    </div>
-                    <div className="flex items-center gap-2 mt-4 pt-3 border-t border-[rgb(var(--border-400))] flex-wrap">
-                      <span className="text-[0.65rem] font-semibold uppercase tracking-wider text-muted">Sources:</span>
-                      {story.sources.map((srcId) => (
-                        <a
-                          key={srcId}
-                          href={getSourceUrl(srcId)}
-                          target="_blank"
-                          rel="noopener"
-                          className="text-xs font-mono text-brand-400 [background:rgb(var(--color-brand-500)/0.15)] px-2 py-0.5 rounded hover:opacity-80"
-                          title={getSourceTitle(srcId)}
-                        >
-                          {srcId}
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Actors tab */}
-        {tab === 'actors' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {filteredActors.length === 0 && (
-              <p className="text-muted text-sm">No actor profiles match the current filters.</p>
-            )}
-            {filteredActors.map((actor, idx) => (
-              <div key={idx} className="surface-card p-5">
-                <div className="flex items-start gap-3 mb-3">
-                  <div className="w-9 h-9 rounded-lg bg-purple-900/60 text-purple-400 flex items-center justify-center shrink-0">
-                    <User className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-semibold text-slate-100 dark:text-slate-100">{actor.name}</h3>
-                    <span
-                      className={`text-xs font-medium px-2 py-0.5 rounded border ${
-                        actor.motivation.toLowerCase().includes('espionage')
-                          ? 'bg-purple-900/60 text-purple-300 border-purple-800'
-                          : actor.motivation.toLowerCase().includes('financial')
-                            ? 'bg-green-900/60 text-green-300 border-green-800'
-                            : 'bg-red-900/60 text-red-300 border-red-800'
-                      }`}
-                    >
-                      {actor.motivation}
-                    </span>
-                  </div>
-                </div>
-                <p className="text-sm text-muted mb-4">{actor.recent_activity}</p>
-                <div className="space-y-3 pt-3 border-t border-[rgb(var(--border-400))]">
-                  {actor.aliases.length > 0 && (
-                    <div>
-                      <span className="text-[0.65rem] font-bold uppercase tracking-wider text-muted">Aliases</span>
-                      <p className="text-sm text-muted">{actor.aliases.join(', ')}</p>
-                    </div>
-                  )}
-                  {actor.targets.length > 0 && (
-                    <div>
-                      <span className="text-[0.65rem] font-bold uppercase tracking-wider text-muted">Targets</span>
-                      <div className="flex flex-wrap gap-1 mt-1">
-                        {actor.targets.map((t, ti) => (
-                          <span
-                            key={ti}
-                            className="text-xs text-muted [background:rgb(var(--hover-100))] px-2 py-0.5 rounded"
-                          >
-                            {t}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                  {actor.ttps.length > 0 && (
-                    <div>
-                      <span className="text-[0.65rem] font-bold uppercase tracking-wider text-muted">TTPs</span>
-                      <div className="flex flex-wrap gap-1 mt-1">
-                        {actor.ttps.map((t, ti) => (
-                          <code
-                            key={ti}
-                            className="text-xs font-mono text-muted [background:rgb(var(--hover-100))] px-1.5 py-0.5 rounded"
-                          >
-                            {t}
-                          </code>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-                <div className="flex gap-1 mt-3 flex-wrap">
-                  {actor.sources.map((srcId) => (
-                    <a
-                      key={srcId}
-                      href={getSourceUrl(srcId)}
-                      target="_blank"
-                      rel="noopener"
-                      className="text-xs font-mono text-blue-400 bg-blue-900/30 px-2 py-0.5 rounded hover:opacity-80"
-                    >
-                      {srcId}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Vulnerabilities tab */}
-        {tab === 'vulns' && (
-          <div>
-            {filteredVulns.length === 0 && (
-              <p className="text-muted text-sm">No vulnerabilities match the current filters.</p>
-            )}
-            {filteredVulns.length > 0 && (
-              <div className="overflow-x-auto border border-[rgb(var(--border-400))] rounded-lg">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="surface-card text-[0.65rem] font-bold uppercase tracking-wider text-muted">
-                      <th className="text-left p-3 border-b border-[rgb(var(--border-400))]">CVE / ID</th>
-                      <th className="text-left p-3 border-b border-[rgb(var(--border-400))]">Product</th>
-                      <th className="text-left p-3 border-b border-[rgb(var(--border-400))]">CVSS</th>
-                      <th className="text-left p-3 border-b border-[rgb(var(--border-400))]">Severity</th>
-                      <th className="text-left p-3 border-b border-[rgb(var(--border-400))]">Status</th>
-                      <th className="text-left p-3 border-b border-[rgb(var(--border-400))]">Remediation</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {filteredVulns.map((vuln, idx) => (
-                      <tr
-                        key={idx}
-                        className="border-b border-[rgb(var(--border-400))] last:border-0 hover:[background:rgb(var(--hover-100))]"
-                      >
-                        <td className="p-3">
-                          <code className="text-xs font-mono text-brand-400">{vuln.cve}</code>
-                        </td>
-                        <td className="p-3">
-                          <div className="text-slate-200 font-medium">{vuln.product}</div>
-                          <div className="text-xs text-muted">{vuln.vendor}</div>
-                        </td>
-                        <td className="p-3">
-                          <span className={`font-mono font-bold ${cvssClass(vuln.cvss)}`}>{vuln.cvss}</span>
-                        </td>
-                        <td className="p-3">
-                          <span
-                            className={`text-xs font-medium px-2 py-0.5 rounded border ${severityClass(vuln.severity)}`}
-                          >
-                            {vuln.severity}
-                          </span>
-                        </td>
-                        <td className="p-3">
-                          <span
-                            className={`text-xs font-semibold px-2 py-0.5 rounded ${exploitClass(vuln.exploitation_status)}`}
-                          >
-                            {vuln.exploitation_status}
-                          </span>
-                        </td>
-                        <td className="p-3 text-xs text-muted max-w-[280px]">{vuln.remediation}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Hunting leads tab */}
-        {tab === 'hunting' && (
-          <div className="space-y-4">
-            {report.hunting_leads.length === 0 && <p className="text-muted text-sm">No hunting leads available.</p>}
-            {report.hunting_leads.map((lead, idx) => (
-              <div key={idx} className="surface-card p-5">
-                <div className="flex items-start gap-3 mb-4">
-                  <div className="w-8 h-8 rounded-lg bg-orange-900/60 text-orange-400 flex items-center justify-center shrink-0">
-                    <Crosshair className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-semibold text-slate-100 dark:text-slate-100">{lead.title}</h3>
-                    <p className="text-sm text-muted">{lead.context}</p>
-                  </div>
-                </div>
-                <div className="[background:rgb(var(--surface-100))] border border-[rgb(var(--border-400))] rounded-md p-4 mb-4 overflow-x-auto">
-                  <code className="text-xs font-mono text-slate-300 whitespace-pre-wrap break-all">{lead.query}</code>
-                </div>
-                {lead.indicators.length > 0 && (
-                  <div className="flex items-start gap-2 mb-3 flex-wrap">
-                    <span className="text-[0.65rem] font-bold uppercase tracking-wider text-muted pt-1">
-                      Indicators
-                    </span>
-                    <div className="flex flex-wrap gap-1">
-                      {lead.indicators.map((ind, ii) => (
-                        <span
-                          key={ii}
-                          className="text-xs text-muted [background:rgb(var(--hover-100))] px-2 py-0.5 rounded"
-                        >
-                          {ind}
+                    {actor.ttps.length > 0 && (
+                      <div>
+                        <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                          TTPs
                         </span>
-                      ))}
-                    </div>
+                        <div className="flex flex-wrap gap-1 mt-1">
+                          {actor.ttps.map((t, ti) => (
+                            <code
+                              key={ti}
+                              className="text-xs font-mono text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded"
+                            >
+                              {t}
+                            </code>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
-                )}
-                <div className="flex gap-1 flex-wrap">
-                  {lead.sources.map((srcId) => (
-                    <a
-                      key={srcId}
-                      href={getSourceUrl(srcId)}
-                      target="_blank"
-                      rel="noopener"
-                      className="text-xs font-mono text-blue-400 bg-blue-900/30 px-2 py-0.5 rounded hover:opacity-80"
-                    >
-                      {srcId}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Supply Chain tab */}
-        {tab === 'supplychain' && (
-          <div>
-            {/* Supply chain metrics */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 mb-6">
-              {[
-                { label: 'npm', value: scStats('npm'), color: 'text-red-400' },
-                { label: 'PyPI', value: scStats('PyPI'), color: 'text-yellow-400' },
-                { label: 'Maven', value: scStats('Maven'), color: 'text-blue-400' },
-                { label: 'Go', value: scStats('Go'), color: 'text-cyan-400' },
-                { label: 'Other', value: scStats('other'), color: 'text-gray-400' },
-              ].map((s) => (
-                <div key={s.label} className="surface-card p-3 text-center">
-                  <div className={`text-xl font-bold ${s.color}`}>{s.value}</div>
-                  <div className="text-[0.6rem] font-semibold uppercase tracking-wider text-muted mt-1">{s.label}</div>
-                </div>
-              ))}
-            </div>
-
-            <div className="space-y-2">
-              {filteredSupplyChain.length === 0 && (
-                <p className="text-muted text-sm">No supply chain incidents match the current filters.</p>
-              )}
-              {filteredSupplyChain.map((inc, idx) => (
-                <div key={idx} className="surface-card p-4">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex-1 min-w-0">
+                  <div className="flex gap-1 mt-3 flex-wrap">
+                    {actor.sources.map((srcId) => (
                       <a
-                        href={inc.url}
+                        key={srcId}
+                        href={getSourceUrl(srcId)}
                         target="_blank"
-                        rel="noopener"
-                        className="text-sm font-semibold text-slate-100 dark:text-slate-100 hover:text-brand-400 transition-colors"
+                        rel="noopener noreferrer"
+                        className="text-xs font-mono text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-950/40 px-2 py-0.5 rounded hover:opacity-80"
                       >
-                        {inc.title}
+                        {srcId}
                       </a>
-                      <div className="flex flex-wrap gap-1.5 mt-2">
-                        <span className="text-[0.6rem] font-semibold uppercase tracking-wider [background:rgb(var(--hover-100))] text-muted px-1.5 py-0.5 rounded">
-                          {inc.ecosystem}
-                        </span>
-                        <span className="text-[0.6rem] font-semibold uppercase tracking-wider [background:rgb(var(--hover-100))] text-muted px-1.5 py-0.5 rounded">
-                          {inc.attack_vector}
-                        </span>
-                        <span
-                          className={`text-[0.6rem] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded ${
-                            inc.severity === 'critical'
-                              ? 'bg-red-900/60 text-red-300'
-                              : inc.severity === 'high'
-                                ? 'bg-orange-900/60 text-orange-300'
-                                : '[background:rgb(var(--hover-100))] text-muted'
-                          }`}
-                        >
-                          {inc.severity}
-                        </span>
-                        <span
-                          className={`text-[0.6rem] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded ${
-                            inc.status === 'active'
-                              ? 'bg-red-900/60 text-red-300'
-                              : inc.status === 'contained'
-                                ? 'bg-yellow-900/60 text-yellow-300'
-                                : inc.status === 'resolved'
-                                  ? 'bg-green-900/60 text-green-300'
-                                  : '[background:rgb(var(--hover-100))] text-muted'
-                          }`}
-                        >
-                          {inc.status}
-                        </span>
-                        {inc.threat_actor && (
-                          <span className="text-[0.6rem] font-semibold uppercase tracking-wider bg-purple-900/60 text-purple-300 px-1.5 py-0.5 rounded">
-                            {inc.threat_actor}
-                          </span>
-                        )}
-                      </div>
-                    </div>
+                    ))}
                   </div>
-                  {inc.summary && <p className="text-xs text-muted mt-2 line-clamp-2">{inc.summary}</p>}
                 </div>
               ))}
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Sources tab */}
-        {tab === 'sources' && (
-          <div>
-            <div className="mb-4">
-              <input
-                type="text"
-                placeholder="Filter sources..."
-                value={sourceSearch}
-                onChange={(e) => setSourceSearch(e.target.value)}
-                className="w-full max-w-xs px-3 py-2 surface-card text-sm text-slate-200 placeholder:text-muted focus:outline-none focus:border-brand-500"
-              />
+          {/* Vulnerabilities tab */}
+          {tab === 'vulns' && (
+            <div>
+              {filteredVulns.length === 0 && <EmptyMsg message="No vulnerabilities match the current filters." />}
+              {filteredVulns.length > 0 && (
+                <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))]">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                        <th className="text-left p-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+                          CVE
+                        </th>
+                        <th className="text-left p-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+                          Product
+                        </th>
+                        <th className="text-left p-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+                          CVSS
+                        </th>
+                        <th className="text-left p-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+                          Severity
+                        </th>
+                        <th className="text-left p-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+                          Status
+                        </th>
+                        <th className="text-left p-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+                          Remediation
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {filteredVulns.map((vuln, idx) => (
+                        <tr
+                          key={idx}
+                          className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/60 last:border-0 hover:bg-slate-50 dark:hover:bg-[rgb(var(--hover-100))]"
+                        >
+                          <td className="p-3">
+                            <code className="text-xs font-mono text-brand-600 dark:text-brand-400">{vuln.cve}</code>
+                          </td>
+                          <td className="p-3">
+                            <div className="text-slate-900 dark:text-slate-100 font-medium">{vuln.product}</div>
+                            <div className="text-xs text-slate-500 dark:text-slate-400">{vuln.vendor}</div>
+                          </td>
+                          <td className="p-3">
+                            <span className={`font-mono font-bold ${cvssColor(vuln.cvss)}`}>{vuln.cvss}</span>
+                          </td>
+                          <td className="p-3">
+                            <span
+                              className={`text-xs font-mono px-2 py-0.5 rounded border ${severityPill(vuln.severity)}`}
+                            >
+                              {vuln.severity}
+                            </span>
+                          </td>
+                          <td className="p-3">
+                            <span
+                              className={`text-xs font-mono px-2 py-0.5 rounded border ${exploitColor(vuln.exploitation_status)}`}
+                            >
+                              {vuln.exploitation_status}
+                            </span>
+                          </td>
+                          <td className="p-3 text-xs text-slate-500 dark:text-slate-400 max-w-[280px]">
+                            {vuln.remediation}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </div>
-            <div className="space-y-0.5">
-              {filteredSources.map((src) => (
-                <a
-                  key={src.id}
-                  href={src.url}
-                  target="_blank"
-                  rel="noopener"
-                  className="flex items-center gap-3 px-4 py-2.5 rounded-md hover:[background:rgb(var(--hover-100))] transition-colors text-sm"
-                >
-                  <span className="font-mono text-xs text-muted shrink-0">{src.id}</span>
-                  <div className="flex-1 min-w-0">
-                    <span className="text-slate-200 font-medium truncate block">{src.title}</span>
-                    <span className="text-xs text-muted">{formatDate(src.published_date)}</span>
+          )}
+
+          {/* Hunting leads tab */}
+          {tab === 'hunting' && (
+            <div className="space-y-3">
+              {report.hunting_leads.length === 0 && <EmptyMsg message="No hunting leads available." />}
+              {report.hunting_leads.map((lead, idx) => (
+                <div key={idx} className={`${CARD} p-4`}>
+                  <div className="flex items-start gap-3 mb-3">
+                    <div className="w-8 h-8 rounded-lg bg-orange-50 dark:bg-orange-950/40 text-orange-600 dark:text-orange-400 flex items-center justify-center shrink-0 border border-orange-200 dark:border-orange-800">
+                      <Crosshair className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{lead.title}</h3>
+                      <p className="text-xs text-slate-500 dark:text-slate-400">{lead.context}</p>
+                    </div>
                   </div>
-                  <span className="text-xs [background:rgb(var(--hover-100))] text-muted px-1.5 py-0.5 rounded shrink-0">
-                    {src.source_type}
-                  </span>
-                  <ExternalLink className="w-3 h-3 text-gray-600 shrink-0" />
-                </a>
+                  <div className="bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-md p-3 mb-3 overflow-x-auto">
+                    <code className="text-xs font-mono text-slate-700 dark:text-slate-200 whitespace-pre-wrap break-all">
+                      {lead.query}
+                    </code>
+                  </div>
+                  {lead.indicators.length > 0 && (
+                    <div className="flex items-start gap-2 mb-2 flex-wrap">
+                      <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 pt-0.5">
+                        Indicators
+                      </span>
+                      <div className="flex flex-wrap gap-1">
+                        {lead.indicators.map((ind, ii) => (
+                          <span
+                            key={ii}
+                            className="text-xs text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded"
+                          >
+                            {ind}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  <div className="flex gap-1 flex-wrap">
+                    {lead.sources.map((srcId) => (
+                      <a
+                        key={srcId}
+                        href={getSourceUrl(srcId)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs font-mono text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-950/40 px-2 py-0.5 rounded hover:opacity-80"
+                      >
+                        {srcId}
+                      </a>
+                    ))}
+                  </div>
+                </div>
               ))}
             </div>
-          </div>
-        )}
-      </div>
-    </div>
+          )}
+
+          {/* Supply Chain tab */}
+          {tab === 'supplychain' && (
+            <div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 mb-4">
+                {[
+                  { label: 'npm', ecosystem: 'npm' },
+                  { label: 'PyPI', ecosystem: 'PyPI' },
+                  { label: 'Maven', ecosystem: 'Maven' },
+                  { label: 'Go', ecosystem: 'Go' },
+                  { label: 'Other', ecosystem: 'other' },
+                ].map((s) => {
+                  const count = report.supply_chain_incidents.filter((inc) => inc.ecosystem === s.ecosystem).length;
+                  return (
+                    <div key={s.label} className={`${CARD} p-3 text-center`}>
+                      <div className="text-xl font-bold text-slate-900 dark:text-slate-100">{count}</div>
+                      <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mt-0.5">
+                        {s.label}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="space-y-2">
+                {filteredSupplyChain.length === 0 && (
+                  <EmptyMsg message="No supply chain incidents match the current filters." />
+                )}
+                {filteredSupplyChain.map((inc, idx) => (
+                  <div key={idx} className={`${CARD} p-4`}>
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex-1 min-w-0">
+                        <a
+                          href={inc.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm font-semibold text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1"
+                        >
+                          {inc.title} <ExternalLink className="h-3 w-3" />
+                        </a>
+                        <div className="flex flex-wrap gap-1.5 mt-2">
+                          <span className="text-micro font-mono uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-1.5 py-0.5 rounded">
+                            {inc.ecosystem}
+                          </span>
+                          <span className="text-micro font-mono uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-1.5 py-0.5 rounded">
+                            {inc.attack_vector}
+                          </span>
+                          <span
+                            className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${severityPill(inc.severity)}`}
+                          >
+                            {inc.severity}
+                          </span>
+                          <span
+                            className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${exploitColor(inc.status)}`}
+                          >
+                            {inc.status}
+                          </span>
+                          {inc.threat_actor && (
+                            <span className="text-micro font-mono uppercase tracking-wider bg-violet-50 dark:bg-violet-950/40 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 px-1.5 py-0.5 rounded">
+                              {inc.threat_actor}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                    {inc.summary && (
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 line-clamp-2">{inc.summary}</p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Sources tab */}
+          {tab === 'sources' && (
+            <div>
+              <div className="mb-4">
+                <div className="relative max-w-xs">
+                  <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
+                  <input
+                    type="text"
+                    placeholder="Filter sources…"
+                    value={sourceSearch}
+                    onChange={(e) => setSourceSearch(e.target.value)}
+                    className="w-full pl-8 pr-3 py-1.5 rounded-lg text-xs bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+                  />
+                </div>
+              </div>
+              <div className={`${CARD} divide-y divide-slate-100 dark:divide-[rgb(var(--border-400))]/60`}>
+                {filteredSources.map((src) => (
+                  <a
+                    key={src.id}
+                    href={src.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-[rgb(var(--hover-100))] transition-colors text-sm"
+                  >
+                    <span className="font-mono text-xs text-slate-400 shrink-0">{src.id}</span>
+                    <div className="flex-1 min-w-0">
+                      <span className="text-slate-900 dark:text-slate-100 font-medium truncate block">{src.title}</span>
+                      <span className="text-xs text-slate-500 dark:text-slate-400">
+                        {formatDate(src.published_date)}
+                      </span>
+                    </div>
+                    <span className="text-micro font-mono uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 px-1.5 py-0.5 rounded shrink-0">
+                      {src.source_type}
+                    </span>
+                    <ExternalLink className="w-3 h-3 text-slate-400 shrink-0" />
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+        </>
+      )}
+    </DataPageLayout>
   );
+}
+
+function EmptyMsg({ message }: { message: string }) {
+  return <div className={`${CARD} p-8 text-center text-sm text-slate-500 dark:text-slate-400`}>{message}</div>;
 }
