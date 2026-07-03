@@ -1734,7 +1734,17 @@ app.route('/api/v1', threatIntelRouter);
 import { tiDashboardRouter } from './routes/ti-dashboard';
 app.route('/api/v1', tiDashboardRouter);
 
-// ── CTI Collector (VHunt-inspired IOC fusion + AI prediction + mutation) ──
+// ── DNS Lookup (dnsx-inspired multi-record resolution + CDN/ASN/wildcard detection) ──
+import { dnsLookupRouter } from './routes/dns-lookup';
+app.route('/api/v1', dnsLookupRouter);
+
+// ── Tool Chain Agent (CyberSentinel-inspired deterministic investigation workflows) ──
+import { toolChainRouter } from './routes/tool-chain';
+app.route('/api/v1', toolChainRouter);
+
+// ── Knowledge Graph (TI data → ReactFlow visualization) ──
+import { knowledgeGraphRouter } from './routes/knowledge-graph';
+app.route('/api/v1', knowledgeGraphRouter); // ── CTI Collector (VHunt-inspired IOC fusion + AI prediction + mutation) ──
 import {
   ctiCollectHandler,
   ctiStatsHandler,

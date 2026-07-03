@@ -541,6 +541,7 @@ const ROUTES = [
   '/threatintel/threat-actor-db',
   '/threatintel/cti-dashboard',
   '/threatintel/ti-dashboard',
+  '/threatintel/knowledge-graph',
   '/threatintel/projectdiscovery',
   '/threatintel/ransom-report',
   '/threatintel/relationship-graph',

@@ -1,5 +1,8 @@
+import { Hono } from 'hono';
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { internalError } from '../lib/api-error';
+import { buildKnowledgeGraph } from '../lib/knowledge-graph';
 import { runAi, parseJson } from '../lib/ai';
 
 const KNOWLEDGE_SYSTEM = `You are a threat intelligence knowledge graph builder. Given a set of threat actors, campaigns, and TTPs, produce a structured relationship graph.
@@ -40,25 +43,38 @@ interface GraphRequest {
 export async function knowledgeGraphHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
     const body = await c.req.json<GraphRequest>();
-
     const lines: string[] = [];
     if (body.actors?.length) lines.push(`Actors: ${body.actors.join(', ')}`);
     if (body.campaigns?.length) lines.push(`Campaigns: ${body.campaigns.join(', ')}`);
     if (body.ttps?.length) lines.push(`TTPs: ${body.ttps.join(', ')}`);
     if (body.context) lines.push(`Context: ${body.context}`);
-
     if (!lines.length) return c.json({ error: 'no input data' }, 400);
 
-    const { text, model } = await runAi(c.env.AI, c.env.GROQ_API_KEY, {
+    const prompt = lines.join('\n');
+    const ai = c.env.AI;
+    const { text, model } = await runAi(ai, c.env.GROQ_API_KEY, {
       system: KNOWLEDGE_SYSTEM,
-      user: lines.join('\n'),
+      user: prompt,
       maxTokens: 3000,
-    }, c.env.GOOGLE_AI_STUDIO_API_KEY);
-
+    });
     const graph = parseJson(text);
     return c.json({ graph, model, generated_at: new Date().toISOString() });
   } catch (e) {
-    console.error('knowledge-graph error:', e);
-    return c.json({ error: 'graph generation failed' }, 500);
+    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
   }
 }
+
+const knowledgeGraphRouter = new Hono<{ Bindings: Env }>();
+
+knowledgeGraphRouter.get('/knowledge-graph', async (c) => {
+  const seed = c.req.query('seed') ?? undefined;
+  const maxNodes = Math.min(parseInt(c.req.query('maxNodes') ?? '80', 10) || 80, 200);
+  try {
+    const graph = buildKnowledgeGraph(seed, maxNodes);
+    return c.json(graph, 200, { 'cache-control': 'public, max-age=600' });
+  } catch (e) {
+    return internalError(c, e);
+  }
+});
+
+export { knowledgeGraphRouter };
