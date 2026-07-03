@@ -126,6 +126,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/research-hub/research', '/__prerendered/threatintel__research-hub__research'],
   ['/threatintel/research-hub/reports', '/__prerendered/threatintel__research-hub__reports'],
   ['/threatintel/research-hub/ai', '/__prerendered/threatintel__research-hub__ai'],
+  ['/threatintel/research-hub/agentic', '/__prerendered/threatintel__research-hub__agentic'],
   ['/threatintel/research-hub/writeups', '/__prerendered/threatintel__research-hub__writeups'],
   ['/threatintel/research-hub/signal', '/__prerendered/threatintel__research-hub__signal'],
   ['/threatintel/research-hub/redhunt', '/__prerendered/threatintel__research-hub__redhunt'],

@@ -314,7 +314,7 @@ export default function ReportAnalyzer(): JSX.Element {
       backLabel="back to threat intel"
       icon={<FileText className="h-6 w-6" />}
       title="Report Analyzer"
-      description="Paste a report URL or text. The analyzer runs AI summary, IOC extraction (with allowlist + confidence), MITRE ATT&CK TTP mapping, 5W context, CVE extraction, image-OCR for embedded IOCs, and a STIX 2.1 bundle — in a single round-trip."
+      description="Paste a report URL or text. The analyzer runs AI summary, IOC extraction, MITRE ATT&CK TTP mapping, 5W context, CVE extraction, image-OCR, detection opportunities, conclusion with recommendations, and a STIX 2.1 bundle — in a single round-trip."
       maxWidthClass="max-w-6xl"
     >
       {/* Input card */}
@@ -442,6 +442,12 @@ export default function ReportAnalyzer(): JSX.Element {
                 {t === 'iocs' && data.iocs.length > 0 && <span className="opacity-60">· {data.iocs.length}</span>}
                 {t === 'ttps' && data.ttp.length > 0 && <span className="opacity-60">· {data.ttp.length}</span>}
                 {t === 'cves' && data.cves.length > 0 && <span className="opacity-60">· {data.cves.length}</span>}
+                {t === 'detection' && data.detection && data.detection.siemRules.length > 0 && (
+                  <span className="opacity-60">· {data.detection.siemRules.length}</span>
+                )}
+                {t === 'conclusion' && data.conclusion && data.conclusion.recommendedActions.length > 0 && (
+                  <span className="opacity-60">· {data.conclusion.recommendedActions.length}</span>
+                )}
                 {t === 'mindmap' && data.mindmap.nodes.length > 0 && (
                   <span className="opacity-60">· {data.mindmap.nodes.length}</span>
                 )}
@@ -596,26 +602,26 @@ function TtpsTab({ ttp, filter, setFilter }: { ttp: TtpHit[]; filter: string; se
               {hits.map((t) => (
                 <li
                   key={t.id}
-                  className="flex flex-wrap items-center gap-2 border-b border-slate-100 dark:border-[rgb(var(--border-400))]/60 pb-1.5 last:border-b-0"
+                  className="flex flex-col gap-1 border-b border-slate-100 dark:border-[rgb(var(--border-400))]/60 pb-2 last:border-b-0"
                 >
-                  <a
-                    href={`https://attack.mitre.org/techniques/${t.id}/`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-mono text-sm text-brand-600 dark:text-brand-400 hover:underline"
-                  >
-                    {t.id}
-                  </a>
-                  <span className="text-sm text-slate-700 dark:text-slate-200">{t.name}</span>
-                  <span
-                    className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${CONFIDENCE_PILL[t.confidence]}`}
-                  >
-                    {t.confidence}
-                  </span>
-                  {t.evidence && (
-                    <span className="ml-auto text-xs text-slate-500 dark:text-slate-400 truncate max-w-[40%]">
-                      {t.evidence}
+                  <div className="flex flex-wrap items-center gap-2">
+                    <a
+                      href={`https://attack.mitre.org/techniques/${t.id}/`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-mono text-sm text-brand-600 dark:text-brand-400 hover:underline"
+                    >
+                      {t.id}
+                    </a>
+                    <span className="text-sm text-slate-700 dark:text-slate-200">{t.name}</span>
+                    <span
+                      className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${CONFIDENCE_PILL[t.confidence]}`}
+                    >
+                      {t.confidence}
                     </span>
+                  </div>
+                  {t.evidence && (
+                    <p className="text-xs text-slate-500 dark:text-slate-400 ml-6 line-clamp-2">{t.evidence}</p>
                   )}
                 </li>
               ))}

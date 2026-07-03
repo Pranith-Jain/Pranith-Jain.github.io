@@ -3657,6 +3657,13 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     group: 'threatintel',
   },
   {
+    path: '/threatintel/research-hub/agentic',
+    label: 'Agentic Reports',
+    description: 'Cross-source correlated threat intelligence analyses.',
+    sectionLabel: 'Threat Intel · Research',
+    group: 'threatintel',
+  },
+  {
     path: '/threatintel/research-hub/writeups',
     label: 'Write-ups',
     description: 'Security write-ups.',

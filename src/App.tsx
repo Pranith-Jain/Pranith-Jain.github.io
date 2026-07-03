@@ -182,6 +182,7 @@ const Predators = lazy(() => import('./pages/threatintel/Predators'));
 // ── Threat Intel: direct page components (auto-added by audit) ──
 const ACH = lazy(() => import('./pages/threatintel/ACH'));
 const AIReportShowcase = lazy(() => import('./pages/threatintel/AIReportShowcase'));
+const AgenticReports = lazy(() => import('./pages/threatintel/AgenticReports'));
 const ActorDNA = lazy(() => import('./pages/threatintel/ActorDNA'));
 const ActorDirectory = lazy(() => import('./pages/threatintel/ActorDirectory'));
 const ActorKb = lazy(() => import('./pages/threatintel/ActorKb'));
@@ -673,6 +674,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/research-hub/redhunt-labs', Component: RedHuntLabsResearch },
   { path: '/threatintel/research-hub/reports', Component: Reports },
   { path: '/threatintel/research-hub/ai', Component: AIReportShowcase },
+  { path: '/threatintel/research-hub/agentic', Component: AgenticReports },
   { path: '/threatintel/research-hub/writeups', Component: Writeups },
   { path: '/threatintel/research-hub/signal', Component: ResearchSignal },
   { path: '/threatintel/research-hub/redhunt', Component: RedHuntInsights },

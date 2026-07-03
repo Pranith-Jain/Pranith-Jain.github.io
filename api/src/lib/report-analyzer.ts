@@ -438,37 +438,31 @@ export async function runReportAnalyzer(input: AnalyzerInput, env: Env): Promise
     'image-ioc',
     errors
   );
-  // Detection and Conclusion run in parallel with the other LLM branches.
-  // They use empty TTP/summary arrays initially — the LLM can still produce
-  // useful detection rules from the raw text alone.
+  // We don't generate the STIX bundle in the parallel batch — it's the
+  // slowest branch and depends on the others. Build it last so the
+  // analyst sees summary/IOCs/TTPs immediately and the STIX tab loads
+  // in the background.
+  const [summaryRaw, ttpRaw, fivewRaw, imageRaw] = await Promise.all([summaryTask, ttpTask, fivewTask, imageTask]);
+  const summaryRes = summaryRaw;
+  const ttpRes = ttpRaw?.techniques ?? [];
+  const fivewRes = fivewRaw;
+  const imageRes = imageRaw ?? [];
+
+  // Detection and Conclusion run AFTER summary/TTP resolve so they get
+  // proper context. They fan out in parallel with each other.
   const detectionTask = withTimeout(
-    extractDetectionOpportunities(text, [], env).catch(() => null),
+    extractDetectionOpportunities(text, ttpRes, env).catch(() => null),
     22_000,
     'detection',
     errors
   );
   const conclusionTask = withTimeout(
-    extractConclusion(text, '', env).catch(() => null),
+    extractConclusion(text, summaryRes?.summary ?? '', env).catch(() => null),
     18_000,
     'conclusion',
     errors
   );
-  // We don't generate the STIX bundle in the parallel batch — it's the
-  // slowest branch and depends on the others. Build it last so the
-  // analyst sees summary/IOCs/TTPs immediately and the STIX tab loads
-  // in the background.
-  const [summaryRaw, ttpRaw, fivewRaw, imageRaw, detectionRes, conclusionRes] = await Promise.all([
-    summaryTask,
-    ttpTask,
-    fivewTask,
-    imageTask,
-    detectionTask,
-    conclusionTask,
-  ]);
-  const summaryRes = summaryRaw;
-  const ttpRes = ttpRaw?.techniques ?? [];
-  const fivewRes = fivewRaw;
-  const imageRes = imageRaw ?? [];
+  const [detectionRes, conclusionRes] = await Promise.all([detectionTask, conclusionTask]);
 
   // Build IOC + CVE + entity list synchronously (pure functions).
   const textIocs = extractIocsFromText(text);

@@ -150,6 +150,7 @@ const ROUTES = [
   '/threatintel/predictive/threat-pulse',
   '/threatintel/research-hub/ach',
   '/threatintel/research-hub/ai',
+  '/threatintel/research-hub/agentic',
   '/threatintel/research-hub/attack-flow',
   '/threatintel/research-hub/campaign-gen',
   '/threatintel/research-hub/knowledge',
