@@ -2,6 +2,7 @@ import { useMemo, useState, useCallback } from 'react';
 import { FileText, Zap, User, ShieldAlert, Crosshair, Package, Link, ExternalLink, Loader2 } from 'lucide-react';
 import { useDataFetch } from '../hooks/useDataFetch';
 import { api } from '../lib/api-client';
+import { memoryCache } from '../infrastructure/cache/memory-cache';
 
 interface ArticleSource {
   id: number;
@@ -141,6 +142,7 @@ export default function TiDashboard() {
   const [sourceSearch, setSourceSearch] = useState('');
   const [building, setBuilding] = useState(false);
   const [buildError, setBuildError] = useState<string | null>(null);
+  const [severityFilter, setSeverityFilter] = useState<string[]>([]);
 
   const {
     data: report,
@@ -159,6 +161,7 @@ export default function TiDashboard() {
       await api.post<{ ok: boolean; slug: string; sources: number }>('/api/v1/ti-dashboard/build', undefined, {
         timeoutMs: 120000,
       });
+      memoryCache.delete('/api/v1/ti-dashboard/');
       refetch();
     } catch (e) {
       setBuildError(e instanceof Error ? e.message : String(e));
@@ -169,6 +172,10 @@ export default function TiDashboard() {
 
   const toggleStory = (idx: number) => {
     setExpandedStories((prev) => ({ ...prev, [idx]: !prev[idx] }));
+  };
+
+  const toggleSeverity = (sev: string) => {
+    setSeverityFilter((prev) => (prev.includes(sev) ? prev.filter((s) => s !== sev) : [...prev, sev]));
   };
 
   const formatDate = (dateStr: string) => {
@@ -194,12 +201,48 @@ export default function TiDashboard() {
     return report?.sources.find((s) => s.id === id)?.url ?? '#';
   };
 
+  const SEVERITY_LEVELS = ['Critical', 'High', 'Medium', 'Low'];
+
   const filteredSources = useMemo(() => {
     if (!report?.sources) return [];
     if (!sourceSearch) return report.sources;
     const q = sourceSearch.toLowerCase();
     return report.sources.filter((s) => s.title.toLowerCase().includes(q) || s.source_type.toLowerCase().includes(q));
   }, [report, sourceSearch]);
+
+  const filteredStories = useMemo(() => {
+    if (!report?.threat_stories) return [];
+    if (severityFilter.length === 0) return report.threat_stories;
+    return report.threat_stories.filter((s) => {
+      const text = `${s.headline} ${s.impact_assessment}`.toLowerCase();
+      return severityFilter.some((sev) => text.includes(sev.toLowerCase()));
+    });
+  }, [report, severityFilter]);
+
+  const filteredActors = useMemo(() => {
+    if (!report?.actor_profiles) return [];
+    if (severityFilter.length === 0) return report.actor_profiles;
+    return report.actor_profiles.filter((a) => {
+      const text = `${a.name} ${a.recent_activity} ${a.motivation}`.toLowerCase();
+      return severityFilter.some((sev) => text.includes(sev.toLowerCase()));
+    });
+  }, [report, severityFilter]);
+
+  const filteredSupplyChain = useMemo(() => {
+    if (!report?.supply_chain_incidents) return [];
+    if (severityFilter.length === 0) return report.supply_chain_incidents;
+    return report.supply_chain_incidents.filter((s) =>
+      severityFilter.some((sev) => s.severity.toLowerCase() === sev.toLowerCase())
+    );
+  }, [report, severityFilter]);
+
+  const filteredVulns = useMemo(() => {
+    if (!report?.critical_vulnerabilities) return [];
+    if (severityFilter.length === 0) return report.critical_vulnerabilities;
+    return report.critical_vulnerabilities.filter((v) =>
+      severityFilter.some((sev) => v.severity.toLowerCase() === sev.toLowerCase())
+    );
+  }, [report, severityFilter]);
 
   if (loading) {
     return (
@@ -323,6 +366,40 @@ export default function TiDashboard() {
           ))}
         </nav>
 
+        {/* Severity filter bar */}
+        {(tab === 'stories' || tab === 'actors' || tab === 'supplychain' || tab === 'vulns') && (
+          <div className="flex items-center gap-2 mb-4 flex-wrap">
+            <span className="text-xs font-semibold tracking-widest uppercase text-muted mr-1">Severity:</span>
+            {SEVERITY_LEVELS.map((sev) => {
+              const active = severityFilter.includes(sev);
+              return (
+                <button
+                  key={sev}
+                  onClick={() => toggleSeverity(sev)}
+                  className={`px-3 py-1 rounded-full text-xs font-medium transition-colors border ${
+                    active
+                      ? sev === 'Critical'
+                        ? 'bg-red-900/60 text-red-300 border-red-700'
+                        : sev === 'High'
+                          ? 'bg-orange-900/60 text-orange-300 border-orange-700'
+                          : sev === 'Medium'
+                            ? 'bg-yellow-900/60 text-yellow-300 border-yellow-700'
+                            : 'bg-gray-800 text-gray-300 border-gray-600'
+                      : 'bg-transparent text-muted border-[rgb(var(--border-400))] hover:border-slate-500'
+                  }`}
+                >
+                  {sev}
+                </button>
+              );
+            })}
+            {severityFilter.length > 0 && (
+              <button onClick={() => setSeverityFilter([])} className="text-xs text-muted hover:text-slate-300 ml-1">
+                Clear
+              </button>
+            )}
+          </div>
+        )}
+
         {/* Brief tab */}
         {tab === 'brief' && (
           <div className="surface-card p-8 text-sm text-muted leading-relaxed">
@@ -341,10 +418,10 @@ export default function TiDashboard() {
         {/* Stories tab */}
         {tab === 'stories' && (
           <div className="space-y-3">
-            {report.threat_stories.length === 0 && (
-              <p className="text-gray-500 text-sm">No threat stories available.</p>
+            {filteredStories.length === 0 && (
+              <p className="text-muted text-sm">No threat stories match the current filters.</p>
             )}
-            {report.threat_stories.map((story, idx) => (
+            {filteredStories.map((story, idx) => (
               <div key={idx} className="surface-card overflow-hidden">
                 <div
                   className="flex items-start gap-4 p-5 cursor-pointer hover:[background:rgb(var(--hover-100))] transition-colors"
@@ -413,10 +490,10 @@ export default function TiDashboard() {
         {/* Actors tab */}
         {tab === 'actors' && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {report.actor_profiles.length === 0 && (
-              <p className="text-muted text-sm col-span-full">No actor profiles available.</p>
+            {filteredActors.length === 0 && (
+              <p className="text-muted text-sm">No actor profiles match the current filters.</p>
             )}
-            {report.actor_profiles.map((actor, idx) => (
+            {filteredActors.map((actor, idx) => (
               <div key={idx} className="surface-card p-5">
                 <div className="flex items-start gap-3 mb-3">
                   <div className="w-9 h-9 rounded-lg bg-purple-900/60 text-purple-400 flex items-center justify-center shrink-0">
@@ -497,10 +574,10 @@ export default function TiDashboard() {
         {/* Vulnerabilities tab */}
         {tab === 'vulns' && (
           <div>
-            {report.critical_vulnerabilities.length === 0 && (
-              <p className="text-muted text-sm">No critical vulnerabilities this week.</p>
+            {filteredVulns.length === 0 && (
+              <p className="text-muted text-sm">No vulnerabilities match the current filters.</p>
             )}
-            {report.critical_vulnerabilities.length > 0 && (
+            {filteredVulns.length > 0 && (
               <div className="overflow-x-auto border border-[rgb(var(--border-400))] rounded-lg">
                 <table className="w-full text-sm">
                   <thead>
@@ -514,7 +591,7 @@ export default function TiDashboard() {
                     </tr>
                   </thead>
                   <tbody>
-                    {report.critical_vulnerabilities.map((vuln, idx) => (
+                    {filteredVulns.map((vuln, idx) => (
                       <tr
                         key={idx}
                         className="border-b border-[rgb(var(--border-400))] last:border-0 hover:[background:rgb(var(--hover-100))]"
@@ -626,10 +703,10 @@ export default function TiDashboard() {
             </div>
 
             <div className="space-y-2">
-              {report.supply_chain_incidents.length === 0 && (
-                <p className="text-muted text-sm">No supply chain incidents collected.</p>
+              {filteredSupplyChain.length === 0 && (
+                <p className="text-muted text-sm">No supply chain incidents match the current filters.</p>
               )}
-              {report.supply_chain_incidents.map((inc, idx) => (
+              {filteredSupplyChain.map((inc, idx) => (
                 <div key={idx} className="surface-card p-4">
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex-1 min-w-0">
