@@ -112,6 +112,8 @@ const PowershellDeobf = lazy(() => import('./pages/dfir/PowershellDeobf'));
 const AgentMap = lazy(() => import('./pages/dfir/AgentMap'));
 const AgentInvestigator = lazy(() => import('./pages/dfir/AgentInvestigator'));
 const Tabletop = lazy(() => import('./pages/dfir/Tabletop'));
+const DetectionChokepoints = lazy(() => import('./pages/dfir/DetectionChokepoints'));
+const LongWatch = lazy(() => import('./pages/dfir/LongWatch'));
 const Grc = lazy(() => import('./pages/dfir/Grc'));
 const DlpScan = lazy(() => import('./pages/dfir/DlpScan'));
 const DataClassification = lazy(() => import('./pages/dfir/DataClassification'));
@@ -508,6 +510,8 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/agent', Component: AgentInvestigator },
   { path: '/dfir/agent-enrich', Component: TieEnrich },
   { path: '/dfir/tabletop', Component: Tabletop },
+  { path: '/dfir/detection-chokepoints', Component: DetectionChokepoints },
+  { path: '/dfir/long-watch', Component: LongWatch },
   { path: '/dfir/grc', Component: Grc },
   { path: '/dfir/dlp-scan', Component: DlpScan },
   { path: '/dfir/data-classification', Component: DataClassification },
@@ -729,6 +733,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatnexus', Component: ArgusPage },
   { path: '/threatintel/cti-dashboard', Component: CtiDashboard },
   { path: '/threatintel/ti-dashboard', Component: TiDashboard },
+  { path: '/threatintel/knowledge-graph', Component: KnowledgeGraph },
 ];
 
 /** Legacy / renamed paths preserved as redirects so in-flight links don't 404. */
