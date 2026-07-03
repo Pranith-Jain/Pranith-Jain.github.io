@@ -158,6 +158,10 @@ const PeAnalyzer = lazy(() => import('./pages/dfir/PeAnalyzer'));
 const WebLogAnalyzer = lazy(() => import('./pages/dfir/WebLogAnalyzer'));
 const PrefetchAnalyzer = lazy(() => import('./pages/dfir/PrefetchAnalyzer'));
 const TieEnrich = lazy(() => import('./pages/dfir/TieEnrich'));
+const AttackSurface = lazy(() => import('./pages/dfir/AttackSurface'));
+const SubdomainTakeover = lazy(() => import('./pages/dfir/SubdomainTakeover'));
+const RansomwareKillChain = lazy(() => import('./pages/dfir/RansomwareKillChain'));
+const PhishingIdentity = lazy(() => import('./pages/dfir/PhishingIdentity'));
 
 const InsightAi = lazy(() => import('./pages/dfir/InsightAi'));
 const QuerycraftAi = lazy(() => import('./pages/dfir/QuerycraftAi'));
@@ -512,6 +516,10 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/tabletop', Component: Tabletop },
   { path: '/dfir/detection-chokepoints', Component: DetectionChokepoints },
   { path: '/dfir/long-watch', Component: LongWatch },
+  { path: '/dfir/attack-surface', Component: AttackSurface },
+  { path: '/dfir/subdomain-takeover', Component: SubdomainTakeover },
+  { path: '/dfir/ransomware-killchain', Component: RansomwareKillChain },
+  { path: '/dfir/phishing-identity', Component: PhishingIdentity },
   { path: '/dfir/grc', Component: Grc },
   { path: '/dfir/dlp-scan', Component: DlpScan },
   { path: '/dfir/data-classification', Component: DataClassification },

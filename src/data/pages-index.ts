@@ -1573,6 +1573,42 @@ const DFIR_PAGES: readonly PageEntry[] = [
     group: 'dfir',
     keywords: ['simulation', 'long-watch', 'defense', 'ransomware', 'phishing', 'attack-surface', 'kill-chain'],
   },
+  {
+    path: '/dfir/attack-surface',
+    label: 'Attack Surface — SSL-VPN CVE Model',
+    description:
+      'Simulate SSL-VPN exploitation across 8 years with 4 CVEs, 6 defensive controls, and probabilistic modeling.',
+    sectionLabel: 'DFIR · Simulation',
+    group: 'dfir',
+    keywords: ['simulation', 'ssl-vpn', 'cve', 'fortinet', 'exploitation', 'attack-surface', 'long-watch'],
+  },
+  {
+    path: '/dfir/subdomain-takeover',
+    label: 'Subdomain Takeover Scanner',
+    description:
+      'Detect dangling CNAMEs pointing to expired or unclaimed third-party services — common attack surface gap.',
+    sectionLabel: 'DFIR · Asset',
+    group: 'dfir',
+    keywords: ['subdomain', 'takeover', 'cname', 'dangling', 'attack-surface', 'recon'],
+  },
+  {
+    path: '/dfir/ransomware-killchain',
+    label: 'Ransomware Kill Chain — 15-Stage Intrusion',
+    description:
+      'Walk through a ransomware intrusion from initial access to encryption — MITRE ATT&CK tagged at every stage.',
+    sectionLabel: 'DFIR · Simulation',
+    group: 'dfir',
+    keywords: ['simulation', 'ransomware', 'kill-chain', 'mitre', 'intrusion', 'long-watch', 'encryption'],
+  },
+  {
+    path: '/dfir/phishing-identity',
+    label: 'Phishing & Identity — Inbox Arms Race',
+    description:
+      '8-year inbox arms race simulation — credential phishing to MFA fatigue to deepfake voice, with progressive defenses.',
+    sectionLabel: 'DFIR · Simulation',
+    group: 'dfir',
+    keywords: ['simulation', 'phishing', 'identity', 'mfa', 'bce', 'aitm', 'deepfake', 'long-watch'],
+  },
 
   /* ------------------------------------------------------------------ */
   /*  3. Threat Intel                                                   */

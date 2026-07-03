@@ -346,6 +346,7 @@ const ROUTES = [
   '/dfir/asn',
   '/dfir/breach',
   '/dfir/url-preview',
+  '/dfir/subdomain-takeover',
   '/dfir/extract',
   '/dfir/ioc-pivot',
   '/dfir/google-dorks',

@@ -443,6 +443,14 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Safe, sandboxed preview of a URL — headers, redirects, screenshot.',
         compVar: 'UrlPreview',
       },
+      {
+        path: '/dfir/subdomain-takeover',
+        tabId: 'subdomain-takeover',
+        label: 'Subdomain Takeover Scanner',
+        desc: 'Detect dangling CNAMEs pointing to expired or unclaimed third-party services.',
+        compVar: 'SubdomainTakeover',
+        keywords: ['subdomain', 'takeover', 'cname', 'dangling', 'attack-surface'],
+      },
     ],
   },
   {

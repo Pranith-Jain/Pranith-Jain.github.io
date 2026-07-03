@@ -323,6 +323,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/asn', '/__prerendered/dfir__asn'],
   ['/dfir/breach', '/__prerendered/dfir__breach'],
   ['/dfir/url-preview', '/__prerendered/dfir__url-preview'],
+  ['/dfir/subdomain-takeover', '/__prerendered/dfir__subdomain-takeover'],
   ['/dfir/extract', '/__prerendered/dfir__extract'],
   ['/dfir/ioc-pivot', '/__prerendered/dfir__ioc-pivot'],
   ['/dfir/google-dorks', '/__prerendered/dfir__google-dorks'],
