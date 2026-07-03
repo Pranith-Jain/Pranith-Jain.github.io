@@ -45,6 +45,7 @@ import { enqueueAllFeeds } from '../api/src/routes/live-iocs';
 import { enqueueGpFeeds } from '../api/src/routes/global-pulse';
 import { scanForPhishingDomains, type PassiveDnsEnv } from '../api/src/lib/passive-dns';
 import { runCyberPulseIngestion } from '../api/src/routes/cyberpulse-ingest';
+import { fetchRedditFeed } from '../api/src/routes/reddit-feed';
 import type { D1Database } from '@cloudflare/workers-types';
 import { acquireCronLease, releaseCronLease, heartbeatCronLease } from './durable-objects/cron-lock';
 import { siCacheStats, loadSiIndex } from './lib/si-manifest';
@@ -266,9 +267,13 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
               // once here and thread it in too, so ingestion issues no duplicate
               // feed requests of its own.
               const socialFeed = await fetchXFeed().catch(() => undefined);
+              const redditFeed = await fetchRedditFeed(
+                env as unknown as { ASSETS: import('@cloudflare/workers-types').Fetcher }
+              ).catch(() => undefined);
               const cpResults = await runCyberPulseIngestion(env, env.BRIEFINGS_DB, {
                 telegramItems: telegramFeed?.items,
                 socialItems: socialFeed?.items,
+                redditItems: redditFeed?.items,
               });
               const totalCreated = cpResults.reduce((s, r) => s + r.incidents_created, 0);
               const totalDeduped = cpResults.reduce((s, r) => s + r.incidents_deduped, 0);
@@ -1104,6 +1109,31 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
             })
           );
         }
+        // Weekly TI Dashboard build — collects RSS news articles + supply
+        // chain incidents and generates an LLM-enriched weekly report.
+        if (isWeekly && db) {
+          try {
+            const { buildWeeklyDashboard, persistDashboard } = await import('../api/src/lib/ti-dashboard/build');
+            const report = await buildWeeklyDashboard(env as unknown as ApiEnv);
+            await persistDashboard(db, report);
+            console.log(
+              JSON.stringify({
+                job: 'ti-dashboard-build',
+                slug: report.slug,
+                sources: report.metadata.documents_analyzed,
+              })
+            );
+          } catch (err) {
+            console.error(
+              JSON.stringify({
+                job: 'ti-dashboard-build',
+                status: 'failed',
+                error: err instanceof Error ? err.message : String(err),
+              })
+            );
+          }
+        }
+
         // Weekly Telegram leak cleanup — prune entries older than 7 days
         // so the DB doesn't grow unbounded. The hourly cron runs the leak
         // scanner (which appends), but only the weekly sweeps old rows.

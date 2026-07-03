@@ -17,7 +17,7 @@
     }
   },
   "toolCount": 149,
-  "generatedAt": "2026-07-02T08:35:14.964Z",
+  "generatedAt": "2026-07-03T12:58:47.606Z",
   "tools": [
     {
       "name": "analyze_phishing_email",
@@ -386,7 +386,7 @@
     },
     {
       "name": "si_enrich_agent",
-      "description": "Enrich a single IOC (IP/hash/domain/URL) using the Threat Intel Enrichment Agent. Runs a multi-step autonomous investigation across 30+ providers (VirusTotal, AbuseIPDB, Shodan, PhantomCandle, Malpedia, etc.), extracts MITRE ATT&CK TTPs, and returns a structured threat assessment with per-provider diagnostics. For deep analysis, set \\'deep: true\\' to run the full multi-step chain with report generation (takes 10-30s).",
+      "description": "Enrich a single IOC (IP/hash/domain/URL) using the Threat Intel Enrichment Agent. Runs a multi-step autonomous investigation across 30+ providers (VirusTotal, AbuseIPDB, Shodan, PhantomCandle, Malpedia, etc.), extracts MITRE ATT&CK TTPs, and returns a structured threat assessment with per-provider diagnostics. For deep analysis, set 'deep: true' to run the full multi-step chain with report generation (takes 10-30s).",
       "category": "si"
     },
     {

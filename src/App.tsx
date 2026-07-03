@@ -363,6 +363,7 @@ const RadarHome = lazy(() => import('./pages/radar/Home'));
 const RadarScanResults = lazy(() => import('./pages/radar/ScanResults'));
 const ArgusPage = lazy(() => import('./pages/Argus'));
 const CtiDashboard = lazy(() => import('./pages/threatintel/CtiDashboard'));
+const TiDashboard = lazy(() => import('./pages/TiDashboard'));
 
 /**
  * /dfir/file?h=<hash> is the legacy entry point for the standalone hash
@@ -725,6 +726,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/radar/scan/:id', Component: RadarScanResults },
   { path: '/threatnexus', Component: ArgusPage },
   { path: '/threatintel/cti-dashboard', Component: CtiDashboard },
+  { path: '/threatintel/ti-dashboard', Component: TiDashboard },
 ];
 
 /** Legacy / renamed paths preserved as redirects so in-flight links don't 404. */

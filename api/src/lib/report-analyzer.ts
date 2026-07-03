@@ -74,8 +74,8 @@ export interface AnalyzerInput {
   source?: string;
   /**
    * Whether to attempt the STIX bundle build. Defaults to false. The
-   * STIX pass does network-bound enrichment (VT / RDAP / ThreatFox /
-   * NVD) and exceeds the free-plan 50-subrequest-per-invocation limit
+   * STIX pass does network-bound enrichment (Maltiverse / RDAP / NVD)
+   * and exceeds the free-plan 50-subrequest-per-invocation limit
    * when the report has more than a couple of IOCs. Set to true to
    * opt in for high-value / low-IOC analyses. The STIX tab on the
    * page handles the absence gracefully (shows 'skipped' empty state).
@@ -454,16 +454,16 @@ export async function runReportAnalyzer(input: AnalyzerInput, env: Env): Promise
   const mindmap = buildMindmap(iocs, ttp, cves, entities, title);
 
   // STIX bundle — best-effort with a real wall-clock cap. The
-  // `intel-bundle` enrichment phase is network-bound (VT / RDAP /
-  // ThreatFox / NVD lookups) and can blow past the 30s free-plan CPU
+  // `intel-bundle` enrichment phase is network-bound (Maltiverse / RDAP /
+  // NVD lookups) and can blow past the 30s free-plan CPU
   // budget on a single domain — Cloudflare returns 1102 to the client.
   // We guard the call with a Promise.race timeout so a slow enrichment
   // cannot block the summary / IOCs / TTPs / 5W payload that's already
   // computed above. The dangling promise is left to settle in the
   // background; the analyst sees a 'STIX generation timed out' pill on
   // the STIX tab instead of a 503.
-  // STIX is opt-in: the intel-bundle enrichment pass makes too many
-  // subrequests for a free-plan invocation (the report-analyzer is
+  // STIX is opt-in: the intel-bundle enrichment pass (Maltiverse bulk)
+  // makes subrequests for a free-plan invocation (the report-analyzer is
   // already over budget on the per-50 subrequest limit). Callers can
   // set includeStix=true when they specifically need the STIX bundle.
   let stix: BuildResult | null = null;

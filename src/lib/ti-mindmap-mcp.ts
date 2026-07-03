@@ -254,10 +254,20 @@ async function callRaw<T>(
 
   if (res.status === 401 || res.status === 403) {
     saveSession('');
+    let upstreamMsg = '';
+    try {
+      const errBody = (await res.json()) as { error_description?: string; error?: string };
+      upstreamMsg = errBody.error_description || errBody.error || '';
+    } catch {
+      /* ignore */
+    }
+    const hint = /format/i.test(upstreamMsg)
+      ? 'Key must start with tim_ and contain only lowercase letters, numbers, and underscores. Open the MCP pill to re-enter it.'
+      : 'Open My Profile -> MCP Server API Keys at ti-mindmap-hub.com and generate a new key.';
     throw new McpError(
-      'TI-Mindmap-Hub rejected the API key',
+      upstreamMsg ? `TI-Mindmap-Hub: ${upstreamMsg}` : 'TI-Mindmap-Hub rejected the API key',
       res.status,
-      'Open My Profile -> MCP Server API Keys at ti-mindmap-hub.com and generate a new key.'
+      `(${resInfo}) ${hint}`
     );
   }
   if (!res.ok) {

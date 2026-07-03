@@ -114,32 +114,18 @@ export const ADAPTERS: Record<ProviderId, ProviderAdapter> = {
   intodns,
 };
 
+/**
+ * Bulk providers for the intel-bundle / report-analyzer enrichment path.
+ *
+ * Maltiverse is the sole bulk provider: its search API covers every
+ * indicator type (ipv4, ipv6, domain, url, hash) and aggregates
+ * classification + blacklist sources in a single request. This replaces
+ * the previous 24-provider fan-out (threatfox, urlhaus, malwarebazaar,
+ * etc.) with one API call per indicator — well within the free-plan
+ * 50-subrequest budget.
+ */
 export const BULK_ADAPTERS: Partial<Record<ProviderId, ProviderAdapter>> = {
-  urlhaus,
-  threatfox,
-  malwarebazaar,
-  malshare,
-  yaraify,
-  tor,
-  spamhaus,
-  doh,
-  openphish,
-  cinsarmy,
-  bitwire,
-  blocklistde,
-  binarydefense,
-  ipsum,
-  phishingArmy,
-  tweetfeed,
-  hashlookup,
-  c2tracker,
-  sslbl,
-  malwareworld,
-  emailrep,
-  pulsedive,
-  kaspersky,
-  stopforumspam,
-  dshield,
+  maltiverse,
 };
 
 export const PROVIDER_LABELS: Record<string, string> = {

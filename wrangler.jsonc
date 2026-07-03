@@ -75,8 +75,14 @@
 		{ "tag": "v4", "new_sqlite_classes": ["ReportBuilderDO"] },
 		{ "tag": "v5", "new_sqlite_classes": ["InvestigatorAgentDO"] },
 		{ "tag": "v6", "new_sqlite_classes": ["RadarCrawlerDO"] },
-		{ "tag": "v7", "new_sqlite_classes": ["GlobalPulseDO"] }
+		{ "tag": "v7", "new_sqlite_classes": ["GlobalPulseDO"] },
+		{ "tag": "v8", "new_sqlite_classes": [] }
 	],
+	"vars": {
+		"ALLOW_DEV_ORIGINS": "true",
+		"SITE_URL": "http://localhost:5173",
+		"OPEN_PUBLIC_READS": "true"
+	},
 	"analytics_engine_datasets": [
 		{ "binding": "AJ_analytics", "dataset": "PJ" }
 	],

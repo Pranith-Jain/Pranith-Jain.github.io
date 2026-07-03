@@ -524,6 +524,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/threat-landscape', '/__prerendered/threatintel__threat-landscape'],
   ['/threatintel/threat-actor-db', '/__prerendered/threatintel__threat-actor-db'],
   ['/threatintel/cti-dashboard', '/__prerendered/threatintel__cti-dashboard'],
+  ['/threatintel/ti-dashboard', '/__prerendered/threatintel__ti-dashboard'],
   ['/dfir/copilot', '/__prerendered/dfir__copilot'],
   ['/dfir/orkl', '/__prerendered/dfir__orkl'],
   ['/dfir/wifi-investigation', '/__prerendered/dfir__wifi-investigation'],

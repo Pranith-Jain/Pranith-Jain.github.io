@@ -2,9 +2,10 @@
  * Bulk IoC enrichment for the intel-bundle pipeline.
  *
  * Unlike `routes/ioc.ts` (deep, all 29 providers, multi-second SSE), this is
- * the SHALLOW path: run only the free, cheap providers that don't need a
- * paid API key, aggressively use the edge-cache, and respect the Worker's
- * 50-subrequest budget per invocation.
+ * the SHALLOW path: Maltiverse as the sole provider — a single search API
+ * call per indicator that returns classification + blacklist sources + tags.
+ * Covers every indicator type (ipv4, ipv6, domain, url, hash). Runs within
+ * the Worker's 50-subrequest budget per invocation.
  *
  * Per-IoC output mirrors what `cti-stix-connector` emits: composite
  * `risk_score`, `confidence`, normalized `tags`, and the list of providers
@@ -18,7 +19,7 @@
  *     (Free plan: 50/invocation). The whole call is bounded by
  *     HARD_SUBREQUEST_CAP; IoCs past the budget are still emitted, just
  *     without provider depth. See enrichBulk for the exact accounting.
- *   - Per-provider timeout from `PROVIDER_TIMEOUT_MS`.
+ *   - Per-provider timeout from `BULK_PROVIDER_TIMEOUT_MS`.
  */
 
 import type { Env } from '../env';
@@ -54,8 +55,9 @@ export const MAX_IOCS_TO_ENRICH = 60;
 export const MAX_FRESH_SUBREQUESTS = 35;
 /** Total subrequests (cache reads + fresh fetches + cache writes) allowed
  *  across the whole call. Free plan is 50/invocation; leave headroom for the
- *  caller's D1 / analytics I/O. The fan-out keeps reads + 2·fetches ≤ this
- *  (writes ≤ fetches), so the true total can never exceed the cap. */
+ *  caller's D1 / analytics I/O. With Maltiverse as the sole bulk provider,
+ *  each indicator costs at most 1 fresh fetch (the search API) + 1 cache
+ *  write — far fewer subrequests than the old multi-provider fan-out. */
 const HARD_SUBREQUEST_CAP = 45;
 /** Cap cache reads (one batched KV read per indicator). Only the highest-
  *  priority slice gets a cache touch; the rest are still emitted (shallow) so
@@ -171,12 +173,12 @@ function eligibleProvidersFor(type: IndicatorType): ProviderId[] {
 }
 
 /**
- * Enrich a set of indicators using only the free bulk-provider subset.
+ * Enrich a set of indicators using Maltiverse as the sole bulk provider.
  *
  * Subrequest accounting (Free plan = 50/invocation): batched cache reads,
  * fresh fetches, AND cache writes all count. We prime each indicator's
- * combined cache entry with ONE KV read (not one per provider), fetch a
- * bounded number of misses, and write each touched indicator back once.
+ * combined cache entry with ONE KV read (not one per provider), fetch Maltiverse
+ * for a bounded number of misses, and write each touched indicator back once.
  * Keeping reads + 2·fetches ≤ HARD_SUBREQUEST_CAP (writes ≤ fetches)
  * guarantees the true total stays under the cap.
  */

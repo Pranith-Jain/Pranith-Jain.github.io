@@ -4,6 +4,7 @@ import type { IndicatorType } from './indicator';
 /** Per-indicator-type provider weights. Higher = more trusted for this type. */
 const WEIGHTS: Record<IndicatorType, Partial<Record<ProviderId, number>>> = {
   ipv4: {
+    maltiverse: 4,
     abuseipdb: 4,
     shodan: 2,
     virustotal: 1,
@@ -20,31 +21,18 @@ const WEIGHTS: Record<IndicatorType, Partial<Record<ProviderId, number>>> = {
     ipsum: 4,
     malwareworld: 3,
     tweetfeed: 2,
-    // GreyNoise community: low score-weight because the classification is
-    // best-effort and ratelimited. The real value is the RIOT signal
-    // ('benign service') which the UI surfaces as a separate tag.
     greynoise: 2,
-    // Shodan InternetDB: keyless, unlimited. Good for port/vuln data.
     'shodan-internetdb': 2,
-    // Spur.us: VPN/proxy/tor detection. Moderate weight — signals are
-    // valuable but not malicious on their own.
     spur: 1,
-    // CrowdSec: crowd-sourced threat intel. Good community signals.
     crowdsec: 3,
-    // IPinfo: privacy detection + ASN. Low weight — supplementary data.
     ipinfo: 1,
     kaspersky: 3,
-    // VulnCheck IP Intel: C2 / initial-access / honeypot attribution. High weight.
     vulncheck: 4,
-    // StopForumSpam: crowdsourced spam database. Confidence-based scoring.
     stopforumspam: 2,
-    // SANS ISC / DShield: distributed honeypot sensor network. High weight.
     dshield: 3,
   },
-  // IPv6 shares the provider pool with IPv4 (same data sources, same
-  // quality). Mirror the IPv4 weights exactly; per-provider special-cases
-  // (spamhaus, etc.) inherit their ipv4 tuning.
   ipv6: {
+    maltiverse: 4,
     abuseipdb: 4,
     shodan: 2,
     virustotal: 1,
@@ -70,6 +58,7 @@ const WEIGHTS: Record<IndicatorType, Partial<Record<ProviderId, number>>> = {
     dshield: 3,
   },
   domain: {
+    maltiverse: 4,
     virustotal: 2,
     urlscan: 2,
     otx: 2,
@@ -86,6 +75,7 @@ const WEIGHTS: Record<IndicatorType, Partial<Record<ProviderId, number>>> = {
     kaspersky: 3,
   },
   url: {
+    maltiverse: 4,
     virustotal: 2,
     urlscan: 3,
     otx: 2,
@@ -99,6 +89,7 @@ const WEIGHTS: Record<IndicatorType, Partial<Record<ProviderId, number>>> = {
     kaspersky: 3,
   },
   hash: {
+    maltiverse: 4,
     virustotal: 4,
     hybridanalysis: 3,
     otx: 1,
@@ -109,10 +100,7 @@ const WEIGHTS: Record<IndicatorType, Partial<Record<ProviderId, number>>> = {
     tweetfeed: 2,
     kaspersky: 4,
   },
-  // EmailRep is the only provider with first-class email signal — it pulls
-  // from breach data, blocklists, and reputation feeds. Weight it as the
-  // anchor for the email composite (matches abuseipdb's role for ipv4).
-  email: { otx: 1, virustotal: 1, emailrep: 4, stopforumspam: 2 },
+  email: { maltiverse: 2, otx: 1, virustotal: 1, emailrep: 4, stopforumspam: 2 },
   cve: {},
   unknown: {},
 };

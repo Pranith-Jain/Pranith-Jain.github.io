@@ -131,7 +131,13 @@ import { stealerForumIntelHandler } from './routes/stealer-forum-intel';
 import { breachForumsHandler } from './routes/breach-forums';
 import { breachForumStatusHandler } from './routes/breach-forum-status';
 import { breachCoverageHandler } from './routes/breach-coverage';
-import { cyberpulseIncidentsHandler, cyberpulseStatsHandler, cyberpulseTrendingHandler, cyberpulseScanLogHandler, cyberpulseIngestHandler } from './routes/cyberpulse';
+import {
+  cyberpulseIncidentsHandler,
+  cyberpulseStatsHandler,
+  cyberpulseTrendingHandler,
+  cyberpulseScanLogHandler,
+  cyberpulseIngestHandler,
+} from './routes/cyberpulse';
 import { negotiationsHandler, negotiationTranscriptHandler } from './routes/negotiations';
 import { ransomwareLiveHandler } from './routes/ransomwarelive';
 import { writeupsHandler } from './routes/writeups';
@@ -1723,6 +1729,10 @@ app.get('/api/v1/si/scripts/:name', siScriptHandler);
 // Threat Intel vertical (OpenThreat + cyber_threat_intel + Daily-Hunt references).
 // CVE/KEV/IOC/sector briefs served from public/data/threat-intel/ via env.ASSETS.
 app.route('/api/v1', threatIntelRouter);
+
+// ── Weekly TI Dashboard (RSS articles + supply chain incidents + LLM enrichment) ──
+import { tiDashboardRouter } from './routes/ti-dashboard';
+app.route('/api/v1', tiDashboardRouter);
 
 // ── CTI Collector (VHunt-inspired IOC fusion + AI prediction + mutation) ──
 import {
