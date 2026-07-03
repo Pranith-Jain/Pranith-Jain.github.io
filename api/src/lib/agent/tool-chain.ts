@@ -53,16 +53,17 @@ export const TOOL_CHAINS: ToolChain[] = [
     inputType: 'ip',
     steps: [
       {
-        id: 'asn',
-        name: 'ASN Lookup',
-        description: 'Identify the network and owner',
-        apiPath: '/api/v1/asn/lookup',
+        id: 'dns_lookup',
+        name: 'DNS Lookup',
+        description: 'Resolve hostname and detect CDN/ASN',
+        apiPath: '/api/v1/dns/lookup',
         method: 'GET',
-        buildParams: (ctx) => ({ ip: ctx.indicator }),
-        extractKey: (r) => ({
-          asn: extractFirst(r, 'asn', 'as_number'),
-          org: extractFirst(r, 'org', 'organization', 'name'),
-        }),
+        buildParams: (ctx) => ({ hostname: ctx.indicator }),
+        extractKey: (r) => {
+          const records = (r as Record<string, unknown>)?.records as Record<string, unknown> | undefined;
+          const aRecords = (records?.A ?? []) as Array<{ data: string }>;
+          return { ips: aRecords.map((a) => a.data), asn: (r as Record<string, unknown>)?.asn };
+        },
       },
       {
         id: 'enrich',
@@ -74,19 +75,10 @@ export const TOOL_CHAINS: ToolChain[] = [
         extractKey: (r) => ({ risk_score: (r as Record<string, unknown>)?.risk_score, tags: extractArray(r, 'tags') }),
       },
       {
-        id: 'passive_dns',
-        name: 'Passive DNS',
-        description: 'Historical DNS resolutions',
-        apiPath: '/api/v1/passive-dns',
-        method: 'GET',
-        buildParams: (ctx) => ({ q: ctx.indicator, type: 'ip' }),
-        extractKey: (r) => ({ domains: extractArray(r, 'unique_resolved') }),
-      },
-      {
         id: 'host_intel',
         name: 'Host Intelligence',
         description: 'Open ports, services, and exposures',
-        apiPath: '/api/v1/host-intel',
+        apiPath: '/api/v1/host',
         method: 'GET',
         buildParams: (ctx) => ({ ip: ctx.indicator }),
       },
