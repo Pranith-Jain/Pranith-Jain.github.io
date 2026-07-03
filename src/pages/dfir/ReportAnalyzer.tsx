@@ -27,6 +27,9 @@ import {
   GitBranch,
   Globe2,
   Download,
+  Shield,
+  CheckCircle,
+  Terminal,
 } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 
@@ -99,6 +102,26 @@ interface AnalyzerOutput {
   mindmap: { nodes: MindmapNode[]; edges: MindmapEdge[] };
   diamond: DiamondModel | null;
   attackFlow: AttackFlowPhase[];
+  detection: {
+    siemRules: {
+      title: string;
+      description: string;
+      severity: string;
+      mitreId?: string;
+      query?: string;
+      platform?: string;
+    }[];
+    monitoringGuidance: { category: string; items: string[] }[];
+    cliCommands: { purpose: string; command: string; platform?: string }[];
+    detectionLimitations: string[];
+    model?: string;
+  } | null;
+  conclusion: {
+    keyTakeaways: string[];
+    recommendedActions: { priority: string; action: string; rationale?: string }[];
+    riskAssessment: string;
+    model?: string;
+  } | null;
   stix: { bundle: { type: string; id: string; objects: unknown[] }; view: unknown } | null;
   errors: { branch: string; message: string }[];
   elapsed_ms: number;
@@ -186,11 +209,25 @@ function layoutNodes(rawNodes: MindmapNode[], rawEdges: MindmapEdge[]): { nodes:
 
 // ── Page ──────────────────────────────────────────────────────────────
 
-const TABS = ['summary', 'iocs', 'ttps', 'cves', '5w', 'diamond', 'attackflow', 'mindmap', 'stix'] as const;
+const TABS = [
+  'summary',
+  'detection',
+  'conclusion',
+  'iocs',
+  'ttps',
+  'cves',
+  '5w',
+  'diamond',
+  'attackflow',
+  'mindmap',
+  'stix',
+] as const;
 type Tab = (typeof TABS)[number];
 
 const TAB_META: Record<Tab, { label: string; icon: React.ReactNode }> = {
   summary: { label: 'Summary', icon: <FileText className="h-3.5 w-3.5" /> },
+  detection: { label: 'Detection', icon: <Shield className="h-3.5 w-3.5" /> },
+  conclusion: { label: 'Conclusion', icon: <CheckCircle className="h-3.5 w-3.5" /> },
   iocs: { label: 'IOCs', icon: <Link2 className="h-3.5 w-3.5" /> },
   ttps: { label: 'TTPs', icon: <Bug className="h-3.5 w-3.5" /> },
   cves: { label: 'CVEs', icon: <AlertTriangle className="h-3.5 w-3.5" /> },
@@ -339,9 +376,9 @@ export default function ReportAnalyzer(): JSX.Element {
                   Include STIX bundle
                 </span>
                 <span className="block mt-0.5 normal-case">
-                  Off by default — STIX enrichment (VT / RDAP / ThreatFox / NVD) can exceed the free-plan subrequest
-                  budget on larger reports. Turn on for short / high-value reports where you specifically need the STIX
-                  tab populated.
+                  Off by default — STIX enrichment (Maltiverse / RDAP / NVD) can exceed the free-plan subrequest budget
+                  on larger reports. Turn on for short / high-value reports where you specifically need the STIX tab
+                  populated.
                 </span>
               </label>
             </div>
@@ -422,6 +459,8 @@ export default function ReportAnalyzer(): JSX.Element {
 
           {/* Tab body */}
           {tab === 'summary' && <SummaryTab data={data} />}
+          {tab === 'detection' && <DetectionTab detection={data.detection} />}
+          {tab === 'conclusion' && <ConclusionTab conclusion={data.conclusion} />}
           {tab === 'iocs' && <IocsTab iocs={data.iocs} filter={filter} setFilter={setFilter} />}
           {tab === 'ttps' && <TtpsTab ttp={data.ttp} filter={filter} setFilter={setFilter} />}
           {tab === 'cves' && <CvesTab cves={data.cves} filter={filter} setFilter={setFilter} />}
@@ -909,6 +948,217 @@ function StixTab({ data }: { data: AnalyzerOutput }) {
         </pre>
       </details>
     </section>
+  );
+}
+
+function DetectionTab({ detection }: { detection: AnalyzerOutput['detection'] }) {
+  if (
+    !detection ||
+    (detection.siemRules.length === 0 &&
+      detection.monitoringGuidance.length === 0 &&
+      detection.cliCommands.length === 0)
+  ) {
+    return <EmptyState message="Detection opportunities extraction failed or no rules generated." />;
+  }
+
+  const severityColor: Record<string, string> = {
+    critical: 'text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40 border-rose-300 dark:border-rose-800',
+    high: 'text-orange-700 dark:text-orange-300 bg-orange-50 dark:bg-orange-950/40 border-orange-300 dark:border-orange-800',
+    medium:
+      'text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 border-amber-300 dark:border-amber-800',
+    low: 'text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/40 border-sky-300 dark:border-sky-800',
+  };
+
+  return (
+    <div className="space-y-4">
+      {/* SIEM Rules */}
+      {detection.siemRules.length > 0 && (
+        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <Shield className="h-4 w-4 text-brand-600 dark:text-brand-400" />
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">SIEM Detection Rules</h3>
+            <span className="ml-auto text-micro font-mono uppercase text-slate-500">
+              {detection.siemRules.length} rules
+            </span>
+          </div>
+          <div className="space-y-3">
+            {detection.siemRules.map((rule, i) => (
+              <div
+                key={i}
+                className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
+              >
+                <div className="flex flex-wrap items-center gap-2 mb-1">
+                  <span className="text-sm font-medium text-slate-900 dark:text-slate-100">{rule.title}</span>
+                  <span
+                    className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${severityColor[rule.severity] ?? severityColor.medium}`}
+                  >
+                    {rule.severity}
+                  </span>
+                  {rule.mitreId && (
+                    <span className="text-micro font-mono text-violet-600 dark:text-violet-400">{rule.mitreId}</span>
+                  )}
+                  {rule.platform && (
+                    <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{rule.platform}</span>
+                  )}
+                </div>
+                <p className="text-xs text-slate-600 dark:text-slate-300 mb-2">{rule.description}</p>
+                {rule.query && (
+                  <pre className="text-xs font-mono text-slate-800 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 rounded p-2 overflow-x-auto">
+                    {rule.query}
+                  </pre>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Monitoring Guidance */}
+      {detection.monitoringGuidance.length > 0 && (
+        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <Network className="h-4 w-4 text-brand-600 dark:text-brand-400" />
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Monitoring Guidance</h3>
+          </div>
+          <div className="space-y-3">
+            {detection.monitoringGuidance.map((cat, i) => (
+              <div key={i}>
+                <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
+                  {cat.category}
+                </div>
+                <ul className="space-y-1">
+                  {cat.items.map((item, j) => (
+                    <li key={j} className="flex items-start gap-2 text-xs text-slate-700 dark:text-slate-200">
+                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-brand-500 shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* CLI Commands */}
+      {detection.cliCommands.length > 0 && (
+        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <Terminal className="h-4 w-4 text-brand-600 dark:text-brand-400" />
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">CLI Verification Commands</h3>
+          </div>
+          <div className="space-y-2">
+            {detection.cliCommands.map((cmd, i) => (
+              <div
+                key={i}
+                className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2"
+              >
+                <div className="text-xs text-slate-600 dark:text-slate-300 mb-1">{cmd.purpose}</div>
+                <pre className="text-xs font-mono text-slate-800 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 rounded p-2 overflow-x-auto">
+                  {cmd.command}
+                </pre>
+                {cmd.platform && (
+                  <div className="mt-1 text-micro font-mono text-slate-500 dark:text-slate-400">{cmd.platform}</div>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Detection Limitations */}
+      {detection.detectionLimitations.length > 0 && (
+        <section className="rounded-lg border border-amber-200 dark:border-amber-900/60 bg-amber-50/40 dark:bg-amber-950/20 shadow-e1 p-4">
+          <div className="flex items-center gap-2 mb-2">
+            <AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+            <h3 className="text-sm font-semibold text-amber-800 dark:text-amber-200">Detection Limitations</h3>
+          </div>
+          <ul className="space-y-1">
+            {detection.detectionLimitations.map((lim, i) => (
+              <li key={i} className="text-xs text-amber-700 dark:text-amber-300">
+                {lim}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+    </div>
+  );
+}
+
+function ConclusionTab({ conclusion }: { conclusion: AnalyzerOutput['conclusion'] }) {
+  if (!conclusion || (conclusion.keyTakeaways.length === 0 && conclusion.recommendedActions.length === 0)) {
+    return <EmptyState message="Conclusion extraction failed." />;
+  }
+
+  const priorityColor: Record<string, string> = {
+    immediate: 'text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40 border-rose-300 dark:border-rose-800',
+    'short-term':
+      'text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 border-amber-300 dark:border-amber-800',
+    'long-term': 'text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/40 border-sky-300 dark:border-sky-800',
+  };
+
+  return (
+    <div className="space-y-4">
+      {/* Risk Assessment */}
+      {conclusion.riskAssessment && (
+        <section className="rounded-lg border border-rose-200 dark:border-rose-900/60 bg-rose-50/40 dark:bg-rose-950/20 shadow-e1 p-4">
+          <div className="flex items-center gap-2 mb-2">
+            <AlertTriangle className="h-4 w-4 text-rose-600 dark:text-rose-400" />
+            <h3 className="text-sm font-semibold text-rose-800 dark:text-rose-200">Risk Assessment</h3>
+          </div>
+          <p className="text-sm text-rose-700 dark:text-rose-200 leading-relaxed">{conclusion.riskAssessment}</p>
+        </section>
+      )}
+
+      {/* Key Takeaways */}
+      {conclusion.keyTakeaways.length > 0 && (
+        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <CheckCircle className="h-4 w-4 text-brand-600 dark:text-brand-400" />
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Key Takeaways</h3>
+          </div>
+          <ul className="space-y-2">
+            {conclusion.keyTakeaways.map((t, i) => (
+              <li key={i} className="flex items-start gap-2 text-sm text-slate-700 dark:text-slate-200">
+                <span className="mt-1 h-1.5 w-1.5 rounded-full bg-brand-500 shrink-0" />
+                {t}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {/* Recommended Actions */}
+      {conclusion.recommendedActions.length > 0 && (
+        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <Shield className="h-4 w-4 text-brand-600 dark:text-brand-400" />
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Recommended Actions</h3>
+          </div>
+          <div className="space-y-2">
+            {conclusion.recommendedActions.map((action, i) => (
+              <div
+                key={i}
+                className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
+              >
+                <div className="flex flex-wrap items-center gap-2 mb-1">
+                  <span
+                    className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${priorityColor[action.priority] ?? priorityColor['long-term']}`}
+                  >
+                    {action.priority}
+                  </span>
+                </div>
+                <p className="text-sm text-slate-900 dark:text-slate-100">{action.action}</p>
+                {action.rationale && (
+                  <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{action.rationale}</p>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+    </div>
   );
 }
 

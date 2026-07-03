@@ -3,7 +3,7 @@
  * through the AI-extraction pipeline in parallel and returns a unified
  * payload for the /threatintel/report-analyzer UI.
  *
- * Branches (run concurrently, total budget ~25s):
+ * Branches (run concurrently, total budget ~30s):
  *   1. AI Summary          (existing ai-summary lib)
  *   2. IOC extraction      (regex + ioc-normalize)
  *   3. TTP extraction      (lib/ttp-extract, LLM + keyword merge)
@@ -11,7 +11,9 @@
  *   5. CVE extraction      (regex + NVD cross-ref)
  *   6. Image IOC extraction (optional: if imageUrls[] provided)
  *   7. Mindmap nodes/edges (from the above, for the AI mindmap tab)
- *   8. STIX 2.1 bundle     (existing intel-bundle path)
+ *   8. Detection Opportunities (lib/detection-extract, LLM call)
+ *   9. Conclusion           (lib/conclusion-extract, LLM call)
+ *  10. STIX 2.1 bundle     (existing intel-bundle path)
  *
  * Designed for one-off analyst submissions, not bulk processing. The
  * endpoint accepts either a URL to fetch + extract, raw text, or both.
@@ -23,6 +25,8 @@ import { extractFiveW, type FiveW } from './fivew-extract';
 import { isBenign, refang, scoreConfidence } from './ioc-normalize';
 import { generateAiSummary, type SummaryInput } from './ai-summary';
 import { extractIocsFromImageUrl } from './image-ioc-extract';
+import { extractDetectionOpportunities, type DetectionOpportunities } from './detection-extract';
+import { extractConclusion, type Conclusion } from './conclusion-extract';
 import { buildBundleFromReport } from '../routes/intel-bundle';
 import type { BuildResult } from './stix-build';
 import { pinnedFetchFollow, SsrfError } from './ssrf-guard';
@@ -99,6 +103,10 @@ export interface AnalyzerOutput {
   diamond: DiamondModel | null;
   /** Attack Flow (kill chain phases) — TTPs bucketed by MITRE tactic. */
   attackFlow: AttackFlowPhase[];
+  /** Detection Opportunities — SIEM rules, monitoring, CLI commands. */
+  detection: DetectionOpportunities | null;
+  /** Conclusion — key takeaways, recommended actions, risk assessment. */
+  conclusion: Conclusion | null;
   stix: BuildResult | null;
   /** Branch failures — non-fatal; the rest of the payload is still usable. */
   errors: { branch: string; message: string }[];
@@ -430,11 +438,33 @@ export async function runReportAnalyzer(input: AnalyzerInput, env: Env): Promise
     'image-ioc',
     errors
   );
+  // Detection and Conclusion run in parallel with the other LLM branches.
+  // They use empty TTP/summary arrays initially — the LLM can still produce
+  // useful detection rules from the raw text alone.
+  const detectionTask = withTimeout(
+    extractDetectionOpportunities(text, [], env).catch(() => null),
+    22_000,
+    'detection',
+    errors
+  );
+  const conclusionTask = withTimeout(
+    extractConclusion(text, '', env).catch(() => null),
+    18_000,
+    'conclusion',
+    errors
+  );
   // We don't generate the STIX bundle in the parallel batch — it's the
   // slowest branch and depends on the others. Build it last so the
   // analyst sees summary/IOCs/TTPs immediately and the STIX tab loads
   // in the background.
-  const [summaryRaw, ttpRaw, fivewRaw, imageRaw] = await Promise.all([summaryTask, ttpTask, fivewTask, imageTask]);
+  const [summaryRaw, ttpRaw, fivewRaw, imageRaw, detectionRes, conclusionRes] = await Promise.all([
+    summaryTask,
+    ttpTask,
+    fivewTask,
+    imageTask,
+    detectionTask,
+    conclusionTask,
+  ]);
   const summaryRes = summaryRaw;
   const ttpRes = ttpRaw?.techniques ?? [];
   const fivewRes = fivewRaw;
@@ -512,6 +542,8 @@ export async function runReportAnalyzer(input: AnalyzerInput, env: Env): Promise
     mindmap,
     diamond: buildDiamondModel(entities, ttp, iocs, fivewRes, text),
     attackFlow: buildAttackFlow(ttp),
+    detection: detectionRes,
+    conclusion: conclusionRes,
     stix,
     errors,
     elapsed_ms: Date.now() - t0,
