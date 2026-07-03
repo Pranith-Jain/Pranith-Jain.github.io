@@ -53,19 +53,6 @@ export const TOOL_CHAINS: ToolChain[] = [
     inputType: 'ip',
     steps: [
       {
-        id: 'dns_lookup',
-        name: 'DNS Lookup',
-        description: 'Resolve hostname and detect CDN/ASN',
-        apiPath: '/api/v1/dns/lookup',
-        method: 'GET',
-        buildParams: (ctx) => ({ hostname: ctx.indicator }),
-        extractKey: (r) => {
-          const records = (r as Record<string, unknown>)?.records as Record<string, unknown> | undefined;
-          const aRecords = (records?.A ?? []) as Array<{ data: string }>;
-          return { ips: aRecords.map((a) => a.data), asn: (r as Record<string, unknown>)?.asn };
-        },
-      },
-      {
         id: 'enrich',
         name: 'IOC Enrichment',
         description: 'Threat intelligence from multiple providers',
