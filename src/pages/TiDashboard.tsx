@@ -1,5 +1,16 @@
 import { useMemo, useState, useCallback } from 'react';
-import { FileText, Zap, User, ShieldAlert, Crosshair, Package, Link, ExternalLink, Loader2 } from 'lucide-react';
+import {
+  FileText,
+  Zap,
+  User,
+  ShieldAlert,
+  Crosshair,
+  Package,
+  Link,
+  ExternalLink,
+  Loader2,
+  Search,
+} from 'lucide-react';
 import { useDataFetch } from '../hooks/useDataFetch';
 import { api } from '../lib/api-client';
 import { memoryCache } from '../infrastructure/cache/memory-cache';
@@ -143,6 +154,7 @@ export default function TiDashboard() {
   const [building, setBuilding] = useState(false);
   const [buildError, setBuildError] = useState<string | null>(null);
   const [severityFilter, setSeverityFilter] = useState<string[]>([]);
+  const [keywordSearch, setKeywordSearch] = useState('');
 
   const {
     data: report,
@@ -210,39 +222,54 @@ export default function TiDashboard() {
     return report.sources.filter((s) => s.title.toLowerCase().includes(q) || s.source_type.toLowerCase().includes(q));
   }, [report, sourceSearch]);
 
+  const matchKeyword = (text: string) => {
+    if (!keywordSearch) return true;
+    return text.toLowerCase().includes(keywordSearch.toLowerCase());
+  };
+
   const filteredStories = useMemo(() => {
     if (!report?.threat_stories) return [];
-    if (severityFilter.length === 0) return report.threat_stories;
     return report.threat_stories.filter((s) => {
-      const text = `${s.headline} ${s.impact_assessment}`.toLowerCase();
-      return severityFilter.some((sev) => text.includes(sev.toLowerCase()));
+      const text = `${s.headline} ${s.impact_assessment} ${s.narrative}`;
+      if (severityFilter.length > 0 && !severityFilter.some((sev) => text.toLowerCase().includes(sev.toLowerCase())))
+        return false;
+      if (!matchKeyword(text)) return false;
+      return true;
     });
-  }, [report, severityFilter]);
+  }, [report, severityFilter, keywordSearch]);
 
   const filteredActors = useMemo(() => {
     if (!report?.actor_profiles) return [];
-    if (severityFilter.length === 0) return report.actor_profiles;
     return report.actor_profiles.filter((a) => {
-      const text = `${a.name} ${a.recent_activity} ${a.motivation}`.toLowerCase();
-      return severityFilter.some((sev) => text.includes(sev.toLowerCase()));
+      const text = `${a.name} ${a.recent_activity} ${a.motivation} ${a.aliases.join(' ')} ${a.targets.join(' ')}`;
+      if (severityFilter.length > 0 && !severityFilter.some((sev) => text.toLowerCase().includes(sev.toLowerCase())))
+        return false;
+      if (!matchKeyword(text)) return false;
+      return true;
     });
-  }, [report, severityFilter]);
+  }, [report, severityFilter, keywordSearch]);
 
   const filteredSupplyChain = useMemo(() => {
     if (!report?.supply_chain_incidents) return [];
-    if (severityFilter.length === 0) return report.supply_chain_incidents;
-    return report.supply_chain_incidents.filter((s) =>
-      severityFilter.some((sev) => s.severity.toLowerCase() === sev.toLowerCase())
-    );
-  }, [report, severityFilter]);
+    return report.supply_chain_incidents.filter((s) => {
+      const text = `${s.title} ${s.ecosystem} ${s.attack_vector} ${s.severity} ${s.threat_actor ?? ''} ${s.summary}`;
+      if (severityFilter.length > 0 && !severityFilter.some((sev) => s.severity.toLowerCase() === sev.toLowerCase()))
+        return false;
+      if (!matchKeyword(text)) return false;
+      return true;
+    });
+  }, [report, severityFilter, keywordSearch]);
 
   const filteredVulns = useMemo(() => {
     if (!report?.critical_vulnerabilities) return [];
-    if (severityFilter.length === 0) return report.critical_vulnerabilities;
-    return report.critical_vulnerabilities.filter((v) =>
-      severityFilter.some((sev) => v.severity.toLowerCase() === sev.toLowerCase())
-    );
-  }, [report, severityFilter]);
+    return report.critical_vulnerabilities.filter((v) => {
+      const text = `${v.cve} ${v.product} ${v.vendor} ${v.severity} ${v.exploitation_status} ${v.remediation}`;
+      if (severityFilter.length > 0 && !severityFilter.some((sev) => v.severity.toLowerCase() === sev.toLowerCase()))
+        return false;
+      if (!matchKeyword(text)) return false;
+      return true;
+    });
+  }, [report, severityFilter, keywordSearch]);
 
   if (loading) {
     return (
@@ -368,8 +395,27 @@ export default function TiDashboard() {
 
         {/* Severity filter bar */}
         {(tab === 'stories' || tab === 'actors' || tab === 'supplychain' || tab === 'vulns') && (
-          <div className="flex items-center gap-2 mb-4 flex-wrap">
-            <span className="text-xs font-semibold tracking-widest uppercase text-muted mr-1">Severity:</span>
+          <div className="flex items-center gap-3 mb-4 flex-wrap">
+            <div className="relative">
+              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted" />
+              <input
+                type="text"
+                placeholder="Search keywords..."
+                value={keywordSearch}
+                onChange={(e) => setKeywordSearch(e.target.value)}
+                className="pl-8 pr-3 py-1.5 rounded-lg text-xs bg-[rgb(var(--hover-100))] border border-[rgb(var(--border-400))] text-slate-200 placeholder:text-muted focus:outline-none focus:border-brand-500 w-48"
+              />
+              {keywordSearch && (
+                <button
+                  onClick={() => setKeywordSearch('')}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-muted hover:text-slate-300"
+                >
+                  ×
+                </button>
+              )}
+            </div>
+            <div className="w-px h-5 bg-[rgb(var(--border-400))]" />
+            <span className="text-xs font-semibold tracking-widest uppercase text-muted">Severity:</span>
             {SEVERITY_LEVELS.map((sev) => {
               const active = severityFilter.includes(sev);
               return (
@@ -392,8 +438,14 @@ export default function TiDashboard() {
                 </button>
               );
             })}
-            {severityFilter.length > 0 && (
-              <button onClick={() => setSeverityFilter([])} className="text-xs text-muted hover:text-slate-300 ml-1">
+            {(severityFilter.length > 0 || keywordSearch) && (
+              <button
+                onClick={() => {
+                  setSeverityFilter([]);
+                  setKeywordSearch('');
+                }}
+                className="text-xs text-muted hover:text-slate-300 ml-1"
+              >
                 Clear
               </button>
             )}
