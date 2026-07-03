@@ -1,6 +1,7 @@
-import { useMemo, useState } from 'react';
-import { FileText, Zap, User, ShieldAlert, Crosshair, Package, Link, ExternalLink } from 'lucide-react';
+import { useMemo, useState, useCallback } from 'react';
+import { FileText, Zap, User, ShieldAlert, Crosshair, Package, Link, ExternalLink, Loader2 } from 'lucide-react';
 import { useDataFetch } from '../hooks/useDataFetch';
+import { api } from '../lib/api-client';
 
 interface ArticleSource {
   id: number;
@@ -138,15 +139,33 @@ export default function TiDashboard() {
   const [tab, setTab] = useState<Tab>('brief');
   const [expandedStories, setExpandedStories] = useState<Record<number, boolean>>({});
   const [sourceSearch, setSourceSearch] = useState('');
+  const [building, setBuilding] = useState(false);
+  const [buildError, setBuildError] = useState<string | null>(null);
 
   const {
     data: report,
     loading,
     error,
+    refetch,
   } = useDataFetch<TiDashboardReport>({
     url: '/api/v1/ti-dashboard/',
     ttl: 60000,
   });
+
+  const handleBuild = useCallback(async () => {
+    setBuilding(true);
+    setBuildError(null);
+    try {
+      await api.post<{ ok: boolean; slug: string; sources: number }>('/api/v1/ti-dashboard/build', undefined, {
+        timeoutMs: 120000,
+      });
+      refetch();
+    } catch (e) {
+      setBuildError(e instanceof Error ? e.message : String(e));
+    } finally {
+      setBuilding(false);
+    }
+  }, [refetch]);
 
   const toggleStory = (idx: number) => {
     setExpandedStories((prev) => ({ ...prev, [idx]: !prev[idx] }));
@@ -193,12 +212,36 @@ export default function TiDashboard() {
     );
   }
 
-  if (error) {
+  if (error && !error.includes('no_dashboard_found') && !error.includes('404')) {
     return (
       <div className="min-h-screen [background:rgb(var(--surface-100))] text-slate-100 dark:text-slate-200 flex items-center justify-center">
         <div className="text-center">
           <p className="text-severity-critical mb-4">Failed to load report</p>
           <p className="text-muted text-sm">{error}</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error && !report) {
+    return (
+      <div className="min-h-screen [background:rgb(var(--surface-100))] text-slate-100 dark:text-slate-200 flex items-center justify-center">
+        <div className="text-center max-w-md mx-auto px-4">
+          <FileText className="w-12 h-12 text-brand-400 mx-auto mb-4" />
+          <h2 className="text-lg font-semibold mb-2">No report available yet</h2>
+          <p className="text-muted text-sm mb-6">
+            The weekly threat intelligence report hasn't been generated yet. The first build runs on Monday at 00:45
+            UTC.
+          </p>
+          <button
+            onClick={handleBuild}
+            disabled={building}
+            className="inline-flex items-center gap-2 px-4 py-2 bg-brand-600 hover:bg-brand-500 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-lg text-sm font-medium transition-colors"
+          >
+            {building ? <Loader2 className="w-4 h-4 animate-spin" /> : <Zap className="w-4 h-4" />}
+            {building ? 'Building...' : 'Build Now'}
+          </button>
+          {buildError && <p className="text-red-400 text-xs mt-3">{buildError}</p>}
         </div>
       </div>
     );
