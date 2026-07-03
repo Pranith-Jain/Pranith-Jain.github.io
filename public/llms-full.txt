@@ -292,6 +292,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Observe](https://pranithjain.qzz.io/threatintel/predictive/observe) (threatintel): Observation dashboard — what is happening right now.
 - [SOC Dashboard](https://pranithjain.qzz.io/threatintel/soc-dashboard) (threatintel): Unified tactical SOC view — ransomware, vulnerabilities, and IOC stream panels.
 - [Live Center — Web OSINT](https://pranithjain.qzz.io/threatintel/live-center) (threatintel): Browser-based live OSINT tools with install, example, and reference URL per tool.
+- [TI Dashboard](https://pranithjain.qzz.io/threatintel/ti-dashboard) (threatintel): Weekly threat intelligence report — IOCs, threat stories, actor profiles, vulnerabilities, hunting leads, and supply chain incidents.
 - [Alert Feed](https://pranithjain.qzz.io/threatintel/alerts) (threatintel): Prioritised threat intelligence alerts — noise-filtered, confidence-scored, and matched to your estate.
 - [Ransomware Live](https://pranithjain.qzz.io/threatintel/ransomware-live) (threatintel): Live ransomware victim and group monitoring with sector/region filtering.
 - [Estate Config](https://pranithjain.qzz.io/threatintel/estate) (threatintel): Manage your digital estate — assets, tech stack, sector, and data types for personalised correlation.

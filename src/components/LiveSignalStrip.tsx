@@ -173,7 +173,7 @@ export function LiveSignalStrip(): JSX.Element {
           primary: String(correlated),
           context:
             scanned > 0
-              ? `Out of ${scanned.toLocaleString()} indicators scanned across 18 feeds.`
+              ? `Out of ${scanned.toLocaleString()} indicators scanned across 30+ feeds.`
               : 'Indicators on two or more independent feeds.',
           href: '/threatintel/iocs/correlation',
           accent: 'brand',

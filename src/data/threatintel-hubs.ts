@@ -1188,6 +1188,13 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Browser-based live OSINT tools with install, example, and reference URL per tool.',
         compVar: 'LiveCenter',
       },
+      {
+        path: '/threatintel/ti-dashboard',
+        tabId: 'ti-dashboard',
+        label: 'TI Dashboard',
+        desc: 'Weekly threat intelligence report — IOCs, threat stories, actor profiles, vulnerabilities, hunting leads, and supply chain incidents.',
+        compVar: 'TiDashboard',
+      },
     ],
   },
   {

@@ -1060,7 +1060,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  <!-- Threat Intel — pages (248) -->
+  <!-- Threat Intel — pages (249) -->
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/catalog</loc>
     <lastmod>2026-07-03</lastmod>
@@ -2454,6 +2454,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://pranithjain.qzz.io/threatintel/knowledge-graph</loc>
+    <lastmod>2026-07-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://pranithjain.qzz.io/threatintel/projectdiscovery</loc>
     <lastmod>2026-07-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -2549,7 +2555,7 @@
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
-  <!-- Threat Intel — research (14) -->
+  <!-- Threat Intel — research (15) -->
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/research-hub/ach</loc>
     <lastmod>2026-07-03</lastmod>
@@ -2558,6 +2564,12 @@
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/research-hub/ai</loc>
+    <lastmod>2026-07-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pranithjain.qzz.io/threatintel/research-hub/agentic</loc>
     <lastmod>2026-07-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

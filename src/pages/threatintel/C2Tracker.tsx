@@ -32,6 +32,7 @@ const FRAMEWORK_COLORS: Record<string, string> = {
   sliver: 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30',
   metasploit: 'bg-orange-500/15 text-orange-700 dark:text-orange-300 border-orange-500/30',
   havoc: 'bg-violet-500/15 text-violet-700 dark:text-violet-300 border-violet-500/30',
+  khaos: 'bg-fuchsia-500/15 text-fuchsia-700 dark:text-fuchsia-300 border-fuchsia-500/30',
   bruteratel: 'bg-sky-500/15 text-sky-700 dark:text-sky-300 border-sky-500/30',
   deimos: 'bg-cyan-500/15 text-sky-700 dark:text-sky-300 border-cyan-500/30',
   nighthawk: 'bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 border-indigo-500/30',
@@ -100,8 +101,8 @@ export default function C2Tracker(): JSX.Element {
         <p className="text-muted mb-8 max-w-2xl">
           Aggregated live C2 server infrastructure deduped across six independent feeds: C2IntelFeeds (drb-ra),
           ThreatFox (abuse.ch), CriticalPathSecurity Public-Intelligence-Feeds, CriminalIP C2-Daily-Feed, and TweetFeed
-          (#C2-tagged tweets). Each framework family is fairly sampled so filters like asyncrat or havoc show real
-          entries even when cobaltstrike dominates the total. Cross-check individual IPs via the IOC Checker.
+          (#C2-tagged tweets). Each framework family is fairly sampled so filters like asyncrat, havoc, or khaos show
+          real entries even when cobaltstrike dominates the total. Cross-check individual IPs via the IOC Checker.
         </p>
       </div>
 

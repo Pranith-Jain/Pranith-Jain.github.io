@@ -1555,6 +1555,24 @@ const DFIR_PAGES: readonly PageEntry[] = [
     group: 'dfir',
     keywords: ['ironsight', 'geopolitical', 'israel', 'strike', 'satellite', 'military'],
   },
+  {
+    path: '/dfir/detection-chokepoints',
+    label: 'Detection Chokepoints',
+    description:
+      'Invariant detection points in attack chains — prerequisites attackers cannot bypass, mapped to MITRE ATT&CK.',
+    sectionLabel: 'DFIR · Detection',
+    group: 'dfir',
+    keywords: ['chokepoint', 'detection', 'mitre', 'attack', 'kill-chain', 'invariant'],
+  },
+  {
+    path: '/dfir/long-watch',
+    label: 'The Long Watch — Org Cyber Attack Sim',
+    description:
+      'Interactive browser-based network defense simulation with 3 scenarios — attack surface, phishing & identity, ransomware kill chain.',
+    sectionLabel: 'DFIR · Detection',
+    group: 'dfir',
+    keywords: ['simulation', 'long-watch', 'defense', 'ransomware', 'phishing', 'attack-surface', 'kill-chain'],
+  },
 
   /* ------------------------------------------------------------------ */
   /*  3. Threat Intel                                                   */
@@ -1687,6 +1705,14 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     path: '/threatintel/pir-dashboard',
     label: 'PIR Dashboard',
     description: 'Priority Intelligence Requirements dashboard — coverage and gaps.',
+    sectionLabel: 'Threat Intel · Predictive',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/ti-dashboard',
+    label: 'TI Dashboard',
+    description:
+      'Weekly threat intelligence report — IOCs, threat stories, actor profiles, vulnerabilities, hunting leads, and supply chain incidents.',
     sectionLabel: 'Threat Intel · Predictive',
     group: 'threatintel',
   },

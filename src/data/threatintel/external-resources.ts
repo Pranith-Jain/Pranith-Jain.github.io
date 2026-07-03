@@ -954,6 +954,15 @@ export const RESOURCES: ExternalResource[] = [
       "Automated C2 infrastructure feeds — IP and domain lists for Cobalt Strike, Sliver, Brute Ratel, and other C2 frameworks. Updated daily via GitHub. Integrated into this platform's live IOCs feed.",
   },
   {
+    id: 'khaos-c2',
+    name: 'KHAOS C2',
+    url: 'https://khaos.khaotic.fr',
+    kind: 'tool',
+    tags: ['c2', 'offensive', 'evasion'],
+    description:
+      'Modern post-exploitation C2 framework with 5 covert channels (Teams, GitHub Gist, DoH, HTTPS, SMB). C agent with indirect syscalls, ETW/AMSI patching via hardware breakpoints, BOF/COFF loading, token theft, LSASS dump, Kerberoasting, SOCKS5, and WMI lateral movement. MIT license.',
+  },
+  {
     id: 'openphish',
     name: 'OpenPhish',
     url: 'https://openphish.com/',

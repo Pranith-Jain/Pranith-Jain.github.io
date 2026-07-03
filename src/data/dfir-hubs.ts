@@ -728,6 +728,22 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'FpLens',
       },
       {
+        path: '/dfir/detection-chokepoints',
+        tabId: 'detection-chokepoints',
+        label: 'Detection Chokepoints',
+        desc: 'Invariant detection points — prerequisites attackers cannot bypass, mapped to MITRE ATT&CK.',
+        compVar: 'DetectionChokepoints',
+        keywords: ['chokepoint', 'detection', 'mitre', 'kill-chain'],
+      },
+      {
+        path: '/dfir/long-watch',
+        tabId: 'long-watch',
+        label: 'The Long Watch',
+        desc: 'Interactive network defense simulation — 3 scenarios over 8 years of attack evolution.',
+        compVar: 'LongWatch',
+        keywords: ['simulation', 'defense', 'ransomware', 'phishing', 'attack-surface'],
+      },
+      {
         path: '/dfir/ir-playbooks',
         tabId: 'ir-playbooks',
         label: 'IR Playbooks',

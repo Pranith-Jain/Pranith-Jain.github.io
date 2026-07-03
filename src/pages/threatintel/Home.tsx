@@ -217,7 +217,7 @@ export default function ThreatIntelHome(): JSX.Element {
             <span aria-hidden="true" className="text-slate-300 dark:text-slate-700">
               /
             </span>
-            <span>18 feeds · 90s refresh · no login</span>
+            <span>30+ feeds · 90s refresh · no login</span>
             <span aria-hidden="true" className="text-slate-300 dark:text-slate-700">
               /
             </span>

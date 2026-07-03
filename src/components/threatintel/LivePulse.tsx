@@ -263,7 +263,7 @@ export function LivePulse(): JSX.Element {
             )}
             <p className={STAT_SUB}>
               {data.cons
-                ? `Out of ${data.cons.scanned.toLocaleString()} indicators scanned across 18 feeds.`
+                ? `Out of ${data.cons.scanned.toLocaleString()} indicators scanned across 30+ feeds.`
                 : 'Indicators on two or more independent feeds.'}
             </p>
           </StatCell>

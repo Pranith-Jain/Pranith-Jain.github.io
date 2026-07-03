@@ -40,7 +40,7 @@ export function Hero({ personalInfo }: HeroProps) {
           <dl className="mt-5 grid grid-cols-2 gap-x-6 gap-y-2 sm:grid-cols-4">
             {[
               ['60+', 'tools'],
-              ['18', 'feeds'],
+              ['30+', 'feeds'],
               ['0', 'login required'],
               ['0', 'data egress'],
             ].map(([k, v]) => (

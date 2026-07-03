@@ -37,7 +37,7 @@ const PILLARS: SolutionPillar[] = [
     desc: 'Cross-source correlation engine — indicators appearing in 2+ feeds ranked by source consensus, with per-IOC reporter handles and freshness badges.',
     href: '/threatintel/correlation',
     icon: Radio,
-    bullets: ['18 IOC feeds', 'Consensus ranking', 'STIX 2.1 export', 'Live stream'],
+    bullets: ['30+ IOC feeds', 'Consensus ranking', 'STIX 2.1 export', 'Live stream'],
   },
 ];
 

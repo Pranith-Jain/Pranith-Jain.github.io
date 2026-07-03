@@ -94,6 +94,8 @@ const ROUTE_LABELS: Record<string, string> = {
   '/threatintel/metrics': 'Metrics',
   '/threatintel/malware-iocs': 'Malware IOCs',
   '/threatintel/malpedia': 'Malpedia',
+  '/threatintel/ti-dashboard': 'TI Dashboard',
+  '/threatintel/cti-dashboard': 'CTI Dashboard',
 };
 
 /**

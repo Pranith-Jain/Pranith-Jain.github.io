@@ -1363,6 +1363,16 @@ export const TOOLS: Tool[] = [
     source_url: 'https://github.com/its-a-feature/Mythic',
   },
   {
+    id: 'khaos-c2',
+    name: 'KHAOS C2',
+    url: 'https://khaos.khaotic.fr',
+    categories: ['pentest-redteam'],
+    pricing: 'open-source',
+    description:
+      'Modern post-exploitation C2 with 5 covert channels (Teams, GitHub Gist, DoH, HTTP/S, SMB Named Pipe). Indirect syscalls, ETW/AMSI patching, BOF/COFF loading.',
+    source_url: 'https://github.com/28Zaaky/khaos-c2',
+  },
+  {
     id: 'bloodhound',
     name: 'BloodHound',
     url: 'https://bloodhound.specterops.io',
