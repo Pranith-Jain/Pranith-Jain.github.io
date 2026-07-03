@@ -98,7 +98,6 @@ export default function NotFound(): JSX.Element {
   const moved = detectMovedUrl(location.pathname);
   const sidebar = useMemo(() => getSidebarForSection(location.pathname), [location.pathname]);
   const suggestions = useMemo(() => suggestSimilar(location.pathname), [location.pathname]);
-  const sectionHref = sidebar ? (sidebar.groups[0]?.items[0]?.href.split('/').slice(0, 2).join('/') ?? '/') : '/';
   const sectionName = sidebar?.sectionLabel ?? '';
 
   // Tell crawlers this is a dead end so they de-index the URL on their
@@ -240,7 +239,6 @@ export default function NotFound(): JSX.Element {
 
       {/* sectionHref kept here in case we want a 'back to section home'
           button below the grid in a future iteration. */}
-      {sectionHref && <div className="hidden">{sectionHref}</div>}
     </div>
   );
 }

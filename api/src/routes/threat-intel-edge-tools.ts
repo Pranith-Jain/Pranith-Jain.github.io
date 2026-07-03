@@ -29,7 +29,7 @@ export const threatIntelRouter = new Hono<{ Bindings: Env }>();
 threatIntelRouter.get('/threat-intel/', async (c) => {
   try {
     const mod = await loadTiMod();
-    const idx = await mod.loadTiIndex((c.env as any).ASSETS);
+    const idx = await mod.loadTiIndex(c.env.ASSETS);
     return c.json({
       source: idx.source,
       license: idx.license,
@@ -46,7 +46,7 @@ threatIntelRouter.get('/threat-intel/', async (c) => {
 threatIntelRouter.get('/threat-intel/cves', async (c) => {
   try {
     const mod = await loadTiMod();
-    const idx = await mod.loadTiIndex((c.env as any).ASSETS);
+    const idx = await mod.loadTiIndex(c.env.ASSETS);
     const severity = c.req.query('severity');
     const kevOnly = c.req.query('kev_only') === 'true';
     const vendor = c.req.query('vendor');
@@ -77,7 +77,7 @@ threatIntelRouter.get('/threat-intel/cves/:cveId', async (c) => {
   const cveId = c.req.param('cveId');
   try {
     const mod = await loadTiMod();
-    const body = await mod.getTiCve((c.env as any).ASSETS, cveId);
+    const body = await mod.getTiCve(c.env.ASSETS, cveId);
     if (!body) return notFound(c, `cve_not_found: ${cveId}`);
     return c.json(body);
   } catch (e) {
@@ -89,7 +89,7 @@ threatIntelRouter.get('/threat-intel/cves/:cveId', async (c) => {
 threatIntelRouter.get('/threat-intel/kev', async (c) => {
   try {
     const mod = await loadTiMod();
-    const kev = await mod.loadKevSnapshot((c.env as any).ASSETS);
+    const kev = await mod.loadKevSnapshot(c.env.ASSETS);
     const vendor = c.req.query('vendor');
     const limit = c.req.query('limit') ? Math.min(500, Math.max(1, Number(c.req.query('limit')))) : undefined;
     const needle = vendor?.toLowerCase();
@@ -105,7 +105,7 @@ threatIntelRouter.get('/threat-intel/kev', async (c) => {
 threatIntelRouter.get('/threat-intel/iocs', async (c) => {
   try {
     const mod = await loadTiMod();
-    const idx = await mod.loadTiIndex((c.env as any).ASSETS);
+    const idx = await mod.loadTiIndex(c.env.ASSETS);
     const category = c.req.query('category');
     const keyword = c.req.query('q');
     const limit = c.req.query('limit') ? Math.min(100, Math.max(1, Number(c.req.query('limit')))) : undefined;
@@ -126,7 +126,7 @@ threatIntelRouter.get('/threat-intel/iocs/:slug', async (c) => {
   const slug = c.req.param('slug');
   try {
     const mod = await loadTiMod();
-    const body = await mod.getTiIoc((c.env as any).ASSETS, slug);
+    const body = await mod.getTiIoc(c.env.ASSETS, slug);
     if (!body) return notFound(c, `ioc_family_not_found: ${slug}`);
     return c.json(body);
   } catch (e) {
@@ -138,7 +138,7 @@ threatIntelRouter.get('/threat-intel/iocs/:slug', async (c) => {
 threatIntelRouter.get('/threat-intel/sectors', async (c) => {
   try {
     const mod = await loadTiMod();
-    const idx = await mod.loadTiIndex((c.env as any).ASSETS);
+    const idx = await mod.loadTiIndex(c.env.ASSETS);
     return c.json({ sectors: idx.sectors });
   } catch (e) {
     return internalError(c, `ti_sectors_failed: ${e instanceof Error ? e.message : String(e)}`);
@@ -153,7 +153,7 @@ threatIntelRouter.get('/threat-intel/sectors/:sector', async (c) => {
   }
   try {
     const mod = await loadTiMod();
-    const body = await mod.getTiSector((c.env as any).ASSETS, sector);
+    const body = await mod.getTiSector(c.env.ASSETS, sector);
     if (!body) return notFound(c, `sector_not_found: ${sector}`);
     return c.json(body);
   } catch (e) {
@@ -165,7 +165,7 @@ threatIntelRouter.get('/threat-intel/sectors/:sector', async (c) => {
 threatIntelRouter.get('/threat-intel/stats', async (c) => {
   try {
     const mod = await loadTiMod();
-    const idx = await mod.loadTiIndex((c.env as any).ASSETS);
+    const idx = await mod.loadTiIndex(c.env.ASSETS);
     const cache = mod.tiCacheStats();
     return c.json({
       counts: idx.counts,

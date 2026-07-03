@@ -232,7 +232,7 @@ siEdgeToolsRouter.post('/si/hypos', async (c) => {
   if (!parsed.success) return badRequest(c, `invalid_body: ${parsed.error.message}`);
   try {
     const mod = await loadHyposMod();
-    const result = await mod.siHyposGenerate(parsed.data, { ASSETS: (c.env as any).ASSETS });
+    const result = await mod.siHyposGenerate(parsed.data, { ASSETS: c.env.ASSETS });
     return c.json(result);
   } catch (e) {
     return internalError(c, `hypos_failed: ${e instanceof Error ? e.message : String(e)}`);

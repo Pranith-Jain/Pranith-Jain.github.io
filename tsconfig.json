@@ -14,7 +14,8 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true
   },
   "include": ["src"],
   "exclude": ["**/*.test.ts", "**/*.test.tsx", "**/test/**", "**/node_modules/**"],

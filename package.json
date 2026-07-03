@@ -19,7 +19,7 @@
     "check:budgets": "node scripts/check-budgets.mjs",
     "check:no-px-text": "node scripts/check-no-px-text.mjs",
     "build:check": "npm run build && npm run check:budgets",
-    "deploy": "npm run build && node scripts/build-telegram-actor-catalog.mjs && wrangler deploy",
+    "deploy": "npm run build && wrangler deploy",
     "preview": "vite preview",
     "test": "vitest",
     "test:run": "vitest run",

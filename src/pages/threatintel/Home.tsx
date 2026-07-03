@@ -72,7 +72,7 @@ const CATEGORY_CARDS: CategoryCard[] = [
       'Research APT groups, criminal organizations, and individual threat actors. TTPs, aliases, and infrastructure.',
     icon: Users,
     href: '/threatintel/catalog?cat=actors',
-    tone: 'text-rose-600 dark:text-rose-400 hover:border-rose-500/40',
+    tone: 'text-brand-600 dark:text-brand-400 hover:border-brand-500/40',
     pages: 12,
   },
   {
@@ -90,7 +90,7 @@ const CATEGORY_CARDS: CategoryCard[] = [
     description: 'Monitor ransomware leak sites, dark web forums, breach disclosures, and criminal marketplaces.',
     icon: Flame,
     href: '/threatintel/catalog?cat=darkweb',
-    tone: 'text-rose-600 dark:text-rose-400 hover:border-rose-500/40',
+    tone: 'text-brand-600 dark:text-brand-400 hover:border-brand-500/40',
     pages: 12,
     highlight: 'live',
   },
@@ -131,7 +131,7 @@ const CATEGORY_CARDS: CategoryCard[] = [
     description: 'Malware families, IOCs, sample metadata, supply chain packages, and sandbox analysis.',
     icon: Bug,
     href: '/threatintel/catalog?cat=malware',
-    tone: 'text-rose-600 dark:text-rose-400 hover:border-rose-500/40',
+    tone: 'text-brand-600 dark:text-brand-400 hover:border-brand-500/40',
     pages: 6,
   },
   {
@@ -202,17 +202,17 @@ export default function ThreatIntelHome(): JSX.Element {
           224px blurred brand wash. Same hierarchy, none of the
           AI-decorative feel. */}
         <section className="surface-elevated relative p-6 sm:p-10 lg:p-12">
-          <div aria-hidden className="pointer-events-none absolute top-0 left-0 h-px w-12 bg-rose-500/60" />
+          <div aria-hidden className="pointer-events-none absolute top-0 left-0 h-px w-12 bg-brand-500/60" />
 
           {/* Status ribbon — pulse + uptime + feed scope. The .live-pulse
             utility handles the breathe animation in one place. */}
           <div className="mb-5 sm:mb-7 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-mini uppercase tracking-[0.16em] text-slate-500">
             <span className="inline-flex items-center gap-1.5">
               <span className="relative inline-flex h-1.5 w-1.5">
-                <span className="absolute inset-0 rounded-full bg-rose-500 live-pulse" aria-hidden="true" />
-                <span className="relative inline-block h-1.5 w-1.5 rounded-full bg-rose-500" />
+                <span className="absolute inset-0 rounded-full bg-brand-500 live-pulse" aria-hidden="true" />
+                <span className="relative inline-block h-1.5 w-1.5 rounded-full bg-brand-500" />
               </span>
-              <span className="text-rose-600 dark:text-rose-400">Live</span>
+              <span className="text-brand-600 dark:text-brand-400">Live</span>
             </span>
             <span aria-hidden="true" className="text-slate-300 dark:text-slate-700">
               /
@@ -250,7 +250,7 @@ export default function ThreatIntelHome(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search actors, CVEs, campaigns, feeds, tools..."
-              className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-11 pr-24 font-mono text-sm text-slate-900 placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))] dark:text-slate-100 dark:placeholder:text-slate-500"
+              className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-11 pr-24 font-mono text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))] dark:text-slate-100 dark:placeholder:text-slate-500"
               aria-label="Search threat intelligence"
             />
             {query ? (
@@ -290,7 +290,7 @@ export default function ThreatIntelHome(): JSX.Element {
               <Link
                 key={link.href}
                 to={link.href}
-                className="inline-flex items-center gap-1 surface-card rounded-full px-2.5 py-1 text-xs font-medium text-slate-600 hover:border-rose-300 hover:text-rose-600 dark:text-slate-300 dark:hover:border-rose-600 dark:hover:text-rose-400"
+                className="inline-flex items-center gap-1 surface-card rounded-full px-2.5 py-1 text-xs font-medium text-slate-600 hover:border-brand-300 hover:text-brand-600 dark:text-slate-300 dark:hover:border-brand-600 dark:hover:text-brand-400"
               >
                 {link.label}
               </Link>
@@ -336,12 +336,12 @@ export default function ThreatIntelHome(): JSX.Element {
                     <li key={t.path}>
                       <Link to={t.path} className="group block h-full surface-card card-hover p-4">
                         <div className="flex items-start justify-between gap-2 mb-2">
-                          <Icon size={16} className="mt-0.5 shrink-0 text-rose-600 dark:text-rose-400" />
+                          <Icon size={16} className="mt-0.5 shrink-0 text-brand-600 dark:text-brand-400" />
                           <span className="font-mono text-[10px] uppercase tracking-wider text-slate-400 dark:text-slate-500">
                             {category.label}
                           </span>
                         </div>
-                        <h3 className="font-display text-sm font-semibold text-slate-900 group-hover:text-rose-600 dark:text-slate-100 dark:group-hover:text-rose-400">
+                        <h3 className="font-display text-sm font-semibold text-slate-900 group-hover:text-brand-600 dark:text-slate-100 dark:group-hover:text-brand-400">
                           {t.label}
                         </h3>
                         <p className="mt-1 text-xs text-slate-500 dark:text-slate-400 line-clamp-2">{t.desc}</p>
@@ -395,7 +395,7 @@ export default function ThreatIntelHome(): JSX.Element {
                       to={item.href}
                       className="group flex items-center gap-3 surface-card card-hover p-4"
                     >
-                      <div className="grid h-10 w-10 place-items-center rounded-md bg-slate-50 dark:bg-white/5 text-rose-600 dark:text-rose-400 shrink-0">
+                      <div className="grid h-10 w-10 place-items-center rounded-md bg-slate-50 dark:bg-white/5 text-brand-600 dark:text-brand-400 shrink-0">
                         <Icon size={18} />
                       </div>
                       <div className="min-w-0">
@@ -411,7 +411,7 @@ export default function ThreatIntelHome(): JSX.Element {
                       </div>
                       <ArrowRight
                         size={14}
-                        className="ml-auto text-slate-300 dark:text-slate-700 group-hover:text-rose-500 transition-colors shrink-0"
+                        className="ml-auto text-slate-300 dark:text-slate-700 group-hover:text-brand-500 transition-colors shrink-0"
                       />
                     </Link>
                   );
@@ -472,13 +472,13 @@ export default function ThreatIntelHome(): JSX.Element {
                             {cat.label}
                           </h3>
                           {cat.highlight === 'live' && (
-                            <span className="ml-auto inline-flex items-center gap-1 font-mono text-[9px] uppercase tracking-wider text-rose-600 dark:text-rose-400">
+                            <span className="ml-auto inline-flex items-center gap-1 font-mono text-[9px] uppercase tracking-wider text-brand-600 dark:text-brand-400">
                               <span className="relative inline-flex h-1 w-1">
                                 <span
-                                  className="absolute inset-0 rounded-full bg-rose-500 live-pulse"
+                                  className="absolute inset-0 rounded-full bg-brand-500 live-pulse"
                                   aria-hidden="true"
                                 />
-                                <span className="relative inline-block h-1 w-1 rounded-full bg-rose-500" />
+                                <span className="relative inline-block h-1 w-1 rounded-full bg-brand-500" />
                               </span>
                               live
                             </span>
@@ -532,7 +532,7 @@ export default function ThreatIntelHome(): JSX.Element {
                     },
                   ].map((s) => (
                     <div key={s.step} className="flex gap-3">
-                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-50 dark:bg-white/5 font-mono text-sm font-bold text-rose-600 dark:text-rose-400">
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-50 dark:bg-white/5 font-mono text-sm font-bold text-brand-600 dark:text-brand-400">
                         {s.step}
                       </span>
                       <div>
@@ -551,7 +551,7 @@ export default function ThreatIntelHome(): JSX.Element {
             <div className="flex justify-center">
               <Link
                 to="/threatintel/catalog"
-                className="surface-card inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-medium text-slate-700 hover:border-rose-300 hover:text-rose-600 dark:text-slate-300 dark:hover:border-rose-600 dark:hover:text-rose-400"
+                className="surface-card inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-medium text-slate-700 hover:border-brand-300 hover:text-brand-600 dark:text-slate-300 dark:hover:border-brand-600 dark:hover:text-brand-400"
               >
                 <Compass size={16} />
                 Browse the full catalog

@@ -52,15 +52,15 @@ type Tab = 'cves' | 'kev' | 'iocs' | 'sectors';
 function severityColor(severity: string): string {
   switch (severity) {
     case 'critical':
-      return 'text-red-400';
+      return 'text-severity-critical';
     case 'high':
-      return 'text-orange-400';
+      return 'text-severity-high';
     case 'medium':
-      return 'text-yellow-400';
+      return 'text-severity-medium';
     case 'low':
-      return 'text-green-400';
+      return 'text-severity-low';
     default:
-      return 'text-gray-400';
+      return 'text-muted';
   }
 }
 
@@ -74,7 +74,7 @@ function priorityBar(score: number): string {
 function hypeColor(hype: number): string {
   if (hype >= 70) return 'bg-purple-900/60 text-purple-300';
   if (hype >= 40) return 'bg-indigo-900/60 text-indigo-300';
-  return 'bg-gray-800 text-gray-400';
+  return '[background:rgb(var(--hover-100))] text-muted';
 }
 
 export default function ThreatIntel() {
@@ -104,13 +104,13 @@ export default function ThreatIntel() {
   }, [cvesData, cveFilter]);
 
   return (
-    <div className="min-h-screen bg-gray-950 text-gray-100 p-6">
+    <div className="min-h-screen [background:rgb(var(--surface-100))] text-slate-100 dark:text-slate-200 px-4 sm:px-6 py-6">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">Threat Intel</h1>
+          <h1 className="text-3xl font-bold text-slate-100 dark:text-white mb-2">Threat Intel</h1>
           {indexData && (
-            <div className="flex flex-wrap gap-4 text-sm text-gray-400">
+            <div className="flex flex-wrap gap-4 text-sm text-muted">
               <span>{indexData.counts.cves} CVEs</span>
               <span>{indexData.counts.iocs} IOC families</span>
               <span>{indexData.counts.kevTotal} KEV</span>
@@ -123,7 +123,7 @@ export default function ThreatIntel() {
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-1 mb-6 border-b border-gray-800">
+        <div className="flex gap-1 mb-6 border-b border-[rgb(var(--border-400))]">
           {[
             { key: 'cves' as Tab, label: 'CVEs' },
             { key: 'kev' as Tab, label: 'KEV' },
@@ -134,7 +134,7 @@ export default function ThreatIntel() {
               key={t.key}
               onClick={() => setTab(t.key)}
               className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
-                tab === t.key ? 'border-blue-500 text-blue-400' : 'border-transparent text-gray-500 hover:text-gray-300'
+                tab === t.key ? 'border-brand-500 text-brand-400' : 'border-transparent text-muted hover:text-slate-300'
               }`}
             >
               {t.label}
@@ -150,40 +150,46 @@ export default function ThreatIntel() {
               placeholder="Filter by CVE ID or keyword..."
               value={cveFilter}
               onChange={(e) => setCveFilter(e.target.value)}
-              className="w-full mb-4 px-3 py-2 bg-gray-900 border border-gray-700 rounded text-sm text-gray-200 placeholder-gray-500 focus:outline-none focus:border-blue-500"
+              className="w-full mb-4 px-3 py-2 surface-card text-sm text-slate-200 placeholder:text-muted focus:outline-none focus:border-brand-500"
             />
             <div className="space-y-2">
               {filteredCves.map((cve) => (
-                <div key={cve.cveId} className="bg-gray-900 border border-gray-800 rounded p-3">
+                <div key={cve.cveId} className="surface-card p-3">
                   <div className="flex items-center justify-between mb-1">
                     <div className="flex items-center gap-2">
-                      <span className="font-mono text-sm font-semibold text-blue-400">{cve.cveId}</span>
-                        <span className={`text-xs font-medium ${severityColor(cve.cvssV3Severity)}`}>
-                          {cve.cvssV3Severity?.toUpperCase()}
+                      <span className="font-mono text-sm font-semibold text-brand-400">{cve.cveId}</span>
+                      <span className={`text-xs font-medium ${severityColor(cve.cvssV3Severity)}`}>
+                        {cve.cvssV3Severity?.toUpperCase()}
+                      </span>
+                      {cve.inKev && (
+                        <span className="text-xs [background:rgb(var(--color-severity-critical)/0.15)] text-severity-critical px-1.5 py-0.5 rounded">
+                          KEV
                         </span>
-                        {cve.inKev && (
-                          <span className="text-xs bg-red-900/60 text-red-300 px-1.5 py-0.5 rounded">KEV</span>
-                        )}
-                        {cve.argusHypeScore != null && (
-                          <span className={`text-xs px-1.5 py-0.5 rounded ${hypeColor(cve.argusHypeScore)}`} title={`Argus trending: ${cve.argusHypeScore}/100${cve.argusRising ? ` (rising ${cve.argusRising > 0 ? '+' : ''}${cve.argusRising})` : ''}`}>
-                            {cve.argusHypeScore}{cve.argusRising ? (cve.argusRising > 0 ? '↑' : '↓') : ''}
-                          </span>
-                        )}
+                      )}
+                      {cve.argusHypeScore != null && (
+                        <span
+                          className={`text-xs px-1.5 py-0.5 rounded ${hypeColor(cve.argusHypeScore)}`}
+                          title={`Argus trending: ${cve.argusHypeScore}/100${cve.argusRising ? ` (rising ${cve.argusRising > 0 ? '+' : ''}${cve.argusRising})` : ''}`}
+                        >
+                          {cve.argusHypeScore}
+                          {cve.argusRising ? (cve.argusRising > 0 ? '↑' : '↓') : ''}
+                        </span>
+                      )}
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-24 h-1.5 bg-gray-800 rounded-full overflow-hidden">
+                      <div className="w-24 h-1.5 [background:rgb(var(--hover-100))] rounded-full overflow-hidden">
                         <div
                           className={`h-full rounded-full ${priorityBar(cve.priorityScore)}`}
                           style={{ width: `${Math.min(100, cve.priorityScore)}%` }}
                         />
                       </div>
-                      <span className="text-xs text-gray-500 w-8 text-right">{cve.priorityScore}</span>
+                      <span className="text-xs text-muted w-8 text-right">{cve.priorityScore}</span>
                     </div>
                   </div>
-                  <p className="text-xs text-gray-400 line-clamp-2">{cve.description}</p>
+                  <p className="text-xs text-muted line-clamp-2">{cve.description}</p>
                 </div>
               ))}
-              {!cvesLoading && filteredCves.length === 0 && <p className="text-gray-500 text-sm">No CVEs found</p>}
+              {!cvesLoading && filteredCves.length === 0 && <p className="text-muted text-sm">No CVEs found</p>}
             </div>
           </div>
         )}
@@ -192,19 +198,19 @@ export default function ThreatIntel() {
         {tab === 'kev' && (
           <div className="space-y-2">
             {kevData?.entries?.map((entry) => (
-              <div key={entry.cveId} className="bg-gray-900 border border-gray-800 rounded p-3">
+              <div key={entry.cveId} className="surface-card p-3">
                 <div className="flex items-center justify-between mb-1">
-                  <span className="font-mono text-sm font-semibold text-red-400">{entry.cveId}</span>
-                  <span className="text-xs text-gray-500">{entry.dateAdded}</span>
+                  <span className="font-mono text-sm font-semibold text-severity-critical">{entry.cveId}</span>
+                  <span className="text-xs text-muted">{entry.dateAdded}</span>
                 </div>
-                <p className="text-sm text-gray-300 mb-1">{entry.shortDescription || entry.name}</p>
-                <p className="text-xs text-gray-500">
+                <p className="text-sm text-slate-300 mb-1">{entry.shortDescription || entry.name}</p>
+                <p className="text-xs text-muted">
                   {entry.vendor} / {entry.product} — Due: {entry.dueDate || 'N/A'}
                 </p>
               </div>
             ))}
             {!kevLoading && (!kevData?.entries || kevData.entries.length === 0) && (
-              <p className="text-gray-500 text-sm">No KEV entries</p>
+              <p className="text-muted text-sm">No KEV entries</p>
             )}
           </div>
         )}
@@ -213,17 +219,19 @@ export default function ThreatIntel() {
         {tab === 'iocs' && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {iocsData?.iocs?.map((ioc) => (
-              <div key={ioc.slug} className="bg-gray-900 border border-gray-800 rounded p-3">
+              <div key={ioc.slug} className="surface-card p-3">
                 <div className="flex items-center justify-between mb-1">
                   <span className="text-sm font-semibold text-purple-400">{ioc.family}</span>
-                  <span className="text-xs bg-gray-800 text-gray-400 px-1.5 py-0.5 rounded">{ioc.category}</span>
+                  <span className="text-xs [background:rgb(var(--hover-100))] text-muted px-1.5 py-0.5 rounded">
+                    {ioc.category}
+                  </span>
                 </div>
-                <p className="text-xs text-gray-500 mb-1">{ioc.indicatorCount} indicators</p>
-                <p className="text-xs text-gray-400 line-clamp-2">{ioc.description}</p>
+                <p className="text-xs text-muted mb-1">{ioc.indicatorCount} indicators</p>
+                <p className="text-xs text-muted line-clamp-2">{ioc.description}</p>
               </div>
             ))}
             {!iocsLoading && (!iocsData?.iocs || iocsData.iocs.length === 0) && (
-              <p className="text-gray-500 text-sm">No IOC families</p>
+              <p className="text-muted text-sm">No IOC families</p>
             )}
           </div>
         )}
@@ -232,15 +240,15 @@ export default function ThreatIntel() {
         {tab === 'sectors' && (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {sectorsData?.sectors?.map((s) => (
-              <div key={s.sector} className="bg-gray-900 border border-gray-800 rounded p-4">
-                <h3 className="text-lg font-semibold text-blue-400 mb-1 capitalize">{s.sector}</h3>
-                <p className="text-xs text-gray-500 mb-3">Generated: {s.generatedAt}</p>
-                <p className="text-sm text-gray-300 mb-2">{s.preview}</p>
-                <p className="text-xs text-gray-500">{s.topCount} tracked threats</p>
+              <div key={s.sector} className="surface-card p-4">
+                <h3 className="text-lg font-semibold text-brand-400 mb-1 capitalize">{s.sector}</h3>
+                <p className="text-xs text-muted mb-3">Generated: {s.generatedAt}</p>
+                <p className="text-sm text-slate-300 mb-2">{s.preview}</p>
+                <p className="text-xs text-muted">{s.topCount} tracked threats</p>
               </div>
             ))}
             {!sectorsLoading && (!sectorsData?.sectors || sectorsData.sectors.length === 0) && (
-              <p className="text-gray-500 text-sm">No sector briefs</p>
+              <p className="text-muted text-sm">No sector briefs</p>
             )}
           </div>
         )}
