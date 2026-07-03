@@ -49,7 +49,7 @@ toolChainRouter.post('/tool-chains/:id/run', async (c) => {
 
       const fetchInit: RequestInit = {
         method: step.method,
-        headers: { accept: 'application/json', 'x-internal-token': c.req.header('x-internal-token') ?? '' },
+        headers: { accept: 'application/json', 'sec-fetch-site': 'same-origin', origin: 'https://pranithjain.qzz.io' },
         signal: AbortSignal.timeout(15000),
       };
       if (step.method === 'POST') {
