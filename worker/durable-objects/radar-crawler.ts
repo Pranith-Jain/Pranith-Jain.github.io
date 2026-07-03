@@ -1,10 +1,11 @@
 import type { Env } from '../env';
 import { pinnedFetchFollow } from '../../api/src/lib/ssrf-guard';
 
-const MAX_CRAWL_PAGES = 50;
+const MAX_CRAWL_PAGES = 100;
 const MAX_JS_ANALYSIS = 50;
 const MAX_WS_CONNECTIONS = 5;
-const ALARM_INTERVAL_MS = 100;
+const ALARM_INTERVAL_MS = 150;
+const DEFAULT_DELAY_MS = 200;
 
 interface CrawlState {
   id: string;
@@ -38,6 +39,22 @@ interface CrawlState {
   startedAt: string;
   completedAt?: string;
   jsFileUrls: string[];
+  robotsDisallow: string[];
+  sitemapUrls: string[];
+  directoryListings: string[];
+  backupFiles: string[];
+  debugEndpoints: string[];
+  openRedirects: string[];
+  sensitiveFiles: string[];
+  sourceMaps: string[];
+  corsIssues: string[];
+  cookieIssues: string[];
+  wafDetected: string[];
+  jwtTokens: string[];
+  htmlComments: string[];
+  hiddenForms: string[];
+  techHints: string[];
+  backupPatterns: string[];
 }
 
 export class RadarCrawlerDO {
@@ -90,6 +107,22 @@ export class RadarCrawlerDO {
         jsAnalysisDone: 0,
         startedAt: new Date().toISOString(),
         jsFileUrls: [],
+        robotsDisallow: [],
+        sitemapUrls: [],
+        directoryListings: [],
+        backupFiles: [],
+        debugEndpoints: [],
+        openRedirects: [],
+        sensitiveFiles: [],
+        sourceMaps: [],
+        corsIssues: [],
+        cookieIssues: [],
+        wafDetected: [],
+        jwtTokens: [],
+        htmlComments: [],
+        hiddenForms: [],
+        techHints: [],
+        backupPatterns: [],
       };
       await this.ctx.storage.put('state', initialState);
       await this.ctx.storage.setAlarm(Date.now() + ALARM_INTERVAL_MS);
@@ -123,6 +156,22 @@ export class RadarCrawlerDO {
         npmConfusion: state.npmConfusion,
         vulnerabilities: state.vulnerabilities,
         graphql: state.graphql,
+        robotsDisallow: state.robotsDisallow,
+        sitemapUrls: state.sitemapUrls,
+        directoryListings: state.directoryListings,
+        backupFiles: state.backupFiles,
+        debugEndpoints: state.debugEndpoints,
+        openRedirects: state.openRedirects,
+        sensitiveFiles: state.sensitiveFiles,
+        sourceMaps: state.sourceMaps,
+        corsIssues: state.corsIssues,
+        cookieIssues: state.cookieIssues,
+        wafDetected: state.wafDetected,
+        jwtTokens: state.jwtTokens,
+        htmlComments: state.htmlComments,
+        hiddenForms: state.hiddenForms,
+        techHints: state.techHints,
+        backupPatterns: state.backupPatterns,
       });
     }
 
@@ -198,6 +247,12 @@ export class RadarCrawlerDO {
       return;
     }
 
+    // Pre-scan: robots.txt + sitemap.xml on first page
+    if (state.crawledCount === 0) {
+      await this.fetchRobotsTxt(state);
+      await this.fetchSitemap(state);
+    }
+
     const url = state.queue.shift()!;
     if (state.visited.includes(url)) {
       return;
@@ -212,8 +267,10 @@ export class RadarCrawlerDO {
     try {
       const res = await pinnedFetchFollow(url, {
         headers: {
-          'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-          accept: 'text/html,application/xhtml+xml,*/*',
+          'user-agent':
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36',
+          accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+          'accept-language': 'en-US,en;q=0.9',
         },
       });
 
@@ -223,6 +280,10 @@ export class RadarCrawlerDO {
       }
 
       const html = await res.text();
+      const respHeaders: Record<string, string> = {};
+      res.headers.forEach((v, k) => {
+        respHeaders[k.toLowerCase()] = v;
+      });
       state.scannedUrls.push(url);
 
       // Extract JS file URLs from script tags
@@ -256,8 +317,95 @@ export class RadarCrawlerDO {
 
       this.extractLinksForQueue(html, url, state);
       this.extractReconData(html, url, state);
+      this.extractAttackSurface(html, url, respHeaders, state);
     } catch (err) {
       state.error = `crawl fetch failed: ${err instanceof Error ? err.message : String(err)}`;
+    }
+
+    // Polite delay between requests
+    await new Promise((r) => setTimeout(r, DEFAULT_DELAY_MS));
+  }
+
+  private async fetchRobotsTxt(state: CrawlState): Promise<void> {
+    try {
+      const robotsUrl = new URL('/robots.txt', state.target).href;
+      const res = await pinnedFetchFollow(robotsUrl, {
+        headers: { 'user-agent': 'Mozilla/5.0 (compatible; security-research)' },
+      });
+      if (!res.ok) return;
+      const content = await res.text();
+      state.visited.push(robotsUrl);
+
+      // Extract Disallow paths
+      const disallowRe = /Disallow:\s*(.+)/gi;
+      let m;
+      while ((m = disallowRe.exec(content)) !== null) {
+        const path = m[1]?.trim();
+        if (path && path !== '/') {
+          state.robotsDisallow.push(path);
+          try {
+            const fullUrl = new URL(path, state.target).href;
+            if (!state.visited.includes(fullUrl) && !state.queue.includes(fullUrl)) {
+              state.queue.push(fullUrl);
+            }
+          } catch {
+            /* skip */
+          }
+        }
+      }
+
+      // Extract Sitemap references
+      const sitemapRe = /Sitemap:\s*(\S+)/gi;
+      while ((m = sitemapRe.exec(content)) !== null) {
+        const sitemapUrl = m[1];
+        if (sitemapUrl) {
+          state.sitemapUrls.push(sitemapUrl);
+          await this.fetchSitemapContent(sitemapUrl, state);
+        }
+      }
+    } catch {
+      /* robots.txt fetch failed, skip */
+    }
+  }
+
+  private async fetchSitemap(state: CrawlState): Promise<void> {
+    try {
+      const sitemapUrl = new URL('/sitemap.xml', state.target).href;
+      await this.fetchSitemapContent(sitemapUrl, state);
+    } catch {
+      /* skip */
+    }
+  }
+
+  private async fetchSitemapContent(sitemapUrl: string, state: CrawlState): Promise<void> {
+    try {
+      const res = await pinnedFetchFollow(sitemapUrl, {
+        headers: { 'user-agent': 'Mozilla/5.0 (compatible; security-research)' },
+      });
+      if (!res.ok) return;
+      const content = await res.text();
+      state.visited.push(sitemapUrl);
+
+      // Extract <loc> URLs
+      const locRe = /<loc>\s*(.*?)\s*<\/loc>/gi;
+      let m;
+      let queued = 0;
+      while ((m = locRe.exec(content)) !== null) {
+        const locUrl = m[1]?.trim();
+        if (!locUrl) continue;
+        try {
+          const parsed = new URL(locUrl);
+          if (parsed.hostname === state.hostname && !state.visited.includes(locUrl) && !state.queue.includes(locUrl)) {
+            state.queue.push(locUrl);
+            queued++;
+          }
+        } catch {
+          /* skip invalid URLs */
+        }
+        if (queued >= 200) break;
+      }
+    } catch {
+      /* skip */
     }
   }
 
@@ -376,6 +524,354 @@ export class RadarCrawlerDO {
     return [...new Set(state.jsFileUrls)].slice(0, MAX_JS_ANALYSIS);
   }
 
+  private extractAttackSurface(html: string, url: string, headers: Record<string, string>, state: CrawlState): void {
+    let m: RegExpExecArray | null;
+
+    // ── Directory listing detection ──
+    const dirListPatterns = [
+      /<title>Index of \//i,
+      /<h1>Index of \//i,
+      /Parent Directory<\/a>/i,
+      /<pre><a href=.*?>\.\.\/<\/a>/i,
+      /Directory listing for/i,
+    ];
+    for (const re of dirListPatterns) {
+      if (re.test(html)) {
+        state.directoryListings.push(url);
+        break;
+      }
+    }
+
+    // ── Backup file detection ──
+    const backupExts = [
+      '.bak',
+      '.backup',
+      '.old',
+      '.orig',
+      '.save',
+      '.swp',
+      '.tmp',
+      '.sql',
+      '.sql.gz',
+      '.dump',
+      '.export',
+    ];
+    const backupNames = [
+      'backup.sql',
+      'dump.sql',
+      'database.sql',
+      'backup.zip',
+      'backup.tar.gz',
+      'site.zip',
+      'www.zip',
+      'config.php.bak',
+      'wp-config.php.bak',
+      '.env.backup',
+      '.env.old',
+      '.env.local',
+      '.env.production',
+      'credentials.json',
+      'secrets.json',
+      'service-account.json',
+    ];
+    const backupRe = new RegExp(
+      `href=["']([^"']*(?:${backupExts.map((e) => e.replace(/\./g, '\\.')).join('|')})[^"']*)["']`,
+      'gi'
+    );
+    while ((m = backupRe.exec(html)) !== null) {
+      if (m[1]) state.backupFiles.push(new URL(m[1], url).href);
+    }
+    for (const name of backupNames) {
+      if (html.toLowerCase().includes(name)) {
+        const nameRe = new RegExp(`["']([^"']*(?:${name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})[^"']*)["']`, 'gi');
+        const nameMatch = nameRe.exec(html);
+        if (nameMatch?.[1]) state.backupPatterns.push(new URL(nameMatch[1], url).href);
+      }
+    }
+
+    // ── Debug/admin endpoint detection ──
+    const debugEndpoints = [
+      '/debug',
+      '/debug/vars',
+      '/debug/pprof',
+      '/admin',
+      '/adminer.php',
+      '/phpinfo.php',
+      '/info.php',
+      '/.env',
+      '/.env.local',
+      '/.env.production',
+      '/actuator',
+      '/actuator/env',
+      '/actuator/health',
+      '/swagger-ui',
+      '/swagger-ui.html',
+      '/api-docs',
+      '/swagger.json',
+      '/graphql',
+      '/graphiql',
+      '/playground',
+      '/console',
+      '/manage',
+      '/phpmyadmin',
+      '/wp-admin',
+      '/wp-login.php',
+    ];
+    for (const ep of debugEndpoints) {
+      const escaped = ep.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const epRe = new RegExp(`["'][^"']*${escaped}[^"']*["']`, 'i');
+      if (epRe.test(html)) {
+        state.debugEndpoints.push(new URL(ep, url).href);
+      }
+    }
+
+    // ── Open redirect detection ──
+    const redirectParams = [
+      'redirect',
+      'redirect_url',
+      'redirect_uri',
+      'return_url',
+      'return_to',
+      'next',
+      'continue',
+      'dest',
+      'destination',
+      'goto',
+      'url',
+      'ref',
+    ];
+    for (const param of redirectParams) {
+      const esc = param.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const redirRe = new RegExp(`action=["'][^"']*${esc}[^"']*["']`, 'i');
+      if (redirRe.test(html)) {
+        state.openRedirects.push(`form:${param} on ${url}`);
+      }
+      const jsRedirRe = new RegExp(
+        `(?:window\\.location|location\\.href|location\\.replace)\\s*[=(]\\s*['"\`][^'"]*${esc}`,
+        'i'
+      );
+      if (jsRedirRe.test(html)) {
+        state.openRedirects.push(`js:${param} on ${url}`);
+      }
+    }
+
+    // ── Sensitive file detection ──
+    const sensitivePaths = [
+      '/.env',
+      '/.git/config',
+      '/.git/HEAD',
+      '/.htaccess',
+      '/.htpasswd',
+      '/wp-config.php.bak',
+      '/config.php.bak',
+      '/database.sql',
+      '/backup.sql',
+      '/docker-compose.yml',
+      '/Dockerfile',
+      '/package-lock.json',
+      '/.npmrc',
+      '/server.key',
+      '/server.crt',
+      '/.well-known/security.txt',
+      '/robots.txt',
+      '/sitemap.xml',
+      '/swagger.json',
+      '/openapi.json',
+      '/graphql',
+      '/web.config',
+    ];
+    for (const path of sensitivePaths) {
+      if (html.toLowerCase().includes(path)) {
+        state.sensitiveFiles.push(`${path} referenced on ${url}`);
+      }
+    }
+
+    // ── Source map discovery ──
+    const sourceMapRe = /\/\/#\s*sourceMappingURL=(\S+)/gi;
+    while ((m = sourceMapRe.exec(html)) !== null) {
+      const mapUrl = m[1];
+      if (mapUrl) {
+        try {
+          state.sourceMaps.push(mapUrl.startsWith('http') ? mapUrl : new URL(mapUrl, url).href);
+        } catch {
+          /* skip */
+        }
+      }
+    }
+    const mapFileRe = /["']([^"']*\.js\.map)["']/gi;
+    while ((m = mapFileRe.exec(html)) !== null) {
+      if (m[1]) {
+        try {
+          state.sourceMaps.push(m[1].startsWith('http') ? m[1] : new URL(m[1], url).href);
+        } catch {
+          /* skip */
+        }
+      }
+    }
+
+    // ── CORS analysis ──
+    const acao = headers['access-control-allow-origin'] ?? '';
+    if (acao === '*') {
+      state.corsIssues.push(`CORS wildcard on ${url}`);
+    } else if (acao) {
+      const acac = headers['access-control-allow-credentials'] ?? '';
+      if (acac.toLowerCase() === 'true') {
+        state.corsIssues.push(`CORS credentials+origin reflection on ${url}: ${acao}`);
+      }
+    }
+
+    // ── Cookie analysis ──
+    const setCookie = headers['set-cookie'] ?? '';
+    if (setCookie) {
+      const cookies = setCookie.split('\n').filter((c) => c.trim());
+      for (const cookie of cookies) {
+        const name = cookie.split('=')[0]?.trim() ?? '';
+        const lc = cookie.toLowerCase();
+        const issues: string[] = [];
+        if (!lc.includes('secure')) issues.push('no Secure');
+        if (!lc.includes('httponly')) issues.push('no HttpOnly');
+        if (!lc.includes('samesite')) issues.push('no SameSite');
+        const isSession = ['session', 'sid', 'token', 'auth', 'jwt', 'sess'].some((w) =>
+          name.toLowerCase().includes(w)
+        );
+        if (issues.length > 0 && (isSession || issues.length >= 2)) {
+          state.cookieIssues.push(`Cookie ${name}: ${issues.join(', ')} on ${url}`);
+        }
+      }
+    }
+
+    // ── WAF detection ──
+    const wafPatterns: [RegExp, string][] = [
+      [/cloudflare/i, 'Cloudflare'],
+      [/incapsula|imperva/i, 'Incapsula/Imperva'],
+      [/akamaighost/i, 'Akamai'],
+      [/awselb|aws.*waf/i, 'AWS WAF'],
+      [/Sucuri/i, 'Sucuri'],
+      [/ModSecurity/i, 'ModSecurity'],
+      [/server.*bigip|BIGip/i, 'F5 BIG-IP'],
+    ];
+    const combined =
+      Object.entries(headers)
+        .map(([k, v]) => `${k}: ${v}`)
+        .join('\n') +
+      '\n' +
+      html;
+    for (const [pattern, name] of wafPatterns) {
+      if (pattern.test(combined)) {
+        state.wafDetected.push(name);
+        break;
+      }
+    }
+
+    // ── JWT detection ──
+    const jwtRe = /eyJ[a-zA-Z0-9_-]{10,}\.[a-zA-Z0-9_-]{10,}\.[a-zA-Z0-9_-]{10,}/g;
+    while ((m = jwtRe.exec(html)) !== null) {
+      const token = m[0];
+      if (!state.jwtTokens.includes(token)) {
+        state.jwtTokens.push(token);
+        // Decode header to check alg
+        try {
+          const parts = token.split('.');
+          const headerPad = (parts[0] ?? '') + '='.repeat((4 - ((parts[0]?.length ?? 0) % 4)) % 4);
+          const header = JSON.parse(atob(headerPad));
+          if (header.alg === 'none') {
+            state.vulnerabilities.push({
+              type: 'JWT alg=none',
+              detail: `JWT with alg=none on ${url} — signature bypass possible`,
+              severity: 'critical',
+            });
+          }
+        } catch {
+          /* skip */
+        }
+      }
+    }
+
+    // ── HTML comment analysis ──
+    const commentRe = /<!--([\s\S]*?)-->/gi;
+    const interestingKw = [
+      'todo',
+      'fixme',
+      'hack',
+      'password',
+      'secret',
+      'token',
+      'api',
+      'admin',
+      'debug',
+      'internal',
+      'staging',
+    ];
+    while ((m = commentRe.exec(html)) !== null) {
+      const comment = m[1]?.trim();
+      if (comment && comment.length >= 5) {
+        const lower = comment.toLowerCase();
+        if (interestingKw.some((kw) => lower.includes(kw))) {
+          state.htmlComments.push(`[${url}] ${comment.slice(0, 120)}`);
+        }
+      }
+    }
+
+    // ── Hidden form analysis ──
+    if (/type=["']?file["']?/i.test(html)) {
+      state.hiddenForms.push(`File upload form on ${url}`);
+    }
+    if (/name=["'](?:csrf|_token|csrf_token|authenticity_token)["']/i.test(html)) {
+      state.hiddenForms.push(`CSRF token on ${url}`);
+    }
+    const formCount = (html.match(/<form/gi) ?? []).length;
+    if (formCount > 3) {
+      state.hiddenForms.push(`${formCount} forms on ${url} — test each endpoint`);
+    }
+
+    // ── Missing security headers → tech hints ──
+    const missingHeaders = [
+      'content-security-policy',
+      'x-content-type-options',
+      'strict-transport-security',
+      'x-frame-options',
+    ];
+    for (const h of missingHeaders) {
+      if (!headers[h]) {
+        state.techHints.push(`Missing ${h} on ${url}`);
+      }
+    }
+
+    // ── Information disclosure headers ──
+    for (const h of ['x-powered-by', 'x-aspnet-version', 'x-aspnetmvc-version', 'x-debug-token', 'x-generated-by']) {
+      if (headers[h]) {
+        state.techHints.push(`${h}: ${headers[h]} on ${url}`);
+      }
+    }
+
+    // ── process.env references ──
+    const envRe = /(?:process\.env\.|import\.meta\.env\.)(\w+)/g;
+    while ((m = envRe.exec(html)) !== null) {
+      if (m[1]) state.techHints.push(`process.env.${m[1]} on ${url}`);
+    }
+
+    // ── Subdomain hints from HTML ──
+    const targetBase = state.hostname.split('.').slice(-2).join('.');
+    const targetBaseLabel = targetBase.split('.')[0] ?? '';
+    const subdomainRe = /https?:\/\/([a-zA-Z0-9][-a-zA-Z0-9]*\.)+[a-zA-Z]{2,}/gi;
+    while ((m = subdomainRe.exec(html)) !== null) {
+      try {
+        const host = new URL(m[0]).hostname;
+        if (
+          host !== state.hostname &&
+          targetBaseLabel !== '' &&
+          host.includes(targetBaseLabel) &&
+          host.endsWith(targetBase) &&
+          !host.includes('example.com')
+        ) {
+          if (!state.domains.includes(host)) state.domains.push(host);
+        }
+      } catch {
+        /* skip */
+      }
+    }
+  }
+
   private async analyzeJsStep(state: CrawlState): Promise<void> {
     if (state.jsAnalysisDone >= state.jsFilesToAnalyze.length) {
       state.status = 'done';
@@ -391,6 +887,22 @@ export class RadarCrawlerDO {
       state.apiPaths = [...new Set(state.apiPaths)];
       state.nodeModules = [...new Set(state.nodeModules)];
       state.filteredPortUrls = [...new Set(state.filteredPortUrls)];
+      state.robotsDisallow = [...new Set(state.robotsDisallow)];
+      state.sitemapUrls = [...new Set(state.sitemapUrls)];
+      state.directoryListings = [...new Set(state.directoryListings)];
+      state.backupFiles = [...new Set(state.backupFiles)];
+      state.backupPatterns = [...new Set(state.backupPatterns)];
+      state.debugEndpoints = [...new Set(state.debugEndpoints)];
+      state.openRedirects = [...new Set(state.openRedirects)];
+      state.sensitiveFiles = [...new Set(state.sensitiveFiles)];
+      state.sourceMaps = [...new Set(state.sourceMaps)];
+      state.corsIssues = [...new Set(state.corsIssues)];
+      state.cookieIssues = [...new Set(state.cookieIssues)];
+      state.wafDetected = [...new Set(state.wafDetected)];
+      state.jwtTokens = [...new Set(state.jwtTokens)];
+      state.htmlComments = [...new Set(state.htmlComments)];
+      state.hiddenForms = [...new Set(state.hiddenForms)];
+      state.techHints = [...new Set(state.techHints)];
       return;
     }
 
@@ -438,6 +950,12 @@ export class RadarCrawlerDO {
       /c\.\s*(?:get|post|put|patch|delete|all)\s*\(\s*["'`](\/[a-zA-Z0-9/_-{}:.]+)["'`]/g,
       // Generic: any quoted path that looks like an endpoint
       /["'`](\/(?:auth|login|register|signup|signin|logout|dashboard|admin|settings|profile|user|users|account|accounts|search|query|webhook|webhooks|callback|redirect|health|status|metrics|monitor|ping|version|docs|swagger|openapi)[a-zA-Z0-9/_-]*)["'`]/g,
+      // Mattew: REST API paths with broader patterns
+      /["'`](\/(?:api|v[0-9]+|graphql|rest|internal|admin|auth|login|register|logout|upload|download|search|users?|accounts?|settings?|config|health|status|metrics|debug|test)\/[a-zA-Z0-9\/_-]*)["'`]/gi,
+      // Config objects: baseUrl, apiUrl, etc.
+      /(?:baseUrl|baseURL|apiUrl|apiBase|endpoint|apiEndpoint|API_URL|API_BASE)\s*[=:]\s*["'`]([^"'`]+)["'`]/gi,
+      // WordPress REST API
+      /["'`](\/wp-json\/[^"'`]+)["'`]/gi,
     ];
     for (const re of apiPatterns) {
       while ((m = re.exec(js)) !== null) {
@@ -465,6 +983,10 @@ export class RadarCrawlerDO {
     const gqlEndpointRe = /["'`](\/graphql(?:\/[a-zA-Z0-9/_-]+)?)["'`]/gi;
     while ((m = gqlEndpointRe.exec(js)) !== null) {
       if (m[1]) state.apiPaths.push(m[1]);
+    }
+    // GraphQL reference detection
+    if (/graphql/i.test(js) && !state.apiPaths.some((p) => p.includes('graphql'))) {
+      state.apiPaths.push('/graphql');
     }
 
     // ── Parameters from route handlers and fetch calls ─────────
@@ -506,7 +1028,7 @@ export class RadarCrawlerDO {
       }
     }
 
-    // ── Secrets detection ──────────────────────────────────────
+    // ── Secrets detection (enhanced from mattew) ──────────────
     const secretPatterns = [
       // API keys
       { re: /(?:api[_-]?key|apikey)\s*[:=]\s*["'`](sk[_-]?[a-zA-Z0-9]{20,})["'`]/gi, type: 'API Key' },
@@ -522,8 +1044,17 @@ export class RadarCrawlerDO {
       // GitHub tokens
       { re: /ghp_[a-zA-Z0-9]{36}/g, type: 'GitHub Token' },
       { re: /gho_[a-zA-Z0-9]{36}/g, type: 'GitHub OAuth Token' },
+      { re: /ghu_[a-zA-Z0-9]{36}/g, type: 'GitHub App Token' },
+      { re: /ghs_[a-zA-Z0-9]{36}/g, type: 'GitHub App Secret' },
+      { re: /ghr_[a-zA-Z0-9]{36}/g, type: 'GitHub Refresh Token' },
       // Slack tokens
       { re: /xox[baprs]-[a-zA-Z0-9-]+/g, type: 'Slack Token' },
+      // Stripe keys
+      { re: /(?:sk|pk)_(?:test|live)_[a-zA-Z0-9]{24,}/g, type: 'Stripe Key' },
+      // Google API key
+      { re: /AIza[0-9A-Za-z_-]{35}/g, type: 'Google API Key' },
+      // GitLab PAT
+      { re: /glpat-[a-zA-Z0-9\-]{20,}/g, type: 'GitLab PAT' },
       // Private keys
       { re: /-----BEGIN (?:RSA |EC |DSA )?PRIVATE KEY-----/g, type: 'Private Key' },
       // Passwords in code
@@ -532,13 +1063,37 @@ export class RadarCrawlerDO {
       { re: /(?:secret|client[_-]?secret)\s*[:=]\s*["'`]([^"'`]{8,})["'`]/gi, type: 'Secret' },
       // Connection strings
       { re: /(?:mongodb|postgres|mysql|redis|amqp):\/\/[^\s"'`]+/gi, type: 'Connection String' },
+      // Base64 encoded secrets (high entropy)
+      { re: /['"`]([A-Za-z0-9+/]{50,}={0,2})['"`]/g, type: 'Base64 Secret' },
     ];
     for (const { re, type } of secretPatterns) {
       while ((m = re.exec(js)) !== null) {
+        const value = m[0];
+        // Skip low-entropy false positives for base64
+        if (type === 'Base64 Secret') {
+          const encoded = m[1];
+          if (encoded && /^[a-f0-9]+$/.test(encoded)) continue; // hex hash, not a secret
+        }
         state.vulnerabilities.push({
           type: 'Exposed Secret',
-          detail: `${type} found in ${jsUrl}: ${m[0].slice(0, 80)}...`,
+          detail: `${type} found in ${jsUrl}: ${value.slice(0, 80)}...`,
           severity: 'critical',
+        });
+      }
+    }
+
+    // ── Dangerous JS functions (from mattew) ──────────────────
+    const dangerousFns = [
+      { re: /eval\s*\(/g, desc: 'eval() call', sev: 'high' },
+      { re: /Function\s*\(/g, desc: 'Function constructor', sev: 'high' },
+      { re: /document\.write\s*\(/g, desc: 'document.write()', sev: 'medium' },
+    ];
+    for (const { re, desc, sev } of dangerousFns) {
+      if (re.test(js)) {
+        state.vulnerabilities.push({
+          type: 'Dangerous JS Pattern',
+          detail: `${desc} found in ${jsUrl}`,
+          severity: sev,
         });
       }
     }
@@ -611,6 +1166,12 @@ export class RadarCrawlerDO {
     const portRe = /["'`](https?:\/\/[^"'`\s]*:\d{2,5}[^"'`\s]*)["'`]/gi;
     while ((m = portRe.exec(js)) !== null) {
       if (m[1]) state.filteredPortUrls.push(m[1]);
+    }
+
+    // ── process.env references in JS ───────────────────────────
+    const envRe = /(?:process\.env\.|import\.meta\.env\.)(\w+)/g;
+    while ((m = envRe.exec(js)) !== null) {
+      if (m[1]) state.techHints.push(`process.env.${m[1]} in ${jsUrl}`);
     }
   }
 }

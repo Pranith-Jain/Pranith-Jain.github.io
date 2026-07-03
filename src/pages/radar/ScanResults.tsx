@@ -90,6 +90,22 @@ interface ScanData {
   vulnerabilities: { type: string; detail: string; severity: string }[];
   graphql: { queries: string[]; mutations: string[]; fragments: string[] };
   filtered_port_urls: string[];
+  robots_disallow?: string[];
+  sitemap_urls?: string[];
+  directory_listings?: string[];
+  backup_files?: string[];
+  debug_endpoints?: string[];
+  open_redirects?: string[];
+  sensitive_files?: string[];
+  source_maps?: string[];
+  cors_issues?: string[];
+  cookie_issues?: string[];
+  waf_detected?: string[];
+  jwt_tokens?: string[];
+  html_comments?: string[];
+  hidden_forms?: string[];
+  tech_hints?: string[];
+  backup_patterns?: string[];
 }
 
 type TabId = 'recon' | 'secrets';
@@ -110,6 +126,7 @@ const CATEGORIES = [
   { id: 'emails', label: 'Emails', icon: Mail },
   { id: 'security', label: 'Security', icon: Shield },
   { id: 'vulnerabilities', label: 'Vulnerabilities', icon: AlertCircle },
+  { id: 'attack_surface', label: 'Attack Surface', icon: AlertTriangle },
   { id: 'meta', label: 'Meta Tags', icon: FileText },
   { id: 'forms', label: 'Forms', icon: FormInput },
   { id: 'images', label: 'Images', icon: Image },
@@ -485,6 +502,59 @@ function VulnerabilitiesPanel({ data }: { data: ScanData }) {
   );
 }
 
+function AttackSurfacePanel({ data }: { data: ScanData }) {
+  const sections = [
+    { label: 'Directory Listings', items: data.directory_listings, icon: '📂' },
+    { label: 'Backup Files', items: [...(data.backup_files ?? []), ...(data.backup_patterns ?? [])], icon: '💾' },
+    { label: 'Debug Endpoints', items: data.debug_endpoints, icon: '🔧' },
+    { label: 'Open Redirects', items: data.open_redirects, icon: '↗️' },
+    { label: 'Sensitive Files', items: data.sensitive_files, icon: '🔑' },
+    { label: 'Source Maps', items: data.source_maps, icon: '🗺️' },
+    { label: 'CORS Issues', items: data.cors_issues, icon: '🌐' },
+    { label: 'Cookie Issues', items: data.cookie_issues, icon: '🍪' },
+    { label: 'WAF Detected', items: data.waf_detected, icon: '🛡️' },
+    {
+      label: 'JWT Tokens',
+      items: data.jwt_tokens?.map((t) => (t.length > 60 ? t.slice(0, 60) + '...' : t)),
+      icon: '🎫',
+    },
+    { label: 'HTML Comments', items: data.html_comments, icon: '💬' },
+    { label: 'Hidden Forms', items: data.hidden_forms, icon: '📋' },
+    { label: 'Tech Hints', items: data.tech_hints, icon: '💡' },
+    { label: 'Robots.txt Disallow', items: data.robots_disallow, icon: '🤖' },
+    { label: 'Sitemap URLs', items: data.sitemap_urls, icon: '🗺️' },
+  ];
+  const hasAny = sections.some((s) => (s.items?.length ?? 0) > 0);
+  if (!hasAny) return <p className="text-sm text-slate-500">No attack surface findings from deep crawl</p>;
+  return (
+    <div className="space-y-4">
+      {sections.map((section) => {
+        const items = section.items ?? [];
+        if (items.length === 0) return null;
+        return (
+          <div key={section.label} className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <div className="flex items-center gap-2 border-b border-slate-100 px-4 py-2 dark:border-slate-800">
+              <span>{section.icon}</span>
+              <span className="text-sm font-semibold text-slate-900 dark:text-white">{section.label}</span>
+              <span className="ml-auto rounded bg-slate-100 px-1.5 py-0.5 text-xs font-mono text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400">
+                {items.length}
+              </span>
+            </div>
+            <div className="divide-y divide-slate-100 dark:divide-slate-800">
+              {items.slice(0, 20).map((item, i) => (
+                <div key={i} className="px-4 py-2 text-sm font-mono text-slate-700 dark:text-slate-300">
+                  {item}
+                </div>
+              ))}
+              {items.length > 20 && <div className="px-4 py-2 text-xs text-slate-500">+{items.length - 20} more</div>}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 function MetaPanel({ data }: { data: ScanData }) {
   return (
     <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))]">
@@ -677,7 +747,11 @@ export default function ScanResults() {
         if (state.status === 'done') {
           const resultRes = await fetch(`/api/v1/radar/crawl/${crawlId}/result`);
           if (resultRes.ok) {
-            const crawlData = await resultRes.json();
+            const raw = await resultRes.json();
+            const crawlData: Record<string, unknown> = {};
+            for (const [k, v] of Object.entries(raw)) {
+              crawlData[k.replace(/([A-Z])/g, '_$1').toLowerCase()] = v;
+            }
             setData((prev) => (prev ? { ...prev, ...crawlData } : prev));
           }
           setCrawlStatus('');
@@ -753,6 +827,7 @@ export default function ScanResults() {
       emails: <EmailsPanel data={data} />,
       security: <SecurityPanel data={data} />,
       vulnerabilities: <VulnerabilitiesPanel data={data} />,
+      attack_surface: <AttackSurfacePanel data={data} />,
       meta: <MetaPanel data={data} />,
       forms: <FormsPanel data={data} />,
       images: <ImagesPanel data={data} />,

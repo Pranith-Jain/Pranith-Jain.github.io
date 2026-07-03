@@ -144,6 +144,21 @@ interface RadarScanResult {
   vulnerabilities: { type: string; detail: string; severity: string }[];
   graphql: { queries: string[]; mutations: string[]; fragments: string[] };
   filtered_port_urls: string[];
+  directory_listings?: string[];
+  backup_files?: string[];
+  debug_endpoints?: string[];
+  open_redirects?: string[];
+  sensitive_files?: string[];
+  source_maps?: string[];
+  cors_issues?: string[];
+  cookie_issues?: string[];
+  waf_detected?: string[];
+  jwt_tokens?: string[];
+  html_comments?: string[];
+  hidden_forms?: string[];
+  tech_hints?: string[];
+  robots_disallow?: string[];
+  sitemap_urls?: string[];
 }
 
 function generateId(): string {
@@ -675,6 +690,327 @@ function extractFilteredPortUrls(html: string): string[] {
   return [...urls];
 }
 
+/* ── NEW: Attack surface extractors (from mattew) ─────────────────────── */
+
+function extractDirectoryListings(html: string, url: string): string[] {
+  const patterns = [
+    /<title>Index of \//i,
+    /<h1>Index of \//i,
+    /Parent Directory<\/a>/i,
+    /<pre><a href=.*?>\.\.\/<\/a>/i,
+    /Directory listing for/i,
+  ];
+  for (const re of patterns) {
+    if (re.test(html)) return [url];
+  }
+  return [];
+}
+
+function extractBackupFiles(html: string, baseUrl: string): string[] {
+  const urls = new Set<string>();
+  const exts = ['.bak', '.backup', '.old', '.orig', '.save', '.swp', '.sql', '.sql.gz'];
+  const names = [
+    'backup.sql',
+    'dump.sql',
+    'database.sql',
+    'backup.zip',
+    'backup.tar.gz',
+    'site.zip',
+    'www.zip',
+    '.env.backup',
+    '.env.old',
+    '.env.local',
+    '.env.production',
+    'credentials.json',
+    'secrets.json',
+  ];
+
+  for (const ext of exts) {
+    const re = new RegExp(`href=["']([^"']*${ext.replace(/\./g, '\\.')}[^"']*)["']`, 'gi');
+    let m;
+    while ((m = re.exec(html)) !== null) {
+      if (m[1]) {
+        try {
+          urls.add(new URL(m[1], baseUrl).href);
+        } catch {
+          /* skip */
+        }
+      }
+    }
+  }
+  for (const name of names) {
+    if (html.toLowerCase().includes(name)) {
+      const re = new RegExp(`["']([^"']*${name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}[^"']*)["']`, 'gi');
+      const m = re.exec(html);
+      if (m?.[1]) {
+        try {
+          urls.add(new URL(m[1], baseUrl).href);
+        } catch {
+          /* skip */
+        }
+      }
+    }
+  }
+  return [...urls];
+}
+
+function extractDebugEndpoints(html: string, baseUrl: string): string[] {
+  const endpoints = [
+    '/debug',
+    '/debug/vars',
+    '/debug/pprof',
+    '/admin',
+    '/adminer.php',
+    '/phpinfo.php',
+    '/info.php',
+    '/.env',
+    '/.env.local',
+    '/.env.production',
+    '/actuator',
+    '/actuator/env',
+    '/actuator/health',
+    '/swagger-ui',
+    '/swagger-ui.html',
+    '/api-docs',
+    '/swagger.json',
+    '/graphql',
+    '/graphiql',
+    '/playground',
+    '/console',
+    '/manage',
+    '/phpmyadmin',
+    '/wp-admin',
+    '/wp-login.php',
+  ];
+  const found: string[] = [];
+  for (const ep of endpoints) {
+    const escaped = ep.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const re = new RegExp(`["'][^"']*${escaped}[^"']*["']`, 'i');
+    if (re.test(html)) {
+      try {
+        found.push(new URL(ep, baseUrl).href);
+      } catch {
+        /* skip */
+      }
+    }
+  }
+  return found;
+}
+
+function extractOpenRedirects(html: string): string[] {
+  const findings: string[] = [];
+  const params = [
+    'redirect',
+    'redirect_url',
+    'redirect_uri',
+    'return_url',
+    'return_to',
+    'next',
+    'continue',
+    'dest',
+    'destination',
+    'goto',
+    'url',
+    'ref',
+  ];
+  for (const param of params) {
+    const esc = param.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    if (new RegExp(`action=["'][^"']*${esc}[^"']*["']`, 'i').test(html)) {
+      findings.push(`form:${param}`);
+    }
+    if (
+      new RegExp(`(?:window\\.location|location\\.href|location\\.replace)\\s*[=(]\\s*['"\`][^'"]*${esc}`, 'i').test(
+        html
+      )
+    ) {
+      findings.push(`js:${param}`);
+    }
+  }
+  return findings;
+}
+
+function extractSensitiveFiles(html: string): string[] {
+  const paths = [
+    '/.env',
+    '/.git/config',
+    '/.git/HEAD',
+    '/.htaccess',
+    '/.htpasswd',
+    '/wp-config.php.bak',
+    '/config.php.bak',
+    '/database.sql',
+    '/backup.sql',
+    '/docker-compose.yml',
+    '/Dockerfile',
+    '/.npmrc',
+    '/server.key',
+    '/server.crt',
+    '/.well-known/security.txt',
+    '/web.config',
+  ];
+  const found: string[] = [];
+  for (const path of paths) {
+    if (html.toLowerCase().includes(path)) found.push(path);
+  }
+  return found;
+}
+
+function extractSourceMaps(html: string, baseUrl: string): string[] {
+  const maps = new Set<string>();
+  const re1 = /\/\/#\s*sourceMappingURL=(\S+)/gi;
+  let m;
+  while ((m = re1.exec(html)) !== null) {
+    if (m[1]) {
+      try {
+        maps.add(m[1].startsWith('http') ? m[1] : new URL(m[1], baseUrl).href);
+      } catch {
+        /* skip */
+      }
+    }
+  }
+  const re2 = /["']([^"']*\.js\.map)["']/gi;
+  while ((m = re2.exec(html)) !== null) {
+    if (m[1]) {
+      try {
+        maps.add(m[1].startsWith('http') ? m[1] : new URL(m[1], baseUrl).href);
+      } catch {
+        /* skip */
+      }
+    }
+  }
+  return [...maps];
+}
+
+function detectWaf(headers: Record<string, string>, html: string): string | null {
+  const combined =
+    Object.entries(headers)
+      .map(([k, v]) => `${k}: ${v}`)
+      .join('\n') +
+    '\n' +
+    html;
+  const wafs: [RegExp, string][] = [
+    [/cloudflare/i, 'Cloudflare'],
+    [/incapsula|imperva/i, 'Incapsula/Imperva'],
+    [/akamaighost/i, 'Akamai'],
+    [/awselb|aws.*waf/i, 'AWS WAF'],
+    [/Sucuri/i, 'Sucuri'],
+    [/ModSecurity/i, 'ModSecurity'],
+    [/server.*bigip|BIGip/i, 'F5 BIG-IP'],
+  ];
+  for (const [re, name] of wafs) {
+    if (re.test(combined)) return name;
+  }
+  return null;
+}
+
+function analyzeCors(headers: Record<string, string>): string[] {
+  const issues: string[] = [];
+  const acao = headers['access-control-allow-origin'] ?? '';
+  if (acao === '*') issues.push('CORS wildcard — any origin can read responses');
+  else if (acao) {
+    const acac = headers['access-control-allow-credentials'] ?? '';
+    if (acac.toLowerCase() === 'true') issues.push(`CORS credentials+origin reflection: ${acao}`);
+  }
+  return issues;
+}
+
+function analyzeCookies(headers: Record<string, string>): string[] {
+  const issues: string[] = [];
+  const setCookie = headers['set-cookie'] ?? '';
+  if (!setCookie) return issues;
+  const cookies = setCookie.split('\n').filter((c) => c.trim());
+  for (const cookie of cookies) {
+    const name = cookie.split('=')[0]?.trim() ?? '';
+    const lc = cookie.toLowerCase();
+    const missing: string[] = [];
+    if (!lc.includes('secure')) missing.push('Secure');
+    if (!lc.includes('httponly')) missing.push('HttpOnly');
+    if (!lc.includes('samesite')) missing.push('SameSite');
+    const isSession = ['session', 'sid', 'token', 'auth', 'jwt'].some((w) => name.toLowerCase().includes(w));
+    if (missing.length > 0 && (isSession || missing.length >= 2)) {
+      issues.push(`${name}: missing ${missing.join(', ')}`);
+    }
+  }
+  return issues;
+}
+
+function analyzeHtmlComments(html: string): string[] {
+  const findings: string[] = [];
+  const re = /<!--([\s\S]*?)-->/gi;
+  const kws = ['todo', 'fixme', 'hack', 'password', 'secret', 'token', 'admin', 'debug', 'internal'];
+  let m;
+  while ((m = re.exec(html)) !== null) {
+    const comment = m[1]?.trim();
+    if (comment && comment.length >= 5 && kws.some((kw) => comment.toLowerCase().includes(kw))) {
+      findings.push(comment.slice(0, 120));
+    }
+  }
+  return findings;
+}
+
+function detectJwts(html: string): string[] {
+  const tokens: string[] = [];
+  const re = /eyJ[a-zA-Z0-9_-]{10,}\.[a-zA-Z0-9_-]{10,}\.[a-zA-Z0-9_-]{10,}/g;
+  let m;
+  while ((m = re.exec(html)) !== null) {
+    if (!tokens.includes(m[0])) tokens.push(m[0]);
+  }
+  return tokens;
+}
+
+async function fetchRobotsTxt(domain: string): Promise<string[]> {
+  const paths: string[] = [];
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
+    const res = await pinnedFetchFollow(`https://${domain}/robots.txt`, {
+      headers: { 'user-agent': 'Mozilla/5.0 (compatible; security-research)' },
+      signal: controller.signal,
+    });
+    clearTimeout(timeout);
+    if (!res.ok) return paths;
+    const content = await res.text();
+    const disallowRe = /Disallow:\s*(.+)/gi;
+    let m;
+    while ((m = disallowRe.exec(content)) !== null) {
+      const path = m[1]?.trim();
+      if (path && path !== '/') paths.push(path);
+    }
+    // Also extract sitemap references
+    const sitemapRe = /Sitemap:\s*(\S+)/gi;
+    while ((m = sitemapRe.exec(content)) !== null) {
+      if (m[1]) paths.push(`sitemap:${m[1]}`);
+    }
+  } catch {
+    /* skip */
+  }
+  return paths;
+}
+
+async function fetchSitemapUrls(domain: string): Promise<string[]> {
+  const urls: string[] = [];
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
+    const res = await pinnedFetchFollow(`https://${domain}/sitemap.xml`, {
+      headers: { 'user-agent': 'Mozilla/5.0 (compatible; security-research)' },
+      signal: controller.signal,
+    });
+    clearTimeout(timeout);
+    if (!res.ok) return urls;
+    const content = await res.text();
+    const locRe = /<loc>\s*(.*?)\s*<\/loc>/gi;
+    let m;
+    while ((m = locRe.exec(content)) !== null) {
+      if (m[1]?.trim()) urls.push(m[1].trim());
+      if (urls.length >= 200) break;
+    }
+  } catch {
+    /* skip */
+  }
+  return urls;
+}
+
 /* ── Medium: async recon via additional fetches ──────────────────── */
 
 async function fetchSubdomainsViaCT(domain: string): Promise<string[]> {
@@ -779,16 +1115,19 @@ export async function radarScanHandler(c: Context<{ Bindings: Env }>) {
   const id = generateId();
 
   try {
-    const [pageRes, dnsResult, ctSubs] = await Promise.all([
+    const [pageRes, dnsResult, ctSubs, robotsPaths, sitemapUrls] = await Promise.all([
       pinnedFetchFollow(target.href, {
         headers: {
           'user-agent':
             'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36',
           accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+          'accept-language': 'en-US,en;q=0.9',
         },
       }),
       dnsLookup(target.hostname),
       fetchSubdomainsViaCT(target.hostname),
+      fetchRobotsTxt(target.hostname),
+      fetchSitemapUrls(target.hostname),
     ]);
 
     const html = await pageRes.text();
@@ -822,6 +1161,52 @@ export async function radarScanHandler(c: Context<{ Bindings: Env }>) {
     const graphql = extractGraphql(html, '');
     const vulns = extractVulnerabilities(html, headers, techs);
     const filteredPortUrls = extractFilteredPortUrls(html);
+
+    // New mattew-inspired extractors
+    const directoryListings = extractDirectoryListings(html, target.href);
+    const backupFiles = extractBackupFiles(html, target.href);
+    const debugEndpoints = extractDebugEndpoints(html, target.href);
+    const openRedirects = extractOpenRedirects(html);
+    const sensitiveFiles = extractSensitiveFiles(html);
+    const sourceMaps = extractSourceMaps(html, target.href);
+    const wafDetected = detectWaf(headers, html);
+    const corsIssues = analyzeCors(headers);
+    const cookieIssues = analyzeCookies(headers);
+    const htmlComments = analyzeHtmlComments(html);
+    const jwtTokens = detectJwts(html);
+
+    // Parse robots.txt paths and sitemap URLs for additional endpoints
+    const robotsDisallowPaths = robotsPaths.filter((p) => !p.startsWith('sitemap:'));
+    const robotsSitemapRefs = robotsPaths.filter((p) => p.startsWith('sitemap:')).map((p) => p.replace('sitemap:', ''));
+    const allSitemapUrls = [...new Set([...sitemapUrls, ...robotsSitemapRefs])];
+
+    // Add robots.txt and sitemap URLs to scanned URLs
+    for (const path of robotsDisallowPaths) {
+      try {
+        const fullUrl = new URL(path, target.href).href;
+        if (!scannedUrls.includes(fullUrl)) scannedUrls.push(fullUrl);
+      } catch {
+        /* skip */
+      }
+    }
+    for (const url of allSitemapUrls.slice(0, 50)) {
+      if (!scannedUrls.includes(url)) scannedUrls.push(url);
+    }
+
+    // Add WAF to vulnerabilities
+    if (wafDetected) {
+      vulns.push({ type: 'WAF Detected', detail: `Web Application Firewall: ${wafDetected}`, severity: 'info' });
+    }
+
+    // Add CORS issues to vulnerabilities
+    for (const issue of corsIssues) {
+      vulns.push({ type: 'CORS Issue', detail: issue, severity: 'medium' });
+    }
+
+    // Add cookie issues to vulnerabilities
+    for (const issue of cookieIssues) {
+      vulns.push({ type: 'Cookie Issue', detail: issue, severity: 'medium' });
+    }
 
     const [s3Assets, nodeModulesExposure] = await Promise.all([
       checkS3Buckets(target.hostname),
@@ -875,6 +1260,21 @@ export async function radarScanHandler(c: Context<{ Bindings: Env }>) {
       vulnerabilities: vulns,
       graphql,
       filtered_port_urls: filteredPortUrls,
+      directory_listings: directoryListings,
+      backup_files: backupFiles,
+      debug_endpoints: debugEndpoints,
+      open_redirects: openRedirects,
+      sensitive_files: sensitiveFiles,
+      source_maps: sourceMaps,
+      cors_issues: corsIssues,
+      cookie_issues: cookieIssues,
+      waf_detected: wafDetected ? [wafDetected] : [],
+      jwt_tokens: jwtTokens,
+      html_comments: htmlComments,
+      hidden_forms: [],
+      tech_hints: [],
+      robots_disallow: robotsDisallowPaths,
+      sitemap_urls: allSitemapUrls.slice(0, 50),
     };
 
     const cacheKey = `radar:${id}`;
