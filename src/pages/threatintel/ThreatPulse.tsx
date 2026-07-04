@@ -1,20 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
-import {
-  ArrowLeft,
-  Activity,
-  Crosshair,
-  Shield,
-  Bug,
-  Hash,
-  Copy,
-  Check,
-  Layers,
-  RefreshCw,
-  ExternalLink,
-} from 'lucide-react';
+import { Activity, Crosshair, Shield, Bug, Hash, Copy, Check, Layers, RefreshCw, ExternalLink } from 'lucide-react';
 import { DataState } from '../../components/DataState';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 import { LiveFreshnessPill } from '../../components/LiveFreshnessPill';
 import { relativeAgo } from '../../lib/relativeTime';
@@ -173,38 +161,34 @@ export default function ThreatPulse(): JSX.Element {
   }, [data, kindFilter, minSources]);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <header className="mb-6">
-        <div className="flex flex-wrap items-start justify-between gap-3 mb-2">
-          <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3 text-slate-900 dark:text-white">
-            <Activity size={28} className="text-brand-600 dark:text-brand-400" /> Cross-source threat pulse
-            <LiveFreshnessPill tone="live" ago={data ? relativeAgo(data.generated_at) : undefined} className="ml-1" />
-          </h1>
-          <button
-            type="button"
-            onClick={() => setRefreshKey((k) => k + 1)}
-            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1 mt-1"
-            aria-label="Refresh threat pulse"
-          >
-            <RefreshCw size={11} /> refresh
-          </button>
-        </div>
-        <p className="text-sm text-muted leading-relaxed max-w-3xl">
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Activity size={28} className="text-brand-600 dark:text-brand-400" />}
+      title="Cross-source threat pulse"
+      description={
+        <>
           Entities mentioned across multiple independent intelligence surfaces simultaneously. Higher cross-source count
           = higher confidence that this is a real, active threat. Scans Reddit (16 subs), Bluesky (16 researchers),
           Mastodon (infosec.exchange — 8 accounts), Telegram (curated cybersec channels), X (cookie-auth firehose for 5
           CTI handles + TweetFeed × fxtwitter), CTI writeups (35+ blogs), and cybercrime news in real time. IOC feeds
           include Phishing.Database, ViriBack C2, Threatview IP/Domain blocklists, and 12+ other live threat sources.
-        </p>
-      </header>
-
+        </>
+      }
+      headerExtra={
+        <button
+          type="button"
+          onClick={() => setRefreshKey((k) => k + 1)}
+          className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1 mt-1"
+          aria-label="Refresh threat pulse"
+        >
+          <RefreshCw size={11} /> refresh
+        </button>
+      }
+      loading={loading}
+      error={error}
+      empty={!loading && !error && data !== null && data.entities.length === 0}
+      emptyMessage="No entities found."
+    >
       {/* Kind summary — at-a-glance counts before the filter row.
           Computed off the entire entities array so the numbers reflect the
           full snapshot regardless of active filter / threshold. */}
@@ -439,7 +423,7 @@ export default function ThreatPulse(): JSX.Element {
           Generated {data.generated_at.slice(0, 16).replace('T', ' ')} UTC · {data.entities.length} total entities
         </p>
       )}
-    </div>
+    </DataPageLayout>
   );
 }
 

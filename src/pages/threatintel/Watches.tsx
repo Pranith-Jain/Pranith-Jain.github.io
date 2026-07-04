@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
-import { ArrowLeft, Plus, Trash2, Bell, RefreshCw, AlertTriangle, ExternalLink, Activity, Search } from 'lucide-react';
-import { BackLink } from '../../components/BackLink';
+import { Plus, Trash2, Bell, RefreshCw, AlertTriangle, ExternalLink, Activity, Search } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { DataState } from '../../components/DataState';
 import { adminAuthHeaders, readAdminToken } from '../../lib/admin-token';
 import { AdminRequired } from '../../components/AdminRequired';
@@ -142,49 +142,22 @@ export default function Watches(): JSX.Element {
   if (!readAdminToken()) return <AdminRequired tool="Watches" />;
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up flex items-center justify-between mb-8">
-        <div>
-          <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-            <Bell className="text-brand-600 dark:text-brand-400" size={28} />
-            Watchers &amp; Alerts
-          </h1>
-          <p className="text-muted max-w-3xl leading-relaxed">
-            Get webhook notifications when watched entities appear in fresh intelligence.
-          </p>
-        </div>
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Bell className="text-brand-600 dark:text-brand-400" size={28} />}
+      title="Watchers & Alerts"
+      description="Get webhook notifications when watched entities appear in fresh intelligence."
+      error={error}
+      onRetry={fetchData}
+      headerExtra={
         <button
           onClick={() => setShowForm(!showForm)}
           className="px-4 py-2 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center gap-2 text-sm transition-colors"
         >
           <Plus size={14} /> New Watch
         </button>
-      </div>
-
-      {error && (
-        <div
-          role="alert"
-          className="rounded-lg border border-rose-300 dark:border-rose-800 bg-rose-50/50 dark:bg-rose-950/30 p-4 flex items-start justify-between gap-3 mb-6"
-        >
-          <div className="text-sm font-mono text-rose-700 dark:text-rose-300">
-            <AlertTriangle size={14} className="inline mr-1" /> {error}
-          </div>
-          <button
-            onClick={fetchData}
-            className="shrink-0 text-xs font-mono px-3 py-1.5 rounded border border-rose-400/60 text-rose-700 dark:text-rose-300 hover:bg-rose-500/10"
-          >
-            retry
-          </button>
-        </div>
-      )}
-
+      }
+    >
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
         {/* Watch list — left 3 cols */}
         <div className="lg:col-span-3 space-y-4">
@@ -471,6 +444,6 @@ export default function Watches(): JSX.Element {
           </div>
         </div>
       </div>
-    </div>
+    </DataPageLayout>
   );
 }

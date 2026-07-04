@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import type { Severity as Sev } from '../../components/severity';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, AlertTriangle, ShieldAlert, ShieldX, ShieldCheck, Info } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { AlertTriangle, ShieldAlert, ShieldX, ShieldCheck, Info } from 'lucide-react';
 
 /**
  * GraphQL Security Analyzer — 100% client-side.
@@ -307,21 +307,20 @@ export default function GraphqlAuditor(): JSX.Element {
   }, [analysis]);
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">GraphQL Security Analyzer</h1>
-        <p className="text-muted mb-6 max-w-2xl">
+    <DataPageLayout
+      backTo="/dfir"
+      maxWidthClass="max-w-4xl"
+      icon={<ShieldAlert size={28} />}
+      title="GraphQL Security Analyzer"
+      description={
+        <>
           Paste a GraphQL introspection result (<span className="font-mono text-tool">{'{ data: { __schema } }'}</span>)
           or SDL. Flags introspection exposure, sensitive/PII fields, auth-less mutations/subscriptions, and recursive
           types that enable query-depth DoS. Nothing leaves your browser.
-        </p>
-        <div className="flex flex-wrap gap-2 mb-4">
+        </>
+      }
+      headerExtra={
+        <div className="flex flex-wrap gap-2">
           <button
             type="button"
             onClick={() => setInput(SAMPLE)}
@@ -339,7 +338,8 @@ export default function GraphqlAuditor(): JSX.Element {
             </button>
           )}
         </div>
-      </div>
+      }
+    >
       <label htmlFor="gql-input" className="sr-only">
         GraphQL introspection JSON or SDL
       </label>
@@ -420,6 +420,6 @@ export default function GraphqlAuditor(): JSX.Element {
           )}
         </div>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

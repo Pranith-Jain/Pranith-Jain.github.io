@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, ClipboardCopy, Check, ShieldAlert, Terminal, Crosshair, Upload } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { ClipboardCopy, Check, ShieldAlert, Terminal, Crosshair, Upload } from 'lucide-react';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';
 
 type IocBucket = 'ipv4' | 'ipv6' | 'domain' | 'url' | 'md5' | 'sha1' | 'sha256' | 'email';
@@ -235,22 +235,13 @@ export default function IocExtractor(): JSX.Element {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">IOC Extractor</h1>
-        <p className="text-muted mb-8 max-w-2xl">
-          Paste any blob of text, like an email, log line, blog post, or threat report. The extractor pulls out every
-          IP, domain, URL, hash, and email it finds. Refanging is automatic.
-        </p>
-      </div>
-
+    <DataPageLayout
+      backTo="/dfir"
+      maxWidthClass="max-w-4xl"
+      icon={<ClipboardCopy size={28} />}
+      title="IOC Extractor"
+      description="Paste any blob of text, like an email, log line, blog post, or threat report. The extractor pulls out every IP, domain, URL, hash, and email it finds. Refanging is automatic."
+    >
       {/* File drop */}
       <div className="mb-4">
         <button
@@ -388,6 +379,6 @@ export default function IocExtractor(): JSX.Element {
         })}
       </div>
       <RelatedWikiArticles />
-    </div>
+    </DataPageLayout>
   );
 }

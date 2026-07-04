@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Wand2, Loader2, Download, Shield, FileCode, Database, AlertTriangle, Code } from 'lucide-react';
+import { Wand2, Loader2, Download, Shield, FileCode, Database, AlertTriangle, Code } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { CopyButton } from '../../components/dfir/CopyButton';
 import { adminAuthHeaders } from '../../lib/admin-token';
 
@@ -229,24 +229,14 @@ export default function AiRuleGenerator(): JSX.Element {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up mb-10">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <Wand2 size={28} className="text-brand-600 dark:text-brand-400" /> AI Rule Generator
-        </h1>
-        <p className="text-muted max-w-2xl leading-relaxed">
-          Describe a detection in plain English and generate syntactically valid rules in 10 formats. Powered by Workers
-          AI with Groq fallback.
-        </p>
-      </div>
-
+    <DataPageLayout
+      backTo="/dfir"
+      icon={<Wand2 size={28} />}
+      title="AI Rule Generator"
+      description="Describe a detection in plain English and generate syntactically valid rules in 10 formats. Powered by Workers
+          AI with Groq fallback."
+      maxWidthClass="max-w-6xl"
+    >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Input Panel */}
         <div className="space-y-5">
@@ -500,6 +490,6 @@ export default function AiRuleGenerator(): JSX.Element {
           )}
         </div>
       </div>
-    </div>
+    </DataPageLayout>
   );
 }

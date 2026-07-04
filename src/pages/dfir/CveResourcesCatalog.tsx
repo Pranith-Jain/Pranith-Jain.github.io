@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link, useSearchParams } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, ExternalLink, Github, Search, BookText, Lock, Star, Plug } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { ExternalLink, Github, Search, BookText, Lock, Star, Plug } from 'lucide-react';
 import {
   RESOURCES,
   CATEGORY_LABELS,
@@ -101,24 +101,13 @@ export default function CveResourcesCatalog(): JSX.Element {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <BookText size={28} className="text-brand-600 dark:text-brand-400" /> CVE Resources Catalog
-        </h1>
-        <p className="text-muted mb-2 max-w-3xl leading-relaxed">
-          {RESOURCES.length} hand-picked CVE resources across {ALL_CATEGORIES.length} categories. Right tool for the
-          right question — "what is this CVE?" / "is there an exploit?" / "what's the patch?" / "should I patch NOW?" /
-          "who's writing about it?" / "tell me when something hits".
-        </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
+    <DataPageLayout
+      backTo="/dfir"
+      icon={<BookText size={28} />}
+      title="CVE Resources Catalog"
+      description={`${RESOURCES.length} hand-picked CVE resources across ${ALL_CATEGORIES.length} categories. Right tool for the right question — "what is this CVE?" / "is there an exploit?" / "what's the patch?" / "should I patch NOW?" / "who's writing about it?" / "tell me when something hits".`}
+      headerExtra={
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
           For the broader SecOps surface (DFIR, threat intel, malware analysis, AI sec, etc):{' '}
           <Link to="/threatintel/osint/secops" className="text-brand-600 dark:text-brand-400 hover:underline">
             SecOps Tools Catalog
@@ -129,8 +118,9 @@ export default function CveResourcesCatalog(): JSX.Element {
           </Link>{' '}
           (NVD + CVSS + EPSS + KEV in one query).
         </p>
-      </div>
-
+      }
+      maxWidthClass="max-w-6xl"
+    >
       {/* Search + pricing toggles */}
       <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="relative">
@@ -282,6 +272,6 @@ export default function CveResourcesCatalog(): JSX.Element {
       )}
 
       <RelatedWikiArticles />
-    </div>
+    </DataPageLayout>
   );
 }

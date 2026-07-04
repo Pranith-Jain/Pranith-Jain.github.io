@@ -1,19 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { IocChip } from '../../components/dfir/IocChip';
 import { api } from '../../lib/api-client';
-import {
-  ArrowLeft,
-  Clock,
-  TrendingUp,
-  TrendingDown,
-  Minus,
-  Search,
-  Loader2,
-  Activity,
-  Database,
-  Shield,
-} from 'lucide-react';
+import { Clock, TrendingUp, TrendingDown, Minus, Search, Loader2, Activity, Database, Shield } from 'lucide-react';
 
 interface IocLifecycle {
   indicator: string;
@@ -133,21 +122,13 @@ export default function IocLifecycle(): JSX.Element {
   }, [searchType, fetchStats, fetchTrending]);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-      <div className="animate-fade-in-up mb-10">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <Clock size={28} className="text-brand-600 dark:text-brand-400" /> IOC Lifecycle Tracker
-        </h1>
-        <p className="text-muted max-w-2xl leading-relaxed">
-          Track when IOCs appear, their activity patterns, and decay rates.
-        </p>
-      </div>
+    <DataPageLayout
+      backTo="/dfir"
+      maxWidthClass="max-w-6xl"
+      icon={<Clock size={28} />}
+      title="IOC Lifecycle Tracker"
+      description="Track when IOCs appear, their activity patterns, and decay rates."
+    >
       <div className="flex gap-1.5 mb-6">
         {TABS.map((t) => (
           <button
@@ -341,7 +322,7 @@ export default function IocLifecycle(): JSX.Element {
           </div>
         </div>
       )}
-    </div>
+    </DataPageLayout>
   );
 }
 

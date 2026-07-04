@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { DataState } from '../../components/DataState';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { Search, RefreshCw, AlertTriangle, FileText, ExternalLink } from 'lucide-react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { SEVERITY_TONE } from '../../components/severity';
@@ -100,30 +100,25 @@ export default function TelegramLeaks(): JSX.Element {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <div className="animate-fade-in-up">
-        <div className="flex flex-wrap items-start justify-between gap-3 mb-2">
-          <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3">
-            <AlertTriangle size={28} className="text-brand-600 dark:text-brand-400" /> Telegram Leak Monitor
-          </h1>
-          <button
-            type="button"
-            onClick={() => setRefreshKey((k) => k + 1)}
-            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1 mt-1"
-            aria-label="Refresh"
-          >
-            <RefreshCw size={11} /> refresh
-          </button>
-        </div>
-        <p className="text-muted mb-8 max-w-3xl leading-relaxed">
-          Credential leaks, paste dumps, and file leaks detected across monitored Telegram channels and bot-subscribed
-          chats. Severity: <span className="text-rose-500 font-semibold">critical</span> &gt;{' '}
-          <span className="text-orange-500 font-semibold">high</span> &gt;{' '}
-          <span className="text-amber-500 font-semibold">medium</span> &gt;{' '}
-          <span className="text-slate-400 font-semibold">low</span>.
-        </p>
-      </div>
-
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<AlertTriangle size={28} />}
+      title="Telegram Leak Monitor"
+      description="Credential leaks, paste dumps, and file leaks detected across monitored Telegram channels and bot-subscribed chats. Severity: critical > high > medium > low."
+      loading={loading}
+      error={error}
+      maxWidthClass="max-w-6xl"
+      headerExtra={
+        <button
+          type="button"
+          onClick={() => setRefreshKey((k) => k + 1)}
+          className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1 mt-4"
+          aria-label="Refresh"
+        >
+          <RefreshCw size={11} /> refresh
+        </button>
+      }
+    >
       {/* Filters */}
       <div className="animate-fade-in-up mb-8 flex flex-wrap items-center gap-3">
         <form onSubmit={handleSearch} className="flex items-center gap-2">
@@ -169,88 +164,79 @@ export default function TelegramLeaks(): JSX.Element {
       </div>
 
       {/* Results */}
-      <DataState loading={loading} error={error} rows={8}>
-        {entries.length === 0 ? (
-          <div className="text-center py-16 text-slate-500 dark:text-slate-500">
-            <Search size={40} className="mx-auto mb-4 opacity-40" />
-            <p className="text-sm font-mono">No leak entries found</p>
-          </div>
-        ) : (
-          <div className="space-y-3">
-            {entries.map((entry) => {
-              const TypeIcon = LEAK_TYPE_ICONS[entry.leak_type] ?? FileText;
-              const domains: string[] = entry.domains_found
-                ? (() => {
-                    try {
-                      return JSON.parse(entry.domains_found);
-                    } catch {
-                      return [];
-                    }
-                  })()
-                : [];
-              return (
-                <div
-                  key={entry.id}
-                  className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))] transition-colors"
-                >
-                  <div className="flex items-start justify-between gap-4 mb-2">
-                    <div className="flex items-center gap-2 min-w-0">
-                      <TypeIcon size={14} className="shrink-0 text-slate-500 dark:text-slate-400" />
-                      <span className="text-xs font-mono text-slate-500 dark:text-slate-400 truncate">
-                        {entry.channel_handle}
-                      </span>
-                      <span
-                        className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEVERITY_TONE[entry.severity] ?? SEVERITY_TONE.low}`}
-                      >
-                        {entry.severity}
-                      </span>
-                      <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400">
-                        {entry.leak_type}
-                      </span>
-                    </div>
-                    <span className="text-micro font-mono text-slate-400 dark:text-slate-500 shrink-0">
-                      {new Date(entry.discovered_at).toLocaleString()}
-                    </span>
-                  </div>
-
-                  <p className="text-xs text-slate-700 dark:text-slate-300 line-clamp-3 mb-2 leading-relaxed font-mono">
-                    {entry.message_text}
-                  </p>
-
-                  <div className="flex flex-wrap items-center gap-3 text-micro font-mono text-slate-500 dark:text-slate-400">
-                    {entry.credential_count > 0 && (
-                      <span className="inline-flex items-center gap-1">
-                        <AlertTriangle size={10} /> {entry.credential_count} credentials
-                      </span>
-                    )}
-                    {domains.length > 0 && (
-                      <span className="truncate max-w-[200px]">
-                        domains: {domains.slice(0, 3).join(', ')}
-                        {domains.length > 3 && ' …'}
-                      </span>
-                    )}
-                    {entry.file_name && (
-                      <span className="inline-flex items-center gap-1">
-                        <FileText size={10} /> {entry.file_name}
-                      </span>
-                    )}
-                    {entry.message_link && (
-                      <a
-                        href={sanitizeUrl(entry.message_link)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline ml-auto"
-                      >
-                        <ExternalLink size={10} /> source
-                      </a>
-                    )}
-                  </div>
+      <div className="space-y-3">
+        {entries.map((entry) => {
+          const TypeIcon = LEAK_TYPE_ICONS[entry.leak_type] ?? FileText;
+          const domains: string[] = entry.domains_found
+            ? (() => {
+                try {
+                  return JSON.parse(entry.domains_found);
+                } catch {
+                  return [];
+                }
+              })()
+            : [];
+          return (
+            <div
+              key={entry.id}
+              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))] transition-colors"
+            >
+              <div className="flex items-start justify-between gap-4 mb-2">
+                <div className="flex items-center gap-2 min-w-0">
+                  <TypeIcon size={14} className="shrink-0 text-slate-500 dark:text-slate-400" />
+                  <span className="text-xs font-mono text-slate-500 dark:text-slate-400 truncate">
+                    {entry.channel_handle}
+                  </span>
+                  <span
+                    className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEVERITY_TONE[entry.severity] ?? SEVERITY_TONE.low}`}
+                  >
+                    {entry.severity}
+                  </span>
+                  <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400">
+                    {entry.leak_type}
+                  </span>
                 </div>
-              );
-            })}
-          </div>
-        )}
-      </DataState>
+                <span className="text-micro font-mono text-slate-400 dark:text-slate-500 shrink-0">
+                  {new Date(entry.discovered_at).toLocaleString()}
+                </span>
+              </div>
+
+              <p className="text-xs text-slate-700 dark:text-slate-300 line-clamp-3 mb-2 leading-relaxed font-mono">
+                {entry.message_text}
+              </p>
+
+              <div className="flex flex-wrap items-center gap-3 text-micro font-mono text-slate-500 dark:text-slate-400">
+                {entry.credential_count > 0 && (
+                  <span className="inline-flex items-center gap-1">
+                    <AlertTriangle size={10} /> {entry.credential_count} credentials
+                  </span>
+                )}
+                {domains.length > 0 && (
+                  <span className="truncate max-w-[200px]">
+                    domains: {domains.slice(0, 3).join(', ')}
+                    {domains.length > 3 && ' …'}
+                  </span>
+                )}
+                {entry.file_name && (
+                  <span className="inline-flex items-center gap-1">
+                    <FileText size={10} /> {entry.file_name}
+                  </span>
+                )}
+                {entry.message_link && (
+                  <a
+                    href={sanitizeUrl(entry.message_link)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline ml-auto"
+                  >
+                    <ExternalLink size={10} /> source
+                  </a>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
 
       {entries.length > 0 && (
         <div className="mt-6 flex items-center justify-center gap-4">
@@ -275,6 +261,6 @@ export default function TelegramLeaks(): JSX.Element {
           </button>
         </div>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

@@ -5,9 +5,8 @@
  */
 
 import { useEffect, useState, useCallback, type FormEvent } from 'react';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import {
-  ArrowLeft,
   Search,
   Loader2,
   Shield,
@@ -114,21 +113,12 @@ type Tab = 'ddos' | 'fortibleed' | 'healthcare' | 'reports';
 export default function SocradarTools() {
   const [tab, setTab] = useState<Tab>('ddos');
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-      <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
-        <div>
-          <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Tactical Radar Free Tools</h1>
-          <p className="text-sm font-mono text-muted max-w-2xl">
-            DDoS intelligence, FortiGate breach check, healthcare breach tracking.
-          </p>
-        </div>
-      </div>
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Shield size={26} />}
+      title="Tactical Radar Free Tools"
+      description="DDoS intelligence, FortiGate breach check, healthcare breach tracking."
+    >
       <div className="flex gap-1 mb-6 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
         {(
           [
@@ -155,7 +145,7 @@ export default function SocradarTools() {
       {tab === 'fortibleed' && <FortiBleedPanel />}
       {tab === 'healthcare' && <HealthcarePanel />}
       {tab === 'reports' && <ThreatReportsPanel />}
-    </div>
+    </DataPageLayout>
   );
 }
 

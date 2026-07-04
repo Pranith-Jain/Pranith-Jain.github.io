@@ -1,17 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
-import {
-  ArrowLeft,
-  FolderTree,
-  Plus,
-  Trash2,
-  RotateCcw,
-  Download,
-  ChevronDown,
-  ChevronRight,
-  ExternalLink,
-} from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { FolderTree, Plus, Trash2, RotateCcw, Download, ChevronDown, ChevronRight, ExternalLink } from 'lucide-react';
 import {
   TIERS,
   TIER_LABELS,
@@ -91,24 +81,13 @@ export default function DataClassification(): JSX.Element {
   const total = state.datasets.length;
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <FolderTree size={28} className="text-brand-600 dark:text-brand-400" /> Data Classification &amp; Handling
-        </h1>
-        <p className="text-muted mb-2 leading-relaxed">
-          Define your tier policies (Public / Internal / Confidential / Restricted), inventory the datasets that exist
-          in your environment, and assign each one to a tier. The matrix view renders the cross-product as a handling
-          reference. localStorage; everything stays in your browser.
-        </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
+    <DataPageLayout
+      backTo="/dfir"
+      icon={<FolderTree size={28} />}
+      title="Data Classification & Handling"
+      description="Define your tier policies (Public / Internal / Confidential / Restricted), inventory the datasets that exist in your environment, and assign each one to a tier. The matrix view renders the cross-product as a handling reference. localStorage; everything stays in your browser."
+      headerExtra={
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
           Pairs with{' '}
           <Link to="/dfir/dlp-scan" className="text-brand-600 dark:text-brand-400 hover:underline">
             Sensitive Data Detector
@@ -119,8 +98,9 @@ export default function DataClassification(): JSX.Element {
           </Link>{' '}
           (NIST PR.DS / ISO 27001 A.5.12 / ISO 42001 A.7).
         </p>
-      </div>
-
+      }
+      maxWidthClass="max-w-6xl"
+    >
       {/* Distribution */}
       <section className="grid gap-2 sm:grid-cols-4 mb-6">
         {TIERS.map((t) => (
@@ -550,7 +530,7 @@ export default function DataClassification(): JSX.Element {
           </li>
         </ul>
       </section>
-    </div>
+    </DataPageLayout>
   );
 }
 

@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Network, AlertTriangle, ExternalLink } from 'lucide-react';
+import { Network, AlertTriangle, ExternalLink } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import {
   buildGraph,
   layoutRing,
@@ -152,23 +152,18 @@ export default function AgentMap(): JSX.Element {
   const highlightedIds = new Set(graph?.risks.flatMap((r) => r.nodes) ?? []);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <Network size={28} className="text-brand-600 dark:text-brand-400" /> AI Agent Attack-Surface Mapper
-        </h1>
-        <p className="text-muted mb-2 leading-relaxed">
+    <DataPageLayout
+      backTo="/dfir"
+      icon={<Network size={28} />}
+      title="AI Agent Attack-Surface Mapper"
+      description={
+        <>
           Paste an MCP server config or a Claude Code <code>settings.json</code>. The mapper classifies each tool by
           capability (ingest, read-sensitive, write, execute, egress) and flags the canonical exfiltration and RCE
           chains that indirect prompt injection would need.
-        </p>
+        </>
+      }
+      headerExtra={
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
           Pairs with the{' '}
           <Link to="/dfir/mcp-audit" className="text-brand-600 dark:text-brand-400 hover:underline">
@@ -180,8 +175,9 @@ export default function AgentMap(): JSX.Element {
           </Link>{' '}
           (the entry-point side of these chains).
         </p>
-      </div>
-
+      }
+      maxWidthClass="max-w-6xl"
+    >
       <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
           <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
@@ -409,6 +405,6 @@ export default function AgentMap(): JSX.Element {
           </li>
         </ul>
       </section>
-    </div>
+    </DataPageLayout>
   );
 }

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Trash2, Search, Globe, Mail, ShieldAlert } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { LayoutDashboard, Trash2, Search, Globe, Mail, ShieldAlert } from 'lucide-react';
 import { readHistory, clearHistory, type HistoryEntry } from '../../lib/dfir/history';
 import { HistoryRow } from '../../components/dfir/HistoryRow';
 import { DataState } from '../../components/DataState';
@@ -47,33 +47,24 @@ export default function Dashboard(): JSX.Element {
   }, [entries]);
 
   return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.16em] text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 mb-8"
-      >
-        <ArrowLeft size={14} /> back to toolkit
-      </BackLink>
-
-      <div className="flex items-end justify-between gap-4 mb-8">
-        <div className="animate-fade-in-up">
-          <h1 className="text-3xl sm:text-4xl font-display font-bold tracking-tight mb-2">Toolkit dashboard</h1>
-          <p className="text-muted max-w-xl leading-relaxed">
-            A glance at your recent activity — last 20 queries, kept anonymously in this browser. Nothing is sent
-            anywhere.
-          </p>
-        </div>
-        {entries.length > 0 && (
+    <DataPageLayout
+      backTo="/dfir"
+      icon={<LayoutDashboard size={28} />}
+      title="Toolkit dashboard"
+      description="A glance at your recent activity — last 20 queries, kept anonymously in this browser. Nothing is sent anywhere."
+      maxWidthClass="max-w-3xl"
+      headerExtra={
+        entries.length > 0 ? (
           <button
             type="button"
             onClick={handleClear}
-            className="shrink-0 inline-flex items-center gap-1.5 px-3 py-2 min-h-[44px] sm:min-h-0 sm:py-1.5 text-xs text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 rounded-md hover:bg-rose-500/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40"
+            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 rounded-md hover:bg-rose-500/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40"
           >
             <Trash2 size={14} /> clear history
           </button>
-        )}
-      </div>
-
+        ) : undefined
+      }
+    >
       {/* At-a-glance stats — derived from local history. */}
       <div className="stagger grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10">
         {[
@@ -126,6 +117,6 @@ export default function Dashboard(): JSX.Element {
           ))}
         </ul>
       </DataState>
-    </div>
+    </DataPageLayout>
   );
 }

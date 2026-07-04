@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, ShieldAlert, AlertTriangle, CheckCircle2, ExternalLink } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { ShieldAlert, AlertTriangle, CheckCircle2, ExternalLink } from 'lucide-react';
 import { CopyChip } from '../../components/dfir/CopyButton';
 import {
   PATTERNS,
@@ -123,24 +123,13 @@ export default function DlpScan(): JSX.Element {
   const redacted = useMemo(() => redact(input, findings), [input, findings]);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <ShieldAlert size={28} className="text-brand-600 dark:text-brand-400" /> Sensitive Data Detector
-        </h1>
-        <p className="text-muted mb-2 leading-relaxed">
-          Scan any text for {PATTERNS.length} sensitive-data patterns. Credentials, financial identifiers, government
-          IDs, health, network, personal contact. Credit cards are Luhn-checked, IBANs are mod-97 verified, AADHAAR is
-          Verhoeff-checked, NHS is mod-11. Pure client-side; nothing leaves your browser.
-        </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
+    <DataPageLayout
+      backTo="/dfir"
+      icon={<ShieldAlert size={28} />}
+      title="Sensitive Data Detector"
+      description={`Scan any text for ${PATTERNS.length} sensitive-data patterns. Credentials, financial identifiers, government IDs, health, network, personal contact. Credit cards are Luhn-checked, IBANs are mod-97 verified, AADHAAR is Verhoeff-checked, NHS is mod-11. Pure client-side; nothing leaves your browser.`}
+      headerExtra={
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
           Pairs with{' '}
           <Link to="/dfir/data-classification" className="text-brand-600 dark:text-brand-400 hover:underline">
             Data Classification Templater
@@ -151,8 +140,9 @@ export default function DlpScan(): JSX.Element {
           </Link>{' '}
           (NIST PR.DS / ISO 27001 A.5.12 / ISO 42001 A.7).
         </p>
-      </div>
-
+      }
+      maxWidthClass="max-w-6xl"
+    >
       <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
           <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
@@ -390,6 +380,6 @@ export default function DlpScan(): JSX.Element {
           </li>
         </ul>
       </section>
-    </div>
+    </DataPageLayout>
   );
 }

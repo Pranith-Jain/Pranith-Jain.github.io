@@ -1,6 +1,6 @@
 import { useState, useEffect, type FormEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import {
   Mail,
   Loader2,
@@ -185,11 +185,12 @@ export default function EmailDeliverability(): JSX.Element {
     spamScore >= spamThreshold ? 'fail' : spamScore >= spamThreshold * 0.6 ? 'warn' : 'pass';
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink to="/dfir" />
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Email Deliverability Tester</h1>
-        <p className="text-muted mb-8 max-w-3xl">
+    <DataPageLayout
+      backTo="/dfir"
+      icon={<Mail size={28} />}
+      title="Email Deliverability Tester"
+      description={
+        <>
           Paste or upload a raw email (.eml) to get a spam score, SPF/DKIM/DMARC alignment, header analysis, and
           prioritized inbox-placement suggestions. Backed by{' '}
           <a
@@ -201,9 +202,9 @@ export default function EmailDeliverability(): JSX.Element {
             IntoDNS.ai /api/debug-email <ExternalLink size={10} aria-hidden="true" />
           </a>
           .
-        </p>
-      </div>
-
+        </>
+      }
+    >
       <form onSubmit={onSubmit} className="mb-6">
         <label
           htmlFor="raw-email-input"
@@ -453,7 +454,7 @@ export default function EmailDeliverability(): JSX.Element {
           </footer>
         </div>
       )}
-    </div>
+    </DataPageLayout>
   );
 }
 

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { ToolDocs } from '../../components/dfir/ToolDocs';
-import { ArrowLeft, Mail, Search, Loader2, CheckCircle2, AlertTriangle, ExternalLink } from 'lucide-react';
+import { Mail, Search, Loader2, CheckCircle2, AlertTriangle, ExternalLink } from 'lucide-react';
 import { CopyChip } from '../../components/dfir/CopyButton';
 import { assess, type DomainApiResponse, type BecAssessment } from '../../lib/dfir/bec-score';
 import { SEVERITY_TONE as SEV_STYLES, SEVERITY_BAR, type Severity } from '../../components/severity';
@@ -66,31 +66,25 @@ export default function EmailDefense(): JSX.Element {
   const assessment = data ? assess(data) : null;
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <Mail size={28} className="text-brand-600 dark:text-brand-400" /> Email Defense / BEC Score
-        </h1>
-        <p className="text-muted mb-2 leading-relaxed">
+    <DataPageLayout
+      backTo="/dfir"
+      icon={<Mail size={28} />}
+      title="Email Defense / BEC Score"
+      maxWidthClass="max-w-6xl"
+      description={
+        <>
           Look up a domain's SPF / DMARC / DKIM / MTA-STS posture and score how easy it is to spoof for a BEC pretext.
           Each gap is paired with the specific BEC scenario it enables and a copy-pastable corrected record.
-        </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
-          Different angle from the generic{' '}
-          <Link to="/dfir/domain-investigator" className="text-brand-600 dark:text-brand-400 hover:underline">
-            Domain Lookup
-          </Link>{' '}
-          — same data, defender-side framing focused on direct-domain spoofing.
-        </p>
-      </div>
-
+          <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mt-2">
+            Different angle from the generic{' '}
+            <Link to="/dfir/domain-investigator" className="text-brand-600 dark:text-brand-400 hover:underline">
+              Domain Lookup
+            </Link>{' '}
+            — same data, defender-side framing focused on direct-domain spoofing.
+          </p>
+        </>
+      }
+    >
       <ToolDocs path="/dfir/email-defense" />
 
       <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
@@ -356,7 +350,7 @@ export default function EmailDefense(): JSX.Element {
           </li>
         </ul>
       </section>
-    </div>
+    </DataPageLayout>
   );
 }
 

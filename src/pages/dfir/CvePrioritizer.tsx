@@ -2,19 +2,9 @@ import { useEffect, useMemo, useState } from 'react';
 import { SEVERITY_TONE, SEVERITY_BAR, type Severity as Sev } from '../../components/severity';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { useSearchParams } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
 import { ToolDocs } from '../../components/dfir/ToolDocs';
-import {
-  ArrowLeft,
-  AlertTriangle,
-  ShieldAlert,
-  ShieldX,
-  Info,
-  Loader2,
-  FileDown,
-  ChevronDown,
-  ChevronRight,
-} from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { AlertTriangle, ShieldAlert, ShieldX, Info, Loader2, FileDown, ChevronDown, ChevronRight } from 'lucide-react';
 import {
   scoreCve,
   decideCve,
@@ -267,24 +257,13 @@ export default function CvePrioritizer(): JSX.Element {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">CVE Exploit Prioritizer</h1>
-        <p className="text-muted mb-3 max-w-2xl">
-          Paste CVE IDs (any format — IDs are extracted). Each is enriched with NVD CVSS + FIRST EPSS + CISA KEV (incl.
-          known-ransomware) + public PoC count + named-actor attribution and reduced to a single verdict, a 0-100 score,
-          and a CVSS vector breakdown. CVSS alone over-prioritises — KEV + EPSS + PoCs + actor attribution + asset
-          context is how you pick what to patch this week.
-        </p>
-      </div>
-
+    <DataPageLayout
+      backTo="/dfir"
+      icon={<ShieldAlert size={28} />}
+      title="CVE Exploit Prioritizer"
+      description="Paste CVE IDs (any format — IDs are extracted). Each is enriched with NVD CVSS + FIRST EPSS + CISA KEV (incl. known-ransomware) + public PoC count + named-actor attribution and reduced to a single verdict, a 0-100 score, and a CVSS vector breakdown. CVSS alone over-prioritises — KEV + EPSS + PoCs + actor attribution + asset context is how you pick what to patch this week."
+      maxWidthClass="max-w-4xl"
+    >
       <ToolDocs path="/dfir/cve-prioritizer" />
 
       {/* Starter bundles + context toggle. Two rows so the controls don't
@@ -699,6 +678,6 @@ export default function CvePrioritizer(): JSX.Element {
           </section>
         </div>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Calendar, DollarSign, Globe, Search, Shield, Skull, Tag, Users } from 'lucide-react';
+import { Calendar, DollarSign, Globe, Search, Shield, Skull, Tag, Users } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
 
 interface PhysicalAttack {
   id: string;
@@ -346,25 +346,13 @@ export default function PhysicalBitcoinAttacks(): JSX.Element {
   );
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="flex items-center gap-3 mb-1">
-        <Skull className="w-7 h-7 text-amber-500" />
-        <h1 className="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-slate-100">
-          Physical Bitcoin Attacks
-        </h1>
-      </div>
-      <p className="text-muted mb-6 text-sm max-w-3xl leading-relaxed">
-        Known physical attacks against Bitcoin and crypto asset holders — armed robberies, kidnappings, home invasions,
-        and express kidnappings. A database of real-world violence driven by crypto wealth.
-      </p>
-
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Skull size={28} />}
+      title="Physical Bitcoin Attacks"
+      description="Known physical attacks against Bitcoin and crypto asset holders — armed robberies, kidnappings, home invasions, and express kidnappings. A database of real-world violence driven by crypto wealth."
+      maxWidthClass="max-w-6xl"
+    >
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-5">
         {[
@@ -489,6 +477,6 @@ export default function PhysicalBitcoinAttacks(): JSX.Element {
         Sources: Public reporting, law enforcement press releases, security research · {ATTACKS.length} incidents
         tracked
       </div>
-    </div>
+    </DataPageLayout>
   );
 }

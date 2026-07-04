@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
-  ArrowLeft,
   Bot,
   ChevronRight,
   Clock,
@@ -14,7 +13,7 @@ import {
   X,
   Zap,
 } from 'lucide-react';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { useWebSocket } from '../../hooks/useWebSocket';
 import { ReportView, type ReportActionCard } from '../../components/dfir/ReportView';
 import { adminAuthHeaders } from '../../lib/admin-token';
@@ -238,22 +237,17 @@ export default function AgentInvestigator(): JSX.Element {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up mb-8">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <Bot size={28} className="text-brand-600 dark:text-brand-400" /> Agent — Autonomous Investigator
-        </h1>
-        <p className="text-muted mb-1 max-w-3xl leading-relaxed">
+    <DataPageLayout
+      backTo="/dfir"
+      icon={<Bot size={28} />}
+      title="Agent — Autonomous Investigator"
+      description={
+        <>
           Describe what to investigate — the agent identifies the target, calls focused intel tools, and produces a
           structured report with STIX 2.1 export.
-        </p>
+        </>
+      }
+      headerExtra={
         <p className="text-xs text-slate-500 font-mono flex items-center gap-2">
           <span>2-6 step CTI investigation</span>
           <span>·</span>
@@ -263,8 +257,10 @@ export default function AgentInvestigator(): JSX.Element {
           <span>·</span>
           <span>Download as Markdown</span>
         </p>
-      </div>
-
+      }
+      error={error}
+      maxWidthClass="max-w-6xl"
+    >
       {/* Query input */}
       <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="flex gap-3">
@@ -558,7 +554,7 @@ export default function AgentInvestigator(): JSX.Element {
           </div>
         </section>
       )}
-    </div>
+    </DataPageLayout>
   );
 }
 

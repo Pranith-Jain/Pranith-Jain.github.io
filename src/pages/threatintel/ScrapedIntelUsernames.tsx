@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Search, Users } from 'lucide-react';
-import { DataState } from '../../components/DataState';
+import { DataPageLayout } from '../../components/DataPageLayout';
 
 interface ForumRef {
   forum: string;
@@ -79,12 +79,12 @@ export default function ScrapedIntelUsernames(): JSX.Element {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <Users size={28} className="text-brand-600 dark:text-brand-400" /> Forum handle search
-        </h1>
-        <p className="text-muted mb-2 max-w-3xl leading-relaxed">
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Users size={28} />}
+      title="Forum handle search"
+      description={
+        <>
           Search 2M+ usernames indexed across cybercrime forums and open sources to see where a handle appears. An
           attribution signal — a hit means the handle was seen in a scrape, not proof of identity or intent (the corpus
           also holds researchers, journalists, LE, and scraper accounts). Live source via{' '}
@@ -97,12 +97,18 @@ export default function ScrapedIntelUsernames(): JSX.Element {
             threatactorusernames.com
           </a>{' '}
           (ScrapedIntel) — rate-limited, so results are edge-cached.
-        </p>
-      </div>
-
+        </>
+      }
+      loading={loading}
+      error={error}
+      onRetry={() => setRefreshKey((k) => k + 1)}
+      empty={!!data && data.results.length === 0}
+      emptyMessage={`No forum hits for "${submitted.trim()}".`}
+      maxWidthClass="max-w-4xl"
+    >
       <form
         onSubmit={submit}
-        className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6 mt-4"
+        className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6"
       >
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
@@ -128,7 +134,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
 
       {data && (
         <p className="text-mini font-mono text-slate-500 mb-4">
-          {data.total_matches} match{data.total_matches === 1 ? '' : 'es'} for “{data.query}”
+          {data.total_matches} match{data.total_matches === 1 ? '' : 'es'} for "{data.query}"
           {data.truncated && (
             <span className="text-amber-600 dark:text-amber-400"> · showing top {data.results.length}</span>
           )}
@@ -145,43 +151,34 @@ export default function ScrapedIntelUsernames(): JSX.Element {
           Enter at least 2 characters and hit search.
         </div>
       ) : (
-        <DataState
-          loading={loading}
-          error={error}
-          empty={!!data && data.results.length === 0}
-          emptyLabel={`No forum hits for “${submitted.trim()}”.`}
-          onRetry={() => setRefreshKey((k) => k + 1)}
-          rows={6}
-        >
-          <ul className="space-y-2">
-            {data?.results.map((m) => (
-              <li
-                key={m.username}
-                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
-              >
-                <div className="flex items-baseline justify-between gap-2 mb-2 flex-wrap">
-                  <span className="font-mono font-semibold text-sm text-slate-900 dark:text-slate-100 break-all">
-                    {m.username}
+        <ul className="space-y-2">
+          {data?.results.map((m) => (
+            <li
+              key={m.username}
+              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
+            >
+              <div className="flex items-baseline justify-between gap-2 mb-2 flex-wrap">
+                <span className="font-mono font-semibold text-sm text-slate-900 dark:text-slate-100 break-all">
+                  {m.username}
+                </span>
+                <span className="text-mini font-mono text-slate-500 shrink-0">
+                  {m.forum_count} forum{m.forum_count === 1 ? '' : 's'}
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {m.forums.map((f) => (
+                  <span
+                    key={f.forum}
+                    className="text-mini font-mono px-2 py-0.5 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300"
+                  >
+                    {f.forum}
                   </span>
-                  <span className="text-mini font-mono text-slate-500 shrink-0">
-                    {m.forum_count} forum{m.forum_count === 1 ? '' : 's'}
-                  </span>
-                </div>
-                <div className="flex flex-wrap gap-1.5">
-                  {m.forums.map((f) => (
-                    <span
-                      key={f.forum}
-                      className="text-mini font-mono px-2 py-0.5 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300"
-                    >
-                      {f.forum}
-                    </span>
-                  ))}
-                </div>
-              </li>
-            ))}
-          </ul>
-        </DataState>
+                ))}
+              </div>
+            </li>
+          ))}
+        </ul>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

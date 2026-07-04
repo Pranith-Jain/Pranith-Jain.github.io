@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Download, FileCode, FileText, Shield, Copy, Check, Loader2, type LucideIcon } from 'lucide-react';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 
 type ExportFormat = 'stix' | 'misp' | 'sigma' | 'yara' | 'snort' | 'suricata' | 'csv' | 'pfsense';
 
@@ -95,20 +95,14 @@ export default function ExportHub(): JSX.Element {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-1.5 text-xs font-mono text-slate-500 hover:text-brand-600 mb-6"
-      >
-        ← back to DFIR
-      </BackLink>
-      <h1 className="text-3xl font-display font-bold flex items-center gap-3 mb-2">
-        <Download className="text-brand-600" /> Export Hub
-      </h1>
-      <p className="text-muted mb-8">
-        Export IOCs to standard formats — STIX, MISP, Sigma, YARA, Snort, Suricata, CSV, pfSense
-      </p>
-
+    <DataPageLayout
+      backTo="/dfir"
+      backLabel="back to DFIR"
+      icon={<Download size={28} />}
+      title="Export Hub"
+      maxWidthClass="max-w-6xl"
+      description="Export IOCs to standard formats — STIX, MISP, Sigma, YARA, Snort, Suricata, CSV, pfSense"
+    >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div>
           <h2 className="text-sm font-semibold uppercase text-slate-500 mb-3">Format</h2>
@@ -182,6 +176,6 @@ export default function ExportHub(): JSX.Element {
           </pre>
         </div>
       </div>
-    </div>
+    </DataPageLayout>
   );
 }

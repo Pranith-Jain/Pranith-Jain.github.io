@@ -1,6 +1,6 @@
 import { useState, useCallback, useRef } from 'react';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Upload, MapPin, Camera, Image, FileText, ShieldCheck } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { Upload, MapPin, Camera, Image, FileText, ShieldCheck } from 'lucide-react';
 import { fileTooLarge } from '../../lib/dfir/file-guard';
 
 // exifr is ~76KB. Lazy-load on first file drop so the route's initial chunk
@@ -139,21 +139,13 @@ export default function ExifParse(): JSX.Element {
   const keywordsStr = Array.isArray(keywords) ? keywords.join(', ') : (keywords as string | undefined);
 
   return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">EXIF Parser</h1>
-        <p className="text-muted mb-4 max-w-2xl">
-          Extract metadata from images. Includes GPS coordinates, camera make and model, capture settings, and more.
-        </p>
-      </div>
-
+    <DataPageLayout
+      backTo="/dfir"
+      icon={<Image size={28} />}
+      title="EXIF Parser"
+      maxWidthClass="max-w-3xl"
+      description="Extract metadata from images. Includes GPS coordinates, camera make and model, capture settings, and more."
+    >
       {/* Privacy notice */}
       <div className="mb-8 rounded-xl border border-emerald-200 dark:border-emerald-900/50 bg-emerald-50 dark:bg-emerald-900/10 p-4">
         <div className="flex gap-3">
@@ -303,6 +295,6 @@ export default function ExifParse(): JSX.Element {
           )}
         </div>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Copy, ExternalLink, Globe, Search } from 'lucide-react';
-import { DataState } from '../../components/DataState';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { Copy, ExternalLink, Globe, Search } from 'lucide-react';
 import { FeedAggregateCard } from '../../components/intel/FeedAggregateCard';
 
 interface DDCEntry {
@@ -86,18 +85,12 @@ export default function DeepDarkCTI(): JSX.Element {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-      <div className="mb-6">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <Globe size={28} className="text-brand-600 dark:text-brand-400" /> deepdarkCTI Index
-        </h1>
-        <p className="text-sm font-mono text-muted mt-1">
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Globe className="h-6 w-6" />}
+      title="deepdarkCTI Index"
+      description={
+        <>
           Parsed mirror of{' '}
           <a
             href="https://github.com/fastfire/deepdarkCTI"
@@ -109,155 +102,152 @@ export default function DeepDarkCTI(): JSX.Element {
           </a>{' '}
           — ransomware leak sites, dark markets, criminal forums, infostealer & threat-actor channels. Onion addresses
           are copy-only (clearnet browsers can't open <code>.onion</code>).
-        </p>
-      </div>
-
-      <DataState
-        loading={!data && !error}
-        error={error}
-        empty={!!data && data.total === 0}
-        emptyLabel="deepdarkCTI temporarily unavailable — upstream fetch failed and no cached copy exists yet."
-        rows={8}
-        onRetry={() => setRefreshKey((k) => k + 1)}
-      >
-        {data && (
-          <>
-            <div className="flex flex-wrap items-center gap-2 mb-4">
-              <div className="relative flex-1 min-w-[200px]">
-                <Search
-                  size={14}
-                  className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
-                  aria-hidden="true"
-                />
-                <input
-                  type="text"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Search name, notes, actor…"
-                  className="w-full rounded-lg border border-slate-200 bg-white py-2 pl-9 pr-3 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-100"
-                  aria-label="Search deepdarkCTI"
-                />
-              </div>
-              <select
-                value={cat}
-                onChange={(e) => setCat(e.target.value)}
-                className="rounded-lg border border-slate-200 bg-white py-2 px-3 font-mono text-meta dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
-                aria-label="Category filter"
-              >
-                <option value="all">All categories ({data.total})</option>
-                {data.categories.map((c) => (
-                  <option key={c.id} value={c.label}>
-                    {c.label} ({c.count})
-                  </option>
-                ))}
-              </select>
-              <select
-                value={onionOnly}
-                onChange={(e) => setOnionOnly(e.target.value as typeof onionOnly)}
-                className="rounded-lg border border-slate-200 bg-white py-2 px-3 font-mono text-meta dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
-                aria-label="Network filter"
-              >
-                <option value="all">Onion + clearnet</option>
-                <option value="onion">Onion only</option>
-                <option value="clearnet">Clearnet only</option>
-              </select>
-              <label className="flex items-center gap-1.5 font-mono text-meta text-muted">
-                <input type="checkbox" checked={hideDown} onChange={(e) => setHideDown(e.target.checked)} />
-                hide offline/expired
-              </label>
+        </>
+      }
+      loading={!data && !error}
+      error={error}
+      empty={!!data && data.total === 0}
+      emptyMessage="deepdarkCTI temporarily unavailable — upstream fetch failed and no cached copy exists yet."
+      onRetry={() => setRefreshKey((k) => k + 1)}
+      maxWidthClass="max-w-6xl"
+    >
+      {data && (
+        <>
+          <div className="flex flex-wrap items-center gap-2 mb-4">
+            <div className="relative flex-1 min-w-[200px]">
+              <Search
+                size={14}
+                className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                aria-hidden="true"
+              />
+              <input
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search name, notes, actor…"
+                className="w-full rounded-lg border border-slate-200 bg-white py-2 pl-9 pr-3 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-100"
+                aria-label="Search deepdarkCTI"
+              />
             </div>
+            <select
+              value={cat}
+              onChange={(e) => setCat(e.target.value)}
+              className="rounded-lg border border-slate-200 bg-white py-2 px-3 font-mono text-meta dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
+              aria-label="Category filter"
+            >
+              <option value="all">All categories ({data.total})</option>
+              {data.categories.map((c) => (
+                <option key={c.id} value={c.label}>
+                  {c.label} ({c.count})
+                </option>
+              ))}
+            </select>
+            <select
+              value={onionOnly}
+              onChange={(e) => setOnionOnly(e.target.value as typeof onionOnly)}
+              className="rounded-lg border border-slate-200 bg-white py-2 px-3 font-mono text-meta dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
+              aria-label="Network filter"
+            >
+              <option value="all">Onion + clearnet</option>
+              <option value="onion">Onion only</option>
+              <option value="clearnet">Clearnet only</option>
+            </select>
+            <label className="flex items-center gap-1.5 font-mono text-meta text-muted">
+              <input type="checkbox" checked={hideDown} onChange={(e) => setHideDown(e.target.checked)} />
+              hide offline/expired
+            </label>
+          </div>
 
-            <p className="font-mono text-mini text-slate-500 mb-3">
-              {filtered.length} shown · {data.total} total ·{' '}
-              {data.sources.filter((s) => s.stale).length > 0 && (
-                <span className="text-amber-600 dark:text-amber-400">
-                  {data.sources.filter((s) => s.stale).length} source(s) cached
-                </span>
-              )}
-            </p>
+          <p className="font-mono text-mini text-slate-500 mb-3">
+            {filtered.length} shown · {data.total} total ·{' '}
+            {data.sources.filter((s) => s.stale).length > 0 && (
+              <span className="text-amber-600 dark:text-amber-400">
+                {data.sources.filter((s) => s.stale).length} source(s) cached
+              </span>
+            )}
+          </p>
 
-            {/* Aggregate STIX 2.1 view of the directory — extraction yield is
+          {/* Aggregate STIX 2.1 view of the directory — extraction yield is
                 low (mostly forum/market metadata), but actor + attack_type
                 fields surface known threat actors and malware. Intelligence-
                 about, never content. */}
-            {filtered.length > 0 && (
-              <FeedAggregateCard
-                sourceId="darkweb:deepdarkcti"
-                sourceName="deepdarkCTI Index"
-                title="deepdarkCTI directory · today"
-                items={filtered.map((e) => ({
-                  title: e.name,
-                  body: `${e.category} · ${e.actor ?? ''} · ${e.attack_type ?? ''} · ${e.notes ?? ''}`,
-                }))}
-              />
-            )}
+          {filtered.length > 0 && (
+            <FeedAggregateCard
+              sourceId="darkweb:deepdarkcti"
+              sourceName="deepdarkCTI Index"
+              title="deepdarkCTI directory · today"
+              items={filtered.map((e) => ({
+                title: e.name,
+                body: `${e.category} · ${e.actor ?? ''} · ${e.attack_type ?? ''} · ${e.notes ?? ''}`,
+              }))}
+            />
+          )}
 
-            <ul className="grid gap-2 md:grid-cols-2">
-              {filtered.map((e, idx) => (
-                <li
-                  key={`${e.source_file}:${e.url}:${idx}`}
-                  className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
-                >
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="min-w-0">
-                      <div className="flex items-center gap-1.5 flex-wrap">
-                        <span className="font-display font-semibold text-sm truncate">{e.name}</span>
-                        <span
-                          className={`shrink-0 rounded border px-1.5 py-0.5 font-mono text-micro uppercase ${STATUS_STYLE[e.status]}`}
-                        >
-                          {e.status}
+          <ul className="grid gap-2 md:grid-cols-2">
+            {filtered.map((e, idx) => (
+              <li
+                key={`${e.source_file}:${e.url}:${idx}`}
+                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
+              >
+                <div className="flex items-start justify-between gap-2">
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <span className="font-display font-semibold text-sm truncate">{e.name}</span>
+                      <span
+                        className={`shrink-0 rounded border px-1.5 py-0.5 font-mono text-micro uppercase ${STATUS_STYLE[e.status]}`}
+                      >
+                        {e.status}
+                      </span>
+                      {e.attack_type && (
+                        <span className="shrink-0 rounded border border-brand-500/40 bg-brand-500/10 px-1.5 py-0.5 font-mono text-micro text-brand-700 dark:text-brand-300">
+                          {e.attack_type}
                         </span>
-                        {e.attack_type && (
-                          <span className="shrink-0 rounded border border-brand-500/40 bg-brand-500/10 px-1.5 py-0.5 font-mono text-micro text-brand-700 dark:text-brand-300">
-                            {e.attack_type}
-                          </span>
-                        )}
-                      </div>
-                      {e.actor && <div className="font-mono text-mini text-slate-500 mt-0.5">actor: {e.actor}</div>}
-                      {e.onion ? (
-                        <code className="block mt-1 font-mono text-mini text-muted break-all">{e.url}</code>
-                      ) : (
-                        <a
-                          href={sanitizeUrl(e.url) || undefined}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="mt-1 inline-flex items-center gap-1 font-mono text-mini text-brand-600 dark:text-brand-400 hover:underline break-all"
-                        >
-                          {e.url}
-                          <ExternalLink size={10} className="shrink-0" />
-                        </a>
                       )}
-                      {e.notes && <p className="font-mono text-mini text-slate-500 mt-1">{e.notes}</p>}
                     </div>
-                    <button
-                      type="button"
-                      onClick={() => copy(e.url)}
-                      className="shrink-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1.5 text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
-                      aria-label="Copy URL"
-                    >
-                      <Copy size={12} />
-                    </button>
-                  </div>
-                  <div className="mt-1.5 flex items-center gap-2">
-                    <span className="font-mono text-micro uppercase tracking-wider text-slate-400">{e.category}</span>
-                    <a
-                      href={`https://github.com/fastfire/deepdarkCTI/blob/main/${e.source_file}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="font-mono text-micro text-slate-400 hover:text-brand-500"
-                    >
-                      {e.source_file}
-                    </a>
-                    {copied === e.url && (
-                      <span className="font-mono text-micro text-emerald-600 dark:text-emerald-400">copied</span>
+                    {e.actor && <div className="font-mono text-mini text-slate-500 mt-0.5">actor: {e.actor}</div>}
+                    {e.onion ? (
+                      <code className="block mt-1 font-mono text-mini text-muted break-all">{e.url}</code>
+                    ) : (
+                      <a
+                        href={sanitizeUrl(e.url) || undefined}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-1 inline-flex items-center gap-1 font-mono text-mini text-brand-600 dark:text-brand-400 hover:underline break-all"
+                      >
+                        {e.url}
+                        <ExternalLink size={10} className="shrink-0" />
+                      </a>
                     )}
+                    {e.notes && <p className="font-mono text-mini text-slate-500 mt-1">{e.notes}</p>}
                   </div>
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
-      </DataState>
-    </div>
+                  <button
+                    type="button"
+                    onClick={() => copy(e.url)}
+                    className="shrink-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1.5 text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
+                    aria-label="Copy URL"
+                  >
+                    <Copy size={12} />
+                  </button>
+                </div>
+                <div className="mt-1.5 flex items-center gap-2">
+                  <span className="font-mono text-micro uppercase tracking-wider text-slate-400">{e.category}</span>
+                  <a
+                    href={`https://github.com/fastfire/deepdarkCTI/blob/main/${e.source_file}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-mono text-micro text-slate-400 hover:text-brand-500"
+                  >
+                    {e.source_file}
+                  </a>
+                  {copied === e.url && (
+                    <span className="font-mono text-micro text-emerald-600 dark:text-emerald-400">copied</span>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+    </DataPageLayout>
   );
 }

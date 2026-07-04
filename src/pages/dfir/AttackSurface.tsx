@@ -10,7 +10,6 @@ import {
   ChevronUp,
   ShieldCheck,
   ShieldAlert,
-  AlertTriangle,
   Eye,
   Network,
   Lock,

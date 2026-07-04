@@ -2,10 +2,10 @@ import { useEffect, useMemo, useState } from 'react';
 import { relativeAgo as shortRel } from '../../lib/relativeTime';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { useSearchParams } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
-import { AlertOctagon, ArrowLeft, ExternalLink, RefreshCw, Search } from 'lucide-react';
+import { AlertOctagon, ExternalLink, RefreshCw, Search } from 'lucide-react';
 import { DataState } from '../../components/DataState';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { DataPageLayout } from '../../components/DataPageLayout';
 
 /**
  * /threatintel/cyber-crime — live aggregation of cyber fraud + cyber crime

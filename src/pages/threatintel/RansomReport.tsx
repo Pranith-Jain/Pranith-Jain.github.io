@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { ArrowLeft, FileDown, Loader2, Search, ShieldAlert } from 'lucide-react';
-import { BackLink } from '../../components/BackLink';
-import { DataState } from '../../components/DataState';
+import { FileDown, Loader2, Search, ShieldAlert } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { ClusterTabs, RANSOMWARE_TABS } from '../../components/threatintel/ClusterTabs';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { SEVERITY_TONE, type Severity } from '../../components/severity';
@@ -366,7 +365,34 @@ export default function RansomReport(): JSX.Element {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<ShieldAlert size={28} />}
+      title="Ransomware intel report"
+      description={
+        <>
+          Per-group CTI report — overview, MITRE ATT&amp;CK TTPs, exploited CVEs, tooling, leak-site infrastructure, and
+          YARA — assembled from{' '}
+          <a
+            href="https://www.ransomware.live"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-brand-600 dark:text-brand-400 hover:underline"
+          >
+            ransomware.live
+          </a>
+          . Export to PDF for SOC / detection-engineering handoff.
+        </>
+      }
+      headerExtra={
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">{groups.length || 347} tracked groups.</p>
+      }
+      loading={loading && !profile}
+      error={error}
+      empty={!profile && !loading && !!selected}
+      emptyMessage={`No ransomware.live profile for "${selected}".`}
+      maxWidthClass="max-w-4xl"
+    >
       {/* Scoped print CSS — print only the report card as a clean PDF. */}
       <style>{`@media print {
         body * { visibility: hidden !important; }
@@ -377,35 +403,6 @@ export default function RansomReport(): JSX.Element {
       }`}</style>
 
       <div className="no-print">
-        <BackLink
-          to="/threatintel"
-          className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-        >
-          <ArrowLeft size={14} /> back
-        </BackLink>
-
-        <div className="animate-fade-in-up">
-          <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-            <ShieldAlert size={28} className="text-brand-600 dark:text-brand-400" /> Ransomware intel report
-          </h1>
-          <p className="text-muted mb-2 max-w-3xl leading-relaxed">
-            Per-group CTI report — overview, MITRE ATT&amp;CK TTPs, exploited CVEs, tooling, leak-site infrastructure,
-            and YARA — assembled from{' '}
-            <a
-              href="https://www.ransomware.live"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline"
-            >
-              ransomware.live
-            </a>
-            . Export to PDF for SOC / detection-engineering handoff.
-          </p>
-          <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
-            {groups.length || 347} tracked groups.
-          </p>
-        </div>
-
         <div className="mb-6">
           <ClusterTabs tabs={RANSOMWARE_TABS} ariaLabel="Ransomware intel" />
         </div>
@@ -460,200 +457,190 @@ export default function RansomReport(): JSX.Element {
         )}
       </div>
 
-      {!notConfigured && (
-        <DataState
-          loading={loading}
-          error={error}
-          empty={!profile && !loading && !!selected}
-          emptyLabel={`No ransomware.live profile for “${selected}”.`}
-          rows={8}
-        >
-          {profile && (
-            <div id="ransom-report">
-              {/* Report header */}
-              <div className="mb-6 pb-4 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">
-                  Ransomware Threat Intelligence Report
-                </div>
-                <h2 className="text-2xl font-display font-bold capitalize">{profile.group ?? selected}</h2>
-                <div className="flex flex-wrap gap-x-5 gap-y-1 mt-2 text-meta font-mono text-slate-500">
-                  {profile.firstseen && <span>first seen: {profile.firstseen.slice(0, 10)}</span>}
-                  {profile.lastseen && <span>last seen: {profile.lastseen.slice(0, 10)}</span>}
-                  {typeof profile.victims === 'number' && <span>victims: {profile.victims.toLocaleString()}</span>}
-                  {profile.negotiation_count ? <span>negotiations: {profile.negotiation_count}</span> : null}
-                </div>
-              </div>
-
-              {profile.description && (
-                <Section title="Overview">
-                  <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 whitespace-pre-wrap">
-                    {profile.description}
-                  </p>
-                </Section>
-              )}
-
-              {ttps.length > 0 && (
-                <Section title="MITRE ATT&CK TTPs">
-                  <div className="space-y-3">
-                    {ttps.map((t) => (
-                      <div key={t.tactic_id ?? t.tactic_name}>
-                        <div className="text-meta font-mono font-semibold text-slate-800 dark:text-slate-200">
-                          {t.tactic_id} · {t.tactic_name}
-                        </div>
-                        <ul className="mt-1 space-y-0.5">
-                          {(t.techniques ?? []).map((tech, i) => (
-                            <li key={`${tech.technique_id}-${i}`} className="text-meta text-muted">
-                              <span className="font-mono text-slate-700 dark:text-slate-300">{tech.technique_id}</span>{' '}
-                              {tech.technique_name}
-                              {tech.technique_details ? ` — ${tech.technique_details}` : ''}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
-                  </div>
-                </Section>
-              )}
-
-              {vulns.length > 0 && (
-                <Section title={`Exploited vulnerabilities (${vulns.length})`}>
-                  <div className="overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))]">
-                    <table className="w-full text-sm">
-                      <thead>
-                        <tr className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-left">
-                          {['CVE', 'Severity', 'CVSS', 'Vendor', 'Product'].map((h) => (
-                            <th
-                              key={h}
-                              className="px-3 py-1.5 font-mono text-mini uppercase tracking-wider text-slate-500 whitespace-nowrap"
-                            >
-                              {h}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {vulns.map((v, i) => (
-                          <tr
-                            key={`${v.CVE}-${i}`}
-                            className="border-t border-slate-100 dark:border-[rgb(var(--border-400))]/70"
-                          >
-                            <td className="px-3 py-1.5 whitespace-nowrap">
-                              <a
-                                href={sanitizeUrl(`https://nvd.nist.gov/vuln/detail/${v.CVE}`) || undefined}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="font-mono text-meta text-brand-600 dark:text-brand-400 hover:underline"
-                              >
-                                {v.CVE}
-                              </a>
-                            </td>
-                            <td className="px-3 py-1.5">
-                              <span
-                                className={`text-mini font-mono px-2 py-0.5 rounded border ${SEVERITY_TONE[normSeverity(v.severity)]}`}
-                              >
-                                {v.severity ?? '—'}
-                              </span>
-                            </td>
-                            <td className="px-3 py-1.5 font-mono text-meta tabular-nums text-muted">{v.CVSS ?? '—'}</td>
-                            <td className="px-3 py-1.5 text-meta text-muted">{v.Vendor ?? '—'}</td>
-                            <td className="px-3 py-1.5 text-meta text-muted">{v.Product ?? '—'}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </Section>
-              )}
-
-              {toolCats.length > 0 && (
-                <Section title="Tools & utilities">
-                  <div className="space-y-2">
-                    {toolCats.map(([cat, tools]) => (
-                      <div key={cat}>
-                        <span className="text-mini font-mono font-semibold text-slate-700 dark:text-slate-300">
-                          {cat}:{' '}
-                        </span>
-                        <span className="text-meta text-muted">{tools.join(', ')}</span>
-                      </div>
-                    ))}
-                  </div>
-                </Section>
-              )}
-
-              {locations.length > 0 && (
-                <Section title={`Leak-site infrastructure / IOCs (${locations.length})`}>
-                  <ul className="space-y-1 font-mono text-mini">
-                    {locations.map((l, i) => (
-                      <li key={`${l.fqdn}-${i}`} className="break-all text-muted">
-                        <span className="text-slate-400">[{l.type ?? 'site'}]</span> {l.fqdn ?? l.slug}
-                        {l.title ? ` — ${l.title}` : ''}
-                      </li>
-                    ))}
-                  </ul>
-                </Section>
-              )}
-
-              {victims.length > 0 && (
-                <Section title={`Recent victims (${victims.length})`}>
-                  <p className="text-micro font-mono text-slate-400 mb-2">
-                    From the latest 100 disclosures on ransomware.live.
-                  </p>
-                  <div className="overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))]">
-                    <table className="w-full text-sm">
-                      <thead>
-                        <tr className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-left">
-                          {['Victim', 'Country', 'Sector', 'Disclosed'].map((h) => (
-                            <th
-                              key={h}
-                              className="px-3 py-1.5 font-mono text-mini uppercase tracking-wider text-slate-500 whitespace-nowrap"
-                            >
-                              {h}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {victims.map((v, i) => (
-                          <tr
-                            key={`${v.victim}-${i}`}
-                            className="border-t border-slate-100 dark:border-[rgb(var(--border-400))]/70"
-                          >
-                            <td className="px-3 py-1.5 text-meta text-slate-700 dark:text-slate-300 break-all">
-                              {v.victim ?? '—'}
-                            </td>
-                            <td className="px-3 py-1.5 text-meta text-muted">{v.country ?? '—'}</td>
-                            <td className="px-3 py-1.5 text-meta text-muted">{v.activity ?? '—'}</td>
-                            <td className="px-3 py-1.5 font-mono text-mini text-slate-500 whitespace-nowrap">
-                              {(v.discovered ?? v.attackdate ?? '').slice(0, 10) || '—'}
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </Section>
-              )}
-
-              <Section title="YARA detection">
-                <p className="text-meta text-muted">
-                  {yaraCount && yaraCount > 0
-                    ? `${yaraCount} YARA rule${yaraCount === 1 ? '' : 's'} published for this group on ransomware.live.`
-                    : 'No YARA rules published for this group on ransomware.live.'}
-                </p>
-                {yaraText && (
-                  <pre className="mt-2 max-h-72 overflow-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 text-mini font-mono whitespace-pre-wrap">
-                    {yaraText.slice(0, 20000)}
-                  </pre>
-                )}
-              </Section>
-
-              <p className="mt-6 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-micro font-mono text-slate-400">
-                Source: ransomware.live · generated by pranithjain.qzz.io threat-intel platform
-              </p>
+      {!notConfigured && profile && (
+        <div id="ransom-report">
+          {/* Report header */}
+          <div className="mb-6 pb-4 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">
+              Ransomware Threat Intelligence Report
             </div>
+            <h2 className="text-2xl font-display font-bold capitalize">{profile.group ?? selected}</h2>
+            <div className="flex flex-wrap gap-x-5 gap-y-1 mt-2 text-meta font-mono text-slate-500">
+              {profile.firstseen && <span>first seen: {profile.firstseen.slice(0, 10)}</span>}
+              {profile.lastseen && <span>last seen: {profile.lastseen.slice(0, 10)}</span>}
+              {typeof profile.victims === 'number' && <span>victims: {profile.victims.toLocaleString()}</span>}
+              {profile.negotiation_count ? <span>negotiations: {profile.negotiation_count}</span> : null}
+            </div>
+          </div>
+
+          {profile.description && (
+            <Section title="Overview">
+              <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 whitespace-pre-wrap">
+                {profile.description}
+              </p>
+            </Section>
           )}
-        </DataState>
+
+          {ttps.length > 0 && (
+            <Section title="MITRE ATT&CK TTPs">
+              <div className="space-y-3">
+                {ttps.map((t) => (
+                  <div key={t.tactic_id ?? t.tactic_name}>
+                    <div className="text-meta font-mono font-semibold text-slate-800 dark:text-slate-200">
+                      {t.tactic_id} · {t.tactic_name}
+                    </div>
+                    <ul className="mt-1 space-y-0.5">
+                      {(t.techniques ?? []).map((tech, i) => (
+                        <li key={`${tech.technique_id}-${i}`} className="text-meta text-muted">
+                          <span className="font-mono text-slate-700 dark:text-slate-300">{tech.technique_id}</span>{' '}
+                          {tech.technique_name}
+                          {tech.technique_details ? ` — ${tech.technique_details}` : ''}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </Section>
+          )}
+
+          {vulns.length > 0 && (
+            <Section title={`Exploited vulnerabilities (${vulns.length})`}>
+              <div className="overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))]">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-left">
+                      {['CVE', 'Severity', 'CVSS', 'Vendor', 'Product'].map((h) => (
+                        <th
+                          key={h}
+                          className="px-3 py-1.5 font-mono text-mini uppercase tracking-wider text-slate-500 whitespace-nowrap"
+                        >
+                          {h}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {vulns.map((v, i) => (
+                      <tr
+                        key={`${v.CVE}-${i}`}
+                        className="border-t border-slate-100 dark:border-[rgb(var(--border-400))]/70"
+                      >
+                        <td className="px-3 py-1.5 whitespace-nowrap">
+                          <a
+                            href={sanitizeUrl(`https://nvd.nist.gov/vuln/detail/${v.CVE}`) || undefined}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-mono text-meta text-brand-600 dark:text-brand-400 hover:underline"
+                          >
+                            {v.CVE}
+                          </a>
+                        </td>
+                        <td className="px-3 py-1.5">
+                          <span
+                            className={`text-mini font-mono px-2 py-0.5 rounded border ${SEVERITY_TONE[normSeverity(v.severity)]}`}
+                          >
+                            {v.severity ?? '—'}
+                          </span>
+                        </td>
+                        <td className="px-3 py-1.5 font-mono text-meta tabular-nums text-muted">{v.CVSS ?? '—'}</td>
+                        <td className="px-3 py-1.5 text-meta text-muted">{v.Vendor ?? '—'}</td>
+                        <td className="px-3 py-1.5 text-meta text-muted">{v.Product ?? '—'}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </Section>
+          )}
+
+          {toolCats.length > 0 && (
+            <Section title="Tools & utilities">
+              <div className="space-y-2">
+                {toolCats.map(([cat, tools]) => (
+                  <div key={cat}>
+                    <span className="text-mini font-mono font-semibold text-slate-700 dark:text-slate-300">
+                      {cat}:{' '}
+                    </span>
+                    <span className="text-meta text-muted">{tools.join(', ')}</span>
+                  </div>
+                ))}
+              </div>
+            </Section>
+          )}
+
+          {locations.length > 0 && (
+            <Section title={`Leak-site infrastructure / IOCs (${locations.length})`}>
+              <ul className="space-y-1 font-mono text-mini">
+                {locations.map((l, i) => (
+                  <li key={`${l.fqdn}-${i}`} className="break-all text-muted">
+                    <span className="text-slate-400">[{l.type ?? 'site'}]</span> {l.fqdn ?? l.slug}
+                    {l.title ? ` — ${l.title}` : ''}
+                  </li>
+                ))}
+              </ul>
+            </Section>
+          )}
+
+          {victims.length > 0 && (
+            <Section title={`Recent victims (${victims.length})`}>
+              <p className="text-micro font-mono text-slate-400 mb-2">
+                From the latest 100 disclosures on ransomware.live.
+              </p>
+              <div className="overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))]">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-left">
+                      {['Victim', 'Country', 'Sector', 'Disclosed'].map((h) => (
+                        <th
+                          key={h}
+                          className="px-3 py-1.5 font-mono text-mini uppercase tracking-wider text-slate-500 whitespace-nowrap"
+                        >
+                          {h}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {victims.map((v, i) => (
+                      <tr
+                        key={`${v.victim}-${i}`}
+                        className="border-t border-slate-100 dark:border-[rgb(var(--border-400))]/70"
+                      >
+                        <td className="px-3 py-1.5 text-meta text-slate-700 dark:text-slate-300 break-all">
+                          {v.victim ?? '—'}
+                        </td>
+                        <td className="px-3 py-1.5 text-meta text-muted">{v.country ?? '—'}</td>
+                        <td className="px-3 py-1.5 text-meta text-muted">{v.activity ?? '—'}</td>
+                        <td className="px-3 py-1.5 font-mono text-mini text-slate-500 whitespace-nowrap">
+                          {(v.discovered ?? v.attackdate ?? '').slice(0, 10) || '—'}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </Section>
+          )}
+
+          <Section title="YARA detection">
+            <p className="text-meta text-muted">
+              {yaraCount && yaraCount > 0
+                ? `${yaraCount} YARA rule${yaraCount === 1 ? '' : 's'} published for this group on ransomware.live.`
+                : 'No YARA rules published for this group on ransomware.live.'}
+            </p>
+            {yaraText && (
+              <pre className="mt-2 max-h-72 overflow-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 text-mini font-mono whitespace-pre-wrap">
+                {yaraText.slice(0, 20000)}
+              </pre>
+            )}
+          </Section>
+
+          <p className="mt-6 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-micro font-mono text-slate-400">
+            Source: ransomware.live · generated by pranithjain.qzz.io threat-intel platform
+          </p>
+        </div>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

@@ -1,8 +1,6 @@
 import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
 import {
-  ArrowLeft,
   Upload,
   ShieldAlert,
   Hash,
@@ -17,6 +15,7 @@ import {
   Database,
   Layers,
 } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { CopyChip } from '../../components/dfir/CopyButton';
 import { analyzeApk, type ApkAnalysis } from '../../lib/dfir/apk-analysis';
 import { SEVERITY_TONE } from '../../components/severity';
@@ -64,25 +63,14 @@ export default function ApkAnalyzer(): JSX.Element {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <Smartphone size={28} className="text-brand-600 dark:text-brand-400" /> APK Analyzer
-        </h1>
-        <p className="text-muted mb-8 max-w-2xl">
-          Static analysis for Android APKs. Parses binary AndroidManifest.xml, DEX headers, and ZIP structure. Detects
+    <DataPageLayout
+      backTo="/dfir"
+      icon={<Smartphone size={28} />}
+      title="APK Analyzer"
+      description="Static analysis for Android APKs. Parses binary AndroidManifest.xml, DEX headers, and ZIP structure. Detects
           dangerous permissions, suspicious API usage, packed code, and potential malware behaviors. 100% client-side,
-          max 100 MB.
-        </p>
-      </div>
-
+          max 100 MB."
+    >
       <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <button
           type="button"
@@ -420,6 +408,6 @@ export default function ApkAnalyzer(): JSX.Element {
           )}
         </div>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

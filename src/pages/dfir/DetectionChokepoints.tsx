@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, ExternalLink, Shield, Target } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { ExternalLink, Shield, Target } from 'lucide-react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 
 type Priority = 'CRITICAL' | 'HIGH';
@@ -192,23 +192,13 @@ export default function DetectionChokepoints(): JSX.Element {
   }, [query, priority, fpFilter]);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <Shield size={28} className="text-brand-600 dark:text-brand-400" /> Detection Chokepoints
-        </h1>
-        <p className="text-muted mb-2 leading-relaxed">
-          Invariant detection points in attack chains — prerequisites that attackers cannot bypass. Each chokepoint
-          targets a forced action that generates reliable telemetry regardless of the specific tool or variant used.
-        </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
+    <DataPageLayout
+      backTo="/dfir"
+      icon={<Shield size={28} />}
+      title="Detection Chokepoints"
+      description="Invariant detection points in attack chains — prerequisites that attackers cannot bypass. Each chokepoint targets a forced action that generates reliable telemetry regardless of the specific tool or variant used."
+      headerExtra={
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
           Source:{' '}
           <a
             href={sanitizeUrl('https://github.com/iimp0ster/detection-chokepoints') || undefined}
@@ -220,8 +210,9 @@ export default function DetectionChokepoints(): JSX.Element {
           </a>{' '}
           · {CHOKEPOINTS.length} chokepoints mapped to MITRE ATT&CK techniques.
         </p>
-      </div>
-
+      }
+      maxWidthClass="max-w-6xl"
+    >
       {/* Filters */}
       <div className="space-y-3 mb-6">
         <div className="relative">
@@ -459,6 +450,6 @@ export default function DetectionChokepoints(): JSX.Element {
           </div>
         </div>
       </section>
-    </div>
+    </DataPageLayout>
   );
 }

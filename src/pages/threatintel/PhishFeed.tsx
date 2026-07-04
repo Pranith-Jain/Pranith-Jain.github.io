@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Download, ExternalLink, Filter, Fish, Globe, RefreshCw, Search, Shield, Tag } from 'lucide-react';
+import { Download, ExternalLink, Filter, Fish, Globe, RefreshCw, Search, Shield, Tag } from 'lucide-react';
 import { useDataFetch } from '../../hooks/useDataFetch';
 import { DataState } from '../../components/DataState';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { relativeAgo } from '../../lib/relativeTime';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 
@@ -141,23 +141,13 @@ export default function PhishFeed(): JSX.Element {
   }, [data]);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="flex items-center gap-3 mb-1">
-        <Fish className="w-7 h-7 text-amber-500" />
-        <h1 className="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-slate-100">Phish Feed</h1>
-      </div>
-      <p className="text-muted mb-6 text-sm max-w-3xl leading-relaxed">
-        Live phishing URLs from OpenPhish with built-in brand detection. PhishTank enrichment is optional (requires API
-        key). Export as plain list, hosts file, or AdBlock rules.
-      </p>
-
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Fish className="w-7 h-7" />}
+      title="Phish Feed"
+      description="Live phishing URLs from OpenPhish with built-in brand detection. PhishTank enrichment is optional (requires API key). Export as plain list, hosts file, or AdBlock rules."
+      maxWidthClass="max-w-6xl"
+    >
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-5">
         {[
@@ -347,6 +337,6 @@ export default function PhishFeed(): JSX.Element {
         Sources: OpenPhish + PhishTank (optional) · Built-in brand detection for target attribution · Cached 1h
         server-side
       </div>
-    </div>
+    </DataPageLayout>
   );
 }

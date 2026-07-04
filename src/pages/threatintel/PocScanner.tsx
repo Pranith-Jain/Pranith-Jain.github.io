@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Code2, ExternalLink, Search, Star, GitFork, Clock } from 'lucide-react';
 import { useDataFetch } from '../../hooks/useDataFetch';
-import { DataState } from '../../components/DataState';
+import { DataPageLayout } from '../../components/DataPageLayout';
 
 interface PocRepo {
   id: number;
@@ -40,36 +40,41 @@ export default function PocScanner(): JSX.Element {
   };
 
   return (
-    <div className="space-y-4">
-      <div className="flex gap-2">
-        <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-          <input
-            type="text"
-            placeholder="CVE-2024-3094"
-            value={cveId}
-            onChange={(e) => setCveId(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && scan()}
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm"
-          />
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Search size={28} />}
+      title="CVE PoC Scanner"
+      description="Search GitHub for public proof-of-concept exploit repositories for any CVE."
+      loading={loading}
+      error={error}
+      onRetry={refetch}
+      empty={!data}
+      emptyMessage="Search for a CVE to find public exploit/PoC repositories on GitHub."
+      emptyIcon={<Search size={32} className="mx-auto opacity-40" />}
+    >
+      <div className="space-y-4">
+        <div className="flex gap-2">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+            <input
+              type="text"
+              placeholder="CVE-2024-3094"
+              value={cveId}
+              onChange={(e) => setCveId(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && scan()}
+              className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm"
+            />
+          </div>
+          <button
+            onClick={scan}
+            disabled={!/^CVE-\d{4}-\d{4,7}$/.test(cveId.trim().toUpperCase())}
+            className="px-4 py-2 bg-brand-600 hover:bg-brand-700 disabled:opacity-40 text-white rounded-lg text-sm font-medium flex items-center gap-1.5 transition-colors"
+          >
+            <Search className="h-4 w-4" />
+            Scan GitHub
+          </button>
         </div>
-        <button
-          onClick={scan}
-          disabled={!/^CVE-\d{4}-\d{4,7}$/.test(cveId.trim().toUpperCase())}
-          className="px-4 py-2 bg-brand-600 hover:bg-brand-700 disabled:opacity-40 text-white rounded-lg text-sm font-medium flex items-center gap-1.5 transition-colors"
-        >
-          <Search className="h-4 w-4" />
-          Scan GitHub
-        </button>
-      </div>
 
-      <DataState
-        loading={loading}
-        error={error}
-        empty={!data}
-        emptyLabel="Search for a CVE to find public exploit/PoC repositories on GitHub."
-        onRetry={refetch}
-      >
         {data && (
           <div className="space-y-3">
             <div className="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-400">
@@ -143,7 +148,7 @@ export default function PocScanner(): JSX.Element {
             )}
           </div>
         )}
-      </DataState>
-    </div>
+      </div>
+    </DataPageLayout>
   );
 }

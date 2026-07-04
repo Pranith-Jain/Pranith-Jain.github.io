@@ -2,8 +2,8 @@ import { Virtuoso } from 'react-virtuoso';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link, useSearchParams } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, ExternalLink, RefreshCw, Plus, X, Eye, Bell, Search, Filter, Sparkles } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { ExternalLink, RefreshCw, Plus, X, Eye, Bell, Search, Filter, Sparkles } from 'lucide-react';
 import { useLastVisit, isNewSince, useFocusTrap } from '../../hooks';
 import { fetchAggregatedFeed, formatRelativeTime, type AggregatedFeedItem } from '../../services/rssService';
 import { rssFeeds } from '../../data/rssFeeds';
@@ -293,17 +293,12 @@ export default function DarkWeb(): JSX.Element {
   }, [matched, watchlist]);
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Dark Web Watch</h1>
-        <p className="text-muted mb-4 max-w-2xl">
+    <DataPageLayout
+      backTo="/dfir"
+      icon={<Eye size={28} />}
+      title="Dark Web Watch"
+      description={
+        <>
           Aggregated dark web, leak-site, breach, and security-research activity from
           {` ${DARKWEB_FEEDS.length} `}curated free sources. Use the search box for live filtering (regex like{' '}
           <code className="font-mono text-xs bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 rounded">
@@ -311,8 +306,10 @@ export default function DarkWeb(): JSX.Element {
           </code>{' '}
           works), filter by source, narrow by date window, and add long-running keywords to your watchlist for
           highlighted matches across visits. Watchlist + source preferences are stored locally; nothing is uploaded.
-        </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
+        </>
+      }
+      headerExtra={
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
           Per-source widgets —{' '}
           <Link
             to="/threatintel/darkweb/ransom-activity"
@@ -334,8 +331,8 @@ export default function DarkWeb(): JSX.Element {
           </Link>{' '}
           — live as their own pages.
         </p>
-      </div>
-
+      }
+    >
       <>
         {/* Search + filters */}
         <section className="mb-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5 space-y-4">
@@ -598,7 +595,7 @@ export default function DarkWeb(): JSX.Element {
           for an index of those.
         </footer>
       </>
-    </div>
+    </DataPageLayout>
   );
 }
 

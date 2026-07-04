@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, FileText } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { findResearchPost, publishedResearch } from '../../data/threatintel/research';
 import { IntelCard } from '../../components/intel/IntelCard';
 import { extractTableOfContents, addHeadingIds } from '../../lib/content-utils';
@@ -107,50 +108,45 @@ export default function ResearchPost(): JSX.Element {
   const others = publishedResearch().filter((r) => r.slug !== post.slug);
 
   return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-10 text-slate-900 dark:text-slate-100">
-      <Link
-        to="/threatintel/research-hub/research"
-        className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.16em] text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 mb-6"
-      >
-        <ArrowLeft size={12} /> all research
-      </Link>
-
-      <header className="mb-10 pb-6 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-        <div className="text-eyebrow font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
-          {post.kicker}
-        </div>
-        {/* text-balance: lets the browser pick a more natural line-break
-            point on the long title rather than ragged-right wrapping at
-            the column width. */}
-        <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight mt-2 leading-tight text-balance">
-          {post.title}
-        </h1>
-        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-500 mt-4">
-          <span className="text-slate-700 dark:text-slate-300 font-medium">Pranith Jain</span>
-          <span aria-hidden="true">·</span>
-          <time dateTime={post.publishedAt}>
-            {new Date(post.publishedAt).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            })}
-          </time>
-          <span aria-hidden="true">·</span>
-          <span>{post.readingTime} read</span>
-        </div>
-        {post.tags.length > 0 && (
-          <div className="flex flex-wrap gap-1.5 mt-4">
-            {post.tags.map((t) => (
-              <span
-                key={t}
-                className="text-mini font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
-              >
-                {t}
-              </span>
-            ))}
+    <DataPageLayout
+      backTo="/threatintel/research-hub/research"
+      backLabel="all research"
+      icon={<FileText size={28} />}
+      title={post.title}
+      description={post.kicker}
+      maxWidthClass="max-w-3xl"
+      className="px-4 sm:px-6 py-10"
+      headerExtra={
+        <>
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-500 mt-4">
+            <span className="text-slate-700 dark:text-slate-300 font-medium">Pranith Jain</span>
+            <span aria-hidden="true">·</span>
+            <time dateTime={post.publishedAt}>
+              {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })}
+            </time>
+            <span aria-hidden="true">·</span>
+            <span>{post.readingTime} read</span>
           </div>
-        )}
-      </header>
+          {post.tags.length > 0 && (
+            <div className="flex flex-wrap gap-1.5 mt-4">
+              {post.tags.map((t) => (
+                <span
+                  key={t}
+                  className="text-mini font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+          )}
+        </>
+      }
+    >
+      <header className="mb-10 pb-6 border-b border-slate-200 dark:border-[rgb(var(--border-400))]"></header>
 
       {/* Structured STIX 2.1 view of this research piece. Heuristic extractor
           pulls every actor, malware family, CVE, and IoC the piece mentions
@@ -284,6 +280,6 @@ export default function ResearchPost(): JSX.Element {
           </div>
         )}
       </nav>
-    </div>
+    </DataPageLayout>
   );
 }

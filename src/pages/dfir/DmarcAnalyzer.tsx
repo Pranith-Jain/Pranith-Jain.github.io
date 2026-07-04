@@ -1,8 +1,7 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import {
-  ArrowLeft,
   Upload,
   Shield,
   Download,
@@ -304,23 +303,13 @@ export default function DmarcAnalyzer(): JSX.Element {
   const enrichedCount = report?.records.filter((r) => r.enrichment).length ?? 0;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <Shield size={28} className="text-brand-600 dark:text-brand-400" /> DMARC RUA Analyzer
-        </h1>
-        <p className="text-muted mb-2 leading-relaxed">
-          Parse &amp; analyze your DMARC aggregate (RUA) XML reports — XML parsed in-browser, IPs enriched via real-time
-          WHOIS/GeoIP.
-        </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
+    <DataPageLayout
+      backTo="/dfir"
+      icon={<Shield size={28} />}
+      title="DMARC RUA Analyzer"
+      description="Parse & analyze your DMARC aggregate (RUA) XML reports — XML parsed in-browser, IPs enriched via real-time WHOIS/GeoIP."
+      headerExtra={
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
           Inspired by{' '}
           <a
             href="https://www.dmarclabsds1.xyz/"
@@ -332,8 +321,9 @@ export default function DmarcAnalyzer(): JSX.Element {
           </a>
           .
         </p>
-      </div>
-
+      }
+      maxWidthClass="max-w-7xl"
+    >
       <div className="flex flex-wrap gap-4 mb-6">
         <div className="flex items-center gap-2 text-xs font-mono text-emerald-700 dark:text-emerald-300 bg-emerald-500/10 border border-emerald-500/30 rounded-full px-3 py-1">
           <CheckCircle2 size={12} /> No signup
@@ -616,6 +606,6 @@ export default function DmarcAnalyzer(): JSX.Element {
           </div>
         </div>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ArrowLeft, Check, Copy, FileSearch, Search } from 'lucide-react';
-import { BackLink } from '../../components/BackLink';
+import { Check, Copy, FileSearch, Search } from 'lucide-react';
 import { DataState } from '../../components/DataState';
+import { DataPageLayout } from '../../components/DataPageLayout';
 
 interface Wordlist {
   id: string;
@@ -73,19 +73,12 @@ export default function PhishingWordlists(): JSX.Element {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <FileSearch size={28} className="text-brand-600 dark:text-brand-400" /> Phishing hunting wordlists
-        </h1>
-        <p className="text-muted mb-2 max-w-3xl leading-relaxed">
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<FileSearch size={28} />}
+      title="Phishing hunting wordlists"
+      description={
+        <>
           Fuzzing wordlists (Gobuster / ffuf) for hunting exposed credential dumps, admin panels, and webshells on
           phishing infrastructure — the filenames threat actors use to stash stolen creds and campaign data. Pairs with
           open-directory / exposed-host hunting. Sourced from{' '}
@@ -98,9 +91,10 @@ export default function PhishingWordlists(): JSX.Element {
             spmedia/PhishingSecLists
           </a>{' '}
           (MIT).
-        </p>
-      </div>
-
+        </>
+      }
+      maxWidthClass="max-w-4xl"
+    >
       {data && (
         <div className="flex flex-wrap gap-1.5 mt-4 mb-4">
           {data.lists.map((l) => (
@@ -180,6 +174,6 @@ export default function PhishingWordlists(): JSX.Element {
           </button>
         )}
       </DataState>
-    </div>
+    </DataPageLayout>
   );
 }

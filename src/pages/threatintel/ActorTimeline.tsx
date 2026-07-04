@@ -1,11 +1,10 @@
 import { useMemo } from 'react';
 import { relativeAgo as shortRel } from '../../lib/relativeTime';
 import { sanitizeUrl } from '../../lib/sanitize-url';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, ExternalLink, RefreshCw, Skull } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { ExternalLink, RefreshCw, Skull } from 'lucide-react';
 import { useDataFetch } from '../../hooks/useDataFetch';
 import { ActorTtpsPanel } from '../../components/threatintel/ActorTtpsPanel';
-import { DataState } from '../../components/DataState';
 
 interface MitreGroupRef {
   id: string;
@@ -103,228 +102,214 @@ export default function ActorTimeline(): JSX.Element {
   }, [data]);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <Skull size={28} className="text-brand-600 dark:text-brand-400" /> Ransomware actor activity timeline
-        </h1>
-        <p className="text-muted mb-2 max-w-3xl leading-relaxed">
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Skull className="h-6 w-6" />}
+      title="Ransomware actor activity timeline"
+      description={
+        <>
           Per-actor leak-site cadence across the last {data?.window_days ?? 30} days. Rows are the most-active groups
           this week; cells are daily post counts (relative shading per row so a slow week is still visible). MITRE
           ATT&CK Group profile linked where known, so you can pivot from "who's posting" to "what TTPs to hunt for."
-        </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
-          Joins Ransomlook per-group history with a curated MITRE Group lookup.
-        </p>
-      </div>
-
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
-        {data && (
-          <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
-            {data.groups.length} active groups · snapshot{' '}
-            <span className="text-slate-700 dark:text-slate-300">{shortRel(data.generated_at)}</span>
-            {data.warnings.length > 0 && (
-              <span className="text-amber-600 dark:text-amber-400 ml-2">
-                · {data.warnings.length} per-group fetch warnings
-              </span>
-            )}
-          </p>
-        )}
-        <button
-          type="button"
-          onClick={() => refetch()}
-          className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1 disabled:opacity-50"
-          aria-label="refresh"
-        >
-          <RefreshCw size={11} className={loading ? 'animate-spin' : ''} /> refresh
-        </button>
-      </section>
-
-      <DataState
-        loading={loading}
-        error={error}
-        empty={!error && (!data || data.groups.length === 0)}
-        emptyLabel="Ransomlook returned no data this snapshot. Try refresh."
-        onRetry={refetch}
-        rows={8}
-      >
-        {data && (
-          <>
-            {/* overflow-x-auto wrapper: the heatmap has a fixed 200px label column + N day columns,
+        </>
+      }
+      loading={loading}
+      error={error}
+      empty={!error && (!data || data.groups.length === 0)}
+      emptyMessage="Ransomlook returned no data this snapshot. Try refresh."
+      onRetry={refetch}
+      maxWidthClass="max-w-6xl"
+      headerExtra={
+        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 flex items-center justify-between gap-3 flex-wrap">
+          {data && (
+            <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
+              {data.groups.length} active groups · snapshot{' '}
+              <span className="text-slate-700 dark:text-slate-300">{shortRel(data.generated_at)}</span>
+              {data.warnings.length > 0 && (
+                <span className="text-amber-600 dark:text-amber-400 ml-2">
+                  · {data.warnings.length} per-group fetch warnings
+                </span>
+              )}
+            </p>
+          )}
+          <button
+            type="button"
+            onClick={() => refetch()}
+            className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1 disabled:opacity-50"
+            aria-label="refresh"
+          >
+            <RefreshCw size={11} className={loading ? 'animate-spin' : ''} /> refresh
+          </button>
+        </section>
+      }
+    >
+      <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
+        Joins Ransomlook per-group history with a curated MITRE Group lookup.
+      </p>
+      {data && (
+        <>
+          {/* overflow-x-auto wrapper: the heatmap has a fixed 200px label column + N day columns,
               which can't compress below ~640px without losing meaning. Let it scroll on mobile. */}
-            <div className="overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
-              <div className="min-w-[640px]">
-                {/* Day axis legend */}
-                <div
-                  className="font-mono text-micro text-slate-500 mb-1 grid"
-                  style={{ gridTemplateColumns: `200px repeat(${data.days.length}, minmax(0,1fr))` }}
-                >
-                  <div></div>
-                  {data.days.map((day, i) => {
-                    const tick = xAxisLabels.find((l) => l.idx === i);
-                    return (
-                      <div key={day} className="text-center">
-                        {tick ? tick.label : ''}
-                      </div>
-                    );
-                  })}
-                </div>
+          <div className="overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
+            <div className="min-w-[640px]">
+              {/* Day axis legend */}
+              <div
+                className="font-mono text-micro text-slate-500 mb-1 grid"
+                style={{ gridTemplateColumns: `200px repeat(${data.days.length}, minmax(0,1fr))` }}
+              >
+                <div></div>
+                {data.days.map((day, i) => {
+                  const tick = xAxisLabels.find((l) => l.idx === i);
+                  return (
+                    <div key={day} className="text-center">
+                      {tick ? tick.label : ''}
+                    </div>
+                  );
+                })}
+              </div>
 
-                <ul className="space-y-2">
-                  {data.groups.map((g) => {
-                    const max = rowMaxes.get(g.slug) ?? 0;
-                    return (
-                      <li
-                        key={g.slug}
-                        className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
+              <ul className="space-y-2">
+                {data.groups.map((g) => {
+                  const max = rowMaxes.get(g.slug) ?? 0;
+                  return (
+                    <li
+                      key={g.slug}
+                      className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
+                    >
+                      <div
+                        className="grid items-center gap-1"
+                        style={{ gridTemplateColumns: `200px repeat(${g.buckets.length}, minmax(0,1fr))` }}
                       >
-                        <div
-                          className="grid items-center gap-1"
-                          style={{ gridTemplateColumns: `200px repeat(${g.buckets.length}, minmax(0,1fr))` }}
-                        >
-                          <div className="pr-3 min-w-0">
-                            <div className="flex items-center gap-1.5 flex-wrap">
-                              <div
-                                className="font-display font-semibold text-sm truncate min-w-0"
-                                title={g.display_name}
-                              >
-                                {g.display_name}
-                              </div>
-                              <AccelerationBadge buckets={g.buckets} />
+                        <div className="pr-3 min-w-0">
+                          <div className="flex items-center gap-1.5 flex-wrap">
+                            <div className="font-display font-semibold text-sm truncate min-w-0" title={g.display_name}>
+                              {g.display_name}
                             </div>
-                            <div className="text-micro font-mono text-slate-500 mt-0.5">
-                              {g.posts_in_window} in {data.window_days}d ·{' '}
-                              {g.partial ? 'recent-feed only' : `${g.all_time_count} all-time`}
-                            </div>
+                            <AccelerationBadge buckets={g.buckets} />
                           </div>
-                          {g.buckets.map((b) => (
-                            <div
-                              key={b.day}
-                              className={`h-5 rounded-sm ${cellColor(b.count, max)} hover:ring-2 hover:ring-brand-500/40 transition-shadow`}
-                              title={`${b.day} · ${b.count} post${b.count === 1 ? '' : 's'}`}
-                            />
-                          ))}
+                          <div className="text-micro font-mono text-slate-500 mt-0.5">
+                            {g.posts_in_window} in {data.window_days}d ·{' '}
+                            {g.partial ? 'recent-feed only' : `${g.all_time_count} all-time`}
+                          </div>
                         </div>
+                        {g.buckets.map((b) => (
+                          <div
+                            key={b.day}
+                            className={`h-5 rounded-sm ${cellColor(b.count, max)} hover:ring-2 hover:ring-brand-500/40 transition-shadow`}
+                            title={`${b.day} · ${b.count} post${b.count === 1 ? '' : 's'}`}
+                          />
+                        ))}
+                      </div>
 
-                        {/* Per-group footer: MITRE link, raas tag, refs */}
-                        <div className="mt-2 ml-[200px] pl-0 flex items-center gap-2 flex-wrap text-mini font-mono text-slate-500">
-                          {g.mitre ? (
+                      {/* Per-group footer: MITRE link, raas tag, refs */}
+                      <div className="mt-2 ml-[200px] pl-0 flex items-center gap-2 flex-wrap text-mini font-mono text-slate-500">
+                        {g.mitre ? (
+                          <a
+                            href={sanitizeUrl(g.mitre.url)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:underline"
+                          >
+                            MITRE {g.mitre.id} · {g.mitre.name} <ExternalLink size={9} />
+                          </a>
+                        ) : (
+                          <span className="px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-400">
+                            not in MITRE
+                          </span>
+                        )}
+                        {g.raas && (
+                          <span className="px-1.5 py-0.5 rounded border border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300">
+                            RaaS
+                          </span>
+                        )}
+                        {g.partial ? (
+                          <span
+                            className="px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-400"
+                            title="ransomlook per-group endpoint was unreachable; this row is rebuilt from the recent-claims feed. Heatmap is accurate for the window; all-time count, mirrors and references are unavailable."
+                          >
+                            recent-feed only
+                          </span>
+                        ) : (
+                          <span
+                            className={`inline-flex items-center gap-1.5 px-1.5 py-0.5 rounded ${
+                              g.mirrors_total > 0 && g.mirrors_reachable === 0
+                                ? 'border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300'
+                                : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))]'
+                            }`}
+                            title={`${g.mirrors_reachable} of ${g.mirrors_total} leak-site mirrors currently reachable${
+                              g.mirrors_total > 0 && g.mirrors_reachable === 0 ? ' (site possibly down or seized)' : ''
+                            }`}
+                          >
+                            mirrors:
+                            <MirrorDots reachable={g.mirrors_reachable} total={g.mirrors_total} />
+                            <span className="tabular-nums text-micro">
+                              {g.mirrors_reachable}/{g.mirrors_total}
+                            </span>
+                          </span>
+                        )}
+                        {g.references.slice(0, 3).map((ref) => {
+                          let host = ref;
+                          try {
+                            host = new URL(ref).hostname.replace(/^www\./, '');
+                          } catch {
+                            /* ignore */
+                          }
+                          return (
                             <a
-                              href={sanitizeUrl(g.mitre.url)}
+                              key={ref}
+                              href={sanitizeUrl(ref) || undefined}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:underline"
+                              className="hover:underline hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                              title={ref}
                             >
-                              MITRE {g.mitre.id} · {g.mitre.name} <ExternalLink size={9} />
+                              {host} <ExternalLink size={9} />
                             </a>
-                          ) : (
-                            <span className="px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-400">
-                              not in MITRE
-                            </span>
-                          )}
-                          {g.raas && (
-                            <span className="px-1.5 py-0.5 rounded border border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300">
-                              RaaS
-                            </span>
-                          )}
-                          {g.partial ? (
-                            <span
-                              className="px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-400"
-                              title="ransomlook per-group endpoint was unreachable; this row is rebuilt from the recent-claims feed. Heatmap is accurate for the window; all-time count, mirrors and references are unavailable."
-                            >
-                              recent-feed only
-                            </span>
-                          ) : (
-                            <span
-                              className={`inline-flex items-center gap-1.5 px-1.5 py-0.5 rounded ${
-                                g.mirrors_total > 0 && g.mirrors_reachable === 0
-                                  ? 'border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300'
-                                  : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))]'
-                              }`}
-                              title={`${g.mirrors_reachable} of ${g.mirrors_total} leak-site mirrors currently reachable${
-                                g.mirrors_total > 0 && g.mirrors_reachable === 0
-                                  ? ' (site possibly down or seized)'
-                                  : ''
-                              }`}
-                            >
-                              mirrors:
-                              <MirrorDots reachable={g.mirrors_reachable} total={g.mirrors_total} />
-                              <span className="tabular-nums text-micro">
-                                {g.mirrors_reachable}/{g.mirrors_total}
-                              </span>
-                            </span>
-                          )}
-                          {g.references.slice(0, 3).map((ref) => {
-                            let host = ref;
-                            try {
-                              host = new URL(ref).hostname.replace(/^www\./, '');
-                            } catch {
-                              /* ignore */
-                            }
-                            return (
-                              <a
-                                key={ref}
-                                href={sanitizeUrl(ref) || undefined}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="hover:underline hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
-                                title={ref}
-                              >
-                                {host} <ExternalLink size={9} />
-                              </a>
-                            );
-                          })}
-                        </div>
+                          );
+                        })}
+                      </div>
 
-                        {g.description && (
-                          <p className="mt-2 ml-[200px] text-mini font-mono text-muted leading-relaxed">
-                            {g.description}
-                            {g.description.length >= 400 ? '…' : ''}
-                          </p>
-                        )}
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            </div>
-
-            <div className="mt-6">
-              <ActorTtpsPanel />
-            </div>
-
-            <section className="mt-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-4">
-              <h3 className="font-display font-semibold text-sm mb-2">How to read this</h3>
-              <ul className="text-meta font-mono text-muted space-y-1 list-disc list-inside">
-                <li>
-                  Cell shading is relative to <em>each row's</em> peak, so a slow week for one group can still highlight
-                  its peak day.
-                </li>
-                <li>Empty cells = zero posts on that day. Hover any cell for exact count + date.</li>
-                <li>
-                  "MITRE Gxxxx" pill links to ATT&CK Group profile (techniques, software, references). Newer groups may
-                  not be tracked yet.
-                </li>
-                <li>
-                  "RaaS" means the group operates as Ransomware-as-a-Service (recruits affiliates rather than executing
-                  intrusions directly).
-                </li>
-                <li>
-                  Aggregate TTPs panel: "X grp · Yp" means used by X active groups carrying Y total posts in the window.
-                </li>
+                      {g.description && (
+                        <p className="mt-2 ml-[200px] text-mini font-mono text-muted leading-relaxed">
+                          {g.description}
+                          {g.description.length >= 400 ? '…' : ''}
+                        </p>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
-            </section>
-          </>
-        )}
-      </DataState>
-    </div>
+            </div>
+          </div>
+
+          <div className="mt-6">
+            <ActorTtpsPanel />
+          </div>
+
+          <section className="mt-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-4">
+            <h3 className="font-display font-semibold text-sm mb-2">How to read this</h3>
+            <ul className="text-meta font-mono text-muted space-y-1 list-disc list-inside">
+              <li>
+                Cell shading is relative to <em>each row's</em> peak, so a slow week for one group can still highlight
+                its peak day.
+              </li>
+              <li>Empty cells = zero posts on that day. Hover any cell for exact count + date.</li>
+              <li>
+                "MITRE Gxxxx" pill links to ATT&CK Group profile (techniques, software, references). Newer groups may
+                not be tracked yet.
+              </li>
+              <li>
+                "RaaS" means the group operates as Ransomware-as-a-Service (recruits affiliates rather than executing
+                intrusions directly).
+              </li>
+              <li>
+                Aggregate TTPs panel: "X grp · Yp" means used by X active groups carrying Y total posts in the window.
+              </li>
+            </ul>
+          </section>
+        </>
+      )}
+    </DataPageLayout>
   );
 }
 

@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import { CopyButton } from '../../components/dfir/CopyButton';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Crosshair, Loader2, AlertTriangle, Shield } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { Crosshair, Loader2, AlertTriangle, Shield } from 'lucide-react';
 
 interface HuntingQuery {
   siem: string;
@@ -89,24 +89,12 @@ export default function HuntingQueryGenerator(): JSX.Element {
   const ALL_PLATFORMS = ['Splunk', 'KQL', 'Sigma', 'Elastic', 'YARA', 'Snort', 'Suricata'];
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up mb-10">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <Crosshair size={28} className="text-brand-600 dark:text-brand-400" /> Hunting Query Generator
-        </h1>
-        <p className="text-muted max-w-2xl leading-relaxed">
-          Describe a threat and generate detection queries for 7 SIEM platforms. Each query is tailored to the
-          platform's syntax and data model.
-        </p>
-      </div>
-
+    <DataPageLayout
+      backTo="/dfir"
+      icon={<Crosshair size={28} />}
+      title="Hunting Query Generator"
+      description="Describe a threat and generate detection queries for 7 SIEM platforms. Each query is tailored to the platform's syntax and data model."
+    >
       {/* Input */}
       <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5 mb-6">
         <h2 className="font-display font-bold text-sm mb-3">Threat Description</h2>
@@ -222,6 +210,6 @@ export default function HuntingQueryGenerator(): JSX.Element {
           )}
         </div>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

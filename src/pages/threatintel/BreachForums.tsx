@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Copy, ExternalLink, History, Newspaper, Radio, RefreshCw, ShieldAlert } from 'lucide-react';
+import { Copy, ExternalLink, History, Newspaper, Radio, RefreshCw, ShieldAlert } from 'lucide-react';
 import { DataState } from '../../components/DataState';
 import { FeedAggregateCard } from '../../components/intel/FeedAggregateCard';
+import { DataPageLayout } from '../../components/DataPageLayout';
 
 /**
  * Breach / leak-forum tracker. Intelligence ABOUT forums only — directory
@@ -213,29 +213,24 @@ export default function BreachForums(): JSX.Element {
   const copy = (t: string) => void navigator.clipboard?.writeText(t);
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <ShieldAlert size={28} className="text-brand-600 dark:text-brand-400" /> Breach / leak-forum tracker
-        </h1>
-        <p className="text-muted mb-2 max-w-3xl leading-relaxed">
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<ShieldAlert size={28} />}
+      title="Breach / leak-forum tracker"
+      description={
+        <p className="text-muted max-w-3xl leading-relaxed">
           A directory of criminal forums and dark markets (community-maintained deepdarkCTI list) plus a curated set of
           notable breach/leak forums. This is <strong>intelligence about</strong> these venues — names, status, public
           OSINT coverage, and historical status deltas.
         </p>
+      }
+      headerExtra={
         <div className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-3 font-mono text-mini text-amber-700 dark:text-amber-300 max-w-3xl mb-6">
           No forum content, credentials, or breach data is fetched, parsed, or linked here. Curated entries link to
           public OSINT coverage (DarkWebInformer search), not to the forums themselves.
         </div>
-      </div>
-
+      }
+    >
       <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
         {data && (
           <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
@@ -496,6 +491,6 @@ export default function BreachForums(): JSX.Element {
           )}
         </DataState>
       </section>
-    </div>
+    </DataPageLayout>
   );
 }

@@ -1,7 +1,6 @@
 import { useState, useCallback } from 'react';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import {
-  ArrowLeft,
   Sparkles,
   Loader2,
   AlertTriangle,
@@ -174,24 +173,13 @@ export default function InsightAi(): JSX.Element {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up mb-10">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <Sparkles size={28} className="text-brand-600 dark:text-brand-400" /> INSIGHT-AI
-        </h1>
-        <p className="text-muted max-w-2xl leading-relaxed">
-          AI-powered runbook generator. Paste an alert description and generate a structured investigation playbook with
-          triage, queries, ATT&CK mapping, and more.
-        </p>
-      </div>
-
+    <DataPageLayout
+      backTo="/dfir"
+      maxWidthClass="max-w-6xl"
+      icon={<Sparkles size={28} />}
+      title="INSIGHT-AI"
+      description="AI-powered runbook generator. Paste an alert description and generate a structured investigation playbook with triage, queries, ATT&CK mapping, and more."
+    >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Input Panel */}
         <div className="space-y-5">
@@ -382,6 +370,6 @@ export default function InsightAi(): JSX.Element {
           )}
         </div>
       </div>
-    </div>
+    </DataPageLayout>
   );
 }

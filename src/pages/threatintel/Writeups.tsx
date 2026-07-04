@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, BookText, ExternalLink, RefreshCw, Search } from 'lucide-react';
-import { DataState } from '../../components/DataState';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { BookText, ExternalLink, RefreshCw, Search } from 'lucide-react';
 import { FeedAggregateCard } from '../../components/intel/FeedAggregateCard';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 import { sanitizeUrl } from '../../lib/sanitize-url';
@@ -178,26 +177,31 @@ export default function Writeups(): JSX.Element {
     });
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-        <BookText size={28} className="text-brand-600 dark:text-brand-400" /> Writeups feed
-      </h1>
-      <p className="text-meta font-mono text-slate-500 dark:text-slate-400 mb-4 max-w-3xl">
-        The broad ecosystem cut: vendor blogs, news outlets, Medium tag feeds, the long tail. For the curated
-        analyst-must-read set, see{' '}
-        <Link to="/threatintel/detections/signal" className="text-brand-600 dark:text-brand-400 hover:underline">
-          /threatintel/signal
-        </Link>{' '}
-        (no overlap between the two pages).
-      </p>
-
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<BookText className="h-6 w-6" />}
+      title="Writeups feed"
+      description={
+        <>
+          The broad ecosystem cut: vendor blogs, news outlets, Medium tag feeds, the long tail. For the curated
+          analyst-must-read set, see{' '}
+          <Link to="/threatintel/detections/signal" className="text-brand-600 dark:text-brand-400 hover:underline">
+            /threatintel/signal
+          </Link>{' '}
+          (no overlap between the two pages).
+        </>
+      }
+      loading={loading}
+      error={error}
+      empty={filtered.length === 0}
+      emptyMessage={
+        query || kindFilter.size > 0 || sourceFilter.size > 0
+          ? 'No writeups match the current filter.'
+          : 'No writeups in the current snapshot.'
+      }
+      onRetry={() => setRefreshKey((k) => k + 1)}
+      maxWidthClass="max-w-5xl"
+    >
       <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
@@ -314,58 +318,45 @@ export default function Writeups(): JSX.Element {
         </>
       )}
 
-      <DataState
-        loading={loading}
-        error={error}
-        empty={filtered.length === 0}
-        emptyLabel={
-          query || kindFilter.size > 0 || sourceFilter.size > 0
-            ? 'No writeups match the current filter.'
-            : 'No writeups in the current snapshot.'
-        }
-        onRetry={() => setRefreshKey((k) => k + 1)}
-        rows={8}
-      >
-        <ul className="space-y-3">
-          {filtered.map((it, i) => (
-            <li
-              key={`${it.url}-${i}`}
-              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 hover:border-brand-500/40 transition-colors"
-            >
-              <a href={sanitizeUrl(it.url)} target="_blank" rel="noopener noreferrer" className="group block">
-                <div className="flex items-start justify-between gap-3 mb-1.5 flex-wrap">
-                  <h3 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 flex-1 min-w-0">
-                    {it.title}
-                  </h3>
-                  <ExternalLink size={12} className="text-slate-400 shrink-0 mt-1" />
-                </div>
-                {it.description && (
-                  <p className="text-tool text-muted leading-relaxed mb-2 line-clamp-3">{it.description}</p>
+      <ul className="space-y-3">
+        {filtered.map((it, i) => (
+          <li
+            key={`${it.url}-${i}`}
+            className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 hover:border-brand-500/40 transition-colors"
+          >
+            <a href={sanitizeUrl(it.url)} target="_blank" rel="noopener noreferrer" className="group block">
+              <div className="flex items-start justify-between gap-3 mb-1.5 flex-wrap">
+                <h3 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 flex-1 min-w-0">
+                  {it.title}
+                </h3>
+                <ExternalLink size={12} className="text-slate-400 shrink-0 mt-1" />
+              </div>
+              {it.description && (
+                <p className="text-tool text-muted leading-relaxed mb-2 line-clamp-3">{it.description}</p>
+              )}
+              <div className="flex items-center gap-2 text-mini font-mono text-slate-500 flex-wrap">
+                <span className={`px-1.5 py-0.5 rounded border ${KIND_PILL[it.kind]}`}>{it.source}</span>
+                {it.published && (
+                  <span title={formatDate(it.published)}>{shortRel(it.published) || formatDate(it.published)}</span>
                 )}
-                <div className="flex items-center gap-2 text-mini font-mono text-slate-500 flex-wrap">
-                  <span className={`px-1.5 py-0.5 rounded border ${KIND_PILL[it.kind]}`}>{it.source}</span>
-                  {it.published && (
-                    <span title={formatDate(it.published)}>{shortRel(it.published) || formatDate(it.published)}</span>
-                  )}
-                  {it.author && <span>by {it.author}</span>}
-                  {it.tags && it.tags.length > 0 && (
-                    <span className="flex flex-wrap gap-1 ml-1">
-                      {it.tags.slice(0, 4).map((t) => (
-                        <span
-                          key={t}
-                          className="px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted"
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </span>
-                  )}
-                </div>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </DataState>
-    </div>
+                {it.author && <span>by {it.author}</span>}
+                {it.tags && it.tags.length > 0 && (
+                  <span className="flex flex-wrap gap-1 ml-1">
+                    {it.tags.slice(0, 4).map((t) => (
+                      <span
+                        key={t}
+                        className="px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </span>
+                )}
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </DataPageLayout>
   );
 }

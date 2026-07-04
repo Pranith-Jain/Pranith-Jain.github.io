@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import { CopyButton } from '../../components/ui/CopyButton';
 import { relativeAgo as shortRel } from '../../lib/relativeTime';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, ExternalLink, Globe, Loader2, Radar, RefreshCw, Search } from 'lucide-react';
+import { ExternalLink, Globe, Loader2, Radar, RefreshCw, Search } from 'lucide-react';
 import { DataState } from '../../components/DataState';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { StatBar } from '../../components/StatBar';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 
@@ -461,28 +461,19 @@ export default function MyThreatIntel(): JSX.Element {
   }, [data, query, cols]);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <Radar size={28} className="text-brand-600 dark:text-brand-400" /> MyThreatIntel
-        </h1>
-        <p className="text-muted mb-2 max-w-3xl leading-relaxed">
-          Live view of the MyThreatIntel CTI platform via its authenticated REST API. The bearer token is held as a
-          Worker secret and injected server-side — it never reaches the browser.
-        </p>
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Radar size={28} />}
+      title="MyThreatIntel"
+      description="Live view of the MyThreatIntel CTI platform via its authenticated REST API. The bearer token is held as a Worker secret and injected server-side — it never reaches the browser."
+      maxWidthClass="max-w-6xl"
+      headerExtra={
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
           9 sources: IOCs, malware, CVEs, ransomware ops, CTI events, leaks, threat groups, darknet markets, onion
           services.
         </p>
-      </div>
-
+      }
+    >
       <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
         <div className="flex flex-wrap items-center gap-1.5 mb-3">
           {SOURCES.map((s) => (
@@ -641,6 +632,6 @@ export default function MyThreatIntel(): JSX.Element {
           </DataState>
         </>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

@@ -1,6 +1,6 @@
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { useTheme } from '../../hooks';
-import { ArrowLeft, Moon, Plug, Shield, Globe, Server, FileSearch, Cpu, Book, Bug, Sun, Terminal } from 'lucide-react';
+import { Moon, Plug, Shield, Globe, Server, FileSearch, Cpu, Book, Bug, Sun, Terminal } from 'lucide-react';
 
 /**
  * Public-facing integrations directory.
@@ -253,26 +253,19 @@ export default function Settings(): JSX.Element {
   const liveCount = INTEGRATIONS.filter((i) => i.status === 'live').length;
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="mb-8 animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <Plug size={26} className="text-brand-600 dark:text-brand-400" /> Integrations
-        </h1>
-        <p className="text-sm text-muted max-w-2xl">
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Plug size={26} />}
+      title="Integrations"
+      description={
+        <>
           External data sources wired into the platform.{' '}
           <span className="font-semibold text-slate-700 dark:text-slate-200">{liveCount} live</span> and serving the
           analyst-facing pages now. Items marked <em>optional</em> light up when the operator enables them; they fail
           soft until then so nothing else breaks.
-        </p>
-      </div>
-
+        </>
+      }
+    >
       {/* ── Preferences ──────────────────────────────────────────── */}
       <section className="mb-10 animate-fade-in-up">
         <h2 className="font-display font-semibold text-base mb-3 text-slate-800 dark:text-slate-200">Preferences</h2>
@@ -337,6 +330,6 @@ export default function Settings(): JSX.Element {
           </section>
         ))}
       </div>
-    </div>
+    </DataPageLayout>
   );
 }

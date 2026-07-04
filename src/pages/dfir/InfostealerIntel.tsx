@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import {
-  ArrowLeft,
   KeyRound,
   Search,
   Globe,
@@ -228,24 +227,12 @@ export default function InfostealerIntel(): JSX.Element {
   const TabIcon = currentTab.icon;
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up mb-10">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <KeyRound size={28} className="text-brand-600 dark:text-brand-400" /> Infostealer Intelligence
-        </h1>
-        <p className="text-muted max-w-2xl leading-relaxed">
-          Search compromised credentials, domain exposure, and infection analysis from 30M+ infostealer-infected
-          machines. Powered by Hudson Rock Cavalier API.
-        </p>
-      </div>
-
+    <DataPageLayout
+      backTo="/dfir"
+      icon={<KeyRound size={28} />}
+      title="Infostealer Intelligence"
+      description="Search compromised credentials, domain exposure, and infection analysis from 30M+ infostealer-infected machines. Powered by Hudson Rock Cavalier API."
+    >
       {/* Tabs */}
       <div className="flex flex-wrap gap-1.5 mb-6">
         {TABS.map((t) => {
@@ -515,7 +502,7 @@ export default function InfostealerIntel(): JSX.Element {
           Docs <ExternalLink className="w-3 h-3" />
         </a>
       </div>
-    </div>
+    </DataPageLayout>
   );
 }
 

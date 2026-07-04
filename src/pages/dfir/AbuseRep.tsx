@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { ArrowLeft, Loader2, ShieldAlert } from 'lucide-react';
-import { BackLink } from '../../components/BackLink';
+import { Loader2, ShieldAlert } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { DataState } from '../../components/DataState';
 
 /**
@@ -53,19 +53,12 @@ export default function AbuseRep(): JSX.Element {
   };
 
   return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <ShieldAlert size={28} className="text-brand-600 dark:text-brand-400" /> Abuse reputation
-        </h1>
-        <p className="text-muted mb-6 max-w-2xl leading-relaxed">
+    <DataPageLayout
+      backTo="/dfir"
+      icon={<ShieldAlert size={28} />}
+      title="Abuse reputation"
+      description={
+        <>
           Quick IP / email abuse triage via{' '}
           <a
             href="https://www.stopforumspam.org"
@@ -76,9 +69,12 @@ export default function AbuseRep(): JSX.Element {
             Stop Forum Spam
           </a>{' '}
           (free, no key) — report frequency, last-seen, tor-exit flag, and confidence.
-        </p>
-      </div>
-
+        </>
+      }
+      loading={loading}
+      error={error}
+      maxWidthClass="max-w-3xl"
+    >
       <form onSubmit={lookup} className="flex flex-col sm:flex-row gap-3 mb-6">
         <input
           type="text"
@@ -135,6 +131,6 @@ export default function AbuseRep(): JSX.Element {
           </div>
         )}
       </DataState>
-    </div>
+    </DataPageLayout>
   );
 }

@@ -2,11 +2,11 @@ import { useEffect, useMemo, useState } from 'react';
 import { IocChip } from '../../components/dfir/IocChip';
 import { relativeAgo as shortRel } from '../../lib/relativeTime';
 import { useSearchParams } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Download, FileDown, GitBranchPlus, RefreshCw, Search, Sparkles, Loader2 } from 'lucide-react';
+import { Download, FileDown, GitBranchPlus, RefreshCw, Search, Sparkles, Loader2 } from 'lucide-react';
 import { useDataFetch } from '../../hooks/useDataFetch';
 import { useLastVisit, isNewSince } from '../../hooks';
 import { DataState } from '../../components/DataState';
+import { DataPageLayout } from '../../components/DataPageLayout';
 
 type IocKind = 'ip' | 'url' | 'domain' | 'hash';
 
@@ -230,29 +230,19 @@ export default function IocCorrelation(): JSX.Element {
     });
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <GitBranchPlus size={28} className="text-brand-600 dark:text-brand-400" /> Cross-source IOC correlation
-        </h1>
-        <p className="text-muted mb-2 max-w-3xl leading-relaxed">
-          Indicators that appear in 2+ independent IOC feeds. A single feed can carry false positives; consensus across
-          independent sources is what analysts trust. Higher source-count = higher confidence the indicator is currently
-          malicious.
-        </p>
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<GitBranchPlus size={28} />}
+      title="Cross-source IOC correlation"
+      description="Indicators that appear in 2+ independent IOC feeds. A single feed can carry false positives; consensus across independent sources is what analysts trust. Higher source-count = higher confidence the indicator is currently malicious."
+      maxWidthClass="max-w-5xl"
+      headerExtra={
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
           Aggregated across 18 public IOC feeds: TweetFeed, SANS ISC, C2IntelFeeds, Emerging Threats, AlienVault OTX,
           BlocklistProject (ransomware + scam), the abuse.ch suite, Ipsum, CINS, and more.
         </p>
-      </div>
-
+      }
+    >
       {data && (
         <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div>
@@ -497,7 +487,7 @@ export default function IocCorrelation(): JSX.Element {
               status as a visual grid instead of comma-separated text. */}
         </section>
       )}
-    </div>
+    </DataPageLayout>
   );
 }
 

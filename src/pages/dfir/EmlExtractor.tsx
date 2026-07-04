@@ -1,16 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
-import {
-  ArrowLeft,
-  Paperclip,
-  Loader2,
-  AlertTriangle,
-  FileText,
-  ShieldAlert,
-  ScanText,
-  FileSearch,
-} from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { Paperclip, Loader2, AlertTriangle, FileText, ShieldAlert, ScanText, FileSearch } from 'lucide-react';
 import { parseEml, type ParsedEml, type EmlAttachment } from '../../lib/dfir/eml-parser';
 import { CopyChip } from '../../components/dfir/CopyButton';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';
@@ -91,39 +82,32 @@ export default function EmlExtractor(): JSX.Element {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <Paperclip size={28} className="text-brand-600 dark:text-brand-400" /> EML Attachment Extractor
-        </h1>
-        <p className="text-muted mb-2 max-w-3xl leading-relaxed">
+    <DataPageLayout
+      backTo="/dfir"
+      icon={<Paperclip size={28} />}
+      title="EML Attachment Extractor"
+      description={
+        <>
           Drop or paste a raw <code>.eml</code> file. Each attachment is decoded (base64 / quoted-printable), hashed
           (SHA-256 + SHA-1 + MD5), and gets a one-click pivot to{' '}
           <Link to="/dfir/file" className="text-brand-600 dark:text-brand-400 hover:underline">
             File / Hash Lookup
           </Link>{' '}
           for multi-engine reputation. Pure client-side — nothing leaves your browser.
-        </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
-          Pairs with{' '}
-          <Link to="/dfir/phishing" className="text-brand-600 dark:text-brand-400 hover:underline">
-            Phishing analyzer
-          </Link>{' '}
-          (header / URL / risk-flag analysis) and{' '}
-          <Link to="/dfir/extract" className="text-brand-600 dark:text-brand-400 hover:underline">
-            IOC Extractor
-          </Link>{' '}
-          (pull URLs, IPs, domains, hashes from raw text). 10 MB max input; 5 MB per part.
-        </p>
-      </div>
-
+          <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mt-2">
+            Pairs with{' '}
+            <Link to="/dfir/phishing" className="text-brand-600 dark:text-brand-400 hover:underline">
+              Phishing analyzer
+            </Link>{' '}
+            (header / URL / risk-flag analysis) and{' '}
+            <Link to="/dfir/extract" className="text-brand-600 dark:text-brand-400 hover:underline">
+              IOC Extractor
+            </Link>{' '}
+            (pull URLs, IPs, domains, hashes from raw text). 10 MB max input; 5 MB per part.
+          </p>
+        </>
+      }
+    >
       {/* Input */}
       <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
@@ -283,7 +267,7 @@ export default function EmlExtractor(): JSX.Element {
       )}
 
       <RelatedWikiArticles />
-    </div>
+    </DataPageLayout>
   );
 }
 

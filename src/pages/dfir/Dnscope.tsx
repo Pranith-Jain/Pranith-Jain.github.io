@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Globe, Search, ShieldCheck, Loader2, AlertTriangle } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { Globe, Search, ShieldCheck, Loader2, AlertTriangle } from 'lucide-react';
 import { IntodnsPanel } from '../../components/dfir/IntodnsPanel';
 
 interface DnsSection {
@@ -149,24 +149,13 @@ export default function Dnscope(): JSX.Element {
   }, [domain]);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up mb-10">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <Globe size={28} className="text-brand-600 dark:text-brand-400" /> DNSCOPE
-        </h1>
-        <p className="text-muted max-w-2xl leading-relaxed">
-          Deep domain infrastructure mapping via live DNS, RDAP, certificate transparency, email auth, and threat
-          intelligence — all in one scan.
-        </p>
-      </div>
-
+    <DataPageLayout
+      backTo="/dfir"
+      icon={<Globe size={28} />}
+      title="DNSCOPE"
+      description="Deep domain infrastructure mapping via live DNS, RDAP, certificate transparency, email auth, and threat intelligence — all in one scan."
+      maxWidthClass="max-w-6xl"
+    >
       {error && (
         <div className="rounded-xl border border-rose-300/70 dark:border-rose-800/60 bg-rose-50/60 dark:bg-rose-950/30 p-4 flex items-start gap-3 mb-6">
           <AlertTriangle size={16} className="text-rose-600 dark:text-rose-400 flex-shrink-0 mt-0.5" />
@@ -271,6 +260,6 @@ export default function Dnscope(): JSX.Element {
       <p className="mt-8 text-micro font-mono text-slate-400 text-center">
         H3AD-X / DNSCOPE — Live multi-source domain scan
       </p>
-    </div>
+    </DataPageLayout>
   );
 }

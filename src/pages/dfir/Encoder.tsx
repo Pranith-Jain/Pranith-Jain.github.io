@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, ArrowRight, Plus, Type, X, RotateCw } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { ArrowRight, Plus, Type, X, RotateCw } from 'lucide-react';
 import { encodeChain, type Encoding } from '../../lib/dfir/encode';
 import { CopyButton, CopyChip } from '../../components/dfir/CopyButton';
 
@@ -72,32 +72,25 @@ export default function Encoder(): JSX.Element {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <Type size={28} className="text-brand-600 dark:text-brand-400" /> Encoder
-        </h1>
-        <p className="text-muted mb-2 max-w-3xl leading-relaxed">
+    <DataPageLayout
+      backTo="/dfir"
+      icon={<Type size={28} />}
+      title="Encoder"
+      description={
+        <>
           Multi-pass encoder. Counterpart to{' '}
           <Link to="/dfir/decode" className="text-brand-600 dark:text-brand-400 hover:underline">
             Decoder
           </Link>
           . Useful for crafting test payloads, replicating attacker obfuscation chains, and quickly producing
           base64/url/hex/binary/rot13 forms. Pure client-side; nothing leaves your browser.
-        </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
-          Chains apply left-to-right: <code>url → base64</code> first URL-encodes the input, then base64-encodes the
-          URL-encoded form. Use the round-trip button to verify the chain decodes cleanly.
-        </p>
-      </div>
-
+          <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mt-2">
+            Chains apply left-to-right: <code>url → base64</code> first URL-encodes the input, then base64-encodes the
+            URL-encoded form. Use the round-trip button to verify the chain decodes cleanly.
+          </p>
+        </>
+      }
+    >
       {/* Input */}
       <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
@@ -235,6 +228,6 @@ export default function Encoder(): JSX.Element {
           </ol>
         </section>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

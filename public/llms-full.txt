@@ -65,6 +65,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Exposed Host](https://pranithjain.qzz.io/dfir/exposed-host) (dfir): Per-host exposure score and evidence — services, versions, CVEs.
 - [Open Directory Scanner](https://pranithjain.qzz.io/dfir/open-directory) (dfir): Detect misconfigured web servers exposing file listings.
 - [URL Preview](https://pranithjain.qzz.io/dfir/url-preview) (dfir): Safe, sandboxed preview of a URL — headers, redirects, screenshot.
+- [Subdomain Takeover Scanner](https://pranithjain.qzz.io/dfir/subdomain-takeover) (dfir): Detect dangling CNAMEs pointing to expired or unclaimed third-party services.
 - [Email Defense](https://pranithjain.qzz.io/dfir/email-defense) (dfir): SPF / DKIM / DMARC / BIMI audit with failure modes called out.
 - [Phishing Analyzer](https://pranithjain.qzz.io/dfir/phishing) (dfir): URL + sender + header analysis with risk score.
 - [DMARC Analyzer](https://pranithjain.qzz.io/dfir/dmarc-analyzer) (dfir): Parse a DMARC aggregate report (RUA) — alignment, volume, failures.
@@ -99,6 +100,8 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Hunting Query Generator](https://pranithjain.qzz.io/dfir/hunting-query-generator) (dfir): AI-assisted KQL / SPL / Lucene generation from a hypothesis.
 - [AI Rule Generator](https://pranithjain.qzz.io/dfir/ai-rule-generator) (dfir): Generate a Sigma/YARA rule from a natural-language description.
 - [FP Lens](https://pranithjain.qzz.io/dfir/fp-lens) (dfir): False-positive analyst — score a detection against historical FPs.
+- [Detection Chokepoints](https://pranithjain.qzz.io/dfir/detection-chokepoints) (dfir): Invariant detection points — prerequisites attackers cannot bypass, mapped to MITRE ATT&CK.
+- [The Long Watch](https://pranithjain.qzz.io/dfir/long-watch) (dfir): Interactive network defense simulation — 3 scenarios over 8 years of attack evolution.
 - [IR Playbooks](https://pranithjain.qzz.io/dfir/ir-playbooks) (dfir): Step-by-step playbooks for common incident types.
 - [Tools About](https://pranithjain.qzz.io/dfir/tools/about) (dfir): About the DFIR toolkit — principles, design, and feature flags.
 - [TRACERULES](https://pranithjain.qzz.io/dfir/tracerules) (dfir): Trace a rule back to its source intel — coverage and lineage.

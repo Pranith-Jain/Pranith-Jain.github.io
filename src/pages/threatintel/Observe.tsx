@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
 import { detectIoc } from '../../lib/dfir/ioc-detect';
 import {
-  ArrowLeft,
   Search,
   Loader2,
   ExternalLink,
@@ -20,6 +18,7 @@ import {
   ChevronRight,
   Download,
 } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
 
 interface ResolvedEntity {
   type: string;
@@ -190,25 +189,13 @@ export default function Observe(): JSX.Element {
     'bg-slate-100 text-slate-700 dark:bg-[rgb(var(--surface-300))] dark:text-slate-300 border-slate-200 dark:border-[rgb(var(--border-400))]';
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up mb-8">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <Monitor className="text-brand-600 dark:text-brand-400" size={28} />
-          Observable 360
-        </h1>
-        <p className="text-muted max-w-3xl leading-relaxed">
-          Unified view of any IP, domain, hash, URL, email, CVE, or threat actor — enrichment, context, and related
-          intelligence in one place.
-        </p>
-      </div>
-
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Monitor size={28} />}
+      title="Observable 360"
+      description="Unified view of any IP, domain, hash, URL, email, CVE, or threat actor — enrichment, context, and related intelligence in one place."
+      maxWidthClass="max-w-5xl"
+    >
       <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="relative">
           <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -505,6 +492,6 @@ export default function Observe(): JSX.Element {
           </div>
         </div>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

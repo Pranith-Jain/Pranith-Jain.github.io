@@ -1609,6 +1609,25 @@ const DFIR_PAGES: readonly PageEntry[] = [
     group: 'dfir',
     keywords: ['simulation', 'phishing', 'identity', 'mfa', 'bce', 'aitm', 'deepfake', 'long-watch'],
   },
+  {
+    path: '/dfir/attack-chains',
+    label: 'Attack Chains Hub',
+    description:
+      'Five major attack chains with mapped chokepoints, threat actors, and cross-chain ecosystem connections.',
+    sectionLabel: 'DFIR · Simulation',
+    group: 'dfir',
+    keywords: [
+      'simulation',
+      'attack-chains',
+      'kill-chain',
+      'ransomware',
+      'infostealer',
+      'aitm',
+      'hypervisor',
+      'identity',
+      'chokepoints',
+    ],
+  },
 
   /* ------------------------------------------------------------------ */
   /*  3. Threat Intel                                                   */

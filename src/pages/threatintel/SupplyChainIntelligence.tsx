@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import {
   AlertOctagon,
-  ArrowLeft,
   Bug,
   CheckCircle,
   ExternalLink,
@@ -159,51 +158,43 @@ export default function SupplyChainIntelligence(): JSX.Element {
   }, [ossfData]);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="flex items-center gap-3 mb-1">
-        <Shield className="w-7 h-7 text-emerald-500" />
-        <h1 className="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-slate-100">
-          Supply Chain Intelligence
-        </h1>
-      </div>
-      <p className="text-muted mb-6 text-sm max-w-3xl leading-relaxed">
-        Malicious package & supply-chain intelligence — powered by{' '}
-        <a
-          href="https://github.com/ossf/malicious-packages"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-brand-600 dark:text-brand-400 hover:underline"
-        >
-          OpenSSF
-        </a>
-        ,{' '}
-        <a
-          href="https://osv.dev"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-brand-600 dark:text-brand-400 hover:underline"
-        >
-          OSV
-        </a>
-        , and{' '}
-        <a
-          href="https://github.com/projectdiscovery/depx"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-brand-600 dark:text-brand-400 hover:underline"
-        >
-          depx
-        </a>
-        . Check if a package is known-malicious, browse the OSSF directory, or scan GitHub repos.
-      </p>
-
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Shield className="w-7 h-7" />}
+      title="Supply Chain Intelligence"
+      description={
+        <>
+          Malicious package & supply-chain intelligence — powered by{' '}
+          <a
+            href="https://github.com/ossf/malicious-packages"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-brand-600 dark:text-brand-400 hover:underline"
+          >
+            OpenSSF
+          </a>
+          ,{' '}
+          <a
+            href="https://osv.dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-brand-600 dark:text-brand-400 hover:underline"
+          >
+            OSV
+          </a>
+          , and{' '}
+          <a
+            href="https://github.com/projectdiscovery/depx"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-brand-600 dark:text-brand-400 hover:underline"
+          >
+            depx
+          </a>
+          . Check if a package is known-malicious, browse the OSSF directory, or scan GitHub repos.
+        </>
+      }
+    >
       {/* ── Package Verdict Checker ────────────────────────────────────── */}
       <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-6 mb-8">
         <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-2">
@@ -438,6 +429,6 @@ export default function SupplyChainIntelligence(): JSX.Element {
           <div className="text-xs text-slate-500">Open Source Vulnerabilities database</div>
         </a>
       </div>
-    </div>
+    </DataPageLayout>
   );
 }

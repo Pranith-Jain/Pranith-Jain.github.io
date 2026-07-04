@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Mail, Search, Loader2, ExternalLink, Globe } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { Mail, Search, Loader2, ExternalLink, Globe } from 'lucide-react';
 import {
   checkIpBlacklists,
   checkDomainBlacklists,
@@ -208,26 +208,20 @@ export default function EmailReputation(): JSX.Element {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <Mail size={28} className="text-brand-600 dark:text-brand-400" /> Email Reputation
-        </h1>
-        <p className="text-muted mb-8 max-w-2xl">
+    <DataPageLayout
+      backTo="/dfir"
+      icon={<Mail size={28} />}
+      title="Email Reputation"
+      description={
+        <>
           Full email infrastructure health check — MX, SPF, DKIM, DMARC, BIMI, MTA-STS, TLS-RPT <strong>plus</strong>{' '}
           real-time DNSBL checks of your mail server IPs against <strong>{IP_DNSBLS.length} IP blacklists</strong>{' '}
           (Spamhaus, Barracuda, SORBS, CBL, SpamCop, PSBL, SpamEatingMonkey, UCEPROTECT, Hostkarma, SPFBL) and the
           domain against <strong>{DOMAIN_DNSBLS.length} domain blacklists</strong> (Spamhaus DBL, URIBL, SURBL,
           Invaluement). No API key required.
-        </p>
-      </div>
-
+        </>
+      }
+    >
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -444,7 +438,7 @@ export default function EmailReputation(): JSX.Element {
           </div>
         </div>
       )}
-    </div>
+    </DataPageLayout>
   );
 }
 

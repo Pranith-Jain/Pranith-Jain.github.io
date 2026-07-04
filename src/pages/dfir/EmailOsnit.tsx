@@ -6,9 +6,8 @@
  */
 
 import { useState, type FormEvent } from 'react';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import {
-  ArrowLeft,
   Loader2,
   Shield,
   AlertTriangle,
@@ -88,24 +87,13 @@ export default function EmailOsnit() {
   const toggle = (section: string) => setExpanded(expanded === section ? null : section);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
-        <div>
-          <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Email OSINT Profile</h1>
-          <p className="text-sm font-mono text-muted max-w-2xl">
-            Build digital identity from email — GitHub, Gravatar, breach exposure, reputation, DNS, PGP keys, social
-            hints.
-          </p>
-        </div>
-      </div>
-
+    <DataPageLayout
+      backTo="/dfir"
+      icon={<Mail size={28} />}
+      title="Email OSINT Profile"
+      maxWidthClass="max-w-6xl"
+      description="Build digital identity from email — GitHub, Gravatar, breach exposure, reputation, DNS, PGP keys, social hints."
+    >
       <form onSubmit={handleSearch} className="mb-6">
         <div className="flex gap-2">
           <div className="flex-1 relative">
@@ -374,7 +362,7 @@ export default function EmailOsnit() {
           </Section>
         </div>
       )}
-    </div>
+    </DataPageLayout>
   );
 }
 

@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link, useSearchParams } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import {
-  ArrowLeft,
   Globe2,
   Search,
   Loader2,
@@ -129,19 +128,12 @@ export default function IpGeo(): JSX.Element {
   }, []);
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <Globe2 size={28} className="text-brand-600 dark:text-brand-400" /> IP Geolocation
-        </h1>
-        <p className="text-muted mb-2 leading-relaxed">
+    <DataPageLayout
+      backTo="/dfir"
+      icon={<Globe2 size={28} />}
+      title="IP Geolocation"
+      description={
+        <>
           Country, ASN, hosting provider, reverse DNS, proxy/mobile/hosting flags — composed from{' '}
           <a
             href="https://ip-api.com"
@@ -152,8 +144,10 @@ export default function IpGeo(): JSX.Element {
             ip-api.com
           </a>{' '}
           (free, no key) plus AbuseIPDB confidence + report count for reputation.
-        </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
+        </>
+      }
+      headerExtra={
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
           Pairs with{' '}
           <Link to="/dfir/asn" className="text-brand-600 dark:text-brand-400 hover:underline">
             ASN Lookup
@@ -164,8 +158,8 @@ export default function IpGeo(): JSX.Element {
           </Link>{' '}
           for full multi-provider scoring.
         </p>
-      </div>
-
+      }
+    >
       <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <form
           onSubmit={(e) => {
@@ -420,6 +414,6 @@ export default function IpGeo(): JSX.Element {
           </section>
         </>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

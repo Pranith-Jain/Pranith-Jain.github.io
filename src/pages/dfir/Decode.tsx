@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, ChevronRight, Search } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { ChevronRight, KeyRound, Search } from 'lucide-react';
 import { detectEncoding, decodeBase64, decodeUrl, decodeChain, type DecodeStep } from '../../lib/dfir/decode';
 import { hasIocCandidates } from '../../lib/dfir/ioc-detect';
 import { CopyButton } from '../../components/dfir/CopyButton';
@@ -124,21 +124,12 @@ export default function Decode(): JSX.Element {
   const detectedOnLoad = input ? detectEncoding(input) : 'unknown';
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Decoder</h1>
-        <p className="text-muted mb-8 max-w-2xl">
-          Base64 and URL decode with auto-detect and multi-pass chaining for nested encodings.
-        </p>
-      </div>
-
+    <DataPageLayout
+      backTo="/dfir"
+      icon={<KeyRound size={28} />}
+      title="Decoder"
+      description="Base64 and URL decode with auto-detect and multi-pass chaining for nested encodings."
+    >
       {/* Mode buttons */}
       <div className="flex gap-2 mb-6">
         {(['auto', 'base64', 'url'] as const).map((m) => (
@@ -257,6 +248,6 @@ export default function Decode(): JSX.Element {
           </div>
         </section>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

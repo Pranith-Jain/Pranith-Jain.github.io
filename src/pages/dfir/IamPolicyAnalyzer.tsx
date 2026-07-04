@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import type { Severity as Sev } from '../../components/severity';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, AlertTriangle, ShieldAlert, ShieldX, ShieldCheck, Info } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { AlertTriangle, ShieldAlert, ShieldX, ShieldCheck, Info } from 'lucide-react';
 
 /**
  * AWS IAM / Cloud Policy Analyzer — 100% client-side.
@@ -383,22 +383,14 @@ export default function IamPolicyAnalyzer(): JSX.Element {
   const clean = analysis && !analysis.error && analysis.findings.every((f) => f.sev === 'info' || f.sev === 'low');
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">IAM Policy Analyzer</h1>
-        <p className="text-muted mb-6 max-w-2xl">
-          Paste an AWS policy (identity, resource-based, S3 bucket, or role trust policy). It is analysed locally for
-          least-privilege and misconfiguration risks — wildcard admin, public principals, NotAction/NotResource allows,
-          privilege-escalation actions, broad secret access, and confused-deputy trust. Nothing leaves your browser.
-        </p>
-        <div className="flex flex-wrap gap-2 mb-4">
+    <DataPageLayout
+      backTo="/dfir"
+      maxWidthClass="max-w-4xl"
+      icon={<ShieldAlert size={28} />}
+      title="IAM Policy Analyzer"
+      description="Paste an AWS policy (identity, resource-based, S3 bucket, or role trust policy). It is analysed locally for least-privilege and misconfiguration risks — wildcard admin, public principals, NotAction/NotResource allows, privilege-escalation actions, broad secret access, and confused-deputy trust. Nothing leaves your browser."
+      headerExtra={
+        <div className="flex flex-wrap gap-2">
           <button
             type="button"
             onClick={() => setInput(SAMPLE_RISKY)}
@@ -423,8 +415,8 @@ export default function IamPolicyAnalyzer(): JSX.Element {
             </button>
           )}
         </div>
-      </div>
-
+      }
+    >
       <label htmlFor="policy-input" className="sr-only">
         AWS policy JSON
       </label>
@@ -513,6 +505,6 @@ export default function IamPolicyAnalyzer(): JSX.Element {
           )}
         </div>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

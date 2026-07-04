@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, FileCheck, ChevronDown, ChevronRight, Download, RotateCcw, ExternalLink } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { FileCheck, ChevronDown, ChevronRight, Download, RotateCcw, ExternalLink } from 'lucide-react';
 import {
   NIST_CSF,
   ISO_27001,
@@ -126,25 +126,14 @@ export default function Grc(): JSX.Element {
     });
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <FileCheck size={28} className="text-brand-600 dark:text-brand-400" /> GRC Compliance &amp; Maturity
-        </h1>
-        <p className="text-muted mb-2 leading-relaxed">
-          Six major frameworks side-by-side with cross-mapping and self-assessment. NIST CSF 2.0 is the spine; ISO
-          27001:2022, ISO 42001:2023 (AI Management System), CIS Controls v8, and SOC 2 are mapped to NIST where
-          official cross-references exist. SOC-CMM gives a maturity view across Business / People / Process / Technology
-          / Services.
-        </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
+    <DataPageLayout
+      backTo="/dfir"
+      maxWidthClass="max-w-6xl"
+      icon={<FileCheck size={28} />}
+      title="GRC Compliance & Maturity"
+      description="Six major frameworks side-by-side with cross-mapping and self-assessment. NIST CSF 2.0 is the spine; ISO 27001:2022, ISO 42001:2023 (AI Management System), CIS Controls v8, and SOC 2 are mapped to NIST where official cross-references exist. SOC-CMM gives a maturity view across Business / People / Process / Technology / Services."
+      headerExtra={
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
           All data stays in your browser. Cross-mappings are illustrative — for audit work, validate against official
           OSCAL mapping documents. Pairs with the{' '}
           <Link to="/dfir/nhi" className="text-brand-600 dark:text-brand-400 hover:underline">
@@ -156,8 +145,8 @@ export default function Grc(): JSX.Element {
           </Link>{' '}
           (Web/API/LLM application controls).
         </p>
-      </div>
-
+      }
+    >
       {/* Coverage dashboard */}
       <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 mb-6">
         {(['nist-csf', 'iso-27001', 'iso-42001', 'cis', 'soc2'] as FrameworkId[]).map((fid) => {
@@ -615,6 +604,6 @@ export default function Grc(): JSX.Element {
           </li>
         </ul>
       </section>
-    </div>
+    </DataPageLayout>
   );
 }

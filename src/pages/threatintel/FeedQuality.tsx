@@ -1,10 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ArrowLeft, BarChart3, ChevronDown, ChevronRight, Info, RefreshCw, Search, Sparkles } from 'lucide-react';
+import { BarChart3, ChevronDown, ChevronRight, Info, RefreshCw, Search, Sparkles } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
-import { DataState } from '../../components/DataState';
 import { useDataFetch } from '../../hooks/useDataFetch';
 import { useLastVisit, isNewSince } from '../../hooks';
+import { DataPageLayout } from '../../components/DataPageLayout';
 
 interface PillarScore {
   score: number;
@@ -175,23 +174,18 @@ export default function FeedQuality(): JSX.Element {
     });
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <BarChart3 size={28} className="text-brand-600 dark:text-brand-400" /> TIFCE — Feed Quality Scorecard
-        </h1>
-        <p className="text-muted mb-2 max-w-3xl leading-relaxed">
-          Four-pillar scorecard for every IOC feed in the live stream. The framework (TIFCE: TI Feed Content Evaluation)
-          was originally published as a Microsoft Sentinel KQL workbook; this is a vendor-neutral re-implementation
-          operating on the platform&rsquo;s own IOC infrastructure.
-        </p>
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<BarChart3 size={28} />}
+      title="TIFCE — Feed Quality Scorecard"
+      description="Four-pillar scorecard for every IOC feed in the live stream. The framework (TIFCE: TI Feed Content Evaluation) was originally published as a Microsoft Sentinel KQL workbook; this is a vendor-neutral re-implementation operating on the platform's own IOC infrastructure."
+      loading={loading}
+      error={error}
+      empty={!error && (!data || data.feeds.length === 0)}
+      emptyMessage="No TIFCE build available yet — the live-IOC stream hasn't reported enough feeds to score."
+      onRetry={() => void refetch()}
+      maxWidthClass="max-w-6xl"
+      headerExtra={
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6 flex items-center gap-2 flex-wrap">
           <span>Scored hourly · cached 1h at the edge</span>
           <span>·</span>
@@ -213,64 +207,55 @@ export default function FeedQuality(): JSX.Element {
             KQL workbook ref
           </a>
         </p>
-      </div>
+      }
+    >
+      {data && (
+        <>
+          <SummaryStrip data={data} />
 
-      <DataState
-        loading={loading}
-        error={error}
-        empty={!error && (!data || data.feeds.length === 0)}
-        emptyLabel="No TIFCE build available yet — the live-IOC stream hasn't reported enough feeds to score."
-        onRetry={() => void refetch()}
-        rows={8}
-      >
-        {data && (
-          <>
-            <SummaryStrip data={data} />
+          <section className="rounded-lg border border-amber-500/30 bg-amber-500/5 dark:bg-amber-950/20 p-4 mb-4 text-xs text-amber-800 dark:text-amber-200">
+            <p className="font-bold uppercase tracking-wider mb-1">Scoping note</p>
+            <p className="leading-relaxed">
+              Pillars 2 (Environmental Relevance) and 3 (Signal vs Noise) in the reference TIFCE workbook answer
+              tenant-side questions — &ldquo;does this IOC hit MY endpoint/email telemetry?&rdquo; and &ldquo;does it
+              correlate to MY confirmed incidents?&rdquo; This platform is a public CTI aggregator with no tenant
+              telemetry. We substitute the strongest in-platform signals we track:{' '}
+              <strong>ioc_lifecycle peak_score &gt; 0</strong> as a TP proxy and{' '}
+              <strong>detection-rules firings + case-study briefings</strong> as a platform-relevance proxy. Interpret
+              these two pillars as the platform&rsquo;s view, not a tenant metric.
+            </p>
+          </section>
 
-            <section className="rounded-lg border border-amber-500/30 bg-amber-500/5 dark:bg-amber-950/20 p-4 mb-4 text-xs text-amber-800 dark:text-amber-200">
-              <p className="font-bold uppercase tracking-wider mb-1">Scoping note</p>
-              <p className="leading-relaxed">
-                Pillars 2 (Environmental Relevance) and 3 (Signal vs Noise) in the reference TIFCE workbook answer
-                tenant-side questions — &ldquo;does this IOC hit MY endpoint/email telemetry?&rdquo; and &ldquo;does it
-                correlate to MY confirmed incidents?&rdquo; This platform is a public CTI aggregator with no tenant
-                telemetry. We substitute the strongest in-platform signals we track:{' '}
-                <strong>ioc_lifecycle peak_score &gt; 0</strong> as a TP proxy and{' '}
-                <strong>detection-rules firings + case-study briefings</strong> as a platform-relevance proxy. Interpret
-                these two pillars as the platform&rsquo;s view, not a tenant metric.
-              </p>
-            </section>
+          <FilterBar
+            query={query}
+            setQuery={setQuery}
+            gradeFilter={gradeFilter}
+            toggleGrade={toggleGrade}
+            newCount={newCount}
+            showMeta={showMeta}
+            setShowMeta={setShowMeta}
+            onRefresh={() => void refetch()}
+            meta={data._meta}
+          />
 
-            <FilterBar
-              query={query}
-              setQuery={setQuery}
-              gradeFilter={gradeFilter}
-              toggleGrade={toggleGrade}
-              newCount={newCount}
-              showMeta={showMeta}
-              setShowMeta={setShowMeta}
-              onRefresh={() => void refetch()}
-              meta={data._meta}
-            />
-
-            <section aria-label="Feed quality scorecard" className="space-y-2.5">
-              {filtered.map((feed) => (
-                <FeedRow
-                  key={feed.feedId}
-                  feed={feed}
-                  expanded={expanded.has(feed.feedId)}
-                  onToggle={() => toggleExpanded(feed.feedId)}
-                />
-              ))}
-              {filtered.length === 0 && (
-                <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-6 text-center text-sm text-slate-500 font-mono">
-                  No feeds match the current filter.
-                </div>
-              )}
-            </section>
-          </>
-        )}
-      </DataState>
-    </div>
+          <section aria-label="Feed quality scorecard" className="space-y-2.5">
+            {filtered.map((feed) => (
+              <FeedRow
+                key={feed.feedId}
+                feed={feed}
+                expanded={expanded.has(feed.feedId)}
+                onToggle={() => toggleExpanded(feed.feedId)}
+              />
+            ))}
+            {filtered.length === 0 && (
+              <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-6 text-center text-sm text-slate-500 font-mono">
+                No feeds match the current filter.
+              </div>
+            )}
+          </section>
+        </>
+      )}
+    </DataPageLayout>
   );
 }
 

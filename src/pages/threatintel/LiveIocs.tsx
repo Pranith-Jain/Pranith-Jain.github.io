@@ -3,10 +3,10 @@ import { IocChip } from '../../components/dfir/IocChip';
 import { relativeAgo } from '../../lib/relativeTime';
 const shortRel = (iso?: string) => relativeAgo(iso, 'no timestamp');
 import { sanitizeUrl } from '../../lib/sanitize-url';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, ExternalLink, Radio, RefreshCw, Search, Sparkles } from 'lucide-react';
+import { ExternalLink, Radio, RefreshCw, Search, Sparkles } from 'lucide-react';
 import { useLastVisit, isNewSince } from '../../hooks';
 import { DataState } from '../../components/DataState';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { AdmiraltyBadge } from '../../components/dfir/AdmiraltyBadge';
 import { gradeForLiveIoc } from '../../lib/dfir/admiralty-quick';
 import { LiveFreshnessPill } from '../../components/LiveFreshnessPill';
@@ -203,73 +203,67 @@ export default function LiveIocs(): JSX.Element {
     });
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <Radio size={28} className="text-brand-600 dark:text-brand-400" /> Live IOC stream
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Radio size={28} />}
+      title="Live IOC stream"
+      description={
+        'A chronological firehose of individual indicators, each carrying a reporter handle, source feed, and first-observed timestamp. /correlation answers "what\'s in 2+ feeds"; this page answers "what\'s freshly observed and by whom."'
+      }
+      maxWidthClass="max-w-5xl"
+      headerExtra={
+        <>
           <LiveFreshnessPill tone="live" ago={data ? shortRel(data.generated_at) : undefined} className="ml-1" />
-        </h1>
-        <p className="text-muted mb-2 max-w-3xl leading-relaxed">
-          A chronological firehose of individual indicators, each carrying a reporter handle, source feed, and
-          first-observed timestamp. /correlation answers "what's in 2+ feeds"; this page answers "what's freshly
-          observed and by whom."
-        </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
-          Sources:{' '}
-          {(() => {
-            const list = (data?.registered_sources ?? data?.sources ?? []).filter((s) => s.count > 0);
-            const labels = sourcesSentence(list);
-            return (
-              <>
-                {labels}
-                <span className="text-slate-400 italic"> (active only)</span>
-              </>
-            );
-          })()}
-        </p>
-        {data &&
-          (() => {
-            const list = data.registered_sources ?? data.sources;
-            if (list.length === 0) return null;
-            const healthy = list.filter((s) => s.ok && s.count > 0).length;
-            const unreachable = list.filter((s) => s.ok === false);
-            const unreachableIds = unreachable.map((s) => s.id).join(', ');
-            const dotCls = (cls: string) => `inline-block w-1.5 h-1.5 rounded-full ${cls}`;
-            return (
-              <p
-                className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-2"
-                title={
-                  unreachable.length > 0
-                    ? `Unreachable this snapshot: ${unreachableIds}`
-                    : 'All registered feeds reachable this snapshot'
-                }
-              >
-                feed health:{' '}
-                <span className="inline-flex items-center gap-1">
-                  <span className={dotCls('bg-emerald-500')} aria-label="healthy" />
-                  {healthy} healthy
-                </span>
-                <span className="mx-1.5 opacity-50">·</span>
-                <span
-                  className={`inline-flex items-center gap-1 ${
-                    unreachable.length > 0 ? 'text-rose-700 dark:text-rose-400' : ''
-                  }`}
+          <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mt-2">
+            Sources:{' '}
+            {(() => {
+              const list = (data?.registered_sources ?? data?.sources ?? []).filter((s) => s.count > 0);
+              const labels = sourcesSentence(list);
+              return (
+                <>
+                  {labels}
+                  <span className="text-slate-400 italic"> (active only)</span>
+                </>
+              );
+            })()}
+          </p>
+          {data &&
+            (() => {
+              const list = data.registered_sources ?? data.sources;
+              if (list.length === 0) return null;
+              const healthy = list.filter((s) => s.ok && s.count > 0).length;
+              const unreachable = list.filter((s) => s.ok === false);
+              const unreachableIds = unreachable.map((s) => s.id).join(', ');
+              const dotCls = (cls: string) => `inline-block w-1.5 h-1.5 rounded-full ${cls}`;
+              return (
+                <p
+                  className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-2"
+                  title={
+                    unreachable.length > 0
+                      ? `Unreachable this snapshot: ${unreachableIds}`
+                      : 'All registered feeds reachable this snapshot'
+                  }
                 >
-                  <span className={dotCls('bg-rose-400 dark:bg-rose-500')} aria-label="unreachable" />
-                  {unreachable.length} unreachable
-                </span>
-              </p>
-            );
-          })()}
-      </div>
-
+                  feed health:{' '}
+                  <span className="inline-flex items-center gap-1">
+                    <span className={dotCls('bg-emerald-500')} aria-label="healthy" />
+                    {healthy} healthy
+                  </span>
+                  <span className="mx-1.5 opacity-50">·</span>
+                  <span
+                    className={`inline-flex items-center gap-1 ${
+                      unreachable.length > 0 ? 'text-rose-700 dark:text-rose-400' : ''
+                    }`}
+                  >
+                    <span className={dotCls('bg-rose-400 dark:bg-rose-500')} aria-label="unreachable" />
+                    {unreachable.length} unreachable
+                  </span>
+                </p>
+              );
+            })()}
+        </>
+      }
+    >
       <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
         <div className="flex flex-wrap items-center gap-3">
           <div className="relative flex-1 min-w-[200px]">
@@ -531,6 +525,6 @@ export default function LiveIocs(): JSX.Element {
           </button>
         </div>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

@@ -1,8 +1,7 @@
 import { useEffect, useState, useMemo } from 'react';
-import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import {
-  ArrowLeft,
   Target,
   Shield,
   ChevronDown,
@@ -398,24 +397,13 @@ export default function PirDashboard(): JSX.Element {
   }, [routing]);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up mb-8 flex items-start justify-between">
-        <div>
-          <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3">
-            <Target size={28} className="text-brand-600 dark:text-brand-400" /> Intelligence Requirements (PIRs)
-          </h1>
-          <p className="text-muted mt-2 max-w-3xl">
-            Priority Intelligence Requirements define what decisions we're informing and who the consumer is. Each PIR
-            is scored against current collection state.
-          </p>
-        </div>
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Target size={28} />}
+      title="Intelligence Requirements (PIRs)"
+      description="Priority Intelligence Requirements define what decisions we're informing and who the consumer is. Each PIR is scored against current collection state."
+      maxWidthClass="max-w-6xl"
+      headerExtra={
         <button
           type="button"
           onClick={() => {
@@ -427,8 +415,8 @@ export default function PirDashboard(): JSX.Element {
           {showCreateForm ? <X size={14} /> : <Plus size={14} />}
           {showCreateForm ? 'Cancel' : 'New PIR'}
         </button>
-      </div>
-
+      }
+    >
       {showCreateForm && (
         <form
           onSubmit={handleCreate}
@@ -1089,6 +1077,6 @@ export default function PirDashboard(): JSX.Element {
           </>
         )}
       </DataState>
-    </div>
+    </DataPageLayout>
   );
 }

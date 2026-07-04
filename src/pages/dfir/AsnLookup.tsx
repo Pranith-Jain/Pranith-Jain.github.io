@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Network } from 'lucide-react';
+import { Network } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
 const ASN_RE = /^(AS)?\d{1,10}$/i;
 
 interface RirData {
@@ -77,21 +77,15 @@ export default function AsnLookup(): JSX.Element {
   }, []);
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">ASN Lookup</h1>
-        <p className="text-muted mb-8 max-w-2xl">
-          Query RIPEstat for Autonomous System details. Includes name, RIR, abuse contacts, and announced IP prefixes.
-        </p>
-      </div>
-
+    <DataPageLayout
+      backTo="/dfir"
+      icon={<Network size={28} />}
+      title="ASN Lookup"
+      description="Query RIPEstat for Autonomous System details. Includes name, RIR, abuse contacts, and announced IP prefixes."
+      loading={loading}
+      error={error}
+      maxWidthClass="max-w-4xl"
+    >
       <form onSubmit={onSubmit} className="mb-10">
         <div className="flex gap-2">
           <div className="flex-1 relative">
@@ -118,13 +112,6 @@ export default function AsnLookup(): JSX.Element {
           </p>
         )}
       </form>
-
-      {loading && <p className="font-mono text-muted">Querying RIPEstat…</p>}
-      {error && (
-        <p role="alert" className="font-mono text-rose-600 dark:text-rose-400">
-          error: {error}
-        </p>
-      )}
 
       {result && (
         <div className="space-y-6">
@@ -247,6 +234,6 @@ export default function AsnLookup(): JSX.Element {
           </section>
         </div>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

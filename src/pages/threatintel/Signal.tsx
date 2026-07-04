@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Radio, ExternalLink, RefreshCw, Search } from 'lucide-react';
-import { BackLink } from '../../components/BackLink';
-import { DataState } from '../../components/DataState';
+import { Radio, ExternalLink, RefreshCw, Search } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { FeedAggregateCard } from '../../components/intel/FeedAggregateCard';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 import { XLivePanel } from '../../components/threatintel/XLivePanel';
@@ -123,30 +122,38 @@ export default function Signal(): JSX.Element {
     });
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-        <Radio size={28} className="text-brand-600 dark:text-brand-400" /> Research Signal
-      </h1>
-      <p className="text-muted mb-1 max-w-3xl leading-relaxed">
-        Curated set of vendor labs and independent research outlets. ThreatSignal Research, The DFIR Report,
-        SentinelLabs, Unit 42, Check Point Research, Huntress, Eye Security, Exodus, OpenAnalysis, BushidoToken,
-        DoublePulsar. Low-volume sources, longer-form pieces.
-      </p>
-      <p className="text-meta text-slate-500 dark:text-slate-400 font-mono mb-6">
-        For the full ecosystem cut (including Medium tag feeds and the long tail), see{' '}
-        <Link to="/threatintel/research-hub/writeups" className="text-brand-600 dark:text-brand-400 hover:underline">
-          /threatintel/writeups
-        </Link>
-        .
-      </p>
-
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Radio className="h-6 w-6" />}
+      title="Research Signal"
+      description={
+        <>
+          Curated set of vendor labs and independent research outlets. ThreatSignal Research, The DFIR Report,
+          SentinelLabs, Unit 42, Check Point Research, Huntress, Eye Security, Exodus, OpenAnalysis, BushidoToken,
+          DoublePulsar. Low-volume sources, longer-form pieces.
+          <p className="text-meta text-slate-500 dark:text-slate-400 font-mono mt-2">
+            For the full ecosystem cut (including Medium tag feeds and the long tail), see{' '}
+            <Link
+              to="/threatintel/research-hub/writeups"
+              className="text-brand-600 dark:text-brand-400 hover:underline"
+            >
+              /threatintel/writeups
+            </Link>
+            .
+          </p>
+        </>
+      }
+      loading={loading}
+      error={error}
+      empty={filtered.length === 0}
+      emptyMessage={
+        query.trim() || sourceFilter.size > 0
+          ? 'No items match the current filter.'
+          : 'No items in the snapshot. Feed refreshes hourly — click refresh to re-pull.'
+      }
+      onRetry={() => setRefreshKey((k) => k + 1)}
+      maxWidthClass="max-w-5xl"
+    >
       {/* Aggregate STIX 2.1 intel card for the current curated cut. Pools
           titles + descriptions from the filtered set into one bundle so the
           page surfaces today's actors / malware / CVEs / IoCs at a glance. */}
@@ -238,61 +245,48 @@ export default function Signal(): JSX.Element {
         )}
       </section>
 
-      <DataState
-        loading={loading}
-        error={error}
-        empty={filtered.length === 0}
-        emptyLabel={
-          query.trim() || sourceFilter.size > 0
-            ? 'No items match the current filter.'
-            : 'No items in the snapshot. Feed refreshes hourly — click refresh to re-pull.'
-        }
-        onRetry={() => setRefreshKey((k) => k + 1)}
-        rows={6}
-      >
-        <ul className="space-y-3">
-          {filtered.map((it) => (
-            <li
-              key={it.url}
-              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
-            >
-              <a href={sanitizeUrl(it.url)} target="_blank" rel="noopener noreferrer" className="group block">
-                <div className="flex items-baseline justify-between gap-3 mb-1.5">
-                  <span className="text-micro font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400">
-                    {it.source}
-                  </span>
-                  <span className="text-micro font-mono text-slate-500 shrink-0" title={formatDate(it.published)}>
-                    {shortRel(it.published)}
-                  </span>
-                </div>
-                <h2 className="font-display font-semibold text-base text-slate-900 dark:text-white leading-snug group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
-                  {it.title}
-                  <ExternalLink size={12} className="inline-block ml-1 opacity-50" aria-hidden="true" />
-                </h2>
-                {it.description && (
-                  <p className="text-tool text-muted leading-relaxed mt-1.5 line-clamp-2">{it.description}</p>
-                )}
-              </a>
-              {(it.tags?.length ?? 0) > 0 && (
-                <div className="flex flex-wrap gap-1 mt-2">
-                  {it.tags!.slice(0, 6).map((t) => (
-                    <span
-                      key={t}
-                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
+      <ul className="space-y-3">
+        {filtered.map((it) => (
+          <li
+            key={it.url}
+            className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
+          >
+            <a href={sanitizeUrl(it.url)} target="_blank" rel="noopener noreferrer" className="group block">
+              <div className="flex items-baseline justify-between gap-3 mb-1.5">
+                <span className="text-micro font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400">
+                  {it.source}
+                </span>
+                <span className="text-micro font-mono text-slate-500 shrink-0" title={formatDate(it.published)}>
+                  {shortRel(it.published)}
+                </span>
+              </div>
+              <h2 className="font-display font-semibold text-base text-slate-900 dark:text-white leading-snug group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+                {it.title}
+                <ExternalLink size={12} className="inline-block ml-1 opacity-50" aria-hidden="true" />
+              </h2>
+              {it.description && (
+                <p className="text-tool text-muted leading-relaxed mt-1.5 line-clamp-2">{it.description}</p>
               )}
-            </li>
-          ))}
-        </ul>
-      </DataState>
+            </a>
+            {(it.tags?.length ?? 0) > 0 && (
+              <div className="flex flex-wrap gap-1 mt-2">
+                {it.tags!.slice(0, 6).map((t) => (
+                  <span
+                    key={t}
+                    className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+            )}
+          </li>
+        ))}
+      </ul>
 
       <div className="mt-8">
         <XLivePanel sinceHours={24} limit={10} title="X firehose · cybersec (last 24h)" />
       </div>
-    </div>
+    </DataPageLayout>
   );
 }

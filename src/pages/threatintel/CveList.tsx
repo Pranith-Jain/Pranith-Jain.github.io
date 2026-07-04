@@ -5,9 +5,9 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { AlertOctagon, ExternalLink, Flame, RefreshCw, Search, ShieldAlert, Sparkles } from 'lucide-react';
 import { useLastVisit, isNewSince } from '../../hooks';
 import { useDataFetch } from '../../hooks/useDataFetch';
-import { DataState } from '../../components/DataState';
 import { SEVERITY_TONE } from '../../components/severity';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { DataPageLayout } from '../../components/DataPageLayout';
 
 interface RecentCve {
   id: string;
@@ -161,36 +161,45 @@ export default function CveList(): JSX.Element {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <ShieldAlert size={28} className="text-brand-600 dark:text-brand-400" /> Live CVE updates
-        </h1>
-        <p className="text-muted mb-2 max-w-3xl leading-relaxed">
-          Up to <strong>1,500 CVEs newly published in the last 30 days</strong> (NVD) merged with{' '}
-          <strong>CISA KEV</strong> additions, <strong>MyThreatIntel</strong> alerts, and{' '}
-          <strong>cvefeed.io high-severity</strong> RSS as gap-fillers. NVD reports ~5,500 CVEs per 30-day window — this
-          is a triage view that prioritises high-signal records, not the full corpus. For exhaustive search use{' '}
-          <a
-            href="https://nvd.nist.gov/vuln/search"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
-          >
-            nvd.nist.gov/vuln/search
-          </a>
-          . Entries flagged KEV are known to be exploited in the wild, so prioritise those. Click a CVE id to drill into{' '}
-          <Link to="/dfir/cve" className="text-brand-600 dark:text-brand-400 hover:underline">
-            CVE Lookup
-          </Link>{' '}
-          (full NVD + EPSS + KEV record).
-        </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
-          Sources: <span className="text-slate-700 dark:text-slate-300">NVD published-CVE feed</span> merged with the{' '}
-          <span className="text-slate-700 dark:text-slate-300">CISA KEV catalogue</span>.
-        </p>
-      </div>
-
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<ShieldAlert size={28} />}
+      title="Live CVE updates"
+      description={
+        <>
+          <p className="text-muted mb-2 max-w-3xl leading-relaxed">
+            Up to <strong>1,500 CVEs newly published in the last 30 days</strong> (NVD) merged with{' '}
+            <strong>CISA KEV</strong> additions, <strong>MyThreatIntel</strong> alerts, and{' '}
+            <strong>cvefeed.io high-severity</strong> RSS as gap-fillers. NVD reports ~5,500 CVEs per 30-day window —
+            this is a triage view that prioritises high-signal records, not the full corpus. For exhaustive search use{' '}
+            <a
+              href="https://nvd.nist.gov/vuln/search"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-brand-600 dark:text-brand-400 hover:underline"
+            >
+              nvd.nist.gov/vuln/search
+            </a>
+            . Entries flagged KEV are known to be exploited in the wild, so prioritise those. Click a CVE id to drill
+            into{' '}
+            <Link to="/dfir/cve" className="text-brand-600 dark:text-brand-400 hover:underline">
+              CVE Lookup
+            </Link>{' '}
+            (full NVD + EPSS + KEV record).
+          </p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+            Sources: <span className="text-slate-700 dark:text-slate-300">NVD published-CVE feed</span> merged with the{' '}
+            <span className="text-slate-700 dark:text-slate-300">CISA KEV catalogue</span>.
+          </p>
+        </>
+      }
+      loading={loading}
+      error={error}
+      empty={filtered.length === 0}
+      emptyMessage="No CVEs match the current filter."
+      onRetry={refetch}
+      maxWidthClass="max-w-6xl"
+    >
       <AiSummaryCard
         surface="Live CVE Updates"
         items={summaryItems}
@@ -285,123 +294,114 @@ export default function CveList(): JSX.Element {
         </p>
       )}
 
-      <DataState
-        loading={loading}
-        error={error}
-        empty={filtered.length === 0}
-        emptyLabel="No CVEs match the current filter."
-        onRetry={refetch}
-        rows={8}
-      >
-        <ul className="space-y-2">
-          {pageItems.map((c) => {
-            const isNew = isNewSince(c.published, lastVisit);
-            return (
-              <li
-                key={c.id}
-                className={`rounded-lg border p-4 ${
-                  isNew
-                    ? 'border-emerald-500/50 bg-emerald-50/40 dark:bg-emerald-900/10 ring-1 ring-emerald-500/20'
-                    : c.kev
-                      ? 'border-rose-500/40 bg-rose-50/30 dark:bg-rose-900/10'
-                      : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]'
-                }`}
-              >
-                <div className="flex items-baseline justify-between gap-2 mb-2 flex-wrap">
-                  <Link
-                    to={`/dfir/cve?id=${encodeURIComponent(c.id)}`}
-                    className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 font-mono inline-flex items-center gap-2"
+      <ul className="space-y-2">
+        {pageItems.map((c) => {
+          const isNew = isNewSince(c.published, lastVisit);
+          return (
+            <li
+              key={c.id}
+              className={`rounded-lg border p-4 ${
+                isNew
+                  ? 'border-emerald-500/50 bg-emerald-50/40 dark:bg-emerald-900/10 ring-1 ring-emerald-500/20'
+                  : c.kev
+                    ? 'border-rose-500/40 bg-rose-50/30 dark:bg-rose-900/10'
+                    : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]'
+              }`}
+            >
+              <div className="flex items-baseline justify-between gap-2 mb-2 flex-wrap">
+                <Link
+                  to={`/dfir/cve?id=${encodeURIComponent(c.id)}`}
+                  className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 font-mono inline-flex items-center gap-2"
+                >
+                  {c.id}
+                  {isNew && (
+                    <span
+                      className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-emerald-500/60 bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 inline-flex items-center gap-1"
+                      title="new since your last visit"
+                    >
+                      <Sparkles size={9} /> new
+                    </span>
+                  )}
+                </Link>
+                <div className="flex items-center gap-2 text-mini font-mono flex-wrap">
+                  {c.kev && (
+                    <span
+                      className="uppercase tracking-wider px-1.5 py-0.5 rounded border border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300 inline-flex items-center gap-1"
+                      title={`Listed on CISA KEV ${c.kev_added ?? ''}${c.kev_due ? ` · federal due ${c.kev_due}` : ''}`}
+                    >
+                      <Flame size={9} /> KEV
+                    </span>
+                  )}
+                  {c.kev_ransomware && (
+                    <span
+                      className="uppercase tracking-wider px-1.5 py-0.5 rounded border border-amber-500/60 bg-amber-500/15 text-amber-700 dark:text-amber-300 inline-flex items-center gap-1"
+                      title="CISA flags this as used in known ransomware campaigns"
+                    >
+                      <AlertOctagon size={9} /> ransomware
+                    </span>
+                  )}
+                  {c.actors && c.actors.length > 0 && (
+                    <span className="inline-flex items-center gap-1 flex-wrap">
+                      {c.actors.map((a) =>
+                        a.mitre_url ? (
+                          <a
+                            key={a.slug}
+                            href={a.mitre_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-1.5 py-0.5 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:underline lowercase tracking-normal"
+                            title={`MITRE ${a.mitre_id} · ${a.mitre_name}`}
+                          >
+                            {a.slug}
+                            <span className="opacity-70"> · {a.mitre_id}</span>
+                          </a>
+                        ) : (
+                          <span
+                            key={a.slug}
+                            className="px-1.5 py-0.5 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 lowercase tracking-normal"
+                            title="curated actor (not yet in MITRE)"
+                          >
+                            {a.slug}
+                          </span>
+                        )
+                      )}
+                    </span>
+                  )}
+                  <span
+                    className={`uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEVERITY_PILL[c.severity]}`}
                   >
-                    {c.id}
-                    {isNew && (
-                      <span
-                        className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-emerald-500/60 bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 inline-flex items-center gap-1"
-                        title="new since your last visit"
-                      >
-                        <Sparkles size={9} /> new
-                      </span>
-                    )}
-                  </Link>
-                  <div className="flex items-center gap-2 text-mini font-mono flex-wrap">
-                    {c.kev && (
-                      <span
-                        className="uppercase tracking-wider px-1.5 py-0.5 rounded border border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300 inline-flex items-center gap-1"
-                        title={`Listed on CISA KEV ${c.kev_added ?? ''}${c.kev_due ? ` · federal due ${c.kev_due}` : ''}`}
-                      >
-                        <Flame size={9} /> KEV
-                      </span>
-                    )}
-                    {c.kev_ransomware && (
-                      <span
-                        className="uppercase tracking-wider px-1.5 py-0.5 rounded border border-amber-500/60 bg-amber-500/15 text-amber-700 dark:text-amber-300 inline-flex items-center gap-1"
-                        title="CISA flags this as used in known ransomware campaigns"
-                      >
-                        <AlertOctagon size={9} /> ransomware
-                      </span>
-                    )}
-                    {c.actors && c.actors.length > 0 && (
-                      <span className="inline-flex items-center gap-1 flex-wrap">
-                        {c.actors.map((a) =>
-                          a.mitre_url ? (
-                            <a
-                              key={a.slug}
-                              href={a.mitre_url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="px-1.5 py-0.5 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:underline lowercase tracking-normal"
-                              title={`MITRE ${a.mitre_id} · ${a.mitre_name}`}
-                            >
-                              {a.slug}
-                              <span className="opacity-70"> · {a.mitre_id}</span>
-                            </a>
-                          ) : (
-                            <span
-                              key={a.slug}
-                              className="px-1.5 py-0.5 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 lowercase tracking-normal"
-                              title="curated actor (not yet in MITRE)"
-                            >
-                              {a.slug}
-                            </span>
-                          )
-                        )}
-                      </span>
-                    )}
-                    <span
-                      className={`uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEVERITY_PILL[c.severity]}`}
-                    >
-                      {c.severity}
-                    </span>
-                    {c.score !== null && <span className="text-slate-500">{c.score.toFixed(1)}</span>}
-                    <span
-                      className={`uppercase tracking-wider px-1.5 py-0.5 rounded border ${ORIGIN_PILL[c.origin].cls}`}
-                      title={ORIGIN_PILL[c.origin].tooltip}
-                    >
-                      {ORIGIN_PILL[c.origin].label}
-                    </span>
-                    <span
-                      className="text-slate-400"
-                      title={c.origin === 'kev' ? `Added to KEV ${c.kev_added}` : `Published ${c.published}`}
-                    >
-                      {shortRel(c.published)}
-                    </span>
-                  </div>
+                    {c.severity}
+                  </span>
+                  {c.score !== null && <span className="text-slate-500">{c.score.toFixed(1)}</span>}
+                  <span
+                    className={`uppercase tracking-wider px-1.5 py-0.5 rounded border ${ORIGIN_PILL[c.origin].cls}`}
+                    title={ORIGIN_PILL[c.origin].tooltip}
+                  >
+                    {ORIGIN_PILL[c.origin].label}
+                  </span>
+                  <span
+                    className="text-slate-400"
+                    title={c.origin === 'kev' ? `Added to KEV ${c.kev_added}` : `Published ${c.published}`}
+                  >
+                    {shortRel(c.published)}
+                  </span>
                 </div>
-                <p className="text-meta font-mono text-muted leading-relaxed">{c.description}</p>
-                {c.reference && (
-                  <a
-                    href={sanitizeUrl(c.reference) || undefined}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline mt-2"
-                  >
-                    primary reference <ExternalLink size={9} />
-                  </a>
-                )}
-              </li>
-            );
-          })}
-        </ul>
-      </DataState>
+              </div>
+              <p className="text-meta font-mono text-muted leading-relaxed">{c.description}</p>
+              {c.reference && (
+                <a
+                  href={sanitizeUrl(c.reference) || undefined}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline mt-2"
+                >
+                  primary reference <ExternalLink size={9} />
+                </a>
+              )}
+            </li>
+          );
+        })}
+      </ul>
 
       {totalPages > 1 && (
         <div className="mt-6 flex items-center justify-center gap-2">
@@ -426,6 +426,6 @@ export default function CveList(): JSX.Element {
           </button>
         </div>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

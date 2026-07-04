@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { useSearchParams } from 'react-router-dom';
-import { ArrowLeft, Search, ExternalLink, Loader2, Copy } from 'lucide-react';
-import { BackLink } from '../../components/BackLink';
+import { Search, ExternalLink, Loader2, Copy } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
 
 /**
  * /dfir/google-dorks — SerpAPI-backed Google search with dork-operator hints.
@@ -162,26 +162,12 @@ export default function GoogleDorks(): JSX.Element {
   }, [data]);
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up mb-8">
-        <span className="inline-block text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3">
-          DFIR · OSINT
-        </span>
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Google Dorks</h1>
-        <p className="text-muted max-w-2xl">
-          Programmatic Google search with dork-operator hints — useful for surfacing exposed config files, public
-          credential leaks, indexed admin panels, and similar OSINT leads. Backed by SerpAPI; results are edge-cached
-          for an hour to keep the free tier from burning out.
-        </p>
-      </div>
-
+    <DataPageLayout
+      backTo="/dfir"
+      icon={<Search size={28} />}
+      title="Google Dorks"
+      description="Programmatic Google search with dork-operator hints — useful for surfacing exposed config files, public credential leaks, indexed admin panels, and similar OSINT leads. Backed by SerpAPI; results are edge-cached for an hour to keep the free tier from burning out."
+    >
       <form onSubmit={onSubmit} className="mb-6">
         <label htmlFor="dork-q" className="sr-only">
           Google search query
@@ -316,6 +302,6 @@ export default function GoogleDorks(): JSX.Element {
           )}
         </section>
       )}
-    </div>
+    </DataPageLayout>
   );
 }
