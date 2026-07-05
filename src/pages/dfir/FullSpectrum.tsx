@@ -14,7 +14,16 @@ import {
   Monitor,
 } from 'lucide-react';
 
-type ToolKey = 'domain_lookup' | 'exposure' | 'web_scan' | 'takeover' | 'cert_search' | 'breach' | 'webamon';
+type ToolKey =
+  | 'domain_lookup'
+  | 'exposure'
+  | 'web_scan'
+  | 'takeover'
+  | 'cert_search'
+  | 'breach'
+  | 'webamon'
+  | 'cert_transparency'
+  | 'cidr_lookup';
 
 interface ToolResult {
   loading: boolean;
@@ -43,6 +52,8 @@ const INITIAL: State = {
   cert_search: { ...INITIAL_TOOL },
   breach: { ...INITIAL_TOOL },
   webamon: { ...INITIAL_TOOL },
+  cert_transparency: { ...INITIAL_TOOL },
+  cidr_lookup: { ...INITIAL_TOOL },
 };
 
 function reducer(state: State, action: Action): State {
@@ -155,6 +166,18 @@ const TOOL_CONFIG: Array<{ key: ToolKey; label: string; icon: typeof Shield; bui
     icon: Monitor,
     buildUrl: (d) => `/api/v1/webamon/search?search=${encodeURIComponent(`domain.name:${d}`)}&size=3`,
   },
+  {
+    key: 'cert_transparency',
+    label: 'Cert Transparency',
+    icon: FileSearch,
+    buildUrl: (d) => `/api/v1/cert-transparency?domain=${encodeURIComponent(d)}`,
+  },
+  {
+    key: 'cidr_lookup',
+    label: 'CIDR / IP Ranges',
+    icon: Globe,
+    buildUrl: (d) => `/api/v1/cidr-lookup?domain=${encodeURIComponent(d)}`,
+  },
 ];
 
 function ResultCard({
@@ -217,6 +240,18 @@ function ResultCard({
       case 'webamon': {
         const d = data as { total_hits?: number } | undefined;
         return d?.total_hits ? `${d.total_hits} scan${d.total_hits !== 1 ? 's' : ''}` : 'no recent scans';
+      }
+      case 'cert_transparency': {
+        const subs = data.subdomains as string[] | undefined;
+        const total = data.total_certs as number | undefined;
+        if (subs && subs.length > 0) return `${subs.length} subdomains from ${total ?? '?'} certs`;
+        return 'no subdomains found';
+      }
+      case 'cidr_lookup': {
+        const cidrs = data.cidrs as { cidr: string }[] | undefined;
+        return cidrs && cidrs.length > 0
+          ? `${cidrs.length} CIDR range${cidrs.length !== 1 ? 's' : ''}`
+          : 'no ranges found';
       }
       default:
         return 'done';
@@ -356,6 +391,42 @@ function ResultCard({
           </div>
         );
       }
+      case 'cert_transparency': {
+        const subs = data.subdomains as string[] | undefined;
+        const total = data.total_certs as number | undefined;
+        if (!subs || subs.length === 0)
+          return <p className="text-mini font-mono text-muted mt-1">No subdomains via crt.sh</p>;
+        return (
+          <div className="text-mini font-mono mt-1 text-muted">
+            <span>
+              {subs.length} subdomain{subs.length !== 1 ? 's' : ''} from {total ?? '?'} certs
+            </span>
+            <p className="truncate text-slate-500 dark:text-slate-400">
+              {subs.slice(0, 4).join(', ')}
+              {subs.length > 4 ? '…' : ''}
+            </p>
+          </div>
+        );
+      }
+      case 'cidr_lookup': {
+        const cidrs = data.cidrs as { cidr: string; description?: string }[] | undefined;
+        if (!cidrs || cidrs.length === 0)
+          return <p className="text-mini font-mono text-muted mt-1">No CIDR ranges found</p>;
+        return (
+          <div className="text-mini font-mono mt-1 text-muted">
+            <span>
+              {cidrs.length} CIDR range{cidrs.length !== 1 ? 's' : ''}
+            </span>
+            <p className="truncate text-slate-500 dark:text-slate-400">
+              {cidrs
+                .slice(0, 3)
+                .map((c) => c.cidr)
+                .join(', ')}
+              {cidrs.length > 3 ? '…' : ''}
+            </p>
+          </div>
+        );
+      }
       default:
         return null;
     }
@@ -381,7 +452,7 @@ function ResultCard({
         {state.loading && <Loader2 size={12} className="animate-spin text-slate-500 dark:text-slate-400 shrink-0" />}
         {!state.loading && !!state.data && !state.error && (
           <Link
-            to={`/${tool.key === 'domain_lookup' ? 'dfir/domain' : tool.key === 'web_scan' ? 'dfir/web-scan' : tool.key === 'cert_search' ? 'dfir/cert-search' : tool.key === 'breach' ? 'dfir/breach' : tool.key === 'webamon' ? 'threatintel/webamon' : 'dfir/' + tool.key}?${tool.key === 'webamon' ? 'q' : 'domain'}=${encodeURIComponent(domain)}`}
+            to={`/${tool.key === 'domain_lookup' ? 'dfir/domain' : tool.key === 'web_scan' ? 'dfir/web-scan' : tool.key === 'cert_search' ? 'dfir/cert-search' : tool.key === 'breach' ? 'dfir/breach' : tool.key === 'webamon' ? 'threatintel/webamon' : tool.key === 'cert_transparency' ? 'dfir/domain' : tool.key === 'cidr_lookup' ? 'dfir/ip-geo' : 'dfir/' + tool.key}?${tool.key === 'webamon' ? 'q' : 'domain'}=${encodeURIComponent(domain)}`}
             className="text-micro text-brand-600 dark:text-brand-400 hover:underline shrink-0 inline-flex items-center gap-0.5"
           >
             full <ExternalLink size={9} />

@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Search, Globe, Shield, Lock, Server, ExternalLink, Loader2 } from 'lucide-react';
+import { Search, Globe, Shield, Lock, Server, ExternalLink, Loader2, Wifi } from 'lucide-react';
 
 const DOMAIN_RE = /^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/;
 
@@ -53,6 +53,9 @@ export default function DomainWebcheck(): JSX.Element {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<WebcheckResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [cdnResult, setCdnResult] = useState<{ is_cdn: boolean; provider: string | null; type: string | null } | null>(
+    null
+  );
 
   const valid = DOMAIN_RE.test(
     input
@@ -77,7 +80,16 @@ export default function DomainWebcheck(): JSX.Element {
     try {
       const r = await fetch(`/api/v1/domain/webcheck?domain=${encodeURIComponent(domain)}`);
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
-      setResult(await r.json());
+      const data = (await r.json()) as WebcheckResponse;
+      setResult(data);
+
+      // CDN/WAF detection (metabigor cdn equivalent) — non-blocking
+      if (data.shodan?.ip) {
+        fetch(`/api/v1/cdn-detect?ip=${encodeURIComponent(data.shodan.ip)}`)
+          .then((res) => (res.ok ? res.json() : null))
+          .then((d) => setCdnResult(d))
+          .catch(() => {});
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'scan failed');
     } finally {
@@ -217,6 +229,27 @@ export default function DomainWebcheck(): JSX.Element {
                     <span className="text-slate-400">Vulns:</span> {result.shodan.vulns.join(', ')}
                   </div>
                 )}
+              </div>
+            </section>
+          )}
+
+          {/* CDN/WAF Detection — metabigor cdn equivalent */}
+          {cdnResult && cdnResult.is_cdn && (
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+              <h2 className="font-display font-bold text-xl mb-2 flex items-center gap-2">
+                <Wifi size={18} className="text-brand-600 dark:text-brand-400" /> CDN / WAF Detected
+              </h2>
+              <div className="font-mono text-sm space-y-1">
+                <div>
+                  <span className="text-slate-400">Provider:</span>{' '}
+                  <span className="text-slate-900 dark:text-slate-100 font-semibold">{cdnResult.provider}</span>
+                </div>
+                <div>
+                  <span className="text-slate-400">Type:</span> {cdnResult.type}
+                </div>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
+                  This domain is fronted by a CDN/WAF — the origin server IP may differ from what Shodan shows.
+                </p>
               </div>
             </section>
           )}

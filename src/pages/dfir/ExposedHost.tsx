@@ -105,11 +105,15 @@ export default function ExposedHostView(): JSX.Element {
   const [result, setResult] = useState<ExposedHostResult | null>(null);
   const [expandedSection, setExpandedSection] = useState<string | null>('ports');
   const [previewArtifact, setPreviewArtifact] = useState<ArtifactEntry | null>(null);
+  const [cdnResult, setCdnResult] = useState<{ is_cdn: boolean; provider: string | null; type: string | null } | null>(
+    null
+  );
 
   const lookup = useCallback(async (targetIp: string) => {
     setLoading(true);
     setError('');
     setResult(null);
+    setCdnResult(null);
     try {
       const res = await fetch(`${API}/exposed-host?ip=${encodeURIComponent(targetIp)}`);
       if (!res.ok) {
@@ -118,6 +122,12 @@ export default function ExposedHostView(): JSX.Element {
       }
       const data = (await res.json()) as ExposedHostResult;
       setResult(data);
+
+      // CDN/WAF detection (metabigor cdn equivalent) — non-blocking
+      fetch(`${API}/cdn-detect?ip=${encodeURIComponent(targetIp)}`)
+        .then((r) => (r.ok ? r.json() : null))
+        .then((d) => setCdnResult(d))
+        .catch(() => {});
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Lookup failed');
     } finally {
@@ -237,6 +247,20 @@ export default function ExposedHostView(): JSX.Element {
                     {tag}
                   </span>
                 ))}
+              </div>
+            )}
+
+            {/* CDN/WAF Detection — metabigor cdn equivalent */}
+            {cdnResult && cdnResult.is_cdn && (
+              <div className="mt-3 p-3 rounded-lg border border-sky-200 dark:border-sky-800/50 bg-sky-50/50 dark:bg-sky-900/15">
+                <div className="flex items-center gap-2 text-sm font-mono">
+                  <Globe size={14} className="text-sky-600 dark:text-sky-400" />
+                  <span className="text-sky-800 dark:text-sky-200 font-semibold">Behind {cdnResult.provider}</span>
+                  <span className="text-sky-600 dark:text-sky-400">({cdnResult.type})</span>
+                </div>
+                <p className="text-xs font-mono text-sky-600 dark:text-sky-400 mt-1">
+                  This IP is fronted by a CDN/WAF — the origin server may differ.
+                </p>
               </div>
             )}
           </div>

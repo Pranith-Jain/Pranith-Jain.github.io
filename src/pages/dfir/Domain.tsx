@@ -1,6 +1,6 @@
 import { useState, useEffect, type FormEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Search, ExternalLink, Globe, ChevronDown, ChevronRight, Fingerprint, Shield } from 'lucide-react';
+import { Search, ExternalLink, Globe, ChevronDown, ChevronRight, Fingerprint, Shield, Link2 } from 'lucide-react';
 import type { DomainLookupResponse } from '../../lib/dfir/types';
 import { WhoisCard } from '../../components/dfir/WhoisCard';
 import { DnsRecordList } from '../../components/dfir/DnsRecordList';
@@ -37,6 +37,8 @@ export default function Domain(): JSX.Element {
   const [webamon, setWebamon] = useState<WebamonData | null>(null);
   const [webamonLoading, setWebamonLoading] = useState(false);
   const [webamonExpanded, setWebamonExpanded] = useState(true);
+  const [certTransparency, setCertTransparency] = useState<{ subdomains: string[]; total_certs: number } | null>(null);
+  const [ctLoading, setCtLoading] = useState(false);
   const valid = DOMAIN_RE.test(input.trim());
 
   const onSubmit = async (e: FormEvent) => {
@@ -80,6 +82,14 @@ export default function Domain(): JSX.Element {
       .then((d) => setWebamon(d as WebamonData | null))
       .catch(() => {})
       .finally(() => setWebamonLoading(false));
+
+    // Cert Transparency (crt.sh) — metabigor equivalent
+    setCtLoading(true);
+    fetch(`/api/v1/cert-transparency?domain=${encodeURIComponent(domain)}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => setCertTransparency(d ? { subdomains: d.subdomains, total_certs: d.total_certs } : null))
+      .catch(() => {})
+      .finally(() => setCtLoading(false));
   }, [result?.domain]);
 
   return (
@@ -146,6 +156,48 @@ export default function Domain(): JSX.Element {
           <EmailAuthCard auth={result.email_auth} />
           <DnsRecordList dns={result.dns} />
           <CertList certs={result.certificates} />
+
+          {/* Cert Transparency (crt.sh) — metabigor cert equivalent */}
+          {ctLoading && (
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+              <div className="flex items-center gap-2 text-sm text-slate-500 font-mono">
+                <div className="animate-spin w-3 h-3 border-2 border-brand-500 border-t-transparent rounded-full" />
+                Querying crt.sh for certificate transparency logs…
+              </div>
+            </section>
+          )}
+          {certTransparency && certTransparency.subdomains.length > 0 && (
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+              <h2 className="font-display font-bold text-lg mb-2 flex items-center gap-2">
+                <Link2 size={18} className="text-brand-600 dark:text-brand-400" /> Certificate Transparency Subdomains
+              </h2>
+              <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-3">
+                {certTransparency.total_certs} certificate{certTransparency.total_certs !== 1 ? 's' : ''} on crt.sh —{' '}
+                {certTransparency.subdomains.length} unique subdomain
+                {certTransparency.subdomains.length !== 1 ? 's' : ''} found
+              </p>
+              <div className="flex flex-wrap gap-1.5 max-h-48 overflow-y-auto">
+                {certTransparency.subdomains.map((s) => (
+                  <span
+                    key={s}
+                    className="text-mini font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] text-slate-700 dark:text-slate-300"
+                  >
+                    {s}
+                  </span>
+                ))}
+              </div>
+              <div className="mt-3 pt-3 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
+                <a
+                  href={`https://crt.sh/?q=${encodeURIComponent(`%.${result.domain}`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-meta text-brand-600 dark:text-brand-400 hover:underline font-mono inline-flex items-center gap-1"
+                >
+                  <ExternalLink size={11} /> View full crt.sh results
+                </a>
+              </div>
+            </section>
+          )}
 
           {webamonLoading && (
             <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">

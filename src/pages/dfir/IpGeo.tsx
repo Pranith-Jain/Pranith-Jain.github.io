@@ -14,6 +14,7 @@ import {
   Building,
   Network,
   Clock,
+  Link2,
 } from 'lucide-react';
 interface IpGeoResponse {
   ip: string;
@@ -81,6 +82,10 @@ export default function IpGeo(): JSX.Element {
   const [data, setData] = useState<IpGeoResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [cidrData, setCidrData] = useState<{
+    cidrs: Array<{ cidr: string; description: string }>;
+    total: number;
+  } | null>(null);
   const initialDone = useRef(false);
 
   const lookup = async (override?: string) => {
@@ -110,6 +115,12 @@ export default function IpGeo(): JSX.Element {
       const ct = res.headers.get('content-type') ?? '';
       if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
       setData((await res.json()) as IpGeoResponse);
+
+      // CIDR/ASN discovery (metabigor net equivalent) — non-blocking
+      fetch(`/api/v1/cidr-lookup?ip=${encodeURIComponent(t)}`)
+        .then((r) => (r.ok ? r.json() : null))
+        .then((d) => setCidrData(d ? { cidrs: d.cidrs, total: d.total } : null))
+        .catch(() => {});
     } catch (e) {
       setError((e as Error).message);
     } finally {
@@ -412,6 +423,31 @@ export default function IpGeo(): JSX.Element {
               · resolved {new Date(data.generated_at).toLocaleTimeString()}
             </p>
           </section>
+
+          {/* CIDR/ASN Discovery — metabigor net equivalent */}
+          {cidrData && cidrData.cidrs.length > 0 && (
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 inline-flex items-center gap-2">
+                <Link2 size={12} /> CIDR / IP Ranges
+              </h2>
+              <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-3">
+                {cidrData.total} CIDR range{cidrData.total !== 1 ? 's' : ''} discovered for this IP via BGP data
+              </p>
+              <div className="space-y-1.5 max-h-40 overflow-y-auto">
+                {cidrData.cidrs.map((c) => (
+                  <div
+                    key={c.cidr}
+                    className="flex items-center justify-between text-sm font-mono py-1 border-b border-slate-100 dark:border-[rgb(var(--border-400))] last:border-0"
+                  >
+                    <code className="text-slate-900 dark:text-slate-100">{c.cidr}</code>
+                    {c.description && (
+                      <span className="text-xs text-slate-500 dark:text-slate-400 truncate ml-4">{c.description}</span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
         </>
       )}
     </DataPageLayout>

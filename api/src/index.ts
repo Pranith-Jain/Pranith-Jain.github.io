@@ -1856,6 +1856,14 @@ app.route('/api/v1/ti', tiFeedAggregateRoutes);
 app.route('/api/v1/ti', tiAsmRoutes);
 app.route('/api/v1/ti', tiAiAnalysisRoutes);
 
+// ── Metabigor-equivalent OSINT routes (free, no API key) ──────────
+import { certTransparencyHandler } from './routes/cert-transparency';
+import { cdnDetectHandler } from './routes/cdn-detect';
+import { cidrLookupHandler } from './routes/cidr-lookup';
+app.get('/api/v1/cert-transparency', certTransparencyHandler);
+app.get('/api/v1/cdn-detect', cdnDetectHandler);
+app.get('/api/v1/cidr-lookup', cidrLookupHandler);
+
 // Standardized 404 shape: matches the api-error contract ({ error, message })
 // so clients get a human-readable message, not just a bare error code.
 app.notFound((c) => c.json({ error: 'not_found', message: 'route not found' }, 404));

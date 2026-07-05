@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Search, AlertTriangle, CheckCircle, ExternalLink, Loader2 } from 'lucide-react';
+import { Search, AlertTriangle, CheckCircle, ExternalLink, Loader2, Link2 } from 'lucide-react';
 import { api } from '../../lib/api-client';
 
 interface TakeoverResult {
@@ -73,6 +73,7 @@ export default function SubdomainTakeover() {
   const [results, setResults] = useState<TakeoverResult[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [ctSubdomains, setCtSubdomains] = useState<string[]>([]);
 
   const handleScan = async () => {
     const d = domain.trim().toLowerCase();
@@ -80,38 +81,80 @@ export default function SubdomainTakeover() {
     setLoading(true);
     setError(null);
     setResults([]);
+    setCtSubdomains([]);
 
     try {
-      const data = await api.get<{ records: Record<string, { data: string }[]> }>(`/api/v1/dns/lookup?hostname=${d}`);
-      const cnames = (data.records?.CNAME ?? []).map((r) => r.data);
-      const aRecords = (data.records?.A ?? []).map((r) => r.data);
-
-      if (cnames.length === 0 && aRecords.length > 0) {
-        setResults([
-          {
-            subdomain: d,
-            cname: 'Direct A record (no CNAME)',
-            status: 'safe',
-            provider: 'N/A',
-            evidence: 'Domain resolves directly — no dangling CNAME',
-          },
-        ]);
-        return;
+      // Phase 1: Enumerate subdomains via cert transparency (crt.sh)
+      let subdomains: string[] = [];
+      try {
+        const ct = await api.get<{ subdomains: string[] }>(`/api/v1/cert-transparency?domain=${encodeURIComponent(d)}`);
+        subdomains = ct.subdomains ?? [];
+        setCtSubdomains(subdomains);
+      } catch {
+        // crt.sh may be slow/down — continue with just the base domain
       }
 
+      // Phase 2: Check CNAMEs for the base domain + discovered subdomains
+      const allTargets = [d, ...subdomains.filter((s) => s !== d && s.endsWith(`.${d}`))];
       const newResults: TakeoverResult[] = [];
-      for (const cname of cnames) {
-        const provider = detectProvider(cname);
-        const isKnownProvider = provider !== 'Unknown';
+
+      // Check base domain first
+      const baseData = await api.get<{ records: Record<string, { data: string }[]> }>(
+        `/api/v1/dns/lookup?hostname=${d}`
+      );
+      const baseCnames = (baseData.records?.CNAME ?? []).map((r) => r.data);
+      const baseARecords = (baseData.records?.A ?? []).map((r) => r.data);
+
+      if (baseCnames.length === 0 && baseARecords.length > 0) {
         newResults.push({
           subdomain: d,
-          cname,
-          status: isKnownProvider ? 'vulnerable' : 'safe',
-          provider,
-          evidence: isKnownProvider
-            ? `CNAME points to ${provider} — verify claim status`
-            : 'CNAME not in known vulnerable provider list',
+          cname: 'Direct A record (no CNAME)',
+          status: 'safe',
+          provider: 'N/A',
+          evidence: 'Domain resolves directly — no dangling CNAME',
         });
+      } else {
+        for (const cname of baseCnames) {
+          const provider = detectProvider(cname);
+          const isKnownProvider = provider !== 'Unknown';
+          newResults.push({
+            subdomain: d,
+            cname,
+            status: isKnownProvider ? 'vulnerable' : 'safe',
+            provider,
+            evidence: isKnownProvider
+              ? `CNAME points to ${provider} — verify claim status`
+              : 'CNAME not in known vulnerable provider list',
+          });
+        }
+      }
+
+      // Check discovered subdomains (up to 20 to avoid rate limits)
+      const subTargets = allTargets.filter((s) => s !== d).slice(0, 20);
+      for (const sub of subTargets) {
+        try {
+          const subData = await api.get<{ records: Record<string, { data: string }[]> }>(
+            `/api/v1/dns/lookup?hostname=${sub}`
+          );
+          const subCnames = (subData.records?.CNAME ?? []).map((r) => r.data);
+          if (subCnames.length === 0) continue; // skip subdomains without CNAMEs
+
+          for (const cname of subCnames) {
+            const provider = detectProvider(cname);
+            const isKnownProvider = provider !== 'Unknown';
+            newResults.push({
+              subdomain: sub,
+              cname,
+              status: isKnownProvider ? 'vulnerable' : 'safe',
+              provider,
+              evidence: isKnownProvider
+                ? `CNAME points to ${provider} — verify claim status`
+                : 'CNAME not in known vulnerable provider list',
+            });
+          }
+        } catch {
+          // skip individual subdomain failures
+        }
       }
 
       setResults(newResults);
@@ -170,6 +213,12 @@ export default function SubdomainTakeover() {
               <span className="text-muted">
                 {results.length} record{results.length !== 1 ? 's' : ''} checked
               </span>
+              {ctSubdomains.length > 0 && (
+                <span className="flex items-center gap-1 text-sky-400 font-medium text-xs">
+                  <Link2 className="w-3 h-3" />
+                  {ctSubdomains.length} subdomain{ctSubdomains.length !== 1 ? 's' : ''} via crt.sh
+                </span>
+              )}
               {vulnerableCount > 0 && (
                 <span className="flex items-center gap-1 text-red-400 font-medium">
                   <AlertTriangle className="w-3.5 h-3.5" />
