@@ -1,0 +1,5 @@
+{
+  "slug": "query/lsass-dumping",
+  "name": "query-lsass-dumping",
+  "bodyMarkdown": "# LSASS Credential Dump Detection Query\n\n**Category:** Detection Chokepoints | **Maturity:** Hunt | **FP Rate:** Medium\n**Techniques:** T1003.001 | **Log Sources:** Sysmon EID 10\n\n```kql\nDeviceProcessEvents\n| where Timestamp > ago(1h)\n| where FileName =~ \"lsass.exe\"\n| where ActionType == \"OpenProcess\"\n| extend GrantedAccess = tostring(parse_json(AdditionalFields).GrantedAccess)\n| extend CallTrace = tostring(parse_json(AdditionalFields).CallTrace)\n| where GrantedAccess in (\"0x1010\", \"0x1FFFFF\", \"0x1410\", \"0x0810\", \"0x0040\")\n| where CallTrace has_any (\"dbgcore.dll\", \"dbghelp.dll\", \"UNKNOWN\")\n| where InitiatingProcessFileName !in (\"csrss.exe\", \"services.exe\", \"svchost.exe\", \"wininit.exe\", \"MsMpEng.exe\")\n| project Timestamp, DeviceName, InitiatingProcessFileName, InitiatingProcessFolderPath, GrantedAccess, CallTrace\n| sort by Timestamp desc\n```"
+}

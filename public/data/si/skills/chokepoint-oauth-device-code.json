@@ -1,0 +1,5 @@
+{
+  "slug": "chokepoint/oauth-device-code",
+  "name": "chokepoint-oauth-device-code",
+  "bodyMarkdown": "# OAuth Device Code Phishing via Auth Broker — Detection Chokepoint\n\n**Priority:** HIGH | **Tactic:** Defense Evasion | **Difficulty:** LOW | **Prevalence:** MEDIUM\n**Techniques:** T1550.001\n\n## Overview\nAbuse OAuth device authorization grant to obtain M365 tokens without credential-harvest page. Attacker uses MAB app (client ID 29d9ed98) — generates distinctive authenticationProtocol:deviceCode signal.\n\n## Chokepoint Stages\n\n### 1. Device Code Redemption via MAB App\nVictim enters code at microsoft.com/devicelogin.\nObservable: SigninLogs: authenticationProtocol=deviceCode AND appId=29d9ed98 AND resultType=0 AND isInteractive=true.\n\n### 2. Token Inheritance via FOCI\nKit exchanges MAB refresh token for Exchange/Graph/SharePoint/Teams tokens.\nObservable: NonInteractiveUserSignInLogs: multiple resource sign-ins from cloud-VPS ASN.\n\n## Detection Logic\n- **Hunt:** Device-code flow on MAB app ID (rare in managed tenants)\n- **Analyst:** MAB device-code + isInteractive = high-confidence phishing"
+}

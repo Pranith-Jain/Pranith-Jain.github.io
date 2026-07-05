@@ -1,0 +1,5 @@
+{
+  "slug": "chokepoint/aitm-prt",
+  "name": "chokepoint-aitm-prt",
+  "bodyMarkdown": "# AiTM Kit Device PRT Enrollment — Detection Chokepoint\n\n**Priority:** HIGH | **Tactic:** Persistence | **Difficulty:** LOW | **Prevalence:** MEDIUM\n**Techniques:** T1098.005\n\n## Overview\nKit registers synthetic device with DRS to obtain PRT. PRT survives revokeSignInSessions — device must be deleted first. Enrollment call always uses kit's Node.js HTTP client (axios/1.15.2), not native Dsreg.\n\n## Detection Logic\n- **Hunt:** DRS EnrollmentServer/device with non-native UA (not Dsreg/DeviceRegistrationClient/Dalvik)\n- **Analyst:** Non-native UA + preceding AiTM sign-in within 15min = high-confidence PRT persistence\n- IR: disable account → DELETE devices → THEN revoke sessions → reset password"
+}

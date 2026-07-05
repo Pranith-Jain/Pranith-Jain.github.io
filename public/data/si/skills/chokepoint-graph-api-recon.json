@@ -1,0 +1,5 @@
+{
+  "slug": "chokepoint/graph-api-recon",
+  "name": "chokepoint-graph-api-recon",
+  "bodyMarkdown": "# Post-AiTM Graph API Reconnaissance Burst — Detection Chokepoint\n\n**Priority:** HIGH | **Tactic:** Discovery | **Difficulty:** MEDIUM | **Prevalence:** MEDIUM\n**Techniques:** T1087.004, T1069.003, T1526\n\n## Overview\nWithin 10-20min of AiTM session theft, operator console executes 20-30+ Graph API calls across 5 recon categories within 30-60 seconds. Human portal navigation touches 1-2 categories per session; 4+ in 60 seconds = automated.\n\n## Detection Logic\n- **Hunt:** 4+ distinct Graph API endpoint categories from single UPN within 60s, empty c_DeviceId\n- Correlate with preceding AiTM sign-in (Node.js UA) from same UPN"
+}

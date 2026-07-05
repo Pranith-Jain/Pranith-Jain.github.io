@@ -1,0 +1,5 @@
+{
+  "slug": "query/remote-execution",
+  "name": "query-remote-execution",
+  "bodyMarkdown": "# Remote Execution (HackTools) Detection Query\n\n**Category:** Detection Chokepoints | **Maturity:** Hunt | **FP Rate:** Medium\n**Techniques:** T1021.002, T1569.002 | **Log Sources:** WEL 7045, WEL 4624\n\n```kql\nDeviceEvents\n| where Timestamp > ago(1h)\n| where ActionType == \"ServiceInstalled\"\n| extend ServiceName = tostring(parse_json(AdditionalFields).ServiceName)\n| extend ServiceFileName = tostring(parse_json(AdditionalFields).FileName)\n| where ServiceFileName has \"\\\\Temp\\\\\" or ServiceFileName has \"\\\\tmp\\\\\" or ServiceFileName has \"\\\\Downloads\\\\\"\n| where strlen(ServiceName) <= 10\n| project Timestamp, DeviceName, ServiceName, ServiceFileName\n| sort by Timestamp desc\n```"
+}

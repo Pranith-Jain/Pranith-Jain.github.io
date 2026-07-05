@@ -1,0 +1,31 @@
+{
+  "slug": "chokepoint-remote-execution-emulation",
+  "name": "chokepoint-remote-execution-emulation",
+  "description": "IPC$ connection, random service creation, cmd recon. Expected: WEL 4624 (LogonType 3), 7045 (service install), EID 1 (cmd.exe).",
+  "type": "emulation",
+  "mitreTechniques": ["T1021.002", "T1569.002"],
+  "category": "Lateral Movement",
+  "platform": "Windows",
+  "scriptLanguage": "PowerShell",
+  "scriptContent": "# Chokepoint Remote Execution Emulation\n# IPC$ connection, random service creation, cmd recon\n# Expected Detections: WEL 4624 (LogonType 3), 7045 (service install), EID 1 (cmd.exe)\n\n[CmdletBinding()]\nparam(\n    [string]$TargetHost = \"127.0.0.1\",\n    [switch]$DryRun\n)\n\nWrite-Host \"=== Chokepoint Remote Execution Emulation ===\" -ForegroundColor Cyan\nWrite-Host \"Emulating lateral movement via remote service creation\"\n\n# Stage 1: IPC$ connection (WEL 4624 target)\nWrite-Host \"\\n[Stage 1] Establishing IPC$ connection...\"\nif (-not $DryRun) {\n    try {\n        $ipcPath = \"\\\\$TargetHost\\IPC$\"\n        Write-Host \"  Target: $ipcPath\" -ForegroundColor Yellow\n        # Attempt IPC$ connection (may fail on localhost, but generates log)\n        net use $ipcPath /user:localhost dummy 2>$null | Out-Null\n        Write-Host \"  Action: IPC$ connection attempted\" -ForegroundColor Yellow\n        Write-Host \"  Expected Detection: WEL 4624 (LogonType 3 - Network)\" -ForegroundColor Cyan\n    } catch {\n        Write-Host \"  IPC$ connection failed (expected for emulation)\" -ForegroundColor Red\n    }\n} else {\n    Write-Host \"  [DryRun] Would attempt IPC$ connection to $TargetHost\" -ForegroundColor Magenta\n}\n\n# Stage 2: Random service creation (WEL 7045 target)\nWrite-Host \"\\n[Stage 2] Creating random service...\"\n$randomSvcName = \"Svc\" + (Get-Random -Minimum 1000 -Maximum 9999)\n\nif (-not $DryRun) {\n    try {\n        sc.exe create $randomSvcName binPath= \"cmd.exe /c echo test\" start= auto\n        Write-Host \"  Created service: $randomSvcName\" -ForegroundColor Yellow\n        Write-Host \"  Expected Detection: WEL 7045 (ServiceInstall)\" -ForegroundColor Cyan\n    } catch {\n        Write-Host \"  Error creating service: $($_.Exception.Message)\" -ForegroundColor Red\n    }\n} else {\n    Write-Host \"  [DryRun] Would create service: $randomSvcName\" -ForegroundColor Magenta\n}\n\n# Stage 3: Command reconnaissance (EID 1 target)\nWrite-Host \"\\n[Stage 3] Executing reconnaissance commands...\"\nif (-not $DryRun) {\n    try {\n        $reconCommands = \"whoami /all & hostname & ipconfig /all & net user & net localgroup administrators\"\n        Start-Process cmd.exe -ArgumentList \"/c\", $reconCommands -Wait -NoNewWindow\n        Write-Host \"  Action: Recon commands executed via cmd.exe\" -ForegroundColor Yellow\n        Write-Host \"  Expected Detection: EID 1 (ProcessCreate - cmd.exe with recon)\" -ForegroundColor Cyan\n    } catch {\n        Write-Host \"  Error: $($_.Exception.Message)\" -ForegroundColor Red\n    }\n} else {\n    Write-Host \"  [DryRun] Would execute recon commands\" -ForegroundColor Magenta\n}\n\n# Stage 4: Cleanup service\nWrite-Host \"\\n[Stage 4] Cleaning up service...\"\nif (-not $DryRun -and $randomSvcName) {\n    try {\n        sc.exe delete $randomSvcName 2>$null | Out-Null\n        Write-Host \"  Deleted service: $randomSvcName\" -ForegroundColor Yellow\n    } catch {\n        Write-Host \"  Error deleting service\" -ForegroundColor Red\n    }\n}\n\nWrite-Host \"\\n=== Emulation Complete ===\" -ForegroundColor Cyan\nWrite-Host \"Expected Detections:\"\nWrite-Host \"  - WEL 4624: Network logon (LogonType 3)\" -ForegroundColor Green\nWrite-Host \"  - WEL 7045: Service installation\" -ForegroundColor Green\nWrite-Host \"  - EID 1: cmd.exe with reconnaissance commands\" -ForegroundColor Green",
+  "expectedDetections": [
+    "WEL 4624 (LogonType 3 - Network logon)",
+    "WEL 7045 (ServiceInstall)",
+    "EID 1 (ProcessCreate - cmd.exe)"
+  ],
+  "detectionQueries": [
+    {
+      "name": "Network Logon Type 3",
+      "query": "SecurityEvent | where EventID == 4624 | where LogonType == 3 | where IpAddress != '-' | project TimeGenerated, Computer, AccountName, IpAddress, LogonType"
+    },
+    {
+      "name": "Service Installation",
+      "query": "SecurityEvent | where EventID == 7045 | project TimeGenerated, Computer, ServiceName, ServiceType, ImagePath, AccountName"
+    },
+    {
+      "name": "CMD Reconnaissance",
+      "query": "DeviceProcessEvents | where Timestamp > ago(1h) | where FileName == 'cmd.exe' | where ProcessCommandLine has_any ('whoami', 'hostname', 'ipconfig', 'net user', 'net localgroup') | project Timestamp, DeviceName, ProcessCommandLine"
+    }
+  ],
+  "sizeBytes": 3521
+}

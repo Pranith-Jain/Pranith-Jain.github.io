@@ -1,0 +1,401 @@
+{
+  "schemaVersion": "1.0",
+  "description": "Detection Chokepoints — Sentinel Scheduled Analytics Rules. 13 rules covering the invariant prerequisites attackers can't bypass.",
+  "rules": [
+    {
+      "id": "dc-001-lsass-dumping",
+      "displayName": "LSASS Credential Dump — Non-Standard Process with Dump Mechanism",
+      "description": "Detects a non-standard process (outside System32 and Program Files) opening a handle to lsass.exe with credential-dump access rights where the CallTrace reveals MiniDumpWriteDump (dbgcore.dll, dbghelp.dll) or direct syscall evasion (UNKNOWN). Covers Mimikatz, nanodump, comsvcs.dll, ProcDump, HandleKatz, and 18+ additional variants. 24 tool variations tracked.",
+      "severity": "High",
+      "enabled": true,
+      "query": "DeviceProcessEvents\n| where Timestamp > ago(5m)\n| where FileName =~ \"lsass.exe\"\n| where ActionType == \"OpenProcess\"\n| extend GrantedAccess = tostring(parse_json(AdditionalFields).GrantedAccess)\n| extend CallTrace = tostring(parse_json(AdditionalFields).CallTrace)\n| where GrantedAccess in (\"0x1010\", \"0x1FFFFF\", \"0x1410\", \"0x0810\", \"0x0040\")\n| where CallTrace has_any (\"dbgcore.dll\", \"dbghelp.dll\", \"UNKNOWN\")\n| where InitiatingProcessFileName !in (\"csrss.exe\", \"services.exe\", \"svchost.exe\", \"wininit.exe\", \"MsMpEng.exe\", \"sense.exe\", \"CSFalconService.exe\", \"SentinelAgent.exe\")\n| where InitiatingProcessFolderPath !startswith \"C:\\\\Windows\\\\System32\" and InitiatingProcessFolderPath !startswith \"C:\\\\Program Files\"\n| project Timestamp, DeviceName, InitiatingProcessFileName, InitiatingProcessFolderPath, GrantedAccess, CallTrace, AccountName, DeviceId",
+      "queryFrequency": "PT5M",
+      "queryPeriod": "PT5M",
+      "triggerOperator": "GreaterThan",
+      "triggerThreshold": 0,
+      "suppressionDuration": "PT1H",
+      "suppressionEnabled": false,
+      "tactics": ["CredentialAccess"],
+      "techniques": ["T1003.001", "T1003"],
+      "entityMappings": [
+        {
+          "entityType": "Host",
+          "fieldMappings": [
+            { "identifier": "FullName", "columnName": "DeviceName" },
+            { "identifier": "Uuid", "columnName": "DeviceId" }
+          ]
+        },
+        {
+          "entityType": "Account",
+          "fieldMappings": [{ "identifier": "Name", "columnName": "AccountName" }]
+        }
+      ],
+      "customDetails": {
+        "GrantedAccess": "GrantedAccess",
+        "CallTrace": "CallTrace",
+        "SourceProcess": "InitiatingProcessFileName",
+        "SourcePath": "InitiatingProcessFolderPath"
+      }
+    },
+    {
+      "id": "dc-002-edr-bypass-driver",
+      "displayName": "EDR Bypass — Non-Microsoft Kernel Driver Loaded",
+      "description": "Detects kernel driver loads where the driver is unsigned, revoked, or signed by a non-Microsoft publisher. Baseline rule for BYOVD (Bring Your Own Vulnerable Driver) landscape mapping. Covers EDRKillShifter, Terminator, AuKill, POORTRY/STONESTOP, and all known vulnerable drivers.",
+      "severity": "High",
+      "enabled": true,
+      "query": "DeviceEvents\n| where Timestamp > ago(5m)\n| where ActionType == \"DriverLoaded\"\n| extend LoadedBy = tostring(parse_json(AdditionalFields).LoadedImage)\n| extend DriverFile = tostring(parse_json(AdditionalFields).FileName)\n| extend DriverHash = tostring(parse_json(AdditionalFields).SHA256)\n| extend SignedBy = tostring(parse_json(AdditionalFields).SignedBy)\n| extend SignatureStatus = tostring(parse_json(AdditionalFields).SignatureStatus)\n| where SignedBy !contains \"Microsoft\" or SignatureStatus != \"Valid\"\n| where LoadedBy !in (\"csrss.exe\", \"svchost.exe\", \"lsass.exe\", \"smss.exe\")\n| project Timestamp, DeviceName, DriverFile, DriverHash, SignedBy, SignatureStatus, LoadedBy",
+      "queryFrequency": "PT5M",
+      "queryPeriod": "PT5M",
+      "triggerOperator": "GreaterThan",
+      "triggerThreshold": 0,
+      "suppressionDuration": "PT1H",
+      "suppressionEnabled": false,
+      "tactics": ["DefenseEvasion", "PrivilegeEscalation"],
+      "techniques": ["T1562.001", "T1068"],
+      "entityMappings": [
+        {
+          "entityType": "Host",
+          "fieldMappings": [{ "identifier": "FullName", "columnName": "DeviceName" }]
+        }
+      ],
+      "customDetails": {
+        "DriverFile": "DriverFile",
+        "DriverHash": "DriverHash",
+        "SignedBy": "SignedBy",
+        "SignatureStatus": "SignatureStatus"
+      }
+    },
+    {
+      "id": "dc-003-edr-bypass-process-termination",
+      "displayName": "EDR Bypass — Security Process Handle Request + Service Stop",
+      "description": "Detects processes opening handles to security agent executables (MsMpEng, CSFalconService, SentinelAgent) with PROCESS_ALL_ACCESS followed by service state changes. High-confidence EDR kill chain indicator.",
+      "severity": "Critical",
+      "enabled": true,
+      "query": "DeviceProcessEvents\n| where Timestamp > ago(5m)\n| where FileName =~ \"lsass.exe\" or FileName in (\"MsMpEng.exe\", \"CSFalconService.exe\", \"SentinelAgent.exe\", \"SophosFileScanner.exe\", \"CylanceSvc.exe\")\n| where ActionType == \"OpenProcess\"\n| extend GrantedAccess = tostring(parse_json(AdditionalFields).GrantedAccess)\n| where GrantedAccess == \"0x1FFFFF\"\n| project Timestamp, DeviceName, InitiatingProcessFileName, InitiatingProcessFolderPath, FileName, GrantedAccess\n| sort by Timestamp desc",
+      "queryFrequency": "PT5M",
+      "queryPeriod": "PT5M",
+      "triggerOperator": "GreaterThan",
+      "triggerThreshold": 0,
+      "suppressionDuration": "PT1H",
+      "suppressionEnabled": false,
+      "tactics": ["DefenseEvasion"],
+      "techniques": ["T1562.001"],
+      "entityMappings": [
+        {
+          "entityType": "Host",
+          "fieldMappings": [{ "identifier": "FullName", "columnName": "DeviceName" }]
+        }
+      ],
+      "customDetails": {
+        "TargetProcess": "FileName",
+        "SourceProcess": "InitiatingProcessFileName",
+        "GrantedAccess": "GrantedAccess"
+      }
+    },
+    {
+      "id": "dc-004-browser-credential-theft",
+      "displayName": "Infostealer — Non-Browser Process Accessing Browser Credential Database",
+      "description": "Detects non-browser processes reading Chrome/Edge/Firefox credential database files (Login Data, Cookies, Local State, logins.json). Covers 12 infostealer families: LummaC2, Stealc, RedLine, Raccoon v2, Vidar 2.0, AMOS, EDDIESTEALER, Medusa, and Chrome App-Bound Encryption bypass variants.",
+      "severity": "High",
+      "enabled": true,
+      "query": "DeviceFileEvents\n| where Timestamp > ago(5m)\n| where FileName in (\"Login Data\", \"Cookies\", \"Local State\", \"logins.json\")\n| where FolderPath has_any (\"Chrome\", \"Edge\", \"Firefox\", \"Brave\", \"Opera\")\n| where InitiatingProcessFileName !in (\"chrome.exe\", \"msedge.exe\", \"firefox.exe\", \"brave.exe\", \"opera.exe\", \"vivaldi.exe\")\n| project Timestamp, DeviceName, InitiatingProcessFileName, InitiatingProcessFolderPath, FileName, FolderPath, DeviceId",
+      "queryFrequency": "PT5M",
+      "queryPeriod": "PT5M",
+      "triggerOperator": "GreaterThan",
+      "triggerThreshold": 0,
+      "suppressionDuration": "PT1H",
+      "suppressionEnabled": false,
+      "tactics": ["CredentialAccess"],
+      "techniques": ["T1555.003", "T1539"],
+      "entityMappings": [
+        {
+          "entityType": "Host",
+          "fieldMappings": [
+            { "identifier": "FullName", "columnName": "DeviceName" },
+            { "identifier": "Uuid", "columnName": "DeviceId" }
+          ]
+        },
+        {
+          "entityType": "Process",
+          "fieldMappings": [{ "identifier": "ProcessId", "columnName": "InitiatingProcessFileName" }]
+        }
+      ],
+      "customDetails": {
+        "CredentialFile": "FileName",
+        "CredentialPath": "FolderPath",
+        "AccessingProcess": "InitiatingProcessFileName",
+        "ProcessPath": "InitiatingProcessFolderPath"
+      }
+    },
+    {
+      "id": "dc-005-ransomware-service",
+      "displayName": "Ransomware Pre-Encryption — Bulk Security Service Stop/Delete",
+      "description": "Detects sc.exe, net.exe, or taskkill.exe stopping or deleting security and backup services in rapid succession. Strong pre-encryption indicator observed in BlackBasta, Alphv/BlackCat, Akira, Qilin, and LockBit campaigns. This is the last detectable warning before file encryption begins.",
+      "severity": "Critical",
+      "enabled": true,
+      "query": "DeviceProcessEvents\n| where Timestamp > ago(5m)\n| where FileName in (\"sc.exe\", \"net.exe\", \"net1.exe\", \"taskkill.exe\")\n| where ProcessCommandLine has_any (\"stop \", \"delete \", \"/IM \")\n| where ProcessCommandLine has_any (\"Sophos\", \"WinDefend\", \"Sense\", \"WdNisSvc\", \"Veeam\", \"VSS\", \"wbengine\", \"MSSQL\", \"SQLWriter\", \"Acronis\", \"backup\", \"CrowdStrike\", \"SentinelAgent\", \"CSFalconService\", \"CylanceSvc\")\n| summarize StopCount = count(), DistinctServices = dcount(ProcessCommandLine), Commands = make_set(ProcessCommandLine, 5) by DeviceName, bin(Timestamp, 2m)\n| where StopCount >= 3 or DistinctServices >= 2\n| project Timestamp, DeviceName, StopCount, DistinctServices, Commands",
+      "queryFrequency": "PT5M",
+      "queryPeriod": "PT5M",
+      "triggerOperator": "GreaterThan",
+      "triggerThreshold": 0,
+      "suppressionDuration": "PT30M",
+      "suppressionEnabled": false,
+      "tactics": ["DefenseEvasion", "Impact"],
+      "techniques": ["T1562.001", "T1489"],
+      "entityMappings": [
+        {
+          "entityType": "Host",
+          "fieldMappings": [{ "identifier": "FullName", "columnName": "DeviceName" }]
+        }
+      ],
+      "customDetails": {
+        "StopCount": "StopCount",
+        "DistinctServices": "DistinctServices",
+        "Commands": "Commands"
+      }
+    },
+    {
+      "id": "dc-006-web-shells",
+      "displayName": "Web Shell — Web Server Process Spawning OS Interpreter",
+      "description": "Detects IIS/Apache/Nginx web server processes (w3wp.exe, httpd, nginx, php-fpm) spawning command interpreters (cmd.exe, powershell.exe, bash, sh). The parent-child relationship is the web shell chokepoint — invariant across all 11 tracked shell families (China Chopper, Godzilla, Behinder, AntSword, LEMURLOOT, etc.).",
+      "severity": "High",
+      "enabled": true,
+      "query": "DeviceProcessEvents\n| where Timestamp > ago(5m)\n| where InitiatingProcessFileName in (\"w3wp.exe\", \"httpd.exe\", \"nginx.exe\", \"php-fpm.exe\", \"php-cgi.exe\", \"tomcat*.exe\")\n| where FileName in (\"cmd.exe\", \"powershell.exe\", \"pwsh.exe\", \"bash\", \"sh\", \"python\", \"python3\", \"perl\", \"ruby\")\n| project Timestamp, DeviceName, InitiatingProcessFileName, FileName, ProcessCommandLine, AccountName, DeviceId",
+      "queryFrequency": "PT5M",
+      "queryPeriod": "PT5M",
+      "triggerOperator": "GreaterThan",
+      "triggerThreshold": 0,
+      "suppressionDuration": "PT1H",
+      "suppressionEnabled": false,
+      "tactics": ["Persistence", "InitialAccess", "Execution"],
+      "techniques": ["T1505.003", "T1190"],
+      "entityMappings": [
+        {
+          "entityType": "Host",
+          "fieldMappings": [
+            { "identifier": "FullName", "columnName": "DeviceName" },
+            { "identifier": "Uuid", "columnName": "DeviceId" }
+          ]
+        },
+        {
+          "entityType": "Account",
+          "fieldMappings": [{ "identifier": "Name", "columnName": "AccountName" }]
+        }
+      ],
+      "customDetails": {
+        "WebServerProcess": "InitiatingProcessFileName",
+        "SpawnedInterpreter": "FileName",
+        "CommandLine": "ProcessCommandLine"
+      }
+    },
+    {
+      "id": "dc-007-clickfix",
+      "displayName": "ClickFix — Browser/Explorer Spawning Interpreter with Encoded Command",
+      "description": "Detects scripting interpreters (powershell.exe, cmd.exe, mshta.exe) spawned by browsers, Explorer, or Windows Terminal with encoded or obfuscated command lines. Covers 9 ClickFix variants: ClickFix, FileFix, TerminalFix, DownloadFix, JackFix/GlitchFix, WebDAV ClickFix, InstallFix, Windows Terminal ClickFix, DNS-based ClickFix.",
+      "severity": "High",
+      "enabled": true,
+      "query": "DeviceProcessEvents\n| where Timestamp > ago(5m)\n| where FileName in (\"powershell.exe\", \"pwsh.exe\", \"cmd.exe\", \"wscript.exe\", \"cscript.exe\", \"mshta.exe\", \"rundll32.exe\")\n| where InitiatingProcessFileName in (\"explorer.exe\", \"wt.exe\", \"WindowsTerminal.exe\") or InitiatingProcessFileName endswith \"chrome.exe\" or InitiatingProcessFileName endswith \"msedge.exe\" or InitiatingProcessFileName endswith \"firefox.exe\" or InitiatingProcessFileName endswith \"brave.exe\" or InitiatingProcessFileName endswith \"opera.exe\"\n| where ProcessCommandLine has_any (\"-enc \", \"-EncodedCommand\", \"FromBase64String\", \"IEX\", \"Invoke-Expression\", \"DownloadString\", \"Invoke-WebRequest\", \"iwr \", \"curl \", \"nslookup \", \"net use \", \"mshta http\", \"mshta vbscript\")\n| project Timestamp, DeviceName, InitiatingProcessFileName, FileName, ProcessCommandLine, DeviceId",
+      "queryFrequency": "PT5M",
+      "queryPeriod": "PT5M",
+      "triggerOperator": "GreaterThan",
+      "triggerThreshold": 0,
+      "suppressionDuration": "PT1H",
+      "suppressionEnabled": false,
+      "tactics": ["InitialAccess"],
+      "techniques": ["T1204.004"],
+      "entityMappings": [
+        {
+          "entityType": "Host",
+          "fieldMappings": [
+            { "identifier": "FullName", "columnName": "DeviceName" },
+            { "identifier": "Uuid", "columnName": "DeviceId" }
+          ]
+        }
+      ],
+      "customDetails": {
+        "ParentProcess": "InitiatingProcessFileName",
+        "SpawnedInterpreter": "FileName",
+        "CommandLine": "ProcessCommandLine"
+      }
+    },
+    {
+      "id": "dc-008-renamed-rmm",
+      "displayName": "Renamed RMM Tool — Browser Download with Execution + Outbound Connection",
+      "description": "Detects browser-downloaded executables in user-writable paths that are subsequently executed. PE metadata mismatch (OriginalFilename != current filename) is the key signal. Covers AnyDesk, TeamViewer, ScreenConnect, UltraViewer, RustDesk, SimpleHelp, NetSupport, Atera — 9 tracked RMM families.",
+      "severity": "Medium",
+      "enabled": true,
+      "query": "DeviceFileEvents\n| where Timestamp > ago(5m)\n| where FileName endswith \".exe\" or FileName endswith \".msi\"\n| where InitiatingProcessFileName in (\"chrome.exe\", \"msedge.exe\", \"firefox.exe\", \"brave.exe\", \"opera.exe\")\n| where FolderPath has_any (\"Downloads\", \"Temp\", \"AppData\")\n| project Timestamp, DeviceName, InitiatingProcessFileName, FileName, FolderPath, SHA256, DeviceId",
+      "queryFrequency": "PT5M",
+      "queryPeriod": "PT5M",
+      "triggerOperator": "GreaterThan",
+      "triggerThreshold": 0,
+      "suppressionDuration": "PT1H",
+      "suppressionEnabled": false,
+      "tactics": ["InitialAccess", "CommandAndControl"],
+      "techniques": ["T1219.002"],
+      "entityMappings": [
+        {
+          "entityType": "Host",
+          "fieldMappings": [
+            { "identifier": "FullName", "columnName": "DeviceName" },
+            { "identifier": "Uuid", "columnName": "DeviceId" }
+          ]
+        }
+      ],
+      "customDetails": {
+        "DownloadedFile": "FileName",
+        "DownloadPath": "FolderPath",
+        "SHA256": "SHA256"
+      }
+    },
+    {
+      "id": "dc-009-remote-execution",
+      "displayName": "Remote Execution — Service Installed from TEMP with Short Random Name",
+      "description": "Detects services installed from user-writable directories (TEMP, Downloads, AppData) with short random names (≤10 chars). Classic PsExec/Impacket/NetExec lateral movement signature. Service binary executes attacker commands via services.exe parent chain.",
+      "severity": "High",
+      "enabled": true,
+      "query": "DeviceEvents\n| where Timestamp > ago(5m)\n| where ActionType == \"ServiceInstalled\"\n| extend ServiceName = tostring(parse_json(AdditionalFields).ServiceName)\n| extend ServiceFileName = tostring(parse_json(AdditionalFields).FileName)\n| where ServiceFileName has \"\\\\Temp\\\\\" or ServiceFileName has \"\\\\tmp\\\\\" or ServiceFileName has \"\\\\Downloads\\\\\" or ServiceFileName has \"\\\\AppData\\\\\" or ServiceFileName has \"\\\\ProgramData\\\\\"\n| where strlen(ServiceName) <= 12\n| project Timestamp, DeviceName, ServiceName, ServiceFileName, DeviceId",
+      "queryFrequency": "PT5M",
+      "queryPeriod": "PT5M",
+      "triggerOperator": "GreaterThan",
+      "triggerThreshold": 0,
+      "suppressionDuration": "PT1H",
+      "suppressionEnabled": false,
+      "tactics": ["LateralMovement", "Execution"],
+      "techniques": ["T1021.002", "T1569.002"],
+      "entityMappings": [
+        {
+          "entityType": "Host",
+          "fieldMappings": [
+            { "identifier": "FullName", "columnName": "DeviceName" },
+            { "identifier": "Uuid", "columnName": "DeviceId" }
+          ]
+        }
+      ],
+      "customDetails": {
+        "ServiceName": "ServiceName",
+        "ServiceBinaryPath": "ServiceFileName"
+      }
+    },
+    {
+      "id": "dc-010-byosi",
+      "displayName": "BYOSI — Non-Default Interpreter from Temp Path with Script Arguments",
+      "description": "Detects scripting interpreters (Python, PHP, Node.js, Ruby, Perl, etc.) executing from user-writable directories with script file arguments or inline execution flags. Covers 13+ interpreter languages and 8 known BYOSI variants including PolyDrop, IronNetInjector, and NodeLoader.",
+      "severity": "Medium",
+      "enabled": true,
+      "query": "DeviceProcessEvents\n| where Timestamp > ago(5m)\n| where FileName in (\"python.exe\", \"python3.exe\", \"pythonw.exe\", \"php.exe\", \"php-cgi.exe\", \"node.exe\", \"ruby.exe\", \"perl.exe\", \"lua.exe\", \"AutoHotkey.exe\", \"AutoHotkey64.exe\", \"deno.exe\", \"bun.exe\")\n| where FolderPath has_any (\"Temp\", \"tmp\", \"Downloads\", \"AppData\", \"Users\\\\Public\", \"Windows\\\\Temp\")\n| where ProcessCommandLine has_any (\".py\", \".pyc\", \".php\", \".js\", \".mjs\", \"-e \", \"-c \", \"--eval\", \"-exec\", \"-r \", \"--require\")\n| project Timestamp, DeviceName, FileName, FolderPath, ProcessCommandLine, InitiatingProcessFileName, DeviceId",
+      "queryFrequency": "PT5M",
+      "queryPeriod": "PT5M",
+      "triggerOperator": "GreaterThan",
+      "triggerThreshold": 0,
+      "suppressionDuration": "PT1H",
+      "suppressionEnabled": false,
+      "tactics": ["DefenseEvasion", "Execution"],
+      "techniques": ["T1059.006", "T1059.007", "T1218"],
+      "entityMappings": [
+        {
+          "entityType": "Host",
+          "fieldMappings": [
+            { "identifier": "FullName", "columnName": "DeviceName" },
+            { "identifier": "Uuid", "columnName": "DeviceId" }
+          ]
+        }
+      ],
+      "customDetails": {
+        "InterpreterBinary": "FileName",
+        "InterpreterPath": "FolderPath",
+        "CommandLine": "ProcessCommandLine",
+        "ParentProcess": "InitiatingProcessFileName"
+      }
+    },
+    {
+      "id": "dc-011-aitm-relay",
+      "displayName": "AiTM — Node.js User Agent on Entra ID Sign-In to M365 Apps",
+      "description": "Detects Entra ID sign-ins with Node.js HTTP client user agents (node, axios, undici, node-fetch) on high-value Microsoft 365 applications. Characteristic of Tycoon 2FA and EvilProxy AiTM kit relay tiers making server-to-server HTTP calls to relay victim sessions. Normal M365 sign-ins use browser user agents.",
+      "severity": "High",
+      "enabled": true,
+      "query": "SigninLogs\n| where TimeGenerated > ago(5m)\n| where ResultType == 0\n| where UserAgent has_any (\"node\", \"axios\", \"undici\", \"node-fetch\")\n| where AppDisplayName has_any (\"OfficeHome\", \"Microsoft Authentication Broker\", \"Microsoft Graph\", \"Microsoft Exchange Online\")\n| project TimeGenerated, UserPrincipalName, AppDisplayName, UserAgent, IPAddress, ResultType, CorrelationId",
+      "queryFrequency": "PT5M",
+      "queryPeriod": "PT5M",
+      "triggerOperator": "GreaterThan",
+      "triggerThreshold": 0,
+      "suppressionDuration": "PT1H",
+      "suppressionEnabled": false,
+      "tactics": ["CredentialAccess"],
+      "techniques": ["T1539", "T1078.004"],
+      "entityMappings": [
+        {
+          "entityType": "Account",
+          "fieldMappings": [{ "identifier": "UPN", "columnName": "UserPrincipalName" }]
+        },
+        {
+          "entityType": "IP",
+          "fieldMappings": [{ "identifier": "Address", "columnName": "IPAddress" }]
+        }
+      ],
+      "customDetails": {
+        "UserAgent": "UserAgent",
+        "AppDisplayName": "AppDisplayName",
+        "CorrelationId": "CorrelationId"
+      }
+    },
+    {
+      "id": "dc-012-oauth-device-code",
+      "displayName": "OAuth Device Code Phishing — MAB App Interactive Redemption",
+      "description": "Detects successful interactive OAuth device-code-flow sign-ins using the Microsoft Authentication Broker app ID (29d9ed98). Tycoon 2FA's device-code-grant variant hardcodes this client ID to obtain FOCI refresh tokens. End users in managed environments rarely initiate device-code flows to the Auth Broker interactively.",
+      "severity": "High",
+      "enabled": true,
+      "query": "SigninLogs\n| where TimeGenerated > ago(5m)\n| where AuthenticationProtocol == \"deviceCode\"\n| where AppId == \"29d9ed98-a469-4536-ade2-f981bc1d605e\"\n| where ResultType == 0\n| where IsInteractive == true\n| project TimeGenerated, UserPrincipalName, AppId, AppDisplayName, AuthenticationProtocol, IsInteractive, IPAddress, CorrelationId",
+      "queryFrequency": "PT5M",
+      "queryPeriod": "PT5M",
+      "triggerOperator": "GreaterThan",
+      "triggerThreshold": 0,
+      "suppressionDuration": "PT1H",
+      "suppressionEnabled": false,
+      "tactics": ["DefenseEvasion"],
+      "techniques": ["T1550.001"],
+      "entityMappings": [
+        {
+          "entityType": "Account",
+          "fieldMappings": [{ "identifier": "UPN", "columnName": "UserPrincipalName" }]
+        },
+        {
+          "entityType": "IP",
+          "fieldMappings": [{ "identifier": "Address", "columnName": "IPAddress" }]
+        }
+      ],
+      "customDetails": {
+        "AppId": "AppId",
+        "AuthenticationProtocol": "AuthenticationProtocol",
+        "IsInteractive": "IsInteractive"
+      }
+    },
+    {
+      "id": "dc-013-graph-api-recon",
+      "displayName": "Post-AiTM — Multi-Category Graph API Reconnaissance Burst",
+      "description": "Detects 4+ distinct Microsoft Graph API endpoint categories (role/cross-tenant/mailbox/contact/org) from a single UPN within 60 seconds. Human portal navigation touches 1-2 categories per session; 4+ in 60 seconds is mechanically impossible at human speed and indicates automated AiTM operator console recon. Correlate with preceding Node.js UA sign-in for full chain confirmation.",
+      "severity": "High",
+      "enabled": true,
+      "query": "MicrosoftGraphActivityLogs\n| where TimeGenerated > ago(5m)\n| extend EndpointCategory = case(\n    Resource has \"roleManagement\" or Resource has \"directoryRole\", \"role-discovery\",\n    Resource has \"tenantRelationships\", \"cross-tenant\",\n    Resource has \"mailboxSettings\" or Resource has \"messages\", \"mailbox\",\n    Resource has \"contactFolders\" or Resource has \"contacts\", \"contacts\",\n    Resource has \"subscribedSkus\" or Resource has \"organization\", \"org-licensing\",\n    \"other\"\n  )\n| where EndpointCategory != \"other\"\n| summarize EndpointCategories = dcount(EndpointCategory), TotalCalls = count(), DistinctEndpoints = dcount(Resource) by UserPrincipalName, bin(TimeGenerated, 1m)\n| where EndpointCategories >= 4\n| project TimeGenerated, UserPrincipalName, EndpointCategories, TotalCalls, DistinctEndpoints",
+      "queryFrequency": "PT5M",
+      "queryPeriod": "PT5M",
+      "triggerOperator": "GreaterThan",
+      "triggerThreshold": 0,
+      "suppressionDuration": "PT1H",
+      "suppressionEnabled": false,
+      "tactics": ["Discovery"],
+      "techniques": ["T1087.004", "T1069.003"],
+      "entityMappings": [
+        {
+          "entityType": "Account",
+          "fieldMappings": [{ "identifier": "UPN", "columnName": "UserPrincipalName" }]
+        }
+      ],
+      "customDetails": {
+        "EndpointCategories": "EndpointCategories",
+        "TotalCalls": "TotalCalls",
+        "DistinctEndpoints": "DistinctEndpoints"
+      }
+    }
+  ]
+}

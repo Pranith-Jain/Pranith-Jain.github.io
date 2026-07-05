@@ -1,0 +1,32 @@
+{
+  "slug": "chokepoint-edr-bypass-emulation",
+  "name": "chokepoint-edr-bypass-emulation",
+  "description": "Emulate service stop/disable, handle open to security process, driver install event. Expected: EID 10 (security process handle), WEL 7036/7040 (service state).",
+  "type": "emulation",
+  "mitreTechniques": ["T1562.001", "T1070.001"],
+  "category": "Defense Evasion",
+  "platform": "Windows",
+  "scriptLanguage": "PowerShell",
+  "scriptContent": "# Chokepoint EDR Bypass Emulation\n# Emulates service stop/disable, handle open to security process, driver install event\n# Expected Detections: EID 10 (security process handle), WEL 7036/7040 (service state)\n\n[CmdletBinding()]\nparam(\n    [switch]$DryRun\n)\n\nWrite-Host \"=== Chokepoint EDR Bypass Emulation ===\" -ForegroundColor Cyan\nWrite-Host \"Emulating defense evasion techniques for detection validation\"\n\n# Stage 1: Open handle to security process (EID 10 target)\nWrite-Host \"\\n[Stage 1] Opening handle to security process...\"\n$securityProcess = Get-Process -Name \"MsMpEng\" -ErrorAction SilentlyContinue\nif ($securityProcess) {\n    Write-Host \"  Target: MsMpEng.exe (PID: $($securityProcess.Id))\" -ForegroundColor Yellow\n    Write-Host \"  Action: Open process handle with PROCESS_QUERY_INFORMATION\" -ForegroundColor Yellow\n    # This will generate EID 10 if Sysmon is monitoring process access\n    $handle = [System.Diagnostics.Process]::GetProcessById($securityProcess.Id)\n    Write-Host \"  Result: Handle opened (detection should fire)\" -ForegroundColor Green\n} else {\n    Write-Host \"  MsMpEng.exe not found - skipping handle open\" -ForegroundColor Red\n}\n\n# Stage 2: Stop Windows Defender service (WEL 7036 target)\nWrite-Host \"\\n[Stage 2] Stopping Windows Defender service...\"\nif (-not $DryRun) {\n    try {\n        Stop-Service -Name \"WinDefend\" -Force -ErrorAction Stop\n        Write-Host \"  Action: WinDefend service stopped\" -ForegroundColor Yellow\n        Write-Host \"  Expected Detection: WEL 7036 (ServiceStateChange)\" -ForegroundColor Cyan\n    } catch {\n        Write-Host \"  Error: $($_.Exception.Message)\" -ForegroundColor Red\n    }\n} else {\n    Write-Host \"  [DryRun] Would stop WinDefend service\" -ForegroundColor Magenta\n}\n\n# Stage 3: Disable Windows Defender service (WEL 7040 target)\nWrite-Host \"\\n[Stage 3] Disabling Windows Defender service...\"\nif (-not $DryRun) {\n    try {\n        Set-Service -Name \"WinDefend\" -StartupType Disabled -ErrorAction Stop\n        Write-Host \"  Action: WinDefend service disabled\" -ForegroundColor Yellow\n        Write-Host \"  Expected Detection: WEL 7040 (ServiceConfigChange)\" -ForegroundColor Cyan\n    } catch {\n        Write-Host \"  Error: $($_.Exception.Message)\" -ForegroundColor Red\n    }\n} else {\n    Write-Host \"  [DryRun] Would disable WinDefend service\" -ForegroundColor Magenta\n}\n\n# Stage 4: Create test kernel service (driver install emulation)\nWrite-Host \"\\n[Stage 4] Creating test kernel service...\"\nif (-not $DryRun) {\n    try {\n        sc.exe create \"RansomTestDriver\" type= kernel binPath= \"C:\\Windows\\System32\\drivers\\null.sys\"\n        Write-Host \"  Action: Test kernel service created\" -ForegroundColor Yellow\n        Write-Host \"  Expected Detection: EID 7045 (ServiceInstall)\" -ForegroundColor Cyan\n    } catch {\n        Write-Host \"  Error: $($_.Exception.Message)\" -ForegroundColor Red\n    }\n} else {\n    Write-Host \"  [DryRun] Would create test kernel service\" -ForegroundColor Magenta\n}\n\nWrite-Host \"\\n=== Emulation Complete ===\" -ForegroundColor Cyan\nWrite-Host \"Expected Detections:\"\nWrite-Host \"  - EID 10: Process access to MsMpEng.exe\" -ForegroundColor Green\nWrite-Host \"  - WEL 7036: WinDefend service state change\" -ForegroundColor Green\nWrite-Host \"  - WEL 7040: WinDefend service config change\" -ForegroundColor Green\nWrite-Host \"  - EID 7045: Kernel service installation\" -ForegroundColor Green",
+  "expectedDetections": [
+    "EID 10 (ProcessAccess to security process)",
+    "WEL 7036 (ServiceStateChange)",
+    "WEL 7040 (ServiceConfigChange)",
+    "EID 7045 (ServiceInstall)"
+  ],
+  "detectionQueries": [
+    {
+      "name": "Security Process Handle Access",
+      "query": "DeviceProcessEvents | where Timestamp > ago(1h) | where FileName =~ 'lsass.exe' or FileName =~ 'MsMpEng.exe' | where ActionType == 'ProcessAccess' | project Timestamp, DeviceName, AccountName, InitiatingProcessFileName"
+    },
+    {
+      "name": "Service State Changes",
+      "query": "DeviceEvents | where Timestamp > ago(1h) | where ActionType == 'ServiceTerminated' or ActionType == 'ServiceConfigChanged' | project Timestamp, DeviceName, ActionType, ServiceName"
+    },
+    {
+      "name": "Service Installation",
+      "query": "SecurityEvent | where EventID == 7045 | where ServiceType == 'kernel' | project TimeGenerated, Computer, ServiceName, ServiceType, ImagePath"
+    }
+  ],
+  "sizeBytes": 3847
+}

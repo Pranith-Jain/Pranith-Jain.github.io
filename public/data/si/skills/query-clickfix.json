@@ -1,0 +1,5 @@
+{
+  "slug": "query/clickfix",
+  "name": "query-clickfix",
+  "bodyMarkdown": "# ClickFix Detection Query\n\n**Category:** Detection Chokepoints | **Maturity:** Hunt | **FP Rate:** Medium\n**Techniques:** T1204.004 | **Log Sources:** Sysmon EID 1\n\n```kql\nDeviceProcessEvents\n| where Timestamp > ago(1h)\n| where FileName in (\"powershell.exe\", \"pwsh.exe\", \"cmd.exe\", \"wscript.exe\", \"cscript.exe\", \"mshta.exe\")\n| where InitiatingProcessFileName in (\"explorer.exe\", \"wt.exe\", \"WindowsTerminal.exe\") or InitiatingProcessFileName endswith \"chrome.exe\" or InitiatingProcessFileName endswith \"msedge.exe\" or InitiatingProcessFileName endswith \"firefox.exe\"\n| where ProcessCommandLine has_any (\"-enc \", \"-EncodedCommand\", \"FromBase64String\", \"IEX\", \"Invoke-Expression\", \"DownloadString\", \"Invoke-WebRequest\", \"iwr \", \"curl \", \"nslookup \", \"net use \")\n| project Timestamp, DeviceName, InitiatingProcessFileName, FileName, ProcessCommandLine\n| sort by Timestamp desc\n```"
+}

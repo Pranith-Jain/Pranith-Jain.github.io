@@ -1,0 +1,5 @@
+{
+  "slug": "query/ransomware-service",
+  "name": "query-ransomware-service-manipulation",
+  "bodyMarkdown": "# Ransomware Service Manipulation Detection Query\n\n**Category:** Detection Chokepoints | **Maturity:** Hunt | **FP Rate:** Medium\n**Techniques:** T1562.001, T1489 | **Log Sources:** WEL 7036, Sysmon EID 1\n\n```kql\nDeviceProcessEvents\n| where Timestamp > ago(1h)\n| where FileName in (\"sc.exe\", \"net.exe\", \"net1.exe\", \"taskkill.exe\")\n| where ProcessCommandLine has_any (\"stop\", \"delete\")\n| where ProcessCommandLine has_any (\"Sophos\", \"WinDefend\", \"Veeam\", \"VSS\", \"wbengine\", \"MSSQL\", \"backup\")\n| project Timestamp, DeviceName, FileName, ProcessCommandLine, InitiatingProcessFileName\n| sort by Timestamp desc\n```"
+}

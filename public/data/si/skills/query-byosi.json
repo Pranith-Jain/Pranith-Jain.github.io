@@ -1,0 +1,5 @@
+{
+  "slug": "query/byosi",
+  "name": "query-byosi",
+  "bodyMarkdown": "# BYOSI Scripting Interpreter Detection Query\n\n**Category:** Detection Chokepoints | **Maturity:** Hunt | **FP Rate:** Medium\n**Techniques:** T1059.006, T1059.007 | **Log Sources:** Sysmon EID 1\n\n```kql\nDeviceProcessEvents\n| where Timestamp > ago(1h)\n| where FileName in (\"python.exe\", \"python3.exe\", \"php.exe\", \"node.exe\", \"ruby.exe\", \"perl.exe\", \"lua.exe\", \"deno.exe\", \"bun.exe\", \"AutoHotkey.exe\")\n| where FolderPath has_any (\"Temp\", \"tmp\", \"Downloads\", \"AppData\", \"Users\\\\Public\", \"Windows\\\\Temp\")\n| where ProcessCommandLine has_any (\".py\", \".php\", \".js\", \"-e \", \"-c \", \"--eval\", \"-exec\", \"-r \")\n| project Timestamp, DeviceName, FileName, FolderPath, ProcessCommandLine, InitiatingProcessFileName\n| sort by Timestamp desc\n```"
+}
