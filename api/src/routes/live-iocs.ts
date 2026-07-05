@@ -159,7 +159,19 @@ async function fetchText(url: string): Promise<string | null> {
       cf: { cacheTtl: 1500 },
     });
     if (!res.ok) return null;
-    return await res.text();
+    // Many sites return HTTP 200 with an HTML challenge/captcha page
+    // (Cloudflare, Incapsula, etc.) instead of the expected plaintext.
+    // Detect this so the fallback URL is tried instead of the parser
+    // silently producing 0 items from the HTML body.
+    const ct = res.headers.get('content-type') ?? '';
+    if (ct.includes('text/html') || ct.includes('application/xhtml')) return null;
+    const text = await res.text();
+    // Belt-and-suspenders: if the body looks like HTML despite the
+    // content-type, discard it.  Covers servers that send
+    // text/plain but serve HTML (rare but observed).
+    const firstNonWs = text.trimStart().slice(0, 16);
+    if (firstNonWs.startsWith('<!DOCTYPE') || firstNonWs.startsWith('<html')) return null;
+    return text || null;
   } catch {
     return null;
   }
@@ -183,7 +195,15 @@ async function fetchTextDiag(url: string): Promise<{ ok: boolean; status?: numbe
     if (!res.ok) {
       return { ok: false, status: res.status, error: `HTTP ${res.status}` };
     }
+    const ct = res.headers.get('content-type') ?? '';
+    if (ct.includes('text/html') || ct.includes('application/xhtml')) {
+      return { ok: false, status: res.status, error: `HTML challenge page (content-type: ${ct})` };
+    }
     const text = await res.text();
+    const firstNonWs = text.trimStart().slice(0, 16);
+    if (firstNonWs.startsWith('<!DOCTYPE') || firstNonWs.startsWith('<html')) {
+      return { ok: false, status: res.status, error: `HTML challenge page (${text.length} bytes)` };
+    }
     return { ok: true, status: res.status, bytes: text.length };
   } catch (e) {
     return { ok: false, error: e instanceof Error ? e.message.slice(0, 120) : 'unknown' };
