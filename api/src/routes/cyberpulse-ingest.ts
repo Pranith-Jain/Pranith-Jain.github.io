@@ -18,6 +18,7 @@ import {
 } from '../lib/twitter-auth-graphql';
 import { fetchTelegramFeed, type TelegramFeedItem } from './telegram-feed';
 import { fetchXFeed, type XFeedItem } from './x-feed';
+import { type RedditFeedItem } from './reddit-feed';
 import type { Env } from '../env';
 
 /**
@@ -33,6 +34,7 @@ import type { Env } from '../env';
 export interface CyberPulsePrefetch {
   telegramItems?: TelegramFeedItem[];
   socialItems?: XFeedItem[];
+  redditItems?: RedditFeedItem[];
 }
 
 // ─── Types ─────────────────────────────────────────────────────────────────

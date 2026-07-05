@@ -163,7 +163,19 @@ describe('dfir-hubs (DFIR catalog registry)', () => {
     // pages that DISPLAY the catalog. The catalog page itself is its own
     // route (/dfir/catalog) and the per-hub landings use /dfir/c/:cat.
     const CATALOG_ROUTES = new Set(['/dfir/catalog']);
-    const expected = routes.filter((r) => !REDIRECTS.has(r) && !CATALOG_ROUTES.has(r) && !r.includes(':'));
+    // Standalone pages that exist in App.tsx but are not part of the hub catalog system
+    const STANDALONE_ROUTES = new Set([
+      '/dfir/attack-chains',
+      '/dfir/attack-surface',
+      '/dfir/fleet-map',
+      '/dfir/phishing-identity',
+      '/dfir/ransomware-killchain',
+      '/dfir/rhysida-intrusion',
+      '/dfir/wordpress-sim',
+    ]);
+    const expected = routes.filter(
+      (r) => !REDIRECTS.has(r) && !CATALOG_ROUTES.has(r) && !STANDALONE_ROUTES.has(r) && !r.includes(':')
+    );
     const missing = expected.filter((r) => !registered.has(r));
     if (missing.length > 0) {
       throw new Error(`dfir-hubs is missing entries for these App.tsx routes:\n  - ${missing.join('\n  - ')}`);
