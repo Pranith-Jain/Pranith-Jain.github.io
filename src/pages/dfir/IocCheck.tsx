@@ -395,13 +395,11 @@ export default function IocCheck(): JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialInput]);
 
-  const resultMap = useMemo(() => new Map(results.map(r => [r.source, r])), [results]);
+  const resultMap = useMemo(() => new Map(results.map((r) => [r.source, r])), [results]);
 
   const relatedTags = useMemo(() => results.flatMap((r) => r.tags), [results]);
   const relatedFreeText = useMemo(
-    () => results.flatMap(
-      (r) => Object.values(r.raw_summary).filter((v) => typeof v === 'string') as string[]
-    ),
+    () => results.flatMap((r) => Object.values(r.raw_summary).filter((v) => typeof v === 'string') as string[]),
     [results]
   );
 
@@ -857,20 +855,32 @@ export default function IocCheck(): JSX.Element {
             </p>
           ) : (
             <div className="grid sm:grid-cols-2 gap-3">
-              {eligible.map((p) => {
-                const r = resultMap.get(p);
-                if (r) return <IocResultRow key={p} r={r} />;
-                return (
-                  <div
-                    key={p}
-                    className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 animate-pulse"
-                  >
-                    <span className="font-display capitalize text-muted">{p}</span>
-                    <span className="block mt-2 text-xs font-mono text-slate-500">querying…</span>
-                  </div>
-                );
-              })}
+              {eligible
+                .filter((p) => {
+                  const r = resultMap.get(p);
+                  // Show if: still loading, flagged (malicious/suspicious), or has an error
+                  if (!r) return true;
+                  return r.verdict === 'malicious' || r.verdict === 'suspicious' || r.status === 'error';
+                })
+                .map((p) => {
+                  const r = resultMap.get(p);
+                  if (r) return <IocResultRow key={p} r={r} />;
+                  return (
+                    <div
+                      key={p}
+                      className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 animate-pulse"
+                    >
+                      <span className="font-display capitalize text-muted">{p}</span>
+                      <span className="block mt-2 text-xs font-mono text-slate-500">querying…</span>
+                    </div>
+                  );
+                })}
             </div>
+          )}
+          {results.length > 0 && (
+            <p className="mt-3 text-xs font-mono text-slate-500 dark:text-slate-400">
+              {results.filter((r) => r.verdict === 'clean' || r.status !== 'ok').length} clean / errored sources hidden
+            </p>
           )}
         </section>
       )}

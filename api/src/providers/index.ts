@@ -1,5 +1,5 @@
 import type { ProviderId, ProviderAdapter, ProviderEnv } from './types';
-import { PROVIDER_SUPPORT, PROVIDER_TIMEOUT_MS } from './types';
+import { PROVIDER_SUPPORT, PROVIDER_TIMEOUT_MS, PROVIDER_TIER } from './types';
 import { virustotal } from './virustotal';
 import { abuseipdb } from './abuseipdb';
 import { shodan } from './shodan';
@@ -55,7 +55,7 @@ import { trege } from './tre-ge';
 import { intodns } from './intodns';
 import { opensourcemalware } from './opensourcemalware';
 
-export { PROVIDER_SUPPORT, PROVIDER_TIMEOUT_MS };
+export { PROVIDER_SUPPORT, PROVIDER_TIMEOUT_MS, PROVIDER_TIER };
 
 export const ADAPTERS: Record<ProviderId, ProviderAdapter> = {
   virustotal,

@@ -50,6 +50,41 @@ function makeErrorResult(source: ProviderId, err: unknown): ProviderResult {
   };
 }
 
+/** Tier-2 providers that add minimal signal — skip when tier-1 has actionable results. */
+const LOW_VALUE_PROVIDERS = new Set<ProviderId>([
+  'cinsarmy',
+  'bitwire',
+  'blocklistde',
+  'binarydefense',
+  'ipsum',
+  'tweetfeed',
+  'c2tracker',
+  'sslbl',
+  'malwareworld',
+  'phishingArmy',
+  'doh',
+  'hashlookup',
+  'malshare',
+  'x4bnet',
+  'certpl',
+  'digitalside',
+  'stopforumspam',
+  'dshield',
+  'intodns',
+  'opensourcemalware',
+  'secrets',
+  'webamon',
+  'zoomeye',
+  'tre-ge',
+  'spur',
+  'phishstats',
+  'criminalip',
+  'vulncheck',
+  'emailrep',
+  'malpedia',
+  'otx',
+]);
+
 export interface IocProviderRunResult {
   collected: ProviderResult[];
   composite: ReturnType<typeof compositeScore>;
@@ -60,23 +95,34 @@ export interface IocProviderRunResult {
 /**
  * Run the full provider fan-out for an indicator. Returns collected results,
  * composite score, and admiralty grade — everything downstream consumers need.
+ *
+ * Tier system: tier-1 providers always run. Tier-2 (low-value blocklists)
+ * only run when tier-1 returns no actionable signals — reducing subrequests
+ * from ~27 to ~12 for typical IOC checks.
  */
 export async function runIocProviders(
   raw: string,
   env: Env,
-  onResult?: (r: ProviderResult) => void
+  onResult?: (r: ProviderResult) => void,
+  options?: { skipLowValue?: boolean }
 ): Promise<IocProviderRunResult> {
   const type = detectType(raw);
   const indicator: Indicator = { type, value: raw.trim() };
-  const eligible = (Object.keys(ADAPTERS) as ProviderId[]).filter((p) => PROVIDER_SUPPORT[p].includes(type));
+  const allEligible = (Object.keys(ADAPTERS) as ProviderId[]).filter((p) => PROVIDER_SUPPORT[p].includes(type));
   const providerEnv = buildProviderEnv(env);
   const cache = new ProviderCache(env.KV_CACHE);
 
   const collected: ProviderResult[] = [];
 
+  // Split into tier-1 (high-value) and tier-2 (low-value)
+  const tier1 = allEligible.filter((p) => !LOW_VALUE_PROVIDERS.has(p));
+  const tier2 = allEligible.filter((p) => LOW_VALUE_PROVIDERS.has(p));
+
   await cache.primeBatch(indicator);
+
+  // Always run tier-1 providers
   await runChunked(
-    eligible,
+    tier1,
     async (p) => {
       if (isCircuitOpen(p)) {
         const skipped = makeSkippedResult(p);
@@ -111,6 +157,48 @@ export async function runIocProviders(
     },
     PROVIDER_CHUNK_SIZE
   );
+
+  // Only run tier-2 if tier-1 found no actionable signals (no malicious/suspicious)
+  const hasActionable = collected.some((r) => r.verdict === 'malicious' || r.verdict === 'suspicious');
+  if (!hasActionable && !options?.skipLowValue) {
+    await runChunked(
+      tier2,
+      async (p) => {
+        if (isCircuitOpen(p)) {
+          const skipped = makeSkippedResult(p);
+          collected.push(skipped);
+          onResult?.(skipped);
+          return;
+        }
+        const cached = cache.getBatched(p);
+        if (cached) {
+          collected.push(cached);
+          onResult?.(cached);
+          await recordProviderSuccess(p);
+          return;
+        }
+        const signal = AbortSignal.timeout(PROVIDER_TIMEOUT_MS);
+        try {
+          const r = await ADAPTERS[p](indicator, providerEnv, signal);
+          collected.push(r);
+          onResult?.(r);
+          if (r.status === 'ok') {
+            cache.stageBatched(p, indicator, r);
+            await recordProviderSuccess(p);
+          } else {
+            recordProviderFailure(p);
+          }
+        } catch (err) {
+          recordProviderFailure(p);
+          const errResult = makeErrorResult(p, err);
+          collected.push(errResult);
+          onResult?.(errResult);
+        }
+      },
+      PROVIDER_CHUNK_SIZE
+    );
+  }
+
   await cache.flushBatch(indicator);
 
   const composite = compositeScore(type, collected);
@@ -119,5 +207,5 @@ export async function runIocProviders(
     collected.filter((r) => r.status === 'ok').map((r) => r.source)
   );
 
-  return { collected, composite, admiralty: adv, eligible };
+  return { collected, composite, admiralty: adv, eligible: allEligible };
 }

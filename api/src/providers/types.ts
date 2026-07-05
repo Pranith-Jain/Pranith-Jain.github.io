@@ -201,3 +201,68 @@ export const PROVIDER_SUPPORT: Record<ProviderId, IndicatorType[]> = {
   'tre-ge': ['ipv4', 'ipv6', 'domain', 'url', 'hash'],
   intodns: ['domain'],
 };
+
+/**
+ * Provider tiers — used to skip low-value lookups and reduce rate-limit
+ * pressure. Tier-1 providers always run. Tier-2 providers only run when
+ * tier-1 returns no actionable signals (all clean / unknown) — reduces
+ * subrequests from ~27 to ~12 for typical IOC checks.
+ */
+export type ProviderTier = 1 | 2;
+
+export const PROVIDER_TIER: Record<ProviderId, ProviderTier> = {
+  virustotal: 1,
+  abuseipdb: 1,
+  shodan: 1,
+  greynoise: 1,
+  crowdsec: 1,
+  threatfox: 1,
+  urlhaus: 1,
+  openphish: 1,
+  hybridanalysis: 1,
+  malwarebazaar: 1,
+  spamhaus: 1,
+  tor: 1,
+  phishtank: 1,
+  safebrowsing: 1,
+  kaspersky: 1,
+  'shodan-internetdb': 1,
+  pulsedive: 1,
+  maltiverse: 1,
+  censys: 1,
+  netlas: 1,
+  urlscan: 1,
+  otx: 2,
+  cinsarmy: 2,
+  bitwire: 2,
+  blocklistde: 2,
+  binarydefense: 2,
+  ipsum: 2,
+  tweetfeed: 2,
+  c2tracker: 2,
+  sslbl: 2,
+  malwareworld: 2,
+  phishingArmy: 2,
+  doh: 2,
+  hashlookup: 2,
+  malshare: 2,
+  x4bnet: 2,
+  certpl: 2,
+  digitalside: 2,
+  stopforumspam: 2,
+  dshield: 2,
+  intodns: 2,
+  opensourcemalware: 2,
+  secrets: 2,
+  webamon: 2,
+  zoomeye: 2,
+  'tre-ge': 2,
+  spur: 2,
+  phishstats: 2,
+  criminalip: 2,
+  vulncheck: 2,
+  emailrep: 2,
+  malpedia: 2,
+  ipinfo: 1,
+  yaraify: 1,
+};
