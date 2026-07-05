@@ -173,6 +173,8 @@ describe('dfir-hubs (DFIR catalog registry)', () => {
       '/dfir/rhysida-intrusion',
       '/dfir/wordpress-sim',
     ]);
+    // Note: chokepoints/framework, chokepoints/cross-chain, attack-chains/*,
+    // and trends/* are now consolidated into DetectionChokepointsHub (single route).
     const expected = routes.filter(
       (r) => !REDIRECTS.has(r) && !CATALOG_ROUTES.has(r) && !STANDALONE_ROUTES.has(r) && !r.includes(':')
     );

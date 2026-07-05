@@ -563,17 +563,7 @@ const ROUTES = [
   '/dfir/copilot',
   '/dfir/orkl',
   '/dfir/wifi-investigation',
-  // ── Detection Chokepoints: detail pages ─
-  '/dfir/attack-chains/ransomware',
-  '/dfir/attack-chains/infostealers',
-  '/dfir/attack-chains/aitm',
-  '/dfir/attack-chains/hypervisor',
-  '/dfir/attack-chains/identity',
-  '/dfir/chokepoints/framework',
-  '/dfir/chokepoints/cross-chain',
-  '/dfir/trends/clickfix',
-  '/dfir/trends/edge-exploits',
-  '/dfir/trends/masq-infra',
+  // ── Detection Chokepoints: unified hub ─
 
   // ── ThreatIntel: hub pages (11) — Suspense-wrapped tabs, prerendered chrome ─
 ];

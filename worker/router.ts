@@ -531,17 +531,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/copilot', '/__prerendered/dfir__copilot'],
   ['/dfir/orkl', '/__prerendered/dfir__orkl'],
   ['/dfir/wifi-investigation', '/__prerendered/dfir__wifi-investigation'],
-  // ── Detection Chokepoints: detail pages ─
-  ['/dfir/attack-chains/ransomware', '/__prerendered/dfir__attack-chains__ransomware'],
-  ['/dfir/attack-chains/infostealers', '/__prerendered/dfir__attack-chains__infostealers'],
-  ['/dfir/attack-chains/aitm', '/__prerendered/dfir__attack-chains__aitm'],
-  ['/dfir/attack-chains/hypervisor', '/__prerendered/dfir__attack-chains__hypervisor'],
-  ['/dfir/attack-chains/identity', '/__prerendered/dfir__attack-chains__identity'],
-  ['/dfir/chokepoints/framework', '/__prerendered/dfir__chokepoints__framework'],
-  ['/dfir/chokepoints/cross-chain', '/__prerendered/dfir__chokepoints__cross-chain'],
-  ['/dfir/trends/clickfix', '/__prerendered/dfir__trends__clickfix'],
-  ['/dfir/trends/edge-exploits', '/__prerendered/dfir__trends__edge-exploits'],
-  ['/dfir/trends/masq-infra', '/__prerendered/dfir__trends__masq-infra'],
+  // ── Detection Chokepoints: unified hub ─
   // ── ThreatIntel: hub bases (11) — Suspense-wrapped tabs, prerendered chrome ─
 ]);
 

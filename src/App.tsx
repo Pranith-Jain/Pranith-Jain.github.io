@@ -112,17 +112,7 @@ const PowershellDeobf = lazy(() => import('./pages/dfir/PowershellDeobf'));
 const AgentMap = lazy(() => import('./pages/dfir/AgentMap'));
 const AgentInvestigator = lazy(() => import('./pages/dfir/AgentInvestigator'));
 const Tabletop = lazy(() => import('./pages/dfir/Tabletop'));
-const DetectionChokepoints = lazy(() => import('./pages/dfir/DetectionChokepoints'));
-const DetectionChokepointsFramework = lazy(() => import('./pages/dfir/DetectionChokepointsFramework'));
-const AttackChainRansomware = lazy(() => import('./pages/dfir/AttackChainRansomware'));
-const AttackChainInfostealers = lazy(() => import('./pages/dfir/AttackChainInfostealers'));
-const AttackChainAitm = lazy(() => import('./pages/dfir/AttackChainAitm'));
-const AttackChainHypervisor = lazy(() => import('./pages/dfir/AttackChainHypervisor'));
-const AttackChainIdentity = lazy(() => import('./pages/dfir/AttackChainIdentity'));
-const TrendClickFix = lazy(() => import('./pages/dfir/TrendClickFix'));
-const TrendEdgeExploits = lazy(() => import('./pages/dfir/TrendEdgeExploits'));
-const TrendMasqInfra = lazy(() => import('./pages/dfir/TrendMasqInfra'));
-const CrossChainEcosystem = lazy(() => import('./pages/dfir/CrossChainEcosystem'));
+const DetectionChokepointsHub = lazy(() => import('./pages/dfir/DetectionChokepointsHub'));
 const LongWatch = lazy(() => import('./pages/dfir/LongWatch'));
 const Grc = lazy(() => import('./pages/dfir/Grc'));
 const DlpScan = lazy(() => import('./pages/dfir/DlpScan'));
@@ -528,23 +518,8 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/agent', Component: AgentInvestigator },
   { path: '/dfir/agent-enrich', Component: TieEnrich },
   { path: '/dfir/tabletop', Component: Tabletop },
-  { path: '/dfir/detection-chokepoints', Component: DetectionChokepoints },
-  { path: '/dfir/long-watch', Component: LongWatch },
-  { path: '/dfir/attack-surface', Component: AttackSurface },
+  { path: '/dfir/detection-chokepoints', Component: DetectionChokepointsHub },
   { path: '/dfir/subdomain-takeover', Component: SubdomainTakeover },
-  { path: '/dfir/ransomware-killchain', Component: RansomwareKillChain },
-  { path: '/dfir/phishing-identity', Component: PhishingIdentity },
-  { path: '/dfir/attack-chains', Component: AttackChains },
-  { path: '/dfir/attack-chains/ransomware', Component: AttackChainRansomware },
-  { path: '/dfir/attack-chains/infostealers', Component: AttackChainInfostealers },
-  { path: '/dfir/attack-chains/aitm', Component: AttackChainAitm },
-  { path: '/dfir/attack-chains/hypervisor', Component: AttackChainHypervisor },
-  { path: '/dfir/attack-chains/identity', Component: AttackChainIdentity },
-  { path: '/dfir/chokepoints/framework', Component: DetectionChokepointsFramework },
-  { path: '/dfir/chokepoints/cross-chain', Component: CrossChainEcosystem },
-  { path: '/dfir/trends/clickfix', Component: TrendClickFix },
-  { path: '/dfir/trends/edge-exploits', Component: TrendEdgeExploits },
-  { path: '/dfir/trends/masq-infra', Component: TrendMasqInfra },
   { path: '/dfir/fleet-map', Component: FleetMap },
   { path: '/dfir/wordpress-sim', Component: WordPressSim },
   { path: '/dfir/rhysida-intrusion', Component: RhysidaIntrusion },
