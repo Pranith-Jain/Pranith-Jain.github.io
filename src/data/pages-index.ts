@@ -1628,6 +1628,43 @@ const DFIR_PAGES: readonly PageEntry[] = [
       'chokepoints',
     ],
   },
+  {
+    path: '/dfir/fleet-map',
+    label: 'UK Threat Map — Fleet Simulation',
+    description:
+      'National-scale attack surface simulation: 300 organisations across the UK, modelling SSL-VPN, Citrix, VMware Horizon, RDP, and WordPress exposure from 2018–2025.',
+    sectionLabel: 'DFIR · Simulation',
+    group: 'dfir',
+    keywords: ['simulation', 'fleet', 'uk', 'threat-map', 'ssl-vpn', 'citrix', 'rdp', 'wordpress', 'long-watch'],
+  },
+  {
+    path: '/dfir/wordpress-sim',
+    label: 'WordPress Server — Attack Simulation',
+    description:
+      'Single-server attack simulation: a LAMP-stack WordPress box exposed to the internet from 2018–2025, with configurable defensive controls.',
+    sectionLabel: 'DFIR · Simulation',
+    group: 'dfir',
+    keywords: ['simulation', 'wordpress', 'lamp', 'sql-injection', 'brute-force', 'ddos', 'cve', 'waf', 'long-watch'],
+  },
+  {
+    path: '/dfir/rhysida-intrusion',
+    label: 'Anatomy of a Rhysida Intrusion',
+    description:
+      'A real Rhysida kill chain mapped to MITRE ATT&CK — 24 stages across all 12 tactics, from no-MFA VPN login through Zerologon to domain-wide encryption.',
+    sectionLabel: 'DFIR · Simulation',
+    group: 'dfir',
+    keywords: [
+      'simulation',
+      'rhysida',
+      'ransomware',
+      'zerologon',
+      'dcsync',
+      'ntds',
+      'mitre',
+      'kill-chain',
+      'long-watch',
+    ],
+  },
 
   /* ------------------------------------------------------------------ */
   /*  3. Threat Intel                                                   */

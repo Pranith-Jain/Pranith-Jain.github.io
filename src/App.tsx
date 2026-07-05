@@ -163,6 +163,9 @@ const SubdomainTakeover = lazy(() => import('./pages/dfir/SubdomainTakeover'));
 const RansomwareKillChain = lazy(() => import('./pages/dfir/RansomwareKillChain'));
 const PhishingIdentity = lazy(() => import('./pages/dfir/PhishingIdentity'));
 const AttackChains = lazy(() => import('./pages/dfir/AttackChains'));
+const FleetMap = lazy(() => import('./pages/dfir/FleetMap'));
+const WordPressSim = lazy(() => import('./pages/dfir/WordPressSim'));
+const RhysidaIntrusion = lazy(() => import('./pages/dfir/RhysidaIntrusion'));
 
 const InsightAi = lazy(() => import('./pages/dfir/InsightAi'));
 const QuerycraftAi = lazy(() => import('./pages/dfir/QuerycraftAi'));
@@ -522,6 +525,9 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/ransomware-killchain', Component: RansomwareKillChain },
   { path: '/dfir/phishing-identity', Component: PhishingIdentity },
   { path: '/dfir/attack-chains', Component: AttackChains },
+  { path: '/dfir/fleet-map', Component: FleetMap },
+  { path: '/dfir/wordpress-sim', Component: WordPressSim },
+  { path: '/dfir/rhysida-intrusion', Component: RhysidaIntrusion },
   { path: '/dfir/grc', Component: Grc },
   { path: '/dfir/dlp-scan', Component: DlpScan },
   { path: '/dfir/data-classification', Component: DataClassification },
