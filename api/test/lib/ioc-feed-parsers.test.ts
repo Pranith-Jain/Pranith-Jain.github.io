@@ -310,16 +310,6 @@ describe('buildSummary', () => {
     expect(s.entries[0]!.type).toBe('cve');
   });
 
-  it('returns correct shape for cins-score', () => {
-    const fixture = '1.2.3.4\n5.6.7.8\n# comment\n9.10.11.12';
-    const s = buildSummary('cins-score', fixture);
-    expect(s.source).toBe('cins-score');
-    expect(s.source_name).toBe('CINS Score');
-    expect(s.count).toBe(3);
-    expect(s.entries[0]!.type).toBe('ipv4');
-    expect(s.entries[0]!.value).toBe('1.2.3.4');
-  });
-
   it('returns correct shape for certpl-warnings', () => {
     const fixture = 'evil.example.com\nphish.bad.net\n# comment';
     const s = buildSummary('certpl-warnings', fixture);

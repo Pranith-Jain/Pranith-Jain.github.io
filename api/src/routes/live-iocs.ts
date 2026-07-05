@@ -57,7 +57,7 @@ const CACHE_TTL_SECONDS = 30 * 60;
 // window so it recovers sooner — but NOT 60s: a persistently-down feed at 60s
 // would re-run the full source fan-out every minute.
 const DEGRADED_TTL_SECONDS = 5 * 60;
-const FETCH_TIMEOUT_MS = 12_000;
+const FETCH_TIMEOUT_MS = 20_000;
 const PER_FEED_CAP = 300;
 const AF_DEFACEMENTS_LASTGOOD_KEY = 'live-iocs/af-defacements-lastgood/v1';
 const LASTGOOD_TTL_SECONDS = 24 * 60 * 60;
@@ -288,8 +288,8 @@ const FEED_SOURCE_DEBUG_URLS: Record<string, { url: string; fallbackUrls?: strin
   'sslbl-c2': { url: 'https://sslbl.abuse.ch/blacklist/sslipblacklist.csv' },
   botvrij: { url: 'https://www.botvrij.eu/data/ioclist.domain' },
   threatfox: { url: 'https://threatfox.abuse.ch/export/csv/recent/' },
-  malwarebazaar: { url: 'https://mb-api.abuse.ch/api/v1/' }, // POST-only endpoint; the diagnostic will show 405 - the production handler POSTs `query:get_recent` to this URL
-  phishing: { url: 'https://data.phishtank.com/data/online-valid.json' }, // CloudFront-signed; the diagnostic shows the same 429/403 the real handler would see without the key
+  malwarebazaar: { url: 'https://mb-api.abuse.ch/api/v1/' },
+  phishing: { url: 'https://data.phishtank.com/data/online-valid.json' },
   'crypto-scam': {
     url: 'https://raw.githubusercontent.com/spmedia/Crypto-Scam-and-Crypto-Phishing-Threat-Intel-Feed/main/detected_urls.json',
   },
@@ -309,22 +309,67 @@ const FEED_SOURCE_DEBUG_URLS: Record<string, { url: string; fallbackUrls?: strin
     url: 'https://raw.githubusercontent.com/CriticalPathSecurity/Public-Intelligence-Feeds/master/cps-collected-iocs.txt',
   },
   'blocklist-de': { url: 'https://lists.blocklist.de/lists/all.txt' },
-  cinsscore: { url: 'https://cinsscore.com/list/ci-badguys.txt' },
-  'bbcan177-ips': { url: 'https://gist.githubusercontent.com/BBcan177/bf29d47ea04391cb3eb0/raw/' },
-  'domains-blacklist': { url: 'https://www.joewein.net/dl/bl/dom-bl.txt' },
-  'botvrij-urls': { url: 'https://www.botvrij.eu/data/ioclist.url.raw' },
-  'bruteforce-blocker': { url: 'https://danger.rulez.sk/projects/bruteforceblocker/blist.php' },
-  'threatview-ip': { url: 'https://threatview.io/Downloads/IP-High-Confidence-Feed.txt' },
-  'threatview-domains': { url: 'https://threatview.io/Downloads/DOMAIN-High-Confidence-Feed.txt' },
-  'viriback-c2': { url: 'https://tracker.viriback.com/dump.php' },
-  'cins-score': { url: 'https://cinsscore.com/list/ci-badguys.txt' },
-  'certpl-warnings': { url: 'https://hole.cert.pl/domains/domains.txt' },
-  'bitwire-outbound': { url: 'https://raw.githubusercontent.com/bitwire-it/ipblocklist/main/outbound.txt' },
-  'bitwire-inbound': { url: 'https://raw.githubusercontent.com/bitwire-it/ipblocklist/main/inbound.txt' },
-  phishunt: { url: 'https://phishunt.io/feed.txt' },
+  cinsscore: {
+    url: 'https://cinsscore.com/list/ci-badguys.txt',
+    fallbackUrls: ['https://raw.githubusercontent.com/stamparm/ipsum/master/levels/1.txt'],
+  },
+  'bbcan177-ips': {
+    url: 'https://gist.githubusercontent.com/BBcan177/bf29d47ea04391cb3eb0/raw/',
+    fallbackUrls: ['https://raw.githubusercontent.com/stamparm/ipsum/master/levels/1.txt'],
+  },
+  'domains-blacklist': {
+    url: 'https://www.joewein.net/dl/bl/dom-bl.txt',
+    fallbackUrls: ['https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts'],
+  },
+  'botvrij-urls': {
+    url: 'https://www.botvrij.eu/data/ioclist.url.raw',
+    fallbackUrls: [
+      'https://raw.githubusercontent.com/mitchellkrogza/Phishing.Database/master/phishing-links-ACTIVE.txt',
+    ],
+  },
+  'bruteforce-blocker': {
+    url: 'https://danger.rulez.sk/projects/bruteforceblocker/blist.php',
+    fallbackUrls: ['https://raw.githubusercontent.com/stamparm/ipsum/master/levels/1.txt'],
+  },
+  'threatview-ip': {
+    url: 'https://threatview.io/Downloads/IP-High-Confidence-Feed.txt',
+    fallbackUrls: ['https://raw.githubusercontent.com/stamparm/ipsum/master/levels/1.txt'],
+  },
+  'threatview-domains': {
+    url: 'https://threatview.io/Downloads/DOMAIN-High-Confidence-Feed.txt',
+    fallbackUrls: [
+      'https://raw.githubusercontent.com/mitchellkrogza/Phishing.Database/master/phishing-domains-ACTIVE.txt',
+    ],
+  },
+  'viriback-c2': {
+    url: 'https://tracker.viriback.com/dump.php',
+    fallbackUrls: [
+      'https://raw.githubusercontent.com/CriticalPathSecurity/Public-Intelligence-Feeds/master/cps-collected-iocs.txt',
+    ],
+  },
+  'certpl-warnings': {
+    url: 'https://hole.cert.pl/domains/v2/domains.txt',
+    fallbackUrls: [
+      'https://raw.githubusercontent.com/mitchellkrogza/Phishing.Database/master/phishing-domains-ACTIVE.txt',
+    ],
+  },
+  'bitwire-outbound': {
+    url: 'https://raw.githubusercontent.com/bitwire-it/ipblocklist/main/outbound.txt',
+    fallbackUrls: ['https://raw.githubusercontent.com/stamparm/ipsum/master/levels/1.txt'],
+  },
+  'bitwire-inbound': {
+    url: 'https://raw.githubusercontent.com/bitwire-it/ipblocklist/main/inbound.txt',
+    fallbackUrls: ['https://raw.githubusercontent.com/stamparm/ipsum/master/levels/1.txt'],
+  },
+  phishunt: {
+    url: 'https://phishunt.io/feed.txt',
+    fallbackUrls: [
+      'https://raw.githubusercontent.com/mitchellkrogza/Phishing.Database/master/phishing-links-ACTIVE.txt',
+    ],
+  },
   // mythreatintel + openphish are handled by named sources with internal
   // fetch helpers; their URLs are in the helpers themselves.
-  mythreatintel: { url: 'https://api.mythreatintel.com/v1/iocs' }, // external API; HTTP 530 = upstream 5xx, transient
+  mythreatintel: { url: 'https://api.mythreatintel.com/v1/iocs' },
   openphish: { url: 'https://openphish.com/feed.txt' },
 };
 
@@ -752,7 +797,7 @@ const FEED_SOURCES: FeedSource[] = [
   textFeedSource({
     id: 'cps-collected',
     url: `${CPS_BASE}/cps-collected-iocs.txt`,
-    fallbackUrls: ['https://cinsscore.com/list/ci-badguys.txt'],
+    fallbackUrls: ['https://lists.blocklist.de/lists/all.txt'],
     parse: parsePlainTextIps,
     kind: 'ip',
     reporter: 'CriticalPathSecurity',
@@ -769,6 +814,7 @@ const FEED_SOURCES: FeedSource[] = [
   textFeedSource({
     id: 'cinsscore',
     url: 'https://cinsscore.com/list/ci-badguys.txt',
+    fallbackUrls: ['https://raw.githubusercontent.com/stamparm/ipsum/master/levels/1.txt'],
     parse: parsePlainTextIps,
     kind: 'ip',
     reporter: 'CINSscore',
@@ -778,7 +824,7 @@ const FEED_SOURCES: FeedSource[] = [
   textFeedSource({
     id: 'bbcan177-ips',
     url: 'https://gist.githubusercontent.com/BBcan177/bf29d47ea04391cb3eb0/raw/',
-    fallbackUrls: ['https://cinsscore.com/list/ci-badguys.txt'],
+    fallbackUrls: ['https://raw.githubusercontent.com/stamparm/ipsum/master/levels/1.txt'],
     parse: parsePlainTextIps,
     kind: 'ip',
     reporter: 'BBcan177',
@@ -787,6 +833,7 @@ const FEED_SOURCES: FeedSource[] = [
   textFeedSource({
     id: 'domains-blacklist',
     url: 'https://www.joewein.net/dl/bl/dom-bl.txt',
+    fallbackUrls: ['https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts'],
     parse: parsePhishingArmy,
     kind: 'domain',
     reporter: 'Joewein.net',
@@ -795,6 +842,9 @@ const FEED_SOURCES: FeedSource[] = [
   textFeedSource({
     id: 'botvrij-urls',
     url: 'https://www.botvrij.eu/data/ioclist.url.raw',
+    fallbackUrls: [
+      'https://raw.githubusercontent.com/mitchellkrogza/Phishing.Database/master/phishing-links-ACTIVE.txt',
+    ],
     parse: parseBotvrijUrls,
     kind: 'url',
     reporter: 'Botvrij.eu',
@@ -804,6 +854,7 @@ const FEED_SOURCES: FeedSource[] = [
   textFeedSource({
     id: 'bruteforce-blocker',
     url: 'https://danger.rulez.sk/projects/bruteforceblocker/blist.php',
+    fallbackUrls: ['https://raw.githubusercontent.com/stamparm/ipsum/master/levels/1.txt'],
     parse: parsePlainTextIps,
     kind: 'ip',
     reporter: 'BruteForce Blocker',
@@ -812,6 +863,7 @@ const FEED_SOURCES: FeedSource[] = [
   textFeedSource({
     id: 'threatview-ip',
     url: 'https://threatview.io/Downloads/IP-High-Confidence-Feed.txt',
+    fallbackUrls: ['https://raw.githubusercontent.com/stamparm/ipsum/master/levels/1.txt'],
     parse: parsePlainTextIps,
     kind: 'ip',
     reporter: 'Threatview.io',
@@ -820,6 +872,9 @@ const FEED_SOURCES: FeedSource[] = [
   textFeedSource({
     id: 'threatview-domains',
     url: 'https://threatview.io/Downloads/DOMAIN-High-Confidence-Feed.txt',
+    fallbackUrls: [
+      'https://raw.githubusercontent.com/mitchellkrogza/Phishing.Database/master/phishing-domains-ACTIVE.txt',
+    ],
     parse: parseThreatviewDomains,
     kind: 'domain',
     reporter: 'Threatview.io',
@@ -828,6 +883,9 @@ const FEED_SOURCES: FeedSource[] = [
   textFeedSource({
     id: 'viriback-c2',
     url: 'https://tracker.viriback.com/dump.php',
+    fallbackUrls: [
+      'https://raw.githubusercontent.com/CriticalPathSecurity/Public-Intelligence-Feeds/master/cps-collected-iocs.txt',
+    ],
     parse: parseViriback,
     kind: 'per-entry',
     reporter: 'ViriBack C2 Tracker',
@@ -835,16 +893,11 @@ const FEED_SOURCES: FeedSource[] = [
     withTimestamp: true,
   }),
   textFeedSource({
-    id: 'cins-score',
-    url: 'https://cinsscore.com/list/ci-badguys.txt',
-    parse: parsePlainTextIps,
-    kind: 'ip',
-    reporter: 'CINS Score',
-    context: 'high-risk IP (CINS consensus)',
-  }),
-  textFeedSource({
     id: 'certpl-warnings',
-    url: 'https://hole.cert.pl/domains/domains.txt',
+    url: 'https://hole.cert.pl/domains/v2/domains.txt',
+    fallbackUrls: [
+      'https://raw.githubusercontent.com/mitchellkrogza/Phishing.Database/master/phishing-domains-ACTIVE.txt',
+    ],
     parse: parseThreatviewDomains,
     kind: 'domain',
     reporter: 'CERT.PL',
@@ -853,7 +906,7 @@ const FEED_SOURCES: FeedSource[] = [
   textFeedSource({
     id: 'bitwire-outbound',
     url: 'https://raw.githubusercontent.com/bitwire-it/ipblocklist/main/outbound.txt',
-    fallbackUrls: ['https://cinsscore.com/list/ci-badguys.txt'],
+    fallbackUrls: ['https://raw.githubusercontent.com/stamparm/ipsum/master/levels/1.txt'],
     parse: parsePlainTextIps,
     kind: 'ip',
     reporter: 'Bitwire',
@@ -862,7 +915,7 @@ const FEED_SOURCES: FeedSource[] = [
   textFeedSource({
     id: 'bitwire-inbound',
     url: 'https://raw.githubusercontent.com/bitwire-it/ipblocklist/main/inbound.txt',
-    fallbackUrls: ['https://lists.blocklist.de/lists/all.txt'],
+    fallbackUrls: ['https://raw.githubusercontent.com/stamparm/ipsum/master/levels/1.txt'],
     parse: parsePlainTextIps,
     kind: 'ip',
     reporter: 'Bitwire',
@@ -871,6 +924,9 @@ const FEED_SOURCES: FeedSource[] = [
   textFeedSource({
     id: 'phishunt',
     url: 'https://phishunt.io/feed.txt',
+    fallbackUrls: [
+      'https://raw.githubusercontent.com/mitchellkrogza/Phishing.Database/master/phishing-links-ACTIVE.txt',
+    ],
     parse: parseBotvrijUrls,
     kind: 'url',
     reporter: 'phishunt',
