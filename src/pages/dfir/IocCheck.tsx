@@ -216,6 +216,7 @@ export default function IocCheck(): JSX.Element {
   const [eligible, setEligible] = useState<ProviderId[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const summaryRef = useRef<HTMLHeadingElement>(null);
+  const streamCleanupRef = useRef<(() => void) | null>(null);
   const detectedType = input ? detectType(input) : 'unknown';
   const canSubmit = !!input.trim() && detectedType !== 'unknown' && !streaming;
   // The Checker only enriches network indicators + hashes (detectType's domain).
@@ -353,27 +354,31 @@ export default function IocCheck(): JSX.Element {
 
   const runCheck = () => {
     if (!canSubmit) return;
+    streamCleanupRef.current?.();
     setStreaming(true);
     setResults([]);
     setSummary(null);
     setError(null);
     setEligible([]);
 
-    streamIoc(input.trim(), {
+    const cleanup = streamIoc(input.trim(), {
       onMeta: (m) => setEligible(m.providers),
       onResult: (r) => setResults((prev) => [...prev, r]),
       onDone: (s) => {
         setSummary(s);
         setStreaming(false);
+        streamCleanupRef.current = null;
         recordHistory({ tool: 'ioc', indicator: input.trim(), verdict: s.verdict, score: s.score });
         setTimeout(() => summaryRef.current?.focus(), 0);
       },
       onError: (e) => {
         setError(e);
         setStreaming(false);
+        streamCleanupRef.current = null;
         setTimeout(() => inputRef.current?.focus(), 0);
       },
     });
+    streamCleanupRef.current = cleanup;
   };
 
   const onSubmit = (e: FormEvent) => {
@@ -394,6 +399,8 @@ export default function IocCheck(): JSX.Element {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialInput]);
+
+  useEffect(() => () => streamCleanupRef.current?.(), []);
 
   const resultMap = useMemo(() => new Map(results.map((r) => [r.source, r])), [results]);
 

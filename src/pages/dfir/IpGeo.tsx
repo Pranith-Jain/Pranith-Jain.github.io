@@ -86,6 +86,7 @@ export default function IpGeo(): JSX.Element {
     cidrs: Array<{ cidr: string; description: string }>;
     total: number;
   } | null>(null);
+  const cidrAbortRef = useRef<AbortController | null>(null);
   const initialDone = useRef(false);
 
   const lookup = async (override?: string) => {
@@ -117,7 +118,10 @@ export default function IpGeo(): JSX.Element {
       setData((await res.json()) as IpGeoResponse);
 
       // CIDR/ASN discovery (metabigor net equivalent) — non-blocking
-      fetch(`/api/v1/cidr-lookup?ip=${encodeURIComponent(t)}`)
+      cidrAbortRef.current?.abort();
+      const ac = new AbortController();
+      cidrAbortRef.current = ac;
+      fetch(`/api/v1/cidr-lookup?ip=${encodeURIComponent(t)}`, { signal: ac.signal })
         .then((r) => (r.ok ? r.json() : null))
         .then((d) => setCidrData(d ? { cidrs: d.cidrs, total: d.total } : null))
         .catch(() => {});

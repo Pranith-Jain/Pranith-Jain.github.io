@@ -35,6 +35,11 @@ export async function reportAnalyzerHandler(c: Context<{ Bindings: Env }>): Prom
     return c.json({ error: 'bad_request', message: 'max 8 imageUrls' }, 400);
   }
 
-  const out: AnalyzerOutput = await runReportAnalyzer(body, c.env);
-  return c.json(out, 200, { 'cache-control': `no-store, max-age=${CACHE_TTL}` });
+  try {
+    const out: AnalyzerOutput = await runReportAnalyzer(body, c.env);
+    return c.json(out, 200, { 'cache-control': `no-store, max-age=${CACHE_TTL}` });
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : String(e);
+    return c.json({ error: 'analysis_failed', message: msg }, 502);
+  }
 }

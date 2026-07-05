@@ -79,7 +79,7 @@
 		{ "tag": "v8", "new_sqlite_classes": [] }
 	],
 	"vars": {
-		"ALLOW_DEV_ORIGINS": "true",
+		"ALLOW_DEV_ORIGINS": "false",
 		"SITE_URL": "https://pranithjain.qzz.io",
 		"OPEN_PUBLIC_READS": "true"
 	},

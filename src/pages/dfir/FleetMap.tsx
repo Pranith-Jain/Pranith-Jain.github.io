@@ -71,7 +71,7 @@ export default function FleetMap(): JSX.Element {
           title="UK Threat Map — Fleet Simulation"
           className="w-full border-0"
           style={{ minHeight: '70vh' }}
-          sandbox="allow-scripts allow-same-origin"
+          sandbox="allow-scripts"
           loading="lazy"
         />
       </div>

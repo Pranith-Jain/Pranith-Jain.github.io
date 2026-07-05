@@ -448,13 +448,13 @@ async function searchIocCheck(needle: string, env: import('../env').Env): Promis
   // hardcoded 'dummy' key, guaranteeing a 401 and silently returning nothing.
   if (iocType === 'ip' && env.ABUSEIPDB_API_KEY) {
     try {
-      const res = await safeNullLog('fetch-abuseipdb', fetch(
-        `https://api.abuseipdb.com/api/v2/check?ipAddress=${encodeURIComponent(q)}&maxAgeInDays=90`,
-        {
+      const res = await safeNullLog(
+        'fetch-abuseipdb',
+        fetch(`https://api.abuseipdb.com/api/v2/check?ipAddress=${encodeURIComponent(q)}&maxAgeInDays=90`, {
           headers: { Key: env.ABUSEIPDB_API_KEY, Accept: 'application/json' },
           signal: AbortSignal.timeout(5000),
-        }
-      ));
+        })
+      );
       if (res?.ok) {
         const data = (await res.json()) as {
           data?: {
@@ -484,9 +484,12 @@ async function searchIocCheck(needle: string, env: import('../env').Env): Promis
 
     // Check blocklist.de
     try {
-      const bl = await safeNullLog('fetch-blocklist-de', fetch(`https://api.blocklist.de/api.php?ip=${encodeURIComponent(q)}`, {
-        signal: AbortSignal.timeout(4000),
-      }));
+      const bl = await safeNullLog(
+        'fetch-blocklist-de',
+        fetch(`https://api.blocklist.de/api.php?ip=${encodeURIComponent(q)}`, {
+          signal: AbortSignal.timeout(4000),
+        })
+      );
       if (bl?.ok) {
         const text = await bl.text();
         if (text.includes('found')) {
@@ -509,12 +512,15 @@ async function searchIocCheck(needle: string, env: import('../env').Env): Promis
   if (iocType === 'domain') {
     // Check URLhaus
     try {
-      const uh = await safeNullLog('fetch-urlhaus', fetch(`https://urlhaus-api.abuse.ch/v1/host/`, {
-        method: 'POST',
-        headers: { 'content-type': 'application/x-www-form-urlencoded' },
-        body: `host=${encodeURIComponent(q)}`,
-        signal: AbortSignal.timeout(5000),
-      }));
+      const uh = await safeNullLog(
+        'fetch-urlhaus',
+        fetch(`https://urlhaus-api.abuse.ch/v1/host/`, {
+          method: 'POST',
+          headers: { 'content-type': 'application/x-www-form-urlencoded' },
+          body: `host=${encodeURIComponent(q)}`,
+          signal: AbortSignal.timeout(5000),
+        })
+      );
       if (uh?.ok) {
         const ud = (await uh.json()) as { query_status?: string; url_count?: number };
         if (ud.query_status === 'ok' && (ud.url_count ?? 0) > 0) {
@@ -537,12 +543,15 @@ async function searchIocCheck(needle: string, env: import('../env').Env): Promis
   if (iocType === 'hash') {
     // Check MalwareBazaar
     try {
-      const mb = await safeNullLog('fetch-malwarebazaar-hash', fetch('https://mb-api.abuse.ch/api/v1/', {
-        method: 'POST',
-        headers: { 'content-type': 'application/x-www-form-urlencoded' },
-        body: `query=get_info&hash=${q}`,
-        signal: AbortSignal.timeout(5000),
-      }));
+      const mb = await safeNullLog(
+        'fetch-malwarebazaar-hash',
+        fetch('https://mb-api.abuse.ch/api/v1/', {
+          method: 'POST',
+          headers: { 'content-type': 'application/x-www-form-urlencoded' },
+          body: `query=get_info&hash=${q}`,
+          signal: AbortSignal.timeout(5000),
+        })
+      );
       if (mb?.ok) {
         const md = (await mb.json()) as {
           query_status?: string;
@@ -642,7 +651,7 @@ async function searchScrapedIntelHandles(needle: string, env: import('../env').E
     // Tighter timeout than the dedicated route so a hung upstream can't hold the
     // 12s fan-out open; lookupHandle is cache-only unless KV is bound to budget egress.
     const out = await lookupHandle(qn, env, { timeoutMs: 4000 });
-    const items: SearchItem[] = out.data.results
+    const items: SearchItem[] = (out.data?.results ?? [])
       .slice(0, 15)
       .map((m) =>
         buildItem(

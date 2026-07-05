@@ -142,7 +142,8 @@ async function loadAllFeedback(kv: KVNamespace): Promise<Feedback[]> {
   );
   const feedbacks: Feedback[] = results.filter((f): f is Feedback => f !== null);
   feedbacks.sort((a, b) => b.created_at.localeCompare(a.created_at));
-  safeNullLog('cache-put-feedback-list',
+  safeNullLog(
+    'cache-put-feedback-list',
     cache.put(
       new Request(FEEDBACK_LIST_CACHE),
       new Response(JSON.stringify(feedbacks), { headers: { 'cache-control': `max-age=${FEEDBACK_LIST_TTL}` } })
@@ -213,6 +214,8 @@ export async function feedbackDeleteHandler(c: Context<{ Bindings: Env }>): Prom
   try {
     const kv = c.env.KV_CACHE;
     if (!kv) return c.json({ error: 'feedback storage not configured' }, 503);
+    const authHeader = c.req.header('authorization');
+    if (!authHeader) return c.json({ error: 'unauthorized', message: 'missing authorization header' }, 401);
     const id = c.req.param('id');
     const itemKey = `${KV_PREFIX}:${id}`;
     const raw = await kv.get(itemKey);

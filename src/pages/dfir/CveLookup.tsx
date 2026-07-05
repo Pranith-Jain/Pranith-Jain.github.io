@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { sanitizeHtml } from '../../lib/sanitize-html';
+import { sanitizeAiHtml } from '../../lib/sanitize-html';
 import { ArrowLeft, BookText, ExternalLink, FileCode, Gauge, Loader2, Copy, Check, ChevronDown } from 'lucide-react';
 import { CopyButton } from '../../components/dfir/CopyButton';
 import { prioritise, TIER_LABELS, TIER_STYLES, TIER_BARS } from '../../lib/dfir/cve-priority';
@@ -108,7 +108,7 @@ export default function CveLookup(): JSX.Element {
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = (await res.json()) as { narrative: string };
-      const safe = await sanitizeHtml(data.narrative);
+      const safe = await sanitizeAiHtml(data.narrative);
       setExplainText(safe);
     } catch {
       /* ignore */

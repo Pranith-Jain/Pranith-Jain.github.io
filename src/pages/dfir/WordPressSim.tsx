@@ -72,7 +72,7 @@ export default function WordPressSim(): JSX.Element {
           title="WordPress Server — Attack Simulation"
           className="w-full border-0"
           style={{ minHeight: '70vh' }}
-          sandbox="allow-scripts allow-same-origin"
+          sandbox="allow-scripts"
           loading="lazy"
         />
       </div>

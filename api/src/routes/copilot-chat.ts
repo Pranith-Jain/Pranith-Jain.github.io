@@ -289,10 +289,25 @@ export async function copilotChatStreamHandler(c: Context<{ Bindings: Env }>): P
         else clearInterval(heartbeat);
       }, 15000);
 
+      const timeout = setTimeout(() => {
+        if (!closed) {
+          clearInterval(interval);
+          clearInterval(heartbeat);
+          closed = true;
+          send(JSON.stringify({ type: 'error', error: 'Stream timed out after 120s' }));
+          try {
+            controller.close();
+          } catch {
+            /* already closed */
+          }
+        }
+      }, 120_000);
+
       c.req.raw.signal.addEventListener('abort', () => {
         closed = true;
         clearInterval(interval);
         clearInterval(heartbeat);
+        clearTimeout(timeout);
         try {
           controller.close();
         } catch {

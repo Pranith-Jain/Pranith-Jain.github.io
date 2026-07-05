@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { useState, useRef, type FormEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Search, Globe, Shield, Lock, Server, ExternalLink, Loader2, Wifi } from 'lucide-react';
 
@@ -56,6 +56,7 @@ export default function DomainWebcheck(): JSX.Element {
   const [cdnResult, setCdnResult] = useState<{ is_cdn: boolean; provider: string | null; type: string | null } | null>(
     null
   );
+  const cdnAbortRef = useRef<AbortController | null>(null);
 
   const valid = DOMAIN_RE.test(
     input
@@ -84,8 +85,11 @@ export default function DomainWebcheck(): JSX.Element {
       setResult(data);
 
       // CDN/WAF detection (metabigor cdn equivalent) — non-blocking
+      cdnAbortRef.current?.abort();
       if (data.shodan?.ip) {
-        fetch(`/api/v1/cdn-detect?ip=${encodeURIComponent(data.shodan.ip)}`)
+        const ac = new AbortController();
+        cdnAbortRef.current = ac;
+        fetch(`/api/v1/cdn-detect?ip=${encodeURIComponent(data.shodan.ip)}`, { signal: ac.signal })
           .then((res) => (res.ok ? res.json() : null))
           .then((d) => setCdnResult(d))
           .catch(() => {});

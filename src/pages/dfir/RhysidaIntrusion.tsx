@@ -72,7 +72,7 @@ export default function RhysidaIntrusion(): JSX.Element {
           title="Anatomy of a Rhysida Intrusion"
           className="w-full border-0"
           style={{ minHeight: '70vh' }}
-          sandbox="allow-scripts allow-same-origin"
+          sandbox="allow-scripts"
           loading="lazy"
         />
       </div>

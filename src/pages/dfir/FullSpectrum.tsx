@@ -1,4 +1,4 @@
-import { useReducer, useState, type FormEvent } from 'react';
+import { useReducer, useState, useRef, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { SEVERITY_BAR, type Severity } from '../../components/severity';
 import {
@@ -84,8 +84,8 @@ function reducer(state: State, action: Action): State {
 
 const DOMAIN_RE = /^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/;
 
-function fetchTool(url: string): Promise<unknown> {
-  return fetch(url).then(async (r) => {
+function fetchTool(url: string, signal?: AbortSignal): Promise<unknown> {
+  return fetch(url, { signal }).then(async (r) => {
     if (!r.ok) {
       const body = await r.text().catch(() => '');
       let msg = `HTTP ${r.status}`;
@@ -472,21 +472,26 @@ function ResultCard({
 export default function FullSpectrum(): JSX.Element {
   const [state, dispatch] = useReducer(reducer, INITIAL);
   const [input, setInput] = useState('');
+  const abortRef = useRef<AbortController | null>(null);
   const valid = DOMAIN_RE.test(input.trim());
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!valid) return;
     const domain = input.trim();
+    abortRef.current?.abort();
+    const ac = new AbortController();
+    abortRef.current = ac;
 
     dispatch({ type: 'SET_DOMAIN', domain });
     TOOL_CONFIG.forEach((t) => dispatch({ type: 'SET_LOADING', tool: t.key }));
 
     const results = await Promise.allSettled(
       TOOL_CONFIG.map((t) =>
-        fetchTool(t.buildUrl(domain)).then(
+        fetchTool(t.buildUrl(domain), ac.signal).then(
           (data) => ({ key: t.key, data }) as const,
           (err: unknown) => {
+            if ((err as Error).name === 'AbortError') return { key: t.key, error: true } as const;
             dispatch({ type: 'SET_ERROR', tool: t.key, error: (err as Error).message });
             return { key: t.key, error: true } as const;
           }

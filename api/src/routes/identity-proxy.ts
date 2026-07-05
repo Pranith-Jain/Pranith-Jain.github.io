@@ -5,8 +5,10 @@ export async function identityProxyHandler(c: Context<{ Bindings: Env }>): Promi
   const platform = c.req.query('platform');
   const username = c.req.query('username');
   if (!platform || !username) return c.json({ error: 'missing platform or username' }, 400);
+  if (!/^[a-zA-Z0-9_-]{1,64}$/.test(username)) return c.json({ error: 'invalid username format' }, 400);
 
   const TIMEOUT = 8_000;
+  const MAX_BODY = 64 * 1024;
 
   try {
     if (platform === 'lobsters') {
@@ -14,7 +16,9 @@ export async function identityProxyHandler(c: Context<{ Bindings: Env }>): Promi
         signal: AbortSignal.timeout(TIMEOUT),
       });
       if (!res.ok) return c.json(null);
-      const data = await res.json();
+      const text = await res.text();
+      if (text.length > MAX_BODY) return c.json({ error: 'upstream response too large' }, 502);
+      const data = JSON.parse(text);
       return c.json(data);
     }
 
@@ -24,7 +28,9 @@ export async function identityProxyHandler(c: Context<{ Bindings: Env }>): Promi
         signal: AbortSignal.timeout(TIMEOUT),
       });
       if (!res.ok) return c.json(null);
-      const data = await res.json();
+      const text = await res.text();
+      if (text.length > MAX_BODY) return c.json({ error: 'upstream response too large' }, 502);
+      const data = JSON.parse(text);
       return c.json(data);
     }
 

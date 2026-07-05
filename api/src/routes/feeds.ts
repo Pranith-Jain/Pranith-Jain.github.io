@@ -349,7 +349,15 @@ export async function feedProxyHandler(c: Context<{ Bindings: Env }>) {
     if (!upstream.ok) {
       return c.json({ error: `upstream ${upstream.status}` }, 502);
     }
+    const MAX_FEED_BYTES = 512 * 1024;
+    const contentLength = Number(upstream.headers.get('content-length') ?? '0');
+    if (contentLength > MAX_FEED_BYTES) {
+      return c.json({ error: 'upstream response too large', max_bytes: MAX_FEED_BYTES }, 502);
+    }
     const body = await upstream.text();
+    if (body.length > MAX_FEED_BYTES) {
+      return c.json({ error: 'upstream response too large', max_bytes: MAX_FEED_BYTES }, 502);
+    }
     // Never echo the upstream content-type verbatim: this endpoint is
     // same-origin, and an allow-listed raw-content host (e.g.
     // raw.githubusercontent.com) returning text/html would render as an

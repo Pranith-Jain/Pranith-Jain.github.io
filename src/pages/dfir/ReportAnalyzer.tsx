@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useRef } from 'react';
 import {
   ReactFlow,
   Background,
@@ -35,7 +35,7 @@ import { DataPageLayout } from '../../components/DataPageLayout';
 
 // ── Response types (mirrors api/src/lib/report-analyzer.ts) ──────────
 
-type IocKind = 'ip' | 'url' | 'domain' | 'hash' | 'cve' | 'email';
+type IocKind = 'ip' | 'ipv6' | 'url' | 'domain' | 'hash' | 'cve' | 'email';
 interface ExtractedIoc {
   value: string;
   kind: IocKind;
@@ -92,6 +92,7 @@ interface AttackFlowPhase {
 interface AnalyzerOutput {
   title: string;
   source?: string;
+  sourceText: string;
   textLength: number;
   generatedAt: string;
   summary: { text: string; model: string } | null;
@@ -219,8 +220,10 @@ const TABS = [
   '5w',
   'diamond',
   'attackflow',
+  'heatmap',
   'mindmap',
   'stix',
+  'source',
 ] as const;
 type Tab = (typeof TABS)[number];
 
@@ -236,10 +239,13 @@ const TAB_META: Record<Tab, { label: string; icon: React.ReactNode }> = {
   stix: { label: 'STIX', icon: <Globe2 className="h-3.5 w-3.5" /> },
   diamond: { label: 'Diamond', icon: <Diamond className="h-3.5 w-3.5" /> },
   attackflow: { label: 'Attack Flow', icon: <GitBranch className="h-3.5 w-3.5" /> },
+  heatmap: { label: 'ATT&CK Heatmap', icon: <Search className="h-3.5 w-3.5" /> },
+  source: { label: 'Source', icon: <Terminal className="h-3.5 w-3.5" /> },
 };
 
 const IOC_PILL: Record<IocKind, string> = {
   ip: 'text-sky-700 dark:text-sky-300 bg-cyan-50 dark:bg-cyan-950/40 border-cyan-300 dark:border-cyan-800',
+  ipv6: 'text-teal-700 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/40 border-teal-300 dark:border-teal-800',
   url: 'text-purple-700 dark:text-purple-300 bg-purple-50 dark:bg-purple-950/40 border-purple-300 dark:border-purple-800',
   domain: 'text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/40 border-sky-300 dark:border-sky-800',
   hash: 'text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-800',
@@ -272,12 +278,16 @@ export default function ReportAnalyzer(): JSX.Element {
   const [loading, setLoading] = useState(false);
   const [tab, setTab] = useState<Tab>('summary');
   const [filter, setFilter] = useState('');
+  const abortRef = useRef<AbortController | null>(null);
 
   const run = async () => {
     if (!inputText.trim() && !inputUrl.trim()) {
       setError('Provide a URL or paste text.');
       return;
     }
+    abortRef.current?.abort();
+    const ac = new AbortController();
+    abortRef.current = ac;
     setLoading(true);
     setError(null);
     setData(null);
@@ -295,6 +305,7 @@ export default function ReportAnalyzer(): JSX.Element {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify(body),
+        signal: ac.signal,
       });
       if (!res.ok) {
         const j = (await res.json().catch(() => ({}))) as { message?: string };
@@ -459,6 +470,7 @@ export default function ReportAnalyzer(): JSX.Element {
                       : 0}
                   </span>
                 )}
+                {t === 'heatmap' && data.ttp.length > 0 && <span className="opacity-60">· {data.ttp.length}</span>}
               </button>
             ))}
           </div>
@@ -475,6 +487,8 @@ export default function ReportAnalyzer(): JSX.Element {
           {tab === 'stix' && <StixTab data={data} />}
           {tab === 'diamond' && <DiamondTab diamond={data.diamond} />}
           {tab === 'attackflow' && <AttackFlowTab phases={data.attackFlow} />}
+          {tab === 'heatmap' && <HeatmapTab ttp={data.ttp} />}
+          {tab === 'source' && <SourceTab url={inputUrl} data={data} />}
         </>
       )}
     </DataPageLayout>
@@ -1165,6 +1179,112 @@ function ConclusionTab({ conclusion }: { conclusion: AnalyzerOutput['conclusion'
         </section>
       )}
     </div>
+  );
+}
+
+const MITRE_TACTICS = [
+  'Reconnaissance',
+  'Resource Development',
+  'Initial Access',
+  'Execution',
+  'Persistence',
+  'Privilege Escalation',
+  'Defense Evasion',
+  'Credential Access',
+  'Discovery',
+  'Lateral Movement',
+  'Collection',
+  'Command and Control',
+  'Exfiltration',
+  'Impact',
+] as const;
+
+const CONFIDENCE_BG: Record<'high' | 'medium' | 'low', string> = {
+  high: 'bg-rose-200 dark:bg-rose-800/60 border-rose-400 dark:border-rose-600',
+  medium: 'bg-amber-100 dark:bg-amber-800/40 border-amber-300 dark:border-amber-700',
+  low: 'bg-sky-100 dark:bg-sky-800/30 border-sky-300 dark:border-sky-700',
+};
+
+function HeatmapTab({ ttp }: { ttp: TtpHit[] }) {
+  const grouped = useMemo(() => {
+    const m = new Map<string, TtpHit[]>();
+    for (const t of ttp) {
+      const tactic = t.tactic || 'Other';
+      if (!m.has(tactic)) m.set(tactic, []);
+      m.get(tactic)!.push(t);
+    }
+    return m;
+  }, [ttp]);
+
+  if (ttp.length === 0) return <EmptyState message="No techniques detected — heatmap is empty." />;
+
+  return (
+    <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 overflow-x-auto">
+      <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
+        MITRE ATT&CK Heatmap · {ttp.length} technique{ttp.length !== 1 ? 's' : ''} across {grouped.size} tactic
+        {grouped.size !== 1 ? 's' : ''}
+      </div>
+      <div
+        className="grid gap-2"
+        style={{ gridTemplateColumns: `repeat(${Math.min(grouped.size, 7)}, minmax(140px, 1fr))` }}
+      >
+        {MITRE_TACTICS.filter((t) => grouped.has(t)).map((tactic) => {
+          const hits = grouped.get(tactic)!;
+          return (
+            <div
+              key={tactic}
+              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] overflow-hidden"
+            >
+              <div className="px-2 py-1.5 bg-slate-100 dark:bg-slate-800/60 border-b border-slate-200 dark:border-[rgb(var(--border-400))] text-micro font-mono font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300 truncate">
+                {tactic}
+              </div>
+              <div className="p-1.5 space-y-1">
+                {hits.map((t) => (
+                  <div
+                    key={t.id}
+                    title={t.evidence || t.name}
+                    className={`rounded border px-1.5 py-1 text-[10px] font-mono leading-tight ${CONFIDENCE_BG[t.confidence]}`}
+                  >
+                    <span className="font-semibold">{t.id}</span>
+                    <span className="ml-1 opacity-70">{t.name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function SourceTab({ url, data }: { url: string; data: AnalyzerOutput }) {
+  const displayText = data.sourceText || '';
+  return (
+    <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <div className="flex flex-wrap items-center gap-2 mb-3 text-xs text-slate-500 dark:text-slate-400">
+        <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono">
+          {data.textLength.toLocaleString()} chars
+        </span>
+        {url && (
+          <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono text-brand-600 dark:text-brand-400 hover:underline"
+          >
+            <ExternalLink className="h-3 w-3" /> {url}
+          </a>
+        )}
+      </div>
+      {displayText ? (
+        <pre className="max-h-[600px] overflow-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 text-xs font-mono text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-words">
+          {displayText}
+        </pre>
+      ) : (
+        <EmptyState message="No source text captured." />
+      )}
+    </section>
   );
 }
 

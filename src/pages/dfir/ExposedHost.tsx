@@ -1,4 +1,4 @@
-import { useState, useCallback, type FormEvent } from 'react';
+import { useState, useCallback, useRef, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Search,
@@ -108,12 +108,14 @@ export default function ExposedHostView(): JSX.Element {
   const [cdnResult, setCdnResult] = useState<{ is_cdn: boolean; provider: string | null; type: string | null } | null>(
     null
   );
+  const cdnAbortRef = useRef<AbortController | null>(null);
 
   const lookup = useCallback(async (targetIp: string) => {
     setLoading(true);
     setError('');
     setResult(null);
     setCdnResult(null);
+    cdnAbortRef.current?.abort();
     try {
       const res = await fetch(`${API}/exposed-host?ip=${encodeURIComponent(targetIp)}`);
       if (!res.ok) {
@@ -124,7 +126,9 @@ export default function ExposedHostView(): JSX.Element {
       setResult(data);
 
       // CDN/WAF detection (metabigor cdn equivalent) — non-blocking
-      fetch(`${API}/cdn-detect?ip=${encodeURIComponent(targetIp)}`)
+      const ac = new AbortController();
+      cdnAbortRef.current = ac;
+      fetch(`${API}/cdn-detect?ip=${encodeURIComponent(targetIp)}`, { signal: ac.signal })
         .then((r) => (r.ok ? r.json() : null))
         .then((d) => setCdnResult(d))
         .catch(() => {});

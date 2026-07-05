@@ -76,8 +76,9 @@ export default function Domain(): JSX.Element {
   useEffect(() => {
     if (!result?.domain) return;
     const domain = result.domain;
+    const ac = new AbortController();
     setWebamonLoading(true);
-    fetch(`/api/v1/webamon/search?search=${encodeURIComponent(`domain.name:${domain}`)}&size=1`)
+    fetch(`/api/v1/webamon/search?search=${encodeURIComponent(`domain.name:${domain}`)}&size=1`, { signal: ac.signal })
       .then((r) => (r.ok ? r.json() : null))
       .then((d) => setWebamon(d as WebamonData | null))
       .catch(() => {})
@@ -85,11 +86,13 @@ export default function Domain(): JSX.Element {
 
     // Cert Transparency (crt.sh) — metabigor equivalent
     setCtLoading(true);
-    fetch(`/api/v1/cert-transparency?domain=${encodeURIComponent(domain)}`)
+    fetch(`/api/v1/cert-transparency?domain=${encodeURIComponent(domain)}`, { signal: ac.signal })
       .then((r) => (r.ok ? r.json() : null))
       .then((d) => setCertTransparency(d ? { subdomains: d.subdomains, total_certs: d.total_certs } : null))
       .catch(() => {})
       .finally(() => setCtLoading(false));
+
+    return () => ac.abort();
   }, [result?.domain]);
 
   return (
