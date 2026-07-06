@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDataFetch } from '../hooks/useDataFetch';
 import { DataPageLayout } from '../components/DataPageLayout';
-import { Search, Shield, Hash, Loader2 } from 'lucide-react';
+import { Search, Shield, Hash, Loader2, AlertTriangle } from 'lucide-react';
 
 interface AvResult {
   engine: string;
@@ -23,11 +23,11 @@ const SAMPLES: { label: string; hash: string }[] = [
   { label: 'EICAR', hash: '275a021bbfb6489e54d4718999a7ea3e93b8d7406b3ac60a75a0e70951f8c6d7' },
 ];
 
-const VERDICT_COLORS: Record<string, string> = {
-  Safe: 'text-green-400 bg-green-950/30 border-green-800/40',
-  Malicious: 'text-red-400 bg-red-950/30 border-red-800/40',
-  Unknown: 'text-yellow-400 bg-yellow-950/30 border-yellow-800/40',
-  Failed: 'text-slate-400 bg-slate-950/30 border-slate-700/40',
+const VERDICT_STYLE: Record<string, string> = {
+  Safe: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
+  Malicious: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
+  Unknown: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
+  Failed: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted',
 };
 
 export default function Traceix() {
@@ -72,7 +72,6 @@ export default function Traceix() {
       accentClass="text-cyan-400"
     >
       <div className="space-y-6 max-w-2xl mx-auto">
-        {/* Search form */}
         <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
           <form onSubmit={handleSubmit} className="flex gap-3">
             <div className="relative flex-1">
@@ -82,13 +81,15 @@ export default function Traceix() {
                 placeholder="Enter a SHA-256 hash (64 hex characters)"
                 value={hash}
                 onChange={(e) => setHash(e.target.value)}
-                className="w-full bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg pl-9 pr-3 py-2.5 text-sm text-slate-900 dark:text-slate-200 placeholder-slate-500 font-mono focus:outline-none focus:border-cyan-600"
+                className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-cyan-500 dark:focus:border-cyan-400"
+                autoComplete="off"
+                spellCheck={false}
               />
             </div>
             <button
               type="submit"
               disabled={loading || !/^[0-9a-f]{64}$/i.test(hash.trim())}
-              className="flex items-center gap-2 px-4 py-2.5 bg-cyan-700 hover:bg-cyan-600 disabled:bg-slate-700 disabled:text-slate-500 text-white text-sm font-semibold rounded-lg transition-colors"
+              className="px-4 py-2 rounded bg-cyan-700 hover:bg-cyan-600 dark:bg-cyan-600 dark:hover:bg-cyan-500 text-white font-mono text-sm disabled:opacity-50 inline-flex items-center gap-2"
             >
               {loading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
               {loading ? 'looking up…' : 'lookup'}
@@ -109,59 +110,62 @@ export default function Traceix() {
           </div>
         </section>
 
-        {/* Loading */}
         {loading && (
           <div className="flex items-center justify-center py-12 text-slate-500">
-            <div className="w-6 h-6 border-2 border-slate-600 border-t-cyan-500 rounded-full animate-spin mr-3" />
+            <Loader2 size={20} className="animate-spin mr-3" />
             Looking up hash...
           </div>
         )}
 
-        {/* Error */}
         {error && !loading && (
-          <div className="bg-red-950/30 border border-red-800/40 rounded-lg p-4 text-sm text-red-300">
-            {error}
-          </div>
+          <p className="text-sm font-mono text-rose-600 dark:text-rose-400 mb-4 inline-flex items-center gap-2">
+            <AlertTriangle size={14} /> {error}
+          </p>
         )}
 
-        {/* Results */}
         {data && !loading && (
           <div className="space-y-4">
-            {/* Summary cards */}
-            <div className="grid grid-cols-3 gap-3">
-              <div className="bg-slate-900 border border-slate-800 rounded-lg p-4 text-center">
-                <div className="text-2xl font-bold text-green-400">{safeCount}</div>
-                <div className="text-xs text-slate-500 mt-1">Safe</div>
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3">
+                Summary
+              </h2>
+              <div className="flex gap-6">
+                <div>
+                  <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{safeCount}</div>
+                  <div className="text-mini font-mono text-slate-400 dark:text-slate-400">Safe</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{maliciousCount}</div>
+                  <div className="text-mini font-mono text-slate-400 dark:text-slate-400">Malicious</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{data.avResults.length}</div>
+                  <div className="text-mini font-mono text-slate-400 dark:text-slate-400">Engines</div>
+                </div>
               </div>
-              <div className="bg-slate-900 border border-slate-800 rounded-lg p-4 text-center">
-                <div className="text-2xl font-bold text-red-400">{maliciousCount}</div>
-                <div className="text-xs text-slate-500 mt-1">Malicious</div>
-              </div>
-              <div className="bg-slate-900 border border-slate-800 rounded-lg p-4 text-center">
-                <div className="text-2xl font-bold text-slate-300">{data.avResults.length}</div>
-                <div className="text-xs text-slate-500 mt-1">Total Engines</div>
-              </div>
-            </div>
+            </section>
 
-            {/* Engine results table */}
-            {data.avResults.length > 0 ? (
-              <div className="bg-slate-900 border border-slate-800 rounded-lg overflow-hidden">
-                <div className="overflow-x-auto">
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3">
+                Engine Results ({data.avResults.length})
+              </h2>
+              {data.avResults.length > 0 ? (
+                <div className="overflow-x-auto -mx-4">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="border-b border-slate-800 text-xs text-slate-500 uppercase tracking-wider">
-                        <th className="text-left px-4 py-2.5 font-semibold">Engine</th>
-                        <th className="text-left px-4 py-2.5 font-semibold">Type</th>
-                        <th className="text-right px-4 py-2.5 font-semibold">Verdict</th>
+                      <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+                        <th className="text-left px-4 py-2 font-mono text-mini uppercase tracking-wider text-muted">Engine</th>
+                        <th className="text-left px-4 py-2 font-mono text-mini uppercase tracking-wider text-muted">Type</th>
+                        <th className="text-right px-4 py-2 font-mono text-mini uppercase tracking-wider text-muted">Verdict</th>
                       </tr>
                     </thead>
                     <tbody>
                       {data.avResults.map((r, i) => (
-                        <tr key={i} className="border-b border-slate-800/50 last:border-0">
-                          <td className="px-4 py-2.5 text-slate-200 font-medium">{r.engine}</td>
-                          <td className="px-4 py-2.5 text-slate-400 text-xs">{r.engine_type}</td>
-                          <td className="px-4 py-2.5 text-right">
-                            <span className={`inline-block text-[10px] font-bold px-2 py-0.5 rounded border ${VERDICT_COLORS[r.verdict] ?? VERDICT_COLORS.Unknown}`}>
+                        <tr key={i} className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] last:border-0">
+                          <td className="px-4 py-2 text-sm text-slate-900 dark:text-slate-100 font-medium">{r.engine}</td>
+                          <td className="px-4 py-2 text-mini text-muted">{r.engine_type}</td>
+                          <td className="px-4 py-2 text-right">
+                            <span className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${VERDICT_STYLE[r.verdict] ?? VERDICT_STYLE.Unknown}`}>
                               {r.verdict}
                             </span>
                           </td>
@@ -170,23 +174,20 @@ export default function Traceix() {
                     </tbody>
                   </table>
                 </div>
-              </div>
-            ) : (
-              <div className="text-center py-8 text-slate-500 text-sm">
-                No AV results found for this hash.
-              </div>
-            )}
+              ) : (
+                <p className="text-sm text-muted py-2">No AV results found for this hash.</p>
+              )}
+            </section>
 
             {data.requestTimestamp && (
-              <div className="text-center text-[10px] text-slate-600">
+              <div className="text-center text-micro text-muted">
                 Lookup timestamp: {new Date(data.requestTimestamp * 1000).toISOString()}
               </div>
             )}
           </div>
         )}
 
-        {/* Source footer */}
-        <div className="text-center pt-6 pb-2 text-xs text-slate-600 border-t border-slate-800">
+        <div className="text-center pt-6 pb-2 text-xs text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
           Powered by{' '}
           <a href="https://traceix.com" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline">
             traceix.com
