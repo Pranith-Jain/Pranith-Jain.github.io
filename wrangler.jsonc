@@ -86,6 +86,11 @@
 	"analytics_engine_datasets": [
 		{ "binding": "AJ_analytics", "dataset": "PJ" }
 	],
+	// Browser Rendering for JS-rendered page extraction (report-analyzer).
+	// Requires Cloudflare Workers paid plan + Browser Rendering add-on.
+	"browser": {
+		"binding": "BROWSER"
+	},
 	// Self-referencing service binding: lets the MCP server (a Durable Object,
 	// with no per-call ExecutionContext) call our own /api/* in-process via
 	// env.SELF.fetch() instead of re-entering the public origin over DNS+TLS.

@@ -33,6 +33,8 @@ export interface Env {
   CASE_STUDIES: KVNamespace;
   AI: Ai;
   VECTORIZE?: VectorizeIndex;
+  /** Browser Run (Puppeteer) for JS-rendered page extraction. */
+  BROWSER: Fetcher;
   /** Optional NVD API key (Worker secret) — raises NVD rate limit ~10x. */
   NVD_API_KEY?: string;
   // Optional Worker secrets — unset in dev/preview and consumed with a

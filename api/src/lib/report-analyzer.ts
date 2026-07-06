@@ -30,8 +30,10 @@ import { extractConclusion, type Conclusion } from './conclusion-extract';
 import { buildBundleFromReport } from '../routes/intel-bundle';
 import type { BuildResult } from './stix-build';
 import { pinnedFetchFollow, SsrfError } from './ssrf-guard';
+import { lookupCve } from './cve-lookup';
+import puppeteer from '@cloudflare/puppeteer';
 
-export type IocKind = 'ip' | 'url' | 'domain' | 'hash' | 'cve' | 'email';
+export type IocKind = 'ip' | 'ipv6' | 'url' | 'domain' | 'hash' | 'cve' | 'email' | 'file-path' | 'directory';
 export interface ExtractedIoc {
   value: string;
   kind: IocKind;
@@ -46,8 +48,14 @@ export interface ExtractedCve {
   context: string;
   /** Resolved from NVD enrichment if available, else undefined. */
   cvss_v3?: number;
+  cvss_severity?: string;
   epss?: number;
+  epss_percentile?: number;
   exploited_in_wild?: boolean;
+  in_kev?: boolean;
+  description?: string;
+  products?: string[];
+  references?: Array<{ url: string; tags?: string[] }>;
 }
 
 export interface MindmapNode {
@@ -90,6 +98,8 @@ export interface AnalyzerInput {
 export interface AnalyzerOutput {
   title: string;
   source?: string;
+  /** The (truncated) source text used for analysis — the Source tab shows this. */
+  sourceText: string;
   textLength: number;
   generatedAt: string;
   /** Per-branch results. `null` if the branch failed. */
@@ -114,13 +124,20 @@ export interface AnalyzerOutput {
 }
 
 const MAX_TEXT_CHARS = 50_000;
-const URL_FETCH_MAX = 1_500_000; // 1.5MB
+const URL_FETCH_MAX = 3_000_000; // 3MB — some advisory pages are large
 const CVE_RE = /\bCVE-\d{4}-\d{4,}\b/gi;
 const IPV4_RE = /\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/g;
+const IPV6_RE =
+  /\b(?:[0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}\b|\b(?:[0-9a-fA-F]{1,4}:){1,7}:\b|\b(?:[0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}\b|\b(?:[0-9a-fA-F]{1,4}:){1,5}(?::[0-9a-fA-F]{1,4}){1,2}\b|\b(?:[0-9a-fA-F]{1,4}:){1,4}(?::[0-9a-fA-F]{1,4}){1,3}\b|\b(?:[0-9a-fA-F]{1,4}:){1,3}(?::[0-9a-fA-F]{1,4}){1,4}\b|\b(?:[0-9a-fA-F]{1,4}:){1,2}(?::[0-9a-fA-F]{1,4}){1,5}\b|\b[0-9a-fA-F]{1,4}:(?::[0-9a-fA-F]{1,4}){1,6}\b|\b:(?::[0-9a-fA-F]{1,4}){1,7}\b|\b::(?:[0-9a-fA-F]{1,4}:){0,5}[0-9a-fA-F]{1,4}\b/g;
 const URL_RE = /https?:\/\/[^\s<>"']{4,}/g;
 const HASH_RE = /\b[a-fA-F0-9]{32}\b|\b[a-fA-F0-9]{40}\b|\b[a-fA-F0-9]{64}\b/g;
 const DOMAIN_RE = /\b(?!\d{1,3}(?:\.\d{1,3}){3}\b)([a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?\.){1,}[a-z]{2,}\b/gi;
 const EMAIL_RE = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/g;
+const FILEPATH_WIN_RE = /(?:[A-Z]:\\(?:[A-Za-z0-9_. -]+\\)*[A-Za-z0-9_. -]+\.(?:exe|dll|bat|cmd|ps1|vbs|msi|zip|rar|7z|csv|txt|html|json|xml|log|pdb|dat|db|dit|pem|key|crt))/gi;
+const FILEPATH_UNIX_RE = /(?:\/(?:usr|etc|var|tmp|opt|home|root|bin|sbin|lib)(?:\/[A-Za-z0-9_. -]+)*\/[A-Za-z0-9_. -]+\.(?:exe|sh|bash|py|pl|rb|conf|log|pem|key|crt|json|xml))/gi;
+// Directory extraction: match Windows/Unix paths that end with \ or /
+// (explicit directory notation) OR appear at line boundaries.
+const DIRECTORY_RE = /(?:[A-Z]:\\(?:[A-Za-z0-9_.]+\\)*[A-Za-z0-9_.]+\\)|(?:\/(?:usr|etc|var|tmp|opt|home|root|bin|sbin|lib)(?:\/[A-Za-z0-9_.]+)*\/)|(?:[A-Z]:\\(?:[A-Za-z0-9_.]+\\)*[A-Za-z0-9_.]+)(?=\s*$)|(?:\/(?:usr|etc|var|tmp|opt|home|root|bin|sbin|lib)(?:\/[A-Za-z0-9_.]+)*)(?=\s*$)/gm;
 
 const ACTOR_KEYWORDS = [
   'APT',
@@ -157,6 +174,16 @@ const ACTOR_KEYWORDS = [
   'INC Ransom',
   'Qilin',
   'Hunters International',
+  'Anubis',
+  'Sphinx',
+  'BlackSuit',
+  'Clop',
+  'Embargo',
+  'SafePay',
+  'DragonForce',
+  'RansomHub',
+  'Monti',
+  'Trisec',
   'QakBot',
   'Emotet',
   'TrickBot',
@@ -192,75 +219,235 @@ const MALWARE_KEYWORDS = [
   'KingWear',
 ];
 
-async function fetchReportText(url: string): Promise<string> {
+function escapeRegex(s: string): string {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+/** Extract readable body text from an HTML page.
+ *  Tries multiple strategies: JSON-LD structured data, meta tags,
+ *  semantic HTML containers, and raw body text. */
+function extractReadableHtml(html: string): string {
+  let h = html;
+
+  // Strategy 1: Extract JSON-LD structured data (many sites embed full article content).
+  const jsonLdMatches = h.matchAll(/<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi);
+  for (const m of jsonLdMatches) {
+    try {
+      const raw = m[1];
+      if (!raw) continue;
+      const data = JSON.parse(raw);
+      // Check top-level and @graph array for articleBody/description.
+      const candidates = [data, ...(Array.isArray(data?.['@graph']) ? data['@graph'] : [])];
+      for (const item of candidates) {
+        if (!item || typeof item !== 'object') continue;
+        const articleBody = item.articleBody ?? item.description ?? item.text;
+        if (articleBody && typeof articleBody === 'string' && articleBody.length > 100) {
+          const title = item.headline ?? item.name ?? '';
+          return title ? `${title}\n\n${articleBody}` : articleBody;
+        }
+      }
+    } catch { /* ignore parse errors */ }
+  }
+
+  // Strategy 2: Extract meta description and og:description (useful fallback).
+  const metaDesc = h.match(/<meta[^>]*(?:name|property)=["'](?:description|og:description)["'][^>]*content=["']([^"']+)["']/i);
+  const ogTitle = h.match(/<meta[^>]*property=["']og:title["'][^>]*content=["']([^"']+)["']/i);
+  const pageTitle = h.match(/<title[^>]*>([^<]+)<\/title>/i);
+  const title = ogTitle?.[1]?.trim() ?? pageTitle?.[1]?.trim() ?? '';
+
+  // Strategy 3: Remove noise elements, prefer semantic containers.
+  h = h.replace(/<script[\s\S]*?<\/script>/gi, ' ');
+  h = h.replace(/<style[\s\S]*?<\/style>/gi, ' ');
+  h = h.replace(/<nav[\s\S]*?<\/nav>/gi, ' ');
+  h = h.replace(/<footer[\s\S]*?<\/footer>/gi, ' ');
+  h = h.replace(/<header[\s\S]*?<\/header>/gi, ' ');
+  h = h.replace(/<aside[\s\S]*?<\/aside>/gi, ' ');
+  h = h.replace(/<form[\s\S]*?<\/form>/gi, ' ');
+  h = h.replace(/<svg[\s\S]*?<\/svg>/gi, ' ');
+  h = h.replace(/<!--[\s\S]*?-->/g, ' ');
+
+  // Try semantic containers — prefer the one with the most content.
+  const articleMatch = h.match(/<article[\s\S]*?>([\s\S]*?)<\/article>/i);
+  const mainMatch = h.match(/<main[\s\S]*?>([\s\S]*?)<\/main>/i);
+  const contentDiv = h.match(/<div[^>]*class=["'][^"']*(?:article|content|post|entry|body)[^"']*["'][^>]*>([\s\S]*?)<\/div>/i);
+  const bodyMatch = h.match(/<body[\s\S]*?>([\s\S]*?)<\/body>/i);
+  // Pick the container with the most content.
+  const candidates = [
+    { el: articleMatch?.[1], len: articleMatch?.[1]?.length ?? 0 },
+    { el: mainMatch?.[1], len: mainMatch?.[1]?.length ?? 0 },
+    { el: contentDiv?.[1], len: contentDiv?.[1]?.length ?? 0 },
+    { el: bodyMatch?.[1], len: bodyMatch?.[1]?.length ?? 0 },
+  ].filter((c) => c.el && c.len > 100);
+  candidates.sort((a, b) => b.len - a.len);
+  const content = candidates[0]?.el ?? h;
+
+  // Convert block-level elements to newlines for paragraph preservation.
+  let text = content
+    .replace(/<\/(?:p|div|h[1-6]|li|tr|br|hr|blockquote)>/gi, '\n')
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&[a-z]+;/gi, ' ')
+    .replace(/&#[0-9]+;/g, '')
+    .replace(/[ \t]+/g, ' ')
+    .replace(/\n\s*\n/g, '\n\n')
+    .trim();
+
+  // If extracted text is too short (<200 chars), fall back to meta description.
+  if (text.length < 200 && metaDesc?.[1]) {
+    text = `${title}\n\n${metaDesc[1]}\n\n${text}`;
+  } else if (title && !text.toLowerCase().startsWith(title.toLowerCase())) {
+    text = `${title}\n\n${text}`;
+  }
+
+  return text;
+}
+
+async function fetchReportText(url: string, env?: Env): Promise<{ text: string; title?: string }> {
   const parsed = new URL(url);
   if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
     throw new Error('only http/https urls accepted');
   }
-  const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), 15_000);
-  try {
-    // SSRF-safe: pinnedFetchFollow re-validates + IP-pins EVERY hop, so a
-    // public URL that 302s to a private/metadata host (or DNS-rebinds between
-    // check and fetch) is blocked. Do NOT swap this for a raw fetch() — the
-    // raw `assertPublicHost(host) + fetch(url, {redirect:'follow'})` pattern
-    // it replaced was a full read-SSRF (TOCTOU + unvalidated redirect target).
-    const res = await pinnedFetchFollow(url, {
-      headers: { 'user-agent': 'Mozilla/5.0 (compatible; portfolio-analyzer/1.0)' },
-      signal: ctrl.signal,
-    });
-    if (!res.ok) throw new Error(`fetch ${res.status}`);
-    const len = parseInt(res.headers.get('content-length') ?? '0', 10);
-    if (len > URL_FETCH_MAX) throw new Error('content-length exceeds 1.5MB');
-    const ab = await res.arrayBuffer();
-    if (ab.byteLength > URL_FETCH_MAX) throw new Error('body exceeds 1.5MB');
-    const text = new TextDecoder().decode(ab);
-    // Strip HTML if the response looks like HTML. Best-effort: a
-    // full <article>/<p> parser would be more accurate, but this
-    // already removes enough boilerplate for the LLM to do its job.
-    if (/<html|<body|<div|<p\b/i.test(text)) {
-      return text
-        .replace(/<script[\s\S]*?<\/script>/gi, ' ')
-        .replace(/<style[\s\S]*?<\/style>/gi, ' ')
-        .replace(/<[^>]+>/g, ' ')
-        .replace(/\s+/g, ' ')
-        .trim();
+
+  // Try regular fetch first.
+  const result = await tryRegularFetch(url);
+
+  // If content is minimal (<500 chars) and Browser Rendering is available,
+  // try rendering the page with a headless browser.
+  if (result.text.length < 500 && env?.BROWSER) {
+    try {
+      const rendered = await tryBrowserRender(url, env);
+      if (rendered.text.length > result.text.length) {
+        return rendered;
+      }
+    } catch { /* fall through to regular result */ }
+  }
+
+  return result;
+}
+
+async function tryRegularFetch(url: string): Promise<{ text: string; title?: string }> {
+  let lastError: Error | null = null;
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 20_000);
+    try {
+      const res = await pinnedFetchFollow(url, {
+        headers: {
+          'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+          'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+          'accept-language': 'en-US,en;q=0.9',
+        },
+        signal: ctrl.signal,
+      });
+      if (!res.ok) {
+        if (res.status === 429 || res.status >= 500) {
+          lastError = new Error(`fetch ${res.status}`);
+          clearTimeout(timer);
+          continue;
+        }
+        throw new Error(`fetch ${res.status}`);
+      }
+      const len = parseInt(res.headers.get('content-length') ?? '0', 10);
+      if (len > URL_FETCH_MAX) throw new Error(`content-length exceeds ${URL_FETCH_MAX / 1e6}MB`);
+      const ab = await res.arrayBuffer();
+      if (ab.byteLength > URL_FETCH_MAX) throw new Error(`body exceeds ${URL_FETCH_MAX / 1e6}MB`);
+      const raw = new TextDecoder().decode(ab);
+      if (/<html|<body|<div|<p\b/i.test(raw)) {
+        const extracted = extractReadableHtml(raw);
+        return { text: extracted };
+      }
+      return { text: raw };
+    } catch (e) {
+      if (e instanceof SsrfError) throw e;
+      lastError = e instanceof Error ? e : new Error(String(e));
+    } finally {
+      clearTimeout(timer);
     }
-    return text;
-  } catch (e) {
-    if (e instanceof SsrfError) throw e;
-    throw e;
+  }
+  throw lastError ?? new Error('fetch failed');
+}
+
+async function tryBrowserRender(url: string, env: Env): Promise<{ text: string; title?: string }> {
+  const browser = await puppeteer.launch(env.BROWSER);
+  try {
+    const page = await browser.newPage();
+    await page.goto(url, { waitUntil: 'networkidle0', timeout: 25_000 });
+    // Wait a bit for dynamic content to load.
+    await new Promise((r) => setTimeout(r, 2_000));
+    const html = await page.content();
+    await page.close();
+    const extracted = extractReadableHtml(html);
+    return { text: extracted };
   } finally {
-    clearTimeout(timer);
+    await browser.close();
   }
 }
 
-function extractIocsFromText(text: string): ExtractedIoc[] {
+function extractIocsFromText(rawText: string): ExtractedIoc[] {
+  // Refang the ENTIRE text first so defanged IOCs like hxxps://evil[.]com
+  // and evil[.]com are matched by the regexes below. Without this,
+  // defanged URLs/domains are silently missed.
+  const text = refang(rawText);
   const candidates = new Map<string, { value: string; kind: IocKind; evidence: string }>();
   const addAll = (re: RegExp, kind: IocKind) => {
     const matches = text.match(re);
     if (!matches) return;
     for (const m of matches) {
-      const refanged = refang(m);
-      const key = `${kind}:${refanged.toLowerCase()}`;
+      const canonical = m; // already refanged — text was refanged above
+      const key = `${kind}:${canonical.toLowerCase()}`;
       if (candidates.has(key)) continue;
-      candidates.set(key, { value: refanged, kind, evidence: m });
+      // evidence = the original raw-text match (before refanging) so
+      // the analyst sees the defanged form the report actually contained.
+      const rawMatch = rawText.match(new RegExp(escapeRegex(m), 'i'))?.[0] ?? m;
+      candidates.set(key, { value: canonical, kind, evidence: rawMatch });
     }
   };
   addAll(IPV4_RE, 'ip');
+  addAll(IPV6_RE, 'ipv6');
   addAll(CVE_RE, 'cve');
   addAll(URL_RE, 'url');
   addAll(HASH_RE, 'hash');
   addAll(DOMAIN_RE, 'domain');
   addAll(EMAIL_RE, 'email');
+  addAll(FILEPATH_WIN_RE, 'file-path');
+  addAll(FILEPATH_UNIX_RE, 'file-path');
+  addAll(DIRECTORY_RE, 'directory');
 
   const out: ExtractedIoc[] = [];
+  // Track file-path prefixes so directories that are already captured
+  // as file-paths can be skipped (e.g. C:\x64\mimikatz.exe should not
+  // also appear as directory C:\x64\mimikatz).
+  const filePathPrefixes = new Set<string>();
   for (const c of candidates.values()) {
-    if (isBenign(c.value, c.kind as 'ipv4' | 'domain' | 'url' | 'hash' | 'cve' | 'email' | 'unknown').allow === false)
+    if (c.kind === 'file-path') {
+      // Store the parent directory AND the filename without extension.
+      const normalized = c.value.replace(/\\/g, '/').toLowerCase();
+      const lastSlash = normalized.lastIndexOf('/');
+      if (lastSlash > 0) filePathPrefixes.add(normalized.slice(0, lastSlash));
+      // Also store the filename without extension (for cases like
+      // C:\x64\mimikatz.exe → C:\x64\mimikatz)
+      const lastDot = normalized.lastIndexOf('.');
+      if (lastDot > lastSlash) filePathPrefixes.add(normalized.slice(0, lastDot));
+    }
+  }
+  for (const c of candidates.values()) {
+    // Skip directory IOCs whose path is already captured as a file-path.
+    if (c.kind === 'directory') {
+      const normalized = c.value.replace(/\\/g, '/').toLowerCase().replace(/\/$/, '');
+      if (filePathPrefixes.has(normalized)) continue;
+    }
+    const normKind = c.kind === 'ipv6' || c.kind === 'ip' ? 'ipv4' : c.kind;
+    if (isBenign(c.value, normKind as 'ipv4' | 'domain' | 'url' | 'hash' | 'cve' | 'email' | 'unknown').allow === false)
       continue;
     const s = scoreConfidence(
       c.value,
-      c.kind as 'ipv4' | 'domain' | 'url' | 'hash' | 'cve' | 'email' | 'unknown',
+      normKind as 'ipv4' | 'domain' | 'url' | 'hash' | 'cve' | 'email' | 'unknown',
       text
     );
     if (s.band === 'rejected') continue;
@@ -291,6 +478,41 @@ function extractCvesFromText(text: string): ExtractedCve[] {
     out.push({ id, context: ctx.slice(0, 240) });
   }
   return out;
+}
+
+/** Enrich extracted CVEs with NVD CVSS, EPSS, KEV, and product data.
+ *  Caps at 5 CVEs to stay within free-plan subrequest budget.
+ *  Runs in parallel with a per-CVE timeout. */
+async function enrichCves(cves: ExtractedCve[]): Promise<ExtractedCve[]> {
+  const toEnrich = cves.slice(0, 5);
+  const enriched = await Promise.all(
+    toEnrich.map(async (cve) => {
+      try {
+        const timeout = new Promise<never>((_, reject) =>
+          setTimeout(() => reject(new Error('cve enrich timeout')), 8_000)
+        );
+        const result = await Promise.race([lookupCve(cve.id), timeout]);
+        if (!result.ok || !result.data) return cve;
+        const d = result.data;
+        return {
+          ...cve,
+          cvss_v3: d.cvss?.base_score,
+          cvss_severity: d.cvss?.severity,
+          epss: d.epss?.score,
+          epss_percentile: d.epss?.percentile,
+          exploited_in_wild: d.poc?.count ? d.poc.count > 0 : undefined,
+          in_kev: d.kev?.in_kev,
+          description: d.description?.slice(0, 300),
+          products: d.products?.slice(0, 5),
+          references: d.references?.slice(0, 3),
+        };
+      } catch {
+        return cve;
+      }
+    })
+  );
+  // Re-attach any CVEs beyond the enrichment cap
+  return [...enriched, ...cves.slice(5)];
 }
 
 function extractEntities(text: string): { actors: string[]; malware: string[] } {
@@ -336,6 +558,8 @@ function buildMindmap(
     edges.push({ source: 'finding', target: id, label: 'exploits' });
   }
   for (const i of iocs.slice(0, 12)) {
+    // Skip CVE IOCs — they're already added as dedicated cve: nodes above.
+    if (i.kind === 'cve') continue;
     const id = `ioc:${i.kind}:${i.value}`;
     nodes.push({ id, label: i.value, kind: 'ioc' });
     edges.push({ source: 'finding', target: id, label: 'observed' });
@@ -389,21 +613,22 @@ export async function runReportAnalyzer(input: AnalyzerInput, env: Env): Promise
   let title = input.title ?? '';
   if (input.url && !text) {
     try {
-      text = await fetchReportText(input.url);
-      if (!title) {
-        try {
-          title = new URL(input.url).hostname;
-        } catch {
-          title = 'URL report';
-        }
-      }
+      const fetched = await fetchReportText(input.url, env);
+      text = fetched.text;
+      if (!title && fetched.title) title = fetched.title;
     } catch (e) {
       errors.push({ branch: 'fetch', message: e instanceof Error ? e.message : String(e) });
       text = '';
     }
   }
   text = text.slice(0, MAX_TEXT_CHARS);
-  if (!title) title = 'Untitled report';
+  if (!title) {
+    try {
+      title = input.url ? new URL(input.url).hostname : 'Untitled report';
+    } catch {
+      title = 'Untitled report';
+    }
+  }
 
   const summaryInput: SummaryInput = {
     surface: 'report-analyzer',
@@ -412,9 +637,9 @@ export async function runReportAnalyzer(input: AnalyzerInput, env: Env): Promise
   };
 
   // Truncate to fit the LLM context; mindmap is built off the same text.
-  const summaryTask = withTimeout(generateAiSummary(summaryInput, env), 18_000, 'summary', errors);
-  const ttpTask = withTimeout(extractTTPsLLM(text, env), 22_000, 'ttp', errors);
-  const fivewTask = withTimeout(extractFiveW(text, env), 18_000, 'fivew', errors);
+  const summaryTask = withTimeout(generateAiSummary(summaryInput, env), 22_000, 'summary', errors);
+  const ttpTask = withTimeout(extractTTPsLLM(text, env), 25_000, 'ttp', errors);
+  const fivewTask = withTimeout(extractFiveW(text, env), 30_000, 'fivew', errors);
   const imageTask = withTimeout(
     (async () => {
       if (!input.imageUrls || input.imageUrls.length === 0) return [] as ExtractedIoc[];
@@ -452,19 +677,28 @@ export async function runReportAnalyzer(input: AnalyzerInput, env: Env): Promise
   // proper context. They fan out in parallel with each other.
   const detectionTask = withTimeout(
     extractDetectionOpportunities(text, ttpRes, env).catch(() => null),
-    22_000,
+    45_000,
     'detection',
     errors
   );
   const conclusionTask = withTimeout(
     extractConclusion(text, summaryRes?.summary ?? '', env).catch(() => null),
-    18_000,
+    25_000,
     'conclusion',
     errors
   );
-  const [detectionRes, conclusionRes] = await Promise.all([detectionTask, conclusionTask]);
 
-  // Build IOC + CVE + entity list synchronously (pure functions).
+  // CVE enrichment runs in parallel with detection/conclusion.
+  const cves = extractCvesFromText(text);
+  const cveEnriched = enrichCves(cves);
+
+  const [detectionRes, conclusionRes, enrichedCves] = await Promise.all([
+    detectionTask,
+    conclusionTask,
+    cveEnriched,
+  ]);
+
+  // Build IOC + entity list synchronously (pure functions).
   const textIocs = extractIocsFromText(text);
   const iocMap = new Map<string, ExtractedIoc>();
   for (const i of [...textIocs, ...(imageRes ?? [])]) {
@@ -472,10 +706,9 @@ export async function runReportAnalyzer(input: AnalyzerInput, env: Env): Promise
     if (!iocMap.has(k)) iocMap.set(k, i);
   }
   const iocs = Array.from(iocMap.values()).sort((a, b) => b.confidence - a.confidence);
-  const cves = extractCvesFromText(text);
-  const ttp: TtpHit[] = ttpRes; // already unwrapped above (TTP[] from ttpRes.techniques)
+  const ttp: TtpHit[] = ttpRes;
   const entities = extractEntities(text);
-  const mindmap = buildMindmap(iocs, ttp, cves, entities, title);
+  const mindmap = buildMindmap(iocs, ttp, enrichedCves, entities, title);
 
   // STIX bundle — best-effort with a real wall-clock cap. The
   // `intel-bundle` enrichment phase is network-bound (Maltiverse / RDAP /
@@ -492,7 +725,7 @@ export async function runReportAnalyzer(input: AnalyzerInput, env: Env): Promise
   // set includeStix=true when they specifically need the STIX bundle.
   let stix: BuildResult | null = null;
   if (input.includeStix === true) {
-    const STIX_BUDGET_MS = 6_000;
+    const STIX_BUDGET_MS = 12_000;
     let stixTimer: ReturnType<typeof setTimeout> | undefined;
     try {
       // `intel-bundle` expects (c, ReportInput) — it reads `c.env` for AI
@@ -526,13 +759,14 @@ export async function runReportAnalyzer(input: AnalyzerInput, env: Env): Promise
   return {
     title,
     source: input.source,
+    sourceText: text,
     textLength: text.length,
     generatedAt: new Date().toISOString(),
     summary: summaryRes ? { text: summaryRes.summary, model: summaryRes.modelUsed } : null,
     fiveW: fivewRes,
     iocs,
     ttp,
-    cves,
+    cves: enrichedCves,
     mindmap,
     diamond: buildDiamondModel(entities, ttp, iocs, fivewRes, text),
     attackFlow: buildAttackFlow(ttp),
@@ -609,12 +843,26 @@ export function buildDiamondModel(
   fiveW: FiveW | null,
   text: string
 ): DiamondModel {
-  const adversary =
-    entities.actors.length > 0
-      ? entities.actors
-      : fiveW?.who
-        ? [fiveW.who.replace(/\s+/g, ' ').trim().split(/[.,;]/)[0]!.trim()].filter(Boolean)
-        : [];
+  // Adversary: combine keyword-matched actors with 5W 'who' field.
+  // The 5W field is LLM-extracted and usually contains the specific actor name.
+  const adversarySet = new Set<string>();
+  for (const a of entities.actors) adversarySet.add(a);
+  if (fiveW?.who) {
+    // Extract the first sentence/phrase from 'who' as the primary actor name.
+    const whoClean = fiveW.who.replace(/\s+/g, ' ').trim().split(/[,.;]/)[0]!.trim();
+    if (whoClean && !/^(unknown|unattributed|n\/a|multiple|various)$/i.test(whoClean)) {
+      adversarySet.add(whoClean);
+    }
+  }
+  // Also scan text for "X ransomware" or "X group" patterns.
+  const actorPatterns = text.match(/\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)\s+(?:ransomware|group|gang|crew|organization|actors?)\b/g);
+  if (actorPatterns) {
+    for (const m of actorPatterns) {
+      const name = m.replace(/\s+(?:ransomware|group|gang|crew|organization|actors?)$/i, '').trim();
+      if (name.length > 2 && name.length < 40) adversarySet.add(name);
+    }
+  }
+  const adversary = Array.from(adversarySet).slice(0, 8);
   // Capability = malware + techniques, deduped.
   const capability: DiamondModel['capability'] = [];
   for (const m of entities.malware) {
@@ -627,7 +875,7 @@ export function buildDiamondModel(
   // Infrastructure = network-shaped IOCs.
   const infraSet = new Set<string>();
   for (const i of iocs) {
-    if (i.kind === 'ip' || i.kind === 'domain' || i.kind === 'url') {
+    if (i.kind === 'ip' || i.kind === 'ipv6' || i.kind === 'domain' || i.kind === 'url') {
       if (!infraSet.has(i.value) && i.confidence_band !== 'low') {
         infraSet.add(i.value);
       }

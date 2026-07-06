@@ -2,7 +2,7 @@ import type { ProviderAdapter, ProviderResult } from './types';
 import { classifyResponseError, classifyThrownError, toProviderError } from '../lib/provider-errors';
 
 const supports = new Set(['domain']);
-const FEED = 'https://hole.cert.pl/domains/domains.txt';
+const FEED = 'https://hole.cert.pl/domains/v2/domains.txt';
 const CACHE_TTL_SECONDS = 1800;
 
 export const certpl: ProviderAdapter = async (indicator, _env, signal) => {

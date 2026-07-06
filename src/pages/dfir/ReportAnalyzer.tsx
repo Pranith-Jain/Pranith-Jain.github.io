@@ -32,10 +32,78 @@ import {
   Terminal,
 } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { exportAnalyzerPdf, downloadBlob, pdfFilename } from '../../lib/dfir/report-analyzer/export-pdf';
+
+// ── CSV helpers (pure, no deps) ────────────────────────────────────
+
+function csvEscape(v: string): string {
+  if (/[",\n\r]/.test(v)) return `"${v.replace(/"/g, '""')}"`;
+  return v;
+}
+
+function downloadCsv(filename: string, csv: string): void {
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+  downloadBlob(blob, filename);
+}
+
+function exportIocsCsv(iocs: ExtractedIoc[]): string {
+  const header = 'kind,value,confidence,confidence_band,evidence,source';
+  const rows = iocs.map(
+    (i) =>
+      [i.kind, i.value, String(Math.round(i.confidence * 100)), i.confidence_band, csvEscape(i.evidence), i.source].join(
+        ','
+      )
+  );
+  return [header, ...rows].join('\n');
+}
+
+function exportDetectionCsv(detection: AnalyzerOutput['detection']): string {
+  if (!detection) return '';
+  const sections: string[] = [];
+
+  if (detection.siemRules.length) {
+    sections.push('--- SIEM Rules ---');
+    sections.push('title,severity,mitre_id,platform,description,query');
+    for (const r of detection.siemRules) {
+      sections.push(
+        [csvEscape(r.title), r.severity, r.mitreId ?? '', r.platform ?? '', csvEscape(r.description), csvEscape(r.query ?? '')].join(',')
+      );
+    }
+  }
+
+  if (detection.cliCommands.length) {
+    sections.push('');
+    sections.push('--- CLI Commands ---');
+    sections.push('purpose,command,platform');
+    for (const c of detection.cliCommands) {
+      sections.push([csvEscape(c.purpose), csvEscape(c.command), c.platform ?? ''].join(','));
+    }
+  }
+
+  if (detection.monitoringGuidance.length) {
+    sections.push('');
+    sections.push('--- Monitoring Guidance ---');
+    sections.push('category,items');
+    for (const g of detection.monitoringGuidance) {
+      sections.push([csvEscape(g.category), csvEscape(g.items.join('; '))].join(','));
+    }
+  }
+
+  if (detection.detectionLimitations.length) {
+    sections.push('');
+    sections.push('--- Detection Limitations ---');
+    sections.push('limitation');
+    for (const lim of detection.detectionLimitations) {
+      sections.push(csvEscape(lim));
+    }
+  }
+
+  return sections.join('\n');
+}
 
 // ── Response types (mirrors api/src/lib/report-analyzer.ts) ──────────
 
-type IocKind = 'ip' | 'ipv6' | 'url' | 'domain' | 'hash' | 'cve' | 'email';
+type IocKind = 'ip' | 'ipv6' | 'url' | 'domain' | 'hash' | 'cve' | 'email' | 'file-path' | 'directory';
 interface ExtractedIoc {
   value: string;
   kind: IocKind;
@@ -54,6 +122,15 @@ interface TtpHit {
 interface ExtractedCve {
   id: string;
   context: string;
+  cvss_v3?: number;
+  cvss_severity?: string;
+  epss?: number;
+  epss_percentile?: number;
+  exploited_in_wild?: boolean;
+  in_kev?: boolean;
+  description?: string;
+  products?: string[];
+  references?: Array<{ url: string; tags?: string[] }>;
 }
 interface FiveW {
   who: string;
@@ -61,6 +138,9 @@ interface FiveW {
   when: string;
   where: string;
   why: string;
+  how?: string;
+  so_what?: string;
+  what_next?: string;
   attribution_basis?: string;
   confidence: number;
 }
@@ -251,6 +331,8 @@ const IOC_PILL: Record<IocKind, string> = {
   hash: 'text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-800',
   cve: 'text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 border-amber-300 dark:border-amber-800',
   email: 'text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40 border-rose-300 dark:border-rose-800',
+  'file-path': 'text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/40 border-indigo-300 dark:border-indigo-800',
+  'directory': 'text-fuchsia-700 dark:text-fuchsia-300 bg-fuchsia-50 dark:bg-fuchsia-950/40 border-fuchsia-300 dark:border-fuchsia-800',
 };
 const CONFIDENCE_PILL: Record<'high' | 'medium' | 'low', string> = {
   high: 'text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-800',
@@ -278,6 +360,9 @@ export default function ReportAnalyzer(): JSX.Element {
   const [loading, setLoading] = useState(false);
   const [tab, setTab] = useState<Tab>('summary');
   const [filter, setFilter] = useState('');
+  const [pdfExporting, setPdfExporting] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [savedMsg, setSavedMsg] = useState<string | null>(null);
   const abortRef = useRef<AbortController | null>(null);
 
   const run = async () => {
@@ -316,6 +401,44 @@ export default function ReportAnalyzer(): JSX.Element {
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setLoading(false);
+    }
+  };
+
+  const exportPdf = async () => {
+    if (!data) return;
+    setPdfExporting(true);
+    try {
+      const blob = await exportAnalyzerPdf(data);
+      downloadBlob(blob, pdfFilename(data));
+    } catch (e) {
+      setError(e instanceof Error ? e.message : String(e));
+    } finally {
+      setPdfExporting(false);
+    }
+  };
+
+  const saveReportHandler = async () => {
+    if (!data) return;
+    setSaving(true);
+    setSavedMsg(null);
+    try {
+      const res = await fetch('/api/v1/saved-reports', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          title: data.title,
+          sourceUrl: inputUrl || undefined,
+          sourceText: data.sourceText || undefined,
+          reportJson: JSON.stringify(data),
+        }),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const j = (await res.json()) as { id: string };
+      setSavedMsg(`Saved as ${j.id.slice(0, 8)}…`);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : String(e));
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -360,6 +483,9 @@ export default function ReportAnalyzer(): JSX.Element {
               placeholder="https://example.com/report"
               className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
             />
+            <p className="mt-1 text-[11px] text-slate-400 dark:text-slate-500 leading-snug">
+              Works best with server-rendered pages (Arctic Wolf, vendor blogs). JS-rendered sites (CISA, Mandiant, CrowdStrike) may return minimal content — paste the text directly for best results.
+            </p>
             <label
               htmlFor="report-analyzer-images"
               className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-1 mt-3"
@@ -434,6 +560,24 @@ export default function ReportAnalyzer(): JSX.Element {
                 {data.errors.length} branch{data.errors.length > 1 ? 'es' : ''} degraded
               </span>
             )}
+            <button
+              type="button"
+              onClick={exportPdf}
+              disabled={pdfExporting}
+              className="ml-auto inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono text-xs text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors disabled:opacity-50"
+            >
+              {pdfExporting ? <RefreshCw className="h-3 w-3 animate-spin" /> : <Download className="h-3 w-3" />}
+              {pdfExporting ? 'exporting…' : 'export PDF'}
+            </button>
+            <button
+              type="button"
+              onClick={saveReportHandler}
+              disabled={saving}
+              className="shrink-0 inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono text-xs text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors disabled:opacity-50"
+            >
+              {saving ? <RefreshCw className="h-3 w-3 animate-spin" /> : <CheckCircle className="h-3 w-3" />}
+              {saving ? 'saving…' : savedMsg ?? 'save'}
+            </button>
           </div>
 
           {/* Tabs */}
@@ -552,7 +696,25 @@ function IocsTab({
   if (iocs.length === 0) return <EmptyState message="No indicators survived allowlist filtering." />;
   return (
     <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
-      <FilterInput value={filter} setValue={setFilter} placeholder={`Filter ${iocs.length} IOCs…`} />
+      <div className="flex items-start gap-2">
+        <div className="flex-1">
+          <FilterInput value={filter} setValue={setFilter} placeholder={`Filter ${iocs.length} IOCs…`} />
+        </div>
+        <button
+          type="button"
+          onClick={() => downloadCsv('iocs.csv', exportIocsCsv(iocs))}
+          className="shrink-0 mt-0.5 inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1.5 text-xs font-mono text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+        >
+          <Download className="h-3 w-3" /> CSV
+        </button>
+        <button
+          type="button"
+          onClick={() => downloadBlob(new Blob([JSON.stringify(iocs, null, 2)], { type: 'application/json' }), 'iocs.json')}
+          className="shrink-0 mt-0.5 inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1.5 text-xs font-mono text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+        >
+          <Download className="h-3 w-3" /> JSON
+        </button>
+      </div>
       <ul className="space-y-1.5">
         {filtered.map((i, idx) => (
           <li
@@ -659,49 +821,103 @@ function CvesTab({
   const filtered = useMemo(() => {
     const q = filter.trim().toLowerCase();
     if (!q) return cves;
-    return cves.filter((c) => `${c.id} ${c.context}`.toLowerCase().includes(q));
+    return cves.filter(
+      (c) =>
+        `${c.id} ${c.context} ${c.description ?? ''} ${(c.products ?? []).join(' ')}`.toLowerCase().includes(q)
+    );
   }, [cves, filter]);
+
+  const severityColor = (s?: string) => {
+    if (!s) return '';
+    const v = s.toUpperCase();
+    if (v === 'CRITICAL') return 'text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40 border-rose-300 dark:border-rose-800';
+    if (v === 'HIGH') return 'text-orange-700 dark:text-orange-300 bg-orange-50 dark:bg-orange-950/40 border-orange-300 dark:border-orange-800';
+    if (v === 'MEDIUM') return 'text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 border-amber-300 dark:border-amber-800';
+    return 'text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/40 border-sky-300 dark:border-sky-800';
+  };
+
   if (cves.length === 0) return <EmptyState message="No CVEs mentioned in the report." />;
   return (
     <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
       <FilterInput value={filter} setValue={setFilter} placeholder={`Filter ${cves.length} CVEs…`} />
-      <ul className="space-y-1.5">
+      <div className="space-y-3">
         {filtered.map((c) => (
-          <li
+          <div
             key={c.id}
-            className="flex flex-wrap items-center gap-2 border-b border-slate-100 dark:border-[rgb(var(--border-400))]/60 pb-1.5 last:border-b-0"
+            className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
           >
-            <a
-              href={`https://nvd.nist.gov/vuln/detail/${c.id}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-mono text-sm text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
-            >
-              {c.id} <ExternalLink className="h-3 w-3" />
-            </a>
-            <span className="ml-auto text-xs text-slate-500 dark:text-slate-400 truncate max-w-[60%]">{c.context}</span>
-          </li>
+            <div className="flex flex-wrap items-center gap-2 mb-1.5">
+              <a
+                href={`https://nvd.nist.gov/vuln/detail/${c.id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono text-sm font-semibold text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              >
+                {c.id} <ExternalLink className="h-3 w-3" />
+              </a>
+              {c.cvss_severity && (
+                <span className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${severityColor(c.cvss_severity)}`}>
+                  {c.cvss_severity} {c.cvss_v3 != null ? c.cvss_v3.toFixed(1) : ''}
+                </span>
+              )}
+              {c.in_kev && (
+                <span className="text-micro font-mono rounded border border-rose-300 dark:border-rose-800 bg-rose-50 dark:bg-rose-950/40 px-1.5 py-0.5 text-rose-700 dark:text-rose-300">
+                  KEV
+                </span>
+              )}
+              {c.epss != null && (
+                <span
+                  className="text-micro font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5 text-slate-600 dark:text-slate-300"
+                  title={`EPSS percentile: ${c.epss_percentile != null ? (c.epss_percentile * 100).toFixed(1) : '?'}%`}
+                >
+                  EPSS {(c.epss * 100).toFixed(1)}%
+                </span>
+              )}
+              {c.exploited_in_wild && (
+                <span className="text-micro font-mono rounded border border-amber-300 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/40 px-1.5 py-0.5 text-amber-700 dark:text-amber-300">
+                  exploited
+                </span>
+              )}
+            </div>
+            {c.description && (
+              <p className="text-xs text-slate-600 dark:text-slate-300 mb-1.5 line-clamp-2">{c.description}</p>
+            )}
+            {c.products && c.products.length > 0 && (
+              <div className="flex flex-wrap gap-1 mb-1.5">
+                {c.products.map((p) => (
+                  <span key={p} className="text-micro font-mono rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5 text-slate-500 dark:text-slate-400">
+                    {p}
+                  </span>
+                ))}
+              </div>
+            )}
+            <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2">{c.context}</p>
+          </div>
         ))}
-      </ul>
+      </div>
     </section>
   );
 }
 
 function FiveWTab({ fiveW }: { fiveW: FiveW | null }) {
   if (!fiveW) return <EmptyState message="5W extraction failed." />;
-  const rows: Array<{ label: string; value: string }> = [
+  const rows: Array<{ label: string; value: string; wide?: boolean }> = [
     { label: 'Who', value: fiveW.who },
     { label: 'What', value: fiveW.what },
     { label: 'When', value: fiveW.when },
     { label: 'Where', value: fiveW.where },
     { label: 'Why', value: fiveW.why },
   ];
+  const extraRows: Array<{ label: string; value: string }> = [];
+  if (fiveW.how) extraRows.push({ label: 'How', value: fiveW.how });
+  if (fiveW.so_what) extraRows.push({ label: 'So What', value: fiveW.so_what });
+  if (fiveW.what_next) extraRows.push({ label: 'What Next', value: fiveW.what_next });
   return (
     <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
       <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
         confidence <span className="text-slate-700 dark:text-slate-200">{Math.round(fiveW.confidence * 100)}%</span>
       </div>
-      <dl className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+      <dl className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-3">
         {rows.map((r) => (
           <div
             key={r.label}
@@ -714,6 +930,21 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }) {
           </div>
         ))}
       </dl>
+      {extraRows.length > 0 && (
+        <div className="space-y-2">
+          {extraRows.map((r) => (
+            <div
+              key={r.label}
+              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
+            >
+              <dt className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                {r.label}
+              </dt>
+              <dd className="mt-0.5 text-sm text-slate-700 dark:text-slate-200 leading-relaxed break-words">{r.value}</dd>
+            </div>
+          ))}
+        </div>
+      )}
       {fiveW.attribution_basis && (
         <div className="mt-3 text-xs text-slate-500 dark:text-slate-400">
           <span className="font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mr-1">
@@ -991,6 +1222,15 @@ function DetectionTab({ detection }: { detection: AnalyzerOutput['detection'] })
 
   return (
     <div className="space-y-4">
+      <div className="flex justify-end">
+        <button
+          type="button"
+          onClick={() => downloadCsv('detection.csv', exportDetectionCsv(detection))}
+          className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-xs font-mono text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+        >
+          <Download className="h-3 w-3" /> export CSV
+        </button>
+      </div>
       {/* SIEM Rules */}
       {detection.siemRules.length > 0 && (
         <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">

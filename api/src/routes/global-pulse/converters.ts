@@ -181,7 +181,6 @@ const IOC_KIND: Record<string, PulseKind> = {
   'viriback-c2': 'c2_tracker',
   'threatview-ip': 'blocklist',
   'threatview-domains': 'blocklist',
-  'cins-score': 'blocklist',
   'certpl-warnings': 'phishing',
   phishunt: 'phishing',
 };

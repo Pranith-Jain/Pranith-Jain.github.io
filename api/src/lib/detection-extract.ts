@@ -4,10 +4,12 @@
  *
  * Uses LLM to produce structured detection content that analysts can
  * immediately use for threat hunting and monitoring.
+ * Retries once with a simplified prompt if the first attempt fails.
  */
 
 import type { Env } from '../env';
 import { runCompletion } from '../case-study/generation/ai-client';
+import { extractJson } from './llm-json';
 
 export interface DetectionRule {
   title: string;
@@ -37,6 +39,13 @@ export interface DetectionOpportunities {
   model?: string;
 }
 
+const EMPTY: DetectionOpportunities = {
+  siemRules: [],
+  monitoringGuidance: [],
+  cliCommands: [],
+  detectionLimitations: [],
+};
+
 const SYSTEM = `You are a threat detection engineer. Given a threat report, extract detection opportunities that analysts can immediately implement.
 
 Return JSON with this exact structure:
@@ -53,7 +62,7 @@ Return JSON with this exact structure:
   ],
   "monitoringGuidance": [
     {
-      "category": "category name (e.g. Authentication, Network, Process)",
+      "category": "category name",
       "items": ["specific monitoring action 1", "action 2"]
     }
   ],
@@ -65,24 +74,16 @@ Return JSON with this exact structure:
     }
   ],
   "detectionLimitations": [
-    "limitation 1: description",
-    "limitation 2: description"
+    "limitation 1: description"
   ]
 }
 
-Focus on:
-1. SIEM detection rules (KQL, Sigma, or YARA) for the specific TTPs described
-2. Network monitoring for C2 communication patterns
-3. Authentication monitoring for credential abuse
-4. Process monitoring for malicious tools mentioned
-5. CLI commands for device verification and forensics
-6. Detection limitations the analyst should know about
-
-Be specific to the threat described. Include actual IOCs where applicable.
 Generate 3-8 SIEM rules, 3-5 monitoring categories, 3-6 CLI commands, and 2-4 limitations.
 Output JSON only. No prose, no markdown fences.`;
 
-const TIMEOUT_MS = 20_000;
+const RETRY_SYSTEM = `Return a JSON object with keys: siemRules (array of objects with title/description/severity), monitoringGuidance (array of objects with category/items), cliCommands (array of objects with purpose/command), detectionLimitations (array of strings).`;
+
+const TIMEOUT_MS = 25_000;
 const MAX_INPUT_CHARS = 6000;
 
 export async function extractDetectionOpportunities(
@@ -94,9 +95,16 @@ export async function extractDetectionOpportunities(
     ttps.length > 0
       ? `\n\nIdentified MITRE ATT&CK techniques:\n${ttps.map((t) => `- ${t.id}: ${t.name} (${t.tactic})`).join('\n')}`
       : '';
-
   const input = text.length > MAX_INPUT_CHARS ? text.slice(0, MAX_INPUT_CHARS) + '\n…[truncated]' : text;
 
+  const result = await tryExtract(SYSTEM, `${input}${ttpContext}`, env);
+  if (result && (result.siemRules.length > 0 || result.cliCommands.length > 0)) return result;
+
+  const retry = await tryExtract(RETRY_SYSTEM, `${input}${ttpContext}`, env);
+  return retry ?? result ?? EMPTY;
+}
+
+async function tryExtract(system: string, input: string, env: Env): Promise<DetectionOpportunities | null> {
   try {
     const timeout = new Promise<never>((_, reject) =>
       setTimeout(() => reject(new Error('detection timeout')), TIMEOUT_MS)
@@ -105,24 +113,18 @@ export async function extractDetectionOpportunities(
       runCompletion(
         env.AI,
         {
-          system: SYSTEM,
-          user: `Extract detection opportunities from this threat report.${ttpContext}\n\nReport text:\n${input}`,
+          system,
+          user: `Extract detection opportunities from this threat report.\n\nReport text:\n${input}`,
           maxTokens: 3000,
           temperature: 0.3,
         },
-        { googleKey: env.GOOGLE_AI_STUDIO_API_KEY, groqKey: env.GROQ_API_KEY }
+        { googleKey: env.GOOGLE_AI_STUDIO_API_KEY, groqKey: env.GROQ_API_KEY, preferGroq: false }
       ),
       timeout,
     ]);
-
-    const raw = typeof r.text === 'string' ? r.text.trim() : '';
-    const i = raw.indexOf('{');
-    const j = raw.lastIndexOf('}');
-    if (i < 0 || j <= i) {
-      return { siemRules: [], monitoringGuidance: [], cliCommands: [], detectionLimitations: [] };
-    }
-
-    const parsed = JSON.parse(raw.slice(i, j + 1)) as Record<string, unknown>;
+    const raw = typeof r.text === 'string' ? r.text : '';
+    const parsed = extractJson<Record<string, unknown>>(raw);
+    if (!parsed) return null;
     return {
       siemRules: Array.isArray(parsed.siemRules) ? (parsed.siemRules as DetectionRule[]).slice(0, 8) : [],
       monitoringGuidance: Array.isArray(parsed.monitoringGuidance)
@@ -135,11 +137,6 @@ export async function extractDetectionOpportunities(
       model: r.modelUsed,
     };
   } catch {
-    return {
-      siemRules: [],
-      monitoringGuidance: [],
-      cliCommands: [],
-      detectionLimitations: [],
-    };
+    return null;
   }
 }

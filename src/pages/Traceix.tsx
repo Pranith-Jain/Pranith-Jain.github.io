@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDataFetch } from '../hooks/useDataFetch';
 import { DataPageLayout } from '../components/DataPageLayout';
-import { Search, Shield, Hash } from 'lucide-react';
+import { Search, Shield, Hash, Loader2 } from 'lucide-react';
 
 interface AvResult {
   engine: string;
@@ -17,6 +17,11 @@ interface TraceixResponse {
   avResults: AvResult[];
   error?: string;
 }
+
+const SAMPLES: { label: string; hash: string }[] = [
+  { label: 'empty', hash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855' },
+  { label: 'EICAR', hash: '275a021bbfb6489e54d4718999a7ea3e93b8d7406b3ac60a75a0e70951f8c6d7' },
+];
 
 const VERDICT_COLORS: Record<string, string> = {
   Safe: 'text-green-400 bg-green-950/30 border-green-800/40',
@@ -68,26 +73,41 @@ export default function Traceix() {
     >
       <div className="space-y-6 max-w-2xl mx-auto">
         {/* Search form */}
-        <form onSubmit={handleSubmit} className="flex gap-3">
-          <div className="relative flex-1">
-            <Hash size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
-            <input
-              type="text"
-              placeholder="Enter a SHA-256 hash (64 hex characters)"
-              value={hash}
-              onChange={(e) => setHash(e.target.value)}
-              className="w-full bg-slate-900 border border-slate-700 rounded-lg pl-9 pr-3 py-2.5 text-sm text-slate-200 placeholder-slate-500 font-mono focus:outline-none focus:border-cyan-600"
-            />
+        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+          <form onSubmit={handleSubmit} className="flex gap-3">
+            <div className="relative flex-1">
+              <Hash size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
+              <input
+                type="text"
+                placeholder="Enter a SHA-256 hash (64 hex characters)"
+                value={hash}
+                onChange={(e) => setHash(e.target.value)}
+                className="w-full bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg pl-9 pr-3 py-2.5 text-sm text-slate-900 dark:text-slate-200 placeholder-slate-500 font-mono focus:outline-none focus:border-cyan-600"
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={loading || !/^[0-9a-f]{64}$/i.test(hash.trim())}
+              className="flex items-center gap-2 px-4 py-2.5 bg-cyan-700 hover:bg-cyan-600 disabled:bg-slate-700 disabled:text-slate-500 text-white text-sm font-semibold rounded-lg transition-colors"
+            >
+              {loading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
+              {loading ? 'looking up…' : 'lookup'}
+            </button>
+          </form>
+          <div className="flex flex-wrap gap-1.5 mt-3">
+            <span className="text-micro font-mono text-slate-400 dark:text-slate-400 self-center mr-1">samples:</span>
+            {SAMPLES.map((s) => (
+              <button
+                key={s.hash}
+                type="button"
+                onClick={() => { setHash(s.hash); setSubmittedHash(s.hash); }}
+                className="text-mini font-mono px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-cyan-500/40 hover:text-cyan-600 dark:hover:text-cyan-400"
+              >
+                {s.label}
+              </button>
+            ))}
           </div>
-          <button
-            type="submit"
-            disabled={!/^[0-9a-f]{64}$/i.test(hash.trim())}
-            className="flex items-center gap-2 px-4 py-2.5 bg-cyan-700 hover:bg-cyan-600 disabled:bg-slate-700 disabled:text-slate-500 text-white text-sm font-semibold rounded-lg transition-colors"
-          >
-            <Search size={14} />
-            Lookup
-          </button>
-        </form>
+        </section>
 
         {/* Loading */}
         {loading && (

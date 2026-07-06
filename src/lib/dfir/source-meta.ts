@@ -197,11 +197,6 @@ export const SOURCE_META: Record<string, SourceMeta> = {
     color: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
     weight: 45,
   },
-  'cins-score': {
-    label: 'CINS Score',
-    color: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
-    weight: 25,
-  },
   'certpl-warnings': {
     label: 'CERT.PL',
     color: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',

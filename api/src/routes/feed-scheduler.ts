@@ -156,7 +156,7 @@ const PRESETS: { id: string; name: string; source_url: string; parser: FeedJob['
   {
     id: 'cert-pl',
     name: 'CERT Polska Phishing Domains',
-    source_url: 'https://hole.cert.pl/domains/domains.txt',
+    source_url: 'https://hole.cert.pl/domains/v2/domains.txt',
     parser: 'plaintext-domains',
     tags: ['phishing', 'domain', 'cert-pl'],
   },
