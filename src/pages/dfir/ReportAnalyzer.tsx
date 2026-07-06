@@ -1,4 +1,4 @@
-import { useMemo, useState, useRef } from 'react';
+import { useMemo, useState, useRef, useEffect } from 'react';
 import {
   ReactFlow,
   Background,
@@ -34,6 +34,12 @@ import {
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { exportAnalyzerPdf, downloadBlob, pdfFilename } from '../../lib/dfir/report-analyzer/export-pdf';
 
+// ── Helpers ──────────────────────────────────────────────────────────
+
+function slug(s: string): string {
+  return s.replace(/[^a-z0-9]/gi, '_').slice(0, 60) || 'report';
+}
+
 // ── CSV helpers (pure, no deps) ────────────────────────────────────
 
 function csvEscape(v: string): string {
@@ -48,11 +54,10 @@ function downloadCsv(filename: string, csv: string): void {
 
 function exportIocsCsv(iocs: ExtractedIoc[]): string {
   const header = 'kind,value,confidence,confidence_band,evidence,source';
-  const rows = iocs.map(
-    (i) =>
-      [i.kind, i.value, String(Math.round(i.confidence * 100)), i.confidence_band, csvEscape(i.evidence), i.source].join(
-        ','
-      )
+  const rows = iocs.map((i) =>
+    [i.kind, i.value, String(Math.round(i.confidence * 100)), i.confidence_band, csvEscape(i.evidence), i.source].join(
+      ','
+    )
   );
   return [header, ...rows].join('\n');
 }
@@ -66,7 +71,14 @@ function exportDetectionCsv(detection: AnalyzerOutput['detection']): string {
     sections.push('title,severity,mitre_id,platform,description,query');
     for (const r of detection.siemRules) {
       sections.push(
-        [csvEscape(r.title), r.severity, r.mitreId ?? '', r.platform ?? '', csvEscape(r.description), csvEscape(r.query ?? '')].join(',')
+        [
+          csvEscape(r.title),
+          r.severity,
+          r.mitreId ?? '',
+          r.platform ?? '',
+          csvEscape(r.description),
+          csvEscape(r.query ?? ''),
+        ].join(',')
       );
     }
   }
@@ -111,6 +123,12 @@ interface ExtractedIoc {
   confidence_band: 'high' | 'medium' | 'low';
   evidence: string;
   source: 'report-text' | 'image-ocr';
+  maltiverse?: {
+    score: number;
+    verdict: string;
+    classification?: string;
+    tags?: string[];
+  };
 }
 interface TtpHit {
   id: string;
@@ -304,6 +322,7 @@ const TABS = [
   'mindmap',
   'stix',
   'source',
+  'timeline',
 ] as const;
 type Tab = (typeof TABS)[number];
 
@@ -321,6 +340,7 @@ const TAB_META: Record<Tab, { label: string; icon: React.ReactNode }> = {
   attackflow: { label: 'Attack Flow', icon: <GitBranch className="h-3.5 w-3.5" /> },
   heatmap: { label: 'ATT&CK Heatmap', icon: <Search className="h-3.5 w-3.5" /> },
   source: { label: 'Source', icon: <Terminal className="h-3.5 w-3.5" /> },
+  timeline: { label: 'Timeline', icon: <GitBranch className="h-3.5 w-3.5" /> },
 };
 
 const IOC_PILL: Record<IocKind, string> = {
@@ -331,8 +351,10 @@ const IOC_PILL: Record<IocKind, string> = {
   hash: 'text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-800',
   cve: 'text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 border-amber-300 dark:border-amber-800',
   email: 'text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40 border-rose-300 dark:border-rose-800',
-  'file-path': 'text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/40 border-indigo-300 dark:border-indigo-800',
-  'directory': 'text-fuchsia-700 dark:text-fuchsia-300 bg-fuchsia-50 dark:bg-fuchsia-950/40 border-fuchsia-300 dark:border-fuchsia-800',
+  'file-path':
+    'text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/40 border-indigo-300 dark:border-indigo-800',
+  directory:
+    'text-fuchsia-700 dark:text-fuchsia-300 bg-fuchsia-50 dark:bg-fuchsia-950/40 border-fuchsia-300 dark:border-fuchsia-800',
 };
 const CONFIDENCE_PILL: Record<'high' | 'medium' | 'low', string> = {
   high: 'text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-800',
@@ -360,6 +382,11 @@ export default function ReportAnalyzer(): JSX.Element {
   const [loading, setLoading] = useState(false);
   const [tab, setTab] = useState<Tab>('summary');
   const [filter, setFilter] = useState('');
+  const [correlations, setCorrelations] = useState<Record<
+    string,
+    { count: number; reports: Array<{ id: string; title: string; created_at: string }> }
+  > | null>(null);
+  const [correlating, setCorrelating] = useState(false);
   const [pdfExporting, setPdfExporting] = useState(false);
   const [saving, setSaving] = useState(false);
   const [savedMsg, setSavedMsg] = useState<string | null>(null);
@@ -417,6 +444,23 @@ export default function ReportAnalyzer(): JSX.Element {
     }
   };
 
+  const exportMarkdown = async () => {
+    if (!data) return;
+    try {
+      const res = await fetch('/api/v1/report-analyzer/render', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ output: data }),
+      });
+      if (!res.ok) throw new Error(`render failed: ${res.status}`);
+      const json = (await res.json()) as { markdown?: string };
+      if (!json.markdown) throw new Error('render returned no markdown');
+      downloadBlob(new Blob([json.markdown], { type: 'text/markdown' }), `${slug(data.title)}.md`);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : String(e));
+    }
+  };
+
   const saveReportHandler = async () => {
     if (!data) return;
     setSaving(true);
@@ -439,6 +483,31 @@ export default function ReportAnalyzer(): JSX.Element {
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setSaving(false);
+    }
+  };
+
+  const checkCorrelations = async () => {
+    if (!data || data.iocs.length === 0) return;
+    setCorrelating(true);
+    try {
+      const iocValues = data.iocs.map((i) => i.value).slice(0, 20);
+      const res = await fetch('/api/v1/saved-reports/correlate', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ iocs: iocValues }),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const j = (await res.json()) as {
+        correlations: Record<
+          string,
+          { count: number; reports: Array<{ id: string; title: string; created_at: string }> }
+        >;
+      };
+      setCorrelations(Object.keys(j.correlations).length > 0 ? j.correlations : null);
+    } catch {
+      // Silently fail — correlation is best-effort
+    } finally {
+      setCorrelating(false);
     }
   };
 
@@ -484,7 +553,8 @@ export default function ReportAnalyzer(): JSX.Element {
               className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
             />
             <p className="mt-1 text-[11px] text-slate-400 dark:text-slate-500 leading-snug">
-              Works best with server-rendered pages (Arctic Wolf, vendor blogs). JS-rendered sites (CISA, Mandiant, CrowdStrike) may return minimal content — paste the text directly for best results.
+              Works best with server-rendered pages (Arctic Wolf, vendor blogs). JS-rendered sites (CISA, Mandiant,
+              CrowdStrike) may return minimal content — paste the text directly for best results.
             </p>
             <label
               htmlFor="report-analyzer-images"
@@ -571,14 +641,64 @@ export default function ReportAnalyzer(): JSX.Element {
             </button>
             <button
               type="button"
+              onClick={exportMarkdown}
+              className="shrink-0 inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono text-xs text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+            >
+              <Download className="h-3 w-3" /> MD
+            </button>
+            <button
+              type="button"
               onClick={saveReportHandler}
               disabled={saving}
               className="shrink-0 inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono text-xs text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors disabled:opacity-50"
             >
               {saving ? <RefreshCw className="h-3 w-3 animate-spin" /> : <CheckCircle className="h-3 w-3" />}
-              {saving ? 'saving…' : savedMsg ?? 'save'}
+              {saving ? 'saving…' : (savedMsg ?? 'save')}
+            </button>
+            <button
+              type="button"
+              onClick={checkCorrelations}
+              disabled={correlating}
+              className="shrink-0 inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono text-xs text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors disabled:opacity-50"
+            >
+              {correlating ? <RefreshCw className="h-3 w-3 animate-spin" /> : <Network className="h-3 w-3" />}
+              {correlating ? 'checking…' : 'correlate'}
             </button>
           </div>
+
+          {/* Correlation results */}
+          {correlations && (
+            <div className="mb-3 rounded-lg border border-amber-200 dark:border-amber-900/60 bg-amber-50/40 dark:bg-amber-950/20 p-3">
+              <div className="flex items-center gap-2 mb-2">
+                <Network className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+                <span className="text-sm font-semibold text-amber-800 dark:text-amber-200">
+                  Cross-Report Correlations
+                </span>
+                <span className="text-xs text-amber-600 dark:text-amber-400">
+                  {Object.keys(correlations).length} IOC{Object.keys(correlations).length !== 1 ? 's' : ''} found in
+                  multiple reports
+                </span>
+              </div>
+              <div className="space-y-2">
+                {Object.entries(correlations).map(([ioc, corr]) => (
+                  <div
+                    key={ioc}
+                    className="rounded border border-amber-200 dark:border-amber-800 bg-white dark:bg-amber-950/30 p-2"
+                  >
+                    <div className="flex items-center gap-2 mb-1">
+                      <code className="font-mono text-sm font-semibold text-amber-900 dark:text-amber-100">{ioc}</code>
+                      <span className="text-xs text-amber-600 dark:text-amber-400">
+                        appeared in {corr.count} reports
+                      </span>
+                    </div>
+                    <div className="text-xs text-amber-700 dark:text-amber-300">
+                      {corr.reports.map((r) => r.title).join(' · ')}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Tabs */}
           <div className="mb-3 flex flex-wrap gap-1.5">
@@ -633,6 +753,7 @@ export default function ReportAnalyzer(): JSX.Element {
           {tab === 'attackflow' && <AttackFlowTab phases={data.attackFlow} />}
           {tab === 'heatmap' && <HeatmapTab ttp={data.ttp} />}
           {tab === 'source' && <SourceTab url={inputUrl} data={data} />}
+          {tab === 'timeline' && <TimelineTab />}
         </>
       )}
     </DataPageLayout>
@@ -709,7 +830,9 @@ function IocsTab({
         </button>
         <button
           type="button"
-          onClick={() => downloadBlob(new Blob([JSON.stringify(iocs, null, 2)], { type: 'application/json' }), 'iocs.json')}
+          onClick={() =>
+            downloadBlob(new Blob([JSON.stringify(iocs, null, 2)], { type: 'application/json' }), 'iocs.json')
+          }
           className="shrink-0 mt-0.5 inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1.5 text-xs font-mono text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
         >
           <Download className="h-3 w-3" /> JSON
@@ -731,6 +854,20 @@ function IocsTab({
             >
               {Math.round(i.confidence * 100)}%
             </span>
+            {i.maltiverse && (
+              <span
+                className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${
+                  i.maltiverse.verdict === 'malicious'
+                    ? 'text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40 border-rose-300 dark:border-rose-800'
+                    : i.maltiverse.verdict === 'suspicious'
+                      ? 'text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 border-amber-300 dark:border-amber-800'
+                      : 'text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-800'
+                }`}
+                title={i.maltiverse.classification ? `classification: ${i.maltiverse.classification}` : ''}
+              >
+                {i.maltiverse.verdict} {i.maltiverse.score > 0 ? `(${i.maltiverse.score})` : ''}
+              </span>
+            )}
             {i.source === 'image-ocr' && (
               <span className="text-micro font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5 text-slate-500 dark:text-slate-400">
                 ocr
@@ -821,18 +958,20 @@ function CvesTab({
   const filtered = useMemo(() => {
     const q = filter.trim().toLowerCase();
     if (!q) return cves;
-    return cves.filter(
-      (c) =>
-        `${c.id} ${c.context} ${c.description ?? ''} ${(c.products ?? []).join(' ')}`.toLowerCase().includes(q)
+    return cves.filter((c) =>
+      `${c.id} ${c.context} ${c.description ?? ''} ${(c.products ?? []).join(' ')}`.toLowerCase().includes(q)
     );
   }, [cves, filter]);
 
   const severityColor = (s?: string) => {
     if (!s) return '';
     const v = s.toUpperCase();
-    if (v === 'CRITICAL') return 'text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40 border-rose-300 dark:border-rose-800';
-    if (v === 'HIGH') return 'text-orange-700 dark:text-orange-300 bg-orange-50 dark:bg-orange-950/40 border-orange-300 dark:border-orange-800';
-    if (v === 'MEDIUM') return 'text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 border-amber-300 dark:border-amber-800';
+    if (v === 'CRITICAL')
+      return 'text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40 border-rose-300 dark:border-rose-800';
+    if (v === 'HIGH')
+      return 'text-orange-700 dark:text-orange-300 bg-orange-50 dark:bg-orange-950/40 border-orange-300 dark:border-orange-800';
+    if (v === 'MEDIUM')
+      return 'text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 border-amber-300 dark:border-amber-800';
     return 'text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/40 border-sky-300 dark:border-sky-800';
   };
 
@@ -856,7 +995,9 @@ function CvesTab({
                 {c.id} <ExternalLink className="h-3 w-3" />
               </a>
               {c.cvss_severity && (
-                <span className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${severityColor(c.cvss_severity)}`}>
+                <span
+                  className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${severityColor(c.cvss_severity)}`}
+                >
                   {c.cvss_severity} {c.cvss_v3 != null ? c.cvss_v3.toFixed(1) : ''}
                 </span>
               )}
@@ -885,7 +1026,10 @@ function CvesTab({
             {c.products && c.products.length > 0 && (
               <div className="flex flex-wrap gap-1 mb-1.5">
                 {c.products.map((p) => (
-                  <span key={p} className="text-micro font-mono rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5 text-slate-500 dark:text-slate-400">
+                  <span
+                    key={p}
+                    className="text-micro font-mono rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5 text-slate-500 dark:text-slate-400"
+                  >
                     {p}
                   </span>
                 ))}
@@ -940,7 +1084,9 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }) {
               <dt className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 {r.label}
               </dt>
-              <dd className="mt-0.5 text-sm text-slate-700 dark:text-slate-200 leading-relaxed break-words">{r.value}</dd>
+              <dd className="mt-0.5 text-sm text-slate-700 dark:text-slate-200 leading-relaxed break-words">
+                {r.value}
+              </dd>
             </div>
           ))}
         </div>
@@ -1456,43 +1602,122 @@ function HeatmapTab({ ttp }: { ttp: TtpHit[] }) {
     return m;
   }, [ttp]);
 
+  // Count total unique techniques (including sub-techniques).
+  const uniqueTechniques = useMemo(() => {
+    const ids = new Set(ttp.map((t) => t.id.split('.')[0]));
+    return ids.size;
+  }, [ttp]);
+
   if (ttp.length === 0) return <EmptyState message="No techniques detected — heatmap is empty." />;
+
+  // Sort tactics by canonical ATT&CK order.
+  const activeTactics = MITRE_TACTICS.filter((t) => grouped.has(t));
+  const otherTactics = Array.from(grouped.keys()).filter(
+    (t) => !MITRE_TACTICS.includes(t as (typeof MITRE_TACTICS)[number])
+  );
 
   return (
     <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 overflow-x-auto">
-      <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
-        MITRE ATT&CK Heatmap · {ttp.length} technique{ttp.length !== 1 ? 's' : ''} across {grouped.size} tactic
-        {grouped.size !== 1 ? 's' : ''}
+      {/* Header */}
+      <div className="flex flex-wrap items-center gap-3 mb-4">
+        <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          MITRE ATT&CK Heatmap
+        </div>
+        <div className="flex items-center gap-2 text-xs">
+          <span className="rounded bg-slate-100 dark:bg-slate-800 px-2 py-0.5 font-mono text-slate-600 dark:text-slate-300">
+            {uniqueTechniques} techniques
+          </span>
+          <span className="rounded bg-slate-100 dark:bg-slate-800 px-2 py-0.5 font-mono text-slate-600 dark:text-slate-300">
+            {activeTactics.length + otherTactics.length} tactics
+          </span>
+          <span className="rounded bg-slate-100 dark:bg-slate-800 px-2 py-0.5 font-mono text-slate-600 dark:text-slate-300">
+            {ttp.length} mappings
+          </span>
+        </div>
       </div>
+
+      {/* Confidence legend */}
+      <div className="flex items-center gap-3 mb-4 text-[10px] font-mono">
+        <span className="text-slate-500 dark:text-slate-400">Confidence:</span>
+        <span className="flex items-center gap-1">
+          <span className="h-2.5 w-2.5 rounded bg-rose-400" /> high
+        </span>
+        <span className="flex items-center gap-1">
+          <span className="h-2.5 w-2.5 rounded bg-amber-400" /> medium
+        </span>
+        <span className="flex items-center gap-1">
+          <span className="h-2.5 w-2.5 rounded bg-sky-400" /> low
+        </span>
+      </div>
+
+      {/* Matrix grid */}
       <div
-        className="grid gap-2"
-        style={{ gridTemplateColumns: `repeat(${Math.min(grouped.size, 7)}, minmax(140px, 1fr))` }}
+        className="grid gap-1.5"
+        style={{
+          gridTemplateColumns: `repeat(${Math.min(activeTactics.length + otherTactics.length, 7)}, minmax(130px, 1fr))`,
+        }}
       >
-        {MITRE_TACTICS.filter((t) => grouped.has(t)).map((tactic) => {
+        {[...activeTactics, ...otherTactics].map((tactic) => {
           const hits = grouped.get(tactic)!;
+          const density = Math.min(hits.length / 5, 1); // 0-1 scale
           return (
             <div
               key={tactic}
-              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] overflow-hidden"
+              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden"
+              style={{
+                background: `rgba(59, 130, 246, ${0.03 + density * 0.08})`,
+              }}
             >
-              <div className="px-2 py-1.5 bg-slate-100 dark:bg-slate-800/60 border-b border-slate-200 dark:border-[rgb(var(--border-400))] text-micro font-mono font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300 truncate">
-                {tactic}
+              <div className="px-2 py-1.5 bg-slate-100 dark:bg-slate-800/60 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+                <div className="text-[9px] font-mono font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300 truncate">
+                  {tactic}
+                </div>
+                <div className="text-[8px] font-mono text-slate-400 dark:text-slate-500">
+                  {hits.length} technique{hits.length !== 1 ? 's' : ''}
+                </div>
               </div>
-              <div className="p-1.5 space-y-1">
-                {hits.map((t) => (
-                  <div
-                    key={t.id}
-                    title={t.evidence || t.name}
-                    className={`rounded border px-1.5 py-1 text-[10px] font-mono leading-tight ${CONFIDENCE_BG[t.confidence]}`}
-                  >
-                    <span className="font-semibold">{t.id}</span>
-                    <span className="ml-1 opacity-70">{t.name}</span>
-                  </div>
-                ))}
+              <div className="p-1 space-y-0.5 max-h-64 overflow-y-auto">
+                {hits.map((t) => {
+                  const isSub = t.id.includes('.');
+                  return (
+                    <div
+                      key={t.id}
+                      title={`${t.id}: ${t.name}\n${t.evidence || ''}`}
+                      className={`rounded border px-1.5 py-0.5 text-[9px] font-mono leading-tight cursor-default transition-opacity hover:opacity-80 ${CONFIDENCE_BG[t.confidence]} ${isSub ? 'ml-2 border-l-2' : ''}`}
+                    >
+                      <span className="font-semibold">{t.id}</span>
+                      <span className="ml-1 opacity-70 truncate">{t.name}</span>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           );
         })}
+      </div>
+
+      {/* Technique density bar chart */}
+      <div className="mt-4 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mb-2">Technique Density by Tactic</div>
+        <div className="space-y-1">
+          {[...activeTactics, ...otherTactics].map((tactic) => {
+            const hits = grouped.get(tactic)!;
+            const maxHits = Math.max(...Array.from(grouped.values()).map((v) => v.length));
+            const pct = maxHits > 0 ? (hits.length / maxHits) * 100 : 0;
+            return (
+              <div key={tactic} className="flex items-center gap-2 text-[10px]">
+                <span className="w-24 truncate font-mono text-slate-500 dark:text-slate-400">{tactic}</span>
+                <div className="flex-1 h-2 bg-slate-100 dark:bg-slate-800 rounded overflow-hidden">
+                  <div
+                    className="h-full bg-blue-500 dark:bg-blue-400 rounded transition-all"
+                    style={{ width: `${pct}%` }}
+                  />
+                </div>
+                <span className="w-6 text-right font-mono text-slate-600 dark:text-slate-300">{hits.length}</span>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
@@ -1524,6 +1749,182 @@ function SourceTab({ url, data }: { url: string; data: AnalyzerOutput }) {
       ) : (
         <EmptyState message="No source text captured." />
       )}
+    </section>
+  );
+}
+
+interface TimelineReport {
+  id: string;
+  title: string;
+  source_url: string | null;
+  created_at: string;
+  ioc_count: number;
+  ttp_count: number;
+  cve_count: number;
+  iocs: Array<{ value: string; kind: string }>;
+  ttps: Array<{ id: string; name: string; tactic: string }>;
+  cves: Array<{ id: string }>;
+}
+
+function TimelineTab() {
+  const [timeline, setTimeline] = useState<TimelineReport[]>([]);
+  const [sharedIocs, setSharedIocs] = useState<Array<{ value: string; reportIds: string[] }>>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetch('/api/v1/saved-reports/timeline');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const d = (await res.json()) as {
+          timeline: TimelineReport[];
+          sharedIocs: Array<{ value: string; reportIds: string[] }>;
+        };
+        setTimeline(d.timeline);
+        setSharedIocs(d.sharedIocs);
+      } catch (e) {
+        setError(e instanceof Error ? e.message : String(e));
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-8 text-center">
+        <RefreshCw className="h-6 w-6 animate-spin text-slate-400 mx-auto mb-2" />
+        <span className="text-sm text-slate-500 dark:text-slate-400">Loading timeline…</span>
+      </section>
+    );
+  }
+
+  if (error) return <EmptyState message={`Failed to load timeline: ${error}`} />;
+  if (timeline.length === 0) return <EmptyState message="No saved reports yet. Save reports to see the timeline." />;
+
+  // Group shared IOCs by value for quick lookup.
+  const sharedIocSet = new Set(sharedIocs.map((s) => s.value.toLowerCase()));
+
+  return (
+    <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <div className="flex flex-wrap items-center gap-3 mb-4">
+        <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          Report Timeline
+        </div>
+        <div className="flex items-center gap-2 text-xs">
+          <span className="rounded bg-slate-100 dark:bg-slate-800 px-2 py-0.5 font-mono text-slate-600 dark:text-slate-300">
+            {timeline.length} reports
+          </span>
+          <span className="rounded bg-amber-100 dark:bg-amber-900/40 px-2 py-0.5 font-mono text-amber-700 dark:text-amber-300">
+            {sharedIocs.length} shared IOCs
+          </span>
+        </div>
+      </div>
+
+      {/* Shared IOCs summary */}
+      {sharedIocs.length > 0 && (
+        <div className="mb-4 p-3 rounded-lg border border-amber-200 dark:border-amber-900/60 bg-amber-50/40 dark:bg-amber-950/20">
+          <div className="text-xs font-semibold text-amber-800 dark:text-amber-200 mb-2">
+            Cross-Report IOCs (appear in multiple reports)
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            {sharedIocs.map((s) => (
+              <span
+                key={s.value}
+                className="inline-flex items-center gap-1 rounded border border-amber-300 dark:border-amber-700 bg-amber-100 dark:bg-amber-900/40 px-2 py-0.5 text-xs font-mono text-amber-800 dark:text-amber-200"
+                title={`Appears in ${s.reportIds.length} reports`}
+              >
+                {s.value}
+                <span className="text-amber-500 dark:text-amber-400">·{s.reportIds.length}</span>
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Timeline visualization */}
+      <div className="relative">
+        {/* Vertical line */}
+        <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-slate-200 dark:bg-slate-700" />
+
+        <div className="space-y-4">
+          {timeline.map((report) => {
+            const date = new Date(report.created_at);
+            const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            const timeStr = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+            const sharedInReport = report.iocs.filter((i) => sharedIocSet.has(i.value.toLowerCase()));
+
+            return (
+              <div key={report.id} className="relative pl-10">
+                {/* Timeline dot */}
+                <div
+                  className={`absolute left-2.5 top-2 w-3 h-3 rounded-full border-2 ${
+                    sharedInReport.length > 0
+                      ? 'border-amber-500 bg-amber-100 dark:bg-amber-900/40'
+                      : 'border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800'
+                  }`}
+                />
+
+                {/* Report card */}
+                <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
+                  <div className="flex flex-wrap items-center gap-2 mb-2">
+                    <span className="text-sm font-semibold text-slate-900 dark:text-slate-100">{report.title}</span>
+                    <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+                      {dateStr} {timeStr}
+                    </span>
+                  </div>
+
+                  {/* Stats */}
+                  <div className="flex flex-wrap gap-1.5 mb-2 text-[10px] font-mono">
+                    <span className="rounded bg-sky-100 dark:bg-sky-900/40 px-1.5 py-0.5 text-sky-700 dark:text-sky-300">
+                      {report.ioc_count} IOCs
+                    </span>
+                    <span className="rounded bg-violet-100 dark:bg-violet-900/40 px-1.5 py-0.5 text-violet-700 dark:text-violet-300">
+                      {report.ttp_count} TTPs
+                    </span>
+                    <span className="rounded bg-amber-100 dark:bg-amber-900/40 px-1.5 py-0.5 text-amber-700 dark:text-amber-300">
+                      {report.cve_count} CVEs
+                    </span>
+                    {sharedInReport.length > 0 && (
+                      <span className="rounded bg-rose-100 dark:bg-rose-900/40 px-1.5 py-0.5 text-rose-700 dark:text-rose-300">
+                        {sharedInReport.length} shared
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Top IOCs (highlight shared ones) */}
+                  {report.iocs.length > 0 && (
+                    <div className="flex flex-wrap gap-1">
+                      {report.iocs.slice(0, 8).map((ioc) => {
+                        const isShared = sharedIocSet.has(ioc.value.toLowerCase());
+                        return (
+                          <span
+                            key={ioc.value}
+                            className={`inline-flex items-center rounded px-1.5 py-0.5 text-[9px] font-mono ${
+                              isShared
+                                ? 'border border-amber-400 dark:border-amber-600 bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-200 font-semibold'
+                                : 'border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400'
+                            }`}
+                            title={isShared ? 'Shared across reports' : ioc.kind}
+                          >
+                            {ioc.value.length > 25 ? ioc.value.slice(0, 25) + '…' : ioc.value}
+                          </span>
+                        );
+                      })}
+                      {report.iocs.length > 8 && (
+                        <span className="text-[9px] text-slate-400 dark:text-slate-500 self-center">
+                          +{report.iocs.length - 8} more
+                        </span>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </section>
   );
 }

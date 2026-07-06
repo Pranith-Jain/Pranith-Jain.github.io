@@ -557,10 +557,24 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     // ── Today's Briefing ─────────────────────────────────────────────────
     this.tools(
       'get_today_briefing',
-      "Get today's threat intelligence briefing. A curated digest of the latest CVEs, ransomware activity, data breaches, and emerging threats from the past 24 hours.",
-      {},
-      async () => {
+      "Get today's threat intelligence briefing. A curated digest of the latest CVEs, ransomware activity, data breaches, and emerging threats from the past 24 hours. When format=markdown returns a TI Mindmap HUB-style rich formatted report.",
+      {
+        format: z
+          .enum(['json', 'markdown'])
+          .optional()
+          .describe('Output format: json (default) or markdown for rich formatted briefing'),
+      },
+      async ({ format }) => {
         const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/briefings/today', this.apiKey);
+        if (data && typeof data === 'object' && 'slug' in data && format === 'markdown') {
+          const slug = (data as Record<string, string>).slug;
+          const result = await apiFetch<{ markdown: string }>(
+            this.env.SELF,
+            `/api/v1/briefings/${slug}/render`,
+            this.apiKey
+          );
+          return { content: [{ type: 'text', text: result.markdown }] };
+        }
         return untrustedToolResult(data);
       }
     );
@@ -1166,14 +1180,23 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     // 4. analyze_report — the unified per-report orchestrator.
     this.tools(
       'analyze_report',
-      'Unified per-report analyzer. Runs summary + IOC extraction (with allowlist + confidence) + MITRE ATT&CK TTP mapping + 5W context + CVE extraction + image-OCR + STIX 2.1 bundle in a single round-trip. Accepts text, URL, or both; optionally takes image URLs to OCR.',
+      'Unified per-report analyzer. Runs summary + IOC extraction (with allowlist + confidence) + MITRE ATT&CK TTP mapping + 5W context + CVE extraction + image-OCR + STIX 2.1 bundle in a single round-trip. Accepts text, URL, or both; optionally takes image URLs to OCR. When format=markdown returns a TI Mindmap HUB-style rich formatted markdown report.',
       {
         text: z.string().max(80_000).optional().describe('Report text (optional if url provided)'),
         url: z.string().url().optional().describe('Report URL to fetch (optional if text provided)'),
         image_urls: z.array(z.string().url()).max(8).optional().describe('Image URLs to OCR for embedded IOCs (max 8)'),
         title: z.string().optional().describe('Display title for the report'),
+        format: z
+          .enum(['json', 'markdown'])
+          .optional()
+          .describe('Output format: json (default) or markdown for rich formatted report'),
+        severity: z
+          .enum(['CRITICAL', 'HIGH', 'MEDIUM', 'LOW', 'INFORMATIONAL'])
+          .optional()
+          .describe('Override severity classification'),
+        tags: z.array(z.string()).max(8).optional().describe('Tags to include in report frontmatter'),
       },
-      async ({ text, url, image_urls, title }) => {
+      async ({ text, url, image_urls, title, format, severity, tags }) => {
         const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/report-analyzer', this.apiKey, {
           method: 'POST',
           body: JSON.stringify({
@@ -1183,6 +1206,19 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             title,
           }),
         });
+        if (format === 'markdown') {
+          const result = await apiFetch<{ markdown: string }>(
+            this.env.SELF,
+            '/api/v1/report-analyzer/render',
+            this.apiKey,
+            {
+              method: 'POST',
+              headers: { 'content-type': 'application/json' },
+              body: JSON.stringify({ output: data, severity, tags }),
+            }
+          );
+          return { content: [{ type: 'text', text: result.markdown }] };
+        }
         return untrustedToolResult(data);
       }
     );
@@ -1459,10 +1495,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             .string()
             .optional()
             .describe('Filter by registry hive (NTUSER, SOFTWARE, SYSTEM, SAM, SECURITY, AMCACHE, USRCLASS)'),
-          technique: z
-            .string()
-            .optional()
-            .describe('Filter by MITRE ATT&CK technique ID (e.g. "T1547.001")'),
+          technique: z.string().optional().describe('Filter by MITRE ATT&CK technique ID (e.g. "T1547.001")'),
           keyword: z
             .string()
             .optional()
@@ -1490,12 +1523,18 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         {
           slug: z
             .string()
-            .describe('Artifact slug, e.g. "autostart-and-persistence-run-runonce-autostart-keys". Get these from winreg_list_artifacts.'),
+            .describe(
+              'Artifact slug, e.g. "autostart-and-persistence-run-runonce-autostart-keys". Get these from winreg_list_artifacts.'
+            ),
         },
         async ({ slug }) => {
           const body = await getWinRegArtifact(ASSETS, slug);
           if (!body) {
-            return untrustedToolResult({ error: 'artifact_not_found', slug, hint: 'Call winreg_list_artifacts to see available slugs.' });
+            return untrustedToolResult({
+              error: 'artifact_not_found',
+              slug,
+              hint: 'Call winreg_list_artifacts to see available slugs.',
+            });
           }
           return untrustedToolResult(body);
         }
@@ -2061,7 +2100,11 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         'traceix_lookup',
         'Look up a SHA-256 file hash against traceix.com (PCEF) for antivirus/reputation results. Returns per-engine verdicts (Safe/Malicious/Unknown/Failed). Powered by Perkins Fund AI. Requires TRACEIX_API_KEY secret.',
         {
-          hash: z.string().describe('SHA-256 hash (64 hex characters), e.g. "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855".'),
+          hash: z
+            .string()
+            .describe(
+              'SHA-256 hash (64 hex characters), e.g. "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855".'
+            ),
         },
         async ({ hash }) => {
           const r = await traceixLookup(this.env as { TRACEIX_API_KEY?: string }, hash);

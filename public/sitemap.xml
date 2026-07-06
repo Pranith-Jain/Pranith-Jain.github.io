@@ -37,7 +37,7 @@
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
-  <!-- Misc (5) -->
+  <!-- Misc (7) -->
   <url>
     <loc>https://pranithjain.qzz.io/behind-the-reports</loc>
     <lastmod>2026-07-06</lastmod>
@@ -52,6 +52,18 @@
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/radar</loc>
+    <lastmod>2026-07-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://pranithjain.qzz.io/traceix</loc>
+    <lastmod>2026-07-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://pranithjain.qzz.io/winreg</loc>
     <lastmod>2026-07-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>

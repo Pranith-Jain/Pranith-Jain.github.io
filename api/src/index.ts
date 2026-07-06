@@ -190,6 +190,7 @@ import {
   briefingPrintHandler,
   briefingIocsTxtHandler,
 } from './routes/briefings';
+import { briefingRenderHandler } from './routes/briefing-render';
 import { briefingsRssHandler } from './routes/briefings-rss';
 import {
   submitFeedbackHandler,
@@ -477,7 +478,15 @@ import { ttpExtractHandler } from './routes/ttp-extract';
 import { fivewHandler } from './routes/fivew';
 import { imageIocHandler } from './routes/image-ioc';
 import { reportAnalyzerHandler } from './routes/report-analyzer';
-import { listSavedReports, getSavedReport, saveReport, deleteSavedReport } from './routes/saved-reports';
+import { reportAnalyzerRenderHandler } from './routes/report-analyzer-render';
+import {
+  listSavedReports,
+  getSavedReport,
+  saveReport,
+  deleteSavedReport,
+  correlateIocs,
+  getTimeline,
+} from './routes/saved-reports';
 import { leakIxSearchHandler } from './routes/leakix';
 import { hostIntelHandler } from './routes/host';
 import { proxyNovaSearchHandler } from './routes/proxynova';
@@ -1319,6 +1328,7 @@ app.post('/api/v1/briefings/sweep', sweepBriefingsHandler);
 app.post('/api/v1/briefings/prune-empty', pruneEmptyBriefingsHandler);
 app.post('/api/v1/briefings/delete', validate('query', briefingDeleteSchema), deleteBriefingHandler);
 app.get('/api/v1/briefings/for-actor/:slug', briefingsForActorHandler);
+app.get('/api/v1/briefings/:slug/render', briefingRenderHandler);
 app.get('/api/v1/briefings/:slug/print', briefingPrintHandler);
 app.get('/api/v1/briefings/:slug/iocs.txt', briefingIocsTxtHandler);
 app.get('/api/v1/briefings/:slug', getBriefingHandler);
@@ -1419,10 +1429,13 @@ app.post('/api/v1/image-ioc', imageIocHandler);
 // Phase 3: unified per-report analyzer (summary + IOCs + TTPs + 5W +
 // image-IOCs + STIX bundle, all in one round-trip).
 app.post('/api/v1/report-analyzer', reportAnalyzerHandler);
+app.post('/api/v1/report-analyzer/render', reportAnalyzerRenderHandler);
 app.get('/api/v1/saved-reports', listSavedReports);
+app.get('/api/v1/saved-reports/timeline', getTimeline);
 app.get('/api/v1/saved-reports/:id', getSavedReport);
 app.post('/api/v1/saved-reports', saveReport);
 app.delete('/api/v1/saved-reports/:id', deleteSavedReport);
+app.post('/api/v1/saved-reports/correlate', correlateIocs);
 app.post('/api/v1/copilot/investigate', validate('json', copilotInvestigateSchema), copilotInvestigateHandler);
 app.get('/api/v1/copilot/investigate', copilotInvestigateHandler);
 app.post('/api/v1/copilot/chat', copilotChatHandler);
@@ -1833,6 +1846,7 @@ import {
   threatReportIndustryHandler,
   threatReportExternalHandler,
 } from './routes/threat-reports';
+import { analyticsReportHandler } from './routes/analytics-report';
 
 import { emailOsnitProfileHandler, emailOsnitBulkHandler } from './routes/email-osnit-profile';
 import { emailRegistrationHandler, emailRegistrationPlatformsHandler } from './routes/email-registration';
@@ -1844,6 +1858,7 @@ app.get('/api/v1/fortibleed/check', fortibleedCheckHandler);
 app.post('/api/v1/fortibleed/batch', fortibleedBatchHandler);
 app.get('/api/v1/health-breach/dashboard', healthBreachDashboardHandler);
 app.get('/api/v1/health-breach/search', healthBreachSearchHandler);
+app.post('/api/v1/analytics-report', analyticsReportHandler);
 app.get('/api/v1/threat-reports', threatReportOverviewHandler);
 app.get('/api/v1/threat-reports/country', threatReportCountryHandler);
 app.get('/api/v1/threat-reports/industry', threatReportIndustryHandler);

@@ -41,6 +41,13 @@ export interface ExtractedIoc {
   confidence_band: 'high' | 'medium' | 'low';
   evidence: string;
   source: 'report-text' | 'image-ocr';
+  /** Maltiverse enrichment (if available). */
+  maltiverse?: {
+    score: number;
+    verdict: string;
+    classification?: string;
+    tags?: string[];
+  };
 }
 
 export interface ExtractedCve {
@@ -133,11 +140,14 @@ const URL_RE = /https?:\/\/[^\s<>"']{4,}/g;
 const HASH_RE = /\b[a-fA-F0-9]{32}\b|\b[a-fA-F0-9]{40}\b|\b[a-fA-F0-9]{64}\b/g;
 const DOMAIN_RE = /\b(?!\d{1,3}(?:\.\d{1,3}){3}\b)([a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?\.){1,}[a-z]{2,}\b/gi;
 const EMAIL_RE = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/g;
-const FILEPATH_WIN_RE = /(?:[A-Z]:\\(?:[A-Za-z0-9_. -]+\\)*[A-Za-z0-9_. -]+\.(?:exe|dll|bat|cmd|ps1|vbs|msi|zip|rar|7z|csv|txt|html|json|xml|log|pdb|dat|db|dit|pem|key|crt))/gi;
-const FILEPATH_UNIX_RE = /(?:\/(?:usr|etc|var|tmp|opt|home|root|bin|sbin|lib)(?:\/[A-Za-z0-9_. -]+)*\/[A-Za-z0-9_. -]+\.(?:exe|sh|bash|py|pl|rb|conf|log|pem|key|crt|json|xml))/gi;
+const FILEPATH_WIN_RE =
+  /(?:[A-Z]:\\(?:[A-Za-z0-9_. -]+\\)*[A-Za-z0-9_. -]+\.(?:exe|dll|bat|cmd|ps1|vbs|msi|zip|rar|7z|csv|txt|html|json|xml|log|pdb|dat|db|dit|pem|key|crt))/gi;
+const FILEPATH_UNIX_RE =
+  /(?:\/(?:usr|etc|var|tmp|opt|home|root|bin|sbin|lib)(?:\/[A-Za-z0-9_. -]+)*\/[A-Za-z0-9_. -]+\.(?:exe|sh|bash|py|pl|rb|conf|log|pem|key|crt|json|xml))/gi;
 // Directory extraction: match Windows/Unix paths that end with \ or /
 // (explicit directory notation) OR appear at line boundaries.
-const DIRECTORY_RE = /(?:[A-Z]:\\(?:[A-Za-z0-9_.]+\\)*[A-Za-z0-9_.]+\\)|(?:\/(?:usr|etc|var|tmp|opt|home|root|bin|sbin|lib)(?:\/[A-Za-z0-9_.]+)*\/)|(?:[A-Z]:\\(?:[A-Za-z0-9_.]+\\)*[A-Za-z0-9_.]+)(?=\s*$)|(?:\/(?:usr|etc|var|tmp|opt|home|root|bin|sbin|lib)(?:\/[A-Za-z0-9_.]+)*)(?=\s*$)/gm;
+const DIRECTORY_RE =
+  /(?:[A-Z]:\\(?:[A-Za-z0-9_.]+\\)*[A-Za-z0-9_.]+\\)|(?:\/(?:usr|etc|var|tmp|opt|home|root|bin|sbin|lib)(?:\/[A-Za-z0-9_.]+)*\/)|(?:[A-Z]:\\(?:[A-Za-z0-9_.]+\\)*[A-Za-z0-9_.]+)(?=\s*$)|(?:\/(?:usr|etc|var|tmp|opt|home|root|bin|sbin|lib)(?:\/[A-Za-z0-9_.]+)*)(?=\s*$)/gm;
 
 const ACTOR_KEYWORDS = [
   'APT',
@@ -246,11 +256,15 @@ function extractReadableHtml(html: string): string {
           return title ? `${title}\n\n${articleBody}` : articleBody;
         }
       }
-    } catch { /* ignore parse errors */ }
+    } catch {
+      /* ignore parse errors */
+    }
   }
 
   // Strategy 2: Extract meta description and og:description (useful fallback).
-  const metaDesc = h.match(/<meta[^>]*(?:name|property)=["'](?:description|og:description)["'][^>]*content=["']([^"']+)["']/i);
+  const metaDesc = h.match(
+    /<meta[^>]*(?:name|property)=["'](?:description|og:description)["'][^>]*content=["']([^"']+)["']/i
+  );
   const ogTitle = h.match(/<meta[^>]*property=["']og:title["'][^>]*content=["']([^"']+)["']/i);
   const pageTitle = h.match(/<title[^>]*>([^<]+)<\/title>/i);
   const title = ogTitle?.[1]?.trim() ?? pageTitle?.[1]?.trim() ?? '';
@@ -269,7 +283,9 @@ function extractReadableHtml(html: string): string {
   // Try semantic containers — prefer the one with the most content.
   const articleMatch = h.match(/<article[\s\S]*?>([\s\S]*?)<\/article>/i);
   const mainMatch = h.match(/<main[\s\S]*?>([\s\S]*?)<\/main>/i);
-  const contentDiv = h.match(/<div[^>]*class=["'][^"']*(?:article|content|post|entry|body)[^"']*["'][^>]*>([\s\S]*?)<\/div>/i);
+  const contentDiv = h.match(
+    /<div[^>]*class=["'][^"']*(?:article|content|post|entry|body)[^"']*["'][^>]*>([\s\S]*?)<\/div>/i
+  );
   const bodyMatch = h.match(/<body[\s\S]*?>([\s\S]*?)<\/body>/i);
   // Pick the container with the most content.
   const candidates = [
@@ -325,7 +341,9 @@ async function fetchReportText(url: string, env?: Env): Promise<{ text: string; 
       if (rendered.text.length > result.text.length) {
         return rendered;
       }
-    } catch { /* fall through to regular result */ }
+    } catch {
+      /* fall through to regular result */
+    }
   }
 
   return result;
@@ -339,8 +357,9 @@ async function tryRegularFetch(url: string): Promise<{ text: string; title?: str
     try {
       const res = await pinnedFetchFollow(url, {
         headers: {
-          'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-          'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+          'user-agent':
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+          accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
           'accept-language': 'en-US,en;q=0.9',
         },
         signal: ctrl.signal,
@@ -513,6 +532,61 @@ async function enrichCves(cves: ExtractedCve[]): Promise<ExtractedCve[]> {
   );
   // Re-attach any CVEs beyond the enrichment cap
   return [...enriched, ...cves.slice(5)];
+}
+
+/** Enrich IOCs with Maltiverse reputation data.
+ *  Caps at 10 IOCs to stay within rate limits.
+ *  Runs in parallel with a per-IOC timeout. */
+async function enrichIocs(iocs: ExtractedIoc[]): Promise<ExtractedIoc[]> {
+  // Only enrich ip, domain, url, hash types.
+  const enrichable = iocs.filter((i) => ['ip', 'ipv6', 'domain', 'url', 'hash'].includes(i.kind));
+  const toEnrich = enrichable.slice(0, 10);
+
+  const enriched = await Promise.all(
+    toEnrich.map(async (ioc) => {
+      try {
+        const timeout = new Promise<never>((_, reject) =>
+          setTimeout(() => reject(new Error('maltiverse timeout')), 5_000)
+        );
+        const res = await Promise.race([
+          fetch(`https://api.maltiverse.com/search?query=${encodeURIComponent(ioc.value)}&limit=3`, {
+            headers: { accept: 'application/json', 'user-agent': 'pranithjain.qzz.io report-analyzer' },
+          }),
+          timeout,
+        ]);
+        if (!res.ok) return ioc;
+        const json = (await res.json()) as {
+          hits?: { hits?: Array<{ _source?: { classification?: string; blacklist?: unknown[]; tags?: string[] } }> };
+        };
+        const hits = json.hits?.hits ?? [];
+        if (hits.length === 0) return ioc;
+        const src = hits[0]?._source;
+        if (!src) return ioc;
+        const classification = src.classification ?? 'unknown';
+        const blacklistCount = Array.isArray(src.blacklist) ? src.blacklist.length : 0;
+        // Score: malicious=10, suspicious=5, suspicious+blacklist=7, unknown=0, clean=0
+        let score = 0;
+        if (classification === 'malicious') score = 10;
+        else if (classification === 'suspicious') score = blacklistCount > 0 ? 7 : 5;
+        const verdict = score >= 7 ? 'malicious' : score >= 5 ? 'suspicious' : 'clean';
+        return {
+          ...ioc,
+          maltiverse: {
+            score,
+            verdict,
+            classification,
+            tags: src.tags?.slice(0, 5),
+          },
+        };
+      } catch {
+        return ioc;
+      }
+    })
+  );
+
+  // Merge enriched IOCs back into the full list.
+  const enrichedMap = new Map(enriched.map((e) => [`${e.kind}:${e.value}`, e]));
+  return iocs.map((ioc) => enrichedMap.get(`${ioc.kind}:${ioc.value}`) ?? ioc);
 }
 
 function extractEntities(text: string): { actors: string[]; malware: string[] } {
@@ -692,11 +766,7 @@ export async function runReportAnalyzer(input: AnalyzerInput, env: Env): Promise
   const cves = extractCvesFromText(text);
   const cveEnriched = enrichCves(cves);
 
-  const [detectionRes, conclusionRes, enrichedCves] = await Promise.all([
-    detectionTask,
-    conclusionTask,
-    cveEnriched,
-  ]);
+  const [detectionRes, conclusionRes, enrichedCves] = await Promise.all([detectionTask, conclusionTask, cveEnriched]);
 
   // Build IOC + entity list synchronously (pure functions).
   const textIocs = extractIocsFromText(text);
@@ -708,7 +778,11 @@ export async function runReportAnalyzer(input: AnalyzerInput, env: Env): Promise
   const iocs = Array.from(iocMap.values()).sort((a, b) => b.confidence - a.confidence);
   const ttp: TtpHit[] = ttpRes;
   const entities = extractEntities(text);
-  const mindmap = buildMindmap(iocs, ttp, enrichedCves, entities, title);
+
+  // Enrich IOCs with Maltiverse reputation in parallel with mindmap build.
+  const iocEnriched = enrichIocs(iocs);
+  const [enrichedIocs] = await Promise.all([iocEnriched, Promise.resolve()]);
+  const mindmap = buildMindmap(enrichedIocs, ttp, enrichedCves, entities, title);
 
   // STIX bundle — best-effort with a real wall-clock cap. The
   // `intel-bundle` enrichment phase is network-bound (Maltiverse / RDAP /
@@ -764,7 +838,7 @@ export async function runReportAnalyzer(input: AnalyzerInput, env: Env): Promise
     generatedAt: new Date().toISOString(),
     summary: summaryRes ? { text: summaryRes.summary, model: summaryRes.modelUsed } : null,
     fiveW: fivewRes,
-    iocs,
+    iocs: enrichedIocs,
     ttp,
     cves: enrichedCves,
     mindmap,
@@ -855,7 +929,9 @@ export function buildDiamondModel(
     }
   }
   // Also scan text for "X ransomware" or "X group" patterns.
-  const actorPatterns = text.match(/\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)\s+(?:ransomware|group|gang|crew|organization|actors?)\b/g);
+  const actorPatterns = text.match(
+    /\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)\s+(?:ransomware|group|gang|crew|organization|actors?)\b/g
+  );
   if (actorPatterns) {
     for (const m of actorPatterns) {
       const name = m.replace(/\s+(?:ransomware|group|gang|crew|organization|actors?)$/i, '').trim();
