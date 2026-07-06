@@ -59,17 +59,16 @@ export default function Traceix() {
       description={
         <span>
           Look up a SHA-256 file hash against{' '}
-          <a href="https://traceix.com" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline">
+          <a href="https://traceix.com" target="_blank" rel="noopener noreferrer" className="text-brand-600 dark:text-brand-400 hover:underline">
             traceix.com
           </a>{' '}
           — antivirus/reputation results powered by{' '}
-          <a href="https://perkinsfund.org" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline">
+          <a href="https://perkinsfund.org" target="_blank" rel="noopener noreferrer" className="text-brand-600 dark:text-brand-400 hover:underline">
             Perkins Fund (PCEF)
           </a>
           .
         </span>
       }
-      accentClass="text-cyan-400"
     >
       <div className="space-y-6 max-w-2xl mx-auto">
         <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
@@ -81,7 +80,7 @@ export default function Traceix() {
                 placeholder="Enter a SHA-256 hash (64 hex characters)"
                 value={hash}
                 onChange={(e) => setHash(e.target.value)}
-                className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-cyan-500 dark:focus:border-cyan-400"
+                className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
                 autoComplete="off"
                 spellCheck={false}
               />
@@ -89,7 +88,7 @@ export default function Traceix() {
             <button
               type="submit"
               disabled={loading || !/^[0-9a-f]{64}$/i.test(hash.trim())}
-              className="px-4 py-2 rounded bg-cyan-700 hover:bg-cyan-600 dark:bg-cyan-600 dark:hover:bg-cyan-500 text-white font-mono text-sm disabled:opacity-50 inline-flex items-center gap-2"
+              className="px-4 py-2 rounded bg-brand-600 hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-400 text-white font-mono text-sm disabled:opacity-50 inline-flex items-center gap-2"
             >
               {loading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
               {loading ? 'looking up…' : 'lookup'}
@@ -102,7 +101,7 @@ export default function Traceix() {
                 key={s.hash}
                 type="button"
                 onClick={() => { setHash(s.hash); setSubmittedHash(s.hash); }}
-                className="text-mini font-mono px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-cyan-500/40 hover:text-cyan-600 dark:hover:text-cyan-400"
+                className="text-mini font-mono px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
               >
                 {s.label}
               </button>
@@ -189,16 +188,16 @@ export default function Traceix() {
 
         <div className="text-center pt-6 pb-2 text-xs text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
           Powered by{' '}
-          <a href="https://traceix.com" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline">
+          <a href="https://traceix.com" target="_blank" rel="noopener noreferrer" className="text-brand-600 dark:text-brand-400 hover:underline">
             traceix.com
           </a>{' '}
           — a project of{' '}
-          <a href="https://perkinsfund.org" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline">
+          <a href="https://perkinsfund.org" target="_blank" rel="noopener noreferrer" className="text-brand-600 dark:text-brand-400 hover:underline">
             Perkins Fund (PCEF)
           </a>
           , a 501(c)(3) nonprofit.<br />
           API docs at{' '}
-          <a href="https://docs.perkinsfund.org/readme/traceix-endpoints/traceix.md" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline">
+          <a href="https://docs.perkinsfund.org/readme/traceix-endpoints/traceix.md" target="_blank" rel="noopener noreferrer" className="text-brand-600 dark:text-brand-400 hover:underline">
             docs.perkinsfund.org
           </a>
         </div>

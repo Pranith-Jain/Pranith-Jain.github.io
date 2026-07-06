@@ -22,20 +22,23 @@ it('returns AV results for a valid SHA-256 hash', async () => {
   const r = await traceixLookup(env, 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855');
   expect(r.success).toBe(true);
   expect(r.avResults).toHaveLength(2);
-  expect(r.diagnostics[0].status).toBe('ok');
+  const d0 = r.diagnostics[0]!;
+  expect(d0.status).toBe('ok');
 });
 
 it('returns diagnostic for invalid hash format', async () => {
   const r = await traceixLookup(env, 'not-a-valid-hash');
   expect(r.success).toBe(false);
   expect(r.avResults).toHaveLength(0);
-  expect(r.diagnostics[0].status).toBe('failed');
+  const d0 = r.diagnostics[0]!;
+  expect(d0.status).toBe('failed');
 });
 
 it('returns diagnostic when API key is missing', async () => {
   const r = await traceixLookup({}, 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855');
   expect(r.success).toBe(false);
-  expect(r.diagnostics[0].status).toBe('skipped');
+  const d0 = r.diagnostics[0]!;
+  expect(d0.status).toBe('skipped');
 });
 
 it('handles traceix API error response', async () => {
@@ -44,14 +47,16 @@ it('handles traceix API error response', async () => {
   );
   const r = await traceixLookup(env, 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855');
   expect(r.success).toBe(false);
-  expect(r.diagnostics[0].status).toBe('failed');
-  expect(r.diagnostics[0].error).toContain('bad request');
+  const d0 = r.diagnostics[0]!;
+  expect(d0.status).toBe('failed');
+  expect(d0.error).toContain('bad request');
 });
 
 it('handles fetch rejection', async () => {
   vi.spyOn(globalThis, 'fetch').mockRejectedValueOnce(new Error('network failure'));
   const r = await traceixLookup(env, 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855');
   expect(r.success).toBe(false);
-  expect(r.diagnostics[0].status).toBe('failed');
-  expect(r.diagnostics[0].error).toContain('network failure');
+  const d0 = r.diagnostics[0]!;
+  expect(d0.status).toBe('failed');
+  expect(d0.error).toContain('network failure');
 });

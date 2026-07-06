@@ -345,6 +345,8 @@ const ROUTES = [
   '/dfir/atlas',
   '/dfir/asn',
   '/dfir/breach',
+  '/traceix',
+  '/winreg',
   '/dfir/url-preview',
   '/dfir/subdomain-takeover',
   '/dfir/extract',
