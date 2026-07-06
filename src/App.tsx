@@ -37,6 +37,8 @@ const Experience = lazy(() => import('./pages/Experience'));
 const McpCatalog = lazy(() => import('./pages/McpCatalog'));
 const Status = lazy(() => import('./pages/Status'));
 const ThreatIntel = lazy(() => import('./pages/ThreatIntel'));
+const WinReg = lazy(() => import('./pages/WinReg'));
+const Traceix = lazy(() => import('./pages/Traceix'));
 const Projects = lazy(() => import('./pages/Projects'));
 const CaseStudy = lazy(() => import('./pages/CaseStudy'));
 const ResearchPostPage = lazy(() => import('./pages/threatintel/ResearchPost'));
@@ -420,6 +422,8 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/mcp', Component: McpCatalog },
   { path: '/status', Component: Status },
   { path: '/threat-intel', Component: ThreatIntel },
+  { path: '/winreg', Component: WinReg },
+  { path: '/traceix', Component: Traceix },
   { path: '/live', Component: Snapshots },
   { path: '/dfir', Component: DFIR },
   { path: '/dfir/orkl', Component: OrklPage },

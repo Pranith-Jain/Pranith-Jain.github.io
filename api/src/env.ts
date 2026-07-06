@@ -250,6 +250,9 @@ export interface Env {
    * (including ASSETS). Marked optional so the type stays usable from
    * contexts (api-only unit tests, vitest) that don't have the binding.
    */
+  /** Traceix.com (PCEF) API key for SHA-256 hash AV/reputation lookups.
+   *  Set via `wrangler secret put TRACEIX_API_KEY`. Free at perkinsfund.org. */
+  TRACEIX_API_KEY?: string;
   /** Static asset bucket binding. Type matches `Fetcher` from
    *  @cloudflare/workers-types so the SVG-PNG renderer's `env.ASSETS.fetch(...)`
    *  call is fully typed end-to-end. Optional so api-only unit tests still

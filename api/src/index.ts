@@ -477,6 +477,7 @@ import { ttpExtractHandler } from './routes/ttp-extract';
 import { fivewHandler } from './routes/fivew';
 import { imageIocHandler } from './routes/image-ioc';
 import { reportAnalyzerHandler } from './routes/report-analyzer';
+import { listSavedReports, getSavedReport, saveReport, deleteSavedReport } from './routes/saved-reports';
 import { leakIxSearchHandler } from './routes/leakix';
 import { hostIntelHandler } from './routes/host';
 import { proxyNovaSearchHandler } from './routes/proxynova';
@@ -845,6 +846,8 @@ import {
 } from './routes/security-investigator';
 import { siEdgeToolsRouter } from './routes/si-edge-tools';
 import { threatIntelRouter } from './routes/threat-intel-edge-tools';
+import { winRegRouter } from './routes/winreg-edge-tools';
+import { traceixRouter } from './routes/traceix';
 import {
   listNotebooksHandler,
   getNotebookHandler,
@@ -1416,6 +1419,10 @@ app.post('/api/v1/image-ioc', imageIocHandler);
 // Phase 3: unified per-report analyzer (summary + IOCs + TTPs + 5W +
 // image-IOCs + STIX bundle, all in one round-trip).
 app.post('/api/v1/report-analyzer', reportAnalyzerHandler);
+app.get('/api/v1/saved-reports', listSavedReports);
+app.get('/api/v1/saved-reports/:id', getSavedReport);
+app.post('/api/v1/saved-reports', saveReport);
+app.delete('/api/v1/saved-reports/:id', deleteSavedReport);
 app.post('/api/v1/copilot/investigate', validate('json', copilotInvestigateSchema), copilotInvestigateHandler);
 app.get('/api/v1/copilot/investigate', copilotInvestigateHandler);
 app.post('/api/v1/copilot/chat', copilotChatHandler);
@@ -1729,6 +1736,16 @@ app.get('/api/v1/si/scripts/:name', siScriptHandler);
 // Threat Intel vertical (OpenThreat + cyber_threat_intel + Daily-Hunt references).
 // CVE/KEV/IOC/sector briefs served from public/data/threat-intel/ via env.ASSETS.
 app.route('/api/v1', threatIntelRouter);
+
+// WinReg DFIR vertical — Windows Registry forensic artifact reference.
+// Data from github.com/dfir-scripts/dfir-scripts.github.io (MIT).
+// Upstream: https://dfir-scripts.github.io/registry/
+app.route('/api/v1', winRegRouter);
+
+// Traceix — SHA-256 hash antivirus/reputation lookup via PCEF traceix.com API.
+// Endpoint: GET /api/v1/traceix/lookup?hash=<sha256>
+// Requires TRACEIX_API_KEY Worker secret.
+app.route('/api/v1', traceixRouter);
 
 // ── Weekly TI Dashboard (RSS articles + supply chain incidents + LLM enrichment) ──
 import { tiDashboardRouter } from './routes/ti-dashboard';

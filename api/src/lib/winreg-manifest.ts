@@ -1,0 +1,1 @@
+../../../worker/lib/winreg-manifest.ts

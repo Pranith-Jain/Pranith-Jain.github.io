@@ -29,9 +29,17 @@ import {
   type TiSeverity,
   type TiIocIndexEntry,
 } from './lib/threat-intel-manifest';
+import {
+  loadWinRegIndex,
+  getWinRegArtifact,
+  filterArtifacts,
+  winRegCacheStats,
+  type WinRegListOptions,
+} from './lib/winreg-manifest';
 import { validateRawKey } from '../api/src/lib/auth';
 import { signInternalToken } from '../api/src/lib/internal-token';
 import { enrichIp, enrichIpsBatch, isValidIp, type EnrichResult } from './lib/si-enrich';
+import { traceixLookup } from './lib/traceix';
 import { buildStixBundle, type StixIndicator } from './lib/cti-ioc-export';
 import { kqlToAhUrl, kqlToAhUrlMarkdown } from './lib/kql-to-ah-url';
 import { loadScriptsIndex, getScript } from './lib/si-manifest';
@@ -1432,6 +1440,102 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         }
       );
 
+      // ── WinReg DFIR tools ──────────────────────────────────────────
+      // Windows Registry forensic artifact reference. 292 artifacts, 16
+      // categories, mapped to MITRE ATT&CK. Data ships in
+      // public/data/winreg/ built from the upstream schema at
+      // github.com/dfir-scripts/dfir-scripts.github.io (MIT).
+      // Upstream: https://dfir-scripts.github.io/registry/
+
+      this.tools(
+        'winreg_list_artifacts',
+        'List Windows Registry forensic artifacts from the WinReg DFIR reference. Filter by category, hive, MITRE technique, or free-text keyword.',
+        {
+          category: z
+            .string()
+            .optional()
+            .describe('Restrict to a single category key (e.g. "autostart_and_persistence")'),
+          hive: z
+            .string()
+            .optional()
+            .describe('Filter by registry hive (NTUSER, SOFTWARE, SYSTEM, SAM, SECURITY, AMCACHE, USRCLASS)'),
+          technique: z
+            .string()
+            .optional()
+            .describe('Filter by MITRE ATT&CK technique ID (e.g. "T1547.001")'),
+          keyword: z
+            .string()
+            .optional()
+            .describe('Case-insensitive substring match against name, category, hive, technique, or tool'),
+          limit: z.number().int().min(1).max(292).optional().describe('Max artifacts to return (default 50)'),
+        },
+        async ({ category, hive, technique, keyword, limit }) => {
+          const idx = await loadWinRegIndex(ASSETS);
+          const artifacts = filterArtifacts(idx, { category, hive, technique, keyword, limit: limit ?? 50 });
+          return untrustedToolResult({
+            total: idx.counts.artifacts,
+            returned: artifacts.length,
+            source: idx.source,
+            sourceUrl: idx.sourceUrl,
+            license: idx.license,
+            replicatedAt: idx.replicatedAt,
+            artifacts,
+          });
+        }
+      );
+
+      this.tools(
+        'winreg_get_artifact',
+        'Return the full body of a single Windows Registry forensic artifact by slug. Includes registry keys, description, forensic value, parsers, and MITRE mapping. Use winreg_list_artifacts first to discover slugs.',
+        {
+          slug: z
+            .string()
+            .describe('Artifact slug, e.g. "autostart-and-persistence-run-runonce-autostart-keys". Get these from winreg_list_artifacts.'),
+        },
+        async ({ slug }) => {
+          const body = await getWinRegArtifact(ASSETS, slug);
+          if (!body) {
+            return untrustedToolResult({ error: 'artifact_not_found', slug, hint: 'Call winreg_list_artifacts to see available slugs.' });
+          }
+          return untrustedToolResult(body);
+        }
+      );
+
+      this.tools(
+        'winreg_list_categories',
+        'List the Windows Registry artifact categories in the WinReg DFIR reference. Returns category keys, names, descriptions, and artifact counts.',
+        {},
+        async () => {
+          const idx = await loadWinRegIndex(ASSETS);
+          return untrustedToolResult({
+            total: idx.categories.length,
+            source: idx.source,
+            sourceUrl: idx.sourceUrl,
+            categories: idx.categories,
+          });
+        }
+      );
+
+      this.tools(
+        'winreg_stats',
+        'Return cache + manifest stats for the WinReg DFIR data: artifact counts, hive types, MITRE technique coverage, and LRU body-cache hit/miss ratios.',
+        {},
+        async () => {
+          const idx = await loadWinRegIndex(ASSETS);
+          return untrustedToolResult({
+            counts: idx.counts,
+            hives: idx.hives,
+            tactics: idx.tactics,
+            techniques: idx.techniques,
+            source: idx.source,
+            sourceUrl: idx.sourceUrl,
+            license: idx.license,
+            replicatedAt: idx.replicatedAt,
+            cache: winRegCacheStats(),
+          });
+        }
+      );
+
       // ── Threat Intel (TI) tools ────────────────────────────────────
       // CVE/KEV catalog, IOC family database, and sector briefings.
       // Data shipped in public/data/threat-intel/ via weekly sync.
@@ -1949,6 +2053,19 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             stix_bundle: bundle,
             stix_object_count: bundle.objects.length,
           });
+        }
+      );
+
+      // ── Traceix hash enrichment ──────────────────────────────
+      this.tools(
+        'traceix_lookup',
+        'Look up a SHA-256 file hash against traceix.com (PCEF) for antivirus/reputation results. Returns per-engine verdicts (Safe/Malicious/Unknown/Failed). Powered by Perkins Fund AI. Requires TRACEIX_API_KEY secret.',
+        {
+          hash: z.string().describe('SHA-256 hash (64 hex characters), e.g. "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855".'),
+        },
+        async ({ hash }) => {
+          const r = await traceixLookup(this.env as { TRACEIX_API_KEY?: string }, hash);
+          return untrustedToolResult(r);
         }
       );
 

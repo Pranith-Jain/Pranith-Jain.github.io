@@ -210,6 +210,24 @@ const PORTFOLIO_PAGES: readonly PageEntry[] = [
     group: 'portfolio',
     keywords: ['status', 'health', 'uptime', 'observability', 'admiralty'],
   },
+  {
+    path: '/winreg',
+    label: 'Windows Registry Artifacts',
+    description:
+      '292 Windows Registry forensic artifact definitions across 16 categories, mapped to MITRE ATT&CK — from dfir-scripts.github.io.',
+    sectionLabel: 'Portfolio',
+    group: 'portfolio',
+    keywords: ['registry', 'forensic', 'artifact', 'windows', 'dfir', 'regripper', 'recmd'],
+  },
+  {
+    path: '/traceix',
+    label: 'Traceix Hash Lookup',
+    description:
+      'SHA-256 hash antivirus/reputation lookup against traceix.com (PCEF) — per-engine verdicts: Safe, Malicious, Unknown, Failed.',
+    sectionLabel: 'Portfolio',
+    group: 'portfolio',
+    keywords: ['traceix', 'hash', 'sha256', 'av', 'antivirus', 'reputation', 'pcef', 'perkins fund'],
+  },
 ];
 
 /* ------------------------------------------------------------------ */
