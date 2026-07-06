@@ -179,35 +179,42 @@ export const experiences = [
         title: 'Email Security Operations',
         icon: 'Mail',
         items: [
-          'Email security for 150+ early-stage startups. Got SPF, DKIM, and DMARC to 98%+ alignment across 1,300+ domains, which dropped spoofing incidents 60% by blocking impersonation at the perimeter instead of catching it in inboxes.',
+          'Hardened email authentication (SPF, DKIM, DMARC) across 1,300+ domains for 150+ portfolio startups, achieving 98%+ authentication alignment and reducing spoofing incidents by 60% within six months.',
         ],
       },
       {
         title: 'Infrastructure Monitoring Dashboard',
         icon: 'Monitor',
         items: [
-          'Built an end-to-end monitoring dashboard with Claude Code that shows the health of every domain and inbox we run (1,300+ and 2,700+ respectively). Replaced the manual health-check pass we used to do every Monday morning.',
+          'Developed a real-time infrastructure monitoring dashboard delivering live visibility across 1,300+ domains and 2,700+ inboxes, replacing a two-hour manual daily health-check process.',
         ],
       },
       {
-        title: 'Phishing & BEC Investigation',
+        title: 'IOC Hunting & Detection Engineering',
         icon: 'Search',
         items: [
-          'Worked 250+ phishing, BEC, and malicious-attachment cases. Header analysis, sandbox detonation, IOC pivots across sender IPs, domains, and attachment hashes. False positives down 25%, per-incident analysis time down 35%, remediation success above 90%.',
+          'Conducted IOC/IOA indicator hunting across 250+ phishing, BEC, and malware incidents triaging with VirusTotal, tri.ge, Hunt.io, SOCRadar, and IBM X-Force; extracting indicators across sender IPs, domains, and file hashes; and writing YARA/Sigma rules sustaining a 90%+ remediation rate and reducing false positives by 25%.',
         ],
       },
       {
         title: 'SOC Automation',
         icon: 'Zap',
         items: [
-          'Automated phishing triage, IOC enrichment, and email-block pipelines in n8n. Mean response time on incidents went from 4 hours to under 75 minutes. The biggest single win was getting enrichment off the analyst critical path.',
+          'Built n8n SOAR pipelines automating phishing triage, IOC enrichment, and email blocking, cutting mean incident response time from 4 hours to under 75 minutes across high-volume alert queues.',
+        ],
+      },
+      {
+        title: 'Threat Intelligence Pipelines',
+        icon: 'FileText',
+        items: [
+          'Engineered MCP-based threat intelligence pipelines correlating CVEs, adversary TTPs, and OSINT indicators, and mapped campaign techniques to MITRE ATT&CK to shift team posture from reactive ticket-closing to proactive threat profiling.',
         ],
       },
       {
         title: 'Domain Abuse Monitoring',
         icon: 'Shield',
         items: [
-          'Caught and shut down 30+ lookalike-domain and impersonation campaigns by watching cert-transparency logs and pivoting on OSINT. Phishing surface area shrank ~40%. Findings went to leadership weekly so portfolio-wide risk decisions had something to point at.',
+          'Hunted and dismantled 30+ lookalike-domain and phishing URL campaigns, shrinking the portfolio attack surface by 40%, by conducting domain threat hunting with Webamon, WHOIS, and Cloudflare RDAP to trace attacker infrastructure and identify malicious patterns before user impact.',
         ],
       },
     ],
@@ -536,6 +543,14 @@ export const memberships = [
     description:
       'Community Threat Researcher contributing to web infrastructure intelligence. Collaborative threat research and IOC enrichment across the community platform.',
     color: 'emerald',
+  },
+  {
+    name: 'OSMOSIS — An Association for OSINT Professionals',
+    abbreviation: 'OSMOSIS',
+    period: 'Jul 2026 - Present',
+    description:
+      'Professional association dedicated to advancing the OSINT discipline through standards, training, and peer collaboration across government, industry, and research.',
+    color: 'brand',
   },
 ];
 

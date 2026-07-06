@@ -108,7 +108,7 @@ const PORTFOLIO_PAGES: readonly PageEntry[] = [
     description: 'Work history, role-by-role responsibilities, and the artifacts I owned.',
     sectionLabel: 'Portfolio',
     group: 'portfolio',
-    keywords: ['resume', 'cv', 'work history'],
+    keywords: ['resume', 'cv', 'work history', 'Threat hunter'],
   },
   {
     path: '/projects',
