@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Quote, Shield } from 'lucide-react';
 
 const QUOTES = [
