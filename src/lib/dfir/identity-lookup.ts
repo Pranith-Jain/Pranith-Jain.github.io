@@ -82,7 +82,7 @@ async function fetchGitlab(username: string): Promise<IdentityProfile | null> {
     }>
   >(`https://gitlab.com/api/v4/users?username=${encodeURIComponent(username)}`, { headers: ACCEPT_JSON });
   if (!arr || arr.length === 0) return null;
-  const d = arr[0];
+  const d = arr[0]!;
   return {
     platform: 'GitLab',
     platformId: 'gitlab',
@@ -274,7 +274,7 @@ async function fetchStackOverflow(username: string): Promise<IdentityProfile | n
     `https://api.stackexchange.com/2.3/users?order=desc&sort=reputation&inname=${encodeURIComponent(username)}&site=stackoverflow&pagesize=1`
   );
   if (!d?.items?.length) return null;
-  const u = d.items[0];
+  const u = d.items[0]!;
   return {
     platform: 'Stack Overflow',
     platformId: 'stackoverflow',

@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useMemo, useState } from 'react';
 import { Search, ExternalLink, RefreshCw } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
@@ -20,20 +19,6 @@ interface OsintResponse {
   portals: OsintPortalEntry[];
 }
 
-const CATEGORIES = [
-  'threat-intel',
-  'paste-monitoring',
-  'dark-web',
-  'reputation',
-  'hash',
-  'email',
-  'breach',
-  'whois',
-  'dns',
-  'certificate',
-  'forensics',
-];
-
 const CATEGORY_LABELS: Record<string, string> = {
   'threat-intel': 'Threat Intel',
   'paste-monitoring': 'Paste Monitoring',
@@ -46,6 +31,20 @@ const CATEGORY_LABELS: Record<string, string> = {
   dns: 'DNS',
   certificate: 'Certificate',
   forensics: 'Forensics',
+};
+
+const CATEGORY_BADGE_COLORS: Record<string, string> = {
+  'threat-intel': 'bg-rose-100 dark:bg-rose-500/10 text-rose-700 dark:text-rose-400 border-rose-300 dark:border-rose-700',
+  'paste-monitoring': 'bg-amber-100 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-300 dark:border-amber-700',
+  'dark-web': 'bg-purple-100 dark:bg-purple-500/10 text-purple-700 dark:text-purple-400 border-purple-300 dark:border-purple-700',
+  reputation: 'bg-cyan-100 dark:bg-cyan-500/10 text-cyan-700 dark:text-cyan-400 border-cyan-300 dark:border-cyan-700',
+  hash: 'bg-orange-100 dark:bg-orange-500/10 text-orange-700 dark:text-orange-400 border-orange-300 dark:border-orange-700',
+  email: 'bg-blue-100 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400 border-blue-300 dark:border-blue-700',
+  breach: 'bg-red-100 dark:bg-red-500/10 text-red-700 dark:text-red-400 border-red-300 dark:border-red-700',
+  whois: 'bg-teal-100 dark:bg-teal-500/10 text-teal-700 dark:text-teal-400 border-teal-300 dark:border-teal-700',
+  dns: 'bg-sky-100 dark:bg-sky-500/10 text-sky-700 dark:text-sky-400 border-sky-300 dark:border-sky-700',
+  certificate: 'bg-emerald-100 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-300 dark:border-emerald-700',
+  forensics: 'bg-violet-100 dark:bg-violet-500/10 text-violet-700 dark:text-violet-400 border-violet-300 dark:border-violet-700',
 };
 
 function hostnameOf(url: string): string {
@@ -68,6 +67,7 @@ export default function OsintDirectory(): JSX.Element {
   useEffect(() => {
     let cancelled = false;
     const ctrl = new AbortController();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLoading(true);
     setError(null);
     fetch('/api/v1/osint', { signal: ctrl.signal })
@@ -88,6 +88,12 @@ export default function OsintDirectory(): JSX.Element {
       ctrl.abort();
     };
   }, [refreshKey]);
+
+  const categories = useMemo(() => {
+    if (!data?.portals) return [];
+    const s = new Set(data.portals.map((p) => p.category));
+    return Array.from(s).sort();
+  }, [data]);
 
   const filtered = useMemo(() => {
     if (!data) return [];
@@ -144,7 +150,7 @@ export default function OsintDirectory(): JSX.Element {
                 <input
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  placeholder={`Search ${data.count} portals…`}
+                  placeholder={`Search ${data.count} portals\u2026`}
                   className="w-full rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
                 />
               </div>
@@ -177,7 +183,7 @@ export default function OsintDirectory(): JSX.Element {
               >
                 all
               </button>
-              {CATEGORIES.map((cat) => (
+              {categories.map((cat) => (
                 <button
                   key={cat}
                   type="button"
@@ -226,20 +232,6 @@ function Stat({ label, value }: { label: string; value: React.ReactNode }) {
     </div>
   );
 }
-
-const CATEGORY_BADGE_COLORS: Record<string, string> = {
-  'threat-intel': 'bg-rose-100 dark:bg-rose-500/10 text-rose-700 dark:text-rose-400 border-rose-300 dark:border-rose-700',
-  'paste-monitoring': 'bg-amber-100 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-300 dark:border-amber-700',
-  'dark-web': 'bg-purple-100 dark:bg-purple-500/10 text-purple-700 dark:text-purple-400 border-purple-300 dark:border-purple-700',
-  reputation: 'bg-cyan-100 dark:bg-cyan-500/10 text-cyan-700 dark:text-cyan-400 border-cyan-300 dark:border-cyan-700',
-  hash: 'bg-orange-100 dark:bg-orange-500/10 text-orange-700 dark:text-orange-400 border-orange-300 dark:border-orange-700',
-  email: 'bg-blue-100 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400 border-blue-300 dark:border-blue-700',
-  breach: 'bg-red-100 dark:bg-red-500/10 text-red-700 dark:text-red-400 border-red-300 dark:border-red-700',
-  whois: 'bg-teal-100 dark:bg-teal-500/10 text-teal-700 dark:text-teal-400 border-teal-300 dark:border-teal-700',
-  dns: 'bg-sky-100 dark:bg-sky-500/10 text-sky-700 dark:text-sky-400 border-sky-300 dark:border-sky-700',
-  certificate: 'bg-emerald-100 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-300 dark:border-emerald-700',
-  forensics: 'bg-violet-100 dark:bg-violet-500/10 text-violet-700 dark:text-violet-400 border-violet-300 dark:border-violet-700',
-};
 
 function PortalCard({ portal }: { portal: OsintPortalEntry }) {
   const badgeColor = CATEGORY_BADGE_COLORS[portal.category] ?? 'bg-slate-100 dark:bg-slate-500/10 text-slate-700 dark:text-slate-400 border-slate-300 dark:border-slate-700';

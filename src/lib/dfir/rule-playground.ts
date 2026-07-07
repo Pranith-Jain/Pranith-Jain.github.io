@@ -139,7 +139,7 @@ export function parseYaraRule(rule: string): ParsedRule {
     let m: RegExpExecArray | null;
     while ((m = rx.exec(body)) !== null) {
       const id = `$${m[1]}`;
-      const raw = m[2];
+      const raw = m[2]!;
       const mods = (m[5] ?? '').toLowerCase();
       try {
         if (raw.startsWith('"')) {
@@ -185,7 +185,7 @@ export function parseYaraRule(rule: string): ParsedRule {
   // Surface metadata
   const metaBlock = rule.match(/meta\s*:\s*([\s\S]*?)\s*(strings|condition)\s*:/i);
   if (metaBlock) {
-    const lines = metaBlock[1].split(/\r?\n/);
+      const lines = metaBlock[1]!.split(/\r?\n/);
     for (const ln of lines) {
       const mm = ln.match(/^\s*(\w+)\s*=\s*"([^"]*)"/);
       if (mm) meta.push({ k: mm[1], v: mm[2] });
@@ -195,7 +195,7 @@ export function parseYaraRule(rule: string): ParsedRule {
   return {
     kind: 'yara',
     name,
-    condition: condMatch?.[1].trim() ?? '',
+    condition: condMatch?.[1]?.trim() ?? '',
     needles,
     meta,
     warnings,
@@ -224,7 +224,7 @@ function parseSigmaDetection(detectionBody: string): SigmaLeaf[] {
   const lines = detectionBody.split(/\r?\n/);
   let i = 0;
   while (i < lines.length) {
-    const line = lines[i];
+    const line = lines[i]!;
     const top = line.match(/^\s{2,}(\w+):\s*$/);
     if (!top) {
       i++;
@@ -234,14 +234,14 @@ function parseSigmaDetection(detectionBody: string): SigmaLeaf[] {
     const blockIndent = (line.match(/^\s+/)?.[0].length ?? 0) + 2;
     const block: string[] = [];
     i++;
-    while (i < lines.length && (lines[i].length === 0 || (lines[i].match(/^\s+/)?.[0].length ?? 0) >= blockIndent)) {
+    while (i < lines.length && (lines[i]!.length === 0 || (lines[i]!.match(/^\s+/)?.[0].length ?? 0) >= blockIndent)) {
       block.push(lines[i]);
       i++;
     }
     const dd = dedent(block);
     // Walk lines inside block
     for (let j = 0; j < dd.length; j++) {
-      const ln = dd[j].trim();
+      const ln = dd[j]!.trim();
       if (!ln) continue;
       // "field|modifier:" followed by either inline value or list of values
       const fm = ln.match(/^([\w-]+)(?:\|([\w-]+))?\s*:\s*(.*)$/);
@@ -249,12 +249,12 @@ function parseSigmaDetection(detectionBody: string): SigmaLeaf[] {
         // bare keyword list item (`- "foo"`)
         const kw = ln.match(/^-\s+(.+)$/);
         if (kw) {
-          const v = kw[1].trim().replace(/^['"]|['"]$/g, '');
+          const v = kw[1]!.trim().replace(/^['"]|['"]$/g, '');
           leaves.push({ values: [v] });
         }
         continue;
       }
-      const [, field, modifier, rest] = fm;
+      const [, field, modifier, rest = ''] = fm;
       if (rest.trim()) {
         // inline single value
         const v = rest.trim().replace(/^['"]|['"]$/g, '');
@@ -265,7 +265,7 @@ function parseSigmaDetection(detectionBody: string): SigmaLeaf[] {
         let k = j + 1;
         while (k < dd.length && /^\s*-\s+/.test(dd[k])) {
           vals.push(
-            dd[k]
+            dd[k]!
               .replace(/^\s*-\s+/, '')
               .trim()
               .replace(/^['"]|['"]$/g, '')
@@ -286,18 +286,18 @@ export function parseSigmaRule(rule: string): ParsedRule {
   const needles: ParsedRule['needles'] = [];
 
   const titleMatch = rule.match(/^title\s*:\s*(.+)$/m);
-  const name = titleMatch?.[1].trim() ?? '(untitled)';
+  const name = titleMatch?.[1]?.trim() ?? '(untitled)';
 
   const conditionMatch = rule.match(/^\s*condition\s*:\s*(.+)$/m);
-  const condition = conditionMatch?.[1].trim() ?? '';
+  const condition = conditionMatch?.[1]?.trim() ?? '';
 
   // Surface logsource as meta
   const logsourceBlock = rule.match(/^logsource:\s*([\s\S]*?)(?=^\w|^$)/m);
   if (logsourceBlock) {
-    const lines = logsourceBlock[1].split(/\r?\n/);
+    const lines = logsourceBlock[1]!.split(/\r?\n/);
     for (const ln of lines) {
       const mm = ln.match(/^\s+(\w+)\s*:\s*(.+)$/);
-      if (mm) meta.push({ k: `logsource.${mm[1]}`, v: mm[2].trim() });
+      if (mm) meta.push({ k: `logsource.${mm[1]}`, v: mm[2]!.trim() });
     }
   }
 
@@ -310,7 +310,7 @@ export function parseSigmaRule(rule: string): ParsedRule {
     warnings.push('No `detection:` block found.');
     return { kind: 'sigma', name, condition, needles, meta, warnings };
   }
-  const leaves = parseSigmaDetection(detectionMatch[1]);
+  const leaves = parseSigmaDetection(detectionMatch[1]!);
 
   let idx = 0;
   for (const leaf of leaves) {

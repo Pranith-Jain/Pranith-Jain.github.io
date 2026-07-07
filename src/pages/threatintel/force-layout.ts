@@ -92,8 +92,8 @@ export class ForceSimulation {
       const repK = this.repulsionStrength * this.alpha;
       for (let i = 0; i < n; i++) {
         for (let j = i + 1; j < n; j++) {
-          const a = this.nodes[i];
-          const b = this.nodes[j];
+          const a = this.nodes[i]!;
+          const b = this.nodes[j]!;
           const dx = b.x - a.x;
           const dy = b.y - a.y;
           const distSq = Math.max(dx * dx + dy * dy, 1);

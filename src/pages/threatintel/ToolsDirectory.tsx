@@ -1,6 +1,5 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useMemo, useState } from 'react';
-import { Search, Wrench, ExternalLink, Github, Tag } from 'lucide-react';
+import { Search, Wrench, ExternalLink, Github, Tag, RefreshCw } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 
 interface ToolEntry {
@@ -41,28 +40,28 @@ export default function ToolsDirectory(): JSX.Element {
   useEffect(() => {
     let cancelled = false;
     const ctrl = new AbortController();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLoading(true);
     setError(null);
-    Promise.all([
-      fetch('/api/v1/tools', { signal: ctrl.signal }).then((r) =>
-        r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))
-      ),
-      fetch('/api/v1/tools/stats', { signal: ctrl.signal }).then((r) =>
-        r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))
-      ),
-    ])
-      .then(([payload, s]) => {
+
+    const doFetch = async () => {
+      try {
+        const [resp, statsResp] = await Promise.all([
+          fetch('/api/v1/tools', { signal: ctrl.signal }),
+          fetch('/api/v1/tools/stats', { signal: ctrl.signal }),
+        ]);
         if (cancelled) return;
-        setData(payload);
-        setStats(s);
-      })
-      .catch((e: { name?: string; message?: string }) => {
-        if (cancelled || e.name === 'AbortError') return;
-        setError(e.message ?? 'fetch failed');
-      })
-      .finally(() => {
+        if (resp.ok) setData(await resp.json());
+        else setError(`/tools returned HTTP ${resp.status}`);
+        if (statsResp.ok) setStats(await statsResp.json());
+      } catch (e) {
+        if (cancelled || (e instanceof DOMException && e.name === 'AbortError')) return;
+        setError(e instanceof Error ? e.message : 'fetch failed');
+      } finally {
         if (!cancelled) setLoading(false);
-      });
+      }
+    };
+    doFetch();
     return () => {
       cancelled = true;
       ctrl.abort();
@@ -94,6 +93,22 @@ export default function ToolsDirectory(): JSX.Element {
       icon={<Wrench className="h-6 w-6" />}
       title="Tools Directory"
       description="A curated directory of offensive and defensive security tools from the novasky.io reference. Browse by category, search by keyword, or filter by capability type."
+      headerExtra={
+        <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+          <button
+            type="button"
+            onClick={() => setRefreshKey((k) => k + 1)}
+            className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+          >
+            <RefreshCw className="h-3.5 w-3.5" /> refresh
+          </button>
+          {data && (
+            <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-slate-500 dark:text-slate-400 font-mono">
+              {data.count} tools
+            </span>
+          )}
+        </div>
+      }
       loading={loading}
       error={error}
       onRetry={() => setRefreshKey((k) => k + 1)}

@@ -174,7 +174,7 @@ export default function GithubAdvisories(): JSX.Element {
         <span className="text-xs text-slate-500 mr-1 font-mono">severity:</span>
         {(['critical', 'high', 'medium', 'low'] as const).map((s) => {
           const active = sevFilter.has(s);
-          const colors = SEVERITY_COLORS[s];
+            const colors = SEVERITY_COLORS[s]!;
           return (
             <button
               key={s}
@@ -273,7 +273,7 @@ export default function GithubAdvisories(): JSX.Element {
       >
         <div className="space-y-2">
           {filtered.map((a) => {
-            const colors = SEVERITY_COLORS[a.severity] || SEVERITY_COLORS.medium;
+            const colors = SEVERITY_COLORS[a.severity] || SEVERITY_COLORS.medium!;
             const cveId = a.identifiers.find((i) => i.type === 'CVE')?.value;
             return (
               <div

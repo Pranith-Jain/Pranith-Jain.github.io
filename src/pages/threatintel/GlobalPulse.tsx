@@ -653,9 +653,9 @@ export default function GlobalPulse(): JSX.Element {
 
     const nightOnSouth = declination >= 0;
     const polygon: [number, number][] = [
-      [-180, coords[0][1]],
+      [-180, coords[0]![1]],
       ...coords,
-      [180, coords[coords.length - 1][1]],
+      [180, coords[coords.length - 1]![1]],
       ...((nightOnSouth
         ? [
             [180, -90],
@@ -665,7 +665,7 @@ export default function GlobalPulse(): JSX.Element {
             [180, 90],
             [-180, 90],
           ]) as [number, number][]),
-      [-180, coords[0][1]],
+      [-180, coords[0]![1]],
     ];
 
     return polygon;
@@ -970,7 +970,7 @@ export default function GlobalPulse(): JSX.Element {
     for (const kind of ALL_KINDS) {
       const def = LAYER_DEFS[kind];
       const count = data?.layers[kind] ?? 0;
-      groups[def.group].push({ kind, def, count, active: activeLayers.has(kind) });
+      groups[def.group]!.push({ kind, def, count, active: activeLayers.has(kind) });
     }
     return groups;
   }, [data, activeLayers]);
@@ -1454,7 +1454,7 @@ export default function GlobalPulse(): JSX.Element {
 
               {/* Layer Groups */}
               {(['intel', 'geo', 'social'] as const).map((group) => {
-                const layers = layerGroups[group];
+                const layers = layerGroups[group]!;
                 const activeCount = layers.filter((l) => l.active).length;
                 const groupLabels = { geo: 'Geospatial', intel: 'Threat Intel', social: 'Social / OSINT' };
                 return (

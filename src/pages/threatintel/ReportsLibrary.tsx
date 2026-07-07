@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useMemo, useState } from 'react';
 import { FileText, Search, ExternalLink, RefreshCw } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
@@ -19,7 +18,12 @@ interface ReportsPayload {
   reports: ReportEntry[];
 }
 
-const CATEGORIES = ['annual-threat-report', 'framework', 'reference', 'learning'];
+const CATEGORY_LABELS: Record<string, string> = {
+  'annual-threat-report': 'Annual Threat Report',
+  framework: 'Framework',
+  reference: 'Reference',
+  learning: 'Learning',
+};
 
 export default function ReportsLibrary(): JSX.Element {
   const [data, setData] = useState<ReportsPayload | null>(null);
@@ -34,6 +38,7 @@ export default function ReportsLibrary(): JSX.Element {
   useEffect(() => {
     let cancelled = false;
     const ctrl = new AbortController();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLoading(true);
     setError(null);
     fetch('/api/v1/reports', { signal: ctrl.signal })
@@ -53,6 +58,12 @@ export default function ReportsLibrary(): JSX.Element {
       ctrl.abort();
     };
   }, [refreshKey]);
+
+  const categories = useMemo(() => {
+    if (!data?.reports) return [];
+    const s = new Set(data.reports.map((r) => r.category));
+    return Array.from(s).sort();
+  }, [data]);
 
   const publishers = useMemo(() => {
     if (!data) return [];
@@ -88,8 +99,7 @@ export default function ReportsLibrary(): JSX.Element {
       if (!Number.isNaN(y)) list = list.filter((r) => r.year === y);
     }
     if (publisherFilter.trim()) {
-      const p = publisherFilter.trim().toLowerCase();
-      list = list.filter((r) => r.publisher.toLowerCase().includes(p));
+      list = list.filter((r) => r.publisher === publisherFilter.trim());
     }
     return list;
   }, [data, query, activeCategory, yearFilter, publisherFilter]);
@@ -151,7 +161,7 @@ export default function ReportsLibrary(): JSX.Element {
                   >
                     All ({data.count})
                   </button>
-                  {CATEGORIES.map((cat) => (
+                  {categories.map((cat) => (
                     <button
                       key={cat}
                       type="button"
@@ -162,7 +172,7 @@ export default function ReportsLibrary(): JSX.Element {
                           : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400 dark:hover:border-[rgb(var(--border-400))]'
                       }`}
                     >
-                      {cat.replace(/-/g, ' ')} ({categoryCounts[cat] || 0})
+                      {CATEGORY_LABELS[cat] ?? cat} ({categoryCounts[cat] || 0})
                     </button>
                   ))}
                 </div>
@@ -173,12 +183,16 @@ export default function ReportsLibrary(): JSX.Element {
                     placeholder="Year"
                     className="w-20 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-2 py-1 text-xs font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
                   />
-                  <input
+                  <select
                     value={publisherFilter}
                     onChange={(e) => setPublisherFilter(e.target.value)}
-                    placeholder="Publisher"
-                    className="w-32 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-2 py-1 text-xs font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
-                  />
+                    className="w-36 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-2 py-1 text-xs font-mono text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
+                  >
+                    <option value="">All publishers</option>
+                    {publishers.map((p) => (
+                      <option key={p} value={p}>{p}</option>
+                    ))}
+                  </select>
                 </div>
               </div>
             </div>
@@ -230,7 +244,7 @@ function ReportCard({ report }: { report: ReportEntry }) {
     >
       <div className="flex flex-wrap items-center gap-2 mb-2">
         <span className="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-          {report.category.replace(/-/g, ' ')}
+          {CATEGORY_LABELS[report.category] ?? report.category}
         </span>
         <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--input-200))] text-slate-500 dark:text-slate-400">
           {report.year}

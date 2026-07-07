@@ -60,18 +60,18 @@ const PCT_COLORS = [
 ];
 
 function getRiskColor(score: number): string {
-  if (score >= 85) return RISK_THRESHOLDS[0].color;
-  if (score >= 70) return RISK_THRESHOLDS[1].color;
-  if (score >= 50) return RISK_THRESHOLDS[2].color;
-  return RISK_THRESHOLDS[3].color;
+  if (score >= 85) return RISK_THRESHOLDS[0]!.color;
+  if (score >= 70) return RISK_THRESHOLDS[1]!.color;
+  if (score >= 50) return RISK_THRESHOLDS[2]!.color;
+  return RISK_THRESHOLDS[3]!.color;
 }
 
 function getPctColor(pct: number): string {
-  if (pct >= 50) return PCT_COLORS[0].color;
-  if (pct >= 25) return PCT_COLORS[1].color;
-  if (pct >= 10) return PCT_COLORS[2].color;
-  if (pct >= 2) return PCT_COLORS[3].color;
-  if (pct > 0) return PCT_COLORS[4].color;
+  if (pct >= 50) return PCT_COLORS[0]!.color;
+  if (pct >= 25) return PCT_COLORS[1]!.color;
+  if (pct >= 10) return PCT_COLORS[2]!.color;
+  if (pct >= 2) return PCT_COLORS[3]!.color;
+  if (pct > 0) return PCT_COLORS[4]!.color;
   return '#FFFFFF';
 }
 
@@ -93,7 +93,7 @@ function relativeLuminance(r: number, g: number, b: number): number {
     const s = c / 255;
     return s <= 0.04045 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);
   });
-  return 0.2126 * srgb[0] + 0.7152 * srgb[1] + 0.0722 * srgb[2];
+  return 0.2126 * srgb[0]! + 0.7152 * srgb[1]! + 0.0722 * srgb[2]!;
 }
 
 function fgFor(bgHex: string): string {
@@ -565,7 +565,7 @@ export default function AttackNavigator(): JSX.Element {
                           )}
                           {actors.length > 0 && matrixSource === 'attack' && (
                             <div className="mt-0.5 font-mono text-micro opacity-80">
-                              {actors.length === 1 ? actors[0].name : `${actors.length} actors`}
+                              {actors.length === 1 ? actors[0]!.name : `${actors.length} actors`}
                             </div>
                           )}
                           {technique.subtechniques && technique.subtechniques.length > 0 && (

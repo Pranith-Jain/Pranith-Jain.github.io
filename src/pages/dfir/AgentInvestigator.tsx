@@ -750,7 +750,7 @@ function buildStixBundle(state: AgentState): Record<string, unknown> {
       name: cve,
       external_references: [{ source_name: 'cve', external_id: cve }],
     });
-    (objects[0].object_refs as string[]).push(id);
+    (objects[0]!.object_refs as string[]).push(id);
   }
 
   // Indicator objects for IOCs
@@ -768,7 +768,7 @@ function buildStixBundle(state: AgentState): Record<string, unknown> {
       valid_from: now,
       labels: ['malicious-activity'],
     });
-    (objects[0].object_refs as string[]).push(id);
+    (objects[0]!.object_refs as string[]).push(id);
   }
 
   for (const hash of hashes) {
@@ -785,7 +785,7 @@ function buildStixBundle(state: AgentState): Record<string, unknown> {
       valid_from: now,
       labels: ['malicious-activity'],
     });
-    (objects[0].object_refs as string[]).push(id);
+    (objects[0]!.object_refs as string[]).push(id);
   }
 
   for (const domain of domains.slice(0, 10)) {
@@ -802,7 +802,7 @@ function buildStixBundle(state: AgentState): Record<string, unknown> {
       valid_from: now,
       labels: ['malicious-activity'],
     });
-    (objects[0].object_refs as string[]).push(id);
+    (objects[0]!.object_refs as string[]).push(id);
   }
 
   // Attack pattern objects for MITRE techniques
@@ -819,7 +819,7 @@ function buildStixBundle(state: AgentState): Record<string, unknown> {
       external_references: [{ source_name: 'mitre-attack', external_id: t }],
     });
     attackPatternIds.push(id);
-    (objects[0].object_refs as string[]).push(id);
+    (objects[0]!.object_refs as string[]).push(id);
   }
 
   // Threat actor (if actor query)
@@ -835,7 +835,7 @@ function buildStixBundle(state: AgentState): Record<string, unknown> {
       threat_actor_types: ['crime-syndicate'],
       roles: ['agent'],
     });
-    (objects[0].object_refs as string[]).push(actorId);
+    (objects[0]!.object_refs as string[]).push(actorId);
 
     // Link actor to techniques
     for (const apId of attackPatternIds) {
@@ -850,7 +850,7 @@ function buildStixBundle(state: AgentState): Record<string, unknown> {
         source_ref: actorId,
         target_ref: apId,
       });
-      (objects[0].object_refs as string[]).push(relId);
+      (objects[0]!.object_refs as string[]).push(relId);
     }
   }
 
@@ -871,7 +871,7 @@ function buildStixBundle(state: AgentState): Record<string, unknown> {
         source_ref: iId,
         target_ref: vId,
       });
-      (objects[0].object_refs as string[]).push(relId);
+      (objects[0]!.object_refs as string[]).push(relId);
     }
   }
 

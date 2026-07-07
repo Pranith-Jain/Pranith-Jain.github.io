@@ -121,7 +121,7 @@ export default function AlertFeed() {
       {/* Stats bar */}
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-6">
         {SEVERITIES.map((sev) => {
-          const cfg = SEVERITY_CONFIG[sev];
+          const cfg = SEVERITY_CONFIG[sev]!;
           const Icon = cfg.icon;
           return (
             <button
@@ -162,7 +162,7 @@ export default function AlertFeed() {
       {/* Alert cards */}
       <div className="space-y-3">
         {alerts.map((alert) => {
-          const cfg = SEVERITY_CONFIG[alert.severity] ?? SEVERITY_CONFIG.info;
+          const cfg = SEVERITY_CONFIG[alert.severity] ?? SEVERITY_CONFIG.info!;
           const Icon = cfg.icon;
           const hoursAgo = Math.floor((Date.now() - new Date(alert.created_at).getTime()) / 3600000);
 

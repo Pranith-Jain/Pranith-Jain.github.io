@@ -141,8 +141,8 @@ export default function Wayback(): JSX.Element {
   const stats = useMemo(() => {
     if (!snapshots || snapshots.length === 0) return null;
     const sorted = [...snapshots].sort((a, b) => a.timestamp.localeCompare(b.timestamp));
-    const first = sorted[0];
-    const last = sorted[sorted.length - 1];
+    const first = sorted[0]!;
+    const last = sorted[sorted.length - 1]!;
     const statusCounts: Record<string, number> = {};
     for (const s of snapshots) {
       const bucket = s.status ? `${s.status[0]}xx` : 'unknown';

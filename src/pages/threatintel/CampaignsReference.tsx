@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useMemo, useState } from 'react';
 import { GitBranch, Search, RefreshCw, ExternalLink } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
@@ -56,6 +55,7 @@ export default function CampaignsReference(): JSX.Element {
   useEffect(() => {
     let cancelled = false;
     const ctrl = new AbortController();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLoading(true);
     setError(null);
     fetch('/api/v1/campaigns-catalog', { signal: ctrl.signal })

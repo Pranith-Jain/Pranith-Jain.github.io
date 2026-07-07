@@ -75,8 +75,8 @@ function buildMarkdown(
 export default function Tabletop(): JSX.Element {
   const [selection, setSelection] = useState<Selection>(defaultSelection);
 
-  const actor = threatActors.find((a) => a.slug === selection.actorSlug) ?? threatActors[0];
-  const archetype = ARCHETYPES.find((a) => a.id === selection.archetypeId) ?? ARCHETYPES[0];
+  const actor = threatActors.find((a) => a.slug === selection.actorSlug) ?? threatActors[0]!;
+  const archetype = ARCHETYPES.find((a) => a.id === selection.archetypeId) ?? ARCHETYPES[0]!;
 
   const vars = useMemo(
     () => ({
