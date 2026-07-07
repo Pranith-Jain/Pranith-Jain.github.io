@@ -92,14 +92,7 @@ interface RansomlookEntry {
  * origin-pill per row.
  */
 export type RansomwareOrigin =
-  | 'ransomlook'
-  | 'mti'
-  | 'ransomfeed'
-  | 'ransomwatch'
-  | 'ransomwarelive'
-  | 'andreafortuna'
-  | 'ctifyi'
-  | 'x';
+  'ransomlook' | 'mti' | 'ransomfeed' | 'ransomwatch' | 'ransomwarelive' | 'andreafortuna' | 'ctifyi' | 'x';
 
 export interface RansomwareVictim {
   victim: string;
@@ -876,6 +869,35 @@ function filterByDaysWindow(body: ResponseBody, days: number): ResponseBody {
   };
 }
 
+function filterByGroup(body: ResponseBody, group: string): ResponseBody {
+  const victims = body.victims.filter((v) => v.group?.toLowerCase() === group);
+  const groupCounts = new Map<string, number>();
+  const sectorCounts = new Map<Sector, number>();
+  for (const v of victims) {
+    groupCounts.set(v.group, (groupCounts.get(v.group) ?? 0) + 1);
+    const s = v.sector ?? 'Unknown';
+    sectorCounts.set(s, (sectorCounts.get(s) ?? 0) + 1);
+  }
+  const classifiedTotal = victims.filter((v) => v.sector && v.sector !== 'Unknown').length;
+  const sectors: ResponseBody['sectors'] = [...sectorCounts.entries()]
+    .map(([sector, count]) => ({
+      sector,
+      count,
+      pct: sector === 'Unknown' || classifiedTotal === 0 ? 0 : Math.round((count / classifiedTotal) * 100),
+    }))
+    .sort((a, b) => b.count - a.count);
+  return {
+    ...body,
+    victims,
+    count: victims.length,
+    groups: [...groupCounts.entries()]
+      .map(([g, count]) => ({ group: g, count }))
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 12),
+    sectors,
+  };
+}
+
 function parseDaysParam(raw: string | undefined): number {
   const n = raw ? parseInt(raw, 10) : 7;
   if (!Number.isFinite(n) || n < 1) return 7;
@@ -885,6 +907,7 @@ function parseDaysParam(raw: string | undefined): number {
 
 export async function ransomwareRecentHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const days = parseDaysParam(c.req.query('days'));
+  const groupFilter = (c.req.query('group') ?? '').trim().toLowerCase();
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheKey = new Request(CACHE_KEY);
   const cached = await cache.match(cacheKey);
@@ -911,8 +934,9 @@ export async function ransomwareRecentHandler(c: Context<{ Bindings: Env }>): Pr
         })()
       );
     }
-    if (days === 7) return new Response(cached.body, cached);
-    const filtered = filterByDaysWindow((await cached.json()) as ResponseBody, days);
+    if (days === 7 && !groupFilter) return new Response(cached.body, cached);
+    let filtered = filterByDaysWindow((await cached.json()) as ResponseBody, days);
+    if (groupFilter) filtered = filterByGroup(filtered, groupFilter);
     return c.json(filtered, 200, { 'x-cache': 'FILTERED' });
   }
 
@@ -958,6 +982,7 @@ export async function ransomwareRecentHandler(c: Context<{ Bindings: Env }>): Pr
   // filter per-request — this keeps the cache simple and the day-1
   // day-7 day-30 views consistent.
   if (days !== 7) finalBody = filterByDaysWindow(finalBody, days);
+  if (groupFilter) finalBody = filterByGroup(finalBody, groupFilter);
 
   // An empty payload is never cacheable — serve it with no-store so a transient
   // zero-victim result can't get pinned at the edge or in the browser for the

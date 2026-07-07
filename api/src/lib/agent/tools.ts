@@ -581,15 +581,11 @@ export function buildToolRegistry(
         },
       ],
       execute: (args) => {
-        if (args.group)
-          return apiFetch(
-            self,
-            `/api/v1/rl/victims-recent?group=${encodeURIComponent(String(args.group))}`,
-            apiKey,
-            undefined,
-            ih
-          );
-        return apiFetch(self, '/api/v1/ransomware-recent', apiKey, undefined, ih);
+        const hasGroup = args.group && String(args.group).trim().length > 0;
+        const path = hasGroup
+          ? `/api/v1/ransomware-recent?group=${encodeURIComponent(String(args.group).toLowerCase().trim())}`
+          : '/api/v1/ransomware-recent';
+        return apiFetch(self, path, apiKey, undefined, ih);
       },
     },
     {
