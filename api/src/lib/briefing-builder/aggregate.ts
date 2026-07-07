@@ -516,7 +516,6 @@ function mergeIocBuckets(a: BriefingIocBuckets, b: BriefingIocBuckets): Briefing
       if (seen.has(k)) continue;
       seen.add(k);
       out.push(e);
-      if (out.length >= 30) break;
     }
     return out;
   };
@@ -532,7 +531,7 @@ export function mergeWeeklyWithDailies(live: WeeklyMergeInput, rollup: WeeklyDai
   if (rollup.dailyCount === 0) return live;
   return {
     findings: dedupeCveFindings([...live.findings, ...rollup.findings]),
-    ransomwareFindings: dedupeFindingsById([...live.ransomwareFindings, ...rollup.ransomwareFindings]).slice(0, 60),
+    ransomwareFindings: dedupeFindingsById([...live.ransomwareFindings, ...rollup.ransomwareFindings]),
     iocsRawTotal: Math.max(live.iocsRawTotal, rollup.iocsTotal),
     iocBuckets: mergeIocBuckets(live.iocBuckets, rollup.iocBuckets),
     sources: [...new Set([...live.sources, ...rollup.sources])],
