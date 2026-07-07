@@ -426,15 +426,56 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
             );
           }
 
-          // Briefing self-heal runs at the END of this hourly invocation —
-          // but only kicks in if the daily (or, on Mondays, the weekly) is
-          // empty or degraded.  A cheap D1 read checks `briefingNeedsHeal`;
-          // if healthy the heal is a no-op. If the 00:30 primary build
-          // failed (KEV down, NVD lag, timeout…) this rebuilds the row an
-          // hour or two later when the feeds have recovered.
+          // === Briefing self-heal (hourly) ================================
+          // Check if today's daily (or Monday's weekly) is missing or
+          // degraded. The primary build fires at 00:30/00:45 UTC; this catches
+          // failures before the cache-warm fan-out below can exhaust the
+          // 50-subrequest budget (free-plan cap). Runs BEFORE the fan-out so
+          // the heal's own subrequests (NVD, KEV, feeds, D1 write) are
+          // guaranteed their budget — previously it ran AFTER and was silently
+          // starved by the 22-endpoint cache-warm + CTI collector.
+          if (db) {
+            try {
+              const now = Date.now();
+              // Always check weekly first — runs on any day, not just Monday.
+              // If the latest weekly is missing or degraded, rebuild it
+              // regardless of the day. Then also check daily.
+              for (const healType of ['weekly', 'daily'] as const) {
+                const row = await db
+                  .prepare('SELECT stats_json, body FROM briefings WHERE type = ? ORDER BY created_at DESC LIMIT 1')
+                  .bind(healType)
+                  .first<{ stats_json?: string | null; body?: string | null }>();
+                if (briefingNeedsHeal(row, { now, cooldownMs: 30 * 60_000 })) {
+                  console.log(JSON.stringify({ job: 'briefing-heal', type: healType, status: 'rebuilding' }));
+                  const briefing = await buildBriefing(healType, undefined, {
+                    nvdApiKey: env.NVD_API_KEY,
+                    env: env as unknown as ApiEnv,
+                  });
+                  await writeBriefing(db, briefing);
+                  console.log(
+                    JSON.stringify({
+                      job: 'briefing-heal',
+                      type: healType,
+                      slug: briefing.slug,
+                      findings: briefing.stats.findings,
+                      iocs: briefing.stats.iocs,
+                    })
+                  );
+                }
+              }
+            } catch (e) {
+              console.error(
+                JSON.stringify({
+                  job: 'briefing-heal',
+                  status: 'failed',
+                  error: e instanceof Error ? e.message : String(e),
+                })
+              );
+            }
+          }
 
-          // Cache-warm fan-out. The heal is conditional (only fires when
-          // the briefing is empty/degraded), so this always runs.
+          // Cache-warm fan-out. Runs after the self-heal above, which was
+          // starved by the fan-out when placed after it.
           const start = Date.now();
           const baseUrl = (env as unknown as { SITE_URL?: string }).SITE_URL ?? 'https://pranithjain.qzz.io';
 
@@ -564,48 +605,6 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
 
           // (gp:warm feeds are warmed via the queue, off this invocation — see the
           // enqueueGpFeeds call at the top of this block.)
-
-          // === Briefing self-heal (hourly) ================================
-          // Check if today's daily (or Monday's weekly) is missing or
-          // degraded. The primary build fires at 00:30 UTC; this catches
-          // failures a few hours later when upstream feeds may have
-          // recovered.
-          if (db) {
-            try {
-              const isMonday = csNow.getUTCDay() === 1;
-              const healType: 'daily' | 'weekly' = isMonday ? 'weekly' : 'daily';
-              const now = Date.now();
-              const row = await db
-                .prepare('SELECT stats_json, body FROM briefings WHERE type = ? ORDER BY created_at DESC LIMIT 1')
-                .bind(healType)
-                .first<{ stats_json?: string | null; body?: string | null }>();
-              if (briefingNeedsHeal(row, { now, cooldownMs: 30 * 60_000 })) {
-                console.log(JSON.stringify({ job: 'briefing-heal', type: healType, status: 'rebuilding' }));
-                const briefing = await buildBriefing(healType, undefined, {
-                  nvdApiKey: env.NVD_API_KEY,
-                  env: env as unknown as ApiEnv,
-                });
-                await writeBriefing(db, briefing);
-                console.log(
-                  JSON.stringify({
-                    job: 'briefing-heal',
-                    type: healType,
-                    slug: briefing.slug,
-                    findings: briefing.stats.findings,
-                    iocs: briefing.stats.iocs,
-                  })
-                );
-              }
-            } catch (e) {
-              console.error(
-                JSON.stringify({
-                  job: 'briefing-heal',
-                  status: 'failed',
-                  error: e instanceof Error ? e.message : String(e),
-                })
-              );
-            }
-          }
 
           // === Watch engine ===
           try {
