@@ -5,14 +5,13 @@ import { scrubEvidence, scrubString } from './scrub-prompt';
 const SYSTEM_PROMPT =
   VOICE_IDENTITY +
   `You are turning raw threat-intel facts into a technical case study a detection engineer would actually finish reading.\n\n` +
-  `Before writing the hook paragraph, think through 5 different hook options silently. Pick the strongest one — the one that pulls the reader in. Output ONLY the final post — no reasoning, no option list, no commentary.\n\n` +
   COPYWRITING_RULES +
   `\n\n` +
   `<structure>\n` +
-  `- Open with a hook paragraph BEFORE the first section heading, constructed from THIS case's specific facts per the hook-construction rules. No PAS template, no canned opener.\n` +
+  `- Open with a hook paragraph BEFORE the first section heading, constructed from THIS case's specific facts. Lead with the stake (who is hit, what breaks, why it matters now). Select a FRAMEWORK from the #FRAMEWORKS block above that fits the data's angle. The form must match the angle, never a fixed formula. 80-200 words.\n` +
   `- Then real analysis: the pattern or contrast in the data, TTPs, attribution, campaign context. Note confidence ("likely", "consistent with"). Call out gaps.\n` +
   `- Go as deep as the facts support — CVSS vector, CWE, exploit chain, affected versions, detection logic, victimology — only where the data actually has it. Don't pad thin sections.\n` +
-  `- Section order should follow the angle the data suggested. Don't force a fixed skeleton.\n` +
+  `- Section order should follow the angle the data suggested. Don't force a fixed skeleton. But every section must add NEW information — never repeat the same recommendation across sections.\n` +
   `- Keep every specific number tied to the GROUND TRUTH DATA. Never invent CVEs, scores, versions, or IOCs.\n` +
   `- A CVE id, score, or IOC may appear ONLY if it is in the GROUND TRUTH DATA. You may reference a well-known historical CVE for CONTRAST/CONTEXT, but explicitly frame it as context ("for context, ... like CVE-XXXX") — never as a finding of this case.\n` +
   `</structure>\n\n` +
@@ -28,19 +27,18 @@ const SYSTEM_PROMPT =
   `    * Link TEXT must be the SOURCE NAME ("ransomlook.io", "NVD"), never the bare URL.\n` +
   `    * For bulk references (15+ posts on the same campaign), GROUP into ONE bullet linking to the search page: \`- [ransomlook.io](url) — 15 victim posts\`. Do NOT enumerate every URL.\n` +
   `    * Each citation: \`- [Source name](url) — one-line description of what the source establishes\`. The description after em-dash is mandatory.\n` +
-  `- CRITICAL: Never invent placeholder URLs (example.com, example.org, yourdomain.com, placeholder.com, or any fake/placeholder domain). Every URL must be either one of the provided REFERENCE URLS or a real, well-known security domain. Invented URLs will be stripped and the post will fail QA.\n` +
-  `- VERIFY EVERY URL: Before including a reference URL, confirm it resolves to a real, published article covering the claimed topic. Do NOT include any URL that leads to a generic homepage, a search-results page, or an unrelated article — the URL must point directly to the specific story you are citing. If you cannot produce a verified, article-specific URL for a reference, drop it entirely rather than linking to a homepage or an unrelated page. A reference with a homepage URL is indistinguishable from a broken link and will be flagged as unverified.\n` +
+  `- CRITICAL: Never invent URLs. Use ONLY the REFERENCE URLS provided in the REFERENCE URLS block below. If a source has no URL in that block, cite it as plain text (publisher name only) — do NOT fabricate a URL. Every invented URL will be stripped and the post will fail QA.\n` +
   `- Distinguish fact (in data) from analysis (your inference) with confidence language; do not present inference as confirmed.\n` +
   `</grounding>\n\n` +
   `<format>\n` +
-  `- Markdown. Hook paragraph first, then a "## TL;DR" section, then "## SectionName" on its own line for each section.\n` +
-  `- Short paragraphs, 2-4 sentences. Bullets and numbered lists in body sections.\n` +
+  `- Markdown. Hook paragraph first (80-200 words), then a "## TL;DR" section, then "## SectionName" on its own line for each section.\n` +
+  `- Short paragraphs, 2-4 sentences. Bullets and numbered lists for ANY list of 3+ items.\n` +
   `- No raw URLs in prose. Every link must be markdown form [label](url), only in body where genuinely a citation.\n` +
   `- A "## FAQ" section immediately before ## References, then the ## References section, each URL a bullet.\n` +
   `- After References, a blank line, then a strong bolded closing paragraph on its own line (NOT appended to a list item).\n` +
-  `- 1500-2500 words including the TL;DR and FAQ. If a section has nothing real, omit it. Never write "not well documented", "little is known", or any filler.\n` +
+  `- 1200-2000 words including the TL;DR and FAQ. If a section has nothing real, omit it. Never write "not well documented", "little is known", or any filler.\n` +
   `- Title: put the primary keyword near the front, keep under 60 characters, use a power word or number, optionally wrap in brackets for scannability. Meta: under 160 chars, include the keyword and a CTA.\n` +
-  `- Include at least 2 internal links (to existing posts on this blog, using markdown [label](url)) and at least 3 external links (to the provided REFERENCE URLS). Use alt text on any image reference that includes the keyword.\n` +
+  `- Include at least 3 external links to the provided REFERENCE URLS (markdown: [label](url)). Use alt text on any image reference that includes the keyword.\n` +
   `- Every section starts with "## " followed by the heading name.\n` +
   `</format>\n\n` +
   `<answer-engine>\n` +
@@ -54,6 +52,16 @@ const SYSTEM_PROMPT =
   `- The "## FAQ" before References: 4-6 questions a defender would genuinely ask about THIS case. Format each as a "### " question heading (phrased as a real search query, ending in "?") followed by a self-contained 40-60 word answer paragraph. This exact shape lets the page emit FAQ structured data.\n` +
   `- Optional but high-value: a "## Pop Quiz" after References (before the closing paragraph). Include 3-4 questions that test the reader's understanding of the key takeaways. Format each question as "### " heading, then wrap the answer in a <details><summary>Show answer</summary>Answer text here</details> HTML block on the next line. Questions should be substantive, not trivia — test whether the reader understood the implications.\n` +
   `</answer-engine>\n\n` +
+  `<rich-content>\n` +
+  `- Every post must feel deep, not thin. Include at least 3 of these:\n` +
+  `  * Contrast: show the gap between what people assume vs what the data says.\n` +
+  `  * Pattern: connect this case to a broader trend the reader can apply.\n` +
+  `  * Timeline / sequence: show progression, not a static snapshot.\n` +
+  `  * Attacker economics: why the adversary made the choices they did.\n` +
+  `  * Detection gap: what existing tooling/rules miss about THIS case.\n` +
+  `  * Confidence calibration: what's confirmed vs what's inferred.\n` +
+  `- Concrete before abstract: show a real IOC, command, or log line before explaining what it means.\n` +
+  `</rich-content>\n\n` +
   `<estimative-language>\n` +
   `- Separate likelihood from confidence; never fuse them in one clause. Likelihood = how probable ("unlikely", "likely", "very likely", "almost certain"). Confidence = strength of the evidence ("low/moderate/high confidence", from source quality and corroboration).\n` +
   `- Pattern: "This is likely affiliate movement, not a new compromise. Confidence is moderate, based on two corroborating leak-site timelines." Not "we believe this may possibly be...".\n` +
@@ -194,6 +202,33 @@ const OUTLINES: Record<CaseStudyType, string[]> = {
     '## Broader context',
     '## Industry impact',
     '## What this means for defenders',
+    '## References',
+  ],
+  agentic: [
+    '## Summary',
+    '## The agentic-AI capability',
+    '## Security implications',
+    '## Attack surface & risks',
+    '## Defensive considerations',
+    '## What this means for builders',
+    '## References',
+  ],
+  hunting: [
+    '## Summary',
+    '## Hypothesis',
+    '## Data sources & methodology',
+    '## Analysis & findings',
+    '## Detection logic',
+    '## Limitations & gaps',
+    '## References',
+  ],
+  report: [
+    '## Summary',
+    '## Report context & source',
+    '## Key findings',
+    '## Methodology assessment',
+    '## Implications for defenders',
+    '## Critical takeaways',
     '## References',
   ],
 };
@@ -379,8 +414,41 @@ const BRIEFING_GUIDANCE =
   `- Each section must add NEW information. Do not repeat "patch immediately" / the same recommendation across sections. Detection & defensive guidance must be concrete (specific products, KEV due-date framing, what to hunt for).\n` +
   `- Lead the hook with the single sharpest number or pattern in the data, not "You're facing a critical threat landscape".`;
 
+const AGENTIC_GUIDANCE =
+  `\n\nAGENTIC AI-SPECIFIC REQUIREMENTS (this is about autonomous AI agents and their security implications):\n` +
+  `- Use Narrative/Timeline or Before-After-Bridge framework (see FRAMEWORKS above). Agentic AI is new; readers need both the story of what happened and the model for what it means.\n` +
+  `- Distinguish between AI as the TARGET (attacks on AI systems) and AI as the TOOL (AI-assisted attacks). The agentic-AI category blurs this line — be precise about which side you're discussing.\n` +
+  `- Name specific agent architectures, frameworks, and providers (LangChain, AutoGPT, GPT Actions, Claude Agents, OpenAI Agents SDK, etc.) when the facts support it.\n` +
+  `- Cover capability, not just risk. Agentic AI changes the blast radius of a single compromise; explain how and why.\n` +
+  `- Call out the novel attack surface: prompt injection in tool-use loops, agent-to-agent communication intercept, credential delegation to autonomous actors, supply-chain trust for agent plugins.\n` +
+  `- Note mitigations specific to agentic architectures: constrained tool permissions, human-in-the-loop checkpoints, read-only defaults, output validation gates, telemetry on agent decisions.\n` +
+  `- 1200-2000 words. Concrete examples of real or near-term agentic incidents beat speculative scenarios.`;
+
+const HUNTING_GUIDANCE =
+  `\n\nTHREAT HUNTING-SPECIFIC REQUIREMENTS (this is a proactive detection deep-dive):\n` +
+  `- Use What-Why-How or Narrative/Timeline framework (see FRAMEWORKS above). Hunting pieces teach method, not just findings.\n` +
+  `- Lead with the HYPOTHESIS. Every hunt starts with a question — make it explicit in the hook or TL;DR.\n` +
+  `- Walk through the data sources used (ETDR, network logs, DNS, process creation, registry, etc.) and WHY each was chosen for this hypothesis.\n` +
+  `- Include at least ONE concrete, copy-pasteable detection artifact: a KQL query, a Sigma rule, a YARA signature, or a Splunk SPL query. Fence it in a code block with the language label.\n` +
+  `- Show the analytical process: what you looked for, what you found, what you ruled out. The reader should be able to reproduce the hunt.\n` +
+  `- Call out false-positive rates and tuning advice. A hunt without FP analysis is incomplete.\n` +
+  `- End with what the hunt reveals about the broader threat landscape, not just "we found this."\n` +
+  `- 1200-2000 words. If the hunt found nothing significant, that is still a finding — write that honestly.`;
+
+const REPORT_GUIDANCE =
+  `\n\nVENDOR / RESEARCH REPORT-SPECIFIC REQUIREMENTS (this analyzes a major threat report from a vendor, blog, or research team):\n` +
+  `- Use Inverted Pyramid framework (see FRAMEWORKS above). Lead with the report's single most striking finding, then layer detail.\n` +
+  `- Name the report, publisher, and publication date explicitly in the hook or first paragraph. Readers need to know whose data they're looking at.\n` +
+  `- Assess the report's methodology and bias. Is this vendor data? Independent research? A managed-threat-hunting team's observations? Call out what the methodology enables and what it misses.\n` +
+  `- Extract 3-5 specific findings with hard numbers from the report. Never write "the report found many cases" — name the actual figures.\n` +
+  `- Contextualize the findings against broader trends: is this confirming what other reports show, or is it an outlier that needs explanation?\n` +
+  `- Write your OWN analytical take on the report's implications. Don't just summarize — evaluate. What does this mean that the report's authors didn't say?\n` +
+  `- End with actionable takeaways for defenders. A report analysis that stops at summary has failed.\n` +
+  `- 1200-2000 words. Cite the original report URL in References.`;
+
 const ANALYSIS_GUIDANCE =
   `\n\nANALYSIS-SPECIFIC REQUIREMENTS (this is a thought leadership piece, not a data report):\n` +
+  `\nOVERRIDE: Ignore the <structure>, <format>, <answer-engine>, and <rich-content> blocks above. This piece has NO fixed structure, no sections, no TL;DR, no FAQ, no references section. Narrative flow only.\n` +
   `- Build a FRAMEWORK or MENTAL MODEL. Don't just report facts — help the reader THINK DIFFERENTLY about the topic.\n` +
   `- Challenge conventional wisdom. The best analysis pieces start with "The industry thinks X. Here's why that's wrong."\n` +
   `- Use concrete examples and scenarios, not abstract concepts. Paint a picture the reader can recognize.\n` +
@@ -414,7 +482,17 @@ export function buildPrompt(input: BuildPromptInput): BuiltPrompt {
   const scrubbedFacts = scrubEvidence(input.facts) as Record<string, unknown>;
   const factsBlock = input.type === 'briefing' ? briefingDigest(scrubbedFacts) : clampFacts(scrubbedFacts);
   const typeGuidance =
-    input.type === 'briefing' ? BRIEFING_GUIDANCE : input.type === 'analysis' ? ANALYSIS_GUIDANCE : '';
+    input.type === 'briefing'
+      ? BRIEFING_GUIDANCE
+      : input.type === 'analysis'
+        ? ANALYSIS_GUIDANCE
+        : input.type === 'agentic'
+          ? AGENTIC_GUIDANCE
+          : input.type === 'hunting'
+            ? HUNTING_GUIDANCE
+            : input.type === 'report'
+              ? REPORT_GUIDANCE
+              : '';
 
   const sourcesBlock = hasSources
     ? `\n\nREFERENCE URLS (link to these as sources in the References section):\n<<<SOURCES_START>>>\n${sources

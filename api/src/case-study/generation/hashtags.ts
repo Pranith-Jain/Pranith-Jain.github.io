@@ -10,7 +10,7 @@ export interface HashtagInput {
   type: string;
   title?: string;
   evidence?: Record<string, unknown>;
-  /** Max tags returned (default 6). */
+  /** Max tags returned (default 3 — LinkedIn 2026 algorithm penalizes >3). */
   max?: number;
 }
 
@@ -27,6 +27,9 @@ const BASE: Record<string, string[]> = {
   osint: ['OSINT', 'threatintel'],
   trend: ['cybersecurity', 'threatintel'],
   analysis: ['cybersecurity', 'infosec'],
+  agentic: ['AISecurity', 'AgenticAI'],
+  hunting: ['threatintel', 'DFIR'],
+  report: ['threatintel', 'cybersecurity'],
 };
 const DEFAULT_BASE = ['cybersecurity', 'infosec', 'threatintel'];
 
@@ -49,7 +52,7 @@ function strings(v: unknown): string[] {
  */
 export function buildHashtags(input: HashtagInput): string[] {
   const ev = input.evidence ?? {};
-  const max = input.max ?? 6;
+  const max = input.max ?? 3;
 
   // Priority order: most specific → least.
   const raw: string[] = [];

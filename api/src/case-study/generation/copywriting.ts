@@ -69,9 +69,9 @@ export const COPYWRITING_RULES =
   `**Lead with the stake, not a formula.**\n` +
   `The strongest hook names the specific thing at stake (who is hit, what ` +
   `breaks, why it matters now) in the first 1-2 sentences, pulled straight from ` +
-  `THIS case's facts. Problem, agitation, solution is one way to get there, not ` +
-  `a template to stamp on every piece. Never make two pieces' hooks share a ` +
-  `shape. Rotate the form (see hook construction below).\n\n` +
+  `THIS case's facts. Select the writing FRAMEWORK (see below) that best fits ` +
+  `the data's angle and the platform. Never make two pieces' hooks share a ` +
+  `shape. Rotate both the framework and the hook form across pieces.\n\n` +
   `**Analyze, then construct. Never template.**\n` +
   `- Read the supplied facts first. Find the single most striking, specific angle in THIS data: a contrast, a pattern, an outlier number, an unexpected target mix, a timeline.\n` +
   `- Build the piece around that angle. Two posts about different events must not share a structure or an opener.\n` +
@@ -87,7 +87,40 @@ export const COPYWRITING_RULES =
   `- Vary rhythm deliberately: short punch, then a longer analytical sentence. Fragments are fine when they land.\n` +
   `- Conviction and a point of view. Say what the data means, don't just list it.\n` +
   `- Specific over abstract. Real names, real numbers, real dates, real techniques.\n` +
-  `- Benefits over features. Transformation over specifications.\n\n` +
+  `- Benefits over features. Transformation over specifications.\n` +
+  `- Visual language over vague. Strong verbs that drive action.\n` +
+  `- Pain points, not product announcements.\n` +
+  `- Opinion and conviction. The reader chose you for your take, not your summary.\n\n` +
+  `#FRAMEWORKS — CHOOSE THE RIGHT ONE FOR THE DATA\n\n` +
+  `Read the facts, find the angle, THEN pick the framework that serves it. Never force data into a framework it doesn't fit. Rotate across pieces.\n\n` +
+  `**1. PAS (Problem-Agitate-Solution)**\n` +
+  `Best for: vulnerability disclosures, emerging threats, breach reports, scam alerts.\n` +
+  `Structure: name the specific problem → agitate the impact (make the stake felt) → preview the solution or detection path.\n` +
+  `Hook shape: "CVE-2026-XXXX in [product] scores CVSS Y.Y. Exploitation code dropped before the advisory."\n\n` +
+  `**2. AIDA (Attention-Interest-Desire-Action)**\n` +
+  `Best for: tool reviews, capability deep-dives, methodology showcases, OSINT walkthroughs.\n` +
+  `Structure: grab attention with a striking claim → build interest with specifics → create desire by showing what's possible → end with what the reader should do.\n` +
+  `Hook shape: "One open-source tool just cut my threat-hunting pivot time from 20 minutes to 90 seconds."\n\n` +
+  `**3. Inverted Pyramid**\n` +
+  `Best for: breaking news, briefing summaries, time-sensitive intel, vendor threat reports.\n` +
+  `Structure: lead with the single most critical finding → supporting details → background/context. Reader can stop at any point and has the essentials.\n` +
+  `Hook shape: "Mandiant's 2026 M-Trends: median dwell time dropped to 8 days. Here's what changed."\n\n` +
+  `**4. Before-After-Bridge**\n` +
+  `Best for: thought leadership, strategy pieces, framework introductions, agentic-AI analysis.\n` +
+  `Structure: paint the current state (Before) → show the transformed state (After) → explain the Bridge (how to get there).\n` +
+  `Hook shape: "Right now threat hunting is tool-driven. In two years it will be hypothesis-driven. The bridge is structured analytics."\n\n` +
+  `**5. What-Why-How**\n` +
+  `Best for: educational pieces, OSINT tutorials, methodology guides, research deep-dives.\n` +
+  `Structure: What is it (definition) → Why it matters (context and stakes) → How to use/apply it (practical).\n` +
+  `Hook shape: "Threat hunting is not tooling. It's a hypothesis-driven process. Here is the framework that makes it repeatable."\n\n` +
+  `**6. Contrarian / Myth-Busting**\n` +
+  `Best for: analysis pieces challenging conventional wisdom, trend re-evaluation, security-orthodoxy critiques.\n` +
+  `Structure: state the common belief → present counter-evidence → offer a new frame the reader can adopt.\n` +
+  `Hook shape: ""AI-powered SOC" is the wrong target. The data says automation without analyst context makes dwell times worse."\n\n` +
+  `**7. Narrative / Timeline**\n` +
+  `Best for: incident response deep-dives, campaign tracking, attacker tradecraft evolution, agentic-AI incidents.\n` +
+  `Structure: tell the story chronologically with key decision points → highlight inflection moments → extract lessons.\n` +
+  `Hook shape: "Day 0: initial access. Day 3: lateral movement. Day 7: the ransom note. Here is exactly how the playbook unfolded."\n\n` +
   `**BANNED FOREVER:**\n` +
   `- Robotic discourse fillers: "Here's the thing", "Look,", "Honestly,", "Let's be real", "The bottom line", "At the end of the day", "Make no mistake".\n` +
   `- AI slop: unlock, leverage, seamlessly, robust, cutting-edge, state-of-the-art, bottleneck, game-changer, dive into, delve, tapestry, treasure trove, symphony, beacon of.\n` +
@@ -114,6 +147,7 @@ export const COPYWRITING_RULES =
   `- Number patterns and concrete detail that make the abstract tangible\n\n` +
   `#ANALYSIS / THOUGHT LEADERSHIP RULES (for 'analysis' type content)\n\n` +
   `Analysis pieces are NOT data reports. They are arguments, frameworks, and mental models.\n` +
+  `- Use Before-After-Bridge or Contrarian/Myth-Busting framework (see FRAMEWORKS above).\n` +
   `- Start with a provocative claim that challenges conventional wisdom.\n` +
   `- Build a framework the reader can reuse. Don't just describe — teach.\n` +
   `- Use concrete scenarios the reader can recognize from their own experience.\n` +

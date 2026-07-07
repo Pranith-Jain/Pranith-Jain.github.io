@@ -1,7 +1,7 @@
 import type { Env } from '../env';
 
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
-const GROQ_MODEL = 'openai/gpt-oss-120b';
+const GROQ_MODEL = 'qwen/qwen3-32b';
 const GOOGLE_BASE = 'https://generativelanguage.googleapis.com/v1beta/models';
 const GOOGLE_MODEL = 'gemini-2.5-flash';
 const GOOGLE_MODEL_FALLBACK = 'gemini-2.0-flash';
@@ -17,42 +17,35 @@ interface AiInput {
 async function callGoogleModel(
   key: string,
   model: string,
-  input: AiInput,
+  input: AiInput
 ): Promise<{ text: string; model: string } | null> {
   try {
-    const res = await fetch(
-      `${GOOGLE_BASE}/${model}:generateContent?key=${key}`,
-      {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        signal: AbortSignal.timeout(GOOGLE_TIMEOUT_MS),
-        body: JSON.stringify({
-          system_instruction: { parts: [{ text: input.system }] },
-          contents: [{ role: 'user', parts: [{ text: input.user }] }],
-          generationConfig: {
-            maxOutputTokens: input.maxTokens ?? 1500,
-            temperature: input.temperature ?? 0.2,
-          },
-        }),
-      },
-    );
+    const res = await fetch(`${GOOGLE_BASE}/${model}:generateContent?key=${key}`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      signal: AbortSignal.timeout(GOOGLE_TIMEOUT_MS),
+      body: JSON.stringify({
+        system_instruction: { parts: [{ text: input.system }] },
+        contents: [{ role: 'user', parts: [{ text: input.user }] }],
+        generationConfig: {
+          maxOutputTokens: input.maxTokens ?? 1500,
+          temperature: input.temperature ?? 0.2,
+        },
+      }),
+    });
     if (!res.ok) return null;
     const j = (await res.json()) as {
       candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }>;
     };
     const text = j?.candidates?.[0]?.content?.parts?.[0]?.text;
-    if (typeof text === 'string' && text.trim())
-      return { text: text.trim(), model: `google:${model}` };
+    if (typeof text === 'string' && text.trim()) return { text: text.trim(), model: `google:${model}` };
   } catch {
     /* fall through */
   }
   return null;
 }
 
-async function runGoogle(
-  key: string,
-  input: AiInput,
-): Promise<{ text: string; model: string } | null> {
+async function runGoogle(key: string, input: AiInput): Promise<{ text: string; model: string } | null> {
   const result = await callGoogleModel(key, GOOGLE_MODEL, input);
   if (result) return result;
   return callGoogleModel(key, GOOGLE_MODEL_FALLBACK, input);
@@ -62,7 +55,7 @@ export async function runAi(
   ai: Env['AI'],
   groqKey: string | undefined,
   input: AiInput,
-  googleKey?: string,
+  googleKey?: string
 ): Promise<{ text: string; model: string }> {
   if (googleKey) {
     const result = await runGoogle(googleKey, input);
@@ -104,7 +97,7 @@ export async function runAi(
       ],
       max_tokens: input.maxTokens ?? 1500,
       temperature: input.temperature ?? 0.2,
-    } as any,
+    } as any
   )) as any;
   const text = typeof result?.response === 'string' ? result.response : JSON.stringify(result);
   return { text, model: '@cf/meta/llama-3.3-70b-instruct-fp8-fast' };

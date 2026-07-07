@@ -28,6 +28,9 @@ export const CANDIDATE_TYPES: CaseStudyType[] = [
   'analysis',
   'tool',
   'news',
+  'agentic',
+  'hunting',
+  'report',
 ];
 
 /** Used by `listAllCandidates` to read per-type blobs without an unbounded

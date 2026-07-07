@@ -92,6 +92,7 @@ function tidyLinkedin(text: string): string {
   const blocks = base.split(/\n\n+/);
   const merged: string[] = [];
   let buffer: string[] = [];
+  let isFirstBlock = true;
   const flush = () => {
     if (buffer.length === 0) return;
     merged.push(buffer.join('\n'));
@@ -110,12 +111,13 @@ function tidyLinkedin(text: string): string {
     return true;
   };
   for (const block of blocks) {
-    if (isTight(block)) {
+    if (isTight(block) && !isFirstBlock) {
       buffer.push(block);
     } else {
       flush();
       merged.push(block);
     }
+    isFirstBlock = false;
   }
   flush();
   return merged.join('\n\n');
@@ -148,7 +150,8 @@ function validateSocial(
   // For Twitter threads, we check individual posts, not the whole thread
   let maxPostLength = 0;
   if (platform === 'twitter') {
-    const posts = text.split(/\n\n+/).filter((p) => p.trim().length > 0);
+    const bodyWithoutLink = text.replace(/\n?FIRST REPLY:.*$/im, '').trim();
+    const posts = bodyWithoutLink.split(/\n\n+/).filter((p) => p.trim().length > 0);
     for (const post of posts) {
       // Strip counter suffix like " (1/6)" before measuring
       const clean = post.replace(/\s*\(\d+\/\d+\)\s*$/, '').trim();
@@ -307,6 +310,15 @@ function validateSocial(
     issues.push(`${stripped.length} untrusted URL(s)`);
   }
 
+  // Hashtag count check (LinkedIn 2026: >3 hashtags reduces reach 71%)
+  if (platform === 'linkedin') {
+    const bodyOnly = text.split(/FIRST COMMENT:/i)[0] ?? text;
+    const hashtagCount = (bodyOnly.match(/#\w+/g) ?? []).length;
+    if (hashtagCount > 3) {
+      issues.push(`has ${hashtagCount} hashtags; LinkedIn 2026 algorithm penalizes >3 hashtags (-71% reach)`);
+    }
+  }
+
   // Slop detection
   const slop = detectSlop(text);
   if (slop.length > 1) {
@@ -331,6 +343,12 @@ function validateSocial(
   score -= Math.min(30, ungrounded.length * 15);
   score -= Math.min(15, stripped.length * 5);
   score -= Math.min(15, slop.length * 7);
+  // Hashtag overuse penalty (2026 algorithm)
+  if (platform === 'linkedin') {
+    const bodyOnly = text.split(/FIRST COMMENT:/i)[0] ?? text;
+    const hashtagCount = (bodyOnly.match(/#\w+/g) ?? []).length;
+    if (hashtagCount > 3) score -= 20;
+  }
   score = Math.max(0, Math.min(100, score));
 
   return {
@@ -423,16 +441,18 @@ function buildTwitterPrompt(src: SocialSource, includeLink = true): string {
   const postUrl = `https://pranithjain.qzz.io/blog/${src.slug}`;
   return (
     `<format name="X/Twitter thread">\n` +
-    `- Before writing, think through 5 different hook options silently. Pick the strongest one — the one that stops the scroll. Output ONLY the final thread — no reasoning, no option list, no commentary.\n` +
-    `- 5-8 posts for a technical breakdown. A single post for breaking news or one sharp take. Use only what the facts justify.\n` +
-    `- Tweet 1 (<= 280 chars): Hook that stops the scroll, built from THIS case's facts. It does NOT start with "1/". NO link (kills reach). NO teaser framing. Lead with a named entity, a hard number, or a sharp contrast. Vary the form from your other threads.\n` +
-    `- Tweets 2-5: One clear idea per tweet. Examples, data points, or analysis. Each tweet stands alone and carries its own value. Include ONE bookmark-worthy post (IOC list, affected versions, CVE list).\n` +
-    `- Tweet 6 (or last): Insight or revelation — the analytical take that makes this thread worth reading. End with a twist or perspective shift, not a summary.\n` +
-    `- Final tweet: CTA that invites reply. Use an open loop or a substantive question. Not "thoughts?" or "retweet if".\n` +
+    `- Output ONLY the final thread — no reasoning, no option list, no commentary.\n` +
+    `- Use a 6-tweet thread for technical breakdowns. Use a single tweet for breaking news or one sharp take.\n` +
+    `- THREAD structure (6 tweets exactly):\n` +
+    `  • Tweet 1 (≤280 chars, NO "1/" prefix, NO link): Hook. Named entity + hard number + sharp contrast from THIS case. It does NOT start with "1/".\n` +
+    `  • Tweets 2-4: One clear idea per tweet. Examples, data points, or analysis. Include ONE bookmark-worthy post (IOC list, affected versions, CVE list).\n` +
+    `  • Tweet 5: Insight or revelation — the analytical take that makes this thread worth reading. Twist or perspective shift, not a summary.\n` +
+    `  • Tweet 6: CTA that invites reply. Substantive question, not "thoughts?" or "retweet if".\n` +
+    `- SINGLE TWEET (breaking news only): Hook + one sharp take in ≤280 chars. No thread numbering.\n` +
     (includeLink
-      ? `- LINK in a separate final line: "FIRST REPLY: ${postUrl}"\n`
+      ? `- LINK in a separate final line after the last tweet: "FIRST REPLY: ${postUrl}"\n`
       : `- Do NOT include a FIRST REPLY or FIRST COMMENT link.\n`) +
-    `- Each post < 280 chars. Append " (n/N)" at the END of each post.\n` +
+    `- Each post < 280 chars. Append " (n/N)" at the END of each post (thread only).\n` +
     `- Lowercase optional for personal tone. Fragments ok. Run-ons... human texture.\n` +
     `- At most ONE hashtag (if genuinely specific)${
       src.hashtags?.length ? `; if you use one, prefer: ${src.hashtags.slice(0, 3).join(' ')}` : ''
@@ -440,9 +460,21 @@ function buildTwitterPrompt(src: SocialSource, includeLink = true): string {
     `- CRITICAL: Every CVE ID, statistic, and IOC must come from the input data. Do not invent.\n` +
     `</format>\n\n` +
     `<examples>\n` +
-    `GOOD post 1: "Lockbit5 posted 15 victims in 7 days. 4 already appeared under other affiliates this quarter. Same haul, second auction. Affiliate movement, not new compromise. (1/6)"\n` +
-    `BAD:   "1/ Today I want to talk about the Lockbit5 leak site activity. Let's dive in."\n` +
-    `NOTE: the numbers in the GOOD example ("15 victims", "4 affiliates") show the FORM of a concrete hook, not data to reuse. Use ONLY figures present in the input below. If the data has no number for a point, cut the point rather than invent one.\n` +
+    `GOOD thread (technical breakdown):\n` +
+    `LockBit posted 15 victims in 7 days. 4 already appeared under other affiliates this quarter. Same haul, second auction. Affiliate movement, not new compromise. (1/6)\n\n` +
+    `[tweet 2-4 content]\n\n` +
+    `[tweet 5 insight]\n\n` +
+    `If your IR retainer treats every extortion note as a fresh compromise, you've already lost the timing advantage. (6/6)\n\n` +
+    `FIRST REPLY: https://...\n` +
+    `\n` +
+    `GOOD single tweet (breaking news):\n` +
+    `LockBit leaked 12GB from a hospital chain. Affiliate churn, not new compromise — same data set surfaced on a different leak site two weeks ago.\n` +
+    `\n` +
+    `BAD thread:\n` +
+    `1/ Today I want to talk about the LockBit leak site. Let's dive in.\n` +
+    `2/ The cyber threat landscape is evolving...\n` +
+    `\n` +
+    `NOTE: the numbers in the example show the FORM of concrete hooks — never reuse them. Use ONLY figures from the input below.\n` +
     `</examples>\n\n` +
     `<input>\n` +
     `Title: ${src.title}\n\n` +
@@ -454,29 +486,33 @@ function buildTwitterPrompt(src: SocialSource, includeLink = true): string {
 function buildLinkedinPrompt(src: SocialSource, includeLink = true): string {
   const postUrl = `https://pranithjain.qzz.io/blog/${src.slug}`;
   return (
-    `<format name="LinkedIn post — practitioner thought-leadership (2026)">\n` +
+    `<format name="LinkedIn post — practitioner thought-leadership (2026 algorithm-optimized)">\n` +
     `- Before writing, think through 5 different hook options silently. Pick the strongest one — the one that stops the scroll. Output ONLY the final post — no reasoning, no option list, no commentary.\n` +
-    `RANGE: 1300-2000 characters in the body (the first three lines, ~210 characters, are THE FOLD — everything before that is mobile-first feed preview and decides the click).\n` +
-    `RULES — non-negotiable:\n` +
-    `- THE FOLD (first 3 lines, <= 210 characters) MUST contain a complete, standalone point. Not a teaser. The reader who never clicks should still learn one specific thing. Lead with a named entity, a hard number, or a sharp contrast, pulled from THIS case.\n` +
+    `RANGE: 1300-2000 characters in the body.\n` +
+    `CRITICAL — 2026 LinkedIn Algorithm Rules (non-negotiable):\n` +
+    `- THE FOLD (first 3 lines, <= 210 characters) determines 70% of read-through rate. It MUST contain a COMPLETE, standalone point — NOT a teaser. A reader who never clicks "see more" should still learn one specific thing. Lead with a named entity + hard number + sharp contrast from THIS case.\n` +
+    `- DWELL TIME is the #1 ranking signal. Posts holding attention 31-60 seconds get maximum distribution. Format for scanning: short paragraphs, generous whitespace, bullet points for ANY list of 3+ items. No walls of text.\n` +
+    `- SAVES are 5x more valuable than likes. Create bookmarkable content: frameworks, data points, concrete facts the reader can reference later.\n` +
+    `- COMMENTS of 15+ words carry 2.5x more weight than short ones. The closing question must demand a substantive answer, not "thoughts?" or "what do you think?".\n` +
+    `- MAX 3 HASHTAGS. More than 3 reduces reach 71%. Specific to the case — never generic stacks like #CyberSecurity #InfoSec.\n` +
     (includeLink
       ? `- The body must contain NO link. Putting a URL in the post body cuts reach 50-60%. The link goes on its own final line: "FIRST COMMENT: ${postUrl}".\n`
       : `- Do NOT include a FIRST COMMENT or link in the post.\n`) +
-    `- Mobile-first formatting: short paragraphs (1-3 sentences), single blank line between paragraphs, generous white space. No walls of text. No paragraphs over 3 lines on a phone.\n` +
+    `- Mobile-first formatting: short paragraphs (1-3 sentences), single blank line between paragraphs, generous white space. No paragraphs over 3 lines on a phone.\n` +
     `- Voice: first-person practitioner. Dry, opinionated, specific. Have a point of view. Professional but human. Specific results and numbers when relevant.\n` +
     `- Bold at most ONE phrase with **asterisks**, only if it earns the emphasis. No bolded sentences, no bolded lists.\n` +
-    `- 3-5 specific, on-topic hashtags on the final line. Specific to the case (campaign name, vulnerability class, sector) — never a generic stack like #CyberSecurity #InfoSec.${
+    `- 0-3 specific, on-topic hashtags on the final line. Specific to the case (campaign name, vulnerability class, sector) — never a generic stack like #CyberSecurity #InfoSec.${
       src.hashtags?.length ? ` Use these (drop any that don't fit): ${src.hashtags.join(' ')}` : ''
     }\n` +
     `- Every CVE id, statistic, named victim, and named entity MUST come from the input data. Inventing a number is the fastest way to lose credibility.\n` +
     `\n` +
     `STRUCTURE — four blocks, each earns its place. Use a single blank line between blocks:\n` +
     `  1. HOOK (first 1-2 lines, <= 210 chars, entirely inside THE FOLD): a specific fact, a hard number, a sharp contrast, or a contrarian read, taken from THIS case. NOT a teaser. The reader should be able to stop here and still have learned something concrete. Do not reuse a hook shape you would use on another post.\n` +
-    `  2. STORY OR INSIGHT (1-2 paragraphs, the analytical core): the pattern, the contrast, the technical detail other coverage missed. Lead with the take, then support it with data. Include a scannable 4-8 item bulleted list of concrete facts (named CVE / vendor / version / sector / IOC). One bullet = one fact.\n` +
-    `  3. CLOSE (1-2 lines): the takeaway and one substantive practitioner question — the kind a SOC lead or IR consultant would actually answer. Not "Thoughts?" or "What do you think?".\n` +
-    `  4. CAROUSEL OUTLINE: — optional but high-reach. When the case is a meaty technical breakdown (CVE chain, IOC dump, APT tradecraft, threat-actor profile), append a separate block on its own line: "CAROUSEL OUTLINE:" followed by 5-8 one-line slide titles (slide 1 = the hook, slides 2-7 = one specific idea each, slide 8 = the takeaway). Skip the block entirely for thin or breaking items — it should not appear at all if you have nothing to carousel.\n` +
+    `  2. STORY OR INSIGHT (1-2 paragraphs, the analytical core): the pattern, the contrast, the technical detail other coverage missed. Lead with the take, then support it with data. Include a scannable 4-8 item bulleted list of concrete facts (named CVE / vendor / version / sector / IOC). One bullet = one fact. This block drives SAVES and SHARES.\n` +
+    `  3. CLOSE (1-2 lines): the takeaway and one substantive practitioner question — the kind a SOC lead or IR consultant would actually answer. Not "Thoughts?" or "What do you think?". The question must demand a substantive (15+ word) response to optimize for the comment-weighting algorithm.\n` +
+    `  4. CAROUSEL OUTLINE: — optional but highest engagement format (24.42% vs 6.67% for text). When the case is a meaty technical breakdown (CVE chain, IOC dump, APT tradecraft, threat-actor profile), append a separate block on its own line: "CAROUSEL OUTLINE:" followed by 7-10 one-line slide titles (slide 1 = the hook, slides 2-8 = one specific idea each, slide 9-10 = the takeaway + CTA). Carousels get 4x the engagement of text posts. Skip the block entirely for thin or breaking items.\n` +
     (includeLink
-      ? `End the post (after any carousel block) with the FIRST COMMENT link and the hashtags:\nFIRST COMMENT: ${postUrl}\n#HashtagOne #HashtagTwo #HashtagThree\n`
+      ? `End the post (after any carousel block) with the FIRST COMMENT link and the hashtags:\nFIRST COMMENT: ${postUrl}\n\n`
       : `End the post with the hashtags on their own line.\n`) +
     `\n` +
     (includeLink

@@ -291,117 +291,32 @@ const REFERENCE_HOST_ALLOWLIST = new Set<string>([
 ]);
 
 /**
- * Curated map of recognised publisher labels → canonical source URL.
- * Used by `linkifyPlainTextRefs()` to auto-fix the common "model wrote
- * the label but no URL" failure mode: a draft that says
- *   1. BleepingComputer, initial breach disclosure with record count estimate.
- *   2. The Hacker News, follow‑up article confirming credit‑card exposure.
- * is rewritten in‑place to
- *   - [BleepingComputer, initial breach disclosure with record count estimate.](https://www.bleepingcomputer.com/news/security/...)
- *
- * The URL is just the canonical homepage (e.g. /news/security/ for BleepingComputer)
- * — the model is supposed to add the article slug on the next pass via
- * the repair loop, but at minimum the reader gets a clickable link instead
- * of a wall of plain text. If the label isn't in the map, the bullet
- * stays plain text and the QA gate flags it for a manual fix.
+ * linkifyPlainTextRefs detects plain-text reference bullets without URLs
+ * and counts them for QA. We do NOT auto-link to homepages — a homepage
+ * link is indistinguishable from a broken one and misleads readers.
  */
-const KNOWN_PUBLISHER_URLS: ReadonlyArray<{ labelRe: RegExp; host: string; path: string; label: string }> = [
-  {
-    labelRe: /bleeping\s*computer/i,
-    host: 'www.bleepingcomputer.com',
-    path: '/news/security/',
-    label: 'BleepingComputer',
-  },
-  { labelRe: /the\s+hacker\s+news/i, host: 'thehackernews.com', path: '/', label: 'The Hacker News' },
-  { labelRe: /the\s+record(,|\s|$)/i, host: 'therecord.media', path: '/', label: 'The Record' },
-  { labelRe: /dark\s*reading/i, host: 'www.darkreading.com', path: '/', label: 'Dark Reading' },
-  { labelRe: /securityweek/i, host: 'www.securityweek.com', path: '/', label: 'SecurityWeek' },
-  { labelRe: /cyber\s*scoop/i, host: 'cyberscoop.com', path: '/', label: 'CyberScoop' },
-  {
-    labelRe: /krebsonsecurity|krebs\s+on\s+security/i,
-    host: 'krebsonsecurity.com',
-    path: '/',
-    label: 'Krebs on Security',
-  },
-  { labelRe: /help\s*net\s*security/i, host: 'www.helpnetsecurity.com', path: '/', label: 'Help Net Security' },
-  { labelRe: /threatpost/i, host: 'threatpost.com', path: '/', label: 'Threatpost' },
-  { labelRe: /\bzdnet\b/i, host: 'www.zdnet.com', path: '/topic/security/', label: 'ZDNet' },
-  {
-    labelRe: /infosecurity\s*magazine/i,
-    host: 'www.infosecurity-magazine.com',
-    path: '/news/',
-    label: 'Infosecurity Magazine',
-  },
-  { labelRe: /cso\s*online/i, host: 'www.csoonline.com', path: '/', label: 'CSO Online' },
-  { labelRe: /sc\s*magazine|scmagazine/i, host: 'www.scmagazine.com', path: '/', label: 'SC Magazine' },
-  { labelRe: /the\s*register/i, host: 'www.theregister.com', path: '/Security/', label: 'The Register' },
-  { labelRe: /ars\s*technica/i, host: 'arstechnica.com', path: '/security/', label: 'Ars Technica' },
-  { labelRe: /wired/i, host: 'www.wired.com', path: '/security/', label: 'Wired' },
-  { labelRe: /reuters/i, host: 'www.reuters.com', path: '/technology/', label: 'Reuters' },
-  { labelRe: /hackread/i, host: 'www.hackread.com', path: '/', label: 'Hackread' },
-  { labelRe: /nvd|cve\s+details/i, host: 'nvd.nist.gov', path: '/vuln/detail/', label: 'NVD' },
-  {
-    labelRe: /cisa\s+kev|cisa\s+known/i,
-    host: 'www.cisa.gov',
-    path: '/known-exploited-vulnerabilities-catalog',
-    label: 'CISA KEV',
-  },
-  {
-    labelRe: /^cisa[,:\s]/i,
-    host: 'www.cisa.gov',
-    path: '/cybersecurity-advisories',
-    label: 'CISA',
-  },
-  { labelRe: /mitre\s+att&ck|att&ck\s+matrix/i, host: 'attack.mitre.org', path: '/', label: 'MITRE ATT&CK' },
-];
 
 /**
  * Detect plain-text reference bullets under `## References` (model wrote
- * "BleepingComputer, initial disclosure" with no URL) and linkify the ones
- * whose label matches a known publisher. Returns
- * { body, fixedCount, unlinkedCount } so the caller can decide whether to
- * fail QA when too many unlinked bullets remain.
+ * "BleepingComputer, initial disclosure" with no URL). These are surfaced to
+ * QA rather than auto-linked (homepage links are misleading — they point to
+ * the publisher's landing page, not the specific article).
  */
 function linkifyPlainTextRefs(body: string): { body: string; fixedCount: number; unlinkedCount: number } {
-  // Extract the ## References block by slicing: find the heading index,
-  // then take everything up to the next `##` heading or end-of-string.
-  // A pure-regex approach with lookaheads is fragile when the section is
-  // the LAST block in the body (the "\s*$" end-anchor races with the
-  // "\n##\s+" start-anchor on adjacent matches). Slicing by index is
-  // unambiguous and O(n) in the section size.
   const refsStart = body.search(/^##\s+References\b/im);
   if (refsStart < 0) return { body, fixedCount: 0, unlinkedCount: 0 };
   const afterStart = body.slice(refsStart + 1);
   const nextHeading = afterStart.match(/\n##\s+/);
   const refsEnd = nextHeading ? refsStart + 1 + nextHeading.index! : body.length;
   const refsBlock = body.slice(refsStart, refsEnd);
-
-  // Two unlinked patterns the model actually emits:
-  //   1. Numbered:  "1. BleepingComputer, initial disclosure with X."
-  //   2. Bulleted:  "- BleepingComputer, initial disclosure with X."
-  // Both must NOT already contain [..](https?://) on the same line.
   const lineRe = /^(\s*(?:[-*+]|\d+\.)\s+)(?!\[)([^\n]*?)(?=\s*$)/gm;
-  let fixedCount = 0;
   let unlinkedCount = 0;
-  const replaced = refsBlock.replace(lineRe, (match, bullet, text) => {
+  refsBlock.replace(lineRe, (match, _bullet, text) => {
     if (/\[[^\]]+\]\(https?:\/\/[^)]+\)/.test(match)) return match;
-    const trimmed = text.trim();
-    if (trimmed.length < 8) return match;
-    for (const p of KNOWN_PUBLISHER_URLS) {
-      if (p.labelRe.test(trimmed)) {
-        fixedCount += 1;
-        return `${bullet}[${trimmed}](https://${p.host}${p.path})`;
-      }
-    }
-    unlinkedCount += 1;
+    if (text.trim().length >= 8) unlinkedCount += 1;
     return match;
   });
-
-  return {
-    body: body.slice(0, refsStart) + replaced + body.slice(refsEnd),
-    fixedCount,
-    unlinkedCount,
-  };
+  return { body, fixedCount: 0, unlinkedCount };
 }
 
 function hostOf(url: string): string | null {
@@ -417,9 +332,9 @@ function hostOf(url: string): string | null {
  * allowlist nor in the per-post source hostnames extracted from the
  * factsText. Defends against the model fabricating citation URLs.
  *
- * One escape hatch: if removing references would empty the section we
- * stop short (better an over-broad citation than no citations at all,
- * which would cause QA to fail the post for being unsourced).
+ * If all references are pruned, the empty heading is cleaned up by
+ * stripEmptySections and QA flags the missing citations — better a
+ * hard QA fail than publishing URLs to unknown hosts.
  */
 function stripDisallowedRefs(body: string, factsText: string): string {
   const refsIdx = body.search(/^##\s+References\b/im);
@@ -436,17 +351,10 @@ function stripDisallowedRefs(body: string, factsText: string): string {
     if (h) factHosts.add(h);
   }
 
-  let kept = 0;
-  let dropped = 0;
-  let anyNonPlaceholderDropped = false;
   const refLine = /^(\s*[-*+]\s*)\[([^\]]+)\]\(([^)]+)\)([^\n]*)\n?/gm;
   const filtered = refsText.replace(refLine, (match, _bullet, _label, url) => {
     const host = hostOf(String(url));
-    if (!host) {
-      dropped += 1;
-      anyNonPlaceholderDropped = true;
-      return '';
-    }
+    if (!host) return '';
     const bare = host.replace(/^www\./, '');
     if (
       REFERENCE_HOST_ALLOWLIST.has(host) ||
@@ -454,21 +362,14 @@ function stripDisallowedRefs(body: string, factsText: string): string {
       factHosts.has(host) ||
       factHosts.has(bare)
     ) {
-      kept += 1;
       return match;
     }
-    if (!isPlaceholderDomain(host)) anyNonPlaceholderDropped = true;
-    dropped += 1;
     return '';
   });
 
-  // Safety: if our filter would empty the References section entirely,
-  // back off — leave the original list. An over-eager filter could
-  // remove every reference on a topic whose canonical sources we haven't
-  // enumerated yet, and an empty References section trips QA.
-  // Exception: do NOT back off when ALL dropped references are placeholder
-  // domains — those are invented by the model and should never survive.
-  if (kept === 0 && dropped > 0 && anyNonPlaceholderDropped) return body;
+  // Let the prune stand. If every reference is pruned, stripEmptySections
+  // removes the heading and QA flags the post for missing citations. Better
+  // a hard QA fail than publishing homepage links to unknown hosts.
   return bodyText + filtered;
 }
 
@@ -595,14 +496,10 @@ export function postProcess(input: PostProcessInput): PostProcessOutput {
   // model fabricating citation domains (the most common hallucination
   // mode on security writing). Backs off if it would empty the section.
   body = stripDisallowedRefs(body, input.factsText);
-  // Step 3a.3: Linkify plain-text reference bullets whose label matches a
-  // known publisher (BleepingComputer, The Hacker News, Krebs, ...). The
-  // model frequently writes "1. BleepingComputer, initial disclosure." with
-  // no URL — that bullet is uncorroborated and would slip past QA because
-  // the linkCount check only triggers when there are ZERO links anywhere.
-  // Auto-fixing the recognised labels gives the reader a clickable link to
-  // the publisher's homepage; the unlinkedCount is forwarded to QA so an
-  // unrecognised label still fails the post.
+  // Step 3a.3: Count plain-text reference bullets missing URLs. These are
+  // surfaced to QA (unlinkedCount) — we do NOT auto-link to homepages since
+  // a homepage link is indistinguishable from a broken one and misleads
+  // readers. QA flags the post when most references are unclickable.
   const linkify = linkifyPlainTextRefs(body);
   body = linkify.body;
   // Step 3b: Fix list blocks missing blank lines after them

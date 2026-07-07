@@ -43,6 +43,12 @@ function subjectFor(type: string): string {
     case 'trend':
     case 'analysis':
       return 'an abstract data horizon of rising threat-signal waveforms';
+    case 'agentic':
+      return 'an autonomous AI agent node branching through interconnected tool pipelines';
+    case 'hunting':
+      return 'a focused searchlight beam scanning across layered data grids and log streams';
+    case 'report':
+      return 'an open research document with glowing data visualizations and annotated findings';
     default:
       return 'an abstract cyber-threat landscape of interlocking secure networks';
   }

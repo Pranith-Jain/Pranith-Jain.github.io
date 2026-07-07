@@ -3,13 +3,28 @@ import type { Ai } from '@cloudflare/workers-types';
 /**
  * Case-study LLM client.
  *
+ * Model selection (v2 — Qwen3-32B primary):
+ *   Qwen3-32B is the best model for content writing on Groq:
+ *   - 32.8B params, optimized for creative writing (23% of training data)
+ *   - 82.08 WritingBench score
+ *   - 60 RPM (highest rate limit on Groq)
+ *   - 500K context window
+ *   - Thinking mode (reasoning_effort) for deep blog analysis
+ *   - Non-thinking mode for fast social content generation
+ *
+ *   Qwen3's thinking/non-thinking dual mode is the perfect fit:
+ *   quality=true → thinking mode (blog posts, deep analysis)
+ *   quality=false → non-thinking mode (social posts, fast generation)
+ *
  * Provider order:
  *   1. Google AI Studio (Gemini) — own quota, free tier up to 1000 RPM,
  *      used when GOOGLE_AI_STUDIO_API_KEY is configured.
  *   2. Groq free tier (own quota, fast, good long-form) — used when a
- *      GROQ_API_KEY is configured. This is the durable fix for the
- *      Workers-AI free-quota exhaustion that was throwing `publish_failed`.
+ *      GROQ_API_KEY is configured.
  *   3. Workers AI (no key) — graceful fallback, two models only.
+ *
+ * Groq fallback chain: Qwen3-32B → GPT-OSS-120B → Workers AI.
+ * Workers AI fallback: Llama-3.3-70B → Qwen3-30B-A3B → Llama-3.1-8B.
  *
  * Rate-limit handling (the root-cause fix): a quota/"exceeded"/429 error is
  * account-wide — retrying with back-off or walking more same-account models
@@ -27,14 +42,24 @@ const GOOGLE_MODEL_QUALITY_FALLBACK = 'gemini-2.0-pro';
 const GOOGLE_TIMEOUT_MS = 30_000;
 
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
-const GROQ_MODEL = 'openai/gpt-oss-120b';
-/** Higher-quality model for synthesis and report generation. Supports reasoning_effort. */
-const GROQ_MODEL_QUALITY = 'openai/gpt-oss-120b';
+/** Default model — Qwen3-32B (non-thinking mode). Best for social / fast generation. */
+const GROQ_MODEL: string = 'qwen/qwen3-32b';
+/**
+ * Quality model — same Qwen3-32B but with reasoning_effort (thinking mode).
+ * Produces deeper, more analytical blog content.
+ */
+const GROQ_MODEL_QUALITY: string = 'qwen/qwen3-32b';
+/** Fallback when Qwen3-32B fails. */
+const GROQ_MODEL_FALLBACK: string = 'openai/gpt-oss-120b';
 const GROQ_TIMEOUT_MS = 30_000;
 
 // Workers-AI fallback chain (no key). Kept to two models — under an
 // account-wide rate limit, more models don't help and only add load.
-const WORKERS_AI_MODELS = ['@cf/meta/llama-3.3-70b-instruct-fp8-fast', '@cf/meta/llama-3.1-8b-instruct'] as const;
+const WORKERS_AI_MODELS = [
+  '@cf/meta/llama-3.3-70b-instruct-fp8-fast',
+  '@cf/qwen/qwen3-30b-a3b-fp8',
+  '@cf/meta/llama-3.1-8b-instruct',
+] as const;
 
 export interface CompletionInput {
   system: string;
@@ -56,8 +81,9 @@ export interface CompletionOpts {
   /** Use the higher-quality model for synthesis. */
   quality?: boolean;
   /**
-   * Try Groq (openai/gpt-oss-120b) BEFORE Google. Used by the AI-summary
-   * surfaces so "all AI summaries use GPT" — Gemini/Workers AI stay as fallback.
+   * Try Groq BEFORE Google. Used by social content generation so Groq's
+   * Qwen3-32B (thinking/non-thinking) runs before Gemini — Gemini/Workers AI
+   * stay as fallback.
    */
   preferGroq?: boolean;
 }
@@ -134,10 +160,9 @@ async function runGoogle(
   throw new Error(`google models unavailable (${primary}, ${fallback})`);
 }
 
-async function runGroq(key: string, input: CompletionInput, model?: string): Promise<string> {
+async function runGroq(key: string, input: CompletionInput, model?: string, quality?: boolean): Promise<string> {
   let res: Response;
   try {
-    const isQualityModel = (model ?? GROQ_MODEL) === GROQ_MODEL_QUALITY;
     const body: Record<string, unknown> = {
       model: model ?? GROQ_MODEL,
       messages: [
@@ -147,8 +172,10 @@ async function runGroq(key: string, input: CompletionInput, model?: string): Pro
       max_completion_tokens: input.maxTokens ?? 4000,
       temperature: input.temperature ?? 0.5,
     };
-    // Groq supports reasoning_effort for chain-of-thought depth
-    if (isQualityModel) {
+    // Qwen3-32B supports reasoning_effort (thinking mode).
+    // quality=true → thinking mode for deep blog analysis
+    // quality=false → non-thinking mode for fast social generation
+    if (quality) {
       body.reasoning_effort = 'medium';
     }
     res = await fetch(GROQ_URL, {
@@ -194,7 +221,7 @@ export async function runCompletion(
 ): Promise<CompletionOutput> {
   // Google + Groq attempts as closures so the order can be swapped. Default is
   // Google → Groq (case-study generation); AI-summary surfaces pass
-  // opts.preferGroq to run Groq's openai/gpt-oss-120b first ("use GPT").
+  // opts.preferGroq to run Groq before Google ("prefer Groq").
   const tryGoogle = async (): Promise<CompletionOutput | null> => {
     if (!opts.googleKey) return null;
     try {
@@ -215,16 +242,16 @@ export async function runCompletion(
     if (!opts.groqKey) return null;
     const model = opts.quality ? GROQ_MODEL_QUALITY : GROQ_MODEL;
     try {
-      const text = await runGroq(opts.groqKey, input, model);
-      return { text, modelUsed: `groq:${model}` };
+      const text = await runGroq(opts.groqKey, input, model, opts.quality);
+      return { text, modelUsed: `groq:${model}${opts.quality ? '+thinking' : ''}` };
     } catch (err) {
-      // If quality model failed, try the standard model before falling through.
-      if (opts.quality && model !== GROQ_MODEL) {
+      // If Qwen3-32B failed, try GPT-OSS-120B fallback before Workers AI.
+      if (model !== GROQ_MODEL_FALLBACK) {
         try {
-          const text = await runGroq(opts.groqKey, input, GROQ_MODEL);
-          return { text, modelUsed: `groq:${GROQ_MODEL}` };
+          const text = await runGroq(opts.groqKey, input, GROQ_MODEL_FALLBACK, false);
+          return { text, modelUsed: `groq:${GROQ_MODEL_FALLBACK}` };
         } catch {
-          /* both Groq models failed, fall through */
+          /* fallback also failed, fall through to Workers AI */
         }
       }
       if (isRateLimited(err)) {

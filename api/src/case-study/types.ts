@@ -16,7 +16,10 @@ export type CaseStudyType =
   | 'briefing'
   | 'analysis'
   | 'tool'
-  | 'news';
+  | 'news'
+  | 'agentic'
+  | 'hunting'
+  | 'report';
 
 export type CandidateStatus = 'pending' | 'approved' | 'skipped' | 'published';
 

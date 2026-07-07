@@ -29,7 +29,7 @@ interface TrendCandidate {
 }
 
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
-const GROQ_MODEL = 'openai/gpt-oss-120b';
+const GROQ_MODEL = 'qwen/qwen3-32b';
 
 const CATEGORY_POOLS = [
   ['ransomware-evolution', 'supply-chain-attacks', 'mobile-threats'],
@@ -139,6 +139,9 @@ const TYPE_MAP: Record<string, CaseStudyType> = {
   analysis: 'analysis',
   aisec: 'aisec',
   malware: 'malware',
+  agentic: 'agentic',
+  hunting: 'hunting',
+  report: 'report',
 };
 
 // Hosts that the LLM is most likely to invent when asked for "any

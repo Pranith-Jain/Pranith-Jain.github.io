@@ -16,6 +16,9 @@ const TYPE_LABEL: Record<CaseStudyType, string> = {
   analysis: 'ANALYSIS',
   tool: 'TOOL',
   news: 'NEWS',
+  agentic: 'AGENTIC AI',
+  hunting: 'THREAT HUNTING',
+  report: 'REPORT',
 };
 
 const TYPE_HUE: Record<CaseStudyType, number> = {
@@ -34,6 +37,9 @@ const TYPE_HUE: Record<CaseStudyType, number> = {
   analysis: 200,
   tool: 100,
   news: 40,
+  agentic: 220,
+  hunting: 70,
+  report: 120,
 };
 
 function xmlEscape(s: string): string {

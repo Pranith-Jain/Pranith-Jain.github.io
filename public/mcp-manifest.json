@@ -17,7 +17,7 @@
     }
   },
   "toolCount": 154,
-  "generatedAt": "2026-07-06T06:38:00.001Z",
+  "generatedAt": "2026-07-07T04:37:15.920Z",
   "tools": [
     {
       "name": "analyze_phishing_email",
@@ -31,7 +31,7 @@
     },
     {
       "name": "analyze_report",
-      "description": "Unified per-report analyzer. Runs summary + IOC extraction (with allowlist + confidence) + MITRE ATT&CK TTP mapping + 5W context + CVE extraction + image-OCR + STIX 2.1 bundle in a single round-trip. Accepts text, URL, or both; optionally takes image URLs to OCR.",
+      "description": "Unified per-report analyzer. Runs summary + IOC extraction (with allowlist + confidence) + MITRE ATT&CK TTP mapping + 5W context + CVE extraction + image-OCR + STIX 2.1 bundle in a single round-trip. Accepts text, URL, or both; optionally takes image URLs to OCR. When format=markdown returns a TI Mindmap HUB-style rich formatted markdown report.",
       "category": "analysis"
     },
     {
@@ -171,7 +171,7 @@
     },
     {
       "name": "get_today_briefing",
-      "description": "Get today's threat intelligence briefing. A curated digest of the latest CVEs, ransomware activity, data breaches, and emerging threats from the past 24 hours.",
+      "description": "Get today's threat intelligence briefing. A curated digest of the latest CVEs, ransomware activity, data breaches, and emerging threats from the past 24 hours. When format=markdown returns a TI Mindmap HUB-style rich formatted report.",
       "category": "intel"
     },
     {
