@@ -5,6 +5,8 @@ import {
   writeBriefing,
   sweepOldBriefings,
   briefingNeedsHeal,
+  expectedWeeklySlug,
+  isoDate,
 } from '../api/src/lib/briefing-builder';
 import { buildLandscapeReport, writeLandscapeReport, expectedLandscapeSlug } from '../api/src/lib/landscape-builder';
 import {
@@ -427,41 +429,77 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           }
 
           // === Briefing self-heal (hourly) ================================
-          // Check if today's daily (or Monday's weekly) is missing or
-          // degraded. The primary build fires at 00:30/00:45 UTC; this catches
-          // failures before the cache-warm fan-out below can exhaust the
-          // 50-subrequest budget (free-plan cap). Runs BEFORE the fan-out so
-          // the heal's own subrequests (NVD, KEV, feeds, D1 write) are
-          // guaranteed their budget — previously it ran AFTER and was silently
-          // starved by the 22-endpoint cache-warm + CTI collector.
+          // Check if expected briefings exist. The primary builds fire at
+          // 00:30 (daily) and 00:45 (weekly) UTC; this catches failures
+          // before the cache-warm fan-out below exhausts the 50-subrequest
+          // budget (free-plan cap). Runs BEFORE the fan-out so the heal's
+          // own subrequests (NVD, KEV, feeds, D1 write) are guaranteed
+          // budget — previously it ran AFTER and was silently starved by
+          // the 22-endpoint cache-warm + CTI collector.
+          //
+          // Key difference from the old heal: we check the EXPECTED slug
+          // by name, not just the latest row by type. The old code queried
+          // "most recent weekly" which always returned W26 (rich+complete)
+          // even when W27 was missing entirely, so the heal never fired.
           if (db) {
             try {
-              const now = Date.now();
-              // Always check weekly first — runs on any day, not just Monday.
-              // If the latest weekly is missing or degraded, rebuild it
-              // regardless of the day. Then also check daily.
-              for (const healType of ['weekly', 'daily'] as const) {
-                const row = await db
-                  .prepare('SELECT stats_json, body FROM briefings WHERE type = ? ORDER BY created_at DESC LIMIT 1')
-                  .bind(healType)
-                  .first<{ stats_json?: string | null; body?: string | null }>();
-                if (briefingNeedsHeal(row, { now, cooldownMs: 30 * 60_000 })) {
-                  console.log(JSON.stringify({ job: 'briefing-heal', type: healType, status: 'rebuilding' }));
-                  const briefing = await buildBriefing(healType, undefined, {
-                    nvdApiKey: env.NVD_API_KEY,
-                    env: env as unknown as ApiEnv,
-                  });
-                  await writeBriefing(db, briefing);
-                  console.log(
-                    JSON.stringify({
-                      job: 'briefing-heal',
-                      type: healType,
-                      slug: briefing.slug,
-                      findings: briefing.stats.findings,
-                      iocs: briefing.stats.iocs,
-                    })
-                  );
-                }
+              const now = new Date();
+              const anchor = now;
+              // Check weekly first: expectedWeeklySlug() returns the
+              // prior ISO week (e.g. W27 for a Tuesday in W28). This
+              // catches failures of the Monday 00:45 UTC build on ANY day.
+              const weeklySlug = expectedWeeklySlug(anchor);
+              const weeklyRow = await db
+                .prepare('SELECT stats_json, body FROM briefings WHERE slug = ?')
+                .bind(weeklySlug)
+                .first<{ stats_json?: string | null; body?: string | null }>();
+              if (briefingNeedsHeal(weeklyRow, { now: now.getTime(), cooldownMs: 30 * 60_000 })) {
+                console.log(
+                  JSON.stringify({ job: 'briefing-heal', type: 'weekly', slug: weeklySlug, status: 'rebuilding' })
+                );
+                const briefing = await buildBriefing('weekly', undefined, {
+                  nvdApiKey: env.NVD_API_KEY,
+                  env: env as unknown as ApiEnv,
+                });
+                await writeBriefing(db, briefing);
+                console.log(
+                  JSON.stringify({
+                    job: 'briefing-heal',
+                    type: 'weekly',
+                    slug: briefing.slug,
+                    findings: briefing.stats.findings,
+                    iocs: briefing.stats.iocs,
+                  })
+                );
+              }
+              // Check daily for today's slug (the live 24h window ending
+              // at the current instant). This catches failures of the 00:30
+              // build that would leave analysts with no data until the next
+              // helm cycle.
+              const dailySlug = `daily-${isoDate(now)}`;
+              const dailyRow = await db
+                .prepare('SELECT stats_json, body FROM briefings WHERE slug = ?')
+                .bind(dailySlug)
+                .first<{ stats_json?: string | null; body?: string | null }>();
+              if (briefingNeedsHeal(dailyRow, { now: now.getTime(), cooldownMs: 30 * 60_000 })) {
+                console.log(
+                  JSON.stringify({ job: 'briefing-heal', type: 'daily', slug: dailySlug, status: 'rebuilding' })
+                );
+                const briefing = await buildBriefing('daily', undefined, {
+                  nvdApiKey: env.NVD_API_KEY,
+                  env: env as unknown as ApiEnv,
+                  live: true,
+                });
+                await writeBriefing(db, briefing);
+                console.log(
+                  JSON.stringify({
+                    job: 'briefing-heal',
+                    type: 'daily',
+                    slug: briefing.slug,
+                    findings: briefing.stats.findings,
+                    iocs: briefing.stats.iocs,
+                  })
+                );
               }
             } catch (e) {
               console.error(
