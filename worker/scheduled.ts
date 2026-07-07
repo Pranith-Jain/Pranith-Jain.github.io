@@ -300,6 +300,81 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
             );
           }
 
+          // === Briefing self-heal (hourly) ================================
+          // Check if expected briefings exist. Runs BEFORE the heavy I/O
+          // below (fire-and-forget publisher, telegram-archive, intel-bundle
+          // warm, CTI collector, cache-warm fan-out) so the heal's own
+          // subrequests (NVD, KEV, feeds, D1 write) are guaranteed budget
+          // on the free-plan 50 subrequest cap.
+          //
+          // Key difference from the old heal: we check the EXPECTED slug
+          // by name, not just the latest row by type. The old code queried
+          // "most recent weekly" which always returned W26 (rich+complete)
+          // even when W27 was missing entirely, so the heal never fired.
+          if (db) {
+            try {
+              const now = new Date();
+              const anchor = now;
+              const weeklySlug = expectedWeeklySlug(anchor);
+              const weeklyRow = await db
+                .prepare('SELECT stats_json, body FROM briefings WHERE slug = ?')
+                .bind(weeklySlug)
+                .first<{ stats_json?: string | null; body?: string | null }>();
+              if (briefingNeedsHeal(weeklyRow, { now: now.getTime(), cooldownMs: 30 * 60_000 })) {
+                console.log(
+                  JSON.stringify({ job: 'briefing-heal', type: 'weekly', slug: weeklySlug, status: 'rebuilding' })
+                );
+                const briefing = await buildBriefing('weekly', undefined, {
+                  nvdApiKey: env.NVD_API_KEY,
+                  env: env as unknown as ApiEnv,
+                });
+                await writeBriefing(db, briefing);
+                console.log(
+                  JSON.stringify({
+                    job: 'briefing-heal',
+                    type: 'weekly',
+                    slug: briefing.slug,
+                    findings: briefing.stats.findings,
+                    iocs: briefing.stats.iocs,
+                  })
+                );
+              }
+              const dailySlug = `daily-${isoDate(now)}`;
+              const dailyRow = await db
+                .prepare('SELECT stats_json, body FROM briefings WHERE slug = ?')
+                .bind(dailySlug)
+                .first<{ stats_json?: string | null; body?: string | null }>();
+              if (briefingNeedsHeal(dailyRow, { now: now.getTime(), cooldownMs: 30 * 60_000 })) {
+                console.log(
+                  JSON.stringify({ job: 'briefing-heal', type: 'daily', slug: dailySlug, status: 'rebuilding' })
+                );
+                const briefing = await buildBriefing('daily', undefined, {
+                  nvdApiKey: env.NVD_API_KEY,
+                  env: env as unknown as ApiEnv,
+                  live: true,
+                });
+                await writeBriefing(db, briefing);
+                console.log(
+                  JSON.stringify({
+                    job: 'briefing-heal',
+                    type: 'daily',
+                    slug: briefing.slug,
+                    findings: briefing.stats.findings,
+                    iocs: briefing.stats.iocs,
+                  })
+                );
+              }
+            } catch (e) {
+              console.error(
+                JSON.stringify({
+                  job: 'briefing-heal',
+                  status: 'failed',
+                  error: e instanceof Error ? e.message : String(e),
+                })
+              );
+            }
+          }
+
           // ── Case-study publisher + Telegram archive + intel-bundle warm ─────
           // These were previously in a separate `0 * * * *` block with a shared
           // lease but no coordination — merged here so one lease + one heartbeat
@@ -426,90 +501,6 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
                 error: e instanceof Error ? e.message : String(e),
               })
             );
-          }
-
-          // === Briefing self-heal (hourly) ================================
-          // Check if expected briefings exist. The primary builds fire at
-          // 00:30 (daily) and 00:45 (weekly) UTC; this catches failures
-          // before the cache-warm fan-out below exhausts the 50-subrequest
-          // budget (free-plan cap). Runs BEFORE the fan-out so the heal's
-          // own subrequests (NVD, KEV, feeds, D1 write) are guaranteed
-          // budget — previously it ran AFTER and was silently starved by
-          // the 22-endpoint cache-warm + CTI collector.
-          //
-          // Key difference from the old heal: we check the EXPECTED slug
-          // by name, not just the latest row by type. The old code queried
-          // "most recent weekly" which always returned W26 (rich+complete)
-          // even when W27 was missing entirely, so the heal never fired.
-          if (db) {
-            try {
-              const now = new Date();
-              const anchor = now;
-              // Check weekly first: expectedWeeklySlug() returns the
-              // prior ISO week (e.g. W27 for a Tuesday in W28). This
-              // catches failures of the Monday 00:45 UTC build on ANY day.
-              const weeklySlug = expectedWeeklySlug(anchor);
-              const weeklyRow = await db
-                .prepare('SELECT stats_json, body FROM briefings WHERE slug = ?')
-                .bind(weeklySlug)
-                .first<{ stats_json?: string | null; body?: string | null }>();
-              if (briefingNeedsHeal(weeklyRow, { now: now.getTime(), cooldownMs: 30 * 60_000 })) {
-                console.log(
-                  JSON.stringify({ job: 'briefing-heal', type: 'weekly', slug: weeklySlug, status: 'rebuilding' })
-                );
-                const briefing = await buildBriefing('weekly', undefined, {
-                  nvdApiKey: env.NVD_API_KEY,
-                  env: env as unknown as ApiEnv,
-                });
-                await writeBriefing(db, briefing);
-                console.log(
-                  JSON.stringify({
-                    job: 'briefing-heal',
-                    type: 'weekly',
-                    slug: briefing.slug,
-                    findings: briefing.stats.findings,
-                    iocs: briefing.stats.iocs,
-                  })
-                );
-              }
-              // Check daily for today's slug (the live 24h window ending
-              // at the current instant). This catches failures of the 00:30
-              // build that would leave analysts with no data until the next
-              // helm cycle.
-              const dailySlug = `daily-${isoDate(now)}`;
-              const dailyRow = await db
-                .prepare('SELECT stats_json, body FROM briefings WHERE slug = ?')
-                .bind(dailySlug)
-                .first<{ stats_json?: string | null; body?: string | null }>();
-              if (briefingNeedsHeal(dailyRow, { now: now.getTime(), cooldownMs: 30 * 60_000 })) {
-                console.log(
-                  JSON.stringify({ job: 'briefing-heal', type: 'daily', slug: dailySlug, status: 'rebuilding' })
-                );
-                const briefing = await buildBriefing('daily', undefined, {
-                  nvdApiKey: env.NVD_API_KEY,
-                  env: env as unknown as ApiEnv,
-                  live: true,
-                });
-                await writeBriefing(db, briefing);
-                console.log(
-                  JSON.stringify({
-                    job: 'briefing-heal',
-                    type: 'daily',
-                    slug: briefing.slug,
-                    findings: briefing.stats.findings,
-                    iocs: briefing.stats.iocs,
-                  })
-                );
-              }
-            } catch (e) {
-              console.error(
-                JSON.stringify({
-                  job: 'briefing-heal',
-                  status: 'failed',
-                  error: e instanceof Error ? e.message : String(e),
-                })
-              );
-            }
           }
 
           // Cache-warm fan-out. Runs after the self-heal above, which was
