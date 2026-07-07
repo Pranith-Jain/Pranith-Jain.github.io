@@ -59,12 +59,15 @@ const GROQ_MODEL_REASONING: string = 'qwen/qwen3-32b';
 const GROQ_MODEL_FALLBACK: string = 'openai/gpt-oss-120b';
 const GROQ_TIMEOUT_MS = 30_000;
 
-// Workers-AI fallback chain (no key). Kept to two models — under an
-// account-wide rate limit, more models don't help and only add load.
+// Workers-AI fallback chain (no key). Prioritise agentic/reasoning models
+// that support long contexts and multi-turn tool calling — critical for CTI
+// investigations. Kimi K2.6 is best overall (thinking mode, 262K context);
+// GLM-5.2 (262K, function calling) is next; Llama 3.3-70B is the fast fallback.
+// Under an account-wide rate limit, trying more than 3 is futile.
 const WORKERS_AI_MODELS = [
+  '@cf/moonshotai/kimi-k2.6',
+  '@cf/zai-org/glm-5.2',
   '@cf/meta/llama-3.3-70b-instruct-fp8-fast',
-  '@cf/qwen/qwen3-30b-a3b-fp8',
-  '@hf/thebloke/deepseek-coder-6.7b-instruct-awq',
 ] as const;
 
 export interface CompletionInput {
