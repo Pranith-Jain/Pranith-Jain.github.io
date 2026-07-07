@@ -285,6 +285,8 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [External Resources](https://pranithjain.qzz.io/threatintel/external/external) (threatintel): Off-site cross-references — dashboards, OSINT directories, training labs.
 - [Supply Chain Intel](https://pranithjain.qzz.io/threatintel/external/supply) (threatintel): Supply chain intelligence — SolarWinds, 3CX, MOVEit, XZ Utils.
 - [Awesome Lists](https://pranithjain.qzz.io/threatintel/external/awesome) (threatintel): Curated awesome-security list — vetted, ranked, kept current.
+- [Cerast Intelligence](https://pranithjain.qzz.io/threatintel/external/cerast) (threatintel): OSINT domain exposure search — exposed paths, staging, misconfigs.
+- [ThreatMon Infostealer](https://pranithjain.qzz.io/threatintel/external/threatmon) (threatintel): Infostealer log search — compromised credentials by domain.
 - [Intel Dashboard](https://pranithjain.qzz.io/threatintel/predictive/dashboard) (threatintel): Top-level intel dashboard — key stats, trending, top actors.
 - [Global Pulse](https://pranithjain.qzz.io/threatintel/predictive/global-pulse) (threatintel): Live 3D globe — 700+ events across 21 layers.
 - [Threat Pulse](https://pranithjain.qzz.io/threatintel/predictive/threat-pulse) (threatintel): Threat-pulse tracking — actor activity, campaign spikes, geo shifts.

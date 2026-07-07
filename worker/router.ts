@@ -537,8 +537,8 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/wifi-investigation', '/__prerendered/dfir__wifi-investigation'],
   // ── Standalone SPA pages ──────────────────────────────────────
   ['/traceix', '/__prerendered/traceix'],
-  ['/cerast', '/__prerendered/cerast'],
-  ['/threatmon-infostealer', '/__prerendered/threatmon-infostealer'],
+  ['/threatintel/external/cerast', '/__prerendered/threatintel__external__cerast'],
+  ['/threatintel/external/threatmon', '/__prerendered/threatintel__external__threatmon'],
   ['/winreg', '/__prerendered/winreg'],
 ]);
 

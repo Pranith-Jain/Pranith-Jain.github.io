@@ -8,7 +8,7 @@ async function loadMod() {
 
 export const campaignsRouter = new Hono<{ Bindings: Env }>();
 
-campaignsRouter.get('/campaigns/stats', async (c) => {
+campaignsRouter.get('/campaigns-catalog/stats', async (c) => {
   try {
     const mod = await loadMod();
     const idx = await mod.loadCampaignsIndex(c.env.ASSETS);
@@ -20,11 +20,11 @@ campaignsRouter.get('/campaigns/stats', async (c) => {
       cache: mod.campaignsCacheStats(),
     });
   } catch (e) {
-    return internalError(c, `campaigns_stats_failed: ${e instanceof Error ? e.message : String(e)}`);
+    return internalError(c, `campaigns_catalog_stats_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
 
-campaignsRouter.get('/campaigns', async (c) => {
+campaignsRouter.get('/campaigns-catalog', async (c) => {
   try {
     const mod = await loadMod();
     const idx = await mod.loadCampaignsIndex(c.env.ASSETS);
@@ -40,11 +40,11 @@ campaignsRouter.get('/campaigns', async (c) => {
     });
     return c.json({ count: campaigns.length, campaigns });
   } catch (e) {
-    return internalError(c, `campaigns_list_failed: ${e instanceof Error ? e.message : String(e)}`);
+    return internalError(c, `campaigns_catalog_list_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
 
-campaignsRouter.get('/campaigns/:slug', async (c) => {
+campaignsRouter.get('/campaigns-catalog/:slug', async (c) => {
   try {
     const mod = await loadMod();
     const slug = c.req.param('slug');
@@ -53,6 +53,6 @@ campaignsRouter.get('/campaigns/:slug', async (c) => {
     if (!campaign) return notFound(c, `Campaign '${slug}' not found`);
     return c.json(campaign);
   } catch (e) {
-    return internalError(c, `campaigns_get_failed: ${e instanceof Error ? e.message : String(e)}`);
+    return internalError(c, `campaigns_catalog_get_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });

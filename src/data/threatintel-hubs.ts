@@ -1109,6 +1109,20 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Curated awesome-security list — vetted, ranked, kept current.',
         compVar: 'AwesomeLists',
       },
+      {
+        path: '/threatintel/external/cerast',
+        tabId: 'cerast',
+        label: 'Cerast Intelligence',
+        desc: 'OSINT domain exposure search — exposed paths, staging, misconfigs.',
+        compVar: 'Cerast',
+      },
+      {
+        path: '/threatintel/external/threatmon',
+        tabId: 'threatmon',
+        label: 'ThreatMon Infostealer',
+        desc: 'Infostealer log search — compromised credentials by domain.',
+        compVar: 'ThreatMonInfostealer',
+      },
     ],
   },
   {

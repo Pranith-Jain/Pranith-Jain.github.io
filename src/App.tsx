@@ -39,8 +39,8 @@ const Status = lazy(() => import('./pages/Status'));
 const ThreatIntel = lazy(() => import('./pages/ThreatIntel'));
 const WinReg = lazy(() => import('./pages/WinReg'));
 const Traceix = lazy(() => import('./pages/Traceix'));
-const Cerast = lazy(() => import('./pages/Cerast'));
-const ThreatMonInfostealer = lazy(() => import('./pages/ThreatMonInfostealer'));
+const Cerast = lazy(() => import('./pages/threatintel/Cerast'));
+const ThreatMonInfostealer = lazy(() => import('./pages/threatintel/ThreatMonInfostealer'));
 const Projects = lazy(() => import('./pages/Projects'));
 const CaseStudy = lazy(() => import('./pages/CaseStudy'));
 const ResearchPostPage = lazy(() => import('./pages/threatintel/ResearchPost'));
@@ -425,8 +425,8 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threat-intel', Component: ThreatIntel },
   { path: '/winreg', Component: WinReg },
   { path: '/traceix', Component: Traceix },
-  { path: '/cerast', Component: Cerast },
-  { path: '/threatmon-infostealer', Component: ThreatMonInfostealer },
+  { path: '/threatintel/external/cerast', Component: Cerast },
+  { path: '/threatintel/external/threatmon', Component: ThreatMonInfostealer },
   { path: '/live', Component: Snapshots },
   { path: '/dfir', Component: DFIR },
   { path: '/dfir/orkl', Component: OrklPage },

@@ -229,21 +229,21 @@ const PORTFOLIO_PAGES: readonly PageEntry[] = [
     keywords: ['traceix', 'hash', 'sha256', 'av', 'antivirus', 'reputation', 'pcef', 'perkins fund'],
   },
   {
-    path: '/cerast',
+    path: '/threatintel/external/cerast',
     label: 'Cerast Intelligence',
     description:
       'OSINT domain exposure search — find exposed paths, staging environments, and misconfigurations across observed domains.',
-    sectionLabel: 'Portfolio',
-    group: 'portfolio',
+    sectionLabel: 'Threat Intel',
+    group: 'threatintel',
     keywords: ['cerast', 'domain', 'exposure', 'osint', 'staging', 'misconfiguration', 'paths', 'intelligence'],
   },
   {
-    path: '/threatmon-infostealer',
+    path: '/threatintel/external/threatmon',
     label: 'ThreatMon Infostealer',
     description:
       'Search stolen credentials, infected devices, and exposed identities linked to a domain via ThreatMon Infostealer Intelligence.',
-    sectionLabel: 'Portfolio',
-    group: 'portfolio',
+    sectionLabel: 'Threat Intel',
+    group: 'threatintel',
     keywords: ['threatmon', 'infostealer', 'stealer', 'credentials', 'compromised', 'malware', 'intelhub'],
   },
 ];
@@ -1784,28 +1784,10 @@ const DFIR_PAGES: readonly PageEntry[] = [
       'long-watch',
     ],
   },
-
-  {
-    path: '/cerast',
-    label: 'Cerast Intelligence',
-    description: 'Domain-based threat intelligence — category, impact, page rank, version, and multihost detection.',
-    sectionLabel: 'DFIR · Threat Intel',
-    group: 'dfir',
-    keywords: ['cerast', 'domain', 'threat', 'category', 'impact', 'page-rank', 'multihost'],
-  },
-
-  {
-    path: '/threatmon-infostealer',
-    label: 'ThreatMon Infostealer',
-    description: 'ThreatMon IntelHub — search infostealer logs by domain, email, IP, or username for compromised credentials from ~2.18B users.',
-    sectionLabel: 'DFIR · Threat Intel',
-    group: 'dfir',
-    keywords: ['threatmon', 'intelhub', 'infostealer', 'stealer', 'credentials', 'compromised'],
-  },
-
-  /* ------------------------------------------------------------------ */
-  /*  3. Threat Intel                                                   */
 ];
+
+/* ------------------------------------------------------------------ */
+/*  3. Threat Intel                                                   */
 /* ------------------------------------------------------------------ */
 
 const THREATINTEL_PAGES: readonly PageEntry[] = [

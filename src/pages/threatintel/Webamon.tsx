@@ -761,7 +761,7 @@ function SandboxTab() {
             reportData.results &&
             reportData.results.length > 0 &&
             (() => {
-              const r = reportData.results[0];
+              const r = reportData.results[0]!;
               return (
                 <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6 space-y-6">
                   <h2 className="font-display font-bold text-lg mb-4 flex items-center gap-2">
