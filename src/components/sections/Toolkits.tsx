@@ -97,7 +97,7 @@ export function Toolkits() {
           return (
             <Link key={app.id} to={app.href} className="group card-hover surface-card flex flex-col p-6 h-full">
               <div className="flex items-start justify-between mb-4">
-                <div className="grid h-10 w-10 place-items-center rounded-md bg-brand-50 text-brand-600 dark:bg-brand-900/30 dark:text-brand-300">
+                <div className="grid h-10 w-10 place-items-center rounded bg-brand-50 text-brand-600 dark:bg-brand-900/30 dark:text-brand-300">
                   <Icon className="h-5 w-5" aria-hidden="true" />
                 </div>
                 <div className="flex items-baseline gap-1 tabular-nums">

@@ -189,7 +189,7 @@ export default function McpSearch(): JSX.Element {
 
       {/* Loaded report side panel */}
       {(loaded || analyzerBusy || analyzerErr || analyzerData) && (
-        <div className="mt-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+        <div className="mt-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
           <div className="flex flex-wrap items-center gap-2 px-4 py-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]">
             <Sparkles className="h-4 w-4 text-brand-600 dark:text-brand-400" />
             <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">

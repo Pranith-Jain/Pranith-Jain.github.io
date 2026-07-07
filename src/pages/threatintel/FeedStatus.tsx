@@ -72,7 +72,7 @@ export default function FeedStatus(): JSX.Element {
         </p>
       }
     >
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
         {data ? (
           <div className="flex items-center gap-3 flex-wrap">
             <span
@@ -130,7 +130,7 @@ export default function FeedStatus(): JSX.Element {
               return (
                 <li
                   key={r.id}
-                  className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
+                  className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
                 >
                   <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
                     <Link

@@ -176,88 +176,88 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
               as a button on the right, not as an inline pill. */}
           <nav className="hidden items-center gap-1 md:flex" aria-label="Main navigation">
             {mainLinks.map((link) => (
-                <div key={link.href} data-nav-href={link.href} className="relative">
-                  {'children' in link && link.children ? (
-                    <>
-                      <button
-                        onClick={() => toggleDropdown(link.href)}
-                        onMouseEnter={() => setOpenDropdown(link.href)}
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
-                            toggleDropdown(link.href);
-                          } else if (e.key === 'ArrowDown') {
-                            e.preventDefault();
-                            setOpenDropdown(link.href);
-                            // Focus first menuitem after render
-                            setTimeout(() => {
-                              const first = document.querySelector<HTMLElement>(
-                                `#dropdown-${link.href.replace('/', '')} a[role="menuitem"]`
-                              );
-                              first?.focus();
-                            }, 0);
-                          }
-                        }}
-                        className={`flex items-center gap-1 rounded-full px-3 py-2 text-sm font-medium transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 ${
-                          isActive(link.href)
-                            ? 'text-brand-600 dark:text-brand-400 bg-brand-500/10'
-                            : 'text-slate-700 hover:bg-slate-900/5 hover:text-slate-900 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white'
-                        }`}
-                        aria-expanded={openDropdown === link.href}
-                        aria-haspopup="true"
-                        aria-controls={`dropdown-${link.href.replace('/', '')}`}
-                      >
-                        {link.label}
-                        <ChevronDown
-                          className={`h-4 w-4 transition-transform ${openDropdown === link.href ? 'rotate-180' : ''}`}
-                          aria-hidden="true"
-                        />
-                      </button>
-                      <div
-                        id={`dropdown-${link.href.replace('/', '')}`}
-                        role="menu"
-                        tabIndex={-1}
-                        className={`absolute left-0 top-full mt-1 min-w-[200px] rounded-xl border border-[rgb(var(--border-400))] bg-white py-2 shadow-lg dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] transition-all duration-200 ${
-                          openDropdown === link.href
-                            ? 'visible opacity-100 translate-y-0'
-                            : 'invisible opacity-0 -translate-y-2'
-                        }`}
-                        onMouseLeave={() => setOpenDropdown(null)}
-                        onKeyDown={(e) => handleDropdownKeyDown(e, link.href)}
-                      >
-                        {link.children.map((child) => (
-                          <Link
-                            key={child.href}
-                            to={child.href}
-                            aria-current={isActive(child.href) ? 'page' : undefined}
-                            className="block px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10 focus:outline-none focus:bg-slate-100 dark:focus:bg-white/10"
-                            onClick={() => setOpenDropdown(null)}
-                            onMouseEnter={() => preloadRoute(child.href)}
-                            onFocus={() => preloadRoute(child.href)}
-                            role="menuitem"
-                          >
-                            {child.label}
-                          </Link>
-                        ))}
-                      </div>
-                    </>
-                  ) : (
-                    <Link
-                      to={link.href}
-                      aria-current={isActive(link.href) ? 'page' : undefined}
-                      onMouseEnter={() => preloadRoute(link.href)}
-                      onFocus={() => preloadRoute(link.href)}
-                      className={`rounded-full px-3 py-2 text-sm font-medium transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 ${
+              <div key={link.href} data-nav-href={link.href} className="relative">
+                {'children' in link && link.children ? (
+                  <>
+                    <button
+                      onClick={() => toggleDropdown(link.href)}
+                      onMouseEnter={() => setOpenDropdown(link.href)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          toggleDropdown(link.href);
+                        } else if (e.key === 'ArrowDown') {
+                          e.preventDefault();
+                          setOpenDropdown(link.href);
+                          // Focus first menuitem after render
+                          setTimeout(() => {
+                            const first = document.querySelector<HTMLElement>(
+                              `#dropdown-${link.href.replace('/', '')} a[role="menuitem"]`
+                            );
+                            first?.focus();
+                          }, 0);
+                        }
+                      }}
+                      className={`flex items-center gap-1 rounded-full px-3 py-2 text-sm font-medium transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 ${
                         isActive(link.href)
                           ? 'text-brand-600 dark:text-brand-400 bg-brand-500/10'
                           : 'text-slate-700 hover:bg-slate-900/5 hover:text-slate-900 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white'
                       }`}
+                      aria-expanded={openDropdown === link.href}
+                      aria-haspopup="true"
+                      aria-controls={`dropdown-${link.href.replace('/', '')}`}
                     >
                       {link.label}
-                    </Link>
-                  )}
-                </div>
-              ))}
+                      <ChevronDown
+                        className={`h-4 w-4 transition-transform ${openDropdown === link.href ? 'rotate-180' : ''}`}
+                        aria-hidden="true"
+                      />
+                    </button>
+                    <div
+                      id={`dropdown-${link.href.replace('/', '')}`}
+                      role="menu"
+                      tabIndex={-1}
+                      className={`absolute left-0 top-full mt-1 min-w-[200px] rounded-xl border border-[rgb(var(--border-400))] bg-white py-2 shadow-xl dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] transition-all duration-200 ${
+                        openDropdown === link.href
+                          ? 'visible opacity-100 translate-y-0'
+                          : 'invisible opacity-0 -translate-y-2'
+                      }`}
+                      onMouseLeave={() => setOpenDropdown(null)}
+                      onKeyDown={(e) => handleDropdownKeyDown(e, link.href)}
+                    >
+                      {link.children.map((child) => (
+                        <Link
+                          key={child.href}
+                          to={child.href}
+                          aria-current={isActive(child.href) ? 'page' : undefined}
+                          className="block px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10 focus:outline-none focus:bg-slate-100 dark:focus:bg-white/10"
+                          onClick={() => setOpenDropdown(null)}
+                          onMouseEnter={() => preloadRoute(child.href)}
+                          onFocus={() => preloadRoute(child.href)}
+                          role="menuitem"
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  <Link
+                    to={link.href}
+                    aria-current={isActive(link.href) ? 'page' : undefined}
+                    onMouseEnter={() => preloadRoute(link.href)}
+                    onFocus={() => preloadRoute(link.href)}
+                    className={`rounded-full px-3 py-2 text-sm font-medium transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 ${
+                      isActive(link.href)
+                        ? 'text-brand-600 dark:text-brand-400 bg-brand-500/10'
+                        : 'text-slate-700 hover:bg-slate-900/5 hover:text-slate-900 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white'
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                )}
+              </div>
+            ))}
           </nav>
 
           {/* Actions */}
@@ -267,15 +267,15 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
                 row). The arrow nudges the user toward action without being
                 shouty. */}
             {ctaLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  to={link.href}
-                  className="hidden md:inline-flex items-center gap-1.5 rounded-full bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-500 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
-                >
-                  {link.label}
-                  <span aria-hidden="true">→</span>
-                </Link>
-              ))}
+              <Link
+                key={link.href}
+                to={link.href}
+                className="hidden md:inline-flex items-center gap-1.5 rounded-full bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition hover:bg-brand-500 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+              >
+                {link.label}
+                <span aria-hidden="true">→</span>
+              </Link>
+            ))}
 
             {isMac !== null && (
               <button
@@ -307,7 +307,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
               ref={mobileMenuButtonRef}
               type="button"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="grid h-11 w-11 sm:h-10 sm:w-10 place-items-center rounded-full border border-slate-200/60 bg-white/70 text-slate-700 shadow-sm transition hover:shadow-md dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]/60 dark:text-slate-200 md:hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+              className="grid h-11 w-11 sm:h-10 sm:w-10 place-items-center rounded-full border border-slate-200/60 bg-white/70 text-slate-700 shadow-md transition hover:shadow-md dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]/60 dark:text-slate-200 md:hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
               aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-menu"
@@ -365,7 +365,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
                         to={child.href}
                         aria-current={isActive(child.href) ? 'page' : undefined}
                         onClick={closeMobileMenu}
-                        className={`block rounded-lg px-4 py-3.5 sm:py-3 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 ${
+                        className={`block rounded-xl px-4 py-3.5 sm:py-3 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 ${
                           isActive(child.href)
                             ? 'text-brand-600 dark:text-brand-400 bg-brand-500/10'
                             : 'text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10'
@@ -383,7 +383,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
                   to={link.href}
                   aria-current={!link.cta && isActive(link.href) ? 'page' : undefined}
                   onClick={closeMobileMenu}
-                  className={`rounded-lg px-4 py-3.5 sm:py-3 text-sm font-medium block focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 ${
+                  className={`rounded-xl px-4 py-3.5 sm:py-3 text-sm font-medium block focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 ${
                     link.cta
                       ? 'bg-brand-600 text-white hover:bg-brand-500 mt-2'
                       : isActive(link.href)

@@ -23,7 +23,7 @@ interface SkeletonProps {
 const VARIANT_STYLES: Record<SkeletonVariant, string> = {
   text: 'rounded',
   circular: 'rounded-full',
-  rectangular: 'rounded-md',
+  rectangular: 'rounded',
   card: 'rounded-xl',
 };
 

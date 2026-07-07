@@ -51,7 +51,7 @@ export default function OsintCliTools(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search tools…"
-            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
         </div>
         <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{filtered.length} tools</span>
@@ -63,7 +63,7 @@ export default function OsintCliTools(): JSX.Element {
             setActiveCat(null);
             setSearchParams({});
           }}
-          className={`text-xs font-mono px-3 py-1.5 rounded-lg border transition-colors ${
+          className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${
             !activeCat
               ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
               : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]'
@@ -78,7 +78,7 @@ export default function OsintCliTools(): JSX.Element {
               setActiveCat(activeCat === cat ? null : cat);
               setSearchParams(activeCat === cat ? {} : { cat });
             }}
-            className={`text-xs font-mono px-3 py-1.5 rounded-lg border transition-colors ${
+            className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${
               activeCat === cat
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
                 : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]'
@@ -108,7 +108,7 @@ function ToolCard({ tool }: { tool: CliTool }): JSX.Element {
       href={sanitizeUrl(tool.repo)}
       target="_blank"
       rel="noopener noreferrer"
-      className="block rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 transition-all hover:border-brand-500/50 hover:shadow-lg hover:shadow-brand-500/5 hover:-translate-y-0.5"
+      className="block rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 transition-all hover:border-brand-500/50 hover:shadow-xl hover:shadow-brand-500/5 hover:-translate-y-0.5"
     >
       <div className="flex items-start justify-between gap-2 mb-2">
         <span className="font-mono font-semibold text-sm text-slate-900 dark:text-slate-100">{tool.name}</span>

@@ -111,12 +111,12 @@ export default function Domain(): JSX.Element {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="example.com"
-            className="flex-1 px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             type="submit"
             disabled={!valid || loading}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
           >
             <Search size={16} className="inline mr-2" />
             Look up
@@ -136,7 +136,7 @@ export default function Domain(): JSX.Element {
 
       {result && (
         <div className="space-y-6">
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
             <div className="flex flex-wrap items-baseline justify-between gap-2">
               <h2 className="font-display font-bold text-2xl min-w-0 break-all">{result.domain}</h2>
               <span className="font-mono text-sm shrink-0">
@@ -162,7 +162,7 @@ export default function Domain(): JSX.Element {
 
           {/* Cert Transparency (crt.sh) — metabigor cert equivalent */}
           {ctLoading && (
-            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
               <div className="flex items-center gap-2 text-sm text-slate-500 font-mono">
                 <div className="animate-spin w-3 h-3 border-2 border-brand-500 border-t-transparent rounded-full" />
                 Querying crt.sh for certificate transparency logs…
@@ -170,7 +170,7 @@ export default function Domain(): JSX.Element {
             </section>
           )}
           {certTransparency && certTransparency.subdomains.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
               <h2 className="font-display font-bold text-lg mb-2 flex items-center gap-2">
                 <Link2 size={18} className="text-brand-600 dark:text-brand-400" /> Certificate Transparency Subdomains
               </h2>
@@ -203,7 +203,7 @@ export default function Domain(): JSX.Element {
           )}
 
           {webamonLoading && (
-            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
               <div className="flex items-center gap-2 text-sm text-slate-500 font-mono">
                 <div className="animate-spin w-3 h-3 border-2 border-brand-500 border-t-transparent rounded-full" />
                 Checking Webamon scan data…
@@ -212,7 +212,7 @@ export default function Domain(): JSX.Element {
           )}
 
           {webamon && webamon.total_hits > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
               <button
                 type="button"
                 onClick={() => setWebamonExpanded((v) => !v)}

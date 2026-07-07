@@ -96,14 +96,14 @@ export default function UrlReputation(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="https://example.com/path?param=value"
-              className="w-full pl-9 pr-3 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-3 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="URL to check"
             />
           </div>
           <button
             type="submit"
             disabled={!canSubmit}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
           >
             <Search size={16} className="inline mr-2" /> Check
           </button>
@@ -125,7 +125,7 @@ export default function UrlReputation(): JSX.Element {
       )}
 
       {summary && (
-        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
+        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
           <div className="flex items-baseline justify-between mb-2">
             <h2 ref={summaryRef} tabIndex={-1} className="font-display font-bold text-lg focus:outline-none">
               Composite verdict
@@ -147,7 +147,7 @@ export default function UrlReputation(): JSX.Element {
       )}
 
       {results.length > 0 && (
-        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
           <div className="flex items-baseline justify-between mb-3">
             <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
               Per-source results

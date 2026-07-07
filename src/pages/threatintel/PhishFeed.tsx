@@ -32,7 +32,7 @@ function extractDomain(url: string): string {
 function extractTLD(url: string): string {
   const host = extractDomain(url);
   const parts = host.split('.');
-  return parts.length > 1 ? parts[parts.length - 1] : '';
+  return parts.length > 1 ? parts[parts.length - 1]! : '';
 }
 
 const RISKY_TLDS = new Set([
@@ -158,7 +158,7 @@ export default function PhishFeed(): JSX.Element {
         ].map(({ label, value, icon: Icon, cls }) => (
           <div
             key={label}
-            className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 shadow-e1 p-2.5"
+            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 shadow-e1 p-2.5"
           >
             <div className={`flex items-center gap-1.5 text-mini uppercase tracking-wider mb-0.5 ${cls}`}>
               <Icon className="w-3 h-3" /> {label}
@@ -177,13 +177,13 @@ export default function PhishFeed(): JSX.Element {
             placeholder="Search URL, domain, or target brand…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
           />
         </div>
         <select
           value={sourceFilter}
           onChange={(e) => setSourceFilter(e.target.value as any)}
-          className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
+          className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
         >
           <option value="all">All sources</option>
           <option value="openphish">OpenPhish</option>
@@ -191,7 +191,7 @@ export default function PhishFeed(): JSX.Element {
         </select>
         <button
           onClick={() => setVerifiedOnly(!verifiedOnly)}
-          className={`px-3 py-2 rounded-lg border text-xs font-medium flex items-center gap-1.5 transition ${
+          className={`px-3 py-2 rounded-xl border text-xs font-medium flex items-center gap-1.5 transition ${
             verifiedOnly
               ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
               : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-400'
@@ -201,7 +201,7 @@ export default function PhishFeed(): JSX.Element {
         </button>
         <button
           onClick={() => refetch()}
-          className="px-3 py-2 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-600 text-sm flex items-center gap-2"
+          className="px-3 py-2 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-600 text-sm flex items-center gap-2"
         >
           <RefreshCw className="w-4 h-4" /> Refresh
         </button>
@@ -235,7 +235,7 @@ export default function PhishFeed(): JSX.Element {
         </select>
         <button
           onClick={doExport}
-          className="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-600 text-xs flex items-center gap-1.5"
+          className="px-3 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-600 text-xs flex items-center gap-1.5"
         >
           <Download className="w-3.5 h-3.5" /> Export ({filtered.length})
         </button>
@@ -260,7 +260,7 @@ export default function PhishFeed(): JSX.Element {
             return (
               <div
                 key={`${domain}-${i}`}
-                className={`flex items-center gap-2 px-3 py-2 rounded-lg border text-xs font-mono ${
+                className={`flex items-center gap-2 px-3 py-2 rounded-xl border text-xs font-mono ${
                   risky
                     ? 'border-amber-300/50 dark:border-amber-500/30 bg-amber-50 dark:bg-amber-900/5'
                     : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/30'

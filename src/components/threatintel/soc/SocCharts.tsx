@@ -207,7 +207,7 @@ function truncate(s: string, n: number): string {
 export interface DonutSlice {
   label: string;
   value: number;
-  color: string;
+  color: string | undefined;
   hint?: string;
 }
 
@@ -324,7 +324,7 @@ export function SocDonut({
                 onMouseEnter={() => setHover(s.label)}
                 onMouseLeave={() => setHover(null)}
               >
-                <span className="inline-block h-2.5 w-2.5 rounded-sm shrink-0" style={{ backgroundColor: s.color }} />
+                <span className="inline-block h-2.5 w-2.5 rounded shrink-0" style={{ backgroundColor: s.color }} />
                 <span className="truncate text-slate-700 dark:text-slate-300">{s.label}</span>
                 <span className="ml-auto text-slate-500 tabular-nums">
                   {s.value.toLocaleString('en-US')}{' '}
@@ -342,7 +342,7 @@ export function SocDonut({
               onMouseEnter={() => setHover(s.label)}
               onMouseLeave={() => setHover(null)}
             >
-              <span className="inline-block h-2 w-2 rounded-sm shrink-0" style={{ backgroundColor: s.color }} />
+              <span className="inline-block h-2 w-2 rounded shrink-0" style={{ backgroundColor: s.color }} />
               <span className="truncate text-slate-700 dark:text-slate-300">{s.label}</span>
               <span className="ml-auto text-slate-500 tabular-nums">{((s.value / total) * 100).toFixed(1)}%</span>
             </li>

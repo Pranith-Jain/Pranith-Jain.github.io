@@ -168,8 +168,8 @@ export function useDFIRRoute(initialTab: TabType = 'home'): DFIRRoute {
 
     const currentIndex = subModes.findIndex((s) => s.id === subMode);
     const nextIndex = (currentIndex + 1) % subModes.length;
-    setSubModeState(subModes[nextIndex].id);
-    updateUrl(tab, subModes[nextIndex].id);
+    setSubModeState(subModes[nextIndex]!.id);
+    updateUrl(tab, subModes[nextIndex]!.id);
   }, [tab, subMode, updateUrl]);
 
   const getUrl = useCallback(() => {

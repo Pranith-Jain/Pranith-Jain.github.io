@@ -1,5 +1,5 @@
 import { DataPageLayout } from '../../components/DataPageLayout';
-import { ExternalLink, Shield, Target, CheckCircle, XCircle, AlertTriangle } from 'lucide-react';
+import { ExternalLink, Shield, Target, CheckCircle, XCircle } from 'lucide-react';
 
 interface Step {
   number: number;
@@ -178,7 +178,7 @@ export default function DetectionChokepointsFramework(): JSX.Element {
           {STEPS.map((s) => (
             <div
               key={s.number}
-              className={`rounded-lg border p-4 ${
+              className={`rounded-xl border p-4 ${
                 s.highlight
                   ? 'border-emerald-500/40 bg-emerald-500/5'
                   : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]'
@@ -204,7 +204,7 @@ export default function DetectionChokepointsFramework(): JSX.Element {
         </h2>
         <div className="grid gap-3 sm:grid-cols-3">
           {MATURITY_LEVELS.map((m) => (
-            <div key={m.level} className={`rounded-lg border ${m.border} ${m.bg} p-4 shadow-e1`}>
+            <div key={m.level} className={`rounded-xl border ${m.border} ${m.bg} p-4 shadow-e1`}>
               <h3 className={`font-display font-bold text-base mb-1 ${m.color}`}>{m.level}</h3>
               <p className="text-sm font-mono text-slate-700 dark:text-slate-300 mb-2">{m.description}</p>
               <div className="space-y-1 text-xs font-mono text-slate-500 dark:text-slate-400">
@@ -226,7 +226,7 @@ export default function DetectionChokepointsFramework(): JSX.Element {
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-4">
           4-Question Chokepoint Validation Test
         </h2>
-        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
           <div className="space-y-3">
             {VALIDATION_QUESTIONS.map((q, i) => (
               <div key={i} className="flex items-start gap-3">
@@ -250,7 +250,7 @@ export default function DetectionChokepointsFramework(): JSX.Element {
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-4">
           Chokepoint Detection vs Tool Detection
         </h2>
-        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm font-mono">
               <thead>

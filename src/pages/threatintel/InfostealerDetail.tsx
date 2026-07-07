@@ -131,7 +131,7 @@ export default function InfostealerDetail(): JSX.Element {
   if (!family) {
     return (
       <DataPageLayout backTo="/threatintel" icon={<Bug size={24} />} title="Infostealer" maxWidthClass="max-w-4xl">
-        <div className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-4 font-mono text-sm text-amber-700 dark:text-amber-300">
+        <div className="rounded-xl border border-amber-500/40 bg-amber-500/10 p-4 font-mono text-sm text-amber-700 dark:text-amber-300">
           Unknown infostealer family: <code>{slug}</code>
         </div>
       </DataPageLayout>
@@ -151,21 +151,21 @@ export default function InfostealerDetail(): JSX.Element {
       maxWidthClass="max-w-5xl"
     >
       <div className="grid gap-6 md:grid-cols-3 mb-8 animate-fade-in-up">
-        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
+        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
           <div className="flex items-center gap-2 mb-2">
             <Calendar size={14} className="text-slate-500" />
             <span className="text-micro font-mono uppercase tracking-wider text-slate-500">First seen</span>
           </div>
           <p className="font-mono text-sm font-semibold">{family.firstSeen}</p>
         </div>
-        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
+        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
           <div className="flex items-center gap-2 mb-2">
             <Globe size={14} className="text-slate-500" />
             <span className="text-micro font-mono uppercase tracking-wider text-slate-500">Platforms</span>
           </div>
           <p className="font-mono text-sm font-semibold">{family.platforms.join(', ')}</p>
         </div>
-        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
+        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
           <div className="flex items-center gap-2 mb-2">
             <Layers size={14} className="text-slate-500" />
             <span className="text-micro font-mono uppercase tracking-wider text-slate-500">Capabilities</span>
@@ -217,13 +217,13 @@ export default function InfostealerDetail(): JSX.Element {
               href={family.malpediaUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 text-brand-600 dark:text-brand-400"
+              className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 text-brand-600 dark:text-brand-400"
             >
               <ExternalLink size={12} /> Malpedia
             </a>
           )}
           {family.threatfoxTag && (
-            <span className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500">
+            <span className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500">
               <Shield size={12} /> ThreatFox:{' '}
               <code className="text-slate-700 dark:text-slate-300">{family.threatfoxTag}</code>
             </span>
@@ -238,7 +238,7 @@ export default function InfostealerDetail(): JSX.Element {
         {loading ? (
           <p className="font-mono text-meta text-slate-500 animate-pulse">loading samples…</p>
         ) : error ? (
-          <p className="rounded-lg border border-rose-300/70 bg-rose-50/60 px-3 py-2 font-mono text-meta text-rose-700 dark:border-rose-800/60 dark:bg-rose-950/30 dark:text-rose-300">
+          <p className="rounded-xl border border-rose-300/70 bg-rose-50/60 px-3 py-2 font-mono text-meta text-rose-700 dark:border-rose-800/60 dark:bg-rose-950/30 dark:text-rose-300">
             {error}
           </p>
         ) : samples.length === 0 ? (
@@ -248,7 +248,7 @@ export default function InfostealerDetail(): JSX.Element {
             {samples.map((s, i) => (
               <li
                 key={i}
-                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
+                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
               >
                 <div className="flex items-center justify-between gap-2 mb-1">
                   <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 font-mono text-micro uppercase text-rose-700 dark:text-rose-300">
@@ -290,7 +290,7 @@ export default function InfostealerDetail(): JSX.Element {
         {loading ? (
           <p className="font-mono text-meta text-slate-500 animate-pulse">loading IOCs…</p>
         ) : error ? (
-          <p className="rounded-lg border border-rose-300/70 bg-rose-50/60 px-3 py-2 font-mono text-meta text-rose-700 dark:border-rose-800/60 dark:bg-rose-950/30 dark:text-rose-300">
+          <p className="rounded-xl border border-rose-300/70 bg-rose-50/60 px-3 py-2 font-mono text-meta text-rose-700 dark:border-rose-800/60 dark:bg-rose-950/30 dark:text-rose-300">
             {error}
           </p>
         ) : c2.length === 0 ? (
@@ -300,7 +300,7 @@ export default function InfostealerDetail(): JSX.Element {
             {c2.map((x, i) => (
               <li
                 key={i}
-                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
+                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
               >
                 <div className="flex items-center justify-between gap-2">
                   <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 font-mono text-micro uppercase text-rose-700 dark:text-rose-300">

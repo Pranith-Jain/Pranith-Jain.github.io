@@ -226,7 +226,7 @@ export default function XVeridikt(): JSX.Element {
                   value={iocInput}
                   onChange={(e) => setIocInput(e.target.value)}
                   placeholder="IP / Domain / URL / Hash…"
-                  className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 text-sm text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
+                  className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 text-sm text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
                 />
                 <p className="text-micro font-mono text-slate-400">
                   Auto-detects IPv4, Domains, URLs, MD5/SHA1/SHA256/SHA512
@@ -243,7 +243,7 @@ export default function XVeridikt(): JSX.Element {
                   onChange={(e) => setBulkInput(e.target.value)}
                   placeholder={'One IOC per line\n185.234.72.10\nmalware.example.com\nd41d8cd98f00b204e9800998ecf8427e'}
                   rows={6}
-                  className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
+                  className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
                 />
                 <p className="text-micro font-mono text-slate-400">One IOC per line. Auto-detects type.</p>
               </div>
@@ -283,7 +283,7 @@ export default function XVeridikt(): JSX.Element {
                 <select
                   value={filterVerdict}
                   onChange={(e) => setFilterVerdict(e.target.value as Verdict | 'all')}
-                  className="px-2 py-1 text-xs font-mono bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-slate-700 dark:text-slate-300"
+                  className="px-2 py-1 text-xs font-mono bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-slate-700 dark:text-slate-300"
                 >
                   <option value="all">All Verdicts</option>
                   <option value="malicious">Malicious</option>
@@ -294,7 +294,7 @@ export default function XVeridikt(): JSX.Element {
                 <select
                   value={filterType}
                   onChange={(e) => setFilterType(e.target.value)}
-                  className="px-2 py-1 text-xs font-mono bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-slate-700 dark:text-slate-300"
+                  className="px-2 py-1 text-xs font-mono bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-slate-700 dark:text-slate-300"
                 >
                   <option value="all">All Types</option>
                   {uniqueTypes.map((t) => (
@@ -343,7 +343,7 @@ export default function XVeridikt(): JSX.Element {
                         <span className="text-micro font-mono text-slate-400">{result.type}</span>
                       </div>
                       <span
-                        className={`flex items-center gap-1 shrink-0 text-micro font-mono font-semibold uppercase tracking-wider px-2 py-1 rounded-md border ${VERDICT_STYLES[result.verdict]}`}
+                        className={`flex items-center gap-1 shrink-0 text-micro font-mono font-semibold uppercase tracking-wider px-2 py-1 rounded border ${VERDICT_STYLES[result.verdict]}`}
                       >
                         <VIcon size={12} /> {result.verdict}
                       </span>
@@ -375,7 +375,7 @@ export default function XVeridikt(): JSX.Element {
                           return (
                             <div
                               key={src.source}
-                              className={`rounded-lg border px-2.5 py-2 ${VERDICT_STYLES[src.verdict]}`}
+                              className={`rounded-xl border px-2.5 py-2 ${VERDICT_STYLES[src.verdict]}`}
                             >
                               <div className="text-micro font-mono font-semibold">{src.source}</div>
                               <div className="flex items-center gap-1 mt-0.5">

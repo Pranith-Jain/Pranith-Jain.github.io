@@ -224,7 +224,7 @@ export default function CampaignDetail(): JSX.Element {
       error={error}
     >
       {data && (
-        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
           {(data.input.actor || data.input.sector) && (
             <div className="flex flex-wrap gap-2 mb-4 text-mini font-mono">
               {data.input.actor && (
@@ -260,7 +260,7 @@ export default function CampaignDetail(): JSX.Element {
                 {orderedKillChain.map((k, i) => (
                   <li
                     key={`${k.phase}-${i}`}
-                    className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
+                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
                   >
                     <div className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 mb-0.5">
                       {PHASE_LABELS[k.phase] ?? k.phase}
@@ -279,7 +279,7 @@ export default function CampaignDetail(): JSX.Element {
                 {data.campaign.mitre_techniques.map((m) => (
                   <li
                     key={m.id}
-                    className="text-sm rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
+                    className="text-sm rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
                   >
                     <a
                       href={`https://attack.mitre.org/techniques/${m.id.replace('.', '/')}`}

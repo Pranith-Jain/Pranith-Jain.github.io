@@ -70,7 +70,7 @@ export function PostAnalysisButton({ title, description, source, compact }: Post
       <button
         type="button"
         onClick={fetchAnalysis}
-        className={`inline-flex items-center gap-1 text-micro font-mono rounded-md border transition-colors ${
+        className={`inline-flex items-center gap-1 text-micro font-mono rounded border transition-colors ${
           compact ? 'px-1.5 py-0.5' : 'px-2 py-1'
         } ${
           open
@@ -121,7 +121,7 @@ export function PostAnalysisButton({ title, description, source, compact }: Post
 
             {/* Error */}
             {error && (
-              <div className="rounded-lg bg-rose-500/10 border border-rose-500/20 p-3 text-center">
+              <div className="rounded-xl bg-rose-500/10 border border-rose-500/20 p-3 text-center">
                 <p className="text-xs text-rose-400">{error}</p>
               </div>
             )}
@@ -142,14 +142,14 @@ export function PostAnalysisButton({ title, description, source, compact }: Post
                 <p className="text-xs text-slate-300 leading-relaxed">{analysis.summary}</p>
 
                 {analysis.impact && (
-                  <div className="rounded-lg bg-slate-800/50 p-2.5">
+                  <div className="rounded-xl bg-slate-800/50 p-2.5">
                     <span className="text-micro font-mono uppercase text-slate-500 block mb-0.5">Impact</span>
                     <p className="text-xs text-slate-400">{analysis.impact}</p>
                   </div>
                 )}
 
                 {analysis.context && (
-                  <div className="rounded-lg bg-slate-800/50 p-2.5">
+                  <div className="rounded-xl bg-slate-800/50 p-2.5">
                     <span className="text-micro font-mono uppercase text-slate-500 block mb-0.5">Context</span>
                     <p className="text-xs text-slate-400">{analysis.context}</p>
                   </div>

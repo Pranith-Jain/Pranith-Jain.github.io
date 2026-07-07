@@ -43,7 +43,7 @@ const TOOLS = [
 function getToolOfTheDay(): (typeof TOOLS)[0] {
   const today = new Date();
   const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
-  return TOOLS[seed % TOOLS.length];
+  return TOOLS[seed % TOOLS.length]!;
 }
 
 export function ToolOfTheDay(): JSX.Element | null {
@@ -56,7 +56,7 @@ export function ToolOfTheDay(): JSX.Element | null {
   if (!tool) return null;
 
   return (
-    <section className="group relative overflow-hidden rounded-lg border border-slate-200/70 dark:border-[rgb(var(--border-400))] p-5 transition-all duration-200 hover:border-brand-300/50 dark:hover:border-brand-500/30 hover:shadow-md dark:hover:shadow-brand-500/5">
+    <section className="group relative overflow-hidden rounded-xl border border-slate-200/70 dark:border-[rgb(var(--border-400))] p-5 transition-all duration-200 hover:border-brand-300/50 dark:hover:border-brand-500/30 hover:shadow-md dark:hover:shadow-brand-500/5">
       {/* Subtle gradient */}
       <div aria-hidden className="absolute inset-0 bg-[rgb(var(--hover-100))]" />
       <div className="relative">
@@ -75,7 +75,7 @@ export function ToolOfTheDay(): JSX.Element | null {
           onFocus={() => preloadRoute(tool.path)}
         >
           <div className="flex items-start gap-3">
-            <div className="grid h-9 w-9 place-items-center rounded-lg bg-brand-500/10 dark:bg-brand-500/15 text-brand-600 dark:text-brand-400 shrink-0">
+            <div className="grid h-9 w-9 place-items-center rounded-xl bg-brand-500/10 dark:bg-brand-500/15 text-brand-600 dark:text-brand-400 shrink-0">
               <Wrench size={16} />
             </div>
             <div className="min-w-0 flex-1">

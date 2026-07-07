@@ -285,7 +285,7 @@ export default function TgIntelSearch() {
 
       {/* Saved Searches */}
       {showSaved && (
-        <div className="mb-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <div className="mb-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
           <div className="flex items-center justify-between mb-2">
             <h3 className="font-display font-semibold text-sm">Saved Searches</h3>
             <button
@@ -324,7 +324,7 @@ export default function TgIntelSearch() {
       {/* Search Bar */}
       <form onSubmit={handleSearch} className="mb-4">
         <div className="flex gap-2">
-          <div className="flex items-center rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden flex-1">
+          <div className="flex items-center rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden flex-1">
             <select
               value={mode}
               onChange={(e) => setMode(e.target.value as 'boolean' | 'general')}
@@ -360,7 +360,7 @@ export default function TgIntelSearch() {
           </div>
           <button
             type="submit"
-            className="px-4 py-2 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-lg hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
+            className="px-4 py-2 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-xl hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
           >
             <Search size={14} />
           </button>
@@ -368,7 +368,7 @@ export default function TgIntelSearch() {
             <button
               type="button"
               onClick={() => setShowSaveForm(true)}
-              className="px-2.5 py-2 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-muted hover:text-slate-900 dark:hover:text-slate-100 hover:border-brand-300 transition-colors"
+              className="px-2.5 py-2 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-muted hover:text-slate-900 dark:hover:text-slate-100 hover:border-brand-300 transition-colors"
             >
               <Star size={14} />
             </button>
@@ -401,7 +401,7 @@ export default function TgIntelSearch() {
 
       {/* Filters */}
       {showFilters && (
-        <div className="mb-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <div className="mb-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
           <div className="flex flex-wrap items-end gap-3">
             <div>
               <label htmlFor="tg-ch" className="block text-micro font-mono text-slate-500 mb-1">
@@ -544,7 +544,7 @@ export default function TgIntelSearch() {
 
       {/* Timeline */}
       {timeline.length > 0 && (
-        <div className="mb-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <div className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
           <div className="flex items-center justify-between mb-2">
             <h3 className="font-display font-semibold text-sm flex items-center gap-1.5">
               <BarChart3 size={12} className="text-brand-500" /> Activity Timeline
@@ -584,7 +584,7 @@ export default function TgIntelSearch() {
       )}
 
       {error && (
-        <div className="p-3 rounded-lg border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-300 flex items-center gap-2 font-mono text-sm mb-4">
+        <div className="p-3 rounded-xl border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-300 flex items-center gap-2 font-mono text-sm mb-4">
           <AlertTriangle className="w-4 h-4" /> {error}
         </div>
       )}
@@ -623,7 +623,7 @@ export default function TgIntelSearch() {
               return (
                 <div
                   key={entry.id}
-                  className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden"
+                  className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden"
                 >
                   <div
                     role="button"

@@ -121,7 +121,7 @@ function FolderRow({ folder }: FolderRowProps): JSX.Element {
   };
 
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]">
       <button
         type="button"
         onClick={toggle}

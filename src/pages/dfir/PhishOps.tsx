@@ -392,14 +392,14 @@ export default function PhishOps(): JSX.Element {
             <button
               type="button"
               onClick={reset}
-              className="text-xs font-mono px-3 py-1.5 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors inline-flex items-center gap-1.5"
+              className="text-xs font-mono px-3 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors inline-flex items-center gap-1.5"
             >
               <RotateCcw size={12} /> New Investigation
             </button>
             <button
               type="button"
               onClick={downloadReport}
-              className="text-xs font-mono px-3 py-1.5 rounded-lg bg-brand-600 text-white hover:bg-brand-500 transition-colors inline-flex items-center gap-1.5"
+              className="text-xs font-mono px-3 py-1.5 rounded-xl bg-brand-600 text-white hover:bg-brand-500 transition-colors inline-flex items-center gap-1.5"
             >
               <Download size={12} /> Export Report
             </button>
@@ -419,7 +419,7 @@ export default function PhishOps(): JSX.Element {
                 onClick={() => goStep(s.id)}
                 role="tab"
                 aria-selected={active}
-                className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-mono font-semibold transition-colors whitespace-nowrap ${
+                className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-mono font-semibold transition-colors whitespace-nowrap ${
                   active
                     ? 'bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300 border border-brand-300/50 dark:border-brand-700/50'
                     : complete
@@ -451,7 +451,7 @@ export default function PhishOps(): JSX.Element {
             <button
               type="button"
               onClick={() => goStep(prevStep)}
-              className="text-xs font-mono px-3 py-1.5 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              className="text-xs font-mono px-3 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
             >
               <ChevronLeft size={12} /> Previous Step
             </button>
@@ -460,7 +460,7 @@ export default function PhishOps(): JSX.Element {
             <button
               type="button"
               onClick={() => goStep(nextStep)}
-              className="text-xs font-mono px-3 py-1.5 rounded-lg bg-brand-600 text-white hover:bg-brand-500 transition-colors inline-flex items-center gap-1.5"
+              className="text-xs font-mono px-3 py-1.5 rounded-xl bg-brand-600 text-white hover:bg-brand-500 transition-colors inline-flex items-center gap-1.5"
             >
               Next Step <ChevronRight size={12} />
             </button>
@@ -482,7 +482,7 @@ export default function PhishOps(): JSX.Element {
             {data.fields.map((f, i) => (
               <div
                 key={i}
-                className="flex items-start gap-2 p-3 rounded-lg bg-slate-50 dark:bg-[rgb(var(--surface-200))]/30 border border-slate-200 dark:border-[rgb(var(--border-400))]"
+                className="flex items-start gap-2 p-3 rounded-xl bg-slate-50 dark:bg-[rgb(var(--surface-200))]/30 border border-slate-200 dark:border-[rgb(var(--border-400))]"
               >
                 <div className="flex-1 min-w-0">
                   <div className="text-xs font-mono font-semibold text-slate-500 dark:text-slate-400 mb-0.5">
@@ -554,7 +554,7 @@ export default function PhishOps(): JSX.Element {
             onChange={(e) => updateStepNotes(state.currentStep, e.target.value)}
             placeholder="Document findings, observations, and next steps for this phase..."
             rows={4}
-            className="w-full text-sm font-mono bg-slate-50 dark:bg-[rgb(var(--surface-200))]/30 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg p-3 text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-1 focus:ring-brand-500 placeholder:text-slate-400 dark:placeholder:text-slate-600"
+            className="w-full text-sm font-mono bg-slate-50 dark:bg-[rgb(var(--surface-200))]/30 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl p-3 text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-1 focus:ring-brand-500 placeholder:text-slate-400 dark:placeholder:text-slate-600"
           />
         </div>
       </div>

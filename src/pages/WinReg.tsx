@@ -67,11 +67,19 @@ function hiveLabel(hive: string): string {
 
 function ArtifactDetail({ body, onClose }: { body: ArtifactBody; onClose: () => void }) {
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 pb-8 px-4 bg-black/60 backdrop-blur-sm overflow-y-auto" onClick={onClose}>
-      <div className="relative w-full max-w-3xl bg-slate-900 border border-slate-700 rounded-xl shadow-2xl" onClick={(e) => e.stopPropagation()}>
+    <div
+      className="fixed inset-0 z-50 flex items-start justify-center pt-16 pb-8 px-4 bg-black/60 backdrop-blur-sm overflow-y-auto"
+      onClick={onClose}
+    >
+      <div
+        className="relative w-full max-w-3xl bg-slate-900 border border-slate-700 rounded-xl shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="flex items-center justify-between p-5 border-b border-slate-700">
           <h2 className="text-lg font-bold text-white pr-8">{body.name}</h2>
-          <button onClick={onClose} className="text-slate-400 hover:text-white p-1"><X size={20} /></button>
+          <button onClick={onClose} className="text-slate-400 hover:text-white p-1">
+            <X size={20} />
+          </button>
         </div>
         <div className="p-5 space-y-5 max-h-[70vh] overflow-y-auto">
           {body.keys.length > 0 && (
@@ -79,7 +87,12 @@ function ArtifactDetail({ body, onClose }: { body: ArtifactBody; onClose: () => 
               <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Registry Keys</div>
               <div className="space-y-1">
                 {body.keys.map((k, i) => (
-                  <div key={i} className="font-mono text-xs text-cyan-300 bg-slate-950 border border-slate-800 rounded px-3 py-1.5 break-all">{k}</div>
+                  <div
+                    key={i}
+                    className="font-mono text-xs text-cyan-300 bg-slate-950 border border-slate-800 rounded px-3 py-1.5 break-all"
+                  >
+                    {k}
+                  </div>
                 ))}
               </div>
             </div>
@@ -96,7 +109,9 @@ function ArtifactDetail({ body, onClose }: { body: ArtifactBody; onClose: () => 
           )}
           <div className="flex flex-wrap gap-2">
             {body.hive.map((h) => (
-              <span key={h} className={`font-mono text-[10px] font-bold px-2 py-0.5 rounded border ${hiveColor(h)}`}>{hiveLabel(h)}</span>
+              <span key={h} className={`font-mono text-[10px] font-bold px-2 py-0.5 rounded border ${hiveColor(h)}`}>
+                {hiveLabel(h)}
+              </span>
             ))}
           </div>
           {body.techniques.length > 0 && (
@@ -104,7 +119,13 @@ function ArtifactDetail({ body, onClose }: { body: ArtifactBody; onClose: () => 
               <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">MITRE ATT&CK</div>
               <div className="flex flex-wrap gap-1.5">
                 {body.techniques.map((t) => (
-                  <a key={t} href={`https://attack.mitre.org/techniques/${t.replace('.', '/')}/`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 font-mono text-[10px] font-bold text-orange-400 bg-orange-950/30 border border-orange-800/40 px-2 py-0.5 rounded hover:bg-orange-950/50">
+                  <a
+                    key={t}
+                    href={`https://attack.mitre.org/techniques/${t.replace('.', '/')}/`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 font-mono text-[10px] font-bold text-orange-400 bg-orange-950/30 border border-orange-800/40 px-2 py-0.5 rounded hover:bg-orange-950/50"
+                  >
                     {t} <ExternalLink size={10} />
                   </a>
                 ))}
@@ -116,13 +137,27 @@ function ArtifactDetail({ body, onClose }: { body: ArtifactBody; onClose: () => 
               <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Parsers / Tools</div>
               <div className="flex flex-wrap gap-1.5">
                 {body.parsers.map((p, i) => (
-                  <span key={i} className="font-mono text-[10px] text-slate-400 bg-slate-800 border border-slate-700 px-2 py-0.5 rounded">{p}</span>
+                  <span
+                    key={i}
+                    className="font-mono text-[10px] text-slate-400 bg-slate-800 border border-slate-700 px-2 py-0.5 rounded"
+                  >
+                    {p}
+                  </span>
                 ))}
               </div>
             </div>
           )}
           <div className="text-[10px] text-slate-600 pt-2 border-t border-slate-800">
-            Data from <a href={body.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline">{body.source}</a> ({body.license})
+            Data from{' '}
+            <a
+              href={body.sourceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-cyan-400 hover:underline"
+            >
+              {body.source}
+            </a>{' '}
+            ({body.license})
           </div>
         </div>
       </div>
@@ -132,7 +167,10 @@ function ArtifactDetail({ body, onClose }: { body: ArtifactBody; onClose: () => 
 
 export default function WinReg() {
   const { data: index, loading, error } = useDataFetch<WinRegIndex>({ url: '/api/v1/winreg/', ttl: 120_000 });
-  const { data: artifactsData, loading: artsLoading } = useDataFetch<{ artifacts: ArtifactEntry[]; total: number }>({ url: '/api/v1/winreg/artifacts?limit=292', ttl: 120_000 });
+  const { data: artifactsData, loading: artsLoading } = useDataFetch<{ artifacts: ArtifactEntry[]; total: number }>({
+    url: '/api/v1/winreg/artifacts?limit=292',
+    ttl: 120_000,
+  });
 
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -148,10 +186,15 @@ export default function WinReg() {
     if (!artifactsData?.artifacts) return [];
     let arts = artifactsData.artifacts;
     if (selectedCategory) arts = arts.filter((a) => a.category === selectedCategory);
-    if (selectedHive) arts = arts.filter((a) => a.hive.some((h) => h.toUpperCase().includes(selectedHive.toUpperCase())));
+    if (selectedHive)
+      arts = arts.filter((a) => a.hive.some((h) => h.toUpperCase().includes(selectedHive.toUpperCase())));
     if (search.trim()) {
       const q = search.toLowerCase();
-      arts = arts.filter((a) => `${a.name} ${a.categoryLabel} ${a.hive.join(' ')} ${a.techniques.join(' ')} ${a.tool.join(' ')}`.toLowerCase().includes(q));
+      arts = arts.filter((a) =>
+        `${a.name} ${a.categoryLabel} ${a.hive.join(' ')} ${a.techniques.join(' ')} ${a.tool.join(' ')}`
+          .toLowerCase()
+          .includes(q)
+      );
     }
     return arts;
   }, [artifactsData, selectedCategory, selectedHive, search]);
@@ -165,10 +208,16 @@ export default function WinReg() {
       description={
         <span>
           Registry artifact reference from{' '}
-          <a href="https://dfir-scripts.github.io/registry/" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline">
+          <a
+            href="https://dfir-scripts.github.io/registry/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-cyan-400 hover:underline"
+          >
             dfir-scripts.github.io/registry
           </a>{' '}
-          — {index?.counts.artifacts ?? 292} artifacts across {index?.counts.categories ?? 16} categories, mapped to MITRE ATT&CK.
+          — {index?.counts.artifacts ?? 292} artifacts across {index?.counts.categories ?? 16} categories, mapped to
+          MITRE ATT&CK.
         </span>
       }
       loading={loading}
@@ -186,7 +235,7 @@ export default function WinReg() {
               placeholder="Search artifacts by name, key, technique..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full bg-slate-900 border border-slate-700 rounded-lg pl-9 pr-3 py-2 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-600"
+              className="w-full bg-slate-900 border border-slate-700 rounded-xl pl-9 pr-3 py-2 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-600"
             />
           </div>
           <div className="text-xs text-slate-500 font-mono">
@@ -242,20 +291,34 @@ export default function WinReg() {
               <button
                 key={art.slug}
                 onClick={() => setDetailSlug(art.slug)}
-                className="text-left bg-slate-900 border border-slate-800 hover:border-slate-600 rounded-lg p-4 transition-colors group"
+                className="text-left bg-slate-900 border border-slate-800 hover:border-slate-600 rounded-xl p-4 transition-colors group"
               >
-                <div className="text-sm font-semibold text-slate-200 group-hover:text-white mb-2 leading-snug">{art.name}</div>
+                <div className="text-sm font-semibold text-slate-200 group-hover:text-white mb-2 leading-snug">
+                  {art.name}
+                </div>
                 <div className="flex flex-wrap items-center gap-1.5 mb-2">
                   {art.hive.map((h) => (
-                    <span key={h} className={`font-mono text-[9px] font-bold px-1.5 py-0.5 rounded border ${hiveColor(h)}`}>{hiveLabel(h)}</span>
+                    <span
+                      key={h}
+                      className={`font-mono text-[9px] font-bold px-1.5 py-0.5 rounded border ${hiveColor(h)}`}
+                    >
+                      {hiveLabel(h)}
+                    </span>
                   ))}
                 </div>
                 {art.techniques.length > 0 && (
                   <div className="flex flex-wrap gap-1">
                     {art.techniques.slice(0, 3).map((t) => (
-                      <span key={t} className="font-mono text-[9px] text-orange-400/70 bg-orange-950/20 border border-orange-800/30 px-1.5 py-0.5 rounded">{t}</span>
+                      <span
+                        key={t}
+                        className="font-mono text-[9px] text-orange-400/70 bg-orange-950/20 border border-orange-800/30 px-1.5 py-0.5 rounded"
+                      >
+                        {t}
+                      </span>
                     ))}
-                    {art.techniques.length > 3 && <span className="font-mono text-[9px] text-slate-500">+{art.techniques.length - 3}</span>}
+                    {art.techniques.length > 3 && (
+                      <span className="font-mono text-[9px] text-slate-500">+{art.techniques.length - 3}</span>
+                    )}
                   </div>
                 )}
                 {art.tool.length > 0 && (
@@ -269,15 +332,32 @@ export default function WinReg() {
         {/* Source footer */}
         <div className="text-center pt-6 pb-2 text-xs text-slate-600 border-t border-slate-800">
           Data sourced from{' '}
-          <a href="https://dfir-scripts.github.io/registry/" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline">
+          <a
+            href="https://dfir-scripts.github.io/registry/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-cyan-400 hover:underline"
+          >
             dfir-scripts.github.io
           </a>{' '}
-          — Windows Registry Forensic Artifacts reference ({index?.license ?? 'MIT'}).<br />
-          Artifact definitions derived from RegRipper 3.0/4.0, Sysinternals Autoruns, RECmd, SBECmd, AmcacheParser, and MITRE ATT&CK.<br />
+          — Windows Registry Forensic Artifacts reference ({index?.license ?? 'MIT'}).
+          <br />
+          Artifact definitions derived from RegRipper 3.0/4.0, Sysinternals Autoruns, RECmd, SBECmd, AmcacheParser, and
+          MITRE ATT&CK.
+          <br />
           File hash enrichment via{' '}
-          <a href="/traceix" className="text-cyan-400 hover:underline">Traceix</a>{' '}
+          <a href="/traceix" className="text-cyan-400 hover:underline">
+            Traceix
+          </a>{' '}
           (PCEF /{' '}
-          <a href="https://traceix.com" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline">traceix.com</a>
+          <a
+            href="https://traceix.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-cyan-400 hover:underline"
+          >
+            traceix.com
+          </a>
           ).
         </div>
       </div>

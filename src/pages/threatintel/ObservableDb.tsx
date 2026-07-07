@@ -249,7 +249,7 @@ export default function ObservableDb(): JSX.Element {
           <button
             type="button"
             onClick={() => setShowAddForm(true)}
-            className="inline-flex items-center gap-2 px-4 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-lg hover:bg-brand-700 dark:hover:bg-brand-400"
+            className="inline-flex items-center gap-2 px-4 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-xl hover:bg-brand-700 dark:hover:bg-brand-400"
           >
             <Plus size={14} /> Add Observable
           </button>
@@ -262,7 +262,7 @@ export default function ObservableDb(): JSX.Element {
       {showAddForm && (
         <form
           onSubmit={(e) => void addObservable(e)}
-          className="mb-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
+          className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
         >
           <h2 className="font-display font-semibold text-sm mb-3">Add Observable Manually</h2>
           <div className="flex flex-wrap gap-3">
@@ -317,7 +317,7 @@ export default function ObservableDb(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search indicators or tags…"
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-tool focus:outline-none focus:border-brand-500"
+            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool focus:outline-none focus:border-brand-500"
           />
         </div>
         <select
@@ -351,13 +351,13 @@ export default function ObservableDb(): JSX.Element {
       <div className="grid lg:grid-cols-3 gap-6">
         <div className={`${selected ? 'lg:col-span-2' : 'lg:col-span-3'}`}>
           {loading && (
-            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-12 text-center">
+            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-12 text-center">
               <Loader2 size={20} className="animate-spin mx-auto text-slate-400 mb-2" />
             </div>
           )}
 
           {!loading && entries.length === 0 && (
-            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-12 text-center">
+            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-12 text-center">
               <Database size={32} className="mx-auto text-slate-300 dark:text-slate-700 mb-3" />
               <p className="text-sm font-mono text-slate-500">No observables saved yet</p>
               <p className="text-xs font-mono text-slate-400 mt-1">
@@ -377,7 +377,7 @@ export default function ObservableDb(): JSX.Element {
                     if (e.key === 'Enter' || e.key === ' ') setSelected(entry);
                   }}
                   onClick={() => setSelected(entry)}
-                  className={`rounded-lg border bg-white dark:bg-[rgb(var(--surface-200))] p-3 cursor-pointer transition-all hover:border-brand-400 ${
+                  className={`rounded-xl border bg-white dark:bg-[rgb(var(--surface-200))] p-3 cursor-pointer transition-all hover:border-brand-400 ${
                     selected?.id === entry.id
                       ? 'border-brand-500 ring-1 ring-brand-500'
                       : 'border-slate-200 dark:border-[rgb(var(--border-400))]'
@@ -439,7 +439,7 @@ export default function ObservableDb(): JSX.Element {
 
         {selected && (
           <div className="lg:col-span-1">
-            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 sticky top-24">
+            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 sticky top-24">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="font-display font-semibold text-sm">Details</h2>
                 <button

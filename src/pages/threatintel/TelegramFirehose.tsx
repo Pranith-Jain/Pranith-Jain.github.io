@@ -292,7 +292,7 @@ export default function TelegramFirehose(): JSX.Element {
   return (
     <div className="space-y-4">
       {/* Header strip */}
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
         <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
           <div>
             <h2 className="font-display font-semibold text-lg flex items-center gap-2">
@@ -436,7 +436,7 @@ export default function TelegramFirehose(): JSX.Element {
 function FirehoseRow({ item }: { item: FirehoseItem }): JSX.Element {
   return (
     <li
-      className={`rounded-lg border bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 ${
+      className={`rounded-xl border bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 ${
         item.severity === 'critical' || item.severity === 'high'
           ? 'border-rose-500/30'
           : 'border-slate-200 dark:border-[rgb(var(--border-400))]'

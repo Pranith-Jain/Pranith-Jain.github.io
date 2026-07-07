@@ -363,7 +363,7 @@ export default function PhysicalBitcoinAttacks(): JSX.Element {
         ].map(({ label, value, icon: Icon, cls }) => (
           <div
             key={label}
-            className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 shadow-e1 p-2.5"
+            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 shadow-e1 p-2.5"
           >
             <div className={`flex items-center gap-1.5 text-mini uppercase tracking-wider mb-0.5 ${cls}`}>
               <Icon className="w-3 h-3" /> {label}
@@ -382,13 +382,13 @@ export default function PhysicalBitcoinAttacks(): JSX.Element {
             placeholder="Search attacks…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
           />
         </div>
         <select
           value={countryFilter}
           onChange={(e) => setCountryFilter(e.target.value)}
-          className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
+          className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
         >
           <option value="">All countries</option>
           {ALL_COUNTRIES.map((c) => (
@@ -400,7 +400,7 @@ export default function PhysicalBitcoinAttacks(): JSX.Element {
         <select
           value={outcomeFilter}
           onChange={(e) => setOutcomeFilter(e.target.value)}
-          className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
+          className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
         >
           <option value="">All outcomes</option>
           <option value="unsolved">Unsolved</option>
@@ -411,7 +411,7 @@ export default function PhysicalBitcoinAttacks(): JSX.Element {
         <select
           value={victimFilter}
           onChange={(e) => setVictimFilter(e.target.value)}
-          className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
+          className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
         >
           <option value="">All victims</option>
           <option value="individual">Individual</option>
@@ -424,7 +424,7 @@ export default function PhysicalBitcoinAttacks(): JSX.Element {
       {/* Attack list */}
       <div className="space-y-2">
         {filtered.map((a) => {
-          const outcome = OUTCOME_META[a.outcome];
+          const outcome = OUTCOME_META[a.outcome]!;
           const VictimIcon = VICTIM_ICONS[a.victim_type] || Shield;
           return (
             <div

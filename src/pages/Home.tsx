@@ -6,7 +6,7 @@ import { FeedHealthBadge } from '../components/FeedHealthBadge';
 import { LatestBriefingCard } from '../components/threatintel/LatestBriefingCard';
 import { GlobalPulseCard } from '../components/threatintel/GlobalPulseCard';
 import { ErrorBoundary } from '../components/ErrorBoundary';
-import { RecentWritingSkeleton } from '../components/RecentWriting';
+import { RecentWritingSkeleton } from '../components/RecentWritingSkeleton';
 import { QuoteOfTheDay } from '../components/QuoteOfTheDay';
 import { ToolOfTheDay } from '../components/ToolOfTheDay';
 import { PageToCheckOut } from '../components/PageToCheckOut';

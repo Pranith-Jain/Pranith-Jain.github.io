@@ -12,7 +12,7 @@ export function CertList({ certs }: { certs: DomainLookupResponse['certificates'
   const visibleTimeline = expanded ? sortedByDate : sortedByDate.slice(0, 10);
 
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
       <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
         <h3 className="font-display font-bold text-lg">
           Certificate Transparency <span className="text-sm font-mono text-muted">({certs.length} entries)</span>
@@ -63,7 +63,7 @@ export function CertList({ certs }: { certs: DomainLookupResponse['certificates'
       ) : (
         <div className="space-y-2">
           {visible.map((c) => (
-            <div key={c.id} className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] p-3">
+            <div key={c.id} className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-3">
               <div className="flex items-baseline justify-between text-sm">
                 <span className="font-display font-semibold text-slate-900 dark:text-slate-100">{c.issuer}</span>
                 <span className="font-mono text-xs text-muted">

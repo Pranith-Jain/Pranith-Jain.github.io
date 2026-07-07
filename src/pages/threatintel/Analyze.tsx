@@ -218,7 +218,7 @@ export default function Analyze(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="IP, domain, URL, hash, or email"
-              className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
             {input && detectedType !== 'unknown' && (
               <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-mono text-brand-600 dark:text-brand-400 uppercase">
@@ -237,7 +237,7 @@ export default function Analyze(): JSX.Element {
           <button
             type="submit"
             disabled={!input.trim() || detectedType === 'unknown' || streaming}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center gap-2"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center gap-2"
           >
             {streaming ? <Loader2 size={16} className="animate-spin" /> : <Search size={16} />}
             {streaming ? 'Analyzing…' : 'Analyze'}
@@ -252,7 +252,7 @@ export default function Analyze(): JSX.Element {
       </form>
 
       {streaming && results.length === 0 && (
-        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-8 text-center animate-pulse">
+        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-8 text-center animate-pulse">
           <Loader2 size={24} className="animate-spin mx-auto text-slate-400 mb-3" />
           <p className="text-sm font-mono text-slate-500">Opening SSE stream to 45 providers…</p>
         </div>
@@ -365,7 +365,7 @@ export default function Analyze(): JSX.Element {
             </div>
           </div>
 
-          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead className="bg-slate-50 dark:bg-[rgb(var(--surface-200))]/60 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
@@ -557,14 +557,14 @@ export default function Analyze(): JSX.Element {
       {error && (
         <div
           role="alert"
-          className="mt-6 rounded-lg border border-rose-300 dark:border-rose-800 bg-rose-50/50 dark:bg-rose-900/15 p-4"
+          className="mt-6 rounded-xl border border-rose-300 dark:border-rose-800 bg-rose-50/50 dark:bg-rose-900/15 p-4"
         >
           <p className="text-sm font-mono text-rose-700 dark:text-rose-300">{error}</p>
         </div>
       )}
 
       {!streaming && results.length === 0 && !error && !summary && (
-        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-12 text-center">
+        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-12 text-center">
           <Search size={32} className="mx-auto text-slate-300 dark:text-slate-700 mb-3" />
           <p className="text-sm font-mono text-slate-500">Enter an observable above to run a multi-source analysis</p>
           <p className="text-xs font-mono text-slate-400 mt-2">

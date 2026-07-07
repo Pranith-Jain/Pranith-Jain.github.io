@@ -242,7 +242,7 @@ export default function TelegramHub(): JSX.Element {
       description="Unified Telegram CTI workspace — channel discovery, leak monitoring, IOC pipeline, and a free cross-source search across monitored channels and tgstat.com."
     >
       {/* Hero search */}
-      <section className="mb-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-gradient-to-br from-slate-50 to-white dark:from-slate-900/50 dark:to-slate-900/20 p-5">
+      <section className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-gradient-to-br from-slate-50 to-white dark:from-slate-900/50 dark:to-slate-900/20 p-5">
         <div className="flex items-center gap-2 mb-3">
           <Zap size={16} className="text-amber-500" />
           <h2 className="font-mono text-sm uppercase tracking-wider text-slate-700 dark:text-slate-300">
@@ -257,7 +257,7 @@ export default function TelegramHub(): JSX.Element {
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Search channels (e.g. conti leaks) or leak text (e.g. cve-2026-10520)"
-              className="w-full pl-9 pr-3 py-2.5 rounded-md border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+              className="w-full pl-9 pr-3 py-2.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
               aria-label="Search Telegram channels and leak text"
               maxLength={120}
             />
@@ -265,7 +265,7 @@ export default function TelegramHub(): JSX.Element {
           <button
             type="submit"
             disabled={searchLoading || !q.trim()}
-            className="inline-flex items-center gap-2 rounded-md bg-brand-600 hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-400 disabled:opacity-50 disabled:cursor-not-allowed text-white font-mono text-sm font-semibold px-4 py-2.5 transition-colors"
+            className="inline-flex items-center gap-2 rounded bg-brand-600 hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-400 disabled:opacity-50 disabled:cursor-not-allowed text-white font-mono text-sm font-semibold px-4 py-2.5 transition-colors"
           >
             {searchLoading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
             Search
@@ -304,7 +304,7 @@ export default function TelegramHub(): JSX.Element {
                     {channels.slice(0, 10).map((c) => (
                       <li
                         key={c.handle}
-                        className="rounded-md border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200)/0.4)] p-3"
+                        className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200)/0.4)] p-3"
                       >
                         <div className="flex items-center justify-between gap-2 mb-1">
                           <a
@@ -348,7 +348,7 @@ export default function TelegramHub(): JSX.Element {
                     {leaks.slice(0, 10).map((l) => (
                       <li
                         key={l.id}
-                        className="rounded-md border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200)/0.4)] p-3"
+                        className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200)/0.4)] p-3"
                       >
                         <div className="flex items-center justify-between gap-2 mb-1">
                           <Link
@@ -430,7 +430,7 @@ export default function TelegramHub(): JSX.Element {
             <Link
               key={card.path}
               to={card.path}
-              className={`group block rounded-lg border bg-white dark:bg-[rgb(var(--surface-200)/0.4)] p-4 transition-colors ${card.accent}`}
+              className={`group block rounded-xl border bg-white dark:bg-[rgb(var(--surface-200)/0.4)] p-4 transition-colors ${card.accent}`}
             >
               <div className="flex items-start justify-between gap-2 mb-2">
                 <span className="inline-flex items-center gap-2 font-mono text-sm font-semibold">
@@ -480,7 +480,7 @@ function KpiTile({
       ? 'border-rose-500/40 bg-rose-500/5 text-rose-700 dark:text-rose-300'
       : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200)/0.4)] text-slate-700 dark:text-slate-300';
   return (
-    <div className={`rounded-md border p-3 ${accent}`}>
+    <div className={`rounded border p-3 ${accent}`}>
       <div className="flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-wider opacity-80">
         {icon}
         {label}

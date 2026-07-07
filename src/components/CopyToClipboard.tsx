@@ -50,7 +50,7 @@ export function CopyToClipboard({ text, label, className = '', successMessage = 
       className={`
         inline-flex items-center gap-2
         px-3 py-1.5
-        rounded-lg
+        rounded-xl
         bg-white/10 text-slate-300
         hover:bg-white/20 hover:text-white
         transition-all duration-200

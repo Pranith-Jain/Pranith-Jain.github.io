@@ -122,7 +122,7 @@ export default function CveResourcesCatalog(): JSX.Element {
       maxWidthClass="max-w-6xl"
     >
       {/* Search + pricing toggles */}
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="relative">
           <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
           <input
@@ -163,7 +163,7 @@ export default function CveResourcesCatalog(): JSX.Element {
       </section>
 
       {/* Category pills */}
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-center gap-1.5">
           <span className="text-mini font-mono text-slate-400 mr-1">categories:</span>
           {ALL_CATEGORIES.map((c) => {
@@ -196,7 +196,7 @@ export default function CveResourcesCatalog(): JSX.Element {
         {filtered.map((r) => (
           <li
             key={r.id}
-            className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
+            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
           >
             <div className="flex items-baseline justify-between gap-2 mb-1.5">
               <a

@@ -61,13 +61,13 @@ export default function KnowledgeGraph() {
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-            className="w-full pl-9 pr-4 py-2 rounded-lg text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+            className="w-full pl-9 pr-4 py-2 rounded-xl text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
           />
         </div>
         <button
           type="button"
           onClick={handleSearch}
-          className="px-4 py-2 bg-brand-500 hover:bg-brand-600 text-white rounded-lg text-sm font-medium transition-colors"
+          className="px-4 py-2 bg-brand-500 hover:bg-brand-600 text-white rounded-xl text-sm font-medium transition-colors"
         >
           Search
         </button>
@@ -78,7 +78,7 @@ export default function KnowledgeGraph() {
             setInputValue('');
             refetch();
           }}
-          className="p-2 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))]"
+          className="p-2 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))]"
           title="Reset"
         >
           <RefreshCw className="w-4 h-4" />
@@ -88,7 +88,7 @@ export default function KnowledgeGraph() {
       {/* Graph canvas */}
       {graph && (
         <div
-          className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden"
+          className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden"
           style={{ height: 'calc(100vh - 280px)', minHeight: 500 }}
         >
           <React.Suspense

@@ -218,9 +218,9 @@ export default function Pivex(): JSX.Element {
     URL.revokeObjectURL(url);
   }, [nodes, edges]);
 
-  const getNodeColor = (type: string) => ENTITY_COLORS[type] ?? ENTITY_COLORS.reference;
-  const getNodeBg = (type: string) => ENTITY_BG[type] ?? ENTITY_BG.reference;
-  const getIconColor = (type: string) => ENTITY_ICON_COLORS[type] ?? ENTITY_ICON_COLORS.reference;
+  const getNodeColor = (type: string): string => ENTITY_COLORS[type] ?? ENTITY_COLORS.reference ?? '';
+  const getNodeBg = (type: string): string => ENTITY_BG[type] ?? ENTITY_BG.reference ?? '';
+  const getIconColor = (type: string): string => ENTITY_ICON_COLORS[type] ?? ENTITY_ICON_COLORS.reference ?? '';
 
   const nodeMap = useMemo(() => {
     const map = new Map<string, GraphNode>();
@@ -275,13 +275,13 @@ export default function Pivex(): JSX.Element {
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleBuildGraph()}
               placeholder="IP address, domain, CVE, actor name, or hash…"
-              className="w-full pl-9 pr-3 h-10 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 font-mono"
+              className="w-full pl-9 pr-3 h-10 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 font-mono"
             />
           </div>
           <button
             onClick={handleBuildGraph}
             disabled={loading || !query.trim()}
-            className="px-5 py-2 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 rounded-lg text-sm font-semibold text-white transition-colors flex items-center gap-2"
+            className="px-5 py-2 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 rounded-xl text-sm font-semibold text-white transition-colors flex items-center gap-2"
           >
             {loading ? <Loader2 size={14} className="animate-spin" /> : <Network size={14} />}
             {loading ? 'Building…' : 'Build Graph'}
@@ -331,14 +331,14 @@ export default function Pivex(): JSX.Element {
                   setHighlightMode(!highlightMode);
                   if (!highlightMode) setHighlightNode(null);
                 }}
-                className={`px-3 py-1.5 rounded-lg text-xs font-mono border transition-colors flex items-center gap-1.5 ${highlightMode ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400' : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-brand-500/30'}`}
+                className={`px-3 py-1.5 rounded-xl text-xs font-mono border transition-colors flex items-center gap-1.5 ${highlightMode ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400' : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-brand-500/30'}`}
               >
                 {highlightMode ? <Eye size={12} /> : <EyeOff size={12} />}
                 {highlightMode ? 'Highlight On' : 'Highlight Mode'}
               </button>
               <button
                 onClick={handleExportJson}
-                className="px-3 py-1.5 rounded-lg text-xs font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-brand-500/30 transition-colors flex items-center gap-1.5"
+                className="px-3 py-1.5 rounded-xl text-xs font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-brand-500/30 transition-colors flex items-center gap-1.5"
               >
                 <Download size={12} /> Export JSON
               </button>
@@ -351,7 +351,7 @@ export default function Pivex(): JSX.Element {
               .map((type) => (
                 <div
                   key={type}
-                  className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-xs font-mono ${getNodeColor(type)}`}
+                  className={`flex items-center gap-1.5 px-2.5 py-1 rounded-xl border text-xs font-mono ${getNodeColor(type)}`}
                 >
                   <span className={`w-2 h-2 rounded-full ${getNodeBg(type)} border`} />
                   {TYPE_LABELS[type]}
@@ -454,7 +454,7 @@ function GraphCluster({
                 <button
                   key={n.id}
                   onClick={() => onNodeClick(n.id)}
-                  className={`px-3 py-2 rounded-lg border text-left transition-all ${getNodeColor(n.type)} ${isDimmed(n.id) ? 'opacity-20' : 'hover:scale-105'} ${highlightNode === n.id ? 'ring-2 ring-brand-500' : ''}`}
+                  className={`px-3 py-2 rounded-xl border text-left transition-all ${getNodeColor(n.type)} ${isDimmed(n.id) ? 'opacity-20' : 'hover:scale-105'} ${highlightNode === n.id ? 'ring-2 ring-brand-500' : ''}`}
                 >
                   <div className="text-xs font-mono font-bold">{n.label}</div>
                   {n.subtitle && <div className="text-[10px] opacity-70 mt-0.5">{n.subtitle}</div>}

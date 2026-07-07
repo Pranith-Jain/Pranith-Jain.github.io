@@ -227,7 +227,7 @@ export default function ThreatSignalRss(): JSX.Element {
         type="button"
         onClick={() => void load()}
         disabled={loading}
-        className="inline-flex items-center gap-1 px-2 py-1 rounded-md border border-slate-300 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-40"
+        className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-40"
         title="Refetch the aggregate (the Worker still respects its 15-min KV cache per source)"
       >
         <RefreshCw size={11} className={loading ? 'animate-spin' : ''} />
@@ -324,7 +324,7 @@ export default function ThreatSignalRss(): JSX.Element {
     >
       {/* Per-source stale banner */}
       {staleSources.length > 0 && (
-        <div className="mb-4 rounded-lg border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-950/40 px-3 py-2 text-xs text-amber-700 dark:text-amber-300 font-mono flex items-start gap-2">
+        <div className="mb-4 rounded-xl border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-950/40 px-3 py-2 text-xs text-amber-700 dark:text-amber-300 font-mono flex items-start gap-2">
           <AlertTriangle size={14} className="shrink-0 mt-0.5" />
           <span>
             <strong>Stale snapshot{staleSources.length === 1 ? '' : 's'}.</strong>{' '}
@@ -341,7 +341,7 @@ export default function ThreatSignalRss(): JSX.Element {
         .map((s) => (
           <div
             key={s.source.id}
-            className="mb-4 rounded-lg border border-rose-300 dark:border-rose-700 bg-rose-50 dark:bg-rose-950/40 px-3 py-2 text-xs text-rose-700 dark:text-rose-300 font-mono flex items-start gap-2"
+            className="mb-4 rounded-xl border border-rose-300 dark:border-rose-700 bg-rose-50 dark:bg-rose-950/40 px-3 py-2 text-xs text-rose-700 dark:text-rose-300 font-mono flex items-start gap-2"
           >
             <AlertTriangle size={14} className="shrink-0 mt-0.5" />
             <span>
@@ -386,7 +386,7 @@ export default function ThreatSignalRss(): JSX.Element {
                 href={s.source.displayLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/40 dark:bg-[rgb(var(--surface-200))]/40 p-3 flex flex-col gap-1 transition-colors hover:border-brand-500/50"
+                className="group rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/40 dark:bg-[rgb(var(--surface-200))]/40 p-3 flex flex-col gap-1 transition-colors hover:border-brand-500/50"
               >
                 <div className="flex items-center gap-2">
                   <span
@@ -429,10 +429,10 @@ export default function ThreatSignalRss(): JSX.Element {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="search posts…"
-                className="pl-7 pr-2 py-1 text-xs rounded-md border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] w-48"
+                className="pl-7 pr-2 py-1 text-xs rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] w-48"
               />
             </div>
-            <label className="ml-auto inline-flex items-center gap-1 px-2 py-1 text-[11px] rounded-md bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 cursor-pointer">
+            <label className="ml-auto inline-flex items-center gap-1 px-2 py-1 text-[11px] rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 cursor-pointer">
               <input type="checkbox" checked={freshOnly} onChange={(e) => setFreshOnly(e.target.checked)} />
               fresh this week
             </label>
@@ -459,7 +459,7 @@ export default function ThreatSignalRss(): JSX.Element {
                         return next;
                       });
                     }}
-                    className={`inline-flex items-center gap-1 px-2 py-1 text-[11px] rounded-md border transition-colors ${
+                    className={`inline-flex items-center gap-1 px-2 py-1 text-[11px] rounded border transition-colors ${
                       active
                         ? ACCENT_PILL[s.source.accent]
                         : 'bg-transparent text-slate-500 dark:text-slate-400 border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-slate-500'
@@ -501,7 +501,7 @@ export default function ThreatSignalRss(): JSX.Element {
                         return next;
                       });
                     }}
-                    className={`inline-flex items-center gap-1 px-2 py-1 text-[11px] rounded-md border transition-colors ${
+                    className={`inline-flex items-center gap-1 px-2 py-1 text-[11px] rounded border transition-colors ${
                       active
                         ? meta.className
                         : 'bg-transparent text-slate-500 dark:text-slate-400 border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-slate-500'
@@ -628,7 +628,7 @@ function StatCard({ label, value, accent = 'brand', small = false }: StatCardPro
           ? 'text-violet-500 dark:text-violet-400'
           : 'text-brand-500 dark:text-brand-400';
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/40 dark:bg-[rgb(var(--surface-200))]/40 px-3 py-2">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/40 dark:bg-[rgb(var(--surface-200))]/40 px-3 py-2">
       <div className="text-[10px] uppercase tracking-wide text-slate-500 dark:text-slate-400 font-mono">{label}</div>
       <div className={`font-bold font-mono ${color} ${small ? 'text-sm' : 'text-2xl'}`}>{value}</div>
     </div>

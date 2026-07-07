@@ -241,7 +241,7 @@ export default function InfostealerIntel(): JSX.Element {
             <button
               key={t.id}
               onClick={() => handleTab(t.id)}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium transition-colors ${
                 tab === t.id
                   ? 'bg-brand-600/10 text-brand-600 dark:text-brand-400 border border-brand-600/30'
                   : 'border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] hover:text-slate-900 dark:hover:text-slate-100'
@@ -265,13 +265,13 @@ export default function InfostealerIntel(): JSX.Element {
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
               placeholder={currentTab.placeholder}
-              className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 font-mono"
+              className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 font-mono"
             />
           </div>
           <button
             onClick={handleSearch}
             disabled={loading || !query.trim()}
-            className="px-4 py-2.5 bg-brand-600 text-white font-medium rounded-lg text-sm hover:bg-brand-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+            className="px-4 py-2.5 bg-brand-600 text-white font-medium rounded-xl text-sm hover:bg-brand-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
           >
             {loading ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />}
             Search
@@ -279,7 +279,7 @@ export default function InfostealerIntel(): JSX.Element {
           {(searchResult || overviewResult || infectionResult) && (
             <button
               onClick={handleCopyJson}
-              className="px-3 py-2.5 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-sm text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+              className="px-3 py-2.5 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
             >
               {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
             </button>
@@ -307,7 +307,7 @@ export default function InfostealerIntel(): JSX.Element {
       {!loading && searchResult && (
         <div className="space-y-4">
           <div className="flex flex-wrap items-center gap-4 text-sm text-muted">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] font-mono text-xs">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] font-mono text-xs">
               v3
             </span>
             <span>
@@ -337,7 +337,7 @@ export default function InfostealerIntel(): JSX.Element {
               className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 overflow-hidden"
             >
               <div className="px-4 py-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))] flex flex-wrap items-center gap-2.5 text-sm">
-                <span className="px-2 py-0.5 rounded-md text-xs font-mono font-medium bg-rose-500/10 text-rose-700 dark:text-rose-300 border border-rose-500/20">
+                <span className="px-2 py-0.5 rounded text-xs font-mono font-medium bg-rose-500/10 text-rose-700 dark:text-rose-300 border border-rose-500/20">
                   {entry.stealer_family}
                 </span>
                 <span className="text-slate-400">·</span>

@@ -170,7 +170,7 @@ function Loading({ text = 'Loading…' }: { text?: string }) {
 
 function ErrorBanner({ error }: { error: string }) {
   return (
-    <div className="p-3 rounded-lg bg-rose-50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-800/50 text-rose-700 dark:text-rose-300 text-sm font-mono mb-6">
+    <div className="p-3 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-800/50 text-rose-700 dark:text-rose-300 text-sm font-mono mb-6">
       <AlertTriangle size={14} className="inline mr-2" />
       {error}
     </div>
@@ -181,7 +181,7 @@ function ErrorBanner({ error }: { error: string }) {
 
 function HostIntelPanel({ data }: { data: HostIntel }) {
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
       <div className="flex items-baseline justify-between flex-wrap gap-2">
         <h2 className="font-display font-bold text-2xl tracking-tight flex items-center gap-3">
           <Server size={22} className="text-brand-600" /> {data.ip}
@@ -274,7 +274,7 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
 
   return (
     <div className="space-y-6">
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
         <h2 className="font-display font-bold text-xl mb-4 flex items-center gap-2">
           <Globe size={20} className="text-brand-600" /> {data.domain}
         </h2>
@@ -288,7 +288,7 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
           ].map(({ label, value, icon: Icon }) => (
             <div
               key={label}
-              className="p-3 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]"
+              className="p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]"
             >
               <div className="flex items-center gap-2 mb-1">
                 <Icon size={14} className="text-slate-400" />
@@ -300,7 +300,7 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
         </div>
 
         {data.current && (
-          <div className="mb-5 p-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]">
+          <div className="mb-5 p-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]">
             <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
               <Globe size={14} className="text-brand-600" /> Current Registration
             </h3>
@@ -346,7 +346,7 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
               data.snapshots.map((snap, i) => (
                 <div
                   key={snap.id}
-                  className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden"
+                  className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden"
                 >
                   <button
                     onClick={() => setExpandedSnapshot(expandedSnapshot === snap.id ? null : snap.id)}
@@ -404,7 +404,7 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
         </div>
       </section>
 
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
         <h3 className="font-display font-bold text-lg mb-3">Related Domains</h3>
         {pivotLoading ? (
           <Loading text="Searching for related domains…" />
@@ -418,7 +418,7 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
               return (
                 <div
                   key={`${d.domain}-${d.match_reason}`}
-                  className="p-3 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]"
+                  className="p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
@@ -455,7 +455,7 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
       </section>
 
       {data.changes.length > 0 && (
-        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
           <h3 className="font-display font-bold text-lg mb-3">
             Detected Changes
             <span className="ml-2 px-1.5 py-0.5 rounded-full text-micro bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 align-middle">
@@ -468,7 +468,7 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
                 CHANGE_COLORS[change.change_type] ??
                 'text-slate-600 bg-slate-50 dark:bg-[rgb(var(--surface-300))] border-slate-200 dark:border-[rgb(var(--border-400))]';
               return (
-                <div key={change.id} className={`p-3 rounded-lg border ${colorClass}`}>
+                <div key={change.id} className={`p-3 rounded-xl border ${colorClass}`}>
                   <div className="flex items-center gap-2 mb-1">
                     <span className="text-xs font-semibold uppercase">{change.change_type}</span>
                     <span className="text-xs text-slate-400 ml-auto">{formatDateTime(change.detected_at)}</span>
@@ -571,13 +571,13 @@ export default function AssetIntel(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="IP (8.8.8.8) or domain (example.com)"
-              className="w-full pl-10 pr-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-10 pr-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
           </div>
           <button
             type="submit"
             disabled={!qtype || loading}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center gap-2"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center gap-2"
           >
             {loading ? <RefreshCw size={16} className="animate-spin" /> : <Search size={16} />}
             {loading ? 'Scanning…' : 'Scan'}
@@ -596,7 +596,7 @@ export default function AssetIntel(): JSX.Element {
       {hostIntel && (
         <div className="space-y-6">
           <HostIntelPanel data={hostIntel} />
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
             <h3 className="font-display font-bold text-lg mb-3">Exposed services &amp; artifacts</h3>
             <ArtifactTable artifacts={hostIntel.artifacts} />
           </section>

@@ -11,24 +11,24 @@ import JSZip from 'jszip';
 import type { ReportDoc, Tlp } from './schema';
 
 function esc(s: string): string {
-  return s
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
 /** Inline: support `code` and *em* and **bold**. */
 function inlineRuns(text: string): string {
   // escape first, then re-inject tags
   let s = esc(text);
-  s = s.replace(/`([^`]+)`/g, '<w:r><w:rPr><w:rFonts w:ascii="Consolas" w:hAnsi="Consolas"/><w:color w:val="0F172A"/></w:rPr><w:t xml:space="preserve">$1</w:t></w:r>');
+  s = s.replace(
+    /`([^`]+)`/g,
+    '<w:r><w:rPr><w:rFonts w:ascii="Consolas" w:hAnsi="Consolas"/><w:color w:val="0F172A"/></w:rPr><w:t xml:space="preserve">$1</w:t></w:r>'
+  );
   s = s.replace(/\*\*([^*]+)\*\*/g, '<w:r><w:rPr><w:b/></w:rPr><w:t xml:space="preserve">$1</w:t></w:r>');
   s = s.replace(/\*([^*]+)\*/g, '<w:r><w:rPr><w:i/></w:rPr><w:t xml:space="preserve">$1</w:t></w:r>');
   // segments not wrapped become plain runs
-  s = s.split(/(<w:r>.*?<\/w:r>)/g).map((seg) =>
-    seg.startsWith('<w:r>') ? seg : `<w:r><w:t xml:space="preserve">${seg}</w:t></w:r>`
-  ).join('');
+  s = s
+    .split(/(<w:r>.*?<\/w:r>)/g)
+    .map((seg) => (seg.startsWith('<w:r>') ? seg : `<w:r><w:t xml:space="preserve">${seg}</w:t></w:r>`))
+    .join('');
   return s;
 }
 
@@ -48,15 +48,30 @@ function renderMarkdown(md: string): string {
   const out: string[] = [];
   for (const raw of md.split('\n')) {
     const line = raw.trim();
-    if (!line) { out.push('<w:p/>'); continue; }
+    if (!line) {
+      out.push('<w:p/>');
+      continue;
+    }
     const h1 = /^#\s+(.*)$/.exec(line);
-    if (h1) { out.push(heading(h1[1], 1)); continue; }
+    if (h1) {
+      out.push(heading(h1[1]!, 1));
+      continue;
+    }
     const h2 = /^##\s+(.*)$/.exec(line);
-    if (h2) { out.push(heading(h2[1], 2)); continue; }
+    if (h2) {
+      out.push(heading(h2[1]!, 2));
+      continue;
+    }
     const h3 = /^###\s+(.*)$/.exec(line);
-    if (h3) { out.push(heading(h3[1], 3)); continue; }
+    if (h3) {
+      out.push(heading(h3[1]!, 3));
+      continue;
+    }
     const b = /^[-*]\s+(.*)$/.exec(line);
-    if (b) { out.push(bulletPara(b[1])); continue; }
+    if (b) {
+      out.push(bulletPara(b[1]!));
+      continue;
+    }
     out.push(para(line));
   }
   return out.join('');
@@ -111,7 +126,10 @@ const SETTINGS_XML = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 
 function buildStylesXml(tlp: Tlp): string {
   const colorByTlp: Record<Tlp, string> = {
-    CLEAR: '64748B', GREEN: '16A34A', AMBER: 'D97706', RED: 'DC2626',
+    CLEAR: '64748B',
+    GREEN: '16A34A',
+    AMBER: 'D97706',
+    RED: 'DC2626',
   };
   return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
@@ -181,9 +199,9 @@ function buildDocumentXml(report: ReportDoc): string {
     parts.push(heading('Key Findings', 2));
     parts.push(
       `<w:tbl><w:tblPr><w:tblW w:w="5000" w:type="pct"/><w:tblBorders><w:top w:val="single" w:sz="4" w:space="0" w:color="CBD5E1"/><w:left w:val="single" w:sz="4" w:space="0" w:color="CBD5E1"/><w:bottom w:val="single" w:sz="4" w:space="0" w:color="CBD5E1"/><w:right w:val="single" w:sz="4" w:space="0" w:color="CBD5E1"/><w:insideH w:val="single" w:sz="4" w:space="0" w:color="E2E8F0"/><w:insideV w:val="single" w:sz="4" w:space="0" w:color="E2E8F0"/></w:tblBorders></w:tblPr>` +
-      `<w:tr><w:trPr><w:tblHeader/></w:trPr><w:tc><w:tcPr><w:tcW w:w="500" w:type="dxa"/><w:shd w:val="clear" w:color="auto" w:fill="1E293B"/></w:tcPr><w:p><w:r><w:rPr><w:b/><w:color w:val="FFFFFF"/></w:rPr><w:t>#</w:t></w:r></w:p></w:tc>` +
-      `<w:tc><w:tcPr><w:tcW w:w="6500" w:type="dxa"/><w:shd w:val="clear" w:color="auto" w:fill="1E293B"/></w:tcPr><w:p><w:r><w:rPr><w:b/><w:color w:val="FFFFFF"/></w:rPr><w:t>Finding</w:t></w:r></w:p></w:tc>` +
-      `<w:tc><w:tcPr><w:tcW w:w="2000" w:type="dxa"/><w:shd w:val="clear" w:color="auto" w:fill="1E293B"/></w:tcPr><w:p><w:r><w:rPr><w:b/><w:color w:val="FFFFFF"/></w:rPr><w:t>Confidence</w:t></w:r></w:p></w:tc></w:tr>`
+        `<w:tr><w:trPr><w:tblHeader/></w:trPr><w:tc><w:tcPr><w:tcW w:w="500" w:type="dxa"/><w:shd w:val="clear" w:color="auto" w:fill="1E293B"/></w:tcPr><w:p><w:r><w:rPr><w:b/><w:color w:val="FFFFFF"/></w:rPr><w:t>#</w:t></w:r></w:p></w:tc>` +
+        `<w:tc><w:tcPr><w:tcW w:w="6500" w:type="dxa"/><w:shd w:val="clear" w:color="auto" w:fill="1E293B"/></w:tcPr><w:p><w:r><w:rPr><w:b/><w:color w:val="FFFFFF"/></w:rPr><w:t>Finding</w:t></w:r></w:p></w:tc>` +
+        `<w:tc><w:tcPr><w:tcW w:w="2000" w:type="dxa"/><w:shd w:val="clear" w:color="auto" w:fill="1E293B"/></w:tcPr><w:p><w:r><w:rPr><w:b/><w:color w:val="FFFFFF"/></w:rPr><w:t>Confidence</w:t></w:r></w:p></w:tc></w:tr>`
     );
     report.findings.forEach((f, i) => {
       parts.push(
@@ -206,9 +224,9 @@ function buildDocumentXml(report: ReportDoc): string {
     parts.push(heading('Indicators of Compromise', 2));
     parts.push(
       `<w:tbl><w:tblPr><w:tblW w:w="5000" w:type="pct"/><w:tblBorders><w:top w:val="single" w:sz="4" w:space="0" w:color="CBD5E1"/><w:left w:val="single" w:sz="4" w:space="0" w:color="CBD5E1"/><w:bottom w:val="single" w:sz="4" w:space="0" w:color="CBD5E1"/><w:right w:val="single" w:sz="4" w:space="0" w:color="CBD5E1"/><w:insideH w:val="single" w:sz="4" w:space="0" w:color="E2E8F0"/><w:insideV w:val="single" w:sz="4" w:space="0" w:color="E2E8F0"/></w:tblBorders></w:tblPr>` +
-      `<w:tr><w:trPr><w:tblHeader/></w:trPr><w:tc><w:tcPr><w:tcW w:w="1000" w:type="dxa"/><w:shd w:val="clear" w:color="auto" w:fill="1E293B"/></w:tcPr><w:p><w:r><w:rPr><w:b/><w:color w:val="FFFFFF"/></w:rPr><w:t>Type</w:t></w:r></w:p></w:tc>` +
-      `<w:tc><w:tcPr><w:tcW w:w="4000" w:type="dxa"/><w:shd w:val="clear" w:color="auto" w:fill="1E293B"/></w:tcPr><w:p><w:r><w:rPr><w:b/><w:color w:val="FFFFFF"/></w:rPr><w:t>Value</w:t></w:r></w:p></w:tc>` +
-      `<w:tc><w:tcPr><w:tcW w:w="4000" w:type="dxa"/><w:shd w:val="clear" w:color="auto" w:fill="1E293B"/></w:tcPr><w:p><w:r><w:rPr><w:b/><w:color w:val="FFFFFF"/></w:rPr><w:t>Context</w:t></w:r></w:p></w:tc></w:tr>`
+        `<w:tr><w:trPr><w:tblHeader/></w:trPr><w:tc><w:tcPr><w:tcW w:w="1000" w:type="dxa"/><w:shd w:val="clear" w:color="auto" w:fill="1E293B"/></w:tcPr><w:p><w:r><w:rPr><w:b/><w:color w:val="FFFFFF"/></w:rPr><w:t>Type</w:t></w:r></w:p></w:tc>` +
+        `<w:tc><w:tcPr><w:tcW w:w="4000" w:type="dxa"/><w:shd w:val="clear" w:color="auto" w:fill="1E293B"/></w:tcPr><w:p><w:r><w:rPr><w:b/><w:color w:val="FFFFFF"/></w:rPr><w:t>Value</w:t></w:r></w:p></w:tc>` +
+        `<w:tc><w:tcPr><w:tcW w:w="4000" w:type="dxa"/><w:shd w:val="clear" w:color="auto" w:fill="1E293B"/></w:tcPr><w:p><w:r><w:rPr><w:b/><w:color w:val="FFFFFF"/></w:rPr><w:t>Context</w:t></w:r></w:p></w:tc></w:tr>`
     );
     for (const ioc of report.iocs) {
       parts.push(
@@ -225,8 +243,12 @@ function buildDocumentXml(report: ReportDoc): string {
     for (const s of report.sources) {
       parts.push(
         `<w:p><w:pPr><w:spacing w:after="40"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t xml:space="preserve">[${s.ref}] </w:t></w:r><w:r><w:t xml:space="preserve">${esc(s.name)}</w:t></w:r></w:p>` +
-        (s.url ? `<w:p><w:pPr><w:spacing w:after="80"/></w:pPr><w:r><w:rPr><w:rFonts w:ascii="Consolas" w:hAnsi="Consolas"/></w:rPr><w:t xml:space="preserve">${esc(s.url)}</w:t></w:r></w:p>` : '') +
-        (s.retrieved ? `<w:p><w:pPr><w:spacing w:after="120"/></w:pPr><w:r><w:rPr><w:sz w:val="18"/><w:color w:val="64748B"/></w:rPr><w:t xml:space="preserve">Retrieved ${esc(s.retrieved)}</w:t></w:r></w:p>` : '')
+          (s.url
+            ? `<w:p><w:pPr><w:spacing w:after="80"/></w:pPr><w:r><w:rPr><w:rFonts w:ascii="Consolas" w:hAnsi="Consolas"/></w:rPr><w:t xml:space="preserve">${esc(s.url)}</w:t></w:r></w:p>`
+            : '') +
+          (s.retrieved
+            ? `<w:p><w:pPr><w:spacing w:after="120"/></w:pPr><w:r><w:rPr><w:sz w:val="18"/><w:color w:val="64748B"/></w:rPr><w:t xml:space="preserve">Retrieved ${esc(s.retrieved)}</w:t></w:r></w:p>`
+            : '')
       );
     }
   }
@@ -270,7 +292,10 @@ export async function exportReportDocx(report: ReportDoc): Promise<Blob> {
   zip.folder('word')!.file('settings.xml', SETTINGS_XML);
   zip.folder('docProps')!.file('core.xml', buildCoreXml(report));
   zip.folder('docProps')!.file('app.xml', APP_XML);
-  return zip.generateAsync({ type: 'blob', mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+  return zip.generateAsync({
+    type: 'blob',
+    mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  });
 }
 
 function slug(s: string): string {

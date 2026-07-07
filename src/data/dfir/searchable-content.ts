@@ -99,7 +99,7 @@ export function loadCatalogIndex(): Promise<SearchEntry[]> {
         label: e.name,
         desc: e.description,
         path: `/threatintel/telegram-watch?q=${encodeURIComponent(e.name)}`,
-        sectionLabel: tgM.CATEGORY_LABELS[e.categories[0]] ?? 'Telegram',
+        sectionLabel: tgM.CATEGORY_LABELS[e.categories[0]!] ?? 'Telegram',
       });
     }
 
@@ -111,7 +111,7 @@ export function loadCatalogIndex(): Promise<SearchEntry[]> {
         label: t.name,
         desc: t.description,
         path: `/threatintel/secops-tools?q=${encodeURIComponent(t.name)}`,
-        sectionLabel: secopsM.CATEGORY_LABELS[t.categories[0]] ?? 'SecOps',
+        sectionLabel: secopsM.CATEGORY_LABELS[t.categories[0]!] ?? 'SecOps',
       });
     }
 
@@ -122,7 +122,7 @@ export function loadCatalogIndex(): Promise<SearchEntry[]> {
         label: r.name,
         desc: r.description,
         path: `/threatintel/cve-resources?q=${encodeURIComponent(r.name)}`,
-        sectionLabel: cveM.CATEGORY_LABELS[r.categories[0]] ?? 'CVE Resources',
+        sectionLabel: cveM.CATEGORY_LABELS[r.categories[0]!] ?? 'CVE Resources',
       });
     }
 

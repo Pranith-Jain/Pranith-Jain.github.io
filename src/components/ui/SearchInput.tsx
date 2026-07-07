@@ -64,7 +64,7 @@ export function SearchInput({
         setActiveIdx((prev) => (prev > 0 ? prev - 1 : vis.length - 1));
       } else if (e.key === 'Enter' && activeIdx >= 0) {
         e.preventDefault();
-        onSelect?.(vis[activeIdx]);
+        onSelect?.(vis[activeIdx]!);
         setActiveIdx(-1);
       } else if (e.key === 'Escape') {
         setActiveIdx(-1);
@@ -101,7 +101,7 @@ export function SearchInput({
           aria-autocomplete="list"
           autoComplete="off"
           className={[
-            'w-full rounded-md border border-slate-200 bg-white py-2 pl-9 pr-9 font-mono text-sm text-slate-900 transition-colors placeholder:text-slate-400',
+            'w-full rounded border border-slate-200 bg-white py-2 pl-9 pr-9 font-mono text-sm text-slate-900 transition-colors placeholder:text-slate-400',
             'focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500/20',
             'dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-100 dark:placeholder:text-slate-500',
             'disabled:opacity-50 disabled:cursor-not-allowed',
@@ -135,7 +135,7 @@ export function SearchInput({
           id={listId}
           ref={listRef}
           role="listbox"
-          className="absolute left-0 right-0 top-full z-50 mt-1 max-h-64 overflow-y-auto rounded-xl border border-slate-200 bg-white shadow-lg dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
+          className="absolute left-0 right-0 top-full z-50 mt-1 max-h-64 overflow-y-auto rounded-xl border border-slate-200 bg-white shadow-xl dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
         >
           {visible.map((s, i) => (
             <li

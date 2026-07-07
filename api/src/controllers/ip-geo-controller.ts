@@ -39,6 +39,7 @@ function buildProviderEnv(c: Context<{ Bindings: Env }>) {
     URLSCAN_API_KEY: c.env.URLSCAN_API_KEY ?? '',
     HYBRID_ANALYSIS_API_KEY: c.env.HYBRID_ANALYSIS_API_KEY ?? '',
     ABUSECH_AUTH_KEY: c.env.ABUSECH_AUTH_KEY,
+    POLYSWARM_API_KEY: c.env.POLYSWARM_API_KEY,
   };
 }
 

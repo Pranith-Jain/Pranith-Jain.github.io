@@ -71,7 +71,7 @@ export function CountryIntelPanel({ country, events, onClose }: CountryIntelPane
     <div className="rounded-xl border border-brand-500/30 bg-brand-500/5 animate-fade-in overflow-hidden">
       <div className="flex items-center justify-between px-4 py-3 border-b border-brand-500/10">
         <div className="flex items-center gap-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-500/15">
+          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-brand-500/15">
             <Brain size={16} className="text-brand-400" />
           </div>
           <div>
@@ -90,11 +90,11 @@ export function CountryIntelPanel({ country, events, onClose }: CountryIntelPane
           <button
             onClick={fetchIntel}
             disabled={loading}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-200"
+            className="p-1.5 rounded-xl text-slate-400 hover:text-slate-200"
           >
             <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
           </button>
-          <button onClick={onClose} className="p-1.5 rounded-lg text-slate-400 hover:text-slate-200">
+          <button onClick={onClose} className="p-1.5 rounded-xl text-slate-400 hover:text-slate-200">
             <X size={14} />
           </button>
         </div>
@@ -109,7 +109,7 @@ export function CountryIntelPanel({ country, events, onClose }: CountryIntelPane
         )}
 
         {error && (
-          <div className="rounded-lg bg-rose-500/10 border border-rose-500/20 p-3 text-center">
+          <div className="rounded-xl bg-rose-500/10 border border-rose-500/20 p-3 text-center">
             <p className="text-xs text-rose-400">{error}</p>
           </div>
         )}
@@ -134,14 +134,14 @@ export function CountryIntelPanel({ country, events, onClose }: CountryIntelPane
             <p className="text-sm text-slate-300 leading-relaxed">{intel.executive_summary}</p>
 
             {intel.cyber_threats && (
-              <div className="rounded-lg bg-rose-500/5 border border-rose-500/10 p-3">
+              <div className="rounded-xl bg-rose-500/5 border border-rose-500/10 p-3">
                 <span className="text-micro font-mono uppercase text-rose-400 block mb-1">Cyber Threats</span>
                 <p className="text-xs text-slate-400">{intel.cyber_threats}</p>
               </div>
             )}
 
             {intel.geopolitical_risks && (
-              <div className="rounded-lg bg-amber-500/5 border border-amber-500/10 p-3">
+              <div className="rounded-xl bg-amber-500/5 border border-amber-500/10 p-3">
                 <span className="text-micro font-mono uppercase text-amber-400 block mb-1">Geopolitical Risks</span>
                 <p className="text-xs text-slate-400">{intel.geopolitical_risks}</p>
               </div>
@@ -180,7 +180,7 @@ export function CountryIntelPanel({ country, events, onClose }: CountryIntelPane
             )}
 
             {intel.watch_items?.length > 0 && (
-              <div className="rounded-lg bg-cyan-500/5 border border-cyan-500/10 p-3">
+              <div className="rounded-xl bg-cyan-500/5 border border-cyan-500/10 p-3">
                 <span className="text-micro font-mono uppercase text-cyan-400 block mb-1 flex items-center gap-1">
                   <Eye size={10} /> Watch List
                 </span>
@@ -196,7 +196,7 @@ export function CountryIntelPanel({ country, events, onClose }: CountryIntelPane
             )}
 
             {intel.recommended_posture && (
-              <div className="rounded-lg bg-emerald-500/5 border border-emerald-500/10 p-3">
+              <div className="rounded-xl bg-emerald-500/5 border border-emerald-500/10 p-3">
                 <span className="text-micro font-mono uppercase text-emerald-400 block mb-1">Recommended Posture</span>
                 <p className="text-xs text-slate-400">{intel.recommended_posture}</p>
               </div>

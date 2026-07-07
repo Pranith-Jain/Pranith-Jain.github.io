@@ -161,13 +161,13 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search CVE, product, name..."
-            className="w-full pl-8 pr-3 py-2 text-sm rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/50"
+            className="w-full pl-8 pr-3 py-2 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/50"
           />
         </div>
         <select
           value={vendorFilter}
           onChange={(e) => setVendorFilter(e.target.value)}
-          className="text-sm rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2"
+          className="text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2"
         >
           <option value="">All vendors</option>
           {vendors.slice(0, 100).map((v) => (
@@ -179,7 +179,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
         <select
           value={daysFilter ?? ''}
           onChange={(e) => setDaysFilter(e.target.value ? Number(e.target.value) : null)}
-          className="text-sm rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2"
+          className="text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2"
         >
           <option value="">All time</option>
           <option value="7">Last 7 days</option>
@@ -299,7 +299,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
         <div className="flex items-center gap-2 mt-2">
           <button
             onClick={() => downloadCsv(filtered)}
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-lg border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 hover:border-emerald-500/70 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-xl border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 hover:border-emerald-500/70 transition-colors"
           >
             <Download size={12} /> Export CSV ({filtered.length})
           </button>

@@ -40,6 +40,32 @@ export interface UrlHausUrlEntry {
   }>;
 }
 
+export interface UrlHausUrlResult {
+  query_status: string;
+  id?: string;
+  urlhaus_reference?: string;
+  url?: string;
+  url_status?: string;
+  host?: string;
+  date_added?: string;
+  last_online?: string | null;
+  threat?: string;
+  blacklists?: { spamhaus_dbl: string; surbl: string };
+  reporter?: string;
+  tags?: string[];
+  payloads?: Array<{
+    firstseen: string;
+    filename: string | null;
+    file_type: string;
+    response_size: string;
+    response_md5: string;
+    response_sha256: string;
+    urlhaus_download: string;
+    signature: string | null;
+    virustotal: { result: string; percent: string; link: string } | null;
+  }>;
+}
+
 export interface UrlHausHostResult {
   query_status: string;
   host?: string;
@@ -144,11 +170,7 @@ interface EnvWithUrlHaus {
   URLHAUS_API_KEY?: string;
 }
 
-async function urlHausPost<T>(
-  env: EnvWithUrlHaus,
-  path: string,
-  body: Record<string, string>,
-): Promise<T> {
+async function urlHausPost<T>(env: EnvWithUrlHaus, path: string, body: Record<string, string>): Promise<T> {
   const key = env.URLHAUS_API_KEY;
   if (!key) throw new Error('URLHAUS_API_KEY not set');
   const res = await fetch(`${BASE}${path}`, {
@@ -161,10 +183,7 @@ async function urlHausPost<T>(
   return res.json() as Promise<T>;
 }
 
-async function urlHausGet<T>(
-  env: EnvWithUrlHaus,
-  path: string,
-): Promise<T> {
+async function urlHausGet<T>(env: EnvWithUrlHaus, path: string): Promise<T> {
   const key = env.URLHAUS_API_KEY;
   if (!key) throw new Error('URLHAUS_API_KEY not set');
   const res = await fetch(`${BASE}${path}`, {

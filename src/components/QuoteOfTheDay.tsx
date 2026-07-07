@@ -64,7 +64,7 @@ export function QuoteOfTheDay(): JSX.Element | null {
   if (!quote) return null;
 
   return (
-    <section className="group relative overflow-hidden rounded-lg border border-slate-200/70 dark:border-[rgb(var(--border-400))] p-5 transition-all duration-200 hover:border-brand-300/50 dark:hover:border-brand-500/30 hover:shadow-md dark:hover:shadow-brand-500/5">
+    <section className="group relative overflow-hidden rounded-xl border border-slate-200/70 dark:border-[rgb(var(--border-400))] p-5 transition-all duration-200 hover:border-brand-300/50 dark:hover:border-brand-500/30 hover:shadow-md dark:hover:shadow-brand-500/5">
       {/* Subtle gradient background */}
       <div aria-hidden className="absolute inset-0 bg-[rgb(var(--hover-100))]" />
       {/* Decorative icon */}
@@ -72,7 +72,7 @@ export function QuoteOfTheDay(): JSX.Element | null {
         <Shield size={80} strokeWidth={1} />
       </div>
       <div className="relative flex items-start gap-3">
-        <div className="grid h-8 w-8 place-items-center rounded-lg bg-brand-500/10 dark:bg-brand-500/15 text-brand-600 dark:text-brand-400 shrink-0">
+        <div className="grid h-8 w-8 place-items-center rounded-xl bg-brand-500/10 dark:bg-brand-500/15 text-brand-600 dark:text-brand-400 shrink-0">
           <Quote size={14} />
         </div>
         <div>

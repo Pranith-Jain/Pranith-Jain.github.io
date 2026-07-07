@@ -318,7 +318,7 @@ export default function MitreMatrix(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search ID, name, or description — matches highlight, others dim…"
-              className="w-full pl-9 pr-4 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Search MITRE ATT&CK techniques"
             />
           </div>
@@ -416,7 +416,7 @@ export default function MitreMatrix(): JSX.Element {
                         type="button"
                         onClick={() => (coverageMode ? cycleCoverage(technique.id) : openTechnique(technique.id))}
                         className={[
-                          'group relative block w-full rounded-md border px-2.5 py-2 text-left transition-all hover:shadow-sm',
+                          'group relative block w-full rounded border px-2.5 py-2 text-left transition-all hover:shadow-md',
                           isSelected ? 'ring-2 ring-brand-500/60 dark:ring-brand-400/60' : '',
                           isHighlighted ? 'ring-2 ring-cyan-500/60 dark:ring-cyan-400/60' : '',
                           isDimmed ? 'opacity-30' : '',

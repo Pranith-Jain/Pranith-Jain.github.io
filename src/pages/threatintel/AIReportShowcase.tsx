@@ -153,7 +153,7 @@ const IOC_PILL: Record<IocKind, string> = {
 
 function SummaryTab({ data, sample }: { data: AnalyzerOutput; sample: SampleReport }): JSX.Element {
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5 space-y-4">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5 space-y-4">
       <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] pb-3">
         <div>
           <p className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
@@ -223,7 +223,7 @@ function MindmapSimpleTab({ mindmap }: { mindmap: { nodes: MindmapNode[]; edges:
   return (
     <div className="space-y-3">
       {finding && (
-        <div className="rounded-lg border-2 border-brand-400 dark:border-brand-600 bg-brand-50 dark:bg-brand-950/30 p-4 text-center shadow-e1">
+        <div className="rounded-xl border-2 border-brand-400 dark:border-brand-600 bg-brand-50 dark:bg-brand-950/30 p-4 text-center shadow-e1">
           <p className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
             Central Finding
           </p>
@@ -235,7 +235,7 @@ function MindmapSimpleTab({ mindmap }: { mindmap: { nodes: MindmapNode[]; edges:
           const items = byKind[kind] ?? [];
           if (items.length === 0) return null;
           return (
-            <div key={kind} className={`rounded-lg border ${tone} p-4 shadow-e1`}>
+            <div key={kind} className={`rounded-xl border ${tone} p-4 shadow-e1`}>
               <p className="text-micro font-mono uppercase tracking-wider opacity-80 mb-2">
                 {label} · {items.length}
               </p>
@@ -273,7 +273,7 @@ function StixTab({ data }: { data: AnalyzerOutput }): JSX.Element {
     }
   }
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5 space-y-4">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5 space-y-4">
       <div className="flex items-baseline justify-between">
         <p className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
           STIX 2.1 Bundle · {objects.length} objects
@@ -335,7 +335,7 @@ function DiamondTabView({ diamond }: { diamond: DiamondModel | null }): JSX.Elem
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
       {pillars.map((p) => (
-        <div key={p.key} className={`rounded-lg border ${p.tone} p-4 shadow-e1`}>
+        <div key={p.key} className={`rounded-xl border ${p.tone} p-4 shadow-e1`}>
           <div className="flex items-center gap-2 mb-2">
             <Diamond className="h-4 w-4 opacity-70" />
             <h3 className="text-sm font-semibold">{p.title}</h3>
@@ -408,7 +408,7 @@ function IocsTab(props: { iocs: ExtractedIoc[]; apiKey: string; mcpStatus: McpSt
   }
 
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
       <div className="flex flex-wrap items-center gap-2 px-4 py-2.5 border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]">
         <Link2 className="h-4 w-4 text-brand-600 dark:text-brand-400" />
         <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">
@@ -506,7 +506,7 @@ function IocsTab(props: { iocs: ExtractedIoc[]; apiKey: string; mcpStatus: McpSt
 function TtpsTab({ ttp }: { ttp: TtpHit[] }): JSX.Element {
   if (ttp.length === 0) return <EmptyTab msg="No MITRE ATT&CK techniques were extracted." />;
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
       <table className="w-full text-sm">
         <thead className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
           <tr>
@@ -557,7 +557,7 @@ function AttackFlowTabView({ phases }: { phases: AttackFlowPhase[] }): JSX.Eleme
       {phases.map((p) => (
         <div
           key={p.phase}
-          className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] shadow-e1 overflow-hidden"
+          className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] shadow-e1 overflow-hidden"
         >
           <div className="flex items-center gap-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] px-4 py-2">
             <TrendingUp className="h-4 w-4 text-brand-600 dark:text-brand-400" />
@@ -595,7 +595,7 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }): JSX.Element {
     { q: 'Why', a: fiveW.why, icon: Eye },
   ];
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5 space-y-3">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5 space-y-3">
       <p className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
         5W Analysis · AI confidence {fmtConfidence(fiveW.confidence)}
       </p>
@@ -627,7 +627,7 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }): JSX.Element {
 
 function EmptyTab({ msg }: { msg: string }): JSX.Element {
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
       {msg}
     </div>
   );
@@ -684,7 +684,7 @@ function McpSearchPanel(props: { apiKey: string; status: McpStatus }): JSX.Eleme
   }
 
   return (
-    <div className="mt-3 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+    <div className="mt-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
       <div className="flex flex-wrap items-center gap-2 mb-3">
         <Search className="h-4 w-4 text-brand-600 dark:text-brand-400" />
         <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Cross-Source Search</h3>
@@ -997,7 +997,7 @@ export default function AIReportShowcase(): JSX.Element {
       maxWidthClass="max-w-7xl"
     >
       {/* ── Sample picker ───────────────────────────────────────────── */}
-      <div className="mb-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <div className="mb-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <div className="flex items-center gap-2 mb-3">
           <Beaker className="h-4 w-4 text-brand-600 dark:text-brand-400" />
           <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Pick a sample report</h3>
@@ -1013,7 +1013,7 @@ export default function AIReportShowcase(): JSX.Element {
                 key={r.id}
                 type="button"
                 onClick={() => handleSelect(r.id)}
-                className={`text-left rounded-lg border p-3 transition-all ${
+                className={`text-left rounded-xl border p-3 transition-all ${
                   active
                     ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/30 shadow-e2'
                     : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] hover:border-brand-400/60'
@@ -1120,7 +1120,7 @@ export default function AIReportShowcase(): JSX.Element {
       )}
 
       {!data && !loading && !error && (
-        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-12 text-center">
+        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-12 text-center">
           <BookOpen className="mx-auto h-10 w-10 text-slate-400 dark:text-slate-500 mb-3" />
           <p className="text-sm text-muted">Pick a sample above to begin.</p>
         </div>

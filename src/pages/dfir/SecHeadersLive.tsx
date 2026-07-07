@@ -150,12 +150,12 @@ export default function SecHeadersLive(): JSX.Element {
           value={domain}
           onChange={(e) => setDomain(e.target.value)}
           placeholder="example.com"
-          className="flex-1 px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="flex-1 px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
         />
         <button
           type="submit"
           disabled={!valid || loading}
-          className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+          className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
         >
           {loading ? (
             <Loader2 size={16} className="inline animate-spin" />
@@ -175,10 +175,10 @@ export default function SecHeadersLive(): JSX.Element {
       {data && (
         <div className="space-y-6">
           {/* Hero */}
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
             <div className="flex flex-wrap items-center gap-4">
               <div
-                className={`flex h-16 w-16 shrink-0 items-center justify-center rounded-lg font-mono text-2xl font-bold ring-2 ${gradeTone}`}
+                className={`flex h-16 w-16 shrink-0 items-center justify-center rounded-xl font-mono text-2xl font-bold ring-2 ${gradeTone}`}
                 title={`${passCount} of ${total} headers pass`}
               >
                 {grade}
@@ -216,7 +216,7 @@ export default function SecHeadersLive(): JSX.Element {
           </section>
 
           {/* Per-header status */}
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
             <h2 className="font-display font-bold text-lg mb-3">Per-header status</h2>
             <ul className="space-y-2">
               {(data.current ?? []).map((h, i) => {
@@ -250,7 +250,7 @@ export default function SecHeadersLive(): JSX.Element {
 
           {/* Ready-to-paste outputs */}
           {data.outputs && (
-            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
               <h2 className="font-display font-bold text-lg mb-3">Ready-to-paste config</h2>
               <p className="text-xs text-slate-600 dark:text-slate-400 mb-3">
                 Drop into your server config or generate a fresh policy via the{' '}
@@ -301,7 +301,7 @@ export default function SecHeadersLive(): JSX.Element {
           )}
 
           {data.warnings && data.warnings.length > 0 && (
-            <section className="rounded-lg border border-amber-500/30 bg-amber-500/5 p-4">
+            <section className="rounded-xl border border-amber-500/30 bg-amber-500/5 p-4">
               <h2 className="font-display font-bold text-sm text-amber-700 dark:text-amber-300 mb-2">Warnings</h2>
               <ul className="space-y-1 text-xs text-amber-700 dark:text-amber-300">
                 {data.warnings.map((w, i) => (

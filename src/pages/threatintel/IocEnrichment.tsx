@@ -58,7 +58,7 @@ const SOURCES: Source[] = [
 
 export default function IocEnrichment(): JSX.Element {
   const [query, setQuery] = useState('');
-  const [source, setSource] = useState<Source>(SOURCES[0]);
+  const [source, setSource] = useState<Source>(SOURCES[0]!);
   const [data, setData] = useState<unknown | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -146,7 +146,7 @@ export default function IocEnrichment(): JSX.Element {
       }
       maxWidthClass="max-w-6xl"
       headerExtra={
-        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 sm:p-6">
+        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 sm:p-6">
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="relative flex-1">
               <div className="relative">
@@ -160,7 +160,7 @@ export default function IocEnrichment(): JSX.Element {
                   onChange={(e) => setQuery(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder={source.hint}
-                  className="w-full rounded-lg border border-slate-200 bg-white py-2.5 pl-9 pr-4 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-100 dark:placeholder:text-slate-500"
+                  className="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-9 pr-4 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-100 dark:placeholder:text-slate-500"
                   aria-label="Search query"
                 />
               </div>
@@ -173,7 +173,7 @@ export default function IocEnrichment(): JSX.Element {
                 aria-haspopup="listbox"
                 aria-expanded={showDropdown}
                 aria-label={`Data source: ${source.label}`}
-                className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2.5 font-mono text-tool text-slate-900 hover:border-brand-500/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-100 min-w-[180px] justify-between"
+                className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2.5 font-mono text-tool text-slate-900 hover:border-brand-500/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-100 min-w-[180px] justify-between"
               >
                 <span>{source.label}</span>
                 <ChevronDown size={14} className="text-slate-400" />
@@ -182,7 +182,7 @@ export default function IocEnrichment(): JSX.Element {
                 <div
                   role="listbox"
                   aria-label="Data source"
-                  className="absolute right-0 top-full mt-1 z-10 w-full min-w-[220px] rounded-lg border border-slate-200 bg-white shadow-lg dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
+                  className="absolute right-0 top-full mt-1 z-10 w-full min-w-[220px] rounded-xl border border-slate-200 bg-white shadow-xl dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
                 >
                   {SOURCES.map((s) => (
                     <button
@@ -211,7 +211,7 @@ export default function IocEnrichment(): JSX.Element {
               type="button"
               onClick={handleSearch}
               disabled={loading || !query.trim()}
-              className="inline-flex items-center gap-2 rounded-lg bg-brand-600 px-4 py-2.5 font-mono text-tool font-semibold text-white hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
+              className="inline-flex items-center gap-2 rounded-xl bg-brand-600 px-4 py-2.5 font-mono text-tool font-semibold text-white hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
             >
               {loading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
               {loading ? 'Searching…' : 'Search'}
@@ -236,7 +236,7 @@ export default function IocEnrichment(): JSX.Element {
       emptyMessage={`No results from ${source.label} for this query.`}
     >
       {!!data && !isEmptyResult && (
-        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
           <button
             type="button"
             onClick={() => setExpanded(!expanded)}

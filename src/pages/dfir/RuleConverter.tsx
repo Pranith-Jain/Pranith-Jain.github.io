@@ -305,7 +305,7 @@ export default function RuleConverter(): JSX.Element {
       {/* Starter library picker — Sigma rules grouped by tactic. Click loads
           into the source editor and switches `from` to sigma. */}
       {showStarters && (
-        <section className="rounded-lg border border-brand-500/30 bg-brand-50/30 dark:bg-brand-900/15 p-4 mb-4">
+        <section className="rounded-xl border border-brand-500/30 bg-brand-50/30 dark:bg-brand-900/15 p-4 mb-4">
           <p className="text-mini font-mono text-muted mb-3">
             Canonical Sigma rules with Sysmon / Windows-Security field names — the converter's most common source.
             Switches the source format to Sigma when loaded.
@@ -358,11 +358,11 @@ export default function RuleConverter(): JSX.Element {
                 : `Paste a ${FORMAT_LABELS[from]} rule…`
             }
             aria-label="Source rule"
-            className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
         </section>
 
-        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 min-h-[12rem]">
+        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 min-h-[12rem]">
           <div className="flex items-center justify-between mb-2">
             <h3 className="font-display font-semibold text-sm">
               {FORMAT_LABELS[to]}
@@ -434,7 +434,7 @@ export default function RuleConverter(): JSX.Element {
             : [];
         if (warnings.length === 0) return null;
         return (
-          <section className="mt-4 rounded-lg border border-amber-500/30 bg-amber-500/10 p-4">
+          <section className="mt-4 rounded-xl border border-amber-500/30 bg-amber-500/10 p-4">
             <h3 className="text-mini font-bold uppercase tracking-[0.2em] text-amber-700 dark:text-amber-300 font-mono mb-2 inline-flex items-center gap-1.5">
               <AlertTriangle size={12} /> conversion notes ({warnings.length})
             </h3>
@@ -462,7 +462,7 @@ export default function RuleConverter(): JSX.Element {
             Parsed IR (what the parser extracted)
           </button>
           {showIr && (
-            <div className="mt-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
+            <div className="mt-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
               {!ir ? null : 'error' in ir ? (
                 <p className="text-meta font-mono text-rose-600 dark:text-rose-400">{ir.error}</p>
               ) : (
@@ -487,7 +487,7 @@ export default function RuleConverter(): JSX.Element {
         </section>
       )}
 
-      <section className="mt-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <section className="mt-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           See also
         </h2>

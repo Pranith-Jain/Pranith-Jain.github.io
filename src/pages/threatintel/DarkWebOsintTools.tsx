@@ -102,7 +102,7 @@ export default function DarkWebOsintTools(): JSX.Element {
       }
       headerExtra={
         <div className="space-y-6">
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
             <div className="relative">
               <Search
                 size={16}
@@ -120,7 +120,7 @@ export default function DarkWebOsintTools(): JSX.Element {
             </div>
           </section>
 
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
             <div className="flex flex-wrap items-center gap-1.5">
               <span className="text-mini font-mono text-slate-500 mr-1">categories:</span>
               {ALL_CATS.map((c) => {
@@ -164,7 +164,7 @@ export default function DarkWebOsintTools(): JSX.Element {
         {filtered.map((t) => (
           <li
             key={t.id}
-            className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
+            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
           >
             <div className="flex items-baseline justify-between gap-2 mb-1.5">
               <a

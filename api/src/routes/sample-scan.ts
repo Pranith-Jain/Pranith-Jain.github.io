@@ -140,6 +140,7 @@ function buildProviderEnv(c: Ctx): ProviderEnv {
     KASPERSKY_API_KEY: c.env.KASPERSKY_API_KEY,
     SPUR_API_KEY: c.env.SPUR_API_KEY,
     VULNCHECK_API_TOKEN: c.env.VULNCHECK_API_TOKEN,
+    POLYSWARM_API_KEY: c.env.POLYSWARM_API_KEY,
   };
 }
 

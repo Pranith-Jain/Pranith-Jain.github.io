@@ -155,7 +155,7 @@ export default function Grc(): JSX.Element {
             <button
               key={fid}
               onClick={() => setTab(fid)}
-              className={`text-left rounded-lg border p-3 transition-colors ${
+              className={`text-left rounded-xl border p-3 transition-colors ${
                 tab === fid
                   ? 'border-brand-500/60 bg-brand-500/5'
                   : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-brand-500/40'
@@ -218,7 +218,7 @@ export default function Grc(): JSX.Element {
             <div key={fn.id}>
               <button
                 onClick={() => toggleExpanded(fn.id)}
-                className="w-full flex items-center gap-3 text-left rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 hover:border-brand-500/40 px-4 py-3"
+                className="w-full flex items-center gap-3 text-left rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 hover:border-brand-500/40 px-4 py-3"
                 aria-expanded={expanded.has(fn.id)}
               >
                 <span className="flex-none w-12 font-mono text-xs font-bold text-brand-600 dark:text-brand-400">
@@ -236,7 +236,7 @@ export default function Grc(): JSX.Element {
                 {expanded.has(fn.id) ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
               </button>
               {expanded.has(fn.id) && (
-                <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200)/0.5)] mt-2 p-4 space-y-4">
+                <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200)/0.5)] mt-2 p-4 space-y-4">
                   {fn.categories.map((cat) => (
                     <div key={cat.id}>
                       <h4 className="font-display font-semibold text-sm text-slate-800 dark:text-slate-200 mb-1">
@@ -291,7 +291,7 @@ export default function Grc(): JSX.Element {
           {ISO_27001.map((theme) => (
             <div
               key={theme.id}
-              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
+              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
             >
               <div className="flex flex-wrap items-baseline gap-2 mb-1">
                 <span className="font-mono text-xs font-bold text-brand-600 dark:text-brand-400">A.{theme.number}</span>
@@ -362,7 +362,7 @@ export default function Grc(): JSX.Element {
           {ISO_42001.map((domain) => (
             <div
               key={domain.id}
-              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
+              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
             >
               <div className="flex flex-wrap items-baseline gap-2 mb-1">
                 <span className="font-mono text-xs font-bold text-brand-600 dark:text-brand-400">{domain.shortId}</span>
@@ -454,7 +454,7 @@ export default function Grc(): JSX.Element {
               return (
                 <div
                   key={cat}
-                  className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
+                  className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
                 >
                   <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-2">
                     {cat} ({items.length})
@@ -501,7 +501,7 @@ export default function Grc(): JSX.Element {
             return (
               <div
                 key={d.id}
-                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
+                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
               >
                 <div className="flex flex-wrap items-baseline gap-3 mb-1">
                   <h3 className="font-display font-semibold text-slate-900 dark:text-slate-100">{d.title}</h3>
@@ -531,7 +531,7 @@ export default function Grc(): JSX.Element {
         </div>
       )}
 
-      <section className="mt-8 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <section className="mt-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           References
         </h2>

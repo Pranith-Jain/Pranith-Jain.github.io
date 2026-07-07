@@ -92,7 +92,7 @@ export default function SqliteExplorer(): JSX.Element {
       <button
         type="button"
         onClick={() => document.getElementById('sqlite-input')?.click()}
-        className="w-full border-2 border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] rounded-lg p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
+        className="w-full border-2 border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
         aria-label="Drop a SQLite file or click to choose"
       >
         <Upload size={24} className="mx-auto mb-2 text-slate-500" />
@@ -116,7 +116,7 @@ export default function SqliteExplorer(): JSX.Element {
 
       {db && (
         <div className="mt-6 grid gap-4 md:grid-cols-[220px_1fr]">
-          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 max-h-[60vh] overflow-auto">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 max-h-[60vh] overflow-auto">
             <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-2">
               Tables ({db.tables.length})
             </div>
@@ -140,7 +140,7 @@ export default function SqliteExplorer(): JSX.Element {
                 value={sqlText}
                 onChange={(e) => setSqlText(e.target.value)}
                 placeholder='SELECT * FROM "moz_places" LIMIT 50'
-                className="flex-1 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2 font-mono text-meta focus:border-brand-500 focus:outline-none"
+                className="flex-1 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2 font-mono text-meta focus:border-brand-500 focus:outline-none"
               />
               <button
                 type="button"
@@ -151,7 +151,7 @@ export default function SqliteExplorer(): JSX.Element {
               </button>
             </div>
             {result && (
-              <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-auto max-h-[60vh]">
+              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-auto max-h-[60vh]">
                 <table className="w-full text-mini font-mono">
                   <thead className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] sticky top-0">
                     <tr>

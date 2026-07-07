@@ -184,13 +184,13 @@ export default function GoogleDorks(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder='site:pastebin.com "password"  ·  intitle:"index of" .env  ·  filetype:sql intext:INSERT'
-              className="w-full pl-10 pr-3 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-10 pr-3 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
           </div>
           <select
             value={num}
             onChange={(e) => setNum(Number.parseInt(e.target.value, 10))}
-            className="px-3 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm"
+            className="px-3 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm"
             aria-label="Results per page"
           >
             {[10, 20, 30, 50].map((n) => (
@@ -202,7 +202,7 @@ export default function GoogleDorks(): JSX.Element {
           <button
             type="submit"
             disabled={status === 'loading' || !query.trim()}
-            className="px-4 py-2.5 rounded-lg bg-brand-600 text-white font-medium text-sm hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center gap-2"
+            className="px-4 py-2.5 rounded-xl bg-brand-600 text-white font-medium text-sm hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center gap-2"
           >
             {status === 'loading' ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
             Search
@@ -233,7 +233,7 @@ export default function GoogleDorks(): JSX.Element {
       </div>
 
       {error && (
-        <div className="mb-6 rounded-lg border border-rose-300/60 bg-rose-50/40 p-4 text-sm text-rose-700 dark:border-rose-700/50 dark:bg-rose-950/30 dark:text-rose-300">
+        <div className="mb-6 rounded-xl border border-rose-300/60 bg-rose-50/40 p-4 text-sm text-rose-700 dark:border-rose-700/50 dark:bg-rose-950/30 dark:text-rose-300">
           {error}
         </div>
       )}
@@ -252,7 +252,7 @@ export default function GoogleDorks(): JSX.Element {
             {data.results.map((r) => (
               <li
                 key={`${r.position ?? r.link}|${r.link}`}
-                className="rounded-lg border border-slate-200 bg-white p-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
+                className="rounded-xl border border-slate-200 bg-white p-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
               >
                 <div className="flex items-start gap-2">
                   <div className="flex-1 min-w-0">

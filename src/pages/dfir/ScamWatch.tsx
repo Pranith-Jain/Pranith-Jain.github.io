@@ -191,7 +191,7 @@ export default function ScamWatch(): JSX.Element {
       </div>
 
       {/* Filters */}
-      <section className="mb-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5 space-y-3">
+      <section className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5 space-y-3">
         <div className="flex items-center gap-2">
           <Search size={14} className="text-brand-600 dark:text-brand-400" aria-hidden="true" />
           <input
@@ -296,7 +296,7 @@ export default function ScamWatch(): JSX.Element {
       )}
 
       {!loading && !error && items.length === 0 && (
-        <div className="rounded-lg border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm font-mono text-slate-500 dark:text-slate-400">
+        <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm font-mono text-slate-500 dark:text-slate-400">
           No items returned from the aggregator. Try refresh; the upstream feeds may be temporarily slow.
         </div>
       )}

@@ -398,7 +398,7 @@ export default function Blog() {
             href="/blog/rss.xml"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-md border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:bg-brand-500/5 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:bg-brand-500/5 transition-colors"
           >
             <svg
               width="14"

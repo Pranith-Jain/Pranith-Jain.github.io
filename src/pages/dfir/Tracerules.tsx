@@ -60,14 +60,14 @@ export default function Tracerules(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search queries by title, technique, or keyword…"
-              className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+              className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
             />
           </div>
           <div className="flex gap-2">
             <button
               type="button"
               onClick={() => setFormatFilter('all')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-colors ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-mono font-medium transition-colors ${
                 formatFilter === 'all'
                   ? 'bg-brand-600 text-white'
                   : 'bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted'
@@ -80,7 +80,7 @@ export default function Tracerules(): JSX.Element {
                 key={f}
                 type="button"
                 onClick={() => setFormatFilter(f)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-colors ${
+                className={`px-3 py-1.5 rounded-xl text-xs font-mono font-medium transition-colors ${
                   formatFilter === f
                     ? 'bg-brand-600 text-white'
                     : 'bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted'
@@ -93,7 +93,7 @@ export default function Tracerules(): JSX.Element {
           <select
             value={tacticFilter}
             onChange={(e) => setTacticFilter(e.target.value)}
-            className="px-3 py-1.5 text-xs font-mono bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-slate-700 dark:text-slate-300"
+            className="px-3 py-1.5 text-xs font-mono bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-slate-700 dark:text-slate-300"
           >
             <option value="all">All Tactics</option>
             {tactics.map((t) => (
@@ -165,13 +165,13 @@ export default function Tracerules(): JSX.Element {
                     <button
                       type="button"
                       onClick={() => copyQuery(rule.id, rule.query)}
-                      className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-mono text-muted bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.6)] transition-colors"
+                      className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-xs font-mono text-muted bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.6)] transition-colors"
                     >
                       {copiedId === rule.id ? <Check size={12} /> : <Copy size={12} />}
                       {copiedId === rule.id ? 'Copied' : 'Copy'}
                     </button>
                   </div>
-                  <pre className="overflow-x-auto rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-4 py-3 text-xs font-mono text-slate-800 dark:text-slate-200 leading-relaxed whitespace-pre-wrap">
+                  <pre className="overflow-x-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-4 py-3 text-xs font-mono text-slate-800 dark:text-slate-200 leading-relaxed whitespace-pre-wrap">
                     {rule.query}
                   </pre>
                   <div className="flex flex-wrap gap-1.5 mt-3">

@@ -79,7 +79,7 @@ export default function AboutPage() {
                 {chapter.badges.map((b) => (
                   <span
                     key={b}
-                    className="rounded-md border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.6)] px-2.5 py-1 text-mini font-mono text-slate-500 dark:text-slate-400"
+                    className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.6)] px-2.5 py-1 text-mini font-mono text-slate-500 dark:text-slate-400"
                   >
                     {b}
                   </span>

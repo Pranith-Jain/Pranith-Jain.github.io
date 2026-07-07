@@ -55,7 +55,8 @@ export type ProviderId =
   | 'safebrowsing'
   | 'zoomeye'
   | 'tre-ge'
-  | 'intodns';
+  | 'intodns'
+  | 'polyswarm';
 
 export type Verdict = 'clean' | 'suspicious' | 'malicious' | 'unknown';
 
@@ -140,6 +141,9 @@ export interface ProviderEnv {
    *  but the upstream may rate-limit the Worker's egress IP; a key raises
    *  the abuse-protection ceiling. Unset = anonymous tier, still functional. */
   INTODNS_API_KEY?: string;
+  /** PolySwarm API key (free at polyswarm.network/signup). Optional — the provider
+   *  degrades to 'unsupported' when unset. */
+  POLYSWARM_API_KEY?: string;
 }
 
 export type ProviderAdapter = (indicator: Indicator, env: ProviderEnv, signal: AbortSignal) => Promise<ProviderResult>;
@@ -206,6 +210,7 @@ export const PROVIDER_SUPPORT: Record<ProviderId, IndicatorType[]> = {
   zoomeye: ['ipv4', 'ipv6', 'domain'],
   'tre-ge': ['ipv4', 'ipv6', 'domain', 'url', 'hash'],
   intodns: ['domain'],
+  polyswarm: ['hash'],
 };
 
 /**
@@ -272,4 +277,5 @@ export const PROVIDER_TIER: Record<ProviderId, ProviderTier> = {
   ipinfo: 1,
   ipqs: 1,
   yaraify: 1,
+  polyswarm: 1,
 };

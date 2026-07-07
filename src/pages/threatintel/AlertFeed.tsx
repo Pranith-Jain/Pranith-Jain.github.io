@@ -153,7 +153,7 @@ export default function AlertFeed() {
         </div>
         <button
           onClick={loadAlerts}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
         >
           <RefreshCw size={14} className={loading ? 'animate-spin' : ''} /> Refresh
         </button>
@@ -176,7 +176,7 @@ export default function AlertFeed() {
               }`}
             >
               <div className="flex items-start gap-3">
-                <div className={`p-2 rounded-lg ${cfg.bg} ${cfg.color}`}>
+                <div className={`p-2 rounded-xl ${cfg.bg} ${cfg.color}`}>
                   <Icon size={18} />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -198,7 +198,7 @@ export default function AlertFeed() {
                       {!alert.read && (
                         <button
                           onClick={() => markRead(alert.id)}
-                          className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-400 hover:text-green-500"
+                          className="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-400 hover:text-green-500"
                           title="Mark read"
                         >
                           <CheckCircle size={14} />
@@ -206,7 +206,7 @@ export default function AlertFeed() {
                       )}
                       <button
                         onClick={() => dismiss(alert.id)}
-                        className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-400 hover:text-red-500"
+                        className="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-400 hover:text-red-500"
                         title="Dismiss"
                       >
                         <XCircle size={14} />

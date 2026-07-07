@@ -332,13 +332,13 @@ export default function CvePrioritizer(): JSX.Element {
         rows={6}
         spellCheck={false}
         aria-label="CVE IDs"
-        className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+        className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
       />
       <button
         type="button"
         onClick={() => void run()}
         disabled={running || !input.trim()}
-        className="mt-4 inline-flex items-center gap-2 px-5 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-lg disabled:opacity-40 hover:bg-brand-700 dark:hover:bg-brand-400"
+        className="mt-4 inline-flex items-center gap-2 px-5 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-xl disabled:opacity-40 hover:bg-brand-700 dark:hover:bg-brand-400"
       >
         {running && <Loader2 size={14} className="animate-spin" />}
         {running ? 'enriching…' : 'prioritize'}
@@ -348,7 +348,7 @@ export default function CvePrioritizer(): JSX.Element {
         <div className="mt-8 space-y-4">
           {/* Summary strip — verdict counts + export buttons. Click a
               count to filter the list below to that verdict. */}
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div className="flex flex-wrap items-center gap-1.5">
                 {(['ACT NOW', 'SCHEDULE', 'MONITOR', 'DEFER'] as BatchVerdict[]).map((v) =>
@@ -406,7 +406,7 @@ export default function CvePrioritizer(): JSX.Element {
               return (
                 <article
                   key={r.id}
-                  className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
+                  className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
                 >
                   <header className="flex items-start gap-2.5">
                     {r.loading ? (

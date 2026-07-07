@@ -428,7 +428,7 @@ export default function IamPolicyAnalyzer(): JSX.Element {
         rows={12}
         spellCheck={false}
         aria-label="AWS policy JSON"
-        className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+        className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
       />
 
       {analysis?.error && (
@@ -437,7 +437,7 @@ export default function IamPolicyAnalyzer(): JSX.Element {
 
       {analysis && !analysis.error && (
         <div className="mt-8 space-y-6">
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
               <span>
                 <span className="text-slate-500">Type:</span> <span className="font-mono">{analysis.policyType}</span>
@@ -462,7 +462,7 @@ export default function IamPolicyAnalyzer(): JSX.Element {
           </section>
 
           {clean && counts.critical + counts.high + counts.medium === 0 && (
-            <section className="rounded-lg border border-emerald-500/30 bg-emerald-500/5 p-5 flex items-start gap-2 text-sm text-emerald-700 dark:text-emerald-400">
+            <section className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-5 flex items-start gap-2 text-sm text-emerald-700 dark:text-emerald-400">
               <ShieldCheck size={16} className="mt-0.5 flex-shrink-0" />
               <span>
                 No high-risk patterns detected. Still review against your environment’s least-privilege baseline.
@@ -477,7 +477,7 @@ export default function IamPolicyAnalyzer(): JSX.Element {
                 return (
                   <div
                     key={`${f.where}-${f.title}-${idx}`}
-                    className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
+                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
                   >
                     <div className="flex items-start gap-2.5">
                       <st.Icon size={16} className={`mt-0.5 flex-shrink-0 ${st.text}`} />

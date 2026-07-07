@@ -160,7 +160,7 @@ export default function CertStreamLive(): JSX.Element {
   const displayItems = showOnlySuspicious ? items.filter((it) => suspicionScore(it, keyword) >= 2) : items;
 
   const headerExtra = (
-    <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
       <div className="mb-3">
         <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
           live
@@ -256,7 +256,7 @@ export default function CertStreamLive(): JSX.Element {
       )}
 
       {streaming && (
-        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
           <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
             <div className="text-xs font-mono text-slate-500 dark:text-slate-400">
               {loading ? (
@@ -296,7 +296,7 @@ export default function CertStreamLive(): JSX.Element {
                 return (
                   <li
                     key={it.id}
-                    className={`rounded-lg border p-3 transition-colors ${
+                    className={`rounded-xl border p-3 transition-colors ${
                       sus
                         ? 'border-rose-300 dark:border-rose-800 bg-rose-50/60 dark:bg-rose-950/40'
                         : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]'
@@ -356,7 +356,7 @@ export default function CertStreamLive(): JSX.Element {
       )}
 
       {!streaming && (
-        <div className="rounded-lg border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50/60 dark:bg-[rgb(var(--input-200)/0.4)] p-8 text-center">
+        <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50/60 dark:bg-[rgb(var(--input-200)/0.4)] p-8 text-center">
           <Radio size={28} className="mx-auto text-slate-400 mb-2" />
           <p className="text-sm font-mono text-slate-500">
             Enter a keyword and press <span className="text-brand-600 dark:text-brand-400">Start stream</span> to begin

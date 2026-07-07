@@ -87,13 +87,13 @@ export default function PassiveDns(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Enter domain or IP address..."
-              className="w-full pl-10 pr-4 py-3 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+              className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
             />
           </div>
           <button
             type="submit"
             disabled={loading || !query.trim()}
-            className="px-6 py-3 rounded-lg bg-brand-600 hover:bg-brand-700 disabled:opacity-50 text-white font-mono text-sm font-medium transition-colors"
+            className="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 disabled:opacity-50 text-white font-mono text-sm font-medium transition-colors"
           >
             {loading ? <Loader2 size={16} className="animate-spin" /> : 'Query'}
           </button>
@@ -102,7 +102,7 @@ export default function PassiveDns(): JSX.Element {
 
       {/* Error */}
       {error && (
-        <div className="mb-6 p-4 rounded-lg bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300 font-mono text-sm">
+        <div className="mb-6 p-4 rounded-xl bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300 font-mono text-sm">
           <AlertTriangle size={16} className="inline mr-2" />
           {error}
         </div>
@@ -113,30 +113,30 @@ export default function PassiveDns(): JSX.Element {
         <div className="space-y-6">
           {/* Summary Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="p-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
+            <div className="p-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
               <div className="text-2xl font-bold text-brand-600 dark:text-brand-400">
                 {result.unique_resolved.length}
               </div>
               <div className="text-xs font-mono text-muted">Unique IPs</div>
             </div>
-            <div className="p-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
+            <div className="p-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
               <div className="text-2xl font-bold text-brand-600 dark:text-brand-400">{result.total_observations}</div>
               <div className="text-xs font-mono text-muted">Total Records</div>
             </div>
-            <div className="p-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
+            <div className="p-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
               <div className="text-2xl font-bold text-brand-600 dark:text-brand-400">
                 {Object.keys(result.source_summary).length}
               </div>
               <div className="text-xs font-mono text-muted">Sources</div>
             </div>
-            <div className="p-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
+            <div className="p-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
               <div className="text-2xl font-bold text-brand-600 dark:text-brand-400">{result.query_time_ms}ms</div>
               <div className="text-xs font-mono text-muted">Query Time</div>
             </div>
           </div>
 
           {/* Source Breakdown */}
-          <div className="p-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
+          <div className="p-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
             <h3 className="font-display font-semibold mb-3 flex items-center gap-2">
               <Server size={16} /> Sources
             </h3>
@@ -154,7 +154,7 @@ export default function PassiveDns(): JSX.Element {
 
           {/* Migrations Detected */}
           {result.migrations.length > 0 && (
-            <div className="p-4 rounded-lg border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/20">
+            <div className="p-4 rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/20">
               <h3 className="font-display font-semibold mb-3 flex items-center gap-2 text-amber-700 dark:text-amber-300">
                 <AlertTriangle size={16} /> Infrastructure Migrations Detected
               </h3>
@@ -170,7 +170,7 @@ export default function PassiveDns(): JSX.Element {
 
           {/* Fast Flux */}
           {result.fast_flux && result.fast_flux.is_fast_flux && (
-            <div className="p-4 rounded-lg border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20">
+            <div className="p-4 rounded-xl border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20">
               <h3 className="font-display font-semibold mb-3 flex items-center gap-2 text-rose-700 dark:text-rose-300">
                 <AlertTriangle size={16} /> Fast-Flux Detection
               </h3>
@@ -183,7 +183,7 @@ export default function PassiveDns(): JSX.Element {
 
           {/* Resolved IPs */}
           {result.unique_resolved.length > 0 && (
-            <div className="p-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
+            <div className="p-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
               <h3 className="font-display font-semibold mb-3 flex items-center gap-2">
                 <Globe size={16} /> Resolved IPs
               </h3>
@@ -202,7 +202,7 @@ export default function PassiveDns(): JSX.Element {
 
           {/* Records Table */}
           {result.records.length > 0 && (
-            <div className="p-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
+            <div className="p-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
               <h3 className="font-display font-semibold mb-3 flex items-center gap-2">
                 <Clock size={16} /> Resolution History
               </h3>

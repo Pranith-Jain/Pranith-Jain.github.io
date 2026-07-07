@@ -184,7 +184,7 @@ export default function AttackFlowLibrary(): JSX.Element {
     >
       {/* On-demand single-flow STIX viewer */}
       {activeFlow && (
-        <div className="mb-6 rounded-lg border border-brand-500/30 bg-brand-500/5 p-4">
+        <div className="mb-6 rounded-xl border border-brand-500/30 bg-brand-500/5 p-4">
           <div className="flex items-start justify-between gap-3">
             <div>
               <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{activeFlow}</h2>
@@ -257,7 +257,7 @@ export default function AttackFlowLibrary(): JSX.Element {
           return (
             <div
               key={flow.sha || flow.name}
-              className={`rounded-lg border p-3 transition-colors ${
+              className={`rounded-xl border p-3 transition-colors ${
                 isActive
                   ? 'border-brand-500/60 bg-brand-500/5'
                   : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]'

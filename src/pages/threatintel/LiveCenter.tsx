@@ -314,7 +314,7 @@ export default function LiveCenter(): JSX.Element {
         {CATEGORIES.map((cat) => (
           <div
             key={cat.id}
-            className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2"
+            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2"
           >
             <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
               {cat.label}
@@ -361,7 +361,7 @@ export default function LiveCenter(): JSX.Element {
                       <button
                         type="button"
                         onClick={() => toggle(key)}
-                        className="inline-flex items-center gap-1.5 rounded-lg border border-brand-500/40 bg-brand-500/10 px-3 py-1.5 text-xs font-mono font-medium text-brand-700 dark:text-brand-300 hover:bg-brand-500/20 transition-colors"
+                        className="inline-flex items-center gap-1.5 rounded-xl border border-brand-500/40 bg-brand-500/10 px-3 py-1.5 text-xs font-mono font-medium text-brand-700 dark:text-brand-300 hover:bg-brand-500/20 transition-colors"
                         aria-expanded={open}
                         aria-controls={`detail-${key}`}
                       >

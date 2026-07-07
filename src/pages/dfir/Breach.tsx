@@ -296,7 +296,7 @@ function VerificationCard({ verification }: { verification: EmailVerification })
   const Icon = v.Icon;
   const sourceCount = (verification.sources.throwaway ? 1 : 0) + (verification.sources.rapid ? 1 : 0);
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
       <div className="flex items-start gap-4">
         <Icon size={22} className="shrink-0 mt-0.5 text-slate-500" />
         <div className="flex-1 min-w-0">
@@ -486,7 +486,7 @@ function PasswordTab(): JSX.Element {
               data-form-type="other"
               aria-label="Password to check against breach datasets"
               style={{ WebkitTextSecurity: showPassword ? 'none' : 'disc' } as CSSProperties}
-              className="w-full px-4 py-3 pr-12 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full px-4 py-3 pr-12 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
             <button
               type="button"
@@ -500,7 +500,7 @@ function PasswordTab(): JSX.Element {
           <button
             type="submit"
             disabled={!canSubmit}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 whitespace-nowrap"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 whitespace-nowrap"
           >
             Check
           </button>
@@ -522,7 +522,7 @@ function PasswordTab(): JSX.Element {
       {result && (
         <div className="animate-fade-in-up">
           {result.found && result.count !== undefined ? (
-            <section className="rounded-lg border border-amber-200 dark:border-amber-900/40 bg-amber-50 dark:bg-amber-900/10 p-6">
+            <section className="rounded-xl border border-amber-200 dark:border-amber-900/40 bg-amber-50 dark:bg-amber-900/10 p-6">
               <div className="flex items-start gap-4">
                 <AlertTriangle size={24} className="text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
                 <div>
@@ -553,7 +553,7 @@ function PasswordTab(): JSX.Element {
               </div>
             </section>
           ) : (
-            <section className="rounded-lg border border-emerald-200 dark:border-emerald-900/40 bg-emerald-50 dark:bg-emerald-900/10 p-6">
+            <section className="rounded-xl border border-emerald-200 dark:border-emerald-900/40 bg-emerald-50 dark:bg-emerald-900/10 p-6">
               <div className="flex items-start gap-4">
                 <ShieldCheck size={24} className="text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                 <div>
@@ -698,12 +698,12 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="email@example.com"
-            className="flex-1 px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             type="submit"
             disabled={!isValid || loading}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 whitespace-nowrap"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 whitespace-nowrap"
           >
             Check
           </button>
@@ -726,7 +726,7 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
         <div className="animate-fade-in-up space-y-6">
           {/* Summary */}
           <section
-            className={`rounded-lg border p-6 ${
+            className={`rounded-xl border p-6 ${
               result.found
                 ? 'border-rose-200 dark:border-rose-900 bg-rose-50 dark:bg-rose-950/20'
                 : 'border-emerald-200 dark:border-emerald-900 bg-emerald-50 dark:bg-emerald-950/20'
@@ -769,7 +769,7 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
 
           {/* Breach cards */}
           {result.breaches.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
               <h3 className="font-display font-semibold text-lg mb-4 flex items-center gap-2">
                 <ShieldAlert size={18} className="text-rose-500" />
                 Found in {result.breaches.length} breach{result.breaches.length !== 1 ? 'es' : ''}
@@ -780,7 +780,7 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
 
           {/* Not found */}
           {!result.found && (
-            <div className="rounded-lg border border-emerald-200 dark:border-emerald-900 bg-emerald-50 dark:bg-emerald-950/20 p-6 text-center">
+            <div className="rounded-xl border border-emerald-200 dark:border-emerald-900 bg-emerald-50 dark:bg-emerald-950/20 p-6 text-center">
               <ShieldCheck size={32} className="mx-auto mb-3 text-emerald-500" />
               <p className="text-emerald-700 dark:text-emerald-400 font-semibold">No breaches found</p>
               <p className="text-sm text-emerald-600 dark:text-emerald-500 mt-1">
@@ -797,7 +797,7 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
           {/* SOCMINT pivot CTA */}
           <Link
             to={`/dfir/socmint?q=${encodeURIComponent(result.email)}`}
-            className="block rounded-lg border border-brand-500/30 bg-brand-500/5 p-5 hover:border-brand-500/60 transition-colors"
+            className="block rounded-xl border border-brand-500/30 bg-brand-500/5 p-5 hover:border-brand-500/60 transition-colors"
           >
             <div className="flex items-center gap-3">
               <Users size={22} className="text-brand-600 dark:text-brand-400 shrink-0" />
@@ -932,12 +932,12 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
             autoComplete="off"
             autoCapitalize="off"
             spellCheck={false}
-            className="flex-1 px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             type="submit"
             disabled={!isValid || loading}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 whitespace-nowrap"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 whitespace-nowrap"
           >
             Check
           </button>
@@ -965,7 +965,7 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
         <div className="animate-fade-in-up space-y-6">
           {/* Summary */}
           <section
-            className={`rounded-lg border p-6 ${
+            className={`rounded-xl border p-6 ${
               result.found
                 ? 'border-rose-200 dark:border-rose-900 bg-rose-50 dark:bg-rose-950/20'
                 : 'border-emerald-200 dark:border-emerald-900 bg-emerald-50 dark:bg-emerald-950/20'
@@ -1008,7 +1008,7 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
 
           {/* Breach cards */}
           {result.breaches.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
               <h3 className="font-display font-semibold text-lg mb-4 flex items-center gap-2">
                 <ShieldAlert size={18} className="text-rose-500" />
                 Found in {result.breaches.length} breach{result.breaches.length !== 1 ? 'es' : ''}
@@ -1019,7 +1019,7 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
 
           {/* Not found */}
           {!result.found && (
-            <div className="rounded-lg border border-emerald-200 dark:border-emerald-900 bg-emerald-50 dark:bg-emerald-950/20 p-6 text-center">
+            <div className="rounded-xl border border-emerald-200 dark:border-emerald-900 bg-emerald-50 dark:bg-emerald-950/20 p-6 text-center">
               <ShieldCheck size={32} className="mx-auto mb-3 text-emerald-500" />
               <p className="text-emerald-700 dark:text-emerald-400 font-semibold">No breaches found</p>
               <p className="text-sm text-emerald-600 dark:text-emerald-500 mt-1">
@@ -1031,7 +1031,7 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
           {/* SOCMINT pivot CTA */}
           <Link
             to={`/dfir/socmint?q=${encodeURIComponent(result.domain)}`}
-            className="block rounded-lg border border-brand-500/30 bg-brand-500/5 p-5 hover:border-brand-500/60 transition-colors"
+            className="block rounded-xl border border-brand-500/30 bg-brand-500/5 p-5 hover:border-brand-500/60 transition-colors"
           >
             <div className="flex items-center gap-3">
               <Users size={22} className="text-brand-600 dark:text-brand-400 shrink-0" />

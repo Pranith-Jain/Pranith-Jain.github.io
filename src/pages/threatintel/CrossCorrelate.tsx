@@ -136,11 +136,11 @@ export default function CrossCorrelate(): JSX.Element {
 
                     {/* Implication + recommendation */}
                     <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <div className="p-2.5 rounded-lg bg-white/60 dark:bg-[rgb(var(--surface-200))]/40 border border-slate-200 dark:border-[rgb(var(--border-400))]">
+                      <div className="p-2.5 rounded-xl bg-white/60 dark:bg-[rgb(var(--surface-200))]/40 border border-slate-200 dark:border-[rgb(var(--border-400))]">
                         <p className="text-micro font-mono uppercase tracking-wider text-rose-500 mb-1">Implication</p>
                         <p className="text-mini text-muted">{insight.implication}</p>
                       </div>
-                      <div className="p-2.5 rounded-lg bg-white/60 dark:bg-[rgb(var(--surface-200))]/40 border border-slate-200 dark:border-[rgb(var(--border-400))]">
+                      <div className="p-2.5 rounded-xl bg-white/60 dark:bg-[rgb(var(--surface-200))]/40 border border-slate-200 dark:border-[rgb(var(--border-400))]">
                         <p className="text-micro font-mono uppercase tracking-wider text-emerald-500 mb-1">
                           Recommendation
                         </p>

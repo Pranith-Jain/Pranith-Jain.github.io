@@ -155,7 +155,7 @@ interface SfiResponse {
 
 function RawJson({ value }: { value: unknown }) {
   return (
-    <pre className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] p-3 overflow-auto font-mono text-mini text-slate-700 dark:text-slate-300 max-h-[55vh]">
+    <pre className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] p-3 overflow-auto font-mono text-mini text-slate-700 dark:text-slate-300 max-h-[55vh]">
       {JSON.stringify(value, null, 2)}
     </pre>
   );
@@ -410,7 +410,7 @@ export default function Infostealer(): JSX.Element {
           {hrErr && (
             <div
               role="alert"
-              className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-4 font-mono text-sm text-amber-700 dark:text-amber-300"
+              className="rounded-xl border border-amber-500/40 bg-amber-500/10 p-4 font-mono text-sm text-amber-700 dark:text-amber-300"
             >
               {hrErr}
             </div>
@@ -422,7 +422,7 @@ export default function Infostealer(): JSX.Element {
                   return (
                     <li
                       key={`raw-${i}`}
-                      className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] p-3 font-mono text-meta"
+                      className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-3 font-mono text-meta"
                     >
                       {String(row)}
                     </li>
@@ -433,7 +433,7 @@ export default function Infostealer(): JSX.Element {
                 return (
                   <li
                     key={`${title}-${date}-${i}`}
-                    className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
+                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
                   >
                     <div className="font-display font-semibold text-sm truncate">{title}</div>
                     {sub && <p className="font-mono text-mini text-muted mt-1 line-clamp-2">{sub}</p>}
@@ -452,7 +452,7 @@ export default function Infostealer(): JSX.Element {
           {(markets ?? []).map((m) => (
             <li
               key={m.title}
-              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
+              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
             >
               <div className="flex items-start justify-between gap-2">
                 <a
@@ -487,7 +487,7 @@ export default function Infostealer(): JSX.Element {
           {(tg ?? []).map((c) => (
             <li
               key={c.name}
-              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
+              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
             >
               <div className="flex items-center justify-between gap-2">
                 <span className="font-display font-semibold text-sm truncate">{c.name}</span>
@@ -528,7 +528,7 @@ export default function Infostealer(): JSX.Element {
           {(samples ?? []).map((s) => (
             <li
               key={s.sha256}
-              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
+              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
             >
               <div className="flex items-center justify-between gap-2">
                 <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 font-mono text-micro uppercase text-rose-700 dark:text-rose-300">
@@ -572,7 +572,7 @@ export default function Infostealer(): JSX.Element {
           {(c2 ?? []).map((x) => (
             <li
               key={x.value}
-              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
+              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
             >
               <div className="flex items-center justify-between gap-2">
                 <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 font-mono text-micro uppercase text-rose-700 dark:text-rose-300">
@@ -609,9 +609,9 @@ export default function Infostealer(): JSX.Element {
           {INFOSTEALER_FAMILIES.map((fam) => (
             <details
               key={fam.slug}
-              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 group open:border-brand-500/40"
+              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 group open:border-brand-500/40"
             >
-              <summary className="flex items-center justify-between gap-3 px-4 py-3 cursor-pointer select-none hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200))] rounded-lg list-none">
+              <summary className="flex items-center justify-between gap-3 px-4 py-3 cursor-pointer select-none hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200))] rounded-xl list-none">
                 <div className="min-w-0">
                   <Link
                     to={`/threatintel/infostealer/${fam.slug}`}
@@ -684,7 +684,7 @@ export default function Infostealer(): JSX.Element {
 
       {!loading && tab === 'combo' && (
         <div className="space-y-5">
-          <div className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-3 font-mono text-mini text-amber-700 dark:text-amber-300">
+          <div className="rounded-xl border border-amber-500/40 bg-amber-500/10 p-3 font-mono text-mini text-amber-700 dark:text-amber-300">
             Defensive intelligence only. This tab tracks <strong>where</strong> combolist / stealer-log activity lives
             and <strong>that</strong> it is being discussed — directory metadata and public permalinks. It never
             fetches, parses, or displays stolen credentials or breach contents.
@@ -712,7 +712,7 @@ export default function Infostealer(): JSX.Element {
                     {g.entries.slice(0, 60).map((e, i) => (
                       <li
                         key={`${e.name}-${i}`}
-                        className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
+                        className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
                       >
                         <div className="flex items-center justify-between gap-2">
                           <span className="font-display font-semibold text-sm truncate" title={e.name}>
@@ -765,7 +765,7 @@ export default function Infostealer(): JSX.Element {
                       {block.samples.map((s, i) => (
                         <li
                           key={`${src}-${i}`}
-                          className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-2.5 font-mono text-mini flex items-center gap-2 flex-wrap"
+                          className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-2.5 font-mono text-mini flex items-center gap-2 flex-wrap"
                         >
                           <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 text-micro uppercase text-rose-700 dark:text-rose-300">
                             {s.keyword}
@@ -798,7 +798,7 @@ export default function Infostealer(): JSX.Element {
           {articlesErr && (
             <div
               role="alert"
-              className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-4 font-mono text-sm text-amber-700 dark:text-amber-300"
+              className="rounded-xl border border-amber-500/40 bg-amber-500/10 p-4 font-mono text-sm text-amber-700 dark:text-amber-300"
             >
               {articlesErr}
             </div>
@@ -832,7 +832,7 @@ export default function Infostealer(): JSX.Element {
                     {filtered.map((a) => (
                       <li
                         key={a.link}
-                        className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
+                        className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
                       >
                         <a
                           href={sanitizeUrl(a.link)}

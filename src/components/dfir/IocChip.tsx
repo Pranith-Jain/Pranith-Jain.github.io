@@ -142,10 +142,10 @@ function IocChipInner({
   if (loading) {
     const skeletonFrame = bare
       ? ''
-      : `rounded-md border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.5)] ${sz.box}`;
+      : `rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.5)] ${sz.box}`;
     return (
       <span className={`inline-flex items-center ${sz.gap} ${skeletonFrame} ${className}`} aria-hidden="true">
-        <span className={`${sz.icon} shrink-0 rounded-sm bg-slate-200 dark:bg-slate-700 animate-pulse`} />
+        <span className={`${sz.icon} shrink-0 rounded bg-slate-200 dark:bg-slate-700 animate-pulse`} />
         <span className="h-3 w-24 rounded bg-slate-200 dark:bg-slate-700 animate-pulse" />
       </span>
     );
@@ -180,7 +180,7 @@ function IocChipInner({
         type="button"
         onClick={() => onSelect(ioc)}
         title={isTruncated ? display : undefined}
-        className={`${valueClasses} rounded-sm text-left hover:text-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:hover:text-brand-400`}
+        className={`${valueClasses} rounded text-left hover:text-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:hover:text-brand-400`}
       >
         {srLabel}
       </button>
@@ -190,7 +190,7 @@ function IocChipInner({
       </span>
     );
 
-  const frame = bare ? '' : `rounded-md border ${accent.ring} bg-white dark:bg-[rgb(var(--surface-200)/0.6)] ${sz.box}`;
+  const frame = bare ? '' : `rounded border ${accent.ring} bg-white dark:bg-[rgb(var(--surface-200)/0.6)] ${sz.box}`;
 
   return (
     <span className={`group inline-flex max-w-full items-center ${sz.gap} ${frame} ${className}`}>
@@ -294,7 +294,7 @@ function PivotMenu({ ioc, size }: { ioc: DetectedIoc; size: 'sm' | 'md' }): JSX.
         aria-expanded={open}
         aria-controls={open ? menuId : undefined}
         aria-label={`Pivot ${ioc.value} to related tools`}
-        className={`grid place-items-center rounded-sm p-0.5 text-slate-400 transition-colors hover:text-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:text-slate-500 dark:hover:text-brand-400 ${
+        className={`grid place-items-center rounded p-0.5 text-slate-400 transition-colors hover:text-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:text-slate-500 dark:hover:text-brand-400 ${
           open ? 'text-brand-600 dark:text-brand-400' : ''
         }`}
       >
@@ -305,7 +305,7 @@ function PivotMenu({ ioc, size }: { ioc: DetectedIoc; size: 'sm' | 'md' }): JSX.
           id={menuId}
           role="menu"
           aria-label={`Pivots for ${ioc.value}`}
-          className="absolute right-0 top-full z-50 mt-1 w-64 max-w-[min(18rem,80vw)] overflow-hidden rounded-lg border border-slate-200 bg-white py-1 shadow-lg dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
+          className="absolute right-0 top-full z-50 mt-1 w-64 max-w-[min(18rem,80vw)] overflow-hidden rounded-xl border border-slate-200 bg-white py-1 shadow-xl dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
         >
           {pivots.map((p, i) => {
             const content = (

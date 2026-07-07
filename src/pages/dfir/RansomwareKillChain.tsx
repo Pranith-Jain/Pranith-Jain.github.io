@@ -355,14 +355,14 @@ export default function RansomwareKillChain(): JSX.Element {
         <button
           onClick={() => setRunning(!running)}
           disabled={simDone}
-          className="flex items-center gap-2 px-4 py-2 rounded-lg font-mono text-sm font-semibold bg-brand-600 dark:bg-brand-500 text-white hover:bg-brand-700 dark:hover:bg-brand-400 disabled:opacity-40"
+          className="flex items-center gap-2 px-4 py-2 rounded-xl font-mono text-sm font-semibold bg-brand-600 dark:bg-brand-500 text-white hover:bg-brand-700 dark:hover:bg-brand-400 disabled:opacity-40"
         >
           {running ? <Pause size={14} /> : <Play size={14} />}
           {running ? 'Pause' : elapsedMin === 0 ? 'Start' : 'Resume'}
         </button>
         <button
           onClick={reset}
-          className="flex items-center gap-2 px-4 py-2 rounded-lg font-mono text-sm border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/60"
+          className="flex items-center gap-2 px-4 py-2 rounded-xl font-mono text-sm border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/60"
         >
           <RotateCcw size={14} /> Reset
         </button>
@@ -397,7 +397,7 @@ export default function RansomwareKillChain(): JSX.Element {
 
       <div className="grid lg:grid-cols-[1fr_320px] gap-6">
         <div className="space-y-6">
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
             <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-4">
               Defenses
             </h2>
@@ -409,7 +409,7 @@ export default function RansomwareKillChain(): JSX.Element {
                   <button
                     key={c.key}
                     onClick={() => toggleControl(c.key)}
-                    className={`flex items-center gap-2 px-3 py-2 rounded-lg font-mono text-sm border transition-all ${
+                    className={`flex items-center gap-2 px-3 py-2 rounded-xl font-mono text-sm border transition-all ${
                       active
                         ? 'border-emerald-500/50 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
                         : 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-slate-300 dark:hover:border-[rgb(var(--border-500))] text-slate-600 dark:text-slate-400'
@@ -423,7 +423,7 @@ export default function RansomwareKillChain(): JSX.Element {
             </div>
           </section>
 
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
             <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-4">
               Kill Chain
             </h2>
@@ -447,7 +447,7 @@ export default function RansomwareKillChain(): JSX.Element {
                       </div>
                     )}
                     <div
-                      className={`flex items-center gap-3 p-3 rounded-lg border ${statusColor(status)} transition-all`}
+                      className={`flex items-center gap-3 p-3 rounded-xl border ${statusColor(status)} transition-all`}
                     >
                       {statusIcon(status)}
                       <div className="flex-1 min-w-0">
@@ -469,7 +469,7 @@ export default function RansomwareKillChain(): JSX.Element {
         </div>
 
         <aside
-          className={`rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden ${socOpen ? 'p-5' : 'p-3'}`}
+          className={`rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden ${socOpen ? 'p-5' : 'p-3'}`}
         >
           <button onClick={() => setSocOpen(!socOpen)} className="w-full flex items-center justify-between mb-3">
             <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">

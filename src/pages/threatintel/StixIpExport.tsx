@@ -172,7 +172,7 @@ export default function StixIpExport() {
                 onChange={(e) => setIpInput(e.target.value)}
                 placeholder={isBatch ? '203.0.113.42&#10;198.51.100.7' : '203.0.113.42'}
                 rows={isBatch ? 4 : 1}
-                className="w-full px-3 py-2 text-sm rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/50 font-mono"
+                className="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/50 font-mono"
               />
             </div>
             <div>
@@ -180,7 +180,7 @@ export default function StixIpExport() {
               <select
                 value={tlp}
                 onChange={(e) => setTlp(e.target.value as typeof tlp)}
-                className="text-sm rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2"
+                className="text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2"
               >
                 <option value="WHITE">TLP:WHITE</option>
                 <option value="GREEN">TLP:GREEN</option>
@@ -191,7 +191,7 @@ export default function StixIpExport() {
             <button
               onClick={isBatch ? enrichBatch : enrichSingle}
               disabled={loading || !ipInput.trim()}
-              className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-lg bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 transition-colors"
+              className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-xl bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 transition-colors"
             >
               <Search size={14} />{' '}
               {loading
@@ -276,8 +276,7 @@ export default function StixIpExport() {
                       )}
                       {r.phantomcandle_malicious_family && (
                         <div className="col-span-2 text-red-600 dark:text-red-400">
-                          <span className="text-slate-400">Threat:</span>{' '}
-                          {r.phantomcandle_malicious_family}
+                          <span className="text-slate-400">Threat:</span> {r.phantomcandle_malicious_family}
                           {r.phantomcandle_campaign ? ` (${r.phantomcandle_campaign})` : ''}
                           {r.phantomcandle_category ? ` · cat:${r.phantomcandle_category}` : ''}
                           {r.phantomcandle_risk_level ? ` · risk:${r.phantomcandle_risk_level}` : ''}
@@ -302,7 +301,7 @@ export default function StixIpExport() {
                   <div className="flex gap-2">
                     <button
                       onClick={copyJson}
-                      className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
+                      className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-xl border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
                     >
                       {copied ? <Check size={12} className="text-green-500" /> : <Copy size={12} />}
                       {copied ? 'Copied' : 'Copy JSON'}
@@ -311,7 +310,7 @@ export default function StixIpExport() {
                       onClick={() =>
                         downloadStixJson(bundle, `stix-ip-export-${new Date().toISOString().slice(0, 10)}.json`)
                       }
-                      className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-lg border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 hover:border-emerald-500/70 transition-colors"
+                      className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-xl border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 hover:border-emerald-500/70 transition-colors"
                     >
                       <Download size={12} /> Download .stix.json
                     </button>

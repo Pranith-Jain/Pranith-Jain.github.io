@@ -46,7 +46,7 @@ export function PageToCheckOut(): JSX.Element | null {
   if (!page) return null;
 
   return (
-    <section className="group relative overflow-hidden rounded-lg border border-slate-200/70 dark:border-[rgb(var(--border-400))] p-5 transition-all duration-200 hover:border-brand-300/50 dark:hover:border-brand-500/30 hover:shadow-md dark:hover:shadow-brand-500/5">
+    <section className="group relative overflow-hidden rounded-xl border border-slate-200/70 dark:border-[rgb(var(--border-400))] p-5 transition-all duration-200 hover:border-brand-300/50 dark:hover:border-brand-500/30 hover:shadow-md dark:hover:shadow-brand-500/5">
       {/* Geist: tonal surface wash, no multi-stop decorative gradient
           (Geist hierarchy comes from borders + fills, not gradients). */}
       <div aria-hidden className="absolute inset-0 bg-[rgb(var(--hover-100))] dark:bg-[rgb(var(--hover-100))]" />
@@ -66,7 +66,7 @@ export function PageToCheckOut(): JSX.Element | null {
           onFocus={() => preloadRoute(page.path)}
         >
           <div className="flex items-start gap-3">
-            <div className="grid h-9 w-9 place-items-center rounded-lg bg-brand-500/10 dark:bg-brand-500/15 text-brand-600 dark:text-brand-400 shrink-0">
+            <div className="grid h-9 w-9 place-items-center rounded-xl bg-brand-500/10 dark:bg-brand-500/15 text-brand-600 dark:text-brand-400 shrink-0">
               <Compass size={16} />
             </div>
             <div className="min-w-0 flex-1">

@@ -20,7 +20,7 @@ function Chip({ label, ok, detail, warn }: ChipProps): JSX.Element {
   const value = detail ?? (ok ? 'configured' : 'missing');
   return (
     <div
-      className={`flex flex-col gap-0.5 px-3 py-2 rounded-lg border ${cls}`}
+      className={`flex flex-col gap-0.5 px-3 py-2 rounded-xl border ${cls}`}
       role="group"
       aria-label={`${label}: ${value} (${state})`}
     >
@@ -35,7 +35,7 @@ function Chip({ label, ok, detail, warn }: ChipProps): JSX.Element {
 
 export function EmailAuthCard({ auth }: { auth: DomainLookupResponse['email_auth'] }): JSX.Element {
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
       <div className="flex items-baseline justify-between mb-3">
         <h3 className="font-display font-bold text-lg">Email Authentication</h3>
         <span className="font-mono text-sm text-muted">

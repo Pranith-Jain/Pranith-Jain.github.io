@@ -464,14 +464,14 @@ export default function IocCheck(): JSX.Element {
             rows={5}
             spellCheck={false}
             placeholder={`Paste up to ${BULK_MAX} IPs / domains / URLs / hashes. Separators: newline / comma / space / pipe.`}
-            className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <div className="mt-3 flex flex-wrap items-center gap-2">
             <button
               type="button"
               onClick={() => void runBulkScan()}
               disabled={bulkRunning || bulkIndicators.length === 0}
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-lg disabled:opacity-40 hover:bg-brand-700 dark:hover:bg-brand-400"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-xl disabled:opacity-40 hover:bg-brand-700 dark:hover:bg-brand-400"
             >
               {bulkRunning && <Loader2 size={14} className="animate-spin" />}
               {bulkRunning
@@ -542,7 +542,7 @@ export default function IocCheck(): JSX.Element {
               </div>
 
               {/* Results table */}
-              <div className="mt-4 overflow-x-auto rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))]">
+              <div className="mt-4 overflow-x-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
                 <table className="w-full text-sm">
                   <thead className="text-left text-micro font-mono uppercase tracking-wider text-slate-500 bg-slate-50 dark:bg-[rgb(var(--surface-200))]/60">
                     <tr>
@@ -630,7 +630,7 @@ export default function IocCheck(): JSX.Element {
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="paste an IP, domain, URL, or hash"
                 aria-label="Indicator of compromise"
-                className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               />
               {input && detectedType !== 'unknown' && (
                 <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-mono text-brand-600 dark:text-brand-400 uppercase">
@@ -649,14 +649,14 @@ export default function IocCheck(): JSX.Element {
             <button
               type="submit"
               disabled={!canSubmit}
-              className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+              className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
             >
               <Search size={16} className="inline mr-2" />
               Check
             </button>
           </div>
           {input && redirectPivot && richIoc ? (
-            <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 rounded-lg border border-brand-500/30 bg-brand-500/5 px-3 py-2 text-xs font-mono">
+            <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 rounded-xl border border-brand-500/30 bg-brand-500/5 px-3 py-2 text-xs font-mono">
               <span className="text-slate-600 dark:text-slate-300">
                 <code className="font-semibold text-slate-900 dark:text-slate-100">{richIoc.value}</code> is a{' '}
                 {IOC_TYPE_LABEL[richIoc.type]} — the IOC Checker enriches network indicators &amp; hashes. Open it in:
@@ -666,14 +666,14 @@ export default function IocCheck(): JSX.Element {
                   href={redirectPivot.path}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 font-semibold text-brand-600 dark:text-brand-400 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded-sm"
+                  className="inline-flex items-center gap-1 font-semibold text-brand-600 dark:text-brand-400 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded"
                 >
                   {redirectPivot.label} <ExternalLink size={12} aria-hidden="true" />
                 </a>
               ) : (
                 <Link
                   to={redirectPivot.path}
-                  className="inline-flex items-center gap-1 font-semibold text-brand-600 dark:text-brand-400 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded-sm"
+                  className="inline-flex items-center gap-1 font-semibold text-brand-600 dark:text-brand-400 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded"
                 >
                   {redirectPivot.label} <ArrowRight size={12} aria-hidden="true" />
                 </Link>
@@ -702,7 +702,7 @@ export default function IocCheck(): JSX.Element {
           const Icon = next.tone === 'malicious' ? ShieldAlert : next.tone === 'suspicious' ? AlertCircle : ShieldCheck;
           return (
             <>
-              <section className="mb-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+              <section className="mb-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
                 <div className="flex items-baseline justify-between mb-2">
                   <h2 ref={summaryRef} tabIndex={-1} className="font-display font-bold text-2xl focus:outline-none">
                     Composite verdict
@@ -732,7 +732,7 @@ export default function IocCheck(): JSX.Element {
                 </div>
               </section>
               {summary.admiralty && (
-                <section className="mb-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+                <section className="mb-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
                   <h3 className="font-display font-semibold text-sm mb-2">NATO Admiralty Code</h3>
                   <p className="text-sm font-mono text-muted leading-relaxed">
                     <span className="font-bold">{summary.admiralty.label}</span>
@@ -760,7 +760,7 @@ export default function IocCheck(): JSX.Element {
                       key={f}
                       type="button"
                       onClick={() => setRuleFormat(f)}
-                      className={`px-3 py-2 rounded-lg text-xs font-mono border transition-colors ${
+                      className={`px-3 py-2 rounded-xl text-xs font-mono border transition-colors ${
                         ruleFormat === f
                           ? 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'
                           : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]'
@@ -824,7 +824,7 @@ export default function IocCheck(): JSX.Element {
                         setCopied('rule');
                         setTimeout(() => setCopied(null), 2000);
                       }}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
                     >
                       {copied === 'rule' ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />}
                       {copied === 'rule' ? 'Copied' : 'Copy'}
@@ -836,7 +836,7 @@ export default function IocCheck(): JSX.Element {
                 </section>
               )}
               <PivotMatrix type={detectedType} value={input.trim()} verdict={summary.verdict} />
-              <section className={`mb-8 rounded-lg border p-5 ${toneStyles}`}>
+              <section className={`mb-8 rounded-xl border p-5 ${toneStyles}`}>
                 <h3 className="font-display font-semibold text-base mb-3 inline-flex items-center gap-2">
                   <Icon size={16} aria-hidden="true" /> {next.title}
                 </h3>
@@ -875,7 +875,7 @@ export default function IocCheck(): JSX.Element {
                   return (
                     <div
                       key={p}
-                      className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 animate-pulse"
+                      className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 animate-pulse"
                     >
                       <span className="font-display capitalize text-muted">{p}</span>
                       <span className="block mt-2 text-xs font-mono text-slate-500">querying…</span>
@@ -895,7 +895,7 @@ export default function IocCheck(): JSX.Element {
       {mode === 'single' && error && (
         <div
           role="alert"
-          className="mt-6 rounded-lg border border-rose-300 dark:border-rose-800 bg-rose-50/50 dark:bg-rose-900/15 p-4 flex items-start justify-between gap-3"
+          className="mt-6 rounded-xl border border-rose-300 dark:border-rose-800 bg-rose-50/50 dark:bg-rose-900/15 p-4 flex items-start justify-between gap-3"
         >
           <div className="text-sm font-mono text-rose-700 dark:text-rose-300">
             <span className="font-semibold">stream error:</span> {error}
@@ -928,7 +928,7 @@ export default function IocCheck(): JSX.Element {
       )}
 
       {mode === 'single' && summary && (
-        <section className="mt-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+        <section className="mt-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
           <h3 className="font-display font-semibold text-sm mb-3 inline-flex items-center gap-2">
             <Search size={14} /> External Enrichment
           </h3>
@@ -938,7 +938,7 @@ export default function IocCheck(): JSX.Element {
           <div className="flex flex-wrap gap-2">
             <a
               href={`/threatintel/ioc-enrichment?q=${encodeURIComponent(input.trim())}`}
-              className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
             >
               <Search size={12} /> Open in IOC Enrichment
             </a>
@@ -946,7 +946,7 @@ export default function IocCheck(): JSX.Element {
               href={`https://socradar.io/free-tools/ioc-radar`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
             >
               <ExternalLink size={12} /> SOCRadar IOC Radar
             </a>

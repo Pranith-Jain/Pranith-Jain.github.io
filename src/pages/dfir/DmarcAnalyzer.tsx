@@ -79,7 +79,7 @@ function parseDmarcXml(xml: string): DmarcReport {
   if (parseError) throw new Error('Invalid XML: ' + (parseError.textContent ?? '').slice(0, 200));
 
   const gte = (parent: Element | Document, tag: string): Element | null =>
-    parent.getElementsByTagName(tag).length > 0 ? parent.getElementsByTagName(tag)[0] : null;
+    parent.getElementsByTagName(tag).length > 0 ? parent.getElementsByTagName(tag)[0]! : null;
 
   const text = (parent: Element | Document, tag: string): string => gte(parent, tag)?.textContent?.trim() ?? '';
 
@@ -95,7 +95,7 @@ function parseDmarcXml(xml: string): DmarcReport {
 
   const ipMap = new Map<string, DmarcRecord>();
   for (let i = 0; i < records.length; i++) {
-    const rec = records[i];
+    const rec = records[i]!;
     const row = gte(rec, 'row');
     if (!row) continue;
     const ip = text(row, 'source_ip');
@@ -194,7 +194,7 @@ export default function DmarcAnalyzer(): JSX.Element {
       const batch = ips.slice(i, i + BATCH);
       const enriched = await Promise.all(batch.map((ip) => enrichIp(ip, ctrl.signal)));
       for (let j = 0; j < batch.length; j++) {
-        if (enriched[j]) results.set(batch[j], enriched[j]!);
+        if (enriched[j]!) results.set(batch[j]!, enriched[j]!);
       }
     }
 
@@ -237,7 +237,7 @@ export default function DmarcAnalyzer(): JSX.Element {
           const entry = zip.files[firstXml];
           const uncompressed = (entry as unknown as { _data?: { uncompressedSize?: number } })._data?.uncompressedSize;
           if (uncompressed && uncompressed > MAX_DECOMPRESSED) throw new Error('Decompressed XML exceeds size limit.');
-          xml = await entry.async('text');
+          xml = await entry!.async('text');
         } else {
           xml = new TextDecoder().decode(buf);
         }
@@ -352,7 +352,7 @@ export default function DmarcAnalyzer(): JSX.Element {
         onDragLeave={() => setDragOver(false)}
         onDrop={handleDrop}
         onClick={() => inputRef.current?.click()}
-        className={`relative rounded-lg border-2 border-dashed p-12 text-center cursor-pointer transition-colors mb-8 ${
+        className={`relative rounded-xl border-2 border-dashed p-12 text-center cursor-pointer transition-colors mb-8 ${
           dragOver
             ? 'border-brand-500 bg-brand-500/5'
             : 'border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 hover:border-brand-400 hover:bg-brand-500/5'
@@ -374,7 +374,7 @@ export default function DmarcAnalyzer(): JSX.Element {
       </div>
 
       {error && (
-        <div className="rounded-lg border border-rose-500/30 bg-rose-500/10 p-4 mb-8 flex items-start gap-3">
+        <div className="rounded-xl border border-rose-500/30 bg-rose-500/10 p-4 mb-8 flex items-start gap-3">
           <AlertTriangle size={18} className="text-rose-600 dark:text-rose-400 mt-0.5 shrink-0" />
           <div>
             <p className="font-mono text-sm text-rose-700 dark:text-rose-300">{error}</p>
@@ -391,31 +391,31 @@ export default function DmarcAnalyzer(): JSX.Element {
 
       {report && (
         <div className="animate-fade-in-up space-y-6">
-          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-6">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-6">
             <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
               <h2 className="text-lg font-display font-bold">{report.domain}</h2>
               <button
                 onClick={exportCsv}
-                className="inline-flex items-center gap-2 text-xs font-mono border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-lg px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
+                className="inline-flex items-center gap-2 text-xs font-mono border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
               >
                 <Download size={14} /> Export CSV
               </button>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-              <div className="rounded-lg bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
+              <div className="rounded-xl bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
                 <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">Total Emails</p>
                 <p className="text-2xl font-bold">{totalEmails.toLocaleString()}</p>
               </div>
-              <div className="rounded-lg bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
+              <div className="rounded-xl bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
                 <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">DMARC Pass Rate</p>
                 <p className="text-2xl font-bold">{passRate}%</p>
               </div>
-              <div className="rounded-lg bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
+              <div className="rounded-xl bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
                 <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">Unique IPs</p>
                 <p className="text-2xl font-bold">{report.records.length}</p>
               </div>
-              <div className="rounded-lg bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
+              <div className="rounded-xl bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
                 <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">Report Period</p>
                 <p className="text-sm font-bold">
                   {report.beginDate} — {report.endDate}
@@ -440,7 +440,7 @@ export default function DmarcAnalyzer(): JSX.Element {
           </div>
 
           {failRecords.length > 0 && (
-            <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-4 flex items-start gap-3">
+            <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 flex items-start gap-3">
               <AlertTriangle size={18} className="text-amber-600 dark:text-amber-400 mt-0.5 shrink-0" />
               <div>
                 <p className="font-semibold text-sm text-amber-800 dark:text-amber-200">
@@ -461,7 +461,7 @@ export default function DmarcAnalyzer(): JSX.Element {
             </div>
           )}
 
-          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-sm font-mono">
                 <thead>
@@ -593,7 +593,7 @@ export default function DmarcAnalyzer(): JSX.Element {
             </div>
           </div>
 
-          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] p-4">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] p-4">
             <h3 className="text-sm font-display font-semibold mb-2">Privacy</h3>
             <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
               DMARC XML is parsed entirely in your browser. IPs are enriched server-side via the same edge API used by

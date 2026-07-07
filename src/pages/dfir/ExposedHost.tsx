@@ -171,13 +171,13 @@ export default function ExposedHostView(): JSX.Element {
             value={ip}
             onChange={(e) => setIp(e.target.value)}
             placeholder="8.8.8.8"
-            className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-transparent"
           />
         </div>
         <button
           type="submit"
           disabled={loading || !ip.trim()}
-          className="px-4 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium disabled:opacity-50 inline-flex items-center gap-2"
+          className="px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium disabled:opacity-50 inline-flex items-center gap-2"
         >
           {loading ? <Clock size={14} className="animate-spin" /> : <Search size={14} />}
           {loading ? 'Scanning…' : 'Analyze'}
@@ -185,7 +185,7 @@ export default function ExposedHostView(): JSX.Element {
       </form>
 
       {error && (
-        <div className="mb-6 p-3 rounded-lg bg-rose-50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-800/50 text-rose-700 dark:text-rose-300 text-sm font-mono">
+        <div className="mb-6 p-3 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-800/50 text-rose-700 dark:text-rose-300 text-sm font-mono">
           <AlertTriangle size={14} className="inline mr-2" />
           {error}
         </div>
@@ -194,7 +194,7 @@ export default function ExposedHostView(): JSX.Element {
       {result && (
         <>
           {/* Header Card */}
-          <div className="mb-6 p-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
+          <div className="mb-6 p-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
             <div className="flex items-start justify-between mb-3">
               <div>
                 <div className="flex items-center gap-3 mb-1">
@@ -256,7 +256,7 @@ export default function ExposedHostView(): JSX.Element {
 
             {/* CDN/WAF Detection — metabigor cdn equivalent */}
             {cdnResult && cdnResult.is_cdn && (
-              <div className="mt-3 p-3 rounded-lg border border-sky-200 dark:border-sky-800/50 bg-sky-50/50 dark:bg-sky-900/15">
+              <div className="mt-3 p-3 rounded-xl border border-sky-200 dark:border-sky-800/50 bg-sky-50/50 dark:bg-sky-900/15">
                 <div className="flex items-center gap-2 text-sm font-mono">
                   <Globe size={14} className="text-sky-600 dark:text-sky-400" />
                   <span className="text-sky-800 dark:text-sky-200 font-semibold">Behind {cdnResult.provider}</span>
@@ -279,7 +279,7 @@ export default function ExposedHostView(): JSX.Element {
             ].map(({ label, value, icon: Icon }) => (
               <div
                 key={label}
-                className="p-3 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1"
+                className="p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1"
               >
                 <div className="flex items-center gap-1.5 mb-1">
                   <Icon size={12} className="text-slate-400" />
@@ -291,7 +291,7 @@ export default function ExposedHostView(): JSX.Element {
           </div>
 
           {/* Network Info */}
-          <div className="mb-4 p-3 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
+          <div className="mb-4 p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
             <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-2 flex items-center gap-1.5">
               <Network size={12} /> Network
             </h3>
@@ -314,7 +314,7 @@ export default function ExposedHostView(): JSX.Element {
           {/* Collapsible Sections */}
           <div className="space-y-3">
             {/* Open Ports */}
-            <div className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
+            <div className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
               <button
                 onClick={() => toggleSection('ports')}
                 className="w-full flex items-center justify-between p-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
@@ -343,7 +343,7 @@ export default function ExposedHostView(): JSX.Element {
 
             {/* CVEs */}
             {result.vulns.length > 0 && (
-              <div className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
+              <div className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
                 <button
                   onClick={() => toggleSection('vulns')}
                   className="w-full flex items-center justify-between p-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
@@ -384,7 +384,7 @@ export default function ExposedHostView(): JSX.Element {
 
             {/* Hostnames */}
             {result.hostnames.length > 0 && (
-              <div className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
+              <div className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
                 <button
                   onClick={() => toggleSection('hostnames')}
                   className="w-full flex items-center justify-between p-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
@@ -416,7 +416,7 @@ export default function ExposedHostView(): JSX.Element {
 
             {/* CPEs / Software */}
             {result.cpes.length > 0 && (
-              <div className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
+              <div className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
                 <button
                   onClick={() => toggleSection('cpes')}
                   className="w-full flex items-center justify-between p-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
@@ -452,7 +452,7 @@ export default function ExposedHostView(): JSX.Element {
               onKeyDown={(e) => e.key === 'Escape' && setPreviewArtifact(null)}
             >
               <div
-                className="max-w-2xl w-full max-h-[80vh] rounded-lg bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden"
+                className="max-w-2xl w-full max-h-[80vh] rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden"
                 onClick={(e) => e.stopPropagation()}
                 onKeyDown={(e) => e.stopPropagation()}
               >

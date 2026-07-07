@@ -266,7 +266,7 @@ export default function ActorKb(): JSX.Element {
               onChange={(e) => setQ(e.target.value)}
               placeholder="Search actor, alias, Gxxxx, technique, malware…"
               aria-label="Search threat actors"
-              className="w-full pl-9 pr-3 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-3 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
           </div>
           {selected && (
@@ -527,7 +527,7 @@ export default function ActorKb(): JSX.Element {
             {skeletonMatches.slice(0, 60).map((sk) => (
               <div
                 key={sk.slug}
-                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
+                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
               >
                 <div className="flex items-baseline justify-between gap-2 mb-0.5">
                   <span className="font-display font-semibold text-sm truncate" title={sk.canonical_name}>

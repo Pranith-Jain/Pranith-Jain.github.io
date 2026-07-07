@@ -66,12 +66,12 @@ export default function Exposure(): JSX.Element {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="example.com"
-            className="flex-1 px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             type="submit"
             disabled={!valid || loading}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
           >
             <Radar size={16} className="inline mr-2" /> Scan
           </button>
@@ -87,7 +87,7 @@ export default function Exposure(): JSX.Element {
 
       {result && (
         <div className="space-y-6">
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
             <div className="flex items-baseline justify-between">
               <h2 className="font-display font-bold text-2xl">{result.domain}</h2>
               <span className="font-mono text-sm">
@@ -110,7 +110,7 @@ export default function Exposure(): JSX.Element {
               {result.shodan_enabled ? 'enabled' : 'unavailable'}
             </p>
           </section>
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
             <h3 className="font-display font-bold text-lg mb-3">Subdomains seen in CT logs</h3>
             <SubdomainTree subdomains={result.subdomains} />
           </section>

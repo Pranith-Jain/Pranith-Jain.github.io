@@ -60,7 +60,7 @@ export function AsyncState({
           <button
             type="button"
             onClick={onRetry}
-            className="mt-3 inline-flex items-center rounded-md border border-rose-400/50 px-3 py-1.5 text-xs font-semibold text-rose-700 transition-colors hover:bg-rose-100/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40 dark:text-rose-300 dark:hover:bg-rose-900/30"
+            className="mt-3 inline-flex items-center rounded border border-rose-400/50 px-3 py-1.5 text-xs font-semibold text-rose-700 transition-colors hover:bg-rose-100/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40 dark:text-rose-300 dark:hover:bg-rose-900/30"
           >
             Retry
           </button>

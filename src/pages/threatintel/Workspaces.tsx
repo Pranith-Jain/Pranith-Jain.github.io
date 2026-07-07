@@ -228,7 +228,7 @@ export default function Workspaces() {
         </div>
 
         {/* Phase Progress */}
-        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
           <h2 className="font-display font-semibold text-sm mb-3">AEAD Phase Progress</h2>
           <div className="flex items-center gap-1">
             {PHASES.map((phase, i) => {
@@ -282,7 +282,7 @@ export default function Workspaces() {
         </div>
 
         {/* Recommended Commands */}
-        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
           <h2 className="font-display font-semibold text-sm mb-2">
             Recommended — <span className="text-brand-600 dark:text-brand-400 capitalize">{selected.phase}</span>
           </h2>
@@ -300,7 +300,7 @@ export default function Workspaces() {
         </div>
 
         {/* Quick Links */}
-        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
           <h2 className="font-display font-semibold text-sm mb-2">Quick Links</h2>
           <div className="grid grid-cols-2 gap-1.5">
             {(
@@ -346,14 +346,14 @@ export default function Workspaces() {
         <button
           type="button"
           onClick={() => setShowCreate(true)}
-          className="inline-flex items-center gap-2 px-4 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-lg hover:bg-brand-700 dark:hover:bg-brand-400"
+          className="inline-flex items-center gap-2 px-4 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-xl hover:bg-brand-700 dark:hover:bg-brand-400"
         >
           <Plus size={14} /> New Workspace
         </button>
       </div>
 
       {error && (
-        <div className="mb-4 p-3 rounded-lg border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-300 flex items-center gap-2 font-mono text-sm">
+        <div className="mb-4 p-3 rounded-xl border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-300 flex items-center gap-2 font-mono text-sm">
           <AlertTriangle className="w-4 h-4 shrink-0" /> {error}
           <button onClick={() => setError(null)} className="ml-auto">
             <X className="w-4 h-4" />
@@ -364,7 +364,7 @@ export default function Workspaces() {
       {showCreate && (
         <form
           onSubmit={handleCreate}
-          className="mb-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
+          className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
         >
           <h2 className="font-display font-semibold text-sm mb-3">New Investigation Workspace</h2>
           <div className="grid sm:grid-cols-2 gap-3 mb-3">
@@ -465,7 +465,7 @@ export default function Workspaces() {
                   setSelectedId(ws.id);
                 }
               }}
-              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 hover:border-brand-500/40 transition-colors p-4 cursor-pointer group"
+              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 hover:border-brand-500/40 transition-colors p-4 cursor-pointer group"
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1 min-w-0">

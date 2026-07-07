@@ -44,11 +44,16 @@ function JsonBlock({ label, data }: { label: string; data: unknown }) {
 
 function DiagnosticBadge({ d }: { d: { provider: string; status: string; ms: number; error?: string } }) {
   const color =
-    d.status === 'ok' ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-300' :
-    d.status === 'skipped' ? 'bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-300' :
-    'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300';
+    d.status === 'ok'
+      ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-300'
+      : d.status === 'skipped'
+        ? 'bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-300'
+        : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300';
   return (
-    <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium ${color}`} title={d.error}>
+    <span
+      className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium ${color}`}
+      title={d.error}
+    >
       {d.provider}
       <span className="opacity-60">{d.ms}ms</span>
     </span>
@@ -104,7 +109,9 @@ export default function TieEnrich() {
               setError(msg.error);
               evtSource.close();
             }
-          } catch { /* ignore parse errors */ }
+          } catch {
+            /* ignore parse errors */
+          }
         };
         evtSource.onerror = () => {
           setError('Stream connection lost');
@@ -137,23 +144,33 @@ export default function TieEnrich() {
           <select
             value={iocType}
             onChange={(e) => setIocType(e.target.value as IocType)}
-            className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm dark:border-slate-600 dark:bg-slate-800"
+            className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm dark:border-slate-600 dark:bg-slate-800"
           >
             {(['ip', 'hash', 'domain', 'url'] as IocType[]).map((t) => (
-              <option key={t} value={t}>{IOC_LABELS[t]}</option>
+              <option key={t} value={t}>
+                {IOC_LABELS[t]}
+              </option>
             ))}
           </select>
           <input
             type="text"
             value={ioc}
             onChange={(e) => setIoc(e.target.value)}
-            placeholder={iocType === 'ip' ? '8.8.8.8' : iocType === 'hash' ? 'sha256 hash...' : iocType === 'domain' ? 'example.com' : 'https://...'}
-            className="flex-1 min-w-[200px] rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm dark:border-slate-600 dark:bg-slate-800"
+            placeholder={
+              iocType === 'ip'
+                ? '8.8.8.8'
+                : iocType === 'hash'
+                  ? 'sha256 hash...'
+                  : iocType === 'domain'
+                    ? 'example.com'
+                    : 'https://...'
+            }
+            className="flex-1 min-w-[200px] rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm dark:border-slate-600 dark:bg-slate-800"
           />
           <button
             type="submit"
             disabled={loading || !ioc.trim()}
-            className="flex items-center gap-2 rounded-lg bg-cyan-600 px-4 py-2 text-sm font-medium text-white hover:bg-cyan-700 disabled:opacity-50"
+            className="flex items-center gap-2 rounded-xl bg-cyan-600 px-4 py-2 text-sm font-medium text-white hover:bg-cyan-700 disabled:opacity-50"
           >
             <Search size={16} />
             {loading ? 'Enriching...' : deep ? 'Deep Enrich' : 'Enrich'}
@@ -166,32 +183,34 @@ export default function TieEnrich() {
       </form>
 
       {loading && !deep && (
-        <div className="flex items-center gap-3 rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-800">
+        <div className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-800">
           <div className="h-5 w-5 animate-spin rounded-full border-2 border-cyan-600 border-t-transparent" />
           <span className="text-sm text-slate-500">Running enrichment across providers...</span>
         </div>
       )}
 
       {error && (
-        <div className="mb-4 flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700 dark:border-red-800 dark:bg-red-900/30 dark:text-red-400">
+        <div className="mb-4 flex items-center gap-2 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700 dark:border-red-800 dark:bg-red-900/30 dark:text-red-400">
           <AlertTriangle size={16} />
           {error}
         </div>
       )}
 
       {result && result.status === 'done' && result.report && (
-        <div className="rounded-lg border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-800">
+        <div className="rounded-xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-800">
           <h2 className="mb-4 text-lg font-semibold text-slate-800 dark:text-slate-200">Investigation Report</h2>
           <div className="prose prose-sm max-w-none dark:prose-invert">
             {result.report.split('\n').map((line, i) => (
-              <p key={i} className="text-sm text-slate-700 dark:text-slate-300">{line || '\u00A0'}</p>
+              <p key={i} className="text-sm text-slate-700 dark:text-slate-300">
+                {line || '\u00A0'}
+              </p>
             ))}
           </div>
         </div>
       )}
 
       {result && result.status === 'running' && (
-        <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-800">
+        <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-800">
           <div className="flex items-center gap-2 text-sm text-slate-500">
             <div className="h-4 w-4 animate-spin rounded-full border-2 border-cyan-600 border-t-transparent" />
             Investigation in progress...
@@ -216,40 +235,46 @@ export default function TieEnrich() {
           )}
 
           {result.geo && (
-            <div className="grid grid-cols-2 gap-2 rounded-lg border border-slate-200 bg-slate-50 p-3 text-sm dark:border-slate-700 dark:bg-slate-800/50">
-              {result.geo.country && <div><span className="font-medium">Country:</span> {result.geo.country}</div>}
-              {result.geo.city && <div><span className="font-medium">City:</span> {result.geo.city}</div>}
-              {result.geo.org && <div className="col-span-2"><span className="font-medium">Org:</span> {result.geo.org}</div>}
-              {result.geo.asn && <div><span className="font-medium">ASN:</span> {result.geo.asn}</div>}
+            <div className="grid grid-cols-2 gap-2 rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm dark:border-slate-700 dark:bg-slate-800/50">
+              {result.geo.country && (
+                <div>
+                  <span className="font-medium">Country:</span> {result.geo.country}
+                </div>
+              )}
+              {result.geo.city && (
+                <div>
+                  <span className="font-medium">City:</span> {result.geo.city}
+                </div>
+              )}
+              {result.geo.org && (
+                <div className="col-span-2">
+                  <span className="font-medium">Org:</span> {result.geo.org}
+                </div>
+              )}
+              {result.geo.asn && (
+                <div>
+                  <span className="font-medium">ASN:</span> {result.geo.asn}
+                </div>
+              )}
               {result.geo.is_vpn !== undefined && (
-                <div><span className="font-medium">VPN/Proxy:</span> {String(result.geo.is_vpn)}</div>
+                <div>
+                  <span className="font-medium">VPN/Proxy:</span> {String(result.geo.is_vpn)}
+                </div>
               )}
             </div>
           )}
 
-          {result.phantomcandle ? (
-            <JsonBlock label="PhantomCandle Attribution" data={result.phantomcandle} />
-          ) : null}
+          {result.phantomcandle ? <JsonBlock label="PhantomCandle Attribution" data={result.phantomcandle} /> : null}
 
-          {result.domainIntel ? (
-            <JsonBlock label="Domain Intelligence" data={result.domainIntel} />
-          ) : null}
+          {result.domainIntel ? <JsonBlock label="Domain Intelligence" data={result.domainIntel} /> : null}
 
-          {result.phishingAnalysis ? (
-            <JsonBlock label="Phishing URL Analysis" data={result.phishingAnalysis} />
-          ) : null}
+          {result.phishingAnalysis ? <JsonBlock label="Phishing URL Analysis" data={result.phishingAnalysis} /> : null}
 
-          {result.malpedia ? (
-            <JsonBlock label="Malpedia Lookup" data={result.malpedia} />
-          ) : null}
+          {result.malpedia ? <JsonBlock label="Malpedia Lookup" data={result.malpedia} /> : null}
 
-          {result.reputation ? (
-            <JsonBlock label="IOC Reputation (30+ providers)" data={result.reputation} />
-          ) : null}
+          {result.reputation ? <JsonBlock label="IOC Reputation (30+ providers)" data={result.reputation} /> : null}
 
-          {result.mitre ? (
-            <JsonBlock label="MITRE ATT&CK Mapping" data={result.mitre} />
-          ) : null}
+          {result.mitre ? <JsonBlock label="MITRE ATT&CK Mapping" data={result.mitre} /> : null}
         </div>
       )}
     </DataPageLayout>

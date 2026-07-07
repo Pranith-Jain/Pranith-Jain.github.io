@@ -214,7 +214,7 @@ export default function NotFound(): JSX.Element {
                         to={item.href}
                         className="group flex items-start gap-2 sm:gap-2.5 rounded-xl border border-[rgb(var(--border-400))] bg-white/70 px-2.5 sm:px-3 py-2 sm:py-2.5 min-h-[44px] hover:border-brand-500/40 hover:bg-white dark:bg-[rgb(var(--surface-200)/0.6)] dark:hover:bg-[rgb(var(--surface-200))] dark:hover:border-brand-500/40 transition-colors"
                       >
-                        <span className="grid h-7 w-7 shrink-0 place-items-center rounded-md bg-slate-100 text-slate-600 group-hover:bg-brand-500/10 group-hover:text-brand-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400 dark:group-hover:bg-brand-500/15 dark:group-hover:text-brand-300 transition-colors">
+                        <span className="grid h-7 w-7 shrink-0 place-items-center rounded bg-slate-100 text-slate-600 group-hover:bg-brand-500/10 group-hover:text-brand-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400 dark:group-hover:bg-brand-500/15 dark:group-hover:text-brand-300 transition-colors">
                           <Icon className="h-3.5 w-3.5" aria-hidden="true" />
                         </span>
                         <span className="flex flex-col min-w-0 leading-tight">

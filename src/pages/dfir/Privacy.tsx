@@ -139,7 +139,7 @@ export default function Privacy(): JSX.Element {
       </div>
 
       {!fp && !scanning && (
-        <section className="mb-8 rounded-lg border border-amber-500/40 bg-amber-500/5 p-5">
+        <section className="mb-8 rounded-xl border border-amber-500/40 bg-amber-500/5 p-5">
           <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-amber-700 dark:text-amber-300 font-mono mb-3">
             What this scan collects
           </h2>
@@ -162,7 +162,7 @@ export default function Privacy(): JSX.Element {
           <button
             onClick={() => void runScan()}
             disabled={scanning}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
           >
             <Shield size={16} className="inline mr-2" />I understand — run scan
           </button>
@@ -174,7 +174,7 @@ export default function Privacy(): JSX.Element {
           <button
             onClick={() => void runScan()}
             disabled={scanning}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
           >
             <Shield size={16} className="inline mr-2" />
             {scanning ? 'Scanning…' : 'Scan again'}
@@ -195,7 +195,7 @@ export default function Privacy(): JSX.Element {
 
       {opsec && (
         <section
-          className={`mb-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6 ring-1 ${GRADE_STYLES[opsec.grade].ring}`}
+          className={`mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6 ring-1 ${GRADE_STYLES[opsec.grade].ring}`}
         >
           <div className="flex items-center gap-6 mb-4">
             <div
@@ -245,7 +245,7 @@ export default function Privacy(): JSX.Element {
 
       <div className="space-y-6">
         {server && (
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
             <h2 className="font-display font-bold text-lg mb-3 flex items-center gap-2">
               <Eye size={16} className="text-brand-600 dark:text-brand-400" />
               Server-side view
@@ -262,7 +262,7 @@ export default function Privacy(): JSX.Element {
         )}
 
         {webrtc && (
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
             <h2 className="font-display font-bold text-lg mb-3">WebRTC leak detection</h2>
             <Row label="local IPs" value={webrtc.localIps.join(', ') || undefined} />
             <Row label="public IPs (RTC)" value={webrtc.publicIps.join(', ') || undefined} />
@@ -275,7 +275,7 @@ export default function Privacy(): JSX.Element {
         )}
 
         {fp && (
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
             <h2 className="font-display font-bold text-lg mb-3">Browser fingerprint</h2>
             <Row label="user-agent" value={fp.userAgent} mono={false} />
             <Row label="platform" value={fp.platform} />
@@ -296,7 +296,7 @@ export default function Privacy(): JSX.Element {
         )}
 
         {network && (
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
             <h2 className="font-display font-bold text-lg mb-3">Network</h2>
             <Row label="connection" value={network.effectiveType} />
             <Row label="downlink (Mbps)" value={network.downlink} />
@@ -306,7 +306,7 @@ export default function Privacy(): JSX.Element {
         )}
 
         {battery && (
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
             <h2 className="font-display font-bold text-lg mb-3">Battery</h2>
             <Row
               label="level"

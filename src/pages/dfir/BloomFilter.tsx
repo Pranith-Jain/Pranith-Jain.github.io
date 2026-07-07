@@ -117,7 +117,7 @@ export default function BloomFilter(): JSX.Element {
   }, [fetchStats]);
 
   const verdict = checkResult?.found === true ? 'found' : checkResult?.found === false ? 'not-found' : 'unknown';
-  const verdictStyle = VERDICT_STYLE[verdict] ?? VERDICT_STYLE.unknown;
+  const verdictStyle = (VERDICT_STYLE[verdict] ?? VERDICT_STYLE.unknown)!;
   const VerdictIcon = verdictStyle.icon;
 
   return (
@@ -177,7 +177,7 @@ export default function BloomFilter(): JSX.Element {
           </h2>
           <button
             onClick={fetchStats}
-            className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-slate-400 transition-colors"
+            className="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-slate-400 transition-colors"
           >
             <RefreshCw size={14} />
           </button>
@@ -191,13 +191,13 @@ export default function BloomFilter(): JSX.Element {
             {Object.entries(stats.filters).map(([type, filter]) => (
               <div
                 key={type}
-                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
+                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
               >
                 <div className="text-xs font-mono font-medium capitalize mb-1.5">{type}</div>
                 {filter.status === 'not_built' ? (
                   <button
                     onClick={() => buildFilter(type)}
-                    className="text-xs px-3 py-1.5 bg-brand-600 hover:bg-brand-500 text-white rounded-lg transition-colors"
+                    className="text-xs px-3 py-1.5 bg-brand-600 hover:bg-brand-500 text-white rounded-xl transition-colors"
                   >
                     Build
                   </button>
@@ -230,12 +230,12 @@ export default function BloomFilter(): JSX.Element {
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && void checkIndicator()}
             placeholder="Enter IP, domain, URL, or hash…"
-            className="flex-1 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg px-4 py-2.5 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl px-4 py-2.5 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             onClick={() => void checkIndicator()}
             disabled={loading || !query.trim()}
-            className="px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-lg text-sm font-semibold text-white transition-colors flex items-center gap-2"
+            className="px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-white transition-colors flex items-center gap-2"
           >
             {loading ? <Loader2 size={14} className="animate-spin" /> : <Zap size={14} />}
             Check
@@ -243,7 +243,7 @@ export default function BloomFilter(): JSX.Element {
         </div>
 
         {checkResult && (
-          <div className={`rounded-lg border ${verdictStyle.border} ${verdictStyle.bg} p-4 flex items-center gap-3`}>
+          <div className={`rounded-xl border ${verdictStyle.border} ${verdictStyle.bg} p-4 flex items-center gap-3`}>
             <VerdictIcon size={18} className={verdictStyle.text} />
             <div>
               <div className={`text-sm font-medium ${verdictStyle.text}`}>

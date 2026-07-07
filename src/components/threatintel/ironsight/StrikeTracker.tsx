@@ -57,13 +57,17 @@ export default function StrikeTracker() {
     return () => clearInterval(id);
   }, [fetchStrikes]);
 
-  const counts = useMemo(() => strikes.reduce(
-    (acc, s) => {
-      acc[s.category] = (acc[s.category] || 0) + 1;
-      return acc;
-    },
-    {} as Record<string, number>
-  ), [strikes]);
+  const counts = useMemo(
+    () =>
+      strikes.reduce(
+        (acc, s) => {
+          acc[s.category] = (acc[s.category] || 0) + 1;
+          return acc;
+        },
+        {} as Record<string, number>
+      ),
+    [strikes]
+  );
 
   return (
     <div className="surface-card p-4">
@@ -76,7 +80,7 @@ export default function StrikeTracker() {
       </div>
       <div className="flex gap-2 mb-3 flex-wrap">
         {Object.entries(counts).map(([cat, count]) => {
-          const c = CATEGORY_CONFIG[cat] || CATEGORY_CONFIG.REPORT;
+          const c = (CATEGORY_CONFIG[cat] || CATEGORY_CONFIG.REPORT)!;
           return (
             <span key={cat} className="text-mini flex items-center gap-1">
               <span>{c.icon}</span>
@@ -90,14 +94,14 @@ export default function StrikeTracker() {
         {loading ? (
           <div className="space-y-2">
             {[...Array(5)].map((_, i) => (
-              <div key={i} className="h-12 rounded-lg bg-slate-100 dark:bg-slate-800 animate-pulse" />
+              <div key={i} className="h-12 rounded-xl bg-slate-100 dark:bg-slate-800 animate-pulse" />
             ))}
           </div>
         ) : strikes.length === 0 ? (
           <div className="text-center text-tool text-slate-400 py-4">No strike events detected</div>
         ) : (
           strikes.slice(0, 12).map((s, i) => {
-            const c = CATEGORY_CONFIG[s.category] || CATEGORY_CONFIG.REPORT;
+            const c = (CATEGORY_CONFIG[s.category] || CATEGORY_CONFIG.REPORT)!;
             return (
               <a
                 key={i}

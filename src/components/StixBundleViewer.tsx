@@ -93,7 +93,7 @@ function StixRelationshipGraphImpl({ bundle }: { bundle: StixBundle }): JSX.Elem
   if (relationships.length === 0) return null;
 
   return (
-    <div className="mt-4 mb-4 rounded-lg border border-emerald-500/30 bg-emerald-500/5 p-4">
+    <div className="mt-4 mb-4 rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-4">
       <div className="text-xs font-mono font-bold text-emerald-700 dark:text-emerald-300 mb-3 flex items-center gap-2">
         Intelligence Graph — {relationships.length} relationship{relationships.length !== 1 ? 's' : ''}
       </div>
@@ -158,7 +158,7 @@ function StixObjectTableImpl({ bundle }: { bundle: StixBundle }): JSX.Element {
     .map(([type, objs]) => ({ type, count: objs.length }));
 
   return (
-    <div className="mt-4 mb-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+    <div className="mt-4 mb-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
       <div className="flex items-center gap-2 mb-3 flex-wrap">
         <span className="text-xs font-mono font-bold text-slate-700 dark:text-slate-300">STIX 2.1 Objects</span>
         <span className="text-micro font-mono text-slate-500">{bundle.objects.length} total</span>

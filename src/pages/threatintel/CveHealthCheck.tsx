@@ -67,7 +67,7 @@ export default function CveHealthCheck(): JSX.Element {
           <button
             onClick={refetch}
             disabled={loading}
-            className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-lg text-sm flex items-center gap-1.5 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+            className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl text-sm flex items-center gap-1.5 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
           >
             <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
             Re-check
@@ -103,7 +103,7 @@ export default function CveHealthCheck(): JSX.Element {
                   </div>
                   <p className="text-xs text-slate-600 dark:text-slate-400 mt-1 ml-6">{check.message}</p>
                   {check.details && (
-                    <pre className="mt-2 ml-6 p-2 bg-slate-50 dark:bg-[rgb(var(--surface-300))] rounded-lg text-[11px] font-mono text-slate-600 dark:text-slate-400 overflow-x-auto border border-slate-100 dark:border-[rgb(var(--border-400))]">
+                    <pre className="mt-2 ml-6 p-2 bg-slate-50 dark:bg-[rgb(var(--surface-300))] rounded-xl text-[11px] font-mono text-slate-600 dark:text-slate-400 overflow-x-auto border border-slate-100 dark:border-[rgb(var(--border-400))]">
                       {JSON.stringify(check.details, null, 2)}
                     </pre>
                   )}

@@ -110,7 +110,7 @@ export function AlertConfigPanel({ events }: AlertConfigPanelProps) {
         <button
           onClick={checkAlerts}
           disabled={loading || !rules.some((r) => r.enabled)}
-          className="text-xs font-mono px-3 py-1.5 rounded-lg border border-brand-500/30 text-brand-500 hover:bg-brand-500/10 disabled:opacity-50"
+          className="text-xs font-mono px-3 py-1.5 rounded-xl border border-brand-500/30 text-brand-500 hover:bg-brand-500/10 disabled:opacity-50"
         >
           {loading ? <RefreshCw size={12} className="animate-spin inline" /> : 'Check Now'}
         </button>
@@ -122,7 +122,7 @@ export function AlertConfigPanel({ events }: AlertConfigPanelProps) {
           {rules.map((rule) => (
             <div
               key={rule.id}
-              className="flex items-center gap-2 rounded-lg bg-slate-100 dark:bg-[rgb(var(--surface-300)/0.5)] p-2"
+              className="flex items-center gap-2 rounded-xl bg-slate-100 dark:bg-[rgb(var(--surface-300)/0.5)] p-2"
             >
               <span className={`w-2 h-2 rounded-full ${rule.enabled ? 'bg-emerald-500' : 'bg-slate-400'}`} />
               <span className="text-xs font-medium text-slate-700 dark:text-slate-300 flex-1">{rule.name}</span>
@@ -142,26 +142,26 @@ export function AlertConfigPanel({ events }: AlertConfigPanelProps) {
           value={newName}
           onChange={(e) => setNewName(e.target.value)}
           placeholder="Rule name (e.g., APT28 watch)"
-          className="w-full px-3 py-1.5 text-xs font-mono rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300"
+          className="w-full px-3 py-1.5 text-xs font-mono rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300"
         />
         <input
           type="text"
           value={newKeywords}
           onChange={(e) => setNewKeywords(e.target.value)}
           placeholder="Keywords (comma-separated)"
-          className="w-full px-3 py-1.5 text-xs font-mono rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300"
+          className="w-full px-3 py-1.5 text-xs font-mono rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300"
         />
         <input
           type="text"
           value={newWebhook}
           onChange={(e) => setNewWebhook(e.target.value)}
           placeholder="Webhook URL (optional)"
-          className="w-full px-3 py-1.5 text-xs font-mono rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300"
+          className="w-full px-3 py-1.5 text-xs font-mono rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300"
         />
         <button
           onClick={addRule}
           disabled={!newName || !newKeywords}
-          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-lg border border-brand-500/30 text-brand-500 hover:bg-brand-500/10 disabled:opacity-50"
+          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-xl border border-brand-500/30 text-brand-500 hover:bg-brand-500/10 disabled:opacity-50"
         >
           <Plus size={12} /> Add Rule
         </button>
@@ -174,7 +174,7 @@ export function AlertConfigPanel({ events }: AlertConfigPanelProps) {
             {results.alert_count} alerts from {results.total_checked} events
           </span>
           {results.alerts.map((alert, i) => (
-            <div key={i} className="rounded-lg bg-amber-500/5 border border-amber-500/20 p-2 space-y-1">
+            <div key={i} className="rounded-xl bg-amber-500/5 border border-amber-500/20 p-2 space-y-1">
               <div className="flex items-center gap-2">
                 <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-400">
                   {alert.relevance}

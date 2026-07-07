@@ -123,7 +123,7 @@ function ResultRow({ result }: { result: WebamonResult }) {
     );
 
   return (
-    <div className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
+    <div className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
       <button
         onClick={() => setExpanded(!expanded)}
         className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)] transition-colors"
@@ -424,7 +424,7 @@ interface EntityResult {
 function JsonBlock({ data, label }: { data: Record<string, unknown>; label: string }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
       <button
         onClick={() => setOpen(!open)}
         className="w-full flex items-center gap-2 px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)] transition-colors"
@@ -534,7 +534,7 @@ function SearchTab() {
                 setQuery(ex);
                 doSearch(ex, 0);
               }}
-              className="px-2.5 py-1 rounded-md text-mini font-mono bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400 hover:bg-brand-100 dark:hover:bg-brand-900/30 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+              className="px-2.5 py-1 rounded text-mini font-mono bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400 hover:bg-brand-100 dark:hover:bg-brand-900/30 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
             >
               {ex}
             </button>
@@ -550,7 +550,7 @@ function SearchTab() {
       )}
 
       {error && (
-        <div className="rounded-lg border border-rose-200 dark:border-rose-900 bg-rose-50 dark:bg-rose-900/20 px-4 py-3 text-sm text-rose-700 dark:text-rose-400 font-mono">
+        <div className="rounded-xl border border-rose-200 dark:border-rose-900 bg-rose-50 dark:bg-rose-900/20 px-4 py-3 text-sm text-rose-700 dark:text-rose-400 font-mono">
           {error}
         </div>
       )}
@@ -586,7 +586,7 @@ function SearchTab() {
                 type="button"
                 disabled={pagination.prev_from === null}
                 onClick={() => doSearch(query, pagination.prev_from ?? 0)}
-                className="px-4 py-2 rounded-lg text-sm font-mono bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted disabled:opacity-30 hover:border-brand-500/40 transition-colors"
+                className="px-4 py-2 rounded-xl text-sm font-mono bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted disabled:opacity-30 hover:border-brand-500/40 transition-colors"
               >
                 ← Prev
               </button>
@@ -597,7 +597,7 @@ function SearchTab() {
                 type="button"
                 disabled={pagination.next_from === null}
                 onClick={() => doSearch(query, pagination.next_from ?? 0)}
-                className="px-4 py-2 rounded-lg text-sm font-mono bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted disabled:opacity-30 hover:border-brand-500/40 transition-colors"
+                className="px-4 py-2 rounded-xl text-sm font-mono bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted disabled:opacity-30 hover:border-brand-500/40 transition-colors"
               >
                 Next →
               </button>
@@ -702,12 +702,12 @@ function SandboxTab() {
             onChange={(e) => setUrl(e.target.value)}
             placeholder="https://example.com or example.com"
             aria-label="URL or domain to scan"
-            className="flex-1 px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             type="submit"
             disabled={!url.trim() || submitting}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center gap-2"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center gap-2"
           >
             {submitting ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
             {submitting ? 'Submitting…' : 'Scan'}
@@ -716,14 +716,14 @@ function SandboxTab() {
       </form>
 
       {error && (
-        <div className="rounded-lg border border-rose-200 dark:border-rose-900 bg-rose-50 dark:bg-rose-900/20 px-4 py-3 mb-6 text-sm text-rose-700 dark:text-rose-400 font-mono flex items-center gap-2">
+        <div className="rounded-xl border border-rose-200 dark:border-rose-900 bg-rose-50 dark:bg-rose-900/20 px-4 py-3 mb-6 text-sm text-rose-700 dark:text-rose-400 font-mono flex items-center gap-2">
           <AlertTriangle size={14} /> {error}
         </div>
       )}
 
       {result && (
         <div className="space-y-6">
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
             <h2 className="font-display font-bold text-lg mb-4 flex items-center gap-2">
               <CheckCircle size={18} className="text-emerald-500" /> Scan Submitted
             </h2>
@@ -750,7 +750,7 @@ function SandboxTab() {
           </section>
 
           {loadingReport && (
-            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
               <div className="flex items-center gap-2 text-sm text-slate-500 font-mono">
                 <Loader2 size={14} className="animate-spin" /> Loading report…
               </div>
@@ -763,7 +763,7 @@ function SandboxTab() {
             (() => {
               const r = reportData.results[0]!;
               return (
-                <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6 space-y-6">
+                <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6 space-y-6">
                   <h2 className="font-display font-bold text-lg mb-4 flex items-center gap-2">
                     <FileImage size={18} className="text-brand-600 dark:text-brand-400" /> Scan Report
                   </h2>
@@ -778,7 +778,7 @@ function SandboxTab() {
                   )}
 
                   {r.errors && r.errors.length > 0 && (
-                    <div className="rounded-lg border border-rose-200 dark:border-rose-900 bg-rose-50 dark:bg-rose-900/20 px-4 py-3 text-sm text-rose-700 dark:text-rose-400 font-mono">
+                    <div className="rounded-xl border border-rose-200 dark:border-rose-900 bg-rose-50 dark:bg-rose-900/20 px-4 py-3 text-sm text-rose-700 dark:text-rose-400 font-mono">
                       {r.errors.map((e, i) => (
                         <div key={i}>⚠ {e}</div>
                       ))}
@@ -796,7 +796,7 @@ function SandboxTab() {
                           {r.certificate.map((c, i) => (
                             <div
                               key={i}
-                              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-3 text-mini font-mono space-y-1"
+                              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-3 text-mini font-mono space-y-1"
                             >
                               <div className="font-semibold text-slate-700 dark:text-slate-300">
                                 {c.domain_name ?? r['domain.name'] ?? '—'}
@@ -830,7 +830,7 @@ function SandboxTab() {
                           {r.server.map((s, i) => (
                             <div
                               key={i}
-                              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-3 text-mini font-mono space-y-1"
+                              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-3 text-mini font-mono space-y-1"
                             >
                               {s.ip && <div className="font-semibold text-slate-700 dark:text-slate-300">{s.ip}</div>}
                               {s.asn && <div className="text-slate-500 dark:text-slate-400">ASN: {s.asn}</div>}
@@ -857,7 +857,7 @@ function SandboxTab() {
                         <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
                           <Cookie size={14} /> Cookies ({r.cookie.length})
                         </h3>
-                        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 overflow-hidden">
+                        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 overflow-hidden">
                           <table className="w-full text-micro font-mono">
                             <thead>
                               <tr className="text-left text-slate-400 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
@@ -915,7 +915,7 @@ function SandboxTab() {
                         <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
                           <HardDrive size={14} /> Resources ({r.resource.length})
                         </h3>
-                        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden">
+                        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden">
                           <table className="w-full text-micro font-mono">
                             <thead>
                               <tr className="text-left text-slate-400 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
@@ -987,7 +987,7 @@ function SandboxTab() {
                         <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
                           <Monitor size={14} /> Monitoring
                         </h3>
-                        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-3 text-mini font-mono space-y-1">
+                        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-3 text-mini font-mono space-y-1">
                           {r.monitor.map((m, i) => (
                             <div key={i} className="flex items-center gap-2 text-muted">
                               <span className="truncate">{m.url ?? '—'}</span>
@@ -1009,7 +1009,7 @@ function SandboxTab() {
                         <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
                           <Eye size={14} /> DOM
                         </h3>
-                        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden">
+                        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden">
                           {r.dom.title && (
                             <div className="px-3 py-2 text-xs font-semibold text-slate-700 dark:text-slate-300 border-b border-slate-100 dark:border-[rgb(var(--border-400))]">
                               Title: {r.dom.title}
@@ -1038,7 +1038,7 @@ function SandboxTab() {
                           <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
                             <Fingerprint size={14} /> Fingerprint Data
                           </h3>
-                          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-3 text-micro font-mono overflow-x-auto">
+                          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-3 text-micro font-mono overflow-x-auto">
                             <pre>{JSON.stringify(r.fingerprint, null, 2)}</pre>
                           </div>
                         </section>
@@ -1055,7 +1055,7 @@ function SandboxTab() {
                     !reportData.results[0]?.fingerprint &&
                     !reportData.results[0]?.monitor &&
                     !reportData.results[0]?.dom && (
-                      <div className="rounded-lg border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/30 px-4 py-3 text-sm text-amber-700 dark:text-amber-400 font-mono">
+                      <div className="rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/30 px-4 py-3 text-sm text-amber-700 dark:text-amber-400 font-mono">
                         No structured data available in this scan report.
                       </div>
                     )}
@@ -1066,14 +1066,14 @@ function SandboxTab() {
           {reportId && !screenshotUrl && !screenshotLoading && (
             <button
               onClick={() => loadScreenshot(reportId)}
-              className="px-4 py-2 rounded-lg text-sm font-mono bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40 transition-colors inline-flex items-center gap-2"
+              className="px-4 py-2 rounded-xl text-sm font-mono bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40 transition-colors inline-flex items-center gap-2"
             >
               <FileImage size={14} /> Load Screenshot
             </button>
           )}
 
           {screenshotLoading && (
-            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
               <div className="flex items-center gap-2 text-sm text-slate-500 font-mono">
                 <Loader2 size={14} className="animate-spin" /> Loading screenshot…
               </div>
@@ -1081,14 +1081,14 @@ function SandboxTab() {
           )}
 
           {screenshotUrl && (
-            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
               <h2 className="font-display font-bold text-lg mb-4 flex items-center gap-2">
                 <FileImage size={18} className="text-brand-600 dark:text-brand-400" /> Screenshot
               </h2>
               <img
                 src={screenshotUrl}
                 alt="Webamon scan screenshot"
-                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] w-full max-w-3xl"
+                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] w-full max-w-3xl"
               />
             </section>
           )}
@@ -1157,7 +1157,7 @@ function InfraTab() {
     <div>
       <form onSubmit={doLookup} className="mb-6">
         <div className="flex gap-2 max-w-3xl">
-          <div className="flex rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+          <div className="flex rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
             {MODES.map((m) => {
               const Icon = m.icon;
               const active = mode === m.key;
@@ -1183,12 +1183,12 @@ function InfraTab() {
             onChange={(e) => setQuery(e.target.value)}
             placeholder={activeMode.placeholder}
             aria-label={`Webamon ${activeMode.label} lookup`}
-            className="flex-1 px-4 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 font-mono"
+            className="flex-1 px-4 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 font-mono"
           />
           <button
             type="submit"
             disabled={loading || !query.trim()}
-            className="px-5 py-2.5 rounded-lg bg-brand-600 dark:bg-brand-500 text-white text-tool font-mono font-semibold hover:bg-brand-700 dark:hover:bg-brand-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+            className="px-5 py-2.5 rounded-xl bg-brand-600 dark:bg-brand-500 text-white text-tool font-mono font-semibold hover:bg-brand-700 dark:hover:bg-brand-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
           >
             <Search size={14} /> Lookup
           </button>
@@ -1203,7 +1203,7 @@ function InfraTab() {
       )}
 
       {error && (
-        <div className="rounded-lg border border-rose-200 dark:border-rose-900 bg-rose-50 dark:bg-rose-900/20 px-4 py-3 text-sm text-rose-700 dark:text-rose-400 font-mono">
+        <div className="rounded-xl border border-rose-200 dark:border-rose-900 bg-rose-50 dark:bg-rose-900/20 px-4 py-3 text-sm text-rose-700 dark:text-rose-400 font-mono">
           {error}
         </div>
       )}
@@ -1223,7 +1223,7 @@ function InfraTab() {
           {data[mode] ? (
             <JsonBlock data={data[mode] as Record<string, unknown>} label={`${activeMode.label}: ${query}`} />
           ) : (
-            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] px-4 py-3 text-sm text-slate-500 font-mono">
+            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] px-4 py-3 text-sm text-slate-500 font-mono">
               No infrastructure data returned.
             </div>
           )}

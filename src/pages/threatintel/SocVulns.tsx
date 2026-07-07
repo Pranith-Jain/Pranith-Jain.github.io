@@ -35,7 +35,7 @@ interface CveRecentResponse {
 
 /* ─── Severity palette (canonical — mirrors tailwind.config severity tokens) ── */
 
-const SEV_COLOR: Record<Severity, string> = {
+const SEV_COLOR: Record<Severity, string | undefined> = {
   CRITICAL: CHART_SEV.CRITICAL,
   HIGH: CHART_SEV.HIGH,
   MEDIUM: CHART_SEV.MEDIUM,
@@ -103,7 +103,7 @@ function extractVendorFromDescription(desc: string | undefined): string {
     /^([A-Z][A-Za-z0-9]+(?:\s+[A-Z][A-Za-z0-9]+){0,2})(?:\s+(?:in|before|allows|contains|has|was|is|the|when|from))/
   );
   if (m) {
-    const phrase = m[1].trim();
+    const phrase = m[1]!.trim();
     if (phrase.length >= 3 && !VENDOR_STOPWORDS.has(phrase.toLowerCase())) return phrase;
   }
   // Fallback: take the first word if it looks like a vendor (starts with uppercase, >2 chars)

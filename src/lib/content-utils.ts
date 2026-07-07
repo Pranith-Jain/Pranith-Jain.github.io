@@ -453,6 +453,6 @@ export function suggestPostingTime(
     },
   };
 
-  const platformSuggestions = suggestions[platform] ?? suggestions.twitter;
+  const platformSuggestions = (suggestions[platform] ?? suggestions.twitter)!;
   return platformSuggestions[contentType] ?? platformSuggestions.general!;
 }

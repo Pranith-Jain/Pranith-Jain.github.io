@@ -430,7 +430,7 @@ export default function MedusaScanner(): JSX.Element {
               key={m.id}
               type="button"
               onClick={() => setMode(m.id)}
-              className={`inline-flex items-center gap-1.5 text-xs font-mono px-2.5 py-1.5 rounded-lg border transition-colors ${
+              className={`inline-flex items-center gap-1.5 text-xs font-mono px-2.5 py-1.5 rounded-xl border transition-colors ${
                 active
                   ? 'border-brand-500 bg-brand-500/10 text-brand-600 dark:text-brand-400'
                   : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
@@ -476,7 +476,7 @@ export default function MedusaScanner(): JSX.Element {
           value={filename}
           onChange={(e) => setFilename(e.target.value)}
           placeholder="filename.ext (optional — enables language-aware rules)"
-          className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-tool text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
         />
       </div>
 
@@ -491,13 +491,13 @@ export default function MedusaScanner(): JSX.Element {
         rows={12}
         spellCheck={false}
         aria-label="Code to scan for security issues"
-        className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+        className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
       />
 
       {result && (
         <div className="mt-8 space-y-6">
           {/* Summary bar */}
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
             <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
               <span className="font-mono font-semibold">
                 {totalHits} finding{totalHits !== 1 ? 's' : ''}
@@ -537,7 +537,7 @@ export default function MedusaScanner(): JSX.Element {
           </section>
 
           {totalHits === 0 && (
-            <section className="rounded-lg border border-emerald-500/30 bg-emerald-500/5 p-5 flex items-start gap-2 text-sm text-emerald-700 dark:text-emerald-400">
+            <section className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-5 flex items-start gap-2 text-sm text-emerald-700 dark:text-emerald-400">
               <Check size={16} className="mt-0.5 flex-shrink-0" />
               <span>
                 No issues detected ({rulesCount.fired}/{rulesCount.total} rules matched). Signature scanning isn't
@@ -555,7 +555,7 @@ export default function MedusaScanner(): JSX.Element {
                 return (
                   <section
                     key={sev}
-                    className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden"
+                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden"
                   >
                     <div
                       className={`px-4 py-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] ${st.bg} flex items-center gap-2`}

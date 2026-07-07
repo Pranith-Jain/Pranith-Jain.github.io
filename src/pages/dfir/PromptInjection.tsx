@@ -151,7 +151,7 @@ export default function PromptInjection(): JSX.Element {
       </BackLink>
 
       <header className="flex items-start gap-3">
-        <div className="rounded-lg bg-brand-500/10 p-2.5">
+        <div className="rounded-xl bg-brand-500/10 p-2.5">
           <ShieldAlert className="h-5 w-5 text-brand-600 dark:text-brand-400" aria-hidden="true" />
         </div>
         <div>
@@ -165,7 +165,7 @@ export default function PromptInjection(): JSX.Element {
         </div>
       </header>
 
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
           <span className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
             Input
@@ -202,7 +202,7 @@ export default function PromptInjection(): JSX.Element {
 
       {input.trim() && (
         <>
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
               <span className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
                 Verdict
@@ -231,7 +231,7 @@ export default function PromptInjection(): JSX.Element {
             </p>
           </section>
 
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
             <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
               Highlighted input
             </h2>
@@ -241,7 +241,7 @@ export default function PromptInjection(): JSX.Element {
           </section>
 
           {matches.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
                 Findings
               </h2>
@@ -288,7 +288,7 @@ export default function PromptInjection(): JSX.Element {
       )}
 
       {/* ── Red-team prompt library ────────────────────────────────────── */}
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
           <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono inline-flex items-center gap-2">
             <Swords size={14} /> Red-team prompt library ({filteredRedTeam.length}/{RED_TEAM_PROMPTS.length})
@@ -439,7 +439,7 @@ export default function PromptInjection(): JSX.Element {
         </ul>
       </section>
 
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
           <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
             Pattern catalog ({filteredCatalog.length}/{PATTERNS.length})
@@ -510,7 +510,7 @@ export default function PromptInjection(): JSX.Element {
         </div>
       </section>
 
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           Further reading
         </h2>

@@ -94,7 +94,7 @@ export default function Assessments(): JSX.Element {
             key={s}
             type="button"
             onClick={() => setStatusFilter(s === 'all' ? null : s)}
-            className={`text-mini font-mono px-3 py-1.5 rounded-lg border transition-colors ${
+            className={`text-mini font-mono px-3 py-1.5 rounded-xl border transition-colors ${
               statusFilter === s || (s === 'all' && !statusFilter)
                 ? 'border-brand-500 bg-brand-500/10 text-brand-700 dark:border-brand-400 dark:bg-brand-400/10 dark:text-brand-300'
                 : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]'

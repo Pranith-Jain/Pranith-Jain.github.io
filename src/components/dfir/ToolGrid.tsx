@@ -13,7 +13,7 @@ export type { Tool, Section, ToolGroup };
 const Card = memo(function Card({ tool }: { tool: Tool }): JSX.Element {
   const { path, label, desc, icon: Icon, external } = tool;
   const className =
-    'group relative block overflow-hidden rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5 ' +
+    'group relative block overflow-hidden rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5 ' +
     'transition-[transform,border-color,box-shadow] duration-200 ' +
     'hover:-translate-y-0.5 hover:border-brand-500/50 hover:shadow-[0_10px_30px_-12px_rgba(44,62,229,0.35)] ' +
     'focus-visible:outline-none focus-visible:-translate-y-0.5 focus-visible:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500/40';
@@ -26,7 +26,7 @@ const Card = memo(function Card({ tool }: { tool: Tool }): JSX.Element {
         className="absolute inset-y-0 left-0 w-[3px] bg-brand-500 scale-y-0 origin-top transition-transform duration-200 group-hover:scale-y-100 group-focus-visible:scale-y-100"
       />
       <div className="flex items-center gap-3 mb-2">
-        <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-brand-50 text-brand-600 ring-1 ring-brand-200/60 transition-colors group-hover:bg-brand-600 group-hover:text-white dark:bg-brand-500/10 dark:text-brand-400 dark:ring-brand-500/20 dark:group-hover:bg-brand-500 dark:group-hover:text-white">
+        <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded bg-brand-50 text-brand-600 ring-1 ring-brand-200/60 transition-colors group-hover:bg-brand-600 group-hover:text-white dark:bg-brand-500/10 dark:text-brand-400 dark:ring-brand-500/20 dark:group-hover:bg-brand-500 dark:group-hover:text-white">
           <Icon size={16} aria-hidden="true" />
         </span>
         <span className="font-display font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors flex items-center gap-1">
@@ -114,11 +114,14 @@ export function ToolGrid({ group }: { group?: ToolGroup } = {}): JSX.Element {
   // The "External resources" block only belongs on the full, ungrouped grid.
   const filteredExternal = useMemo(() => (group ? [] : EXTERNAL.filter((t) => matches(t, q))), [group, q]);
 
-  const matchCount = useMemo(() => filteredSections.reduce((n, s) => n + s.tools.length, 0) + filteredExternal.length, [filteredSections, filteredExternal]);
+  const matchCount = useMemo(
+    () => filteredSections.reduce((n, s) => n + s.tools.length, 0) + filteredExternal.length,
+    [filteredSections, filteredExternal]
+  );
 
   return (
     <div className="space-y-6">
-      <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3">
+      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3">
         <div className="relative">
           <SearchIcon
             size={14}
@@ -162,7 +165,7 @@ export function ToolGrid({ group }: { group?: ToolGroup } = {}): JSX.Element {
       </p>
 
       {filteredSections.length === 0 && filteredExternal.length === 0 ? (
-        <div className="rounded-lg border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+        <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
           No tools match "{q}". Try a different keyword or{' '}
           <button onClick={() => setQuery('')} className="text-brand-600 dark:text-brand-400 hover:underline">
             clear the search

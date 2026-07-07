@@ -95,7 +95,7 @@ export function TopBar({
           <button
             type="button"
             onClick={onOpenMobileNav}
-            className="md:hidden -ml-1 grid h-11 w-11 sm:h-9 sm:w-9 place-items-center rounded-md border border-[rgb(var(--border-400))] bg-white text-slate-700 transition-colors hover:bg-[rgb(var(--hover-100))] hover:border-[rgb(var(--border-500))] dark:bg-transparent dark:text-slate-200 dark:hover:bg-[rgb(var(--hover-100))] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+            className="md:hidden -ml-1 grid h-11 w-11 sm:h-9 sm:w-9 place-items-center rounded border border-[rgb(var(--border-400))] bg-white text-slate-700 transition-colors hover:bg-[rgb(var(--hover-100))] hover:border-[rgb(var(--border-500))] dark:bg-transparent dark:text-slate-200 dark:hover:bg-[rgb(var(--hover-100))] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
             aria-label={mobileNavOpen ? 'Close navigation' : 'Open navigation'}
             aria-expanded={mobileNavOpen ?? false}
             aria-controls="mobile-sidebar-drawer"
@@ -128,7 +128,7 @@ export function TopBar({
         <button
           type="button"
           onClick={openPalette}
-          className="group flex-1 flex items-center gap-2 sm:gap-2.5 min-w-0 rounded-md border border-[rgb(var(--border-400))] bg-[rgb(var(--surface-200))] px-3 py-2 sm:px-3 sm:py-1.5 min-h-[44px] sm:min-h-0 text-left text-sm text-slate-500 transition-colors hover:border-[rgb(var(--border-500))] hover:bg-white dark:bg-[rgb(var(--surface-200))] dark:text-slate-400 dark:hover:bg-[rgb(var(--surface-300))] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+          className="group flex-1 flex items-center gap-2 sm:gap-2.5 min-w-0 rounded border border-[rgb(var(--border-400))] bg-[rgb(var(--surface-200))] px-3 py-2 sm:px-3 sm:py-1.5 min-h-[44px] sm:min-h-0 text-left text-sm text-slate-500 transition-colors hover:border-[rgb(var(--border-500))] hover:bg-white dark:bg-[rgb(var(--surface-200))] dark:text-slate-400 dark:hover:bg-[rgb(var(--surface-300))] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
           aria-label="Open search (press Cmd+K or Ctrl+K)"
         >
           <Search
@@ -149,7 +149,7 @@ export function TopBar({
         <button
           type="button"
           onClick={onToggleTheme}
-          className="grid h-11 w-11 sm:h-9 sm:w-9 place-items-center rounded-md border border-[rgb(var(--border-400))] bg-white text-slate-700 transition-colors hover:bg-[rgb(var(--hover-100))] hover:border-[rgb(var(--border-500))] dark:bg-transparent dark:text-slate-200 dark:hover:bg-[rgb(var(--hover-100))] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+          className="grid h-11 w-11 sm:h-9 sm:w-9 place-items-center rounded border border-[rgb(var(--border-400))] bg-white text-slate-700 transition-colors hover:bg-[rgb(var(--hover-100))] hover:border-[rgb(var(--border-500))] dark:bg-transparent dark:text-slate-200 dark:hover:bg-[rgb(var(--hover-100))] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
           aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
           title={`Switch to ${isDark ? 'light' : 'dark'} mode`}
         >

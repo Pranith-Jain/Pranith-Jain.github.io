@@ -250,7 +250,7 @@ const PHASES: PhaseSection[] = [
       'If none of the above, classify as spam or benign',
     ],
     tools: ['Email gateway review', 'Header analysis tool', 'Threat intelligence lookup', 'URL preview'],
-    queries: QUERIES.triage,
+    queries: QUERIES.triage!,
     escalationL1: ['External sender with urgent language', 'Any spoofed display name', 'Unusual attachment type'],
     escalationL2: ['SPF/DKIM/DMARC failure', 'Known malicious sender domain', 'URL pointing to credential harvester'],
     escalationL3: ['Credential harvesting confirmed', 'Malware delivered', 'Multiple users targeted'],
@@ -271,7 +271,7 @@ const PHASES: PhaseSection[] = [
       'Hop chain shows unusual route? → proxy / relay abuse',
     ],
     tools: ['Header parser', 'SPF/DKIM/DMARC validator', 'IP geolocation', 'Reverse DNS'],
-    queries: QUERIES.header,
+    queries: QUERIES.header!,
     escalationL1: ['DMARC policy = none', 'SPF softfail', 'Single Received hop'],
     escalationL2: ['SPF hardfail', 'DKIM signature mismatch', 'Sender IP in known blocklist'],
     escalationL3: ['Full auth failure chain (SPF + DKIM + DMARC all fail)'],
@@ -292,7 +292,7 @@ const PHASES: PhaseSection[] = [
       'Shortened URL? → expand and scan original target',
     ],
     tools: ['urlscan.io', 'VirusTotal URL', 'WHOIS lookup', 'Domain age checker', 'URL decoder'],
-    queries: QUERIES.url,
+    queries: QUERIES.url!,
     escalationL1: ['URL pointing to known phishing kit', 'Suspicious domain age < 90 days'],
     escalationL2: ['Malicious urlscan verdict', 'Redirect chain to credential harvester'],
     escalationL3: ['Active phishing page with credential capture form', 'Drive-by download detected'],
@@ -313,7 +313,7 @@ const PHASES: PhaseSection[] = [
       'YARA rule matches? → known family',
     ],
     tools: ['VirusTotal', 'Cape sandbox', 'Joe Sandbox', 'YARA', 'OLE tools', 'PE analyzer'],
-    queries: QUERIES.attachment,
+    queries: QUERIES.attachment!,
     escalationL1: ['Unusual attachment extension', 'Attachment > 10MB'],
     escalationL2: ['Macro-enabled document', 'VirusTotal hit on hash'],
     escalationL3: ['Sandbox detonation shows C2 beacon', 'Ransomware or loader binary'],
@@ -334,7 +334,7 @@ const PHASES: PhaseSection[] = [
       'Mailbox login from unfamiliar IP? → data access',
     ],
     tools: ['Azure AD Sign-in Logs', 'Okta System Log', 'M365 Unified Audit Log', 'Risky Users report'],
-    queries: QUERIES.identity,
+    queries: QUERIES.identity!,
     escalationL1: ['User clicked phishing URL', 'Suspicious login within 1 hour of email'],
     escalationL2: ['Successful login from unusual geo', 'MFA prompt accepted by user'],
     escalationL3: ['Multiple compromised accounts', 'Mailbox data exfiltration detected'],
@@ -355,7 +355,7 @@ const PHASES: PhaseSection[] = [
       'OneDrive/SharePoint file access from unusual IP? → data theft',
     ],
     tools: ['M365 eDiscovery', 'Exchange Admin Center', 'Teams audit logs', 'SharePoint audit logs'],
-    queries: QUERIES.scope,
+    queries: QUERIES.scope!,
     escalationL1: ['Email sent to > 10 users', 'Inbox rule created after email'],
     escalationL2: ['Mailbox forwarding rule added', 'Teams meeting with phishing context'],
     escalationL3: ['Widespread distribution (100+ users)', 'Cross-tenant forwarding detected'],
@@ -376,7 +376,7 @@ const PHASES: PhaseSection[] = [
       'Reset passwords and revoke tokens → re-secure identity',
     ],
     tools: ['Email security gateway', 'M365 Security & Compliance', 'EDR blocklist', 'IAM admin console'],
-    queries: QUERIES.containment,
+    queries: QUERIES.containment!,
     escalationL1: ['Block sender domain', 'Quarantine email from one mailbox'],
     escalationL2: ['Disable user account', 'Block URL at proxy level'],
     escalationL3: ['Mass quarantine across all tenants', 'Emergency incident response activation'],
@@ -397,7 +397,7 @@ const PHASES: PhaseSection[] = [
       'DMARC policy updated to reject?',
     ],
     tools: ['IAM platform', 'M365 Admin Center', 'Security awareness platform', 'Conditional Access'],
-    queries: QUERIES.remediation,
+    queries: QUERIES.remediation!,
     escalationL1: ['Password reset for affected user', 'MFA re-enrollment'],
     escalationL2: ['Conditional Access policy creation', 'DMARC policy update to quarantine/reject'],
     escalationL3: ['Full tenant security review', 'Architecture change (e.g. DMARC reject, MFA enforced)'],
@@ -418,7 +418,7 @@ const PHASES: PhaseSection[] = [
       'Update incident response runbook?',
     ],
     tools: ['MISP', 'YARA', 'Sigma', 'STIX/TAXII', 'Incident management platform'],
-    queries: QUERIES.post,
+    queries: QUERIES.post!,
     escalationL1: ['Share IOCs via blocklist', 'Write basic YARA rule'],
     escalationL2: ['Publish to MISP community', 'Create Sigma detection rule'],
     escalationL3: ['Cross-organization threat advisory', 'New detection content across all SOC tools'],
@@ -462,7 +462,7 @@ export default function PhishBook(): JSX.Element {
                 key={p.id}
                 type="button"
                 onClick={() => toggle(p.id)}
-                className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-mono font-semibold whitespace-nowrap transition-colors ${
+                className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-mono font-semibold whitespace-nowrap transition-colors ${
                   isExpanded
                     ? 'bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300 border border-brand-300/50 dark:border-brand-700/50'
                     : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300)/0.5)]'
@@ -493,7 +493,7 @@ export default function PhishBook(): JSX.Element {
                 aria-expanded={open}
               >
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-8 h-8 rounded-lg bg-brand-100 dark:bg-brand-900/30 flex items-center justify-center flex-shrink-0">
+                  <div className="w-8 h-8 rounded-xl bg-brand-100 dark:bg-brand-900/30 flex items-center justify-center flex-shrink-0">
                     <Icon size={16} className="text-brand-600 dark:text-brand-400" />
                   </div>
                   <div className="min-w-0">
@@ -554,7 +554,7 @@ export default function PhishBook(): JSX.Element {
                         {phase.tools.map((t) => (
                           <span
                             key={t}
-                            className="text-[10px] font-mono px-2 py-1 rounded-md bg-sky-50 dark:bg-sky-900/20 text-sky-700 dark:text-sky-300 border border-sky-200/50 dark:border-sky-800/50"
+                            className="text-[10px] font-mono px-2 py-1 rounded bg-sky-50 dark:bg-sky-900/20 text-sky-700 dark:text-sky-300 border border-sky-200/50 dark:border-sky-800/50"
                           >
                             {t}
                           </span>
@@ -614,7 +614,7 @@ export default function PhishBook(): JSX.Element {
                       {phase.queries.map((q, i) => (
                         <div
                           key={i}
-                          className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-950/5 dark:bg-[rgb(var(--input-200)/0.3)] overflow-hidden"
+                          className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-950/5 dark:bg-[rgb(var(--input-200)/0.3)] overflow-hidden"
                         >
                           <div className="flex items-center justify-between px-4 py-2 bg-slate-100/50 dark:bg-[rgb(var(--surface-200))]/50 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                             <span className="text-[10px] font-mono font-bold text-slate-500">{q.language}</span>
@@ -650,7 +650,7 @@ export default function PhishBook(): JSX.Element {
                       {phase.artifacts.map((a) => (
                         <span
                           key={a}
-                          className="text-[10px] font-mono px-2 py-1 rounded-md bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 border border-purple-200/50 dark:border-purple-800/50 flex items-center gap-1"
+                          className="text-[10px] font-mono px-2 py-1 rounded bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 border border-purple-200/50 dark:border-purple-800/50 flex items-center gap-1"
                         >
                           <CheckCircle2 size={10} />
                           {a}

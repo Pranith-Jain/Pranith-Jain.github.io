@@ -221,7 +221,7 @@ export default function PiTaxonomy() {
         cats.map((c) => (
           <section key={c} className="mb-8">
             <div className="flex items-center gap-3 mb-4 pb-3 border-b border-slate-200 dark:border-slate-700">
-              <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-lg ${CAT[c].badge} border`}>
+              <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-lg ${CAT[c].badge} border`}>
                 {CAT[c].icon}
               </div>
               <div>
@@ -326,7 +326,7 @@ function DetailModal({ cat, node, onClose }: { cat: Category; node: TaxonomyNode
       >
         <div className="sticky top-0 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 p-4 flex items-center justify-between">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className={`text-xs font-bold px-2 py-1 rounded-lg ${c.badge} border`}>{c.label}</span>
+            <span className={`text-xs font-bold px-2 py-1 rounded-xl ${c.badge} border`}>{c.label}</span>
             <span className="text-xs font-mono text-brand-500 dark:text-brand-400 border border-slate-200 dark:border-slate-700 rounded px-2 py-0.5">
               {node.code}
             </span>
@@ -337,7 +337,7 @@ function DetailModal({ cat, node, onClose }: { cat: Category; node: TaxonomyNode
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
+            className="p-1.5 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
           >
             <X size={16} />
           </button>
@@ -345,7 +345,7 @@ function DetailModal({ cat, node, onClose }: { cat: Category; node: TaxonomyNode
         <div className="p-6 overflow-y-auto flex-1">
           <h2 className="text-xl font-display font-bold text-slate-900 dark:text-white mb-1">{node.title}</h2>
           {node.local && (
-            <div className="flex items-start gap-2 p-3 rounded-lg bg-amber-500/10 border border-amber-500/30 mb-4">
+            <div className="flex items-start gap-2 p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 mb-4">
               <Lock size={16} className="text-amber-500 shrink-0 mt-0.5" />
               <p className="text-tool text-slate-600 dark:text-slate-300">
                 <strong className="text-amber-500">Local access required.</strong> This is a white-box attack that only
@@ -361,7 +361,7 @@ function DetailModal({ cat, node, onClose }: { cat: Category; node: TaxonomyNode
                 {node.aliases.map((a, i) => (
                   <span
                     key={i}
-                    className="text-xs font-mono px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 border-l-2 border-l-cyan-500"
+                    className="text-xs font-mono px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 border-l-2 border-l-cyan-500"
                   >
                     {a}
                   </span>
@@ -405,7 +405,7 @@ function DetailModal({ cat, node, onClose }: { cat: Category; node: TaxonomyNode
                   {node.examples.map((ex, i) => (
                     <div
                       key={i}
-                      className="p-3 rounded-lg bg-slate-100 dark:bg-slate-800 font-mono text-xs text-slate-600 dark:text-slate-300 break-all border border-slate-200 dark:border-slate-700"
+                      className="p-3 rounded-xl bg-slate-100 dark:bg-slate-800 font-mono text-xs text-slate-600 dark:text-slate-300 break-all border border-slate-200 dark:border-slate-700"
                     >
                       {ex}
                     </div>

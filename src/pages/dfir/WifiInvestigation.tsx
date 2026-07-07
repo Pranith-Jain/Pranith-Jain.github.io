@@ -272,7 +272,7 @@ export default function WifiInvestigation(): JSX.Element {
       </form>
 
       {result && result.type === 'bssid' && (
-        <div className="mb-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <div className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
           <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-3 flex items-center gap-2">
             <Radio size={14} /> MAC Address Analysis
           </h3>
@@ -352,7 +352,7 @@ export default function WifiInvestigation(): JSX.Element {
       )}
 
       {result && result.type === 'ssid' && (
-        <div className="mb-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <div className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
           <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-3 flex items-center gap-2">
             <Radio size={14} /> SSID Analysis
           </h3>
@@ -398,13 +398,13 @@ export default function WifiInvestigation(): JSX.Element {
       )}
 
       {loading && (
-        <div className="mb-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 text-center">
+        <div className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 text-center">
           <p className="text-sm font-mono text-slate-500 dark:text-slate-400">Investigating...</p>
         </div>
       )}
 
       {apiError && (
-        <div className="mb-6 rounded-lg border border-amber-500/40 bg-amber-50 dark:bg-amber-950/30 p-4 text-sm font-mono text-amber-700 dark:text-amber-300">
+        <div className="mb-6 rounded-xl border border-amber-500/40 bg-amber-50 dark:bg-amber-950/30 p-4 text-sm font-mono text-amber-700 dark:text-amber-300">
           {apiError}
         </div>
       )}
@@ -417,7 +417,7 @@ export default function WifiInvestigation(): JSX.Element {
             return (
               <div
                 key={flag.label}
-                className={`rounded-lg border p-3 flex items-start gap-3 text-sm font-mono ${FLAG_STYLES[flag.type]}`}
+                className={`rounded-xl border p-3 flex items-start gap-3 text-sm font-mono ${FLAG_STYLES[flag.type]}`}
               >
                 <Icon size={14} className="mt-0.5 shrink-0" />
                 <div>
@@ -437,7 +437,7 @@ export default function WifiInvestigation(): JSX.Element {
             {lookups.map((l) => (
               <li
                 key={l.service + l.url}
-                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
+                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
               >
                 <a
                   href={l.url}
@@ -457,7 +457,7 @@ export default function WifiInvestigation(): JSX.Element {
         </div>
       )}
 
-      <div className="mt-8 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <div className="mt-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-2">
           Investigation Tips
         </h3>

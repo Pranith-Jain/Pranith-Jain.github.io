@@ -8,15 +8,9 @@ import {
   Link2,
   AlertTriangle,
   TrendingUp,
-  MousePointer,
-  Search,
   CheckCircle,
-  XCircle,
   Zap,
-  Lock,
-  Eye,
   Layers,
-  Globe,
 } from 'lucide-react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 
@@ -663,25 +657,7 @@ const TRENDS: Trend[] = [
 // ═══════════════════════════════════════════════════════════════════
 
 const CARD =
-  'rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1';
-const TONE: Record<string, string> = {
-  rose: 'text-rose-700 dark:text-rose-300',
-  amber: 'text-amber-700 dark:text-amber-300',
-  violet: 'text-violet-700 dark:text-violet-300',
-  sky: 'text-sky-700 dark:text-sky-300',
-  emerald: 'text-emerald-700 dark:text-emerald-300',
-  red: 'text-red-700 dark:text-red-300',
-  orange: 'text-orange-700 dark:text-orange-300',
-};
-const BORDER_TONE: Record<string, string> = {
-  rose: 'border-rose-500/40',
-  amber: 'border-amber-500/40',
-  violet: 'border-violet-500/40',
-  sky: 'border-sky-500/40',
-  emerald: 'border-emerald-500/40',
-  red: 'border-red-500/40',
-  orange: 'border-orange-500/40',
-};
+  'rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1';
 
 export default function DetectionChokepointsHub() {
   const [tab, setTab] = useState<Tab>('chokepoints');

@@ -101,7 +101,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
   const years = useMemo(() => {
     if (!data) return [] as string[];
     return [...new Set(data.advisories.map((a) => a.id.split('-')[1]))]
-      .filter((y) => /^\d{4}$/.test(y))
+      .filter((y) => /^\d{4}$/.test(y!))
       .sort()
       .reverse();
   }, [data]);
@@ -199,7 +199,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
         ].map(({ label, value, icon: Icon, cls }) => (
           <div
             key={label}
-            className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 shadow-e1 p-2.5"
+            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 shadow-e1 p-2.5"
           >
             <div className={`flex items-center gap-1.5 text-mini uppercase tracking-wider mb-0.5 ${cls}`}>
               <Icon className="w-3 h-3" /> {label}
@@ -218,13 +218,13 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
             placeholder="Search CVE, product, ID, description…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
           />
         </div>
         <select
           value={yearFilter}
           onChange={(e) => setYearFilter(e.target.value)}
-          className="w-full sm:w-32 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
+          className="w-full sm:w-32 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
         >
           <option value="">All years</option>
           {years.map((y) => (
@@ -236,7 +236,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
         <select
           value={severityFilter}
           onChange={(e) => setSeverityFilter(e.target.value)}
-          className="w-full sm:w-36 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
+          className="w-full sm:w-36 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
         >
           <option value="">All severities</option>
           <option value="critical">Critical</option>
@@ -246,7 +246,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
         </select>
         <button
           onClick={() => refetch()}
-          className="px-3 py-2 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-600 text-sm flex items-center gap-2"
+          className="px-3 py-2 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-600 text-sm flex items-center gap-2"
         >
           <RefreshCw className="w-4 h-4" /> Refresh
         </button>
@@ -258,14 +258,14 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
         <button
           onClick={exportJSON}
           disabled={!data}
-          className="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-600 text-xs flex items-center gap-1.5 disabled:opacity-50"
+          className="px-3 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-600 text-xs flex items-center gap-1.5 disabled:opacity-50"
         >
           <Download className="w-3.5 h-3.5" /> JSON
         </button>
         <button
           onClick={exportCSV}
           disabled={!data}
-          className="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-600 text-xs flex items-center gap-1.5 disabled:opacity-50"
+          className="px-3 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-600 text-xs flex items-center gap-1.5 disabled:opacity-50"
         >
           <Download className="w-3.5 h-3.5" /> CSV
         </button>

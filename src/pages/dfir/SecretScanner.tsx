@@ -230,11 +230,11 @@ export default function SecretScanner(): JSX.Element {
         rows={12}
         spellCheck={false}
         aria-label="Text to scan for secrets"
-        className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+        className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
       />
       {result && (
         <div className="mt-8 space-y-6">
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
               <span>
                 <span className="text-slate-500">Findings:</span>{' '}
@@ -255,7 +255,7 @@ export default function SecretScanner(): JSX.Element {
             </div>
           </section>
           {result.hits.length === 0 && (
-            <section className="rounded-lg border border-emerald-500/30 bg-emerald-500/5 p-5 flex items-start gap-2 text-sm text-emerald-700 dark:text-emerald-400">
+            <section className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-5 flex items-start gap-2 text-sm text-emerald-700 dark:text-emerald-400">
               <ShieldCheck size={16} className="mt-0.5 flex-shrink-0" />
               <span>
                 No known secret signatures or high-entropy assignments found. Signature scanning isn’t exhaustive —
@@ -270,7 +270,7 @@ export default function SecretScanner(): JSX.Element {
                 return (
                   <div
                     key={`${hit.kind}-${idx}`}
-                    className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
+                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
                   >
                     <div className="flex items-center gap-2.5 flex-wrap">
                       <st.Icon size={15} className={`flex-shrink-0 ${st.text}`} />

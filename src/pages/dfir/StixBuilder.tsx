@@ -284,7 +284,7 @@ export default function StixBuilder(): JSX.Element {
       {/* Input area */}
       <div className="space-y-3">
         {mode === 'file' ? (
-          <div className="rounded-lg border border-slate-300 bg-slate-50 px-3 py-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))]">
+          <div className="rounded-xl border border-slate-300 bg-slate-50 px-3 py-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))]">
             <input
               ref={fileRef}
               type="file"
@@ -306,7 +306,7 @@ export default function StixBuilder(): JSX.Element {
             placeholder={activeMode.placeholder}
             rows={mode === 'text' ? 10 : 6}
             aria-label={activeMode.label}
-            className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))]"
+            className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))]"
           />
         ) : (
           <input
@@ -315,7 +315,7 @@ export default function StixBuilder(): JSX.Element {
             onChange={(e) => setInput(e.target.value)}
             placeholder={activeMode.placeholder}
             aria-label="Fetch URL"
-            className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))]"
+            className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))]"
           />
         )}
 
@@ -326,7 +326,7 @@ export default function StixBuilder(): JSX.Element {
             onChange={(e) => setSourceName(e.target.value)}
             placeholder="Source name (optional)"
             aria-label="Source name"
-            className="flex-1 min-w-[180px] rounded-md border border-slate-200 bg-white px-2.5 py-1.5 font-mono text-xs focus:border-brand-500 focus:outline-none dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
+            className="flex-1 min-w-[180px] rounded border border-slate-200 bg-white px-2.5 py-1.5 font-mono text-xs focus:border-brand-500 focus:outline-none dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
           />
           <div className="flex items-center gap-1 text-xs font-mono">
             <span className="text-slate-500">TLP:</span>
@@ -335,7 +335,7 @@ export default function StixBuilder(): JSX.Element {
                 key={t}
                 type="button"
                 onClick={() => setTlp(t)}
-                className={`rounded-md border px-2 py-1 transition-colors ${
+                className={`rounded border px-2 py-1 transition-colors ${
                   tlp === t
                     ? 'border-brand-500/40 bg-brand-500/15 text-brand-700 dark:text-brand-300'
                     : 'border-slate-200 bg-white text-slate-600 hover:border-brand-500/30 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400'
@@ -349,7 +349,7 @@ export default function StixBuilder(): JSX.Element {
             type="button"
             onClick={() => void (mode === 'file' ? runIngest() : runBuild())}
             disabled={build.status === 'building' || (mode === 'file' ? !file : !input.trim())}
-            className="inline-flex items-center gap-2 rounded-md border border-brand-500/40 bg-brand-500/15 px-3 py-1.5 text-xs font-mono uppercase tracking-wider text-brand-700 transition-colors hover:bg-brand-500/25 disabled:opacity-50 disabled:cursor-not-allowed dark:text-brand-300"
+            className="inline-flex items-center gap-2 rounded border border-brand-500/40 bg-brand-500/15 px-3 py-1.5 text-xs font-mono uppercase tracking-wider text-brand-700 transition-colors hover:bg-brand-500/25 disabled:opacity-50 disabled:cursor-not-allowed dark:text-brand-300"
           >
             {build.status === 'building' ? (
               <>
@@ -367,7 +367,7 @@ export default function StixBuilder(): JSX.Element {
       {build.status === 'error' && (
         <div
           role="alert"
-          className="mt-6 rounded-lg border border-rose-300 bg-rose-50/60 p-4 text-sm text-rose-700 dark:border-rose-800 dark:bg-rose-950/30 dark:text-rose-300"
+          className="mt-6 rounded-xl border border-rose-300 bg-rose-50/60 p-4 text-sm text-rose-700 dark:border-rose-800 dark:bg-rose-950/30 dark:text-rose-300"
         >
           <span className="font-semibold">build failed:</span> {build.error}
         </div>
@@ -423,7 +423,7 @@ function Output({ result, viewTab, setViewTab, onCopy, onDownload, copyStatus }:
             <button
               type="button"
               onClick={onCopy}
-              className="inline-flex items-center gap-1.5 rounded-md border border-slate-300 bg-white px-2.5 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-200 dark:hover:bg-slate-700"
+              className="inline-flex items-center gap-1.5 rounded border border-slate-300 bg-white px-2.5 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-200 dark:hover:bg-slate-700"
             >
               <Copy size={12} />
               {copyStatus === 'copied' ? 'Copied' : copyStatus === 'failed' ? 'Failed' : 'Copy'}
@@ -431,7 +431,7 @@ function Output({ result, viewTab, setViewTab, onCopy, onDownload, copyStatus }:
             <button
               type="button"
               onClick={onDownload}
-              className="inline-flex items-center gap-1.5 rounded-md border border-slate-300 bg-white px-2.5 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-200 dark:hover:bg-slate-700"
+              className="inline-flex items-center gap-1.5 rounded border border-slate-300 bg-white px-2.5 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-200 dark:hover:bg-slate-700"
             >
               <Download size={12} /> Download
             </button>
@@ -466,7 +466,7 @@ function Output({ result, viewTab, setViewTab, onCopy, onDownload, copyStatus }:
             </button>
           ))}
         </div>
-        <pre className="max-h-[480px] overflow-auto rounded-lg bg-slate-50 p-3 font-mono text-mini leading-relaxed text-slate-800 dark:bg-[rgb(var(--input-200))] dark:text-slate-200">
+        <pre className="max-h-[480px] overflow-auto rounded-xl bg-slate-50 p-3 font-mono text-mini leading-relaxed text-slate-800 dark:bg-[rgb(var(--input-200))] dark:text-slate-200">
           {viewTab === 'pretty' ? pretty : raw}
         </pre>
       </div>
@@ -489,7 +489,7 @@ function BuilderIntelCard({ view, bundle }: { view: IntelView; bundle: IntelBund
   // since we already have them — no roundtrip needed.
   void IntelCard; // referenced for code-search; intentional no-render of the hook variant here
   return (
-    <article className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
+    <article className="rounded-xl border border-slate-200 bg-white p-4 shadow-md dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
       <header className="flex flex-wrap items-baseline gap-2">
         <h3 className="font-display text-base font-semibold">{view.title}</h3>
         <Badge tone="mono" size="xs">

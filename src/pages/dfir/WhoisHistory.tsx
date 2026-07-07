@@ -222,13 +222,13 @@ export default function WhoisHistory(): JSX.Element {
             onChange={(e) => setQuery(e.target.value)}
             placeholder="example.com"
             aria-label="Domain name"
-            className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-transparent"
           />
         </div>
         <button
           type="submit"
           disabled={loading || !query.trim()}
-          className="px-4 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium disabled:opacity-50 inline-flex items-center gap-2"
+          className="px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium disabled:opacity-50 inline-flex items-center gap-2"
         >
           {loading ? <RefreshCw size={14} className="animate-spin" /> : <Search size={14} />}
           {loading ? 'Looking up…' : 'Search'}
@@ -236,7 +236,7 @@ export default function WhoisHistory(): JSX.Element {
       </form>
 
       {error && (
-        <div className="mb-6 p-3 rounded-lg bg-rose-50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-800/50 text-rose-700 dark:text-rose-300 text-sm font-mono">
+        <div className="mb-6 p-3 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-800/50 text-rose-700 dark:text-rose-300 text-sm font-mono">
           <AlertTriangle size={14} className="inline mr-2" />
           {error}
         </div>
@@ -253,7 +253,7 @@ export default function WhoisHistory(): JSX.Element {
             ].map(({ label, value, icon: Icon }) => (
               <div
                 key={label}
-                className="p-3 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1"
+                className="p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1"
               >
                 <div className="flex items-center gap-2 mb-1">
                   <Icon size={14} className="text-slate-400" />
@@ -265,7 +265,7 @@ export default function WhoisHistory(): JSX.Element {
           </div>
 
           {history.current && (
-            <div className="mb-6 p-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
+            <div className="mb-6 p-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
               <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
                 <Globe size={14} className="text-brand-600" /> Current Registration
               </h3>
@@ -336,7 +336,7 @@ export default function WhoisHistory(): JSX.Element {
                 history.snapshots.map((snap, i) => (
                   <div
                     key={snap.id}
-                    className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden"
+                    className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden"
                   >
                     <button
                       onClick={() => setExpandedSnapshot(expandedSnapshot === snap.id ? null : snap.id)}
@@ -406,7 +406,7 @@ export default function WhoisHistory(): JSX.Element {
                     CHANGE_COLORS[change.change_type] ??
                     'text-slate-600 bg-slate-50 dark:bg-[rgb(var(--surface-300))] border-slate-200 dark:border-[rgb(var(--border-400))]';
                   return (
-                    <div key={change.id} className={`p-3 rounded-lg border ${colorClass}`}>
+                    <div key={change.id} className={`p-3 rounded-xl border ${colorClass}`}>
                       <div className="flex items-center gap-2 mb-2">
                         <Icon size={14} />
                         <span className="text-xs font-semibold uppercase">{change.change_type}</span>
@@ -447,7 +447,7 @@ export default function WhoisHistory(): JSX.Element {
                       return (
                         <div
                           key={`${d.domain}-${d.match_reason}`}
-                          className="p-3 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1"
+                          className="p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1"
                         >
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">

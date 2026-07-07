@@ -86,7 +86,7 @@ export default function IosBackupExplorer(): JSX.Element {
       <button
         type="button"
         onClick={() => document.getElementById('iosbackup-input')?.click()}
-        className="w-full border-2 border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] rounded-lg p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
+        className="w-full border-2 border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
         aria-label="Drop a Manifest.db file or click to choose"
       >
         <Upload size={24} className="mx-auto mb-2 text-slate-500" />
@@ -108,7 +108,7 @@ export default function IosBackupExplorer(): JSX.Element {
 
       {files && (
         <div className="mt-6 space-y-4">
-          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3">
             <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-2">
               Top domains · {files.length.toLocaleString()} files total
             </div>
@@ -129,9 +129,9 @@ export default function IosBackupExplorer(): JSX.Element {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="filter by domain / path — e.g. CameraRollDomain, sms.db, WhatsApp…"
-            className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none"
+            className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none"
           />
-          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-auto max-h-[60vh]">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-auto max-h-[60vh]">
             <table className="w-full text-mini font-mono">
               <thead className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] sticky top-0">
                 <tr>

@@ -226,7 +226,7 @@ export default function ScheduleTab() {
               autoFocus
               value={rescheduleAt}
               onChange={(e) => setRescheduleAt(e.target.value)}
-              className="mt-1 w-full px-3 py-2 rounded-md border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm focus:outline-none focus:border-brand-500"
+              className="mt-1 w-full px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm focus:outline-none focus:border-brand-500"
             />
           </label>
           <div className="flex justify-end gap-2">
@@ -240,7 +240,7 @@ export default function ScheduleTab() {
             <button
               type="submit"
               disabled={!rescheduleAt}
-              className="px-3 py-1.5 rounded-md bg-brand-600 text-white text-tool font-semibold hover:bg-brand-500 disabled:opacity-40"
+              className="px-3 py-1.5 rounded bg-brand-600 text-white text-tool font-semibold hover:bg-brand-500 disabled:opacity-40"
             >
               Reschedule
             </button>

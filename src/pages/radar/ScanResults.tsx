@@ -181,7 +181,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 
 function StatBox({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-lg border border-slate-200 bg-slate-50 p-3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300)/0.5)]">
+    <div className="rounded-xl border border-slate-200 bg-slate-50 p-3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300)/0.5)]">
       <p className="text-xs text-slate-500 dark:text-slate-400">{label}</p>
       <p className="mt-1 truncate text-sm font-semibold text-slate-900 dark:text-white">{value}</p>
     </div>
@@ -200,7 +200,7 @@ function Row({ label, value }: { label: string; value: string }) {
 function StringList({ items, empty }: { items: string[]; empty?: string }) {
   if (items.length === 0) return <p className="text-sm text-slate-500">{empty || 'None found'}</p>;
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))]">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
       <div className="divide-y divide-slate-100 dark:divide-slate-800">
         {items.map((item, i) => (
           <div key={i} className="flex items-center gap-2 px-4 py-2 text-sm">
@@ -257,7 +257,7 @@ function OverviewPanel({ data }: { data: ScanData }) {
             {data.technologies.map((t) => (
               <span
                 key={t.name}
-                className="inline-flex items-center gap-1 rounded-md bg-brand-50 px-2.5 py-1 text-xs font-medium text-brand-700 dark:bg-brand-900/30 dark:text-brand-300"
+                className="inline-flex items-center gap-1 rounded bg-brand-50 px-2.5 py-1 text-xs font-medium text-brand-700 dark:bg-brand-900/30 dark:text-brand-300"
               >
                 {t.name} <span className="text-brand-400">({t.confidence}%)</span>
               </span>
@@ -284,7 +284,7 @@ function ScannedUrlsPanel({ data }: { data: ScanData }) {
 
 function HttpHeadersPanel({ data }: { data: ScanData }) {
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))]">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
       <div className="border-b border-slate-200 bg-slate-50 px-4 py-2 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300)/0.5)]">
         <h3 className="text-sm font-semibold text-slate-900 dark:text-white">Response Headers</h3>
       </div>
@@ -359,7 +359,7 @@ function TechPanel({ data }: { data: ScanData }) {
             {techs.map((t) => (
               <div
                 key={t.name}
-                className="flex items-center justify-between rounded-md bg-slate-50 px-3 py-2 dark:bg-[rgb(var(--surface-300)/0.5)]"
+                className="flex items-center justify-between rounded bg-slate-50 px-3 py-2 dark:bg-[rgb(var(--surface-300)/0.5)]"
               >
                 <span className="text-sm font-medium text-slate-900 dark:text-white">{t.name}</span>
                 <span className="text-xs text-slate-500">{t.confidence}% confidence</span>
@@ -375,7 +375,7 @@ function TechPanel({ data }: { data: ScanData }) {
 
 function JsPanel({ data }: { data: ScanData }) {
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))]">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
       <div className="divide-y divide-slate-100 dark:divide-slate-800">
         {data.js_files.map((f) => (
           <div key={f.url} className="flex items-center gap-3 px-4 py-2.5 text-sm">
@@ -396,7 +396,7 @@ function ApiPathsPanel({ data }: { data: ScanData }) {
 
 function EndpointsPanel({ data }: { data: ScanData }) {
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))]">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
       <div className="divide-y divide-slate-100 dark:divide-slate-800">
         {data.endpoints.map((ep, i) => (
           <div key={i} className="flex items-center gap-3 px-4 py-2.5 text-sm">
@@ -437,7 +437,7 @@ function SecurityPanel({ data }: { data: ScanData }) {
   const sec = data.security;
   return (
     <div className="space-y-6">
-      <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300)/0.5)]">
+      <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300)/0.5)]">
         <h3 className="mb-3 text-sm font-semibold text-slate-900 dark:text-white">Security Score</h3>
         <SecurityScore score={sec.score} />
       </div>
@@ -486,7 +486,7 @@ function VulnerabilitiesPanel({ data }: { data: ScanData }) {
   return (
     <div className="space-y-2">
       {vulns.map((v, i) => (
-        <div key={i} className="rounded-lg border border-slate-200 p-3 dark:border-[rgb(var(--border-400))]">
+        <div key={i} className="rounded-xl border border-slate-200 p-3 dark:border-[rgb(var(--border-400))]">
           <div className="flex items-center gap-2">
             <span
               className={`inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-bold ${sevColor(v.severity)}`}
@@ -532,7 +532,7 @@ function AttackSurfacePanel({ data }: { data: ScanData }) {
         const items = section.items ?? [];
         if (items.length === 0) return null;
         return (
-          <div key={section.label} className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))]">
+          <div key={section.label} className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
             <div className="flex items-center gap-2 border-b border-slate-100 px-4 py-2 dark:border-slate-800">
               <span>{section.icon}</span>
               <span className="text-sm font-semibold text-slate-900 dark:text-white">{section.label}</span>
@@ -557,7 +557,7 @@ function AttackSurfacePanel({ data }: { data: ScanData }) {
 
 function MetaPanel({ data }: { data: ScanData }) {
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))]">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
       <div className="divide-y divide-slate-100 dark:divide-slate-800">
         {Object.entries(data.meta).map(([key, value]) => (
           <div key={key} className="flex gap-4 px-4 py-2 text-sm">
@@ -576,7 +576,7 @@ function FormsPanel({ data }: { data: ScanData }) {
     <div className="space-y-4">
       {data.forms.length > 0 ? (
         data.forms.map((form, i) => (
-          <div key={i} className="rounded-lg border border-slate-200 p-4 dark:border-[rgb(var(--border-400))]">
+          <div key={i} className="rounded-xl border border-slate-200 p-4 dark:border-[rgb(var(--border-400))]">
             <div className="mb-2 flex items-center gap-2 text-sm">
               <span className="font-semibold text-slate-900 dark:text-white">Form {i + 1}</span>
               <span className="rounded bg-slate-100 px-1.5 py-0.5 text-xs font-mono text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400">
@@ -609,7 +609,7 @@ function ImagesPanel({ data }: { data: ScanData }) {
       {data.images.map((img, i) => (
         <div
           key={i}
-          className="overflow-hidden rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))]"
+          className="overflow-hidden rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]"
         >
           <div className="flex h-24 items-center justify-center bg-slate-100 dark:bg-[rgb(var(--surface-300))]">
             <Image className="h-8 w-8 text-slate-300 dark:text-slate-400" />
@@ -629,7 +629,7 @@ function ImagesPanel({ data }: { data: ScanData }) {
 
 function LinksPanel({ data }: { data: ScanData }) {
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))]">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
       <div className="divide-y divide-slate-100 dark:divide-slate-800">
         {data.links.slice(0, 200).map((link, i) => (
           <div key={i} className="flex items-center gap-3 px-4 py-2 text-sm">
@@ -652,7 +652,7 @@ function AwsAssetsPanel({ data }: { data: ScanData }) {
   const assets = data.aws_assets ?? [];
   if (assets.length === 0) return <p className="text-sm text-slate-500">No AWS assets found</p>;
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))]">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
       <div className="divide-y divide-slate-100 dark:divide-slate-800">
         {assets.map((a, i) => (
           <div key={i} className="flex items-center gap-3 px-4 py-2.5 text-sm">
@@ -849,7 +849,7 @@ export default function ScanResults() {
       <nav className="flex items-center gap-2 text-sm text-slate-500">
         <Link
           to="/radar"
-          className="flex h-7 w-7 items-center justify-center rounded-md border border-slate-200 bg-white text-slate-600 transition-colors hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-400 dark:hover:bg-slate-700"
+          className="flex h-7 w-7 items-center justify-center rounded border border-slate-200 bg-white text-slate-600 transition-colors hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-400 dark:hover:bg-slate-700"
         >
           <ArrowLeft className="h-3.5 w-3.5" />
         </Link>
@@ -860,7 +860,7 @@ export default function ScanResults() {
         <span className="truncate text-slate-900 dark:text-white">{data.target}</span>
       </nav>
 
-      <div className="rounded-lg border border-slate-200 bg-white p-5 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
+      <div className="rounded-xl border border-slate-200 bg-white p-5 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <div className="flex flex-wrap items-center gap-2">
@@ -890,7 +890,7 @@ export default function ScanResults() {
 
       <div className="flex flex-col gap-4 lg:flex-row">
         <aside className="w-full shrink-0 lg:w-[260px]">
-          <div className="sticky top-20 max-h-[calc(100vh-120px)] overflow-y-auto rounded-lg border border-slate-200 bg-white dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
+          <div className="sticky top-20 max-h-[calc(100vh-120px)] overflow-y-auto rounded-xl border border-slate-200 bg-white dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
             <div className="flex border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
               <button
                 onClick={() => setActiveTab('recon')}
@@ -916,7 +916,7 @@ export default function ScanResults() {
                   <button
                     key={cat.id}
                     onClick={() => setActiveCategory(cat.id)}
-                    className={`flex items-center justify-between rounded-md px-3 py-2 text-left text-sm transition-colors ${activeCategory === cat.id ? 'bg-brand-50 font-medium text-brand-700 dark:bg-brand-900/20 dark:text-brand-300' : 'text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-[rgb(var(--surface-300)/0.5)]'}`}
+                    className={`flex items-center justify-between rounded px-3 py-2 text-left text-sm transition-colors ${activeCategory === cat.id ? 'bg-brand-50 font-medium text-brand-700 dark:bg-brand-900/20 dark:text-brand-300' : 'text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-[rgb(var(--surface-300)/0.5)]'}`}
                   >
                     <span className="flex items-center gap-2">
                       <Icon className="h-4 w-4" />
@@ -934,7 +934,7 @@ export default function ScanResults() {
           </div>
         </aside>
         <main className="min-w-0 flex-1">
-          <div className="rounded-lg border border-slate-200 bg-white p-5 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
+          <div className="rounded-xl border border-slate-200 bg-white p-5 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
             {renderPanel()}
           </div>
         </main>

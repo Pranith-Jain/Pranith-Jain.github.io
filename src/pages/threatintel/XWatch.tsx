@@ -421,7 +421,7 @@ export default function XWatch(): JSX.Element {
       {authStatus?.configured && <XClaimsPanel />}
 
       {authStatus && !authStatus.configured && (
-        <section className="rounded-lg border border-amber-300 dark:border-amber-800 bg-amber-50/60 dark:bg-amber-950/40 p-5 mb-6">
+        <section className="rounded-xl border border-amber-300 dark:border-amber-800 bg-amber-50/60 dark:bg-amber-950/40 p-5 mb-6">
           <div className="flex items-start gap-2">
             <Settings size={16} className="text-amber-700 dark:text-amber-300 shrink-0 mt-0.5" />
             <div>
@@ -604,7 +604,7 @@ export default function XWatch(): JSX.Element {
         </div>
       </div>
 
-      <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
         <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
           <div>
             <h2 className="text-xl font-display font-bold inline-flex items-center gap-2">
@@ -703,7 +703,7 @@ export default function XWatch(): JSX.Element {
             {filteredTweets.map((t) => (
               <li
                 key={t.id}
-                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
+                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
               >
                 <div className="flex items-start gap-3">
                   {t.author.avatar_url && (

@@ -126,7 +126,7 @@ export default function InsightAi(): JSX.Element {
       const data = (await res.json()) as { summary?: string };
       setResult(data.summary ?? 'No summary returned.');
       const firstMode = [...selectedModes][0];
-      setActiveTab(firstMode);
+      setActiveTab(firstMode!);
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
     } finally {
@@ -193,7 +193,7 @@ export default function InsightAi(): JSX.Element {
               onChange={(e) => setAlertText(e.target.value)}
               rows={10}
               placeholder="Paste alert text, SIEM event, or investigation notes…"
-              className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 font-mono text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+              className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 font-mono text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
             />
             <div className="mt-3 flex flex-wrap gap-2">
               {EXAMPLE_PROMPTS.slice(0, 3).map((ex) => (
@@ -201,7 +201,7 @@ export default function InsightAi(): JSX.Element {
                   key={ex}
                   type="button"
                   onClick={() => setAlertText(ex)}
-                  className="px-2.5 py-1 rounded-md text-xs font-medium border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300 hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
+                  className="px-2.5 py-1 rounded text-xs font-medium border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300 hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
                 >
                   {ex.slice(0, 40)}…
                 </button>
@@ -216,7 +216,7 @@ export default function InsightAi(): JSX.Element {
                 <button
                   key={m.id}
                   onClick={() => toggleMode(m.id)}
-                  className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-mono border transition-colors ${
+                  className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-mono border transition-colors ${
                     selectedModes.has(m.id)
                       ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
                       : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/30'
@@ -235,7 +235,7 @@ export default function InsightAi(): JSX.Element {
                 <button
                   key={s.id}
                   onClick={() => toggleSiem(s.id)}
-                  className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-mono border transition-colors ${
+                  className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-mono border transition-colors ${
                     selectedSiems.has(s.id)
                       ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
                       : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/30'
@@ -295,7 +295,7 @@ export default function InsightAi(): JSX.Element {
                       <button
                         key={m}
                         onClick={() => setActiveTab(m)}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-mono border transition-colors ${
+                        className={`px-3 py-1.5 rounded-xl text-xs font-mono border transition-colors ${
                           activeTab === m
                             ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
                             : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-brand-500/30'
@@ -317,39 +317,39 @@ export default function InsightAi(): JSX.Element {
                   <div className="flex gap-1.5">
                     <button
                       onClick={copyResult}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
                     >
                       {copied ? <Check size={13} /> : <Copy size={13} />}
                       {copied ? 'Copied' : 'Copy'}
                     </button>
                     <button
                       onClick={() => downloadAs('md')}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
                     >
                       <Download size={13} /> .md
                     </button>
                     <button
                       onClick={() => downloadAs('json')}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
                     >
                       <FileJson size={13} /> .json
                     </button>
                     <button
                       onClick={() => downloadAs('yaml')}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
                     >
                       <FileText size={13} /> .yaml
                     </button>
                     <button
                       onClick={() => downloadAs('txt')}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
                     >
                       <FileText size={13} /> .txt
                     </button>
                   </div>
                 </div>
                 <div className="prose prose-sm dark:prose-invert max-w-none">
-                  <pre className="bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded-lg p-4 overflow-x-auto text-xs text-slate-700 dark:text-slate-300 font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] whitespace-pre-wrap max-h-[600px] overflow-y-auto">
+                  <pre className="bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded-xl p-4 overflow-x-auto text-xs text-slate-700 dark:text-slate-300 font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] whitespace-pre-wrap max-h-[600px] overflow-y-auto">
                     {result}
                   </pre>
                 </div>

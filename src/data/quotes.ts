@@ -130,5 +130,5 @@ function dayOfYearUTC(d: Date): number {
 
 export function getQuoteOfTheDay(date: Date = new Date()): DailyQuote {
   const idx = dayOfYearUTC(date) % QUOTES.length;
-  return QUOTES[idx];
+  return QUOTES[idx]!;
 }

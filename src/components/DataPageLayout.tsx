@@ -120,7 +120,7 @@ export function DataPageLayout({
             <button
               type="button"
               onClick={onRetry}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono text-rose-700 dark:text-rose-300 border border-rose-300/50 dark:border-rose-800/50 rounded-lg hover:bg-rose-100/50 dark:hover:bg-rose-900/20 transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono text-rose-700 dark:text-rose-300 border border-rose-300/50 dark:border-rose-800/50 rounded-xl hover:bg-rose-100/50 dark:hover:bg-rose-900/20 transition-colors"
             >
               <RefreshCw size={12} /> Retry
             </button>

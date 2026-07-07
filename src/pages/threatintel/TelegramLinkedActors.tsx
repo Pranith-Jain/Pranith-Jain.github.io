@@ -300,7 +300,7 @@ export default function TelegramLinkedActors(): JSX.Element {
   return (
     <div className="space-y-4">
       {/* Intro / search */}
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
         <h2 className="font-display font-semibold text-lg flex items-center gap-2">
           <Shield size={18} className="text-rose-600 dark:text-rose-400" /> Linked actors
           <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300">
@@ -328,7 +328,7 @@ export default function TelegramLinkedActors(): JSX.Element {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="handle (e.g. apt28world, lockbitsupport, alphvteam)"
-            className="flex-1 min-w-[220px] px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200)/0.4)] text-sm font-mono focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40"
+            className="flex-1 min-w-[220px] px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200)/0.4)] text-sm font-mono focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40"
             aria-label="Telegram handle to pivot"
           />
           <button
@@ -348,19 +348,19 @@ export default function TelegramLinkedActors(): JSX.Element {
         </form>
 
         {searchError && (
-          <div className="mt-3 rounded-lg border border-rose-500/40 bg-rose-500/10 p-2 font-mono text-xs text-rose-700 dark:text-rose-300 inline-flex items-center gap-1.5">
+          <div className="mt-3 rounded-xl border border-rose-500/40 bg-rose-500/10 p-2 font-mono text-xs text-rose-700 dark:text-rose-300 inline-flex items-center gap-1.5">
             <AlertTriangle size={12} /> {searchError}
           </div>
         )}
         {searchData?.stale && (
-          <div className="mt-3 rounded-lg border border-amber-500/40 bg-amber-500/10 p-2 font-mono text-xs text-amber-700 dark:text-amber-300 inline-flex items-center gap-1.5">
+          <div className="mt-3 rounded-xl border border-amber-500/40 bg-amber-500/10 p-2 font-mono text-xs text-amber-700 dark:text-amber-300 inline-flex items-center gap-1.5">
             <AlertTriangle size={12} /> upstream failed — serving the previous result (re-checked within 5 min).
           </div>
         )}
       </section>
 
       {/* Catalog index stats */}
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
         <h3 className="font-mono text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3 inline-flex items-center gap-2">
           <Crosshair size={12} /> Catalog index
         </h3>
@@ -388,7 +388,7 @@ export default function TelegramLinkedActors(): JSX.Element {
         rows={4}
       >
         {standaloneHandle && (
-          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
             <p className="text-sm font-mono text-slate-600 dark:text-slate-300">
               <strong>@{standaloneHandle}</strong> is not in the catalog or in the recent leak feed. Try a known handle
               (e.g.{' '}
@@ -445,7 +445,7 @@ function CatalogStat({
     violet: 'border-violet-500/30 bg-violet-500/5 text-violet-700 dark:text-violet-300',
   };
   return (
-    <div className={`rounded-md border p-3 ${tones[tone]}`}>
+    <div className={`rounded border p-3 ${tones[tone]}`}>
       <p className="text-[10px] font-mono uppercase tracking-wider opacity-80">{label}</p>
       <p className="mt-1 font-mono text-2xl font-semibold">{value.toLocaleString()}</p>
     </div>
@@ -465,7 +465,7 @@ function PivotCard({ pivot, onClearFilter }: { pivot: HandlePivot; onClearFilter
 
   return (
     <li
-      className={`rounded-lg border bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 ${
+      className={`rounded-xl border bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 ${
         pivot.catalogActors.length > 0
           ? 'border-rose-500/40'
           : pivot.searchActors.length > 0

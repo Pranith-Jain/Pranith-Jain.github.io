@@ -147,13 +147,13 @@ export default function Yarahub(): JSX.Element {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search by rule name, family, or author (e.g. MALWARE_Win_Neshta, emotet, trickbot)"
-                className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               />
             </div>
             <button
               type="submit"
               disabled={loading}
-              className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center gap-2"
+              className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center gap-2"
             >
               {loading ? <Loader2 size={16} className="animate-spin" /> : <Search size={16} />}
               Search
@@ -165,14 +165,14 @@ export default function Yarahub(): JSX.Element {
       onRetry={() => void fetchRules()}
     >
       {loading && !error && (
-        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-8 text-center">
+        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-8 text-center">
           <Loader2 size={20} className="animate-spin mx-auto text-slate-400 mb-2" />
           <p className="text-xs font-mono text-slate-500 dark:text-slate-400">Fetching YARA rules from YARAhub…</p>
         </div>
       )}
 
       {!loading && !error && filtered.length === 0 && (
-        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-12 text-center">
+        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-12 text-center">
           <Search size={32} className="mx-auto text-slate-300 dark:text-slate-700 mb-3" />
           <p className="text-sm font-mono text-slate-500">{search ? 'No matching rules' : 'No YARA rules loaded'}</p>
           <p className="text-xs font-mono text-slate-400 mt-1">
@@ -201,7 +201,7 @@ export default function Yarahub(): JSX.Element {
             {filtered.map((rule) => (
               <div
                 key={rule.yarahub_uuid ?? rule.rule_name}
-                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 hover:border-brand-500/40 transition-colors"
+                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 hover:border-brand-500/40 transition-colors"
               >
                 <div className="flex items-start justify-between p-4">
                   <div className="flex-1 min-w-0">
@@ -246,14 +246,14 @@ export default function Yarahub(): JSX.Element {
       )}
 
       {contentLoading && (
-        <div className="mt-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-8 text-center">
+        <div className="mt-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-8 text-center">
           <Loader2 size={20} className="animate-spin mx-auto text-slate-400 mb-2" />
           <p className="text-xs font-mono text-slate-500 dark:text-slate-400">Downloading rule content…</p>
         </div>
       )}
 
       {ruleContent && !contentLoading && (
-        <div className="mt-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+        <div className="mt-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
           <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/60">
             <h3 className="font-display font-semibold text-sm truncate">{contentName}</h3>
             <div className="flex items-center gap-2">
@@ -299,7 +299,7 @@ export default function Yarahub(): JSX.Element {
       )}
 
       {contentError && (
-        <div className="mt-4 rounded-lg border border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-950/30 p-3">
+        <div className="mt-4 rounded-xl border border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-950/30 p-3">
           <p className="text-meta font-mono text-amber-700 dark:text-amber-300">{contentError}</p>
         </div>
       )}

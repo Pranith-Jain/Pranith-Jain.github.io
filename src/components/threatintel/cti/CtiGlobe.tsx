@@ -354,7 +354,7 @@ export default function CtiGlobe({
           <p className="text-xs text-slate-500 mb-4">{error}</p>
           <button
             onClick={() => window.location.reload()}
-            className="px-4 py-2 text-xs font-mono rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 transition-colors"
+            className="px-4 py-2 text-xs font-mono rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 transition-colors"
           >
             Reload Page
           </button>
@@ -391,7 +391,7 @@ export default function CtiGlobe({
 
       {/* Hovered Point Info */}
       {hoveredPoint && !selectedPoint && (
-        <div className="absolute top-4 left-4 bg-[#0f1629]/90 backdrop-blur-sm rounded-lg border border-slate-700/50 px-4 py-3 pointer-events-none max-w-xs">
+        <div className="absolute top-4 left-4 bg-[#0f1629]/90 backdrop-blur-sm rounded-xl border border-slate-700/50 px-4 py-3 pointer-events-none max-w-xs">
           <div className="flex items-center gap-3">
             <span className="w-3 h-3 rounded-full" style={{ backgroundColor: severityColor(hoveredPoint.severity) }} />
             <div>
@@ -445,7 +445,7 @@ export default function CtiGlobe({
 
       {/* Controls Help */}
       {ready && (
-        <div className="absolute bottom-4 right-4 bg-[#0f1629]/80 backdrop-blur-sm rounded-lg border border-slate-700/50 px-3 py-2 pointer-events-none">
+        <div className="absolute bottom-4 right-4 bg-[#0f1629]/80 backdrop-blur-sm rounded-xl border border-slate-700/50 px-3 py-2 pointer-events-none">
           <div className="text-micro font-mono text-slate-500 space-y-1">
             <div>🖱️ Drag to rotate</div>
             <div>🔍 Scroll to zoom</div>
@@ -456,7 +456,7 @@ export default function CtiGlobe({
 
       {/* Stats */}
       {ready && (
-        <div className="absolute bottom-4 left-4 bg-[#0f1629]/80 backdrop-blur-sm rounded-lg border border-slate-700/50 px-3 py-1.5 pointer-events-none">
+        <div className="absolute bottom-4 left-4 bg-[#0f1629]/80 backdrop-blur-sm rounded-xl border border-slate-700/50 px-3 py-1.5 pointer-events-none">
           <span className="text-micro font-mono text-slate-400">
             {points.length} points · {arcs.length} arcs
           </span>

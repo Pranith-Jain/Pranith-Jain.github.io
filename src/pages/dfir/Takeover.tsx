@@ -82,12 +82,12 @@ export default function Takeover(): JSX.Element {
             value={domain}
             onChange={(e) => setDomain(e.target.value)}
             placeholder="subdomain.example.com"
-            className="flex-1 px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             type="submit"
             disabled={loading || !domain.trim()}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
           >
             <Search size={16} className="inline mr-2" />
             {loading ? 'Checking…' : 'Check'}
@@ -104,7 +104,7 @@ export default function Takeover(): JSX.Element {
       {result && (
         <div className="space-y-6">
           <section
-            className={`rounded-lg border p-6 ${
+            className={`rounded-xl border p-6 ${
               result.vulnerable
                 ? 'border-rose-300 bg-rose-50 dark:border-rose-900 dark:bg-rose-900/10'
                 : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]'
@@ -135,7 +135,7 @@ export default function Takeover(): JSX.Element {
             )}
           </section>
 
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
             <h3 className="font-display font-semibold mb-3">CNAME chain</h3>
             {result.cname_chain.length === 0 ? (
               <p className="text-sm font-mono text-slate-500">No CNAME records.</p>
@@ -152,7 +152,7 @@ export default function Takeover(): JSX.Element {
           </section>
 
           {result.notes.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5 space-y-2">
+            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5 space-y-2">
               {result.notes.map((n) => (
                 <div key={n} className="flex items-start gap-2 text-sm text-muted">
                   <Info size={14} className="mt-0.5 flex-shrink-0" />

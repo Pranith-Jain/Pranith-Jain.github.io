@@ -47,7 +47,7 @@ export function ActorFilterBar(p: Props): JSX.Element {
         value={p.search}
         onChange={(e) => p.setSearch(e.target.value)}
         placeholder="search by name or alias…"
-        className="w-full px-4 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+        className="w-full px-4 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
       />
       <div className="flex flex-wrap gap-2">
         {STATUSES.map((s) => (

@@ -37,7 +37,7 @@ export function Featured({ featuredArticles }: FeaturedProps) {
             className="group flex flex-col gap-5 p-6 surface-card card-hover hover:border-brand-500/40 h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
           >
             <div className="flex items-center justify-between">
-              <span className="rounded-md bg-slate-100 px-2 py-0.5 text-micro font-mono uppercase tracking-[0.15em] text-slate-500 dark:bg-white/5 dark:text-slate-400">
+              <span className="rounded bg-slate-100 px-2 py-0.5 text-micro font-mono uppercase tracking-[0.15em] text-slate-500 dark:bg-white/5 dark:text-slate-400">
                 {article.category === 'Security Specialist' ? 'Expert Profile' : 'Published Article'}
               </span>
             </div>

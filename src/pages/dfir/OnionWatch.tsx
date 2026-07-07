@@ -180,7 +180,7 @@ export default function OnionWatch(): JSX.Element {
       </div>
 
       {/* Headline stats */}
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
+      <section className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
           <Stat label="reachable groups" value={data?.reachable_count} loading={loading} />
           <Stat label="tracked groups" value={data?.groups.length} loading={loading} />
@@ -201,7 +201,7 @@ export default function OnionWatch(): JSX.Element {
           misleading. Surface the upstream state honestly: many mirrors
           and zero reachable is the prober-degraded signal. */}
       {data && data.total_count >= 20 && data.reachable_count === 0 && (
-        <section className="rounded-lg border border-amber-500/40 bg-amber-500/5 p-4 mb-6 flex items-start gap-2 font-mono text-sm">
+        <section className="rounded-xl border border-amber-500/40 bg-amber-500/5 p-4 mb-6 flex items-start gap-2 font-mono text-sm">
           <AlertTriangle size={16} className="text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
           <div className="text-amber-800 dark:text-amber-300">
             <strong>Upstream prober looks degraded.</strong> Ransomlook is reporting 0 reachable mirrors across{' '}
@@ -221,7 +221,7 @@ export default function OnionWatch(): JSX.Element {
       )}
 
       {/* Filters */}
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
+      <section className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
         <div className="relative">
           <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
           <input
@@ -306,7 +306,7 @@ export default function OnionWatch(): JSX.Element {
               {visibleGroups.map((g) => (
                 <li
                   key={g.group}
-                  className={`rounded-lg border p-3 ${
+                  className={`rounded-xl border p-3 ${
                     g.any_reachable
                       ? 'border-emerald-500/30 bg-emerald-500/5'
                       : 'border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 opacity-80'

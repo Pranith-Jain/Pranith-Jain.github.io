@@ -69,12 +69,12 @@ export async function exportReportPdf(report: Report): Promise<void> {
       }
       const h = /^#{1,6}\s+(.*)$/.exec(line);
       if (h) {
-        para(cleanInline(h[1]), 11, 3);
+        para(cleanInline(h[1]!), 11, 3);
         continue;
       }
       const b = /^[-*]\s+(.*)$/.exec(line);
       if (b) {
-        bulletPara(cleanInline(b[1]));
+        bulletPara(cleanInline(b[1]!));
         continue;
       }
       para(cleanInline(line), 10, 4);

@@ -196,7 +196,7 @@ export default function Observe(): JSX.Element {
       description="Unified view of any IP, domain, hash, URL, email, CVE, or threat actor — enrichment, context, and related intelligence in one place."
       maxWidthClass="max-w-5xl"
     >
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="relative">
           <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
           <input
@@ -206,7 +206,7 @@ export default function Observe(): JSX.Element {
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && fetchObserve(query)}
             placeholder="IP, domain, hash, CVE, URL, email, or threat actor name..."
-            className="w-full pl-9 pr-14 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-14 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             disabled={loading}
           />
           <button
@@ -221,7 +221,7 @@ export default function Observe(): JSX.Element {
       </section>
 
       {error && (
-        <div className="flex items-center gap-2 text-sm text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-900/20 px-4 py-3 rounded-lg mb-6">
+        <div className="flex items-center gap-2 text-sm text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-900/20 px-4 py-3 rounded-xl mb-6">
           <AlertTriangle size={14} />
           {error}
         </div>
@@ -237,9 +237,9 @@ export default function Observe(): JSX.Element {
       {data && !loading && (
         <div className="space-y-6 animate-fade-in-up">
           {/* Entity header */}
-          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
             <div className="flex items-start gap-4">
-              <div className={`p-3 rounded-lg border ${entityColor}`}>
+              <div className={`p-3 rounded-xl border ${entityColor}`}>
                 <EntityIcon size={24} />
               </div>
               <div className="flex-1 min-w-0">
@@ -281,7 +281,7 @@ export default function Observe(): JSX.Element {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* IOC Enrichment */}
-            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
+            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
               <button
                 onClick={() => {
                   setShowIocDetail(!showIocDetail);
@@ -339,7 +339,7 @@ export default function Observe(): JSX.Element {
 
             {/* Entity Profile */}
             {data.profile && (
-              <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
+              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
                 <div className="flex items-center justify-between p-4 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                   <div className="flex items-center gap-2">
                     <Users size={16} className="text-brand-600 dark:text-brand-400" />
@@ -411,7 +411,7 @@ export default function Observe(): JSX.Element {
 
             {/* Wiki Articles */}
             {data.wiki_articles.length > 0 && (
-              <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
+              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
                 <div className="flex items-center gap-2 p-4 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                   <BookOpen size={16} className="text-brand-600 dark:text-brand-400" />
                   <span className="font-semibold text-sm">Related Knowledge Base</span>
@@ -433,7 +433,7 @@ export default function Observe(): JSX.Element {
             )}
 
             {/* Quick Actions */}
-            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
+            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
               <div className="flex items-center gap-2 p-4 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                 <FileText size={16} className="text-brand-600 dark:text-brand-400" />
                 <span className="font-semibold text-sm">Quick Actions</span>

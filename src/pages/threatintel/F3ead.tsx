@@ -391,10 +391,10 @@ export default function F3ead(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setOpenPhase(openPhase === p.id ? null : p.id)}
-                  className={`w-full text-left rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 ring-1 ${p.ringClass} hover:shadow-e1 transition-shadow`}
+                  className={`w-full text-left rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 ring-1 ${p.ringClass} hover:shadow-e1 transition-shadow`}
                 >
                   <div
-                    className={`absolute inset-0 rounded-lg bg-gradient-to-br ${p.accent} pointer-events-none opacity-60`}
+                    className={`absolute inset-0 rounded-xl bg-gradient-to-br ${p.accent} pointer-events-none opacity-60`}
                   />
                   <div className="relative flex items-start justify-between gap-2">
                     <div className="flex items-center gap-2">
@@ -431,9 +431,9 @@ export default function F3ead(): JSX.Element {
             const p = PHASES.find((x) => x.id === openPhase)!;
             const PIcon = p.icon;
             return (
-              <div className="mt-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-5">
+              <div className="mt-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-5">
                 <div className="flex flex-wrap items-start gap-3">
-                  <div className={`rounded-md p-2 ring-1 ${p.ringClass} bg-white dark:bg-[rgb(var(--surface-200))]`}>
+                  <div className={`rounded p-2 ring-1 ${p.ringClass} bg-white dark:bg-[rgb(var(--surface-200))]`}>
                     <PIcon className="h-5 w-5 text-slate-700 dark:text-slate-200" />
                   </div>
                   <div className="flex-1 min-w-0">
@@ -522,7 +522,7 @@ export default function F3ead(): JSX.Element {
           </p>
         </header>
 
-        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
           <div className="flex flex-wrap gap-1.5 mb-4">
             {WALK.map((w, i) => {
               const phase = PHASES.find((p) => p.id === w.phase)!;
@@ -548,9 +548,7 @@ export default function F3ead(): JSX.Element {
           </div>
 
           <div className="flex items-start gap-3 mb-3">
-            <div
-              className={`rounded-md p-2 ring-1 ${currentPhase.ringClass} bg-slate-50 dark:bg-[rgb(var(--input-200))]`}
-            >
+            <div className={`rounded p-2 ring-1 ${currentPhase.ringClass} bg-slate-50 dark:bg-[rgb(var(--input-200))]`}>
               <WalkIcon className="h-5 w-5 text-slate-700 dark:text-slate-200" />
             </div>
             <div className="flex-1 min-w-0">
@@ -614,7 +612,7 @@ export default function F3ead(): JSX.Element {
           </p>
         </header>
 
-        <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
           <table className="w-full text-sm">
             <thead className="bg-slate-50 dark:bg-[rgb(var(--input-200))] text-left">
               <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">

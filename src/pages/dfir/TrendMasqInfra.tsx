@@ -1,5 +1,5 @@
 import { DataPageLayout } from '../../components/DataPageLayout';
-import { ExternalLink, Fingerprint, AlertTriangle, Search } from 'lucide-react';
+import { Fingerprint } from 'lucide-react';
 
 interface Finding {
   id: string;
@@ -121,7 +121,7 @@ export default function TrendMasqInfra(): JSX.Element {
           {STATS.map((s) => (
             <div
               key={s.label}
-              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
+              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
             >
               <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 block mb-1">
                 {s.label}
@@ -139,7 +139,7 @@ export default function TrendMasqInfra(): JSX.Element {
 
         <div className="space-y-3">
           {FINDINGS.map((f) => (
-            <article key={f.id} className={`rounded-lg border ${f.border} ${f.bg} shadow-e1 p-4`}>
+            <article key={f.id} className={`rounded-xl border ${f.border} ${f.bg} shadow-e1 p-4`}>
               <header className="flex flex-wrap items-center gap-2 mb-2">
                 <h3 className="font-display font-bold text-slate-900 dark:text-slate-100 text-base">{f.title}</h3>
                 <span className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400">

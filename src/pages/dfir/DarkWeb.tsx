@@ -288,7 +288,7 @@ export default function DarkWeb(): JSX.Element {
   const perTermCount = useMemo(() => {
     const map: Record<string, number> = {};
     for (const term of watchlist) map[term] = 0;
-    for (const m of matched) for (const t of m.watchMatches) map[t]++;
+    for (const m of matched) for (const t of m.watchMatches) map[t]!++;
     return map;
   }, [matched, watchlist]);
 
@@ -335,7 +335,7 @@ export default function DarkWeb(): JSX.Element {
     >
       <>
         {/* Search + filters */}
-        <section className="mb-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5 space-y-4">
+        <section className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5 space-y-4">
           <div className="flex items-center gap-2">
             <Search size={14} className="text-brand-600 dark:text-brand-400" />
             <input
@@ -343,7 +343,7 @@ export default function DarkWeb(): JSX.Element {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Live search. Plain words = AND. /regex/i for regex."
-              className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
             {search && (
               <button
@@ -408,7 +408,7 @@ export default function DarkWeb(): JSX.Element {
         </section>
 
         {/* Watchlist control */}
-        <section className="mb-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+        <section className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
           <div className="flex items-center gap-2 mb-3">
             <Bell size={14} className="text-brand-600 dark:text-brand-400" />
             <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
@@ -427,12 +427,12 @@ export default function DarkWeb(): JSX.Element {
               value={newTerm}
               onChange={(e) => setNewTerm(e.target.value)}
               placeholder="company name, domain, sector, threat actor…"
-              className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
             <button
               type="submit"
               disabled={!newTerm.trim()}
-              className="inline-flex items-center gap-1 px-3 py-2 bg-brand-600 dark:bg-brand-500 text-white text-sm font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+              className="inline-flex items-center gap-1 px-3 py-2 bg-brand-600 dark:bg-brand-500 text-white text-sm font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
             >
               <Plus size={14} /> Track
             </button>
@@ -529,7 +529,7 @@ export default function DarkWeb(): JSX.Element {
               return (
                 <li
                   key={it.guid ?? it.link}
-                  className={`rounded-lg border p-4 transition-colors mb-3 ${
+                  className={`rounded-xl border p-4 transition-colors mb-3 ${
                     hit
                       ? 'border-amber-400 bg-amber-50/50 dark:bg-amber-900/15 dark:border-amber-700'
                       : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]'
@@ -661,7 +661,7 @@ export function BreachDisclosuresPanel(): JSX.Element {
   const visible = data?.breaches.slice(0, expanded ? data.breaches.length : 8) ?? [];
 
   return (
-    <section className="mb-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+    <section className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-3 mb-3">
         <h2 className="font-display font-semibold text-lg inline-flex items-center gap-2">
           Recent breach disclosures
@@ -774,14 +774,7 @@ export function BreachDisclosuresPanel(): JSX.Element {
 // ─────────────────────────────────────────────────────────────────────────
 
 type RansomwareOrigin =
-  | 'ransomlook'
-  | 'mti'
-  | 'ransomfeed'
-  | 'ransomwatch'
-  | 'ransomwarelive'
-  | 'andreafortuna'
-  | 'ctifyi'
-  | 'x';
+  'ransomlook' | 'mti' | 'ransomfeed' | 'ransomwatch' | 'ransomwarelive' | 'andreafortuna' | 'ctifyi' | 'x';
 
 interface RansomwareVictim {
   victim: string;
@@ -929,7 +922,7 @@ export function RansomwareActivityPanel(): JSX.Element {
   );
 
   return (
-    <section className="mb-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+    <section className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-3 mb-3">
         <h2 className="font-display font-semibold text-lg inline-flex items-center gap-2">
           Recent ransomware activity
@@ -1338,7 +1331,7 @@ export function TelegramFeedPanel(): JSX.Element {
   const watchHits = matchedItems.filter((m) => m.matches.length > 0).length;
 
   return (
-    <section className="mb-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+    <section className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-3 mb-1">
         <h2 className="font-display font-semibold text-lg inline-flex items-center gap-2">
           Cybersec Telegram firehose

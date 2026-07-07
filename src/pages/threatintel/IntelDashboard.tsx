@@ -226,7 +226,7 @@ export default function IntelDashboard(): JSX.Element {
                   <Link
                     key={link.href}
                     to={link.href}
-                    className="text-mini font-mono px-2.5 py-1.5 rounded-md border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                    className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                   >
                     {link.label}
                   </Link>

@@ -284,7 +284,7 @@ export default function OsintCountryMap(): JSX.Element {
             placeholder={
               selectedCountry ? `Search within ${selectedCountry.name}...` : 'Search countries or resources...'
             }
-            className="w-full pl-9 pr-4 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm text-slate-700 dark:text-slate-300 placeholder-slate-400 focus:outline-none focus:border-slate-400 dark:focus:border-slate-500"
+            className="w-full pl-9 pr-4 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm text-slate-700 dark:text-slate-300 placeholder-slate-400 focus:outline-none focus:border-slate-400 dark:focus:border-slate-500"
           />
           {query && (
             <button
@@ -299,7 +299,7 @@ export default function OsintCountryMap(): JSX.Element {
         <div className="flex gap-4 flex-col lg:flex-row">
           {/* Map section */}
           <div className="lg:w-3/5 w-full">
-            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 overflow-hidden">
+            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 overflow-hidden">
               <div className="p-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))] flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Globe className="w-4 h-4 text-slate-400" />
@@ -334,7 +334,7 @@ export default function OsintCountryMap(): JSX.Element {
 
             {/* Quick-search country list when no country selected */}
             {!selectedCountry && query && (
-              <div className="mt-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 max-h-60 overflow-y-auto">
+              <div className="mt-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 max-h-60 overflow-y-auto">
                 {filteredCountries.length === 0 ? (
                   <div className="p-4 text-sm text-slate-500 text-center">No countries match "{query}"</div>
                 ) : (
@@ -359,7 +359,7 @@ export default function OsintCountryMap(): JSX.Element {
           {/* Resource panel */}
           <div className="lg:w-2/5 w-full">
             {selectedCountry ? (
-              <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 flex flex-col h-[500px]">
+              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 flex flex-col h-[500px]">
                 {/* Header */}
                 <div className="p-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))] flex items-center justify-between shrink-0">
                   <div>
@@ -423,7 +423,7 @@ export default function OsintCountryMap(): JSX.Element {
                 </div>
               </div>
             ) : (
-              <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 h-[500px] flex items-center justify-center">
+              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 h-[500px] flex items-center justify-center">
                 <div className="text-center p-6">
                   <Globe className="w-10 h-10 text-slate-300 dark:text-slate-400 mx-auto mb-3" />
                   <p className="text-sm text-slate-500 dark:text-slate-400 mb-1">Click a country on the map</p>
@@ -440,19 +440,19 @@ export default function OsintCountryMap(): JSX.Element {
         <div className="flex items-center gap-3 text-xs text-slate-500">
           <span>Resources per country:</span>
           <span className="flex items-center gap-1">
-            <span className="w-3 h-3 rounded-sm bg-[#1e293b] inline-block" /> 0
+            <span className="w-3 h-3 rounded bg-[#1e293b] inline-block" /> 0
           </span>
           <span className="flex items-center gap-1">
-            <span className="w-3 h-3 rounded-sm bg-[#3b82f6] inline-block" /> 1–5
+            <span className="w-3 h-3 rounded bg-[#3b82f6] inline-block" /> 1–5
           </span>
           <span className="flex items-center gap-1">
-            <span className="w-3 h-3 rounded-sm bg-[#bbf7d0] inline-block" /> 6–10
+            <span className="w-3 h-3 rounded bg-[#bbf7d0] inline-block" /> 6–10
           </span>
           <span className="flex items-center gap-1">
-            <span className="w-3 h-3 rounded-sm bg-[#86efac] inline-block" /> 11–25
+            <span className="w-3 h-3 rounded bg-[#86efac] inline-block" /> 11–25
           </span>
           <span className="flex items-center gap-1">
-            <span className="w-3 h-3 rounded-sm bg-[#22c55e] inline-block" /> 25+
+            <span className="w-3 h-3 rounded bg-[#22c55e] inline-block" /> 25+
           </span>
         </div>
 

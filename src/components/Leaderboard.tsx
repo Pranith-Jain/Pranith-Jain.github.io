@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Trophy, Flame, Star, TrendingUp } from 'lucide-react';
@@ -91,7 +90,7 @@ export default function Leaderboard() {
           <button
             key={p}
             onClick={() => setPeriod(p)}
-            className={`px-3 py-1.5 text-xs font-mono rounded-lg transition-colors ${
+            className={`px-3 py-1.5 text-xs font-mono rounded-xl transition-colors ${
               period === p
                 ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300'
                 : 'text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700'

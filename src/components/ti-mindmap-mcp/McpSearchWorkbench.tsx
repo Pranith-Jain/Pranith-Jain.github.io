@@ -108,7 +108,7 @@ export function McpSearchWorkbench(props: {
       } else {
         // 'briefing' -- list the last 10 briefings and let the user pick
         const list = await listBriefings(apiKey, 10);
-        setHit({ briefing: list[0] ?? null });
+        setHit({ briefing: list[0] });
       }
       pushHistory(`${mode}:${query}`);
     } catch (e) {
@@ -132,7 +132,7 @@ export function McpSearchWorkbench(props: {
       className={
         props.compact
           ? ''
-          : 'rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1'
+          : 'rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1'
       }
     >
       <div className={props.compact ? '' : 'p-4'}>

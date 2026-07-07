@@ -42,7 +42,7 @@ export function PinForm({
             label: label || 'Pin',
             address: initial?.address ?? address ?? '',
             iconKey: 'default',
-            color,
+            color: color!,
             note,
           },
           linked

@@ -395,7 +395,7 @@ export default function ThreatIntelHome(): JSX.Element {
                       to={item.href}
                       className="group flex items-center gap-3 surface-card card-hover p-4"
                     >
-                      <div className="grid h-10 w-10 place-items-center rounded-md bg-slate-50 dark:bg-white/5 text-brand-600 dark:text-brand-400 shrink-0">
+                      <div className="grid h-10 w-10 place-items-center rounded bg-slate-50 dark:bg-white/5 text-brand-600 dark:text-brand-400 shrink-0">
                         <Icon size={18} />
                       </div>
                       <div className="min-w-0">

@@ -16,7 +16,7 @@ function PhaseHeader({
   return (
     <button
       onClick={onToggle}
-      className="w-full flex items-center gap-3 text-left rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 hover:border-brand-500/40 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.6)] px-4 py-3 transition-colors"
+      className="w-full flex items-center gap-3 text-left rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 hover:border-brand-500/40 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.6)] px-4 py-3 transition-colors"
       aria-expanded={expanded}
     >
       <span className="flex-none w-9 h-9 rounded-full bg-brand-500/10 text-brand-600 dark:text-brand-400 font-display font-bold flex items-center justify-center">
@@ -41,7 +41,7 @@ function PhaseHeader({
 function PhaseBody({ phase }: { phase: KillChainPhase }): JSX.Element {
   return (
     <div className="animate-fade-in-up overflow-hidden">
-      <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200)/0.5)] mt-2 p-4 space-y-4">
+      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200)/0.5)] mt-2 p-4 space-y-4">
         <p className="text-sm font-mono text-slate-700 dark:text-slate-300 leading-relaxed">{phase.description}</p>
 
         <div className="grid gap-3 md:grid-cols-2">
@@ -177,7 +177,7 @@ export default function KillChain(): JSX.Element {
         ))}
       </div>
 
-      <div className="mt-8 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <div className="mt-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           References
         </h2>

@@ -58,7 +58,7 @@ export default function Vs(): JSX.Element {
           {COMPARE.map((c) => (
             <article
               key={c.rival}
-              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200)/0.4)] p-5"
+              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200)/0.4)] p-5"
             >
               <header className="mb-3">
                 <div className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">

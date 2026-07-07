@@ -55,7 +55,7 @@ export function GlobalPulseCard(): JSX.Element | null {
       to="/threatintel/predictive/global-pulse"
       onMouseEnter={() => preloadRoute('/threatintel/predictive/global-pulse')}
       onFocus={() => preloadRoute('/threatintel/predictive/global-pulse')}
-      className="group mb-6 flex items-center gap-4 rounded-lg border border-slate-200 bg-white px-4 py-3 transition-colors hover:border-brand-400 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:hover:border-brand-500"
+      className="group mb-6 flex items-center gap-4 rounded-xl border border-slate-200 bg-white px-4 py-3 transition-colors hover:border-brand-400 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:hover:border-brand-500"
     >
       <Globe className="h-5 w-5 shrink-0 text-brand-600 dark:text-brand-400" />
       <div className="min-w-0 flex-1">

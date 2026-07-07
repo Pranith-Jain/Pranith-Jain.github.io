@@ -191,7 +191,7 @@ function DDoSPanel() {
         </div>
       )}
       {error && (
-        <div className="p-3 rounded-lg border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-300 flex items-center gap-2 font-mono text-sm">
+        <div className="p-3 rounded-xl border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-300 flex items-center gap-2 font-mono text-sm">
           <AlertTriangle className="w-4 h-4" /> {error}
         </div>
       )}
@@ -208,7 +208,7 @@ function DDoSPanel() {
             ].map((kpi) => (
               <div
                 key={kpi.label}
-                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
+                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
               >
                 <div className="flex items-center gap-2 mb-1">
                   <kpi.icon size={12} className={kpi.color} />
@@ -221,7 +221,7 @@ function DDoSPanel() {
 
           {/* Top Malware */}
           {data.stats.topMalware.length > 0 && (
-            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
               <h3 className="font-display font-semibold text-sm mb-2">Top Botnet Malware</h3>
               <div className="space-y-1.5">
                 {data.stats.topMalware.map((m) => (
@@ -230,7 +230,7 @@ function DDoSPanel() {
                     <div className="w-32 h-2 bg-slate-100 dark:bg-[rgb(var(--surface-300))] rounded-full overflow-hidden">
                       <div
                         className="h-full bg-rose-500 rounded-full"
-                        style={{ width: `${(m.count / data.stats.topMalware[0].count) * 100}%` }}
+                        style={{ width: `${(m.count / data.stats.topMalware[0]!.count) * 100}%` }}
                       />
                     </div>
                     <span className="text-micro font-mono text-muted w-8 text-right">{m.count}</span>
@@ -249,13 +249,13 @@ function DDoSPanel() {
                 value={searchQ}
                 onChange={(e) => setSearchQ(e.target.value)}
                 placeholder="Search by IP or malware family..."
-                className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500"
+                className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500"
               />
             </div>
           </div>
 
           {/* Botnet List */}
-          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
             <div className="p-3 border-b border-slate-100 dark:border-[rgb(var(--border-300))]">
               <h3 className="font-display font-semibold text-sm">Botnet C2 Servers (Feodo Tracker)</h3>
             </div>
@@ -357,7 +357,7 @@ function FortiBleedPanel() {
 
   return (
     <div className="space-y-6">
-      <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <div className="flex items-center gap-2 mb-3">
           <Lock size={14} className="text-amber-500" />
           <h3 className="font-display font-semibold text-sm">FortiGate / FortiOS Vulnerability Check</h3>
@@ -384,13 +384,13 @@ function FortiBleedPanel() {
       </div>
 
       {error && (
-        <div className="p-3 rounded-lg border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-300 flex items-center gap-2 font-mono text-sm">
+        <div className="p-3 rounded-xl border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-300 flex items-center gap-2 font-mono text-sm">
           <AlertTriangle className="w-4 h-4" /> {error}
         </div>
       )}
 
       {result && (
-        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
           <div className="flex items-center justify-between mb-3">
             <div>
               <h3 className="font-display font-semibold text-sm">{result.target}</h3>
@@ -524,7 +524,7 @@ function HealthcarePanel() {
         </div>
       )}
       {error && (
-        <div className="p-3 rounded-lg border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-300 flex items-center gap-2 font-mono text-sm">
+        <div className="p-3 rounded-xl border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-300 flex items-center gap-2 font-mono text-sm">
           <AlertTriangle className="w-4 h-4" /> {error}
         </div>
       )}
@@ -532,22 +532,22 @@ function HealthcarePanel() {
       {data && (
         <>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3">
+            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3">
               <span className="text-micro font-mono text-muted">Total Breaches</span>
               <p className="text-xl font-display font-bold">{data.stats.totalBreaches}</p>
             </div>
-            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3">
+            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3">
               <span className="text-micro font-mono text-muted">Individuals Affected</span>
               <p className="text-xl font-display font-bold">{fmtNum(data.stats.totalIndividuals)}</p>
             </div>
-            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3">
+            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3">
               <span className="text-micro font-mono text-muted">Top Targeted State</span>
               <p className="text-xl font-display font-bold">{data.stats.topStates[0]?.state || 'N/A'}</p>
             </div>
           </div>
 
           {data.stats.topStates.length > 0 && (
-            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
               <h3 className="font-display font-semibold text-sm mb-2">Top Targeted States</h3>
               <div className="space-y-1.5">
                 {data.stats.topStates.slice(0, 8).map((s) => (
@@ -556,7 +556,7 @@ function HealthcarePanel() {
                     <div className="flex-1 h-2 bg-slate-100 dark:bg-[rgb(var(--surface-300))] rounded-full overflow-hidden">
                       <div
                         className="h-full bg-rose-500 rounded-full"
-                        style={{ width: `${(s.individuals / data.stats.topStates[0].individuals) * 100}%` }}
+                        style={{ width: `${(s.individuals / data.stats.topStates[0]!.individuals) * 100}%` }}
                       />
                     </div>
                     <span className="text-micro font-mono text-muted w-16 text-right">{fmtNum(s.individuals)}</span>
@@ -574,12 +574,12 @@ function HealthcarePanel() {
                 value={searchQ}
                 onChange={(e) => setSearchQ(e.target.value)}
                 placeholder="Search by name or state..."
-                className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500"
+                className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500"
               />
             </div>
           </div>
 
-          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
             <div className="divide-y divide-slate-100 dark:divide-[rgb(var(--border-300))]">
               {filtered.slice(0, 30).map((b, i) => (
                 <div
@@ -679,7 +679,7 @@ function ThreatReportsPanel() {
 
   return (
     <div className="space-y-6">
-      <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <div className="flex items-center gap-2 mb-3">
           <Shield size={14} className="text-violet-500" />
           <h3 className="font-display font-semibold text-sm">Threat Intelligence Reports</h3>
@@ -781,13 +781,13 @@ function ThreatReportsPanel() {
       </div>
 
       {error && (
-        <div className="p-3 rounded-lg border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-300 flex items-center gap-2 font-mono text-sm">
+        <div className="p-3 rounded-xl border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-300 flex items-center gap-2 font-mono text-sm">
           <AlertTriangle className="w-4 h-4" /> {error}
         </div>
       )}
 
       {data && !!data.country && (
-        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-display font-semibold text-sm">
               {(data.country as ThreatReportCountry).name} Threat Landscape
@@ -867,7 +867,7 @@ function ThreatReportsPanel() {
       )}
 
       {data && !!data.industry && (
-        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-display font-semibold text-sm">
               {(data.industry as ThreatReportIndustry).name} Threat Landscape
@@ -931,7 +931,7 @@ function ThreatReportsPanel() {
       )}
 
       {data && !!data.assessment && (
-        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-display font-semibold text-sm">
               {(data.assessment as ThreatReportAssessment).domain} External Threat Assessment

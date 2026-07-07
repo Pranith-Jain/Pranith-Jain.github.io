@@ -81,7 +81,7 @@ export default function StealerParser(): JSX.Element {
         {SUPPORTED_STEALERS.map((s) => (
           <span
             key={s}
-            className="px-2.5 py-1 rounded-lg text-xs font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted"
+            className="px-2.5 py-1 rounded-xl text-xs font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted"
           >
             {s}
           </span>
@@ -94,7 +94,7 @@ export default function StealerParser(): JSX.Element {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Paste stealer log content here…"
-          className="w-full h-48 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg p-4 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y font-mono"
+          className="w-full h-48 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl p-4 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y font-mono"
         />
         <div className="flex items-center justify-between mt-3">
           <span className="text-xs text-slate-400 font-mono">
@@ -103,7 +103,7 @@ export default function StealerParser(): JSX.Element {
           <button
             onClick={handleParse}
             disabled={loading || !input.trim()}
-            className="px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-lg text-sm font-semibold text-white transition-colors flex items-center gap-2"
+            className="px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-white transition-colors flex items-center gap-2"
           >
             {loading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
             {loading ? 'Parsing…' : 'Parse Log'}
@@ -150,7 +150,7 @@ export default function StealerParser(): JSX.Element {
 
           {/* Detected Stealer */}
           {result.detected_stealer && (
-            <div className="rounded-lg border border-amber-300/50 dark:border-amber-800/50 bg-amber-50 dark:bg-amber-950/20 p-4 flex items-center gap-3">
+            <div className="rounded-xl border border-amber-300/50 dark:border-amber-800/50 bg-amber-50 dark:bg-amber-950/20 p-4 flex items-center gap-3">
               <Bug size={16} className="text-amber-600 dark:text-amber-400" />
               <span className="text-sm text-amber-800 dark:text-amber-200">
                 Detected stealer: <strong className="font-mono">{result.detected_stealer}</strong>
@@ -228,7 +228,7 @@ export default function StealerParser(): JSX.Element {
                 {result.crypto_wallets.map((w) => (
                   <div
                     key={w.address}
-                    className="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2"
+                    className="flex items-center gap-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2"
                   >
                     <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300">
                       {w.currency}

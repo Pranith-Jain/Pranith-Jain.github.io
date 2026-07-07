@@ -38,7 +38,7 @@ export default function ReportsLibrary(): JSX.Element {
   useEffect(() => {
     let cancelled = false;
     const ctrl = new AbortController();
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+
     setLoading(true);
     setError(null);
     fetch('/api/v1/reports', { signal: ctrl.signal })
@@ -106,7 +106,10 @@ export default function ReportsLibrary(): JSX.Element {
 
   const categoryCounts = useMemo(() => {
     const c: Record<string, number> = {};
-    if (data) data.reports.forEach((r) => { c[r.category] = (c[r.category] || 0) + 1; });
+    if (data)
+      data.reports.forEach((r) => {
+        c[r.category] = (c[r.category] || 0) + 1;
+      });
     return c;
   }, [data]);
 
@@ -137,7 +140,7 @@ export default function ReportsLibrary(): JSX.Element {
     >
       {data && (
         <>
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
             <div className="flex flex-col gap-3">
               <div className="relative flex-1">
                 <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
@@ -145,7 +148,7 @@ export default function ReportsLibrary(): JSX.Element {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder={`Search ${data.count} reports\u2026`}
-                  className="w-full rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
+                  className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
                 />
               </div>
               <div className="flex flex-wrap items-center gap-3">
@@ -153,7 +156,7 @@ export default function ReportsLibrary(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => setActiveCategory(null)}
-                    className={`text-xs font-mono px-2.5 py-1 rounded-lg border transition-colors ${
+                    className={`text-xs font-mono px-2.5 py-1 rounded-xl border transition-colors ${
                       !activeCategory
                         ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
                         : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400 dark:hover:border-[rgb(var(--border-400))]'
@@ -166,7 +169,7 @@ export default function ReportsLibrary(): JSX.Element {
                       key={cat}
                       type="button"
                       onClick={() => setActiveCategory(activeCategory === cat ? null : cat)}
-                      className={`text-xs font-mono px-2.5 py-1 rounded-lg border transition-colors ${
+                      className={`text-xs font-mono px-2.5 py-1 rounded-xl border transition-colors ${
                         activeCategory === cat
                           ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
                           : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400 dark:hover:border-[rgb(var(--border-400))]'
@@ -190,7 +193,9 @@ export default function ReportsLibrary(): JSX.Element {
                   >
                     <option value="">All publishers</option>
                     {publishers.map((p) => (
-                      <option key={p} value={p}>{p}</option>
+                      <option key={p} value={p}>
+                        {p}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -206,7 +211,7 @@ export default function ReportsLibrary(): JSX.Element {
           </div>
 
           {filtered.length === 0 ? (
-            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
               <Search className="mx-auto mb-2 h-8 w-8 text-slate-400 dark:text-slate-400" />
               {query || activeCategory || yearFilter || publisherFilter
                 ? 'No reports match your filters.'
@@ -227,7 +232,7 @@ export default function ReportsLibrary(): JSX.Element {
 
 function Stat({ label, value }: { label: string; value: React.ReactNode }) {
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2">
       <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">{label}</div>
       <div className="text-lg font-semibold text-slate-900 dark:text-slate-100 truncate">{value}</div>
     </div>
@@ -240,7 +245,7 @@ function ReportCard({ report }: { report: ReportEntry }) {
       href={report.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group block rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 hover:border-brand-500/40 hover:shadow-e2 transition-all"
+      className="group block rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 hover:border-brand-500/40 hover:shadow-e2 transition-all"
     >
       <div className="flex flex-wrap items-center gap-2 mb-2">
         <span className="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 uppercase tracking-wider">

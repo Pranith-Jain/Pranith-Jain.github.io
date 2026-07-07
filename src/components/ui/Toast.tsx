@@ -99,14 +99,14 @@ export function ToastProvider({ children }: { children: ReactNode }) {
           <div
             key={t.id}
             role="status"
-            className={`pointer-events-auto flex items-start gap-3 rounded-xl border border-slate-200/80 bg-white px-4 py-3 shadow-lg ring-1 ring-black/5 backdrop-blur-sm transition-all dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.95)] animate-fade-in-up border-l-4 ${BORDER[t.variant]}`}
+            className={`pointer-events-auto flex items-start gap-3 rounded-xl border border-slate-200/80 bg-white px-4 py-3 shadow-xl ring-1 ring-black/5 backdrop-blur-sm transition-all dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.95)] animate-fade-in-up border-l-4 ${BORDER[t.variant]}`}
           >
             <span className="shrink-0 mt-0.5">{ICON[t.variant]}</span>
             <p className="flex-1 text-sm text-slate-700 dark:text-slate-300">{t.message}</p>
             <button
               type="button"
               onClick={() => dismiss(t.id)}
-              className="shrink-0 grid h-6 w-6 place-items-center rounded-md text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:hover:bg-[rgb(var(--surface-300))] dark:hover:text-slate-300"
+              className="shrink-0 grid h-6 w-6 place-items-center rounded text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:hover:bg-[rgb(var(--surface-300))] dark:hover:text-slate-300"
               aria-label="Dismiss"
             >
               <X className="h-3.5 w-3.5" aria-hidden="true" />

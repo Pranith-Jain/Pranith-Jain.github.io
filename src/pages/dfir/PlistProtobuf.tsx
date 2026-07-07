@@ -244,11 +244,11 @@ export default function PlistProtobuf(): JSX.Element {
         onChange={(e) => setPaste(e.target.value)}
         rows={3}
         placeholder="Paste hex or base64 of a plist / protobuf blob…"
-        className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2 font-mono text-meta focus:border-brand-500 focus:outline-none"
+        className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2 font-mono text-meta focus:border-brand-500 focus:outline-none"
       />
 
       {out && (
-        <pre className="mt-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] p-3 overflow-auto font-mono text-mini text-slate-800 dark:text-slate-200 max-h-[60vh]">
+        <pre className="mt-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] p-3 overflow-auto font-mono text-mini text-slate-800 dark:text-slate-200 max-h-[60vh]">
           {out}
         </pre>
       )}

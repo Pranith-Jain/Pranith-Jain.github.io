@@ -255,7 +255,7 @@ export default function AttackChains(): JSX.Element {
         ))}
       </div>
 
-      <article className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5 mb-8">
+      <article className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5 mb-8">
         <header className="flex flex-wrap items-center gap-3 mb-4">
           <h2 className="font-display font-bold text-lg">{chain.name}</h2>
           <span
@@ -305,7 +305,7 @@ export default function AttackChains(): JSX.Element {
         </div>
       </article>
 
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5 mb-8">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5 mb-8">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           Cross-Chain Ecosystem
         </h2>
@@ -331,7 +331,7 @@ export default function AttackChains(): JSX.Element {
         </div>
       </section>
 
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           Real-World Examples
         </h2>

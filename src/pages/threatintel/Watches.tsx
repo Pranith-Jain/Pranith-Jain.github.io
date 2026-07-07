@@ -152,7 +152,7 @@ export default function Watches(): JSX.Element {
       headerExtra={
         <button
           onClick={() => setShowForm(!showForm)}
-          className="px-4 py-2 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center gap-2 text-sm transition-colors"
+          className="px-4 py-2 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center gap-2 text-sm transition-colors"
         >
           <Plus size={14} /> New Watch
         </button>
@@ -183,7 +183,7 @@ export default function Watches(): JSX.Element {
           {loading && watches.length === 0 ? (
             <DataState loading={true} rows={4} />
           ) : watches.length === 0 ? (
-            <div className="rounded-lg border border-dashed border-slate-300 dark:border-slate-600 px-4 py-10 text-center">
+            <div className="rounded-xl border border-dashed border-slate-300 dark:border-slate-600 px-4 py-10 text-center">
               <Bell size={32} className="mx-auto mb-2 text-slate-300 dark:text-slate-500" />
               <p className="text-sm text-slate-500 font-mono">No watches configured yet.</p>
               <p className="text-xs text-slate-400 mt-1 font-mono">Click "New Watch" to get started.</p>
@@ -200,7 +200,7 @@ export default function Watches(): JSX.Element {
               .map((watch) => (
                 <div
                   key={watch.id}
-                  className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-4 py-3"
+                  className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-4 py-3"
                 >
                   {editingId === watch.id ? (
                     <div className="space-y-3">
@@ -323,7 +323,7 @@ export default function Watches(): JSX.Element {
         {/* Right panel — create form + alert log */}
         <div className="lg:col-span-2 space-y-6">
           {showForm && (
-            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
               <h3 className="font-display font-semibold text-sm mb-4">Create Watch</h3>
               <div className="space-y-3">
                 <div>
@@ -398,7 +398,7 @@ export default function Watches(): JSX.Element {
                 <button
                   onClick={() => void handleCreate()}
                   disabled={submitting || !form.label || !form.value || !form.webhook}
-                  className="w-full py-2 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors flex items-center justify-center gap-2 text-sm"
+                  className="w-full py-2 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors flex items-center justify-center gap-2 text-sm"
                 >
                   {submitting ? <RefreshCw size={14} className="animate-spin" /> : <Plus size={14} />}
                   {submitting ? 'Creating...' : 'Create Watch'}
@@ -426,7 +426,7 @@ export default function Watches(): JSX.Element {
                 alerts.map((alert, i) => (
                   <div
                     key={i}
-                    className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2.5"
+                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2.5"
                   >
                     <div className="flex items-center gap-2 mb-0.5">
                       <span className={`text-micro font-mono uppercase tracking-wider ${TYPE_COLORS[alert.type]}`}>

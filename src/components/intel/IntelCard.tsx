@@ -134,7 +134,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
     0;
 
   return (
-    <article className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition-colors dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
+    <article className="rounded-xl border border-slate-200 bg-white p-4 shadow-md transition-colors dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
       <header className="flex flex-wrap items-baseline gap-2">
         <h3 className="font-display text-base font-semibold text-slate-900 dark:text-slate-100">{view.title}</h3>
         <Badge tone="mono" size="xs">
@@ -183,7 +183,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
           <button
             type="button"
             onClick={() => setExpanded(true)}
-            className="ml-auto inline-flex items-center gap-1 rounded-md border border-slate-300 bg-white px-2.5 py-1 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-200 dark:hover:bg-slate-700"
+            className="ml-auto inline-flex items-center gap-1 rounded border border-slate-300 bg-white px-2.5 py-1 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-200 dark:hover:bg-slate-700"
             aria-expanded={false}
           >
             Show details
@@ -363,20 +363,20 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
             // belt-and-suspenders.
             download={`${view.bundleId}.stix.json`}
             rel="noopener"
-            className="inline-flex items-center rounded-md border border-slate-300 bg-white px-2.5 py-1 font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-200 dark:hover:bg-slate-700"
+            className="inline-flex items-center rounded border border-slate-300 bg-white px-2.5 py-1 font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-200 dark:hover:bg-slate-700"
           >
             Download STIX 2.1
           </a>
           <a
             href={`/dfir/stix-builder/b/${encodeURIComponent(view.bundleId)}`}
-            className="inline-flex items-center rounded-md border border-slate-300 bg-white px-2.5 py-1 font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-200 dark:hover:bg-slate-700"
+            className="inline-flex items-center rounded border border-slate-300 bg-white px-2.5 py-1 font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-200 dark:hover:bg-slate-700"
           >
             Open in STIX Builder
           </a>
           <button
             type="button"
             onClick={() => setExpanded(false)}
-            className="inline-flex items-center rounded-md border border-slate-300 bg-white px-2.5 py-1 font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-200 dark:hover:bg-slate-700"
+            className="inline-flex items-center rounded border border-slate-300 bg-white px-2.5 py-1 font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-200 dark:hover:bg-slate-700"
             aria-expanded={true}
           >
             Hide details
@@ -482,7 +482,7 @@ export function IntelCard(props: IntelCardProps): JSX.Element {
 
 function CardSkeleton(): JSX.Element {
   return (
-    <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
+    <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-md dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
       <div className="h-4 w-3/4 animate-pulse rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))]" />
       <div className="mt-2 h-3 w-1/3 animate-pulse rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))]" />
       <div className="mt-4 space-y-2">

@@ -215,7 +215,7 @@ function parseDexHeader(
   for (let i = 0; i < 4; i++) {
     if (data[i] !== DEX_MAGIC[i]) return null;
   }
-  const version = String.fromCharCode(data[4], data[5], data[6], data[7]);
+  const version = String.fromCharCode(data[4]!, data[5]!, data[6]!, data[7]!);
   const classDefsSize = readU32(data, 100);
   const methodIdsSize = readU32(data, 88);
   const fieldIdsSize = readU32(data, 84);

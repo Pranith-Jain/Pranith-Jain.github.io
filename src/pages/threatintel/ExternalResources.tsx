@@ -247,7 +247,7 @@ export default function ExternalResources(): JSX.Element {
       )}
 
       {/* Research discovery + featured toggle */}
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-center gap-2">
           <button
             type="button"
@@ -314,7 +314,7 @@ export default function ExternalResources(): JSX.Element {
       </section>
 
       {/* Search */}
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="relative">
           <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
           <input
@@ -329,7 +329,7 @@ export default function ExternalResources(): JSX.Element {
       </section>
 
       {/* Kind pills */}
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-center gap-1.5">
           <span className="text-mini font-mono text-slate-500 mr-1">kind:</span>
           {ALL_KINDS.map((k) => {
@@ -356,7 +356,7 @@ export default function ExternalResources(): JSX.Element {
       </section>
 
       {/* Tag pills */}
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-center gap-1.5">
           <span className="text-mini font-mono text-slate-500 mr-1">tag:</span>
           {ALL_TAGS.map((t) => {
@@ -394,7 +394,7 @@ export default function ExternalResources(): JSX.Element {
       {dynamicError && (
         <div
           role="status"
-          className="mb-4 rounded-lg border border-amber-500/40 bg-amber-50 dark:bg-amber-950/30 px-3 py-2 font-mono text-mini text-amber-700 dark:text-amber-300"
+          className="mb-4 rounded-xl border border-amber-500/40 bg-amber-50 dark:bg-amber-950/30 px-3 py-2 font-mono text-mini text-amber-700 dark:text-amber-300"
         >
           Community-contributed entries couldn't be loaded ({dynamicError}). Showing curated list only.{' '}
           <button
@@ -411,7 +411,7 @@ export default function ExternalResources(): JSX.Element {
         {filtered.map((r) => (
           <li
             key={r.id}
-            className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
+            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
           >
             <div className="flex items-baseline justify-between gap-2 mb-1">
               <a
@@ -539,7 +539,7 @@ export default function ExternalResources(): JSX.Element {
             onChange={(e) => setTokenDraft(e.target.value)}
             placeholder="admin token"
             aria-label="Admin token"
-            className="w-full px-3 py-2 rounded-md border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono focus:outline-none focus:border-brand-500"
+            className="w-full px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono focus:outline-none focus:border-brand-500"
           />
           <div className="flex justify-end gap-2">
             <button
@@ -552,7 +552,7 @@ export default function ExternalResources(): JSX.Element {
             <button
               type="submit"
               disabled={!tokenDraft.trim()}
-              className="px-3 py-1.5 rounded-md bg-brand-600 text-white text-tool font-semibold hover:bg-brand-500 disabled:opacity-40"
+              className="px-3 py-1.5 rounded bg-brand-600 text-white text-tool font-semibold hover:bg-brand-500 disabled:opacity-40"
             >
               Sign in
             </button>
@@ -646,7 +646,7 @@ function AddResourceCard({
   }
 
   return (
-    <section className="mb-6 rounded-lg border border-brand-500/40 bg-brand-500/5 p-4">
+    <section className="mb-6 rounded-xl border border-brand-500/40 bg-brand-500/5 p-4">
       <form onSubmit={submit} className="space-y-3">
         <div className="grid sm:grid-cols-[1fr_140px] gap-3">
           <label className="block">

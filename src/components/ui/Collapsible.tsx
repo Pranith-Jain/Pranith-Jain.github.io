@@ -79,7 +79,7 @@ export interface AccordionProps {
 }
 
 export function Accordion({ items, allowMultiple = false, className = '' }: AccordionProps) {
-  const [openSet, setOpenSet] = useState<Set<string>>(() => (items.length > 0 ? new Set([items[0].id]) : new Set()));
+  const [openSet, setOpenSet] = useState<Set<string>>(() => (items.length > 0 ? new Set([items[0]!.id]) : new Set()));
 
   function toggle(id: string) {
     setOpenSet((prev) => {

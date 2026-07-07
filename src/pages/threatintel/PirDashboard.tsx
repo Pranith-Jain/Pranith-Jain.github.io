@@ -410,7 +410,7 @@ export default function PirDashboard(): JSX.Element {
             resetForm();
             setShowCreateForm(!showCreateForm);
           }}
-          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 transition-colors shrink-0"
+          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 transition-colors shrink-0"
         >
           {showCreateForm ? <X size={14} /> : <Plus size={14} />}
           {showCreateForm ? 'Cancel' : 'New PIR'}
@@ -579,7 +579,7 @@ export default function PirDashboard(): JSX.Element {
             <button
               type="submit"
               disabled={saving}
-              className="text-xs font-mono px-4 py-2 rounded-lg bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 transition-colors"
+              className="text-xs font-mono px-4 py-2 rounded-xl bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 transition-colors"
             >
               {saving ? 'Saving…' : editingId ? 'Update PIR' : 'Create PIR'}
             </button>
@@ -587,7 +587,7 @@ export default function PirDashboard(): JSX.Element {
               <button
                 type="button"
                 onClick={resetForm}
-                className="text-xs font-mono px-4 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-slate-400 transition-colors"
+                className="text-xs font-mono px-4 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-slate-400 transition-colors"
               >
                 Cancel
               </button>
@@ -651,7 +651,7 @@ export default function PirDashboard(): JSX.Element {
           <button
             type="button"
             onClick={() => setShowRouting(!showRouting)}
-            className="inline-flex items-center gap-2 text-xs font-mono px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-mono px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 transition-colors"
           >
             <Radio size={12} /> Collection Routing ({routing.length} routes)
             {showRouting ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
@@ -814,7 +814,7 @@ export default function PirDashboard(): JSX.Element {
         {actionError && (
           <div
             role="alert"
-            className="mb-4 flex items-center justify-between gap-3 rounded-md border border-rose-300 dark:border-rose-700 bg-rose-50 dark:bg-rose-950/30 px-3 py-2 text-tool text-rose-700 dark:text-rose-300"
+            className="mb-4 flex items-center justify-between gap-3 rounded border border-rose-300 dark:border-rose-700 bg-rose-50 dark:bg-rose-950/30 px-3 py-2 text-tool text-rose-700 dark:text-rose-300"
           >
             <span>{actionError}</span>
             <button
@@ -1069,7 +1069,7 @@ export default function PirDashboard(): JSX.Element {
                 );
               })}
               {filteredPirs.length === 0 && (
-                <div className="rounded-lg border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-tool text-slate-500 font-mono">
+                <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-tool text-slate-500 font-mono">
                   No PIRs match the current filters. Try adjusting your search or filter criteria.
                 </div>
               )}

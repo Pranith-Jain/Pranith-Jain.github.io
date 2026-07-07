@@ -94,18 +94,18 @@ export default function TelegramSettings(): JSX.Element {
             value={handle}
             onChange={(e) => setHandle(e.target.value)}
             placeholder="handle (e.g. IntCyberDigest)"
-            className="flex-1 min-w-[180px] px-3 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
+            className="flex-1 min-w-[180px] px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
           />
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="display name (optional)"
-            className="flex-1 min-w-[140px] px-3 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
+            className="flex-1 min-w-[140px] px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
           />
           <button
             type="submit"
             disabled={adding || !handle.trim()}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-brand-600 text-white text-sm font-mono hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-brand-600 text-white text-sm font-mono hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {adding ? <Loader2 size={14} className="animate-spin" /> : <Plus size={14} />}
             Add
@@ -137,7 +137,7 @@ export default function TelegramSettings(): JSX.Element {
       )}
 
       {error && (
-        <div className="rounded-lg border border-rose-500/40 bg-rose-500/10 p-4 font-mono text-sm text-rose-700 dark:text-rose-300">
+        <div className="rounded-xl border border-rose-500/40 bg-rose-500/10 p-4 font-mono text-sm text-rose-700 dark:text-rose-300">
           {error}
         </div>
       )}
@@ -151,7 +151,7 @@ export default function TelegramSettings(): JSX.Element {
           {channels.map((ch) => (
             <li
               key={ch.handle}
-              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 flex items-center justify-between gap-3"
+              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 flex items-center justify-between gap-3"
             >
               <div className="min-w-0">
                 <span className="font-display font-semibold text-sm">{ch.name}</span>

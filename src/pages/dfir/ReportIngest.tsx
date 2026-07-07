@@ -152,7 +152,7 @@ export default function ReportIngest(): JSX.Element {
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') inputRef.current?.click();
         }}
-        className={`relative rounded-lg border-2 border-dashed p-12 text-center cursor-pointer transition-colors mb-8 ${
+        className={`relative rounded-xl border-2 border-dashed p-12 text-center cursor-pointer transition-colors mb-8 ${
           dragOver
             ? 'border-brand-500 bg-brand-500/5'
             : 'border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 hover:border-brand-400 hover:bg-brand-500/5'
@@ -180,7 +180,7 @@ export default function ReportIngest(): JSX.Element {
       {status === 'error' && error && (
         <div
           role="alert"
-          className="rounded-lg border border-rose-500/40 bg-rose-500/5 p-4 font-mono text-sm text-rose-600 dark:text-rose-400"
+          className="rounded-xl border border-rose-500/40 bg-rose-500/5 p-4 font-mono text-sm text-rose-600 dark:text-rose-400"
         >
           <span className="flex items-center gap-2">
             <AlertTriangle size={14} /> {error}
@@ -199,7 +199,7 @@ export default function ReportIngest(): JSX.Element {
 
       {status === 'done' && view && (
         <div className="animate-fade-in-up space-y-6">
-          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-5">
             <div className="flex items-start justify-between gap-4">
               <div>
                 <h2 className="text-xl font-display font-bold">{view.title}</h2>

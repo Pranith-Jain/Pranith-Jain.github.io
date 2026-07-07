@@ -75,7 +75,7 @@ export function FeedDigestPanel({ items, period = 'daily', onClose }: FeedDigest
     <div className="rounded-xl border border-brand-500/30 bg-brand-500/5 animate-fade-in overflow-hidden">
       <div className="flex items-center justify-between px-4 py-3 border-b border-brand-500/10">
         <div className="flex items-center gap-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-500/15">
+          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-brand-500/15">
             <FileText size={16} className="text-brand-400" />
           </div>
           <div>
@@ -96,11 +96,11 @@ export function FeedDigestPanel({ items, period = 'daily', onClose }: FeedDigest
           <button
             onClick={fetchDigest}
             disabled={loading}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-200"
+            className="p-1.5 rounded-xl text-slate-400 hover:text-slate-200"
           >
             <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
           </button>
-          <button onClick={onClose} className="p-1.5 rounded-lg text-slate-400 hover:text-slate-200">
+          <button onClick={onClose} className="p-1.5 rounded-xl text-slate-400 hover:text-slate-200">
             <X size={14} />
           </button>
         </div>
@@ -115,7 +115,7 @@ export function FeedDigestPanel({ items, period = 'daily', onClose }: FeedDigest
         )}
 
         {error && (
-          <div className="rounded-lg bg-rose-500/10 border border-rose-500/20 p-3 text-center">
+          <div className="rounded-xl bg-rose-500/10 border border-rose-500/20 p-3 text-center">
             <p className="text-xs text-rose-400">{error}</p>
           </div>
         )}
@@ -128,7 +128,7 @@ export function FeedDigestPanel({ items, period = 'daily', onClose }: FeedDigest
               <div className="space-y-2">
                 <span className="text-micro font-mono uppercase text-slate-500">Top Stories</span>
                 {digest.top_stories.map((story, i) => (
-                  <div key={i} className="rounded-lg bg-slate-800/50 p-3 space-y-1">
+                  <div key={i} className="rounded-xl bg-slate-800/50 p-3 space-y-1">
                     <div className="flex items-center gap-2">
                       <span
                         className={`text-micro font-mono px-1.5 py-0.5 rounded ${CATEGORY_COLORS[story.category] || 'text-slate-400 bg-slate-500/10'}`}
@@ -148,7 +148,7 @@ export function FeedDigestPanel({ items, period = 'daily', onClose }: FeedDigest
             )}
 
             {digest.iotd_ioc && (
-              <div className="rounded-lg bg-rose-500/5 border border-rose-500/10 p-3">
+              <div className="rounded-xl bg-rose-500/5 border border-rose-500/10 p-3">
                 <span className="text-micro font-mono uppercase text-rose-400 block mb-1">IOC of the Day</span>
                 <code className="text-xs font-mono text-rose-300 break-all">{digest.iotd_ioc}</code>
                 <p className="text-micro text-slate-500 mt-1">{digest.iotd_rationale}</p>

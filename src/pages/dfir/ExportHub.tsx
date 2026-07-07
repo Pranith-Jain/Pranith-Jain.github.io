@@ -31,7 +31,7 @@ export default function ExportHub(): JSX.Element {
     return lines.map((line) => {
       const parts = line.split(',').map((p) => p.trim());
       const value = parts[0];
-      const type = parts[1] ?? detectType(value);
+      const type = parts[1] ?? detectType(parts[0]!);
       return {
         value,
         type,
@@ -113,7 +113,7 @@ export default function ExportHub(): JSX.Element {
                 <button
                   key={f.id}
                   onClick={() => setSelected(f.id)}
-                  className={`text-left p-3 rounded-lg border text-sm ${selected === f.id ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/20' : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]'}`}
+                  className={`text-left p-3 rounded-xl border text-sm ${selected === f.id ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/20' : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]'}`}
                 >
                   <div className="flex items-center gap-2 mb-1">
                     <Icon size={14} /> <span className="font-medium">{f.label}</span>
@@ -128,7 +128,7 @@ export default function ExportHub(): JSX.Element {
             <input
               value={eventName}
               onChange={(e) => setEventName(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-300))] text-sm"
+              className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-300))] text-sm"
             />
           </div>
           <div className="mb-4">
@@ -139,14 +139,14 @@ export default function ExportHub(): JSX.Element {
               value={iocInput}
               onChange={(e) => setIocInput(e.target.value)}
               rows={8}
-              className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-300))] text-sm font-mono text-xs"
+              className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-300))] text-sm font-mono text-xs"
               placeholder={'1.2.3.4\nmalware.com\nabc123def456...,hash-sha256,80'}
             />
           </div>
           <button
             onClick={exportData}
             disabled={loading || !iocInput.trim()}
-            className="w-full px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium disabled:opacity-50 inline-flex items-center justify-center gap-2"
+            className="w-full px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium disabled:opacity-50 inline-flex items-center justify-center gap-2"
           >
             {loading ? <Loader2 size={16} className="animate-spin" /> : <Download size={16} />} Export
           </button>
@@ -171,7 +171,7 @@ export default function ExportHub(): JSX.Element {
               </button>
             )}
           </div>
-          <pre className="p-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-xs font-mono whitespace-pre-wrap break-all min-h-[400px] max-h-[600px] overflow-auto">
+          <pre className="p-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-xs font-mono whitespace-pre-wrap break-all min-h-[400px] max-h-[600px] overflow-auto">
             {result || 'Export output will appear here...'}
           </pre>
         </div>

@@ -147,7 +147,7 @@ export function bundleToGraph(bundle: StixBundle, filter?: Set<string>): { nodes
         position: { x: Math.round(Math.cos(angle) * r), y: Math.round(Math.sin(angle) * r) },
         data: {
           id: obj.id,
-          label: obj.name ?? obj.value ?? obj.id.split('--')[0],
+          label: obj.name ?? obj.value ?? obj.id.split('--')[0]!,
           stixType: classifyType(obj.type),
           raw: obj,
         },

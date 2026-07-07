@@ -280,7 +280,7 @@ export default function Settings(): JSX.Element {
             <button
               type="button"
               onClick={toggleTheme}
-              className="inline-flex items-center gap-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] px-3 py-2 text-sm font-mono text-slate-700 dark:text-slate-300 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+              className="inline-flex items-center gap-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] px-3 py-2 text-sm font-mono text-slate-700 dark:text-slate-300 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
               aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
             >
               {isDark ? <Sun size={16} /> : <Moon size={16} />}
@@ -303,7 +303,7 @@ export default function Settings(): JSX.Element {
                 return (
                   <div
                     key={i.name}
-                    className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 flex items-start gap-3"
+                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 flex items-start gap-3"
                   >
                     <Icon size={16} className="text-slate-500 shrink-0 mt-0.5" />
                     <div className="min-w-0 flex-1">

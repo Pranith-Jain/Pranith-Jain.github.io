@@ -85,7 +85,7 @@ export default function Regscope(): JSX.Element {
               value={keyPath}
               onChange={(e) => setKeyPath(e.target.value)}
               placeholder="HKLM\Software\Microsoft\Windows\CurrentVersion\Run"
-              className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 text-sm text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
+              className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 text-sm text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
             />
 
             <p className="text-micro font-mono text-slate-400 mt-2">
@@ -143,7 +143,7 @@ export default function Regscope(): JSX.Element {
                   <select
                     value={categoryFilter}
                     onChange={(e) => setCategoryFilter(e.target.value)}
-                    className="px-2 py-1 text-xs font-mono bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-slate-700 dark:text-slate-300"
+                    className="px-2 py-1 text-xs font-mono bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-slate-700 dark:text-slate-300"
                   >
                     <option value="all">All Categories</option>
                     {categories.map((c) => (
@@ -155,7 +155,7 @@ export default function Regscope(): JSX.Element {
                   <select
                     value={tacticFilter}
                     onChange={(e) => setTacticFilter(e.target.value)}
-                    className="px-2 py-1 text-xs font-mono bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-slate-700 dark:text-slate-300"
+                    className="px-2 py-1 text-xs font-mono bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-slate-700 dark:text-slate-300"
                   >
                     <option value="all">All Tactics</option>
                     {tactics.map((t) => (
@@ -172,7 +172,7 @@ export default function Regscope(): JSX.Element {
                       key={entry.path}
                       role="button"
                       tabIndex={0}
-                      className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5 hover:border-brand-500/30 cursor-pointer transition-colors"
+                      className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5 hover:border-brand-500/30 cursor-pointer transition-colors"
                       onClick={() => {
                         setKeyPath(entry.path);
                         setResult(entry);
@@ -236,29 +236,29 @@ export default function Regscope(): JSX.Element {
                     <code className="text-xs font-mono text-muted break-all">{result.path}</code>
                   </div>
                   <span
-                    className={`shrink-0 text-micro font-mono font-semibold uppercase tracking-wider px-2 py-1 rounded-md border ${RISK_COLORS[result.risk]}`}
+                    className={`shrink-0 text-micro font-mono font-semibold uppercase tracking-wider px-2 py-1 rounded border ${RISK_COLORS[result.risk]}`}
                   >
                     {result.risk}
                   </span>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3 mb-4">
-                  <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] p-3">
+                  <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-3">
                     <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Category</span>
                     <p className="text-sm font-mono text-slate-700 dark:text-slate-300 mt-1">{result.category}</p>
                   </div>
-                  <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] p-3">
+                  <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-3">
                     <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Tactic</span>
                     <p className="text-sm font-mono text-slate-700 dark:text-slate-300 mt-1">{result.tactic}</p>
                   </div>
                 </div>
 
-                <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] p-3 mb-3">
+                <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-3 mb-3">
                   <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Description</span>
                   <p className="text-xs font-mono text-muted mt-1">{result.description}</p>
                 </div>
 
-                <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] p-3 mb-3">
+                <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-3 mb-3">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="text-micro font-mono uppercase tracking-wider text-slate-400">ATT&CK</span>
                   </div>
@@ -269,7 +269,7 @@ export default function Regscope(): JSX.Element {
                 </div>
 
                 {result.malware.length > 0 && (
-                  <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] p-3">
+                  <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-3">
                     <span className="text-micro font-mono uppercase tracking-wider text-slate-400">
                       Associated Malware
                     </span>

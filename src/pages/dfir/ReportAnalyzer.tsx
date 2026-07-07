@@ -265,7 +265,7 @@ function MindmapNode({ data }: { data: { label: string; kind: MindmapNode['kind'
   const s = NODE_STYLES[data.kind] ?? NODE_STYLES.finding;
   return (
     <div
-      className={`rounded-lg border-2 px-2.5 py-1.5 text-xs font-mono shadow-sm bg-white ${s.light} ${s.dark}`}
+      className={`rounded-xl border-2 px-2.5 py-1.5 text-xs font-mono shadow-md bg-white ${s.light} ${s.dark}`}
       style={{ minWidth: 100, maxWidth: 220 }}
     >
       <Handle type="target" position={Position.Top} style={{ background: s.ring, width: 6, height: 6 }} />
@@ -521,7 +521,7 @@ export default function ReportAnalyzer(): JSX.Element {
       maxWidthClass="max-w-6xl"
     >
       {/* Input card */}
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
         <div className="grid gap-3 md:grid-cols-3">
           <div className="md:col-span-2">
             <label
@@ -593,7 +593,7 @@ export default function ReportAnalyzer(): JSX.Element {
               type="button"
               onClick={run}
               disabled={loading}
-              className="mt-3 w-full inline-flex items-center justify-center gap-2 rounded-lg border border-brand-500 bg-brand-500 text-white px-3 py-2 text-sm font-medium hover:bg-brand-600 transition-colors disabled:opacity-50"
+              className="mt-3 w-full inline-flex items-center justify-center gap-2 rounded-xl border border-brand-500 bg-brand-500 text-white px-3 py-2 text-sm font-medium hover:bg-brand-600 transition-colors disabled:opacity-50"
             >
               {loading ? <RefreshCw className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}
               {loading ? 'Analyzing…' : 'Run analyzer'}
@@ -668,7 +668,7 @@ export default function ReportAnalyzer(): JSX.Element {
 
           {/* Correlation results */}
           {correlations && (
-            <div className="mb-3 rounded-lg border border-amber-200 dark:border-amber-900/60 bg-amber-50/40 dark:bg-amber-950/20 p-3">
+            <div className="mb-3 rounded-xl border border-amber-200 dark:border-amber-900/60 bg-amber-50/40 dark:bg-amber-950/20 p-3">
               <div className="flex items-center gap-2 mb-2">
                 <Network className="h-4 w-4 text-amber-600 dark:text-amber-400" />
                 <span className="text-sm font-semibold text-amber-800 dark:text-amber-200">
@@ -789,7 +789,7 @@ function SummaryTab({ data }: { data: AnalyzerOutput }) {
     return <EmptyState message="Summary branch failed. Check the degraded-branches badge for details." />;
   }
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
       <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
         model <span className="text-slate-700 dark:text-slate-200">{data.summary.model}</span>
       </div>
@@ -816,7 +816,7 @@ function IocsTab({
   }, [iocs, filter]);
   if (iocs.length === 0) return <EmptyState message="No indicators survived allowlist filtering." />;
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
       <div className="flex items-start gap-2">
         <div className="flex-1">
           <FilterInput value={filter} setValue={setFilter} placeholder={`Filter ${iocs.length} IOCs…`} />
@@ -903,7 +903,7 @@ function TtpsTab({ ttp, filter, setFilter }: { ttp: TtpHit[]; filter: string; se
   }, [filtered]);
   if (ttp.length === 0) return <EmptyState message="No MITRE ATT&CK techniques identified." />;
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
       <FilterInput value={filter} setValue={setFilter} placeholder={`Filter ${ttp.length} techniques…`} />
       <div className="space-y-3">
         {grouped.map(([tactic, hits]) => (
@@ -977,7 +977,7 @@ function CvesTab({
 
   if (cves.length === 0) return <EmptyState message="No CVEs mentioned in the report." />;
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
       <FilterInput value={filter} setValue={setFilter} placeholder={`Filter ${cves.length} CVEs…`} />
       <div className="space-y-3">
         {filtered.map((c) => (
@@ -1057,7 +1057,7 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }) {
   if (fiveW.so_what) extraRows.push({ label: 'So What', value: fiveW.so_what });
   if (fiveW.what_next) extraRows.push({ label: 'What Next', value: fiveW.what_next });
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
       <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
         confidence <span className="text-slate-700 dark:text-slate-200">{Math.round(fiveW.confidence * 100)}%</span>
       </div>
@@ -1106,7 +1106,7 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }) {
 function DiamondTab({ diamond }: { diamond: DiamondModel | null }): JSX.Element {
   if (!diamond) {
     return (
-      <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
         <Diamond className="mx-auto mb-2 h-8 w-8 text-slate-400 dark:text-slate-500" />
         No adversary/capability/infrastructure/victim signal could be derived from this report.
       </div>
@@ -1212,7 +1212,7 @@ function DiamondTab({ diamond }: { diamond: DiamondModel | null }): JSX.Element 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
       {facets.map((f) => (
-        <div key={f.pillar} className={`rounded-lg border ${f.tone} p-4 shadow-e1`}>
+        <div key={f.pillar} className={`rounded-xl border ${f.tone} p-4 shadow-e1`}>
           <div className="mb-2 flex items-center gap-2">
             <Diamond className="h-4 w-4 text-slate-600 dark:text-slate-300" />
             <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{f.title}</h3>
@@ -1228,7 +1228,7 @@ function DiamondTab({ diamond }: { diamond: DiamondModel | null }): JSX.Element 
 function AttackFlowTab({ phases }: { phases: AttackFlowPhase[] }): JSX.Element {
   if (phases.length === 0) {
     return (
-      <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
         <GitBranch className="mx-auto mb-2 h-8 w-8 text-slate-400 dark:text-slate-500" />
         No TTP signal to render as a kill chain.
       </div>
@@ -1239,7 +1239,7 @@ function AttackFlowTab({ phases }: { phases: AttackFlowPhase[] }): JSX.Element {
       {phases.map((p) => (
         <div
           key={p.phase}
-          className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] shadow-e1 overflow-hidden"
+          className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] shadow-e1 overflow-hidden"
         >
           <div className="flex items-center gap-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] px-4 py-2">
             <GitBranch className="h-4 w-4 text-brand-600 dark:text-brand-400" />
@@ -1272,7 +1272,7 @@ function MindmapTab({ mindmap }: { mindmap: { nodes: MindmapNode[]; edges: Mindm
   if (mindmap.nodes.length === 0) return <EmptyState message="Mindmap is empty (no entities extracted)." />;
   return (
     <section
-      className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1"
+      className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1"
       style={{ height: 540 }}
     >
       <ReactFlowProvider>
@@ -1307,7 +1307,7 @@ function StixTab({ data }: { data: AnalyzerOutput }) {
   if (!bundle) return <EmptyState message="STIX bundle generation failed." />;
   const downloadHref = `data:application/json;charset=utf-8,${encodeURIComponent(JSON.stringify(bundle, null, 2))}`;
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
       <div className="flex flex-wrap items-center gap-2 mb-3">
         <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
           STIX 2.1 bundle · {bundle.objects.length} objects
@@ -1379,7 +1379,7 @@ function DetectionTab({ detection }: { detection: AnalyzerOutput['detection'] })
       </div>
       {/* SIEM Rules */}
       {detection.siemRules.length > 0 && (
-        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
           <div className="flex items-center gap-2 mb-3">
             <Shield className="h-4 w-4 text-brand-600 dark:text-brand-400" />
             <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">SIEM Detection Rules</h3>
@@ -1421,7 +1421,7 @@ function DetectionTab({ detection }: { detection: AnalyzerOutput['detection'] })
 
       {/* Monitoring Guidance */}
       {detection.monitoringGuidance.length > 0 && (
-        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
           <div className="flex items-center gap-2 mb-3">
             <Network className="h-4 w-4 text-brand-600 dark:text-brand-400" />
             <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Monitoring Guidance</h3>
@@ -1448,7 +1448,7 @@ function DetectionTab({ detection }: { detection: AnalyzerOutput['detection'] })
 
       {/* CLI Commands */}
       {detection.cliCommands.length > 0 && (
-        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
           <div className="flex items-center gap-2 mb-3">
             <Terminal className="h-4 w-4 text-brand-600 dark:text-brand-400" />
             <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">CLI Verification Commands</h3>
@@ -1474,7 +1474,7 @@ function DetectionTab({ detection }: { detection: AnalyzerOutput['detection'] })
 
       {/* Detection Limitations */}
       {detection.detectionLimitations.length > 0 && (
-        <section className="rounded-lg border border-amber-200 dark:border-amber-900/60 bg-amber-50/40 dark:bg-amber-950/20 shadow-e1 p-4">
+        <section className="rounded-xl border border-amber-200 dark:border-amber-900/60 bg-amber-50/40 dark:bg-amber-950/20 shadow-e1 p-4">
           <div className="flex items-center gap-2 mb-2">
             <AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400" />
             <h3 className="text-sm font-semibold text-amber-800 dark:text-amber-200">Detection Limitations</h3>
@@ -1508,7 +1508,7 @@ function ConclusionTab({ conclusion }: { conclusion: AnalyzerOutput['conclusion'
     <div className="space-y-4">
       {/* Risk Assessment */}
       {conclusion.riskAssessment && (
-        <section className="rounded-lg border border-rose-200 dark:border-rose-900/60 bg-rose-50/40 dark:bg-rose-950/20 shadow-e1 p-4">
+        <section className="rounded-xl border border-rose-200 dark:border-rose-900/60 bg-rose-50/40 dark:bg-rose-950/20 shadow-e1 p-4">
           <div className="flex items-center gap-2 mb-2">
             <AlertTriangle className="h-4 w-4 text-rose-600 dark:text-rose-400" />
             <h3 className="text-sm font-semibold text-rose-800 dark:text-rose-200">Risk Assessment</h3>
@@ -1519,7 +1519,7 @@ function ConclusionTab({ conclusion }: { conclusion: AnalyzerOutput['conclusion'
 
       {/* Key Takeaways */}
       {conclusion.keyTakeaways.length > 0 && (
-        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
           <div className="flex items-center gap-2 mb-3">
             <CheckCircle className="h-4 w-4 text-brand-600 dark:text-brand-400" />
             <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Key Takeaways</h3>
@@ -1537,7 +1537,7 @@ function ConclusionTab({ conclusion }: { conclusion: AnalyzerOutput['conclusion'
 
       {/* Recommended Actions */}
       {conclusion.recommendedActions.length > 0 && (
-        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
           <div className="flex items-center gap-2 mb-3">
             <Shield className="h-4 w-4 text-brand-600 dark:text-brand-400" />
             <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Recommended Actions</h3>
@@ -1617,7 +1617,7 @@ function HeatmapTab({ ttp }: { ttp: TtpHit[] }) {
   );
 
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 overflow-x-auto">
+    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 overflow-x-auto">
       {/* Header */}
       <div className="flex flex-wrap items-center gap-3 mb-4">
         <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
@@ -1726,7 +1726,7 @@ function HeatmapTab({ ttp }: { ttp: TtpHit[] }) {
 function SourceTab({ url, data }: { url: string; data: AnalyzerOutput }) {
   const displayText = data.sourceText || '';
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
       <div className="flex flex-wrap items-center gap-2 mb-3 text-xs text-slate-500 dark:text-slate-400">
         <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono">
           {data.textLength.toLocaleString()} chars
@@ -1793,7 +1793,7 @@ function TimelineTab() {
 
   if (loading) {
     return (
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-8 text-center">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-8 text-center">
         <RefreshCw className="h-6 w-6 animate-spin text-slate-400 mx-auto mb-2" />
         <span className="text-sm text-slate-500 dark:text-slate-400">Loading timeline…</span>
       </section>
@@ -1807,7 +1807,7 @@ function TimelineTab() {
   const sharedIocSet = new Set(sharedIocs.map((s) => s.value.toLowerCase()));
 
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
       <div className="flex flex-wrap items-center gap-3 mb-4">
         <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
           Report Timeline
@@ -1824,7 +1824,7 @@ function TimelineTab() {
 
       {/* Shared IOCs summary */}
       {sharedIocs.length > 0 && (
-        <div className="mb-4 p-3 rounded-lg border border-amber-200 dark:border-amber-900/60 bg-amber-50/40 dark:bg-amber-950/20">
+        <div className="mb-4 p-3 rounded-xl border border-amber-200 dark:border-amber-900/60 bg-amber-50/40 dark:bg-amber-950/20">
           <div className="text-xs font-semibold text-amber-800 dark:text-amber-200 mb-2">
             Cross-Report IOCs (appear in multiple reports)
           </div>
@@ -1867,7 +1867,7 @@ function TimelineTab() {
                 />
 
                 {/* Report card */}
-                <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
+                <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
                   <div className="flex flex-wrap items-center gap-2 mb-2">
                     <span className="text-sm font-semibold text-slate-900 dark:text-slate-100">{report.title}</span>
                     <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">
@@ -1931,7 +1931,7 @@ function TimelineTab() {
 
 function EmptyState({ message }: { message: string }) {
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
       {message}
     </section>
   );

@@ -138,7 +138,7 @@ export default function BlocklistsPage(): JSX.Element {
       </div>
 
       {/* Status bar */}
-      <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6 flex items-center justify-between flex-wrap gap-3">
+      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6 flex items-center justify-between flex-wrap gap-3">
         <div className="flex items-center gap-3 text-sm font-mono">
           <Clock size={16} className="text-slate-400" />
           {loading ? (
@@ -174,7 +174,7 @@ export default function BlocklistsPage(): JSX.Element {
           type="button"
           onClick={() => void handleRefresh()}
           disabled={refreshing}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] font-mono text-xs disabled:opacity-50"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] font-mono text-xs disabled:opacity-50"
         >
           <RefreshCw size={12} className={refreshing ? 'animate-spin' : ''} />
           {refreshing ? 'Refreshing…' : 'Refresh now'}
@@ -186,7 +186,7 @@ export default function BlocklistsPage(): JSX.Element {
         {FORMATS.map((fmt) => (
           <div
             key={fmt.key}
-            className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5 flex flex-col"
+            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5 flex flex-col"
           >
             <div className="flex items-center gap-2 mb-3">
               <fmt.icon size={18} className="text-brand-600 dark:text-brand-400" />
@@ -197,14 +197,14 @@ export default function BlocklistsPage(): JSX.Element {
               <button
                 type="button"
                 onClick={() => void downloadFormat(fmt.key, fmt.ext)}
-                className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-400 text-white font-mono text-xs"
+                className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-400 text-white font-mono text-xs"
               >
                 <Download size={12} /> Download
               </button>
               <button
                 type="button"
                 onClick={() => void copyFormat(fmt.key)}
-                className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] font-mono text-xs"
+                className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] font-mono text-xs"
               >
                 {copiedKey === fmt.key ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />}
               </button>
@@ -215,7 +215,7 @@ export default function BlocklistsPage(): JSX.Element {
 
       {/* Preview section */}
       {!loading && !error && (
-        <details className="mt-8 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
+        <details className="mt-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
           <summary className="px-4 py-3 cursor-pointer text-sm font-mono text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400">
             Preview blocklist contents
           </summary>
@@ -228,7 +228,7 @@ export default function BlocklistsPage(): JSX.Element {
       )}
 
       {/* Usage instructions */}
-      <div className="mt-8 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+      <div className="mt-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
         <h3 className="font-display font-semibold text-sm mb-3 text-slate-900 dark:text-slate-100">Usage</h3>
         <div className="space-y-2 text-xs font-mono text-muted">
           <p>

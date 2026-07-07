@@ -120,7 +120,7 @@ export default function ActorTimeline(): JSX.Element {
       onRetry={refetch}
       maxWidthClass="max-w-6xl"
       headerExtra={
-        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 flex items-center justify-between gap-3 flex-wrap">
+        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 flex items-center justify-between gap-3 flex-wrap">
           {data && (
             <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
               {data.groups.length} active groups · snapshot{' '}
@@ -174,7 +174,7 @@ export default function ActorTimeline(): JSX.Element {
                   return (
                     <li
                       key={g.slug}
-                      className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
+                      className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
                     >
                       <div
                         className="grid items-center gap-1"
@@ -195,7 +195,7 @@ export default function ActorTimeline(): JSX.Element {
                         {g.buckets.map((b) => (
                           <div
                             key={b.day}
-                            className={`h-5 rounded-sm ${cellColor(b.count, max)} hover:ring-2 hover:ring-brand-500/40 transition-shadow`}
+                            className={`h-5 rounded ${cellColor(b.count, max)} hover:ring-2 hover:ring-brand-500/40 transition-shadow`}
                             title={`${b.day} · ${b.count} post${b.count === 1 ? '' : 's'}`}
                           />
                         ))}
@@ -286,7 +286,7 @@ export default function ActorTimeline(): JSX.Element {
             <ActorTtpsPanel />
           </div>
 
-          <section className="mt-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-4">
+          <section className="mt-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-4">
             <h3 className="font-display font-semibold text-sm mb-2">How to read this</h3>
             <ul className="text-meta font-mono text-muted space-y-1 list-disc list-inside">
               <li>

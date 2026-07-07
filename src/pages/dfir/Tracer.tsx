@@ -349,7 +349,7 @@ export default function Tracer(): JSX.Element {
 
       <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-[260px_1fr_300px]">
         {/* Control rail */}
-        <div className="space-y-3 rounded-lg border border-slate-700 p-3 text-sm">
+        <div className="space-y-3 rounded-xl border border-slate-700 p-3 text-sm">
           <label className="block">
             <span className="text-slate-400">Chain</span>
             <select
@@ -416,7 +416,7 @@ export default function Tracer(): JSX.Element {
             placeholder="Min amount"
           />
           <button
-            className="flex w-full items-center justify-center gap-2 rounded-lg bg-brand-600 dark:bg-brand-500 p-2 font-mono font-semibold text-white hover:bg-brand-700 dark:hover:bg-brand-400 disabled:opacity-30"
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 dark:bg-brand-500 p-2 font-mono font-semibold text-white hover:bg-brand-700 dark:hover:bg-brand-400 disabled:opacity-30"
             onClick={onSeed}
             disabled={loading || !seed.trim()}
           >
@@ -497,7 +497,7 @@ export default function Tracer(): JSX.Element {
         </div>
 
         {/* Canvas */}
-        <div className="min-h-[560px] rounded-lg border border-slate-700">
+        <div className="min-h-[560px] rounded-xl border border-slate-700">
           {graphData ? (
             <RelationshipGraphCanvas
               graphData={graphData}
@@ -512,7 +512,7 @@ export default function Tracer(): JSX.Element {
         </div>
 
         {/* Detail panel */}
-        <div className="space-y-3 rounded-lg border border-slate-700 p-3 text-sm">
+        <div className="space-y-3 rounded-xl border border-slate-700 p-3 text-sm">
           {selected ? (
             <>
               <div className="break-all font-mono text-xs">{selected.address}</div>
@@ -758,7 +758,7 @@ export default function Tracer(): JSX.Element {
             onChange={(e) => setTraceTitle(e.target.value)}
             placeholder="Trace name"
             aria-label="Trace name"
-            className="w-full px-3 py-2 rounded-md border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono focus:outline-none focus:border-brand-500"
+            className="w-full px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono focus:outline-none focus:border-brand-500"
           />
           <div className="flex justify-end gap-2">
             <button
@@ -771,7 +771,7 @@ export default function Tracer(): JSX.Element {
             <button
               type="submit"
               disabled={!traceTitle.trim()}
-              className="px-3 py-1.5 rounded-md bg-brand-600 text-white text-tool font-semibold hover:bg-brand-500 disabled:opacity-40"
+              className="px-3 py-1.5 rounded bg-brand-600 text-white text-tool font-semibold hover:bg-brand-500 disabled:opacity-40"
             >
               Save
             </button>
@@ -792,7 +792,7 @@ export default function Tracer(): JSX.Element {
               <button
                 type="button"
                 onClick={() => void confirmPin(inv.id)}
-                className="w-full text-left rounded-md border border-slate-200 dark:border-[rgb(var(--border-400))] px-3 py-2 text-sm hover:border-brand-500/50 hover:bg-brand-500/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+                className="w-full text-left rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-3 py-2 text-sm hover:border-brand-500/50 hover:bg-brand-500/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
               >
                 {inv.title}
               </button>

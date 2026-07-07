@@ -109,13 +109,13 @@ export default function OpenDirectory(): JSX.Element {
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             placeholder="https://suspicious-server.com/uploads/"
-            className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-transparent"
           />
         </div>
         <button
           type="submit"
           disabled={loading || !url.trim()}
-          className="px-4 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-400 text-white text-sm font-medium disabled:opacity-50 inline-flex items-center gap-2"
+          className="px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-400 text-white text-sm font-medium disabled:opacity-50 inline-flex items-center gap-2"
         >
           {loading ? <Clock size={14} className="animate-spin" /> : <Search size={14} />}
           {loading ? 'Scanning…' : 'Scan'}
@@ -123,7 +123,7 @@ export default function OpenDirectory(): JSX.Element {
       </form>
 
       {error && (
-        <div className="mb-6 p-3 rounded-lg bg-rose-50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-800/50 text-rose-700 dark:text-rose-300 text-sm font-mono">
+        <div className="mb-6 p-3 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-800/50 text-rose-700 dark:text-rose-300 text-sm font-mono">
           <AlertTriangle size={14} className="inline mr-2" />
           {error}
         </div>
@@ -142,7 +142,7 @@ export default function OpenDirectory(): JSX.Element {
             ].map(({ label, value, icon: Icon }) => (
               <div
                 key={label}
-                className="p-3 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1"
+                className="p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1"
               >
                 <div className="flex items-center gap-1.5 mb-1">
                   <Icon size={12} className="text-slate-400" />
@@ -155,7 +155,7 @@ export default function OpenDirectory(): JSX.Element {
 
           {/* Open Directory Status */}
           <div
-            className={`mb-6 p-3 rounded-lg border ${
+            className={`mb-6 p-3 rounded-xl border ${
               result.isOpen && result.isDirectoryListing
                 ? 'bg-emerald-50 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-800/50 text-emerald-700 dark:text-emerald-300'
                 : result.isOpen
@@ -184,7 +184,7 @@ export default function OpenDirectory(): JSX.Element {
 
           {/* Indicators */}
           {result.indicators.length > 0 && (
-            <div className="mb-6 p-3 rounded-lg border border-rose-200 dark:border-rose-800/50 bg-rose-50 dark:bg-rose-950/20">
+            <div className="mb-6 p-3 rounded-xl border border-rose-200 dark:border-rose-800/50 bg-rose-50 dark:bg-rose-950/20">
               <h3 className="text-xs font-semibold uppercase tracking-wider text-rose-700 dark:text-rose-300 mb-2 flex items-center gap-1.5">
                 <AlertTriangle size={12} /> Risk Indicators
               </h3>
@@ -217,7 +217,7 @@ export default function OpenDirectory(): JSX.Element {
           </div>
 
           {/* File List */}
-          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-xs">
                 <thead className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] sticky top-0">

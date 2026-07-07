@@ -384,7 +384,7 @@ function PipelineView({
   }
   if (error) {
     return (
-      <div className="rounded-lg border border-rose-500/40 bg-rose-500/10 p-4 font-mono text-sm text-rose-700 dark:text-rose-300">
+      <div className="rounded-xl border border-rose-500/40 bg-rose-500/10 p-4 font-mono text-sm text-rose-700 dark:text-rose-300">
         {error}
       </div>
     );
@@ -431,7 +431,7 @@ function PipelineView({
             return (
               <li
                 key={row.id}
-                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
+                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
               >
                 <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
                   <div className="flex items-center gap-2 min-w-0">
@@ -505,7 +505,7 @@ function ConsensusView({
   }
   if (error) {
     return (
-      <div className="rounded-lg border border-rose-500/40 bg-rose-500/10 p-4 font-mono text-sm text-rose-700 dark:text-rose-300">
+      <div className="rounded-xl border border-rose-500/40 bg-rose-500/10 p-4 font-mono text-sm text-rose-700 dark:text-rose-300">
         {error}
       </div>
     );
@@ -527,7 +527,7 @@ function ConsensusView({
       {matches.map((m) => (
         <li
           key={`${m.kind}:${m.ioc.value}`}
-          className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 flex flex-wrap items-center gap-3"
+          className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 flex flex-wrap items-center gap-3"
         >
           <span
             className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${IOC_TYPE_TONE[m.kind === 'ip' ? 'ipv4' : m.kind]} shrink-0`}
@@ -564,7 +564,7 @@ function SourcesView({
   }
   if (error || !correlation) {
     return (
-      <div className="rounded-lg border border-rose-500/40 bg-rose-500/10 p-4 font-mono text-sm text-rose-700 dark:text-rose-300">
+      <div className="rounded-xl border border-rose-500/40 bg-rose-500/10 p-4 font-mono text-sm text-rose-700 dark:text-rose-300">
         {error ?? 'No correlation data.'}
       </div>
     );
@@ -582,7 +582,7 @@ function SourcesView({
         {correlation.sources.map((s) => (
           <li
             key={s.id}
-            className={`rounded-lg border p-3 font-mono text-sm flex items-center justify-between gap-2 ${
+            className={`rounded-xl border p-3 font-mono text-sm flex items-center justify-between gap-2 ${
               s.id === 'telegram-leak'
                 ? 'border-rose-500/50 bg-rose-500/10'
                 : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]'
@@ -604,7 +604,7 @@ function SourcesView({
 
 function TypePill({ label, value, tone }: { label: string; value: number; tone: string }): JSX.Element {
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] p-3">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-3">
       <p className={`text-xs font-mono ${tone}`}>{label}</p>
       <p className="text-2xl font-display font-bold text-slate-900 dark:text-slate-100">{value}</p>
     </div>

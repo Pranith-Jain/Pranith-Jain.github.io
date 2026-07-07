@@ -185,7 +185,7 @@ export default function MostWanted(): JSX.Element {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Filter by name, category, risk, origin, tools, or aliases…"
-          className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
         />
       </div>
 
@@ -205,7 +205,7 @@ export default function MostWanted(): JSX.Element {
                 {actor.name}
               </h3>
               <span
-                className={`shrink-0 text-micro font-mono font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded-md border ${RISK_PILL[actor.risk] ?? ''}`}
+                className={`shrink-0 text-micro font-mono font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded border ${RISK_PILL[actor.risk] ?? ''}`}
               >
                 {actor.risk}
               </span>

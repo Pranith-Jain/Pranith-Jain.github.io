@@ -78,7 +78,7 @@ export function Button({
     // (500 — the spec's button-14 fontWeight). Monospace is only
     // appropriate for terminal-style controls; the rest of the app
     // uses it because the previous Button passed font-mono unconditionally.
-    'inline-flex items-center justify-center gap-2 rounded-md font-sans transition-colors',
+    'inline-flex items-center justify-center gap-2 rounded font-sans transition-colors',
     // Visible keyboard focus ring (brand, with a surface-colored offset gap
     // so it reads on any background in both themes). Must live here: the
     // global :focus-visible outline in index.css is overridden by Tailwind's

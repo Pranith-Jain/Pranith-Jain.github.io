@@ -11,7 +11,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 };
 
 /**
- * Skills grid — minimal editorial. No glass, no rounded-3xl, no
+ * Skills grid — minimal editorial. No glass, no rounded-2xl, no
  * glow. Each cluster is a thin-bordered card with an inline icon
  * and a plain bulleted list; the only colour is the brand accent on the
  * icon and the small list bullet.

@@ -150,12 +150,12 @@ export default function CtMonitor(): JSX.Element {
             onChange={(e) => setNewDomain(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && void addDomain()}
             placeholder="example.com"
-            className="flex-1 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg px-4 py-2.5 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl px-4 py-2.5 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             onClick={addDomain}
             disabled={loading || !newDomain.trim()}
-            className="px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-lg text-sm font-semibold text-white transition-colors flex items-center gap-2"
+            className="px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-white transition-colors flex items-center gap-2"
           >
             <Plus size={14} /> Watch
           </button>
@@ -194,7 +194,7 @@ export default function CtMonitor(): JSX.Element {
                       setSelectedDomain(w.domain);
                     }
                   }}
-                  className={`w-full text-left p-3 rounded-lg border transition-colors cursor-pointer ${selectedDomain === w.domain ? 'border-brand-500/60 bg-brand-500/5' : 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/30'}`}
+                  className={`w-full text-left p-3 rounded-xl border transition-colors cursor-pointer ${selectedDomain === w.domain ? 'border-brand-500/60 bg-brand-500/5' : 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/30'}`}
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-mono">{w.domain}</span>
@@ -226,7 +226,7 @@ export default function CtMonitor(): JSX.Element {
             {selectedDomain && (
               <button
                 onClick={() => fetchCerts(selectedDomain)}
-                className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-slate-400"
+                className="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-slate-400"
               >
                 <RefreshCw size={14} />
               </button>
@@ -275,7 +275,7 @@ function CertCard({ cert, highlight }: { cert: CertInfo; highlight?: boolean }) 
       role="button"
       tabIndex={0}
       aria-expanded={expanded}
-      className={`rounded-lg p-3 cursor-pointer transition-colors ${highlight ? 'border border-rose-300/70 dark:border-rose-800/60 bg-rose-50/60 dark:bg-rose-950/20' : 'border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/30'}`}
+      className={`rounded-xl p-3 cursor-pointer transition-colors ${highlight ? 'border border-rose-300/70 dark:border-rose-800/60 bg-rose-50/60 dark:bg-rose-950/20' : 'border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/30'}`}
       onClick={() => setExpanded(!expanded)}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {

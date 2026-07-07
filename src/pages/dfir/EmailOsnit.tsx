@@ -103,13 +103,13 @@ export default function EmailOsnit() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="user@example.com"
-              className="w-full pl-9 pr-3 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-tool focus:outline-none focus:border-brand-500"
+              className="w-full pl-9 pr-3 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool focus:outline-none focus:border-brand-500"
             />
           </div>
           <button
             type="submit"
             disabled={loading}
-            className="px-5 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-lg hover:bg-brand-700 dark:hover:bg-brand-400 disabled:opacity-50"
+            className="px-5 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-xl hover:bg-brand-700 dark:hover:bg-brand-400 disabled:opacity-50"
           >
             {loading ? <Loader2 size={14} className="animate-spin" /> : 'Resolve'}
           </button>
@@ -117,7 +117,7 @@ export default function EmailOsnit() {
       </form>
 
       {error && (
-        <div className="p-3 rounded-lg border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-300 flex items-center gap-2 font-mono text-sm mb-4">
+        <div className="p-3 rounded-xl border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-300 flex items-center gap-2 font-mono text-sm mb-4">
           <AlertTriangle className="w-4 h-4" /> {error}
         </div>
       )}
@@ -125,7 +125,7 @@ export default function EmailOsnit() {
       {profile && (
         <div className="space-y-4">
           {/* Header + Risk */}
-          <div className="flex items-center gap-4 p-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
+          <div className="flex items-center gap-4 p-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
             {profile.gravatar.avatarUrl ? (
               <img src={profile.gravatar.avatarUrl} alt="" className="w-12 h-12 rounded-full" />
             ) : (
@@ -382,7 +382,7 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
       <button
         onClick={onToggle}
         className="w-full flex items-center justify-between p-3 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-100))] transition-colors"

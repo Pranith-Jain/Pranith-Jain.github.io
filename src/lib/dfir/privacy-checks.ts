@@ -123,7 +123,7 @@ async function getAudioFingerprint(): Promise<string | undefined> {
   // Sum a slice of samples for a compact, stable fingerprint
   let sum = 0;
   const data = buf.getChannelData(0);
-  for (let i = 4500; i < 5000; i++) sum += Math.abs(data[i]);
+  for (let i = 4500; i < 5000; i++) sum += Math.abs(data[i]!);
   return djb2(sum.toString());
 }
 

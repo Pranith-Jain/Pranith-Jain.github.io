@@ -142,13 +142,13 @@ export default function TelegramChannelSearch(): JSX.Element {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="keyword (e.g. ransomware, stealer, APT)"
-          className="flex-1 min-w-[220px] px-3 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
+          className="flex-1 min-w-[220px] px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
           aria-label="Search keyword"
         />
         <button
           type="submit"
           disabled={loading || !input.trim()}
-          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-brand-600 text-white text-sm font-mono hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-brand-600 text-white text-sm font-mono hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
           Search
@@ -156,20 +156,20 @@ export default function TelegramChannelSearch(): JSX.Element {
       </form>
 
       {error && (
-        <div className="mb-4 rounded-lg border border-rose-500/40 bg-rose-500/10 p-3 font-mono text-sm text-rose-700 dark:text-rose-300">
+        <div className="mb-4 rounded-xl border border-rose-500/40 bg-rose-500/10 p-3 font-mono text-sm text-rose-700 dark:text-rose-300">
           {error}
         </div>
       )}
 
       {data && data.stale && (
-        <div className="mb-4 rounded-lg border border-amber-500/40 bg-amber-500/10 p-3 font-mono text-sm text-amber-700 dark:text-amber-300 inline-flex items-center gap-2">
+        <div className="mb-4 rounded-xl border border-amber-500/40 bg-amber-500/10 p-3 font-mono text-sm text-amber-700 dark:text-amber-300 inline-flex items-center gap-2">
           <AlertTriangle size={14} />
           tgstat upstream failed — serving the previous result (re-checked within 5 min).
         </div>
       )}
 
       {data && data.warnings.length > 0 && (
-        <ul className="mb-4 rounded-lg border border-amber-500/30 bg-amber-500/5 p-3 text-xs font-mono text-amber-700 dark:text-amber-300 space-y-1">
+        <ul className="mb-4 rounded-xl border border-amber-500/30 bg-amber-500/5 p-3 text-xs font-mono text-amber-700 dark:text-amber-300 space-y-1">
           {data.warnings.map((w) => (
             <li key={w}>⚠ {w}</li>
           ))}
@@ -185,7 +185,7 @@ export default function TelegramChannelSearch(): JSX.Element {
       )}
 
       {data && data.results.length === 0 && !loading && (
-        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-8 text-center font-mono text-sm text-slate-500">
+        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-8 text-center font-mono text-sm text-slate-500">
           No channels matched <strong>{data.query}</strong>. Try a broader keyword.
         </div>
       )}
@@ -200,7 +200,7 @@ export default function TelegramChannelSearch(): JSX.Element {
           {data.results.map((r) => (
             <div
               key={r.handle}
-              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
+              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
             >
               <div className="flex flex-wrap items-start justify-between gap-3 mb-2">
                 <div className="min-w-0">

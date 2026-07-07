@@ -386,7 +386,7 @@ function checkPermissionRule(rule: string, kind: 'allow' | 'deny' | 'ask', out: 
   // Bash(<dangerous>:*) in allow
   const m = rule.match(/^Bash\((\w+)(?::\*?)?\)/);
   if (m && kind === 'allow') {
-    const head = m[1].toLowerCase();
+    const head = m[1]!.toLowerCase();
     if (DANGEROUS_BASH_HEADS.includes(head)) {
       pushIfNew(out, {
         id: `permission-dangerous-${head}`,
@@ -404,7 +404,7 @@ function checkPermissionRule(rule: string, kind: 'allow' | 'deny' | 'ask', out: 
   if (r && kind === 'allow') {
     const target = r[1];
     if (
-      /\/etc\/|~\/\.ssh|\/\.env|\/\.aws|\/\.config|\/Library\/Keychains/i.test(target) ||
+      /\/etc\/|~\/\.ssh|\/\.env|\/\.aws|\/\.config|\/Library\/Keychains/i.test(target!) ||
       target === '*' ||
       target === '/' ||
       target === '~'

@@ -116,6 +116,10 @@ export interface Env {
    *  one raises the upstream abuse-protection ceiling for `/scan/quick`,
    *  `/report/everything`, and snapshot creation. */
   INTODNS_API_KEY?: string;
+  /** PolySwarm API key (`wrangler secret put POLYSWARM_API_KEY`).
+   *  Optional — the provider degrades to 'unsupported' when unset.
+   *  Free tier available at polyswarm.network/signup. */
+  POLYSWARM_API_KEY?: string;
   /** X (Twitter) auth cookies for the cookie-authenticated firehose at
    *  /api/v1/x-firehose. Set via `wrangler secret put X_AUTH_TOKEN` and
    *  `wrangler secret put X_CT0` (values are the `auth_token` and `ct0`

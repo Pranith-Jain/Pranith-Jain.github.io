@@ -240,7 +240,7 @@ function StackedSeverityBar({ counts, total }: { counts: Record<RecentCve['sever
           return (
             <li key={sev} className="flex items-baseline gap-1.5">
               <span
-                className="inline-block w-2 h-2 rounded-sm shrink-0"
+                className="inline-block w-2 h-2 rounded shrink-0"
                 style={{ backgroundColor: SEVERITY_COLORS[sev] }}
               />
               <span className="text-slate-700 dark:text-slate-300">{sev}</span>
@@ -1066,7 +1066,7 @@ export default function Metrics(): JSX.Element {
       </div>
 
       {/* Headline totals + window toggle + refresh */}
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
         <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-3 text-tool sm:text-meta font-mono w-full sm:w-auto">
           <Stat
             label={`ransomware claims · ${windowDays}d`}
@@ -1126,13 +1126,13 @@ export default function Metrics(): JSX.Element {
       </section>
 
       {state.loading && (
-        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-6 inline-flex items-center gap-2 font-mono text-sm text-slate-500">
+        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-6 inline-flex items-center gap-2 font-mono text-sm text-slate-500">
           <Loader2 size={14} className="animate-spin" /> computing aggregates from upstream feeds…
         </div>
       )}
 
       {state.error && (
-        <div className="rounded-lg border border-rose-500/40 bg-rose-500/5 p-4 font-mono text-sm text-rose-600 dark:text-rose-300 flex items-start justify-between gap-3">
+        <div className="rounded-xl border border-rose-500/40 bg-rose-500/5 p-4 font-mono text-sm text-rose-600 dark:text-rose-300 flex items-start justify-between gap-3">
           <span>Failed to load: {state.error}</span>
           <button
             type="button"
@@ -1445,7 +1445,7 @@ export default function Metrics(): JSX.Element {
 
       {/* Related-surfaces footer. Plain <a> caused full-page reloads —
           use <Link> so router state survives the navigation. */}
-      <section className="mt-10 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+      <section className="mt-10 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
         <h3 className="font-display font-semibold text-sm mb-3">Related surfaces</h3>
         <div className="grid sm:grid-cols-2 gap-2 text-meta font-mono">
           <Link
@@ -1558,7 +1558,7 @@ function ChartCard({
   interpretation?: string;
 }) {
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
       <div className="flex items-baseline justify-between gap-2 mb-1">
         <h3 className="font-display font-semibold text-sm inline-flex items-center gap-2">
           <Icon size={14} className="text-brand-600 dark:text-brand-400" /> {title}

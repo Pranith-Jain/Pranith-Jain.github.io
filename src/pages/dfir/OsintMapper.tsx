@@ -234,7 +234,7 @@ export default function OsintMapper(): JSX.Element {
       ) : (
         <MapPane
           pins={project.pins}
-          selectedPinId={selection?.kind === 'pin' ? selection.id : linkedPinIds.size ? [...linkedPinIds][0] : null}
+          selectedPinId={selection?.kind === 'pin' ? selection.id! : linkedPinIds.size ? [...linkedPinIds][0]! : null}
           onMapClick={handleMapClick}
           onSelectPin={(id) => setSelection({ kind: 'pin', id })}
           onDeletePin={removePin}

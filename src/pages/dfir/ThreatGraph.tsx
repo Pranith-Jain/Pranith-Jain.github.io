@@ -145,7 +145,7 @@ export default function ThreatGraph(): JSX.Element {
             <button
               key={t}
               onClick={() => setSearchType(t)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono border transition-colors ${searchType === t ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400' : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-brand-500/30'}`}
+              className={`px-3 py-1.5 rounded-xl text-xs font-mono border transition-colors ${searchType === t ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400' : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-brand-500/30'}`}
             >
               {TAB_LABEL[t]}
             </button>
@@ -169,7 +169,7 @@ export default function ThreatGraph(): JSX.Element {
               }
             }}
             disabled={ingesting}
-            className="ml-auto px-3 py-1.5 rounded-lg text-xs font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-brand-500/30 transition-colors flex items-center gap-1.5 disabled:opacity-50"
+            className="ml-auto px-3 py-1.5 rounded-xl text-xs font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-brand-500/30 transition-colors flex items-center gap-1.5 disabled:opacity-50"
           >
             {ingesting ? <Loader2 size={12} className="animate-spin" /> : <Database size={12} />}
             {ingesting ? 'Ingesting…' : 'Ingest IOC Sources'}
@@ -191,12 +191,12 @@ export default function ThreatGraph(): JSX.Element {
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && searchNode()}
               placeholder="Enter IP, domain, hash, or URL…"
-              className="flex-1 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg px-4 py-2.5 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="flex-1 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl px-4 py-2.5 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
             <button
               onClick={searchNode}
               disabled={loading || !query.trim()}
-              className="px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-lg text-sm font-semibold text-white transition-colors flex items-center gap-2"
+              className="px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-white transition-colors flex items-center gap-2"
             >
               {loading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />} Search
             </button>
@@ -276,7 +276,7 @@ export default function ThreatGraph(): JSX.Element {
                     {searchResult.neighbors.slice(0, 10).map((n) => (
                       <div
                         key={n.id}
-                        className="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2"
+                        className="flex items-center gap-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2"
                       >
                         <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${TYPE_BADGE[n.type] ?? ''}`}>
                           {n.type}
@@ -334,7 +334,7 @@ export default function ThreatGraph(): JSX.Element {
                   {c.nodes.slice(0, 6).map((n) => (
                     <div
                       key={n.id}
-                      className="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2"
+                      className="flex items-center gap-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2"
                     >
                       <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${TYPE_BADGE[n.type] ?? ''}`}>
                         {n.type}
@@ -343,7 +343,7 @@ export default function ThreatGraph(): JSX.Element {
                     </div>
                   ))}
                   {c.nodes.length > 6 && (
-                    <div className="flex items-center rounded-lg border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] px-3 py-2 text-xs text-slate-400">
+                    <div className="flex items-center rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] px-3 py-2 text-xs text-slate-400">
                       +{c.nodes.length - 6} more
                     </div>
                   )}

@@ -66,7 +66,7 @@ export default function ThreatActorCatalog(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search actors, aliases, malware, targets…"
-            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
         </div>
         <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{filtered.length} actors</span>
@@ -75,7 +75,7 @@ export default function ThreatActorCatalog(): JSX.Element {
       <div className="flex flex-wrap gap-1.5 mb-6">
         <button
           onClick={() => setActiveType(null)}
-          className={`text-xs font-mono px-3 py-1.5 rounded-lg border transition-colors ${
+          className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${
             !activeType
               ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
               : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]'
@@ -87,7 +87,7 @@ export default function ThreatActorCatalog(): JSX.Element {
           <button
             key={t}
             onClick={() => setActiveType(activeType === t ? null : t)}
-            className={`text-xs font-mono px-3 py-1.5 rounded-lg border transition-colors ${
+            className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${
               activeType === t
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
                 : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]'

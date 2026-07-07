@@ -125,14 +125,14 @@ export default function DeepDarkCTI(): JSX.Element {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search name, notes, actor…"
-                className="w-full rounded-lg border border-slate-200 bg-white py-2 pl-9 pr-3 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-100"
+                className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-9 pr-3 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-100"
                 aria-label="Search deepdarkCTI"
               />
             </div>
             <select
               value={cat}
               onChange={(e) => setCat(e.target.value)}
-              className="rounded-lg border border-slate-200 bg-white py-2 px-3 font-mono text-meta dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
+              className="rounded-xl border border-slate-200 bg-white py-2 px-3 font-mono text-meta dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
               aria-label="Category filter"
             >
               <option value="all">All categories ({data.total})</option>
@@ -145,7 +145,7 @@ export default function DeepDarkCTI(): JSX.Element {
             <select
               value={onionOnly}
               onChange={(e) => setOnionOnly(e.target.value as typeof onionOnly)}
-              className="rounded-lg border border-slate-200 bg-white py-2 px-3 font-mono text-meta dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
+              className="rounded-xl border border-slate-200 bg-white py-2 px-3 font-mono text-meta dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
               aria-label="Network filter"
             >
               <option value="all">Onion + clearnet</option>
@@ -187,7 +187,7 @@ export default function DeepDarkCTI(): JSX.Element {
             {filtered.map((e, idx) => (
               <li
                 key={`${e.source_file}:${e.url}:${idx}`}
-                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
+                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
               >
                 <div className="flex items-start justify-between gap-2">
                   <div className="min-w-0">

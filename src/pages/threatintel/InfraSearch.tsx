@@ -139,7 +139,7 @@ export default function InfraSearch(): JSX.Element {
       </div>
 
       {/* Search bar */}
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <form onSubmit={(e) => onSubmit(e)} className="flex gap-2">
           <div className="relative flex-1 min-w-[220px]">
             <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
@@ -148,7 +148,7 @@ export default function InfraSearch(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="e.g. telecom towers in india, power plants near tokyo"
-              className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] font-mono text-sm text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
+              className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] font-mono text-sm text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
               autoComplete="off"
               spellCheck={false}
               aria-label="Infrastructure search query"
@@ -157,7 +157,7 @@ export default function InfraSearch(): JSX.Element {
           <button
             type="submit"
             disabled={!input.trim() || loading}
-            className="px-5 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+            className="px-5 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
           >
             <Search size={16} className="inline mr-2" />
             Search
@@ -201,7 +201,7 @@ export default function InfraSearch(): JSX.Element {
         <div className="space-y-4">
           {/* Stats row */}
           <div className="flex flex-wrap items-center gap-3 font-mono text-sm">
-            <span className="px-2 py-0.5 rounded-lg bg-brand-500/10 text-brand-700 dark:text-brand-300 border border-brand-500/20 font-semibold">
+            <span className="px-2 py-0.5 rounded-xl bg-brand-500/10 text-brand-700 dark:text-brand-300 border border-brand-500/20 font-semibold">
               {result.total} results
             </span>
             {result.parsed.types.length > 0 && (
@@ -226,7 +226,7 @@ export default function InfraSearch(): JSX.Element {
           {/* Map + Results side by side */}
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-4">
             {/* Map */}
-            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
+            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
               <div className="flex items-center justify-between px-4 py-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                 <div className="flex items-center gap-2 text-xs font-mono text-slate-500">
                   <Map size={12} />
@@ -308,7 +308,7 @@ export default function InfraSearch(): JSX.Element {
               )}
 
               {/* Results list */}
-              <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
+              <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
                 <div className="px-4 py-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] flex items-center justify-between">
                   <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
                     {filtered.length} result{filtered.length !== 1 ? 's' : ''}
@@ -353,7 +353,7 @@ export default function InfraSearch(): JSX.Element {
 
       {/* Empty state — global map when no search */}
       {!result && !loading && !error && (
-        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
+        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
           <div className="px-4 py-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] flex items-center gap-2 text-xs font-mono text-slate-500">
             <Globe size={12} />
             Global infrastructure map — search above to populate

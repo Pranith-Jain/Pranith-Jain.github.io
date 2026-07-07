@@ -47,7 +47,7 @@ function variants(domain: string): { typo: string[]; homo: string[]; affix: stri
 
 function Group({ title, items }: { title: string; items: string[] }) {
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3">
       <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-2">
         {title} · {items.length}
       </div>
@@ -94,7 +94,7 @@ export default function BrandImpersonation(): JSX.Element {
         value={input}
         onChange={(e) => setInput(e.target.value)}
         placeholder="brand domain — e.g. example.com"
-        className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2.5 font-mono text-sm focus:border-brand-500 focus:outline-none"
+        className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2.5 font-mono text-sm focus:border-brand-500 focus:outline-none"
       />
 
       {v && (
@@ -108,7 +108,7 @@ export default function BrandImpersonation(): JSX.Element {
       <div className="mt-6">
         <Link
           to={`/threatintel/domain-monitor?domain=${encodeURIComponent(input.trim())}`}
-          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded-lg border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:bg-brand-500/20"
+          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded-xl border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:bg-brand-500/20"
         >
           Check live DNS & blacklists for these variants →
         </Link>

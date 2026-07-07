@@ -109,7 +109,7 @@ function PipelineBar() {
   }
 
   return (
-    <div className="mb-6 rounded-lg border border-slate-300 bg-slate-50/50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.5)] p-4">
+    <div className="mb-6 rounded-xl border border-slate-300 bg-slate-50/50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.5)] p-4">
       <div className="flex flex-wrap items-center gap-2">
         <span className="text-xs font-mono uppercase tracking-wider text-slate-500 mr-2">Pipeline</span>
         {STAGES.map((s) => (
@@ -223,7 +223,7 @@ export default function AdminApp() {
       </nav>
 
       {/* Content */}
-      <section className="bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-lg p-4">
+      <section className="bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl p-4">
         {active === 'pending' && <PendingTab />}
         {active === 'approved' && <ApprovedTab />}
         {active === 'schedule' && <ScheduleTab />}

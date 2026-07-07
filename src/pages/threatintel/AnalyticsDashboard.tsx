@@ -327,7 +327,7 @@ export default function AnalyticsDashboard(): JSX.Element {
               return (
                 <div
                   key={grade}
-                  className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3 text-center"
+                  className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3 text-center"
                 >
                   <div className={`text-2xl font-display font-bold ${reliabilityColor(grade)}`}>
                     {grade === 'ungraded' ? '—' : grade}
@@ -473,7 +473,7 @@ export default function AnalyticsDashboard(): JSX.Element {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
             {topMetrics.map((m, i) => (
-              <div key={`${m.source}-${m.key}-${i}`} className={`rounded-lg border p-3 ${STATUS_BG[m.status]}`}>
+              <div key={`${m.source}-${m.key}-${i}`} className={`rounded-xl border p-3 ${STATUS_BG[m.status]}`}>
                 <div className="flex items-center justify-between mb-1">
                   <span className="font-mono text-xs text-slate-500">{m.source}</span>
                   <span className="font-mono text-xs text-slate-400">{m.key}</span>

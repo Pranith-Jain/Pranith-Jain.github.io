@@ -161,7 +161,7 @@ export default function GithubAdvisories(): JSX.Element {
         ].map(({ label, value, cls }) => (
           <div
             key={label}
-            className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 shadow-e1 p-2.5"
+            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 shadow-e1 p-2.5"
           >
             <div className={`text-mini uppercase tracking-wider mb-0.5 ${cls}`}>{label}</div>
             <div className="text-lg font-bold text-slate-900 dark:text-slate-100">{value}</div>
@@ -174,7 +174,7 @@ export default function GithubAdvisories(): JSX.Element {
         <span className="text-xs text-slate-500 mr-1 font-mono">severity:</span>
         {(['critical', 'high', 'medium', 'low'] as const).map((s) => {
           const active = sevFilter.has(s);
-            const colors = SEVERITY_COLORS[s]!;
+          const colors = SEVERITY_COLORS[s]!;
           return (
             <button
               key={s}
@@ -224,7 +224,7 @@ export default function GithubAdvisories(): JSX.Element {
             placeholder="Search package name…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
           />
         </div>
         <button
@@ -232,7 +232,7 @@ export default function GithubAdvisories(): JSX.Element {
             setRefreshKey((k) => k + 1);
             refetch();
           }}
-          className="px-3 py-2 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-600 text-sm flex items-center gap-2"
+          className="px-3 py-2 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-600 text-sm flex items-center gap-2"
         >
           <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} /> Refresh
         </button>

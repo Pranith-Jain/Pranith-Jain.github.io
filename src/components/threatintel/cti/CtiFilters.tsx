@@ -54,7 +54,7 @@ export default function CtiFilters({
   return (
     <div className="flex flex-wrap items-center gap-3">
       {/* Mode tabs */}
-      <div className="inline-flex rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden">
+      <div className="inline-flex rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden">
         {MODES.map((m) => {
           const on = m.id === mode;
           return (
@@ -76,7 +76,7 @@ export default function CtiFilters({
       </div>
 
       {/* Time window pills */}
-      <div className="inline-flex rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden">
+      <div className="inline-flex rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden">
         {WINDOWS.map((w) => {
           const on = w.days === windowDays;
           return (
@@ -105,7 +105,7 @@ export default function CtiFilters({
               key={l.id}
               type="button"
               onClick={() => onLayerToggle(l.id)}
-              className={`inline-flex items-center gap-1 text-micro font-mono px-2 py-1 rounded-lg border transition-colors ${
+              className={`inline-flex items-center gap-1 text-micro font-mono px-2 py-1 rounded-xl border transition-colors ${
                 on
                   ? 'border-brand-500/50 bg-brand-500/10 text-brand-700 dark:text-brand-300'
                   : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-400'

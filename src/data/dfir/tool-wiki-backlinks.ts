@@ -39,7 +39,7 @@ export const TOOL_WIKI_BACKLINKS: Map<string, RelatedWikiArticle[]> = (() => {
       const re = new RegExp(`\\b${escaped}\\b`, 'i');
       if (!re.test(body) && !re.test(article.title) && !re.test(article.description)) continue;
 
-      const href = topic.href.split('?')[0]; // ignore prefill query params
+      const href = topic.href.split('?')[0]!; // ignore prefill query params
       const inner = map.get(href) ?? new Map();
       const entry = inner.get(article.slug) ?? { title: article.title, terms: new Set<string>() };
       entry.terms.add(topic.term);
@@ -64,6 +64,6 @@ export const TOOL_WIKI_BACKLINKS: Map<string, RelatedWikiArticle[]> = (() => {
  * `/dfir/domain` map to the same backlinks.
  */
 export function getRelatedWiki(path: string): RelatedWikiArticle[] {
-  const cleaned = path.split('?')[0];
+  const cleaned = path.split('?')[0]!;
   return TOOL_WIKI_BACKLINKS.get(cleaned) ?? [];
 }

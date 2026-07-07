@@ -62,13 +62,13 @@ export default function PocScanner(): JSX.Element {
               value={cveId}
               onChange={(e) => setCveId(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && scan()}
-              className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm"
+              className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm"
             />
           </div>
           <button
             onClick={scan}
             disabled={!/^CVE-\d{4}-\d{4,7}$/.test(cveId.trim().toUpperCase())}
-            className="px-4 py-2 bg-brand-600 hover:bg-brand-700 disabled:opacity-40 text-white rounded-lg text-sm font-medium flex items-center gap-1.5 transition-colors"
+            className="px-4 py-2 bg-brand-600 hover:bg-brand-700 disabled:opacity-40 text-white rounded-xl text-sm font-medium flex items-center gap-1.5 transition-colors"
           >
             <Search className="h-4 w-4" />
             Scan GitHub

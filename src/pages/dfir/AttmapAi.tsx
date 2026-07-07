@@ -506,7 +506,7 @@ export default function AttmapAi(): JSX.Element {
                   key={t}
                   type="button"
                   onClick={() => setInputType(t)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-colors ${
+                  className={`px-3 py-1.5 rounded-xl text-xs font-mono font-medium transition-colors ${
                     inputType === t
                       ? 'bg-brand-600 text-white'
                       : 'bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.6)]'
@@ -522,7 +522,7 @@ export default function AttmapAi(): JSX.Element {
               onChange={(e) => setInput(e.target.value)}
               placeholder={`Paste ${inputType.toLowerCase()} content here…`}
               rows={6}
-              className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-xs text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+              className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-xs text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
             />
 
             <div className="mt-3">
@@ -534,7 +534,7 @@ export default function AttmapAi(): JSX.Element {
                 value={context}
                 onChange={(e) => setContext(e.target.value)}
                 placeholder="Environment, actor name, or additional context…"
-                className="w-full mt-1 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-xs text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+                className="w-full mt-1 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-xs text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
               />
             </div>
 
@@ -598,7 +598,7 @@ export default function AttmapAi(): JSX.Element {
                   className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5"
                 >
                   <h3
-                    className={`inline-block text-micro font-mono font-semibold uppercase tracking-wider px-2 py-1 rounded-md border mb-3 ${TACTIC_COLORS[tactic] ?? ''}`}
+                    className={`inline-block text-micro font-mono font-semibold uppercase tracking-wider px-2 py-1 rounded border mb-3 ${TACTIC_COLORS[tactic] ?? ''}`}
                   >
                     {tactic}
                   </h3>

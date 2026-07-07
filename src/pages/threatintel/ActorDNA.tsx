@@ -148,7 +148,7 @@ export default function ActorDNA(): JSX.Element {
       <div className="flex gap-2 mb-6">
         <button
           onClick={() => setMatchMode(false)}
-          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+          className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
             !matchMode
               ? 'bg-brand-600 text-white'
               : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
@@ -159,7 +159,7 @@ export default function ActorDNA(): JSX.Element {
         </button>
         <button
           onClick={() => setMatchMode(true)}
-          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+          className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
             matchMode
               ? 'bg-brand-600 text-white'
               : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
@@ -180,12 +180,12 @@ export default function ActorDNA(): JSX.Element {
               value={ttpsInput}
               onChange={(e) => setTtpsInput(e.target.value)}
               placeholder="Enter TTPs (comma-separated): spearphishing, powershell, cobalt_strike"
-              className="flex-1 bg-white dark:bg-[rgb(var(--surface-200))]/40 border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-lg px-4 py-2.5 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-brand-500"
+              className="flex-1 bg-white dark:bg-[rgb(var(--surface-200))]/40 border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-brand-500"
             />
             <button
               onClick={() => void matchTTPs()}
               disabled={loading}
-              className="px-6 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:opacity-40 disabled:cursor-not-allowed rounded-lg text-sm font-medium text-white transition-colors flex items-center gap-2"
+              className="px-6 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:opacity-40 disabled:cursor-not-allowed rounded-xl text-sm font-medium text-white transition-colors flex items-center gap-2"
             >
               {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />}
               Match
@@ -196,7 +196,7 @@ export default function ActorDNA(): JSX.Element {
             <div className="mt-4 space-y-3">
               <h3 className="text-sm font-medium text-slate-400">Matches ({matches.length})</h3>
               {matches.map((match) => (
-                <div key={match.actor_id} className="bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded-lg p-4">
+                <div key={match.actor_id} className="bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded-xl p-4">
                   <div className="flex items-center justify-between mb-2">
                     <span className="font-medium">{match.actor_name}</span>
                     <span className="text-sm px-2 py-0.5 bg-brand-500/20 text-brand-600 dark:text-brand-400 rounded">
@@ -227,7 +227,7 @@ export default function ActorDNA(): JSX.Element {
               <button
                 key={actor.actor_id}
                 onClick={() => fetchActorDNA(actor.actor_id)}
-                className={`w-full text-left p-3 rounded-lg transition-colors ${
+                className={`w-full text-left p-3 rounded-xl transition-colors ${
                   selectedActor?.actor_id === actor.actor_id
                     ? 'bg-brand-500/10 border border-brand-500/40'
                     : 'bg-slate-50 dark:bg-[rgb(var(--input-200))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] border border-transparent'
@@ -461,7 +461,7 @@ function DNACard({ title, items, color }: { title: string; items: string[]; colo
   };
 
   return (
-    <div className={`rounded-lg border p-3 ${colorMap[color] ?? surface}`}>
+    <div className={`rounded-xl border p-3 ${colorMap[color] ?? surface}`}>
       <div className="text-xs font-medium text-slate-400 mb-2">{title}</div>
       <div className="flex flex-wrap gap-1">
         {items.map((item) => (

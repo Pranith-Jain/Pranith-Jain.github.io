@@ -479,7 +479,7 @@ export default function ThreatMap(): JSX.Element {
           <div className="grid lg:grid-cols-[1fr_280px] gap-6">
             {/* Map */}
             <div
-              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] overflow-hidden relative"
+              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] overflow-hidden relative"
               // Reserve the map's intrinsic aspect ratio (900×460 SVG) so the
               // Suspense fallback occupies the same space the loaded
               // ComposableMap will take. Without this the placeholder is
@@ -509,7 +509,7 @@ export default function ThreatMap(): JSX.Element {
                 />
               </Suspense>
               {hovered && !hoveredAgg && (
-                <div className="absolute top-3 left-3 rounded-lg bg-slate-900/80 backdrop-blur px-3 py-1.5 text-xs font-mono text-slate-300">
+                <div className="absolute top-3 left-3 rounded-xl bg-slate-900/80 backdrop-blur px-3 py-1.5 text-xs font-mono text-slate-300">
                   {hovered.name}: no current IOCs
                 </div>
               )}
@@ -568,7 +568,7 @@ export default function ThreatMap(): JSX.Element {
               breakdown + every IP we have for the selected country with
               one-click IOC Checker links. */}
           {selected && (
-            <section className="mt-6 rounded-lg border border-amber-400/40 bg-amber-50/40 dark:border-amber-400/30 dark:bg-amber-500/5 p-4 sm:p-5">
+            <section className="mt-6 rounded-xl border border-amber-400/40 bg-amber-50/40 dark:border-amber-400/30 dark:bg-amber-500/5 p-4 sm:p-5">
               <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
                 <div>
                   <h3 className="font-display font-bold text-lg inline-flex items-center gap-2">
@@ -793,14 +793,14 @@ function SourcesBreakdown({ sourceCounts, iocTypes, totalIps }: SourcesBreakdown
 
   if (rows.length === 0) {
     return (
-      <section className="mt-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <section className="mt-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <p className="text-xs font-mono text-slate-500">No source attribution available in this snapshot.</p>
       </section>
     );
   }
 
   return (
-    <section className="mt-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 sm:p-5">
+    <section className="mt-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 sm:p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-2 mb-3">
         <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
           Sources contributing to this snapshot
@@ -874,7 +874,7 @@ function IocTypeBreakdown({ ipsCount, buckets }: { ipsCount: number; buckets: Io
   const total = rows.reduce((a, b) => a + b.count, 0) || 1;
 
   return (
-    <section className="mt-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 sm:p-5">
+    <section className="mt-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 sm:p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-2 mb-3">
         <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
           IOC type breakdown

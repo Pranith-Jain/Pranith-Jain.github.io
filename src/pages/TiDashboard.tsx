@@ -146,7 +146,7 @@ function severityPill(s: string): string {
 }
 
 const CARD =
-  'rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1';
+  'rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1';
 
 export default function TiDashboard() {
   const [tab, setTab] = useState<Tab>('brief');
@@ -320,7 +320,7 @@ export default function TiDashboard() {
             type="button"
             onClick={handleBuild}
             disabled={building}
-            className="inline-flex items-center gap-2 rounded-lg border border-brand-500 bg-brand-500 text-white px-4 py-2 text-sm font-medium hover:bg-brand-600 transition-colors disabled:opacity-50"
+            className="inline-flex items-center gap-2 rounded-xl border border-brand-500 bg-brand-500 text-white px-4 py-2 text-sm font-medium hover:bg-brand-600 transition-colors disabled:opacity-50"
           >
             {building ? <Loader2 className="h-4 w-4 animate-spin" /> : <Zap className="h-4 w-4" />}
             {building ? 'Building…' : 'Build Report'}
@@ -377,7 +377,7 @@ export default function TiDashboard() {
                   placeholder="Search keywords…"
                   value={keywordSearch}
                   onChange={(e) => setKeywordSearch(e.target.value)}
-                  className="pl-8 pr-3 py-1.5 rounded-lg text-xs bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500 w-48"
+                  className="pl-8 pr-3 py-1.5 rounded-xl text-xs bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500 w-48"
                 />
                 {keywordSearch && (
                   <button
@@ -528,7 +528,7 @@ export default function TiDashboard() {
               {filteredActors.map((actor, idx) => (
                 <div key={idx} className={`${CARD} p-4`}>
                   <div className="flex items-start gap-3 mb-3">
-                    <div className="w-9 h-9 rounded-lg bg-violet-50 dark:bg-violet-950/40 text-violet-600 dark:text-violet-400 flex items-center justify-center shrink-0 border border-violet-200 dark:border-violet-800">
+                    <div className="w-9 h-9 rounded-xl bg-violet-50 dark:bg-violet-950/40 text-violet-600 dark:text-violet-400 flex items-center justify-center shrink-0 border border-violet-200 dark:border-violet-800">
                       <User className="w-4 h-4" />
                     </div>
                     <div>
@@ -608,7 +608,7 @@ export default function TiDashboard() {
             <div>
               {filteredVulns.length === 0 && <EmptyMsg message="No vulnerabilities match the current filters." />}
               {filteredVulns.length > 0 && (
-                <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))]">
+                <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
@@ -681,7 +681,7 @@ export default function TiDashboard() {
               {report.hunting_leads.map((lead, idx) => (
                 <div key={idx} className={`${CARD} p-4`}>
                   <div className="flex items-start gap-3 mb-3">
-                    <div className="w-8 h-8 rounded-lg bg-orange-50 dark:bg-orange-950/40 text-orange-600 dark:text-orange-400 flex items-center justify-center shrink-0 border border-orange-200 dark:border-orange-800">
+                    <div className="w-8 h-8 rounded-xl bg-orange-50 dark:bg-orange-950/40 text-orange-600 dark:text-orange-400 flex items-center justify-center shrink-0 border border-orange-200 dark:border-orange-800">
                       <Crosshair className="w-4 h-4" />
                     </div>
                     <div>
@@ -689,7 +689,7 @@ export default function TiDashboard() {
                       <p className="text-xs text-slate-500 dark:text-slate-400">{lead.context}</p>
                     </div>
                   </div>
-                  <div className="bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-md p-3 mb-3 overflow-x-auto">
+                  <div className="bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded p-3 mb-3 overflow-x-auto">
                     <code className="text-xs font-mono text-slate-700 dark:text-slate-200 whitespace-pre-wrap break-all">
                       {lead.query}
                     </code>
@@ -812,7 +812,7 @@ export default function TiDashboard() {
                     placeholder="Filter sources…"
                     value={sourceSearch}
                     onChange={(e) => setSourceSearch(e.target.value)}
-                    className="w-full pl-8 pr-3 py-1.5 rounded-lg text-xs bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+                    className="w-full pl-8 pr-3 py-1.5 rounded-xl text-xs bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
                   />
                 </div>
               </div>

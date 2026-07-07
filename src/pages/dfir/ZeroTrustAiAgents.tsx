@@ -391,7 +391,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
     return THREATS.filter((t) => t.category === threatFilter);
   }, [threatFilter]);
 
-  const phase = PHASES.find((p) => p.num === selectedPhase) ?? PHASES[0];
+  const phase = PHASES.find((p) => p.num === selectedPhase) ?? PHASES[0]!;
 
   const handlePrint = () => {
     if (typeof window !== 'undefined') window.print();
@@ -459,7 +459,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
               {PRINCIPLES.map((p) => (
                 <article
                   key={p.title}
-                  className="relative pl-3 pr-3 py-3 rounded-md bg-white dark:bg-[rgb(var(--surface-200))] ring-1 ring-slate-200 dark:ring-slate-800 border-l-2 border-brand-500"
+                  className="relative pl-3 pr-3 py-3 rounded bg-white dark:bg-[rgb(var(--surface-200))] ring-1 ring-slate-200 dark:ring-slate-800 border-l-2 border-brand-500"
                 >
                   <h3 className="font-display font-semibold text-slate-900 dark:text-slate-100 text-sm leading-snug">
                     {p.title}
@@ -474,7 +474,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
             </div>
 
             {/* Design test card */}
-            <article className="rounded-md bg-white dark:bg-[rgb(var(--surface-200))] ring-1 ring-amber-500/40 border-l-2 border-amber-500 p-3">
+            <article className="rounded bg-white dark:bg-[rgb(var(--surface-200))] ring-1 ring-amber-500/40 border-l-2 border-amber-500 p-3">
               <h3 className="font-display font-bold text-amber-700 dark:text-amber-300 text-sm leading-snug">
                 THE DESIGN TEST: “Impossible, not tedious”
               </h3>
@@ -531,7 +531,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
               </div>
             </div>
 
-            <div className="rounded-lg ring-1 ring-slate-200 dark:ring-slate-800 bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
+            <div className="rounded-xl ring-1 ring-slate-200 dark:ring-slate-800 bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
               {/* Tier header row */}
               <div
                 className="grid bg-slate-50 dark:bg-[rgb(var(--surface-200))]"
@@ -632,7 +632,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                           id={`matrix-detail-${i}`}
                           className="grid grid-cols-1 lg:grid-cols-2 gap-3 px-3 py-3 bg-slate-50/70 dark:bg-[rgb(var(--surface-300)/0.4)] border-t border-slate-200 dark:border-[rgb(var(--border-400))]"
                         >
-                          <div className="rounded-md bg-white dark:bg-[rgb(var(--surface-200))] ring-1 ring-slate-200 dark:ring-slate-800 p-2.5">
+                          <div className="rounded bg-white dark:bg-[rgb(var(--surface-200))] ring-1 ring-slate-200 dark:ring-slate-800 p-2.5">
                             <div className="flex items-center gap-1.5 text-eyebrow font-mono uppercase tracking-[0.18em] text-brand-700 dark:text-brand-300 mb-1">
                               <Lightbulb size={10} aria-hidden="true" /> what good looks like
                             </div>
@@ -640,7 +640,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                               {row.practice}
                             </p>
                           </div>
-                          <div className="rounded-md bg-white dark:bg-[rgb(var(--surface-200))] ring-1 ring-rose-500/30 p-2.5">
+                          <div className="rounded bg-white dark:bg-[rgb(var(--surface-200))] ring-1 ring-rose-500/30 p-2.5">
                             <div className="flex items-center gap-1.5 text-eyebrow font-mono uppercase tracking-[0.18em] text-rose-600 dark:text-rose-400 mb-1">
                               <AlertTriangle size={10} aria-hidden="true" /> if you skip this
                             </div>
@@ -704,7 +704,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                   <article
                     key={t.num}
                     className={[
-                      'relative rounded-md bg-white dark:bg-[rgb(var(--surface-200))] ring-1 border-l-2 border-rose-500 transition-colors',
+                      'relative rounded bg-white dark:bg-[rgb(var(--surface-200))] ring-1 border-l-2 border-rose-500 transition-colors',
                       isOpen ? 'ring-rose-500/40' : 'ring-slate-200 dark:ring-slate-800',
                     ].join(' ')}
                   >
@@ -768,7 +768,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
               })}
             </div>
 
-            <article className="rounded-md bg-brand-50 dark:bg-brand-500/10 ring-1 ring-brand-500/40 p-3">
+            <article className="rounded bg-brand-50 dark:bg-brand-500/10 ring-1 ring-brand-500/40 p-3">
               <p className="text-[12.5px] font-mono text-brand-800 dark:text-brand-200 leading-relaxed">
                 <span className="font-semibold text-brand-700 dark:text-brand-300">The floor keeps rising:</span> expect
                 today’s Advanced to become tomorrow’s Enterprise — and Enterprise to become Foundation.
@@ -796,7 +796,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                   aria-checked={isSelected}
                   onClick={() => setSelectedPhase(p.num)}
                   className={[
-                    'relative text-left rounded-md p-2.5 border-t-2 border-brand-500 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40',
+                    'relative text-left rounded p-2.5 border-t-2 border-brand-500 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40',
                     isSelected
                       ? 'bg-brand-50 dark:bg-brand-500/10 ring-1 ring-brand-500/50'
                       : 'bg-white dark:bg-[rgb(var(--surface-200))] ring-1 ring-slate-200 dark:ring-slate-800 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.6)]',
@@ -829,7 +829,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
           {/* Phase detail panel */}
           <article
             key={phase.num}
-            className="mt-3 rounded-lg bg-white dark:bg-[rgb(var(--surface-200))] ring-1 ring-brand-500/30 p-4 grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-4 animate-fade-in-up"
+            className="mt-3 rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] ring-1 ring-brand-500/30 p-4 grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-4 animate-fade-in-up"
           >
             <div>
               <div className="flex items-baseline gap-2 mb-2">
@@ -853,7 +853,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                   >
                     <span
                       aria-hidden="true"
-                      className="mt-1.5 inline-block w-1.5 h-1.5 rounded-sm bg-brand-500 shrink-0"
+                      className="mt-1.5 inline-block w-1.5 h-1.5 rounded bg-brand-500 shrink-0"
                     />
                     <span>{o}</span>
                   </li>
@@ -890,7 +890,7 @@ function FilterPill({
       aria-checked={active}
       onClick={onClick}
       className={[
-        'inline-flex items-center text-micro font-mono uppercase tracking-[0.12em] px-2 py-1 rounded-sm ring-1 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40',
+        'inline-flex items-center text-micro font-mono uppercase tracking-[0.12em] px-2 py-1 rounded ring-1 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40',
         active
           ? (activeClass ?? 'bg-brand-50 text-brand-700 ring-brand-500/40 dark:bg-brand-500/15 dark:text-brand-300')
           : 'bg-white text-slate-600 ring-slate-200 hover:text-slate-900 hover:ring-slate-300 dark:bg-[rgb(var(--surface-200))] dark:text-slate-400 dark:ring-slate-800 dark:hover:text-slate-200 dark:hover:ring-slate-700',

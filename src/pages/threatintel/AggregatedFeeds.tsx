@@ -112,13 +112,13 @@ export default function AggregatedFeeds() {
           placeholder="Search feeds..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full pl-10 pr-4 py-2 bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-lg text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-brand-500"
+          className="w-full pl-10 pr-4 py-2 bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-brand-500"
         />
       </div>
       <select
         value={categoryFilter}
         onChange={(e) => setCategoryFilter(e.target.value)}
-        className="px-4 py-2 bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-lg text-slate-900 dark:text-slate-200 focus:outline-none focus:border-brand-500"
+        className="px-4 py-2 bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl text-slate-900 dark:text-slate-200 focus:outline-none focus:border-brand-500"
       >
         <option value="all">All Categories</option>
         {Object.entries(CATEGORY_META).map(([key, meta]) => (
@@ -146,7 +146,7 @@ export default function AggregatedFeeds() {
     >
       <div className="grid gap-4">
         {filteredFeeds?.map((feed) => {
-          const meta = CATEGORY_META[feed.category] ?? CATEGORY_META.collected;
+          const meta = (CATEGORY_META[feed.category] ?? CATEGORY_META.collected)!;
           const Icon = meta.icon;
           return (
             <div
@@ -158,7 +158,7 @@ export default function AggregatedFeeds() {
               }`}
             >
               <div className="flex items-start gap-4">
-                <div className={`p-3 rounded-lg ${meta.color}`}>
+                <div className={`p-3 rounded-xl ${meta.color}`}>
                   <Icon className="w-5 h-5" />
                 </div>
                 <div className="flex-1 min-w-0">

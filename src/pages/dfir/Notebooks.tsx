@@ -237,7 +237,7 @@ export default function Notebooks() {
 
       {/* Error banner */}
       {error && (
-        <div className="mb-4 p-3 rounded-lg bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300 font-mono text-sm flex items-center justify-between">
+        <div className="mb-4 p-3 rounded-xl bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300 font-mono text-sm flex items-center justify-between">
           <span className="flex items-center gap-2">
             <AlertTriangle size={14} /> {error}
           </span>
@@ -261,7 +261,7 @@ export default function Notebooks() {
           ].map((s) => (
             <div
               key={s.label}
-              className="p-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]"
+              className="p-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]"
             >
               <div className="text-2xl font-bold text-brand-600 dark:text-brand-400">{s.value}</div>
               <div className="text-xs font-mono text-muted flex items-center gap-1.5">
@@ -284,13 +284,13 @@ export default function Notebooks() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search notebooks..."
-                className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
               />
             </div>
             <button
               onClick={() => setShowCreate(true)}
               type="button"
-              className="px-4 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-mono text-sm font-medium transition-colors"
+              className="px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-mono text-sm font-medium transition-colors"
             >
               <Plus size={16} />
             </button>
@@ -336,7 +336,7 @@ export default function Notebooks() {
                     onKeyDown={(e) => {
                       if (e.key === 'Enter' || e.key === ' ') setSelectedNotebook(nb.id);
                     }}
-                    className={`p-4 rounded-lg cursor-pointer transition-all border ${
+                    className={`p-4 rounded-xl cursor-pointer transition-all border ${
                       selectedNotebook === nb.id
                         ? 'border-brand-500 bg-brand-50 dark:bg-brand-500/10 dark:border-brand-500/40'
                         : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-brand-300 dark:hover:border-brand-500/30'
@@ -371,7 +371,7 @@ export default function Notebooks() {
                           e.stopPropagation();
                           deleteNotebook(nb.id);
                         }}
-                        className="p-1.5 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-500/10 text-muted hover:text-rose-500 transition-colors"
+                        className="p-1.5 rounded-xl hover:bg-rose-50 dark:hover:bg-rose-500/10 text-muted hover:text-rose-500 transition-colors"
                       >
                         <Trash2 size={14} />
                       </button>
@@ -397,7 +397,7 @@ export default function Notebooks() {
           ) : (
             <div>
               {/* Notebook header */}
-              <div className="p-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] mb-4">
+              <div className="p-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] mb-4">
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     <h2 className="text-lg font-display font-semibold">{selected.title}</h2>
@@ -426,7 +426,7 @@ export default function Notebooks() {
                   </div>
                   <button
                     onClick={() => setShowAddEntry(true)}
-                    className="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-mono text-xs font-medium transition-colors whitespace-nowrap"
+                    className="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-mono text-xs font-medium transition-colors whitespace-nowrap"
                   >
                     <Plus size={14} className="inline mr-1" />
                     Add Entry
@@ -436,7 +436,7 @@ export default function Notebooks() {
 
               {/* Add entry form */}
               {showAddEntry && (
-                <div className="p-4 rounded-lg border border-brand-200 dark:border-brand-500/30 bg-brand-50/50 dark:bg-brand-500/5 mb-4">
+                <div className="p-4 rounded-xl border border-brand-200 dark:border-brand-500/30 bg-brand-50/50 dark:bg-brand-500/5 mb-4">
                   <div className="flex items-center gap-2 mb-3">
                     <span className="text-sm font-mono font-medium">New Entry</span>
                     <div className="flex gap-1 flex-wrap">
@@ -472,7 +472,7 @@ export default function Notebooks() {
                             : 'Write your note...'
                     }
                     rows={5}
-                    className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 resize-y"
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 resize-y"
                   />
                   <div className="flex justify-end gap-2 mt-3">
                     <button
@@ -480,14 +480,14 @@ export default function Notebooks() {
                         setShowAddEntry(false);
                         setEntryContent('');
                       }}
-                      className="px-4 py-2 rounded-lg text-sm font-mono text-muted hover:text-slate-900 dark:hover:text-slate-100 transition-colors"
+                      className="px-4 py-2 rounded-xl text-sm font-mono text-muted hover:text-slate-900 dark:hover:text-slate-100 transition-colors"
                     >
                       Cancel
                     </button>
                     <button
                       onClick={addEntry}
                       disabled={addingEntry || !entryContent.trim()}
-                      className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-mono text-xs font-medium transition-colors disabled:opacity-50"
+                      className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-mono text-xs font-medium transition-colors disabled:opacity-50"
                     >
                       {addingEntry ? <Loader2 size={14} className="animate-spin" /> : <Plus size={14} />}
                       Add
@@ -513,7 +513,7 @@ export default function Notebooks() {
                     return (
                       <div
                         key={entry.id}
-                        className={`p-4 rounded-lg border ${
+                        className={`p-4 rounded-xl border ${
                           entry.pinned
                             ? 'border-brand-200 dark:border-brand-500/30 bg-brand-50/50 dark:bg-brand-500/5'
                             : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]'
@@ -530,7 +530,7 @@ export default function Notebooks() {
                           </div>
                           <button
                             onClick={() => deleteEntry(entry.id)}
-                            className="p-1.5 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-500/10 text-muted hover:text-rose-500 transition-colors"
+                            className="p-1.5 rounded-xl hover:bg-rose-50 dark:hover:bg-rose-500/10 text-muted hover:text-rose-500 transition-colors"
                           >
                             <Trash2 size={12} />
                           </button>
@@ -582,7 +582,7 @@ export default function Notebooks() {
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
                   placeholder="e.g. Phishing Campaign — example.com"
-                  className="w-full px-4 py-2.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
                 />
               </div>
               <div>
@@ -595,7 +595,7 @@ export default function Notebooks() {
                   onChange={(e) => setNewDesc(e.target.value)}
                   placeholder="Brief summary of the investigation..."
                   rows={2}
-                  className="w-full px-4 py-2.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 resize-none"
+                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 resize-none"
                 />
               </div>
               <div>
@@ -624,14 +624,14 @@ export default function Notebooks() {
                   setNewTitle('');
                   setNewDesc('');
                 }}
-                className="px-4 py-2 rounded-lg text-sm font-mono text-muted hover:text-slate-900 dark:hover:text-slate-100 transition-colors"
+                className="px-4 py-2 rounded-xl text-sm font-mono text-muted hover:text-slate-900 dark:hover:text-slate-100 transition-colors"
               >
                 Cancel
               </button>
               <button
                 onClick={createNotebook}
                 disabled={creating || !newTitle.trim()}
-                className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-mono text-sm font-medium transition-colors disabled:opacity-50"
+                className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-mono text-sm font-medium transition-colors disabled:opacity-50"
               >
                 {creating ? <Loader2 size={16} className="animate-spin" /> : <Plus size={16} />}
                 Create

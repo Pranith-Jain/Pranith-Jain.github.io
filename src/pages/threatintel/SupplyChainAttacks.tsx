@@ -188,7 +188,7 @@ export default function SupplyChainAttacks(): JSX.Element {
           return (
             <div
               key={inc.id}
-              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3"
+              className="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3"
             >
               <div className="flex items-start justify-between gap-2">
                 <h3 className="font-semibold text-sm text-slate-900 dark:text-slate-100 leading-snug">

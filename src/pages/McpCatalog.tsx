@@ -280,7 +280,7 @@ export default function McpCatalogPage(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder={`Search ${manifest?.toolCount ?? ''} tools...`}
-              className="w-full rounded-md border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] py-2 pl-9 pr-3 text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500/30"
+              className="w-full rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] py-2 pl-9 pr-3 text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500/30"
             />
             {query && (
               <button

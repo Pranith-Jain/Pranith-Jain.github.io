@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Fingerprint, Search } from 'lucide-react';
-import { DataPageLayout } from '../../components/DataPageLayout';
+import { DataState } from '../../components/DataState';
 
 interface UsernameMatch {
   username: string;
@@ -124,7 +124,7 @@ export default function ActorUsernames(): JSX.Element {
 
       <form
         onSubmit={submit}
-        className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6"
+        className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6"
       >
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
@@ -179,7 +179,7 @@ export default function ActorUsernames(): JSX.Element {
       )}
 
       {submitted.trim().length < 2 ? (
-        <div className="rounded-lg border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm font-mono text-slate-500">
+        <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm font-mono text-slate-500">
           Enter at least 2 characters and hit search.
         </div>
       ) : (
@@ -195,7 +195,7 @@ export default function ActorUsernames(): JSX.Element {
             {data?.results.map((m) => (
               <li
                 key={m.username}
-                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
+                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
               >
                 <div className="flex items-baseline justify-between gap-2 mb-2 flex-wrap">
                   <span className="font-mono font-semibold text-sm text-slate-900 dark:text-slate-100 break-all">

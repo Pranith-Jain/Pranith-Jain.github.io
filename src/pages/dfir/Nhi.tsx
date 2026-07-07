@@ -234,7 +234,7 @@ export default function Nhi(): JSX.Element {
                       return next;
                     });
                   }}
-                  className="w-full flex items-center gap-3 text-left rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 hover:border-brand-500/40 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.6)] px-4 py-3 transition-colors"
+                  className="w-full flex items-center gap-3 text-left rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 hover:border-brand-500/40 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.6)] px-4 py-3 transition-colors"
                   aria-expanded={expanded}
                 >
                   <span className="flex-none w-12 font-mono text-mini text-brand-600 dark:text-brand-400 font-bold">
@@ -257,7 +257,7 @@ export default function Nhi(): JSX.Element {
                 </button>
                 {expanded && (
                   <div className="animate-fade-in-up overflow-hidden">
-                    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200)/0.5)] mt-2 p-4 space-y-3">
+                    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200)/0.5)] mt-2 p-4 space-y-3">
                       <p className="text-sm font-mono text-slate-700 dark:text-slate-300 leading-relaxed">
                         {item.summary}
                       </p>
@@ -304,7 +304,7 @@ export default function Nhi(): JSX.Element {
         <>
           {/* Aggregate */}
           {items.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
               <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
                 <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
                   Inventory risk distribution
@@ -357,7 +357,7 @@ export default function Nhi(): JSX.Element {
 
           {/* List */}
           {items.length === 0 ? (
-            <div className="rounded-lg border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm font-mono text-slate-500 dark:text-slate-400">
+            <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm font-mono text-slate-500 dark:text-slate-400">
               No NHIs yet. Click <strong>Add NHI</strong> to start an inventory. Everything stays in your browser.
             </div>
           ) : (
@@ -368,7 +368,7 @@ export default function Nhi(): JSX.Element {
                 return (
                   <li
                     key={e.id}
-                    className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1"
+                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1"
                   >
                     {/* Row header */}
                     <button
@@ -542,7 +542,7 @@ export default function Nhi(): JSX.Element {
         </>
       )}
 
-      <section className="mt-8 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <section className="mt-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           References
         </h2>

@@ -72,7 +72,10 @@ function useAgentSSE(url: string | null): StepEvent[] {
   const [events, setEvents] = useState<StepEvent[]>([]);
 
   useEffect(() => {
-    if (!url) { setEvents([]); return; }
+    if (!url) {
+      setEvents([]);
+      return;
+    }
     setEvents([]);
     let cancelled = false;
     const ctrl = new AbortController();
@@ -98,14 +101,21 @@ function useAgentSSE(url: string | null): StepEvent[] {
             try {
               const ev = JSON.parse(line.slice(6)) as StepEvent;
               if (!cancelled) setEvents((prev) => [...prev, ev]);
-            } catch { /* skip */ }
+            } catch {
+              /* skip */
+            }
           }
         }
-      } catch { /* abort */ }
+      } catch {
+        /* abort */
+      }
     };
 
     void stream();
-    return () => { cancelled = true; ctrl.abort(); };
+    return () => {
+      cancelled = true;
+      ctrl.abort();
+    };
   }, [url]);
 
   return events;
@@ -120,7 +130,9 @@ export default function AgentMesh(): JSX.Element {
   const [running, setRunning] = useState(false);
 
   const events = useAgentSSE(agentId ? `/api/v1/agent/${agentId}/stream` : null);
-  const steps = events.filter((e): e is StepEvent & { step: NonNullable<StepEvent['step']> } => e.type === 'step' && !!e.step);
+  const steps = events.filter(
+    (e): e is StepEvent & { step: NonNullable<StepEvent['step']> } => e.type === 'step' && !!e.step
+  );
   const doneEvent = events.find((e): e is StepEvent => e.type === 'done' || e.type === 'error');
 
   // Build specialist nodes from events
@@ -143,7 +155,7 @@ export default function AgentMesh(): JSX.Element {
         }
         const node = specialistMap.current.get(name)!;
         node.steps++;
-        for (const tc of (e.step.toolCalls ?? [])) {
+        for (const tc of e.step.toolCalls ?? []) {
           if (!node.tools.includes(tc.tool)) node.tools.push(tc.tool);
         }
       }
@@ -164,7 +176,7 @@ export default function AgentMesh(): JSX.Element {
         body: JSON.stringify({ query: query.trim(), maxSteps: 10 }),
       });
       if (!res.ok) throw new Error('failed');
-      const data = await res.json() as { id: string };
+      const data = (await res.json()) as { id: string };
       setAgentId(data.id);
     } catch (e) {
       console.error(e);
@@ -184,12 +196,13 @@ export default function AgentMesh(): JSX.Element {
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-6">
         {/* ── Header ─────────────────────────────────────────────── */}
         <div className="flex flex-col items-center gap-3 text-center">
-          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-500 to-purple-600 shadow-lg shadow-violet-500/20">
+          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-500 to-purple-600 shadow-xl shadow-violet-500/20">
             <Activity className="h-7 w-7 text-white" />
           </div>
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Agent Mesh</h1>
           <p className="max-w-xl text-base text-slate-500 dark:text-slate-400">
-            Live view of the multi-agent orchestrator — each specialist runs its own tools and hands results to the next.
+            Live view of the multi-agent orchestrator — each specialist runs its own tools and hands results to the
+            next.
           </p>
         </div>
 
@@ -229,7 +242,7 @@ export default function AgentMesh(): JSX.Element {
                   return (
                     <div key={spec.name} className="flex items-center gap-1 shrink-0">
                       <div
-                        className={`flex items-center gap-2 rounded-lg border px-3 py-2 text-xs font-mono ${
+                        className={`flex items-center gap-2 rounded-xl border px-3 py-2 text-xs font-mono ${
                           i === specialists.length - 1 && allDone
                             ? 'border-emerald-400 bg-emerald-50 dark:bg-emerald-950/20'
                             : i === specialists.length - 1 && !allDone
@@ -244,9 +257,7 @@ export default function AgentMesh(): JSX.Element {
                         <span className="truncate max-w-[120px]">{spec.name.replace(' Specialist', '')}</span>
                         <span className="text-[10px] text-slate-400">{spec.steps}</span>
                       </div>
-                      {i < specialists.length - 1 && (
-                        <ArrowRightIcon />
-                      )}
+                      {i < specialists.length - 1 && <ArrowRightIcon />}
                     </div>
                   );
                 })}
@@ -260,7 +271,10 @@ export default function AgentMesh(): JSX.Element {
                 const meta = SPECIALIST_ICONS[spec] ?? DEFAULT_ICON;
                 const Icon = meta.icon;
                 return (
-                  <div key={i} className="flex items-start gap-3 rounded-lg border border-slate-100 bg-slate-50/50 p-3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))]">
+                  <div
+                    key={i}
+                    className="flex items-start gap-3 rounded-xl border border-slate-100 bg-slate-50/50 p-3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))]"
+                  >
                     <div className={`mt-0.5 rounded-full bg-gradient-to-br ${meta.color} p-1.5 shrink-0`}>
                       <Icon size={12} className="text-white" />
                     </div>
@@ -306,21 +320,23 @@ export default function AgentMesh(): JSX.Element {
 
             {/* Done/Error */}
             {doneEvent && (
-              <div className={`mt-4 rounded-lg border p-4 text-sm ${
-                doneEvent.type === 'done'
-                  ? 'border-emerald-200 bg-emerald-50 text-emerald-800 dark:border-emerald-800 dark:bg-emerald-950/20 dark:text-emerald-300'
-                  : 'border-rose-200 bg-rose-50 text-rose-800 dark:border-rose-800 dark:bg-rose-950/20 dark:text-rose-300'
-              }`}>
+              <div
+                className={`mt-4 rounded-xl border p-4 text-sm ${
+                  doneEvent.type === 'done'
+                    ? 'border-emerald-200 bg-emerald-50 text-emerald-800 dark:border-emerald-800 dark:bg-emerald-950/20 dark:text-emerald-300'
+                    : 'border-rose-200 bg-rose-50 text-rose-800 dark:border-rose-800 dark:bg-rose-950/20 dark:text-rose-300'
+                }`}
+              >
                 <div className="flex items-center gap-2 font-semibold mb-1">
                   {doneEvent.type === 'done' ? '✓ Investigation complete' : '✗ Investigation failed'}
                 </div>
                 <p className="text-xs opacity-80">
-                  {doneEvent.type === 'done' ? `Report generated. Model: ${doneEvent.modelUsed ?? 'unknown'}` : doneEvent.error}
+                  {doneEvent.type === 'done'
+                    ? `Report generated. Model: ${doneEvent.modelUsed ?? 'unknown'}`
+                    : doneEvent.error}
                 </p>
                 {doneEvent.toolsUsed && (
-                  <p className="text-[10px] mt-1 opacity-60">
-                    Tools used: {doneEvent.toolsUsed.join(', ')}
-                  </p>
+                  <p className="text-[10px] mt-1 opacity-60">Tools used: {doneEvent.toolsUsed.join(', ')}</p>
                 )}
               </div>
             )}
@@ -335,7 +351,10 @@ export default function AgentMesh(): JSX.Element {
               const Icon = meta.icon;
               const active = specialists.some((s) => s.name === name);
               return (
-                <div key={name} className={`flex items-center gap-2 rounded px-2 py-1 ${active ? 'text-slate-700 dark:text-slate-200' : 'text-slate-400 dark:text-slate-500'}`}>
+                <div
+                  key={name}
+                  className={`flex items-center gap-2 rounded px-2 py-1 ${active ? 'text-slate-700 dark:text-slate-200' : 'text-slate-400 dark:text-slate-500'}`}
+                >
                   <div className={`rounded-full bg-gradient-to-br ${meta.color} p-0.5`}>
                     <Icon size={10} className="text-white" />
                   </div>
@@ -353,7 +372,13 @@ export default function AgentMesh(): JSX.Element {
 
 function ArrowRightIcon() {
   return (
-    <svg className="h-4 w-4 shrink-0 text-slate-300 dark:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <svg
+      className="h-4 w-4 shrink-0 text-slate-300 dark:text-slate-600"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth={2}
+    >
       <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
     </svg>
   );

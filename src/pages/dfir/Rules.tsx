@@ -203,7 +203,7 @@ export default function Rules(): JSX.Element {
               {filteredSources.map((s) => (
                 <article
                   key={s.id}
-                  className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 flex flex-col gap-3"
+                  className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 flex flex-col gap-3"
                 >
                   <header className="flex items-start justify-between gap-3">
                     <div>
@@ -281,7 +281,7 @@ export default function Rules(): JSX.Element {
                 {filteredCommits.map((c, i) => (
                   <li
                     key={`${c.source_id}-${i}`}
-                    className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
+                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
                   >
                     <a
                       href={sanitizeUrl(c.link) || undefined}

@@ -82,7 +82,7 @@ function shannonEntropy(s: string): number {
   const len = s.length;
   let h = 0;
   for (const k in freq) {
-    const p = freq[k] / len;
+    const p = freq[k]! / len;
     h -= p * Math.log2(p);
   }
   return h;
@@ -117,7 +117,7 @@ function verhoeff(num: string): boolean {
   let c = 0;
   const reversed = digits.split('').reverse();
   for (let i = 0; i < reversed.length; i++) {
-    c = VERHOEFF_D[c][VERHOEFF_P[i % 8][parseInt(reversed[i], 10)]];
+    c = VERHOEFF_D[c]![VERHOEFF_P[i % 8]![parseInt(reversed[i]!, 10)]!]!;
   }
   return c === 0;
 }
@@ -219,11 +219,11 @@ export const PATTERNS: SensitivePattern[] = [
       const digits = m.replace(/\D/g, '');
       if (digits.length !== 10) return null;
       let sum = 0;
-      for (let i = 0; i < 9; i++) sum += parseInt(digits[i], 10) * (10 - i);
+      for (let i = 0; i < 9; i++) sum += parseInt(digits[i]!, 10) * (10 - i);
       let check = 11 - (sum % 11);
       if (check === 11) check = 0;
       if (check === 10) return null; // invalid by spec
-      return check === parseInt(digits[9], 10) ? 'verified' : null;
+      return check === parseInt(digits[9]!, 10) ? 'verified' : null;
     },
   },
 

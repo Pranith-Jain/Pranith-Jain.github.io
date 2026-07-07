@@ -91,26 +91,29 @@ export function ToolSearchBar(): JSX.Element {
     node?.scrollIntoView({ block: 'nearest' });
   }, [active]);
 
-  const handleKey = useCallback((e: React.KeyboardEvent): void => {
-    if (hits.length === 0) return;
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      setActive((a) => Math.min(hits.length - 1, a + 1));
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      setActive((a) => Math.max(0, a + 1));
-    } else if (e.key === 'Enter') {
-      e.preventDefault();
-      const hit = hits[active];
-      if (hit) navigate(hit.tool.path);
-    } else if (e.key === 'Escape') {
-      setQuery('');
-      inputRef.current?.blur();
-    }
-  }, [hits, active, navigate]);
+  const handleKey = useCallback(
+    (e: React.KeyboardEvent): void => {
+      if (hits.length === 0) return;
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        setActive((a) => Math.min(hits.length - 1, a + 1));
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        setActive((a) => Math.max(0, a + 1));
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        const hit = hits[active];
+        if (hit) navigate(hit.tool.path);
+      } else if (e.key === 'Escape') {
+        setQuery('');
+        inputRef.current?.blur();
+      }
+    },
+    [hits, active, navigate]
+  );
 
   return (
-    <section className="mb-8 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 sm:p-5">
+    <section className="mb-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 sm:p-5">
       <label
         htmlFor="dfir-tool-search"
         className="inline-flex items-center gap-2 text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-2"

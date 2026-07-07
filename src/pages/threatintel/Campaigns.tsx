@@ -122,7 +122,7 @@ export default function Campaigns(): JSX.Element {
           {items.map((it) => (
             <li
               key={it.id}
-              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 hover:border-brand-500/40 transition-colors"
+              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 hover:border-brand-500/40 transition-colors"
             >
               <div className="flex items-start justify-between gap-3 mb-2 flex-wrap">
                 <Link

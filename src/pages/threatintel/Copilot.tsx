@@ -257,7 +257,7 @@ export default function Copilot(): JSX.Element {
 
         {/* Mode + template + TLP */}
         <div className="flex w-full flex-wrap items-center justify-center gap-2">
-          <div className="inline-flex overflow-hidden rounded-lg border border-slate-200 text-xs font-mono dark:border-[rgb(var(--border-400))]">
+          <div className="inline-flex overflow-hidden rounded-xl border border-slate-200 text-xs font-mono dark:border-[rgb(var(--border-400))]">
             <button
               onClick={() => setMode('quick')}
               aria-pressed={mode === 'quick'}
@@ -318,14 +318,14 @@ export default function Copilot(): JSX.Element {
                   ? 'Subject for a full report (group, actor, CVE, or IOC)…'
                   : 'Ask about any CVE, threat actor, ransomware group, IP, or domain…'
               }
-              className="h-14 w-full rounded-xl border border-slate-200 bg-white pl-12 pr-14 text-base text-slate-900 shadow-sm transition-colors placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-white dark:placeholder:text-slate-500 dark:focus:border-brand-400"
+              className="h-14 w-full rounded-xl border border-slate-200 bg-white pl-12 pr-14 text-base text-slate-900 shadow-md transition-colors placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-white dark:placeholder:text-slate-500 dark:focus:border-brand-400"
               disabled={loading || !!progress}
             />
             <button
               onClick={() => submit(query)}
               aria-label={loading || progress ? 'Submitting query' : 'Submit query'}
               disabled={loading || !!progress || !query.trim()}
-              className="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-lg bg-brand-600 text-white transition-all hover:bg-brand-700 disabled:opacity-30 disabled:cursor-not-allowed"
+              className="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-xl bg-brand-600 text-white transition-all hover:bg-brand-700 disabled:opacity-30 disabled:cursor-not-allowed"
             >
               {loading || progress ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
             </button>
@@ -333,7 +333,7 @@ export default function Copilot(): JSX.Element {
           {error && (
             <div
               role="alert"
-              className="flex items-center justify-between gap-3 rounded-lg border border-rose-300 bg-rose-50/50 px-4 py-3 text-sm text-rose-700 dark:border-rose-800 dark:bg-rose-950/30 dark:text-rose-300"
+              className="flex items-center justify-between gap-3 rounded-xl border border-rose-300 bg-rose-50/50 px-4 py-3 text-sm text-rose-700 dark:border-rose-800 dark:bg-rose-950/30 dark:text-rose-300"
             >
               <span className="font-mono">
                 <AlertTriangle size={14} className="mr-1 inline" /> {error}
@@ -362,7 +362,7 @@ export default function Copilot(): JSX.Element {
                     setQuery(ex.query);
                     investigate(ex.query);
                   }}
-                  className="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-200 dark:hover:bg-[rgb(var(--surface-300))]"
+                  className="rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-200 dark:hover:bg-[rgb(var(--surface-300))]"
                 >
                   <span className="text-slate-400">{ex.type}:</span> <span className="font-mono">{ex.label}</span>
                 </button>
@@ -377,7 +377,7 @@ export default function Copilot(): JSX.Element {
             {CAPABILITY_GRID.map(({ icon: Icon, label, desc }) => (
               <div
                 key={label}
-                className="flex flex-col items-center gap-2 rounded-lg border border-slate-100 bg-slate-50/50 p-4 text-center dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-100))]"
+                className="flex flex-col items-center gap-2 rounded-xl border border-slate-100 bg-slate-50/50 p-4 text-center dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-100))]"
               >
                 <Icon className="h-5 w-5 text-brand-500" />
                 <span className="text-sm font-medium">{label}</span>
@@ -395,7 +395,7 @@ export default function Copilot(): JSX.Element {
           <section
             role="status"
             aria-live="polite"
-            className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
+            className="rounded-xl border border-slate-200 bg-white p-5 shadow-md dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
           >
             <div className="mb-2 flex items-center justify-between font-mono text-xs text-slate-500 dark:text-slate-400">
               <span className="inline-flex items-center gap-2">
@@ -428,7 +428,7 @@ export default function Copilot(): JSX.Element {
         {result && !loading && !report && (
           <div className="space-y-6">
             {/* Header */}
-            <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
+            <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-md dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
               <div className="mb-3 flex items-start justify-between gap-4">
                 <div className="flex flex-wrap items-center gap-3">
                   <h2 className="text-lg font-bold">{result.query}</h2>
@@ -486,7 +486,7 @@ export default function Copilot(): JSX.Element {
             </div>
 
             {/* Narrative */}
-            <div className="overflow-hidden rounded-lg border border-slate-200 bg-white dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
+            <div className="overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
               <div className="flex items-center gap-2 border-b border-slate-100 bg-slate-50/80 px-6 py-3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.4)]">
                 <FileText size={15} className="text-brand-600 dark:text-brand-400" />
                 <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">Investigation Report</span>
@@ -515,7 +515,7 @@ export default function Copilot(): JSX.Element {
                 {result.sources.map((s) => (
                   <details
                     key={s.name}
-                    className="rounded-lg border border-slate-200 bg-slate-50 p-3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.3)]"
+                    className="rounded-xl border border-slate-200 bg-slate-50 p-3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.3)]"
                   >
                     <summary className="cursor-pointer text-xs font-medium">
                       {s.name} ({s.items} items)

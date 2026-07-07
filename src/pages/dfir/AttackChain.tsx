@@ -113,7 +113,7 @@ export default function AttackChain(): JSX.Element {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Enter IOCs, one per line…&#10;192.168.1.100&#10;evil-domain.com&#10;a1b2c3d4e5f6…"
-          className="w-full h-28 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg p-3 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y"
+          className="w-full h-28 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl p-3 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y"
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
           <div>
@@ -126,7 +126,7 @@ export default function AttackChain(): JSX.Element {
               value={malware}
               onChange={(e) => setMalware(e.target.value)}
               placeholder="e.g., Cobalt Strike, Emotet"
-              className="w-full bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
           </div>
           <div>
@@ -139,14 +139,14 @@ export default function AttackChain(): JSX.Element {
               value={actors}
               onChange={(e) => setActors(e.target.value)}
               placeholder="e.g., APT28, Lazarus"
-              className="w-full bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
           </div>
         </div>
         <button
           onClick={handleReconstruct}
           disabled={loading || !input.trim()}
-          className="mt-4 px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-lg text-sm font-semibold text-white transition-colors flex items-center gap-2"
+          className="mt-4 px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-white transition-colors flex items-center gap-2"
         >
           {loading ? <Loader2 size={14} className="animate-spin" /> : <Target size={14} />}
           {loading ? 'Analyzing…' : 'Reconstruct Attack Chain'}
@@ -201,7 +201,7 @@ export default function AttackChain(): JSX.Element {
                     {i + 1}
                   </div>
                   <div
-                    className={`flex-1 p-3 rounded-lg border ${t.coverage > 0 ? 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40' : 'border-slate-100 dark:border-[rgb(var(--border-400))]/50 bg-slate-50 dark:bg-[rgb(var(--input-200))]'}`}
+                    className={`flex-1 p-3 rounded-xl border ${t.coverage > 0 ? 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40' : 'border-slate-100 dark:border-[rgb(var(--border-400))]/50 bg-slate-50 dark:bg-[rgb(var(--input-200))]'}`}
                   >
                     <div className="flex items-center justify-between">
                       <span
@@ -287,7 +287,7 @@ export default function AttackChain(): JSX.Element {
                 {result.recommendations.map((rec) => (
                   <div
                     key={rec.action}
-                    className="flex items-center justify-between rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
+                    className="flex items-center justify-between rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
                   >
                     <div>
                       <div className="text-sm font-medium">{rec.action}</div>

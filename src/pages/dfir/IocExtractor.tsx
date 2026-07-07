@@ -253,7 +253,7 @@ export default function IocExtractor(): JSX.Element {
           }}
           onDragOver={(e) => e.preventDefault()}
           onClick={() => fileRef.current?.click()}
-          className="w-full border-2 border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] rounded-lg p-4 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
+          className="w-full border-2 border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl p-4 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
           aria-label="Drop an .eml or text file here, or click to choose"
         >
           <Upload size={20} className="mx-auto mb-1 text-slate-500" />
@@ -298,7 +298,7 @@ export default function IocExtractor(): JSX.Element {
         placeholder="Paste raw email, chat log, threat report, or any blob — refanging is automatic. Try patterns like example[.]com, hxxps://bad[.]site, 1[.]2[.]3[.]4[:]8080, [[.]] nesting, or Cyrillic homographs."
         rows={14}
         aria-label="Text blob to extract IOCs from"
-        className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+        className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
       />
 
       <div className="flex flex-wrap items-center justify-between gap-3 mt-4 mb-4">
@@ -340,7 +340,7 @@ export default function IocExtractor(): JSX.Element {
         <div className="mb-4 flex gap-2">
           <Link
             to={`/dfir/ioc-check?indicator=${encodeURIComponent(results[0]?.values[0] ?? '')}`}
-            className="inline-flex items-center gap-1.5 text-mini font-mono px-3 py-2 rounded-lg border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:bg-brand-500/20"
+            className="inline-flex items-center gap-1.5 text-mini font-mono px-3 py-2 rounded-xl border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:bg-brand-500/20"
           >
             <Crosshair size={11} /> Check first indicator in IOC Checker
           </Link>
@@ -354,7 +354,7 @@ export default function IocExtractor(): JSX.Element {
           return (
             <section
               key={bucket}
-              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5"
+              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5"
             >
               <div className="flex items-center justify-between mb-3">
                 <h3 className="font-display font-semibold text-slate-900 dark:text-slate-100">

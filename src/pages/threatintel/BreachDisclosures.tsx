@@ -133,13 +133,13 @@ export default function BreachDisclosures(): JSX.Element {
         </div>
 
         {newsLoading && (
-          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 inline-flex items-center gap-2 font-mono text-sm text-slate-500">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 inline-flex items-center gap-2 font-mono text-sm text-slate-500">
             <Loader2 size={14} className="animate-spin" /> loading breach-news feeds…
           </div>
         )}
 
         {newsError && (
-          <div className="rounded-lg border border-rose-500/40 bg-rose-500/5 p-3 font-mono text-sm text-rose-600 dark:text-rose-300">
+          <div className="rounded-xl border border-rose-500/40 bg-rose-500/5 p-3 font-mono text-sm text-rose-600 dark:text-rose-300">
             Error loading breach news: {newsError}
           </div>
         )}
@@ -166,7 +166,7 @@ export default function BreachDisclosures(): JSX.Element {
                 .map((item, i) => (
                   <li
                     key={`${item.link}-${i}`}
-                    className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 hover:border-brand-500/40 transition-colors"
+                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 hover:border-brand-500/40 transition-colors"
                   >
                     <a
                       href={sanitizeUrl(item.link) || undefined}

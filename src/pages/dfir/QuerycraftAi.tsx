@@ -208,7 +208,7 @@ export default function QuerycraftAi(): JSX.Element {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Describe what you want to detect in plain language…"
-          className="w-full h-24 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg p-3 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y font-mono"
+          className="w-full h-24 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl p-3 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y font-mono"
         />
         <div className="mt-2 flex flex-wrap gap-1">
           {EXAMPLE_PROMPTS.slice(0, 5).map((ex) => (
@@ -232,7 +232,7 @@ export default function QuerycraftAi(): JSX.Element {
                 setSiem(s.id);
                 setResult(null);
               }}
-              className={`rounded-lg border p-3 text-left transition-colors ${
+              className={`rounded-xl border p-3 text-left transition-colors ${
                 siem === s.id
                   ? 'border-brand-500/60 bg-brand-500/10'
                   : 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/30 bg-white dark:bg-[rgb(var(--surface-200))]/20'
@@ -252,7 +252,7 @@ export default function QuerycraftAi(): JSX.Element {
         <div className="flex gap-2 mt-4">
           <button
             onClick={() => setTrack('detect')}
-            className={`flex-1 px-4 py-2 rounded-lg text-xs font-mono border transition-colors ${
+            className={`flex-1 px-4 py-2 rounded-xl text-xs font-mono border transition-colors ${
               track === 'detect'
                 ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
                 : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-brand-500/30'
@@ -262,7 +262,7 @@ export default function QuerycraftAi(): JSX.Element {
           </button>
           <button
             onClick={() => setTrack('hunt')}
-            className={`flex-1 px-4 py-2 rounded-lg text-xs font-mono border transition-colors ${
+            className={`flex-1 px-4 py-2 rounded-xl text-xs font-mono border transition-colors ${
               track === 'hunt'
                 ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
                 : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-brand-500/30'
@@ -275,7 +275,7 @@ export default function QuerycraftAi(): JSX.Element {
         <button
           onClick={handleGenerate}
           disabled={loading || !description.trim()}
-          className="mt-4 w-full px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-lg text-sm font-semibold text-white transition-colors flex items-center justify-center gap-2"
+          className="mt-4 w-full px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-white transition-colors flex items-center justify-center gap-2"
         >
           {loading ? <Loader2 size={14} className="animate-spin" /> : <Crosshair size={14} />}
           {loading ? 'Generating…' : 'Generate Query'}
@@ -305,7 +305,7 @@ export default function QuerycraftAi(): JSX.Element {
                 <CopyButton value={result.query} />
               </div>
             </div>
-            <pre className="bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded-lg p-4 overflow-x-auto text-xs text-slate-700 dark:text-slate-300 font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] whitespace-pre-wrap max-h-[400px] overflow-y-auto">
+            <pre className="bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded-xl p-4 overflow-x-auto text-xs text-slate-700 dark:text-slate-300 font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] whitespace-pre-wrap max-h-[400px] overflow-y-auto">
               {result.query}
             </pre>
             <p className="mt-3 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{result.description}</p>

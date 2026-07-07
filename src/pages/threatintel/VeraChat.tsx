@@ -1,15 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { sanitizeAiHtml } from '../../lib/sanitize-html';
-import {
-  ArrowLeft,
-  Send,
-  Loader2,
-  AlertTriangle,
-  Search,
-  MessageSquare,
-  FileText,
-  Crosshair,
-} from 'lucide-react';
+import { ArrowLeft, Send, Loader2, AlertTriangle, Search, MessageSquare, FileText, Crosshair } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
 
 // ── Types ───────────────────────────────────────────────────────────────
@@ -139,9 +130,7 @@ export default function VeraChat(): JSX.Element {
   const streamEvents = useVeraSSE(sessionId);
 
   // Process stream events into messages
-  const lastReport = streamEvents
-    .filter((e): e is DoneEvent => e.type === 'done')
-    .pop()?.report;
+  const lastReport = streamEvents.filter((e): e is DoneEvent => e.type === 'done').pop()?.report;
 
   const isLoading = loading || (sessionId != null && !lastReport);
 
@@ -149,7 +138,11 @@ export default function VeraChat(): JSX.Element {
   useEffect(() => {
     if (!lastReport) return;
     setMessages((prev) => {
-      if (prev.length > 0 && prev[prev.length - 1]?.role === 'assistant' && prev[prev.length - 1]?.content === lastReport) {
+      if (
+        prev.length > 0 &&
+        prev[prev.length - 1]?.role === 'assistant' &&
+        prev[prev.length - 1]?.content === lastReport
+      ) {
         return prev; // dedupe
       }
       return [...prev, { role: 'assistant', content: lastReport, mode }];
@@ -205,7 +198,7 @@ export default function VeraChat(): JSX.Element {
     setMode(m);
   };
 
-  const activeMode = MODE_META[mode] ?? MODE_META.ask;
+  const activeMode = (MODE_META[mode] ?? MODE_META.ask)!;
   const ModeIcon = activeMode.icon;
 
   return (
@@ -221,7 +214,7 @@ export default function VeraChat(): JSX.Element {
         {/* ── Header ─────────────────────────────────────────────────── */}
         <div className="flex flex-col items-center gap-3 text-center">
           <div
-            className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${activeMode.color} shadow-lg shadow-${mode === 'ask' ? 'sky' : mode === 'investigate' ? 'violet' : mode === 'draft' ? 'amber' : 'rose'}-500/20`}
+            className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${activeMode.color} shadow-xl shadow-${mode === 'ask' ? 'sky' : mode === 'investigate' ? 'violet' : mode === 'draft' ? 'amber' : 'rose'}-500/20`}
           >
             <ModeIcon className="h-7 w-7 text-white" />
           </div>
@@ -241,7 +234,7 @@ export default function VeraChat(): JSX.Element {
                 key={m.id}
                 onClick={() => handleModeChange(m.id)}
                 aria-pressed={mode === m.id}
-                className={`flex items-center gap-2 rounded-lg border px-3 py-2 text-xs font-mono transition-all ${
+                className={`flex items-center gap-2 rounded-xl border px-3 py-2 text-xs font-mono transition-all ${
                   mode === m.id
                     ? 'border-brand-500 bg-brand-600/10 text-brand-700 dark:text-brand-300'
                     : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-300'
@@ -329,7 +322,7 @@ export default function VeraChat(): JSX.Element {
               <div className="flex justify-center">
                 <div
                   role="alert"
-                  className="flex items-center gap-2 rounded-lg border border-rose-300 bg-rose-50/50 px-4 py-2 text-xs text-rose-700 dark:border-rose-800 dark:bg-rose-950/30 dark:text-rose-300"
+                  className="flex items-center gap-2 rounded-xl border border-rose-300 bg-rose-50/50 px-4 py-2 text-xs text-rose-700 dark:border-rose-800 dark:bg-rose-950/30 dark:text-rose-300"
                 >
                   <AlertTriangle size={12} />
                   {error}
@@ -350,15 +343,23 @@ export default function VeraChat(): JSX.Element {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && submit(query)}
-                placeholder={mode === 'ask' ? 'Ask about any threat…' : mode === 'investigate' ? 'What should I investigate?' : mode === 'draft' ? 'Subject for a brief…' : 'What read should I challenge?'}
+                placeholder={
+                  mode === 'ask'
+                    ? 'Ask about any threat…'
+                    : mode === 'investigate'
+                      ? 'What should I investigate?'
+                      : mode === 'draft'
+                        ? 'Subject for a brief…'
+                        : 'What read should I challenge?'
+                }
                 disabled={isLoading}
-                className="h-10 w-full rounded-lg border border-slate-200 bg-white pl-3 pr-10 text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-white dark:placeholder:text-slate-500"
+                className="h-10 w-full rounded-xl border border-slate-200 bg-white pl-3 pr-10 text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-white dark:placeholder:text-slate-500"
               />
               <button
                 onClick={() => submit(query)}
                 aria-label="Submit"
                 disabled={isLoading || !query.trim()}
-                className="absolute right-1 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-md bg-brand-600 text-white transition-all hover:bg-brand-700 disabled:opacity-30"
+                className="absolute right-1 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded bg-brand-600 text-white transition-all hover:bg-brand-700 disabled:opacity-30"
               >
                 {isLoading ? <Loader2 size={14} className="animate-spin" /> : <Send size={14} />}
               </button>
@@ -399,13 +400,19 @@ function VeraMessageContent({ content }: { content: string }): JSX.Element {
 
 function renderVeraMarkdown(text: string): string {
   let html = text
-    .replace(/```(\w*)\n?([\s\S]*?)```/g, '<pre class="rounded bg-slate-800 text-green-400 p-2 my-2 text-xs overflow-x-auto"><code>$2</code></pre>')
+    .replace(
+      /```(\w*)\n?([\s\S]*?)```/g,
+      '<pre class="rounded bg-slate-800 text-green-400 p-2 my-2 text-xs overflow-x-auto"><code>$2</code></pre>'
+    )
     .replace(/### (.+)/g, '<h3 class="text-sm font-semibold mt-3 mb-1">$1</h3>')
     .replace(/## (.+)/g, '<h2 class="text-base font-bold mt-3 mb-1">$1</h2>')
     .replace(/# (.+)/g, '<h1 class="text-base font-bold mt-3 mb-1">$1</h1>')
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
     .replace(/\*([^*]+)\*/g, '<em>$1</em>')
-    .replace(/`([^`]+)`/g, '<code class="px-1 py-0.5 rounded bg-slate-200 dark:bg-slate-600 text-xs font-mono">$1</code>')
+    .replace(
+      /`([^`]+)`/g,
+      '<code class="px-1 py-0.5 rounded bg-slate-200 dark:bg-slate-600 text-xs font-mono">$1</code>'
+    )
     .replace(/\[(\d+(?:,\d+)*)\]/g, '<sup class="text-brand-600 font-mono text-[10px]">[$1]</sup>')
     .replace(/^- (.+)$/gm, '<li class="ml-3 list-disc text-xs">$1</li>')
     .replace(/^\d+\.\s(.+)$/gm, '<li class="ml-3 list-decimal text-xs">$1</li>')

@@ -400,6 +400,7 @@ function buildProviderEnv(env: Env): ProviderEnv {
     HYBRID_ANALYSIS_API_KEY: env.HYBRID_ANALYSIS_API_KEY ?? '',
     ABUSECH_AUTH_KEY: env.ABUSECH_AUTH_KEY,
     MALSHARE_API_KEY: env.MALSHARE_API_KEY,
+    POLYSWARM_API_KEY: env.POLYSWARM_API_KEY,
   };
 }
 

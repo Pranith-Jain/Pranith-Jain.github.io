@@ -50,7 +50,7 @@ export default function CrossCampaignCorrelation(): JSX.Element {
         <button
           onClick={fetchCorrelations}
           disabled={loading}
-          className="px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 rounded-lg text-sm font-semibold text-white transition-colors flex items-center gap-2"
+          className="px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 rounded-xl text-sm font-semibold text-white transition-colors flex items-center gap-2"
         >
           {loading ? <Loader2 size={14} className="animate-spin" /> : <Network size={14} />}
           {loading ? 'Analyzing…' : 'Run Correlation'}

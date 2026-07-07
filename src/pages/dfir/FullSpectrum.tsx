@@ -266,8 +266,7 @@ function ResultCard({
       case 'domain_lookup': {
         // SPF / DMARC nest under `email_auth` (singular `present`, not `spf_present`).
         const auth = data.email_auth as
-          | { spf?: { present: boolean }; dmarc?: { present: boolean; policy?: string } }
-          | undefined;
+          { spf?: { present: boolean }; dmarc?: { present: boolean; policy?: string } } | undefined;
         const spfPresent = auth?.spf?.present === true;
         const dmarcPolicy = auth?.dmarc?.policy;
         const dmarcPresent = auth?.dmarc?.present === true;
@@ -440,7 +439,7 @@ function ResultCard({
 
   return (
     <div
-      className={`rounded-lg border ${borderCls} bg-white dark:bg-[rgb(var(--surface-200))] p-4 flex flex-col gap-2`}
+      className={`rounded-xl border ${borderCls} bg-white dark:bg-[rgb(var(--surface-200))] p-4 flex flex-col gap-2`}
     >
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2 min-w-0">
@@ -532,7 +531,7 @@ export default function FullSpectrum(): JSX.Element {
             onChange={(e) => setInput(e.target.value)}
             placeholder="example.com"
             aria-label="Domain to investigate"
-            className="flex-1 px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             type="submit"
@@ -553,7 +552,7 @@ export default function FullSpectrum(): JSX.Element {
       </form>
 
       {hasResults && (
-        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
           <div className="flex items-baseline justify-between gap-2">
             <h2 className="font-display font-bold text-xl truncate">{state.domain}</h2>
             <div className="flex items-center gap-2 shrink-0">

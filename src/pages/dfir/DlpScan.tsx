@@ -143,7 +143,7 @@ export default function DlpScan(): JSX.Element {
       }
       maxWidthClass="max-w-6xl"
     >
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
           <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
             Input
@@ -180,7 +180,7 @@ export default function DlpScan(): JSX.Element {
 
       {input.trim() && (
         <>
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
                 Verdict
@@ -221,7 +221,7 @@ export default function DlpScan(): JSX.Element {
             )}
           </section>
 
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
             <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
               Highlighted input
             </h2>
@@ -232,7 +232,7 @@ export default function DlpScan(): JSX.Element {
 
           {findings.length > 0 && (
             <>
-              <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+              <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
                 <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
                   Findings
                 </h2>
@@ -275,7 +275,7 @@ export default function DlpScan(): JSX.Element {
                 </ul>
               </section>
 
-              <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+              <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
                 <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                   <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
                     Redacted output
@@ -294,7 +294,7 @@ export default function DlpScan(): JSX.Element {
           )}
 
           {findings.length === 0 && (
-            <section className="rounded-lg border border-emerald-500/30 bg-emerald-500/5 p-4 mb-6 text-sm font-mono text-emerald-700 dark:text-emerald-300 inline-flex items-center gap-2">
+            <section className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-4 mb-6 text-sm font-mono text-emerald-700 dark:text-emerald-300 inline-flex items-center gap-2">
               <CheckCircle2 size={14} /> No sensitive data patterns detected. This is a regex sweep, not a guarantee.
               Entity-aware classifiers (Microsoft Purview, AWS Macie, GCP DLP) will catch things this tool can't.
             </section>
@@ -302,7 +302,7 @@ export default function DlpScan(): JSX.Element {
         </>
       )}
 
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           Pattern catalog ({PATTERNS.length})
         </h2>
@@ -334,7 +334,7 @@ export default function DlpScan(): JSX.Element {
         </div>
       </section>
 
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           References
         </h2>

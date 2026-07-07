@@ -265,7 +265,7 @@ export default function FeedScheduler(): JSX.Element {
             <button
               type="button"
               onClick={() => setShowForm(true)}
-              className="inline-flex items-center gap-2 px-4 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-lg hover:bg-brand-700 dark:hover:bg-brand-400"
+              className="inline-flex items-center gap-2 px-4 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-xl hover:bg-brand-700 dark:hover:bg-brand-400"
             >
               <Plus size={14} /> Add Feed
             </button>
@@ -277,7 +277,7 @@ export default function FeedScheduler(): JSX.Element {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search feeds…"
-              className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500"
+              className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500"
             />
           </div>
         </div>
@@ -289,7 +289,7 @@ export default function FeedScheduler(): JSX.Element {
       {showForm && (
         <form
           onSubmit={(e) => void createJob(e)}
-          className="mb-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
+          className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
         >
           <h2 className="font-display font-semibold text-sm mb-3">Add Feed Source</h2>
 
@@ -389,7 +389,7 @@ export default function FeedScheduler(): JSX.Element {
         <div
           role="status"
           aria-live="polite"
-          className={`mb-6 rounded-lg border px-4 py-3 text-tool font-mono ${
+          className={`mb-6 rounded-xl border px-4 py-3 text-tool font-mono ${
             toast.kind === 'ok'
               ? 'border-emerald-200 dark:border-emerald-900 bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-300'
               : 'border-rose-200 dark:border-rose-900 bg-rose-50 dark:bg-rose-950/30 text-rose-700 dark:text-rose-300'
@@ -400,7 +400,7 @@ export default function FeedScheduler(): JSX.Element {
       )}
 
       {filtered.length === 0 && (
-        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-12 text-center">
+        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-12 text-center">
           <RefreshCw size={32} className="mx-auto text-slate-300 dark:text-slate-700 mb-3" />
           <p className="text-sm font-mono text-slate-500">{search ? 'No matching feeds' : 'No feed jobs configured'}</p>
           <p className="text-xs font-mono text-slate-400 mt-1">
@@ -421,7 +421,7 @@ export default function FeedScheduler(): JSX.Element {
           return (
             <div
               key={job.id}
-              className={`rounded-lg border bg-white dark:bg-[rgb(var(--surface-200))] p-4 transition-colors ${
+              className={`rounded-xl border bg-white dark:bg-[rgb(var(--surface-200))] p-4 transition-colors ${
                 job.enabled
                   ? 'border-slate-200 dark:border-[rgb(var(--border-400))]'
                   : 'border-slate-200/50 dark:border-[rgb(var(--border-400))]/50 opacity-60'

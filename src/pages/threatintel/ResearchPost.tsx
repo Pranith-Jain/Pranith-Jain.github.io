@@ -187,7 +187,7 @@ export default function ResearchPost(): JSX.Element {
               '[&_li]:leading-relaxed ' +
               '[&_strong]:text-slate-900 [&_strong]:dark:text-white [&_strong]:font-semibold ' +
               '[&_code]:font-mono [&_code]:text-[0.9em] [&_code]:bg-slate-100 [&_code]:dark:bg-[rgb(var(--surface-300))] [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded ' +
-              '[&_pre]:bg-slate-900 [&_pre]:dark:bg-[rgb(var(--input-200))] [&_pre]:text-slate-100 [&_pre]:p-4 [&_pre]:rounded-lg [&_pre]:overflow-x-auto [&_pre]:my-5 [&_pre]:text-meta [&_pre]:font-mono [&_pre]:leading-relaxed [&_pre_code]:bg-transparent [&_pre_code]:text-inherit [&_pre_code]:px-0 [&_pre_code]:whitespace-pre ' +
+              '[&_pre]:bg-slate-900 [&_pre]:dark:bg-[rgb(var(--input-200))] [&_pre]:text-slate-100 [&_pre]:p-4 [&_pre]:rounded-xl [&_pre]:overflow-x-auto [&_pre]:my-5 [&_pre]:text-meta [&_pre]:font-mono [&_pre]:leading-relaxed [&_pre_code]:bg-transparent [&_pre_code]:text-inherit [&_pre_code]:px-0 [&_pre_code]:whitespace-pre ' +
               '[&_blockquote]:border-l-2 [&_blockquote]:border-brand-500/40 [&_blockquote]:pl-4 [&_blockquote]:my-4 [&_blockquote]:italic [&_blockquote]:text-slate-600 [&_blockquote]:dark:text-slate-400 ' +
               '[&_hr]:my-8 [&_hr]:border-slate-200 [&_hr]:dark:border-[rgb(var(--border-400))] ' +
               '[&_em]:italic'
@@ -258,7 +258,7 @@ export default function ResearchPost(): JSX.Element {
                 <li key={r.slug}>
                   <Link
                     to={`/threatintel/research/${r.slug}`}
-                    className="group flex h-full items-start gap-3 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-3 transition hover:border-brand-500/40"
+                    className="group flex h-full items-start gap-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-3 transition hover:border-brand-500/40"
                   >
                     <FileText
                       size={14}

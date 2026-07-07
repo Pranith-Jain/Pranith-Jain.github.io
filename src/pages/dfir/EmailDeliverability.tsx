@@ -218,19 +218,19 @@ export default function EmailDeliverability(): JSX.Element {
           onChange={(e) => setRawEml(e.target.value)}
           placeholder="Paste the full email source (headers + body). For .eml files, upload below."
           rows={10}
-          className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3 font-mono text-xs text-slate-800 dark:text-slate-200 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3 font-mono text-xs text-slate-800 dark:text-slate-200 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           spellCheck={false}
         />
         <div className="mt-3 flex flex-wrap items-center gap-2">
           <button
             type="submit"
             disabled={loading || !rawEml.trim()}
-            className="inline-flex items-center gap-2 px-4 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+            className="inline-flex items-center gap-2 px-4 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
           >
             {loading ? <Loader2 size={14} className="animate-spin" /> : <Mail size={14} />}
             {loading ? 'Analyzing…' : 'Analyze'}
           </button>
-          <label className="inline-flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted font-mono text-sm rounded-lg cursor-pointer hover:border-slate-300">
+          <label className="inline-flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted font-mono text-sm rounded-xl cursor-pointer hover:border-slate-300">
             <Upload size={14} aria-hidden="true" />
             upload .eml
             <input
@@ -243,7 +243,7 @@ export default function EmailDeliverability(): JSX.Element {
           <button
             type="button"
             onClick={onSample}
-            className="inline-flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted font-mono text-sm rounded-lg hover:border-slate-300"
+            className="inline-flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted font-mono text-sm rounded-xl hover:border-slate-300"
           >
             <Sparkles size={14} aria-hidden="true" />
             use sample
@@ -268,7 +268,7 @@ export default function EmailDeliverability(): JSX.Element {
         <div className="space-y-6">
           {/* Spam score hero */}
           <section
-            className={`rounded-lg border p-5 ${
+            className={`rounded-xl border p-5 ${
               spamVerdict === 'fail'
                 ? 'border-rose-500/40 bg-rose-500/5'
                 : spamVerdict === 'warn'
@@ -278,7 +278,7 @@ export default function EmailDeliverability(): JSX.Element {
           >
             <div className="flex flex-wrap items-center gap-4">
               <div
-                className={`flex h-16 w-16 shrink-0 items-center justify-center rounded-lg font-mono text-2xl font-bold ring-2 ${
+                className={`flex h-16 w-16 shrink-0 items-center justify-center rounded-xl font-mono text-2xl font-bold ring-2 ${
                   spamVerdict === 'fail'
                     ? 'bg-rose-500/10 ring-rose-500/40 text-rose-700 dark:text-rose-300'
                     : spamVerdict === 'warn'
@@ -330,7 +330,7 @@ export default function EmailDeliverability(): JSX.Element {
           </section>
 
           {/* Auth alignment */}
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
             <h2 className="font-display font-bold text-lg mb-3">Authentication alignment</h2>
             <div className="grid gap-3 sm:grid-cols-3">
               <AuthRow
@@ -356,7 +356,7 @@ export default function EmailDeliverability(): JSX.Element {
 
           {/* Header analysis */}
           {result.headerAnalysis?.issues?.length || result.headerAnalysis?.warnings?.length ? (
-            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
               <div className="mb-3 flex items-center justify-between">
                 <h2 className="font-display font-bold text-lg">Header analysis</h2>
                 <button
@@ -408,7 +408,7 @@ export default function EmailDeliverability(): JSX.Element {
 
           {/* Suggestions */}
           {result.suggestions && result.suggestions.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
               <h2 className="font-display font-bold text-lg mb-3">Suggestions</h2>
               <ul className="space-y-2">
                 {result.suggestions

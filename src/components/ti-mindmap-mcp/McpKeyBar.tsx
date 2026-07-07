@@ -100,7 +100,7 @@ export function McpKeyBar({ className = '' }: { className?: string }): JSX.Eleme
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className={`inline-flex min-w-[10ch] items-center justify-center gap-1.5 whitespace-nowrap rounded-md border ${tone} px-2 py-1 text-xs font-mono transition hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500`}
+        className={`inline-flex min-w-[10ch] items-center justify-center gap-1.5 whitespace-nowrap rounded border ${tone} px-2 py-1 text-xs font-mono transition hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500`}
         aria-expanded={open}
         aria-label="TI-Mindmap-Hub MCP connection settings"
         title={status === 'error' ? statusMsg || 'Connection failed' : 'TI-Mindmap-Hub MCP settings'}
@@ -109,7 +109,7 @@ export function McpKeyBar({ className = '' }: { className?: string }): JSX.Eleme
         <ChevronDown className={`h-3 w-3 transition-transform ${open ? 'rotate-180' : ''}`} />
       </button>
       {open && (
-        <div className="absolute right-0 mt-1.5 w-80 max-w-[calc(100vw-1rem)] rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e2 p-3 z-50">
+        <div className="absolute right-0 mt-1.5 w-80 max-w-[calc(100vw-1rem)] rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e2 p-3 z-50">
           <p className="flex items-center gap-1.5 text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
             <Settings2 className="h-3 w-3" /> MCP settings
           </p>

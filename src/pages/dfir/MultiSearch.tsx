@@ -430,7 +430,7 @@ export default function MultiSearch(): JSX.Element {
       {popupStatus && (
         <div
           role="status"
-          className={`mb-6 rounded-lg border px-3 py-2 text-xs font-mono ${
+          className={`mb-6 rounded-xl border px-3 py-2 text-xs font-mono ${
             popupStatus.blocked > 0
               ? 'border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300'
               : 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
@@ -587,7 +587,7 @@ function PlatformCard({
           onClick={(e) => {
             if (hasUnfilled) e.preventDefault();
           }}
-          className={`flex-1 inline-flex items-center justify-center gap-1 px-2 py-1 rounded-md text-xs font-medium transition-colors ${
+          className={`flex-1 inline-flex items-center justify-center gap-1 px-2 py-1 rounded text-xs font-medium transition-colors ${
             hasUnfilled
               ? 'bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-slate-400 cursor-not-allowed'
               : 'bg-brand-600 hover:bg-brand-700 text-white'
@@ -598,7 +598,7 @@ function PlatformCard({
         <button
           type="button"
           onClick={copy}
-          className="p-1.5 rounded-md border border-slate-300 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-slate-500"
+          className="p-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-slate-500"
           aria-label="Copy URL"
           title="Copy URL"
         >

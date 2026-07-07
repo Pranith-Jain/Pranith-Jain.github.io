@@ -196,7 +196,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
       }
     >
       {/* ── Package Verdict Checker ────────────────────────────────────── */}
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-6 mb-8">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-6 mb-8">
         <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-2">
           <Search className="w-5 h-5 text-brand-500" /> Package Verdict Checker
         </h2>
@@ -211,7 +211,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
           <select
             value={verdictEco}
             onChange={(e) => setVerdictEco(e.target.value)}
-            className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
+            className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
           >
             {ECOSYSTEMS.map((e) => (
               <option key={e.id} value={e.id}>
@@ -225,12 +225,12 @@ export default function SupplyChainIntelligence(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && checkVerdict()}
-            className="flex-1 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500 font-mono"
+            className="flex-1 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500 font-mono"
           />
           <button
             onClick={checkVerdict}
             disabled={!query.trim() || verdictLoading}
-            className="px-4 py-2 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 text-sm flex items-center gap-2"
+            className="px-4 py-2 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 text-sm flex items-center gap-2"
           >
             {verdictLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Shield className="w-4 h-4" />}
             Check
@@ -240,7 +240,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
         {verdictError && (
           <div
             role="alert"
-            className="font-mono text-rose-600 dark:text-rose-400 text-sm p-3 rounded-lg border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20"
+            className="font-mono text-rose-600 dark:text-rose-400 text-sm p-3 rounded-xl border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20"
           >
             {verdictError}
           </div>
@@ -258,13 +258,13 @@ export default function SupplyChainIntelligence(): JSX.Element {
           >
             <div className="flex items-center gap-3 mb-2">
               {(() => {
-                const meta = VERDICT_META[verdict.verdict];
+                const meta = VERDICT_META[verdict.verdict]!;
                 const Icon = meta.icon;
                 return <Icon className={`w-6 h-6 ${meta.color}`} />;
               })()}
               <div>
-                <div className={`text-lg font-bold font-mono ${VERDICT_META[verdict.verdict].color}`}>
-                  {VERDICT_META[verdict.verdict].label}
+                <div className={`text-lg font-bold font-mono ${VERDICT_META[verdict.verdict]!.color}`}>
+                  {VERDICT_META[verdict.verdict]!.label}
                 </div>
                 <div className="text-xs text-slate-500 font-mono">
                   {verdict.ref} · confidence: {verdict.confidence}
@@ -312,7 +312,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
       </section>
 
       {/* ── OSSF Malicious Packages Directory ──────────────────────────── */}
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-6">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
             <Bug className="w-5 h-5 text-rose-500" /> OSSF Malicious Packages
@@ -327,7 +327,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
             <button
               key={e.id}
               onClick={() => setOssfEco(e.id)}
-              className={`px-3 py-1.5 rounded-lg border text-xs font-medium transition ${
+              className={`px-3 py-1.5 rounded-xl border text-xs font-medium transition ${
                 ossfEco === e.id
                   ? 'border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300'
                   : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-400'
@@ -347,7 +347,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
             placeholder="Filter packages…"
             value={ossfSearch}
             onChange={(e) => setOssfSearch(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500 font-mono"
+            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500 font-mono"
           />
         </div>
 
@@ -358,7 +358,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
         ) : ossfError ? (
           <div
             role="alert"
-            className="font-mono text-rose-600 dark:text-rose-400 text-sm p-3 rounded-lg border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20"
+            className="font-mono text-rose-600 dark:text-rose-400 text-sm p-3 rounded-xl border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20"
           >
             {ossfError}
           </div>
@@ -370,7 +370,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
                 href={p.ossf_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-3 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.3)] text-xs font-mono text-slate-700 dark:text-slate-300 hover:border-brand-500/50 hover:bg-brand-50 dark:hover:bg-brand-900/10 transition truncate"
+                className="px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.3)] text-xs font-mono text-slate-700 dark:text-slate-300 hover:border-brand-500/50 hover:bg-brand-50 dark:hover:bg-brand-900/10 transition truncate"
                 title={p.name}
               >
                 {p.name}

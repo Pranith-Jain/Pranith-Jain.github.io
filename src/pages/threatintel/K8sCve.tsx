@@ -148,7 +148,7 @@ export default function K8sCve({ bare = false }: { bare?: boolean } = {}): JSX.E
           return (
             <div
               key={cve.id}
-              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
+              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
             >
               <div className="flex items-start justify-between gap-2">
                 <h3 className="font-semibold text-sm text-slate-900 dark:text-slate-100 leading-snug">

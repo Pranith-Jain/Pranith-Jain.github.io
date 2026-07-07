@@ -70,7 +70,7 @@ export default function AnalyticsDashboard(): JSX.Element {
       <div className="max-w-6xl mx-auto px-6 py-8">
         <div className="space-y-3">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="h-20 rounded-lg bg-slate-100 dark:bg-[rgb(var(--surface-200))] animate-pulse" />
+            <div key={i} className="h-20 rounded-xl bg-slate-100 dark:bg-[rgb(var(--surface-200))] animate-pulse" />
           ))}
         </div>
       </div>
@@ -132,7 +132,7 @@ export default function AnalyticsDashboard(): JSX.Element {
       {/* Top events */}
       <section className="mb-8">
         <h2 className="font-display font-bold text-lg text-slate-900 dark:text-white mb-4">Top Events</h2>
-        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] divide-y divide-slate-200 dark:divide-[rgb(var(--border-400))]">
+        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] divide-y divide-slate-200 dark:divide-[rgb(var(--border-400))]">
           {(data?.topEvents ?? []).length === 0 ? (
             <p className="p-4 text-sm text-slate-500">No event data available yet.</p>
           ) : (
@@ -154,7 +154,7 @@ export default function AnalyticsDashboard(): JSX.Element {
       {/* Top countries */}
       <section className="mb-8">
         <h2 className="font-display font-bold text-lg text-slate-900 dark:text-white mb-4">Top Countries</h2>
-        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] divide-y divide-slate-200 dark:divide-[rgb(var(--border-400))]">
+        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] divide-y divide-slate-200 dark:divide-[rgb(var(--border-400))]">
           {(data?.topCountries ?? []).length === 0 ? (
             <p className="p-4 text-sm text-slate-500">No country data available yet.</p>
           ) : (
@@ -176,7 +176,7 @@ export default function AnalyticsDashboard(): JSX.Element {
       {/* Recent events */}
       <section>
         <h2 className="font-display font-bold text-lg text-slate-900 dark:text-white mb-4">Recent Events</h2>
-        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] divide-y divide-slate-200 dark:divide-[rgb(var(--border-400))]">
+        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] divide-y divide-slate-200 dark:divide-[rgb(var(--border-400))]">
           {(data?.recentEvents ?? []).length === 0 ? (
             <p className="p-4 text-sm text-slate-500">No recent events.</p>
           ) : (
@@ -216,7 +216,7 @@ function SummaryCard({
   color: string;
 }): JSX.Element {
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
       <div className="flex items-center gap-2 mb-2">
         <Icon size={14} className={color} />
         <span className="text-xs font-mono uppercase tracking-wider text-slate-500">{label}</span>

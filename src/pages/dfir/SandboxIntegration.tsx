@@ -99,7 +99,7 @@ export default function SandboxIntegration(): JSX.Element {
         {['VirusTotal', 'MalwareBazaar', 'ANY.RUN', 'Triage', 'Hybrid Analysis', 'Joe Sandbox', 'OTX'].map((s) => (
           <span
             key={s}
-            className="px-2.5 py-1 rounded-lg text-xs font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted"
+            className="px-2.5 py-1 rounded-xl text-xs font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted"
           >
             {s}
           </span>
@@ -119,12 +119,12 @@ export default function SandboxIntegration(): JSX.Element {
           onChange={(e) => setHash(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && void handleLookup()}
           placeholder="MD5, SHA-1, or SHA-256…"
-          className="w-full bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg px-4 py-2.5 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl px-4 py-2.5 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
         />
         <button
           onClick={handleLookup}
           disabled={loading || !hash.trim()}
-          className="mt-3 w-full px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-lg text-sm font-semibold text-white transition-colors flex items-center justify-center gap-2"
+          className="mt-3 w-full px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-white transition-colors flex items-center justify-center gap-2"
         >
           {loading ? <Loader2 size={14} className="animate-spin" /> : <Upload size={14} />}
           {loading ? 'Querying sandboxes…' : 'Lookup Hash'}

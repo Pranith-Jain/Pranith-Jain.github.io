@@ -71,7 +71,7 @@ export default function StixBundleBrowser(): JSX.Element {
             href="https://the-hunters-ledger.com/stix/hunters-ledger-stix-bundles.zip"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-lg border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 hover:border-emerald-500/70 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-xl border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 hover:border-emerald-500/70 transition-colors"
           >
             <Download size={12} /> Download all (.zip)
           </a>
@@ -86,7 +86,7 @@ export default function StixBundleBrowser(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search bundles, tags…"
-            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
         </div>
         <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{filtered.length} bundles</span>
@@ -95,7 +95,7 @@ export default function StixBundleBrowser(): JSX.Element {
       <div className="flex flex-wrap gap-1.5 mb-6">
         <button
           onClick={() => setActiveSev(null)}
-          className={`text-xs font-mono px-3 py-1.5 rounded-lg border transition-colors ${
+          className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${
             !activeSev
               ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
               : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]'
@@ -107,7 +107,7 @@ export default function StixBundleBrowser(): JSX.Element {
           <button
             key={sev}
             onClick={() => setActiveSev(activeSev === sev ? null : sev)}
-            className={`text-xs font-mono px-3 py-1.5 rounded-lg border transition-colors ${
+            className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${
               activeSev === sev
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
                 : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]'
@@ -133,7 +133,7 @@ export default function StixBundleBrowser(): JSX.Element {
 
 function BundleCard({ bundle }: { bundle: StixBundleEntry }): JSX.Element {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 transition-all hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))] hover:shadow-lg hover:shadow-slate-200/50 dark:hover:shadow-slate-900/50">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 transition-all hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))] hover:shadow-xl hover:shadow-slate-200/50 dark:hover:shadow-slate-900/50">
       <div className="flex items-start gap-4">
         <span
           className={`inline-flex items-center gap-1 text-[10px] font-mono font-semibold px-2 py-1 rounded border uppercase tracking-wider flex-shrink-0 ${SEVERITY_COLORS[bundle.severity]}`}
@@ -176,13 +176,13 @@ function BundleCard({ bundle }: { bundle: StixBundleEntry }): JSX.Element {
             href={sanitizeUrl(bundle.downloadUrl)}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-[11px] font-mono px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+            className="inline-flex items-center gap-1.5 text-[11px] font-mono px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
           >
             <Download size={11} /> JSON
           </a>
           <a
             href={sanitizeUrl(bundle.viewerPath)}
-            className="inline-flex items-center gap-1.5 text-[11px] font-mono px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+            className="inline-flex items-center gap-1.5 text-[11px] font-mono px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
           >
             <Eye size={11} /> View
           </a>

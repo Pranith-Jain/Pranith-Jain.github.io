@@ -30,10 +30,10 @@ export async function fetchFireDetections(): Promise<FireDetection[]> {
     for (const line of lines) {
       const cols = line.split(',');
       if (cols.length < 8) continue;
-      const lat = parseFloat(cols[0]);
-      const lng = parseFloat(cols[1]);
-      const brightness = parseFloat(cols[2]);
-      const frp = parseFloat(cols[8]);
+      const lat = parseFloat(cols[0]!);
+      const lng = parseFloat(cols[1]!);
+      const brightness = parseFloat(cols[2]!);
+      const frp = parseFloat(cols[8]!);
       const confidence = (cols[12]?.trim() || 'nominal') as FireDetection['confidence'];
       const acqDate = cols[5] || '';
       const acqTime = cols[6] || '';

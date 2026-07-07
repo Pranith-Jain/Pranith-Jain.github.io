@@ -170,7 +170,7 @@ export function FeedbackWidget({ targetType, targetId, sector, compact, onFeedba
             type="button"
             onClick={() => handleSubmit(r)}
             disabled={saving}
-            className={`px-2.5 py-1 text-mini rounded-md border transition-colors disabled:opacity-50 ${
+            className={`px-2.5 py-1 text-mini rounded border transition-colors disabled:opacity-50 ${
               selectedRating === r
                 ? 'border-brand-500 bg-brand-500/10 text-brand-700 dark:border-brand-400 dark:bg-brand-400/10 dark:text-brand-300'
                 : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50 dark:border-white/10 dark:bg-transparent dark:text-slate-300 dark:hover:border-white/20 dark:hover:bg-white/5'

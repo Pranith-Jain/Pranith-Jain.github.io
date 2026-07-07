@@ -81,7 +81,7 @@ export function Tooltip({ content, children, position = 'top', delay = 200, clas
           role="tooltip"
           className={`
             absolute z-50 px-2 py-1 text-xs font-medium text-white
-            bg-slate-900 dark:bg-slate-700 rounded-md shadow-e2
+            bg-slate-900 dark:bg-slate-700 rounded shadow-e2
             whitespace-nowrap pointer-events-none
             animate-pop-in
             ${POSITION_STYLES[position]}

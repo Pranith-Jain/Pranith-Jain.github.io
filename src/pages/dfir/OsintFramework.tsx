@@ -80,7 +80,7 @@ export default function OsintFramework(): JSX.Element {
         </p>
       </div>
 
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6 space-y-3">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6 space-y-3">
         <div className="relative">
           <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
           <input
@@ -167,7 +167,7 @@ export default function OsintFramework(): JSX.Element {
         {filtered.map((e) => (
           <article
             key={e.id}
-            className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
+            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
           >
             <header className="flex flex-wrap items-baseline gap-2 mb-1">
               <a
@@ -191,7 +191,7 @@ export default function OsintFramework(): JSX.Element {
           </article>
         ))}
         {filtered.length === 0 && (
-          <div className="col-span-full rounded-lg border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm font-mono text-slate-500 dark:text-slate-400">
+          <div className="col-span-full rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm font-mono text-slate-500 dark:text-slate-400">
             No entries match those filters. Try clearing the search or relaxing the category filter.
           </div>
         )}

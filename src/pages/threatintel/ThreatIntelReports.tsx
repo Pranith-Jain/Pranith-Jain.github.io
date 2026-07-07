@@ -67,7 +67,7 @@ export default function ThreatIntelReports(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search reports, tags, IOCs…"
-            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
         </div>
         <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{filtered.length} reports</span>
@@ -76,7 +76,7 @@ export default function ThreatIntelReports(): JSX.Element {
       <div className="flex flex-wrap gap-1.5 mb-6">
         <button
           onClick={() => setActiveSev(null)}
-          className={`text-xs font-mono px-3 py-1.5 rounded-lg border transition-colors ${
+          className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${
             !activeSev
               ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
               : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]'
@@ -88,7 +88,7 @@ export default function ThreatIntelReports(): JSX.Element {
           <button
             key={sev}
             onClick={() => setActiveSev(activeSev === sev ? null : sev)}
-            className={`text-xs font-mono px-3 py-1.5 rounded-lg border transition-colors ${
+            className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${
               activeSev === sev
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
                 : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]'
@@ -185,7 +185,7 @@ function ReportCard({
               <h4 className="text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-400 mb-2">
                 Indicators
               </h4>
-              <div className="bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded-lg p-3 font-mono text-xs space-y-1">
+              <div className="bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded-xl p-3 font-mono text-xs space-y-1">
                 {report.iocs.map((ioc, i) => (
                   <div key={i} className="flex items-center gap-2">
                     <span className="text-slate-400 w-16 shrink-0">{ioc.type}</span>

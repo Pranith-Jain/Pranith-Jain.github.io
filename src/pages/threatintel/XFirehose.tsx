@@ -145,7 +145,7 @@ export default function XFirehose(): JSX.Element {
 
   const headerExtra = (
     <>
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -273,7 +273,7 @@ export default function XFirehose(): JSX.Element {
         {filtered.slice(0, visible).map((it, i) => (
           <li
             key={`${it.link}-${i}`}
-            className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
+            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
           >
             <a
               href={sanitizeUrl(it.link) || undefined}
@@ -313,14 +313,14 @@ export default function XFirehose(): JSX.Element {
         <button
           type="button"
           onClick={() => setVisible((v) => v + 60)}
-          className="mt-3 w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] py-2 font-mono text-meta text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+          className="mt-3 w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] py-2 font-mono text-meta text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
         >
           Show more ({filtered.length - visible} remaining)
         </button>
       )}
 
       {!loading && !error && filtered.length === 0 && (
-        <div className="rounded-lg border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-6 text-sm font-mono text-slate-500">
+        <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-6 text-sm font-mono text-slate-500">
           {query || handleFilter.size > 0 ? (
             <p className="text-center">No posts match the current filter.</p>
           ) : (

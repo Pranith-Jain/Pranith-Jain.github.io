@@ -720,14 +720,14 @@ export default function Facilities(): JSX.Element {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search facilities..."
-              className="w-full pl-9 pr-3 py-2 text-sm font-mono rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+              className="w-full pl-9 pr-3 py-2 text-sm font-mono rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
             />
           </div>
           <div className="flex items-center gap-1">
             <button
               type="button"
               onClick={() => setView('table')}
-              className={`px-3 py-1.5 text-xs font-mono rounded-lg border transition-colors ${
+              className={`px-3 py-1.5 text-xs font-mono rounded-xl border transition-colors ${
                 view === 'table'
                   ? 'bg-brand-500/10 text-brand-600 dark:text-brand-400 border-brand-500/30'
                   : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-400 hover:text-slate-600'
@@ -738,7 +738,7 @@ export default function Facilities(): JSX.Element {
             <button
               type="button"
               onClick={() => setView('map')}
-              className={`px-3 py-1.5 text-xs font-mono rounded-lg border transition-colors ${
+              className={`px-3 py-1.5 text-xs font-mono rounded-xl border transition-colors ${
                 view === 'map'
                   ? 'bg-brand-500/10 text-brand-600 dark:text-brand-400 border-brand-500/30'
                   : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-400 hover:text-slate-600'
@@ -750,7 +750,7 @@ export default function Facilities(): JSX.Element {
           <select
             value={regionFilter}
             onChange={(e) => setRegionFilter(e.target.value as 'all' | 'mena')}
-            className="px-3 py-1.5 text-xs font-mono rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 text-slate-900 dark:text-slate-100"
+            className="px-3 py-1.5 text-xs font-mono rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 text-slate-900 dark:text-slate-100"
           >
             <option value="all">All Regions</option>
             <option value="mena">MENA Focus</option>
@@ -758,7 +758,7 @@ export default function Facilities(): JSX.Element {
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as 'name' | 'severity' | 'type')}
-            className="px-3 py-1.5 text-xs font-mono rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 text-slate-900 dark:text-slate-100"
+            className="px-3 py-1.5 text-xs font-mono rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 text-slate-900 dark:text-slate-100"
           >
             <option value="type">Sort by Type</option>
             <option value="severity">Sort by Severity</option>
@@ -777,7 +777,7 @@ export default function Facilities(): JSX.Element {
                 key={t}
                 type="button"
                 onClick={() => toggleType(t)}
-                className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-mono rounded-lg border transition-all ${
+                className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-mono rounded-xl border transition-all ${
                   active
                     ? `${config.bgColor} ${config.color} border-current`
                     : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-400 opacity-50'
@@ -871,7 +871,7 @@ export default function Facilities(): JSX.Element {
                           </td>
                           <td className="px-4 py-3">
                             <span
-                              className={`inline-flex items-center gap-1 px-2 py-0.5 text-xs font-mono rounded-md border ${config.bgColor} ${config.color}`}
+                              className={`inline-flex items-center gap-1 px-2 py-0.5 text-xs font-mono rounded border ${config.bgColor} ${config.color}`}
                             >
                               <config.icon size={10} />
                               {config.label}
@@ -880,7 +880,7 @@ export default function Facilities(): JSX.Element {
                           <td className="px-4 py-3 font-mono text-muted">{f.country}</td>
                           <td className="px-4 py-3">
                             <span
-                              className={`inline-flex px-2 py-0.5 text-xs font-mono rounded-md ${SEVERITY_COLORS[f.severity]}`}
+                              className={`inline-flex px-2 py-0.5 text-xs font-mono rounded ${SEVERITY_COLORS[f.severity]}`}
                             >
                               {f.severity}
                             </span>

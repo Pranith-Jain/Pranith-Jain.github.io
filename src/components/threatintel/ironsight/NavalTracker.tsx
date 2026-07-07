@@ -205,7 +205,7 @@ export default function NavalTracker() {
     const result: Record<string, NavalVessel[]> = {};
     SHIPS.forEach((s) => {
       if (!result[s.navy]) result[s.navy] = [];
-      result[s.navy].push(s);
+      result[s.navy]!.push(s);
     });
     return result;
   }, []);

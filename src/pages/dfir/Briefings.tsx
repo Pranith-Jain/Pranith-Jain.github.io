@@ -198,7 +198,7 @@ export default function Briefings(): JSX.Element {
             {Array.from({ length: 4 }).map((_, i) => (
               <div
                 key={i}
-                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6 animate-pulse"
+                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6 animate-pulse"
               >
                 <div className="h-4 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded w-1/2 mb-2" />
                 <div className="h-3 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded w-1/4 mb-4" />
@@ -210,7 +210,7 @@ export default function Briefings(): JSX.Element {
         {error && (
           <div
             role="alert"
-            className="rounded-lg border border-rose-300 dark:border-rose-800 bg-rose-50/50 dark:bg-rose-900/15 p-6 flex items-start justify-between gap-3"
+            className="rounded-xl border border-rose-300 dark:border-rose-800 bg-rose-50/50 dark:bg-rose-900/15 p-6 flex items-start justify-between gap-3"
           >
             <div className="text-sm font-mono text-rose-700 dark:text-rose-300">
               <span className="font-semibold">error:</span> {error}
@@ -239,7 +239,7 @@ export default function Briefings(): JSX.Element {
               type="button"
               disabled={offset === 0}
               onClick={() => setOffset(Math.max(0, offset - activeLimit))}
-              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] disabled:opacity-30 hover:border-brand-500/40 transition-colors"
+              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] disabled:opacity-30 hover:border-brand-500/40 transition-colors"
             >
               <ChevronLeft size={12} /> Prev
             </button>
@@ -247,7 +247,7 @@ export default function Briefings(): JSX.Element {
               type="button"
               disabled={offset + activeLimit >= total}
               onClick={() => setOffset(offset + activeLimit)}
-              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] disabled:opacity-30 hover:border-brand-500/40 transition-colors"
+              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] disabled:opacity-30 hover:border-brand-500/40 transition-colors"
             >
               Next <ChevronRight size={12} />
             </button>
@@ -259,7 +259,7 @@ export default function Briefings(): JSX.Element {
             <Link
               key={item.slug}
               to={`/threatintel/briefings/${item.slug}`}
-              className="block rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6 hover:border-brand-500/40 transition-colors"
+              className="block rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6 hover:border-brand-500/40 transition-colors"
             >
               <div className="flex items-start justify-between gap-4 mb-2">
                 <div className="min-w-0">
@@ -352,7 +352,7 @@ export default function Briefings(): JSX.Element {
         </div>
       </section>
 
-      <div className="mt-16 flex items-center gap-3 p-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/60">
+      <div className="mt-16 flex items-center gap-3 p-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/60">
         <Rss size={16} className="text-slate-400 shrink-0" />
         <p className="text-sm font-mono text-slate-500 flex-1">
           Subscribe in your reader.{' '}

@@ -12,14 +12,7 @@
  */
 
 export type ResourceKind =
-  | 'training'
-  | 'lab'
-  | 'tool'
-  | 'dashboard'
-  | 'directory'
-  | 'samples'
-  | 'community'
-  | 'research';
+  'training' | 'lab' | 'tool' | 'dashboard' | 'directory' | 'samples' | 'community' | 'research';
 
 export type ResourceTag =
   | 'malware'
@@ -34,7 +27,9 @@ export type ResourceTag =
   | 'blocklist'
   | 'sandbox'
   | 'telegram'
-  | 'anonymity';
+  | 'anonymity'
+  | 'offensive'
+  | 'evasion';
 
 export interface ExternalResource {
   id: string;
@@ -96,6 +91,8 @@ export const TAG_LABELS: Record<ResourceTag, string> = {
   sandbox: 'Sandbox',
   telegram: 'Telegram',
   anonymity: 'Anonymity',
+  offensive: 'Offensive',
+  evasion: 'Evasion',
 };
 
 export const TAG_PILL: Record<ResourceTag, string> = {
@@ -112,6 +109,8 @@ export const TAG_PILL: Record<ResourceTag, string> = {
   sandbox: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
   telegram: 'border-cyan-500/40 bg-cyan-500/10 text-sky-700 dark:text-sky-300',
   anonymity: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
+  offensive: 'border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300',
+  evasion: 'border-purple-500/40 bg-purple-500/10 text-purple-700 dark:text-purple-300',
 };
 
 export const RESOURCES: ExternalResource[] = [

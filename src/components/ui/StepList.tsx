@@ -43,7 +43,7 @@ export function StepList({
   className = '',
   renderIcon,
 }: StepListProps) {
-  const initial = new Set(defaultOpen ?? (steps.length > 0 ? [steps[0].id] : []));
+  const initial = new Set(defaultOpen ?? (steps.length > 0 ? [steps[0]!.id] : []));
   const [openSet, setOpenSet] = useState<Set<string>>(initial);
 
   function toggle(id: string) {

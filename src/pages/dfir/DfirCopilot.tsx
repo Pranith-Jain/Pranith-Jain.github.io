@@ -245,13 +245,13 @@ export default function DfirCopilot(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Paste an IOC — IP, domain, hash, URL, email, or CVE…"
-              className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
           </div>
           <button
             type="submit"
             disabled={loading || !query.trim()}
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-4 py-2.5 rounded-lg border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:border-brand-500/70 disabled:opacity-50 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-4 py-2.5 rounded-xl border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:border-brand-500/70 disabled:opacity-50 transition-colors"
           >
             {loading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
             Investigate
@@ -279,7 +279,7 @@ export default function DfirCopilot(): JSX.Element {
                   setQuery(ex.label);
                   investigate(ex.label);
                 }}
-                className="text-xs font-mono px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                className="text-xs font-mono px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
               >
                 {ex.label} <span className="text-slate-400 ml-1">({ex.type})</span>
               </button>
@@ -388,7 +388,7 @@ export default function DfirCopilot(): JSX.Element {
                 {result.sources.map((s) => (
                   <details
                     key={s.name}
-                    className="rounded-lg border border-slate-200 bg-slate-50 p-3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.3)]"
+                    className="rounded-xl border border-slate-200 bg-slate-50 p-3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.3)]"
                   >
                     <summary className="cursor-pointer text-xs font-medium">
                       {s.name} ({s.items} items)

@@ -163,7 +163,7 @@ export default function MalbriefAi(): JSX.Element {
               onChange={(e) => setIndicators(e.target.value)}
               rows={10}
               placeholder="Paste behavioral indicators, sandbox output, or malware analysis notes…"
-              className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 font-mono text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+              className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 font-mono text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
             />
           </div>
 
@@ -235,7 +235,7 @@ export default function MalbriefAi(): JSX.Element {
                         href={`https://attack.mitre.org/techniques/${m.id.replace('.', '/')}/`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-block mr-1.5 mb-1.5 px-2.5 py-1 rounded-lg border border-amber-300/50 dark:border-amber-800/50 bg-amber-50 dark:bg-amber-950/20 text-amber-700 dark:text-amber-300 text-xs font-mono hover:border-amber-500/60 transition-colors"
+                        className="inline-block mr-1.5 mb-1.5 px-2.5 py-1 rounded-xl border border-amber-300/50 dark:border-amber-800/50 bg-amber-50 dark:bg-amber-950/20 text-amber-700 dark:text-amber-300 text-xs font-mono hover:border-amber-500/60 transition-colors"
                       >
                         {m.id}: {m.name}
                       </a>
@@ -292,14 +292,14 @@ export default function MalbriefAi(): JSX.Element {
               <div className="flex gap-2">
                 <button
                   onClick={copyResult}
-                  className="flex-1 px-4 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors flex items-center justify-center gap-2"
+                  className="flex-1 px-4 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors flex items-center justify-center gap-2"
                 >
                   {copied ? <Check size={13} /> : <Copy size={13} />}
                   {copied ? 'Copied' : 'Copy Report'}
                 </button>
                 <button
                   onClick={downloadReport}
-                  className="flex-1 px-4 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors flex items-center justify-center gap-2"
+                  className="flex-1 px-4 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors flex items-center justify-center gap-2"
                 >
                   <Download size={13} /> Download .md
                 </button>

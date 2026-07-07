@@ -131,7 +131,7 @@ export default function PgpTool() {
               setMessage('');
               setStatus('idle');
             }}
-            className={`px-3 py-1.5 text-xs font-mono rounded-lg border transition-colors ${
+            className={`px-3 py-1.5 text-xs font-mono rounded-xl border transition-colors ${
               mode === m.key
                 ? 'bg-brand-600 text-white border-brand-600'
                 : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-300 hover:border-brand-500'
@@ -152,7 +152,7 @@ export default function PgpTool() {
                   value={publicKey}
                   onChange={(e) => setPublicKey(e.target.value)}
                   rows={6}
-                  className="w-full rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-slate-900 dark:text-slate-100 mt-1"
+                  className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-slate-900 dark:text-slate-100 mt-1"
                   placeholder="-----BEGIN PGP PUBLIC KEY BLOCK-----"
                 />
               </label>
@@ -166,7 +166,7 @@ export default function PgpTool() {
                   value={privateKey}
                   onChange={(e) => setPrivateKey(e.target.value)}
                   rows={6}
-                  className="w-full rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-slate-900 dark:text-slate-100 mt-1"
+                  className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-slate-900 dark:text-slate-100 mt-1"
                   placeholder="-----BEGIN PGP PRIVATE KEY BLOCK-----"
                 />
               </label>
@@ -180,7 +180,7 @@ export default function PgpTool() {
                   type="password"
                   value={passphrase}
                   onChange={(e) => setPassphrase(e.target.value)}
-                  className="w-full rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-slate-900 dark:text-slate-100 mt-1"
+                  className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-slate-900 dark:text-slate-100 mt-1"
                   placeholder="Private key passphrase"
                 />
               </label>
@@ -198,7 +198,7 @@ export default function PgpTool() {
                 type="password"
                 value={passphrase}
                 onChange={(e) => setPassphrase(e.target.value)}
-                className="w-full max-w-md rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-slate-900 dark:text-slate-100 mt-1"
+                className="w-full max-w-md rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-slate-900 dark:text-slate-100 mt-1"
                 placeholder="Protect private key with passphrase"
               />
             </label>
@@ -206,7 +206,7 @@ export default function PgpTool() {
           <button
             onClick={generateKey}
             disabled={status === 'working'}
-            className="px-4 py-2 text-xs font-mono rounded-lg bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50"
+            className="px-4 py-2 text-xs font-mono rounded-xl bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50"
           >
             {status === 'working' ? 'Generating...' : 'Generate Key Pair'}
           </button>
@@ -229,7 +229,7 @@ export default function PgpTool() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               rows={6}
-              className="w-full rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-slate-900 dark:text-slate-100"
+              className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-slate-900 dark:text-slate-100"
               placeholder="Paste input here..."
             />
           </div>
@@ -244,7 +244,7 @@ export default function PgpTool() {
           <button
             onClick={run}
             disabled={status === 'working'}
-            className="px-4 py-2 text-xs font-mono rounded-lg bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50"
+            className="px-4 py-2 text-xs font-mono rounded-xl bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50"
           >
             {status === 'working' ? 'Processing...' : mode.charAt(0).toUpperCase() + mode.slice(1)}
           </button>
@@ -253,7 +253,7 @@ export default function PgpTool() {
 
       {message && (
         <div
-          className={`text-xs font-mono p-2 rounded-lg ${
+          className={`text-xs font-mono p-2 rounded-xl ${
             status === 'error' || message.includes('INVALID')
               ? 'bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-400'
               : status === 'done'
@@ -273,7 +273,7 @@ export default function PgpTool() {
               readOnly
               value={output}
               rows={8}
-              className="w-full rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-slate-900 dark:text-slate-100 mt-1"
+              className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-slate-900 dark:text-slate-100 mt-1"
             />
           </label>
           <button

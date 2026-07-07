@@ -124,7 +124,7 @@ export function SocShell({
 
         {/* Controls */}
         <div className="mb-8 flex flex-wrap items-center gap-2">
-          <div className="inline-flex rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden">
+          <div className="inline-flex rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden">
             {windows.map((w) => {
               const on = w.days === windowDays;
               return (
@@ -150,7 +150,7 @@ export function SocShell({
             onClick={onRefresh}
             disabled={loading}
             aria-label="Refresh dashboard data"
-            className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 hover:border-brand-500/40 disabled:opacity-50 transition-colors"
+            className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 hover:border-brand-500/40 disabled:opacity-50 transition-colors"
           >
             {loading ? <Loader2 size={12} className="animate-spin" /> : <RefreshCw size={12} />}
             refresh
@@ -163,7 +163,7 @@ export function SocShell({
             type="button"
             onClick={onExport}
             aria-label="Export data as CSV"
-            className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 hover:border-brand-500/40 transition-colors"
+            className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 hover:border-brand-500/40 transition-colors"
           >
             <Download size={12} /> export csv
           </button>

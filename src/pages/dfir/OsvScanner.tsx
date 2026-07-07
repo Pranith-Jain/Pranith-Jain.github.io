@@ -207,13 +207,13 @@ export default function OsvScanner(): JSX.Element {
         rows={12}
         spellCheck={false}
         aria-label="Lockfile / manifest"
-        className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+        className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
       />
       <button
         type="button"
         onClick={() => void run()}
         disabled={running || !input.trim()}
-        className="mt-4 inline-flex items-center gap-2 px-5 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-lg disabled:opacity-40 hover:bg-brand-700 dark:hover:bg-brand-400"
+        className="mt-4 inline-flex items-center gap-2 px-5 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-xl disabled:opacity-40 hover:bg-brand-700 dark:hover:bg-brand-400"
       >
         {running && <Loader2 size={14} className="animate-spin" />} {running ? 'scanning OSV…' : 'scan dependencies'}
       </button>
@@ -222,7 +222,7 @@ export default function OsvScanner(): JSX.Element {
 
       {rows && meta && (
         <div className="mt-8 space-y-6">
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
               <span>
                 <span className="text-slate-500">Parsed:</span> <span className="font-mono">{meta.kind}</span>
@@ -239,7 +239,7 @@ export default function OsvScanner(): JSX.Element {
           </section>
 
           {vulnerable.length === 0 && (
-            <section className="rounded-lg border border-emerald-500/30 bg-emerald-500/5 p-5 flex items-start gap-2 text-sm text-emerald-700 dark:text-emerald-400">
+            <section className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-5 flex items-start gap-2 text-sm text-emerald-700 dark:text-emerald-400">
               <ShieldCheck size={16} className="mt-0.5 flex-shrink-0" />
               <span>
                 No known OSV advisories for the parsed packages. (Exact-version matching — transitive ranges may still
@@ -251,7 +251,7 @@ export default function OsvScanner(): JSX.Element {
           {vulnerable.map((r) => (
             <section
               key={`${r.ecosystem}:${r.package}@${r.version}`}
-              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
+              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
             >
               <div className="flex items-center gap-2 flex-wrap">
                 <ShieldAlert size={15} className="text-rose-600 dark:text-rose-400 flex-shrink-0" />

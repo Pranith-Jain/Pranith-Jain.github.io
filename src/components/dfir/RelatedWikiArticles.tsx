@@ -28,7 +28,7 @@ export function RelatedWikiArticles({ path, limit = 5, className = '' }: Props):
   const visible = articles.slice(0, limit);
 
   return (
-    <section className={`mt-8 rounded-lg border border-cyan-500/30 bg-cyan-500/5 p-4 ${className}`}>
+    <section className={`mt-8 rounded-xl border border-cyan-500/30 bg-cyan-500/5 p-4 ${className}`}>
       <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-sky-700 dark:text-sky-300 font-mono mb-3 inline-flex items-center gap-2">
         <BookOpen size={12} /> Related background reading
       </h2>

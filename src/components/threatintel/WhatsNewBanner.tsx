@@ -165,7 +165,7 @@ export function WhatsNewBanner(): JSX.Element | null {
   return (
     <section
       aria-label="What's new since your last visit"
-      className="mb-6 rounded-lg border border-rose-500/40 bg-rose-500/10 dark:border-rose-500/30 dark:bg-rose-500/5 p-3 sm:p-4"
+      className="mb-6 rounded-xl border border-rose-500/40 bg-rose-500/10 dark:border-rose-500/30 dark:bg-rose-500/5 p-3 sm:p-4"
     >
       <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
         <span className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-rose-300 dark:text-rose-300 shrink-0">

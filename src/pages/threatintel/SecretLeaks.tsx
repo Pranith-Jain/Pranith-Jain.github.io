@@ -288,7 +288,7 @@ export default function SecretLeaks(): JSX.Element {
                   ].map((item) => (
                     <div
                       key={item.label}
-                      className="flex items-center gap-3 p-3 rounded-lg bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))]"
+                      className="flex items-center gap-3 p-3 rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))]"
                     >
                       <span className="text-xs font-mono font-semibold text-brand-600 dark:text-brand-400 w-24 flex-shrink-0">
                         {item.label}
@@ -309,7 +309,7 @@ export default function SecretLeaks(): JSX.Element {
                 ].map((s) => (
                   <div
                     key={s.label}
-                    className="bg-white dark:bg-[rgb(var(--surface-200))] rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] p-4"
+                    className="bg-white dark:bg-[rgb(var(--surface-200))] rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-4"
                   >
                     <div className="flex items-center gap-2 mb-2">
                       <s.icon size={14} className="text-slate-400" />
@@ -325,7 +325,7 @@ export default function SecretLeaks(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setTab('live')}
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-brand-600 text-white rounded-lg font-mono text-sm hover:bg-brand-700 transition-colors"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-brand-600 text-white rounded-xl font-mono text-sm hover:bg-brand-700 transition-colors"
                 >
                   <Key size={16} /> View Live Leaks
                 </button>
@@ -509,7 +509,7 @@ export default function SecretLeaks(): JSX.Element {
                     return (
                       <div
                         key={leak.id}
-                        className="bg-white dark:bg-[rgb(var(--surface-200))] rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] p-4 hover:border-brand-500/40 transition-colors"
+                        className="bg-white dark:bg-[rgb(var(--surface-200))] rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-4 hover:border-brand-500/40 transition-colors"
                       >
                         <div className="flex items-start justify-between gap-4">
                           <div className="min-w-0 flex-1">

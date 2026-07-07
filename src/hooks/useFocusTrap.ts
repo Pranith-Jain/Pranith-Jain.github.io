@@ -46,8 +46,8 @@ export function useFocusTrap({ isActive, onEscape }: UseFocusTrapOptions) {
       const focusableElements = getFocusableElements();
       if (focusableElements.length === 0) return;
 
-      const firstElement = focusableElements[0];
-      const lastElement = focusableElements[focusableElements.length - 1];
+      const firstElement = focusableElements[0]!;
+      const lastElement = focusableElements[focusableElements.length - 1]!;
       const activeElement = document.activeElement as HTMLElement;
 
       // Shift + Tab on first element -> move to last

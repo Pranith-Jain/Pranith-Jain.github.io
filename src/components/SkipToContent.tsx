@@ -15,8 +15,8 @@ export function SkipToContent() {
         focus:fixed focus:top-4 focus:left-4 focus:z-[100]
         focus:px-4 focus:py-2
         focus:bg-brand-600 focus:text-white
-        focus:rounded-lg focus:font-medium focus:text-sm
-        focus:shadow-lg
+        focus:rounded-xl focus:font-medium focus:text-sm
+        focus:shadow-xl
         focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2
       "
     >

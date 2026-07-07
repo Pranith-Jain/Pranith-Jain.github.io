@@ -195,7 +195,7 @@ export default function LlmThreatAtlas(): JSX.Element {
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search vectors, IDs, or domains…"
           aria-label="Search LLM threat vectors"
-          className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500/60"
+          className="w-full pl-9 pr-3 py-2 text-sm rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500/60"
         />
       </div>
 
@@ -248,7 +248,7 @@ export default function LlmThreatAtlas(): JSX.Element {
             return (
               <div
                 key={key}
-                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
+                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
               >
                 <div className="flex items-start justify-between gap-2">
                   <span className="font-mono text-lg font-bold text-brand-600 dark:text-brand-400">{key}</span>
@@ -280,7 +280,7 @@ export default function LlmThreatAtlas(): JSX.Element {
             <div
               key={item.id}
               id={item.id}
-              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 scroll-mt-20"
+              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 scroll-mt-20"
             >
               <div className="flex items-start justify-between gap-2">
                 <div className="flex-1 min-w-0">

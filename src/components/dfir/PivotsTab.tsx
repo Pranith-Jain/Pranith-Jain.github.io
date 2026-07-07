@@ -150,7 +150,7 @@ export function PivotsTab({
   if (pivots.length === 0) return null;
 
   return (
-    <section className="mb-8 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+    <section className="mb-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
       <div className="flex items-center gap-2 mb-4">
         <Fingerprint size={16} className="text-brand-600 dark:text-brand-400" />
         <h3 className="font-display font-semibold text-base">Pivots — extracted artifacts</h3>
@@ -168,7 +168,7 @@ export function PivotsTab({
           return (
             <div
               key={`${p.kind}-${p.value}-${i}`}
-              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 flex items-center justify-between gap-2"
+              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 flex items-center justify-between gap-2"
             >
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-1.5 mb-0.5">

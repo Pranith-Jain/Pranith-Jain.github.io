@@ -53,7 +53,7 @@ export function FeedHealthBadge(): JSX.Element | null {
       to="/threatintel/catalog?cat=tools"
       onMouseEnter={() => preloadRoute('/threatintel/catalog?cat=tools')}
       onFocus={() => preloadRoute('/threatintel/catalog?cat=tools')}
-      className={`inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-mini font-mono transition-colors hover:opacity-80 ${meta.bg}`}
+      className={`inline-flex items-center gap-2 rounded-xl border px-3 py-1.5 text-mini font-mono transition-colors hover:opacity-80 ${meta.bg}`}
     >
       <span className={`relative flex h-2 w-2 ${data.overall === 'ok' ? 'animate-pulse' : ''}`}>
         <span className={`absolute inline-flex h-full w-full rounded-full ${meta.dot} opacity-75`} />

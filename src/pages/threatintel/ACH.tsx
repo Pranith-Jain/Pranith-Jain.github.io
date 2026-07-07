@@ -299,7 +299,7 @@ export default function ACH(): JSX.Element {
                       </div>
 
                       {/* What would change */}
-                      <div className="mt-4 p-3 rounded-lg bg-white/50 dark:bg-[rgb(var(--surface-200))]/30 border border-slate-200 dark:border-[rgb(var(--border-400))]">
+                      <div className="mt-4 p-3 rounded-xl bg-white/50 dark:bg-[rgb(var(--surface-200))]/30 border border-slate-200 dark:border-[rgb(var(--border-400))]">
                         <div className="flex items-center gap-1.5 text-mini font-semibold text-amber-600 dark:text-amber-400 mb-1">
                           <Lightbulb size={12} /> What would change this assessment
                         </div>

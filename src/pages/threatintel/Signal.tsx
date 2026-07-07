@@ -179,7 +179,7 @@ export default function Signal(): JSX.Element {
         </>
       )}
 
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -249,7 +249,7 @@ export default function Signal(): JSX.Element {
         {filtered.map((it) => (
           <li
             key={it.url}
-            className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
+            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
           >
             <a href={sanitizeUrl(it.url)} target="_blank" rel="noopener noreferrer" className="group block">
               <div className="flex items-baseline justify-between gap-3 mb-1.5">

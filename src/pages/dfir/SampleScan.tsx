@@ -72,7 +72,7 @@ type DoneEvent = {
 type Phase = 'idle' | 'hashing' | 'streaming' | 'done' | 'error';
 
 const CARD =
-  'rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4';
+  'rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4';
 const H2 =
   'text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono inline-flex items-center gap-2';
 
@@ -402,7 +402,7 @@ export default function SampleScan(): JSX.Element {
       </section>
 
       {error && (
-        <div className="mb-6 flex items-center gap-2 rounded-lg border border-rose-200 bg-rose-50 p-4 dark:border-rose-900 dark:bg-rose-950/30">
+        <div className="mb-6 flex items-center gap-2 rounded-xl border border-rose-200 bg-rose-50 p-4 dark:border-rose-900 dark:bg-rose-950/30">
           <XCircle size={16} className="shrink-0 text-rose-600 dark:text-rose-400" />
           <p className="font-mono text-meta text-rose-700 dark:text-rose-300">{error}</p>
         </div>

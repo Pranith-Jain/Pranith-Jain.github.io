@@ -144,8 +144,7 @@ export default function VerdiktAi(): JSX.Element {
         iocValue: cleanValue,
         iocDetails: Object.keys(enrichmentData).length > 0 ? enrichmentData : undefined,
         enrichmentSources: enrichmentData?.sources as
-          | Array<{ name: string; status: 'success' | 'rate_limited' | 'error'; data?: string }>
-          | undefined,
+          Array<{ name: string; status: 'success' | 'rate_limited' | 'error'; data?: string }> | undefined,
         narrative,
         mitreTechniques,
         detectionQueries,
@@ -225,7 +224,7 @@ export default function VerdiktAi(): JSX.Element {
                 value={iocValue}
                 onChange={(e) => setIocValue(e.target.value)}
                 placeholder="Enter IP, domain, URL, or hash…"
-                className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 pr-20 text-sm text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
+                className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 pr-20 text-sm text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
               />
               {iocValue.trim() && (
                 <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1 px-2 py-1 rounded text-micro font-mono bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300">
@@ -310,7 +309,7 @@ export default function VerdiktAi(): JSX.Element {
                     {result.enrichmentSources.map((s, i) => (
                       <div
                         key={i}
-                        className="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))]"
+                        className="flex items-center justify-between p-2 rounded-xl bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))]"
                       >
                         <span className="text-xs font-mono text-slate-700 dark:text-slate-300">{s.name}</span>
                         <span
@@ -339,7 +338,7 @@ export default function VerdiktAi(): JSX.Element {
                     </h2>
                     <button
                       onClick={copyNarrative}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
                     >
                       {copiedNarrative ? <Check size={13} /> : <Copy size={13} />}
                       {copiedNarrative ? 'Copied' : 'Copy'}
@@ -364,7 +363,7 @@ export default function VerdiktAi(): JSX.Element {
                         href={`https://attack.mitre.org/techniques/${t.replace('.', '/')}/`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-2.5 py-1 rounded-lg border border-amber-300/50 dark:border-amber-800/50 bg-amber-50 dark:bg-amber-950/20 text-amber-700 dark:text-amber-300 text-xs font-mono hover:border-amber-500/60 transition-colors"
+                        className="px-2.5 py-1 rounded-xl border border-amber-300/50 dark:border-amber-800/50 bg-amber-50 dark:bg-amber-950/20 text-amber-700 dark:text-amber-300 text-xs font-mono hover:border-amber-500/60 transition-colors"
                       >
                         {t}
                       </a>
@@ -388,7 +387,7 @@ export default function VerdiktAi(): JSX.Element {
                           </span>
                           <CopyButton value={q.query} />
                         </div>
-                        <pre className="bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded-lg p-3 text-xs font-mono text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-x-auto whitespace-pre-wrap">
+                        <pre className="bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded-xl p-3 text-xs font-mono text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-x-auto whitespace-pre-wrap">
                           {q.query}
                         </pre>
                       </div>
@@ -399,7 +398,7 @@ export default function VerdiktAi(): JSX.Element {
 
               <button
                 onClick={downloadReport}
-                className="w-full px-4 py-2.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors flex items-center justify-center gap-2"
+                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors flex items-center justify-center gap-2"
               >
                 <Download size={13} /> Download Report
               </button>

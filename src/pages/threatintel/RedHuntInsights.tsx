@@ -238,7 +238,7 @@ function BigStat({
     cyan: 'text-cyan-600 dark:text-cyan-400',
   };
   return (
-    <div className={`rounded-lg border ${toneCls[tone]} p-4 shadow-e1`}>
+    <div className={`rounded-xl border ${toneCls[tone]} p-4 shadow-e1`}>
       <div className="flex items-center gap-2 text-slate-600 dark:text-slate-300">
         <Icon className={`h-4 w-4 ${iconTone[tone]}`} />
         <span className="text-xs font-mono uppercase tracking-wider">{label}</span>

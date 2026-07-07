@@ -109,7 +109,7 @@ export default function McpAudit(): JSX.Element {
       </BackLink>
 
       <header className="flex items-start gap-3">
-        <div className="rounded-lg bg-brand-500/10 p-2.5">
+        <div className="rounded-xl bg-brand-500/10 p-2.5">
           <Plug className="h-5 w-5 text-brand-600 dark:text-brand-400" aria-hidden="true" />
         </div>
         <div>
@@ -125,7 +125,7 @@ export default function McpAudit(): JSX.Element {
         </div>
       </header>
 
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
           <span className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
             Config JSON
@@ -185,7 +185,7 @@ export default function McpAudit(): JSX.Element {
 
       {input.trim() && !parseError && (
         <>
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
               <span className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono inline-flex items-center gap-2">
                 Verdict
@@ -224,7 +224,7 @@ export default function McpAudit(): JSX.Element {
             </div>
           </section>
 
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
             <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
               Findings
             </h2>
@@ -260,7 +260,7 @@ export default function McpAudit(): JSX.Element {
       )}
 
       {!input.trim() && (
-        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
           <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
             What this checks
           </h2>
@@ -320,7 +320,7 @@ export default function McpAudit(): JSX.Element {
         </section>
       )}
 
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           References
         </h2>

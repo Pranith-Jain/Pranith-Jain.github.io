@@ -112,12 +112,12 @@ export default function Wayback(): JSX.Element {
       }
       const [, ...rows] = data;
       const parsed: Snapshot[] = rows.map(([timestamp, original, status, mime, digest, length]) => ({
-        timestamp,
-        original,
-        status,
-        mime,
-        digest,
-        length,
+        timestamp: timestamp!,
+        original: original!,
+        status: status!,
+        mime: mime!,
+        digest: digest!,
+        length: length!,
       }));
       setSnapshots(parsed);
     } catch (e) {
@@ -218,7 +218,7 @@ export default function Wayback(): JSX.Element {
         </p>
       </div>
 
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -266,14 +266,14 @@ export default function Wayback(): JSX.Element {
       </section>
 
       {snapshots && snapshots.length === 0 && !error && (
-        <section className="rounded-lg border border-amber-500/30 bg-amber-500/5 p-4 mb-6 text-sm font-mono text-amber-700 dark:text-amber-300 inline-flex items-center gap-2">
+        <section className="rounded-xl border border-amber-500/30 bg-amber-500/5 p-4 mb-6 text-sm font-mono text-amber-700 dark:text-amber-300 inline-flex items-center gap-2">
           <AlertTriangle size={14} /> No snapshots found for this URL. The Internet Archive may not have crawled it, or
           the path is too specific — try the bare domain.
         </section>
       )}
 
       {stats && (
-        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
           <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
             <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
               Timeline summary
@@ -299,7 +299,7 @@ export default function Wayback(): JSX.Element {
             {Object.entries(stats.statusCounts).map(([bucket, n]) => (
               <span
                 key={bucket}
-                className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${statusClass(bucket[0])}`}
+                className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${statusClass(bucket[0]!)}`}
               >
                 {bucket} · {n}
               </span>
@@ -309,7 +309,7 @@ export default function Wayback(): JSX.Element {
       )}
 
       {displaySnapshots.length > 0 && (
-        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
           <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
             Snapshots (sorted by {sortKey} {sortDir})
           </h2>
@@ -393,7 +393,7 @@ export default function Wayback(): JSX.Element {
         </section>
       )}
 
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
           Companion lookups
         </h2>

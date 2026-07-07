@@ -77,7 +77,7 @@ export function KnowledgeGraphPanel({ actors, campaigns, ttps, context, onClose 
     <div className="rounded-xl border border-brand-500/30 bg-brand-500/5 animate-fade-in overflow-hidden">
       <div className="flex items-center justify-between px-4 py-3 border-b border-brand-500/10">
         <div className="flex items-center gap-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-500/15">
+          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-brand-500/15">
             <Network size={16} className="text-brand-400" />
           </div>
           <div>
@@ -96,11 +96,11 @@ export function KnowledgeGraphPanel({ actors, campaigns, ttps, context, onClose 
           <button
             onClick={fetchGraph}
             disabled={loading}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-200"
+            className="p-1.5 rounded-xl text-slate-400 hover:text-slate-200"
           >
             <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
           </button>
-          <button onClick={onClose} className="p-1.5 rounded-lg text-slate-400 hover:text-slate-200">
+          <button onClick={onClose} className="p-1.5 rounded-xl text-slate-400 hover:text-slate-200">
             <X size={14} />
           </button>
         </div>
@@ -115,7 +115,7 @@ export function KnowledgeGraphPanel({ actors, campaigns, ttps, context, onClose 
         )}
 
         {error && (
-          <div className="rounded-lg bg-rose-500/10 border border-rose-500/20 p-3 text-center">
+          <div className="rounded-xl bg-rose-500/10 border border-rose-500/20 p-3 text-center">
             <p className="text-xs text-rose-400">{error}</p>
           </div>
         )}

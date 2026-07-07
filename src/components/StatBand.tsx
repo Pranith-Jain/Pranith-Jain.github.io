@@ -68,7 +68,7 @@ export const StatCell = memo(function StatCell({
       className="group flex min-h-[7rem] flex-col gap-2.5 bg-white px-4 py-4 transition-colors hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-500/50 dark:bg-[rgb(var(--surface-200))] dark:hover:bg-[#16161f] sm:px-5"
     >
       <div className="flex items-center gap-2">
-        <span className={`inline-flex h-6 w-6 items-center justify-center rounded-md ${iconClass}`}>{icon}</span>
+        <span className={`inline-flex h-6 w-6 items-center justify-center rounded ${iconClass}`}>{icon}</span>
         <span className="font-mono text-micro uppercase tracking-[0.18em] text-slate-500">{label}</span>
       </div>
       {children}

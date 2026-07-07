@@ -92,13 +92,13 @@ export async function exportReportPdf(report: ReportDoc): Promise<Blob> {
       }
       const h = /^(#{1,6})\s+(.*)$/.exec(line);
       if (h) {
-        heading(cleanInline(h[2]), Math.max(11, 14 - h[1].length));
+        heading(cleanInline(h[2]!), Math.max(11, 14 - h[1]!.length));
         continue;
       }
       const b = /^[-*]\s+(.*)$/.exec(line);
       if (b) {
         doc.setFontSize(10);
-        const lines = doc.splitTextToSize(cleanInline(b[1]), maxW - 14) as string[];
+        const lines = doc.splitTextToSize(cleanInline(b[1]!), maxW - 14) as string[];
         lines.forEach((ln, i) => {
           ensure(12);
           if (i === 0) doc.text('•', margin, y);

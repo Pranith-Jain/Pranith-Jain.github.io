@@ -259,7 +259,7 @@ export default function StixViewer(): JSX.Element {
       <div className="grid lg:grid-cols-[400px_1fr] gap-6">
         {/* Left: input + filter + selected detail */}
         <aside className="space-y-4">
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3">
             <div className="flex items-center gap-2 mb-2">
               <Globe2 size={12} className="text-brand-600 dark:text-brand-400" />
               <label htmlFor="stix-id" className="text-xs font-mono uppercase tracking-wider text-slate-500">
@@ -341,14 +341,14 @@ export default function StixViewer(): JSX.Element {
               onChange={(e) => setInput(e.target.value)}
               placeholder='{ "type": "bundle", "objects": [...] }'
               rows={12}
-              className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-xs text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-xs text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               spellCheck={false}
             />
             {parseError && <p className="mt-2 text-xs font-mono text-rose-600 dark:text-rose-400">{parseError}</p>}
           </section>
 
           {bundle && (
-            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
               <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-slate-500 mb-3">
                 <Filter size={12} /> Types ({types.length})
               </div>
@@ -384,7 +384,7 @@ export default function StixViewer(): JSX.Element {
           )}
 
           {selected && (
-            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
               <div className="flex items-center justify-between mb-3">
                 <div className="text-xs font-mono uppercase tracking-wider text-slate-500">Selected object</div>
                 <button
@@ -414,7 +414,7 @@ export default function StixViewer(): JSX.Element {
 
         {/* Right: graph */}
         <div
-          className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] overflow-hidden"
+          className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] overflow-hidden"
           style={{ height: '70vh', minHeight: 520 }}
         >
           {bundle && nodes.length > 0 ? (

@@ -141,7 +141,7 @@ export default function IrPlaybooks(): JSX.Element {
               <button
                 key={t.id}
                 onClick={() => setIncidentType(t.id)}
-                className={`p-3 rounded-lg border text-left transition-colors ${incidentType === t.id ? 'border-brand-500/60 bg-brand-500/5' : 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/30'}`}
+                className={`p-3 rounded-xl border text-left transition-colors ${incidentType === t.id ? 'border-brand-500/60 bg-brand-500/5' : 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/30'}`}
               >
                 <Icon size={20} className="text-brand-600 dark:text-brand-400 mb-1" />
                 <div className="text-xs font-medium">{t.label}</div>
@@ -159,14 +159,14 @@ export default function IrPlaybooks(): JSX.Element {
             value={context}
             onChange={(e) => setContext(e.target.value)}
             placeholder="Describe specific details about the incident…"
-            className="w-full h-20 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg p-3 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y"
+            className="w-full h-20 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl p-3 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y"
           />
         </div>
 
         <button
           onClick={handleGenerate}
           disabled={loading || !incidentType}
-          className="mt-4 w-full px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-lg text-sm font-semibold text-white transition-colors flex items-center justify-center gap-2"
+          className="mt-4 w-full px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-white transition-colors flex items-center justify-center gap-2"
         >
           {loading ? <Loader2 size={14} className="animate-spin" /> : <BookOpen size={14} />}
           {loading ? 'Generating playbook…' : 'Generate IR Playbook'}
@@ -293,7 +293,7 @@ export default function IrPlaybooks(): JSX.Element {
                       setIncidentType(rp.id);
                       setResult(null);
                     }}
-                    className="w-full flex items-center justify-between p-3 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/30 transition-colors text-left"
+                    className="w-full flex items-center justify-between p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/30 transition-colors text-left"
                   >
                     <div>
                       <div className="text-sm font-medium">{rp.title}</div>

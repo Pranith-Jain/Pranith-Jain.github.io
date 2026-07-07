@@ -55,6 +55,7 @@ import { zoomeye } from './zoomeye';
 import { trege } from './tre-ge';
 import { intodns } from './intodns';
 import { opensourcemalware } from './opensourcemalware';
+import { polyswarm } from './polyswarm';
 
 export { PROVIDER_SUPPORT, PROVIDER_TIMEOUT_MS, PROVIDER_TIER };
 
@@ -114,6 +115,7 @@ export const ADAPTERS: Record<ProviderId, ProviderAdapter> = {
   zoomeye,
   'tre-ge': trege,
   intodns,
+  polyswarm,
 };
 
 /**
@@ -186,6 +188,7 @@ export const PROVIDER_LABELS: Record<string, string> = {
   zoomeye: 'ZoomEye',
   'tre-ge': 'tre.ge',
   intodns: 'IntoDNS.ai',
+  polyswarm: 'PolySwarm',
 };
 
 export function buildProviderEnv(env: {
@@ -211,6 +214,7 @@ export function buildProviderEnv(env: {
   GOOGLE_SAFE_BROWSING_API_KEY?: string;
   ZOOMEYE_API_KEY?: string;
   INTODNS_API_KEY?: string;
+  POLYSWARM_API_KEY?: string;
 }): ProviderEnv {
   return {
     VT_API_KEY: env.VT_API_KEY ?? '',
@@ -235,5 +239,6 @@ export function buildProviderEnv(env: {
     GOOGLE_SAFE_BROWSING_API_KEY: env.GOOGLE_SAFE_BROWSING_API_KEY,
     ZOOMEYE_API_KEY: env.ZOOMEYE_API_KEY,
     INTODNS_API_KEY: env.INTODNS_API_KEY,
+    POLYSWARM_API_KEY: env.POLYSWARM_API_KEY,
   };
 }

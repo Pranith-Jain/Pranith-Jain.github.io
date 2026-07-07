@@ -7,9 +7,9 @@ interface MembershipsProps {
 // Single brand palette across every membership card — the previous
 // 4-color colorMap read as the "bento with 5+ accent colors" AI tell.
 const ABBREV_TILE =
-  'grid h-9 w-9 place-items-center rounded-md bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-300 font-mono text-meta font-semibold';
+  'grid h-9 w-9 place-items-center rounded bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-300 font-mono text-meta font-semibold';
 const MEMBER_PILL =
-  'rounded-md bg-slate-100 px-2 py-0.5 text-micro font-mono uppercase tracking-[0.15em] text-slate-500 dark:bg-white/5 dark:text-slate-400';
+  'rounded bg-slate-100 px-2 py-0.5 text-micro font-mono uppercase tracking-[0.15em] text-slate-500 dark:bg-white/5 dark:text-slate-400';
 
 export function Memberships({ memberships }: MembershipsProps) {
   return (

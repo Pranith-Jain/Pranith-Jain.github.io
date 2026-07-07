@@ -87,7 +87,7 @@ export default function EmailDefense(): JSX.Element {
     >
       <ToolDocs path="/dfir/email-defense" />
 
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -126,7 +126,7 @@ export default function EmailDefense(): JSX.Element {
       {assessment && data && (
         <>
           {/* Score */}
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
                 Spoofability score for {data.domain}
@@ -217,7 +217,7 @@ export default function EmailDefense(): JSX.Element {
             data.email_auth.dmarc.record ||
             data.email_auth.bimi.present ||
             data.email_auth.tls_rpt.present) && (
-            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
                 Records observed
               </h2>
@@ -246,7 +246,7 @@ export default function EmailDefense(): JSX.Element {
 
           {/* Gaps */}
           {assessment.gaps.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
                 Gaps & BEC scenarios ({assessment.gaps.length})
               </h2>
@@ -290,7 +290,7 @@ export default function EmailDefense(): JSX.Element {
 
           {/* Positives */}
           {assessment.positives.length > 0 && (
-            <section className="rounded-lg border border-emerald-500/30 bg-emerald-500/5 p-4 mb-6">
+            <section className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-4 mb-6">
               <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 font-mono mb-2 inline-flex items-center gap-1.5">
                 <CheckCircle2 size={12} /> What you're already doing
               </h2>
@@ -310,7 +310,7 @@ export default function EmailDefense(): JSX.Element {
         </div>
       )}
 
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           References
         </h2>
@@ -357,7 +357,7 @@ export default function EmailDefense(): JSX.Element {
 function Fact({ label, value, good }: { label: string; value: string; good: boolean }): JSX.Element {
   return (
     <div
-      className={`rounded-lg border p-3 ${
+      className={`rounded-xl border p-3 ${
         good
           ? 'border-emerald-500/30 bg-emerald-500/5'
           : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]'

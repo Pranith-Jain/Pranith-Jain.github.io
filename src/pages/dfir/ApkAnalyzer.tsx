@@ -71,7 +71,7 @@ export default function ApkAnalyzer(): JSX.Element {
           dangerous permissions, suspicious API usage, packed code, and potential malware behaviors. 100% client-side,
           max 100 MB."
     >
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <button
           type="button"
           onDrop={(e) => {
@@ -81,7 +81,7 @@ export default function ApkAnalyzer(): JSX.Element {
           }}
           onDragOver={(e) => e.preventDefault()}
           onClick={() => fileRef.current?.click()}
-          className="w-full border-2 border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] rounded-lg p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
+          className="w-full border-2 border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
           aria-label="Drop an APK file or click to choose"
         >
           <Upload size={32} className="mx-auto mb-2 text-slate-500" />
@@ -114,7 +114,7 @@ export default function ApkAnalyzer(): JSX.Element {
       {result && (
         <div className="space-y-6">
           {/* Summary */}
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
             <div className="flex flex-wrap items-baseline justify-between gap-2 mb-3">
               <h2 className="font-display font-bold text-lg">{result.fileName}</h2>
               <span className="text-xs font-mono text-slate-500">{fmtBytes(result.size)}</span>
@@ -171,7 +171,7 @@ export default function ApkAnalyzer(): JSX.Element {
           </section>
 
           {/* Hashes */}
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
             <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 inline-flex items-center gap-2">
               <Hash size={12} /> File hashes
             </h3>
@@ -208,7 +208,7 @@ export default function ApkAnalyzer(): JSX.Element {
 
           {/* Suspicious findings */}
           {result.analysis.suspicious.length > 0 && (
-            <section className="rounded-lg border border-rose-500/30 bg-rose-500/5 p-4">
+            <section className="rounded-xl border border-rose-500/30 bg-rose-500/5 p-4">
               <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-rose-600 dark:text-rose-400 font-mono mb-3 inline-flex items-center gap-2">
                 <AlertTriangle size={12} /> Suspicious indicators ({result.analysis.suspicious.length})
               </h3>
@@ -232,7 +232,7 @@ export default function ApkAnalyzer(): JSX.Element {
 
           {/* Permissions */}
           {result.analysis.permissions.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
               <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 inline-flex items-center gap-2">
                 <ShieldAlert size={12} /> Permissions ({result.analysis.permissions.length})
               </h3>
@@ -256,7 +256,7 @@ export default function ApkAnalyzer(): JSX.Element {
 
           {/* DEX Files */}
           {result.analysis.dexFiles.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
               <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 inline-flex items-center gap-2">
                 <Cpu size={12} /> DEX Analysis ({result.analysis.dexFiles.length} files)
               </h3>
@@ -289,7 +289,7 @@ export default function ApkAnalyzer(): JSX.Element {
             result.analysis.ips.length > 0 ||
             result.analysis.domains.length > 0 ||
             result.analysis.apiKeys.length > 0) && (
-            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
               <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 inline-flex items-center gap-2">
                 <Globe size={12} /> Extracted IOCs
               </h3>
@@ -330,7 +330,7 @@ export default function ApkAnalyzer(): JSX.Element {
           {(result.analysis.activities.length > 0 ||
             result.analysis.services.length > 0 ||
             result.analysis.receivers.length > 0) && (
-            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
               <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 inline-flex items-center gap-2">
                 <Layers size={12} /> Components
               </h3>
@@ -390,7 +390,7 @@ export default function ApkAnalyzer(): JSX.Element {
 
           {/* Native libs */}
           {result.analysis.nativeLibs.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
               <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 inline-flex items-center gap-2">
                 <Database size={12} /> Native Libraries ({result.analysis.nativeLibs.length})
               </h3>

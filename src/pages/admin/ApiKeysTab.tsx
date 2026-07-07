@@ -103,7 +103,7 @@ export default function ApiKeysTab() {
   return (
     <div className="space-y-8">
       {/* Create new key */}
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.5)] p-5">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.5)] p-5">
         <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-4">Create API Key</h2>
         <form onSubmit={handleCreate} className="flex flex-wrap items-end gap-3">
           <div className="flex-1 min-w-[200px]">

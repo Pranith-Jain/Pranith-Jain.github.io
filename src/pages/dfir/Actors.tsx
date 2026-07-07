@@ -68,7 +68,7 @@ export default function Actors(): JSX.Element {
         Showing {filtered.length} of {threatActors.length} actors.
       </p>
 
-      <section className="mt-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-5">
+      <section className="mt-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-5">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-2">
           Have a STIX 2.1 bundle?
         </h2>

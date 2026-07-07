@@ -79,7 +79,7 @@ function MarketCard({ m }: { m: PredictionMarket }): JSX.Element {
     >
       <div className="flex items-start justify-between gap-3 mb-3">
         <span
-          className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[11px] font-mono border ${meta.accent}`}
+          className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-mono border ${meta.accent}`}
         >
           <meta.icon size={11} /> {meta.label}
         </span>
@@ -149,7 +149,7 @@ export default function Predictions(): JSX.Element {
             key={b}
             type="button"
             onClick={() => setFilter(b)}
-            className={`px-3 py-1.5 rounded-lg text-xs font-mono border transition-colors ${
+            className={`px-3 py-1.5 rounded-xl text-xs font-mono border transition-colors ${
               active
                 ? 'border-brand-500 bg-brand-50 dark:bg-brand-500/10 text-brand-700 dark:text-brand-300'
                 : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-600'

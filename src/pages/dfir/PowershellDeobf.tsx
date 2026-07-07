@@ -110,8 +110,8 @@ export default function PowershellDeobf(): JSX.Element {
     // Keep only the last per-pass collapse if the same pass fired repeatedly back-to-back.
     const out: Step[] = [];
     for (const s of steps) {
-      if (out.length && out[out.length - 1].passName === s.passName) {
-        out[out.length - 1] = { ...out[out.length - 1], after: s.after };
+      if (out.length && out[out.length - 1]!.passName === s.passName) {
+        out[out.length - 1] = { ...out[out.length - 1]!, after: s.after };
       } else {
         out.push(s);
       }
@@ -144,7 +144,7 @@ export default function PowershellDeobf(): JSX.Element {
         </p>
       </div>
 
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
           <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
             Input
@@ -181,7 +181,7 @@ export default function PowershellDeobf(): JSX.Element {
 
       {result && (
         <>
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
                 Decoded output
@@ -210,7 +210,7 @@ export default function PowershellDeobf(): JSX.Element {
           </section>
 
           {risks.length > 0 && (
-            <section className="rounded-lg border border-rose-500/30 bg-rose-500/5 p-4 mb-6">
+            <section className="rounded-xl border border-rose-500/30 bg-rose-500/5 p-4 mb-6">
               <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-rose-700 dark:text-rose-300 font-mono mb-3 inline-flex items-center gap-1.5">
                 <AlertTriangle size={12} /> Risk indicators in decoded output ({risks.length})
               </h2>
@@ -236,14 +236,14 @@ export default function PowershellDeobf(): JSX.Element {
           )}
 
           {result.steps.length === 0 && (
-            <section className="rounded-lg border border-emerald-500/30 bg-emerald-500/5 p-4 mb-6 text-sm font-mono text-emerald-700 dark:text-emerald-300 inline-flex items-center gap-2">
+            <section className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-4 mb-6 text-sm font-mono text-emerald-700 dark:text-emerald-300 inline-flex items-center gap-2">
               <CheckCircle2 size={14} /> No transformations fired — the input is either already plain or uses an
               encoding this tool doesn't recognise.
             </section>
           )}
 
           {result.steps.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
               <button
                 onClick={() => setShowSteps((v) => !v)}
                 className="w-full flex items-center justify-between gap-3 text-left"
@@ -271,7 +271,7 @@ export default function PowershellDeobf(): JSX.Element {
         </>
       )}
 
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           Passes
         </h2>

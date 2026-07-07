@@ -40,7 +40,7 @@ export default function ToolsDirectory(): JSX.Element {
   useEffect(() => {
     let cancelled = false;
     const ctrl = new AbortController();
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+
     setLoading(true);
     setError(null);
 
@@ -124,15 +124,13 @@ export default function ToolsDirectory(): JSX.Element {
             <Stat label="Categories" value={allCategories.length} />
             <Stat
               label="Filtered"
-              value={
-                query || selectedCategory || offensiveFilter !== null ? filtered.length : data.count
-              }
+              value={query || selectedCategory || offensiveFilter !== null ? filtered.length : data.count}
             />
             <Stat label="Source" value="novasky.io" />
           </div>
 
           {/* Toolbar */}
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
             <div className="flex flex-col gap-3">
               <div className="relative flex-1">
                 <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
@@ -140,7 +138,7 @@ export default function ToolsDirectory(): JSX.Element {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder={`Search ${data.count} tools…`}
-                  className="w-full rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
+                  className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
                 />
               </div>
 
@@ -175,11 +173,13 @@ export default function ToolsDirectory(): JSX.Element {
 
               {/* Offensive / defensive toggle */}
               <div className="flex gap-1.5">
-                {([
-                  { label: 'all', value: null },
-                  { label: 'offensive', value: true },
-                  { label: 'defensive', value: false },
-                ] as const).map((opt) => (
+                {(
+                  [
+                    { label: 'all', value: null },
+                    { label: 'offensive', value: true },
+                    { label: 'defensive', value: false },
+                  ] as const
+                ).map((opt) => (
                   <button
                     key={opt.label}
                     type="button"
@@ -199,16 +199,10 @@ export default function ToolsDirectory(): JSX.Element {
 
           {/* Tool grid */}
           {filtered.length === 0 ? (
-            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
               <Search className="mx-auto mb-2 h-8 w-8 text-slate-400 dark:text-slate-400" />
               No tools match your filters
-              {query && (
-                <>
-                  {' '}
-                  for &quot;{query}&quot;
-                </>
-              )}
-              .
+              {query && <> for &quot;{query}&quot;</>}.
             </div>
           ) : (
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -225,7 +219,7 @@ export default function ToolsDirectory(): JSX.Element {
 
 function Stat({ label, value }: { label: string; value: React.ReactNode }) {
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2">
       <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">{label}</div>
       <div className="text-lg font-semibold text-slate-900 dark:text-slate-100 truncate">{value}</div>
     </div>
@@ -238,7 +232,7 @@ function ToolCard({ tool }: { tool: ToolEntry }) {
       href={tool.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group block rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 hover:border-brand-500/50 hover:shadow-e2 transition-all"
+      className="group block rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 hover:border-brand-500/50 hover:shadow-e2 transition-all"
     >
       <div className="flex items-start justify-between gap-2 mb-2">
         <h3 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors leading-snug">
@@ -281,9 +275,7 @@ function ToolCard({ tool }: { tool: ToolEntry }) {
             </span>
           ))}
           {tool.tags.length > 3 && (
-            <span className="text-micro font-mono text-slate-400 dark:text-slate-500">
-              +{tool.tags.length - 3}
-            </span>
+            <span className="text-micro font-mono text-slate-400 dark:text-slate-500">+{tool.tags.length - 3}</span>
           )}
         </div>
         {tool.githubUrl && (

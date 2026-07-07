@@ -225,7 +225,7 @@ export default function CtiDashboard(): JSX.Element {
       {loadError && !loading && (
         <div
           role="alert"
-          className="mb-4 flex items-center justify-between gap-3 rounded-md border border-rose-300 dark:border-rose-700 bg-rose-50 dark:bg-rose-950/30 px-3 py-2 text-tool text-rose-700 dark:text-rose-300"
+          className="mb-4 flex items-center justify-between gap-3 rounded border border-rose-300 dark:border-rose-700 bg-rose-50 dark:bg-rose-950/30 px-3 py-2 text-tool text-rose-700 dark:text-rose-300"
         >
           <span>Some dashboard data failed to load.</span>
           <button
@@ -274,7 +274,7 @@ export default function CtiDashboard(): JSX.Element {
               <button
                 onClick={handleCollect}
                 disabled={collecting}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-brand-300 dark:border-brand-700 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300 text-sm font-mono font-semibold hover:bg-brand-100 dark:hover:bg-brand-900/40 disabled:opacity-50 transition-colors"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border border-brand-300 dark:border-brand-700 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300 text-sm font-mono font-semibold hover:bg-brand-100 dark:hover:bg-brand-900/40 disabled:opacity-50 transition-colors"
               >
                 {collecting ? <RefreshCw size={14} className="animate-spin" /> : <Zap size={14} />}
                 {collecting ? 'Collecting...' : 'Run Collection'}
@@ -284,7 +284,7 @@ export default function CtiDashboard(): JSX.Element {
                   fetchStats();
                   fetchNews();
                 }}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 text-slate-600 dark:text-slate-400 text-sm font-mono hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 text-slate-600 dark:text-slate-400 text-sm font-mono hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
               >
                 <RefreshCw size={14} /> Refresh
               </button>
@@ -332,7 +332,7 @@ export default function CtiDashboard(): JSX.Element {
                       className="flex items-center justify-between py-1.5 border-b border-slate-100 dark:border-[rgb(var(--border-400))] last:border-0"
                     >
                       <span
-                        className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[11px] font-mono border ${TYPE_PILL[type] || 'border-slate-300 bg-slate-100 text-slate-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-400'}`}
+                        className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-mono border ${TYPE_PILL[type] || 'border-slate-300 bg-slate-100 text-slate-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-400'}`}
                       >
                         {type}
                       </span>
@@ -423,7 +423,7 @@ export default function CtiDashboard(): JSX.Element {
               <button
                 onClick={handlePredict}
                 disabled={predicting}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-violet-300 dark:border-violet-700 bg-violet-50 dark:bg-violet-950/40 text-violet-700 dark:text-violet-300 text-sm font-mono font-semibold hover:bg-violet-100 dark:hover:bg-violet-900/40 disabled:opacity-50 transition-colors"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border border-violet-300 dark:border-violet-700 bg-violet-50 dark:bg-violet-950/40 text-violet-700 dark:text-violet-300 text-sm font-mono font-semibold hover:bg-violet-100 dark:hover:bg-violet-900/40 disabled:opacity-50 transition-colors"
               >
                 {predicting ? <RefreshCw size={14} className="animate-spin" /> : <Brain size={14} />}
                 {predicting ? 'Generating...' : 'Generate Predictions'}
@@ -455,7 +455,7 @@ export default function CtiDashboard(): JSX.Element {
                       </div>
                       <div className="flex items-center gap-2 flex-shrink-0">
                         <span
-                          className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-mono border ${THREAT_PILL[p.threat_level] || THREAT_PILL.MEDIUM}`}
+                          className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-mono border ${THREAT_PILL[p.threat_level] || THREAT_PILL.MEDIUM}`}
                         >
                           {p.threat_level}
                         </span>
@@ -513,12 +513,12 @@ export default function CtiDashboard(): JSX.Element {
                 value={mutationInput}
                 onChange={(e) => setMutationInput(e.target.value)}
                 placeholder="Describe an attack pattern, campaign, or malware (e.g. 'LockBit ransomware exploiting CVE-2024-21413 via phishing email to encrypt ESXi servers')"
-                className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)] p-3 text-sm font-mono text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 resize-none h-24 focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 dark:focus:border-brand-400"
+                className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)] p-3 text-sm font-mono text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 resize-none h-24 focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 dark:focus:border-brand-400"
               />
               <button
                 onClick={handleMutate}
                 disabled={mutating || !mutationInput.trim()}
-                className="mt-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-orange-300 dark:border-orange-700 bg-orange-50 dark:bg-orange-950/40 text-orange-700 dark:text-orange-300 text-sm font-mono font-semibold hover:bg-orange-100 dark:hover:bg-orange-900/40 disabled:opacity-50 transition-colors"
+                className="mt-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border border-orange-300 dark:border-orange-700 bg-orange-50 dark:bg-orange-950/40 text-orange-700 dark:text-orange-300 text-sm font-mono font-semibold hover:bg-orange-100 dark:hover:bg-orange-900/40 disabled:opacity-50 transition-colors"
               >
                 {mutating ? <RefreshCw size={14} className="animate-spin" /> : <Dna size={14} />}
                 {mutating ? 'Generating...' : 'Generate Variants'}
@@ -571,7 +571,7 @@ export default function CtiDashboard(): JSX.Element {
                       </div>
                       <div className="flex items-center gap-2 flex-shrink-0">
                         <span
-                          className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-mono border ${THREAT_PILL[v.threat_level] || THREAT_PILL.MEDIUM}`}
+                          className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-mono border ${THREAT_PILL[v.threat_level] || THREAT_PILL.MEDIUM}`}
                         >
                           {v.threat_level}
                         </span>
@@ -597,7 +597,7 @@ export default function CtiDashboard(): JSX.Element {
             <div className="flex gap-3">
               <button
                 onClick={fetchNews}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 text-slate-600 dark:text-slate-400 text-sm font-mono hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 text-slate-600 dark:text-slate-400 text-sm font-mono hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
               >
                 <RefreshCw size={14} /> Refresh
               </button>

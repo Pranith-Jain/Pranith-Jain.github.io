@@ -203,7 +203,7 @@ export default function ThreatHunt(): JSX.Element {
                 {result.ioc_providers.hits.map((h) => (
                   <div
                     key={h.source}
-                    className="px-3 py-2 rounded-lg bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)]"
+                    className="px-3 py-2 rounded-xl bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)]"
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
@@ -248,7 +248,7 @@ export default function ThreatHunt(): JSX.Element {
                 {result.telegram_leaks.hits.map((h) => (
                   <div
                     key={`${h.channel}-${h.date}`}
-                    className="px-3 py-2 rounded-lg bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)]"
+                    className="px-3 py-2 rounded-xl bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)]"
                   >
                     <p className="text-mini font-mono text-brand-600 dark:text-brand-400">{h.channel}</p>
                     <p className="text-xs font-mono text-muted mt-0.5 line-clamp-2">{h.message}</p>
@@ -265,7 +265,7 @@ export default function ThreatHunt(): JSX.Element {
             ) : (
               <div className="space-y-1">
                 {result.breach_data.hits.map((b) => (
-                  <div key={b.name} className="px-3 py-2 rounded-lg bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)]">
+                  <div key={b.name} className="px-3 py-2 rounded-xl bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)]">
                     <p className="text-xs font-mono font-medium">{b.name}</p>
                     {b.description && <p className="text-mini font-mono text-slate-400 mt-0.5">{b.description}</p>}
                   </div>
@@ -313,13 +313,13 @@ export default function ThreatHunt(): JSX.Element {
           <div className="flex flex-wrap gap-3 pt-2">
             <a
               href={`/dfir/ioc-investigate?indicator=${encodeURIComponent(result.q)}`}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-mono text-muted hover:border-brand-500/40 transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-mono text-muted hover:border-brand-500/40 transition-colors"
             >
               <ExternalLink size={12} /> Full IOC Check (streaming)
             </a>
             <a
               href={`/dfir/breach?q=${encodeURIComponent(result.q)}`}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-mono text-muted hover:border-brand-500/40 transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-mono text-muted hover:border-brand-500/40 transition-colors"
             >
               <ExternalLink size={12} /> Breach Deep Dive
             </a>

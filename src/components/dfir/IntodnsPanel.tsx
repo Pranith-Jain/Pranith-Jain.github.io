@@ -191,7 +191,7 @@ export function IntodnsPanel({ domain, title = 'IntoDNS.ai grade' }: IntodnsPane
 
   if (loading) {
     return (
-      <div className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-mini font-mono text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.4)] dark:text-slate-400">
+      <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-mini font-mono text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.4)] dark:text-slate-400">
         <Loader2 size={12} className="animate-spin" aria-hidden="true" />
         fetching intodns.ai grade…
       </div>
@@ -200,7 +200,7 @@ export function IntodnsPanel({ domain, title = 'IntoDNS.ai grade' }: IntodnsPane
 
   if (error) {
     return (
-      <div className="rounded-lg border border-amber-500/30 bg-amber-500/5 px-3 py-2 text-mini font-mono text-amber-700 dark:text-amber-300">
+      <div className="rounded-xl border border-amber-500/30 bg-amber-500/5 px-3 py-2 text-mini font-mono text-amber-700 dark:text-amber-300">
         intodns.ai unavailable: {error}
         <span className="ml-2 inline-block">
           <a
@@ -226,11 +226,11 @@ export function IntodnsPanel({ domain, title = 'IntoDNS.ai grade' }: IntodnsPane
   return (
     <section
       aria-label={title}
-      className="rounded-lg border border-slate-200 bg-white p-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.4)]"
+      className="rounded-xl border border-slate-200 bg-white p-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.4)]"
     >
       <header className="flex flex-wrap items-center gap-3">
         <div
-          className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-lg font-mono text-lg font-bold ring-2 ${tone.bg} ${tone.ring} ${tone.text}`}
+          className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl font-mono text-lg font-bold ring-2 ${tone.bg} ${tone.ring} ${tone.text}`}
           title={`Grade ${snapshot.grade} (${snapshot.percentage}%)`}
         >
           {snapshot.grade}
@@ -254,7 +254,7 @@ export function IntodnsPanel({ domain, title = 'IntoDNS.ai grade' }: IntodnsPane
           href={CITATIONS.liveReport(snapshot.domain)}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex shrink-0 items-center gap-1 rounded-md border border-slate-200 px-2.5 py-1 text-mini font-mono text-slate-700 hover:border-slate-300 hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:text-slate-300 dark:hover:border-slate-600 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
+          className="inline-flex shrink-0 items-center gap-1 rounded border border-slate-200 px-2.5 py-1 text-mini font-mono text-slate-700 hover:border-slate-300 hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:text-slate-300 dark:hover:border-slate-600 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
         >
           view full <ExternalLink size={9} aria-hidden="true" />
         </a>

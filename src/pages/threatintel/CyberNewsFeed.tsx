@@ -72,13 +72,13 @@ export default function CyberNewsFeed(): JSX.Element {
             placeholder="Filter articles..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-lg text-sm"
+            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl text-sm"
           />
         </div>
         <button
           onClick={refetch}
           disabled={loading}
-          className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-lg text-sm flex items-center gap-1.5 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+          className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl text-sm flex items-center gap-1.5 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
         >
           <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
           Refresh
@@ -88,7 +88,7 @@ export default function CyberNewsFeed(): JSX.Element {
       <div className="flex flex-wrap gap-1.5">
         <button
           onClick={() => setActiveTier(null)}
-          className={`px-2.5 py-1 rounded-lg text-xs font-medium border transition-colors ${
+          className={`px-2.5 py-1 rounded-xl text-xs font-medium border transition-colors ${
             activeTier === null
               ? 'bg-brand-600 text-white border-brand-600'
               : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]'
@@ -101,7 +101,7 @@ export default function CyberNewsFeed(): JSX.Element {
           <button
             key={tier}
             onClick={() => setActiveTier(activeTier === Number(tier) ? null : Number(tier))}
-            className={`px-2.5 py-1 rounded-lg text-xs font-medium border transition-colors ${
+            className={`px-2.5 py-1 rounded-xl text-xs font-medium border transition-colors ${
               activeTier === Number(tier) ? 'bg-brand-600 text-white border-brand-600' : color
             }`}
           >
@@ -124,7 +124,7 @@ export default function CyberNewsFeed(): JSX.Element {
             </div>
             <div className="space-y-2">
               {filtered?.map((article, i) => {
-                const tier = TIER_LABELS[article.tier] ?? TIER_LABELS[5];
+                const tier = (TIER_LABELS[article.tier] ?? TIER_LABELS[5])!;
                 return (
                   <a
                     key={`${article.link}-${i}`}
@@ -138,7 +138,7 @@ export default function CyberNewsFeed(): JSX.Element {
                         <img
                           src={article.image_url}
                           alt=""
-                          className="w-16 h-12 object-cover rounded-lg flex-shrink-0 hidden sm:block"
+                          className="w-16 h-12 object-cover rounded-xl flex-shrink-0 hidden sm:block"
                           loading="lazy"
                         />
                       )}

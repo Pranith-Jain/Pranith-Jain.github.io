@@ -94,9 +94,9 @@ const passEncodedCommand: Pass = {
     const re = /-(?:enc(?:odedcommand)?|ec|e)\s+["']?([A-Za-z0-9+/=]{16,})["']?/i;
     const m = s.match(re);
     if (!m) return { out: s, changed: false };
-    const decoded = b64Utf16LE(m[1]);
+    const decoded = b64Utf16LE(m[1]!);
     if (!decoded || !looksReadable(decoded)) return { out: s, changed: false };
-    return { out: s.replace(m[0], decoded), changed: true };
+    return { out: s.replace(m[0]!, decoded), changed: true };
   },
 };
 
@@ -151,7 +151,7 @@ const passReplaceChain: Pass = {
       for (const m of chain.matchAll(/\.[Rr]eplace\(\s*["']([^"']*)["']\s*,\s*["']([^"']*)["']\s*\)/g)) {
         const find = m[1];
         const repl = m[2];
-        cur = cur.split(find).join(repl);
+        cur = cur.split(find!).join(repl!);
       }
       changed = true;
       return `'${cur.replace(/'/g, "''")}'`;
@@ -192,7 +192,7 @@ const passCharLiterals: Pass = {
     const seqRe = /(?:\[char\]\s*(?:0x[0-9a-fA-F]+|\d+)\s*\+?\s*){2,}/g;
     out = out.replace(seqRe, (full) => {
       const codes = [...full.matchAll(/\[char\]\s*(0x[0-9a-fA-F]+|\d+)/g)].map((m) =>
-        m[1].startsWith('0x') ? parseInt(m[1], 16) : parseInt(m[1], 10)
+        m[1]!.startsWith('0x') ? parseInt(m[1]!, 16) : parseInt(m[1]!, 10)
       );
       if (codes.length > 50_000) return full;
       let text = '';

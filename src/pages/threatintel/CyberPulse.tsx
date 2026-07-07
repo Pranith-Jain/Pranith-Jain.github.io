@@ -2,8 +2,20 @@ import { useCallback, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import {
-  AlertTriangle, Bug, Building2, Calendar, ChevronDown, ExternalLink,
-  Filter, Globe, RefreshCw, Search, Shield, Skull, TrendingUp, X,
+  AlertTriangle,
+  Bug,
+  Building2,
+  Calendar,
+  ChevronDown,
+  ExternalLink,
+  Filter,
+  Globe,
+  RefreshCw,
+  Search,
+  Shield,
+  Skull,
+  TrendingUp,
+  X,
 } from 'lucide-react';
 import { useDebounce } from '../../hooks/useDebounce';
 
@@ -186,7 +198,9 @@ export default function CyberPulse(): JSX.Element {
     }
   }, [days, typeFilter, severityFilter, platformFilter, debouncedSearch, refreshKey]);
 
-  useEffect(() => { fetchIncidents(); }, [fetchIncidents]);
+  useEffect(() => {
+    fetchIncidents();
+  }, [fetchIncidents]);
 
   useEffect(() => {
     const params = new URLSearchParams();
@@ -220,13 +234,18 @@ export default function CyberPulse(): JSX.Element {
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3 mb-6">
           <StatCard label="Total" value={stats.total} color="text-white" />
           {stats.by_severity.map((s) => (
-            <StatCard key={s.severity} label={s.severity} value={s.count} color={SEVERITY_COLORS[s.severity]?.split(' ')[1] ?? 'text-slate-400'} />
+            <StatCard
+              key={s.severity}
+              label={s.severity}
+              value={s.count}
+              color={SEVERITY_COLORS[s.severity]?.split(' ')[1] ?? 'text-slate-400'}
+            />
           ))}
         </div>
       )}
 
       {/* Filters bar */}
-      <div className="flex flex-wrap items-center gap-2 mb-4 p-3 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/50 dark:bg-[rgb(var(--surface-200))]">
+      <div className="flex flex-wrap items-center gap-2 mb-4 p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/50 dark:bg-[rgb(var(--surface-200))]">
         <Filter className="w-4 h-4 text-slate-500" />
         <div className="relative">
           <Search className="absolute left-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
@@ -239,9 +258,24 @@ export default function CyberPulse(): JSX.Element {
           />
         </div>
         <FilterSelect value={typeFilter} onChange={setTypeFilter} options={TYPE_LABELS} placeholder="Type" />
-        <FilterSelect value={severityFilter} onChange={setSeverityFilter} options={{ critical: 'Critical', high: 'High', medium: 'Medium', low: 'Low', info: 'Info' }} placeholder="Severity" />
-        <FilterSelect value={platformFilter} onChange={setPlatformFilter} options={PLATFORM_LABELS} placeholder="Platform" />
-        <FilterSelect value={String(days)} onChange={(v) => setDays(Number(v))} options={{ '1': '1 day', '3': '3 days', '7': '7 days', '14': '14 days', '30': '30 days' }} placeholder="Period" />
+        <FilterSelect
+          value={severityFilter}
+          onChange={setSeverityFilter}
+          options={{ critical: 'Critical', high: 'High', medium: 'Medium', low: 'Low', info: 'Info' }}
+          placeholder="Severity"
+        />
+        <FilterSelect
+          value={platformFilter}
+          onChange={setPlatformFilter}
+          options={PLATFORM_LABELS}
+          placeholder="Platform"
+        />
+        <FilterSelect
+          value={String(days)}
+          onChange={(v) => setDays(Number(v))}
+          options={{ '1': '1 day', '3': '3 days', '7': '7 days', '14': '14 days', '30': '30 days' }}
+          placeholder="Period"
+        />
         {hasFilters && (
           <button onClick={clearFilters} className="text-xs text-slate-400 hover:text-white flex items-center gap-1">
             <X className="w-3 h-3" /> Clear
@@ -249,15 +283,16 @@ export default function CyberPulse(): JSX.Element {
         )}
         <div className="ml-auto flex items-center gap-2">
           <span className="text-xs text-slate-500">{total.toLocaleString()} incidents</span>
-          <button onClick={() => setRefreshKey((k) => k + 1)} className="p-1 rounded hover:bg-slate-200 dark:hover:bg-slate-700">
+          <button
+            onClick={() => setRefreshKey((k) => k + 1)}
+            className="p-1 rounded hover:bg-slate-200 dark:hover:bg-slate-700"
+          >
             <RefreshCw className={`w-4 h-4 text-slate-400 ${loading ? 'animate-spin' : ''}`} />
           </button>
         </div>
       </div>
 
-      {error && (
-        <div className="text-center py-8 text-red-400">{error}</div>
-      )}
+      {error && <div className="text-center py-8 text-red-400">{error}</div>}
 
       {/* Main content: incidents feed + sidebar */}
       <div className="flex flex-col lg:flex-row gap-6">
@@ -278,9 +313,14 @@ export default function CyberPulse(): JSX.Element {
               <button
                 onClick={() => {
                   // Load more — append to incidents
-                  fetch(`/api/v1/cyberpulse/incidents?limit=100&offset=${incidents.length}&days=${days}${typeFilter ? `&type=${typeFilter}` : ''}${severityFilter ? `&severity=${severityFilter}` : ''}${platformFilter ? `&platform=${platformFilter}` : ''}${debouncedSearch ? `&q=${debouncedSearch}` : ''}`)
+                  fetch(
+                    `/api/v1/cyberpulse/incidents?limit=100&offset=${incidents.length}&days=${days}${typeFilter ? `&type=${typeFilter}` : ''}${severityFilter ? `&severity=${severityFilter}` : ''}${platformFilter ? `&platform=${platformFilter}` : ''}${debouncedSearch ? `&q=${debouncedSearch}` : ''}`
+                  )
                     .then((r) => r.json())
-                    .then((d) => { setIncidents((prev) => [...prev, ...d.incidents]); setHasMore(d.has_more); });
+                    .then((d) => {
+                      setIncidents((prev) => [...prev, ...d.incidents]);
+                      setHasMore(d.has_more);
+                    });
                 }}
                 className="text-sm text-blue-400 hover:text-blue-300"
               >
@@ -294,7 +334,7 @@ export default function CyberPulse(): JSX.Element {
         <div className="w-full lg:w-80 space-y-4">
           {/* Type breakdown */}
           {stats && stats.by_type.length > 0 && (
-            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
+            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
               <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3 flex items-center gap-2">
                 <Shield className="w-4 h-4" /> By Type
               </h3>
@@ -306,7 +346,9 @@ export default function CyberPulse(): JSX.Element {
                     className={`w-full flex items-center justify-between px-2 py-1.5 rounded text-xs transition-colors ${typeFilter === t.incident_type ? 'bg-blue-500/20 text-blue-400' : 'hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400'}`}
                   >
                     <span className="flex items-center gap-1.5">
-                      <span className={`w-2 h-2 rounded-full ${TYPE_COLORS[t.incident_type]?.split(' ')[0] ?? 'bg-slate-500'}`} />
+                      <span
+                        className={`w-2 h-2 rounded-full ${TYPE_COLORS[t.incident_type]?.split(' ')[0] ?? 'bg-slate-500'}`}
+                      />
                       {TYPE_LABELS[t.incident_type] ?? t.incident_type}
                     </span>
                     <span className="font-mono">{t.count}</span>
@@ -318,7 +360,7 @@ export default function CyberPulse(): JSX.Element {
 
           {/* Trending actors */}
           {trending && trending.trending_actors.length > 0 && (
-            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
+            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
               <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3 flex items-center gap-2">
                 <TrendingUp className="w-4 h-4" /> Trending Actors
               </h3>
@@ -342,13 +384,16 @@ export default function CyberPulse(): JSX.Element {
 
           {/* Top victims */}
           {stats && stats.top_victims.length > 0 && (
-            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
+            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
               <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3 flex items-center gap-2">
                 <Building2 className="w-4 h-4" /> Most Targeted
               </h3>
               <div className="space-y-1.5">
                 {stats.top_victims.map((v) => (
-                  <div key={v.victim_name} className="flex items-center justify-between px-2 py-1 text-xs text-slate-600 dark:text-slate-400">
+                  <div
+                    key={v.victim_name}
+                    className="flex items-center justify-between px-2 py-1 text-xs text-slate-600 dark:text-slate-400"
+                  >
                     <span className="truncate">{v.victim_name}</span>
                     <span className="font-mono text-white">{v.count}</span>
                   </div>
@@ -359,7 +404,7 @@ export default function CyberPulse(): JSX.Element {
 
           {/* Daily trend mini chart */}
           {stats && stats.daily_trend.length > 0 && (
-            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
+            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
               <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3 flex items-center gap-2">
                 <Calendar className="w-4 h-4" /> Daily Trend
               </h3>
@@ -368,11 +413,12 @@ export default function CyberPulse(): JSX.Element {
                   const maxCount = Math.max(...stats.daily_trend.map((x) => x.count));
                   const height = maxCount > 0 ? (d.count / maxCount) * 100 : 0;
                   return (
-                    <div key={d.day} className="flex-1 flex flex-col items-center gap-0.5" title={`${d.day}: ${d.count}`}>
-                      <div
-                        className="w-full bg-blue-500/40 rounded-t"
-                        style={{ height: `${Math.max(height, 4)}%` }}
-                      />
+                    <div
+                      key={d.day}
+                      className="flex-1 flex flex-col items-center gap-0.5"
+                      title={`${d.day}: ${d.count}`}
+                    >
+                      <div className="w-full bg-blue-500/40 rounded-t" style={{ height: `${Math.max(height, 4)}%` }} />
                       <span className="text-[9px] text-slate-500 font-mono">{d.day.slice(5)}</span>
                     </div>
                   );
@@ -388,14 +434,24 @@ export default function CyberPulse(): JSX.Element {
 
 function StatCard({ label, value, color }: { label: string; value: number; color: string }) {
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3 text-center">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3 text-center">
       <div className={`text-xl font-bold ${color}`}>{formatNumber(value)}</div>
       <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mt-0.5">{label}</div>
     </div>
   );
 }
 
-function FilterSelect({ value, onChange, options, placeholder }: { value: string; onChange: (v: string) => void; options: Record<string, string>; placeholder: string }) {
+function FilterSelect({
+  value,
+  onChange,
+  options,
+  placeholder,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  options: Record<string, string>;
+  placeholder: string;
+}) {
   const [open, setOpen] = useState(false);
   return (
     <div className="relative">
@@ -403,16 +459,33 @@ function FilterSelect({ value, onChange, options, placeholder }: { value: string
         onClick={() => setOpen(!open)}
         className={`flex items-center gap-1 px-2 py-1 text-xs rounded border ${value ? 'border-blue-500/50 text-blue-400 bg-blue-500/10' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400'}`}
       >
-        {value ? options[value] ?? value : placeholder}
+        {value ? (options[value] ?? value) : placeholder}
         <ChevronDown className="w-3 h-3" />
       </button>
       {open && (
         <>
           <div className="fixed inset-0 z-10" onClick={() => setOpen(false)} />
-          <div className="absolute z-20 mt-1 left-0 bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded shadow-lg max-h-48 overflow-auto min-w-[120px]">
-            <button onClick={() => { onChange(''); setOpen(false); }} className="block w-full text-left px-3 py-1.5 text-xs hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-500">All</button>
+          <div className="absolute z-20 mt-1 left-0 bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded shadow-xl max-h-48 overflow-auto min-w-[120px]">
+            <button
+              onClick={() => {
+                onChange('');
+                setOpen(false);
+              }}
+              className="block w-full text-left px-3 py-1.5 text-xs hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-500"
+            >
+              All
+            </button>
             {Object.entries(options).map(([k, v]) => (
-              <button key={k} onClick={() => { onChange(k); setOpen(false); }} className={`block w-full text-left px-3 py-1.5 text-xs hover:bg-slate-100 dark:hover:bg-slate-700 ${value === k ? 'text-blue-400 font-semibold' : 'text-slate-700 dark:text-slate-300'}`}>{v}</button>
+              <button
+                key={k}
+                onClick={() => {
+                  onChange(k);
+                  setOpen(false);
+                }}
+                className={`block w-full text-left px-3 py-1.5 text-xs hover:bg-slate-100 dark:hover:bg-slate-700 ${value === k ? 'text-blue-400 font-semibold' : 'text-slate-700 dark:text-slate-300'}`}
+              >
+                {v}
+              </button>
             ))}
           </div>
         </>
@@ -423,20 +496,32 @@ function FilterSelect({ value, onChange, options, placeholder }: { value: string
 
 function IncidentCard({ incident: inc }: { incident: Incident }) {
   const Icon = TYPE_ICONS[inc.incident_type] ?? Shield;
-  const tags: string[] = (() => { try { return JSON.parse(inc.tags); } catch { return []; } })();
+  const tags: string[] = (() => {
+    try {
+      return JSON.parse(inc.tags);
+    } catch {
+      return [];
+    }
+  })();
 
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 hover:border-slate-300 dark:hover:border-[rgb(var(--border-500))] transition-colors">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 hover:border-slate-300 dark:hover:border-[rgb(var(--border-500))] transition-colors">
       <div className="flex items-start gap-3">
-        <div className={`mt-0.5 p-1.5 rounded ${TYPE_COLORS[inc.incident_type]?.split(' ').slice(0, 2).join(' ') ?? 'bg-slate-500/10 text-slate-400'}`}>
+        <div
+          className={`mt-0.5 p-1.5 rounded ${TYPE_COLORS[inc.incident_type]?.split(' ').slice(0, 2).join(' ') ?? 'bg-slate-500/10 text-slate-400'}`}
+        >
           <Icon className="w-4 h-4" />
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap mb-1">
-            <span className={`px-1.5 py-0.5 text-[10px] font-semibold uppercase rounded border ${SEVERITY_COLORS[inc.severity] ?? 'bg-slate-500/20 text-slate-400 border-slate-500/30'}`}>
+            <span
+              className={`px-1.5 py-0.5 text-[10px] font-semibold uppercase rounded border ${SEVERITY_COLORS[inc.severity] ?? 'bg-slate-500/20 text-slate-400 border-slate-500/30'}`}
+            >
               {inc.severity}
             </span>
-            <span className={`px-1.5 py-0.5 text-[10px] font-medium uppercase rounded border ${TYPE_COLORS[inc.incident_type]?.split(' ').slice(0, 2).join(' ') ?? 'bg-slate-500/10 text-slate-400 border-slate-500/20'}`}>
+            <span
+              className={`px-1.5 py-0.5 text-[10px] font-medium uppercase rounded border ${TYPE_COLORS[inc.incident_type]?.split(' ').slice(0, 2).join(' ') ?? 'bg-slate-500/10 text-slate-400 border-slate-500/20'}`}
+            >
               {TYPE_LABELS[inc.incident_type] ?? inc.incident_type}
             </span>
             <span className="text-[10px] text-slate-500 font-mono">
@@ -444,9 +529,7 @@ function IncidentCard({ incident: inc }: { incident: Incident }) {
             </span>
           </div>
 
-          <p className="text-sm text-slate-200 dark:text-slate-200 leading-snug mb-1.5 line-clamp-2">
-            {inc.title}
-          </p>
+          <p className="text-sm text-slate-200 dark:text-slate-200 leading-snug mb-1.5 line-clamp-2">{inc.title}</p>
 
           <div className="flex items-center gap-3 text-xs text-slate-500 flex-wrap">
             {inc.victim_name && (
@@ -461,28 +544,28 @@ function IncidentCard({ incident: inc }: { incident: Incident }) {
                 {inc.threat_actor}
               </span>
             )}
-            {inc.victim_sector && (
-              <span className="text-slate-500">{inc.victim_sector}</span>
-            )}
-            {inc.records_count && (
-              <span className="font-mono">{formatNumber(inc.records_count)} records</span>
-            )}
-            {inc.data_volume && (
-              <span className="font-mono">{inc.data_volume}</span>
-            )}
+            {inc.victim_sector && <span className="text-slate-500">{inc.victim_sector}</span>}
+            {inc.records_count && <span className="font-mono">{formatNumber(inc.records_count)} records</span>}
+            {inc.data_volume && <span className="font-mono">{inc.data_volume}</span>}
           </div>
 
           <div className="flex items-center gap-2 mt-2 flex-wrap">
             {tags.slice(0, 5).map((tag) => (
-              <span key={tag} className="px-1.5 py-0.5 text-[10px] rounded bg-slate-100 dark:bg-slate-800 text-slate-500">
+              <span
+                key={tag}
+                className="px-1.5 py-0.5 text-[10px] rounded bg-slate-100 dark:bg-slate-800 text-slate-500"
+              >
                 {tag}
               </span>
             ))}
-            <span className="text-[10px] text-slate-600 ml-auto">
-              {relativeTime(inc.discovered_at)}
-            </span>
+            <span className="text-[10px] text-slate-600 ml-auto">{relativeTime(inc.discovered_at)}</span>
             {inc.source_url && (
-              <a href={inc.source_url} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">
+              <a
+                href={inc.source_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-400 hover:text-blue-300"
+              >
                 <ExternalLink className="w-3 h-3" />
               </a>
             )}

@@ -103,7 +103,7 @@ export default function DfirCatalogPage(): JSX.Element {
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search by name, route, or keyword (e.g. 'ransomware', 'sigma', '/ioc-check')..."
               aria-label="Search catalog"
-              className="w-full rounded-lg border border-slate-200 bg-white py-2.5 pl-9 pr-20 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-white dark:placeholder:text-slate-500"
+              className="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-9 pr-20 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-white dark:placeholder:text-slate-500"
             />
             {query && (
               <button
@@ -212,7 +212,7 @@ function CategorySection({ category, entries }: { category: HubMeta; entries: re
     <section aria-labelledby={`hub-${category.id}`}>
       <div className="mb-3 flex items-baseline justify-between gap-2 border-b border-slate-200 pb-2 dark:border-[rgb(var(--border-400))]">
         <h2 id={`hub-${category.id}`} className="flex items-center gap-2 font-display text-lg font-semibold">
-          <span className={`inline-flex items-center justify-center rounded-md border px-1.5 py-1 ${category.tone}`}>
+          <span className={`inline-flex items-center justify-center rounded border px-1.5 py-1 ${category.tone}`}>
             <category.icon size={16} aria-hidden="true" />
           </span>
           {category.label}

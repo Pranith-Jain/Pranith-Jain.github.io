@@ -216,7 +216,7 @@ function findRisks(tools: ToolNode[]): RiskPath[] {
       title: 'Indirect-injection exfiltration chain',
       detail:
         'The agent has at least one ingest tool (which can be poisoned with attacker-authored content), at least one tool that reads sensitive data, and at least one tool with network egress. This is the textbook indirect-injection exfil shape.',
-      nodes: [ingestNodes[0].id, sensitiveNodes[0].id, egressNodes[0].id].filter((v, i, a) => a.indexOf(v) === i),
+      nodes: [ingestNodes[0]!.id, sensitiveNodes[0]!.id, egressNodes[0]!.id].filter((v, i, a) => a.indexOf(v) === i),
       remediation:
         'Break the chain — sandbox ingest tools, remove sensitive-read scopes, or block egress from the agent runtime. Where possible, rewrite ingested content to strip embedded instructions before model sees it.',
     });
@@ -231,7 +231,7 @@ function findRisks(tools: ToolNode[]): RiskPath[] {
       title: 'Indirect-injection → execution',
       detail:
         'The agent both ingests external content and has shell / exec primitives. Indirect injection in the ingested content can pivot directly to arbitrary command execution on the host.',
-      nodes: [ingestNodes[0].id, executeNodes[0].id].filter((v, i, a) => a.indexOf(v) === i),
+      nodes: [ingestNodes[0]!.id, executeNodes[0]!.id].filter((v, i, a) => a.indexOf(v) === i),
       remediation:
         "Move execute primitives out of the agent's default tool set, or scope them to a vetted allow-list. Never combine open-ended bash with web/fetch tools in the same context.",
     });

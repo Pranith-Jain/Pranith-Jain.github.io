@@ -552,7 +552,7 @@ function Diamond(): JSX.Element {
 
       {/* Diagram + tabs */}
       <div className="grid gap-6 lg:grid-cols-[400px_1fr] mb-8">
-        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 flex items-center justify-center">
+        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 flex items-center justify-center">
           <svg viewBox="0 0 400 400" className="w-full h-auto max-w-[360px]" role="img" aria-label="Diamond model">
             {/* Connecting edges */}
             <polygon
@@ -629,7 +629,7 @@ function Diamond(): JSX.Element {
           </svg>
         </div>
 
-        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
               {active ? `${DIAMOND_VERTICES.find((v) => v.id === active)?.name}` : 'Vertices'}
@@ -678,7 +678,7 @@ function Diamond(): JSX.Element {
 
       {/* Event editor */}
       {/* Auto-fill from IOC */}
-      <section className="rounded-lg border border-emerald-500/40 bg-emerald-500/5 dark:bg-emerald-900/10 p-4 mb-6">
+      <section className="rounded-xl border border-emerald-500/40 bg-emerald-500/5 dark:bg-emerald-900/10 p-4 mb-6">
         <div className="flex items-center gap-2 mb-2">
           <Wand2 size={14} className="text-emerald-600 dark:text-emerald-400" />
           <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-700 dark:text-emerald-300 font-mono">
@@ -718,7 +718,7 @@ function Diamond(): JSX.Element {
         {autoFillNote && <p className="text-mini font-mono text-slate-700 dark:text-slate-300 mt-2">{autoFillNote}</p>}
       </section>
 
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
           <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
             Intrusion event
@@ -770,7 +770,7 @@ function Diamond(): JSX.Element {
       </section>
 
       {/* Meta-features */}
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           Meta-features
         </h2>
@@ -794,7 +794,7 @@ function Diamond(): JSX.Element {
       </section>
 
       {/* Extended axes */}
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           Extended axes
         </h2>
@@ -824,7 +824,7 @@ function Diamond(): JSX.Element {
         </div>
       </section>
 
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           References
         </h2>

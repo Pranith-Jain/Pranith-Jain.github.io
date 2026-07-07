@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { Shield, ShieldAlert, ShieldCheck, Volume2, VolumeX } from 'lucide-react';
 
@@ -112,11 +111,11 @@ export default function IsraelAlerts() {
         </div>
       </div>
       {loading ? (
-        <div className="h-16 rounded-lg bg-slate-100 dark:bg-slate-800 animate-pulse" />
+        <div className="h-16 rounded-xl bg-slate-100 dark:bg-slate-800 animate-pulse" />
       ) : isActive ? (
         <div className="space-y-2">
           {data?.alerts.slice(0, 5).map((alert, i) => (
-            <div key={i} className="flex items-start gap-2 p-2 rounded-lg bg-red-500/10 border border-red-500/20">
+            <div key={i} className="flex items-start gap-2 p-2 rounded-xl bg-red-500/10 border border-red-500/20">
               <span className="text-sm">{TYPE_ICONS[alert.type] || '🔴'}</span>
               <div className="min-w-0 flex-1">
                 <div className="text-meta font-bold text-red-400">{alert.type}</div>

@@ -105,7 +105,7 @@ export default function EmailReputation(): JSX.Element {
         ...mxSlice.map(async (mxRecord) => {
           const ips = await queryDoh(mxRecord.exchange, 'A');
           const ipChecks = await Promise.all(ips.slice(0, 2).map((ip) => checkIpBlacklists(ip)));
-          return ips.slice(0, 2).map((ip, i) => ({ exchange: mxRecord.exchange, ip, checks: ipChecks[i] }));
+          return ips.slice(0, 2).map((ip, i) => ({ exchange: mxRecord.exchange, ip, checks: ipChecks[i]! }));
         }),
       ]);
       const mxResults = mxNested.flat();
@@ -122,7 +122,7 @@ export default function EmailReputation(): JSX.Element {
       if (dkim.selectors_found.length === 0) scoreValue += 10;
       if (mx.length === 0) scoreValue += 20;
       const allDnsbl = [...domainBl, ...mxResults.flatMap((r) => r.checks)];
-      const listedCount = allDnsbl.filter((b) => b.listed).length;
+      const listedCount = allDnsbl.filter((b) => b!.listed).length;
       scoreValue += Math.min(25, listedCount * 5);
 
       // Fan out the emailrep.io call only when the input was a full email
@@ -237,14 +237,14 @@ export default function EmailReputation(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="example.com or user@example.com"
-              className="w-full pl-9 pr-3 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-3 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Domain or email to check"
             />
           </div>
           <button
             type="submit"
             disabled={loading || !clean}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center gap-2"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center gap-2"
           >
             {loading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}{' '}
             {loading ? 'Checking' : 'Check'}
@@ -261,7 +261,7 @@ export default function EmailReputation(): JSX.Element {
 
       {result && (
         <div className="space-y-4">
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
             <div className="flex items-baseline justify-between mb-3">
               <h2 className="font-display font-bold text-xl">{result.domain}</h2>
               <span
@@ -296,7 +296,7 @@ export default function EmailReputation(): JSX.Element {
           </div>
 
           {result.emailRep && (
-            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
               <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 inline-flex items-center gap-2">
                 <Mail size={12} aria-hidden="true" /> Address reputation (emailrep.io){' '}
                 <span className="font-normal text-slate-500 normal-case">· {result.emailRep.email}</span>
@@ -361,7 +361,7 @@ export default function EmailReputation(): JSX.Element {
           )}
 
           {result.domainBl.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
               <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 inline-flex items-center gap-2">
                 <Globe size={12} aria-hidden="true" /> Domain blacklist status ({result.domainBl.length} sources)
               </h3>
@@ -382,7 +382,7 @@ export default function EmailReputation(): JSX.Element {
             return (
               <section
                 key={ip}
-                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
+                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
               >
                 <div className="flex items-baseline justify-between gap-2 mb-3">
                   <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono inline-flex items-center gap-2">
@@ -445,7 +445,7 @@ export default function EmailReputation(): JSX.Element {
 function Fact({ label, value, good }: { label: string; value: string; good: boolean }): JSX.Element {
   return (
     <div
-      className={`rounded-lg border p-3 ${good ? 'border-emerald-500/30 bg-emerald-500/5' : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]'}`}
+      className={`rounded-xl border p-3 ${good ? 'border-emerald-500/30 bg-emerald-500/5' : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]'}`}
     >
       <div className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">
         {label}

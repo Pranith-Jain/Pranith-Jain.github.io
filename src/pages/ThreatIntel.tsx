@@ -80,7 +80,7 @@ function hypeColor(hype: number): string {
 }
 
 const CARD =
-  'rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1';
+  'rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1';
 
 export default function ThreatIntel() {
   const [tab, setTab] = useState<Tab>('cves');
@@ -173,7 +173,7 @@ export default function ThreatIntel() {
             placeholder="Filter by CVE ID or keyword…"
             value={cveFilter}
             onChange={(e) => setCveFilter(e.target.value)}
-            className="w-full mb-4 px-3 py-2 rounded-lg text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+            className="w-full mb-4 px-3 py-2 rounded-xl text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
           />
           <div className="space-y-2">
             {filteredCves.map((cve) => (

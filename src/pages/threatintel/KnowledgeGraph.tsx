@@ -172,7 +172,7 @@ export default function KnowledgeGraph(): JSX.Element {
       maxWidthClass="max-w-6xl"
     >
       {/* Filter card */}
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
         <div className="flex flex-wrap items-center gap-3">
           <Filter className="h-4 w-4 text-slate-500 dark:text-slate-400" />
           <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
@@ -267,7 +267,7 @@ export default function KnowledgeGraph(): JSX.Element {
       )}
 
       {error && (
-        <div className="rounded-lg border border-rose-300 dark:border-rose-700 bg-rose-50 dark:bg-rose-950/30 p-3 text-sm text-rose-700 dark:text-rose-200">
+        <div className="rounded-xl border border-rose-300 dark:border-rose-700 bg-rose-50 dark:bg-rose-950/30 p-3 text-sm text-rose-700 dark:text-rose-200">
           {error}
         </div>
       )}
@@ -292,7 +292,7 @@ export default function KnowledgeGraph(): JSX.Element {
       {data &&
         (data.nodes.length > 0 ? (
           <section
-            className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1"
+            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1"
             style={{ height: 620 }}
           >
             <ReactFlowProvider>
@@ -315,7 +315,7 @@ export default function KnowledgeGraph(): JSX.Element {
             </ReactFlowProvider>
           </section>
         ) : (
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
             No nodes match the current filters. Try widening the time window or clearing the type filter.
           </section>
         ))}

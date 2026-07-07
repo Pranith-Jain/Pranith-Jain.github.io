@@ -2,10 +2,10 @@ import { useEffect, useMemo, useState } from 'react';
 import { relativeAgo as shortRel } from '../../lib/relativeTime';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { useSearchParams } from 'react-router-dom';
-import { AlertOctagon, ExternalLink, RefreshCw, Search } from 'lucide-react';
+import { AlertOctagon, ArrowLeft, ExternalLink, RefreshCw, Search } from 'lucide-react';
+import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
-import { DataPageLayout } from '../../components/DataPageLayout';
 
 /**
  * /threatintel/cyber-crime — live aggregation of cyber fraud + cyber crime
@@ -256,7 +256,7 @@ export default function CyberCrime(): JSX.Element {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search title, description, source…"
-          className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
         />
       </div>
 
@@ -283,7 +283,7 @@ export default function CyberCrime(): JSX.Element {
           {filtered.map((it, i) => (
             <li
               key={`${it.url}-${i}`}
-              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 hover:border-brand-500/40 transition-colors"
+              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 hover:border-brand-500/40 transition-colors"
             >
               <div className="flex flex-wrap items-baseline gap-2 mb-2">
                 <a
@@ -317,7 +317,7 @@ export default function CyberCrime(): JSX.Element {
           (persisted in localStorage). Disabling hides items locally but
           still pulls from the server — the round-robin still fires. */}
       {data && (
-        <details className="mt-8 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
+        <details className="mt-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
           <summary className="text-xs font-mono text-slate-500 cursor-pointer flex items-center justify-between gap-2 flex-wrap">
             <span>
               sources — {data.sources.length - disabledSources.size}/{data.sources.length} enabled ·{' '}

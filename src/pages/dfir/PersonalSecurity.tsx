@@ -330,7 +330,7 @@ export default function PersonalSecurity(): JSX.Element {
       </div>
 
       {/* Overall dashboard */}
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-baseline justify-between gap-3 mb-3">
           <div>
             <div className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">
@@ -364,7 +364,7 @@ export default function PersonalSecurity(): JSX.Element {
           <button
             key={category.id}
             onClick={() => setActive(category.id)}
-            className={`text-left rounded-lg border p-3 transition-colors ${
+            className={`text-left rounded-xl border p-3 transition-colors ${
               active === category.id
                 ? 'border-brand-500/60 bg-brand-500/5'
                 : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-brand-500/40'
@@ -416,7 +416,7 @@ export default function PersonalSecurity(): JSX.Element {
       </div>
 
       {/* Active category */}
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-baseline gap-2 mb-2">
           <span className="text-brand-600 dark:text-brand-400">{ICONS[activeCategory.icon]}</span>
           <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">
@@ -430,7 +430,7 @@ export default function PersonalSecurity(): JSX.Element {
       </section>
 
       {/* Items */}
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           {activeCategory.items.length} actions
         </h3>
@@ -442,7 +442,7 @@ export default function PersonalSecurity(): JSX.Element {
       </section>
 
       {/* Top gaps across the whole checklist */}
-      <section className="rounded-lg border border-rose-500/30 bg-rose-500/5 p-4 mb-6">
+      <section className="rounded-xl border border-rose-500/30 bg-rose-500/5 p-4 mb-6">
         <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-rose-700 dark:text-rose-300 font-mono mb-2 inline-flex items-center gap-1.5">
           <ShieldAlert size={13} aria-hidden="true" /> Highest-priority open gaps ({openGaps.length})
         </h3>
@@ -483,7 +483,7 @@ export default function PersonalSecurity(): JSX.Element {
       </section>
 
       {/* Legend */}
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
           Scoring legend
         </h3>
@@ -512,7 +512,7 @@ export default function PersonalSecurity(): JSX.Element {
       </section>
 
       {/* External references */}
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
           Authoritative sources
         </h3>

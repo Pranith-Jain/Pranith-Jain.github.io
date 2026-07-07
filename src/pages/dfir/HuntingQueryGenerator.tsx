@@ -102,7 +102,7 @@ export default function HuntingQueryGenerator(): JSX.Element {
           value={threat}
           onChange={(e) => setThreat(e.target.value)}
           placeholder="Describe the threat or adversary behavior…"
-          className="w-full h-24 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg p-3 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y font-mono"
+          className="w-full h-24 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl p-3 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y font-mono"
         />
         <div className="mt-2 flex flex-wrap gap-1">
           {EXAMPLE_PROMPTS.slice(0, 4).map((ex) => (
@@ -122,7 +122,7 @@ export default function HuntingQueryGenerator(): JSX.Element {
             <button
               key={p}
               onClick={() => togglePlatform(p)}
-              className={`px-2.5 py-1.5 rounded-lg text-xs font-mono border transition-colors ${platforms.has(p) ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400' : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-400 hover:border-brand-500/30'}`}
+              className={`px-2.5 py-1.5 rounded-xl text-xs font-mono border transition-colors ${platforms.has(p) ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400' : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-400 hover:border-brand-500/30'}`}
             >
               {p}
             </button>
@@ -132,7 +132,7 @@ export default function HuntingQueryGenerator(): JSX.Element {
         <button
           onClick={handleGenerate}
           disabled={loading || !threat.trim() || platforms.size === 0}
-          className="mt-4 w-full px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-lg text-sm font-semibold text-white transition-colors flex items-center justify-center gap-2"
+          className="mt-4 w-full px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-white transition-colors flex items-center justify-center gap-2"
         >
           {loading ? <Loader2 size={14} className="animate-spin" /> : <Crosshair size={14} />}
           {loading ? 'Generating…' : 'Generate Hunting Queries'}
@@ -187,7 +187,7 @@ export default function HuntingQueryGenerator(): JSX.Element {
                 </div>
                 <CopyButton value={q.query} />
               </div>
-              <pre className="bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded-lg p-4 overflow-x-auto text-xs text-slate-700 dark:text-slate-300 font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] whitespace-pre-wrap">
+              <pre className="bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded-xl p-4 overflow-x-auto text-xs text-slate-700 dark:text-slate-300 font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] whitespace-pre-wrap">
                 {q.query}
               </pre>
             </div>

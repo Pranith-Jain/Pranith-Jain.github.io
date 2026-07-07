@@ -55,7 +55,7 @@ export function serializeProject(project: OsintProject): string {
 export function buildExport(project: OsintProject, allIcons: Record<string, string>): string {
   const icons: Record<string, string> = {};
   for (const i of project.identifiers) {
-    if (i.customIconId && allIcons[i.customIconId]) icons[i.customIconId] = allIcons[i.customIconId];
+    if (i.customIconId && allIcons[i.customIconId]) icons[i.customIconId] = allIcons[i.customIconId]!;
   }
   return JSON.stringify({ ...project, icons }, null, 2);
 }

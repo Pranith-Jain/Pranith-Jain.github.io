@@ -138,7 +138,7 @@ export default function PhoneOsintNew() {
     >
       {/* Main Dashboard Card */}
       <div
-        className="relative rounded-3xl p-6 md:p-8 overflow-hidden border border-[#1f2937] shadow-[0_25px_80px_rgba(0,0,0,0.9)]"
+        className="relative rounded-2xl p-6 md:p-8 overflow-hidden border border-[#1f2937] shadow-[0_25px_80px_rgba(0,0,0,0.9)]"
         style={{ background: '#111827' }}
       >
         <div

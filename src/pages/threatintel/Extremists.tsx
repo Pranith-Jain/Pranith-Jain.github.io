@@ -227,7 +227,7 @@ export default function Extremists(): JSX.Element {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Filter by name, ideology, region, indicator, or description…"
-          className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
         />
       </div>
 
@@ -244,7 +244,7 @@ export default function Extremists(): JSX.Element {
             <div className="flex items-start justify-between gap-3 mb-2">
               <h3 className="font-display font-semibold text-slate-900 dark:text-slate-100">{group.name}</h3>
               <span
-                className={`shrink-0 text-micro font-mono font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded-md border ${RISK_PILL[group.risk] ?? ''}`}
+                className={`shrink-0 text-micro font-mono font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded border ${RISK_PILL[group.risk] ?? ''}`}
               >
                 {group.risk}
               </span>

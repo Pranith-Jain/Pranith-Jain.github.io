@@ -105,7 +105,7 @@ export default function C2Tracker(): JSX.Element {
       {data && (
         <div className="space-y-6">
           {/* Source Summary */}
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
             <div className="flex flex-wrap items-baseline justify-between gap-3 mb-4">
               <h2 className="font-display font-bold text-xl">Active C2 infrastructure</h2>
               <div className="flex items-center gap-3">
@@ -156,7 +156,7 @@ export default function C2Tracker(): JSX.Element {
           </section>
 
           {/* IP List */}
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
             <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
               {filter === 'all' ? 'All C2 IPs' : `${filter} C2 IPs`}
               <span className="ml-2 text-slate-500">({filtered.length})</span>

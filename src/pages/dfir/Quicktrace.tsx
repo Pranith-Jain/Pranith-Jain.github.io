@@ -659,7 +659,7 @@ export default function Quicktrace(): JSX.Element {
           <button
             key={pid}
             onClick={() => setPlatform(pid)}
-            className={`px-3 py-1.5 rounded-lg text-xs font-mono border transition-colors ${
+            className={`px-3 py-1.5 rounded-xl text-xs font-mono border transition-colors ${
               platform === pid
                 ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
                 : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-brand-500/30'
@@ -677,7 +677,7 @@ export default function Quicktrace(): JSX.Element {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder={`Search ${CATEGORY_META[category].label.toLowerCase()} queries…`}
-          className="w-full pl-9 pr-3 h-10 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full pl-9 pr-3 h-10 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
         />
       </div>
 
@@ -723,7 +723,7 @@ export default function Quicktrace(): JSX.Element {
                 ))}
               </div>
               {/* Query code */}
-              <pre className="bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded-lg p-4 overflow-x-auto text-xs text-slate-700 dark:text-slate-300 font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] whitespace-pre-wrap">
+              <pre className="bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded-xl p-4 overflow-x-auto text-xs text-slate-700 dark:text-slate-300 font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] whitespace-pre-wrap">
                 {query.platforms[platform] ?? (
                   <span className="text-slate-400 italic">Not available for {platform.toUpperCase()}</span>
                 )}

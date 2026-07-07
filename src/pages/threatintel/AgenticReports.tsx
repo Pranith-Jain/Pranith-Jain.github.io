@@ -56,7 +56,7 @@ export default function AgenticReports(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search reports, actors, tags…"
-            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
         </div>
       </div>
@@ -68,7 +68,7 @@ export default function AgenticReports(): JSX.Element {
             key={r.id}
             type="button"
             onClick={() => setSelectedId(r.id)}
-            className="w-full text-left rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 hover:border-brand-400/60 hover:shadow-e2 transition-all"
+            className="w-full text-left rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 hover:border-brand-400/60 hover:shadow-e2 transition-all"
           >
             <div className="flex flex-wrap items-start gap-2 mb-2">
               <span
@@ -97,7 +97,7 @@ export default function AgenticReports(): JSX.Element {
           </button>
         ))}
         {filtered.length === 0 && (
-          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
             No reports match your search.
           </div>
         )}
@@ -408,7 +408,7 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-3">
+    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-3">
       <div className="flex items-center gap-2 mb-3">
         <span className="text-brand-600 dark:text-brand-400">{icon}</span>
         <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{title}</h3>

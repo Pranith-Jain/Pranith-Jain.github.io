@@ -262,7 +262,7 @@ export default function AgentInvestigator(): JSX.Element {
       maxWidthClass="max-w-6xl"
     >
       {/* Query input */}
-      <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="flex gap-3">
           <div className="relative flex-1">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -320,7 +320,7 @@ export default function AgentInvestigator(): JSX.Element {
       </div>
 
       {error && (
-        <div className="rounded-lg border border-rose-500/30 bg-rose-500/5 p-4 mb-6 text-sm text-rose-700 dark:text-rose-300 font-mono flex items-center justify-between">
+        <div className="rounded-xl border border-rose-500/30 bg-rose-500/5 p-4 mb-6 text-sm text-rose-700 dark:text-rose-300 font-mono flex items-center justify-between">
           {error}
           <button onClick={() => setError(null)} className="text-rose-500 hover:text-rose-700">
             <X size={14} />
@@ -342,7 +342,7 @@ export default function AgentInvestigator(): JSX.Element {
       )}
 
       {agentState?.status === 'running' && (
-        <div className="rounded-lg border border-brand-500/30 bg-brand-500/5 p-4 mb-6 flex items-center gap-3">
+        <div className="rounded-xl border border-brand-500/30 bg-brand-500/5 p-4 mb-6 flex items-center gap-3">
           <Loader2 size={18} className="animate-spin text-brand-600" />
           <span className="text-sm font-mono text-brand-700 dark:text-brand-300">
             Investigating... step {agentState.currentStep + 1} of {agentState.maxSteps}
@@ -352,7 +352,7 @@ export default function AgentInvestigator(): JSX.Element {
 
       {/* Report + Download */}
       {agentState?.report && (
-        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-6 mb-6 animate-fade-in-up">
+        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-6 mb-6 animate-fade-in-up">
           <div className="flex items-center gap-2 mb-4 flex-wrap">
             <Shield size={16} className="text-emerald-600" />
             <h2 className="text-lg font-display font-bold">Intelligence Report</h2>
@@ -514,7 +514,7 @@ export default function AgentInvestigator(): JSX.Element {
 
       {/* Sessions list */}
       {sessions && sessions.length > 0 && !agentState && (
-        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
           <h2 className="text-sm font-mono font-bold uppercase tracking-wider text-slate-500 mb-3 flex items-center gap-2">
             <Clock size={14} /> Recent Investigations
           </h2>
@@ -574,7 +574,7 @@ function StepCard({ step }: { step: AgentStep }): JSX.Element {
   const phaseColor = phaseColors[phase] ?? phaseColors.collection;
 
   return (
-    <article className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+    <article className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
       <button
         type="button"
         onClick={() => setExpanded(!expanded)}

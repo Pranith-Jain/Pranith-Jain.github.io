@@ -71,7 +71,7 @@ export function DarkWebDashboard({ items, onClose }: DarkWebDashboardProps) {
     <div className="rounded-xl border border-brand-500/30 bg-brand-500/5 animate-fade-in overflow-hidden">
       <div className="flex items-center justify-between px-4 py-3 border-b border-brand-500/10">
         <div className="flex items-center gap-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-500/15">
+          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-brand-500/15">
             <Eye size={16} className="text-brand-400" />
           </div>
           <div>
@@ -90,11 +90,11 @@ export function DarkWebDashboard({ items, onClose }: DarkWebDashboardProps) {
           <button
             onClick={fetchIntel}
             disabled={loading}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-200"
+            className="p-1.5 rounded-xl text-slate-400 hover:text-slate-200"
           >
             <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
           </button>
-          <button onClick={onClose} className="p-1.5 rounded-lg text-slate-400 hover:text-slate-200">
+          <button onClick={onClose} className="p-1.5 rounded-xl text-slate-400 hover:text-slate-200">
             <X size={14} />
           </button>
         </div>
@@ -109,7 +109,7 @@ export function DarkWebDashboard({ items, onClose }: DarkWebDashboardProps) {
         )}
 
         {error && (
-          <div className="rounded-lg bg-rose-500/10 border border-rose-500/20 p-3 text-center">
+          <div className="rounded-xl bg-rose-500/10 border border-rose-500/20 p-3 text-center">
             <p className="text-xs text-rose-400">{error}</p>
           </div>
         )}
@@ -132,7 +132,7 @@ export function DarkWebDashboard({ items, onClose }: DarkWebDashboardProps) {
                 <span className="text-micro font-mono uppercase text-slate-500 block mb-2">Active Leak Sites</span>
                 <div className="space-y-2">
                   {intel.active_leak_sites.map((site, i) => (
-                    <div key={i} className="rounded-lg bg-slate-800/50 p-3 space-y-1">
+                    <div key={i} className="rounded-xl bg-slate-800/50 p-3 space-y-1">
                       <div className="flex items-center gap-2">
                         <span className="text-xs font-semibold text-slate-200">{site.name}</span>
                         <span
@@ -157,7 +157,7 @@ export function DarkWebDashboard({ items, onClose }: DarkWebDashboardProps) {
                 <span className="text-micro font-mono uppercase text-slate-500 block mb-2">Forum Chatter</span>
                 <div className="space-y-1">
                   {intel.forum_chatter.map((chatter, i) => (
-                    <div key={i} className="rounded-lg bg-slate-800/30 p-2 flex items-center gap-2">
+                    <div key={i} className="rounded-xl bg-slate-800/30 p-2 flex items-center gap-2">
                       <span
                         className={`text-micro font-mono px-1.5 py-0.5 rounded ${THREAT_COLORS[chatter.threat_relevance] || ''}`}
                       >

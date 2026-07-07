@@ -171,7 +171,7 @@ export default function ExifParse(): JSX.Element {
           if (e.key === 'Enter' || e.key === ' ') inputRef.current?.click();
         }}
         aria-label="Upload image file"
-        className={`mb-8 rounded-lg border-2 border-dashed p-12 text-center cursor-pointer transition-colors w-full ${
+        className={`mb-8 rounded-xl border-2 border-dashed p-12 text-center cursor-pointer transition-colors w-full ${
           dragging
             ? 'border-brand-500 bg-brand-50 dark:bg-brand-900/10'
             : 'border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-400 dark:hover:border-brand-600'
@@ -205,7 +205,7 @@ export default function ExifParse(): JSX.Element {
 
           {/* GPS */}
           {lat !== undefined && lon !== undefined && (
-            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
               <h2 className="font-display font-bold text-lg mb-3 flex items-center gap-2">
                 <MapPin size={16} className="text-brand-600 dark:text-brand-400" />
                 GPS Location
@@ -231,7 +231,7 @@ export default function ExifParse(): JSX.Element {
 
           {/* Camera */}
           {(metadata.Make || metadata.Model || metadata.LensModel) && (
-            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
               <h2 className="font-display font-bold text-lg mb-3 flex items-center gap-2">
                 <Camera size={16} className="text-brand-600 dark:text-brand-400" />
                 Camera
@@ -249,7 +249,7 @@ export default function ExifParse(): JSX.Element {
             metadata.FNumber !== undefined ||
             metadata.ISO !== undefined ||
             metadata.FocalLength !== undefined) && (
-            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
               <h2 className="font-display font-bold text-lg mb-3 flex items-center gap-2">
                 <Camera size={16} className="text-brand-600 dark:text-brand-400" />
                 Capture Settings
@@ -268,7 +268,7 @@ export default function ExifParse(): JSX.Element {
 
           {/* Image info */}
           {(metadata.ImageWidth || metadata.ImageHeight || metadata.Orientation || metadata.ColorSpace) && (
-            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
               <h2 className="font-display font-bold text-lg mb-3 flex items-center gap-2">
                 <Image size={16} className="text-brand-600 dark:text-brand-400" />
                 Image
@@ -283,7 +283,7 @@ export default function ExifParse(): JSX.Element {
 
           {/* IPTC */}
           {(metadata.Copyright || metadata.Caption || keywordsStr) && (
-            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
               <h2 className="font-display font-bold text-lg mb-3 flex items-center gap-2">
                 <FileText size={16} className="text-brand-600 dark:text-brand-400" />
                 IPTC Metadata

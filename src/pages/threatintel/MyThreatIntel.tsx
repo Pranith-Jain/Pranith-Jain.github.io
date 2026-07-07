@@ -139,7 +139,7 @@ function DistBar({ rows, distKey }: { rows: MtiRow[]; distKey: string | null }):
   const max = buckets[0]?.[1] ?? 1;
 
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
       <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-3">distribution by {distKey}</div>
       <div className="space-y-2">
         {buckets.map(([label, n]) => (
@@ -183,7 +183,7 @@ function recArr(v: string[] | undefined): string {
 /** Shared "integration disabled" banner — token unset vs. token rejected. */
 function DisabledBanner({ reason }: { reason: 'not_configured' | 'token_invalid' }): JSX.Element {
   return (
-    <div className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-6 text-sm text-amber-800 dark:text-amber-200">
+    <div className="rounded-xl border border-amber-500/40 bg-amber-500/10 p-6 text-sm text-amber-800 dark:text-amber-200">
       {reason === 'token_invalid' ? (
         <>
           <strong className="font-semibold">MyThreatIntel token expired or invalid.</strong> The upstream API rejected
@@ -265,7 +265,7 @@ function DnsScanPanel(): JSX.Element {
     <div>
       <form
         onSubmit={scan}
-        className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4 space-y-3"
+        className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4 space-y-3"
       >
         <div className="flex flex-col sm:flex-row gap-3">
           <input
@@ -338,7 +338,7 @@ function DnsScanPanel(): JSX.Element {
                   registered only
                 </button>
               </div>
-              <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))]">
+              <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-left">
@@ -474,7 +474,7 @@ export default function MyThreatIntel(): JSX.Element {
         </p>
       }
     >
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
         <div className="flex flex-wrap items-center gap-1.5 mb-3">
           {SOURCES.map((s) => (
             <button
@@ -536,7 +536,7 @@ export default function MyThreatIntel(): JSX.Element {
       ) : (
         <>
           {data?.stale && (
-            <div className="mb-4 rounded-lg border border-amber-500/40 bg-amber-500/10 px-4 py-3 text-sm font-mono text-amber-800 dark:text-amber-200">
+            <div className="mb-4 rounded-xl border border-amber-500/40 bg-amber-500/10 px-4 py-3 text-sm font-mono text-amber-800 dark:text-amber-200">
               ⚠ Live MyThreatIntel feed is temporarily unavailable — showing the last cached snapshot. Data may be out
               of date.
             </div>
@@ -562,7 +562,7 @@ export default function MyThreatIntel(): JSX.Element {
             onRetry={() => setRefreshKey((k) => k + 1)}
             rows={10}
           >
-            <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-left">

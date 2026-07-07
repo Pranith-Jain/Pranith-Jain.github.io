@@ -184,14 +184,14 @@ export default function Phishing(): JSX.Element {
           placeholder="Paste raw email here (View Original / Show Source from your mail client)"
           rows={6}
           aria-label="Raw email source"
-          className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm sm:text-xs text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 sm:rows-12"
+          className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm sm:text-xs text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 sm:rows-12"
           style={{ minHeight: '12rem' }}
         />
         <div className="mt-3 flex flex-col-reverse sm:flex-row sm:justify-end gap-2">
           <button
             type="submit"
             disabled={!input.trim() || loading}
-            className="w-full sm:w-auto px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center justify-center gap-2"
+            className="w-full sm:w-auto px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center justify-center gap-2"
           >
             <ScanText size={16} /> Analyze
           </button>
@@ -211,7 +211,7 @@ export default function Phishing(): JSX.Element {
 
       {result && (
         <div className="space-y-6">
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
             <div className="flex items-baseline justify-between mb-3 flex-wrap gap-2">
               <h2 ref={resultRef} tabIndex={-1} className="font-display font-bold text-2xl focus:outline-none">
                 Risk verdict
@@ -245,8 +245,8 @@ export default function Phishing(): JSX.Element {
           {result.urls.length > 0 && (
             <div className="flex gap-2">
               <Link
-                to={`/dfir/url-rep?url=${encodeURIComponent(result.urls[0])}`}
-                className="inline-flex items-center gap-1.5 text-mini font-mono px-3 py-2 rounded-lg border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:bg-rose-500/20"
+                to={`/dfir/url-rep?url=${encodeURIComponent(result.urls[0]!)}`}
+                className="inline-flex items-center gap-1.5 text-mini font-mono px-3 py-2 rounded-xl border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:bg-rose-500/20"
               >
                 <Crosshair size={11} /> Check all URLs ({result.urls.length})
               </Link>
@@ -263,7 +263,7 @@ export default function Phishing(): JSX.Element {
       )}
       <section
         id="fingerprint"
-        className="mt-12 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5"
+        className="mt-12 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5"
       >
         <h2 className="text-lg font-display font-semibold mb-2 flex items-center gap-2">
           <Fingerprint size={16} className="text-brand-600 dark:text-brand-400" />
@@ -281,7 +281,7 @@ export default function Phishing(): JSX.Element {
             onChange={(e) => setFpUrl(e.target.value)}
             placeholder="https://phishing-site.example.com/login"
             aria-label="Phishing URL to fingerprint"
-            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             type="button"
@@ -343,7 +343,7 @@ export default function Phishing(): JSX.Element {
       {/* ─── URL Auto-Analysis ─────────────────────────────────────────────── */}
       <section
         id="auto-analyze"
-        className="mt-12 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5"
+        className="mt-12 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5"
       >
         <h2 className="text-lg font-display font-semibold mb-2 flex items-center gap-2">
           <Eye size={16} className="text-brand-600 dark:text-brand-400" />
@@ -361,7 +361,7 @@ export default function Phishing(): JSX.Element {
             onKeyDown={(e) => e.key === 'Enter' && void runAutoAnalyze()}
             placeholder="https://example.com/login"
             aria-label="URL to auto-analyze"
-            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             type="button"
@@ -405,7 +405,7 @@ export default function Phishing(): JSX.Element {
 
             {/* Key indicators */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-              <div className="rounded-lg border border-slate-100 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-3">
+              <div className="rounded-xl border border-slate-100 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-3">
                 <p className="text-micro font-mono text-slate-400 flex items-center gap-1">
                   <Lock size={10} /> Password field
                 </p>
@@ -415,19 +415,19 @@ export default function Phishing(): JSX.Element {
                   {aaResult.has_password_field ? 'YES' : 'NO'}
                 </p>
               </div>
-              <div className="rounded-lg border border-slate-100 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-3">
+              <div className="rounded-xl border border-slate-100 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-3">
                 <p className="text-micro font-mono text-slate-400 flex items-center gap-1">
                   <FileText size={10} /> Fields
                 </p>
                 <p className="text-sm font-bold">{aaResult.forms.length}</p>
               </div>
-              <div className="rounded-lg border border-slate-100 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-3">
+              <div className="rounded-xl border border-slate-100 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-3">
                 <p className="text-micro font-mono text-slate-400 flex items-center gap-1">
                   <ExternalLink size={10} /> Ext. links
                 </p>
                 <p className="text-sm font-bold">{aaResult.external_links}</p>
               </div>
-              <div className="rounded-lg border border-slate-100 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-3">
+              <div className="rounded-xl border border-slate-100 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-3">
                 <p className="text-micro font-mono text-slate-400 flex items-center gap-1">
                   <FileText size={10} /> Scripts
                 </p>
@@ -437,7 +437,7 @@ export default function Phishing(): JSX.Element {
 
             {/* Suspicious keywords */}
             {aaResult.suspicious_keywords.length > 0 && (
-              <div className="rounded-lg border border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-900/10 p-3">
+              <div className="rounded-xl border border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-900/10 p-3">
                 <p className="text-micro font-bold uppercase tracking-[0.15em] text-amber-700 dark:text-amber-400 font-mono mb-1.5 flex items-center gap-1">
                   <AlertTriangle size={10} /> Keywords ({aaResult.suspicious_keywords.length})
                 </p>

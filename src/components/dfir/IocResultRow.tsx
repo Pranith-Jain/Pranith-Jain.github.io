@@ -50,7 +50,7 @@ function IocResultRowInner({ r }: { r: ProviderResultWire }): JSX.Element {
   const findingCount = typeof r.raw_summary.finding_count === 'number' ? r.raw_summary.finding_count : findings.length;
 
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
       <div className="flex items-center justify-between mb-2">
         <span className="font-display font-semibold text-slate-900 dark:text-slate-100 capitalize">{r.source}</span>
         <VerdictChip verdict={r.verdict} />

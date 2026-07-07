@@ -307,7 +307,7 @@ export default function CampaignGenerator(): JSX.Element {
       }
       maxWidthClass="max-w-5xl"
     >
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5 mb-6">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5 mb-6">
         <div className="flex items-center justify-between mb-4 gap-2 flex-wrap">
           <h2 className="text-sm font-display font-semibold inline-flex items-center gap-2">
             <Target size={14} className="text-brand-600 dark:text-brand-400" /> Analyst brief
@@ -440,7 +440,7 @@ export default function CampaignGenerator(): JSX.Element {
       )}
 
       {result && (
-        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6 mb-6 animate-fade-in-up">
+        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6 mb-6 animate-fade-in-up">
           <div className="flex items-start justify-between gap-3 mb-4 flex-wrap">
             <div>
               <h2 className="text-2xl font-display font-bold mb-1">{result.campaign.campaign_name}</h2>
@@ -516,7 +516,7 @@ export default function CampaignGenerator(): JSX.Element {
                 {orderedKillChain.map((k) => (
                   <li
                     key={k.phase}
-                    className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
+                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
                   >
                     <div className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 mb-0.5">
                       {PHASE_LABELS[k.phase] ?? k.phase}
@@ -535,7 +535,7 @@ export default function CampaignGenerator(): JSX.Element {
                 {result.campaign.mitre_techniques.map((m) => (
                   <li
                     key={m.id}
-                    className="text-sm rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
+                    className="text-sm rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
                   >
                     <a
                       href={`https://attack.mitre.org/techniques/${m.id.replace('.', '/')}`}

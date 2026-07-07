@@ -292,7 +292,7 @@ export default function XLive(): JSX.Element {
             {filtered.map((t) => (
               <li
                 key={t.id}
-                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
+                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
               >
                 <div className="flex items-start gap-3">
                   {t.author.avatar_url && (

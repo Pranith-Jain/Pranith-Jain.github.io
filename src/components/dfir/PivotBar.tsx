@@ -37,7 +37,7 @@ export function PivotBar({ initial = '', placeholder = 'IP or domain…' }: Pivo
             onChange={(e) => setValue(e.target.value)}
             placeholder={placeholder}
             aria-label="Pivot search"
-            className="w-full pl-9 pr-20 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-20 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           {value.trim() && (
             <span
@@ -52,7 +52,7 @@ export function PivotBar({ initial = '', placeholder = 'IP or domain…' }: Pivo
         <button
           type="submit"
           disabled={kind === 'unknown'}
-          className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+          className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
         >
           Pivot
         </button>

@@ -250,7 +250,7 @@ export default function UnifiedSearch(): JSX.Element {
 
       {/* Entity quick-actions — instant, from the detected indicator type. */}
       {detected && pivots.length > 0 && (
-        <div className="mb-4 rounded-lg border border-brand-200/60 dark:border-brand-800/40 bg-brand-50/40 dark:bg-brand-950/10 p-3">
+        <div className="mb-4 rounded-xl border border-brand-200/60 dark:border-brand-800/40 bg-brand-50/40 dark:bg-brand-950/10 p-3">
           <div className="mb-2 flex items-center gap-2">
             <Zap size={14} className="text-brand-600 dark:text-brand-400" />
             <span className="text-mini font-mono text-muted">
@@ -265,7 +265,7 @@ export default function UnifiedSearch(): JSX.Element {
                   href={sanitizeUrl(p.path) || undefined}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-md border border-brand-500/30 bg-white px-2.5 py-1.5 text-mini font-mono text-brand-700 hover:border-brand-500/60 hover:bg-brand-50 dark:bg-[rgb(var(--surface-200))] dark:text-brand-300 dark:hover:bg-brand-950/30"
+                  className="inline-flex items-center gap-1.5 rounded border border-brand-500/30 bg-white px-2.5 py-1.5 text-mini font-mono text-brand-700 hover:border-brand-500/60 hover:bg-brand-50 dark:bg-[rgb(var(--surface-200))] dark:text-brand-300 dark:hover:bg-brand-950/30"
                   title={p.desc}
                 >
                   {p.label}
@@ -275,7 +275,7 @@ export default function UnifiedSearch(): JSX.Element {
                 <Link
                   key={p.path}
                   to={p.path}
-                  className="inline-flex items-center gap-1.5 rounded-md border border-brand-500/30 bg-white px-2.5 py-1.5 text-mini font-mono text-brand-700 hover:border-brand-500/60 hover:bg-brand-50 dark:bg-[rgb(var(--surface-200))] dark:text-brand-300 dark:hover:bg-brand-950/30"
+                  className="inline-flex items-center gap-1.5 rounded border border-brand-500/30 bg-white px-2.5 py-1.5 text-mini font-mono text-brand-700 hover:border-brand-500/60 hover:bg-brand-50 dark:bg-[rgb(var(--surface-200))] dark:text-brand-300 dark:hover:bg-brand-950/30"
                   title={p.desc}
                 >
                   {p.label}
@@ -289,7 +289,7 @@ export default function UnifiedSearch(): JSX.Element {
 
       {/* Tools — instant client-side catalog matches. */}
       {toolMatches.length > 0 && (
-        <section className="mb-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+        <section className="mb-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
           <div className="flex items-center gap-2 px-4 py-2.5 border-b border-slate-200 dark:border-[rgb(var(--border-400))] text-brand-600 dark:text-brand-400">
             <Wrench size={14} />
             <span className="font-display font-semibold text-sm">Tools</span>
@@ -319,7 +319,7 @@ export default function UnifiedSearch(): JSX.Element {
           portfolio, blog, admin). Surfaces routes that aren't in the
           tile-level SECTIONS catalog. */}
       {pageMatches.length > 0 && (
-        <section className="mb-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+        <section className="mb-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
           <div className="flex items-center gap-2 px-4 py-2.5 border-b border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-200">
             <Compass size={14} />
             <span className="font-display font-semibold text-sm">Pages</span>
@@ -405,7 +405,7 @@ export default function UnifiedSearch(): JSX.Element {
             return (
               <section
                 key={section.kind}
-                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden"
+                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden"
               >
                 <div
                   className={`flex items-center gap-2 px-4 py-2.5 border-b border-slate-200 dark:border-[rgb(var(--border-400))] ${color.split(' ').slice(0, 1).join(' ')}`}

@@ -75,7 +75,7 @@ function StatsView({ data }: { data: unknown }) {
       {entries.map(([k, v]) => (
         <div
           key={k}
-          className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
+          className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
         >
           <div className="text-micro font-mono uppercase tracking-wider text-slate-500">{k.replace(/_/g, ' ')}</div>
           <div className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">{String(v)}</div>
@@ -109,7 +109,7 @@ function ListView({ data }: { data: unknown }) {
           return (
             <li
               key={i}
-              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 font-mono text-meta"
+              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 font-mono text-meta"
             >
               {String(row)}
             </li>
@@ -122,7 +122,7 @@ function ListView({ data }: { data: unknown }) {
         return (
           <li
             key={i}
-            className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
+            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
           >
             <div className="flex items-baseline justify-between gap-2">
               <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 truncate">
@@ -145,7 +145,7 @@ function ListView({ data }: { data: unknown }) {
 
 function RawJson({ value }: { value: unknown }) {
   return (
-    <pre className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] p-3 overflow-auto font-mono text-mini text-slate-700 dark:text-slate-300 max-h-[60vh]">
+    <pre className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] p-3 overflow-auto font-mono text-mini text-slate-700 dark:text-slate-300 max-h-[60vh]">
       {JSON.stringify(value, null, 2)}
     </pre>
   );

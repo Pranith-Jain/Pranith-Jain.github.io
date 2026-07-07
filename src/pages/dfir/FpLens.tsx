@@ -189,7 +189,7 @@ export default function FpLens(): JSX.Element {
               onChange={(e) => setRule(e.target.value)}
               rows={10}
               placeholder="Paste a Sigma / KQL / SPL / XQL rule, or just an alert name like 'Suspicious PowerShell Encoded Command'."
-              className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 font-mono text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+              className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 font-mono text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
             />
             <div className="mt-3 flex flex-wrap gap-2">
               {EXAMPLE_RULES.map((ex) => (
@@ -197,7 +197,7 @@ export default function FpLens(): JSX.Element {
                   key={ex.label}
                   type="button"
                   onClick={() => loadExample(ex.rule)}
-                  className="px-2.5 py-1 rounded-md text-xs font-medium border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300 hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
+                  className="px-2.5 py-1 rounded text-xs font-medium border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300 hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
                 >
                   Load: {ex.label}
                 </button>
@@ -215,7 +215,7 @@ export default function FpLens(): JSX.Element {
               onChange={(e) => setSampleHits(e.target.value)}
               rows={5}
               placeholder="Paste 1-10 sample alert payloads, raw log lines, or any extra context that helps the model understand what's actually firing."
-              className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 font-mono text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+              className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 font-mono text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
             />
           </div>
 
@@ -229,7 +229,7 @@ export default function FpLens(): JSX.Element {
               value={envContext}
               onChange={(e) => setEnvContext(e.target.value)}
               placeholder="e.g. Mixed Windows fleet with 200 devs using PowerShell daily, 50 servers, 4-yr-old EDR"
-              className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 text-sm text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+              className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 text-sm text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
             />
           </div>
 
@@ -288,7 +288,7 @@ export default function FpLens(): JSX.Element {
                     <CopyButton value={buildExportText(result)} />
                     <button
                       onClick={downloadReport}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
                     >
                       <Download size={13} /> Download .md
                     </button>
@@ -296,7 +296,7 @@ export default function FpLens(): JSX.Element {
                 </div>
                 <div className="flex items-center gap-3 mb-2">
                   <span
-                    className={`inline-block px-3 py-1 rounded-md text-sm font-mono font-bold ${RISK_TONE[result.fp_risk_level]}`}
+                    className={`inline-block px-3 py-1 rounded text-sm font-mono font-bold ${RISK_TONE[result.fp_risk_level]}`}
                   >
                     {result.fp_risk_level}
                   </span>
@@ -316,7 +316,7 @@ export default function FpLens(): JSX.Element {
                   {result.fp_patterns.map((p, i) => (
                     <div
                       key={i}
-                      className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50/50 dark:bg-[rgb(var(--input-200)/0.3)] p-3"
+                      className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50/50 dark:bg-[rgb(var(--input-200)/0.3)] p-3"
                     >
                       <div className="text-xs font-mono uppercase tracking-wider text-amber-700 dark:text-amber-300 mb-1">
                         Scenario {i + 1}

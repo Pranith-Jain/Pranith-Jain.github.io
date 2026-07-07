@@ -1116,11 +1116,11 @@ export default function VulnToolkitCatalog(): JSX.Element {
       </form>
 
       {/* Filters */}
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
         <div className="flex flex-wrap items-center gap-1.5 mb-3">
           <span className="text-mini font-mono text-slate-400 mr-1">severity:</span>
           {ALL_SEVERITIES.map((s) => {
-            const cfg = SEVERITY_CONFIG[s];
+            const cfg = SEVERITY_CONFIG[s]!;
             const active = severityFilter.has(s);
             return (
               <button
@@ -1211,7 +1211,7 @@ export default function VulnToolkitCatalog(): JSX.Element {
       </p>
 
       {/* Table */}
-      <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm font-mono">
             <thead>
@@ -1228,7 +1228,7 @@ export default function VulnToolkitCatalog(): JSX.Element {
             </thead>
             <tbody>
               {filtered.map((e) => {
-                const sev = SEVERITY_CONFIG[e.severity];
+                const sev = SEVERITY_CONFIG[e.severity]!;
                 const SevIcon = sev.icon;
                 return (
                   <tr
@@ -1324,7 +1324,7 @@ export default function VulnToolkitCatalog(): JSX.Element {
       )}
 
       {/* Info panel */}
-      <div className="mt-8 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <div className="mt-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-2">
           About This Catalog
         </h3>

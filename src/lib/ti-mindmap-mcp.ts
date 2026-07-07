@@ -344,7 +344,7 @@ function parseSseFrame<T>(text: string, _id: number | string): JsonRpcResponse<T
   }
 
   // Return the first valid JSON-RPC response found.
-  if (candidates.length > 0) return candidates[0];
+  if (candidates.length > 0) return candidates[0]!;
 
   // Last-ditch: maybe the server sent a plain JSON body labelled
   // content-type: text/event-stream by mistake.
@@ -463,14 +463,7 @@ export async function listReports(
 //    any of the 1,628+ reports on ti-mindmap-hub.com on demand) ──────
 
 export type ReportContentType =
-  | 'summary'
-  | 'raw'
-  | 'mindmap'
-  | 'ttps_table'
-  | 'ttps_execution'
-  | 'five_whats'
-  | 'stix'
-  | 'iocs';
+  'summary' | 'raw' | 'mindmap' | 'ttps_table' | 'ttps_execution' | 'five_whats' | 'stix' | 'iocs';
 
 export interface ReportDetailsResult {
   report_id: string;

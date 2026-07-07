@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, X, Command, ArrowRight, Loader2 } from 'lucide-react';
@@ -547,7 +546,7 @@ export function CommandPalette(): JSX.Element | null {
       />
 
       {/* Modal */}
-      <div className="relative w-full max-w-2xl rounded-md border border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e3 overflow-hidden">
+      <div className="relative w-full max-w-2xl rounded border border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e3 overflow-hidden">
         <div className="flex items-center gap-3 px-4 py-3 border-b border-[rgb(var(--border-400))]">
           <Search size={18} className="text-slate-500 dark:text-slate-400 shrink-0" aria-hidden="true" />
           <input

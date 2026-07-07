@@ -218,13 +218,13 @@ export default function IocPivot(): JSX.Element {
             onChange={(e) => setInput(e.target.value)}
             placeholder="IP · domain · URL · file hash"
             aria-label="Indicator"
-            className="w-full pl-9 pr-3 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-3 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
         </div>
         <button
           type="submit"
           disabled={streaming || !input.trim()}
-          className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-lg disabled:opacity-40 hover:bg-brand-700 dark:hover:bg-brand-400"
+          className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-xl disabled:opacity-40 hover:bg-brand-700 dark:hover:bg-brand-400"
         >
           {streaming && <Loader2 size={14} className="animate-spin" />}
           {streaming ? 'enriching…' : 'pivot'}
@@ -233,7 +233,7 @@ export default function IocPivot(): JSX.Element {
 
       {active && (
         <>
-          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 mb-4">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 mb-4">
             <svg viewBox={`0 0 ${W} ${W}`} className="w-full h-auto" role="img" aria-label="IOC pivot graph">
               {/* edges: centre → sources */}
               {sources.map((s, i) => {
@@ -347,7 +347,7 @@ export default function IocPivot(): JSX.Element {
           </div>
 
           {pivots.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
               <div className="flex items-center justify-between mb-2 gap-2 flex-wrap">
                 <h3 className="text-mini font-mono uppercase tracking-wider text-slate-500">
                   Pivot indicators ({pivots.length})

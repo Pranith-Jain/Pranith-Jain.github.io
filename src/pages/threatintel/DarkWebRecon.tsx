@@ -152,7 +152,7 @@ export default function DarkWebRecon(): JSX.Element {
                 setData(null);
                 setError(null);
               }}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium transition-colors ${
                 tab === t.id
                   ? 'bg-brand-500/20 text-brand-300 ring-1 ring-brand-500/40'
                   : 'text-muted hover:text-slate-200 hover:bg-white/5'
@@ -175,12 +175,12 @@ export default function DarkWebRecon(): JSX.Element {
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
             placeholder={activeTab.placeholder}
-            className="flex-1 [background:rgb(var(--surface-200)/0.6)] border border-[rgb(var(--border-500))] rounded-lg px-4 py-2.5 text-slate-100 dark:text-slate-200 placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-transparent text-sm"
+            className="flex-1 [background:rgb(var(--surface-200)/0.6)] border border-[rgb(var(--border-500))] rounded-xl px-4 py-2.5 text-slate-100 dark:text-slate-200 placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-transparent text-sm"
           />
           <button
             onClick={handleSearch}
             disabled={loading || !input.trim()}
-            className="flex items-center gap-2 px-4 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-gray-700 disabled:text-gray-500 rounded-lg text-sm font-medium text-white transition-colors"
+            className="flex items-center gap-2 px-4 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-700 disabled:text-slate-500 rounded-xl text-sm font-medium text-white transition-colors"
           >
             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />}
             {loading ? 'Searching...' : 'Search'}
@@ -216,7 +216,7 @@ function OnionSearchResults({ data }: { data: { query: string; count: number; re
         data.results.map((r, i) => (
           <div
             key={i}
-            className="[background:rgb(var(--surface-200)/0.4)] border border-[rgb(var(--border-400))] rounded-lg p-3 hover:border-[rgb(var(--border-500))] transition-colors"
+            className="[background:rgb(var(--surface-200)/0.4)] border border-[rgb(var(--border-400))] rounded-xl p-3 hover:border-[rgb(var(--border-500))] transition-colors"
           >
             <a
               href={r.url}
@@ -238,7 +238,7 @@ function OnionSearchResults({ data }: { data: { query: string; count: number; re
 
 function OnionLookupResults({ data }: { data: OnionLookupResult }) {
   return (
-    <div className="[background:rgb(var(--surface-200)/0.4)] border border-[rgb(var(--border-400))] rounded-lg p-4 space-y-3">
+    <div className="[background:rgb(var(--surface-200)/0.4)] border border-[rgb(var(--border-400))] rounded-xl p-4 space-y-3">
       <div className="flex items-center gap-2">
         <span
           className={`px-2 py-0.5 rounded text-xs font-medium ${
@@ -306,7 +306,7 @@ function OnionLookupResults({ data }: { data: OnionLookupResult }) {
 
       {data.bitcoin_addresses.length > 0 && (
         <div>
-          <span className="text-xs text-gray-500">Associated BTC addresses</span>
+          <span className="text-xs text-muted">Associated BTC addresses</span>
           {data.bitcoin_addresses.map((addr) => (
             <p key={addr} className="text-xs text-amber-400 font-mono mt-0.5">
               {addr}
@@ -316,7 +316,7 @@ function OnionLookupResults({ data }: { data: OnionLookupResult }) {
       )}
 
       {!data.first_seen && !data.last_seen && data.tags.length === 0 && data.ports.length === 0 && !data.title && (
-        <p className="text-sm text-gray-500">No metadata available for this address.</p>
+        <p className="text-sm text-muted">No metadata available for this address.</p>
       )}
     </div>
   );
@@ -352,16 +352,16 @@ function BtcAbuseResults({ data }: { data: ChainAbuseResult }) {
           {data.reports.map((r) => (
             <div
               key={r.id}
-              className="[background:rgb(var(--surface-200)/0.4)] border border-[rgb(var(--border-400))] rounded-lg p-3"
+              className="[background:rgb(var(--surface-200)/0.4)] border border-[rgb(var(--border-400))] rounded-xl p-3"
             >
               <div className="flex items-center gap-2 mb-1">
                 <span className="px-1.5 py-0.5 rounded text-xs font-medium bg-red-500/10 text-red-400 border border-red-500/20">
                   {r.category}
                 </span>
-                {r.scamType && <span className="text-xs text-gray-500">{r.scamType}</span>}
+                {r.scamType && <span className="text-xs text-muted">{r.scamType}</span>}
               </div>
-              <p className="text-sm text-gray-300">{r.description}</p>
-              <p className="text-xs text-gray-600 mt-1">{new Date(r.createdAt).toLocaleDateString()}</p>
+              <p className="text-sm text-slate-300 dark:text-slate-300">{r.description}</p>
+              <p className="text-xs text-muted mt-1">{new Date(r.createdAt).toLocaleDateString()}</p>
             </div>
           ))}
         </div>
@@ -372,10 +372,10 @@ function BtcAbuseResults({ data }: { data: ChainAbuseResult }) {
 
 function TorExitResults({ data }: { data: TorExitCheckResult }) {
   return (
-    <div className="[background:rgb(var(--surface-200)/0.4)] border border-[rgb(var(--border-400))] rounded-lg p-4">
+    <div className="[background:rgb(var(--surface-200)/0.4)] border border-[rgb(var(--border-400))] rounded-xl p-4">
       <div className="flex items-center gap-3">
         <span
-          className={`px-3 py-1 rounded-lg text-sm font-medium ${
+          className={`px-3 py-1 rounded-xl text-sm font-medium ${
             data.isTorExit
               ? 'bg-red-500/20 text-red-300 ring-1 ring-red-500/30'
               : 'bg-green-500/20 text-green-300 ring-1 ring-green-500/30'

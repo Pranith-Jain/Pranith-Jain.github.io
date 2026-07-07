@@ -147,15 +147,15 @@ export default function AssessmentDetail(): JSX.Element {
           </div>
 
           {/* Status transition actions */}
-          {STATUS_ACTIONS[assessment.status]?.length > 0 && (
+          {(STATUS_ACTIONS[assessment.status]?.length ?? 0) > 0 && (
             <div className="flex gap-2">
-              {STATUS_ACTIONS[assessment.status].map((action) => (
+              {STATUS_ACTIONS[assessment.status]!.map((action) => (
                 <button
                   key={action.next}
                   type="button"
                   onClick={() => transitionStatus(action.next)}
                   disabled={transitioning}
-                  className={`inline-flex items-center gap-1.5 text-xs font-mono px-4 py-2 rounded-lg text-white ${action.color} disabled:opacity-50 transition-colors`}
+                  className={`inline-flex items-center gap-1.5 text-xs font-mono px-4 py-2 rounded-xl text-white ${action.color} disabled:opacity-50 transition-colors`}
                 >
                   {action.next === 'published' ? (
                     <CheckCircle2 size={12} />
@@ -173,7 +173,7 @@ export default function AssessmentDetail(): JSX.Element {
           {transitionError && (
             <p
               role="alert"
-              className="mt-3 rounded-md border border-rose-300 dark:border-rose-700 bg-rose-50 dark:bg-rose-950/30 px-3 py-2 text-xs text-rose-700 dark:text-rose-300"
+              className="mt-3 rounded border border-rose-300 dark:border-rose-700 bg-rose-50 dark:bg-rose-950/30 px-3 py-2 text-xs text-rose-700 dark:text-rose-300"
             >
               {transitionError}
             </p>

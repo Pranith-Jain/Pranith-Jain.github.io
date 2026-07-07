@@ -429,7 +429,7 @@ export default function AttackNavigator(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search ID, name, or description..."
-              className="w-full pl-9 pr-4 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Search techniques"
             />
           </div>
@@ -499,7 +499,7 @@ export default function AttackNavigator(): JSX.Element {
           onRetry={() => setRefreshKey((k) => k + 1)}
         >
           <div className="overflow-x-auto pb-4 -mx-4 sm:mx-0 px-4 sm:px-0">
-            <div className="flex gap-1 min-w-max bg-slate-100 dark:bg-[rgb(var(--surface-300)/0.5)] p-1 rounded-lg">
+            <div className="flex gap-1 min-w-max bg-slate-100 dark:bg-[rgb(var(--surface-300)/0.5)] p-1 rounded-xl">
               {mitreMatrix.map((tactic) => {
                 const tacticCount = tactic.techniques.length;
                 return (
@@ -542,7 +542,7 @@ export default function AttackNavigator(): JSX.Element {
                           type="button"
                           onClick={() => openTechnique(technique.id)}
                           className={[
-                            'relative w-full text-left border px-1.5 py-1 min-h-[42px] transition-all text-[10.5px] leading-tight overflow-hidden word-break-break-word hyphens-auto rounded-sm',
+                            'relative w-full text-left border px-1.5 py-1 min-h-[42px] transition-all text-[10.5px] leading-tight overflow-hidden word-break-break-word hyphens-auto rounded',
                             isSelected ? 'ring-2 ring-brand-500/60 dark:ring-brand-400/60' : '',
                             isDimmed ? 'opacity-25' : '',
                             isObserved
@@ -635,7 +635,7 @@ export default function AttackNavigator(): JSX.Element {
             <div className="px-6 py-5 space-y-6">
               {/* Activity stats */}
               {selectedScore && matrixSource === 'attack' && (
-                <div className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] rounded-lg p-4 border border-slate-200 dark:border-[rgb(var(--border-400))]">
+                <div className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] rounded-xl p-4 border border-slate-200 dark:border-[rgb(var(--border-400))]">
                   <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-3">Activity</h3>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">

@@ -12,7 +12,7 @@ const SEVERITY_LABELS: Record<Severity, string> = {
 
 export default function SeverityLegend(): JSX.Element {
   return (
-    <div className="flex items-center gap-3 px-3 py-2 rounded-lg bg-slate-900/80 backdrop-blur-sm border border-slate-700/50">
+    <div className="flex items-center gap-3 px-3 py-2 rounded-xl bg-slate-900/80 backdrop-blur-sm border border-slate-700/50">
       <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Severity</span>
       <div className="flex items-center gap-2">
         {SEVERITY_ORDER.map((sev) => (

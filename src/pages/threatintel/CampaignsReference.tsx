@@ -55,7 +55,7 @@ export default function CampaignsReference(): JSX.Element {
   useEffect(() => {
     let cancelled = false;
     const ctrl = new AbortController();
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+
     setLoading(true);
     setError(null);
     fetch('/api/v1/campaigns-catalog', { signal: ctrl.signal })
@@ -146,14 +146,14 @@ export default function CampaignsReference(): JSX.Element {
       {data && (
         <>
           {/* Toolbar */}
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
             <div className="relative mb-3">
               <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search by name, actor, description, tag, sector…"
-                className="w-full rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
+                className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
               />
             </div>
             <div className="flex flex-wrap items-center gap-1.5">
@@ -183,7 +183,8 @@ export default function CampaignsReference(): JSX.Element {
                     onClick={() => setCategoryFilter(active ? null : cat)}
                     className={`text-mini font-mono px-2 py-1 rounded border ${
                       active
-                        ? CATEGORY_COLOR[cat] ?? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
+                        ? (CATEGORY_COLOR[cat] ??
+                          'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300')
                         : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
                     }`}
                   >
@@ -216,7 +217,7 @@ export default function CampaignsReference(): JSX.Element {
 
           {/* Campaign grid */}
           {filtered.length === 0 ? (
-            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
               <Search className="mx-auto mb-2 h-8 w-8 text-slate-400 dark:text-slate-400" />
               No campaigns match the current filter.
             </div>
@@ -235,7 +236,7 @@ export default function CampaignsReference(): JSX.Element {
 
 function Stat({ label, value }: { label: string; value: React.ReactNode }) {
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2">
       <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">{label}</div>
       <div className="text-lg font-semibold text-slate-900 dark:text-slate-100">{value}</div>
     </div>
@@ -246,7 +247,7 @@ function CampaignCard({ campaign: c }: { campaign: CampaignEntry }) {
   const [expanded, setExpanded] = useState(false);
   return (
     <div
-      className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 hover:border-brand-500/40 transition-colors cursor-pointer"
+      className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 hover:border-brand-500/40 transition-colors cursor-pointer"
       onClick={() => setExpanded((v) => !v)}
       role="button"
       tabIndex={0}
@@ -265,8 +266,7 @@ function CampaignCard({ campaign: c }: { campaign: CampaignEntry }) {
           </span>
           <span
             className={`text-micro font-mono px-1.5 py-0.5 rounded border ${
-              CATEGORY_COLOR[c.category] ??
-              'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
+              CATEGORY_COLOR[c.category] ?? 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
             }`}
           >
             {c.category}
@@ -294,7 +294,10 @@ function CampaignCard({ campaign: c }: { campaign: CampaignEntry }) {
       {c.targets && c.targets.length > 0 && (
         <div className="flex flex-wrap gap-1 mb-2">
           {c.targets.map((t) => (
-            <span key={t} className="px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted text-mini font-mono">
+            <span
+              key={t}
+              className="px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted text-mini font-mono"
+            >
               {t}
             </span>
           ))}

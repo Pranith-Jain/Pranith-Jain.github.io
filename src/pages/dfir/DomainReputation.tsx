@@ -146,14 +146,14 @@ export default function DomainReputation(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="example.com or 1.2.3.4"
-              className="w-full pl-9 pr-3 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-3 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Domain or IP to check"
             />
           </div>
           <button
             type="submit"
             disabled={loading || !clean}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
           >
             {loading ? (
               <Loader2 size={16} className="animate-spin inline mr-1" />
@@ -180,7 +180,7 @@ export default function DomainReputation(): JSX.Element {
       {results && !results.error && (
         <div className="space-y-6">
           {/* Score Summary */}
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
             <div className="flex flex-wrap items-baseline justify-between gap-3 mb-3">
               <h2 className="font-display font-bold text-xl">{results.target}</h2>
               {(() => {
@@ -215,7 +215,7 @@ export default function DomainReputation(): JSX.Element {
 
           {/* Domain Blacklists */}
           {results.domain && results.domain.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
               <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
                 Domain blacklists ({results.domain.length})
               </h3>
@@ -237,7 +237,7 @@ export default function DomainReputation(): JSX.Element {
                 return (
                   <section
                     key={ip}
-                    className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
+                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
                   >
                     <div className="flex items-baseline justify-between gap-2 mb-3">
                       <h3 className="font-display font-semibold text-base inline-flex items-center gap-2">
@@ -291,7 +291,7 @@ export default function DomainReputation(): JSX.Element {
           </div>
 
           {/* External Tools */}
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
             <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 inline-flex items-center gap-2">
               <BookOpen size={12} aria-hidden="true" /> External reputation lookups
             </h3>

@@ -140,7 +140,7 @@ export default function CaseStudy(): JSX.Element {
             {study.outcome.split(' · ').map((metric) => (
               <span
                 key={metric}
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-md bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-sm font-mono font-medium text-slate-700 dark:text-slate-200"
+                className="inline-flex items-center gap-1 px-3 py-1.5 rounded bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-sm font-mono font-medium text-slate-700 dark:text-slate-200"
               >
                 {metric}
               </span>

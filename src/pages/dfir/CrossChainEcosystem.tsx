@@ -82,14 +82,15 @@ const TONE: Record<string, string> = {
 };
 
 const CARD =
-  'rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1';
+  'rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1';
 
 export default function CrossChainEcosystem() {
   return (
     <DataPageLayout
+      backTo="/dfir/attack-chains"
+      icon={<Shield size={28} />}
       title="Cross-Chain Ecosystem"
-      subtitle="How attack chains feed into each other — infostealers fund ransomware, AiTM enables BEC, ClickFix delivers stealers."
-      backLink={{ to: '/dfir/attack-chains', label: 'Attack Chains' }}
+      description="How attack chains feed into each other — infostealers fund ransomware, AiTM enables BEC, ClickFix delivers stealers."
       headerExtra={
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
           Source:{' '}

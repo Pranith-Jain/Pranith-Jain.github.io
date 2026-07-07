@@ -98,10 +98,10 @@ function hexPatternToRegex(hex: string): RegExp {
       }
       const inside = cleaned.slice(i + 1, end).trim();
       const range = inside.split('-').map((s) => parseInt(s.trim(), 10));
-      if (range.length === 2 && !isNaN(range[0]) && !isNaN(range[1])) {
-        re += `[\\s\\S]{${range[0]},${range[1]}}`;
-      } else if (range.length === 1 && !isNaN(range[0])) {
-        re += `[\\s\\S]{${range[0]}}`;
+      if (range.length === 2 && !isNaN(range[0]!) && !isNaN(range[1]!)) {
+        re += `[\\s\\S]{${range[0]!},${range[1]!}}`;
+      } else if (range.length === 1 && !isNaN(range[0]!)) {
+        re += `[\\s\\S]{${range[0]!}}`;
       }
       i = end + 1;
       continue;
@@ -137,8 +137,8 @@ export function parseYaraRule(rule: string): ParsedRule {
     // Match: $name = "literal" modifiers OR $name = { hex } OR $name = /regex/
     const rx = /\$(\w+)\s*=\s*("([^"\\]|\\.)*"|\{[^}]*\}|\/((?:[^/\\]|\\.)+)\/[a-z]*)\s*([a-z\s]*)/gi;
     let m: RegExpExecArray | null;
-    while ((m = rx.exec(body)) !== null) {
-      const id = `$${m[1]}`;
+    while ((m = rx.exec(body!)) !== null) {
+      const id = `$${m[1]!}`;
       const raw = m[2]!;
       const mods = (m[5] ?? '').toLowerCase();
       try {
@@ -185,10 +185,10 @@ export function parseYaraRule(rule: string): ParsedRule {
   // Surface metadata
   const metaBlock = rule.match(/meta\s*:\s*([\s\S]*?)\s*(strings|condition)\s*:/i);
   if (metaBlock) {
-      const lines = metaBlock[1]!.split(/\r?\n/);
+    const lines = metaBlock[1]!.split(/\r?\n/);
     for (const ln of lines) {
       const mm = ln.match(/^\s*(\w+)\s*=\s*"([^"]*)"/);
-      if (mm) meta.push({ k: mm[1], v: mm[2] });
+      if (mm) meta.push({ k: mm[1]!, v: mm[2]! });
     }
   }
 
@@ -235,7 +235,7 @@ function parseSigmaDetection(detectionBody: string): SigmaLeaf[] {
     const block: string[] = [];
     i++;
     while (i < lines.length && (lines[i]!.length === 0 || (lines[i]!.match(/^\s+/)?.[0].length ?? 0) >= blockIndent)) {
-      block.push(lines[i]);
+      block.push(lines[i]!);
       i++;
     }
     const dd = dedent(block);
@@ -263,10 +263,9 @@ function parseSigmaDetection(detectionBody: string): SigmaLeaf[] {
         // collect list / multi-line
         const vals: string[] = [];
         let k = j + 1;
-        while (k < dd.length && /^\s*-\s+/.test(dd[k])) {
+        while (k < dd.length && /^\s*-\s+/.test(dd[k]!)) {
           vals.push(
-            dd[k]!
-              .replace(/^\s*-\s+/, '')
+            dd[k]!.replace(/^\s*-\s+/, '')
               .trim()
               .replace(/^['"]|['"]$/g, '')
           );
@@ -302,7 +301,7 @@ export function parseSigmaRule(rule: string): ParsedRule {
   }
 
   const tagsLine = rule.match(/^tags\s*:\s*\[?(.+?)\]?$/m);
-  if (tagsLine) meta.push({ k: 'tags', v: tagsLine[1] });
+  if (tagsLine) meta.push({ k: 'tags', v: tagsLine[1]! });
 
   // Detection block
   const detectionMatch = rule.match(/^detection\s*:\s*$([\s\S]*?)(?=^\S|^$)/m);

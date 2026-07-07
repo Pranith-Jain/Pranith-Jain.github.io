@@ -175,7 +175,7 @@ export default function HostGraphView(): JSX.Element {
             spellCheck={false}
             autoCapitalize="off"
             autoCorrect="off"
-            className="w-full pl-10 pr-24 py-2.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-transparent"
+            className="w-full pl-10 pr-24 py-2.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-transparent"
           />
           {query && (
             <span
@@ -188,7 +188,7 @@ export default function HostGraphView(): JSX.Element {
         <button
           type="submit"
           disabled={!query.trim() || inputKind === 'unknown'}
-          className="px-4 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium disabled:opacity-50 inline-flex items-center gap-2"
+          className="px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium disabled:opacity-50 inline-flex items-center gap-2"
         >
           <Search size={14} />
           Pivot
@@ -200,14 +200,14 @@ export default function HostGraphView(): JSX.Element {
       </p>
 
       {error && (
-        <div className="mb-6 p-3 rounded-lg bg-rose-50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-800/50 text-rose-700 dark:text-rose-300 text-sm font-mono">
+        <div className="mb-6 p-3 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-800/50 text-rose-700 dark:text-rose-300 text-sm font-mono">
           <AlertTriangle size={14} className="inline mr-2" />
           {error}
         </div>
       )}
 
       {!result && !error && submitted && (
-        <div className="p-6 rounded-lg border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] text-center text-sm text-slate-500">
+        <div className="p-6 rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] text-center text-sm text-slate-500">
           <Clock size={20} className="inline-block mr-2 mb-1 animate-spin" />
           Resolving <span className="font-mono">{submitted}</span> across bgp.tools, RIPE Stat, and RDAP…
         </div>
@@ -237,7 +237,7 @@ function Section({
   children: React.ReactNode;
 }): JSX.Element {
   return (
-    <section className="mb-6 p-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
+    <section className="mb-6 p-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
       <h2 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
         <Icon size={14} />
         {title}

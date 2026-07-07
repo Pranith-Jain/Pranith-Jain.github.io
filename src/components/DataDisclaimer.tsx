@@ -182,7 +182,7 @@ export function DataDisclaimer() {
   return (
     <div className="space-y-6">
       {/* Disclaimer banner */}
-      <div className="rounded-lg border border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-950 p-4 text-sm text-amber-800 dark:text-amber-200 font-mono">
+      <div className="rounded-xl border border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-950 p-4 text-sm text-amber-800 dark:text-amber-200 font-mono">
         <p className="font-semibold flex items-center gap-2 mb-1">
           <AlertTriangle size={14} /> Disclaimer
         </p>

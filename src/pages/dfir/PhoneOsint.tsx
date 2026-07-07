@@ -298,7 +298,7 @@ export default function PhoneOsint(): JSX.Element {
 
       {/* Parsed info */}
       {parsed && (
-        <div className="mb-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <div className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
           <div className="flex flex-wrap items-center gap-4 text-sm font-mono">
             <div>
               <span className="text-slate-500 dark:text-slate-400">E.164:</span>{' '}
@@ -317,21 +317,21 @@ export default function PhoneOsint(): JSX.Element {
 
       {/* Loading */}
       {loading && (
-        <div className="mb-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 text-center">
+        <div className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 text-center">
           <p className="text-sm font-mono text-slate-500 dark:text-slate-400">Investigating phone number...</p>
         </div>
       )}
 
       {/* API Error */}
       {apiError && (
-        <div className="mb-6 rounded-lg border border-amber-500/40 bg-amber-50 dark:bg-amber-950/30 p-4 text-sm font-mono text-amber-700 dark:text-amber-300">
+        <div className="mb-6 rounded-xl border border-amber-500/40 bg-amber-50 dark:bg-amber-950/30 p-4 text-sm font-mono text-amber-700 dark:text-amber-300">
           {apiError}
         </div>
       )}
 
       {/* API Result — carrier + breach details */}
       {apiResult && (
-        <div className="mb-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <div className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
           <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-3">
             Server-Side Intel
           </h3>
@@ -451,7 +451,7 @@ export default function PhoneOsint(): JSX.Element {
               return (
                 <li
                   key={l.service + l.url}
-                  className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
+                  className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
                 >
                   <div className="flex items-start justify-between gap-2 mb-1">
                     <a
@@ -482,13 +482,13 @@ export default function PhoneOsint(): JSX.Element {
       )}
 
       {input.trim() && !parsed && (
-        <div className="rounded-lg border border-amber-500/40 bg-amber-50 dark:bg-amber-950/30 p-4 text-sm font-mono text-amber-700 dark:text-amber-300">
+        <div className="rounded-xl border border-amber-500/40 bg-amber-50 dark:bg-amber-950/30 p-4 text-sm font-mono text-amber-700 dark:text-amber-300">
           Could not parse phone number. Try E.164 format (e.g. +15551234567) or a plain 7-15 digit number.
         </div>
       )}
 
       {/* Tips */}
-      <div className="mt-8 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <div className="mt-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-2">
           Investigation Tips
         </h3>

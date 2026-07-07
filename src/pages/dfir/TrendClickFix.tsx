@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
-import { ExternalLink, TrendingUp, MousePointer, Search } from 'lucide-react';
+import { ExternalLink, TrendingUp, Search } from 'lucide-react';
 
 interface Variant {
   name: string;
@@ -201,7 +201,7 @@ export default function TrendClickFix(): JSX.Element {
           {STATS.map((s) => (
             <div
               key={s.label}
-              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
+              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
             >
               <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 block mb-1">
                 {s.label}
@@ -220,7 +220,7 @@ export default function TrendClickFix(): JSX.Element {
           {KEY_FINDINGS.map((f) => (
             <div
               key={f.label}
-              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
+              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
             >
               <h3 className="font-display font-bold text-slate-900 dark:text-slate-100 text-sm mb-1">{f.label}</h3>
               <p className="text-sm font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{f.detail}</p>
@@ -252,7 +252,7 @@ export default function TrendClickFix(): JSX.Element {
 
         <div className="space-y-3">
           {filtered.map((v) => (
-            <article key={v.name} className={`rounded-lg border ${v.border} ${v.bg} shadow-e1 p-4`}>
+            <article key={v.name} className={`rounded-xl border ${v.border} ${v.bg} shadow-e1 p-4`}>
               <header className="flex flex-wrap items-center gap-2 mb-2">
                 <h3 className="font-display font-bold text-slate-900 dark:text-slate-100 text-base">{v.name}</h3>
                 <span className="text-micro font-mono px-1.5 py-0.5 rounded border border-brand-500/30 bg-brand-500/10 text-brand-700 dark:text-brand-300">

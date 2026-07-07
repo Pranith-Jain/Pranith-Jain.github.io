@@ -238,7 +238,7 @@ export default function ThreatFeeds(): JSX.Element {
       </div>
 
       {/* Filters */}
-      <section className="mb-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5 space-y-3">
+      <section className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5 space-y-3">
         <div className="flex items-center gap-2">
           <Search size={14} className="text-brand-600 dark:text-brand-400" aria-hidden="true" />
           <input
@@ -309,7 +309,7 @@ export default function ThreatFeeds(): JSX.Element {
         </div>
 
         {showSourcePanel && (
-          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 space-y-3 max-h-[420px] overflow-y-auto">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 space-y-3 max-h-[420px] overflow-y-auto">
             <div className="flex items-center justify-between gap-2">
               <p className="text-mini font-mono text-slate-400">
                 Toggle individual feeds. Disabling a feed both hides it AND skips the upstream fetch. Persisted in
@@ -445,7 +445,7 @@ export default function ThreatFeeds(): JSX.Element {
           <button
             type="button"
             onClick={() => setShowDigest((p) => !p)}
-            className={`inline-flex items-center gap-2 text-xs font-mono px-4 py-2 rounded-lg border transition-colors ${
+            className={`inline-flex items-center gap-2 text-xs font-mono px-4 py-2 rounded-xl border transition-colors ${
               showDigest
                 ? 'border-brand-500/50 bg-brand-500/10 text-brand-600 dark:text-brand-400'
                 : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]'

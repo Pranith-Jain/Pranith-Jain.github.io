@@ -64,8 +64,8 @@ interface SocialContent {
 }
 
 interface SocialEntry {
-  loadingTwitter: boolean;
-  loadingLinkedin: boolean;
+  loadingTwitter?: boolean;
+  loadingLinkedin?: boolean;
   data: SocialContent | null;
   error: string | null;
   // Per-platform presence from the cheap /social-index list, so button state
@@ -165,7 +165,10 @@ export default function PublishedTab() {
   }
 
   async function generateTwitter(slug: string) {
-    setSocial((prev) => ({ ...prev, [slug]: { ...prev[slug], loadingTwitter: true, error: null } }));
+    setSocial((prev) => {
+      const entry = prev[slug] ?? { data: null, error: null, hasTwitter: false, hasLinkedin: false };
+      return { ...prev, [slug]: { ...entry, loadingTwitter: true, error: null } };
+    });
     try {
       const r = await postJsonWithBody<{
         ok: boolean;
@@ -182,9 +185,10 @@ export default function PublishedTab() {
         if (r.content) {
           setSocial((prev) => {
             const existing = prev[slug]?.data ?? { slug, twitter: '', linkedin: '', generatedAt: r.generatedAt };
+            const entry = prev[slug] ?? { data: null, error: null, hasTwitter: false, hasLinkedin: false };
             return {
               ...prev,
-              [slug]: { ...prev[slug], data: { ...existing, twitter: r.content }, error: null, hasTwitter: true },
+              [slug]: { ...entry, data: { ...existing, twitter: r.content }, error: null, hasTwitter: true },
             };
           });
         }
@@ -197,7 +201,10 @@ export default function PublishedTab() {
   }
 
   async function generateLinkedin(slug: string) {
-    setSocial((prev) => ({ ...prev, [slug]: { ...prev[slug], loadingLinkedin: true, error: null } }));
+    setSocial((prev) => {
+      const entry = prev[slug] ?? { data: null, error: null, hasTwitter: false, hasLinkedin: false };
+      return { ...prev, [slug]: { ...entry, loadingLinkedin: true, error: null } };
+    });
     try {
       const r = await postJsonWithBody<{
         ok: boolean;
@@ -214,9 +221,10 @@ export default function PublishedTab() {
         if (r.content) {
           setSocial((prev) => {
             const existing = prev[slug]?.data ?? { slug, twitter: '', linkedin: '', generatedAt: r.generatedAt };
+            const entry = prev[slug] ?? { data: null, error: null, hasTwitter: false, hasLinkedin: false };
             return {
               ...prev,
-              [slug]: { ...prev[slug], data: { ...existing, linkedin: r.content }, error: null, hasLinkedin: true },
+              [slug]: { ...entry, data: { ...existing, linkedin: r.content }, error: null, hasLinkedin: true },
             };
           });
         }

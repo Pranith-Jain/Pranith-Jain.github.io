@@ -95,12 +95,12 @@ export default function TaxiiServer(): JSX.Element {
           <Database size={14} className="text-brand-600 dark:text-brand-400" /> Connection
         </h2>
         <div className="space-y-2">
-          <div className="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2">
+          <div className="flex items-center gap-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2">
             <span className="text-micro font-mono uppercase tracking-wider text-slate-400 shrink-0">Discovery</span>
             <code className="text-xs text-brand-600 dark:text-brand-400 flex-1 truncate font-mono">{baseUrl}</code>
             <CopyButton value={baseUrl} />
           </div>
-          <div className="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2">
+          <div className="flex items-center gap-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2">
             <span className="text-micro font-mono uppercase tracking-wider text-slate-400 shrink-0">Content-Type</span>
             <code className="text-xs text-muted font-mono">application/vnd.oasis.taxii+json; version=2.1</code>
           </div>
@@ -116,7 +116,7 @@ export default function TaxiiServer(): JSX.Element {
             </h2>
             <button
               onClick={fetchCollections}
-              className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-slate-400 transition-colors"
+              className="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-slate-400 transition-colors"
             >
               <RefreshCw size={14} />
             </button>
@@ -131,7 +131,7 @@ export default function TaxiiServer(): JSX.Element {
                 <button
                   key={col.id}
                   onClick={() => setSelectedCollection(col.id)}
-                  className={`w-full text-left p-3 rounded-lg border transition-colors ${
+                  className={`w-full text-left p-3 rounded-xl border transition-colors ${
                     selectedCollection === col.id
                       ? 'border-brand-500/60 bg-brand-500/5'
                       : 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/30'
@@ -211,7 +211,7 @@ function ObjectCard({ obj }: { obj: TaxiiObject }) {
       role="button"
       tabIndex={0}
       aria-expanded={expanded}
-      className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 cursor-pointer hover:border-brand-500/30 transition-colors"
+      className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 cursor-pointer hover:border-brand-500/30 transition-colors"
       onClick={() => setExpanded(!expanded)}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -260,7 +260,7 @@ function CodeBlock({ title, code }: { title: string; code: string }) {
   return (
     <div>
       <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">{title}</div>
-      <div className="flex items-start gap-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
+      <div className="flex items-start gap-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
         <pre className="text-xs text-slate-700 dark:text-slate-300 flex-1 overflow-x-auto font-mono">{code}</pre>
         <CopyButton value={code} />
       </div>

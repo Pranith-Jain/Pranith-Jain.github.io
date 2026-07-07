@@ -4,8 +4,6 @@ import { Activity, Crosshair, Shield, Bug, Hash, Copy, Check, Layers, RefreshCw,
 import { DataState } from '../../components/DataState';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
-import { LiveFreshnessPill } from '../../components/LiveFreshnessPill';
-import { relativeAgo } from '../../lib/relativeTime';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 
 /** Build a deep link for an entity label so the analyst can pivot
@@ -203,7 +201,7 @@ export default function ThreatPulse(): JSX.Element {
                 type="button"
                 onClick={() => setKindFilter(kindFilter === k ? null : k)}
                 aria-pressed={kindFilter === k}
-                className={`flex items-center gap-3 rounded-lg border p-3 text-left transition-colors ${
+                className={`flex items-center gap-3 rounded-xl border p-3 text-left transition-colors ${
                   kindFilter === k
                     ? 'border-brand-500/60 bg-brand-500/10'
                     : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-brand-500/40'
@@ -279,7 +277,7 @@ export default function ThreatPulse(): JSX.Element {
       </div>
 
       {data && filtered.length === 0 && (
-        <div className="border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center rounded-lg">
+        <div className="border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center rounded-xl">
           <Activity size={32} className="mx-auto mb-3 text-slate-400 dark:text-slate-400" />
           <p className="font-mono text-sm text-muted">
             No entities at ≥{minSources} source{minSources > 1 ? 's' : ''}
@@ -325,7 +323,7 @@ export default function ThreatPulse(): JSX.Element {
               return (
                 <div
                   key={`${entity.kind}:${entity.label}`}
-                  className="border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 hover:border-brand-500/40 dark:hover:border-brand-400/40 transition-colors rounded-lg"
+                  className="border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 hover:border-brand-500/40 dark:hover:border-brand-400/40 transition-colors rounded-xl"
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex items-center gap-3 min-w-0 flex-1">

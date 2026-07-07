@@ -195,7 +195,7 @@ export default function EstateConfig() {
               <select
                 value={config.sector}
                 onChange={(e) => setConfig((prev) => ({ ...prev, sector: e.target.value }))}
-                className="mt-1 w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
+                className="mt-1 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
               >
                 {SECTORS.map((s) => (
                   <option key={s.id} value={s.id}>
@@ -210,7 +210,7 @@ export default function EstateConfig() {
                 value={config.sub_sector}
                 onChange={(e) => setConfig((prev) => ({ ...prev, sub_sector: e.target.value }))}
                 placeholder="e.g. Payment Processing, Cloud Security"
-                className="mt-1 w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
+                className="mt-1 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
               />
             </div>
             <div>
@@ -218,7 +218,7 @@ export default function EstateConfig() {
               <select
                 value={config.region}
                 onChange={(e) => setConfig((prev) => ({ ...prev, region: e.target.value }))}
-                className="mt-1 w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
+                className="mt-1 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
               >
                 {REGIONS.map((r) => (
                   <option key={r.id} value={r.id}>
@@ -238,11 +238,11 @@ export default function EstateConfig() {
               onChange={(e) => setTechInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addTech(techInput))}
               placeholder="Add technology (e.g. AWS, Azure, Kubernetes)"
-              className="flex-1 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
+              className="flex-1 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
             />
             <button
               onClick={() => addTech(techInput)}
-              className="px-3 py-2 rounded-lg bg-amber-600 text-white text-sm font-medium hover:bg-amber-700"
+              className="px-3 py-2 rounded-xl bg-amber-600 text-white text-sm font-medium hover:bg-amber-700"
             >
               <Plus size={16} />
             </button>
@@ -286,7 +286,7 @@ export default function EstateConfig() {
       <button
         onClick={saveConfig}
         disabled={saving}
-        className="mb-8 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-600 text-white text-sm font-medium hover:bg-amber-700 disabled:opacity-50"
+        className="mb-8 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-600 text-white text-sm font-medium hover:bg-amber-700 disabled:opacity-50"
       >
         <Save size={16} /> {saving ? 'Saving...' : saved ? 'Saved!' : 'Save Configuration'}
       </button>
@@ -294,11 +294,11 @@ export default function EstateConfig() {
       {/* Assets */}
       <div className="rounded-xl border border-slate-200/60 dark:border-slate-700 bg-white dark:bg-slate-800 p-6 mb-8">
         <h3 className="font-semibold text-sm uppercase tracking-wider text-slate-500 mb-4">Monitored Assets</h3>
-        <div className="flex flex-wrap gap-3 mb-6 p-3 rounded-lg bg-slate-50 dark:bg-slate-900/50">
+        <div className="flex flex-wrap gap-3 mb-6 p-3 rounded-xl bg-slate-50 dark:bg-slate-900/50">
           <select
             value={newAsset.asset_type}
             onChange={(e) => setNewAsset((prev) => ({ ...prev, asset_type: e.target.value }))}
-            className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
+            className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
           >
             <option value="domain">Domain</option>
             <option value="ip">IP</option>
@@ -313,18 +313,18 @@ export default function EstateConfig() {
             value={newAsset.value}
             onChange={(e) => setNewAsset((prev) => ({ ...prev, value: e.target.value }))}
             placeholder="Value (domain, IP, account ID...)"
-            className="flex-1 min-w-[200px] rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
+            className="flex-1 min-w-[200px] rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
           />
           <input
             value={newAsset.label}
             onChange={(e) => setNewAsset((prev) => ({ ...prev, label: e.target.value }))}
             placeholder="Label (optional)"
-            className="w-40 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
+            className="w-40 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
           />
           <select
             value={newAsset.criticality}
             onChange={(e) => setNewAsset((prev) => ({ ...prev, criticality: e.target.value }))}
-            className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
+            className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
           >
             <option value="critical">Critical</option>
             <option value="high">High</option>
@@ -333,7 +333,7 @@ export default function EstateConfig() {
           </select>
           <button
             onClick={addAsset}
-            className="inline-flex items-center gap-1 px-4 py-2 rounded-lg bg-amber-600 text-white text-sm font-medium hover:bg-amber-700"
+            className="inline-flex items-center gap-1 px-4 py-2 rounded-xl bg-amber-600 text-white text-sm font-medium hover:bg-amber-700"
           >
             <Plus size={16} /> Add
           </button>
@@ -350,7 +350,7 @@ export default function EstateConfig() {
               return (
                 <div
                   key={a.id}
-                  className="flex items-center gap-3 p-3 rounded-lg border border-slate-200 dark:border-slate-700/50 hover:bg-slate-50 dark:hover:bg-slate-700/30"
+                  className="flex items-center gap-3 p-3 rounded-xl border border-slate-200 dark:border-slate-700/50 hover:bg-slate-50 dark:hover:bg-slate-700/30"
                 >
                   <Icon size={18} className="text-slate-400" />
                   <div className="flex-1 min-w-0">
@@ -374,7 +374,7 @@ export default function EstateConfig() {
                   </div>
                   <button
                     onClick={() => deleteAsset(a.id)}
-                    className="p-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 text-slate-400 hover:text-red-500"
+                    className="p-1.5 rounded-xl hover:bg-red-50 dark:hover:bg-red-900/20 text-slate-400 hover:text-red-500"
                   >
                     <Trash2 size={14} />
                   </button>

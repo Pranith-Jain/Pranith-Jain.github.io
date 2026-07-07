@@ -47,7 +47,7 @@ export default function FeedSources(): JSX.Element {
   const groups = Object.entries(
     rssFeeds.reduce<Record<string, RSSFeed[]>>((acc, f) => {
       if (!acc[f.category]) acc[f.category] = [];
-      acc[f.category].push(f);
+      acc[f.category]!.push(f);
       return acc;
     }, {})
   ).sort(([a], [b]) => a.localeCompare(b));
@@ -91,7 +91,7 @@ export default function FeedSources(): JSX.Element {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search feeds by name, source, or description…"
-            className="flex-1 min-w-[200px] px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 min-w-[200px] px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <label className="inline-flex items-center gap-1.5 text-mini font-mono text-slate-500 cursor-pointer select-none">
             <input
@@ -122,7 +122,7 @@ export default function FeedSources(): JSX.Element {
                   return (
                     <div
                       key={f.id}
-                      className={`rounded-lg border p-3 transition-opacity ${
+                      className={`rounded-xl border p-3 transition-opacity ${
                         enabled
                           ? 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]'
                           : 'border-slate-200/50 dark:border-[rgb(var(--border-400))]/50 bg-slate-50/50 dark:bg-[rgb(var(--input-200)/0.5)] opacity-50'

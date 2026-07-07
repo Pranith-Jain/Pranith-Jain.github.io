@@ -168,7 +168,7 @@ export default function Owasp(): JSX.Element {
               key={l.id}
               type="button"
               onClick={() => setActiveList(l.id)}
-              className={`px-4 py-2 rounded-lg border text-sm font-mono transition-colors ${
+              className={`px-4 py-2 rounded-xl border text-sm font-mono transition-colors ${
                 on
                   ? 'border-brand-500/50 bg-brand-50 dark:bg-brand-900/20 text-slate-900 dark:text-slate-100'
                   : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-brand-500/30'
@@ -182,7 +182,7 @@ export default function Owasp(): JSX.Element {
       </div>
 
       {/* Stats */}
-      <section className="mb-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+      <section className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
         <div className="flex flex-wrap items-baseline justify-between gap-4">
           <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 text-xs font-mono">
             <span className="text-slate-500">Coverage:</span>
@@ -225,7 +225,7 @@ export default function Owasp(): JSX.Element {
           const style = CHECK_STYLES[c];
           const isExpanded = expanded.has(it.id);
           return (
-            <article key={it.id} className={`rounded-lg border ${style.border} ${style.bg} transition-colors`}>
+            <article key={it.id} className={`rounded-xl border ${style.border} ${style.bg} transition-colors`}>
               <header className="flex items-start gap-3 p-4">
                 <button
                   type="button"

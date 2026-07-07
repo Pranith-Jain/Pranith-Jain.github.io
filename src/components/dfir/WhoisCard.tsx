@@ -4,7 +4,7 @@ import { ExternalLink } from 'lucide-react';
 export function WhoisCard({ rdap }: { rdap: DomainLookupResponse['rdap'] }): JSX.Element {
   if (rdap.error) {
     return (
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
         <h3 className="font-display font-bold text-lg mb-3">WHOIS / RDAP</h3>
         <p className="font-mono text-sm text-rose-600 dark:text-rose-400">error: {rdap.error}</p>
       </section>
@@ -13,7 +13,7 @@ export function WhoisCard({ rdap }: { rdap: DomainLookupResponse['rdap'] }): JSX
   const fmt = (s?: string) => (s ? new Date(s).toISOString().slice(0, 10) : '—');
   const fmtDateTime = (s?: string) => (s ? new Date(s).toISOString().replace('T', ' ').slice(0, 19) + 'Z' : '—');
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
       <h3 className="font-display font-bold text-lg mb-3">WHOIS / RDAP</h3>
 
       {/* Registration Details */}

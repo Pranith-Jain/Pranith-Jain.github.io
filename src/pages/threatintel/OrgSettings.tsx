@@ -137,7 +137,7 @@ export default function OrgSettings() {
       onRetry={fetchOrgs}
     >
       {actionError && (
-        <div className="mb-4 p-3 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-600 dark:text-rose-400 text-sm">
+        <div className="mb-4 p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-600 dark:text-rose-400 text-sm">
           {actionError}
         </div>
       )}
@@ -157,7 +157,7 @@ export default function OrgSettings() {
             </div>
 
             {showCreate && (
-              <form onSubmit={createOrg} className="mb-4 p-3 rounded-lg bg-slate-50 dark:bg-slate-900/50 space-y-2">
+              <form onSubmit={createOrg} className="mb-4 p-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 space-y-2">
                 <input
                   type="text"
                   value={newOrgName}
@@ -202,7 +202,7 @@ export default function OrgSettings() {
                       setSelectedOrg(org);
                       fetchMembers(org.slug);
                     }}
-                    className={`w-full text-left px-3 py-2 rounded-lg text-xs transition-colors ${
+                    className={`w-full text-left px-3 py-2 rounded-xl text-xs transition-colors ${
                       selectedOrg?.id === org.id
                         ? 'bg-brand-500/10 text-brand-600 dark:text-brand-400'
                         : 'hover:bg-slate-100 dark:hover:bg-slate-700/50 text-slate-600 dark:text-slate-400'
@@ -248,7 +248,7 @@ export default function OrgSettings() {
                 {members.map((m) => (
                   <div
                     key={m.id}
-                    className="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700/50"
+                    className="flex items-center justify-between px-3 py-2 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700/50"
                   >
                     <div>
                       <div className="text-xs font-medium text-slate-700 dark:text-slate-300">

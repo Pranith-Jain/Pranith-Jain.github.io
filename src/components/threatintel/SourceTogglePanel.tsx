@@ -38,7 +38,7 @@ export function SourceTogglePanel({
   for (const s of feedStatuses) statusByUrl.set(s.url, s);
 
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 space-y-3 max-h-[420px] overflow-y-auto">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 space-y-3 max-h-[420px] overflow-y-auto">
       <div className="flex items-center justify-between gap-2">
         <p className="text-mini font-mono text-slate-500">
           Toggle individual feeds. Disabling a feed both hides it AND skips the upstream fetch. Persisted in

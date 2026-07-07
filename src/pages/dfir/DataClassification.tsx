@@ -157,7 +157,7 @@ export default function DataClassification(): JSX.Element {
             return (
               <div
                 key={t}
-                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
+                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
               >
                 <div className="flex flex-wrap items-baseline gap-2 mb-2">
                   <span
@@ -284,7 +284,7 @@ export default function DataClassification(): JSX.Element {
       {tab === 'inventory' && (
         <div className="space-y-3">
           {state.datasets.length === 0 ? (
-            <div className="rounded-lg border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm font-mono text-slate-500 dark:text-slate-400">
+            <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm font-mono text-slate-500 dark:text-slate-400">
               No datasets yet. Click <strong>Add dataset</strong> to start an inventory.
             </div>
           ) : (
@@ -293,7 +293,7 @@ export default function DataClassification(): JSX.Element {
               return (
                 <div
                   key={d.id}
-                  className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1"
+                  className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1"
                 >
                   <button
                     onClick={() => setExpanded(isOpen ? null : d.id)}
@@ -434,7 +434,7 @@ export default function DataClassification(): JSX.Element {
 
       {/* ── Matrix ── */}
       {tab === 'matrix' && (
-        <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
+        <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
           <table className="w-full text-xs font-mono">
             <thead className="bg-slate-50 dark:bg-[rgb(var(--input-200))] text-left">
               <tr>
@@ -496,7 +496,7 @@ export default function DataClassification(): JSX.Element {
         </div>
       )}
 
-      <section className="mt-8 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <section className="mt-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           References
         </h2>

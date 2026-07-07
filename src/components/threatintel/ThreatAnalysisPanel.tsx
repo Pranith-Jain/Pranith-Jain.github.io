@@ -128,7 +128,7 @@ export function ThreatAnalysisPanel({
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-brand-500/10">
         <div className="flex items-center gap-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-500/15">
+          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-brand-500/15">
             <Brain size={16} className="text-brand-400" />
           </div>
           <div>
@@ -148,7 +148,7 @@ export function ThreatAnalysisPanel({
             type="button"
             onClick={() => fetchAnalysis()}
             disabled={loading}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+            className="p-1.5 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
             title="Re-analyze"
           >
             <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
@@ -156,14 +156,14 @@ export function ThreatAnalysisPanel({
           <button
             type="button"
             onClick={() => setExpanded((p) => !p)}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+            className="p-1.5 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
           >
             {expanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
           </button>
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+            className="p-1.5 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
           >
             <X size={14} />
           </button>
@@ -183,7 +183,7 @@ export function ThreatAnalysisPanel({
 
           {/* Error */}
           {error && (
-            <div className="rounded-lg bg-rose-500/10 border border-rose-500/20 p-3 text-center">
+            <div className="rounded-xl bg-rose-500/10 border border-rose-500/20 p-3 text-center">
               <p className="text-xs text-rose-400">{error}</p>
               <button
                 type="button"
@@ -214,7 +214,7 @@ function EventAnalysisContent({ analysis }: { analysis: EventAnalysis }) {
     <div className="space-y-3">
       <div className="flex items-center gap-2">
         <span
-          className={`inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-mono rounded-lg border ${THREAT_COLORS[analysis.threat_level] || THREAT_COLORS.unknown}`}
+          className={`inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-mono rounded-xl border ${THREAT_COLORS[analysis.threat_level] || THREAT_COLORS.unknown}`}
         >
           <Shield size={12} />
           {analysis.threat_level?.toUpperCase()}
@@ -225,14 +225,14 @@ function EventAnalysisContent({ analysis }: { analysis: EventAnalysis }) {
       <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{analysis.summary}</p>
 
       {analysis.impact && (
-        <div className="rounded-lg bg-slate-100 dark:bg-[rgb(var(--surface-300)/0.5)] p-3">
+        <div className="rounded-xl bg-slate-100 dark:bg-[rgb(var(--surface-300)/0.5)] p-3">
           <span className="text-micro font-mono uppercase text-slate-500 block mb-1">Impact</span>
           <p className="text-xs text-slate-600 dark:text-slate-400">{analysis.impact}</p>
         </div>
       )}
 
       {analysis.context && (
-        <div className="rounded-lg bg-slate-100 dark:bg-[rgb(var(--surface-300)/0.5)] p-3">
+        <div className="rounded-xl bg-slate-100 dark:bg-[rgb(var(--surface-300)/0.5)] p-3">
           <span className="text-micro font-mono uppercase text-slate-500 block mb-1">Context</span>
           <p className="text-xs text-slate-600 dark:text-slate-400">{analysis.context}</p>
         </div>
@@ -276,7 +276,7 @@ function CountryAnalysisContent({ analysis }: { analysis: CountryAnalysis }) {
     <div className="space-y-3">
       <div className="flex items-center gap-2">
         <span
-          className={`inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-mono rounded-lg border ${THREAT_COLORS[analysis.overall_threat_level] || THREAT_COLORS.unknown}`}
+          className={`inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-mono rounded-xl border ${THREAT_COLORS[analysis.overall_threat_level] || THREAT_COLORS.unknown}`}
         >
           <AlertTriangle size={12} />
           {analysis.overall_threat_level?.toUpperCase()}
@@ -289,14 +289,14 @@ function CountryAnalysisContent({ analysis }: { analysis: CountryAnalysis }) {
       <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{analysis.executive_summary}</p>
 
       {analysis.cyber_threats && (
-        <div className="rounded-lg bg-rose-500/5 border border-rose-500/10 p-3">
+        <div className="rounded-xl bg-rose-500/5 border border-rose-500/10 p-3">
           <span className="text-micro font-mono uppercase text-rose-400 block mb-1">Cyber Threats</span>
           <p className="text-xs text-slate-600 dark:text-slate-400">{analysis.cyber_threats}</p>
         </div>
       )}
 
       {analysis.geopolitical_risks && (
-        <div className="rounded-lg bg-amber-500/5 border border-amber-500/10 p-3">
+        <div className="rounded-xl bg-amber-500/5 border border-amber-500/10 p-3">
           <span className="text-micro font-mono uppercase text-amber-400 block mb-1">Geopolitical Risks</span>
           <p className="text-xs text-slate-600 dark:text-slate-400">{analysis.geopolitical_risks}</p>
         </div>
@@ -335,7 +335,7 @@ function CountryAnalysisContent({ analysis }: { analysis: CountryAnalysis }) {
       )}
 
       {analysis.recommended_posture && (
-        <div className="rounded-lg bg-emerald-500/5 border border-emerald-500/10 p-3">
+        <div className="rounded-xl bg-emerald-500/5 border border-emerald-500/10 p-3">
           <span className="text-micro font-mono uppercase text-emerald-400 block mb-1">Recommended Posture</span>
           <p className="text-xs text-slate-600 dark:text-slate-400">{analysis.recommended_posture}</p>
         </div>
@@ -349,7 +349,7 @@ function IndicatorAnalysisContent({ analysis }: { analysis: IndicatorAnalysis })
     <div className="space-y-3">
       <div className="flex items-center gap-2">
         <span
-          className={`inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-mono rounded-lg border ${THREAT_COLORS[analysis.risk_level] || THREAT_COLORS.unknown}`}
+          className={`inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-mono rounded-xl border ${THREAT_COLORS[analysis.risk_level] || THREAT_COLORS.unknown}`}
         >
           <Shield size={12} />
           {analysis.risk_level?.toUpperCase()}
@@ -360,14 +360,14 @@ function IndicatorAnalysisContent({ analysis }: { analysis: IndicatorAnalysis })
         <span className="text-micro font-mono text-slate-500">confidence: {analysis.confidence}</span>
       </div>
 
-      <div className="rounded-lg bg-slate-100 dark:bg-[rgb(var(--surface-300)/0.5)] p-3 font-mono text-xs text-slate-300 break-all">
+      <div className="rounded-xl bg-slate-100 dark:bg-[rgb(var(--surface-300)/0.5)] p-3 font-mono text-xs text-slate-300 break-all">
         {analysis.indicator}
       </div>
 
       <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{analysis.assessment}</p>
 
       {analysis.possibleAttribution && (
-        <div className="rounded-lg bg-purple-500/5 border border-purple-500/10 p-3">
+        <div className="rounded-xl bg-purple-500/5 border border-purple-500/10 p-3">
           <span className="text-micro font-mono uppercase text-purple-400 block mb-1">Possible Attribution</span>
           <p className="text-xs text-slate-600 dark:text-slate-400">{analysis.possibleAttribution}</p>
         </div>

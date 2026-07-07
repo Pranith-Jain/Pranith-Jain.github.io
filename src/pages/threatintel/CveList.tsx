@@ -210,7 +210,7 @@ export default function CveList(): JSX.Element {
         className="mb-6"
       />
 
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -300,7 +300,7 @@ export default function CveList(): JSX.Element {
           return (
             <li
               key={c.id}
-              className={`rounded-lg border p-4 ${
+              className={`rounded-xl border p-4 ${
                 isNew
                   ? 'border-emerald-500/50 bg-emerald-50/40 dark:bg-emerald-900/10 ring-1 ring-emerald-500/20'
                   : c.kev

@@ -50,7 +50,7 @@ export default function PredictionMarkets() {
         {loading ? (
           <div className="space-y-2">
             {[...Array(3)].map((_, i) => (
-              <div key={i} className="h-14 rounded-lg bg-slate-100 dark:bg-slate-800 animate-pulse" />
+              <div key={i} className="h-14 rounded-xl bg-slate-100 dark:bg-slate-800 animate-pulse" />
             ))}
           </div>
         ) : markets.length === 0 ? (
@@ -63,7 +63,7 @@ export default function PredictionMarkets() {
             return (
               <div
                 key={m.id}
-                className="py-2 px-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+                className="py-2 px-2 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
               >
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex-1 min-w-0">

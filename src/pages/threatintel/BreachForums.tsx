@@ -225,13 +225,13 @@ export default function BreachForums(): JSX.Element {
         </p>
       }
       headerExtra={
-        <div className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-3 font-mono text-mini text-amber-700 dark:text-amber-300 max-w-3xl mb-6">
+        <div className="rounded-xl border border-amber-500/40 bg-amber-500/10 p-3 font-mono text-mini text-amber-700 dark:text-amber-300 max-w-3xl mb-6">
           No forum content, credentials, or breach data is fetched, parsed, or linked here. Curated entries link to
           public OSINT coverage (DarkWebInformer search), not to the forums themselves.
         </div>
       }
     >
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
         {data && (
           <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
             {data.rows.length} entries · {data.totals.directory} from deepdarkCTI · {data.totals.curated} curated
@@ -276,7 +276,7 @@ export default function BreachForums(): JSX.Element {
                 {rows.map((r, i) => (
                   <li
                     key={`${r.name}-${i}`}
-                    className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
+                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
                   >
                     <div className="flex items-center justify-between gap-2">
                       <span className="font-display font-semibold text-sm truncate" title={r.name}>
@@ -348,7 +348,7 @@ export default function BreachForums(): JSX.Element {
               {statusData.deltas.map((d, i) => (
                 <li
                   key={`${d.name}-${d.observed_at}-${i}`}
-                  className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 flex items-center gap-3 flex-wrap"
+                  className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 flex items-center gap-3 flex-wrap"
                 >
                   <span className="font-display font-semibold text-sm truncate" title={d.name}>
                     {d.name}
@@ -419,7 +419,7 @@ export default function BreachForums(): JSX.Element {
               {coverageData.items.map((it, i) => (
                 <li
                   key={`${it.link}-${i}`}
-                  className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
+                  className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
                 >
                   <div className="flex items-baseline gap-2 flex-wrap">
                     <a
@@ -471,7 +471,7 @@ export default function BreachForums(): JSX.Element {
               {mentionsData.items.map((it, i) => (
                 <li
                   key={`${it.link}-${i}`}
-                  className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
+                  className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
                 >
                   <div className="flex items-baseline gap-2 flex-wrap">
                     <a

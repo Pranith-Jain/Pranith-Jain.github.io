@@ -450,7 +450,7 @@ export default function RansomReport(): JSX.Element {
         {pdfError && <p className="text-xs font-mono text-rose-600 dark:text-rose-400 -mt-3 mb-3">{pdfError}</p>}
 
         {notConfigured && (
-          <div className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-6 text-sm text-amber-800 dark:text-amber-200">
+          <div className="rounded-xl border border-amber-500/40 bg-amber-500/10 p-6 text-sm text-amber-800 dark:text-amber-200">
             <strong className="font-semibold">ransomware.live not configured.</strong> This report needs the
             operator&apos;s ransomware.live PRO key (<code className="font-mono text-xs">RANSOMWARELIVE_API_KEY</code>).
           </div>

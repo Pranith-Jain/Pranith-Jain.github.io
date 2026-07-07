@@ -385,7 +385,7 @@ export default function RansomwareMap(): JSX.Element {
 
           <div className="grid lg:grid-cols-[1fr_280px] gap-6">
             <div
-              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] overflow-hidden relative"
+              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] overflow-hidden relative"
               style={{ aspectRatio: '900 / 460', minHeight: 280 }}
             >
               <Suspense
@@ -408,7 +408,7 @@ export default function RansomwareMap(): JSX.Element {
                 />
               </Suspense>
               {hoveredAgg && (
-                <div className="absolute top-3 left-3 rounded-lg bg-slate-900/90 dark:bg-[rgb(var(--input-200)/0.9)] backdrop-blur px-3 py-2 text-xs font-mono text-slate-100 border border-rose-400/40 max-w-[240px]">
+                <div className="absolute top-3 left-3 rounded-xl bg-slate-900/90 dark:bg-[rgb(var(--input-200)/0.9)] backdrop-blur px-3 py-2 text-xs font-mono text-slate-100 border border-rose-400/40 max-w-[240px]">
                   <div className="font-bold text-rose-300">{hoveredAgg.country}</div>
                   <div>{hoveredAgg.victim_count} victims</div>
                   <div className="text-slate-400">
@@ -417,7 +417,7 @@ export default function RansomwareMap(): JSX.Element {
                 </div>
               )}
               {hovered && !hoveredAgg && (
-                <div className="absolute top-3 left-3 rounded-lg bg-slate-900/80 backdrop-blur px-3 py-1.5 text-xs font-mono text-slate-300">
+                <div className="absolute top-3 left-3 rounded-xl bg-slate-900/80 backdrop-blur px-3 py-1.5 text-xs font-mono text-slate-300">
                   {hovered.name}: no victims reported
                 </div>
               )}
@@ -464,7 +464,7 @@ export default function RansomwareMap(): JSX.Element {
           </div>
 
           {selected && selectedAgg && (
-            <section className="mt-6 rounded-lg border border-rose-400/40 bg-rose-50/40 dark:border-rose-400/30 dark:bg-rose-500/5 p-4 sm:p-5">
+            <section className="mt-6 rounded-xl border border-rose-400/40 bg-rose-50/40 dark:border-rose-400/30 dark:bg-rose-500/5 p-4 sm:p-5">
               <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
                 <div>
                   <h3 className="font-display font-bold text-lg inline-flex items-center gap-2">

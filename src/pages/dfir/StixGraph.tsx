@@ -31,7 +31,7 @@ function StixNodeBox({
   const color = STIX_TYPE_COLOR[data.stixType] ?? '#94a3b8';
   return (
     <div
-      className={`rounded-lg border-2 px-3 py-2 text-xs font-mono shadow-sm bg-white dark:bg-[rgb(var(--surface-200))] ${
+      className={`rounded-xl border-2 px-3 py-2 text-xs font-mono shadow-md bg-white dark:bg-[rgb(var(--surface-200))] ${
         selected ? 'ring-2 ring-brand-500 ring-offset-2 ring-offset-white dark:ring-offset-slate-950' : ''
       }`}
       style={{ borderColor: color, minWidth: 140, maxWidth: 200 }}
