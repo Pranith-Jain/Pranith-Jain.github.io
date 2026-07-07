@@ -46,7 +46,11 @@ ${resultBlock}
 Analyze these results. What was found? What are the key facts? What gaps remain?`;
 
     const input: CompletionInput = { system, user, maxTokens: 800, temperature: 0.2 };
-    const { text } = await runCompletion(ai, input, { googleKey: opts.googleKey, groqKey: opts.groqKey });
+    const { text } = await runCompletion(ai, input, {
+      googleKey: opts.googleKey,
+      groqKey: opts.groqKey,
+      preferGroq: true,
+    });
 
     // Parse the JSON output
     let cleaned = text.trim();

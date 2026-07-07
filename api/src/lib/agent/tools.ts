@@ -569,8 +569,17 @@ export function buildToolRegistry(
     // ══════════════════════════════════════════════════════════════════════
     {
       name: 'get_ransomware_activity',
-      description: 'Recent ransomware victims, group activity, leak-site posts. Filtered by group if specified.',
-      params: [{ name: 'group', type: 'string', description: 'Ransomware group name (optional)', required: false }],
+      description:
+        'Ransomware group activity only — leak-site posts, victim disclosures. Does NOT return data for nation-state APT actors (APT28, Lazarus, etc.). Use actor_timeline for APT activity.',
+      params: [
+        {
+          name: 'group',
+          type: 'string',
+          description:
+            'Ransomware group slug (lockbit, clop, blackbasta) — only works for known ransomware gangs, NOT APT actors',
+          required: false,
+        },
+      ],
       execute: (args) => {
         if (args.group)
           return apiFetch(

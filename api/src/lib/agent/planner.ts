@@ -43,7 +43,11 @@ export async function planNextStep(
 
   let lastErr: unknown;
   for (let attempt = 0; attempt <= MAX_PARSE_RETRIES; attempt++) {
-    const { text } = await runCompletion(ai, input, { googleKey: opts.googleKey, groqKey: opts.groqKey });
+    const { text } = await runCompletion(ai, input, {
+      googleKey: opts.googleKey,
+      groqKey: opts.groqKey,
+      preferGroq: true,
+    });
     try {
       return parsePlannerOutput(text);
     } catch (err) {
@@ -119,10 +123,12 @@ Step 4: generate_yara_rule + generate_hunting_queries for detection/hunt. Synthe
 ${
   queryType === 'actor' || queryType === 'ransomware'
     ? `Step 1: enrich_actor (profile, aliases, MITRE, CVEs)
-Step 2: actor_timeline + get_ransomware_activity (recent campaigns, victims). For ransomware groups — ALSO call get_ransomware_negotiations (settlement patterns, demands, discounts).
+Step 2: actor_timeline (recent campaigns, victims, posting cadence). For ransomware groups — ALSO call get_ransomware_activity and get_ransomware_negotiations (settlement patterns, demands, discounts).
 Step 3: actor_cves + analyze_campaign (attribution, kill chain). If CVEs are surfaced, run lookup_cve on each (CVSS, EPSS, KEV) — at most 2 to stay within step budget.
 Step 4: generate_yara_rule + generate_hunting_queries (detection + hunt). For ransomware: get_blocklists.
-Step 5: Synthesize. Mark actionCard.attributed=true if enrich_actor named the actor; ransomware=true for ransomware queries.`
+Step 5: Synthesize. Mark actionCard.attributed=true if enrich_actor named the actor; ransomware=true for ransomware queries.
+
+CRITICAL — DATA ATTRIBUTION: get_ransomware_activity and get_ransomware_negotiations ONLY return data for known ransomware groups (lockbit, clop, blackbasta, etc.). Do NOT call these tools for non-ransomware threat actors like APT28, Lazarus Group, APT29, UNC2452, VOLT TYPHOON, or any nation-state APT group. For non-ransomware actors, use actor_timeline for activity data. If enrich_actor returned ransomwareUse=false or no ransomware affiliation, skip all ransomware tools entirely.`
     : ''
 }
 
@@ -166,6 +172,7 @@ Step 3: Synthesize`
 - NEVER call broad dump tools: get_live_iocs, get_today_briefing, get_feed_status, get_feed_catalog.
 - NEVER call enrich_actor for CVE queries — enrich_actor is for threat actors only.
 - NEVER call lookup_mitre with a placeholder like "TXXXX" — only use real technique IDs from data (T1190, T1566.001, etc). If you don't have a real ID, don't call lookup_mitre.
+- NEVER call get_ransomware_activity or get_ransomware_negotiations for non-ransomware threat actors. These tools only return data for known ransomware gangs — calling them for APT actors will return empty data or data for a different group.
 - Maximum 2 tool calls per step. 1 is often better.
 - After 3+ successful results with good data, SYNTHESIZE IMMEDIATELY.
 - More tools ≠ better reports. Quality of data > quantity of data.

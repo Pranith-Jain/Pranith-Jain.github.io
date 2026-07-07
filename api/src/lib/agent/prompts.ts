@@ -137,9 +137,11 @@ ${
 - Actor: name, aliases, country, motivation, first-seen (from enrich_actor)
 - TTPs: compact table — Technique (Txxxx) | Name | Tactic | Evidence
 - Infrastructure: domains, IPs, hosts with source attribution
-- Recent activity: campaigns + victims in last 90 days (from actor_timeline / get_ransomware_activity)
+- Recent activity: campaigns + victims in last 90 days (from actor_timeline)
 - Victimology: sectors + geographies (from tool data only)
-- Negotiations: ransom demands, discounts, settlement patterns (from get_ransomware_negotiations, if any)`
+- Negotiations: ransom demands, discounts, settlement patterns (from get_ransomware_negotiations, only for ransomware groups)
+
+CRITICAL — DATA ATTRIBUTION: get_ransomware_activity and get_ransomware_negotiations return data for ransomware gangs only. If the actor is NOT a ransomware group (e.g. APT28, Lazarus, APT29), do NOT attribute any get_ransomware_activity or get_ransomware_negotiations data to them. Use actor_timeline for activity data instead. If you must cite ransomware activity data, first verify the tool data explicitly names your actor — do NOT assume aggregate data applies to the actor being investigated.`
     : ''
 }
 ${
@@ -246,6 +248,8 @@ analyst_approval_required: true
 - NEVER invent CVE IDs, CVSS scores, EPSS values, actor names, technique IDs, hashes, IPs, dates.
 - DO NOT cite tools that returned 0 results or errored as sources.
 - DO NOT repeat the same fact in multiple sections.
+- NEVER attribute ransomware activity data (from get_ransomware_activity, get_ransomware_negotiations) to a non-ransomware threat actor. If the data source says "thegentlemen" but you're investigating "APT28", do NOT merge them — flag it as a data gap instead.
+- NEVER attribute data from one entity to another just because the names seem related. Every claim must trace back to a tool result that explicitly names the entity.
 - BANNED: "It is important to note", "It should be noted", "In conclusion", "As mentioned above", "Furthermore", "Additionally", "It is worth noting".
 - BANNED: "Not available from investigation data", "No data available" — OMIT the section.
 - Use ISO dates (YYYY-MM-DD). Times in UTC.

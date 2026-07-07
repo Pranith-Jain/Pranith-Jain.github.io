@@ -45,11 +45,17 @@ const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
 /** Default model — Qwen3-32B (non-thinking mode). Best for social / fast generation. */
 const GROQ_MODEL: string = 'qwen/qwen3-32b';
 /**
- * Quality model — same Qwen3-32B but with reasoning_effort (thinking mode).
- * Produces deeper, more analytical blog content.
+ * Quality model — DeepSeek-R1 distilled Llama 70B for analytical/reasoning tasks.
+ * Better at CTI analysis, report synthesis, and fact-checking than Qwen3-32B.
+ * Falls back to Qwen3-32B with reasoning_effort if DeepSeek is unavailable.
  */
-const GROQ_MODEL_QUALITY: string = 'qwen/qwen3-32b';
-/** Fallback when Qwen3-32B fails. */
+const GROQ_MODEL_QUALITY: string = 'deepseek-r1-distill-llama-70b';
+/**
+ * Reasoning model — Qwen3-32B with thinking mode. Used as quality fallback
+ * when DeepSeek-R1-70B is rate-limited or unavailable.
+ */
+const GROQ_MODEL_REASONING: string = 'qwen/qwen3-32b';
+/** Fallback when both quality + reasoning models fail. */
 const GROQ_MODEL_FALLBACK: string = 'openai/gpt-oss-120b';
 const GROQ_TIMEOUT_MS = 30_000;
 
@@ -58,7 +64,7 @@ const GROQ_TIMEOUT_MS = 30_000;
 const WORKERS_AI_MODELS = [
   '@cf/meta/llama-3.3-70b-instruct-fp8-fast',
   '@cf/qwen/qwen3-30b-a3b-fp8',
-  '@cf/meta/llama-3.1-8b-instruct',
+  '@hf/thebloke/deepseek-coder-6.7b-instruct-awq',
 ] as const;
 
 export interface CompletionInput {
@@ -172,10 +178,12 @@ async function runGroq(key: string, input: CompletionInput, model?: string, qual
       max_completion_tokens: input.maxTokens ?? 4000,
       temperature: input.temperature ?? 0.5,
     };
-    // Qwen3-32B supports reasoning_effort (thinking mode).
-    // quality=true → thinking mode for deep blog analysis
-    // quality=false → non-thinking mode for fast social generation
-    if (quality) {
+    // DeepSeek-R1-70B uses its own reasoning mechanism (chain-of-thought
+    // via its distilled R1 architecture). Qwen3-32B supports
+    // reasoning_effort (thinking mode). For quality mode use DeepSeek
+    // (better analytical depth); fall back to Qwen3-32B thinking mode
+    // if DeepSeek is unavailable.
+    if (quality && model !== GROQ_MODEL_QUALITY) {
       body.reasoning_effort = 'medium';
     }
     res = await fetch(GROQ_URL, {
@@ -240,13 +248,24 @@ export async function runCompletion(
 
   const tryGroq = async (): Promise<CompletionOutput | null> => {
     if (!opts.groqKey) return null;
-    const model = opts.quality ? GROQ_MODEL_QUALITY : GROQ_MODEL;
+    const primaryModel = opts.quality ? GROQ_MODEL_QUALITY : GROQ_MODEL;
     try {
-      const text = await runGroq(opts.groqKey, input, model, opts.quality);
-      return { text, modelUsed: `groq:${model}${opts.quality ? '+thinking' : ''}` };
+      const text = await runGroq(opts.groqKey, input, primaryModel, opts.quality);
+      return { text, modelUsed: `groq:${primaryModel}${opts.quality ? '+quality' : ''}` };
     } catch (err) {
-      // If Qwen3-32B failed, try GPT-OSS-120B fallback before Workers AI.
-      if (model !== GROQ_MODEL_FALLBACK) {
+      // Quality mode has two layers: DeepSeek-R1-70B → Qwen3-32B thinking → GPT-OSS-120B → Workers AI.
+      // Non-quality mode: Qwen3-32B → GPT-OSS-120B → Workers AI.
+      if (opts.quality && primaryModel === GROQ_MODEL_QUALITY) {
+        // DeepSeek-R1-70B failed — try Qwen3-32B with reasoning_effort as quality fallback.
+        try {
+          const text = await runGroq(opts.groqKey, input, GROQ_MODEL_REASONING, true);
+          return { text, modelUsed: `groq:${GROQ_MODEL_REASONING}+thinking` };
+        } catch {
+          /* quality fallback also failed, try the generic fallback */
+        }
+      }
+      // Try generic fallback before Workers AI.
+      if (primaryModel !== GROQ_MODEL_FALLBACK) {
         try {
           const text = await runGroq(opts.groqKey, input, GROQ_MODEL_FALLBACK, false);
           return { text, modelUsed: `groq:${GROQ_MODEL_FALLBACK}` };

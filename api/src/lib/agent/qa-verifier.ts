@@ -41,7 +41,12 @@ export async function verifyReport(
   const user = buildQaUserPrompt(query, originalReport, dataSummary);
   const input: CompletionInput = { system, user, maxTokens: 4000, temperature: 0.1 };
 
-  const { text, modelUsed } = await runCompletion(ai, input, { googleKey: opts.googleKey, groqKey: opts.groqKey, quality: true });
+  const { text, modelUsed } = await runCompletion(ai, input, {
+    googleKey: opts.googleKey,
+    groqKey: opts.groqKey,
+    quality: true,
+    preferGroq: true,
+  });
 
   // Parse the QA output
   return parseQaOutput(text, originalReport, modelUsed);
