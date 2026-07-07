@@ -13,7 +13,7 @@ export function IdentifierForm({
   onSubmit: (id: Identifier, iconDataUrl?: string) => void;
   onCancel: () => void;
 }): JSX.Element {
-  const [type, setType] = useState(initial?.type ?? IDENTIFIER_TYPES[0].type);
+  const [type, setType] = useState(initial?.type ?? IDENTIFIER_TYPES[0]!.type);
   const [fields, setFields] = useState<Record<string, string>>(initial?.fields ?? {});
   const [iconUrl, setIconUrl] = useState<string | undefined>();
   const def = getIdentifierType(type);

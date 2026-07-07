@@ -245,9 +245,9 @@ export default function NavalTracker() {
             <div
               className={`text-mini font-bold font-mono tracking-wider mb-1 ${NAVY_COLORS[navy] || 'text-slate-400'}`}
             >
-              {navy.toUpperCase()} ({byNavy[navy].length})
+              {navy.toUpperCase()} ({byNavy[navy]!.length})
             </div>
-            {byNavy[navy].map((ship, i) => (
+            {byNavy[navy]!.map((ship, i) => (
               <div
                 key={i}
                 className="flex items-center justify-between py-1 px-2 rounded hover:bg-slate-50 dark:hover:bg-slate-800/50"

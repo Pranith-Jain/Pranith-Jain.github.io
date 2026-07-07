@@ -225,9 +225,10 @@ for (const name of dhFiles) {
 iocIndex.sort((a, b) => a.family.localeCompare(b.family));
 
 // ─── Sector briefs (skeleton) ──────────────────────────────────────────
-// The real briefs are produced by a Workers AI LLM call at sync time
-// (see scripts/render-threat-intel-briefs.mjs — TODO v2). For now we
-// emit a minimal stub per sector so REST + MCP routes don't 404.
+// Briefs are static stubs built from the current KEV window. The intent
+// was to enrich them via a Workers AI LLM call at sync time (see
+// scripts/render-threat-intel-briefs.mjs, not yet implemented). Stubs
+// prevent REST + MCP routes from 404ing.
 for (const sector of SECTORS) {
   const top = cveIndex.filter((c) => c.inKev).slice(0, 8);
   const body = {

@@ -63,19 +63,22 @@ export function BottomNav({ mode, onOpenSearch }: BottomNavProps): JSX.Element {
         </button>
 
         {/* Recent (if available) */}
-        {hasRecent && (
-          <Link
-            to={entries[0].path}
-            className={`flex flex-col items-center gap-0.5 min-w-[60px] py-1 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 ${
-              location.pathname === entries[0].path
-                ? 'text-brand-600 dark:text-brand-400'
-                : 'text-slate-500 dark:text-slate-400'
-            }`}
-          >
-            <Clock size={20} aria-hidden="true" />
-            <span className="text-mini font-medium truncate max-w-[60px]">{entries[0].label}</span>
-          </Link>
-        )}
+        {hasRecent && (() => {
+          const recent = entries[0]!;
+          return (
+            <Link
+              to={recent.path}
+              className={`flex flex-col items-center gap-0.5 min-w-[60px] py-1 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 ${
+                location.pathname === recent.path
+                  ? 'text-brand-600 dark:text-brand-400'
+                  : 'text-slate-500 dark:text-slate-400'
+              }`}
+            >
+              <Clock size={20} aria-hidden="true" />
+              <span className="text-mini font-medium truncate max-w-[60px]">{recent.label}</span>
+            </Link>
+          );
+        })()}
       </div>
     </nav>
   );

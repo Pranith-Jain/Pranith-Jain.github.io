@@ -202,6 +202,10 @@ export interface Env {
   /** IPinfo.io access token (free registration at ipinfo.io). Optional —
    *  improves rate limits from ~50/day to 50k/month. */
   IPINFO_TOKEN?: string;
+  /** IP Quality Score API key (free at ipqualityscore.com). Optional — the
+   *  IP enrichment provider degrades to 'unsupported' when unset. Provides
+   *  proxy/VPN/TOR detection, fraud scoring, and abuse velocity. */
+  IPQS_API_KEY?: string;
   /** CriminalIP API key (free registration at criminalip.io). Optional —
    *  the /api/v1/ioc/check CriminalIP provider degrades to 'unsupported'
    *  when unset. Free tier: 100 lookups/month. */

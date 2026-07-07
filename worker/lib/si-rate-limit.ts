@@ -30,7 +30,7 @@
  * Durable Object instance).
  */
 
-export type RateLimitedProvider = 'ipinfo' | 'abuseipdb' | 'shodan' | 'shodan-internetdb' | 'vpnapi' | 'phantomcandle';
+export type RateLimitedProvider = 'ipinfo' | 'ipqs' | 'abuseipdb' | 'shodan' | 'shodan-internetdb' | 'vpnapi' | 'phantomcandle';
 
 export interface ProviderQuota {
   /** Provider identifier (matches the keys in env / diagnostics). */
@@ -59,6 +59,7 @@ export interface ProviderQuota {
  */
 export const PROVIDER_QUOTAS: Record<RateLimitedProvider, ProviderQuota> = {
   ipinfo: { provider: 'ipinfo', windowMs: 60 * 60 * 1000, maxPerWindow: 70, enabled: true },
+  ipqs: { provider: 'ipqs', windowMs: 24 * 60 * 60 * 1000, maxPerWindow: 500, enabled: true },
   abuseipdb: { provider: 'abuseipdb', windowMs: 24 * 60 * 60 * 1000, maxPerWindow: 1000, enabled: true },
   shodan: { provider: 'shodan', windowMs: 24 * 60 * 60 * 1000, maxPerWindow: 5, enabled: true },
   'shodan-internetdb': { provider: 'shodan-internetdb', windowMs: 0, maxPerWindow: 0, enabled: false },

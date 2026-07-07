@@ -11,10 +11,10 @@
  * Client-side React still mounts: main.tsx uses hydrateRoot() (added in
  * Phase 2) which adopts the existing DOM rather than creating new nodes.
  *
- * Phase 1 (this file's current scope): only the home route is rendered,
- * as a proof of concept. The pipeline is staged but PRODUCTION DOES NOT
- * SERVE THE PRERENDERED HTML YET — that happens in Phase 2 when we
- * confirm the model works.
+ * Production: all 448 routes in ROUTES below are prerendered to static
+ * HTML during the build. The Worker serves prerendered HTML for every
+ * route (fast initial paint before React hydrates); the SPA shell is
+ * only used for unmatched/404 routes.
  */
 
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
@@ -30,7 +30,7 @@ const ROOT = resolve(__dirname, '..');
 // without excessive memory from 100+ concurrent render streams.
 const CONCURRENCY = Math.max(1, cpus().length);
 
-// Phase 3 (2026-05-12): expanded from `/` only to a batch of 20 static-
+// Expanded from `/` only to all 448 routes spanning portfolio, DFIR,
 // content routes. Each was verified to make 0 /api/v1/ calls on mount,
 // so renderToString actually produces useful content (not data-loading
 // fallback states).
@@ -69,6 +69,7 @@ const ROUTES = [
   '/threatintel/actors/usernames',
   '/threatintel/campaigns/active',
   '/threatintel/campaigns/cross',
+  '/threatintel/campaigns/reference',
   '/threatintel/campaigns/generator',
   '/threatintel/campaigns/lifecycle',
   '/threatintel/cves/advisories',
@@ -131,6 +132,7 @@ const ROUTES = [
   '/threatintel/osint/framework',
   '/threatintel/osint/map',
   '/threatintel/osint/secops',
+  '/threatintel/osint/directory',
   '/threatintel/osint/certs',
   '/threatintel/osint/toolbox',
   '/threatintel/phishing/phish',
@@ -149,6 +151,7 @@ const ROUTES = [
   '/threatintel/predictive/predictive',
   '/threatintel/predictive/threat-pulse',
   '/threatintel/research-hub/ach',
+  '/threatintel/research-hub/library',
   '/threatintel/research-hub/ai',
   '/threatintel/research-hub/agentic',
   '/threatintel/research-hub/attack-flow',
@@ -179,6 +182,7 @@ const ROUTES = [
   '/threatintel/tools/investigations',
   '/threatintel/tools/mcp',
   '/threatintel/tools/misp',
+  '/threatintel/tools/directory',
   '/threatintel/tools/settings',
   '/threatintel/tools/stix',
   '/threatintel/tools/unified-search',
@@ -346,6 +350,8 @@ const ROUTES = [
   '/dfir/asn',
   '/dfir/breach',
   '/traceix',
+  '/cerast',
+  '/threatmon-infostealer',
   '/winreg',
   '/dfir/url-preview',
   '/dfir/subdomain-takeover',

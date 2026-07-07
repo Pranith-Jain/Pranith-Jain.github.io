@@ -37,6 +37,7 @@ import { shodanInternetDB } from './shodan-internetdb';
 import { spur } from './spur';
 import { crowdsec } from './crowdsec';
 import { ipinfo } from './ipinfo';
+import { ipqs } from './ipqs';
 import { phishstats } from './phishstats';
 import { digitalside } from './digitalside';
 import { criminalip } from './criminalip';
@@ -96,6 +97,7 @@ export const ADAPTERS: Record<ProviderId, ProviderAdapter> = {
   spur,
   crowdsec,
   ipinfo,
+  ipqs,
   phishstats,
   digitalside,
   criminalip,
@@ -167,6 +169,7 @@ export const PROVIDER_LABELS: Record<string, string> = {
   yaraify: 'YARAify',
   malpedia: 'Malpedia',
   ipinfo: 'IPinfo',
+  ipqs: 'IP Quality Score',
   spur: 'Spur',
   doh: 'DNS over HTTPS',
   phishingArmy: 'Phishing Army',
@@ -200,6 +203,7 @@ export function buildProviderEnv(env: {
   MALSHARE_API_KEY?: string;
   CROWDSEC_API_KEY?: string;
   IPINFO_TOKEN?: string;
+  IPQS_API_KEY?: string;
   CRIMINALIP_API_KEY?: string;
   KASPERSKY_API_KEY?: string;
   SPUR_API_KEY?: string;
@@ -223,6 +227,7 @@ export function buildProviderEnv(env: {
     MALSHARE_API_KEY: env.MALSHARE_API_KEY,
     CROWDSEC_API_KEY: env.CROWDSEC_API_KEY,
     IPINFO_TOKEN: env.IPINFO_TOKEN,
+    IPQS_API_KEY: env.IPQS_API_KEY,
     CRIMINALIP_API_KEY: env.CRIMINALIP_API_KEY,
     KASPERSKY_API_KEY: env.KASPERSKY_API_KEY,
     SPUR_API_KEY: env.SPUR_API_KEY,

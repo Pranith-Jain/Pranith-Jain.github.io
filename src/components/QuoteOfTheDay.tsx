@@ -55,15 +55,11 @@ const QUOTES = [
 function getQuoteOfTheDay(): { text: string; author: string } {
   const today = new Date();
   const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
-  return QUOTES[seed % QUOTES.length];
+  return QUOTES[seed % QUOTES.length]!;
 }
 
 export function QuoteOfTheDay(): JSX.Element | null {
-  const [quote, setQuote] = useState<{ text: string; author: string } | null>(null);
-
-  useEffect(() => {
-    setQuote(getQuoteOfTheDay());
-  }, []);
+  const [quote] = useState(getQuoteOfTheDay);
 
   if (!quote) return null;
 

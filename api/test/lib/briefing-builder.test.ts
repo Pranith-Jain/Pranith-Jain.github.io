@@ -235,7 +235,7 @@ describe('withLastGood — durable KV last-good for KEV/NVD', () => {
     // assertions below are deterministic.
     if (env.KV_CACHE) {
       const all = await env.KV_CACHE.list({ prefix: 'lastgood:v1:test:briefing:' });
-      await Promise.all(all.keys.map((k) => env.KV_CACHE!.delete(k.name)));
+      await Promise.all(all.keys.map((k: { name: string }) => env.KV_CACHE!.delete(k.name)));
     }
   });
 

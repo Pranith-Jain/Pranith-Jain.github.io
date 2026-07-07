@@ -39,6 +39,7 @@ export type ProviderId =
   | 'spur'
   | 'crowdsec'
   | 'ipinfo'
+  | 'ipqs'
   | 'phishstats'
   | 'digitalside'
   | 'criminalip'
@@ -121,6 +122,10 @@ export interface ProviderEnv {
   MALSHARE_API_KEY?: string;
   CROWDSEC_API_KEY?: string;
   IPINFO_TOKEN?: string;
+  /** IP Quality Score API key (free at ipqualityscore.com). Optional — the
+   *  IP enrichment provider degrades to 'unsupported' when unset. Provides
+   *  proxy/VPN/TOR detection, fraud scoring, and abuse velocity. */
+  IPQS_API_KEY?: string;
   CRIMINALIP_API_KEY?: string;
   KASPERSKY_API_KEY?: string;
   SPUR_API_KEY?: string;
@@ -184,6 +189,7 @@ export const PROVIDER_SUPPORT: Record<ProviderId, IndicatorType[]> = {
   spur: ['ipv4', 'ipv6'],
   crowdsec: ['ipv4', 'ipv6'],
   ipinfo: ['ipv4', 'ipv6'],
+  ipqs: ['ipv4', 'ipv6'],
   phishstats: ['url', 'domain'],
   digitalside: ['url', 'domain', 'hash', 'ipv4'],
   criminalip: ['ipv4', 'ipv6'],
@@ -264,5 +270,6 @@ export const PROVIDER_TIER: Record<ProviderId, ProviderTier> = {
   emailrep: 2,
   malpedia: 2,
   ipinfo: 1,
+  ipqs: 1,
   yaraify: 1,
 };

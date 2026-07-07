@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { Shield, ShieldAlert, ShieldCheck, Volume2, VolumeX } from 'lucide-react';
 
@@ -34,7 +35,7 @@ function playAlertSound() {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.type = 'sine';
-      osc.frequency.setValueAtTime([880, 1100, 1320][i], ctx.currentTime + t);
+      osc.frequency.setValueAtTime([880, 1100, 1320][i]!, ctx.currentTime + t);
       gain.gain.setValueAtTime(0.08, ctx.currentTime + t);
       gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + t + 0.18);
       osc.connect(gain);

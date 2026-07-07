@@ -181,6 +181,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Campaign Lifecycle](https://pranithjain.qzz.io/threatintel/campaigns/lifecycle) (threatintel): Discovery → exploitation → actions on objectives.
 - [Campaign Generator](https://pranithjain.qzz.io/threatintel/campaigns/generator) (threatintel): AI-powered campaign generation for tabletop exercises.
 - [Cross-Campaign](https://pranithjain.qzz.io/threatintel/campaigns/cross) (threatintel): Find connections across campaigns, actors, and IOCs.
+- [Campaign Reference](https://pranithjain.qzz.io/threatintel/campaigns/reference) (threatintel): Curated tracker of active/dormant/concluded campaigns with writeup links and TTPs.
 - [Daily & Weekly Briefings](https://pranithjain.qzz.io/threatintel/briefings) (threatintel): Tactical digests with IOCs, severity, and detection guidance.
 - [Live IOC Stream](https://pranithjain.qzz.io/threatintel/iocs/live) (threatintel): Real-time IOC feed from 12+ providers — IP, domain, hash, URL.
 - [IOC Enrichment](https://pranithjain.qzz.io/threatintel/iocs/enrichment) (threatintel): Pivot and enrich any indicator across VT, AbuseIPDB, Shodan, OTX.
@@ -252,6 +253,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Attack Flow Library](https://pranithjain.qzz.io/threatintel/research-hub/attack-flow) (threatintel): ATT&CK attack-flow library with reusable patterns.
 - [Knowledge Graph](https://pranithjain.qzz.io/threatintel/research-hub/knowledge) (threatintel): Knowledge graph of actors, malware, campaigns, IOCs.
 - [ACH](https://pranithjain.qzz.io/threatintel/research-hub/ach) (threatintel): Analysis of Competing Hypotheses.
+- [Reports & Reading Library](https://pranithjain.qzz.io/threatintel/research-hub/library) (threatintel): Curated collection of 28 annual reports, frameworks, standards, and learning resources.
 - [Threat Intel Wiki](https://pranithjain.qzz.io/threatintel/wiki/wiki) (threatintel): Long-form articles on Telegram OSINT, dark-web monitoring.
 - [MITRE ATT&CK](https://pranithjain.qzz.io/threatintel/wiki/mitre) (threatintel): MITRE ATT&CK matrix with technique pivots.
 - [F3EAD](https://pranithjain.qzz.io/threatintel/wiki/f3ead) (threatintel): F3EAD intelligence workflow framework.
@@ -265,6 +267,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Curated Toolbox](https://pranithjain.qzz.io/threatintel/osint/toolbox) (threatintel): Curated security toolbox — hand-picked, vetted, well-maintained.
 - [Free Cert Courses](https://pranithjain.qzz.io/threatintel/osint/certs) (threatintel): Syberseeker’s start.me hub of free certification tracks — security, cloud, blue team, OSINT, GRC.
 - [SecOps Tools](https://pranithjain.qzz.io/threatintel/osint/secops) (threatintel): SecOps tools catalog — SIEM, EDR, SOAR, log shippers.
+- [OSINT Portal Directory](https://pranithjain.qzz.io/threatintel/osint/directory) (threatintel): Curated directory of 40 OSINT portals and resources filtered by category.
 - [Threat Intel Copilot](https://pranithjain.qzz.io/threatintel/tools/copilot) (threatintel): AI copilot — ask, pivot, summarize, draft.
 - [MCP Search](https://pranithjain.qzz.io/threatintel/tools/mcp) (threatintel): MCP (Model Context Protocol) tool search.
 - [MISP Browser](https://pranithjain.qzz.io/threatintel/tools/misp) (threatintel): MISP galaxy and event browser.
@@ -278,6 +281,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Tactical Radar Tools](https://pranithjain.qzz.io/threatintel/tools/socradar-tools) (threatintel): DDoS intelligence, FortiGate breach check, healthcare breach tracking.
 - [Unified Search](https://pranithjain.qzz.io/threatintel/tools/unified-search) (threatintel): Cross-source search across the entire platform.
 - [Integrations & Settings](https://pranithjain.qzz.io/threatintel/tools/settings) (threatintel): What integrations are wired in and what capability each one unlocks for the platform.
+- [Security Tools Directory](https://pranithjain.qzz.io/threatintel/tools/directory) (threatintel): Curated catalog of 53 security tools organized by category.
 - [External Resources](https://pranithjain.qzz.io/threatintel/external/external) (threatintel): Off-site cross-references — dashboards, OSINT directories, training labs.
 - [Supply Chain Intel](https://pranithjain.qzz.io/threatintel/external/supply) (threatintel): Supply chain intelligence — SolarWinds, 3CX, MOVEit, XZ Utils.
 - [Awesome Lists](https://pranithjain.qzz.io/threatintel/external/awesome) (threatintel): Curated awesome-security list — vetted, ranked, kept current.
@@ -312,6 +316,10 @@ Drop-in configs: https://pranithjain.qzz.io/mcp/{claude-desktop,cursor,vscode-mc
 - [analyze_phishing_url](https://pranithjain.qzz.io/mcp) (mcp:phishing): Analyze a URL for phishing indicators. Checks against PhishTank, OpenPhish, URLhaus, and performs visual similarity analysis.
 - [analyze_report](https://pranithjain.qzz.io/mcp) (mcp:analysis): Unified per-report analyzer. Runs summary + IOC extraction (with allowlist + confidence) + MITRE ATT&CK TTP mapping + 5W context + CVE extraction + image-OCR + STIX 2.1 bundle in a single round-trip. Accepts text, URL, or both; optionally takes image URLs to OCR. When format=markdown returns a TI Mindmap HUB-style rich formatted markdown report.
 - [btc_abuse_check](https://pranithjain.qzz.io/mcp) (mcp:other): Check a Bitcoin address for abuse/scam reports on ChainAbuse. Returns report count, categories (phishing, ransomware, scam, etc.), descriptions, and associated scam types. Useful for tracing illicit crypto transactions.
+- [campaigns_get](https://pranithjain.qzz.io/mcp) (mcp:other): Return the full details of a single threat campaign entry by slug, including writeup links, TTPs, targets, and geography. Use campaigns_list first to discover slugs.
+- [campaigns_list](https://pranithjain.qzz.io/mcp) (mcp:other): List currently active threat campaigns from the curated tracker. Filter by status (active, dormant, concluded), category (ransomware, apt, malware, phishing, c2, supply-chain, cyber-espionage, hacktivism, other), or keyword.
+- [campaigns_stats](https://pranithjain.qzz.io/mcp) (mcp:other): Return cache + manifest stats for the Active Campaigns tracker: total campaigns, active vs dormant/concluded breakdown, categories, and index cache status.
+- [cerast_domain_search](https://pranithjain.qzz.io/mcp) (mcp:other): Search Cerast Intelligence for exposed paths and misconfigurations on observed domains. Returns domain, path, category, impact level, OpenPageRank score, version, and first-seen date. Useful for discovering staging/dev environments, exposed admin panels, and misconfigured endpoints.
 - [check_breach](https://pranithjain.qzz.io/mcp) (mcp:breach): Check if an email address or domain has been exposed in known data breaches. Returns breach names, dates, and exposed data types.
 - [check_ioc](https://pranithjain.qzz.io/mcp) (mcp:ioc): Check reputation of an IP address, domain, URL, or file hash (MD5/SHA1/SHA256) across 30+ threat intelligence providers. Returns composite score, admiralty grade, and per-provider verdicts.
 - [correlate_iocs](https://pranithjain.qzz.io/mcp) (mcp:ioc): Search correlated IOCs. Find relationships between indicators — shared infrastructure, overlapping campaigns, and linked threat actors.
@@ -368,6 +376,9 @@ Drop-in configs: https://pranithjain.qzz.io/mcp/{claude-desktop,cursor,vscode-mc
 - [notebook_list](https://pranithjain.qzz.io/mcp) (mcp:notebook): List investigation notebooks. Each notebook is a persistent investigation session with notes, IOCs, findings, and timeline entries stored in D1.
 - [notebook_update](https://pranithjain.qzz.io/mcp) (mcp:notebook): Update a notebook title, description, status, or severity.
 - [onion_lookup](https://pranithjain.qzz.io/mcp) (mcp:other): Look up metadata for a .onion address via the CIRCL AIL Project. Returns first/last seen dates, status, tags, PGP keys, certificates, open ports, page title, and associated Bitcoin addresses. No API key required.
+- [osint_get_portal](https://pranithjain.qzz.io/mcp) (mcp:other): Return the full details of a single OSINT portal entry by slug. Use osint_list_portals first to discover slugs.
+- [osint_list_portals](https://pranithjain.qzz.io/mcp) (mcp:other): List OSINT portals and resources from the curated directory. Filter by category (threat-intel, paste-monitoring, dark-web, reputation, certificate, dns, domain, ip, hash, email, username, social-media, phone, crypto, breach, whois, forensics, misc), keyword, or free/paid status.
+- [osint_stats](https://pranithjain.qzz.io/mcp) (mcp:other): Return cache + manifest stats for the OSINT Portal Directory: total portals, indexed categories, and index cache status.
 - [parse_threat_report](https://pranithjain.qzz.io/mcp) (mcp:analysis): Parse a threat intelligence report or article to extract structured data: IOCs (IPs, domains, URLs, hashes), threat actors, malware families, MITRE ATT&CK techniques, CVEs, targeted sectors, and an executive summary. Use this when analyzing threat reports, blog posts, or incident write-ups.
 - [passive_dns_overlap](https://pranithjain.qzz.io/mcp) (mcp:pdns): Find IPs shared between multiple domains (infrastructure overlap detection). Useful for mapping shared malicious hosting.
 - [passive_dns_query](https://pranithjain.qzz.io/mcp) (mcp:pdns): Query passive DNS for a domain or IP. Returns historical DNS resolutions, infrastructure migrations, and fast-flux detection. Sources: VirusTotal, URLscan, crt.sh, CIRCL.
@@ -375,6 +386,9 @@ Drop-in configs: https://pranithjain.qzz.io/mcp/{claude-desktop,cursor,vscode-mc
 - [phone_osint](https://pranithjain.qzz.io/mcp) (mcp:other): Investigate a phone number — E.164 parsing, carrier/line-type detection, country lookup, messaging platform checks (WhatsApp/Telegram), breach exposure, and Google dorks. Returns structured JSON with parsed phone details, lookup URLs, and security flags.
 - [pivot_domain](https://pranithjain.qzz.io/mcp) (mcp:domain): Pivot across domains by shared registrant attributes. Find other domains owned by the same entity by matching registrant email, organization, nameservers, or registrar. Critical for mapping attacker infrastructure — if a malicious domain shares its registrant email with 50 other domains, those are likely all owned by the same threat actor.
 - [poc_scan](https://pranithjain.qzz.io/mcp) (mcp:other): Search GitHub for public exploit/PoC repositories for a CVE. Returns repo URLs, star counts, language, age, and whether the repo has actual code. Bypasses GitHub 1000-result limit via monthly pagination.
+- [reports_get](https://pranithjain.qzz.io/mcp) (mcp:other): Return the full details of a single report entry by slug. Use reports_list first to discover slugs.
+- [reports_list](https://pranithjain.qzz.io/mcp) (mcp:other): List reports and reading resources from the curated library. Filter by category (annual-threat-report, reference, framework, standard, learning, whitepaper, research), keyword, year, or publisher.
+- [reports_stats](https://pranithjain.qzz.io/mcp) (mcp:other): Return cache + manifest stats for the Reports & Reading Library: total entries, categories, and index cache status.
 - [reverse_image_search](https://pranithjain.qzz.io/mcp) (mcp:other): Generate reverse image search URLs across 8+ engines (Google Lens, Yandex, TinEye, Bing, Baidu, SauceNAO, IQDB, KarmaDecay). Validates image reachability and returns categorized deep links for manual investigation.
 - [scan_website](https://pranithjain.qzz.io/mcp) (mcp:exposure): Scan a website for security issues — checks security headers, SSL certificate, technologies, and potential vulnerabilities.
 - [search_malpedia](https://pranithjain.qzz.io/mcp) (mcp:search): Search Malpedia for malware families or threat actors. Returns matching entries with descriptions and references.
@@ -424,6 +438,7 @@ Drop-in configs: https://pranithjain.qzz.io/mcp/{claude-desktop,cursor,vscode-mc
 - [tg_saved_search_delete](https://pranithjain.qzz.io/mcp) (mcp:other): Delete a saved Telegram search query.
 - [tg_saved_searches_list](https://pranithjain.qzz.io/mcp) (mcp:other): List saved Telegram boolean search queries.
 - [tg_timeline](https://pranithjain.qzz.io/mcp) (mcp:other): Get Telegram message volume timeline data (messages per day) with severity breakdown. Useful for visualizing activity spikes.
+- [threatmon_infostealer_search](https://pranithjain.qzz.io/mcp) (mcp:other): Search ThreatMon IntelHub for compromised credentials and infected devices linked to a domain via real stealer malware logs. Returns compromised URLs, IPs, usernames, dates, and employee/user classification. Data sourced from ~2.18B compromised users and ~10.47B leaked credentials.
 - [ti_brief_sector](https://pranithjain.qzz.io/mcp) (mcp:other): Return a sector-specific threat brief (Financial, Healthcare, or Government) from the threat-intel vertical. Each brief includes an executive summary, top N sector-relevant threats with risk assessments and recommended actions.
 - [ti_get_cve](https://pranithjain.qzz.io/mcp) (mcp:other): Return the full CVE body with CVSS vector, CWE IDs, references, and (where populated) BSI description and LLM summary/recommended action. Use ti_list_cves first to discover CVE IDs.
 - [ti_get_ioc](https://pranithjain.qzz.io/mcp) (mcp:other): Return the full IOC family body with indicators, MITRE techniques, context, and (where populated) LLM summary. Use ti_list_iocs first to discover family slugs.
@@ -431,6 +446,8 @@ Drop-in configs: https://pranithjain.qzz.io/mcp/{claude-desktop,cursor,vscode-mc
 - [ti_list_iocs](https://pranithjain.qzz.io/mcp) (mcp:other): List IOC families (ransomware, malware, APT groups, C2 frameworks, stealers, phishing kits) from the threat-intel vertical, sourced from Daily-Hunt references and tracked by this Worker.
 - [ti_list_kev](https://pranithjain.qzz.io/mcp) (mcp:other): Return the full CISA Known Exploited Vulnerabilities (KEV) snapshot — actively exploited CVEs with required actions and due dates. Each entry includes vendor, product, short description, required action, and due date.
 - [ti_stats](https://pranithjain.qzz.io/mcp) (mcp:other): Return cache + manifest stats for the Threat Intel data: index loaded, KEV loaded, body-cache sizes and hit ratios. Useful for diagnosing cold-start latency.
+- [tools_get](https://pranithjain.qzz.io/mcp) (mcp:other): Get the full profile for a specific security tool by slug.
+- [tools_list](https://pranithjain.qzz.io/mcp) (mcp:other): List security tools from the curated Tools Directory. Filter by category (recon, exploitation, post-exploitation, defense, detection, forensics, osint, c2, phishing, crypto, mobile, cloud, network, reverse-engineering, web, misc), keyword, or offensive/defensive scope.
 - [tor_exit_check](https://pranithjain.qzz.io/mcp) (mcp:other): Check if a specific IP address is a known Tor exit node. Returns boolean and the queried IP.
 - [tor_exit_details](https://pranithjain.qzz.io/mcp) (mcp:other): Get detailed Tor exit node information including fingerprints, published timestamps, and exit addresses. More comprehensive than the bulk exit list.
 - [tor_exit_nodes](https://pranithjain.qzz.io/mcp) (mcp:other): Get current Tor exit node IP addresses from the official Tor Project bulk exit list. Useful for identifying if traffic originates from the Tor network.

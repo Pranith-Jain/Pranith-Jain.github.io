@@ -37,15 +37,11 @@ const PAGES = [
 function getPageToCheckOut(): (typeof PAGES)[0] {
   const today = new Date();
   const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
-  return PAGES[seed % PAGES.length];
+  return PAGES[seed % PAGES.length]!;
 }
 
 export function PageToCheckOut(): JSX.Element | null {
-  const [page, setPage] = useState<(typeof PAGES)[0] | null>(null);
-
-  useEffect(() => {
-    setPage(getPageToCheckOut());
-  }, []);
+  const [page] = useState(getPageToCheckOut);
 
   if (!page) return null;
 

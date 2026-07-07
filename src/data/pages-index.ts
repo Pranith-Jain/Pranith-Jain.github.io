@@ -228,6 +228,24 @@ const PORTFOLIO_PAGES: readonly PageEntry[] = [
     group: 'portfolio',
     keywords: ['traceix', 'hash', 'sha256', 'av', 'antivirus', 'reputation', 'pcef', 'perkins fund'],
   },
+  {
+    path: '/cerast',
+    label: 'Cerast Intelligence',
+    description:
+      'OSINT domain exposure search — find exposed paths, staging environments, and misconfigurations across observed domains.',
+    sectionLabel: 'Portfolio',
+    group: 'portfolio',
+    keywords: ['cerast', 'domain', 'exposure', 'osint', 'staging', 'misconfiguration', 'paths', 'intelligence'],
+  },
+  {
+    path: '/threatmon-infostealer',
+    label: 'ThreatMon Infostealer',
+    description:
+      'Search stolen credentials, infected devices, and exposed identities linked to a domain via ThreatMon Infostealer Intelligence.',
+    sectionLabel: 'Portfolio',
+    group: 'portfolio',
+    keywords: ['threatmon', 'infostealer', 'stealer', 'credentials', 'compromised', 'malware', 'intelhub'],
+  },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -1765,6 +1783,24 @@ const DFIR_PAGES: readonly PageEntry[] = [
       'kill-chain',
       'long-watch',
     ],
+  },
+
+  {
+    path: '/cerast',
+    label: 'Cerast Intelligence',
+    description: 'Domain-based threat intelligence — category, impact, page rank, version, and multihost detection.',
+    sectionLabel: 'DFIR · Threat Intel',
+    group: 'dfir',
+    keywords: ['cerast', 'domain', 'threat', 'category', 'impact', 'page-rank', 'multihost'],
+  },
+
+  {
+    path: '/threatmon-infostealer',
+    label: 'ThreatMon Infostealer',
+    description: 'ThreatMon IntelHub — search infostealer logs by domain, email, IP, or username for compromised credentials from ~2.18B users.',
+    sectionLabel: 'DFIR · Threat Intel',
+    group: 'dfir',
+    keywords: ['threatmon', 'intelhub', 'infostealer', 'stealer', 'credentials', 'compromised'],
   },
 
   /* ------------------------------------------------------------------ */
@@ -3322,6 +3358,13 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     group: 'threatintel',
   },
   {
+    path: '/threatintel/campaigns/reference',
+    label: 'Reference',
+    description: 'Campaign reference library — named campaign histories, known threat-actor ops, and TTP baselines.',
+    sectionLabel: 'Threat Intel · Campaigns',
+    group: 'threatintel',
+  },
+  {
     path: '/threatintel/darkweb/watch',
     label: 'Watch',
     description: 'Dark web monitoring dashboard.',
@@ -3855,6 +3898,13 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     group: 'threatintel',
   },
   {
+    path: '/threatintel/osint/directory',
+    label: 'Directory',
+    description: 'OSINT directory — categorized tool listings and investigative resources.',
+    sectionLabel: 'Threat Intel · OSINT',
+    group: 'threatintel',
+  },
+  {
     path: '/threatintel/research-hub/research',
     label: 'Research',
     description: 'Research post index.',
@@ -3886,6 +3936,13 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     path: '/threatintel/research-hub/writeups',
     label: 'Write-ups',
     description: 'Security write-ups.',
+    sectionLabel: 'Threat Intel · Research',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/research-hub/library',
+    label: 'Library',
+    description: 'Research library — curated threat reports, whitepapers, and references.',
     sectionLabel: 'Threat Intel · Research',
     group: 'threatintel',
   },
@@ -4103,6 +4160,13 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     path: '/threatintel/tools/workspaces',
     label: 'Investigation Workspaces',
     description: 'AEAD lifecycle workspaces — Acquire, Enrich, Assess, Deliver.',
+    sectionLabel: 'Threat Intel · Tools',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/tools/directory',
+    label: 'Directory',
+    description: 'Tools directory — browse all available threat-intel tools by category.',
     sectionLabel: 'Threat Intel · Tools',
     group: 'threatintel',
   },

@@ -100,7 +100,7 @@ export function RulesSnapshotPanel(): JSX.Element {
     for (const commit of data.recent_commits) {
       for (const c of CARDS) {
         if (c.matches.includes(commit.type)) {
-          out[c.key].push(commit);
+          out[c.key]!.push(commit);
           break;
         }
       }
@@ -111,7 +111,7 @@ export function RulesSnapshotPanel(): JSX.Element {
   const watchedByCard = useMemo(() => {
     const out: Record<string, number> = {};
     for (const c of CARDS) {
-      out[c.key] = bucketed[c.key].filter(
+      out[c.key] = bucketed[c.key]!.filter(
         (cm) => watchHits(`${cm.title} ${cm.author} ${cm.source_label}`, watchlist).length > 0
       ).length;
     }
@@ -142,7 +142,7 @@ export function RulesSnapshotPanel(): JSX.Element {
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {CARDS.map((c) => {
-          const commits = bucketed[c.key].slice(0, ITEM_LIMIT);
+          const commits = bucketed[c.key]!.slice(0, ITEM_LIMIT);
           const watched = watchedByCard[c.key] ?? 0;
           return (
             <SnapshotCard
@@ -153,7 +153,7 @@ export function RulesSnapshotPanel(): JSX.Element {
               showNewBadge={false}
               watchCount={watched}
               watchTerms={watchlist}
-              rightAction={<span className="text-slate-500 dark:text-slate-400">{bucketed[c.key].length} commits</span>}
+              rightAction={<span className="text-slate-500 dark:text-slate-400">{bucketed[c.key]!.length} commits</span>}
               loading={!data && !err}
               error={err ?? undefined}
             >
@@ -198,7 +198,7 @@ export function RulesSnapshotPanel(): JSX.Element {
                   rel="noopener noreferrer"
                   className="mt-auto pt-2 text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
                 >
-                  more {c.title.split(' ')[0].toLowerCase()} repos <ExternalLink size={9} />
+                  more {c.title.split(' ')[0]!.toLowerCase()} repos <ExternalLink size={9} />
                 </a>
               )}
             </SnapshotCard>

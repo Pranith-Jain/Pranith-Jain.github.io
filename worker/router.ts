@@ -46,6 +46,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/campaigns/lifecycle', '/__prerendered/threatintel__campaigns__lifecycle'],
   ['/threatintel/campaigns/generator', '/__prerendered/threatintel__campaigns__generator'],
   ['/threatintel/campaigns/cross', '/__prerendered/threatintel__campaigns__cross'],
+  ['/threatintel/campaigns/reference', '/__prerendered/threatintel__campaigns__reference'],
   ['/threatintel/darkweb/watch', '/__prerendered/threatintel__darkweb__watch'],
   ['/threatintel/darkweb/markets', '/__prerendered/threatintel__darkweb__markets'],
   ['/threatintel/darkweb/forums', '/__prerendered/threatintel__darkweb__forums'],
@@ -123,6 +124,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/osint/certs', '/__prerendered/threatintel__osint__certs'],
   ['/threatintel/osint/toolbox', '/__prerendered/threatintel__osint__toolbox'],
   ['/threatintel/osint/secops', '/__prerendered/threatintel__osint__secops'],
+  ['/threatintel/osint/directory', '/__prerendered/threatintel__osint__directory'],
   ['/threatintel/research-hub/research', '/__prerendered/threatintel__research-hub__research'],
   ['/threatintel/research-hub/reports', '/__prerendered/threatintel__research-hub__reports'],
   ['/threatintel/research-hub/ai', '/__prerendered/threatintel__research-hub__ai'],
@@ -137,6 +139,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/research-hub/campaign-gen', '/__prerendered/threatintel__research-hub__campaign-gen'],
   ['/threatintel/research-hub/knowledge', '/__prerendered/threatintel__research-hub__knowledge'],
   ['/threatintel/research-hub/ach', '/__prerendered/threatintel__research-hub__ach'],
+  ['/threatintel/research-hub/library', '/__prerendered/threatintel__research-hub__library'],
   ['/threatintel/social/firehose', '/__prerendered/threatintel__social__firehose'],
   ['/threatintel/social/news', '/__prerendered/threatintel__social__news'],
   ['/threatintel/social/telegram-leaks', '/__prerendered/threatintel__social__telegram-leaks'],
@@ -160,6 +163,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/tools/tg-intel-search', '/__prerendered/threatintel__tools__tg-intel-search'],
   ['/threatintel/tools/socradar-tools', '/__prerendered/threatintel__tools__socradar-tools'],
   ['/threatintel/tools/settings', '/__prerendered/threatintel__tools__settings'],
+  ['/threatintel/tools/directory', '/__prerendered/threatintel__tools__directory'],
   ['/threatintel/tools/unified-search', '/__prerendered/threatintel__tools__unified-search'],
   ['/threatintel/cves/cves', '/__prerendered/threatintel__cves__cves'],
   ['/threatintel/cves/advisories', '/__prerendered/threatintel__cves__advisories'],
@@ -531,8 +535,11 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/copilot', '/__prerendered/dfir__copilot'],
   ['/dfir/orkl', '/__prerendered/dfir__orkl'],
   ['/dfir/wifi-investigation', '/__prerendered/dfir__wifi-investigation'],
-  // ── Detection Chokepoints: unified hub ─
-  // ── ThreatIntel: hub bases (11) — Suspense-wrapped tabs, prerendered chrome ─
+  // ── Standalone SPA pages ──────────────────────────────────────
+  ['/traceix', '/__prerendered/traceix'],
+  ['/cerast', '/__prerendered/cerast'],
+  ['/threatmon-infostealer', '/__prerendered/threatmon-infostealer'],
+  ['/winreg', '/__prerendered/winreg'],
 ]);
 
 /**

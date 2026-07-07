@@ -135,7 +135,7 @@ describe('parseDefacements', () => {
 });
 
 describe('fetchAFDatamarkets / fetchAFDefacements', () => {
-  let fetchSpy: ReturnType<typeof vi.spyOn<any, any>>;
+  let fetchSpy: ReturnType<typeof vi.spyOn<typeof globalThis, 'fetch'>>;
 
   beforeEach(() => {
     fetchSpy = vi.spyOn(globalThis, 'fetch');

@@ -70,7 +70,7 @@ export function IdentifierGraph({
     for (const [pinId, ids] of byPin) {
       const label = pins.find((p) => p.id === pinId)?.label ?? '';
       for (let i = 1; i < ids.length; i++) {
-        out.push({ id: `${pinId}-${i}`, source: ids[0], target: ids[i], label, animated: false });
+        out.push({ id: `${pinId}-${i}`, source: ids[0]!, target: ids[i]!, label, animated: false });
       }
     }
     return out;

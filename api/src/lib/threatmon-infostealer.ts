@@ -1,0 +1,1 @@
+../../../worker/lib/threatmon-infostealer.ts

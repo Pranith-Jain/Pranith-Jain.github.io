@@ -42,11 +42,6 @@ export default function Leaderboard() {
   const [period, setPeriod] = useState<Period>('alltime');
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchLeaderboard();
-    if (user) fetchMyProfile();
-  }, [period, user]);
-
   const fetchLeaderboard = async () => {
     setLoading(true);
     try {
@@ -70,6 +65,11 @@ export default function Leaderboard() {
       // ignore
     }
   };
+
+  useEffect(() => {
+    fetchLeaderboard();
+    if (user) fetchMyProfile();
+  }, [period, user]);
 
   const getXpForNextLevel = (level: number) => level * 100;
 
@@ -160,7 +160,7 @@ export default function Leaderboard() {
 
                 {/* Avatar */}
                 <div className="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-xs font-bold text-slate-600 dark:text-slate-400">
-                  {(entry.display_name || 'U')[0].toUpperCase()}
+                  {(entry.display_name || 'U').charAt(0).toUpperCase()}
                 </div>
 
                 {/* Info */}

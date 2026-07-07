@@ -200,7 +200,7 @@ export async function breachForumsHandler(c: Context<{ Bindings: Env }>): Promis
   const cached = await cache.match(cacheReq);
   if (cached) return new Response(cached.body, cached);
 
-  const body = await buildBreachForums(c.env, c.executionCtx);
+  const body = await buildBreachForums(c.env, c.executionCtx as any);
   const response = new Response(JSON.stringify(body), {
     status: 200,
     headers: { 'content-type': 'application/json', 'cache-control': `public, max-age=${CACHE_TTL_SECONDS}` },

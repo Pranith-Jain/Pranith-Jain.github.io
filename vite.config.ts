@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
 import { visualizer } from 'rollup-plugin-visualizer';
 
 // Vite SSR build is invoked via `vite build --ssr src/entry-server.tsx`.
@@ -40,32 +41,31 @@ const clientBuild = {
       // got parsed on every cold load. The shared vendor-icons chunk
       // amortizes that cost across pages. Reverted; the comment stays as
       // a "don't try this again" marker.
-      manualChunks: {
-        // Core React stack (or preact/compat on the client; see resolve.alias).
-        'vendor-react': ['react', 'react-dom', 'react-router-dom'],
-        // Icon set used across every page. Kept as a shared chunk — see
-        // the failed experiment note above.
-        'vendor-icons': ['lucide-react'],
-        // Graph viz used ONLY by /dfir/stix. Splitting it ensures the
-        // 133KB xyflow runtime is its own chunk that's lazy-fetched.
-        'vendor-xyflow': ['@xyflow/react'],
-        // World-map renderer used ONLY by /threatintel/threat-map.
-        'vendor-maps': ['react-simple-maps'],
-        // Markdown stack used ONLY by /threatintel/wiki/:slug. Loaded
-        // dynamically by WikiArticle, so isolating it keeps the wiki
-        // detail chunk slim.
-        'vendor-md': ['marked', 'isomorphic-dompurify'],
-        // Catalog data files — large (3800+ lines) but only needed on
-        // /dfir, /threatintel, and their catalog pages. Splitting them
-        // out of the index chunk saves ~80KB of parse work on the
-        // portfolio landing page.
-        'data-catalogs': [
-          './src/data/threatintel-hubs.ts',
-          './src/data/dfir-hubs.ts',
-          './src/components/dfir/tool-sections.ts',
-          './src/data/threatintel-sections.ts',
-          './src/data/sidebar-nav.ts',
-        ],
+      manualChunks(id: string) {
+        if (id.includes('node_modules/preact/') || id.includes('node_modules/react-router-dom')) {
+          return 'vendor-react';
+        }
+        if (id.includes('node_modules/lucide-react')) {
+          return 'vendor-icons';
+        }
+        if (id.includes('node_modules/@xyflow/react')) {
+          return 'vendor-xyflow';
+        }
+        if (id.includes('node_modules/react-simple-maps')) {
+          return 'vendor-maps';
+        }
+        if (id.includes('node_modules/marked') || id.includes('node_modules/isomorphic-dompurify')) {
+          return 'vendor-md';
+        }
+        if (
+          id.includes('src/data/threatintel-hubs') ||
+          id.includes('src/data/dfir-hubs') ||
+          id.includes('components/dfir/tool-sections') ||
+          id.includes('src/data/threatintel-sections') ||
+          id.includes('src/data/sidebar-nav')
+        ) {
+          return 'data-catalogs';
+        }
       },
       // Asset naming for better caching
       entryFileNames: 'assets/[name]-[hash].js',
@@ -131,6 +131,7 @@ export default defineConfig(({ mode }) => ({
     __BUILD_DATE__: JSON.stringify(new Date().toISOString().slice(0, 10)),
   },
   plugins: [
+    tailwindcss(),
     react(),
     mode === 'analyze' &&
       visualizer({

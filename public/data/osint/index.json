@@ -1,0 +1,690 @@
+{
+  "source": "manual-curation",
+  "license": "MIT",
+  "replicatedAt": "2026-07-07",
+  "count": 40,
+  "entries": [
+    {
+      "slug": "virus-total",
+      "name": "VirusTotal",
+      "url": "https://www.virustotal.com",
+      "category": "threat-intel",
+      "description": "Analyze suspicious files, domains, IPs, and URLs for malware and other threats using 70+ antivirus scanners and URL/domain blocklisting services.",
+      "isFree": true,
+      "requiresRegistration": true,
+      "apiAvailable": true,
+      "tags": [
+        "malware",
+        "scanning",
+        "hash",
+        "url",
+        "domain",
+        "ip"
+      ],
+      "sizeBytes": 398
+    },
+    {
+      "slug": "alienvault-otx",
+      "name": "AlienVault OTX",
+      "url": "https://otx.alienvault.com",
+      "category": "threat-intel",
+      "description": "Open Threat Exchange — collaborative threat intelligence platform for sharing and consuming IOCs, threat pulses, and community-created OTX rules.",
+      "isFree": true,
+      "requiresRegistration": true,
+      "apiAvailable": true,
+      "tags": [
+        "threat-intel",
+        "ioc",
+        "pulses",
+        "community"
+      ],
+      "sizeBytes": 401
+    },
+    {
+      "slug": "abuseipdb",
+      "name": "AbuseIPDB",
+      "url": "https://www.abuseipdb.com",
+      "category": "threat-intel",
+      "description": "IP address reputation database for reporting and checking malicious IPs. Reports from security researchers and system administrators worldwide.",
+      "isFree": true,
+      "requiresRegistration": true,
+      "apiAvailable": true,
+      "tags": [
+        "ip",
+        "reputation",
+        "reporting",
+        "abuse"
+      ],
+      "sizeBytes": 382
+    },
+    {
+      "slug": "shodan",
+      "name": "Shodan",
+      "url": "https://www.shodan.io",
+      "category": "threat-intel",
+      "description": "Search engine for internet-connected devices. Find exposed cameras, routers, servers, ICS/SCADA systems, and track vulnerable services across the internet.",
+      "isFree": true,
+      "requiresRegistration": true,
+      "apiAvailable": true,
+      "tags": [
+        "device-discovery",
+        "exposed-services",
+        "search-engine",
+        "iot"
+      ],
+      "sizeBytes": 406
+    },
+    {
+      "slug": "censys",
+      "name": "Censys",
+      "url": "https://search.censys.io",
+      "category": "threat-intel",
+      "description": "Internet-wide scanning platform for discovering and monitoring hosts, certificates, and exposed services. Maps the entire IPv4 address space.",
+      "isFree": true,
+      "requiresRegistration": true,
+      "apiAvailable": true,
+      "tags": [
+        "scanning",
+        "certificates",
+        "host-discovery",
+        "internet-wide"
+      ],
+      "sizeBytes": 394
+    },
+    {
+      "slug": "greynoise",
+      "name": "GreyNoise",
+      "url": "https://viz.greynoise.io",
+      "category": "threat-intel",
+      "description": "Filters out internet background noise (scanners, bots, mass-scanning) so analysts can focus on targeted threats. Classifies IPs as malicious, benign, or unknown.",
+      "isFree": true,
+      "requiresRegistration": true,
+      "apiAvailable": true,
+      "tags": [
+        "ip",
+        "noise-filtering",
+        "classification",
+        "scanner"
+      ],
+      "sizeBytes": 411
+    },
+    {
+      "slug": "pulsedive",
+      "name": "Pulsedive",
+      "url": "https://pulsedive.com",
+      "category": "threat-intel",
+      "description": "Free threat intelligence platform for enriching IOCs. Tracks indicators, threat actors, campaigns, and provides risk scoring with a community TI feed.",
+      "isFree": true,
+      "requiresRegistration": true,
+      "apiAvailable": true,
+      "tags": [
+        "ioc",
+        "enrichment",
+        "threat-intel",
+        "risk-scoring"
+      ],
+      "sizeBytes": 396
+    },
+    {
+      "slug": "threatminer",
+      "name": "ThreatMiner",
+      "url": "https://www.threatminer.org",
+      "category": "threat-intel",
+      "description": "Threat intelligence data mining portal. Search by IP, domain, hash, or threat actor to find related indicators, samples, and report references.",
+      "isFree": true,
+      "requiresRegistration": false,
+      "apiAvailable": true,
+      "tags": [
+        "ioc",
+        "data-mining",
+        "threat-intel",
+        "search"
+      ],
+      "sizeBytes": 395
+    },
+    {
+      "slug": "misp",
+      "name": "MISP",
+      "url": "https://www.misp-project.org",
+      "category": "threat-intel",
+      "description": "Malware Information Sharing Platform — open-source threat intelligence platform for sharing, storing, and correlating IOCs across organizations.",
+      "isFree": true,
+      "requiresRegistration": false,
+      "apiAvailable": true,
+      "tags": [
+        "threat-intel",
+        "ioc-sharing",
+        "platform",
+        "correlation"
+      ],
+      "sizeBytes": 395
+    },
+    {
+      "slug": "opencti",
+      "name": "OpenCTI",
+      "url": "https://www.opencti.io",
+      "category": "threat-intel",
+      "description": "Open-source cyber threat intelligence platform designed to collect, manage, and operationalize threat data. Supports STIX 2.1 and integrates with MISP, TheHive, and more.",
+      "isFree": true,
+      "requiresRegistration": false,
+      "apiAvailable": true,
+      "tags": [
+        "platform",
+        "stix",
+        "threat-intel",
+        "knowledge-base"
+      ],
+      "sizeBytes": 415
+    },
+    {
+      "slug": "psbdmp",
+      "name": "Psbdmp",
+      "url": "https://psbdmp.eu",
+      "category": "paste-monitoring",
+      "description": "Search engine for publicly exposed paste sites (Pastebin, etc.). Indexes leaked documents, credentials, and code snippets for OSINT investigations.",
+      "isFree": true,
+      "requiresRegistration": false,
+      "apiAvailable": true,
+      "tags": [
+        "paste",
+        "leaks",
+        "credentials",
+        "monitoring"
+      ],
+      "sizeBytes": 382
+    },
+    {
+      "slug": "pastebin",
+      "name": "Pastebin (Scraped)",
+      "url": "https://pastebin.com",
+      "category": "paste-monitoring",
+      "description": "Public paste site commonly used by threat actors to share leaked data, configuration files, and exploit code. Third-party scrapers index unlisted pastes.",
+      "isFree": true,
+      "requiresRegistration": false,
+      "apiAvailable": false,
+      "tags": [
+        "paste",
+        "leaks",
+        "monitoring",
+        "public"
+      ],
+      "sizeBytes": 401
+    },
+    {
+      "slug": "intelligencex",
+      "name": "IntelligenceX",
+      "url": "https://intelx.io",
+      "category": "paste-monitoring",
+      "description": "Darknet and paste search engine. Indexes pastes, dark web markets, leaked databases, and documents. Provides email, domain, IP, and CIDR search.",
+      "isFree": true,
+      "requiresRegistration": true,
+      "apiAvailable": true,
+      "tags": [
+        "paste",
+        "darknet",
+        "search",
+        "leaks"
+      ],
+      "sizeBytes": 384
+    },
+    {
+      "slug": "ahmia",
+      "name": "Ahmia",
+      "url": "https://ahmia.fi",
+      "category": "dark-web",
+      "description": "Search engine for .onion services on the Tor network. Indexes dark web sites and provides search across hidden services.",
+      "isFree": true,
+      "requiresRegistration": false,
+      "apiAvailable": true,
+      "tags": [
+        "tor",
+        "onion",
+        "dark-web",
+        "search"
+      ],
+      "sizeBytes": 335
+    },
+    {
+      "slug": "torch",
+      "name": "Torch",
+      "url": "http://xmh57jrknzkhv6y3ls3ubitzfqnkrwxhopf5aygpta7dygbekrm4wbid.onion",
+      "category": "dark-web",
+      "description": "One of the oldest and most popular Tor hidden service search engines. Indexes .onion websites across the dark web.",
+      "isFree": true,
+      "requiresRegistration": false,
+      "apiAvailable": false,
+      "tags": [
+        "tor",
+        "onion",
+        "dark-web",
+        "search"
+      ],
+      "sizeBytes": 383
+    },
+    {
+      "slug": "darkeye",
+      "name": "DarkEye",
+      "url": "https://darkeye.net",
+      "category": "dark-web",
+      "description": "Dark web monitoring and search platform for investigating .onion services, dark web markets, and cybercriminal forums.",
+      "isFree": false,
+      "requiresRegistration": true,
+      "apiAvailable": true,
+      "tags": [
+        "tor",
+        "onion",
+        "monitoring",
+        "dark-web"
+      ],
+      "sizeBytes": 344
+    },
+    {
+      "slug": "ip-quality-score",
+      "name": "IPQualityScore",
+      "url": "https://www.ipqualityscore.com",
+      "category": "reputation",
+      "description": "IP, email, and URL reputation scoring with fraud detection. Identifies VPNs, proxies, TOR exits, bots, and high-risk IPs.",
+      "isFree": true,
+      "requiresRegistration": true,
+      "apiAvailable": true,
+      "tags": [
+        "ip",
+        "email",
+        "reputation",
+        "fraud",
+        "vpn"
+      ],
+      "sizeBytes": 377
+    },
+    {
+      "slug": "spamhaus",
+      "name": "Spamhaus",
+      "url": "https://www.spamhaus.org",
+      "category": "reputation",
+      "description": "Real-time DNS blocklists (DNSBL) for spam, malware, and botnet IPs. Widely used by mail servers and security appliances.",
+      "isFree": true,
+      "requiresRegistration": false,
+      "apiAvailable": true,
+      "tags": [
+        "dnsbl",
+        "blocklist",
+        "spam",
+        "reputation"
+      ],
+      "sizeBytes": 357
+    },
+    {
+      "slug": "barracuda-central",
+      "name": "BarracudaCentral",
+      "url": "https://www.barracudacentral.org",
+      "category": "reputation",
+      "description": "Barracuda reputation blocklist for IPs sending spam or malware. Includes the BRBL (Barracuda Reputation Block List).",
+      "isFree": true,
+      "requiresRegistration": false,
+      "apiAvailable": false,
+      "tags": [
+        "blocklist",
+        "reputation",
+        "spam"
+      ],
+      "sizeBytes": 371
+    },
+    {
+      "slug": "talos-reputation",
+      "name": "Talos Reputation",
+      "url": "https://talosintelligence.com/reputation_center",
+      "category": "reputation",
+      "description": "Cisco Talos reputation center for IP and domain reputation. Provides email volume, threat scores, and network owner data.",
+      "isFree": true,
+      "requiresRegistration": false,
+      "apiAvailable": true,
+      "tags": [
+        "ip",
+        "domain",
+        "reputation",
+        "cisco"
+      ],
+      "sizeBytes": 392
+    },
+    {
+      "slug": "crt-sh",
+      "name": "CRT.sh",
+      "url": "https://crt.sh",
+      "category": "certificate",
+      "description": "Certificate Transparency log search engine. Query by domain, hash, or issuer to find SSL/TLS certificates issued for a target.",
+      "isFree": true,
+      "requiresRegistration": false,
+      "apiAvailable": true,
+      "tags": [
+        "certificate",
+        "ct-logs",
+        "ssl",
+        "tls"
+      ],
+      "sizeBytes": 346
+    },
+    {
+      "slug": "censys-certificate",
+      "name": "Censys Certificate Search",
+      "url": "https://search.censys.io/certificates",
+      "category": "certificate",
+      "description": "Search certificate transparency logs for issued certificates. Find subdomains, expired certs, and certificate chains.",
+      "isFree": true,
+      "requiresRegistration": true,
+      "apiAvailable": true,
+      "tags": [
+        "certificate",
+        "ct-logs",
+        "subdomain",
+        "ssl"
+      ],
+      "sizeBytes": 396
+    },
+    {
+      "slug": "securitytrails",
+      "name": "SecurityTrails",
+      "url": "https://securitytrails.com",
+      "category": "dns",
+      "description": "DNS history and threat intelligence. Query historical DNS records, WHOIS data, subdomains, and related domains.",
+      "isFree": true,
+      "requiresRegistration": true,
+      "apiAvailable": true,
+      "tags": [
+        "dns",
+        "history",
+        "subdomain",
+        "whois"
+      ],
+      "sizeBytes": 350
+    },
+    {
+      "slug": "dnslytics",
+      "name": "DNSlytics",
+      "url": "https://dnslytics.com",
+      "category": "dns",
+      "description": "DNS intelligence and domain investigation tool. Reverse IP lookups, DNS history, and domain ownership tracking.",
+      "isFree": true,
+      "requiresRegistration": false,
+      "apiAvailable": false,
+      "tags": [
+        "dns",
+        "reverse-ip",
+        "domain",
+        "investigation"
+      ],
+      "sizeBytes": 345
+    },
+    {
+      "slug": "malware-bazaar",
+      "name": "MalwareBazaar",
+      "url": "https://bazaar.abuse.ch",
+      "category": "hash",
+      "description": "Malware sample database and hash repository. Share and download malware samples with YARA rules and threat intelligence context.",
+      "isFree": true,
+      "requiresRegistration": false,
+      "apiAvailable": true,
+      "tags": [
+        "malware",
+        "samples",
+        "hash",
+        "yara"
+      ],
+      "sizeBytes": 363
+    },
+    {
+      "slug": "hybrid-analysis",
+      "name": "Hybrid Analysis",
+      "url": "https://www.hybrid-analysis.com",
+      "category": "hash",
+      "description": "Free malware analysis sandbox powered by Falcon. Submit files and URLs for behavioral analysis with detailed MITRE ATT&CK mapping.",
+      "isFree": true,
+      "requiresRegistration": true,
+      "apiAvailable": true,
+      "tags": [
+        "sandbox",
+        "analysis",
+        "malware",
+        "mitre"
+      ],
+      "sizeBytes": 380
+    },
+    {
+      "slug": "emailrep",
+      "name": "EmailRep",
+      "url": "https://emailrep.io",
+      "category": "email",
+      "description": "Email address reputation service. Checks for breaches, social media profiles, disposable domains, and spam activity.",
+      "isFree": true,
+      "requiresRegistration": true,
+      "apiAvailable": true,
+      "tags": [
+        "email",
+        "reputation",
+        "breach",
+        "osint"
+      ],
+      "sizeBytes": 340
+    },
+    {
+      "slug": "whats-my-name",
+      "name": "WhatsMyName",
+      "url": "https://whatsmyname.app",
+      "category": "username",
+      "description": "Username enumeration tool. Checks if a username exists across 400+ social media platforms and websites.",
+      "isFree": true,
+      "requiresRegistration": false,
+      "apiAvailable": true,
+      "tags": [
+        "username",
+        "social-media",
+        "enumeration",
+        "osint"
+      ],
+      "sizeBytes": 353
+    },
+    {
+      "slug": "sherlock",
+      "name": "Sherlock",
+      "url": "https://sherlock-project.github.io",
+      "category": "username",
+      "description": "Social media username search across 400+ platforms. CLI tool for finding accounts by username across social networks.",
+      "isFree": true,
+      "requiresRegistration": false,
+      "apiAvailable": false,
+      "tags": [
+        "username",
+        "social-media",
+        "search",
+        "cli"
+      ],
+      "sizeBytes": 364
+    },
+    {
+      "slug": "have-i-been-pwned",
+      "name": "Have I Been Pwned",
+      "url": "https://haveibeenpwned.com",
+      "category": "breach",
+      "description": "Data breach notification service. Check if your email or phone has been exposed in known data breaches.",
+      "isFree": true,
+      "requiresRegistration": false,
+      "apiAvailable": true,
+      "tags": [
+        "breach",
+        "email",
+        "credentials",
+        "notification"
+      ],
+      "sizeBytes": 362
+    },
+    {
+      "slug": "dehashed",
+      "name": "DeHashed",
+      "url": "https://dehashed.com",
+      "category": "breach",
+      "description": "Breached credential database search. Search by email, username, IP, name, or password across aggregated breach data.",
+      "isFree": false,
+      "requiresRegistration": true,
+      "apiAvailable": true,
+      "tags": [
+        "breach",
+        "credentials",
+        "search",
+        "paid"
+      ],
+      "sizeBytes": 344
+    },
+    {
+      "slug": "leak-check",
+      "name": "LeakCheck",
+      "url": "https://leakcheck.io",
+      "category": "breach",
+      "description": "Data breach search engine. Check email, username, or password against aggregated breach databases and credential leaks.",
+      "isFree": false,
+      "requiresRegistration": true,
+      "apiAvailable": true,
+      "tags": [
+        "breach",
+        "credentials",
+        "search",
+        "paid"
+      ],
+      "sizeBytes": 350
+    },
+    {
+      "slug": "whois-ds",
+      "name": "WHOISDS",
+      "url": "https://whois.domaintools.com",
+      "category": "whois",
+      "description": "DomainTools WHOIS lookup service. Provides domain registration details, historical WHOIS, and reverse WHOIS search.",
+      "isFree": true,
+      "requiresRegistration": false,
+      "apiAvailable": false,
+      "tags": [
+        "whois",
+        "domain",
+        "registration",
+        "domaintools"
+      ],
+      "sizeBytes": 358
+    },
+    {
+      "slug": "whois-xml-api",
+      "name": "WhoisXMLAPI",
+      "url": "https://www.whoisxmlapi.com",
+      "category": "whois",
+      "description": "WHOIS data API and domain intelligence provider. Offers WHOIS lookup, reverse WHOIS, DNS, and domain research tools.",
+      "isFree": true,
+      "requiresRegistration": true,
+      "apiAvailable": true,
+      "tags": [
+        "whois",
+        "api",
+        "domain",
+        "dns"
+      ],
+      "sizeBytes": 347
+    },
+    {
+      "slug": "triage",
+      "name": "Triage",
+      "url": "https://tria.ge",
+      "category": "forensics",
+      "description": "Recorded Future Triage — automated malware analysis sandbox. Upload samples or search by hash for behavioral analysis and configuration extraction.",
+      "isFree": true,
+      "requiresRegistration": true,
+      "apiAvailable": true,
+      "tags": [
+        "sandbox",
+        "malware",
+        "analysis",
+        "forensics"
+      ],
+      "sizeBytes": 374
+    },
+    {
+      "slug": "any-run",
+      "name": "AnyRun",
+      "url": "https://app.any.run",
+      "category": "forensics",
+      "description": "Interactive online malware analysis sandbox. Run suspicious files in a controlled environment and observe system/network behavior in real-time.",
+      "isFree": true,
+      "requiresRegistration": true,
+      "apiAvailable": true,
+      "tags": [
+        "sandbox",
+        "interactive",
+        "analysis",
+        "malware"
+      ],
+      "sizeBytes": 375
+    },
+    {
+      "slug": "joe-sandbox",
+      "name": "Joe Sandbox",
+      "url": "https://www.joesandbox.com",
+      "category": "forensics",
+      "description": "Deep malware analysis platform supporting Windows, Android, macOS, Linux, and IoT. Detects rootkits, exploits, and advanced evasion techniques.",
+      "isFree": true,
+      "requiresRegistration": true,
+      "apiAvailable": true,
+      "tags": [
+        "sandbox",
+        "malware",
+        "deep-analysis",
+        "exploit"
+      ],
+      "sizeBytes": 392
+    },
+    {
+      "slug": "cape",
+      "name": "CAPE",
+      "url": "https://capev2.com",
+      "category": "forensics",
+      "description": "Config And Payload Extraction sandbox. Extracts malware configuration and payloads from analyzed samples using behavioral and static analysis.",
+      "isFree": true,
+      "requiresRegistration": false,
+      "apiAvailable": true,
+      "tags": [
+        "sandbox",
+        "configuration",
+        "payload",
+        "extraction"
+      ],
+      "sizeBytes": 373
+    },
+    {
+      "slug": "inquest",
+      "name": "InQuest",
+      "url": "https://labs.inquest.net",
+      "category": "forensics",
+      "description": "Network forensic analysis platform. Search for indicators, analyze PCAP files, and investigate email-based threats with DFIR workflow tools.",
+      "isFree": true,
+      "requiresRegistration": true,
+      "apiAvailable": true,
+      "tags": [
+        "forensics",
+        "pcap",
+        "email",
+        "indicator"
+      ],
+      "sizeBytes": 372
+    },
+    {
+      "slug": "urlscan",
+      "name": "URLScan",
+      "url": "https://urlscan.io",
+      "category": "forensics",
+      "description": "Website scanner and screenshot service. Analyze URLs for malicious content, track domains, and get detailed DOM/network/HTTP telemetry.",
+      "isFree": true,
+      "requiresRegistration": true,
+      "apiAvailable": true,
+      "tags": [
+        "url",
+        "scanning",
+        "screenshot",
+        "dom"
+      ],
+      "sizeBytes": 358
+    }
+  ]
+}

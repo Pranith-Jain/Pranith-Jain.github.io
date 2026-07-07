@@ -126,7 +126,7 @@ export default function InfraMap({
       return [(s + n) / 2, (w + e) / 2] as [number, number];
     }
     if (results.length > 0 && !global) {
-      return [results[0].lat, results[0].lon] as [number, number];
+      return [results[0]!.lat, results[0]!.lon] as [number, number];
     }
     return [20, 0] as [number, number];
   }, [bbox, results, global]);

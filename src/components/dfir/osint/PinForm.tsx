@@ -40,7 +40,7 @@ export function PinForm({
             lat: coordLat,
             lng: coordLng,
             label: label || 'Pin',
-            address: initial?.address ?? address,
+            address: initial?.address ?? address ?? '',
             iconKey: 'default',
             color,
             note,

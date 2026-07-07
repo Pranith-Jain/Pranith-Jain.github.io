@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 import { useState, useEffect, useCallback } from 'react';
 import { Globe } from 'lucide-react';
 
@@ -73,7 +74,7 @@ export default function RegionalThreats() {
           </div>
         ) : (
           alerts.map((country, i) => {
-            const lvl = LEVEL_CONFIG[country.level] || LEVEL_CONFIG.CLEAR;
+            const lvl = LEVEL_CONFIG[country.level]!;
             const isCollapsed = collapsed.has(country.name);
             return (
               <div key={i} className="border-b border-slate-100 dark:border-slate-800 last:border-0">

@@ -856,7 +856,11 @@ import {
 import { siEdgeToolsRouter } from './routes/si-edge-tools';
 import { threatIntelRouter } from './routes/threat-intel-edge-tools';
 import { winRegRouter } from './routes/winreg-edge-tools';
+import { osintRouter } from './routes/osint-edge-tools';
+import { reportsRouter } from './routes/reports-edge-tools';
+import { campaignsRouter } from './routes/campaigns-edge-tools';
 import { traceixRouter } from './routes/traceix';
+import { toolsRouter } from './routes/tools-edge-tools';
 import {
   listNotebooksHandler,
   getNotebookHandler,
@@ -1755,10 +1759,28 @@ app.route('/api/v1', threatIntelRouter);
 // Upstream: https://dfir-scripts.github.io/registry/
 app.route('/api/v1', winRegRouter);
 
+// OSINT Portal Directory — curated list of 40 free/paid OSINT portals.
+// Data ships in public/data/osint/ built by scripts/build-osint-manifest.mjs.
+app.route('/api/v1', osintRouter);
+
+// Reports & Reading Library — curated list of 28 security reports,
+// frameworks, standards, and learning resources. Data ships in
+// public/data/reports/ built by scripts/build-reports-manifest.mjs.
+app.route('/api/v1', reportsRouter);
+
+// Active Campaigns Tracker — curated list of currently active threat
+// campaigns with writeup links, TTPs, and actor attribution.
+// Data ships in public/data/campaigns/ built by scripts/build-campaigns-manifest.mjs.
+app.route('/api/v1', campaignsRouter);
+
 // Traceix — SHA-256 hash antivirus/reputation lookup via PCEF traceix.com API.
 // Endpoint: GET /api/v1/traceix/lookup?hash=<sha256>
 // Requires TRACEIX_API_KEY Worker secret.
 app.route('/api/v1', traceixRouter);
+
+// Tools Directory — curated catalog of 50+ offensive and defensive security tools.
+// Data ships in public/data/tools/ built by scripts/build-tools-manifest.mjs.
+app.route('/api/v1', toolsRouter);
 
 // ── Weekly TI Dashboard (RSS articles + supply chain incidents + LLM enrichment) ──
 import { tiDashboardRouter } from './routes/ti-dashboard';
@@ -1895,6 +1917,14 @@ import { cidrLookupHandler } from './routes/cidr-lookup';
 app.get('/api/v1/cert-transparency', certTransparencyHandler);
 app.get('/api/v1/cdn-detect', cdnDetectHandler);
 app.get('/api/v1/cidr-lookup', cidrLookupHandler);
+
+// Cerast Intelligence — free OSINT domain exposure search
+import { cerastRouter } from './routes/cerast';
+app.route('/api/v1', cerastRouter);
+
+// ThreatMon IntelHub — infostealer investigation (stealer log search by domain)
+import { threatmonInfostealerRouter } from './routes/threatmon-infostealer';
+app.route('/api/v1', threatmonInfostealerRouter);
 
 // Standardized 404 shape: matches the api-error contract ({ error, message })
 // so clients get a human-readable message, not just a bare error code.

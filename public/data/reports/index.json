@@ -1,0 +1,457 @@
+{
+  "source": "manual-curation",
+  "license": "MIT",
+  "replicatedAt": "2026-07-07",
+  "count": 28,
+  "entries": [
+    {
+      "slug": "crowdstrike-global-threat-report-2025",
+      "title": "CrowdStrike Global Threat Report 2025",
+      "url": "https://www.crowdstrike.com/global-threat-report/",
+      "category": "annual-threat-report",
+      "publisher": "CrowdStrike",
+      "year": 2025,
+      "description": "Annual threat landscape report covering adversary trends, intrusion tradecraft, and emerging attack techniques observed across CrowdStrike's global telemetry.",
+      "tags": [
+        "threat-intel",
+        "adversary",
+        "intrusion",
+        "tradecraft"
+      ],
+      "sizeBytes": 476
+    },
+    {
+      "slug": "mandiant-m-trends-2025",
+      "title": "Mandiant M-Trends 2025",
+      "url": "https://www.mandiant.com/m-trends",
+      "category": "annual-threat-report",
+      "publisher": "Mandiant",
+      "year": 2025,
+      "description": "Annual report on the latest cybersecurity threats, attacker trends, dwell time statistics, and incident response metrics from Mandiant's frontline investigations.",
+      "tags": [
+        "incident-response",
+        "dwell-time",
+        "attacker",
+        "forensics"
+      ],
+      "sizeBytes": 435
+    },
+    {
+      "slug": "microsoft-digital-defense-report-2025",
+      "title": "Microsoft Digital Defense Report 2025",
+      "url": "https://www.microsoft.com/security/business/microsoft-digital-defense-report",
+      "category": "annual-threat-report",
+      "publisher": "Microsoft",
+      "year": 2025,
+      "description": "Comprehensive annual report on the global threat landscape, nation-state activity, cybercrime trends, and Microsoft's defense recommendations.",
+      "tags": [
+        "threat-intel",
+        "nation-state",
+        "cybercrime",
+        "defense"
+      ],
+      "sizeBytes": 486
+    },
+    {
+      "slug": "ibm-x-force-threat-intelligence-index-2025",
+      "title": "IBM X-Force Threat Intelligence Index 2025",
+      "url": "https://www.ibm.com/reports/threat-intelligence",
+      "category": "annual-threat-report",
+      "publisher": "IBM X-Force",
+      "year": 2025,
+      "description": "Annual analysis of cyber threats observed by IBM X-Force, including top attack vectors, ransomware trends, and industry-specific threat data.",
+      "tags": [
+        "threat-intel",
+        "ransomware",
+        "attack-vectors",
+        "industry"
+      ],
+      "sizeBytes": 471
+    },
+    {
+      "slug": "sonicwall-cyber-threat-report-2025",
+      "title": "SonicWall Cyber Threat Report 2025",
+      "url": "https://www.sonicwall.com/threat-report",
+      "category": "annual-threat-report",
+      "publisher": "SonicWall",
+      "year": 2025,
+      "description": "Annual report detailing global cyber threat volume, malware trends, encrypted threats, and ransomware activity across SonicWall's sensor network.",
+      "tags": [
+        "threat-intel",
+        "malware",
+        "ransomware",
+        "encrypted-threats"
+      ],
+      "sizeBytes": 451
+    },
+    {
+      "slug": "verizon-dbir-2025",
+      "title": "Verizon Data Breach Investigations Report 2025",
+      "url": "https://www.verizon.com/business/resources/reports/dbir/",
+      "category": "annual-threat-report",
+      "publisher": "Verizon",
+      "year": 2025,
+      "description": "The definitive annual analysis of security incidents and data breaches based on real-world forensic investigations from Verizon and contributing partners.",
+      "tags": [
+        "breach",
+        "incident",
+        "forensics",
+        "statistics"
+      ],
+      "sizeBytes": 457
+    },
+    {
+      "slug": "proofpoint-state-of-the-phish-2025",
+      "title": "Proofpoint State of the Phish 2025",
+      "url": "https://www.proofpoint.com/us/resources/threat-reports/state-of-phish",
+      "category": "annual-threat-report",
+      "publisher": "Proofpoint",
+      "year": 2025,
+      "description": "Annual report on phishing trends, user awareness, social engineering tactics, and email-based threats based on global telemetry and user simulations.",
+      "tags": [
+        "phishing",
+        "social-engineering",
+        "awareness",
+        "email"
+      ],
+      "sizeBytes": 480
+    },
+    {
+      "slug": "cisco-talos-year-in-review-2025",
+      "title": "Cisco Talos Year in Review 2025",
+      "url": "https://talosintelligence.com/year-in-review",
+      "category": "annual-threat-report",
+      "publisher": "Cisco Talos",
+      "year": 2025,
+      "description": "Annual retrospective on the year's most significant threats, adversary campaigns, and cybersecurity trends observed by Cisco Talos.",
+      "tags": [
+        "threat-intel",
+        "campaign",
+        "adversary",
+        "retrospective"
+      ],
+      "sizeBytes": 434
+    },
+    {
+      "slug": "mitre-attack-framework",
+      "title": "MITRE ATT&CK Framework",
+      "url": "https://attack.mitre.org",
+      "category": "framework",
+      "publisher": "MITRE",
+      "year": 2025,
+      "description": "Globally accessible knowledge base of adversary tactics, techniques, and procedures based on real-world observations. The industry-standard framework for cyber threat intelligence.",
+      "tags": [
+        "mitre",
+        "framework",
+        "tactics",
+        "techniques"
+      ],
+      "sizeBytes": 417
+    },
+    {
+      "slug": "nist-csf-2-0",
+      "title": "NIST Cybersecurity Framework (CSF 2.0)",
+      "url": "https://www.nist.gov/cyberframework",
+      "category": "framework",
+      "publisher": "NIST",
+      "year": 2024,
+      "description": "Voluntary framework of cybersecurity standards, guidelines, and best practices for managing cybersecurity risk across all sectors.",
+      "tags": [
+        "framework",
+        "compliance",
+        "risk-management",
+        "standards"
+      ],
+      "sizeBytes": 395
+    },
+    {
+      "slug": "cis-controls-v8",
+      "title": "CIS Controls v8",
+      "url": "https://www.cisecurity.org/controls",
+      "category": "framework",
+      "publisher": "CIS",
+      "year": 2024,
+      "description": "Prioritized set of 18 cybersecurity best practices and safeguards to protect organizations against the most common cyber threats.",
+      "tags": [
+        "framework",
+        "controls",
+        "implementation",
+        "best-practices"
+      ],
+      "sizeBytes": 375
+    },
+    {
+      "slug": "cyber-kill-chain",
+      "title": "Cyber Kill Chain (Lockheed Martin)",
+      "url": "https://www.lockheedmartin.com/en-us/capabilities/cyber/cyber-kill-chain.html",
+      "category": "framework",
+      "publisher": "Lockheed Martin",
+      "year": 2011,
+      "description": "Intelligence-driven defense model for identifying and preventing cyber intrusions. Seven phases from reconnaissance to actions on objectives.",
+      "tags": [
+        "kill-chain",
+        "intrusion",
+        "framework",
+        "detection"
+      ],
+      "sizeBytes": 453
+    },
+    {
+      "slug": "unified-kill-chain",
+      "title": "Unified Kill Chain",
+      "url": "https://unifiedkillchain.com",
+      "category": "framework",
+      "publisher": "Unified Kill Chain Project",
+      "year": 2024,
+      "description": "Extended kill chain framework integrating the Cyber Kill Chain, MITRE ATT&CK, and other models into a comprehensive 18-phase attack lifecycle.",
+      "tags": [
+        "kill-chain",
+        "framework",
+        "mitre",
+        "lifecycle"
+      ],
+      "sizeBytes": 398
+    },
+    {
+      "slug": "diamond-model",
+      "title": "Diamond Model of Intrusion Analysis",
+      "url": "http://www.diamondmodel.org",
+      "category": "framework",
+      "publisher": "Center for Cyber Intelligence Analysis",
+      "year": 2013,
+      "description": "Analytical framework for intrusion analysis that models cyber events through four core features: adversary, capability, infrastructure, and victim.",
+      "tags": [
+        "analytics",
+        "intrusion",
+        "framework",
+        "diamond-model"
+      ],
+      "sizeBytes": 433
+    },
+    {
+      "slug": "stride-threat-model",
+      "title": "STRIDE Threat Model",
+      "url": "https://learn.microsoft.com/en-us/azure/security/develop/threat-modeling-tool-threats",
+      "category": "framework",
+      "publisher": "Microsoft",
+      "year": 2024,
+      "description": "Threat classification framework: Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, and Elevation of Privilege.",
+      "tags": [
+        "threat-modeling",
+        "security",
+        "classification",
+        "microsoft"
+      ],
+      "sizeBytes": 448
+    },
+    {
+      "slug": "d3fend-matrix",
+      "title": "D3FEND Matrix",
+      "url": "https://d3fend.mitre.org",
+      "category": "framework",
+      "publisher": "MITRE",
+      "year": 2024,
+      "description": "Knowledge graph of defensive cybersecurity countermeasures mapped to MITRE ATT&CK techniques. Standardizes the vocabulary and relationships of defensive techniques.",
+      "tags": [
+        "defense",
+        "mitre",
+        "countermeasures",
+        "knowledge-graph"
+      ],
+      "sizeBytes": 394
+    },
+    {
+      "slug": "owasp-top-10-2025",
+      "title": "OWASP Top 10 (2025)",
+      "url": "https://owasp.org/www-project-top-ten/",
+      "category": "reference",
+      "publisher": "OWASP",
+      "year": 2025,
+      "description": "The standard awareness document for web application security. Lists the top 10 most critical web application security risks with examples and prevention guidance.",
+      "tags": [
+        "web",
+        "application-security",
+        "risk",
+        "vulnerability"
+      ],
+      "sizeBytes": 414
+    },
+    {
+      "slug": "sans-top-25",
+      "title": "SANS Top 25 Security Errors",
+      "url": "https://www.sans.org/top25-software-errors/",
+      "category": "reference",
+      "publisher": "SANS",
+      "year": 2024,
+      "description": "List of the most dangerous software errors identified by SANS — common programming mistakes that lead to serious security vulnerabilities.",
+      "tags": [
+        "coding",
+        "errors",
+        "software-security",
+        "sans"
+      ],
+      "sizeBytes": 391
+    },
+    {
+      "slug": "cwe-top-25",
+      "title": "CWE Top 25 Most Dangerous Weaknesses",
+      "url": "https://cwe.mitre.org/top25",
+      "category": "reference",
+      "publisher": "MITRE",
+      "year": 2024,
+      "description": "The most widespread and critical software weaknesses identified by MITRE CWE. Prioritized by frequency and severity of exploitation.",
+      "tags": [
+        "weaknesses",
+        "cwe",
+        "mitre",
+        "software-security"
+      ],
+      "sizeBytes": 378
+    },
+    {
+      "slug": "owasp-asvs-v4",
+      "title": "OWASP ASVS v4",
+      "url": "https://owasp.org/www-project-application-security-verification-standard/",
+      "category": "reference",
+      "publisher": "OWASP",
+      "year": 2024,
+      "description": "Application Security Verification Standard — framework of security requirements and verification levels for designing, building, and testing secure applications.",
+      "tags": [
+        "verification",
+        "standards",
+        "secure-development",
+        "testing"
+      ],
+      "sizeBytes": 446
+    },
+    {
+      "slug": "sans-cyber-aces",
+      "title": "SANS Cyber Aces",
+      "url": "https://www.sans.org/cyber-aces",
+      "category": "learning",
+      "publisher": "SANS",
+      "year": 2025,
+      "description": "Free online cybersecurity courses covering operating systems, networking, and system administration fundamentals for aspiring security professionals.",
+      "tags": [
+        "training",
+        "free",
+        "fundamentals",
+        "beginner"
+      ],
+      "sizeBytes": 378
+    },
+    {
+      "slug": "tryhackme",
+      "title": "TryHackMe",
+      "url": "https://tryhackme.com",
+      "category": "learning",
+      "publisher": "TryHackMe",
+      "year": 2025,
+      "description": "Hands-on cybersecurity training platform with browser-based virtual machines. Learn by completing real-world security challenges and capture-the-flag rooms.",
+      "tags": [
+        "training",
+        "hands-on",
+        "ctf",
+        "challenges"
+      ],
+      "sizeBytes": 365
+    },
+    {
+      "slug": "hack-the-box",
+      "title": "Hack The Box",
+      "url": "https://www.hackthebox.com",
+      "category": "learning",
+      "publisher": "Hack The Box",
+      "year": 2025,
+      "description": "Online cybersecurity training platform featuring realistic machines, CTF challenges, and penetration testing labs for skill development.",
+      "tags": [
+        "training",
+        "penetration-testing",
+        "ctf",
+        "labs"
+      ],
+      "sizeBytes": 364
+    },
+    {
+      "slug": "pentesterlab",
+      "title": "PentesterLab",
+      "url": "https://pentesterlab.com",
+      "category": "learning",
+      "publisher": "PentesterLab",
+      "year": 2025,
+      "description": "Web application security training platform providing vulnerable exercises across common web vulnerabilities with hands-on exploit development.",
+      "tags": [
+        "training",
+        "web-security",
+        "exploit",
+        "vulnerabilities"
+      ],
+      "sizeBytes": 376
+    },
+    {
+      "slug": "attackiq-academy",
+      "title": "AttackIQ Academy",
+      "url": "https://academy.attackiq.com",
+      "category": "learning",
+      "publisher": "AttackIQ",
+      "year": 2025,
+      "description": "Free cybersecurity training platform focused on adversary emulation, purple teaming, and breach and attack simulation (BAS) methodologies.",
+      "tags": [
+        "training",
+        "free",
+        "adversary-emulation",
+        "purple-team"
+      ],
+      "sizeBytes": 380
+    },
+    {
+      "slug": "detection-stream",
+      "title": "DetectionStream",
+      "url": "https://detectionstream.com",
+      "category": "learning",
+      "publisher": "DetectionStream",
+      "year": 2025,
+      "description": "Platform for learning detection engineering and SIEM content development. Offers workshops, courses, and community resources for building detection logic.",
+      "tags": [
+        "training",
+        "detection-engineering",
+        "siem",
+        "courses"
+      ],
+      "sizeBytes": 399
+    },
+    {
+      "slug": "threat-hunting-labs",
+      "title": "Threat Hunting Labs",
+      "url": "https://threathuntinglabs.com",
+      "category": "learning",
+      "publisher": "Threat Hunting Labs",
+      "year": 2025,
+      "description": "Hands-on threat hunting practice platform with real-world datasets and guided hunting exercises across different attack scenarios and data sources.",
+      "tags": [
+        "training",
+        "threat-hunting",
+        "datasets",
+        "hands-on"
+      ],
+      "sizeBytes": 403
+    },
+    {
+      "slug": "blueteam-labs-online",
+      "title": "BlueTeamLabs Online",
+      "url": "https://blueteamlabs.online",
+      "category": "learning",
+      "publisher": "BlueTeamLabs",
+      "year": 2025,
+      "description": "Blue team and DFIR training platform with SOC simulation scenarios, incident response challenges, and forensic investigation labs.",
+      "tags": [
+        "training",
+        "blue-team",
+        "dfir",
+        "soc",
+        "incident-response"
+      ],
+      "sizeBytes": 384
+    }
+  ]
+}

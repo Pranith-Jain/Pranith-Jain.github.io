@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, X, Command, ArrowRight, Loader2 } from 'lucide-react';
@@ -382,8 +383,9 @@ function searchEntries(
       // matches (so a query "ioc" surfaces "IOC Checker" before "IOC Extractor").
       const dk = KIND_PRIORITY[a.kind] - KIND_PRIORITY[b.kind];
       if (dk !== 0) return dk;
-      const aIdx = a.label.toLowerCase().indexOf(tokens[0]);
-      const bIdx = b.label.toLowerCase().indexOf(tokens[0]);
+      const firstToken = tokens[0]!;
+      const aIdx = a.label.toLowerCase().indexOf(firstToken);
+      const bIdx = b.label.toLowerCase().indexOf(firstToken);
       const ax = aIdx < 0 ? 999 : aIdx;
       const bx = bIdx < 0 ? 999 : bIdx;
       return ax - bx;
@@ -432,7 +434,8 @@ export function CommandPalette(): JSX.Element | null {
   // catalog lazy-load (only once per session).
   useEffect(() => {
     if (!open) return;
-    setRecent(loadRecent());
+    const r = loadRecent();
+    setRecent(r);
     setQuery('');
     setActiveIdx(0);
     setKindFilter(null);

@@ -2,7 +2,7 @@
   "$schema": "https://modelcontextprotocol.io/schemas/manifest/v1.json",
   "name": "DFIR-ThreatIntel-MCP",
   "version": "1.0.0",
-  "description": "DFIR + Threat Intel MCP server. 154 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
+  "description": "DFIR + Threat Intel MCP server. 167 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
   "transport": "streamable-http",
   "endpoint": "https://pranithjain.qzz.io/api/mcp",
   "auth": {
@@ -16,8 +16,8 @@
       "listChanged": false
     }
   },
-  "toolCount": 154,
-  "generatedAt": "2026-07-07T04:37:15.920Z",
+  "toolCount": 167,
+  "generatedAt": "2026-07-07T08:21:44.425Z",
   "tools": [
     {
       "name": "analyze_phishing_email",
@@ -37,6 +37,26 @@
     {
       "name": "btc_abuse_check",
       "description": "Check a Bitcoin address for abuse/scam reports on ChainAbuse. Returns report count, categories (phishing, ransomware, scam, etc.), descriptions, and associated scam types. Useful for tracing illicit crypto transactions.",
+      "category": "other"
+    },
+    {
+      "name": "campaigns_get",
+      "description": "Return the full details of a single threat campaign entry by slug, including writeup links, TTPs, targets, and geography. Use campaigns_list first to discover slugs.",
+      "category": "other"
+    },
+    {
+      "name": "campaigns_list",
+      "description": "List currently active threat campaigns from the curated tracker. Filter by status (active, dormant, concluded), category (ransomware, apt, malware, phishing, c2, supply-chain, cyber-espionage, hacktivism, other), or keyword.",
+      "category": "other"
+    },
+    {
+      "name": "campaigns_stats",
+      "description": "Return cache + manifest stats for the Active Campaigns tracker: total campaigns, active vs dormant/concluded breakdown, categories, and index cache status.",
+      "category": "other"
+    },
+    {
+      "name": "cerast_domain_search",
+      "description": "Search Cerast Intelligence for exposed paths and misconfigurations on observed domains. Returns domain, path, category, impact level, OpenPageRank score, version, and first-seen date. Useful for discovering staging/dev environments, exposed admin panels, and misconfigured endpoints.",
       "category": "other"
     },
     {
@@ -320,6 +340,21 @@
       "category": "other"
     },
     {
+      "name": "osint_get_portal",
+      "description": "Return the full details of a single OSINT portal entry by slug. Use osint_list_portals first to discover slugs.",
+      "category": "other"
+    },
+    {
+      "name": "osint_list_portals",
+      "description": "List OSINT portals and resources from the curated directory. Filter by category (threat-intel, paste-monitoring, dark-web, reputation, certificate, dns, domain, ip, hash, email, username, social-media, phone, crypto, breach, whois, forensics, misc), keyword, or free/paid status.",
+      "category": "other"
+    },
+    {
+      "name": "osint_stats",
+      "description": "Return cache + manifest stats for the OSINT Portal Directory: total portals, indexed categories, and index cache status.",
+      "category": "other"
+    },
+    {
       "name": "parse_threat_report",
       "description": "Parse a threat intelligence report or article to extract structured data: IOCs (IPs, domains, URLs, hashes), threat actors, malware families, MITRE ATT&CK techniques, CVEs, targeted sectors, and an executive summary. Use this when analyzing threat reports, blog posts, or incident write-ups.",
       "category": "analysis"
@@ -352,6 +387,21 @@
     {
       "name": "poc_scan",
       "description": "Search GitHub for public exploit/PoC repositories for a CVE. Returns repo URLs, star counts, language, age, and whether the repo has actual code. Bypasses GitHub 1000-result limit via monthly pagination.",
+      "category": "other"
+    },
+    {
+      "name": "reports_get",
+      "description": "Return the full details of a single report entry by slug. Use reports_list first to discover slugs.",
+      "category": "other"
+    },
+    {
+      "name": "reports_list",
+      "description": "List reports and reading resources from the curated library. Filter by category (annual-threat-report, reference, framework, standard, learning, whitepaper, research), keyword, year, or publisher.",
+      "category": "other"
+    },
+    {
+      "name": "reports_stats",
+      "description": "Return cache + manifest stats for the Reports & Reading Library: total entries, categories, and index cache status.",
       "category": "other"
     },
     {
@@ -600,6 +650,11 @@
       "category": "other"
     },
     {
+      "name": "threatmon_infostealer_search",
+      "description": "Search ThreatMon IntelHub for compromised credentials and infected devices linked to a domain via real stealer malware logs. Returns compromised URLs, IPs, usernames, dates, and employee/user classification. Data sourced from ~2.18B compromised users and ~10.47B leaked credentials.",
+      "category": "other"
+    },
+    {
       "name": "ti_brief_sector",
       "description": "Return a sector-specific threat brief (Financial, Healthcare, or Government) from the threat-intel vertical. Each brief includes an executive summary, top N sector-relevant threats with risk assessments and recommended actions.",
       "category": "other"
@@ -632,6 +687,16 @@
     {
       "name": "ti_stats",
       "description": "Return cache + manifest stats for the Threat Intel data: index loaded, KEV loaded, body-cache sizes and hit ratios. Useful for diagnosing cold-start latency.",
+      "category": "other"
+    },
+    {
+      "name": "tools_get",
+      "description": "Get the full profile for a specific security tool by slug.",
+      "category": "other"
+    },
+    {
+      "name": "tools_list",
+      "description": "List security tools from the curated Tools Directory. Filter by category (recon, exploitation, post-exploitation, defense, detection, forensics, osint, c2, phishing, crypto, mobile, cloud, network, reverse-engineering, web, misc), keyword, or offensive/defensive scope.",
       "category": "other"
     },
     {

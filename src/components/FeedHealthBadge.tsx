@@ -46,7 +46,7 @@ export function FeedHealthBadge(): JSX.Element | null {
 
   if (failed || !data) return null;
 
-  const meta = OVERALL_META[data.overall] ?? OVERALL_META.cold;
+  const meta = OVERALL_META[data.overall]!;
 
   return (
     <Link

@@ -37,7 +37,7 @@
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
-  <!-- Misc (7) -->
+  <!-- Misc (9) -->
   <url>
     <loc>https://pranithjain.qzz.io/behind-the-reports</loc>
     <lastmod>2026-07-07</lastmod>
@@ -58,6 +58,18 @@
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/traceix</loc>
+    <lastmod>2026-07-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://pranithjain.qzz.io/cerast</loc>
+    <lastmod>2026-07-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://pranithjain.qzz.io/threatmon-infostealer</loc>
     <lastmod>2026-07-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -1078,7 +1090,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  <!-- Threat Intel — pages (249) -->
+  <!-- Threat Intel — pages (252) -->
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/catalog</loc>
     <lastmod>2026-07-07</lastmod>
@@ -1141,6 +1153,12 @@
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/campaigns/cross</loc>
+    <lastmod>2026-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pranithjain.qzz.io/threatintel/campaigns/reference</loc>
     <lastmod>2026-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -1506,6 +1524,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://pranithjain.qzz.io/threatintel/osint/directory</loc>
+    <lastmod>2026-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://pranithjain.qzz.io/threatintel/osint/certs</loc>
     <lastmod>2026-07-07</lastmod>
     <changefreq>weekly</changefreq>
@@ -1705,6 +1729,12 @@
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/tools/misp</loc>
+    <lastmod>2026-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pranithjain.qzz.io/threatintel/tools/directory</loc>
     <lastmod>2026-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -2573,9 +2603,15 @@
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
-  <!-- Threat Intel — research (15) -->
+  <!-- Threat Intel — research (16) -->
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/research-hub/ach</loc>
+    <lastmod>2026-07-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pranithjain.qzz.io/threatintel/research-hub/library</loc>
     <lastmod>2026-07-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

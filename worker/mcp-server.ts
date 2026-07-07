@@ -36,10 +36,35 @@ import {
   winRegCacheStats,
   type WinRegListOptions,
 } from './lib/winreg-manifest';
+import { loadToolsIndex, listTools, getTool, toolsCacheStats, type ToolCategory } from './lib/tools-manifest';
 import { validateRawKey } from '../api/src/lib/auth';
 import { signInternalToken } from '../api/src/lib/internal-token';
 import { enrichIp, enrichIpsBatch, isValidIp, type EnrichResult } from './lib/si-enrich';
 import { traceixLookup } from './lib/traceix';
+import {
+  loadOsintIndex,
+  listPortals,
+  getPortal,
+  osintCacheStats,
+  type OsintCategory,
+} from './lib/osint-manifest';
+import {
+  loadReportsIndex,
+  listReports,
+  getReport,
+  reportsCacheStats,
+  type ReportCategory,
+} from './lib/reports-manifest';
+import {
+  loadCampaignsIndex,
+  listCampaigns,
+  getCampaign,
+  campaignsCacheStats,
+  type CampaignStatus,
+  type CampaignCategory,
+} from './lib/campaigns-manifest';
+import { cerastSearch } from './lib/cerast';
+import { threatmonInfostealerSearch } from './lib/threatmon-infostealer';
 import { buildStixBundle, type StixIndicator } from './lib/cti-ioc-export';
 import { kqlToAhUrl, kqlToAhUrlMarkdown } from './lib/kql-to-ah-url';
 import { loadScriptsIndex, getScript } from './lib/si-manifest';
@@ -1575,6 +1600,202 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         }
       );
 
+      // ── OSINT Portal Directory tools ──────────────────────────────
+      // Curated directory of 40 OSINT portals and resources. Data ships
+      // in public/data/osint/ built by scripts/build-osint-manifest.mjs.
+
+      this.tools(
+        'osint_list_portals',
+        'List OSINT portals and resources from the curated directory. Filter by category (threat-intel, paste-monitoring, dark-web, reputation, certificate, dns, domain, ip, hash, email, username, social-media, phone, crypto, breach, whois, forensics, misc), keyword, or free/paid status.',
+        {
+          category: z.string().optional().describe('Filter by portal category'),
+          keyword: z.string().optional().describe('Search keyword in name/description/tags'),
+          freeOnly: z.boolean().optional().describe('Only free portals'),
+          limit: z.number().int().min(1).max(100).optional().describe('Max results (default 50)'),
+        },
+        async ({ category, keyword, freeOnly, limit }) => {
+          const idx = await loadOsintIndex(ASSETS);
+          const portals = listPortals(idx, { category: category as OsintCategory | undefined, keyword, freeOnly, limit: limit ?? 50 });
+          return untrustedToolResult({
+            total: idx.count,
+            returned: portals.length,
+            source: idx.source,
+            license: idx.license,
+            replicatedAt: idx.replicatedAt,
+            portals,
+          });
+        }
+      );
+
+      this.tools(
+        'osint_get_portal',
+        'Return the full details of a single OSINT portal entry by slug. Use osint_list_portals first to discover slugs.',
+        {
+          slug: z.string().describe('Portal slug, e.g. "virus-total", "shodan", "ahmia". Get these from osint_list_portals.'),
+        },
+        async ({ slug }) => {
+          const idx = await loadOsintIndex(ASSETS);
+          const portal = getPortal(idx, slug);
+          if (!portal) {
+            return untrustedToolResult({
+              error: 'portal_not_found',
+              slug,
+              hint: 'Call osint_list_portals to see available slugs.',
+            });
+          }
+          return untrustedToolResult(portal);
+        }
+      );
+
+      this.tools(
+        'osint_stats',
+        'Return cache + manifest stats for the OSINT Portal Directory: total portals, indexed categories, and index cache status.',
+        {},
+        async () => {
+          const idx = await loadOsintIndex(ASSETS);
+          return untrustedToolResult({
+            count: idx.count,
+            source: idx.source,
+            license: idx.license,
+            replicatedAt: idx.replicatedAt,
+            cache: osintCacheStats(),
+          });
+        }
+      );
+
+      // ── Active Campaigns tools ──────────────────────────────────
+      // Curated directory of currently active threat campaigns. Data
+      // ships in public/data/campaigns/ built by scripts/build-campaigns-manifest.mjs.
+
+      this.tools(
+        'campaigns_list',
+        'List currently active threat campaigns from the curated tracker. Filter by status (active, dormant, concluded), category (ransomware, apt, malware, phishing, c2, supply-chain, cyber-espionage, hacktivism, other), or keyword.',
+        {
+          status: z.string().optional().describe('Filter by campaign status: active, dormant, concluded'),
+          category: z.string().optional().describe('Filter by campaign category'),
+          keyword: z.string().optional().describe('Search keyword in name/description/tags'),
+          limit: z.number().int().min(1).max(100).optional().describe('Max results (default 50)'),
+        },
+        async ({ status, category, keyword, limit }) => {
+          const idx = await loadCampaignsIndex(ASSETS);
+          const campaigns = listCampaigns(idx, {
+            status: status as CampaignStatus | undefined,
+            category: category as CampaignCategory | undefined,
+            keyword,
+            limit: limit ?? 50,
+          });
+          return untrustedToolResult({
+            total: idx.count,
+            returned: campaigns.length,
+            source: idx.source,
+            license: idx.license,
+            replicatedAt: idx.replicatedAt,
+            campaigns,
+          });
+        }
+      );
+
+      this.tools(
+        'campaigns_get',
+        'Return the full details of a single threat campaign entry by slug, including writeup links, TTPs, targets, and geography. Use campaigns_list first to discover slugs.',
+        {
+          slug: z.string().describe('Campaign slug, e.g. "lockbit-4-0", "clop", "solarwinds". Get these from campaigns_list.'),
+        },
+        async ({ slug }) => {
+          const idx = await loadCampaignsIndex(ASSETS);
+          const campaign = getCampaign(idx, slug);
+          if (!campaign) {
+            return untrustedToolResult({
+              error: 'campaign_not_found',
+              slug,
+              hint: 'Call campaigns_list to see available slugs.',
+            });
+          }
+          return untrustedToolResult(campaign);
+        }
+      );
+
+      this.tools(
+        'campaigns_stats',
+        'Return cache + manifest stats for the Active Campaigns tracker: total campaigns, active vs dormant/concluded breakdown, categories, and index cache status.',
+        {},
+        async () => {
+          const idx = await loadCampaignsIndex(ASSETS);
+          return untrustedToolResult({
+            count: idx.count,
+            source: idx.source,
+            license: idx.license,
+            replicatedAt: idx.replicatedAt,
+            cache: campaignsCacheStats(),
+          });
+        }
+      );
+
+      // ── Reports & Reading Library tools ──────────────────────────
+      // Curated directory of 28 security reports, frameworks, standards,
+      // and learning resources. Data ships in public/data/reports/ built
+      // by scripts/build-reports-manifest.mjs.
+
+      this.tools(
+        'reports_list',
+        'List reports and reading resources from the curated library. Filter by category (annual-threat-report, reference, framework, standard, learning, whitepaper, research), keyword, year, or publisher.',
+        {
+          category: z.string().optional().describe('Filter by report category'),
+          keyword: z.string().optional().describe('Search keyword in title/description/tags'),
+          year: z.number().int().optional().describe('Filter by publication year'),
+          publisher: z.string().optional().describe('Filter by publisher name (substring match)'),
+          limit: z.number().int().min(1).max(100).optional().describe('Max results (default 50)'),
+        },
+        async ({ category, keyword, year, publisher, limit }) => {
+          const idx = await loadReportsIndex(ASSETS);
+          const reports = listReports(idx, { category: category as ReportCategory | undefined, keyword, year, publisher, limit: limit ?? 50 });
+          return untrustedToolResult({
+            total: idx.count,
+            returned: reports.length,
+            source: idx.source,
+            license: idx.license,
+            replicatedAt: idx.replicatedAt,
+            reports,
+          });
+        }
+      );
+
+      this.tools(
+        'reports_get',
+        'Return the full details of a single report entry by slug. Use reports_list first to discover slugs.',
+        {
+          slug: z.string().describe('Report slug, e.g. "crowdstrike-global-threat-report-2025", "mitre-attack-framework". Get these from reports_list.'),
+        },
+        async ({ slug }) => {
+          const idx = await loadReportsIndex(ASSETS);
+          const report = getReport(idx, slug);
+          if (!report) {
+            return untrustedToolResult({
+              error: 'report_not_found',
+              slug,
+              hint: 'Call reports_list to see available slugs.',
+            });
+          }
+          return untrustedToolResult(report);
+        }
+      );
+
+      this.tools(
+        'reports_stats',
+        'Return cache + manifest stats for the Reports & Reading Library: total entries, categories, and index cache status.',
+        {},
+        async () => {
+          const idx = await loadReportsIndex(ASSETS);
+          return untrustedToolResult({
+            count: idx.count,
+            source: idx.source,
+            license: idx.license,
+            replicatedAt: idx.replicatedAt,
+            cache: reportsCacheStats(),
+          });
+        }
+      );
+
       // ── Threat Intel (TI) tools ────────────────────────────────────
       // CVE/KEV catalog, IOC family database, and sector briefings.
       // Data shipped in public/data/threat-intel/ via weekly sync.
@@ -1747,6 +1968,43 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             lastSyncedAt: idx.lastSyncedAt,
             cache: tiCacheStats(),
           });
+        }
+      );
+
+      // ── Tools Directory ───────────────────────────────────────────
+      // Curated catalog of 50+ offensive and defensive security tools
+      // with filtering by category, keyword, and offensive/defensive scope.
+
+      this.tools(
+        'tools_list',
+        'List security tools from the curated Tools Directory. Filter by category (recon, exploitation, post-exploitation, defense, detection, forensics, osint, c2, phishing, crypto, mobile, cloud, network, reverse-engineering, web, misc), keyword, or offensive/defensive scope.',
+        {
+          category: z
+            .enum(['recon', 'exploitation', 'post-exploitation', 'defense', 'detection', 'forensics', 'osint', 'c2', 'phishing', 'crypto', 'mobile', 'cloud', 'network', 'reverse-engineering', 'web', 'misc'])
+            .optional()
+            .describe('Filter by tool category'),
+          keyword: z.string().optional().describe('Search keyword in name/description/tags'),
+          offensive: z.boolean().optional().describe('Filter by offensive tools (true) or defensive (false)'),
+          limit: z.number().int().min(1).max(200).optional().describe('Max results (default 50)'),
+        },
+        async ({ category, keyword, offensive, limit }) => {
+          const idx = await loadToolsIndex(ASSETS).catch(() => null);
+          if (!idx) return untrustedToolResult({ error: 'tools index not loaded' });
+          const results = listTools(idx, { category: category as ToolCategory | undefined, keyword, offensive, limit: limit ?? 50 });
+          return untrustedToolResult({ count: results.length, tools: results });
+        }
+      );
+
+      this.tools(
+        'tools_get',
+        'Get the full profile for a specific security tool by slug.',
+        {
+          slug: z.string().describe('Tool slug (e.g. "amass", "volatility", "metasploit")'),
+        },
+        async ({ slug }) => {
+          const body = await getTool(ASSETS, slug);
+          if (!body) return untrustedToolResult({ error: 'tool_not_found', slug });
+          return untrustedToolResult(body);
         }
       );
 
@@ -2108,6 +2366,39 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         },
         async ({ hash }) => {
           const r = await traceixLookup(this.env as { TRACEIX_API_KEY?: string }, hash);
+          return untrustedToolResult(r);
+        }
+      );
+
+      // ── Cerast Intelligence — domain exposure search ────────────
+      this.tools(
+        'cerast_domain_search',
+        'Search Cerast Intelligence for exposed paths and misconfigurations on observed domains. Returns domain, path, category, impact level, OpenPageRank score, version, and first-seen date. Useful for discovering staging/dev environments, exposed admin panels, and misconfigured endpoints.',
+        {
+          query: z
+            .string()
+            .min(3)
+            .describe('Substring to search for in domain names (case-insensitive, min 3 chars). E.g. "staging.", ".org", "test-".'),
+        },
+        async ({ query }) => {
+          const r = await cerastSearch(query);
+          return untrustedToolResult(r);
+        }
+      );
+
+      // ── ThreatMon Infostealer — stealer log investigation ───────
+      this.tools(
+        'threatmon_infostealer_search',
+        'Search ThreatMon IntelHub for compromised credentials and infected devices linked to a domain via real stealer malware logs. Returns compromised URLs, IPs, usernames, dates, and employee/user classification. Data sourced from ~2.18B compromised users and ~10.47B leaked credentials.',
+        {
+          domain: z.string().describe('Domain name to search, e.g. "example.com"'),
+          scope: z
+            .enum(['company', 'third-party'])
+            .optional()
+            .describe('Search scope: "company" for company URLs, "third-party" for third-party service URLs. Default: company.'),
+        },
+        async ({ domain, scope }) => {
+          const r = await threatmonInfostealerSearch(domain, scope ?? 'company');
           return untrustedToolResult(r);
         }
       );

@@ -54,6 +54,15 @@ export interface EnrichResult {
   phantomcandle_malicious_family?: string;
   /** PhantomCandle campaign / group attribution (e.g. "SilverFox"). */
   phantomcandle_campaign?: string;
+  ipqs_fraud_score?: number;
+  ipqs_proxy?: boolean;
+  ipqs_vpn?: boolean;
+  ipqs_tor?: boolean;
+  ipqs_recent_abuse?: boolean;
+  ipqs_bot_status?: boolean;
+  ipqs_connection_type?: string;
+  ipqs_abuse_velocity?: string;
+  ipqs_isp?: string;
   /** Per-provider latency + outcome, useful for debugging. */
   diagnostics: Array<{
     provider: string;
@@ -72,6 +81,7 @@ interface EnvWithSelf {
   KV_CACHE?: KVNamespace;
   PHANTOMCANDLE_USER?: string;
   PHANTOMCANDLE_TOKEN?: string;
+  IPQS_API_KEY?: string;
 }
 
 async function timed<T>(label: string, fn: () => Promise<T>): Promise<{ value?: T; ms: number; error?: string }> {
@@ -163,6 +173,64 @@ async function phantomcandleFetch(
   });
 }
 
+interface IPQSResponse {
+  success?: boolean;
+  fraud_score?: number;
+  proxy?: boolean;
+  vpn?: boolean;
+  tor?: boolean;
+  active_vpn?: boolean;
+  active_tor?: boolean;
+  recent_abuse?: boolean;
+  bot_status?: boolean;
+  connection_type?: string;
+  abuse_velocity?: string;
+  ISP?: string;
+  ASN?: string;
+  organization?: string;
+  country_code?: string;
+  region?: string;
+  city?: string;
+  is_crawler?: boolean;
+  mobile?: boolean;
+  hosting?: boolean;
+  message?: string;
+}
+
+async function ipqsFetch(
+  env: EnvWithSelf,
+  ip: string,
+  limiter: ReturnType<typeof createSiRateLimiter>,
+): Promise<{ value?: Record<string, unknown>; ms: number; error?: string; _rateLimited?: boolean; decision?: { retryAfterSeconds: number; limit: number } }> {
+  const label = 'ipqs';
+  const decision = await limiter.consume('ipqs');
+  if (!decision.allowed) {
+    const t0 = Date.now();
+    return {
+      _rateLimited: true,
+      decision: { retryAfterSeconds: decision.retryAfterSeconds, limit: decision.limit },
+      ms: Date.now() - t0,
+    };
+  }
+  return await timed(label, async () => {
+    const key = env.IPQS_API_KEY;
+    if (!key) {
+      throw new Error('IPQS_API_KEY not set');
+    }
+    const res = await fetch(`https://ipqualityscore.com/api/json/ip/${key}/${ip}`, {
+      headers: { accept: 'application/json' },
+    });
+    if (!res.ok) {
+      throw new Error(`ipqs returned ${res.status}`);
+    }
+    const body = (await res.json()) as IPQSResponse;
+    if (!body.success) {
+      throw new Error(`ipqs error: ${body.message || 'unknown'}`);
+    }
+    return body as unknown as Record<string, unknown>;
+  });
+}
+
 export function isValidIp(s: string): boolean {
   if (!s) return false;
   if (IPV4.test(s)) {
@@ -201,13 +269,14 @@ export async function enrichIp(env: EnvWithSelf, ip: string): Promise<EnrichResu
   // Run all providers in parallel. Each call records its own timing + status.
   // PhantomCandle uses direct fetch (not SELF proxy) because there's no
   // existing API route for it.
-  const [ipinfo, abuse, shodan, internetdb, vpn, phantomcandle] = await Promise.all([
+  const [ipinfo, abuse, shodan, internetdb, vpn, phantomcandle, ipqs] = await Promise.all([
     gated<Record<string, unknown>>('ipinfo', 'ipinfo', `/api/v1/ipinfo/${ip}`),
     gated<Record<string, unknown>>('abuseipdb', 'abuseipdb', `/api/v1/abuseipdb/${ip}`),
     gated<Record<string, unknown>>('shodan', 'shodan', `/api/v1/shodan/host/${ip}`),
     gated<Record<string, unknown>>('shodan-internetdb', 'shodan-internetdb', `/api/v1/shodan-internetdb/${ip}`),
     gated<Record<string, unknown>>('vpnapi', 'vpnapi', `/api/v1/vpnapi/${ip}`),
     phantomcandleFetch(env, ip, limiter),
+    ipqsFetch(env, ip, limiter),
   ]);
 
   if ((ipinfo as { _rateLimited?: boolean })._rateLimited) {
@@ -366,6 +435,35 @@ export async function enrichIp(env: EnvWithSelf, ip: string): Promise<EnrichResu
       status: (phantomcandle as { error?: string }).error ? 'failed' : 'skipped',
       ms: (phantomcandle as { ms: number }).ms,
       error: (phantomcandle as { error?: string }).error,
+    });
+  }
+
+  if ((ipqs as { _rateLimited?: boolean })._rateLimited) {
+    const d = (ipqs as { decision: { retryAfterSeconds: number; limit: number } }).decision;
+    result.diagnostics.push({
+      provider: 'ipqs',
+      status: 'rate_limited' as const,
+      ms: (ipqs as { ms: number }).ms,
+      error: `ipqs quota exhausted (limit ${d.limit}/window); retry in ${d.retryAfterSeconds}s`,
+    });
+  } else if ((ipqs as { value?: unknown }).value && Object.keys((ipqs as { value: Record<string, unknown> }).value).length > 0) {
+    const v = (ipqs as { value: Record<string, unknown> }).value;
+    result.ipqs_fraud_score = v.fraud_score as number | undefined;
+    result.ipqs_proxy = v.proxy as boolean | undefined;
+    result.ipqs_vpn = v.vpn as boolean | undefined;
+    result.ipqs_tor = v.tor as boolean | undefined;
+    result.ipqs_recent_abuse = v.recent_abuse as boolean | undefined;
+    result.ipqs_bot_status = v.bot_status as boolean | undefined;
+    result.ipqs_connection_type = v.connection_type as string | undefined;
+    result.ipqs_abuse_velocity = v.abuse_velocity as string | undefined;
+    result.ipqs_isp = v.ISP as string | undefined;
+    result.diagnostics.push({ provider: 'ipqs', status: 'ok', ms: ipqs.ms });
+  } else {
+    result.diagnostics.push({
+      provider: 'ipqs',
+      status: (ipqs as { error?: string }).error ? 'failed' : 'skipped',
+      ms: (ipqs as { ms: number }).ms,
+      error: (ipqs as { error?: string }).error,
     });
   }
 
