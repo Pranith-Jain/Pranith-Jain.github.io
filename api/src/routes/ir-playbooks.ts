@@ -120,7 +120,11 @@ export async function irPlaybookHandler(c: Context<{ Bindings: Env }>): Promise<
       runCompletion(
         c.env.AI,
         { system: SYSTEM_PROMPT, user: userPrompt, maxTokens: 3000, temperature: 0.3 },
-        { googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY, groqKey: c.env.GROQ_API_KEY }
+        {
+          googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY,
+          groqKey: c.env.GROQ_API_KEY,
+          nvidiaKey: c.env.NVIDIA_API_KEY as string | undefined,
+        }
       ),
       timeoutPromise,
     ]);
@@ -161,10 +165,7 @@ export async function irPlaybookHandler(c: Context<{ Bindings: Env }>): Promise<
         title: pb.title,
         category: pb.category ?? incidentType,
         severity: (['critical', 'high', 'medium', 'low'].includes(pb.severity ?? '') ? pb.severity : 'high') as
-          | 'critical'
-          | 'high'
-          | 'medium'
-          | 'low',
+          'critical' | 'high' | 'medium' | 'low',
         description: pb.description ?? '',
         steps: validatedSteps,
         tools_used: pb.tools_used ?? [],

@@ -204,7 +204,8 @@ async function createSession(db: D1Database, userId: string, token: string): Pro
     .prepare(
       "INSERT INTO user_sessions (id, user_id, token_hash, expires_at) VALUES (?, ?, ?, datetime('now', '+30 days'))"
     )
-    .bind(sessionId, userId, hash);
+    .bind(sessionId, userId, hash)
+    .run();
 }
 
 export async function validateSession(db: D1Database, token: string): Promise<User | null> {

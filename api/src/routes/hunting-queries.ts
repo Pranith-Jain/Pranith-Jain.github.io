@@ -75,7 +75,11 @@ export async function huntingQueryHandler(c: Context<{ Bindings: Env }>): Promis
       runCompletion(
         c.env.AI,
         { system: SYSTEM_PROMPT, user: userPrompt, maxTokens: 2000, temperature: 0.3 },
-        { googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY, groqKey: c.env.GROQ_API_KEY }
+        {
+          googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY,
+          groqKey: c.env.GROQ_API_KEY,
+          nvidiaKey: c.env.NVIDIA_API_KEY as string | undefined,
+        }
       ),
       timeoutPromise,
     ]);
@@ -99,9 +103,7 @@ export async function huntingQueryHandler(c: Context<{ Bindings: Env }>): Promis
         query: q.query!,
         description: q.description ?? '',
         confidence: (['high', 'medium', 'low'].includes(q.confidence ?? '') ? q.confidence : 'medium') as
-          | 'high'
-          | 'medium'
-          | 'low',
+          'high' | 'medium' | 'low',
       }));
 
     // Validate MITRE IDs — filter out invented ones

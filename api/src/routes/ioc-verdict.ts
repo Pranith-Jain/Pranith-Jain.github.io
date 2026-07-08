@@ -96,10 +96,10 @@ async function runProviders(
           cache.stageBatched(p, indicator, r);
           await recordProviderSuccess(p);
         } else {
-          await recordProviderFailure(p);
+          recordProviderFailure(p);
         }
       } catch {
-        await recordProviderFailure(p);
+        recordProviderFailure(p);
       }
     },
     10

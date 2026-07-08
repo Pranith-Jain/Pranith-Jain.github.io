@@ -106,7 +106,12 @@ export async function generateAiSummary(input: SummaryInput, env: Env): Promise<
           maxTokens: 800,
           temperature: 0.3,
         },
-        { googleKey: env.GOOGLE_AI_STUDIO_API_KEY, groqKey: env.GROQ_API_KEY, preferGroq: true }
+        {
+          googleKey: env.GOOGLE_AI_STUDIO_API_KEY,
+          groqKey: env.GROQ_API_KEY,
+          nvidiaKey: env.NVIDIA_API_KEY as string | undefined,
+          preferGroq: true,
+        }
       ),
       timeoutPromise,
     ]);

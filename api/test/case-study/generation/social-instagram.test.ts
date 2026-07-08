@@ -1,6 +1,17 @@
-import { describe, it, expect, vi } from 'vitest';
-import { generateSocialContent } from '../../../src/case-study/generation/social';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import type { Post } from '../../../src/case-study/types';
+
+vi.mock('../../../src/case-study/generation/ai-client', async () => {
+  const actual = await vi.importActual('../../../src/case-study/generation/ai-client');
+  return {
+    ...(actual as Record<string, unknown>),
+    runCompletion: vi.fn(),
+  };
+});
+
+beforeEach(() => {
+  vi.clearAllMocks();
+});
 
 const post = {
   slug: 'cve-2026-1234-fortigate',
@@ -18,15 +29,15 @@ describe('generateSocialContent — instagram', () => {
       { headline: 'What broke', body: 'Auth check is skippable.' },
       { headline: 'Patch now' },
     ]);
-    // ai.run returns caption for the IG caption call and slides for the carousel call.
-    const ai = { run: vi.fn(async () => ({ response: caption })) };
-    // Force the carousel builder's AI call to yield slide JSON by routing on prompt content.
-    ai.run = vi.fn(async (_model: string, opts: { messages: { content: string }[] }) => {
-      const u = opts.messages.map((m) => m.content).join(' ');
-      return { response: u.includes('Instagram carousel') ? slidesJson : caption };
-    }) as never;
 
-    const social = await generateSocialContent(post, ai as never, new Date('2026-05-19T15:05:00Z'));
+    const { runCompletion } = await import('../../../src/case-study/generation/ai-client');
+    (runCompletion as any).mockImplementation(async (_ai: unknown, opts: { user: string }) => {
+      const text = opts.user.includes('Instagram carousel') ? slidesJson : caption;
+      return { text, modelUsed: 'mock' };
+    });
+
+    const { generateSocialContent } = await import('../../../src/case-study/generation/social');
+    const social = await generateSocialContent(post, {} as never, new Date('2026-05-19T15:05:00Z'));
     expect(typeof social.instagram).toBe('string');
     expect(social.instagram!.length).toBeGreaterThan(0);
     expect(social.instagram!.length).toBeLessThanOrEqual(2200);

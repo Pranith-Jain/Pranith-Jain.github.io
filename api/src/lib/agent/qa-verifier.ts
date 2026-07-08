@@ -32,7 +32,7 @@ export async function verifyReport(
   queryType: string,
   originalReport: string,
   steps: AgentStep[],
-  opts: { groqKey?: string; googleKey?: string }
+  opts: { groqKey?: string; googleKey?: string; nvidiaKey?: string }
 ): Promise<QaResult> {
   // Build a compact summary of all collected data for fact-checking
   const dataSummary = buildDataSummary(steps);
@@ -44,6 +44,7 @@ export async function verifyReport(
   const { text, modelUsed } = await runCompletion(ai, input, {
     googleKey: opts.googleKey,
     groqKey: opts.groqKey,
+    nvidiaKey: opts.nvidiaKey,
     quality: true,
     preferGroq: true,
   });

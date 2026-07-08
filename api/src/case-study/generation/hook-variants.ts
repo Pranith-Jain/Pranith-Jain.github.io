@@ -46,7 +46,8 @@ export async function generateHookVariants(
   src: HookSource,
   ai: Ai,
   groqKey?: string,
-  googleKey?: string
+  googleKey?: string,
+  nvidiaKey?: string
 ): Promise<string[]> {
   try {
     const res = await runCompletion(
@@ -61,7 +62,7 @@ export async function generateHookVariants(
         temperature: 0.9,
         maxTokens: 400,
       },
-      { groqKey, googleKey, quality: true, preferGroq: true }
+      { groqKey, googleKey, nvidiaKey, quality: true, preferGroq: true }
     );
     return parseHooks(res.text);
   } catch {

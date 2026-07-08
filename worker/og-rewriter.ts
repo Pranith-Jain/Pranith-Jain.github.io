@@ -126,7 +126,7 @@ export const OG_OVERRIDES: Record<string, OgOverride> = {
   '/dfir/netdraw': {
     title: 'NetDraw — Network Diagrams · pranithjain.qzz.io',
     description:
-      'Browser-based network topology and architecture diagram editor. Drag-and-drop nodes, draw connections, build guided walkthroughs — for DFIR, SOC, and cloud-security mapping.',
+      'Browser-based network topology and architecture diagram editor. Drag-and-drop nodes, draw connections, build guided walkthroughs for DFIR, SOC, cloud security.',
   },
 };
 

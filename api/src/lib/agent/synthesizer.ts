@@ -29,7 +29,7 @@ export async function synthesizeReport(
   query: string,
   queryType: string,
   steps: AgentStep[],
-  opts: { groqKey?: string; googleKey?: string; dataQuality?: DataQuality }
+  opts: { groqKey?: string; googleKey?: string; nvidiaKey?: string; dataQuality?: DataQuality }
 ): Promise<SynthesizerOutput> {
   const dq = opts.dataQuality ?? {
     totalOk: steps.reduce((n, s) => n + s.results.filter((r) => r.status === 'ok').length, 0),
@@ -54,6 +54,7 @@ export async function synthesizeReport(
   const { text, modelUsed } = await runCompletion(ai, input, {
     googleKey: opts.googleKey,
     groqKey: opts.groqKey,
+    nvidiaKey: opts.nvidiaKey,
     quality: true,
     preferGroq: true,
   });

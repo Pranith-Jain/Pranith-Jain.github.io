@@ -54,14 +54,13 @@ const feed = new Hono<{ Bindings: FeedEnv }>();
 
 // In-memory dedup cache (resets on cold start, fine for this use case)
 const recentHashes = new Map<string, string>();
-const DEDUP_WINDOW_MS = 24 * 60 * 60 * 1000;
 
 function hashItem(item: Partial<FeedItem>): string {
   const key = `${item.type}:${item.title?.toLowerCase().trim()}`.slice(0, 200);
   let hash = 0;
   for (let i = 0; i < key.length; i++) {
     const char = key.charCodeAt(i);
-    hash = ((hash << 5) - hash) + char;
+    hash = (hash << 5) - hash + char;
     hash |= 0;
   }
   return hash.toString(36);
@@ -118,46 +117,78 @@ feed.get('/feed-aggregate', async (c) => {
 
   // Ransomware
   if (!type || type === 'ransomware') {
-    queries.push(db.prepare(`
+    queries.push(
+      db
+        .prepare(
+          `
       SELECT id, 'ransomware' as type, group_name as title, description as summary,
         'high' as severity, created_at as timestamp, url
       FROM ransomware_groups
       WHERE created_at > ?
       ORDER BY created_at DESC LIMIT 100
-    `).bind(since).all<FeedItem>().catch(() => ({ results: [] })));
+    `
+        )
+        .bind(since)
+        .all<FeedItem>()
+        .catch(() => ({ results: [] }))
+    );
   }
 
   // CVEs
   if (!type || type === 'cve') {
-    queries.push(db.prepare(`
+    queries.push(
+      db
+        .prepare(
+          `
       SELECT cve_id as id, 'cve' as type, cve_id as title, description as summary,
         severity, published_at as timestamp, url
       FROM cve_recent
       WHERE published_at > ?
       ORDER BY published_at DESC LIMIT 100
-    `).bind(since).all<FeedItem>().catch(() => ({ results: [] })));
+    `
+        )
+        .bind(since)
+        .all<FeedItem>()
+        .catch(() => ({ results: [] }))
+    );
   }
 
   // IOCs
   if (!type || type === 'ioc') {
-    queries.push(db.prepare(`
+    queries.push(
+      db
+        .prepare(
+          `
       SELECT indicator as id, 'ioc' as type, indicator as title, CONCAT(type, ' indicator') as summary,
         'medium' as severity, first_seen as timestamp
       FROM live_iocs
       WHERE first_seen > ?
       ORDER BY first_seen DESC LIMIT 100
-    `).bind(since).all<FeedItem>().catch(() => ({ results: [] })));
+    `
+        )
+        .bind(since)
+        .all<FeedItem>()
+        .catch(() => ({ results: [] }))
+    );
   }
 
   // Briefings
   if (!type || type === 'advisory') {
-    queries.push(db.prepare(`
+    queries.push(
+      db
+        .prepare(
+          `
       SELECT id, 'advisory' as type, title, SUBSTR(body, 1, 200) as summary,
         'medium' as severity, date as timestamp
       FROM briefings
       WHERE date > ?
       ORDER BY date DESC LIMIT 50
-    `).bind(since.slice(0, 10)).all<FeedItem>().catch(() => ({ results: [] })));
+    `
+        )
+        .bind(since.slice(0, 10))
+        .all<FeedItem>()
+        .catch(() => ({ results: [] }))
+    );
   }
 
   const results = await Promise.all(queries);
@@ -170,7 +201,6 @@ feed.get('/feed-aggregate', async (c) => {
 
   // Dedup
   const deduped: FeedItem[] = [];
-  const now = Date.now();
 
   for (const item of items) {
     const hash = hashItem(item);
@@ -223,9 +253,18 @@ feed.get('/feed-trending', async (c) => {
   const since = new Date(Date.now() - hours * 3600000).toISOString();
 
   // Get recent items grouped by type/title - handle missing tables gracefully
-  let recentItems: { title: string; type: string; count: number; first_seen: string; last_seen: string; sources: string }[] = [];
+  let recentItems: {
+    title: string;
+    type: string;
+    count: number;
+    first_seen: string;
+    last_seen: string;
+    sources: string;
+  }[] = [];
   try {
-    const result = await db.prepare(`
+    const result = await db
+      .prepare(
+        `
       SELECT title, type, COUNT(*) as count, MIN(created_at) as first_seen,
         MAX(created_at) as last_seen, GROUP_CONCAT(DISTINCT source) as sources
       FROM (
@@ -242,14 +281,17 @@ feed.get('/feed-trending', async (c) => {
       HAVING count >= 2
       ORDER BY count DESC
       LIMIT ?
-    `).bind(since, since, since, limit).all<{
-      title: string;
-      type: string;
-      count: number;
-      first_seen: string;
-      last_seen: string;
-      sources: string;
-    }>();
+    `
+      )
+      .bind(since, since, since, limit)
+      .all<{
+        title: string;
+        type: string;
+        count: number;
+        first_seen: string;
+        last_seen: string;
+        sources: string;
+      }>();
     recentItems = result.results || [];
   } catch {
     // Tables may not exist - return empty trending
@@ -279,13 +321,34 @@ feed.get('/feed-stats', async (c) => {
   const db = c.env.BRIEFINGS_DB;
 
   const stats = await Promise.all([
-    db.prepare('SELECT COUNT(*) as cnt FROM ransomware_groups').first<{ cnt: number }>().catch(() => ({ cnt: 0 })),
-    db.prepare('SELECT COUNT(*) as cnt FROM cve_recent').first<{ cnt: number }>().catch(() => ({ cnt: 0 })),
-    db.prepare('SELECT COUNT(*) as cnt FROM live_iocs').first<{ cnt: number }>().catch(() => ({ cnt: 0 })),
-    db.prepare('SELECT COUNT(*) as cnt FROM briefings').first<{ cnt: number }>().catch(() => ({ cnt: 0 })),
-    db.prepare("SELECT COUNT(*) as cnt FROM ransomware_groups WHERE created_at > datetime('now', '-24 hours')").first<{ cnt: number }>().catch(() => ({ cnt: 0 })),
-    db.prepare("SELECT COUNT(*) as cnt FROM cve_recent WHERE published_at > datetime('now', '-24 hours')").first<{ cnt: number }>().catch(() => ({ cnt: 0 })),
-    db.prepare("SELECT COUNT(*) as cnt FROM live_iocs WHERE first_seen > datetime('now', '-24 hours')").first<{ cnt: number }>().catch(() => ({ cnt: 0 })),
+    db
+      .prepare('SELECT COUNT(*) as cnt FROM ransomware_groups')
+      .first<{ cnt: number }>()
+      .catch(() => ({ cnt: 0 })),
+    db
+      .prepare('SELECT COUNT(*) as cnt FROM cve_recent')
+      .first<{ cnt: number }>()
+      .catch(() => ({ cnt: 0 })),
+    db
+      .prepare('SELECT COUNT(*) as cnt FROM live_iocs')
+      .first<{ cnt: number }>()
+      .catch(() => ({ cnt: 0 })),
+    db
+      .prepare('SELECT COUNT(*) as cnt FROM briefings')
+      .first<{ cnt: number }>()
+      .catch(() => ({ cnt: 0 })),
+    db
+      .prepare("SELECT COUNT(*) as cnt FROM ransomware_groups WHERE created_at > datetime('now', '-24 hours')")
+      .first<{ cnt: number }>()
+      .catch(() => ({ cnt: 0 })),
+    db
+      .prepare("SELECT COUNT(*) as cnt FROM cve_recent WHERE published_at > datetime('now', '-24 hours')")
+      .first<{ cnt: number }>()
+      .catch(() => ({ cnt: 0 })),
+    db
+      .prepare("SELECT COUNT(*) as cnt FROM live_iocs WHERE first_seen > datetime('now', '-24 hours')")
+      .first<{ cnt: number }>()
+      .catch(() => ({ cnt: 0 })),
   ]);
 
   return c.json({

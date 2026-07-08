@@ -1,37 +1,25 @@
-import type { Ai } from '@cloudflare/workers-types';
-
 /**
  * Case-study LLM client.
  *
- * Model selection (v2 — Qwen3-32B primary):
- *   Qwen3-32B is the best model for content writing on Groq:
- *   - 32.8B params, optimized for creative writing (23% of training data)
- *   - 82.08 WritingBench score
- *   - 60 RPM (highest rate limit on Groq)
- *   - 500K context window
- *   - Thinking mode (reasoning_effort) for deep blog analysis
- *   - Non-thinking mode for fast social content generation
- *
- *   Qwen3's thinking/non-thinking dual mode is the perfect fit:
- *   quality=true → thinking mode (blog posts, deep analysis)
- *   quality=false → non-thinking mode (social posts, fast generation)
+ * Keyed providers only — NVIDIA (first), Groq, Google. No Workers AI
+ * fallback (free quota exhausted). If all keyed providers fail the
+ * call throws with the last error.
  *
  * Provider order:
- *   1. Google AI Studio (Gemini) — own quota, free tier up to 1000 RPM,
- *      used when GOOGLE_AI_STUDIO_API_KEY is configured.
- *   2. Groq free tier (own quota, fast, good long-form) — used when a
+ *   1. NVIDIA build.nvidia.com (free tier, 40 RPM, 1000 credits, no CC) —
+ *      used when NVIDIA_API_KEY is configured. OpenAI-compatible endpoint.
+ *   2. Groq free tier (own quota, fast, Qwen3-32B) — used when a
  *      GROQ_API_KEY is configured.
- *   3. Workers AI (no key) — graceful fallback, two models only.
+ *   3. Google AI Studio (Gemini) — own quota, free tier up to 1000 RPM,
+ *      used when GOOGLE_AI_STUDIO_API_KEY is configured.
  *
- * Groq fallback chain: Qwen3-32B → GPT-OSS-120B → Workers AI.
- * Workers AI fallback: Llama-3.3-70B → Qwen3-30B-A3B → Llama-3.1-8B.
+ * NVIDIA fallback: MiniMax M2.7 → GLM-5.2 (both free on NVIDIA).
+ * Groq fallback: Qwen3-32B (thinking/non-thinking) → Llama 4 Scout.
  *
- * Rate-limit handling (the root-cause fix): a quota/"exceeded"/429 error is
- * account-wide — retrying with back-off or walking more same-account models
- * just deepens the limit and burns ~60-90s before still failing. So we
- * FAIL FAST on a rate-limit: surface a clear RateLimitError and let the
- * hourly publisher cron retry once the quota window resets, instead of
- * hammering it. Non-rate errors (e.g. a bad model id) still fall through.
+ * Rate-limit handling: a quota/"exceeded"/429 error is account-wide —
+ * retrying deepens the limit. FAIL FAST on rate-limit (RateLimitError).
+ * Non-rate errors (e.g. a bad model id) still fall through to next
+ * provider.
  */
 
 const GOOGLE_BASE = 'https://generativelanguage.googleapis.com/v1beta/models';
@@ -57,19 +45,10 @@ const GROQ_MODEL_QUALITY: string = 'qwen/qwen3-32b';
 const GROQ_MODEL_FALLBACK: string = 'llama-4-scout-17b-16e-instruct';
 const GROQ_TIMEOUT_MS = 30_000;
 
-// Workers-AI fallback chain (no key). Prioritise agentic/reasoning models
-// that support long contexts and multi-turn tool calling — critical for CTI
-// investigations. Kimi K2.6 is best overall (thinking mode, 262K context);
-// GLM-4.7-flash (262K, function calling) is next; Llama 3.3-70B is the fast
-// fallback. Two smaller models guard against model-specific capacity (3040)
-// errors — they have higher rate limits and are rarely at capacity.
-const WORKERS_AI_MODELS = [
-  '@cf/moonshotai/kimi-k2.6',
-  '@cf/zai-org/glm-4.7-flash',
-  '@cf/meta/llama-3.3-70b-instruct-fp8-fast',
-  '@cf/meta/llama-3.1-8b-instruct',
-  '@cf/meta/llama-3.2-3b-instruct',
-] as const;
+const NVIDIA_BASE = 'https://integrate.api.nvidia.com/v1/chat/completions';
+const NVIDIA_MODEL = 'minimaxai/minimax-m2.7';
+const NVIDIA_MODEL_FALLBACK = 'z-ai/glm-5.2';
+const NVIDIA_TIMEOUT_MS = 30_000;
 
 export interface CompletionInput {
   system: string;
@@ -88,13 +67,11 @@ export interface CompletionOpts {
   groqKey?: string;
   /** Google AI Studio (Gemini) API key; when present Gemini is tried first. */
   googleKey?: string;
+  /** NVIDIA build.nvidia.com API key; tried first. */
+  nvidiaKey?: string;
   /** Use the higher-quality model for synthesis. */
   quality?: boolean;
-  /**
-   * Try Groq BEFORE Google. Used by social content generation so Groq's
-   * Qwen3-32B (thinking/non-thinking) runs before Gemini — Gemini/Workers AI
-   * stay as fallback.
-   */
+  /** @deprecated NVIDIA is now always tried first; this option is a no-op. */
   preferGroq?: boolean;
 }
 
@@ -125,15 +102,6 @@ export function isRateLimited(err: unknown): boolean {
     msg.includes('quota') ||
     msg.includes('capacity')
   );
-}
-
-/** 3040 = Workers AI model-specific capacity issue (e.g. "3040: Capacity
- *  temporarily exceeded, please try again."). Unlike an account-wide rate
- *  limit, switching to a different model can succeed immediately.
- */
-export function isModelCapacityError(err: unknown): boolean {
-  const msg = err instanceof Error ? err.message : String(err);
-  return msg.includes('3040');
 }
 
 async function callGoogleModel(key: string, model: string, input: CompletionInput): Promise<string | null> {
@@ -216,37 +184,42 @@ async function runGroq(key: string, input: CompletionInput, model?: string, qual
   return text;
 }
 
-/** Single Workers-AI attempt — NO back-off retry (see file header). */
-async function runWorkersModel(ai: Ai, model: string, input: CompletionInput): Promise<string> {
-  const res = (await ai.run(
-    model as Parameters<typeof ai.run>[0],
-    {
-      messages: [
-        { role: 'system', content: input.system },
-        { role: 'user', content: input.user },
-      ],
-      max_tokens: input.maxTokens ?? 4000,
-      temperature: input.temperature ?? 0.5,
-    } as Parameters<typeof ai.run>[1]
-  )) as Record<string, unknown>;
-  const text =
-    (res.response as string | undefined) ??
-    (res.choices as Array<{ message?: { content?: string } }> | undefined)?.[0]?.message?.content;
-  if (typeof text !== 'string' || !text.trim()) {
-    const keys = Object.keys(res).join(',');
-    throw new Error(`Empty response from ${model} (response keys: ${keys})`);
+async function runNvidia(key: string, input: CompletionInput, model: string): Promise<string> {
+  let res: Response;
+  try {
+    res = await fetch(NVIDIA_BASE, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${key}`, 'content-type': 'application/json' },
+      body: JSON.stringify({
+        model,
+        messages: [
+          { role: 'system', content: input.system },
+          { role: 'user', content: input.user },
+        ],
+        max_tokens: input.maxTokens ?? 4000,
+        temperature: input.temperature ?? 0.5,
+      }),
+      signal: AbortSignal.timeout(NVIDIA_TIMEOUT_MS),
+    });
+  } catch (err) {
+    throw new Error(`nvidia request failed: ${err instanceof Error ? err.message : String(err)}`);
   }
+  if (res.status === 429) throw new RateLimitError('nvidia rate limited (429)');
+  if (!res.ok) {
+    const body = await res.text().catch(() => '');
+    throw new Error(`nvidia HTTP ${res.status}${body ? `: ${body.slice(0, 200)}` : ''}`);
+  }
+  const j = (await res.json()) as { choices?: Array<{ message?: { content?: string } }> };
+  const text = j?.choices?.[0]?.message?.content;
+  if (typeof text !== 'string' || !text.trim()) throw new Error('nvidia empty response');
   return text;
 }
 
 export async function runCompletion(
-  ai: Ai,
+  _ai: unknown,
   input: CompletionInput,
   opts: CompletionOpts = {}
 ): Promise<CompletionOutput> {
-  // Google + Groq attempts as closures so the order can be swapped. Default is
-  // Google → Groq (case-study generation); AI-summary surfaces pass
-  // opts.preferGroq to run Groq before Google ("prefer Groq").
   const tryGoogle = async (): Promise<CompletionOutput | null> => {
     if (!opts.googleKey) return null;
     try {
@@ -295,42 +268,36 @@ export async function runCompletion(
     }
   };
 
-  // 1+2. Try the two keyed providers in the configured order.
-  const order = opts.preferGroq ? [tryGroq, tryGoogle] : [tryGoogle, tryGroq];
-  for (const attempt of order) {
+  // 3. Add tryNvidia closure.
+  const tryNvidiaClosure = async (): Promise<CompletionOutput | null> => {
+    if (!opts.nvidiaKey) return null;
+    try {
+      const text = await runNvidia(opts.nvidiaKey, input, NVIDIA_MODEL);
+      return { text, modelUsed: `nvidia:${NVIDIA_MODEL}` };
+    } catch (err) {
+      if (isRateLimited(err)) {
+        console.warn('runCompletion: nvidia rate-limited, falling through', err);
+      } else {
+        try {
+          const text = await runNvidia(opts.nvidiaKey, input, NVIDIA_MODEL_FALLBACK);
+          return { text, modelUsed: `nvidia:${NVIDIA_MODEL_FALLBACK}` };
+        } catch (e2) {
+          console.warn('runCompletion: nvidia fallback model failed too', e2);
+        }
+      }
+      return null;
+    }
+  };
+
+  // Try keyed providers in order: NVIDIA → Groq → Google.
+  const keyedOrder = [tryNvidiaClosure, tryGroq, tryGoogle];
+  for (const attempt of keyedOrder) {
     const result = await attempt();
     if (result) return result;
   }
 
-  // 3. Workers-AI fallback. FAIL FAST on an account-wide rate-limit
-  // (429 / "rate limit") — trying the next model on the same account is
-  // futile and just deepens it. But a per-model "3040: Capacity temporarily
-  // exceeded" is model-specific, not account-wide, so walk the chain.
-  let lastErr: unknown;
-  for (let i = 0; i < WORKERS_AI_MODELS.length; i += 1) {
-    const model = WORKERS_AI_MODELS[i]!;
-    try {
-      const text = await runWorkersModel(ai, model, input);
-      return { text, modelUsed: model };
-    } catch (err) {
-      lastErr = err;
-      // 3040 = model-specific capacity (e.g. "3040: Capacity temporarily
-      // exceeded"). Try the next model before giving up.
-      if (isRateLimited(err) && !isModelCapacityError(err)) {
-        throw new RateLimitError(
-          `AI rate-limited/quota exceeded (${model}) — deferring; the hourly publisher cron will retry. ` +
-            `Configure GROQ_API_KEY to use Groq's separate free quota. Detail: ${
-              err instanceof Error ? err.message : String(err)
-            }`
-        );
-      }
-      if (i < WORKERS_AI_MODELS.length - 1) {
-        console.warn(
-          `runCompletion: ${model} failed${isModelCapacityError(err) ? ' (capacity)' : ''}, trying ${WORKERS_AI_MODELS[i + 1]}`,
-          err
-        );
-      }
-    }
-  }
-  throw lastErr instanceof Error ? lastErr : new Error(String(lastErr));
+  // All keyed providers exhausted — surface the last error or a clear message.
+  throw new Error(
+    'All LLM providers exhausted. Configure at least NVIDIA_API_KEY or GROQ_API_KEY as a wrangler secret.'
+  );
 }

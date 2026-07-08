@@ -229,6 +229,7 @@ export class InvestigatorAgentDO {
     const ai = apiEnv.AI;
     const groqKey = apiEnv.GROQ_API_KEY;
     const googleKey = apiEnv.GOOGLE_AI_STUDIO_API_KEY;
+    const nvidiaKey = apiEnv.NVIDIA_API_KEY;
     // Pass admin token so tool calls bypass the external API key gate.
     // The DO calls /api/v1/* via the SELF service binding (in-process) but
     // the authenticate('external-only') middleware still requires credentials
@@ -248,7 +249,7 @@ export class InvestigatorAgentDO {
     // max-iterations. If any fires we synthesize without spending a planner call.
     const exit = evaluateCtiExit(view);
     if (exit) {
-      return await this.doSynthesize(state, ai, groqKey, googleKey, stepNum, stepStart, exit.reason);
+      return await this.doSynthesize(state, ai, groqKey, googleKey, nvidiaKey, stepNum, stepStart, exit.reason);
     }
 
     // ── PLAN (specialist-aware) ──────────────────────────────────────
@@ -259,7 +260,7 @@ export class InvestigatorAgentDO {
     let specialistContext = '';
     if (stepNum === 1) {
       try {
-        const plan = await buildOrchestratorPlan(state.query, state.queryType, { groqKey, googleKey });
+        const plan = await buildOrchestratorPlan(state.query, state.queryType, { groqKey, googleKey, nvidiaKey });
         specialistContext = plan.specialistCalls
           .map((d) => {
             const def = SPECIALIST_REGISTRY[d.role];
@@ -275,18 +276,19 @@ export class InvestigatorAgentDO {
     const plan = await planNextStep(ai, state.query, state.queryType, state.steps, stepNum, state.maxSteps, tools, {
       groqKey,
       googleKey,
+      nvidiaKey,
       specialistContext: specialistContext || undefined,
     });
 
     if (plan.shouldSynthesize) {
-      return await this.doSynthesize(state, ai, groqKey, googleKey, stepNum, stepStart, plan.reasoning);
+      return await this.doSynthesize(state, ai, groqKey, googleKey, nvidiaKey, stepNum, stepStart, plan.reasoning);
     }
 
     // Guardrails: drop unknown / duplicate / banned tools and cap the batch.
     const validToolNames = new Set(tools.map((t) => t.name));
     const toolCalls = filterCtiToolCalls(plan.toolCalls, view, validToolNames);
     if (toolCalls.length === 0) {
-      return await this.doSynthesize(state, ai, groqKey, googleKey, stepNum, stepStart, plan.reasoning);
+      return await this.doSynthesize(state, ai, groqKey, googleKey, nvidiaKey, stepNum, stepStart, plan.reasoning);
     }
 
     // ── ACT ──────────────────────────────────────────────────────────
@@ -304,7 +306,7 @@ export class InvestigatorAgentDO {
     step.completedAt = new Date().toISOString();
 
     // ── OBSERVE ──────────────────────────────────────────────────────
-    const observation = await observeStep(ai, stepNum, plan.reasoning, results, { groqKey, googleKey });
+    const observation = await observeStep(ai, stepNum, plan.reasoning, results, { groqKey, googleKey, nvidiaKey });
     step.observation = observation.observation;
     step.nextAction = 'continue';
     step.status = 'done';
@@ -388,6 +390,7 @@ export class InvestigatorAgentDO {
     ai: ApiEnv['AI'],
     groqKey: string | undefined,
     googleKey: string | undefined,
+    nvidiaKey: string | undefined,
     stepNum: number,
     stepStart: string,
     planReasoning: string
@@ -413,6 +416,7 @@ export class InvestigatorAgentDO {
       const result = await synthesizeReport(ai, state.query, state.queryType, state.steps, {
         groqKey,
         googleKey,
+        nvidiaKey,
         dataQuality: { totalOk, totalErr, emptyResults },
       });
 
@@ -433,6 +437,7 @@ export class InvestigatorAgentDO {
         const qa = await verifyReport(ai, state.query, state.queryType, result.report, state.steps, {
           groqKey,
           googleKey,
+          nvidiaKey,
         });
 
         // Use the verified report (hallucinations removed, facts added).

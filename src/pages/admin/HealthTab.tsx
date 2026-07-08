@@ -9,6 +9,7 @@ interface Health {
   postsCount: number;
   approvalRequired?: boolean;
   secrets?: { groq?: boolean; vulncheck?: boolean };
+  groqTest?: { ok: boolean; detail: string };
 }
 
 const CARDS: Array<{
@@ -92,6 +93,12 @@ export default function HealthTab() {
       badges.push({ tone: 'warn', text: 'VULNCHECK_API_TOKEN missing — KEV runner no-ops' });
     } else {
       badges.push({ tone: 'ok', text: 'VulnCheck key set' });
+    }
+    if (health.groqTest) {
+      badges.push({
+        tone: health.groqTest.ok ? 'ok' : 'err',
+        text: `Groq test: ${health.groqTest.ok ? 'OK' : health.groqTest.detail}`,
+      });
     }
   }
 

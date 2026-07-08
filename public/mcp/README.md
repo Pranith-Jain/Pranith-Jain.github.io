@@ -1,6 +1,6 @@
 # DFIR-ThreatIntel MCP - tool catalog
 
-**167 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
+**166 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
 
 ## Quick start
 
@@ -187,13 +187,6 @@
 - `extract_ttps` - Extract MITRE ATT&CK techniques from a free-text threat report. Returns technique IDs, tactic labels, confidence (high/medium/low), and the supporting evidence string. Combines a deterministic keyword scanner with an LLM pass and merges the results.
 - `parse_threat_report` - Parse a threat intelligence report or article to extract structured data: IOCs (IPs, domains, URLs, hashes), threat actors, malware families, MITRE ATT&CK techniques, CVEs, targeted sectors, and an executive summary. Use this when analyzing threat reports, blog posts, or incident write-ups.
 
-### search (4)
-
-- `search_malpedia` - Search Malpedia for malware families or threat actors. Returns matching entries with descriptions and references.
-- `search_malware` - Search for malware families. Returns family info, YARA rules, samples, and references from Malpedia.
-- `search_triage` - Search Recorded Future Triage sandbox for malware samples by family, tag, hash, URL, or domain. Returns analysis results, behavioral reports, and extracted configs.
-- `unified_search` - Cross-source search across all threat intelligence feeds. Search by keyword, IOC, actor name, malware family, or CVE to find matching entries across briefings, live feeds, ransomware data, and more.
-
 ### cve (3)
 
 - `cve_health` - Check the health of CVE data pipelines. Validates NVD API, EPSS API, CISA KEV, GitHub API rate limit, KV intel cache (EPSS coverage, KEV count, field completeness), and Exploit-DB mirror availability. Returns overall status (healthy/degraded/unhealthy) with per-check details.
@@ -205,6 +198,12 @@
 - `passive_dns_overlap` - Find IPs shared between multiple domains (infrastructure overlap detection). Useful for mapping shared malicious hosting.
 - `passive_dns_query` - Query passive DNS for a domain or IP. Returns historical DNS resolutions, infrastructure migrations, and fast-flux detection. Sources: VirusTotal, URLscan, crt.sh, CIRCL.
 - `passive_dns_reverse` - Reverse passive DNS lookup: find all domains that historically resolved to a given IP. Reads from accumulated D1 cache.
+
+### search (3)
+
+- `search_malpedia` - Search Malpedia for malware families or threat actors. Returns matching entries with descriptions and references.
+- `search_triage` - Search Recorded Future Triage sandbox for malware samples by family, tag, hash, URL, or domain. Returns analysis results, behavioral reports, and extracted configs.
+- `unified_search` - Cross-source search across all threat intelligence feeds. Search by keyword, IOC, actor name, malware family, or CVE to find matching entries across briefings, live feeds, ransomware data, and more.
 
 ### phishing (2)
 

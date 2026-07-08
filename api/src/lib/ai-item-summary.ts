@@ -90,7 +90,12 @@ export async function generateItemSummary(item: ItemInput, env: Env): Promise<st
       runCompletion(
         env.AI,
         { system: SYSTEM_PROMPT, user: buildUserPrompt(item), maxTokens: 120, temperature: 0.2 },
-        { googleKey: env.GOOGLE_AI_STUDIO_API_KEY, groqKey: env.GROQ_API_KEY, preferGroq: true }
+        {
+          googleKey: env.GOOGLE_AI_STUDIO_API_KEY,
+          groqKey: env.GROQ_API_KEY,
+          nvidiaKey: env.NVIDIA_API_KEY as string | undefined,
+          preferGroq: true,
+        }
       ),
       timeoutPromise,
     ]);

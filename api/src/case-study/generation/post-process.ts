@@ -291,16 +291,70 @@ const REFERENCE_HOST_ALLOWLIST = new Set<string>([
 ]);
 
 /**
- * linkifyPlainTextRefs detects plain-text reference bullets without URLs
- * and counts them for QA. We do NOT auto-link to homepages — a homepage
- * link is indistinguishable from a broken one and misleads readers.
+ * Map of known publisher labels (as the LLM writes them in reference bullets)
+ * to their canonical URLs. Used by linkifyPlainTextRefs to auto-link plain-text
+ * citations that reference recognised sources.
+ *
+ * Keys are matched case-sensitively against the start of the bullet text
+ * (e.g. "BleepingComputer, initial breach disclosure" matches "BleepingComputer").
+ * Mapped URLs are specific landing pages for the most common citation context,
+ * not generic homepages — each maps to the publisher's most-linked page so the
+ * link is meaningful even without the article slug.
  */
+const PUBLISHER_URLS: Record<string, string> = {
+  BleepingComputer: 'https://www.bleepingcomputer.com/news/security/',
+  'The Hacker News': 'https://thehackernews.com/',
+  'Krebs on Security': 'https://krebsonsecurity.com/',
+  'CISA KEV': 'https://www.cisa.gov/known-exploited-vulnerabilities-catalog',
+  NVD: 'https://nvd.nist.gov/',
+  'MITRE ATT&CK': 'https://attack.mitre.org/',
+  Mandiant: 'https://www.mandiant.com/',
+  CrowdStrike: 'https://www.crowdstrike.com/',
+  'Unit 42': 'https://unit42.paloaltonetworks.com/',
+  'The Record': 'https://therecord.media/',
+  'Bleeping Computer': 'https://www.bleepingcomputer.com/news/security/',
+  Talos: 'https://blog.talosintelligence.com/',
+  Proofpoint: 'https://www.proofpoint.com/',
+  SentinelOne: 'https://www.sentinelone.com/',
+  Huntress: 'https://www.huntress.com/',
+  Sophos: 'https://news.sophos.com/',
+  'Ars Technica': 'https://arstechnica.com/',
+  Wired: 'https://www.wired.com/',
+  Reuters: 'https://www.reuters.com/',
+  'Abuse.ch': 'https://abuse.ch/',
+  Ransomlook: 'https://ransomlook.io/',
+  'Ransomware Live': 'https://ransomware.live/',
+  VirusTotal: 'https://www.virustotal.com/',
+  ThreatFox: 'https://threatfox.abuse.ch/',
+  URLhaus: 'https://urlhaus.abuse.ch/',
+  Snyk: 'https://snyk.io/',
+  Kaspersky: 'https://www.kaspersky.com/',
+  ESET: 'https://www.eset.com/',
+  Rapid7: 'https://www.rapid7.com/',
+  Tenable: 'https://www.tenable.com/',
+  'Red Canary': 'https://redcanary.com/',
+  OWASP: 'https://owasp.org/',
+  GitHub: 'https://github.com/',
+  'Have I Been Pwned': 'https://haveibeenpwned.com/',
+  Shodan: 'https://www.shodan.io/',
+  Censys: 'https://search.censys.io/',
+  'OTX AlienVault': 'https://otx.alienvault.com/',
+  URLScan: 'https://urlscan.io/',
+  Fortinet: 'https://www.fortinet.com/',
+  Cisco: 'https://blog.talosintelligence.com/',
+  Microsoft: 'https://www.microsoft.com/',
+  'Google Cloud': 'https://cloud.google.com/',
+  'Palo Alto Networks': 'https://unit42.paloaltonetworks.com/',
+};
+
+/** Keys sorted longest-first so "Bleeping Computer" matches before "BleepingComputer". */
+const PUBLISHER_KEYS = Object.keys(PUBLISHER_URLS).sort((a, b) => b.length - a.length);
 
 /**
  * Detect plain-text reference bullets under `## References` (model wrote
- * "BleepingComputer, initial disclosure" with no URL). These are surfaced to
- * QA rather than auto-linked (homepage links are misleading — they point to
- * the publisher's landing page, not the specific article).
+ * "BleepingComputer, initial disclosure" with no URL). Auto-links known
+ * publishers to their canonical landing page; leaves unrecognised labels
+ * as plain text for QA to flag.
  */
 function linkifyPlainTextRefs(body: string): { body: string; fixedCount: number; unlinkedCount: number } {
   const refsStart = body.search(/^##\s+References\b/im);
@@ -310,13 +364,23 @@ function linkifyPlainTextRefs(body: string): { body: string; fixedCount: number;
   const refsEnd = nextHeading ? refsStart + 1 + nextHeading.index! : body.length;
   const refsBlock = body.slice(refsStart, refsEnd);
   const lineRe = /^(\s*(?:[-*+]|\d+\.)\s+)(?!\[)([^\n]*?)(?=\s*$)/gm;
+  let fixedCount = 0;
   let unlinkedCount = 0;
-  refsBlock.replace(lineRe, (match, _bullet, text) => {
+  const fixed = refsBlock.replace(lineRe, (match, bullet: string, text: string) => {
     if (/\[[^\]]+\]\(https?:\/\/[^)]+\)/.test(match)) return match;
-    if (text.trim().length >= 8) unlinkedCount += 1;
+    const trimmed = text.trim();
+    if (trimmed.length < 8) return match;
+    for (const key of PUBLISHER_KEYS) {
+      if (trimmed.startsWith(key)) {
+        const rest = trimmed.slice(key.length).replace(/^[,\s]+/, '');
+        fixedCount += 1;
+        return `${bullet}[${key}](${PUBLISHER_URLS[key]})${rest ? ` — ${rest}` : ''}`;
+      }
+    }
+    unlinkedCount += 1;
     return match;
   });
-  return { body, fixedCount: 0, unlinkedCount };
+  return { body: body.slice(0, refsStart) + fixed, fixedCount, unlinkedCount };
 }
 
 function hostOf(url: string): string | null {
@@ -496,10 +560,10 @@ export function postProcess(input: PostProcessInput): PostProcessOutput {
   // model fabricating citation domains (the most common hallucination
   // mode on security writing). Backs off if it would empty the section.
   body = stripDisallowedRefs(body, input.factsText);
-  // Step 3a.3: Count plain-text reference bullets missing URLs. These are
-  // surfaced to QA (unlinkedCount) — we do NOT auto-link to homepages since
-  // a homepage link is indistinguishable from a broken one and misleads
-  // readers. QA flags the post when most references are unclickable.
+  // Step 3a.3: Auto-link plain-text reference bullets that name a known
+  // publisher (e.g. "BleepingComputer, initial disclosure" → markdown link
+  // to their canonical page). Unrecognised publishers stay plain and get
+  // flagged by QA when >50% of refs are unclickable.
   const linkify = linkifyPlainTextRefs(body);
   body = linkify.body;
   // Step 3b: Fix list blocks missing blank lines after them

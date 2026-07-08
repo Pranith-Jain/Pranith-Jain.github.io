@@ -1,7 +1,18 @@
-import { describe, it, expect, vi } from 'vitest';
-import { generatePost } from '../../../src/case-study/generation/index';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import type { Candidate } from '../../../src/case-study/types';
 import type { LinkStatus } from '../../../src/lib/verify-url';
+
+beforeEach(() => {
+  vi.clearAllMocks();
+});
+
+vi.mock('../../../src/case-study/generation/ai-client', async () => {
+  const actual = await vi.importActual('../../../src/case-study/generation/ai-client');
+  return {
+    ...(actual as Record<string, unknown>),
+    runCompletion: vi.fn(),
+  };
+});
 
 // Hermetic reference verifier: treat every URL as resolving so unit tests
 // never issue real HEAD requests. Tests that exercise pruning pass their
@@ -42,7 +53,10 @@ const goodMd = [
 
 describe('generatePost', () => {
   it('produces a complete Post for an approved candidate', async () => {
-    const ai = { run: vi.fn(async () => ({ response: goodMd })) };
+    const { runCompletion } = await import('../../../src/case-study/generation/ai-client');
+    (runCompletion as any).mockResolvedValue({ text: goodMd, modelUsed: 'mock' });
+    const { generatePost } = await import('../../../src/case-study/generation/index');
+    const ai = { run: vi.fn() };
     const post = await generatePost({
       candidate,
       ai: ai as any,
@@ -59,34 +73,42 @@ describe('generatePost', () => {
   });
 
   it('throws if post-processing rejects the output', async () => {
-    const ai = { run: vi.fn(async () => ({ response: 'Garbage with no sections.' })) };
+    const { runCompletion } = await import('../../../src/case-study/generation/ai-client');
+    (runCompletion as any).mockResolvedValue({ text: 'Garbage with no sections.', modelUsed: 'mock' });
+    const { generatePost } = await import('../../../src/case-study/generation/index');
+    const ai = { run: vi.fn() };
     await expect(generatePost({ candidate, ai: ai as any, now: new Date() })).rejects.toThrow(/validation failed/i);
   });
 
   it('a QA-failing first draft is rescued by the one-shot repair pass', async () => {
     const thin = ['## Summary', 'Too short to be useful.', '## References', '- https://x.test'].join('\n\n');
-    const ai = {
-      run: vi
-        .fn()
-        .mockResolvedValueOnce({ response: thin }) // draft 1: structurally ok but fails QA
-        .mockResolvedValueOnce({ response: goodMd }), // repair: substantive, passes QA
-    };
+    const { runCompletion } = await import('../../../src/case-study/generation/ai-client');
+    (runCompletion as any)
+      .mockResolvedValueOnce({ text: thin, modelUsed: 'mock' })
+      .mockResolvedValueOnce({ text: goodMd, modelUsed: 'mock' });
+    const { generatePost } = await import('../../../src/case-study/generation/index');
+    const ai = { run: vi.fn() };
     const post = await generatePost({ candidate, ai: ai as any, now: new Date(), verifyRefs: allOk });
-    expect(ai.run).toHaveBeenCalledTimes(2); // proves the QA repair path ran
+    expect(runCompletion).toHaveBeenCalledTimes(2);
     expect(post.body).toContain('## Summary');
     expect(post.qa?.passed).toBe(true);
   });
 
   it('throws "qa failed" when content stays sub-standard after repair', async () => {
     const thin = ['## Summary', 'Too short.', '## References', '- https://x.test'].join('\n\n');
-    const ai = { run: vi.fn(async () => ({ response: thin })) };
+    const { runCompletion } = await import('../../../src/case-study/generation/ai-client');
+    (runCompletion as any).mockResolvedValue({ text: thin, modelUsed: 'mock' });
+    const { generatePost } = await import('../../../src/case-study/generation/index');
+    const ai = { run: vi.fn() };
     await expect(generatePost({ candidate, ai: ai as any, now: new Date() })).rejects.toThrow(/qa failed/i);
   });
 
   it('attaches an AI hero image + injects a body image when aiImages is enabled', async () => {
+    const { runCompletion } = await import('../../../src/case-study/generation/ai-client');
+    (runCompletion as any).mockResolvedValue({ text: goodMd, modelUsed: 'mock' });
+    const { generatePost } = await import('../../../src/case-study/generation/index');
     const ai = {
       run: vi.fn(async (model: string) => {
-        // Image model → image bytes; text models → the good markdown.
         if (typeof model === 'string' && model.includes('flux')) return { image: btoa('IMG') };
         return { response: goodMd };
       }),
@@ -99,7 +121,7 @@ describe('generatePost', () => {
       verifyRefs: allOk,
       aiImages: {
         enabled: true,
-        put: async (_slug, name, bytes) => {
+        put: async (_slug: string, name: string, bytes: Uint8Array) => {
           puts.push({ name, bytes });
         },
       },
@@ -110,6 +132,9 @@ describe('generatePost', () => {
   });
 
   it('falls back to the SVG hero (no heroImageUrl) when image generation fails', async () => {
+    const { runCompletion } = await import('../../../src/case-study/generation/ai-client');
+    (runCompletion as any).mockResolvedValue({ text: goodMd, modelUsed: 'mock' });
+    const { generatePost } = await import('../../../src/case-study/generation/index');
     const ai = {
       run: vi.fn(async (model: string) => {
         if (typeof model === 'string' && model.includes('flux')) throw new Error('AI image down');
@@ -132,7 +157,10 @@ describe('generatePost', () => {
       goodMd,
       '- [Fabricated writeup](https://www.bleepingcomputer.com/news/security/this-slug-does-not-exist/)',
     ].join('\n');
-    const ai = { run: vi.fn(async () => ({ response: withBrokenRef })) };
+    const { runCompletion } = await import('../../../src/case-study/generation/ai-client');
+    (runCompletion as any).mockResolvedValue({ text: withBrokenRef, modelUsed: 'mock' });
+    const { generatePost } = await import('../../../src/case-study/generation/index');
+    const ai = { run: vi.fn() };
     const post = await generatePost({
       candidate,
       ai: ai as any,
@@ -141,6 +169,6 @@ describe('generatePost', () => {
         new Map(urls.map((u) => [u, u.includes('this-slug-does-not-exist') ? 'broken' : 'ok'] as const)),
     });
     expect(post.body).not.toContain('this-slug-does-not-exist');
-    expect(post.body).toContain('## Summary'); // good refs + body survive
+    expect(post.body).toContain('## Summary');
   });
 });

@@ -114,9 +114,7 @@ function normalizeRiskLevel(value: unknown): 'HIGH' | 'MEDIUM' | 'LOW' {
 
 function asStringArray(value: unknown, min: number, max: number): string[] {
   if (!Array.isArray(value)) return [];
-  const out = value
-    .filter((v): v is string => typeof v === 'string' && v.trim().length > 0)
-    .map((v) => v.trim());
+  const out = value.filter((v): v is string => typeof v === 'string' && v.trim().length > 0).map((v) => v.trim());
   if (out.length < min) {
     // pad with a generic placeholder so the front-end can still render
     while (out.length < min) out.push('(insufficient detail from the model)');
@@ -190,11 +188,14 @@ export async function fplensAnalyzeHandler(c: Context<{ Bindings: Env }>) {
           maxTokens: 1800,
           temperature: 0.2,
         },
-        { googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY, groqKey: c.env.GROQ_API_KEY, quality: true }
+        {
+          googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY,
+          groqKey: c.env.GROQ_API_KEY,
+          nvidiaKey: c.env.NVIDIA_API_KEY as string | undefined,
+          quality: true,
+        }
       ),
-      new Promise<never>((_, reject) =>
-        setTimeout(() => reject(new Error('fplens-timeout')), 20_000)
-      ),
+      new Promise<never>((_, reject) => setTimeout(() => reject(new Error('fplens-timeout')), 20_000)),
     ]);
     const text = llmOut.text?.trim();
     if (!text) {

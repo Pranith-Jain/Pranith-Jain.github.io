@@ -78,6 +78,7 @@ export interface CaseStudyEnv {
   BRIEFINGS_DB?: D1Database;
   GROQ_API_KEY?: string;
   GOOGLE_AI_STUDIO_API_KEY?: string;
+  NVIDIA_API_KEY?: string;
   /** Free VulnCheck Community token. Absent = VulnCheck KEV runner is a no-op. */
   VULNCHECK_API_TOKEN?: string;
   SITE_URL?: string;
@@ -448,7 +449,8 @@ export async function generateSocialForPost(slug: string, env: CaseStudyEnv, now
       env.AI as never,
       now,
       env.GROQ_API_KEY,
-      env.GOOGLE_AI_STUDIO_API_KEY
+      env.GOOGLE_AI_STUDIO_API_KEY,
+      env.NVIDIA_API_KEY as string | undefined
     );
     await env.CASE_STUDIES.put(csKvKeys.social(slug), JSON.stringify(social));
     console.log(JSON.stringify({ job: 'auto-social', slug, status: 'generated' }));

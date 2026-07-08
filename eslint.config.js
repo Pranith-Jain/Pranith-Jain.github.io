@@ -17,6 +17,9 @@ export default tseslint.config(
       '.wrangler/',
       'public/sw.js',
       'threatnexus-replication/dist/',
+      'threat-intel-staging/**',
+      'security-investigator-replication/**',
+      'public/dfir/**',
     ],
   },
 

@@ -37,6 +37,8 @@ export interface Env {
   BROWSER: Fetcher;
   /** Optional NVD API key (Worker secret) — raises NVD rate limit ~10x. */
   NVD_API_KEY?: string;
+  /** Optional NVIDIA API key (Worker secret) — for NVIDIA completion fallback. */
+  NVIDIA_API_KEY?: string;
   // Optional Worker secrets — unset in dev/preview and consumed with a
   // `?? ''` fallback. Declaring them required was a type lie that would
   // hide a genuine `undefined` if any caller forgot the fallback.

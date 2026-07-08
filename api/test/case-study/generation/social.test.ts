@@ -1,5 +1,19 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import type { Post } from '../../../src/case-study/types';
+
+beforeEach(() => {
+  vi.clearAllMocks();
+});
+
+vi.mock('../../../src/case-study/generation/ai-client', async () => {
+  const actual = await vi.importActual('../../../src/case-study/generation/ai-client');
+  return {
+    ...(actual as Record<string, unknown>),
+    runCompletion: vi.fn(async (_ai: unknown, input: { system: string; user: string }) => {
+      return { text: input.user, modelUsed: 'mock' };
+    }),
+  };
+});
 
 const mockPost: Post = {
   slug: 'cve-2026-20182-cisco-catalyst-sd-wan-con',
@@ -15,112 +29,80 @@ const mockPost: Post = {
   sources: [{ url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-20182', title: 'NVD' }],
 };
 
-function mockAi(assert: (messages: any[]) => void) {
-  return {
-    run: async (_model: any, input: any) => {
-      assert(input.messages);
-      return { response: 'ok' };
-    },
-  } as any;
-}
-
 describe('LinkedIn prompt', () => {
   it('includes the post URL in user prompt', async () => {
     const { generateLinkedinContent } = await import('../../../src/case-study/generation/social');
-    await generateLinkedinContent(
-      mockPost,
-      mockAi((msgs) => {
-        const user = msgs.find((m: any) => m.role === 'user')?.content ?? '';
-        expect(user).toContain('pranithjain.qzz.io/blog/cve-2026-20182-cisco-catalyst-sd-wan-con');
-      }),
-      new Date()
-    );
+    const { runCompletion } = await import('../../../src/case-study/generation/ai-client');
+    await generateLinkedinContent(mockPost, {} as any, new Date());
+    const user = (runCompletion as any).mock.calls[0][1].user as string;
+    expect(user).toContain('pranithjain.qzz.io/blog/cve-2026-20182-cisco-catalyst-sd-wan-con');
   });
 
   it('encodes the 2026 LinkedIn contract: link-in-first-comment, 3-5 hashtags, carousel option', async () => {
     const { generateLinkedinContent } = await import('../../../src/case-study/generation/social');
-    await generateLinkedinContent(
-      mockPost,
-      mockAi((msgs) => {
-        const user = msgs.find((m: any) => m.role === 'user')?.content ?? '';
-        expect(user).toContain('THE FOLD');
-        expect(user).toContain('210 characters');
-        expect(user).toMatch(/mobile-first/i);
-        // Reach-killer fix: no body link; the link goes in a FIRST COMMENT block.
-        expect(user).toContain('FIRST COMMENT:');
-        expect(user).toMatch(/body must contain NO link/i);
-        expect(user).toContain('1300-2000 characters');
-        expect(user).toMatch(/scannable .* bulleted list/);
-        expect(user).toMatch(/0-3 specific, on-topic hashtags/i);
-        expect(user).toContain('CAROUSEL OUTLINE:');
-        // Removed legacy rules.
-        expect(user).not.toMatch(/at most two lowercase hashtags/i);
-      }),
-      new Date()
-    );
+    const { runCompletion } = await import('../../../src/case-study/generation/ai-client');
+    await generateLinkedinContent(mockPost, {} as any, new Date());
+    const user = (runCompletion as any).mock.calls[0][1].user as string;
+    expect(user).toContain('THE FOLD');
+    expect(user).toContain('210 characters');
+    expect(user).toMatch(/mobile-first/i);
+    expect(user).toContain('FIRST COMMENT:');
+    expect(user).toMatch(/body must contain NO link/i);
+    expect(user).toContain('1300-2000 characters');
+    expect(user).toMatch(/scannable .* bulleted list/);
+    expect(user).toMatch(/0-3 specific, on-topic hashtags/i);
+    expect(user).toContain('CAROUSEL OUTLINE:');
+    expect(user).not.toMatch(/at most two lowercase hashtags/i);
   });
 });
 
 describe('Twitter prompt', () => {
   it('encodes the 2026 thread contract: 5-8 posts, link-in-reply, bookmark+reply optimization', async () => {
     const { generateTwitterContent } = await import('../../../src/case-study/generation/social');
-    await generateTwitterContent(
-      mockPost,
-      mockAi((msgs) => {
-        const user = msgs.find((m: any) => m.role === 'user')?.content ?? '';
-        expect(user).toContain('6 tweets exactly');
-        expect(user).toMatch(/It does NOT start with "1\/"/);
-        // Reach-killer fix: no link in post 1; link goes in a FIRST REPLY block.
-        expect(user).toContain('FIRST REPLY:');
-        expect(user).toMatch(/bookmark/i);
-        expect(user).toMatch(/repl(y|ies)/i);
-        expect(user).toContain('< 280 chars');
-        // Removed legacy rule.
-        expect(user).not.toContain('2-5 posts');
-      }),
-      new Date()
-    );
+    const { runCompletion } = await import('../../../src/case-study/generation/ai-client');
+    await generateTwitterContent(mockPost, {} as any, new Date());
+    const user = (runCompletion as any).mock.calls[0][1].user as string;
+    expect(user).toContain('6 tweets exactly');
+    expect(user).toMatch(/It does NOT start with "1\/"/);
+    expect(user).toContain('FIRST REPLY:');
+    expect(user).toMatch(/bookmark/i);
+    expect(user).toMatch(/repl(y|ies)/i);
+    expect(user).toContain('< 280 chars');
+    expect(user).not.toContain('2-5 posts');
   });
 
   it('includes the post URL and allows at most one hashtag', async () => {
     const { generateTwitterContent } = await import('../../../src/case-study/generation/social');
-    await generateTwitterContent(
-      mockPost,
-      mockAi((msgs) => {
-        const user = msgs.find((m: any) => m.role === 'user')?.content ?? '';
-        expect(user).toContain('pranithjain.qzz.io/blog/cve-2026-20182-cisco-catalyst-sd-wan-con');
-        expect(user).toMatch(/at most ONE hashtag/i);
-        expect(user).not.toContain('No hashtags');
-      }),
-      new Date()
-    );
+    const { runCompletion } = await import('../../../src/case-study/generation/ai-client');
+    await generateTwitterContent(mockPost, {} as any, new Date());
+    const user = (runCompletion as any).mock.calls[0][1].user as string;
+    expect(user).toContain('pranithjain.qzz.io/blog/cve-2026-20182-cisco-catalyst-sd-wan-con');
+    expect(user).toMatch(/at most ONE hashtag/i);
+    expect(user).not.toContain('No hashtags');
   });
 });
 
 describe('system prompt', () => {
   it('embeds the shared analyze-then-construct ruleset', async () => {
     const { generateLinkedinContent } = await import('../../../src/case-study/generation/social');
-    await generateLinkedinContent(
-      mockPost,
-      mockAi((msgs) => {
-        const sys = msgs.find((m: any) => m.role === 'system')?.content ?? '';
-        expect(sys).toContain('#COPYWRITING RULES');
-        expect(sys).toContain('Analyze, then construct. Never template.');
-        expect(sys).toContain('Hook construction');
-        expect(sys).toContain('#PIPELINE OUTPUT (STRICT)');
-        expect(sys).toContain("Here's the thing");
-        expect(sys).toMatch(/game-changer/);
-      }),
-      new Date()
-    );
+    const { runCompletion } = await import('../../../src/case-study/generation/ai-client');
+    await generateLinkedinContent(mockPost, {} as any, new Date());
+    const sys = (runCompletion as any).mock.calls[0][1].system as string;
+    expect(sys).toContain('#COPYWRITING RULES');
+    expect(sys).toContain('Analyze, then construct. Never template.');
+    expect(sys).toContain('Hook construction');
+    expect(sys).toContain('#PIPELINE OUTPUT (STRICT)');
+    expect(sys).toContain("Here's the thing");
+    expect(sys).toMatch(/game-changer/);
   });
 });
 
 describe('generateSocialContent', () => {
   it('produces both twitter and linkedin', async () => {
     const { generateSocialContent } = await import('../../../src/case-study/generation/social');
-    const ai = { run: async (_model: any, _input: any) => ({ response: 'content' }) } as any;
-    const res = await generateSocialContent(mockPost, ai, new Date());
+    const { runCompletion } = await import('../../../src/case-study/generation/ai-client');
+    (runCompletion as any).mockImplementation(async () => ({ text: 'content', modelUsed: 'mock' }));
+    const res = await generateSocialContent(mockPost, {} as any, new Date());
     expect(res.slug).toBe(mockPost.slug);
     expect(res.twitter).toBe('content');
     expect(res.linkedin).toBe('content');
@@ -131,14 +113,15 @@ describe('generateSocialContent', () => {
 describe('whitespace tidy', () => {
   it('collapses 3+ blank lines to one and strips trailing spaces', async () => {
     const { generateLinkedinContent } = await import('../../../src/case-study/generation/social');
-    const ai = { run: async () => ({ response: 'Hook line.   \n\n\n\nSecond para.\n\n\n- bullet  ' }) } as any;
-    const res = await generateLinkedinContent(mockPost, ai, new Date());
-    expect(res.linkedin).not.toMatch(/\n{3,}/); // no 3+ consecutive newlines
-    expect(res.linkedin).not.toMatch(/[ \t]\n/); // no trailing space before a newline
-    expect(res.linkedin).not.toMatch(/[ \t]$/); // no trailing space at the end
-    // Two consecutive tight single-line paragraphs get merged into one dense
-    // block (soft-return joined); the blank line BEFORE the list is kept
-    // because '- bullet' is a list item and not a "tight" block.
+    const { runCompletion } = await import('../../../src/case-study/generation/ai-client');
+    (runCompletion as any).mockImplementation(async () => ({
+      text: 'Hook line.   \n\n\n\nSecond para.\n\n\n- bullet  ',
+      modelUsed: 'mock',
+    }));
+    const res = await generateLinkedinContent(mockPost, {} as any, new Date());
+    expect(res.linkedin).not.toMatch(/\n{3,}/);
+    expect(res.linkedin).not.toMatch(/[ \t]\n/);
+    expect(res.linkedin).not.toMatch(/[ \t]$/);
     expect(res.linkedin).toContain('Hook line.\nSecond para.');
     expect(res.linkedin).toContain('\n\n- bullet');
   });
@@ -147,29 +130,27 @@ describe('whitespace tidy', () => {
 describe('LinkedIn sparse-merge tidy', () => {
   it('joins consecutive short single-line paragraphs with soft returns and keeps blank lines before lists / hashtags / special blocks', async () => {
     const { generateLinkedinContent } = await import('../../../src/case-study/generation/social');
-    const ai = {
-      run: async () => ({
-        response: [
-          'First short line.',
-          '',
-          'Second short line.',
-          '',
-          'Third short line.',
-          '',
-          '- bullet 1',
-          '- bullet 2',
-          '',
-          '#DFIR #ThreatIntel',
-          '',
-          'FIRST COMMENT: https://pranithjain.qzz.io/blog/x',
-        ].join('\n'),
-      }),
-    } as any;
-    const res = await generateLinkedinContent(mockPost, ai, new Date());
-    // The three consecutive tight blocks merge into one dense block.
+    const { runCompletion } = await import('../../../src/case-study/generation/ai-client');
+    (runCompletion as any).mockImplementation(async () => ({
+      text: [
+        'First short line.',
+        '',
+        'Second short line.',
+        '',
+        'Third short line.',
+        '',
+        '- bullet 1',
+        '- bullet 2',
+        '',
+        '#DFIR #ThreatIntel',
+        '',
+        'FIRST COMMENT: https://pranithjain.qzz.io/blog/x',
+      ].join('\n'),
+      modelUsed: 'mock',
+    }));
+    const res = await generateLinkedinContent(mockPost, {} as any, new Date());
     expect(res.linkedin).toContain('First short line.\nSecond short line.\nThird short line.');
     expect(res.linkedin).not.toContain('First short line.\n\nSecond short line.');
-    // The list, hashtag, and FIRST COMMENT are NOT merged with the body.
     expect(res.linkedin).toContain('\n\n- bullet 1');
     expect(res.linkedin).toContain('\n\n#DFIR #ThreatIntel');
     expect(res.linkedin).toContain('\n\nFIRST COMMENT:');
@@ -177,12 +158,13 @@ describe('LinkedIn sparse-merge tidy', () => {
 
   it('keeps a long single-line paragraph as its own block (not merged with neighbors)', async () => {
     const { generateLinkedinContent } = await import('../../../src/case-study/generation/social');
+    const { runCompletion } = await import('../../../src/case-study/generation/ai-client');
     const long = 'x'.repeat(200);
-    const ai = {
-      run: async () => ({ response: `Short one.\n\n${long}\n\nShort two.` }),
-    } as any;
-    const res = await generateLinkedinContent(mockPost, ai, new Date());
-    // The long line is its own block, so the short lines stay separated from it.
+    (runCompletion as any).mockImplementation(async () => ({
+      text: `Short one.\n\n${long}\n\nShort two.`,
+      modelUsed: 'mock',
+    }));
+    const res = await generateLinkedinContent(mockPost, {} as any, new Date());
     expect(res.linkedin).toContain(`Short one.\n\n${long}\n\nShort two.`);
   });
 });

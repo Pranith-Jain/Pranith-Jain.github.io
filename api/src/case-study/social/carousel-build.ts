@@ -82,7 +82,7 @@ const SLIDE_SYSTEM =
 /** Build carousel slides via AI, falling back to deterministic extraction. */
 export async function buildCarouselSlides(
   post: Post,
-  deps: { ai: Ai; groqKey?: string; googleKey?: string }
+  deps: { ai: Ai; groqKey?: string; googleKey?: string; nvidiaKey?: string }
 ): Promise<ContentSlide[]> {
   try {
     const res = await runCompletion(
@@ -93,7 +93,7 @@ export async function buildCarouselSlides(
         temperature: 0.6,
         maxTokens: 1200,
       },
-      { groqKey: deps.groqKey, googleKey: deps.googleKey, quality: true, preferGroq: true }
+      { groqKey: deps.groqKey, googleKey: deps.googleKey, nvidiaKey: deps.nvidiaKey, quality: true, preferGroq: true }
     );
     const parsed = parseSlidesJson(res.text);
     if (parsed) {

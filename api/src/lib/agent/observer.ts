@@ -23,7 +23,7 @@ export async function observeStep(
   stepNumber: number,
   plan: string,
   results: AgentToolResult[],
-  opts: { groqKey?: string; googleKey?: string }
+  opts: { groqKey?: string; googleKey?: string; nvidiaKey?: string }
 ): Promise<ObserverOutput> {
   // Deterministic fallback: summarize results without an LLM call
   const fallback = deterministicObserve(results);
@@ -49,6 +49,7 @@ Analyze these results. What was found? What are the key facts? What gaps remain?
     const { text } = await runCompletion(ai, input, {
       googleKey: opts.googleKey,
       groqKey: opts.groqKey,
+      nvidiaKey: opts.nvidiaKey,
       preferGroq: true,
     });
 

@@ -311,8 +311,8 @@ Text.
 `;
     const out = postProcess({ type: 'intel', raw, factsText: '{}' });
     // Both publishers are in KNOWN_PUBLISHER_URLS so both get linkified.
-    expect(out.body).toMatch(/\[BleepingComputer[^\]]+\]\(https:\/\/www\.bleepingcomputer\.com\/news\/security\/\)/);
-    expect(out.body).toMatch(/\[The Hacker News[^\]]+\]\(https:\/\/thehackernews\.com\/\)/);
+    expect(out.body).toMatch(/\[BleepingComputer\]\(https:\/\/www\.bleepingcomputer\.com\/news\/security\/\)/);
+    expect(out.body).toMatch(/\[The Hacker News\]\(https:\/\/thehackernews\.com\/\)/);
   });
 
   it('linkifies bulleted "- Krebs on Security, ..." refs into clickable links', () => {
@@ -335,8 +335,8 @@ Text.
       `- CISA KEV, the new entry added today.
 `;
     const out = postProcess({ type: 'intel', raw, factsText: '{}' });
-    expect(out.body).toMatch(/\[Krebs on Security[^\]]+\]\(https:\/\/krebsonsecurity\.com\/\)/);
-    expect(out.body).toMatch(/\[CISA KEV[^\]]+\]\(https:\/\/www\.cisa\.gov\/known-exploited-vulnerabilities-catalog\)/);
+    expect(out.body).toMatch(/\[Krebs on Security\]\(https:\/\/krebsonsecurity\.com\/\)/);
+    expect(out.body).toMatch(/\[CISA KEV\]\(https:\/\/www\.cisa\.gov\/known-exploited-vulnerabilities-catalog\)/);
   });
 
   it('leaves unrecognised publisher labels plain and flags the draft as QA-failed', () => {

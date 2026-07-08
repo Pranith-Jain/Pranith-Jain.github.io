@@ -255,10 +255,10 @@ async function runHashFanOut(
           cache.stageBatched(p, indicator, r);
           await recordProviderSuccess(p);
         } else {
-          await recordProviderFailure(p);
+          recordProviderFailure(p);
         }
       } catch (err) {
-        await recordProviderFailure(p);
+        recordProviderFailure(p);
         const errResult = makeErrorResult(p, err);
         collected.push(errResult);
         write('result', errResult);

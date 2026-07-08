@@ -307,6 +307,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
         now,
         groqKey: c.env.GROQ_API_KEY,
         googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY,
+        nvidiaKey: c.env.NVIDIA_API_KEY as string | undefined,
       });
       const postIndex = await putPost(c.env.CASE_STUDIES, post);
 
@@ -724,6 +725,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
         now,
         groqKey: c.env.GROQ_API_KEY,
         googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY,
+        nvidiaKey: c.env.NVIDIA_API_KEY as string | undefined,
         notes: body.notes,
       });
       // If the LLM produced a different slug, remove the old draft first
@@ -892,6 +894,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
         now,
         groqKey: c.env.GROQ_API_KEY,
         googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY,
+        nvidiaKey: c.env.NVIDIA_API_KEY as string | undefined,
       });
       const postIndex = await putPost(c.env.CASE_STUDIES, post);
 
@@ -927,7 +930,8 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
         c.env.AI as never,
         new Date(),
         c.env.GROQ_API_KEY,
-        c.env.GOOGLE_AI_STUDIO_API_KEY
+        c.env.GOOGLE_AI_STUDIO_API_KEY,
+        c.env.NVIDIA_API_KEY as string | undefined
       );
       await c.env.CASE_STUDIES.put(csKvKeys.social(slug), JSON.stringify(social));
       return c.json({ ok: true, social });
@@ -1032,7 +1036,8 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
         c.env.AI as never,
         new Date(),
         c.env.GROQ_API_KEY,
-        c.env.GOOGLE_AI_STUDIO_API_KEY
+        c.env.GOOGLE_AI_STUDIO_API_KEY,
+        c.env.NVIDIA_API_KEY as string | undefined
       );
       await c.env.CASE_STUDIES.put(csKvKeys.socialTwitter(slug), twitter);
       return c.json({ ok: true, platform: 'twitter', content: twitter, generatedAt });
@@ -1057,7 +1062,8 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
         c.env.AI as never,
         new Date(),
         c.env.GROQ_API_KEY,
-        c.env.GOOGLE_AI_STUDIO_API_KEY
+        c.env.GOOGLE_AI_STUDIO_API_KEY,
+        c.env.NVIDIA_API_KEY as string | undefined
       );
       await c.env.CASE_STUDIES.put(csKvKeys.socialLinkedin(slug), linkedin);
       return c.json({ ok: true, platform: 'linkedin', content: linkedin, generatedAt });
@@ -1176,7 +1182,8 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
             c.env.AI as never,
             now,
             c.env.GROQ_API_KEY,
-            c.env.GOOGLE_AI_STUDIO_API_KEY
+            c.env.GOOGLE_AI_STUDIO_API_KEY,
+            c.env.NVIDIA_API_KEY as string | undefined
           );
           await c.env.CASE_STUDIES.put(csKvKeys.socialCandidateLinkedin(key), linkedin);
           result.linkedin = { content: linkedin, generatedAt, validation: _validation };
@@ -1186,7 +1193,8 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
             c.env.AI as never,
             now,
             c.env.GROQ_API_KEY,
-            c.env.GOOGLE_AI_STUDIO_API_KEY
+            c.env.GOOGLE_AI_STUDIO_API_KEY,
+            c.env.NVIDIA_API_KEY as string | undefined
           );
           await c.env.CASE_STUDIES.put(csKvKeys.socialCandidateTwitter(key), twitter);
           result.twitter = { content: twitter, generatedAt, validation: _validation };
@@ -1269,7 +1277,8 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
             c.env.AI as never,
             now,
             c.env.GROQ_API_KEY,
-            c.env.GOOGLE_AI_STUDIO_API_KEY
+            c.env.GOOGLE_AI_STUDIO_API_KEY,
+            c.env.NVIDIA_API_KEY as string | undefined
           );
           result.linkedin = { content: linkedin, generatedAt, validation: _validation };
         } else if (fmt === 'twitter') {
@@ -1279,7 +1288,8 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
             c.env.AI as never,
             now,
             c.env.GROQ_API_KEY,
-            c.env.GOOGLE_AI_STUDIO_API_KEY
+            c.env.GOOGLE_AI_STUDIO_API_KEY,
+            c.env.NVIDIA_API_KEY as string | undefined
           );
           result.twitter = { content: twitter, generatedAt, validation: _validation };
         } else {
@@ -1310,26 +1320,43 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
       getSchedule(ns),
       listPostIndex(ns),
     ]);
+    // Quick Groq connectivity test — fires a minimal request so the health
+    // tab can surface key/connectivity issues before the publisher hits them.
+    let groqTest: { ok: boolean; detail: string } | undefined;
+    if (c.env.GROQ_API_KEY) {
+      try {
+        const r = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${c.env.GROQ_API_KEY}`, 'content-type': 'application/json' },
+          body: JSON.stringify({
+            model: 'qwen/qwen3-32b',
+            messages: [{ role: 'user', content: 'hi' }],
+            max_completion_tokens: 5,
+          }),
+          signal: AbortSignal.timeout(10_000),
+        });
+        const body = await r.text().catch(() => '');
+        groqTest = r.ok
+          ? { ok: true, detail: `HTTP ${r.status}` }
+          : { ok: false, detail: `HTTP ${r.status}: ${body.slice(0, 120)}` };
+      } catch (e) {
+        groqTest = { ok: false, detail: e instanceof Error ? e.message : String(e) };
+      }
+    }
+
     return c.json({
       pendingCount,
       approvedCount,
       scheduleCount: schedule.length,
       failureCount,
       postsCount: postsIndex.length,
-      // Pipeline config — surfaced so the admin tab can show whether the
-      // approval gate is on (BLOG_APPROVAL_REQUIRED=true → posts land in
-      // drafts:<slug> and need manual approval to publish). Without this
-      // an admin who toggled the secret on would see the "0 published
-      // today" symptom and have to grep the worker env to find the cause.
       approvalRequired: c.env.BLOG_APPROVAL_REQUIRED === 'true',
-      // Secret presence (boolean, never the value) — lets the health tab
-      // tell the operator "Groq key is missing" instead of "publisher
-      // returned 429" weeks later.
       secrets: {
         groq: !!c.env.GROQ_API_KEY,
         google: !!c.env.GOOGLE_AI_STUDIO_API_KEY,
         vulncheck: !!c.env.VULNCHECK_API_TOKEN,
       },
+      groqTest,
     });
   });
 
