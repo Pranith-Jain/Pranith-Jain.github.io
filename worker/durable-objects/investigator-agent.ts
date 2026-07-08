@@ -348,13 +348,16 @@ export class InvestigatorAgentDO {
           'breach_check',
           'check_breach',
           'scan_dependencies',
+          'unified_search',
+          'cross_correlate',
         ].includes(call.tool);
         const timeoutMs = isHeavyFanout ? 40_000 : 20_000;
+        let timer: ReturnType<typeof setTimeout> | undefined;
         const data = await Promise.race([
-          tool.execute(call.args),
-          new Promise<never>((_, reject) =>
-            setTimeout(() => reject(new Error(`Tool timeout (${timeoutMs / 1000}s)`)), timeoutMs)
-          ),
+          tool.execute(call.args).finally(() => clearTimeout(timer)),
+          new Promise<never>((_, reject) => {
+            timer = setTimeout(() => reject(new Error(`Tool timeout (${timeoutMs / 1000}s)`)), timeoutMs);
+          }),
         ]);
         return { tool: call.tool, args: call.args, status: 'ok', data, durationMs: Date.now() - start };
       } catch (err) {

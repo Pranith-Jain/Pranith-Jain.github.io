@@ -598,30 +598,6 @@ export function buildToolRegistry(
       },
     },
     {
-      name: 'check_breach',
-      description: 'Check if email/domain exposed in known breaches.',
-      params: [
-        { name: 'target', type: 'string', description: 'Email or domain', required: true },
-        { name: 'type', type: 'enum', description: 'Target type', required: true, enum: ['email', 'domain'] },
-      ],
-      execute: (args) => {
-        const t = args.type === 'email' || args.type === 'domain' ? args.type : 'email';
-        return apiFetch(
-          self,
-          `/api/v1/breach/${t}?${t}=${encodeURIComponent(String(args.target))}`,
-          apiKey,
-          undefined,
-          ih
-        );
-      },
-    },
-    {
-      name: 'get_breach_disclosures',
-      description: 'Recent breach disclosures — names, dates, data classes, affected records.',
-      params: [],
-      execute: () => apiFetch(self, '/api/v1/breach-disclosures', apiKey, undefined, ih),
-    },
-    {
       name: 'get_supply_chain_attacks',
       description:
         'Software supply-chain compromise incidents (npm/PyPI/container/AI-agent ecosystems) from supplychainattack.org. Returns title, status, severity, ecosystems, attack vectors, blast radius, remediation, package IOCs, and GHSA sources. Filter by ecosystem/status/severity.',

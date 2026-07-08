@@ -41,13 +41,7 @@ import { validateRawKey } from '../api/src/lib/auth';
 import { signInternalToken } from '../api/src/lib/internal-token';
 import { enrichIp, enrichIpsBatch, isValidIp, type EnrichResult } from './lib/si-enrich';
 import { traceixLookup } from './lib/traceix';
-import {
-  loadOsintIndex,
-  listPortals,
-  getPortal,
-  osintCacheStats,
-  type OsintCategory,
-} from './lib/osint-manifest';
+import { loadOsintIndex, listPortals, getPortal, osintCacheStats, type OsintCategory } from './lib/osint-manifest';
 import {
   loadReportsIndex,
   listReports,
@@ -162,7 +156,7 @@ async function apiFetchSse(
   if (apiKey) {
     headers['authorization'] = `Bearer ${apiKey}`;
   }
-  const req = new Request(`${API_BASE_DEFAULT}${path}`, { headers });
+  const req = new Request(`${API_BASE_DEFAULT}${path}`, { headers, signal: AbortSignal.timeout(20000) });
   const res = self ? await self.fetch(req) : await fetch(req);
   if (!res.ok) {
     const body = await res.text().catch(() => '');
@@ -275,7 +269,10 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     schema: A,
     cb: (args: { [K in keyof A]: z.infer<A[K]> }) => Promise<{ content: Array<{ type: string; text: string }> }>
   ): RegisteredTool {
-    return (this.server as any).tool(name, description, schema, cb);
+    return (this.server as any).tool(name, description, schema, async (args: { [K in keyof A]: z.infer<A[K]> }) => {
+      this.rateLimit();
+      return cb(args);
+    });
   }
 
   /** Maximum tool calls per sliding window per connection. */
@@ -598,7 +595,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             `/api/v1/briefings/${slug}/render`,
             this.apiKey
           );
-          return { content: [{ type: 'text', text: result.markdown }] };
+          return untrustedToolResult({ markdown: result.markdown });
         }
         return untrustedToolResult(data);
       }
@@ -841,21 +838,6 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       async ({ format }) => {
         const fmt = format ?? 'meta';
         const data = await apiFetch<Record<string, unknown>>(this.env.SELF, `/api/v1/blocklists/${fmt}`, this.apiKey);
-        return untrustedToolResult(data);
-      }
-    );
-
-    // ── Search Malpedia ─────────────────────────────────────────────────
-    this.tools(
-      'search_malware',
-      'Search for malware families. Returns family info, YARA rules, samples, and references from Malpedia.',
-      { q: z.string().describe('Malware family name or keyword') },
-      async ({ q }) => {
-        const data = await apiFetch<Record<string, unknown>>(
-          this.env.SELF,
-          `/api/v1/malpedia/search?q=${encodeURIComponent(q)}`,
-          this.apiKey
-        );
         return untrustedToolResult(data);
       }
     );
@@ -1615,7 +1597,12 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         },
         async ({ category, keyword, freeOnly, limit }) => {
           const idx = await loadOsintIndex(ASSETS);
-          const portals = listPortals(idx, { category: category as OsintCategory | undefined, keyword, freeOnly, limit: limit ?? 50 });
+          const portals = listPortals(idx, {
+            category: category as OsintCategory | undefined,
+            keyword,
+            freeOnly,
+            limit: limit ?? 50,
+          });
           return untrustedToolResult({
             total: idx.count,
             returned: portals.length,
@@ -1631,7 +1618,9 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         'osint_get_portal',
         'Return the full details of a single OSINT portal entry by slug. Use osint_list_portals first to discover slugs.',
         {
-          slug: z.string().describe('Portal slug, e.g. "virus-total", "shodan", "ahmia". Get these from osint_list_portals.'),
+          slug: z
+            .string()
+            .describe('Portal slug, e.g. "virus-total", "shodan", "ahmia". Get these from osint_list_portals.'),
         },
         async ({ slug }) => {
           const idx = await loadOsintIndex(ASSETS);
@@ -1699,7 +1688,9 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         'campaigns_get',
         'Return the full details of a single threat campaign entry by slug, including writeup links, TTPs, targets, and geography. Use campaigns_list first to discover slugs.',
         {
-          slug: z.string().describe('Campaign slug, e.g. "lockbit-4-0", "clop", "solarwinds". Get these from campaigns_list.'),
+          slug: z
+            .string()
+            .describe('Campaign slug, e.g. "lockbit-4-0", "clop", "solarwinds". Get these from campaigns_list.'),
         },
         async ({ slug }) => {
           const idx = await loadCampaignsIndex(ASSETS);
@@ -1748,7 +1739,13 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         },
         async ({ category, keyword, year, publisher, limit }) => {
           const idx = await loadReportsIndex(ASSETS);
-          const reports = listReports(idx, { category: category as ReportCategory | undefined, keyword, year, publisher, limit: limit ?? 50 });
+          const reports = listReports(idx, {
+            category: category as ReportCategory | undefined,
+            keyword,
+            year,
+            publisher,
+            limit: limit ?? 50,
+          });
           return untrustedToolResult({
             total: idx.count,
             returned: reports.length,
@@ -1764,7 +1761,11 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         'reports_get',
         'Return the full details of a single report entry by slug. Use reports_list first to discover slugs.',
         {
-          slug: z.string().describe('Report slug, e.g. "crowdstrike-global-threat-report-2025", "mitre-attack-framework". Get these from reports_list.'),
+          slug: z
+            .string()
+            .describe(
+              'Report slug, e.g. "crowdstrike-global-threat-report-2025", "mitre-attack-framework". Get these from reports_list.'
+            ),
         },
         async ({ slug }) => {
           const idx = await loadReportsIndex(ASSETS);
@@ -1980,7 +1981,24 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         'List security tools from the curated Tools Directory. Filter by category (recon, exploitation, post-exploitation, defense, detection, forensics, osint, c2, phishing, crypto, mobile, cloud, network, reverse-engineering, web, misc), keyword, or offensive/defensive scope.',
         {
           category: z
-            .enum(['recon', 'exploitation', 'post-exploitation', 'defense', 'detection', 'forensics', 'osint', 'c2', 'phishing', 'crypto', 'mobile', 'cloud', 'network', 'reverse-engineering', 'web', 'misc'])
+            .enum([
+              'recon',
+              'exploitation',
+              'post-exploitation',
+              'defense',
+              'detection',
+              'forensics',
+              'osint',
+              'c2',
+              'phishing',
+              'crypto',
+              'mobile',
+              'cloud',
+              'network',
+              'reverse-engineering',
+              'web',
+              'misc',
+            ])
             .optional()
             .describe('Filter by tool category'),
           keyword: z.string().optional().describe('Search keyword in name/description/tags'),
@@ -1990,7 +2008,12 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         async ({ category, keyword, offensive, limit }) => {
           const idx = await loadToolsIndex(ASSETS).catch(() => null);
           if (!idx) return untrustedToolResult({ error: 'tools index not loaded' });
-          const results = listTools(idx, { category: category as ToolCategory | undefined, keyword, offensive, limit: limit ?? 50 });
+          const results = listTools(idx, {
+            category: category as ToolCategory | undefined,
+            keyword,
+            offensive,
+            limit: limit ?? 50,
+          });
           return untrustedToolResult({ count: results.length, tools: results });
         }
       );
@@ -2378,7 +2401,9 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
           query: z
             .string()
             .min(3)
-            .describe('Substring to search for in domain names (case-insensitive, min 3 chars). E.g. "staging.", ".org", "test-".'),
+            .describe(
+              'Substring to search for in domain names (case-insensitive, min 3 chars). E.g. "staging.", ".org", "test-".'
+            ),
         },
         async ({ query }) => {
           const r = await cerastSearch(query);
@@ -2395,7 +2420,9 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
           scope: z
             .enum(['company', 'third-party'])
             .optional()
-            .describe('Search scope: "company" for company URLs, "third-party" for third-party service URLs. Default: company.'),
+            .describe(
+              'Search scope: "company" for company URLs, "third-party" for third-party service URLs. Default: company.'
+            ),
         },
         async ({ domain, scope }) => {
           const r = await threatmonInfostealerSearch(domain, scope ?? 'company');
@@ -3847,14 +3874,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
           // Deep mode: trigger the autonomous investigator DO
           const agentNs = this.env.INVESTIGATOR_AGENT;
           if (!agentNs) {
-            return {
-              content: [
-                {
-                  type: 'text',
-                  text: 'SECURITY: Investigator agent is not configured on this Worker.\n\n{ "error": "unavailable", "detail": "INVESTIGATOR_AGENT Durable Object not bound" }',
-                },
-              ],
-            };
+            return untrustedToolResult({ error: 'unavailable', detail: 'INVESTIGATOR_AGENT Durable Object not bound' });
           }
           const id = crypto.randomUUID();
           const doId = agentNs.idFromName(id);
@@ -3878,36 +3898,19 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
               error?: string;
             };
             if (state.status === 'done') {
-              return {
-                content: [
-                  { type: 'text', text: state.report ?? 'Investigation complete but no report was generated.' },
-                ],
-              };
+              return untrustedToolResult({ report: state.report ?? null, status: 'done' });
             }
             if (state.status === 'error') {
-              return {
-                content: [
-                  {
-                    type: 'text',
-                    text: `SECURITY: Investigation errored.\n\n{ "error": "${(state.error ?? 'unknown').replace(/"/g, '\\"')}" }`,
-                  },
-                ],
-              };
+              return untrustedToolResult({ error: state.error ?? 'unknown', status: 'error' });
             }
           }
-          return {
-            content: [{ type: 'text', text: 'SECURITY: Investigation timed out after 30s.\n\n{ "error": "timeout" }' }],
-          };
+          return untrustedToolResult({ error: 'timeout', status: 'error' });
         }
 
         // Fast path: deterministic enrichment via SELF
         const self = this.env.SELF;
         if (!self) {
-          return {
-            content: [
-              { type: 'text', text: 'SECURITY: SELF service binding is not available.\n\n{ "error": "unavailable" }' },
-            ],
-          };
+          return untrustedToolResult({ error: 'unavailable', detail: 'SELF service binding not available' });
         }
         const { enrichIoc } = await import('./lib/tie-enrich');
         const secret = this.env.INTERNAL_TOKEN_SECRET;

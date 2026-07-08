@@ -46,7 +46,8 @@ export async function synthesizeReport(
     dataWarning = `\n\nWARNING: ${dq.emptyResults} of ${dq.totalOk} tool results were nearly empty. Be honest about what is actually known.`;
   }
 
-  const system = buildSynthesizerPrompt(query, queryType);
+  const currentDate = new Date().toISOString().split('T')[0];
+  const system = buildSynthesizerPrompt(query, queryType, currentDate);
   const user = buildSynthesizerUserPrompt(query, queryType, steps) + dataWarning;
   const input: CompletionInput = { system, user, maxTokens: 5500, temperature: 0.3 };
 

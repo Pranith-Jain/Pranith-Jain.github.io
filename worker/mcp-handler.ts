@@ -5,20 +5,20 @@
 
 import { DfirMcpServer } from './mcp-server';
 import { withSecurityHeaders } from './csp';
-import { validateRawKey } from '../api/src/lib/auth';
 import type { Env } from './env';
 
 export async function handleMcp(request: Request, env: Env, ctx: ExecutionContext, url: URL): Promise<Response | null> {
   if (!url.pathname.startsWith('/api/mcp')) return null;
 
-  // Require a valid API key to open an MCP session.
+  // Fast gate: reject if no API key is present. Full validation happens inside
+  // the Durable Object's onConnect — this is just an early-exit to avoid
+  // spinning up a DO instance for unauthenticated requests.
   if (request.method !== 'OPTIONS') {
     const authz = request.headers.get('authorization') ?? '';
     const rawKey = /^Bearer\s+(\S+)/i.exec(authz)?.[1] ?? request.headers.get('x-api-key') ?? '';
-    const valid = env.BRIEFINGS_DB ? await validateRawKey(env.BRIEFINGS_DB, rawKey) : null;
-    if (!valid) {
+    if (!rawKey) {
       return withSecurityHeaders(
-        new Response(JSON.stringify({ error: 'valid api key required for MCP' }), {
+        new Response(JSON.stringify({ error: 'api key required for MCP — provide via Authorization: Bearer' }), {
           status: 401,
           headers: { 'content-type': 'application/json', 'www-authenticate': 'Bearer' },
         })

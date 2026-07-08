@@ -11,7 +11,7 @@ const WORKERS_AI_MODELS = [
   '@cf/zai-org/glm-4.7-flash',
   '@cf/meta/llama-3.3-70b-instruct-fp8-fast',
   '@cf/meta/llama-3.1-8b-instruct',
-  '@cf/mistral/mistral-7b-instruct-v0.1',
+  '@cf/meta/llama-3.2-3b-instruct',
 ] as const;
 
 afterEach(() => {

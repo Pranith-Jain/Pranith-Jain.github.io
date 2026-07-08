@@ -77,7 +77,7 @@ export function buildObserverPrompt(): string {
  *   11. Competing Hypotheses (Optional) — ACH matrix
  *   12. About this Report — metadata
  */
-export function buildSynthesizerPrompt(query: string, queryType: string): string {
+export function buildSynthesizerPrompt(query: string, queryType: string, currentDate?: string): string {
   const isActor = queryType === 'actor' || queryType === 'ransomware';
   const isCve = queryType === 'cve';
   const isIoc = ['ip', 'domain', 'hash', 'url'].includes(queryType);
@@ -321,7 +321,7 @@ Auto-fill all fields from investigation metadata.
 |---|---|
 | **Report Title** | Auto-generated from query: [brief title, e.g. "CVE-2026-1234 Exploitation Analysis" or "IP 1.2.3.4 C2 Infrastructure Report"] |
 | **Author(s) and Organization** | CTI Analyst Agent — pranithjain.com |
-| **Publication Date** | Current date in YYYY-MM-DD |
+| **Publication Date** | ${currentDate ?? new Date().toISOString().split('T')[0]} |
 | **Report Classification** | TLP: [CLEAR / GREEN / AMBER / RED — match the report-header TLP] |
 | **Follow-Up Contact** | Security team — contact@pranithjain.com |
 

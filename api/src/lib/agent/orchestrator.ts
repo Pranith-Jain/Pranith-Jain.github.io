@@ -194,12 +194,17 @@ async function executeToolsForRole(calls: AgentToolCall[], tools: AgentTool[]): 
     }
     const start = Date.now();
     try {
-      const timeoutMs = ['enrich_actor', 'check_ioc', 'enrich_ioc_deep'].includes(call.tool) ? 40_000 : 20_000;
+      const timeoutMs = ['enrich_actor', 'check_ioc', 'enrich_ioc_deep', 'unified_search', 'cross_correlate'].includes(
+        call.tool
+      )
+        ? 40_000
+        : 20_000;
+      let timer: ReturnType<typeof setTimeout> | undefined;
       const data = await Promise.race([
-        tool.execute(call.args),
-        new Promise<never>((_, reject) =>
-          setTimeout(() => reject(new Error(`Timeout (${timeoutMs / 1000}s)`)), timeoutMs)
-        ),
+        tool.execute(call.args).finally(() => clearTimeout(timer)),
+        new Promise<never>((_, reject) => {
+          timer = setTimeout(() => reject(new Error(`Timeout (${timeoutMs / 1000}s)`)), timeoutMs);
+        }),
       ]);
       return { tool: call.tool, args: call.args, status: 'ok', data, durationMs: Date.now() - start };
     } catch (err) {
