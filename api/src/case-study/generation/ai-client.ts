@@ -1,25 +1,23 @@
 /**
  * Case-study LLM client.
  *
- * Keyed providers only — NVIDIA (first), Groq, Google. No Workers AI
- * fallback (free quota exhausted). If all keyed providers fail the
- * call throws with the last error.
- *
  * Provider order:
  *   1. NVIDIA build.nvidia.com (free tier, 40 RPM, 1000 credits, no CC) —
  *      used when NVIDIA_API_KEY is configured. OpenAI-compatible endpoint.
+ *      Falls back from MiniMax M2.7 → GLM-5.2 (same key, skipped on auth
+ *      errors).
  *   2. Groq free tier (own quota, fast, Qwen3-32B) — used when a
- *      GROQ_API_KEY is configured.
+ *      GROQ_API_KEY is configured. Falls back Qwen3-32B (thinking/non-
+ *      thinking) → Llama 4 Scout. Auth errors short-circuit the chain.
  *   3. Google AI Studio (Gemini) — own quota, free tier up to 1000 RPM,
  *      used when GOOGLE_AI_STUDIO_API_KEY is configured.
+ *      Falls back Gemini 2.5 Flash → Gemini 2.0 Flash.
+ *   4. Workers AI (llama-3.1-8b) — final fallback when the AI binding
+ *      is configured in wrangler.jsonc (free tier quota).
  *
- * NVIDIA fallback: MiniMax M2.7 → GLM-5.2 (both free on NVIDIA).
- * Groq fallback: Qwen3-32B (thinking/non-thinking) → Llama 4 Scout.
- *
- * Rate-limit handling: a quota/"exceeded"/429 error is account-wide —
- * retrying deepens the limit. FAIL FAST on rate-limit (RateLimitError).
- * Non-rate errors (e.g. a bad model id) still fall through to next
- * provider.
+ * All fallbacks are best-effort: deterministic auth/key errors skip their
+ * model fallback chain immediately (same key → same failure). Rate-limit
+ * / 429 errors also skip fallbacks on the same provider (same quota pool).
  */
 
 const GOOGLE_BASE = 'https://generativelanguage.googleapis.com/v1beta/models';
@@ -27,7 +25,7 @@ const GOOGLE_MODEL = 'gemini-2.5-flash';
 const GOOGLE_MODEL_FALLBACK = 'gemini-2.0-flash';
 const GOOGLE_MODEL_QUALITY = 'gemini-2.5-pro';
 const GOOGLE_MODEL_QUALITY_FALLBACK = 'gemini-2.0-pro';
-const GOOGLE_TIMEOUT_MS = 30_000;
+const GOOGLE_TIMEOUT_MS = 15_000;
 
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
 /** Default model — Qwen3-32B (non-thinking mode). Best for social / fast generation. */
@@ -43,12 +41,12 @@ const GROQ_MODEL_QUALITY: string = 'qwen/qwen3-32b';
  * Llama 4 Scout (17B, 16 MoE experts) has generous TPM limits.
  */
 const GROQ_MODEL_FALLBACK: string = 'llama-4-scout-17b-16e-instruct';
-const GROQ_TIMEOUT_MS = 30_000;
+const GROQ_TIMEOUT_MS = 15_000;
 
 const NVIDIA_BASE = 'https://integrate.api.nvidia.com/v1/chat/completions';
 const NVIDIA_MODEL = 'minimaxai/minimax-m2.7';
 const NVIDIA_MODEL_FALLBACK = 'z-ai/glm-5.2';
-const NVIDIA_TIMEOUT_MS = 30_000;
+const NVIDIA_TIMEOUT_MS = 15_000;
 
 export interface CompletionInput {
   system: string;
@@ -85,11 +83,6 @@ export class RateLimitError extends Error {
 
 export function isRateLimited(err: unknown): boolean {
   const msg = (err instanceof Error ? err.message : String(err)).toLowerCase();
-  // A context-window / token-budget overflow is DETERMINISTIC, not a
-  // transient rate-limit — deferring/retrying never helps (it's the prompt
-  // size). Classify it out so it isn't mis-handled as quota. (The prompt
-  // clamp in templates.ts is the actual prevention; this is defense-in-depth
-  // + accurate logs.)
   if (msg.includes('context window') || msg.includes('5021') || (msg.includes('token') && msg.includes('exceeded'))) {
     return false;
   }
@@ -101,6 +94,29 @@ export function isRateLimited(err: unknown): boolean {
     msg.includes('exceeded') ||
     msg.includes('quota') ||
     msg.includes('capacity')
+  );
+}
+
+/**
+ * Check if an error is a deterministic auth/key failure (401, 403, or
+ * related messages). When true, retrying with a different model on the
+ * same provider is guaranteed to fail with the same error, so the
+ * fallback chain can short-circuit immediately instead of waiting for
+ * each 30-second timeout.
+ */
+export function isAuthError(err: unknown): boolean {
+  const msg = (err instanceof Error ? err.message : String(err)).toLowerCase();
+  return (
+    msg.includes('401') ||
+    msg.includes('403') ||
+    msg.includes('unauthorized') ||
+    msg.includes('forbidden') ||
+    msg.includes('invalid api key') ||
+    msg.includes('invalid key') ||
+    msg.includes('api key invalid') ||
+    msg.includes('authentication failed') ||
+    msg.includes('not authorized') ||
+    msg.includes('permission denied')
   );
 }
 
@@ -243,6 +259,11 @@ export async function runCompletion(
       const text = await runGroq(opts.groqKey, input, primaryModel, opts.quality);
       return { text, modelUsed: `groq:${primaryModel}${opts.quality ? '+quality' : ''}` };
     } catch (err) {
+      // Auth error (401/403) → same key invalid for all models, skip fallback chain
+      if (isAuthError(err)) {
+        console.warn('runCompletion: groq auth error, skipping fallbacks', err);
+        return null;
+      }
       // If quality Qwen3-32B with thinking mode failed, try without reasoning_effort.
       if (opts.quality) {
         try {
@@ -277,6 +298,8 @@ export async function runCompletion(
     } catch (err) {
       if (isRateLimited(err)) {
         console.warn('runCompletion: nvidia rate-limited, falling through', err);
+      } else if (isAuthError(err)) {
+        console.warn('runCompletion: nvidia auth error, skipping fallback', err);
       } else {
         try {
           const text = await runNvidia(opts.nvidiaKey, input, NVIDIA_MODEL_FALLBACK);
@@ -296,7 +319,35 @@ export async function runCompletion(
     if (result) return result;
   }
 
-  // All keyed providers exhausted — surface the last error or a clear message.
+  // Workers AI fallback — the AI binding is configured in wrangler.jsonc.
+  // Uses the free-tier quota (10M neurons/mo on paid plan). The binding
+  // is optional; when unbound (e.g. tests) _ai is falsy.
+  if (_ai && typeof _ai === 'object') {
+    try {
+      const workersAi = _ai as {
+        run: (model: string, input: Record<string, unknown>) => Promise<Record<string, unknown>>;
+      };
+      const workersResult = await workersAi.run('@cf/meta/llama-3.1-8b-instruct', {
+        messages: [
+          { role: 'system', content: input.system },
+          { role: 'user', content: input.user },
+        ],
+        max_tokens: input.maxTokens ?? 4000,
+        temperature: input.temperature ?? 0.5,
+      });
+      const text = workersResult.response;
+      if (typeof text === 'string' && text.trim()) {
+        return { text, modelUsed: 'workers-ai:llama-3.1-8b' };
+      }
+      console.warn('runCompletion: workers-ai empty response');
+    } catch (e) {
+      console.warn('runCompletion: workers-ai fallback failed', e);
+    }
+  } else {
+    console.warn('runCompletion: workers-ai binding unavailable, no fallback');
+  }
+
+  // All LLM providers exhausted — surface a clear message.
   throw new Error(
     'All LLM providers exhausted. Configure at least NVIDIA_API_KEY or GROQ_API_KEY as a wrangler secret.'
   );

@@ -999,6 +999,72 @@ app.get('/api/v1/health/vectorize', async (c) => {
     return c.json({ status: 'error', error: e instanceof Error ? e.message : 'unknown' }, 503);
   }
 });
+
+app.get('/api/v1/debug/llm', async (c) => {
+  const env = c.env;
+  const ping = { model: 'minimaxai/minimax-m2.7', messages: [{ role: 'user', content: 'ping' }], max_tokens: 5 };
+  const testEndpoint = async (label: string, url: string, key: string | undefined, body: unknown) => {
+    if (!key) return { status: 'no_key' };
+    try {
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${key}`, 'content-type': 'application/json' },
+        body: JSON.stringify(body),
+        signal: AbortSignal.timeout(10_000),
+      });
+      const text = await res.text().catch(() => '');
+      return { status: res.status, ok: res.ok, body: text.slice(0, 300) };
+    } catch (e) {
+      return { error: e instanceof Error ? e.message : String(e) };
+    }
+  };
+  return c.json(
+    {
+      keys: {
+        nvidia: !!env.NVIDIA_API_KEY,
+        groq: !!env.GROQ_API_KEY,
+        google: !!env.GOOGLE_AI_STUDIO_API_KEY,
+      },
+      nvidia: await testEndpoint('nvidia', 'https://integrate.api.nvidia.com/v1/chat/completions', env.NVIDIA_API_KEY, {
+        ...ping,
+        model: 'minimaxai/minimax-m2.7',
+      }),
+      nvidiaFallback: await testEndpoint(
+        'nvidia',
+        'https://integrate.api.nvidia.com/v1/chat/completions',
+        env.NVIDIA_API_KEY,
+        { ...ping, model: 'z-ai/glm-5.2' }
+      ),
+      groq: await testEndpoint('groq', 'https://api.groq.com/openai/v1/chat/completions', env.GROQ_API_KEY, {
+        model: 'qwen/qwen3-32b',
+        messages: [{ role: 'user', content: 'ping' }],
+        max_completion_tokens: 5,
+      }),
+      groqFallback: await testEndpoint('groq', 'https://api.groq.com/openai/v1/chat/completions', env.GROQ_API_KEY, {
+        model: 'llama-4-scout-17b-16e-instruct',
+        messages: [{ role: 'user', content: 'ping' }],
+        max_completion_tokens: 5,
+      }),
+      google: await testEndpoint(
+        'google',
+        'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=' +
+          env.GOOGLE_AI_STUDIO_API_KEY,
+        env.GOOGLE_AI_STUDIO_API_KEY,
+        { contents: [{ role: 'user', parts: [{ text: 'ping' }] }], generationConfig: { maxOutputTokens: 5 } }
+      ),
+      googleFallback: await testEndpoint(
+        'google',
+        'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' +
+          env.GOOGLE_AI_STUDIO_API_KEY,
+        env.GOOGLE_AI_STUDIO_API_KEY,
+        { contents: [{ role: 'user', parts: [{ text: 'ping' }] }], generationConfig: { maxOutputTokens: 5 } }
+      ),
+    },
+    200,
+    { 'Cache-Control': 'no-store' }
+  );
+});
+
 app.get('/api/v1/ioc/enrich-deep', iocEnrichDeepHandler);
 app.post('/api/v1/ioc/enrich-deep', iocEnrichDeepHandler);
 app.get('/api/v1/ioc/check', validate('query', iocCheckSchema), iocCheckHandler);
