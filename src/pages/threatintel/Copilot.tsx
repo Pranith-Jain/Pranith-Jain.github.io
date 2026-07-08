@@ -318,7 +318,7 @@ export default function Copilot(): JSX.Element {
                   ? 'Subject for a full report (group, actor, CVE, or IOC)…'
                   : 'Ask about any CVE, threat actor, ransomware group, IP, or domain…'
               }
-              className="h-14 w-full rounded-xl border border-slate-200 bg-white pl-12 pr-14 text-base text-slate-900 shadow-md transition-colors placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-white dark:placeholder:text-slate-500 dark:focus:border-brand-400"
+              className="h-14 w-full rounded-xl border border-slate-200 bg-white pl-12 pr-14 text-base text-slate-900 shadow-e1 transition-colors placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-white dark:placeholder:text-slate-500 dark:focus:border-brand-400"
               disabled={loading || !!progress}
             />
             <button
@@ -395,7 +395,7 @@ export default function Copilot(): JSX.Element {
           <section
             role="status"
             aria-live="polite"
-            className="rounded-xl border border-slate-200 bg-white p-5 shadow-md dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
+            className="rounded-xl border border-slate-200 bg-white p-5 shadow-e1 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
           >
             <div className="mb-2 flex items-center justify-between font-mono text-xs text-slate-500 dark:text-slate-400">
               <span className="inline-flex items-center gap-2">
@@ -428,7 +428,7 @@ export default function Copilot(): JSX.Element {
         {result && !loading && !report && (
           <div className="space-y-6">
             {/* Header */}
-            <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-md dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
+            <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-e1 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
               <div className="mb-3 flex items-start justify-between gap-4">
                 <div className="flex flex-wrap items-center gap-3">
                   <h2 className="text-lg font-bold">{result.query}</h2>

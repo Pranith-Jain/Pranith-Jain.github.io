@@ -214,7 +214,7 @@ export default function VeraChat(): JSX.Element {
         {/* ── Header ─────────────────────────────────────────────────── */}
         <div className="flex flex-col items-center gap-3 text-center">
           <div
-            className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${activeMode.color} shadow-xl shadow-${mode === 'ask' ? 'sky' : mode === 'investigate' ? 'violet' : mode === 'draft' ? 'amber' : 'rose'}-500/20`}
+            className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${activeMode.color} shadow-e3 shadow-${mode === 'ask' ? 'sky' : mode === 'investigate' ? 'violet' : mode === 'draft' ? 'amber' : 'rose'}-500/20`}
           >
             <ModeIcon className="h-7 w-7 text-white" />
           </div>

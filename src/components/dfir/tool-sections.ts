@@ -911,6 +911,13 @@ export const SECTIONS: Section[] = [
         desc: '10 incident types · step-by-step workflows · tool integration · severity-rated',
         icon: BookOpen,
       },
+      {
+        path: '/dfir/netdraw',
+        useCase: 'Map your network topology for incident-response analysis.',
+        label: 'NetDraw',
+        desc: 'Network topology diagram editor · drag-and-drop nodes · draw connections · add zones & swimlanes · guided journey walkthroughs',
+        icon: Network,
+      },
     ],
   },
   {

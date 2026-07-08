@@ -1051,7 +1051,7 @@ export default function GlobalPulse(): JSX.Element {
             </div>
 
             {/* Critical — the hero metric */}
-            <div className="rounded-xl border border-severity-critical/30 bg-severity-critical/5 p-4 ring-1 ring-severity-critical/10 shadow-md shadow-severity-critical/10">
+            <div className="rounded-xl border border-severity-critical/30 bg-severity-critical/5 p-4 ring-1 ring-severity-critical/10 shadow-e1 shadow-severity-critical/10">
               <div className="flex items-center justify-between gap-2 mb-2">
                 <span className="flex items-center gap-1.5 text-eyebrow uppercase text-severity-critical">
                   <AlertTriangle size={12} /> Critical

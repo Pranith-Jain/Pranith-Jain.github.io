@@ -350,7 +350,7 @@ function IocDumpPanel({
           type="button"
           onClick={download}
           disabled={downloading}
-          className="inline-flex items-center gap-1.5 rounded bg-brand-600 px-3 py-1.5 text-xs font-semibold text-white shadow-md transition-colors hover:bg-brand-700 disabled:opacity-60 dark:bg-brand-500 dark:hover:bg-brand-400"
+          className="inline-flex items-center gap-1.5 rounded bg-brand-600 px-3 py-1.5 text-xs font-semibold text-white shadow-e1 transition-colors hover:bg-brand-700 disabled:opacity-60 dark:bg-brand-500 dark:hover:bg-brand-400"
         >
           <Download className="h-3.5 w-3.5" />
           {downloading ? 'Downloading…' : 'Download .txt'}

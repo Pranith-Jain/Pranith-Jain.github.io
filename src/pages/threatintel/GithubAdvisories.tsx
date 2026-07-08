@@ -278,7 +278,7 @@ export default function GithubAdvisories(): JSX.Element {
             return (
               <div
                 key={a.ghsa_id}
-                className={`rounded-xl border border-l-4 ${colors.border} border-l-current bg-white dark:bg-[rgb(var(--surface-200))]/50 p-3 hover:shadow-md transition`}
+                className={`rounded-xl border border-l-4 ${colors.border} border-l-current bg-white dark:bg-[rgb(var(--surface-200))]/50 p-3 hover:shadow-e1 transition`}
               >
                 <div className="flex items-start gap-3">
                   <div className="flex-1 min-w-0">

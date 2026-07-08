@@ -35,6 +35,7 @@ import {
   List,
   Map,
   MessageSquare,
+  Network,
   Newspaper,
   Package,
   Radar,
@@ -336,6 +337,7 @@ const dfir: SidebarConfig = {
         { label: 'Phishing', href: '/dfir/phishing', icon: ShieldAlert },
         { label: 'Domain Investigator', href: '/dfir/domain-investigator', icon: Globe },
         { label: 'Exposed Host', href: '/dfir/exposed-host', icon: ShieldAlert },
+        { label: 'NetDraw', href: '/dfir/netdraw', icon: Network, description: 'Network topology diagram editor.' },
       ],
     },
     {

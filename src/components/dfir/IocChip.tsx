@@ -305,7 +305,7 @@ function PivotMenu({ ioc, size }: { ioc: DetectedIoc; size: 'sm' | 'md' }): JSX.
           id={menuId}
           role="menu"
           aria-label={`Pivots for ${ioc.value}`}
-          className="absolute right-0 top-full z-50 mt-1 w-64 max-w-[min(18rem,80vw)] overflow-hidden rounded-xl border border-slate-200 bg-white py-1 shadow-xl dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
+          className="absolute right-0 top-full z-50 mt-1 w-64 max-w-[min(18rem,80vw)] overflow-hidden rounded-xl border border-slate-200 bg-white py-1 shadow-e3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
         >
           {pivots.map((p, i) => {
             const content = (

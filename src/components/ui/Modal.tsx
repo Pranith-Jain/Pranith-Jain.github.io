@@ -106,7 +106,7 @@ export function Modal({
         aria-hidden="true"
       />
       <div
-        className={`relative z-10 w-full ${SIZE[size]} max-h-[90vh] sm:max-h-[85vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl border border-slate-200/60 bg-white shadow-xl dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] animate-fade-in-up`}
+        className={`relative z-10 w-full ${SIZE[size]} max-h-[90vh] sm:max-h-[85vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl border border-slate-200/60 bg-white shadow-e3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] animate-fade-in-up`}
       >
         <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4 dark:border-[rgb(var(--border-400))]">
           <h2 id={titleId} className="text-lg font-display font-bold text-slate-900 dark:text-white">

@@ -17,7 +17,7 @@ export function IdentifierNode({ data }: { data: IdentifierNodeData }): JSX.Elem
   const Icon = def.icon;
   return (
     <div
-      className={`relative rounded-xl border px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] shadow-md min-w-[140px] ${
+      className={`relative rounded-xl border px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 min-w-[140px] ${
         data.selected
           ? 'border-brand-500 ring-2 ring-brand-500/30'
           : 'border-slate-300 dark:border-[rgb(var(--border-400))]'

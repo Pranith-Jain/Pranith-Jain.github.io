@@ -182,7 +182,7 @@ export default function IocEnrichment(): JSX.Element {
                 <div
                   role="listbox"
                   aria-label="Data source"
-                  className="absolute right-0 top-full mt-1 z-10 w-full min-w-[220px] rounded-xl border border-slate-200 bg-white shadow-xl dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
+                  className="absolute right-0 top-full mt-1 z-10 w-full min-w-[220px] rounded-xl border border-slate-200 bg-white shadow-e3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
                 >
                   {SOURCES.map((s) => (
                     <button

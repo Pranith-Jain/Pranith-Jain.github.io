@@ -36,7 +36,7 @@ export function cspHeader(nonce?: string): string {
     `script-src 'self' 'nonce-${nonce}' 'wasm-unsafe-eval' https://static.cloudflareinsights.com`,
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data: https:",
-    "connect-src 'self' https://api.cloudflare.com https://cloudflare-dns.com https://cloudflareinsights.com https://*.cloudflareinsights.com https://unpkg.com https://mr-akuma.github.io https://nominatim.openstreetmap.org https://goxdr.fyi",
+    "connect-src 'self' https://api.cloudflare.com https://cloudflare-dns.com https://cloudflareinsights.com https://*.cloudflareinsights.com https://unpkg.com https://mr-akuma.github.io https://nominatim.openstreetmap.org https://goxdr.fyi https://mr-r3b00t.github.io",
     "font-src 'self' data:",
     "frame-ancestors 'none'",
     "base-uri 'self'",

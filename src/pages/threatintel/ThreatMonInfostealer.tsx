@@ -125,7 +125,7 @@ export default function ThreatMonInfostealer() {
             <button
               type="submit"
               disabled={domain.trim().length < 2 || loading}
-              className="px-5 py-2.5 rounded-xl bg-brand-600 dark:bg-brand-500 text-white font-semibold text-sm hover:brightness-110 disabled:opacity-50 transition-all inline-flex items-center gap-2 shadow-md hover:shadow-md"
+              className="px-5 py-2.5 rounded-xl bg-brand-600 dark:bg-brand-500 text-white font-semibold text-sm hover:brightness-110 disabled:opacity-50 transition-all inline-flex items-center gap-2 shadow-e1 hover:shadow-e1"
             >
               {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Search'}
             </button>
@@ -157,7 +157,7 @@ export default function ThreatMonInfostealer() {
               </p>
               <button
                 onClick={openThreatMon}
-                className="px-6 py-2.5 rounded-xl bg-brand-600 dark:bg-brand-500 text-white font-semibold text-sm hover:brightness-110 transition-all inline-flex items-center gap-2 shadow-md hover:shadow-md"
+                className="px-6 py-2.5 rounded-xl bg-brand-600 dark:bg-brand-500 text-white font-semibold text-sm hover:brightness-110 transition-all inline-flex items-center gap-2 shadow-e1 hover:shadow-e1"
               >
                 Open ThreatMon IntelHub <ExternalLink className="h-4 w-4" />
               </button>

@@ -277,7 +277,7 @@ export default function ReportComposer(): JSX.Element {
       )}
 
       {showPreview && (
-        <div className="mb-10 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6 shadow-md">
+        <div className="mb-10 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6 shadow-e1">
           <PreviewPanel doc={doc} />
         </div>
       )}

@@ -70,14 +70,14 @@ export default function RadarHome() {
                 onChange={(e) => setUrl(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleScan()}
                 placeholder="Enter domain or URL (e.g., example.com)"
-                className="h-14 w-full rounded-xl border border-slate-200 bg-white pl-12 pr-4 text-base text-slate-900 shadow-md transition-colors placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-white dark:placeholder:text-slate-500 dark:focus:border-brand-400"
+                className="h-14 w-full rounded-xl border border-slate-200 bg-white pl-12 pr-4 text-base text-slate-900 shadow-e1 transition-colors placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-white dark:placeholder:text-slate-500 dark:focus:border-brand-400"
                 disabled={scanning}
               />
             </div>
             <button
               onClick={handleScan}
               disabled={!url.trim() || scanning}
-              className="flex h-12 items-center justify-center gap-2 rounded-xl bg-brand-600 px-6 text-sm font-semibold text-white shadow-md transition-all hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex h-12 items-center justify-center gap-2 rounded-xl bg-brand-600 px-6 text-sm font-semibold text-white shadow-e1 transition-all hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {scanning ? (
                 <>

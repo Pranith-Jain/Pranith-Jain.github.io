@@ -231,7 +231,7 @@ export default function EntityResolution(): JSX.Element {
           onClick={() => setMode('resolve')}
           className={`px-3 py-1.5 rounded text-xs font-mono font-medium transition-colors ${
             mode === 'resolve'
-              ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 shadow-md'
+              ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 shadow-e1'
               : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
           }`}
         >
@@ -242,7 +242,7 @@ export default function EntityResolution(): JSX.Element {
           onClick={() => setMode('extract')}
           className={`px-3 py-1.5 rounded text-xs font-mono font-medium transition-colors ${
             mode === 'extract'
-              ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 shadow-md'
+              ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 shadow-e1'
               : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
           }`}
         >

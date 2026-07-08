@@ -489,7 +489,7 @@ function BuilderIntelCard({ view, bundle }: { view: IntelView; bundle: IntelBund
   // since we already have them — no roundtrip needed.
   void IntelCard; // referenced for code-search; intentional no-render of the hook variant here
   return (
-    <article className="rounded-xl border border-slate-200 bg-white p-4 shadow-md dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
+    <article className="rounded-xl border border-slate-200 bg-white p-4 shadow-e1 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
       <header className="flex flex-wrap items-baseline gap-2">
         <h3 className="font-display text-base font-semibold">{view.title}</h3>
         <Badge tone="mono" size="xs">

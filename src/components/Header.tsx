@@ -217,7 +217,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
                       id={`dropdown-${link.href.replace('/', '')}`}
                       role="menu"
                       tabIndex={-1}
-                      className={`absolute left-0 top-full mt-1 min-w-[200px] rounded-xl border border-[rgb(var(--border-400))] bg-white py-2 shadow-xl dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] transition-all duration-200 ${
+                      className={`absolute left-0 top-full mt-1 min-w-[200px] rounded-xl border border-[rgb(var(--border-400))] bg-white py-2 shadow-e3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] transition-all duration-200 ${
                         openDropdown === link.href
                           ? 'visible opacity-100 translate-y-0'
                           : 'invisible opacity-0 -translate-y-2'
@@ -270,7 +270,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
               <Link
                 key={link.href}
                 to={link.href}
-                className="hidden md:inline-flex items-center gap-1.5 rounded-full bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition hover:bg-brand-500 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+                className="hidden md:inline-flex items-center gap-1.5 rounded-full bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-e1 transition hover:bg-brand-500 hover:shadow-e1 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
               >
                 {link.label}
                 <span aria-hidden="true">→</span>
@@ -307,7 +307,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
               ref={mobileMenuButtonRef}
               type="button"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="grid h-11 w-11 sm:h-10 sm:w-10 place-items-center rounded-full border border-slate-200/60 bg-white/70 text-slate-700 shadow-md transition hover:shadow-md dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]/60 dark:text-slate-200 md:hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+              className="grid h-11 w-11 sm:h-10 sm:w-10 place-items-center rounded-full border border-slate-200/60 bg-white/70 text-slate-700 shadow-e1 transition hover:shadow-e1 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]/60 dark:text-slate-200 md:hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
               aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-menu"

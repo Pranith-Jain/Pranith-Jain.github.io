@@ -33,7 +33,7 @@ export function Toggle({ label, checked, onChange, disabled = false, description
         <span
           aria-hidden="true"
           className={[
-            'pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow-md ring-0 transition-transform duration-200',
+            'pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow-e1 ring-0 transition-transform duration-200',
             checked ? 'translate-x-4' : 'translate-x-0',
           ].join(' ')}
         />

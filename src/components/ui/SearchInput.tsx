@@ -135,7 +135,7 @@ export function SearchInput({
           id={listId}
           ref={listRef}
           role="listbox"
-          className="absolute left-0 right-0 top-full z-50 mt-1 max-h-64 overflow-y-auto rounded-xl border border-slate-200 bg-white shadow-xl dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
+          className="absolute left-0 right-0 top-full z-50 mt-1 max-h-64 overflow-y-auto rounded-xl border border-slate-200 bg-white shadow-e3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
         >
           {visible.map((s, i) => (
             <li

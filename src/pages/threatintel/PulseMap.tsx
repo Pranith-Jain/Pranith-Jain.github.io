@@ -231,7 +231,7 @@ export default function PulseMap({ markers, onMarkerClick, terminatorPolygon }: 
       {/* Tooltip */}
       {hoveredMarker && !selectedMarker && (
         <div className="fixed z-50 pointer-events-none" style={{ left: tooltipPos.x + 10, top: tooltipPos.y - 10 }}>
-          <div className="bg-slate-900/95 backdrop-blur-sm rounded-xl border border-slate-700/50 px-3 py-2 shadow-xl max-w-xs">
+          <div className="bg-slate-900/95 backdrop-blur-sm rounded-xl border border-slate-700/50 px-3 py-2 shadow-e3 max-w-xs">
             <div className="flex items-center gap-2 mb-1">
               <span className="w-2 h-2 rounded-full" style={{ backgroundColor: KIND_COLORS[hoveredMarker.kind] }} />
               <span className="text-micro font-mono uppercase text-slate-400">{KIND_LABELS[hoveredMarker.kind]}</span>

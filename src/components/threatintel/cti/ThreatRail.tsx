@@ -57,7 +57,7 @@ export default function ThreatRail({ threats, onCardClick, selectedId }: ThreatR
           onClick={() => onCardClick?.(t)}
           className={`w-full text-left rounded-xl border p-3 transition-all ${
             selectedId === t.id
-              ? 'border-brand-500/60 bg-brand-500/5 shadow-md'
+              ? 'border-brand-500/60 bg-brand-500/5 shadow-e1'
               : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200)/0.4)] hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]'
           }`}
         >

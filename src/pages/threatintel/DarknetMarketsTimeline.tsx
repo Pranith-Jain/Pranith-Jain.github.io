@@ -417,7 +417,7 @@ export default function DarknetMarketsTimeline(): JSX.Element {
           return (
             <div
               key={m.name}
-              className={`rounded-xl border p-4 hover:shadow-md transition ${
+              className={`rounded-xl border p-4 hover:shadow-e1 transition ${
                 m.status === 'active'
                   ? 'border-emerald-200 dark:border-emerald-800/40 bg-white dark:bg-[rgb(var(--surface-200))]/50'
                   : m.status === 'seized'

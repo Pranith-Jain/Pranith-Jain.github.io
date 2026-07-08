@@ -133,7 +133,7 @@ export default function StixBundleBrowser(): JSX.Element {
 
 function BundleCard({ bundle }: { bundle: StixBundleEntry }): JSX.Element {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 transition-all hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))] hover:shadow-xl hover:shadow-slate-200/50 dark:hover:shadow-slate-900/50">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 transition-all hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))] hover:shadow-e3 hover:shadow-slate-200/50 dark:hover:shadow-slate-900/50">
       <div className="flex items-start gap-4">
         <span
           className={`inline-flex items-center gap-1 text-[10px] font-mono font-semibold px-2 py-1 rounded border uppercase tracking-wider flex-shrink-0 ${SEVERITY_COLORS[bundle.severity]}`}

@@ -465,7 +465,7 @@ function FilterSelect({
       {open && (
         <>
           <div className="fixed inset-0 z-10" onClick={() => setOpen(false)} />
-          <div className="absolute z-20 mt-1 left-0 bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded shadow-xl max-h-48 overflow-auto min-w-[120px]">
+          <div className="absolute z-20 mt-1 left-0 bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded shadow-e3 max-h-48 overflow-auto min-w-[120px]">
             <button
               onClick={() => {
                 onChange('');

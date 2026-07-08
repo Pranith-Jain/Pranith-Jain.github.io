@@ -569,7 +569,7 @@ export default function Notebooks() {
             }
           }}
         >
-          <div className="w-full max-w-md mx-4 p-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-xl">
+          <div className="w-full max-w-md mx-4 p-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e3">
             <h3 className="text-lg font-display font-semibold mb-4">New Investigation Notebook</h3>
             <div className="space-y-4">
               <div>

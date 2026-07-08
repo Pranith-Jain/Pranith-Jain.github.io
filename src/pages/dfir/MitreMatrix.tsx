@@ -416,7 +416,7 @@ export default function MitreMatrix(): JSX.Element {
                         type="button"
                         onClick={() => (coverageMode ? cycleCoverage(technique.id) : openTechnique(technique.id))}
                         className={[
-                          'group relative block w-full rounded border px-2.5 py-2 text-left transition-all hover:shadow-md',
+                          'group relative block w-full rounded border px-2.5 py-2 text-left transition-all hover:shadow-e1',
                           isSelected ? 'ring-2 ring-brand-500/60 dark:ring-brand-400/60' : '',
                           isHighlighted ? 'ring-2 ring-cyan-500/60 dark:ring-cyan-400/60' : '',
                           isDimmed ? 'opacity-30' : '',

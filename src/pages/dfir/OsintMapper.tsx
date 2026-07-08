@@ -162,7 +162,7 @@ export default function OsintMapper(): JSX.Element {
   }
 
   const overlayWrap = 'fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4';
-  const overlayCard = 'bg-white dark:bg-[rgb(var(--surface-200))] rounded-xl p-4 w-full max-w-md shadow-xl';
+  const overlayCard = 'bg-white dark:bg-[rgb(var(--surface-200))] rounded-xl p-4 w-full max-w-md shadow-e3';
 
   return (
     <DataPageLayout

@@ -123,6 +123,11 @@ export const OG_OVERRIDES: Record<string, OgOverride> = {
     description:
       'Universal detection-rule translation — Sigma, KQL, Splunk SPL, Elastic Lucene & EQL, YARA, DLP regex, and Semgrep. 100% client-side.',
   },
+  '/dfir/netdraw': {
+    title: 'NetDraw — Network Diagrams · pranithjain.qzz.io',
+    description:
+      'Browser-based network topology and architecture diagram editor. Drag-and-drop nodes, draw connections, build guided walkthroughs — for DFIR, SOC, and cloud-security mapping.',
+  },
 };
 
 function findOgOverride(pathname: string): OgOverride | null {

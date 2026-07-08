@@ -547,7 +547,7 @@ function RegenMenu({
         {busy ? '…' : 'Regen'}
       </button>
       {open && (
-        <div className="absolute right-0 mt-1 z-10 w-72 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-xl p-3 text-xs">
+        <div className="absolute right-0 mt-1 z-10 w-72 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e3 p-3 text-xs">
           <div className="flex flex-col gap-2">
             <button
               onClick={() => {

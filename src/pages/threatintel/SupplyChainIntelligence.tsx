@@ -404,7 +404,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
       <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
         <a
           href="/threatintel/malicious-packages"
-          className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4 hover:shadow-md transition text-center"
+          className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4 hover:shadow-e1 transition text-center"
         >
           <Package className="w-6 h-6 text-brand-500 mx-auto mb-2" />
           <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">Malicious Packages</div>
@@ -412,7 +412,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
         </a>
         <a
           href="/threatintel/external/supply"
-          className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4 hover:shadow-md transition text-center"
+          className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4 hover:shadow-e1 transition text-center"
         >
           <AlertOctagon className="w-6 h-6 text-amber-500 mx-auto mb-2" />
           <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">Supply Chain Attacks</div>
@@ -422,7 +422,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
           href="https://osv.dev"
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4 hover:shadow-md transition text-center"
+          className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4 hover:shadow-e1 transition text-center"
         >
           <Shield className="w-6 h-6 text-emerald-500 mx-auto mb-2" />
           <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">OSV.dev</div>

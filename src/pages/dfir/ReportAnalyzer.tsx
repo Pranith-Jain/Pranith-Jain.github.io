@@ -265,7 +265,7 @@ function MindmapNode({ data }: { data: { label: string; kind: MindmapNode['kind'
   const s = NODE_STYLES[data.kind] ?? NODE_STYLES.finding;
   return (
     <div
-      className={`rounded-xl border-2 px-2.5 py-1.5 text-xs font-mono shadow-md bg-white ${s.light} ${s.dark}`}
+      className={`rounded-xl border-2 px-2.5 py-1.5 text-xs font-mono shadow-e1 bg-white ${s.light} ${s.dark}`}
       style={{ minWidth: 100, maxWidth: 220 }}
     >
       <Handle type="target" position={Position.Top} style={{ background: s.ring, width: 6, height: 6 }} />

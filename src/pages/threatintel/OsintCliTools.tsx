@@ -108,7 +108,7 @@ function ToolCard({ tool }: { tool: CliTool }): JSX.Element {
       href={sanitizeUrl(tool.repo)}
       target="_blank"
       rel="noopener noreferrer"
-      className="block rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 transition-all hover:border-brand-500/50 hover:shadow-xl hover:shadow-brand-500/5 hover:-translate-y-0.5"
+      className="block rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 transition-all hover:border-brand-500/50 hover:shadow-e3 hover:shadow-brand-500/5 hover:-translate-y-0.5"
     >
       <div className="flex items-start justify-between gap-2 mb-2">
         <span className="font-mono font-semibold text-sm text-slate-900 dark:text-slate-100">{tool.name}</span>

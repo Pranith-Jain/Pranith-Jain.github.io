@@ -196,7 +196,7 @@ export default function AgentMesh(): JSX.Element {
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-6">
         {/* ── Header ─────────────────────────────────────────────── */}
         <div className="flex flex-col items-center gap-3 text-center">
-          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-500 to-purple-600 shadow-xl shadow-violet-500/20">
+          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-500 to-purple-600 shadow-e3 shadow-violet-500/20">
             <Activity className="h-7 w-7 text-white" />
           </div>
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Agent Mesh</h1>

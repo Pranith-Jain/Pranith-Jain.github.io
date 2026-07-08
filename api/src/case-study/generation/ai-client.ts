@@ -126,6 +126,15 @@ export function isRateLimited(err: unknown): boolean {
   );
 }
 
+/** 3040 = Workers AI model-specific capacity issue (e.g. "3040: Capacity
+ *  temporarily exceeded, please try again."). Unlike an account-wide rate
+ *  limit, switching to a different model can succeed immediately.
+ */
+export function isModelCapacityError(err: unknown): boolean {
+  const msg = err instanceof Error ? err.message : String(err);
+  return msg.includes('3040');
+}
+
 async function callGoogleModel(key: string, model: string, input: CompletionInput): Promise<string | null> {
   let res: Response;
   try {
@@ -292,8 +301,10 @@ export async function runCompletion(
     if (result) return result;
   }
 
-  // 3. Workers-AI fallback. FAIL FAST on a rate-limit — it's account-wide,
-  // so trying the next model (same account) is futile and just deepens it.
+  // 3. Workers-AI fallback. FAIL FAST on an account-wide rate-limit
+  // (429 / "rate limit") — trying the next model on the same account is
+  // futile and just deepens it. But a per-model "3040: Capacity temporarily
+  // exceeded" is model-specific, not account-wide, so walk the chain.
   let lastErr: unknown;
   for (let i = 0; i < WORKERS_AI_MODELS.length; i += 1) {
     const model = WORKERS_AI_MODELS[i]!;
@@ -302,7 +313,9 @@ export async function runCompletion(
       return { text, modelUsed: model };
     } catch (err) {
       lastErr = err;
-      if (isRateLimited(err)) {
+      // 3040 = model-specific capacity (e.g. "3040: Capacity temporarily
+      // exceeded"). Try the next model before giving up.
+      if (isRateLimited(err) && !isModelCapacityError(err)) {
         throw new RateLimitError(
           `AI rate-limited/quota exceeded (${model}) — deferring; the hourly publisher cron will retry. ` +
             `Configure GROQ_API_KEY to use Groq's separate free quota. Detail: ${
@@ -311,7 +324,10 @@ export async function runCompletion(
         );
       }
       if (i < WORKERS_AI_MODELS.length - 1) {
-        console.warn(`runCompletion: ${model} failed (non-rate), trying ${WORKERS_AI_MODELS[i + 1]}`, err);
+        console.warn(
+          `runCompletion: ${model} failed${isModelCapacityError(err) ? ' (capacity)' : ''}, trying ${WORKERS_AI_MODELS[i + 1]}`,
+          err
+        );
       }
     }
   }

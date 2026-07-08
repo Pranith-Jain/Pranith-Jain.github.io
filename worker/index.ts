@@ -5,7 +5,7 @@ import { ReportBuilderDO } from './durable-objects/report-builder';
 import { InvestigatorAgentDO } from './durable-objects/investigator-agent';
 import { RadarCrawlerDO } from './durable-objects/radar-crawler';
 import { GlobalPulseDO } from './durable-objects/global-pulse';
-import { generateNonce, withSecurityHeaders } from './csp';
+import { generateNonce, injectScriptNonce, withSecurityHeaders } from './csp';
 import { fetchPrerenderedOrShell } from './router';
 import { handleOgImage } from './og-route';
 import { handleBlogImage } from './blog-image-route';
@@ -99,6 +99,21 @@ export default {
         console.error('apiApp.fetch failed', err);
         return new Response('internal error', { status: 500 });
       }
+    }
+
+    // NetDraw standalone page — serve static HTML with CSP nonce
+    if (url.pathname === '/dfir/netdraw' || url.pathname === '/dfir/netdraw/') {
+      const assetRes = await env.ASSETS.fetch(request);
+      const ct = assetRes.headers.get('content-type') ?? '';
+      if (ct.toLowerCase().includes('text/html') && assetRes.ok) {
+        const nonce = generateNonce();
+        const body = injectScriptNonce(await assetRes.text(), nonce);
+        return withSecurityHeaders(
+          new Response(body, { headers: { 'content-type': 'text/html;charset=UTF-8' } }),
+          nonce
+        );
+      }
+      return withSecurityHeaders(assetRes);
     }
 
     // SPA shell fallback — serve prerendered HTML or the shell for client routing

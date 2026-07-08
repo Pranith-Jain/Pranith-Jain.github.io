@@ -429,7 +429,7 @@ export default function PhysicalBitcoinAttacks(): JSX.Element {
           return (
             <div
               key={a.id}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4 hover:shadow-md transition"
+              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4 hover:shadow-e1 transition"
             >
               <div className="flex items-start gap-3">
                 <div className="flex-1 min-w-0">
