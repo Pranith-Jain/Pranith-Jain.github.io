@@ -1002,8 +1002,8 @@ app.get('/api/v1/health/vectorize', async (c) => {
 
 app.get('/api/v1/debug/llm', async (c) => {
   const env = c.env;
-  const ping = { model: 'minimaxai/minimax-m2.7', messages: [{ role: 'user', content: 'ping' }], max_tokens: 5 };
-  const testEndpoint = async (label: string, url: string, key: string | undefined, body: unknown) => {
+  const ping = { messages: [{ role: 'user', content: 'ping' }], max_tokens: 5 };
+  const testEndpoint = async (url: string, key: string | undefined, body: unknown) => {
     if (!key) return { status: 'no_key' };
     try {
       const res = await fetch(url, {
@@ -1025,7 +1025,7 @@ app.get('/api/v1/debug/llm', async (c) => {
         groq: !!env.GROQ_API_KEY,
         google: !!env.GOOGLE_AI_STUDIO_API_KEY,
       },
-      nvidia: await testEndpoint('nvidia', 'https://integrate.api.nvidia.com/v1/chat/completions', env.NVIDIA_API_KEY, {
+      nvidia: await testEndpoint('https://integrate.api.nvidia.com/v1/chat/completions', env.NVIDIA_API_KEY, {
         ...ping,
         model: 'minimaxai/minimax-m2.7',
       }),
@@ -1035,13 +1035,13 @@ app.get('/api/v1/debug/llm', async (c) => {
         env.NVIDIA_API_KEY,
         { ...ping, model: 'z-ai/glm-5.2' }
       ),
-      groq: await testEndpoint('groq', 'https://api.groq.com/openai/v1/chat/completions', env.GROQ_API_KEY, {
-        model: 'qwen/qwen3-32b',
+      groq: await testEndpoint('https://api.groq.com/openai/v1/chat/completions', env.GROQ_API_KEY, {
+        model: 'llama-3.1-8b-instant',
         messages: [{ role: 'user', content: 'ping' }],
         max_completion_tokens: 5,
       }),
-      groqFallback: await testEndpoint('groq', 'https://api.groq.com/openai/v1/chat/completions', env.GROQ_API_KEY, {
-        model: 'llama-4-scout-17b-16e-instruct',
+      groqFallback: await testEndpoint('https://api.groq.com/openai/v1/chat/completions', env.GROQ_API_KEY, {
+        model: 'openai/gpt-oss-20b',
         messages: [{ role: 'user', content: 'ping' }],
         max_completion_tokens: 5,
       }),
