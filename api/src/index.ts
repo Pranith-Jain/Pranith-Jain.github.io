@@ -1029,12 +1029,10 @@ app.get('/api/v1/debug/llm', async (c) => {
         ...ping,
         model: 'minimaxai/minimax-m2.7',
       }),
-      nvidiaFallback: await testEndpoint(
-        'nvidia',
-        'https://integrate.api.nvidia.com/v1/chat/completions',
-        env.NVIDIA_API_KEY,
-        { ...ping, model: 'z-ai/glm-5.2' }
-      ),
+      nvidiaFallback: await testEndpoint('https://integrate.api.nvidia.com/v1/chat/completions', env.NVIDIA_API_KEY, {
+        ...ping,
+        model: 'z-ai/glm-5.2',
+      }),
       groq: await testEndpoint('https://api.groq.com/openai/v1/chat/completions', env.GROQ_API_KEY, {
         model: 'llama-3.1-8b-instant',
         messages: [{ role: 'user', content: 'ping' }],
@@ -1046,14 +1044,12 @@ app.get('/api/v1/debug/llm', async (c) => {
         max_completion_tokens: 5,
       }),
       google: await testEndpoint(
-        'google',
         'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=' +
           env.GOOGLE_AI_STUDIO_API_KEY,
         env.GOOGLE_AI_STUDIO_API_KEY,
         { contents: [{ role: 'user', parts: [{ text: 'ping' }] }], generationConfig: { maxOutputTokens: 5 } }
       ),
       googleFallback: await testEndpoint(
-        'google',
         'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' +
           env.GOOGLE_AI_STUDIO_API_KEY,
         env.GOOGLE_AI_STUDIO_API_KEY,
