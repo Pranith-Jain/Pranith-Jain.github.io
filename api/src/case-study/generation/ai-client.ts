@@ -66,7 +66,7 @@ const GROQ_TIMEOUT_MS = 30_000;
 // Under an account-wide rate limit, trying more than 3 is futile.
 const WORKERS_AI_MODELS = [
   '@cf/moonshotai/kimi-k2.6',
-  '@cf/zai-org/glm-5.2',
+  '@cf/zai-org/glm-4.7-flash',
   '@cf/meta/llama-3.3-70b-instruct-fp8-fast',
 ] as const;
 
@@ -227,11 +227,14 @@ async function runWorkersModel(ai: Ai, model: string, input: CompletionInput): P
       max_tokens: input.maxTokens ?? 4000,
       temperature: input.temperature ?? 0.5,
     } as Parameters<typeof ai.run>[1]
-  )) as { response?: string };
-  if (!res || typeof res.response !== 'string' || !res.response.trim()) {
+  )) as Record<string, unknown>;
+  const text =
+    (res.response as string | undefined) ??
+    (res.choices as Array<{ message?: { content?: string } }> | undefined)?.[0]?.message?.content;
+  if (typeof text !== 'string' || !text.trim()) {
     throw new Error(`Empty response from ${model}`);
   }
-  return res.response;
+  return text;
 }
 
 export async function runCompletion(
