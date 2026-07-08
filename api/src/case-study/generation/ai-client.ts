@@ -62,12 +62,15 @@ const GROQ_TIMEOUT_MS = 30_000;
 // Workers-AI fallback chain (no key). Prioritise agentic/reasoning models
 // that support long contexts and multi-turn tool calling — critical for CTI
 // investigations. Kimi K2.6 is best overall (thinking mode, 262K context);
-// GLM-5.2 (262K, function calling) is next; Llama 3.3-70B is the fast fallback.
-// Under an account-wide rate limit, trying more than 3 is futile.
+// GLM-4.7-flash (262K, function calling) is next; Llama 3.3-70B is the fast
+// fallback. Two smaller models guard against model-specific capacity (3040)
+// errors — they have higher rate limits and are rarely at capacity.
 const WORKERS_AI_MODELS = [
   '@cf/moonshotai/kimi-k2.6',
   '@cf/zai-org/glm-4.7-flash',
   '@cf/meta/llama-3.3-70b-instruct-fp8-fast',
+  '@cf/meta/llama-3.1-8b-instruct',
+  '@cf/mistral/mistral-7b-instruct-v0.1',
 ] as const;
 
 export interface CompletionInput {
@@ -232,7 +235,8 @@ async function runWorkersModel(ai: Ai, model: string, input: CompletionInput): P
     (res.response as string | undefined) ??
     (res.choices as Array<{ message?: { content?: string } }> | undefined)?.[0]?.message?.content;
   if (typeof text !== 'string' || !text.trim()) {
-    throw new Error(`Empty response from ${model}`);
+    const keys = Object.keys(res).join(',');
+    throw new Error(`Empty response from ${model} (response keys: ${keys})`);
   }
   return text;
 }

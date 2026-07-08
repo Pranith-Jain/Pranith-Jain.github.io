@@ -34,8 +34,11 @@ function handleUnauthorized(): void {
 async function extractError(r: Response): Promise<string> {
   let detail = `${r.status} ${r.statusText}`;
   try {
-    const body = (await r.clone().json()) as { error?: string; message?: string };
-    if (body.error) detail = body.message ? `${body.error}: ${body.message}` : body.error;
+    const body = (await r.clone().json()) as { error?: string; message?: string; detail?: string };
+    if (body.error) {
+      const extra = body.message ?? body.detail;
+      detail = extra ? `${body.error}: ${extra}` : body.error;
+    }
   } catch {
     /* ignore parse errors */
   }

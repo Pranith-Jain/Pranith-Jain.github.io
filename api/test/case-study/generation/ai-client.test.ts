@@ -8,8 +8,10 @@ import {
 
 const WORKERS_AI_MODELS = [
   '@cf/moonshotai/kimi-k2.6',
-  '@cf/zai-org/glm-5.2',
+  '@cf/zai-org/glm-4.7-flash',
   '@cf/meta/llama-3.3-70b-instruct-fp8-fast',
+  '@cf/meta/llama-3.1-8b-instruct',
+  '@cf/mistral/mistral-7b-instruct-v0.1',
 ] as const;
 
 afterEach(() => {
@@ -79,7 +81,7 @@ describe('runCompletion — Workers-AI fallback (no Groq key)', () => {
   it('throws when all models fail with non-rate errors', async () => {
     const ai = { run: vi.fn().mockRejectedValue(new Error('boom')) };
     await expect(runCompletion(ai as any, { system: 's', user: 'u' })).rejects.toThrow();
-    expect(ai.run).toHaveBeenCalledTimes(3);
+    expect(ai.run).toHaveBeenCalledTimes(5);
   });
 });
 

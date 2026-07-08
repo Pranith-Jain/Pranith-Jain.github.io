@@ -360,6 +360,7 @@ analyst_approval_required: true
 - **YES** = real tool data. Cite it with exact values.
 - **NO** = tool not called or returned empty. OMIT the corresponding section.
 - **NO — OMIT** in the availability checklist means: skip that section entirely, no generic advice.
+- **Concrete data trumps success rate**: A single tool that returned a list of 27 CVEs, dozens of IOCs, or detailed actor intelligence is NOT "limited data" — write a thorough report about what it found. Only flag data as "limited" when even the successful tools returned sparse output.
 - If check_ioc AND enrich_ioc_deep both say NO: write a brief verdict on what you DO have, note the gap.
 - If ALL tools failed: write minimal report — headline + "Investigation inconclusive — all enrichment sources returned errors" + basic next steps.
 - NEVER pad. Short sections are honest. A missing section is better than a fabricated one.
@@ -518,7 +519,7 @@ ${
     ? 'HIGH quality data — most tools succeeded. Write a confident, detailed report.'
     : successRate >= 50
       ? "MEDIUM quality data — some tools failed. Be precise about what you know vs what you don't."
-      : 'LOW quality data — many tools failed. Write a brief, honest report. Flag gaps explicitly.'
+      : 'LOW quality data — many tools failed. Write a thorough report about what the available tools found. Flag gaps where data is thin, but do not downplay substantive results.'
 }
 Key data sources: ${uniqueTools.slice(0, 8).join(', ')}
 ${errTools.length > 0 ? `Failed sources: ${[...new Set(errTools.map((r) => r.tool))].join(', ')}` : ''}
