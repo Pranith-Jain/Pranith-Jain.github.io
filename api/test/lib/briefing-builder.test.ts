@@ -99,11 +99,28 @@ describe('writeBriefing empty-clobber guard', () => {
     expect(writes).toHaveLength(0);
   });
 
-  it('writes an empty briefing when no prior row exists (placeholder)', async () => {
+  it('does NOT write a zero-findings briefing when no prior row exists', async () => {
     const { db, writes } = fakeDb({});
     const r = await writeBriefing(db, briefing('daily-new', 0, 0));
-    expect(r.written).toBe(true);
-    expect(writes).toEqual(['daily-new']);
+    expect(r.written).toBe(false);
+    expect(r.reason).toBe('empty_body_refused');
+    expect(writes).toHaveLength(0);
+  });
+
+  it('does NOT write a zero-findings briefing with IOCs when no prior exists', async () => {
+    const { db, writes } = fakeDb({});
+    const r = await writeBriefing(db, briefing('daily-new', 0, 203));
+    expect(r.written).toBe(false);
+    expect(r.reason).toBe('empty_body_refused');
+    expect(writes).toHaveLength(0);
+  });
+
+  it('keeps a rich prior when a zero-findings briefing with IOCs arrives', async () => {
+    const { db, writes } = fakeDb({ 'daily-x': { stats_json: JSON.stringify({ findings: 29, iocs: 1482 }) } });
+    const r = await writeBriefing(db, briefing('daily-x', 0, 203));
+    expect(r.written).toBe(false);
+    expect(r.reason).toBe('kept_richer_existing');
+    expect(writes).toHaveLength(0);
   });
 
   it('always writes a non-empty briefing (overwrites empty prior)', async () => {

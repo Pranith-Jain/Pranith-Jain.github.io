@@ -69,7 +69,7 @@ interface ListItem {
 type BuildType = 'daily' | 'weekly' | 'landscape';
 
 const num = (n: number | undefined): number => n ?? 0;
-const isEmpty = (s: BriefingStats | undefined): boolean => num(s?.findings) === 0 && num(s?.iocs) === 0;
+const isEmpty = (s: BriefingStats | undefined): boolean => num(s?.findings) === 0;
 
 function StatPills({ stats }: { stats: BriefingStats | undefined }) {
   if (!stats) return <span className="text-slate-600 dark:text-slate-500">—</span>;

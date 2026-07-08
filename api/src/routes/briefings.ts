@@ -607,7 +607,7 @@ export async function pruneEmptyBriefingsHandler(c: AdminCtx) {
   if ('error' in auth) return auth.error;
 
   const where =
-    "type IN ('daily','weekly') AND json_extract(stats_json,'$.findings') = 0 AND json_extract(stats_json,'$.iocs') = 0";
+    "type IN ('daily','weekly') AND json_extract(stats_json,'$.findings') = 0";
   try {
     const found = await db.prepare(`SELECT slug FROM briefings WHERE ${where}`).all<{ slug: string }>();
     const slugs = (found.results ?? []).map((r) => r.slug);

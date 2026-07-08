@@ -468,8 +468,8 @@ export async function writeBriefing(
     return { written: false, reason: 'empty_body_refused' };
   }
 
-  const isEmpty = briefing.stats.findings === 0 && briefing.stats.iocs === 0;
-  if (isEmpty) {
+  const hasNoFindings = briefing.stats.findings === 0;
+  if (hasNoFindings) {
     const prior = await db
       .prepare('SELECT stats_json, body FROM briefings WHERE slug = ?')
       .bind(briefing.slug)
@@ -480,11 +480,12 @@ export async function writeBriefing(
         await db.prepare('DELETE FROM briefings WHERE slug = ?').bind(briefing.slug).run();
       } else {
         const ps = safeJsonParse<Partial<BriefingStats>>(prior.stats_json, {});
-        if ((ps.findings ?? 0) > 0 || (ps.iocs ?? 0) > 0) {
+        if ((ps.findings ?? 0) > 0) {
           return { written: false, reason: 'kept_richer_existing' };
         }
       }
     }
+    return { written: false, reason: 'empty_body_refused' };
   }
 
   // D1 rejects any single row/value over 2 MB with SQLITE_TOOBIG. The uncapped
