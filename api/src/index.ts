@@ -1002,6 +1002,11 @@ app.get('/api/v1/health/vectorize', async (c) => {
 
 app.get('/api/v1/debug/llm', async (c) => {
   const env = c.env;
+  // Self-authenticated via X-Admin-Token to avoid the public API key gate.
+  const adminToken = c.req.header('x-admin-token') ?? '';
+  if (!adminToken || adminToken !== env.ADMIN_TOKEN) {
+    return c.json({ error: 'unauthorized', message: 'valid X-Admin-Token required' }, 401);
+  }
   const ping = { model: 'minimaxai/minimax-m2.7', messages: [{ role: 'user', content: 'ping' }], max_tokens: 5 };
   const testEndpoint = async (label: string, url: string, key: string | undefined, body: unknown) => {
     if (!key) return { status: 'no_key' };

@@ -77,6 +77,7 @@ const EXEMPT_PATHS = new Set([
   '/api/v1/telegram-leaks/bot-webhook',
   '/api/v1/telegram-leaks/register-webhook',
   '/api/v1/csp-report', // CSP violation reports — POST from browsers, no auth needed
+  '/api/v1/debug/llm', // Debug endpoint — self-authenticates via X-Admin-Token header
   // NOTE: removed the dead '/api/v1/telegram-leaks/trigger-scan' entry — no
   // handler is registered for it. Re-add ONLY together with a self-authenticating
   // handler, else a future handler at that path would be silently keyless + CSRF-exempt.
