@@ -2,22 +2,22 @@
  * Case-study LLM client.
  *
  * Provider order:
- *   1. NVIDIA build.nvidia.com (free tier, 40 RPM, 1000 credits, no CC) —
- *      used when NVIDIA_API_KEY is configured. OpenAI-compatible endpoint.
- *      Falls back from MiniMax M2.7 → GLM-5.2 (same key, skipped on auth
- *      errors).
- *   2. Groq free tier (own quota, fast, Qwen3-32B) — used when a
- *      GROQ_API_KEY is configured. Falls back Qwen3-32B (thinking/non-
- *      thinking) → Llama 4 Scout. Auth errors short-circuit the chain.
- *   3. Google AI Studio (Gemini) — own quota, free tier up to 1000 RPM,
- *      used when GOOGLE_AI_STUDIO_API_KEY is configured.
- *      Falls back Gemini 2.5 Flash → Gemini 2.0 Flash.
- *   4. Workers AI (llama-3.1-8b) — final fallback when the AI binding
- *      is configured in wrangler.jsonc (free tier quota).
+ *   1. NVIDIA build.nvidia.com — tried first. Currently returns timeout
+ *      errors (free tier connectivity issue). Falls back MiniMax M2.7 →
+ *      GLM-5.2. Auth/credits-exhausted errors skip the fallback.
+ *   2. Groq (fast, production models) — used when GROQ_API_KEY is
+ *      configured. Primary: Llama 3.1 8B (560 t/s). Quality: Llama 3.3
+ *      70B (reasoning). Fallback: GPT OSS 20B (1000 t/s).
+ *      Auth errors short-circuit the chain.
+ *   3. Google AI Studio (Gemini) — API-key auth deprecated by Google;
+ *      calls return 401. Left in-place for when OAuth2 support is added.
+ *   4. Workers AI (llama-3.1-8b) — final fallback via AI binding.
  *
  * All fallbacks are best-effort: deterministic auth/key errors skip their
  * model fallback chain immediately (same key → same failure). Rate-limit
  * / 429 errors also skip fallbacks on the same provider (same quota pool).
+ * Timeouts on a provider are treated as non-deterministic (the fallback
+ * model is still tried).
  */
 
 const GOOGLE_BASE = 'https://generativelanguage.googleapis.com/v1beta/models';
@@ -28,25 +28,23 @@ const GOOGLE_MODEL_QUALITY_FALLBACK = 'gemini-2.0-pro';
 const GOOGLE_TIMEOUT_MS = 15_000;
 
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
-/** Default model — Qwen3-32B (non-thinking mode). Best for social / fast generation. */
-const GROQ_MODEL: string = 'qwen/qwen3-32b';
+/** Default model — Llama 3.1 8B (production, fast, 560 t/s). */
+const GROQ_MODEL: string = 'llama-3.1-8b-instant';
 /**
- * Quality model — Qwen3-32B with thinking mode. Excellent for analytical/
- * reasoning tasks (82 WritingBench score, 500K context). Falls back to
- * non-thinking Qwen3-32B then Llama 4 Scout.
+ * Quality model — Llama 3.3 70B (production, strong reasoning, 280 t/s).
  */
-const GROQ_MODEL_QUALITY: string = 'qwen/qwen3-32b';
+const GROQ_MODEL_QUALITY: string = 'llama-3.3-70b-versatile';
 /**
- * Fallback when the quality Qwen3-32B is rate-limited or unavailable.
- * Llama 4 Scout (17B, 16 MoE experts) has generous TPM limits.
+ * Fallback when the quality model is rate-limited or unavailable.
+ * GPT OSS 20B (1000 t/s, production, generous TPM limits).
  */
-const GROQ_MODEL_FALLBACK: string = 'llama-4-scout-17b-16e-instruct';
+const GROQ_MODEL_FALLBACK: string = 'openai/gpt-oss-20b';
 const GROQ_TIMEOUT_MS = 15_000;
 
 const NVIDIA_BASE = 'https://integrate.api.nvidia.com/v1/chat/completions';
 const NVIDIA_MODEL = 'minimaxai/minimax-m2.7';
 const NVIDIA_MODEL_FALLBACK = 'z-ai/glm-5.2';
-const NVIDIA_TIMEOUT_MS = 15_000;
+const NVIDIA_TIMEOUT_MS = 5_000;
 
 export interface CompletionInput {
   system: string;
@@ -163,7 +161,7 @@ async function runGoogle(
   throw new Error(`google models unavailable (${primary}, ${fallback})`);
 }
 
-async function runGroq(key: string, input: CompletionInput, model?: string, quality?: boolean): Promise<string> {
+async function runGroq(key: string, input: CompletionInput, model?: string, _quality?: boolean): Promise<string> {
   let res: Response;
   try {
     const body: Record<string, unknown> = {
@@ -175,11 +173,8 @@ async function runGroq(key: string, input: CompletionInput, model?: string, qual
       max_completion_tokens: input.maxTokens ?? 4000,
       temperature: input.temperature ?? 0.5,
     };
-    // Qwen3-32B supports reasoning_effort for thinking mode. For quality
-    // mode use 'default' (the Groq API accepts 'none' or 'default').
-    if (quality && model === GROQ_MODEL_QUALITY) {
-      body.reasoning_effort = 'default';
-    }
+    // Quality mode uses reasoning model; no extra params needed.
+    // (reasoning_effort was for the now-deprecated qwen/qwen3-32b)
     res = await fetch(GROQ_URL, {
       method: 'POST',
       headers: { Authorization: `Bearer ${key}`, 'content-type': 'application/json' },
@@ -264,7 +259,7 @@ export async function runCompletion(
         console.warn('runCompletion: groq auth error, skipping fallbacks', err);
         return null;
       }
-      // If quality Qwen3-32B with thinking mode failed, try without reasoning_effort.
+      // If quality model (Llama 3.3 70B) failed, fall back to default (Llama 3.1 8B).
       if (opts.quality) {
         try {
           const text = await runGroq(opts.groqKey, input, GROQ_MODEL, false);
