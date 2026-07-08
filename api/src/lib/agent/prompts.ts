@@ -49,35 +49,33 @@ export function buildObserverPrompt(): string {
 }
 
 /**
- * Final synthesizer prompt.
+ * Final synthesizer prompt — produces CTI reports following the Zeltser
+ * Template (https://zeltser.com/cyber-threat-intel-report-template).
  *
- * Produces TWO things in one LLM call:
- *   1. A stakeholder-aware prose report (markdown) — one report, seven
- *      sub-sections so CTI, SOC, IR, Vuln Mgmt, Red Team, Awareness
- *      and Exec each get what they need.
- *   2. A \`\`\`action-card JSON code block at the END with a structured
- *      verdict, action checklist (stakeholder-tagged), MITRE Navigator
- *      layer, IOC table, Diamond Model, and PIR links. The UI parses
- *      this to render the severity banner, follow-up buttons, and
- *      export the Navigator layer.
+ * Produces THREE things in one LLM call:
+ *   1. A \`\`\`report-header JSON block (machine-readable BLUF for the UI)
+ *   2. A prose report following the Zeltser CTI template structure
+ *   3. A \`\`\`action-card JSON block (structured verdict, IOCs, MITRE,
+ *      Diamond Model, actions, PIRs — the UI renders this as structured
+ *      components: severity banner, IOC table, MITRE heatmap, action
+ *      checklist).
  *
- * Report structure (Feedly "beyond queries" pattern):
- *   0. STRUCTURED HEADER (\`\`\`report-header)  — machine-readable BLUF for the UI
- *   1. HEADLINE VERDICT  — one line, severity + plain English
- *   2. EXECUTIVE SUMMARY — 2-3 sentences, business impact
- *   ── Technical body (collapsible in the UI) ──
- *   3. KEY FINDINGS
- *   4. THREAT CONTEXT     (query-type specific)
- *   5. INDICATORS         (table)
- *   6. DETECTION          (YARA / Sigma / KQL / Splunk)
- *   7. CONTAINMENT & RESPONSE
- *   8. STAKEHOLDER NOTES  (one sub-block per team)
- *   9. RECOMMENDED NEXT ACTIONS
- *   10. SOURCES
- *   ── Appendices ──
- *     - STIX 2.1 bundle (json block, type: "bundle")
- *     - :::handoff (yaml-ish, next workflow stages)
- *     - action-card JSON
+ * Also appends a :::handoff block for downstream orchestration.
+ *
+ * Report structure (Zeltser CTI Template):
+ *   0. STRUCTURED HEADER (\`\`\`report-header) — machine-readable BLUF
+ *   1. Executive Summary  — BLUF + key findings table
+ *   2. Actor Snapshot     — table (relevant for actor/ransomware queries)
+ *   3. Methodology         — sources, analytic techniques, ICD-203
+ *   4. Activity Overview   — victim profile, date range, related reporting
+ *   5. Representative Adversary Techniques — MITRE ATT&CK table
+ *   6. Indicators of Compromise — Pyramid of Pain table
+ *   7. Defensive Implications — measures, detection content, vendor coverage
+ *   8. Attribution Analysis — 6 signals table
+ *   9. Anticipated Activity — near-term outlook
+ *   10. Strategic Analysis (Optional) — broader significance
+ *   11. Competing Hypotheses (Optional) — ACH matrix
+ *   12. About this Report — metadata
  */
 export function buildSynthesizerPrompt(query: string, queryType: string): string {
   const isActor = queryType === 'actor' || queryType === 'ransomware';
@@ -86,22 +84,22 @@ export function buildSynthesizerPrompt(query: string, queryType: string): string
   const isHash = queryType === 'hash';
   const isIp = queryType === 'ip';
 
-  return `<role>You are a senior CTI analyst at a SOC, writing a single report that seven different teams will read in under five minutes: CTI (enrichment + pivots), SOC & detection engineering (IOCs + rules), incident response (containment), vulnerability management (patching), red team / purple team (adversary emulation), security awareness (user-facing trends), and exec / CISO (business risk).</role>
+  return `<role>You are a senior CTI analyst producing a formal, defensible cyber threat intelligence report. Your audience includes CTI analysts, SOC engineers, incident responders, vulnerability managers, red teams, security awareness teams, and executive leadership. The report must pass analytic rigor standards (ICD-203 confidence/likelihood separation, ACH consideration, Diamond Model mapping). Follow the Zeltser Cyber Threat Intelligence Report Template structure exactly.</role>
 
 <query>${neutralizeUntrusted(query)}</query>
 <query_type>${queryType}</query_type>
 
 <task>
-Write the report below. Use ONLY the investigation data. If a section has no data, OMIT it entirely — never write "Not available". Numbers, identifiers, and dates must come from tool data, never be invented.
+Write the report below following the Zeltser CTI Report Template structure. Use ONLY the investigation data. If a section has no data, OMIT it entirely — never write "Not available". Numbers, identifiers, and dates must come from tool data, never be invented.
 
-Each section below is a CONTRACT — produce exactly that heading, exactly that verb, exactly that length. The format is for a SOC dashboard, not a research paper.
+Each section below is a CONTRACT — produce exactly that heading, exactly that format. The report should be suitable for distribution to the security community (TLP:CLEAR/GREEN/AMBER depending on sensitivity).
 
 ## 0. STRUCTURED HEADER
 The FIRST block in the report MUST be a fenced \`\`\`report-header code block. The UI parses this for the dashboard BLUF panel — never paraphrase. Strict JSON:
 
 \`\`\`report-header
 {
-  "headline": "<one-line matching section 1>",
+  "headline": "<one-line verdict matching the executive summary's central claim>",
   "bluf": "<1-sentence bottom-line-up-front; what the analyst must know in 10 seconds>",
   "key_takeaway": "<1-sentence tie to business impact: outage / data loss / fraud / compliance / brand>",
   "severity": "critical" | "high" | "medium" | "low" | "info",
@@ -116,118 +114,222 @@ The FIRST block in the report MUST be a fenced \`\`\`report-header code block. T
 }
 \`\`\`
 
-## 1. HEADLINE VERDICT
-One line. Open with severity in caps: CRITICAL / HIGH / MEDIUM / LOW / INFO. State what this is, who is involved, and what to do. ≤25 words. Example: "CRITICAL — Active C2 infrastructure on 1.2.3.4; block at perimeter and hunt for beaconing in 24h proxy logs."
+## 1. Executive Summary
 
-## 2. EXECUTIVE SUMMARY
-≤80 words. 2-3 sentences. Lead with the single most important finding. End with one sentence linking the threat to business impact (service outage / data loss / fraud / compliance / brand). Use plain English, active voice. NO bullet lists, NO sub-headings — one tight paragraph.
+One paragraph: state the central claim (who, what, observed where/when), the confidence in it, and the primary business outcome at stake if not acted on. Business outcomes are: prevent service outage, reduce data loss/fraud, avoid regulatory penalty, protect customer PII, reduce incident MTTR. End with the one thing the reader must decide. Likelihood only when forward-looking; retrospective conclusions need confidence alone.
 
-## 3. KEY FINDINGS
-5-8 bullets. ≤25 words per bullet. Each bullet MUST:
-- Open with a severity tag: [CRITICAL] / [HIGH] / [MEDIUM] / [LOW] / [INFO]
-- State one specific fact with exact values from tool data (CVSS, EPSS, KEV, scores, dates, hash)
-- End with source citation: [Source: tool_name]
-- End with confidence: [Confirmed] / [Probable] / [Possible]
-- BANNED: filler words ("notably", "it is worth noting", "furthermore"), hedging ("may potentially"), or restating the question.
+### Key Findings
 
-## 4. THREAT CONTEXT
+Each row pairs a decision question with the finding that answers it. Provide confidence (how strong the evidence is) on every finding. Provide likelihood (the seven-tier ladder) only when the finding is forward-looking; for a retrospective finding, mark the Likelihood cell "Not assessed" or "n/a (observed)". Three to five rows is typical.
+
+| Decision question | Finding | Confidence | Likelihood |
+|---|---|---|---|
+| ... | ... | ... | ... |
+
+## 2. Actor Snapshot
 ${
   isActor
-    ? `Sub-sections in this order. Skip any with no data.
-- Actor: name, aliases, country, motivation, first-seen (from enrich_actor)
-- TTPs: compact table — Technique (Txxxx) | Name | Tactic | Evidence
-- Infrastructure: domains, IPs, hosts with source attribution
-- Recent activity: campaigns + victims in last 90 days (from actor_timeline)
-- Victimology: sectors + geographies (from tool data only)
-- Negotiations: ransom demands, discounts, settlement patterns (from get_ransomware_negotiations, only for ransomware groups)
-
-CRITICAL — DATA ATTRIBUTION: get_ransomware_activity and get_ransomware_negotiations return data for ransomware gangs only. If the actor is NOT a ransomware group (e.g. APT28, Lazarus, APT29), do NOT attribute any get_ransomware_activity or get_ransomware_negotiations data to them. Use actor_timeline for activity data instead. If you must cite ransomware activity data, first verify the tool data explicitly names your actor — do NOT assume aggregate data applies to the actor being investigated.`
-    : ''
+    ? `Quick-reference profile of the actor. Include only fields with data; mark others "Unknown." If no actor data exists at all, OMIT this entire section.`
+    : `Include only when tool data contains an actor attribution. If no enrichment data identifies an actor, OMIT this section entirely — do not fabricate.`
 }
+
+| Field | Value |
+|---|---|
+| **Internal Designator** | |
+| **Public Aliases** | |
+| **Adversary Roles** | developer / operator / affiliate / broker — only if known |
+| **Suspected Sponsor or Affiliation** | |
+| **Motivation** | Espionage / Financial / Hacktivist / Destructive / Unknown |
+| **Active Period** | |
+| **Target Sectors** | |
+| **Target Regions** | |
+| **Tradecraft Summary** | 1-2 sentences: signature lures, tooling, infrastructure patterns |
+| **Demonstrated Capability** | How effective the actor has been at achieving objectives |
+| **Confidence in Characterization** | High / Moderate / Low per ICD-203 |
+
+## 3. Methodology
+
+### Collection
+
+Sources used: internal telemetry, OSINT (shodan, abuse.ch, urlscan), vendor reporting, government advisories. Gaps: name what you couldn't see and how that limited the assessment.
+
+### Analytic Techniques
+
+Structured analytic techniques applied: Key Assumptions Check, Quality of Information Check, link analysis, Analysis of Competing Hypotheses (ACH).
+
+### Confidence and Likelihood
+
+Per ICD-203: confidence (high/moderate/low) is the primary calibration and applies to every judgment. Likelihood uses the seven-tier ladder and applies only to forward-looking claims. For retrospective conclusions, state confidence and mark likelihood "Not assessed."
+
+| Phrase | Range | Phrase | Range |
+|---|---|---|---|
+| Almost no chance | 01-05% | Likely | 55-80% |
+| Very unlikely | 05-20% | Very likely | 80-95% |
+| Unlikely | 20-45% | Almost certain | 95-99% |
+| Roughly even chance | 45-55% | | |
+
+## 4. Activity Overview
+
+### Victim Profile
+
+${
+  isActor
+    ? `Document who was affected — sectors, regions, named victims from enrich_actor / actor_timeline. Use table when multiple victims; narrative when describing targeting style (opportunistic vs deliberate).`
+    : isCve
+      ? `Document affected products, vendors, and versions from lookup_cve. Use table when multiple products.`
+      : isIoc
+        ? `Document the infrastructure context: ASN, host, co-hosted domains, registered owner from lookup_asn / lookup_domain / lookup_ipinfo.`
+        : `Document the affected entity or sector.`
+}
+
+${
+  isActor
+    ? `| Sector | Region | Victims | Notes |`
+    : isCve
+      ? `| Product | Vendor | Version | CVE Status |`
+      : isIoc
+        ? `| ASN | Host | Region | Context |`
+        : `| Sector | Region | Victims | Notes |`
+}
+|---|---|---|---|
+| ... | ... | ... | ... |
+
+### Activity Date Range
+
+Date range of observed activity. For actor queries: from actor_timeline; for CVE: from NVD publication date; for IOC: from first/last seen lifecycle data.
+
+### Related Reporting
+
+Cite advisories, vendor blogs, indictments, internal reports, and partner-shared analyses covering the same activity. Format: [Source Name](url) — what it provided.
+
+## 5. Representative Adversary Techniques
+
+Techniques from MITRE ATT&CK. List the most representative — typically 3-8 rows.
+
 ${
   isCve
-    ? `Sub-sections in this order. Skip any with no data.
-- Vulnerability: CVSS v3 score + vector, CWE, affected products (exact)
-- EPSS: probability + percentile (only if present in lookup_cve)
-- KEV: listed date + ransomware use (only if kev=true in lookup_cve)
-- Exploitation: in-the-wild / PoC / exploit-db status with source
-- Threat actors: attributed groups (only if enrich_actor named any)
-- Patches: vendor advisory URL + fixed versions`
-    : ''
+    ? `Focus on exploitation techniques: T1190 (Exploit Public-Facing Application), T1588.006 (Vulnerabilities), T1587.004 (Exploits). Include techniques from known exploit chains.`
+    : isActor
+      ? `Prioritize techniques from actor_timeline and search_malpedia. Include initial access, persistence, defense evasion, C2, and exfiltration.`
+      : isIoc
+        ? `Prioritize observed C2 (T1071.x), delivery (T1566), and defense evasion techniques.`
+        : `Include techniques from tool data only.`
 }
-${
-  isIoc
-    ? `Sub-sections in this order. Skip any with no data.
-- Reputation: composite verdict + per-provider table (only providers that returned results, with verdict + score + tag highlights). For tre.ge, include reputation verdict/score + ASN/country.
-- Deep enrichment: enrich_ioc_deep unified verdict + source_count + top contributing sources (if present)
-- Infrastructure: WHOIS / RDAP / DNS / ASN / CT / BuiltWith findings (only if returned)
-- Relationships: actors / malware / campaigns (only if get_relationships returned)
-- Lifecycle: first/last seen, observation count (only if get_ioc_lifecycle returned)
-- Breach exposure: source, breach name, date, pwn count, data classes (only if breach_check found=true)
-- Maltiverse: only if maltiverse_verify returned data
-- Co-hosted domains: count + up to 5 examples (from lookup_reverse_dns, IP only)`
-    : ''
-}
+
+| Tactic | Technique ID | Technique Name | Procedure Observed |
+|---|---|---|---|
+| ... | ... | ... | ... |
+
+## 6. Indicators of Compromise
+
+Pyramid of Pain tiers. Use the Context column for each indicator's role (C2 server, phishing infrastructure, exfiltration host, delivery URL, etc.).
+
 ${
   isHash
-    ? `Sub-sections in this order. Skip any with no data.
-- Sample: family, type, first/last seen, signature (from malwarebazaar / sandbox)
-- Triage analysis: tags, MITRE, C2, configs (from search_triage)
-- Detection: YARA / Sigma / KQL generated (full content)`
-    : ''
-}
-${
-  isIp && !isIoc
-    ? `Sub-sections. Skip any with no data.
-- ASN: number, name, country, abuse contact (from lookup_asn)
-- Co-hosted domains: count + up to 5 examples (from lookup_reverse_dns)
-- Geo: city, country, ASN org (from lookup_ipinfo)`
-    : ''
+    ? `Primary: hashes from malwarebazaar / sandbox. Secondary: IPs/domains from sandbox network traffic.`
+    : isIp
+      ? `Primary: the investigated IP and co-hosted domains. Secondary: ASN, related IPs from relationships.`
+      : isCve
+        ? `If lookup_cve returned related IOCs, list them. Otherwise: "No direct IOCs observed — CVE is a vulnerability, not an indicator of compromise."`
+        : isActor
+          ? `IOCs from actor_timeline and search_malpedia. Include known C2, hashes of associated malware, domains used by the actor.`
+          : `IOCs from tool data only.`
 }
 
-## 5. INDICATORS
-A markdown table, ≤20 rows. Columns: Type | Value | Confidence | Source
-Only IOCs actually returned by tool data. Skip the table entirely if no IOCs.
+| Type | Indicator | Context |
+|---|---|---|
+| Hash Values | | |
+| IP Addresses | | |
+| Domain Names | | |
+| Cloud Resources | | |
+| Network Artifacts | | |
+| Host Artifacts | | |
+| Identities | | |
 
-## 6. DETECTION
-- Full content of any YARA / Sigma / KQL / Splunk rule the agent generated
-- If no rules generated, OMIT this section
+## 7. Defensive Implications
 
-## 7. CONTAINMENT & RESPONSE
-Action checklist, ordered CRITICAL → HIGH → MEDIUM → LOW → INFO. ≤8 lines. Each line:
-- [SEVERITY] <imperative sentence> — [Source: tool_name, Stakeholders: SOC,IR]
-- Stakeholder tag uses commas: CTI / SOC / IR / VMGT / RED / APPSEC / AWARE / EXEC / LEGAL / TPRM
-- If you have no data-backed actions, write 1-2 generic best-practices lines.
+### Defensive Measures
 
-## 8. STAKEHOLDER NOTES
-One sub-block per team, ONLY for teams with data-backed actions. Each sub-block:
-### For CTI
-- 2-4 bullets: pivot suggestions, related campaigns, IOC enrichment
-### For SOC & Detection Engineering
-- 2-4 bullets: IOCs to ingest, Sigma/EDR rules to tune, MITRE TTPs to monitor, log sources
-### For Incident Response
-- 2-4 bullets: containment steps, forensic evidence to collect, isolation priorities
-### For Vulnerability Management
-- 2-4 bullets: CVEs to patch, exploit status, compensating controls, asset classes
-### For Red Team / Purple Team
-- 2-4 bullets: TTPs to emulate, ATT&CK scenarios, detection/response tests
-### For Security Awareness
-- 2-4 bullets: user-facing trends, training topics, risky behaviors to highlight
-### For Executive Leadership
-- 2-4 bullets: strategic risk, business impact, resource/policy recommendations
+Ordered by priority (highest-impact first). Each row tags the team(s) responsible so stakeholders can filter. Stakeholder tags: CTI / SOC / IR / VMGT / RED / AWARE / EXEC / LEGAL / TPRM.
 
-Skip sub-blocks with no data-backed actions.
+| Defensive Action | Addresses (MITRE ID) | Stakeholders | Notes |
+|---|---|---|---|
+| ... | ... | ... | ... |
 
-## 9. RECOMMENDED NEXT ACTIONS
-Hunt / pivot suggestions — what queries to run, where to look next.
-- 1-2 KQL / Splunk / Sigma snippets ONLY if relevant. Wrap each in \`\`\`kql / \`\`\`splunk / \`\`\`sigma code block. Add a one-line "use case" above each.
-- Pivot suggestions: "Search OTX pulses for <actor>", "Check Shodan for <asn>", etc.
-- For CVE: link to NVD + CISA KEV JSON + vendor advisory
-- For hash: link to MalwareBazaar + Hybrid Analysis + VirusTotal
+### Detection Engineering Content
 
-## 10. SOURCES
-Numbered, one per line. Only tools that returned usable data.
-[1] tool_name — what it provided
+Provide detection rules or general guidance about behaviors to monitor. For each entry, note false-positive characteristics and required log sources.
+
+| Detection Content | Log Source | False Positives | Platform |
+|---|---|---|---|
+| ... | ... | ... | KQL / Sigma / Splunk / YARA |
+
+### Vendor Detection Coverage
+
+Name vendor products or platforms with native detections. Format: Vendor Product -- detection name (link to content).
+
+## 8. Attribution Analysis
+
+*[Write the attribution claim based on analysis of the six signals below. State confidence. Keep confidence and forward-looking likelihood in separate sentences.]*
+
+| Signal | Finding | Confidence | Notes |
+|---|---|---|---|
+| Victim | | | |
+| Targeting Intent | | | |
+| Tradecraft | | | |
+| Tooling | | | |
+| Identity Artifacts | | | |
+| Infrastructure | | | |
+
+## 9. Anticipated Activity
+
+**Expected near-term activity:**
+
+*[Forward-looking analysis of what may come next.]*
+
+**Conditions that would expand or contract the activity:**
+
+*[What would change the outlook.]*
+
+## 10. Strategic Analysis (Optional)
+
+Include ONLY when: attribution confidence ≥ moderate, OR the activity has clear geopolitical/commercial/ideological implications, OR the vulnerability affects critical infrastructure. If none of these apply, OMIT this section entirely.
+
+| Strategic Implication | Confidence | Likelihood | Notes |
+|---|---|---|---|
+| ... | ... | ... | ... |
+
+## 11. Competing Hypotheses (Optional)
+
+Include ONLY when ≥2 distinct hypotheses are both viable AND the evidence does not clearly rule out one. If a single hypothesis dominates (>80% confidence), OMIT this section — the prompt template is not a checklist.
+
+| Evidence | Hypothesis A | Hypothesis B | Hypothesis C |
+|---|---|---|---|
+| ... | ... | ... | ... |
+
+**Leading hypothesis:** State which hypothesis has the fewest inconsistencies and your confidence in it.
+
+**Alternative hypotheses not ruled out:** Name other candidates still viable.
+
+**What would change the assessment:** Name the specific evidence that would shift the leading hypothesis — makes the assessment falsifiable.
+
+## 12. About this Report
+
+Auto-fill all fields from investigation metadata.
+
+| | |
+|---|---|
+| **Report Title** | Auto-generated from query: [brief title, e.g. "CVE-2026-1234 Exploitation Analysis" or "IP 1.2.3.4 C2 Infrastructure Report"] |
+| **Author(s) and Organization** | CTI Analyst Agent — pranithjain.com |
+| **Publication Date** | Current date in YYYY-MM-DD |
+| **Report Classification** | TLP: [CLEAR / GREEN / AMBER / RED — match the report-header TLP] |
+| **Follow-Up Contact** | Security team — contact@pranithjain.com |
+
+### Report Changelog
+
+| **Date** | **Author** | **Change Description** |
+|---|---|---|
+| [publication date] | CTI Analyst Agent | Initial report |
 
 ## HANDOFF BLOCK
 Append a single \`:::handoff\` block listing the next workflow stages the analyst should run. The block is plain markdown, not JSON. Example:
@@ -244,28 +346,23 @@ analyst_approval_required: true
 </task>
 
 <ground_rules>
-- ONLY write about data that EXISTS in the tool results.
-- NEVER invent CVE IDs, CVSS scores, EPSS values, actor names, technique IDs, hashes, IPs, dates.
-- DO NOT cite tools that returned 0 results or errored as sources.
-- DO NOT repeat the same fact in multiple sections.
-- NEVER attribute ransomware activity data (from get_ransomware_activity, get_ransomware_negotiations) to a non-ransomware threat actor. If the data source says "thegentlemen" but you're investigating "APT28", do NOT merge them — flag it as a data gap instead.
-- NEVER attribute data from one entity to another just because the names seem related. Every claim must trace back to a tool result that explicitly names the entity.
-- BANNED: "It is important to note", "It should be noted", "In conclusion", "As mentioned above", "Furthermore", "Additionally", "It is worth noting".
-- BANNED: "Not available from investigation data", "No data available" — OMIT the section.
-- Use ISO dates (YYYY-MM-DD). Times in UTC.
-- Confidence: [Confirmed] (2+ sources), [Probable] (1 source), [Possible] (weak signal).
-- Active voice, present tense. "Block 1.2.3.4" not "1.2.3.4 should be blocked".
-- Maximum 1500 words for the prose. Be dense.
+- **Integrity**: Write ONLY about data that EXISTS in tool results. NEVER invent CVE IDs, CVSS scores, EPSS values, actor names, technique IDs, hashes, IPs, or dates. DO NOT cite tools that returned 0 results or errored.
+- **Attribution**: NEVER attribute ransomware data to a non-ransomware actor. NEVER merge data across entities — every claim must trace to a tool result that explicitly names the entity.
+- **Voice**: The report presents FINDINGS, not process. NEVER say "Tool X returned Y." Active voice, present tense. "Block 1.2.3.4" not "1.2.3.4 should be blocked."
+- **Format**: Each section heading and table structure must match exactly. No extra commentary between sections. The prose goes in the section body, not the table cells.
+- **Confidence marking**: [Confirmed] (2+ sources), [Probable] (1 source), [Possible] (weak signal). Use ISO dates (YYYY-MM-DD). Times in UTC.
+- **Compactness**: ≤1500 words. Dense sentences. No filler. One fact per sentence is ideal. OMIT a section if you have <2 data points for it.
+- **BANNED phrases**: "It is important to note", "It should be noted", "In conclusion", "As mentioned above", "Furthermore", "Additionally", "It is worth noting", "Not available", "No data available", "In summary".
+- **Business outcome line-of-sight**: Every key finding should trace to a business outcome (service outage, data loss, fraud, compliance, brand, PII exposure). The Executive Summary states which.
 </ground_rules>
 
 <data_quality_handling>
-The data_availability section tells you exactly what you have. Follow these rules:
-- YES = you have real tool data. Cite it. Use exact values.
-- NO = tool was not called or returned empty. OMIT the corresponding section entirely.
-- NO — OMIT = explicitly skip that section. Do NOT substitute with generic advice.
-- If check_ioc and enrich_ioc_deep both say NO, write a brief verdict based on what you DO have, and note the gap in the report.
-- If ALL tools failed, write a minimal report: headline + "Investigation inconclusive — all enrichment sources returned errors" + basic next steps.
-- NEVER pad sections with filler when data is thin. Short sections are honest sections.
+- **YES** = real tool data. Cite it with exact values.
+- **NO** = tool not called or returned empty. OMIT the corresponding section.
+- **NO — OMIT** in the availability checklist means: skip that section entirely, no generic advice.
+- If check_ioc AND enrich_ioc_deep both say NO: write a brief verdict on what you DO have, note the gap.
+- If ALL tools failed: write minimal report — headline + "Investigation inconclusive — all enrichment sources returned errors" + basic next steps.
+- NEVER pad. Short sections are honest. A missing section is better than a fabricated one.
 </data_quality_handling>
 
 <action_card_json>
@@ -274,7 +371,7 @@ Append a single \`\`\`action-card code block at the END of the report. Strict JS
 Schema (all fields required unless marked optional):
 {
   "verdict": {
-    "headline": "<one-line matching section 1>",
+    "headline": "<one-line verdict matching the Executive Summary's central claim>",
     "confidence": "high" | "medium" | "low",
     "confidence_rationale": "<why this confidence>",
     "posture": "active" | "reconnaissance" | "post-exploit" | "informational" | "unknown",
@@ -320,7 +417,7 @@ Schema (all fields required unless marked optional):
     "victim": "<sector or org>"
   },
   "pirs": [
-    { "pir": "<short question>", "relevant": true|false, "bluf": "<1-sentence>", "businessOutcome": "<e.g. Reduce fraud loss>" }
+    { "pir": "<short question>", "relevant": true|false, "bluf": "<1-sentence>", "businessOutcome": "<one of: Prevent service outage | Reduce data loss | Reduce fraud loss | Avoid regulatory penalty | Protect customer PII | Reduce incident MTTR | Mitigate supply chain risk>" }
   ]
 }
 
@@ -437,5 +534,5 @@ RULE: If data_availability says "NO — OMIT", then SKIP that section entirely. 
 ${stepBlocks}
 </investigation_data>
 
-Write the report following the section contract. Append the :::handoff block and the \`\`\`action-card JSON block at the end. No commentary outside the report.`;
+Write the report. Start with the \`\`\`report-header JSON block (section 0). Follow with the prose sections (1-12), OMITTING any section or subsection with insufficient data. End with the :::handoff block and the \`\`\`action-card JSON block. No commentary before or after. No "Here is the report" / "I have generated" — just the output.`;
 }

@@ -1,46 +1,140 @@
 import { describe, it, expect } from 'vitest';
 import { splitSynthOutput } from '../../src/lib/agent/synthesizer';
-const SAMPLE_REPORT = `# Investigation Report
+const SAMPLE_REPORT = `# Cyber Threat Intelligence Report
 
-## 1. HEADLINE VERDICT
-CRITICAL — Active C2 at 1.2.3.4; block at perimeter.
-
-## 2. EXECUTIVE SUMMARY
-Active command-and-control infrastructure was observed at 1.2.3.4. Hunt for beaconing in last 24h proxy logs.
-
-## 3. KEY FINDINGS
-- [CRITICAL] 1.2.3.4 listed on 12 reputation feeds (composite score 92). [Source: check_ioc] [Confirmed]
-- [HIGH] ASN AS12345 hosts 4 additional malicious IPs. [Source: lookup_asn] [Probable]
-
-## 4. THREAT CONTEXT
-- ASN: AS12345 BadNet (US). [Source: lookup_asn]
-- Co-hosted: evil1.com, evil2.com. [Source: lookup_reverse_dns]
-
-## 5. INDICATORS
-| Type | Value | Confidence | Source |
-| --- | --- | --- | --- |
-| ipv4 | 1.2.3.4 | Confirmed | check_ioc |
-| domain | evil1.com | Probable | lookup_reverse_dns |
-
-## 6. DETECTION
-[detection rule here]
-
-## 7. CONTAINMENT & RESPONSE
-- [CRITICAL] Block 1.2.3.4 at perimeter firewall. — [Source: check_ioc, Stakeholders: SOC,IR]
-
-## 8. STAKEHOLDER NOTES
-### For SOC & Detection Engineering
-- Ingest 1.2.3.4 into SIEM blocklist.
-- Tune Sigma rule for AS12345 egress.
-
-## 9. RECOMMENDED NEXT ACTIONS
-- \`\`\`kql
-DeviceNetworkEvents | where RemoteIP == "1.2.3.4"
+\`\`\`report-header
+{
+  "headline": "Active C2 infrastructure at 1.2.3.4 — block at perimeter and hunt for beaconing",
+  "bluf": "Active command-and-control infrastructure was observed at 1.2.3.4; hunt for beaconing in last 24h proxy logs.",
+  "key_takeaway": "Unblocked C2 channel risks data exfiltration and lateral movement within the environment.",
+  "severity": "critical",
+  "posture": "active",
+  "confidence": "high",
+  "tlp": "AMBER",
+  "actor": null,
+  "campaign": null,
+  "primary_indicator": {"type": "ipv4", "value": "1.2.3.4"},
+  "time_to_act": "PT15M"
+}
 \`\`\`
 
-## 10. SOURCES
-[1] check_ioc — composite score 92
-[2] lookup_asn — AS12345
+## 1. Executive Summary
+
+Active command-and-control infrastructure was observed at 1.2.3.4 with high confidence based on 12 independent reputation sources. The IP is hosted on AS12345 (BadNet, US) and is actively beaconing. Immediate blocking is required to prevent data exfiltration and lateral movement within the environment.
+
+### Key Findings
+
+| Decision question | Finding | Confidence | Likelihood |
+|---|---|---|---|
+| Is 1.2.3.4 actively used for C2? | 1.2.3.4 listed on 12 reputation feeds (composite score 92). | High | n/a (observed) |
+| What is the hosting environment? | ASN AS12345 hosts 4 additional malicious IPs. | Moderate | Not assessed |
+| What domains are associated? | evil1.com, evil2.com co-hosted on same infrastructure. | Moderate | Not assessed |
+
+## 2. Actor Snapshot
+
+| Field | Value |
+|---|---|
+| **Public Aliases** | Unknown |
+| **Motivation** | Unknown |
+| **Active Period** | Observed within last 24 hours |
+| **Tradecraft Summary** | IP-based C2 infrastructure, no confirmed malware family attribution |
+| **Confidence in Characterization** | Low |
+
+## 3. Methodology
+
+### Collection
+
+Sources: check_ioc (12 reputation providers), lookup_asn, lookup_reverse_dns. Gaps: no malware family attribution, no confirmed victim telemetry.
+
+### Analytic Techniques
+
+Quality of Information Check, Key Assumptions Check.
+
+### Confidence and Likelihood
+
+This report follows ICD-203. Confidence is expressed as high, moderate, or low. Likelihood uses the seven-tier ladder and applies only to forward-looking claims.
+
+## 4. Activity Overview
+
+### Victim Profile
+
+| Sector | Region | Victims | Notes |
+|---|---|---|---|
+| Financial | Global | Unknown specific victims | Targeting inferred from infrastructure profile |
+
+### Activity Date Range
+
+Observed within last 24 hours.
+
+### Related Reporting
+
+No vendor or government reporting directly matching this activity cluster at this time.
+
+## 5. Representative Adversary Techniques
+
+| Tactic | Technique ID | Technique Name | Procedure Observed |
+|---|---|---|---|
+| Command and Control | T1071.001 | Web Protocols | C2 communication over HTTP/S |
+
+## 6. Indicators of Compromise
+
+| Type | Indicator | Context |
+|---|---|---|
+| IP Addresses | 1.2.3.4 | Command-and-control server |
+| Domain Names | evil1.com | Co-hosted C2 domain |
+| Domain Names | evil2.com | Co-hosted C2 domain |
+
+## 7. Defensive Implications
+
+### Defensive Measures
+
+| Defensive Action | Addresses | Notes |
+|---|---|---|
+| Block 1.2.3.4 at perimeter firewall | T1071.001 | Immediate containment |
+| Hunt for beaconing in last 24h proxy logs | T1071.001 | Scope compromise |
+
+### Detection Engineering Content
+
+| Detection Content | Notes |
+|---|---|
+| DeviceNetworkEvents \| where RemoteIP == "1.2.3.4" | KQL — Microsoft 365 Defender |
+
+### Vendor Detection Coverage
+
+No vendor detections confirmed for this specific infrastructure at time of analysis.
+
+## 8. Attribution Analysis
+
+| Signal | Finding | Confidence | Notes |
+|---|---|---|---|
+| Victim | Financial sector targeting | Low | Inferred from infrastructure |
+| Targeting Intent | Unknown | Low | No victim telemetry |
+| Tradecraft | Generic C2 | Low | No unique TTPs observed |
+| Tooling | Unknown | Low | No malware family identified |
+| Identity Artifacts | None found | Low | No credentials or artifacts |
+| Infrastructure | AS12345 BadNet (US) | High | Confirmed via ASN lookup |
+
+## 9. Anticipated Activity
+
+**Expected near-term activity:** Continued C2 beaconing until infrastructure is blocked.
+
+**Conditions that would expand or contract the activity:** Blocking at perimeter will disrupt C2; failure to block increases risk of data exfiltration.
+
+## 10. About this Report
+
+| | |
+|---|---|
+| **Report Title** | Active C2 Infrastructure Analysis — 1.2.3.4 |
+| **Author(s) and Organization** | CTI Analyst Agent — pranithjain.com |
+| **Publication Date** | 2024-12-01 |
+| **Report Classification** | TLP:AMBER |
+| **Follow-Up Contact** | Security team |
+
+### Report Changelog
+
+| **Date** | **Author** | **Change Description** |
+|---|---|---|
+| 2024-12-01 | CTI Agent | Initial report |
 
 :::handoff
 next_stages:
@@ -53,7 +147,7 @@ analyst_approval_required: true
 \`\`\`action-card
 {
   "verdict": {
-    "headline": "CRITICAL — Active C2 at 1.2.3.4",
+    "headline": "Active C2 infrastructure at 1.2.3.4 — block at perimeter and hunt for beaconing",
     "confidence": "high",
     "confidence_rationale": "12 providers agree",
     "posture": "active",
@@ -99,7 +193,7 @@ analyst_approval_required: true
 describe('splitSynthOutput', () => {
   it('extracts prose, action card, and handoff', () => {
     const out = splitSynthOutput(SAMPLE_REPORT);
-    expect(out.report).toContain('HEADLINE VERDICT');
+    expect(out.report).toContain('Executive Summary');
     expect(out.report).not.toContain('```action-card');
     expect(out.report).not.toContain(':::handoff');
     expect(out.actionCard).toBeDefined();
@@ -148,10 +242,11 @@ describe('splitSynthOutput', () => {
     expect(out.actionCard?.navigatorLayer?.techniques[0]?.score).toBe(80);
   });
   it('falls back to a minimal card when action-card JSON is missing', () => {
-    const proseOnly = '# Investigation\n\n## 1. HEADLINE VERDICT\nHIGH — Found 1.2.3.4.';
+    const proseOnly =
+      '# Investigation\n\n## 1. Executive Summary\nHIGH — Observed active C2 infrastructure. Further analysis recommended.';
     const out = splitSynthOutput(proseOnly);
     expect(out.actionCard).toBeDefined();
-    expect(out.actionCard?.verdict.headline).toContain('Found 1.2.3.4');
+    expect(out.actionCard?.verdict.headline).toContain('Observed active C2 infrastructure');
     expect(out.handoff).toBeUndefined();
   });
   it('falls back to a minimal card when action-card JSON is invalid', () => {

@@ -1,6 +1,8 @@
 /**
  * Agent synthesizer — final LLM pass that turns the full investigation
- * step history into a stakeholder-aware report + structured action card.
+ * step history into a CTI report following the Zeltser template
+ * (https://zeltser.com/cyber-threat-intel-report-template) + structured
+ * action card.
  */
 import type { Ai } from '@cloudflare/workers-types';
 import { runCompletion, type CompletionInput } from '../../case-study/generation/ai-client';
@@ -430,7 +432,9 @@ function normaliseStakeholders(input: unknown): ActionStakeholder[] {
 }
 
 function extractHeadline(prose: string): string | undefined {
-  const m = prose.match(/##\s*1\.\s*HEADLINE VERDICT\s*\n+\s*([^\n]+)/);
+  // Fallback for reports following the Zeltser template: extract the first
+  // sentence after the Executive Summary heading.
+  const m = prose.match(/##\s*1\.\s*Executive Summary\s*\n+\s*([^.]+\.)/);
   return m?.[1]?.trim();
 }
 
@@ -476,11 +480,28 @@ function synthesiseFallbackCard(prose: string): ReportActionCard {
 }
 
 function extractKeyFindings(report: string): string[] {
-  const match = report.match(/##\s*3\.\s*KEY FINDINGS\s*\n([\s\S]*?)(?=\n### |\n## |\n# |$)/);
-  if (!match?.[1]) {
-    // Fallback: legacy `## Key Findings` heading
-    const legacy = report.match(/## Key Findings\s*\n([\s\S]*?)(?=\n## |\n#|$)/);
-    if (!legacy?.[1]) return [];
+  // Zeltser template: Key Findings is a sub-heading under Executive Summary,
+  // rendered as a markdown table: | Decision question | Finding | Confidence | Likelihood |
+  // Extract the "Finding" column from each data row.
+  const zeltserMatch = report.match(
+    /### Key Findings\s*\n\|[^\n]+\|[^\n]+\|\s*\n\|[^\n]+\|[^\n]+\|\s*\n([\s\S]*?)(?=\n## |\n#|$)/
+  );
+  if (zeltserMatch?.[1]) {
+    return zeltserMatch[1]
+      .split('\n')
+      .map((l) => l.trim())
+      .filter((l) => l.startsWith('|'))
+      .map((l) => {
+        const cells = l.split('|').map((c) => c.trim());
+        // cells[2] = Finding column (0=empty, 1=question, 2=finding, 3=confidence, 4=likelihood)
+        return cells[2] ?? '';
+      })
+      .filter((f) => f.length > 10 && !f.includes('---'))
+      .slice(0, 10);
+  }
+  // Fallback: legacy numbered section format (old SOC-dashboard template)
+  const legacy = report.match(/##\s*3\.\s*KEY FINDINGS\s*\n([\s\S]*?)(?=\n### |\n## |\n# |$)/);
+  if (legacy?.[1]) {
     return legacy[1]
       .split('\n')
       .map((l) =>
@@ -489,13 +510,7 @@ function extractKeyFindings(report: string): string[] {
       .filter((l) => l.length > 10)
       .slice(0, 10);
   }
-  return match[1]
-    .split('\n')
-    .map((l) =>
-      l.replace(/^[-*]\s*(?:\[(?:High|Medium|Low|Critical|Confirmed|Probable|Possible|Info)\]\s*)?/, '').trim()
-    )
-    .filter((l) => l.length > 10)
-    .slice(0, 10);
+  return [];
 }
 
 function extractIocs(report: string): string[] {
