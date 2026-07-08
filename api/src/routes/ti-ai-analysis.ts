@@ -13,11 +13,15 @@
 
 import { Hono } from 'hono';
 import type { D1Database, KVNamespace, Ai } from '@cloudflare/workers-types';
+import { runCompletion } from '../case-study/generation/ai-client';
 
 interface AiEnv {
   BRIEFINGS_DB: D1Database;
   KV_CACHE: KVNamespace;
   AI: Ai;
+  GROQ_API_KEY?: string;
+  GOOGLE_AI_STUDIO_API_KEY?: string;
+  NVIDIA_API_KEY?: string;
 }
 
 interface ThreatContext {
@@ -60,13 +64,25 @@ interface RiskScore {
 
 const ai = new Hono<{ Bindings: AiEnv }>();
 
-async function runAiPrompt(ai: Ai, prompt: string): Promise<string> {
+async function runAiPrompt(
+  prompt: string,
+  env: { GROQ_API_KEY?: string; GOOGLE_AI_STUDIO_API_KEY?: string; NVIDIA_API_KEY?: string }
+): Promise<string> {
   try {
-    const response = await ai.run('@cf/meta/llama-3.1-8b-instruct', {
-      messages: [{ role: 'user', content: prompt }],
-      max_tokens: 1024,
-    });
-    return (response as { response: string }).response;
+    const result = await runCompletion(
+      null,
+      {
+        system: '',
+        user: prompt,
+        maxTokens: 1024,
+      },
+      {
+        nvidiaKey: env.NVIDIA_API_KEY,
+        groqKey: env.GROQ_API_KEY,
+        googleKey: env.GOOGLE_AI_STUDIO_API_KEY,
+      }
+    );
+    return result.text;
   } catch (e) {
     return `AI analysis unavailable: ${(e as Error).message || 'unknown error'}`;
   }
@@ -75,11 +91,6 @@ async function runAiPrompt(ai: Ai, prompt: string): Promise<string> {
 ai.post('/analyze', async (c) => {
   const db = c.env.BRIEFINGS_DB;
   const kv = c.env.KV_CACHE;
-  const aiModel = c.env.AI;
-
-  if (!aiModel) {
-    return c.json({ error: 'AI not available', message: 'Workers AI binding not configured' }, 503);
-  }
 
   const body = await c.req.json<{ indicator: string; type?: string }>();
 
@@ -125,7 +136,7 @@ Respond in JSON format:
   "related_threats": ["string"]
 }`;
 
-  const aiResponse = await runAiPrompt(aiModel, prompt);
+  const aiResponse = await runAiPrompt(prompt, c.env);
 
   // If AI is unavailable, return fallback analysis
   if (aiResponse.startsWith('AI analysis unavailable')) {
@@ -185,12 +196,6 @@ Respond in JSON format:
 });
 
 ai.post('/summarize', async (c) => {
-  const aiModel = c.env.AI;
-
-  if (!aiModel) {
-    return c.json({ error: 'AI not available', message: 'Workers AI binding not configured' }, 503);
-  }
-
   const body = await c.req.json<{ text: string; type?: string }>();
 
   if (!body.text) {
@@ -215,7 +220,7 @@ Provide a structured summary in JSON:
   "timeline": [{"event": "string", "date": "string"}]
 }`;
 
-  const response = await runAiPrompt(aiModel, prompt);
+  const response = await runAiPrompt(prompt, c.env);
 
   // Fallback if AI unavailable
   if (response.startsWith('AI analysis unavailable')) {
@@ -302,12 +307,6 @@ ai.post('/risk-score', async (c) => {
 });
 
 ai.post('/hunt', async (c) => {
-  const aiModel = c.env.AI;
-
-  if (!aiModel) {
-    return c.json({ error: 'AI not available', message: 'Workers AI binding not configured' }, 503);
-  }
-
   const body = await c.req.json<{ scenario: string; platform?: string }>();
 
   if (!body.scenario) {
@@ -341,7 +340,7 @@ Respond in JSON:
   ]
 }`;
 
-  const response = await runAiPrompt(aiModel, prompt);
+  const response = await runAiPrompt(prompt, c.env);
 
   // Fallback if AI unavailable
   if (response.startsWith('AI analysis unavailable')) {
@@ -371,12 +370,7 @@ Respond in JSON:
 
 ai.post('/brief', async (c) => {
   const db = c.env.BRIEFINGS_DB;
-  const aiModel = c.env.AI;
   const _kv = c.env.KV_CACHE;
-
-  if (!aiModel) {
-    return c.json({ error: 'AI not available', message: 'Workers AI binding not configured' }, 503);
-  }
 
   const body = await c.req.json<{ topic?: string; hours?: number }>();
 
@@ -427,7 +421,7 @@ Format as JSON:
   "outlook": "string"
 }`;
 
-  const response = await runAiPrompt(aiModel, prompt);
+  const response = await runAiPrompt(prompt, c.env);
 
   // Fallback if AI unavailable
   if (response.startsWith('AI analysis unavailable')) {

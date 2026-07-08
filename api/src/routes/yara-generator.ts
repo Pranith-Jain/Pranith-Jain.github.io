@@ -29,16 +29,7 @@ import type { Env } from '../env';
  */
 
 export type RuleType =
-  | 'yara'
-  | 'sigma'
-  | 'kql'
-  | 'splunk'
-  | 'lucene'
-  | 'eql'
-  | 'snort'
-  | 'powershell'
-  | 'dlp'
-  | 'supplychain';
+  'yara' | 'sigma' | 'kql' | 'splunk' | 'lucene' | 'eql' | 'snort' | 'powershell' | 'dlp' | 'supplychain';
 
 const MAX_STRINGS = 50;
 const MAX_DESCRIPTION_LENGTH = 5000;
@@ -136,7 +127,41 @@ async function runWorkersAi(ai: NonNullable<Env['AI']>, model: string, input: Ll
   return res.response;
 }
 
-async function runLlm(ai: Env['AI'], groqKey: string | undefined, input: LlmInput): Promise<LlmOutput> {
+async function callNvidia(nvidiaKey: string, input: LlmInput): Promise<string> {
+  const models = ['minimaxai/minimax-m2.7', 'z-ai/glm-5.2'];
+  for (const model of models) {
+    try {
+      const res = await fetch('https://integrate.api.nvidia.com/v1/chat/completions', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${nvidiaKey}`, 'content-type': 'application/json' },
+        signal: AbortSignal.timeout(30_000),
+        body: JSON.stringify({
+          model,
+          messages: [
+            { role: 'system', content: input.system },
+            { role: 'user', content: input.user },
+          ],
+          max_tokens: input.maxTokens ?? 2500,
+          temperature: input.temperature ?? 0.2,
+        }),
+      });
+      if (!res.ok) continue;
+      const j = (await res.json()) as { choices?: Array<{ message?: { content?: string } }> };
+      const text = j?.choices?.[0]?.message?.content;
+      if (typeof text === 'string' && text.trim()) return text;
+    } catch {
+      /* try next model */
+    }
+  }
+  throw new Error('nvidia models unavailable');
+}
+
+async function runLlm(
+  ai: Env['AI'],
+  groqKey: string | undefined,
+  nvidiaKey: string | undefined,
+  input: LlmInput
+): Promise<LlmOutput> {
   // 1. Groq primary (better model, own quota)
   if (groqKey) {
     try {
@@ -145,14 +170,24 @@ async function runLlm(ai: Env['AI'], groqKey: string | undefined, input: LlmInpu
     } catch (err) {
       const msg = (err instanceof Error ? err.message : String(err)).toLowerCase();
       if (msg.includes('rate') || msg.includes('429')) {
-        console.warn('rule-gen: groq rate-limited, falling back to Workers AI');
+        console.warn('rule-gen: groq rate-limited, trying NVIDIA');
       } else {
-        console.warn('rule-gen: groq failed, falling back to Workers AI', err);
+        console.warn('rule-gen: groq failed, trying NVIDIA', err);
       }
     }
   }
 
-  // 2. Workers AI fallback (70b primary, 8b tertiary)
+  // 2. NVIDIA fallback
+  if (nvidiaKey) {
+    try {
+      const text = await callNvidia(nvidiaKey, input);
+      return { text, modelUsed: 'nvidia:minimaxai/minimax-m2.7' };
+    } catch (err) {
+      console.warn('rule-gen: nvidia failed, falling back to Workers AI', err);
+    }
+  }
+
+  // 3. Workers AI fallback (70b primary, 8b tertiary)
   if (ai) {
     const aiClient = ai as NonNullable<Env['AI']>;
     for (const model of [CF_MODEL, CF_MODEL_FALLBACK]) {
@@ -169,7 +204,7 @@ async function runLlm(ai: Env['AI'], groqKey: string | undefined, input: LlmInpu
     }
   }
 
-  throw new Error('No AI provider available (Workers AI missing and no GROQ_API_KEY)');
+  throw new Error('No AI provider available (Workers AI missing and no API keys)');
 }
 
 // ── Validation Functions ─────────────────────────────────────────────────
@@ -1191,6 +1226,7 @@ const MAX_RETRIES = 2;
 interface GenerateOpts {
   ai: Env['AI'];
   groqKey?: string;
+  nvidiaKey?: string;
   req: GenerateRequest;
   complexity: string;
   promptBuilders: Record<RuleType, (req: GenerateRequest, c: string) => { system: string; user: string }>;
@@ -1199,7 +1235,7 @@ interface GenerateOpts {
 async function generateWithRetry(
   opts: GenerateOpts
 ): Promise<{ content: string; validation: ValidationResult; retries: number; modelUsed: string }> {
-  const { ai, groqKey, req, complexity, promptBuilders } = opts;
+  const { ai, groqKey, nvidiaKey, req, complexity, promptBuilders } = opts;
   const { system, user } = promptBuilders[req.type](req, complexity);
 
   let lastContent = '';
@@ -1225,7 +1261,7 @@ ${lastValidation.errors.map((e) => `- ${e}`).join('\n')}
 Please return the corrected rule ONLY. No explanations.`;
     }
 
-    const result = await runLlm(ai, groqKey, {
+    const result = await runLlm(ai, groqKey, nvidiaKey, {
       system,
       user: promptUser,
       maxTokens: 2500,
@@ -1290,6 +1326,7 @@ export async function ruleGeneratorHandler(c: Context<{ Bindings: Env }>): Promi
     const { content, validation, retries, modelUsed } = await generateWithRetry({
       ai: c.env.AI,
       groqKey: c.env.GROQ_API_KEY,
+      nvidiaKey: c.env.NVIDIA_API_KEY,
       req: body,
       complexity,
       promptBuilders,

@@ -4,6 +4,7 @@ import { pinnedFetchFollow, SsrfError } from '../lib/ssrf-guard';
 import { reportParserJsonSchema, rawLogTextSchema } from '../lib/validation-schemas';
 import { validationError } from '../lib/api-error';
 import { fenceUntrusted, UNTRUSTED_DATA_SYSTEM_NOTE } from '../lib/prompt-fence';
+import { runCompletion } from '../case-study/generation/ai-client';
 
 /**
  * Threat Report Parser — extracts IOCs, actors, TTPs, and CVEs from
@@ -254,10 +255,10 @@ function extractEntities(text: string): {
   return { actors, malware };
 }
 
-/** Use Workers AI for intelligent extraction. */
+/** Use multi-provider LLM for intelligent extraction. */
 async function extractWithAI(
   text: string,
-  ai: Ai
+  env: { NVIDIA_API_KEY?: string; GROQ_API_KEY?: string; GOOGLE_AI_STUDIO_API_KEY?: string }
 ): Promise<{
   actors: Array<{ name: string; context?: string }>;
   malware: Array<{ name: string; context?: string }>;
@@ -289,24 +290,24 @@ Rules:
 - Summary should capture key findings, not repeat the input
 - If nothing found for a field, use empty array or empty string`;
 
-    const response = await ai.run('@cf/meta/llama-3.1-8b-instruct', {
-      messages: [
-        {
-          role: 'system',
-          content:
-            'You are a threat intelligence analyst. Extract structured data from reports. Return only valid JSON, no explanations.\n\n' +
-            UNTRUSTED_DATA_SYSTEM_NOTE,
-        },
-        { role: 'user', content: prompt },
-      ],
-      max_tokens: 2000,
-      temperature: 0.1, // Low temperature for consistent extraction
-    });
+    const result = await runCompletion(
+      null,
+      {
+        system:
+          'You are a threat intelligence analyst. Extract structured data from reports. Return only valid JSON, no explanations.\n\n' +
+          UNTRUSTED_DATA_SYSTEM_NOTE,
+        user: prompt,
+        maxTokens: 2000,
+        temperature: 0.1,
+      },
+      {
+        nvidiaKey: env.NVIDIA_API_KEY,
+        groqKey: env.GROQ_API_KEY,
+        googleKey: env.GOOGLE_AI_STUDIO_API_KEY,
+      }
+    );
 
-    const content =
-      typeof response === 'object' && 'response' in response
-        ? (response as { response: string }).response
-        : String(response);
+    const content = result.text;
 
     // Try to parse the JSON from the response
     const jsonMatch = content.match(/\{[\s\S]*\}/);
@@ -441,15 +442,13 @@ export async function reportParserHandler(c: Context<{ Bindings: Env }>): Promis
     const regexResults = extractRegex(text);
     const entityResults = extractEntities(text);
 
-    // Try AI extraction if Workers AI is available
+    // Try AI extraction using multi-provider LLM
     let aiResults: Awaited<ReturnType<typeof extractWithAI>> = null;
     let method: 'ai' | 'regex' | 'hybrid' = 'regex';
 
-    if (c.env.AI) {
-      aiResults = await extractWithAI(text, c.env.AI);
-      if (aiResults) {
-        method = 'hybrid';
-      }
+    aiResults = await extractWithAI(text, c.env);
+    if (aiResults) {
+      method = 'hybrid';
     }
 
     // Merge results: AI findings + regex findings (deduped)

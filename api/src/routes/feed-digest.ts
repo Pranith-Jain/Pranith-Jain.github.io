@@ -47,12 +47,18 @@ export async function feedDigestHandler(c: Context<{ Bindings: Env }>): Promise<
       )
       .join('\n');
 
-    const { text, model } = await runAi(c.env.AI, c.env.GROQ_API_KEY, {
-      system: DIGEST_SYSTEM,
-      user: `Period: ${body.period ?? 'daily'}\n\nArticles:\n${itemList}`,
-      maxTokens: 3000,
-      temperature: 0.3,
-    }, c.env.GOOGLE_AI_STUDIO_API_KEY);
+    const { text, model } = await runAi(
+      c.env.AI,
+      c.env.GROQ_API_KEY,
+      {
+        system: DIGEST_SYSTEM,
+        user: `Period: ${body.period ?? 'daily'}\n\nArticles:\n${itemList}`,
+        maxTokens: 3000,
+        temperature: 0.3,
+      },
+      c.env.GOOGLE_AI_STUDIO_API_KEY,
+      c.env.NVIDIA_API_KEY
+    );
 
     const digest = parseJson(text);
     return c.json({ digest, model, generated_at: new Date().toISOString() });

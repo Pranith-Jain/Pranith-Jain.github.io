@@ -121,9 +121,45 @@ async function callWorkersAI(ai: Env['AI'], system: string, user: string, maxTok
   return JSON.stringify(result);
 }
 
+async function callNvidia(
+  nvidiaKey: string,
+  system: string,
+  user: string,
+  maxTokens = 1500,
+  temperature = 0.2
+): Promise<string> {
+  const models = ['minimaxai/minimax-m2.7', 'z-ai/glm-5.2'];
+  for (const model of models) {
+    try {
+      const res = await fetch('https://integrate.api.nvidia.com/v1/chat/completions', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${nvidiaKey}`, 'content-type': 'application/json' },
+        signal: AbortSignal.timeout(30_000),
+        body: JSON.stringify({
+          model,
+          messages: [
+            { role: 'system', content: system },
+            { role: 'user', content: user },
+          ],
+          max_tokens: maxTokens,
+          temperature,
+        }),
+      });
+      if (!res.ok) continue;
+      const data = await res.json<{ choices?: Array<{ message?: { content?: string } }> }>();
+      const text = data?.choices?.[0]?.message?.content;
+      if (text?.trim()) return text;
+    } catch {
+      /* try next model */
+    }
+  }
+  throw new Error('nvidia models unavailable');
+}
+
 async function callAi(
   ai: Env['AI'],
   groqKey: string | undefined,
+  nvidiaKey: string | undefined,
   system: string,
   user: string,
   maxTokens = 1500
@@ -133,7 +169,15 @@ async function callAi(
       const text = await callGroq(groqKey, system, user, maxTokens);
       return { text, model: `groq:${GROQ_MODEL}` };
     } catch (e) {
-      console.warn('threat-analysis: groq failed, falling back to Workers AI', e);
+      console.warn('threat-analysis: groq failed, trying NVIDIA', e);
+    }
+  }
+  if (nvidiaKey) {
+    try {
+      const text = await callNvidia(nvidiaKey, system, user, maxTokens, 0.2);
+      return { text, model: 'nvidia:minimaxai/minimax-m2.7' };
+    } catch (e) {
+      console.warn('threat-analysis: nvidia failed, falling back to Workers AI', e);
     }
   }
   const text = await callWorkersAI(ai, system, user, maxTokens);
@@ -260,8 +304,9 @@ export async function threatAnalysisHandler(c: Context<{ Bindings: Env }>): Prom
     }
 
     const key = c.env.GROQ_API_KEY;
+    const nvidiaKey = c.env.NVIDIA_API_KEY;
 
-    const { text, model } = await callAi(c.env.AI, key, system, user, maxTokens);
+    const { text, model } = await callAi(c.env.AI, key, nvidiaKey, system, user, maxTokens);
 
     // Try to extract JSON from the response
     let analysis: unknown;

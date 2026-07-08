@@ -38,12 +38,18 @@ export async function researchDigestHandler(c: Context<{ Bindings: Env }>): Prom
       .map((a, i) => `[${i}] ${a.title} (${a.source})${a.description ? `\n    ${a.description.slice(0, 300)}` : ''}`)
       .join('\n');
 
-    const { text, model } = await runAi(c.env.AI, c.env.GROQ_API_KEY, {
-      system: RESEARCH_SYSTEM,
-      user: `Research articles:\n${list}`,
-      maxTokens: 3000,
-      temperature: 0.3,
-    }, c.env.GOOGLE_AI_STUDIO_API_KEY);
+    const { text, model } = await runAi(
+      c.env.AI,
+      c.env.GROQ_API_KEY,
+      {
+        system: RESEARCH_SYSTEM,
+        user: `Research articles:\n${list}`,
+        maxTokens: 3000,
+        temperature: 0.3,
+      },
+      c.env.GOOGLE_AI_STUDIO_API_KEY,
+      c.env.NVIDIA_API_KEY
+    );
 
     const digest = parseJson(text);
     return c.json({ digest, model, generated_at: new Date().toISOString() });

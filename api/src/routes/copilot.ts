@@ -933,6 +933,33 @@ Type: ${queryType}
   return intro + ragBlock + body + citationNote;
 }
 
+export async function callNvidia(env: Env, system: string, user: string): Promise<string> {
+  const key = env.NVIDIA_API_KEY;
+  if (!key) throw new Error('NVIDIA_API_KEY not set');
+  const models = ['minimaxai/minimax-m2.7', 'z-ai/glm-5.2'];
+  for (const model of models) {
+    const res = await fetch('https://integrate.api.nvidia.com/v1/chat/completions', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${key}`, 'content-type': 'application/json' },
+      body: JSON.stringify({
+        model,
+        messages: [
+          { role: 'system', content: system },
+          { role: 'user', content: user },
+        ],
+        max_tokens: 4000,
+        temperature: 0.3,
+      }),
+      signal: AbortSignal.timeout(45000),
+    });
+    if (res.ok) {
+      const data = await res.json<{ choices?: Array<{ message?: { content?: string } }> }>();
+      if (data?.choices?.[0]?.message?.content) return data.choices[0].message.content;
+    }
+  }
+  throw new Error('NVIDIA models unavailable');
+}
+
 export async function callWorkersAi(env: Env, system: string, user: string): Promise<string> {
   const model = '@cf/meta/llama-3.3-70b-instruct-fp8-fast';
   const res = (await env.AI.run(
@@ -1040,8 +1067,13 @@ export async function copilotInvestigateHandler(c: Context<{ Bindings: Env }>): 
       narrative = await callGroq(c.env, system, user);
       modelUsed = 'groq:openai/gpt-oss-120b';
     } catch {
-      narrative = await callWorkersAi(c.env, system, user);
-      modelUsed = '@cf/meta/llama-3.3-70b-instruct-fp8-fast';
+      try {
+        narrative = await callNvidia(c.env, system, user);
+        modelUsed = 'nvidia:minimaxai/minimax-m2.7';
+      } catch {
+        narrative = await callWorkersAi(c.env, system, user);
+        modelUsed = '@cf/meta/llama-3.3-70b-instruct-fp8-fast';
+      }
     }
 
     // ── Post-process validation: ground claims, strip fabrications ────

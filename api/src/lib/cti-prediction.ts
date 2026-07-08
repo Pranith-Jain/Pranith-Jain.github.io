@@ -6,7 +6,8 @@
  * in the real threat data.
  */
 
-import type { D1Database, Ai } from '@cloudflare/workers-types';
+import type { D1Database } from '@cloudflare/workers-types';
+import { runCompletion } from '../case-study/generation/ai-client';
 
 interface PredictionContext {
   total_iocs: number;
@@ -77,8 +78,9 @@ async function buildPredictionContext(db: D1Database): Promise<PredictionContext
 
 export async function generatePredictions(
   db: D1Database,
-  ai: Ai,
-  opts: { count?: number; focus_sector?: string; focus_region?: string } = {}
+  _ai: unknown,
+  opts: { count?: number; focus_sector?: string; focus_region?: string } = {},
+  providerKeys: { nvidiaKey?: string; groqKey?: string; googleKey?: string } = {}
 ): Promise<{ success: boolean; predictions: Prediction[]; context: PredictionContext; error?: string }> {
   const ctx = await buildPredictionContext(db);
   const count = opts.count || 3;
@@ -165,13 +167,18 @@ JSON SCHEMA:
 Return ONLY the JSON array.`;
 
   try {
-    const result = await ai.run('@cf/meta/llama-3.1-8b-instruct', {
-      messages: [{ role: 'user', content: prompt }],
-      max_tokens: 4000,
-      temperature: 0.7,
-    });
+    const result = await runCompletion(
+      null,
+      {
+        system: '',
+        user: prompt,
+        maxTokens: 4000,
+        temperature: 0.7,
+      },
+      providerKeys
+    );
 
-    const response = (result as { response?: string }).response || '';
+    const response = result.text;
     // Strip markdown fences
     let raw = response.trim();
     if (raw.startsWith('```')) {

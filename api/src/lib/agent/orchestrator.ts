@@ -30,7 +30,7 @@ import { evaluateCtiExit, filterCtiToolCalls } from './cti-loop';
 export async function buildOrchestratorPlan(
   query: string,
   queryType: string,
-  _opts: { groqKey?: string; googleKey?: string }
+  _opts: { groqKey?: string; googleKey?: string; nvidiaKey?: string }
 ): Promise<OrchestratorPlan> {
   const specialistRoles = getSpecialistsForQueryType(queryType);
 
@@ -64,7 +64,7 @@ export async function runSpecialist(
   ai: Ai,
   dispatch: SpecialistDispatch,
   tools: AgentTool[],
-  opts: { groqKey?: string; googleKey?: string }
+  opts: { groqKey?: string; googleKey?: string; nvidiaKey?: string }
 ): Promise<SpecialistResult> {
   const specialistTools = getToolsForSpecialist(dispatch.role, tools);
   const steps: AgentStep[] = [];

@@ -35,11 +35,17 @@ export async function alertCheckHandler(c: Context<{ Bindings: Env }>): Promise<
       .map((e, i) => `[${i}] [${e.severity}] ${e.title} (${e.kind}, ${e.source})`)
       .join('\n');
 
-    const { text, model } = await runAi(c.env.AI, c.env.GROQ_API_KEY, {
-      system: ALERT_SYSTEM,
-      user: `Watchlist keywords: ${body.keywords.join(', ')}\n\nEvents:\n${eventList}`,
-      maxTokens: 2000,
-    }, c.env.GOOGLE_AI_STUDIO_API_KEY);
+    const { text, model } = await runAi(
+      c.env.AI,
+      c.env.GROQ_API_KEY,
+      {
+        system: ALERT_SYSTEM,
+        user: `Watchlist keywords: ${body.keywords.join(', ')}\n\nEvents:\n${eventList}`,
+        maxTokens: 2000,
+      },
+      c.env.GOOGLE_AI_STUDIO_API_KEY,
+      c.env.NVIDIA_API_KEY
+    );
 
     const result = parseJson(text) as Record<string, unknown>;
     return c.json({ ...result, model, generated_at: new Date().toISOString() });

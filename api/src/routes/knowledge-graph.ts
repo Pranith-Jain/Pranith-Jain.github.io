@@ -52,11 +52,17 @@ export async function knowledgeGraphHandler(c: Context<{ Bindings: Env }>): Prom
 
     const prompt = lines.join('\n');
     const ai = c.env.AI;
-    const { text, model } = await runAi(ai, c.env.GROQ_API_KEY, {
-      system: KNOWLEDGE_SYSTEM,
-      user: prompt,
-      maxTokens: 3000,
-    });
+    const { text, model } = await runAi(
+      ai,
+      c.env.GROQ_API_KEY,
+      {
+        system: KNOWLEDGE_SYSTEM,
+        user: prompt,
+        maxTokens: 3000,
+      },
+      c.env.GOOGLE_AI_STUDIO_API_KEY,
+      c.env.NVIDIA_API_KEY
+    );
     const graph = parseJson(text);
     return c.json({ graph, model, generated_at: new Date().toISOString() });
   } catch (e) {

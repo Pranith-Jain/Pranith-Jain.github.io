@@ -6,7 +6,8 @@
  * swapping techniques, extending chains, and combining actor styles.
  */
 
-import type { D1Database, Ai } from '@cloudflare/workers-types';
+import type { D1Database } from '@cloudflare/workers-types';
+import { runCompletion } from '../case-study/generation/ai-client';
 
 interface SeedAttack {
   seed_id: string;
@@ -52,9 +53,10 @@ const MUTATION_STRATEGIES: Record<string, { name: string; focus: string }> = {
 
 export async function parseSeedAttack(
   db: D1Database,
-  ai: Ai,
+  _ai: unknown,
   rawInput: string,
-  seedType: string = 'auto'
+  seedType: string = 'auto',
+  providerKeys: { nvidiaKey?: string; groqKey?: string; googleKey?: string } = {}
 ): Promise<SeedAttack> {
   const prompt = `Parse this attack input into a structured kill chain.
 
@@ -74,13 +76,18 @@ Produce a JSON object with EXACTLY this structure:
 Include ALL phases present. Use real MITRE ATT&CK technique IDs.
 Return ONLY valid JSON.`;
 
-  const result = await ai.run('@cf/meta/llama-3.1-8b-instruct', {
-    messages: [{ role: 'user', content: prompt }],
-    max_tokens: 2000,
-    temperature: 0.5,
-  });
+  const result = await runCompletion(
+    null,
+    {
+      system: '',
+      user: prompt,
+      maxTokens: 2000,
+      temperature: 0.5,
+    },
+    providerKeys
+  );
 
-  const response = (result as { response?: string }).response || '';
+  const response = result.text;
   let raw = response.trim();
   if (raw.startsWith('```')) {
     raw = raw.split('```')[1] || raw;
@@ -126,9 +133,10 @@ Return ONLY valid JSON.`;
 
 export async function generateVariants(
   db: D1Database,
-  ai: Ai,
+  _ai: unknown,
   seed: SeedAttack,
-  opts: { count?: number; strategies?: string[]; target_sector?: string } = {}
+  opts: { count?: number; strategies?: string[]; target_sector?: string } = {},
+  providerKeys: { nvidiaKey?: string; groqKey?: string; googleKey?: string } = {}
 ): Promise<MutationVariant[]> {
   const count = opts.count || 5;
   const strategies = opts.strategies || Object.keys(MUTATION_STRATEGIES);
@@ -170,13 +178,18 @@ Rules:
 - Use real MITRE ATT&CK technique IDs
 - Return ONLY the JSON array`;
 
-  const result = await ai.run('@cf/meta/llama-3.1-8b-instruct', {
-    messages: [{ role: 'user', content: prompt }],
-    max_tokens: 3000,
-    temperature: 0.8,
-  });
+  const result = await runCompletion(
+    null,
+    {
+      system: '',
+      user: prompt,
+      maxTokens: 3000,
+      temperature: 0.8,
+    },
+    providerKeys
+  );
 
-  const response = (result as { response?: string }).response || '';
+  const response = result.text;
   let raw = response.trim();
   if (raw.startsWith('```')) {
     raw = raw.split('```')[1] || raw;

@@ -43,11 +43,17 @@ export async function iocExtractionHandler(c: Context<{ Bindings: Env }>): Promi
       .filter(Boolean)
       .join('\n');
 
-    const { text, model } = await runAi(c.env.AI, c.env.GROQ_API_KEY, {
-      system: IOC_SYSTEM,
-      user,
-      maxTokens: 2000,
-    }, c.env.GOOGLE_AI_STUDIO_API_KEY);
+    const { text, model } = await runAi(
+      c.env.AI,
+      c.env.GROQ_API_KEY,
+      {
+        system: IOC_SYSTEM,
+        user,
+        maxTokens: 2000,
+      },
+      c.env.GOOGLE_AI_STUDIO_API_KEY,
+      c.env.NVIDIA_API_KEY
+    );
 
     const analysis = parseJson(text);
     return c.json({ analysis, model, generated_at: new Date().toISOString() });

@@ -153,6 +153,34 @@ async function gatherAchContext(
 
 // ── LLM call ──────────────────────────────────────────────────────────────
 
+async function callNvidia(env: Env, system: string, user: string): Promise<string> {
+  const key = env.NVIDIA_API_KEY;
+  if (!key) throw new Error('NVIDIA_API_KEY not set');
+  const models = ['minimaxai/minimax-m2.7', 'z-ai/glm-5.2'];
+  for (const model of models) {
+    const res = await fetch('https://integrate.api.nvidia.com/v1/chat/completions', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${key}`, 'content-type': 'application/json' },
+      signal: AbortSignal.timeout(30_000),
+      body: JSON.stringify({
+        model,
+        messages: [
+          { role: 'system', content: system },
+          { role: 'user', content: user },
+        ],
+        max_tokens: 4000,
+        temperature: 0.2,
+      }),
+    });
+    if (res.ok) {
+      const data = await res.json<{ choices?: Array<{ message?: { content?: string } }> }>();
+      const text = data?.choices?.[0]?.message?.content;
+      if (text?.trim()) return text;
+    }
+  }
+  throw new Error('nvidia models unavailable');
+}
+
 async function callLlm(env: Env, system: string, user: string): Promise<string> {
   const key = env.GROQ_API_KEY;
   if (key) {
@@ -178,6 +206,14 @@ async function callLlm(env: Env, system: string, user: string): Promise<string> 
         const data = await res.json<{ choices?: Array<{ message?: { content?: string } }> }>();
         return data?.choices?.[0]?.message?.content ?? '';
       }
+    } catch {
+      /* fall through */
+    }
+  }
+
+  if (env.NVIDIA_API_KEY) {
+    try {
+      return await callNvidia(env, system, user);
     } catch {
       /* fall through */
     }

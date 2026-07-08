@@ -46,11 +46,17 @@ export async function darkwebIntelHandler(c: Context<{ Bindings: Env }>): Promis
       )
       .join('\n');
 
-    const { text, model } = await runAi(c.env.AI, c.env.GROQ_API_KEY, {
-      system: DARKWEB_SYSTEM,
-      user: `Dark web monitoring items:\n${list}`,
-      maxTokens: 2500,
-    }, c.env.GOOGLE_AI_STUDIO_API_KEY);
+    const { text, model } = await runAi(
+      c.env.AI,
+      c.env.GROQ_API_KEY,
+      {
+        system: DARKWEB_SYSTEM,
+        user: `Dark web monitoring items:\n${list}`,
+        maxTokens: 2500,
+      },
+      c.env.GOOGLE_AI_STUDIO_API_KEY,
+      c.env.NVIDIA_API_KEY
+    );
 
     const intel = parseJson(text);
     return c.json({ intel, model, generated_at: new Date().toISOString() });

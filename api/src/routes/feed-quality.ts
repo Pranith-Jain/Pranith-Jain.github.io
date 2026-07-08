@@ -38,11 +38,17 @@ export async function feedQualityHandler(c: Context<{ Bindings: Env }>): Promise
       )
       .join('\n\n');
 
-    const { text, model } = await runAi(c.env.AI, c.env.GROQ_API_KEY, {
-      system: QUALITY_SYSTEM,
-      user: `Source reliability assessment:\n\n${sourceList}`,
-      maxTokens: 2500,
-    }, c.env.GOOGLE_AI_STUDIO_API_KEY);
+    const { text, model } = await runAi(
+      c.env.AI,
+      c.env.GROQ_API_KEY,
+      {
+        system: QUALITY_SYSTEM,
+        user: `Source reliability assessment:\n\n${sourceList}`,
+        maxTokens: 2500,
+      },
+      c.env.GOOGLE_AI_STUDIO_API_KEY,
+      c.env.NVIDIA_API_KEY
+    );
 
     const quality = parseJson(text);
     return c.json({ quality, model, generated_at: new Date().toISOString() });

@@ -148,6 +148,15 @@ async function callAi(env: Env, system: string, user: string): Promise<string> {
     }
   }
 
+  const nvidiaKey = (env as any).NVIDIA_API_KEY as string | undefined;
+  if (nvidiaKey) {
+    try {
+      return await callNvidia(nvidiaKey, system, user, 2000, 0.2);
+    } catch {
+      /* fall through */
+    }
+  }
+
   const fallback = (await env.AI.run(
     '@cf/meta/llama-3.3-70b-instruct-fp8-fast' as any,
     {
@@ -160,6 +169,41 @@ async function callAi(env: Env, system: string, user: string): Promise<string> {
     } as any
   )) as { response?: string };
   return fallback.response ?? 'No response.';
+}
+
+async function callNvidia(
+  nvidiaKey: string,
+  system: string,
+  user: string,
+  maxTokens = 2000,
+  temperature = 0.2
+): Promise<string> {
+  const models = ['minimaxai/minimax-m2.7', 'z-ai/glm-5.2'];
+  for (const model of models) {
+    try {
+      const res = await fetch('https://integrate.api.nvidia.com/v1/chat/completions', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${nvidiaKey}`, 'content-type': 'application/json' },
+        signal: AbortSignal.timeout(30_000),
+        body: JSON.stringify({
+          model,
+          messages: [
+            { role: 'system', content: system },
+            { role: 'user', content: user },
+          ],
+          max_tokens: maxTokens,
+          temperature,
+        }),
+      });
+      if (!res.ok) continue;
+      const data = await res.json<{ choices?: Array<{ message?: { content?: string } }> }>();
+      const text = data?.choices?.[0]?.message?.content;
+      if (text?.trim()) return text;
+    } catch {
+      /* try next model */
+    }
+  }
+  throw new Error('nvidia models unavailable');
 }
 
 export async function iocExplainHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
