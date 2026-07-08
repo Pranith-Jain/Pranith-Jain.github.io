@@ -92,7 +92,6 @@ function tidyLinkedin(text: string): string {
   const blocks = base.split(/\n\n+/);
   const merged: string[] = [];
   let buffer: string[] = [];
-  let isFirstBlock = true;
   const flush = () => {
     if (buffer.length === 0) return;
     merged.push(buffer.join('\n'));
@@ -111,13 +110,12 @@ function tidyLinkedin(text: string): string {
     return true;
   };
   for (const block of blocks) {
-    if (isTight(block) && !isFirstBlock) {
+    if (isTight(block)) {
       buffer.push(block);
     } else {
       flush();
       merged.push(block);
     }
-    isFirstBlock = false;
   }
   flush();
   return merged.join('\n\n');

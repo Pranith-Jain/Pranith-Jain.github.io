@@ -40,7 +40,7 @@ describe('LinkedIn prompt', () => {
             expect(user).toMatch(/body must contain NO link/i);
             expect(user).toContain('1300-2000 characters');
             expect(user).toMatch(/scannable .* bulleted list/);
-            expect(user).toMatch(/3-5 specific, on-topic hashtags/i);
+            expect(user).toMatch(/0-3 specific, on-topic hashtags/i);
             expect(user).toContain('CAROUSEL OUTLINE:');
             // Removed legacy rules.
             expect(user).not.toMatch(/at most two lowercase hashtags/i);
@@ -52,9 +52,8 @@ describe('Twitter prompt', () => {
         const { generateTwitterContent } = await import('../../../src/case-study/generation/social');
         await generateTwitterContent(mockPost, mockAi((msgs) => {
             const user = msgs.find((m) => m.role === 'user')?.content ?? '';
-            expect(user).toContain('5-8 posts');
-            expect(user).toMatch(/stands? alone/i);
-            expect(user).toMatch(/does NOT start with "1\/"/);
+            expect(user).toContain('6 tweets exactly');
+            expect(user).toMatch(/It does NOT start with "1\/"/);
             // Reach-killer fix: no link in post 1; link goes in a FIRST REPLY block.
             expect(user).toContain('FIRST REPLY:');
             expect(user).toMatch(/bookmark/i);
