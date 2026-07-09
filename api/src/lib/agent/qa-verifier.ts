@@ -4,7 +4,7 @@
  * and scores the report quality.
  */
 import type { Ai } from '@cloudflare/workers-types';
-import { runCompletion, GROQ_MODEL_FALLBACK, type CompletionInput } from '../../case-study/generation/ai-client';
+import { runCompletion, type CompletionInput } from '../../case-study/generation/ai-client';
 import type { AgentStep } from './types';
 import { neutralizeUntrusted, UNTRUSTED_DATA_SYSTEM_NOTE } from '../prompt-fence';
 
@@ -45,7 +45,7 @@ export async function verifyReport(
     googleKey: opts.googleKey,
     groqKey: opts.groqKey,
     nvidiaKey: opts.nvidiaKey,
-    groqModel: GROQ_MODEL_FALLBACK,
+    quality: true,
     preferGroq: true,
   });
 
