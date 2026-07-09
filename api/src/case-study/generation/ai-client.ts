@@ -38,7 +38,7 @@ const GROQ_MODEL_QUALITY: string = 'llama-3.3-70b-versatile';
  * Fallback when the quality model is rate-limited or unavailable.
  * GPT OSS 20B (1000 t/s, production, generous TPM limits).
  */
-const GROQ_MODEL_FALLBACK: string = 'openai/gpt-oss-20b';
+export const GROQ_MODEL_FALLBACK: string = 'openai/gpt-oss-20b';
 const GROQ_TIMEOUT_MS = 15_000;
 
 const NVIDIA_BASE = 'https://integrate.api.nvidia.com/v1/chat/completions';
