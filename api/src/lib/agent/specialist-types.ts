@@ -89,7 +89,7 @@ export const SPECIALIST_REGISTRY: Record<SpecialistRole, SpecialistDef> = {
     label: 'IOC Reputation Specialist',
     description: 'Checks indicators against reputation sources, correlates across feeds, assesses maliciousness.',
     handlesQueryTypes: ['ip', 'hash', 'domain', 'url'],
-    maxSteps: 3,
+    maxSteps: 4,
     exitConditions: [
       {
         name: 'enough-verdicts',
@@ -140,7 +140,8 @@ Step ${step}/${maxSteps}. Results so far: ${ok} successful.
 Strategy:
 - Step 1: enrich_ioc_deep (single-call fan-out to all reputation sources)
 - Step 2: get_relationships + get_ioc_lifecycle (map connections, assess activity)
-- Step 3: Synthesize if you have enough data. Do NOT retry tools that already returned results.
+- Step 3: generate_yara_rule + generate_hunting_queries (detection content for malicious indicators)
+- Step 4: Synthesize. Do NOT retry tools that already returned results.
 
 After ${ok >= 3 ? '3+ results' : 'enough data'}, synthesize immediately.`;
     },
@@ -315,7 +316,8 @@ Step ${step}/${maxSteps}. Results so far: ${ok} successful.
 Strategy:
 - Step 1: lookup_domain (DNS/WHOIS/RDAP/CT) or lookup_ipinfo (IP geolocation/ASN/hosting)
 - Step 2: lookup_certificate_transparency + lookup_builtwith (tech stack) or lookup_asn
-- Step 3: Synthesize with infrastructure map.`;
+- Step 3: generate_yara_rule + generate_hunting_queries (detection content for malicious indicators)
+- Step 4: Synthesize with infrastructure map.`;
     },
   },
 
@@ -369,7 +371,7 @@ Strategy:
     role: 'detection-rules',
     label: 'Detection Rules Specialist',
     description: 'Generates YARA, Sigma, KQL, and Splunk detection rules from IOCs and TTPs.',
-    handlesQueryTypes: ['cve', 'actor', 'hash', 'campaign'],
+    handlesQueryTypes: ['cve', 'actor', 'hash', 'campaign', 'ip', 'domain'],
     maxSteps: 2,
     exitConditions: [
       {
@@ -649,6 +651,8 @@ export const SPECIALIST_TOOLS: Record<SpecialistRole, string[]> = {
     'get_ioc_lifecycle',
     'maltiverse_verify',
     'correlate_iocs',
+    'generate_yara_rule',
+    'generate_hunting_queries',
   ],
   'threat-actor': [
     'enrich_actor',
@@ -687,6 +691,8 @@ export const SPECIALIST_TOOLS: Record<SpecialistRole, string[]> = {
     'webamon_search',
     'webamon_domain',
     'maltiverse_verify',
+    'generate_yara_rule',
+    'generate_hunting_queries',
   ],
   'malware-analysis': ['sample_scan', 'malware_family_detail', 'search_triage', 'search_malpedia'],
   'detection-rules': ['generate_yara_rule', 'generate_hunting_queries', 'get_yara_rules', 'get_detections'],
@@ -720,8 +726,8 @@ const ROUTING_TABLE: Record<string, SpecialistRole[]> = {
   'exploit-db': ['vulnerability', 'detection-rules'],
   'bug-bounty': ['vulnerability'],
   'security-updates': ['vulnerability'],
-  ip: ['ioc-reputation', 'domain-host'],
-  domain: ['domain-host', 'ioc-reputation'],
+  ip: ['ioc-reputation', 'domain-host', 'detection-rules'],
+  domain: ['domain-host', 'ioc-reputation', 'detection-rules'],
   hash: ['malware-analysis', 'ioc-reputation', 'detection-rules'],
   url: ['phishing', 'domain-host'],
   actor: ['threat-actor', 'campaign-correlation'],

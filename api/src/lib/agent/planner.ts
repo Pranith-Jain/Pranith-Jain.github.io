@@ -135,7 +135,7 @@ Step 2: lookup_ipinfo (Shodan InternetDB ports/CVEs + IPinfo geo/org + LeakIX ex
 Step 3: lookup_asn (AS detail, BGP peers, network ranges) if AS number is known from step 1/2. Get_ioc_lifecycle for activity timeline.
 Step 4: generate_yara_rule + generate_hunting_queries. Synthesize.
 
-Tools to call: enrich_ioc_deep, check_ioc, lookup_ipinfo, lookup_reverse_dns, lookup_asn, get_ioc_lifecycle
+Tools to call: enrich_ioc_deep, check_ioc, lookup_ipinfo, lookup_reverse_dns, lookup_asn, get_ioc_lifecycle, generate_yara_rule, generate_hunting_queries
 Tools NOT for IP queries: enrich_actor, lookup_domain, breach_check, lookup_cve, lookup_dns, webamon_search, lookup_builtwith, sample_scan`
     : ''
 }
@@ -150,7 +150,7 @@ Step 3: breach_check on domain (XposedOrNot, LeakCheck, LeakIX, HudsonRock expos
   Optionally: get_ioc_lifecycle (first/last seen) + get_relationships (actor/malware/campaign links)
 Step 4: generate_hunting_queries. Synthesize.
 
-Tools to call: enrich_ioc_deep, check_ioc, maltiverse_verify, lookup_domain, lookup_dns, breach_check, lookup_builtwith, lookup_certificate_transparency, get_ioc_lifecycle, get_relationships
+Tools to call: enrich_ioc_deep, check_ioc, maltiverse_verify, lookup_domain, lookup_dns, breach_check, lookup_builtwith, lookup_certificate_transparency, get_ioc_lifecycle, get_relationships, generate_yara_rule, generate_hunting_queries
 Tools NOT for domain queries: enrich_actor, lookup_cve, sample_scan, lookup_ipinfo, lookup_ip_geo, lookup_asn, lookup_reverse_dns`
     : ''
 }
