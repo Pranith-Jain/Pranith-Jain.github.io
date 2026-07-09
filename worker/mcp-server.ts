@@ -36,6 +36,14 @@ import {
   winRegCacheStats,
   type WinRegListOptions,
 } from './lib/winreg-manifest';
+import {
+  loadActorIndex,
+  getActor,
+  loadAptmap,
+  filterActors,
+  actorsCacheStats,
+  type ActorCategory,
+} from './lib/etda-actors-manifest';
 import { loadToolsIndex, listTools, getTool, toolsCacheStats, type ToolCategory } from './lib/tools-manifest';
 import { validateRawKey } from '../api/src/lib/auth';
 import { signInternalToken } from '../api/src/lib/internal-token';
@@ -1968,6 +1976,127 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             replicatedAt: idx.replicatedAt,
             lastSyncedAt: idx.lastSyncedAt,
             cache: tiCacheStats(),
+          });
+        }
+      );
+
+      // ── APT Actors (ETDA) tools ──────────────────────────────────
+      // 504 threat actors (416 APT, 54 other, 34 unknown) from ETDA
+      // Thailand's Threat Group Cards portal, enriched with showcard
+      // metadata (sectors, tools, operations, MITRE references) and
+      // the APTmap relationship graph. Data shipped in
+      // public/data/apt-actors/ via weekly sync.
+
+      this.tools(
+        'etda_list_actors',
+        'List APT threat actors from the ETDA Threat Group Cards vertical. 504 actors (416 APT, 54 other, 34 unknown). Filter by category, country, MITRE ATT&CK reference, or keyword. Each entry includes aliases, country, sponsor, motivation, observed period, and counts of tools/operations.',
+        {
+          category: z
+            .enum(['apt', 'other', 'unknown'])
+            .optional()
+            .describe('Filter by actor category'),
+          country: z
+            .string()
+            .optional()
+            .describe('Case-insensitive substring match against actor country of origin'),
+          hasMitre: z.boolean().optional().describe('Only return actors with a MITRE ATT&CK group ID'),
+          hasTools: z.boolean().optional().describe('Only return actors with known tool associations'),
+          keyword: z
+            .string()
+            .optional()
+            .describe('Case-insensitive substring match against slug / name / aliases / description'),
+          limit: z.number().int().min(1).max(200).optional().describe('Max actors to return (default 50)'),
+        },
+        async ({ category, country, hasMitre, hasTools, keyword, limit }) => {
+          const idx = await loadActorIndex(ASSETS);
+          const actors = filterActors(idx, {
+            category: category as ActorCategory | undefined,
+            country: country || undefined,
+            hasMitre,
+            hasTools,
+            keyword: keyword || undefined,
+            limit: limit ?? 50,
+          });
+          return untrustedToolResult({
+            total: idx.counts.actors,
+            apt: idx.counts.apt,
+            returned: actors.length,
+            lastSyncedAt: idx.lastSyncedAt,
+            actors,
+          });
+        }
+      );
+
+      this.tools(
+        'etda_get_actor',
+        'Return the full actor body for a single APT threat actor from the ETDA Threat Group Cards vertical. Includes names (with vendor sources), aliases, country, sponsor, motivation, description, sectors, tools, operations, counter operations, MITRE ATT&CK link, and information references. Use etda_list_actors first to discover slugs.',
+        {
+          slug: z
+            .string()
+            .describe('Actor slug, e.g. "apt-41" or "lazarus-group". Get these from etda_list_actors.'),
+        },
+        async ({ slug }) => {
+          const body = await getActor(ASSETS, slug);
+          if (!body) {
+            return untrustedToolResult({
+              error: 'actor_not_found',
+              slug,
+              hint: 'Call etda_list_actors to see available actors.',
+            });
+          }
+          return untrustedToolResult(body);
+        }
+      );
+
+      this.tools(
+        'etda_list_sectors',
+        'List all observed target sectors across the ETDA actor database. Returns the count of actors that target each sector.',
+        {
+          minActors: z
+            .number()
+            .int()
+            .min(1)
+            .optional()
+            .describe('Minimum number of actors targeting the sector to include it'),
+        },
+        async ({ minActors }) => {
+          const idx = await loadActorIndex(ASSETS);
+          const sectorMap = new Map<string, number>();
+          for (const a of idx.actorIndex) {
+            if (a.sectorCount === 0) continue;
+            const body = await getActor(ASSETS, a.slug);
+            if (!body) continue;
+            for (const s of body.sectors) {
+              sectorMap.set(s, (sectorMap.get(s) || 0) + 1);
+            }
+          }
+          const threshold = minActors ?? 1;
+          const sectors = [...sectorMap.entries()]
+            .filter(([, count]) => count >= threshold)
+            .sort(([, a], [, b]) => b - a)
+            .map(([sector, count]) => ({ sector, actorCount: count }));
+          return untrustedToolResult({
+            total: sectors.length,
+            minActors: threshold,
+            sectors,
+          });
+        }
+      );
+
+      this.tools(
+        'etda_stats',
+        'Return cache + manifest stats for the APT Actors data: index loaded, APTmap loaded, body-cache sizes and hit ratios. Useful for diagnosing cold-start latency.',
+        {},
+        async () => {
+          const idx = await loadActorIndex(ASSETS);
+          return untrustedToolResult({
+            counts: idx.counts,
+            source: idx.source,
+            license: idx.license,
+            replicatedAt: idx.replicatedAt,
+            lastSyncedAt: idx.lastSyncedAt,
+            aptmap: idx.aptmap,
+            cache: actorsCacheStats(),
           });
         }
       );

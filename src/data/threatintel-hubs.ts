@@ -179,6 +179,14 @@ export const HUB_META: readonly HubMeta[] = [
         label: 'Online Predators',
         compVar: 'Predators',
       },
+      {
+        path: '/threatintel/apt-actors',
+        tabId: 'apt-actors',
+        label: 'APT Actor Database',
+        desc: 'ETDA Threat Group Cards — 416+ threat actors with attribution, tools, sectors, and operations.',
+        compVar: 'ETDAActors',
+        badge: 'new',
+      },
     ],
   },
   {

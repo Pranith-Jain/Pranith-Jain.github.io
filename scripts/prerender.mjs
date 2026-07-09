@@ -350,6 +350,7 @@ const ROUTES = [
   '/dfir/asn',
   '/dfir/breach',
   '/traceix',
+  '/threatintel/apt-actors',
   '/threatintel/external/cerast',
   '/threatintel/external/threatmon',
   '/winreg',

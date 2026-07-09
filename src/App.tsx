@@ -14,7 +14,6 @@ import { LazyRoute } from './components/LazyRoute';
 import { FeaturesProvider } from './components/FeaturesProvider';
 import { McpProvider } from './components/ti-mindmap-mcp/McpContext';
 import { AuthProvider } from './contexts/AuthContext';
-import { McpKeyBar } from './components/ti-mindmap-mcp/McpKeyBar';
 
 const CommandPalette = lazy(() =>
   import('./components/dfir/CommandPalette').then((m) => ({ default: m.CommandPalette }))
@@ -38,6 +37,7 @@ const McpCatalog = lazy(() => import('./pages/McpCatalog'));
 const Status = lazy(() => import('./pages/Status'));
 const ThreatIntel = lazy(() => import('./pages/ThreatIntel'));
 const WinReg = lazy(() => import('./pages/WinReg'));
+const ETDAActors = lazy(() => import('./pages/ETDAActors'));
 const Traceix = lazy(() => import('./pages/Traceix'));
 const Cerast = lazy(() => import('./pages/threatintel/Cerast'));
 const ThreatMonInfostealer = lazy(() => import('./pages/threatintel/ThreatMonInfostealer'));
@@ -425,6 +425,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threat-intel', Component: ThreatIntel },
   { path: '/winreg', Component: WinReg },
   { path: '/traceix', Component: Traceix },
+  { path: '/threatintel/apt-actors', Component: ETDAActors },
   { path: '/threatintel/external/cerast', Component: Cerast },
   { path: '/threatintel/external/threatmon', Component: ThreatMonInfostealer },
   { path: '/live', Component: Snapshots },
@@ -1110,9 +1111,7 @@ function PortfolioShell({
       <BackgroundLayer isDark={isDark} />
 
       <ScrollProgress progress={progress} />
-      <McpProvider>
-        <Header isDark={isDark} onToggleTheme={toggleTheme} navLinks={navLinks} topBarExtra={<McpKeyBar />} />
-      </McpProvider>
+      <Header isDark={isDark} onToggleTheme={toggleTheme} navLinks={navLinks} />
       <Suspense fallback={null}>
         <CommandPalette />
       </Suspense>

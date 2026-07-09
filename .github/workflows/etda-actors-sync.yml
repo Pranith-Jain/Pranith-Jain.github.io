@@ -1,0 +1,57 @@
+name: ETDA Actors Sync
+
+on:
+  schedule:
+    # Every Monday and Thursday at 05:00 UTC
+    - cron: '0 5 * * 1,4'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Sync ETDA actors
+        run: node scripts/sync-etda-actors.mjs
+
+      - name: Build manifest
+        run: node scripts/build-etda-actors.mjs
+
+      - name: Check for changes
+        id: diff
+        run: |
+          if [ -n "$(git status --porcelain public/data/apt-actors/)" ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create PR
+        if: steps.diff.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'chore(apt-actors): weekly ETDA actor sync'
+          title: 'chore(apt-actors): weekly ETDA actor sync'
+          body: |
+            Automated weekly sync of ETDA Threat Group Cards data.
+
+            Updates `public/data/apt-actors/` with the latest actor
+            metadata from apt.etda.or.th and the APTmap relationship graph.
+
+            Review the diff for:
+            - New or renamed actor groups
+            - Changes in observed sectors/tools
+            - APTmap graph changes
+            - Index metadata changes
+          branch: etda-actors-sync
+          base: main
+          labels: automated, data, threat-intel

@@ -1,0 +1,1 @@
+../../../worker/lib/etda-actors-manifest.ts

@@ -862,6 +862,7 @@ import { reportsRouter } from './routes/reports-edge-tools';
 import { campaignsRouter } from './routes/campaigns-edge-tools';
 import { traceixRouter } from './routes/traceix';
 import { toolsRouter } from './routes/tools-edge-tools';
+import { etdaActorsRouter } from './routes/etda-actors-edge-tools';
 import {
   listNotebooksHandler,
   getNotebookHandler,
@@ -1836,6 +1837,11 @@ app.route('/api/v1', reportsRouter);
 // campaigns with writeup links, TTPs, and actor attribution.
 // Data ships in public/data/campaigns/ built by scripts/build-campaigns-manifest.mjs.
 app.route('/api/v1', campaignsRouter);
+
+// APT Actors vertical — ETDA Threat Group Cards (504 actors) + APTmap graph.
+// Data ships in public/data/apt-actors/ built by scripts/build-etda-actors.mjs.
+// License: CC BY-NC-SA 4.0 (ETDA), MIT (APTmap design reference).
+app.route('/api/v1', etdaActorsRouter);
 
 // Traceix — SHA-256 hash antivirus/reputation lookup via PCEF traceix.com API.
 // Endpoint: GET /api/v1/traceix/lookup?hash=<sha256>
