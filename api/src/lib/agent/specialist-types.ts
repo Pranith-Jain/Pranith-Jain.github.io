@@ -159,6 +159,13 @@ After ${ok >= 3 ? '3+ results' : 'enough data'}, synthesize immediately.`;
         reason: () => 'Actor profile collected',
       },
       {
+        name: 'ransomware-profiled',
+        met: (v) =>
+          hasToolBeenCalled(v.steps, 'get_ransomware_group_profile') &&
+          okResultsForTool(v.steps, 'get_ransomware_group_profile') >= 1,
+        reason: () => 'Ransomware group profile collected',
+      },
+      {
         name: 'timeline-mapped',
         met: (v) => hasToolBeenCalled(v.steps, 'actor_timeline'),
         reason: () => 'Actor timeline collected',
@@ -181,6 +188,12 @@ After ${ok >= 3 ? '3+ results' : 'enough data'}, synthesize immediately.`;
     buildPlannerPrompt: (tools, step, maxSteps, query, steps) => {
       const ok = countOkResults(steps);
       const toolList = tools.map((t) => `  - ${t.name}: ${t.description.split('.')[0]}`).join('\n');
+      const enrichOk = okResultsForTool(steps, 'enrich_actor');
+      const enrichRichesGuidance =
+        enrichOk >= 1
+          ? ''
+          : '\nIMPORTANT: enrich_actor returned empty. The query name may be a ransomware group not indexed by Malpedia/OTX. Try get_ransomware_group_profile as your primary data source — it covers 100+ ransomware groups including Qilin, BlackBasta, LockBit, etc. Also try get_ransomware_activity and get_victim_releaks.';
+
       return `You are the Threat Actor Specialist. Your job: build a complete actor profile.
 
 Query: ${query}
@@ -192,11 +205,11 @@ Step ${step}/${maxSteps}. Results so far: ${ok} successful.
 
 Strategy:
 - Step 1: enrich_actor (profile, aliases, MITRE, CVEs)
-- Step 2: actor_timeline (recent campaigns, victims, posting cadence)
+- If enrich_actor returned empty: call get_ransomware_group_profile (primary ransomware group data — TTPs, tools, exploited CVEs, victim lists, leak URLs, YARA rules) + get_ransomware_activity (recent victims, leak postings) + get_victim_releaks (re-leak detection)
+- Step 2: actor_timeline (recent campaigns, victims, posting cadence for non-ransomware actors)
 - Step 3: actor_cves (CVEs exploited by this actor) + analyze_campaign
 - Step 4: Synthesize with full profile.
-
-Do NOT call get_ransomware_activity unless the actor is a known ransomware group.`;
+${enrichRichesGuidance}`;
     },
   },
 
@@ -646,6 +659,9 @@ export const SPECIALIST_TOOLS: Record<SpecialistRole, string[]> = {
     'analyze_campaign',
     'get_blocklists',
     'get_cyber_crime_news',
+    'get_ransomware_group_profile',
+    'get_ransomware_activity',
+    'get_victim_releaks',
   ],
   vulnerability: [
     'lookup_cve',

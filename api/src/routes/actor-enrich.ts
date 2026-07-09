@@ -3,6 +3,8 @@ import type { Env } from '../env';
 
 import { safeNullLog } from '../lib/safe-catch';
 import { findActorsInText } from '../lib/cve-heuristic-mapping';
+import { ACTOR_ALIASES } from '../data/threat-actor-aliases';
+import { mitreGroupRef } from '../lib/ransomware-mitre-groups';
 
 const MALPEDIA_BASE = 'https://malpedia.caad.fkie.fraunhofer.de';
 
@@ -230,6 +232,38 @@ export async function actorEnrichHandler(c: Context<{ Bindings: Env }>): Promise
     }
   } catch (err) {
     console.error('actor-enrich error:', err);
+  }
+
+  // ── Local alias fallback ────────────────────────────────────────────────
+  // If external APIs returned nothing, fall back to the curated alias index.
+  // This covers well-known actors (including ransomware groups like Qilin)
+  // even when Malpedia/OTX/Maltrail have no match.
+  const queryLower = name.trim().toLowerCase();
+  const slugCand = slugify(queryLower);
+  if (result.malpedia.length === 0 && result.maltrail.length === 0 && result.otx.length === 0) {
+    const localMatch = ACTOR_ALIASES.find(
+      (a) =>
+        a.slug === slugCand ||
+        a.canonical.toLowerCase() === queryLower ||
+        a.aliases.some((al) => al.toLowerCase() === queryLower)
+    );
+    if (localMatch) {
+      const mitre = localMatch.mitreId ? (mitreGroupRef(localMatch.mitreId) ?? mitreGroupRef(localMatch.slug)) : null;
+      const parts: string[] = [`Canonical: ${localMatch.canonical}`];
+      if (localMatch.aliases.length > 0) parts.push(`Aliases: ${localMatch.aliases.join(', ')}`);
+      if (mitre) {
+        parts.push(`MITRE ID: ${mitre.id}`);
+        parts.push(`MITRE Name: ${mitre.name}`);
+        parts.push(`MITRE URL: ${mitre.url}`);
+      } else if (localMatch.mitreId) {
+        parts.push(`MITRE ID: ${localMatch.mitreId}`);
+      }
+      result.malpedia.push({
+        type: 'actor',
+        name: localMatch.canonical,
+        description: parts.join('; '),
+      });
+    }
   }
 
   // Extract CVE IDs from OTX pulse tags/descriptions and Malpedia descriptions
