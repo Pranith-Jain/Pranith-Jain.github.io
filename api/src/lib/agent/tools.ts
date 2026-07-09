@@ -601,6 +601,13 @@ export function buildToolRegistry(
       },
     },
     {
+      name: 'get_victim_releaks',
+      description:
+        'Re-leak detection — victims appearing on 2+ distinct ransomware group leak sites, indicating failed double-extortion, affiliate disputes, or data re-publishing. Returns group pairs, sector aggregates, and monthly timeline. No params needed.',
+      params: [],
+      execute: () => apiFetch(self, '/api/v1/victim-releaks', apiKey, undefined, ih),
+    },
+    {
       name: 'get_supply_chain_attacks',
       description:
         'Software supply-chain compromise incidents (npm/PyPI/container/AI-agent ecosystems) from supplychainattack.org. Returns title, status, severity, ecosystems, attack vectors, blast radius, remediation, package IOCs, and GHSA sources. Filter by ecosystem/status/severity.',
