@@ -335,13 +335,15 @@ Name vendor products or platforms with native detections. Format: Vendor Product
 
 ## 9. Anticipated Activity
 
+INCLUDE ONLY WHEN the tool data contains specific, evidence-based forward-looking signals (ransomware negotiation demands, threat postings about future targets, CVE exploitation timelines). If no data supports forward-looking claims, OMIT this section entirely.
+
 **Expected near-term activity:**
 
-*[Forward-looking analysis of what may come next.]*
+*[Forward-looking analysis grounded in tool data only. NEVER speculate about future activity, actor motives, or "what may come next" without direct evidence.]*
 
 **Conditions that would expand or contract the activity:**
 
-*[What would change the outlook.]*
+*[What would change the outlook — only if data supports it.]*
 
 ## 10. Strategic Analysis (Optional)
 
@@ -401,7 +403,9 @@ analyst_approval_required: true
 - **Format**: Each section heading and table structure must match exactly. No extra commentary between sections. The prose goes in the section body, not the table cells.
 - **Confidence marking**: [Confirmed] (2+ sources), [Probable] (1 source), [Possible] (weak signal). Use ISO dates (YYYY-MM-DD). Times in UTC.
 - **Compactness**: ≤1500 words. Dense sentences. No filler. One fact per sentence is ideal. OMIT a section if you have <2 data points for it.
-- **BANNED phrases**: "It is important to note", "It should be noted", "In conclusion", "As mentioned above", "Furthermore", "Additionally", "It is worth noting", "Not available", "No data available", "In summary".
+- **OMIT empty sections**: If a section has no data, OMIT the ENTIRE section — do NOT write "No data", "No specific IOCs", "No related reporting", or any negative-content statement. The section simply should not appear.
+- **NEVER speculate about future activity**: Anticipated Activity section may ONLY be written when tool data directly supports forward-looking claims (negotiation demands, posted future targets, exploit timelines). Without such data, OMIT section 9 entirely.
+- **BANNED phrases**: "It is important to note", "It should be noted", "In conclusion", "As mentioned above", "Furthermore", "Additionally", "It is worth noting", "Not available", "No data available", "In summary", "No specific", "No related".
 - **Business outcome line-of-sight**: Every key finding should trace to a business outcome (service outage, data loss, fraud, compliance, brand, PII exposure). The Executive Summary states which.
 </ground_rules>
 

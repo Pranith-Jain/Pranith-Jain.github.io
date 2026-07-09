@@ -484,7 +484,7 @@ Step ${step}/${maxSteps}.
 
 Strategy:
 - Step 1: get_ransomware_activity (recent victims, leak sites, posting cadence)
-- Step 2: get_ransomware_negotiations (settlement patterns, demands, discounts)
+- Step 2: get_ransomware_negotiations (settlement patterns, demands, discounts) + get_victim_releaks (re-leak detection — victims appearing under multiple groups)
 - Step 3: get_blocklists + unified_search for additional context. Synthesize.`;
     },
   },
@@ -672,7 +672,13 @@ export const SPECIALIST_TOOLS: Record<SpecialistRole, string[]> = {
   'malware-analysis': ['sample_scan', 'malware_family_detail', 'search_triage', 'search_malpedia'],
   'detection-rules': ['generate_yara_rule', 'generate_hunting_queries', 'get_yara_rules', 'get_detections'],
   phishing: ['analyze_phishing_url', 'analyze_phishing_email', 'check_ioc', 'lookup_domain'],
-  ransomware: ['get_ransomware_activity', 'get_ransomware_negotiations', 'get_blocklists', 'unified_search'],
+  ransomware: [
+    'get_ransomware_activity',
+    'get_ransomware_negotiations',
+    'get_victim_releaks',
+    'get_blocklists',
+    'unified_search',
+  ],
   'campaign-correlation': ['analyze_campaign', 'cross_campaign_correlate', 'cross_correlate', 'unified_search'],
   'dark-web': ['get_breach_forums', 'search_telegram_leaks', 'trace_crypto_address', 'breach_check', 'unified_search'],
   'strategic-intel': [

@@ -162,7 +162,7 @@ ${
   queryType === 'actor' || queryType === 'ransomware'
     ? `FOR ${queryType.toUpperCase()} QUERIES:
 Step 1: enrich_actor (profile, aliases, country, MITRE techniques, campaigns, malware families, OTX pulses, linked CVEs)
-Step 2: If the actor IS a known ransomware group (LockBit, Clop, BlackBasta, BlackCat, Play, BianLian, etc.): call get_ransomware_activity (recent attacks, victims, posted data) AND get_ransomware_negotiations (settlement patterns, demands, discounts).
+Step 2: If the actor IS a known ransomware group (LockBit, Clop, BlackBasta, BlackCat, Play, BianLian, Qilin, Agenda, etc.): call get_ransomware_activity (recent attacks, victims, posted data) + get_ransomware_negotiations (settlement patterns, demands, discounts) + get_victim_releaks (re-leak detection — victims appearing under 2+ groups, indicating failed extortion or affiliate disputes).
   If the actor is NOT a ransomware group (APT28, Lazarus, APT29, UNC2452, Volt Typhoon, etc.): call actor_timeline (posting cadence, victim disclosures over time, operational tempo) + get_blocklists (known C2/domains/emails associated with this actor).
 Step 3: actor_cves (CVEs attributed to this actor) + analyze_campaign (campaign lifecycle, kill chain, attribution depth). If enrich_actor surfaced CVEs, call lookup_cve on up to 2 of the most severe (CVSS or known exploitation).
 Step 4: generate_yara_rule + generate_hunting_queries (detection + hunt). For ransomware: get_blocklists.
@@ -174,7 +174,7 @@ CRITICAL — DATA ATTRIBUTION:
 - Only call search_malpedia if enrich_actor named specific malware families.
 
 Tools to call: enrich_actor, actor_timeline, actor_cves, analyze_campaign, search_malpedia, get_blocklists
-Tools for ransomware only: get_ransomware_activity, get_ransomware_negotiations
+Tools for ransomware only: get_ransomware_activity, get_ransomware_negotiations, get_victim_releaks
 Tools NOT for actor queries: check_ioc (unless the query is about a specific IOC), lookup_cve (unless CVEs are attributed to the actor), breach_check, lookup_domain, lookup_ip_geo`
     : ''
 }
