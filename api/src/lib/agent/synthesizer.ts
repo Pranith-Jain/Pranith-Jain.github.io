@@ -66,7 +66,7 @@ export async function synthesizeReport(
   const user = useMinimal
     ? buildSynthesizerUserPrompt(query, queryType, steps)
     : buildSynthesizerUserPrompt(query, queryType, steps) + dataWarning;
-  const input: CompletionInput = { system, user, maxTokens: useMinimal ? 2000 : 5500, temperature: 0.3 };
+  const input: CompletionInput = { system, user, maxTokens: useMinimal ? 2000 : 8000, temperature: 0.3 };
 
   const { text, modelUsed } = await runCompletion(ai, input, {
     googleKey: opts.googleKey,

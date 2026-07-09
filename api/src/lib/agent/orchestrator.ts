@@ -134,7 +134,14 @@ export async function runSpecialist(
   for (let stepNum = 1; stepNum <= dispatch.maxSteps && !synthesizing; stepNum++) {
     const view = { stepNum, maxSteps: dispatch.maxSteps, steps };
 
-    // Check exit conditions
+    // Check specialist-specific exit conditions
+    const specialistCheck = checkSpecialistExit(dispatch.role, steps, stepNum, dispatch.maxSteps, dispatch.queryType);
+    if (specialistCheck.shouldSwitch) {
+      synthesizing = true;
+      break;
+    }
+
+    // Also check global exit conditions
     const exit = evaluateCtiExit(view);
     if (exit) {
       synthesizing = true;

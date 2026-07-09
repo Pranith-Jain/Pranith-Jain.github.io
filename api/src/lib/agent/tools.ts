@@ -1,6 +1,6 @@
 /**
  * CTI Analyst Agent — Full tool registry.
- * 60+ tools across all CTI domains: IOC enrichment, vulnerability intel,
+ * 65+ tools across all CTI domains: IOC enrichment, vulnerability intel,
  * actor profiling, malware analysis, domain/host intel, detection rules,
  * relationship graphs, campaign tracking, STIX/TAXII, dark web, phishing,
  * breach monitoring, and more.
@@ -96,7 +96,7 @@ export function buildToolRegistry(
     {
       name: 'enrich_ioc_deep',
       description:
-        'Deep IOC enrichment — single-call orchestrator that fans out to every relevant source: reputation check from up to 37 providers (varies by indicator type — IP gets the most, hash gets fewer) incl. tre.ge, Webamon, Maltiverse, AbuseIPDB, Shodan, Censys, GreyNoise + DNS/WHOIS/CT + BuiltWith tech stack + breach via ProjectDiscovery + passive DNS + relationships + Maltiverse. Returns a unified verdict with source-level provenance, tags, and the top contributing sources.',
+        'Deep IOC enrichment — single-call orchestrator that fans out to every relevant source: reputation check from up to 37 providers (varies by indicator type — IP gets the most, hash gets fewer) incl. tre.ge, Webamon, Maltiverse, AbuseIPDB, Shodan, Censys, GreyNoise + DNS/WHOIS/CT + BuiltWith tech stack + breach via ProjectDiscovery + passive DNS + relationships. Returns a unified verdict with source-level provenance, tags, and the top contributing sources.',
       params: [{ name: 'indicator', type: 'string', description: 'IP, domain, URL, or file hash', required: true }],
       execute: (args) =>
         apiFetch(
@@ -120,27 +120,23 @@ export function buildToolRegistry(
         },
       ],
       execute: (args) =>
-        apiFetch(
-          self,
-          `/api/v1/ioc/check?indicator=${encodeURIComponent(String(args.indicator))}`,
-          apiKey,
-          undefined,
-          ih
-        ).then((res: unknown) => {
-          const r = res as {
-            providers?: Array<{
-              source?: string;
-              verdict?: string;
-              score?: number;
-              raw_summary?: unknown;
-              tags?: string[];
-            }>;
-          };
-          const tre = (r.providers ?? []).find((p) => p.source === 'tre-ge');
-          return (
-            tre ?? { source: 'tre-ge', verdict: 'not_queried', note: 'tre.ge was not included in this enrichment pass' }
-          );
-        }),
+        apiFetchSse(self, `/api/v1/ioc/check?indicator=${encodeURIComponent(String(args.indicator))}`, apiKey, ih).then(
+          (res) => {
+            // Extract the 'done' event which contains the merged provider results
+            const doneEvent = res.events.find((e) => e.event === 'done');
+            const data = doneEvent?.data as
+              { providers?: Array<{ source?: string; verdict?: string; score?: number }> } | undefined;
+            const providers = data?.providers ?? [];
+            const tre = providers.find((p) => p.source === 'tre-ge');
+            return (
+              tre ?? {
+                source: 'tre-ge',
+                verdict: 'not_queried',
+                note: 'tre.ge was not included in this enrichment pass',
+              }
+            );
+          }
+        ),
     },
     {
       name: 'maltiverse_verify',
@@ -606,6 +602,50 @@ export function buildToolRegistry(
         'Re-leak detection — victims appearing on 2+ distinct ransomware group leak sites, indicating failed double-extortion, affiliate disputes, or data re-publishing. Returns group pairs, sector aggregates, and monthly timeline. No params needed.',
       params: [],
       execute: () => apiFetch(self, '/api/v1/victim-releaks', apiKey, undefined, ih),
+    },
+    {
+      name: 'get_ransomware_group_profile',
+      description:
+        'Full ransomware group intelligence profile from ransomware.live PRO — description, aliases, locations, tools, exploited CVEs, MITRE TTPs, CSIRT notes, YARA rules. Use this for in-depth group analysis (e.g. LockBit, Clop, Qilin, BlackBasta). Requires the ransomware group slug.',
+      params: [
+        {
+          name: 'slug',
+          type: 'string',
+          description:
+            'Ransomware group slug (lockbit, clop, qilin, blackbasta, play, bianlian, blackcat, akira, ransomhouse, etc.)',
+          required: true,
+        },
+      ],
+      execute: (args) =>
+        apiFetch(
+          self,
+          `/api/v1/rl/group/${encodeURIComponent(String(args.slug).toLowerCase().trim())}`,
+          apiKey,
+          undefined,
+          ih
+        ),
+    },
+    {
+      name: 'get_ransomware_stats',
+      description:
+        'Global ransomware activity statistics from ransomware.live PRO — monthly victim counts, group rankings, attack volume trends, sector breakdown. No params needed.',
+      params: [],
+      execute: () => apiFetch(self, '/api/v1/rl/stats', apiKey, undefined, ih),
+    },
+    {
+      name: 'search_actor_usernames',
+      description:
+        'Search threat-actor usernames across 25+ cybercrime forums (Exploit, XSS, Cracked, BreachForums, Nulled, LeakBase, RaidForums archive, etc.). Returns matching usernames, forum count, and per-forum details. Use to find actor handles, cross-reference identities, or track persona changes.',
+      params: [{ name: 'q', type: 'string', description: 'Username or partial handle to search', required: true }],
+      execute: (args) =>
+        apiFetch(self, `/api/v1/actor-usernames?q=${encodeURIComponent(String(args.q))}`, apiKey, undefined, ih),
+    },
+    {
+      name: 'get_cyber_crime_news',
+      description:
+        'Cybercrime news aggregation from 8+ sources (law enforcement press releases, crypto-crime research, fraud intelligence, ransomware reporting). Returns headlines, source, date, and links. Useful for situational awareness and incorporating current cybercrime developments into reports.',
+      params: [],
+      execute: () => apiFetch(self, '/api/v1/cyber-crime', apiKey, undefined, ih),
     },
     {
       name: 'get_supply_chain_attacks',

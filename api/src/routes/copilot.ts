@@ -3,6 +3,7 @@ import type { Env } from '../env';
 import { badRequest, internalError } from '../lib/api-error';
 import { LIVE_IOCS_CACHE_KEY } from './live-iocs';
 import { safeNullLog } from '../lib/safe-catch';
+import { neutralizeUntrusted } from '../lib/prompt-fence';
 import { RANSOMWARE_RECENT_CACHE_KEY } from './ransomware-recent';
 import { ACTOR_TIMELINE_CACHE_KEY } from './actor-timeline';
 import { CVE_RECENT_CACHE_KEY } from './cve-recent';
@@ -921,7 +922,7 @@ Type: ${queryType}
     body += `<source ref="${refNum}" name="${src.name}" results="${src.items}">\n`;
     const note = SCHEMA_NOTES[src.name];
     if (note) body += `  <!-- ${note} -->\n`;
-    body += JSON.stringify(src.data, null, 2);
+    body += neutralizeUntrusted(JSON.stringify(src.data, null, 2));
     body += '\n</source>\n\n';
   }
   if (!body)

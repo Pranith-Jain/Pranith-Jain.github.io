@@ -484,8 +484,9 @@ Step ${step}/${maxSteps}.
 
 Strategy:
 - Step 1: get_ransomware_activity (recent victims, leak sites, posting cadence)
-- Step 2: get_ransomware_negotiations (settlement patterns, demands, discounts) + get_victim_releaks (re-leak detection — victims appearing under multiple groups)
-- Step 3: get_blocklists + unified_search for additional context. Synthesize.`;
+- Step 2: get_ransomware_negotiations (settlement patterns, demands, discounts) + get_victim_releaks (re-leak detection — victims appearing under multiple groups) + get_ransomware_group_profile (full group TTPs, tools, exploited CVEs, locations)
+- Step 3: get_ransomware_stats (global ransomware volume context) + get_cyber_crime_news (current developments)
+- Step 4: get_blocklists + unified_search for additional context. Synthesize.`;
     },
   },
 
@@ -641,8 +642,10 @@ export const SPECIALIST_TOOLS: Record<SpecialistRole, string[]> = {
     'actor_timeline',
     'actor_cves',
     'search_malpedia',
+    'search_actor_usernames',
     'analyze_campaign',
     'get_blocklists',
+    'get_cyber_crime_news',
   ],
   vulnerability: [
     'lookup_cve',
@@ -675,7 +678,10 @@ export const SPECIALIST_TOOLS: Record<SpecialistRole, string[]> = {
   ransomware: [
     'get_ransomware_activity',
     'get_ransomware_negotiations',
+    'get_ransomware_group_profile',
+    'get_ransomware_stats',
     'get_victim_releaks',
+    'get_cyber_crime_news',
     'get_blocklists',
     'unified_search',
   ],
@@ -687,6 +693,8 @@ export const SPECIALIST_TOOLS: Record<SpecialistRole, string[]> = {
     'get_c2_tracker',
     'get_predictive_forecasts',
     'get_supply_chain_attacks',
+    'get_ransomware_stats',
+    'get_cyber_crime_news',
     'unified_search',
   ],
 };

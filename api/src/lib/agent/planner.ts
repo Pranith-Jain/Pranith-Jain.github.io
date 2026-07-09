@@ -27,7 +27,7 @@ export async function planNextStep(
   currentStep: number,
   maxSteps: number,
   tools: AgentTool[],
-  opts: { groqKey?: string; googleKey?: string; nvidiaKey?: string; specialistContext?: string }
+  opts: { groqKey?: string; nvidiaKey?: string; googleKey?: string; specialistContext?: string }
 ): Promise<PlannerOutput> {
   // The pre-plan exit decision (enough-results / near-limit / max-iterations)
   // is now owned by the loop engine and evaluated in the DO *before* this
@@ -44,10 +44,10 @@ export async function planNextStep(
   let lastErr: unknown;
   for (let attempt = 0; attempt <= MAX_PARSE_RETRIES; attempt++) {
     const { text } = await runCompletion(ai, input, {
-      googleKey: opts.googleKey,
       groqKey: opts.groqKey,
       nvidiaKey: opts.nvidiaKey,
-      preferGroq: true,
+      quality: queryType === 'actor' || queryType === 'ransomware' || queryType === 'campaign',
+      role: 'planner',
     });
     try {
       return parsePlannerOutput(text);
@@ -64,6 +64,10 @@ export async function planNextStep(
 
 function buildCtiPlannerPrompt(toolDescriptions: string, maxSteps: number, queryType: string): string {
   return `<role>You are a senior CTI analyst running an investigation. You have ${maxSteps} steps to collect, enrich, analyze, and produce intelligence from ${toolDescriptions.split('\n').length} available tools.</role>
+
+<important_no_data_rule>
+If a tool returns no results (empty array, null data, "not found"), call it "no_data" in your response. Do NOT hallucinate, fabricate, or invent data to fill gaps. If ALL tools return empty or error, your nextAction MUST be "synthesize" so the system produces an honest "inconclusive" report. An honest empty report is better than a fabricated one.
+</important_no_data_rule>
 
 <available_tools>
 ${toolDescriptions}
@@ -162,19 +166,20 @@ ${
   queryType === 'actor' || queryType === 'ransomware'
     ? `FOR ${queryType.toUpperCase()} QUERIES:
 Step 1: enrich_actor (profile, aliases, country, MITRE techniques, campaigns, malware families, OTX pulses, linked CVEs)
-Step 2: If the actor IS a known ransomware group (LockBit, Clop, BlackBasta, BlackCat, Play, BianLian, Qilin, Agenda, etc.): call get_ransomware_activity (recent attacks, victims, posted data) + get_ransomware_negotiations (settlement patterns, demands, discounts) + get_victim_releaks (re-leak detection — victims appearing under 2+ groups, indicating failed extortion or affiliate disputes).
-  If the actor is NOT a ransomware group (APT28, Lazarus, APT29, UNC2452, Volt Typhoon, etc.): call actor_timeline (posting cadence, victim disclosures over time, operational tempo) + get_blocklists (known C2/domains/emails associated with this actor).
+Step 2: If the actor IS a known ransomware group (LockBit, Clop, BlackBasta, BlackCat, Play, BianLian, Qilin, Agenda, etc.): call get_ransomware_activity (recent attacks, victims, posted data) + get_ransomware_negotiations (settlement patterns, demands, discounts) + get_victim_releaks (re-leak detection — victims appearing under 2+ groups, indicating failed extortion or affiliate disputes) + get_ransomware_group_profile (full group TTPs, tools, exploited CVEs, locations) + get_ransomware_stats (global ransomware volume context).
+  If the actor is NOT a ransomware group (APT28, Lazarus, APT29, UNC2452, Volt Typhoon, etc.): call actor_timeline (posting cadence, victim disclosures over time, operational tempo) + get_blocklists (blocklist metadata for pfSense/iptables/Suricata export) + search_actor_usernames (cross-forum handle search to find alias variations).
 Step 3: actor_cves (CVEs attributed to this actor) + analyze_campaign (campaign lifecycle, kill chain, attribution depth). If enrich_actor surfaced CVEs, call lookup_cve on up to 2 of the most severe (CVSS or known exploitation).
 Step 4: generate_yara_rule + generate_hunting_queries (detection + hunt). For ransomware: get_blocklists.
-Step 5: Synthesize. Mark actionCard.attributed=true if enrich_actor named the actor or campaign; ransomware=true for ransomware queries.
+Step 5: get_cyber_crime_news (current cybercrime developments for situational awareness).
+Step 6: Synthesize. Mark actionCard.attributed=true if enrich_actor named the actor or campaign; ransomware=true for ransomware queries.
 
 CRITICAL — DATA ATTRIBUTION:
 - get_ransomware_activity and get_ransomware_negotiations ONLY return data for known ransomware groups. Calling them on APT actors returns empty data or data for a different group. Check enrich_actor results first: if ransomwareUse is false or no ransomware affiliation, skip all ransomware-specific tools.
 - actor_timeline is the correct tool for non-ransomware activity data.
 - Only call search_malpedia if enrich_actor named specific malware families.
 
-Tools to call: enrich_actor, actor_timeline, actor_cves, analyze_campaign, search_malpedia, get_blocklists
-Tools for ransomware only: get_ransomware_activity, get_ransomware_negotiations, get_victim_releaks
+Tools to call: enrich_actor, actor_timeline, actor_cves, analyze_campaign, search_malpedia, search_actor_usernames, get_blocklists, get_cyber_crime_news
+Tools for ransomware only: get_ransomware_activity, get_ransomware_negotiations, get_ransomware_group_profile, get_ransomware_stats, get_victim_releaks
 Tools NOT for actor queries: check_ioc (unless the query is about a specific IOC), lookup_cve (unless CVEs are attributed to the actor), breach_check, lookup_domain, lookup_ip_geo`
     : ''
 }
@@ -221,7 +226,7 @@ Step 3: Synthesize`
 
 <critical_rules>
 - NEVER call the same tool with the same args twice.
-- NEVER call broad dump tools: get_live_iocs, get_today_briefing, get_feed_status, get_feed_catalog, breach_disclosures_recent.
+- NEVER call broad dump tools: breach_disclosures_recent.
 - CALL ONLY the tools listed in the TOOLS TO CALL section for your query type. Do NOT call tools from other query types' lists.
 - NEVER call enrich_actor for CVE queries — enrich_actor is for threat actors only.
 - NEVER call lookup_mitre with a placeholder like "TXXXX" — only use real technique IDs from data (T1190, T1566.001, etc). If you don't have a real ID, don't call lookup_mitre.

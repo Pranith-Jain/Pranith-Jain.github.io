@@ -7,10 +7,14 @@ import { runCompletion, type CompletionInput } from '../../case-study/generation
 import type { AgentToolResult } from './types';
 import { buildObserverPrompt } from './prompts';
 import { summarizeToolResult } from './tools';
+import { neutralizeAttr } from '../prompt-fence';
 
 export interface ObserverOutput {
   observation: string;
   keyFacts: string[];
+  iocs: string[];
+  mitre: string[];
+  confidence: 'high' | 'medium' | 'low';
   gaps: string[];
 }
 
@@ -23,7 +27,7 @@ export async function observeStep(
   stepNumber: number,
   plan: string,
   results: AgentToolResult[],
-  opts: { groqKey?: string; googleKey?: string; nvidiaKey?: string }
+  opts: { groqKey?: string; nvidiaKey?: string; googleKey?: string }
 ): Promise<ObserverOutput> {
   // Deterministic fallback: summarize results without an LLM call
   const fallback = deterministicObserve(results);
@@ -44,7 +48,7 @@ export async function observeStep(
       })
       .join('\n');
 
-    const user = `<step number="${stepNumber}" plan="${plan}">
+    const user = `<step number="${stepNumber}" plan="${neutralizeAttr(plan)}">
 Tool results:
 ${resultBlock}
 </step>
@@ -53,10 +57,10 @@ Analyze these results. What was found? What are the key facts? What gaps remain?
 
     const input: CompletionInput = { system, user, maxTokens: 800, temperature: 0.2 };
     const { text } = await runCompletion(ai, input, {
-      googleKey: opts.googleKey,
       groqKey: opts.groqKey,
       nvidiaKey: opts.nvidiaKey,
-      preferGroq: true,
+      quality: false,
+      role: 'observer',
     });
 
     // Parse the JSON output
@@ -71,6 +75,11 @@ Analyze these results. What was found? What are the key facts? What gaps remain?
       return {
         observation: typeof parsed.observation === 'string' ? parsed.observation : fallback.observation,
         keyFacts: Array.isArray(parsed.keyFacts) ? parsed.keyFacts : fallback.keyFacts,
+        iocs: Array.isArray(parsed.iocs) ? parsed.iocs : [],
+        mitre: Array.isArray(parsed.mitre) ? parsed.mitre : [],
+        confidence: ['high', 'medium', 'low'].includes(parsed.confidence as string)
+          ? (parsed.confidence as 'high' | 'medium' | 'low')
+          : 'medium',
         gaps: Array.isArray(parsed.gaps) ? parsed.gaps : fallback.gaps,
       };
     }
@@ -109,6 +118,9 @@ function deterministicObserve(results: AgentToolResult[]): ObserverOutput {
   return {
     observation: parts.join(' '),
     keyFacts: keyFacts.slice(0, 5),
+    iocs: [],
+    mitre: [],
+    confidence: 'medium',
     gaps: [],
   };
 }

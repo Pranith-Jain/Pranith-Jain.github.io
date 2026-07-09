@@ -32,7 +32,7 @@ export async function verifyReport(
   queryType: string,
   originalReport: string,
   steps: AgentStep[],
-  opts: { groqKey?: string; googleKey?: string; nvidiaKey?: string }
+  opts: { groqKey?: string; nvidiaKey?: string; googleKey?: string }
 ): Promise<QaResult> {
   // Build a compact summary of all collected data for fact-checking
   const dataSummary = buildDataSummary(steps);
@@ -42,11 +42,10 @@ export async function verifyReport(
   const input: CompletionInput = { system, user, maxTokens: 4000, temperature: 0.1 };
 
   const { text, modelUsed } = await runCompletion(ai, input, {
-    googleKey: opts.googleKey,
     groqKey: opts.groqKey,
     nvidiaKey: opts.nvidiaKey,
     quality: true,
-    preferGroq: true,
+    role: 'qa-verifier',
   });
 
   // Parse the QA output
@@ -198,12 +197,12 @@ function parseQaOutput(raw: string, originalReport: string, modelUsed: string): 
     }
     const proseOnly = stripped;
 
-    // Apply corrections to the prose only
+    // Apply corrections to the prose only (replaceAll for multi-occurrence fixes)
     let verifiedReport = proseOnly;
     if (parsed.corrections && parsed.corrections.length > 0) {
       for (const c of parsed.corrections) {
         if (c.original && c.corrected && c.original !== c.corrected) {
-          verifiedReport = verifiedReport.replace(c.original, c.corrected);
+          verifiedReport = verifiedReport.replaceAll(c.original, c.corrected);
         }
       }
     }
@@ -219,13 +218,19 @@ function parseQaOutput(raw: string, originalReport: string, modelUsed: string): 
       }
     }
 
-    // If hallucinations were found, add a disclaimer
+    // If hallucinations were found, add inline markers and a summary disclaimer
     const hallucinations = (parsed.flagged_claims ?? []).filter((f) => f.reason === 'hallucinated');
     if (hallucinations.length > 0) {
+      // Mark hallucinated claims inline with [UNVERIFIED] prefix
+      for (const h of hallucinations) {
+        if (h.claim && verifiedReport.includes(h.claim)) {
+          verifiedReport = verifiedReport.replaceAll(h.claim, `[UNVERIFIED] ${h.claim}`);
+        }
+      }
       verifiedReport +=
         '\n\n---\n**QA Note:** ' +
         hallucinations.length +
-        ' claim(s) in this report could not be verified against collected data and may be based on general knowledge rather than investigation findings.';
+        ' claim(s) marked `[UNVERIFIED]` could not be verified against collected data and may be based on general knowledge rather than investigation findings.';
     }
 
     // Re-prepend the structured header and re-append the action-card JSON
