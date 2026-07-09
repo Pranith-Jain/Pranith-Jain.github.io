@@ -8,6 +8,7 @@ import type { AgentToolResult } from './types';
 import { buildObserverPrompt } from './prompts';
 import { summarizeToolResult } from './tools';
 import { neutralizeAttr } from '../prompt-fence';
+import { ObserverOutputSchema, parseWithErrors } from './schemas';
 
 export interface ObserverOutput {
   observation: string;
@@ -56,33 +57,37 @@ ${resultBlock}
 Analyze these results. What was found? What are the key facts? What gaps remain?`;
 
     const input: CompletionInput = { system, user, maxTokens: 800, temperature: 0.2 };
-    const { text } = await runCompletion(ai, input, {
-      groqKey: opts.groqKey,
-      nvidiaKey: opts.nvidiaKey,
-      quality: false,
-      role: 'observer',
-    });
 
-    // Parse the JSON output
-    let cleaned = text.trim();
-    if (cleaned.startsWith('```')) {
-      cleaned = cleaned.replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '');
+    const MAX_RETRIES = 2;
+    let lastErrors = '';
+
+    for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+      const { text } = await runCompletion(ai, input, {
+        groqKey: opts.groqKey,
+        nvidiaKey: opts.nvidiaKey,
+        quality: false,
+        role: 'observer',
+      });
+
+      const parsed = parseWithErrors(text, ObserverOutputSchema);
+      if (parsed.ok) {
+        return {
+          observation: parsed.data.observation || fallback.observation,
+          keyFacts: parsed.data.keyFacts.length > 0 ? parsed.data.keyFacts : fallback.keyFacts,
+          iocs: parsed.data.iocs,
+          mitre: parsed.data.mitre,
+          confidence: parsed.data.confidence,
+          gaps: parsed.data.gaps.length > 0 ? parsed.data.gaps : fallback.gaps,
+        };
+      }
+
+      lastErrors = parsed.errors;
+      if (attempt < MAX_RETRIES) {
+        input.user = `${user}\n\nIMPORTANT: Respond with ONLY valid JSON matching the required schema. Errors to fix:\n${lastErrors}`;
+      }
     }
-    const firstBrace = cleaned.indexOf('{');
-    const lastBrace = cleaned.lastIndexOf('}');
-    if (firstBrace !== -1 && lastBrace !== -1) {
-      const parsed = JSON.parse(cleaned.slice(firstBrace, lastBrace + 1)) as Partial<ObserverOutput>;
-      return {
-        observation: typeof parsed.observation === 'string' ? parsed.observation : fallback.observation,
-        keyFacts: Array.isArray(parsed.keyFacts) ? parsed.keyFacts : fallback.keyFacts,
-        iocs: Array.isArray(parsed.iocs) ? parsed.iocs : [],
-        mitre: Array.isArray(parsed.mitre) ? parsed.mitre : [],
-        confidence: ['high', 'medium', 'low'].includes(parsed.confidence as string)
-          ? (parsed.confidence as 'high' | 'medium' | 'low')
-          : 'medium',
-        gaps: Array.isArray(parsed.gaps) ? parsed.gaps : fallback.gaps,
-      };
-    }
+
+    console.warn('observer: validation failed after retries, using fallback', lastErrors);
     return fallback;
   } catch (err) {
     console.warn('observer: LLM call failed, using deterministic summary', err);

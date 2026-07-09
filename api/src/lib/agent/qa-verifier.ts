@@ -7,6 +7,7 @@ import type { Ai } from '@cloudflare/workers-types';
 import { runCompletion, type CompletionInput } from '../../case-study/generation/ai-client';
 import type { AgentStep } from './types';
 import { neutralizeUntrusted, UNTRUSTED_DATA_SYSTEM_NOTE } from '../prompt-fence';
+import { QaOutputSchema, parseWithErrors, type QaOutputValidated } from './schemas';
 
 export interface QaResult {
   /** The verified/corrected report (may differ from original) */
@@ -41,15 +42,39 @@ export async function verifyReport(
   const user = buildQaUserPrompt(query, originalReport, dataSummary);
   const input: CompletionInput = { system, user, maxTokens: 4000, temperature: 0.1 };
 
-  const { text, modelUsed } = await runCompletion(ai, input, {
-    groqKey: opts.groqKey,
-    nvidiaKey: opts.nvidiaKey,
-    quality: true,
-    role: 'qa-verifier',
-  });
+  const MAX_RETRIES = 2;
+  let lastErrors = '';
+  let modelUsed = '';
 
-  // Parse the QA output
-  return parseQaOutput(text, originalReport, modelUsed);
+  for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+    const result = await runCompletion(ai, input, {
+      groqKey: opts.groqKey,
+      nvidiaKey: opts.nvidiaKey,
+      quality: true,
+      role: 'qa-verifier',
+    });
+    modelUsed = result.modelUsed;
+
+    const parsed = parseWithErrors(result.text, QaOutputSchema);
+    if (parsed.ok) {
+      // Apply corrections and return
+      return applyCorrections(parsed.data, originalReport, modelUsed);
+    }
+
+    lastErrors = parsed.errors;
+    if (attempt < MAX_RETRIES) {
+      input.user = `${user}\n\nIMPORTANT: Respond with ONLY valid JSON matching the required schema. Errors to fix:\n${lastErrors}`;
+    }
+  }
+
+  console.warn('qa-verifier: validation failed after retries, returning unchanged', lastErrors);
+  return {
+    verifiedReport: originalReport,
+    flaggedClaims: [],
+    missingFacts: [],
+    qualityScore: 50,
+    modelUsed,
+  };
 }
 
 /** Build a compact summary of all tool results for fact-checking. */
@@ -132,125 +157,85 @@ ${dataSummary || 'No data collected — all tools failed or returned empty.'}
 Verify every claim in the report against the collected data. Flag hallucinations, add missing facts, correct errors.`;
 }
 
-/** Parse the QA output and apply corrections to the report. */
-function parseQaOutput(raw: string, originalReport: string, modelUsed: string): QaResult {
-  let cleaned = raw.trim();
-  if (cleaned.startsWith('```')) {
-    cleaned = cleaned.replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '');
+/** Apply QA corrections to the report. Assumes data is already validated. */
+function applyCorrections(data: QaOutputValidated, originalReport: string, modelUsed: string): QaResult {
+  const flaggedClaims = data.flagged_claims.map((f) => `[${f.reason}] ${f.claim}: ${f.evidence}`);
+  const missingFacts = data.missing_facts.map((f) => `[${f.source}] ${f.fact}`);
+
+  // Preserve the structured blocks (report-header, handoff, action-card).
+  // These are machine-parseable, not free text — textual corrections would
+  // munge them. We strip them, run QA on the prose only, then re-append.
+  const REPORT_HEADER_RE = /^```report-header\s*\n[\s\S]*?\n```\s*\n?/;
+  const HANDOFF_RE = /\n*\n:::handoff\s*\n[\s\S]*?\n:::\s*$/;
+  const ACTION_CARD_RE = /\n*\n```action-card\s*\n[\s\S]*?\n```\s*$/;
+
+  const headerMatch = originalReport.match(REPORT_HEADER_RE);
+  let stripped = originalReport;
+  let headerPrefix = '';
+  if (headerMatch && headerMatch.index !== undefined) {
+    headerPrefix = stripped.slice(0, headerMatch.index + headerMatch[0].length);
+    stripped = stripped.slice(headerMatch.index + headerMatch[0].length);
   }
-  const firstBrace = cleaned.indexOf('{');
-  const lastBrace = cleaned.lastIndexOf('}');
-  if (firstBrace === -1 || lastBrace === -1) {
-    // QA parse failed — return original report unchanged
-    return {
-      verifiedReport: originalReport,
-      flaggedClaims: [],
-      missingFacts: [],
-      qualityScore: 50,
-      modelUsed,
-    };
+
+  let suffix = '';
+  const cardMatch = stripped.match(ACTION_CARD_RE);
+  if (cardMatch && cardMatch.index !== undefined) {
+    suffix = stripped.slice(cardMatch.index) + suffix;
+    stripped = stripped.slice(0, cardMatch.index);
   }
+  const handoffMatch = stripped.match(HANDOFF_RE);
+  let cardSuffix = '';
+  if (handoffMatch && handoffMatch.index !== undefined) {
+    cardSuffix = stripped.slice(handoffMatch.index) + suffix;
+    stripped = stripped.slice(0, handoffMatch.index);
+  } else {
+    cardSuffix = suffix;
+  }
+  const proseOnly = stripped;
 
-  try {
-    const parsed = JSON.parse(cleaned.slice(firstBrace, lastBrace + 1)) as {
-      flagged_claims?: Array<{ claim: string; reason: string; evidence: string }>;
-      missing_facts?: Array<{ fact: string; source: string; importance: string }>;
-      corrections?: Array<{ original: string; corrected: string; reason: string }>;
-      quality_score?: number;
-      quality_notes?: string;
-    };
-
-    const flaggedClaims = (parsed.flagged_claims ?? []).map((f) => `[${f.reason}] ${f.claim}: ${f.evidence}`);
-    const missingFacts = (parsed.missing_facts ?? []).map((f) => `[${f.source}] ${f.fact}`);
-
-    // Preserve the structured blocks (report-header, handoff, action-card).
-    // These are machine-parseable, not free text — textual corrections would
-    // munge them. We strip them, run QA on the prose only, then re-append.
-    const REPORT_HEADER_RE = /^```report-header\s*\n[\s\S]*?\n```\s*\n?/;
-    const HANDOFF_RE = /\n*\n:::handoff\s*\n[\s\S]*?\n:::\s*$/;
-    const ACTION_CARD_RE = /\n*\n```action-card\s*\n[\s\S]*?\n```\s*$/;
-
-    // The report-header is at the START (right after the optional
-    // <role>/<query> preamble, but in practice it's the very first block).
-    // The action-card is at the END. The handoff is just before the action-card.
-    const headerMatch = originalReport.match(REPORT_HEADER_RE);
-    let stripped = originalReport;
-    let headerPrefix = '';
-    if (headerMatch && headerMatch.index !== undefined) {
-      headerPrefix = stripped.slice(0, headerMatch.index + headerMatch[0].length);
-      stripped = stripped.slice(headerMatch.index + headerMatch[0].length);
-    }
-
-    let suffix = '';
-    const cardMatch = stripped.match(ACTION_CARD_RE);
-    if (cardMatch && cardMatch.index !== undefined) {
-      suffix = stripped.slice(cardMatch.index) + suffix;
-      stripped = stripped.slice(0, cardMatch.index);
-    }
-    const handoffMatch = stripped.match(HANDOFF_RE);
-    let cardSuffix = '';
-    if (handoffMatch && handoffMatch.index !== undefined) {
-      cardSuffix = stripped.slice(handoffMatch.index) + suffix;
-      stripped = stripped.slice(0, handoffMatch.index);
-    } else {
-      cardSuffix = suffix;
-    }
-    const proseOnly = stripped;
-
-    // Apply corrections to the prose only (replaceAll for multi-occurrence fixes)
-    let verifiedReport = proseOnly;
-    if (parsed.corrections && parsed.corrections.length > 0) {
-      for (const c of parsed.corrections) {
-        if (c.original && c.corrected && c.original !== c.corrected) {
-          verifiedReport = verifiedReport.replaceAll(c.original, c.corrected);
-        }
+  // Apply corrections to the prose only (replaceAll for multi-occurrence fixes)
+  let verifiedReport = proseOnly;
+  if (data.corrections.length > 0) {
+    for (const c of data.corrections) {
+      if (c.original && c.corrected && c.original !== c.corrected) {
+        verifiedReport = verifiedReport.replaceAll(c.original, c.corrected);
       }
     }
-
-    // If there are missing facts, append them as a "Additional Intelligence" section
-    if (parsed.missing_facts && parsed.missing_facts.length > 0) {
-      const highImportance = parsed.missing_facts.filter((f) => f.importance === 'high');
-      if (highImportance.length > 0) {
-        verifiedReport += '\n\n### Additional Intelligence (from QA verification)\n';
-        for (const f of highImportance) {
-          verifiedReport += `- ${f.fact} [Source: ${f.source}]\n`;
-        }
-      }
-    }
-
-    // If hallucinations were found, add inline markers and a summary disclaimer
-    const hallucinations = (parsed.flagged_claims ?? []).filter((f) => f.reason === 'hallucinated');
-    if (hallucinations.length > 0) {
-      // Mark hallucinated claims inline with [UNVERIFIED] prefix
-      for (const h of hallucinations) {
-        if (h.claim && verifiedReport.includes(h.claim)) {
-          verifiedReport = verifiedReport.replaceAll(h.claim, `[UNVERIFIED] ${h.claim}`);
-        }
-      }
-      verifiedReport +=
-        '\n\n---\n**QA Note:** ' +
-        hallucinations.length +
-        ' claim(s) marked `[UNVERIFIED]` could not be verified against collected data and may be based on general knowledge rather than investigation findings.';
-    }
-
-    // Re-prepend the structured header and re-append the action-card JSON
-    // block so they survive QA round-tripping.
-    verifiedReport = headerPrefix + verifiedReport + cardSuffix;
-
-    return {
-      verifiedReport,
-      flaggedClaims,
-      missingFacts,
-      qualityScore: Math.min(100, Math.max(0, parsed.quality_score ?? 50)),
-      modelUsed,
-    };
-  } catch {
-    return {
-      verifiedReport: originalReport,
-      flaggedClaims: [],
-      missingFacts: [],
-      qualityScore: 50,
-      modelUsed,
-    };
   }
+
+  // If there are missing facts, append them as a "Additional Intelligence" section
+  if (data.missing_facts.length > 0) {
+    const highImportance = data.missing_facts.filter((f) => f.importance === 'high');
+    if (highImportance.length > 0) {
+      verifiedReport += '\n\n### Additional Intelligence (from QA verification)\n';
+      for (const f of highImportance) {
+        verifiedReport += `- ${f.fact} [Source: ${f.source}]\n`;
+      }
+    }
+  }
+
+  // If hallucinations were found, add inline markers and a summary disclaimer
+  const hallucinations = data.flagged_claims.filter((f) => f.reason === 'hallucinated');
+  if (hallucinations.length > 0) {
+    for (const h of hallucinations) {
+      if (h.claim && verifiedReport.includes(h.claim)) {
+        verifiedReport = verifiedReport.replaceAll(h.claim, `[UNVERIFIED] ${h.claim}`);
+      }
+    }
+    verifiedReport +=
+      '\n\n---\n**QA Note:** ' +
+      hallucinations.length +
+      ' claim(s) marked `[UNVERIFIED]` could not be verified against collected data and may be based on general knowledge rather than investigation findings.';
+  }
+
+  // Re-prepend the structured header and re-append the action-card JSON block
+  verifiedReport = headerPrefix + verifiedReport + cardSuffix;
+
+  return {
+    verifiedReport,
+    flaggedClaims,
+    missingFacts,
+    qualityScore: Math.min(100, Math.max(0, data.quality_score)),
+    modelUsed,
+  };
 }

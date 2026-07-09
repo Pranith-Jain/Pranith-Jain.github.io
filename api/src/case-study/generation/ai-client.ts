@@ -1,23 +1,19 @@
 /**
  * Case-study LLM client.
  *
- * Provider order:
- *   1. NVIDIA build.nvidia.com — tried first. Currently returns timeout
- *      errors (free tier connectivity issue). Falls back MiniMax M2.7 →
- *      GLM-5.2. Auth/credits-exhausted errors skip the fallback.
- *   2. Groq (fast, production models) — used when GROQ_API_KEY is
- *      configured. Primary: Llama 3.1 8B (560 t/s). Quality: Llama 3.3
- *      70B (reasoning). Fallback: GPT OSS 20B (1000 t/s).
- *      Auth errors short-circuit the chain.
- *   3. Google AI Studio (Gemini) — API-key auth deprecated by Google;
- *      calls return 401. Left in-place for when OAuth2 support is added.
- *   4. Workers AI (llama-3.1-8b) — final fallback via AI binding.
+ * Provider order (free / cheap APIs only, no hard dependency on any one):
+ *   1. Groq — primary provider. Fastest inference.
+ *        quality=true → Llama 3.3 70B.
+ *        quality=false → Llama 3.1 8B.
+ *        Fallback chain: quality model → fast model → GPT OSS 20B → deepseek-r1.
+ *   2. NVIDIA build.nvidia.com — keyed fallback.
+ *        Primary: MiniMax M2.7 → fallback: GLM-5.2.
+ *   3. Workers AI (env.AI binding) — no key needed, never rate-limited.
+ *        Fallback chain: llama-3.1-8b → llama-3-8b → mistral-7b.
+ *   4. Google Gemini — last-resort keyed fallback (API-key deprecated, may 401).
  *
- * All fallbacks are best-effort: deterministic auth/key errors skip their
- * model fallback chain immediately (same key → same failure). Rate-limit
- * / 429 errors also skip fallbacks on the same provider (same quota pool).
- * Timeouts on a provider are treated as non-deterministic (the fallback
- * model is still tried).
+ * Rate-limit / auth errors on a provider skip its fallback chain (same key,
+ * same quota pool). Timeouts still try the fallback model.
  */
 
 const GOOGLE_BASE = 'https://generativelanguage.googleapis.com/v1beta/models';
@@ -25,26 +21,27 @@ const GOOGLE_MODEL = 'gemini-2.5-flash';
 const GOOGLE_MODEL_FALLBACK = 'gemini-2.0-flash';
 const GOOGLE_MODEL_QUALITY = 'gemini-2.5-pro';
 const GOOGLE_MODEL_QUALITY_FALLBACK = 'gemini-2.0-pro';
-const GOOGLE_TIMEOUT_MS = 15_000;
+const GOOGLE_TIMEOUT_MS = 10_000;
 
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
-/** Default model — Llama 3.1 8B (production, fast, 560 t/s). */
 const GROQ_MODEL: string = 'llama-3.1-8b-instant';
-/**
- * Quality model — Llama 3.3 70B (production, strong reasoning, 280 t/s).
- */
 const GROQ_MODEL_QUALITY: string = 'llama-3.3-70b-versatile';
-/**
- * Fallback when the quality model is rate-limited or unavailable.
- * GPT OSS 20B (1000 t/s, production, generous TPM limits).
- */
 export const GROQ_MODEL_FALLBACK: string = 'openai/gpt-oss-20b';
+const GROQ_MODEL_DEEP: string = 'deepseek-r1-distill-llama-70b';
 const GROQ_TIMEOUT_MS = 15_000;
 
 const NVIDIA_BASE = 'https://integrate.api.nvidia.com/v1/chat/completions';
 const NVIDIA_MODEL = 'minimaxai/minimax-m2.7';
 const NVIDIA_MODEL_FALLBACK = 'z-ai/glm-5.2';
 const NVIDIA_TIMEOUT_MS = 5_000;
+
+const WA_MODELS = [
+  '@cf/meta/llama-3.1-8b-instruct',
+  '@cf/meta/llama-3-8b-instruct',
+  '@cf/mistral/mistral-7b-instruct-v0.1',
+  '@hf/meta-llama/meta-llama-3-8b-instruct',
+  '@cf/meta/llama-3.2-3b-instruct',
+];
 
 export interface CompletionInput {
   system: string;
@@ -59,19 +56,14 @@ export interface CompletionOutput {
 }
 
 export interface CompletionOpts {
-  /** Groq API key; when present Groq is tried after Google (if configured). */
   groqKey?: string;
-  /** Google AI Studio (Gemini) API key; when present Gemini is tried first. */
-  googleKey?: string;
-  /** NVIDIA build.nvidia.com API key; tried first. */
   nvidiaKey?: string;
-  /** Use the higher-quality model for synthesis. */
+  googleKey?: string;
   quality?: boolean;
-  /** @deprecated NVIDIA is now always tried first; this option is a no-op. */
+  role?: string;
   preferGroq?: boolean;
 }
 
-/** Distinct type so callers (publisher/cron) can treat quota as "defer & retry later". */
 export class RateLimitError extends Error {
   constructor(message: string) {
     super(message);
@@ -95,13 +87,6 @@ export function isRateLimited(err: unknown): boolean {
   );
 }
 
-/**
- * Check if an error is a deterministic auth/key failure (401, 403, or
- * related messages). When true, retrying with a different model on the
- * same provider is guaranteed to fail with the same error, so the
- * fallback chain can short-circuit immediately instead of waiting for
- * each 30-second timeout.
- */
 export function isAuthError(err: unknown): boolean {
   const msg = (err instanceof Error ? err.message : String(err)).toLowerCase();
   return (
@@ -151,14 +136,14 @@ async function runGoogle(
   key: string,
   input: CompletionInput,
   quality?: boolean
-): Promise<{ text: string; model: string }> {
+): Promise<{ text: string; model: string } | null> {
   const primary = quality ? GOOGLE_MODEL_QUALITY : GOOGLE_MODEL;
   const fallback = quality ? GOOGLE_MODEL_QUALITY_FALLBACK : GOOGLE_MODEL_FALLBACK;
   const result = await callGoogleModel(key, primary, input);
   if (result) return { text: result, model: primary };
   const fallbackResult = await callGoogleModel(key, fallback, input);
   if (fallbackResult) return { text: fallbackResult, model: fallback };
-  throw new Error(`google models unavailable (${primary}, ${fallback})`);
+  return null;
 }
 
 async function runGroq(key: string, input: CompletionInput, model?: string, _quality?: boolean): Promise<string> {
@@ -173,8 +158,6 @@ async function runGroq(key: string, input: CompletionInput, model?: string, _qua
       max_completion_tokens: input.maxTokens ?? 4000,
       temperature: input.temperature ?? 0.5,
     };
-    // Quality mode uses reasoning model; no extra params needed.
-    // (reasoning_effort was for the now-deprecated qwen/qwen3-32b)
     res = await fetch(GROQ_URL, {
       method: 'POST',
       headers: { Authorization: `Bearer ${key}`, 'content-type': 'application/json' },
@@ -226,124 +209,163 @@ async function runNvidia(key: string, input: CompletionInput, model: string): Pr
   return text;
 }
 
+interface WorkersAiHandle {
+  run: (model: string, input: Record<string, unknown>) => Promise<Record<string, unknown>>;
+}
+
+async function tryWorkersAiModel(
+  handle: WorkersAiHandle,
+  model: string,
+  input: CompletionInput,
+  tag: string
+): Promise<{ text: string; model: string } | null> {
+  try {
+    const result = await handle.run(model, {
+      messages: [
+        { role: 'system', content: input.system },
+        { role: 'user', content: input.user },
+      ],
+      max_tokens: input.maxTokens ?? 4000,
+      temperature: input.temperature ?? 0.5,
+    });
+    const text = (result?.response ?? result?.text ?? '') as string;
+    if (typeof text === 'string' && text.trim()) {
+      const shortName = model.split('/').pop() ?? model;
+      return { text, model: `workers-ai:${shortName}` };
+    }
+    return null;
+  } catch (e) {
+    console.warn(`${tag} workers-ai model ${model} failed`, e);
+    return null;
+  }
+}
+
 export async function runCompletion(
-  _ai: unknown,
+  ai: unknown,
   input: CompletionInput,
   opts: CompletionOpts = {}
 ): Promise<CompletionOutput> {
-  const tryGoogle = async (): Promise<CompletionOutput | null> => {
-    if (!opts.googleKey) return null;
-    try {
-      const googleResult = await runGoogle(opts.googleKey, input, opts.quality);
-      return { text: googleResult.text, modelUsed: `google:${googleResult.model}` };
-    } catch (err) {
-      if (isRateLimited(err)) {
-        // Own quota separate from Groq/Workers AI, so the others may still work.
-        console.warn('runCompletion: google rate-limited, falling through', err);
-      } else {
-        console.warn('runCompletion: google failed, falling through', err);
-      }
+  const tag = opts.role ? `[${opts.role}]` : '[llm]';
+  const errors: string[] = [];
+
+  // Estimate prompt size. Groq's quality model (Llama 3.3 70B) supports 128K
+  // context. Skip only if the prompt is truly excessive (50K+ chars).
+  const estimatedPromptSize = input.system.length + input.user.length;
+  const groqLikelyOversize = estimatedPromptSize > 50_000;
+
+  // ── 1. Groq (primary) — skip if prompt is too large for 8K-32K context ─
+  const tryGroq = async (): Promise<CompletionOutput | null> => {
+    if (groqLikelyOversize) {
+      errors.push(
+        `groq: skipped — prompt ~${Math.round(estimatedPromptSize / 1000)}K chars exceeds small context windows`
+      );
       return null;
     }
-  };
-
-  const tryGroq = async (): Promise<CompletionOutput | null> => {
-    if (!opts.groqKey) return null;
+    if (!opts.groqKey) {
+      errors.push('groq: no key');
+      return null;
+    }
     const primaryModel = opts.quality ? GROQ_MODEL_QUALITY : GROQ_MODEL;
     try {
       const text = await runGroq(opts.groqKey, input, primaryModel, opts.quality);
       return { text, modelUsed: `groq:${primaryModel}${opts.quality ? '+quality' : ''}` };
     } catch (err) {
-      // Auth error (401/403) → same key invalid for all models, skip fallback chain
-      if (isAuthError(err)) {
-        console.warn('runCompletion: groq auth error, skipping fallbacks', err);
-        return null;
-      }
-      // If quality model (Llama 3.3 70B) failed, fall back to default (Llama 3.1 8B).
+      errors.push(
+        `groq:${primaryModel}: ${err instanceof Error ? err.message.slice(0, 80) : String(err).slice(0, 80)}`
+      );
+      if (isAuthError(err)) return null;
       if (opts.quality) {
         try {
           const text = await runGroq(opts.groqKey, input, GROQ_MODEL, false);
           return { text, modelUsed: `groq:${GROQ_MODEL}` };
         } catch (e2) {
-          console.warn('runCompletion: groq quality→non-thinking fallback failed', e2);
+          errors.push(`groq:${GROQ_MODEL}: ${e2 instanceof Error ? e2.message.slice(0, 80) : String(e2).slice(0, 80)}`);
         }
       }
-      // Try generic fallback before Google/Workers AI.
       try {
         const text = await runGroq(opts.groqKey, input, GROQ_MODEL_FALLBACK, false);
         return { text, modelUsed: `groq:${GROQ_MODEL_FALLBACK}` };
       } catch (e3) {
-        console.warn('runCompletion: groq generic fallback failed', e3);
+        errors.push(
+          `groq:${GROQ_MODEL_FALLBACK}: ${e3 instanceof Error ? e3.message.slice(0, 80) : String(e3).slice(0, 80)}`
+        );
       }
-      if (isRateLimited(err)) {
-        console.warn('runCompletion: groq rate-limited, falling through', err);
-      } else {
-        console.warn('runCompletion: groq failed, falling through', err);
+      try {
+        const text = await runGroq(opts.groqKey, input, GROQ_MODEL_DEEP, false);
+        return { text, modelUsed: `groq:${GROQ_MODEL_DEEP}` };
+      } catch (e4) {
+        errors.push(
+          `groq:${GROQ_MODEL_DEEP}: ${e4 instanceof Error ? e4.message.slice(0, 80) : String(e4).slice(0, 80)}`
+        );
       }
       return null;
     }
   };
 
-  // 3. Add tryNvidia closure.
-  const tryNvidiaClosure = async (): Promise<CompletionOutput | null> => {
-    if (!opts.nvidiaKey) return null;
+  // ── 2. NVIDIA (keyed fallback) ───────────────────────────────────────
+  const tryNvidia = async (): Promise<CompletionOutput | null> => {
+    if (!opts.nvidiaKey) {
+      errors.push('nvidia: no key');
+      return null;
+    }
     try {
       const text = await runNvidia(opts.nvidiaKey, input, NVIDIA_MODEL);
       return { text, modelUsed: `nvidia:${NVIDIA_MODEL}` };
     } catch (err) {
-      if (isRateLimited(err)) {
-        console.warn('runCompletion: nvidia rate-limited, falling through', err);
-      } else if (isAuthError(err)) {
-        console.warn('runCompletion: nvidia auth error, skipping fallback', err);
-      } else {
-        try {
-          const text = await runNvidia(opts.nvidiaKey, input, NVIDIA_MODEL_FALLBACK);
-          return { text, modelUsed: `nvidia:${NVIDIA_MODEL_FALLBACK}` };
-        } catch (e2) {
-          console.warn('runCompletion: nvidia fallback model failed too', e2);
-        }
+      errors.push(
+        `nvidia:${NVIDIA_MODEL}: ${err instanceof Error ? err.message.slice(0, 80) : String(err).slice(0, 80)}`
+      );
+      if (isAuthError(err) || isRateLimited(err)) return null;
+      try {
+        const text = await runNvidia(opts.nvidiaKey, input, NVIDIA_MODEL_FALLBACK);
+        return { text, modelUsed: `nvidia:${NVIDIA_MODEL_FALLBACK}` };
+      } catch (e2) {
+        errors.push(
+          `nvidia:${NVIDIA_MODEL_FALLBACK}: ${e2 instanceof Error ? e2.message.slice(0, 80) : String(e2).slice(0, 80)}`
+        );
       }
       return null;
     }
   };
 
-  // Try keyed providers in order: NVIDIA → Groq → Google.
-  const keyedOrder = [tryNvidiaClosure, tryGroq, tryGoogle];
-  for (const attempt of keyedOrder) {
+  // ── 3. Workers AI (no key needed) ────────────────────────────────────
+  const tryWorkersAiFn = async (): Promise<CompletionOutput | null> => {
+    if (!ai || typeof ai !== 'object') {
+      errors.push('workers-ai: binding unavailable');
+      return null;
+    }
+    const handle = ai as WorkersAiHandle;
+    for (const model of WA_MODELS) {
+      const result = await tryWorkersAiModel(handle, model, input, tag);
+      if (result) return { text: result.text, modelUsed: result.model };
+    }
+    errors.push('workers-ai: all models failed');
+    return null;
+  };
+
+  // ── 4. Google Gemini (last resort) ───────────────────────────────────
+  const tryGoogle = async (): Promise<CompletionOutput | null> => {
+    if (!opts.googleKey) {
+      errors.push('google: no key');
+      return null;
+    }
+    try {
+      const result = await runGoogle(opts.googleKey, input, opts.quality);
+      if (result) return { text: result.text, modelUsed: `google:${result.model}` };
+      errors.push('google: models unavailable');
+      return null;
+    } catch (err) {
+      errors.push(`google: ${err instanceof Error ? err.message.slice(0, 80) : String(err).slice(0, 80)}`);
+      return null;
+    }
+  };
+
+  // Try providers in order
+  const providers = [tryGroq, tryNvidia, tryWorkersAiFn, tryGoogle];
+  for (const attempt of providers) {
     const result = await attempt();
     if (result) return result;
   }
 
-  // Workers AI fallback — the AI binding is configured in wrangler.jsonc.
-  // Uses the free-tier quota (10M neurons/mo on paid plan). The binding
-  // is optional; when unbound (e.g. tests) _ai is falsy.
-  if (_ai && typeof _ai === 'object') {
-    try {
-      const workersAi = _ai as {
-        run: (model: string, input: Record<string, unknown>) => Promise<Record<string, unknown>>;
-      };
-      const workersResult = await workersAi.run('@cf/meta/llama-3.1-8b-instruct', {
-        messages: [
-          { role: 'system', content: input.system },
-          { role: 'user', content: input.user },
-        ],
-        max_tokens: input.maxTokens ?? 4000,
-        temperature: input.temperature ?? 0.5,
-      });
-      const text = workersResult.response;
-      if (typeof text === 'string' && text.trim()) {
-        return { text, modelUsed: 'workers-ai:llama-3.1-8b' };
-      }
-      console.warn('runCompletion: workers-ai empty response');
-    } catch (e) {
-      console.warn('runCompletion: workers-ai fallback failed', e);
-    }
-  } else {
-    console.warn('runCompletion: workers-ai binding unavailable, no fallback');
-  }
-
-  // All LLM providers exhausted — surface a clear message.
-  throw new Error(
-    'All LLM providers exhausted. Configure at least NVIDIA_API_KEY or GROQ_API_KEY as a wrangler secret.'
-  );
+  throw new Error(`All LLM providers exhausted. Errors:\n${errors.map((e) => `  - ${e}`).join('\n')}`);
 }

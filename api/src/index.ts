@@ -438,6 +438,7 @@ import { packageVerdictHandler } from './routes/package-verdict';
 import { secretLeaksHandler } from './routes/secret-leaks';
 import { feedQualityHandler as tifceFeedQualityHandler } from './routes/tifce';
 import {
+  agentDebugLlmHandler,
   agentInvestigateHandler,
   agentStateHandler,
   agentStreamHandler,
@@ -1303,6 +1304,7 @@ app.get('/api/v1/reddit-feed', redditFeedHandler);
 app.get('/api/v1/x-feed', xFeedHandler);
 app.get('/api/v1/feed-status', feedStatusHandler);
 app.get('/api/v1/feed-quality', tifceFeedQualityHandler);
+app.get('/api/v1/agent/debug-llm', agentDebugLlmHandler);
 app.post('/api/v1/agent/investigate', validate('json', agentInvestigateSchema), agentInvestigateHandler);
 app.delete('/api/v1/agent/:id', agentDeleteHandler);
 app.get('/api/v1/agent/sessions', agentSessionsHandler);

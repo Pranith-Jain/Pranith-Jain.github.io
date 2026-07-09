@@ -75,6 +75,19 @@ export interface AgentState {
   };
   /** Structured action card for SOC analyst triage. */
   actionCard?: ReportActionCard;
+  /** Structured investigation log for observability. */
+  log?: InvestigationLogEntry[];
+}
+
+/** Structured log entry for the investigation loop. */
+export interface InvestigationLogEntry {
+  ts: string;
+  role: 'planner' | 'specialist' | 'observer' | 'synthesizer' | 'qa-verifier' | 'system';
+  message: string;
+  durationMs?: number;
+  tool?: string;
+  toolCount?: number;
+  modelUsed?: string;
 }
 
 // ── Planner output ───────────────────────────────────────────────────────

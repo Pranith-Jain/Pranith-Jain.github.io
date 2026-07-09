@@ -266,6 +266,165 @@ export async function agentDeleteHandler(c: Context<{ Bindings: Env }>): Promise
   return c.json({ ok: true });
 }
 
+import { runCompletion } from '../case-study/generation/ai-client';
+
+/**
+ * GET /api/v1/agent/debug-llm
+ * Test each LLM provider and return diagnostics.
+ * Requires an admin `x-api-key` header.
+ */
+export async function agentDebugLlmHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const env = c.env;
+  const testInput = {
+    system: 'You are a helpful assistant. Reply with exactly one word: "ok".',
+    user: 'Reply with exactly one word: "ok".',
+    maxTokens: 10,
+    temperature: 0,
+  };
+
+  const results: Record<string, unknown> = { providers: {} };
+
+  // Test Workers AI separately (it's first in the chain)
+  if (env.AI && typeof env.AI === 'object') {
+    const start = Date.now();
+    try {
+      const ai = env.AI as { run: (m: string, i: Record<string, unknown>) => Promise<Record<string, unknown>> };
+      for (const model of [
+        '@cf/meta/llama-3.1-8b-instruct',
+        '@cf/meta/llama-3-8b-instruct',
+        '@cf/mistral/mistral-7b-instruct-v0.1',
+        '@hf/meta-llama/meta-llama-3-8b-instruct',
+        '@cf/meta/llama-3.2-3b-instruct',
+      ]) {
+        try {
+          const res = await ai.run(model, {
+            messages: [
+              { role: 'system', content: testInput.system },
+              { role: 'user', content: testInput.user },
+            ],
+            max_tokens: 10,
+            temperature: 0,
+          });
+          const text = (res?.response ?? res?.text ?? '') as string;
+          if (typeof text === 'string' && text.trim()) {
+            results.providers = {
+              ...(results.providers as Record<string, unknown>),
+              [`workers-ai:${model.split('/').pop()}`]: {
+                status: 'ok',
+                durationMs: Date.now() - start,
+                response: text.slice(0, 50),
+              },
+            };
+          }
+        } catch (e) {
+          results.providers = {
+            ...(results.providers as Record<string, unknown>),
+            [`workers-ai:${model.split('/').pop()}`]: {
+              status: 'error',
+              error: e instanceof Error ? e.message.slice(0, 200) : String(e).slice(0, 200),
+            },
+          };
+        }
+      }
+    } catch (e) {
+      results.workersAiError = e instanceof Error ? e.message : String(e);
+    }
+  } else {
+    results.workersAiBinding = 'unavailable';
+  }
+
+  // Test Groq
+  if (env.GROQ_API_KEY) {
+    const start = Date.now();
+    try {
+      const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${env.GROQ_API_KEY}`, 'content-type': 'application/json' },
+        body: JSON.stringify({
+          model: 'llama-3.1-8b-instant',
+          messages: [
+            { role: 'system', content: testInput.system },
+            { role: 'user', content: testInput.user },
+          ],
+          max_completion_tokens: 10,
+          temperature: 0,
+        }),
+        signal: AbortSignal.timeout(10_000),
+      });
+      const body = await res.text().catch(() => '');
+      results.providers = {
+        ...(results.providers as Record<string, unknown>),
+        groq: {
+          status: res.ok ? 'ok' : 'error',
+          httpStatus: res.status,
+          durationMs: Date.now() - start,
+          response: res.ok ? body.slice(0, 100) : body.slice(0, 200),
+        },
+      };
+    } catch (e) {
+      results.providers = {
+        ...(results.providers as Record<string, unknown>),
+        groq: { status: 'error', error: e instanceof Error ? e.message : String(e) },
+      };
+    }
+  } else {
+    results.providers = { ...(results.providers as Record<string, unknown>), groq: { status: 'no key' } };
+  }
+
+  // Test NVIDIA
+  if (env.NVIDIA_API_KEY) {
+    const start = Date.now();
+    try {
+      const res = await fetch('https://integrate.api.nvidia.com/v1/chat/completions', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${env.NVIDIA_API_KEY}`, 'content-type': 'application/json' },
+        body: JSON.stringify({
+          model: 'minimaxai/minimax-m2.7',
+          messages: [
+            { role: 'system', content: testInput.system },
+            { role: 'user', content: testInput.user },
+          ],
+          max_tokens: 10,
+          temperature: 0,
+        }),
+        signal: AbortSignal.timeout(10_000),
+      });
+      const body = await res.text().catch(() => '');
+      results.providers = {
+        ...(results.providers as Record<string, unknown>),
+        nvidia: {
+          status: res.ok ? 'ok' : 'error',
+          httpStatus: res.status,
+          durationMs: Date.now() - start,
+          response: res.ok ? body.slice(0, 100) : body.slice(0, 200),
+        },
+      };
+    } catch (e) {
+      results.providers = {
+        ...(results.providers as Record<string, unknown>),
+        nvidia: { status: 'error', error: e instanceof Error ? e.message : String(e) },
+      };
+    }
+  } else {
+    results.providers = { ...(results.providers as Record<string, unknown>), nvidia: { status: 'no key' } };
+  }
+
+  // Test full runCompletion chain
+  results.fullChain = { status: 'unknown' };
+  try {
+    const r = await runCompletion(env.AI, testInput, {
+      groqKey: env.GROQ_API_KEY,
+      nvidiaKey: env.NVIDIA_API_KEY,
+      googleKey: env.GOOGLE_AI_STUDIO_API_KEY,
+    });
+    results.fullChain = { status: 'ok', modelUsed: r.modelUsed, response: r.text.slice(0, 50) };
+  } catch (e) {
+    results.fullChain = { status: 'error', error: e instanceof Error ? e.message : String(e) };
+  }
+
+  return c.json(results);
+}
+
 /** Detect query type from the input text. */
 function detectQueryType(query: string): string {
   const q = query.toLowerCase();
@@ -277,14 +436,14 @@ function detectQueryType(query: string): string {
   if (/\b[a-fA-F0-9]{32,64}\b/.test(query)) return 'hash';
   if (/^https?:\/\//i.test(query.trim())) return 'url';
   if (/\b(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}\b/i.test(query) && !q.startsWith('how ')) return 'domain';
-  if (
-    /\b(apt\d+|lazarus|fin\d+|ta\d+|lockbit|blackcat|alphv|cl0p|rhysida|play|akira|black basta|kimsuky|sandworm|turla|cozy bear)\b/i.test(
-      q
-    )
-  )
-    return 'actor';
+  // Known ransomware groups and threat actors
+  const actorPattern =
+    /\b(apt\d+|lazarus|fin\d+|ta\d+|lockbit|blackcat|alphv|cl0p|rhysida|play|akira|black.?basta|kimsuky|sandworm|turla|cozy.?bear|qilin|agenda|ransomhouse|bian.?lian|conti|rei?vil|sodinokibi|darkside|black.?matter|babuk|hive|egregor|netwalker|doppelpaymer|mountlocker|astro.?locker|pysa|mespinoza|nefilim|avaddon|xing.?locker|groove|grief|ransomexx|royal|vice.?society|lorenz|karakurt|rook|quantum|night.?sky|atlas|pandora|avos.?locker|cuba|sugar|zeppelin|arvin.?club|everest|black.?byte|snatch|luna|onyx|ragnar.?locker|maze|cheers|cring|haron|good.?will|tell.?you.?the.?pass|blind.?eagle|atom.?silo)\b/i;
+  if (actorPattern.test(q)) return 'actor';
   if (/\bransomware\b/i.test(q)) return 'ransomware';
   if (/\bphish/i.test(q)) return 'phishing';
   if (/\bcampaign/i.test(q)) return 'campaign';
+  // Short single-word queries that could be actor names
+  if (/^[a-z][a-z0-9._-]{2,30}$/i.test(query.trim()) && !q.startsWith('how ') && !q.startsWith('what ')) return 'actor';
   return 'generic';
 }

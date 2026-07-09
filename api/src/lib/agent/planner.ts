@@ -2,20 +2,21 @@
  * CTI Analyst Agent — Multi-phase planner.
  *
  * Investigation follows the intelligence cycle:
- *   Phase 1: COLLECTION    — Get raw data from primary sources
- *   Phase 2: ENRICHMENT    — Cross-correlate, pivot, expand
- *   Phase 3: ANALYSIS      — Attribute, assess confidence, map kill chain
- *   Phase 4: PRODUCTION    — Generate rules, STIX, campaigns, hunt queries
- *   Phase 5: SYNTHESIS     — Final analyst-grade report
+ *   COLLECTION    — Get raw data from primary sources
+ *   ENRICHMENT    — Cross-correlate, pivot, expand
+ *   ANALYSIS      — Attribute, assess confidence, map kill chain
+ *   PRODUCTION    — Generate rules, STIX, campaigns, hunt queries
+ *   SYNTHESIS     — Final analyst-grade report
  *
- * The planner decides which phase we're in and picks the most valuable
- * next tool call. It synthesizes when enough data is collected.
+ * The planner decides what to do next based on what data we have and what
+ * we still need. It synthesizes when enough data is collected.
  */
 import type { Ai } from '@cloudflare/workers-types';
 import { runCompletion, type CompletionInput } from '../../case-study/generation/ai-client';
 import type { AgentStep, AgentTool, PlannerOutput } from './types';
 import { describeTools } from './tools';
 import { neutralizeUntrusted, UNTRUSTED_DATA_SYSTEM_NOTE } from '../prompt-fence';
+import { PlannerOutputSchema, extractJsonObject } from './schemas';
 
 const MAX_PARSE_RETRIES = 2;
 
@@ -74,11 +75,17 @@ ${toolDescriptions}
 </available_tools>
 
 <intelligence_cycle>
-Phase 1 — COLLECTION (Steps 1-2): Get raw data from the most relevant primary source.
-Phase 2 — ENRICHMENT (Steps 2-4): Cross-correlate findings, pivot on related entities.
-Phase 3 — ANALYSIS (Steps 3-5): Attribute, assess confidence, map to kill chain.
-Phase 4 — PRODUCTION (Step 4-6): Generate detection rules, STIX bundles, hunt queries.
-Phase 5 — SYNTHESIS (Final step): Compile everything into an analyst-grade report.
+Investigation follows the intelligence cycle — phases overlap naturally:
+
+COLLECTION: Gather raw data from primary sources (first 1-2 steps typically).
+ENRICHMENT: Cross-correlate findings, pivot on related entities, expand coverage.
+ANALYSIS: Attribute, assess confidence, map to kill chain, identify patterns.
+PRODUCTION: Generate detection rules, STIX bundles, hunt queries when data supports it.
+SYNTHESIS: Compile everything into an analyst-grade report when enough data exists.
+
+Most queries start with COLLECTION, progress through ENRICHMENT and ANALYSIS,
+then synthesize. PRODUCTION (rule generation) happens when IOCs or TTPs are clear.
+Don't force a strict sequence — follow the data.
 </intelligence_cycle>
 
 <tool_selection_rules>
@@ -165,22 +172,29 @@ Tools NOT for hash queries: enrich_actor (unless sample analysis names an actor)
 ${
   queryType === 'actor' || queryType === 'ransomware'
     ? `FOR ${queryType.toUpperCase()} QUERIES:
-Step 1: enrich_actor (profile, aliases, country, MITRE techniques, campaigns, malware families, OTX pulses, linked CVEs)
-Step 2: If the actor IS a known ransomware group (LockBit, Clop, BlackBasta, BlackCat, Play, BianLian, Qilin, Agenda, etc.): call get_ransomware_activity (recent attacks, victims, posted data) + get_ransomware_negotiations (settlement patterns, demands, discounts) + get_victim_releaks (re-leak detection — victims appearing under 2+ groups, indicating failed extortion or affiliate disputes) + get_ransomware_group_profile (full group TTPs, tools, exploited CVEs, locations) + get_ransomware_stats (global ransomware volume context).
+CRITICAL — DO NOT call unified_search for actor/ransomware queries. Use ONLY verified actor database tools.
+
+IMPORTANT — enrich_actor may return empty for some known threat actors. An EMPTY enrich_actor result does NOT mean the actor is unknown or non-existent. It means our actor database has no pre-built profile for this name. Always continue to ransomware-specific tools even if enrich_actor returned empty — those tools draw from independent data sources (ransomware.live PRO, threat intelligence feeds) and will have data.
+
+Step 1: enrich_actor (verified actor profile: aliases, country, MITRE techniques, campaigns, malware families, OTX pulses, linked CVEs, ransomwareUse flag). If it returns empty, continue to step 2 — do NOT synthesize yet.
+Step 2: Call get_ransomware_group_profile (THE PRIMARY TOOL for ransomware groups — returns full TTPs, MITRE techniques, tools, exploited CVEs, IOCs, victim count, first/last seen, leak site URLs, YARA rules, description, and affiliate details. This tool is INDEPENDENT of enrich_actor and draws from ransomware.live PRO which covers 100+ groups). Call this EVEN IF enrich_actor returned empty. Also call get_ransomware_activity (recent victims list, leak disclosures, posting cadence) + get_victim_releaks (re-leak detection). Optional: get_ransomware_stats, get_ransomware_negotiations.
   If the actor is NOT a ransomware group (APT28, Lazarus, APT29, UNC2452, Volt Typhoon, etc.): call actor_timeline (posting cadence, victim disclosures over time, operational tempo) + get_blocklists (blocklist metadata for pfSense/iptables/Suricata export) + search_actor_usernames (cross-forum handle search to find alias variations).
-Step 3: actor_cves (CVEs attributed to this actor) + analyze_campaign (campaign lifecycle, kill chain, attribution depth). If enrich_actor surfaced CVEs, call lookup_cve on up to 2 of the most severe (CVSS or known exploitation).
+Step 3: actor_cves (CVEs attributed to this actor). If enrich_actor surfaced CVEs, call lookup_cve on up to 2 of the most severe (CVSS or known exploitation).
 Step 4: generate_yara_rule + generate_hunting_queries (detection + hunt). For ransomware: get_blocklists.
 Step 5: get_cyber_crime_news (current cybercrime developments for situational awareness).
 Step 6: Synthesize. Mark actionCard.attributed=true if enrich_actor named the actor or campaign; ransomware=true for ransomware queries.
 
 CRITICAL — DATA ATTRIBUTION:
+- get_ransomware_group_profile is the PRIMARY data source for ransomware reports, independent of enrich_actor. Always call it for known or suspected ransomware names. It contains TTP tables, MITRE mapping, tools, IOCs, victim lists, leak URLs, YARA rules, and encryption details.
 - get_ransomware_activity and get_ransomware_negotiations ONLY return data for known ransomware groups. Calling them on APT actors returns empty data or data for a different group. Check enrich_actor results first: if ransomwareUse is false or no ransomware affiliation, skip all ransomware-specific tools.
 - actor_timeline is the correct tool for non-ransomware activity data.
 - Only call search_malpedia if enrich_actor named specific malware families.
+- NEVER use data from unified_search for actor profiles — it is unverified internet scraped content.
+- STAY ON STEPS 2-5: One empty tool result is NOT a reason to synthesize. Collect data from at least 3 different tools before considering synthesis.
 
-Tools to call: enrich_actor, actor_timeline, actor_cves, analyze_campaign, search_malpedia, search_actor_usernames, get_blocklists, get_cyber_crime_news
-Tools for ransomware only: get_ransomware_activity, get_ransomware_negotiations, get_ransomware_group_profile, get_ransomware_stats, get_victim_releaks
-Tools NOT for actor queries: check_ioc (unless the query is about a specific IOC), lookup_cve (unless CVEs are attributed to the actor), breach_check, lookup_domain, lookup_ip_geo`
+Tools to call (priority order): enrich_actor, get_ransomware_group_profile (for ransomware), get_ransomware_activity, get_victim_releaks, actor_timeline, actor_cves, search_actor_usernames, get_blocklists, get_ransomware_stats, get_cyber_crime_news
+Tools for ransomware only: get_ransomware_group_profile, get_ransomware_activity, get_ransomware_negotiations, get_ransomware_stats, get_victim_releaks
+Tools NOT for actor queries: unified_search, check_ioc (unless the query is about a specific IOC), lookup_cve (unless CVEs are attributed to the actor), breach_check, lookup_domain, lookup_ip_geo`
     : ''
 }
 
@@ -199,9 +213,9 @@ Tools NOT for phishing: enrich_actor, lookup_cve, sample_scan, breach_check`
 ${
   queryType === 'campaign'
     ? `FOR CAMPAIGN QUERIES:
-Step 1: unified_search (find related intel, reports, mentions)
-Step 2: cross_correlate + analyze_campaign (campaign lifecycle, kill chain, attribution)
-Step 3: generate_yara_rule + generate_hunting_queries (detection). Synthesize.`
+Step 1: analyze_campaign (campaign lifecycle, kill chain, attribution) + cross_correlate (cross-reference with known IOCs)
+Step 2: If campaign data references actors: enrich_actor. If it references CVEs: lookup_cve. Generate detection rules.
+Step 3: Synthesize.`
     : ''
 }
 
@@ -217,9 +231,8 @@ Step 3: Synthesize`
 ${
   queryType === 'generic'
     ? `FOR GENERIC QUERIES:
-Step 1: unified_search (find what this is about)
-Step 2: Based on results — enrich with the most relevant tool (check_ioc, enrich_actor, lookup_cve)
-Step 3: Synthesize`
+Step 1: check_ioc (reputation), enrich_actor (if looks like actor name), lookup_cve (if CVE-like), lookup_domain (if domain-like), or enrich_ioc_deep (if IP/hash) — choose the single most relevant tool based on query content
+Step 2: Enrich further with cross-referencing tools. Synthesize after 2-3 steps.`
     : ''
 }
 </tool_selection_rules>
@@ -260,8 +273,7 @@ Do NOT over-collect. A 3-step report with good data beats a 6-step report with n
 <output_format>
 Respond with ONLY valid JSON:
 {
-  "phase": "collection|enrichment|analysis|production|synthesis",
-  "reasoning": "Why these tools for this phase",
+  "reasoning": "Why these tools for this step",
   "toolCalls": [{ "tool": "name", "args": {...}, "reasoning": "why" }],
   "shouldSynthesize": false
 }
@@ -297,7 +309,7 @@ Type: ${queryType}
 Step: ${currentStep + 1} of ${maxSteps}
 </investigation>
 
-${historyBlock ? `<collected_data>\n${historyBlock}\n</collected_data>` : '<collected_data>None yet — start with Phase 1: Collection.</collected_data>'}
+${historyBlock ? `<collected_data>\n${historyBlock}\n</collected_data>` : '<collected_data>None yet — start by collecting data from the most relevant primary source.</collected_data>'}
 
 <data_quality_assessment>
 ${
@@ -313,38 +325,32 @@ What is the most valuable next tool call? If I have enough data for a comprehens
 }
 
 function parsePlannerOutput(raw: string): PlannerOutput {
-  let cleaned = raw.trim();
-  if (cleaned.startsWith('```')) {
-    cleaned = cleaned.replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '');
+  const json = extractJsonObject(raw);
+  const parsed = JSON.parse(json);
+  const result = PlannerOutputSchema.safeParse(parsed);
+
+  if (!result.success) {
+    const issues = result.error.issues.map((i) => `${i.path.join('.')}: ${i.message}`).join('; ');
+    throw new Error(`Planner output validation failed: ${issues}`);
   }
-  const firstBrace = cleaned.indexOf('{');
-  const lastBrace = cleaned.lastIndexOf('}');
-  if (firstBrace === -1 || lastBrace === -1) throw new Error('No JSON found');
-  cleaned = cleaned.slice(firstBrace, lastBrace + 1);
 
-  const parsed = JSON.parse(cleaned) as {
-    reasoning?: string;
-    toolCalls?: Array<{ tool: string; args?: Record<string, unknown>; reasoning?: string }>;
-    shouldSynthesize?: boolean;
-  };
-
-  if (typeof parsed !== 'object' || parsed === null) throw new Error('Not an object');
+  const data = result.data;
 
   // Normalize raw JSON into typed tool calls. Filtering (unknown tools, dedup
   // against prior steps, banned dump tools, per-step cap) is owned by the loop
   // engine's guardrails in InvestigatorAgentDO — here we only validate the shape
   // and fill defaults so downstream consumers get well-formed AgentToolCalls.
-  const toolCalls = (parsed.toolCalls ?? [])
-    .filter((tc) => typeof tc.tool === 'string' && tc.tool.length > 0)
-    .map((tc) => ({ tool: tc.tool, args: tc.args ?? {}, reasoning: tc.reasoning ?? '' }));
+  const toolCalls = data.toolCalls
+    .filter((tc) => tc.tool.length > 0)
+    .map((tc) => ({ tool: tc.tool, args: tc.args ?? {}, reasoning: tc.reasoning }));
 
-  if (parsed.shouldSynthesize === true) {
-    return { reasoning: parsed.reasoning ?? '', toolCalls: [], shouldSynthesize: true };
+  if (data.shouldSynthesize) {
+    return { reasoning: data.reasoning, toolCalls: [], shouldSynthesize: true };
   }
 
   if (toolCalls.length === 0) {
-    return { reasoning: parsed.reasoning ?? 'No valid calls — synthesizing.', toolCalls: [], shouldSynthesize: true };
+    return { reasoning: data.reasoning || 'No valid calls — synthesizing.', toolCalls: [], shouldSynthesize: true };
   }
 
-  return { reasoning: parsed.reasoning ?? '', toolCalls, shouldSynthesize: false };
+  return { reasoning: data.reasoning, toolCalls, shouldSynthesize: false };
 }

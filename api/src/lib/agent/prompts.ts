@@ -501,13 +501,16 @@ Rules:
 }
 
 export function buildSynthesizerUserPrompt(query: string, queryType: string, steps: AgentStep[]): string {
-  const stepBlocks = steps
+  // Keep at most 5 most-recent steps with meaningful data to stay within 8K token
+  // context windows. Earlier steps are summarized into the observation text.
+  const limitedSteps = steps.length > 5 ? steps.slice(-5) : steps;
+  const stepBlocks = limitedSteps
     .map((s) => {
       const toolBlocks = s.results
         .map((r) => {
-          // Tool data (incl. fetched pages, provider JSON) is untrusted — neutralize
-          // so it cannot forge a </tool>/<step> delimiter and break out of its block.
-          const raw = r.status === 'ok' ? JSON.stringify(r.data, null, 2).slice(0, 2200) : `ERROR: ${r.error}`;
+          // Tool data — use compact JSON, truncated aggressively to keep total prompt
+          // under 8K tokens. Each tool gets at most 800 chars of compact JSON.
+          const raw = r.status === 'ok' ? JSON.stringify(r.data).slice(0, 2500) : `ERROR: ${r.error}`;
           return `<tool name="${r.tool}" status="${r.status}">\n${neutralizeUntrusted(raw)}\n</tool>`;
         })
         .join('\n');

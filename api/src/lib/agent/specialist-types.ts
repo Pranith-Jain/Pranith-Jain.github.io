@@ -683,10 +683,9 @@ export const SPECIALIST_TOOLS: Record<SpecialistRole, string[]> = {
     'get_victim_releaks',
     'get_cyber_crime_news',
     'get_blocklists',
-    'unified_search',
   ],
-  'campaign-correlation': ['analyze_campaign', 'cross_campaign_correlate', 'cross_correlate', 'unified_search'],
-  'dark-web': ['get_breach_forums', 'search_telegram_leaks', 'trace_crypto_address', 'breach_check', 'unified_search'],
+  'campaign-correlation': ['analyze_campaign', 'cross_campaign_correlate', 'cross_correlate'],
+  'dark-web': ['get_breach_forums', 'search_telegram_leaks', 'trace_crypto_address', 'breach_check'],
   'strategic-intel': [
     'get_threat_pulse',
     'get_ransomware_map',
@@ -695,7 +694,6 @@ export const SPECIALIST_TOOLS: Record<SpecialistRole, string[]> = {
     'get_supply_chain_attacks',
     'get_ransomware_stats',
     'get_cyber_crime_news',
-    'unified_search',
   ],
 };
 

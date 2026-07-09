@@ -17,6 +17,7 @@ import type {
   SynthesizerOutput,
 } from './types';
 import { buildSynthesizerPrompt, buildSynthesizerUserPrompt, buildMinimalSynthesizerPrompt } from './prompts';
+import { ReportHeaderSchema } from './schemas';
 
 interface DataQuality {
   totalOk: number;
@@ -151,9 +152,10 @@ export function splitSynthOutput(raw: string): {
   let reportHeader: ReportHeader | undefined;
   if (headerMatch && headerMatch[1]) {
     try {
-      const parsed = JSON.parse(headerMatch[1].trim()) as unknown;
-      if (parsed && typeof parsed === 'object') {
-        reportHeader = parsed as ReportHeader;
+      const parsed = JSON.parse(headerMatch[1].trim());
+      const result = ReportHeaderSchema.safeParse(parsed);
+      if (result.success) {
+        reportHeader = result.data;
       }
     } catch {
       // LLM emitted malformed JSON — leave reportHeader undefined and fall
@@ -262,7 +264,7 @@ function normaliseActionCard(card: ReportActionCard, prose: string): ReportActio
     )
       ? card.verdict.posture
       : 'unknown',
-    tlp: (['CLEAR', 'GREEN', 'AMBER', 'RED'] as const).includes(card.verdict?.tlp) ? card.verdict.tlp : 'AMBER',
+    tlp: (['CLEAR', 'GREEN', 'AMBER', 'RED'] as const).includes(card.verdict?.tlp) ? card.verdict.tlp : 'CLEAR',
   };
   const severity = SEV_ALLOWED.includes(card.severity) ? card.severity : 'medium';
 
@@ -484,7 +486,7 @@ function normaliseReportHeader(h: ReportHeader): ReportHeader {
     : 'low';
   const tlp: ReportHeader['tlp'] = (['CLEAR', 'GREEN', 'AMBER', 'RED'] as const).includes(h.tlp as ReportHeader['tlp'])
     ? (h.tlp as ReportHeader['tlp'])
-    : 'AMBER';
+    : 'CLEAR';
   return { ...h, severity: sev, posture: pos, confidence: conf, tlp };
 }
 
@@ -513,7 +515,7 @@ function synthesiseFallbackCard(prose: string): ReportActionCard {
       headline,
       confidence: 'medium',
       posture: 'unknown',
-      tlp: 'AMBER',
+      tlp: 'CLEAR',
     },
     severity: 'medium',
     actions: [
