@@ -5,7 +5,7 @@
  * filterable post-hoc (and to summarize an archive by actor/CVE/sector),
  * we extract three tag classes from the text:
  *   - cves    → regex match on CVE-YYYY-NNNN
- *   - actors  → substring match against curated ransomware actor lookup
+ *   - actors  → substring match against the shared ransomware slug set + alias index
  *   - sectors → reuse the heuristic sector classifier
  *
  * Lazy: applied at read-time on the briefings handler so existing KV-stored

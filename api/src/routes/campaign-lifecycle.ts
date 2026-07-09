@@ -178,10 +178,31 @@ export function predictCampaignMoves(campaign: Campaign): Campaign['predictions'
 
   // Sector targeting prediction based on history
   const sectorPredictions: Record<string, { sector: string; region: string }> = {
+    // Russian-speaking APTs
     apt28: { sector: 'government', region: 'europe' },
     apt29: { sector: 'technology', region: 'global' },
+    sandworm: { sector: 'energy', region: 'europe' },
+    turla: { sector: 'government', region: 'europe' },
+    // North Korean
     lazarus: { sector: 'cryptocurrency', region: 'global' },
+    kimsuky: { sector: 'government', region: 'asia' },
+    // Chinese
+    apt41: { sector: 'technology', region: 'asia' },
+    apt10: { sector: 'technology', region: 'global' },
+    'volt-typhoon': { sector: 'critical_infrastructure', region: 'north_america' },
+    hafnium: { sector: 'technology', region: 'global' },
+    // Iranian
+    apt33: { sector: 'energy', region: 'middle_east' },
+    apt35: { sector: 'government', region: 'middle_east' },
+    // Ransomware
     lockbit: { sector: 'healthcare', region: 'north_america' },
+    'black-basta': { sector: 'manufacturing', region: 'north_america' },
+    cl0p: { sector: 'technology', region: 'global' },
+    akira: { sector: 'education', region: 'north_america' },
+    medusa: { sector: 'healthcare', region: 'north_america' },
+    play: { sector: 'government', region: 'south_america' },
+    'blackcat-alphv': { sector: 'technology', region: 'global' },
+    rhysida: { sector: 'healthcare', region: 'north_america' },
   };
 
   const actorKey = (attribution.actor ?? '').toLowerCase().replace(/\s+/g, '');

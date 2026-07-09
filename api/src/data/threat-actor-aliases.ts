@@ -221,7 +221,7 @@ export const ACTOR_ALIASES: ActorAlias[] = [
   {
     slug: 'apt43',
     canonical: 'APT43',
-    aliases: ['Kimsuky alias', 'Black Banshee (overlap)', 'ARCHIPELAGO', 'THALLIUM (overlap)'],
+    aliases: ['ARCHIPELAGO'],
   },
   {
     slug: 'kimsuky',
@@ -261,7 +261,7 @@ export const ACTOR_ALIASES: ActorAlias[] = [
   {
     slug: 'apt42',
     canonical: 'APT42',
-    aliases: ['UNC788', 'Damselfly', 'Storm-2035', 'TA456', 'Mint Sandstorm (overlap)'],
+    aliases: ['UNC788', 'Damselfly', 'Storm-2035', 'TA456'],
     mitreId: 'G1044',
   },
   {
@@ -341,7 +341,7 @@ export const ACTOR_ALIASES: ActorAlias[] = [
     mitreId: 'G0046',
   },
   { slug: 'fin8', canonical: 'FIN8', aliases: ['Syssphinx'], mitreId: 'G0061' },
-  { slug: 'fin11', canonical: 'FIN11', aliases: ['TA505 affiliate', 'Lace Tempest (overlap)'] },
+  { slug: 'fin11', canonical: 'FIN11', aliases: ['TA505 affiliate'] },
   { slug: 'fin12', canonical: 'FIN12', aliases: ['Pistachio Tempest', 'DEV-0237'] },
   { slug: 'ta505', canonical: 'TA505', aliases: ['Hive0065', 'Graceful Spider', 'CHIMBORAZO'], mitreId: 'G0092' },
   {
@@ -392,8 +392,8 @@ export const ACTOR_ALIASES: ActorAlias[] = [
     aliases: ['ALPHV', 'Noberus', 'BlackCat ransomware gang'],
     mitreId: 'G1006',
   },
-  { slug: 'cl0p', canonical: 'Clop', aliases: ['CL0P', 'Lace Tempest', 'TA505 affiliate (CL0P)'] },
-  { slug: 'royal', canonical: 'Royal', aliases: ['Royal Ransomware', 'DEV-0569 (overlap)'] },
+  { slug: 'cl0p', canonical: 'Clop', aliases: ['CL0P', 'Lace Tempest'] },
+  { slug: 'royal', canonical: 'Royal', aliases: ['Royal Ransomware'] },
   { slug: 'black-basta', canonical: 'Black Basta', aliases: ['BlackBasta', 'Storm-1811', 'UNC4393'] },
   { slug: 'play', canonical: 'Play', aliases: ['PlayCrypt'] },
   { slug: 'rhysida', canonical: 'Rhysida', aliases: [] },
@@ -405,7 +405,7 @@ export const ACTOR_ALIASES: ActorAlias[] = [
   { slug: 'hunters-international', canonical: 'Hunters International', aliases: ['Hive successor'] },
   { slug: 'ransomhub', canonical: 'RansomHub', aliases: ['Ransom Hub'] },
   { slug: 'darkside', canonical: 'DarkSide', aliases: ['Carbon Spider'] },
-  { slug: 'conti', canonical: 'Conti', aliases: ['Wizard Spider (Conti)', 'TrickBot Group (Conti)'] },
+  { slug: 'conti', canonical: 'Conti', aliases: ['Wizard Spider', 'TrickBot Group'] },
   { slug: 'hive', canonical: 'Hive', aliases: [] },
   { slug: 'revil', canonical: 'REvil', aliases: ['Sodinokibi', 'GandCrab successor', 'Pinchy Spider'] },
   { slug: 'inc-ransom', canonical: 'INC Ransom', aliases: ['INC Ransomware', 'GOLD IONIC'] },

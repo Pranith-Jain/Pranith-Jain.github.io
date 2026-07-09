@@ -193,8 +193,8 @@ export default function ActorDetail(): JSX.Element {
         {cvesLoading && <p className="text-xs font-mono text-slate-500">Loading attribution…</p>}
         {!cvesLoading && linkedCves && linkedCves.length === 0 && (
           <p className="text-xs font-mono text-slate-500">
-            No CVEs are publicly attributed to this actor in our curated mapping. KEV-flagged exploits without
-            named-actor attribution are not shown here.
+            No CVEs were found attributed to this actor in upstream sources. KEV-flagged exploits without named-actor
+            attribution are not shown here.
           </p>
         )}
         {!cvesLoading && linkedCves && linkedCves.length > 0 && (

@@ -16,7 +16,7 @@ import type {
   ReportActionCard,
   SynthesizerOutput,
 } from './types';
-import { buildSynthesizerPrompt, buildSynthesizerUserPrompt } from './prompts';
+import { buildSynthesizerPrompt, buildSynthesizerUserPrompt, buildMinimalSynthesizerPrompt } from './prompts';
 
 interface DataQuality {
   totalOk: number;
@@ -41,15 +41,23 @@ export async function synthesizeReport(
   // Add a warning to the synthesizer so it doesn't hallucinate to fill gaps.
   let dataWarning = '';
   if (dq.totalOk <= 1) {
-    dataWarning = `\n\nWARNING: Only ${dq.totalOk} tool(s) returned data. ${dq.totalErr} failed. The report must honestly reflect this — write "No data available" in the executive summary and OMIT all other sections. DO NOT invent data. The action card severity MUST be "info" and confidence MUST be "low".`;
+    dataWarning = `\n\nWARNING: Only ${dq.totalOk} tool(s) returned data. ${dq.totalErr} failed. The report must honestly reflect this — write "Investigation inconclusive — insufficient data from enrichment sources" in the executive summary and OMIT all other sections. DO NOT invent data. The action card severity MUST be "info" and confidence MUST be "low".`;
   } else if (dq.emptyResults > dq.totalOk / 2) {
     dataWarning = `\n\nWARNING: ${dq.emptyResults} of ${dq.totalOk} tool results were nearly empty. Be honest about what is actually known.`;
   }
 
   const currentDate = new Date().toISOString().split('T')[0];
-  const system = buildSynthesizerPrompt(query, queryType, currentDate);
-  const user = buildSynthesizerUserPrompt(query, queryType, steps) + dataWarning;
-  const input: CompletionInput = { system, user, maxTokens: 5500, temperature: 0.3 };
+  // When almost all tools failed, use the minimal prompt that prevents
+  // the LLM from inventing entire sections. The full Zeltser template is
+  // only appropriate when there is actual data to support it.
+  const useMinimal = dq.totalOk <= 1;
+  const system = useMinimal
+    ? buildMinimalSynthesizerPrompt(currentDate)
+    : buildSynthesizerPrompt(query, queryType, currentDate);
+  const user = useMinimal
+    ? buildSynthesizerUserPrompt(query, queryType, steps)
+    : buildSynthesizerUserPrompt(query, queryType, steps) + dataWarning;
+  const input: CompletionInput = { system, user, maxTokens: useMinimal ? 2000 : 5500, temperature: 0.3 };
 
   const { text, modelUsed } = await runCompletion(ai, input, {
     googleKey: opts.googleKey,
@@ -553,10 +561,21 @@ function extractMitre(report: string): string[] {
 
 function estimateConfidence(steps: AgentStep[], dq?: DataQuality): 'high' | 'medium' | 'low' {
   const ok = dq?.totalOk ?? steps.reduce((n, s) => n + s.results.filter((r) => r.status === 'ok').length, 0);
+  const empty =
+    dq?.emptyResults ??
+    steps.reduce(
+      (n, s) =>
+        n +
+        s.results.filter(
+          (r) => r.status === 'ok' && (!r.data || (typeof r.data === 'object' && Object.keys(r.data).length === 0))
+        ).length,
+      0
+    );
   const total =
     ok + (dq?.totalErr ?? steps.reduce((n, s) => n + s.results.filter((r) => r.status === 'error').length, 0));
   const errRate = total > 0 ? 1 - ok / total : 1;
-  if (ok >= 6 && errRate < 0.2) return 'high';
-  if (ok >= 3 && errRate < 0.5) return 'medium';
+  const dataRate = ok > 0 ? (ok - empty) / ok : 0;
+  if (ok >= 6 && errRate < 0.2 && dataRate > 0.5) return 'high';
+  if (ok >= 3 && errRate < 0.5 && dataRate > 0.3) return 'medium';
   return 'low';
 }

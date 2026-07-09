@@ -47,8 +47,8 @@ const MAP: Record<string, MitreGroupRef> = {
   'ragnar locker': { id: 'G1041', name: 'RagnarLocker', url: 'https://attack.mitre.org/groups/G1041/' },
   rhysida: { id: 'G1048', name: 'Rhysida', url: 'https://attack.mitre.org/groups/G1048/' },
   // ─── Non-ransomware APTs referenced in CVE attribution ─────────────────
-  // These aren't ransomware operators but the cve-actor-mapping lib points
-  // at them for state-actor CVE exploitation (Volt Typhoon, Lazarus, etc).
+  // These aren't ransomware operators but are referenced in heuristic
+  // CVE-to-actor scanning (Volt Typhoon, Lazarus, etc).
   // We keep them here so the CVE-list page can render a proper MITRE pill.
   'volt-typhoon': { id: 'G1017', name: 'Volt Typhoon', url: 'https://attack.mitre.org/groups/G1017/' },
   'lazarus-group': { id: 'G0032', name: 'Lazarus Group', url: 'https://attack.mitre.org/groups/G0032/' },

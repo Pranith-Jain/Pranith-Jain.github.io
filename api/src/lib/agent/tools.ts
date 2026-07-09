@@ -88,7 +88,7 @@ export function buildToolRegistry(
     {
       name: 'check_ioc',
       description:
-        'Multi-provider IOC reputation check (32+ providers: VirusTotal, AbuseIPDB, Shodan, AlienVault, GreyNoise, CrowdSec, StopForumSpam, DShield, TweetFeed, Spamhaus, ThreatFox, URLhaus, IPsum, and more). Returns composite score, admiralty grade, per-provider verdicts with detection ratios, geolocation, ASN, abuse reports.',
+        'Multi-provider IOC reputation check (56 registered providers, 12-37 queried per indicator type depending on coverage: VirusTotal, AbuseIPDB, Shodan, AlienVault, GreyNoise, CrowdSec, StopForumSpam, DShield, TweetFeed, Spamhaus, ThreatFox, URLhaus, IPsum, and more). Returns composite score, admiralty grade, per-provider verdicts with detection ratios, geolocation, ASN, abuse reports.',
       params: [{ name: 'indicator', type: 'string', description: 'IP, domain, URL, or file hash', required: true }],
       execute: (args) =>
         apiFetchSse(self, `/api/v1/ioc/check?indicator=${encodeURIComponent(String(args.indicator))}`, apiKey, ih),
@@ -96,7 +96,7 @@ export function buildToolRegistry(
     {
       name: 'enrich_ioc_deep',
       description:
-        'Deep IOC enrichment — single-call orchestrator that fans out to every relevant source (reputation check from 51+ providers incl. tre.ge, Webamon, Maltiverse, AbuseIPDB, Shodan, Censys, GreyNoise + DNS/WHOIS/CT + BuiltWith tech stack + breach via ProjectDiscovery + passive DNS + relationships + Maltiverse). Returns a unified verdict with source-level provenance, tags, and the top contributing sources.',
+        'Deep IOC enrichment — single-call orchestrator that fans out to every relevant source: reputation check from up to 37 providers (varies by indicator type — IP gets the most, hash gets fewer) incl. tre.ge, Webamon, Maltiverse, AbuseIPDB, Shodan, Censys, GreyNoise + DNS/WHOIS/CT + BuiltWith tech stack + breach via ProjectDiscovery + passive DNS + relationships + Maltiverse. Returns a unified verdict with source-level provenance, tags, and the top contributing sources.',
       params: [{ name: 'indicator', type: 'string', description: 'IP, domain, URL, or file hash', required: true }],
       execute: (args) =>
         apiFetch(
@@ -137,7 +137,9 @@ export function buildToolRegistry(
             }>;
           };
           const tre = (r.providers ?? []).find((p) => p.source === 'tre-ge');
-          return tre ?? { source: 'tre-ge', verdict: 'unknown', note: 'no record' };
+          return (
+            tre ?? { source: 'tre-ge', verdict: 'not_queried', note: 'tre.ge was not included in this enrichment pass' }
+          );
         }),
     },
     {
@@ -223,7 +225,7 @@ export function buildToolRegistry(
     {
       name: 'get_ioc_lifecycle',
       description:
-        'IOC temporal lifecycle — first seen, last seen, activity trend, decay rate, observation count. Is this indicator still active?',
+        "IOC temporal lifecycle — first seen, last seen, activity trend, decay rate, observation count. Is this indicator still active? NOTE: Only returns data for IOCs previously observed through this platform's IOC check pipeline. Returns {found:false} for unobserved indicators.",
       params: [{ name: 'indicator', type: 'string', description: 'IOC to check lifecycle', required: true }],
       execute: (args) =>
         apiFetch(
@@ -275,8 +277,8 @@ export function buildToolRegistry(
       description: 'CVEs attributed to a specific threat actor. Use slug format (apt28, lazarus-group, lockbit).',
       params: [{ name: 'actor', type: 'string', description: 'Actor slug (apt28, lazarus-group)', required: true }],
       execute: (args) => {
-        const slug = String(args.actor).toLowerCase().replace(/\s+/g, '-');
-        return apiFetch(self, `/api/v1/actor-cves?slug=${encodeURIComponent(slug)}`, apiKey, undefined, ih);
+        const name = String(args.actor).trim();
+        return apiFetch(self, `/api/v1/actor-cves?name=${encodeURIComponent(name)}`, apiKey, undefined, ih);
       },
     },
     {
@@ -590,7 +592,8 @@ export function buildToolRegistry(
     },
     {
       name: 'get_ransomware_negotiations',
-      description: 'Ransomware negotiation data — demands, discounts, settlement patterns.',
+      description:
+        'Ransomware negotiation data — demands, discounts, settlement patterns from ransomware.live PRO and MyThreatIntel. Only returns data for known ransomware groups with negotiation transcripts.',
       params: [{ name: 'group', type: 'string', description: 'Ransomware group (optional)', required: false }],
       execute: (args) => {
         const p = args.group ? `?group=${encodeURIComponent(String(args.group))}` : '';

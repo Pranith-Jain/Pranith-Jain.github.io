@@ -3,8 +3,8 @@
  *
  * Routes a user query to the appropriate specialist agents, dispatches them
  * (potentially in parallel), collects findings, and merges into a unified
- * investigation state. This replaces the monolithic planner for the common
- * case; the monolithic path is preserved as fallback for non-standard queries.
+ * investigation state. The orchestrator tracks which specialist is active
+ * and switches when exit conditions fire.
  */
 
 import type { Ai } from '@cloudflare/workers-types';
@@ -15,13 +15,14 @@ import {
   type SpecialistDispatch,
   type SpecialistResult,
   type SpecialistFinding,
+  type SpecialistView,
   SPECIALIST_REGISTRY,
   getSpecialistsForQueryType,
   getToolsForSpecialist,
 } from './specialist-types';
 import { planNextStep } from './planner';
 import { observeStep } from './observer';
-import { evaluateCtiExit, filterCtiToolCalls } from './cti-loop';
+import { evaluateCtiExit } from './cti-loop';
 
 /**
  * Build an orchestration plan: which specialists to call, in what order,
@@ -37,7 +38,6 @@ export async function buildOrchestratorPlan(
   const specialistCalls: SpecialistDispatch[] = specialistRoles.map((role, i) => {
     const def = SPECIALIST_REGISTRY[role];
     const context: Record<string, unknown> = {};
-    // Pass relevant prior specialist findings as context
     if (i > 0) {
       context.previousSpecialists = specialistRoles.slice(0, i);
     }
@@ -54,6 +54,65 @@ export async function buildOrchestratorPlan(
     specialistCalls,
     reasoning: `Routing ${queryType} query through ${specialistRoles.map((r) => SPECIALIST_REGISTRY[r].label).join(' → ')}`,
   };
+}
+
+/**
+ * Check if the current specialist's exit conditions have fired.
+ * Returns the next specialist role to switch to, or null if staying.
+ */
+export function checkSpecialistExit(
+  currentRole: SpecialistRole,
+  steps: AgentStep[],
+  stepNum: number,
+  maxSteps: number,
+  queryType?: string
+): { shouldSwitch: boolean; nextRole: SpecialistRole | null; reason: string } {
+  const def = SPECIALIST_REGISTRY[currentRole];
+  const view: SpecialistView = { stepNum, maxSteps, steps, role: currentRole };
+
+  for (const cond of def.exitConditions) {
+    if (cond.met(view)) {
+      // Find next specialist in the routing chain
+      const specialistRoles = getSpecialistsForQueryType(queryType ?? 'generic');
+      const currentIdx = specialistRoles.indexOf(currentRole);
+      const nextRole =
+        currentIdx >= 0 && currentIdx < specialistRoles.length - 1 ? specialistRoles[currentIdx + 1]! : null;
+      return { shouldSwitch: true, nextRole, reason: cond.reason(view) };
+    }
+  }
+
+  return { shouldSwitch: false, nextRole: null, reason: '' };
+}
+
+/**
+ * Get the specialist-specific planner prompt for a given specialist.
+ */
+export function getSpecialistPrompt(
+  role: SpecialistRole,
+  tools: AgentTool[],
+  step: number,
+  maxSteps: number,
+  query: string,
+  steps: AgentStep[]
+): string {
+  const def = SPECIALIST_REGISTRY[role];
+  return def.buildPlannerPrompt(tools, step, maxSteps, query, steps);
+}
+
+/**
+ * Get the guardrails for a given specialist and apply them to tool calls.
+ */
+export function applySpecialistGuardrails(
+  role: SpecialistRole,
+  calls: AgentToolCall[],
+  view: { stepNum: number; maxSteps: number; steps: AgentStep[] }
+): AgentToolCall[] {
+  const def = SPECIALIST_REGISTRY[role];
+  let filtered = [...calls];
+  for (const guardrail of def.guardrails) {
+    filtered = guardrail.filter(filtered, { ...view, role });
+  }
+  return filtered;
 }
 
 /**
@@ -100,8 +159,7 @@ export async function runSpecialist(
     }
 
     // Apply guardrails
-    const validNames = new Set(specialistTools.map((t) => t.name));
-    const toolCalls = filterCtiToolCalls(plan.toolCalls, { stepNum, maxSteps: dispatch.maxSteps, steps }, validNames);
+    const toolCalls = applySpecialistGuardrails(dispatch.role, plan.toolCalls, view);
 
     if (toolCalls.length === 0) {
       synthesizing = true;
@@ -149,7 +207,6 @@ export function mergeSpecialistResults(
   results: SpecialistResult[],
   existingState?: Partial<AgentState>
 ): AgentState {
-  // Collect all findings deduplicated by (type, value)
   const seen = new Set<string>();
   const allFindings: SpecialistFinding[] = [];
   const allSteps: AgentStep[] = [];
@@ -251,7 +308,7 @@ function extractFindings(result: AgentToolResult, role: SpecialistRole, stepNum:
 
   // Extract CVEs from lookup_cve
   if (result.tool === 'lookup_cve') {
-    const cveId = result.args.cve_id ?? result.args.query ?? '';
+    const cveId = result.args.cve_id ?? result.args.id ?? '';
     if (cveId) {
       findings.push({
         type: 'cve',
@@ -265,7 +322,7 @@ function extractFindings(result: AgentToolResult, role: SpecialistRole, stepNum:
 
   // Extract actors from enrich_actor
   if (result.tool === 'enrich_actor') {
-    const actor = result.args.actor ?? result.args.query ?? '';
+    const actor = result.args.name ?? result.args.actor ?? '';
     if (actor) {
       findings.push({
         type: 'actor',
@@ -273,6 +330,34 @@ function extractFindings(result: AgentToolResult, role: SpecialistRole, stepNum:
         confidence: 'high',
         source: result.tool,
         detail: `Step ${stepNum}: actor profile collected`,
+      });
+    }
+  }
+
+  // Extract domains from lookup_domain
+  if (result.tool === 'lookup_domain') {
+    const domain = result.args.domain ?? result.args.query ?? '';
+    if (domain) {
+      findings.push({
+        type: 'domain',
+        value: String(domain),
+        confidence: 'high',
+        source: result.tool,
+        detail: `Step ${stepNum}: domain profile collected`,
+      });
+    }
+  }
+
+  // Extract hashes from sample_scan
+  if (result.tool === 'sample_scan') {
+    const hash = result.args.hash ?? '';
+    if (hash) {
+      findings.push({
+        type: 'hash',
+        value: String(hash),
+        confidence: (data as any)?.verdict === 'malicious' ? 'high' : 'medium',
+        source: result.tool,
+        detail: `Step ${stepNum}: ${result.tool} → ${(data as any)?.verdict ?? 'unknown'}`,
       });
     }
   }

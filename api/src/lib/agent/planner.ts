@@ -35,7 +35,7 @@ export async function planNextStep(
   // Reaching here means the loop chose to keep investigating, so we always plan.
   const toolDescriptions = describeTools(tools);
   const specialistBlock = opts.specialistContext
-    ? `\n<specialist_context>\nThis query was routed to these specialist domains:\n${opts.specialistContext}\n</specialist_context>\n`
+    ? `\n<specialist_context>\nThis query was routed to these specialist domains:\n${neutralizeUntrusted(opts.specialistContext)}\n</specialist_context>\n`
     : '';
   const system = buildCtiPlannerPrompt(toolDescriptions, maxSteps, queryType) + specialistBlock;
   const user = buildCtiUserPrompt(query, queryType, steps, currentStep, maxSteps);

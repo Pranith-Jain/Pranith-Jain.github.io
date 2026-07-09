@@ -56,7 +56,6 @@ interface CveLookupResult {
 }
 
 const ACTOR_LINK_SOURCE_LABEL: Record<string, string> = {
-  curated: 'curated mapping',
   cisa_kev: 'CISA KEV text',
   nvd: 'NVD description',
   otx: 'OTX pulse',

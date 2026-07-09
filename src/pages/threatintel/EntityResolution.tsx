@@ -221,7 +221,7 @@ export default function EntityResolution(): JSX.Element {
       backTo="/threatintel"
       icon={<Search size={28} />}
       title="Entity Resolution"
-      description="Resolve threat actor names, ransomware groups, CVEs, IPs, domains, and hashes against curated intelligence. Powered by a 500+ entry alias index and CVE-to-actor mapping."
+      description="Resolve threat actor names, ransomware groups, CVEs, IPs, domains, and hashes against a 500+ entry alias index with heuristic NVD/KEV actor scanning."
       maxWidthClass="max-w-4xl"
     >
       {/* Mode toggle */}

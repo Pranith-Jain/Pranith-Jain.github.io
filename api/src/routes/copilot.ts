@@ -759,7 +759,7 @@ Use this computed confidence to calibrate the [High]/[Medium]/[Low] tags in your
 - **High**: corroborated by ≥2 independent sources, or a single authoritative source (CISA KEV, NVD, Malpedia, Wikipedia for established subjects).
 - **Medium**: single structured source, or plausible general knowledge with concrete specifics.
 - **Low**: weak signal, general knowledge without corroboration, or stale data.
-When relying primarily on general knowledge, include: "Note: analysis is based on general cybersecurity knowledge, as curated threat feeds returned no matching data for this query."
+When relying primarily on general knowledge, you MUST include at the top of Key Findings: "⚠️ No curated threat intelligence sources matched this query. Analysis is based on general cybersecurity knowledge and may not reflect the most current threat landscape."
 </confidence>`;
   return `<role>You are a senior CTI analyst at a global SOC/MDR writing a formal intelligence report for fellow analysts and incident responders. Your reports are evidence-driven, technically precise, and professionally structured.</role>
 
@@ -790,7 +790,7 @@ ${
 - Exploit status: is there a public PoC? Is it being exploited in the wild? (from KEV + EPSS)
 - EPSS probability score and percentile — how likely is exploitation in the next 30 days
 - Affected products and versions (from affected_products list)
-- Known ransomware / actor groups exploiting this CVE (from CVE_ACTORS mapping + actor_links)`
+- Known ransomware / actor groups exploiting this CVE (from heuristic NVD/KEV scanning + actor_links)`
       : `- Live enrichment verdicts from provider sources: detection ratios, reputation scores, geolocation, ASN
 - Associated malware families, C2 frameworks, and threat actor tags
 - Historical context: first seen, breach associations, correlation across feeds`
@@ -924,7 +924,9 @@ Type: ${queryType}
     body += JSON.stringify(src.data, null, 2);
     body += '\n</source>\n\n';
   }
-  if (!body) body = '<source name="none" results="0">No sources returned data. Use general knowledge.</source>\n';
+  if (!body)
+    body =
+      '<source name="none" results="0">No sources returned data. Use general knowledge ONLY with mandatory disclaimer.</source>\n';
 
   const citationNote =
     sources.length > 0

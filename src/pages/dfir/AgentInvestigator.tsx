@@ -1,13 +1,22 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
+  BarChart3,
   Bot,
+  Bug,
   ChevronRight,
+  ClipboardList,
   Clock,
   Download,
+  Eye,
+  Globe,
   Loader2,
+  Lock,
+  Mail,
+  Network,
   Play,
   Search,
   Shield,
+  Skull,
   Terminal,
   Trash2,
   X,
@@ -76,6 +85,125 @@ type AgentWsMessage =
   | { type: 'done'; report: string; modelUsed: string; qa?: AgentState['qa']; actionCard?: ReportActionCard }
   | { type: 'error'; error: string };
 
+// ── Specialist mesh helpers ────────────────────────────────────────────────
+
+const SPECIALIST_LABELS: Record<string, string> = {
+  'ioc-reputation': 'IOC Reputation',
+  'threat-actor': 'Threat Actor',
+  vulnerability: 'Vulnerability',
+  'domain-host': 'Domain & Host',
+  'malware-analysis': 'Malware Analysis',
+  'detection-rules': 'Detection Rules',
+  phishing: 'Phishing',
+  ransomware: 'Ransomware',
+  'campaign-correlation': 'Campaign Correlation',
+  'dark-web': 'Dark Web',
+  'strategic-intel': 'Strategic Intel',
+  'export-stix': 'STIX Export',
+};
+
+const SPECIALIST_COLORS: Record<string, string> = {
+  'ioc-reputation': 'border-sky-500/40 bg-sky-500/10 text-sky-600',
+  'threat-actor': 'border-rose-500/40 bg-rose-500/10 text-rose-600',
+  vulnerability: 'border-amber-500/40 bg-amber-500/10 text-amber-600',
+  'domain-host': 'border-teal-500/40 bg-teal-500/10 text-teal-600',
+  'malware-analysis': 'border-purple-500/40 bg-purple-500/10 text-purple-600',
+  'detection-rules': 'border-emerald-500/40 bg-emerald-500/10 text-emerald-600',
+  phishing: 'border-orange-500/40 bg-orange-500/10 text-orange-600',
+  ransomware: 'border-red-500/40 bg-red-500/10 text-red-600',
+  'campaign-correlation': 'border-indigo-500/40 bg-indigo-500/10 text-indigo-600',
+  'dark-web': 'border-slate-500/40 bg-slate-500/10 text-slate-600',
+  'strategic-intel': 'border-cyan-500/40 bg-cyan-500/10 text-cyan-600',
+  'export-stix': 'border-violet-500/40 bg-violet-500/10 text-violet-600',
+};
+
+const SPECIALIST_ICONS: Record<string, typeof Search> = {
+  'ioc-reputation': Search,
+  'threat-actor': Skull,
+  vulnerability: Shield,
+  'domain-host': Globe,
+  'malware-analysis': Bug,
+  'detection-rules': ClipboardList,
+  phishing: Mail,
+  ransomware: Lock,
+  'campaign-correlation': Network,
+  'dark-web': Eye,
+  'strategic-intel': BarChart3,
+  'export-stix': Download,
+};
+
+function extractSpecialist(plan: string): string | null {
+  const match = plan.match(/^\[([^\]]+)\]/);
+  return match?.[1] ?? null;
+}
+
+function getSpecialistKey(label: string): string | null {
+  for (const [key, value] of Object.entries(SPECIALIST_LABELS)) {
+    if (value === label) return key;
+  }
+  return null;
+}
+
+function getSpecialistChain(steps: AgentStep[]): string[] {
+  const chain: string[] = [];
+  for (const step of steps) {
+    const label = extractSpecialist(step.plan);
+    if (label && (chain.length === 0 || chain[chain.length - 1] !== label)) {
+      chain.push(label);
+    }
+  }
+  return chain;
+}
+
+function SpecialistProgressBar({ steps }: { steps: AgentStep[] }): JSX.Element {
+  const chain = useMemo(() => getSpecialistChain(steps), [steps]);
+  const currentLabel = extractSpecialist(steps[steps.length - 1]?.plan ?? '');
+
+  if (chain.length <= 1) return <></>;
+
+  return (
+    <div className="mb-4 p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
+      <div className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 mb-2 flex items-center gap-2">
+        <Bot size={12} /> Specialist Chain
+      </div>
+      <div className="flex items-center gap-1 flex-wrap">
+        {chain.map((label, i) => {
+          const key = getSpecialistKey(label);
+          const isActive = label === currentLabel;
+          const isDone = i < chain.length - 1 || (i === chain.length - 1 && steps[steps.length - 1]?.status === 'done');
+          const color = key ? SPECIALIST_COLORS[key] : 'border-slate-300 bg-slate-50 text-slate-600';
+          const icon = key ? SPECIALIST_ICONS[key] : null;
+
+          return (
+            <span key={`${label}-${i}`} className="flex items-center gap-1">
+              {i > 0 && (
+                <ChevronRight size={10} className={`mx-0.5 ${isDone ? 'text-emerald-500' : 'text-slate-300'}`} />
+              )}
+              <span
+                className={`inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-mono border transition-all ${
+                  isActive
+                    ? `${color} ring-2 ring-offset-1 ring-slate-200 dark:ring-slate-700`
+                    : isDone
+                      ? `${color} opacity-70`
+                      : 'border-slate-200 bg-slate-50 text-slate-400'
+                }`}
+              >
+                {icon ? (
+                  React.createElement(icon, { size: 12, className: 'shrink-0' })
+                ) : (
+                  <span className="text-xs">•</span>
+                )}
+                {label}
+                {isActive && <Loader2 size={10} className="animate-spin ml-0.5" />}
+              </span>
+            </span>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 export default function AgentInvestigator(): JSX.Element {
   const [query, setQuery] = useState('');
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -115,7 +243,7 @@ export default function AgentInvestigator(): JSX.Element {
         if (msg.type === 'step') {
           setAgentState((prev) => {
             if (!prev) return prev;
-            const steps = [...prev.steps];
+            const steps = [...(prev.steps ?? [])];
             const idx = steps.findIndex((s) => s.stepNumber === msg.step.stepNumber);
             if (idx >= 0) steps[idx] = msg.step;
             else steps.push(msg.step);
@@ -329,13 +457,14 @@ export default function AgentInvestigator(): JSX.Element {
       )}
 
       {/* Steps */}
-      {agentState && agentState.steps.length > 0 && (
+      {agentState && agentState.steps?.length > 0 && (
         <section className="mb-6 space-y-3" aria-label="Investigation steps">
+          <SpecialistProgressBar steps={agentState.steps} />
           <h2 className="text-sm font-mono font-bold uppercase tracking-wider text-slate-500 flex items-center gap-2">
             <Terminal size={14} /> Steps ({agentState.steps.length}/{agentState.maxSteps})
           </h2>
-          {agentState.steps.map((step) => (
-            <StepCard key={step.stepNumber} step={step} />
+          {agentState.steps.map((step, i) => (
+            <StepCard key={step.stepNumber} step={step} prevStep={i > 0 ? agentState.steps[i - 1] : undefined} />
           ))}
           <div ref={stepsEndRef} />
         </section>
@@ -558,9 +687,17 @@ export default function AgentInvestigator(): JSX.Element {
   );
 }
 
-function StepCard({ step }: { step: AgentStep }): JSX.Element {
+function StepCard({ step, prevStep }: { step: AgentStep; prevStep?: AgentStep }): JSX.Element {
   const [expanded, setExpanded] = useState(false);
   const isRunning = step.status === 'running';
+
+  const specialistLabel = extractSpecialist(step.plan);
+  const specialistKey = specialistLabel ? getSpecialistKey(specialistLabel) : null;
+  const specialistColor = specialistKey ? SPECIALIST_COLORS[specialistKey] : null;
+  const specialistIcon = specialistKey ? SPECIALIST_ICONS[specialistKey] : null;
+
+  const prevSpecialistLabel = prevStep ? extractSpecialist(prevStep.plan) : null;
+  const specialistChanged = specialistLabel && specialistLabel !== prevSpecialistLabel;
 
   const phaseColors: Record<string, string> = {
     collection: 'border-sky-500/40 bg-sky-500/10 text-sky-600',
@@ -581,23 +718,48 @@ function StepCard({ step }: { step: AgentStep }): JSX.Element {
         className="w-full px-4 py-3 flex items-center gap-3 hover:bg-slate-50/60 dark:hover:bg-[rgb(var(--input-200)/0.4)] text-left"
       >
         <span
-          className={`shrink-0 inline-flex items-center justify-center w-7 h-7 rounded border text-xs font-mono font-bold ${
+          className={`shrink-0 inline-flex flex-col items-center justify-center w-8 h-8 rounded border text-xs font-mono font-bold ${
             step.status === 'done'
               ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-600'
               : step.status === 'error'
                 ? 'border-rose-500/40 bg-rose-500/10 text-rose-600'
-                : phaseColor
+                : (specialistColor ?? phaseColor)
           }`}
         >
-          {isRunning ? <Loader2 size={12} className="animate-spin" /> : step.stepNumber}
+          {isRunning ? (
+            <Loader2 size={14} className="animate-spin" />
+          ) : specialistIcon ? (
+            <>
+              {React.createElement(specialistIcon, { size: 14, className: 'shrink-0' })}
+              <span className="text-[8px] leading-none mt-0.5 opacity-70">{step.stepNumber}</span>
+            </>
+          ) : (
+            step.stepNumber
+          )}
         </span>
         <div className="min-w-0 flex-1">
           <div className="flex items-baseline gap-2 flex-wrap">
             <span className="font-mono text-sm font-bold">Step {step.stepNumber}</span>
-            <span className="text-xs font-mono text-slate-500 truncate">{step.plan.slice(0, 120)}</span>
+            {specialistLabel && specialistChanged && specialistIcon && (
+              <span
+                className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs font-mono border ${specialistColor}`}
+              >
+                {React.createElement(specialistIcon, { size: 12, className: 'shrink-0' })}
+                {specialistLabel}
+              </span>
+            )}
+            {specialistLabel && !specialistChanged && specialistIcon && (
+              <span className="text-xs font-mono text-slate-400 inline-flex items-center gap-1">
+                {React.createElement(specialistIcon, { size: 10, className: 'shrink-0' })}
+                {specialistLabel}
+              </span>
+            )}
+            <span className="text-xs font-mono text-slate-500 truncate">
+              {step.plan.replace(/^\[[^\]]+\]\s*/, '').slice(0, 100)}
+            </span>
           </div>
           <div className="flex items-center gap-2 mt-1 flex-wrap">
-            {step.toolCalls.map((tc, i) => (
+            {step.toolCalls?.map((tc, i) => (
               <span
                 key={`${tc.tool}-${i}`}
                 className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted"
@@ -622,7 +784,7 @@ function StepCard({ step }: { step: AgentStep }): JSX.Element {
             <p className="text-xs font-mono text-slate-700 dark:text-slate-300">{step.plan}</p>
           </div>
 
-          {step.results.map((r, i) => (
+          {(step.results ?? []).map((r, i) => (
             <div
               key={`${r.tool}-${i}`}
               className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5"
@@ -679,16 +841,16 @@ function buildMarkdown(state: AgentState): string {
   if (state.modelUsed) lines.push(`**Model:** ${state.modelUsed}`);
   lines.push('');
 
-  if (state.steps.length > 0) {
+  if (state.steps?.length > 0) {
     lines.push('## Investigation Steps');
     for (const s of state.steps) {
       lines.push(`### Step ${s.stepNumber}`);
       lines.push(`**Plan:** ${s.plan}`);
-      if (s.toolCalls.length > 0) {
+      if (s.toolCalls?.length > 0) {
         lines.push(`**Tools:** ${s.toolCalls.map((tc) => tc.tool).join(', ')}`);
       }
       if (s.observation) lines.push(`**Observation:** ${s.observation}`);
-      for (const r of s.results) {
+      for (const r of s.results ?? []) {
         lines.push(`\n#### ${r.tool} (${r.status}, ${r.durationMs}ms)`);
         if (r.data) lines.push('```json\n' + JSON.stringify(r.data, null, 2).slice(0, 3000) + '\n```');
         if (r.error) lines.push(`Error: ${r.error}`);

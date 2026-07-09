@@ -65,6 +65,8 @@ export interface AgentState {
   startedAt: string;
   completedAt: string | null;
   error: string | null;
+  /** Current specialist role in the mesh (e.g. 'vulnerability', 'ioc-reputation'). */
+  currentSpecialist?: string;
   /** QA verification results (populated after QA phase) */
   qa?: {
     qualityScore: number;
@@ -147,16 +149,7 @@ export interface ReportVerdict {
 
 /** Stakeholder teams that should be notified for a given action. */
 export type ActionStakeholder =
-  | 'cti'
-  | 'soc'
-  | 'ir'
-  | 'vuln'
-  | 'redteam'
-  | 'appsec'
-  | 'awareness'
-  | 'exec'
-  | 'legal'
-  | 'tprm';
+  'cti' | 'soc' | 'ir' | 'vuln' | 'redteam' | 'appsec' | 'awareness' | 'exec' | 'legal' | 'tprm';
 
 /** Diamond Model — adversary / capability / infrastructure / victim. */
 export interface DiamondModel {

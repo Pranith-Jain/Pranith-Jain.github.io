@@ -126,10 +126,8 @@ No vendor detections confirmed for this specific infrastructure at time of analy
 | | |
 |---|---|
 | **Report Title** | Active C2 Infrastructure Analysis — 1.2.3.4 |
-| **Author(s) and Organization** | CTI Analyst Agent — pranithjain.com |
 | **Publication Date** | 2024-12-01 |
 | **Report Classification** | TLP:AMBER |
-| **Follow-Up Contact** | Security team |
 
 ### Report Changelog
 

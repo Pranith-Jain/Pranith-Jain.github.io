@@ -8,8 +8,17 @@ import { observeStep } from '../../api/src/lib/agent/observer';
 import { synthesizeReport, splitSynthOutput } from '../../api/src/lib/agent/synthesizer';
 import { verifyReport } from '../../api/src/lib/agent/qa-verifier';
 import { signInternalToken } from '../../api/src/lib/internal-token';
-import { buildOrchestratorPlan } from '../../api/src/lib/agent/orchestrator';
-import { SPECIALIST_REGISTRY, getToolsForSpecialist } from '../../api/src/lib/agent/specialist-types';
+import {
+  buildOrchestratorPlan,
+  checkSpecialistExit,
+  getSpecialistPrompt,
+  applySpecialistGuardrails,
+} from '../../api/src/lib/agent/orchestrator';
+import {
+  SPECIALIST_REGISTRY,
+  getToolsForSpecialist,
+  type SpecialistRole,
+} from '../../api/src/lib/agent/specialist-types';
 
 /** Truncate JSON-serializable data to a max char length. Returns valid JSON. */
 function truncateData(data: unknown, maxChars: number): unknown {
@@ -219,10 +228,10 @@ export class InvestigatorAgentDO {
 
   /**
    * Execute one planning+execution cycle. This is the core agent loop:
-   * 1. PLAN: LLM decides which tools to call
+   * 1. PLAN: LLM decides which tools to call (using specialist-specific prompt)
    * 2. ACT: Execute tools in parallel
    * 3. OBSERVE: Summarize results
-   * 4. DECIDE: Continue or synthesize
+   * 4. DECIDE: Continue with current specialist, switch specialist, or synthesize
    */
   private async advanceOneStep(state: AgentState): Promise<AgentState> {
     const apiEnv = this.env as unknown as ApiEnv;
@@ -230,68 +239,171 @@ export class InvestigatorAgentDO {
     const groqKey = apiEnv.GROQ_API_KEY;
     const googleKey = apiEnv.GOOGLE_AI_STUDIO_API_KEY;
     const nvidiaKey = apiEnv.NVIDIA_API_KEY;
-    // Pass admin token so tool calls bypass the external API key gate.
-    // The DO calls /api/v1/* via the SELF service binding (in-process) but
-    // the authenticate('external-only') middleware still requires credentials
-    // for non-same-origin requests. A signed internal token (HMAC-SHA256,
-    // 5-min TTL) replaces the old spoofable X-Internal-Agent header.
     const tokenSecret = this.env.INTERNAL_TOKEN_SECRET;
     if (!tokenSecret) throw new Error('INTERNAL_TOKEN_SECRET not configured');
     const internalToken = await signInternalToken('investigator-do', tokenSecret);
-    const tools = buildToolRegistry(this.env.SELF, undefined, { 'x-internal-token': internalToken });
+    const allTools = buildToolRegistry(this.env.SELF, undefined, { 'x-internal-token': internalToken });
 
     const stepNum = state.currentStep + 1;
     const stepStart = new Date().toISOString();
     const view = { stepNum, maxSteps: state.maxSteps, steps: state.steps };
 
     // ── DECIDE (pre-plan) ─────────────────────────────────────────────
-    // The loop engine owns the exit decision: enough-results, near-limit, or
-    // max-iterations. If any fires we synthesize without spending a planner call.
     const exit = evaluateCtiExit(view);
     if (exit) {
       return await this.doSynthesize(state, ai, groqKey, googleKey, nvidiaKey, stepNum, stepStart, exit.reason);
     }
 
-    // ── PLAN (specialist-aware) ──────────────────────────────────────
-    // On step 1, build an orchestration plan that identifies which
-    // specialist agents should handle this query type. The specialist
-    // context is passed to the planner so it can prioritize the right
-    // tool subset for the query domain.
-    let specialistContext = '';
+    // ── SPECIALIST MESH ───────────────────────────────────────────────
+    // On step 1: build orchestrator plan and select first specialist.
+    // On subsequent steps: check current specialist's exit conditions and switch.
+    let currentRole: SpecialistRole | undefined = state.currentSpecialist as SpecialistRole | undefined;
+
     if (stepNum === 1) {
+      // Build orchestration plan on step 1
       try {
         const plan = await buildOrchestratorPlan(state.query, state.queryType, { groqKey, googleKey, nvidiaKey });
-        specialistContext = plan.specialistCalls
-          .map((d) => {
-            const def = SPECIALIST_REGISTRY[d.role];
-            const st = getToolsForSpecialist(d.role, tools);
-            return `  - ${def.label}: ${def.description} (tools: ${st.length} available)`;
-          })
-          .join('\n');
+        if (plan.specialistCalls.length > 0 && plan.specialistCalls[0]) {
+          currentRole = plan.specialistCalls[0].role;
+          state.currentSpecialist = currentRole;
+        }
       } catch {
-        // Orchestrator failure is non-fatal — fall through to default planner
+        // Orchestrator failure — fall through to monolithic planner
+      }
+    } else if (currentRole) {
+      // Check if current specialist's exit conditions have fired
+      const specialistCheck = checkSpecialistExit(currentRole, state.steps, stepNum, state.maxSteps);
+      if (specialistCheck.shouldSwitch) {
+        if (specialistCheck.nextRole) {
+          // Switch to next specialist
+          currentRole = specialistCheck.nextRole;
+          state.currentSpecialist = currentRole;
+        } else {
+          // No more specialists — synthesize
+          return await this.doSynthesize(
+            state,
+            ai,
+            groqKey,
+            googleKey,
+            nvidiaKey,
+            stepNum,
+            stepStart,
+            `All specialists complete (${specialistCheck.reason}). Synthesizing.`
+          );
+        }
       }
     }
 
-    const plan = await planNextStep(ai, state.query, state.queryType, state.steps, stepNum, state.maxSteps, tools, {
+    // ── PLAN (specialist-aware) ──────────────────────────────────────
+    let specialistTools = allTools;
+    let specialistPrompt = '';
+
+    if (currentRole) {
+      // Use specialist's tool subset and planner prompt
+      specialistTools = getToolsForSpecialist(currentRole, allTools);
+      specialistPrompt = getSpecialistPrompt(
+        currentRole,
+        specialistTools,
+        stepNum,
+        state.maxSteps,
+        state.query,
+        state.steps
+      );
+
+      // Add specialist context to the planner
+      const specialistContext = specialistPrompt
+        ? `\n<specialist_role>${SPECIALIST_REGISTRY[currentRole].label}</specialist_role>\n<specialist_instructions>${specialistPrompt}</specialist_instructions>`
+        : undefined;
+
+      const plan = await planNextStep(
+        ai,
+        state.query,
+        state.queryType,
+        state.steps,
+        stepNum,
+        state.maxSteps,
+        specialistTools,
+        {
+          groqKey,
+          googleKey,
+          nvidiaKey,
+          specialistContext,
+        }
+      );
+
+      if (plan.shouldSynthesize) {
+        return await this.doSynthesize(state, ai, groqKey, googleKey, nvidiaKey, stepNum, stepStart, plan.reasoning);
+      }
+
+      // Apply specialist-specific guardrails
+      const validToolNames = new Set(specialistTools.map((t) => t.name));
+      let toolCalls = filterCtiToolCalls(plan.toolCalls, view, validToolNames);
+      toolCalls = applySpecialistGuardrails(currentRole, toolCalls, view);
+
+      if (toolCalls.length === 0) {
+        // No valid tools for this specialist — switch or synthesize
+        const specialistCheck = checkSpecialistExit(currentRole, state.steps, stepNum, state.maxSteps, state.queryType);
+        if (specialistCheck.shouldSwitch && specialistCheck.nextRole) {
+          currentRole = specialistCheck.nextRole;
+          state.currentSpecialist = currentRole;
+          // Re-plan with next specialist's tools on this same step
+          return await this.advanceOneStep({ ...state, currentStep: stepNum - 1 });
+        }
+        return await this.doSynthesize(
+          state,
+          ai,
+          groqKey,
+          googleKey,
+          nvidiaKey,
+          stepNum,
+          stepStart,
+          'No valid tools for specialist'
+        );
+      }
+
+      // ── ACT ──────────────────────────────────────────────────────────
+      const step: AgentStep = {
+        stepNumber: stepNum,
+        plan: `[${SPECIALIST_REGISTRY[currentRole].label}] ${plan.reasoning}`,
+        toolCalls,
+        results: [],
+        status: 'running',
+        startedAt: stepStart,
+      };
+
+      const results = await this.executeTools(toolCalls, specialistTools);
+      step.results = results;
+      step.completedAt = new Date().toISOString();
+
+      // ── OBSERVE ──────────────────────────────────────────────────────
+      const observation = await observeStep(ai, stepNum, plan.reasoning, results, { groqKey, googleKey, nvidiaKey });
+      step.observation = observation.observation;
+      step.nextAction = 'continue';
+      step.status = 'done';
+
+      state.steps.push(step);
+      state.currentStep = stepNum;
+
+      return state;
+    }
+
+    // ── FALLBACK: monolithic planner (no specialist matched) ──────────
+    const plan = await planNextStep(ai, state.query, state.queryType, state.steps, stepNum, state.maxSteps, allTools, {
       groqKey,
       googleKey,
       nvidiaKey,
-      specialistContext: specialistContext || undefined,
     });
 
     if (plan.shouldSynthesize) {
       return await this.doSynthesize(state, ai, groqKey, googleKey, nvidiaKey, stepNum, stepStart, plan.reasoning);
     }
 
-    // Guardrails: drop unknown / duplicate / banned tools and cap the batch.
-    const validToolNames = new Set(tools.map((t) => t.name));
+    const validToolNames = new Set(allTools.map((t) => t.name));
     const toolCalls = filterCtiToolCalls(plan.toolCalls, view, validToolNames);
     if (toolCalls.length === 0) {
       return await this.doSynthesize(state, ai, groqKey, googleKey, nvidiaKey, stepNum, stepStart, plan.reasoning);
     }
 
-    // ── ACT ──────────────────────────────────────────────────────────
     const step: AgentStep = {
       stepNumber: stepNum,
       plan: plan.reasoning,
@@ -301,11 +413,10 @@ export class InvestigatorAgentDO {
       startedAt: stepStart,
     };
 
-    const results = await this.executeTools(toolCalls, tools);
+    const results = await this.executeTools(toolCalls, allTools);
     step.results = results;
     step.completedAt = new Date().toISOString();
 
-    // ── OBSERVE ──────────────────────────────────────────────────────
     const observation = await observeStep(ai, stepNum, plan.reasoning, results, { groqKey, googleKey, nvidiaKey });
     step.observation = observation.observation;
     step.nextAction = 'continue';

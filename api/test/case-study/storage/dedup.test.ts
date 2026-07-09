@@ -53,15 +53,13 @@ describe('dedup blob storage', () => {
     expect(Object.keys(map).sort()).toEqual(['a', 'b', 'c']);
   });
 
-  it('seeds the blob once from legacy meta:dedup:* keys', async () => {
+  it('returns {} when blob is absent (no migration)', async () => {
     const ns = mockKV() as any;
     ns.store.set('meta:dedup:legacy-1', JSON.stringify({ lastSeenAt: '2026-05-10T00:00:00.000Z' }));
-    const map = await loadDedupMap(ns); // blob absent -> legacy scan + persist
-    expect(map['legacy-1']?.lastSeenAt).toBe('2026-05-10T00:00:00.000Z');
-    expect(ns.store.has('meta:dedup-index')).toBe(true);
-    const listsAfterSeed = ns.stats().lists;
-    await loadDedupMap(ns); // blob present now -> no further list scans
-    expect(ns.stats().lists).toBe(listsAfterSeed);
+    const map = await loadDedupMap(ns);
+    expect(map).toEqual({});
+    expect(ns.stats().lists).toBe(0); // no list scan
+    expect(ns.stats().gets).toBe(1); // just the blob get
   });
 
   it('getDedup returns null for unknown key', async () => {

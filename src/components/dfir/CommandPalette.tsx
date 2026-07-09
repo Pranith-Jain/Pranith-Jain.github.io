@@ -161,7 +161,7 @@ function buildPivots(query: string): MatchedEntry[] {
     pivots.push({
       kind: 'tool',
       label: `CVE Lookup → ${ioc.value}`,
-      desc: 'NVD + CISA KEV + curated actor mapping',
+      desc: 'NVD + CISA KEV + heuristic actor scanning',
       path: `/dfir/cve?id=${enc}`,
       sectionLabel: 'IOC pivot',
       matchedBy: 'pivot',

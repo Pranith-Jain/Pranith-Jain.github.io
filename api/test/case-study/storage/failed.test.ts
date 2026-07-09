@@ -26,7 +26,7 @@ function mockKV() {
 }
 
 describe('failed storage', () => {
-  it('records a failure with 30-day TTL', async () => {
+  it('records a failure without expiration', async () => {
     const ns = mockKV() as any;
     await recordFailure(ns, {
       slotId: 'slot-2026-05-19',
@@ -35,7 +35,7 @@ describe('failed storage', () => {
       failedAt: '2026-05-19T15:05:00Z',
       retries: 0,
     });
-    expect(ns.store.get('failed:all')?.ttl).toBe(30 * 24 * 3600);
+    expect(ns.store.get('failed:all')?.ttl).toBeUndefined();
   });
 
   it('lists failures', async () => {

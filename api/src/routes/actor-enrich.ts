@@ -1,7 +1,8 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { cvesForActor } from '../lib/cve-actor-mapping';
+
 import { safeNullLog } from '../lib/safe-catch';
+import { findActorsInText } from '../lib/cve-heuristic-mapping';
 
 const MALPEDIA_BASE = 'https://malpedia.caad.fkie.fraunhofer.de';
 
@@ -86,9 +87,7 @@ export async function actorEnrichHandler(c: Context<{ Bindings: Env }>): Promise
       .filter(Boolean),
   ];
 
-  // Linked CVEs from curated actor→CVE mapping. Try the bare name first
-  // (e.g. "Lazarus Group" → "lazarus-group" slug), then each alias. Union
-  // the result so an actor with multiple alias spellings still finds hits.
+  // Extract CVE IDs from OTX pulse tags/descriptions and Malpedia descriptions
   const slugify = (s: string) =>
     s
       .trim()
@@ -102,15 +101,11 @@ export async function actorEnrichHandler(c: Context<{ Bindings: Env }>): Promise
     // Hokage uses bare-token slugs too (e.g. "apt28" rather than "apt-28").
     slugCandidates.add(t.trim().toLowerCase().replace(/\s+/g, ''));
   }
-  const cveSet = new Set<string>();
-  for (const slug of slugCandidates) {
-    for (const cve of cvesForActor(slug)) cveSet.add(cve);
-  }
   const result: EnrichmentResult = {
     malpedia: [],
     maltrail: [],
     otx: [],
-    linked_cves: [...cveSet].sort((a, b) => b.localeCompare(a)),
+    linked_cves: [],
   };
 
   try {
@@ -236,6 +231,30 @@ export async function actorEnrichHandler(c: Context<{ Bindings: Env }>): Promise
   } catch (err) {
     console.error('actor-enrich error:', err);
   }
+
+  // Extract CVE IDs from OTX pulse tags/descriptions and Malpedia descriptions
+  const CVE_RE = /CVE-\d{4}-\d{4,}/gi;
+  const cveSet = new Set<string>();
+  for (const pulse of result.otx) {
+    for (const tag of pulse.tags ?? []) {
+      for (const m of tag.matchAll(CVE_RE)) cveSet.add(m[0].toUpperCase());
+    }
+    for (const m of (pulse.description ?? '').matchAll(CVE_RE)) cveSet.add(m[0].toUpperCase());
+  }
+  for (const m of result.malpedia) {
+    for (const m2 of (m.description ?? '').matchAll(CVE_RE)) cveSet.add(m2[0].toUpperCase());
+  }
+  // Heuristic scan: find CVE mentions in OTX pulse names + descriptions
+  for (const pulse of result.otx) {
+    const text = [pulse.name, pulse.description].filter(Boolean).join(' ');
+    if (!text) continue;
+    const actors = findActorsInText(text);
+    if (actors.length > 0) {
+      // If this pulse mentions the queried actor, extract any CVE IDs
+      for (const m of text.matchAll(CVE_RE)) cveSet.add(m[0].toUpperCase());
+    }
+  }
+  result.linked_cves = [...cveSet].sort((a, b) => b.localeCompare(a));
 
   return c.json({ ok: true, ...result }, 200, {
     'cache-control': 'public, max-age=3600',

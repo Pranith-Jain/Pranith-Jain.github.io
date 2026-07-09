@@ -104,7 +104,7 @@ export function getIocPivots(ioc: DetectedIoc): Pivot[] {
   if (ioc.type === 'cve') {
     pivots.push({
       label: 'CVE Lookup',
-      desc: 'NVD + CISA KEV + curated actor mapping',
+      desc: 'NVD + CISA KEV + heuristic actor scanning',
       path: `/dfir/cve?id=${enc}`,
     });
     pivots.push({

@@ -2,7 +2,8 @@ import { lookupCve } from './cve-lookup';
 import { ACTOR_ALIASES } from '../data/threat-actor-aliases';
 import { mitreGroupRef } from './ransomware-mitre-groups';
 import { techniquesForGroup } from './ransomware-group-techniques';
-import { cvesForActor, CVE_ACTORS } from './cve-actor-mapping';
+import { RANSOMWARE_SLUGS } from './ransomware-slugs';
+
 import { safeNullLog } from './safe-catch';
 
 const CVE_RE = /^CVE-\d{4}-\d{4,}$/i;
@@ -82,47 +83,6 @@ function truncated(acc: GraphAccum): boolean {
   return acc.nodes.size >= MAX_NODES || acc.edges.size >= MAX_EDGES;
 }
 
-// ── Slug resolution ──────────────────────────────────────────────────────
-
-const SLUG_ALIASES: Map<string, string> = new Map();
-
-function buildSlugMap(): void {
-  if (SLUG_ALIASES.size > 0) return;
-  for (const a of ACTOR_ALIASES) {
-    SLUG_ALIASES.set(a.slug.toLowerCase(), a.slug);
-    SLUG_ALIASES.set(a.canonical.toLowerCase(), a.slug);
-    for (const al of a.aliases) SLUG_ALIASES.set(al.toLowerCase(), a.slug);
-  }
-}
-
-function resolveSlug(raw: string): string | null {
-  buildSlugMap();
-  const lower = raw.toLowerCase();
-  if (SLUG_ALIASES.has(lower)) return SLUG_ALIASES.get(lower)!;
-  // Common variations: strip hyphens, try partial match
-  const noHyphen = lower.replace(/-/g, '');
-  if (SLUG_ALIASES.has(noHyphen)) return SLUG_ALIASES.get(noHyphen)!;
-  const withHyphen = lower.replace(/_/g, '-');
-  if (SLUG_ALIASES.has(withHyphen)) return SLUG_ALIASES.get(withHyphen)!;
-  // Partial match — slug or canonical contains the raw string
-  for (const a of ACTOR_ALIASES) {
-    if (a.slug.includes(lower) || a.canonical.toLowerCase().includes(lower)) return a.slug;
-  }
-  return null;
-}
-
-function resolveActor(rawSlug: string): { slug: string; label: string; isRansomware: boolean } | null {
-  const slug = resolveSlug(rawSlug);
-  if (!slug) return null;
-  const alias = ACTOR_ALIASES.find((a) => a.slug === slug);
-  if (!alias) return null;
-  return {
-    slug,
-    label: alias.canonical,
-    isRansomware: RANSOMWARE_SLUGS.has(slug),
-  };
-}
-
 // ── Resolve ──────────────────────────────────────────────────────────────
 
 export interface ResolvedEntity {
@@ -131,31 +91,6 @@ export interface ResolvedEntity {
   label: string;
   data?: Record<string, unknown>;
 }
-
-const RANSOMWARE_SLUGS = new Set([
-  'lockbit',
-  'blackcat-alphv',
-  'cl0p',
-  'royal',
-  'black-basta',
-  'play',
-  'rhysida',
-  'akira',
-  'medusa',
-  'bianlian',
-  'cactus',
-  'qilin',
-  'hunters-international',
-  'ransomhub',
-  'darkside',
-  'conti',
-  'hive',
-  'revil',
-  'inc-ransom',
-  'dragonforce',
-  '8base',
-  'lynx',
-]);
 
 export function resolveSeed(query: string): ResolvedEntity | null {
   const q = query.trim();
@@ -224,26 +159,8 @@ async function expandCve(acc: GraphAccum, cveId: string, depth: number): Promise
   if (acc.visited.has(nodeId)) return;
   acc.visited.add(nodeId);
 
-  const knownActors = CVE_ACTORS[cveId] ?? [];
-  for (const rawSlug of knownActors) {
-    const resolved = resolveActor(rawSlug);
-    const slug = resolved?.slug ?? rawSlug;
-    const label = resolved?.label ?? rawSlug;
-    const isRansomware = resolved?.isRansomware ?? false;
-    const actorNodeId = `actor:${slug}`;
-    if (!acc.nodes.has(actorNodeId)) {
-      addNode(acc, {
-        id: actorNodeId,
-        type: isRansomware ? 'ransomware' : 'actor',
-        label,
-        data: { slug, rawSlug },
-      });
-    }
-    addEdge(acc, nodeId, actorNodeId, 'exploited by');
-    if (truncated(acc)) return;
-  }
-
-  // Async: CVE details (CVSS, KEV, products)
+  // Async: CVE details (CVSS, KEV, products) — actor links come from
+  // heuristic NVD/KEV scanning, not curated mappings.
   if (depth > 0 && !truncated(acc)) {
     const result = await safeNullLog('lookup-cve-relgraph', lookupCve(cveId));
     if (result?.ok) {
@@ -273,7 +190,7 @@ async function expandCve(acc: GraphAccum, cveId: string, depth: number): Promise
         };
       }
 
-      // Link actors from look up that aren't in CVE_ACTORS
+      // Link actors from heuristic scan of CVE data
       if (d.actor_links) {
         for (const al of d.actor_links) {
           const aid = `actor:${al.slug}`;
@@ -299,16 +216,6 @@ function expandActor(acc: GraphAccum, slug: string, label: string, isRansomware:
   if (acc.visited.has(nodeId)) return;
   acc.visited.add(nodeId);
 
-  // CVEs attributed to this actor
-  const cves = cvesForActor(slug);
-  for (const cve of cves.slice(0, 15)) {
-    if (!acc.nodes.has(cve)) {
-      addNode(acc, { id: cve, type: 'cve', label: cve });
-    }
-    addEdge(acc, nodeId, cve, 'exploits');
-    if (truncated(acc)) return;
-  }
-
   // MITRE techniques (for actors with mitreId)
   const alias = ACTOR_ALIASES.find((a) => a.slug === slug);
   if (alias?.mitreId) {
@@ -330,7 +237,12 @@ function expandActor(acc: GraphAccum, slug: string, label: string, isRansomware:
     // MITRE group reference
     const ref = mitreGroupRef(alias.mitreId);
     if (ref && !isRansomware) {
-      // For non-ransomware actors, link to the MITRE group
+      const groupId = `mitre:${ref.id}`;
+      if (!acc.nodes.has(groupId)) {
+        addNode(acc, { id: groupId, type: 'technique', label: `${ref.id}: ${ref.name}` });
+      }
+      addEdge(acc, nodeId, groupId, 'attributed to');
+      if (truncated(acc)) return;
     }
   }
 
@@ -382,16 +294,6 @@ function expandRansomware(acc: GraphAccum, mitreId: string, _label: string): voi
     }
     addEdge(acc, aid, nodeId, 'operates');
     if (truncated(acc)) return;
-
-    // Also pull CVEs attributed to this actor
-    const cves = cvesForActor(a.slug);
-    for (const cve of cves.slice(0, 10)) {
-      if (!acc.nodes.has(cve)) {
-        addNode(acc, { id: cve, type: 'cve', label: cve });
-      }
-      addEdge(acc, aid, cve, 'exploits');
-      if (truncated(acc)) return;
-    }
   }
 }
 
