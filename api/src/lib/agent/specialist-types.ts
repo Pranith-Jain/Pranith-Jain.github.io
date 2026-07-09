@@ -20,8 +20,7 @@ export type SpecialistRole =
   | 'ransomware'
   | 'campaign-correlation'
   | 'dark-web'
-  | 'strategic-intel'
-  | 'export-stix';
+  | 'strategic-intel';
 
 export interface SpecialistDef {
   role: SpecialistRole;
@@ -544,7 +543,7 @@ Strategy:
     exitConditions: [
       {
         name: 'breach-searched',
-        met: (v) => hasToolBeenCalled(v.steps, 'get_breach_forums') || hasToolBeenCalled(v.steps, 'check_breach'),
+        met: (v) => hasToolBeenCalled(v.steps, 'get_breach_forums') || hasToolBeenCalled(v.steps, 'breach_check'),
         reason: () => 'Breach data collected',
       },
       {
@@ -574,7 +573,7 @@ ${toolList}
 Step ${step}/${maxSteps}.
 
 Strategy:
-- Step 1: check_breach (exposure check) + search_telegram_leaks
+- Step 1: breach_check (exposure check) + search_telegram_leaks
 - Step 2: get_breach_forums (forum activity) + trace_crypto_address if relevant
 - Step 3: Synthesize with exposure assessment and dark web presence.`;
     },
@@ -623,23 +622,6 @@ Strategy:
 - Step 2: get_ransomware_map + get_supply_chain_attacks for context
 - Step 3: Synthesize with strategic assessment.`;
     },
-  },
-
-  'export-stix': {
-    role: 'export-stix',
-    label: 'STIX Export Specialist',
-    description: 'Produces STIX 2.1 bundles, TLP-marked reports, and structured action cards.',
-    handlesQueryTypes: [],
-    maxSteps: 1,
-    exitConditions: [
-      {
-        name: 'always-exit',
-        met: () => true,
-        reason: () => 'STIX export is a terminal step',
-      },
-    ],
-    guardrails: [],
-    buildPlannerPrompt: () => '',
   },
 };
 
@@ -692,14 +674,7 @@ export const SPECIALIST_TOOLS: Record<SpecialistRole, string[]> = {
   phishing: ['analyze_phishing_url', 'analyze_phishing_email', 'check_ioc', 'lookup_domain'],
   ransomware: ['get_ransomware_activity', 'get_ransomware_negotiations', 'get_blocklists', 'unified_search'],
   'campaign-correlation': ['analyze_campaign', 'cross_campaign_correlate', 'cross_correlate', 'unified_search'],
-  'dark-web': [
-    'get_breach_forums',
-    'search_telegram_leaks',
-    'trace_crypto_address',
-    'breach_check',
-    'check_breach',
-    'unified_search',
-  ],
+  'dark-web': ['get_breach_forums', 'search_telegram_leaks', 'trace_crypto_address', 'breach_check', 'unified_search'],
   'strategic-intel': [
     'get_threat_pulse',
     'get_ransomware_map',
@@ -708,7 +683,6 @@ export const SPECIALIST_TOOLS: Record<SpecialistRole, string[]> = {
     'get_supply_chain_attacks',
     'unified_search',
   ],
-  'export-stix': ['build_stix_bundle', 'parse_threat_report'],
 };
 
 // ── Query-type to specialist routing ─────────────────────────────────────

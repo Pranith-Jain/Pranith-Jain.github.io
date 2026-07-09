@@ -28,6 +28,12 @@ export async function observeStep(
   // Deterministic fallback: summarize results without an LLM call
   const fallback = deterministicObserve(results);
 
+  // Skip LLM call if all tools errored — nothing to analyze
+  const allErrored = results.length > 0 && results.every((r) => r.status === 'error');
+  if (allErrored) {
+    return fallback;
+  }
+
   try {
     const system = buildObserverPrompt();
     const resultBlock = results

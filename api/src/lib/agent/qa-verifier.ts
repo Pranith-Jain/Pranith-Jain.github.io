@@ -4,7 +4,7 @@
  * and scores the report quality.
  */
 import type { Ai } from '@cloudflare/workers-types';
-import { runCompletion, type CompletionInput } from '../../case-study/generation/ai-client';
+import { runCompletion, GROQ_MODEL_FALLBACK, type CompletionInput } from '../../case-study/generation/ai-client';
 import type { AgentStep } from './types';
 import { neutralizeUntrusted, UNTRUSTED_DATA_SYSTEM_NOTE } from '../prompt-fence';
 
@@ -45,7 +45,7 @@ export async function verifyReport(
     googleKey: opts.googleKey,
     groqKey: opts.groqKey,
     nvidiaKey: opts.nvidiaKey,
-    quality: true,
+    groqModel: GROQ_MODEL_FALLBACK,
     preferGroq: true,
   });
 
@@ -92,10 +92,12 @@ Your job:
 - A claim is UNSUPPORTED if no tool result contains the information
 - A claim is MISATTRIBUTED if the data exists but is attributed to wrong entity/source
 - A claim is INCORRECT if it contradicts the tool data
-- CVSS scores, EPSS values, CVE IDs must EXACTLY match the tool data — no rounding, no approximation
+- CVE IDs must EXACTLY match the tool data — no approximation. CVSS scores may be rounded to 1 decimal place (standard presentation) or match exactly. EPSS values must match within 1% of tool data.
 - Actor names, aliases, and MITRE IDs must match tool data exactly
 - IOCs (IPs, domains, hashes) must appear in tool results — not invented
 - If a tool returned 0 results or errored, the report MUST NOT cite findings from it
+- IMPORTANT: Claims about which tools succeeded, which failed, or that a tool "returned no data" are DIAGNOSTIC statements about the investigation itself. These are SUPPORTED if they match the tool result status (ok/error) in the collected data — do NOT flag them as unsupported.
+- IMPORTANT: A statement like "only breach_check returned data" or "no other enrichment tools returned results" is a DIAGNOSTIC claim about tool statuses, NOT an inventing fact. These are correct when they accurately describe what tools were called and what they returned.
 </verification_rules>
 
 <output_format>

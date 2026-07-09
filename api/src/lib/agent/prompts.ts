@@ -77,6 +77,58 @@ export function buildObserverPrompt(): string {
  *   11. Competing Hypotheses (Optional) — ACH matrix
  *   12. About this Report — metadata
  */
+/**
+ * Minimal synthesizer prompt — used when almost all tools failed (totalOk <= 1).
+ * Produces ONLY the report-header, executive summary (clearly stating
+ * inconclusive), about-this-report metadata, handoff, and action-card.
+ * Does NOT include any of the Zeltser template sections (2-11) because
+ * there is no data to fill them — prevents LLM from inventing content.
+ */
+export function buildMinimalSynthesizerPrompt(currentDate?: string): string {
+  const date = currentDate ?? new Date().toISOString().split('T')[0];
+  return `<role>You are a senior CTI analyst producing a brief intelligence note. Almost NO enrichment tools returned data for this investigation. Your job is to state this clearly and concisely — do NOT write a full report.</role>
+
+<task>
+Write a MINIMAL output containing ONLY:
+
+1. A \`\`\`report-header JSON block (machine-readable BLUF). Set severity="info", confidence="low", posture="unknown", tlp="CLEAR". Include "headline" summarizing the query, "bluf" saying inconclusive, "key_takeaway" saying no actionable intelligence.
+
+2. A short prose section headed "## Executive Summary" that:
+   - States the investigation query
+   - Clearly says the result is inconclusive because enrichment tools returned insufficient data
+   - Lists which specific tools returned data and which failed/returned empty
+   - Does NOT draw any conclusions about the indicator being malicious or clean
+   - Does NOT invent any data, IOCs, MITRE techniques, CVEs, actor names, or verdicts
+
+3. A metadata section headed "## Report Metadata" — use a markdown table with this EXACT format:
+\`\`\`
+| | |
+|---|---|
+| **Report Title** | Investigation Report: [query] |
+| **Publication Date** | ${date} |
+| **Report Classification** | TLP: CLEAR |
+\`\`\`
+
+4. A :::handoff block with at most one stage: "review_report: Review the report for any potential updates or additional information".
+
+5. A \`\`\`action-card JSON block with:
+   - verdict: headline stating inconclusive, confidence "low", posture "unknown", tlp "CLEAR"
+   - severity "info"
+   - actions: one action with severity "info", category "inform", stakeholders ["cti"]
+   - iocs: only IOCs that appear in the ACTUAL tool data (not invented)
+   - NO mitre, diamond, pirs, navigatorLayer, timeline — OMIT all empty fields
+</task>
+
+<ground_rules>
+- AMBIGUITY IS THE ANSWER. If you have no data, say so. Do not interpret "no data" as "clean".
+- ZERO invented content. No CVEs, no IPs, no hashes, no actor names, no MITRE IDs, no techniques, no scores.
+- The executive summary must state which tools succeeded and which failed verbatim.
+- NEVER write "No data available" — instead write the tool name and its actual result (or error).
+- ≤400 words total. Very short.
+- BANNED: "It is important to note", "further investigation recommended", "additional analysis may be warranted", "in conclusion".
+</ground_rules>`;
+}
+
 export function buildSynthesizerPrompt(query: string, queryType: string, currentDate?: string): string {
   const isActor = queryType === 'actor' || queryType === 'ransomware';
   const isCve = queryType === 'cve';
@@ -92,7 +144,7 @@ export function buildSynthesizerPrompt(query: string, queryType: string, current
 <task>
 Write the report below following the Zeltser CTI Report Template structure. Use ONLY the investigation data. If a section has no data, OMIT it entirely — never write "Not available". Numbers, identifiers, and dates must come from tool data, never be invented.
 
-Each section below is a CONTRACT — produce exactly that heading, exactly that format. The report should be suitable for distribution to the security community (TLP:CLEAR/GREEN/AMBER depending on sensitivity).
+Each section below is a CONTRACT — produce exactly that heading, exactly that format. If you OMIT a section, renumber subsequent sections so there are no gaps (e.g. if section 2 is omitted, section 3 becomes section 2). Sections 10 and 11 are always optional — omit them unless criteria are met.
 
 ## 0. STRUCTURED HEADER
 The FIRST block in the report MUST be a fenced \`\`\`report-header code block. The UI parses this for the dashboard BLUF panel — never paraphrase. Strict JSON:
@@ -129,9 +181,7 @@ Each row pairs a decision question with the finding that answers it. Provide con
 ## 2. Actor Snapshot
 ${
   isActor
-    ? `Quick-reference profile of the actor. Include only fields with data; mark others "Unknown." If no actor data exists at all, OMIT this entire section.`
-    : `Include only when tool data contains an actor attribution. If no enrichment data identifies an actor, OMIT this section entirely — do not fabricate.`
-}
+    ? `Quick-reference profile of the target. Include only data with data; omit rows with no data. If no data exists at all, OMIT this entire section.
 
 | Field | Value |
 |---|---|
@@ -145,7 +195,9 @@ ${
 | **Target Regions** | |
 | **Tradecraft Summary** | 1-2 sentences: signature lures, tooling, infrastructure patterns |
 | **Demonstrated Capability** | How effective the actor has been at achieving objectives |
-| **Confidence in Characterization** | High / Moderate / Low per ICD-203 |
+| **Confidence in Characterization** | High / Moderate / Low per ICD-203 |`
+    : `Include only when tool data contains an actor attribution. If no enrichment data identifies an actor, OMIT this section entirely — do not fabricate.`
+}
 
 ## 3. Methodology
 
@@ -320,10 +372,8 @@ Auto-fill all fields from investigation metadata.
 | | |
 |---|---|
 | **Report Title** | Auto-generated from query: [brief title, e.g. "CVE-2026-1234 Exploitation Analysis" or "IP 1.2.3.4 C2 Infrastructure Report"] |
-| **Author(s) and Organization** | CTI Analyst Agent — pranithjain.com |
 | **Publication Date** | ${currentDate ?? new Date().toISOString().split('T')[0]} |
 | **Report Classification** | TLP: [CLEAR / GREEN / AMBER / RED — match the report-header TLP] |
-| **Follow-Up Contact** | Security team — contact@pranithjain.com |
 
 ### Report Changelog
 
@@ -331,8 +381,7 @@ Auto-fill all fields from investigation metadata.
 |---|---|---|
 | [publication date] | CTI Analyst Agent | Initial report |
 
-## HANDOFF BLOCK
-Append a single \`:::handoff\` block listing the next workflow stages the analyst should run. The block is plain markdown, not JSON. Example:
+Append a single \`:::handoff\` block listing the next workflow stages the analyst should run. Do NOT add a "HANDOFF BLOCK" heading — just the fence. Example:
 
 \`\`\`
 :::handoff
@@ -430,7 +479,7 @@ Rules:
 - diamond: include only when ≥2 vertices have data. Otherwise OMIT the field.
 - pirs: 3-7 entries. Mark the ones the investigation actually touched as relevant:true.
 - navigatorLayer: techniques = same as mitre, score 0-100 based on directness of evidence (50 = mentioned, 80 = directly observed).
-- If posture is "active" or "post-exploit", severity MUST be critical or high.
+- VALIDATION: posture=active or post-exploit → severity MUST be critical or high. posture=reconnaissance → severity high or medium. posture=informational → severity medium, low, or info. posture=unknown → severity info or low.
 - kev=true ONLY if CISA KEV was confirmed by a tool (do not guess).
 - kev_date is the YYYY-MM-DD KEV listing date — include if known.
 - cvss.score is 0-10 with one decimal. cvss.vector is the full CVSS:3.1 vector.
@@ -462,74 +511,86 @@ export function buildSynthesizerUserPrompt(query: string, queryType: string, ste
     })
     .join('\n\n');
 
-  // Build a data availability checklist
+  // Build a data availability checklist — only for tools that were ACTUALLY
+  // called. Uncalled tools are NOT listed so the LLM doesn't confuse "not
+  // called" with "failed". Each entry shows the actual tool name and result.
   const allTools = steps.flatMap((s) => s.results);
   const okTools = allTools.filter((r) => r.status === 'ok');
   const errTools = allTools.filter((r) => r.status === 'error');
+  const calledToolNames = new Set(allTools.map((r) => r.tool));
   const hasData = (tool: string) => okTools.some((r) => r.tool === tool && r.data);
 
-  const availability = [
-    `check_ioc / enrich_ioc_deep: ${hasData('check_ioc') || hasData('enrich_ioc_deep') ? 'YES' : 'NO'}`,
-    `lookup_tre_ge: ${hasData('lookup_tre_ge') ? 'YES' : 'NO'}`,
-    `breach_check: ${hasData('breach_check') ? 'YES' : 'NO'}`,
-    `maltiverse_verify: ${hasData('maltiverse_verify') ? 'YES' : 'NO'}`,
-    `lookup_domain: ${hasData('lookup_domain') ? 'YES' : 'NO'}`,
-    `lookup_ipinfo: ${hasData('lookup_ipinfo') ? 'YES' : 'NO'}`,
-    `lookup_asn: ${hasData('lookup_asn') ? 'YES' : 'NO'}`,
-    `lookup_dns: ${hasData('lookup_dns') ? 'YES' : 'NO'}`,
-    `lookup_reverse_dns: ${hasData('lookup_reverse_dns') ? 'YES' : 'NO'}`,
-    `webamon_search / webamon_domain: ${hasData('webamon_search') || hasData('webamon_domain') ? 'YES' : 'NO'}`,
-    `lookup_builtwith: ${hasData('lookup_builtwith') ? 'YES' : 'NO'}`,
-    `lookup_cve: ${hasData('lookup_cve') ? 'YES' : 'NO — OMIT CVE sections'}`,
-    `search_triage: ${hasData('search_triage') ? 'YES' : 'NO'}`,
-    `enrich_actor: ${hasData('enrich_actor') ? 'YES' : 'NO — OMIT actor profile'}`,
-    `actor_timeline: ${hasData('actor_timeline') ? 'YES' : 'NO'}`,
-    `actor_cves: ${hasData('actor_cves') ? 'YES' : 'NO'}`,
-    `search_malpedia: ${hasData('search_malpedia') ? 'YES' : 'NO'}`,
-    `get_ransomware_negotiations: ${hasData('get_ransomware_negotiations') ? 'YES' : 'NO'}`,
-    `get_ransomware_activity: ${hasData('get_ransomware_activity') ? 'YES' : 'NO'}`,
-    `generate_yara_rule: ${hasData('generate_yara_rule') ? 'YES' : 'NO — OMIT detection section'}`,
-    `generate_hunting_queries: ${hasData('generate_hunting_queries') ? 'YES' : 'NO'}`,
-    `unified_search: ${hasData('unified_search') ? 'YES' : 'NO'}`,
-    `get_relationships: ${hasData('get_relationships') ? 'YES' : 'NO — OMIT relationships'}`,
-    `get_ioc_lifecycle: ${hasData('get_ioc_lifecycle') ? 'YES' : 'NO — OMIT lifecycle'}`,
-    `lookup_certificate_transparency: ${hasData('lookup_certificate_transparency') ? 'YES' : 'NO'}`,
-    `lookup_wayback_advanced: ${hasData('lookup_wayback_advanced') ? 'YES' : 'NO'}`,
-    `urlscan_ip_search: ${hasData('urlscan_ip_search') ? 'YES' : 'NO'}`,
-    `lookup_ip_geo: ${hasData('lookup_ip_geo') ? 'YES' : 'NO'}`,
-    `trace_crypto_address: ${hasData('trace_crypto_address') ? 'YES' : 'NO'}`,
-    `lookup_cisa_kev: ${hasData('lookup_cisa_kev') ? 'YES' : 'NO'}`,
-  ];
+  // Only list tools the agent actually called. NO — not called, NO (empty) —
+  // called but returned nothing, ERROR — called and failed.
+  const toolStatus = (name: string): string => {
+    if (!calledToolNames.has(name)) return ''; // not called, don't list
+    if (errTools.some((r) => r.tool === name)) return 'ERROR';
+    if (!hasData(name)) return 'OK (empty result)';
+    return 'OK (has data)';
+  };
+
+  const availability: string[] = [];
+  const omitTools: string[] = [];
+  for (const name of [...calledToolNames].sort()) {
+    const status = toolStatus(name);
+    if (status === '') continue;
+    const line = `${name}: ${status}`;
+    availability.push(line);
+    if (status === 'ERROR') omitTools.push(name);
+  }
 
   const totalResults = allTools.length;
   const successRate = totalResults > 0 ? Math.round((okTools.length / totalResults) * 100) : 0;
-  const uniqueTools = [...new Set(okTools.map((r) => r.tool))];
+  const uniqueCalled = [...new Set(allTools.map((r) => r.tool))];
+
+  // Guidance for tools that were OMITTED from the availability list (not called).
+  const omitGuidance = [
+    { pattern: 'check_ioc', section: 'IOC reputation' },
+    { pattern: 'enrich_ioc_deep', section: 'IOC reputation' },
+    { pattern: 'enrich_actor', section: 'actor profile' },
+    { pattern: 'lookup_cve', section: 'CVE analysis' },
+    { pattern: 'generate_yara_rule', section: 'detection content' },
+    { pattern: 'get_relationships', section: 'relationship graph' },
+    { pattern: 'get_ioc_lifecycle', section: 'IOC lifecycle' },
+  ];
+  const omittedSections = omitGuidance.filter((g) => !calledToolNames.has(g.pattern)).map((g) => g.section);
+  const omitNote =
+    omittedSections.length > 0
+      ? `\n\nThe following sections were NOT investigated (tools not called): ${[...new Set(omittedSections)].join(', ')}. Omit these sections from the report entirely.`
+      : '';
 
   return `<investigation>
 Query: ${neutralizeUntrusted(query)}
 Type: ${queryType}
 Steps: ${steps.length}
-Tool results: ${okTools.length} ok, ${errTools.length} failed (${successRate}% success rate)
-Tools called: ${uniqueTools.join(', ')}
+Tool results: ${okTools.length} ok, ${errTools.length} error (${successRate}% success rate of called tools)
+Tools called: ${uniqueCalled.join(', ') || 'none'}
 </investigation>
 
 <quality_summary>
 ${
-  successRate >= 80
-    ? 'HIGH quality data — most tools succeeded. Write a confident, detailed report.'
-    : successRate >= 50
-      ? "MEDIUM quality data — some tools failed. Be precise about what you know vs what you don't."
-      : 'LOW quality data — many tools failed. Write a thorough report about what the available tools found. Flag gaps where data is thin, but do not downplay substantive results.'
+  errTools.length === 0 && okTools.length >= 3
+    ? 'GOOD quality data — all called tools returned data. Write a thorough report.'
+    : okTools.length > 0 && errTools.length < okTools.length
+      ? `MIXED quality — ${okTools.length} tool(s) returned data, ${errTools.length} failed. Report what the successful tools found and note gaps where tools errored.`
+      : `LOW quality — most or all called tools failed. The report will be brief. Do not invent data.`
 }
-Key data sources: ${uniqueTools.slice(0, 8).join(', ')}
-${errTools.length > 0 ? `Failed sources: ${[...new Set(errTools.map((r) => r.tool))].join(', ')}` : ''}
+Key data sources: ${[...new Set(okTools.map((r) => r.tool))].slice(0, 8).join(', ') || 'none'}
+${omitTools.length > 0 ? `Failed tools: ${[...new Set(omitTools)].join(', ')}` : ''}
 </quality_summary>
 
 <data_availability>
-${availability.join('\n')}
+${availability.length > 0 ? availability.join('\n') : 'No tools were called during this investigation.'}
+${omitNote}
 </data_availability>
 
-RULE: If data_availability says "NO — OMIT", then SKIP that section entirely. Do NOT write "Not available".
+CRITICAL RULES:
+- "OK (has data)" = tool returned actual results. You may cite its data.
+- "OK (empty result)" = tool ran but found nothing. Do NOT cite findings from it.
+- "ERROR" = tool failed. Do NOT cite findings from it.
+- Tools NOT listed were never called. Do NOT mention them at all — do not say "not called" or "not available".
+- If most tools returned OK (has data), write a normal report about what they found.
+- If most tools returned ERROR or empty, write only what you have — brief is honest.
 
 <investigation_data>
 ${stepBlocks}
