@@ -37,20 +37,29 @@ export async function synthesizeReport(
     emptyResults: 0,
   };
 
+  // Check if any single tool returned rich data — enough to write a full
+  // report even if few tools succeeded. "Rich" means JSON with multiple
+  // substantive fields (not just a verdict + score).
+  const allStepData = steps.flatMap((s) => s.results.filter((r) => r.status === 'ok' && r.data));
+  const hasRichData = allStepData.some((r) => {
+    const json = JSON.stringify(r.data);
+    return json.length > 400;
+  });
+
   // If almost all tools failed or returned empty, the report will be thin.
   // Add a warning to the synthesizer so it doesn't hallucinate to fill gaps.
   let dataWarning = '';
-  if (dq.totalOk <= 1) {
+  if (dq.totalOk <= 1 && !hasRichData) {
     dataWarning = `\n\nWARNING: Only ${dq.totalOk} tool(s) returned data. ${dq.totalErr} failed. The report must honestly reflect this — write "Investigation inconclusive — insufficient data from enrichment sources" in the executive summary and OMIT all other sections. DO NOT invent data. The action card severity MUST be "info" and confidence MUST be "low".`;
   } else if (dq.emptyResults > dq.totalOk / 2) {
     dataWarning = `\n\nWARNING: ${dq.emptyResults} of ${dq.totalOk} tool results were nearly empty. Be honest about what is actually known.`;
   }
 
   const currentDate = new Date().toISOString().split('T')[0];
-  // When almost all tools failed, use the minimal prompt that prevents
-  // the LLM from inventing entire sections. The full Zeltser template is
-  // only appropriate when there is actual data to support it.
-  const useMinimal = dq.totalOk <= 1;
+  // Use minimal prompt only when ALL tools failed AND no rich data exists.
+  // A single tool with substantive data (e.g. lookup_cve returning full
+  // CVE details, CVSS, CWE, references) should use the full template.
+  const useMinimal = dq.totalOk <= 1 && !hasRichData;
   const system = useMinimal
     ? buildMinimalSynthesizerPrompt(currentDate)
     : buildSynthesizerPrompt(query, queryType, currentDate);
@@ -67,20 +76,30 @@ export async function synthesizeReport(
     preferGroq: true,
   });
 
-  const { report, actionCard, handoff, reportHeader } = splitSynthOutput(text);
+  const { report, actionCard, handoff, reportHeader: rawHeader } = splitSynthOutput(text);
   const keyFindings = extractKeyFindings(report);
   const iocs = extractIocs(report);
   const mitre = extractMitre(report);
   const confidence = actionCard?.verdict.confidence ?? estimateConfidence(steps, dq);
 
+  // Normalize the report-header values so the UI never receives invalid enum
+  // values. The LLM may emit anything — the type assertion is not enforced.
+  const reportHeader = rawHeader ? normaliseReportHeader(rawHeader) : undefined;
+
   // Attach handoff + reportHeader to the action card so the UI can show
   // both the next-step buttons AND the BLUF panel without re-parsing the
-  // raw report text.
+  // raw report text. Propagate the report-header verdict values into the
+  // action card so they stay in sync (e.g. TLP should match).
   if (actionCard) {
     if (handoff) {
       (actionCard as ReportActionCard & { handoff?: typeof handoff }).handoff = handoff;
     }
     if (reportHeader) {
+      // Propagate report-header values into the action card
+      actionCard.verdict.tlp = reportHeader.tlp;
+      actionCard.verdict.posture = reportHeader.posture;
+      actionCard.verdict.confidence = reportHeader.confidence;
+      actionCard.severity = reportHeader.severity;
       (actionCard as ReportActionCard & { reportHeader?: ReportHeader }).reportHeader = reportHeader;
     }
   }
@@ -179,7 +198,12 @@ export function splitSynthOutput(raw: string): {
     card = synthesiseFallbackCard(prose);
   }
 
-  return { report: prose, actionCard: card, handoff, reportHeader };
+  return {
+    report: prose,
+    actionCard: card,
+    handoff,
+    reportHeader: reportHeader ? normaliseReportHeader(reportHeader) : undefined,
+  };
 }
 
 function parseHandoff(text: string): { next_stages: string[]; analyst_approval_required: boolean } {
@@ -439,6 +463,29 @@ function normaliseStakeholders(input: unknown): ActionStakeholder[] {
   }
   // Keep order deterministic with allowed list as tiebreaker
   return out.sort((a, b) => STAKEHOLDER_ALLOWED.indexOf(a) - STAKEHOLDER_ALLOWED.indexOf(b));
+}
+
+/** Normalize a parsed report-header so all enum fields are valid. */
+function normaliseReportHeader(h: ReportHeader): ReportHeader {
+  const sev: ReportHeader['severity'] = (['critical', 'high', 'medium', 'low', 'info'] as const).includes(
+    h.severity as ReportHeader['severity']
+  )
+    ? (h.severity as ReportHeader['severity'])
+    : 'info';
+  const pos: ReportHeader['posture'] = (
+    ['active', 'reconnaissance', 'post-exploit', 'informational', 'unknown'] as const
+  ).includes(h.posture as ReportHeader['posture'])
+    ? (h.posture as ReportHeader['posture'])
+    : 'unknown';
+  const conf: ReportHeader['confidence'] = (['high', 'medium', 'low'] as const).includes(
+    h.confidence as ReportHeader['confidence']
+  )
+    ? (h.confidence as ReportHeader['confidence'])
+    : 'low';
+  const tlp: ReportHeader['tlp'] = (['CLEAR', 'GREEN', 'AMBER', 'RED'] as const).includes(h.tlp as ReportHeader['tlp'])
+    ? (h.tlp as ReportHeader['tlp'])
+    : 'AMBER';
+  return { ...h, severity: sev, posture: pos, confidence: conf, tlp };
 }
 
 function extractHeadline(prose: string): string | undefined {
