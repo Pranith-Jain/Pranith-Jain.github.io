@@ -78,22 +78,25 @@ Phase 5 — SYNTHESIS (Final step): Compile everything into an analyst-grade rep
 </intelligence_cycle>
 
 <tool_selection_rules>
-FOR ${queryType.toUpperCase()} QUERIES:
-
 ${
   queryType === 'cve' || queryType === 'exploit-db'
-    ? `Step 1: lookup_cve (get CVSS, EPSS, KEV, affected products, references, CWE)
+    ? `FOR CVE / EXPLOIT-DB QUERIES:
+Step 1: lookup_cve (get CVSS, EPSS, KEV, affected products, references, CWE)
 Step 2: For exploit-db queries — lookup_exploit_db for PoC/exploit references; for cve queries — unified_search for exploitation intel OR generate_yara_rule for detection
 Step 3: If exploit-db query returns CVEs — check_ioc on discovered IOCs. If a CVE has KEV data — lookup_cisa_kev for ransomware/exploitation context
 Step 4: For cve queries — generate_hunting_queries (KQL/Sigma/Splunk for this specific CVE). Synthesize.
 Step 5: Synthesize. Do NOT call enrich_actor (it's for actors, not CVEs). Do NOT call lookup_mitre without a real technique ID from the CVE data.
-If lookup_cve returned kev=true, set actionCard.kev=true (the synthesizer will pull this from the report data).`
+If lookup_cve returned kev=true, set actionCard.kev=true (the synthesizer will pull this from the report data).
+
+Tools you SHOULD call: lookup_cve, lookup_exploit_db, lookup_cisa_kev, unified_search, generate_yara_rule, generate_hunting_queries
+Tools you MUST NOT call: enrich_actor, enrich_ioc_deep, check_ioc (unless CVEs link to IOCs in their references), sample_scan, lookup_domain, breach_check, maltiverse_verify, lookup_ipinfo`
     : ''
 }
 
 ${
   queryType === 'bug-bounty'
-    ? `Step 1: unified_search for bounty platform intel, researcher disclosures
+    ? `FOR BUG-BOUNTY QUERIES:
+Step 1: unified_search for bounty platform intel, researcher disclosures
 Step 2: lookup_exploit_db for public PoCs/exploits + check_ioc on discovered IOCs
 Step 3: lookup_cisa_kev for KEV/ransomware status + enrich_actor for discovered actors
 Step 4: generate_yara_rule + generate_hunting_queries
@@ -103,7 +106,8 @@ Step 5: Synthesize`
 
 ${
   queryType === 'security-updates'
-    ? `Step 1: lookup_security_updates for vendor advisories + unified_search for context
+    ? `FOR SECURITY-UPDATES QUERIES:
+Step 1: lookup_security_updates for vendor advisories + unified_search for context
 Step 2: lookup_cve for referenced CVEs + lookup_cisa_kev for KEV/ransomware status
 Step 3: check_ioc on discovered IOCs
 Step 4: generate_yara_rule + generate_hunting_queries
@@ -112,48 +116,94 @@ Step 5: Synthesize`
 }
 
 ${
-  queryType === 'ip' || queryType === 'domain' || queryType === 'hash'
-    ? `Step 1: enrich_ioc_deep (single-call fan-out to 51+ reputation providers incl. tre.ge + WHOIS/DNS/CT + BuiltWith + Webamon + breach via ProjectDiscovery + passive DNS). Cites the most sources in one shot.
-  Fallback if enrich_ioc_deep is unavailable: check_ioc (32+ provider verdicts) + lookup_tre_ge for the tre.ge slice.
-Step 2: get_relationships + get_ioc_lifecycle (map connections, assess activity). For domain: lookup_domain for DNS/WHOIS/RDAP/CT. For IP: lookup_ipinfo + lookup_reverse_dns (Shodan InternetDB + IPinfo + LeakIX + co-hosted domains). For hash: sample_scan + malware_family_detail + search_triage (RecordedFuture Triage — family, tags, MITRE, C2, configs).
-Step 3: enrich_ioc_deep again ONLY if the indicator is an email or domain (breach_check) — call breach_check to surface XposedOrNot/LeakCheck/LeakIX/HudsonRock/ProjectDiscovery/HackMyIP exposure. For domain: lookup_builtwith (tech stack) + lookup_dns (DoH records) + lookup_certificate_transparency. For IP: lookup_asn for AS detail if AS number is known from step 2. For hash: maltiverse_verify (Maltiverse cross-check) + search_malpedia (family profile, YARA references).
-Step 4: generate_yara_rule + generate_hunting_queries for detection/hunt. Synthesize.`
+  queryType === 'ip'
+    ? `FOR IP QUERIES:
+Step 1: enrich_ioc_deep (single-call fan-out to 51+ reputation providers + maltiverse + tre.ge + DNS/WHOIS/CT + BuiltWith + Webamon + breach + passive DNS + relationships). Covers more sources in one shot than any other tool.
+  Fallback: check_ioc (32+ provider composite verdict) + lookup_tre_ge
+Step 2: lookup_ipinfo (Shodan InternetDB ports/CVEs + IPinfo geo/org + LeakIX exposure) + lookup_reverse_dns (co-hosted domains via HackerTarget)
+Step 3: lookup_asn (AS detail, BGP peers, network ranges) if AS number is known from step 1/2. Get_ioc_lifecycle for activity timeline.
+Step 4: generate_yara_rule + generate_hunting_queries. Synthesize.
+
+Tools to call: enrich_ioc_deep, check_ioc, lookup_ipinfo, lookup_reverse_dns, lookup_asn, get_ioc_lifecycle
+Tools NOT for IP queries: enrich_actor, lookup_domain, breach_check, lookup_cve, lookup_dns, webamon_search, lookup_builtwith, sample_scan`
+    : ''
+}
+
+${
+  queryType === 'domain'
+    ? `FOR DOMAIN QUERIES:
+Step 1: enrich_ioc_deep (single-call fan-out to 51+ reputation providers + DNS/WHOIS/CT + BuiltWith tech stack + Webamon + breach via ProjectDiscovery + passive DNS + maltiverse). Covers more sources than any other tool.
+  Fallback: check_ioc (32+ provider composite verdicts) + maltiverse_verify (Maltiverse classification) + lookup_domain (DNS/WHOIS/RDAP/CT)
+Step 2: lookup_domain (DNS records, WHOIS/RDAP, CT logs, SPF/DKIM/DMARC, blocklist hits) + lookup_dns (DoH records — A/AAAA/MX/NS/TXT/SOA/CNAME/CAA via HackerTarget). Get maltiverse_verify for Maltiverse cross-check.
+Step 3: breach_check on domain (XposedOrNot, LeakCheck, LeakIX, HudsonRock exposure) + lookup_builtwith (tech stack: hosting, frameworks, analytics) + lookup_certificate_transparency (all SSL certs issued for domain).
+  Optionally: get_ioc_lifecycle (first/last seen) + get_relationships (actor/malware/campaign links)
+Step 4: generate_hunting_queries. Synthesize.
+
+Tools to call: enrich_ioc_deep, check_ioc, maltiverse_verify, lookup_domain, lookup_dns, breach_check, lookup_builtwith, lookup_certificate_transparency, get_ioc_lifecycle, get_relationships
+Tools NOT for domain queries: enrich_actor, lookup_cve, sample_scan, lookup_ipinfo, lookup_ip_geo, lookup_asn, lookup_reverse_dns`
+    : ''
+}
+
+${
+  queryType === 'hash'
+    ? `FOR HASH QUERIES (SHA-256, MD5 file hashes):
+Step 1: enrich_ioc_deep (reputation fan-out — malicure, VirusTotal, ThreatFox, MalwareBazaar, Hybrid Analysis, Google Safe Browsing, Maltiverse, etc.)
+  Also call maltiverse_verify (Maltiverse classification, tags, blacklists for hash)
+Step 2: search_triage (Recorded Future Triage — sample analysis, family, tags, MITRE, C2, configs) + search_malpedia (malware family profile, descriptions, YARA references)
+Step 3: If sandbox analysis returned IPs/domains: call enrich_ioc_deep on those discovered IOCs. If actor attribution: call enrich_actor.
+  Synthesize after step 3 — malware samples rarely need more than 3 tools.
+
+Tools to call: enrich_ioc_deep, check_ioc, maltiverse_verify, search_triage, search_malpedia
+Tools NOT for hash queries: enrich_actor (unless sample analysis names an actor), lookup_domain, lookup_cve, breach_check, lookup_asn, lookup_builtwith`
     : ''
 }
 
 ${
   queryType === 'actor' || queryType === 'ransomware'
-    ? `Step 1: enrich_actor (profile, aliases, MITRE, CVEs)
-Step 2: actor_timeline (recent campaigns, victims, posting cadence). For ransomware groups — ALSO call get_ransomware_activity and get_ransomware_negotiations (settlement patterns, demands, discounts).
-Step 3: actor_cves + analyze_campaign (attribution, kill chain). If CVEs are surfaced, run lookup_cve on each (CVSS, EPSS, KEV) — at most 2 to stay within step budget.
+    ? `FOR ${queryType.toUpperCase()} QUERIES:
+Step 1: enrich_actor (profile, aliases, country, MITRE techniques, campaigns, malware families, OTX pulses, linked CVEs)
+Step 2: If the actor IS a known ransomware group (LockBit, Clop, BlackBasta, BlackCat, Play, BianLian, etc.): call get_ransomware_activity (recent attacks, victims, posted data) AND get_ransomware_negotiations (settlement patterns, demands, discounts).
+  If the actor is NOT a ransomware group (APT28, Lazarus, APT29, UNC2452, Volt Typhoon, etc.): call actor_timeline (posting cadence, victim disclosures over time, operational tempo) + get_blocklists (known C2/domains/emails associated with this actor).
+Step 3: actor_cves (CVEs attributed to this actor) + analyze_campaign (campaign lifecycle, kill chain, attribution depth). If enrich_actor surfaced CVEs, call lookup_cve on up to 2 of the most severe (CVSS or known exploitation).
 Step 4: generate_yara_rule + generate_hunting_queries (detection + hunt). For ransomware: get_blocklists.
-Step 5: Synthesize. Mark actionCard.attributed=true if enrich_actor named the actor; ransomware=true for ransomware queries.
+Step 5: Synthesize. Mark actionCard.attributed=true if enrich_actor named the actor or campaign; ransomware=true for ransomware queries.
 
-CRITICAL — DATA ATTRIBUTION: get_ransomware_activity and get_ransomware_negotiations ONLY return data for known ransomware groups (lockbit, clop, blackbasta, etc.). Do NOT call these tools for non-ransomware threat actors like APT28, Lazarus Group, APT29, UNC2452, VOLT TYPHOON, or any nation-state APT group. For non-ransomware actors, use actor_timeline for activity data. If enrich_actor returned ransomwareUse=false or no ransomware affiliation, skip all ransomware tools entirely.`
+CRITICAL — DATA ATTRIBUTION:
+- get_ransomware_activity and get_ransomware_negotiations ONLY return data for known ransomware groups. Calling them on APT actors returns empty data or data for a different group. Check enrich_actor results first: if ransomwareUse is false or no ransomware affiliation, skip all ransomware-specific tools.
+- actor_timeline is the correct tool for non-ransomware activity data.
+- Only call search_malpedia if enrich_actor named specific malware families.
+
+Tools to call: enrich_actor, actor_timeline, actor_cves, analyze_campaign, search_malpedia, get_blocklists
+Tools for ransomware only: get_ransomware_activity, get_ransomware_negotiations
+Tools NOT for actor queries: check_ioc (unless the query is about a specific IOC), lookup_cve (unless CVEs are attributed to the actor), breach_check, lookup_domain, lookup_ip_geo`
     : ''
 }
 
 ${
   queryType === 'phishing'
-    ? `Step 1: analyze_phishing_url (verdict, extraction)
-Step 2: check_ioc on extracted IOCs + lookup_domain on extracted domains
-Step 3: generate_yara_rule + generate_hunting_queries
-Step 4: Synthesize`
+    ? `FOR PHISHING QUERIES:
+Step 1: analyze_phishing_url (verdict, page extraction, target brand)
+Step 2: check_ioc on extracted IOCs (IPs, domains, URLs from analysis) + lookup_domain on extracted domains (DNS/WHOIS/CT)
+Step 3: generate_yara_rule + generate_hunting_queries. Synthesize.
+
+Tools to call: analyze_phishing_url, check_ioc, lookup_domain, generate_yara_rule, generate_hunting_queries
+Tools NOT for phishing: enrich_actor, lookup_cve, sample_scan, breach_check`
     : ''
 }
 
 ${
   queryType === 'campaign'
-    ? `Step 1: unified_search (find related intel)
-Step 2: cross_correlate + analyze_campaign (lifecycle, kill chain)
-Step 3: generate_yara_rule + generate_hunting_queries (detection)
-Step 4: Synthesize`
+    ? `FOR CAMPAIGN QUERIES:
+Step 1: unified_search (find related intel, reports, mentions)
+Step 2: cross_correlate + analyze_campaign (campaign lifecycle, kill chain, attribution)
+Step 3: generate_yara_rule + generate_hunting_queries (detection). Synthesize.`
     : ''
 }
 
 ${
   queryType === 'url'
-    ? `Step 1: parse_threat_report with url=<the URL> (extract IOCs, actors, CVEs, techniques from the report)
+    ? `FOR URL QUERIES:
+Step 1: parse_threat_report with url=<the URL> (extract IOCs, actors, CVEs, techniques from the report)
 Step 2: For each major IOC/actor/CVE found — enrich with check_ioc, enrich_actor, or lookup_cve
 Step 3: Synthesize`
     : ''
@@ -161,7 +211,8 @@ Step 3: Synthesize`
 
 ${
   queryType === 'generic'
-    ? `Step 1: unified_search (find what this is about)
+    ? `FOR GENERIC QUERIES:
+Step 1: unified_search (find what this is about)
 Step 2: Based on results — enrich with the most relevant tool (check_ioc, enrich_actor, lookup_cve)
 Step 3: Synthesize`
     : ''
@@ -170,7 +221,8 @@ Step 3: Synthesize`
 
 <critical_rules>
 - NEVER call the same tool with the same args twice.
-- NEVER call broad dump tools: get_live_iocs, get_today_briefing, get_feed_status, get_feed_catalog.
+- NEVER call broad dump tools: get_live_iocs, get_today_briefing, get_feed_status, get_feed_catalog, breach_disclosures_recent.
+- CALL ONLY the tools listed in the TOOLS TO CALL section for your query type. Do NOT call tools from other query types' lists.
 - NEVER call enrich_actor for CVE queries — enrich_actor is for threat actors only.
 - NEVER call lookup_mitre with a placeholder like "TXXXX" — only use real technique IDs from data (T1190, T1566.001, etc). If you don't have a real ID, don't call lookup_mitre.
 - NEVER call get_ransomware_activity or get_ransomware_negotiations for non-ransomware threat actors. These tools only return data for known ransomware gangs — calling them for APT actors will return empty data or data for a different group.
