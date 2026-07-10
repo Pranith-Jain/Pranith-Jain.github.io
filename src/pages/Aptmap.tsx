@@ -156,7 +156,9 @@ export default function AptmapPage() {
         if (!alive) return;
         if (!idxRes.ok || !graphRes.ok) throw new Error('Failed to load APTmap data');
         setIndex(await idxRes.json());
-        setGraph(await graphRes.json());
+        const graphJson = await graphRes.json();
+        // API wraps graph inside { nodes: count, links: count, graph: { nodes, links } }
+        setGraph(graphJson.graph ?? graphJson);
         setFiletypes(ftRes.ok ? (await ftRes.json()).slice(0, 50) : []);
         setFilesizes(fsRes.ok ? await fsRes.json() : []);
         setSections(secRes.ok ? (await secRes.json()).slice(0, 50) : []);
