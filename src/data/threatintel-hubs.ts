@@ -185,6 +185,13 @@ export const HUB_META: readonly HubMeta[] = [
         label: 'APT Actor Database',
         desc: 'ETDA Threat Group Cards — 416+ threat actors with attribution, tools, sectors, and operations.',
         compVar: 'ETDAActors',
+      },
+      {
+        path: '/threatintel/aptmap',
+        tabId: 'aptmap',
+        label: 'APTmap Malware Analysis',
+        desc: 'Cross-sample malware analysis across 18,000+ samples — file types, PE metadata, DLL imports, certificates, and APT-to-tool relationships.',
+        compVar: 'Aptmap',
         badge: 'new',
       },
     ],

@@ -37,6 +37,7 @@ const McpCatalog = lazy(() => import('./pages/McpCatalog'));
 const Status = lazy(() => import('./pages/Status'));
 const ThreatIntel = lazy(() => import('./pages/ThreatIntel'));
 const WinReg = lazy(() => import('./pages/WinReg'));
+const Aptmap = lazy(() => import('./pages/Aptmap'));
 const ETDAActors = lazy(() => import('./pages/ETDAActors'));
 const Traceix = lazy(() => import('./pages/Traceix'));
 const Cerast = lazy(() => import('./pages/threatintel/Cerast'));
@@ -426,6 +427,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/winreg', Component: WinReg },
   { path: '/traceix', Component: Traceix },
   { path: '/threatintel/apt-actors', Component: ETDAActors },
+  { path: '/threatintel/aptmap', Component: Aptmap },
   { path: '/threatintel/external/cerast', Component: Cerast },
   { path: '/threatintel/external/threatmon', Component: ThreatMonInfostealer },
   { path: '/live', Component: Snapshots },

@@ -19,6 +19,7 @@ import {
   Bell,
   Bug,
   Cloud,
+  Crosshair,
   Database,
   ExternalLink,
   Eye,
@@ -107,6 +108,7 @@ const PAGE_ICON_OVERRIDES: Record<string, LucideIcon> = {
   '/threatintel/actors/kb': BookOpen,
   '/threatintel/actors/graph': Share2,
   '/threatintel/apt-actors': Shield,
+  '/threatintel/aptmap': Crosshair,
   // Campaigns
   '/threatintel/campaigns/active': GitBranch,
   '/threatintel/campaigns/lifecycle': Repeat2,
