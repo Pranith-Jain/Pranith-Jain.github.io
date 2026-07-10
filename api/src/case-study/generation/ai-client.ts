@@ -3,9 +3,9 @@
  *
  * Provider order (free / cheap APIs only, no hard dependency on any one):
  *   1. Groq — primary provider. Fastest inference.
- *        quality=true → Llama 3.3 70B.
- *        quality=false → Llama 3.1 8B.
- *        Fallback chain: quality model → fast model → GPT OSS 20B → deepseek-r1.
+ *        quality=false → GPT OSS 120B.
+ *        quality=true → GPT OSS 120B (same; it is a quality model).
+ *        Fallback chain: 120B → Llama 3.3 70B → deepseek-r1.
  *   2. NVIDIA build.nvidia.com — keyed fallback.
  *        Primary: MiniMax M2.7 → fallback: GLM-5.2.
  *   3. Workers AI (env.AI binding) — no key needed, never rate-limited.
@@ -24,9 +24,9 @@ const GOOGLE_MODEL_QUALITY_FALLBACK = 'gemini-2.0-pro';
 const GOOGLE_TIMEOUT_MS = 10_000;
 
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
-const GROQ_MODEL: string = 'llama-3.1-8b-instant';
-const GROQ_MODEL_QUALITY: string = 'llama-3.3-70b-versatile';
-export const GROQ_MODEL_FALLBACK: string = 'openai/gpt-oss-20b';
+const GROQ_MODEL: string = 'openai/gpt-oss-120b';
+const GROQ_MODEL_QUALITY: string = 'openai/gpt-oss-120b';
+export const GROQ_MODEL_FALLBACK: string = 'llama-3.3-70b-versatile';
 const GROQ_MODEL_DEEP: string = 'deepseek-r1-distill-llama-70b';
 const GROQ_TIMEOUT_MS = 15_000;
 
