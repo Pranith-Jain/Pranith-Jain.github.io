@@ -101,7 +101,9 @@ export function AiSummaryCard({
           setError('AI summary temporarily unavailable.');
           return;
         }
-        throw new Error(`HTTP ${res.status}`);
+        const body = await res.json().catch(() => null);
+        const detail = body?.message ?? body?.issues?.join('; ') ?? '';
+        throw new Error(`HTTP ${res.status}${detail ? ': ' + detail : ''}`);
       }
       const json = (await res.json()) as SummaryResponse;
       if (ctrl.signal.aborted) return;

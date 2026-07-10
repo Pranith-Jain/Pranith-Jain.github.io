@@ -35,8 +35,19 @@ export async function unifiedSearchSummarizeHandler(c: Context<{ Bindings: Env }
   }
 
   const q = (body.q ?? '').trim();
-  if (!q || !Array.isArray(body.items) || body.items.length === 0) {
-    return c.json({ error: 'bad_request', message: 'requires q and non-empty items[]' }, 400);
+  const issues: string[] = [];
+  if (!q) issues.push('q is empty');
+  if (!Array.isArray(body.items)) issues.push('items is not an array');
+  else if (body.items.length === 0) issues.push('items is empty');
+  else {
+    for (let i = 0; i < body.items.length; i++) {
+      const it = body.items[i]!;
+      if (!it.title) issues.push(`items[${i}].title missing`);
+      if (it.source && it.source.length > 200) issues.push(`items[${i}].source too long (${it.source.length})`);
+    }
+  }
+  if (issues.length > 0) {
+    return c.json({ error: 'bad_request', message: 'validation failed', issues }, 400);
   }
 
   // Cap items to bound LLM cost (the validate() schema also enforces max 50).
