@@ -69,6 +69,11 @@ export interface AptmapGraph {
   links: AptmapLink[];
 }
 
+export interface AptmapDataFileMeta {
+  name: string;
+  sizeBytes: number;
+}
+
 export interface ActorIndex {
   source: string;
   license: string;
@@ -94,6 +99,7 @@ export interface ActorIndex {
     tools: number;
     ttps: number;
   } | null;
+  aptmapDataFiles?: AptmapDataFileMeta[];
 }
 
 const DATA_PREFIX = '/data/apt-actors';
@@ -110,6 +116,7 @@ let cachedIndex: ActorIndex | null = null;
 let cachedIndexAt: number | null = null;
 let cachedAptmap: AptmapGraph | null = null;
 let cachedAptmapAt: number | null = null;
+const aptmapDataCache: BodyCache<unknown> = { map: new Map(), hits: 0, misses: 0 };
 
 function safeFilename(slug: string): string {
   return slug.replace(/\//g, '__').replace(/[^A-Za-z0-9._-]/g, '_');
@@ -145,10 +152,7 @@ function trackHit<T>(cache: BodyCache<T>, key: string): T | undefined {
   return v;
 }
 
-export async function loadActorIndex(
-  assets: Fetcher,
-  opts: { forceRefresh?: boolean } = {}
-): Promise<ActorIndex> {
+export async function loadActorIndex(assets: Fetcher, opts: { forceRefresh?: boolean } = {}): Promise<ActorIndex> {
   if (cachedIndex && !opts.forceRefresh) return cachedIndex;
   const idx = await fetchJson<ActorIndex>(assets, `${DATA_PREFIX}/index.json`);
   if (!idx) {
@@ -162,30 +166,34 @@ export async function loadActorIndex(
   return idx;
 }
 
-export async function getActor(
-  assets: Fetcher,
-  slug: string
-): Promise<ActorBody | null> {
+export async function getActor(assets: Fetcher, slug: string): Promise<ActorBody | null> {
   const hit = trackHit(actorBodyCache, slug);
   if (hit) return hit;
-  const body = await fetchJson<ActorBody>(
-    assets,
-    `${DATA_PREFIX}/actors/${safeFilename(slug)}.json`
-  );
+  const body = await fetchJson<ActorBody>(assets, `${DATA_PREFIX}/actors/${safeFilename(slug)}.json`);
   if (!body) return null;
   return recordHit(actorBodyCache, slug, body);
 }
 
-export async function loadAptmap(
-  assets: Fetcher,
-  opts: { forceRefresh?: boolean } = {}
-): Promise<AptmapGraph | null> {
+export async function loadAptmap(assets: Fetcher, opts: { forceRefresh?: boolean } = {}): Promise<AptmapGraph | null> {
   if (cachedAptmap && !opts.forceRefresh) return cachedAptmap;
   const graph = await fetchJson<AptmapGraph>(assets, `${DATA_PREFIX}/aptmap.json`);
   if (!graph) return null;
   cachedAptmap = graph;
   cachedAptmapAt = Date.now();
   return graph;
+}
+
+export function listAptmapDataFiles(idx: ActorIndex): AptmapDataFileMeta[] {
+  return idx.aptmapDataFiles ?? [];
+}
+
+export async function loadAptmapDataFile<T = unknown>(assets: Fetcher, filename: string): Promise<T | null> {
+  const safe = filename.replace(/[^a-zA-Z0-9._-]/g, '');
+  const hit = trackHit(aptmapDataCache, safe);
+  if (hit) return hit as T;
+  const data = await fetchJson<T>(assets, `${DATA_PREFIX}/aptmap/${safe}`);
+  if (!data) return null;
+  return recordHit(aptmapDataCache, safe, data) as T;
 }
 
 // ─── Filter helpers ─────────────────────────────────────────────────────
@@ -200,19 +208,8 @@ export interface ActorListOptions {
   limit?: number;
 }
 
-export function filterActors(
-  idx: ActorIndex,
-  opts: ActorListOptions = {}
-): ActorIndexEntry[] {
-  const {
-    category,
-    country,
-    sector,
-    hasMitre,
-    keyword,
-    hasTools,
-    limit = 100,
-  } = opts;
+export function filterActors(idx: ActorIndex, opts: ActorListOptions = {}): ActorIndexEntry[] {
+  const { category, country, sector, hasMitre, keyword, hasTools, limit = 100 } = opts;
   const needle = keyword?.toLowerCase();
   const countryNeedle = country?.toLowerCase();
 
@@ -242,6 +239,7 @@ export function actorsCacheStats(): {
   aptmapLoaded: boolean;
   aptmapAgeMs: number | null;
   actors: { size: number; hits: number; misses: number };
+  aptmapData: { size: number; hits: number; misses: number; files: number };
 } {
   return {
     indexLoaded: cachedIndex !== null,
@@ -253,12 +251,20 @@ export function actorsCacheStats(): {
       hits: actorBodyCache.hits,
       misses: actorBodyCache.misses,
     },
+    aptmapData: {
+      size: aptmapDataCache.map.size,
+      hits: aptmapDataCache.hits,
+      misses: aptmapDataCache.misses,
+      files: cachedIndex?.aptmapDataFiles?.length ?? 0,
+    },
   };
 }
 
 export function _resetEtdaCacheForTests(): void {
   actorBodyCache.map.clear();
   actorBodyCache.hits = actorBodyCache.misses = 0;
+  aptmapDataCache.map.clear();
+  aptmapDataCache.hits = aptmapDataCache.misses = 0;
   cachedIndex = null;
   cachedIndexAt = null;
   cachedAptmap = null;

@@ -42,6 +42,8 @@ import {
   loadAptmap,
   filterActors,
   actorsCacheStats,
+  listAptmapDataFiles,
+  loadAptmapDataFile,
   type ActorCategory,
 } from './lib/etda-actors-manifest';
 import { loadToolsIndex, listTools, getTool, toolsCacheStats, type ToolCategory } from './lib/tools-manifest';
@@ -1991,14 +1993,8 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         'etda_list_actors',
         'List APT threat actors from the ETDA Threat Group Cards vertical. 504 actors (416 APT, 54 other, 34 unknown). Filter by category, country, MITRE ATT&CK reference, or keyword. Each entry includes aliases, country, sponsor, motivation, observed period, and counts of tools/operations.',
         {
-          category: z
-            .enum(['apt', 'other', 'unknown'])
-            .optional()
-            .describe('Filter by actor category'),
-          country: z
-            .string()
-            .optional()
-            .describe('Case-insensitive substring match against actor country of origin'),
+          category: z.enum(['apt', 'other', 'unknown']).optional().describe('Filter by actor category'),
+          country: z.string().optional().describe('Case-insensitive substring match against actor country of origin'),
           hasMitre: z.boolean().optional().describe('Only return actors with a MITRE ATT&CK group ID'),
           hasTools: z.boolean().optional().describe('Only return actors with known tool associations'),
           keyword: z
@@ -2031,9 +2027,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         'etda_get_actor',
         'Return the full actor body for a single APT threat actor from the ETDA Threat Group Cards vertical. Includes names (with vendor sources), aliases, country, sponsor, motivation, description, sectors, tools, operations, counter operations, MITRE ATT&CK link, and information references. Use etda_list_actors first to discover slugs.',
         {
-          slug: z
-            .string()
-            .describe('Actor slug, e.g. "apt-41" or "lazarus-group". Get these from etda_list_actors.'),
+          slug: z.string().describe('Actor slug, e.g. "apt-41" or "lazarus-group". Get these from etda_list_actors.'),
         },
         async ({ slug }) => {
           const body = await getActor(ASSETS, slug);
@@ -2098,6 +2092,46 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             aptmap: idx.aptmap,
             cache: actorsCacheStats(),
           });
+        }
+      );
+
+      this.tools(
+        'etda_list_aptmap_data',
+        'List all available APTmap malware analysis data files from the AndreaCristaldi/APTmap repo. These contain frequency-distribution statistics from 29GB of PE malware samples attributed to APT groups. Includes certificates, exports, functions, hashes, imports, resources, sections, strings, xrefs, file types, and file sizes.',
+        {},
+        async () => {
+          const idx = await loadActorIndex(ASSETS);
+          const files = listAptmapDataFiles(idx);
+          return untrustedToolResult({
+            total: files.length,
+            files: files.map((f) => ({
+              name: f.name,
+              sizeKB: Math.round(f.sizeBytes / 1024),
+            })),
+          });
+        }
+      );
+
+      this.tools(
+        'etda_get_aptmap_data',
+        'Return a specific APTmap malware analysis data file by filename. These are frequency-distribution statistics from 29GB of PE malware samples attributed to APT groups. Use etda_list_aptmap_data first to discover available files.',
+        {
+          filename: z
+            .string()
+            .describe(
+              'Filename, e.g. "certificates_count.json" or "hashes.json". Get these from etda_list_aptmap_data.'
+            ),
+        },
+        async ({ filename }) => {
+          const data = await loadAptmapDataFile(ASSETS, filename);
+          if (!data) {
+            return untrustedToolResult({
+              error: 'aptmap_data_not_found',
+              filename,
+              hint: 'Call etda_list_aptmap_data to see available files.',
+            });
+          }
+          return untrustedToolResult(data);
         }
       );
 

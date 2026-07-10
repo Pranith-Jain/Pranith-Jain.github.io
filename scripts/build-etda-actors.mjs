@@ -10,7 +10,7 @@
  *
  * License: CC BY-NC-SA 4.0 (ETDA), MIT (APTmap design reference)
  */
-import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync, readdirSync, copyFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
 const ROOT = process.cwd();
@@ -228,6 +228,29 @@ if (existsSync(aptmapPath)) {
   }
 }
 
+// ─── APTmap data files ────────────────────────────────────────────
+const APTMAP_DATA_DIR = join(STAGING, 'aptmap-data');
+const APTMAP_DATA_OUT = join(OUT, 'aptmap');
+ensureDir(APTMAP_DATA_OUT);
+const MAX_ASSET_BYTES = 25 * 1024 * 1024;
+let aptmapDataFiles = [];
+if (existsSync(APTMAP_DATA_DIR)) {
+  const files = readdirSync(APTMAP_DATA_DIR).filter(f => f.endsWith('.json'));
+  for (const f of files) {
+    const src = join(APTMAP_DATA_DIR, f);
+    const stat = statSync(src);
+    if (stat.size > MAX_ASSET_BYTES) {
+      console.warn('  \u26a0 skipped ' + f + ' (' + (stat.size / 1024 / 1024).toFixed(1) + ' MB) \u2014 exceeds 25 MB Cloudflare asset limit');
+      continue;
+    }
+    const dest = join(APTMAP_DATA_OUT, f);
+    copyFileSync(src, dest);
+    aptmapDataFiles.push({ name: f, sizeBytes: stat.size });
+  }
+  aptmapDataFiles.sort((a, b) => a.name.localeCompare(b.name));
+  console.log('    ' + aptmapDataFiles.length + ' aptmap data files  (public/data/apt-actors/aptmap/)');
+}
+
 // ─── Index ──────────────────────────────────────────────────────────
 const index = {
   source: 'ETDA Threat Group Cards (CC BY-NC-SA 4.0) + AndreaCristaldi/APTmap (MIT design reference)',
@@ -256,6 +279,7 @@ const index = {
     tools: (aptmapData.nodes ?? []).filter((n) => n.group === 'Tool').length,
     ttps: (aptmapData.nodes ?? []).filter((n) => n.group === 'TTP').length,
   } : null,
+  aptmapDataFiles: aptmapDataFiles.length > 0 ? aptmapDataFiles : undefined,
 };
 
 writeFileSync(join(OUT, 'index.json'), JSON.stringify(index));

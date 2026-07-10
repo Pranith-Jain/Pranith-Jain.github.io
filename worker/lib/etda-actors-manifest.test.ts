@@ -5,10 +5,13 @@ import {
   loadAptmap,
   filterActors,
   actorsCacheStats,
+  listAptmapDataFiles,
+  loadAptmapDataFile,
   _resetEtdaCacheForTests,
   type ActorIndex,
   type ActorBody,
   type AptmapGraph,
+  type AptmapDataFileMeta,
 } from './etda-actors-manifest';
 
 function mockAssets(files: Record<string, unknown>): Fetcher {
@@ -36,51 +39,132 @@ const FAKE_INDEX: ActorIndex = {
   lastCardUpdate: '2026-07-09T12:00:00.000Z',
   actorIndex: [
     {
-      slug: 'apt-41', name: 'APT 41', aliases: ['Double Dragon', 'Bronze Atlas'], category: 'apt',
-      country: 'China', sponsor: 'State-sponsored', motivation: 'Financial crime, Information theft and espionage',
-      firstSeen: '2012', lastSeen: '2025', hasDetails: true, sectorCount: 18, toolCount: 80,
-      operationCount: 30, observedCountries: ['US', 'JP', 'KR'], description: 'Prolific Chinese cyber threat group.',
-      sizeBytes: 200, mitreId: 'G0096', subgroupCount: 2,
+      slug: 'apt-41',
+      name: 'APT 41',
+      aliases: ['Double Dragon', 'Bronze Atlas'],
+      category: 'apt',
+      country: 'China',
+      sponsor: 'State-sponsored',
+      motivation: 'Financial crime, Information theft and espionage',
+      firstSeen: '2012',
+      lastSeen: '2025',
+      hasDetails: true,
+      sectorCount: 18,
+      toolCount: 80,
+      operationCount: 30,
+      observedCountries: ['US', 'JP', 'KR'],
+      description: 'Prolific Chinese cyber threat group.',
+      sizeBytes: 200,
+      mitreId: 'G0096',
+      subgroupCount: 2,
     },
     {
-      slug: 'lazarus-group', name: 'Lazarus Group', aliases: ['Hidden Cobra'],
-      category: 'apt', country: 'North Korea', sponsor: 'State-sponsored', motivation: 'Financial crime, Destruction',
-      firstSeen: '2007', lastSeen: '2025', hasDetails: true, sectorCount: 12, toolCount: 60,
-      operationCount: 25, observedCountries: ['US', 'KR'], description: 'North Korean state-sponsored APT.',
-      sizeBytes: 180, mitreId: 'G0032', subgroupCount: 4,
+      slug: 'lazarus-group',
+      name: 'Lazarus Group',
+      aliases: ['Hidden Cobra'],
+      category: 'apt',
+      country: 'North Korea',
+      sponsor: 'State-sponsored',
+      motivation: 'Financial crime, Destruction',
+      firstSeen: '2007',
+      lastSeen: '2025',
+      hasDetails: true,
+      sectorCount: 12,
+      toolCount: 60,
+      operationCount: 25,
+      observedCountries: ['US', 'KR'],
+      description: 'North Korean state-sponsored APT.',
+      sizeBytes: 180,
+      mitreId: 'G0032',
+      subgroupCount: 4,
     },
     {
-      slug: 'alphv', name: 'ALPHV', aliases: ['BlackCat'],
-      category: 'apt', country: null, sponsor: null, motivation: 'Ransomware',
-      firstSeen: '2021', lastSeen: '2024', hasDetails: false, sectorCount: 0, toolCount: 10,
-      operationCount: 0, observedCountries: [], description: 'Ransomware group.',
-      sizeBytes: 90, mitreId: null, subgroupCount: 1,
+      slug: 'alphv',
+      name: 'ALPHV',
+      aliases: ['BlackCat'],
+      category: 'apt',
+      country: null,
+      sponsor: null,
+      motivation: 'Ransomware',
+      firstSeen: '2021',
+      lastSeen: '2024',
+      hasDetails: false,
+      sectorCount: 0,
+      toolCount: 10,
+      operationCount: 0,
+      observedCountries: [],
+      description: 'Ransomware group.',
+      sizeBytes: 90,
+      mitreId: null,
+      subgroupCount: 1,
     },
     {
-      slug: 'other-group', name: 'Hacktivist Collective', aliases: [],
-      category: 'other', country: 'Various', sponsor: null, motivation: 'Hacktivism',
-      firstSeen: '2020', lastSeen: '2024', hasDetails: false, sectorCount: 0, toolCount: 0,
-      operationCount: 0, observedCountries: [], description: '',
-      sizeBytes: 50, mitreId: null, subgroupCount: 0,
+      slug: 'other-group',
+      name: 'Hacktivist Collective',
+      aliases: [],
+      category: 'other',
+      country: 'Various',
+      sponsor: null,
+      motivation: 'Hacktivism',
+      firstSeen: '2020',
+      lastSeen: '2024',
+      hasDetails: false,
+      sectorCount: 0,
+      toolCount: 0,
+      operationCount: 0,
+      observedCountries: [],
+      description: '',
+      sizeBytes: 50,
+      mitreId: null,
+      subgroupCount: 0,
     },
     {
-      slug: 'unknown-group', name: 'Mystery Panda', aliases: [],
-      category: 'unknown', country: null, sponsor: null, motivation: null,
-      firstSeen: null, lastSeen: null, hasDetails: false, sectorCount: 0, toolCount: 0,
-      operationCount: 0, observedCountries: [], description: '',
-      sizeBytes: 30, mitreId: null, subgroupCount: 0,
+      slug: 'unknown-group',
+      name: 'Mystery Panda',
+      aliases: [],
+      category: 'unknown',
+      country: null,
+      sponsor: null,
+      motivation: null,
+      firstSeen: null,
+      lastSeen: null,
+      hasDetails: false,
+      sectorCount: 0,
+      toolCount: 0,
+      operationCount: 0,
+      observedCountries: [],
+      description: '',
+      sizeBytes: 30,
+      mitreId: null,
+      subgroupCount: 0,
     },
   ],
   aptmap: { nodes: 100, links: 250, aptNodes: 30, countries: 20, tools: 40, ttps: 10 },
+  aptmapDataFiles: [
+    { name: 'certificates_count.json', sizeBytes: 1024 },
+    { name: 'hashes.json', sizeBytes: 999999 },
+  ],
 };
 
 const FAKE_APT41_BODY: ActorBody = {
-  slug: 'apt-41', name: 'APT 41', aliases: ['Double Dragon', 'Bronze Atlas'],
-  category: 'apt', country: 'China', sponsor: 'State-sponsored',
+  slug: 'apt-41',
+  name: 'APT 41',
+  aliases: ['Double Dragon', 'Bronze Atlas'],
+  category: 'apt',
+  country: 'China',
+  sponsor: 'State-sponsored',
   motivation: 'Financial crime, Information theft and espionage',
-  firstSeen: '2012', lastSeen: '2025', hasDetails: true, sectorCount: 18, toolCount: 80,
-  operationCount: 30, observedCountries: ['US', 'JP', 'KR'],
-  description: 'Prolific Chinese cyber threat group.', sizeBytes: 1200, mitreId: 'G0096', subgroupCount: 2,
+  firstSeen: '2012',
+  lastSeen: '2025',
+  hasDetails: true,
+  sectorCount: 18,
+  toolCount: 80,
+  operationCount: 30,
+  observedCountries: ['US', 'JP', 'KR'],
+  description: 'Prolific Chinese cyber threat group.',
+  sizeBytes: 1200,
+  mitreId: 'G0096',
+  subgroupCount: 2,
   names: ['APT 41', 'Double Dragon', 'Bronze Atlas'],
   fullDescription: 'Prolific Chinese cyber threat group.',
   sectors: ['financial', 'government', 'defense', 'telecommunications', 'gaming'],
@@ -260,6 +344,49 @@ describe('filterActors', () => {
   });
 });
 
+describe('listAptmapDataFiles', () => {
+  it('returns aptmap data files from index', async () => {
+    const idx = await loadActorIndex(ASSETS_WITH_INDEX);
+    const files = listAptmapDataFiles(idx);
+    expect(files).toHaveLength(2);
+    expect(files[0]?.name).toBe('certificates_count.json');
+    expect(files[1]?.name).toBe('hashes.json');
+  });
+
+  it('returns empty array when no aptmap data', async () => {
+    const bareIdx = { ...FAKE_INDEX, aptmapDataFiles: undefined };
+    const files = listAptmapDataFiles(bareIdx);
+    expect(files).toEqual([]);
+  });
+});
+
+describe('loadAptmapDataFile', () => {
+  it('loads a data file from ASSETS', async () => {
+    const assets = mockAssets({
+      '/data/apt-actors/aptmap/hashes.json': [{ id: 1, hash: 'abc', count: 10 }],
+    });
+    const data = await loadAptmapDataFile(assets, 'hashes.json');
+    expect(data).toBeDefined();
+    expect((data as any[])?.[0]?.hash).toBe('abc');
+  });
+
+  it('returns null for missing file', async () => {
+    const data = await loadAptmapDataFile(EMPTY_ASSETS, 'nonexistent.json');
+    expect(data).toBeNull();
+  });
+
+  it('caches loaded data', async () => {
+    const assets = mockAssets({
+      '/data/apt-actors/aptmap/test.json': [{ value: 1 }],
+    });
+    await loadAptmapDataFile(assets, 'test.json');
+    await loadAptmapDataFile(assets, 'test.json');
+    const stats = actorsCacheStats();
+    expect(stats.aptmapData.hits).toBe(1);
+    expect(stats.aptmapData.misses).toBe(1);
+  });
+});
+
 describe('actorsCacheStats', () => {
   it('returns initial zero state', () => {
     const stats = actorsCacheStats();
@@ -268,6 +395,10 @@ describe('actorsCacheStats', () => {
     expect(stats.actors.size).toBe(0);
     expect(stats.actors.hits).toBe(0);
     expect(stats.actors.misses).toBe(0);
+    expect(stats.aptmapData.size).toBe(0);
+    expect(stats.aptmapData.hits).toBe(0);
+    expect(stats.aptmapData.misses).toBe(0);
+    expect(stats.aptmapData.files).toBe(0);
   });
 
   it('reflects state after loads', async () => {
@@ -278,6 +409,7 @@ describe('actorsCacheStats', () => {
     expect(stats.indexLoaded).toBe(true);
     expect(stats.aptmapLoaded).toBe(true);
     expect(stats.actors.size).toBe(1);
+    expect(stats.aptmapData.files).toBe(2);
   });
 });
 
@@ -289,5 +421,6 @@ describe('_resetEtdaCacheForTests', () => {
     const stats = actorsCacheStats();
     expect(stats.indexLoaded).toBe(false);
     expect(stats.actors.size).toBe(0);
+    expect(stats.aptmapData.size).toBe(0);
   });
 });

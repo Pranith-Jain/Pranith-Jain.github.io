@@ -14,18 +14,14 @@
  */
 import { Hono } from 'hono';
 import type { Env } from '../env';
-import { badRequest, internalError, notFound } from '../lib/api-error';
-
-async function loadActorsMod() {
-  return await import('../lib/etda-actors-manifest');
-}
+import { internalError, notFound } from '../lib/api-error';
+import * as mod from '../lib/etda-actors-manifest';
 
 export const etdaActorsRouter = new Hono<{ Bindings: Env }>();
 
 // ─── Slim index ────────────────────────────────────────────────────────
 etdaActorsRouter.get('/apt-actors/', async (c) => {
   try {
-    const mod = await loadActorsMod();
     const idx = await mod.loadActorIndex(c.env.ASSETS);
     return c.json({
       source: idx.source,
@@ -43,16 +39,13 @@ etdaActorsRouter.get('/apt-actors/', async (c) => {
 // ─── List actors ───────────────────────────────────────────────────────
 etdaActorsRouter.get('/apt-actors/actors', async (c) => {
   try {
-    const mod = await loadActorsMod();
     const idx = await mod.loadActorIndex(c.env.ASSETS);
     const category = c.req.query('category');
     const country = c.req.query('country');
     const hasMitre = c.req.query('has_mitre') === 'true' ? true : undefined;
     const hasTools = c.req.query('has_tools') === 'true' ? true : undefined;
     const keyword = c.req.query('q');
-    const limit = c.req.query('limit')
-      ? Math.min(200, Math.max(1, Number(c.req.query('limit'))))
-      : undefined;
+    const limit = c.req.query('limit') ? Math.min(200, Math.max(1, Number(c.req.query('limit')))) : undefined;
 
     const actors = mod.filterActors(idx, {
       category: category as any,
@@ -72,7 +65,6 @@ etdaActorsRouter.get('/apt-actors/actors', async (c) => {
 etdaActorsRouter.get('/apt-actors/actors/:slug', async (c) => {
   const slug = c.req.param('slug');
   try {
-    const mod = await loadActorsMod();
     const body = await mod.getActor(c.env.ASSETS, slug);
     if (!body) return notFound(c, `actor_not_found: ${slug}`);
     return c.json(body);
@@ -84,11 +76,8 @@ etdaActorsRouter.get('/apt-actors/actors/:slug', async (c) => {
 // ─── Sectors ──────────────────────────────────────────────────────────
 etdaActorsRouter.get('/apt-actors/sectors', async (c) => {
   try {
-    const mod = await loadActorsMod();
     const idx = await mod.loadActorIndex(c.env.ASSETS);
-    const minActors = c.req.query('min_actors')
-      ? Math.max(1, Number(c.req.query('min_actors')))
-      : 1;
+    const minActors = c.req.query('min_actors') ? Math.max(1, Number(c.req.query('min_actors'))) : 1;
 
     const sectorMap = new Map<string, number>();
     for (const a of idx.actorIndex) {
@@ -113,7 +102,6 @@ etdaActorsRouter.get('/apt-actors/sectors', async (c) => {
 // ─── APTmap graph ────────────────────────────────────────────────────
 etdaActorsRouter.get('/apt-actors/aptmap', async (c) => {
   try {
-    const mod = await loadActorsMod();
     const graph = await mod.loadAptmap(c.env.ASSETS);
     if (!graph) return notFound(c, 'aptmap_not_found: APTmap graph not available');
     return c.json({
@@ -126,10 +114,32 @@ etdaActorsRouter.get('/apt-actors/aptmap', async (c) => {
   }
 });
 
+// ─── APTmap data files ──────────────────────────────────────────────
+etdaActorsRouter.get('/apt-actors/aptmap/data', async (c) => {
+  try {
+    const idx = await mod.loadActorIndex(c.env.ASSETS);
+    const files = mod.listAptmapDataFiles(idx);
+    return c.json({ total: files.length, files });
+  } catch (e) {
+    return internalError(c, `aptmap_data_list_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+etdaActorsRouter.get('/apt-actors/aptmap/data/:filename', async (c) => {
+  const filename = c.req.param('filename');
+  if (!filename.endsWith('.json')) return notFound(c, 'aptmap_data_not_found: only .json files are supported');
+  try {
+    const data = await mod.loadAptmapDataFile(c.env.ASSETS, filename);
+    if (!data) return notFound(c, `aptmap_data_not_found: ${filename} not available`);
+    return c.json(data);
+  } catch (e) {
+    return internalError(c, `aptmap_data_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
 // ─── Stats ────────────────────────────────────────────────────────────
 etdaActorsRouter.get('/apt-actors/stats', async (c) => {
   try {
-    const mod = await loadActorsMod();
     const idx = await mod.loadActorIndex(c.env.ASSETS);
     const cache = mod.actorsCacheStats();
     return c.json({
