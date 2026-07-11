@@ -59,8 +59,8 @@ const SCREEN_NAME_RE = /^[A-Za-z0-9_]{1,15}$/;
 // (previously 40), and `auth_token` can be up to 80. Validators were
 // too strict and rejected real session cookies; bumped the ranges to
 // accept both legacy and current formats.
-const CT0_RE = /^[a-f0-9]{32,256}$/i;
-const AUTH_TOKEN_RE = /^[a-f0-9]{32,200}$/i;
+const CT0_RE = /^[a-zA-Z0-9_\-]{32,256}$/;
+const AUTH_TOKEN_RE = /^[a-zA-Z0-9_\-]{32,200}$/;
 
 const FEATURES_USER_BY_SN = {
   hidden_profile_likes_enabled: true,
@@ -317,8 +317,7 @@ async function resolveUserIdAuthed(
 function parseAuthedTimeline(raw: unknown, screenName: string): AuthedTimelineItem[] {
   const root = raw as Record<string, unknown>;
   const timelineRoot = ((root.data as Record<string, unknown>)?.user as Record<string, unknown>)?.result as
-    | Record<string, unknown>
-    | undefined;
+    Record<string, unknown> | undefined;
   const v2 = (timelineRoot?.timeline_v2 as Record<string, unknown>)?.timeline as Record<string, unknown> | undefined;
   const fallback = (timelineRoot?.timeline as Record<string, unknown>)?.timeline as Record<string, unknown> | undefined;
   const instructions = ((v2 ?? fallback)?.instructions as unknown[]) ?? [];
@@ -348,8 +347,7 @@ function parseTimelineInstructions(instructions: unknown[], screenName: string):
     if (!res) return;
     const core = res.core as Record<string, unknown> | undefined;
     const author = ((core?.user_results as Record<string, unknown>)?.result as Record<string, unknown>)?.legacy as
-      | Record<string, unknown>
-      | undefined;
+      Record<string, unknown> | undefined;
     const legacy = res.legacy as Record<string, unknown> | undefined;
     if (!legacy) return;
     const id = typeof legacy.id_str === 'string' ? legacy.id_str : '';
