@@ -259,6 +259,20 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
             );
           }
 
+          // ── Pre-warm x-claims cache so CyberPulse can read it instead of
+          // doing its own GraphQL fetches for the 14 CTI handles. x-claims has
+          // stale-fallback and uses sinceDays=7 (vs CyberPulse's sinceDays=1).
+          try {
+            const baseUrl = (env as unknown as { SITE_URL?: string }).SITE_URL ?? 'https://pranithjain.qzz.io';
+            const xcReq = new Request(baseUrl + '/api/v1/x-claims', { method: 'GET' });
+            const xcRes = await apiApp.fetch(xcReq, env as never, ctx);
+            if (xcRes.ok) {
+              console.log(JSON.stringify({ job: 'cyberpulse-x-claims-warm', status: xcRes.status }));
+            }
+          } catch (e) {
+            console.warn(JSON.stringify({ job: 'cyberpulse-x-claims-warm', error: String(e) }));
+          }
+
           // ── CyberPulse: breach/leak incident ingestion from social media firehose
           // Runs after Telegram scan (shared burst window) but before cache-warm.
           // Monitors X accounts + keyword search for breaches/leaks/cybercrime.
@@ -279,16 +293,21 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
               });
               const totalCreated = cpResults.reduce((s, r) => s + r.incidents_created, 0);
               const totalDeduped = cpResults.reduce((s, r) => s + r.incidents_deduped, 0);
-              if (totalCreated > 0 || totalDeduped > 0) {
-                console.log(
-                  JSON.stringify({
-                    job: 'cyberpulse-ingest',
-                    incidents_created: totalCreated,
-                    incidents_deduped: totalDeduped,
-                    sources: cpResults.length,
-                  })
-                );
-              }
+              console.log(
+                JSON.stringify({
+                  job: 'cyberpulse-ingest',
+                  incidents_created: totalCreated,
+                  incidents_deduped: totalDeduped,
+                  sources: cpResults.map((r) => ({
+                    source: r.source,
+                    items_scanned: r.items_scanned,
+                    created: r.incidents_created,
+                    deduped: r.incidents_deduped,
+                    errors: r.errors.length,
+                    duration_ms: r.duration_ms,
+                  })),
+                })
+              );
             }
           } catch (e) {
             console.error(

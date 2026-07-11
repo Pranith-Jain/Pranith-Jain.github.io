@@ -22,6 +22,7 @@ import { fetchUserTimeline } from '../lib/twitter-graphql';
 import { fetchTelegramFeed, type TelegramFeedItem } from './telegram-feed';
 import { fetchXFeed, type XFeedItem } from './x-feed';
 import { fetchRedditFeed, type RedditFeedItem } from './reddit-feed';
+import { readXClaimsCache } from './x-claims';
 import type { Env } from '../env';
 
 /**
@@ -475,9 +476,64 @@ interface RawPost {
   views: number;
 }
 
+const CLAIM_HANDLES_LOWER = new Set([
+  'falconfeedsio',
+  'dailydarkweb',
+  'ransomnews',
+  'leakradario',
+  'monthreat',
+  'vivekintel',
+  'darkforumss',
+  'vulncheckai',
+  'etugenio',
+  'drb_ra',
+  '3xp0rtblog',
+  'alphahunt_io',
+  'cti__updates',
+  'spchainattack',
+]);
+
 /** Fetch recent posts from X accounts. Tries auth first, falls back to anonymous. */
 async function fetchXAccountPosts(env: Env, handles: string[], sinceDays: number = 1): Promise<RawPost[]> {
   const posts: RawPost[] = [];
+
+  // ── 1. Read pre-warmed x-claims cache for the 14 CTI handles ──────────
+  // x-claims uses sinceDays=7 and has stale-cache fallback, making it
+  // more resilient than a direct GraphQL fetch for these handles.
+  try {
+    const claims = await readXClaimsCache();
+    if (claims) {
+      for (const b of claims.breach) {
+        posts.push({
+          text: b.text,
+          url: b.source_url,
+          platform: 'x',
+          handle: b.handle,
+          author: b.handle,
+          avatar: null,
+          published_at: b.discovered,
+          likes: 0,
+          retweets: 0,
+          replies: 0,
+          views: 0,
+        });
+      }
+      console.log(
+        JSON.stringify({
+          job: 'x-claims-cache-read',
+          breach_count: claims.breach.length,
+          ransomware_count: claims.ransomware.length,
+        })
+      );
+    }
+  } catch {
+    // x-claims cache read failed — fall through to direct fetch
+  }
+
+  // ── 2. Direct GraphQL fetch for handles NOT covered by x-claims ───────
+  const directHandles = handles.filter((h) => !CLAIM_HANDLES_LOWER.has(h.toLowerCase()));
+  if (directHandles.length === 0) return posts;
+
   let authed = true;
   try {
     readAuthCookies(env);
@@ -490,23 +546,23 @@ async function fetchXAccountPosts(env: Env, handles: string[], sinceDays: number
     }
   }
 
-  for (const handle of handles) {
+  for (const handle of directHandles) {
     try {
       const resp = authed
         ? await fetchAuthedTimeline(env, handle, {
             count: 20,
-            sinceDays,
+            sinceDays: Math.max(sinceDays, 7),
             includeReplies: false,
           })
         : await fetchUserTimeline(env, handle, {
             count: 20,
-            sinceDays,
+            sinceDays: Math.max(sinceDays, 7),
           });
       if (resp.items.length === 0) {
         console.warn(`X timeline for @${handle} returned 0 items (cached: ${resp.cached}, authed: ${authed})`);
       }
       for (const item of resp.items) {
-        if (item.is_retweet) continue; // Skip pure retweets
+        if (item.is_retweet) continue;
         posts.push({
           text: item.text,
           url: item.url,
