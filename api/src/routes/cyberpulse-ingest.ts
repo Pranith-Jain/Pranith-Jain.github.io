@@ -15,6 +15,8 @@ import {
   fetchSearchTimeline,
   readAuthCookies,
   XAuthMissingError,
+  XAuthInvalidError,
+  XAuthRateLimitedError,
 } from '../lib/twitter-auth-graphql';
 import { fetchTelegramFeed, type TelegramFeedItem } from './telegram-feed';
 import { fetchXFeed, type XFeedItem } from './x-feed';
@@ -467,8 +469,12 @@ async function fetchXAccountPosts(env: Env, handles: string[], sinceDays: number
   const posts: RawPost[] = [];
   try {
     readAuthCookies(env);
-  } catch {
-    console.warn('X auth cookies not configured — set X_AUTH_TOKEN and X_CT0 secrets for X/Twitter collection');
+  } catch (e) {
+    if (e instanceof XAuthMissingError) {
+      console.warn('X auth not configured — set X_AUTH_TOKEN and X_CT0 secrets for X/Twitter collection');
+    } else {
+      console.warn(`X auth error: ${e instanceof Error ? e.message : e}`);
+    }
     return posts;
   }
 
@@ -497,7 +503,14 @@ async function fetchXAccountPosts(env: Env, handles: string[], sinceDays: number
       }
     } catch (e) {
       if (e instanceof XAuthMissingError) break;
-      // Rate-limited or transient — skip this handle
+      if (e instanceof XAuthInvalidError) {
+        console.warn(`X auth rejected for @${handle} (HTTP ${e.status}) — cookies may be expired`);
+        break;
+      }
+      if (e instanceof XAuthRateLimitedError) {
+        console.warn(`X rate-limited for @${handle}`);
+        break;
+      }
     }
   }
   return posts;
@@ -508,10 +521,16 @@ async function fetchXSearchPosts(env: Env, queries: string[], count: number = 20
   const posts: RawPost[] = [];
   try {
     readAuthCookies(env);
-  } catch {
+  } catch (e) {
+    if (e instanceof XAuthMissingError) {
+      console.warn('X search auth not configured — set X_AUTH_TOKEN and X_CT0 secrets');
+    } else {
+      console.warn(`X search auth error: ${e instanceof Error ? e.message : e}`);
+    }
     return posts;
   }
 
+  const searchErrors: string[] = [];
   for (const query of queries) {
     try {
       const resp = await fetchSearchTimeline(env, query, {
@@ -536,8 +555,17 @@ async function fetchXSearchPosts(env: Env, queries: string[], count: number = 20
       }
     } catch (e) {
       if (e instanceof XAuthMissingError) break;
+      if (e instanceof XAuthInvalidError) {
+        searchErrors.push(`X search auth rejected (HTTP ${e.status})`);
+        break;
+      }
+      if (e instanceof XAuthRateLimitedError) {
+        searchErrors.push(`X search rate-limited`);
+        break;
+      }
     }
   }
+  if (searchErrors.length > 0) console.warn(searchErrors.join('; '));
   return posts;
 }
 
