@@ -141,6 +141,10 @@ const INCIDENT_PATTERNS: Record<IncidentType, RegExp[]> = {
     /(?:millions?|thousands?|billions?)\s*(?:of\s*)?(?:records?|accounts?|users?)/i,
     /full\s*(?:dump|database)/i,
     /pastebin|ghostbin|rentry/i,
+    /alleged(?:ly)?\s+(?:leaked|compromised|breached)/i,
+    /(?:database|customer\s*data|user\s*data).*(?:sale|sold|offer|advertising)/i,
+    /(?:claimed|claims?)\s+to\s+have\s+(?:leaked|compromised|obtained|breached)/i,
+    /advertising.*(?:database|data|records?)/i,
   ],
   credential_leak: [
     /credential/i,
@@ -177,6 +181,9 @@ const INCIDENT_PATTERNS: Record<IncidentType, RegExp[]> = {
     /unauthorized\s*access/i,
     /cyber\s*(?:attack|incident)/i,
     /network\s*(?:compromised|breach|incident)/i,
+    /(?:reportedly|allegedly).*(?:victim|compromised|breached|hacked|fallen\s*victim)/i,
+    /(?:victim|target)\s*of\s*(?:a\s*)?(?:data\s*)?breach/i,
+    /(?:exposed|compromised)\s*(?:data\s*of|information\s*found|records?\s*of)/i,
   ],
   ddos: [/\bddos\b/i, /denial[\s-]of[\s-]service/i, /(?:taken\s*down|knocked\s*(?:offline|out))\s*(?:by|via|with)/i],
   hacktivism: [
@@ -812,6 +819,9 @@ const X_ACCOUNTS = [
   'darkleaks',
   'dnaborhacks',
   'paborhack',
+  'dailydarkweb',
+  'DarkWebInformer',
+  'ransomnews',
 ];
 
 const X_SEARCH_QUERIES = [
