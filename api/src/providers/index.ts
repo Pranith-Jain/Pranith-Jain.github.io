@@ -56,6 +56,13 @@ import { trege } from './tre-ge';
 import { intodns } from './intodns';
 import { opensourcemalware } from './opensourcemalware';
 import { polyswarm } from './polyswarm';
+import { fullhunt } from './fullhunt';
+import { opensanctions } from './opensanctions';
+import { dehash } from './dehash';
+import { fbiWanted } from './fbi-wanted';
+import { interpol } from './interpol';
+import { mozillaTls } from './mozilla-tls';
+import { virushee } from './virushee';
 
 export { PROVIDER_SUPPORT, PROVIDER_TIMEOUT_MS, PROVIDER_TIER };
 
@@ -116,6 +123,13 @@ export const ADAPTERS: Record<ProviderId, ProviderAdapter> = {
   'tre-ge': trege,
   intodns,
   polyswarm,
+  fullhunt,
+  opensanctions,
+  dehash,
+  'fbi-wanted': fbiWanted,
+  interpol,
+  'mozilla-tls': mozillaTls,
+  virushee,
 };
 
 /**
@@ -189,6 +203,13 @@ export const PROVIDER_LABELS: Record<string, string> = {
   'tre-ge': 'tre.ge',
   intodns: 'IntoDNS.ai',
   polyswarm: 'PolySwarm',
+  fullhunt: 'FullHunt',
+  opensanctions: 'OpenSanctions',
+  dehash: 'Dehash.lt',
+  'fbi-wanted': 'FBI Wanted',
+  interpol: 'Interpol Red Notices',
+  'mozilla-tls': 'Mozilla TLS Observatory',
+  virushee: 'Virushee',
 };
 
 export function buildProviderEnv(env: {
@@ -215,6 +236,7 @@ export function buildProviderEnv(env: {
   ZOOMEYE_API_KEY?: string;
   INTODNS_API_KEY?: string;
   POLYSWARM_API_KEY?: string;
+  FULLHUNT_API_KEY?: string;
 }): ProviderEnv {
   return {
     VT_API_KEY: env.VT_API_KEY ?? '',
@@ -240,5 +262,6 @@ export function buildProviderEnv(env: {
     ZOOMEYE_API_KEY: env.ZOOMEYE_API_KEY,
     INTODNS_API_KEY: env.INTODNS_API_KEY,
     POLYSWARM_API_KEY: env.POLYSWARM_API_KEY,
+    FULLHUNT_API_KEY: env.FULLHUNT_API_KEY,
   };
 }

@@ -860,6 +860,13 @@ import { osintRouter } from './routes/osint-edge-tools';
 import { reportsRouter } from './routes/reports-edge-tools';
 import { campaignsRouter } from './routes/campaigns-edge-tools';
 import { traceixRouter } from './routes/traceix';
+import { fullhuntRouter } from './routes/fullhunt';
+import { opensanctionsRouter } from './routes/opensanctions';
+import { dehashRouter } from './routes/dehash';
+import { fbiWantedRouter } from './routes/fbi-wanted';
+import { interpolRouter } from './routes/interpol';
+import { mozillaTlsRouter } from './routes/mozilla-tls';
+import { virusheeRouter } from './routes/virushee';
 import { toolsRouter } from './routes/tools-edge-tools';
 import { etdaActorsRouter } from './routes/etda-actors-edge-tools';
 import {
@@ -1842,6 +1849,48 @@ app.route('/api/v1', etdaActorsRouter);
 // Endpoint: GET /api/v1/traceix/lookup?hash=<sha256>
 // Requires TRACEIX_API_KEY Worker secret.
 app.route('/api/v1', traceixRouter);
+
+// FullHunt — attack surface discovery.
+// Requires FULLHUNT_API_KEY Worker secret (free at fullhunt.io).
+// Endpoints: GET /api/v1/fullhunt/domain?domain=
+//            GET /api/v1/fullhunt/host?host=
+//            GET /api/v1/fullhunt/subdomains?domain=
+app.route('/api/v1', fullhuntRouter);
+
+// OpenSanctions — sanctions, PEP, and crime entity search.
+// No API key required (rate-limited public API).
+// Endpoints: GET /api/v1/opensanctions/search?q=&limit=
+//            GET /api/v1/opensanctions/entity?id=
+//            GET /api/v1/opensanctions/stats
+app.route('/api/v1', opensanctionsRouter);
+
+// Dehash.lt — hash decryption / reverse lookup (md5/sha1/sha256/sha384/sha512).
+// No API key required.
+// Endpoint: GET /api/v1/dehash?hash=
+app.route('/api/v1', dehashRouter);
+
+// FBI Wanted — search the FBI wanted persons database.
+// No API key required (public government API).
+// Endpoints: GET /api/v1/fbi-wanted/search?q=
+//            GET /api/v1/fbi-wanted/list?page=&pageSize=&field_office=
+app.route('/api/v1', fbiWantedRouter);
+
+// Interpol Red Notices — search INTERPOL's wanted persons database.
+// No API key required (public government API).
+// Endpoints: GET /api/v1/interpol/red-notices?name=&forename=&nationality=
+//            GET /api/v1/interpol/red-notices/:noticeId
+app.route('/api/v1', interpolRouter);
+
+// Mozilla TLS Observatory — TLS/SSL configuration scanning.
+// No API key required (public Mozilla service).
+// Endpoints: GET /api/v1/mozilla-tls/scan?url=
+//            GET /api/v1/mozilla-tls/result?scanId=
+app.route('/api/v1', mozillaTlsRouter);
+
+// Virushee — file hash multi-engine AV scanning.
+// No API key required (public API).
+// Endpoint: GET /api/v1/virushee/check?hash=
+app.route('/api/v1', virusheeRouter);
 
 // Tools Directory — curated catalog of 50+ offensive and defensive security tools.
 // Data ships in public/data/tools/ built by scripts/build-tools-manifest.mjs.

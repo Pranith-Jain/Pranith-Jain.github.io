@@ -51,6 +51,13 @@ import { validateRawKey } from '../api/src/lib/auth';
 import { signInternalToken } from '../api/src/lib/internal-token';
 import { enrichIp, enrichIpsBatch, isValidIp, type EnrichResult } from './lib/si-enrich';
 import { traceixLookup } from './lib/traceix';
+import { fullhuntDomainDetails, fullhuntSubdomains } from './lib/fullhunt';
+import { opensanctionsSearch, opensanctionsEntity, opensanctionsStats } from './lib/opensanctions';
+import { dehashLookup } from './lib/dehash';
+import { fbiWantedSearch, fbiWantedList } from './lib/fbi-wanted';
+import { interpolSearch, interpolNoticeDetail } from './lib/interpol';
+import { mozillaTlsScan } from './lib/mozilla-tls';
+import { virusheeCheck } from './lib/virushee';
 import { loadOsintIndex, listPortals, getPortal, osintCacheStats, type OsintCategory } from './lib/osint-manifest';
 import {
   loadReportsIndex,
@@ -128,6 +135,8 @@ type Env = {
   INVESTIGATOR_AGENT?: DurableObjectNamespace;
   /** Secret for signing internal tokens (HMAC-SHA256). Used by tie-enrich for SELF calls. */
   INTERNAL_TOKEN_SECRET?: string;
+  /** AlienVault OTX API key — free at otx.alienvault.com. Optional; ti_search_otx degrades to an error when unset. */
+  OTX_API_KEY?: string;
 };
 
 const API_BASE_DEFAULT = 'https://pranithjain.qzz.io';
@@ -1982,6 +1991,132 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         }
       );
 
+      // ── Live Threat Intel Enrichment ──────────────────────────────
+      // Query-specific search tools that hit OTX, ThreatFox, MalwareBazaar,
+      // and ransomware.live in real time. Unlike get_live_iocs (aggregated
+      // feed), these let an LLM ask targeted questions.
+
+      {
+        const { searchOtxPulses, searchThreatfox, searchMalwarebazaar, searchRansomwareLive } =
+          await import('./lib/ti-live-enrich');
+
+        this.tools(
+          'ti_search_otx',
+          'Search AlienVault OTX for threat pulses matching a query. Returns pulse metadata (name, tags, TLP, malware families, MITRE ATT&CK IDs) and indicators for the top 5 pulses. Requires OTX_API_KEY (free at otx.alienvault.com).',
+          {
+            query: z.string().describe('Search query, e.g. "LockBit", "Emotet", "CVE-2024-1234"'),
+          },
+          async ({ query }) => {
+            const result = await searchOtxPulses(query, this.env.OTX_API_KEY);
+            return untrustedToolResult(result);
+          }
+        );
+
+        this.tools(
+          'ti_search_threatfox',
+          "Search ThreatFox (abuse.ch) for IOCs matching a search term. Returns IOC type, value, malware family, confidence, timestamps, and reporter. Free API — no key required. Useful for looking up specific IPs, domains, URLs, or hashes against ThreatCrowd's crowdsourced IOC database.",
+          {
+            query: z
+              .string()
+              .describe(
+                'Search term — can be an IOC value (IP, domain, URL, hash), malware family name, or actor name'
+              ),
+          },
+          async ({ query }) => {
+            const result = await searchThreatfox(query);
+            return untrustedToolResult(result);
+          }
+        );
+
+        this.tools(
+          'ti_search_malwarebazaar',
+          'Search MalwareBazaar (abuse.ch) for malware samples by tag or signature. Returns SHA-256, MD5, file name, type, malware family signature, tags, and timestamps. Tries tag search first, falls back to signature. Free API — no key required.',
+          {
+            query: z.string().describe('Malware family name or tag, e.g. "Emotet", "LockBit", "AgentTesla"'),
+          },
+          async ({ query }) => {
+            const result = await searchMalwarebazaar(query);
+            return untrustedToolResult(result);
+          }
+        );
+
+        this.tools(
+          'ti_search_ransomware_live',
+          'Search ransomware.live for ransomware group profiles. Returns group description, .onion leak-site URLs, recent victims (with country/sector), MITRE ATT&CK TTPs, and known tools. Free public API — no key required.',
+          {
+            query: z.string().describe('Ransomware group name, e.g. "LockBit", "BlackCat", "Cl0p"'),
+          },
+          async ({ query }) => {
+            const result = await searchRansomwareLive(query);
+            return untrustedToolResult(result);
+          }
+        );
+      }
+
+      // ── TI STIX 2.1 Export ─────────────────────────────────────────
+      // Generate STIX 2.1 bundles from the threat-intel vertical's IOC data.
+      {
+        const { buildStixBundle } = await import('./lib/cti-ioc-export');
+
+        this.tools(
+          'ti_export_stix',
+          'Export IOC family indicators as a STIX 2.1 bundle. Reads the IOC family body from the threat-intel manifest, converts each indicator to a STIX indicator object with pattern, and wraps in a bundle with TLP marking. Importable into OpenCTI, MISP, or any TAXII 2.1 consumer.',
+          {
+            slug: z.string().describe('IOC family slug, e.g. "lockbit-4-0-ransomware". Get these from ti_list_iocs.'),
+            tlp: z
+              .enum(['WHITE', 'GREEN', 'AMBER', 'RED'])
+              .optional()
+              .describe('TLP marking for the bundle (default: GREEN)'),
+            limit: z.number().int().min(1).max(500).optional().describe('Max indicators to include (default: 100)'),
+          },
+          async ({ slug, tlp, limit }) => {
+            const body = await getTiIoc(ASSETS, slug);
+            if (!body) {
+              return untrustedToolResult({
+                error: 'ioc_family_not_found',
+                slug,
+                hint: 'Call ti_list_iocs to see available families.',
+              });
+            }
+
+            const indicators = (body.indicators ?? [])
+              .slice(0, limit ?? 100)
+              .map((ind: { type: string; value: string }) => ({
+                value: ind.value,
+                type: ind.type as Parameters<typeof buildStixBundle>[0][0]['type'],
+                label: `${body.family} — ${ind.type}`,
+                description: `IOC from ${body.family} (${body.category})`,
+                confidence: 50,
+                tlp: (tlp ?? 'GREEN') as 'GREEN',
+                tags: [body.category, body.family],
+              }));
+
+            if (indicators.length === 0) {
+              return untrustedToolResult({
+                error: 'no_indicators',
+                slug,
+                message: 'This IOC family has no extracted indicators. The source may not have structured IOC data.',
+              });
+            }
+
+            const bundle = buildStixBundle(indicators, {
+              bundleName: `${body.family} — TI Export`,
+              defaultTlp: tlp ?? 'GREEN',
+              source: 'PANOPTICON TI',
+            });
+
+            return untrustedToolResult({
+              family: body.family,
+              category: body.category,
+              tlp: tlp ?? 'GREEN',
+              indicator_count: indicators.length,
+              stix_object_count: bundle.objects.length,
+              stix_bundle: bundle,
+            });
+          }
+        );
+      }
+
       // ── APT Actors (ETDA) tools ──────────────────────────────────
       // 504 threat actors (416 APT, 54 other, 34 unknown) from ETDA
       // Thailand's Threat Group Cards portal, enriched with showcard
@@ -2552,6 +2687,163 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         },
         async ({ hash }) => {
           const r = await traceixLookup(this.env as { TRACEIX_API_KEY?: string }, hash);
+          return untrustedToolResult(r);
+        }
+      );
+
+      // ── FullHunt — attack surface discovery ────────────────────
+      this.tools(
+        'fullhunt_domain',
+        'Discover attack surface for a domain via FullHunt: open ports, technologies, subdomains, ASN, cloud provider, and WHOIS data. Requires FULLHUNT_API_KEY secret (free at fullhunt.io).',
+        {
+          domain: z.string().describe('Domain name to investigate, e.g. "example.com".'),
+        },
+        async ({ domain }) => {
+          const r = await fullhuntDomainDetails(this.env as { FULLHUNT_API_KEY?: string }, domain);
+          return untrustedToolResult(r);
+        }
+      );
+
+      this.tools(
+        'fullhunt_subdomains',
+        'Enumerate subdomains for a domain via FullHunt. Returns discovered subdomain names. Requires FULLHUNT_API_KEY secret.',
+        {
+          domain: z.string().describe('Domain name to enumerate subdomains for.'),
+        },
+        async ({ domain }) => {
+          const r = await fullhuntSubdomains(this.env as { FULLHUNT_API_KEY?: string }, domain);
+          return untrustedToolResult(r);
+        }
+      );
+
+      // ── OpenSanctions — sanctions / PEP / crime entity search ──
+      this.tools(
+        'opensanctions_search',
+        'Search OpenSanctions for entities (individuals, companies, vessels) flagged in sanctions lists, PEP (politically exposed persons) databases, and crime watchlists. No API key required — public rate-limited API.',
+        {
+          q: z.string().min(2).describe('Search query — entity name, domain, or email address.'),
+          limit: z.number().int().min(1).max(100).optional().describe('Max results (default 20, max 100).'),
+        },
+        async ({ q, limit }) => {
+          const r = await opensanctionsSearch(q, limit);
+          return untrustedToolResult(r);
+        }
+      );
+
+      this.tools(
+        'opensanctions_entity',
+        'Get detailed entity information from OpenSanctions by ID. Returns full properties, associated datasets, topics, and schema. Use after opensanctions_search to explore a specific match.',
+        {
+          id: z.string().describe('OpenSanctions entity ID (e.g. from opensanctions_search results).'),
+        },
+        async ({ id }) => {
+          const r = await opensanctionsEntity(id);
+          return untrustedToolResult(r);
+        }
+      );
+
+      this.tools(
+        'opensanctions_stats',
+        'Get OpenSanctions dataset statistics: total entities, datasets, countries covered, and schema counts. No API key required.',
+        {},
+        async () => {
+          const r = await opensanctionsStats();
+          return untrustedToolResult(r);
+        }
+      );
+
+      // ── Dehash.lt — hash decryption / reverse lookup ────────────
+      this.tools(
+        'dehash_lookup',
+        'Look up a cryptographic hash (md5/sha1/sha256/sha384/sha512) against Dehash.lt to find its plaintext value. Useful for cracking password hashes or identifying known hash values. No API key required.',
+        {
+          hash: z
+            .string()
+            .describe(
+              'Hash value to look up. Supports md5 (32 hex), sha1 (40 hex), sha256 (64 hex), sha384 (96 hex), sha512 (128 hex).'
+            ),
+        },
+        async ({ hash }) => {
+          const r = await dehashLookup(hash);
+          return untrustedToolResult(r);
+        }
+      );
+
+      // ── FBI Wanted — wanted persons database ───────────────────
+      this.tools(
+        'fbi_wanted_search',
+        'Search the FBI Wanted database for wanted persons by name. Returns titles, descriptions, reward amounts, and field offices. No API key required.',
+        {
+          q: z.string().min(2).describe('Search query — person name to search for in FBI wanted database.'),
+        },
+        async ({ q }) => {
+          const r = await fbiWantedSearch(q);
+          return untrustedToolResult(r);
+        }
+      );
+
+      this.tools(
+        'fbi_wanted_list',
+        'List current FBI wanted persons with pagination. No API key required.',
+        {
+          page: z.number().int().min(1).optional().describe('Page number (default 1).'),
+          pageSize: z.number().int().min(1).max(50).optional().describe('Results per page (default 20, max 50).'),
+        },
+        async ({ page, pageSize }) => {
+          const r = await fbiWantedList(page, pageSize);
+          return untrustedToolResult(r);
+        }
+      );
+
+      // ── Interpol Red Notices — wanted persons database ─────────
+      this.tools(
+        'interpol_search',
+        'Search INTERPOL Red Notices for wanted persons by name, forename, or nationality. Returns entity IDs, charges, and issuing countries. No API key required.',
+        {
+          name: z.string().optional().describe('Family/surname of the wanted person.'),
+          forename: z.string().optional().describe('Given/forename of the wanted person.'),
+          nationality: z.string().optional().describe('Two-letter nationality code (e.g. "US", "FR", "GB").'),
+        },
+        async ({ name, forename, nationality }) => {
+          const r = await interpolSearch({ name, forename, nationality });
+          return untrustedToolResult(r);
+        }
+      );
+
+      this.tools(
+        'interpol_notice_detail',
+        'Get details of a specific INTERPOL Red Notice by entity ID. Returns full charge info, arrest warrant details, and physical description. No API key required.',
+        {
+          noticeId: z.string().describe('Interpol Red Notice entity ID (e.g. from interpol_search results).'),
+        },
+        async ({ noticeId }) => {
+          const r = await interpolNoticeDetail(noticeId);
+          return untrustedToolResult(r);
+        }
+      );
+
+      // ── Mozilla TLS Observatory — TLS/SSL scanning ─────────────
+      this.tools(
+        'mozilla_tls_scan',
+        "Scan a domain's TLS/SSL configuration using the Mozilla TLS Observatory. Returns grade (A+ through F), protocols, cipher suites, and detected vulnerabilities. No API key required.",
+        {
+          url: z.string().describe('URL or domain to scan (e.g. "example.com" or "https://example.com").'),
+        },
+        async ({ url }) => {
+          const r = await mozillaTlsScan(url);
+          return untrustedToolResult(r);
+        }
+      );
+
+      // ── Virushee — multi-engine hash scan ──────────────────────
+      this.tools(
+        'virushee_check',
+        'Check a file hash (MD5/SHA1/SHA256) against the Virushee multi-engine AV database. Returns detection ratio and per-engine results. No API key required.',
+        {
+          hash: z.string().describe('File hash to check (MD5, SHA1, or SHA256 hex string).'),
+        },
+        async ({ hash }) => {
+          const r = await virusheeCheck(hash);
           return untrustedToolResult(r);
         }
       );

@@ -122,6 +122,11 @@ export interface Env {
    *  Optional — the provider degrades to 'unsupported' when unset.
    *  Free tier available at polyswarm.network/signup. */
   POLYSWARM_API_KEY?: string;
+  /** FullHunt API key (`wrangler secret put FULLHUNT_API_KEY`).
+   *  Optional — the provider degrades to 'unsupported' when unset.
+   *  Free tier available at fullhunt.io. Used for attack surface discovery. */
+  FULLHUNT_API_KEY?: string;
+
   /** X (Twitter) auth cookies for the cookie-authenticated firehose at
    *  /api/v1/x-firehose. Set via `wrangler secret put X_AUTH_TOKEN` and
    *  `wrangler secret put X_CT0` (values are the `auth_token` and `ct0`

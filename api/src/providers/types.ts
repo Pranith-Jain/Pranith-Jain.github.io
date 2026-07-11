@@ -56,7 +56,14 @@ export type ProviderId =
   | 'zoomeye'
   | 'tre-ge'
   | 'intodns'
-  | 'polyswarm';
+  | 'polyswarm'
+  | 'fullhunt'
+  | 'opensanctions'
+  | 'dehash'
+  | 'fbi-wanted'
+  | 'interpol'
+  | 'mozilla-tls'
+  | 'virushee';
 
 export type Verdict = 'clean' | 'suspicious' | 'malicious' | 'unknown';
 
@@ -144,6 +151,9 @@ export interface ProviderEnv {
   /** PolySwarm API key (free at polyswarm.network/signup). Optional — the provider
    *  degrades to 'unsupported' when unset. */
   POLYSWARM_API_KEY?: string;
+  /** FullHunt API key (free at fullhunt.io). Optional — the provider
+   *  degrades to 'unsupported' when unset. Used for attack surface discovery. */
+  FULLHUNT_API_KEY?: string;
 }
 
 export type ProviderAdapter = (indicator: Indicator, env: ProviderEnv, signal: AbortSignal) => Promise<ProviderResult>;
@@ -211,6 +221,13 @@ export const PROVIDER_SUPPORT: Record<ProviderId, IndicatorType[]> = {
   'tre-ge': ['ipv4', 'ipv6', 'domain', 'url', 'hash'],
   intodns: ['domain'],
   polyswarm: ['hash'],
+  fullhunt: ['ipv4', 'ipv6', 'domain'],
+  opensanctions: ['ipv4', 'domain', 'email'],
+  dehash: ['hash'],
+  'fbi-wanted': ['ipv4', 'domain', 'email'],
+  interpol: ['ipv4', 'domain', 'email'],
+  'mozilla-tls': ['domain', 'ipv4', 'ipv6'],
+  virushee: ['hash'],
 };
 
 /**
@@ -278,4 +295,11 @@ export const PROVIDER_TIER: Record<ProviderId, ProviderTier> = {
   ipqs: 1,
   yaraify: 1,
   polyswarm: 1,
+  fullhunt: 2,
+  opensanctions: 2,
+  dehash: 2,
+  'fbi-wanted': 2,
+  interpol: 2,
+  'mozilla-tls': 2,
+  virushee: 2,
 };
