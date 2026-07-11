@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { Target, Search, GitBranch } from 'lucide-react';
 import { SEVERITY_TONE, type Severity } from '../../components/severity';
@@ -35,7 +35,12 @@ export default function CrossCorrelate(): JSX.Element {
   const [error, setError] = useState<string | null>(null);
   const [sector, setSector] = useState('');
 
+  const loadRef = useRef<AbortController | null>(null);
+
   function load(sectorFilter?: string) {
+    loadRef.current?.abort();
+    const ctrl = new AbortController();
+    loadRef.current = ctrl;
     setLoading(true);
     setError(null);
     const body: Record<string, string> = {};
@@ -44,18 +49,29 @@ export default function CrossCorrelate(): JSX.Element {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(body),
+      signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(30_000)]),
     })
       .then(async (r) => {
+        if (ctrl.signal.aborted) return;
         if (!r.ok) throw new Error(`Couldn't correlate (HTTP ${r.status}).`);
         return r.json() as Promise<CorrelateResponse>;
       })
-      .then(setData)
-      .catch((e) => setError(e instanceof Error ? e.message : String(e)))
-      .finally(() => setLoading(false));
+      .then((d) => {
+        if (!ctrl.signal.aborted && d) setData(d);
+      })
+      .catch((e) => {
+        if (!ctrl.signal.aborted) setError(e instanceof Error ? e.message : String(e));
+      })
+      .finally(() => {
+        if (!ctrl.signal.aborted) setLoading(false);
+      });
   }
 
   useEffect(() => {
     load();
+    return () => {
+      loadRef.current?.abort();
+    };
   }, []);
 
   return (

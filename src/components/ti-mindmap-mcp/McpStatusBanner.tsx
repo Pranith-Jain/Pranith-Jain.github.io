@@ -45,7 +45,7 @@ export function McpStatusBanner({
   })();
 
   const headline = (() => {
-    if (status === 'connected') return 'TI-Mindmap-Hub MCP connected · 19 tools available';
+    if (status === 'connected') return 'TI-Mindmap-Hub MCP connected · 25 tools available';
     if (status === 'error') return 'MCP connection error';
     if (status === 'probing') return 'Probing MCP…';
     if (status === 'unconfigured') return 'MCP key not set — search and report loading are disabled';

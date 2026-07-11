@@ -82,12 +82,12 @@ export default function CuratedToolbox(): JSX.Element {
     setLoading(true);
     setError(null);
     Promise.all([
-      fetch('/api/v1/curated-toolbox', { signal: ctrl.signal }).then((r) =>
-        r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))
+      fetch('/api/v1/curated-toolbox', { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) }).then(
+        (r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`)))
       ),
-      fetch('/api/v1/curated-toolbox/meta', { signal: ctrl.signal }).then((r) =>
-        r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))
-      ),
+      fetch('/api/v1/curated-toolbox/meta', {
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
+      }).then((r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`)))),
     ])
       .then(([payload, m]) => {
         if (cancelled) return;

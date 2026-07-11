@@ -596,7 +596,9 @@ export default function BriefingDetail(): JSX.Element {
     setLoading(true);
     setError(null);
     setBriefing(null);
-    fetch(`/api/v1/briefings/${encodeURIComponent(slug)}`, { signal: ctrl.signal })
+    fetch(`/api/v1/briefings/${encodeURIComponent(slug)}`, {
+      signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
+    })
       .then(async (r) => {
         if (!r.ok) {
           const body = await r.text().catch(() => '');

@@ -100,7 +100,8 @@ export default function RelationshipGraphPage(): JSX.Element {
   const reqIdRef = useRef(0);
 
   useEffect(() => {
-    fetch('/api/v1/cve-recent')
+    const ctrl = new AbortController();
+    fetch('/api/v1/cve-recent', { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15000)]) })
       .then((r) => r.json())
       .then((data: { cves?: TrendingCve[] }) => {
         const list = (data.cves ?? []).slice(0, 12);
@@ -121,20 +122,24 @@ export default function RelationshipGraphPage(): JSX.Element {
         }
       })
       .finally(() => setInitialLoading(false));
+    return () => ctrl.abort();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const fetchGraph = useCallback(
     async (q: string) => {
       if (!q.trim()) return;
       const reqId = ++reqIdRef.current;
+      const ctrl = new AbortController();
       setLoading(true);
       setError(null);
       setSelectedNode(null);
       setExpandedCount(0);
       setPathFinder({ phase: 'idle' });
       try {
-        const res = await fetch(`/api/v1/relationship-graph?q=${encodeURIComponent(q.trim())}&depth=${depth}`);
-        if (reqId !== reqIdRef.current) return; // stale; a newer request started
+        const res = await fetch(`/api/v1/relationship-graph?q=${encodeURIComponent(q.trim())}&depth=${depth}`, {
+          signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15000)]),
+        });
+        if (reqId !== reqIdRef.current) return;
         if (!res.ok) {
           const body = (await res.json().catch(() => ({}))) as { error?: string };
           throw new Error(body.error ?? `HTTP ${res.status}`);
@@ -153,27 +158,27 @@ export default function RelationshipGraphPage(): JSX.Element {
     [depth]
   );
 
-  const expandNode = useCallback(
-    async (node: GraphNodeData) => {
-      setLoading(true);
-      try {
-        const res = await fetch(`/api/v1/relationship-graph?q=${encodeURIComponent(node.label)}&depth=1`);
-        if (!res.ok) return;
-        const data = (await res.json()) as GraphResponse;
-        if (data.nodes.length <= 1) return;
-        setGraphData((prev) => {
-          if (!prev) return prev;
-          return mergeWithGraph(prev, data);
-        });
-        setExpandedCount((c) => c + 1);
-      } catch {
-        // silent — expansion is additive, no error state needed
-      } finally {
-        setLoading(false);
-      }
-    },
-    [] // no deps — uses functional updater to avoid stale closure
-  );
+  const expandNode = useCallback(async (node: GraphNodeData) => {
+    const ctrl = new AbortController();
+    setLoading(true);
+    try {
+      const res = await fetch(`/api/v1/relationship-graph?q=${encodeURIComponent(node.label)}&depth=1`, {
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15000)]),
+      });
+      if (!res.ok) return;
+      const data = (await res.json()) as GraphResponse;
+      if (data.nodes.length <= 1) return;
+      setGraphData((prev) => {
+        if (!prev) return prev;
+        return mergeWithGraph(prev, data);
+      });
+      setExpandedCount((c) => c + 1);
+    } catch {
+      // silent
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

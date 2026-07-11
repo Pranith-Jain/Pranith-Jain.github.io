@@ -213,6 +213,7 @@ export default function Copilot(): JSX.Element {
     try {
       const res = await fetch('/api/v1/copilot/investigate', {
         method: 'POST',
+        signal: AbortSignal.timeout(30_000),
         headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
         body: JSON.stringify({ query: q.trim() }),
       });
@@ -537,6 +538,7 @@ export default function Copilot(): JSX.Element {
                   try {
                     const res = await fetch('/api/v1/threat-intel/assessments', {
                       method: 'POST',
+                      signal: AbortSignal.timeout(30_000),
                       headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
                       body: JSON.stringify({
                         title: `Copilot: ${result.query}`,

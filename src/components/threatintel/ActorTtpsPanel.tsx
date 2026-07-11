@@ -43,24 +43,22 @@ export function ActorTtpsPanel({
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    let cancelled = false;
-    fetch('/api/v1/actor-timeline')
+    const ac = new AbortController();
+    fetch('/api/v1/actor-timeline', { signal: AbortSignal.any([ac.signal, AbortSignal.timeout(15_000)]) })
       .then((r) => {
         if (!r.ok) throw new Error(`upstream ${r.status}`);
         return r.json() as Promise<ActorTimelineResponseSlim>;
       })
       .then((d) => {
-        if (!cancelled) setData(d);
+        setData(d);
       })
       .catch((e: Error) => {
-        if (!cancelled) setError(e.message);
+        if (e.name !== 'AbortError') setError(e.message);
       })
       .finally(() => {
-        if (!cancelled) setLoading(false);
+        setLoading(false);
       });
-    return () => {
-      cancelled = true;
-    };
+    return () => ac.abort();
   }, []);
 
   if (loading) {

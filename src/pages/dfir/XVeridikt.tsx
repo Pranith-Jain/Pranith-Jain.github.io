@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useRef } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Search, Shield, AlertTriangle, CheckCircle, HelpCircle, Loader2, Upload, X } from 'lucide-react';
 
@@ -83,7 +83,12 @@ export default function XVeridikt(): JSX.Element {
   const [filterVerdict, setFilterVerdict] = useState<Verdict | 'all'>('all');
   const [filterType, setFilterType] = useState<string>('all');
 
+  const analysisRef = useRef<AbortController | null>(null);
+
   const runAnalysis = useCallback(async () => {
+    analysisRef.current?.abort();
+    const ctrl = new AbortController();
+    analysisRef.current = ctrl;
     setLoading(true);
     setError(null);
     setResults([]);
@@ -96,7 +101,7 @@ export default function XVeridikt(): JSX.Element {
             .map((s) => s.trim())
             .filter(Boolean);
     if (inputs.length === 0) {
-      setLoading(false);
+      if (!ctrl.signal.aborted) setLoading(false);
       return;
     }
 
@@ -107,7 +112,9 @@ export default function XVeridikt(): JSX.Element {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ indicator }),
+            signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(30_000)]),
           });
+          if (ctrl.signal.aborted) throw new DOMException('Aborted', 'AbortError');
           if (!res.ok) {
             const body = await res.text().catch(() => '');
             let msg = `HTTP ${res.status}`;
@@ -134,11 +141,13 @@ export default function XVeridikt(): JSX.Element {
           } as IocResult;
         })
       );
+      if (ctrl.signal.aborted) return;
       setResults(outcomes);
     } catch (err) {
+      if (ctrl.signal.aborted) return;
       setError(err instanceof Error ? err.message : String(err));
     } finally {
-      setLoading(false);
+      if (!ctrl.signal.aborted) setLoading(false);
     }
   }, [iocInput, bulkInput, mode]);
 

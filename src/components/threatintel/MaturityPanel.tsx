@@ -196,27 +196,24 @@ export function MaturityPanel(): JSX.Element {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    let cancelled = false;
+    const ac = new AbortController();
     Promise.all([
-      fetch('/api/v1/maturity')
+      fetch('/api/v1/maturity', { signal: AbortSignal.any([ac.signal, AbortSignal.timeout(15_000)]) })
         .then((r) => r.json() as Promise<MaturityReport>)
         .catch(() => null),
-      fetch('/api/v1/feed-status')
+      fetch('/api/v1/feed-status', { signal: AbortSignal.any([ac.signal, AbortSignal.timeout(15_000)]) })
         .then((r) => r.json() as Promise<FeedStatusResponse>)
         .catch(() => null),
     ])
       .then(([m, f]) => {
-        if (cancelled) return;
         if (m) setMaturity(m);
         if (f) setFeed(f);
         if (!m && !f) setError('maturity + feed-status both unreachable');
       })
       .catch((e) => {
-        if (!cancelled) setError(e.message);
+        setError(e.message);
       });
-    return () => {
-      cancelled = true;
-    };
+    return () => ac.abort();
   }, []);
 
   if (error) {

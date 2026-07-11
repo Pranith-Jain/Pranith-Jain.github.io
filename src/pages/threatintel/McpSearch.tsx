@@ -14,7 +14,7 @@
  * always show whatever the upstream platform has today.
  */
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Plug, Sparkles } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
@@ -117,7 +117,12 @@ export default function McpSearch(): JSX.Element {
   const [analyzerBusy, setAnalyzerBusy] = useState(false);
   const [analyzerErr, setAnalyzerErr] = useState<string | null>(null);
 
+  const analyzerRef = useRef<AbortController | null>(null);
+
   async function runLocalAnalyzer(text: string, title: string, source?: string): Promise<void> {
+    analyzerRef.current?.abort();
+    const ctrl = new AbortController();
+    analyzerRef.current = ctrl;
     setAnalyzerBusy(true);
     setAnalyzerErr(null);
     setAnalyzerData(null);
@@ -126,17 +131,20 @@ export default function McpSearch(): JSX.Element {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ text, title, source }),
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(30_000)]),
       });
+      if (ctrl.signal.aborted) return;
       if (!r.ok) {
         const body = await r.text();
         throw new Error(`HTTP ${r.status}: ${body.slice(0, 200)}`);
       }
       setAnalyzerData((await r.json()) as AnalyzerOutput);
     } catch (e) {
+      if (ctrl.signal.aborted) return;
       const msg = e instanceof Error ? e.message : String(e);
       setAnalyzerErr(msg);
     } finally {
-      setAnalyzerBusy(false);
+      if (!ctrl.signal.aborted) setAnalyzerBusy(false);
     }
   }
 

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { TrendingUp, ShieldAlert, Cpu, Brain, ExternalLink } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 
@@ -114,26 +114,39 @@ export default function Predictions(): JSX.Element {
   const [error, setError] = useState<string | null>(null);
   const [filter, setFilter] = useState<'all' | Bucket>('all');
 
+  const loadRef = useRef<AbortController | null>(null);
+
   const load = useCallback(() => {
+    loadRef.current?.abort();
+    const ctrl = new AbortController();
+    loadRef.current = ctrl;
     setLoading(true);
     setError(null);
-    fetch('/api/v1/predictions')
+    fetch('/api/v1/predictions', { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) })
       .then((r) => {
+        if (ctrl.signal.aborted) return;
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         return r.json();
       })
-      .then((d: PredictionsResponse) => {
-        setData(d);
-        setLoading(false);
+      .then((d: PredictionsResponse | undefined) => {
+        if (!ctrl.signal.aborted && d) {
+          setData(d);
+          setLoading(false);
+        }
       })
       .catch((e) => {
-        setError(String(e));
-        setLoading(false);
+        if (!ctrl.signal.aborted) {
+          setError(String(e));
+          setLoading(false);
+        }
       });
   }, []);
 
   useEffect(() => {
     load();
+    return () => {
+      loadRef.current?.abort();
+    };
   }, [load]);
 
   const visibleBuckets = ORDER.filter((b) => filter === 'all' || filter === b);

@@ -36,22 +36,20 @@ export default function MaltrailTrails(): JSX.Element {
   const reqRef = useRef<string | null>(null);
 
   useEffect(() => {
-    let alive = true;
-    fetch('/api/v1/maltrail/list')
+    const ac = new AbortController();
+    fetch('/api/v1/maltrail/list', { signal: AbortSignal.any([ac.signal, AbortSignal.timeout(15_000)]) })
       .then((r) => (r.ok ? r.json() : Promise.reject(String(r.status))))
       .then((d: MaltrailResponse) => {
-        if (alive && d.ok) setFiles(d.files);
-        else if (alive) setError('Failed to load trail list');
+        if (d.ok) setFiles(d.files);
+        else setError('Failed to load trail list');
       })
       .catch((e: unknown) => {
-        if (alive) setError(String(e));
+        if ((e as Error).name !== 'AbortError') setError(String(e));
       })
       .finally(() => {
-        if (alive) setLoading(false);
+        setLoading(false);
       });
-    return () => {
-      alive = false;
-    };
+    return () => ac.abort();
   }, []);
 
   const fetchTrail = (name: string) => {

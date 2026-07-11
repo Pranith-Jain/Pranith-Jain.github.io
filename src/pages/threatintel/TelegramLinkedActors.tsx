@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, useCallback, FormEvent } from 'react';
+import { useEffect, useMemo, useRef, useState, useCallback, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Shield,
@@ -159,12 +159,14 @@ export default function TelegramLinkedActors(): JSX.Element {
 
   const [activeHandle, setActiveHandle] = useState<string | null>(null);
 
-  // Fetch leak entries once on mount — same data the Leaks tab uses.
   useEffect(() => {
+    const ctrl = new AbortController();
     let cancelled = false;
     setLeakLoading(true);
     setLeakError(null);
-    fetch('/api/v1/telegram-leaks/search?limit=200')
+    fetch('/api/v1/telegram-leaks/search?limit=200', {
+      signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15000)]),
+    })
       .then((r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         return r.json() as Promise<{ entries: LeakEntry[] }>;
@@ -180,26 +182,33 @@ export default function TelegramLinkedActors(): JSX.Element {
       });
     return () => {
       cancelled = true;
+      ctrl.abort();
     };
   }, []);
 
-  // Server-side search (deepdarkCTI + MISP) on demand.
+  const searchCtrlRef = useRef<AbortController | null>(null);
   const runSearch = useCallback(async (q: string) => {
     if (!q) return;
+    searchCtrlRef.current?.abort();
+    const ctrl = new AbortController();
+    searchCtrlRef.current = ctrl;
     setSearchLoading(true);
     setSearchError(null);
     try {
-      const r = await fetch(`/api/v1/telegram-search?q=${encodeURIComponent(q)}`);
+      const r = await fetch(`/api/v1/telegram-search?q=${encodeURIComponent(q)}`, {
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15000)]),
+      });
       if (!r.ok) {
         const j = (await r.json().catch(() => ({}))) as { error?: string; message?: string };
         throw new Error(j.message ?? j.error ?? `HTTP ${r.status}`);
       }
       const j = (await r.json()) as SearchResponse;
-      setSearchData(j);
+      if (!ctrl.signal.aborted) setSearchData(j);
     } catch (e) {
+      if ((e as Error).name === 'AbortError') return;
       setSearchError((e as Error).message);
     } finally {
-      setSearchLoading(false);
+      if (!ctrl.signal.aborted) setSearchLoading(false);
     }
   }, []);
 

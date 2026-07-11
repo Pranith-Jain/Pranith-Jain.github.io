@@ -1329,7 +1329,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
           method: 'POST',
           headers: { Authorization: `Bearer ${c.env.GROQ_API_KEY}`, 'content-type': 'application/json' },
           body: JSON.stringify({
-            model: 'qwen/qwen3-32b',
+            model: 'qwen/qwen3.6-27b',
             messages: [{ role: 'user', content: 'hi' }],
             max_completion_tokens: 5,
           }),

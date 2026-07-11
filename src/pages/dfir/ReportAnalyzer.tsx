@@ -417,7 +417,7 @@ export default function ReportAnalyzer(): JSX.Element {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify(body),
-        signal: ac.signal,
+        signal: AbortSignal.any([ac.signal, AbortSignal.timeout(60_000)]),
       });
       if (!res.ok) {
         const j = (await res.json().catch(() => ({}))) as { message?: string };
@@ -451,6 +451,7 @@ export default function ReportAnalyzer(): JSX.Element {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ output: data }),
+        signal: AbortSignal.timeout(60_000),
       });
       if (!res.ok) throw new Error(`render failed: ${res.status}`);
       const json = (await res.json()) as { markdown?: string };
@@ -475,6 +476,7 @@ export default function ReportAnalyzer(): JSX.Element {
           sourceText: data.sourceText || undefined,
           reportJson: JSON.stringify(data),
         }),
+        signal: AbortSignal.timeout(60_000),
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const j = (await res.json()) as { id: string };
@@ -495,6 +497,7 @@ export default function ReportAnalyzer(): JSX.Element {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ iocs: iocValues }),
+        signal: AbortSignal.timeout(60_000),
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const j = (await res.json()) as {

@@ -38,25 +38,41 @@ export default function AsnLookup(): JSX.Element {
   const valid = ASN_RE.test(input.trim());
   const canSubmit = valid && !loading;
 
+  const lookupRef = useRef<AbortController | null>(null);
+
   const runLookup = async (q: string) => {
     if (!ASN_RE.test(q.trim())) return;
+    lookupRef.current?.abort();
+    const ctrl = new AbortController();
+    lookupRef.current = ctrl;
     setLoading(true);
     setResult(null);
     setError(null);
     setSearchParams({ asn: q.trim() }, { replace: true });
     try {
-      const r = await fetch(`/api/v1/asn/lookup?asn=${encodeURIComponent(q.trim())}`);
+      const r = await fetch(`/api/v1/asn/lookup?asn=${encodeURIComponent(q.trim())}`, {
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
+      });
+      if (ctrl.signal.aborted) return;
       if (!r.ok) {
         const body = (await r.json().catch(() => null)) as { message?: string } | null;
         throw new Error(body?.message ?? `HTTP ${r.status}`);
       }
       setResult((await r.json()) as AsnResult);
     } catch (err) {
+      if (ctrl.signal.aborted) return;
       setError(err instanceof Error ? err.message : 'lookup failed');
     } finally {
-      setLoading(false);
+      if (!ctrl.signal.aborted) setLoading(false);
     }
   };
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      lookupRef.current?.abort();
+    };
+  }, []);
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();

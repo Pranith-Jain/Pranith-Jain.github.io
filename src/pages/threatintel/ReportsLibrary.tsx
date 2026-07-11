@@ -41,7 +41,7 @@ export default function ReportsLibrary(): JSX.Element {
 
     setLoading(true);
     setError(null);
-    fetch('/api/v1/reports', { signal: ctrl.signal })
+    fetch('/api/v1/reports', { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) })
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
       .then((payload: ReportsPayload) => {
         if (!cancelled) setData(payload);

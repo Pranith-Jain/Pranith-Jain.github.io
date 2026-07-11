@@ -54,6 +54,7 @@ export default function AttackChain(): JSX.Element {
     try {
       const res = await fetch('/api/v1/attack-chain/reconstruct', {
         method: 'POST',
+        signal: AbortSignal.timeout(30_000),
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           indicators: input

@@ -47,8 +47,8 @@ export default function ToolsDirectory(): JSX.Element {
     const doFetch = async () => {
       try {
         const [resp, statsResp] = await Promise.all([
-          fetch('/api/v1/tools', { signal: ctrl.signal }),
-          fetch('/api/v1/tools/stats', { signal: ctrl.signal }),
+          fetch('/api/v1/tools', { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) }),
+          fetch('/api/v1/tools/stats', { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) }),
         ]);
         if (cancelled) return;
         if (resp.ok) setData(await resp.json());

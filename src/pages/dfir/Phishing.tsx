@@ -42,6 +42,7 @@ export default function Phishing(): JSX.Element {
   const [fpHash, setFpHash] = useState<string | null>(null);
   const [fpError, setFpError] = useState<string | null>(null);
   const resultRef = useRef<HTMLHeadingElement>(null);
+  const submitRef = useRef<AbortController | null>(null);
 
   // ─── URL Auto-Analysis state ─────────────────────────────────────────────
   interface FormField {
@@ -71,28 +72,41 @@ export default function Phishing(): JSX.Element {
   const [aaResult, setAaResult] = useState<AutoAnalysisReport | null>(null);
   const [aaError, setAaError] = useState<string | null>(null);
 
+  const aaRef = useRef<AbortController | null>(null);
+  const fpRef = useRef<AbortController | null>(null);
+
   const runAutoAnalyze = async () => {
     const u = aaUrl.trim();
     if (!u) return;
+    aaRef.current?.abort();
+    const ctrl = new AbortController();
+    aaRef.current = ctrl;
     setAaLoading(true);
     setAaResult(null);
     setAaError(null);
     try {
-      const r = await fetch(`/api/v1/phishing/auto-analyze?url=${encodeURIComponent(u)}`);
+      const r = await fetch(`/api/v1/phishing/auto-analyze?url=${encodeURIComponent(u)}`, {
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
+      });
+      if (ctrl.signal.aborted) return;
       if (!r.ok) {
         setAaError(`${r.status}`);
         return;
       }
       setAaResult((await r.json()) as AutoAnalysisReport);
     } catch (e) {
+      if (ctrl.signal.aborted) return;
       setAaError(e instanceof Error ? e.message : 'analysis failed');
     }
-    setAaLoading(false);
+    if (!ctrl.signal.aborted) setAaLoading(false);
   };
 
   const runFingerprint = async () => {
     const url = fpUrl.trim();
     if (!url) return;
+    fpRef.current?.abort();
+    const ctrl = new AbortController();
+    fpRef.current = ctrl;
     setFpLoading(true);
     setFpResult(null);
     setFpHash(null);
@@ -102,7 +116,9 @@ export default function Phishing(): JSX.Element {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ url }),
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(30_000)]),
       });
+      if (ctrl.signal.aborted) return;
       if (!r.ok) {
         const err = (await r.json().catch(() => null)) as { error?: string } | null;
         throw new Error(err?.error ?? `${r.status}`);
@@ -113,9 +129,10 @@ export default function Phishing(): JSX.Element {
       const fp = await submitFingerprint(hash, url);
       setFpResult(fp);
     } catch (err) {
+      if (ctrl.signal.aborted) return;
       setFpError(err instanceof Error ? err.message : 'fingerprint failed');
     } finally {
-      setFpLoading(false);
+      if (!ctrl.signal.aborted) setFpLoading(false);
     }
   };
 
@@ -132,6 +149,9 @@ export default function Phishing(): JSX.Element {
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
+    submitRef.current?.abort();
+    const ctrl = new AbortController();
+    submitRef.current = ctrl;
     setLoading(true);
     setResult(null);
     setError(null);
@@ -140,7 +160,9 @@ export default function Phishing(): JSX.Element {
         method: 'POST',
         headers: { 'content-type': 'text/plain' },
         body: input,
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(30_000)]),
       });
+      if (ctrl.signal.aborted) return;
       if (!r.ok) {
         const body = (await r.json().catch(() => null)) as { error?: string } | null;
         throw new Error(body?.error ?? `${r.status}`);
@@ -151,9 +173,10 @@ export default function Phishing(): JSX.Element {
       recordHistory({ tool: 'phishing', indicator, verdict: r2.verdict, score: r2.score });
       setTimeout(() => resultRef.current?.focus(), 0);
     } catch (err) {
+      if (ctrl.signal.aborted) return;
       setError(err instanceof Error ? err.message : 'analysis failed');
     } finally {
-      setLoading(false);
+      if (!ctrl.signal.aborted) setLoading(false);
     }
   };
 

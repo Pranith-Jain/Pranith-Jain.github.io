@@ -249,7 +249,7 @@ export default function Detections(): JSX.Element {
     const ctrl = new AbortController();
     setLoading(true);
     setError(null);
-    fetch('/api/v1/detections', { signal: ctrl.signal })
+    fetch('/api/v1/detections', { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) })
       .then((r) => {
         if (!r.ok) throw new Error(`upstream ${r.status}`);
         return r.json() as Promise<DetectionsResponse>;

@@ -67,7 +67,7 @@ export default function ActorOtxSweep({ actors, limit = 10 }: Props) {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ actors, limit }),
-        signal: ctrl.signal,
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(60_000)]),
       });
       if (!res.ok || !res.body) {
         const text = await res.text().catch(() => '');

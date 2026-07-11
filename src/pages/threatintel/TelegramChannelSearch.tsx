@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, FormEvent } from 'react';
+import { useEffect, useRef, useState, useCallback, FormEvent } from 'react';
 import { Search, Loader2, Users, BarChart3, ExternalLink, Shield, AlertTriangle, Lock } from 'lucide-react';
 import { adminAuthHeaders, readAdminToken } from '../../lib/admin-token';
 import { sanitizeUrl } from '../../lib/sanitize-url';
@@ -63,22 +63,29 @@ export default function TelegramChannelSearch(): JSX.Element {
   const [busy, setBusy] = useState<string | null>(null);
   const [adminToken] = useState<string>(() => readAdminToken() ?? '');
 
+  const searchCtrlRef = useRef<AbortController | null>(null);
   const fetchResults = useCallback(async (q: string) => {
     if (!q) return;
+    searchCtrlRef.current?.abort();
+    const ctrl = new AbortController();
+    searchCtrlRef.current = ctrl;
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`/api/v1/telegram-search?q=${encodeURIComponent(q)}`);
+      const res = await fetch(`/api/v1/telegram-search?q=${encodeURIComponent(q)}`, {
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15000)]),
+      });
       if (!res.ok) {
         const j = (await res.json().catch(() => ({}))) as { error?: string; message?: string };
         throw new Error(j.message ?? j.error ?? `HTTP ${res.status}`);
       }
       const j = (await res.json()) as SearchResponse;
-      setData(j);
+      if (!ctrl.signal.aborted) setData(j);
     } catch (e) {
+      if ((e as Error).name === 'AbortError') return;
       setError(e instanceof Error ? e.message : String(e));
     } finally {
-      setLoading(false);
+      if (!ctrl.signal.aborted) setLoading(false);
     }
   }, []);
 
@@ -103,12 +110,14 @@ export default function TelegramChannelSearch(): JSX.Element {
         method: 'POST',
         headers: { 'content-type': 'application/json', ...adminAuthHeaders() },
         body: JSON.stringify({ handle, name: handle }),
+        signal: AbortSignal.timeout(30000),
       });
       if (!res.ok) {
         const j = (await res.json().catch(() => ({}))) as { error?: string; message?: string };
         throw new Error(j.message ?? j.error ?? `HTTP ${res.status}`);
       }
     } catch (e) {
+      if ((e as Error).name === 'AbortError') return;
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setBusy(null);

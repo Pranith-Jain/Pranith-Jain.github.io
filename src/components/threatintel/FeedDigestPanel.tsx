@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { RefreshCw, X, FileText } from 'lucide-react';
 
 interface TopStory {
@@ -46,8 +46,13 @@ export function FeedDigestPanel({ items, period = 'daily', onClose }: FeedDigest
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [model, setModel] = useState<string | null>(null);
+  const inflightRef = useRef<AbortController | null>(null);
 
   const fetchDigest = useCallback(async () => {
+    if (inflightRef.current) inflightRef.current.abort();
+    const ctrl = new AbortController();
+    inflightRef.current = ctrl;
+    const timer = setTimeout(() => ctrl.abort(), 30_000);
     setLoading(true);
     setError(null);
     try {
@@ -55,15 +60,24 @@ export function FeedDigestPanel({ items, period = 'daily', onClose }: FeedDigest
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ items, period }),
+        signal: ctrl.signal,
       });
+      if (ctrl.signal.aborted) return;
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
+      if (ctrl.signal.aborted) return;
       setDigest(data.digest);
       setModel(data.model);
     } catch (e) {
+      if (ctrl.signal.aborted) {
+        setError('Request timed out after 30s. Try fewer items or retry.');
+        return;
+      }
       setError((e as Error).message);
     } finally {
-      setLoading(false);
+      clearTimeout(timer);
+      if (inflightRef.current === ctrl) inflightRef.current = null;
+      if (!ctrl.signal.aborted) setLoading(false);
     }
   }, [items, period]);
 

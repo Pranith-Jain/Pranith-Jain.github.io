@@ -102,7 +102,7 @@ export default function SecretLeaks(): JSX.Element {
     const ctrl = new AbortController();
     setLoading(true);
     setError(null);
-    fetch('/api/v1/secret-leaks', { signal: ctrl.signal })
+    fetch('/api/v1/secret-leaks', { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) })
       .then((r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         return r.json();

@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { Plus, Trash2, Bell, RefreshCw, AlertTriangle, ExternalLink, Activity, Search } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { DataState } from '../../components/DataState';
@@ -52,13 +52,18 @@ export default function Watches(): JSX.Element {
 
   const [form, setForm] = useState({ label: '', type: 'ransomware-group' as Watch['type'], value: '', webhook: '' });
 
+  const fetchCtrlRef = useRef<AbortController | null>(null);
   const fetchData = useCallback(async () => {
+    fetchCtrlRef.current?.abort();
+    const ctrl = new AbortController();
+    fetchCtrlRef.current = ctrl;
+    const signal = AbortSignal.any([ctrl.signal, AbortSignal.timeout(15000)]);
     setLoading(true);
     setError(null);
     try {
       const [wRes, aRes] = await Promise.all([
-        fetch('/api/v1/watches', { headers: adminAuthHeaders() }),
-        fetch('/api/v1/watches/log', { headers: adminAuthHeaders() }),
+        fetch('/api/v1/watches', { headers: adminAuthHeaders(), signal }),
+        fetch('/api/v1/watches/log', { headers: adminAuthHeaders(), signal }),
       ]);
       if (!wRes.ok) throw new Error('Failed to load watches');
       const wData = await wRes.json();
@@ -66,9 +71,10 @@ export default function Watches(): JSX.Element {
       setWatches(wData.watches ?? []);
       setAlerts(aData.alerts ?? []);
     } catch (e) {
+      if ((e as Error).name === 'AbortError') return;
       setError(e instanceof Error ? e.message : String(e));
     } finally {
-      setLoading(false);
+      if (!ctrl.signal.aborted) setLoading(false);
     }
   }, []);
 
@@ -84,6 +90,7 @@ export default function Watches(): JSX.Element {
         method: 'POST',
         headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
         body: JSON.stringify(form),
+        signal: AbortSignal.timeout(30000),
       });
       if (!res.ok) {
         const err = await res.json();
@@ -116,6 +123,7 @@ export default function Watches(): JSX.Element {
         method: 'PUT',
         headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
         body: JSON.stringify(editForm),
+        signal: AbortSignal.timeout(30000),
       });
       if (!res.ok) throw new Error('Failed to update');
       const data = await res.json();
@@ -129,7 +137,11 @@ export default function Watches(): JSX.Element {
   const handleDelete = async (id: string) => {
     if (!window.confirm('Delete this watch? This cannot be undone.')) return;
     try {
-      const res = await fetch(`/api/v1/watches/${id}`, { method: 'DELETE', headers: adminAuthHeaders() });
+      const res = await fetch(`/api/v1/watches/${id}`, {
+        method: 'DELETE',
+        headers: adminAuthHeaders(),
+        signal: AbortSignal.timeout(15000),
+      });
       if (!res.ok) throw new Error('Failed to delete');
       setWatches((prev) => prev.filter((w) => w.id !== id));
     } catch (e) {

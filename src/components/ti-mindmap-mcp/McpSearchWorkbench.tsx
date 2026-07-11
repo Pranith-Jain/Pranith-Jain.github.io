@@ -141,7 +141,7 @@ export function McpSearchWorkbench(props: {
           <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
             {props.compact ? 'Quick MCP search' : 'TI-Mindmap-Hub Search'}
           </h3>
-          <span className="ml-auto text-micro font-mono uppercase text-slate-500">via MCP · 19 tools</span>
+          <span className="ml-auto text-micro font-mono uppercase text-slate-500">via MCP · 25 tools</span>
         </div>
 
         <form

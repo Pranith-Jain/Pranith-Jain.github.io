@@ -52,17 +52,17 @@ export default function StatusPage(): JSX.Element {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    let cancelled = false;
-    fetch('/api/v1/feed-status')
+    const ac = new AbortController();
+    fetch('/api/v1/feed-status', { signal: AbortSignal.any([ac.signal, AbortSignal.timeout(15_000)]) })
       .then((r) => {
         if (!r.ok) throw new Error(`upstream ${r.status}`);
         return r.json() as Promise<FeedStatusResponse>;
       })
-      .then((d) => !cancelled && setData(d))
-      .catch((e: Error) => !cancelled && setError(e.message));
-    return () => {
-      cancelled = true;
-    };
+      .then((d) => setData(d))
+      .catch((e: Error) => {
+        if (e.name !== 'AbortError') setError(e.message);
+      });
+    return () => ac.abort();
   }, []);
 
   const onRetry = () => {
@@ -79,22 +79,26 @@ export default function StatusPage(): JSX.Element {
 
   const overall = data?.overall ?? 'cold';
   const PillIcon = PILL[overall].icon;
-  const counts = useMemo(() =>
-    data?.rows.reduce(
-      (acc, r) => {
-        acc[r.status] = (acc[r.status] ?? 0) + 1;
-        return acc;
-      },
-      { ok: 0, degraded: 0, down: 0, cold: 0 } as Record<Status, number>
-    ), [data]);
+  const counts = useMemo(
+    () =>
+      data?.rows.reduce(
+        (acc, r) => {
+          acc[r.status] = (acc[r.status] ?? 0) + 1;
+          return acc;
+        },
+        { ok: 0, degraded: 0, down: 0, cold: 0 } as Record<Status, number>
+      ),
+    [data]
+  );
 
-  const sortedRows = useMemo(() =>
-    data?.rows
-      .slice()
-      .sort((a, b) => {
+  const sortedRows = useMemo(
+    () =>
+      data?.rows.slice().sort((a, b) => {
         if (ORDER[a.status] !== ORDER[b.status]) return ORDER[a.status] - ORDER[b.status];
         return a.label.localeCompare(b.label);
-      }) ?? [], [data]);
+      }) ?? [],
+    [data]
+  );
 
   return (
     <>
@@ -157,74 +161,73 @@ export default function StatusPage(): JSX.Element {
               Per-feed status
             </h2>
             <ul className="grid gap-2">
-              {sortedRows
-                .map((r) => {
-                  const Icon = PILL[r.status].icon;
-                  const cred = r.info_credibility !== undefined ? CREDIBILITY[r.info_credibility] : undefined;
-                  const rel = r.reliability ? RELIABILITY_TONE[r.reliability] : undefined;
-                  return (
-                    <li key={r.id} className="surface-card p-3">
-                      <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
-                        <Link
-                          to={r.page_path}
-                          className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400"
-                        >
-                          {r.label}
-                        </Link>
-                        <div className="flex items-center gap-1.5 flex-wrap">
-                          {rel && (
-                            <span
-                              className={`inline-flex items-center gap-1 text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${rel}`}
-                              title={`NATO Admiralty source reliability: ${r.reliability}`}
-                            >
-                              rel {r.reliability}
-                            </span>
-                          )}
-                          {cred && (
-                            <span
-                              className={`inline-flex items-center gap-1 text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${cred.tone}`}
-                              title="NATO Admiralty information credibility for current data point"
-                            >
-                              {cred.label}
-                            </span>
-                          )}
+              {sortedRows.map((r) => {
+                const Icon = PILL[r.status].icon;
+                const cred = r.info_credibility !== undefined ? CREDIBILITY[r.info_credibility] : undefined;
+                const rel = r.reliability ? RELIABILITY_TONE[r.reliability] : undefined;
+                return (
+                  <li key={r.id} className="surface-card p-3">
+                    <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
+                      <Link
+                        to={r.page_path}
+                        className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400"
+                      >
+                        {r.label}
+                      </Link>
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        {rel && (
                           <span
-                            className={`inline-flex items-center gap-1 text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${PILL[r.status].cls}`}
+                            className={`inline-flex items-center gap-1 text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${rel}`}
+                            title={`NATO Admiralty source reliability: ${r.reliability}`}
                           >
-                            <Icon size={10} /> {PILL[r.status].label}
+                            rel {r.reliability}
                           </span>
-                        </div>
-                      </div>
-                      <p className="text-meta font-mono text-muted leading-relaxed mb-1.5">{r.reason}</p>
-                      <div className="flex flex-wrap items-center gap-2 text-micro font-mono text-slate-500">
-                        <Link to={r.page_path} className="hover:text-brand-600 dark:hover:text-brand-400">
-                          {r.page_path}
-                        </Link>
-                        <span>·</span>
-                        <a
-                          href={r.api_path}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 hover:text-brand-600 dark:hover:text-brand-400"
+                        )}
+                        {cred && (
+                          <span
+                            className={`inline-flex items-center gap-1 text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${cred.tone}`}
+                            title="NATO Admiralty information credibility for current data point"
+                          >
+                            {cred.label}
+                          </span>
+                        )}
+                        <span
+                          className={`inline-flex items-center gap-1 text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${PILL[r.status].cls}`}
                         >
-                          {r.api_path} <ExternalLink size={12} />
-                        </a>
-                        {r.upstream_age_s !== undefined && (
-                          <>
-                            <span>·</span>
-                            <span>upstream {ageString(r.upstream_age_s)}</span>
-                          </>
-                        )}
-                        {r.admiralty_grade && (
-                          <>
-                            <span>·</span>
-                            <span className="text-slate-500 dark:text-slate-400">admiralty {r.admiralty_grade}</span>
-                          </>
-                        )}
+                          <Icon size={10} /> {PILL[r.status].label}
+                        </span>
                       </div>
-                    </li>
-                  );
-                })}
+                    </div>
+                    <p className="text-meta font-mono text-muted leading-relaxed mb-1.5">{r.reason}</p>
+                    <div className="flex flex-wrap items-center gap-2 text-micro font-mono text-slate-500">
+                      <Link to={r.page_path} className="hover:text-brand-600 dark:hover:text-brand-400">
+                        {r.page_path}
+                      </Link>
+                      <span>·</span>
+                      <a
+                        href={r.api_path}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 hover:text-brand-600 dark:hover:text-brand-400"
+                      >
+                        {r.api_path} <ExternalLink size={12} />
+                      </a>
+                      {r.upstream_age_s !== undefined && (
+                        <>
+                          <span>·</span>
+                          <span>upstream {ageString(r.upstream_age_s)}</span>
+                        </>
+                      )}
+                      {r.admiralty_grade && (
+                        <>
+                          <span>·</span>
+                          <span className="text-slate-500 dark:text-slate-400">admiralty {r.admiralty_grade}</span>
+                        </>
+                      )}
+                    </div>
+                  </li>
+                );
+              })}
             </ul>
           </section>
         )}

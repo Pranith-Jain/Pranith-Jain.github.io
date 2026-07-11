@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, type FormEvent } from 'react';
+import { useEffect, useRef, useState, useCallback, type FormEvent } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { SEVERITY_TONE } from '../../components/severity';
 import { adminAuthHeaders } from '../../lib/admin-token';
@@ -103,29 +103,43 @@ function InvestigationsPage(): JSX.Element {
     tags: '',
   });
 
+  const fetchCtrlRef = useRef<AbortController | null>(null);
   const fetchData = useCallback(async () => {
+    fetchCtrlRef.current?.abort();
+    const ctrl = new AbortController();
+    fetchCtrlRef.current = ctrl;
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/v1/investigations', { headers: adminAuthHeaders() });
+      const res = await fetch('/api/v1/investigations', {
+        headers: adminAuthHeaders(),
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15000)]),
+      });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = (await res.json()) as { investigations: Investigation[] };
-      setInvestigations(data.investigations);
+      if (!ctrl.signal.aborted) setInvestigations(data.investigations);
     } catch (e) {
+      if ((e as Error).name === 'AbortError') return;
       setError(e instanceof Error ? e.message : 'Failed to load');
-      setInvestigations([]);
+      if (!ctrl.signal.aborted) setInvestigations([]);
     } finally {
-      setLoading(false);
+      if (!ctrl.signal.aborted) setLoading(false);
     }
   }, []);
 
   useEffect(() => {
+    const ctrl = new AbortController();
+    fetchCtrlRef.current = ctrl;
     void fetchData();
+    return () => ctrl.abort();
   }, [fetchData]);
 
   const refreshInvestigation = useCallback(async (id: string) => {
     try {
-      const res = await fetch(`/api/v1/investigations/${id}`, { headers: adminAuthHeaders() });
+      const res = await fetch(`/api/v1/investigations/${id}`, {
+        headers: adminAuthHeaders(),
+        signal: AbortSignal.timeout(15000),
+      });
       if (!res.ok) return;
       const data = (await res.json()) as { investigation: Investigation };
       setActiveInv(data.investigation);
@@ -152,6 +166,7 @@ function InvestigationsPage(): JSX.Element {
             .map((s) => s.trim())
             .filter(Boolean),
         }),
+        signal: AbortSignal.timeout(30000),
       });
       if (!res.ok) return;
       const data = (await res.json()) as { investigation: Investigation };
@@ -170,6 +185,7 @@ function InvestigationsPage(): JSX.Element {
         method: 'PATCH',
         headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
         body: JSON.stringify({ status }),
+        signal: AbortSignal.timeout(15000),
       });
       if (!res.ok) return;
       const data = (await res.json()) as { investigation: Investigation };
@@ -182,7 +198,11 @@ function InvestigationsPage(): JSX.Element {
 
   const deleteInvestigation = async (id: string) => {
     try {
-      await fetch(`/api/v1/investigations/${id}`, { method: 'DELETE', headers: adminAuthHeaders() });
+      await fetch(`/api/v1/investigations/${id}`, {
+        method: 'DELETE',
+        headers: adminAuthHeaders(),
+        signal: AbortSignal.timeout(15000),
+      });
       setInvestigations((prev) => prev.filter((i) => i.id !== id));
       if (activeInv?.id === id) setActiveInv(null);
     } catch {
@@ -197,6 +217,7 @@ function InvestigationsPage(): JSX.Element {
         method: 'POST',
         headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
         body: JSON.stringify({ value: obsValue.trim(), type: obsType }),
+        signal: AbortSignal.timeout(15000),
       });
       setObsValue('');
       await refreshInvestigation(activeInv.id);
@@ -211,6 +232,7 @@ function InvestigationsPage(): JSX.Element {
       await fetch(`/api/v1/investigations/${activeInv.id}/observables/${obsId}`, {
         method: 'DELETE',
         headers: adminAuthHeaders(),
+        signal: AbortSignal.timeout(15000),
       });
       await refreshInvestigation(activeInv.id);
     } catch {
@@ -225,6 +247,7 @@ function InvestigationsPage(): JSX.Element {
         method: 'POST',
         headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
         body: JSON.stringify({ title: taskTitle.trim() }),
+        signal: AbortSignal.timeout(15000),
       });
       setTaskTitle('');
       await refreshInvestigation(activeInv.id);
@@ -240,6 +263,7 @@ function InvestigationsPage(): JSX.Element {
         method: 'PATCH',
         headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
         body: JSON.stringify({ status }),
+        signal: AbortSignal.timeout(15000),
       });
       await refreshInvestigation(activeInv.id);
     } catch {
@@ -254,6 +278,7 @@ function InvestigationsPage(): JSX.Element {
         method: 'POST',
         headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
         body: JSON.stringify({ message: noteText.trim() }),
+        signal: AbortSignal.timeout(15000),
       });
       setNoteText('');
       await refreshInvestigation(activeInv.id);
@@ -269,6 +294,7 @@ function InvestigationsPage(): JSX.Element {
         method: 'PATCH',
         headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
         body: JSON.stringify({ severity }),
+        signal: AbortSignal.timeout(15000),
       });
       if (!res.ok) return;
       const data = (await res.json()) as { investigation: Investigation };

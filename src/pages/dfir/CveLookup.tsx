@@ -102,6 +102,7 @@ export default function CveLookup(): JSX.Element {
     try {
       const res = await fetch('/api/v1/copilot/investigate', {
         method: 'POST',
+        signal: AbortSignal.timeout(30_000),
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ query: result.cve_id }),
       });
@@ -124,6 +125,7 @@ export default function CveLookup(): JSX.Element {
     try {
       const res = await fetch('/api/v1/ioc/rule', {
         method: 'POST',
+        signal: AbortSignal.timeout(30_000),
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ indicator: result.cve_id, format: ruleFormat }),
       });

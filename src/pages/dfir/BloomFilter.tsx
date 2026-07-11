@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { BackLink } from '../../components/BackLink';
 import {
   ArrowLeft,
@@ -64,10 +64,19 @@ export default function BloomFilter(): JSX.Element {
   const [loading, setLoading] = useState(false);
   const [statsLoading, setStatsLoading] = useState(false);
 
+  const statsRef = useRef<AbortController | null>(null);
+  const checkRef = useRef<AbortController | null>(null);
+
   const fetchStats = useCallback(async () => {
+    statsRef.current?.abort();
+    const ctrl = new AbortController();
+    statsRef.current = ctrl;
     setStatsLoading(true);
     try {
-      const res = await fetch('/api/v1/bloom/stats');
+      const res = await fetch('/api/v1/bloom/stats', {
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
+      });
+      if (ctrl.signal.aborted) return;
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const ct = res.headers.get('content-type') ?? '';
       if (!ct.includes('json')) throw new Error('Server returned non-JSON');
@@ -75,14 +84,15 @@ export default function BloomFilter(): JSX.Element {
     } catch {
       /* silent */
     } finally {
-      setStatsLoading(false);
+      if (!ctrl.signal.aborted) setStatsLoading(false);
     }
   }, []);
 
   const buildFilter = useCallback(
     async (type: string) => {
+      const ctrl = new AbortController();
       try {
-        await fetch(`/api/v1/bloom/${type}`);
+        await fetch(`/api/v1/bloom/${type}`, { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(30_000)]) });
         await fetchStats();
       } catch {
         /* silent */
@@ -93,6 +103,9 @@ export default function BloomFilter(): JSX.Element {
 
   const checkIndicator = useCallback(async () => {
     if (!query.trim()) return;
+    checkRef.current?.abort();
+    const ctrl = new AbortController();
+    checkRef.current = ctrl;
     setLoading(true);
     setCheckResult(null);
     try {
@@ -100,7 +113,9 @@ export default function BloomFilter(): JSX.Element {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ indicator: query }),
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
       });
+      if (ctrl.signal.aborted) return;
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const ct = res.headers.get('content-type') ?? '';
       if (!ct.includes('json')) throw new Error('Server returned non-JSON');
@@ -108,12 +123,15 @@ export default function BloomFilter(): JSX.Element {
     } catch {
       /* silent */
     } finally {
-      setLoading(false);
+      if (!ctrl.signal.aborted) setLoading(false);
     }
   }, [query]);
 
   useEffect(() => {
     fetchStats();
+    return () => {
+      statsRef.current?.abort();
+    };
   }, [fetchStats]);
 
   const verdict = checkResult?.found === true ? 'found' : checkResult?.found === false ? 'not-found' : 'unknown';

@@ -41,23 +41,23 @@ export default function ActorDetail(): JSX.Element {
 
   useEffect(() => {
     if (!actor) return;
-    let cancelled = false;
+    const ac = new AbortController();
     setCvesLoading(true);
     const aliases = encodeURIComponent(actor.aliases.join(','));
-    fetch(`/api/v1/actor-cves?slug=${encodeURIComponent(actor.slug)}&aliases=${aliases}`)
+    fetch(`/api/v1/actor-cves?slug=${encodeURIComponent(actor.slug)}&aliases=${aliases}`, {
+      signal: AbortSignal.any([ac.signal, AbortSignal.timeout(15_000)]),
+    })
       .then((r) => (r.ok ? (r.json() as Promise<ActorCvesResponse>) : null))
       .then((d) => {
-        if (!cancelled) setLinkedCves(d?.cves ?? []);
+        setLinkedCves(d?.cves ?? []);
       })
-      .catch(() => {
-        if (!cancelled) setLinkedCves([]);
+      .catch((e) => {
+        if (e.name !== 'AbortError') setLinkedCves([]);
       })
       .finally(() => {
-        if (!cancelled) setCvesLoading(false);
+        setCvesLoading(false);
       });
-    return () => {
-      cancelled = true;
-    };
+    return () => ac.abort();
   }, [actor]);
 
   // Live enrichment from the aggregator — pulls Malpedia, OTX, Maltrail,
@@ -65,25 +65,25 @@ export default function ActorDetail(): JSX.Element {
   // "Live Intelligence" section below the curated content.
   useEffect(() => {
     if (!actor) return;
-    let cancelled = false;
+    const ac = new AbortController();
     setProfileLoading(true);
     const params = new URLSearchParams({ name: actor.name });
     if (actor.aliases.length > 0) params.set('aliases', actor.aliases.join(','));
     if (actor.malware.length > 0) params.set('software', actor.malware.join(','));
-    fetch(`/api/v1/actor-profile?${params.toString()}`)
+    fetch(`/api/v1/actor-profile?${params.toString()}`, {
+      signal: AbortSignal.any([ac.signal, AbortSignal.timeout(15_000)]),
+    })
       .then((r) => (r.ok ? (r.json() as Promise<ActorProfileResponse>) : null))
       .then((d) => {
-        if (!cancelled) setProfile(d);
+        setProfile(d);
       })
-      .catch(() => {
-        if (!cancelled) setProfile(null);
+      .catch((e) => {
+        if (e.name !== 'AbortError') setProfile(null);
       })
       .finally(() => {
-        if (!cancelled) setProfileLoading(false);
+        setProfileLoading(false);
       });
-    return () => {
-      cancelled = true;
-    };
+    return () => ac.abort();
   }, [actor]);
 
   if (!actor) {

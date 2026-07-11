@@ -36,7 +36,7 @@ export function LatestBriefingCard(): JSX.Element | null {
   useEffect(() => {
     const ctrl = new AbortController();
     let alive = true;
-    fetch('/api/v1/briefings/list?limit=1', { signal: ctrl.signal })
+    fetch('/api/v1/briefings/list?limit=1', { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) })
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
       .then((d: { items?: BriefingItem[] }) => {
         if (alive && d.items && d.items.length > 0) setItem(d.items[0] ?? null);

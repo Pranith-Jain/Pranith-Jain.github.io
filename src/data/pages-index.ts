@@ -3070,7 +3070,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     path: '/threatintel/cyberpulse',
     label: 'CyberPulse',
     description:
-      'Breach, leak & cybercrime incident tracker — sourced from X/Twitter, Telegram, Bluesky & Mastodon firehose. Broader than ransom.live.',
+      'Breach, leak & cybercrime incident tracker — sourced from X/Twitter, Telegram, Reddit, Bluesky & Mastodon firehose. Broader than ransom.live.',
     sectionLabel: 'Threat Intel · Live',
     group: 'threatintel',
     keywords: [

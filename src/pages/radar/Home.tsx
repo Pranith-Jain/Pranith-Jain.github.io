@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useRef, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, Radar, Globe, Shield, Code, Lock, ArrowRight, Loader2 } from 'lucide-react';
 import { RadarStructuredData } from '../../components/ToolStructuredData';
@@ -12,9 +12,13 @@ export default function RadarHome() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  const scanCtrlRef = useRef<AbortController | null>(null);
   const handleScan = useCallback(async () => {
     const target = url.trim();
     if (!target) return;
+    scanCtrlRef.current?.abort();
+    const ctrl = new AbortController();
+    scanCtrlRef.current = ctrl;
     setError('');
     setScanning(true);
 
@@ -23,17 +27,19 @@ export default function RadarHome() {
         method: 'POST',
         headers: { 'content-type': 'application/json', accept: 'application/json' },
         body: JSON.stringify({ url: target }),
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(60000)]),
       });
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
         throw new Error(data.error || `HTTP ${res.status}`);
       }
       const data = await res.json();
-      navigate(`/radar/scan/${data.id}`);
+      if (!ctrl.signal.aborted) navigate(`/radar/scan/${data.id}`);
     } catch (err) {
+      if ((err as Error).name === 'AbortError') return;
       setError(err instanceof Error ? err.message : 'Scan failed');
     } finally {
-      setScanning(false);
+      if (!ctrl.signal.aborted) setScanning(false);
     }
   }, [url, navigate]);
 

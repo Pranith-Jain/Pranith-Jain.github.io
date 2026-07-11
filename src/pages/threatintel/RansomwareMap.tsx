@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect, useMemo, useState } from 'react';
+import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { ClusterTabs, RANSOMWARE_TABS } from '../../components/threatintel/ClusterTabs';
@@ -226,36 +226,46 @@ export default function RansomwareMap(): JSX.Element {
   const [liveMode, setLiveMode] = useState(false);
   const [nextRefreshIn, setNextRefreshIn] = useState(REFRESH_INTERVAL_MS / 1000);
 
+  const loadRef = useRef<AbortController | null>(null);
   const load = async () => {
+    loadRef.current?.abort();
+    const ctrl = new AbortController();
+    loadRef.current = ctrl;
     setLoading(true);
     setError(null);
     try {
-      const r = await fetch('/api/v1/ransomware-map');
+      const r = await fetch('/api/v1/ransomware-map', {
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15000)]),
+      });
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       setData((await r.json()) as RansomwareMapResponse);
     } catch (e) {
+      if ((e as Error).name === 'AbortError') return;
       setError((e as Error).message);
     } finally {
-      setLoading(false);
+      if (!ctrl.signal.aborted) setLoading(false);
     }
   };
 
   useEffect(() => {
+    const ctrl = new AbortController();
+    loadRef.current = ctrl;
     void load();
+    return () => ctrl.abort();
   }, []);
 
   useEffect(() => {
     if (!liveMode) return;
+    const pollCtrl = new AbortController();
     setNextRefreshIn(REFRESH_INTERVAL_MS / 1000);
     const fetchTimer = window.setInterval(() => {
-      if (document.visibilityState !== 'visible') return; // don't poll a hidden/background tab
+      if (document.visibilityState !== 'visible') return;
       void load();
       setNextRefreshIn(REFRESH_INTERVAL_MS / 1000);
     }, REFRESH_INTERVAL_MS);
     const countdownTimer = window.setInterval(() => {
       setNextRefreshIn((n) => Math.max(0, n - 1));
     }, 1000);
-    // Catch up immediately when the tab returns to the foreground.
     const onVisible = () => {
       if (document.visibilityState === 'visible') {
         void load();
@@ -264,6 +274,7 @@ export default function RansomwareMap(): JSX.Element {
     };
     document.addEventListener('visibilitychange', onVisible);
     return () => {
+      pollCtrl.abort();
       window.clearInterval(fetchTimer);
       window.clearInterval(countdownTimer);
       document.removeEventListener('visibilitychange', onVisible);

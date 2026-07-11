@@ -29,26 +29,27 @@ export default function PhishingWordlists(): JSX.Element {
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    let cancelled = false;
-    fetch('/api/v1/phishing-wordlists')
+    const ctrl = new AbortController();
+    fetch('/api/v1/phishing-wordlists', { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) })
       .then((r) => {
+        if (ctrl.signal.aborted) return;
         if (!r.ok) throw new Error(`upstream ${r.status}`);
         return r.json() as Promise<PhishingWordlistsResponse>;
       })
       .then((d) => {
-        if (cancelled) return;
-        setData(d);
-        setActiveId(d.lists[0]?.id ?? null);
+        if (ctrl.signal.aborted) return;
+        if (d) {
+          setData(d);
+          setActiveId(d.lists[0]?.id ?? null);
+        }
       })
       .catch((e: Error) => {
-        if (!cancelled) setError(e.message);
+        if (!ctrl.signal.aborted) setError(e.message);
       })
       .finally(() => {
-        if (!cancelled) setLoading(false);
+        if (!ctrl.signal.aborted) setLoading(false);
       });
-    return () => {
-      cancelled = true;
-    };
+    return () => ctrl.abort();
   }, []);
 
   const active = useMemo(() => data?.lists.find((l) => l.id === activeId) ?? null, [data, activeId]);

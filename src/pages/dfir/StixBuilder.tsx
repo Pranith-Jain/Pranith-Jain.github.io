@@ -142,7 +142,7 @@ export default function StixBuilder(): JSX.Element {
           sourceName: sourceName.trim() || undefined,
           tlp,
         }),
-        signal: ctrl.signal,
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(60_000)]),
       });
       if (!res.ok) {
         const text = await res.text().catch(() => res.statusText);
@@ -178,7 +178,7 @@ export default function StixBuilder(): JSX.Element {
         method: 'POST',
         headers: adminAuthHeaders(),
         body: fd,
-        signal: ctrl.signal,
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(60_000)]),
       });
       if (res.status === 401 || res.status === 403) {
         throw new Error('Admin access required — file ingestion is admin-gated. Sign in at /admin, then retry.');

@@ -59,7 +59,9 @@ export default function MaliciousPackages(): JSX.Element {
     setLoading(true);
     setError(null);
     setData(null);
-    fetch(`/api/v1/malicious-packages?ecosystem=${encodeURIComponent(ecosystem)}`, { signal: ctrl.signal })
+    fetch(`/api/v1/malicious-packages?ecosystem=${encodeURIComponent(ecosystem)}`, {
+      signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
+    })
       .then(async (r) => {
         const body = (await r.json()) as MaliciousPackagesResponse | { error: string };
         if (cancelled) return;

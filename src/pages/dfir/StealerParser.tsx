@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Search, Loader2, Bug, FileText, Shield, Globe, Wallet, Monitor, AlertTriangle } from 'lucide-react';
 import { CopyButton } from '../../components/dfir/CopyButton';
@@ -25,8 +25,13 @@ export default function StealerParser(): JSX.Element {
   const [result, setResult] = useState<StealerResult | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  const parseRef = useRef<AbortController | null>(null);
+
   const handleParse = useCallback(async () => {
     if (!input.trim()) return;
+    parseRef.current?.abort();
+    const ctrl = new AbortController();
+    parseRef.current = ctrl;
     setLoading(true);
     setError(null);
     setResult(null);
@@ -35,7 +40,9 @@ export default function StealerParser(): JSX.Element {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: input }),
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(30_000)]),
       });
+      if (ctrl.signal.aborted) return;
       if (!res.ok) {
         const errBody = await res.text().catch(() => '');
         let msg = `HTTP ${res.status}`;
@@ -51,9 +58,10 @@ export default function StealerParser(): JSX.Element {
       if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
       setResult(await res.json());
     } catch (err) {
+      if (ctrl.signal.aborted) return;
       setError(err instanceof Error ? err.message : String(err));
     } finally {
-      setLoading(false);
+      if (!ctrl.signal.aborted) setLoading(false);
     }
   }, [input]);
 

@@ -133,12 +133,15 @@ export default function MitreMatrix(): JSX.Element {
   // Fetch detail on selection
   useEffect(() => {
     if (!selectedId) return;
-    let cancelled = false;
+    const ctrl = new AbortController();
     setDetailLoading(true);
     setDetailError(null);
     setDetail(null);
-    fetch(`/api/v1/mitre/technique?technique=${encodeURIComponent(selectedId)}`)
+    fetch(`/api/v1/mitre/technique?technique=${encodeURIComponent(selectedId)}`, {
+      signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
+    })
       .then(async (r) => {
+        if (ctrl.signal.aborted) return;
         if (!r.ok) {
           const body = (await r.json().catch(() => ({}))) as { error?: string };
           throw new Error(body.error ?? `${r.status}`);
@@ -146,16 +149,16 @@ export default function MitreMatrix(): JSX.Element {
         return (await r.json()) as TechniqueResponse;
       })
       .then((d) => {
-        if (!cancelled) setDetail(d);
+        if (!ctrl.signal.aborted && d) setDetail(d);
       })
       .catch((err: Error) => {
-        if (!cancelled) setDetailError(err.message);
+        if (!ctrl.signal.aborted) setDetailError(err.message);
       })
       .finally(() => {
-        if (!cancelled) setDetailLoading(false);
+        if (!ctrl.signal.aborted) setDetailLoading(false);
       });
     return () => {
-      cancelled = true;
+      ctrl.abort();
     };
   }, [selectedId]);
 

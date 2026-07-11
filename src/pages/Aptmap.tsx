@@ -140,20 +140,20 @@ export default function AptmapPage() {
   const [selectedNode, setSelectedNode] = useState<AptmapGraph['nodes'][0] | null>(null);
 
   useEffect(() => {
-    let alive = true;
+    const ac = new AbortController();
+    const sig = AbortSignal.any([ac.signal, AbortSignal.timeout(15_000)]);
     (async () => {
       try {
         const [idxRes, graphRes, ftRes, fsRes, secRes, resRes, impRes, certRes] = await Promise.all([
-          fetch('/api/v1/apt-actors/'),
-          fetch('/api/v1/apt-actors/aptmap'),
-          fetch('/api/v1/apt-actors/aptmap/data/filetypes_count.json'),
-          fetch('/api/v1/apt-actors/aptmap/data/filesizes_count.json'),
-          fetch('/api/v1/apt-actors/aptmap/data/sections_count.json'),
-          fetch('/api/v1/apt-actors/aptmap/data/resources_count.json'),
-          fetch('/api/v1/apt-actors/aptmap/data/imports_count.json'),
-          fetch('/api/v1/apt-actors/aptmap/data/certificates_count.json'),
+          fetch('/api/v1/apt-actors/', { signal: sig }),
+          fetch('/api/v1/apt-actors/aptmap', { signal: sig }),
+          fetch('/api/v1/apt-actors/aptmap/data/filetypes_count.json', { signal: sig }),
+          fetch('/api/v1/apt-actors/aptmap/data/filesizes_count.json', { signal: sig }),
+          fetch('/api/v1/apt-actors/aptmap/data/sections_count.json', { signal: sig }),
+          fetch('/api/v1/apt-actors/aptmap/data/resources_count.json', { signal: sig }),
+          fetch('/api/v1/apt-actors/aptmap/data/imports_count.json', { signal: sig }),
+          fetch('/api/v1/apt-actors/aptmap/data/certificates_count.json', { signal: sig }),
         ]);
-        if (!alive) return;
         if (!idxRes.ok || !graphRes.ok) throw new Error('Failed to load APTmap data');
         setIndex(await idxRes.json());
         const graphJson = await graphRes.json();
@@ -166,14 +166,12 @@ export default function AptmapPage() {
         setImports(impRes.ok ? (await impRes.json()).slice(0, 50) : []);
         setCertificates(certRes.ok ? (await certRes.json()).slice(0, 50) : []);
       } catch (e) {
-        if (alive) setError((e as Error).message);
+        if ((e as Error).name !== 'AbortError') setError((e as Error).message);
       } finally {
-        if (alive) setLoading(false);
+        setLoading(false);
       }
     })();
-    return () => {
-      alive = false;
-    };
+    return () => ac.abort();
   }, []);
 
   const graphStats = useMemo(() => {

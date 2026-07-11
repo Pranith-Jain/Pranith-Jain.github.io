@@ -289,7 +289,9 @@ export default function XWatch(): JSX.Element {
       include_replies: includeReplies ? '1' : '0',
       include_pinned: includePinned ? '1' : '0',
     });
-    fetch(`/api/v1/x-firehose?${qs.toString()}`, { signal: ctrl.signal })
+    fetch(`/api/v1/x-firehose?${qs.toString()}`, {
+      signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
+    })
       .then(async (r) => {
         const body = (await r.json()) as FirehoseResponse | { error: string; hint?: string; status?: number };
         if (cancelled) return;
@@ -351,7 +353,9 @@ export default function XWatch(): JSX.Element {
           include_replies: includeReplies ? '1' : '0',
           include_pinned: '0',
         });
-        const r = await fetch(`/api/v1/x-firehose?${qs.toString()}`, { signal: ctrl.signal });
+        const r = await fetch(`/api/v1/x-firehose?${qs.toString()}`, {
+          signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
+        });
         if (!r.ok) return { h, count: 0 };
         const body = (await r.json()) as FirehoseResponse;
         return { h, count: body.items?.length ?? 0 };

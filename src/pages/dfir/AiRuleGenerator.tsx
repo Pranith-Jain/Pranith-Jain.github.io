@@ -182,6 +182,7 @@ export default function AiRuleGenerator(): JSX.Element {
 
       const res = await fetch('/api/v1/rules/generate', {
         method: 'POST',
+        signal: AbortSignal.timeout(30_000),
         headers: { ...adminAuthHeaders(), 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });

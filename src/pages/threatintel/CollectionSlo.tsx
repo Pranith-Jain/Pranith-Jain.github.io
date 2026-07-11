@@ -51,11 +51,24 @@ export default function CollectionSlo(): JSX.Element {
   const [filter, setFilter] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch('/api/v1/threat-intel/collection-slo')
-      .then((r) => r.json() as Promise<SloResponse>)
-      .then(setData)
-      .catch((e) => setError(e.message))
-      .finally(() => setLoading(false));
+    const ctrl = new AbortController();
+    fetch('/api/v1/threat-intel/collection-slo', {
+      signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
+    })
+      .then((r) => {
+        if (ctrl.signal.aborted) return;
+        return r.json() as Promise<SloResponse>;
+      })
+      .then((d) => {
+        if (!ctrl.signal.aborted && d) setData(d);
+      })
+      .catch((e) => {
+        if (!ctrl.signal.aborted) setError(e.message);
+      })
+      .finally(() => {
+        if (!ctrl.signal.aborted) setLoading(false);
+      });
+    return () => ctrl.abort();
   }, []);
 
   const sources = data?.rows ?? [];

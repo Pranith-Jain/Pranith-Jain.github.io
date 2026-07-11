@@ -36,6 +36,7 @@ export default function ReportIngest(): JSX.Element {
   const [dragOver, setDragOver] = useState(false);
   const [copied, setCopied] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const ingestRef = useRef<AbortController | null>(null);
 
   const processFile = useCallback(async (file: File) => {
     setResult(null);
@@ -49,6 +50,10 @@ export default function ReportIngest(): JSX.Element {
       return;
     }
 
+    ingestRef.current?.abort();
+    const ctrl = new AbortController();
+    ingestRef.current = ctrl;
+
     setStatus('loading');
     try {
       const fd = new FormData();
@@ -58,7 +63,9 @@ export default function ReportIngest(): JSX.Element {
         method: 'POST',
         headers: { ...adminAuthHeaders() },
         body: fd,
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(60_000)]),
       });
+      if (ctrl.signal.aborted) return;
       if (!res.ok) {
         setStatus('error');
         setErrorStatus(res.status);
@@ -69,6 +76,7 @@ export default function ReportIngest(): JSX.Element {
       setResult(json);
       setStatus('done');
     } catch {
+      if (ctrl.signal.aborted) return;
       setStatus('error');
       setError('Network error — try again.');
     }

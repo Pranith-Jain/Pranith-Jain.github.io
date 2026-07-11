@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useRef } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ExternalLink, RefreshCw, Star, GitFork, GitCommit, FileCode } from 'lucide-react';
@@ -74,11 +74,17 @@ export default function Rules(): JSX.Element {
   const [error, setError] = useState<string | null>(null);
   const [typeFilter, setTypeFilter] = useState<string>('all');
 
+  const loadRef = useRef<AbortController | null>(null);
+
   const load = async () => {
+    loadRef.current?.abort();
+    const ctrl = new AbortController();
+    loadRef.current = ctrl;
     setLoading(true);
     setError(null);
     try {
-      const r = await fetch('/api/v1/rules');
+      const r = await fetch('/api/v1/rules', { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) });
+      if (ctrl.signal.aborted) return;
       if (!r.ok) {
         const body = await r.text().catch(() => '');
         throw new Error(body ? `HTTP ${r.status}: ${body.slice(0, 100)}` : `HTTP ${r.status}`);
@@ -87,14 +93,18 @@ export default function Rules(): JSX.Element {
       if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
       setData((await r.json()) as RulesResponse);
     } catch (e) {
+      if (ctrl.signal.aborted) return;
       setError((e as Error).message);
     } finally {
-      setLoading(false);
+      if (!ctrl.signal.aborted) setLoading(false);
     }
   };
 
   useEffect(() => {
     void load();
+    return () => {
+      loadRef.current?.abort();
+    };
   }, []);
 
   const types = useMemo(() => {

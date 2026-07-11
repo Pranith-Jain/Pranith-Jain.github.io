@@ -111,7 +111,7 @@ export default function BreachForums(): JSX.Element {
     const ctrl = new AbortController();
     setLoading(true);
     setError(null);
-    fetch('/api/v1/breach-forums', { signal: ctrl.signal })
+    fetch('/api/v1/breach-forums', { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) })
       .then((r) => {
         if (!r.ok) throw new Error(`upstream ${r.status}`);
         return r.json() as Promise<BreachForumsResponse>;
@@ -134,7 +134,9 @@ export default function BreachForums(): JSX.Element {
     const ctrl = new AbortController();
     setStatusLoading(true);
     setStatusError(null);
-    fetch('/api/v1/breach-forum-status/deltas?limit=25', { signal: ctrl.signal })
+    fetch('/api/v1/breach-forum-status/deltas?limit=25', {
+      signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
+    })
       .then((r) => {
         if (!r.ok) throw new Error(`upstream ${r.status}`);
         return r.json() as Promise<BreachForumStatusResponse>;
@@ -157,7 +159,9 @@ export default function BreachForums(): JSX.Element {
     const ctrl = new AbortController();
     setCoverageLoading(true);
     setCoverageError(null);
-    fetch('/api/v1/breach-coverage?topic=breach&limit=15', { signal: ctrl.signal })
+    fetch('/api/v1/breach-coverage?topic=breach&limit=15', {
+      signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
+    })
       .then((r) => {
         if (!r.ok) throw new Error(`upstream ${r.status}`);
         return r.json() as Promise<BreachCoverageResponse>;
@@ -180,7 +184,9 @@ export default function BreachForums(): JSX.Element {
     const ctrl = new AbortController();
     setMentionsLoading(true);
     setMentionsError(null);
-    fetch('/api/v1/breach-coverage?topic=forums&limit=10', { signal: ctrl.signal })
+    fetch('/api/v1/breach-coverage?topic=forums&limit=10', {
+      signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
+    })
       .then((r) => {
         if (!r.ok) throw new Error(`upstream ${r.status}`);
         return r.json() as Promise<BreachCoverageResponse>;

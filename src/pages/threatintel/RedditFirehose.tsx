@@ -54,26 +54,24 @@ export default function RedditFirehose(): JSX.Element {
   const { previous: lastVisit, markVisited } = useLastVisit('reddit-firehose');
 
   useEffect(() => {
-    let cancelled = false;
+    const ac = new AbortController();
     setLoading(true);
     setError(null);
-    fetch('/api/v1/reddit-feed')
+    fetch('/api/v1/reddit-feed', { signal: AbortSignal.any([ac.signal, AbortSignal.timeout(15_000)]) })
       .then((r) => {
         if (!r.ok) throw new Error(`upstream ${r.status}`);
         return r.json() as Promise<RedditFeedResponse>;
       })
       .then((d) => {
-        if (!cancelled) setData(d);
+        setData(d);
       })
       .catch((e: Error) => {
-        if (!cancelled) setError(e.message);
+        if (e.name !== 'AbortError') setError(e.message);
       })
       .finally(() => {
-        if (!cancelled) setLoading(false);
+        setLoading(false);
       });
-    return () => {
-      cancelled = true;
-    };
+    return () => ac.abort();
   }, [refreshKey]);
 
   useEffect(() => {

@@ -688,7 +688,7 @@ function McpSearchPanel(props: { apiKey: string; status: McpStatus }): JSX.Eleme
       <div className="flex flex-wrap items-center gap-2 mb-3">
         <Search className="h-4 w-4 text-brand-600 dark:text-brand-400" />
         <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Cross-Source Search</h3>
-        <span className="ml-auto text-micro font-mono uppercase text-slate-500">via TI-Mindmap-Hub MCP · 19 tools</span>
+        <span className="ml-auto text-micro font-mono uppercase text-slate-500">via TI-Mindmap-Hub MCP · 25 tools</span>
       </div>
       <form
         onSubmit={(e) => {

@@ -77,7 +77,7 @@ export function WhatsNewBanner(): JSX.Element | null {
     if (!previous) return;
     const ctrl = new AbortController();
     let cancelled = false;
-    fetch('/api/v1/snapshot', { signal: ctrl.signal })
+    fetch('/api/v1/snapshot', { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) })
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`${r.status}`))))
       .then((j: SnapshotMinimal) => {
         if (!cancelled) setSnapshot(j);

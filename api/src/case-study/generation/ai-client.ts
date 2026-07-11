@@ -27,7 +27,7 @@ const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
 const GROQ_MODEL: string = 'openai/gpt-oss-120b';
 const GROQ_MODEL_QUALITY: string = 'openai/gpt-oss-120b';
 export const GROQ_MODEL_FALLBACK: string = 'llama-3.3-70b-versatile';
-const GROQ_MODEL_DEEP: string = 'deepseek-r1-distill-llama-70b';
+const GROQ_MODEL_DEEP: string = 'qwen/qwen3.6-27b';
 const GROQ_TIMEOUT_MS = 15_000;
 
 const NVIDIA_BASE = 'https://integrate.api.nvidia.com/v1/chat/completions';
@@ -157,6 +157,7 @@ async function runGroq(key: string, input: CompletionInput, model?: string, _qua
       ],
       max_completion_tokens: input.maxTokens ?? 4000,
       temperature: input.temperature ?? 0.5,
+      reasoning_effort: 'medium',
     };
     res = await fetch(GROQ_URL, {
       method: 'POST',

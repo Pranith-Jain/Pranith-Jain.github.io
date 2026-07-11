@@ -29,7 +29,7 @@ export default function CybersecTelegram(): JSX.Element {
   useEffect(() => {
     let cancelled = false;
     const ctrl = new AbortController();
-    fetch('/api/v1/telegram-feed', { signal: ctrl.signal })
+    fetch('/api/v1/telegram-feed', { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) })
       .then((r) => (r.ok ? (r.json() as Promise<TelegramAggResponse>) : null))
       .then((d) => {
         if (cancelled || !d?.items) return;

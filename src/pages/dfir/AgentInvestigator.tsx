@@ -292,6 +292,7 @@ export default function AgentInvestigator(): JSX.Element {
         method: 'POST',
         headers: { 'content-type': 'application/json', ...adminAuthHeaders() },
         body: JSON.stringify({ query: query.trim() }),
+        signal: AbortSignal.timeout(60_000),
       });
       if (!res.ok) {
         const err = (await res.json()) as { error?: string };
@@ -592,6 +593,7 @@ export default function AgentInvestigator(): JSX.Element {
                     threat,
                     platforms: ['KQL', 'Splunk', 'Sigma', 'Elastic'],
                   }),
+                  signal: AbortSignal.timeout(60_000),
                 });
                 if (!res.ok) return { tool: 'hunting_queries', data: { error: `HTTP ${res.status}` } };
                 return { tool: 'hunting_queries', data: await res.json() };
@@ -623,6 +625,7 @@ export default function AgentInvestigator(): JSX.Element {
                   method: 'POST',
                   headers: { 'content-type': 'application/json' },
                   body: JSON.stringify({ description, type: 'yara' }),
+                  signal: AbortSignal.timeout(60_000),
                 });
                 if (!res.ok) return { tool: 'yara_rule', data: { error: `HTTP ${res.status}` } };
                 return { tool: 'yara_rule', data: await res.json() };

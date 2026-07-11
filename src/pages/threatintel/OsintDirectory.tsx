@@ -75,7 +75,7 @@ export default function OsintDirectory(): JSX.Element {
 
     setLoading(true);
     setError(null);
-    fetch('/api/v1/osint', { signal: ctrl.signal })
+    fetch('/api/v1/osint', { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) })
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
       .then((d: OsintResponse) => {
         if (cancelled) return;

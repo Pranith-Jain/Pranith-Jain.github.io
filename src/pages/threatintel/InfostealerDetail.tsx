@@ -38,7 +38,7 @@ export default function InfostealerDetail(): JSX.Element {
     if (!family) return;
     let alive = true;
     const ctrl = new AbortController();
-    const opts = { signal: ctrl.signal };
+    const opts = { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) };
 
     setLoading(true);
     setError(null);

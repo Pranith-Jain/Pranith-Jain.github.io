@@ -133,7 +133,9 @@ export default function KnowledgeGraph(): JSX.Element {
     params.set('days', String(days));
     params.set('limit', String(limit));
     if (minConn > 0) params.set('minConn', String(minConn));
-    fetch(`/api/v1/graph/cross-report?${params.toString()}`, { signal: ctrl.signal })
+    fetch(`/api/v1/graph/cross-report?${params.toString()}`, {
+      signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
+    })
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
       .then((j: KGResponse) => {
         if (!cancelled) setData(j);

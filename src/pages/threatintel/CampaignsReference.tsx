@@ -58,7 +58,7 @@ export default function CampaignsReference(): JSX.Element {
 
     setLoading(true);
     setError(null);
-    fetch('/api/v1/campaigns-catalog', { signal: ctrl.signal })
+    fetch('/api/v1/campaigns-catalog', { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) })
       .then((r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         return r.json() as Promise<CampaignsResponse>;

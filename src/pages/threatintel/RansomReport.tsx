@@ -107,12 +107,13 @@ export default function RansomReport(): JSX.Element {
   const [pdfError, setPdfError] = useState<string | null>(null);
   const [pdfBusy, setPdfBusy] = useState(false);
 
-  // Group list for the picker (347 groups) — cached upstream 6h.
   useEffect(() => {
-    fetch('/api/v1/rl/groups')
+    const ctrl = new AbortController();
+    fetch('/api/v1/rl/groups', { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15000)]) })
       .then((r) => (r.ok ? (r.json() as Promise<RlEnvelope<{ groups?: GroupListItem[] }>>) : null))
       .then((d) => setGroups(d?.data.groups ?? []))
       .catch(() => setGroups([]));
+    return () => ctrl.abort();
   }, []);
 
   useEffect(() => {
@@ -121,6 +122,7 @@ export default function RansomReport(): JSX.Element {
       setProfile(null);
       return;
     }
+    const ctrl = new AbortController();
     let cancelled = false;
     setLoading(true);
     setError(null);
@@ -131,7 +133,9 @@ export default function RansomReport(): JSX.Element {
     setPdfError(null);
     setVictims([]);
 
-    const profileReq = fetch(`/api/v1/rl/group/${encodeURIComponent(g)}`).then(async (r) => {
+    const signal = AbortSignal.any([ctrl.signal, AbortSignal.timeout(15000)]);
+
+    const profileReq = fetch(`/api/v1/rl/group/${encodeURIComponent(g)}`, { signal }).then(async (r) => {
       if (r.status === 503) {
         throw new Error('__not_configured__');
       }
@@ -139,14 +143,11 @@ export default function RansomReport(): JSX.Element {
       return (await r.json()) as RlEnvelope<GroupProfile>;
     });
 
-    // YARA is best-effort — a missing ruleset shouldn't fail the report.
-    const yaraReq = fetch(`/api/v1/rl/yara/${encodeURIComponent(g)}`)
+    const yaraReq = fetch(`/api/v1/rl/yara/${encodeURIComponent(g)}`, { signal })
       .then((r) => (r.ok ? r.json() : null))
       .catch(() => null);
 
-    // Recent victims: groupvictims/searchvictims return null on this key, so
-    // pull the recent-100 feed and filter to this group. Best-effort.
-    const victimsReq = fetch('/api/v1/rl/victims-recent')
+    const victimsReq = fetch('/api/v1/rl/victims-recent', { signal })
       .then((r) => (r.ok ? r.json() : null))
       .catch(() => null);
 
@@ -177,6 +178,7 @@ export default function RansomReport(): JSX.Element {
 
     return () => {
       cancelled = true;
+      ctrl.abort();
     };
   }, [selected]);
 

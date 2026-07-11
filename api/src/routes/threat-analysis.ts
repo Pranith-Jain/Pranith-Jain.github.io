@@ -2,7 +2,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
-const GROQ_MODEL = 'qwen/qwen3-32b';
+const GROQ_MODEL = 'qwen/qwen3.6-27b';
 
 interface ThreatAnalysisRequest {
   type: 'event' | 'country' | 'indicator' | 'research';

@@ -73,7 +73,7 @@ export default function ExternalResources(): JSX.Element {
     const ctrl = new AbortController();
     setDynamicError(null);
     setDynamicLoading(true);
-    fetch('/api/v1/external-resources', { signal: ctrl.signal })
+    fetch('/api/v1/external-resources', { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) })
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
       .then((j: { items?: DynamicEntry[] }) => {
         if (cancelled) return;

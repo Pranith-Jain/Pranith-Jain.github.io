@@ -70,7 +70,9 @@ export function XLivePanel({
     let cancelled = false;
     const ctrl = new AbortController();
     setLoading(true);
-    fetch(`/api/v1/x-live?since_hours=${sinceHours}&limit=${limit}`, { signal: ctrl.signal })
+    fetch(`/api/v1/x-live?since_hours=${sinceHours}&limit=${limit}`, {
+      signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
+    })
       .then(async (r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         const body = (await r.json()) as XLiveResponse;

@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { BackLink } from '../../components/BackLink';
 import {
   ArrowLeft,
@@ -70,8 +70,13 @@ export default function VerdiktAi(): JSX.Element {
   const isHash = iocType === 'hash';
   const isIpOrDomain = iocType === 'ip' || iocType === 'domain';
 
+  const enrichRef = useRef<AbortController | null>(null);
+
   const handleEnrich = useCallback(async () => {
     if (!iocValue.trim()) return;
+    enrichRef.current?.abort();
+    const ctrl = new AbortController();
+    enrichRef.current = ctrl;
     setLoading(true);
     setError(null);
     setResult(null);
@@ -85,8 +90,9 @@ export default function VerdiktAi(): JSX.Element {
       // Step 1: IOC check
       if (isIpOrDomain || isHash) {
         const iocRes = await fetch(`/api/v1/ioc/check?q=${encodeURIComponent(cleanValue)}`, {
-          headers: {},
+          signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
         });
+        if (ctrl.signal.aborted) return;
         if (iocRes.ok) {
           enrichmentData = (await iocRes.json()) as Record<string, unknown>;
         }
@@ -111,7 +117,9 @@ export default function VerdiktAi(): JSX.Element {
             },
           ],
         }),
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(60_000)]),
       });
+      if (ctrl.signal.aborted) return;
 
       let narrative = '';
       let mitreTechniques: string[] = [];
@@ -150,9 +158,10 @@ export default function VerdiktAi(): JSX.Element {
         detectionQueries,
       });
     } catch (err) {
+      if (ctrl.signal.aborted) return;
       setError(err instanceof Error ? err.message : String(err));
     } finally {
-      setLoading(false);
+      if (!ctrl.signal.aborted) setLoading(false);
     }
   }, [iocValue, isIpOrDomain, isHash]);
 

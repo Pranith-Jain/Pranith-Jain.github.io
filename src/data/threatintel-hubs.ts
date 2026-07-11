@@ -662,7 +662,7 @@ export const HUB_META: readonly HubMeta[] = [
         path: '/threatintel/cyberpulse',
         tabId: 'cyberpulse',
         label: 'CyberPulse',
-        desc: 'Breach, leak & cybercrime incident tracker from X/Twitter, Telegram, Bluesky & Mastodon firehose.',
+        desc: 'Breach, leak & cybercrime incident tracker from X/Twitter, Telegram, Reddit, Bluesky & Mastodon firehose.',
         compVar: 'CyberPulse',
       },
     ],

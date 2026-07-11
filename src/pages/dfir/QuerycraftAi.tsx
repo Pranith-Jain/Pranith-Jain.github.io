@@ -83,6 +83,7 @@ export default function QuerycraftAi(): JSX.Element {
     try {
       const res = await fetch('/api/v1/hunting-queries/generate', {
         method: 'POST',
+        signal: AbortSignal.timeout(30_000),
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           threat: description.trim(),

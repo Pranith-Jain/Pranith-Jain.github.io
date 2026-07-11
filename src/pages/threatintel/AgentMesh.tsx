@@ -172,6 +172,7 @@ export default function AgentMesh(): JSX.Element {
     try {
       const res = await fetch('/api/v1/agent/investigate', {
         method: 'POST',
+        signal: AbortSignal.timeout(30_000),
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ query: query.trim(), maxSteps: 10 }),
       });

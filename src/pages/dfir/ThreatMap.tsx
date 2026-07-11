@@ -261,22 +261,34 @@ export default function ThreatMap(): JSX.Element {
   const [displayTotal, setDisplayTotal] = useState(0);
   const prevTotalRef = useRef(0);
 
+  const loadRef = useRef<AbortController | null>(null);
+
   const load = async () => {
+    loadRef.current?.abort();
+    const ctrl = new AbortController();
+    loadRef.current = ctrl;
     setLoading(true);
     setError(null);
     try {
-      const r = await fetch('/api/v1/threat-map');
+      const r = await fetch('/api/v1/threat-map', {
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
+      });
+      if (ctrl.signal.aborted) return;
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       setData((await r.json()) as ThreatMapResponse);
     } catch (e) {
+      if (ctrl.signal.aborted) return;
       setError((e as Error).message);
     } finally {
-      setLoading(false);
+      if (!ctrl.signal.aborted) setLoading(false);
     }
   };
 
   useEffect(() => {
     void load();
+    return () => {
+      loadRef.current?.abort();
+    };
   }, []);
 
   // Live-mode polling. Doubled-up: a 1s tick drives the visible countdown

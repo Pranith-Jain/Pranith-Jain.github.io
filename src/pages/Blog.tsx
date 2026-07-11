@@ -94,24 +94,22 @@ export default function Blog() {
   const [tagFilter, setTagFilter] = useState<string | null>(null);
 
   useEffect(() => {
-    let cancelled = false;
+    const ac = new AbortController();
     setLoading(true);
     setError(null);
-    fetch('/api/v1/blog/posts')
+    fetch('/api/v1/blog/posts', { signal: AbortSignal.any([ac.signal, AbortSignal.timeout(15_000)]) })
       .then(async (r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         const d: { posts: PostEntry[] } = await r.json();
-        if (!cancelled) setPosts(d.posts);
+        setPosts(d.posts);
       })
       .catch((e: Error) => {
-        if (!cancelled) setError(e.message);
+        if (e.name !== 'AbortError') setError(e.message);
       })
       .finally(() => {
-        if (!cancelled) setLoading(false);
+        setLoading(false);
       });
-    return () => {
-      cancelled = true;
-    };
+    return () => ac.abort();
   }, [reloadKey]);
 
   // Counts per type so the chip strip can show "actor · 12" — analyst-grade

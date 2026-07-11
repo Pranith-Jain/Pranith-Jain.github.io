@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, type FormEvent } from 'react';
+import { useEffect, useState, useCallback, useRef, type FormEvent } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { adminAuthHeaders, readAdminToken } from '../../lib/admin-token';
 import { AdminRequired } from '../../components/AdminRequired';
@@ -110,7 +110,12 @@ export default function ObservableDb(): JSX.Element {
   const [tagDraft, setTagDraft] = useState('');
   const [tagInputOpen, setTagInputOpen] = useState(false);
 
+  const fetchRef = useRef<AbortController | null>(null);
+
   const fetchData = useCallback(async () => {
+    fetchRef.current?.abort();
+    const ctrl = new AbortController();
+    fetchRef.current = ctrl;
     setLoading(true);
     setError(null);
     try {
@@ -122,25 +127,38 @@ export default function ObservableDb(): JSX.Element {
       params.set('sort', 'updated_at');
       params.set('order', 'desc');
 
-      const res = await fetch(`/api/v1/observable-db?${params}`, { headers: adminAuthHeaders() });
+      const res = await fetch(`/api/v1/observable-db?${params}`, {
+        headers: adminAuthHeaders(),
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
+      });
+      if (ctrl.signal.aborted) return;
       if (!res.ok) throw new Error('Failed to load');
       const data = (await res.json()) as { entries: ObservableEntry[]; total: number };
       setEntries(data.entries);
       setTotal(data.total);
     } catch (e) {
+      if (ctrl.signal.aborted) return;
       setError(e instanceof Error ? e.message : 'Failed to load');
     } finally {
-      setLoading(false);
+      if (!ctrl.signal.aborted) setLoading(false);
     }
   }, [query, typeFilter, minScore]);
 
   useEffect(() => {
     void fetchData();
+    return () => {
+      fetchRef.current?.abort();
+    };
   }, [fetchData]);
+
+  const addRef = useRef<AbortController | null>(null);
 
   const addObservable = async (e: FormEvent) => {
     e.preventDefault();
     if (!addIndicator.trim()) return;
+    addRef.current?.abort();
+    const ctrl = new AbortController();
+    addRef.current = ctrl;
     try {
       const res = await fetch('/api/v1/observable-db', {
         method: 'POST',
@@ -155,7 +173,9 @@ export default function ObservableDb(): JSX.Element {
           composite_score: 0,
           verdicts: [],
         }),
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(30_000)]),
       });
+      if (ctrl.signal.aborted) return;
       if (!res.ok) return;
       setShowAddForm(false);
       setAddIndicator('');
@@ -168,8 +188,14 @@ export default function ObservableDb(): JSX.Element {
   };
 
   const deleteObservable = async (id: string) => {
+    const ctrl = new AbortController();
     try {
-      const res = await fetch(`/api/v1/observable-db/${id}`, { method: 'DELETE', headers: adminAuthHeaders() });
+      const res = await fetch(`/api/v1/observable-db/${id}`, {
+        method: 'DELETE',
+        headers: adminAuthHeaders(),
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
+      });
+      if (ctrl.signal.aborted) return;
       if (!res.ok) return;
       setEntries((prev) => prev.filter((e) => e.id !== id));
       setTotal((prev) => prev - 1);
@@ -182,12 +208,15 @@ export default function ObservableDb(): JSX.Element {
   const addNote = async (e: FormEvent) => {
     e.preventDefault();
     if (!selected || !noteText.trim()) return;
+    const ctrl = new AbortController();
     try {
       const res = await fetch(`/api/v1/observable-db/${selected.id}/notes`, {
         method: 'POST',
         headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
         body: JSON.stringify({ text: noteText.trim(), author: noteAuthor.trim() || 'anonymous' }),
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(30_000)]),
       });
+      if (ctrl.signal.aborted) return;
       if (!res.ok) return;
       const data = (await res.json()) as { entry: ObservableEntry };
       setSelected(data.entry);
@@ -200,11 +229,14 @@ export default function ObservableDb(): JSX.Element {
 
   const deleteNote = async (noteId: string) => {
     if (!selected) return;
+    const ctrl = new AbortController();
     try {
       const res = await fetch(`/api/v1/observable-db/${selected.id}/notes/${noteId}`, {
         method: 'DELETE',
         headers: adminAuthHeaders(),
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
       });
+      if (ctrl.signal.aborted) return;
       if (!res.ok) return;
       const data = (await res.json()) as { entry: ObservableEntry };
       setSelected(data.entry);
@@ -215,12 +247,15 @@ export default function ObservableDb(): JSX.Element {
   };
 
   const updateTags = async (id: string, tags: string[]) => {
+    const ctrl = new AbortController();
     try {
       const res = await fetch(`/api/v1/observable-db/${id}`, {
         method: 'PATCH',
         headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
         body: JSON.stringify({ tags }),
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(30_000)]),
       });
+      if (ctrl.signal.aborted) return;
       if (!res.ok) return;
       const data = (await res.json()) as { entry: ObservableEntry };
       setEntries((prev) => prev.map((e) => (e.id === data.entry.id ? data.entry : e)));

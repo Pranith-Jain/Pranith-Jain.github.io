@@ -159,25 +159,25 @@ export default function BlogPost() {
   }, [post]);
 
   useEffect(() => {
-    let cancelled = false;
+    const ac = new AbortController();
     setError(null);
     setNotFound(false);
     setPost(null);
     setHtml('');
     setTocItems([]);
     setRelatedPosts([]);
-    fetch(`/api/v1/blog/posts/${encodeURIComponent(slug ?? '')}`)
+    fetch(`/api/v1/blog/posts/${encodeURIComponent(slug ?? '')}`, {
+      signal: AbortSignal.any([ac.signal, AbortSignal.timeout(15_000)]),
+    })
       .then(async (r) => {
         if (r.status === 404 || r.status === 400) {
-          if (!cancelled) setNotFound(true);
+          setNotFound(true);
           return;
         }
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         const data = (await r.json()) as { post: Post; bodyHtml: string };
-        if (cancelled) return;
         setPost(data.post);
         const { default: DOMPurify } = await import('isomorphic-dompurify');
-        if (cancelled) return;
         const sanitized = DOMPurify.sanitize(data.bodyHtml ?? '', {
           ALLOWED_URI_REGEXP: /^(?:(?:https?|mailto|#|\/):|[^a-z]|[a-z+.-]+(?:[^a-z+.\-:]|$))/i,
           ADD_ATTR: ['title'],
@@ -188,11 +188,9 @@ export default function BlogPost() {
         setTocItems(toc);
       })
       .catch((e: Error) => {
-        if (!cancelled) setError(e.message);
+        if (e.name !== 'AbortError') setError(e.message);
       });
-    return () => {
-      cancelled = true;
-    };
+    return () => ac.abort();
   }, [slug, reloadKey]);
 
   useEffect(() => {
@@ -237,11 +235,10 @@ export default function BlogPost() {
 
   useEffect(() => {
     if (!slug || !post) return;
-    let cancelled = false;
-    fetch('/api/v1/blog/posts')
+    const ac = new AbortController();
+    fetch('/api/v1/blog/posts', { signal: AbortSignal.any([ac.signal, AbortSignal.timeout(15_000)]) })
       .then((r) => r.json())
       .then((data) => {
-        if (cancelled) return;
         const posts = (data.posts ?? []) as PostIndexEntry[];
         // Use relevance-based related posts algorithm
         const related = findRelatedPosts(
@@ -254,9 +251,7 @@ export default function BlogPost() {
       .catch(() => {
         /* related posts are non-critical */
       });
-    return () => {
-      cancelled = true;
-    };
+    return () => ac.abort();
   }, [slug, post]);
 
   const scrollToHeading = useCallback((id: string) => {

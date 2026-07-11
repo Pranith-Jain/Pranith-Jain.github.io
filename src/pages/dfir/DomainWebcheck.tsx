@@ -89,7 +89,9 @@ export default function DomainWebcheck(): JSX.Element {
       if (data.shodan?.ip) {
         const ac = new AbortController();
         cdnAbortRef.current = ac;
-        fetch(`/api/v1/cdn-detect?ip=${encodeURIComponent(data.shodan.ip)}`, { signal: ac.signal })
+        fetch(`/api/v1/cdn-detect?ip=${encodeURIComponent(data.shodan.ip)}`, {
+          signal: AbortSignal.any([ac.signal, AbortSignal.timeout(15_000)]),
+        })
           .then((res) => (res.ok ? res.json() : null))
           .then((d) => setCdnResult(d))
           .catch(() => {});

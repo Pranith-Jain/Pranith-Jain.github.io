@@ -82,7 +82,7 @@ export default function Ransomwhere(): JSX.Element {
     const ctrl = new AbortController();
     setLoading(true);
     setError(null);
-    fetch('/api/v1/ransomwhere?limit=1000', { signal: ctrl.signal })
+    fetch('/api/v1/ransomwhere?limit=1000', { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) })
       .then((r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         return r.json() as Promise<RansomwhereResponse>;

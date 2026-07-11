@@ -71,7 +71,7 @@ export default function K8sCve({ bare = false }: { bare?: boolean } = {}): JSX.E
     const ctrl = new AbortController();
     setLoading(true);
     setError(null);
-    fetch('/api/v1/k8s-cve', { signal: ctrl.signal })
+    fetch('/api/v1/k8s-cve', { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) })
       .then((r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         return r.json() as Promise<K8sCveResponse>;

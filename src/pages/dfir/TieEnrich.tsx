@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { Shield, Search, Globe, Link, FileDigit, AlertTriangle } from 'lucide-react';
 
@@ -71,9 +71,14 @@ export default function TieEnrich() {
   const [result, setResult] = useState<EnrichResult | null>(null);
   const [error, setError] = useState('');
 
+  const submitRef = useRef<AbortController | null>(null);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!ioc.trim()) return;
+    submitRef.current?.abort();
+    const ctrl = new AbortController();
+    submitRef.current = ctrl;
     setLoading(true);
     setError('');
     setResult(null);
@@ -83,7 +88,9 @@ export default function TieEnrich() {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ ioc: ioc.trim(), ioc_type: iocType, deep }),
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(30_000)]),
       });
+      if (ctrl.signal.aborted) return;
       if (!res.ok) {
         const err = await res.json().catch(() => ({ error: 'Unknown error' }));
         throw new Error(err.error || `HTTP ${res.status}`);
@@ -123,9 +130,10 @@ export default function TieEnrich() {
 
       setResult(data);
     } catch (err) {
+      if (ctrl.signal.aborted) return;
       setError(err instanceof Error ? err.message : String(err));
     } finally {
-      setLoading(false);
+      if (!ctrl.signal.aborted) setLoading(false);
     }
   };
 

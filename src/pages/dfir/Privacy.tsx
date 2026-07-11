@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useRef } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Shield, Eye, Check, X } from 'lucide-react';
 import {
@@ -69,12 +69,19 @@ export default function Privacy(): JSX.Element {
     [fp, webrtc, network, battery]
   );
 
+  const scanRef = useRef<AbortController | null>(null);
+
   const runScan = async () => {
+    scanRef.current?.abort();
+    const ctrl = new AbortController();
+    scanRef.current = ctrl;
     setScanning(true);
     setError(null);
     try {
       const [serverInfo, webrtcLeak, batt, asyncFp] = await Promise.all([
-        fetch('/api/v1/privacy/inspect').then((r) => (r.ok ? (r.json() as Promise<ServerInfo>) : null)),
+        fetch('/api/v1/privacy/inspect', { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) }).then(
+          (r) => (r.ok ? (r.json() as Promise<ServerInfo>) : null)
+        ),
         detectWebRtcLeaks(),
         getBattery(),
         gatherAsyncFingerprint(),
@@ -87,9 +94,10 @@ export default function Privacy(): JSX.Element {
       setNetwork(getNetworkInfo());
       setBattery(batt);
     } catch (err) {
+      if (ctrl.signal.aborted) return;
       setError(err instanceof Error ? err.message : 'scan failed');
     } finally {
-      setScanning(false);
+      if (!ctrl.signal.aborted) setScanning(false);
     }
   };
 

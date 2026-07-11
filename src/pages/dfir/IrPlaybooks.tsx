@@ -88,6 +88,7 @@ export default function IrPlaybooks(): JSX.Element {
     try {
       const res = await fetch('/api/v1/ir-playbooks/generate', {
         method: 'POST',
+        signal: AbortSignal.timeout(30_000),
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ incident_type: incidentType, context: context.trim() || undefined }),
       });

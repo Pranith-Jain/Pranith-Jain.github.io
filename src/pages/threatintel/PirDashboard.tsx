@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useCallback, useEffect, useRef, useState, useMemo } from 'react';
 import { DataState } from '../../components/DataState';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import {
@@ -172,8 +172,13 @@ export default function PirDashboard(): JSX.Element {
   const [formCadence, setFormCadence] = useState('4');
   const [saving, setSaving] = useState(false);
 
-  const fetchAll = () => {
-    fetch('/api/v1/threat-intel/pirs', { headers: adminAuthHeaders() })
+  const fetchAllCtrlRef = useRef<AbortController | null>(null);
+  const fetchAll = useCallback(() => {
+    fetchAllCtrlRef.current?.abort();
+    const ctrl = new AbortController();
+    fetchAllCtrlRef.current = ctrl;
+    const signal = AbortSignal.any([ctrl.signal, AbortSignal.timeout(15000)]);
+    fetch('/api/v1/threat-intel/pirs', { headers: adminAuthHeaders(), signal })
       .then(async (r) => {
         if (!r.ok) {
           throw new Error(
@@ -184,8 +189,6 @@ export default function PirDashboard(): JSX.Element {
         }
         return r.json() as Promise<PirResponse>;
       })
-      // Normalize: a 200 with a partial/empty body (missing pirs/scores/etc.)
-      // would otherwise crash the render (data.pirs.filter on undefined).
       .then((d) =>
         setData({
           ...d,
@@ -197,25 +200,26 @@ export default function PirDashboard(): JSX.Element {
       )
       .catch((e) => setError(e instanceof Error ? e.message : String(e)))
       .finally(() => setLoading(false));
-    fetch('/api/v1/threat-intel/pirs/alerts?include_acknowledged=true', { headers: adminAuthHeaders() })
+    fetch('/api/v1/threat-intel/pirs/alerts?include_acknowledged=true', { headers: adminAuthHeaders(), signal })
       .then((r) => (r.ok ? (r.json() as Promise<AlertResponse>) : null))
-      // `alerts` is consumed unguarded in render (alerts.filter) — never set it
-      // to undefined from an error body, or the page crashes.
       .then((r) => setAlerts(r?.results ?? []))
       .catch((e) => {
         setError((prev) => prev ?? (e instanceof Error ? e.message : String(e)));
       });
-    fetch('/api/v1/threat-intel/pirs/routing', { headers: adminAuthHeaders() })
+    fetch('/api/v1/threat-intel/pirs/routing', { headers: adminAuthHeaders(), signal })
       .then((r) => (r.ok ? (r.json() as Promise<RoutingResponse>) : null))
       .then((r) => setRouting(r?.routes ?? []))
       .catch((e) => {
         setError((prev) => prev ?? (e instanceof Error ? e.message : String(e)));
       });
-  };
+  }, []);
 
   useEffect(() => {
+    const ctrl = new AbortController();
+    fetchAllCtrlRef.current = ctrl;
     fetchAll();
-  }, []);
+    return () => ctrl.abort();
+  }, [fetchAll]);
 
   // ── Filtered PIRs ─────────────────────────────────────────────────────
   const filteredPirs = useMemo(() => {
@@ -264,14 +268,14 @@ export default function PirDashboard(): JSX.Element {
           min_source_ratio: parseInt(formThreshold, 10) || undefined,
           collection_cadence_hours: parseInt(formCadence, 10) || undefined,
         }),
+        signal: AbortSignal.timeout(30000),
       });
       if (!res.ok) throw new Error(`Failed to ${isEdit ? 'update' : 'create'} PIR`);
       resetForm();
-      const updated = await fetch('/api/v1/threat-intel/pirs', { headers: adminAuthHeaders() }).then(
-        (r) => r.json() as Promise<PirResponse>
-      );
-      // Normalize like fetchAll() — a partial 200 body here would otherwise
-      // white-screen the page (data.pirs.filter on undefined) right after a save.
+      const updated = await fetch('/api/v1/threat-intel/pirs', {
+        headers: adminAuthHeaders(),
+        signal: AbortSignal.timeout(15000),
+      }).then((r) => r.json() as Promise<PirResponse>);
       setData({
         ...updated,
         pirs: updated.pirs ?? [],
@@ -280,6 +284,7 @@ export default function PirDashboard(): JSX.Element {
         active_count: updated.active_count ?? 0,
       });
     } catch (e) {
+      if ((e as Error).name === 'AbortError') return;
       setActionError(e instanceof Error ? e.message : 'Operation failed');
     } finally {
       setSaving(false);
@@ -289,7 +294,11 @@ export default function PirDashboard(): JSX.Element {
   async function handleDelete(id: string) {
     if (!confirm('Delete this PIR?')) return;
     try {
-      const res = await fetch(`/api/v1/threat-intel/pirs/${id}`, { method: 'DELETE', headers: adminAuthHeaders() });
+      const res = await fetch(`/api/v1/threat-intel/pirs/${id}`, {
+        method: 'DELETE',
+        headers: adminAuthHeaders(),
+        signal: AbortSignal.timeout(15000),
+      });
       if (!res.ok) throw new Error('Failed to delete');
       fetchAll();
     } catch (e) {
@@ -303,6 +312,7 @@ export default function PirDashboard(): JSX.Element {
       await fetch(`/api/v1/threat-intel/pirs/alerts/${alertId}/acknowledge`, {
         method: 'PATCH',
         headers: adminAuthHeaders(),
+        signal: AbortSignal.timeout(15000),
       });
       setAlerts((prev) => prev.map((a) => (a.id === alertId ? { ...a, acknowledged: true } : a)));
     } catch {
@@ -322,6 +332,7 @@ export default function PirDashboard(): JSX.Element {
       await fetch('/api/v1/threat-intel/pirs/alerts/acknowledge-all', {
         method: 'POST',
         headers: adminAuthHeaders(),
+        signal: AbortSignal.timeout(15000),
       });
       setAlerts((prev) => prev.map((a) => ({ ...a, acknowledged: true })));
     } catch {

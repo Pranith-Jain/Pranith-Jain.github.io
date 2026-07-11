@@ -740,7 +740,6 @@ import {
   iocTrendingSchema,
   relationshipGraphSchema,
   unifiedSearchSchema,
-  unifiedSearchSummarizeSchema,
   ragQuerySchema,
   hashAnalyzeSchema,
   bloomCheckSchema,
@@ -1467,11 +1466,7 @@ app.post('/api/v1/phishing/fingerprint', fingerprintHandler);
 app.get('/api/v1/unified-search', validate('query', unifiedSearchSchema), unifiedSearchHandler);
 // Opt-in AI summary for the omnibox — PUBLIC same-origin (NOT admin-gated, unlike
 // /api/v1/ai-summary); query-keyed 1h cache + the global apiKeyRateLimit bound cost.
-app.post(
-  '/api/v1/unified-search/summarize',
-  validate('json', unifiedSearchSummarizeSchema),
-  unifiedSearchSummarizeHandler
-);
+app.post('/api/v1/unified-search/summarize', unifiedSearchSummarizeHandler);
 app.get('/api/v1/relationship-graph', validate('query', relationshipGraphSchema), relationshipGraphHandler);
 app.post('/api/v1/rag/index', validate('json', ragIndexSchema), ragIndexHandler);
 app.get('/api/v1/rag/query', validate('query', ragQuerySchema), ragQueryHandler);

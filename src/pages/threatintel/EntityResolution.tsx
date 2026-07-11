@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import {
   Search,
@@ -126,11 +126,11 @@ export default function EntityResolution(): JSX.Element {
     inputRef.current?.focus();
   }, []);
 
-  // ── PIR relevance ───────────────────────────────────────────────────
-  async function fetchRelevantPirs(q: string) {
+  async function fetchRelevantPirs(q: string, signal: AbortSignal) {
     try {
       const res = await fetch(`/api/v1/threat-intel/pirs/relevant?q=${encodeURIComponent(q.trim())}`, {
         headers: adminAuthHeaders(),
+        signal,
       });
       if (res.ok) {
         const data = (await res.json()) as { results: PirRef[] };
@@ -151,8 +151,13 @@ export default function EntityResolution(): JSX.Element {
     matched_in: string[];
   }
 
+  const resolveCtrlRef = useRef<AbortController | null>(null);
   const resolve = async (q: string) => {
     if (!q.trim()) return;
+    resolveCtrlRef.current?.abort();
+    const ctrl = new AbortController();
+    resolveCtrlRef.current = ctrl;
+    const signal = AbortSignal.any([ctrl.signal, AbortSignal.timeout(15000)]);
     setLoading(true);
     setError(null);
     setEntity(null);
@@ -160,12 +165,15 @@ export default function EntityResolution(): JSX.Element {
     setShowFull(false);
     setRelevantPirs([]);
     try {
-      const res = await fetch(`/api/v1/threat-intel/entities/resolve?q=${encodeURIComponent(q.trim())}&full=true`);
+      const res = await fetch(`/api/v1/threat-intel/entities/resolve?q=${encodeURIComponent(q.trim())}&full=true`, {
+        signal,
+      });
       if (!res.ok) {
         const err = await res.json();
         throw new Error(err.error ?? 'Resolution failed');
       }
       const data = await res.json();
+      if (ctrl.signal.aborted) return;
       if (!data.resolved) {
         setError(`No entity found for "${q.trim()}"`);
         return;
@@ -179,16 +187,21 @@ export default function EntityResolution(): JSX.Element {
         cves: data.cves,
         cross_references: data.cross_references ?? [],
       });
-      fetchRelevantPirs(q.trim());
+      fetchRelevantPirs(q.trim(), signal);
     } catch (e) {
+      if ((e as Error).name === 'AbortError') return;
       setError(e instanceof Error ? e.message : String(e));
     } finally {
-      setLoading(false);
+      if (!ctrl.signal.aborted) setLoading(false);
     }
   };
 
+  const extractCtrlRef = useRef<AbortController | null>(null);
   const extract = async () => {
     if (!text.trim()) return;
+    extractCtrlRef.current?.abort();
+    const ctrl = new AbortController();
+    extractCtrlRef.current = ctrl;
     setLoading(true);
     setError(null);
     setExtracted([]);
@@ -197,17 +210,19 @@ export default function EntityResolution(): JSX.Element {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ text: text.trim() }),
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(30000)]),
       });
       if (!res.ok) {
         const err = await res.json();
         throw new Error(err.error ?? 'Extraction failed');
       }
       const data = await res.json();
-      setExtracted(data.entities ?? []);
+      if (!ctrl.signal.aborted) setExtracted(data.entities ?? []);
     } catch (e) {
+      if ((e as Error).name === 'AbortError') return;
       setError(e instanceof Error ? e.message : String(e));
     } finally {
-      setLoading(false);
+      if (!ctrl.signal.aborted) setLoading(false);
     }
   };
 

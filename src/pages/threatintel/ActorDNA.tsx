@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { Dna, Search, Loader2, Users, ChevronRight, ChevronDown } from 'lucide-react';
 
@@ -61,45 +61,67 @@ export default function ActorDNA(): JSX.Element {
   const [error, setError] = useState<string | null>(null);
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(['ttp', 'victimology']));
 
+  const actorsRef = useRef<AbortController | null>(null);
+  const dnaRef = useRef<AbortController | null>(null);
+  const matchRef = useRef<AbortController | null>(null);
+
   useEffect(() => {
     fetchActors();
+    return () => {
+      actorsRef.current?.abort();
+    };
   }, []);
 
   const fetchActors = async () => {
+    actorsRef.current?.abort();
+    const ctrl = new AbortController();
+    actorsRef.current = ctrl;
     try {
-      const res = await fetch('/api/v1/threat-intel/actor-dna');
+      const res = await fetch('/api/v1/threat-intel/actor-dna', {
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
+      });
+      if (ctrl.signal.aborted) return;
       if (!res.ok) throw new Error(`actor list failed (${res.status})`);
       const data = await res.json();
       setActors(data.actors ?? []);
       setError(null);
     } catch (err) {
+      if (ctrl.signal.aborted) return;
       setError((err as Error).message);
     }
   };
 
   const fetchActorDNA = async (actorId: string) => {
+    dnaRef.current?.abort();
+    const ctrl = new AbortController();
+    dnaRef.current = ctrl;
     setLoading(true);
     try {
-      const res = await fetch(`/api/v1/threat-intel/actor-dna/${actorId}`);
+      const res = await fetch(`/api/v1/threat-intel/actor-dna/${actorId}`, {
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
+      });
+      if (ctrl.signal.aborted) return;
       if (!res.ok) throw new Error(`actor DNA unavailable (HTTP ${res.status})`);
       const data = await res.json();
-      // Guard against an error/edge body — the detail pane deep-accesses nested
-      // fields (ttp_signature, victimology, operational_tempo) and would crash.
       if (!data || typeof data !== 'object' || !data.ttp_signature) {
         throw new Error('actor DNA response was malformed');
       }
       setSelectedActor(data);
       setError(null);
     } catch (err) {
+      if (ctrl.signal.aborted) return;
       setError((err as Error).message);
       setSelectedActor(null);
     } finally {
-      setLoading(false);
+      if (!ctrl.signal.aborted) setLoading(false);
     }
   };
 
   const matchTTPs = async () => {
     if (!ttpsInput.trim()) return;
+    matchRef.current?.abort();
+    const ctrl = new AbortController();
+    matchRef.current = ctrl;
     setLoading(true);
     setMatches([]);
     try {
@@ -111,14 +133,17 @@ export default function ActorDNA(): JSX.Element {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ttps }),
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(30_000)]),
       });
+      if (ctrl.signal.aborted) return;
       const data = await res.json();
       setMatches(data.matches ?? []);
       setError(null);
     } catch (err) {
+      if (ctrl.signal.aborted) return;
       setError((err as Error).message);
     } finally {
-      setLoading(false);
+      if (!ctrl.signal.aborted) setLoading(false);
     }
   };
 

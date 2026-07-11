@@ -51,6 +51,7 @@ export default function MalbriefAi(): JSX.Element {
     try {
       const res = await fetch('/api/v1/ai-summary', {
         method: 'POST',
+        signal: AbortSignal.timeout(30_000),
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           surface: 'malbrief-ai',

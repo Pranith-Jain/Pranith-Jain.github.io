@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, FormEvent } from 'react';
+import { useEffect, useMemo, useRef, useState, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import {
   MessageSquare,
@@ -165,12 +165,15 @@ export default function TelegramHub(): JSX.Element {
 
   /* Fetch hub KPIs (lightweight) once on mount */
   useEffect(() => {
+    const ctrl = new AbortController();
     let cancel = false;
     async function run() {
       setStatsLoading(true);
       setStatsError(null);
       try {
-        const res = await fetch('/api/v1/telegram-leaks/stats');
+        const res = await fetch('/api/v1/telegram-leaks/stats', {
+          signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15000)]),
+        });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = (await res.json()) as StatsResponse;
         if (!cancel) setStats(data);
@@ -180,9 +183,10 @@ export default function TelegramHub(): JSX.Element {
         if (!cancel) setStatsLoading(false);
       }
     }
-    run();
+    void run();
     return () => {
       cancel = true;
+      ctrl.abort();
     };
   }, []);
 
@@ -202,7 +206,12 @@ export default function TelegramHub(): JSX.Element {
   }, [stats]);
 
   /* Unified search — runs both endpoints in parallel */
+  const searchRef = useRef<AbortController | null>(null);
   async function runSearch(query: string) {
+    searchRef.current?.abort();
+    const ctrl = new AbortController();
+    searchRef.current = ctrl;
+    const signal = AbortSignal.any([ctrl.signal, AbortSignal.timeout(15000)]);
     setSearchLoading(true);
     setSearchError(null);
     setHasSearched(true);
@@ -210,10 +219,10 @@ export default function TelegramHub(): JSX.Element {
       const emptyChannels: ChannelSearchResponse = { query: '', generated_at: '', results: [], warnings: [] };
       const emptyLeaks: LeakSearchResponse = { entries: [], count: 0 };
       const [ch, lk] = await Promise.all([
-        fetch(`/api/v1/telegram-search?q=${encodeURIComponent(query)}`)
+        fetch(`/api/v1/telegram-search?q=${encodeURIComponent(query)}`, { signal })
           .then((r) => (r.ok ? r.json() : Promise.resolve(emptyChannels)))
           .catch(() => emptyChannels),
-        fetch(`/api/v1/telegram-leaks/search?q=${encodeURIComponent(query)}&limit=25`)
+        fetch(`/api/v1/telegram-leaks/search?q=${encodeURIComponent(query)}&limit=25`, { signal })
           .then((r) => (r.ok ? r.json() : Promise.resolve(emptyLeaks)))
           .catch(() => emptyLeaks),
       ]);

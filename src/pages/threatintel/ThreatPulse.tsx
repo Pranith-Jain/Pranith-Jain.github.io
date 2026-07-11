@@ -111,7 +111,9 @@ export default function ThreatPulse(): JSX.Element {
     setError(null);
     (async () => {
       try {
-        const r = await fetch('/api/v1/threat-pulse', { signal: ctrl.signal });
+        const r = await fetch('/api/v1/threat-pulse', {
+          signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
+        });
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         const j = (await r.json()) as PulseResponse;
         if (!cancelled) setData(j);

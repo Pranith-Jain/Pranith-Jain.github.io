@@ -2,7 +2,7 @@
  * /api/v1/ai-item-summary — per-post AI summaries (batched).
  *
  * POST body: { surface: string, items: Array<{ id, title, body?, source? }> }
- * Returns:   { summaries: { [id]: string }, modelHint: 'groq:qwen/qwen3-32b' }
+ * Returns:   { summaries: { [id]: string }, modelHint: 'groq:qwen/qwen3.6-27b' }
  *
  * Each item is summarised at most once and cached in KV by content hash
  * (see lib/ai-item-summary.ts), so repeated loads / cross-page reuse are free.
@@ -58,5 +58,5 @@ export async function aiItemSummaryHandler(c: Context<{ Bindings: Env }>): Promi
   }
   await Promise.all(Array.from({ length: Math.min(CONCURRENCY, items.length) }, () => worker()));
 
-  return c.json({ summaries, modelHint: 'groq:qwen/qwen3-32b' }, 200, { 'cache-control': 'private, max-age=300' });
+  return c.json({ summaries, modelHint: 'groq:qwen/qwen3.6-27b' }, 200, { 'cache-control': 'private, max-age=300' });
 }

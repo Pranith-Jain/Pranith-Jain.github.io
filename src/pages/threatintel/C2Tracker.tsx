@@ -61,7 +61,7 @@ export default function C2Tracker(): JSX.Element {
     const ctrl = new AbortController();
     setLoading(true);
     setError(null);
-    fetch('/api/v1/c2-tracker', { signal: ctrl.signal })
+    fetch('/api/v1/c2-tracker', { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) })
       .then((r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         return r.json() as Promise<C2Data>;

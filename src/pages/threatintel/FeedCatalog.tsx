@@ -54,16 +54,26 @@ export default function FeedCatalog() {
   const [statusFilter, setStatusFilter] = useState('all');
 
   useEffect(() => {
-    fetch('/api/v1/feed-catalog')
-      .then((r) => (r.ok ? r.json() : Promise.reject(`HTTP ${r.status}`)))
-      .then((d: FeedCatalogResponse) => {
-        setData(d);
-        setLoading(false);
+    const ctrl = new AbortController();
+    fetch('/api/v1/feed-catalog', { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) })
+      .then((r) => {
+        if (ctrl.signal.aborted) return;
+        if (r.ok) return r.json();
+        throw new Error(`HTTP ${r.status}`);
+      })
+      .then((d: FeedCatalogResponse | undefined) => {
+        if (!ctrl.signal.aborted && d) {
+          setData(d);
+          setLoading(false);
+        }
       })
       .catch((e) => {
-        setError(String(e));
-        setLoading(false);
+        if (!ctrl.signal.aborted) {
+          setError(String(e));
+          setLoading(false);
+        }
       });
+    return () => ctrl.abort();
   }, []);
 
   const filtered = data?.entries.filter((e) => {

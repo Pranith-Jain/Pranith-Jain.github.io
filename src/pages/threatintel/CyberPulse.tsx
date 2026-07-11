@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import {
@@ -24,7 +24,7 @@ import { useDebounce } from '../../hooks/useDebounce';
  *
  * Broader than ransom.live: covers ransomware, data leaks, credential leaks,
  * extortion, supply chain, zero-day, DDoS, hacktivism, and general breaches.
- * Data sourced from X/Twitter, Telegram, Bluesky, and Mastodon firehose.
+ * Data sourced from X/Twitter, Telegram, Reddit, Bluesky, and Mastodon firehose.
  */
 
 const TYPE_ICONS: Record<string, typeof AlertTriangle> = {
@@ -82,6 +82,7 @@ const PLATFORM_LABELS: Record<string, string> = {
   telegram: 'Telegram',
   bluesky: 'Bluesky',
   mastodon: 'Mastodon',
+  reddit: 'Reddit',
   manual: 'Manual',
   rss: 'RSS',
   other: 'Other',
@@ -165,7 +166,12 @@ export default function CyberPulse(): JSX.Element {
   const [days, setDays] = useState(Number(searchParams.get('days') ?? '7'));
   const [refreshKey, setRefreshKey] = useState(0);
 
+  const pulseRef = useRef<AbortController | null>(null);
+
   const fetchIncidents = useCallback(async () => {
+    pulseRef.current?.abort();
+    const ctrl = new AbortController();
+    pulseRef.current = ctrl;
     setLoading(true);
     setError(null);
     try {
@@ -177,11 +183,13 @@ export default function CyberPulse(): JSX.Element {
       if (platformFilter) params.set('platform', platformFilter);
       if (debouncedSearch) params.set('q', debouncedSearch);
 
+      const signal = AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]);
       const [incRes, statsRes, trendRes] = await Promise.all([
-        fetch(`/api/v1/cyberpulse/incidents?${params}`),
-        fetch(`/api/v1/cyberpulse/stats?days=${days}`),
-        fetch('/api/v1/cyberpulse/trending'),
+        fetch(`/api/v1/cyberpulse/incidents?${params}`, { signal }),
+        fetch(`/api/v1/cyberpulse/stats?days=${days}`, { signal }),
+        fetch('/api/v1/cyberpulse/trending', { signal }),
       ]);
+      if (ctrl.signal.aborted) return;
 
       if (incRes.ok) {
         const d = await incRes.json();
@@ -192,14 +200,18 @@ export default function CyberPulse(): JSX.Element {
       if (statsRes.ok) setStats(await statsRes.json());
       if (trendRes.ok) setTrending(await trendRes.json());
     } catch (e) {
+      if (ctrl.signal.aborted) return;
       setError(e instanceof Error ? e.message : 'Failed to load');
     } finally {
-      setLoading(false);
+      if (!ctrl.signal.aborted) setLoading(false);
     }
   }, [days, typeFilter, severityFilter, platformFilter, debouncedSearch, refreshKey]);
 
   useEffect(() => {
     fetchIncidents();
+    return () => {
+      pulseRef.current?.abort();
+    };
   }, [fetchIncidents]);
 
   useEffect(() => {
@@ -226,7 +238,7 @@ export default function CyberPulse(): JSX.Element {
     <DataPageLayout
       backTo="/threatintel"
       title="CyberPulse"
-      description="Breach, leak & cybercrime incident tracker — sourced from X/Twitter, Telegram, Bluesky & Mastodon firehose"
+      description="Breach, leak & cybercrime incident tracker — sourced from X/Twitter, Telegram, Reddit, Bluesky & Mastodon firehose"
       icon={<AlertTriangle size={28} />}
     >
       {/* Stats cards */}
@@ -312,12 +324,17 @@ export default function CyberPulse(): JSX.Element {
             <div className="text-center py-4">
               <button
                 onClick={() => {
-                  // Load more — append to incidents
+                  const ctrl = new AbortController();
                   fetch(
-                    `/api/v1/cyberpulse/incidents?limit=100&offset=${incidents.length}&days=${days}${typeFilter ? `&type=${typeFilter}` : ''}${severityFilter ? `&severity=${severityFilter}` : ''}${platformFilter ? `&platform=${platformFilter}` : ''}${debouncedSearch ? `&q=${debouncedSearch}` : ''}`
+                    `/api/v1/cyberpulse/incidents?limit=100&offset=${incidents.length}&days=${days}${typeFilter ? `&type=${typeFilter}` : ''}${severityFilter ? `&severity=${severityFilter}` : ''}${platformFilter ? `&platform=${platformFilter}` : ''}${debouncedSearch ? `&q=${debouncedSearch}` : ''}`,
+                    { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) }
                   )
-                    .then((r) => r.json())
+                    .then((r) => {
+                      if (ctrl.signal.aborted) return;
+                      return r.json();
+                    })
                     .then((d) => {
+                      if (ctrl.signal.aborted) return;
                       setIncidents((prev) => [...prev, ...d.incidents]);
                       setHasMore(d.has_more);
                     });

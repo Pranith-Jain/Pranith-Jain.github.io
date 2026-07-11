@@ -123,11 +123,13 @@ export default function TelegramFirehose(): JSX.Element {
   const [lastRefresh, setLastRefresh] = useState<Date | null>(null);
 
   // ----------------- Fetchers -----------------
-  const fetchFeed = useCallback(async () => {
+  const getSignal = (ctrl: AbortController) => AbortSignal.any([ctrl.signal, AbortSignal.timeout(15000)]);
+
+  const fetchFeed = useCallback(async (ctrl?: AbortController) => {
     setFeedLoading(true);
     setFeedError(null);
     try {
-      const r = await fetch('/api/v1/telegram-feed');
+      const r = await fetch('/api/v1/telegram-feed', ctrl ? { signal: getSignal(ctrl) } : undefined);
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       const j = (await r.json()) as TelegramFeedResponse;
       setFeed(j);
@@ -138,11 +140,11 @@ export default function TelegramFirehose(): JSX.Element {
     }
   }, []);
 
-  const fetchLeaks = useCallback(async () => {
+  const fetchLeaks = useCallback(async (ctrl?: AbortController) => {
     setLeakLoading(true);
     setLeakError(null);
     try {
-      const r = await fetch('/api/v1/telegram-leaks/search?limit=80');
+      const r = await fetch('/api/v1/telegram-leaks/search?limit=80', ctrl ? { signal: getSignal(ctrl) } : undefined);
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       const j = (await r.json()) as { entries: LeakEntry[] };
       setLeaks(j.entries ?? []);
@@ -153,11 +155,11 @@ export default function TelegramFirehose(): JSX.Element {
     }
   }, []);
 
-  const fetchLive = useCallback(async () => {
+  const fetchLive = useCallback(async (ctrl?: AbortController) => {
     setLiveLoading(true);
     setLiveError(null);
     try {
-      const r = await fetch('/api/v1/live-iocs?limit=80');
+      const r = await fetch('/api/v1/live-iocs?limit=80', ctrl ? { signal: getSignal(ctrl) } : undefined);
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       const j = (await r.json()) as LiveIocsResponse;
       setLiveIocs((j.items ?? []).filter((it) => it.source === 'telegram-leak' || it.source === 'telegram'));
@@ -168,17 +170,24 @@ export default function TelegramFirehose(): JSX.Element {
     }
   }, []);
 
-  const refreshAll = useCallback(async () => {
-    await Promise.all([fetchFeed(), fetchLeaks(), fetchLive()]);
-    setLastRefresh(new Date());
-  }, [fetchFeed, fetchLeaks, fetchLive]);
+  const refreshAll = useCallback(
+    async (ctrl?: AbortController) => {
+      await Promise.all([fetchFeed(ctrl), fetchLeaks(ctrl), fetchLive(ctrl)]);
+      setLastRefresh(new Date());
+    },
+    [fetchFeed, fetchLeaks, fetchLive]
+  );
 
   useEffect(() => {
-    refreshAll();
+    const ctrl = new AbortController();
+    void refreshAll(ctrl);
     const id = window.setInterval(() => {
-      refreshAll();
+      void refreshAll();
     }, REFRESH_MS);
-    return () => window.clearInterval(id);
+    return () => {
+      ctrl.abort();
+      window.clearInterval(id);
+    };
   }, [refreshAll, refreshKey]);
 
   useEffect(() => {

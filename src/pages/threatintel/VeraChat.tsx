@@ -118,12 +118,15 @@ export default function VeraChat(): JSX.Element {
   const inputRef = useRef<HTMLInputElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
 
-  // Fetch mode definitions
   useEffect(() => {
-    fetch('/api/v1/agents/chat/modes')
+    const ctrl = new AbortController();
+    fetch('/api/v1/agents/chat/modes', {
+      signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15000)]),
+    })
       .then((r) => r.json())
       .then((d) => setModes(d))
       .catch(() => {});
+    return () => ctrl.abort();
   }, []);
 
   // SSE events for the active session
@@ -160,9 +163,13 @@ export default function VeraChat(): JSX.Element {
     inputRef.current?.focus();
   }, []);
 
+  const submitRef = useRef<AbortController | null>(null);
   const submit = useCallback(
     async (q: string) => {
       if (!q.trim()) return;
+      submitRef.current?.abort();
+      const ctrl = new AbortController();
+      submitRef.current = ctrl;
       setLoading(true);
       setError(null);
 
@@ -177,14 +184,16 @@ export default function VeraChat(): JSX.Element {
             mode,
             query: q.trim(),
           }),
+          signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(60000)]),
         });
         if (!res.ok) {
           const err = await res.json();
           throw new Error(err.message ?? err.error ?? 'Vera request failed');
         }
         const data = await res.json();
-        setSessionId(data.sessionId);
+        if (!ctrl.signal.aborted) setSessionId(data.sessionId);
       } catch (e) {
+        if ((e as Error).name === 'AbortError') return;
         setError(e instanceof Error ? e.message : String(e));
         setLoading(false);
       }

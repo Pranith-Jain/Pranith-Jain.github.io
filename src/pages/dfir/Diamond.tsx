@@ -186,7 +186,7 @@ function Diamond(): JSX.Element {
     abortRef.current?.abort();
     const ac = new AbortController();
     abortRef.current = ac;
-    const { signal } = ac;
+    const signal = AbortSignal.any([ac.signal, AbortSignal.timeout(15_000)]);
     setAutoFilling(true);
     setAutoFillNote(null);
     const filled: string[] = [];

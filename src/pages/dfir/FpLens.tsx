@@ -112,6 +112,7 @@ export default function FpLens(): JSX.Element {
     try {
       const res = await fetch('/api/v1/fplens/analyze', {
         method: 'POST',
+        signal: AbortSignal.timeout(30_000),
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           rule: rule.trim(),

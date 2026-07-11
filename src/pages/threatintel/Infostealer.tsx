@@ -181,7 +181,7 @@ export default function Infostealer(): JSX.Element {
     let alive = true;
     const ctrl = new AbortController();
     setLoading(true);
-    const opts = { signal: ctrl.signal } as const;
+    const opts = { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) } as const;
     Promise.allSettled([
       fetch('/api/v1/rl/infostealer', opts).then((r) => r.json().then((j) => ({ ok: r.ok, j }))),
       fetch('/api/v1/cyber-crime', opts).then(async (r) => {

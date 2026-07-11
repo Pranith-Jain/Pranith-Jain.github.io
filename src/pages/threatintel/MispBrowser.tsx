@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, RefreshCw, ExternalLink, Search, Calendar, ShieldAlert, Info } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
@@ -105,12 +105,14 @@ export default function MispBrowser() {
   const [tagFilter, setTagFilter] = useState('');
 
   const proxy = useCallback(
-    async (endpoint: string, params?: Record<string, string>) => {
+    async (endpoint: string, params?: Record<string, string>, signal?: AbortSignal) => {
       const res = await fetch('/api/v1/misp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ baseUrl, apiKey, endpoint, params }),
+        signal,
       });
+      if (signal?.aborted) throw new DOMException('Aborted', 'AbortError');
       if (!res.ok) {
         const err = await res.json().catch(() => ({ error: res.statusText }));
         throw new Error(err.error || `HTTP ${res.status}`);
@@ -120,12 +122,22 @@ export default function MispBrowser() {
     [baseUrl, apiKey]
   );
 
+  const connectRef = useRef<AbortController | null>(null);
+
   const connect = useCallback(async () => {
     if (!baseUrl || !apiKey) return;
+    connectRef.current?.abort();
+    const ctrl = new AbortController();
+    connectRef.current = ctrl;
     setError('');
     setLoading(true);
     try {
-      const data = await proxy('events/index/limit:1');
+      const data = await proxy(
+        'events/index/limit:1',
+        undefined,
+        AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)])
+      );
+      if (ctrl.signal.aborted) return;
       if (Array.isArray(data)) {
         sessionStorage.setItem('mispUrl', baseUrl);
         setConnected(true);
@@ -134,50 +146,69 @@ export default function MispBrowser() {
         throw new Error('Unexpected response format');
       }
     } catch (err) {
+      if (ctrl.signal.aborted) return;
       setError(err instanceof Error ? err.message : 'Connection failed');
     } finally {
-      setLoading(false);
+      if (!ctrl.signal.aborted) setLoading(false);
     }
     // loadEvents is declared below (a stable useCallback) and is only invoked
     // inside connect — listing it here would be a use-before-declaration error.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [baseUrl, apiKey, proxy]);
 
+  const eventsRef = useRef<AbortController | null>(null);
+
   const loadEvents = useCallback(
     async (p: number) => {
+      eventsRef.current?.abort();
+      const ctrl = new AbortController();
+      eventsRef.current = ctrl;
       setLoading(true);
       setError('');
       try {
         const params: Record<string, string> = { page: String(p), limit: '20' };
         if (search) params.searchall = search;
         if (tagFilter) params.tags = tagFilter;
-        const data = await proxy('events/index', params);
+        const data = await proxy('events/index', params, AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]));
+        if (ctrl.signal.aborted) return;
         if (Array.isArray(data)) {
           setEvents(data);
           setPage(p);
           setTotal(data.length === 20 ? p * 20 : p * 20 - 20 + data.length);
         }
       } catch (err) {
+        if (ctrl.signal.aborted) return;
         setError(err instanceof Error ? err.message : 'Failed to load events');
       } finally {
-        setLoading(false);
+        if (!ctrl.signal.aborted) setLoading(false);
       }
     },
     [proxy, search, tagFilter]
   );
 
+  const detailRef = useRef<AbortController | null>(null);
+
   const loadEventDetail = useCallback(
     async (id: string) => {
+      detailRef.current?.abort();
+      const ctrl = new AbortController();
+      detailRef.current = ctrl;
       setLoading(true);
       try {
-        const data = await proxy(`events/${id}`);
+        const data = await proxy(
+          `events/${id}`,
+          undefined,
+          AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)])
+        );
+        if (ctrl.signal.aborted) return;
         if (data?.Event) {
           setSelected(data);
         }
       } catch (err) {
+        if (ctrl.signal.aborted) return;
         setError(err instanceof Error ? err.message : 'Failed to load event');
       } finally {
-        setLoading(false);
+        if (!ctrl.signal.aborted) setLoading(false);
       }
     },
     [proxy]

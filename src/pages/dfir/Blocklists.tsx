@@ -44,12 +44,19 @@ export default function BlocklistsPage(): JSX.Element {
     };
   }, []);
 
+  const metaRef = useRef<AbortController | null>(null);
+
   const fetchMeta = useCallback(async () => {
+    metaRef.current?.abort();
+    const ctrl = new AbortController();
+    metaRef.current = ctrl;
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/v1/blocklists/meta');
-      if (!mountedRef.current) return;
+      const res = await fetch('/api/v1/blocklists/meta', {
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
+      });
+      if (ctrl.signal.aborted || !mountedRef.current) return;
       if (!res.ok) {
         const body = await res.text().catch(() => '');
         throw new Error(body ? `HTTP ${res.status}: ${body.slice(0, 100)}` : `HTTP ${res.status}`);
@@ -57,43 +64,55 @@ export default function BlocklistsPage(): JSX.Element {
       const ct = res.headers.get('content-type') ?? '';
       if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
       const data = (await res.json()) as BlocklistMeta;
-      if (!mountedRef.current) return;
+      if (ctrl.signal.aborted || !mountedRef.current) return;
       setMeta(data);
     } catch (e) {
-      if (!mountedRef.current) return;
+      if (ctrl.signal.aborted || !mountedRef.current) return;
       setError((e as Error).message);
     } finally {
-      if (mountedRef.current) setLoading(false);
+      if (!ctrl.signal.aborted && mountedRef.current) setLoading(false);
     }
   }, []);
 
   useEffect(() => {
     void fetchMeta();
+    return () => {
+      metaRef.current?.abort();
+    };
   }, [fetchMeta]);
 
+  const refreshRef = useRef<AbortController | null>(null);
+
   const handleRefresh = async () => {
+    refreshRef.current?.abort();
+    const ctrl = new AbortController();
+    refreshRef.current = ctrl;
     setRefreshing(true);
-    // Trigger a rebuild by fetching the meta — the handler regenerates on miss
+    const signal = AbortSignal.any([ctrl.signal, AbortSignal.timeout(30_000)]);
     try {
-      const res = await fetch('/api/v1/blocklists/pfsense');
+      const res = await fetch('/api/v1/blocklists/pfsense', { signal });
+      if (ctrl.signal.aborted) return;
       if (res.ok) {
-        // Now warm all three formats
         await Promise.all([
-          fetch('/api/v1/blocklists/pfsense'),
-          fetch('/api/v1/blocklists/iptables'),
-          fetch('/api/v1/blocklists/suricata'),
+          fetch('/api/v1/blocklists/pfsense', { signal }),
+          fetch('/api/v1/blocklists/iptables', { signal }),
+          fetch('/api/v1/blocklists/suricata', { signal }),
         ]);
       }
       await fetchMeta();
     } catch {
       /* ignore */
     }
-    setRefreshing(false);
+    if (!ctrl.signal.aborted) setRefreshing(false);
   };
 
   const downloadFormat = async (key: string, ext: string) => {
+    const ctrl = new AbortController();
     try {
-      const res = await fetch(`/api/v1/blocklists/${key}`);
+      const res = await fetch(`/api/v1/blocklists/${key}`, {
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
+      });
+      if (ctrl.signal.aborted) return;
       const text = await res.text();
       const blob = new Blob([text], { type: 'text/plain' });
       const url = URL.createObjectURL(blob);
@@ -108,8 +127,12 @@ export default function BlocklistsPage(): JSX.Element {
   };
 
   const copyFormat = async (key: string) => {
+    const ctrl = new AbortController();
     try {
-      const res = await fetch(`/api/v1/blocklists/${key}`);
+      const res = await fetch(`/api/v1/blocklists/${key}`, {
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
+      });
+      if (ctrl.signal.aborted) return;
       const text = await res.text();
       await navigator.clipboard.writeText(text);
       setCopiedKey(key);
@@ -274,12 +297,20 @@ function FormatPreview({ label, url, maxLines }: { label: string; url: string; m
 
   useEffect(() => {
     if (!show) return;
-    fetch(url)
-      .then((r) => r.text())
-      .then((t) =>
-        setPreview(t.split('\n').slice(0, maxLines).join('\n') + (t.split('\n').length > maxLines ? '\n…' : ''))
-      )
-      .catch(() => setPreview('(failed to fetch)'));
+    const ctrl = new AbortController();
+    fetch(url, { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) })
+      .then((r) => {
+        if (ctrl.signal.aborted) return;
+        return r.text();
+      })
+      .then((t) => {
+        if (!ctrl.signal.aborted && t)
+          setPreview(t.split('\n').slice(0, maxLines).join('\n') + (t.split('\n').length > maxLines ? '\n…' : ''));
+      })
+      .catch(() => {
+        if (!ctrl.signal.aborted) setPreview('(failed to fetch)');
+      });
+    return () => ctrl.abort();
   }, [show, url, maxLines]);
 
   return (

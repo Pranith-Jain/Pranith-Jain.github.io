@@ -19,10 +19,10 @@ function cacheKey(surface: string, date: string): Request {
 }
 
 export async function aiSummaryHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  let body: SummaryInput;
-  try {
-    body = await c.req.json<SummaryInput>();
-  } catch {
+  // Body already validated + parsed by validate() middleware; use c.parsed.
+  const parsed = (c as Context & { parsed?: SummaryInput }).parsed;
+  const body: SummaryInput = parsed ?? (await c.req.json<SummaryInput>().catch(() => ({}) as SummaryInput));
+  if (!body) {
     return c.json({ error: 'bad_request', message: 'invalid JSON body' }, 400);
   }
 

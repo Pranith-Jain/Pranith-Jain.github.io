@@ -32,7 +32,7 @@ export default function AnalyticsDashboard(): JSX.Element {
     const ctrl = new AbortController();
     setLoading(true);
     // Fetch analytics data from the API
-    fetch('/api/v1/analytics/summary', { signal: ctrl.signal })
+    fetch('/api/v1/analytics/summary', { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) })
       .then(async (r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         return r.json();

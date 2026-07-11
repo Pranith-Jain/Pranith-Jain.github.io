@@ -121,7 +121,9 @@ export default function IpGeo(): JSX.Element {
       cidrAbortRef.current?.abort();
       const ac = new AbortController();
       cidrAbortRef.current = ac;
-      fetch(`/api/v1/cidr-lookup?ip=${encodeURIComponent(t)}`, { signal: ac.signal })
+      fetch(`/api/v1/cidr-lookup?ip=${encodeURIComponent(t)}`, {
+        signal: AbortSignal.any([ac.signal, AbortSignal.timeout(15_000)]),
+      })
         .then((r) => (r.ok ? r.json() : null))
         .then((d) => setCidrData(d ? { cidrs: d.cidrs, total: d.total } : null))
         .catch(() => {});

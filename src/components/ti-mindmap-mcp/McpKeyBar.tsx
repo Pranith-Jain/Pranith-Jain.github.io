@@ -58,7 +58,7 @@ export function McpKeyBar({ className = '' }: { className?: string }): JSX.Eleme
       return (
         <>
           <PlugZap className="h-3.5 w-3.5" />
-          <span className="hidden sm:inline">MCP · 19 tools</span>
+          <span className="hidden sm:inline">MCP · 25 tools</span>
           <span className="sm:hidden">MCP</span>
         </>
       );

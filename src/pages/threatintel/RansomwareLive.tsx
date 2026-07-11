@@ -180,7 +180,7 @@ export default function RansomwareLive(): JSX.Element {
     const ctrl = new AbortController();
     setLoading(true);
     setError(null);
-    fetch(`/api/v1/rl/${active.resource}`, { signal: ctrl.signal })
+    fetch(`/api/v1/rl/${active.resource}`, { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) })
       .then(async (r) => {
         const j = await r.json().catch(() => ({}));
         if (!r.ok) {

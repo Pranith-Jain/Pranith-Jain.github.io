@@ -542,7 +542,7 @@ export default function GlobalPulse(): JSX.Element {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query: q }),
-        signal: ctrl.signal,
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(60_000)]),
       });
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       const json = (await r.json()) as {

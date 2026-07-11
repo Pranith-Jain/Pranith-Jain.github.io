@@ -29,7 +29,7 @@ interface TrendCandidate {
 }
 
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
-const GROQ_MODEL = 'qwen/qwen3-32b';
+const GROQ_MODEL = 'qwen/qwen3.6-27b';
 
 const CATEGORY_POOLS = [
   ['ransomware-evolution', 'supply-chain-attacks', 'mobile-threats'],

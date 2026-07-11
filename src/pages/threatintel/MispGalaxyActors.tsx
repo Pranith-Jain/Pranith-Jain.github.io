@@ -61,7 +61,9 @@ export default function MispGalaxyActors(): JSX.Element {
     setError(null);
     // Fetch a generous slice once and filter client-side (search box + country
     // chips) so typing never re-hits the edge — same-origin, plain fetch.
-    fetch('/api/v1/misp-galaxy-actors?limit=1000', { signal: ctrl.signal })
+    fetch('/api/v1/misp-galaxy-actors?limit=1000', {
+      signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
+    })
       .then((r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         return r.json() as Promise<GalaxyResponse>;

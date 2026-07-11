@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Plus, Trash2, ExternalLink, RefreshCw, Loader2 } from 'lucide-react';
 import { adminAuthHeaders } from '../../lib/admin-token';
 
@@ -17,10 +17,16 @@ export default function TelegramSettings(): JSX.Element {
   const [adding, setAdding] = useState(false);
   const [addError, setAddError] = useState<string | null>(null);
 
+  const loadCtrlRef = useRef<AbortController | null>(null);
   const load = useCallback(() => {
+    loadCtrlRef.current?.abort();
+    const ctrl = new AbortController();
+    loadCtrlRef.current = ctrl;
     setLoading(true);
     setError(null);
-    fetch('/api/v1/telegram-custom-channels')
+    fetch('/api/v1/telegram-custom-channels', {
+      signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15000)]),
+    })
       .then((r) => (r.ok ? r.json() : Promise.reject(`HTTP ${r.status}`)))
       .then((d) => setChannels(d.channels ?? []))
       .catch((e) => setError(e?.message ?? String(e)))
@@ -42,6 +48,7 @@ export default function TelegramSettings(): JSX.Element {
         method: 'POST',
         headers: { 'content-type': 'application/json', ...adminAuthHeaders() },
         body: JSON.stringify({ handle: h, name: name.trim() || h }),
+        signal: AbortSignal.timeout(30000),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -52,6 +59,7 @@ export default function TelegramSettings(): JSX.Element {
         load();
       }
     } catch (e) {
+      if ((e as Error).name === 'AbortError') return;
       setAddError((e as Error).message);
     } finally {
       setAdding(false);
@@ -64,6 +72,7 @@ export default function TelegramSettings(): JSX.Element {
       const res = await fetch(`/api/v1/telegram-custom-channels/${encodeURIComponent(h)}`, {
         method: 'DELETE',
         headers: adminAuthHeaders(),
+        signal: AbortSignal.timeout(15000),
       });
       if (res.ok) load();
     } catch {

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ShieldAlert, ShieldCheck, Loader2, ExternalLink } from 'lucide-react';
 
@@ -111,6 +111,8 @@ export default function OsvScanner(): JSX.Element {
   const [running, setRunning] = useState(false);
   const [err, setErr] = useState<string | null>(null);
 
+  const runRef = useRef<AbortController | null>(null);
+
   const run = async () => {
     setErr(null);
     const { packages, kind } = parseManifest(input);
@@ -122,6 +124,9 @@ export default function OsvScanner(): JSX.Element {
       setMeta(null);
       return;
     }
+    runRef.current?.abort();
+    const ctrl = new AbortController();
+    runRef.current = ctrl;
     setRunning(true);
     setRows(null);
     try {
@@ -129,16 +134,19 @@ export default function OsvScanner(): JSX.Element {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ packages: packages.slice(0, 250) }),
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(30_000)]),
       });
+      if (ctrl.signal.aborted) return;
       if (!r.ok) throw new Error(`scan failed (HTTP ${r.status})`);
       const d = (await r.json()) as { results: VulnRow[]; total_packages: number };
       const sorted = [...d.results].sort((a, b) => b.vulns.length - a.vulns.length);
       setRows(sorted);
       setMeta({ kind, total: d.total_packages });
     } catch (e) {
+      if (ctrl.signal.aborted) return;
       setErr((e as Error).message);
     } finally {
-      setRunning(false);
+      if (!ctrl.signal.aborted) setRunning(false);
     }
   };
 

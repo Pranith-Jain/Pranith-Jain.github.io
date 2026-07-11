@@ -85,7 +85,7 @@ export default function IntelDashboard(): JSX.Element {
   useEffect(() => {
     let cancelled = false;
     const ctrl = new AbortController();
-    const opts = { signal: ctrl.signal };
+    const opts = { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) };
     Promise.all([
       fetch('/api/v1/intel-dashboard', opts).then((r) => {
         if (!r.ok) throw new Error(`Couldn't load the dashboard (HTTP ${r.status}).`);

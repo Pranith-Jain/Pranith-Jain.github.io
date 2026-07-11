@@ -86,11 +86,11 @@ export default function CuratedCerts(): JSX.Element {
     setLoading(true);
     setError(null);
     Promise.all([
-      fetch('/api/v1/curated-certs', { signal: ctrl.signal }).then((r) =>
-        r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))
+      fetch('/api/v1/curated-certs', { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) }).then(
+        (r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`)))
       ),
-      fetch('/api/v1/curated-certs/meta', { signal: ctrl.signal }).then((r) =>
-        r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))
+      fetch('/api/v1/curated-certs/meta', { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) }).then(
+        (r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`)))
       ),
     ])
       .then(([payload, m]) => {

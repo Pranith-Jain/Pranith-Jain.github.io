@@ -83,7 +83,9 @@ export default function XLive(): JSX.Element {
     const ctrl = new AbortController();
     setLoading(true);
     setError(null);
-    fetch(`/api/v1/x-live?since_hours=${hours}&limit=30`, { signal: ctrl.signal })
+    fetch(`/api/v1/x-live?since_hours=${hours}&limit=30`, {
+      signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
+    })
       .then(async (r) => {
         const body = (await r.json()) as XLiveResponse | { error: string };
         if (cancelled) return;

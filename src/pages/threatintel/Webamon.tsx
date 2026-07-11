@@ -486,7 +486,9 @@ function SearchTab() {
         from: String(from),
         results: 'domain.name,page_title,meta.risk_score,fingerprint.tech,fingerprint.asn,resolved_url,tag,sub_domain',
       });
-      const res = await fetch(`/api/v1/webamon/search?${params}`, { signal: controller.signal });
+      const res = await fetch(`/api/v1/webamon/search?${params}`, {
+        signal: AbortSignal.any([controller.signal, AbortSignal.timeout(15_000)]),
+      });
       if (!res.ok) {
         const errBody = await res.json().catch(() => null);
         throw new Error(errBody?.error ?? `HTTP ${res.status}`);

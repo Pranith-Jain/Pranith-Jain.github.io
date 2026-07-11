@@ -11,11 +11,10 @@ export function FeaturesProvider({ children }: { children: ReactNode }): JSX.Ele
   const [state, setState] = useState(DEFAULT_FEATURES);
 
   useEffect(() => {
-    let cancelled = false;
-    fetch('/api/v1/features')
+    const ac = new AbortController();
+    fetch('/api/v1/features', { signal: AbortSignal.any([ac.signal, AbortSignal.timeout(15_000)]) })
       .then((r) => (r.ok ? (r.json() as Promise<Partial<Features>>) : null))
       .then((data) => {
-        if (cancelled) return;
         // `samples` is always-on server-side (no secret) but defaults to
         // false here until the probe resolves, so dormant-gated tools and
         // always-on tools both flash the same "loading" UX and reveal
@@ -25,15 +24,14 @@ export function FeaturesProvider({ children }: { children: ReactNode }): JSX.Ele
           loaded: true,
         });
       })
-      .catch(() => {
+      .catch((e) => {
+        if (e.name === 'AbortError') return;
         // Network/parse failure: leave flags dormant but mark loaded so
         // page guards can act (a misconfigured probe shouldn't strand the
         // dormant pages as visible forever).
-        if (!cancelled) setState((s) => ({ ...s, loaded: true }));
+        setState((s) => ({ ...s, loaded: true }));
       });
-    return () => {
-      cancelled = true;
-    };
+    return () => ac.abort();
   }, []);
 
   return <FeaturesContext value={state}>{children}</FeaturesContext>;

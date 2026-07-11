@@ -30,7 +30,7 @@ export function FeedHealthBadge(): JSX.Element | null {
   useEffect(() => {
     const ctrl = new AbortController();
     let alive = true;
-    fetch('/api/v1/feed-status', { signal: ctrl.signal })
+    fetch('/api/v1/feed-status', { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) })
       .then((r) => (r.ok ? (r.json() as Promise<FeedStatusResponse>) : Promise.reject(new Error(String(r.status)))))
       .then((d) => {
         if (alive) setData(d);

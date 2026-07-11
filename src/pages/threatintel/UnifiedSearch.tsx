@@ -153,7 +153,9 @@ export default function UnifiedSearch(): JSX.Element {
     setLoading(true);
     setError(null);
     try {
-      const r = await fetch(`/api/v1/unified-search?q=${encodeURIComponent(q)}`, { signal: ac.signal });
+      const r = await fetch(`/api/v1/unified-search?q=${encodeURIComponent(q)}`, {
+        signal: AbortSignal.any([ac.signal, AbortSignal.timeout(15_000)]),
+      });
       if (!r.ok) throw new Error(`${r.status}`);
       const d = (await r.json()) as UnifiedSearchResponse;
       if (!ac.signal.aborted) setData(d);

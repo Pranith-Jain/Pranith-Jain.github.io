@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { Building2, Plus, UserMinus, Mail } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
@@ -37,24 +37,33 @@ export default function OrgSettings() {
     fetchOrgs();
   }, []);
 
+  const fetchOrgsCtrlRef = useRef<AbortController | null>(null);
   const fetchOrgs = async () => {
+    fetchOrgsCtrlRef.current?.abort();
+    const ctrl = new AbortController();
+    fetchOrgsCtrlRef.current = ctrl;
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/v1/orgs');
+      const res = await fetch('/api/v1/orgs', {
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15000)]),
+      });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
-      setOrgs(data.organizations || []);
+      if (!ctrl.signal.aborted) setOrgs(data.organizations || []);
     } catch (e) {
+      if ((e as Error).name === 'AbortError') return;
       setError(e instanceof Error ? e.message : 'Failed to load organizations');
     } finally {
-      setLoading(false);
+      if (!ctrl.signal.aborted) setLoading(false);
     }
   };
 
   const fetchMembers = async (slug: string) => {
     try {
-      const res = await fetch(`/api/v1/orgs/${slug}/members`);
+      const res = await fetch(`/api/v1/orgs/${slug}/members`, {
+        signal: AbortSignal.timeout(15000),
+      });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       setMembers(data.members || []);
@@ -71,6 +80,7 @@ export default function OrgSettings() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: newOrgName, description: newOrgDesc }),
+        signal: AbortSignal.timeout(30000),
       });
       const data = await res.json();
       if (data.error) {
@@ -95,6 +105,7 @@ export default function OrgSettings() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: inviteEmail }),
+        signal: AbortSignal.timeout(30000),
       });
       const data = await res.json();
       if (data.error) {
@@ -111,7 +122,10 @@ export default function OrgSettings() {
   const removeMember = async (userId: string) => {
     if (!selectedOrg) return;
     try {
-      await fetch(`/api/v1/orgs/${selectedOrg.slug}/members/${userId}`, { method: 'DELETE' });
+      await fetch(`/api/v1/orgs/${selectedOrg.slug}/members/${userId}`, {
+        method: 'DELETE',
+        signal: AbortSignal.timeout(15000),
+      });
       fetchMembers(selectedOrg.slug);
     } catch {
       // ignore

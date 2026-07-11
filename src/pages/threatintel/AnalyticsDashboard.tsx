@@ -118,7 +118,7 @@ export default function AnalyticsDashboard(): JSX.Element {
   useEffect(() => {
     let cancelled = false;
     const ctrl = new AbortController();
-    const opts = { signal: ctrl.signal };
+    const opts = { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) };
 
     Promise.all([
       fetch('/api/v1/feed-status', opts)

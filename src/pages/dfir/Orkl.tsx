@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { ArrowLeft, BookOpen, Calendar, FileText, Globe, Loader2, Search, User, Hash } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
@@ -78,14 +78,22 @@ export default function Orkl(): JSX.Element {
   const [info, setInfo] = useState<InfoResponse['data'] | null>(null);
   const [showInfo, setShowInfo] = useState(false);
 
+  const searchRef = useRef<AbortController | null>(null);
+
   const search = useCallback(async (q: string) => {
     if (!q.trim()) return;
+    searchRef.current?.abort();
+    const ctrl = new AbortController();
+    searchRef.current = ctrl;
     setLoading(true);
     setError(null);
     setResults(null);
     setSelected(null);
     try {
-      const r = await fetch(`/api/v1/orkl/search?query=${encodeURIComponent(q.trim())}&limit=25&full=false`);
+      const r = await fetch(`/api/v1/orkl/search?query=${encodeURIComponent(q.trim())}&limit=25&full=false`, {
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
+      });
+      if (ctrl.signal.aborted) return;
       if (!r.ok) {
         const j = (await r.json().catch(() => ({}))) as { error?: string };
         throw new Error(j.error ?? `search failed (${r.status})`);
@@ -94,18 +102,27 @@ export default function Orkl(): JSX.Element {
       if (body.status !== 'success') throw new Error(body.status ?? 'orkl error');
       setResults(body.data ?? []);
     } catch (e) {
+      if (ctrl.signal.aborted) return;
       setError(e instanceof Error ? e.message : String(e));
     } finally {
-      setLoading(false);
+      if (!ctrl.signal.aborted) setLoading(false);
     }
   }, []);
+
+  const detailRef = useRef<AbortController | null>(null);
 
   const openDetail = async (entry: LibraryEntry) => {
     setSelected(entry);
     if (entry.plain_text) return;
+    detailRef.current?.abort();
+    const ctrl = new AbortController();
+    detailRef.current = ctrl;
     setDetailLoading(true);
     try {
-      const r = await fetch(`/api/v1/orkl/entry/${encodeURIComponent(entry.id)}?full=true`);
+      const r = await fetch(`/api/v1/orkl/entry/${encodeURIComponent(entry.id)}?full=true`, {
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
+      });
+      if (ctrl.signal.aborted) return;
       if (!r.ok) throw new Error(`detail failed (${r.status})`);
       const body = (await r.json()) as { status: string; data: LibraryEntry };
       if (body.status === 'success' && body.data) {
@@ -114,7 +131,7 @@ export default function Orkl(): JSX.Element {
     } catch {
       /* keep the basic entry */
     } finally {
-      setDetailLoading(false);
+      if (!ctrl.signal.aborted) setDetailLoading(false);
     }
   };
 
@@ -123,8 +140,12 @@ export default function Orkl(): JSX.Element {
       setShowInfo(!showInfo);
       return;
     }
+    const ctrl = new AbortController();
     try {
-      const r = await fetch('/api/v1/orkl/info');
+      const r = await fetch('/api/v1/orkl/info', {
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
+      });
+      if (ctrl.signal.aborted) return;
       if (!r.ok) return;
       const body = (await r.json()) as InfoResponse;
       if (body.status === 'success' && body.data) {

@@ -187,12 +187,12 @@ export default function OwaspAiLandscape(): JSX.Element {
     setLoading(true);
     setError(null);
     Promise.all([
-      fetch('/api/v1/owasp-ai-landscape', { signal: ctrl.signal }).then((r) =>
-        r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))
+      fetch('/api/v1/owasp-ai-landscape', { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) }).then(
+        (r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`)))
       ),
-      fetch('/api/v1/owasp-ai-landscape/meta', { signal: ctrl.signal }).then((r) =>
-        r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))
-      ),
+      fetch('/api/v1/owasp-ai-landscape/meta', {
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
+      }).then((r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`)))),
     ])
       .then(([landscape, m]) => {
         if (cancelled) return;

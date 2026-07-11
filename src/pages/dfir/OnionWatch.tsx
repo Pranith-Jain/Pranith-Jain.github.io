@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useRef } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
@@ -60,12 +60,21 @@ export default function OnionWatch(): JSX.Element {
   const [sortMode, setSortMode] = useState<SortMode>('last-active');
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
+  const loadRef = useRef<AbortController | null>(null);
+
   const load = async (force = false) => {
+    loadRef.current?.abort();
+    const ctrl = new AbortController();
+    loadRef.current = ctrl;
     if (force) setRefreshing(true);
     else setLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/v1/onion-watch', force ? { cache: 'reload' } : {});
+      const res = await fetch('/api/v1/onion-watch', {
+        ...(force ? { cache: 'reload' } : {}),
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
+      });
+      if (ctrl.signal.aborted) return;
       if (!res.ok) {
         const body = await res.text().catch(() => '');
         let msg = `HTTP ${res.status}`;
@@ -82,15 +91,21 @@ export default function OnionWatch(): JSX.Element {
       const json = (await res.json()) as OnionWatchResponse;
       setData(json);
     } catch (e) {
+      if (ctrl.signal.aborted) return;
       setError((e as Error).message);
     } finally {
-      setLoading(false);
-      setRefreshing(false);
+      if (!ctrl.signal.aborted) {
+        setLoading(false);
+        setRefreshing(false);
+      }
     }
   };
 
   useEffect(() => {
     void load(false);
+    return () => {
+      loadRef.current?.abort();
+    };
   }, []);
 
   // When Ransomlook's prober is degraded (reports 0 reachable across 20+

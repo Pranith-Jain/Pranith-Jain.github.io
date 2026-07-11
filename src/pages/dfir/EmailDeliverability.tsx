@@ -1,4 +1,4 @@
-import { useState, useEffect, type FormEvent } from 'react';
+import { useState, useEffect, useRef, type FormEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import {
@@ -133,10 +133,15 @@ export default function EmailDeliverability(): JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const submitRef = useRef<AbortController | null>(null);
+
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const trimmed = rawEml.trim();
     if (!trimmed) return;
+    submitRef.current?.abort();
+    const ctrl = new AbortController();
+    submitRef.current = ctrl;
     setLoading(true);
     setResult(null);
     setError(null);
@@ -145,7 +150,9 @@ export default function EmailDeliverability(): JSX.Element {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ raw_email: trimmed }),
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(30_000)]),
       });
+      if (ctrl.signal.aborted) return;
       if (!res.ok) {
         const body = (await res.json().catch(() => ({}))) as { error?: string; detail?: string };
         throw new Error(body.error ?? `${res.status}${body.detail ? `: ${body.detail}` : ''}`);
@@ -153,9 +160,10 @@ export default function EmailDeliverability(): JSX.Element {
       const data = (await res.json()) as IntodnsDebugResponse;
       setResult(data);
     } catch (err) {
+      if (ctrl.signal.aborted) return;
       setError(err instanceof Error ? err.message : 'analysis failed');
     } finally {
-      setLoading(false);
+      if (!ctrl.signal.aborted) setLoading(false);
     }
   };
 

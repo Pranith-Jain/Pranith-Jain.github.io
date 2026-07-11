@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, type FormEvent } from 'react';
+import { useEffect, useState, useCallback, useRef, type FormEvent } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { adminAuthHeaders } from '../../lib/admin-token';
 import { Plus, Trash2, Play, RefreshCw, Loader2, CheckCircle2, XCircle, Clock, Search, Pencil, X } from 'lucide-react';
@@ -74,14 +74,21 @@ export default function FeedScheduler(): JSX.Element {
     tags: string;
   }>({ name: '', source_url: '', parser: 'plaintext-ips', interval_minutes: 60, tags: '' });
 
+  const fetchRef = useRef<AbortController | null>(null);
+
   const fetchData = useCallback(async () => {
+    fetchRef.current?.abort();
+    const ctrl = new AbortController();
+    fetchRef.current = ctrl;
     setLoading(true);
     setError(null);
     try {
+      const signal = AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]);
       const [jRes, hRes] = await Promise.all([
-        fetch('/api/v1/feed-scheduler', { headers: adminAuthHeaders() }),
-        fetch('/api/v1/feed-scheduler-history', { headers: adminAuthHeaders() }),
+        fetch('/api/v1/feed-scheduler', { headers: adminAuthHeaders(), signal }),
+        fetch('/api/v1/feed-scheduler-history', { headers: adminAuthHeaders(), signal }),
       ]);
+      if (ctrl.signal.aborted) return;
       if (!jRes.ok) throw new Error('Failed to load');
       const jData = (await jRes.json()) as { jobs: FeedJob[]; presets: FeedPreset[] };
       setJobs(jData.jobs);
@@ -91,14 +98,18 @@ export default function FeedScheduler(): JSX.Element {
         setHistory(hData.history);
       }
     } catch (e) {
+      if (ctrl.signal.aborted) return;
       setError(e instanceof Error ? e.message : 'Failed to load');
     } finally {
-      setLoading(false);
+      if (!ctrl.signal.aborted) setLoading(false);
     }
   }, []);
 
   useEffect(() => {
     void fetchData();
+    return () => {
+      fetchRef.current?.abort();
+    };
   }, [fetchData]);
 
   const applyPreset = (presetId: string) => {
@@ -119,9 +130,14 @@ export default function FeedScheduler(): JSX.Element {
     setTimeout(() => setToast(null), 4000);
   };
 
+  const createRef = useRef<AbortController | null>(null);
+
   const createJob = async (e: FormEvent) => {
     e.preventDefault();
     if (!form.name.trim() || !form.source_url.trim()) return;
+    createRef.current?.abort();
+    const ctrl = new AbortController();
+    createRef.current = ctrl;
     setCreating(true);
     try {
       const res = await fetch('/api/v1/feed-scheduler', {
@@ -137,7 +153,9 @@ export default function FeedScheduler(): JSX.Element {
             .map((s) => s.trim())
             .filter(Boolean),
         }),
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(30_000)]),
       });
+      if (ctrl.signal.aborted) return;
       if (!res.ok) {
         const errData = (await res.json().catch(() => ({}))) as { error?: string };
         flash('error', errData.error ?? 'Failed to create feed');
@@ -150,16 +168,23 @@ export default function FeedScheduler(): JSX.Element {
       setSelectedPreset('');
       flash('ok', `Feed "${data.job.name}" created`);
     } catch {
+      if (ctrl.signal.aborted) return;
       flash('error', 'Network error creating feed');
     } finally {
-      setCreating(false);
+      if (!ctrl.signal.aborted) setCreating(false);
     }
   };
 
   const deleteJob = async (id: string, name: string) => {
     if (!window.confirm(`Delete feed "${name}"? This cannot be undone.`)) return;
+    const ctrl = new AbortController();
     try {
-      const res = await fetch(`/api/v1/feed-scheduler/${id}`, { method: 'DELETE', headers: adminAuthHeaders() });
+      const res = await fetch(`/api/v1/feed-scheduler/${id}`, {
+        method: 'DELETE',
+        headers: adminAuthHeaders(),
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
+      });
+      if (ctrl.signal.aborted) return;
       if (!res.ok) {
         flash('error', 'Failed to delete feed');
         return;
@@ -167,17 +192,21 @@ export default function FeedScheduler(): JSX.Element {
       setJobs((prev) => prev.filter((j) => j.id !== id));
       flash('ok', `Feed "${name}" deleted`);
     } catch {
+      if (ctrl.signal.aborted) return;
       flash('error', 'Network error deleting feed');
     }
   };
 
   const toggleJob = async (id: string, enabled: boolean) => {
+    const ctrl = new AbortController();
     try {
       const res = await fetch(`/api/v1/feed-scheduler/${id}`, {
         method: 'PATCH',
         headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
         body: JSON.stringify({ enabled }),
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(30_000)]),
       });
+      if (ctrl.signal.aborted) return;
       if (!res.ok) {
         flash('error', 'Failed to toggle feed');
         return;
@@ -185,6 +214,7 @@ export default function FeedScheduler(): JSX.Element {
       const data = (await res.json()) as { job: FeedJob };
       setJobs((prev) => prev.map((j) => (j.id === id ? data.job : j)));
     } catch {
+      if (ctrl.signal.aborted) return;
       flash('error', 'Network error toggling feed');
     }
   };
@@ -193,12 +223,15 @@ export default function FeedScheduler(): JSX.Element {
     id: string,
     updates: Partial<Pick<FeedJob, 'name' | 'source_url' | 'parser' | 'interval_minutes' | 'tags'>>
   ) => {
+    const ctrl = new AbortController();
     try {
       const res = await fetch(`/api/v1/feed-scheduler/${id}`, {
         method: 'PATCH',
         headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
         body: JSON.stringify(updates),
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(30_000)]),
       });
+      if (ctrl.signal.aborted) return;
       if (!res.ok) {
         const errData = (await res.json().catch(() => ({}))) as { error?: string };
         flash('error', errData.error ?? 'Failed to update feed');
@@ -208,6 +241,7 @@ export default function FeedScheduler(): JSX.Element {
       setJobs((prev) => prev.map((j) => (j.id === id ? data.job : j)));
       flash('ok', `Feed "${data.job.name}" updated`);
     } catch {
+      if (ctrl.signal.aborted) return;
       flash('error', 'Network error updating feed');
     }
   };
@@ -215,8 +249,14 @@ export default function FeedScheduler(): JSX.Element {
   const runJob = async (id: string) => {
     if (runningJobs.has(id)) return;
     setRunningJobs((prev) => new Set(prev).add(id));
+    const ctrl = new AbortController();
     try {
-      const res = await fetch(`/api/v1/feed-scheduler/${id}/run`, { method: 'POST', headers: adminAuthHeaders() });
+      const res = await fetch(`/api/v1/feed-scheduler/${id}/run`, {
+        method: 'POST',
+        headers: adminAuthHeaders(),
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(30_000)]),
+      });
+      if (ctrl.signal.aborted) return;
       if (!res.ok) {
         flash('error', 'Failed to trigger feed run');
         return;
@@ -227,6 +267,7 @@ export default function FeedScheduler(): JSX.Element {
         setHistory((prev) => ({ ...prev, [id]: [data.run, ...(prev[id] ?? [])] }));
       }
     } catch {
+      if (ctrl.signal.aborted) return;
       flash('error', 'Network error running feed');
     } finally {
       setRunningJobs((prev) => {

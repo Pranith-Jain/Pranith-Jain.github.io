@@ -290,7 +290,10 @@ export default function RedHuntInsights(): JSX.Element {
     const ctrl = new AbortController();
     setLoading(true);
     setError(null);
-    fetch('/api/v1/redhunt-insights', { signal: ctrl.signal, cache: 'no-store' })
+    fetch('/api/v1/redhunt-insights', {
+      signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
+      cache: 'no-store',
+    })
       .then((r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         return r.json() as Promise<InsightsPayload>;

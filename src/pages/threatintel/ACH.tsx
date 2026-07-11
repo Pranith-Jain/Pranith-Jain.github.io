@@ -76,6 +76,7 @@ export default function ACH(): JSX.Element {
     try {
       const res = await fetch('/api/v1/threat-intel/ach', {
         method: 'POST',
+        signal: AbortSignal.timeout(30_000),
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ topic: q }),
       });

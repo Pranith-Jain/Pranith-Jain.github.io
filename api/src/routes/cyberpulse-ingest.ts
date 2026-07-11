@@ -18,7 +18,7 @@ import {
 } from '../lib/twitter-auth-graphql';
 import { fetchTelegramFeed, type TelegramFeedItem } from './telegram-feed';
 import { fetchXFeed, type XFeedItem } from './x-feed';
-import { type RedditFeedItem } from './reddit-feed';
+import { fetchRedditFeed, type RedditFeedItem } from './reddit-feed';
 import type { Env } from '../env';
 
 /**
@@ -54,7 +54,7 @@ export type IncidentType =
 
 export type Severity = 'critical' | 'high' | 'medium' | 'low' | 'info';
 
-export type Platform = 'x' | 'telegram' | 'bluesky' | 'mastodon' | 'manual' | 'rss' | 'other';
+export type Platform = 'x' | 'telegram' | 'bluesky' | 'mastodon' | 'reddit' | 'manual' | 'rss' | 'other';
 
 export type Sector =
   | 'healthcare'
@@ -123,10 +123,8 @@ const INCIDENT_PATTERNS: Record<IncidentType, RegExp[]> = {
   ransomware: [
     /ransomware/i,
     /ransom\s*ware/i,
-    /\bransom\b.*\battack\b/i,
-    /\bransom\b.*\bvictim\b/i,
-    /\bransom\b.*\bclaim/i,
-    /lockbit|blackcat|alphv|cl0p|play|akira|black\s*basta|medusa|hunters|clop/i,
+    /\bransom\b/i,
+    /lockbit|blackcat|alphv|cl0p|\bplay\b|akira|black\s*basta|medusa|hunters|clop/i,
     /leak\s*site.*(?:added|new|post)/i,
     /data\s*(?:will\s*)?(?:be\s*)?leaked/i,
     /pay\s*or\s*(?:your|we)/i,
@@ -470,7 +468,8 @@ async function fetchXAccountPosts(env: Env, handles: string[], sinceDays: number
   try {
     readAuthCookies(env);
   } catch {
-    return posts; // No X auth configured
+    console.warn('X auth cookies not configured — set X_AUTH_TOKEN and X_CT0 secrets for X/Twitter collection');
+    return posts;
   }
 
   for (const handle of handles) {
@@ -730,6 +729,33 @@ async function fetchSocialBreachFeed(items?: XFeedItem[]): Promise<RawPost[]> {
   try {
     const feedItems = items ?? (await fetchXFeed()).items;
     return feedItems.map(xFeedItemToRawPost).filter((p): p is RawPost => p !== null);
+  } catch {
+    return [];
+  }
+}
+
+/** Convert a Reddit feed item to a RawPost for classification. */
+function redditItemToRawPost(item: RedditFeedItem): RawPost {
+  return {
+    text: item.text || item.title,
+    url: item.link,
+    platform: 'reddit' as Platform,
+    handle: item.sub,
+    author: item.author,
+    avatar: null,
+    published_at: item.pub_date,
+    likes: 0,
+    retweets: 0,
+    replies: 0,
+    views: 0,
+  };
+}
+
+/** Fetch Reddit breach/leak feed. Reuses `items` when supplied. */
+async function fetchRedditBreachFeed(items?: RedditFeedItem[]): Promise<RawPost[]> {
+  try {
+    const feedItems = items ?? (await fetchRedditFeed()).items;
+    return feedItems.map(redditItemToRawPost);
   } catch {
     return [];
   }
@@ -1138,6 +1164,86 @@ export async function runCyberPulseIngestion(
       incidents_deduped: 0,
       errors: [err],
       duration_ms: Date.now() - socialStart,
+    });
+  }
+
+  // ── 5. Reddit social feed ─────────────────────────────────────────────
+  const redditStart = Date.now();
+  try {
+    const redditPosts = await fetchRedditBreachFeed(prefetched.redditItems);
+    let created = 0;
+    let deduped = 0;
+    const incidents: CyberPulseIncident[] = [];
+
+    for (const post of redditPosts) {
+      const classification = classifyIncident(post.text, 'reddit', post.url);
+      if (classification.confidence < 0.3 && classification.incident_type === 'other') continue;
+
+      const hash = dedupHash(post.text.slice(0, 200), classification.victim_name ?? '', 'reddit');
+      if (existingHashes.has(hash)) {
+        deduped++;
+        continue;
+      }
+      existingHashes.add(hash);
+
+      incidents.push({
+        id: generateId(),
+        incident_type: classification.incident_type,
+        severity: classification.severity,
+        victim_name: classification.victim_name,
+        victim_domain: classification.victim_domain,
+        victim_sector: classification.victim_sector,
+        victim_country: null,
+        threat_actor: classification.threat_actor,
+        threat_actor_aliases: '[]',
+        title: post.text.slice(0, 200).replace(/\n/g, ' '),
+        description: post.text,
+        data_types_leaked: '[]',
+        records_count: classification.records_count,
+        data_volume: classification.data_volume,
+        source_platform: 'reddit',
+        source_url: post.url,
+        source_handle: post.handle,
+        source_text: post.text,
+        source_author: post.author,
+        source_avatar: null,
+        confidence: classification.confidence,
+        classification_method: 'keyword',
+        discovered_at: now,
+        reported_at: post.published_at,
+        updated_at: now,
+        dedup_hash: hash,
+        duplicate_of: null,
+        tags: JSON.stringify(classification.tags),
+        mitre_techniques: JSON.stringify(classification.mitre_techniques),
+        source_likes: 0,
+        source_retweets: 0,
+        source_replies: 0,
+        source_views: 0,
+      });
+    }
+
+    const inserted = await insertIncidents(db, incidents);
+    created += inserted;
+    await logScan(db, 'reddit', null, null, redditPosts.length, created, deduped, Date.now() - redditStart, null);
+    results.push({
+      source: 'reddit',
+      items_scanned: redditPosts.length,
+      incidents_created: created,
+      incidents_deduped: deduped,
+      errors: [],
+      duration_ms: Date.now() - redditStart,
+    });
+  } catch (e) {
+    const err = e instanceof Error ? e.message : String(e);
+    await logScan(db, 'reddit', null, null, 0, 0, 0, Date.now() - redditStart, err);
+    results.push({
+      source: 'reddit',
+      items_scanned: 0,
+      incidents_created: 0,
+      incidents_deduped: 0,
+      errors: [err],
+      duration_ms: Date.now() - redditStart,
     });
   }
 

@@ -640,22 +640,22 @@ export function BreachDisclosuresPanel(): JSX.Element {
   const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
-    let cancelled = false;
+    const ac = new AbortController();
     (async () => {
       try {
-        const res = await fetch('/api/v1/breach-disclosures');
+        const res = await fetch('/api/v1/breach-disclosures', {
+          signal: AbortSignal.any([ac.signal, AbortSignal.timeout(15_000)]),
+        });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const json = (await res.json()) as BreachDisclosuresResponse;
-        if (!cancelled) setData(json);
+        setData(json);
       } catch (e) {
-        if (!cancelled) setError((e as Error).message);
+        if ((e as Error).name !== 'AbortError') setError((e as Error).message);
       } finally {
-        if (!cancelled) setLoading(false);
+        setLoading(false);
       }
     })();
-    return () => {
-      cancelled = true;
-    };
+    return () => ac.abort();
   }, []);
 
   const visible = data?.breaches.slice(0, expanded ? data.breaches.length : 8) ?? [];
@@ -868,23 +868,23 @@ export function RansomwareActivityPanel(): JSX.Element {
   }, [lightbox]);
 
   useEffect(() => {
-    let cancelled = false;
+    const ac = new AbortController();
     (async () => {
       try {
         setError(null);
-        const res = await fetch('/api/v1/ransomware-recent');
+        const res = await fetch('/api/v1/ransomware-recent', {
+          signal: AbortSignal.any([ac.signal, AbortSignal.timeout(15_000)]),
+        });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const json = (await res.json()) as RansomwareResponse;
-        if (!cancelled) setData(json);
+        setData(json);
       } catch (e) {
-        if (!cancelled) setError((e as Error).message);
+        if ((e as Error).name !== 'AbortError') setError((e as Error).message);
       } finally {
-        if (!cancelled) setLoading(false);
+        setLoading(false);
       }
     })();
-    return () => {
-      cancelled = true;
-    };
+    return () => ac.abort();
   }, [retryCount]);
 
   const filteredVictims = useMemo(() => {
@@ -1280,22 +1280,22 @@ export function TelegramFeedPanel(): JSX.Element {
   }, []);
 
   useEffect(() => {
-    let cancelled = false;
+    const ac = new AbortController();
     (async () => {
       try {
-        const res = await fetch('/api/v1/telegram-feed');
+        const res = await fetch('/api/v1/telegram-feed', {
+          signal: AbortSignal.any([ac.signal, AbortSignal.timeout(15_000)]),
+        });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const json = (await res.json()) as TelegramFeedResponse;
-        if (!cancelled) setData(json);
+        setData(json);
       } catch (e) {
-        if (!cancelled) setError((e as Error).message);
+        if ((e as Error).name !== 'AbortError') setError((e as Error).message);
       } finally {
-        if (!cancelled) setLoading(false);
+        setLoading(false);
       }
     })();
-    return () => {
-      cancelled = true;
-    };
+    return () => ac.abort();
   }, []);
 
   const filteredItems = useMemo(() => {

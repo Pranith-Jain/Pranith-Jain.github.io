@@ -29,11 +29,17 @@ export default function Yarahub(): JSX.Element {
   const [contentError, setContentError] = useState<string | null>(null);
   const latestRuleReq = useRef(0);
 
+  const fetchCtrlRef = useRef<AbortController | null>(null);
   const fetchRules = useCallback(async () => {
+    fetchCtrlRef.current?.abort();
+    const ctrl = new AbortController();
+    fetchCtrlRef.current = ctrl;
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/v1/yara-hub?max=150');
+      const res = await fetch('/api/v1/yara-hub?max=150', {
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15000)]),
+      });
       if (!res.ok) {
         const body = await res.json().catch(() => ({}));
         throw new Error(((body as Record<string, unknown>)?.error as string) ?? `HTTP ${res.status}`);
@@ -42,17 +48,21 @@ export default function Yarahub(): JSX.Element {
       if (json.query_status !== 'ok') {
         throw new Error(`YARAify API: ${json.query_status}${typeof json.data === 'string' ? ` — ${json.data}` : ''}`);
       }
-      setRules(Array.isArray(json.data) ? json.data : []);
+      if (!ctrl.signal.aborted) setRules(Array.isArray(json.data) ? json.data : []);
     } catch (e) {
+      if ((e as Error).name === 'AbortError') return;
       setError(e instanceof Error ? e.message : 'Failed to fetch YARA rules');
-      setRules([]);
+      if (!ctrl.signal.aborted) setRules([]);
     } finally {
-      setLoading(false);
+      if (!ctrl.signal.aborted) setLoading(false);
     }
   }, []);
 
   useEffect(() => {
+    const ctrl = new AbortController();
+    fetchCtrlRef.current = ctrl;
     void fetchRules();
+    return () => ctrl.abort();
   }, [fetchRules]);
 
   const q = search.trim().toLowerCase();
@@ -72,12 +82,15 @@ export default function Yarahub(): JSX.Element {
 
   const viewRule = async (uuid: string, ruleName?: string) => {
     const reqId = ++latestRuleReq.current;
+    const ctrl = new AbortController();
     setContentName(ruleName ?? uuid);
     setContentLoading(true);
     setRuleContent(null);
     setContentError(null);
     try {
-      const res = await fetch(`/api/v1/yara-hub/rule/${encodeURIComponent(uuid)}`);
+      const res = await fetch(`/api/v1/yara-hub/rule/${encodeURIComponent(uuid)}`, {
+        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15000)]),
+      });
       if (latestRuleReq.current !== reqId) return;
       if (!res.ok) {
         const body = await res.json().catch(() => ({}));
