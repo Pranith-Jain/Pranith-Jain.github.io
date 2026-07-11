@@ -264,10 +264,23 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           // stale-fallback and uses sinceDays=7 (vs CyberPulse's sinceDays=1).
           try {
             const baseUrl = (env as unknown as { SITE_URL?: string }).SITE_URL ?? 'https://pranithjain.qzz.io';
-            const xcReq = new Request(baseUrl + '/api/v1/x-claims', { method: 'GET' });
+            const xcReq = new Request(baseUrl + '/api/v1/x-claims', {
+              method: 'GET',
+              headers: { Referer: baseUrl + '/' },
+            });
             const xcRes = await apiApp.fetch(xcReq, env as never, ctx);
             if (xcRes.ok) {
-              console.log(JSON.stringify({ job: 'cyberpulse-x-claims-warm', status: xcRes.status }));
+              const body = await xcRes.json<{ ransomware?: unknown[]; breach?: unknown[] }>();
+              console.log(
+                JSON.stringify({
+                  job: 'cyberpulse-x-claims-warm',
+                  status: xcRes.status,
+                  ransomware: (body.ransomware ?? []).length,
+                  breach: (body.breach ?? []).length,
+                })
+              );
+            } else {
+              console.warn(JSON.stringify({ job: 'cyberpulse-x-claims-warm', status: xcRes.status }));
             }
           } catch (e) {
             console.warn(JSON.stringify({ job: 'cyberpulse-x-claims-warm', error: String(e) }));
@@ -628,7 +641,10 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
             '/api/v1/ioc-correlation',
           ];
           async function warm(path: string) {
-            const req = new Request(baseUrl + path, { method: 'GET' });
+            const req = new Request(baseUrl + path, {
+              method: 'GET',
+              headers: { Referer: baseUrl + '/' },
+            });
             const res = await apiApp.fetch(req, env as never, ctx);
             await res.arrayBuffer();
             return { path, status: res.status };

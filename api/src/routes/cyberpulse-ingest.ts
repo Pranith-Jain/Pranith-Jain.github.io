@@ -843,10 +843,7 @@ async function fetchTelegramBreachFeed(kv?: KVNamespace, items?: TelegramFeedIte
 /** Fetch Bluesky/Mastodon social feed. Reuses `items` when supplied. */
 async function fetchSocialBreachFeed(items?: XFeedItem[]): Promise<RawPost[]> {
   try {
-    if (items && items.length === 0) {
-      console.warn('Social feed pre-fetched 0 items — falling back to direct fetch');
-    }
-    const feedItems = items ?? (await fetchXFeed()).items;
+    const feedItems = items && items.length > 0 ? items : (await fetchXFeed()).items;
     if (feedItems.length === 0) {
       console.warn('fetchSocialBreachFeed: 0 items from feed — all sources returned empty');
     }
