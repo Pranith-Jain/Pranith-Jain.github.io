@@ -47,6 +47,7 @@ import { enqueueAllFeeds } from '../api/src/routes/live-iocs';
 import { enqueueGpFeeds } from '../api/src/routes/global-pulse';
 import { scanForPhishingDomains, type PassiveDnsEnv } from '../api/src/lib/passive-dns';
 import { runCyberPulseIngestion } from '../api/src/routes/cyberpulse-ingest';
+import { fetchXClaims } from '../api/src/routes/x-claims';
 import { fetchRedditFeed } from '../api/src/routes/reddit-feed';
 import type { D1Database } from '@cloudflare/workers-types';
 import { acquireCronLease, releaseCronLease, heartbeatCronLease } from './durable-objects/cron-lock';
@@ -259,29 +260,25 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
             );
           }
 
-          // ── Pre-warm x-claims cache so CyberPulse can read it instead of
-          // doing its own GraphQL fetches for the 14 CTI handles. x-claims has
-          // stale-fallback and uses sinceDays=7 (vs CyberPulse's sinceDays=1).
+          // ── Pre-warm x-claims so CyberPulse gets breach/ransomware claims
+          // instead of doing its own GraphQL fetches for the 14 CTI handles.
+          // Calls fetchXClaims DIRECTLY instead of going through the route
+          // handler, avoiding the race between waitUntil cache write and
+          // CyberPulse's synchronous cache read. The result is threaded into
+          // runCyberPulseIngestion via prefetched.xClaimsBreach.
+          let xClaimsBreach:
+            Array<{ text: string; source_url: string; handle: string; discovered: string }> | undefined;
           try {
-            const baseUrl = (env as unknown as { SITE_URL?: string }).SITE_URL ?? 'https://pranithjain.qzz.io';
-            const xcReq = new Request(baseUrl + '/api/v1/x-claims', {
-              method: 'GET',
-              headers: { Referer: baseUrl + '/' },
-            });
-            const xcRes = await apiApp.fetch(xcReq, env as never, ctx);
-            if (xcRes.ok) {
-              const body = await xcRes.json<{ ransomware?: unknown[]; breach?: unknown[] }>();
-              console.log(
-                JSON.stringify({
-                  job: 'cyberpulse-x-claims-warm',
-                  status: xcRes.status,
-                  ransomware: (body.ransomware ?? []).length,
-                  breach: (body.breach ?? []).length,
-                })
-              );
-            } else {
-              console.warn(JSON.stringify({ job: 'cyberpulse-x-claims-warm', status: xcRes.status }));
-            }
+            const allClaims = await fetchXClaims(env);
+            xClaimsBreach = allClaims.breach;
+            console.log(
+              JSON.stringify({
+                job: 'cyberpulse-x-claims-warm',
+                handles: allClaims.handles.length,
+                ransomware: allClaims.ransomware.length,
+                breach: allClaims.breach.length,
+              })
+            );
           } catch (e) {
             console.warn(JSON.stringify({ job: 'cyberpulse-x-claims-warm', error: String(e) }));
           }
@@ -303,6 +300,7 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
                 telegramItems: telegramFeed?.items,
                 socialItems: socialFeed?.items,
                 redditItems: redditFeed?.items,
+                xClaimsBreach,
               });
               const totalCreated = cpResults.reduce((s, r) => s + r.incidents_created, 0);
               const totalDeduped = cpResults.reduce((s, r) => s + r.incidents_deduped, 0);

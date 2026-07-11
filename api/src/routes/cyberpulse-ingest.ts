@@ -39,6 +39,10 @@ export interface CyberPulsePrefetch {
   telegramItems?: TelegramFeedItem[];
   socialItems?: XFeedItem[];
   redditItems?: RedditFeedItem[];
+  /** Pre-fetched x-claims breach/ransomware data, threaded in by the cron
+   *  to avoid the race between the pre-warm's deferred cache write and
+   *  CyberPulse's synchronous cache read. */
+  xClaimsBreach?: Array<{ text: string; source_url: string; handle: string; discovered: string }>;
 }
 
 // ─── Types ─────────────────────────────────────────────────────────────────
@@ -494,40 +498,50 @@ const CLAIM_HANDLES_LOWER = new Set([
 ]);
 
 /** Fetch recent posts from X accounts. Tries auth first, falls back to anonymous. */
-async function fetchXAccountPosts(env: Env, handles: string[], sinceDays: number = 1): Promise<RawPost[]> {
+async function fetchXAccountPosts(
+  env: Env,
+  handles: string[],
+  sinceDays: number = 1,
+  prefetchedClaims?: CyberPulsePrefetch['xClaimsBreach']
+): Promise<RawPost[]> {
   const posts: RawPost[] = [];
 
-  // ── 1. Read pre-warmed x-claims cache for the 14 CTI handles ──────────
-  // x-claims uses sinceDays=7 and has stale-cache fallback, making it
-  // more resilient than a direct GraphQL fetch for these handles.
-  try {
-    const claims = await readXClaimsCache();
-    if (claims) {
-      for (const b of claims.breach) {
-        posts.push({
-          text: b.text,
-          url: b.source_url,
-          platform: 'x',
-          handle: b.handle,
-          author: b.handle,
-          avatar: null,
-          published_at: b.discovered,
-          likes: 0,
-          retweets: 0,
-          replies: 0,
-          views: 0,
-        });
+  // ── 1. Use pre-fetched x-claims breach data (threaded from cron) ─────
+  // Avoids the race between the pre-warm's waitUntil cache write and
+  // CyberPulse's synchronous cache read. Falls back to cache read if no
+  // prefetched data is available.
+  const claimsData =
+    prefetchedClaims ??
+    (await (async () => {
+      try {
+        const claims = await readXClaimsCache();
+        return claims?.breach;
+      } catch {
+        return undefined;
       }
-      console.log(
-        JSON.stringify({
-          job: 'x-claims-cache-read',
-          breach_count: claims.breach.length,
-          ransomware_count: claims.ransomware.length,
-        })
-      );
+    })());
+  if (claimsData) {
+    for (const b of claimsData) {
+      posts.push({
+        text: b.text,
+        url: b.source_url,
+        platform: 'x',
+        handle: b.handle,
+        author: b.handle,
+        avatar: null,
+        published_at: b.discovered,
+        likes: 0,
+        retweets: 0,
+        replies: 0,
+        views: 0,
+      });
     }
-  } catch {
-    // x-claims cache read failed — fall through to direct fetch
+    console.log(
+      JSON.stringify({
+        job: 'x-claims-cache-read',
+        breach_count: claimsData.length,
+      })
+    );
   }
 
   // ── 2. Direct GraphQL fetch for handles NOT covered by x-claims ───────
@@ -943,7 +957,7 @@ export async function runCyberPulseIngestion(
   // ── 1. X account monitoring ──────────────────────────────────────────
   const xStart = Date.now();
   try {
-    const xPosts = await fetchXAccountPosts(env, X_ACCOUNTS, 1);
+    const xPosts = await fetchXAccountPosts(env, X_ACCOUNTS, 1, prefetched.xClaimsBreach);
     let created = 0;
     let deduped = 0;
     const incidents: CyberPulseIncident[] = [];
