@@ -234,6 +234,10 @@ function graphqlHeaders(creds: AuthCookies): Record<string, string> {
   };
 }
 
+interface TwitterGraphqlError {
+  errors?: Array<{ message?: string; code?: number }>;
+}
+
 async function graphqlGet<T>(url: string, creds: AuthCookies): Promise<T> {
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
@@ -246,7 +250,13 @@ async function graphqlGet<T>(url: string, creds: AuthCookies): Promise<T> {
     throw new XAuthInvalidError(res.status);
   }
   if (!res.ok) throw new Error(`graphql HTTP ${res.status}`);
-  return (await res.json()) as T;
+  const body = (await res.json()) as T & TwitterGraphqlError;
+  // Twitter GraphQL returns 200 with errors field when query IDs are stale
+  if (body.errors && body.errors.length > 0) {
+    const msgs = body.errors.map((e) => e.message ?? `code ${e.code}`).join('; ');
+    throw new Error(`Twitter GraphQL error: ${msgs}`);
+  }
+  return body as T;
 }
 
 async function resolveUserIdAuthed(

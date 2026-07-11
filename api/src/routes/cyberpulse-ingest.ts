@@ -139,6 +139,7 @@ const INCIDENT_PATTERNS: Record<IncidentType, RegExp[]> = {
     /\bleak(?:ed|ing|s)?\b.*\b(?:database|records?|data|info)/i,
     /(?:database|records?|data|info)\b.*\b(?:leaked|exposed|dumped)/i,
     /(?:millions?|thousands?|billions?)\s*(?:of\s*)?(?:records?|accounts?|users?)/i,
+    /(?:million|billion|thousand)\s+(?:people|patients?|customers?|users?|individuals?)/i,
     /full\s*(?:dump|database)/i,
     /pastebin|ghostbin|rentry/i,
     /alleged(?:ly)?\s+(?:leaked|compromised|breached)/i,
@@ -184,6 +185,8 @@ const INCIDENT_PATTERNS: Record<IncidentType, RegExp[]> = {
     /(?:reportedly|allegedly).*(?:victim|compromised|breached|hacked|fallen\s*victim)/i,
     /(?:victim|target)\s*of\s*(?:a\s*)?(?:data\s*)?breach/i,
     /(?:exposed|compromised)\s*(?:data\s*of|information\s*found|records?\s*of)/i,
+    /\bbreach\b.*\b(?:expos|leak|impact|affect)/i,
+    /\bbreach\b.*\b(?:data|records?|info)/i,
   ],
   ddos: [/\bddos\b/i, /denial[\s-]of[\s-]service/i, /(?:taken\s*down|knocked\s*(?:offline|out))\s*(?:by|via|with)/i],
   hacktivism: [
@@ -492,6 +495,9 @@ async function fetchXAccountPosts(env: Env, handles: string[], sinceDays: number
         sinceDays,
         includeReplies: false,
       });
+      if (resp.items.length === 0) {
+        console.warn(`X timeline for @${handle} returned 0 items (cached: ${resp.cached})`);
+      }
       for (const item of resp.items) {
         if (item.is_retweet) continue; // Skip pure retweets
         posts.push({
@@ -518,6 +524,8 @@ async function fetchXAccountPosts(env: Env, handles: string[], sinceDays: number
         console.warn(`X rate-limited for @${handle}`);
         break;
       }
+      // Generic error (network, parse, GraphQL change) — don't kill all handles
+      console.warn(`X fetch failed for @${handle}: ${e instanceof Error ? e.message : e}`);
     }
   }
   return posts;
@@ -570,6 +578,7 @@ async function fetchXSearchPosts(env: Env, queries: string[], count: number = 20
         searchErrors.push(`X search rate-limited`);
         break;
       }
+      searchErrors.push(`X search query failed: ${e instanceof Error ? e.message : e}`);
     }
   }
   if (searchErrors.length > 0) console.warn(searchErrors.join('; '));
@@ -762,9 +771,16 @@ async function fetchTelegramBreachFeed(kv?: KVNamespace, items?: TelegramFeedIte
 /** Fetch Bluesky/Mastodon social feed. Reuses `items` when supplied. */
 async function fetchSocialBreachFeed(items?: XFeedItem[]): Promise<RawPost[]> {
   try {
+    if (items && items.length === 0) {
+      console.warn('Social feed pre-fetched 0 items — falling back to direct fetch');
+    }
     const feedItems = items ?? (await fetchXFeed()).items;
+    if (feedItems.length === 0) {
+      console.warn('fetchSocialBreachFeed: 0 items from feed — all sources returned empty');
+    }
     return feedItems.map(xFeedItemToRawPost).filter((p): p is RawPost => p !== null);
-  } catch {
+  } catch (e) {
+    console.warn(`fetchSocialBreachFeed failed: ${e instanceof Error ? e.message : e}`);
     return [];
   }
 }
@@ -865,8 +881,8 @@ export async function runCyberPulseIngestion(
 
     for (const post of xPosts) {
       const classification = classifyIncident(post.text, 'x', post.url);
-      // Skip low-confidence posts that aren't breach/leak related
-      if (classification.confidence < 0.3 && classification.incident_type === 'other') continue;
+      // X accounts are curated breach-intel sources — keep all non-retweet posts
+      if (classification.confidence < 0.2 && classification.incident_type === 'other') continue;
 
       const hash = dedupHash(post.text.slice(0, 200), classification.victim_name ?? '', 'x');
       if (existingHashes.has(hash)) {
@@ -1136,7 +1152,7 @@ export async function runCyberPulseIngestion(
 
     for (const post of socialPosts) {
       const classification = classifyIncident(post.text, post.platform, post.url);
-      if (classification.confidence < 0.3 && classification.incident_type === 'other') continue;
+      if (classification.confidence < 0.25 && classification.incident_type === 'other') continue;
 
       const hash = dedupHash(post.text.slice(0, 200), classification.victim_name ?? '', post.platform);
       if (existingHashes.has(hash)) {
