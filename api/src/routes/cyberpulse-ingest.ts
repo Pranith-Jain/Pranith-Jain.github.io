@@ -18,6 +18,7 @@ import {
   XAuthInvalidError,
   XAuthRateLimitedError,
 } from '../lib/twitter-auth-graphql';
+import { fetchUserTimeline } from '../lib/twitter-graphql';
 import { fetchTelegramFeed, type TelegramFeedItem } from './telegram-feed';
 import { fetchXFeed, type XFeedItem } from './x-feed';
 import { fetchRedditFeed, type RedditFeedItem } from './reddit-feed';
@@ -474,29 +475,35 @@ interface RawPost {
   views: number;
 }
 
-/** Fetch recent posts from X accounts via authenticated GraphQL. */
+/** Fetch recent posts from X accounts. Tries auth first, falls back to anonymous. */
 async function fetchXAccountPosts(env: Env, handles: string[], sinceDays: number = 1): Promise<RawPost[]> {
   const posts: RawPost[] = [];
+  let authed = true;
   try {
     readAuthCookies(env);
   } catch (e) {
+    authed = false;
     if (e instanceof XAuthMissingError) {
-      console.warn('X auth not configured — set X_AUTH_TOKEN and X_CT0 secrets for X/Twitter collection');
+      console.warn('X auth not configured — falling back to anonymous GraphQL (limited results)');
     } else {
-      console.warn(`X auth error: ${e instanceof Error ? e.message : e}`);
+      console.warn(`X auth error: ${e instanceof Error ? e.message : e} — falling back to anonymous`);
     }
-    return posts;
   }
 
   for (const handle of handles) {
     try {
-      const resp = await fetchAuthedTimeline(env, handle, {
-        count: 20,
-        sinceDays,
-        includeReplies: false,
-      });
+      const resp = authed
+        ? await fetchAuthedTimeline(env, handle, {
+            count: 20,
+            sinceDays,
+            includeReplies: false,
+          })
+        : await fetchUserTimeline(env, handle, {
+            count: 20,
+            sinceDays,
+          });
       if (resp.items.length === 0) {
-        console.warn(`X timeline for @${handle} returned 0 items (cached: ${resp.cached})`);
+        console.warn(`X timeline for @${handle} returned 0 items (cached: ${resp.cached}, authed: ${authed})`);
       }
       for (const item of resp.items) {
         if (item.is_retweet) continue; // Skip pure retweets
@@ -518,13 +525,16 @@ async function fetchXAccountPosts(env: Env, handles: string[], sinceDays: number
       if (e instanceof XAuthMissingError) break;
       if (e instanceof XAuthInvalidError) {
         console.warn(`X auth rejected for @${handle} (HTTP ${e.status}) — cookies may be expired`);
-        break;
+        if (authed) {
+          authed = false;
+          console.warn('Falling back to anonymous GraphQL for remaining handles');
+        }
+        continue;
       }
       if (e instanceof XAuthRateLimitedError) {
         console.warn(`X rate-limited for @${handle}`);
         break;
       }
-      // Generic error (network, parse, GraphQL change) — don't kill all handles
       console.warn(`X fetch failed for @${handle}: ${e instanceof Error ? e.message : e}`);
     }
   }
@@ -534,13 +544,15 @@ async function fetchXAccountPosts(env: Env, handles: string[], sinceDays: number
 /** Search X for breach/leak keywords via authenticated GraphQL. */
 async function fetchXSearchPosts(env: Env, queries: string[], count: number = 20): Promise<RawPost[]> {
   const posts: RawPost[] = [];
+  let authed = true;
   try {
     readAuthCookies(env);
   } catch (e) {
+    authed = false;
     if (e instanceof XAuthMissingError) {
-      console.warn('X search auth not configured — set X_AUTH_TOKEN and X_CT0 secrets');
+      console.warn('X search auth not configured — skipping X search');
     } else {
-      console.warn(`X search auth error: ${e instanceof Error ? e.message : e}`);
+      console.warn(`X search auth error: ${e instanceof Error ? e.message : e} — skipping X search`);
     }
     return posts;
   }
@@ -572,11 +584,15 @@ async function fetchXSearchPosts(env: Env, queries: string[], count: number = 20
       if (e instanceof XAuthMissingError) break;
       if (e instanceof XAuthInvalidError) {
         searchErrors.push(`X search auth rejected (HTTP ${e.status})`);
-        break;
+        if (authed) {
+          authed = false;
+          searchErrors.push('Falling back to anonymous search');
+        }
+        continue;
       }
       if (e instanceof XAuthRateLimitedError) {
         searchErrors.push(`X search rate-limited`);
-        break;
+        continue;
       }
       searchErrors.push(`X search query failed: ${e instanceof Error ? e.message : e}`);
     }
