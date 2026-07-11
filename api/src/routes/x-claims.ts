@@ -33,7 +33,22 @@ export const X_CLAIMS_CACHE_KEY = 'https://x-claims-cache.internal/v2';
 const CACHE_TTL_SECONDS = 3600;
 
 /** Curated handles that report ransomware leak-site listings + breach claims. */
-const CLAIM_HANDLES = ['FalconFeedsio', 'DailyDarkWeb', 'ransomnews', 'LeakRadario'];
+const CLAIM_HANDLES = [
+  'FalconFeedsio',
+  'DailyDarkWeb',
+  'ransomnews',
+  'LeakRadario',
+  'MonThreat',
+  'VivekIntel',
+  'DarkForumss',
+  'VulnCheckAI',
+  'etugenio',
+  'drb_ra',
+  '3xp0rtblog',
+  'alphahunt_io',
+  'CTI__Updates',
+  'spchainattack',
+];
 
 export interface BreachClaim {
   victim?: string;

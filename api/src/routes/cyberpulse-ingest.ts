@@ -822,6 +822,17 @@ const X_ACCOUNTS = [
   'dailydarkweb',
   'DarkWebInformer',
   'ransomnews',
+  'LeakRadario',
+  'MonThreat',
+  'VivekIntel',
+  'DarkForumss',
+  'VulnCheckAI',
+  'etugenio',
+  'drb_ra',
+  '3xp0rtblog',
+  'alphahunt_io',
+  'CTI__Updates',
+  'spchainattack',
 ];
 
 const X_SEARCH_QUERIES = [
