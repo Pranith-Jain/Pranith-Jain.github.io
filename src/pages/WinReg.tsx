@@ -44,26 +44,30 @@ interface ArtifactBody {
   license: string;
 }
 
-const HIVE_COLORS = {
-  NTUSER: 'text-green-400 bg-green-950/30 border-green-800/40',
-  SOFTWARE: 'text-blue-400 bg-blue-950/30 border-blue-800/40',
-  SYSTEM: 'text-amber-400 bg-amber-950/30 border-amber-800/40',
-  SAM: 'text-red-400 bg-red-950/30 border-red-800/40',
-  SECURITY: 'text-purple-400 bg-purple-950/30 border-purple-800/40',
-  AMCACHE: 'text-teal-400 bg-teal-950/30 border-teal-800/40',
-  USRCLASS: 'text-orange-400 bg-orange-950/30 border-orange-800/40',
-  ALL: 'text-slate-400 bg-slate-950/30 border-slate-700/40',
-} as const satisfies Record<string, string>;
+const HIVE_COLORS: Record<string, string> = {
+  NTUSER: 'text-green-700 dark:text-green-300 bg-green-50 dark:bg-green-950/40 border-green-300 dark:border-green-800',
+  SOFTWARE: 'text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/40 border-blue-300 dark:border-blue-800',
+  SYSTEM: 'text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 border-amber-300 dark:border-amber-800',
+  SAM: 'text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40 border-rose-300 dark:border-rose-800',
+  SECURITY:
+    'text-purple-700 dark:text-purple-300 bg-purple-50 dark:bg-purple-950/40 border-purple-300 dark:border-purple-800',
+  AMCACHE: 'text-teal-700 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/40 border-teal-300 dark:border-teal-800',
+  USRCLASS:
+    'text-orange-700 dark:text-orange-300 bg-orange-50 dark:bg-orange-950/40 border-orange-300 dark:border-orange-800',
+  ALL: 'text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-950/40 border-slate-300 dark:border-slate-700',
+};
 
 function hiveColor(hive: string): string {
   const key = hive.toUpperCase().replace('.DAT', '').replace('.HVE', '');
-  if (key in HIVE_COLORS) return HIVE_COLORS[key as keyof typeof HIVE_COLORS];
-  return HIVE_COLORS.ALL;
+  return HIVE_COLORS[key] ?? HIVE_COLORS.ALL;
 }
 
 function hiveLabel(hive: string): string {
   return hive.toUpperCase().replace('.DAT', '').replace('.HVE', '').slice(0, 10);
 }
+
+const CARD =
+  'rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1';
 
 function ArtifactDetail({ body, onClose }: { body: ArtifactBody; onClose: () => void }) {
   return (
@@ -71,25 +75,24 @@ function ArtifactDetail({ body, onClose }: { body: ArtifactBody; onClose: () => 
       className="fixed inset-0 z-50 flex items-start justify-center pt-16 pb-8 px-4 bg-black/60 backdrop-blur-sm overflow-y-auto"
       onClick={onClose}
     >
-      <div
-        className="relative w-full max-w-3xl bg-slate-900 border border-slate-700 rounded-xl shadow-2xl"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="flex items-center justify-between p-5 border-b border-slate-700">
-          <h2 className="text-lg font-bold text-white pr-8">{body.name}</h2>
-          <button onClick={onClose} className="text-slate-400 hover:text-white p-1">
+      <div className={`relative w-full max-w-3xl ${CARD}`} onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center justify-between p-5 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+          <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 pr-8">{body.name}</h2>
+          <button onClick={onClose} className="text-slate-400 hover:text-slate-700 dark:hover:text-white p-1">
             <X size={20} />
           </button>
         </div>
         <div className="p-5 space-y-5 max-h-[70vh] overflow-y-auto">
           {body.keys.length > 0 && (
             <div>
-              <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Registry Keys</div>
+              <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
+                Registry Keys
+              </div>
               <div className="space-y-1">
                 {body.keys.map((k, i) => (
                   <div
                     key={i}
-                    className="font-mono text-xs text-cyan-300 bg-slate-950 border border-slate-800 rounded px-3 py-1.5 break-all"
+                    className="font-mono text-xs text-brand-600 dark:text-brand-400 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded px-3 py-1.5 break-all"
                   >
                     {k}
                   </div>
@@ -98,13 +101,17 @@ function ArtifactDetail({ body, onClose }: { body: ArtifactBody; onClose: () => 
             </div>
           )}
           <div>
-            <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Description</div>
-            <p className="text-sm text-slate-300 leading-relaxed">{body.description}</p>
+            <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
+              Description
+            </div>
+            <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body.description}</p>
           </div>
           {body.forensic_value && (
-            <div className="border-l-2 border-violet-500 pl-4 py-2 bg-violet-950/20 rounded-r-lg">
-              <div className="text-xs font-semibold text-violet-400 uppercase tracking-wider mb-1">Forensic Value</div>
-              <p className="text-sm text-slate-300 leading-relaxed">{body.forensic_value}</p>
+            <div className="border-l-2 border-violet-500 pl-4 py-2 bg-violet-50 dark:bg-violet-950/20 rounded-r-lg">
+              <div className="text-xs font-semibold text-violet-600 dark:text-violet-400 uppercase tracking-wider mb-1">
+                Forensic Value
+              </div>
+              <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body.forensic_value}</p>
             </div>
           )}
           <div className="flex flex-wrap gap-2">
@@ -116,7 +123,9 @@ function ArtifactDetail({ body, onClose }: { body: ArtifactBody; onClose: () => 
           </div>
           {body.techniques.length > 0 && (
             <div>
-              <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">MITRE ATT&CK</div>
+              <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
+                MITRE ATT&CK
+              </div>
               <div className="flex flex-wrap gap-1.5">
                 {body.techniques.map((t) => (
                   <a
@@ -124,7 +133,7 @@ function ArtifactDetail({ body, onClose }: { body: ArtifactBody; onClose: () => 
                     href={`https://attack.mitre.org/techniques/${t.replace('.', '/')}/`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 font-mono text-[10px] font-bold text-orange-400 bg-orange-950/30 border border-orange-800/40 px-2 py-0.5 rounded hover:bg-orange-950/50"
+                    className="inline-flex items-center gap-1 font-mono text-[10px] font-bold text-orange-700 dark:text-orange-300 bg-orange-50 dark:bg-orange-950/40 border border-orange-300 dark:border-orange-800 px-2 py-0.5 rounded hover:bg-orange-100 dark:hover:bg-orange-950/60"
                   >
                     {t} <ExternalLink size={10} />
                   </a>
@@ -134,12 +143,14 @@ function ArtifactDetail({ body, onClose }: { body: ArtifactBody; onClose: () => 
           )}
           {body.parsers.length > 0 && (
             <div>
-              <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Parsers / Tools</div>
+              <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
+                Parsers / Tools
+              </div>
               <div className="flex flex-wrap gap-1.5">
                 {body.parsers.map((p, i) => (
                   <span
                     key={i}
-                    className="font-mono text-[10px] text-slate-400 bg-slate-800 border border-slate-700 px-2 py-0.5 rounded"
+                    className="font-mono text-[10px] text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-2 py-0.5 rounded"
                   >
                     {p}
                   </span>
@@ -147,13 +158,13 @@ function ArtifactDetail({ body, onClose }: { body: ArtifactBody; onClose: () => 
               </div>
             </div>
           )}
-          <div className="text-[10px] text-slate-600 pt-2 border-t border-slate-800">
+          <div className="text-[10px] text-slate-500 dark:text-slate-500 pt-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
             Data from{' '}
             <a
               href={body.sourceUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-cyan-400 hover:underline"
+              className="text-brand-600 dark:text-brand-400 hover:underline"
             >
               {body.source}
             </a>{' '}
@@ -201,8 +212,8 @@ export default function WinReg() {
 
   return (
     <DataPageLayout
-      backTo="/"
-      backLabel="Home"
+      backTo="/dfir"
+      backLabel="DFIR"
       icon={<Database />}
       title="Windows Registry Forensic Artifacts"
       description={
@@ -212,7 +223,7 @@ export default function WinReg() {
             href="https://dfir-scripts.github.io/registry/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-cyan-400 hover:underline"
+            className="text-brand-600 dark:text-brand-400 hover:underline"
           >
             dfir-scripts.github.io/registry
           </a>{' '}
@@ -222,32 +233,35 @@ export default function WinReg() {
       }
       loading={loading}
       error={error}
-      accentClass="text-cyan-400"
       maxWidthClass="max-w-7xl"
     >
       <div className="space-y-4">
         {/* Search + stats bar */}
         <div className="flex flex-wrap items-center gap-3">
           <div className="relative flex-1 min-w-[200px] max-w-md">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
             <input
               type="text"
               placeholder="Search artifacts by name, key, technique..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full bg-slate-900 border border-slate-700 rounded-xl pl-9 pr-3 py-2 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-600"
+              className="w-full px-9 py-2 rounded-xl text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
             />
           </div>
-          <div className="text-xs text-slate-500 font-mono">
+          <div className="text-xs text-slate-500 dark:text-slate-400 font-mono">
             {filtered.length} / {artifactsData?.total ?? 0} artifacts
           </div>
         </div>
 
-        {/* Category + Hive filter chips */}
+        {/* Category filter chips */}
         <div className="flex flex-wrap gap-2">
           <button
             onClick={() => setSelectedCategory(null)}
-            className={`text-xs font-semibold px-2.5 py-1 rounded-full border transition-colors ${!selectedCategory ? 'bg-cyan-900/40 border-cyan-600 text-cyan-300' : 'bg-slate-800 border-slate-700 text-slate-400 hover:border-slate-500'}`}
+            className={`text-xs font-semibold px-2.5 py-1 rounded-full border transition-colors ${
+              !selectedCategory
+                ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
+                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'
+            }`}
           >
             All Categories
           </button>
@@ -255,19 +269,24 @@ export default function WinReg() {
             <button
               key={cat.key}
               onClick={() => setSelectedCategory(selectedCategory === cat.key ? null : cat.key)}
-              className={`text-xs font-semibold px-2.5 py-1 rounded-full border transition-colors ${selectedCategory === cat.key ? 'bg-cyan-900/40 border-cyan-600 text-cyan-300' : 'bg-slate-800 border-slate-700 text-slate-400 hover:border-slate-500'}`}
+              className={`text-xs font-semibold px-2.5 py-1 rounded-full border transition-colors ${
+                selectedCategory === cat.key
+                  ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
+                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'
+              }`}
             >
-              {cat.name} <span className="text-slate-500 ml-0.5">({cat.count})</span>
+              {cat.name} <span className="opacity-60 ml-0.5">({cat.count})</span>
             </button>
           ))}
         </div>
 
+        {/* Hive filter */}
         <div className="flex flex-wrap gap-1.5">
           {['ALL', 'NTUSER', 'SOFTWARE', 'SYSTEM', 'SAM', 'SECURITY', 'AMCACHE', 'USRCLASS'].map((h) => (
             <button
               key={h}
               onClick={() => setSelectedHive(selectedHive === h ? null : h)}
-              className={`font-mono text-[10px] font-bold px-2 py-0.5 rounded border transition-colors ${selectedHive === h ? 'ring-1 ring-cyan-500' : ''} ${hiveColor(h)}`}
+              className={`font-mono text-[10px] font-bold px-2 py-0.5 rounded border transition-colors ${selectedHive === h ? 'ring-1 ring-brand-500' : ''} ${hiveColor(h)}`}
             >
               {h}
             </button>
@@ -277,13 +296,13 @@ export default function WinReg() {
         {/* Artifact grid */}
         {artsLoading ? (
           <div className="flex items-center justify-center py-16 text-slate-500">
-            <div className="w-6 h-6 border-2 border-slate-600 border-t-cyan-500 rounded-full animate-spin mr-3" />
+            <div className="w-6 h-6 border-2 border-slate-300 dark:border-slate-600 border-t-brand-500 rounded-full animate-spin mr-3" />
             Loading artifacts...
           </div>
         ) : filtered.length === 0 ? (
-          <div className="text-center py-16 text-slate-500">
-            <FileJson size={32} className="mx-auto mb-3 opacity-40" />
-            <p className="text-sm">No artifacts match your filters.</p>
+          <div className={`${CARD} p-12 text-center`}>
+            <FileJson size={32} className="mx-auto mb-3 text-slate-300 dark:text-slate-600" />
+            <p className="text-sm text-slate-500 dark:text-slate-400">No artifacts match your filters.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
@@ -291,9 +310,9 @@ export default function WinReg() {
               <button
                 key={art.slug}
                 onClick={() => setDetailSlug(art.slug)}
-                className="text-left bg-slate-900 border border-slate-800 hover:border-slate-600 rounded-xl p-4 transition-colors group"
+                className={`${CARD} text-left p-4 transition-colors hover:border-brand-400 dark:hover:border-brand-600 group`}
               >
-                <div className="text-sm font-semibold text-slate-200 group-hover:text-white mb-2 leading-snug">
+                <div className="text-sm font-semibold text-slate-700 dark:text-slate-200 group-hover:text-slate-900 dark:group-hover:text-white mb-2 leading-snug">
                   {art.name}
                 </div>
                 <div className="flex flex-wrap items-center gap-1.5 mb-2">
@@ -311,18 +330,20 @@ export default function WinReg() {
                     {art.techniques.slice(0, 3).map((t) => (
                       <span
                         key={t}
-                        className="font-mono text-[9px] text-orange-400/70 bg-orange-950/20 border border-orange-800/30 px-1.5 py-0.5 rounded"
+                        className="font-mono text-[9px] text-orange-600 dark:text-orange-400/70 bg-orange-50 dark:bg-orange-950/20 border border-orange-200 dark:border-orange-800/30 px-1.5 py-0.5 rounded"
                       >
                         {t}
                       </span>
                     ))}
                     {art.techniques.length > 3 && (
-                      <span className="font-mono text-[9px] text-slate-500">+{art.techniques.length - 3}</span>
+                      <span className="font-mono text-[9px] text-slate-400">+{art.techniques.length - 3}</span>
                     )}
                   </div>
                 )}
                 {art.tool.length > 0 && (
-                  <div className="mt-2 text-[10px] text-slate-600 truncate">{art.tool.slice(0, 2).join(', ')}</div>
+                  <div className="mt-2 text-[10px] text-slate-400 dark:text-slate-500 truncate">
+                    {art.tool.slice(0, 2).join(', ')}
+                  </div>
                 )}
               </button>
             ))}
@@ -330,13 +351,13 @@ export default function WinReg() {
         )}
 
         {/* Source footer */}
-        <div className="text-center pt-6 pb-2 text-xs text-slate-600 border-t border-slate-800">
+        <div className="text-center pt-6 pb-2 text-xs text-slate-500 dark:text-slate-500 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
           Data sourced from{' '}
           <a
             href="https://dfir-scripts.github.io/registry/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-cyan-400 hover:underline"
+            className="text-brand-600 dark:text-brand-400 hover:underline"
           >
             dfir-scripts.github.io
           </a>{' '}
@@ -346,7 +367,7 @@ export default function WinReg() {
           MITRE ATT&CK.
           <br />
           File hash enrichment via{' '}
-          <a href="/traceix" className="text-cyan-400 hover:underline">
+          <a href="/dfir/traceix" className="text-brand-600 dark:text-brand-400 hover:underline">
             Traceix
           </a>{' '}
           (PCEF /{' '}
@@ -354,7 +375,7 @@ export default function WinReg() {
             href="https://traceix.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-cyan-400 hover:underline"
+            className="text-brand-600 dark:text-brand-400 hover:underline"
           >
             traceix.com
           </a>

@@ -1,1 +1,130 @@
-{"slug":"warlock-ransomware","family":"Warlock Ransomware","category":"ransomware","aliases":[],"firstSeen":null,"mitreTechniques":[],"indicatorCount":9,"description":"💡INTEL","sizeBytes":1294,"indicators":[],"context":"💡INTEL\n=======\n📌Initially appeared in June 2025\n📌Top targeted sector is Technology\n📌Unlike other Ransomware Groups, this group also targets Russia\n📌All the leaks are stored on a different domain\n\nMD5\n===\n7b5d265255de505202e169d2192a4df5\nfc6328ba2908793b1126bdeaed4ee2d5\nbd830c8f1fb3dcc166670e035d215676\n84bf01ac920e67d50860f5b963d8ed50\na454720443d664bcdf4d706b7441d2a2 \nfa87ddcd230406057eb1163cee722fce\n\nTOR\n===\nelqfbcx5nofwtqfookqml7ltx2g6q6tmddys6e25vgu3al2meim6cbqd.onion\nzfytizegsze6uiswodhbaalyy5rawaytv2nzyzdkt3susbewviqqh7yd.onion\nocwjy4ynmpbbzhumh2ama2vl3bc77lf5auqf7nf4k45lbmzoep2rbyid.onion\nwarlock4fagqhnfuxtcmncfepe3jc33e33dmj2jsk64svxaerm5zhaqd.onion\nwarlock6d4etw5gwwaakh6auh6cwkinhk2bx7bbldu4m5axlcwmbuuyd.onion\nwarlockhga5iw3t54ps5iytlilf7hlvxy7kwrkidspn4qoh64s4vsuyd.onion\nwarlockmdu64clit5pdwbp5hsd576vcjjigfwbtz5gtthmuy2fiqblad.onion\nwarlockoact3ayzqwlnay27b633bku2gmpq34dxb43v3qriujfea4yyd.onion\nwarlock5zli2g4nuvixkgyivpda4ktg6flx5lbtw3u6g5lidgxzjc6id.onion\n\nFS\n==\nocwjy4ynmpbbzhumh2ama2vl3bc77lf5auqf7nf4k45lbmzoep2rbyid.onion\n\nTOX\n===\n3DCE1C43491FC92EA7010322040B254FDD2731001C2DDC2B9E819F0C946BDC3CD251FA3B694A\n84490152E99B9EC4BCFE16080AFCFD6FDCD87512027E85DB318F7B3440982637FC2847F71685\nF79A71AD8BB2E3E7EDFC38970FDC05E922E429B5DFC325C7D0E91F216DE8F3537C1A1C97F197\n","references":[],"llmSummary":null}
+{
+  "slug": "warlock-ransomware",
+  "family": "Warlock Ransomware",
+  "category": "ransomware",
+  "aliases": [],
+  "firstSeen": null,
+  "mitreTechniques": [],
+  "indicatorCount": 24,
+  "description": "💡INTEL",
+  "sizeBytes": 1294,
+  "indicators": [
+    { "type": "md5", "value": "7b5d265255de505202e169d2192a4df5", "firstSeen": null, "confidence": "medium" },
+    { "type": "md5", "value": "fc6328ba2908793b1126bdeaed4ee2d5", "firstSeen": null, "confidence": "medium" },
+    { "type": "md5", "value": "bd830c8f1fb3dcc166670e035d215676", "firstSeen": null, "confidence": "medium" },
+    { "type": "md5", "value": "84bf01ac920e67d50860f5b963d8ed50", "firstSeen": null, "confidence": "medium" },
+    { "type": "md5", "value": "a454720443d664bcdf4d706b7441d2a2", "firstSeen": null, "confidence": "medium" },
+    { "type": "md5", "value": "fa87ddcd230406057eb1163cee722fce", "firstSeen": null, "confidence": "medium" },
+    {
+      "type": "onion",
+      "value": "elqfbcx5nofwtqfookqml7ltx2g6q6tmddys6e25vgu3al2meim6cbqd.onion",
+      "firstSeen": null,
+      "confidence": "medium"
+    },
+    {
+      "type": "onion",
+      "value": "zfytizegsze6uiswodhbaalyy5rawaytv2nzyzdkt3susbewviqqh7yd.onion",
+      "firstSeen": null,
+      "confidence": "medium"
+    },
+    {
+      "type": "onion",
+      "value": "ocwjy4ynmpbbzhumh2ama2vl3bc77lf5auqf7nf4k45lbmzoep2rbyid.onion",
+      "firstSeen": null,
+      "confidence": "medium"
+    },
+    {
+      "type": "onion",
+      "value": "warlock4fagqhnfuxtcmncfepe3jc33e33dmj2jsk64svxaerm5zhaqd.onion",
+      "firstSeen": null,
+      "confidence": "medium"
+    },
+    {
+      "type": "onion",
+      "value": "warlock6d4etw5gwwaakh6auh6cwkinhk2bx7bbldu4m5axlcwmbuuyd.onion",
+      "firstSeen": null,
+      "confidence": "medium"
+    },
+    {
+      "type": "onion",
+      "value": "warlockhga5iw3t54ps5iytlilf7hlvxy7kwrkidspn4qoh64s4vsuyd.onion",
+      "firstSeen": null,
+      "confidence": "medium"
+    },
+    {
+      "type": "onion",
+      "value": "warlockmdu64clit5pdwbp5hsd576vcjjigfwbtz5gtthmuy2fiqblad.onion",
+      "firstSeen": null,
+      "confidence": "medium"
+    },
+    {
+      "type": "onion",
+      "value": "warlockoact3ayzqwlnay27b633bku2gmpq34dxb43v3qriujfea4yyd.onion",
+      "firstSeen": null,
+      "confidence": "medium"
+    },
+    {
+      "type": "onion",
+      "value": "warlock5zli2g4nuvixkgyivpda4ktg6flx5lbtw3u6g5lidgxzjc6id.onion",
+      "firstSeen": null,
+      "confidence": "medium"
+    },
+    {
+      "type": "domain",
+      "value": "elqfbcx5nofwtqfookqml7ltx2g6q6tmddys6e25vgu3al2meim6cbqd.onion",
+      "firstSeen": null,
+      "confidence": "medium"
+    },
+    {
+      "type": "domain",
+      "value": "zfytizegsze6uiswodhbaalyy5rawaytv2nzyzdkt3susbewviqqh7yd.onion",
+      "firstSeen": null,
+      "confidence": "medium"
+    },
+    {
+      "type": "domain",
+      "value": "ocwjy4ynmpbbzhumh2ama2vl3bc77lf5auqf7nf4k45lbmzoep2rbyid.onion",
+      "firstSeen": null,
+      "confidence": "medium"
+    },
+    {
+      "type": "domain",
+      "value": "warlock4fagqhnfuxtcmncfepe3jc33e33dmj2jsk64svxaerm5zhaqd.onion",
+      "firstSeen": null,
+      "confidence": "medium"
+    },
+    {
+      "type": "domain",
+      "value": "warlock6d4etw5gwwaakh6auh6cwkinhk2bx7bbldu4m5axlcwmbuuyd.onion",
+      "firstSeen": null,
+      "confidence": "medium"
+    },
+    {
+      "type": "domain",
+      "value": "warlockhga5iw3t54ps5iytlilf7hlvxy7kwrkidspn4qoh64s4vsuyd.onion",
+      "firstSeen": null,
+      "confidence": "medium"
+    },
+    {
+      "type": "domain",
+      "value": "warlockmdu64clit5pdwbp5hsd576vcjjigfwbtz5gtthmuy2fiqblad.onion",
+      "firstSeen": null,
+      "confidence": "medium"
+    },
+    {
+      "type": "domain",
+      "value": "warlockoact3ayzqwlnay27b633bku2gmpq34dxb43v3qriujfea4yyd.onion",
+      "firstSeen": null,
+      "confidence": "medium"
+    },
+    {
+      "type": "domain",
+      "value": "warlock5zli2g4nuvixkgyivpda4ktg6flx5lbtw3u6g5lidgxzjc6id.onion",
+      "firstSeen": null,
+      "confidence": "medium"
+    }
+  ],
+  "context": "💡INTEL\n=======\n📌Initially appeared in June 2025\n📌Top targeted sector is Technology\n📌Unlike other Ransomware Groups, this group also targets Russia\n📌All the leaks are stored on a different domain\n\nMD5\n===\n7b5d265255de505202e169d2192a4df5\nfc6328ba2908793b1126bdeaed4ee2d5\nbd830c8f1fb3dcc166670e035d215676\n84bf01ac920e67d50860f5b963d8ed50\na454720443d664bcdf4d706b7441d2a2 \nfa87ddcd230406057eb1163cee722fce\n\nTOR\n===\nelqfbcx5nofwtqfookqml7ltx2g6q6tmddys6e25vgu3al2meim6cbqd.onion\nzfytizegsze6uiswodhbaalyy5rawaytv2nzyzdkt3susbewviqqh7yd.onion\nocwjy4ynmpbbzhumh2ama2vl3bc77lf5auqf7nf4k45lbmzoep2rbyid.onion\nwarlock4fagqhnfuxtcmncfepe3jc33e33dmj2jsk64svxaerm5zhaqd.onion\nwarlock6d4etw5gwwaakh6auh6cwkinhk2bx7bbldu4m5axlcwmbuuyd.onion\nwarlockhga5iw3t54ps5iytlilf7hlvxy7kwrkidspn4qoh64s4vsuyd.onion\nwarlockmdu64clit5pdwbp5hsd576vcjjigfwbtz5gtthmuy2fiqblad.onion\nwarlockoact3ayzqwlnay27b633bku2gmpq34dxb43v3qriujfea4yyd.onion\nwarlock5zli2g4nuvixkgyivpda4ktg6flx5lbtw3u6g5lidgxzjc6id.onion\n\nFS\n==\nocwjy4ynmpbbzhumh2ama2vl3bc77lf5auqf7nf4k45lbmzoep2rbyid.onion\n\nTOX\n===\n3DCE1C43491FC92EA7010322040B254FDD2731001C2DDC2B9E819F0C946BDC3CD251FA3B694A\n84490152E99B9EC4BCFE16080AFCFD6FDCD87512027E85DB318F7B3440982637FC2847F71685\nF79A71AD8BB2E3E7EDFC38970FDC05E922E429B5DFC325C7D0E91F216DE8F3537C1A1C97F197\n",
+  "references": [],
+  "llmSummary": null
+}

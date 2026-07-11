@@ -172,6 +172,8 @@ describe('dfir-hubs (DFIR catalog registry)', () => {
       '/dfir/ransomware-killchain',
       '/dfir/rhysida-intrusion',
       '/dfir/wordpress-sim',
+      '/dfir/traceix',
+      '/dfir/winreg',
     ]);
     // Note: chokepoints/framework, chokepoints/cross-chain, attack-chains/*,
     // and trends/* are now consolidated into DetectionChokepointsHub (single route).

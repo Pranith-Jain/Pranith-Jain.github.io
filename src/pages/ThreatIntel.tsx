@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useDataFetch } from '../hooks/useDataFetch';
 import { DataPageLayout } from '../components/DataPageLayout';
-import { Shield, AlertTriangle, Link2, Globe2 } from 'lucide-react';
+import { Shield, AlertTriangle, Link2, Globe2, Download, ChevronRight, Search as SearchIcon } from 'lucide-react';
 
 interface TiIndexSummary {
   counts: { cves: number; iocs: number; sectors: number; kevTotal: number };
@@ -39,6 +39,21 @@ interface IocEntry {
   category: string;
   indicatorCount: number;
   description: string;
+  firstSeen: string | null;
+  mitreTechniques: string[];
+}
+
+interface IocDetail {
+  slug: string;
+  family: string;
+  category: string;
+  indicatorCount: number;
+  description: string;
+  firstSeen: string | null;
+  mitreTechniques: string[];
+  indicators: Array<{ type: string; value: string; firstSeen: string | null; confidence: string }>;
+  context: string;
+  references: string[];
 }
 
 interface SectorEntry {
@@ -49,7 +64,7 @@ interface SectorEntry {
   preview: string;
 }
 
-type Tab = 'cves' | 'kev' | 'iocs' | 'sectors';
+type Tab = 'cves' | 'kev' | 'iocs' | 'sectors' | 'search';
 
 const SEVERITY_STYLES: Record<string, string> = {
   critical: 'text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40 border-rose-300 dark:border-rose-800',
@@ -85,6 +100,14 @@ const CARD =
 export default function ThreatIntel() {
   const [tab, setTab] = useState<Tab>('cves');
   const [cveFilter, setCveFilter] = useState('');
+  const [selectedIoc, setSelectedIoc] = useState<string | null>(null);
+  const [iocFilter, setIocFilter] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchProvider, setSearchProvider] = useState<'otx' | 'threatfox' | 'malwarebazaar' | 'ransomware'>(
+    'threatfox'
+  );
+  const [searchResults, setSearchResults] = useState<Record<string, unknown> | null>(null);
+  const [searchLoading, setSearchLoading] = useState(false);
 
   const { data: indexData } = useDataFetch<TiIndexSummary>({ url: '/api/v1/threat-intel/' });
   const { data: cvesData, loading: cvesLoading } = useDataFetch<{ cves: CveEntry[] }>({
@@ -99,6 +122,140 @@ export default function ThreatIntel() {
   const { data: sectorsData, loading: sectorsLoading } = useDataFetch<{ sectors: SectorEntry[] }>({
     url: '/api/v1/threat-intel/sectors',
   });
+
+  const { data: iocDetail, loading: iocDetailLoading } = useDataFetch<IocDetail>({
+    url: selectedIoc ? `/api/v1/threat-intel/iocs/${selectedIoc}` : '',
+  });
+
+  const filteredIocs = useMemo(() => {
+    if (!iocsData?.iocs) return [];
+    const needle = iocFilter.toLowerCase();
+    return needle
+      ? iocsData.iocs.filter((i: IocEntry) =>
+          `${i.family} ${i.category} ${i.description}`.toLowerCase().includes(needle)
+        )
+      : iocsData.iocs;
+  }, [iocsData, iocFilter]);
+
+  const downloadStix = async (slug: string) => {
+    try {
+      const res = await fetch(`/api/v1/threat-intel/iocs/${slug}`);
+      if (!res.ok) return;
+      const body = await res.json();
+      const now = new Date().toISOString();
+      const typeMap: Record<string, string> = {
+        ipv4: 'ipv4-addr',
+        ipv6: 'ipv6-addr',
+        domain: 'domain-name',
+        email: 'email-addr',
+        md5: 'file:hashes.MD5',
+        sha1: 'file:hashes.SHA-1',
+        sha256: 'file:hashes.SHA-256',
+        onion: 'domain-name',
+      };
+      const stixPattern = (t: string, v: string) => {
+        const m: Record<string, string> = {
+          'ipv4-addr': `[ipv4-addr:value = '${v}']`,
+          'ipv6-addr': `[ipv6-addr:value = '${v}']`,
+          'domain-name': `[domain-name:value = '${v}']`,
+          'email-addr': `[email-addr:value = '${v}']`,
+          'file:hashes.MD5': `[file:hashes.MD5 = '${v}']`,
+          'file:hashes.SHA-1': `[file:hashes.'SHA-1' = '${v}']`,
+          'file:hashes.SHA-256': `[file:hashes.'SHA-256' = '${v}']`,
+        };
+        return m[t] || `[artifact:payload_bin = '${v}']`;
+      };
+      const objects: Record<string, unknown>[] = [];
+      const identityId = `identity--${crypto.randomUUID().slice(0, 8)}`;
+      objects.push({
+        type: 'identity',
+        spec_version: '2.1',
+        id: identityId,
+        created: now,
+        modified: now,
+        name: 'PANOPTICON TI',
+        identity_class: 'organization',
+      });
+      const markerId = `marking-definition--${crypto.randomUUID().slice(0, 8)}`;
+      objects.push({
+        type: 'marking-definition',
+        spec_version: '2.1',
+        id: markerId,
+        created: now,
+        definition_type: 'tlp',
+        definition: { tlp: 'GREEN' },
+      });
+      const reportId = `report--${crypto.randomUUID().slice(0, 8)}`;
+      const objectRefs: string[] = [];
+      for (const ind of (body.indicators ?? []).slice(0, 200)) {
+        const stixType = typeMap[ind.type] || ind.type;
+        const indId = `indicator--${crypto.randomUUID().slice(0, 8)}`;
+        objects.push({
+          type: 'indicator',
+          spec_version: '2.1',
+          id: indId,
+          created: now,
+          modified: now,
+          name: `${body.family} — ${ind.type}`,
+          description: `IOC from ${body.family}`,
+          pattern: stixPattern(stixType, ind.value),
+          pattern_type: 'stix',
+          valid_from: now,
+          created_by_ref: identityId,
+          object_marking_refs: [markerId],
+          confidence: 50,
+          labels: [body.category, body.family],
+        });
+        objectRefs.push(indId);
+      }
+      objects.push({
+        type: 'report',
+        spec_version: '2.1',
+        id: reportId,
+        created: now,
+        modified: now,
+        name: `${body.family} — STIX Export`,
+        published: now,
+        created_by_ref: identityId,
+        object_refs: objectRefs,
+      });
+      const bundle = {
+        type: 'bundle',
+        id: `bundle--${crypto.randomUUID().slice(0, 8)}`,
+        spec_version: '2.1',
+        created: now,
+        objects,
+      };
+      const blob = new Blob([JSON.stringify(bundle, null, 2)], { type: 'application/stix+json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${slug}-stix.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch {
+      /* ignore */
+    }
+  };
+
+  const runSearch = async () => {
+    if (!searchQuery.trim()) return;
+    setSearchLoading(true);
+    setSearchResults(null);
+    try {
+      const endpoints: Record<'otx' | 'threatfox' | 'malwarebazaar' | 'ransomware', string> = {
+        otx: `/api/v1/threat-intel/search/otx?q=${encodeURIComponent(searchQuery)}`,
+        threatfox: `/api/v1/threat-intel/search/threatfox?q=${encodeURIComponent(searchQuery)}`,
+        malwarebazaar: `/api/v1/threat-intel/search/malwarebazaar?q=${encodeURIComponent(searchQuery)}`,
+        ransomware: `/api/v1/threat-intel/search/ransomware-live?q=${encodeURIComponent(searchQuery)}`,
+      };
+      const res = await fetch(endpoints[searchProvider]);
+      if (res.ok) setSearchResults(await res.json());
+    } catch {
+      /* ignore */
+    }
+    setSearchLoading(false);
+  };
 
   const filteredCves = useMemo(() => {
     if (!cvesData?.cves) return [];
@@ -145,6 +302,7 @@ export default function ThreatIntel() {
           { key: 'kev' as Tab, label: 'KEV', icon: Shield, count: kevData?.entries?.length },
           { key: 'iocs' as Tab, label: 'IOC Families', icon: Link2, count: iocsData?.iocs?.length },
           { key: 'sectors' as Tab, label: 'Sector Briefs', icon: Globe2, count: sectorsData?.sectors?.length },
+          { key: 'search' as Tab, label: 'Live Search', icon: SearchIcon },
         ].map((t) => {
           const Icon = t.icon;
           return (
@@ -260,20 +418,115 @@ export default function ThreatIntel() {
 
       {/* IOC tab */}
       {tab === 'iocs' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {iocsData?.iocs?.map((ioc) => (
-            <div key={ioc.slug} className={`${CARD} p-3`}>
-              <div className="flex items-center justify-between mb-1">
-                <span className="text-sm font-semibold text-violet-600 dark:text-violet-400">{ioc.family}</span>
-                <span className="text-micro font-mono uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 px-1.5 py-0.5 rounded">
-                  {ioc.category}
-                </span>
+        <div>
+          <input
+            type="text"
+            placeholder="Filter by family, category, or keyword…"
+            value={iocFilter}
+            onChange={(e) => setIocFilter(e.target.value)}
+            className="w-full mb-4 px-3 py-2 rounded-xl text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+          />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {filteredIocs.map((ioc) => (
+              <div
+                key={ioc.slug}
+                className={`${CARD} p-3 cursor-pointer hover:border-violet-400 dark:hover:border-violet-600 transition-colors`}
+                onClick={() => setSelectedIoc(selectedIoc === ioc.slug ? null : ioc.slug)}
+              >
+                <div className="flex items-center justify-between mb-1">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-semibold text-violet-600 dark:text-violet-400">{ioc.family}</span>
+                    <ChevronRight
+                      className={`h-3 w-3 text-slate-400 transition-transform ${selectedIoc === ioc.slug ? 'rotate-90' : ''}`}
+                    />
+                  </div>
+                  <span className="text-micro font-mono uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 px-1.5 py-0.5 rounded">
+                    {ioc.category}
+                  </span>
+                </div>
+                <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400 mb-1">
+                  <span className="font-mono">{ioc.indicatorCount} indicators</span>
+                  {ioc.firstSeen && <span>First seen: {ioc.firstSeen.slice(0, 10)}</span>}
+                  {ioc.mitreTechniques?.length > 0 && <span>{ioc.mitreTechniques.length} MITRE TTPs</span>}
+                </div>
+                <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2">{ioc.description}</p>
+
+                {/* Expanded detail view */}
+                {selectedIoc === ioc.slug && (
+                  <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+                    {iocDetailLoading ? (
+                      <p className="text-xs text-slate-400">Loading indicators…</p>
+                    ) : iocDetail ? (
+                      <div>
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-xs font-semibold text-slate-700 dark:text-slate-200">
+                            {iocDetail.indicators.length} extracted indicators
+                          </span>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              downloadStix(ioc.slug);
+                            }}
+                            className="inline-flex items-center gap-1 text-xs font-mono px-2 py-1 rounded border border-violet-300 dark:border-violet-700 bg-violet-50 dark:bg-violet-950/40 text-violet-700 dark:text-violet-300 hover:bg-violet-100 dark:hover:bg-violet-900/40"
+                          >
+                            <Download className="h-3 w-3" /> STIX 2.1
+                          </button>
+                        </div>
+                        {/* Indicator type breakdown */}
+                        <div className="flex flex-wrap gap-1.5 mb-2">
+                          {Object.entries(
+                            iocDetail.indicators.reduce((acc: Record<string, number>, i) => {
+                              acc[i.type] = (acc[i.type] || 0) + 1;
+                              return acc;
+                            }, {})
+                          ).map(([type, count]) => (
+                            <span
+                              key={type}
+                              className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
+                            >
+                              {type}: {count}
+                            </span>
+                          ))}
+                        </div>
+                        {/* Sample indicators */}
+                        <div className="space-y-1 max-h-40 overflow-y-auto">
+                          {iocDetail.indicators.slice(0, 15).map((ind, idx) => (
+                            <div key={idx} className="flex items-center gap-2 text-mono text-xs">
+                              <span className="text-violet-500 dark:text-violet-400 w-14 shrink-0">{ind.type}</span>
+                              <span className="text-slate-700 dark:text-slate-200 truncate">{ind.value}</span>
+                            </div>
+                          ))}
+                          {iocDetail.indicators.length > 15 && (
+                            <p className="text-xs text-slate-400">…and {iocDetail.indicators.length - 15} more</p>
+                          )}
+                        </div>
+                        {/* MITRE techniques */}
+                        {iocDetail.mitreTechniques.length > 0 && (
+                          <div className="mt-2 flex flex-wrap gap-1">
+                            {iocDetail.mitreTechniques.map((t) => (
+                              <a
+                                key={t}
+                                href={`https://attack.mitre.org/techniques/${t.replace('.', '/')}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-micro font-mono px-1.5 py-0.5 rounded bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800 hover:underline"
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                {t}
+                              </a>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <p className="text-xs text-slate-400">No detail available</p>
+                    )}
+                  </div>
+                )}
               </div>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">{ioc.indicatorCount} indicators</p>
-              <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2">{ioc.description}</p>
-            </div>
-          ))}
-          {!iocsLoading && (!iocsData?.iocs || iocsData.iocs.length === 0) && (
+            ))}
+          </div>
+          {!iocsLoading && filteredIocs.length === 0 && (
             <div className={`${CARD} p-8 text-center text-sm text-slate-500 dark:text-slate-400`}>No IOC families</div>
           )}
         </div>
@@ -292,6 +545,73 @@ export default function ThreatIntel() {
           ))}
           {!sectorsLoading && (!sectorsData?.sectors || sectorsData.sectors.length === 0) && (
             <div className={`${CARD} p-8 text-center text-sm text-slate-500 dark:text-slate-400`}>No sector briefs</div>
+          )}
+        </div>
+      )}
+
+      {/* Live Search tab */}
+      {tab === 'search' && (
+        <div>
+          <div className={`${CARD} p-4 mb-4`}>
+            <div className="flex flex-wrap gap-2 mb-3">
+              {[
+                { key: 'threatfox' as const, label: 'ThreatFox', desc: 'Crowdsourced IOCs' },
+                { key: 'otx' as const, label: 'AlienVault OTX', desc: 'Threat pulses' },
+                { key: 'malwarebazaar' as const, label: 'MalwareBazaar', desc: 'Malware samples' },
+                { key: 'ransomware' as const, label: 'ransomware.live', desc: 'Group profiles' },
+              ].map((p) => (
+                <button
+                  key={p.key}
+                  onClick={() => setSearchProvider(p.key)}
+                  className={`text-xs font-mono px-3 py-1.5 rounded-lg border transition-colors ${
+                    searchProvider === p.key
+                      ? 'border-violet-500 bg-violet-50 dark:bg-violet-950/40 text-violet-700 dark:text-violet-300'
+                      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'
+                  }`}
+                >
+                  {p.label}
+                </button>
+              ))}
+            </div>
+            <div className="flex gap-2">
+              <input
+                type="text"
+                placeholder={
+                  searchProvider === 'ransomware'
+                    ? 'e.g. LockBit, BlackCat, Cl0p…'
+                    : 'e.g. Emotet, CVE-2024-1234, 1.2.3.4…'
+                }
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && runSearch()}
+                className="flex-1 px-3 py-2 rounded-xl text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+              />
+              <button
+                onClick={runSearch}
+                disabled={searchLoading || !searchQuery.trim()}
+                className="px-4 py-2 rounded-xl text-sm font-medium bg-violet-600 text-white hover:bg-violet-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {searchLoading ? 'Searching…' : 'Search'}
+              </button>
+            </div>
+          </div>
+
+          {/* Search results */}
+          {searchResults && (
+            <div className={`${CARD} p-4`}>
+              <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-200 mb-3">
+                Results from {searchProvider === 'ransomware' ? 'ransomware.live' : searchProvider}
+              </h3>
+              <pre className="text-xs text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-900 rounded-lg p-3 overflow-x-auto max-h-96 overflow-y-auto">
+                {JSON.stringify(searchResults, null, 2)}
+              </pre>
+            </div>
+          )}
+          {!searchLoading && !searchResults && (
+            <div className={`${CARD} p-8 text-center text-sm text-slate-500 dark:text-slate-400`}>
+              Search across OTX, ThreatFox, MalwareBazaar, and ransomware.live. Results include IOCs, malware families,
+              and group profiles.
+            </div>
           )}
         </div>
       )}

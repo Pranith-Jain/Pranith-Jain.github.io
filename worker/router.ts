@@ -535,11 +535,11 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/copilot', '/__prerendered/dfir__copilot'],
   ['/dfir/orkl', '/__prerendered/dfir__orkl'],
   ['/dfir/wifi-investigation', '/__prerendered/dfir__wifi-investigation'],
+  ['/dfir/traceix', '/__prerendered/dfir__traceix'],
+  ['/dfir/winreg', '/__prerendered/dfir__winreg'],
   // ── Standalone SPA pages ──────────────────────────────────────
-  ['/traceix', '/__prerendered/traceix'],
   ['/threatintel/external/cerast', '/__prerendered/threatintel__external__cerast'],
   ['/threatintel/external/threatmon', '/__prerendered/threatintel__external__threatmon'],
-  ['/winreg', '/__prerendered/winreg'],
 ]);
 
 /**

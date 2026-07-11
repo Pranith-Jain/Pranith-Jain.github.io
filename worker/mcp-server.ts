@@ -2079,11 +2079,21 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
               });
             }
 
+            const stixTypeMap: Record<string, string> = {
+              ipv4: 'ipv4-addr',
+              ipv6: 'ipv6-addr',
+              domain: 'domain-name',
+              email: 'email-addr',
+              md5: 'file:hashes.MD5',
+              sha1: 'file:hashes.SHA-1',
+              sha256: 'file:hashes.SHA-256',
+              onion: 'domain-name',
+            };
             const indicators = (body.indicators ?? [])
               .slice(0, limit ?? 100)
               .map((ind: { type: string; value: string }) => ({
                 value: ind.value,
-                type: ind.type as Parameters<typeof buildStixBundle>[0][0]['type'],
+                type: (stixTypeMap[ind.type] || ind.type) as Parameters<typeof buildStixBundle>[0][0]['type'],
                 label: `${body.family} — ${ind.type}`,
                 description: `IOC from ${body.family} (${body.category})`,
                 confidence: 50,

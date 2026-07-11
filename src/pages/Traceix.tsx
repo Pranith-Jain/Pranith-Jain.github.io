@@ -52,8 +52,8 @@ export default function Traceix() {
 
   return (
     <DataPageLayout
-      backTo="/"
-      backLabel="Home"
+      backTo="/dfir"
+      backLabel="DFIR"
       icon={<Shield />}
       title="Traceix Hash Lookup"
       description={

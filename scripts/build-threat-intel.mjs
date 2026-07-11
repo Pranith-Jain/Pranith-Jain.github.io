@@ -70,6 +70,140 @@ function shortDesc(desc) {
   return desc.length > 240 ? desc.slice(0, 237) + '…' : desc;
 }
 
+// ─── IOC extraction helpers (Tier 2) ──────────────────────────────────────
+
+const RE_IPV4 = /\b(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\b/g;
+const RE_IPV6 = /\b(?:[0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}\b/g;
+const RE_DOMAIN = /\b(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}\b/g;
+const RE_ONION = /\b[a-z2-7]{16,56}\.onion\b/gi;
+const RE_EMAIL = /\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b/g;
+const RE_MD5 = /\b[a-fA-F0-9]{32}\b/g;
+const RE_SHA1 = /\b[a-fA-F0-9]{40}\b/g;
+const RE_SHA256 = /\b[a-fA-F0-9]{64}\b/g;
+const RE_CVE = /\bCVE-\d{4}-\d{4,}\b/gi;
+const RE_URL = /https?:\/\/[^\s)>\]"']+/g;
+const RE_DATE = /\b(\d{4}[-/.]\d{2}[-/.]\d{2})\b/g;
+
+// RFC 5737 / documentation / example IPs to exclude
+const DOC_IPS = new Set([
+  '192.0.2.0', '192.0.2.1', '192.0.2.10', '192.0.2.42', '192.0.2.100', '192.0.2.200',
+  '198.51.100.0', '198.51.100.1', '198.51.100.42', '198.51.100.100', '198.51.100.200',
+  '203.0.113.0', '203.0.113.1', '203.0.113.42', '203.0.113.100', '203.0.113.200',
+  '0.0.0.0', '255.255.255.255', '127.0.0.1',
+]);
+
+// Common false-positive domains
+const FP_DOMAINS = new Set([
+  'example.com', 'example.org', 'example.net', 'localhost.localdomain',
+  'schema.org', 'www.w3.org', 'schemas.openxmlformats.org',
+  'schemas.microsoft.com', 'purl.org', 'xmlns.com',
+]);
+
+// Code file extensions that look like TLDs but aren't domains
+const CODE_EXTENSIONS = new Set([
+  'ts', 'tsx', 'js', 'jsx', 'mjs', 'cjs', 'mts', 'cts',
+  'py', 'rb', 'go', 'rs', 'java', 'kt', 'scala',
+  'c', 'cpp', 'h', 'hpp', 'cs', 'swift',
+  'sh', 'bash', 'zsh', 'fish',
+  'json', 'yaml', 'yml', 'toml', 'xml', 'csv', 'txt',
+  'md', 'rst', 'adoc',
+  'sql', 'graphql', 'gql',
+  'css', 'scss', 'less', 'sass',
+  'html', 'htm', 'vue', 'svelte',
+  'wasm', 'so', 'dll', 'dylib',
+  'lock', 'sum', 'mod',
+]);
+
+function isValidIocIp(ip) {
+  if (DOC_IPS.has(ip)) return false;
+  const parts = ip.split('.');
+  if (parts.length !== 4) return false;
+  const [a, b] = parts.map(Number);
+  // Exclude private / loopback / link-local
+  if (a === 0 || a === 10 || a === 127 || a >= 224) return false;
+  if (a === 172 && b >= 16 && b <= 31) return false;
+  if (a === 192 && b === 168) return false;
+  return true;
+}
+
+function isValidDomain(d) {
+  const lower = d.toLowerCase();
+  if (FP_DOMAINS.has(lower)) return false;
+  // Exclude common false positives
+  if (lower.endsWith('.local') || lower.endsWith('.internal') || lower.endsWith('.example')) return false;
+  // Exclude code file extensions (file.ts, index.js, etc.)
+  const parts = lower.split('.');
+  if (parts.length >= 2) {
+    const tld = parts[parts.length - 1];
+    if (CODE_EXTENSIONS.has(tld)) return false;
+  }
+  return true;
+}
+
+function extractIndicators(text) {
+  const indicators = [];
+  const seen = new Set();
+
+  function add(type, value) {
+    const key = `${type}:${value.toLowerCase()}`;
+    if (seen.has(key)) return;
+    seen.add(key);
+    indicators.push({ type, value, firstSeen: null, confidence: 'medium' });
+  }
+
+  // SHA-256 (check first — most specific)
+  for (const m of text.matchAll(RE_SHA256)) add('sha256', m[0].toLowerCase());
+  // SHA-1
+  for (const m of text.matchAll(RE_SHA1)) {
+    if (!seen.has(`sha256:${m[0].toLowerCase()}`)) add('sha1', m[0].toLowerCase());
+  }
+  // MD5 (skip if already seen as sha256 prefix)
+  for (const m of text.matchAll(RE_MD5)) {
+    if (!seen.has(`sha256:${m[0].toLowerCase()}`) && !seen.has(`sha1:${m[0].toLowerCase()}`)) {
+      add('md5', m[0].toLowerCase());
+    }
+  }
+  // IPv4
+  for (const m of text.matchAll(RE_IPV4)) {
+    if (isValidIocIp(m[0])) add('ipv4', m[0]);
+  }
+  // IPv6
+  for (const m of text.matchAll(RE_IPV6)) add('ipv6', m[0]);
+  // .onion URLs
+  for (const m of text.matchAll(RE_ONION)) add('onion', m[0].toLowerCase());
+  // Domains (filter false positives)
+  for (const m of text.matchAll(RE_DOMAIN)) {
+    if (isValidDomain(m[0])) add('domain', m[0].toLowerCase());
+  }
+  // Email addresses
+  for (const m of text.matchAll(RE_EMAIL)) add('email', m[0].toLowerCase());
+  // CVEs
+  for (const m of text.matchAll(RE_CVE)) add('cve', m[0].toUpperCase());
+
+  return indicators;
+}
+
+function extractReferences(text) {
+  const refs = [];
+  const seen = new Set();
+  for (const m of text.matchAll(RE_URL)) {
+    const url = m[0].replace(/[.,;:!?)]+$/, '');
+    if (seen.has(url)) continue;
+    seen.add(url);
+    refs.push(url);
+  }
+  return refs.slice(0, 20);
+}
+
+function extractFirstSeen(text) {
+  const dates = [];
+  for (const m of text.matchAll(RE_DATE)) {
+    const d = Date.parse(m[1].replace(/\//g, '-'));
+    if (!isNaN(d)) dates.push(new Date(d).toISOString());
+  }
+  return dates.length > 0 ? dates.sort()[0] : null;
+}
+
 if (!existsSync(STAGING)) {
   console.error(`✘ Staging folder missing: ${STAGING}`);
   console.error('  Run: node scripts/sync-threat-intel.mjs first.');
@@ -136,8 +270,10 @@ for (const v of nvdItems) {
     url: r.url, source: r.source ?? '', tags: r.tags ?? [],
   }));
   const cwes = (v.cve?.weaknesses ?? []).flatMap((w) => w.description ?? []).map((d) => d.value).filter(Boolean);
-  const vendor = v.cve?.vendor || null; // NVD 2.0 may not include this; fall through to CPE if present
-  const product = null;
+  // Tier 2: Extract vendor/product from KEV cross-reference
+  const kevEntry = kevByCve.get(id);
+  const vendor = v.cve?.vendor || kevEntry?.vendor || null;
+  const product = kevEntry?.product || null;
   const inKev = kevByCve.has(id);
   const inKevSince = inKev ? kevByCve.get(id).dateAdded : null;
   const publishedAt = v.cve?.published ?? '';
@@ -204,20 +340,23 @@ for (const name of dhFiles) {
   // Cheap regex extraction — the upstream files have variable formats.
   for (const m of text.matchAll(/T1\d{3}(?:\.\d{3})?/g)) mitreTechniques.push(m[0]);
   const description = shortDesc(text.split('\n').find((l) => l.trim() && !l.startsWith('#')) ?? '');
-  // Count indicator lines (very rough — anything starting with a recognised IOC type marker).
-  const indicatorCount = (text.match(/^\s*(?:[a-f0-9]{32,64}|\d{1,3}(?:\.\d{1,3}){3}|[A-Z0-9-]{8,})\s*$/gim) || []).length;
+  // Tier 2: Extract structured IOCs from Daily-Hunt markdown
+  const indicators = extractIndicators(text);
+  const references = extractReferences(text);
+  const firstSeen = extractFirstSeen(text);
 
   const iocEntry = {
     slug, family: name.replace(/\.[a-z]+$/i, ''), category, aliases,
-    firstSeen: null, mitreTechniques: Array.from(new Set(mitreTechniques)).slice(0, 12),
-    indicatorCount, description, sizeBytes: text.length,
+    firstSeen, mitreTechniques: Array.from(new Set(mitreTechniques)).slice(0, 12),
+    indicatorCount: indicators.length || (text.match(/^\s*(?:[a-f0-9]{32,64}|\d{1,3}(?:\.\d{1,3}){3}|[A-Z0-9-]{8,})\s*$/gim) || []).length,
+    description, sizeBytes: text.length,
   };
   iocIndex.push(iocEntry);
   const body = {
     ...iocEntry,
-    indicators: [], // populated only when the source ships structured IOCs
+    indicators,
     context: text.slice(0, 4096),
-    references: [],
+    references,
     llmSummary: null,
   };
   writeFileSync(join(OUT, 'iocs', `${safeFilename(slug)}.json`), JSON.stringify(body));

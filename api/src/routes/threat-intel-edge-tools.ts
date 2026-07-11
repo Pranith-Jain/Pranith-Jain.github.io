@@ -179,3 +179,175 @@ threatIntelRouter.get('/threat-intel/stats', async (c) => {
     return internalError(c, `ti_stats_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
+
+// ─── Live enrichment search routes ──────────────────────────────────────
+const SEARCH_TIMEOUT_MS = 20_000;
+
+threatIntelRouter.get('/threat-intel/search/otx', async (c) => {
+  const q = c.req.query('q');
+  if (!q) return c.json({ error: 'missing q parameter' }, 400);
+  const apiKey = c.env.OTX_API_KEY;
+  if (!apiKey) return c.json({ error: 'OTX_API_KEY not configured', results: [] });
+  try {
+    const res = await fetch(`https://otx.alienvault.com/api/v1/search/pulses?q=${encodeURIComponent(q)}&limit=20`, {
+      headers: { 'X-OTX-API-KEY': apiKey, accept: 'application/json' },
+      signal: AbortSignal.timeout(SEARCH_TIMEOUT_MS),
+    });
+    if (!res.ok) return c.json({ error: `OTX returned ${res.status}` }, 502);
+    const data = (await res.json()) as {
+      results?: Array<{
+        id: string;
+        name: string;
+        description: string;
+        tags: string[];
+        indicator_count: number;
+        malware_families: unknown[];
+        attack_ids: Array<{ display_name: string }>;
+      }>;
+    };
+    const pulses = (data.results ?? []).map((p) => ({
+      id: p.id,
+      name: p.name,
+      description: p.description,
+      tags: p.tags,
+      indicator_count: p.indicator_count,
+      malware_families: (p.malware_families ?? [])
+        .map((m) => (typeof m === 'string' ? m : ((m as Record<string, string>)?.display_name ?? '')))
+        .filter(Boolean),
+      attack_ids: (p.attack_ids ?? []).map((a) => a.display_name ?? '').filter(Boolean),
+    }));
+    return c.json({ query: q, total: pulses.length, pulses });
+  } catch (e) {
+    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+  }
+});
+
+threatIntelRouter.get('/threat-intel/search/threatfox', async (c) => {
+  const q = c.req.query('q');
+  if (!q) return c.json({ error: 'missing q parameter' }, 400);
+  try {
+    const res = await fetch('https://threatfox-api.abuse.ch/api/v1/', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ query: 'search_ioc', search_term: q }),
+      signal: AbortSignal.timeout(SEARCH_TIMEOUT_MS),
+    });
+    if (!res.ok) return c.json({ error: `ThreatFox returned ${res.status}` }, 502);
+    const data = (await res.json()) as {
+      query_status: string;
+      data?: Array<{
+        ioc_type: string;
+        ioc: string;
+        malware_printable: string;
+        confidence_level: number;
+        first_seen: string;
+        last_seen: string;
+        tags: string[];
+        reporter: string;
+      }>;
+    };
+    if (data.query_status === 'no_data') return c.json({ query: q, total: 0, iocs: [] });
+    if (data.query_status !== 'ok') return c.json({ error: `query_status: ${data.query_status}` }, 502);
+    const iocs = (data.data ?? []).slice(0, 100).map((i) => ({
+      ioc_type: i.ioc_type,
+      ioc_value: i.ioc,
+      malware: i.malware_printable,
+      confidence: i.confidence_level != null ? i.confidence_level / 100 : 0,
+      first_seen: i.first_seen,
+      last_seen: i.last_seen,
+      tags: i.tags,
+      reporter: i.reporter,
+    }));
+    return c.json({ query: q, total: iocs.length, iocs });
+  } catch (e) {
+    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+  }
+});
+
+threatIntelRouter.get('/threat-intel/search/malwarebazaar', async (c) => {
+  const q = c.req.query('q');
+  if (!q) return c.json({ error: 'missing q parameter' }, 400);
+  try {
+    let res = await fetch('https://mb-api.abuse.ch/api/v1/', {
+      method: 'POST',
+      headers: { 'content-type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({ query: 'get_taginfo', tag: q, limit: '50' }),
+      signal: AbortSignal.timeout(SEARCH_TIMEOUT_MS),
+    });
+    let data = (await res.json()) as {
+      query_status: string;
+      data?: Array<{ sha256_hash: string; file_name: string; signature: string; tags: string[]; first_seen: string }>;
+    };
+    let mode = 'tag';
+    if (data.query_status === 'no_results' || !data.data?.length) {
+      mode = 'signature';
+      res = await fetch('https://mb-api.abuse.ch/api/v1/', {
+        method: 'POST',
+        headers: { 'content-type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ query: 'get_siginfo', signature: q, limit: '50' }),
+        signal: AbortSignal.timeout(SEARCH_TIMEOUT_MS),
+      });
+      data = (await res.json()) as typeof data;
+    }
+    if (data.query_status === 'no_results') return c.json({ query: q, search_mode: mode, total: 0, samples: [] });
+    if (data.query_status !== 'ok') return c.json({ error: `query_status: ${data.query_status}` }, 502);
+    const samples = (data.data ?? []).map((s) => ({
+      sha256: s.sha256_hash,
+      file_name: s.file_name,
+      signature: s.signature,
+      tags: s.tags,
+      first_seen: s.first_seen,
+    }));
+    return c.json({ query: q, search_mode: mode, total: samples.length, samples });
+  } catch (e) {
+    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+  }
+});
+
+threatIntelRouter.get('/threat-intel/search/ransomware-live', async (c) => {
+  const q = c.req.query('q');
+  if (!q) return c.json({ error: 'missing q parameter' }, 400);
+  const headers = { 'User-Agent': 'pranithjain-dfir/1.0', accept: 'application/json' };
+  try {
+    const groupsRes = await fetch('https://api.ransomware.live/v2/groups', {
+      headers,
+      signal: AbortSignal.timeout(15_000),
+    });
+    if (!groupsRes.ok) return c.json({ error: `ransomware.live returned ${groupsRes.status}` }, 502);
+    const allGroups = (await groupsRes.json()) as Array<{ name: string }>;
+    const matched = allGroups.filter((g) => (g.name ?? '').toLowerCase().includes(q.toLowerCase())).slice(0, 5);
+    if (!matched.length) return c.json({ query: q, total: 0, groups: [] });
+    const fetchDetail = async (name: string) => {
+      try {
+        const r = await fetch(`https://api.ransomware.live/v2/group/${encodeURIComponent(name)}`, {
+          headers,
+          signal: AbortSignal.timeout(10_000),
+        });
+        const text = await r.text();
+        if (!text.trim().startsWith('{')) return null;
+        const d = JSON.parse(text) as {
+          name: string;
+          description?: string;
+          locations?: Array<{ fqdn?: string }>;
+          ttps?: string[];
+          tools?: string[];
+          _victim_count?: number;
+        };
+        return {
+          name: d.name ?? name,
+          description: d.description ?? '',
+          onion_urls: (d.locations ?? []).filter((l) => l.fqdn?.includes('.onion')).map((l) => l.fqdn!),
+          ttps: d.ttps ?? [],
+          tools: d.tools ?? [],
+          victim_count: d._victim_count ?? 0,
+        };
+      } catch {
+        return null;
+      }
+    };
+    const details = (await Promise.all(matched.map((g) => fetchDetail(g.name)))).filter(Boolean);
+    return c.json({ query: q, total: details.length, groups: details });
+  } catch (e) {
+    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+  }
+});
