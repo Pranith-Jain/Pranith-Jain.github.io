@@ -428,15 +428,15 @@ export default function CyberPulse(): JSX.Element {
               <div className="flex items-end gap-1 h-16">
                 {stats.daily_trend.map((d) => {
                   const maxCount = Math.max(...stats.daily_trend.map((x) => x.count));
-                  const height = maxCount > 0 ? (d.count / maxCount) * 100 : 0;
+                  const barPx = maxCount > 0 ? Math.max((d.count / maxCount) * 48, 3) : 3;
                   return (
                     <div
                       key={d.day}
-                      className="flex-1 flex flex-col items-center gap-0.5"
+                      className="flex-1 flex flex-col items-center justify-end self-stretch"
                       title={`${d.day}: ${d.count}`}
                     >
-                      <div className="w-full bg-blue-500/40 rounded-t" style={{ height: `${Math.max(height, 4)}%` }} />
-                      <span className="text-[9px] text-slate-500 font-mono">{d.day.slice(5)}</span>
+                      <div className="w-full bg-blue-500/40 rounded-t" style={{ height: barPx }} />
+                      <span className="text-[9px] text-slate-500 font-mono leading-none mt-0.5">{d.day.slice(5)}</span>
                     </div>
                   );
                 })}
