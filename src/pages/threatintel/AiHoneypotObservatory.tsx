@@ -13,6 +13,7 @@ import { AlertTriangle, Bot, ExternalLink, Globe, RefreshCw, Server, Shield, Sku
  * Dashboard: https://ai-honeypots.com
  */
 
+const PROXY_URL = '/api/v1/ai-honeypot-feed';
 const FEED_URL = 'https://ai-honeypots.com/feeds/iocs.txt';
 const DASHBOARD_URL = 'https://ai-honeypots.com';
 
@@ -150,11 +151,11 @@ export default function AiHoneypotObservatory(): JSX.Element {
     setError(null);
     try {
       const signal = AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]);
-      const res = await fetch(FEED_URL, { signal });
+      const res = await fetch(PROXY_URL, { signal });
       if (!res.ok) throw new Error(`Feed returned ${res.status}`);
-      const text = await res.text();
+      const data = await res.json();
       if (ctrl.signal.aborted) return;
-      const parsed = parseFeed(text);
+      const parsed = parseFeed(data.feed);
       setEntries(parsed.entries);
       setMeta(parsed.meta);
     } catch (e) {
