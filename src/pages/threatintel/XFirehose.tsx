@@ -110,8 +110,8 @@ export default function XFirehose(): JSX.Element {
   const postSummaries = usePostSummaries({
     surface: 'X / Bluesky / Mastodon Cybersec',
     items: filtered.map((it) => ({
-      id: String(it.link),
-      title: it.text?.slice(0, 120) ?? '',
+      id: it.link || `post-${it.pub_date}-${it.handle}`,
+      title: (it.text || '(no text)').slice(0, 120),
       body: it.text ?? '',
       source: it.handle_name ?? it.handle ?? '',
     })),
@@ -260,7 +260,7 @@ export default function XFirehose(): JSX.Element {
         <AiSummaryCard
           surface="X / Bluesky / Mastodon Cybersec"
           items={filtered.slice(0, 30).map((it) => ({
-            title: it.text?.slice(0, 120) ?? '',
+            title: (it.text || '(no text)').slice(0, 120),
             body: it.text ?? '',
             source: it.handle_name ?? it.handle ?? '',
           }))}

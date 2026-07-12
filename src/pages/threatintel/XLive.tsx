@@ -139,8 +139,8 @@ export default function XLive(): JSX.Element {
   const postSummaries = usePostSummaries({
     surface: 'X Live Cybersec',
     items: filtered.map((t) => ({
-      id: String(t.id),
-      title: t.text?.slice(0, 120) ?? '',
+      id: t.id || `tweet-${t.created_at_ms}`,
+      title: (t.text || '(no text)').slice(0, 120),
       body: t.text ?? '',
       source: t.author?.name ?? '',
     })),
@@ -284,7 +284,7 @@ export default function XLive(): JSX.Element {
           <AiSummaryCard
             surface="X Live Cybersec"
             items={filtered.slice(0, 30).map((t) => ({
-              title: t.text?.slice(0, 120) ?? '',
+              title: (t.text || '(no text)').slice(0, 120),
               body: t.text ?? '',
               source: t.author?.name ?? '',
             }))}

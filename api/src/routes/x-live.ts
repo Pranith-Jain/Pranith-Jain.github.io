@@ -37,9 +37,11 @@ import { readLastGood, writeLastGood } from '../lib/lastgood';
  */
 
 const TWEETFEED_URL = 'https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/today.csv';
+const TWEETFEED_WEEK_URL = 'https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/week.csv';
 const FXTWITTER_BASE = 'https://api.fxtwitter.com/i/status/';
 const FETCH_TIMEOUT = 12_000;
 const FEED_CACHE_TTL = 600;
+const WEEK_CACHE_TTL = 3600;
 const STATUS_CACHE_TTL = 6 * 3600;
 const MAX_STATUS_LOOKUPS = 35;
 const KV_FALLBACK_KEY = 'x-live:fallback:v1';
@@ -136,13 +138,25 @@ function parseTweetFeedRow(line: string): {
 }
 
 async function fetchTweetFeed(): Promise<string> {
-  const res = await fetch(TWEETFEED_URL, {
-    headers: { accept: 'text/csv', 'user-agent': 'pranithjain-dfir/1.0' },
-    signal: AbortSignal.timeout(FETCH_TIMEOUT),
-    cf: { cacheTtl: FEED_CACHE_TTL, cacheEverything: true },
-  } as RequestInit);
-  if (!res.ok) throw new Error(`TweetFeed HTTP ${res.status}`);
-  return res.text();
+  const [todayRes, weekRes] = await Promise.all([
+    fetch(TWEETFEED_URL, {
+      headers: { accept: 'text/csv', 'user-agent': 'pranithjain-dfir/1.0' },
+      signal: AbortSignal.timeout(FETCH_TIMEOUT),
+      cf: { cacheTtl: FEED_CACHE_TTL, cacheEverything: true },
+    } as RequestInit),
+    fetch(TWEETFEED_WEEK_URL, {
+      headers: { accept: 'text/csv', 'user-agent': 'pranithjain-dfir/1.0' },
+      signal: AbortSignal.timeout(FETCH_TIMEOUT),
+      cf: { cacheTtl: WEEK_CACHE_TTL, cacheEverything: true },
+    } as RequestInit),
+  ]);
+  if (!todayRes.ok && !weekRes.ok) throw new Error(`TweetFeed HTTP ${todayRes.status}/${weekRes.status}`);
+  const today = todayRes.ok ? await todayRes.text() : '';
+  const week = weekRes.ok ? await weekRes.text() : '';
+  // Merge both CSVs — today.csv is newest-first, week.csv has 7 days. Dedup
+  // by status_id happens downstream in the caller when building the `seen` map.
+  const merged = [today, week].filter(Boolean).join('\n');
+  return merged;
 }
 
 /**
