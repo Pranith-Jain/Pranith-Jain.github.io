@@ -1158,8 +1158,10 @@ export async function fetchLiveIocs(
   // silently cut the last 5 sources after more feeds were added. It's now
   // derived from FEED_SOURCES.length so it stays correct as feeds change.
   // The cap leaves headroom for the analytics + KV/queue reads that follow
-  // the fan-out in composeOrFallback.
-  const SUBREQUEST_BUDGET = FEED_SOURCES.length;
+  // the fan-out in composeOrFallback. Capped at 45 (below the 50-subrequest
+  // free-plan limit) so the last few sources degrade gracefully instead of
+  // throwing and dropping ALL sources.
+  const SUBREQUEST_BUDGET = Math.min(FEED_SOURCES.length, 45);
   const budget = { used: 0, max: SUBREQUEST_BUDGET };
   const deps: FeedDeps = { executionCtx, kv, env, budget };
   const feedResults = await concurrentMap(
