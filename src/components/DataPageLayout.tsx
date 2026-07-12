@@ -93,7 +93,7 @@ export function DataPageLayout({
       {!hideBack && (
         <Link
           to={backTarget}
-          className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono transition-colors"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 -ml-3 text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[rgb(var(--hover-100))] rounded-lg mb-8 font-mono transition-colors"
         >
           <ArrowLeft size={14} /> {backLabel}
         </Link>
