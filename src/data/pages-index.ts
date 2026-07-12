@@ -3108,6 +3108,13 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     keywords: ['ai', 'llm', 'honeypot', 'mcp', 'credential harvester', 'scanner', 'ioc', 'blocklist'],
   },
   {
+    path: '/threatintel/ai-honeypot-observatory',
+    label: 'AI Honeypot Observatory (alias)',
+    description: 'Alias for the AI Honeypot Observatory page.',
+    sectionLabel: 'Threat Intel · Infrastructure',
+    group: 'threatintel',
+  },
+  {
     path: '/threatintel/alerts',
     label: 'Alert Feed',
     description:
@@ -4216,6 +4223,22 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     description: 'Cross-source search.',
     sectionLabel: 'Threat Intel · Tools',
     group: 'threatintel',
+  },
+  {
+    path: '/threatintel/tools/stix-bundles',
+    label: 'STIX Bundles API',
+    description: 'PostgREST-style STIX 2.1 bundle query interface.',
+    sectionLabel: 'Threat Intel · Tools',
+    group: 'threatintel',
+    keywords: ['stix', 'bundle', 'postgrest', 'query', 'threat actor', 'malware'],
+  },
+  {
+    path: '/threatintel/tools/actionable-iocs',
+    label: 'Actionable IOCs',
+    description: 'PostgREST-style IOC query interface per type.',
+    sectionLabel: 'Threat Intel · Tools',
+    group: 'threatintel',
+    keywords: ['ioc', 'indicator', 'compromise', 'ip', 'domain', 'hash', 'url'],
   },
   {
     path: '/threatintel/cves/cves',

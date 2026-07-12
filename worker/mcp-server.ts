@@ -4384,5 +4384,144 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(result);
       }
     );
+
+    // ── NL → STIX Translation ─────────────────────────────────────────
+    this.tools(
+      'stix_translate',
+      'Translate a natural language threat intelligence question into structured STIX 2.1 query parameters. Given plain English, returns the classified intent, extracted entities, and filter parameters to use with stix_query_bundles. Supports actors, malware, CVEs, sectors, countries, campaigns, time ranges, and strategic queries.',
+      {
+        query: z
+          .string()
+          .describe(
+            'Natural language threat intelligence question, e.g. "What is APT29 doing in healthcare?" or "Show me ransomware targeting finance this week"'
+          ),
+      },
+      async ({ query }) => {
+        const { translateQuery } = await import('../../api/src/lib/agent/stix-translator');
+        const result = translateQuery(query);
+        return untrustedToolResult(result);
+      }
+    );
+
+    // ── STIX Bundle Query (PostgREST-style) ───────────────────────────
+    this.tools(
+      'stix_query_bundles',
+      'Query the STIX 2.1 intelligence bundle store with PostgREST-style filters. Returns threat intelligence bundles matching your criteria. Use stix_translate first to convert natural language to structured filter parameters. Supports filters: source_type (eq.osint/eq.darknet), threat_actors (cs.{APT29}), malware_names, sectors, countries_target, vulnerabilities, date ranges (stix_published_at=gte.), and more. Supports select, order, limit, offset.',
+      {
+        select: z
+          .string()
+          .optional()
+          .describe(
+            'Comma-separated columns: bundle_id,source_type,threat_actors,malware_names,sectors,countries_target,vulnerabilities,title,stix_published_at,api_created_at'
+          ),
+        threat_actors: z
+          .string()
+          .optional()
+          .describe('Array contains filter, e.g. cs.{APT29} or cs.{Lazarus Group,APT38}'),
+        malware_names: z
+          .string()
+          .optional()
+          .describe('Array contains filter, e.g. cs.{Emotet} or cs.{Trickbot,LockBit}'),
+        sectors: z
+          .string()
+          .optional()
+          .describe('Array contains filter for target sectors, e.g. cs.{Healthcare} or cs.{Finance,Government}'),
+        countries_target: z
+          .string()
+          .optional()
+          .describe('Array contains filter for target countries, e.g. cs.{Germany}'),
+        vulnerabilities: z.string().optional().describe('Array contains filter for CVE IDs, e.g. cs.{CVE-2024-3094}'),
+        source_type: z.string().optional().describe('Source type filter, e.g. eq.osint or eq.darknet'),
+        stix_published_at: z.string().optional().describe('Date filter, e.g. gte.2026-01-01T00:00:00Z'),
+        order: z.string().optional().describe('Sort order, e.g. stix_published_at.desc or api_created_at.desc'),
+        limit: z.string().optional().describe('Max rows (default 50)'),
+        offset: z.string().optional().describe('Row offset for pagination'),
+      },
+      async (args) => {
+        const qp = new URLSearchParams();
+        for (const [k, v] of Object.entries(args)) {
+          if (v !== undefined && v !== '') qp.set(k, v);
+        }
+        const qs = qp.toString();
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/stix_bundles${qs ? `?${qs}` : ''}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+
+    // ── Actionable IOCs Query (PostgREST-style) ───────────────────────
+    this.tools(
+      'stix_query_iocs',
+      'Query the threat intelligence IOC store with PostgREST-style filters. Returns indicators of compromise with their type, validity period, and source bundle reference. Supports filtering by ioc_type (eq.ipv4, eq.domain, eq.hash_sha256), date ranges, and source. Also supports per-type active IOC queries via ioc_type filter. Use seq_id for incremental sync.',
+      {
+        select: z
+          .string()
+          .optional()
+          .describe('Comma-separated columns: ioc_value,ioc_type,valid_until,source_bundle_id,seq_id,created_at'),
+        ioc_type: z
+          .string()
+          .optional()
+          .describe(
+            'IOC type filter, e.g. eq.ipv4, eq.ipv6, eq.domain, eq.url, eq.hash_md5, eq.hash_sha1, eq.hash_sha256'
+          ),
+        valid_until: z
+          .string()
+          .optional()
+          .describe('Validity filter, e.g. gt.now() for active only, or gte.2026-01-01'),
+        seq_id: z.string().optional().describe('Sequence ID filter for incremental sync, e.g. gt.12345'),
+        ioc_value: z.string().optional().describe('Exact IOC value lookup, e.g. eq.203.0.113.42'),
+        order: z.string().optional().describe('Sort order, e.g. seq_id.asc, valid_until.desc, created_at.desc'),
+        limit: z.string().optional().describe('Max rows (default 50)'),
+        offset: z.string().optional().describe('Row offset for pagination'),
+      },
+      async (args) => {
+        const qp = new URLSearchParams();
+        for (const [k, v] of Object.entries(args)) {
+          if (v !== undefined && v !== '') qp.set(k, v);
+        }
+        const qs = qp.toString();
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/actionable_iocs${qs ? `?${qs}` : ''}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+
+    // ── Role-Aware Copilot (Vera + Role) ──────────────────────────────
+    this.tools(
+      'si_copilot_ask',
+      'Ask a threat intelligence question with role-aware context. Choose your analyst persona to get answers framed for your role. Roles: ciso (strategic risk), detection (TTPs/rules), ir (IOCs/triage), cti (context/attribution). Covers any threat intel question — actors, malware, campaigns, CVEs, sectors, IOCs, trends.',
+      {
+        query: z.string().describe('Your threat intelligence question in plain English'),
+        role: z.enum(['ciso', 'detection', 'ir', 'cti']).optional().describe('Analyst persona (default: cti)'),
+        mode: z.enum(['ask', 'investigate', 'draft', 'challenge']).optional().describe('Vera mode (default: ask)'),
+        sessionId: z.string().optional().describe('Optional session ID for follow-up questions'),
+      },
+      async ({ query, role, mode, sessionId }) => {
+        const body: Record<string, string> = { query: query ?? '', mode: mode ?? 'ask', role: role ?? 'cti' };
+        if (sessionId) body.sessionId = sessionId;
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/agents/chat', this.apiKey, {
+          method: 'POST',
+          body: JSON.stringify(body),
+        });
+        return untrustedToolResult(data);
+      }
+    );
+
+    // ── List available analyst roles ──────────────────────────────────
+    this.tools(
+      'si_copilot_roles',
+      'List the available analyst personas for the role-aware copilot. Each role frames threat intelligence differently: ciso (risk posture, strategic, executive view), detection (TTPs, detection rules, hunting), ir (IOCs, containment, triage), cti (contextual analysis, attribution, trends).',
+      {},
+      async () => {
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/agents/chat/roles', this.apiKey);
+        return untrustedToolResult(data);
+      }
+    );
   }
 }

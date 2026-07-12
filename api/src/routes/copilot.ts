@@ -736,8 +736,26 @@ export async function gatherLiveEnrichment(query: string, queryType: QueryType, 
   return [];
 }
 
-export function buildSystemPrompt(query: string, queryType: QueryType, confidence?: ConfidenceScore): string {
+export function buildSystemPrompt(
+  query: string,
+  queryType: QueryType,
+  confidence?: ConfidenceScore,
+  role?: string
+): string {
   const isActor = queryType === 'actor' || queryType === 'ransomware';
+
+  const roleFraming: Record<string, string> = {
+    ciso: `<persona>CISO / Executive Advisor</persona>
+<focus>You are a CISO's strategic advisor. Frame answers in business context: lead with risk posture, financial/regulatory impact, and strategic implications. Quantify where possible. End with concrete recommendations phrased as "consider" or "review" actions. Avoid technical deep-dives unless asked.</focus>`,
+    detection: `<persona>Detection Engineering Lead</persona>
+<focus>You are a Detection Engineering lead. Frame answers for rule development: lead with the TTP mapped to MITRE ATT&CK, provide detection logic ideas (Sigma, KQL, Splunk SPL), highlight bypass risks and detection gaps, include data source requirements.</focus>`,
+    ir: `<persona>Senior Incident Responder</persona>
+<focus>You are a senior Incident Responder. Frame answers for rapid triage: lead with actionable IOCs and immediate containment steps, prioritize by severity and dwell time, include forensic artifact locations, note false-positive indicators, end with the single most impactful next action.</focus>`,
+    cti: `<persona>Threat Intelligence Analyst</persona>
+<focus>You are a Threat Intelligence analyst. Frame answers for analytical depth: lead with actor attribution, confidence level, and source triangulation, include campaign context and victimology, cross-reference with MITRE ATT&CK, surface intelligence gaps and collection priorities.</focus>`,
+  };
+
+  const activeRole = role && roleFraming[role] ? roleFraming[role] : null;
 
   const confidenceBlock = confidence
     ? `
@@ -762,7 +780,7 @@ Use this computed confidence to calibrate the [High]/[Medium]/[Low] tags in your
 - **Low**: weak signal, general knowledge without corroboration, or stale data.
 When relying primarily on general knowledge, you MUST include at the top of Key Findings: "⚠️ No curated threat intelligence sources matched this query. Analysis is based on general cybersecurity knowledge and may not reflect the most current threat landscape."
 </confidence>`;
-  return `<role>You are a senior CTI analyst at a global SOC/MDR writing a formal intelligence report for fellow analysts and incident responders. Your reports are evidence-driven, technically precise, and professionally structured.</role>
+  return `${activeRole ?? '<role>You are a senior CTI analyst at a global SOC/MDR writing a formal intelligence report for fellow analysts and incident responders. Your reports are evidence-driven, technically precise, and professionally structured.</role>'}
 
 <task>Produce a structured intelligence report about "${query}" in Markdown.
 
@@ -1011,11 +1029,13 @@ export async function callGroq(env: Env, system: string, user: string): Promise<
 export async function copilotInvestigateHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
     let query: string;
+    let role: string | undefined;
     if (c.req.method === 'GET') {
       query = c.req.query('q') ?? '';
     } else {
-      const body = await c.req.json<{ query: string }>();
+      const body = await c.req.json<{ query: string; role?: string }>();
       query = body.query ?? '';
+      role = body.role;
     }
     if (!query || query.trim().length === 0) {
       return badRequest(c, 'query is required (POST body or ?q= param)');
@@ -1060,7 +1080,7 @@ export async function copilotInvestigateHandler(c: Context<{ Bindings: Env }>): 
             : 'general',
     });
 
-    const system = buildSystemPrompt(query.trim(), queryType, confidence);
+    const system = buildSystemPrompt(query.trim(), queryType, confidence, role);
     const user = buildUserPrompt(query.trim(), queryType, allSources, ragContext);
 
     let narrative: string;

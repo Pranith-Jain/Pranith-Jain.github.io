@@ -6,6 +6,9 @@ import { useSearchParams } from 'react-router-dom';
 import { ExternalLink, MessageSquare, RefreshCw, Search, Sparkles } from 'lucide-react';
 import { useLastVisit, isNewSince } from '../../hooks';
 import { DataState } from '../../components/DataState';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { usePostSummaries } from '../../components/intel/usePostSummaries';
+import { PostSummary } from '../../components/intel/PostSummary';
 import { FeedAggregateCard } from '../../components/intel/FeedAggregateCard';
 
 interface RedditFeedItem {
@@ -103,6 +106,16 @@ export default function RedditFirehose(): JSX.Element {
   useEffect(() => {
     setVisible(60);
   }, [debouncedQuery, subFilter, newOnly, data]);
+
+  const postSummaries = usePostSummaries({
+    surface: 'Reddit Firehose',
+    items: filtered.map((it) => ({
+      id: it.link,
+      title: it.title,
+      body: `${it.title} ${it.text ?? ''}`,
+      source: it.author,
+    })),
+  });
 
   const newCount = useMemo(() => {
     if (!data || !lastVisit) return 0;
@@ -244,27 +257,39 @@ export default function RedditFirehose(): JSX.Element {
         onRetry={() => setRefreshKey((k) => k + 1)}
         rows={8}
       >
+        <AiSummaryCard
+          surface="Reddit Firehose"
+          items={filtered.slice(0, 30).map((it) => ({
+            title: it.title,
+            body: `${it.title} ${it.text ?? ''}`,
+            source: it.author,
+          }))}
+          requireAdmin={false}
+        />
         <ul className="space-y-2">
           {filtered.slice(0, visible).map((it, i) => (
             <li
               key={`${it.link}-${i}`}
               className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
             >
-              <a
-                href={sanitizeUrl(it.link) || undefined}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group block"
-              >
-                <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
-                  <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 flex-1 min-w-0">
-                    {it.title}
-                  </span>
-                  <ExternalLink size={11} className="text-slate-400 shrink-0" />
-                </div>
-                {it.text && (
-                  <p className="text-meta font-mono text-muted leading-relaxed line-clamp-2 mb-1.5">{it.text}</p>
-                )}
+              <div>
+                <a
+                  href={sanitizeUrl(it.link) || undefined}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group block"
+                >
+                  <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
+                    <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 flex-1 min-w-0">
+                      {it.title}
+                    </span>
+                    <ExternalLink size={11} className="text-slate-400 shrink-0" />
+                  </div>
+                  {it.text && (
+                    <p className="text-meta font-mono text-muted leading-relaxed line-clamp-2 mb-1.5">{it.text}</p>
+                  )}
+                </a>
+                <PostSummary text={postSummaries.get(it.link)} />
                 <div className="text-mini font-mono text-slate-500 flex items-center gap-2 flex-wrap">
                   <span className={`px-1.5 py-0.5 rounded border ${TOPIC_PILL[it.sub_topic]}`}>{it.sub_label}</span>
                   <span>by {it.author || '—'}</span>
@@ -272,7 +297,7 @@ export default function RedditFirehose(): JSX.Element {
                     {shortRel(it.pub_date)}
                   </span>
                 </div>
-              </a>
+              </div>
             </li>
           ))}
         </ul>

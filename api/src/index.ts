@@ -296,10 +296,13 @@ import {
 import {
   veraChatHandler,
   veraChatModesHandler,
+  veraChatRolesHandler,
   veraChatStreamHandler,
   veraChatHistoryHandler,
   veraSessionsListHandler,
 } from './routes/vera';
+import { stixBundlesHandler } from './routes/stix-bundles';
+import { actionableIocsHandler, createIocTypeHandler } from './routes/actionable-iocs';
 import { observeHandler } from './routes/observe';
 import { buildReportHandler, getReportHandler, streamReportHandler } from './routes/report';
 import { automationRunHandler } from './routes/automation';
@@ -1515,9 +1518,23 @@ app.get('/api/v1/copilot/chat/:sessionId', copilotChatHistoryHandler);
 // Vera — multi-mode conversational CTI (4 chat modes: Ask, Investigate, Draft, Challenge)
 app.post('/api/v1/agents/chat', veraChatHandler);
 app.get('/api/v1/agents/chat/modes', veraChatModesHandler);
+app.get('/api/v1/agents/chat/roles', veraChatRolesHandler);
 app.get('/api/v1/agents/chat/:sessionId/stream', veraChatStreamHandler);
 app.get('/api/v1/agents/chat/:sessionId', veraChatHistoryHandler);
 app.get('/api/v1/agents/chat/sessions', veraSessionsListHandler);
+
+// ── Threat Landscape-style APIs ─────────────────────────────────
+// STIX Bundles (PostgREST-style): /api/v1/stix_bundles
+app.get('/api/v1/stix_bundles', stixBundlesHandler);
+
+// Actionable IOCs (PostgREST-style): /api/v1/actionable_iocs
+app.get('/api/v1/actionable_iocs', actionableIocsHandler);
+
+// Per-type active IOC endpoints
+const IOC_TYPES = ['ipv4', 'ipv6', 'domain', 'url', 'md5', 'sha1', 'sha256'];
+for (const t of IOC_TYPES) {
+  app.get(`/api/v1/iocs_${t}`, createIocTypeHandler(t));
+}
 app.post('/api/v1/report/build', validate('json', reportBuildSchema), buildReportHandler);
 app.get('/api/v1/report/:id', getReportHandler);
 app.get('/api/v1/report/:id/stream', streamReportHandler);

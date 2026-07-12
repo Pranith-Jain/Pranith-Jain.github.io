@@ -3,6 +3,9 @@ import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link } from 'react-router-dom';
 import { DataPageLayout, useInsideDataPageLayout } from '../../components/DataPageLayout';
 import { XClaimsPanel } from '../../components/threatintel/XClaimsPanel';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { usePostSummaries } from '../../components/intel/usePostSummaries';
+import { PostSummary } from '../../components/intel/PostSummary';
 import {
   RefreshCw,
   ExternalLink,
@@ -92,6 +95,7 @@ const SECTIONS: HandleSection[] = [
     label: 'CTI / breach feeds',
     handles: [
       'DailyDarkWeb',
+      'DarkWebInformer',
       'FalconFeedsio',
       'MonThreat',
       'VivekIntel',
@@ -407,6 +411,16 @@ export default function XWatch(): JSX.Element {
     return data.items.filter((t) => t.text.toLowerCase().includes(q));
   }, [data, filter]);
 
+  const postSummaries = usePostSummaries({
+    surface: 'X Watch Cybersec',
+    items: filteredTweets.map((t) => ({
+      id: t.id,
+      title: t.text.slice(0, 120),
+      body: t.text,
+      source: t.author?.name ?? '',
+    })),
+  });
+
   return (
     <DataPageLayout
       backTo="/threatintel"
@@ -703,104 +717,116 @@ export default function XWatch(): JSX.Element {
         )}
 
         {filteredTweets.length > 0 && (
-          <ul className="space-y-2">
-            {filteredTweets.map((t) => (
-              <li
-                key={t.id}
-                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
-              >
-                <div className="flex items-start gap-3">
-                  {t.author.avatar_url && (
-                    <img
-                      src={t.author.avatar_url}
-                      alt={t.author.name}
-                      className="w-9 h-9 rounded-full shrink-0"
-                      loading="lazy"
-                    />
-                  )}
-                  <div className="min-w-0 flex-1">
-                    <div className="flex flex-wrap items-baseline gap-2 mb-1">
-                      <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
-                        {t.author.name}
-                      </span>
-                      <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
-                        @{t.author.screen_name}
-                      </span>
-                      {t.is_pinned && (
-                        <span className="text-micro font-mono px-1 py-0.5 rounded border border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300">
-                          pinned
-                        </span>
-                      )}
-                      {t.is_retweet && (
-                        <span className="text-micro font-mono px-1 py-0.5 rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300">
-                          retweet
-                        </span>
-                      )}
-                      {t.is_quote && (
-                        <span className="text-micro font-mono px-1 py-0.5 rounded border border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300">
-                          quote
-                        </span>
-                      )}
-                      {t.is_reply && (
-                        <span className="text-micro font-mono px-1 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500">
-                          reply
-                        </span>
-                      )}
-                      <a
-                        href={sanitizeUrl(t.url) || undefined}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="ml-auto text-micro font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-0.5"
-                        title={t.created_at}
-                      >
-                        {formatTimeAgo(t.created_at_ms || t.created_at)} <ExternalLink size={9} />
-                      </a>
-                    </div>
-                    <p className="text-sm text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-words">
-                      {t.text}
-                    </p>
-                    {t.media.length > 0 && (
-                      <div className="mt-2 grid grid-cols-2 gap-1.5">
-                        {t.media.slice(0, 4).map((m, i) => (
-                          <a
-                            key={`${t.id}-m-${i}`}
-                            href={sanitizeUrl(t.url) || undefined}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="block rounded overflow-hidden border border-slate-200 dark:border-[rgb(var(--border-400))]"
-                          >
-                            <img src={m.url} alt={m.type} loading="lazy" className="w-full h-32 object-cover" />
-                          </a>
-                        ))}
-                      </div>
+          <>
+            <AiSummaryCard
+              surface="X Watch Cybersec"
+              items={filteredTweets.slice(0, 30).map((t) => ({
+                title: t.text.slice(0, 120),
+                body: t.text,
+                source: t.author?.name ?? '',
+              }))}
+              requireAdmin={false}
+            />
+            <ul className="space-y-2">
+              {filteredTweets.map((t) => (
+                <li
+                  key={t.id}
+                  className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
+                >
+                  <div className="flex items-start gap-3">
+                    {t.author.avatar_url && (
+                      <img
+                        src={t.author.avatar_url}
+                        alt={t.author.name}
+                        className="w-9 h-9 rounded-full shrink-0"
+                        loading="lazy"
+                      />
                     )}
-                    <div className="mt-2 flex items-center gap-3 text-micro font-mono text-slate-500">
-                      {t.reply_count !== undefined && (
-                        <span className="inline-flex items-center gap-0.5">
-                          <MessageSquare size={10} /> {compactNumber(t.reply_count) || '0'}
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-wrap items-baseline gap-2 mb-1">
+                        <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
+                          {t.author.name}
                         </span>
-                      )}
-                      {t.retweet_count !== undefined && (
-                        <span className="inline-flex items-center gap-0.5">
-                          <Repeat size={10} /> {compactNumber(t.retweet_count) || '0'}
+                        <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
+                          @{t.author.screen_name}
                         </span>
+                        {t.is_pinned && (
+                          <span className="text-micro font-mono px-1 py-0.5 rounded border border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300">
+                            pinned
+                          </span>
+                        )}
+                        {t.is_retweet && (
+                          <span className="text-micro font-mono px-1 py-0.5 rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300">
+                            retweet
+                          </span>
+                        )}
+                        {t.is_quote && (
+                          <span className="text-micro font-mono px-1 py-0.5 rounded border border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300">
+                            quote
+                          </span>
+                        )}
+                        {t.is_reply && (
+                          <span className="text-micro font-mono px-1 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500">
+                            reply
+                          </span>
+                        )}
+                        <a
+                          href={sanitizeUrl(t.url) || undefined}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="ml-auto text-micro font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-0.5"
+                          title={t.created_at}
+                        >
+                          {formatTimeAgo(t.created_at_ms || t.created_at)} <ExternalLink size={9} />
+                        </a>
+                      </div>
+                      <p className="text-sm text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-words">
+                        {t.text}
+                      </p>
+                      <PostSummary text={postSummaries.get(String(t.id))} />
+                      {t.media.length > 0 && (
+                        <div className="mt-2 grid grid-cols-2 gap-1.5">
+                          {t.media.slice(0, 4).map((m, i) => (
+                            <a
+                              key={`${t.id}-m-${i}`}
+                              href={sanitizeUrl(t.url) || undefined}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block rounded overflow-hidden border border-slate-200 dark:border-[rgb(var(--border-400))]"
+                            >
+                              <img src={m.url} alt={m.type} loading="lazy" className="w-full h-32 object-cover" />
+                            </a>
+                          ))}
+                        </div>
                       )}
-                      {t.favorite_count !== undefined && (
-                        <span className="inline-flex items-center gap-0.5">
-                          <Heart size={10} /> {compactNumber(t.favorite_count) || '0'}
-                        </span>
-                      )}
-                      {t.view_count !== undefined && t.view_count > 0 && (
-                        <span className="inline-flex items-center gap-0.5">
-                          <BarChart3 size={10} /> {compactNumber(t.view_count)}
-                        </span>
-                      )}
+                      <div className="mt-2 flex items-center gap-3 text-micro font-mono text-slate-500">
+                        {t.reply_count !== undefined && (
+                          <span className="inline-flex items-center gap-0.5">
+                            <MessageSquare size={10} /> {compactNumber(t.reply_count) || '0'}
+                          </span>
+                        )}
+                        {t.retweet_count !== undefined && (
+                          <span className="inline-flex items-center gap-0.5">
+                            <Repeat size={10} /> {compactNumber(t.retweet_count) || '0'}
+                          </span>
+                        )}
+                        {t.favorite_count !== undefined && (
+                          <span className="inline-flex items-center gap-0.5">
+                            <Heart size={10} /> {compactNumber(t.favorite_count) || '0'}
+                          </span>
+                        )}
+                        {t.view_count !== undefined && t.view_count > 0 && (
+                          <span className="inline-flex items-center gap-0.5">
+                            <BarChart3 size={10} /> {compactNumber(t.view_count)}
+                          </span>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </li>
-            ))}
-          </ul>
+                </li>
+              ))}
+            </ul>
+          </>
         )}
 
         {data && (

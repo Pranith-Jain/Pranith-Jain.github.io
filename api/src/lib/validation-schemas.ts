@@ -403,6 +403,7 @@ export const unifiedSearchSummarizeSchema = z.object({
 
 export const copilotInvestigateSchema = z.object({
   query: z.string().min(1, 'query required').max(500, 'query too long'),
+  role: z.enum(['ciso', 'detection', 'ir', 'cti']).optional(),
 });
 
 // Handler (hunting-queries.ts) reads threat (required) + platforms? (plural array).

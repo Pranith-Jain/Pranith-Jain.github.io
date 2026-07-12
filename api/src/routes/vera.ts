@@ -25,6 +25,14 @@ import { detectType } from '../lib/report/subject-resolver';
 import { trackEvent, visitorCountry } from '../lib/analytics';
 import { VERA_MODES, getVeraMode, type VeraMode } from '../lib/agent/vera-prompts';
 import type { AgentState } from '../lib/agent/types';
+import {
+  ANALYST_ROLES,
+  ROLE_DISPLAY_NAMES,
+  ROLE_TOOLS,
+  ROLE_RESPONSE_FORMATS,
+  buildRolePreamble,
+  type AnalystRole,
+} from '../lib/agent/role-prompts';
 
 interface VeraMessage {
   role: 'user' | 'assistant' | 'system';
@@ -38,6 +46,8 @@ interface VeraMessage {
   citations?: string[];
   /** Tool calls Vera made, for the mesh-viz. */
   tools_used?: string[];
+  /** Analyst persona for role-aware responses. */
+  analyst_role?: AnalystRole;
 }
 
 interface VeraSession {
@@ -45,6 +55,7 @@ interface VeraSession {
   messages: VeraMessage[];
   created_at: string;
   updated_at: string;
+  role?: AnalystRole;
 }
 
 function generateId(): string {
@@ -86,7 +97,8 @@ async function ensureTable(db: D1Database): Promise<void> {
         mode TEXT NOT NULL DEFAULT 'ask',
         messages_json TEXT NOT NULL DEFAULT '[]',
         created_at TEXT NOT NULL DEFAULT (datetime('now')),
-        updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+        updated_at TEXT NOT NULL DEFAULT (datetime('now')),
+        role TEXT DEFAULT 'cti'
       )`
     )
     .run();
@@ -111,12 +123,26 @@ async function loadSession(db: D1Database, id: string): Promise<VeraSession | nu
 async function saveSession(db: D1Database, session: VeraSession): Promise<void> {
   await db
     .prepare(
-      `INSERT INTO vera_sessions (id, mode, messages_json, created_at, updated_at)
-       VALUES (?, ?, ?, ?, ?)
-       ON CONFLICT(id) DO UPDATE SET messages_json = excluded.messages_json, updated_at = excluded.updated_at`
+      `INSERT INTO vera_sessions (id, mode, messages_json, created_at, updated_at, role)
+       VALUES (?, ?, ?, ?, ?, ?)
+       ON CONFLICT(id) DO UPDATE SET
+         messages_json = excluded.messages_json,
+         updated_at = excluded.updated_at,
+         role = COALESCE(excluded.role, role)`
     )
-    .bind(session.id, 'ask', JSON.stringify(session.messages), session.created_at, new Date().toISOString())
+    .bind(
+      session.id,
+      'ask',
+      JSON.stringify(session.messages),
+      session.created_at,
+      new Date().toISOString(),
+      session.role ?? null
+    )
     .run();
+}
+
+function isValidRole(r: unknown): r is AnalystRole {
+  return typeof r === 'string' && ANALYST_ROLES.includes(r as AnalystRole);
 }
 
 /**
@@ -126,7 +152,7 @@ async function saveSession(db: D1Database, session: VeraSession): Promise<void> 
  */
 export async function veraChatHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
-    let body: { sessionId?: string; mode?: string; query?: string };
+    let body: { sessionId?: string; mode?: string; query?: string; role?: string };
     try {
       body = await c.req.json();
     } catch {
@@ -137,6 +163,7 @@ export async function veraChatHandler(c: Context<{ Bindings: Env }>): Promise<Re
     if (!query) return badRequest(c, 'query is required');
     if (query.length > 2000) return badRequest(c, 'query too long (max 2000 chars)');
     const mode: VeraMode = isValidMode(body.mode) ? body.mode : 'ask';
+    const role: AnalystRole = isValidRole(body.role) ? body.role : 'cti';
 
     const db = c.env.BRIEFINGS_DB as D1Database | undefined;
     if (!db) return internalError(c, new Error('BRIEFINGS_DB not bound'));
@@ -151,14 +178,19 @@ export async function veraChatHandler(c: Context<{ Bindings: Env }>): Promise<Re
       const existing = await loadSession(db, body.sessionId);
       if (!existing) return notFound(c, 'session not found');
       session = existing;
+      // Use the session's existing role if not explicitly set
     } else {
       session = {
         id: generateId(),
         messages: [],
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
+        role,
       };
     }
+
+    // Apply or override role
+    session.role = role;
 
     const queryType = detectType(query) as string;
     const isFollowUp = isFollowUpQuery(query);
@@ -178,6 +210,12 @@ export async function veraChatHandler(c: Context<{ Bindings: Env }>): Promise<Re
     const doId = doNamespace.idFromName(agentId);
     const stub = doNamespace.get(doId);
 
+    // Filter tools by role
+    const roleTools = ROLE_TOOLS[role] ?? null;
+    const allowedTools = modeCfg.allowedTools
+      ? modeCfg.allowedTools.filter((t) => !roleTools || roleTools.includes(t))
+      : roleTools;
+
     const doRes = await stub.fetch('https://agent/investigate', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
@@ -187,6 +225,10 @@ export async function veraChatHandler(c: Context<{ Bindings: Env }>): Promise<Re
         queryType: effectiveType,
         maxSteps: modeCfg.maxSteps,
         mode,
+        role,
+        allowedTools,
+        rolePreamble: buildRolePreamble(role),
+        responseFormat: ROLE_RESPONSE_FORMATS[role],
       }),
     });
 
@@ -204,7 +246,7 @@ export async function veraChatHandler(c: Context<{ Bindings: Env }>): Promise<Re
     });
 
     return c.json(
-      { sessionId: session.id, agentId, mode, queryType: effectiveType, maxSteps: modeCfg.maxSteps },
+      { sessionId: session.id, agentId, mode, role, queryType: effectiveType, maxSteps: modeCfg.maxSteps },
       201
     );
   } catch (e) {
@@ -223,6 +265,21 @@ export async function veraChatModesHandler(_c: Context<{ Bindings: Env }>): Prom
       label: m.label,
       description: m.description,
       maxSteps: m.maxSteps,
+    })),
+    { headers: { 'cache-control': 'public, max-age=300' } }
+  );
+}
+
+/**
+ * GET /api/v1/agents/chat/roles
+ * Returns the four analyst roles for role-aware copilot.
+ */
+export async function veraChatRolesHandler(_c: Context<{ Bindings: Env }>): Promise<Response> {
+  return Response.json(
+    ANALYST_ROLES.map((id) => ({
+      id,
+      label: ROLE_DISPLAY_NAMES[id],
+      tools: ROLE_TOOLS[id],
     })),
     { headers: { 'cache-control': 'public, max-age=300' } }
   );
@@ -414,13 +471,20 @@ export async function veraSessionsListHandler(c: Context<{ Bindings: Env }>): Pr
 
     const res = await db
       .prepare(
-        `SELECT id, mode, messages_json, created_at, updated_at
+        `SELECT id, mode, messages_json, created_at, updated_at, role
          FROM vera_sessions
          ORDER BY updated_at DESC
          LIMIT ?`
       )
       .bind(limit)
-      .all<{ id: string; mode: string; messages_json: string; created_at: string; updated_at: string }>();
+      .all<{
+        id: string;
+        mode: string;
+        messages_json: string;
+        created_at: string;
+        updated_at: string;
+        role: string | null;
+      }>();
 
     const sessions = (res.results ?? []).map((r) => {
       const messages = JSON.parse(r.messages_json) as VeraMessage[];
@@ -428,6 +492,7 @@ export async function veraSessionsListHandler(c: Context<{ Bindings: Env }>): Pr
       return {
         id: r.id,
         mode: r.mode,
+        role: r.role ?? 'cti',
         preview: lastUser?.content?.slice(0, 120) ?? '(empty)',
         message_count: messages.length,
         created_at: r.created_at,

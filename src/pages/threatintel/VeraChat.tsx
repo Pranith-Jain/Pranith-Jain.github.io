@@ -1,6 +1,19 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { sanitizeAiHtml } from '../../lib/sanitize-html';
-import { ArrowLeft, Send, Loader2, AlertTriangle, Search, MessageSquare, FileText, Crosshair } from 'lucide-react';
+import {
+  ArrowLeft,
+  Send,
+  Loader2,
+  AlertTriangle,
+  Search,
+  MessageSquare,
+  FileText,
+  Crosshair,
+  BarChart3,
+  Target,
+  Brain,
+  Shield,
+} from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
 
 // ── Types ───────────────────────────────────────────────────────────────
@@ -11,6 +24,26 @@ interface VeraModeDef {
   description: string;
   maxSteps: number;
 }
+
+interface AnalystRole {
+  id: string;
+  label: string;
+  tools: string[];
+}
+
+const ROLE_ICONS: Record<string, typeof Shield> = {
+  ciso: BarChart3,
+  detection: Search,
+  ir: Target,
+  cti: Brain,
+};
+
+const ROLE_COLORS: Record<string, string> = {
+  ciso: 'from-emerald-500 to-teal-600',
+  detection: 'from-blue-500 to-indigo-600',
+  ir: 'from-rose-500 to-red-600',
+  cti: 'from-violet-500 to-purple-600',
+};
 
 interface StepEvent {
   type: 'step';
@@ -109,7 +142,9 @@ function useVeraSSE(sessionId: string | null): StreamEvent[] {
 export default function VeraChat(): JSX.Element {
   const [query, setQuery] = useState('');
   const [mode, setMode] = useState<string>('ask');
+  const [role, setRole] = useState<string>('cti');
   const [modes, setModes] = useState<VeraModeDef[]>([]);
+  const [roles, setRoles] = useState<AnalystRole[]>([]);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [messages, setMessages] = useState<VeraMessage[]>([]);
   const [loading, setLoading] = useState(false);
@@ -125,6 +160,12 @@ export default function VeraChat(): JSX.Element {
     })
       .then((r) => r.json())
       .then((d) => setModes(d))
+      .catch(() => {});
+    fetch('/api/v1/agents/chat/roles', {
+      signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15000)]),
+    })
+      .then((r) => r.json())
+      .then((d) => setRoles(d))
       .catch(() => {});
     return () => ctrl.abort();
   }, []);
@@ -182,6 +223,7 @@ export default function VeraChat(): JSX.Element {
           body: JSON.stringify({
             sessionId: sessionId ?? undefined,
             mode,
+            role,
             query: q.trim(),
           }),
           signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(60000)]),
@@ -199,7 +241,7 @@ export default function VeraChat(): JSX.Element {
       }
       setQuery('');
     },
-    [sessionId, mode]
+    [sessionId, mode, role]
   );
 
   // If mode changes mid-session, reset
@@ -231,6 +273,19 @@ export default function VeraChat(): JSX.Element {
           <p className="max-w-xl text-base text-slate-500 dark:text-slate-400">
             Your AI threat-intel analyst. Ask, investigate, draft, or challenge — in plain English.
           </p>
+          {(() => {
+            const activeRole = roles.find((r) => r.id === role);
+            if (!activeRole) return null;
+            const RIcon = ROLE_ICONS[activeRole.id] ?? Shield;
+            return (
+              <span
+                className={`inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r px-3 py-1 text-xs font-mono text-white ${ROLE_COLORS[activeRole.id] ?? 'from-slate-500 to-slate-600'}`}
+              >
+                <RIcon size={12} />
+                {activeRole.label} persona
+              </span>
+            );
+          })()}
         </div>
 
         {/* ── Mode selector ──────────────────────────────────────────── */}
@@ -262,6 +317,33 @@ export default function VeraChat(): JSX.Element {
           {modes.find((m) => m.id === mode)?.description ?? ''}
         </p>
 
+        {/* ── Role selector ──────────────────────────────────────────── */}
+        {roles.length > 0 && (
+          <div className="flex flex-wrap justify-center gap-1.5 mb-2">
+            <span className="text-[10px] text-slate-400 self-center mr-1 font-medium uppercase tracking-wider">
+              As:
+            </span>
+            {roles.map((r) => {
+              const RIcon = ROLE_ICONS[r.id] ?? Shield;
+              return (
+                <button
+                  key={r.id}
+                  onClick={() => setRole(r.id)}
+                  aria-pressed={role === r.id}
+                  className={`flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] font-mono transition-all ${
+                    role === r.id
+                      ? `bg-gradient-to-r ${ROLE_COLORS[r.id] ?? 'from-slate-500 to-slate-600'} text-white shadow-sm`
+                      : 'bg-slate-100 text-slate-500 hover:bg-slate-200 dark:bg-slate-700 dark:text-slate-400 dark:hover:bg-slate-600'
+                  }`}
+                >
+                  <RIcon size={10} />
+                  {r.label}
+                </button>
+              );
+            })}
+          </div>
+        )}
+
         {/* ── Chat area ──────────────────────────────────────────────── */}
         <div className="flex flex-col gap-4 rounded-xl border border-slate-200 bg-white p-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
           <div className="flex max-h-[500px] min-h-[200px] flex-col gap-3 overflow-y-auto">
@@ -291,6 +373,7 @@ export default function VeraChat(): JSX.Element {
                       {!isUser && (
                         <span className="text-[10px] font-mono uppercase tracking-wider opacity-60">
                           Vera · {msg.mode ?? 'ask'}
+                          {role && ` · ${role.toUpperCase()}`}
                         </span>
                       )}
                     </div>
@@ -354,7 +437,13 @@ export default function VeraChat(): JSX.Element {
                 onKeyDown={(e) => e.key === 'Enter' && submit(query)}
                 placeholder={
                   mode === 'ask'
-                    ? 'Ask about any threat…'
+                    ? role === 'ciso'
+                      ? 'Ask about risk posture, trends, strategic priorities…'
+                      : role === 'detection'
+                        ? 'Ask about detection rules, TTPs, KQL queries…'
+                        : role === 'ir'
+                          ? 'Ask about IOCs, containment, incident procedures…'
+                          : 'Ask about any threat…'
                     : mode === 'investigate'
                       ? 'What should I investigate?'
                       : mode === 'draft'
