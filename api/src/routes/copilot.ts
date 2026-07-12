@@ -971,7 +971,7 @@ export async function callNvidia(env: Env, system: string, user: string): Promis
         max_tokens: 4000,
         temperature: 0.3,
       }),
-      signal: AbortSignal.timeout(45000),
+      signal: AbortSignal.timeout(18000),
     });
     if (res.ok) {
       const data = await res.json<{ choices?: Array<{ message?: { content?: string } }> }>();
@@ -1016,7 +1016,7 @@ export async function callGroq(env: Env, system: string, user: string): Promise<
       temperature: 0.3,
       reasoning_effort: 'medium',
     }),
-    signal: AbortSignal.timeout(45000),
+    signal: AbortSignal.timeout(18000),
   });
   if (!res.ok) {
     const err = await res.json<{ error?: string }>().catch(() => ({ error: `HTTP ${res.status}` }));
@@ -1027,108 +1027,128 @@ export async function callGroq(env: Env, system: string, user: string): Promise<
 }
 
 export async function copilotInvestigateHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  try {
-    let query: string;
-    let role: string | undefined;
-    if (c.req.method === 'GET') {
-      query = c.req.query('q') ?? '';
-    } else {
-      const body = await c.req.json<{ query: string; role?: string }>();
-      query = body.query ?? '';
-      role = body.role;
-    }
-    if (!query || query.trim().length === 0) {
-      return badRequest(c, 'query is required (POST body or ?q= param)');
-    }
-    if (query.length > 500) {
-      return badRequest(c, 'query too long (max 500 chars)');
-    }
+  // Overall 25s timeout — prevents the Worker from hanging when LLM providers
+  // are slow. Cloudflare Workers free-plan CPU limit is 30s; 25s leaves headroom.
+  const OVERALL_TIMEOUT = 25_000;
+  const timeoutPromise = new Promise<never>((_, reject) =>
+    setTimeout(() => reject(new Error('Request timed out — try a simpler query')), OVERALL_TIMEOUT)
+  );
 
-    const queryType = detectType(query);
-    // Parallel: cache sources + live enrichment (no more unified-search subrequest)
-    const [sources, liveSources] = await Promise.all([
-      gatherSources(query.trim(), queryType),
-      gatherLiveEnrichment(query.trim(), queryType, c.env),
-    ]);
-    const allSources = [...sources, ...liveSources];
-
-    // ── RAG: retrieve relevant context from Vectorize corpus ──────────────
-    let ragContext: string | undefined;
+  const work = async (): Promise<Response> => {
     try {
-      // Short queries (<5 chars) skip RAG — noise-to-signal is too low
-      if (query.trim().length >= 5 && c.env.VECTORIZE) {
-        const results = await queryCorpus(c.env, query.trim(), 8, undefined);
-        if (results.length > 0) ragContext = formatRetrievedContext(results);
+      let query: string;
+      let role: string | undefined;
+      if (c.req.method === 'GET') {
+        query = c.req.query('q') ?? '';
+      } else {
+        const body = await c.req.json<{ query: string; role?: string }>();
+        query = body.query ?? '';
+        role = body.role;
       }
-    } catch {
-      // RAG is additive — failure is non-fatal
-    }
+      if (!query || query.trim().length === 0) {
+        return badRequest(c, 'query is required (POST body or ?q= param)');
+      }
+      if (query.length > 500) {
+        return badRequest(c, 'query too long (max 500 chars)');
+      }
 
-    // ── Compute analytic confidence from source reliability ──────────────
-    const confidence = computeConfidence({
-      sourceIds: allSources.map((s) =>
-        s.name
-          .toLowerCase()
-          .replace(/\s+/g, '-')
-          .replace(/[^a-z0-9-]/g, '')
-      ),
-      findingType:
-        queryType === 'cve'
-          ? 'vulnerability'
-          : queryType === 'actor' || queryType === 'ransomware'
-            ? 'attribution'
-            : 'general',
-    });
+      const queryType = detectType(query);
+      // Parallel: cache sources + live enrichment (no more unified-search subrequest)
+      const [sources, liveSources] = await Promise.all([
+        gatherSources(query.trim(), queryType),
+        gatherLiveEnrichment(query.trim(), queryType, c.env),
+      ]);
+      const allSources = [...sources, ...liveSources];
 
-    const system = buildSystemPrompt(query.trim(), queryType, confidence, role);
-    const user = buildUserPrompt(query.trim(), queryType, allSources, ragContext);
-
-    let narrative: string;
-    let modelUsed: string;
-
-    try {
-      narrative = await callGroq(c.env, system, user);
-      modelUsed = 'groq:openai/gpt-oss-120b';
-    } catch {
+      // ── RAG: retrieve relevant context from Vectorize corpus ──────────────
+      let ragContext: string | undefined;
       try {
-        narrative = await callNvidia(c.env, system, user);
-        modelUsed = 'nvidia:minimaxai/minimax-m2.7';
+        // Short queries (<5 chars) skip RAG — noise-to-signal is too low
+        if (query.trim().length >= 5 && c.env.VECTORIZE) {
+          const results = await queryCorpus(c.env, query.trim(), 8, undefined);
+          if (results.length > 0) ragContext = formatRetrievedContext(results);
+        }
       } catch {
-        narrative = await callWorkersAi(c.env, system, user);
-        modelUsed = '@cf/meta/llama-3.3-70b-instruct-fp8-fast';
+        // RAG is additive — failure is non-fatal
       }
+
+      // ── Compute analytic confidence from source reliability ──────────────
+      const confidence = computeConfidence({
+        sourceIds: allSources.map((s) =>
+          s.name
+            .toLowerCase()
+            .replace(/\s+/g, '-')
+            .replace(/[^a-z0-9-]/g, '')
+        ),
+        findingType:
+          queryType === 'cve'
+            ? 'vulnerability'
+            : queryType === 'actor' || queryType === 'ransomware'
+              ? 'attribution'
+              : 'general',
+      });
+
+      const system = buildSystemPrompt(query.trim(), queryType, confidence, role);
+      const user = buildUserPrompt(query.trim(), queryType, allSources, ragContext);
+
+      let narrative: string;
+      let modelUsed: string;
+
+      // Race all LLM providers in parallel — first to succeed wins.
+      // Falls back to Workers AI (always available, no key) if all external fail.
+      const results = await Promise.allSettled([
+        callGroq(c.env, system, user).then((r) => ({ text: r, model: 'groq:openai/gpt-oss-120b' })),
+        callNvidia(c.env, system, user).then((r) => ({ text: r, model: 'nvidia:minimaxai/minimax-m2.7' })),
+      ]);
+      const winner = results.find((r) => r.status === 'fulfilled');
+      if (winner && winner.status === 'fulfilled') {
+        narrative = winner.value.text;
+        modelUsed = winner.value.model;
+      } else {
+        // All external providers failed — use Workers AI (no API key needed)
+        try {
+          narrative = await callWorkersAi(c.env, system, user);
+          modelUsed = '@cf/meta/llama-3.3-70b-instruct-fp8-fast';
+        } catch (e) {
+          throw new Error(`All LLM providers failed: ${e instanceof Error ? e.message : 'unknown'}`);
+        }
+      }
+
+      // ── Post-process validation: ground claims, strip fabrications ────
+      const sourceData = allSources.map((s) => JSON.stringify(s.data)).join('\n');
+      const validation = validateAiOutput(narrative, sourceData, { minWords: 100, requireCitations: true });
+      narrative = validation.cleaned;
+
+      const totalSourceItems = allSources.reduce((n, s) => n + s.items, 0);
+      const response: CopilotResponse = {
+        query: query.trim(),
+        query_type: queryType,
+        narrative,
+        sources: allSources.map((s) => ({ name: s.name, items: s.items, data: s.data })),
+        model_used: modelUsed,
+        processed_at: new Date().toISOString(),
+        confidence,
+        _meta: {
+          total_sources: allSources.length,
+          total_items: totalSourceItems,
+          ...((validation as unknown as Record<string, unknown>).quality
+            ? {
+                quality_score: ((validation as unknown as Record<string, unknown>).quality as Record<string, unknown>)
+                  .score,
+                quality_issues: ((validation as unknown as Record<string, unknown>).quality as Record<string, unknown>)
+                  .issues,
+              }
+            : {}),
+        },
+      };
+
+      return c.json(response, 200, { 'Cache-Control': 'no-store' });
+    } catch (e) {
+      return internalError(c, e);
     }
+  };
 
-    // ── Post-process validation: ground claims, strip fabrications ────
-    const sourceData = allSources.map((s) => JSON.stringify(s.data)).join('\n');
-    const validation = validateAiOutput(narrative, sourceData, { minWords: 100, requireCitations: true });
-    narrative = validation.cleaned;
-
-    const totalSourceItems = allSources.reduce((n, s) => n + s.items, 0);
-    const response: CopilotResponse = {
-      query: query.trim(),
-      query_type: queryType,
-      narrative,
-      sources: allSources.map((s) => ({ name: s.name, items: s.items, data: s.data })),
-      model_used: modelUsed,
-      processed_at: new Date().toISOString(),
-      confidence,
-      _meta: {
-        total_sources: allSources.length,
-        total_items: totalSourceItems,
-        ...((validation as unknown as Record<string, unknown>).quality
-          ? {
-              quality_score: ((validation as unknown as Record<string, unknown>).quality as Record<string, unknown>)
-                .score,
-              quality_issues: ((validation as unknown as Record<string, unknown>).quality as Record<string, unknown>)
-                .issues,
-            }
-          : {}),
-      },
-    };
-
-    return c.json(response, 200, { 'Cache-Control': 'no-store' });
-  } catch (e) {
-    return internalError(c, e);
-  }
+  return Promise.race([work(), timeoutPromise]).catch((e) =>
+    internalError(c, e instanceof Error ? e : new Error(String(e)))
+  );
 }
