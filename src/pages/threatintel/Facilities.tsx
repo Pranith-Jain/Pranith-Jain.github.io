@@ -555,77 +555,82 @@ const TYPE_CONFIG: Record<FacilityType, { label: string; icon: typeof MapPin; co
   conflict_zone: {
     label: 'Conflict Zone',
     icon: AlertTriangle,
-    color: 'text-violet-400',
+    color: 'text-violet-600 dark:text-violet-400',
     bgColor: 'bg-violet-500/10 border-violet-500/20',
   },
   sanctioned_country: {
     label: 'Sanctioned',
     icon: Shield,
-    color: 'text-violet-400',
+    color: 'text-violet-600 dark:text-violet-400',
     bgColor: 'bg-violet-500/10 border-violet-500/20',
   },
   military_base: {
     label: 'Military Base',
     icon: Anchor,
-    color: 'text-violet-400',
+    color: 'text-violet-600 dark:text-violet-400',
     bgColor: 'bg-violet-500/10 border-violet-500/20',
   },
   nuclear_site: {
     label: 'Nuclear Site',
     icon: Atom,
-    color: 'text-violet-400',
+    color: 'text-violet-600 dark:text-violet-400',
     bgColor: 'bg-violet-500/10 border-violet-500/20',
   },
   disputed_territory: {
     label: 'Disputed Territory',
     icon: Landmark,
-    color: 'text-violet-400',
+    color: 'text-violet-600 dark:text-violet-400',
     bgColor: 'bg-violet-500/10 border-violet-500/20',
   },
   datacenter: {
     label: 'Data Center',
     icon: Building2,
-    color: 'text-sky-400',
+    color: 'text-sky-600 dark:text-sky-400',
     bgColor: 'bg-sky-500/10 border-sky-500/20',
   },
-  ixp: { label: 'IXP', icon: Building2, color: 'text-sky-400', bgColor: 'bg-sky-500/10 border-sky-500/20' },
+  ixp: {
+    label: 'IXP',
+    icon: Building2,
+    color: 'text-sky-600 dark:text-sky-400',
+    bgColor: 'bg-sky-500/10 border-sky-500/20',
+  },
   cloud_region: {
     label: 'Cloud Region',
     icon: Building2,
-    color: 'text-sky-400',
+    color: 'text-sky-600 dark:text-sky-400',
     bgColor: 'bg-sky-500/10 border-sky-500/20',
   },
   tech_hq: {
     label: 'Tech HQ',
     icon: Building2,
-    color: 'text-teal-400',
+    color: 'text-teal-600 dark:text-teal-400',
     bgColor: 'bg-teal-500/10 border-teal-500/20',
   },
   cable: {
     label: 'Cable Landing',
     icon: Anchor,
-    color: 'text-sky-400',
+    color: 'text-sky-600 dark:text-sky-400',
     bgColor: 'bg-sky-500/10 border-sky-500/20',
   },
   exchange: {
     label: 'Stock Exchange',
     icon: Landmark,
-    color: 'text-teal-400',
+    color: 'text-teal-600 dark:text-teal-400',
     bgColor: 'bg-teal-500/10 border-teal-500/20',
   },
   financial: {
     label: 'Financial Center',
     icon: Landmark,
-    color: 'text-teal-400',
+    color: 'text-teal-600 dark:text-teal-400',
     bgColor: 'bg-teal-500/10 border-teal-500/20',
   },
 };
 
 const SEVERITY_COLORS: Record<string, string> = {
-  critical: 'text-rose-400 bg-rose-500/10',
-  high: 'text-orange-400 bg-orange-500/10',
-  medium: 'text-amber-400 bg-amber-500/10',
-  low: 'text-emerald-400 bg-emerald-500/10',
+  critical: 'text-rose-600 dark:text-rose-400 bg-rose-500/10',
+  high: 'text-orange-600 dark:text-orange-400 bg-orange-500/10',
+  medium: 'text-amber-600 dark:text-amber-400 bg-amber-500/10',
+  low: 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10',
 };
 
 const ALL_TYPES = Object.keys(TYPE_CONFIG) as FacilityType[];
@@ -698,16 +703,16 @@ export default function Facilities(): JSX.Element {
             <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{stats.total}</div>
           </div>
           <div className="rounded-xl border border-rose-500/20 bg-rose-500/5 p-3">
-            <div className="text-micro font-mono uppercase text-rose-400 mb-1">Critical</div>
-            <div className="text-2xl font-bold text-rose-400">{stats.bySeverity.critical ?? 0}</div>
+            <div className="text-micro font-mono uppercase text-rose-600 dark:text-rose-400 mb-1">Critical</div>
+            <div className="text-2xl font-bold text-rose-600 dark:text-rose-400">{stats.bySeverity.critical ?? 0}</div>
           </div>
           <div className="rounded-xl border border-orange-500/20 bg-orange-500/5 p-3">
-            <div className="text-micro font-mono uppercase text-orange-400 mb-1">High</div>
-            <div className="text-2xl font-bold text-orange-400">{stats.bySeverity.high ?? 0}</div>
+            <div className="text-micro font-mono uppercase text-orange-600 dark:text-orange-400 mb-1">High</div>
+            <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">{stats.bySeverity.high ?? 0}</div>
           </div>
           <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-3">
-            <div className="text-micro font-mono uppercase text-amber-400 mb-1">Medium</div>
-            <div className="text-2xl font-bold text-amber-400">{stats.bySeverity.medium ?? 0}</div>
+            <div className="text-micro font-mono uppercase text-amber-600 dark:text-amber-400 mb-1">Medium</div>
+            <div className="text-2xl font-bold text-amber-600 dark:text-amber-400">{stats.bySeverity.medium ?? 0}</div>
           </div>
         </div>
 

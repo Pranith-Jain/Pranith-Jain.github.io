@@ -271,6 +271,17 @@ export default function MitreMatrix(): JSX.Element {
             platforms, data sources, detection guidance, related techniques, and tracked actors that use it. Highlighted
             tiles indicate techniques observed in actor tradecraft.
           </p>
+          <p className="text-xs text-slate-500 dark:text-slate-500 mb-3">
+            Purple team coverage:{' '}
+            <a
+              href="https://navigator.ipurple.team/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center gap-1"
+            >
+              iPurple ATT&CK Navigator <ExternalLink className="w-3 h-3" />
+            </a>
+          </p>
           <div className="flex flex-wrap items-center gap-4 text-sm font-mono text-slate-500 mb-3">
             <span>
               <span className="text-slate-900 dark:text-slate-100">{totalTactics}</span> tactics

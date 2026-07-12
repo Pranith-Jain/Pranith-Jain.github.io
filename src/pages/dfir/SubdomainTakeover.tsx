@@ -168,12 +168,12 @@ export default function SubdomainTakeover() {
   const vulnerableCount = results.filter((r) => r.status === 'vulnerable').length;
 
   return (
-    <div className="min-h-screen [background:rgb(var(--surface-100))] text-slate-100 dark:text-slate-200">
+    <div className="min-h-screen [background:rgb(var(--surface-100))] text-slate-900 dark:text-slate-200">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
         <header className="mb-6">
           <div className="flex items-center gap-3 mb-2">
             <div className="w-2 h-6 bg-brand-500 rounded" />
-            <h1 className="text-lg font-bold tracking-wider text-slate-100 dark:text-white">
+            <h1 className="text-lg font-bold tracking-wider text-slate-900 dark:text-white">
               SUBDOMAIN TAKEOVER SCANNER
             </h1>
           </div>
@@ -191,7 +191,7 @@ export default function SubdomainTakeover() {
               value={domain}
               onChange={(e) => setDomain(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleScan()}
-              className="w-full pl-9 pr-4 py-2.5 rounded-xl text-sm bg-[rgb(var(--hover-100))] border border-[rgb(var(--border-400))] text-slate-200 placeholder:text-muted focus:outline-none focus:border-brand-500"
+              className="w-full pl-9 pr-4 py-2.5 rounded-xl text-sm bg-[rgb(var(--hover-100))] border border-[rgb(var(--border-400))] text-slate-900 dark:text-slate-200 placeholder:text-slate-500 dark:placeholder:text-muted focus:outline-none focus:border-brand-500"
             />
           </div>
           <button
@@ -204,7 +204,9 @@ export default function SubdomainTakeover() {
         </div>
 
         {error && (
-          <div className="surface-card p-4 border-red-800 bg-red-900/20 text-red-300 text-sm mb-4">{error}</div>
+          <div className="surface-card p-4 border-red-800 bg-red-900/20 text-red-700 dark:text-red-300 text-sm mb-4">
+            {error}
+          </div>
         )}
 
         {results.length > 0 && (
@@ -214,19 +216,19 @@ export default function SubdomainTakeover() {
                 {results.length} record{results.length !== 1 ? 's' : ''} checked
               </span>
               {ctSubdomains.length > 0 && (
-                <span className="flex items-center gap-1 text-sky-400 font-medium text-xs">
+                <span className="flex items-center gap-1 text-sky-700 dark:text-sky-400 font-medium text-xs">
                   <Link2 className="w-3 h-3" />
                   {ctSubdomains.length} subdomain{ctSubdomains.length !== 1 ? 's' : ''} via crt.sh
                 </span>
               )}
               {vulnerableCount > 0 && (
-                <span className="flex items-center gap-1 text-red-400 font-medium">
+                <span className="flex items-center gap-1 text-red-700 dark:text-red-400 font-medium">
                   <AlertTriangle className="w-3.5 h-3.5" />
                   {vulnerableCount} potential takeover{vulnerableCount !== 1 ? 's' : ''}
                 </span>
               )}
               {vulnerableCount === 0 && (
-                <span className="flex items-center gap-1 text-green-400 font-medium">
+                <span className="flex items-center gap-1 text-green-700 dark:text-green-400 font-medium">
                   <CheckCircle className="w-3.5 h-3.5" />
                   No dangling CNAMEs detected
                 </span>
@@ -241,9 +243,9 @@ export default function SubdomainTakeover() {
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="font-mono text-sm text-slate-200">{r.subdomain}</span>
+                      <span className="font-mono text-sm text-slate-800 dark:text-slate-200">{r.subdomain}</span>
                       {r.status === 'vulnerable' && (
-                        <span className="px-1.5 py-0.5 text-[0.6rem] font-semibold uppercase rounded bg-red-900/60 text-red-300">
+                        <span className="px-1.5 py-0.5 text-[0.6rem] font-semibold uppercase rounded bg-red-100 text-red-700 dark:bg-red-900/60 dark:text-red-300">
                           Vulnerable
                         </span>
                       )}
@@ -252,7 +254,7 @@ export default function SubdomainTakeover() {
                       CNAME: <span className="font-mono text-slate-400">{r.cname}</span>
                     </p>
                     <p className="text-xs text-muted">
-                      Provider: <span className="text-slate-300">{r.provider}</span> — {r.evidence}
+                      Provider: <span className="text-slate-700 dark:text-slate-300">{r.provider}</span> — {r.evidence}
                     </p>
                   </div>
                   {r.status === 'vulnerable' && (
@@ -260,7 +262,7 @@ export default function SubdomainTakeover() {
                       href={`https://${r.subdomain}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="shrink-0 p-1.5 text-muted hover:text-slate-300 transition-colors"
+                      className="shrink-0 p-1.5 text-muted hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
                       title="Test subdomain"
                     >
                       <ExternalLink className="w-4 h-4" />

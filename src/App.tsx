@@ -304,6 +304,8 @@ const SocialFirehose = lazy(() => import('./pages/threatintel/SocialFirehose'));
 const SourceReliability = lazy(() => import('./pages/threatintel/SourceReliability'));
 const StixBundleBrowser = lazy(() => import('./pages/threatintel/StixBundleBrowser'));
 const StixIpExport = lazy(() => import('./pages/threatintel/StixIpExport'));
+const ThreatLandscapeStix = lazy(() => import('./pages/threatintel/ThreatLandscapeStix'));
+const ThreatLandscapeIocs = lazy(() => import('./pages/threatintel/ThreatLandscapeIocs'));
 const SupplyChainAttacks = lazy(() => import('./pages/threatintel/SupplyChainAttacks'));
 const SupplyChainIntelligence = lazy(() => import('./pages/threatintel/SupplyChainIntelligence'));
 const TechAiNews = lazy(() => import('./pages/dfir/TechAiNews'));
@@ -347,6 +349,7 @@ const VeraChat = lazy(() => import('./pages/threatintel/VeraChat'));
 const AgentMesh = lazy(() => import('./pages/threatintel/AgentMesh'));
 const RansomwareLive = lazy(() => import('./pages/threatintel/RansomwareLive'));
 const CyberPulse = lazy(() => import('./pages/threatintel/CyberPulse'));
+const AiHoneypotObservatory = lazy(() => import('./pages/threatintel/AiHoneypotObservatory'));
 const UrlReputation = lazy(() => import('./pages/dfir/UrlReputation'));
 const WhoisHistory = lazy(() => import('./pages/dfir/WhoisHistory'));
 const OpenDirectory = lazy(() => import('./pages/dfir/OpenDirectory'));
@@ -489,6 +492,8 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/research/:slug', Component: ResearchPostPage },
   { path: '/threatintel/ransomware-live', Component: RansomwareLive },
   { path: '/threatintel/cyberpulse', Component: CyberPulse },
+  { path: '/threatintel/ai-honeypot-observatory', Component: AiHoneypotObservatory },
+  { path: '/threatintel/infra/ai-honeypot', Component: AiHoneypotObservatory },
   { path: '/threatintel/alerts', Component: AlertFeed },
   { path: '/threatintel/vera', Component: VeraChat },
   { path: '/threatintel/agent-mesh', Component: AgentMesh },
@@ -737,6 +742,8 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/tools/socradar-tools', Component: SocradarTools },
   { path: '/threatintel/tools/settings', Component: Settings },
   { path: '/threatintel/tools/unified-search', Component: UnifiedSearch },
+  { path: '/threatintel/tools/stix-bundles', Component: ThreatLandscapeStix },
+  { path: '/threatintel/tools/actionable-iocs', Component: ThreatLandscapeIocs },
   { path: '/threatintel/cves/cves', Component: CveIntel },
   { path: '/threatintel/cves/advisories', Component: GithubAdvisories },
   { path: '/threatintel/cves/resources', Component: CveResourcesCatalog },

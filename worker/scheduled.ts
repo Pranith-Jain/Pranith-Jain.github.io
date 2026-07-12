@@ -299,7 +299,7 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           // ── CyberPulse: breach/leak incident ingestion from social media firehose
           // Runs after Telegram scan (shared burst window) but before cache-warm.
           // Monitors X accounts + keyword search for breaches/leaks/cybercrime.
-          // X accounts and X search data are warmed by the */15 * * * * cron via
+          // X accounts and X search data are warmed by the */30 * * * * cron via
           // the queue consumer into `cp:warm:*` KV keys — reads from there instead
           // of doing GraphQL direct fetches, preserving the 50-subrequest budget
           // for the rest of the hourly pipeline.
@@ -313,13 +313,13 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
               if (env.KV_CACHE) {
                 try {
                   const raw = await env.KV_CACHE.get('cp:warm:x_accounts', 'json');
-                  if (Array.isArray(raw)) xAccountPosts = raw as unknown[];
+                  if (Array.isArray(raw) && raw.length > 0) xAccountPosts = raw as unknown[];
                 } catch {
                   /* fail open — CyberPulse falls back to direct GraphQL */
                 }
                 try {
                   const raw = await env.KV_CACHE.get('cp:warm:x_search', 'json');
-                  if (Array.isArray(raw)) xSearchPosts = raw as unknown[];
+                  if (Array.isArray(raw) && raw.length > 0) xSearchPosts = raw as unknown[];
                 } catch {
                   /* fail open */
                 }
@@ -1108,40 +1108,170 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
       });
     });
 
-  // ── CyberPulse source warm (every 15 min) ──────────────────────────────
-  // Enqueues queue messages for each CP source that needs its own
-  // 50-subrequest budget. The queue consumer fetches each source
-  // independently and writes to `cp:warm:<type>` KV. The hourly cron
-  // reads from KV and passes data as prefetched to runCyberPulseIngestion.
-  if (cron === '*/15 * * * *') {
+  // ── CyberPulse source warm + live ingestion (every 30 min) ──────────────
+  // Enqueues queue messages for X accounts and X search (each gets its own
+  // 50-subrequest budget in the queue consumer). Also enqueues gp:warm messages
+  // for Bluesky/X-feed and Reddit. After enqueue, reads warmed data from KV
+  // (or falls back to direct fetch) and runs the full ingestion pipeline so
+  // incidents appear every 30 min, not just hourly.
+  if (cron === '*/30 * * * *') {
     const queue = env.FEEDS_QUEUE;
     if (!queue) {
-      console.warn(JSON.stringify({ job: 'cp-warm-enqueue', status: 'no_queue' }));
+      console.warn(JSON.stringify({ job: 'cp-30-enqueue', status: 'no_queue' }));
       await releaseLease();
       return;
     }
     ctx.waitUntil(
       (async () => {
         try {
+          // Enqueue X-specific warm messages (cp:warm namespace)
           await queue.sendBatch([
             { body: { cp: { type: 'x_accounts' } }, delaySeconds: 0 },
             { body: { cp: { type: 'x_search' } }, delaySeconds: 2 },
+            // Bluesky/Reddit warm via gp:warm (existing handler in queue consumer)
+            { body: { gp: { key: 'x', path: '/api/v1/x-feed' } }, delaySeconds: 4 },
+            { body: { gp: { key: 'reddit', path: '/api/v1/reddit-feed' } }, delaySeconds: 6 },
           ]);
-          console.log(JSON.stringify({ job: 'cp-warm-enqueue', sources: ['x_accounts', 'x_search'], ok: true }));
+          console.log(
+            JSON.stringify({
+              job: 'cp-30-enqueue',
+              sources: ['x_accounts', 'x_search', 'gp:x', 'gp:reddit'],
+              ok: true,
+            })
+          );
         } catch (e) {
           console.error(
             JSON.stringify({
-              job: 'cp-warm-enqueue',
+              job: 'cp-30-enqueue',
               status: 'failed',
               error: e instanceof Error ? e.message : String(e),
             })
           );
         }
-        logCronDone({ path: 'cp-warm' });
-      })()
-        .catch(logCronFail('cp-warm'))
-        .finally(releaseLease)
+        logCronDone({ path: 'cp-30-enqueue' });
+      })().catch(logCronFail('cp-30-enqueue'))
     );
+
+    // ── Inline ingestion: read from KV and produce incidents ────────────
+    // Runs in the main cron thread (not waitUntil) so failures are visible.
+    if (!env.KV_CACHE || !env.BRIEFINGS_DB) {
+      console.warn(JSON.stringify({ job: 'cp-30-ingest', status: 'skipped', reason: 'missing bindings' }));
+      await releaseLease();
+      return;
+    }
+    try {
+      // Read warmed data from KV (may be from this tick's enqueue or previous run)
+      let xAccountPosts: unknown[] | undefined;
+      let xSearchPosts: unknown[] | undefined;
+      let socialItems: unknown[] | undefined;
+      let redditItems: unknown[] | undefined;
+      let telegramItems: unknown[] | undefined;
+
+      try {
+        const raw = await env.KV_CACHE.get('cp:warm:x_accounts', 'json');
+        if (Array.isArray(raw) && raw.length > 0) xAccountPosts = raw as unknown[];
+      } catch {
+        /* fail open */
+      }
+      try {
+        const raw = await env.KV_CACHE.get('cp:warm:x_search', 'json');
+        if (Array.isArray(raw) && raw.length > 0) xSearchPosts = raw as unknown[];
+      } catch {
+        /* fail open */
+      }
+      try {
+        const raw = await env.KV_CACHE.get('gp:warm:x', 'json');
+        if (raw && typeof raw === 'object' && 'items' in (raw as Record<string, unknown>)) {
+          socialItems = (raw as { items: unknown[] }).items;
+        }
+      } catch {
+        /* fail open */
+      }
+      if (!socialItems) {
+        try {
+          const sf = await fetchXFeed().catch(() => undefined);
+          socialItems = sf?.items as unknown[] | undefined;
+        } catch {
+          /* fail open */
+        }
+      }
+      try {
+        const raw = await env.KV_CACHE.get('gp:warm:reddit', 'json');
+        if (raw && typeof raw === 'object' && 'items' in (raw as Record<string, unknown>)) {
+          redditItems = (raw as { items: unknown[] }).items;
+        }
+      } catch {
+        /* fail open */
+      }
+      if (!redditItems) {
+        try {
+          const rf = await fetchRedditFeed(
+            env as unknown as { ASSETS: import('@cloudflare/workers-types').Fetcher }
+          ).catch(() => undefined);
+          redditItems = rf?.items as unknown[] | undefined;
+        } catch {
+          /* fail open */
+        }
+      }
+      // Telegram is read via cache or direct fetch
+      const tgCacheKey = await getTelegramFeedCacheKey(env as unknown as ApiEnv);
+      try {
+        const tgCached = await caches.default.match(tgCacheKey);
+        if (tgCached) {
+          const j = (await tgCached.json()) as TelegramFeedResponse;
+          telegramItems = j.items;
+        }
+      } catch {
+        /* fail open */
+      }
+      if (!telegramItems) {
+        try {
+          const kvTg = (await env.KV_CACHE.get('gp:warm:telegram', 'json')) as TelegramFeedResponse | null;
+          if (kvTg?.items?.length) telegramItems = kvTg.items;
+        } catch {
+          /* fail open */
+        }
+      }
+      if (!telegramItems) {
+        try {
+          const tg = await fetchTelegramFeed(env.KV_CACHE).catch(() => undefined);
+          telegramItems = tg?.items as unknown[] | undefined;
+        } catch {
+          /* fail open */
+        }
+      }
+
+      const cpResults = await runCyberPulseIngestion(env, env.BRIEFINGS_DB, {
+        telegramItems: telegramItems as any,
+        socialItems: socialItems as any,
+        redditItems: redditItems as any,
+        xAccountPosts: xAccountPosts as any,
+        xSearchPosts: xSearchPosts as any,
+      });
+      const totalCreated = cpResults.reduce((s, r) => s + r.incidents_created, 0);
+      console.log(
+        JSON.stringify({
+          job: 'cp-30-ingest',
+          incidents_created: totalCreated,
+          sources: cpResults.map((r) => ({
+            source: r.source,
+            items_scanned: r.items_scanned,
+            created: r.incidents_created,
+            deduped: r.incidents_deduped,
+            errors: r.errors.length,
+          })),
+        })
+      );
+    } catch (e) {
+      console.error(
+        JSON.stringify({
+          job: 'cp-30-ingest',
+          status: 'failed',
+          error: e instanceof Error ? e.message : String(e),
+        })
+      );
+    }
+    await releaseLease();
     return;
   }
 

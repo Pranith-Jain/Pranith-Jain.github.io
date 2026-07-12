@@ -314,9 +314,9 @@ export default function MispBrowser() {
               </h2>
               <div className="flex flex-wrap items-center gap-2 text-xs font-mono text-slate-500">
                 <Calendar size={12} /> {e.date}
-                <span className="text-slate-300 dark:text-slate-700">·</span>
+                <span className="text-slate-700 dark:text-slate-300">·</span>
                 Org: {typeof e.orgc === 'object' ? e.orgc.name : e.orgc}
-                <span className="text-slate-300 dark:text-slate-700">·</span>
+                <span className="text-slate-700 dark:text-slate-300">·</span>
                 ID: {e.uuid?.slice(0, 8)}…
               </div>
             </div>
@@ -480,9 +480,9 @@ export default function MispBrowser() {
                     className="text-left text-xs font-mono px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-400 transition-colors"
                   >
                     <span className="text-slate-400">{r.Event.date}</span>
-                    <span className="text-slate-300 dark:text-slate-700 mx-1">·</span>
+                    <span className="text-slate-700 dark:text-slate-300 mx-1">·</span>
                     <span className="text-slate-700 dark:text-slate-300">{r.Event.info || '(no info)'}</span>
-                    <span className="text-slate-300 dark:text-slate-700 mx-1">·</span>
+                    <span className="text-slate-700 dark:text-slate-300 mx-1">·</span>
                     <span className="text-slate-500">
                       {typeof r.Event.orgc === 'object' ? r.Event.orgc.name : r.Event.orgc}
                     </span>
@@ -631,7 +631,7 @@ export default function MispBrowser() {
                   </span>
                   <ExternalLink
                     size={14}
-                    className="text-slate-300 dark:text-slate-400 group-hover:text-brand-500 transition-colors"
+                    className="text-slate-400 dark:text-slate-300 group-hover:text-brand-500 transition-colors"
                   />
                 </div>
               </div>

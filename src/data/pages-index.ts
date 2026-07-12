@@ -3099,6 +3099,15 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     ],
   },
   {
+    path: '/threatintel/infra/ai-honeypot',
+    label: 'AI Honeypot Observatory',
+    description:
+      'LLM/AI endpoint honeypot intelligence — attacker categories, top IPs, and attack volume from ai-honeypots.com.',
+    sectionLabel: 'Threat Intel · Infrastructure',
+    group: 'threatintel',
+    keywords: ['ai', 'llm', 'honeypot', 'mcp', 'credential harvester', 'scanner', 'ioc', 'blocklist'],
+  },
+  {
     path: '/threatintel/alerts',
     label: 'Alert Feed',
     description:

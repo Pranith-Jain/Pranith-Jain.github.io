@@ -733,6 +733,13 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Domain monitoring — typosquats, lookalikes, certificate transparency.',
         compVar: 'DomainMonitor',
       },
+      {
+        path: '/threatintel/infra/ai-honeypot',
+        tabId: 'ai-honeypot',
+        label: 'AI Honeypot Observatory',
+        desc: 'LLM/AI endpoint honeypot intelligence — attacker categories, top IPs, and attack volume from ai-honeypots.com.',
+        compVar: 'AiHoneypotObservatory',
+      },
     ],
   },
   {
@@ -1023,6 +1030,22 @@ export const HUB_META: readonly HubMeta[] = [
         label: 'STIX IP Enrichment',
         desc: 'Enrich IPs via IPinfo/AbuseIPDB/Shodan and export as STIX 2.1 bundle.',
         compVar: 'StixIpExport',
+        badge: 'new',
+      },
+      {
+        path: '/threatintel/tools/stix-bundles',
+        tabId: 'stix-bundles',
+        label: 'STIX Bundles API',
+        desc: 'PostgREST-style STIX 2.1 bundle query interface.',
+        compVar: 'ThreatLandscapeStix',
+        badge: 'new',
+      },
+      {
+        path: '/threatintel/tools/actionable-iocs',
+        tabId: 'actionable-iocs',
+        label: 'Actionable IOCs',
+        desc: 'PostgREST-style IOC query interface per type.',
+        compVar: 'ThreatLandscapeIocs',
         badge: 'new',
       },
       {

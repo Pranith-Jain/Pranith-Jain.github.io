@@ -77,11 +77,15 @@ const CATEGORY_STYLE: Record<string, { label: string; className: string }> = {
 };
 
 function categoryStyle(cat: string | null): { label: string; className: string } {
-  if (!cat) return { label: 'Uncategorised', className: 'bg-slate-500/15 text-slate-300 border-slate-500/30' };
+  if (!cat)
+    return {
+      label: 'Uncategorised',
+      className: 'bg-slate-500/15 text-slate-700 dark:text-slate-300 border-slate-500/30',
+    };
   return (
     CATEGORY_STYLE[cat] ?? {
       label: cat.charAt(0) + cat.slice(1).toLowerCase(),
-      className: 'bg-slate-500/15 text-slate-300 border-slate-500/30',
+      className: 'bg-slate-500/15 text-slate-700 dark:text-slate-300 border-slate-500/30',
     }
   );
 }
@@ -93,7 +97,7 @@ const ACCENT_PILL: Record<Accent, string> = {
   cyan: 'bg-cyan-500/15 text-cyan-300 border-cyan-500/30',
   violet: 'bg-violet-500/15 text-violet-300 border-violet-500/30',
   sky: 'bg-sky-500/15 text-sky-300 border-sky-500/30',
-  slate: 'bg-slate-500/15 text-slate-300 border-slate-500/30',
+  slate: 'bg-slate-500/15 text-slate-700 dark:text-slate-300 border-slate-500/30',
 };
 
 /* ── Helpers ─────────────────────────────────────────────────────── */

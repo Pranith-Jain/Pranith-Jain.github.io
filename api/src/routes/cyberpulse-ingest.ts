@@ -23,6 +23,7 @@ import { fetchTelegramFeed, type TelegramFeedItem } from './telegram-feed';
 import { fetchXFeed, type XFeedItem } from './x-feed';
 import { fetchRedditFeed, type RedditFeedItem } from './reddit-feed';
 import { readXClaimsCache } from './x-claims';
+import { classifySector as libClassifySector } from '../lib/sector-classifier';
 import type { Env } from '../env';
 
 /**
@@ -91,6 +92,26 @@ export type Sector =
   | 'nonprofit'
   | 'other';
 
+const SECTOR_MAP: Record<string, Sector | null> = {
+  Healthcare: 'healthcare',
+  Legal: 'legal',
+  Education: 'education',
+  Government: 'government',
+  Finance: 'finance',
+  Manufacturing: 'manufacturing',
+  Construction: 'manufacturing',
+  Engineering: 'technology',
+  Technology: 'technology',
+  'Retail / E-commerce': 'retail',
+  Hospitality: 'retail',
+  Logistics: 'transportation',
+  Energy: 'energy',
+  'Real Estate': 'other',
+  Agriculture: 'other',
+  'Media / Publishing': 'media',
+  Nonprofit: 'nonprofit',
+};
+
 export interface CyberPulseIncident {
   id: string;
   incident_type: IncidentType;
@@ -143,11 +164,14 @@ const INCIDENT_PATTERNS: Record<IncidentType, RegExp[]> = {
     /ransomware/i,
     /ransom\s*ware/i,
     /\bransom\b/i,
-    /lockbit|blackcat|alphv|cl0p|\bplay\b|akira|black\s*basta|medusa|hunters|clop/i,
+    /lockbit|blackcat|alphv|cl0p|\bplay\b|akira|black\s*basta|medusa|hunters|clop|qilin|basilic|bianlian|rhysida|monti|abyss|8base|cactus|cryptnet|darkangels|darkrace|donut|duck|everest|foxbiz|ice\s*fire|inc\s*ransom|killsecurity|mads|malas|malox|moneymessage|nokoyawa|noktor|omerta|pysa|ragnarlocker|ragnarok|rancsom|ransomexx|ransomhouse|ransomhub|ransomwhere|redansom|roubaix|royal|snatch|solidbit|sparta|stormous|sugar|threeam|trigona|tutanchamon|underground|unlock|vanilla|vice\s*society|vohuk|yanluowang/i,
     /leak\s*site.*(?:added|new|post)/i,
     /data\s*(?:will\s*)?(?:be\s*)?leaked/i,
     /pay\s*or\s*(?:your|we)/i,
     /double\s*extort/i,
+    /(?:group|gang).*added.*(?:victim|company|org)/i,
+    /new.*victim.*(?:added|listed|posted)/i,
+    /leak.*(?:published|released|upload)/i,
   ],
   data_leak: [
     /data\s*leak/i,
@@ -163,14 +187,21 @@ const INCIDENT_PATTERNS: Record<IncidentType, RegExp[]> = {
     /(?:database|customer\s*data|user\s*data).*(?:sale|sold|offer|advertising)/i,
     /(?:claimed|claims?)\s+to\s+have\s+(?:leaked|compromised|obtained|breached)/i,
     /advertising.*(?:database|data|records?)/i,
+    /sample.*(?:file|data|records?).*(?:available|posted|shared)/i,
+    /(?:internal|classified|confidential).*(?:docs|files|data|documents)/i,
   ],
   credential_leak: [
     /credential/i,
     /(?:stolen|exposed|leaked|compromised)\s*(?:password|credential|login)/i,
     /infostealer|stealer\s*log/i,
-    /redline|raccoon|vidar|meta\s*infostealer|lumma/i,
+    /redline|raccoon|vidar|meta\s*infostealer|lumma|risepro|stealc|rhadamanthys|danabot|formbook|agenttesla|nano\s*stealer|acr|recordbreaker|white\s*hawk|max\s*stealer|torii/i,
     /combo\s*(?:list|dump)/i,
     /email.*password.*(?:leaked|exposed|dumped)/i,
+    /(?:plaintext|cleartext).*password/i,
+    /hash.*(?:crack|cracked|decrypt)/i,
+    /login.*(?:leak|dump|exposed)/i,
+    /session.*(?:token|cookie|hijack)/i,
+    /\b2fa|otp|mfa\b.*(?:bypass|leak|compromised)/i,
   ],
   extortion: [
     /extort/i,
@@ -178,20 +209,38 @@ const INCIDENT_PATTERNS: Record<IncidentType, RegExp[]> = {
     /pay\s*or\s*(?:we|your)/i,
     /(?:expose|publish|release)\s*(?:your|sensitive|private)/i,
     /sextortion/i,
+    /blackmail/i,
+    /ransom\s*demand/i,
   ],
   defacement: [
     /defac(?:ed?|ement|ing)/i,
     /hack(?:ed?|ing)?\s*(?:website|site|page)/i,
     /website\s*(?:compromised|hacked|defaced)/i,
+    /homepage.*(?:defaced|replaced|hacked)/i,
+    /(?:iranian|hacker).*(?:defaced|replaced)/i,
   ],
   supply_chain: [
     /supply\s*chain/i,
     /(?:backdoor|trojan)\s*(?:in|found\s*in|discovered\s*in)/i,
     /compromised\s*(?:package|update|dependency|library)/i,
     /npm|pypi|crate|gems?\b.*\b(?:malicious|compromised)/i,
-    /codecov|solarwinds|3cx|moveit|citrix/i,
+    /codecov|solarwinds|3cx|moveit|citrix|mimem/i,
+    /software\s*supply\s*chain/i,
+    /dependency.*(?:confusion|typo|squatting)/i,
+    /malicious.*(?:package|update|patch|plugin|extension)/i,
+    /(?:pipeline|ci\/cd|builder).*(?:compromised|breach|injected)/i,
   ],
-  zero_day: [/0[\s-]?day/i, /zero[\s-]?day/i, /actively\s*exploited/i, /in[\s-]?the[\s-]?wild/i, /unpatched\s*vuln/i],
+  zero_day: [
+    /0[\s-]?day/i,
+    /zero[\s-]?day/i,
+    /actively\s*exploited/i,
+    /in[\s-]?the[\s-]?wild/i,
+    /unpatched\s*vuln/i,
+    /(?:cve|cve-\d{4}-\d{4,7})/i,
+    /proof[\s-]?of[\s-]?concept.*(?:released|published|available)/i,
+    /exploit.*(?:released|published|public|available)/i,
+    /remote\s*code\s*execution.*(?:critical|unpatched|0[\s-]?day)/i,
+  ],
   breach: [
     /(?:confirmed|suffered|experienced|hit\s*(?:by|with))\s*(?:a\s*)?breach/i,
     /data\s*breach/i,
@@ -204,14 +253,34 @@ const INCIDENT_PATTERNS: Record<IncidentType, RegExp[]> = {
     /(?:exposed|compromised)\s*(?:data\s*of|information\s*found|records?\s*of)/i,
     /\bbreach\b.*\b(?:expos|leak|impact|affect)/i,
     /\bbreach\b.*\b(?:data|records?|info)/i,
+    /(?:database|server).*(?:exposed|public|open|unsecured|misconfigured)/i,
+    /security\s*incident/i,
+    /(?:company|org|firm).*(?:breached|hacked|compromised)/i,
   ],
-  ddos: [/\bddos\b/i, /denial[\s-]of[\s-]service/i, /(?:taken\s*down|knocked\s*(?:offline|out))\s*(?:by|via|with)/i],
+  ddos: [
+    /\bddos\b/i,
+    /denial[\s-]of[\s-]service/i,
+    /(?:taken\s*down|knocked\s*(?:offline|out))\s*(?:by|via|with)/i,
+    /volumetric.*(?:attack|flood)/i,
+    /layer.*(?:7|3|4).*(?:attack|flood)/i,
+    /(?:amplification|reflection).*(?:attack|drdos)/i,
+    /(?:syn|udp|http).*(?:flood|attack)/i,
+  ],
   hacktivism: [
     /hacktivist/i,
-    /(?:anonymous|ghostsec|killnet|no\s*name|ldz|mkv)\s*(?:claimed|hits?|attacks?)/i,
+    /(?:anonymous|ghostsec|killnet|no\s*name|ldz|mkv|siert|cyber\s*partisans|ukrainian\s*cyber|it\s*army)\s*(?:claimed|hits?|attacks?)/i,
     /(?:political|ideological)\s*(?:hack|attack)/i,
+    /protest.*(?:hack|defac|attack|leak)/i,
+    /op(?:eration)?\s*(?:israel|russia|ukraine|palestine|gaza|free)/i,
+    /(?:expose|dox).*(?:govt|government|military|regime)/i,
   ],
-  other: [/cyber(?:crime|security)/i, /threat\s*actor/i, /apt[\s-]?\d+/i],
+  other: [
+    /cyber(?:crime|security)/i,
+    /threat\s*actor/i,
+    /apt[\s-]?\d+/i,
+    /forum.*(?:post|thread|mention|discuss)/i,
+    /(?:alert|advisory|warning).*(?:threat|malware|attack)/i,
+  ],
 };
 
 const SEVERITY_KEYWORDS: Record<Severity, RegExp[]> = {
@@ -239,7 +308,7 @@ const SEVERITY_KEYWORDS: Record<Severity, RegExp[]> = {
   info: [/informational/i, /advisory/i, /heads[\s-]?up/i],
 };
 
-const SECTOR_KEYWORDS: Record<Sector, RegExp[]> = {
+const _SECTOR_KEYWORDS: Record<Sector, RegExp[]> = {
   healthcare: [/health(?:care|care|system|hospital|clinic)/i, /medical/i, /pharma/i, /biotech/i, /FDA/i],
   finance: [
     /bank(?:ing)?/i,
@@ -275,6 +344,7 @@ const SECTOR_KEYWORDS: Record<Sector, RegExp[]> = {
 // ─── Known threat actors (common groups) ────────────────────────────────────
 
 const KNOWN_ACTORS = [
+  // ── Ransomware gangs ─────────────────────────────────────────────────
   'lockbit',
   'blackcat',
   'alphv',
@@ -283,39 +353,201 @@ const KNOWN_ACTORS = [
   'play',
   'akira',
   'black basta',
+  'blackbasta',
   'medusa',
   'hunters',
   'rhysida',
   'monti',
   'INC ransom',
+  'incransom',
   'embargo',
   'redansom',
+  'qilin',
+  'basilic',
+  'bianlian',
+  'abyss',
+  '8base',
+  'cactus',
+  'cryptnet',
+  'dark angels',
+  'darkangels',
+  'darkrace',
+  'donut',
+  'everest',
+  'foxbiz',
+  'ice fire',
+  'icefire',
+  'killsecurity',
+  'mads',
+  'malox',
+  'moneymessage',
+  'nokoyawa',
+  'noktor',
+  'omerta',
+  'pysa',
+  'ragnarlocker',
+  'ragnarok',
+  'ransomexx',
+  'ransomhouse',
+  'ransomhub',
+  'ransomwhere',
+  'roubaix',
+  'royal',
+  'snatch',
+  'solidbit',
+  'stormous',
+  'sugar',
+  'threeam',
+  'trigona',
+  'tutanchamon',
+  'underground',
+  'vanilla',
+  'vice society',
+  'vicesociety',
+  'vohuk',
+  'yanluowang',
+  'hive',
+  'nobreks',
+  'avaddon',
+  'babuk',
+  'blackmatter',
+  'cuba',
+  'darkleak',
+  'dragonforce',
+  'haron',
+  'hello kitty',
+  'hellokitty',
+  'kara',
+  'lorenz',
+  'lv',
+  'lv ransomware',
+  'malas',
+  'mallox',
+  'midas',
+  'mindware',
+  'moses staff',
+  'mosess staff',
+  'night sky',
+  'nightsky',
+  'nvd',
+  'onlines',
+  'project relativistic',
+  'prometheus',
+  'prolock',
+  'rancsom',
+  'ranzy',
+  'sabbath',
+  'silent',
+  'sparta',
+  'spook',
   'storm-0978',
-  'salt typhoon',
-  'scattered spider',
+  'sun crypt',
+  'suncrypt',
+  'vice society',
+  'vicesociety',
+  // ── APT / Nation-state groups ────────────────────────────────────────
   'lazarus',
   'kimsuky',
   'apt28',
   'apt29',
+  'apt33',
+  'apt41',
   'cozy bear',
   'fancy bear',
   'turla',
   'darkhotel',
+  'salt typhoon',
   'charcoal typhoon',
   'grizzly steppe',
   'iron tiger',
   'winnti',
+  'scattered spider',
+  'scatteredspider',
+  'midnight blizzard',
+  'storm-0558',
+  'storm-0978',
+  'storm-1674',
+  'storm-0539',
+  'starblizzard',
+  'callisto group',
+  'sewer typhoon',
+  'volt typhoon',
+  'panda typhoon',
+  'flax typhoon',
+  'paper typhoon',
+  'stone typhoon',
+  'red appolo',
+  'blue noroff',
+  'silk surgeon',
+  'stonefly',
+  'wildneutron',
+  'strongpity',
+  'ocean lotus',
+  'patchwork',
+  'sidewinder',
+  'transparent tribe',
+  'donot team',
+  'apt-c-39',
+  'apt-c-23',
+  'apt-c-36',
+  'tonto team',
+  'dark basin',
+  'elementary group',
+  'metador',
+  'velvet chollima',
+  'dark panda',
+  'menupass',
+  'naikon',
+  'blacken',
+  'deep panda',
+  'hidden cobra',
+  'temple of svet12',
+  'tucker',
+  // ── Hacktivist / protest groups ──────────────────────────────────────
+  'anonymous',
+  'ghostsec',
+  'ghost security',
+  'killnet',
+  'no name',
+  'no name 057',
+  'ldz',
+  'mkv',
+  'siert',
+  'cyber partisans',
+  'ukrainian cyber',
+  'it army',
+  'it army of ukraine',
+  'anonymous sudan',
+  'anonymous russia',
+  'squad303',
+  'dragons of ukraine',
+  'cyber anarchy squad',
+  'legion cyber',
+  'handala',
+  'anonala',
+  'garuna',
+  'destroyersquad',
+  // ── Initial access brokers / malware operators ───────────────────────
   'revil',
   'ryuk',
   'conti',
   'darkside',
   'maze',
-  'ransomexx',
-  'anonymous',
-  'ghostsec',
-  'killnet',
-  'no name',
-  'ldz',
+  'blackmatter',
+  'avaddon',
+  'babuk',
+  'blackbasta',
+  'cuba ransomware',
+  'netwalker',
+  'doppelpaymer',
+  'egregor',
+  'nefilim',
+  'sodinokibi',
+  'ragnarlocker',
+  'lockergoga',
+  'cerber',
+  'david',
+  'dragonforce',
 ];
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
@@ -365,12 +597,9 @@ function classifySeverity(text: string): Severity {
 }
 
 function classifySector(text: string): Sector | null {
-  for (const [sector, patterns] of Object.entries(SECTOR_KEYWORDS) as [Sector, RegExp[]][]) {
-    for (const p of patterns) {
-      if (p.test(text)) return sector;
-    }
-  }
-  return null;
+  const libResult = libClassifySector(text, '');
+  if (libResult === 'Unknown') return null;
+  return SECTOR_MAP[libResult] ?? null;
 }
 
 function extractThreatActor(text: string): string | null {
@@ -433,45 +662,178 @@ function extractTags(text: string): string[] {
   return tags;
 }
 
-function classifyIncident(
-  text: string,
-  _platform: Platform,
-  _url: string
-): {
+function extractCountry(text: string): string | null {
+  // Flag emoji prefix: "🇲🇽 Mexico - text..."
+  const flagMatch = /^[\s]*[\u{1F1E6}-\u{1F1FF}]{2}\s*([A-Z][A-Za-z.\-() ]{1,40}?)\s*[-:]/u.exec(text);
+  if (flagMatch?.[1]) {
+    const c = flagMatch[1].trim();
+    if (c.length >= 2 && c.length <= 40) return c;
+  }
+  // "based in X" / "operating out of X" / "headquartered in X"
+  const basedMatch =
+    /(?:based|operating|headquartered|located)\s+(?:in|out\s*of)\s+([A-Z][A-Za-z\s.-]{2,40})(?:\s+[,-]|\s*$)/i.exec(
+      text
+    );
+  if (basedMatch?.[1]) {
+    const c = basedMatch[1].trim().replace(/\s+/g, ' ');
+    if (c.length >= 2 && c.length <= 40) return c;
+  }
+  // "Country: X" prefix pattern
+  const countryLabelMatch = /(?:country|nation|region)\s*[:]\s*([A-Z][A-Za-z\s.-]{2,40})(?:\s|$|[.,])/i.exec(text);
+  if (countryLabelMatch?.[1]) {
+    const c = countryLabelMatch[1].trim();
+    if (c.length >= 2 && c.length <= 40) return c;
+  }
+  return null;
+}
+
+const DATA_TYPES_PATTERNS: [RegExp, string][] = [
+  [/\b(?:customer|client)\s*(?:data|info|records?|database|list)\b/i, 'customer-data'],
+  [/\b(?:employee|staff|worker|personnel)\s*(?:data|info|records?|database|list)\b/i, 'employee-data'],
+  [/\b(?:patient|medical|health)\s*(?:data|info|records?|database)\b/i, 'medical-records'],
+  [/\b(?:financial|bank|credit\s*card|crypto)\s*(?:data|info|records?|account)\b/i, 'financial-data'],
+  [/\b(?:payment|credit\s*card|debit\s*card|cardholder|cc|pan)\b/i, 'payment-info'],
+  [/password|passwd|hash|hashcat|\bntlm\b/i, 'passwords'],
+  [/email\s*(?:address|list|database)/i, 'email-addresses'],
+  [/\bssn|social\s*security|national\s*(?:id|identity)\b/i, 'ssn'],
+  [/\b(?:phone|telephone|mobile)\s*(?:number|list|database)\b/i, 'phone-numbers'],
+  [/\b(?:address|home\s*address|physical\s*address)\b/i, 'physical-addresses'],
+  [/\bdob|date\s*of\s*birth\b/i, 'date-of-birth'],
+  [/\b(?:driver.?s\s*license|passport|national\s*id)\b/i, 'id-documents'],
+  [/\bi?pii\b/i, 'pii'],
+  [/\bsource\s*code|repository|github|gitlab\b/i, 'source-code'],
+  [/\b(?:classified|confidential|internal)\s*(?:docs|documents|files)\b/i, 'classified-documents'],
+  [/\bintellectual\s*property|ip|trade\s*secret|patent\b/i, 'intellectual-property'],
+  [/\b(?:military|defense|intelligence|government)\s*(?:data|docs|files|records)\b/i, 'government-data'],
+  [/\b(?:api|token|secret|key|credential)\s*(?:key|leak|exposed)\b/i, 'api-keys'],
+  [/\bdatabase\s*(?:dump|export|backup)\b/i, 'database-dump'],
+  [/\b(?:session|cookie|auth)\s*(?:token|cookie|key)\b/i, 'session-data'],
+  [/\bchat|conversation|message|dm|private\s*message\b/i, 'chat-logs'],
+];
+
+function extractDataTypes(text: string): string[] {
+  const found = new Set<string>();
+  for (const [re, label] of DATA_TYPES_PATTERNS) {
+    if (re.test(text)) found.add(label);
+  }
+  return [...found].slice(0, 20);
+}
+
+function verifyClassification(info: {
+  incident_type: IncidentType;
+  confidence: number;
+  victim_name: string | null;
+  victim_domain: string | null;
+  threat_actor: string | null;
+  records_count: number | null;
+  tags: string[];
+}): { adjustedConfidence: number; verified: boolean } {
+  let adj = info.confidence;
+  const _notes: string[] = [];
+
+  // Ransomware without a detected threat actor or victim is less reliable
+  if (info.incident_type === 'ransomware') {
+    if (!info.threat_actor) adj -= 0.1;
+    if (!info.victim_name) adj -= 0.05;
+  }
+
+  // Data leak without a victim is less specific
+  if (info.incident_type === 'data_leak' && !info.victim_name && !info.victim_domain) {
+    adj -= 0.1;
+  }
+
+  // Credential leak should mention password/email patterns
+  if (info.incident_type === 'credential_leak' && !info.records_count) {
+    adj -= 0.05;
+  }
+
+  // Zero-day with CVE mention is more reliable
+  if (info.incident_type === 'zero_day' && info.tags.includes('zero-day')) {
+    adj += 0.05;
+  }
+
+  // DDoS without explicit DDoS keyword is weak
+  if (info.incident_type === 'ddos' && !info.tags.includes('ddos')) {
+    adj -= 0.1;
+  }
+
+  // Breach/leak with a victim name is more credible
+  if (
+    (info.incident_type === 'breach' || info.incident_type === 'data_leak') &&
+    info.victim_name &&
+    !info.threat_actor
+  ) {
+    adj += 0.05;
+  }
+
+  // Supply chain without known incident name is weak
+  if (info.incident_type === 'supply_chain' && !info.victim_name) {
+    adj -= 0.1;
+  }
+
+  const verified = adj >= 0.25;
+  return { adjustedConfidence: Math.max(0.05, Math.min(0.99, adj)), verified };
+}
+
+export interface ClassificationResult {
   incident_type: IncidentType;
   severity: Severity;
   confidence: number;
   victim_name: string | null;
   victim_domain: string | null;
   victim_sector: Sector | null;
+  victim_country: string | null;
   threat_actor: string | null;
   records_count: number | null;
   data_volume: string | null;
+  data_types_leaked: string[];
   tags: string[];
   mitre_techniques: string[];
-} {
+  classification_verified: boolean;
+}
+
+function classifyIncident(text: string, _platform: Platform, _url: string): ClassificationResult {
   const { type, confidence } = classifyType(text);
   const severity = classifySeverity(text);
   const { name: victim_name, domain: victim_domain } = extractVictim(text);
   const victim_sector = classifySector(text);
+  const victim_country = extractCountry(text);
   const threat_actor = extractThreatActor(text);
   const records_count = extractRecordsCount(text);
   const data_volume = extractDataVolume(text);
+  const data_types_leaked = extractDataTypes(text);
   const tags = extractTags(text);
   const mitre_techniques = extractMitres(text);
+  const { adjustedConfidence, verified } = verifyClassification({
+    incident_type: type,
+    confidence,
+    victim_name,
+    victim_domain,
+    threat_actor,
+    records_count,
+    tags,
+  });
+
+  // Add forum tag if text mentions forums
+  if (/\b(?:forum|breach\s*forum|dark\s*web|dread|exploit)\b/i.test(text)) {
+    tags.push('forum-post');
+  }
 
   return {
     incident_type: type,
     severity,
-    confidence,
+    confidence: adjustedConfidence,
     victim_name,
     victim_domain,
     victim_sector,
+    victim_country,
     threat_actor,
     records_count,
     data_volume,
+    data_types_leaked,
     tags,
     mitre_techniques,
+    classification_verified: verified,
   };
 }
 
@@ -587,12 +949,12 @@ export async function fetchXAccountPosts(
       const resp = authed
         ? await fetchAuthedTimeline(env, handle, {
             count: 20,
-            sinceDays: Math.max(sinceDays, 7),
+            sinceDays: Math.max(sinceDays, 0.04),
             includeReplies: false,
           })
         : await fetchUserTimeline(env, handle, {
             count: 20,
-            sinceDays: Math.max(sinceDays, 7),
+            sinceDays: Math.max(sinceDays, 0.04),
           });
       if (resp.items.length === 0) {
         console.warn(`X timeline for @${handle} returned 0 items (cached: ${resp.cached}, authed: ${authed})`);
@@ -777,6 +1139,54 @@ async function insertIncidents(db: D1Database, incidents: CyberPulseIncident[]):
   return inserted;
 }
 
+function buildIncident(
+  classification: ClassificationResult,
+  post: RawPost,
+  now: string,
+  hash: string,
+  platform: Platform
+): CyberPulseIncident {
+  const tags = [...classification.tags];
+  if (classification.classification_verified) tags.push('verified');
+  else tags.push('unverified');
+
+  return {
+    id: generateId(),
+    incident_type: classification.incident_type,
+    severity: classification.severity,
+    victim_name: classification.victim_name,
+    victim_domain: classification.victim_domain,
+    victim_sector: classification.victim_sector,
+    victim_country: classification.victim_country,
+    threat_actor: classification.threat_actor,
+    threat_actor_aliases: '[]',
+    title: post.text.slice(0, 200).replace(/\n/g, ' '),
+    description: post.text,
+    data_types_leaked: JSON.stringify(classification.data_types_leaked),
+    records_count: classification.records_count,
+    data_volume: classification.data_volume,
+    source_platform: platform,
+    source_url: post.url,
+    source_handle: post.handle,
+    source_text: post.text,
+    source_author: post.author,
+    source_avatar: post.avatar,
+    confidence: classification.confidence,
+    classification_method: 'keyword',
+    discovered_at: now,
+    reported_at: post.published_at,
+    updated_at: now,
+    dedup_hash: hash,
+    duplicate_of: null,
+    tags: JSON.stringify(tags),
+    mitre_techniques: JSON.stringify(classification.mitre_techniques),
+    source_likes: post.likes,
+    source_retweets: post.retweets,
+    source_replies: post.replies,
+    source_views: post.views,
+  };
+}
+
 async function logScan(
   db: D1Database,
   source: string,
@@ -936,7 +1346,7 @@ export const X_ACCOUNTS = [
   'RansomLook',
   'BleepingComputer',
   'TheHackerNews',
-  'vxunderground',
+  'ido_cohen2',
   'CyberSecurityKnow',
   'MalwareTechBlog',
   'TalosSecurity',
@@ -991,7 +1401,7 @@ export async function runCyberPulseIngestion(
   // ── 1. X account monitoring ──────────────────────────────────────────
   const xStart = Date.now();
   try {
-    const xPosts = await fetchXAccountPosts(env, X_ACCOUNTS, 1, prefetched.xClaimsBreach, prefetched.xAccountPosts);
+    const xPosts = await fetchXAccountPosts(env, X_ACCOUNTS, 0.08, prefetched.xClaimsBreach, prefetched.xAccountPosts);
     let created = 0;
     let deduped = 0;
     const incidents: CyberPulseIncident[] = [];
@@ -1008,41 +1418,7 @@ export async function runCyberPulseIngestion(
       }
       existingHashes.add(hash);
 
-      incidents.push({
-        id: generateId(),
-        incident_type: classification.incident_type,
-        severity: classification.severity,
-        victim_name: classification.victim_name,
-        victim_domain: classification.victim_domain,
-        victim_sector: classification.victim_sector,
-        victim_country: null,
-        threat_actor: classification.threat_actor,
-        threat_actor_aliases: '[]',
-        title: post.text.slice(0, 200).replace(/\n/g, ' '),
-        description: post.text,
-        data_types_leaked: '[]',
-        records_count: classification.records_count,
-        data_volume: classification.data_volume,
-        source_platform: 'x',
-        source_url: post.url,
-        source_handle: post.handle,
-        source_text: post.text,
-        source_author: post.author,
-        source_avatar: post.avatar,
-        confidence: classification.confidence,
-        classification_method: 'keyword',
-        discovered_at: now,
-        reported_at: post.published_at,
-        updated_at: now,
-        dedup_hash: hash,
-        duplicate_of: null,
-        tags: JSON.stringify(classification.tags),
-        mitre_techniques: JSON.stringify(classification.mitre_techniques),
-        source_likes: post.likes,
-        source_retweets: post.retweets,
-        source_replies: post.replies,
-        source_views: post.views,
-      });
+      incidents.push(buildIncident(classification, post, now, hash, 'x'));
     }
 
     const inserted = await insertIncidents(db, incidents);
@@ -1098,41 +1474,7 @@ export async function runCyberPulseIngestion(
       }
       existingHashes.add(hash);
 
-      incidents.push({
-        id: generateId(),
-        incident_type: classification.incident_type,
-        severity: classification.severity,
-        victim_name: classification.victim_name,
-        victim_domain: classification.victim_domain,
-        victim_sector: classification.victim_sector,
-        victim_country: null,
-        threat_actor: classification.threat_actor,
-        threat_actor_aliases: '[]',
-        title: post.text.slice(0, 200).replace(/\n/g, ' '),
-        description: post.text,
-        data_types_leaked: '[]',
-        records_count: classification.records_count,
-        data_volume: classification.data_volume,
-        source_platform: 'x',
-        source_url: post.url,
-        source_handle: post.handle,
-        source_text: post.text,
-        source_author: post.author,
-        source_avatar: post.avatar,
-        confidence: classification.confidence,
-        classification_method: 'keyword',
-        discovered_at: now,
-        reported_at: post.published_at,
-        updated_at: now,
-        dedup_hash: hash,
-        duplicate_of: null,
-        tags: JSON.stringify(classification.tags),
-        mitre_techniques: JSON.stringify(classification.mitre_techniques),
-        source_likes: post.likes,
-        source_retweets: post.retweets,
-        source_replies: post.replies,
-        source_views: post.views,
-      });
+      incidents.push(buildIncident(classification, post, now, hash, 'x'));
     }
 
     const inserted = await insertIncidents(db, incidents);
@@ -1188,41 +1530,7 @@ export async function runCyberPulseIngestion(
       }
       existingHashes.add(hash);
 
-      incidents.push({
-        id: generateId(),
-        incident_type: classification.incident_type,
-        severity: classification.severity,
-        victim_name: classification.victim_name,
-        victim_domain: classification.victim_domain,
-        victim_sector: classification.victim_sector,
-        victim_country: null,
-        threat_actor: classification.threat_actor,
-        threat_actor_aliases: '[]',
-        title: post.text.slice(0, 200).replace(/\n/g, ' '),
-        description: post.text,
-        data_types_leaked: '[]',
-        records_count: classification.records_count,
-        data_volume: classification.data_volume,
-        source_platform: 'telegram',
-        source_url: post.url,
-        source_handle: post.handle,
-        source_text: post.text,
-        source_author: post.author,
-        source_avatar: null,
-        confidence: classification.confidence,
-        classification_method: 'keyword',
-        discovered_at: now,
-        reported_at: post.published_at,
-        updated_at: now,
-        dedup_hash: hash,
-        duplicate_of: null,
-        tags: JSON.stringify(classification.tags),
-        mitre_techniques: JSON.stringify(classification.mitre_techniques),
-        source_likes: 0,
-        source_retweets: 0,
-        source_replies: 0,
-        source_views: post.views,
-      });
+      incidents.push(buildIncident(classification, post, now, hash, 'telegram'));
     }
 
     const inserted = await insertIncidents(db, incidents);
@@ -1278,41 +1586,7 @@ export async function runCyberPulseIngestion(
       }
       existingHashes.add(hash);
 
-      incidents.push({
-        id: generateId(),
-        incident_type: classification.incident_type,
-        severity: classification.severity,
-        victim_name: classification.victim_name,
-        victim_domain: classification.victim_domain,
-        victim_sector: classification.victim_sector,
-        victim_country: null,
-        threat_actor: classification.threat_actor,
-        threat_actor_aliases: '[]',
-        title: post.text.slice(0, 200).replace(/\n/g, ' '),
-        description: post.text,
-        data_types_leaked: '[]',
-        records_count: classification.records_count,
-        data_volume: classification.data_volume,
-        source_platform: post.platform,
-        source_url: post.url,
-        source_handle: post.handle,
-        source_text: post.text,
-        source_author: post.author,
-        source_avatar: null,
-        confidence: classification.confidence,
-        classification_method: 'keyword',
-        discovered_at: now,
-        reported_at: post.published_at,
-        updated_at: now,
-        dedup_hash: hash,
-        duplicate_of: null,
-        tags: JSON.stringify(classification.tags),
-        mitre_techniques: JSON.stringify(classification.mitre_techniques),
-        source_likes: 0,
-        source_retweets: 0,
-        source_replies: 0,
-        source_views: 0,
-      });
+      incidents.push(buildIncident(classification, post, now, hash, post.platform));
     }
 
     const inserted = await insertIncidents(db, incidents);
@@ -1368,41 +1642,7 @@ export async function runCyberPulseIngestion(
       }
       existingHashes.add(hash);
 
-      incidents.push({
-        id: generateId(),
-        incident_type: classification.incident_type,
-        severity: classification.severity,
-        victim_name: classification.victim_name,
-        victim_domain: classification.victim_domain,
-        victim_sector: classification.victim_sector,
-        victim_country: null,
-        threat_actor: classification.threat_actor,
-        threat_actor_aliases: '[]',
-        title: post.text.slice(0, 200).replace(/\n/g, ' '),
-        description: post.text,
-        data_types_leaked: '[]',
-        records_count: classification.records_count,
-        data_volume: classification.data_volume,
-        source_platform: 'reddit',
-        source_url: post.url,
-        source_handle: post.handle,
-        source_text: post.text,
-        source_author: post.author,
-        source_avatar: null,
-        confidence: classification.confidence,
-        classification_method: 'keyword',
-        discovered_at: now,
-        reported_at: post.published_at,
-        updated_at: now,
-        dedup_hash: hash,
-        duplicate_of: null,
-        tags: JSON.stringify(classification.tags),
-        mitre_techniques: JSON.stringify(classification.mitre_techniques),
-        source_likes: 0,
-        source_retweets: 0,
-        source_replies: 0,
-        source_views: 0,
-      });
+      incidents.push(buildIncident(classification, post, now, hash, 'reddit'));
     }
 
     const inserted = await insertIncidents(db, incidents);

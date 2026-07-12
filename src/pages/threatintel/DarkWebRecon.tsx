@@ -154,8 +154,8 @@ export default function DarkWebRecon(): JSX.Element {
               }}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium transition-colors ${
                 tab === t.id
-                  ? 'bg-brand-500/20 text-brand-300 ring-1 ring-brand-500/40'
-                  : 'text-muted hover:text-slate-200 hover:bg-white/5'
+                  ? 'bg-brand-500/20 text-brand-700 dark:text-brand-300 ring-1 ring-brand-500/40'
+                  : 'text-muted hover:text-slate-800 dark:hover:text-slate-200 hover:bg-white/5'
               }`}
             >
               <t.icon className="w-3.5 h-3.5" />
@@ -175,7 +175,7 @@ export default function DarkWebRecon(): JSX.Element {
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
             placeholder={activeTab.placeholder}
-            className="flex-1 [background:rgb(var(--surface-200)/0.6)] border border-[rgb(var(--border-500))] rounded-xl px-4 py-2.5 text-slate-100 dark:text-slate-200 placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-transparent text-sm"
+            className="flex-1 [background:rgb(var(--surface-200)/0.6)] border border-[rgb(var(--border-500))] rounded-xl px-4 py-2.5 text-slate-900 dark:text-slate-200 placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-transparent text-sm"
           />
           <button
             onClick={handleSearch}
@@ -222,7 +222,7 @@ function OnionSearchResults({ data }: { data: { query: string; count: number; re
               href={r.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-400 hover:text-brand-300 font-medium text-sm flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 font-medium text-sm flex items-center gap-1"
             >
               {r.title || 'Untitled'}
               <ExternalLink className="w-3 h-3 flex-shrink-0" />
@@ -251,7 +251,7 @@ function OnionLookupResults({ data }: { data: OnionLookupResult }) {
         >
           {data.status ?? 'unknown'}
         </span>
-        <span className="text-sm text-slate-200 font-mono">{data.address}</span>
+        <span className="text-sm text-slate-800 dark:text-slate-200 font-mono">{data.address}</span>
       </div>
 
       {(data.first_seen || data.last_seen) && (
@@ -259,13 +259,13 @@ function OnionLookupResults({ data }: { data: OnionLookupResult }) {
           {data.first_seen && (
             <div>
               <span className="text-muted">First seen</span>
-              <p className="text-slate-300 mt-0.5">{data.first_seen}</p>
+              <p className="text-slate-700 dark:text-slate-300 mt-0.5">{data.first_seen}</p>
             </div>
           )}
           {data.last_seen && (
             <div>
               <span className="text-muted">Last seen</span>
-              <p className="text-slate-300 mt-0.5">{data.last_seen}</p>
+              <p className="text-slate-700 dark:text-slate-300 mt-0.5">{data.last_seen}</p>
             </div>
           )}
         </div>
@@ -274,7 +274,7 @@ function OnionLookupResults({ data }: { data: OnionLookupResult }) {
       {data.title && (
         <div>
           <span className="text-xs text-muted">Title</span>
-          <p className="text-sm text-slate-200 mt-0.5">{data.title}</p>
+          <p className="text-sm text-slate-800 dark:text-slate-200 mt-0.5">{data.title}</p>
         </div>
       )}
 
@@ -283,7 +283,10 @@ function OnionLookupResults({ data }: { data: OnionLookupResult }) {
           <span className="text-xs text-muted">Tags</span>
           <div className="flex flex-wrap gap-1 mt-1">
             {data.tags.map((t, i) => (
-              <span key={i} className="px-2 py-0.5 [background:rgb(var(--hover-100))] rounded text-xs text-slate-300">
+              <span
+                key={i}
+                className="px-2 py-0.5 [background:rgb(var(--hover-100))] rounded text-xs text-slate-700 dark:text-slate-300"
+              >
                 {t}
               </span>
             ))}
@@ -296,7 +299,10 @@ function OnionLookupResults({ data }: { data: OnionLookupResult }) {
           <span className="text-xs text-muted">Open ports</span>
           <div className="flex flex-wrap gap-1 mt-1">
             {data.ports.map((p) => (
-              <span key={p} className="px-2 py-0.5 [background:rgb(var(--hover-100))] rounded text-xs text-slate-300">
+              <span
+                key={p}
+                className="px-2 py-0.5 [background:rgb(var(--hover-100))] rounded text-xs text-slate-700 dark:text-slate-300"
+              >
                 {p}
               </span>
             ))}
@@ -308,7 +314,7 @@ function OnionLookupResults({ data }: { data: OnionLookupResult }) {
         <div>
           <span className="text-xs text-muted">Associated BTC addresses</span>
           {data.bitcoin_addresses.map((addr) => (
-            <p key={addr} className="text-xs text-amber-400 font-mono mt-0.5">
+            <p key={addr} className="text-xs text-amber-700 dark:text-amber-400 font-mono mt-0.5">
               {addr}
             </p>
           ))}
@@ -355,12 +361,12 @@ function BtcAbuseResults({ data }: { data: ChainAbuseResult }) {
               className="[background:rgb(var(--surface-200)/0.4)] border border-[rgb(var(--border-400))] rounded-xl p-3"
             >
               <div className="flex items-center gap-2 mb-1">
-                <span className="px-1.5 py-0.5 rounded text-xs font-medium bg-red-500/10 text-red-400 border border-red-500/20">
+                <span className="px-1.5 py-0.5 rounded text-xs font-medium bg-red-500/10 text-red-600 dark:text-red-400 border border-red-500/20">
                   {r.category}
                 </span>
                 {r.scamType && <span className="text-xs text-muted">{r.scamType}</span>}
               </div>
-              <p className="text-sm text-slate-300 dark:text-slate-300">{r.description}</p>
+              <p className="text-sm text-slate-700 dark:text-slate-300">{r.description}</p>
               <p className="text-xs text-muted mt-1">{new Date(r.createdAt).toLocaleDateString()}</p>
             </div>
           ))}
@@ -383,7 +389,7 @@ function TorExitResults({ data }: { data: TorExitCheckResult }) {
         >
           {data.isTorExit ? 'TOR EXIT NODE' : 'NOT A TOR EXIT NODE'}
         </span>
-        <span className="text-sm text-slate-300 font-mono">{data.ip}</span>
+        <span className="text-sm text-slate-700 dark:text-slate-300 font-mono">{data.ip}</span>
       </div>
     </div>
   );

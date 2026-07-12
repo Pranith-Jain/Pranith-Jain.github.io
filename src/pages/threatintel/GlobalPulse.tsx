@@ -128,7 +128,7 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'Earthquakes',
     shortLabel: 'EQ',
     icon: <Activity size={14} />,
-    color: 'text-orange-400',
+    color: 'text-orange-600 dark:text-orange-400',
     bgColor: 'bg-orange-500/10 border-orange-500/20',
     group: 'geo',
   },
@@ -136,7 +136,7 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'War Room',
     shortLabel: 'WAR',
     icon: <Flame size={14} />,
-    color: 'text-rose-400',
+    color: 'text-rose-600 dark:text-rose-400',
     bgColor: 'bg-rose-500/10 border-rose-500/20',
     group: 'geo',
   },
@@ -144,7 +144,7 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'Geopolitical',
     shortLabel: 'GEO',
     icon: <Globe size={14} />,
-    color: 'text-purple-400',
+    color: 'text-purple-600 dark:text-purple-400',
     bgColor: 'bg-purple-500/10 border-purple-500/20',
     group: 'geo',
   },
@@ -152,7 +152,7 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'Aircraft',
     shortLabel: 'AIR',
     icon: <Plane size={14} />,
-    color: 'text-indigo-400',
+    color: 'text-indigo-600 dark:text-indigo-400',
     bgColor: 'bg-indigo-500/10 border-indigo-500/20',
     group: 'geo',
   },
@@ -160,7 +160,7 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'IOC Activity',
     shortLabel: 'IOC',
     icon: <Radio size={14} />,
-    color: 'text-rose-400',
+    color: 'text-rose-600 dark:text-rose-400',
     bgColor: 'bg-rose-500/10 border-rose-500/20',
     group: 'intel',
   },
@@ -168,7 +168,7 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'Live IOCs',
     shortLabel: 'IOC',
     icon: <Zap size={14} />,
-    color: 'text-rose-400',
+    color: 'text-rose-600 dark:text-rose-400',
     bgColor: 'bg-rose-500/10 border-rose-500/20',
     group: 'intel',
   },
@@ -176,7 +176,7 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'CVEs',
     shortLabel: 'CVE',
     icon: <Bug size={14} />,
-    color: 'text-amber-400',
+    color: 'text-amber-600 dark:text-amber-400',
     bgColor: 'bg-amber-500/10 border-amber-500/20',
     group: 'intel',
   },
@@ -184,7 +184,7 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'Threat Actors',
     shortLabel: 'ACTOR',
     icon: <Skull size={14} />,
-    color: 'text-purple-400',
+    color: 'text-purple-600 dark:text-purple-400',
     bgColor: 'bg-purple-500/10 border-purple-500/20',
     group: 'intel',
   },
@@ -192,7 +192,7 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'IOC Correlations',
     shortLabel: 'CORR',
     icon: <Crosshair size={14} />,
-    color: 'text-cyan-400',
+    color: 'text-cyan-600 dark:text-cyan-400',
     bgColor: 'bg-cyan-500/10 border-cyan-500/20',
     group: 'intel',
   },
@@ -200,7 +200,7 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'GitHub Leaks',
     shortLabel: 'LEAK',
     icon: <ShieldAlert size={14} />,
-    color: 'text-rose-400',
+    color: 'text-rose-600 dark:text-rose-400',
     bgColor: 'bg-rose-500/10 border-rose-500/20',
     group: 'intel',
   },
@@ -208,7 +208,7 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'Malicious Packages',
     shortLabel: 'PKG',
     icon: <Box size={14} />,
-    color: 'text-orange-400',
+    color: 'text-orange-600 dark:text-orange-400',
     bgColor: 'bg-orange-500/10 border-orange-500/20',
     group: 'intel',
   },
@@ -216,7 +216,7 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'Public Exploits',
     shortLabel: 'XPLOIT',
     icon: <Zap size={14} />,
-    color: 'text-amber-400',
+    color: 'text-amber-600 dark:text-amber-400',
     bgColor: 'bg-amber-500/10 border-amber-500/20',
     group: 'intel',
   },
@@ -224,7 +224,7 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'GitHub Advisories',
     shortLabel: 'GHSA',
     icon: <Shield size={14} />,
-    color: 'text-sky-400',
+    color: 'text-sky-600 dark:text-sky-400',
     bgColor: 'bg-sky-500/10 border-sky-500/20',
     group: 'intel',
   },
@@ -256,7 +256,7 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'Phishing',
     shortLabel: 'PHISH',
     icon: <AlertTriangle size={14} />,
-    color: 'text-amber-400',
+    color: 'text-amber-600 dark:text-amber-400',
     bgColor: 'bg-amber-500/10 border-amber-500/20',
     group: 'intel',
   },
@@ -264,7 +264,7 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'Malware',
     shortLabel: 'MAL',
     icon: <Bug size={14} />,
-    color: 'text-rose-400',
+    color: 'text-rose-600 dark:text-rose-400',
     bgColor: 'bg-rose-500/10 border-rose-500/20',
     group: 'intel',
   },
@@ -272,7 +272,7 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'Cybercrime',
     shortLabel: 'CRIME',
     icon: <Zap size={14} />,
-    color: 'text-rose-400',
+    color: 'text-rose-600 dark:text-rose-400',
     bgColor: 'bg-rose-500/10 border-rose-500/20',
     group: 'intel',
   },
@@ -312,7 +312,7 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'Breaches',
     shortLabel: 'BREACH',
     icon: <ShieldAlert size={14} />,
-    color: 'text-rose-400',
+    color: 'text-rose-600 dark:text-rose-400',
     bgColor: 'bg-rose-500/10 border-rose-500/20',
     group: 'intel',
   },
@@ -320,7 +320,7 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'Scam',
     shortLabel: 'SCAM',
     icon: <AlertTriangle size={14} />,
-    color: 'text-amber-400',
+    color: 'text-amber-600 dark:text-amber-400',
     bgColor: 'bg-amber-500/10 border-amber-500/20',
     group: 'intel',
   },
@@ -328,7 +328,7 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'Briefings',
     shortLabel: 'INTEL',
     icon: <Newspaper size={14} />,
-    color: 'text-emerald-400',
+    color: 'text-emerald-600 dark:text-emerald-400',
     bgColor: 'bg-emerald-500/10 border-emerald-500/20',
     group: 'intel',
   },
@@ -336,7 +336,7 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'Research',
     shortLabel: 'RSRCH',
     icon: <Newspaper size={14} />,
-    color: 'text-sky-400',
+    color: 'text-sky-600 dark:text-sky-400',
     bgColor: 'bg-sky-500/10 border-sky-500/20',
     group: 'social',
   },
@@ -344,7 +344,7 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'Reddit',
     shortLabel: 'RDDT',
     icon: <Rss size={14} />,
-    color: 'text-orange-400',
+    color: 'text-orange-600 dark:text-orange-400',
     bgColor: 'bg-orange-500/10 border-orange-500/20',
     group: 'social',
   },
@@ -352,7 +352,7 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'Telegram',
     shortLabel: 'TG',
     icon: <MessageSquare size={14} />,
-    color: 'text-cyan-400',
+    color: 'text-cyan-600 dark:text-cyan-400',
     bgColor: 'bg-cyan-500/10 border-cyan-500/20',
     group: 'social',
   },
@@ -360,7 +360,7 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'X/Bluesky',
     shortLabel: 'X',
     icon: <AtSign size={14} />,
-    color: 'text-blue-400',
+    color: 'text-blue-600 dark:text-blue-400',
     bgColor: 'bg-blue-500/10 border-blue-500/20',
     group: 'social',
   },
@@ -368,7 +368,7 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'Tech Infra',
     shortLabel: 'TECH',
     icon: <Newspaper size={14} />,
-    color: 'text-sky-400',
+    color: 'text-sky-600 dark:text-sky-400',
     bgColor: 'bg-sky-500/10 border-sky-500/20',
     group: 'social',
   },
@@ -376,7 +376,7 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'Infrastructure',
     shortLabel: 'INFRA',
     icon: <Building2 size={14} />,
-    color: 'text-teal-400',
+    color: 'text-teal-600 dark:text-teal-400',
     bgColor: 'bg-teal-500/10 border-teal-500/20',
     group: 'geo',
   },
@@ -384,7 +384,7 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'Military Bases',
     shortLabel: 'BASE',
     icon: <Shield size={14} />,
-    color: 'text-emerald-400',
+    color: 'text-emerald-600 dark:text-emerald-400',
     bgColor: 'bg-emerald-500/10 border-emerald-500/20',
     group: 'geo',
   },
@@ -392,7 +392,7 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'Fire Detections',
     shortLabel: 'FIRE',
     icon: <Flame size={14} />,
-    color: 'text-orange-400',
+    color: 'text-orange-600 dark:text-orange-400',
     bgColor: 'bg-orange-500/10 border-orange-500/20',
     group: 'geo',
   },
@@ -400,7 +400,7 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'Nuclear Facilities',
     shortLabel: 'NUC',
     icon: <AlertTriangle size={14} />,
-    color: 'text-amber-400',
+    color: 'text-amber-600 dark:text-amber-400',
     bgColor: 'bg-amber-500/10 border-amber-500/20',
     group: 'geo',
   },
@@ -412,7 +412,7 @@ const SEVERITY_CONFIG = {
   critical: {
     dot: 'bg-rose-500',
     ring: 'ring-rose-500/30',
-    text: 'text-rose-400',
+    text: 'text-rose-600 dark:text-rose-400',
     bg: 'bg-rose-500/10',
     badge: 'danger' as const,
     pulse: true,
@@ -420,7 +420,7 @@ const SEVERITY_CONFIG = {
   high: {
     dot: 'bg-orange-500',
     ring: 'ring-orange-500/30',
-    text: 'text-orange-400',
+    text: 'text-orange-600 dark:text-orange-400',
     bg: 'bg-orange-500/10',
     badge: 'warning' as const,
     pulse: false,
@@ -428,7 +428,7 @@ const SEVERITY_CONFIG = {
   medium: {
     dot: 'bg-amber-500',
     ring: 'ring-amber-500/30',
-    text: 'text-amber-400',
+    text: 'text-amber-600 dark:text-amber-400',
     bg: 'bg-amber-500/10',
     badge: 'warning' as const,
     pulse: false,
@@ -436,7 +436,7 @@ const SEVERITY_CONFIG = {
   low: {
     dot: 'bg-emerald-500',
     ring: 'ring-emerald-500/30',
-    text: 'text-emerald-400',
+    text: 'text-emerald-600 dark:text-emerald-400',
     bg: 'bg-emerald-500/10',
     badge: 'default' as const,
     pulse: false,
@@ -1044,7 +1044,10 @@ export default function GlobalPulse(): JSX.Element {
                   className="text-3xl font-display font-bold text-slate-900 dark:text-white tabular-nums leading-none"
                 />
                 {trend.length > 1 && (
-                  <Sparkline values={trend.map((t) => t.total)} className="text-brand-400/70 mb-0.5" />
+                  <Sparkline
+                    values={trend.map((t) => t.total)}
+                    className="text-brand-600/70 dark:text-brand-400/70 mb-0.5"
+                  />
                 )}
               </div>
               <div className="text-micro font-mono text-slate-500 mt-1.5">{geoPoints.length} geo-located</div>
@@ -1221,7 +1224,7 @@ export default function GlobalPulse(): JSX.Element {
                 }}
                 className="w-full pl-8 pr-8 py-2 text-xs font-mono rounded-xl border border-teal-500/30 dark:border-teal-500/20 bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 text-slate-700 dark:text-slate-300 placeholder-slate-400 focus:outline-none focus:border-teal-500/50"
               />
-              <Building2 size={13} className="absolute left-2.5 top-2.5 text-teal-400" />
+              <Building2 size={13} className="absolute left-2.5 top-2.5 text-teal-600 dark:text-teal-400" />
               {infraQuery && (
                 <button
                   onClick={() => {
@@ -1236,7 +1239,7 @@ export default function GlobalPulse(): JSX.Element {
               )}
               {infraLoading && (
                 <span className="absolute right-2 top-2">
-                  <RefreshCw size={12} className="animate-spin text-teal-400" />
+                  <RefreshCw size={12} className="animate-spin text-teal-600 dark:text-teal-400" />
                 </span>
               )}
             </div>
@@ -1609,7 +1612,7 @@ export default function GlobalPulse(): JSX.Element {
                 {regionFilter === 'mena' && (
                   <div className="bg-amber-500/20 backdrop-blur-sm rounded-xl border border-amber-500/50 px-3 py-1.5 flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-                    <span className="text-micro font-mono text-amber-300">MENA</span>
+                    <span className="text-micro font-mono text-amber-700 dark:text-amber-300">MENA</span>
                   </div>
                 )}
                 <div className="dark:bg-[rgb(var(--input-200)/0.8)] bg-slate-50/80 backdrop-blur-sm rounded-xl border border-slate-600/50 px-3 py-1.5 flex items-center gap-2">
@@ -1629,7 +1632,7 @@ export default function GlobalPulse(): JSX.Element {
                     <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-slate-800/50 flex items-center justify-center">
                       <Crosshair size={28} className="text-slate-500" />
                     </div>
-                    <p className="text-sm font-medium text-slate-300 mb-1">No Geolocated Events</p>
+                    <p className="text-sm font-medium text-slate-800 dark:text-slate-300 mb-1">No Geolocated Events</p>
                     <p className="text-xs text-slate-500 mb-4">
                       Enable more layers in the Filters panel to see points on the globe
                     </p>
@@ -1655,7 +1658,7 @@ export default function GlobalPulse(): JSX.Element {
                           <div className="absolute inset-0 w-16 h-16 rounded-full border-2 border-transparent border-t-brand-500 animate-spin" />
                         </div>
                         <div className="text-center">
-                          <p className="text-sm font-medium text-slate-300">Loading Globe</p>
+                          <p className="text-sm font-medium text-slate-800 dark:text-slate-300">Loading Globe</p>
                           <p className="text-xs text-slate-500 mt-1">Initializing 3D renderer…</p>
                         </div>
                       </div>
@@ -1680,7 +1683,7 @@ export default function GlobalPulse(): JSX.Element {
                           <div className="absolute inset-0 w-16 h-16 rounded-full border-2 border-transparent border-t-brand-500 animate-spin" />
                         </div>
                         <div className="text-center">
-                          <p className="text-sm font-medium text-slate-300">Loading Map</p>
+                          <p className="text-sm font-medium text-slate-800 dark:text-slate-300">Loading Map</p>
                           <p className="text-xs text-slate-500 mt-1">Initializing 2D renderer…</p>
                         </div>
                       </div>
@@ -1722,7 +1725,7 @@ export default function GlobalPulse(): JSX.Element {
               {/* Feed Header */}
               <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                 <div className="flex items-center gap-2">
-                  <Radio size={14} className="text-rose-400 animate-pulse" />
+                  <Radio size={14} className="text-rose-600 dark:text-rose-400 animate-pulse" />
                   <h3 className="text-sm font-semibold font-mono text-slate-700 dark:text-slate-300">CTI Live Feed</h3>
                   <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
                     ({filteredEvents.length})
@@ -1736,17 +1739,17 @@ export default function GlobalPulse(): JSX.Element {
                     return (
                       <>
                         {ransomCount > 0 && (
-                          <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-rose-500/10 text-rose-400">
+                          <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-rose-500/10 text-rose-600 dark:text-rose-400">
                             R{ransomCount}
                           </span>
                         )}
                         {cveCount > 0 && (
-                          <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-400">
+                          <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400">
                             C{cveCount}
                           </span>
                         )}
                         {iocCount > 0 && (
-                          <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-sky-500/10 text-sky-400">
+                          <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-sky-500/10 text-sky-600 dark:text-sky-400">
                             I{iocCount}
                           </span>
                         )}
@@ -1871,11 +1874,11 @@ export default function GlobalPulse(): JSX.Element {
                                   <span
                                     className={`text-micro font-mono ${
                                       ev.cti === 'ransomware'
-                                        ? 'text-rose-400'
+                                        ? 'text-rose-600 dark:text-rose-400'
                                         : ev.cti === 'cve'
-                                          ? 'text-amber-400'
+                                          ? 'text-amber-600 dark:text-amber-400'
                                           : ev.cti === 'ioc'
-                                            ? 'text-sky-400'
+                                            ? 'text-sky-600 dark:text-sky-400'
                                             : 'text-slate-400'
                                     }`}
                                   >

@@ -17,6 +17,9 @@ import {
   Globe,
   Database,
   Cpu,
+  Target,
+  Brain,
+  BarChart3,
 } from 'lucide-react';
 import { FeedbackWidget } from '../../components/FeedbackWidget';
 import { BackLink } from '../../components/BackLink';
@@ -79,6 +82,38 @@ const CAPABILITY_GRID = [
   { icon: Database, label: 'Ransomware Intel', desc: 'Groups, leaks, negotiations' },
 ];
 
+type AnalystRole = 'ciso' | 'detection' | 'ir' | 'cti';
+const ROLES: { id: AnalystRole; label: string; icon: typeof Shield; desc: string; color: string }[] = [
+  {
+    id: 'ciso',
+    label: 'CISO',
+    icon: BarChart3,
+    desc: 'Risk posture & strategic trends',
+    color: 'from-emerald-500 to-teal-600',
+  },
+  {
+    id: 'detection',
+    label: 'Detection',
+    icon: Search,
+    desc: 'TTPs, detections & rule ideas',
+    color: 'from-blue-500 to-indigo-600',
+  },
+  {
+    id: 'ir',
+    label: 'Incident Response',
+    icon: Target,
+    desc: 'IOCs & behaviors for rapid triage',
+    color: 'from-rose-500 to-red-600',
+  },
+  {
+    id: 'cti',
+    label: 'Threat Intel',
+    icon: Brain,
+    desc: 'Contextual analysis & relationships',
+    color: 'from-violet-500 to-purple-600',
+  },
+];
+
 // Pure regex markdown renderer. Receives an ALREADY-sanitized string — the
 // DOMPurify strip happens in the effect below via dynamic import (see the
 // no-restricted-imports rule: isomorphic-dompurify must not be static).
@@ -129,6 +164,7 @@ export default function Copilot(): JSX.Element {
   const [result, setResult] = useState<CopilotResponse | null>(null);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [role, setRole] = useState<AnalystRole>('cti');
   const inputRef = useRef<HTMLInputElement>(null);
 
   // ── Full-report mode (heavyweight DO-backed pipeline) ──
@@ -205,29 +241,32 @@ export default function Copilot(): JSX.Element {
     };
   }, [result?.narrative]);
 
-  const investigate = useCallback(async (q: string) => {
-    if (!q.trim()) return;
-    setLoading(true);
-    setError(null);
-    setResult(null);
-    try {
-      const res = await fetch('/api/v1/copilot/investigate', {
-        method: 'POST',
-        signal: AbortSignal.timeout(30_000),
-        headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
-        body: JSON.stringify({ query: q.trim() }),
-      });
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error ?? 'Investigation failed');
+  const investigate = useCallback(
+    async (q: string) => {
+      if (!q.trim()) return;
+      setLoading(true);
+      setError(null);
+      setResult(null);
+      try {
+        const res = await fetch('/api/v1/copilot/investigate', {
+          method: 'POST',
+          signal: AbortSignal.timeout(30_000),
+          headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
+          body: JSON.stringify({ query: q.trim(), role }),
+        });
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.error ?? 'Investigation failed');
+        }
+        setResult(await res.json());
+      } catch (e) {
+        setError(e instanceof Error ? e.message : String(e));
+      } finally {
+        setLoading(false);
       }
-      setResult(await res.json());
-    } catch (e) {
-      setError(e instanceof Error ? e.message : String(e));
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+    },
+    [role]
+  );
 
   const badge = result?.query_type ? TYPE_BADGES[result.query_type] : null;
   const hasResults = !!(result || report || loading || progress || error);
@@ -301,6 +340,29 @@ export default function Copilot(): JSX.Element {
               </select>
             </>
           )}
+        </div>
+
+        {/* Role selector */}
+        <div className="flex w-full flex-wrap justify-center gap-1.5">
+          <span className="text-[10px] text-slate-400 self-center mr-1 font-medium uppercase tracking-wider">As:</span>
+          {ROLES.map((r) => {
+            const RIcon = r.icon;
+            return (
+              <button
+                key={r.id}
+                onClick={() => setRole(r.id)}
+                aria-pressed={role === r.id}
+                className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-mono transition-all ${
+                  role === r.id
+                    ? `bg-gradient-to-r ${r.color} text-white shadow-sm`
+                    : 'bg-slate-100 text-slate-500 hover:bg-slate-200 dark:bg-slate-700 dark:text-slate-400 dark:hover:bg-slate-600'
+                }`}
+              >
+                <RIcon size={12} />
+                {r.label}
+              </button>
+            );
+          })}
         </div>
 
         {/* Search input */}
@@ -438,6 +500,19 @@ export default function Copilot(): JSX.Element {
                       {badge.label}
                     </span>
                   )}
+                  {(() => {
+                    const activeRole = ROLES.find((r) => r.id === role);
+                    if (!activeRole) return null;
+                    const RIcon = activeRole.icon;
+                    return (
+                      <span
+                        className={`inline-flex items-center gap-1 rounded-full bg-gradient-to-r px-2 py-0.5 text-[10px] font-semibold text-white ${activeRole.color}`}
+                      >
+                        <RIcon size={10} />
+                        {activeRole.label}
+                      </span>
+                    );
+                  })()}
                 </div>
               </div>
               <div className="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-xs text-slate-400">

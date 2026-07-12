@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useState, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { usePostSummaries } from '../../components/intel/usePostSummaries';
+import { PostSummary } from '../../components/intel/PostSummary';
 import {
   AlertTriangle,
   Bug,
@@ -42,25 +45,25 @@ const TYPE_ICONS: Record<string, typeof AlertTriangle> = {
 };
 
 const SEVERITY_COLORS: Record<string, string> = {
-  critical: 'bg-red-500/20 text-red-400 border-red-500/30',
-  high: 'bg-orange-500/20 text-orange-400 border-orange-500/30',
-  medium: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
-  low: 'bg-blue-500/20 text-blue-400 border-blue-500/30',
-  info: 'bg-slate-500/20 text-slate-400 border-slate-500/30',
+  critical: 'bg-red-500/20 text-red-700 dark:text-red-400 border-red-500/30',
+  high: 'bg-orange-500/20 text-orange-700 dark:text-orange-400 border-orange-500/30',
+  medium: 'bg-yellow-500/20 text-yellow-700 dark:text-yellow-400 border-yellow-500/30',
+  low: 'bg-blue-500/20 text-blue-700 dark:text-blue-400 border-blue-500/30',
+  info: 'bg-slate-500/20 text-slate-700 dark:text-slate-400 border-slate-500/30',
 };
 
 const TYPE_COLORS: Record<string, string> = {
-  ransomware: 'bg-red-500/10 text-red-400 border-red-500/20',
-  data_leak: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
-  credential_leak: 'bg-purple-500/10 text-purple-400 border-purple-500/20',
-  extortion: 'bg-rose-500/10 text-rose-400 border-rose-500/20',
-  defacement: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
-  supply_chain: 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20',
-  zero_day: 'bg-red-600/10 text-red-300 border-red-600/20',
-  breach: 'bg-orange-500/10 text-orange-400 border-orange-500/20',
-  ddos: 'bg-sky-500/10 text-sky-400 border-sky-500/20',
-  hacktivism: 'bg-pink-500/10 text-pink-400 border-pink-500/20',
-  other: 'bg-slate-500/10 text-slate-400 border-slate-500/20',
+  ransomware: 'bg-red-500/10 text-red-700 dark:text-red-400 border-red-500/20',
+  data_leak: 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/20',
+  credential_leak: 'bg-purple-500/10 text-purple-700 dark:text-purple-400 border-purple-500/20',
+  extortion: 'bg-rose-500/10 text-rose-700 dark:text-rose-400 border-rose-500/20',
+  defacement: 'bg-cyan-500/10 text-cyan-700 dark:text-cyan-400 border-cyan-500/20',
+  supply_chain: 'bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 border-indigo-500/20',
+  zero_day: 'bg-red-600/10 text-red-800 dark:text-red-300 border-red-600/20',
+  breach: 'bg-orange-500/10 text-orange-700 dark:text-orange-400 border-orange-500/20',
+  ddos: 'bg-sky-500/10 text-sky-700 dark:text-sky-400 border-sky-500/20',
+  hacktivism: 'bg-pink-500/10 text-pink-700 dark:text-pink-400 border-pink-500/20',
+  other: 'bg-slate-500/10 text-slate-700 dark:text-slate-400 border-slate-500/20',
 };
 
 const TYPE_LABELS: Record<string, string> = {
@@ -150,6 +153,15 @@ function formatNumber(n: number | null): string {
 export default function CyberPulse(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
   const [incidents, setIncidents] = useState<Incident[]>([]);
+  const postSummaries = usePostSummaries({
+    surface: 'CyberPulse',
+    items: incidents.slice(0, 100).map((inc) => ({
+      id: inc.id,
+      title: inc.title,
+      body: `${inc.title}${inc.description ? `\n${inc.description}` : ''}`,
+      source: inc.source_handle ?? inc.source_platform,
+    })),
+  });
   const [stats, setStats] = useState<Stats | null>(null);
   const [trending, setTrending] = useState<Trending | null>(null);
   const [loading, setLoading] = useState(true);
@@ -244,7 +256,7 @@ export default function CyberPulse(): JSX.Element {
       {/* Stats cards */}
       {stats && (
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3 mb-6">
-          <StatCard label="Total" value={stats.total} color="text-white" />
+          <StatCard label="Total" value={stats.total} color="text-slate-900 dark:text-white" />
           {stats.by_severity.map((s) => (
             <StatCard
               key={s.severity}
@@ -258,9 +270,9 @@ export default function CyberPulse(): JSX.Element {
 
       {/* Filters bar */}
       <div className="flex flex-wrap items-center gap-2 mb-4 p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/50 dark:bg-[rgb(var(--surface-200))]">
-        <Filter className="w-4 h-4 text-slate-500" />
+        <Filter className="w-4 h-4 text-slate-600 dark:text-slate-500" />
         <div className="relative">
-          <Search className="absolute left-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
+          <Search className="absolute left-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
           <input
             type="text"
             value={searchQuery}
@@ -289,36 +301,48 @@ export default function CyberPulse(): JSX.Element {
           placeholder="Period"
         />
         {hasFilters && (
-          <button onClick={clearFilters} className="text-xs text-slate-400 hover:text-white flex items-center gap-1">
+          <button
+            onClick={clearFilters}
+            className="text-xs text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center gap-1"
+          >
             <X className="w-3 h-3" /> Clear
           </button>
         )}
         <div className="ml-auto flex items-center gap-2">
-          <span className="text-xs text-slate-500">{total.toLocaleString()} incidents</span>
+          <span className="text-xs text-slate-600 dark:text-slate-500">{total.toLocaleString()} incidents</span>
           <button
             onClick={() => setRefreshKey((k) => k + 1)}
             className="p-1 rounded hover:bg-slate-200 dark:hover:bg-slate-700"
           >
-            <RefreshCw className={`w-4 h-4 text-slate-400 ${loading ? 'animate-spin' : ''}`} />
+            <RefreshCw className={`w-4 h-4 text-slate-500 dark:text-slate-400 ${loading ? 'animate-spin' : ''}`} />
           </button>
         </div>
       </div>
 
-      {error && <div className="text-center py-8 text-red-400">{error}</div>}
+      {error && <div className="text-center py-8 text-red-600 dark:text-red-400">{error}</div>}
 
       {/* Main content: incidents feed + sidebar */}
       <div className="flex flex-col lg:flex-row gap-6">
         {/* Incidents feed */}
         <div className="flex-1 min-w-0 space-y-3">
           {incidents.length === 0 && !loading && (
-            <div className="text-center py-12 text-slate-500">
+            <div className="text-center py-12 text-slate-600 dark:text-slate-500">
               <Shield className="w-12 h-12 mx-auto mb-3 opacity-30" />
               <p>No incidents found. The ingestion pipeline runs hourly.</p>
               <p className="text-xs mt-2">Try broadening your filters or waiting for the next scan.</p>
             </div>
           )}
+          <AiSummaryCard
+            surface="CyberPulse"
+            items={incidents.slice(0, 30).map((inc) => ({
+              title: inc.title,
+              body: `${inc.title}${inc.description ? `\n${inc.description}` : ''}`,
+              source: inc.source_handle ?? inc.source_platform,
+            }))}
+            requireAdmin={false}
+          />
           {incidents.map((inc) => (
-            <IncidentCard key={inc.id} incident={inc} />
+            <IncidentCard key={inc.id} incident={inc} postSummary={postSummaries.get(inc.id)} />
           ))}
           {hasMore && (
             <div className="text-center py-4">
@@ -339,7 +363,7 @@ export default function CyberPulse(): JSX.Element {
                       setHasMore(d.has_more);
                     });
                 }}
-                className="text-sm text-blue-400 hover:text-blue-300"
+                className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
               >
                 Load more...
               </button>
@@ -360,7 +384,7 @@ export default function CyberPulse(): JSX.Element {
                   <button
                     key={t.incident_type}
                     onClick={() => setTypeFilter(typeFilter === t.incident_type ? '' : t.incident_type)}
-                    className={`w-full flex items-center justify-between px-2 py-1.5 rounded text-xs transition-colors ${typeFilter === t.incident_type ? 'bg-blue-500/20 text-blue-400' : 'hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400'}`}
+                    className={`w-full flex items-center justify-between px-2 py-1.5 rounded text-xs transition-colors ${typeFilter === t.incident_type ? 'bg-blue-500/20 text-blue-600 dark:text-blue-400' : 'hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-400'}`}
                   >
                     <span className="flex items-center gap-1.5">
                       <span
@@ -368,7 +392,7 @@ export default function CyberPulse(): JSX.Element {
                       />
                       {TYPE_LABELS[t.incident_type] ?? t.incident_type}
                     </span>
-                    <span className="font-mono">{t.count}</span>
+                    <span className="font-mono text-slate-900 dark:text-white">{t.count}</span>
                   </button>
                 ))}
               </div>
@@ -386,12 +410,12 @@ export default function CyberPulse(): JSX.Element {
                   <button
                     key={a.name}
                     onClick={() => setTypeFilter('')}
-                    className="w-full flex items-center justify-between px-2 py-1 rounded text-xs hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400"
+                    className="w-full flex items-center justify-between px-2 py-1 rounded text-xs hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-400"
                   >
                     <span className="truncate">{a.name}</span>
                     <span className="flex items-center gap-1 font-mono">
-                      <span className="text-white">{a.this_week}</span>
-                      <span className="text-green-400">+{a.delta}</span>
+                      <span className="text-slate-900 dark:text-white">{a.this_week}</span>
+                      <span className="text-green-600 dark:text-green-400">+{a.delta}</span>
                     </span>
                   </button>
                 ))}
@@ -409,10 +433,10 @@ export default function CyberPulse(): JSX.Element {
                 {stats.top_victims.map((v) => (
                   <div
                     key={v.victim_name}
-                    className="flex items-center justify-between px-2 py-1 text-xs text-slate-600 dark:text-slate-400"
+                    className="flex items-center justify-between px-2 py-1 text-xs text-slate-700 dark:text-slate-400"
                   >
                     <span className="truncate">{v.victim_name}</span>
-                    <span className="font-mono text-white">{v.count}</span>
+                    <span className="font-mono text-slate-900 dark:text-white">{v.count}</span>
                   </div>
                 ))}
               </div>
@@ -436,7 +460,9 @@ export default function CyberPulse(): JSX.Element {
                       title={`${d.day}: ${d.count}`}
                     >
                       <div className="w-full bg-blue-500/40 rounded-t" style={{ height: barPx }} />
-                      <span className="text-[9px] text-slate-500 font-mono leading-none mt-0.5">{d.day.slice(5)}</span>
+                      <span className="text-[9px] text-slate-600 dark:text-slate-500 font-mono leading-none mt-0.5">
+                        {d.day.slice(5)}
+                      </span>
                     </div>
                   );
                 })}
@@ -453,7 +479,9 @@ function StatCard({ label, value, color }: { label: string; value: number; color
   return (
     <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3 text-center">
       <div className={`text-xl font-bold ${color}`}>{formatNumber(value)}</div>
-      <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mt-0.5">{label}</div>
+      <div className="text-[10px] font-mono uppercase tracking-wider text-slate-600 dark:text-slate-500 mt-0.5">
+        {label}
+      </div>
     </div>
   );
 }
@@ -474,7 +502,7 @@ function FilterSelect({
     <div className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className={`flex items-center gap-1 px-2 py-1 text-xs rounded border ${value ? 'border-blue-500/50 text-blue-400 bg-blue-500/10' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400'}`}
+        className={`flex items-center gap-1 px-2 py-1 text-xs rounded border ${value ? 'border-blue-500/50 text-blue-600 dark:text-blue-400 bg-blue-500/10' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-400'}`}
       >
         {value ? (options[value] ?? value) : placeholder}
         <ChevronDown className="w-3 h-3" />
@@ -488,7 +516,7 @@ function FilterSelect({
                 onChange('');
                 setOpen(false);
               }}
-              className="block w-full text-left px-3 py-1.5 text-xs hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-500"
+              className="block w-full text-left px-3 py-1.5 text-xs hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-500"
             >
               All
             </button>
@@ -499,7 +527,7 @@ function FilterSelect({
                   onChange(k);
                   setOpen(false);
                 }}
-                className={`block w-full text-left px-3 py-1.5 text-xs hover:bg-slate-100 dark:hover:bg-slate-700 ${value === k ? 'text-blue-400 font-semibold' : 'text-slate-700 dark:text-slate-300'}`}
+                className={`block w-full text-left px-3 py-1.5 text-xs hover:bg-slate-100 dark:hover:bg-slate-700 ${value === k ? 'text-blue-600 dark:text-blue-400 font-semibold' : 'text-slate-700 dark:text-slate-300'}`}
               >
                 {v}
               </button>
@@ -511,7 +539,7 @@ function FilterSelect({
   );
 }
 
-function IncidentCard({ incident: inc }: { incident: Incident }) {
+function IncidentCard({ incident: inc, postSummary }: { incident: Incident; postSummary?: string }) {
   const Icon = TYPE_ICONS[inc.incident_type] ?? Shield;
   const tags: string[] = (() => {
     try {
@@ -523,32 +551,33 @@ function IncidentCard({ incident: inc }: { incident: Incident }) {
 
   return (
     <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 hover:border-slate-300 dark:hover:border-[rgb(var(--border-500))] transition-colors">
+      <PostSummary text={postSummary} />
       <div className="flex items-start gap-3">
         <div
-          className={`mt-0.5 p-1.5 rounded ${TYPE_COLORS[inc.incident_type]?.split(' ').slice(0, 2).join(' ') ?? 'bg-slate-500/10 text-slate-400'}`}
+          className={`mt-0.5 p-1.5 rounded ${TYPE_COLORS[inc.incident_type]?.split(' ').slice(0, 2).join(' ') ?? 'bg-slate-500/10 text-slate-600 dark:text-slate-400'}`}
         >
           <Icon className="w-4 h-4" />
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap mb-1">
             <span
-              className={`px-1.5 py-0.5 text-[10px] font-semibold uppercase rounded border ${SEVERITY_COLORS[inc.severity] ?? 'bg-slate-500/20 text-slate-400 border-slate-500/30'}`}
+              className={`px-1.5 py-0.5 text-[10px] font-semibold uppercase rounded border ${SEVERITY_COLORS[inc.severity] ?? 'bg-slate-500/20 text-slate-600 dark:text-slate-400 border-slate-500/30'}`}
             >
               {inc.severity}
             </span>
             <span
-              className={`px-1.5 py-0.5 text-[10px] font-medium uppercase rounded border ${TYPE_COLORS[inc.incident_type]?.split(' ').slice(0, 2).join(' ') ?? 'bg-slate-500/10 text-slate-400 border-slate-500/20'}`}
+              className={`px-1.5 py-0.5 text-[10px] font-medium uppercase rounded border ${TYPE_COLORS[inc.incident_type]?.split(' ').slice(0, 2).join(' ') ?? 'bg-slate-500/10 text-slate-600 dark:text-slate-400 border-slate-500/20'}`}
             >
               {TYPE_LABELS[inc.incident_type] ?? inc.incident_type}
             </span>
-            <span className="text-[10px] text-slate-500 font-mono">
+            <span className="text-[10px] text-slate-600 dark:text-slate-500 font-mono">
               {PLATFORM_LABELS[inc.source_platform] ?? inc.source_platform}
             </span>
           </div>
 
-          <p className="text-sm text-slate-200 dark:text-slate-200 leading-snug mb-1.5 line-clamp-2">{inc.title}</p>
+          <p className="text-sm text-slate-800 dark:text-slate-200 leading-snug mb-1.5 line-clamp-2">{inc.title}</p>
 
-          <div className="flex items-center gap-3 text-xs text-slate-500 flex-wrap">
+          <div className="flex items-center gap-3 text-xs text-slate-600 dark:text-slate-500 flex-wrap">
             {inc.victim_name && (
               <span className="flex items-center gap-1">
                 <Building2 className="w-3 h-3" />
@@ -556,32 +585,38 @@ function IncidentCard({ incident: inc }: { incident: Incident }) {
               </span>
             )}
             {inc.threat_actor && (
-              <span className="flex items-center gap-1 text-red-400">
+              <span className="flex items-center gap-1 text-red-600 dark:text-red-400">
                 <Skull className="w-3 h-3" />
                 {inc.threat_actor}
               </span>
             )}
-            {inc.victim_sector && <span className="text-slate-500">{inc.victim_sector}</span>}
-            {inc.records_count && <span className="font-mono">{formatNumber(inc.records_count)} records</span>}
-            {inc.data_volume && <span className="font-mono">{inc.data_volume}</span>}
+            {inc.victim_sector && <span className="text-slate-600 dark:text-slate-500">{inc.victim_sector}</span>}
+            {inc.records_count && (
+              <span className="font-mono text-slate-700 dark:text-slate-500">
+                {formatNumber(inc.records_count)} records
+              </span>
+            )}
+            {inc.data_volume && <span className="font-mono text-slate-700 dark:text-slate-500">{inc.data_volume}</span>}
           </div>
 
           <div className="flex items-center gap-2 mt-2 flex-wrap">
             {tags.slice(0, 5).map((tag) => (
               <span
                 key={tag}
-                className="px-1.5 py-0.5 text-[10px] rounded bg-slate-100 dark:bg-slate-800 text-slate-500"
+                className="px-1.5 py-0.5 text-[10px] rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-500"
               >
                 {tag}
               </span>
             ))}
-            <span className="text-[10px] text-slate-600 ml-auto">{relativeTime(inc.discovered_at)}</span>
+            <span className="text-[10px] text-slate-600 dark:text-slate-600 ml-auto">
+              {relativeTime(inc.discovered_at)}
+            </span>
             {inc.source_url && (
               <a
                 href={inc.source_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-400 hover:text-blue-300"
+                className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
               >
                 <ExternalLink className="w-3 h-3" />
               </a>
