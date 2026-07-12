@@ -38,11 +38,22 @@ import type { Env } from '../env';
 export interface CyberPulsePrefetch {
   telegramItems?: TelegramFeedItem[];
   socialItems?: XFeedItem[];
+  /** True when the cron already called fetchXFeed() — even if items is empty,
+   *  CyberPulse should NOT re-fetch (the subrequest budget is already spent). */
+  socialFetched?: boolean;
   redditItems?: RedditFeedItem[];
+  /** True when the cron already called fetchRedditFeed() — same contract. */
+  redditFetched?: boolean;
   /** Pre-fetched x-claims breach/ransomware data, threaded in by the cron
    *  to avoid the race between the pre-warm's deferred cache write and
    *  CyberPulse's synchronous cache read. */
   xClaimsBreach?: Array<{ text: string; source_url: string; handle: string; discovered: string }>;
+  /** Pre-fetched X account posts (from gp:warm queue). When provided, the
+   *  cron skips all GraphQL fetches for X accounts and uses these directly. */
+  xAccountPosts?: RawPost[];
+  /** Pre-fetched X search posts (from gp:warm queue). When provided, the
+   *  cron skips all GraphQL searches and uses these directly. */
+  xSearchPosts?: RawPost[];
 }
 
 // ─── Types ─────────────────────────────────────────────────────────────────
@@ -466,7 +477,7 @@ function classifyIncident(
 
 // ─── Source-specific fetchers ───────────────────────────────────────────────
 
-interface RawPost {
+export interface RawPost {
   text: string;
   url: string;
   platform: Platform;
@@ -498,15 +509,20 @@ const CLAIM_HANDLES_LOWER = new Set([
 ]);
 
 /** Fetch recent posts from X accounts. Tries auth first, falls back to anonymous. */
-async function fetchXAccountPosts(
+export async function fetchXAccountPosts(
   env: Env,
   handles: string[],
   sinceDays: number = 1,
-  prefetchedClaims?: CyberPulsePrefetch['xClaimsBreach']
+  prefetchedClaims?: CyberPulsePrefetch['xClaimsBreach'],
+  prefetchedPosts?: RawPost[]
 ): Promise<RawPost[]> {
+  // When prefetched posts are provided (from gp:warm queue), return them
+  // directly — the queue consumer already burned the subrequest budget.
+  if (prefetchedPosts) return prefetchedPosts;
+
   const posts: RawPost[] = [];
 
-  // ── 1. Use pre-fetched x-claims breach data (threaded from cron) ─────
+  // ── 1. Use pre-fetched x-claims breach data (threaded from cron) ───────
   // Avoids the race between the pre-warm's waitUntil cache write and
   // CyberPulse's synchronous cache read. Falls back to cache read if no
   // prefetched data is available.
@@ -554,10 +570,16 @@ async function fetchXAccountPosts(
   } catch (e) {
     authed = false;
     if (e instanceof XAuthMissingError) {
-      console.warn('X auth not configured — falling back to anonymous GraphQL (limited results)');
+      console.warn('X auth not configured — skipping direct X account fetches (claims data only)');
     } else {
-      console.warn(`X auth error: ${e instanceof Error ? e.message : e} — falling back to anonymous`);
+      console.warn(`X auth error: ${e instanceof Error ? e.message : e} — skipping direct X account fetches`);
     }
+    // Without auth, anonymous GraphQL returns curated "best of" timelines
+    // (not chronological) and is heavily rate-limited. The 20+ subrequests
+    // needed for all direct handles would exhaust the free-plan budget,
+    // starving Telegram/Bluesky/Reddit sources. Skip entirely — the claims
+    // data above already covers the key CTI handles.
+    return posts;
   }
 
   for (const handle of directHandles) {
@@ -612,7 +634,15 @@ async function fetchXAccountPosts(
 }
 
 /** Search X for breach/leak keywords via authenticated GraphQL. */
-async function fetchXSearchPosts(env: Env, queries: string[], count: number = 20): Promise<RawPost[]> {
+export async function fetchXSearchPosts(
+  env: Env,
+  queries: string[],
+  count: number = 20,
+  prefetchedPosts?: RawPost[]
+): Promise<RawPost[]> {
+  // When prefetched posts are provided (from gp:warm queue), skip GraphQL.
+  if (prefetchedPosts) return prefetchedPosts;
+
   const posts: RawPost[] = [];
   let authed = true;
   try {
@@ -854,10 +884,12 @@ async function fetchTelegramBreachFeed(kv?: KVNamespace, items?: TelegramFeedIte
   }
 }
 
-/** Fetch Bluesky/Mastodon social feed. Reuses `items` when supplied. */
-async function fetchSocialBreachFeed(items?: XFeedItem[]): Promise<RawPost[]> {
+/** Fetch Bluesky/Mastodon social feed. Reuses `items` when supplied.
+ *  When `fetched` is true (cron already called fetchXFeed), accepts even
+ *  an empty array — re-fetching would waste subrequest budget. */
+async function fetchSocialBreachFeed(items?: XFeedItem[], fetched?: boolean): Promise<RawPost[]> {
   try {
-    const feedItems = items && items.length > 0 ? items : (await fetchXFeed()).items;
+    const feedItems = items && items.length > 0 ? items : fetched ? (items ?? []) : (await fetchXFeed()).items;
     if (feedItems.length === 0) {
       console.warn('fetchSocialBreachFeed: 0 items from feed — all sources returned empty');
     }
@@ -885,10 +917,12 @@ function redditItemToRawPost(item: RedditFeedItem): RawPost {
   };
 }
 
-/** Fetch Reddit breach/leak feed. Reuses `items` when supplied. */
-async function fetchRedditBreachFeed(items?: RedditFeedItem[]): Promise<RawPost[]> {
+/** Fetch Reddit breach/leak feed. Reuses `items` when supplied.
+ *  When `fetched` is true (cron already called fetchRedditFeed), accepts even
+ *  an empty array — re-fetching would waste subrequest budget. */
+async function fetchRedditBreachFeed(items?: RedditFeedItem[], fetched?: boolean): Promise<RawPost[]> {
   try {
-    const feedItems = items ?? (await fetchRedditFeed()).items;
+    const feedItems = items && items.length > 0 ? items : fetched ? (items ?? []) : (await fetchRedditFeed()).items;
     return feedItems.map(redditItemToRawPost);
   } catch {
     return [];
@@ -897,7 +931,7 @@ async function fetchRedditBreachFeed(items?: RedditFeedItem[]): Promise<RawPost[
 
 // ─── Main ingestion pipeline ────────────────────────────────────────────────
 
-const X_ACCOUNTS = [
+export const X_ACCOUNTS = [
   'FalconFeedsIO',
   'RansomLook',
   'BleepingComputer',
@@ -934,7 +968,7 @@ const X_ACCOUNTS = [
   'spchainattack',
 ];
 
-const X_SEARCH_QUERIES = [
+export const X_SEARCH_QUERIES = [
   '"data breach" (confirmed OR leaked OR exposed)',
   '"ransomware" (claim OR victim OR leak)',
   '"leaked data" OR "data dump" OR "database leak"',
@@ -957,7 +991,7 @@ export async function runCyberPulseIngestion(
   // ── 1. X account monitoring ──────────────────────────────────────────
   const xStart = Date.now();
   try {
-    const xPosts = await fetchXAccountPosts(env, X_ACCOUNTS, 1, prefetched.xClaimsBreach);
+    const xPosts = await fetchXAccountPosts(env, X_ACCOUNTS, 1, prefetched.xClaimsBreach, prefetched.xAccountPosts);
     let created = 0;
     let deduped = 0;
     const incidents: CyberPulseIncident[] = [];
@@ -1048,7 +1082,7 @@ export async function runCyberPulseIngestion(
   // ── 2. X keyword search ──────────────────────────────────────────────
   const xSearchStart = Date.now();
   try {
-    const xSearchPosts = await fetchXSearchPosts(env, X_SEARCH_QUERIES, 15);
+    const xSearchPosts = await fetchXSearchPosts(env, X_SEARCH_QUERIES, 15, prefetched.xSearchPosts);
     let created = 0;
     let deduped = 0;
     const incidents: CyberPulseIncident[] = [];
@@ -1228,7 +1262,7 @@ export async function runCyberPulseIngestion(
   // ── 4. Bluesky + Mastodon social feed ─────────────────────────────────
   const socialStart = Date.now();
   try {
-    const socialPosts = await fetchSocialBreachFeed(prefetched.socialItems);
+    const socialPosts = await fetchSocialBreachFeed(prefetched.socialItems, prefetched.socialFetched);
     let created = 0;
     let deduped = 0;
     const incidents: CyberPulseIncident[] = [];
@@ -1318,7 +1352,7 @@ export async function runCyberPulseIngestion(
   // ── 5. Reddit social feed ─────────────────────────────────────────────
   const redditStart = Date.now();
   try {
-    const redditPosts = await fetchRedditBreachFeed(prefetched.redditItems);
+    const redditPosts = await fetchRedditBreachFeed(prefetched.redditItems, prefetched.redditFetched);
     let created = 0;
     let deduped = 0;
     const incidents: CyberPulseIncident[] = [];

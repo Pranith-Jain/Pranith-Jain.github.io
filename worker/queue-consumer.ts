@@ -18,6 +18,12 @@ import { writeSlice, type FeedQueueMessage } from '../api/src/lib/live-iocs-slic
 import { gpWarmKey } from '../api/src/routes/global-pulse';
 import { concurrentMap } from '../api/src/lib/concurrent-map';
 import { signInternalToken } from '../api/src/lib/internal-token';
+import {
+  fetchXAccountPosts,
+  fetchXSearchPosts,
+  X_ACCOUNTS,
+  X_SEARCH_QUERIES,
+} from '../api/src/routes/cyberpulse-ingest';
 
 // `gp:warm:<key>` slice TTL — 8h, matching the prior single-blob warmer. Outlives
 // the hourly rotation so a feed whose refresh fails keeps its last-good value.
@@ -83,6 +89,51 @@ export async function handleQueue(
             console.log(JSON.stringify({ job: 'gp-warm-slice', key: gp.key, ok: true, bytes: body.length }));
           } else {
             console.warn(JSON.stringify({ job: 'gp-warm-slice', key: gp.key, status: res.status }));
+          }
+          msg.ack();
+          return;
+        }
+
+        // ── CyberPulse source warm (cp:warm:<type>) ──────────────────────
+        // Each source type gets its own consumer invocation → its own
+        // 50-subrequest budget. The fetcher is called IN-PROCESS (no HTTP
+        // self-fetch). Result is written to `cp:warm:<type>` KV with a TTL
+        // that outlives the hourly cron window. The hourly cron reads from
+        // KV and passes the data as prefetched to runCyberPulseIngestion.
+        const CP_WARM_TTL_SECONDS = 8 * 60 * 60;
+        const cp = msg.body?.cp;
+        if (cp && typeof cp.type === 'string') {
+          try {
+            let posts: unknown[] = [];
+            if (cp.type === 'x_accounts') {
+              posts = await fetchXAccountPosts(env as unknown as ApiEnv, X_ACCOUNTS, 1);
+            } else if (cp.type === 'x_search') {
+              posts = await fetchXSearchPosts(env as unknown as ApiEnv, X_SEARCH_QUERIES, 15);
+            } else {
+              console.warn(JSON.stringify({ job: 'cp-warm-slice', type: cp.type, status: 'unknown_type' }));
+              msg.ack();
+              return;
+            }
+            await kv.put(`cp:warm:${cp.type}`, JSON.stringify(posts), {
+              expirationTtl: CP_WARM_TTL_SECONDS,
+            });
+            console.log(
+              JSON.stringify({
+                job: 'cp-warm-slice',
+                type: cp.type,
+                ok: true,
+                posts: posts.length,
+              })
+            );
+          } catch (e) {
+            console.error(
+              JSON.stringify({
+                job: 'cp-warm-slice',
+                type: cp.type,
+                status: 'failed',
+                error: e instanceof Error ? e.message : String(e),
+              })
+            );
           }
           msg.ack();
           return;

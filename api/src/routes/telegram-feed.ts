@@ -24,7 +24,9 @@ const CUSTOM_CHANNELS_KV_KEY = 'tg:custom-channels:v1';
  */
 
 const FETCH_TIMEOUT_MS = 12_000;
-const CACHE_TTL = 30 * 60; // 30 minutes
+const CACHE_TTL = 75 * 60; // 75 min — over the hourly cron interval so every-other
+// tick avoids re-fetching all 34+ Telegram channels and preserves subrequest
+// budget for x-claims, x-feed, and reddit feed pre-warps in the same cron.
 const CONCURRENCY = 8;
 /** Per-channel cap. Channel HTML preview surfaces ~20 messages — keep the
  *  full preview window. Combined with the 7d cutoff below, this lifts the

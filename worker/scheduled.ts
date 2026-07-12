@@ -8,7 +8,7 @@ import {
   expectedWeeklySlug,
   isoDate,
 } from '../api/src/lib/briefing-builder';
-import { buildLandscapeReport, writeLandscapeReport, expectedLandscapeSlug } from '../api/src/lib/landscape-builder';
+
 import {
   runDiscoveryNow,
   runPlannerNow,
@@ -23,7 +23,7 @@ import {
   scrapeWatchedChannels,
   cleanupLeakEntries,
 } from '../api/src/routes/telegram-leak-monitor';
-import { fetchTelegramFeed } from '../api/src/routes/telegram-feed';
+import { fetchTelegramFeed, getTelegramFeedCacheKey, type TelegramFeedResponse } from '../api/src/routes/telegram-feed';
 import { fetchXFeed } from '../api/src/routes/x-feed';
 import { refreshVictimReleaksCache } from '../api/src/routes/victim-releaks';
 import { warmIntelBundles } from '../api/src/lib/intel-bundle-warm';
@@ -210,7 +210,20 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           let telegramFeed: Awaited<ReturnType<typeof fetchTelegramFeed>> | undefined;
           try {
             if (env.BRIEFINGS_DB) {
-              telegramFeed = await fetchTelegramFeed(env.KV_CACHE);
+              // Try Cache-API first (primed by previous route hits or gp:warm)
+              const tgCacheKey = await getTelegramFeedCacheKey(env as unknown as ApiEnv);
+              const tgCached = await caches.default.match(tgCacheKey);
+              if (tgCached) {
+                telegramFeed = (await tgCached.json()) as TelegramFeedResponse;
+              } else {
+                // Fallback to gp:warm KV slice (written by queue consumer)
+                const kvWarm = (
+                  env.KV_CACHE ? await env.KV_CACHE.get('gp:warm:telegram', 'json') : null
+                ) as TelegramFeedResponse | null;
+                if (kvWarm?.items?.length) {
+                  telegramFeed = kvWarm;
+                }
+              }
               if (telegramFeed?.items?.length) {
                 const result = await runTelegramLeakScanner(env.BRIEFINGS_DB, telegramFeed.items);
                 if (result.leaks_found > 0 || result.channels_discovered > 0) {
@@ -286,21 +299,77 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           // ── CyberPulse: breach/leak incident ingestion from social media firehose
           // Runs after Telegram scan (shared burst window) but before cache-warm.
           // Monitors X accounts + keyword search for breaches/leaks/cybercrime.
+          // X accounts and X search data are warmed by the */15 * * * * cron via
+          // the queue consumer into `cp:warm:*` KV keys — reads from there instead
+          // of doing GraphQL direct fetches, preserving the 50-subrequest budget
+          // for the rest of the hourly pipeline.
           try {
             if (env.BRIEFINGS_DB) {
-              // Reuse the Telegram feed already fetched above (t.me throttles a
-              // second burst in the same tick). Fetch the Bluesky/Mastodon feed
-              // once here and thread it in too, so ingestion issues no duplicate
-              // feed requests of its own.
-              const socialFeed = await fetchXFeed().catch(() => undefined);
-              const redditFeed = await fetchRedditFeed(
-                env as unknown as { ASSETS: import('@cloudflare/workers-types').Fetcher }
-              ).catch(() => undefined);
+              // Read X accounts and X search from KV (warmed by queue consumer).
+              // Fail open: if the KV key is stale or missing, runCyberPulseIngestion
+              // falls back to its own GraphQL fetches.
+              let xAccountPosts: unknown[] | undefined;
+              let xSearchPosts: unknown[] | undefined;
+              if (env.KV_CACHE) {
+                try {
+                  const raw = await env.KV_CACHE.get('cp:warm:x_accounts', 'json');
+                  if (Array.isArray(raw)) xAccountPosts = raw as unknown[];
+                } catch {
+                  /* fail open — CyberPulse falls back to direct GraphQL */
+                }
+                try {
+                  const raw = await env.KV_CACHE.get('cp:warm:x_search', 'json');
+                  if (Array.isArray(raw)) xSearchPosts = raw as unknown[];
+                } catch {
+                  /* fail open */
+                }
+              }
+              // Read social and reddit from gp:warm KV slices (warmed by gp queue).
+              let socialItems: unknown[] | undefined;
+              let redditItems: unknown[] | undefined;
+              if (env.KV_CACHE) {
+                try {
+                  const raw = await env.KV_CACHE.get('gp:warm:x', 'json');
+                  if (raw && typeof raw === 'object' && 'items' in (raw as Record<string, unknown>)) {
+                    socialItems = (raw as { items: unknown[] }).items;
+                  }
+                } catch {
+                  /* fail open — fallback to direct fetch */
+                }
+                if (!socialItems) {
+                  try {
+                    const sf = await fetchXFeed().catch(() => undefined);
+                    socialItems = sf?.items as unknown[] | undefined;
+                  } catch {
+                    /* fail open */
+                  }
+                }
+                try {
+                  const raw = await env.KV_CACHE.get('gp:warm:reddit', 'json');
+                  if (raw && typeof raw === 'object' && 'items' in (raw as Record<string, unknown>)) {
+                    redditItems = (raw as { items: unknown[] }).items;
+                  }
+                } catch {
+                  /* fail open */
+                }
+                if (!redditItems) {
+                  try {
+                    const rf = await fetchRedditFeed(
+                      env as unknown as { ASSETS: import('@cloudflare/workers-types').Fetcher }
+                    ).catch(() => undefined);
+                    redditItems = rf?.items as unknown[] | undefined;
+                  } catch {
+                    /* fail open */
+                  }
+                }
+              }
               const cpResults = await runCyberPulseIngestion(env, env.BRIEFINGS_DB, {
                 telegramItems: telegramFeed?.items,
-                socialItems: socialFeed?.items,
-                redditItems: redditFeed?.items,
+                socialItems: socialItems as undefined,
+                redditItems: redditItems as undefined,
                 xClaimsBreach,
+                xAccountPosts: xAccountPosts as any,
+                xSearchPosts: xSearchPosts as any,
               });
               const totalCreated = cpResults.reduce((s, r) => s + r.incidents_created, 0);
               const totalDeduped = cpResults.reduce((s, r) => s + r.incidents_deduped, 0);
@@ -1039,8 +1108,44 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
       });
     });
 
-  // === Dedicated briefings cron path ===
-  if (cron !== '30 0 * * *' && cron !== '45 0 * * 1' && cron !== '30 2 1 * *') {
+  // ── CyberPulse source warm (every 15 min) ──────────────────────────────
+  // Enqueues queue messages for each CP source that needs its own
+  // 50-subrequest budget. The queue consumer fetches each source
+  // independently and writes to `cp:warm:<type>` KV. The hourly cron
+  // reads from KV and passes data as prefetched to runCyberPulseIngestion.
+  if (cron === '*/15 * * * *') {
+    const queue = env.FEEDS_QUEUE;
+    if (!queue) {
+      console.warn(JSON.stringify({ job: 'cp-warm-enqueue', status: 'no_queue' }));
+      await releaseLease();
+      return;
+    }
+    ctx.waitUntil(
+      (async () => {
+        try {
+          await queue.sendBatch([
+            { body: { cp: { type: 'x_accounts' } }, delaySeconds: 0 },
+            { body: { cp: { type: 'x_search' } }, delaySeconds: 2 },
+          ]);
+          console.log(JSON.stringify({ job: 'cp-warm-enqueue', sources: ['x_accounts', 'x_search'], ok: true }));
+        } catch (e) {
+          console.error(
+            JSON.stringify({
+              job: 'cp-warm-enqueue',
+              status: 'failed',
+              error: e instanceof Error ? e.message : String(e),
+            })
+          );
+        }
+        logCronDone({ path: 'cp-warm' });
+      })()
+        .catch(logCronFail('cp-warm'))
+        .finally(releaseLease)
+    );
+    return;
+  }
+
+  if (cron !== '30 0 * * *' && cron !== '45 0 * * 1') {
     // Unknown cron string — release the lease immediately so a stale entry
     // doesn't block a future (legitimate) fire of the same string for the
     // full TTL window.
@@ -1050,52 +1155,6 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
   if (!env.BRIEFINGS_DB) {
     console.warn(JSON.stringify({ job: 'briefing-build', status: 'skipped', reason: 'BRIEFINGS_DB not bound' }));
     await releaseLease();
-    return;
-  }
-
-  // Monthly threat landscape report — fires 1st of the month at 02:30 UTC.
-  // Now registered in wrangler.jsonc (free plan allows 5 triggers; landscape sync piggybacks on 30 0 * * *).
-  // Landscape reports can also be built on-demand via
-  // POST /api/v1/briefings/build?type=landscape (admin token).
-  // Reuses the briefings table with type='landscape'. Idempotent: a row
-  // for the current month (if already written) is left in place.
-  if (cron === '30 2 1 * *') {
-    const db = env.BRIEFINGS_DB as D1Database;
-    const landscapeHrt = setInterval(() => {
-      if (lease.token) heartbeatCronLease(env, cron, lease.token, CRON_LEASE_TTL_MS).catch(() => {});
-    }, 5 * 60_000);
-    ctx.waitUntil(
-      (async () => {
-        const slug = expectedLandscapeSlug();
-        try {
-          const report = await buildLandscapeReport(new Date(), { env: env as unknown as ApiEnv });
-          const result = await writeLandscapeReport(db, report);
-          console.log(
-            JSON.stringify({
-              job: 'landscape-build',
-              written: result.written,
-              slug,
-              reason: result.reason ?? 'n/a',
-              victims: report.stats.ransomware_victims,
-              groups: report.stats.top_groups,
-            })
-          );
-        } catch (err) {
-          console.error(
-            JSON.stringify({
-              job: 'landscape-build',
-              status: 'failed',
-              error: err instanceof Error ? err.message : String(err),
-            })
-          );
-        } finally {
-          clearInterval(landscapeHrt);
-        }
-        logCronDone({ path: 'briefing-dedicated', type: 'landscape' });
-      })()
-        .catch(logCronFail('landscape-dedicated'))
-        .finally(releaseLease)
-    );
     return;
   }
 

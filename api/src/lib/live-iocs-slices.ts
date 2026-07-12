@@ -44,6 +44,11 @@ import type { LiveIoc, LiveSource, FeedResult } from '../routes/live-iocs';
 export interface FeedQueueMessage {
   sourceId?: string;
   gp?: { key: string; path: string };
+  /** CyberPulse source warm message. Each source type gets its own consumer
+   *  invocation → its own 50-subrequest budget. The consumer fetches the source
+   *  and writes to `cp:warm:<type>` KV key; the cron reads from KV and passes
+   *  into runCyberPulseIngestion as prefetched data. */
+  cp?: { type: 'x_accounts' | 'x_search' };
 }
 
 export const SLICE_KEY_PREFIX = 'live-iocs:slice:';

@@ -28,8 +28,8 @@ interface TrendCandidate {
   trendingSignal: number;
 }
 
-const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
-const GROQ_MODEL = 'qwen/qwen3.6-27b';
+const GOOGLE_BASE = 'https://generativelanguage.googleapis.com/v1beta/models';
+const GOOGLE_MODEL = 'gemini-2.5-flash';
 
 const CATEGORY_POOLS = [
   ['ransomware-evolution', 'supply-chain-attacks', 'mobile-threats'],
@@ -301,36 +301,37 @@ function buildStoredSources(realSources: string[], statuses: Record<string, Link
   return out;
 }
 
-async function callGroq(key: string, prompt: string, userMsg: string): Promise<string> {
-  const res = await fetch(GROQ_URL, {
+async function callGoogle(key: string, prompt: string, userMsg: string): Promise<string> {
+  const res = await fetch(`${GOOGLE_BASE}/${GOOGLE_MODEL}:generateContent?key=${key}`, {
     method: 'POST',
-    headers: { Authorization: `Bearer ${key}`, 'content-type': 'application/json' },
+    headers: { 'content-type': 'application/json' },
     body: JSON.stringify({
-      model: GROQ_MODEL,
-      messages: [
-        { role: 'system', content: prompt },
-        { role: 'user', content: userMsg },
-      ],
-      max_completion_tokens: 4000,
-      temperature: 0.9,
+      system_instruction: { parts: [{ text: prompt }] },
+      contents: [{ role: 'user', parts: [{ text: userMsg }] }],
+      generationConfig: {
+        maxOutputTokens: 4000,
+        temperature: 0.9,
+      },
     }),
     signal: AbortSignal.timeout(30_000),
   });
   if (!res.ok) {
     const body = await res.text().catch(() => '');
-    throw new Error(`groq HTTP ${res.status}: ${body.slice(0, 200)}`);
+    throw new Error(`google HTTP ${res.status}: ${body.slice(0, 200)}`);
   }
-  const j = (await res.json()) as { choices?: Array<{ message?: { content?: string } }> };
-  const text = j?.choices?.[0]?.message?.content;
-  if (typeof text !== 'string' || !text.trim()) throw new Error('groq empty response');
+  const j = (await res.json()) as {
+    candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }>;
+  };
+  const text = j?.candidates?.[0]?.content?.parts?.[0]?.text;
+  if (typeof text !== 'string' || !text.trim()) throw new Error('google empty response');
   return text;
 }
 
 export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Candidate[]> {
-  const { groqKey, now, getDedup, trendingContext, alreadyCoveredTopics } = deps;
+  const { googleKey, now, getDedup, trendingContext, alreadyCoveredTopics } = deps;
 
-  if (!groqKey) {
-    console.warn('discoverAgenticTrends: GROQ_API_KEY not set, skipping');
+  if (!googleKey) {
+    console.warn('discoverAgenticTrends: GOOGLE_AI_STUDIO_API_KEY not set, skipping');
     return [];
   }
 
@@ -362,7 +363,7 @@ export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Ca
       .replace('{TRENDING_CONTEXT}', trendingSnippet);
     const userMsg = `Generate 3 unique cybersecurity story ideas for ${now.toISOString().slice(0, 10)} that are COMPLETELY different from these recently-covered topics: ${coveredList.slice(0, 500)}. Each must target a different audience and angle.`;
 
-    const text = await callGroq(groqKey, prompt, userMsg);
+    const text = await callGoogle(googleKey, prompt, userMsg);
     console.log(JSON.stringify({ runner: 'agentic-trends', rawLength: text.length, preview: text.slice(0, 200) }));
 
     const trends = parseTrendResponse(text);

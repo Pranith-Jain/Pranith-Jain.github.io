@@ -152,4 +152,5 @@ export const ALLOWED_INTERNAL_CALLERS = new Set([
   'cron',
   'api-enrich-deep',
   'tie-enrich',
+  'queue-consumer',
 ]);

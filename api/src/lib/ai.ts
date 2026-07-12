@@ -13,7 +13,7 @@ interface AiInput {
 }
 
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
-const GROQ_MODEL = 'qwen/qwen3.6-27b';
+const GROQ_MODEL = 'openai/gpt-oss-120b';
 
 async function callGoogleModel(
   key: string,

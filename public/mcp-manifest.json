@@ -2,7 +2,7 @@
   "$schema": "https://modelcontextprotocol.io/schemas/manifest/v1.json",
   "name": "DFIR-ThreatIntel-MCP",
   "version": "1.0.0",
-  "description": "DFIR + Threat Intel MCP server. 172 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
+  "description": "DFIR + Threat Intel MCP server. 189 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
   "transport": "streamable-http",
   "endpoint": "https://pranithjain.qzz.io/api/mcp",
   "auth": {
@@ -16,8 +16,8 @@
       "listChanged": false
     }
   },
-  "toolCount": 172,
-  "generatedAt": "2026-07-10T06:46:49.619Z",
+  "toolCount": 189,
+  "generatedAt": "2026-07-12T05:58:38.153Z",
   "tools": [
     {
       "name": "analyze_phishing_email",
@@ -90,6 +90,11 @@
       "category": "other"
     },
     {
+      "name": "dehash_lookup",
+      "description": "Look up a cryptographic hash (md5/sha1/sha256/sha384/sha512) against Dehash.lt to find its plaintext value. Useful for cracking password hashes or identifying known hash values. No API key required.",
+      "category": "other"
+    },
+    {
       "name": "email_check_registration",
       "description": "Check which platforms an email address is registered on using site-specific APIs (not just HTTP status codes). Returns rich profile metadata when available. Inspired by kaifcodec/user-scanner (MIT, 2.4k stars). Checks 20+ platforms: GitHub, GitLab, Instagram, TikTok, Etsy, Spotify, Steam, and more.",
       "category": "other"
@@ -148,6 +153,26 @@
       "name": "extract_ttps",
       "description": "Extract MITRE ATT&CK techniques from a free-text threat report. Returns technique IDs, tactic labels, confidence (high/medium/low), and the supporting evidence string. Combines a deterministic keyword scanner with an LLM pass and merges the results.",
       "category": "analysis"
+    },
+    {
+      "name": "fbi_wanted_list",
+      "description": "List current FBI wanted persons with pagination. No API key required.",
+      "category": "other"
+    },
+    {
+      "name": "fbi_wanted_search",
+      "description": "Search the FBI Wanted database for wanted persons by name. Returns titles, descriptions, reward amounts, and field offices. No API key required.",
+      "category": "other"
+    },
+    {
+      "name": "fullhunt_domain",
+      "description": "Discover attack surface for a domain via FullHunt: open ports, technologies, subdomains, ASN, cloud provider, and WHOIS data. Requires FULLHUNT_API_KEY secret (free at fullhunt.io).",
+      "category": "other"
+    },
+    {
+      "name": "fullhunt_subdomains",
+      "description": "Enumerate subdomains for a domain via FullHunt. Returns discovered subdomain names. Requires FULLHUNT_API_KEY secret.",
+      "category": "other"
     },
     {
       "name": "generate_yara_rule",
@@ -280,6 +305,16 @@
       "category": "hudson"
     },
     {
+      "name": "interpol_notice_detail",
+      "description": "Get details of a specific INTERPOL Red Notice by entity ID. Returns full charge info, arrest warrant details, and physical description. No API key required.",
+      "category": "other"
+    },
+    {
+      "name": "interpol_search",
+      "description": "Search INTERPOL Red Notices for wanted persons by name, forename, or nationality. Returns entity IDs, charges, and issuing countries. No API key required.",
+      "category": "other"
+    },
+    {
       "name": "ioc_watchlist_add",
       "description": "Add an IOC to the watchlist for proactive alerting. Supported types: ip, domain, url, hash, cve, email. Alerts fire when the IOC appears in feeds.",
       "category": "ioc"
@@ -335,6 +370,11 @@
       "category": "other"
     },
     {
+      "name": "mozilla_tls_scan",
+      "description": "Scan a domain's TLS/SSL configuration using the Mozilla TLS Observatory. Returns grade (A+ through F), protocols, cipher suites, and detected vulnerabilities. No API key required.",
+      "category": "other"
+    },
+    {
       "name": "notebook_add_entry",
       "description": "Add a note, IOC, finding, timeline event, or artifact to a notebook.",
       "category": "notebook"
@@ -367,6 +407,21 @@
     {
       "name": "onion_lookup",
       "description": "Look up metadata for a .onion address via the CIRCL AIL Project. Returns first/last seen dates, status, tags, PGP keys, certificates, open ports, page title, and associated Bitcoin addresses. No API key required.",
+      "category": "other"
+    },
+    {
+      "name": "opensanctions_entity",
+      "description": "Get detailed entity information from OpenSanctions by ID. Returns full properties, associated datasets, topics, and schema. Use after opensanctions_search to explore a specific match.",
+      "category": "other"
+    },
+    {
+      "name": "opensanctions_search",
+      "description": "Search OpenSanctions for entities (individuals, companies, vessels) flagged in sanctions lists, PEP (politically exposed persons) databases, and crime watchlists. No API key required — public rate-limited API.",
+      "category": "other"
+    },
+    {
+      "name": "opensanctions_stats",
+      "description": "Get OpenSanctions dataset statistics: total entities, datasets, countries covered, and schema counts. No API key required.",
       "category": "other"
     },
     {
@@ -685,6 +740,11 @@
       "category": "other"
     },
     {
+      "name": "ti_export_stix",
+      "description": "Export IOC family indicators as a STIX 2.1 bundle. Reads the IOC family body from the threat-intel manifest, converts each indicator to a STIX indicator object with pattern, and wraps in a bundle with TLP marking. Importable into OpenCTI, MISP, or any TAXII 2.1 consumer.",
+      "category": "other"
+    },
+    {
       "name": "ti_get_cve",
       "description": "Return the full CVE body with CVSS vector, CWE IDs, references, and (where populated) BSI description and LLM summary/recommended action. Use ti_list_cves first to discover CVE IDs.",
       "category": "other"
@@ -707,6 +767,26 @@
     {
       "name": "ti_list_kev",
       "description": "Return the full CISA Known Exploited Vulnerabilities (KEV) snapshot — actively exploited CVEs with required actions and due dates. Each entry includes vendor, product, short description, required action, and due date.",
+      "category": "other"
+    },
+    {
+      "name": "ti_search_malwarebazaar",
+      "description": "Search MalwareBazaar (abuse.ch) for malware samples by tag or signature. Returns SHA-256, MD5, file name, type, malware family signature, tags, and timestamps. Tries tag search first, falls back to signature. Free API — no key required.",
+      "category": "other"
+    },
+    {
+      "name": "ti_search_otx",
+      "description": "Search AlienVault OTX for threat pulses matching a query. Returns pulse metadata (name, tags, TLP, malware families, MITRE ATT&CK IDs) and indicators for the top 5 pulses. Requires OTX_API_KEY (free at otx.alienvault.com).",
+      "category": "other"
+    },
+    {
+      "name": "ti_search_ransomware_live",
+      "description": "Search ransomware.live for ransomware group profiles. Returns group description, .onion leak-site URLs, recent victims (with country/sector), MITRE ATT&CK TTPs, and known tools. Free public API — no key required.",
+      "category": "other"
+    },
+    {
+      "name": "ti_search_threatfox",
+      "description": "Search ThreatFox (abuse.ch) for IOCs matching a search term. Returns IOC type, value, malware family, confidence, timestamps, and reporter. Free API — no key required. Useful for looking up specific IPs, domains, URLs, or hashes against ThreatCrowd's crowdsourced IOC database.",
       "category": "other"
     },
     {
@@ -788,6 +868,11 @@
       "name": "validate_yara_rule",
       "description": "Validate a YARA rule syntax. Checks for balanced braces, required sections, and proper string definitions.",
       "category": "detection"
+    },
+    {
+      "name": "virushee_check",
+      "description": "Check a file hash (MD5/SHA1/SHA256) against the Virushee multi-engine AV database. Returns detection ratio and per-engine results. No API key required.",
+      "category": "other"
     },
     {
       "name": "watch_domain_ct",
