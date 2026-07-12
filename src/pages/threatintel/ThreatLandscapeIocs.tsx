@@ -3,7 +3,6 @@ import { Shield, Download, Search, RefreshCw } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { DataState } from '../../components/DataState';
 import { PageMeta } from '../../components/PageMeta';
-import type { AsyncState } from '../../components/AsyncState';
 
 interface ActionableIoc {
   ioc_value: string;
@@ -27,7 +26,7 @@ const IOC_LABELS: Record<string, string> = {
 
 export default function ThreatLandscapeIocs(): JSX.Element {
   const [data, setData] = useState<ActionableIoc[] | null>(null);
-  const [state, setState] = useState<AsyncState>('idle');
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [iocType, setIocType] = useState<string>('');
   const [limit, setLimit] = useState('50');
@@ -35,7 +34,7 @@ export default function ThreatLandscapeIocs(): JSX.Element {
   const [activeTab, setActiveTab] = useState<'all' | 'type'>('all');
 
   const fetchData = useCallback(async () => {
-    setState('loading');
+    setLoading(true);
     setError(null);
     try {
       const params = new URLSearchParams();
@@ -56,10 +55,10 @@ export default function ThreatLandscapeIocs(): JSX.Element {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const json = (await res.json()) as ActionableIoc[];
       setData(json);
-      setState(json.length === 0 ? 'empty' : 'success');
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Unknown error');
-      setState('error');
+    } finally {
+      setLoading(false);
     }
   }, [iocType, limit, order, activeTab]);
 
@@ -197,7 +196,13 @@ export default function ThreatLandscapeIocs(): JSX.Element {
         )}
 
         {/* Results */}
-        <DataState state={state} error={error} onRetry={fetchData} emptyMessage="No IOCs match these filters.">
+        <DataState
+          loading={loading}
+          error={error}
+          empty={data?.length === 0}
+          onRetry={fetchData}
+          emptyLabel="No IOCs match these filters."
+        >
           {data && (
             <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
               <table className="w-full text-xs">

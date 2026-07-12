@@ -20,6 +20,7 @@
 
 import type { D1Database } from '@cloudflare/workers-types';
 import { extract } from '../../api/src/lib/extract';
+import { EMPTY_LLM_ENTITIES } from '../../api/src/lib/extract-llm';
 import { buildStixBundle, type Tlp } from '../../api/src/lib/stix-build';
 import type { Env } from '../../api/src/env';
 

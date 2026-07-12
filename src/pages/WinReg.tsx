@@ -59,7 +59,7 @@ const HIVE_COLORS: Record<string, string> = {
 
 function hiveColor(hive: string): string {
   const key = hive.toUpperCase().replace('.DAT', '').replace('.HVE', '');
-  return HIVE_COLORS[key] ?? HIVE_COLORS.ALL;
+  return HIVE_COLORS[key] ?? HIVE_COLORS.ALL!;
 }
 
 function hiveLabel(hive: string): string {

@@ -4397,7 +4397,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
           ),
       },
       async ({ query }) => {
-        const { translateQuery } = await import('../../api/src/lib/agent/stix-translator');
+        const { translateQuery } = await import('../api/src/lib/agent/stix-translator');
         const result = translateQuery(query);
         return untrustedToolResult(result);
       }

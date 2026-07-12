@@ -2,7 +2,7 @@
   "$schema": "https://modelcontextprotocol.io/schemas/manifest/v1.json",
   "name": "DFIR-ThreatIntel-MCP",
   "version": "1.0.0",
-  "description": "DFIR + Threat Intel MCP server. 189 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
+  "description": "DFIR + Threat Intel MCP server. 194 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
   "transport": "streamable-http",
   "endpoint": "https://pranithjain.qzz.io/api/mcp",
   "auth": {
@@ -16,8 +16,8 @@
       "listChanged": false
     }
   },
-  "toolCount": 189,
-  "generatedAt": "2026-07-12T10:39:18.918Z",
+  "toolCount": 194,
+  "generatedAt": "2026-07-12T17:47:22.237Z",
   "tools": [
     {
       "name": "analyze_phishing_email",
@@ -515,6 +515,16 @@
       "category": "search"
     },
     {
+      "name": "si_copilot_ask",
+      "description": "Ask a threat intelligence question with role-aware context. Choose your analyst persona to get answers framed for your role. Roles: ciso (strategic risk), detection (TTPs/rules), ir (IOCs/triage), cti (context/attribution). Covers any threat intel question — actors, malware, campaigns, CVEs, sectors, IOCs, trends.",
+      "category": "si"
+    },
+    {
+      "name": "si_copilot_roles",
+      "description": "List the available analyst personas for the role-aware copilot. Each role frames threat intelligence differently: ciso (risk posture, strategic, executive view), detection (TTPs, detection rules, hunting), ir (IOCs, containment, triage), cti (contextual analysis, attribution, trends).",
+      "category": "si"
+    },
+    {
       "name": "si_enrich_agent",
       "description": "Enrich a single IOC (IP/hash/domain/URL) using the Threat Intel Enrichment Agent. Runs a multi-step autonomous investigation across 30+ providers (VirusTotal, AbuseIPDB, Shodan, PhantomCandle, Malpedia, etc.), extracts MITRE ATT&CK TTPs, and returns a structured threat assessment with per-provider diagnostics. For deep analysis, set 'deep: true' to run the full multi-step chain with report generation (takes 10-30s).",
       "category": "si"
@@ -702,6 +712,21 @@
     {
       "name": "soc_cve_report",
       "description": "Generate a SOC CVE intelligence report. Takes a list of up to 50 CVE IDs and bundles CVE lookup + PoC scan + health check into a downloadable CSV or Markdown report. Returns executive summary, CVSS/EPSS/KEV details, PoC repos, and pipeline health.",
+      "category": "other"
+    },
+    {
+      "name": "stix_query_bundles",
+      "description": "Query the STIX 2.1 intelligence bundle store with PostgREST-style filters. Returns threat intelligence bundles matching your criteria. Use stix_translate first to convert natural language to structured filter parameters. Supports filters: source_type (eq.osint/eq.darknet), threat_actors (cs.{APT29}), malware_names, sectors, countries_target, vulnerabilities, date ranges (stix_published_at=gte.), and more. Supports select, order, limit, offset.",
+      "category": "other"
+    },
+    {
+      "name": "stix_query_iocs",
+      "description": "Query the threat intelligence IOC store with PostgREST-style filters. Returns indicators of compromise with their type, validity period, and source bundle reference. Supports filtering by ioc_type (eq.ipv4, eq.domain, eq.hash_sha256), date ranges, and source. Also supports per-type active IOC queries via ioc_type filter. Use seq_id for incremental sync.",
+      "category": "other"
+    },
+    {
+      "name": "stix_translate",
+      "description": "Translate a natural language threat intelligence question into structured STIX 2.1 query parameters. Given plain English, returns the classified intent, extracted entities, and filter parameters to use with stix_query_bundles. Supports actors, malware, CVEs, sectors, countries, campaigns, time ranges, and strategic queries.",
       "category": "other"
     },
     {

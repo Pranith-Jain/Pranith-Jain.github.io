@@ -1,6 +1,6 @@
 # DFIR-ThreatIntel MCP - tool catalog
 
-**189 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
+**194 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
 
 ## Quick start
 
@@ -14,7 +14,7 @@
 
 ## Tools by category
 
-### other (93)
+### other (96)
 
 - `btc_abuse_check` - Check a Bitcoin address for abuse/scam reports on ChainAbuse. Returns report count, categories (phishing, ransomware, scam, etc.), descriptions, and associated scam types. Useful for tracing illicit crypto transactions.
 - `campaigns_get` - Return the full details of a single threat campaign entry by slug, including writeup links, TTPs, targets, and geography. Use campaigns_list first to discover slugs.
@@ -61,6 +61,9 @@
 - `reports_stats` - Return cache + manifest stats for the Reports & Reading Library: total entries, categories, and index cache status.
 - `reverse_image_search` - Generate reverse image search URLs across 8+ engines (Google Lens, Yandex, TinEye, Bing, Baidu, SauceNAO, IQDB, KarmaDecay). Validates image reachability and returns categorized deep links for manual investigation.
 - `soc_cve_report` - Generate a SOC CVE intelligence report. Takes a list of up to 50 CVE IDs and bundles CVE lookup + PoC scan + health check into a downloadable CSV or Markdown report. Returns executive summary, CVSS/EPSS/KEV details, PoC repos, and pipeline health.
+- `stix_query_bundles` - Query the STIX 2.1 intelligence bundle store with PostgREST-style filters. Returns threat intelligence bundles matching your criteria. Use stix_translate first to convert natural language to structured filter parameters. Supports filters: source_type (eq.osint/eq.darknet), threat_actors (cs.{APT29}), malware_names, sectors, countries_target, vulnerabilities, date ranges (stix_published_at=gte.), and more. Supports select, order, limit, offset.
+- `stix_query_iocs` - Query the threat intelligence IOC store with PostgREST-style filters. Returns indicators of compromise with their type, validity period, and source bundle reference. Supports filtering by ioc_type (eq.ipv4, eq.domain, eq.hash_sha256), date ranges, and source. Also supports per-type active IOC queries via ioc_type filter. Use seq_id for incremental sync.
+- `stix_translate` - Translate a natural language threat intelligence question into structured STIX 2.1 query parameters. Given plain English, returns the classified intent, extracted entities, and filter parameters to use with stix_query_bundles. Supports actors, malware, CVEs, sectors, countries, campaigns, time ranges, and strategic queries.
 - `tg_boolean_search` - Search Telegram leak messages with boolean AND/OR/NOT operators and field qualifiers. Fields: text, channel.title, channel.username, severity, leak_type. Supports wildcards (prefix*) and exact phrases ("quoted").
 - `tg_saved_search_create` - Save a Telegram boolean search query for one-click reuse.
 - `tg_saved_search_delete` - Delete a saved Telegram search query.
@@ -110,8 +113,10 @@
 - `ws_workflow_advance` - Advance a workspace to the next AEAD phase (Acquire→Enrich→Assess→Deliver→Complete).
 - `ws_workflow_summary` - Get workspace summary: phase progress, findings breakdown, recommended commands.
 
-### si (37)
+### si (39)
 
+- `si_copilot_ask` - Ask a threat intelligence question with role-aware context. Choose your analyst persona to get answers framed for your role. Roles: ciso (strategic risk), detection (TTPs/rules), ir (IOCs/triage), cti (context/attribution). Covers any threat intel question — actors, malware, campaigns, CVEs, sectors, IOCs, trends.
+- `si_copilot_roles` - List the available analyst personas for the role-aware copilot. Each role frames threat intelligence differently: ciso (risk posture, strategic, executive view), detection (TTPs, detection rules, hunting), ir (IOCs, containment, triage), cti (contextual analysis, attribution, trends).
 - `si_enrich_agent` - Enrich a single IOC (IP/hash/domain/URL) using the Threat Intel Enrichment Agent. Runs a multi-step autonomous investigation across 30+ providers (VirusTotal, AbuseIPDB, Shodan, PhantomCandle, Malpedia, etc.), extracts MITRE ATT&CK TTPs, and returns a structured threat assessment with per-provider diagnostics. For deep analysis, set 'deep: true' to run the full multi-step chain with report generation (takes 10-30s).
 - `si_enrich_ip` - Enrich a single IPv4/IPv6 address using the platform's IPinfo / AbuseIPDB / Shodan / Shodan-InternetDB / VPNAPI providers. Returns the same shape as upstream security-investigator/enrich_ips.py. Use si_enrich_ip_batch for up to 25 IPs in one call.
 - `si_enrich_ip_batch` - Enrich up to 25 IP addresses in one call. Returns an array of the same shape as si_enrich_ip. Order is preserved. IPs that fail validation are returned with a single "validator:failed" diagnostic and empty enrichment fields.

@@ -3,7 +3,6 @@ import { Search, Filter, Download, Database, ChevronDown, ChevronUp } from 'luci
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { DataState } from '../../components/DataState';
 import { PageMeta } from '../../components/PageMeta';
-import type { AsyncState } from '../../components/AsyncState';
 
 interface StixBundle {
   bundle_id: string;
@@ -43,7 +42,7 @@ const COLUMNS = [
 
 export default function ThreatLandscapeStix(): JSX.Element {
   const [data, setData] = useState<StixBundle[] | null>(null);
-  const [state, setState] = useState<AsyncState>('idle');
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [select, setSelect] = useState(
     'bundle_id,source_type,title,threat_actors,malware_names,sectors,stix_published_at'
@@ -67,7 +66,7 @@ export default function ThreatLandscapeStix(): JSX.Element {
   }, [select, limit, order, filters]);
 
   const fetchData = useCallback(async () => {
-    setState('loading');
+    setLoading(true);
     setError(null);
     try {
       const qs = buildQueryString();
@@ -80,10 +79,10 @@ export default function ThreatLandscapeStix(): JSX.Element {
       }
       const json = (await res.json()) as StixBundle[];
       setData(json);
-      setState(json.length === 0 ? 'empty' : 'success');
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Unknown error');
-      setState('error');
+    } finally {
+      setLoading(false);
     }
   }, [buildQueryString]);
 
@@ -234,7 +233,13 @@ export default function ThreatLandscapeStix(): JSX.Element {
         </div>
 
         {/* Results */}
-        <DataState state={state} error={error} onRetry={fetchData} emptyMessage="No bundles match these filters.">
+        <DataState
+          loading={loading}
+          error={error}
+          empty={data?.length === 0}
+          onRetry={fetchData}
+          emptyLabel="No bundles match these filters."
+        >
           {data && (
             <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
               <table className="w-full text-xs">
