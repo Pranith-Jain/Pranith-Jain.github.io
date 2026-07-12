@@ -489,7 +489,13 @@ const parseBotvrijUrls = (text: string, cap: number): ParsedEntry[] =>
 const tweetfeedSource: FeedSource = {
   id: 'tweetfeed',
   run: async () => {
-    const tweetfeedText = await fetchText('https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/today.csv');
+    let tweetfeedText = await fetchText('https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/today.csv');
+    // Fall back to week.csv when today.csv is empty so the feed never shows
+    // "0 sources" on quiet days (observed: today.csv is 0 bytes when no IOCs
+    // are posted in the current UTC day, but week.csv has 7 days of data).
+    if (!tweetfeedText) {
+      tweetfeedText = await fetchText('https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/week.csv');
+    }
     const items: LiveIoc[] = [];
     if (!tweetfeedText) return { items, sources: [{ id: 'tweetfeed', ok: false, count: 0 }] };
     const parsed = parseTweetFeed(tweetfeedText, PER_FEED_CAP);
