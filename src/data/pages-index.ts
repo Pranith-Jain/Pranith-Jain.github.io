@@ -3131,13 +3131,6 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     group: 'threatintel',
   },
   {
-    path: '/threatintel/org-settings',
-    label: 'Organization Settings',
-    description: 'Manage organizations, teams, and member invitations.',
-    sectionLabel: 'Threat Intel · Monitoring',
-    group: 'threatintel',
-  },
-  {
     path: '/threatintel/scam-watch',
     label: 'Scam Watch (alias)',
     description: 'Alias for the Social Hub scam view.',
