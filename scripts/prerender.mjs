@@ -185,6 +185,8 @@ const ROUTES = [
   '/threatintel/tools/directory',
   '/threatintel/tools/settings',
   '/threatintel/tools/stix',
+  '/threatintel/tools/stix-bundles',
+  '/threatintel/tools/actionable-iocs',
   '/threatintel/tools/unified-search',
   '/threatintel/tools/watches',
   '/threatintel/tools/workspaces',
