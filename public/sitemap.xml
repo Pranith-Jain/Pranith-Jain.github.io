@@ -1096,7 +1096,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  <!-- Threat Intel — pages (258) -->
+  <!-- Threat Intel — pages (253) -->
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/catalog</loc>
     <lastmod>2026-07-13</lastmod>
@@ -1189,24 +1189,6 @@
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/cves/cves</loc>
-    <lastmod>2026-07-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://pranithjain.qzz.io/threatintel/cves/exploitable</loc>
-    <lastmod>2026-07-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://pranithjain.qzz.io/threatintel/cves/k8s</loc>
-    <lastmod>2026-07-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://pranithjain.qzz.io/threatintel/cves/list</loc>
     <lastmod>2026-07-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -1805,7 +1787,6 @@
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
-
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/wiki/f3ead</loc>
     <lastmod>2026-07-13</lastmod>
@@ -2534,12 +2515,6 @@
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/ti-dashboard</loc>
-    <lastmod>2026-07-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://pranithjain.qzz.io/threatintel/knowledge-graph</loc>
     <lastmod>2026-07-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>

@@ -16,7 +16,7 @@ describe('isRateLimited', () => {
 
 describe('runCompletion — no keys', () => {
   it('throws when no keys are configured', async () => {
-    await expect(runCompletion(null, { system: 's', user: 'u' })).rejects.toThrow('All LLM providers exhausted');
+    await expect(runCompletion(null, { system: 's', user: 'u' })).rejects.toThrow('GROQ_API_KEY not set');
   });
 });
 
@@ -42,20 +42,12 @@ describe('runCompletion — Groq primary', () => {
     expect(out.modelUsed).toContain('groq:');
   });
 
-  it('falls back to NVIDIA when Groq fails', async () => {
-    const fetchMock = vi
-      .fn()
-      .mockResolvedValueOnce(new Response('nope', { status: 500 }))
-      .mockResolvedValueOnce(new Response('nope', { status: 500 }))
-      .mockResolvedValueOnce(new Response('nope', { status: 500 }))
-      .mockResolvedValueOnce(new Response('nope', { status: 500 }))
-      .mockResolvedValueOnce(
-        new Response(JSON.stringify({ choices: [{ message: { content: 'NVIDIA OK' } }] }), { status: 200 })
-      );
+  it('throws when all Groq models fail', async () => {
+    const fetchMock = vi.fn().mockResolvedValue(new Response('nope', { status: 500 }));
     vi.stubGlobal('fetch', fetchMock);
-    const out = await runCompletion(null, { system: 's', user: 'u' }, { nvidiaKey: 'nvapi-k', groqKey: 'grok-k' });
-    expect(out.text).toBe('NVIDIA OK');
-    expect(out.modelUsed).toContain('nvidia:');
+    await expect(runCompletion(null, { system: 's', user: 'u' }, { groqKey: 'k' })).rejects.toThrow(
+      'All LLM providers exhausted'
+    );
   });
 
   it('throws when all providers fail', async () => {

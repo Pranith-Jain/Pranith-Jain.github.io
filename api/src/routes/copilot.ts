@@ -981,6 +981,40 @@ export async function callNvidia(env: Env, system: string, user: string): Promis
   throw new Error('NVIDIA models unavailable');
 }
 
+function extractWorkersAiText(res: Record<string, unknown>): string | undefined {
+  if (typeof res.response === 'string' && res.response.trim()) return res.response;
+  if (typeof res.text === 'string' && res.text.trim()) return res.text;
+  const choices = res.choices as Array<Record<string, unknown>> | undefined;
+  if (choices?.[0]) {
+    const msg = choices[0].message as Record<string, unknown> | undefined;
+    if (typeof msg?.content === 'string' && (msg.content as string).trim()) return msg.content as string;
+    if (typeof choices[0].text === 'string') return choices[0].text as string;
+  }
+  return undefined;
+}
+
+function buildAiInput(
+  model: string,
+  system: string,
+  user: string,
+  maxTokens: number,
+  temperature: number
+): Record<string, unknown> {
+  // Models using the newer instructions+input format (Responses API)
+  if (model.startsWith('@cf/openai/')) {
+    return { instructions: system, input: user, max_tokens: maxTokens, temperature };
+  }
+  // All other models use the messages format
+  return {
+    messages: [
+      { role: 'system', content: system },
+      { role: 'user', content: user },
+    ],
+    max_tokens: maxTokens,
+    temperature,
+  };
+}
+
 export async function callWorkersAi(env: Env, system: string, user: string): Promise<string> {
   const models = [
     '@cf/openai/gpt-oss-120b',
@@ -992,16 +1026,10 @@ export async function callWorkersAi(env: Env, system: string, user: string): Pro
     try {
       const res = (await env.AI.run(
         model as Parameters<typeof env.AI.run>[0],
-        {
-          messages: [
-            { role: 'system', content: system },
-            { role: 'user', content: user },
-          ],
-          max_tokens: 4000,
-          temperature: 0.3,
-        } as Parameters<typeof env.AI.run>[1]
-      )) as { response?: string };
-      if (res.response) return res.response;
+        buildAiInput(model, system, user, 4000, 0.3) as Parameters<typeof env.AI.run>[1]
+      )) as Record<string, unknown>;
+      const text = extractWorkersAiText(res);
+      if (text) return text;
     } catch {
       continue;
     }
@@ -1012,30 +1040,39 @@ export async function callWorkersAi(env: Env, system: string, user: string): Pro
 export async function callGroq(env: Env, system: string, user: string): Promise<string> {
   const key = env.GROQ_API_KEY;
   if (!key) throw new Error('GROQ_API_KEY not set');
-  const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${key}`,
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify({
-      model: 'openai/gpt-oss-120b',
-      messages: [
-        { role: 'system', content: system },
-        { role: 'user', content: user },
-      ],
-      max_completion_tokens: 4000,
-      temperature: 0.3,
-      reasoning_effort: 'medium',
-    }),
-    signal: AbortSignal.timeout(18000),
-  });
-  if (!res.ok) {
-    const err = await res.json<{ error?: string }>().catch(() => ({ error: `HTTP ${res.status}` }));
-    throw new Error(err.error ?? `Groq API error: ${res.status}`);
+  const models = ['openai/gpt-oss-120b', 'llama-3.3-70b-versatile', 'llama-3.1-8b-instant'];
+  for (const model of models) {
+    try {
+      const isReasoning = model === 'openai/gpt-oss-120b';
+      const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${key}`,
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          model,
+          messages: [
+            { role: 'system', content: system },
+            { role: 'user', content: user },
+          ],
+          ...(isReasoning ? { max_completion_tokens: 4000, reasoning_effort: 'medium' } : { max_tokens: 4000 }),
+          temperature: 0.3,
+        }),
+        signal: AbortSignal.timeout(18000),
+      });
+      if (!res.ok) {
+        const errBody = await res.text().catch(() => '');
+        throw new Error(`Groq ${model}: HTTP ${res.status}${errBody ? ` ${errBody.slice(0, 200)}` : ''}`);
+      }
+      const data = await res.json<{ choices?: Array<{ message?: { content?: string } }> }>();
+      const text = data?.choices?.[0]?.message?.content;
+      if (text) return text;
+    } catch {
+      continue;
+    }
   }
-  const data = await res.json<{ choices?: Array<{ message?: { content?: string } }> }>();
-  return data?.choices?.[0]?.message?.content ?? 'No response.';
+  throw new Error('All Groq models failed');
 }
 
 export async function copilotInvestigateHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
@@ -1106,24 +1143,11 @@ export async function copilotInvestigateHandler(c: Context<{ Bindings: Env }>): 
       let narrative: string;
       let modelUsed: string;
 
-      // Race all LLM providers in parallel — first to succeed wins.
-      // Falls back to Workers AI (always available, no key) if all external fail.
-      const results = await Promise.allSettled([
-        callGroq(c.env, system, user).then((r) => ({ text: r, model: 'groq:openai/gpt-oss-120b' })),
-        callNvidia(c.env, system, user).then((r) => ({ text: r, model: 'nvidia:minimaxai/minimax-m2.7' })),
-      ]);
-      const winner = results.find((r) => r.status === 'fulfilled');
-      if (winner && winner.status === 'fulfilled') {
-        narrative = winner.value.text;
-        modelUsed = winner.value.model;
-      } else {
-        // All external providers failed — use Workers AI (no API key needed)
-        try {
-          narrative = await callWorkersAi(c.env, system, user);
-          modelUsed = '@cf/meta/llama-3.3-70b-instruct-fp8-fast';
-        } catch (e) {
-          throw new Error(`All LLM providers failed: ${e instanceof Error ? e.message : 'unknown'}`);
-        }
+      try {
+        narrative = await callGroq(c.env, system, user);
+        modelUsed = 'groq:openai/gpt-oss-120b';
+      } catch (e) {
+        throw new Error(`All LLM providers failed: ${e instanceof Error ? e.message : 'unknown'}`);
       }
 
       // ── Post-process validation: ground claims, strip fabrications ────

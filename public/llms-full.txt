@@ -208,9 +208,6 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [CVE Intel](https://pranithjain.qzz.io/threatintel/cves/cves) (threatintel): Unified CVE intelligence — NVD + KEV + EPSS + exploit availability.
 - [GitHub Advisories](https://pranithjain.qzz.io/threatintel/cves/advisories) (threatintel): GitHub security advisories with affected versions and patches.
 - [CVE Resources](https://pranithjain.qzz.io/threatintel/cves/resources) (threatintel): CVE resource catalogs — patch priority, exploit DB, vendor bulletins.
-- [Exploitable CVEs](https://pranithjain.qzz.io/threatintel/cves/exploitable) (threatintel): Curated list of exploitable CVEs with PoC/exploit availability, EPSS, and KEV status.
-- [Kubernetes CVEs](https://pranithjain.qzz.io/threatintel/cves/k8s) (threatintel): Kubernetes and container-specific CVEs — kubelet, API server, etcd, and CNI vulnerabilities.
-- [CVE List](https://pranithjain.qzz.io/threatintel/cves/list) (threatintel): Full CVE list with search, filter, and export capabilities.
 - [Malware IOCs](https://pranithjain.qzz.io/threatintel/malware/iocs) (threatintel): Malware IOC feeds across 50+ families.
 - [Malware Vault](https://pranithjain.qzz.io/threatintel/malware/vault) (threatintel): Malware sample vault with hashes and metadata.
 - [Malware Sandbox](https://pranithjain.qzz.io/threatintel/malware/sandbox) (threatintel): Hash lookup across 10+ sandbox platforms — consensus verdict.
@@ -316,7 +313,6 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Unified Search](https://pranithjain.qzz.io/threatintel/tools/unified-search) (threatintel): Cross-source search across the entire platform.
 - [Integrations & Settings](https://pranithjain.qzz.io/threatintel/tools/settings) (threatintel): What integrations are wired in and what capability each one unlocks for the platform.
 - [Security Tools Directory](https://pranithjain.qzz.io/threatintel/tools/directory) (threatintel): Curated catalog of 53 security tools organized by category.
-- [Knowledge Graph](https://pranithjain.qzz.io/threatintel/knowledge-graph) (threatintel): Interactive knowledge graph of entities — actors, malware, campaigns, IOCs, and their relationships.
 - [External Resources](https://pranithjain.qzz.io/threatintel/external/external) (threatintel): Off-site cross-references — dashboards, OSINT directories, training labs.
 - [Supply Chain Intel](https://pranithjain.qzz.io/threatintel/external/supply) (threatintel): Supply chain intelligence — SolarWinds, 3CX, MOVEit, XZ Utils.
 - [Awesome Lists](https://pranithjain.qzz.io/threatintel/external/awesome) (threatintel): Curated awesome-security list — vetted, ranked, kept current.

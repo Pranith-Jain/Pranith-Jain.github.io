@@ -290,10 +290,10 @@ export async function agentDebugLlmHandler(c: Context<{ Bindings: Env }>): Promi
     try {
       const ai = env.AI as { run: (m: string, i: Record<string, unknown>) => Promise<Record<string, unknown>> };
       for (const model of [
-        '@cf/openai/gpt-oss-120b',
         '@cf/qwen/qwen3-30b-a3b-fp8',
         '@cf/moonshotai/kimi-k2.6',
         '@cf/meta/llama-3.3-70b-instruct-fp8-fast',
+        '@cf/openai/gpt-oss-120b',
       ]) {
         try {
           const res = await ai.run(model, {
@@ -304,7 +304,17 @@ export async function agentDebugLlmHandler(c: Context<{ Bindings: Env }>): Promi
             max_tokens: 10,
             temperature: 0,
           });
-          const text = (res?.response ?? res?.text ?? '') as string;
+          const text =
+            (typeof res?.response === 'string' ? res.response : undefined) ??
+            (typeof res?.text === 'string' ? res.text : undefined) ??
+            (() => {
+              const choices = res?.choices as Array<Record<string, unknown>> | undefined;
+              if (choices?.[0]) {
+                const msg = choices[0].message as Record<string, unknown> | undefined;
+                if (typeof msg?.content === 'string') return msg.content;
+              }
+              return undefined;
+            })();
           if (typeof text === 'string' && text.trim()) {
             results.providers = {
               ...(results.providers as Record<string, unknown>),
