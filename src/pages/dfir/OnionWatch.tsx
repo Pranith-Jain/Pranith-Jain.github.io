@@ -298,9 +298,16 @@ export default function OnionWatch(): JSX.Element {
       </section>
 
       {error && (
-        <p className="text-sm font-mono text-rose-600 dark:text-rose-400 mb-4">
-          Could not load .onion mirrors: {error}
-        </p>
+        <div className="flex items-center gap-3 mb-4">
+          <p className="text-sm font-mono text-rose-600 dark:text-rose-400">Could not load .onion mirrors: {error}</p>
+          <button
+            type="button"
+            onClick={() => void load(false)}
+            className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-mono rounded-xl border border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:bg-rose-500/20 transition-colors"
+          >
+            <RefreshCw size={11} /> retry
+          </button>
+        </div>
       )}
 
       {loading && !data && (

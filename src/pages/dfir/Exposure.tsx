@@ -4,6 +4,7 @@ import { Radar } from 'lucide-react';
 import type { ExposureScanResponse } from '../../lib/dfir/types';
 import { SubdomainTree } from '../../components/dfir/SubdomainTree';
 import { recordHistory } from '../../lib/dfir/history';
+import { BackLink } from '../../components/BackLink';
 import { RelatedActors } from '../../components/dfir/RelatedActors';
 
 const DOMAIN_RE = /^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/;
@@ -51,6 +52,7 @@ export default function Exposure(): JSX.Element {
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+      <BackLink to="/dfir">back</BackLink>
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Exposure Scanner</h1>
         <p className="text-muted mb-8 max-w-2xl">

@@ -16,6 +16,7 @@ import {
   ChevronDown,
   ChevronUp,
 } from 'lucide-react';
+import { BackLink } from '../../components/BackLink';
 import { CopyButton } from '../../components/dfir/CopyButton';
 import { SEVERITY_TONE, type Severity } from '../../components/severity';
 
@@ -150,12 +151,7 @@ export default function ExposedHostView(): JSX.Element {
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 text-slate-900 dark:text-slate-100">
-      <Link
-        to="/dfir"
-        className="inline-flex items-center gap-1.5 text-xs font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 mb-6"
-      >
-        ← back to DFIR tools
-      </Link>
+      <BackLink to="/dfir">back</BackLink>
 
       <h1 className="text-3xl font-display font-semibold mb-2">Exposed Host Intelligence</h1>
       <p className="text-muted mb-6">

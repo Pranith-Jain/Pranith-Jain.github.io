@@ -447,9 +447,9 @@ export default function CtiGlobe({
       {ready && (
         <div className="absolute bottom-4 right-4 bg-[#0f1629]/80 backdrop-blur-sm rounded-xl border border-slate-700/50 px-3 py-2 pointer-events-none">
           <div className="text-micro font-mono text-slate-500 space-y-1">
-            <div>🖱️ Drag to rotate</div>
-            <div>🔍 Scroll to zoom</div>
-            <div>👆 Click point for details</div>
+            <div>Drag to rotate</div>
+            <div>Scroll to zoom</div>
+            <div>Click point for details</div>
           </div>
         </div>
       )}

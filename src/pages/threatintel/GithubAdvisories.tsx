@@ -254,7 +254,7 @@ export default function GithubAdvisories(): JSX.Element {
 
       {meta && !meta.ok && meta.meta?.error && (
         <p className="text-micro font-mono text-amber-600 dark:text-amber-400 mb-3">
-          ⚠ last sync failed: {meta.meta.error}
+          ! last sync failed: {meta.meta.error}
           {meta.meta.upstreamStatus ? ` (upstream HTTP ${meta.meta.upstreamStatus})` : ''}
         </p>
       )}

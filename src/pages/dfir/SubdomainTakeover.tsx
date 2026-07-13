@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Search, AlertTriangle, CheckCircle, ExternalLink, Loader2, Link2 } from 'lucide-react';
+import { BackLink } from '../../components/BackLink';
 import { api } from '../../lib/api-client';
 
 interface TakeoverResult {
@@ -170,6 +171,7 @@ export default function SubdomainTakeover() {
   return (
     <div className="min-h-screen [background:rgb(var(--surface-100))] text-slate-900 dark:text-slate-200">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
+        <BackLink to="/dfir">back</BackLink>
         <header className="mb-6">
           <div className="flex items-center gap-3 mb-2">
             <div className="w-2 h-6 bg-brand-500 rounded" />

@@ -88,28 +88,28 @@ const ROLES: { id: AnalystRole; label: string; icon: typeof Shield; desc: string
     label: 'CISO',
     icon: BarChart3,
     desc: 'Risk posture & strategic trends',
-    color: 'from-emerald-500 to-teal-600',
+    color: 'bg-emerald-600',
   },
   {
     id: 'detection',
     label: 'Detection',
     icon: Search,
     desc: 'TTPs, detections & rule ideas',
-    color: 'from-blue-500 to-indigo-600',
+    color: 'bg-brand-600',
   },
   {
     id: 'ir',
     label: 'Incident Response',
     icon: Target,
     desc: 'IOCs & behaviors for rapid triage',
-    color: 'from-rose-500 to-red-600',
+    color: 'bg-severity-critical',
   },
   {
     id: 'cti',
     label: 'Threat Intel',
     icon: Brain,
     desc: 'Contextual analysis & relationships',
-    color: 'from-violet-500 to-purple-600',
+    color: 'bg-brand-700',
   },
 ];
 
@@ -284,7 +284,7 @@ export default function Copilot(): JSX.Element {
       {/* ── Hero (radar-style) ──────────────────────────────────────────── */}
       <div className="mx-auto flex w-full max-w-3xl flex-col items-center gap-8">
         <div className="flex flex-col items-center gap-4 text-center">
-          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-600/10">
+          <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-brand-600/10">
             <Sparkles className="h-8 w-8 text-brand-600" />
           </div>
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Investigation Copilot</h1>
@@ -353,7 +353,7 @@ export default function Copilot(): JSX.Element {
                 aria-pressed={role === r.id}
                 className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-mono transition-all ${
                   role === r.id
-                    ? `bg-gradient-to-r ${r.color} text-white shadow-sm`
+                    ? `${r.color} text-white shadow-sm`
                     : 'bg-slate-100 text-slate-500 hover:bg-slate-200 dark:bg-slate-700 dark:text-slate-400 dark:hover:bg-slate-600'
                 }`}
               >
@@ -505,7 +505,7 @@ export default function Copilot(): JSX.Element {
                     const RIcon = activeRole.icon;
                     return (
                       <span
-                        className={`inline-flex items-center gap-1 rounded-full bg-gradient-to-r px-2 py-0.5 text-[10px] font-semibold text-white ${activeRole.color}`}
+                        className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold text-white ${activeRole.color}`}
                       >
                         <RIcon size={10} />
                         {activeRole.label}

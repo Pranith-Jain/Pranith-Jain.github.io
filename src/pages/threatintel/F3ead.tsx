@@ -65,7 +65,7 @@ const PHASES: Phase[] = [
     name: 'Find',
     short: 'Identify the threat',
     icon: MapPin,
-    accent: 'from-sky-500/20 to-sky-500/0',
+    accent: 'bg-sky-500/10',
     ringClass: 'ring-sky-400/60 dark:ring-sky-500/40',
     who: 'Intel + SOC (tipping, intel reqs, PIRs, OSINT, dark-web)',
     defenderGoal: 'Surface the actor, campaign, or activity that warrants attention.',
@@ -89,7 +89,7 @@ const PHASES: Phase[] = [
     name: 'Fix',
     short: 'Pinpoint presence in the environment',
     icon: Crosshair,
-    accent: 'from-amber-500/20 to-amber-500/0',
+    accent: 'bg-amber-500/10',
     ringClass: 'ring-amber-400/60 dark:ring-amber-500/40',
     who: 'SOC + threat hunting + IR',
     defenderGoal: 'Confirm the adversary is (or was) actually in the environment.',
@@ -113,7 +113,7 @@ const PHASES: Phase[] = [
     name: 'Finish',
     short: 'Remove / restrict the threat',
     icon: Wrench,
-    accent: 'from-rose-500/20 to-rose-500/0',
+    accent: 'bg-severity-critical/10',
     ringClass: 'ring-rose-400/60 dark:ring-rose-500/40',
     who: 'IR + SecOps + asset owners',
     defenderGoal: 'Stop the bleed, evict the actor, restore trust.',
@@ -137,7 +137,7 @@ const PHASES: Phase[] = [
     name: 'Exploit',
     short: 'Extract tradecraft & IOCs',
     icon: FlaskConical,
-    accent: 'from-rose-500/20 to-rose-500/0',
+    accent: 'bg-severity-critical/10',
     ringClass: 'ring-rose-400/60 dark:ring-rose-500/40',
     who: 'IR + DFIR + intel',
     defenderGoal: 'Pull every artifact out of the incident before the cleanup wipes it.',
@@ -161,7 +161,7 @@ const PHASES: Phase[] = [
     name: 'Analyze',
     short: 'Triage, enrich, attribute',
     icon: Brain,
-    accent: 'from-emerald-500/20 to-emerald-500/0',
+    accent: 'bg-emerald-500/10',
     ringClass: 'ring-emerald-400/60 dark:ring-emerald-500/40',
     who: 'CTI analysts + DFIR',
     defenderGoal: 'Turn artifacts into understanding -- what, who, why, so what.',
@@ -185,7 +185,7 @@ const PHASES: Phase[] = [
     name: 'Disseminate',
     short: 'Deliver intel to stakeholders',
     icon: Megaphone,
-    accent: 'from-indigo-500/20 to-indigo-500/0',
+    accent: 'bg-brand-500/10',
     ringClass: 'ring-indigo-400/60 dark:ring-indigo-500/40',
     who: 'CTI lead + comms + leadership',
     defenderGoal: 'Right intel, right audience, right format, right time.',
@@ -393,9 +393,7 @@ export default function F3ead(): JSX.Element {
                   onClick={() => setOpenPhase(openPhase === p.id ? null : p.id)}
                   className={`w-full text-left rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 ring-1 ${p.ringClass} hover:shadow-e1 transition-shadow`}
                 >
-                  <div
-                    className={`absolute inset-0 rounded-xl bg-gradient-to-br ${p.accent} pointer-events-none opacity-60`}
-                  />
+                  <div className={`absolute inset-0 rounded-xl ${p.accent} pointer-events-none opacity-60`} />
                   <div className="relative flex items-start justify-between gap-2">
                     <div className="flex items-center gap-2">
                       <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-xs font-mono text-slate-600 dark:text-slate-300">

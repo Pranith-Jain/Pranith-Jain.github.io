@@ -75,14 +75,14 @@ export default function CveIntel(): JSX.Element {
 
       <div role="tabpanel">
         <Suspense fallback={<TabLoader />}>
-          {activeTab === 'all' && <CveList />}
-          {activeTab === 'exploitable' && <ExploitableCves />}
+          {activeTab === 'all' && <CveList bare />}
+          {activeTab === 'exploitable' && <ExploitableCves bare />}
           {activeTab === 'kev' && <CisaKevCatalog bare />}
-          {activeTab === 'poc' && <PocScanner />}
+          {activeTab === 'poc' && <PocScanner bare />}
           {activeTab === 'news' && <CyberNewsFeed />}
           {activeTab === 'k8s' && <K8sCve bare />}
           {activeTab === 'cert-in' && <CertInAdvisories bare />}
-          {activeTab === 'health' && <CveHealthCheck />}
+          {activeTab === 'health' && <CveHealthCheck bare />}
         </Suspense>
       </div>
     </DataPageLayout>

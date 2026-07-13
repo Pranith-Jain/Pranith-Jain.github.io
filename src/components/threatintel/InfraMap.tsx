@@ -70,14 +70,14 @@ function MapControls({ onToggleDark }: { onToggleDark: () => void }) {
         className="bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded px-2 py-1 text-xs font-mono shadow hover:bg-slate-50 dark:hover:bg-slate-700"
         title="Reset to global view"
       >
-        🌍
+        Globe
       </button>
       <button
         onClick={onToggleDark}
         className="bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded px-2 py-1 text-xs font-mono shadow hover:bg-slate-50 dark:hover:bg-slate-700"
         title="Toggle dark map tiles"
       >
-        🗺️
+        Tiles
       </button>
     </div>
   );

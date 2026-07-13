@@ -166,14 +166,9 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/tools/directory', '/__prerendered/threatintel__tools__directory'],
   ['/threatintel/tools/unified-search', '/__prerendered/threatintel__tools__unified-search'],
   ['/threatintel/vera', '/__prerendered/threatintel__vera'],
-  ['/threatintel/agent-mesh', '/__prerendered/threatintel__agent-mesh'],
   ['/threatintel/cves/cves', '/__prerendered/threatintel__cves__cves'],
   ['/threatintel/cves/advisories', '/__prerendered/threatintel__cves__advisories'],
   ['/threatintel/cves/resources', '/__prerendered/threatintel__cves__resources'],
-  ['/threatintel/cves/k8s', '/__prerendered/threatintel__cves__k8s'],
-  ['/threatintel/cves/exploitable', '/__prerendered/threatintel__cves__exploitable'],
-  ['/threatintel/cves/list', '/__prerendered/threatintel__cves__list'],
-
   // ── DFIR: static catalogs & education ─────────────────────────
   ['/dfir/diamond', '/__prerendered/dfir__diamond'],
   ['/dfir/owasp', '/__prerendered/dfir__owasp'],
@@ -537,7 +532,6 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/threat-actor-db', '/__prerendered/threatintel__threat-actor-db'],
   ['/threatintel/cti-dashboard', '/__prerendered/threatintel__cti-dashboard'],
   ['/threatintel/ti-dashboard', '/__prerendered/threatintel__ti-dashboard'],
-  ['/threatintel/knowledge-graph', '/__prerendered/threatintel__knowledge-graph'],
   ['/dfir/copilot', '/__prerendered/dfir__copilot'],
   ['/dfir/orkl', '/__prerendered/dfir__orkl'],
   ['/dfir/wifi-investigation', '/__prerendered/dfir__wifi-investigation'],

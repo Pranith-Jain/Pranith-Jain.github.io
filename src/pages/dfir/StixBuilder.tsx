@@ -5,6 +5,7 @@ import { Badge } from '../../components/Badge';
 import { IocChip } from '../../components/dfir/IocChip';
 import { IntelCard } from '../../components/intel/IntelCard';
 import { adminAuthHeaders } from '../../lib/admin-token';
+import { BackLink } from '../../components/BackLink';
 import type { IntelBundleResponse, IntelView } from '../../hooks/useIntelBundle';
 
 /**
@@ -241,6 +242,7 @@ export default function StixBuilder(): JSX.Element {
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+      <BackLink to="/dfir">back</BackLink>
       <header className="animate-fade-in-up mb-10">
         <span className="inline-block text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3">
           DFIR · CTI / Intel

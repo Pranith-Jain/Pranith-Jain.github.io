@@ -62,13 +62,13 @@ const ECOSYSTEM_LINKS: ChainLink[] = [
 ];
 
 const CHAINS = [
-  { name: 'Infostealers', color: 'violet', icon: '🔑', tools: 'LummaC2, RedLine, Raccoon' },
-  { name: 'Ransomware', color: 'rose', icon: '🔒', tools: 'LockBit, BlackCat, Akira' },
-  { name: 'AiTM Kits', color: 'amber', icon: '🎣', tools: 'Tycoon 2FA, Evilginx' },
-  { name: 'ClickFix', color: 'emerald', icon: '📋', tools: '9 variants tracked' },
-  { name: 'Renamed RMM', color: 'sky', icon: '🖥️', tools: 'AnyDesk, ScreenConnect' },
-  { name: 'EDR Bypass', color: 'red', icon: '🛡️', tools: 'Terminator, POORTRY' },
-  { name: 'BEC / Double Extortion', color: 'orange', icon: '📧', tools: 'Internal phishing' },
+  { name: 'Infostealers', color: 'violet', tools: 'LummaC2, RedLine, Raccoon' },
+  { name: 'Ransomware', color: 'rose', tools: 'LockBit, BlackCat, Akira' },
+  { name: 'AiTM Kits', color: 'amber', tools: 'Tycoon 2FA, Evilginx' },
+  { name: 'ClickFix', color: 'emerald', tools: '9 variants tracked' },
+  { name: 'Renamed RMM', color: 'sky', tools: 'AnyDesk, ScreenConnect' },
+  { name: 'EDR Bypass', color: 'red', tools: 'Terminator, POORTRY' },
+  { name: 'BEC / Double Extortion', color: 'orange', tools: 'Internal phishing' },
 ];
 
 const TONE: Record<string, string> = {
@@ -116,7 +116,6 @@ export default function CrossChainEcosystem() {
           {CHAINS.map((chain) => (
             <div key={chain.name} className={`${CARD} p-3`}>
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-lg">{chain.icon}</span>
                 <span className="font-mono text-sm font-medium text-slate-900 dark:text-white">{chain.name}</span>
               </div>
               <p className="text-xs text-muted font-mono">{chain.tools}</p>

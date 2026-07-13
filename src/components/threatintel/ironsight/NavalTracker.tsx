@@ -24,15 +24,15 @@ const NAVY_COLORS: Record<string, string> = {
   'Saudi Navy': 'text-emerald-400',
 };
 const TYPE_ICONS: Record<string, string> = {
-  'Aircraft Carrier': '⛴',
-  Destroyer: '🛥',
-  Cruiser: '🛥',
-  Frigate: '🛥',
-  Corvette: '🚤',
-  Submarine: '🔻',
-  'Guided Missile Submarine': '🔻',
-  'Amphibious Assault Ship': '⛴',
-  'Fast Attack Craft': '🚤',
+  'Aircraft Carrier': 'CV',
+  Destroyer: 'DDG',
+  Cruiser: 'CG',
+  Frigate: 'FFG',
+  Corvette: 'FF',
+  Submarine: 'SSN',
+  'Guided Missile Submarine': 'SSBN',
+  'Amphibious Assault Ship': 'LHD',
+  'Fast Attack Craft': 'PC',
 };
 
 const SHIPS: NavalVessel[] = [
@@ -253,7 +253,7 @@ export default function NavalTracker() {
                 className="flex items-center justify-between py-1 px-2 rounded hover:bg-slate-50 dark:hover:bg-slate-800/50"
               >
                 <div className="flex items-center gap-1.5">
-                  <span className="text-xs">{TYPE_ICONS[ship.type] || '🛥'}</span>
+                  <span className="text-xs font-mono">{TYPE_ICONS[ship.type] || '--'}</span>
                   <span className="text-tool font-medium text-slate-700 dark:text-slate-200">{ship.name}</span>
                   <span className="text-mini text-slate-400 font-mono">{ship.hull}</span>
                 </div>

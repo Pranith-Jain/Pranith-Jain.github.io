@@ -38,10 +38,10 @@ const ROLE_ICONS: Record<string, typeof Shield> = {
 };
 
 const ROLE_COLORS: Record<string, string> = {
-  ciso: 'from-emerald-500 to-teal-600',
-  detection: 'from-blue-500 to-indigo-600',
-  ir: 'from-rose-500 to-red-600',
-  cti: 'from-violet-500 to-purple-600',
+  ciso: 'bg-emerald-600',
+  detection: 'bg-brand-600',
+  ir: 'bg-severity-critical',
+  cti: 'bg-brand-700',
 };
 
 interface StepEvent {
@@ -74,10 +74,10 @@ interface VeraMessage {
 }
 
 const MODE_META: Record<string, { icon: typeof MessageSquare; color: string }> = {
-  ask: { icon: MessageSquare, color: 'from-sky-500 to-blue-600' },
-  investigate: { icon: Search, color: 'from-violet-500 to-purple-600' },
-  draft: { icon: FileText, color: 'from-amber-500 to-orange-600' },
-  challenge: { icon: Crosshair, color: 'from-rose-500 to-red-600' },
+  ask: { icon: MessageSquare, color: 'bg-brand-500' },
+  investigate: { icon: Search, color: 'bg-brand-700' },
+  draft: { icon: FileText, color: 'bg-amber-600' },
+  challenge: { icon: Crosshair, color: 'bg-severity-critical' },
 };
 
 // ── Local event-source hook ─────────────────────────────────────────────
@@ -266,9 +266,7 @@ export default function VeraChat(): JSX.Element {
       <div className="mx-auto flex w-full max-w-3xl flex-col gap-6">
         {/* ── Header ─────────────────────────────────────────────────── */}
         <div className="flex flex-col items-center gap-3 text-center">
-          <div
-            className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${activeMode.color} shadow-e3 shadow-${mode === 'ask' ? 'sky' : mode === 'investigate' ? 'violet' : mode === 'draft' ? 'amber' : 'rose'}-500/20`}
-          >
+          <div className={`flex h-14 w-14 items-center justify-center rounded-lg ${activeMode.color} shadow-e3`}>
             <ModeIcon className="h-7 w-7 text-white" />
           </div>
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Vera</h1>
@@ -281,7 +279,7 @@ export default function VeraChat(): JSX.Element {
             const RIcon = ROLE_ICONS[activeRole.id] ?? Shield;
             return (
               <span
-                className={`inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r px-3 py-1 text-xs font-mono text-white ${ROLE_COLORS[activeRole.id] ?? 'from-slate-500 to-slate-600'}`}
+                className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-mono text-white ${ROLE_COLORS[activeRole.id] ?? 'bg-slate-600'}`}
               >
                 <RIcon size={12} />
                 {activeRole.label} persona
@@ -334,7 +332,7 @@ export default function VeraChat(): JSX.Element {
                   aria-pressed={role === r.id}
                   className={`flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] font-mono transition-all ${
                     role === r.id
-                      ? `bg-gradient-to-r ${ROLE_COLORS[r.id] ?? 'from-slate-500 to-slate-600'} text-white shadow-sm`
+                      ? `${ROLE_COLORS[r.id] ?? 'bg-slate-600'} text-white shadow-sm`
                       : 'bg-slate-100 text-slate-500 hover:bg-slate-200 dark:bg-slate-700 dark:text-slate-400 dark:hover:bg-slate-600'
                   }`}
                 >
@@ -365,7 +363,7 @@ export default function VeraChat(): JSX.Element {
               return (
                 <div key={i} className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}>
                   <div
-                    className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
+                    className={`max-w-[80%] rounded-lg px-4 py-2.5 text-sm leading-relaxed ${
                       isUser
                         ? 'bg-brand-600 text-white'
                         : 'bg-slate-100 text-slate-800 dark:bg-slate-700 dark:text-slate-200'
@@ -405,7 +403,7 @@ export default function VeraChat(): JSX.Element {
             {/* Live step stream */}
             {sessionId != null && !lastReport && (
               <div className="flex justify-start">
-                <div className="max-w-[80%] rounded-2xl bg-slate-100 px-4 py-3 text-xs text-slate-600 dark:bg-slate-700 dark:text-slate-300">
+                <div className="max-w-[80%] rounded-lg bg-slate-100 px-4 py-3 text-xs text-slate-600 dark:bg-slate-700 dark:text-slate-300">
                   <div className="flex items-center gap-2 mb-1">
                     <Loader2 size={12} className="animate-spin" />
                     <span className="font-mono text-[10px] uppercase tracking-wider opacity-60">Working</span>

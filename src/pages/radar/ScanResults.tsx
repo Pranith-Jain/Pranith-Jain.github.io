@@ -504,25 +504,24 @@ function VulnerabilitiesPanel({ data }: { data: ScanData }) {
 
 function AttackSurfacePanel({ data }: { data: ScanData }) {
   const sections = [
-    { label: 'Directory Listings', items: data.directory_listings, icon: '📂' },
-    { label: 'Backup Files', items: [...(data.backup_files ?? []), ...(data.backup_patterns ?? [])], icon: '💾' },
-    { label: 'Debug Endpoints', items: data.debug_endpoints, icon: '🔧' },
-    { label: 'Open Redirects', items: data.open_redirects, icon: '↗️' },
-    { label: 'Sensitive Files', items: data.sensitive_files, icon: '🔑' },
-    { label: 'Source Maps', items: data.source_maps, icon: '🗺️' },
-    { label: 'CORS Issues', items: data.cors_issues, icon: '🌐' },
-    { label: 'Cookie Issues', items: data.cookie_issues, icon: '🍪' },
-    { label: 'WAF Detected', items: data.waf_detected, icon: '🛡️' },
+    { label: 'Directory Listings', items: data.directory_listings },
+    { label: 'Backup Files', items: [...(data.backup_files ?? []), ...(data.backup_patterns ?? [])] },
+    { label: 'Debug Endpoints', items: data.debug_endpoints },
+    { label: 'Open Redirects', items: data.open_redirects },
+    { label: 'Sensitive Files', items: data.sensitive_files },
+    { label: 'Source Maps', items: data.source_maps },
+    { label: 'CORS Issues', items: data.cors_issues },
+    { label: 'Cookie Issues', items: data.cookie_issues },
+    { label: 'WAF Detected', items: data.waf_detected },
     {
       label: 'JWT Tokens',
       items: data.jwt_tokens?.map((t) => (t.length > 60 ? t.slice(0, 60) + '...' : t)),
-      icon: '🎫',
     },
-    { label: 'HTML Comments', items: data.html_comments, icon: '💬' },
-    { label: 'Hidden Forms', items: data.hidden_forms, icon: '📋' },
-    { label: 'Tech Hints', items: data.tech_hints, icon: '💡' },
-    { label: 'Robots.txt Disallow', items: data.robots_disallow, icon: '🤖' },
-    { label: 'Sitemap URLs', items: data.sitemap_urls, icon: '🗺️' },
+    { label: 'HTML Comments', items: data.html_comments },
+    { label: 'Hidden Forms', items: data.hidden_forms },
+    { label: 'Tech Hints', items: data.tech_hints },
+    { label: 'Robots.txt Disallow', items: data.robots_disallow },
+    { label: 'Sitemap URLs', items: data.sitemap_urls },
   ];
   const hasAny = sections.some((s) => (s.items?.length ?? 0) > 0);
   if (!hasAny) return <p className="text-sm text-slate-500">No attack surface findings from deep crawl</p>;
@@ -534,7 +533,6 @@ function AttackSurfacePanel({ data }: { data: ScanData }) {
         return (
           <div key={section.label} className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
             <div className="flex items-center gap-2 border-b border-slate-100 px-4 py-2 dark:border-slate-800">
-              <span>{section.icon}</span>
               <span className="text-sm font-semibold text-slate-900 dark:text-white">{section.label}</span>
               <span className="ml-auto rounded bg-slate-100 px-1.5 py-0.5 text-xs font-mono text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400">
                 {items.length}

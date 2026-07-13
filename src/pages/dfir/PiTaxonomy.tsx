@@ -44,7 +44,7 @@ const CAT: Record<
     badge: 'bg-orange-500/10 text-orange-500 border-orange-500/30',
     cardBorder: 'border-l-orange-500',
     cardHover: 'hover:bg-orange-500/5 hover:shadow-[0_0_20px_rgba(249,115,22,0.15)]',
-    icon: '⚒',
+    icon: 'T',
   },
   evasions: {
     label: 'Evasions',
@@ -54,7 +54,7 @@ const CAT: Record<
     badge: 'bg-purple-500/10 text-purple-500 border-purple-500/30',
     cardBorder: 'border-l-purple-500',
     cardHover: 'hover:bg-purple-500/5 hover:shadow-[0_0_20px_rgba(139,92,246,0.15)]',
-    icon: '⛨',
+    icon: 'E',
   },
   intents: {
     label: 'Intents',
@@ -64,7 +64,7 @@ const CAT: Record<
     badge: 'bg-red-500/10 text-red-500 border-red-500/30',
     cardBorder: 'border-l-red-500',
     cardHover: 'hover:bg-red-500/5 hover:shadow-[0_0_20px_rgba(239,68,68,0.15)]',
-    icon: '◎',
+    icon: 'I',
   },
   inputs: {
     label: 'Inputs',
@@ -74,7 +74,7 @@ const CAT: Record<
     badge: 'bg-teal-500/10 text-teal-500 border-teal-500/30',
     cardBorder: 'border-l-teal-500',
     cardHover: 'hover:bg-teal-500/5 hover:shadow-[0_0_20px_rgba(20,184,166,0.15)]',
-    icon: '✉',
+    icon: 'In',
   },
 };
 

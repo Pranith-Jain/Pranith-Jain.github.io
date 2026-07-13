@@ -41,9 +41,9 @@ const TREND_ICON: Record<string, JSX.Element> = {
 };
 
 const RISK_BAR_COLOR: Record<string, string> = {
-  increasing: 'from-rose-500 to-rose-400',
-  stable: 'from-amber-500 to-amber-400',
-  decreasing: 'from-emerald-500 to-emerald-400',
+  increasing: 'bg-severity-critical',
+  stable: 'bg-severity-medium',
+  decreasing: 'bg-emerald-500',
 };
 
 export default function PredictiveIntel(): JSX.Element {
@@ -123,7 +123,7 @@ export default function PredictiveIntel(): JSX.Element {
                 </div>
                 <div className="w-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded-full h-2 mb-3">
                   <div
-                    className={`h-2 rounded-full bg-gradient-to-r ${RISK_BAR_COLOR[s.trend]}`}
+                    className={`h-2 rounded-full ${RISK_BAR_COLOR[s.trend]}`}
                     style={{ width: `${s.current_risk}%` }}
                   />
                 </div>

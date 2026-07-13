@@ -4304,14 +4304,6 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     group: 'threatintel',
     keywords: ['vera', 'ai', 'assistant', 'investigation', 'chat'],
   },
-  {
-    path: '/threatintel/agent-mesh',
-    label: 'Agent Mesh',
-    description: 'Live multi-agent orchestration — specialist transitions, tool calls, step timeline.',
-    sectionLabel: 'Threat Intel · Tools',
-    group: 'threatintel',
-    keywords: ['agent', 'mesh', 'orchestrator', 'specialist', 'workflow', 'investigation'],
-  },
 ];
 
 const ADMIN_PAGES: readonly PageEntry[] = [

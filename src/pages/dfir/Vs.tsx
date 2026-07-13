@@ -12,6 +12,7 @@
  * same content in one round-trip.
  */
 
+import { BackLink } from '../../components/BackLink';
 import { ArrowRight, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { PageMeta } from '../../components/PageMeta';
@@ -33,6 +34,7 @@ export default function Vs(): JSX.Element {
         canonicalPath="/dfir/vs"
         ogImage="/og-dfir.svg"
       />
+      <BackLink to="/dfir">back</BackLink>
       <FaqStructuredData entries={faq} />
       <div className="w-full py-6 sm:py-10 text-slate-900 dark:text-slate-100 space-y-8 sm:space-y-12">
         {/* Hero — matches the /dfir hero rhythm: kicker, display heading, lede. */}

@@ -412,7 +412,7 @@ function FortiBleedPanel() {
             <p
               className={`text-sm font-mono font-semibold ${result.isFortiGate ? 'text-amber-700 dark:text-amber-300' : 'text-emerald-700 dark:text-emerald-300'}`}
             >
-              {result.isFortiGate ? '⚠️ FortiGate Detected' : '✅ No FortiGate detected'}
+              {result.isFortiGate ? '! FortiGate Detected' : 'No FortiGate detected'}
             </p>
           </div>
 

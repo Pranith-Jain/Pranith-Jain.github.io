@@ -183,7 +183,7 @@ export default function XFirehose(): JSX.Element {
             <span className="text-mini font-mono text-slate-500 mr-1">handles:</span>
             {data.handles.map((h) => {
               const active = handleFilter.has(h.handle);
-              const platformGlyph = h.platform === 'bluesky' ? '🦋' : '🐘';
+              const platformGlyph = h.platform === 'bluesky' ? 'BS' : 'M';
               return (
                 <button
                   key={h.handle}
@@ -281,7 +281,7 @@ export default function XFirehose(): JSX.Element {
             >
               <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
                 <span className="font-mono text-meta text-brand-600 dark:text-brand-400 inline-flex items-center gap-1">
-                  <span aria-hidden="true">{it.platform === 'bluesky' ? '🦋' : '🐘'}</span>
+                  <span aria-hidden="true">{it.platform === 'bluesky' ? 'BS' : 'M'}</span>
                   {it.handle_name}{' '}
                   <span
                     className={`px-1.5 py-0.5 rounded border text-micro uppercase tracking-wider ${TOPIC_PILL[it.handle_topic]}`}
@@ -341,7 +341,7 @@ export default function XFirehose(): JSX.Element {
                         rel="noopener noreferrer"
                         className={`inline-flex items-center gap-1 text-mini font-mono px-2 py-1 rounded border ${TOPIC_PILL[h.topic]} hover:opacity-90`}
                       >
-                        {h.platform === 'bluesky' ? '🦋' : '🐘'} {h.name} <ExternalLink size={10} />
+                        {h.platform === 'bluesky' ? 'BS' : 'M'} {h.name} <ExternalLink size={10} />
                       </a>
                     </li>
                   );

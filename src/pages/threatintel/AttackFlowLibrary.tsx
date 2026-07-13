@@ -157,7 +157,7 @@ export default function AttackFlowLibrary(): JSX.Element {
       <div className="space-y-2">
         {data.stale && (
           <p className="text-micro font-mono text-amber-600 dark:text-amber-400">
-            ⚠ showing cached listing (upstream temporarily unavailable)
+            ! showing cached listing (upstream temporarily unavailable)
           </p>
         )}
         <input

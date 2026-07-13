@@ -13,13 +13,13 @@ interface StrikeEvent {
 }
 
 const CATEGORY_CONFIG: Record<string, { icon: string; color: string }> = {
-  MISSILE: { icon: '🚀', color: 'text-red-400' },
-  INTERCEPTION: { icon: '🛡', color: 'text-emerald-400' },
-  DRONE: { icon: '✈', color: 'text-amber-400' },
-  AIRSTRIKE: { icon: '💥', color: 'text-red-400' },
-  ROCKET: { icon: '🎯', color: 'text-orange-400' },
-  STRIKE: { icon: '⚡', color: 'text-amber-400' },
-  REPORT: { icon: '📡', color: 'text-blue-400' },
+  MISSILE: { icon: '!', color: 'text-red-400' },
+  INTERCEPTION: { icon: 'OK', color: 'text-emerald-400' },
+  DRONE: { icon: '!', color: 'text-amber-400' },
+  AIRSTRIKE: { icon: '!', color: 'text-red-400' },
+  ROCKET: { icon: '!', color: 'text-orange-400' },
+  STRIKE: { icon: '!', color: 'text-amber-400' },
+  REPORT: { icon: 'i', color: 'text-blue-400' },
 };
 const SEV_COLORS: Record<string, string> = {
   low: 'text-slate-400',

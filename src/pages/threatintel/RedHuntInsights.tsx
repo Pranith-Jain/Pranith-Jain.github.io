@@ -266,10 +266,7 @@ function SecretTypeRow({ name, count, max }: { name: string; count: number; max:
         <span className="font-mono tabular-nums text-muted">{count.toLocaleString()}</span>
       </div>
       <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))]">
-        <div
-          className="h-full rounded-full bg-gradient-to-r from-brand-500 to-violet-500"
-          style={{ width: `${pct}%` }}
-        />
+        <div className="h-full rounded-full bg-brand-500" style={{ width: `${pct}%` }} />
       </div>
     </li>
   );
@@ -415,7 +412,7 @@ export default function RedHuntInsights(): JSX.Element {
       {data && (
         <>
           {/* ── Headline hero ────────────────────────────────────────── */}
-          <div className="mb-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-gradient-to-br from-brand-50/60 via-white to-violet-50/40 dark:from-brand-950/20 dark:via-slate-900 dark:to-violet-950/20 p-5 shadow-e1">
+          <div className="mb-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-gradient-to-br from-brand-50/60 via-white to-brand-50/20 dark:from-brand-950/20 dark:via-slate-900 dark:to-brand-950/10 p-5 shadow-e1">
             <div className="flex flex-wrap items-baseline justify-between gap-3">
               <div>
                 <p className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">

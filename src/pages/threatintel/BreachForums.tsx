@@ -237,6 +237,17 @@ export default function BreachForums(): JSX.Element {
         </div>
       }
     >
+      {/* Source-health summary banner */}
+      {(error || statusError || coverageError || mentionsError) && (
+        <div className="rounded-xl border border-rose-300/70 dark:border-rose-800/60 bg-rose-50/60 dark:bg-rose-950/30 p-3 mb-6 flex items-center gap-2 flex-wrap">
+          <span className="text-xs font-mono text-rose-700 dark:text-rose-300">
+            {[error && 'directory', statusError && 'status', coverageError && 'coverage', mentionsError && 'mentions']
+              .filter(Boolean)
+              .join(', ')}{' '}
+            — tap Retry on the failed section below
+          </span>
+        </div>
+      )}
       <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
         {data && (
           <p className="text-mini font-mono text-slate-500 dark:text-slate-400">

@@ -16,6 +16,7 @@ import {
   Mail,
   ScanLine,
 } from 'lucide-react';
+import { BackLink } from '../../components/BackLink';
 import { ArtifactTable, type HostArtifact } from '../../components/dfir/ArtifactTable';
 
 const API = '/api/v1';
@@ -548,12 +549,7 @@ export default function AssetIntel(): JSX.Element {
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-8 text-slate-900 dark:text-slate-100">
-      <Link
-        to="/dfir"
-        className="inline-flex items-center gap-1.5 text-xs font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 mb-6"
-      >
-        back to tools
-      </Link>
+      <BackLink to="/dfir">back</BackLink>
 
       <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Asset Intelligence</h1>
       <p className="text-muted mb-8 max-w-3xl">

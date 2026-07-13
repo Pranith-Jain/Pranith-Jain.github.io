@@ -39,7 +39,11 @@ function formatName(name: string): string {
   return name.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
-export default function CveHealthCheck(): JSX.Element {
+interface CveHealthCheckProps {
+  bare?: boolean;
+}
+
+export default function CveHealthCheck({ bare }: CveHealthCheckProps): JSX.Element {
   const { data, loading, error, refetch } = useDataFetch<HealthReport>({
     url: '/api/v1/cve-health',
     ttl: 30_000,
@@ -49,6 +53,45 @@ export default function CveHealthCheck(): JSX.Element {
   const warns = data?.checks.filter((c) => c.status === 'warn').length ?? 0;
   const fails = data?.checks.filter((c) => c.status === 'fail').length ?? 0;
 
+  const body = data && (
+    <div className="space-y-3">
+      <div className={`p-4 rounded-xl border ${OVERALL_STYLE[data.overall]}`}>
+        <div className="flex items-center gap-2 font-semibold">
+          <Heart className="h-5 w-5" />
+          <span className="capitalize">{data.overall}</span>
+          <span className="text-sm font-normal opacity-75">
+            ({passes} pass, {warns} warn, {fails} fail)
+          </span>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        {data.checks.map((check) => {
+          const Icon = STATUS_ICON[check.status] ?? CheckCircle;
+          return (
+            <div
+              key={check.name}
+              className="p-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl"
+            >
+              <div className="flex items-center gap-2">
+                <Icon className={`h-4 w-4 ${STATUS_COLOR[check.status]}`} />
+                <span className="font-mono text-sm font-medium text-slate-900 dark:text-white">
+                  {formatName(check.name)}
+                </span>
+              </div>
+              <p className="text-xs text-slate-600 dark:text-slate-400 mt-1 ml-6">{check.message}</p>
+              {check.details && (
+                <pre className="mt-2 ml-6 p-2 bg-slate-50 dark:bg-[rgb(var(--surface-300))] rounded-xl text-[11px] font-mono text-slate-600 dark:text-slate-400 overflow-x-auto border border-slate-100 dark:border-[rgb(var(--border-400))]">
+                  {JSON.stringify(check.details, null, 2)}
+                </pre>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+  if (bare) return <>{body}</>;
   return (
     <DataPageLayout
       backTo="/threatintel"
@@ -75,44 +118,7 @@ export default function CveHealthCheck(): JSX.Element {
         </div>
       }
     >
-      {data && (
-        <div className="space-y-3">
-          <div className={`p-4 rounded-xl border ${OVERALL_STYLE[data.overall]}`}>
-            <div className="flex items-center gap-2 font-semibold">
-              <Heart className="h-5 w-5" />
-              <span className="capitalize">{data.overall}</span>
-              <span className="text-sm font-normal opacity-75">
-                ({passes} pass, {warns} warn, {fails} fail)
-              </span>
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            {data.checks.map((check) => {
-              const Icon = STATUS_ICON[check.status] ?? CheckCircle;
-              return (
-                <div
-                  key={check.name}
-                  className="p-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl"
-                >
-                  <div className="flex items-center gap-2">
-                    <Icon className={`h-4 w-4 ${STATUS_COLOR[check.status]}`} />
-                    <span className="font-mono text-sm font-medium text-slate-900 dark:text-white">
-                      {formatName(check.name)}
-                    </span>
-                  </div>
-                  <p className="text-xs text-slate-600 dark:text-slate-400 mt-1 ml-6">{check.message}</p>
-                  {check.details && (
-                    <pre className="mt-2 ml-6 p-2 bg-slate-50 dark:bg-[rgb(var(--surface-300))] rounded-xl text-[11px] font-mono text-slate-600 dark:text-slate-400 overflow-x-auto border border-slate-100 dark:border-[rgb(var(--border-400))]">
-                      {JSON.stringify(check.details, null, 2)}
-                    </pre>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      )}
+      {body}
     </DataPageLayout>
   );
 }

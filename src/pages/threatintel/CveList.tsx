@@ -72,7 +72,11 @@ const ORIGIN_PILL: Record<RecentCve['origin'], { label: string; cls: string; too
   },
 };
 
-export default function CveList(): JSX.Element {
+interface CveListProps {
+  bare?: boolean;
+}
+
+export default function CveList({ bare }: CveListProps): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState(searchParams.get('q') ?? '');
   const [severityFilter, setSeverityFilter] = useState<Set<RecentCve['severity']>>(
@@ -160,46 +164,8 @@ export default function CveList(): JSX.Element {
     });
   };
 
-  return (
-    <DataPageLayout
-      backTo="/threatintel"
-      icon={<ShieldAlert size={28} />}
-      title="Live CVE updates"
-      description={
-        <>
-          <p className="text-muted mb-2 max-w-3xl leading-relaxed">
-            Up to <strong>1,500 CVEs newly published in the last 30 days</strong> (NVD) merged with{' '}
-            <strong>CISA KEV</strong> additions, <strong>MyThreatIntel</strong> alerts, and{' '}
-            <strong>cvefeed.io high-severity</strong> RSS as gap-fillers. NVD reports ~5,500 CVEs per 30-day window —
-            this is a triage view that prioritises high-signal records, not the full corpus. For exhaustive search use{' '}
-            <a
-              href="https://nvd.nist.gov/vuln/search"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline"
-            >
-              nvd.nist.gov/vuln/search
-            </a>
-            . Entries flagged KEV are known to be exploited in the wild, so prioritise those. Click a CVE id to drill
-            into{' '}
-            <Link to="/dfir/cve" className="text-brand-600 dark:text-brand-400 hover:underline">
-              CVE Lookup
-            </Link>{' '}
-            (full NVD + EPSS + KEV record).
-          </p>
-          <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
-            Sources: <span className="text-slate-700 dark:text-slate-300">NVD published-CVE feed</span> merged with the{' '}
-            <span className="text-slate-700 dark:text-slate-300">CISA KEV catalogue</span>.
-          </p>
-        </>
-      }
-      loading={loading}
-      error={error}
-      empty={filtered.length === 0}
-      emptyMessage="No CVEs match the current filter."
-      onRetry={refetch}
-      maxWidthClass="max-w-6xl"
-    >
+  const body = (
+    <>
       <AiSummaryCard
         surface="Live CVE Updates"
         items={summaryItems}
@@ -426,6 +392,50 @@ export default function CveList(): JSX.Element {
           </button>
         </div>
       )}
+    </>
+  );
+  if (bare) return body;
+  return (
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<ShieldAlert size={28} />}
+      title="Live CVE updates"
+      description={
+        <>
+          <p className="text-muted mb-2 max-w-3xl leading-relaxed">
+            Up to <strong>1,500 CVEs newly published in the last 30 days</strong> (NVD) merged with{' '}
+            <strong>CISA KEV</strong> additions, <strong>MyThreatIntel</strong> alerts, and{' '}
+            <strong>cvefeed.io high-severity</strong> RSS as gap-fillers. NVD reports ~5,500 CVEs per 30-day window —
+            this is a triage view that prioritises high-signal records, not the full corpus. For exhaustive search use{' '}
+            <a
+              href="https://nvd.nist.gov/vuln/search"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-brand-600 dark:text-brand-400 hover:underline"
+            >
+              nvd.nist.gov/vuln/search
+            </a>
+            . Entries flagged KEV are known to be exploited in the wild, so prioritise those. Click a CVE id to drill
+            into{' '}
+            <Link to="/dfir/cve" className="text-brand-600 dark:text-brand-400 hover:underline">
+              CVE Lookup
+            </Link>{' '}
+            (full NVD + EPSS + KEV record).
+          </p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+            Sources: <span className="text-slate-700 dark:text-slate-300">NVD published-CVE feed</span> merged with the{' '}
+            <span className="text-slate-700 dark:text-slate-300">CISA KEV catalogue</span>.
+          </p>
+        </>
+      }
+      loading={loading}
+      error={error}
+      empty={filtered.length === 0}
+      emptyMessage="No CVEs match the current filter."
+      onRetry={refetch}
+      maxWidthClass="max-w-6xl"
+    >
+      {body}
     </DataPageLayout>
   );
 }

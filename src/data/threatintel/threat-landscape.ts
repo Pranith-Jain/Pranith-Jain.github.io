@@ -38,16 +38,16 @@ export interface AttackVector {
 }
 
 export const LANDSCAPE_STATS: LandscapeStat[] = [
-  { label: 'Active Ransomware Groups', value: '72', change: '+8 this quarter', changeDir: 'up', icon: '🔴' },
-  { label: 'CVEs Published (30d)', value: '2,847', change: '+12% vs prior month', changeDir: 'up', icon: '🟡' },
-  { label: 'CISA KEV Entries', value: '1,412', change: '+22 added', changeDir: 'up', icon: '🟢' },
-  { label: 'Active C2 Infrastructure', value: '18,420', change: '-3% (takedowns)', changeDir: 'down', icon: '🟣' },
-  { label: 'Phishing Campaigns (7d)', value: '14,200', change: '+5% week-over-week', changeDir: 'up', icon: '🔵' },
-  { label: 'Infostealer Logs (24h)', value: '89,340', change: '+11% vs yesterday', changeDir: 'up', icon: '🟠' },
+  { label: 'Active Ransomware Groups', value: '72', change: '+8 this quarter', changeDir: 'up', icon: 'Red' },
+  { label: 'CVEs Published (30d)', value: '2,847', change: '+12% vs prior month', changeDir: 'up', icon: 'Amber' },
+  { label: 'CISA KEV Entries', value: '1,412', change: '+22 added', changeDir: 'up', icon: 'Green' },
+  { label: 'Active C2 Infrastructure', value: '18,420', change: '-3% (takedowns)', changeDir: 'down', icon: 'Purple' },
+  { label: 'Phishing Campaigns (7d)', value: '14,200', change: '+5% week-over-week', changeDir: 'up', icon: 'Blue' },
+  { label: 'Infostealer Logs (24h)', value: '89,340', change: '+11% vs yesterday', changeDir: 'up', icon: 'Orange' },
 ];
 
 export const TRENDING_ACTORS: TrendingActor[] = [
-  { name: 'Scattered Spider', country: '🌐 Global', activity: 'surge', campaigns: 12, lastSeen: '2 hours ago' },
+  { name: 'Scattered Spider', country: 'Global', activity: 'surge', campaigns: 12, lastSeen: '2 hours ago' },
   { name: 'LockBit 3.0', country: '🇷🇺 Russia', activity: 'steady', campaigns: 8, lastSeen: '1 day ago' },
   { name: 'ALPHV (BlackCat)', country: '🇷🇺 Russia', activity: 'steady', campaigns: 6, lastSeen: '3 days ago' },
   { name: 'Lazarus Group', country: '🇰🇵 DPRK', activity: 'surge', campaigns: 9, lastSeen: '5 hours ago' },
@@ -55,7 +55,7 @@ export const TRENDING_ACTORS: TrendingActor[] = [
   { name: 'APT29 (Cozy Bear)', country: '🇷🇺 Russia', activity: 'steady', campaigns: 4, lastSeen: '2 days ago' },
   { name: 'Kimsuky', country: '🇰🇵 DPRK', activity: 'surge', campaigns: 7, lastSeen: '18 hours ago' },
   { name: 'Sandworm', country: '🇷🇺 Russia', activity: 'steady', campaigns: 3, lastSeen: '4 days ago' },
-  { name: 'FIN7', country: '🌍 E Europe', activity: 'declining', campaigns: 2, lastSeen: '1 week ago' },
+  { name: 'FIN7', country: 'E Europe', activity: 'declining', campaigns: 2, lastSeen: '1 week ago' },
   { name: 'APT41 (Winnti)', country: '🇨🇳 China', activity: 'steady', campaigns: 5, lastSeen: '3 days ago' },
 ];
 

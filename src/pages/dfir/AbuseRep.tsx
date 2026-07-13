@@ -125,7 +125,7 @@ export default function AbuseRep(): JSX.Element {
             </div>
             {data.tor_exit && (
               <div className="text-meta font-mono px-3 py-2 rounded border border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300">
-                ⚠ Known Tor exit node.
+                ! Known Tor exit node.
               </div>
             )}
           </div>

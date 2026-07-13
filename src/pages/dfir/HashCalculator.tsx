@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { Hash as HashIcon, Loader2 } from 'lucide-react';
 import { CopyButton } from '../../components/ui/CopyButton';
+import { BackLink } from '../../components/BackLink';
 import { fileTooLarge, yieldToPaint } from '../../lib/dfir/file-guard';
 
 /** Compact MD5 (RFC 1321). Web Crypto has no MD5; DFIR still needs it for
@@ -116,6 +117,7 @@ export default function HashCalculator(): JSX.Element {
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
+      <BackLink to="/dfir">back</BackLink>
       <Link
         to="/dfir/tools/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"

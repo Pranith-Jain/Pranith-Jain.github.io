@@ -245,7 +245,7 @@ export default function InfraSearch(): JSX.Element {
                     className="text-xs font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
                     title="Toggle map style"
                   >
-                    {darkTiles ? '☀️' : '🌙'}
+                    {darkTiles ? 'Light' : 'Dark'}
                   </button>
                 </div>
               </div>

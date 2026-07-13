@@ -86,7 +86,7 @@ export default function TorGateway() {
             })}
           </div>
           <p className="text-mini font-mono text-slate-400 italic">
-            ⚠ Gateways are operated by third parties. Do not trust them with sensitive data. Always verify you are
+            ! Gateways are operated by third parties. Do not trust them with sensitive data. Always verify you are
             accessing the correct .onion address.
           </p>
         </div>

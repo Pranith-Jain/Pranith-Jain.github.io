@@ -134,7 +134,7 @@ export default function Ransomwhere(): JSX.Element {
         <ClusterTabs tabs={RANSOMWARE_TABS} ariaLabel="Ransomware intel" />
         {data.stale && (
           <p className="text-micro font-mono text-amber-600 dark:text-amber-400">
-            ⚠ showing cached data (upstream temporarily unavailable)
+            ! showing cached data (upstream temporarily unavailable)
           </p>
         )}
         <p className="text-micro font-mono text-slate-500">

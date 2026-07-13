@@ -428,7 +428,7 @@ export default function SampleScan(): JSX.Element {
             <dt className="text-slate-500">Entropy</dt>
             <dd className="text-slate-800 dark:text-slate-200">
               {analysis.entropy.toFixed(3)} / 8.000
-              {analysis.entropy > 7.5 ? ' · ⚠ likely packed/encrypted' : analysis.entropy > 7.0 ? ' · elevated' : ''}
+              {analysis.entropy > 7.5 ? ' · ! likely packed/encrypted' : analysis.entropy > 7.0 ? ' · elevated' : ''}
             </dd>
           </dl>
           <ul className="mt-3 space-y-1 font-mono text-mini">

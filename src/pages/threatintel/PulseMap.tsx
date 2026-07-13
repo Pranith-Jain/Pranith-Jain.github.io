@@ -42,7 +42,7 @@ const SEVERITY_RADIUS: Record<string, number> = {
 const KIND_COLORS: Record<string, string> = {
   earthquake: '#f97316',
   ioc_activity: '#e11d48',
-  geopolitical: '#a855f7',
+  geopolitical: '#435ef1',
   tech_news: '#0ea5e9',
   reddit: '#f97316',
   telegram: '#22d3ee',
@@ -51,12 +51,12 @@ const KIND_COLORS: Record<string, string> = {
   breach: '#ef4444',
   briefing: '#10b981',
   cyber_attack: '#dc2626',
-  aircraft: '#6366f1',
+  aircraft: '#435ef1',
   war_room: '#b91c1c',
   c2_tracker: '#e11d48',
   cisa_advisory: '#f59e0b',
   blocklist: '#64748b',
-  darkweb: '#7c3aed',
+  darkweb: '#435ef1',
   infostealer: '#ea580c',
   phishing: '#d97706',
   malware: '#dc2626',
@@ -65,7 +65,7 @@ const KIND_COLORS: Record<string, string> = {
   cybercrime: '#dc2626',
   research: '#0284c7',
   cve: '#d97706',
-  actor_sighting: '#8b5cf6',
+  actor_sighting: '#435ef1',
   ioc_correlation: '#06b6d4',
   webamon_scan: '#14b8a6',
   military_base: '#22c55e',
@@ -231,7 +231,7 @@ export default function PulseMap({ markers, onMarkerClick, terminatorPolygon }: 
       {/* Tooltip */}
       {hoveredMarker && !selectedMarker && (
         <div className="fixed z-50 pointer-events-none" style={{ left: tooltipPos.x + 10, top: tooltipPos.y - 10 }}>
-          <div className="bg-slate-900/95 backdrop-blur-sm rounded-xl border border-slate-700/50 px-3 py-2 shadow-e3 max-w-xs">
+          <div className="bg-slate-900/95 rounded-xl border border-slate-700/50 px-3 py-2 shadow-e3 max-w-xs">
             <div className="flex items-center gap-2 mb-1">
               <span className="w-2 h-2 rounded-full" style={{ backgroundColor: KIND_COLORS[hoveredMarker.kind] }} />
               <span className="text-micro font-mono uppercase text-slate-400">{KIND_LABELS[hoveredMarker.kind]}</span>
@@ -263,7 +263,7 @@ export default function PulseMap({ markers, onMarkerClick, terminatorPolygon }: 
 
       {/* Selected Marker Detail Panel */}
       {selectedMarker && (
-        <div className="absolute top-4 right-4 bg-white/95 dark:bg-[rgb(var(--surface-200))]/95 backdrop-blur-md rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-4 max-w-sm shadow-2xl z-10">
+        <div className="absolute top-4 right-4 bg-white/95 dark:bg-[rgb(var(--surface-200))]/95 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-4 max-w-sm shadow-e3 z-10">
           <div className="flex items-start justify-between gap-3">
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-2">
@@ -317,7 +317,7 @@ export default function PulseMap({ markers, onMarkerClick, terminatorPolygon }: 
       )}
 
       {/* Marker count overlay */}
-      <div className="absolute bottom-2 left-2 bg-white/80 dark:bg-[rgb(var(--surface-200))]/80 backdrop-blur-sm rounded px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))]">
+      <div className="absolute bottom-2 left-2 bg-white/80 dark:bg-[rgb(var(--surface-200))]/80 rounded px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))]">
         <span className="text-micro font-mono text-muted">{markers.length} points · Click for details</span>
       </div>
     </div>

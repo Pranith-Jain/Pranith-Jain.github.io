@@ -982,19 +982,31 @@ export async function callNvidia(env: Env, system: string, user: string): Promis
 }
 
 export async function callWorkersAi(env: Env, system: string, user: string): Promise<string> {
-  const model = '@cf/meta/llama-3.3-70b-instruct-fp8-fast';
-  const res = (await env.AI.run(
-    model as Parameters<typeof env.AI.run>[0],
-    {
-      messages: [
-        { role: 'system', content: system },
-        { role: 'user', content: user },
-      ],
-      max_tokens: 4000,
-      temperature: 0.3,
-    } as Parameters<typeof env.AI.run>[1]
-  )) as { response?: string };
-  return res.response ?? 'No response from model.';
+  const models = [
+    '@cf/openai/gpt-oss-120b',
+    '@cf/qwen/qwen3-30b-a3b-fp8',
+    '@cf/moonshotai/kimi-k2.6',
+    '@cf/meta/llama-3.3-70b-instruct-fp8-fast',
+  ];
+  for (const model of models) {
+    try {
+      const res = (await env.AI.run(
+        model as Parameters<typeof env.AI.run>[0],
+        {
+          messages: [
+            { role: 'system', content: system },
+            { role: 'user', content: user },
+          ],
+          max_tokens: 4000,
+          temperature: 0.3,
+        } as Parameters<typeof env.AI.run>[1]
+      )) as { response?: string };
+      if (res.response) return res.response;
+    } catch {
+      continue;
+    }
+  }
+  throw new Error('All Workers AI models failed');
 }
 
 export async function callGroq(env: Env, system: string, user: string): Promise<string> {

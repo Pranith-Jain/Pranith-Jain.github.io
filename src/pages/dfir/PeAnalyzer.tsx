@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Binary, Upload, Loader2 } from 'lucide-react';
+import { BackLink } from '../../components/BackLink';
 import { fileTooLarge, yieldToPaint } from '../../lib/dfir/file-guard';
 
 const MACHINE: Record<number, string> = {
@@ -72,7 +73,7 @@ function parsePE(buf: ArrayBuffer): PE {
   if (dllChar & 0x0100) flags.push('DEP/NX');
   if (dllChar & 0x4000) flags.push('Control Flow Guard');
   if (dllChar & 0x0400) flags.push('No SEH');
-  if (!(dllChar & 0x0040)) flags.push('⚠ no ASLR');
+  if (!(dllChar & 0x0040)) flags.push('! no ASLR');
 
   // Data directory [1] = import table (RVA, size). Offset: opt + 96 (PE32) / 112 (PE32+); entry 1 → +8.
   const ddBase = opt + (pe32plus ? 112 : 96);
@@ -165,6 +166,7 @@ export default function PeAnalyzer(): JSX.Element {
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
+      <BackLink to="/dfir">back</BackLink>
       <Link
         to="/dfir/tools/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -279,7 +281,7 @@ export default function PeAnalyzer(): JSX.Element {
                       className={`px-2 py-1 border-b border-slate-100 dark:border-[rgb(var(--border-400))] ${s.entropy >= 7.2 ? 'text-rose-600 dark:text-rose-400 font-bold' : ''}`}
                     >
                       {s.entropy}
-                      {s.entropy >= 7.2 ? ' ⚠packed?' : ''}
+                      {s.entropy >= 7.2 ? ' !packed?' : ''}
                     </td>
                     <td className="px-2 py-1 border-b border-slate-100 dark:border-[rgb(var(--border-400))]">
                       {s.flags}

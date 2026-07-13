@@ -781,7 +781,7 @@ function SandboxTab() {
                   {r.errors && r.errors.length > 0 && (
                     <div className="rounded-xl border border-rose-200 dark:border-rose-900 bg-rose-50 dark:bg-rose-900/20 px-4 py-3 text-sm text-rose-700 dark:text-rose-400 font-mono">
                       {r.errors.map((e, i) => (
-                        <div key={i}>⚠ {e}</div>
+                        <div key={i}>! {e}</div>
                       ))}
                     </div>
                   )}

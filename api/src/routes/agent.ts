@@ -290,11 +290,10 @@ export async function agentDebugLlmHandler(c: Context<{ Bindings: Env }>): Promi
     try {
       const ai = env.AI as { run: (m: string, i: Record<string, unknown>) => Promise<Record<string, unknown>> };
       for (const model of [
-        '@cf/meta/llama-3.1-8b-instruct',
-        '@cf/meta/llama-3-8b-instruct',
-        '@cf/mistral/mistral-7b-instruct-v0.1',
-        '@hf/meta-llama/meta-llama-3-8b-instruct',
-        '@cf/meta/llama-3.2-3b-instruct',
+        '@cf/openai/gpt-oss-120b',
+        '@cf/qwen/qwen3-30b-a3b-fp8',
+        '@cf/moonshotai/kimi-k2.6',
+        '@cf/meta/llama-3.3-70b-instruct-fp8-fast',
       ]) {
         try {
           const res = await ai.run(model, {

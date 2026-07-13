@@ -17,12 +17,12 @@ interface AlertData {
 }
 
 const TYPE_ICONS: Record<string, string> = {
-  MISSILE: '🚀',
-  ROCKET: '🎯',
-  DRONE: '✈',
-  MORTAR: '💣',
-  INFILTRATION: '⚠',
-  ALERT: '🔴',
+  MISSILE: '!',
+  ROCKET: '!',
+  DRONE: '!',
+  MORTAR: '!',
+  INFILTRATION: '!',
+  ALERT: '!',
 };
 
 function playAlertSound() {
@@ -116,7 +116,7 @@ export default function IsraelAlerts() {
         <div className="space-y-2">
           {data?.alerts.slice(0, 5).map((alert, i) => (
             <div key={i} className="flex items-start gap-2 p-2 rounded-xl bg-red-500/10 border border-red-500/20">
-              <span className="text-sm">{TYPE_ICONS[alert.type] || '🔴'}</span>
+              <span className="text-sm font-mono font-bold">{TYPE_ICONS[alert.type] || '!'}</span>
               <div className="min-w-0 flex-1">
                 <div className="text-meta font-bold text-red-400">{alert.type}</div>
                 <div className="text-tool text-slate-600 dark:text-slate-300">{alert.threat}</div>

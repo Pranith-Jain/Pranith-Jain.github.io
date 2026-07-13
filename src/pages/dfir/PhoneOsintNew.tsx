@@ -29,13 +29,13 @@ interface PhoneResult {
 
 // Category values match the API (buildLookups) — keep in sync.
 const CATEGORY_ICONS: Record<string, string> = {
-  messaging: '📱',
-  lookup: '🔍',
-  directory: '🌐',
-  'caller-id': '📞',
-  'people-search': '👥',
-  osint: '🛰️',
-  regulatory: '⚖️',
+  messaging: 'Msg',
+  lookup: 'Search',
+  directory: 'Globe',
+  'caller-id': 'Phone',
+  'people-search': 'Users',
+  osint: 'Radar',
+  regulatory: 'Scale',
 };
 const CATEGORY_LABELS: Record<string, string> = {
   messaging: 'Messaging',
@@ -47,7 +47,6 @@ const CATEGORY_LABELS: Record<string, string> = {
   regulatory: 'Regulatory',
 };
 
-// Consistent label/value cell so every info grid aligns on the same baseline.
 function Field({
   label,
   value,
@@ -61,12 +60,9 @@ function Field({
 }) {
   return (
     <div className="min-w-0">
-      <div className="text-[11px] uppercase tracking-wider mb-1" style={{ color: '#64748b' }}>
-        {label}
-      </div>
+      <div className="text-micro uppercase tracking-wider mb-1 text-muted">{label}</div>
       <div
-        className={`text-sm font-medium truncate ${mono ? 'font-mono' : ''}`}
-        style={{ color: valueColor || '#f1f5f9' }}
+        className={`text-sm font-medium truncate ${mono ? 'font-mono' : ''} ${valueColor || 'text-slate-100'}`}
         title={typeof value === 'string' ? value : undefined}
       >
         {value || '—'}
@@ -137,73 +133,45 @@ export default function PhoneOsintNew() {
       maxWidthClass="max-w-5xl"
     >
       {/* Main Dashboard Card */}
-      <div
-        className="relative rounded-2xl p-6 md:p-8 overflow-hidden border border-[#1f2937] shadow-[0_25px_80px_rgba(0,0,0,0.9)]"
-        style={{ background: '#111827' }}
-      >
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{ background: 'radial-gradient(circle at 30% 20%, rgba(56,189,248,0.04), transparent 70%)' }}
-        />
-
+      <div className="relative rounded-lg p-6 md:p-8 overflow-hidden border border-[rgb(var(--border-400))] bg-[rgb(var(--surface-200))] shadow-e3">
         {/* Header */}
-        <div className="flex items-center gap-3 mb-2 relative">
-          <Radar size={32} style={{ color: '#38bdf8' }} />
-          <h2
-            className="text-2xl font-bold"
-            style={{
-              backgroundImage: 'linear-gradient(135deg, #f0f9ff, #94a3b8)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}
-          >
-            AI Phone Intel Dashboard
-          </h2>
+        <div className="flex items-center gap-3 mb-2">
+          <Radar size={32} className="text-brand-400" />
+          <h2 className="text-2xl font-bold text-slate-100">AI Phone Intel Dashboard</h2>
         </div>
 
         {/* Status bar */}
-        <div
-          className="flex items-center justify-between text-[13px] pb-3.5 mb-5 border-b gap-3 flex-wrap relative"
-          style={{ color: '#64748b', borderColor: '#1e293b' }}
-        >
-          <span>🛰️ AI-Powered OSINT</span>
+        <div className="flex items-center justify-between text-[13px] pb-3.5 mb-5 border-b border-[rgb(var(--border-400))] gap-3 flex-wrap">
+          <span className="text-muted">AI-Powered OSINT</span>
           <div className="flex items-center gap-2">
-            <span
-              className="text-[11px] font-semibold px-2.5 py-1 rounded-full"
-              style={{ background: '#0f172a', color: '#38bdf8', border: '1px solid #1e293b' }}
-            >
+            <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-[rgb(var(--surface-100))] text-brand-400 border border-[rgb(var(--border-400))]">
               Remaining: 100 of 100
             </span>
-            <span
-              className="text-[10px] font-bold tracking-wider px-3 py-1 rounded-full animate-pulse"
-              style={{ background: '#22c55e', color: '#0a0e1a' }}
-            >
-              ● LIVE
+            <span className="text-[10px] font-bold tracking-wider px-3 py-1 rounded-full animate-pulse bg-emerald-500 text-slate-950">
+              LIVE
             </span>
           </div>
         </div>
 
         {/* Tab buttons */}
-        <div className="flex gap-2 mb-6 relative">
+        <div className="flex gap-2 mb-6">
           <button
             onClick={() => setActiveTab('phone')}
-            className="flex-1 px-4 py-3 rounded-2xl font-semibold text-sm flex items-center justify-center gap-2 transition"
-            style={{
-              background: activeTab === 'phone' ? 'linear-gradient(135deg, #2563eb, #7c3aed)' : '#0f172a',
-              color: activeTab === 'phone' ? '#fff' : '#94a3b8',
-              border: `1px solid ${activeTab === 'phone' ? 'transparent' : '#1e293b'}`,
-            }}
+            className={`flex-1 px-4 py-3 rounded-lg font-semibold text-sm flex items-center justify-center gap-2 transition border ${
+              activeTab === 'phone'
+                ? 'bg-brand-600 text-white border-transparent'
+                : 'bg-[rgb(var(--surface-100))] text-muted border-[rgb(var(--border-400))]'
+            }`}
           >
             <Phone size={16} /> Phone Intel
           </button>
           <button
             onClick={() => setActiveTab('malware')}
-            className="flex-1 px-4 py-3 rounded-2xl font-semibold text-sm flex items-center justify-center gap-2 transition"
-            style={{
-              background: activeTab === 'malware' ? 'linear-gradient(135deg, #2563eb, #7c3aed)' : '#0f172a',
-              color: activeTab === 'malware' ? '#fff' : '#94a3b8',
-              border: `1px solid ${activeTab === 'malware' ? 'transparent' : '#1e293b'}`,
-            }}
+            className={`flex-1 px-4 py-3 rounded-lg font-semibold text-sm flex items-center justify-center gap-2 transition border ${
+              activeTab === 'malware'
+                ? 'bg-brand-600 text-white border-transparent'
+                : 'bg-[rgb(var(--surface-100))] text-muted border-[rgb(var(--border-400))]'
+            }`}
           >
             <Shield size={16} /> Malware Hash
           </button>
@@ -212,7 +180,7 @@ export default function PhoneOsintNew() {
         {/* Phone Intel Tab */}
         {activeTab === 'phone' && (
           <>
-            <div className="flex flex-wrap gap-3 mb-6 relative">
+            <div className="flex flex-wrap gap-3 mb-6">
               <input
                 type="tel"
                 placeholder="Enter number e.g. 14155552671"
@@ -220,17 +188,12 @@ export default function PhoneOsintNew() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handlePhoneScan()}
-                className="flex-1 min-w-[200px] px-5 py-4 rounded-2xl text-base font-medium outline-none transition"
-                style={{ background: '#0f172a', color: '#f1f5f9', border: '1px solid #1e293b' }}
+                className="flex-1 min-w-[200px] px-5 py-4 rounded-lg text-base font-medium outline-none transition bg-[rgb(var(--surface-100))] text-slate-100 border border-[rgb(var(--border-400))]"
               />
               <button
                 onClick={handlePhoneScan}
                 disabled={!input.trim() || scanning}
-                className="px-7 py-4 rounded-2xl font-bold text-white flex items-center gap-2.5 transition disabled:opacity-50 disabled:cursor-not-allowed hover:-translate-y-0.5"
-                style={{
-                  background: 'linear-gradient(135deg, #2563eb, #7c3aed)',
-                  boxShadow: '0 8px 24px rgba(37,99,235,0.25)',
-                }}
+                className="px-7 py-4 rounded-lg font-bold text-white flex items-center gap-2.5 transition disabled:opacity-50 disabled:cursor-not-allowed bg-brand-600 hover:bg-brand-700 shadow-e2"
               >
                 {scanning ? <Loader2 size={16} className="animate-spin" /> : <Scan size={16} />}
                 {scanning ? 'Scanning...' : 'Deep Scan'}
@@ -238,10 +201,7 @@ export default function PhoneOsintNew() {
             </div>
 
             {error && (
-              <div
-                className="mb-4 p-3 rounded-xl text-sm"
-                style={{ background: '#991b1b20', color: '#fca5a5', border: '1px solid #991b1b40' }}
-              >
+              <div className="mb-4 p-3 rounded-lg text-sm bg-red-900/20 text-red-300 border border-red-900/40">
                 {error}
               </div>
             )}
@@ -250,8 +210,8 @@ export default function PhoneOsintNew() {
             {result && (
               <div className="space-y-4 relative">
                 {/* Phone Info Card */}
-                <div className="p-5 rounded-2xl" style={{ background: '#0f172a', border: '1px solid #1e293b' }}>
-                  <h3 className="text-sm font-bold mb-3 flex items-center gap-2" style={{ color: '#38bdf8' }}>
+                <div className="p-5 rounded-lg bg-[rgb(var(--surface-100))] border border-[rgb(var(--border-400))]">
+                  <h3 className="text-sm font-bold mb-3 flex items-center gap-2 text-brand-400">
                     <Phone size={14} /> Phone Information
                   </h3>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-4">
@@ -266,19 +226,16 @@ export default function PhoneOsintNew() {
                       value={result.carrier.confidence || 'low'}
                       valueColor={
                         result.carrier.confidence === 'api-verified' || result.carrier.confidence === 'high'
-                          ? '#22c55e'
+                          ? 'text-emerald-500'
                           : result.carrier.confidence === 'medium'
-                            ? '#f59e0b'
-                            : '#94a3b8'
+                            ? 'text-amber-500'
+                            : 'text-muted'
                       }
                     />
-                    {result.numverify && <Field label="Valid" value="✓ Verified" valueColor="#22c55e" />}
+                    {result.numverify && <Field label="Valid" value="Verified" valueColor="text-emerald-500" />}
                   </div>
                   {result.numverify && (
-                    <div
-                      className="mt-4 pt-4 grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-4"
-                      style={{ borderTop: '1px solid #1e293b' }}
-                    >
+                    <div className="mt-4 pt-4 grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-4 border-t border-[rgb(var(--border-400))]">
                       <Field label="International" value={result.numverify.international_format} mono />
                       <Field label="Local Format" value={result.numverify.local_format} mono />
                       <Field label="Dial Prefix" value={result.numverify.country_prefix} mono />
@@ -299,34 +256,31 @@ export default function PhoneOsintNew() {
                     ) as string[];
                     return (
                       <div
-                        className="p-4 rounded-2xl"
-                        style={{
-                          background: found ? '#991b1b15' : '#0f172a',
-                          border: `1px solid ${found ? '#991b1b40' : '#1e293b'}`,
-                        }}
+                        className={`p-4 rounded-lg border ${
+                          found
+                            ? 'bg-red-900/10 border-red-900/40'
+                            : 'bg-[rgb(var(--surface-100))] border-[rgb(var(--border-400))]'
+                        }`}
                       >
                         <div className="flex items-center gap-2 mb-1">
                           <Shield
                             size={14}
-                            style={{ color: found ? '#ef4444' : result.breach.checked ? '#22c55e' : '#64748b' }}
+                            className={
+                              found ? 'text-red-500' : result.breach.checked ? 'text-emerald-500' : 'text-muted'
+                            }
                           />
                           <span
-                            className="text-sm font-bold"
-                            style={{ color: found ? '#fca5a5' : result.breach.checked ? '#86efac' : '#94a3b8' }}
+                            className={`text-sm font-bold ${
+                              found ? 'text-red-300' : result.breach.checked ? 'text-emerald-300' : 'text-muted'
+                            }`}
                           >
                             Breach Check:{' '}
                             {result.breach.checked ? (found ? `EXPOSED (${entries.length})` : 'CLEAN') : 'NOT CHECKED'}
                           </span>
                         </div>
-                        {!result.breach.checked && (
-                          <div className="text-[11px]" style={{ color: '#64748b' }}>
-                            {result.breach.reason}
-                          </div>
-                        )}
+                        {!result.breach.checked && <div className="text-[11px] text-muted">{result.breach.reason}</div>}
                         {found && families.length > 0 && (
-                          <div className="text-xs mt-1" style={{ color: '#94a3b8' }}>
-                            Stealer families: {families.join(', ')}
-                          </div>
+                          <div className="text-xs mt-1 text-muted">Stealer families: {families.join(', ')}</div>
                         )}
                       </div>
                     );
@@ -334,10 +288,8 @@ export default function PhoneOsintNew() {
 
                 {/* Lookup Links */}
                 {result.lookups.length > 0 && (
-                  <div className="p-5 rounded-2xl" style={{ background: '#0f172a', border: '1px solid #1e293b' }}>
-                    <h3 className="text-sm font-bold mb-3" style={{ color: '#94a3b8' }}>
-                      🔗 Lookup Services
-                    </h3>
+                  <div className="p-5 rounded-lg bg-[rgb(var(--surface-100))] border border-[rgb(var(--border-400))]">
+                    <h3 className="text-sm font-bold mb-3 text-muted">Lookup Services</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                       {result.lookups.map((l, i) => (
                         <a
@@ -345,27 +297,21 @@ export default function PhoneOsintNew() {
                           href={l.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-2.5 p-2.5 rounded-xl transition hover:bg-[#1e293b]"
-                          style={{ background: '#0f172a', border: '1px solid #1e293b' }}
+                          className="flex items-center gap-2.5 p-2.5 rounded-lg transition hover:bg-[rgb(var(--hover-100))] bg-[rgb(var(--surface-100))] border border-[rgb(var(--border-400))]"
                         >
-                          <span className="text-sm shrink-0">{CATEGORY_ICONS[l.category] || '🔍'}</span>
+                          <span className="text-sm shrink-0">{CATEGORY_ICONS[l.category] || 'Link'}</span>
                           <div className="flex-1 min-w-0">
-                            <div className="text-xs font-medium truncate" style={{ color: '#f1f5f9' }}>
-                              {l.service}
-                            </div>
-                            <div className="text-[10px] truncate" style={{ color: '#64748b' }}>
+                            <div className="text-xs font-medium truncate text-slate-100">{l.service}</div>
+                            <div className="text-[10px] truncate text-muted">
                               {CATEGORY_LABELS[l.category] || l.category}
                             </div>
                           </div>
                           {l.free && (
-                            <span
-                              className="text-[9px] px-1.5 py-0.5 rounded-full shrink-0"
-                              style={{ background: '#22c55e20', color: '#22c55e' }}
-                            >
+                            <span className="text-[9px] px-1.5 py-0.5 rounded-full shrink-0 bg-emerald-500/20 text-emerald-500">
                               FREE
                             </span>
                           )}
-                          <ExternalLink size={12} className="shrink-0" style={{ color: '#64748b' }} />
+                          <ExternalLink size={12} className="shrink-0 text-muted" />
                         </a>
                       ))}
                     </div>
@@ -374,10 +320,8 @@ export default function PhoneOsintNew() {
 
                 {/* Dorks */}
                 {result.dorks.length > 0 && (
-                  <div className="p-5 rounded-2xl" style={{ background: '#0f172a', border: '1px solid #1e293b' }}>
-                    <h3 className="text-sm font-bold mb-3" style={{ color: '#94a3b8' }}>
-                      🔎 Search Engine Dorks
-                    </h3>
+                  <div className="p-5 rounded-lg bg-[rgb(var(--surface-100))] border border-[rgb(var(--border-400))]">
+                    <h3 className="text-sm font-bold mb-3 text-muted">Search Engine Dorks</h3>
                     <div className="space-y-1.5">
                       {result.dorks.map((d, i) => (
                         <a
@@ -385,19 +329,13 @@ export default function PhoneOsintNew() {
                           href={d.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center justify-between gap-3 p-2.5 rounded-xl transition hover:bg-[#1e293b]"
-                          style={{ background: '#0f172a', border: '1px solid #1e293b' }}
+                          className="flex items-center justify-between gap-3 p-2.5 rounded-lg transition hover:bg-[rgb(var(--hover-100))] bg-[rgb(var(--surface-100))] border border-[rgb(var(--border-400))]"
                         >
-                          <span
-                            className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded shrink-0"
-                            style={{ background: '#1e293b', color: '#38bdf8' }}
-                          >
+                          <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-[rgb(var(--surface-300))] text-brand-400">
                             {d.engine}
                           </span>
-                          <span className="text-xs font-mono truncate flex-1" style={{ color: '#94a3b8' }}>
-                            {d.query}
-                          </span>
-                          <ExternalLink size={10} className="shrink-0" style={{ color: '#64748b' }} />
+                          <span className="text-xs font-mono truncate flex-1 text-muted">{d.query}</span>
+                          <ExternalLink size={10} className="shrink-0 text-muted" />
                         </a>
                       ))}
                     </div>
@@ -411,7 +349,7 @@ export default function PhoneOsintNew() {
         {/* Malware Hash Tab */}
         {activeTab === 'malware' && (
           <>
-            <div className="flex flex-wrap gap-3 mb-6 relative">
+            <div className="flex flex-wrap gap-3 mb-6">
               <input
                 type="text"
                 placeholder="Enter hash (MD5, SHA-1, SHA-256)"
@@ -419,17 +357,12 @@ export default function PhoneOsintNew() {
                 value={hashInput}
                 onChange={(e) => setHashInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleMalwareScan()}
-                className="flex-1 min-w-[200px] px-5 py-4 rounded-2xl text-base font-medium font-mono outline-none transition"
-                style={{ background: '#0f172a', color: '#f1f5f9', border: '1px solid #1e293b' }}
+                className="flex-1 min-w-[200px] px-5 py-4 rounded-lg text-base font-medium font-mono outline-none transition bg-[rgb(var(--surface-100))] text-slate-100 border border-[rgb(var(--border-400))]"
               />
               <button
                 onClick={handleMalwareScan}
                 disabled={!hashInput.trim() || malwareScanning}
-                className="px-7 py-4 rounded-2xl font-bold text-white flex items-center gap-2.5 transition disabled:opacity-50 disabled:cursor-not-allowed hover:-translate-y-0.5"
-                style={{
-                  background: 'linear-gradient(135deg, #dc2626, #9333ea)',
-                  boxShadow: '0 8px 24px rgba(220,38,38,0.25)',
-                }}
+                className="px-7 py-4 rounded-lg font-bold text-white flex items-center gap-2.5 transition disabled:opacity-50 disabled:cursor-not-allowed bg-severity-critical hover:bg-red-700 shadow-e2"
               >
                 {malwareScanning ? <Loader2 size={16} className="animate-spin" /> : <Scan size={16} />}
                 {malwareScanning ? 'Analyzing...' : 'Analyze Hash'}
@@ -439,56 +372,40 @@ export default function PhoneOsintNew() {
             {malwareResult && !malwareResult.error && (
               <div className="space-y-4 relative">
                 {/* Family / Verdict */}
-                <div className="p-5 rounded-2xl" style={{ background: '#0f172a', border: '1px solid #1e293b' }}>
-                  <h3 className="text-sm font-bold mb-3 flex items-center gap-2" style={{ color: '#f87171' }}>
+                <div className="p-5 rounded-lg bg-[rgb(var(--surface-100))] border border-[rgb(var(--border-400))]">
+                  <h3 className="text-sm font-bold mb-3 flex items-center gap-2 text-red-400">
                     <Shield size={14} /> Malware Intelligence
                   </h3>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div>
-                      <div className="text-[11px] uppercase tracking-wider mb-1" style={{ color: '#64748b' }}>
-                        Family
-                      </div>
-                      <div className="text-sm font-bold" style={{ color: '#f1f5f9' }}>
+                      <div className="text-micro uppercase tracking-wider mb-1 text-muted">Family</div>
+                      <div className="text-sm font-bold text-slate-100">
                         {malwareResult.malware_family || 'Unknown'}
                       </div>
                     </div>
                     <div>
-                      <div className="text-[11px] uppercase tracking-wider mb-1" style={{ color: '#64748b' }}>
-                        Verdict
-                      </div>
+                      <div className="text-micro uppercase tracking-wider mb-1 text-muted">Verdict</div>
                       <div
-                        className="text-sm font-bold"
-                        style={{
-                          color:
-                            malwareResult.verdict === 'malicious'
-                              ? '#ef4444'
-                              : malwareResult.verdict === 'suspicious'
-                                ? '#f59e0b'
-                                : '#22c55e',
-                        }}
+                        className={`text-sm font-bold ${
+                          malwareResult.verdict === 'malicious'
+                            ? 'text-red-500'
+                            : malwareResult.verdict === 'suspicious'
+                              ? 'text-amber-500'
+                              : 'text-emerald-500'
+                        }`}
                       >
                         {malwareResult.verdict || 'Unknown'}
                       </div>
                     </div>
                     <div>
-                      <div className="text-[11px] uppercase tracking-wider mb-1" style={{ color: '#64748b' }}>
-                        First Seen
-                      </div>
-                      <div className="text-sm" style={{ color: '#f1f5f9' }}>
-                        {malwareResult.first_seen || 'N/A'}
-                      </div>
+                      <div className="text-micro uppercase tracking-wider mb-1 text-muted">First Seen</div>
+                      <div className="text-sm text-slate-100">{malwareResult.first_seen || 'N/A'}</div>
                     </div>
                     <div>
-                      <div className="text-[11px] uppercase tracking-wider mb-1" style={{ color: '#64748b' }}>
-                        Tags
-                      </div>
+                      <div className="text-micro uppercase tracking-wider mb-1 text-muted">Tags</div>
                       <div className="text-xs flex flex-wrap gap-1">
                         {(malwareResult.tags || []).slice(0, 5).map((tag: string, i: number) => (
-                          <span
-                            key={i}
-                            className="px-1.5 py-0.5 rounded"
-                            style={{ background: '#1e293b', color: '#94a3b8' }}
-                          >
+                          <span key={i} className="px-1.5 py-0.5 rounded bg-[rgb(var(--surface-300))] text-muted">
                             {tag}
                           </span>
                         ))}
@@ -498,10 +415,8 @@ export default function PhoneOsintNew() {
                 </div>
 
                 {/* Quick Links */}
-                <div className="p-5 rounded-2xl" style={{ background: '#0f172a', border: '1px solid #1e293b' }}>
-                  <h3 className="text-sm font-bold mb-3" style={{ color: '#94a3b8' }}>
-                    🔗 Analysis Links
-                  </h3>
+                <div className="p-5 rounded-lg bg-[rgb(var(--surface-100))] border border-[rgb(var(--border-400))]">
+                  <h3 className="text-sm font-bold mb-3 text-muted">Analysis Links</h3>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                     {[
                       { name: 'VirusTotal', url: `https://www.virustotal.com/gui/file/${hashInput.trim()}` },
@@ -522,13 +437,10 @@ export default function PhoneOsintNew() {
                         href={link.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 p-2.5 rounded-xl transition hover:bg-[#1e293b]"
-                        style={{ background: '#0f172a', border: '1px solid #1e293b' }}
+                        className="flex items-center gap-2 p-2.5 rounded-lg transition hover:bg-[rgb(var(--hover-100))] bg-[rgb(var(--surface-100))] border border-[rgb(var(--border-400))]"
                       >
-                        <span className="text-xs font-medium flex-1 truncate" style={{ color: '#f1f5f9' }}>
-                          {link.name}
-                        </span>
-                        <ExternalLink size={10} style={{ color: '#64748b' }} />
+                        <span className="text-xs font-medium flex-1 truncate text-slate-100">{link.name}</span>
+                        <ExternalLink size={10} className="text-muted" />
                       </a>
                     ))}
                   </div>
@@ -537,10 +449,7 @@ export default function PhoneOsintNew() {
             )}
 
             {malwareResult?.error && (
-              <div
-                className="p-3 rounded-xl text-sm"
-                style={{ background: '#991b1b20', color: '#fca5a5', border: '1px solid #991b1b40' }}
-              >
+              <div className="p-3 rounded-lg text-sm bg-red-900/20 text-red-300 border border-red-900/40">
                 {malwareResult.error}
               </div>
             )}
@@ -550,17 +459,10 @@ export default function PhoneOsintNew() {
 
       {/* Scan History */}
       {history.length > 0 && (
-        <div className="mt-4 p-5 rounded-2xl" style={{ background: '#111827', border: '1px solid #1e293b' }}>
-          <div
-            className="text-[13px] font-semibold mb-3 flex items-center justify-between"
-            style={{ color: '#64748b' }}
-          >
-            <span>🕓 Scan History ({history.length})</span>
-            <button
-              onClick={() => setHistory([])}
-              className="text-[11px] hover:text-white transition"
-              style={{ color: '#64748b' }}
-            >
+        <div className="mt-4 p-5 rounded-lg bg-[rgb(var(--surface-200))] border border-[rgb(var(--border-400))]">
+          <div className="text-[13px] font-semibold mb-3 flex items-center justify-between text-muted">
+            <span>Scan History ({history.length})</span>
+            <button onClick={() => setHistory([])} className="text-[11px] hover:text-white transition text-muted">
               <Trash2 size={12} /> Clear
             </button>
           </div>
@@ -568,21 +470,13 @@ export default function PhoneOsintNew() {
             {history.slice(0, 5).map((scan) => (
               <div
                 key={scan.id}
-                className="flex items-center justify-between p-2.5 rounded-xl"
-                style={{ background: '#0f172a', border: '1px solid #1e293b' }}
+                className="flex items-center justify-between p-2.5 rounded-lg bg-[rgb(var(--surface-100))] border border-[rgb(var(--border-400))]"
               >
                 <div>
-                  <div className="text-xs font-medium font-mono" style={{ color: '#f1f5f9' }}>
-                    {scan.number}
-                  </div>
-                  <div className="text-[10px]" style={{ color: '#64748b' }}>
-                    {new Date(scan.timestamp).toLocaleTimeString()}
-                  </div>
+                  <div className="text-xs font-medium font-mono text-slate-100">{scan.number}</div>
+                  <div className="text-[10px] text-muted">{new Date(scan.timestamp).toLocaleTimeString()}</div>
                 </div>
-                <span
-                  className="text-[9px] font-bold px-2 py-0.5 rounded-full"
-                  style={{ background: '#22c55e20', color: '#22c55e' }}
-                >
+                <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-500">
                   ✓
                 </span>
               </div>
@@ -592,9 +486,9 @@ export default function PhoneOsintNew() {
       )}
 
       {/* Footer */}
-      <div className="mt-6 pt-4 text-center text-[12px]" style={{ color: '#475569' }}>
-        <a href="/dfir/phone-osint" style={{ color: '#64748b' }}>
-          ⚖️ Legal Policy · Privacy · Terms
+      <div className="mt-6 pt-4 text-center text-[12px] text-slate-500">
+        <a href="/dfir/phone-osint" className="text-muted">
+          Legal Policy · Privacy · Terms
         </a>
       </div>
     </DataPageLayout>

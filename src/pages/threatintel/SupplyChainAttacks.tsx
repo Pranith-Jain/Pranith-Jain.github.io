@@ -143,7 +143,7 @@ export default function SupplyChainAttacks(): JSX.Element {
       <div className="space-y-2">
         {data.stale && (
           <p className="text-micro font-mono text-amber-600 dark:text-amber-400">
-            ⚠ showing cached data (upstream temporarily unavailable)
+            ! showing cached data (upstream temporarily unavailable)
           </p>
         )}
         <div className="flex flex-wrap gap-1.5">

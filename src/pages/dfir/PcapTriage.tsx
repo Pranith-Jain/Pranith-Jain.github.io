@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { BackLink } from '../../components/BackLink';
 import { Network, Upload } from 'lucide-react';
 
 interface Summary {
@@ -200,6 +201,7 @@ export default function PcapTriage(): JSX.Element {
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
+      <BackLink to="/dfir">back</BackLink>
       <Link
         to="/dfir/tools/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"

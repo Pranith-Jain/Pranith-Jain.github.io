@@ -1610,12 +1610,12 @@ export default function GlobalPulse(): JSX.Element {
               {/* Globe Status Badge */}
               <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
                 {regionFilter === 'mena' && (
-                  <div className="bg-amber-500/20 backdrop-blur-sm rounded-xl border border-amber-500/50 px-3 py-1.5 flex items-center gap-2">
+                  <div className="bg-amber-500/20 rounded-xl border border-amber-500/50 px-3 py-1.5 flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
                     <span className="text-micro font-mono text-amber-700 dark:text-amber-300">MENA</span>
                   </div>
                 )}
-                <div className="dark:bg-[rgb(var(--input-200)/0.8)] bg-slate-50/80 backdrop-blur-sm rounded-xl border border-slate-600/50 px-3 py-1.5 flex items-center gap-2">
+                <div className="dark:bg-[rgb(var(--input-200)/0.8)] bg-slate-50/80 rounded-xl border border-slate-600/50 px-3 py-1.5 flex items-center gap-2">
                   <span
                     className={`w-2 h-2 rounded-full ${mapMode === '3d' ? 'bg-brand-500 animate-pulse' : 'bg-emerald-500'}`}
                   />
@@ -1628,7 +1628,7 @@ export default function GlobalPulse(): JSX.Element {
               {/* Empty State */}
               {geoPoints.length === 0 && (
                 <div className="absolute inset-0 z-10 flex items-center justify-center">
-                  <div className="dark:bg-[rgb(var(--input-200)/0.9)] bg-white/90 backdrop-blur-sm rounded-xl px-8 py-6 text-center border border-slate-600/50 max-w-sm">
+                  <div className="dark:bg-[rgb(var(--input-200)/0.9)] bg-white/90 rounded-xl px-8 py-6 text-center border border-slate-600/50 max-w-sm">
                     <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-slate-800/50 flex items-center justify-center">
                       <Crosshair size={28} className="text-slate-500" />
                     </div>

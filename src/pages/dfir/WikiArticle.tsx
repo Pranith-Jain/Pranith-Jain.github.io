@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Wrench } from 'lucide-react';
 import { wikiMeta } from '../../data/dfir/wiki-meta';
 import { type ToolTopic } from '../../data/dfir/tool-topics';
+import { BackLink } from '../../components/BackLink';
 import { injectToolLinks } from '../../lib/dfir/inject-tool-links';
 
 export default function WikiArticle(): JSX.Element {
@@ -71,12 +72,7 @@ export default function WikiArticle(): JSX.Element {
   if (!articleMeta) {
     return (
       <div className="max-w-3xl mx-auto px-4 sm:px-8 py-12 sm:py-20 text-slate-900 dark:text-slate-100">
-        <Link
-          to="/threatintel/catalog?cat=wiki"
-          className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-        >
-          back
-        </Link>
+        <BackLink to="/threatintel">back</BackLink>
         <h1 className="font-display font-bold text-3xl">Article not found</h1>
       </div>
     );

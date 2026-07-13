@@ -225,7 +225,6 @@ const ToolsDirectory = lazy(() => import('./pages/threatintel/ToolsDirectory'));
 const OsintDirectory = lazy(() => import('./pages/threatintel/OsintDirectory'));
 const ReportsLibrary = lazy(() => import('./pages/threatintel/ReportsLibrary'));
 const CveIntel = lazy(() => import('./pages/threatintel/CveIntel'));
-const CveList = lazy(() => import('./pages/threatintel/CveList'));
 const CveResourcesCatalog = lazy(() => import('./pages/dfir/CveResourcesCatalog'));
 const CyberCrime = lazy(() => import('./pages/threatintel/CyberCrime'));
 const DarkWeb = lazy(() => import('./pages/threatintel/DarkWebOsintTools'));
@@ -237,7 +236,6 @@ const Detections = lazy(() => import('./pages/threatintel/Detections'));
 const DisarmFramework = lazy(() => import('./pages/threatintel/DisarmFramework'));
 const DomainMonitor = lazy(() => import('./pages/threatintel/DomainMonitor'));
 const EntityResolution = lazy(() => import('./pages/threatintel/EntityResolution'));
-const ExploitableCves = lazy(() => import('./pages/threatintel/ExploitableCves'));
 const ExternalResources = lazy(() => import('./pages/threatintel/ExternalResources'));
 const F3ead = lazy(() => import('./pages/threatintel/F3ead'));
 const FeedCatalog = lazy(() => import('./pages/threatintel/FeedCatalog'));
@@ -255,7 +253,6 @@ const Investigations = lazy(() => import('./pages/threatintel/Investigations'));
 const IocCorrelation = lazy(() => import('./pages/threatintel/IocCorrelation'));
 const IocEnrichment = lazy(() => import('./pages/threatintel/IocEnrichment'));
 const IocFeedsPage = lazy(() => import('./pages/threatintel/IocFeedsPage'));
-const K8sCve = lazy(() => import('./pages/threatintel/K8sCve'));
 const KnowledgeGraph = lazy(() => import('./pages/threatintel/KnowledgeGraph'));
 const LiveIocs = lazy(() => import('./pages/threatintel/LiveIocs'));
 const LlmThreatAtlas = lazy(() => import('./pages/threatintel/LlmThreatAtlas'));
@@ -346,7 +343,6 @@ const AdminAnalyticsDashboard = lazy(() => import('./pages/admin/AnalyticsDashbo
 const EstateConfig = lazy(() => import('./pages/threatintel/EstateConfig'));
 const AlertFeed = lazy(() => import('./pages/threatintel/AlertFeed'));
 const VeraChat = lazy(() => import('./pages/threatintel/VeraChat'));
-const AgentMesh = lazy(() => import('./pages/threatintel/AgentMesh'));
 const RansomwareLive = lazy(() => import('./pages/threatintel/RansomwareLive'));
 const CyberPulse = lazy(() => import('./pages/threatintel/CyberPulse'));
 const AiHoneypotObservatory = lazy(() => import('./pages/threatintel/AiHoneypotObservatory'));
@@ -492,11 +488,9 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/research/:slug', Component: ResearchPostPage },
   { path: '/threatintel/ransomware-live', Component: RansomwareLive },
   { path: '/threatintel/cyberpulse', Component: CyberPulse },
-  { path: '/threatintel/ai-honeypot-observatory', Component: AiHoneypotObservatory },
   { path: '/threatintel/infra/ai-honeypot', Component: AiHoneypotObservatory },
   { path: '/threatintel/alerts', Component: AlertFeed },
   { path: '/threatintel/vera', Component: VeraChat },
-  { path: '/threatintel/agent-mesh', Component: AgentMesh },
   { path: '/threatintel/estate', Component: EstateConfig },
   { path: '/threatintel/infostealer/:slug', Component: InfostealerDetail },
   { path: '/dfir/owasp', Component: Owasp },
@@ -747,9 +741,6 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/cves/cves', Component: CveIntel },
   { path: '/threatintel/cves/advisories', Component: GithubAdvisories },
   { path: '/threatintel/cves/resources', Component: CveResourcesCatalog },
-  { path: '/threatintel/cves/k8s', Component: K8sCve },
-  { path: '/threatintel/cves/exploitable', Component: ExploitableCves },
-  { path: '/threatintel/cves/list', Component: CveList },
   { path: '/dfir/pgp-tool', Component: PgpTool },
   { path: '/dfir/tor-gateway', Component: TorGateway },
   { path: '/dfir/blocklists', Component: Blocklists },
@@ -765,7 +756,6 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatnexus', Component: ArgusPage },
   { path: '/threatintel/cti-dashboard', Component: CtiDashboard },
   { path: '/threatintel/ti-dashboard', Component: TiDashboard },
-  { path: '/threatintel/knowledge-graph', Component: KnowledgeGraph },
 ];
 
 /** Legacy / renamed paths preserved as redirects so in-flight links don't 404. */
@@ -849,6 +839,7 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   // ── CveIntel subsumes K8s + Exploitable tabs ─────
   { path: '/threatintel/cves/k8s', to: '/threatintel/cves/cves' },
   { path: '/threatintel/cves/exploitable', to: '/threatintel/cves/cves' },
+  { path: '/threatintel/cves/list', to: '/threatintel/cves/cves' },
   // ── Canonical 2-segment hub paths → real page (defensive — direct
   //    `to`/`href` from a component should use the real path; this
   //    redirect exists so external links, bookmarks, and copy-paste
@@ -867,6 +858,9 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/threatintel/ransomwhere', to: '/threatintel/darkweb/ransomwhere' },
   { path: '/threatintel/breach-forums', to: '/threatintel/darkweb/forums' },
   { path: '/threatintel/darkweb-tools', to: '/threatintel/darkweb/watch' },
+  // ── Duplicate standalone pages → hub tabs ────────────────────────
+  { path: '/threatintel/ai-honeypot-observatory', to: '/threatintel/infra/ai-honeypot' },
+  { path: '/threatintel/knowledge-graph', to: '/threatintel/research-hub/knowledge' },
 
   // ── IOC Hub ─────────────────────────────────────────────────────
   { path: '/threatintel/c2-tracker', to: '/threatintel/iocs/c2' },
@@ -977,8 +971,6 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/threatintel/osint-cli-tools', to: '/threatintel/osint/cli' },
   { path: '/threatintel/cve-resources', to: '/threatintel/catalog?cat=cves' },
   { path: '/threatintel/cve-list', to: '/threatintel/cves/cves' },
-  { path: '/threatintel/cves/list', to: '/threatintel/cves/cves' }, // tab of CveIntel
-
   // ── Actor Hub ──────────────────────────────────────────────────
   { path: '/threatintel/actor-kb', to: '/threatintel/catalog?cat=actors' },
   { path: '/threatintel/actors/kb', to: '/threatintel/actors/directory' }, // tab of ActorDirectory

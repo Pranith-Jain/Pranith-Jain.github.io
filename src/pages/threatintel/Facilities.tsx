@@ -637,7 +637,11 @@ const ALL_TYPES = Object.keys(TYPE_CONFIG) as FacilityType[];
 
 /* ─── Component ─────────────────────────────────────────────────────────── */
 
-export default function Facilities(): JSX.Element {
+interface FacilitiesProps {
+  bare?: boolean;
+}
+
+export default function Facilities({ bare }: FacilitiesProps): JSX.Element {
   const [search, setSearch] = useState('');
   const [activeTypes, setActiveTypes] = useState<Set<FacilityType>>(new Set(ALL_TYPES));
   const [regionFilter, setRegionFilter] = useState<'all' | 'mena'>('all');
@@ -687,6 +691,232 @@ export default function Facilities(): JSX.Element {
     });
   };
 
+  const body = (
+    <div className="space-y-4">
+      {/* Stats */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 p-3">
+          <div className="text-micro font-mono uppercase text-slate-500 mb-1">Total</div>
+          <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{stats.total}</div>
+        </div>
+        <div className="rounded-xl border border-rose-500/20 bg-rose-500/5 p-3">
+          <div className="text-micro font-mono uppercase text-rose-600 dark:text-rose-400 mb-1">Critical</div>
+          <div className="text-2xl font-bold text-rose-600 dark:text-rose-400">{stats.bySeverity.critical ?? 0}</div>
+        </div>
+        <div className="rounded-xl border border-orange-500/20 bg-orange-500/5 p-3">
+          <div className="text-micro font-mono uppercase text-orange-600 dark:text-orange-400 mb-1">High</div>
+          <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">{stats.bySeverity.high ?? 0}</div>
+        </div>
+        <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-3">
+          <div className="text-micro font-mono uppercase text-amber-600 dark:text-amber-400 mb-1">Medium</div>
+          <div className="text-2xl font-bold text-amber-600 dark:text-amber-400">{stats.bySeverity.medium ?? 0}</div>
+        </div>
+      </div>
+
+      {/* Controls */}
+      <div className="flex flex-wrap items-center gap-3">
+        <div className="relative flex-1 min-w-[200px] max-w-md">
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search facilities..."
+            className="w-full pl-9 pr-3 py-2 text-sm font-mono rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+          />
+        </div>
+        <div className="flex items-center gap-1">
+          <button
+            type="button"
+            onClick={() => setView('table')}
+            className={`px-3 py-1.5 text-xs font-mono rounded-xl border transition-colors ${
+              view === 'table'
+                ? 'bg-brand-500/10 text-brand-600 dark:text-brand-400 border-brand-500/30'
+                : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-400 hover:text-slate-600'
+            }`}
+          >
+            Table
+          </button>
+          <button
+            type="button"
+            onClick={() => setView('map')}
+            className={`px-3 py-1.5 text-xs font-mono rounded-xl border transition-colors ${
+              view === 'map'
+                ? 'bg-brand-500/10 text-brand-600 dark:text-brand-400 border-brand-500/30'
+                : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-400 hover:text-slate-600'
+            }`}
+          >
+            Map
+          </button>
+        </div>
+        <select
+          value={regionFilter}
+          onChange={(e) => setRegionFilter(e.target.value as 'all' | 'mena')}
+          className="px-3 py-1.5 text-xs font-mono rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 text-slate-900 dark:text-slate-100"
+        >
+          <option value="all">All Regions</option>
+          <option value="mena">MENA Focus</option>
+        </select>
+        <select
+          value={sortBy}
+          onChange={(e) => setSortBy(e.target.value as 'name' | 'severity' | 'type')}
+          className="px-3 py-1.5 text-xs font-mono rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 text-slate-900 dark:text-slate-100"
+        >
+          <option value="type">Sort by Type</option>
+          <option value="severity">Sort by Severity</option>
+          <option value="name">Sort by Name</option>
+        </select>
+      </div>
+
+      {/* Type Filters */}
+      <div className="flex flex-wrap gap-1.5">
+        {ALL_TYPES.map((t) => {
+          const config = TYPE_CONFIG[t];
+          const active = activeTypes.has(t);
+          const count = FACILITIES.filter((f) => f.type === t).length;
+          return (
+            <button
+              key={t}
+              type="button"
+              onClick={() => toggleType(t)}
+              className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-mono rounded-xl border transition-all ${
+                active
+                  ? `${config.bgColor} ${config.color} border-current`
+                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-400 opacity-50'
+              }`}
+            >
+              <config.icon size={12} />
+              {config.label}
+              <span className="text-micro opacity-60">{count}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Map View */}
+      {view === 'map' && (
+        <div
+          className="rounded-xl overflow-hidden border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]"
+          style={{ minHeight: '500px' }}
+        >
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center h-[500px]">
+                <div className="text-sm text-slate-400">Loading map…</div>
+              </div>
+            }
+          >
+            <PulseMap
+              markers={filtered.map((f) => ({
+                id: f.id,
+                lat: f.lat,
+                lng: f.lng,
+                severity: f.severity,
+                kind: f.type,
+                title: f.name,
+                description: f.description,
+                source: 'Facilities DB',
+              }))}
+            />
+          </Suspense>
+        </div>
+      )}
+
+      {/* Table View */}
+      {view === 'table' && (
+        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+                  <th className="px-4 py-3 text-left text-micro font-mono uppercase text-slate-500">Name</th>
+                  <th className="px-4 py-3 text-left text-micro font-mono uppercase text-slate-500">Type</th>
+                  <th className="px-4 py-3 text-left text-micro font-mono uppercase text-slate-500">Country</th>
+                  <th className="px-4 py-3 text-left text-micro font-mono uppercase text-slate-500">Severity</th>
+                  <th className="px-4 py-3 text-left text-micro font-mono uppercase text-slate-500">Coords</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filtered.map((f) => {
+                  const config = TYPE_CONFIG[f.type];
+                  const isExpanded = expandedId === f.id;
+                  return (
+                    <Fragment key={f.id}>
+                      <tr
+                        onClick={() => setExpandedId(isExpanded ? null : f.id)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            setExpandedId(isExpanded ? null : f.id);
+                          }
+                        }}
+                        role="button"
+                        tabIndex={0}
+                        aria-expanded={isExpanded}
+                        className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/50 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.3)] cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-inset"
+                      >
+                        <td className="px-4 py-3">
+                          <div className="flex items-center gap-2">
+                            {isExpanded ? (
+                              <ChevronUp size={12} className="text-slate-400" />
+                            ) : (
+                              <ChevronDown size={12} className="text-slate-400" />
+                            )}
+                            <span className="font-medium text-slate-900 dark:text-slate-100">{f.name}</span>
+                          </div>
+                        </td>
+                        <td className="px-4 py-3">
+                          <span
+                            className={`inline-flex items-center gap-1 px-2 py-0.5 text-xs font-mono rounded border ${config.bgColor} ${config.color}`}
+                          >
+                            <config.icon size={10} />
+                            {config.label}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3 font-mono text-muted">{f.country}</td>
+                        <td className="px-4 py-3">
+                          <span
+                            className={`inline-flex px-2 py-0.5 text-xs font-mono rounded ${SEVERITY_COLORS[f.severity]}`}
+                          >
+                            {f.severity}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3 font-mono text-xs text-slate-500">
+                          {f.lat.toFixed(2)}, {f.lng.toFixed(2)}
+                        </td>
+                      </tr>
+                      {isExpanded && (
+                        <tr key={`${f.id}-detail`}>
+                          <td colSpan={5} className="px-4 py-3 bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.2)]">
+                            <p className="text-sm text-muted">{f.description}</p>
+                            <a
+                              href={`https://www.google.com/maps?q=${f.lat},${f.lng}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 mt-2 text-xs font-mono text-brand-500 hover:text-brand-600"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              Open in Maps <ExternalLink size={10} />
+                            </a>
+                          </td>
+                        </tr>
+                      )}
+                    </Fragment>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+          {filtered.length === 0 && (
+            <div className="px-4 py-12 text-center text-sm text-slate-400">
+              No facilities match the current filters.
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+  if (bare) return body;
   return (
     <DataPageLayout
       backTo="/threatintel"
@@ -695,235 +925,7 @@ export default function Facilities(): JSX.Element {
       description="Strategic facilities worldwide — conflict zones, military bases, nuclear sites, disputed territories, sanctions targets, and critical infrastructure."
       maxWidthClass="max-w-7xl"
     >
-      <div className="space-y-4">
-        {/* Stats */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 p-3">
-            <div className="text-micro font-mono uppercase text-slate-500 mb-1">Total</div>
-            <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{stats.total}</div>
-          </div>
-          <div className="rounded-xl border border-rose-500/20 bg-rose-500/5 p-3">
-            <div className="text-micro font-mono uppercase text-rose-600 dark:text-rose-400 mb-1">Critical</div>
-            <div className="text-2xl font-bold text-rose-600 dark:text-rose-400">{stats.bySeverity.critical ?? 0}</div>
-          </div>
-          <div className="rounded-xl border border-orange-500/20 bg-orange-500/5 p-3">
-            <div className="text-micro font-mono uppercase text-orange-600 dark:text-orange-400 mb-1">High</div>
-            <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">{stats.bySeverity.high ?? 0}</div>
-          </div>
-          <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-3">
-            <div className="text-micro font-mono uppercase text-amber-600 dark:text-amber-400 mb-1">Medium</div>
-            <div className="text-2xl font-bold text-amber-600 dark:text-amber-400">{stats.bySeverity.medium ?? 0}</div>
-          </div>
-        </div>
-
-        {/* Controls */}
-        <div className="flex flex-wrap items-center gap-3">
-          <div className="relative flex-1 min-w-[200px] max-w-md">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search facilities..."
-              className="w-full pl-9 pr-3 py-2 text-sm font-mono rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
-            />
-          </div>
-          <div className="flex items-center gap-1">
-            <button
-              type="button"
-              onClick={() => setView('table')}
-              className={`px-3 py-1.5 text-xs font-mono rounded-xl border transition-colors ${
-                view === 'table'
-                  ? 'bg-brand-500/10 text-brand-600 dark:text-brand-400 border-brand-500/30'
-                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-400 hover:text-slate-600'
-              }`}
-            >
-              Table
-            </button>
-            <button
-              type="button"
-              onClick={() => setView('map')}
-              className={`px-3 py-1.5 text-xs font-mono rounded-xl border transition-colors ${
-                view === 'map'
-                  ? 'bg-brand-500/10 text-brand-600 dark:text-brand-400 border-brand-500/30'
-                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-400 hover:text-slate-600'
-              }`}
-            >
-              Map
-            </button>
-          </div>
-          <select
-            value={regionFilter}
-            onChange={(e) => setRegionFilter(e.target.value as 'all' | 'mena')}
-            className="px-3 py-1.5 text-xs font-mono rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 text-slate-900 dark:text-slate-100"
-          >
-            <option value="all">All Regions</option>
-            <option value="mena">MENA Focus</option>
-          </select>
-          <select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value as 'name' | 'severity' | 'type')}
-            className="px-3 py-1.5 text-xs font-mono rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 text-slate-900 dark:text-slate-100"
-          >
-            <option value="type">Sort by Type</option>
-            <option value="severity">Sort by Severity</option>
-            <option value="name">Sort by Name</option>
-          </select>
-        </div>
-
-        {/* Type Filters */}
-        <div className="flex flex-wrap gap-1.5">
-          {ALL_TYPES.map((t) => {
-            const config = TYPE_CONFIG[t];
-            const active = activeTypes.has(t);
-            const count = FACILITIES.filter((f) => f.type === t).length;
-            return (
-              <button
-                key={t}
-                type="button"
-                onClick={() => toggleType(t)}
-                className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-mono rounded-xl border transition-all ${
-                  active
-                    ? `${config.bgColor} ${config.color} border-current`
-                    : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-400 opacity-50'
-                }`}
-              >
-                <config.icon size={12} />
-                {config.label}
-                <span className="text-micro opacity-60">{count}</span>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Map View */}
-        {view === 'map' && (
-          <div
-            /* v5 — replace the hard-coded #0a0f1a map-container bg
-               with the token-driven bg-slate-50 dark:bg-[rgb(var(--input-200))]
-               so the map blends with the global surface system.
-               Dark-mode remap: slate-950 → --input-200 #0F121A
-               (within 3 units of the old hex; visually identical
-               behind the map tiles). */
-            className="rounded-xl overflow-hidden border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]"
-            style={{ minHeight: '500px' }}
-          >
-            <Suspense
-              fallback={
-                <div className="flex items-center justify-center h-[500px]">
-                  <div className="text-sm text-slate-400">Loading map…</div>
-                </div>
-              }
-            >
-              <PulseMap
-                markers={filtered.map((f) => ({
-                  id: f.id,
-                  lat: f.lat,
-                  lng: f.lng,
-                  severity: f.severity,
-                  kind: f.type,
-                  title: f.name,
-                  description: f.description,
-                  source: 'Facilities DB',
-                }))}
-              />
-            </Suspense>
-          </div>
-        )}
-
-        {/* Table View */}
-        {view === 'table' && (
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                    <th className="px-4 py-3 text-left text-micro font-mono uppercase text-slate-500">Name</th>
-                    <th className="px-4 py-3 text-left text-micro font-mono uppercase text-slate-500">Type</th>
-                    <th className="px-4 py-3 text-left text-micro font-mono uppercase text-slate-500">Country</th>
-                    <th className="px-4 py-3 text-left text-micro font-mono uppercase text-slate-500">Severity</th>
-                    <th className="px-4 py-3 text-left text-micro font-mono uppercase text-slate-500">Coords</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filtered.map((f) => {
-                    const config = TYPE_CONFIG[f.type];
-                    const isExpanded = expandedId === f.id;
-                    return (
-                      <Fragment key={f.id}>
-                        <tr
-                          onClick={() => setExpandedId(isExpanded ? null : f.id)}
-                          onKeyDown={(e) => {
-                            if (e.key === 'Enter' || e.key === ' ') {
-                              e.preventDefault();
-                              setExpandedId(isExpanded ? null : f.id);
-                            }
-                          }}
-                          role="button"
-                          tabIndex={0}
-                          aria-expanded={isExpanded}
-                          className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/50 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.3)] cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-inset"
-                        >
-                          <td className="px-4 py-3">
-                            <div className="flex items-center gap-2">
-                              {isExpanded ? (
-                                <ChevronUp size={12} className="text-slate-400" />
-                              ) : (
-                                <ChevronDown size={12} className="text-slate-400" />
-                              )}
-                              <span className="font-medium text-slate-900 dark:text-slate-100">{f.name}</span>
-                            </div>
-                          </td>
-                          <td className="px-4 py-3">
-                            <span
-                              className={`inline-flex items-center gap-1 px-2 py-0.5 text-xs font-mono rounded border ${config.bgColor} ${config.color}`}
-                            >
-                              <config.icon size={10} />
-                              {config.label}
-                            </span>
-                          </td>
-                          <td className="px-4 py-3 font-mono text-muted">{f.country}</td>
-                          <td className="px-4 py-3">
-                            <span
-                              className={`inline-flex px-2 py-0.5 text-xs font-mono rounded ${SEVERITY_COLORS[f.severity]}`}
-                            >
-                              {f.severity}
-                            </span>
-                          </td>
-                          <td className="px-4 py-3 font-mono text-xs text-slate-500">
-                            {f.lat.toFixed(2)}, {f.lng.toFixed(2)}
-                          </td>
-                        </tr>
-                        {isExpanded && (
-                          <tr key={`${f.id}-detail`}>
-                            <td colSpan={5} className="px-4 py-3 bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.2)]">
-                              <p className="text-sm text-muted">{f.description}</p>
-                              <a
-                                href={`https://www.google.com/maps?q=${f.lat},${f.lng}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1 mt-2 text-xs font-mono text-brand-500 hover:text-brand-600"
-                                onClick={(e) => e.stopPropagation()}
-                              >
-                                Open in Maps <ExternalLink size={10} />
-                              </a>
-                            </td>
-                          </tr>
-                        )}
-                      </Fragment>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-            {filtered.length === 0 && (
-              <div className="px-4 py-12 text-center text-sm text-slate-400">
-                No facilities match the current filters.
-              </div>
-            )}
-          </div>
-        )}
-      </div>
+      {body}
     </DataPageLayout>
   );
 }

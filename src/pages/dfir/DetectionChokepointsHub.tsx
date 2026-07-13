@@ -471,13 +471,13 @@ const ECOSYSTEM_LINKS = [
 ];
 
 const ECOSYSTEM_NODES = [
-  { name: 'Infostealers', icon: '🔑', color: 'violet' },
-  { name: 'Ransomware', icon: '🔒', color: 'rose' },
-  { name: 'AiTM Kits', icon: '🎣', color: 'amber' },
-  { name: 'ClickFix', icon: '📋', color: 'emerald' },
-  { name: 'Renamed RMM', icon: '🖥️', color: 'sky' },
-  { name: 'EDR Bypass', icon: '🛡️', color: 'red' },
-  { name: 'BEC / Double Extortion', icon: '📧', color: 'orange' },
+  { name: 'Infostealers', color: 'violet' },
+  { name: 'Ransomware', color: 'rose' },
+  { name: 'AiTM Kits', color: 'amber' },
+  { name: 'ClickFix', color: 'emerald' },
+  { name: 'Renamed RMM', color: 'sky' },
+  { name: 'EDR Bypass', color: 'red' },
+  { name: 'BEC / Double Extortion', color: 'orange' },
 ];
 
 const NODE_TONE: Record<string, string> = {
@@ -972,7 +972,6 @@ export default function DetectionChokepointsHub() {
               {ECOSYSTEM_NODES.map((n) => (
                 <div key={n.name} className={`${CARD} p-3`}>
                   <div className="flex items-center gap-2">
-                    <span className="text-lg">{n.icon}</span>
                     <span className="font-mono text-sm font-medium text-slate-900 dark:text-white">{n.name}</span>
                   </div>
                 </div>

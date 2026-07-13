@@ -223,7 +223,7 @@ function ResultCard({
         // TakeoverResponse: `service` is singular optional string.
         const vuln = data.vulnerable as boolean | undefined;
         const svc = data.service as string | undefined;
-        return vuln ? `⚠ ${svc ?? 'vulnerable'}` : 'safe';
+        return vuln ? `! ${svc ?? 'vulnerable'}` : 'safe';
       }
       case 'cert_search': {
         // CertSearchResponse: `total` + `unique_names`.
@@ -273,13 +273,13 @@ function ResultCard({
         return (
           <div className="text-mini font-mono text-muted space-y-0.5 mt-1">
             <span>
-              SPF: <span className="text-slate-900 dark:text-slate-100">{spfPresent ? '✅' : '❌'}</span>
+              SPF: <span className="text-slate-900 dark:text-slate-100">{spfPresent ? 'Pass' : 'Fail'}</span>
             </span>
             <br />
             <span>
               DMARC:{' '}
               <span className="text-slate-900 dark:text-slate-100">
-                {dmarcPolicy ? dmarcPolicy.toUpperCase() : dmarcPresent ? '✅' : '❌'}
+                {dmarcPolicy ? dmarcPolicy.toUpperCase() : dmarcPresent ? 'Pass' : 'Fail'}
               </span>
             </span>
           </div>

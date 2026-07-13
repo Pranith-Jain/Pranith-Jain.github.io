@@ -1090,7 +1090,7 @@ export default function VulnToolkitCatalog(): JSX.Element {
           Curated catalog of CVE exploit toolkits, PoC code, and weaponized modules. Each entry links to official
           vendor/NVD advisories — use for research, patching prioritization, and detection engineering.
           <span className="block text-xs text-slate-500 dark:text-slate-400 font-mono mt-2">
-            ⚠ This catalog is for authorized security research only. Verify advisories before deploying any fix.
+            ! This catalog is for authorized security research only. Verify advisories before deploying any fix.
           </span>
         </span>
       }

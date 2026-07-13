@@ -53,7 +53,7 @@ export default function InfraIntel(): JSX.Element {
       </p>
       <div role="tabpanel">
         <Suspense fallback={<TabLoader />}>
-          {activeTab === 'strategic' && <Facilities />}
+          {activeTab === 'strategic' && <Facilities bare />}
           {activeTab === 'osm' && <InfraSearch />}
         </Suspense>
       </div>

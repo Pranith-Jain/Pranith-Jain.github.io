@@ -46,19 +46,6 @@ const TLP_COLORS: Record<string, string> = {
   CLEAR: 'bg-slate-300 text-slate-700 dark:bg-slate-600 dark:text-slate-200',
 };
 
-const TOPIC_EMOJIS: Record<string, string> = {
-  ransomware: '💀',
-  phishing: '🎣',
-  malware: '🦠',
-  cve: '🔓',
-  actor: '🕵️',
-  data_breach: '📋',
-  ddos: '🌊',
-  scam: '💰',
-  supply_chain: '🔗',
-  zero_day: '💥',
-};
-
 export default function AlertFeed() {
   const [alerts, setAlerts] = useState<Alert[]>([]);
   const [stats, setStats] = useState<AlertStats>({ total: 0, unread: 0, bySeverity: [] });
@@ -250,7 +237,7 @@ export default function AlertFeed() {
                           key={t}
                           className="text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-slate-500"
                         >
-                          {TOPIC_EMOJIS[t] ?? ''} {t}
+                          {t}
                         </span>
                       ))}
                     </div>

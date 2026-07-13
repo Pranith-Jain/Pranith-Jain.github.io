@@ -180,7 +180,7 @@ export default function TelegramChannelSearch(): JSX.Element {
       {data && data.warnings.length > 0 && (
         <ul className="mb-4 rounded-xl border border-amber-500/30 bg-amber-500/5 p-3 text-xs font-mono text-amber-700 dark:text-amber-300 space-y-1">
           {data.warnings.map((w) => (
-            <li key={w}>⚠ {w}</li>
+            <li key={w}>! {w}</li>
           ))}
         </ul>
       )}

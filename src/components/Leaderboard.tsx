@@ -152,7 +152,9 @@ export default function Leaderboard() {
                 {/* Rank */}
                 <div className={`w-8 text-center font-mono font-bold ${TIER_COLORS[entry.rank] || 'text-slate-400'}`}>
                   {entry.rank <= 3 ? (
-                    <span className="text-lg">{entry.rank === 1 ? '🥇' : entry.rank === 2 ? '🥈' : '🥉'}</span>
+                    <span className="text-lg font-mono font-bold">
+                      {entry.rank === 1 ? '1' : entry.rank === 2 ? '2' : '3'}
+                    </span>
                   ) : (
                     <span className="text-sm">#{entry.rank}</span>
                   )}

@@ -276,7 +276,7 @@ export default function Privacy(): JSX.Element {
             <Row label="public IPs (RTC)" value={webrtc.publicIps.join(', ') || undefined} />
             {webrtc.publicIps.length > 0 && (
               <p className="mt-3 text-xs font-mono text-amber-600 dark:text-amber-400">
-                ⚠ WebRTC may be exposing public IPs even behind a VPN.
+                ! WebRTC may be exposing public IPs even behind a VPN.
               </p>
             )}
           </section>

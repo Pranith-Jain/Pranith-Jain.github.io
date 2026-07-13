@@ -1448,7 +1448,7 @@ export function TelegramFeedPanel(): JSX.Element {
               className="text-micro font-mono px-1.5 py-0.5 rounded border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-300"
               title={w}
             >
-              {w.replace('could not fetch t.me/s/', '⚠ ')}
+              {w.replace('could not fetch t.me/s/', '! ')}
             </span>
           ))}
         </div>

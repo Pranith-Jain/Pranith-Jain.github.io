@@ -36,11 +36,10 @@ const NVIDIA_MODEL_FALLBACK = 'z-ai/glm-5.2';
 const NVIDIA_TIMEOUT_MS = 5_000;
 
 const WA_MODELS = [
-  '@cf/meta/llama-3.1-8b-instruct',
-  '@cf/meta/llama-3-8b-instruct',
-  '@cf/mistral/mistral-7b-instruct-v0.1',
-  '@hf/meta-llama/meta-llama-3-8b-instruct',
-  '@cf/meta/llama-3.2-3b-instruct',
+  '@cf/openai/gpt-oss-120b',
+  '@cf/qwen/qwen3-30b-a3b-fp8',
+  '@cf/moonshotai/kimi-k2.6',
+  '@cf/meta/llama-3.3-70b-instruct-fp8-fast',
 ];
 
 export interface CompletionInput {

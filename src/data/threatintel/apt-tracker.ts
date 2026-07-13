@@ -18,7 +18,7 @@ export interface AptRegion {
 export const APT_REGIONS: AptRegion[] = [
   {
     name: 'China',
-    flag: '🇨🇳',
+    flag: 'CN',
     totalOperations: 87,
     groups: [
       {
@@ -97,7 +97,7 @@ export const APT_REGIONS: AptRegion[] = [
   },
   {
     name: 'Russia',
-    flag: '🇷🇺',
+    flag: 'RU',
     totalOperations: 42,
     groups: [
       {
@@ -149,7 +149,7 @@ export const APT_REGIONS: AptRegion[] = [
   },
   {
     name: 'Iran',
-    flag: '🇮🇷',
+    flag: 'IR',
     totalOperations: 39,
     groups: [
       {
@@ -192,7 +192,7 @@ export const APT_REGIONS: AptRegion[] = [
   },
   {
     name: 'North Korea',
-    flag: '🇰🇵',
+    flag: 'KP',
     totalOperations: 11,
     groups: [
       {
@@ -226,7 +226,7 @@ export const APT_REGIONS: AptRegion[] = [
   },
   {
     name: 'NATO',
-    flag: '🏳️',
+    flag: 'Unknown',
     totalOperations: 7,
     groups: [
       {
@@ -260,7 +260,7 @@ export const APT_REGIONS: AptRegion[] = [
   },
   {
     name: 'Middle East',
-    flag: '🌍',
+    flag: 'Global',
     totalOperations: 24,
     groups: [
       {
@@ -276,7 +276,7 @@ export const APT_REGIONS: AptRegion[] = [
   },
   {
     name: 'Israel',
-    flag: '🇮🇱',
+    flag: 'IL',
     totalOperations: 5,
     groups: [
       {
@@ -292,7 +292,7 @@ export const APT_REGIONS: AptRegion[] = [
   },
   {
     name: 'Unknown',
-    flag: '❓',
+    flag: 'Unknown',
     totalOperations: 67,
     groups: [
       {
@@ -308,7 +308,7 @@ export const APT_REGIONS: AptRegion[] = [
   },
   {
     name: 'Others',
-    flag: '🌐',
+    flag: 'Global',
     totalOperations: 88,
     groups: [
       {

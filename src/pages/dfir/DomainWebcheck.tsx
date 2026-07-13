@@ -179,7 +179,7 @@ export default function DomainWebcheck(): JSX.Element {
               {result.security_headers.checks.map((ch) => (
                 <div key={ch.header} className="flex items-center gap-2 text-sm font-mono">
                   <span className={ch.secure ? 'text-emerald-500' : ch.present ? 'text-amber-500' : 'text-rose-500'}>
-                    {ch.secure ? '✓' : ch.present ? '⚠' : '✗'}
+                    {ch.secure ? '✓' : ch.present ? '!' : '✗'}
                   </span>
                   <span className="w-48 truncate text-slate-700 dark:text-slate-300">{ch.header}</span>
                   <span className="text-slate-500 text-xs flex-1 truncate">
