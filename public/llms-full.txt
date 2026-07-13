@@ -30,9 +30,12 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Abuse Reputation](https://pranithjain.qzz.io/dfir/abuse-rep) (dfir): Cross-source reputation: AbuseIPDB, Spamhaus, OTX, URLhaus.
 - [X-VERDIKT Multi-Source Verdict](https://pranithjain.qzz.io/dfir/x-verdikt) (dfir): Streaming verdicts from X (Twitter) intelligence feeds.
 - [ORKL Library Search](https://pranithjain.qzz.io/dfir/orkl) (dfir): Search the ORKL open-source threat intelligence library — reports, actors, CVEs from hundreds of sources.
+- [Traceix Hash Lookup](https://pranithjain.qzz.io/dfir/traceix) (dfir): SHA-256 hash reputation lookup via Traceix — per-engine antivirus/AV verdicts (Safe/Malicious/Unknown).
 - [Malware Analyzer](https://pranithjain.qzz.io/dfir/malware-analyzer) (dfir): PE / ELF / Mach-O static analysis with import hashing + section entropy.
 - [Infostealer Log Parser](https://pranithjain.qzz.io/dfir/stealer-parser) (dfir): Parse RedLine / Raccoon / Vidar / LummaC stealer logs — credentials, system, browser data.
 - [Bloom Filter Lookup](https://pranithjain.qzz.io/dfir/bloom) (dfir): Membership-test against a corpus of known-bad indicators.
+- [Infostealer Intelligence](https://pranithjain.qzz.io/dfir/infostealer-intel) (dfir): Infostealer-specific intelligence dashboard — prevalent families, log types, and compromised credential tracking.
+- [Rhysida Intrusion Kit](https://pranithjain.qzz.io/dfir/rhysida-intrusion) (dfir): Rhysida ransomware intrusion analysis — TTPs, IOCs, detection rules, and mitigation guidance.
 - [Decoder](https://pranithjain.qzz.io/dfir/decode) (dfir): base64 — hex — url — rot13 — zlib — gzip — chained auto-detection.
 - [Encoder](https://pranithjain.qzz.io/dfir/encoder) (dfir): Reverse of Decoder — encode any text to any of the supported formats.
 - [Hash Calculator](https://pranithjain.qzz.io/dfir/hash-calc) (dfir): MD5 — SHA1 — SHA256 — SHA512 — SSDEEP — TLSH — drag a file in.
@@ -43,6 +46,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Plist & Protobuf Decoder](https://pranithjain.qzz.io/dfir/plist-protobuf) (dfir): Apple binary plist + protobuf human-readable view.
 - [Punycode / Homoglyph Viewer](https://pranithjain.qzz.io/dfir/punycode) (dfir): Visualise IDN homograph attacks — Cyrillic vs Latin lookalikes.
 - [PowerShell Deobfuscator](https://pranithjain.qzz.io/dfir/powershell-deobf) (dfir): Unroll encoded / base64 / invoke-expression chains — step by step.
+- [File Analyzer](https://pranithjain.qzz.io/dfir/file) (dfir): Upload a file — extract metadata, hashes, strings, and embedded indicators.
 - [PCAP Triage](https://pranithjain.qzz.io/dfir/pcap-triage) (dfir): Protocol breakdown — top talkers — DNS / HTTP / TLS summaries.
 - [Registry Hive Explorer](https://pranithjain.qzz.io/dfir/registry-hive) (dfir): Browse — search — diff Windows registry hives offline.
 - [EVTX Parser Lite](https://pranithjain.qzz.io/dfir/evtx) (dfir): Parse Windows Event Log files — event IDs, channels, time-range filter.
@@ -51,6 +55,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Web Server Log Analyzer](https://pranithjain.qzz.io/dfir/web-log) (dfir): Apache — nginx — IIS access logs — anomaly detection + pivots.
 - [Prefetch Analyzer Lite](https://pranithjain.qzz.io/dfir/prefetch) (dfir): Parse Windows Prefetch files — execution evidence, run count, last run time.
 - [REGSCOPE Registry Analyzer](https://pranithjain.qzz.io/dfir/regscope) (dfir): Multi-hive registry scope: persistence, autoruns, services, scheduled tasks.
+- [Windows Registry Artifacts Reference](https://pranithjain.qzz.io/dfir/winreg) (dfir): Windows Registry Forensic Artifact Reference — 292 artifacts, 16 categories, 10 hive types, 77 MITRE techniques.
 - [Domain Investigator](https://pranithjain.qzz.io/dfir/domain-investigator) (dfir): Cross-source domain investigation hub — 6 aliases route here (domain-rep, webcheck, etc.).
 - [WHOIS History Explorer](https://pranithjain.qzz.io/dfir/whois-history) (dfir): Historical WHOIS pivots — registrant, nameserver, status changes.
 - [ASN Lookup](https://pranithjain.qzz.io/dfir/asn) (dfir): ASN details — prefix ranges — peer relationships.
@@ -61,11 +66,13 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Wayback Machine](https://pranithjain.qzz.io/dfir/wayback) (dfir): Search historical snapshots for a URL — changes over time.
 - [IP Geolocation](https://pranithjain.qzz.io/dfir/ip-geo) (dfir): IP — country / city / ASN / org / hosting type.
 - [Passive DNS](https://pranithjain.qzz.io/dfir/passive-dns) (dfir): Historical DNS resolution data for infrastructure tracking — migrations + fast-flux detection.
+- [Fleet Infrastructure Map](https://pranithjain.qzz.io/dfir/fleet-map) (dfir): Map and visualize infrastructure fleet — hosts, services, domains, and relationships.
 - [Asset Intelligence](https://pranithjain.qzz.io/dfir/asset-intel) (dfir): Aggregate asset inventory — domains, subdomains, services, certificates.
 - [Exposed Host](https://pranithjain.qzz.io/dfir/exposed-host) (dfir): Per-host exposure score and evidence — services, versions, CVEs.
 - [Open Directory Scanner](https://pranithjain.qzz.io/dfir/open-directory) (dfir): Detect misconfigured web servers exposing file listings.
 - [URL Preview](https://pranithjain.qzz.io/dfir/url-preview) (dfir): Safe, sandboxed preview of a URL — headers, redirects, screenshot.
 - [Subdomain Takeover Scanner](https://pranithjain.qzz.io/dfir/subdomain-takeover) (dfir): Detect dangling CNAMEs pointing to expired or unclaimed third-party services.
+- [Exposure Analysis](https://pranithjain.qzz.io/dfir/exposure) (dfir): External attack surface exposure — open ports, services, certificates, and misconfigurations.
 - [Email Defense](https://pranithjain.qzz.io/dfir/email-defense) (dfir): SPF / DKIM / DMARC / BIMI audit with failure modes called out.
 - [Phishing Analyzer](https://pranithjain.qzz.io/dfir/phishing) (dfir): URL + sender + header analysis with risk score.
 - [DMARC Analyzer](https://pranithjain.qzz.io/dfir/dmarc-analyzer) (dfir): Parse a DMARC aggregate report (RUA) — alignment, volume, failures.
@@ -93,6 +100,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [CVE Prioritizer](https://pranithjain.qzz.io/dfir/cve-prioritizer) (dfir): CVSS + EPSS + KEV + ransomware-use — single patch-priority call.
 - [CVE Resources Catalog](https://pranithjain.qzz.io/dfir/vuln-toolkit) (dfir): Curated list of CVE databases, exploit trackers, vendor PSIRTs.
 - [OSV Dependency Scan](https://pranithjain.qzz.io/dfir/osv-scan) (dfir): Paste a manifest.json / package-lock / requirements.txt — known vulns.
+- [WordPress Vulnerability Simulator](https://pranithjain.qzz.io/dfir/wordpress-sim) (dfir): Simulate WordPress vulnerability scenarios — core, plugin, and theme CVE testing.
 - [Rule Converter](https://pranithjain.qzz.io/dfir/rule-converter) (dfir): Sigma — KQL — SPL — YARA via one canonical IR.
 - [YARA Workbench](https://pranithjain.qzz.io/dfir/yara-workbench) (dfir): Collaborative YARA editor with malware test corpus.
 - [Threat Graph](https://pranithjain.qzz.io/dfir/threat-graph) (dfir): Indicator — relationship graph — visual pivot from any node.
@@ -179,6 +187,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Online Predators](https://pranithjain.qzz.io/threatintel/predators) (threatintel): Online predator categories, regional risk, and intervention resources.
 - [APT Actor Database](https://pranithjain.qzz.io/threatintel/apt-actors) (threatintel): ETDA Threat Group Cards — 416+ threat actors with attribution, tools, sectors, and operations.
 - [APTmap Malware Analysis](https://pranithjain.qzz.io/threatintel/aptmap) (threatintel): Cross-sample malware analysis across 18,000+ samples — file types, PE metadata, DLL imports, certificates, and APT-to-tool relationships.
+- [Threat Actor Knowledge Base](https://pranithjain.qzz.io/threatintel/actors/kb) (threatintel): Knowledge base of threat actors with profiles, aliases, TTPs, and associated campaigns.
 - [Active Campaigns](https://pranithjain.qzz.io/threatintel/campaigns/active) (threatintel): Active campaign tracker with status, severity, and IOC rollups.
 - [Campaign Lifecycle](https://pranithjain.qzz.io/threatintel/campaigns/lifecycle) (threatintel): Discovery → exploitation → actions on objectives.
 - [Campaign Generator](https://pranithjain.qzz.io/threatintel/campaigns/generator) (threatintel): AI-powered campaign generation for tabletop exercises.
@@ -195,9 +204,13 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [IOC Correlation](https://pranithjain.qzz.io/threatintel/iocs/correlation) (threatintel): IOC correlation analysis with timeline.
 - [Aggregated Feeds](https://pranithjain.qzz.io/threatintel/iocs/aggregated) (threatintel): Aggregated feed browser — what each provider ships.
 - [Observable DB](https://pranithjain.qzz.io/threatintel/iocs/observable) (threatintel): Every indicator seen, with provenance.
+- [SOC IOC View](https://pranithjain.qzz.io/threatintel/iocs/soc) (threatintel): SOC-focused IOC dashboard — relevant indicators sorted by priority with enrichment context.
 - [CVE Intel](https://pranithjain.qzz.io/threatintel/cves/cves) (threatintel): Unified CVE intelligence — NVD + KEV + EPSS + exploit availability.
 - [GitHub Advisories](https://pranithjain.qzz.io/threatintel/cves/advisories) (threatintel): GitHub security advisories with affected versions and patches.
 - [CVE Resources](https://pranithjain.qzz.io/threatintel/cves/resources) (threatintel): CVE resource catalogs — patch priority, exploit DB, vendor bulletins.
+- [Exploitable CVEs](https://pranithjain.qzz.io/threatintel/cves/exploitable) (threatintel): Curated list of exploitable CVEs with PoC/exploit availability, EPSS, and KEV status.
+- [Kubernetes CVEs](https://pranithjain.qzz.io/threatintel/cves/k8s) (threatintel): Kubernetes and container-specific CVEs — kubelet, API server, etcd, and CNI vulnerabilities.
+- [CVE List](https://pranithjain.qzz.io/threatintel/cves/list) (threatintel): Full CVE list with search, filter, and export capabilities.
 - [Malware IOCs](https://pranithjain.qzz.io/threatintel/malware/iocs) (threatintel): Malware IOC feeds across 50+ families.
 - [Malware Vault](https://pranithjain.qzz.io/threatintel/malware/vault) (threatintel): Malware sample vault with hashes and metadata.
 - [Malware Sandbox](https://pranithjain.qzz.io/threatintel/malware/sandbox) (threatintel): Hash lookup across 10+ sandbox platforms — consensus verdict.
@@ -211,6 +224,8 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Feed Scheduler](https://pranithjain.qzz.io/threatintel/feeds/scheduler) (threatintel): Feed scheduling and orchestration — cron, retry, backoff.
 - [Threat Feeds](https://pranithjain.qzz.io/threatintel/feeds/threatfeeds) (threatintel): Curated threat intelligence feeds from 50+ providers.
 - [My Threat Intel](https://pranithjain.qzz.io/threatintel/feeds/mythreatintel) (threatintel): My curated threat-intel feed — personal bookmarks and follows.
+- [Feed Reliability](https://pranithjain.qzz.io/threatintel/feeds/reliability) (threatintel): Reliability scoring for each feed provider — uptime, freshness, accuracy, and NATO Admiralty trust grades.
+- [Feed Status](https://pranithjain.qzz.io/threatintel/feeds/status) (threatintel): Real-time operational status of all feed providers — last fetch, errors, rate limits.
 - [Source Health](https://pranithjain.qzz.io/threatintel/source-health) (threatintel): Operational status, SLO metrics, and NATO Admiralty trust grades for every upstream feed.
 - [Social Firehose](https://pranithjain.qzz.io/threatintel/social/firehose) (threatintel): Multi-platform social media firehose.
 - [Tech & AI News](https://pranithjain.qzz.io/threatintel/social/news) (threatintel): Tech and AI news aggregation.
@@ -218,6 +233,15 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Telegram Intelligence Hub](https://pranithjain.qzz.io/threatintel/telegram) (threatintel): Unified Telegram CTI workspace — free cross-source search, KPIs, and entry points to all Telegram surfaces (leak monitor, IOC pipeline, channel discovery, settings).
 - [Telegram Leak Monitor](https://pranithjain.qzz.io/threatintel/telegram-monitor) (threatintel): Telegram Intelligence Hub — 7 tabs: firehose (merged cross-source stream), leak feed, channel search (tgstat-backed), statistics, channel discovery, linked actors (channel → MITRE pivot), and settings.
 - [Telegram IOC Pipeline](https://pranithjain.qzz.io/threatintel/telegram-iocs) (threatintel): Telegram-leaked IOCs flowing into the cross-source consensus — hashes, IPs, domains, CVEs, URLs from monitored channels (7-day window).
+- [Reddit CTI](https://pranithjain.qzz.io/threatintel/social/reddit) (threatintel): Reddit threat intelligence — monitor security-related subreddits for IOCs and discussions.
+- [Scraped Intel](https://pranithjain.qzz.io/threatintel/social/scraped-intel) (threatintel): Scraped intelligence from web sources — cleaned, deduplicated, and enriched.
+- [Telegram Channel Discovery](https://pranithjain.qzz.io/threatintel/social/telegram-channels) (threatintel): Discover Telegram channels relevant to threat intelligence — search, category, and language filters.
+- [Telegram Leak Feed](https://pranithjain.qzz.io/threatintel/social/telegram-leaks) (threatintel): Dedicated Telegram leak channel feed — credential dumps, data breaches, and exposed databases.
+- [Telegram Settings](https://pranithjain.qzz.io/threatintel/social/telegram-settings) (threatintel): Telegram integration settings — channel subscriptions, API configuration, notification preferences.
+- [Telegram Statistics](https://pranithjain.qzz.io/threatintel/social/telegram-stats) (threatintel): Telegram channel analytics — message volume, engagement, IOC yield, and provider reliability.
+- [X/Twitter Firehose](https://pranithjain.qzz.io/threatintel/social/x-firehose) (threatintel): X/Twitter threat intelligence firehose — real-time posts from monitored security accounts.
+- [X/Twitter Live Stream](https://pranithjain.qzz.io/threatintel/social/x-live) (threatintel): Live X/Twitter stream — real-time security event and IOC posting monitor.
+- [X/Twitter Watch](https://pranithjain.qzz.io/threatintel/social/x-watch) (threatintel): X/Twitter watchlist — monitor specific accounts, keywords, and hashtags for threat intel.
 - [Dark Web Watch](https://pranithjain.qzz.io/threatintel/darkweb/watch) (threatintel): Dark-web monitoring dashboard.
 - [Darknet Markets Timeline](https://pranithjain.qzz.io/threatintel/darkweb/markets) (threatintel): Darknet market timelines — Empire, Genesis, Hydra successors.
 - [Breach Forums](https://pranithjain.qzz.io/threatintel/darkweb/forums) (threatintel): Breach forum tracker — posts, threads, user activity.
@@ -234,6 +258,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Dark Web Recon](https://pranithjain.qzz.io/threatintel/darkweb/recon) (threatintel): Search .onion sites, look up hidden service metadata, check BTC addresses for abuse, and scan Tor exit nodes.
 - [ransomware.live PRO](https://pranithjain.qzz.io/threatintel/ransomware-live) (threatintel): Authenticated PRO surface — victim stats, recent cyberattacks, negotiations, and YARA packs.
 - [CyberPulse](https://pranithjain.qzz.io/threatintel/cyberpulse) (threatintel): Breach, leak & cybercrime incident tracker from X/Twitter, Telegram, Reddit, Bluesky & Mastodon firehose.
+- [Onion Watch](https://pranithjain.qzz.io/threatintel/onion-watch) (threatintel): Dark web .onion service monitoring — uptime, content changes, and new service discovery.
 - [Phish Feed](https://pranithjain.qzz.io/threatintel/phishing/phish) (threatintel): Phishing feed aggregation — fresh URLs and lure analysis.
 - [Phishing Wordlists](https://pranithjain.qzz.io/threatintel/phishing/urls) (threatintel): Phishing hunting wordlists — brand, gift-card, sextortion, BEC.
 - [Scam Watch](https://pranithjain.qzz.io/threatintel/phishing/scam) (threatintel): Scam watch and monitoring — pig-butchering, romance, investment.
@@ -257,6 +282,9 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Knowledge Graph](https://pranithjain.qzz.io/threatintel/research-hub/knowledge) (threatintel): Knowledge graph of actors, malware, campaigns, IOCs.
 - [ACH](https://pranithjain.qzz.io/threatintel/research-hub/ach) (threatintel): Analysis of Competing Hypotheses.
 - [Reports & Reading Library](https://pranithjain.qzz.io/threatintel/research-hub/library) (threatintel): Curated collection of 28 annual reports, frameworks, standards, and learning resources.
+- [Agentic Research](https://pranithjain.qzz.io/threatintel/research-hub/agentic) (threatintel): AI agent-driven research generation — automated threat intelligence briefs and analysis.
+- [RedHunt Labs Research](https://pranithjain.qzz.io/threatintel/research-hub/redhunt-labs) (threatintel): RedHunt Labs research publications — vulnerability disclosures, threat reports, and tool releases.
+- [Research Hub Home](https://pranithjain.qzz.io/threatintel/research-hub/research) (threatintel): Research hub landing — aggregated research content, reports, and analysis.
 - [Threat Intel Wiki](https://pranithjain.qzz.io/threatintel/wiki/wiki) (threatintel): Long-form articles on Telegram OSINT, dark-web monitoring.
 - [MITRE ATT&CK](https://pranithjain.qzz.io/threatintel/wiki/mitre) (threatintel): MITRE ATT&CK matrix with technique pivots.
 - [F3EAD](https://pranithjain.qzz.io/threatintel/wiki/f3ead) (threatintel): F3EAD intelligence workflow framework.
@@ -289,6 +317,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Unified Search](https://pranithjain.qzz.io/threatintel/tools/unified-search) (threatintel): Cross-source search across the entire platform.
 - [Integrations & Settings](https://pranithjain.qzz.io/threatintel/tools/settings) (threatintel): What integrations are wired in and what capability each one unlocks for the platform.
 - [Security Tools Directory](https://pranithjain.qzz.io/threatintel/tools/directory) (threatintel): Curated catalog of 53 security tools organized by category.
+- [Knowledge Graph](https://pranithjain.qzz.io/threatintel/knowledge-graph) (threatintel): Interactive knowledge graph of entities — actors, malware, campaigns, IOCs, and their relationships.
 - [External Resources](https://pranithjain.qzz.io/threatintel/external/external) (threatintel): Off-site cross-references — dashboards, OSINT directories, training labs.
 - [Supply Chain Intel](https://pranithjain.qzz.io/threatintel/external/supply) (threatintel): Supply chain intelligence — SolarWinds, 3CX, MOVEit, XZ Utils.
 - [Awesome Lists](https://pranithjain.qzz.io/threatintel/external/awesome) (threatintel): Curated awesome-security list — vetted, ranked, kept current.
@@ -309,6 +338,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [SOC Dashboard](https://pranithjain.qzz.io/threatintel/soc-dashboard) (threatintel): Unified tactical SOC view — ransomware, vulnerabilities, and IOC stream panels.
 - [Live Center — Web OSINT](https://pranithjain.qzz.io/threatintel/live-center) (threatintel): Browser-based live OSINT tools with install, example, and reference URL per tool.
 - [TI Dashboard](https://pranithjain.qzz.io/threatintel/ti-dashboard) (threatintel): Weekly threat intelligence report — IOCs, threat stories, actor profiles, vulnerabilities, hunting leads, and supply chain incidents.
+- [CTI Dashboard](https://pranithjain.qzz.io/threatintel/cti-dashboard) (threatintel): Central CTI operations dashboard — KPI cards, feed health, alert volume, and recent intel.
 - [Alert Feed](https://pranithjain.qzz.io/threatintel/alerts) (threatintel): Prioritised threat intelligence alerts — noise-filtered, confidence-scored, and matched to your estate.
 - [Ransomware Live](https://pranithjain.qzz.io/threatintel/ransomware-live) (threatintel): Live ransomware victim and group monitoring with sector/region filtering.
 - [Estate Config](https://pranithjain.qzz.io/threatintel/estate) (threatintel): Manage your digital estate — assets, tech stack, sector, and data types for personalised correlation.

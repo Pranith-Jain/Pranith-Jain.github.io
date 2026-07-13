@@ -288,6 +288,7 @@ const ROUTES = [
   '/dfir/medusa-scan',
   '/dfir/graphql-audit',
   '/dfir/osv-scan',
+  '/dfir/wordpress-sim',
 
   // ── DFIR: STIX (2) — 0 API calls ──────────────────────────────
   '/dfir/stix',
@@ -331,6 +332,7 @@ const ROUTES = [
   '/dfir/phone-intel',
   '/dfir/weather-osint',
   '/dfir/infostealer-intel',
+  '/dfir/rhysida-intrusion',
 
   // ── DFIR: AI agent tools (4) — 0 API calls ────────────────────
   '/dfir/agent',
@@ -357,6 +359,7 @@ const ROUTES = [
   '/threatintel/external/cerast',
   '/threatintel/external/threatmon',
   '/dfir/winreg',
+  '/dfir/fleet-map',
   '/dfir/url-preview',
   '/dfir/subdomain-takeover',
   '/dfir/extract',

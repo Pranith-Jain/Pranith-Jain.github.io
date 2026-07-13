@@ -244,6 +244,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/medusa-scan', '/__prerendered/dfir__medusa-scan'],
   ['/dfir/graphql-audit', '/__prerendered/dfir__graphql-audit'],
   ['/dfir/osv-scan', '/__prerendered/dfir__osv-scan'],
+  ['/dfir/wordpress-sim', '/__prerendered/dfir__wordpress-sim'],
 
   // ── DFIR: STIX ────────────────────────────────────────────────
   ['/dfir/stix', '/__prerendered/dfir__stix'],
@@ -301,6 +302,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/phone-intel', '/__prerendered/dfir__phone-intel'],
   ['/dfir/weather-osint', '/__prerendered/dfir__weather-osint'],
   ['/dfir/infostealer-intel', '/__prerendered/dfir__infostealer-intel'],
+  ['/dfir/rhysida-intrusion', '/__prerendered/dfir__rhysida-intrusion'],
 
   // ── DFIR: AI agent tools ─────────────────────────────────────
   ['/dfir/agent', '/__prerendered/dfir__agent'],
@@ -541,6 +543,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/wifi-investigation', '/__prerendered/dfir__wifi-investigation'],
   ['/dfir/traceix', '/__prerendered/dfir__traceix'],
   ['/dfir/winreg', '/__prerendered/dfir__winreg'],
+  ['/dfir/fleet-map', '/__prerendered/dfir__fleet-map'],
   // ── Standalone SPA pages ──────────────────────────────────────
   ['/threatintel/external/cerast', '/__prerendered/threatintel__external__cerast'],
   ['/threatintel/external/threatmon', '/__prerendered/threatintel__external__threatmon'],
