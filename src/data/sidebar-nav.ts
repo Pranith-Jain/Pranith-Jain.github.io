@@ -61,7 +61,6 @@ import {
   Wallet,
   Wifi,
   Award,
-  Building2,
   Wrench,
   Zap,
   type LucideIcon,

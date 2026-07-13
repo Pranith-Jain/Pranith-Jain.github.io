@@ -1,0 +1,44 @@
+{
+  "slug": "ta2722",
+  "name": "TA2722",
+  "aliases": [],
+  "category": "apt",
+  "country": null,
+  "sponsor": null,
+  "motivation": null,
+  "firstSeen": "2722",
+  "lastSeen": null,
+  "hasDetails": true,
+  "sectorCount": 5,
+  "toolCount": 0,
+  "operationCount": 0,
+  "observedCountries": [
+    "<a href=\"/cgi-bin/listgroups.cgi?v=USA\" title=\"Search for all threat groups that target USA\" class=\"inlink\">USA</a> and Europe and Southeast Asia.</td></tr>"
+  ],
+  "description": "",
+  "sizeBytes": 464,
+  "mitreId": null,
+  "subgroupCount": 0,
+  "names": [
+    "<!DOCTYPE html>\n<html xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"en\" xml:lang=\"en\">\n<head>\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n<meta name=\"robots\" content=\"nofollow\" />\n<title>TA2722 - Threat Group Cards: A Threat Actor Encyclopedia</title>\n<link href=\"/style.css\" rel=\"stylesheet\" type=\"text/css\" />\n</head>\n<body class=\"mbody\">\n<div class=\"logos\">\n<table border=\"0\"><tr><td><a href=\"https://www.etda.or.th\"><img src=\"/img/logo-etda.png\" height=\"50\" alt=\"ETDA\" title=\"Visit the ETDA website\" /></a></td>\n<td><font size=\"3\">สำนักงานพัฒนาธุรกรรมทางอิเล็กทรอนิกส์<br />Electronic Transactions Development Agency</font></td></tr></table>\n</div>\n<link href=\"/menubar.css\" rel=\"stylesheet\" type=\"text/css\" />\n<div id=\"menubar\">\n<ul>\n  <li>\n    <a href=\"/cgi-bin/listgroups.cgi\">Groups</a>\n  </li>\n  <li>\n    <a href=\"/cgi-bin/listtools.cgi\">Tools</a>\n  </li>\n  <li>\n    <a href=\"/cgi-bin/aptsearch.cgi\">Search</a>\n  </li>\n  <li>\n    <a href=\"/cgi-bin/aptstats.cgi\">Statistics</a>\n  </li>\n</ul>\n</div>\n<div class=\"graph\">\n<div class=\"gline\"><img src=\"/img/clear.gif\" width=\"1\" height=\"3\" alt=\"\" /></div>\n<div><img src=\"/img/report.jpg\" width=\"900\" alt=\"Report\" /></div>\n<a name=\"top\"></a>\n<div class=\"searchdiv\"><a href=\"/cgi-bin/aptsearch.cgi\" title=\"Search the database\" class=\"inlink\">Search</a></div>\n<div class=\"outermain\"><a href=\"/cgi-bin/aptgroups.cgi\" class=\"inlink\" title=\"Home\">Home</a> &gt; <a href=\"/cgi-bin/listgroups.cgi\" class=\"inlink\" title=\"List all groups\">List all groups</a> &gt; TA2722</div>\n<h1>Threat Group Cards: A Threat Actor Encyclopedia</h1>\n<div class=\"innermainov\">\n<h3><a href=\"/cgi-bin/showcard.cgi?u=6b9f8bf4-afdf-4ff4-bc59-9dc4f9dea767\" title=\"Get permanent link to this card\" class=\"inlink\"><img src=\"/img/link.png\" height=\"16\" alt=\"Permanent link\" /></a> APT group: TA2722</h3>\n<table width=\"100%\" class=\"tborder\">\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">Names</td><td valign=\"top\" colspan=\"2\" width=\"100%\">TA2722 <i><font size=\"-2\">",
+    "</font></i><br />Balikbayan Foxes <i><font size=\"-2\">",
+    "</font></i></td></tr>\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">Country</td><td valign=\"top\" colspan=\"2\" width=\"100%\">[Unknown]</td></tr>\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">Motivation</td><td valign=\"top\" colspan=\"2\" width=\"100%\"><a href=\"/cgi-bin/listgroups.cgi?m=Information%20theft%20and%20espionage\" title=\"Search for all threat groups with motivation Information theft and espionage\" class=\"inlink\">Information theft and espionage</a></td></tr>\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">First seen</td><td valign=\"top\" colspan=\"2\" width=\"100%\">2020</td></tr>\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">Description</td><td valign=\"top\" colspan=\"2\" width=\"100%\">",
+    "Proofpoint identified a new and highly active cybercriminal threat actor, TA2722, colloquially referred to by Proofpoint threat researchers as the Balikbayan Foxes. Throughout 2021, a series of campaigns impersonated multiple Philippine government entities including the Department of Health, the Philippine Overseas Employment Administration",
+    ", and the Bureau of Customs. Other related campaigns masqueraded as the Manila embassy for the Kingdom of Saudi Arabia",
+    "and DHL Philippines. The messages were intended for a variety of industries in North America, Europe, and Southeast Asia, with the top sectors including Shipping, Logistics, Manufacturing, Business Services, Pharmaceutical, Energy, and Finance.</td></tr>\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">Observed</td><td valign=\"top\" colspan=\"2\" width=\"100%\">Sectors: <a href=\"/cgi-bin/listgroups.cgi?s=Energy\" title=\"Search for all threat groups that target Energy\" class=\"inlink\">Energy</a>, <a href=\"/cgi-bin/listgroups.cgi?s=Financial\" title=\"Search for all threat groups that target Financial\" class=\"inlink\">Financial</a>, <a href=\"/cgi-bin/listgroups.cgi?s=Manufacturing\" title=\"Search for all threat groups that target Manufacturing\" class=\"inlink\">Manufacturing</a>, <a href=\"/cgi-bin/listgroups.cgi?s=Pharmaceutical\" title=\"Search for all threat groups that target Pharmaceutical\" class=\"inlink\">Pharmaceutical</a>, <a href=\"/cgi-bin/listgroups.cgi?s=Shipping%20and%20Logistics\" title=\"Search for all threat groups that target Shipping and Logistics\" class=\"inlink\">Shipping and Logistics</a>.<br />Countries: <a href=\"/cgi-bin/listgroups.cgi?v=USA\" title=\"Search for all threat groups that target USA\" class=\"inlink\">USA</a> and Europe and Southeast Asia.</td></tr>\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">Tools used</td><td valign=\"top\" colspan=\"2\" width=\"100%\"><a href=\"/cgi-bin/listgroups.cgi?t=NanoCore%20RAT\" title=\"Search for all threat groups that use NanoCore RAT\" class=\"inlink\">NanoCore RAT</a>, <a href=\"/cgi-bin/listgroups.cgi?t=RemcosRAT\" title=\"Search for all threat groups that use RemcosRAT\" class=\"inlink\">RemcosRAT</a>.</td></tr>\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">Information</td><td valign=\"top\" colspan=\"2\" width=\"100%\">&lt;<a href=\"https://www.proofpoint.com/us/blog/threat-insight/new-threat-actor-spoofs-philippine-government-covid-19-health-data-widespread\" title=\"Follow external link\" class=\"exlink\" target=\"_blank\">https://www.proofpoint.com/us/blog/threat-insight/new-threat-actor-spoofs-philippine-government-covid-19-health-data-widespread</a>&gt;</td></tr>\n</table>\n<p>Last change to this card: 04 November 2021</p>\n<p>Download this actor card in <a href=\"/cgi-bin/getcard.cgi?g=TA2722&o=p\" title=\"Download this card in PDF format\" class=\"inlink\">PDF</a> or <a href=\"/cgi-bin/getcard.cgi?g=TA2722&o=j\" title=\"Download this card in JSON format\" class=\"inlink\">JSON</a> format</p>\n<div class=\"backtotop\"><a href=\"#top\" title=\"Back to the top\" class=\"inlink\">&uarr;</a></div>\n</div>\n\n</div>\n<table width=\"100%\" border=\"0\">\n<tr><td width=\"80%\" rowspan=\"4\" valign=\"top\">\n<p>Infrastructure and Security Department<br />\nElectronic Transactions Development Agency</p>\n<h3>Follow us on</h3>\n<a href=\"https://facebook.com/ETDA.Thailand\"><img src=\"/img/icon-facebook.png\" alt=\"Facebook\" title=\"Follow us on Facebook\" /></a>\n<a href=\"https://twitter.com/etda_thailand\"><img src=\"/img/icon-twitter.png\" alt=\"Twitter\" title=\"Follow us on Twitter\" /></a>\n</td><td colspan=\"2\">\n<h3>Report incidents</h3>\n</td>\n<tr>\n<td width=\"0%\"><img src=\"/img/icon-phone.png\" width=\"20\" height=\"20\" alt=\"Telephone\" title=\"Telephone\" /></td>\n<td width=\"20%\"><strong>+66"
+  ],
+  "fullDescription": null,
+  "sectors": [
+    "a-href-cgi-bin-listgroups-cgi-s-energy-title-search-for-all-threat-groups-that-target-energy-class-i",
+    "a-href-cgi-bin-listgroups-cgi-s-financial-title-search-for-all-threat-groups-that-target-financial-c",
+    "a-href-cgi-bin-listgroups-cgi-s-manufacturing-title-search-for-all-threat-groups-that-target-manufac",
+    "a-href-cgi-bin-listgroups-cgi-s-pharmaceutical-title-search-for-all-threat-groups-that-target-pharma",
+    "a-href-cgi-bin-listgroups-cgi-s-shipping-20and-20logistics-title-search-for-all-threat-groups-that-t"
+  ],
+  "toolsUsed": [],
+  "operations": [],
+  "counterOperations": [],
+  "informationLinks": [],
+  "mitreLink": null,
+  "subgroups": []
+}

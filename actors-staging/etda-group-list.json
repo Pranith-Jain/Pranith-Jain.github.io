@@ -1,0 +1,4222 @@
+[
+  {
+    "name": "AeroBlade",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2022",
+    "subgroups": []
+  },
+  {
+    "name": "Aggah",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2018",
+    "lastSeen": "Jun 2022",
+    "subgroups": []
+  },
+  {
+    "name": "Agrius",
+    "aliases": [],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2020",
+    "lastSeen": "May 2023",
+    "subgroups": []
+  },
+  {
+    "name": "Allanite",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2017",
+    "subgroups": []
+  },
+  {
+    "name": "ALPHV",
+    "aliases": ["BlackCat Gang"],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2021",
+    "lastSeen": "Mar 2024",
+    "subgroups": [
+      {
+        "name": "Scattered Spider",
+        "period": "8627"
+      }
+    ]
+  },
+  {
+    "name": "Anchor Panda",
+    "aliases": ["APT 14"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2014",
+    "subgroups": []
+  },
+  {
+    "name": "Angry Likho",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2023",
+    "subgroups": []
+  },
+  {
+    "name": "Antlion",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2011",
+    "subgroups": []
+  },
+  {
+    "name": "Aoqin Dragon",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2013",
+    "subgroups": []
+  },
+  {
+    "name": "APT 3",
+    "aliases": ["Gothic Panda", "Buckeye"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2007",
+    "lastSeen": "Nov 2017",
+    "subgroups": []
+  },
+  {
+    "name": "APT 4",
+    "aliases": ["Maverick Panda", "Wisp Team"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2007",
+    "lastSeen": "Oct 2018",
+    "subgroups": []
+  },
+  {
+    "name": "APT 5",
+    "aliases": ["Keyhole Panda"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2007",
+    "lastSeen": "Aug 2019",
+    "subgroups": []
+  },
+  {
+    "name": "APT 6",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2011",
+    "subgroups": []
+  },
+  {
+    "name": "APT 12",
+    "aliases": ["Numbered Panda"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2012",
+    "subgroups": []
+  },
+  {
+    "name": "APT 16",
+    "aliases": ["SVCMONDR"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2016",
+    "subgroups": []
+  },
+  {
+    "name": "APT 17",
+    "aliases": ["Deputy Dog", "Elderwood", "Sneaky Panda"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2017",
+    "subgroups": []
+  },
+  {
+    "name": "APT 18",
+    "aliases": ["Dynamite Panda", "Wekby"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2018",
+    "subgroups": []
+  },
+  {
+    "name": "APT 19",
+    "aliases": ["Deep Panda", "C0d0so0"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2019",
+    "subgroups": []
+  },
+  {
+    "name": "APT 20",
+    "aliases": ["Violin Panda"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2020",
+    "subgroups": []
+  },
+  {
+    "name": "APT 29",
+    "aliases": ["Cozy Bear", "The Dukes"],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2029",
+    "subgroups": []
+  },
+  {
+    "name": "APT 30",
+    "aliases": ["Override Panda"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2030",
+    "subgroups": []
+  },
+  {
+    "name": "APT 31",
+    "aliases": ["Judgment Panda", "Zirconium"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2031",
+    "subgroups": []
+  },
+  {
+    "name": "APT 32",
+    "aliases": ["OceanLotus", "SeaLotus"],
+    "category": "apt",
+    "country": "Vietnam",
+    "firstSeen": "2032",
+    "subgroups": []
+  },
+  {
+    "name": "APT 33",
+    "aliases": ["Elfin", "Magnallium"],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2033",
+    "subgroups": []
+  },
+  {
+    "name": "APT 41",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2041",
+    "subgroups": [
+      {
+        "name": "Earth Freybug",
+        "period": "8627"
+      },
+      {
+        "name": "Earth Longzhi",
+        "period": "8627"
+      }
+    ]
+  },
+  {
+    "name": "APT 42",
+    "aliases": [],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2042",
+    "subgroups": []
+  },
+  {
+    "name": "APT-C-60",
+    "aliases": [],
+    "category": "apt",
+    "country": "South Korea",
+    "firstSeen": "2018",
+    "subgroups": []
+  },
+  {
+    "name": "Aquatic Panda",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2020",
+    "subgroups": []
+  },
+  {
+    "name": "AtlasCross",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2023",
+    "subgroups": []
+  },
+  {
+    "name": "AVIVORE",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2015",
+    "subgroups": []
+  },
+  {
+    "name": "Awaken Likho",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2021",
+    "subgroups": []
+  },
+  {
+    "name": "Axiom",
+    "aliases": ["Group 72"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2072",
+    "subgroups": []
+  },
+  {
+    "name": "Bad Magic",
+    "aliases": ["RedStinger"],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2020",
+    "lastSeen": "May 2023",
+    "subgroups": []
+  },
+  {
+    "name": "Bahamut",
+    "aliases": [],
+    "category": "apt",
+    "country": "Middle East",
+    "firstSeen": "2016",
+    "lastSeen": "Jul 2023",
+    "subgroups": []
+  },
+  {
+    "name": "Barium",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2016",
+    "lastSeen": "Nov 2017",
+    "subgroups": []
+  },
+  {
+    "name": "Berserk Bear",
+    "aliases": ["Dragonfly 2.0"],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2015",
+    "lastSeen": "May 2017",
+    "subgroups": []
+  },
+  {
+    "name": "The Big Bang",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2017",
+    "subgroups": []
+  },
+  {
+    "name": "Bitter",
+    "aliases": [],
+    "category": "apt",
+    "country": "South Asia",
+    "firstSeen": "2013",
+    "lastSeen": "Nov 2024",
+    "subgroups": []
+  },
+  {
+    "name": "Blackgear",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2018",
+    "lastSeen": "Jul 2018",
+    "subgroups": []
+  },
+  {
+    "name": "BlackOasis",
+    "aliases": [],
+    "category": "apt",
+    "country": "Middle East",
+    "firstSeen": "2015",
+    "lastSeen": "Oct 2017",
+    "subgroups": []
+  },
+  {
+    "name": "BlackTech",
+    "aliases": ["Circuit Panda", "Radio Panda"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2010",
+    "lastSeen": "Oct 2020",
+    "subgroups": []
+  },
+  {
+    "name": "Blackwood",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2018",
+    "lastSeen": "Jan 2024",
+    "subgroups": []
+  },
+  {
+    "name": "Blind Eagle",
+    "aliases": [],
+    "category": "apt",
+    "country": "Colombia",
+    "firstSeen": "2018",
+    "lastSeen": "Nov 2024",
+    "subgroups": []
+  },
+  {
+    "name": "Blue Termite",
+    "aliases": ["Cloudy Omega"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2013",
+    "subgroups": []
+  },
+  {
+    "name": "Bookworm",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2015",
+    "subgroups": []
+  },
+  {
+    "name": "Boss Spider",
+    "aliases": ["Gold Lowell"],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2015",
+    "lastSeen": "Nov 2018",
+    "subgroups": []
+  },
+  {
+    "name": "Bronze Butler",
+    "aliases": ["Tick", "RedBaldNight", "Stalker Panda"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2006",
+    "lastSeen": "Apr 2021",
+    "subgroups": []
+  },
+  {
+    "name": "Bronze Highland",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2012",
+    "lastSeen": "Jul 2024",
+    "subgroups": []
+  },
+  {
+    "name": "Bronze Starlight",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2021",
+    "lastSeen": "Mar 2023",
+    "subgroups": []
+  },
+  {
+    "name": "Buhtrap",
+    "aliases": ["Ratopak Spider"],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2015",
+    "lastSeen": "Jun 2019",
+    "subgroups": []
+  },
+  {
+    "name": "Cadelle",
+    "aliases": [],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2011",
+    "subgroups": []
+  },
+  {
+    "name": "Cadet Blizzard",
+    "aliases": [],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2020",
+    "lastSeen": "Jun 2024",
+    "subgroups": []
+  },
+  {
+    "name": "Callisto Group",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2013",
+    "subgroups": []
+  },
+  {
+    "name": "Calypso",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2016",
+    "lastSeen": "Aug 2021",
+    "subgroups": []
+  },
+  {
+    "name": "Carbanak",
+    "aliases": ["Anunak"],
+    "category": "apt",
+    "country": "Ukraine",
+    "firstSeen": "2013",
+    "lastSeen": "Apr 2023",
+    "subgroups": []
+  },
+  {
+    "name": "Carderbee",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2023",
+    "subgroups": []
+  },
+  {
+    "name": "CardinalLizard",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2014",
+    "subgroups": []
+  },
+  {
+    "name": "Careto",
+    "aliases": ["The Mask"],
+    "category": "apt",
+    "country": "Spain",
+    "firstSeen": "2007",
+    "subgroups": []
+  },
+  {
+    "name": "CeranaKeeper",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2022",
+    "subgroups": []
+  },
+  {
+    "name": "Chafer",
+    "aliases": ["APT 39"],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2039",
+    "subgroups": []
+  },
+  {
+    "name": "ChamelGang",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2021",
+    "lastSeen": "Jun 2023",
+    "subgroups": []
+  },
+  {
+    "name": "Chimera",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2018",
+    "lastSeen": "Oct 2019",
+    "subgroups": []
+  },
+  {
+    "name": "CIA",
+    "aliases": [],
+    "category": "apt",
+    "country": "USA",
+    "firstSeen": "1947",
+    "lastSeen": "Sep 2018",
+    "subgroups": [
+      {
+        "name": "Longhorn, The Lamberts",
+        "period": "8627"
+      },
+      {
+        "name": "[Unnamed group USA]",
+        "period": "8627"
+      }
+    ]
+  },
+  {
+    "name": "Circus Spider",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2019",
+    "lastSeen": "Dec 2024",
+    "subgroups": []
+  },
+  {
+    "name": "Clever Kitten",
+    "aliases": [],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2013",
+    "subgroups": []
+  },
+  {
+    "name": "CloudSorcerer",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2024",
+    "lastSeen": "Jul 2024",
+    "subgroups": []
+  },
+  {
+    "name": "Cobalt Group",
+    "aliases": [],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2016",
+    "lastSeen": "Oct 2019",
+    "subgroups": []
+  },
+  {
+    "name": "Cold River",
+    "aliases": [],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2019",
+    "lastSeen": "Jan 2025",
+    "subgroups": []
+  },
+  {
+    "name": "Comment Crew",
+    "aliases": ["APT 1"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2006",
+    "lastSeen": "May 2018",
+    "subgroups": []
+  },
+  {
+    "name": "Confucius",
+    "aliases": [],
+    "category": "apt",
+    "country": "India",
+    "firstSeen": "2013",
+    "lastSeen": "Aug 2021",
+    "subgroups": []
+  },
+  {
+    "name": "CopyKittens",
+    "aliases": ["Slayer Kitten"],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2013",
+    "lastSeen": "Jan 2017",
+    "subgroups": []
+  },
+  {
+    "name": "Corkow",
+    "aliases": ["Metel"],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2011",
+    "subgroups": []
+  },
+  {
+    "name": "Cosmic Leopard",
+    "aliases": ["Operation Celestial Force"],
+    "category": "apt",
+    "country": "Pakistan",
+    "firstSeen": "2018",
+    "subgroups": []
+  },
+  {
+    "name": "CostaRicto",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2017",
+    "subgroups": []
+  },
+  {
+    "name": "Covellite",
+    "aliases": [],
+    "category": "apt",
+    "country": "North Korea",
+    "firstSeen": "2017",
+    "subgroups": []
+  },
+  {
+    "name": "Curious Gorge",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2022",
+    "lastSeen": "Apr 2022",
+    "subgroups": []
+  },
+  {
+    "name": "Cutting Kitten",
+    "aliases": ["TG-2889"],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2889",
+    "subgroups": []
+  },
+  {
+    "name": "CyberAv3ngers",
+    "aliases": [],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2019",
+    "lastSeen": "Aug 2024",
+    "subgroups": []
+  },
+  {
+    "name": "Cyber Berkut",
+    "aliases": [],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2014",
+    "lastSeen": "May 2015",
+    "subgroups": []
+  },
+  {
+    "name": "Cyber Caliphate Army (CCA)",
+    "aliases": ["United Cyber Caliphate (UCC)"],
+    "category": "apt",
+    "country": "ISIS",
+    "firstSeen": "2014",
+    "lastSeen": "Apr 2017",
+    "subgroups": []
+  },
+  {
+    "name": "Dalbit",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2022",
+    "subgroups": []
+  },
+  {
+    "name": "Dark Caracal",
+    "aliases": [],
+    "category": "apt",
+    "country": "Lebanon",
+    "firstSeen": "2007",
+    "lastSeen": "Jun 2024",
+    "subgroups": []
+  },
+  {
+    "name": "DarkCasino",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2021",
+    "subgroups": []
+  },
+  {
+    "name": "DarkHotel",
+    "aliases": [],
+    "category": "apt",
+    "country": "South Korea",
+    "firstSeen": "2007",
+    "subgroups": []
+  },
+  {
+    "name": "DarkHydrus",
+    "aliases": ["LazyMeerkat"],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2016",
+    "lastSeen": "Jan 2019",
+    "subgroups": []
+  },
+  {
+    "name": "Dark Pink",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2022",
+    "lastSeen": "Feb 2023",
+    "subgroups": []
+  },
+  {
+    "name": "DarkUniverse",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2017",
+    "subgroups": []
+  },
+  {
+    "name": "Deceptikons",
+    "aliases": ["DeathStalker"],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2012",
+    "lastSeen": "Jun 2020",
+    "subgroups": []
+  },
+  {
+    "name": "Desert Falcons",
+    "aliases": [],
+    "category": "apt",
+    "country": "Gaza",
+    "firstSeen": "2011",
+    "lastSeen": "Oct 2023",
+    "subgroups": []
+  },
+  {
+    "name": "DNSpionage",
+    "aliases": [],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2019",
+    "lastSeen": "Apr 2019",
+    "subgroups": []
+  },
+  {
+    "name": "Domestic Kitten",
+    "aliases": [],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2016",
+    "lastSeen": "Oct 2022",
+    "subgroups": []
+  },
+  {
+    "name": "Donot Team",
+    "aliases": [],
+    "category": "apt",
+    "country": "India",
+    "firstSeen": "2016",
+    "lastSeen": "Oct 2024",
+    "subgroups": []
+  },
+  {
+    "name": "Doppel Spider",
+    "aliases": [],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2019",
+    "lastSeen": "May 2025",
+    "subgroups": []
+  },
+  {
+    "name": "DragonOK",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2015",
+    "lastSeen": "Jan 2017",
+    "subgroups": []
+  },
+  {
+    "name": "DragonSpark",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2022",
+    "subgroups": []
+  },
+  {
+    "name": "DustSquad",
+    "aliases": ["Golden Falcon"],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2014",
+    "subgroups": []
+  },
+  {
+    "name": "Dust Storm",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2010",
+    "subgroups": []
+  },
+  {
+    "name": "Earth Alux",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2023",
+    "subgroups": []
+  },
+  {
+    "name": "Earth Ammit",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2022",
+    "subgroups": []
+  },
+  {
+    "name": "Earth Baxia",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2024",
+    "subgroups": []
+  },
+  {
+    "name": "Earth Berberoka",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2022",
+    "subgroups": []
+  },
+  {
+    "name": "Earth Krahang",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2022",
+    "subgroups": []
+  },
+  {
+    "name": "Earth Kurma",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2020",
+    "subgroups": []
+  },
+  {
+    "name": "Earth Lamia",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2023",
+    "subgroups": []
+  },
+  {
+    "name": "Earth Lusca",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2019",
+    "lastSeen": "Sep 2024",
+    "subgroups": []
+  },
+  {
+    "name": "Earth Minotaur",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2019",
+    "subgroups": []
+  },
+  {
+    "name": "Earth Wendigo",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2019",
+    "subgroups": []
+  },
+  {
+    "name": "Elephant Beetle",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2020",
+    "subgroups": []
+  },
+  {
+    "name": "El Machete",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2010",
+    "lastSeen": "Mar 2022",
+    "subgroups": []
+  },
+  {
+    "name": "Emissary Panda",
+    "aliases": ["APT 27", "LuckyMouse", "Bronze Union"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2027",
+    "subgroups": []
+  },
+  {
+    "name": "EmpireMonkey",
+    "aliases": ["CobaltGoblin"],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2018",
+    "lastSeen": "Mar 2021",
+    "subgroups": []
+  },
+  {
+    "name": "Energetic Bear",
+    "aliases": ["Dragonfly"],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2010",
+    "lastSeen": "Mar 2022",
+    "subgroups": []
+  },
+  {
+    "name": "Equation Group",
+    "aliases": [],
+    "category": "apt",
+    "country": "USA",
+    "firstSeen": "2001",
+    "lastSeen": "Aug 2016",
+    "subgroups": []
+  },
+  {
+    "name": "Evilnum",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2018",
+    "subgroups": []
+  },
+  {
+    "name": "Ferocious Kitten",
+    "aliases": [],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2015",
+    "subgroups": []
+  },
+  {
+    "name": "FIN4",
+    "aliases": ["Wolf Spider"],
+    "category": "apt",
+    "country": "Romania",
+    "firstSeen": "2013",
+    "subgroups": []
+  },
+  {
+    "name": "FIN5",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2008",
+    "subgroups": []
+  },
+  {
+    "name": "FIN6",
+    "aliases": ["Skeleton Spider"],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2015",
+    "lastSeen": "Oct 2021",
+    "subgroups": []
+  },
+  {
+    "name": "FIN7",
+    "aliases": [],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2013",
+    "lastSeen": "Jul 2024",
+    "subgroups": []
+  },
+  {
+    "name": "FIN8",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2016",
+    "lastSeen": "Dec 2022",
+    "subgroups": []
+  },
+  {
+    "name": "APT9",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2018",
+    "lastSeen": "Jan 2024",
+    "subgroups": []
+  },
+  {
+    "name": "FIN10",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2016",
+    "subgroups": []
+  },
+  {
+    "name": "FIN11",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2016",
+    "lastSeen": "Mar 2025",
+    "subgroups": []
+  },
+  {
+    "name": "FIN12",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2018",
+    "subgroups": []
+  },
+  {
+    "name": "FIN13",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2016",
+    "subgroups": []
+  },
+  {
+    "name": "Fishing Elephant",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2019",
+    "subgroups": []
+  },
+  {
+    "name": "Flax Typhoon",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2021",
+    "lastSeen": "Nov 2023",
+    "subgroups": []
+  },
+  {
+    "name": "Flying Kitten",
+    "aliases": ["Ajax Security Team"],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2010",
+    "subgroups": []
+  },
+  {
+    "name": "FunnyDream",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2018",
+    "subgroups": []
+  },
+  {
+    "name": "Gallium",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2018",
+    "lastSeen": "Jun 2022",
+    "subgroups": []
+  },
+  {
+    "name": "Gallmaker",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2017",
+    "subgroups": []
+  },
+  {
+    "name": "Gamaredon Group",
+    "aliases": [],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2013",
+    "lastSeen": "Feb 2025",
+    "subgroups": []
+  },
+  {
+    "name": "Gangnam Industrial Style",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2019",
+    "subgroups": []
+  },
+  {
+    "name": "GCHQ",
+    "aliases": [],
+    "category": "apt",
+    "country": "UK",
+    "firstSeen": "1919",
+    "subgroups": []
+  },
+  {
+    "name": "GCMAN",
+    "aliases": [],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2016",
+    "subgroups": []
+  },
+  {
+    "name": "Gelsemium",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2014",
+    "subgroups": []
+  },
+  {
+    "name": "GhostNet",
+    "aliases": ["Snooping Dragon"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2009",
+    "subgroups": []
+  },
+  {
+    "name": "Goblin Panda",
+    "aliases": ["Cycldek", "Conimes"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2013",
+    "lastSeen": "Jun 2020",
+    "subgroups": []
+  },
+  {
+    "name": "GoldenJackal",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2019",
+    "subgroups": []
+  },
+  {
+    "name": "Gorgon Group",
+    "aliases": [],
+    "category": "apt",
+    "country": "Pakistan",
+    "firstSeen": "2017",
+    "lastSeen": "Jul 2020",
+    "subgroups": []
+  },
+  {
+    "name": "Grayling",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2023",
+    "subgroups": []
+  },
+  {
+    "name": "GreenCharlie",
+    "aliases": [],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2020",
+    "subgroups": []
+  },
+  {
+    "name": "Group5",
+    "aliases": [],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2015",
+    "subgroups": []
+  },
+  {
+    "name": "Hades",
+    "aliases": [],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2017",
+    "lastSeen": "Oct 2020",
+    "subgroups": []
+  },
+  {
+    "name": "Hafnium",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2021",
+    "lastSeen": "Jul 2025",
+    "subgroups": []
+  },
+  {
+    "name": "Harvester",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2021",
+    "subgroups": []
+  },
+  {
+    "name": "Hexane",
+    "aliases": [],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2017",
+    "lastSeen": "Jun 2022",
+    "subgroups": []
+  },
+  {
+    "name": "Hidden Lynx",
+    "aliases": ["Aurora Panda"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2009",
+    "subgroups": []
+  },
+  {
+    "name": "HomeLand Justice",
+    "aliases": [],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2022",
+    "lastSeen": "Jan 2024",
+    "subgroups": []
+  },
+  {
+    "name": "Honeybee",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2017",
+    "subgroups": []
+  },
+  {
+    "name": "Hurricane Panda",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2013",
+    "lastSeen": "Mar 2014",
+    "subgroups": []
+  },
+  {
+    "name": "Hydrochasma",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2022",
+    "subgroups": []
+  },
+  {
+    "name": "IAmTheKing",
+    "aliases": [],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2018",
+    "subgroups": []
+  },
+  {
+    "name": "Icefog",
+    "aliases": ["Dagger Panda"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2011",
+    "subgroups": []
+  },
+  {
+    "name": "Inception Framework",
+    "aliases": ["Cloud Atlas"],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2012",
+    "subgroups": []
+  },
+  {
+    "name": "IndigoZebra",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2014",
+    "subgroups": []
+  },
+  {
+    "name": "Indra",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2019",
+    "subgroups": []
+  },
+  {
+    "name": "Indrik Spider",
+    "aliases": [],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2007",
+    "lastSeen": "Oct 2024",
+    "subgroups": []
+  },
+  {
+    "name": "Infy",
+    "aliases": ["Prince of Persia"],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2007",
+    "lastSeen": "Feb 2017",
+    "subgroups": []
+  },
+  {
+    "name": "InvisiMole",
+    "aliases": [],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2013",
+    "lastSeen": "Mar 2022",
+    "subgroups": []
+  },
+  {
+    "name": "Iridium",
+    "aliases": [],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2018",
+    "lastSeen": "Dec 2018",
+    "subgroups": []
+  },
+  {
+    "name": "IronHusky",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2017",
+    "lastSeen": "Aug 2021",
+    "subgroups": []
+  },
+  {
+    "name": "ITG18",
+    "aliases": [],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2013",
+    "lastSeen": "May 2020",
+    "subgroups": []
+  },
+  {
+    "name": "Karkadann",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2020",
+    "subgroups": []
+  },
+  {
+    "name": "Ke3chang",
+    "aliases": ["Vixen Panda", "APT 15", "GREF", "Playful Dragon"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2015",
+    "subgroups": []
+  },
+  {
+    "name": "Kimsuky",
+    "aliases": ["Velvet Chollima"],
+    "category": "apt",
+    "country": "North Korea",
+    "firstSeen": "2012",
+    "lastSeen": "Aug 2025",
+    "subgroups": []
+  },
+  {
+    "name": "Lancefly",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2018",
+    "subgroups": []
+  },
+  {
+    "name": "Lazarus Group",
+    "aliases": ["Hidden Cobra", "Labyrinth Chollima"],
+    "category": "apt",
+    "country": "North Korea",
+    "firstSeen": "2007",
+    "lastSeen": "May 2025",
+    "subgroups": [
+      {
+        "name": "Andariel, Silent Chollima",
+        "period": "8627"
+      },
+      {
+        "name": "BeagleBoyz",
+        "period": "8627"
+      },
+      {
+        "name": "Bluenoroff, APT 38, Stardust Chollima",
+        "period": "8627"
+      },
+      {
+        "name": "Operation Contagious Interview",
+        "period": "8627"
+      }
+    ]
+  },
+  {
+    "name": "LazyScripter",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2018",
+    "subgroups": []
+  },
+  {
+    "name": "Lead",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2016",
+    "subgroups": []
+  },
+  {
+    "name": "Leafminer",
+    "aliases": ["Raspite"],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2017",
+    "subgroups": []
+  },
+  {
+    "name": "leetMX",
+    "aliases": [],
+    "category": "apt",
+    "country": "Mexico",
+    "firstSeen": "2016",
+    "subgroups": []
+  },
+  {
+    "name": "Leviathan",
+    "aliases": ["APT 40", "TEMP.Periscope"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2040",
+    "subgroups": []
+  },
+  {
+    "name": "Libyan Scorpions",
+    "aliases": [],
+    "category": "apt",
+    "country": "Libya",
+    "firstSeen": "2015",
+    "subgroups": []
+  },
+  {
+    "name": "LightBasin",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2016",
+    "subgroups": []
+  },
+  {
+    "name": "LockBit Gang",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2019",
+    "lastSeen": "May 2025",
+    "subgroups": []
+  },
+  {
+    "name": "LookBack",
+    "aliases": ["TA410"],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2019",
+    "lastSeen": "Feb 2022",
+    "subgroups": []
+  },
+  {
+    "name": "Lotus Blossom",
+    "aliases": ["Spring Dragon", "Thrip"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2012",
+    "lastSeen": "Aug 2024",
+    "subgroups": []
+  },
+  {
+    "name": "Lucky Cat",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2011",
+    "subgroups": []
+  },
+  {
+    "name": "LuminousMoth",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2020",
+    "subgroups": []
+  },
+  {
+    "name": "Lurk",
+    "aliases": [],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2011",
+    "lastSeen": "Jun 2016",
+    "subgroups": []
+  },
+  {
+    "name": "Mabna Institute",
+    "aliases": ["Cobalt Dickens", "Silent Librarian"],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2013",
+    "lastSeen": "Sep 2020",
+    "subgroups": []
+  },
+  {
+    "name": "Madi",
+    "aliases": [],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2011",
+    "lastSeen": "Jul 2012",
+    "subgroups": []
+  },
+  {
+    "name": "Magic Hound",
+    "aliases": ["APT 35", "Cobalt Illusion", "Charming Kitten"],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2035",
+    "subgroups": [
+      {
+        "name": "DEV-0270, Nemesis Kitten",
+        "period": "8627"
+      },
+      {
+        "name": "TA455, Smoke Sandstorm",
+        "period": "8627"
+      }
+    ]
+  },
+  {
+    "name": "Magic Kitten",
+    "aliases": [],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2007",
+    "subgroups": []
+  },
+  {
+    "name": "MalKamak",
+    "aliases": [],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2018",
+    "subgroups": []
+  },
+  {
+    "name": "Mallard Spider",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2008",
+    "lastSeen": "Dec 2020",
+    "subgroups": []
+  },
+  {
+    "name": "Mikroceen",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2017",
+    "lastSeen": "Mar 2021",
+    "subgroups": []
+  },
+  {
+    "name": "Moafee",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2014",
+    "subgroups": []
+  },
+  {
+    "name": "Molerats",
+    "aliases": ["Extreme Jackal", "Gaza Cybergang"],
+    "category": "apt",
+    "country": "Gaza",
+    "firstSeen": "2012",
+    "lastSeen": "Jul 2023",
+    "subgroups": []
+  },
+  {
+    "name": "MoneyTaker",
+    "aliases": [],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2016",
+    "subgroups": []
+  },
+  {
+    "name": "Moonstone Sleet",
+    "aliases": [],
+    "category": "apt",
+    "country": "North Korea",
+    "firstSeen": "2023",
+    "lastSeen": "Feb 2025",
+    "subgroups": []
+  },
+  {
+    "name": "MoustachedBouncer",
+    "aliases": [],
+    "category": "apt",
+    "country": "Belarus",
+    "firstSeen": "2014",
+    "subgroups": []
+  },
+  {
+    "name": "MuddyWater",
+    "aliases": ["Seedworm", "TEMP.Zagros", "Static Kitten"],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2017",
+    "lastSeen": "Jul 2025",
+    "subgroups": []
+  },
+  {
+    "name": "Mustang Panda",
+    "aliases": ["Bronze President"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2012",
+    "lastSeen": "Jun 2025",
+    "subgroups": []
+  },
+  {
+    "name": "Mysterious Elephant",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2023",
+    "subgroups": []
+  },
+  {
+    "name": "Naikon",
+    "aliases": ["Lotus Panda"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2010",
+    "lastSeen": "Apr 2022",
+    "subgroups": []
+  },
+  {
+    "name": "Nazar",
+    "aliases": [],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2008",
+    "subgroups": []
+  },
+  {
+    "name": "NB65",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2022",
+    "lastSeen": "Apr 2022",
+    "subgroups": []
+  },
+  {
+    "name": "Neodymium",
+    "aliases": [],
+    "category": "apt",
+    "country": "Turkey",
+    "firstSeen": "2016",
+    "subgroups": []
+  },
+  {
+    "name": "NetTraveler",
+    "aliases": ["APT 21", "Hammer Panda"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2021",
+    "subgroups": []
+  },
+  {
+    "name": "Night Dragon",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2009",
+    "subgroups": []
+  },
+  {
+    "name": "Nightshade Panda",
+    "aliases": ["APT 9", "Group 27"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2027",
+    "subgroups": []
+  },
+  {
+    "name": "NineBlog",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2013",
+    "subgroups": []
+  },
+  {
+    "name": "Nitro",
+    "aliases": ["Covert Grove"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2011",
+    "lastSeen": "Jul 2014",
+    "subgroups": []
+  },
+  {
+    "name": "OilAlpha",
+    "aliases": [],
+    "category": "apt",
+    "country": "Yemen",
+    "firstSeen": "2022",
+    "subgroups": []
+  },
+  {
+    "name": "OilRig",
+    "aliases": ["APT 34", "Helix Kitten", "Chrysene"],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2034",
+    "subgroups": [
+      {
+        "name": "Greenbug, Volatile Kitten",
+        "period": "8627"
+      }
+    ]
+  },
+  {
+    "name": "OldGremlin",
+    "aliases": [],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2020",
+    "lastSeen": "Feb 2021",
+    "subgroups": []
+  },
+  {
+    "name": "OnionDog",
+    "aliases": [],
+    "category": "apt",
+    "country": "South Korea",
+    "firstSeen": "2013",
+    "subgroups": []
+  },
+  {
+    "name": "OPERA1ER",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2016",
+    "lastSeen": "Jul 2023",
+    "subgroups": []
+  },
+  {
+    "name": "Operation Armor Piercer",
+    "aliases": [],
+    "category": "apt",
+    "country": "Pakistan",
+    "firstSeen": "2020",
+    "subgroups": []
+  },
+  {
+    "name": "Operation Bandidos",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2021",
+    "subgroups": []
+  },
+  {
+    "name": "Operation Black Atlas",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2015",
+    "subgroups": []
+  },
+  {
+    "name": "Operation BugDrop",
+    "aliases": [],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2016",
+    "subgroups": []
+  },
+  {
+    "name": "Operation Comando",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2018",
+    "subgroups": []
+  },
+  {
+    "name": "Operation Crimson Palace",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2022",
+    "subgroups": []
+  },
+  {
+    "name": "Operation Digital Eye",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2024",
+    "subgroups": []
+  },
+  {
+    "name": "Operation Diplomatic Specter",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2022",
+    "subgroups": []
+  },
+  {
+    "name": "Operation Domino",
+    "aliases": ["Operation Kremlin"],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2019",
+    "lastSeen": "Dec 2020",
+    "subgroups": []
+  },
+  {
+    "name": "Operation Dragon Castling",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2022",
+    "subgroups": []
+  },
+  {
+    "name": "Operation Earth Kitsune",
+    "aliases": [],
+    "category": "apt",
+    "country": "North Korea",
+    "firstSeen": "2019",
+    "lastSeen": "Late 2022",
+    "subgroups": []
+  },
+  {
+    "name": "Operation Electric Powder",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2016",
+    "subgroups": []
+  },
+  {
+    "name": "Operation EmailThief",
+    "aliases": ["TEMP_Heretic"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2021",
+    "subgroups": []
+  },
+  {
+    "name": "Operation Epic Manchego",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2020",
+    "subgroups": []
+  },
+  {
+    "name": "Operation Ghostwriter",
+    "aliases": [],
+    "category": "apt",
+    "country": "Belarus",
+    "firstSeen": "2017",
+    "lastSeen": "Jan 2025",
+    "subgroups": []
+  },
+  {
+    "name": "Operation Ghoul",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2016",
+    "subgroups": []
+  },
+  {
+    "name": "Operation Groundbait",
+    "aliases": [],
+    "category": "apt",
+    "country": "Ukraine",
+    "firstSeen": "2008",
+    "subgroups": []
+  },
+  {
+    "name": "Operation HangOver",
+    "aliases": ["Monsoon", "Viceroy Tiger"],
+    "category": "apt",
+    "country": "India",
+    "firstSeen": "2010",
+    "lastSeen": "Jan 2020",
+    "subgroups": []
+  },
+  {
+    "name": "Operation Harvest",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2016",
+    "subgroups": []
+  },
+  {
+    "name": "Operation Jacana",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2023",
+    "subgroups": []
+  },
+  {
+    "name": "Operation Layover",
+    "aliases": [],
+    "category": "apt",
+    "country": "Nigeria",
+    "firstSeen": "2013",
+    "subgroups": []
+  },
+  {
+    "name": "Operation LiberalFace",
+    "aliases": ["MirrorFace"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2019",
+    "lastSeen": "Aug 2024",
+    "subgroups": []
+  },
+  {
+    "name": "Operation Manul",
+    "aliases": [],
+    "category": "apt",
+    "country": "Kazakhstan",
+    "firstSeen": "2015",
+    "subgroups": []
+  },
+  {
+    "name": "Operation Olympic Games",
+    "aliases": [],
+    "category": "apt",
+    "country": "USA",
+    "firstSeen": "2007",
+    "subgroups": []
+  },
+  {
+    "name": "Operation Parliament",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2017",
+    "subgroups": []
+  },
+  {
+    "name": "Operation Poisoned News",
+    "aliases": ["TwoSail Junk"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2020",
+    "subgroups": []
+  },
+  {
+    "name": "Operation Poison Needles",
+    "aliases": [],
+    "category": "apt",
+    "country": "Ukraine",
+    "firstSeen": "2018",
+    "subgroups": []
+  },
+  {
+    "name": "Operation Potao Express",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2015",
+    "subgroups": []
+  },
+  {
+    "name": "Operation PseudoManuscrypt",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2021",
+    "subgroups": []
+  },
+  {
+    "name": "Operation Red Signature",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2018",
+    "subgroups": []
+  },
+  {
+    "name": "Operation RestyLink",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2021",
+    "subgroups": []
+  },
+  {
+    "name": "Operation RusticWeb",
+    "aliases": [],
+    "category": "apt",
+    "country": "Pakistan",
+    "firstSeen": "2023",
+    "subgroups": []
+  },
+  {
+    "name": "Operation Rusty Flag",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2023",
+    "subgroups": []
+  },
+  {
+    "name": "Operation Shady RAT",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2006",
+    "subgroups": []
+  },
+  {
+    "name": "Operation SalmonSlalom",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2025",
+    "subgroups": []
+  },
+  {
+    "name": "Operation SignSight",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2020",
+    "subgroups": []
+  },
+  {
+    "name": "Operation Silent Skimmer",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2022",
+    "subgroups": []
+  },
+  {
+    "name": "Operation SLOW#TEMPEST",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2024",
+    "subgroups": []
+  },
+  {
+    "name": "Operation Spalax",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2020",
+    "subgroups": []
+  },
+  {
+    "name": "Operation Tainted Love",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2023",
+    "subgroups": []
+  },
+  {
+    "name": "Operation Titan Rain",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2003",
+    "subgroups": []
+  },
+  {
+    "name": "Operation Triangulation",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2023",
+    "subgroups": []
+  },
+  {
+    "name": "Operation TunnelSnake",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2018",
+    "subgroups": []
+  },
+  {
+    "name": "Operation ViceLeaker",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2018",
+    "subgroups": []
+  },
+  {
+    "name": "Operation WizardOpium",
+    "aliases": [],
+    "category": "apt",
+    "country": "North Korea",
+    "firstSeen": "2019",
+    "subgroups": []
+  },
+  {
+    "name": "Orangeworm",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2015",
+    "lastSeen": "Jan 2020",
+    "subgroups": []
+  },
+  {
+    "name": "Packrat",
+    "aliases": [],
+    "category": "apt",
+    "country": "Latin America",
+    "firstSeen": "2008",
+    "subgroups": []
+  },
+  {
+    "name": "Parisite",
+    "aliases": ["Fox Kitten", "Pioneer Kitten"],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2017",
+    "lastSeen": "Nov 2020",
+    "subgroups": []
+  },
+  {
+    "name": "PassCV",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2016",
+    "subgroups": []
+  },
+  {
+    "name": "Patchwork",
+    "aliases": ["Dropping Elephant"],
+    "category": "apt",
+    "country": "India",
+    "firstSeen": "2013",
+    "lastSeen": "Jun 2025",
+    "subgroups": []
+  },
+  {
+    "name": "Pinchy Spider",
+    "aliases": ["Gold Southfield"],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2018",
+    "lastSeen": "Oct 2024",
+    "subgroups": []
+  },
+  {
+    "name": "PittyTiger",
+    "aliases": ["Pitty Panda"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2011",
+    "subgroups": []
+  },
+  {
+    "name": "Platinum",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2009",
+    "lastSeen": "Nov 2019",
+    "subgroups": []
+  },
+  {
+    "name": "PlushDaemon",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2019",
+    "subgroups": []
+  },
+  {
+    "name": "Poison Carp",
+    "aliases": ["Evil Eye"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2018",
+    "lastSeen": "Jun 2023",
+    "subgroups": []
+  },
+  {
+    "name": "Polonium",
+    "aliases": [],
+    "category": "apt",
+    "country": "Lebanon",
+    "firstSeen": "2022",
+    "lastSeen": "Sep 2022",
+    "subgroups": []
+  },
+  {
+    "name": "Poseidon Group",
+    "aliases": [],
+    "category": "apt",
+    "country": "Brazil",
+    "firstSeen": "2005",
+    "lastSeen": "Feb 2016",
+    "subgroups": []
+  },
+  {
+    "name": "PowerPool",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2018",
+    "subgroups": []
+  },
+  {
+    "name": "Promethium",
+    "aliases": ["StrongPity"],
+    "category": "apt",
+    "country": "Turkey",
+    "firstSeen": "2012",
+    "lastSeen": "Nov 2021",
+    "subgroups": []
+  },
+  {
+    "name": "Pusikurac",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2019",
+    "subgroups": []
+  },
+  {
+    "name": "Putter Panda",
+    "aliases": ["APT 2"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2007",
+    "subgroups": []
+  },
+  {
+    "name": "Rampant Kitten",
+    "aliases": [],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2014",
+    "subgroups": []
+  },
+  {
+    "name": "Rancor",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2017",
+    "subgroups": []
+  },
+  {
+    "name": "RATicate",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2019",
+    "subgroups": []
+  },
+  {
+    "name": "Reaper",
+    "aliases": ["APT 37", "Ricochet Chollima", "ScarCruft"],
+    "category": "apt",
+    "country": "North Korea",
+    "firstSeen": "2037",
+    "subgroups": []
+  },
+  {
+    "name": "RedAlpha",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2015",
+    "subgroups": []
+  },
+  {
+    "name": "RedCurl",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2018",
+    "lastSeen": "Mar 2025",
+    "subgroups": []
+  },
+  {
+    "name": "RedDelta",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2020",
+    "lastSeen": "Jul 2023",
+    "subgroups": []
+  },
+  {
+    "name": "RedEcho",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2020",
+    "subgroups": []
+  },
+  {
+    "name": "RedFoxtrot",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2014",
+    "lastSeen": "Aug 2021",
+    "subgroups": []
+  },
+  {
+    "name": "RedGolf",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2014",
+    "subgroups": []
+  },
+  {
+    "name": "RedHotel",
+    "aliases": ["TAG-22"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2021",
+    "subgroups": []
+  },
+  {
+    "name": "RevengeHotels",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2015",
+    "subgroups": []
+  },
+  {
+    "name": "Riddle Spider",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2020",
+    "lastSeen": "Jun 2021",
+    "subgroups": []
+  },
+  {
+    "name": "Roaming Tiger",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2014",
+    "lastSeen": "Aug 2015",
+    "subgroups": []
+  },
+  {
+    "name": "Rocket Kitten",
+    "aliases": ["Newscaster", "NewsBeef"],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2011",
+    "subgroups": []
+  },
+  {
+    "name": "RTM",
+    "aliases": [],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2015",
+    "subgroups": []
+  },
+  {
+    "name": "Safe",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2013",
+    "subgroups": []
+  },
+  {
+    "name": "SaintBear",
+    "aliases": ["Lorec53"],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2021",
+    "lastSeen": "Oct 2022",
+    "subgroups": []
+  },
+  {
+    "name": "Salt Typhoon",
+    "aliases": ["GhostEmperor"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2020",
+    "lastSeen": "Feb 2025",
+    "subgroups": []
+  },
+  {
+    "name": "Samurai Panda",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2009",
+    "subgroups": []
+  },
+  {
+    "name": "SandCat",
+    "aliases": [],
+    "category": "apt",
+    "country": "Uzbekistan",
+    "firstSeen": "2018",
+    "subgroups": []
+  },
+  {
+    "name": "Sandman",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2022",
+    "subgroups": []
+  },
+  {
+    "name": "Sandworm Team",
+    "aliases": ["Iron Viking", "Voodoo Bear"],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2009",
+    "lastSeen": "Dec 2024",
+    "subgroups": []
+  },
+  {
+    "name": "Scarab",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2012",
+    "lastSeen": "Mar 2022",
+    "subgroups": []
+  },
+  {
+    "name": "Scarlet Mimic",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2015",
+    "lastSeen": "Aug 2022",
+    "subgroups": []
+  },
+  {
+    "name": "Sea Turtle",
+    "aliases": [],
+    "category": "apt",
+    "country": "Turkey",
+    "firstSeen": "2017",
+    "subgroups": []
+  },
+  {
+    "name": "Shadow Academy",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2020",
+    "subgroups": []
+  },
+  {
+    "name": "Shadow Network",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2010",
+    "subgroups": []
+  },
+  {
+    "name": "ShaggyPanther",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2018",
+    "subgroups": []
+  },
+  {
+    "name": "SharpPanda",
+    "aliases": ["Sharp Dragon"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2018",
+    "lastSeen": "Mar 2024",
+    "subgroups": []
+  },
+  {
+    "name": "ShroudedSnooper",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2023",
+    "subgroups": []
+  },
+  {
+    "name": "SideCopy",
+    "aliases": [],
+    "category": "apt",
+    "country": "Pakistan",
+    "firstSeen": "2019",
+    "lastSeen": "Mar 2025",
+    "subgroups": []
+  },
+  {
+    "name": "SideWinder",
+    "aliases": ["Rattlesnake"],
+    "category": "apt",
+    "country": "India",
+    "firstSeen": "2012",
+    "subgroups": []
+  },
+  {
+    "name": "Siesta",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2014",
+    "subgroups": []
+  },
+  {
+    "name": "Silence",
+    "aliases": ["Contract Crew"],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2016",
+    "lastSeen": "Aug 2022",
+    "subgroups": []
+  },
+  {
+    "name": "Sima",
+    "aliases": [],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2016",
+    "subgroups": []
+  },
+  {
+    "name": "Slingshot",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2012",
+    "subgroups": []
+  },
+  {
+    "name": "Snake Wine",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2016",
+    "subgroups": []
+  },
+  {
+    "name": "Snowglobe",
+    "aliases": ["Animal Farm"],
+    "category": "apt",
+    "country": "France",
+    "firstSeen": "2011",
+    "subgroups": []
+  },
+  {
+    "name": "Sofacy",
+    "aliases": ["APT 28", "Fancy Bear", "Sednit"],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2028",
+    "subgroups": []
+  },
+  {
+    "name": "Sowbug",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2015",
+    "subgroups": []
+  },
+  {
+    "name": "Space Pirates",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2017",
+    "lastSeen": "Nov 2024",
+    "subgroups": []
+  },
+  {
+    "name": "Sphinx",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2014",
+    "subgroups": []
+  },
+  {
+    "name": "Sprite Spider",
+    "aliases": ["Gold Dupont"],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2015",
+    "lastSeen": "Nov 2022",
+    "subgroups": []
+  },
+  {
+    "name": "Stealth Falcon",
+    "aliases": ["FruityArmor"],
+    "category": "apt",
+    "country": "UAE",
+    "firstSeen": "2012",
+    "lastSeen": "Mar 2025",
+    "subgroups": []
+  },
+  {
+    "name": "Stone Panda",
+    "aliases": ["APT 10", "menuPass"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2010",
+    "subgroups": []
+  },
+  {
+    "name": "Storm-0558",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "0558",
+    "subgroups": []
+  },
+  {
+    "name": "Strider",
+    "aliases": ["ProjectSauron"],
+    "category": "apt",
+    "country": "USA",
+    "firstSeen": "2011",
+    "subgroups": []
+  },
+  {
+    "name": "Suckfly",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2014",
+    "lastSeen": "Late 2015",
+    "subgroups": []
+  },
+  {
+    "name": "SunCrypt Gang",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2019",
+    "lastSeen": "Oct 2020",
+    "subgroups": []
+  },
+  {
+    "name": "Sweed",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2017",
+    "subgroups": []
+  },
+  {
+    "name": "Syrian Electronic Army (SEA)",
+    "aliases": ["Deadeye Jackal"],
+    "category": "apt",
+    "country": "Syria",
+    "firstSeen": "2011",
+    "lastSeen": "Aug 2021",
+    "subgroups": [
+      {
+        "name": "Goldmouse, APT-C-27",
+        "period": "8627"
+      },
+      {
+        "name": "Pat Bear, APT-C-37",
+        "period": "8627"
+      }
+    ]
+  },
+  {
+    "name": "TA2101",
+    "aliases": ["Maze Team"],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2101",
+    "subgroups": []
+  },
+  {
+    "name": "TA2541",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2541",
+    "subgroups": []
+  },
+  {
+    "name": "TA2552",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2552",
+    "subgroups": []
+  },
+  {
+    "name": "TA2722",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2722",
+    "subgroups": []
+  },
+  {
+    "name": "TA413",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2019",
+    "subgroups": []
+  },
+  {
+    "name": "TA428",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2013",
+    "lastSeen": "Jan 2022",
+    "subgroups": []
+  },
+  {
+    "name": "TA459",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2017",
+    "lastSeen": "Apr 2022",
+    "subgroups": []
+  },
+  {
+    "name": "TA505",
+    "aliases": ["Graceful Spider", "Gold Evergreen"],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2006",
+    "lastSeen": "Nov 2022",
+    "subgroups": []
+  },
+  {
+    "name": "TA530",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2016",
+    "lastSeen": "Nov 2016",
+    "subgroups": []
+  },
+  {
+    "name": "TA555",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2018",
+    "subgroups": []
+  },
+  {
+    "name": "TA558",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2018",
+    "lastSeen": "Jun 2023",
+    "subgroups": []
+  },
+  {
+    "name": "TAG-28",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2021",
+    "subgroups": []
+  },
+  {
+    "name": "TAG-38",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2021",
+    "subgroups": []
+  },
+  {
+    "name": "TAG-100",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2024",
+    "subgroups": []
+  },
+  {
+    "name": "Taidoor",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2008",
+    "lastSeen": "Late 2015",
+    "subgroups": []
+  },
+  {
+    "name": "TaskMasters",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2010",
+    "lastSeen": "May 2021",
+    "subgroups": []
+  },
+  {
+    "name": "TeamSpy Crew",
+    "aliases": [],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2010",
+    "lastSeen": "Feb 2017",
+    "subgroups": []
+  },
+  {
+    "name": "TeleBots",
+    "aliases": [],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2015",
+    "lastSeen": "Oct 2020",
+    "subgroups": []
+  },
+  {
+    "name": "Temper Panda",
+    "aliases": ["admin@338"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "4033",
+    "subgroups": []
+  },
+  {
+    "name": "Tempting Cedar Spyware",
+    "aliases": [],
+    "category": "apt",
+    "country": "Lebanon",
+    "firstSeen": "2015",
+    "subgroups": []
+  },
+  {
+    "name": "TEMP.Veles",
+    "aliases": [],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2014",
+    "lastSeen": "Mar 2022",
+    "subgroups": []
+  },
+  {
+    "name": "Terbium",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2012",
+    "subgroups": []
+  },
+  {
+    "name": "TheWizards",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2022",
+    "subgroups": []
+  },
+  {
+    "name": "TIDRONE",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2024",
+    "subgroups": []
+  },
+  {
+    "name": "Tiny Spider",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2015",
+    "subgroups": []
+  },
+  {
+    "name": "ToddyCat",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2020",
+    "subgroups": []
+  },
+  {
+    "name": "Tomiris",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2020",
+    "subgroups": []
+  },
+  {
+    "name": "Tonto Team",
+    "aliases": ["HartBeat", "Karma Panda"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2009",
+    "lastSeen": "Apr 2023",
+    "subgroups": []
+  },
+  {
+    "name": "Tortilla",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2021",
+    "subgroups": []
+  },
+  {
+    "name": "Tortoiseshell",
+    "aliases": ["Imperial Kitten"],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2018",
+    "lastSeen": "Oct 2023",
+    "subgroups": []
+  },
+  {
+    "name": "Tracer Kitten",
+    "aliases": [],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2020",
+    "subgroups": []
+  },
+  {
+    "name": "Transparent Tribe",
+    "aliases": ["APT 36"],
+    "category": "apt",
+    "country": "Pakistan",
+    "firstSeen": "2036",
+    "subgroups": []
+  },
+  {
+    "name": "Traveling Spider",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2019",
+    "lastSeen": "Mar 2021",
+    "subgroups": []
+  },
+  {
+    "name": "Tropical Scorpius",
+    "aliases": ["RomCom"],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2019",
+    "lastSeen": "Oct 2024",
+    "subgroups": []
+  },
+  {
+    "name": "Tropic Trooper",
+    "aliases": ["Pirate Panda", "APT 23", "KeyBoy"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2023",
+    "subgroups": []
+  },
+  {
+    "name": "Turbine Panda",
+    "aliases": ["APT 26", "Shell Crew", "WebMasters", "KungFu Kittens"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2026",
+    "subgroups": []
+  },
+  {
+    "name": "Turla",
+    "aliases": ["Waterbug", "Venomous Bear"],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "1996",
+    "subgroups": []
+  },
+  {
+    "name": "Twisted Panda",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2021",
+    "subgroups": []
+  },
+  {
+    "name": "UltraRank",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2015",
+    "lastSeen": "Nov 2020",
+    "subgroups": []
+  },
+  {
+    "name": "UNC215",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2019",
+    "subgroups": []
+  },
+  {
+    "name": "UNC2447",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2447",
+    "subgroups": []
+  },
+  {
+    "name": "UNC2891",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2891",
+    "subgroups": []
+  },
+  {
+    "name": "UNC3886",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "3886",
+    "subgroups": []
+  },
+  {
+    "name": "UNC4191",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "4191",
+    "subgroups": []
+  },
+  {
+    "name": "UNC5221",
+    "aliases": ["UTA0178"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "5221",
+    "subgroups": []
+  },
+  {
+    "name": "Unfading Sea Haze",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2018",
+    "subgroups": []
+  },
+  {
+    "name": "Urpage",
+    "aliases": [],
+    "category": "apt",
+    "country": "Middle East",
+    "firstSeen": "2018",
+    "subgroups": []
+  },
+  {
+    "name": "Velvet Ant",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2023",
+    "lastSeen": "Jul 2024",
+    "subgroups": []
+  },
+  {
+    "name": "Vendetta",
+    "aliases": ["TA2719"],
+    "category": "apt",
+    "country": "Turkey",
+    "firstSeen": "2719",
+    "subgroups": []
+  },
+  {
+    "name": "Venom Spider",
+    "aliases": ["Golden Chickens"],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2017",
+    "lastSeen": "Jan 2025",
+    "subgroups": []
+  },
+  {
+    "name": "Vicious Panda",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2015",
+    "lastSeen": "Mar 2020",
+    "subgroups": []
+  },
+  {
+    "name": "Viking Spider",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2019",
+    "lastSeen": "Oct 2023",
+    "subgroups": []
+  },
+  {
+    "name": "Void Arachne",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2024",
+    "lastSeen": "Jun 2025",
+    "subgroups": []
+  },
+  {
+    "name": "Void Blizzard",
+    "aliases": [],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2024",
+    "subgroups": []
+  },
+  {
+    "name": "Void Balaur",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2017",
+    "subgroups": []
+  },
+  {
+    "name": "Volatile Cedar",
+    "aliases": [],
+    "category": "apt",
+    "country": "Lebanon",
+    "firstSeen": "2012",
+    "lastSeen": "Early 2020",
+    "subgroups": []
+  },
+  {
+    "name": "Volt Typhoon",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2020",
+    "lastSeen": "Aug 2025",
+    "subgroups": []
+  },
+  {
+    "name": "Wassonite",
+    "aliases": [],
+    "category": "apt",
+    "country": "North Korea",
+    "firstSeen": "2018",
+    "lastSeen": "Oct 2019",
+    "subgroups": []
+  },
+  {
+    "name": "The White Company",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2017",
+    "lastSeen": "Nov 2017",
+    "subgroups": []
+  },
+  {
+    "name": "Whitefly",
+    "aliases": ["Mofang"],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2012",
+    "lastSeen": "Jul 2018",
+    "subgroups": []
+  },
+  {
+    "name": "Wicked Spider",
+    "aliases": ["APT 22"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2022",
+    "subgroups": []
+  },
+  {
+    "name": "WildCard",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2021",
+    "subgroups": []
+  },
+  {
+    "name": "Wild Neutron",
+    "aliases": ["Butterfly", "Sphinx Moth"],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2013",
+    "lastSeen": "Feb 2013",
+    "subgroups": []
+  },
+  {
+    "name": "WildPressure",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2019",
+    "lastSeen": "Spring 2021",
+    "subgroups": []
+  },
+  {
+    "name": "WindShift",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2018",
+    "subgroups": []
+  },
+  {
+    "name": "Winnti Group",
+    "aliases": ["Wicked Panda"],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2010",
+    "lastSeen": "Mar 2021",
+    "subgroups": []
+  },
+  {
+    "name": "Winter Vivern",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2020",
+    "lastSeen": "Oct 2023",
+    "subgroups": []
+  },
+  {
+    "name": "WIP26",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2022",
+    "subgroups": []
+  },
+  {
+    "name": "WIRTE Group",
+    "aliases": [],
+    "category": "apt",
+    "country": "Middle East",
+    "firstSeen": "2018",
+    "lastSeen": "Feb 2024",
+    "subgroups": []
+  },
+  {
+    "name": "Wizard Spider",
+    "aliases": ["Gold Blackburn"],
+    "category": "apt",
+    "country": "Russia",
+    "firstSeen": "2014",
+    "lastSeen": "May 2025",
+    "subgroups": []
+  },
+  {
+    "name": "Worok",
+    "aliases": [],
+    "category": "apt",
+    "country": "China",
+    "firstSeen": "2020",
+    "subgroups": []
+  },
+  {
+    "name": "XDSpy",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2011",
+    "lastSeen": "Jul 2024",
+    "subgroups": []
+  },
+  {
+    "name": "xHunt",
+    "aliases": [],
+    "category": "apt",
+    "country": "Iran",
+    "firstSeen": "2018",
+    "lastSeen": "Aug 2019",
+    "subgroups": []
+  },
+  {
+    "name": "YoroTrooper",
+    "aliases": [],
+    "category": "apt",
+    "country": "Kazakhstan",
+    "firstSeen": "2022",
+    "subgroups": []
+  },
+  {
+    "name": "ZooPark",
+    "aliases": [],
+    "category": "apt",
+    "country": null,
+    "firstSeen": "2015",
+    "subgroups": []
+  },
+  {
+    "name": "[Unnamed groups: China]",
+    "aliases": [],
+    "category": "apt",
+    "country": "Unnamed groups: China",
+    "firstSeen": "2018",
+    "lastSeen": "Mar 2025",
+    "subgroups": []
+  },
+  {
+    "name": "[Unnamed groups: Iran]",
+    "aliases": [],
+    "category": "apt",
+    "country": "Unnamed groups: Iran",
+    "firstSeen": "2019",
+    "lastSeen": "Jan 2025",
+    "subgroups": []
+  },
+  {
+    "name": "[Unnamed groups: North Korea]",
+    "aliases": [],
+    "category": "apt",
+    "country": "Unnamed groups: North Korea",
+    "firstSeen": "2019",
+    "lastSeen": "Oct 2024",
+    "subgroups": []
+  },
+  {
+    "name": "[Unnamed groups: Russia]",
+    "aliases": [],
+    "category": "apt",
+    "country": "Unnamed groups: Russia",
+    "firstSeen": "2014",
+    "lastSeen": "Jul 2025",
+    "subgroups": []
+  },
+  {
+    "name": "8220 Gang",
+    "aliases": [],
+    "category": "other",
+    "country": "China",
+    "firstSeen": "8220",
+    "subgroups": []
+  },
+  {
+    "name": "Achilles",
+    "aliases": [],
+    "category": "other",
+    "country": null,
+    "firstSeen": "2018",
+    "lastSeen": "Oct 2018",
+    "subgroups": []
+  },
+  {
+    "name": "ALTDOS",
+    "aliases": ["Desorden"],
+    "category": "other",
+    "country": "Singapore",
+    "firstSeen": "2020",
+    "lastSeen": "Feb 2025",
+    "subgroups": []
+  },
+  {
+    "name": "Andromeda Spider",
+    "aliases": [],
+    "category": "other",
+    "country": "Belarus",
+    "firstSeen": "2011",
+    "lastSeen": "Nov 2017",
+    "subgroups": []
+  },
+  {
+    "name": "Avalanche",
+    "aliases": [],
+    "category": "other",
+    "country": "Russia",
+    "firstSeen": "2006",
+    "lastSeen": "Dec 2016",
+    "subgroups": []
+  },
+  {
+    "name": "Bamboo Spider",
+    "aliases": ["TA544"],
+    "category": "other",
+    "country": null,
+    "firstSeen": "2016",
+    "lastSeen": "Apr 2022",
+    "subgroups": []
+  },
+  {
+    "name": "Bismuth",
+    "aliases": [],
+    "category": "other",
+    "country": "Vietnam",
+    "firstSeen": "2012",
+    "subgroups": []
+  },
+  {
+    "name": "Boson Spider",
+    "aliases": [],
+    "category": "other",
+    "country": null,
+    "firstSeen": "2015",
+    "lastSeen": "Nov 2017",
+    "subgroups": []
+  },
+  {
+    "name": "Circles",
+    "aliases": [],
+    "category": "other",
+    "country": "Israel",
+    "firstSeen": "2015",
+    "subgroups": []
+  },
+  {
+    "name": "CoralRaider",
+    "aliases": [],
+    "category": "other",
+    "country": "Vietnam",
+    "firstSeen": "2023",
+    "lastSeen": "Feb 2024",
+    "subgroups": []
+  },
+  {
+    "name": "Cron",
+    "aliases": [],
+    "category": "other",
+    "country": "Russia",
+    "firstSeen": "2015",
+    "lastSeen": "Dec 2017",
+    "subgroups": []
+  },
+  {
+    "name": "Cyber fighters of Izz Ad-Din Al Qassam",
+    "aliases": ["Fraternal Jackal"],
+    "category": "other",
+    "country": "Iran",
+    "firstSeen": "2012",
+    "lastSeen": "May 2016",
+    "subgroups": []
+  },
+  {
+    "name": "Dark Basin",
+    "aliases": [],
+    "category": "other",
+    "country": "India",
+    "firstSeen": "2013",
+    "subgroups": []
+  },
+  {
+    "name": "Dungeon Spider",
+    "aliases": [],
+    "category": "other",
+    "country": "Russia",
+    "firstSeen": "2016",
+    "lastSeen": "Feb 2018",
+    "subgroups": []
+  },
+  {
+    "name": "Fxmsp",
+    "aliases": [],
+    "category": "other",
+    "country": "Kazakhstan",
+    "firstSeen": "2016",
+    "lastSeen": "Jul 2020",
+    "subgroups": []
+  },
+  {
+    "name": "GambleForce",
+    "aliases": [],
+    "category": "other",
+    "country": "China",
+    "firstSeen": "2023",
+    "subgroups": []
+  },
+  {
+    "name": "Gnosticplayers",
+    "aliases": [],
+    "category": "other",
+    "country": "Pakistan",
+    "firstSeen": "2019",
+    "lastSeen": "Sep 2019",
+    "subgroups": []
+  },
+  {
+    "name": "Guru Spider",
+    "aliases": [],
+    "category": "other",
+    "country": "Russia",
+    "firstSeen": "2014",
+    "lastSeen": "Mar 2018",
+    "subgroups": []
+  },
+  {
+    "name": "Hacking Team",
+    "aliases": [],
+    "category": "other",
+    "country": "Italy",
+    "firstSeen": "2003",
+    "subgroups": []
+  },
+  {
+    "name": "Handala Hack Team",
+    "aliases": [],
+    "category": "other",
+    "country": null,
+    "firstSeen": "2023",
+    "lastSeen": "Dec 2023",
+    "subgroups": []
+  },
+  {
+    "name": "Infraud Organization",
+    "aliases": [],
+    "category": "other",
+    "country": "Various",
+    "firstSeen": "2010",
+    "lastSeen": "Jul 2020",
+    "subgroups": []
+  },
+  {
+    "name": "Karakurt",
+    "aliases": [],
+    "category": "other",
+    "country": null,
+    "firstSeen": "2021",
+    "lastSeen": "Sep 2022",
+    "subgroups": []
+  },
+  {
+    "name": "Lapsus$",
+    "aliases": [],
+    "category": "other",
+    "country": "Brazil",
+    "firstSeen": "2021",
+    "lastSeen": "Dec 2023",
+    "subgroups": []
+  },
+  {
+    "name": "Lunar Spider",
+    "aliases": [],
+    "category": "other",
+    "country": "Russia",
+    "firstSeen": "2019",
+    "subgroups": []
+  },
+  {
+    "name": "Monty Spider",
+    "aliases": [],
+    "category": "other",
+    "country": "Russia",
+    "firstSeen": "2012",
+    "lastSeen": "Mar 2020",
+    "subgroups": []
+  },
+  {
+    "name": "Moses Staff",
+    "aliases": [],
+    "category": "other",
+    "country": "Iran",
+    "firstSeen": "2021",
+    "lastSeen": "Nov 2022",
+    "subgroups": []
+  },
+  {
+    "name": "Mummy Spider",
+    "aliases": ["TA542"],
+    "category": "other",
+    "country": null,
+    "firstSeen": "2014",
+    "lastSeen": "Jun 2024",
+    "subgroups": []
+  },
+  {
+    "name": "Narwhal Spider",
+    "aliases": [],
+    "category": "other",
+    "country": null,
+    "firstSeen": "2007",
+    "lastSeen": "Oct 2018",
+    "subgroups": []
+  },
+  {
+    "name": "NetSec",
+    "aliases": ["USDoD"],
+    "category": "other",
+    "country": "Spain",
+    "firstSeen": "2020",
+    "lastSeen": "Oct 2024",
+    "subgroups": []
+  },
+  {
+    "name": "OurMine",
+    "aliases": [],
+    "category": "other",
+    "country": "Saudi Arabia",
+    "firstSeen": "2016",
+    "lastSeen": "Feb 2020",
+    "subgroups": []
+  },
+  {
+    "name": "Operation Windigo",
+    "aliases": [],
+    "category": "other",
+    "country": "Russia",
+    "firstSeen": "2011",
+    "lastSeen": "Mar 2017",
+    "subgroups": []
+  },
+  {
+    "name": "Pacha Group",
+    "aliases": [],
+    "category": "other",
+    "country": "China",
+    "firstSeen": "2018",
+    "lastSeen": "May 2019",
+    "subgroups": []
+  },
+  {
+    "name": "Parinacota",
+    "aliases": [],
+    "category": "other",
+    "country": null,
+    "firstSeen": "2018",
+    "subgroups": []
+  },
+  {
+    "name": "Planetary Reef",
+    "aliases": [],
+    "category": "other",
+    "country": "Indonesia",
+    "firstSeen": "2020",
+    "subgroups": []
+  },
+  {
+    "name": "ResumeLooters",
+    "aliases": [],
+    "category": "other",
+    "country": null,
+    "firstSeen": "2023",
+    "subgroups": []
+  },
+  {
+    "name": "Retefe Gang",
+    "aliases": ["Operation Emmental"],
+    "category": "other",
+    "country": "Russia",
+    "firstSeen": "2013",
+    "subgroups": []
+  },
+  {
+    "name": "Roaming Mantis",
+    "aliases": [],
+    "category": "other",
+    "country": null,
+    "firstSeen": "2017",
+    "lastSeen": "Jul 2022",
+    "subgroups": []
+  },
+  {
+    "name": "Rocke",
+    "aliases": ["Iron Group"],
+    "category": "other",
+    "country": "China",
+    "firstSeen": "2018",
+    "lastSeen": "Apr 2021",
+    "subgroups": []
+  },
+  {
+    "name": "Salty Spider",
+    "aliases": [],
+    "category": "other",
+    "country": "Russia",
+    "firstSeen": "2003",
+    "lastSeen": "Dec 2018",
+    "subgroups": []
+  },
+  {
+    "name": "Scully Spider",
+    "aliases": ["TA547"],
+    "category": "other",
+    "country": null,
+    "firstSeen": "2017",
+    "lastSeen": "Mar 2024",
+    "subgroups": []
+  },
+  {
+    "name": "Shadow Brokers",
+    "aliases": [],
+    "category": "other",
+    "country": "USA",
+    "firstSeen": "2016",
+    "lastSeen": "Nov 2017",
+    "subgroups": []
+  },
+  {
+    "name": "ShinyHunters",
+    "aliases": [],
+    "category": "other",
+    "country": null,
+    "firstSeen": "2020",
+    "lastSeen": "Aug 2025",
+    "subgroups": []
+  },
+  {
+    "name": "Shark Spider",
+    "aliases": [],
+    "category": "other",
+    "country": "Russia",
+    "firstSeen": "2011",
+    "lastSeen": "Jul 2014",
+    "subgroups": []
+  },
+  {
+    "name": "Smoky Spider",
+    "aliases": [],
+    "category": "other",
+    "country": null,
+    "firstSeen": "2011",
+    "lastSeen": "Apr 2019",
+    "subgroups": []
+  },
+  {
+    "name": "TA511",
+    "aliases": [],
+    "category": "other",
+    "country": null,
+    "firstSeen": "2018",
+    "lastSeen": "Oct 2020",
+    "subgroups": []
+  },
+  {
+    "name": "TA516",
+    "aliases": [],
+    "category": "other",
+    "country": null,
+    "firstSeen": "2016",
+    "lastSeen": "Feb 2020",
+    "subgroups": []
+  },
+  {
+    "name": "TA551",
+    "aliases": ["Shathak"],
+    "category": "other",
+    "country": "Russia",
+    "firstSeen": "2016",
+    "lastSeen": "Jan 2021",
+    "subgroups": []
+  },
+  {
+    "name": "TA554",
+    "aliases": [],
+    "category": "other",
+    "country": null,
+    "firstSeen": "2017",
+    "subgroups": []
+  },
+  {
+    "name": "UNC1878",
+    "aliases": [],
+    "category": "other",
+    "country": null,
+    "firstSeen": "1878",
+    "subgroups": []
+  },
+  {
+    "name": "UNC5537",
+    "aliases": [],
+    "category": "other",
+    "country": "Canada",
+    "firstSeen": "5537",
+    "subgroups": []
+  },
+  {
+    "name": "[Vault 7/8]",
+    "aliases": [],
+    "category": "other",
+    "country": "Vault 7/8",
+    "firstSeen": "2017",
+    "lastSeen": "Feb 2024",
+    "subgroups": []
+  },
+  {
+    "name": "Yanbian Gang",
+    "aliases": [],
+    "category": "other",
+    "country": "China",
+    "firstSeen": "2013",
+    "lastSeen": "Dec 2020",
+    "subgroups": []
+  },
+  {
+    "name": "Yingmob",
+    "aliases": [],
+    "category": "other",
+    "country": "China",
+    "firstSeen": "2016",
+    "lastSeen": "Jan 2017",
+    "subgroups": []
+  },
+  {
+    "name": "Zombie Spider",
+    "aliases": [],
+    "category": "other",
+    "country": "Russia",
+    "firstSeen": "2010",
+    "lastSeen": "Jun 2021",
+    "subgroups": []
+  },
+  {
+    "name": "Big Panda",
+    "aliases": [],
+    "category": "unknown",
+    "country": "China",
+    "firstSeen": null,
+    "lastSeen": null,
+    "subgroups": []
+  },
+  {
+    "name": "Boulder Bear",
+    "aliases": [],
+    "category": "unknown",
+    "country": "Russia",
+    "firstSeen": null,
+    "lastSeen": null,
+    "subgroups": []
+  },
+  {
+    "name": "Clockwork Spider",
+    "aliases": [],
+    "category": "unknown",
+    "country": null,
+    "firstSeen": null,
+    "lastSeen": null,
+    "subgroups": []
+  },
+  {
+    "name": "Corsair Jackal",
+    "aliases": [],
+    "category": "unknown",
+    "country": "Tunisia",
+    "firstSeen": null,
+    "lastSeen": null,
+    "subgroups": []
+  },
+  {
+    "name": "Dextorous Spider",
+    "aliases": [],
+    "category": "unknown",
+    "country": null,
+    "firstSeen": null,
+    "lastSeen": null,
+    "subgroups": []
+  },
+  {
+    "name": "Dizzy Panda",
+    "aliases": [],
+    "category": "unknown",
+    "country": "China",
+    "firstSeen": null,
+    "lastSeen": null,
+    "subgroups": []
+  },
+  {
+    "name": "Electric Panda",
+    "aliases": [],
+    "category": "unknown",
+    "country": "China",
+    "firstSeen": null,
+    "lastSeen": null,
+    "subgroups": []
+  },
+  {
+    "name": "Eloquent Panda",
+    "aliases": [],
+    "category": "unknown",
+    "country": "China",
+    "firstSeen": null,
+    "lastSeen": null,
+    "subgroups": []
+  },
+  {
+    "name": "Flyfox",
+    "aliases": [],
+    "category": "unknown",
+    "country": null,
+    "firstSeen": null,
+    "lastSeen": null,
+    "subgroups": []
+  },
+  {
+    "name": "Foxy Panda",
+    "aliases": [],
+    "category": "unknown",
+    "country": "China",
+    "firstSeen": null,
+    "lastSeen": null,
+    "subgroups": []
+  },
+  {
+    "name": "Ghost Jackal",
+    "aliases": [],
+    "category": "unknown",
+    "country": null,
+    "firstSeen": null,
+    "lastSeen": null,
+    "subgroups": []
+  },
+  {
+    "name": "Gibberish Panda",
+    "aliases": [],
+    "category": "unknown",
+    "country": "China",
+    "firstSeen": null,
+    "lastSeen": null,
+    "subgroups": []
+  },
+  {
+    "name": "HolyWater",
+    "aliases": [],
+    "category": "unknown",
+    "country": null,
+    "firstSeen": null,
+    "lastSeen": null,
+    "subgroups": []
+  },
+  {
+    "name": "Impersonating Panda",
+    "aliases": [],
+    "category": "unknown",
+    "country": "China",
+    "firstSeen": null,
+    "lastSeen": null,
+    "subgroups": []
+  },
+  {
+    "name": "Knockout Spider",
+    "aliases": [],
+    "category": "unknown",
+    "country": null,
+    "firstSeen": null,
+    "lastSeen": null,
+    "subgroups": []
+  },
+  {
+    "name": "Kumsong121",
+    "aliases": [],
+    "category": "unknown",
+    "country": "North Korea",
+    "firstSeen": null,
+    "lastSeen": null,
+    "subgroups": []
+  },
+  {
+    "name": "Magnetic Spider",
+    "aliases": [],
+    "category": "unknown",
+    "country": null,
+    "firstSeen": null,
+    "lastSeen": null,
+    "subgroups": []
+  },
+  {
+    "name": "Outlaw Spider",
+    "aliases": [],
+    "category": "unknown",
+    "country": null,
+    "firstSeen": null,
+    "lastSeen": null,
+    "subgroups": []
+  },
+  {
+    "name": "Overlord Spider",
+    "aliases": [],
+    "category": "unknown",
+    "country": null,
+    "firstSeen": null,
+    "lastSeen": null,
+    "subgroups": []
+  },
+  {
+    "name": "Pale Panda",
+    "aliases": [],
+    "category": "unknown",
+    "country": "China",
+    "firstSeen": null,
+    "lastSeen": null,
+    "subgroups": []
+  },
+  {
+    "name": "ParkingBear",
+    "aliases": [],
+    "category": "unknown",
+    "country": null,
+    "firstSeen": null,
+    "lastSeen": null,
+    "subgroups": []
+  },
+  {
+    "name": "Poisonous Panda",
+    "aliases": [],
+    "category": "unknown",
+    "country": "China",
+    "firstSeen": null,
+    "lastSeen": null,
+    "subgroups": []
+  },
+  {
+    "name": "Predator Panda",
+    "aliases": [],
+    "category": "unknown",
+    "country": "China",
+    "firstSeen": null,
+    "lastSeen": null,
+    "subgroups": []
+  },
+  {
+    "name": "Sabre Panda",
+    "aliases": [],
+    "category": "unknown",
+    "country": "China",
+    "firstSeen": null,
+    "lastSeen": null,
+    "subgroups": []
+  },
+  {
+    "name": "Singing Spider",
+    "aliases": [],
+    "category": "unknown",
+    "country": null,
+    "firstSeen": null,
+    "lastSeen": null,
+    "subgroups": []
+  },
+  {
+    "name": "Solar Spider",
+    "aliases": [],
+    "category": "unknown",
+    "country": null,
+    "firstSeen": null,
+    "lastSeen": null,
+    "subgroups": []
+  },
+  {
+    "name": "Spicy Panda",
+    "aliases": [],
+    "category": "unknown",
+    "country": "China",
+    "firstSeen": null,
+    "lastSeen": null,
+    "subgroups": []
+  },
+  {
+    "name": "Test Panda",
+    "aliases": [],
+    "category": "unknown",
+    "country": "China",
+    "firstSeen": null,
+    "lastSeen": null,
+    "subgroups": []
+  },
+  {
+    "name": "Toxic Panda",
+    "aliases": [],
+    "category": "unknown",
+    "country": "China",
+    "firstSeen": null,
+    "lastSeen": null,
+    "subgroups": []
+  },
+  {
+    "name": "Union Panda",
+    "aliases": [],
+    "category": "unknown",
+    "country": "China",
+    "firstSeen": null,
+    "lastSeen": null,
+    "subgroups": []
+  },
+  {
+    "name": "Union Spider",
+    "aliases": [],
+    "category": "unknown",
+    "country": null,
+    "firstSeen": null,
+    "lastSeen": null,
+    "subgroups": []
+  },
+  {
+    "name": "Viking Jackal",
+    "aliases": [],
+    "category": "unknown",
+    "country": "UAE",
+    "firstSeen": null,
+    "lastSeen": null,
+    "subgroups": []
+  },
+  {
+    "name": "Wet Panda",
+    "aliases": [],
+    "category": "unknown",
+    "country": "China",
+    "firstSeen": null,
+    "lastSeen": null,
+    "subgroups": []
+  },
+  {
+    "name": "_[ Interesting malware not linked to an actor yet ]_",
+    "aliases": [],
+    "category": "unknown",
+    "country": "Interesting malware not linked to an actor yet",
+    "firstSeen": null,
+    "lastSeen": null,
+    "subgroups": []
+  }
+]

@@ -310,7 +310,6 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Alert Feed](https://pranithjain.qzz.io/threatintel/alerts) (threatintel): Prioritised threat intelligence alerts — noise-filtered, confidence-scored, and matched to your estate.
 - [Ransomware Live](https://pranithjain.qzz.io/threatintel/ransomware-live) (threatintel): Live ransomware victim and group monitoring with sector/region filtering.
 - [Estate Config](https://pranithjain.qzz.io/threatintel/estate) (threatintel): Manage your digital estate — assets, tech stack, sector, and data types for personalised correlation.
-- [Organization Settings](https://pranithjain.qzz.io/threatintel/org-settings) (threatintel): Manage organizations, teams, and member invitations.
 
 ## MCP server (AI agent tools, 98 tools)
 

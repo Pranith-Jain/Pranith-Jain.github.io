@@ -1,0 +1,48 @@
+{
+  "slug": "earth-baxia",
+  "name": "Earth Baxia",
+  "aliases": [],
+  "category": "apt",
+  "country": "China",
+  "sponsor": null,
+  "motivation": null,
+  "firstSeen": "2024",
+  "lastSeen": null,
+  "hasDetails": true,
+  "sectorCount": 7,
+  "toolCount": 0,
+  "operationCount": 0,
+  "observedCountries": [
+    "<a href=\"/cgi-bin/listgroups.cgi?v=China\" title=\"Search for all threat groups that target China\" class=\"inlink\">China</a>",
+    "<a href=\"/cgi-bin/listgroups.cgi?v=Philippines\" title=\"Search for all threat groups that target Philippines\" class=\"inlink\">Philippines</a>",
+    "<a href=\"/cgi-bin/listgroups.cgi?v=South%20Korea\" title=\"Search for all threat groups that target South Korea\" class=\"inlink\">South Korea</a>",
+    "<a href=\"/cgi-bin/listgroups.cgi?v=Taiwan\" title=\"Search for all threat groups that target Taiwan\" class=\"inlink\">Taiwan</a>",
+    "<a href=\"/cgi-bin/listgroups.cgi?v=Thailand\" title=\"Search for all threat groups that target Thailand\" class=\"inlink\">Thailand</a>",
+    "<a href=\"/cgi-bin/listgroups.cgi?v=Vietnam\" title=\"Search for all threat groups that target Vietnam\" class=\"inlink\">Vietnam</a>.</td></tr>"
+  ],
+  "description": "",
+  "sizeBytes": 1159,
+  "mitreId": null,
+  "subgroupCount": 0,
+  "names": [
+    "<!DOCTYPE html>\n<html xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"en\" xml:lang=\"en\">\n<head>\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n<meta name=\"robots\" content=\"nofollow\" />\n<title>Earth Baxia - Threat Group Cards: A Threat Actor Encyclopedia</title>\n<link href=\"/style.css\" rel=\"stylesheet\" type=\"text/css\" />\n</head>\n<body class=\"mbody\">\n<div class=\"logos\">\n<table border=\"0\"><tr><td><a href=\"https://www.etda.or.th\"><img src=\"/img/logo-etda.png\" height=\"50\" alt=\"ETDA\" title=\"Visit the ETDA website\" /></a></td>\n<td><font size=\"3\">สำนักงานพัฒนาธุรกรรมทางอิเล็กทรอนิกส์<br />Electronic Transactions Development Agency</font></td></tr></table>\n</div>\n<link href=\"/menubar.css\" rel=\"stylesheet\" type=\"text/css\" />\n<div id=\"menubar\">\n<ul>\n  <li>\n    <a href=\"/cgi-bin/listgroups.cgi\">Groups</a>\n  </li>\n  <li>\n    <a href=\"/cgi-bin/listtools.cgi\">Tools</a>\n  </li>\n  <li>\n    <a href=\"/cgi-bin/aptsearch.cgi\">Search</a>\n  </li>\n  <li>\n    <a href=\"/cgi-bin/aptstats.cgi\">Statistics</a>\n  </li>\n</ul>\n</div>\n<div class=\"graph\">\n<div class=\"gline\"><img src=\"/img/clear.gif\" width=\"1\" height=\"3\" alt=\"\" /></div>\n<div><img src=\"/img/report.jpg\" width=\"900\" alt=\"Report\" /></div>\n<a name=\"top\"></a>\n<div class=\"searchdiv\"><a href=\"/cgi-bin/aptsearch.cgi\" title=\"Search the database\" class=\"inlink\">Search</a></div>\n<div class=\"outermain\"><a href=\"/cgi-bin/aptgroups.cgi\" class=\"inlink\" title=\"Home\">Home</a> &gt; <a href=\"/cgi-bin/listgroups.cgi\" class=\"inlink\" title=\"List all groups\">List all groups</a> &gt; Earth Baxia</div>\n<h1>Threat Group Cards: A Threat Actor Encyclopedia</h1>\n<div class=\"innermainov\">\n<h3><a href=\"/cgi-bin/showcard.cgi?u=801794ef-8778-4b5c-8220-ee83554e35c2\" title=\"Get permanent link to this card\" class=\"inlink\"><img src=\"/img/link.png\" height=\"16\" alt=\"Permanent link\" /></a> APT group: Earth Baxia</h3>\n<table width=\"100%\" class=\"tborder\">\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">Names</td><td valign=\"top\" colspan=\"2\" width=\"100%\">Earth Baxia <i><font size=\"-2\">",
+    "</font></i></td></tr>\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">Country</td><td valign=\"top\" colspan=\"2\" width=\"100%\"><a href=\"/cgi-bin/listgroups.cgi?c=China\" title=\"Search for all threat groups from China\" class=\"inlink\"><img src=\"/img/flags/China.png\" alt=\"China\" width=\"33\" height=\"20\" /> China</a></td></tr>\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">Motivation</td><td valign=\"top\" colspan=\"2\" width=\"100%\"><a href=\"/cgi-bin/listgroups.cgi?m=Information%20theft%20and%20espionage\" title=\"Search for all threat groups with motivation Information theft and espionage\" class=\"inlink\">Information theft and espionage</a></td></tr>\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">First seen</td><td valign=\"top\" colspan=\"2\" width=\"100%\">2024</td></tr>\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">Description</td><td valign=\"top\" colspan=\"2\" width=\"100%\">",
+    "In July, we observed suspicious activity targeting a government organization in Taiwan, with other APAC countries also likely targeted, attributed to the threat actor Earth Baxia. In these campaigns, Earth Baxia used spear-phishing emails and exploited CVE-2024-36401, a vulnerability in an open-source server for sharing geospatial data called GeoServer, as initial access vectors, deploying customized Cobalt Strike components on compromised machines. Additionally, we identified a new backdoor called EAGLEDOOR that supports multiple protocols. In this report, we will discuss their infection chain and provide a detailed analysis of the malware involved.</td></tr>\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">Observed</td><td valign=\"top\" colspan=\"2\" width=\"100%\">Sectors: <a href=\"/cgi-bin/listgroups.cgi?s=Energy\" title=\"Search for all threat groups that target Energy\" class=\"inlink\">Energy</a>, <a href=\"/cgi-bin/listgroups.cgi?s=Government\" title=\"Search for all threat groups that target Government\" class=\"inlink\">Government</a>.<br />Countries: <a href=\"/cgi-bin/listgroups.cgi?v=China\" title=\"Search for all threat groups that target China\" class=\"inlink\">China</a>, <a href=\"/cgi-bin/listgroups.cgi?v=Philippines\" title=\"Search for all threat groups that target Philippines\" class=\"inlink\">Philippines</a>, <a href=\"/cgi-bin/listgroups.cgi?v=South%20Korea\" title=\"Search for all threat groups that target South Korea\" class=\"inlink\">South Korea</a>, <a href=\"/cgi-bin/listgroups.cgi?v=Taiwan\" title=\"Search for all threat groups that target Taiwan\" class=\"inlink\">Taiwan</a>, <a href=\"/cgi-bin/listgroups.cgi?v=Thailand\" title=\"Search for all threat groups that target Thailand\" class=\"inlink\">Thailand</a>, <a href=\"/cgi-bin/listgroups.cgi?v=Vietnam\" title=\"Search for all threat groups that target Vietnam\" class=\"inlink\">Vietnam</a>.</td></tr>\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">Tools used</td><td valign=\"top\" colspan=\"2\" width=\"100%\"><a href=\"/cgi-bin/listgroups.cgi?t=Cobalt%20Strike\" title=\"Search for all threat groups that use Cobalt Strike\" class=\"inlink\">Cobalt Strike</a>, <a href=\"/cgi-bin/listgroups.cgi?t=EAGLEDOOR\" title=\"Search for all threat groups that use EAGLEDOOR\" class=\"inlink\">EAGLEDOOR</a>.</td></tr>\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">Information</td><td valign=\"top\" colspan=\"2\" width=\"100%\">&lt;<a href=\"https://www.trendmicro.com/en_us/research/24/i/earth-baxia-spear-phishing-and-geoserver-exploit.html\" title=\"Follow external link\" class=\"exlink\" target=\"_blank\">https://www.trendmicro.com/en_us/research/24/i/earth-baxia-spear-phishing-and-geoserver-exploit.html</a>&gt;<br />&lt;<a href=\"https://www.trendmicro.com/en_us/research/25/h/new-ransomware-charon.html\" title=\"Follow external link\" class=\"exlink\" target=\"_blank\">https://www.trendmicro.com/en_us/research/25/h/new-ransomware-charon.html</a>&gt;</td></tr>\n</table>\n<p>Last change to this card: 16 August 2025</p>\n<p>Download this actor card in <a href=\"/cgi-bin/getcard.cgi?g=Earth%20Baxia&o=p\" title=\"Download this card in PDF format\" class=\"inlink\">PDF</a> or <a href=\"/cgi-bin/getcard.cgi?g=Earth%20Baxia&o=j\" title=\"Download this card in JSON format\" class=\"inlink\">JSON</a> format</p>\n<div class=\"backtotop\"><a href=\"#top\" title=\"Back to the top\" class=\"inlink\">&uarr;</a></div>\n</div>\n\n</div>\n<table width=\"100%\" border=\"0\">\n<tr><td width=\"80%\" rowspan=\"4\" valign=\"top\">\n<p>Infrastructure and Security Department<br />\nElectronic Transactions Development Agency</p>\n<h3>Follow us on</h3>\n<a href=\"https://facebook.com/ETDA.Thailand\"><img src=\"/img/icon-facebook.png\" alt=\"Facebook\" title=\"Follow us on Facebook\" /></a>\n<a href=\"https://twitter.com/etda_thailand\"><img src=\"/img/icon-twitter.png\" alt=\"Twitter\" title=\"Follow us on Twitter\" /></a>\n</td><td colspan=\"2\">\n<h3>Report incidents</h3>\n</td>\n<tr>\n<td width=\"0%\"><img src=\"/img/icon-phone.png\" width=\"20\" height=\"20\" alt=\"Telephone\" title=\"Telephone\" /></td>\n<td width=\"20%\"><strong>+66"
+  ],
+  "fullDescription": null,
+  "sectors": [
+    "a-href-cgi-bin-listgroups-cgi-s-energy-title-search-for-all-threat-groups-that-target-energy-class-i",
+    "a-href-cgi-bin-listgroups-cgi-s-government-title-search-for-all-threat-groups-that-target-government",
+    "a-href-cgi-bin-listgroups-cgi-v-philippines-title-search-for-all-threat-groups-that-target-philippin",
+    "a-href-cgi-bin-listgroups-cgi-v-south-20korea-title-search-for-all-threat-groups-that-target-south-k",
+    "a-href-cgi-bin-listgroups-cgi-v-taiwan-title-search-for-all-threat-groups-that-target-taiwan-class-i",
+    "a-href-cgi-bin-listgroups-cgi-v-thailand-title-search-for-all-threat-groups-that-target-thailand-cla",
+    "a-href-cgi-bin-listgroups-cgi-v-vietnam-title-search-for-all-threat-groups-that-target-vietnam-class"
+  ],
+  "toolsUsed": [],
+  "operations": [],
+  "counterOperations": [],
+  "informationLinks": [],
+  "mitreLink": null,
+  "subgroups": []
+}

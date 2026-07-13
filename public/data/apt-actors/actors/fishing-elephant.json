@@ -1,0 +1,45 @@
+{
+  "slug": "fishing-elephant",
+  "name": "Fishing Elephant",
+  "aliases": [],
+  "category": "apt",
+  "country": null,
+  "sponsor": null,
+  "motivation": null,
+  "firstSeen": "2019",
+  "lastSeen": null,
+  "hasDetails": true,
+  "sectorCount": 5,
+  "toolCount": 0,
+  "operationCount": 0,
+  "observedCountries": [
+    "<a href=\"/cgi-bin/listgroups.cgi?v=Bangladesh\" title=\"Search for all threat groups that target Bangladesh\" class=\"inlink\">Bangladesh</a>",
+    "<a href=\"/cgi-bin/listgroups.cgi?v=China\" title=\"Search for all threat groups that target China\" class=\"inlink\">China</a>",
+    "<a href=\"/cgi-bin/listgroups.cgi?v=Pakistan\" title=\"Search for all threat groups that target Pakistan\" class=\"inlink\">Pakistan</a>",
+    "<a href=\"/cgi-bin/listgroups.cgi?v=Turkey\" title=\"Search for all threat groups that target Turkey\" class=\"inlink\">Turkey</a>",
+    "<a href=\"/cgi-bin/listgroups.cgi?v=Ukraine\" title=\"Search for all threat groups that target Ukraine\" class=\"inlink\">Ukraine</a>.</td></tr>"
+  ],
+  "description": "",
+  "sizeBytes": 1013,
+  "mitreId": null,
+  "subgroupCount": 0,
+  "names": [
+    "<!DOCTYPE html>\n<html xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"en\" xml:lang=\"en\">\n<head>\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n<meta name=\"robots\" content=\"nofollow\" />\n<title>Fishing Elephant - Threat Group Cards: A Threat Actor Encyclopedia</title>\n<link href=\"/style.css\" rel=\"stylesheet\" type=\"text/css\" />\n</head>\n<body class=\"mbody\">\n<div class=\"logos\">\n<table border=\"0\"><tr><td><a href=\"https://www.etda.or.th\"><img src=\"/img/logo-etda.png\" height=\"50\" alt=\"ETDA\" title=\"Visit the ETDA website\" /></a></td>\n<td><font size=\"3\">สำนักงานพัฒนาธุรกรรมทางอิเล็กทรอนิกส์<br />Electronic Transactions Development Agency</font></td></tr></table>\n</div>\n<link href=\"/menubar.css\" rel=\"stylesheet\" type=\"text/css\" />\n<div id=\"menubar\">\n<ul>\n  <li>\n    <a href=\"/cgi-bin/listgroups.cgi\">Groups</a>\n  </li>\n  <li>\n    <a href=\"/cgi-bin/listtools.cgi\">Tools</a>\n  </li>\n  <li>\n    <a href=\"/cgi-bin/aptsearch.cgi\">Search</a>\n  </li>\n  <li>\n    <a href=\"/cgi-bin/aptstats.cgi\">Statistics</a>\n  </li>\n</ul>\n</div>\n<div class=\"graph\">\n<div class=\"gline\"><img src=\"/img/clear.gif\" width=\"1\" height=\"3\" alt=\"\" /></div>\n<div><img src=\"/img/report.jpg\" width=\"900\" alt=\"Report\" /></div>\n<a name=\"top\"></a>\n<div class=\"searchdiv\"><a href=\"/cgi-bin/aptsearch.cgi\" title=\"Search the database\" class=\"inlink\">Search</a></div>\n<div class=\"outermain\"><a href=\"/cgi-bin/aptgroups.cgi\" class=\"inlink\" title=\"Home\">Home</a> &gt; <a href=\"/cgi-bin/listgroups.cgi\" class=\"inlink\" title=\"List all groups\">List all groups</a> &gt; Fishing Elephant</div>\n<h1>Threat Group Cards: A Threat Actor Encyclopedia</h1>\n<div class=\"innermainov\">\n<h3><a href=\"/cgi-bin/showcard.cgi?u=05bd08d3-867d-4e59-a08c-8fda0fa883a7\" title=\"Get permanent link to this card\" class=\"inlink\"><img src=\"/img/link.png\" height=\"16\" alt=\"Permanent link\" /></a> APT group: Fishing Elephant</h3>\n<table width=\"100%\" class=\"tborder\">\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">Names</td><td valign=\"top\" colspan=\"2\" width=\"100%\">Fishing Elephant <i><font size=\"-2\">",
+    "</font></i></td></tr>\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">Country</td><td valign=\"top\" colspan=\"2\" width=\"100%\">[Unknown]</td></tr>\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">Motivation</td><td valign=\"top\" colspan=\"2\" width=\"100%\"><a href=\"/cgi-bin/listgroups.cgi?m=Information%20theft%20and%20espionage\" title=\"Search for all threat groups with motivation Information theft and espionage\" class=\"inlink\">Information theft and espionage</a></td></tr>\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">First seen</td><td valign=\"top\" colspan=\"2\" width=\"100%\">2019</td></tr>\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">Description</td><td valign=\"top\" colspan=\"2\" width=\"100%\">",
+    "During the last months of 2019, we observed an ongoing campaign conducted by Fishing Elephant. The group continues to use both Heroku and Dropbox in order to deliver its tool of choice, AresRAT. We discovered that the actor incorporated a new technique into its operations that is meant to hinder manual and automatic analysis – geo-fencing and hiding executables within certificate files. During our research, we also detected a change in victimology that may reflect the current interests of the threat actor: the group is targeting government and diplomatic entities in Turkey, Pakistan, Bangladesh, Ukraine and China.</td></tr>\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">Observed</td><td valign=\"top\" colspan=\"2\" width=\"100%\">Sectors: <a href=\"/cgi-bin/listgroups.cgi?s=Government\" title=\"Search for all threat groups that target Government\" class=\"inlink\">Government</a>.<br />Countries: <a href=\"/cgi-bin/listgroups.cgi?v=Bangladesh\" title=\"Search for all threat groups that target Bangladesh\" class=\"inlink\">Bangladesh</a>, <a href=\"/cgi-bin/listgroups.cgi?v=China\" title=\"Search for all threat groups that target China\" class=\"inlink\">China</a>, <a href=\"/cgi-bin/listgroups.cgi?v=Pakistan\" title=\"Search for all threat groups that target Pakistan\" class=\"inlink\">Pakistan</a>, <a href=\"/cgi-bin/listgroups.cgi?v=Turkey\" title=\"Search for all threat groups that target Turkey\" class=\"inlink\">Turkey</a>, <a href=\"/cgi-bin/listgroups.cgi?v=Ukraine\" title=\"Search for all threat groups that target Ukraine\" class=\"inlink\">Ukraine</a>.</td></tr>\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">Tools used</td><td valign=\"top\" colspan=\"2\" width=\"100%\"><a href=\"/cgi-bin/listgroups.cgi?t=AresRAT\" title=\"Search for all threat groups that use AresRAT\" class=\"inlink\">AresRAT</a>.</td></tr>\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">Information</td><td valign=\"top\" colspan=\"2\" width=\"100%\">&lt;<a href=\"https://securelist.com/apt-trends-report-q1-2020/96826/\" title=\"Follow external link\" class=\"exlink\" target=\"_blank\">https://securelist.com/apt-trends-report-q1-2020/96826/</a>&gt;</td></tr>\n</table>\n<p>Last change to this card: 01 May 2020</p>\n<p>Download this actor card in <a href=\"/cgi-bin/getcard.cgi?g=Fishing%20Elephant&o=p\" title=\"Download this card in PDF format\" class=\"inlink\">PDF</a> or <a href=\"/cgi-bin/getcard.cgi?g=Fishing%20Elephant&o=j\" title=\"Download this card in JSON format\" class=\"inlink\">JSON</a> format</p>\n<div class=\"backtotop\"><a href=\"#top\" title=\"Back to the top\" class=\"inlink\">&uarr;</a></div>\n</div>\n\n</div>\n<table width=\"100%\" border=\"0\">\n<tr><td width=\"80%\" rowspan=\"4\" valign=\"top\">\n<p>Infrastructure and Security Department<br />\nElectronic Transactions Development Agency</p>\n<h3>Follow us on</h3>\n<a href=\"https://facebook.com/ETDA.Thailand\"><img src=\"/img/icon-facebook.png\" alt=\"Facebook\" title=\"Follow us on Facebook\" /></a>\n<a href=\"https://twitter.com/etda_thailand\"><img src=\"/img/icon-twitter.png\" alt=\"Twitter\" title=\"Follow us on Twitter\" /></a>\n</td><td colspan=\"2\">\n<h3>Report incidents</h3>\n</td>\n<tr>\n<td width=\"0%\"><img src=\"/img/icon-phone.png\" width=\"20\" height=\"20\" alt=\"Telephone\" title=\"Telephone\" /></td>\n<td width=\"20%\"><strong>+66"
+  ],
+  "fullDescription": null,
+  "sectors": [
+    "a-href-cgi-bin-listgroups-cgi-s-government-title-search-for-all-threat-groups-that-target-government",
+    "a-href-cgi-bin-listgroups-cgi-v-china-title-search-for-all-threat-groups-that-target-china-class-inl",
+    "a-href-cgi-bin-listgroups-cgi-v-pakistan-title-search-for-all-threat-groups-that-target-pakistan-cla",
+    "a-href-cgi-bin-listgroups-cgi-v-turkey-title-search-for-all-threat-groups-that-target-turkey-class-i",
+    "a-href-cgi-bin-listgroups-cgi-v-ukraine-title-search-for-all-threat-groups-that-target-ukraine-class"
+  ],
+  "toolsUsed": [],
+  "operations": [],
+  "counterOperations": [],
+  "informationLinks": [],
+  "mitreLink": null,
+  "subgroups": []
+}

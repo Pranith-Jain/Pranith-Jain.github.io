@@ -1,83 +1,135 @@
 import { useCallback, useEffect, useState, useRef } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
-import { AlertTriangle, Bot, ExternalLink, Globe, RefreshCw, Server, Shield, Skull, Wifi } from 'lucide-react';
+import {
+  AlertTriangle,
+  Bot,
+  ChevronDown,
+  ChevronUp,
+  ExternalLink,
+  Globe,
+  RefreshCw,
+  Server,
+  Shield,
+  Skull,
+  Wifi,
+} from 'lucide-react';
 
 /**
  * AI Honeypot Observatory — LLM/AI endpoint honeypot intelligence.
  *
- * Pulls IOC feed from ai-honeypots.com (CC0 1.0 licensed) and displays
- * attacker categories, top IPs, and attack volume. Links to the full
- * live dashboard for real-time monitoring.
- *
- * Feed: https://ai-honeypots.com/feeds/iocs.txt
- * Dashboard: https://ai-honeypots.com
+ * Pulls full JSON IOC feed from ai-honeypots.com (CC0 1.0 licensed) and displays
+ * attacker categories, TTPs, behavioral metadata, and confidence scoring.
  */
 
 const PROXY_URL = '/api/v1/ai-honeypot-feed';
-const FEED_URL = 'https://ai-honeypots.com/feeds/iocs.txt';
 const DASHBOARD_URL = 'https://ai-honeypots.com';
 
-interface IocEntry {
-  ip: string;
-  category: string;
+interface HoneypotIndicator {
+  ioc_type: string;
+  value: string;
+  tlp: string;
   confidence: string;
-  hits: number;
+  actor_category: string;
+  ttps: string[];
+  first_seen: string;
+  last_seen: string;
+  total_hits: number;
+  distinct_personas: number;
+  distinct_paths: number;
+  prompt_count: number;
+  user_agents: string[];
+  models_requested: string[];
+  interesting_paths: string[];
+  sample_prompts: string[];
+  details: string;
+  source: string;
 }
 
-interface FeedMeta {
+interface FeedData {
+  feed_id: string;
+  feed_name: string;
+  description: string;
   published: string;
-  window: string;
-  totalIps: number;
+  window_days: number;
+  tlp: string;
+  license: string;
+  taxonomy: {
+    actor_categories: Record<string, string>;
+    confidence_levels: Record<string, string>;
+  };
+  summary: {
+    total_iocs: number;
+    by_category: Record<string, number>;
+  };
+  indicators: HoneypotIndicator[];
 }
 
 const CATEGORY_CONFIG: Record<string, { label: string; color: string; icon: typeof Shield; description: string }> = {
-  'MCP-SCANNER': {
-    label: 'MCP Scanner',
-    color: 'bg-purple-500/10 text-purple-700 dark:text-purple-400 border-purple-500/20',
-    icon: Server,
-    description: 'Scanning for exposed MCP (Model Context Protocol) endpoints',
-  },
-  'CREDENTIAL-HARVESTER': {
-    label: 'Credential Harvester',
-    color: 'bg-red-500/10 text-red-700 dark:text-red-400 border-red-500/20',
-    icon: Skull,
-    description: 'Harvesting credentials from LLM/AI authentication endpoints',
-  },
-  'RELAY-VERIFIER': {
-    label: 'Relay Verifier',
-    color: 'bg-orange-500/10 text-orange-700 dark:text-orange-400 border-orange-500/20',
-    icon: Globe,
-    description: 'Verifying relay/proxy infrastructure for LLM abuse',
+  'SCANNER-MASS': {
+    label: 'Mass Scanner',
+    color: 'bg-yellow-500/10 text-yellow-700 dark:text-yellow-400 border-yellow-500/20',
+    icon: AlertTriangle,
+    description: 'High-volume single-purpose endpoint scanners; no prompt interaction',
   },
   'SCANNER-ENUM': {
     label: 'Scanner (Enum)',
     color: 'bg-blue-500/10 text-blue-700 dark:text-blue-400 border-blue-500/20',
     icon: Wifi,
-    description: 'Enumerating AI/LLM service versions and endpoints',
+    description: 'Multi-persona enumerators systematically mapping AI service surfaces',
   },
-  'SCANNER-MASS': {
-    label: 'Mass Scanner',
-    color: 'bg-yellow-500/10 text-yellow-700 dark:text-yellow-400 border-yellow-500/20',
-    icon: AlertTriangle,
-    description: 'Mass scanning for exposed LLM inference endpoints',
+  'SCANNER-COORDINATED': {
+    label: 'Coordinated Scan',
+    color: 'bg-orange-500/10 text-orange-700 dark:text-orange-400 border-orange-500/20',
+    icon: Globe,
+    description: 'Multi-IP clusters operating as a single coordinated scan campaign',
   },
-  'IDENTITY-PROBER': {
-    label: 'Identity Prober',
-    color: 'bg-cyan-500/10 text-cyan-700 dark:text-cyan-400 border-cyan-500/20',
-    icon: Bot,
-    description: 'Probing AI identity/authentication systems',
+  'MCP-SCANNER': {
+    label: 'MCP Scanner',
+    color: 'bg-purple-500/10 text-purple-700 dark:text-purple-400 border-purple-500/20',
+    icon: Server,
+    description: 'Dedicated Model Context Protocol endpoint probers',
+  },
+  'RELAY-OPERATOR': {
+    label: 'Relay Operator',
+    color: 'bg-rose-500/10 text-rose-700 dark:text-rose-400 border-rose-500/20',
+    icon: Skull,
+    description: 'Shadow API backend pool managers; clockwork rotation, no prompts',
+  },
+  'RELAY-VERIFIER': {
+    label: 'Relay Verifier',
+    color: 'bg-orange-500/10 text-orange-700 dark:text-orange-400 border-orange-500/20',
+    icon: Globe,
+    description: 'Automated relay health-check systems using canned test prompts',
   },
   'RELAY-CUSTOMER': {
     label: 'Relay Customer',
     color: 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20',
     icon: Shield,
-    description: 'End-users abusing LLM relay/proxy services',
+    description: 'End-users of relay pools; uses relay-specific model aliases',
   },
   'RELAY-CATALOGER': {
     label: 'Relay Cataloger',
     color: 'bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 border-indigo-500/20',
     icon: Globe,
-    description: 'Cataloging available LLM relay/proxy endpoints',
+    description: 'Model×persona matrix sweepers building backend capability inventories',
+  },
+  'IDENTITY-PROBER': {
+    label: 'Identity Prober',
+    color: 'bg-cyan-500/10 text-cyan-700 dark:text-cyan-400 border-cyan-500/20',
+    icon: Bot,
+    description: 'Prompt-engineering attacks to extract true model identity',
+  },
+  'CREDENTIAL-HARVESTER': {
+    label: 'Credential Harvester',
+    color: 'bg-red-500/10 text-red-700 dark:text-red-400 border-red-500/20',
+    icon: Skull,
+    description: 'Targets .env, API keys, config files; no AI interaction',
+  },
+  'INFRA-COLLISION': {
+    label: 'Infra Collision',
+    color: 'bg-slate-500/10 text-slate-700 dark:text-slate-400 border-slate-500/20',
+    icon: Globe,
+    description: 'Legitimate infrastructure accidentally hitting AI endpoints',
   },
 };
 
@@ -87,32 +139,6 @@ const CONFIDENCE_COLORS: Record<string, string> = {
   medium: 'bg-yellow-500/20 text-yellow-700 dark:text-yellow-400',
   low: 'bg-slate-500/20 text-slate-700 dark:text-slate-400',
 };
-
-function parseFeed(text: string): { meta: FeedMeta; entries: IocEntry[] } {
-  const lines = text.split('\n');
-  const meta: FeedMeta = { published: '', window: '', totalIps: 0 };
-  const entries: IocEntry[] = [];
-
-  for (const line of lines) {
-    if (line.startsWith('#')) {
-      if (line.includes('Published:')) meta.published = line.split(':').slice(1).join(':').trim();
-      if (line.includes('Window:')) meta.window = line.split(':').slice(1).join(':').trim();
-      if (line.includes('Total IPs:')) meta.totalIps = parseInt(line.split(':').slice(-1)[0]?.trim() ?? '0', 10);
-      continue;
-    }
-    if (!line.trim()) continue;
-    const match = line.match(/^(\S+)\s+#\s+(\S+)\s+\|\s+conf:(\S+)\s+\|\s+hits:(\d+)/);
-    if (match && match[1] && match[2] && match[3] && match[4]) {
-      entries.push({
-        ip: match[1],
-        category: match[2],
-        confidence: match[3],
-        hits: parseInt(match[4], 10),
-      });
-    }
-  }
-  return { meta, entries };
-}
 
 function formatHits(n: number): string {
   if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
@@ -133,14 +159,14 @@ function relativeTime(dateStr: string): string {
 }
 
 export default function AiHoneypotObservatory(): JSX.Element {
-  const [entries, setEntries] = useState<IocEntry[]>([]);
-  const [meta, setMeta] = useState<FeedMeta>({ published: '', window: '', totalIps: 0 });
+  const [feed, setFeed] = useState<FeedData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [refreshKey, setRefreshKey] = useState(0);
   const [categoryFilter, setCategoryFilter] = useState<string>('');
   const [confidenceFilter, setConfidenceFilter] = useState<string>('');
   const [searchQuery, setSearchQuery] = useState('');
+  const [expandedIp, setExpandedIp] = useState<string | null>(null);
   const abortRef = useRef<AbortController | null>(null);
 
   const fetchFeed = useCallback(async () => {
@@ -153,11 +179,9 @@ export default function AiHoneypotObservatory(): JSX.Element {
       const signal = AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]);
       const res = await fetch(PROXY_URL, { signal });
       if (!res.ok) throw new Error(`Feed returned ${res.status}`);
-      const data = await res.json();
+      const data = (await res.json()) as FeedData;
       if (ctrl.signal.aborted) return;
-      const parsed = parseFeed(data.feed);
-      setEntries(parsed.entries);
-      setMeta(parsed.meta);
+      setFeed(data);
     } catch (e) {
       if (ctrl.signal.aborted) return;
       setError(e instanceof Error ? e.message : 'Failed to load feed');
@@ -171,44 +195,47 @@ export default function AiHoneypotObservatory(): JSX.Element {
     return () => abortRef.current?.abort();
   }, [fetchFeed, refreshKey]);
 
-  const filtered = entries.filter((e) => {
-    if (categoryFilter && e.category !== categoryFilter) return false;
+  const indicators = feed?.indicators ?? [];
+  const summary = feed?.summary;
+
+  const filtered = indicators.filter((e) => {
+    if (categoryFilter && e.actor_category !== categoryFilter) return false;
     if (confidenceFilter && e.confidence !== confidenceFilter) return false;
-    if (searchQuery && !e.ip.includes(searchQuery) && !e.category.toLowerCase().includes(searchQuery.toLowerCase()))
+    if (
+      searchQuery &&
+      !e.value.includes(searchQuery) &&
+      !e.actor_category.toLowerCase().includes(searchQuery.toLowerCase())
+    )
       return false;
     return true;
   });
 
-  const categoryStats = entries.reduce(
-    (acc, e) => {
-      acc[e.category] = (acc[e.category] ?? 0) + 1;
-      return acc;
-    },
-    {} as Record<string, number>
-  );
-
-  const totalHits = entries.reduce((s, e) => s + e.hits, 0);
+  const totalHits = indicators.reduce((s, e) => s + e.total_hits, 0);
 
   return (
     <DataPageLayout
       backTo="/threatintel/infra"
       title="AI Honeypot Observatory"
-      description="LLM/AI endpoint honeypot intelligence — attacker categories, top IPs, and attack volume from ai-honeypots.com (CC0 1.0)"
+      description="LLM/AI endpoint honeypot intelligence — attacker categories, TTPs, behavioral metadata from ai-honeypots.com (CC0 1.0)"
       icon={<Bot size={28} />}
     >
       {/* Header stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
-        <StatCard label="Attacker IPs" value={meta.totalIps || entries.length} color="text-slate-900 dark:text-white" />
+        <StatCard
+          label="Attacker IPs"
+          value={summary?.total_iocs ?? indicators.length}
+          color="text-slate-900 dark:text-white"
+        />
         <StatCard label="Total Hits" value={totalHits} color="text-red-700 dark:text-red-400" />
         <StatCard
           label="Categories"
-          value={Object.keys(categoryStats).length}
+          value={Object.keys(summary?.by_category ?? {}).length}
           color="text-blue-700 dark:text-blue-400"
         />
         <StatCard
           label="Window"
           value={0}
-          displayValue={meta.window || '7 days'}
+          displayValue={`${feed?.window_days ?? 7} days`}
           color="text-emerald-700 dark:text-emerald-400"
         />
       </div>
@@ -226,20 +253,18 @@ export default function AiHoneypotObservatory(): JSX.Element {
           >
             ai-honeypots.com
           </a>
-          {meta.published && (
-            <span className="ml-2 text-slate-500 dark:text-slate-500">
-              Published {relativeTime(meta.published) || meta.published}
-            </span>
+          {feed?.published && (
+            <span className="ml-2 text-slate-500 dark:text-slate-500">Published {relativeTime(feed.published)}</span>
           )}
         </span>
         <div className="ml-auto flex items-center gap-2">
           <a
-            href={FEED_URL}
+            href={`${DASHBOARD_URL}/feeds/iocs.json`}
             target="_blank"
             rel="noopener noreferrer"
             className="text-xs text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
           >
-            <ExternalLink className="w-3 h-3" /> Raw Feed
+            <ExternalLink className="w-3 h-3" /> JSON Feed
           </a>
           <a
             href={`${DASHBOARD_URL}/feeds/stix.json`}
@@ -250,12 +275,20 @@ export default function AiHoneypotObservatory(): JSX.Element {
             <ExternalLink className="w-3 h-3" /> STIX 2.1
           </a>
           <a
+            href={`${DASHBOARD_URL}/feeds/misp/manifest.json`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+          >
+            <ExternalLink className="w-3 h-3" /> MISP
+          </a>
+          <a
             href={DASHBOARD_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="text-xs text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
           >
-            <ExternalLink className="w-3 h-3" /> Live Dashboard
+            <ExternalLink className="w-3 h-3" /> Dashboard
           </a>
           <button
             onClick={() => setRefreshKey((k) => k + 1)}
@@ -266,12 +299,16 @@ export default function AiHoneypotObservatory(): JSX.Element {
         </div>
       </div>
 
-      {error && <div className="text-center py-8 text-red-600 dark:text-red-400">{error}</div>}
+      {error && (
+        <div role="alert" className="text-center py-8 text-red-600 dark:text-red-400">
+          {error}
+        </div>
+      )}
 
       {/* Category breakdown */}
-      {entries.length > 0 && (
+      {summary && (
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-6">
-          {Object.entries(categoryStats)
+          {Object.entries(summary.by_category)
             .sort((a, b) => b[1] - a[1])
             .map(([cat, count]) => {
               const cfg = CATEGORY_CONFIG[cat];
@@ -293,9 +330,6 @@ export default function AiHoneypotObservatory(): JSX.Element {
                     </span>
                   </div>
                   <div className="text-lg font-bold text-slate-900 dark:text-white">{count}</div>
-                  <div className="text-[10px] text-slate-500 dark:text-slate-500">
-                    {formatHits(entries.filter((e) => e.category === cat).reduce((s, e) => s + e.hits, 0))} hits
-                  </div>
                 </button>
               );
             })}
@@ -335,7 +369,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
           </button>
         )}
         <span className="ml-auto text-xs text-slate-500 dark:text-slate-500">
-          {filtered.length} / {entries.length} IPs
+          {filtered.length} / {indicators.length} IPs
         </span>
       </div>
 
@@ -345,53 +379,135 @@ export default function AiHoneypotObservatory(): JSX.Element {
           <table className="w-full text-xs">
             <thead>
               <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                <th className="px-3 py-2 text-left font-semibold text-slate-600 dark:text-slate-400">IP Address</th>
+                <th className="px-3 py-2 text-left font-semibold text-slate-600 dark:text-slate-400">IP</th>
                 <th className="px-3 py-2 text-left font-semibold text-slate-600 dark:text-slate-400">Category</th>
                 <th className="px-3 py-2 text-left font-semibold text-slate-600 dark:text-slate-400">Confidence</th>
                 <th className="px-3 py-2 text-right font-semibold text-slate-600 dark:text-slate-400">Hits</th>
+                <th className="px-3 py-2 text-right font-semibold text-slate-600 dark:text-slate-400">TTPs</th>
+                <th className="px-3 py-2 text-center font-semibold text-slate-600 dark:text-slate-400" />
               </tr>
             </thead>
             <tbody>
               {loading && (
                 <tr>
-                  <td colSpan={4} className="px-3 py-8 text-center text-slate-500 dark:text-slate-500">
+                  <td colSpan={6} className="px-3 py-8 text-center text-slate-500 dark:text-slate-500">
                     Loading IOC feed...
                   </td>
                 </tr>
               )}
               {!loading && filtered.length === 0 && (
                 <tr>
-                  <td colSpan={4} className="px-3 py-8 text-center text-slate-500 dark:text-slate-500">
+                  <td colSpan={6} className="px-3 py-8 text-center text-slate-500 dark:text-slate-500">
                     No entries match your filters.
                   </td>
                 </tr>
               )}
               {filtered.map((entry) => {
-                const cfg = CATEGORY_CONFIG[entry.category];
+                const cfg = CATEGORY_CONFIG[entry.actor_category];
+                const isExpanded = expandedIp === entry.value;
                 return (
-                  <tr
-                    key={entry.ip}
-                    className="border-b border-slate-100 dark:border-[rgb(var(--border-400))] last:border-0 hover:bg-slate-50 dark:hover:bg-[rgb(var(--hover-100))]"
-                  >
-                    <td className="px-3 py-2 font-mono text-slate-800 dark:text-slate-200">{entry.ip}</td>
-                    <td className="px-3 py-2">
-                      <span
-                        className={`px-1.5 py-0.5 text-[10px] font-medium rounded border ${cfg?.color ?? 'bg-slate-500/10 text-slate-700 dark:text-slate-400 border-slate-500/20'}`}
-                      >
-                        {cfg?.label ?? entry.category}
-                      </span>
-                    </td>
-                    <td className="px-3 py-2">
-                      <span
-                        className={`px-1.5 py-0.5 text-[10px] font-medium rounded ${CONFIDENCE_COLORS[entry.confidence] ?? 'bg-slate-500/20 text-slate-700 dark:text-slate-400'}`}
-                      >
-                        {entry.confidence}
-                      </span>
-                    </td>
-                    <td className="px-3 py-2 text-right font-mono text-slate-800 dark:text-slate-200">
-                      {formatHits(entry.hits)}
-                    </td>
-                  </tr>
+                  <>
+                    <tr
+                      key={entry.value}
+                      className="border-b border-slate-100 dark:border-[rgb(var(--border-400))] last:border-0 hover:bg-slate-50 dark:hover:bg-[rgb(var(--hover-100))] cursor-pointer"
+                      onClick={() => setExpandedIp(isExpanded ? null : entry.value)}
+                    >
+                      <td className="px-3 py-2 font-mono text-slate-800 dark:text-slate-200">{entry.value}</td>
+                      <td className="px-3 py-2">
+                        <span
+                          className={`px-1.5 py-0.5 text-[10px] font-medium rounded border ${cfg?.color ?? 'bg-slate-500/10 text-slate-700 dark:text-slate-400 border-slate-500/20'}`}
+                        >
+                          {cfg?.label ?? entry.actor_category}
+                        </span>
+                      </td>
+                      <td className="px-3 py-2">
+                        <span
+                          className={`px-1.5 py-0.5 text-[10px] font-medium rounded ${CONFIDENCE_COLORS[entry.confidence] ?? 'bg-slate-500/20 text-slate-700 dark:text-slate-400'}`}
+                        >
+                          {entry.confidence}
+                        </span>
+                      </td>
+                      <td className="px-3 py-2 text-right font-mono text-slate-800 dark:text-slate-200">
+                        {formatHits(entry.total_hits)}
+                      </td>
+                      <td className="px-3 py-2 text-right font-mono text-slate-500 dark:text-slate-500">
+                        {entry.ttps.length > 0 ? entry.ttps.length : '—'}
+                      </td>
+                      <td className="px-3 py-2 text-center">
+                        {isExpanded ? (
+                          <ChevronUp className="w-3 h-3 text-slate-400" />
+                        ) : (
+                          <ChevronDown className="w-3 h-3 text-slate-400" />
+                        )}
+                      </td>
+                    </tr>
+                    {isExpanded && (
+                      <tr key={`${entry.value}-detail`}>
+                        <td
+                          colSpan={6}
+                          className="px-4 py-3 bg-slate-50 dark:bg-[rgb(var(--surface-100))] border-b border-slate-100 dark:border-[rgb(var(--border-400))]"
+                        >
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[11px]">
+                            <div>
+                              <span className="font-semibold text-slate-700 dark:text-slate-300">TTPs:</span>{' '}
+                              <span className="font-mono text-slate-600 dark:text-slate-400">
+                                {entry.ttps.length > 0 ? entry.ttps.join(', ') : 'None mapped'}
+                              </span>
+                            </div>
+                            <div>
+                              <span className="font-semibold text-slate-700 dark:text-slate-300">Personas:</span>{' '}
+                              <span className="text-slate-600 dark:text-slate-400">{entry.distinct_personas}</span>
+                            </div>
+                            <div>
+                              <span className="font-semibold text-slate-700 dark:text-slate-300">Paths probed:</span>{' '}
+                              <span className="font-mono text-slate-600 dark:text-slate-400">
+                                {entry.interesting_paths.join(', ') || '—'}
+                              </span>
+                            </div>
+                            <div>
+                              <span className="font-semibold text-slate-700 dark:text-slate-300">Prompts:</span>{' '}
+                              <span className="text-slate-600 dark:text-slate-400">
+                                {formatHits(entry.prompt_count)}
+                              </span>
+                            </div>
+                            {entry.user_agents.length > 0 && (
+                              <div className="sm:col-span-2">
+                                <span className="font-semibold text-slate-700 dark:text-slate-300">User Agents:</span>{' '}
+                                <span className="font-mono text-slate-600 dark:text-slate-400">
+                                  {entry.user_agents.join(', ')}
+                                </span>
+                              </div>
+                            )}
+                            {entry.models_requested.length > 0 && (
+                              <div className="sm:col-span-2">
+                                <span className="font-semibold text-slate-700 dark:text-slate-300">Models:</span>{' '}
+                                <span className="font-mono text-slate-600 dark:text-slate-400">
+                                  {entry.models_requested.slice(0, 5).join(', ')}
+                                  {entry.models_requested.length > 5 && ` +${entry.models_requested.length - 5} more`}
+                                </span>
+                              </div>
+                            )}
+                            {entry.details && (
+                              <div className="sm:col-span-2">
+                                <span className="font-semibold text-slate-700 dark:text-slate-300">Details:</span>{' '}
+                                <span className="text-slate-600 dark:text-slate-400">{entry.details}</span>
+                              </div>
+                            )}
+                            {entry.sample_prompts.length > 0 && (
+                              <div className="sm:col-span-2">
+                                <span className="font-semibold text-slate-700 dark:text-slate-300">
+                                  Sample Prompts:
+                                </span>
+                                <div className="mt-1 max-h-24 overflow-y-auto rounded bg-slate-100 dark:bg-slate-800 p-2 font-mono text-[10px] text-slate-600 dark:text-slate-400 whitespace-pre-wrap">
+                                  {entry.sample_prompts[0]}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        </td>
+                      </tr>
+                    )}
+                  </>
                 );
               })}
             </tbody>
@@ -400,29 +516,51 @@ export default function AiHoneypotObservatory(): JSX.Element {
       </div>
 
       {/* Category descriptions */}
-      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
-        {Object.entries(CATEGORY_CONFIG).map(([key, cfg]) => {
-          const Icon = cfg.icon;
-          const count = categoryStats[key] ?? 0;
-          return (
-            <div
-              key={key}
-              className="flex items-start gap-3 p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]"
-            >
-              <div className={`p-1.5 rounded ${cfg.color.split(' ').slice(0, 2).join(' ')}`}>
-                <Icon className="w-4 h-4" />
-              </div>
-              <div>
-                <div className="text-xs font-semibold text-slate-800 dark:text-slate-200">
-                  {cfg.label}
-                  {count > 0 && <span className="ml-1.5 text-slate-500 dark:text-slate-500">({count})</span>}
+      {feed?.taxonomy && (
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {Object.entries(feed.taxonomy.actor_categories).map(([key, desc]) => {
+            const cfg = CATEGORY_CONFIG[key];
+            const Icon = cfg?.icon ?? Shield;
+            const count = summary?.by_category[key] ?? 0;
+            return (
+              <div
+                key={key}
+                className="flex items-start gap-3 p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]"
+              >
+                <div className={`p-1.5 rounded ${cfg?.color?.split(' ').slice(0, 2).join(' ') ?? 'bg-slate-500/10'}`}>
+                  <Icon className="w-4 h-4" />
                 </div>
-                <div className="text-[11px] text-slate-600 dark:text-slate-500 mt-0.5">{cfg.description}</div>
+                <div>
+                  <div className="text-xs font-semibold text-slate-800 dark:text-slate-200">
+                    {cfg?.label ?? key}
+                    {count > 0 && <span className="ml-1.5 text-slate-500 dark:text-slate-500">({count})</span>}
+                  </div>
+                  <div className="text-[11px] text-slate-600 dark:text-slate-500 mt-0.5">{desc}</div>
+                </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Confidence levels */}
+      {feed?.taxonomy?.confidence_levels && (
+        <div className="mt-4 p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
+          <h3 className="text-xs font-semibold text-slate-700 dark:text-slate-300 mb-2">Confidence Levels</h3>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            {Object.entries(feed.taxonomy.confidence_levels).map(([level, desc]) => (
+              <div key={level} className="text-[11px]">
+                <span
+                  className={`px-1.5 py-0.5 font-medium rounded ${CONFIDENCE_COLORS[level] ?? 'bg-slate-500/20 text-slate-700 dark:text-slate-400'}`}
+                >
+                  {level}
+                </span>
+                <span className="ml-1.5 text-slate-600 dark:text-slate-500">{desc}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </DataPageLayout>
   );
 }

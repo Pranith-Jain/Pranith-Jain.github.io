@@ -1,0 +1,38 @@
+{
+  "slug": "operation-spalax",
+  "name": "Operation Spalax",
+  "aliases": [],
+  "category": "apt",
+  "country": null,
+  "sponsor": null,
+  "motivation": null,
+  "firstSeen": "2020",
+  "lastSeen": null,
+  "hasDetails": true,
+  "sectorCount": 2,
+  "toolCount": 0,
+  "operationCount": 0,
+  "observedCountries": [
+    "<a href=\"/cgi-bin/listgroups.cgi?v=Colombia\" title=\"Search for all threat groups that target Colombia\" class=\"inlink\">Colombia</a>.</td></tr>"
+  ],
+  "description": "",
+  "sizeBytes": 469,
+  "mitreId": null,
+  "subgroupCount": 0,
+  "names": [
+    "<!DOCTYPE html>\n<html xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"en\" xml:lang=\"en\">\n<head>\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n<meta name=\"robots\" content=\"nofollow\" />\n<title>Operation Spalax - Threat Group Cards: A Threat Actor Encyclopedia</title>\n<link href=\"/style.css\" rel=\"stylesheet\" type=\"text/css\" />\n</head>\n<body class=\"mbody\">\n<div class=\"logos\">\n<table border=\"0\"><tr><td><a href=\"https://www.etda.or.th\"><img src=\"/img/logo-etda.png\" height=\"50\" alt=\"ETDA\" title=\"Visit the ETDA website\" /></a></td>\n<td><font size=\"3\">สำนักงานพัฒนาธุรกรรมทางอิเล็กทรอนิกส์<br />Electronic Transactions Development Agency</font></td></tr></table>\n</div>\n<link href=\"/menubar.css\" rel=\"stylesheet\" type=\"text/css\" />\n<div id=\"menubar\">\n<ul>\n  <li>\n    <a href=\"/cgi-bin/listgroups.cgi\">Groups</a>\n  </li>\n  <li>\n    <a href=\"/cgi-bin/listtools.cgi\">Tools</a>\n  </li>\n  <li>\n    <a href=\"/cgi-bin/aptsearch.cgi\">Search</a>\n  </li>\n  <li>\n    <a href=\"/cgi-bin/aptstats.cgi\">Statistics</a>\n  </li>\n</ul>\n</div>\n<div class=\"graph\">\n<div class=\"gline\"><img src=\"/img/clear.gif\" width=\"1\" height=\"3\" alt=\"\" /></div>\n<div><img src=\"/img/report.jpg\" width=\"900\" alt=\"Report\" /></div>\n<a name=\"top\"></a>\n<div class=\"searchdiv\"><a href=\"/cgi-bin/aptsearch.cgi\" title=\"Search the database\" class=\"inlink\">Search</a></div>\n<div class=\"outermain\"><a href=\"/cgi-bin/aptgroups.cgi\" class=\"inlink\" title=\"Home\">Home</a> &gt; <a href=\"/cgi-bin/listgroups.cgi\" class=\"inlink\" title=\"List all groups\">List all groups</a> &gt; Operation Spalax</div>\n<h1>Threat Group Cards: A Threat Actor Encyclopedia</h1>\n<div class=\"innermainov\">\n<h3><a href=\"/cgi-bin/showcard.cgi?u=c8512d7d-ea72-48c1-b7ed-a25735b9a094\" title=\"Get permanent link to this card\" class=\"inlink\"><img src=\"/img/link.png\" height=\"16\" alt=\"Permanent link\" /></a> APT group: Operation Spalax</h3>\n<table width=\"100%\" class=\"tborder\">\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">Names</td><td valign=\"top\" colspan=\"2\" width=\"100%\">Operation Spalax <i><font size=\"-2\">",
+    "</font></i></td></tr>\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">Country</td><td valign=\"top\" colspan=\"2\" width=\"100%\">[Unknown]</td></tr>\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">Motivation</td><td valign=\"top\" colspan=\"2\" width=\"100%\"><a href=\"/cgi-bin/listgroups.cgi?m=Information%20theft%20and%20espionage\" title=\"Search for all threat groups with motivation Information theft and espionage\" class=\"inlink\">Information theft and espionage</a></td></tr>\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">First seen</td><td valign=\"top\" colspan=\"2\" width=\"100%\">2020</td></tr>\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">Description</td><td valign=\"top\" colspan=\"2\" width=\"100%\">",
+    "In 2020 ESET saw several attacks targeting Colombian entities exclusively. These attacks are still ongoing at the time of writing and are focused on both government institutions and private companies. For the latter, the most targeted sectors are energy and metallurgical. The attackers rely on the use of remote access trojans, most likely to spy on their victims. They have a large network infrastructure for command and control: ESET observed at least 24 different IP addresses in use in the second half of 2020. These are probably compromised devices that act as proxies for their C&C servers. This, combined with the use of dynamic DNS services, means that their infrastructure never stays still. We have seen at least 70 domain names active in this timeframe and they register new ones on a regular basis.</td></tr>\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">Observed</td><td valign=\"top\" colspan=\"2\" width=\"100%\">Sectors: <a href=\"/cgi-bin/listgroups.cgi?s=Energy\" title=\"Search for all threat groups that target Energy\" class=\"inlink\">Energy</a>, <a href=\"/cgi-bin/listgroups.cgi?s=Government\" title=\"Search for all threat groups that target Government\" class=\"inlink\">Government</a>.<br />Countries: <a href=\"/cgi-bin/listgroups.cgi?v=Colombia\" title=\"Search for all threat groups that target Colombia\" class=\"inlink\">Colombia</a>.</td></tr>\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">Tools used</td><td valign=\"top\" colspan=\"2\" width=\"100%\"><a href=\"/cgi-bin/listgroups.cgi?t=AsyncRAT\" title=\"Search for all threat groups that use AsyncRAT\" class=\"inlink\">AsyncRAT</a>, <a href=\"/cgi-bin/listgroups.cgi?t=njRAT\" title=\"Search for all threat groups that use njRAT\" class=\"inlink\">njRAT</a>, <a href=\"/cgi-bin/listgroups.cgi?t=RemcosRAT\" title=\"Search for all threat groups that use RemcosRAT\" class=\"inlink\">RemcosRAT</a>.</td></tr>\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">Information</td><td valign=\"top\" colspan=\"2\" width=\"100%\">&lt;<a href=\"https://www.welivesecurity.com/2021/01/12/operation-spalax-targeted-malware-attacks-colombia/\" title=\"Follow external link\" class=\"exlink\" target=\"_blank\">https://www.welivesecurity.com/2021/01/12/operation-spalax-targeted-malware-attacks-colombia/</a>&gt;</td></tr>\n</table>\n<p>Last change to this card: 20 January 2021</p>\n<p>Download this actor card in <a href=\"/cgi-bin/getcard.cgi?g=Operation%20Spalax&o=p\" title=\"Download this card in PDF format\" class=\"inlink\">PDF</a> or <a href=\"/cgi-bin/getcard.cgi?g=Operation%20Spalax&o=j\" title=\"Download this card in JSON format\" class=\"inlink\">JSON</a> format</p>\n<div class=\"backtotop\"><a href=\"#top\" title=\"Back to the top\" class=\"inlink\">&uarr;</a></div>\n</div>\n\n</div>\n<table width=\"100%\" border=\"0\">\n<tr><td width=\"80%\" rowspan=\"4\" valign=\"top\">\n<p>Infrastructure and Security Department<br />\nElectronic Transactions Development Agency</p>\n<h3>Follow us on</h3>\n<a href=\"https://facebook.com/ETDA.Thailand\"><img src=\"/img/icon-facebook.png\" alt=\"Facebook\" title=\"Follow us on Facebook\" /></a>\n<a href=\"https://twitter.com/etda_thailand\"><img src=\"/img/icon-twitter.png\" alt=\"Twitter\" title=\"Follow us on Twitter\" /></a>\n</td><td colspan=\"2\">\n<h3>Report incidents</h3>\n</td>\n<tr>\n<td width=\"0%\"><img src=\"/img/icon-phone.png\" width=\"20\" height=\"20\" alt=\"Telephone\" title=\"Telephone\" /></td>\n<td width=\"20%\"><strong>+66"
+  ],
+  "fullDescription": null,
+  "sectors": [
+    "a-href-cgi-bin-listgroups-cgi-s-energy-title-search-for-all-threat-groups-that-target-energy-class-i",
+    "a-href-cgi-bin-listgroups-cgi-s-government-title-search-for-all-threat-groups-that-target-government"
+  ],
+  "toolsUsed": [],
+  "operations": [],
+  "counterOperations": [],
+  "informationLinks": [],
+  "mitreLink": null,
+  "subgroups": []
+}

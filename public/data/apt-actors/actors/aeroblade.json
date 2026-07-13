@@ -1,0 +1,35 @@
+{
+  "slug": "aeroblade",
+  "name": "AeroBlade",
+  "aliases": [],
+  "category": "apt",
+  "country": null,
+  "sponsor": null,
+  "motivation": null,
+  "firstSeen": "2022",
+  "lastSeen": null,
+  "hasDetails": true,
+  "sectorCount": 1,
+  "toolCount": 0,
+  "operationCount": 0,
+  "observedCountries": [
+    "<a href=\"/cgi-bin/listgroups.cgi?v=USA\" title=\"Search for all threat groups that target USA\" class=\"inlink\">USA</a>.</td></tr>"
+  ],
+  "description": "",
+  "sizeBytes": 440,
+  "mitreId": null,
+  "subgroupCount": 0,
+  "names": [
+    "<!DOCTYPE html>\n<html xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"en\" xml:lang=\"en\">\n<head>\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n<meta name=\"robots\" content=\"nofollow\" />\n<title>AeroBlade - Threat Group Cards: A Threat Actor Encyclopedia</title>\n<link href=\"/style.css\" rel=\"stylesheet\" type=\"text/css\" />\n</head>\n<body class=\"mbody\">\n<div class=\"logos\">\n<table border=\"0\"><tr><td><a href=\"https://www.etda.or.th\"><img src=\"/img/logo-etda.png\" height=\"50\" alt=\"ETDA\" title=\"Visit the ETDA website\" /></a></td>\n<td><font size=\"3\">สำนักงานพัฒนาธุรกรรมทางอิเล็กทรอนิกส์<br />Electronic Transactions Development Agency</font></td></tr></table>\n</div>\n<link href=\"/menubar.css\" rel=\"stylesheet\" type=\"text/css\" />\n<div id=\"menubar\">\n<ul>\n  <li>\n    <a href=\"/cgi-bin/listgroups.cgi\">Groups</a>\n  </li>\n  <li>\n    <a href=\"/cgi-bin/listtools.cgi\">Tools</a>\n  </li>\n  <li>\n    <a href=\"/cgi-bin/aptsearch.cgi\">Search</a>\n  </li>\n  <li>\n    <a href=\"/cgi-bin/aptstats.cgi\">Statistics</a>\n  </li>\n</ul>\n</div>\n<div class=\"graph\">\n<div class=\"gline\"><img src=\"/img/clear.gif\" width=\"1\" height=\"3\" alt=\"\" /></div>\n<div><img src=\"/img/report.jpg\" width=\"900\" alt=\"Report\" /></div>\n<a name=\"top\"></a>\n<div class=\"searchdiv\"><a href=\"/cgi-bin/aptsearch.cgi\" title=\"Search the database\" class=\"inlink\">Search</a></div>\n<div class=\"outermain\"><a href=\"/cgi-bin/aptgroups.cgi\" class=\"inlink\" title=\"Home\">Home</a> &gt; <a href=\"/cgi-bin/listgroups.cgi\" class=\"inlink\" title=\"List all groups\">List all groups</a> &gt; AeroBlade</div>\n<h1>Threat Group Cards: A Threat Actor Encyclopedia</h1>\n<div class=\"innermainov\">\n<h3><a href=\"/cgi-bin/showcard.cgi?u=2c1a4c44-04ee-4b60-ba62-cfd0083550bc\" title=\"Get permanent link to this card\" class=\"inlink\"><img src=\"/img/link.png\" height=\"16\" alt=\"Permanent link\" /></a> APT group: AeroBlade</h3>\n<table width=\"100%\" class=\"tborder\">\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">Names</td><td valign=\"top\" colspan=\"2\" width=\"100%\">AeroBlade <i><font size=\"-2\">",
+    "</font></i></td></tr>\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">Country</td><td valign=\"top\" colspan=\"2\" width=\"100%\">[Unknown]</td></tr>\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">Motivation</td><td valign=\"top\" colspan=\"2\" width=\"100%\"><a href=\"/cgi-bin/listgroups.cgi?m=Information%20theft%20and%20espionage\" title=\"Search for all threat groups with motivation Information theft and espionage\" class=\"inlink\">Information theft and espionage</a></td></tr>\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">First seen</td><td valign=\"top\" colspan=\"2\" width=\"100%\">2022</td></tr>\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">Description</td><td valign=\"top\" colspan=\"2\" width=\"100%\">",
+    "BlackBerry has uncovered a previously unknown threat actor targeting an aerospace organization in the United States, with the apparent goal of conducting commercial and competitive cyber espionage. The BlackBerry Threat Research and Intelligence team is tracking this threat actor as AeroBlade. The actor used spear-phishing as a delivery mechanism: A weaponized document, sent as an email attachment, contains an embedded remote template injection technique and a malicious VBA macro code, to deliver the next stage to the final payload execution.<br /><br />Evidence suggests that the attacker’s network infrastructure and weaponization became operational around September 2022. BlackBerry assesses with medium to high confidence that the offensive phase of the attack occurred in July 2023. The attacker improved its toolset during that time, making it stealthier, while the network infrastructure remained the same.<br /><br />Given the final payload functionality and the subject of the attack, BlackBerry assesses with medium to high confidence that the goal of this attack was commercial cyber espionage.</td></tr>\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">Observed</td><td valign=\"top\" colspan=\"2\" width=\"100%\">Sectors: <a href=\"/cgi-bin/listgroups.cgi?s=Aerospace\" title=\"Search for all threat groups that target Aerospace\" class=\"inlink\">Aerospace</a>.<br />Countries: <a href=\"/cgi-bin/listgroups.cgi?v=USA\" title=\"Search for all threat groups that target USA\" class=\"inlink\">USA</a>.</td></tr>\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">Tools used</td><td valign=\"top\" colspan=\"2\" width=\"100%\"></td></tr>\n<tr><td nowrap valign=\"top\" width=\"0%\" class=\"tshaded\">Information</td><td valign=\"top\" colspan=\"2\" width=\"100%\">&lt;<a href=\"https://blogs.blackberry.com/en/2023/11/aeroblade-on-the-hunt-targeting-us-aerospace-industry\" title=\"Follow external link\" class=\"exlink\" target=\"_blank\">https://blogs.blackberry.com/en/2023/11/aeroblade-on-the-hunt-targeting-us-aerospace-industry</a>&gt;</td></tr>\n</table>\n<p>Last change to this card: 16 January 2024</p>\n<p>Download this actor card in <a href=\"/cgi-bin/getcard.cgi?g=AeroBlade&o=p\" title=\"Download this card in PDF format\" class=\"inlink\">PDF</a> or <a href=\"/cgi-bin/getcard.cgi?g=AeroBlade&o=j\" title=\"Download this card in JSON format\" class=\"inlink\">JSON</a> format</p>\n<div class=\"backtotop\"><a href=\"#top\" title=\"Back to the top\" class=\"inlink\">&uarr;</a></div>\n</div>\n\n</div>\n<table width=\"100%\" border=\"0\">\n<tr><td width=\"80%\" rowspan=\"4\" valign=\"top\">\n<p>Infrastructure and Security Department<br />\nElectronic Transactions Development Agency</p>\n<h3>Follow us on</h3>\n<a href=\"https://facebook.com/ETDA.Thailand\"><img src=\"/img/icon-facebook.png\" alt=\"Facebook\" title=\"Follow us on Facebook\" /></a>\n<a href=\"https://twitter.com/etda_thailand\"><img src=\"/img/icon-twitter.png\" alt=\"Twitter\" title=\"Follow us on Twitter\" /></a>\n</td><td colspan=\"2\">\n<h3>Report incidents</h3>\n</td>\n<tr>\n<td width=\"0%\"><img src=\"/img/icon-phone.png\" width=\"20\" height=\"20\" alt=\"Telephone\" title=\"Telephone\" /></td>\n<td width=\"20%\"><strong>+66"
+  ],
+  "fullDescription": null,
+  "sectors": ["a-href-cgi-bin-listgroups-cgi-s-aerospace-title-search-for-all-threat-groups-that-target-aerospace-c"],
+  "toolsUsed": [],
+  "operations": [],
+  "counterOperations": [],
+  "informationLinks": [],
+  "mitreLink": null,
+  "subgroups": []
+}
