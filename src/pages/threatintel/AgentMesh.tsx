@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import {
-  ArrowLeft,
   Loader2,
   Search,
   Shield,
@@ -191,7 +190,7 @@ export default function AgentMesh(): JSX.Element {
         to="/threatintel"
         className="mx-auto mb-6 flex max-w-5xl items-center gap-2 text-sm text-slate-500 hover:text-brand-600 dark:text-slate-400 dark:hover:text-brand-400 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-6">

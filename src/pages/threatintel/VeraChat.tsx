@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { sanitizeAiHtml } from '../../lib/sanitize-html';
 import {
-  ArrowLeft,
   Send,
   Loader2,
   AlertTriangle,
@@ -69,6 +68,9 @@ interface VeraMessage {
   role: 'user' | 'assistant' | 'system';
   content: string;
   mode?: string;
+  tools_used?: string[];
+  model_used?: string;
+  analyst_role?: string;
 }
 
 const MODE_META: Record<string, { icon: typeof MessageSquare; color: string }> = {
@@ -258,7 +260,7 @@ export default function VeraChat(): JSX.Element {
         to="/threatintel"
         className="mx-auto mb-6 flex max-w-3xl items-center gap-2 text-sm text-slate-500 hover:text-brand-600 dark:text-slate-400 dark:hover:text-brand-400 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="mx-auto flex w-full max-w-3xl flex-col gap-6">
@@ -373,11 +375,28 @@ export default function VeraChat(): JSX.Element {
                       {!isUser && (
                         <span className="text-[10px] font-mono uppercase tracking-wider opacity-60">
                           Vera · {msg.mode ?? 'ask'}
-                          {role && ` · ${role.toUpperCase()}`}
+                          {msg.analyst_role && ` · ${msg.analyst_role.toUpperCase()}`}
                         </span>
                       )}
                     </div>
                     <VeraMessageContent content={msg.content} />
+                    {!isUser && msg.tools_used && msg.tools_used.length > 0 && (
+                      <div className="mt-2 flex flex-wrap gap-1 border-t border-slate-200 pt-1.5 dark:border-slate-600">
+                        {msg.tools_used.map((tool) => (
+                          <span
+                            key={tool}
+                            className="rounded bg-slate-200 px-1.5 py-0.5 text-[9px] font-mono text-slate-500 dark:bg-slate-600 dark:text-slate-400"
+                          >
+                            {tool}
+                          </span>
+                        ))}
+                        {msg.model_used && (
+                          <span className="ml-auto text-[9px] font-mono text-slate-400 dark:text-slate-500">
+                            {msg.model_used.split('→')[0]?.trim()}
+                          </span>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
               );

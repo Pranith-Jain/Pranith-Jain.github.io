@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { BackLink } from '../../components/BackLink';
-import { ShieldAlert, AlertTriangle, CheckCircle2, ExternalLink, ArrowLeft, Download, Swords } from 'lucide-react';
+import { ShieldAlert, AlertTriangle, CheckCircle2, ExternalLink, Download, Swords } from 'lucide-react';
 import { CopyChip } from '../../components/dfir/CopyButton';
 import {
   PATTERNS,
@@ -147,7 +147,7 @@ export default function PromptInjection(): JSX.Element {
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <header className="flex items-start gap-3">

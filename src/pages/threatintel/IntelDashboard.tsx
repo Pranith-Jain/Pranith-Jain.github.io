@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
 import { MaturityPanel } from '../../components/threatintel/MaturityPanel';
-import { ArrowLeft, Shield, Bug, Globe2, Activity, AlertTriangle, Radio, Target, TrendingUp } from 'lucide-react';
+import { Shield, Bug, Globe2, Activity, AlertTriangle, Radio, Target, TrendingUp } from 'lucide-react';
 
 interface DashboardData {
   generated_at: string;
@@ -120,7 +120,7 @@ export default function IntelDashboard(): JSX.Element {
         to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="animate-fade-in-up mb-8">

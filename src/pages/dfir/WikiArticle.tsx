@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft, Wrench } from 'lucide-react';
+import { Wrench } from 'lucide-react';
 import { wikiMeta } from '../../data/dfir/wiki-meta';
 import { type ToolTopic } from '../../data/dfir/tool-topics';
 import { injectToolLinks } from '../../lib/dfir/inject-tool-links';
@@ -75,7 +75,7 @@ export default function WikiArticle(): JSX.Element {
           to="/threatintel/catalog?cat=wiki"
           className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
         >
-          <ArrowLeft size={14} /> back
+          back
         </Link>
         <h1 className="font-display font-bold text-3xl">Article not found</h1>
       </div>
@@ -88,7 +88,7 @@ export default function WikiArticle(): JSX.Element {
         to="/threatintel/catalog?cat=wiki"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </Link>
       <span className="block text-xs font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 mb-2">
         {articleMeta.category}

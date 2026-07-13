@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Rss, ChevronRight, ChevronLeft, Search } from 'lucide-react';
+import { Rss, ChevronRight, ChevronLeft, Search } from 'lucide-react';
 import { CopyButton } from '../../components/ui/CopyButton';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 import { LiveFreshnessPill } from '../../components/LiveFreshnessPill';
@@ -112,7 +112,7 @@ export default function Briefings(): JSX.Element {
         to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-10 font-mono transition-colors"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <header className="animate-fade-in-up mb-12">

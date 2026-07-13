@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ShieldAlert } from 'lucide-react';
+import { ShieldAlert } from 'lucide-react';
 
 const TLDS = ['com', 'net', 'org', 'co', 'io', 'app', 'online', 'site', 'xyz', 'info', 'live', 'sbs', 'shop'];
 const HOMO: Record<string, string[]> = {
@@ -79,7 +79,7 @@ export default function BrandImpersonation(): JSX.Element {
         to="/dfir/tools/osint"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> OSINT tools
+        OSINT tools
       </Link>
       <h1 className="font-display font-bold text-2xl flex items-center gap-2">
         <ShieldAlert size={22} className="text-brand-600 dark:text-brand-400" />

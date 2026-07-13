@@ -2,7 +2,6 @@ import { lazy, Suspense, useState, type FormEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import {
-  ArrowLeft,
   Search,
   Loader2,
   Building2,
@@ -122,7 +121,7 @@ export default function InfraSearch(): JSX.Element {
         to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="animate-fade-in-up">

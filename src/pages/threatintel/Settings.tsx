@@ -279,12 +279,20 @@ export default function Settings(): JSX.Element {
             </div>
             <button
               type="button"
+              role="switch"
+              aria-checked={isDark}
               onClick={toggleTheme}
-              className="inline-flex items-center gap-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] px-3 py-2 text-sm font-mono text-slate-700 dark:text-slate-300 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+              className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[rgb(var(--surface-100))] ${
+                isDark ? 'bg-brand-600' : 'bg-slate-300'
+              }`}
               aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
             >
-              {isDark ? <Sun size={16} /> : <Moon size={16} />}
-              {isDark ? 'Light' : 'Dark'}
+              <span
+                aria-hidden="true"
+                className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out ${
+                  isDark ? 'translate-x-5' : 'translate-x-0'
+                }`}
+              />
             </button>
           </div>
         </div>

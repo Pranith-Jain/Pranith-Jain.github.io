@@ -211,7 +211,7 @@ export default function ReportComposer(): JSX.Element {
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono transition-colors"
       >
-        ← back to DFIR
+        back to DFIR
       </BackLink>
 
       <div className="flex flex-wrap items-start justify-between gap-4 mb-2">

@@ -4,7 +4,6 @@ import { DataState } from '../../components/DataState';
 import { BackLink } from '../../components/BackLink';
 import {
   AlertTriangle,
-  ArrowLeft,
   BarChart3,
   Bug,
   CheckCircle2,
@@ -212,7 +211,7 @@ export default function AnalyticsDashboard(): JSX.Element {
         to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono transition-colors"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="animate-fade-in-up mb-10">

@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft } from 'lucide-react';
+import {} from 'lucide-react';
 import { wikiMeta, type WikiCategory } from '../../data/dfir/wiki-meta';
 import { CategoryPills } from '../../components/dfir/CategoryPills';
 import { WikiCard } from '../../components/dfir/WikiCard';
@@ -30,7 +30,7 @@ export default function Wiki(): JSX.Element {
         to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">DFIR Knowledge Base</h1>

@@ -3,7 +3,6 @@ import { BackLink } from '../../components/BackLink';
 import { SEVERITY_TONE } from '../../components/severity';
 import { adminAuthHeaders } from '../../lib/admin-token';
 import {
-  ArrowLeft,
   Plus,
   Trash2,
   Search,
@@ -340,7 +339,7 @@ function InvestigationsPage(): JSX.Element {
           onClick={() => setActiveInv(null)}
           className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
         >
-          <ArrowLeft size={14} /> back to investigations
+          back to investigations
         </button>
 
         <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
@@ -607,7 +606,7 @@ function InvestigationsPage(): JSX.Element {
         to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="flex flex-wrap items-start justify-between gap-4 mb-6">

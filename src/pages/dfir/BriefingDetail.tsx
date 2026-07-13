@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link, useParams } from 'react-router-dom';
 import {
-  ArrowLeft,
   ExternalLink,
   AlertTriangle,
   ShieldAlert,
@@ -680,7 +679,7 @@ export default function BriefingDetail(): JSX.Element {
           to="/threatintel/briefings"
           className="inline-flex items-center gap-2 text-sm text-slate-500 mb-6 font-mono"
         >
-          <ArrowLeft size={14} /> back
+          back
         </Link>
         <h1 className="font-display font-bold text-2xl text-slate-900 dark:text-white mb-2">Briefing not found</h1>
         <p className="text-sm text-slate-500">
@@ -707,7 +706,7 @@ export default function BriefingDetail(): JSX.Element {
         to="/threatintel/briefings"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono transition-colors"
       >
-        <ArrowLeft size={14} /> all briefings
+        all briefings
       </Link>
 
       <header className="animate-fade-in-up mb-8">

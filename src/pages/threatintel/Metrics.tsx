@@ -6,7 +6,6 @@ import { fetchJson } from '../../lib/fetch-helpers';
 import { dedupRansomwareVictims } from '../../lib/dedup-ransomware';
 import {
   Activity,
-  ArrowLeft,
   BarChart3,
   Briefcase,
   Bug,
@@ -1051,7 +1050,7 @@ export default function Metrics(): JSX.Element {
         to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="animate-fade-in-up">

@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { CopyButton } from '../../components/dfir/CopyButton';
 import { SEVERITY_TONE } from '../../components/severity';
-import { ArrowLeft, Search, AlertTriangle, Shield, Tag, Calendar, User, FileCode } from 'lucide-react';
+import { Search, AlertTriangle, Shield, Tag, Calendar, User, FileCode } from 'lucide-react';
 
 type Severity = 'critical' | 'high' | 'medium';
 type TabId = 'all' | 'cves' | 'campaigns' | 'actors';
@@ -665,7 +665,7 @@ export default function Tracepulse(): JSX.Element {
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="animate-fade-in-up mb-10">

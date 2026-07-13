@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Radio, Activity, FileText, Globe, Wrench, Compass, Sparkles } from 'lucide-react';
+import { Radio, Activity, FileText, Globe, Wrench, Compass, Sparkles } from 'lucide-react';
 import { LiveSignalStrip } from '../components/LiveSignalStrip';
 import { LatestBriefingCard } from '../components/threatintel/LatestBriefingCard';
 import { GlobalPulseCard } from '../components/threatintel/GlobalPulseCard';
@@ -28,7 +28,7 @@ export default function Snapshots(): JSX.Element {
           to="/"
           className="inline-flex items-center gap-1.5 text-mini font-mono text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
         >
-          <ArrowLeft size={14} /> back to home
+          back to home
         </Link>
 
         <header className="mt-6 flex flex-wrap items-end justify-between gap-4">
@@ -44,10 +44,7 @@ export default function Snapshots(): JSX.Element {
           <FeedHealthBadge />
         </header>
 
-        <section
-          aria-labelledby="snap-telemetry"
-          className="mt-8 surface-card p-4 sm:p-5"
-        >
+        <section aria-labelledby="snap-telemetry" className="mt-8 surface-card p-4 sm:p-5">
           <div className="mb-3 flex items-center gap-2">
             <Radio size={14} className="text-rose-500" aria-hidden="true" />
             <h2
@@ -69,10 +66,7 @@ export default function Snapshots(): JSX.Element {
         </section>
 
         <div className="mt-6 grid gap-4 lg:grid-cols-2">
-          <section
-            aria-labelledby="snap-briefings"
-            className="surface-card p-4 sm:p-5"
-          >
+          <section aria-labelledby="snap-briefings" className="surface-card p-4 sm:p-5">
             <SectionHeader
               id="snap-briefings"
               icon={<FileText size={14} className="text-brand-500" />}
@@ -82,10 +76,7 @@ export default function Snapshots(): JSX.Element {
             <LatestBriefingCard />
           </section>
 
-          <section
-            aria-labelledby="snap-pulse"
-            className="surface-card p-4 sm:p-5"
-          >
+          <section aria-labelledby="snap-pulse" className="surface-card p-4 sm:p-5">
             <SectionHeader
               id="snap-pulse"
               icon={<Globe size={14} className="text-brand-500" />}
@@ -97,18 +88,12 @@ export default function Snapshots(): JSX.Element {
         </div>
 
         <div className="mt-6 grid gap-4 sm:grid-cols-3">
-          <section
-            aria-labelledby="snap-quote"
-            className="surface-card p-4 sm:p-5"
-          >
+          <section aria-labelledby="snap-quote" className="surface-card p-4 sm:p-5">
             <SectionHeader id="snap-quote" icon={<Sparkles size={14} className="text-amber-500" />} title="Quote" />
             <QuoteOfTheDay />
           </section>
 
-          <section
-            aria-labelledby="snap-tool"
-            className="surface-card p-4 sm:p-5"
-          >
+          <section aria-labelledby="snap-tool" className="surface-card p-4 sm:p-5">
             <SectionHeader
               id="snap-tool"
               icon={<Wrench size={14} className="text-brand-500" />}
@@ -118,10 +103,7 @@ export default function Snapshots(): JSX.Element {
             <ToolOfTheDay />
           </section>
 
-          <section
-            aria-labelledby="snap-page"
-            className="surface-card p-4 sm:p-5"
-          >
+          <section aria-labelledby="snap-page" className="surface-card p-4 sm:p-5">
             <SectionHeader
               id="snap-page"
               icon={<Compass size={14} className="text-emerald-500" />}

@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Terminal, ExternalLink, Search } from 'lucide-react';
+import { Terminal, ExternalLink, Search } from 'lucide-react';
 import { CopyChip } from '../../components/dfir/CopyButton';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';
 import {
@@ -48,7 +48,7 @@ export default function Lolbins(): JSX.Element {
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="animate-fade-in-up">

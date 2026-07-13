@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, History, Search, Loader2, ExternalLink, AlertTriangle, CheckCircle2 } from 'lucide-react';
+import { History, Search, Loader2, ExternalLink, AlertTriangle, CheckCircle2 } from 'lucide-react';
 interface Snapshot {
   timestamp: string; // YYYYMMDDhhmmss
   original: string;
@@ -192,7 +192,7 @@ export default function Wayback(): JSX.Element {
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="animate-fade-in-up">

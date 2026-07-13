@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import type { Severity as Sev } from '../../components/severity';
 import { useNavigate } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, AlertTriangle, ShieldAlert, ShieldX, ShieldCheck, Info, FileSearch } from 'lucide-react';
+import { AlertTriangle, ShieldAlert, ShieldX, ShieldCheck, Info, FileSearch } from 'lucide-react';
 
 /**
  * Linux IR Triage — 100% client-side.
@@ -283,7 +283,7 @@ export default function LinuxTriage(): JSX.Element {
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="animate-fade-in-up">

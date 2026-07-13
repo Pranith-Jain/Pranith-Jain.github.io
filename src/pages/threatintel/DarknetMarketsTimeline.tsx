@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Calendar, ExternalLink, Globe, Search, Shield, ShieldAlert, ShieldOff, Skull } from 'lucide-react';
+import { Calendar, ExternalLink, Globe, Search, Shield, ShieldAlert, ShieldOff, Skull } from 'lucide-react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 
 interface DarknetMarket {
@@ -305,7 +305,7 @@ export default function DarknetMarketsTimeline(): JSX.Element {
         to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="flex items-center gap-3 mb-1">

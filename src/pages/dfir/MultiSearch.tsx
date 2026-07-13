@@ -287,7 +287,7 @@ export default function MultiSearch(): JSX.Element {
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono transition-colors"
       >
-        ← back to DFIR
+        back to DFIR
       </BackLink>
 
       <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">

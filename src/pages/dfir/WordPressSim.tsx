@@ -1,5 +1,5 @@
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, ExternalLink, Globe } from 'lucide-react';
+import { ExternalLink, Globe } from 'lucide-react';
 
 const SIM_URL = 'https://mr-r3b00t.github.io/org_cyber_attack_sim/wordpress.html';
 
@@ -10,7 +10,7 @@ export default function WordPressSim(): JSX.Element {
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="animate-fade-in-up">

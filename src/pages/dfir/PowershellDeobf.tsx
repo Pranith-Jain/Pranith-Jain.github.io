@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Terminal, AlertTriangle, CheckCircle2, ChevronDown, ChevronRight, Search } from 'lucide-react';
+import { Terminal, AlertTriangle, CheckCircle2, ChevronDown, ChevronRight, Search } from 'lucide-react';
 import { deobfuscate, findRisks, type Step } from '../../lib/dfir/powershell-deobf';
 import { hasIocCandidates } from '../../lib/dfir/ioc-detect';
 import { CopyChip } from '../../components/dfir/CopyButton';
@@ -125,7 +125,7 @@ export default function PowershellDeobf(): JSX.Element {
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="animate-fade-in-up">

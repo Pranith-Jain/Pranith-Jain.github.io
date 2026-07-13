@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, ExternalLink, RefreshCw, AlertTriangle, Loader2, Search } from 'lucide-react';
+import { ExternalLink, RefreshCw, AlertTriangle, Loader2, Search } from 'lucide-react';
 import {
   fetchAggregatedFeed,
   formatRelativeTime,
@@ -164,7 +164,7 @@ export default function ScamWatch(): JSX.Element {
         to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="animate-fade-in-up">

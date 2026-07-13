@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { sanitizeAiHtml } from '../../lib/sanitize-html';
-import { ArrowLeft, BookText, ExternalLink, FileCode, Gauge, Loader2, Copy, Check, ChevronDown } from 'lucide-react';
+import { BookText, ExternalLink, FileCode, Gauge, Loader2, Copy, Check, ChevronDown } from 'lucide-react';
 import { CopyButton } from '../../components/dfir/CopyButton';
 import { prioritise, TIER_LABELS, TIER_STYLES, TIER_BARS } from '../../lib/dfir/cve-priority';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';
@@ -194,7 +194,7 @@ export default function CveLookup(): JSX.Element {
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="animate-fade-in-up">

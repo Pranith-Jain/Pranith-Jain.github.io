@@ -1,6 +1,6 @@
 import { useMemo, useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { ArrowLeft, Clock } from 'lucide-react';
+import { Clock } from 'lucide-react';
 
 /** Epoch bases. Windows FILETIME / WebKit count from 1601-01-01 UTC. */
 const FILETIME_EPOCH_MS = -11644473600000; // 1601-01-01 relative to Unix epoch
@@ -58,7 +58,7 @@ export default function TimestampConverter(): JSX.Element {
         to="/dfir/tools/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> DFIR tools
+        DFIR tools
       </Link>
       <h1 className="font-display font-bold text-2xl flex items-center gap-2">
         <Clock size={22} className="text-brand-600 dark:text-brand-400" />

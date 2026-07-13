@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { api } from '../../lib/api-client';
 import { adminAuthHeaders, readAdminToken } from '../../lib/admin-token';
-import { ArrowLeft, Shield, Globe, AlertTriangle, Loader2, Plus, Trash2, RefreshCw, Eye } from 'lucide-react';
+import { Shield, Globe, AlertTriangle, Loader2, Plus, Trash2, RefreshCw, Eye } from 'lucide-react';
 import { CopyButton } from '../../components/dfir/CopyButton';
 
 interface WatchedDomain {
@@ -130,7 +130,7 @@ export default function CtMonitor(): JSX.Element {
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="animate-fade-in-up mb-10">

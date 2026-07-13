@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Search, Shield, Copy, Check } from 'lucide-react';
+import { Search, Shield, Copy, Check } from 'lucide-react';
 import { QUERIES, FORMATS, FORMAT_ICONS, FORMAT_COLORS, type QueryFormat } from '../../data/detection-queries';
 
 export default function Tracerules(): JSX.Element {
@@ -38,7 +38,7 @@ export default function Tracerules(): JSX.Element {
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="animate-fade-in-up mb-10">

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ScanLine, Upload } from 'lucide-react';
+import { ScanLine, Upload } from 'lucide-react';
 
 const ENTITY: Array<[string, RegExp]> = [
   ['URLs', /\bhttps?:\/\/[^\s"'<>]+/gi],
@@ -111,7 +111,7 @@ export default function ScreenshotIntel(): JSX.Element {
         to="/dfir/tools/osint"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> OSINT tools
+        OSINT tools
       </Link>
       <h1 className="font-display font-bold text-2xl flex items-center gap-2">
         <ScanLine size={22} className="text-brand-600 dark:text-brand-400" />

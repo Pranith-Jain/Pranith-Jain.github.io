@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Bug, ExternalLink, Package, RefreshCw, Search } from 'lucide-react';
+import { Bug, ExternalLink, Package, RefreshCw, Search } from 'lucide-react';
 import { useDataFetch } from '../../hooks/useDataFetch';
 import { DataState } from '../../components/DataState';
 import { relativeAgo } from '../../lib/relativeTime';
@@ -136,7 +136,7 @@ export default function GithubAdvisories(): JSX.Element {
         to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="flex items-center gap-3 mb-1">

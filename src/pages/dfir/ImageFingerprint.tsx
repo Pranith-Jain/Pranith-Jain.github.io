@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Image as ImageIcon } from 'lucide-react';
+import { Image as ImageIcon } from 'lucide-react';
 
 /** 8x8 average-hash + difference-hash. Pure canvas, fully client-side. */
 async function hashes(file: File): Promise<{ a: string; d: string }> {
@@ -82,7 +82,7 @@ export default function ImageFingerprint(): JSX.Element {
         to="/dfir/tools/osint"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> OSINT tools
+        OSINT tools
       </Link>
       <h1 className="font-display font-bold text-2xl flex items-center gap-2">
         <ImageIcon size={22} className="text-brand-600 dark:text-brand-400" />

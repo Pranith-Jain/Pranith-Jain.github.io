@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft } from 'lucide-react';
+import {} from 'lucide-react';
 
 // openpgp is ~380KB. Lazy-load on first use so the PgpTool chunk stays small.
 type OpenPgpModule = typeof import('openpgp');
@@ -112,7 +112,7 @@ export default function PgpTool() {
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
       <div className="flex items-baseline gap-2 mb-2">
         <h1 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100">PGP Tool</h1>

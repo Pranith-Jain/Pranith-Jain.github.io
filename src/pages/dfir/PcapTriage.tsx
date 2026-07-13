@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Network, Upload } from 'lucide-react';
+import { Network, Upload } from 'lucide-react';
 
 interface Summary {
   format: string;
@@ -204,7 +204,7 @@ export default function PcapTriage(): JSX.Element {
         to="/dfir/tools/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> DFIR tools
+        DFIR tools
       </Link>
       <h1 className="font-display font-bold text-2xl flex items-center gap-2">
         <Network size={22} className="text-brand-600 dark:text-brand-400" />

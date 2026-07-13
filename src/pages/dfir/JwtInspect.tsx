@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, AlertTriangle, ShieldCheck, Info } from 'lucide-react';
+import { AlertTriangle, ShieldCheck, Info } from 'lucide-react';
 interface DecodedJwt {
   raw: string;
   header: Record<string, unknown>;
@@ -134,7 +134,7 @@ export default function JwtInspect(): JSX.Element {
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="animate-fade-in-up">

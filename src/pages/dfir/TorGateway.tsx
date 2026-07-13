@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft } from 'lucide-react';
+import {} from 'lucide-react';
 
 const GATEWAYS = [
   { label: 'Tor2web', url: 'https://{onion}.tor2web.io' },
@@ -31,7 +31,7 @@ export default function TorGateway() {
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
       <div className="flex items-baseline gap-2 mb-2">
         <h1 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100">Tor Gateway</h1>

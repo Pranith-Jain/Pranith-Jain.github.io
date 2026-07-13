@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ArrowLeft, FileCheck, Upload, FileSearch } from 'lucide-react';
+import { FileCheck, Upload, FileSearch } from 'lucide-react';
 
 interface Row {
   n: number;
@@ -100,7 +100,7 @@ export default function WebLogAnalyzer(): JSX.Element {
         to="/dfir/tools/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> DFIR tools
+        DFIR tools
       </Link>
       <h1 className="font-display font-bold text-2xl flex items-center gap-2">
         <FileCheck size={22} className="text-brand-600 dark:text-brand-400" />

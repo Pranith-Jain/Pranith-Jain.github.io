@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Download, RefreshCw, Clock, Shield, Terminal, Activity, Copy, Check } from 'lucide-react';
+import { Download, RefreshCw, Clock, Shield, Terminal, Activity, Copy, Check } from 'lucide-react';
 
 interface BlocklistMeta {
   ok: boolean;
@@ -149,7 +149,7 @@ export default function BlocklistsPage(): JSX.Element {
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="animate-fade-in-up">

@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, ExternalLink, Github, Search, Star, Sparkles } from 'lucide-react';
+import { ExternalLink, Github, Search, Star, Sparkles } from 'lucide-react';
 import {
   LISTS,
   FOCUS_LABELS,
@@ -73,7 +73,7 @@ export default function AwesomeLists(): JSX.Element {
         to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="animate-fade-in-up">

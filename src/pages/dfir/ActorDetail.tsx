@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ArrowLeft, ExternalLink, ShieldAlert, Sparkles } from 'lucide-react';
+import { ExternalLink, ShieldAlert, Sparkles } from 'lucide-react';
 import { threatActors } from '../../data/dfir/threat-actors';
 import DiamondModelSection from './DiamondModelSection';
 
@@ -93,7 +93,7 @@ export default function ActorDetail(): JSX.Element {
           to="/threatintel/catalog?cat=actors"
           className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
         >
-          <ArrowLeft size={14} /> back
+          back
         </Link>
         <h1 className="font-display font-bold text-3xl">Actor not found</h1>
       </div>
@@ -106,7 +106,7 @@ export default function ActorDetail(): JSX.Element {
         to="/threatintel/catalog?cat=actors"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </Link>
 
       <div className="animate-fade-in-up mb-8">

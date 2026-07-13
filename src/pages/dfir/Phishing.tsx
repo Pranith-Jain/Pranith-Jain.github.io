@@ -2,7 +2,6 @@ import { useState, useRef, type FormEvent } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import {
-  ArrowLeft,
   ScanText,
   Search,
   Crosshair,
@@ -186,7 +185,7 @@ export default function Phishing(): JSX.Element {
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Phishing Email Analyzer</h1>

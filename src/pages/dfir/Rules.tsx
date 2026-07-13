@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState, useRef } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, ExternalLink, RefreshCw, Star, GitFork, GitCommit, FileCode } from 'lucide-react';
+import { ExternalLink, RefreshCw, Star, GitFork, GitCommit, FileCode } from 'lucide-react';
 import { RulesSnapshotPanel } from '../../components/dfir/RulesSnapshotPanel';
 interface SourceEntry {
   id: string;
@@ -128,7 +128,7 @@ export default function Rules(): JSX.Element {
         to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="animate-fade-in-up">

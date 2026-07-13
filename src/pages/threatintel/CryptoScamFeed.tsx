@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ArrowLeft, Bitcoin, Copy, Check, RefreshCw, Search } from 'lucide-react';
+import { Bitcoin, Copy, Check, RefreshCw, Search } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
@@ -100,7 +100,7 @@ export default function CryptoScamFeed(): JSX.Element {
         to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="animate-fade-in-up">

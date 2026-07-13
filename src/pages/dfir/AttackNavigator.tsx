@@ -2,7 +2,7 @@ import { useState, useMemo, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
-import { ArrowLeft, ExternalLink, Search, X, Shield } from 'lucide-react';
+import { ExternalLink, Search, X, Shield } from 'lucide-react';
 import { threatActors } from '../../data/dfir/threat-actors';
 
 type MatrixSource = 'attack' | 'a3m' | 'd3fend';
@@ -288,7 +288,7 @@ export default function AttackNavigator(): JSX.Element {
           to="/dfir"
           className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
         >
-          <ArrowLeft size={14} /> back to DFIR
+          back to DFIR
         </BackLink>
 
         <div className="animate-fade-in-up">

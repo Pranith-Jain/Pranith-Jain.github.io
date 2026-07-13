@@ -2,7 +2,6 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { sanitizeAiHtml } from '../../lib/sanitize-html';
 import {
-  ArrowLeft,
   Send,
   Sparkles,
   FileText,
@@ -256,7 +255,7 @@ export default function Copilot(): JSX.Element {
         });
         if (!res.ok) {
           const err = await res.json();
-          throw new Error(err.error ?? 'Investigation failed');
+          throw new Error(err.message ?? err.error ?? 'Investigation failed');
         }
         setResult(await res.json());
       } catch (e) {
@@ -278,7 +277,7 @@ export default function Copilot(): JSX.Element {
           to="/threatintel"
           className="mx-auto mb-8 flex max-w-3xl items-center gap-2 text-sm text-slate-500 hover:text-brand-600 dark:text-slate-400 dark:hover:text-brand-400 font-mono"
         >
-          <ArrowLeft size={14} /> back
+          back
         </BackLink>
       )}
 

@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { CopyButton } from '../../components/dfir/CopyButton';
 import {
-  ArrowLeft,
   BookOpen,
   ChevronDown,
   ChevronRight,
@@ -439,7 +438,7 @@ export default function PhishBook(): JSX.Element {
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="animate-fade-in-up mb-10">

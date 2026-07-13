@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Diamond as DiamondIcon, Loader2, RotateCcw, Download, ExternalLink, Wand2 } from 'lucide-react';
+import { Diamond as DiamondIcon, Loader2, RotateCcw, Download, ExternalLink, Wand2 } from 'lucide-react';
 import {
   DIAMOND_VERTICES,
   META_FEATURES,
@@ -526,7 +526,7 @@ function Diamond(): JSX.Element {
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="animate-fade-in-up">

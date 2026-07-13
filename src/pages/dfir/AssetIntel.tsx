@@ -14,7 +14,6 @@ import {
   Building2,
   Clock,
   Mail,
-  ArrowLeft,
   ScanLine,
 } from 'lucide-react';
 import { ArtifactTable, type HostArtifact } from '../../components/dfir/ArtifactTable';
@@ -553,7 +552,7 @@ export default function AssetIntel(): JSX.Element {
         to="/dfir"
         className="inline-flex items-center gap-1.5 text-xs font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 mb-6"
       >
-        <ArrowLeft size={14} /> back to tools
+        back to tools
       </Link>
 
       <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Asset Intelligence</h1>

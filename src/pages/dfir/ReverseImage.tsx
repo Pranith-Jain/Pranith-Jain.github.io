@@ -1,16 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import {
-  ArrowLeft,
-  Image as ImageIcon,
-  Search,
-  ExternalLink,
-  Star,
-  AlertTriangle,
-  Clipboard,
-  Check,
-} from 'lucide-react';
+import { Image as ImageIcon, Search, ExternalLink, Star, AlertTriangle, Clipboard, Check } from 'lucide-react';
 import { ENGINES } from '../../data/dfir/reverse-image-engines';
 
 const SAMPLES: { label: string; url: string }[] = [
@@ -70,7 +61,7 @@ export default function ReverseImage(): JSX.Element {
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="animate-fade-in-up">

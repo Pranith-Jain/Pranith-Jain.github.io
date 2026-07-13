@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Search, FolderTree, HelpCircle } from 'lucide-react';
+import { Search, FolderTree, HelpCircle } from 'lucide-react';
 import { KNOWN_KEYS, type RegistryEntry } from '../../data/registry-keys';
 
 const RISK_COLORS: Record<string, string> = {
@@ -58,7 +58,7 @@ export default function Regscope(): JSX.Element {
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="animate-fade-in-up mb-10">

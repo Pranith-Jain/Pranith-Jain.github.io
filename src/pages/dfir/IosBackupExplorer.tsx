@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Smartphone, Upload } from 'lucide-react';
+import { Smartphone, Upload } from 'lucide-react';
 import { loadSql } from '../../lib/loadSql';
 import { fileTooLarge } from '../../lib/dfir/file-guard';
 import { useDebounce } from '../../hooks/useDebounce';
@@ -72,7 +72,7 @@ export default function IosBackupExplorer(): JSX.Element {
         to="/dfir/tools/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> DFIR tools
+        DFIR tools
       </Link>
       <h1 className="font-display font-bold text-2xl flex items-center gap-2">
         <Smartphone size={22} className="text-brand-600 dark:text-brand-400" />

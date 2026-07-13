@@ -1,7 +1,6 @@
 import { useState, useCallback } from 'react';
 import { BackLink } from '../../components/BackLink';
 import {
-  ArrowLeft,
   BookOpen,
   Loader2,
   AlertTriangle,
@@ -119,7 +118,7 @@ export default function IrPlaybooks(): JSX.Element {
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="animate-fade-in-up mb-10">

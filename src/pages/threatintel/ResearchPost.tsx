@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, FileText } from 'lucide-react';
+import { ArrowRight, FileText } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { findResearchPost, publishedResearch } from '../../data/threatintel/research';
 import { IntelCard } from '../../components/intel/IntelCard';
@@ -240,7 +240,7 @@ export default function ResearchPost(): JSX.Element {
             to="/threatintel/research-hub/research"
             className="inline-flex items-center gap-2 text-sm font-mono text-brand-600 dark:text-brand-400 hover:underline"
           >
-            <ArrowLeft size={14} /> all research
+            all research
           </Link>
           <Link
             to="/threatintel"

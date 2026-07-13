@@ -1,6 +1,6 @@
 import { useState, useCallback, useRef } from 'react';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, RefreshCw, ExternalLink, Search, Calendar, ShieldAlert, Info } from 'lucide-react';
+import { RefreshCw, ExternalLink, Search, Calendar, ShieldAlert, Info } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
 interface MispEvent {
@@ -235,7 +235,7 @@ export default function MispBrowser() {
           to="/threatintel"
           className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
         >
-          <ArrowLeft size={14} /> back
+          back
         </BackLink>
         <div className="flex items-baseline gap-2 mb-2">
           <h1 className="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-slate-100">
@@ -303,7 +303,7 @@ export default function MispBrowser() {
           onClick={() => setSelected(null)}
           className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-4 font-mono"
         >
-          <ArrowLeft size={14} /> back to events
+          back to events
         </button>
 
         <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-6 space-y-4">

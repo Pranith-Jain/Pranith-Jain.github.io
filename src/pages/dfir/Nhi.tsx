@@ -1,17 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import {
-  ArrowLeft,
-  KeyRound,
-  ChevronDown,
-  ChevronRight,
-  Plus,
-  Trash2,
-  RotateCcw,
-  Download,
-  ExternalLink,
-} from 'lucide-react';
+import { KeyRound, ChevronDown, ChevronRight, Plus, Trash2, RotateCcw, Download, ExternalLink } from 'lucide-react';
 import {
   NHI_TOP_10,
   NHI_TYPES,
@@ -171,7 +161,7 @@ export default function Nhi(): JSX.Element {
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="animate-fade-in-up">

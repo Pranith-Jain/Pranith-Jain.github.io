@@ -2,7 +2,7 @@ import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, RefreshCw, Globe, Loader2, Pause, Play, X } from 'lucide-react';
+import { RefreshCw, Globe, Loader2, Pause, Play, X } from 'lucide-react';
 import { IocSnapshotPanel } from '../../components/dfir/IocSnapshotPanel';
 import { ActorTtpsPanel } from '../../components/threatintel/ActorTtpsPanel';
 
@@ -381,7 +381,7 @@ export default function ThreatMap(): JSX.Element {
         to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="animate-fade-in-up">

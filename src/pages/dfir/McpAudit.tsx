@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { BackLink } from '../../components/BackLink';
-import { Plug, AlertTriangle, CheckCircle2, ExternalLink, ArrowLeft, Terminal } from 'lucide-react';
+import { Plug, AlertTriangle, CheckCircle2, ExternalLink, Terminal } from 'lucide-react';
 import { auditConfig, summarise, type Finding, type Severity } from '../../lib/dfir/mcp-audit';
 import { SEVERITY_TONE as SEV_STYLES } from '../../components/severity';
 
@@ -105,7 +105,7 @@ export default function McpAudit(): JSX.Element {
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <header className="flex items-start gap-3">

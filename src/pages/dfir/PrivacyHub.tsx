@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Scale, ExternalLink, Download, RotateCcw } from 'lucide-react';
+import { Scale, ExternalLink, Download, RotateCcw } from 'lucide-react';
 import { REGIMES, type Article, type RegimeId } from '../../data/privacy-hub';
 
 const STORAGE_KEY = 'dfir.privacy-hub.checks.v1';
@@ -144,7 +144,7 @@ export default function PrivacyHub(): JSX.Element {
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="animate-fade-in-up">

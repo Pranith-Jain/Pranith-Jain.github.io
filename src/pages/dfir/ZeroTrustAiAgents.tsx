@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ArrowLeft, ShieldCheck, Search, ChevronDown, Filter, AlertTriangle, Lightbulb, Printer } from 'lucide-react';
+import { ShieldCheck, Search, ChevronDown, Filter, AlertTriangle, Lightbulb, Printer } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
 
 type Tier = 'foundation' | 'enterprise' | 'advanced';
@@ -412,7 +412,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
             to="/dfir"
             className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 font-mono"
           >
-            <ArrowLeft size={14} /> back
+            back
           </BackLink>
           <button
             type="button"

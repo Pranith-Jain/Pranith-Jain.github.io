@@ -1,6 +1,6 @@
 import { useState, useCallback, useRef } from 'react';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Search, Loader2, Bug, FileText, Shield, Globe, Wallet, Monitor, AlertTriangle } from 'lucide-react';
+import { Search, Loader2, Bug, FileText, Shield, Globe, Wallet, Monitor, AlertTriangle } from 'lucide-react';
 import { CopyButton } from '../../components/dfir/CopyButton';
 
 interface StealerResult {
@@ -71,7 +71,7 @@ export default function StealerParser(): JSX.Element {
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="animate-fade-in-up mb-10">

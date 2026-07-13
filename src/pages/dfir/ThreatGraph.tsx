@@ -2,19 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { api } from '../../lib/api-client';
 import { readAdminToken } from '../../lib/admin-token';
-import {
-  ArrowLeft,
-  Network,
-  Search,
-  Loader2,
-  Shield,
-  GitBranch,
-  Users,
-  BarChart3,
-  Circle,
-  Link2,
-  Database,
-} from 'lucide-react';
+import { Network, Search, Loader2, Shield, GitBranch, Users, BarChart3, Circle, Link2, Database } from 'lucide-react';
 
 interface GraphNode {
   id: string;
@@ -129,7 +117,7 @@ export default function ThreatGraph(): JSX.Element {
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
       <div className="animate-fade-in-up mb-10">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">

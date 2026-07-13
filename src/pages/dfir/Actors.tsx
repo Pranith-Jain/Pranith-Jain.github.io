@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { useInsideDataPageLayout } from '../../components/DataPageLayout';
-import { ArrowLeft } from 'lucide-react';
+import {} from 'lucide-react';
 import { threatActors, type ActorStatus, type Sophistication } from '../../data/dfir/threat-actors';
 import { ActorCard } from '../../components/dfir/ActorCard';
 import { ActorFilterBar } from '../../components/dfir/ActorFilterBar';
@@ -35,7 +35,7 @@ export default function Actors(): JSX.Element {
           to="/threatintel"
           className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
         >
-          <ArrowLeft size={14} /> back
+          back
         </BackLink>
       )}
       <div className="animate-fade-in-up">

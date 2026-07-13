@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Binary, Upload, Loader2 } from 'lucide-react';
+import { Binary, Upload, Loader2 } from 'lucide-react';
 import { fileTooLarge, yieldToPaint } from '../../lib/dfir/file-guard';
 
 const MACHINE: Record<number, string> = {
@@ -169,7 +169,7 @@ export default function PeAnalyzer(): JSX.Element {
         to="/dfir/tools/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> DFIR tools
+        DFIR tools
       </Link>
       <h1 className="font-display font-bold text-2xl flex items-center gap-2">
         <Binary size={22} className="text-brand-600 dark:text-brand-400" />

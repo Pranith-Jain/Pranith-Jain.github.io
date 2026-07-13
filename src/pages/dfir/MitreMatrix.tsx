@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, ExternalLink, Search, X } from 'lucide-react';
+import { ExternalLink, Search, X } from 'lucide-react';
 import type { MitreTactic } from '../../data/dfir/mitre-matrix';
 import { threatActors } from '../../data/dfir/threat-actors';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';
@@ -261,7 +261,7 @@ export default function MitreMatrix(): JSX.Element {
           to="/threatintel"
           className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
         >
-          <ArrowLeft size={14} /> back
+          back
         </BackLink>
 
         <div className="animate-fade-in-up">

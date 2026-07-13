@@ -2,17 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import {
-  ArrowLeft,
-  ShieldAlert,
-  Search,
-  Loader2,
-  ExternalLink,
-  AlertTriangle,
-  ScrollText,
-  Globe2,
-  Filter,
-} from 'lucide-react';
+import { ShieldAlert, Search, Loader2, ExternalLink, AlertTriangle, ScrollText, Globe2, Filter } from 'lucide-react';
 import { CopyChip } from '../../components/dfir/CopyButton';
 
 interface CertSearchResponse {
@@ -107,7 +97,7 @@ export default function CertSearch(): JSX.Element {
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="animate-fade-in-up">

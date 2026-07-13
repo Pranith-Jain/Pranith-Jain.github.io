@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from 'react';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Search, Globe, Server, Clock, AlertTriangle, CheckCircle, Loader2 } from 'lucide-react';
+import { Search, Globe, Server, Clock, AlertTriangle, CheckCircle, Loader2 } from 'lucide-react';
 
 interface PassiveDnsRecord {
   query: string;
@@ -68,7 +68,7 @@ export default function PassiveDns(): JSX.Element {
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> all tools
+        all tools
       </BackLink>
 
       <h1 className="font-display font-bold text-3xl mb-2">Passive DNS Lookup</h1>

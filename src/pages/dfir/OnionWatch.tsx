@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState, useRef } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { AlertTriangle, ArrowLeft, ExternalLink, RefreshCw, Search, Bell, Copy, Check } from 'lucide-react';
+import { AlertTriangle, ExternalLink, RefreshCw, Search, Bell, Copy, Check } from 'lucide-react';
 import { formatRelativeTime } from '../../services/rssService';
 import { ClusterTabs, RANSOMWARE_TABS } from '../../components/threatintel/ClusterTabs';
 
@@ -171,7 +171,7 @@ export default function OnionWatch(): JSX.Element {
         to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="animate-fade-in-up">

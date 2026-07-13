@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { relativeAgo as shortRel } from '../../lib/relativeTime';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { useSearchParams } from 'react-router-dom';
-import { AlertOctagon, ArrowLeft, ExternalLink, RefreshCw, Search } from 'lucide-react';
+import { AlertOctagon, ExternalLink, RefreshCw, Search } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
@@ -193,7 +193,7 @@ export default function CyberCrime(): JSX.Element {
         to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="animate-fade-in-up">

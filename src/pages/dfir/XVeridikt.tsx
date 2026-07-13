@@ -1,6 +1,6 @@
 import { useState, useMemo, useCallback, useRef } from 'react';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Search, Shield, AlertTriangle, CheckCircle, HelpCircle, Loader2, Upload, X } from 'lucide-react';
+import { Search, Shield, AlertTriangle, CheckCircle, HelpCircle, Loader2, Upload, X } from 'lucide-react';
 
 type Verdict = 'malicious' | 'suspicious' | 'benign' | 'unknown';
 
@@ -168,7 +168,7 @@ export default function XVeridikt(): JSX.Element {
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> back
+        back
       </BackLink>
 
       <div className="animate-fade-in-up mb-10">
