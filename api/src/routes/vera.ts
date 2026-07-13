@@ -110,6 +110,7 @@ async function loadSession(db: D1Database, id: string): Promise<VeraSession | nu
     messages_json: string;
     created_at: string;
     updated_at: string;
+    role: string | null;
   }>();
   if (!row) return null;
   return {
@@ -117,6 +118,7 @@ async function loadSession(db: D1Database, id: string): Promise<VeraSession | nu
     messages: JSON.parse(row.messages_json) as VeraMessage[],
     created_at: row.created_at,
     updated_at: row.updated_at,
+    role: (row.role as AnalystRole) ?? undefined,
   };
 }
 
@@ -233,7 +235,8 @@ export async function veraChatHandler(c: Context<{ Bindings: Env }>): Promise<Re
     });
 
     if (!doRes.ok) {
-      return internalError(c, new Error('failed to start vera investigation'));
+      const errBody = await doRes.text().catch(() => '');
+      return internalError(c, new Error(`Vera agent failed: ${doRes.status} ${errBody.slice(0, 200)}`));
     }
 
     session.messages.push({ role: 'user', content: query, mode, query_type: queryType });
@@ -368,6 +371,7 @@ export async function veraChatStreamHandler(c: Context<{ Bindings: Env }>): Prom
                 model_used: state.modelUsed ?? undefined,
                 processed_at: state.completedAt ?? new Date().toISOString(),
                 tools_used: toolsUsed,
+                analyst_role: session.role,
               });
 
               const maxHistory = 24;

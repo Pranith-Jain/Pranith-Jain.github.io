@@ -46,41 +46,79 @@ export default {
     const inboundRid = request.headers.get('x-request-id');
     const requestId = inboundRid && /^[a-zA-Z0-9_-]{8,128}$/.test(inboundRid) ? inboundRid : generateRequestId();
 
-    // WebSocket upgrades — route to Durable Objects or API handler
-    const wsRes = await handleWebSocketUpgrade(request, env, ctx, url, requestId);
-    if (wsRes) return wsRes;
+    // Pre-routing handlers with individual error boundaries so a crash
+    // in one path (e.g. MCP, WebSocket, OG image) doesn't take down the
+    // entire request. Each returns 500 with x-request-id on failure.
+    try {
+      // WebSocket upgrades — route to Durable Objects or API handler
+      const wsRes = await handleWebSocketUpgrade(request, env, ctx, url, requestId);
+      if (wsRes) return wsRes;
+    } catch (err) {
+      console.error('handleWebSocketUpgrade failed', err);
+      return new Response('internal error', { status: 500, headers: { 'x-request-id': requestId } });
+    }
 
-    // MCP server — DFIR & Threat Intel tools for AI agents
-    const mcpRes = await handleMcp(request, env, ctx, url);
-    if (mcpRes) return mcpRes;
+    try {
+      // MCP server — DFIR & Threat Intel tools for AI agents
+      const mcpRes = await handleMcp(request, env, ctx, url);
+      if (mcpRes) return mcpRes;
+    } catch (err) {
+      console.error('handleMcp failed', err);
+      return new Response('internal error', { status: 500, headers: { 'x-request-id': requestId } });
+    }
 
     // Dynamic OG card PNGs (public, before /api/v1/* key-gate)
     if (url.pathname.startsWith('/api/v1/og-image/')) {
-      const ogRes = await handleOgImage(request, env, url, ctx);
-      const h = new Headers(ogRes.headers);
-      h.set('x-request-id', requestId);
-      return withSecurityHeaders(
-        new Response(ogRes.body, { status: ogRes.status, statusText: ogRes.statusText, headers: h })
-      );
+      try {
+        const ogRes = await handleOgImage(request, env, url, ctx);
+        const h = new Headers(ogRes.headers);
+        h.set('x-request-id', requestId);
+        return withSecurityHeaders(
+          new Response(ogRes.body, { status: ogRes.status, statusText: ogRes.statusText, headers: h })
+        );
+      } catch (err) {
+        console.error('handleOgImage failed', err);
+        return new Response('internal error', { status: 500, headers: { 'x-request-id': requestId } });
+      }
     }
 
     // AI-generated blog illustrations (public, before /api/v1/* key-gate)
     if (url.pathname.startsWith('/api/v1/blog-image/')) {
-      const imgRes = await handleBlogImage(url, env);
-      return withSecurityHeaders(imgRes);
+      try {
+        const imgRes = await handleBlogImage(url, env);
+        return withSecurityHeaders(imgRes);
+      } catch (err) {
+        console.error('handleBlogImage failed', err);
+        return new Response('internal error', { status: 500, headers: { 'x-request-id': requestId } });
+      }
     }
 
     // Radar deep-crawl DO routes (admin-key required)
-    const radarRes = await handleRadarCrawl(request, env, url, requestId);
-    if (radarRes) return radarRes;
+    try {
+      const radarRes = await handleRadarCrawl(request, env, url, requestId);
+      if (radarRes) return radarRes;
+    } catch (err) {
+      console.error('handleRadarCrawl failed', err);
+      return new Response('internal error', { status: 500, headers: { 'x-request-id': requestId } });
+    }
 
     // ARGUS dashboard proxy (/threatnexus/*)
-    const argusDashRes = await handleArgusDashboard(request, url, requestId);
-    if (argusDashRes) return argusDashRes;
+    try {
+      const argusDashRes = await handleArgusDashboard(request, url, requestId);
+      if (argusDashRes) return argusDashRes;
+    } catch (err) {
+      console.error('handleArgusDashboard failed', err);
+      return new Response('internal error', { status: 500, headers: { 'x-request-id': requestId } });
+    }
 
     // ARGUS API proxy (/api/actors, /api/feed, etc.)
-    const argusApiRes = await handleArgusApi(request, env, url, requestId);
-    if (argusApiRes) return argusApiRes;
+    try {
+      const argusApiRes = await handleArgusApi(request, env, url, requestId);
+      if (argusApiRes) return argusApiRes;
+    } catch (err) {
+      console.error('handleArgusApi failed', err);
+      return new Response('internal error', { status: 500, headers: { 'x-request-id': requestId } });
+    }
 
     // Forward /api/* and legacy /blog/rss.xml to the API app
     if (url.pathname.startsWith('/api/') || url.pathname === '/blog/rss.xml') {

@@ -272,6 +272,8 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [SecOps Tools](https://pranithjain.qzz.io/threatintel/osint/secops) (threatintel): SecOps tools catalog — SIEM, EDR, SOAR, log shippers.
 - [OSINT Portal Directory](https://pranithjain.qzz.io/threatintel/osint/directory) (threatintel): Curated directory of 40 OSINT portals and resources filtered by category.
 - [Threat Intel Copilot](https://pranithjain.qzz.io/threatintel/tools/copilot) (threatintel): AI copilot — ask, pivot, summarize, draft.
+- [Vera](https://pranithjain.qzz.io/threatintel/vera) (threatintel): Vera — AI-powered investigative assistant for threat intelligence workflows.
+- [Agent Mesh](https://pranithjain.qzz.io/threatintel/agent-mesh) (threatintel): Live multi-agent orchestration — specialist transitions, tool calls, step timeline.
 - [MCP Search](https://pranithjain.qzz.io/threatintel/tools/mcp) (threatintel): MCP (Model Context Protocol) tool search.
 - [MISP Browser](https://pranithjain.qzz.io/threatintel/tools/misp) (threatintel): MISP galaxy and event browser.
 - [STIX Bundle Browser](https://pranithjain.qzz.io/threatintel/tools/stix) (threatintel): Browse and download STIX 2.1 bundles for OpenCTI, MISP, etc.

@@ -69,7 +69,16 @@ export class InvestigatorAgentDO {
 
     // POST /investigate — start a new investigation
     if (url.pathname === '/investigate' && request.method === 'POST') {
-      const body = (await request.json()) as { id: string; query: string; queryType?: string; maxSteps?: number };
+      const body = (await request.json()) as {
+        id: string;
+        query: string;
+        queryType?: string;
+        maxSteps?: number;
+        allowedTools?: string[] | null;
+        role?: string;
+        rolePreamble?: string;
+        responseFormat?: string;
+      };
       const state: AgentState = {
         id: body.id,
         query: body.query,
@@ -83,6 +92,10 @@ export class InvestigatorAgentDO {
         startedAt: new Date().toISOString(),
         completedAt: null,
         error: null,
+        role: body.role,
+        allowedTools: body.allowedTools,
+        rolePreamble: body.rolePreamble,
+        responseFormat: body.responseFormat,
       };
       await this.ctx.storage.put(`state:${body.id}`, state);
       await this.persist(state);
@@ -244,6 +257,11 @@ export class InvestigatorAgentDO {
     const internalToken = await signInternalToken('investigator-do', tokenSecret);
     const allTools = buildToolRegistry(this.env.SELF, undefined, { 'x-internal-token': internalToken });
 
+    // Filter tools by allowedTools if set (from Vera role/mode config)
+    const allowedTools = state.allowedTools;
+    const availableTools =
+      allowedTools && allowedTools.length > 0 ? allTools.filter((t) => allowedTools.includes(t.name)) : allTools;
+
     const stepNum = state.currentStep + 1;
     const stepStart = new Date().toISOString();
     const view = { stepNum, maxSteps: state.maxSteps, steps: state.steps };
@@ -388,17 +406,26 @@ export class InvestigatorAgentDO {
     }
 
     // ── FALLBACK: monolithic planner (no specialist matched) ──────────
-    const plan = await planNextStep(ai, state.query, state.queryType, state.steps, stepNum, state.maxSteps, allTools, {
-      groqKey,
-      googleKey,
-      nvidiaKey,
-    });
+    const plan = await planNextStep(
+      ai,
+      state.query,
+      state.queryType,
+      state.steps,
+      stepNum,
+      state.maxSteps,
+      availableTools,
+      {
+        groqKey,
+        googleKey,
+        nvidiaKey,
+      }
+    );
 
     if (plan.shouldSynthesize) {
       return await this.doSynthesize(state, ai, groqKey, googleKey, nvidiaKey, stepNum, stepStart, plan.reasoning);
     }
 
-    const validToolNames = new Set(allTools.map((t) => t.name));
+    const validToolNames = new Set(availableTools.map((t) => t.name));
     const toolCalls = filterCtiToolCalls(plan.toolCalls, view, validToolNames);
     if (toolCalls.length === 0) {
       return await this.doSynthesize(state, ai, groqKey, googleKey, nvidiaKey, stepNum, stepStart, plan.reasoning);
@@ -413,7 +440,7 @@ export class InvestigatorAgentDO {
       startedAt: stepStart,
     };
 
-    const results = await this.executeTools(toolCalls, allTools);
+    const results = await this.executeTools(toolCalls, availableTools);
     step.results = results;
     step.completedAt = new Date().toISOString();
 

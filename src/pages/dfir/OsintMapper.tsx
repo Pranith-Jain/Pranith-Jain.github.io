@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, lazy } from 'react';
 import { Map as MapIcon, Download, Upload, Plus, FilePlus2 } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { IdentifierGraph } from '../../components/dfir/osint/IdentifierGraph';
-import { MapPane } from '../../components/dfir/osint/MapPane';
+const MapPane = lazy(() => import('../../components/dfir/osint/MapPane').then((m) => ({ default: m.MapPane })));
 import { IdentifierForm } from '../../components/dfir/osint/IdentifierForm';
 import { PinForm } from '../../components/dfir/osint/PinForm';
 import {

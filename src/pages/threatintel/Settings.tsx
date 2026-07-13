@@ -1,6 +1,6 @@
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { useTheme } from '../../hooks';
-import { Moon, Plug, Shield, Globe, Server, FileSearch, Cpu, Book, Bug, Sun, Terminal } from 'lucide-react';
+import { Plug, Shield, Globe, Server, FileSearch, Cpu, Book, Bug, Terminal } from 'lucide-react';
 
 /**
  * Public-facing integrations directory.
