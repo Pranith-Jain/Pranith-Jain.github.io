@@ -103,9 +103,13 @@ export interface OnionWatchResponse {
 
 async function fetchJson<T>(url: string): Promise<T | null> {
   try {
-    const r = await fetchResilient(url, {
-      headers: { accept: 'application/json', 'user-agent': 'pranithjain-dfir/1.0' },
-    }, { attempts: 3, timeoutMs: FETCH_TIMEOUT_MS });
+    const r = await fetchResilient(
+      url,
+      {
+        headers: { accept: 'application/json', 'user-agent': 'pranithjain-dfir/1.0' },
+      },
+      { attempts: 3, timeoutMs: FETCH_TIMEOUT_MS }
+    );
     if (!r.ok) return null;
     return (await r.json()) as T;
   } catch {
@@ -214,22 +218,48 @@ export async function fetchOnionWatch(): Promise<OnionWatchResponse | null> {
   };
 }
 
+const ONION_WATCH_LASTGOOD_KV_KEY = 'onion-watch:lastgood:v1';
+const LASTGOOD_TTL = 172_800; // 48h — covers long upstream outages
+
 export async function onionWatchHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cache = (caches as unknown as { default: Cache }).default;
-  // v2: parser bug fix — old v1 cache entries hold the broken empty-groups
-  // response. Bump on any breaking response-shape change.
   const cacheKey = new Request(ONION_WATCH_CACHE_KEY);
   const cached = await cache.match(cacheKey);
   if (cached) return new Response(cached.body, cached);
 
   const body = await fetchOnionWatch();
-  if (!body) {
-    return c.json({ error: 'ransomlook unreachable', detail: 'failed to fetch /api/recent' }, 502, {
-      'cache-control': 'no-store',
-    });
+  if (body) {
+    // Persist last-good payload to KV so stale data is served during
+    // upstream outages. Non-blocking — the response goes out immediately.
+    if (c.env.KV_CACHE) {
+      c.executionCtx.waitUntil(
+        c.env.KV_CACHE.put(ONION_WATCH_LASTGOOD_KV_KEY, JSON.stringify(body), {
+          expirationTtl: LASTGOOD_TTL,
+        }).catch(() => {})
+      );
+    }
+    const response = c.json(body, 200, { 'Cache-Control': `public, max-age=${CACHE_TTL}` });
+    c.executionCtx.waitUntil(cache.put(cacheKey, response.clone()));
+    return response;
   }
 
-  const response = c.json(body, 200, { 'Cache-Control': `public, max-age=${CACHE_TTL}` });
-  c.executionCtx.waitUntil(cache.put(cacheKey, response.clone()));
-  return response;
+  // Upstream unreachable — try KV last-good fallback.
+  if (c.env.KV_CACHE) {
+    try {
+      const lastGood = await c.env.KV_CACHE.get<OnionWatchResponse>(ONION_WATCH_LASTGOOD_KV_KEY, 'json');
+      if (lastGood && lastGood.groups && lastGood.groups.length > 0) {
+        lastGood.warnings.push('ransomlook upstream unreachable — showing cached data');
+        return c.json(lastGood, 200, {
+          'Cache-Control': 'public, max-age=300',
+          'X-SI-Stale': 'ransomlook-unreachable',
+        });
+      }
+    } catch {
+      /* fall through to 502 */
+    }
+  }
+
+  return c.json({ error: 'ransomlook unreachable', detail: 'failed to fetch /api/recent' }, 502, {
+    'cache-control': 'no-store',
+  });
 }
