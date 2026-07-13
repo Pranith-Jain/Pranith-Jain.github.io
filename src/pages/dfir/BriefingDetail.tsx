@@ -302,7 +302,8 @@ function IocDumpPanel({
       a.remove();
       // Revoke after the click event has fired; small delay is enough.
       setTimeout(() => URL.revokeObjectURL(url), 1000);
-    } catch {
+    } catch (_catchErr) {
+      console.error('IocDumpPanel failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       // Last-resort: fall back to the inlined content (still a valid txt).
       const blob = new Blob([dump.content], { type: 'text/plain;charset=utf-8' });
       const url = URL.createObjectURL(blob);
@@ -322,7 +323,8 @@ function IocDumpPanel({
     if (copied) return;
     try {
       await navigator.clipboard.writeText(dump.content);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       // Fall back to a hidden textarea + execCommand for older browsers.
       const ta = document.createElement('textarea');
       ta.value = dump.content;
@@ -333,6 +335,7 @@ function IocDumpPanel({
       try {
         document.execCommand('copy');
       } catch (err) {
+        console.error('handler failed:', err instanceof Error ? err.message : String(err));
         // Older browser / insecure context — clipboard copy unavailable.
         // We just silently fall through; the download button is the other path.
         void err;
@@ -606,7 +609,8 @@ export default function BriefingDetail(): JSX.Element {
           try {
             const parsed = JSON.parse(body) as { error?: string };
             msg = parsed.error ?? msg;
-          } catch {
+          } catch (_catchErr) {
+            console.error('BriefingDetail failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
             /* use default */
           }
           throw new Error(msg);

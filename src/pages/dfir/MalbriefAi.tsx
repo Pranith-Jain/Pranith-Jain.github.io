@@ -69,7 +69,8 @@ export default function MalbriefAi(): JSX.Element {
         try {
           const p = JSON.parse(body) as { message?: string; error?: string };
           msg = p.message ?? p.error ?? msg;
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* */
         }
         throw new Error(msg);
@@ -82,11 +83,13 @@ export default function MalbriefAi(): JSX.Element {
         if (jsonMatch) {
           parsed = JSON.parse(jsonMatch[0]) as typeof result;
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* */
       }
       setResult(parsed ?? { summary: raw });
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       setError(err instanceof Error ? err.message : String(err));
     } finally {
       setLoading(false);
@@ -109,7 +112,8 @@ export default function MalbriefAi(): JSX.Element {
       await navigator.clipboard.writeText(lines.join('\n'));
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* */
     }
   };

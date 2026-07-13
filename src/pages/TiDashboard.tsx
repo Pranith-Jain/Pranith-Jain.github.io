@@ -177,6 +177,7 @@ export default function TiDashboard() {
       memoryCache.delete('/api/v1/ti-dashboard/');
       refetch();
     } catch (e) {
+      console.error('TiDashboard failed:', e instanceof Error ? e.message : String(e));
       setBuildError(e instanceof Error ? e.message : String(e));
     } finally {
       setBuilding(false);
@@ -201,7 +202,8 @@ export default function TiDashboard() {
         hour: '2-digit',
         minute: '2-digit',
       });
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return dateStr;
     }
   };

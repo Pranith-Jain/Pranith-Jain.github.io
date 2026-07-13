@@ -152,6 +152,7 @@ export default function ThreatSignalRss(): JSX.Element {
       }
       setAgg((await res.json()) as RssAggregate);
     } catch (e) {
+      console.error('ThreatSignalRss failed:', e instanceof Error ? e.message : String(e));
       setError((e as Error).message || 'failed to fetch feed');
     } finally {
       setLoading(false);

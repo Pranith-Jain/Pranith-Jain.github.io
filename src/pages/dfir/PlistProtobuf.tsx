@@ -126,17 +126,20 @@ function parseProtobuf(buf: Uint8Array, depth = 0): unknown {
         try {
           if (depth < 6 && sub.length > 1 && (sub[0]! & 0x07) <= 5) val = parseProtobuf(sub, depth + 1);
           else throw 0;
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           try {
             val = txt.decode(sub);
-          } catch {
+          } catch (_catchErr) {
+            console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
             val = `<${len} bytes>`;
           }
         }
         out[key] = val;
       } else break;
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* best-effort */
   }
   return out;
@@ -150,7 +153,8 @@ function bytesFrom(s: string): Uint8Array | null {
   }
   try {
     return new Uint8Array([...atob(t.replace(/\s/g, ''))].map((c) => c.charCodeAt(0)));
-  } catch {
+  } catch (_catchErr) {
+    console.error('bytesFrom failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -189,6 +193,7 @@ export default function PlistProtobuf(): JSX.Element {
         setOut(JSON.stringify(parseProtobuf(bytes), null, 2));
       }
     } catch (e) {
+      console.error('decode failed:', e instanceof Error ? e.message : String(e));
       setKind('error');
       setOut(e instanceof Error ? e.message : String(e));
     }

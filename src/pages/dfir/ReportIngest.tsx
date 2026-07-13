@@ -75,7 +75,8 @@ export default function ReportIngest(): JSX.Element {
       const json = (await res.json()) as IngestResponse;
       setResult(json);
       setStatus('done');
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       if (ctrl.signal.aborted) return;
       setStatus('error');
       setError('Network error — try again.');

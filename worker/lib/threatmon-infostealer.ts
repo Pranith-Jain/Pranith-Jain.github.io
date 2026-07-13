@@ -159,7 +159,8 @@ export async function threatmonInfostealerSearch(
             isEmployee: r.isEmployee ?? false,
           }));
           result.records.push(...recs);
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* non-JSON event data */
         }
       } else if (event === 'count') {
@@ -168,7 +169,8 @@ export async function threatmonInfostealerSearch(
           if (typeof parsed.count === 'number') {
             result.totalCount = parsed.count;
           }
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* ignore */
         }
       } else if (event === 'failed') {
@@ -184,6 +186,7 @@ export async function threatmonInfostealerSearch(
 
     result.diagnostics.push({ provider: 'threatmon', status: 'ok', ms: Date.now() - t0 });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     result.diagnostics.push({
       provider: 'threatmon',
       status: 'failed',

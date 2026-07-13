@@ -114,6 +114,7 @@ export default function DarkWebRecon(): JSX.Element {
         }
       }
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setLoading(false);

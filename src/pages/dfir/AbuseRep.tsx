@@ -46,6 +46,7 @@ export default function AbuseRep(): JSX.Element {
       }
       setData((await r.json()) as AbuseResult);
     } catch (err) {
+      console.error('AbuseRep failed:', err instanceof Error ? err.message : String(err));
       setError(err instanceof Error ? err.message : String(err));
     } finally {
       setLoading(false);

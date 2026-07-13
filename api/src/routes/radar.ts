@@ -20,7 +20,8 @@ const RADAR_LIST_SHADOW = new Request('https://radar-list-cache.internal/v1');
 function radarCacheApi(): Cache | null {
   try {
     return (caches as unknown as { default: Cache }).default;
-  } catch {
+  } catch (_catchErr) {
+    console.error('radarCacheApi failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -31,7 +32,8 @@ async function readRadarScanShadow(id: string): Promise<RadarScanResult | null> 
     const hit = await cache.match(RADAR_SCAN_SHADOW(id));
     if (!hit) return null;
     return (await hit.json()) as RadarScanResult;
-  } catch {
+  } catch (_catchErr) {
+    console.error('readRadarScanShadow failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -45,7 +47,8 @@ async function writeRadarScanShadow(id: string, value: RadarScanResult): Promise
         headers: { 'cache-control': `max-age=${RADAR_SCAN_TTL}` },
       })
     );
-  } catch {
+  } catch (_catchErr) {
+    console.error('writeRadarScanShadow failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* best-effort */
   }
 }
@@ -61,7 +64,8 @@ async function readRadarListShadow(): Promise<Array<{
     const hit = await cache.match(RADAR_LIST_SHADOW);
     if (!hit) return null;
     return (await hit.json()) as Array<{ id: string; target: string; scannedAt: string; status: number }>;
-  } catch {
+  } catch (_catchErr) {
+    console.error('readRadarListShadow failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -77,7 +81,8 @@ async function writeRadarListShadow(
         headers: { 'cache-control': `max-age=${RADAR_LIST_TTL}` },
       })
     );
-  } catch {
+  } catch (_catchErr) {
+    console.error('writeRadarListShadow failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* best-effort */
   }
 }
@@ -176,7 +181,8 @@ async function dnsLookup(domain: string): Promise<RadarScanResult['dns']> {
       const res = await pinnedFetch(`${dohUrl}?name=${domain}&type=${type}`, { headers });
       if (!res.ok) return null;
       return (await res.json()) as { Answer?: { name: string; type: number; data: string; TTL: number }[] };
-    } catch {
+    } catch (_catchErr) {
+      console.error('dnsLookup failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return null;
     }
   };
@@ -266,7 +272,8 @@ function extractJsFiles(html: string, baseUrl: string): RadarScanResult['js_file
     let src = raw;
     try {
       src = new URL(src, baseUrl).href;
-    } catch {
+    } catch (_catchErr) {
+      console.error('extractJsFiles failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       continue;
     }
     files.push({ url: src, size: 0, type: 'application/javascript' });
@@ -513,14 +520,16 @@ function extractQueryParameters(html: string, baseUrl: string): string[] {
     try {
       const u = new URL(raw);
       u.searchParams.forEach((_v, k) => params.add(k));
-    } catch {
+    } catch (_catchErr) {
+      console.error('extractQueryParameters failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* skip */
     }
   }
   try {
     const u = new URL(baseUrl);
     u.searchParams.forEach((_v, k) => params.add(k));
-  } catch {
+  } catch (_catchErr) {
+    console.error('extractQueryParameters failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* skip */
   }
   return [...params];
@@ -565,7 +574,8 @@ function extractDomains(html: string, baseDomain: string): string[] {
       ) {
         domains.add(host);
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('extractDomains failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* skip */
     }
   }
@@ -732,7 +742,8 @@ function extractBackupFiles(html: string, baseUrl: string): string[] {
       if (m[1]) {
         try {
           urls.add(new URL(m[1], baseUrl).href);
-        } catch {
+        } catch (_catchErr) {
+          console.error('extractBackupFiles failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* skip */
         }
       }
@@ -745,7 +756,8 @@ function extractBackupFiles(html: string, baseUrl: string): string[] {
       if (m?.[1]) {
         try {
           urls.add(new URL(m[1], baseUrl).href);
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* skip */
         }
       }
@@ -789,7 +801,8 @@ function extractDebugEndpoints(html: string, baseUrl: string): string[] {
     if (re.test(html)) {
       try {
         found.push(new URL(ep, baseUrl).href);
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* skip */
       }
     }
@@ -863,7 +876,8 @@ function extractSourceMaps(html: string, baseUrl: string): string[] {
     if (m[1]) {
       try {
         maps.add(m[1].startsWith('http') ? m[1] : new URL(m[1], baseUrl).href);
-      } catch {
+      } catch (_catchErr) {
+        console.error('extractSourceMaps failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* skip */
       }
     }
@@ -873,7 +887,8 @@ function extractSourceMaps(html: string, baseUrl: string): string[] {
     if (m[1]) {
       try {
         maps.add(m[1].startsWith('http') ? m[1] : new URL(m[1], baseUrl).href);
-      } catch {
+      } catch (_catchErr) {
+        console.error('extractSourceMaps failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* skip */
       }
     }
@@ -981,7 +996,8 @@ async function fetchRobotsTxt(domain: string): Promise<string[]> {
     while ((m = sitemapRe.exec(content)) !== null) {
       if (m[1]) paths.push(`sitemap:${m[1]}`);
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchRobotsTxt failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* skip */
   }
   return paths;
@@ -1005,7 +1021,8 @@ async function fetchSitemapUrls(domain: string): Promise<string[]> {
       if (m[1]?.trim()) urls.push(m[1].trim());
       if (urls.length >= 200) break;
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchSitemapUrls failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* skip */
   }
   return urls;
@@ -1036,7 +1053,8 @@ async function fetchSubdomainsViaCT(domain: string): Promise<string[]> {
       }
     }
     return [...subs].slice(0, 500);
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchSubdomainsViaCT failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -1065,7 +1083,8 @@ async function checkS3Buckets(domain: string): Promise<RadarScanResult['aws_asse
       if (res.status === 200 || res.status === 403) {
         results.push({ type: 'S3 Bucket', url, status: res.status });
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('checkS3Buckets failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* skip */
     }
   });
@@ -1083,7 +1102,8 @@ async function checkNodeModulesExposure(baseUrl: string): Promise<string[]> {
       const url = new URL(path, baseUrl).href;
       const res = await pinnedFetch(url, { method: 'HEAD', redirect: 'manual' });
       if (res.status === 200) found.push(url);
-    } catch {
+    } catch (_catchErr) {
+      console.error('checkNodeModulesExposure failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* skip */
     }
   });
@@ -1103,7 +1123,8 @@ export async function radarScanHandler(c: Context<{ Bindings: Env }>) {
   try {
     const u = rawUrl.includes('://') ? rawUrl : `https://${rawUrl}`;
     target = new URL(u);
-  } catch {
+  } catch (_catchErr) {
+    console.error('radarScanHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ error: 'invalid url' }, 400);
   }
 
@@ -1185,7 +1206,8 @@ export async function radarScanHandler(c: Context<{ Bindings: Env }>) {
       try {
         const fullUrl = new URL(path, target.href).href;
         if (!scannedUrls.includes(fullUrl)) scannedUrls.push(fullUrl);
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* skip */
       }
     }
@@ -1303,6 +1325,7 @@ export async function radarScanHandler(c: Context<{ Bindings: Env }>) {
 
     return c.json({ ...result, crawlId: id });
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     const msg = err instanceof Error ? err.message : String(err);
     return c.json({ error: `scan failed: ${msg}` }, 502);
   }

@@ -17,7 +17,8 @@ export async function reportIngestHandler(c: Context<{ Bindings: Env }>): Promis
   let form: FormData;
   try {
     form = await c.req.formData();
-  } catch {
+  } catch (_catchErr) {
+    console.error('reportIngestHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ error: 'invalid_multipart' }, 400);
   }
 
@@ -39,6 +40,7 @@ export async function reportIngestHandler(c: Context<{ Bindings: Env }>): Promis
   try {
     extracted = await extractText(bytes, file.type, file.name, c.env);
   } catch (err) {
+    console.error('reportIngestHandler failed:', err instanceof Error ? err.message : String(err));
     if (err instanceof UnsupportedFile) return c.json({ error: 'unsupported_file_type' }, 415);
     if (err instanceof ImageTooLarge) {
       return c.json(
@@ -79,6 +81,7 @@ export async function reportIngestHandler(c: Context<{ Bindings: Env }>): Promis
     const built = await buildBundleFromReport(c, report);
     return c.json({ bundle: built.bundle, view: built.view, cache: 'computed', ingest: extracted.meta }, 200);
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     if (err instanceof BundleBuildError) return c.json({ error: err.code }, 502);
     return c.json({ error: 'build_failed' }, 502);
   }

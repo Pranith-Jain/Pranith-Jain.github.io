@@ -41,7 +41,8 @@ function analyze(text: string): { rows: Row[]; total: number; parsed: number } {
     let decoded = m[4]!;
     try {
       decoded = decodeURIComponent(m[4]!);
-    } catch {
+    } catch (_catchErr) {
+      console.error('analyze failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* keep raw */
     }
     const ua = m[8] ?? '';

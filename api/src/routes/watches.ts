@@ -34,7 +34,8 @@ export async function createWatchHandler(c: Context<{ Bindings: Env }>): Promise
   let url: URL;
   try {
     url = new URL(body.webhook);
-  } catch {
+  } catch (_catchErr) {
+    console.error('createWatchHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return badRequest(c, 'Invalid webhook URL');
   }
   if (url.protocol !== 'http:' && url.protocol !== 'https:') {
@@ -78,7 +79,8 @@ export async function updateWatchHandler(c: Context<{ Bindings: Env }>): Promise
     let url: URL;
     try {
       url = new URL(body.webhook);
-    } catch {
+    } catch (_catchErr) {
+      console.error('updateWatchHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return badRequest(c, 'Invalid webhook URL');
     }
     if (url.protocol !== 'http:' && url.protocol !== 'https:') {

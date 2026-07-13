@@ -69,6 +69,7 @@ export default function AlertFeed() {
       setAlerts(alertData.alerts ?? []);
       setStats(statsData);
     } catch (e) {
+      console.error('AlertFeed failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : 'Failed to load alerts');
     } finally {
       setLoading(false);

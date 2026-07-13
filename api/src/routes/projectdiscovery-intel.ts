@@ -69,6 +69,7 @@ export async function pdLeaksHandler(c: Context<{ Bindings: Env }>): Promise<Res
     }
     data = await res.json();
   } catch (e) {
+    console.error('pdLeaksHandler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : 'ProjectDiscovery unreachable' }, 502, {
       'cache-control': 'no-store',
     });
@@ -143,6 +144,7 @@ export async function pdSubdomainsHandler(c: Context<{ Bindings: Env }>): Promis
     }
     chaos = (await res.json()) as ChaosResponse;
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : 'Chaos unreachable' }, 502, {
       'cache-control': 'no-store',
     });
@@ -206,7 +208,8 @@ function parseCves(text: string): PdCve[] {
     let rec: CveTemplate;
     try {
       rec = JSON.parse(trimmed) as CveTemplate;
-    } catch {
+    } catch (_catchErr) {
+      console.error('parseCves failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       continue;
     }
     if (!rec.ID) continue;
@@ -249,7 +252,8 @@ export async function pdCvesHandler(c: Context<{ Bindings: Env }>): Promise<Resp
       { attempts: 3, timeoutMs: 20_000 }
     );
     if (res.ok) text = await res.text();
-  } catch {
+  } catch (_catchErr) {
+    console.error('pdCvesHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     text = null;
   }
   if (!text) {
@@ -372,7 +376,8 @@ async function fetchSsvc(cveUpper: string): Promise<Ssvc | null> {
       }
     }
     return null;
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -406,6 +411,7 @@ export async function pdCveDetailHandler(c: Context<{ Bindings: Env }>): Promise
     }
     d = (await res.json()) as CvedbResponse;
   } catch (e) {
+    console.error('pdCveDetailHandler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : 'cvedb unreachable' }, 502, {
       'cache-control': 'no-store',
     });

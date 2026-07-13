@@ -51,7 +51,8 @@ export default function ScreenshotIntel(): JSX.Element {
         const exifr = (await import('exifr')).default;
         const m = await exifr.parse(file, { gps: true });
         if (m) setMeta(m as Record<string, unknown>);
-      } catch {
+      } catch (_catchErr) {
+        console.error('analyze failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* no exif */
       }
       // QR decode (jsQR — lazy chunk, tiny pure-JS, no wasm)
@@ -93,6 +94,7 @@ export default function ScreenshotIntel(): JSX.Element {
         ocrText = (data.text || '').trim();
         setOcr(ocrText);
       } catch (oe) {
+        console.error('handler failed:', oe instanceof Error ? oe.message : String(oe));
         setNote(`OCR unavailable: ${oe instanceof Error ? oe.message : String(oe)}`);
       } finally {
         setStage('');
@@ -100,6 +102,7 @@ export default function ScreenshotIntel(): JSX.Element {
 
       setEnts(entities(`${qrText} ${ocrText} ${file.name}`));
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setNote(e instanceof Error ? e.message : String(e));
     } finally {
       setBusy(false);

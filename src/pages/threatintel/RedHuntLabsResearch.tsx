@@ -67,7 +67,8 @@ const TAG_PILL: Record<string, string> = {
 function hostnameOf(url: string): string {
   try {
     return new URL(url).hostname.replace(/^www\./, '');
-  } catch {
+  } catch (_catchErr) {
+    console.error('hostnameOf failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return url;
   }
 }
@@ -267,14 +268,16 @@ export default function RedHuntLabsResearch(): JSX.Element {
       if (stored && SECTIONS.some((s) => s.id === stored)) {
         setTab(stored as TabId);
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('RedHuntLabsResearch failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* localStorage may be disabled (private mode, sandbox) — fall back to default. */
     }
   }, []);
   useEffect(() => {
     try {
       localStorage.setItem('redhunt.tab.v1', tab);
-    } catch {
+    } catch (_catchErr) {
+      console.error('RedHuntLabsResearch failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* no-op */
     }
   }, [tab]);

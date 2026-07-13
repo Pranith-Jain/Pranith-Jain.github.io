@@ -21,6 +21,7 @@ export async function hostIntelHandler(c: Context<{ Bindings: Env }>): Promise<R
     // Live data — cache 30 min at the edge to stay within the source rate limits.
     return c.json(result, 200, { 'Cache-Control': 'public, max-age=1800' });
   } catch (err) {
+    console.error('hostIntelHandler failed:', err instanceof Error ? err.message : String(err));
     return c.json({ error: safeErrorMessage(c.env as never, err) }, 502, { 'Cache-Control': 'no-store' });
   }
 }

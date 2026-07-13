@@ -30,6 +30,7 @@ export async function maltiverseSearchHandler(c: Context<{ Bindings: Env }>): Pr
     c.executionCtx.waitUntil(caches.default.put(cacheReq, response.clone()));
     return response;
   } catch (e) {
+    console.error('maltiverseSearchHandler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : 'Maltiverse unreachable' }, 502);
   }
 }

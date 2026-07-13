@@ -183,7 +183,8 @@ async function fetchLines(url: string): Promise<{ lines: string[]; size: number 
       .map((l) => l.trim())
       .filter((l) => l && !l.startsWith('#'));
     return { lines, size: new TextEncoder().encode(text).length };
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchLines failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }

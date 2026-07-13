@@ -205,6 +205,7 @@ export default function WifiInvestigation(): JSX.Element {
       const data = await res.json();
       setApiResult(data);
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       setApiError(err instanceof Error ? err.message : 'Failed to fetch investigation data');
     } finally {
       setLoading(false);

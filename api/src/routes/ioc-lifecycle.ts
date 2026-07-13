@@ -194,7 +194,8 @@ function rowToLifecycle(row: IocLifecycleRow): IocLifecycle {
     try {
       const parsed = JSON.parse(val);
       return Array.isArray(parsed) ? parsed : [];
-    } catch {
+    } catch (_catchErr) {
+      console.error('rowToLifecycle failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return [];
     }
   };

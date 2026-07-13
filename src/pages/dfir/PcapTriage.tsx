@@ -98,7 +98,8 @@ function parsePacket(
             q += ln + 1;
           }
           if (labels.length) acc.dns.add(labels.join('.'));
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* skip */
         }
       }
@@ -111,14 +112,16 @@ function parsePacket(
           const m = txt.match(/^(GET|POST|PUT|HEAD|DELETE|OPTIONS) (\S+) HTTP/);
           const host = txt.match(/[Hh]ost:\s*([^\r\n]+)/);
           if (m) acc.http.add(`${m[1]} ${host ? host[1]!.trim() : ''}${m[2]}`.slice(0, 120));
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* skip */
         }
       }
       if (proto === 6 && (dp === 443 || sp === 443)) note('TLS/443');
     } else if (proto === 1) note('ICMP');
     else note(`IP proto ${proto}`);
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* malformed packet — skip */
   }
 }
@@ -248,6 +251,7 @@ export default function PcapTriage(): JSX.Element {
             setErr('');
             setS(parse(await f.arrayBuffer()));
           } catch (ex) {
+            console.error('handler failed:', ex instanceof Error ? ex.message : String(ex));
             setS(null);
             setErr(ex instanceof Error ? ex.message : String(ex));
           }

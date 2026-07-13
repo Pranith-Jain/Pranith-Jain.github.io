@@ -56,7 +56,8 @@ function formatDate(iso: string): string {
   if (!iso) return '—';
   try {
     return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-  } catch {
+  } catch (_catchErr) {
+    console.error('formatDate failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return iso.slice(0, 10);
   }
 }
@@ -102,6 +103,7 @@ export default function Orkl(): JSX.Element {
       if (body.status !== 'success') throw new Error(body.status ?? 'orkl error');
       setResults(body.data ?? []);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       if (ctrl.signal.aborted) return;
       setError(e instanceof Error ? e.message : String(e));
     } finally {
@@ -128,7 +130,8 @@ export default function Orkl(): JSX.Element {
       if (body.status === 'success' && body.data) {
         setSelected(body.data);
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* keep the basic entry */
     } finally {
       if (!ctrl.signal.aborted) setDetailLoading(false);
@@ -151,7 +154,8 @@ export default function Orkl(): JSX.Element {
       if (body.status === 'success' && body.data) {
         setInfo(body.data);
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* ignore */
     }
     setShowInfo(true);

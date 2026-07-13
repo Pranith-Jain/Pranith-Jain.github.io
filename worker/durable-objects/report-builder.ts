@@ -78,7 +78,8 @@ export class ReportBuilderDO {
         if (typeof msg.reportId === 'string') {
           this.sessionReportIds.set(sessionId, msg.reportId);
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         // Ignore malformed messages
       }
     });
@@ -116,7 +117,8 @@ export class ReportBuilderDO {
       if (watching && watching !== msgReportId) continue;
       try {
         ws.send(payload);
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         this.sessions.delete(id);
         this.sessionReportIds.delete(id);
       }

@@ -68,6 +68,7 @@ export default function DomainMonitor(): JSX.Element {
       const data = (await r.json()) as DomainMonitorResponse;
       setResults(data);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       if (!signal.aborted) setError(e instanceof Error ? e.message : 'check failed');
     } finally {
       if (!signal.aborted) setLoading(false);

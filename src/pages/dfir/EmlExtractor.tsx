@@ -75,6 +75,7 @@ export default function EmlExtractor(): JSX.Element {
       const r = await parseEml(eml);
       setParsed(r);
     } catch (e) {
+      console.error('pipeToExtractor failed:', e instanceof Error ? e.message : String(e));
       setError((e as Error).message);
     } finally {
       setLoading(false);

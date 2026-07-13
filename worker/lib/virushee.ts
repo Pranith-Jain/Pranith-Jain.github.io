@@ -30,6 +30,7 @@ export async function virusheeCheck(
     result.data = (await res.json()) as VirusheeResult;
     result.success = true;
   } catch (e) {
+    console.error('virusheeCheck failed:', e instanceof Error ? e.message : String(e));
     result.error = e instanceof Error ? e.message : String(e);
   }
   return result;

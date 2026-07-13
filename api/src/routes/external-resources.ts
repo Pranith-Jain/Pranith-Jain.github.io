@@ -31,7 +31,8 @@ const MAX_ENTRIES = 500;
 function resCacheApi(): Cache | null {
   try {
     return (caches as unknown as { default: Cache }).default;
-  } catch {
+  } catch (_catchErr) {
+    console.error('resCacheApi failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -72,7 +73,8 @@ async function readDynamic(kv: KVNamespace): Promise<ExternalResource[]> {
     try {
       const r = await cache.match(RES_CACHE_KEY);
       if (r) return (await r.json()) as ExternalResource[];
-    } catch {
+    } catch (_catchErr) {
+      console.error('readDynamic failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* fall through */
     }
   }
@@ -112,7 +114,8 @@ function deriveId(url: string): string {
   let host = '';
   try {
     host = new URL(url).hostname.toLowerCase();
-  } catch {
+  } catch (_catchErr) {
+    console.error('deriveId failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     host = 'entry';
   }
   host = host.replace(/^www\./, '').replace(/[^a-z0-9.-]+/g, '');
@@ -165,7 +168,8 @@ export async function createExternalResourceHandler(c: AdminCtx) {
     if (u.protocol !== 'http:' && u.protocol !== 'https:') {
       return c.json({ error: 'url must use http or https' }, 400);
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('createExternalResourceHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ error: 'url is malformed' }, 400);
   }
 

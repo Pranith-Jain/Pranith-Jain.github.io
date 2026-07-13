@@ -72,7 +72,8 @@ async function readIndex(kv: KVNamespace): Promise<IndexEntry[]> {
     if (!raw) return [];
     const parsed = JSON.parse(raw) as IndexEntry[];
     return Array.isArray(parsed) ? parsed : [];
-  } catch {
+  } catch (_catchErr) {
+    console.error('readIndex failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -140,7 +141,8 @@ export async function saveCampaignHandler(c: Context<{ Bindings: Env }>): Promis
   let body: unknown;
   try {
     body = await c.req.json();
-  } catch {
+  } catch (_catchErr) {
+    console.error('saveCampaignHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ error: 'invalid JSON body' }, 400);
   }
   const validated = validateCampaignBody(body);
@@ -192,7 +194,8 @@ export async function getCampaignHandler(c: Context<{ Bindings: Env }>): Promise
     const resp = c.json(JSON.parse(raw), 200, { 'cache-control': 'public, max-age=300' });
     c.executionCtx.waitUntil(cache.put(req, resp.clone()));
     return resp;
-  } catch {
+  } catch (_catchErr) {
+    console.error('getCampaignHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ error: 'corrupted campaign record' }, 500);
   }
 }

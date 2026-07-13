@@ -128,6 +128,7 @@ async function safe<T>(fn: () => Promise<T>): Promise<SourcePayload<T>> {
     const data = await fn();
     return { ok: true, data };
   } catch (e) {
+    console.error('safe failed:', e instanceof Error ? e.message : String(e));
     // Generic surface — the err.message often names upstream services or
     // internal paths. Wrangler tail still sees the real error for ops.
     const isTimeout = e instanceof Error && (e.name === 'TimeoutError' || e.name === 'AbortError');
@@ -196,7 +197,8 @@ async function warmTelegramCaches(c: Context<{ Bindings: Env }>, body: TelegramF
     );
     const kv = c.env.KV_CACHE;
     if (kv) await kv.put(gpWarmKey('telegram'), JSON.stringify(body), { expirationTtl: 28800 });
-  } catch {
+  } catch (_catchErr) {
+    console.error('warmTelegramCaches failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* best-effort */
   }
 }
@@ -206,7 +208,8 @@ async function warmTelegramCachesFromLive(c: Context<{ Bindings: Env }>): Promis
   try {
     const body = await fetchTelegramFeed(c.env.KV_CACHE);
     await warmTelegramCaches(c, body);
-  } catch {
+  } catch (_catchErr) {
+    console.error('warmTelegramCachesFromLive failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* best-effort */
   }
 }
@@ -263,7 +266,8 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
             };
             const fresh = c.json(body, 200, { 'Cache-Control': `public, max-age=60, s-maxage=${CACHE_TTL}` });
             await cache.put(cacheKey, fresh);
-          } catch {
+          } catch (_catchErr) {
+            console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
             /* non-fatal */
           }
         })()

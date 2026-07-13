@@ -61,6 +61,7 @@ export async function runRetentionHandler(c: Context<{ Bindings: Env }>): Promis
     });
     return c.json(result, 200);
   } catch (e) {
+    console.error('runRetentionHandler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);
   }
 }
@@ -98,6 +99,7 @@ export async function telegramCleanupHandler(c: Context<{ Bindings: Env }>): Pro
       count_after: countAfter,
     });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);
   }
 }

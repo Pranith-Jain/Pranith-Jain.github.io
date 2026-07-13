@@ -56,6 +56,7 @@ export default function ApkAnalyzer(): JSX.Element {
       const r = await analyzeApk(file);
       setResult(r);
     } catch (e) {
+      console.error('ApkAnalyzer failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : 'analysis failed');
     } finally {
       setLoading(false);

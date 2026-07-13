@@ -86,6 +86,7 @@ export default function ActorDNA(): JSX.Element {
       setActors(data.actors ?? []);
       setError(null);
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       if (ctrl.signal.aborted) return;
       setError((err as Error).message);
     }
@@ -109,6 +110,7 @@ export default function ActorDNA(): JSX.Element {
       setSelectedActor(data);
       setError(null);
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       if (ctrl.signal.aborted) return;
       setError((err as Error).message);
       setSelectedActor(null);
@@ -140,6 +142,7 @@ export default function ActorDNA(): JSX.Element {
       setMatches(data.matches ?? []);
       setError(null);
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       if (ctrl.signal.aborted) return;
       setError((err as Error).message);
     } finally {

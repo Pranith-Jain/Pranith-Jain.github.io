@@ -54,6 +54,7 @@ export default function UsernameOsnit(): JSX.Element {
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       setResult(await r.json());
     } catch (err) {
+      console.error('UsernameOsnit failed:', err instanceof Error ? err.message : String(err));
       setError(err instanceof Error ? err.message : 'search failed');
     } finally {
       setLoading(false);

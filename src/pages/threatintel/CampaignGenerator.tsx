@@ -214,6 +214,7 @@ export default function CampaignGenerator(): JSX.Element {
         setResult(data);
       }
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       const err = e as Error;
       if (err.name === 'AbortError' || err.name === 'TimeoutError') {
         setError(
@@ -244,7 +245,8 @@ export default function CampaignGenerator(): JSX.Element {
       await navigator.clipboard.writeText(md);
       setCopied(true);
       window.setTimeout(() => setCopied(false), 1500);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* clipboard blocked — silent; user can still read the page */
     }
   };
@@ -278,6 +280,7 @@ export default function CampaignGenerator(): JSX.Element {
         navigate(`/threatintel/campaigns/${data.id}`);
       }
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setError((e as Error).message);
     } finally {
       setSaving(false);

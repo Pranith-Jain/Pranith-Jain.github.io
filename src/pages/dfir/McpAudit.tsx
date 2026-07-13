@@ -92,6 +92,7 @@ export default function McpAudit(): JSX.Element {
       const result = auditConfig(parsed);
       return { findings: result.findings, parseError: null, mode: result.mode };
     } catch (e) {
+      console.error('McpAudit failed:', e instanceof Error ? e.message : String(e));
       return { findings: [], parseError: e instanceof Error ? e.message : 'Invalid JSON', mode: null };
     }
   }, [input]);

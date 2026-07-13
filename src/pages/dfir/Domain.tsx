@@ -56,7 +56,8 @@ export default function Domain(): JSX.Element {
         try {
           const parsed = JSON.parse(body) as { error?: string };
           msg = parsed.error ?? msg;
-        } catch {
+        } catch (_catchErr) {
+          console.error('Domain failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* use default */
         }
         throw new Error(msg);
@@ -67,6 +68,7 @@ export default function Domain(): JSX.Element {
       setResult(r2);
       recordHistory({ tool: 'domain', indicator: r2.domain, verdict: r2.verdict, score: r2.score });
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       setError(err instanceof Error ? err.message : 'lookup failed');
     } finally {
       setLoading(false);

@@ -103,6 +103,7 @@ export async function feedbackCreateHandler(c: Context<{ Bindings: Env }>): Prom
 
     return c.json({ ok: true, feedback, aggregate: agg }, 201);
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
   }
 }
@@ -125,7 +126,8 @@ async function loadAllFeedback(kv: KVNamespace): Promise<Feedback[]> {
   try {
     const hit = await cache.match(new Request(FEEDBACK_LIST_CACHE));
     if (hit) return (await hit.json()) as Feedback[];
-  } catch {
+  } catch (_catchErr) {
+    console.error('loadAllFeedback failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* fall through to a fresh scan */
   }
   const listResult = await kv.list({ prefix: KV_PREFIX + ':', limit: 1000 });
@@ -135,7 +137,8 @@ async function loadAllFeedback(kv: KVNamespace): Promise<Feedback[]> {
       try {
         const raw = await kv.get(key.name);
         return raw ? (JSON.parse(raw) as Feedback) : null;
-      } catch {
+      } catch (_catchErr) {
+        console.error('loadAllFeedback failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         return null;
       }
     })
@@ -157,7 +160,8 @@ async function loadAllFeedback(kv: KVNamespace): Promise<Feedback[]> {
 async function invalidateFeedbackList(): Promise<void> {
   try {
     await (caches as unknown as { default: Cache }).default.delete(new Request(FEEDBACK_LIST_CACHE));
-  } catch {
+  } catch (_catchErr) {
+    console.error('invalidateFeedbackList failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* best-effort */
   }
 }
@@ -180,6 +184,7 @@ export async function feedbackListHandler(c: Context<{ Bindings: Env }>): Promis
       results: feedbacks.slice(0, limit),
     });
   } catch (e) {
+    console.error('feedbackListHandler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
   }
 }
@@ -203,6 +208,7 @@ export async function feedbackAggregateHandler(c: Context<{ Bindings: Env }>): P
     const agg = JSON.parse(raw) as FeedbackAgg;
     return c.json(agg);
   } catch (e) {
+    console.error('feedbackAggregateHandler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
   }
 }
@@ -243,6 +249,7 @@ export async function feedbackDeleteHandler(c: Context<{ Bindings: Env }>): Prom
 
     return c.json({ ok: true, deleted: id });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
   }
 }

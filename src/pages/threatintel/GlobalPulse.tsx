@@ -568,6 +568,7 @@ export default function GlobalPulse(): JSX.Element {
       }));
       setInfraResults(events);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       if (e instanceof DOMException && e.name === 'AbortError') return;
       setInfraError((e as Error).message);
       setInfraResults([]);
@@ -715,11 +716,13 @@ export default function GlobalPulse(): JSX.Element {
         // instead of waiting on the (cold ~10-20s) build behind a spinner.
         try {
           localStorage.setItem('gp:last', JSON.stringify(json));
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* quota / private mode — non-fatal */
         }
       }
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       if (loadIdRef.current === myId) setError((e as Error).message);
     } finally {
       if (loadIdRef.current === myId) setLoading(false);
@@ -892,7 +895,8 @@ export default function GlobalPulse(): JSX.Element {
     try {
       const cached = localStorage.getItem('gp:last');
       if (cached) setData((d) => d ?? (JSON.parse(cached) as GlobalPulseResponse));
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* ignore */
     }
   }, []);

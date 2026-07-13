@@ -139,7 +139,8 @@ export default function ChronoAi(): JSX.Element {
         try {
           const p = JSON.parse(body) as { message?: string; error?: string };
           msg = p.message ?? p.error ?? msg;
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* */
         }
         throw new Error(msg);
@@ -154,11 +155,13 @@ export default function ChronoAi(): JSX.Element {
           const summary = raw.replace(jsonMatch[0], '').trim();
           parsed = { timeline, summary: summary || 'Timeline reconstructed.' };
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* */
       }
       setResult(parsed ?? { timeline: [], summary: raw });
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       setError(err instanceof Error ? err.message : String(err));
     } finally {
       setLoading(false);
@@ -178,7 +181,8 @@ export default function ChronoAi(): JSX.Element {
       await navigator.clipboard.writeText(text);
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* */
     }
   };

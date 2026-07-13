@@ -152,6 +152,7 @@ export async function cisaKevHandler(c: Context<{ Bindings: Env }>): Promise<Res
       'Cache-Control': 'public, max-age=3600',
     });
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     return c.json(
       {
         error: 'CISA KEV lookup failed',

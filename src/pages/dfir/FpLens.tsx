@@ -126,7 +126,8 @@ export default function FpLens(): JSX.Element {
           const errBody = await res.text();
           const p = JSON.parse(errBody) as { error?: string; message?: string };
           msg = p.message ?? p.error ?? msg;
-        } catch {
+        } catch (_catchErr) {
+          console.error('FpLens failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* non-json error body, fall through */
         }
         throw new Error(msg);
@@ -135,6 +136,7 @@ export default function FpLens(): JSX.Element {
       if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
       setResult((await res.json()) as FpLensResult);
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       setError(err instanceof Error ? err.message : String(err));
     } finally {
       setLoading(false);

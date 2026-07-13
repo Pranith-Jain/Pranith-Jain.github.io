@@ -57,6 +57,7 @@ function makeHandler(endpoint: string, cacheKeyPrefix: string) {
       if (kv) c.executionCtx.waitUntil(kv.put(kvKey, JSON.stringify(payload), { expirationTtl: 86400 }));
       return response;
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       if (e instanceof Error && e.message === 'RATE_LIMITED') {
         if (kv) {
           const kvCached = await safeNullLog('kv-get-hackertarget-rate', kv.get(kvKey, 'json'));

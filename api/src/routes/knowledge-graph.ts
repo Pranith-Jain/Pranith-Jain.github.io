@@ -66,6 +66,7 @@ export async function knowledgeGraphHandler(c: Context<{ Bindings: Env }>): Prom
     const graph = parseJson(text);
     return c.json({ graph, model, generated_at: new Date().toISOString() });
   } catch (e) {
+    console.error('knowledgeGraphHandler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
   }
 }
@@ -79,6 +80,7 @@ knowledgeGraphRouter.get('/knowledge-graph', async (c) => {
     const graph = buildKnowledgeGraph(seed, maxNodes);
     return c.json(graph, 200, { 'cache-control': 'public, max-age=600' });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);
   }
 });

@@ -34,7 +34,8 @@ function loadEvent(): EventForm {
     if (!raw) return EMPTY_EVENT;
     const parsed = JSON.parse(raw);
     return { ...EMPTY_EVENT, ...parsed };
-  } catch {
+  } catch (_catchErr) {
+    console.error('loadEvent failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return EMPTY_EVENT;
   }
 }
@@ -159,7 +160,8 @@ function Diamond(): JSX.Element {
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(event));
-    } catch {
+    } catch (_catchErr) {
+      console.error('Diamond failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* quota / private mode — non-fatal */
     }
   }, [event]);
@@ -499,6 +501,7 @@ function Diamond(): JSX.Element {
         `Filled: ${filled.join(', ')}. ${skipped.length ? `Skipped: ${skipped.join('; ')}. ` : ''}Edit any field to refine.`
       );
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       if ((e as Error).name === 'AbortError') return;
       setAutoFillNote(`Auto-fill failed: ${(e as Error).message}`);
     } finally {

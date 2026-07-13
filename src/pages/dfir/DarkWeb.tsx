@@ -58,7 +58,8 @@ function loadJson<T>(key: string, fallback: T): T {
     const raw = window.localStorage.getItem(key);
     if (!raw) return fallback;
     return JSON.parse(raw) as T;
-  } catch {
+  } catch (_catchErr) {
+    console.error('loadJson failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return fallback;
   }
 }
@@ -67,7 +68,8 @@ function saveJson<T>(key: string, value: T): void {
   if (typeof window === 'undefined') return;
   try {
     window.localStorage.setItem(key, JSON.stringify(value));
-  } catch {
+  } catch (_catchErr) {
+    console.error('saveJson failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* localStorage may be disabled in private mode */
   }
 }
@@ -98,7 +100,8 @@ function compileSearch(query: string): ((item: FeedItem) => boolean) | null {
       if (/(\([^)]*[+*][^)]*\)|\[[^\]]*\][+*])[+*]/.test(pattern)) return null;
       const re = new RegExp(pattern, flags);
       return (item) => re.test(`${item.title ?? ''} ${item.description ?? ''}`);
-    } catch {
+    } catch (_catchErr) {
+      console.error('compileSearch failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return null; // bad regex
     }
   }
@@ -279,7 +282,8 @@ export default function DarkWeb(): JSX.Element {
     const escaped = tokens.map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
     try {
       return new RegExp(`(${escaped})`, 'gi');
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return null;
     }
   }, [search, watchlist]);
@@ -650,6 +654,7 @@ export function BreachDisclosuresPanel(): JSX.Element {
         const json = (await res.json()) as BreachDisclosuresResponse;
         setData(json);
       } catch (e) {
+        console.error('BreachDisclosuresPanel failed:', e instanceof Error ? e.message : String(e));
         if ((e as Error).name !== 'AbortError') setError((e as Error).message);
       } finally {
         setLoading(false);
@@ -879,6 +884,7 @@ export function RansomwareActivityPanel(): JSX.Element {
         const json = (await res.json()) as RansomwareResponse;
         setData(json);
       } catch (e) {
+        console.error('handler failed:', e instanceof Error ? e.message : String(e));
         if ((e as Error).name !== 'AbortError') setError((e as Error).message);
       } finally {
         setLoading(false);
@@ -1290,6 +1296,7 @@ export function TelegramFeedPanel(): JSX.Element {
         const json = (await res.json()) as TelegramFeedResponse;
         setData(json);
       } catch (e) {
+        console.error('handler failed:', e instanceof Error ? e.message : String(e));
         if ((e as Error).name !== 'AbortError') setError((e as Error).message);
       } finally {
         setLoading(false);

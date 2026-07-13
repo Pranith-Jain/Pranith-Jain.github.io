@@ -118,6 +118,7 @@ function InvestigationsPage(): JSX.Element {
       const data = (await res.json()) as { investigations: Investigation[] };
       if (!ctrl.signal.aborted) setInvestigations(data.investigations);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       if ((e as Error).name === 'AbortError') return;
       setError(e instanceof Error ? e.message : 'Failed to load');
       if (!ctrl.signal.aborted) setInvestigations([]);
@@ -143,7 +144,8 @@ function InvestigationsPage(): JSX.Element {
       const data = (await res.json()) as { investigation: Investigation };
       setActiveInv(data.investigation);
       setInvestigations((prev) => prev.map((i) => (i.id === id ? data.investigation : i)));
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* ignore */
     }
   }, []);
@@ -173,7 +175,8 @@ function InvestigationsPage(): JSX.Element {
       setActiveInv(data.investigation);
       setShowCreate(false);
       setCreateForm({ title: '', description: '', severity: 'medium', tlp: 'amber', tags: '' });
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* ignore */
     }
   };
@@ -190,7 +193,8 @@ function InvestigationsPage(): JSX.Element {
       const data = (await res.json()) as { investigation: Investigation };
       setActiveInv(data.investigation);
       setInvestigations((prev) => prev.map((i) => (i.id === id ? data.investigation : i)));
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* ignore */
     }
   };
@@ -204,7 +208,8 @@ function InvestigationsPage(): JSX.Element {
       });
       setInvestigations((prev) => prev.filter((i) => i.id !== id));
       if (activeInv?.id === id) setActiveInv(null);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* ignore */
     }
   };
@@ -220,7 +225,8 @@ function InvestigationsPage(): JSX.Element {
       });
       setObsValue('');
       await refreshInvestigation(activeInv.id);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* ignore */
     }
   };
@@ -234,7 +240,8 @@ function InvestigationsPage(): JSX.Element {
         signal: AbortSignal.timeout(15000),
       });
       await refreshInvestigation(activeInv.id);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* ignore */
     }
   };
@@ -250,7 +257,8 @@ function InvestigationsPage(): JSX.Element {
       });
       setTaskTitle('');
       await refreshInvestigation(activeInv.id);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* ignore */
     }
   };
@@ -265,7 +273,8 @@ function InvestigationsPage(): JSX.Element {
         signal: AbortSignal.timeout(15000),
       });
       await refreshInvestigation(activeInv.id);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* ignore */
     }
   };
@@ -281,7 +290,8 @@ function InvestigationsPage(): JSX.Element {
       });
       setNoteText('');
       await refreshInvestigation(activeInv.id);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* ignore */
     }
   };
@@ -299,7 +309,8 @@ function InvestigationsPage(): JSX.Element {
       const data = (await res.json()) as { investigation: Investigation };
       setActiveInv(data.investigation);
       setInvestigations((prev) => prev.map((i) => (i.id === activeInv.id ? data.investigation : i)));
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* ignore */
     }
   };

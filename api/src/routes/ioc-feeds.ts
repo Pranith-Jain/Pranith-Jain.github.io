@@ -61,6 +61,7 @@ export async function iocFeedSummaryHandler(c: Context<{ Bindings: Env }>) {
       'Cache-Control': `public, max-age=${summary.cache_control_seconds}`,
     });
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     return c.json({ error: safeErrorMessage(c.env as unknown as Record<string, unknown>, err) }, 502);
   }
 }

@@ -54,7 +54,8 @@ async function getFile(token: string, fileId: string): Promise<TelegramFile | nu
     if (!res.ok) return null;
     const data = (await res.json()) as { ok: boolean; result?: TelegramFile };
     return data.result ?? null;
-  } catch {
+  } catch (_catchErr) {
+    console.error('getFile failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -66,7 +67,8 @@ async function downloadFile(token: string, filePath: string): Promise<string | n
     });
     if (!res.ok) return null;
     return await res.text();
-  } catch {
+  } catch (_catchErr) {
+    console.error('downloadFile failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -125,7 +127,8 @@ async function setBotCommands(token: string): Promise<void> {
       body: JSON.stringify({ commands: BOT_COMMANDS }),
       signal: AbortSignal.timeout(5000),
     });
-  } catch {
+  } catch (_catchErr) {
+    console.error('setBotCommands failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* non-critical */
   }
 }
@@ -138,7 +141,8 @@ async function sendMessage(token: string, chatId: number, text: string): Promise
       body: JSON.stringify({ chat_id: chatId, text, parse_mode: 'HTML', disable_web_page_preview: true }),
       signal: AbortSignal.timeout(8000),
     });
-  } catch {
+  } catch (_catchErr) {
+    console.error('sendMessage failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* best-effort */
   }
 }
@@ -232,7 +236,8 @@ export async function telegramLeakBotWebhookHandler(c: Context<{ Bindings: Env }
   let update: TelegramUpdate;
   try {
     update = (await c.req.json()) as TelegramUpdate;
-  } catch {
+  } catch (_catchErr) {
+    console.error('telegramLeakBotWebhookHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ error: 'invalid JSON' }, 400);
   }
 
@@ -295,7 +300,8 @@ export async function telegramLeakBotWebhookHandler(c: Context<{ Bindings: Env }
             statsText += `📝 Leak entries indexed: <b>${leakCount?.n ?? 0}</b>\n`;
             statsText += `📡 Active channels: <b>${channelCount?.n ?? 0}</b>\n`;
             statsText += `🔍 Unreviewed discovered channels: <b>${discCount?.n ?? 0}</b>\n`;
-          } catch {
+          } catch (_catchErr) {
+            console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
             statsText += 'Database unavailable\n';
           }
         } else {
@@ -326,6 +332,7 @@ export async function telegramLeakBotWebhookStatusHandler(c: Context<{ Bindings:
     const data = (await res.json()) as Record<string, unknown>;
     return c.json(data);
   } catch (e) {
+    console.error('telegramLeakBotWebhookStatusHandler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ ok: false, error: e instanceof Error ? e.message : 'failed' }, 502);
   }
 }
@@ -356,6 +363,7 @@ export async function telegramLeakBotRegisterHandler(c: Context<{ Bindings: Env 
     }
     return c.json(data);
   } catch (e) {
+    console.error('telegramLeakBotRegisterHandler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : 'failed' }, 502);
   }
 }

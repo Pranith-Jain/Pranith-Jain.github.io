@@ -88,7 +88,8 @@ export default function Wayback(): JSX.Element {
         let detail: { error?: string; hint?: string; retry_after_seconds?: number } = {};
         try {
           detail = (await res.json()) as typeof detail;
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* upstream returned non-JSON */
         }
         if (res.status === 429 && detail.retry_after_seconds) {
@@ -121,6 +122,7 @@ export default function Wayback(): JSX.Element {
       }));
       setSnapshots(parsed);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setError((e as Error).message);
     } finally {
       setLoading(false);

@@ -39,6 +39,7 @@ export async function orklSearchHandler(c: Context<{ Bindings: Env }>): Promise<
     c.executionCtx.waitUntil(cache.put(new Request(cacheKey), response.clone()));
     return response;
   } catch (e) {
+    console.error('orklSearchHandler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : 'orkl unreachable' }, 502, {
       'cache-control': 'no-store',
     });
@@ -70,6 +71,7 @@ export async function orklEntryHandler(c: Context<{ Bindings: Env }>): Promise<R
     c.executionCtx.waitUntil(cache.put(new Request(cacheKey), response.clone()));
     return response;
   } catch (e) {
+    console.error('orklEntryHandler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : 'orkl unreachable' }, 502, {
       'cache-control': 'no-store',
     });
@@ -97,6 +99,7 @@ export async function orklInfoHandler(c: Context<{ Bindings: Env }>): Promise<Re
     c.executionCtx.waitUntil(cache.put(new Request(cacheKey), response.clone()));
     return response;
   } catch (e) {
+    console.error('orklInfoHandler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : 'orkl unreachable' }, 502, {
       'cache-control': 'no-store',
     });

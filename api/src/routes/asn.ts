@@ -100,6 +100,7 @@ export async function asnLookupHandler(c: Context<{ Bindings: Env }>) {
 
     return c.json(body, 200, { 'Cache-Control': 'public, max-age=86400' });
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     return c.json({ error: safeErrorMessage(c.env as never, err) }, 502, { 'Cache-Control': 'no-store' });
   }
 }

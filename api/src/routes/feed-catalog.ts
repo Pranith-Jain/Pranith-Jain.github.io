@@ -90,6 +90,7 @@ export async function feedCatalogHandler(c: Context<{ Bindings: Env }>): Promise
       'Cache-Control': `public, max-age=${CACHE_TTL}`,
     });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: String(e) }, 500);
   }
 }

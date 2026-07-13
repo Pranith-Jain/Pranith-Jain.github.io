@@ -35,6 +35,7 @@ export async function opensanctionsSearch(q: string, limit = 20) {
     result.data = (await res.json()) as OpensanctionsSearchResponse;
     result.success = true;
   } catch (e) {
+    console.error('opensanctionsSearch failed:', e instanceof Error ? e.message : String(e));
     result.error = e instanceof Error ? e.message : String(e);
   }
 
@@ -62,6 +63,7 @@ export async function opensanctionsEntity(id: string) {
     result.data = await res.json();
     result.success = true;
   } catch (e) {
+    console.error('opensanctionsEntity failed:', e instanceof Error ? e.message : String(e));
     result.error = e instanceof Error ? e.message : String(e);
   }
 
@@ -85,6 +87,7 @@ export async function opensanctionsStats() {
     result.data = await res.json();
     result.success = true;
   } catch (e) {
+    console.error('opensanctionsStats failed:', e instanceof Error ? e.message : String(e));
     result.error = e instanceof Error ? e.message : String(e);
   }
 

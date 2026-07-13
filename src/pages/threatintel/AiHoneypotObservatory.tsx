@@ -183,6 +183,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
       if (ctrl.signal.aborted) return;
       setFeed(data);
     } catch (e) {
+      console.error('AiHoneypotObservatory failed:', e instanceof Error ? e.message : String(e));
       if (ctrl.signal.aborted) return;
       setError(e instanceof Error ? e.message : 'Failed to load feed');
     } finally {

@@ -800,7 +800,8 @@ async function checkPlatform(username: string, platform: PlatformCheck): Promise
       return { platform: platform.id, name: platform.name, category: platform.category, status: 'found', url };
     }
     return { platform: platform.id, name: platform.name, category: platform.category, status: 'unknown', url };
-  } catch {
+  } catch (_catchErr) {
+    console.error('checkPlatform failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return { platform: platform.id, name: platform.name, category: platform.category, status: 'error', url };
   }
 }
@@ -1099,7 +1100,8 @@ export async function usernameProfileHandler(c: Context<{ Bindings: Env }>): Pro
         } else {
           results.push({ platform: platform.id, name: platform.name, category: platform.category, status, url });
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('worker failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         results.push({ platform: platform.id, name: platform.name, category: platform.category, status: 'error', url });
       }
     }

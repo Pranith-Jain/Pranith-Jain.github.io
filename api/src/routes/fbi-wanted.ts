@@ -28,6 +28,7 @@ fbiWantedRouter.get('/fbi-wanted/search', async (c) => {
       c.executionCtx.waitUntil(c.env.KV_CACHE.put(cacheKey, JSON.stringify(body), { expirationTtl: CACHE_TTL }));
     return c.json(body);
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : 'FBI API unreachable' }, 502);
   }
 });
@@ -66,6 +67,7 @@ fbiWantedRouter.get('/fbi-wanted/list', async (c) => {
       c.executionCtx.waitUntil(c.env.KV_CACHE.put(cacheKey, JSON.stringify(body), { expirationTtl: CACHE_TTL }));
     return c.json(body);
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : 'FBI API unreachable' }, 502);
   }
 });

@@ -30,6 +30,7 @@ export async function inquestSearchHandler(c: Context<{ Bindings: Env }>): Promi
     c.executionCtx.waitUntil(caches.default.put(cacheReq, response.clone()));
     return response;
   } catch (e) {
+    console.error('inquestSearchHandler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : 'InQuest unreachable' }, 502);
   }
 }

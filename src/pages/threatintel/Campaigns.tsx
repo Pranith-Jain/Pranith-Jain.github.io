@@ -51,6 +51,7 @@ export default function Campaigns(): JSX.Element {
       const data = (await r.json()) as { items: IndexEntry[] };
       setItems(data.items ?? []);
     } catch (e) {
+      console.error('Campaigns failed:', e instanceof Error ? e.message : String(e));
       setError((e as Error).message);
     } finally {
       setLoading(false);
@@ -71,6 +72,7 @@ export default function Campaigns(): JSX.Element {
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       setItems((prev) => prev.filter((i) => i.id !== id));
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setError(`Delete failed: ${(e as Error).message}`);
     }
   };

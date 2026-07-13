@@ -347,7 +347,8 @@ export async function reportParserHandler(c: Context<{ Bindings: Env }>): Promis
       let body: unknown;
       try {
         body = await c.req.json();
-      } catch {
+      } catch (_catchErr) {
+        console.error('reportParserHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         return c.json({ error: 'invalid JSON' }, 400);
       }
       const parsed = reportParserJsonSchema.safeParse(body);
@@ -370,7 +371,8 @@ export async function reportParserHandler(c: Context<{ Bindings: Env }>): Promis
         let parsedUrl: URL;
         try {
           parsedUrl = new URL(sourceUrl);
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           return c.json({ error: 'Invalid URL' }, 400);
         }
         if (parsedUrl.protocol !== 'https:' && parsedUrl.protocol !== 'http:') {
@@ -410,6 +412,7 @@ export async function reportParserHandler(c: Context<{ Bindings: Env }>): Promis
             text = buf;
           }
         } catch (err) {
+          console.error('handler failed:', err instanceof Error ? err.message : String(err));
           if (err instanceof SsrfError) {
             return c.json({ error: err.detail }, err.status as 400 | 403 | 502);
           }

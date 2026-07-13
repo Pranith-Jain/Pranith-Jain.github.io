@@ -64,6 +64,7 @@ export async function certTransparencyHandler(c: Context<{ Bindings: Env }>): Pr
 
     return c.json(result, 200, { 'Cache-Control': 'public, max-age=3600' });
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     return c.json(
       { error: `cert transparency lookup failed: ${err instanceof Error ? err.message : String(err)}` },
       502

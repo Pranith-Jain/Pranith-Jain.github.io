@@ -34,6 +34,7 @@ virusheeRouter.get('/virushee/check', async (c) => {
       c.executionCtx.waitUntil(c.env.KV_CACHE.put(cacheKey, JSON.stringify(body), { expirationTtl: CACHE_TTL }));
     return c.json(body);
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : 'Virushee unreachable' }, 502);
   }
 });

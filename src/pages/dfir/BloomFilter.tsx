@@ -80,7 +80,8 @@ export default function BloomFilter(): JSX.Element {
       const ct = res.headers.get('content-type') ?? '';
       if (!ct.includes('json')) throw new Error('Server returned non-JSON');
       setStats((await res.json()) as BloomStats);
-    } catch {
+    } catch (_catchErr) {
+      console.error('BloomFilter failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* silent */
     } finally {
       if (!ctrl.signal.aborted) setStatsLoading(false);
@@ -93,7 +94,8 @@ export default function BloomFilter(): JSX.Element {
       try {
         await fetch(`/api/v1/bloom/${type}`, { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(30_000)]) });
         await fetchStats();
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* silent */
       }
     },
@@ -119,7 +121,8 @@ export default function BloomFilter(): JSX.Element {
       const ct = res.headers.get('content-type') ?? '';
       if (!ct.includes('json')) throw new Error('Server returned non-JSON');
       setCheckResult((await res.json()) as BloomCheckResult);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* silent */
     } finally {
       if (!ctrl.signal.aborted) setLoading(false);

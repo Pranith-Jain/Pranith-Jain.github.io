@@ -37,7 +37,8 @@ export async function ctiParseHandler(c: Context<{ Bindings: Env }>) {
   let bundle: unknown;
   try {
     bundle = JSON.parse(text);
-  } catch {
+  } catch (_catchErr) {
+    console.error('ctiParseHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ error: 'invalid JSON', hint: 'request body must be a STIX 2.1 bundle in JSON form' }, 400);
   }
   // Quick shape check before handing to the parser, so users get a clear message.
@@ -61,6 +62,7 @@ export async function ctiParseHandler(c: Context<{ Bindings: Env }>) {
     // attributions they consider sensitive; don't let an intermediary cache it.
     return c.json(parsedBundle, 200, { 'Cache-Control': 'no-store' });
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     return c.json(
       {
         error: 'failed to parse STIX bundle',

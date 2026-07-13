@@ -19,6 +19,7 @@ toolsRouter.get('/tools/stats', async (c) => {
       cache,
     });
   } catch (e) {
+    console.error('loadMod failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `tools_stats_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -34,6 +35,7 @@ toolsRouter.get('/tools', async (c) => {
     const results = mod.listTools(idx, { category: category as any, keyword, offensive, limit });
     return c.json({ count: results.length, tools: results });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `tools_index_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -46,6 +48,7 @@ toolsRouter.get('/tools/:slug', async (c) => {
     if (!body) return notFound(c, `tool_not_found: ${slug}`);
     return c.json(body);
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `tool_detail_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });

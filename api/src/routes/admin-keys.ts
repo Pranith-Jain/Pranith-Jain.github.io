@@ -99,6 +99,7 @@ export async function createApiKeyHandler(c: Context<{ Bindings: Env }>): Promis
       'Cache-Control': 'no-store',
     });
   } catch (e) {
+    console.error('createApiKeyHandler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);
   }
 }
@@ -117,6 +118,7 @@ export async function listApiKeysHandler(c: Context<{ Bindings: Env }>): Promise
     const keys = await listApiKeys(db);
     return c.json({ keys }, 200, { 'Cache-Control': 'no-store' });
   } catch (e) {
+    console.error('listApiKeysHandler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);
   }
 }
@@ -140,6 +142,7 @@ export async function revokeApiKeyHandler(c: Context<{ Bindings: Env }>): Promis
     auditAdminAction(c, 'api_key_revoke', { keyId });
     return c.json({ ok: true }, 200, { 'Cache-Control': 'no-store' });
   } catch (e) {
+    console.error('revokeApiKeyHandler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);
   }
 }

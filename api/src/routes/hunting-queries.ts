@@ -57,7 +57,8 @@ export async function huntingQueryHandler(c: Context<{ Bindings: Env }>): Promis
   let body: { threat?: string; platforms?: string[] };
   try {
     body = await c.req.json();
-  } catch {
+  } catch (_catchErr) {
+    console.error('huntingQueryHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ error: 'bad_request', message: 'invalid JSON' }, 400);
   }
 

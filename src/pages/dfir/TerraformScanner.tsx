@@ -145,7 +145,8 @@ function policyIssues(policy: unknown): string[] {
   let doc: Record<string, unknown>;
   try {
     doc = typeof policy === 'string' ? JSON.parse(policy) : (policy as Record<string, unknown>);
-  } catch {
+  } catch (_catchErr) {
+    console.error('policyIssues failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
   if (!doc || typeof doc !== 'object') return [];
@@ -398,6 +399,7 @@ function analyze(text: string): Analysis | null {
   try {
     doc = JSON.parse(trimmed) as Record<string, unknown>;
   } catch (e) {
+    console.error('analyze failed:', e instanceof Error ? e.message : String(e));
     return {
       error: `${(e as Error).message}. Tip: this expects JSON — run \`terraform show -json <planfile>\` (not the human-readable plan).`,
       resources: 0,
@@ -416,7 +418,8 @@ function analyze(text: string): Analysis | null {
   for (const r of resources) {
     try {
       analyzeRes(r, findings);
-    } catch {
+    } catch (_catchErr) {
+      console.error('analyze failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* never let one odd resource break the scan */
     }
   }

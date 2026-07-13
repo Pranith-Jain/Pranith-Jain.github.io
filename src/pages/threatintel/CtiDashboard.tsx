@@ -102,7 +102,8 @@ export default function CtiDashboard(): JSX.Element {
     try {
       const res = await fetch(`${API}/stats`);
       if (res.ok) setStats(await res.json());
-    } catch {
+    } catch (_catchErr) {
+      console.error('CtiDashboard failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       setLoadError(true);
     }
   }, []);
@@ -114,7 +115,8 @@ export default function CtiDashboard(): JSX.Element {
         const data = await res.json();
         setPredictions(data.predictions || []);
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       setLoadError(true);
     }
   }, []);
@@ -123,7 +125,8 @@ export default function CtiDashboard(): JSX.Element {
     try {
       const res = await fetch(`${API}/mutations`);
       if (res.ok) setMutations(await res.json());
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       setLoadError(true);
     }
   }, []);
@@ -135,7 +138,8 @@ export default function CtiDashboard(): JSX.Element {
         const data = await res.json();
         setNews(data.news || []);
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       setLoadError(true);
     }
   }, []);
@@ -158,6 +162,7 @@ export default function CtiDashboard(): JSX.Element {
         await fetchNews();
       }
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : 'Collection failed');
     }
     setCollecting(false);
@@ -176,6 +181,7 @@ export default function CtiDashboard(): JSX.Element {
       if (data.error) setError(data.error);
       else if (data.predictions) setPredictions(data.predictions);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : 'Prediction failed');
     }
     setPredicting(false);
@@ -198,6 +204,7 @@ export default function CtiDashboard(): JSX.Element {
         setMutationInput('');
       }
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : 'Mutation failed');
     }
     setMutating(false);

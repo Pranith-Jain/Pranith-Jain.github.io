@@ -146,14 +146,16 @@ export default function PirDashboard(): JSX.Element {
     try {
       const saved = sessionStorage.getItem('pir-kiq-answers');
       if (saved) setKiqAnswers(JSON.parse(saved));
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* ignore */
     }
   }, []);
   useEffect(() => {
     try {
       sessionStorage.setItem('pir-kiq-answers', JSON.stringify(kiqAnswers));
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* ignore */
     }
   }, [kiqAnswers]);
@@ -284,6 +286,7 @@ export default function PirDashboard(): JSX.Element {
         active_count: updated.active_count ?? 0,
       });
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       if ((e as Error).name === 'AbortError') return;
       setActionError(e instanceof Error ? e.message : 'Operation failed');
     } finally {
@@ -302,6 +305,7 @@ export default function PirDashboard(): JSX.Element {
       if (!res.ok) throw new Error('Failed to delete');
       fetchAll();
     } catch (e) {
+      console.error('handleDelete failed:', e instanceof Error ? e.message : String(e));
       setActionError(e instanceof Error ? e.message : 'Delete failed');
     }
   }
@@ -315,7 +319,8 @@ export default function PirDashboard(): JSX.Element {
         signal: AbortSignal.timeout(15000),
       });
       setAlerts((prev) => prev.map((a) => (a.id === alertId ? { ...a, acknowledged: true } : a)));
-    } catch {
+    } catch (_catchErr) {
+      console.error('handleAcknowledge failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* non-fatal */
     } finally {
       setAcknowledging((prev) => {
@@ -335,7 +340,8 @@ export default function PirDashboard(): JSX.Element {
         signal: AbortSignal.timeout(15000),
       });
       setAlerts((prev) => prev.map((a) => ({ ...a, acknowledged: true })));
-    } catch {
+    } catch (_catchErr) {
+      console.error('handleAcknowledgeAll failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* non-fatal */
     } finally {
       setAckAllLoading(false);

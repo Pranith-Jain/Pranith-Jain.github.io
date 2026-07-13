@@ -155,7 +155,8 @@ async function enrichIp(ip: string, signal: AbortSignal): Promise<IpEnrichment |
       asname: data.geo?.asname,
       isp: data.geo?.isp,
     };
-  } catch {
+  } catch (_catchErr) {
+    console.error('enrichIp failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -247,6 +248,7 @@ export default function DmarcAnalyzer(): JSX.Element {
         setReport(parsed);
         enrichAll(parsed.records);
       } catch (e) {
+        console.error('handler failed:', e instanceof Error ? e.message : String(e));
         setError(e instanceof Error ? e.message : 'Failed to parse DMARC report');
       } finally {
         setLoading(false);

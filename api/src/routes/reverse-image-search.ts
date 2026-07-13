@@ -20,7 +20,8 @@ function isValidHttpUrl(raw: string): boolean {
   try {
     const u = new URL(raw);
     return u.protocol === 'http:' || u.protocol === 'https:';
-  } catch {
+  } catch (_catchErr) {
+    console.error('isValidHttpUrl failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return false;
   }
 }

@@ -93,7 +93,8 @@ export async function asnGraphHandler(c: Context<{ Bindings: Env }>): Promise<Re
       const cached = (await hit.json()) as IpResponseBody | AsnResponseBody | PrefixResponseBody;
       return c.json(cached, 200, { 'Cache-Control': `public, max-age=${CACHE_TTL_SECONDS}` });
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('asnGraphHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* cache miss is fine; fall through */
   }
 
@@ -134,7 +135,8 @@ export async function asnGraphHandler(c: Context<{ Bindings: Env }>): Promise<Re
           trackEvent(c.env, event, {
             indexes: [visitorCountry(c.req.raw)],
           });
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* telemetry is best-effort */
         }
       })()
@@ -154,7 +156,8 @@ export async function asnGraphHandler(c: Context<{ Bindings: Env }>): Promise<Re
             },
           })
         );
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* cache writes are non-fatal */
       }
     })()

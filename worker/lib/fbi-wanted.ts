@@ -14,6 +14,7 @@ export async function fbiWantedSearch(q: string) {
     result.total = data.total;
     result.success = true;
   } catch (e) {
+    console.error('fbiWantedSearch failed:', e instanceof Error ? e.message : String(e));
     result.error = e instanceof Error ? e.message : String(e);
   }
   return result;
@@ -33,6 +34,7 @@ export async function fbiWantedList(page = 1, pageSize = 20) {
     result.data = await res.json();
     result.success = true;
   } catch (e) {
+    console.error('fbiWantedList failed:', e instanceof Error ? e.message : String(e));
     result.error = e instanceof Error ? e.message : String(e);
   }
   return result;

@@ -42,7 +42,8 @@ const FAVORITES_KEY = 'dfir.multi-search.favorites:v1';
 function loadFavorites(): Set<string> {
   try {
     return new Set(JSON.parse(localStorage.getItem(FAVORITES_KEY) ?? '[]'));
-  } catch {
+  } catch (_catchErr) {
+    console.error('loadFavorites failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return new Set();
   }
 }
@@ -50,7 +51,8 @@ function loadFavorites(): Set<string> {
 function saveFavorites(f: Set<string>): void {
   try {
     localStorage.setItem(FAVORITES_KEY, JSON.stringify([...f]));
-  } catch {
+  } catch (_catchErr) {
+    console.error('saveFavorites failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* quota */
   }
 }

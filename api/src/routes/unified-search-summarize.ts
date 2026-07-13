@@ -30,7 +30,8 @@ export async function unifiedSearchSummarizeHandler(c: Context<{ Bindings: Env }
   let body: SummarizeBody;
   try {
     body = await c.req.json<SummarizeBody>();
-  } catch {
+  } catch (_catchErr) {
+    console.error('unifiedSearchSummarizeHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ error: 'bad_request', message: 'invalid JSON body' }, 400);
   }
 
@@ -61,7 +62,8 @@ export async function unifiedSearchSummarizeHandler(c: Context<{ Bindings: Env }
       const data = await cached.json();
       return c.json(data, 200, { 'cache-control': `public, max-age=${CACHE_TTL}` });
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* cache miss — proceed */
   }
 
@@ -86,7 +88,8 @@ export async function unifiedSearchSummarizeHandler(c: Context<{ Bindings: Env }
         headers: { 'content-type': 'application/json', 'cache-control': `max-age=${CACHE_TTL}` },
       })
     );
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* best-effort cache write */
   }
 

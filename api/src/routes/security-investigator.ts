@@ -385,6 +385,7 @@ export async function siScriptsHandler(c: Context<{ Bindings: Env }>) {
       'Cache-Control': 'public, max-age=300, s-maxage=3600',
     });
   } catch (e) {
+    console.error('siScriptsHandler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: 'scripts_index_failed', message: e instanceof Error ? e.message : String(e) }, 500, {
       'Cache-Control': 'no-store',
     });
@@ -531,6 +532,7 @@ export async function siRenderHandler(c: Context<{ Bindings: Env }>) {
     try {
       manifest = flattenRowsManifest(parseMiniYaml(skill.svgWidgetsYaml));
     } catch (e) {
+      console.error('siRenderHandler failed:', e instanceof Error ? e.message : String(e));
       return c.json({ error: 'yaml_parse_failed', message: e instanceof Error ? e.message : String(e) }, 400, {
         'Cache-Control': 'no-store',
       });
@@ -543,6 +545,7 @@ export async function siRenderHandler(c: Context<{ Bindings: Env }>) {
       try {
         manifest = parseMiniYaml(text) as RenderManifest;
       } catch (e) {
+        console.error('handler failed:', e instanceof Error ? e.message : String(e));
         return c.json({ error: 'yaml_parse_failed', message: e instanceof Error ? e.message : String(e) }, 400, {
           'Cache-Control': 'no-store',
         });
@@ -563,6 +566,7 @@ export async function siRenderHandler(c: Context<{ Bindings: Env }>) {
         try {
           manifest = parseMiniYaml(body.manifestYaml) as RenderManifest;
         } catch (e) {
+          console.error('handler failed:', e instanceof Error ? e.message : String(e));
           return c.json({ error: 'yaml_parse_failed', message: e instanceof Error ? e.message : String(e) }, 400, {
             'Cache-Control': 'no-store',
           });
@@ -592,6 +596,7 @@ export async function siRenderHandler(c: Context<{ Bindings: Env }>) {
         return c.json({ error: 'data_must_be_object' }, 400, { 'Cache-Control': 'no-store' });
       }
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       return c.json({ error: 'data_parse_failed', message: e instanceof Error ? e.message : String(e) }, 400, {
         'Cache-Control': 'no-store',
       });
@@ -618,6 +623,7 @@ export async function siRenderHandler(c: Context<{ Bindings: Env }>) {
           },
         });
       } catch (e) {
+        console.error('handler failed:', e instanceof Error ? e.message : String(e));
         return c.json({ error: 'png_render_failed', message: e instanceof Error ? e.message : String(e) }, 500, {
           'Cache-Control': 'no-store',
         });
@@ -645,6 +651,7 @@ export async function siRenderHandler(c: Context<{ Bindings: Env }>) {
       'Cache-Control': 'public, max-age=300, s-maxage=3600',
     });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: 'render_failed', message: e instanceof Error ? e.message : String(e) }, 500, {
       'Cache-Control': 'no-store',
     });

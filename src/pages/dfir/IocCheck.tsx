@@ -260,7 +260,8 @@ export default function IocCheck(): JSX.Element {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = (await res.json()) as { explanation: string; generated_at: string };
       setExplainText(data.explanation);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* ignore */
     } finally {
       setExplainLoading(false);
@@ -283,7 +284,8 @@ export default function IocCheck(): JSX.Element {
       const data = (await res.json()) as { rule_name: string; rule_text: string };
       setRuleName(data.rule_name);
       setRuleText(data.rule_text);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* ignore */
     } finally {
       setRuleLoading(false);
@@ -346,6 +348,7 @@ export default function IocCheck(): JSX.Element {
       const data = (await r.json()) as { bundle: { id: string } };
       setStixBundleId(data.bundle.id);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setStixError(`STIX build failed: ${(e as Error).message}. The intel-bundle endpoint may be down.`);
     } finally {
       setStixLoading(false);

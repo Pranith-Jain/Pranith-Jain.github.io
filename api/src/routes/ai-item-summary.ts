@@ -26,7 +26,8 @@ export async function aiItemSummaryHandler(c: Context<{ Bindings: Env }>): Promi
   let body: ItemSummaryBody;
   try {
     body = await c.req.json<ItemSummaryBody>();
-  } catch {
+  } catch (_catchErr) {
+    console.error('aiItemSummaryHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ error: 'bad_request', message: 'invalid JSON body' }, 400);
   }
 

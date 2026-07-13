@@ -27,6 +27,7 @@ export async function cyberNewsHandler(c: Context<{ Bindings: Env }>) {
       'Cache-Control': 'public, max-age=300, s-maxage=600',
     });
   } catch (err) {
+    console.error('cyberNewsHandler failed:', err instanceof Error ? err.message : String(err));
     const msg = err instanceof Error ? err.message : String(err);
     return c.json({ error: 'News fetch failed', detail: msg }, 502);
   } finally {

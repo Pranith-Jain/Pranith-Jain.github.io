@@ -93,6 +93,7 @@ export default function Rules(): JSX.Element {
       if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
       setData((await r.json()) as RulesResponse);
     } catch (e) {
+      console.error('Rules failed:', e instanceof Error ? e.message : String(e));
       if (ctrl.signal.aborted) return;
       setError((e as Error).message);
     } finally {

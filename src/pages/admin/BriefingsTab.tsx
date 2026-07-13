@@ -123,6 +123,7 @@ export default function BriefingsTab() {
       const r = await briefingsGet<{ items: ListItem[] }>('/list?limit=30');
       setItems(r.items ?? []);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setListError(e instanceof Error ? e.message : String(e));
     } finally {
       setListLoading(false);
@@ -143,6 +144,7 @@ export default function BriefingsTab() {
         setBuildResult(r);
         void loadList();
       } catch (e) {
+        console.error('handler failed:', e instanceof Error ? e.message : String(e));
         setBuildError(e instanceof Error ? e.message : String(e));
       } finally {
         setBuilding(null);
@@ -161,6 +163,7 @@ export default function BriefingsTab() {
       setBackfillResult(r);
       void loadList();
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setBackfillError(e instanceof Error ? e.message : String(e));
     } finally {
       setBackfilling(false);
@@ -176,6 +179,7 @@ export default function BriefingsTab() {
       setSweepResult(r);
       void loadList();
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setSweepError(e instanceof Error ? e.message : String(e));
     } finally {
       setSweeping(false);
@@ -192,6 +196,7 @@ export default function BriefingsTab() {
         setDeleteMsg(`Deleted ${slug}.`);
         void loadList();
       } catch (e) {
+        console.error('handler failed:', e instanceof Error ? e.message : String(e));
         setDeleteMsg(`Delete failed: ${e instanceof Error ? e.message : String(e)}`);
       } finally {
         setDeletingSlug(null);
@@ -209,6 +214,7 @@ export default function BriefingsTab() {
       setDeleteMsg(`Pruned ${r.deleted.length} empty briefing(s).`);
       void loadList();
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setDeleteMsg(`Prune failed: ${e instanceof Error ? e.message : String(e)}`);
     } finally {
       setPruning(false);

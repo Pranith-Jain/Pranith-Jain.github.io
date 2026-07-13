@@ -13,6 +13,7 @@ tiDashboardRouter.get('/ti-dashboard/', async (c) => {
     if (!report) return notFound(c, 'no_dashboard_found');
     return c.json(report);
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `dashboard_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -27,6 +28,7 @@ tiDashboardRouter.get('/ti-dashboard/:slug', async (c) => {
     if (!report) return notFound(c, `dashboard_not_found: ${slug}`);
     return c.json(report);
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `dashboard_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -40,6 +42,7 @@ tiDashboardRouter.post('/ti-dashboard/build', async (c) => {
     await mod.persistDashboard(db as any, report);
     return c.json({ ok: true, slug: report.slug, sources: report.metadata.documents_analyzed });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `dashboard_build_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -52,6 +55,7 @@ tiDashboardRouter.get('/ti-dashboard/sources/articles', async (c) => {
     const articles = await mod.fetchRecentArticles(db as any, 100);
     return c.json({ articles });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `articles_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -64,6 +68,7 @@ tiDashboardRouter.get('/ti-dashboard/sources/supply-chain', async (c) => {
     const incidents = await mod.fetchRecentSupplyChainIncidents(db as any, 50);
     return c.json({ incidents });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `supply_chain_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });

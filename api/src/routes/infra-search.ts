@@ -137,12 +137,14 @@ export async function infraSearchHandler(c: Context<{ Bindings: Env }>): Promise
       const text = await r.text();
       try {
         overpassData = JSON.parse(text);
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         lastError = 'invalid JSON';
         continue;
       }
       if (overpassData.elements) break;
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       lastError = err instanceof Error ? err.message : 'unknown';
     }
   }

@@ -68,6 +68,7 @@ export async function stopForumSpamHandler(c: Context<{ Bindings: Env }>): Promi
     if (!res.ok) return c.json({ error: `stopforumspam upstream ${res.status}` }, 502, { 'cache-control': 'no-store' });
     data = (await res.json()) as SfsResponse;
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : 'stopforumspam unreachable' }, 502, {
       'cache-control': 'no-store',
     });

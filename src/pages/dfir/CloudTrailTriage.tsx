@@ -140,7 +140,8 @@ function flatten(doc: unknown): CTEvent[] {
       if (typeof cte === 'string') {
         try {
           out.push(JSON.parse(cte) as CTEvent);
-        } catch {
+        } catch (_catchErr) {
+          console.error('flatten failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* skip unparseable embedded event */
         }
       } else pushMaybe(ev);
@@ -158,6 +159,7 @@ function analyze(text: string): Analysis | null {
   try {
     doc = JSON.parse(trimmed);
   } catch (e) {
+    console.error('analyze failed:', e instanceof Error ? e.message : String(e));
     return { error: (e as Error).message, events: 0, principals: 0, findings: [] };
   }
 

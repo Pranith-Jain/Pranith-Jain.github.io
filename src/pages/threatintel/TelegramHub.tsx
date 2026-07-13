@@ -178,6 +178,7 @@ export default function TelegramHub(): JSX.Element {
         const data = (await res.json()) as StatsResponse;
         if (!cancel) setStats(data);
       } catch (e) {
+        console.error('run failed:', e instanceof Error ? e.message : String(e));
         if (!cancel) setStatsError(e instanceof Error ? e.message : 'failed to load stats');
       } finally {
         if (!cancel) setStatsLoading(false);
@@ -229,6 +230,7 @@ export default function TelegramHub(): JSX.Element {
       setChannels(ch.results ?? []);
       setLeaks(lk.entries ?? []);
     } catch (e) {
+      console.error('runSearch failed:', e instanceof Error ? e.message : String(e));
       setSearchError(e instanceof Error ? e.message : 'search failed');
     } finally {
       setSearchLoading(false);

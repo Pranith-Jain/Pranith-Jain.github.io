@@ -137,6 +137,7 @@ export default function ObservableDb(): JSX.Element {
       setEntries(data.entries);
       setTotal(data.total);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       if (ctrl.signal.aborted) return;
       setError(e instanceof Error ? e.message : 'Failed to load');
     } finally {
@@ -182,7 +183,8 @@ export default function ObservableDb(): JSX.Element {
       setAddType('ip');
       setAddTags('');
       void fetchData();
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* ignore */
     }
   };
@@ -200,7 +202,8 @@ export default function ObservableDb(): JSX.Element {
       setEntries((prev) => prev.filter((e) => e.id !== id));
       setTotal((prev) => prev - 1);
       if (selected?.id === id) setSelected(null);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* ignore */
     }
   };
@@ -222,7 +225,8 @@ export default function ObservableDb(): JSX.Element {
       setSelected(data.entry);
       setEntries((prev) => prev.map((e) => (e.id === data.entry.id ? data.entry : e)));
       setNoteText('');
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* ignore */
     }
   };
@@ -241,7 +245,8 @@ export default function ObservableDb(): JSX.Element {
       const data = (await res.json()) as { entry: ObservableEntry };
       setSelected(data.entry);
       setEntries((prev) => prev.map((e) => (e.id === data.entry.id ? data.entry : e)));
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* ignore */
     }
   };
@@ -260,7 +265,8 @@ export default function ObservableDb(): JSX.Element {
       const data = (await res.json()) as { entry: ObservableEntry };
       setEntries((prev) => prev.map((e) => (e.id === data.entry.id ? data.entry : e)));
       if (selected?.id === id) setSelected(data.entry);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* ignore */
     }
   };

@@ -103,6 +103,7 @@ export default function ExifParse(): JSX.Element {
         setMetadata(data);
       }
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       setError(err instanceof Error ? err.message : 'Failed to parse file');
     } finally {
       setLoading(false);

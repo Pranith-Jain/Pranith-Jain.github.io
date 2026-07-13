@@ -148,7 +148,8 @@ export async function phishingAnalyzeAutoHandler(c: Context<{ Bindings: Env }>):
         const dnsData = (await dnsRes.json()) as { Answer?: Array<{ data: string }> };
         ip = dnsData.Answer?.[0]?.data;
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* best-effort */
     }
 
@@ -174,6 +175,7 @@ export async function phishingAnalyzeAutoHandler(c: Context<{ Bindings: Env }>):
       { 'Cache-Control': 'public, max-age=60' }
     );
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json(
       {
         url,

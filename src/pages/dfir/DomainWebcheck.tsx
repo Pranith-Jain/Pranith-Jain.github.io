@@ -97,6 +97,7 @@ export default function DomainWebcheck(): JSX.Element {
           .catch(() => {});
       }
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       setError(err instanceof Error ? err.message : 'scan failed');
     } finally {
       setLoading(false);

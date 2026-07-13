@@ -92,7 +92,8 @@ function fetchTool(url: string, signal?: AbortSignal): Promise<unknown> {
       try {
         const parsed = JSON.parse(body) as { error?: string };
         msg = parsed.error ?? msg;
-      } catch {
+      } catch (_catchErr) {
+        console.error('fetchTool failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* use default msg */
       }
       throw new Error(msg);

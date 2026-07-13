@@ -120,7 +120,8 @@ export async function actorEnrichHandler(c: Context<{ Bindings: Env }>): Promise
           signal: AbortSignal.timeout(15_000),
         });
         return r.ok ? await r.json() : [];
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         return [];
       }
     };

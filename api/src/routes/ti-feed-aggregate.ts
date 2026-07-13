@@ -293,7 +293,8 @@ feed.get('/feed-trending', async (c) => {
         sources: string;
       }>();
     recentItems = result.results || [];
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     // Tables may not exist - return empty trending
   }
 

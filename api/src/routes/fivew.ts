@@ -22,7 +22,8 @@ export async function fivewHandler(c: Context<{ Bindings: Env }>): Promise<Respo
   let body: { text?: string };
   try {
     body = await c.req.json();
-  } catch {
+  } catch (_catchErr) {
+    console.error('fivewHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ error: 'bad_request', message: 'invalid JSON body' }, 400);
   }
   const text = typeof body.text === 'string' ? body.text : '';
@@ -40,7 +41,8 @@ export async function fivewHandler(c: Context<{ Bindings: Env }>): Promise<Respo
       const data = (await cached.json()) as { fiveW: FiveW | null };
       return c.json(data, 200, { 'cache-control': `public, max-age=${CACHE_TTL}` });
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('fivewHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* miss */
   }
 

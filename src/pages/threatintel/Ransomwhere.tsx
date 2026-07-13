@@ -37,7 +37,8 @@ function safeHref(url: string): string | null {
   try {
     const u = new URL(url);
     return u.protocol === 'http:' || u.protocol === 'https:' ? u.toString() : null;
-  } catch {
+  } catch (_catchErr) {
+    console.error('safeHref failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }

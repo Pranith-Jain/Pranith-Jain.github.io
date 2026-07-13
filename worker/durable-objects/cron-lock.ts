@@ -37,7 +37,8 @@ export class CronLockDO {
     let body: { op?: string; cron?: string; ttlMs?: number; token?: string };
     try {
       body = (await request.json()) as typeof body;
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return Response.json({ error: 'bad request body' }, { status: 400 });
     }
     const { op, cron, ttlMs, token } = body;
@@ -155,7 +156,8 @@ export async function acquireCronLease(
       body: JSON.stringify({ op: 'acquire', cron, ttlMs }),
     });
     return (await res.json()) as { acquired: boolean; token?: string };
-  } catch {
+  } catch (_catchErr) {
+    console.error('acquireCronLease failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return { acquired: true, failOpen: true };
   }
 }
@@ -166,7 +168,8 @@ export async function heartbeatCronLease(env: Env, cron: string, token: string, 
       method: 'POST',
       body: JSON.stringify({ op: 'heartbeat', cron, token, ttlMs }),
     });
-  } catch {
+  } catch (_catchErr) {
+    console.error('heartbeatCronLease failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* best-effort */
   }
 }
@@ -177,7 +180,8 @@ export async function releaseCronLease(env: Env, cron: string, token: string): P
       method: 'POST',
       body: JSON.stringify({ op: 'release', cron, token }),
     });
-  } catch {
+  } catch (_catchErr) {
+    console.error('releaseCronLease failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* best-effort — the TTL reclaims the lease */
   }
 }

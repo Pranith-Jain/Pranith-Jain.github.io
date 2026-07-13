@@ -134,6 +134,7 @@ export default function TelegramFirehose(): JSX.Element {
       const j = (await r.json()) as TelegramFeedResponse;
       setFeed(j);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setFeedError((e as Error).message);
     } finally {
       setFeedLoading(false);
@@ -149,6 +150,7 @@ export default function TelegramFirehose(): JSX.Element {
       const j = (await r.json()) as { entries: LeakEntry[] };
       setLeaks(j.entries ?? []);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setLeakError((e as Error).message);
     } finally {
       setLeakLoading(false);
@@ -164,6 +166,7 @@ export default function TelegramFirehose(): JSX.Element {
       const j = (await r.json()) as LiveIocsResponse;
       setLiveIocs((j.items ?? []).filter((it) => it.source === 'telegram-leak' || it.source === 'telegram'));
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setLiveError((e as Error).message);
     } finally {
       setLiveLoading(false);
@@ -230,7 +233,8 @@ export default function TelegramFirehose(): JSX.Element {
             try {
               const arr = JSON.parse(l.domains_found);
               return Array.isArray(arr) && arr.length > 0 ? `${arr.length} domains` : '—';
-            } catch {
+            } catch (_catchErr) {
+              console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
               return '—';
             }
           })(),

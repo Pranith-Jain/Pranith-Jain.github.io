@@ -173,6 +173,7 @@ export async function taxiiObjectsHandler(c: Context<{ Bindings: Env }>): Promis
       }
     );
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     return c.json(
       {
         title: 'Error',

@@ -110,7 +110,8 @@ export default function CveLookup(): JSX.Element {
       const data = (await res.json()) as { narrative: string };
       const safe = await sanitizeAiHtml(data.narrative);
       setExplainText(safe);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* ignore */
     } finally {
       setExplainLoading(false);
@@ -133,7 +134,8 @@ export default function CveLookup(): JSX.Element {
       const data = (await res.json()) as { rule_name: string; rule_text: string };
       setRuleName(data.rule_name);
       setRuleText(data.rule_text);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* ignore */
     } finally {
       setRuleLoading(false);
@@ -158,7 +160,8 @@ export default function CveLookup(): JSX.Element {
         try {
           const parsed = JSON.parse(body) as { message?: string };
           msg = parsed.message ?? msg;
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* use default */
         }
         throw new Error(msg);
@@ -167,6 +170,7 @@ export default function CveLookup(): JSX.Element {
       if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
       setResult((await r.json()) as CveLookupResult);
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       setError(err instanceof Error ? err.message : 'lookup failed');
     } finally {
       setLoading(false);

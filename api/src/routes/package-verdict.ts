@@ -96,7 +96,8 @@ async function checkOssf(ecosystem: string, packageName: string, token?: string)
         summary: `Malicious package advisory: ${packageName}`,
         modified: '',
       }));
-  } catch {
+  } catch (_catchErr) {
+    console.error('checkOssf failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -139,7 +140,8 @@ async function checkOsv(ecosystem: string, packageName: string): Promise<Advisor
       published: v.published,
       withdrawn: Boolean(v.withdrawn),
     }));
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -210,6 +212,7 @@ export async function packageVerdictHandler(c: Context<{ Bindings: Env }>): Prom
       'Cache-Control': 'public, max-age=3600',
     });
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     return c.json(
       { error: 'package verdict lookup failed', message: err instanceof Error ? err.message : 'Unknown error' },
       500,

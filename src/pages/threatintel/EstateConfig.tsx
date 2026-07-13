@@ -106,6 +106,7 @@ export default function EstateConfig() {
       setConfig(configData);
       setAssets(assetsData.assets ?? []);
     } catch (e) {
+      console.error('EstateConfig failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : 'Failed to load estate data');
     } finally {
       setLoading(false);
@@ -127,7 +128,8 @@ export default function EstateConfig() {
       if (!res.ok) throw new Error('Failed to save');
       setSaved(true);
       setTimeout(() => setSaved(false), 2000);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       setError('Failed to save configuration');
     } finally {
       setSaving(false);
@@ -147,6 +149,7 @@ export default function EstateConfig() {
       const d = await fetch('/api/v1/estate/assets').then((r) => r.json());
       setAssets(d.assets ?? []);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : 'Failed to add asset');
     }
   };
@@ -156,6 +159,7 @@ export default function EstateConfig() {
       await fetch(`/api/v1/estate/assets/${id}`, { method: 'DELETE' });
       setAssets((prev) => prev.filter((a) => a.id !== id));
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : 'Failed to delete asset');
     }
   };

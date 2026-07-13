@@ -120,7 +120,8 @@ async function gatherAchContext(
           .join('\n\n');
       }
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('gatherAchContext failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* non-fatal */
   }
 
@@ -144,7 +145,8 @@ async function gatherAchContext(
         sourceNames.push('telegram-leak-monitor');
       }
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* non-fatal */
   }
 
@@ -206,7 +208,8 @@ async function callLlm(env: Env, system: string, user: string): Promise<string> 
         const data = await res.json<{ choices?: Array<{ message?: { content?: string } }> }>();
         return data?.choices?.[0]?.message?.content ?? '';
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('callLlm failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* fall through */
     }
   }
@@ -214,7 +217,8 @@ async function callLlm(env: Env, system: string, user: string): Promise<string> 
   if (env.NVIDIA_API_KEY) {
     try {
       return await callNvidia(env, system, user);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* fall through */
     }
   }
@@ -278,6 +282,7 @@ export async function achHandler(c: Context<{ Bindings: Env }>): Promise<Respons
 
     return c.json(response, 200, { 'Cache-Control': 'no-store' });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
   }
 }

@@ -85,6 +85,7 @@ export async function maltrailListHandler(c: Context<{ Bindings: Env }>): Promis
     c.executionCtx.waitUntil(edgeCache.put(MALTRAIL_LIST_CACHE_KEY, cacheable).catch(() => undefined));
     return c.json(body, 200, { 'cache-control': 'public, max-age=3600' });
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     return c.json({ error: err instanceof Error ? err.message : String(err) }, 502, {
       'cache-control': 'no-store',
     });
@@ -142,6 +143,7 @@ export async function maltrailFetchHandler(c: Context<{ Bindings: Env }>): Promi
       { 'cache-control': 'public, max-age=3600' }
     );
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     return c.json({ error: err instanceof Error ? err.message : String(err) }, 502, {
       'cache-control': 'no-store',
     });

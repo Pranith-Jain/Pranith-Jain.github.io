@@ -367,7 +367,8 @@ function rewriteLinkOrigin(url: string, rules: RssSource['linkOriginRewrite']): 
       }
     }
     return url;
-  } catch {
+  } catch (_catchErr) {
+    console.error('rewriteLinkOrigin failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return url;
   }
 }
@@ -381,7 +382,8 @@ function stripTracking(url: string): string {
     });
     for (const k of toDelete) u.searchParams.delete(k);
     return u.toString();
-  } catch {
+  } catch (_catchErr) {
+    console.error('stripTracking failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return url;
   }
 }
@@ -393,7 +395,8 @@ async function loadCached(env: Env, sourceId: string): Promise<RssFeed | null> {
     const raw = await env.CASE_STUDIES.get(CACHE_KEY_FOR(sourceId));
     if (!raw) return null;
     return JSON.parse(raw) as RssFeed;
-  } catch {
+  } catch (_catchErr) {
+    console.error('loadCached failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -403,7 +406,8 @@ async function writeCached(env: Env, sourceId: string, feed: Omit<RssFeed, 'stal
     await env.CASE_STUDIES.put(CACHE_KEY_FOR(sourceId), JSON.stringify(feed), {
       expirationTtl: CACHE_TTL_SECONDS,
     });
-  } catch {
+  } catch (_catchErr) {
+    console.error('writeCached failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     // Cache write failure is non-fatal.
   }
 }
@@ -456,6 +460,7 @@ async function loadOneSource(env: Env, source: RssSource): Promise<{ feed: RssFe
     await writeCached(env, source.id, feed);
     return { feed, error: null };
   } catch (e) {
+    console.error('loadOneSource failed:', e instanceof Error ? e.message : String(e));
     // 3) Fallback to stale cache
     if (cached) {
       return { feed: { ...cached, stale: true }, error: safeErrorMessage(env, e) };
@@ -613,6 +618,7 @@ async function passthroughHandler(c: Context<{ Bindings: Env }>, sourceId: strin
       },
     });
   } catch (e) {
+    console.error('passthroughHandler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: 'upstream_unavailable', message: safeErrorMessage(c.env, e) }, 502, {
       'cache-control': 'no-store',
     });

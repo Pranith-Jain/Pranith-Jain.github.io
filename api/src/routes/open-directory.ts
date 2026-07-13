@@ -185,7 +185,8 @@ function parseDirectoryListing(html: string, _baseUrl: string): DirEntry[] {
     let name: string;
     try {
       name = decodeURIComponent(href);
-    } catch {
+    } catch (_catchErr) {
+      console.error('parseDirectoryListing failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       name = href;
     }
 
@@ -389,6 +390,7 @@ export async function openDirectoryScanHandler(c: Context<{ Bindings: Env }>): P
 
     return c.json(result, 200, { 'Cache-Control': 'public, max-age=300' });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     if (e instanceof SsrfError) {
       return c.json({ error: 'blocked', message: e.detail, blockedIp: e.blockedIp }, e.status as 400 | 403 | 502 | 503);
     }

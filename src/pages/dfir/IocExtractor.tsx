@@ -208,7 +208,8 @@ export default function IocExtractor(): JSX.Element {
         setPipedFrom(cfg.label);
         sessionStorage.removeItem(cfg.storage);
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* sessionStorage unavailable — silently skip */
     }
     // Drop the ?from param so the URL is clean after the pipe.

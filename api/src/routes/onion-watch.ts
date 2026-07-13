@@ -112,7 +112,8 @@ async function fetchJson<T>(url: string): Promise<T | null> {
     );
     if (!r.ok) return null;
     return (await r.json()) as T;
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchJson failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -254,7 +255,8 @@ export async function onionWatchHandler(c: Context<{ Bindings: Env }>): Promise<
           'X-SI-Stale': 'ransomlook-unreachable',
         });
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* fall through to 502 */
     }
   }

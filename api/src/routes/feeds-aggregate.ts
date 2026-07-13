@@ -390,7 +390,8 @@ function parseFeedBody(body: string, sourceUrl: string, host: string, perSource:
       if (parsed && typeof parsed === 'object' && 'version' in parsed && Array.isArray(parsed.items)) {
         return parseJsonFeedItems(parsed.items, sourceUrl, host, perSource);
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('parseFeedBody failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       // Not valid JSON — fall through to XML parsing
     }
   }
@@ -471,6 +472,7 @@ async function fetchOne(url: string, perSource: number, env?: Env): Promise<Fetc
       const { xml } = await buildMtiRansomwareRss();
       return { items: parseFeedBody(xml, url, parsed.hostname, perSource) };
     } catch (e) {
+      console.error('fetchOne failed:', e instanceof Error ? e.message : String(e));
       return { items: [], error: `mti_build_failed: ${(e as Error).message}` };
     }
   }
@@ -479,6 +481,7 @@ async function fetchOne(url: string, perSource: number, env?: Env): Promise<Fetc
       const { xml } = await buildRansomwareMergedRss(env);
       return { items: parseFeedBody(xml, url, parsed.hostname, perSource) };
     } catch (e) {
+      console.error('fetchOne failed:', e instanceof Error ? e.message : String(e));
       return { items: [], error: `ransomware_merged_build_failed: ${(e as Error).message}` };
     }
   }
@@ -508,7 +511,8 @@ async function fetchOne(url: string, perSource: number, env?: Env): Promise<Fetc
       // Empty parse on cached body falls through to a fresh fetch — but
       // only once, since the next put will overwrite this key.
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* edge-cache miss / parse fail; fall through to live fetch */
   }
 
@@ -553,7 +557,8 @@ async function fetchOne(url: string, perSource: number, env?: Env): Promise<Fetc
       let next: URL;
       try {
         next = new URL(location, currentUrl);
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         return { items: [], error: 'redirect_malformed' };
       }
       if (next.protocol !== 'http:' && next.protocol !== 'https:') {
@@ -596,11 +601,13 @@ async function fetchOne(url: string, perSource: number, env?: Env): Promise<Fetc
         },
       });
       await edgeCache.put(edgeKey, cacheable);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* cache put failures are non-fatal */
     }
     return { items };
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     const msg = (e as Error).message || String(e);
     if (msg.toLowerCase().includes('abort') || msg.toLowerCase().includes('timeout')) {
       return { items: [], error: 'timeout' };

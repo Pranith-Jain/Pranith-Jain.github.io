@@ -25,9 +25,10 @@ import {
   X_SEARCH_QUERIES,
 } from '../api/src/routes/cyberpulse-ingest';
 
-// `gp:warm:<key>` slice TTL — 8h, matching the prior single-blob warmer. Outlives
-// the hourly rotation so a feed whose refresh fails keeps its last-good value.
-const GP_WARM_TTL_SECONDS = 8 * 60 * 60;
+// `gp:warm:<key>` slice TTL — 90 min. Short enough that stale data expires
+// quickly (the direct-fetch fallback in the 30-min cron kicks in once KV is
+// cold), long enough to survive the 60-min refresh window + one retry gap.
+const GP_WARM_TTL_SECONDS = 90 * 60;
 
 // Within-batch fan-out bound. The relevant runtime limit is ~6 simultaneously
 // OPEN outbound connections (not a total-subrequest cap). Several sources fan
@@ -97,10 +98,9 @@ export async function handleQueue(
         // ── CyberPulse source warm (cp:warm:<type>) ──────────────────────
         // Each source type gets its own consumer invocation → its own
         // 50-subrequest budget. The fetcher is called IN-PROCESS (no HTTP
-        // self-fetch). Result is written to `cp:warm:<type>` KV with a TTL
-        // that outlives the hourly cron window. The hourly cron reads from
-        // KV and passes the data as prefetched to runCyberPulseIngestion.
-        const CP_WARM_TTL_SECONDS = 8 * 60 * 60;
+        // self-fetch). Result is written to `cp:warm:<type>` KV with a 90 min
+        // TTL so stale data expires before the next 60-min cron loop.
+        const CP_WARM_TTL_SECONDS = 90 * 60;
         const cp = msg.body?.cp;
         if (cp && typeof cp.type === 'string') {
           try {

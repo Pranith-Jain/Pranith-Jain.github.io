@@ -553,6 +553,7 @@ async function buildStixBundle(
     const data = (await r.json()) as { bundle: { id: string } };
     setId(data.bundle.id);
   } catch (e) {
+    console.error('buildStixBundle failed:', e instanceof Error ? e.message : String(e));
     setError(`STIX build failed: ${(e as Error).message}`);
   } finally {
     setLoading(false);

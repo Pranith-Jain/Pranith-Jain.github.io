@@ -149,7 +149,8 @@ export class GlobalPulseDO {
           generated_at: newGeneratedAt,
         });
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* cache miss */
     }
   }
@@ -159,7 +160,8 @@ export class GlobalPulseDO {
     for (const [id, ws] of this.sessions) {
       try {
         ws.send(payload);
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         this.sessions.delete(id);
       }
     }

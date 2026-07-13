@@ -55,6 +55,7 @@ export default function ToolsDirectory(): JSX.Element {
         else setError(`/tools returned HTTP ${resp.status}`);
         if (statsResp.ok) setStats(await statsResp.json());
       } catch (e) {
+        console.error('ToolsDirectory failed:', e instanceof Error ? e.message : String(e));
         if (cancelled || (e instanceof DOMException && e.name === 'AbortError')) return;
         setError(e instanceof Error ? e.message : 'fetch failed');
       } finally {

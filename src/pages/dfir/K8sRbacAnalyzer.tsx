@@ -254,6 +254,7 @@ function analyze(text: string): Analysis | null {
   try {
     doc = JSON.parse(trimmed);
   } catch (e) {
+    console.error('analyze failed:', e instanceof Error ? e.message : String(e));
     return {
       error: `${(e as Error).message}. Tip: paste \`kubectl get … -o json\` (JSON, not YAML).`,
       objects: 0,

@@ -136,6 +136,7 @@ export default function GoogleDorks(): JSX.Element {
       setData(json);
       setStatus('ready');
     } catch (e) {
+      console.error('runSearch failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : String(e));
       setStatus('error');
       setData(null);
@@ -151,7 +152,8 @@ export default function GoogleDorks(): JSX.Element {
     try {
       await navigator.clipboard.writeText(link);
       setCopied(link);
-    } catch {
+    } catch (_catchErr) {
+      console.error('copyLink failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* clipboard blocked; skip */
     }
   }

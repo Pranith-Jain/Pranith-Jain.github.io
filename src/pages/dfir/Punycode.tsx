@@ -115,7 +115,8 @@ function asciiForm(domain: string): { ascii: string; ok: boolean } {
   try {
     const u = new URL(`http://${domain.toLowerCase()}`);
     return { ascii: u.hostname, ok: true };
-  } catch {
+  } catch (_catchErr) {
+    console.error('asciiForm failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return { ascii: domain, ok: false };
   }
 }

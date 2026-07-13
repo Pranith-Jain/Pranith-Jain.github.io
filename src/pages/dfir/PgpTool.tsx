@@ -42,6 +42,7 @@ export default function PgpTool() {
       setStatus('done');
       setMessage('Key pair generated. Save your private key securely — it cannot be recovered.');
     } catch (err) {
+      console.error('PgpTool failed:', err instanceof Error ? err.message : String(err));
       setStatus('error');
       setMessage(err instanceof Error ? err.message : 'Generation failed');
     }
@@ -93,6 +94,7 @@ export default function PgpTool() {
       }
       setStatus('done');
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       setStatus('error');
       setMessage(err instanceof Error ? err.message : String(err));
     }

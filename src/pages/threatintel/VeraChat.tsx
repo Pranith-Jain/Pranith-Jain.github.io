@@ -119,12 +119,14 @@ function useVeraSSE(sessionId: string | null): StreamEvent[] {
             try {
               const event = JSON.parse(line.slice(6)) as StreamEvent;
               if (!cancelled) setEvents((prev) => [...prev, event]);
-            } catch {
+            } catch (_catchErr) {
+              console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
               /* skip malformed */
             }
           }
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* abort is expected on cancel */
       }
     };
@@ -237,6 +239,7 @@ export default function VeraChat(): JSX.Element {
         const data = await res.json();
         if (!ctrl.signal.aborted) setSessionId(data.sessionId);
       } catch (e) {
+        console.error('handler failed:', e instanceof Error ? e.message : String(e));
         if ((e as Error).name === 'AbortError') return;
         setError(e instanceof Error ? e.message : String(e));
         setLoading(false);

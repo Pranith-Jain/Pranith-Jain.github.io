@@ -25,6 +25,7 @@ export async function interpolSearch(params: {
     result.total = data.total;
     result.success = true;
   } catch (e) {
+    console.error('interpolSearch failed:', e instanceof Error ? e.message : String(e));
     result.error = e instanceof Error ? e.message : String(e);
   }
   return result;
@@ -48,6 +49,7 @@ export async function interpolNoticeDetail(noticeId: string) {
     result.data = await res.json();
     result.success = true;
   } catch (e) {
+    console.error('interpolNoticeDetail failed:', e instanceof Error ? e.message : String(e));
     result.error = e instanceof Error ? e.message : String(e);
   }
   return result;

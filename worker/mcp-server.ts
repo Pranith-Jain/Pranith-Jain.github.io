@@ -195,7 +195,8 @@ async function apiFetchSse(
     let data: unknown = raw;
     try {
       data = JSON.parse(raw);
-    } catch {
+    } catch (_catchErr) {
+      console.error('apiFetchSse failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* non-JSON data — keep the raw string */
     }
     events.push({ event, data });
@@ -1335,6 +1336,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
           }
           return untrustedToolResult({ url, kqlBytes: kql.length, encodedBytes: url.length - 50 });
         } catch (e) {
+          console.error('handler failed:', e instanceof Error ? e.message : String(e));
           return untrustedToolResult({ error: 'encode_failed', message: e instanceof Error ? e.message : String(e) });
         }
       }
@@ -2967,6 +2969,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
           try {
             manifest = JSON.parse(manifest_yaml);
           } catch (e) {
+            console.error('handler failed:', e instanceof Error ? e.message : String(e));
             return untrustedToolResult({
               error: 'parse_failed',
               message: e instanceof Error ? e.message : String(e),
@@ -2978,6 +2981,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             try {
               data = JSON.parse(data_json);
             } catch (e) {
+              console.error('handler failed:', e instanceof Error ? e.message : String(e));
               return untrustedToolResult({
                 error: 'data_parse_failed',
                 message: e instanceof Error ? e.message : String(e),
@@ -2988,6 +2992,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             const svg = renderDashboard(manifest, data);
             return untrustedToolResult({ svg, bytes: svg.length, widgetCount: (manifest.widgets ?? []).length });
           } catch (e) {
+            console.error('handler failed:', e instanceof Error ? e.message : String(e));
             return untrustedToolResult({ error: 'render_failed', message: e instanceof Error ? e.message : String(e) });
           }
         }
@@ -3024,12 +3029,14 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
           try {
             manifest = JSON.parse(manifest_json);
           } catch (e) {
+            console.error('handler failed:', e instanceof Error ? e.message : String(e));
             return untrustedToolResult({ error: 'parse_failed', message: e instanceof Error ? e.message : String(e) });
           }
           if (data_json) {
             try {
               data = JSON.parse(data_json);
             } catch (e) {
+              console.error('handler failed:', e instanceof Error ? e.message : String(e));
               return untrustedToolResult({
                 error: 'data_parse_failed',
                 message: e instanceof Error ? e.message : String(e),
@@ -3060,6 +3067,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
               hint: 'Decode png_base64 (standard base64) and write to a .png file. The bytes are a valid PNG (IHDR / IDAT / IEND chunks).',
             });
           } catch (e) {
+            console.error('arguments failed:', e instanceof Error ? e.message : String(e));
             return untrustedToolResult({
               error: 'png_render_failed',
               message: e instanceof Error ? e.message : String(e),

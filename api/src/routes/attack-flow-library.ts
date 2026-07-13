@@ -225,6 +225,7 @@ async function loadManifest(
     }
     upstreamError = `upstream ${res.status}`;
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     upstreamError = err instanceof Error ? err.message : 'fetch failed';
   }
 
@@ -236,7 +237,8 @@ async function loadManifest(
         const staleFull = JSON.parse(staleRaw) as ManifestResponse;
         return { full: staleFull, stale: true, error: upstreamError };
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* stale read failed; fall through */
     }
   }
@@ -266,6 +268,7 @@ async function loadFlowBundle(
       { attempts: 3, timeoutMs: 20_000 }
     );
   } catch (err) {
+    console.error('loadFlowBundle failed:', err instanceof Error ? err.message : String(err));
     return c.json(
       {
         error: 'Attack Flow bundle unavailable',
@@ -306,7 +309,8 @@ async function loadFlowBundle(
   let parsed: { type?: unknown; id?: unknown; spec_version?: unknown; objects?: unknown };
   try {
     parsed = (await res.json()) as typeof parsed;
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json(
       { error: 'Attack Flow bundle not valid JSON', source: SOURCE, source_url: SOURCE_URL },
       502,

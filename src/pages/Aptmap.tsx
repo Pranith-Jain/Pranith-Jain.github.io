@@ -166,6 +166,7 @@ export default function AptmapPage() {
         setImports(impRes.ok ? (await impRes.json()).slice(0, 50) : []);
         setCertificates(certRes.ok ? (await certRes.json()).slice(0, 50) : []);
       } catch (e) {
+        console.error('handler failed:', e instanceof Error ? e.message : String(e));
         if ((e as Error).name !== 'AbortError') setError((e as Error).message);
       } finally {
         setLoading(false);

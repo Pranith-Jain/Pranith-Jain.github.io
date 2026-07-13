@@ -91,7 +91,8 @@ export default function SubdomainTakeover() {
         const ct = await api.get<{ subdomains: string[] }>(`/api/v1/cert-transparency?domain=${encodeURIComponent(d)}`);
         subdomains = ct.subdomains ?? [];
         setCtSubdomains(subdomains);
-      } catch {
+      } catch (_catchErr) {
+        console.error('SubdomainTakeover failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         // crt.sh may be slow/down — continue with just the base domain
       }
 
@@ -153,13 +154,15 @@ export default function SubdomainTakeover() {
                 : 'CNAME not in known vulnerable provider list',
             });
           }
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           // skip individual subdomain failures
         }
       }
 
       setResults(newResults);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setLoading(false);

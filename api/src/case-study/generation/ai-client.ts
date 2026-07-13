@@ -91,12 +91,19 @@ async function runGroq(key: string, input: CompletionInput, model?: string): Pro
       signal: AbortSignal.timeout(GROQ_TIMEOUT_MS),
     });
   } catch (err) {
-    throw new Error(`groq request failed: ${err instanceof Error ? err.message : String(err)}`);
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error(`runGroq request failed: ${msg}`);
+    throw new Error(`groq request failed: ${msg}`);
   }
-  if (res.status === 429) throw new RateLimitError('groq rate limited (429)');
+  if (res.status === 429) {
+    console.error('runGroq rate limited (429)');
+    throw new RateLimitError('groq rate limited (429)');
+  }
   if (!res.ok) {
     const body = await res.text().catch(() => '');
-    throw new Error(`groq HTTP ${res.status}${body ? `: ${body.slice(0, 200)}` : ''}`);
+    const msg = `groq HTTP ${res.status}${body ? `: ${body.slice(0, 200)}` : ''}`;
+    console.error(`runGroq ${msg}`);
+    throw new Error(msg);
   }
   const j = (await res.json()) as { choices?: Array<{ message?: { content?: string } }> };
   const text = j?.choices?.[0]?.message?.content;
@@ -119,7 +126,9 @@ export async function runCompletion(
       const text = await runGroq(groqKey, input, model);
       return { text, modelUsed: `groq:${model}` };
     } catch (err) {
-      errors.push(`groq:${model}: ${err instanceof Error ? err.message.slice(0, 80) : String(err).slice(0, 80)}`);
+      const errMsg = err instanceof Error ? err.message : String(err);
+      console.error(`runCompletion groq:${model} failed: ${errMsg.slice(0, 200)}`);
+      errors.push(`groq:${model}: ${errMsg.slice(0, 80)}`);
       if (isAuthError(err)) break;
     }
   }

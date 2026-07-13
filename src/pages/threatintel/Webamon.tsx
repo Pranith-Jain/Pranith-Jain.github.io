@@ -657,6 +657,7 @@ function SandboxTab() {
         void fetchReport(data.report_id);
       }
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       setError(err instanceof Error ? err.message : 'Request failed');
     } finally {
       setSubmitting(false);
@@ -671,7 +672,8 @@ function SandboxTab() {
         const data = (await res.json()) as ReportData;
         setReportData(data);
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* degraded */
     } finally {
       setLoadingReport(false);
@@ -686,7 +688,8 @@ function SandboxTab() {
         const blob = await res.blob();
         setScreenshotUrl(URL.createObjectURL(blob));
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* degraded */
     } finally {
       setScreenshotLoading(false);
@@ -1135,12 +1138,14 @@ function InfraTab() {
       let json: Record<string, unknown>;
       try {
         json = JSON.parse(body);
-      } catch {
+      } catch (_catchErr) {
+        console.error('InfraTab failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         throw new Error(body.substring(0, 200) || `HTTP ${res.status}`);
       }
       if (!res.ok) throw new Error((json as { error?: string })?.error ?? `HTTP ${res.status}`);
       setData({ [mode]: json });
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       setError(err instanceof Error ? err.message : 'Lookup failed');
     } finally {
       setLoading(false);

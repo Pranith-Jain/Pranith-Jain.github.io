@@ -230,7 +230,8 @@ export async function fetchTgstatSearch(query: string): Promise<string | null> {
     });
     if (!r.ok) return null;
     return await r.text();
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchTgstatSearch failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   } finally {
     clearTimeout(timer);
@@ -240,7 +241,8 @@ export async function fetchTgstatSearch(query: string): Promise<string | null> {
 function cache(): Cache | null {
   try {
     return (caches as unknown as { default: Cache }).default;
-  } catch {
+  } catch (_catchErr) {
+    console.error('cache failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -261,7 +263,8 @@ async function readStaleSearchCache(query: string): Promise<CachedSearchPayload 
   if (!cached) return null;
   try {
     return (await cached.json()) as CachedSearchPayload;
-  } catch {
+  } catch (_catchErr) {
+    console.error('readStaleSearchCache failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -293,7 +296,8 @@ export async function telegramSearchHandler(c: Context<{ Bindings: Env }>): Prom
     if (hit) {
       try {
         cachedPayload = (await hit.json()) as CachedSearchPayload;
-      } catch {
+      } catch (_catchErr) {
+        console.error('telegramSearchHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         cachedPayload = null;
       }
     }
@@ -432,7 +436,8 @@ export async function telegramChannelMetaHandler(c: Context<{ Bindings: Env }>):
       redirect: 'follow',
     });
     if (r.ok) html = await r.text();
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     html = null;
   } finally {
     clearTimeout(timer);

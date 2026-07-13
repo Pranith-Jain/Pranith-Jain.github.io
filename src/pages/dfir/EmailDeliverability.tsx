@@ -160,6 +160,7 @@ export default function EmailDeliverability(): JSX.Element {
       const data = (await res.json()) as IntodnsDebugResponse;
       setResult(data);
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       if (ctrl.signal.aborted) return;
       setError(err instanceof Error ? err.message : 'analysis failed');
     } finally {

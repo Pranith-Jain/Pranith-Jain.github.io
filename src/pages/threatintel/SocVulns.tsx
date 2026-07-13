@@ -129,6 +129,7 @@ export default function SocVulns(): JSX.Element {
       const r = (await fetchJson('/api/v1/cve-recent', { signal, cache: 'no-store' })) as CveRecentResponse;
       setData(r);
     } catch (e) {
+      console.error('SocVulns failed:', e instanceof Error ? e.message : String(e));
       if ((e as { name?: string }).name !== 'AbortError') {
         setError(e instanceof Error ? e.message : 'Failed to load.');
       }

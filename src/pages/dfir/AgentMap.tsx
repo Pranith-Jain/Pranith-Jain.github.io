@@ -126,6 +126,7 @@ export default function AgentMap(): JSX.Element {
       const parsed = JSON.parse(input);
       return { graph: buildGraph(parsed), parseError: null };
     } catch (e) {
+      console.error('AgentMap failed:', e instanceof Error ? e.message : String(e));
       return { graph: null, parseError: e instanceof Error ? e.message : 'Invalid JSON' };
     }
   }, [input]);

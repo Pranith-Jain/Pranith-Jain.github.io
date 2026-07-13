@@ -66,6 +66,7 @@ export default function AssessmentDetail(): JSX.Element {
       const data = (await res.json()) as { assessment: Assessment };
       setAssessment(data.assessment);
     } catch (e) {
+      console.error('transitionStatus failed:', e instanceof Error ? e.message : String(e));
       setTransitionError(e instanceof Error ? e.message : 'Failed to update status');
     } finally {
       setTransitioning(false);

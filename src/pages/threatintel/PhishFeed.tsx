@@ -24,7 +24,8 @@ interface PhishingResponse {
 function extractDomain(url: string): string {
   try {
     return new URL(url).hostname;
-  } catch {
+  } catch (_catchErr) {
+    console.error('extractDomain failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return url.slice(0, 40);
   }
 }

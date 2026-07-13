@@ -44,6 +44,7 @@ export default function Exposure(): JSX.Element {
       setResult(r2);
       recordHistory({ tool: 'exposure', indicator: r2.domain, verdict: r2.verdict, score: r2.score });
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       setError(err instanceof Error ? err.message : 'scan failed');
     } finally {
       setLoading(false);

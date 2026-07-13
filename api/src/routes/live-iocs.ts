@@ -172,7 +172,8 @@ async function fetchText(url: string): Promise<string | null> {
     const firstNonWs = text.trimStart().slice(0, 16);
     if (firstNonWs.startsWith('<!DOCTYPE') || firstNonWs.startsWith('<html')) return null;
     return text || null;
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchText failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -206,6 +207,7 @@ async function fetchTextDiag(url: string): Promise<{ ok: boolean; status?: numbe
     }
     return { ok: true, status: res.status, bytes: text.length };
   } catch (e) {
+    console.error('fetchTextDiag failed:', e instanceof Error ? e.message : String(e));
     return { ok: false, error: e instanceof Error ? e.message.slice(0, 120) : 'unknown' };
   } finally {
     // Surface wall-time so a slow-but-successful fetch shows up in the debug
@@ -659,7 +661,8 @@ const andreafortunaSource: FeedSource = {
           afDefacementsOk = true;
           afDefacementsStale = true;
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* leave ok = false */
       }
     }
@@ -1077,7 +1080,8 @@ async function finalizeLiveIocs(
         }
         sources.push({ id: 'feed-scheduler', ok: true, count, newest_observation: newest });
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* non-fatal */
     }
   }
@@ -1255,7 +1259,8 @@ async function isEnqueueCoolingDown(kv: KVNamespace | undefined): Promise<boolea
   if (cache) {
     try {
       if (await cache.match(ENQUEUE_COOLDOWN_SHADOW)) return true;
-    } catch {
+    } catch (_catchErr) {
+      console.error('isEnqueueCoolingDown failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* fall through to KV */
     }
   }
@@ -1266,7 +1271,8 @@ async function isEnqueueCoolingDown(kv: KVNamespace | undefined): Promise<boolea
         ENQUEUE_COOLDOWN_SHADOW,
         new Response('1', { headers: { 'cache-control': `max-age=${ENQUEUE_COOLDOWN_SECONDS}` } })
       );
-    } catch {
+    } catch (_catchErr) {
+      console.error('isEnqueueCoolingDown failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* best-effort — a miss just falls back to KV next time */
     }
   }
@@ -1289,7 +1295,8 @@ async function maybeEnqueueAllFeeds(
           ENQUEUE_COOLDOWN_SHADOW,
           new Response('1', { headers: { 'cache-control': `max-age=${ENQUEUE_COOLDOWN_SECONDS}` } })
         );
-      } catch {
+      } catch (_catchErr) {
+        console.error('maybeEnqueueAllFeeds failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* best-effort */
       }
     }
@@ -1434,7 +1441,8 @@ export async function liveIocsHandler(c: Context<{ Bindings: Env }>): Promise<Re
               },
             });
             await cache.put(cacheReq, fresh);
-          } catch {
+          } catch (_catchErr) {
+            console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
             /* revalidation failure is non-fatal */
           }
         })()

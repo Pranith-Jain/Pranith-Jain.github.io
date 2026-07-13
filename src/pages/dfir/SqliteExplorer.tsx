@@ -37,7 +37,8 @@ export default function SqliteExplorer(): JSX.Element {
         let count = 0;
         try {
           count = Number(d.exec(`SELECT COUNT(*) FROM "${name}"`)[0]!.values[0]![0]);
-        } catch {
+        } catch (_catchErr) {
+          console.error('open failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* view / virtual */
         }
         return { name, sql: String(r[1] ?? ''), count };
@@ -46,6 +47,7 @@ export default function SqliteExplorer(): JSX.Element {
       setActive('');
       setResult(null);
     } catch (e) {
+      console.error('open failed:', e instanceof Error ? e.message : String(e));
       setErr(e instanceof Error ? e.message : String(e));
       setDb(null);
     } finally {
@@ -59,6 +61,7 @@ export default function SqliteExplorer(): JSX.Element {
     try {
       setResult(db.query(`SELECT * FROM "${name}" LIMIT 300`));
     } catch (e) {
+      console.error('showTable failed:', e instanceof Error ? e.message : String(e));
       setErr(e instanceof Error ? e.message : String(e));
     }
   }
@@ -69,6 +72,7 @@ export default function SqliteExplorer(): JSX.Element {
       setErr('');
       setResult(db.query(sqlText));
     } catch (e) {
+      console.error('runSql failed:', e instanceof Error ? e.message : String(e));
       setErr(e instanceof Error ? e.message : String(e));
     }
   }

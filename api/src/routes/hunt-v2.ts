@@ -109,7 +109,8 @@ async function checkTelegramLeaks(db: D1Database, value: string, type: string): 
       }));
     }
     return [];
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -139,7 +140,8 @@ async function checkHudsonRock(value: string, isEmail: boolean): Promise<BreachH
       ];
     }
     return [];
-  } catch {
+  } catch (_catchErr) {
+    console.error('checkHudsonRock failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -162,7 +164,8 @@ async function checkDehashed(value: string, type: string): Promise<BreachHit[]> 
       data_classes: b.DataClasses,
       description: `Data classes: ${b.DataClasses.join(', ')}`,
     }));
-  } catch {
+  } catch (_catchErr) {
+    console.error('checkDehashed failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -212,6 +215,7 @@ async function runProviders(indicator: Indicator, env: Env): Promise<ProviderRes
         if (r.status === 'ok') await recordProviderSuccess(p);
         else recordProviderFailure(p);
       } catch (err) {
+        console.error('runProviders failed:', err instanceof Error ? err.message : String(err));
         recordProviderFailure(p);
         collected.push({
           source: p,
@@ -346,7 +350,8 @@ export async function huntV2Handler(c: Context<{ Bindings: Env }>): Promise<Resp
             await c.env.KV_CACHE.put(rdapCacheKey, JSON.stringify(whois), { expirationTtl: 3600 });
           }
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         whois = null;
       }
     } else if (type === 'domain') {
@@ -382,6 +387,7 @@ export async function huntV2Handler(c: Context<{ Bindings: Env }>): Promise<Resp
 
     return c.json(response, 200, { 'Cache-Control': 'no-store' });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : 'hunt v2 failed' }, 500);
   }
 }

@@ -24,7 +24,8 @@ async function readAllFromKv(kv: KVNamespace | undefined): Promise<BlocklistAll 
   try {
     const hit = await cache.match(new Request(BLOCKLIST_CACHE_KEY));
     if (hit) return (await hit.json()) as BlocklistAll;
-  } catch {
+  } catch (_catchErr) {
+    console.error('readAllFromKv failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* fall through to KV */
   }
   try {

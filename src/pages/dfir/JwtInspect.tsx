@@ -25,7 +25,8 @@ function b64urlDecode(s: string): string {
         .map((c) => '%' + c.charCodeAt(0).toString(16).padStart(2, '0'))
         .join('')
     );
-  } catch {
+  } catch (_catchErr) {
+    console.error('b64urlDecode failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return atob(padded);
   }
 }
@@ -41,12 +42,14 @@ function decode(token: string): DecodedJwt {
   try {
     result.header = JSON.parse(b64urlDecode(h!));
   } catch (e) {
+    console.error('decode failed:', e instanceof Error ? e.message : String(e));
     result.error = `Header is not valid JSON (${(e as Error).message})`;
     return result;
   }
   try {
     result.payload = JSON.parse(b64urlDecode(p!));
   } catch (e) {
+    console.error('decode failed:', e instanceof Error ? e.message : String(e));
     result.error = `Payload is not valid JSON (${(e as Error).message})`;
     return result;
   }

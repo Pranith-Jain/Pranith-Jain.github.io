@@ -87,7 +87,8 @@ export async function intodnsSnapshotHandler(c: Context<{ Bindings: Env }>): Pro
         );
         return new Response(cached.body, { status: 200, headers });
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('intodnsSnapshotHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       // Cache miss / corruption is non-fatal — fall through to upstream.
     }
   }
@@ -108,6 +109,7 @@ export async function intodnsSnapshotHandler(c: Context<{ Bindings: Env }>): Pro
   try {
     res = await fetch(url, { headers, signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) });
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     return c.json(
       {
         error: 'intodns upstream fetch failed',
@@ -150,7 +152,8 @@ export async function intodnsSnapshotHandler(c: Context<{ Bindings: Env }>): Pro
         upstreamStatus: res.status,
       };
       await kv.put(cacheKey, JSON.stringify(payload), { expirationTtl: SNAPSHOT_TTL_SECONDS });
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       // KV write failure is non-fatal — we still serve the fresh response.
     }
   }
@@ -220,7 +223,8 @@ export async function intodnsExplainHandler(c: Context<{ Bindings: Env }>): Prom
           { 'Cache-Control': 'public, max-age=3600' }
         );
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('intodnsExplainHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       // fall through
     }
   }
@@ -286,6 +290,7 @@ export async function intodnsExplainHandler(c: Context<{ Bindings: Env }>): Prom
       explanation = null;
     }
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     degraded = true;
     degradationReason = err instanceof Error ? err.message : String(err);
   }
@@ -301,7 +306,8 @@ export async function intodnsExplainHandler(c: Context<{ Bindings: Env }>): Prom
         degraded: false,
       };
       await kv.put(explainCacheKey, JSON.stringify(payload), { expirationTtl: EXPLAIN_TTL_SECONDS });
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       // non-fatal
     }
   }
@@ -356,7 +362,8 @@ async function fetchSnapshotJson(domain: string, env: Env): Promise<SnapshotResu
       if (cached && cached.body) {
         return { ok: true, status: 200, body: cached.body, fetchedAt: cached.fetchedAt };
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('fetchSnapshotJson failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       // fall through
     }
   }
@@ -374,6 +381,7 @@ async function fetchSnapshotJson(domain: string, env: Env): Promise<SnapshotResu
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
     });
   } catch (err) {
+    console.error('fetchSnapshotJson failed:', err instanceof Error ? err.message : String(err));
     return {
       ok: false,
       status: 502,
@@ -409,7 +417,8 @@ async function fetchSnapshotJson(domain: string, env: Env): Promise<SnapshotResu
       await kv.put(`intodns:snapshot:v1:json:${domain}`, JSON.stringify(payload), {
         expirationTtl: SNAPSHOT_TTL_SECONDS,
       });
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       // non-fatal
     }
   }

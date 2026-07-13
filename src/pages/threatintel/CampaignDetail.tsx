@@ -140,6 +140,7 @@ export default function CampaignDetail(): JSX.Element {
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       setDeleted(true);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setError(`Delete failed: ${(e as Error).message}`);
     }
   };
@@ -151,7 +152,8 @@ export default function CampaignDetail(): JSX.Element {
       await navigator.clipboard.writeText(md);
       setCopied(true);
       window.setTimeout(() => setCopied(false), 1500);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* clipboard blocked */
     }
   };

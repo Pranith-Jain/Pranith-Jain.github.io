@@ -19,7 +19,8 @@ function isValidImageUrl(s: string): boolean {
   try {
     const u = new URL(s);
     return u.protocol === 'http:' || u.protocol === 'https:';
-  } catch {
+  } catch (_catchErr) {
+    console.error('isValidImageUrl failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return false;
   }
 }

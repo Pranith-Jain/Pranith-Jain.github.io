@@ -625,6 +625,7 @@ function AddResourceCard({
       reset();
       setOpen(false);
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       setError((err as Error).message);
     } finally {
       setBusy(false);

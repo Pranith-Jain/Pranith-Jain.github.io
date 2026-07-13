@@ -206,7 +206,8 @@ export class RadarCrawlerDO {
     for (const ws of this.sessions) {
       try {
         ws.send(data);
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         this.sessions.delete(ws);
       }
     }
@@ -223,6 +224,7 @@ export class RadarCrawlerDO {
         await this.analyzeJsStep(state);
       }
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       state.status = 'error';
       state.error = err instanceof Error ? err.message : String(err);
       await this.ctx.storage.put('state', state);
@@ -309,7 +311,8 @@ export class RadarCrawlerDO {
             if (!shouldSkip) {
               state.jsFileUrls.push(jsUrl);
             }
-          } catch {
+          } catch (_catchErr) {
+            console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
             /* skip */
           }
         }
@@ -319,6 +322,7 @@ export class RadarCrawlerDO {
       this.extractReconData(html, url, state);
       this.extractAttackSurface(html, url, respHeaders, state);
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       state.error = `crawl fetch failed: ${err instanceof Error ? err.message : String(err)}`;
     }
 
@@ -348,7 +352,8 @@ export class RadarCrawlerDO {
             if (!state.visited.includes(fullUrl) && !state.queue.includes(fullUrl)) {
               state.queue.push(fullUrl);
             }
-          } catch {
+          } catch (_catchErr) {
+            console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
             /* skip */
           }
         }
@@ -363,7 +368,8 @@ export class RadarCrawlerDO {
           await this.fetchSitemapContent(sitemapUrl, state);
         }
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* robots.txt fetch failed, skip */
     }
   }
@@ -372,7 +378,8 @@ export class RadarCrawlerDO {
     try {
       const sitemapUrl = new URL('/sitemap.xml', state.target).href;
       await this.fetchSitemapContent(sitemapUrl, state);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* skip */
     }
   }
@@ -399,12 +406,14 @@ export class RadarCrawlerDO {
             state.queue.push(locUrl);
             queued++;
           }
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* skip invalid URLs */
         }
         if (queued >= 200) break;
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* skip */
     }
   }
@@ -422,7 +431,8 @@ export class RadarCrawlerDO {
           if (path.match(/\.(jpg|jpeg|png|gif|svg|css|woff|ttf|ico|mp4|mp3|zip|pdf)$/i)) continue;
           state.queue.push(u.href);
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* skip invalid URLs */
       }
     }
@@ -486,7 +496,8 @@ export class RadarCrawlerDO {
       try {
         const u = new URL(raw);
         u.searchParams.forEach((_v, k) => state.queryParameters.push(k));
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* skip */
       }
     }
@@ -499,7 +510,8 @@ export class RadarCrawlerDO {
         if (host && !host.endsWith(state.hostname) && !host.includes('example.') && !host.includes('email@')) {
           state.domains.push(host);
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* skip */
       }
     }
@@ -693,7 +705,8 @@ export class RadarCrawlerDO {
       if (mapUrl) {
         try {
           state.sourceMaps.push(mapUrl.startsWith('http') ? mapUrl : new URL(mapUrl, url).href);
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* skip */
         }
       }
@@ -703,7 +716,8 @@ export class RadarCrawlerDO {
       if (m[1]) {
         try {
           state.sourceMaps.push(m[1].startsWith('http') ? m[1] : new URL(m[1], url).href);
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* skip */
         }
       }
@@ -781,7 +795,8 @@ export class RadarCrawlerDO {
               severity: 'critical',
             });
           }
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* skip */
         }
       }
@@ -866,7 +881,8 @@ export class RadarCrawlerDO {
         ) {
           if (!state.domains.includes(host)) state.domains.push(host);
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* skip */
       }
     }
@@ -920,7 +936,8 @@ export class RadarCrawlerDO {
         });
         const js = await res.text();
         this.analyzeJsContent(js, jsUrl, state);
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* skip failed JS */
       }
     }
@@ -1119,7 +1136,8 @@ export class RadarCrawlerDO {
         ) {
           state.domains.push(host);
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* skip */
       }
     }

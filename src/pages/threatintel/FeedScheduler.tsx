@@ -98,6 +98,7 @@ export default function FeedScheduler(): JSX.Element {
         setHistory(hData.history);
       }
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       if (ctrl.signal.aborted) return;
       setError(e instanceof Error ? e.message : 'Failed to load');
     } finally {
@@ -167,7 +168,8 @@ export default function FeedScheduler(): JSX.Element {
       setForm({ name: '', source_url: '', parser: 'plaintext-ips', interval_minutes: 60, tags: '' });
       setSelectedPreset('');
       flash('ok', `Feed "${data.job.name}" created`);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       if (ctrl.signal.aborted) return;
       flash('error', 'Network error creating feed');
     } finally {
@@ -191,7 +193,8 @@ export default function FeedScheduler(): JSX.Element {
       }
       setJobs((prev) => prev.filter((j) => j.id !== id));
       flash('ok', `Feed "${name}" deleted`);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       if (ctrl.signal.aborted) return;
       flash('error', 'Network error deleting feed');
     }
@@ -213,7 +216,8 @@ export default function FeedScheduler(): JSX.Element {
       }
       const data = (await res.json()) as { job: FeedJob };
       setJobs((prev) => prev.map((j) => (j.id === id ? data.job : j)));
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       if (ctrl.signal.aborted) return;
       flash('error', 'Network error toggling feed');
     }
@@ -240,7 +244,8 @@ export default function FeedScheduler(): JSX.Element {
       const data = (await res.json()) as { job: FeedJob };
       setJobs((prev) => prev.map((j) => (j.id === id ? data.job : j)));
       flash('ok', `Feed "${data.job.name}" updated`);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       if (ctrl.signal.aborted) return;
       flash('error', 'Network error updating feed');
     }
@@ -266,7 +271,8 @@ export default function FeedScheduler(): JSX.Element {
       if (data.run) {
         setHistory((prev) => ({ ...prev, [id]: [data.run, ...(prev[id] ?? [])] }));
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       if (ctrl.signal.aborted) return;
       flash('error', 'Network error running feed');
     } finally {

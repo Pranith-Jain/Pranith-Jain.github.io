@@ -288,7 +288,8 @@ export async function feedProxyHandler(c: Context<{ Bindings: Env }>) {
   let parsed: URL;
   try {
     parsed = new URL(url);
-  } catch {
+  } catch (_catchErr) {
+    console.error('feedProxyHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return badRequest(c, 'invalid url');
   }
   if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
@@ -326,7 +327,8 @@ export async function feedProxyHandler(c: Context<{ Bindings: Env }>) {
       let next: URL;
       try {
         next = new URL(location, current);
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         return c.json({ error: 'upstream redirect to malformed url' }, 502);
       }
       if (next.protocol !== 'http:' && next.protocol !== 'https:') {
@@ -376,6 +378,7 @@ export async function feedProxyHandler(c: Context<{ Bindings: Env }>) {
       },
     });
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     return c.json({ error: safeErrorMessage(c.env as unknown as Record<string, unknown>, err) }, 502);
   }
 }

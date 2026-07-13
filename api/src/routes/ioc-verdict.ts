@@ -98,7 +98,8 @@ async function runProviders(
         } else {
           recordProviderFailure(p);
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         recordProviderFailure(p);
       }
     },
@@ -143,7 +144,8 @@ async function callAi(env: Env, system: string, user: string): Promise<string> {
         const data = await res.json<{ choices?: Array<{ message?: { content?: string } }> }>();
         if (data?.choices?.[0]?.message?.content) return data.choices[0].message.content;
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('callAi failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* fall through */
     }
   }
@@ -152,7 +154,8 @@ async function callAi(env: Env, system: string, user: string): Promise<string> {
   if (nvidiaKey) {
     try {
       return await callNvidia(nvidiaKey, system, user, 2000, 0.2);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* fall through */
     }
   }
@@ -199,7 +202,8 @@ async function callNvidia(
       const data = await res.json<{ choices?: Array<{ message?: { content?: string } }> }>();
       const text = data?.choices?.[0]?.message?.content;
       if (text?.trim()) return text;
-    } catch {
+    } catch (_catchErr) {
+      console.error('callNvidia failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* try next model */
     }
   }
@@ -247,6 +251,7 @@ export async function iocExplainHandler(c: Context<{ Bindings: Env }>): Promise<
       { headers: { 'cache-control': 'public, max-age=60' } }
     );
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     return c.json({ error: err instanceof Error ? err.message : 'internal error' }, 500);
   }
 }
@@ -299,6 +304,7 @@ export async function iocRuleHandler(c: Context<{ Bindings: Env }>): Promise<Res
       { headers: { 'cache-control': 'public, max-age=60' } }
     );
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     return c.json({ error: err instanceof Error ? err.message : 'internal error' }, 500);
   }
 }

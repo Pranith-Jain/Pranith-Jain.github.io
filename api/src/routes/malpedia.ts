@@ -27,6 +27,7 @@ export async function malpediaActorHandler(c: Context<{ Bindings: Env }>): Promi
     const data = await res.json();
     return c.json({ ok: true, data }, 200, { 'cache-control': 'public, max-age=3600' });
   } catch (err) {
+    console.error('malpediaActorHandler failed:', err instanceof Error ? err.message : String(err));
     return c.json({ error: err instanceof Error ? err.message : String(err) }, 502, {
       'cache-control': 'no-store',
     });
@@ -57,6 +58,7 @@ export async function malpediaFamilyHandler(c: Context<{ Bindings: Env }>): Prom
     const data = await res.json();
     return c.json({ ok: true, data }, 200, { 'cache-control': 'public, max-age=3600' });
   } catch (err) {
+    console.error('malpediaFamilyHandler failed:', err instanceof Error ? err.message : String(err));
     return c.json({ error: err instanceof Error ? err.message : String(err) }, 502, {
       'cache-control': 'no-store',
     });
@@ -81,7 +83,8 @@ export async function malpediaSearchHandler(c: Context<{ Bindings: Env }>): Prom
       });
       if (!res.ok) return [];
       return await res.json();
-    } catch {
+    } catch (_catchErr) {
+      console.error('malpediaSearchHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return [];
     }
   };
@@ -110,6 +113,7 @@ export async function malpediaSearchHandler(c: Context<{ Bindings: Env }>): Prom
       'cache-control': 'public, max-age=3600',
     });
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     return c.json({ error: err instanceof Error ? err.message : String(err) }, 502, {
       'cache-control': 'no-store',
     });

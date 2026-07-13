@@ -64,7 +64,8 @@ async function fetchUrlscan(finalUrl: string, env: Env): Promise<UrlPreviewRespo
   let host = '';
   try {
     host = new URL(finalUrl).hostname;
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchUrlscan failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return undefined;
   }
   const q = `page.url:"${finalUrl.replace(/"/g, '\\"')}" OR page.domain:${host}`;
@@ -101,7 +102,8 @@ async function fetchUrlscan(finalUrl: string, env: Env): Promise<UrlPreviewRespo
           }
         : undefined,
     };
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return undefined;
   }
 }
@@ -210,7 +212,8 @@ function decodeEntities(s: string): string {
       if (Number.isFinite(cp) && cp > 0 && cp <= 0x10ffff) {
         try {
           return String.fromCodePoint(cp);
-        } catch {
+        } catch (_catchErr) {
+          console.error('decodeEntities failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           return whole;
         }
       }
@@ -264,7 +267,8 @@ function absUrl(href: string | undefined, base: string): string | undefined {
   if (!href) return undefined;
   try {
     return new URL(href, base).toString();
-  } catch {
+  } catch (_catchErr) {
+    console.error('absUrl failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return undefined;
   }
 }
@@ -331,7 +335,8 @@ export async function urlPreviewHandler(c: Context<{ Bindings: Env }>) {
   let parsed: URL;
   try {
     parsed = new URL(raw);
-  } catch {
+  } catch (_catchErr) {
+    console.error('urlPreviewHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ error: 'invalid url' }, 400);
   }
   if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
@@ -364,7 +369,8 @@ export async function urlPreviewHandler(c: Context<{ Bindings: Env }>) {
       try {
         const nextHost = new URL(currentUrl).hostname;
         finalHostCheck = await assertPublicHost(nextHost);
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         return c.json({ error: 'redirect_target_invalid', url: parsed.toString(), final_url: currentUrl }, 502, {
           'Cache-Control': 'no-store',
         });
@@ -392,6 +398,7 @@ export async function urlPreviewHandler(c: Context<{ Bindings: Env }>) {
         cf: { resolveOverride: finalHostCheck.pinIp },
       } as RequestInit);
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       return c.json({ error: safeErrorMessage(c.env as never, err) }, 502, { 'Cache-Control': 'no-store' });
     }
 
@@ -412,7 +419,8 @@ export async function urlPreviewHandler(c: Context<{ Bindings: Env }>) {
         const next = new URL(location, currentUrl);
         if (next.protocol !== 'http:' && next.protocol !== 'https:') break;
         currentUrl = next.toString();
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         break; // invalid redirect target URL
       }
       continue;

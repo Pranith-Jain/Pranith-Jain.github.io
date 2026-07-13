@@ -55,7 +55,8 @@ export async function purgeCacheHandler(c: Context<{ Bindings: Env }>): Promise<
       try {
         await cache.delete(new Request(url));
         purged++;
-      } catch {
+      } catch (_catchErr) {
+        console.error('purgeCacheHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* skip */
       }
     }
@@ -101,6 +102,7 @@ export async function purgeCacheHandler(c: Context<{ Bindings: Env }>): Promise<
     });
     return c.json({ ok: true, method: 'cf-api-v4', payload });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);
   }
 }

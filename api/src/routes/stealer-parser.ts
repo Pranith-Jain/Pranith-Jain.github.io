@@ -172,7 +172,8 @@ export async function stealerParserHandler(c: Context<{ Bindings: Env }>): Promi
       let body: unknown;
       try {
         body = await c.req.json();
-      } catch {
+      } catch (_catchErr) {
+        console.error('stealerParserHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         return c.json({ error: 'invalid JSON' }, 400);
       }
       const parsed = stealerParserJsonSchema.safeParse(body);
@@ -197,6 +198,7 @@ export async function stealerParserHandler(c: Context<{ Bindings: Env }>): Promi
           if (res.ok) text = await res.text();
           else if (res.body) safeNull(res.body.cancel());
         } catch (e) {
+          console.error('handler failed:', e instanceof Error ? e.message : String(e));
           if (e instanceof SsrfError) {
             return c.json({ error: 'blocked', message: e.detail }, 400);
           }
@@ -336,6 +338,7 @@ export async function stealerParserHandler(c: Context<{ Bindings: Env }>): Promi
 
     return c.json(result, 200, { 'Cache-Control': 'no-store' });
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     return c.json({ error: 'Parsing failed', details: err instanceof Error ? err.message : String(err) }, 500);
   }
 }

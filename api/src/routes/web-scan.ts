@@ -414,7 +414,8 @@ async function probeOne(baseUrl: string, def: ProbeDef, pinIp?: string): Promise
       severity: 'good',
       description: `${def.path} returns ${status}`,
     };
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return { path: def.path, status: 0, outcome: 'error', severity: 'info', description: 'probe timed out or failed' };
   }
 }
@@ -458,7 +459,8 @@ export async function webScanHandler(c: Context<{ Bindings: Env }>): Promise<Res
   let parsed: URL;
   try {
     parsed = new URL(raw);
-  } catch {
+  } catch (_catchErr) {
+    console.error('webScanHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ error: 'invalid url' }, 400);
   }
   if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
@@ -493,7 +495,8 @@ export async function webScanHandler(c: Context<{ Bindings: Env }>): Promise<Res
       try {
         const nextHost = new URL(finalUrl).hostname;
         currentHostCheck = await assertPublicHost(nextHost);
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         return c.json({ error: 'redirect_target_invalid', url: parsed.toString(), final_url: finalUrl }, 502, {
           'Cache-Control': 'no-store',
         });
@@ -528,7 +531,8 @@ export async function webScanHandler(c: Context<{ Bindings: Env }>): Promise<Res
         cf: { resolveOverride: currentHostCheck.pinIp },
       } as RequestInit);
       clearTimeout(timer);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return c.json({ error: 'fetch failed' }, 502);
     }
 
@@ -540,7 +544,8 @@ export async function webScanHandler(c: Context<{ Bindings: Env }>): Promise<Res
         if (next.protocol !== 'http:' && next.protocol !== 'https:') break;
         finalUrl = next.toString();
         finalOrigin = next.origin;
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         break;
       }
       continue;

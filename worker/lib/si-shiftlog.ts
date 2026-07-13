@@ -150,7 +150,8 @@ function safeJsonArray(v: unknown): string[] {
   try {
     const parsed = JSON.parse(v);
     return Array.isArray(parsed) ? parsed.map(String) : [];
-  } catch {
+  } catch (_catchErr) {
+    console.error('safeJsonArray failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }

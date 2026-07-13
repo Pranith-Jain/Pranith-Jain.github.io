@@ -47,6 +47,7 @@ export async function xTweetsHandler(c: Context<{ Bindings: Env }>): Promise<Res
     }
     return c.json(body, 200, { 'cache-control': 'public, max-age=900, s-maxage=1800' });
   } catch (err) {
+    console.error('xTweetsHandler failed:', err instanceof Error ? err.message : String(err));
     // Transient failure — try the Cache API stale entry. Better an old
     // payload than a hard error.
     try {
@@ -57,7 +58,8 @@ export async function xTweetsHandler(c: Context<{ Bindings: Env }>): Promise<Res
           'cache-control': 'public, max-age=300',
         });
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* fall through */
     }
     if (err instanceof TwitterRateLimited) {

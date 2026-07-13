@@ -140,6 +140,7 @@ export default function McpSearch(): JSX.Element {
       }
       setAnalyzerData((await r.json()) as AnalyzerOutput);
     } catch (e) {
+      console.error('runLocalAnalyzer failed:', e instanceof Error ? e.message : String(e));
       if (ctrl.signal.aborted) return;
       const msg = e instanceof Error ? e.message : String(e);
       setAnalyzerErr(msg);

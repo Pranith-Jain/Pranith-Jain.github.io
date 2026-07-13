@@ -142,7 +142,8 @@ export class LiveFeedDO {
           }
 
           this.lastSnapshots.set(label, { type: label, total, generated_at });
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* cache miss */
         }
       })
@@ -154,7 +155,8 @@ export class LiveFeedDO {
     for (const [id, ws] of this.sessions) {
       try {
         ws.send(payload);
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         this.sessions.delete(id);
       }
     }

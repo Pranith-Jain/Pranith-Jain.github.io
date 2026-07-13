@@ -45,7 +45,8 @@ function loadRules(): YaraRule[] {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     return raw ? JSON.parse(raw) : [];
-  } catch {
+  } catch (_catchErr) {
+    console.error('loadRules failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -58,7 +59,8 @@ export default function YaraManager(): JSX.Element {
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(rules));
-    } catch {
+    } catch (_catchErr) {
+      console.error('YaraManager failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* quota / private mode */
     }
   }, [rules]);

@@ -101,6 +101,7 @@ export async function cdnDetectHandler(c: Context<{ Bindings: Env }>): Promise<R
 
     return c.json(result, 200, { 'Cache-Control': 'public, max-age=3600' });
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     return c.json({ error: `CDN detection failed: ${err instanceof Error ? err.message : String(err)}` }, 502);
   }
 }

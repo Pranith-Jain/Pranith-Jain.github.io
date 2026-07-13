@@ -45,6 +45,7 @@ export async function fullhuntDomainDetails(env: EnvWithFullhunt, domain: string
     result.data = (await res.json()) as FullhuntDomainResult;
     result.success = true;
   } catch (e) {
+    console.error('fullhuntDomainDetails failed:', e instanceof Error ? e.message : String(e));
     result.error = e instanceof Error ? e.message : String(e);
   }
 
@@ -75,6 +76,7 @@ export async function fullhuntSubdomains(env: EnvWithFullhunt, domain: string) {
     result.data = await res.json();
     result.success = true;
   } catch (e) {
+    console.error('fullhuntSubdomains failed:', e instanceof Error ? e.message : String(e));
     result.error = e instanceof Error ? e.message : String(e);
   }
 

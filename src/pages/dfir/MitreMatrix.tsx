@@ -73,7 +73,8 @@ function loadCoverage(): Record<string, Coverage> {
     if (!raw) return {};
     const parsed = JSON.parse(raw) as Record<string, Coverage>;
     return parsed && typeof parsed === 'object' ? parsed : {};
-  } catch {
+  } catch (_catchErr) {
+    console.error('loadCoverage failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return {};
   }
 }
@@ -176,7 +177,8 @@ export default function MitreMatrix(): JSX.Element {
   useEffect(() => {
     try {
       localStorage.setItem(COVERAGE_KEY, JSON.stringify(coverage));
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* quota exceeded / private mode — silently skip */
     }
   }, [coverage]);

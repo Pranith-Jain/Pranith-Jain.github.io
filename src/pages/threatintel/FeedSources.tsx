@@ -21,7 +21,8 @@ function loadDisabled(): Set<string> {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     return new Set(raw ? JSON.parse(raw) : []);
-  } catch {
+  } catch (_catchErr) {
+    console.error('loadDisabled failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return new Set();
   }
 }

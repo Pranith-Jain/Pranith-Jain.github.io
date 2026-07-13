@@ -60,7 +60,8 @@ export async function buildDetections(
     try {
       const body = (await cachedStream.json()) as { items?: LiveIoc[] };
       if (Array.isArray(body.items)) items = body.items;
-    } catch {
+    } catch (_catchErr) {
+      console.error('buildDetections failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* fall through to a fresh fetch */
     }
   }

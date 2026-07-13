@@ -60,6 +60,7 @@ export default function DraftsTab() {
       setDrafts(d.drafts);
       setApprovalRequired(d.approvalRequired);
     } catch (e) {
+      console.error('DraftsTab failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setLoading(false);
@@ -79,6 +80,7 @@ export default function DraftsTab() {
       if (latestPreviewReq.current !== slug) return; // superseded by a newer click
       setPreview(p);
     } catch (e) {
+      console.error('loadPreview failed:', e instanceof Error ? e.message : String(e));
       if (latestPreviewReq.current !== slug) return;
       setActionMsg(`preview failed: ${e instanceof Error ? e.message : String(e)}`);
     } finally {
@@ -99,6 +101,7 @@ export default function DraftsTab() {
       if (preview?.post.slug === slug) setPreview(null);
       await load();
     } catch (e) {
+      console.error('approve failed:', e instanceof Error ? e.message : String(e));
       setActionMsg(`approve failed: ${e instanceof Error ? e.message : String(e)}`);
     } finally {
       setActionBusy(null);
@@ -115,6 +118,7 @@ export default function DraftsTab() {
       if (preview?.post.slug === slug) setPreview(null);
       await load();
     } catch (e) {
+      console.error('reject failed:', e instanceof Error ? e.message : String(e));
       setActionMsg(`reject failed: ${e instanceof Error ? e.message : String(e)}`);
     } finally {
       setActionBusy(null);
@@ -188,6 +192,7 @@ export default function DraftsTab() {
       }
       await load();
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setActionMsg(`${verb} failed: ${e instanceof Error ? e.message : String(e)}`);
     } finally {
       setActionBusy(null);
@@ -212,6 +217,7 @@ export default function DraftsTab() {
       await postJsonWithBody(`/social/${encodeURIComponent(slug)}/${platform}`, {});
       setActionMsg(`${platform} generated for ${slug}`);
     } catch (e) {
+      console.error('generateSocial failed:', e instanceof Error ? e.message : String(e));
       setActionMsg(`${platform} failed: ${e instanceof Error ? e.message : String(e)}`);
     } finally {
       setSocialGen((prev) => ({ ...prev, [key]: '' }));

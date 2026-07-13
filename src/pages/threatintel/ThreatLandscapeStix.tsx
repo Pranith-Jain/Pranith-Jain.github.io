@@ -80,6 +80,7 @@ export default function ThreatLandscapeStix(): JSX.Element {
       const json = (await res.json()) as StixBundle[];
       setData(json);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : 'Unknown error');
     } finally {
       setLoading(false);

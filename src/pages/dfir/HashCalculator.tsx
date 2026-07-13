@@ -108,6 +108,7 @@ export default function HashCalculator(): JSX.Element {
       ]);
       setOut({ MD5: md5(bytes), 'SHA-1': s1, 'SHA-256': s256, 'SHA-384': s384, 'SHA-512': s512 });
     } catch (ex) {
+      console.error('run failed:', ex instanceof Error ? ex.message : String(ex));
       setOut({});
       setErr(ex instanceof Error ? ex.message : String(ex));
     } finally {

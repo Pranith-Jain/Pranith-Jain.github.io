@@ -48,7 +48,8 @@ function loadHistory(): HistoryEntry[] {
   try {
     const raw = localStorage.getItem(HISTORY_KEY);
     return raw ? (JSON.parse(raw) as HistoryEntry[]) : [];
-  } catch {
+  } catch (_catchErr) {
+    console.error('loadHistory failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -56,7 +57,8 @@ function loadHistory(): HistoryEntry[] {
 function saveHistory(entries: HistoryEntry[]) {
   try {
     localStorage.setItem(HISTORY_KEY, JSON.stringify(entries.slice(0, 20)));
-  } catch {
+  } catch (_catchErr) {
+    console.error('saveHistory failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* */
   }
 }
@@ -97,7 +99,8 @@ export default function QuerycraftAi(): JSX.Element {
         try {
           const p = JSON.parse(body) as { error?: string; message?: string };
           msg = p.error ?? p.message ?? msg;
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* */
         }
         throw new Error(msg);
@@ -130,6 +133,7 @@ export default function QuerycraftAi(): JSX.Element {
       setHistory(updated);
       saveHistory(updated);
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       setError(err instanceof Error ? err.message : String(err));
     } finally {
       setLoading(false);

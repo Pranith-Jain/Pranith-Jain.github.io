@@ -37,6 +37,7 @@ export default function Takeover(): JSX.Element {
       }
       setResult((await r.json()) as TakeoverResult);
     } catch (e) {
+      console.error('Takeover failed:', e instanceof Error ? e.message : String(e));
       setError((e as Error).message);
     } finally {
       setLoading(false);

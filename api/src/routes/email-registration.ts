@@ -94,7 +94,8 @@ const checkEtsy: EmailChecker = async (email) => {
       });
     }
     return no('etsy', 'Etsy', 'shopping', url);
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return err('etsy', 'Etsy', 'shopping', url);
   }
 };
@@ -131,7 +132,8 @@ const checkFlipkart: EmailChecker = async (email) => {
     if (text.includes("Looks like you're new here!")) return no('flipkart', 'Flipkart', 'shopping', url);
     if (text.includes('supportedAuthenticationTypes=password')) return ok('flipkart', 'Flipkart', 'shopping', url);
     return err('flipkart', 'Flipkart', 'shopping', url, 'unexpected response');
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return err('flipkart', 'Flipkart', 'shopping', url);
   }
 };
@@ -158,7 +160,8 @@ const checkGitHub: EmailChecker = async (email) => {
       return ok('github', 'GitHub', 'dev', url, { username });
     }
     return no('github', 'GitHub', 'dev', url);
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return err('github', 'GitHub', 'dev', url);
   }
 };
@@ -178,7 +181,8 @@ const checkGitLab: EmailChecker = async (email) => {
       return ok('gitlab', 'GitLab', 'dev', url);
     }
     return no('gitlab', 'GitLab', 'dev', url);
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return err('gitlab', 'GitLab', 'dev', url);
   }
 };
@@ -209,7 +213,8 @@ const checkHackerRank: EmailChecker = async (email) => {
     if (data.errors?.some((e: string) => e.includes('not find an account')))
       return no('hackerrank', 'HackerRank', 'dev', url);
     return err('hackerrank', 'HackerRank', 'dev', url, 'unexpected response');
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return err('hackerrank', 'HackerRank', 'dev', url);
   }
 };
@@ -254,7 +259,8 @@ const checkInstagram: EmailChecker = async (email) => {
     if (data.error_type === 'email_is_taken') return ok('instagram', 'Instagram', 'social', url);
     if (data.available === true) return no('instagram', 'Instagram', 'social', url);
     return err('instagram', 'Instagram', 'social', url);
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return err('instagram', 'Instagram', 'social', url);
   }
 };
@@ -277,7 +283,8 @@ const checkTikTok: EmailChecker = async (email) => {
     if (data.data?.is_exists === true) return ok('tiktok', 'TikTok', 'social', url);
     if (data.data?.is_exists === false) return no('tiktok', 'TikTok', 'social', url);
     return err('tiktok', 'TikTok', 'social', url);
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return err('tiktok', 'TikTok', 'social', url);
   }
 };
@@ -300,7 +307,8 @@ const checkPinterest: EmailChecker = async (email) => {
     if (data.resource_response?.data === true) return ok('pinterest', 'Pinterest', 'social', url);
     if (data.resource_response?.data === false) return no('pinterest', 'Pinterest', 'social', url);
     return err('pinterest', 'Pinterest', 'social', url);
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return err('pinterest', 'Pinterest', 'social', url);
   }
 };
@@ -321,7 +329,8 @@ const checkSpotify: EmailChecker = async (email) => {
     if (res.status === 200) return no('spotify', 'Spotify', 'social', url);
     if (res.status === 409) return ok('spotify', 'Spotify', 'social', url);
     return err('spotify', 'Spotify', 'social', url);
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return err('spotify', 'Spotify', 'social', url);
   }
 };
@@ -340,7 +349,8 @@ const checkSoundCloud: EmailChecker = async (email) => {
     // SoundCloud blocks cloud IPs; treat as error
     if (res.status === 403) return rateLimited('soundcloud', 'SoundCloud', 'social', url);
     return no('soundcloud', 'SoundCloud', 'social', url);
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return err('soundcloud', 'SoundCloud', 'social', url);
   }
 };
@@ -361,7 +371,8 @@ const checkSteam: EmailChecker = async (email) => {
     if (text.includes('already in use') || text.includes('taken')) return ok('steam', 'Steam', 'gaming', url);
     if (text.includes('available')) return no('steam', 'Steam', 'gaming', url);
     return err('steam', 'Steam', 'gaming', url);
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return err('steam', 'Steam', 'gaming', url);
   }
 };
@@ -382,7 +393,8 @@ const checkUdemy: EmailChecker = async (email) => {
     if (text.includes('already associated') || text.includes('already been registered'))
       return ok('udemy', 'Udemy', 'learning', url);
     return no('udemy', 'Udemy', 'learning', url);
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return err('udemy', 'Udemy', 'learning', url);
   }
 };
@@ -403,7 +415,8 @@ const checkCoursera: EmailChecker = async (email) => {
     const data = (await res.json()) as { isMember?: boolean; exists?: boolean };
     if (data.isMember === true || data.exists === true) return ok('coursera', 'Coursera', 'learning', url);
     return no('coursera', 'Coursera', 'learning', url);
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return err('coursera', 'Coursera', 'learning', url);
   }
 };
@@ -424,7 +437,8 @@ const checkCoinbase: EmailChecker = async (email) => {
     if (data.data?.exists === true) return ok('coinbase', 'Coinbase', 'finance', url);
     if (data.data?.exists === false) return no('coinbase', 'Coinbase', 'finance', url);
     return err('coinbase', 'Coinbase', 'finance', url);
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return err('coinbase', 'Coinbase', 'finance', url);
   }
 };
@@ -450,12 +464,14 @@ const checkGravatar: EmailChecker = async (email) => {
       try {
         const data = JSON.parse(text) as { entry?: Array<{ displayName?: string }> };
         return ok('gravatar', 'Gravatar', 'other', url, { displayName: data.entry?.[0]?.displayName });
-      } catch {
+      } catch (_catchErr) {
+        console.error('gravatarMd5 failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         return no('gravatar', 'Gravatar', 'other', url);
       }
     }
     return no('gravatar', 'Gravatar', 'other', url);
-  } catch {
+  } catch (_catchErr) {
+    console.error('gravatarMd5 failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return err('gravatar', 'Gravatar', 'other', url);
   }
 };
@@ -478,7 +494,8 @@ const checkKeybase: EmailChecker = async (email) => {
       });
     }
     return no('keybase', 'Keybase', 'dev', url);
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return err('keybase', 'Keybase', 'dev', url);
   }
 };
@@ -501,12 +518,14 @@ const checkMedium: EmailChecker = async (email) => {
       const data = JSON.parse(text) as { exists?: boolean };
       if (data.exists === true) return ok('medium', 'Medium', 'tech', url);
       if (data.exists === false) return no('medium', 'Medium', 'tech', url);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       if (text.includes('"exists":true') || text.includes('already')) return ok('medium', 'Medium', 'tech', url);
       if (text.includes('"exists":false')) return no('medium', 'Medium', 'tech', url);
     }
     return err('medium', 'Medium', 'tech', url, 'unexpected response');
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return err('medium', 'Medium', 'tech', url);
   }
 };
@@ -530,7 +549,8 @@ const checkTwitch: EmailChecker = async (email) => {
     const data = (await res.json()) as { error?: string; error_message?: string };
     if (data.error === '400' || data.error_message?.includes('already')) return ok('twitch', 'Twitch', 'gaming', url);
     return no('twitch', 'Twitch', 'gaming', url);
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return err('twitch', 'Twitch', 'gaming', url);
   }
 };
@@ -556,13 +576,15 @@ const checkDeviantArt: EmailChecker = async (email) => {
       const data = JSON.parse(text) as { result?: boolean };
       if (data.result === true) return ok('deviantart', 'DeviantArt', 'creative', url);
       if (data.result === false) return no('deviantart', 'DeviantArt', 'creative', url);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       if (text.includes('already') || text.includes('taken') || text.includes('registered')) {
         return ok('deviantart', 'DeviantArt', 'creative', url);
       }
     }
     return err('deviantart', 'DeviantArt', 'creative', url, 'unexpected response');
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return err('deviantart', 'DeviantArt', 'creative', url);
   }
 };
@@ -623,7 +645,8 @@ const checkNetflix: EmailChecker = async (email) => {
     if (text.includes('sign-up link') || text.includes('create your account'))
       return no('netflix', 'Netflix', 'entertainment', url);
     return err('netflix', 'Netflix', 'entertainment', url, 'unexpected response');
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return err('netflix', 'Netflix', 'entertainment', url);
   }
 };
@@ -670,7 +693,8 @@ const checkAmazon: EmailChecker = async (email) => {
     if (postHtml.includes('auth-password-missing-alert') || postHtml.includes('password'))
       return ok('amazon', 'Amazon', 'shopping', url);
     return no('amazon', 'Amazon', 'shopping', url);
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return err('amazon', 'Amazon', 'shopping', url);
   }
 };
@@ -699,7 +723,8 @@ const checkDropbox: EmailChecker = async (email) => {
       return no('dropbox', 'Dropbox', 'other', url);
     if (text.includes('password') || res.status === 200) return ok('dropbox', 'Dropbox', 'other', url);
     return err('dropbox', 'Dropbox', 'other', url, 'unexpected response');
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return err('dropbox', 'Dropbox', 'other', url);
   }
 };
@@ -721,7 +746,8 @@ const checkAdobe: EmailChecker = async (_email) => {
     // If redirected to login page, email might exist
     if (res.status === 302 || res.status === 301) return ok('adobe', 'Adobe', 'other', url);
     return no('adobe', 'Adobe', 'other', url);
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return err('adobe', 'Adobe', 'other', url);
   }
 };
@@ -742,7 +768,8 @@ const checkNotion: EmailChecker = async (email) => {
     if (data.signupToken) return no('notion', 'Notion', 'tech', url);
     if (data.status === 'success') return ok('notion', 'Notion', 'tech', url);
     return err('notion', 'Notion', 'tech', url, 'unexpected response');
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return err('notion', 'Notion', 'tech', url);
   }
 };
@@ -770,7 +797,8 @@ const checkUber: EmailChecker = async (email) => {
     if (text.includes('already') || text.includes('taken')) return ok('uber', 'Uber', 'other', url);
     if (text.includes('not found') || text.includes('invalid')) return no('uber', 'Uber', 'other', url);
     return err('uber', 'Uber', 'other', url, `HTTP ${res.status}`);
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return err('uber', 'Uber', 'other', url);
   }
 };
@@ -791,7 +819,8 @@ const checkLyft: EmailChecker = async (email) => {
     const text = await res.text();
     if (text.includes('not found') || text.includes('no account')) return no('lyft', 'Lyft', 'other', url);
     return ok('lyft', 'Lyft', 'other', url);
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return err('lyft', 'Lyft', 'other', url);
   }
 };
@@ -814,7 +843,8 @@ const checkAirbnb: EmailChecker = async (email) => {
     if (data.exists === true) return ok('airbnb', 'Airbnb', 'other', url);
     if (data.exists === false) return no('airbnb', 'Airbnb', 'other', url);
     return err('airbnb', 'Airbnb', 'other', url, data.error || 'unexpected response');
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return err('airbnb', 'Airbnb', 'other', url);
   }
 };
@@ -837,7 +867,8 @@ const checkBinance: EmailChecker = async (email) => {
     if (data.data?.isExist === true) return ok('binance', 'Binance', 'finance', url);
     if (data.data?.isExist === false) return no('binance', 'Binance', 'finance', url);
     return err('binance', 'Binance', 'finance', url, 'unexpected response');
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return err('binance', 'Binance', 'finance', url);
   }
 };
@@ -871,7 +902,8 @@ const checkSkillshare: EmailChecker = async (email) => {
     if (data.exists === false || data.available === true || data.user_exists === false)
       return no('skillshare', 'Skillshare', 'learning', url);
     return err('skillshare', 'Skillshare', 'learning', url, 'unexpected response');
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return err('skillshare', 'Skillshare', 'learning', url);
   }
 };
@@ -892,7 +924,8 @@ const checkKhanAcademy: EmailChecker = async (email) => {
     if (data.isTaken === true || data.exists === true) return ok('khan-academy', 'Khan Academy', 'learning', url);
     if (data.isTaken === false || data.exists === false) return no('khan-academy', 'Khan Academy', 'learning', url);
     return err('khan-academy', 'Khan Academy', 'learning', url, 'unexpected response');
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return err('khan-academy', 'Khan Academy', 'learning', url);
   }
 };
@@ -920,7 +953,8 @@ const checkWellfound: EmailChecker = async (email) => {
     if (data.available === false || data.exists === true) return ok('wellfound', 'Wellfound', 'tech', url);
     if (data.available === true || data.exists === false) return no('wellfound', 'Wellfound', 'tech', url);
     return err('wellfound', 'Wellfound', 'tech', url, 'unexpected response');
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return err('wellfound', 'Wellfound', 'tech', url);
   }
 };

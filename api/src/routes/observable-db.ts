@@ -46,7 +46,8 @@ const MAX_NOTES_PER_ENTRY = 200;
 function cacheApi(): Cache | null {
   try {
     return (caches as unknown as { default: Cache }).default;
-  } catch {
+  } catch (_catchErr) {
+    console.error('cacheApi failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -65,7 +66,8 @@ async function loadAll(kv: KVNamespace): Promise<ObservableEntry[]> {
     try {
       const r = await cache.match(OBS_CACHE_KEY);
       if (r) return (await r.json()) as ObservableEntry[];
-    } catch {
+    } catch (_catchErr) {
+      console.error('loadAll failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* fall through */
     }
   }

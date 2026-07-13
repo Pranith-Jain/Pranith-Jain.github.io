@@ -55,7 +55,8 @@ const CATEGORY_BADGE_COLORS: Record<string, string> = {
 function hostnameOf(url: string): string {
   try {
     return new URL(url).hostname.replace(/^www\./, '');
-  } catch {
+  } catch (_catchErr) {
+    console.error('hostnameOf failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return url;
   }
 }

@@ -29,7 +29,8 @@ function truncateData(data: unknown, maxChars: number): unknown {
   const truncated = json.slice(0, maxChars);
   try {
     return JSON.parse(truncated);
-  } catch {
+  } catch (_catchErr) {
+    console.error('truncateData failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     // JSON is broken at the cut point — return a safe string summary
     return { _truncated: true, _original_chars: json.length, _preview: truncated.slice(0, 500) };
   }
@@ -148,7 +149,8 @@ export class InvestigatorAgentDO {
         if (typeof msg.agentId === 'string') {
           this.sessionAgentIds.set(sessionId, msg.agentId);
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         // Ignore malformed messages
       }
     });
@@ -181,7 +183,8 @@ export class InvestigatorAgentDO {
       if (watching && watching !== msgAgentId) continue;
       try {
         ws.send(payload);
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         this.sessions.delete(id);
         this.sessionAgentIds.delete(id);
       }
@@ -285,7 +288,8 @@ export class InvestigatorAgentDO {
           currentRole = plan.specialistCalls[0].role;
           state.currentSpecialist = currentRole;
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         // Orchestrator failure — fall through to monolithic planner
       }
     } else if (currentRole) {
@@ -501,6 +505,7 @@ export class InvestigatorAgentDO {
         ]);
         return { tool: call.tool, args: call.args, status: 'ok', data, durationMs: Date.now() - start };
       } catch (err) {
+        console.error('handler failed:', err instanceof Error ? err.message : String(err));
         return {
           tool: call.tool,
           args: call.args,
@@ -594,6 +599,7 @@ export class InvestigatorAgentDO {
         qaStep.status = 'done';
         qaStep.completedAt = new Date().toISOString();
       } catch (qaErr) {
+        console.error('handler failed:', qaErr instanceof Error ? qaErr.message : String(qaErr));
         // QA failure is non-fatal — keep the original report
         qaStep.observation = `QA failed: ${qaErr instanceof Error ? qaErr.message : String(qaErr)}. Original report preserved.`;
         qaStep.status = 'error';
@@ -610,6 +616,7 @@ export class InvestigatorAgentDO {
       state.status = 'done';
       state.completedAt = new Date().toISOString();
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       synthesizeStep.status = 'error';
       synthesizeStep.completedAt = new Date().toISOString();
       state.steps.push(synthesizeStep);

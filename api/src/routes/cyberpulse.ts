@@ -293,6 +293,7 @@ export async function cyberpulseIngestHandler(c: Context<{ Bindings: Env }>): Pr
       results,
     });
   } catch (e) {
+    console.error('cyberpulseIngestHandler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ ok: false, error: e instanceof Error ? e.message : String(e) }, 500);
   }
 }

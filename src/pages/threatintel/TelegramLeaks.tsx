@@ -171,7 +171,8 @@ export default function TelegramLeaks(): JSX.Element {
             ? (() => {
                 try {
                   return JSON.parse(entry.domains_found);
-                } catch {
+                } catch (_catchErr) {
+                  console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
                   return [];
                 }
               })()

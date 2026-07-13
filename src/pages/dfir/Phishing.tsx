@@ -94,6 +94,7 @@ export default function Phishing(): JSX.Element {
       }
       setAaResult((await r.json()) as AutoAnalysisReport);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       if (ctrl.signal.aborted) return;
       setAaError(e instanceof Error ? e.message : 'analysis failed');
     }
@@ -128,6 +129,7 @@ export default function Phishing(): JSX.Element {
       const fp = await submitFingerprint(hash, url);
       setFpResult(fp);
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       if (ctrl.signal.aborted) return;
       setFpError(err instanceof Error ? err.message : 'fingerprint failed');
     } finally {
@@ -139,7 +141,8 @@ export default function Phishing(): JSX.Element {
     if (!input.trim()) return;
     try {
       sessionStorage.setItem('ioc-extractor-pipe', input);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* sessionStorage unavailable — silent */
     }
     navigate('/dfir/extract?from=phishing');
@@ -172,6 +175,7 @@ export default function Phishing(): JSX.Element {
       recordHistory({ tool: 'phishing', indicator, verdict: r2.verdict, score: r2.score });
       setTimeout(() => resultRef.current?.focus(), 0);
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       if (ctrl.signal.aborted) return;
       setError(err instanceof Error ? err.message : 'analysis failed');
     } finally {

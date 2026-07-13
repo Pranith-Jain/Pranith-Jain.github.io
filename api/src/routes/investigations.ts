@@ -118,7 +118,8 @@ function parseTags(raw: unknown): string[] {
   if (typeof raw === 'string')
     try {
       return JSON.parse(raw);
-    } catch {
+    } catch (_catchErr) {
+      console.error('parseTags failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return [];
     }
   return [];

@@ -149,7 +149,8 @@ async function callNvidia(nvidiaKey: string, input: LlmInput): Promise<string> {
       const j = (await res.json()) as { choices?: Array<{ message?: { content?: string } }> };
       const text = j?.choices?.[0]?.message?.content;
       if (typeof text === 'string' && text.trim()) return text;
-    } catch {
+    } catch (_catchErr) {
+      console.error('callNvidia failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* try next model */
     }
   }
@@ -195,6 +196,7 @@ async function runLlm(
         const text = await runWorkersAi(aiClient, model, input);
         return { text, modelUsed: model };
       } catch (err) {
+        console.error('handler failed:', err instanceof Error ? err.message : String(err));
         const msg = (err instanceof Error ? err.message : String(err)).toLowerCase();
         if (msg.includes('rate') || msg.includes('429') || msg.includes('quota')) {
           throw new Error('AI rate-limited/quota exceeded — try again later or configure GROQ_API_KEY');
@@ -429,12 +431,14 @@ function validateDlpSyntax(rule: string): { valid: boolean; errors: string[]; wa
         if (!p.regex && !p.pattern) warnings.push('Pattern entry missing regex/pattern field');
         try {
           new RegExp(p.regex ?? p.pattern ?? '');
-        } catch {
+        } catch (_catchErr) {
+          console.error('validateDlpSyntax failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           errors.push(`Invalid regex in pattern: ${p.regex ?? p.pattern}`);
         }
       }
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('validateDlpSyntax failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     if (!rule.includes('pattern') && !rule.includes('regex') && !rule.includes('match')) {
       errors.push('Invalid JSON or missing pattern definitions');
     }
@@ -586,7 +590,8 @@ function extractRuleName(type: RuleType, rule: string): string {
       try {
         const json = JSON.parse(rule);
         if (json.name) return json.name.replace(/\s+/g, '_').toLowerCase();
-      } catch {
+      } catch (_catchErr) {
+        console.error('extractRuleName failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* ok */
       }
       return 'generated_dlp_rule';
@@ -720,7 +725,8 @@ try {
     } else {
         Write-Host "No suspicious scheduled task creation found." -ForegroundColor Green
     }
-} catch {
+} catch (_catchErr) {
+  console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     Write-Error "Error querying scheduled tasks: $_"
 }`;
 
@@ -1436,6 +1442,7 @@ export async function ruleValidateHandler(c: Context<{ Bindings: Env }>): Promis
       analysis,
     });
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     return c.json({ error: 'Validation failed', details: err instanceof Error ? err.message : String(err) }, 500);
   }
 }

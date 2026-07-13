@@ -54,6 +54,7 @@ export async function radarDomainHandler(c: Context<{ Bindings: Env }>): Promise
     c.executionCtx.waitUntil(caches.default.put(cacheReq, response.clone()));
     return response;
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : 'Cloudflare Radar unreachable' }, 502);
   }
 }

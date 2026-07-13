@@ -28,7 +28,8 @@ async function readCache<T>(key: string): Promise<T | null> {
     const cache = caches.default;
     const cached = await cache.match(new Request(key));
     if (cached) return (await cached.json()) as T;
-  } catch {
+  } catch (_catchErr) {
+    console.error('readCache failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* miss */
   }
   return null;
@@ -185,6 +186,7 @@ async function runTasks(tasks: AutoTask[]): Promise<AutomationResult['tasks']> {
         results.push(...actResults);
       }
     } catch (e) {
+      console.error('runTasks failed:', e instanceof Error ? e.message : String(e));
       results.push({
         name: task.type,
         status: 'error',
@@ -238,6 +240,7 @@ export async function automationRunHandler(c: Context<{ Bindings: Env }>): Promi
 
     return c.json(result, 200, { 'Cache-Control': 'no-store' });
   } catch (e) {
+    console.error('automationRunHandler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
   }
 }

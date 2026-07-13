@@ -44,6 +44,7 @@ traceixRouter.get('/traceix/lookup', async (c) => {
       avResults: body.results ?? [],
     });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json({
       success: false,
       hash,

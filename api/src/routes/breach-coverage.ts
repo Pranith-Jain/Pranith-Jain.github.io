@@ -78,7 +78,8 @@ export async function breachCoverageHandler(c: Context<{ Bindings: Env }>): Prom
   try {
     const hit = await caches.default.match(cacheKey);
     if (hit) return new Response(hit.body, hit);
-  } catch {
+  } catch (_catchErr) {
+    console.error('breachCoverageHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* cache miss is fine */
   }
 
@@ -106,7 +107,8 @@ export async function breachCoverageHandler(c: Context<{ Bindings: Env }>): Prom
             },
           })
         );
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* cache writes are non-fatal */
       }
       try {
@@ -115,7 +117,8 @@ export async function breachCoverageHandler(c: Context<{ Bindings: Env }>): Prom
           doubles: [result.items.length],
           indexes: [visitorCountry(c.req.raw)],
         });
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* telemetry is best-effort */
       }
     })()

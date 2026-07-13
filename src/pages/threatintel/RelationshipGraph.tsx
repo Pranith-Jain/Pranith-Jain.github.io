@@ -148,6 +148,7 @@ export default function RelationshipGraphPage(): JSX.Element {
         if (reqId !== reqIdRef.current) return;
         setGraphData(data);
       } catch (e) {
+        console.error('handler failed:', e instanceof Error ? e.message : String(e));
         if (reqId !== reqIdRef.current) return;
         setError((e as Error).message);
         setGraphData(null);
@@ -173,7 +174,8 @@ export default function RelationshipGraphPage(): JSX.Element {
         return mergeWithGraph(prev, data);
       });
       setExpandedCount((c) => c + 1);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       // silent
     } finally {
       setLoading(false);

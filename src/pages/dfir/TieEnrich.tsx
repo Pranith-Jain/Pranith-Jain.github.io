@@ -116,7 +116,8 @@ export default function TieEnrich() {
               setError(msg.error);
               evtSource.close();
             }
-          } catch {
+          } catch (_catchErr) {
+            console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
             /* ignore parse errors */
           }
         };
@@ -130,6 +131,7 @@ export default function TieEnrich() {
 
       setResult(data);
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       if (ctrl.signal.aborted) return;
       setError(err instanceof Error ? err.message : String(err));
     } finally {

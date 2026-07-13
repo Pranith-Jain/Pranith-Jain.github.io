@@ -49,6 +49,7 @@ export default function CampaignLifecycle(): JSX.Element {
       });
       setLifecycle(data);
     } catch (err) {
+      console.error('CampaignLifecycle failed:', err instanceof Error ? err.message : String(err));
       setError(err instanceof Error ? err.message : String(err));
     } finally {
       setLoading(false);

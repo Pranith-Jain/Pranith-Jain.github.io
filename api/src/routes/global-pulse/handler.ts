@@ -182,7 +182,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     const safe = <T>(fn: () => T): T => {
       try {
         return fn();
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         return [] as unknown as T;
       }
     };
@@ -203,7 +204,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
           const tmData = (await tmRes.json()) as Parameters<typeof iocFromThreatMap>[0];
           finalIocEvents = safe(() => iocFromThreatMap(tmData));
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* degraded */
       }
     }
@@ -260,7 +262,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
           const cveData = (await cveRes.json()) as Parameters<typeof fromCveRecent>[0];
           finalCveEvents = safe(() => fromCveRecent(cveData));
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* degraded */
       }
     }
@@ -278,7 +281,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
           const ransomData = (await ransomRes.json()) as Parameters<typeof fromRansomware>[0];
           finalRansomwareEvents = safe(() => fromRansomware(ransomData));
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* degraded */
       }
     }
@@ -296,7 +300,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
           const iocData = (await iocRes.json()) as Parameters<typeof fromLiveIocs>[0];
           finalLiveIocEvents = safe(() => fromLiveIocs(iocData));
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* degraded */
       }
     }
@@ -314,7 +319,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
           const phishData = (await phishRes.json()) as Parameters<typeof fromPhishing>[0];
           finalPhishingEvents = safe(() => fromPhishing(phishData));
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* degraded */
       }
     }
@@ -332,7 +338,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
           const malData = (await malRes.json()) as Parameters<typeof fromMalware>[0];
           finalMalwareEvents = safe(() => fromMalware(malData));
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* degraded */
       }
     }
@@ -350,7 +357,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
           const data = (await res.json()) as Parameters<typeof fromReddit>[0];
           finalRedditEvents = safe(() => fromReddit(data));
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* degraded */
       }
     }
@@ -398,7 +406,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
         const { items } = await listBriefings(db, { limit: 5 });
         briefingEvents = fromBriefings(items);
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* degraded */
     }
 
@@ -420,7 +429,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
           const data = (await res.json()) as Parameters<typeof fromTelegram>[0];
           finalTelegramEvents = safe(() => fromTelegram(data));
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* degraded */
       }
     }
@@ -438,7 +448,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
           const data = (await res.json()) as Parameters<typeof fromScam>[0];
           finalScamEvents = safe(() => fromScam(data));
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* degraded */
       }
     }
@@ -455,7 +466,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
           const data = (await res.json()) as Parameters<typeof fromPhishing>[0];
           finalPhishingEvents = safe(() => fromPhishing(data));
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* degraded */
       }
     }
@@ -472,7 +484,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
           const data = (await res.json()) as Parameters<typeof fromStealerForum>[0];
           finalInfostealerEvents = safe(() => fromStealerForum(data));
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* degraded */
       }
     }
@@ -489,7 +502,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
           const data = (await res.json()) as Parameters<typeof fromCybercrime>[0];
           finalCybercrimeEvents = safe(() => fromCybercrime(data));
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* degraded */
       }
     }
@@ -504,7 +518,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
           const data = (await res.json()) as Parameters<typeof fromWriteups>[0];
           finalResearchEvents = safe(() => fromWriteups(data));
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* degraded */
       }
     }

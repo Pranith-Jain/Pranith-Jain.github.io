@@ -38,6 +38,7 @@ async function timeIt<T>(
     const data = await fn();
     return { source: label, ok: true, data, ms: Date.now() - t0 };
   } catch (err) {
+    console.error('timeIt failed:', err instanceof Error ? err.message : String(err));
     return {
       source: label,
       ok: false,
@@ -52,7 +53,8 @@ async function selfFetch(self: Fetcher | undefined, path: string): Promise<Respo
   try {
     if (self) return await self.fetch(`${INTERNAL}${path}`);
     return await fetch(`${INTERNAL}${path}`);
-  } catch {
+  } catch (_catchErr) {
+    console.error('selfFetch failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -125,7 +127,8 @@ export async function actorProfileHandler(c: Context<{ Bindings: Env }>): Promis
               const data = (await r.json()) as { error?: string };
               if (!data.error) return { slug, data };
             }
-          } catch {
+          } catch (_catchErr) {
+            console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
             /* try next slug */
           }
         }

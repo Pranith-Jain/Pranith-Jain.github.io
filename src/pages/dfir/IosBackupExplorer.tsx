@@ -51,6 +51,7 @@ export default function IosBackupExplorer(): JSX.Element {
       setFiles(rows);
       setDomains([...dc.entries()].sort((a, b) => b[1] - a[1]).slice(0, 40));
     } catch (e) {
+      console.error('open failed:', e instanceof Error ? e.message : String(e));
       setErr(e instanceof Error ? e.message : String(e));
       setFiles(null);
     } finally {

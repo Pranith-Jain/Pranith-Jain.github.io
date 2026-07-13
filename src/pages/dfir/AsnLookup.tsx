@@ -60,6 +60,7 @@ export default function AsnLookup(): JSX.Element {
       }
       setResult((await r.json()) as AsnResult);
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       if (ctrl.signal.aborted) return;
       setError(err instanceof Error ? err.message : 'lookup failed');
     } finally {

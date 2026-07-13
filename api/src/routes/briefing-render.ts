@@ -21,6 +21,7 @@ export async function briefingRenderHandler(c: Context<{ Bindings: Env }>): Prom
     // consume it.
     return c.json({ markdown: md }, 200);
   } catch (e) {
+    console.error('briefingRenderHandler failed:', e instanceof Error ? e.message : String(e));
     const msg = e instanceof Error ? e.message : String(e);
     return c.json({ error: 'render_failed', message: msg }, 500);
   }

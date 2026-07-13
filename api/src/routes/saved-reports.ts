@@ -43,7 +43,8 @@ export async function saveReport(c: Context<{ Bindings: Env }>): Promise<Respons
   let body: { title?: string; sourceUrl?: string; sourceText?: string; reportJson: string };
   try {
     body = await c.req.json();
-  } catch {
+  } catch (_catchErr) {
+    console.error('saveReport failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ error: 'bad_request', message: 'invalid JSON' }, 400);
   }
   if (!body.reportJson) {
@@ -53,7 +54,8 @@ export async function saveReport(c: Context<{ Bindings: Env }>): Promise<Respons
   let report: Record<string, unknown>;
   try {
     report = JSON.parse(body.reportJson);
-  } catch {
+  } catch (_catchErr) {
+    console.error('saveReport failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ error: 'bad_request', message: 'reportJson is not valid JSON' }, 400);
   }
 
@@ -157,7 +159,8 @@ export async function getTimeline(c: Context<{ Bindings: Env }>): Promise<Respon
         tactic: t.tactic,
       }));
       cves = (report.cves ?? []).slice(0, 10).map((c: { id: string }) => ({ id: c.id }));
-    } catch {
+    } catch (_catchErr) {
+      console.error('getTimeline failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* ignore parse errors */
     }
 

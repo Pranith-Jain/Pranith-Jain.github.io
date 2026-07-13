@@ -111,7 +111,8 @@ function loadState(): State {
     if (!raw) return { checks: {} };
     const parsed = JSON.parse(raw) as State;
     return { checks: parsed.checks ?? {} };
-  } catch {
+  } catch (_catchErr) {
+    console.error('loadState failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return { checks: {} };
   }
 }
@@ -228,7 +229,8 @@ export default function PersonalSecurity(): JSX.Element {
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-    } catch {
+    } catch (_catchErr) {
+      console.error('PersonalSecurity failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* quota — silent */
     }
   }, [state]);

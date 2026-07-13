@@ -76,7 +76,8 @@ async function fetchText(url: string): Promise<string | null> {
     );
     if (!res.ok) return null;
     return await res.text();
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchText failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -255,7 +256,8 @@ export async function fetchCybercrime(
           parsed.sort(cmpByPublished);
           const { kept, dropped } = applyFilter(parsed, src.filterKeywords);
           return { src, ok: kept.length > 0, items: kept.slice(0, MAX_PER_SOURCE), dropped };
-        } catch {
+        } catch (_catchErr) {
+          console.error('fetchCybercrime failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           return { src, ok: false, items: [] as CybercrimeItem[], dropped: 0, error: 'parse failed' };
         }
       })
@@ -306,7 +308,8 @@ export async function fetchCybercrime(
         afOk = true;
         afStale = true;
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* leave afOk = false */
     }
   }

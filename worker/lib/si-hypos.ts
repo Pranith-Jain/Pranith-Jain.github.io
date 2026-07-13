@@ -794,7 +794,8 @@ export async function siHyposGenerate(obs: HypoObservation, env: { ASSETS?: Fetc
         .sort((a, b) => b.score - a.score)
         .slice(0, 5);
       skills = ranked.map((r) => r.skill);
-    } catch {
+    } catch (_catchErr) {
+      console.error('siHyposGenerate failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       skills = [];
     }
   }

@@ -185,6 +185,7 @@ export async function mispGalaxyActorsHandler(c: Context<{ Bindings: Env }>): Pr
       upstreamError = `upstream ${res.status}`;
     }
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     upstreamError = err instanceof Error ? err.message : 'fetch failed';
   }
 
@@ -200,7 +201,8 @@ export async function mispGalaxyActorsHandler(c: Context<{ Bindings: Env }>): Pr
             'Cache-Control': 'public, max-age=300',
           });
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* stale read failed; fall through to error */
       }
     }

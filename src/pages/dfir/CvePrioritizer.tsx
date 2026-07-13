@@ -199,6 +199,7 @@ export default function CvePrioritizer(): JSX.Element {
         const data = (await r.json()) as BatchCveLookup;
         return { id, loading: false, data };
       } catch (e) {
+        console.error('handler failed:', e instanceof Error ? e.message : String(e));
         return { id, loading: false, error: (e as Error).message };
       }
     });

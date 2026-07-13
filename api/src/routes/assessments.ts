@@ -36,7 +36,8 @@ const INDEX_CACHE_TTL = 30;
 function cacheApi(): Cache | null {
   try {
     return (caches as unknown as { default: Cache }).default;
-  } catch {
+  } catch (_catchErr) {
+    console.error('cacheApi failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -54,7 +55,8 @@ async function loadAll(env: Env): Promise<Assessment[]> {
       try {
         const r = await cache.match(INDEX_CACHE_KEY);
         if (r) return (await r.json()) as Assessment[];
-      } catch {
+      } catch (_catchErr) {
+        console.error('loadAll failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* fall through */
       }
     }
@@ -64,7 +66,8 @@ async function loadAll(env: Env): Promise<Assessment[]> {
         try {
           const raw = await kv.get(key.name);
           return raw ? (JSON.parse(raw) as Assessment) : null;
-        } catch {
+        } catch (_catchErr) {
+          console.error('loadAll failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           return null;
         }
       })
@@ -138,6 +141,7 @@ export async function assessmentCreateHandler(c: Context<{ Bindings: Env }>): Pr
     await save(c.env, assessment);
     return c.json({ ok: true, assessment }, 201);
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
   }
 }
@@ -162,6 +166,7 @@ export async function assessmentListHandler(c: Context<{ Bindings: Env }>): Prom
       results: assessments.slice(0, limit),
     });
   } catch (e) {
+    console.error('assessmentListHandler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
   }
 }
@@ -180,7 +185,8 @@ export async function assessmentDetailHandler(c: Context<{ Bindings: Env }>): Pr
       try {
         const r = await cache.match(new Request(cacheKey));
         if (r) return c.json((await r.json()) as Assessment);
-      } catch {
+      } catch (_catchErr) {
+        console.error('assessmentDetailHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* fall through */
       }
     }
@@ -198,6 +204,7 @@ export async function assessmentDetailHandler(c: Context<{ Bindings: Env }>): Pr
     }
     return c.json(assessment);
   } catch (e) {
+    console.error('assessmentDetailHandler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
   }
 }
@@ -243,6 +250,7 @@ export async function assessmentUpdateHandler(c: Context<{ Bindings: Env }>): Pr
     await save(c.env, updated);
     return c.json({ ok: true, assessment: updated });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
   }
 }
@@ -266,6 +274,7 @@ export async function assessmentDeleteHandler(c: Context<{ Bindings: Env }>): Pr
     }
     return c.json({ ok: true, deleted: id });
   } catch (e) {
+    console.error('assessmentDeleteHandler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
   }
 }

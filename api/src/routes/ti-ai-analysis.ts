@@ -84,6 +84,7 @@ async function runAiPrompt(
     );
     return result.text;
   } catch (e) {
+    console.error('runAiPrompt failed:', e instanceof Error ? e.message : String(e));
     return `AI analysis unavailable: ${(e as Error).message || 'unknown error'}`;
   }
 }
@@ -174,7 +175,8 @@ Respond in JSON format:
       last_seen: context.last_seen || new Date().toISOString(),
       sources: context.source_count || 0,
     };
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     analysis = {
       indicator: body.indicator,
       type: body.type || 'unknown',
@@ -234,7 +236,8 @@ Provide a structured summary in JSON:
 
   try {
     return c.json(JSON.parse(response));
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ summary: response.slice(0, 1000), severity: 'medium' });
   }
 });
@@ -359,7 +362,8 @@ Respond in JSON:
 
   try {
     return c.json(JSON.parse(response));
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({
       queries: [
         { name: 'Fallback query', platform: 'kql', query: response.slice(0, 2000), description: body.scenario },
@@ -437,7 +441,8 @@ Format as JSON:
 
   try {
     return c.json(JSON.parse(response));
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({
       title: `Threat Brief: ${topic}`,
       executive_summary: response.slice(0, 1000),
@@ -501,7 +506,8 @@ async function gatherIndicatorContext(db: D1Database, indicator: string): Promis
         if (!context.first_seen) context.first_seen = cve.published_at;
       }
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     // Graceful degradation - tables may not exist
   }
 

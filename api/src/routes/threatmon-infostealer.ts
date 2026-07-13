@@ -16,6 +16,7 @@ threatmonInfostealerRouter.get('/threatmon/infostealer', async (c) => {
     const result = await threatmonInfostealerSearch(domain, validScope);
     return c.json(result);
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `threatmon_infostealer_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });

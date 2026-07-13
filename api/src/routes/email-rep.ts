@@ -75,7 +75,8 @@ export async function emailRepHandler(c: Context<{ Bindings: Env }>): Promise<Re
     try {
       const body = (await cached.json()) as EmailRepResponse;
       return jsonResponse(c, { ...body, cached: true }, 200, CACHE_TTL_SECONDS);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* corrupt cache entry — fall through */
     }
   }
@@ -143,6 +144,7 @@ export async function emailRepHandler(c: Context<{ Bindings: Env }>): Promise<Re
     c.executionCtx.waitUntil(safeNullLog('cache-put-emailrep', cache.put(cacheReq, toCache)));
     return jsonResponse(c, body, 200, CACHE_TTL_SECONDS);
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     return jsonResponse(
       c,
       {

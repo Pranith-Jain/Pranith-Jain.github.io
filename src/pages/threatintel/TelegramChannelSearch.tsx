@@ -82,6 +82,7 @@ export default function TelegramChannelSearch(): JSX.Element {
       const j = (await res.json()) as SearchResponse;
       if (!ctrl.signal.aborted) setData(j);
     } catch (e) {
+      console.error('TelegramChannelSearch failed:', e instanceof Error ? e.message : String(e));
       if ((e as Error).name === 'AbortError') return;
       setError(e instanceof Error ? e.message : String(e));
     } finally {
@@ -117,6 +118,7 @@ export default function TelegramChannelSearch(): JSX.Element {
         throw new Error(j.message ?? j.error ?? `HTTP ${res.status}`);
       }
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       if ((e as Error).name === 'AbortError') return;
       setError(e instanceof Error ? e.message : String(e));
     } finally {

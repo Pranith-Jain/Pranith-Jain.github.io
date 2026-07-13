@@ -44,11 +44,13 @@ export async function indexTelegramLeaks(env: Env): Promise<{ indexed: number; e
           tags: [row.leak_type, row.severity, row.channel_handle],
         });
         indexed += n;
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         errors++;
       }
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     errors++;
   }
 

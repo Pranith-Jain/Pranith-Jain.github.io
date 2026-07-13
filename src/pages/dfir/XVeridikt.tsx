@@ -121,7 +121,8 @@ export default function XVeridikt(): JSX.Element {
             try {
               const p = JSON.parse(body) as { message?: string; error?: string };
               msg = p.message ?? p.error ?? msg;
-            } catch {
+            } catch (_catchErr) {
+              console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
               /* */
             }
             throw new Error(`${indicator}: ${msg}`);
@@ -144,6 +145,7 @@ export default function XVeridikt(): JSX.Element {
       if (ctrl.signal.aborted) return;
       setResults(outcomes);
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       if (ctrl.signal.aborted) return;
       setError(err instanceof Error ? err.message : String(err));
     } finally {

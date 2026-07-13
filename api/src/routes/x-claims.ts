@@ -150,7 +150,8 @@ export async function readXClaimsCache(): Promise<XClaimsResponse | null> {
     const hit = await cache.match(new Request(X_CLAIMS_CACHE_KEY));
     if (!hit) return null;
     return (await hit.json()) as XClaimsResponse;
-  } catch {
+  } catch (_catchErr) {
+    console.error('readXClaimsCache failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }

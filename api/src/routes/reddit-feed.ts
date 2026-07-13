@@ -72,7 +72,8 @@ async function fromAssets(env?: { ASSETS: Fetcher }): Promise<RedditFeedResponse
       const data = await r.json();
       if (validFeed(data)) return data;
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('fromAssets failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* ignore */
   }
   return null;
@@ -89,7 +90,8 @@ async function fromRawBranch(): Promise<RedditFeedResponse | null> {
       const data = await r.json();
       if (validFeed(data)) return data;
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('fromRawBranch failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* ignore */
   }
   return null;

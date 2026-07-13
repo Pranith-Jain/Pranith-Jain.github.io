@@ -136,6 +136,7 @@ function analyze(text: string): Analysis | null {
   try {
     doc = JSON.parse(trimmed) as Record<string, unknown>;
   } catch (e) {
+    console.error('analyze failed:', e instanceof Error ? e.message : String(e));
     return { error: (e as Error).message, policyType: '', bindings: 0, findings: [] };
   }
 

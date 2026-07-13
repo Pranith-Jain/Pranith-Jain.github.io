@@ -212,6 +212,7 @@ export default function CyberPulse(): JSX.Element {
       if (statsRes.ok) setStats(await statsRes.json());
       if (trendRes.ok) setTrending(await trendRes.json());
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       if (ctrl.signal.aborted) return;
       setError(e instanceof Error ? e.message : 'Failed to load');
     } finally {
@@ -544,7 +545,8 @@ function IncidentCard({ incident: inc, postSummary }: { incident: Incident; post
   const tags: string[] = (() => {
     try {
       return JSON.parse(inc.tags);
-    } catch {
+    } catch (_catchErr) {
+      console.error('IncidentCard failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return [];
     }
   })();

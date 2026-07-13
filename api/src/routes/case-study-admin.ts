@@ -82,7 +82,8 @@ async function fetchOgCardPng(env: Env, type: 'blog' | 'briefing', slug: string)
     if (!res.ok) return undefined;
     const bytes = new Uint8Array(await res.arrayBuffer());
     return bytes.length > 0 ? bytes : undefined;
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchOgCardPng failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return undefined;
   }
 }
@@ -746,6 +747,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
         mode,
       });
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       // Surface the actual post-process / LLM error so the admin can see
       // WHY the rewrite failed (e.g. "missing section: ## Lessons learned",
       // "qa failed: too thin (56 words < 160)"). 422 not 500 — the request
@@ -822,7 +824,8 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
           const u = new URL(s.url);
           if (u.protocol !== 'https:' && u.protocol !== 'http:') throw new Error();
           if (!u.hostname.includes('.')) throw new Error();
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           return c.json({ error: `sources[${i}].url is not a valid HTTP URL: ${s.url}` }, 400);
         }
       }
@@ -1202,6 +1205,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
           errors.push(`unknown format: ${fmt}`);
         }
       } catch (err) {
+        console.error('handler failed:', err instanceof Error ? err.message : String(err));
         errors.push(`${fmt}: ${err instanceof Error ? err.message : String(err)}`);
       }
     }
@@ -1296,6 +1300,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
           errors.push(`unknown format: ${fmt}`);
         }
       } catch (err) {
+        console.error('handler failed:', err instanceof Error ? err.message : String(err));
         errors.push(`${fmt}: ${err instanceof Error ? err.message : String(err)}`);
       }
     }
@@ -1340,6 +1345,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
           ? { ok: true, detail: `HTTP ${r.status}` }
           : { ok: false, detail: `HTTP ${r.status}: ${body.slice(0, 120)}` };
       } catch (e) {
+        console.error('handler failed:', e instanceof Error ? e.message : String(e));
         groqTest = { ok: false, detail: e instanceof Error ? e.message : String(e) };
       }
     }

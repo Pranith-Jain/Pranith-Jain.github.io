@@ -153,7 +153,8 @@ async function readCachedJson<T>(key: string): Promise<T | null> {
     const cache = caches.default;
     const cached = await cache.match(new Request(key));
     if (cached) return (await cached.json()) as T;
-  } catch {
+  } catch (_catchErr) {
+    console.error('readCachedJson failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* miss */
   }
   return null;
@@ -170,7 +171,8 @@ export async function observeHandler(c: Context<{ Bindings: Env }>): Promise<Res
     if (entity) {
       try {
         profile = await buildEntityProfile(entity);
-      } catch {
+      } catch (_catchErr) {
+        console.error('observeHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* non-fatal */
       }
     }
@@ -200,6 +202,7 @@ export async function observeHandler(c: Context<{ Bindings: Env }>): Promise<Res
       'Cache-Control': 'public, max-age=60',
     });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);
   }
 }
@@ -219,7 +222,8 @@ async function gatherCachedCounts(q: string, type: string): Promise<ObserveRespo
         if (liveIocs?.items) {
           counts.live_ioc_count = liveIocs.items.filter((i) => i.value?.toLowerCase() === ql).length;
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('gatherCachedCounts failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* skip */
       }
     })(),
@@ -229,7 +233,8 @@ async function gatherCachedCounts(q: string, type: string): Promise<ObserveRespo
         if (c2Data?.entries) {
           counts.c2_count = c2Data.entries.filter((e) => e.ip?.toLowerCase() === ql).length;
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('gatherCachedCounts failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* skip */
       }
     })(),
@@ -245,7 +250,8 @@ async function gatherCachedCounts(q: string, type: string): Promise<ObserveRespo
           if (samples?.samples) {
             counts.malware_sample_count = samples.samples.filter((s) => s.sha256?.toLowerCase() === ql).length;
           }
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* skip */
         }
       })()
@@ -263,7 +269,8 @@ async function gatherCachedCounts(q: string, type: string): Promise<ObserveRespo
             (b) => b.name?.toLowerCase().includes(ql) || b.domain?.toLowerCase() === ql
           ).length;
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* skip */
       }
     })()

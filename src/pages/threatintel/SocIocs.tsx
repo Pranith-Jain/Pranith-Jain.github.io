@@ -99,6 +99,7 @@ export default function SocIocs(): JSX.Element {
       const r = (await fetchJson('/api/v1/live-iocs', { signal, cache: 'no-store' })) as LiveIocsResponse;
       setData(r);
     } catch (e) {
+      console.error('SocIocs failed:', e instanceof Error ? e.message : String(e));
       if ((e as { name?: string }).name !== 'AbortError') {
         setError(e instanceof Error ? e.message : 'Failed to load.');
       }

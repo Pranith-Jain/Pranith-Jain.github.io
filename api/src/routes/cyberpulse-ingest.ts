@@ -894,7 +894,8 @@ export async function fetchXAccountPosts(
       try {
         const claims = await readXClaimsCache();
         return claims?.breach;
-      } catch {
+      } catch (_catchErr) {
+        console.error('fetchXAccountPosts failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         return undefined;
       }
     })());
@@ -1043,6 +1044,7 @@ export async function fetchXSearchPosts(
         });
       }
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       if (e instanceof XAuthMissingError) break;
       if (e instanceof XAuthInvalidError) {
         searchErrors.push(`X search auth rejected (HTTP ${e.status})`);
@@ -1289,7 +1291,8 @@ async function fetchTelegramBreachFeed(kv?: KVNamespace, items?: TelegramFeedIte
   try {
     const feedItems = items ?? (await fetchTelegramFeed(kv)).items;
     return feedItems.map(telegramItemToRawPost).filter((p): p is RawPost => p !== null);
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchTelegramBreachFeed failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -1334,7 +1337,8 @@ async function fetchRedditBreachFeed(items?: RedditFeedItem[], fetched?: boolean
   try {
     const feedItems = items && items.length > 0 ? items : fetched ? (items ?? []) : (await fetchRedditFeed()).items;
     return feedItems.map(redditItemToRawPost);
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchRedditBreachFeed failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -1443,6 +1447,7 @@ export async function runCyberPulseIngestion(
       duration_ms: Date.now() - xStart,
     });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     const err = e instanceof Error ? e.message : String(e);
     await logScan(db, 'x_accounts', null, null, 0, 0, 0, Date.now() - xStart, err);
     results.push({
@@ -1499,6 +1504,7 @@ export async function runCyberPulseIngestion(
       duration_ms: Date.now() - xSearchStart,
     });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     const err = e instanceof Error ? e.message : String(e);
     await logScan(db, 'x_search', null, null, 0, 0, 0, Date.now() - xSearchStart, err);
     results.push({
@@ -1555,6 +1561,7 @@ export async function runCyberPulseIngestion(
       duration_ms: Date.now() - tgStart,
     });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     const err = e instanceof Error ? e.message : String(e);
     await logScan(db, 'telegram', null, null, 0, 0, 0, Date.now() - tgStart, err);
     results.push({
@@ -1611,6 +1618,7 @@ export async function runCyberPulseIngestion(
       duration_ms: Date.now() - socialStart,
     });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     const err = e instanceof Error ? e.message : String(e);
     await logScan(db, 'bluesky_mastodon', null, null, 0, 0, 0, Date.now() - socialStart, err);
     results.push({
@@ -1657,6 +1665,7 @@ export async function runCyberPulseIngestion(
       duration_ms: Date.now() - redditStart,
     });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     const err = e instanceof Error ? e.message : String(e);
     await logScan(db, 'reddit', null, null, 0, 0, 0, Date.now() - redditStart, err);
     results.push({

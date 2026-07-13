@@ -68,6 +68,7 @@ export async function aiHoneypotFeedHandler(c: Context<{ Bindings: Env }>): Prom
     c.executionCtx.waitUntil(cache.put(cacheKey, response.clone()));
     return response;
   } catch (e) {
+    console.error('aiHoneypotFeedHandler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : 'Fetch failed' }, 502);
   }
 }

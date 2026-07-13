@@ -83,6 +83,7 @@ function PipelineBar() {
       const r = await postJson<{ ok?: boolean; stage?: string; result?: unknown; error?: string }>(`/run/${stage}`);
       setMsg(r.error ? `${stage}: ${r.error}` : summariseRunResult(stage, r.result));
     } catch (e) {
+      console.error('run failed:', e instanceof Error ? e.message : String(e));
       setMsg(`${stage}: ${e instanceof Error ? e.message : String(e)}`);
     } finally {
       setBusy(null);
@@ -102,6 +103,7 @@ function PipelineBar() {
       parts.push(summariseRunResult('publish', u.result));
       setMsg(parts.join(' · '));
     } catch (e) {
+      console.error('runAll failed:', e instanceof Error ? e.message : String(e));
       setMsg(`${parts.join(' · ')}${parts.length ? ' · ' : ''}${e instanceof Error ? e.message : String(e)}`);
     } finally {
       setBusy(null);

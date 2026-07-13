@@ -107,7 +107,8 @@ function filetime(d: DataView, o: number): string {
     const hi = d.getUint32(o + 4, true);
     const ms = (hi * 2 ** 32 + lo) / 1e4 - 11644473600000;
     return Number.isFinite(ms) && ms > 0 ? new Date(ms).toISOString() : '';
-  } catch {
+  } catch (_catchErr) {
+    console.error('filetime failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return '';
   }
 }
@@ -242,6 +243,7 @@ export default function PrefetchAnalyzer(): JSX.Element {
             await yieldToPaint();
             setPf(parsePrefetch(await f.arrayBuffer()));
           } catch (ex) {
+            console.error('handler failed:', ex instanceof Error ? ex.message : String(ex));
             setPf(null);
             setErr(ex instanceof Error ? ex.message : String(ex));
           } finally {

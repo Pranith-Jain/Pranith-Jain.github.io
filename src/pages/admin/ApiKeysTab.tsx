@@ -41,6 +41,7 @@ export default function ApiKeysTab() {
       setKeys(data.keys);
       setError(null);
     } catch (e) {
+      console.error('loadKeys failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : 'failed to load keys');
     } finally {
       setLoading(false);
@@ -64,6 +65,7 @@ export default function ApiKeysTab() {
       setRole('readonly');
       void loadKeys();
     } catch (e) {
+      console.error('handleCreate failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : 'failed to create key');
     } finally {
       setCreating(false);
@@ -81,6 +83,7 @@ export default function ApiKeysTab() {
       if (!r.ok) throw new Error(`${r.status}`);
       void loadKeys();
     } catch (e) {
+      console.error('handleRevoke failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : 'failed to revoke');
     } finally {
       setRevoking(null);

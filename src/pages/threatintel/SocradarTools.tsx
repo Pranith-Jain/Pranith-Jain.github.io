@@ -165,7 +165,8 @@ function DDoSPanel() {
       const res = await fetch('/api/v1/ddos/dashboard');
       if (!res.ok) throw new Error('Failed');
       setData(await res.json());
-    } catch {
+    } catch (_catchErr) {
+      console.error('DDoSPanel failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       setError('Failed to load DDoS intelligence');
     }
     setLoading(false);
@@ -339,7 +340,8 @@ function FortiBleedPanel() {
       const res = await fetch(`/api/v1/fortibleed/check?target=${encodeURIComponent(target)}`);
       if (!res.ok) throw new Error('Check failed');
       setResult(await res.json());
-    } catch {
+    } catch (_catchErr) {
+      console.error('FortiBleedPanel failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       setError('Check failed');
     }
     setLoading(false);
@@ -484,7 +486,8 @@ function HealthcarePanel() {
       const res = await fetch('/api/v1/health-breach/dashboard');
       if (!res.ok) throw new Error('Failed');
       setData(await res.json());
-    } catch {
+    } catch (_catchErr) {
+      console.error('HealthcarePanel failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       setError('Failed to load healthcare breach data');
     }
     setLoading(false);
@@ -655,7 +658,8 @@ function ThreatReportsPanel() {
       const res = await fetch(`/api/v1/threat-reports/${type}?${p}`);
       if (!res.ok) throw new Error('Failed');
       setData(await res.json());
-    } catch {
+    } catch (_catchErr) {
+      console.error('ThreatReportsPanel failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       setError('Failed to generate report');
     }
     setLoading(false);

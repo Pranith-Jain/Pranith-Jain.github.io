@@ -164,6 +164,7 @@ export default function EmailReputation(): JSX.Element {
           if (rj.ok && rj.verdict === 'malicious') scoreValue = Math.max(scoreValue, 75);
           else if (rj.ok && rj.verdict === 'suspicious') scoreValue = Math.max(scoreValue, 50);
         } catch (e) {
+          console.error('handler failed:', e instanceof Error ? e.message : String(e));
           if ((e as { name?: string }).name !== 'AbortError') {
             emailRepResult = {
               email: emailAddress,
@@ -195,6 +196,7 @@ export default function EmailReputation(): JSX.Element {
         emailRep: emailRepResult,
       });
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       if (!signal.aborted) setError(e instanceof Error ? e.message : 'lookup failed');
     } finally {
       if (!signal.aborted) setLoading(false);

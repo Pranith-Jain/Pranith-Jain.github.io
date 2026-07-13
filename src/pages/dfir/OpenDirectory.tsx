@@ -62,6 +62,7 @@ export default function OpenDirectory(): JSX.Element {
       }
       setResult(data);
     } catch (e) {
+      console.error('OpenDirectory failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : 'Scan failed');
     } finally {
       setLoading(false);

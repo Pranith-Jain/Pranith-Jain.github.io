@@ -121,6 +121,7 @@ export default function Observe(): JSX.Element {
       }
       setData((await res.json()) as ObserveResponse);
     } catch (e) {
+      console.error('Observe failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setLoading(false);
@@ -166,13 +167,15 @@ export default function Observe(): JSX.Element {
             if (parsed.type === 'result' && parsed.source) {
               verdicts.push({ source: parsed.source, score: parsed.score ?? 0, verdict: parsed.verdict ?? 'unknown' });
             }
-          } catch {
+          } catch (_catchErr) {
+            console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
             /* skip malformed */
           }
         }
       }
       setIocVerdicts(verdicts);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       const msg = e instanceof Error ? e.message : String(e);
       if (msg !== 'The operation was aborted') {
         setError(`IOC check failed: ${msg}`);

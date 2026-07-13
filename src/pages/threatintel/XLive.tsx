@@ -72,7 +72,8 @@ export default function XLive(): JSX.Element {
   const [sinceHours, setSinceHours] = useState<number>(() => {
     try {
       return Number(localStorage.getItem('x-live.since-hours') ?? '24') || 24;
-    } catch {
+    } catch (_catchErr) {
+      console.error('XLive failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return 24;
     }
   });
@@ -106,7 +107,8 @@ export default function XLive(): JSX.Element {
   useEffect(() => {
     try {
       localStorage.setItem('x-live.since-hours', String(sinceHours));
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* localStorage unavailable */
     }
     return load(sinceHours);

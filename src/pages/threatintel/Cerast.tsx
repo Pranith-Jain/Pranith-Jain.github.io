@@ -37,7 +37,8 @@ function fmtDate(s: string): string {
     const d = new Date(s);
     if (isNaN(d.getTime())) return s;
     return d.toISOString().slice(0, 16).replace('T', ' ');
-  } catch {
+  } catch (_catchErr) {
+    console.error('fmtDate failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return s;
   }
 }

@@ -51,6 +51,7 @@ export async function entityExtractHandler(c: Context<{ Bindings: Env }>): Promi
       { 'Cache-Control': 'public, max-age=60' }
     );
   } catch (e) {
+    console.error('entityExtractHandler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
   }
 }
@@ -74,7 +75,8 @@ export async function entityProfileHandler(c: Context<{ Bindings: Env }>): Promi
         }
         const profile = await buildEntityProfile(entity);
         results.push({ query: id, entity, profile });
-      } catch {
+      } catch (_catchErr) {
+        console.error('entityProfileHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         results.push({ query: id, error: 'resolution_failed' });
       }
     }
@@ -84,6 +86,7 @@ export async function entityProfileHandler(c: Context<{ Bindings: Env }>): Promi
       results,
     });
   } catch (e) {
+    console.error('entityProfileHandler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
   }
 }

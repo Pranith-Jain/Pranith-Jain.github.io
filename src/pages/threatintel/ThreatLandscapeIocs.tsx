@@ -56,6 +56,7 @@ export default function ThreatLandscapeIocs(): JSX.Element {
       const json = (await res.json()) as ActionableIoc[];
       setData(json);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : 'Unknown error');
     } finally {
       setLoading(false);

@@ -49,7 +49,8 @@ function sourceLinksFrom(ev: Record<string, unknown>): string[] {
 function hostOf(u: string): string {
   try {
     return new URL(u).hostname.replace(/^www\./, '');
-  } catch {
+  } catch (_catchErr) {
+    console.error('hostOf failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return u;
   }
 }
@@ -114,6 +115,7 @@ export default function PendingTab() {
       const d = await getJson<{ pending: Candidate[] }>('/candidates');
       setPending(d.pending);
     } catch (e) {
+      console.error('PendingTab failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : 'failed to load');
     } finally {
       setLoading(false);
@@ -138,6 +140,7 @@ export default function PendingTab() {
       }
       await load();
     } catch (e) {
+      console.error('approve failed:', e instanceof Error ? e.message : String(e));
       setActionMsg(`approve failed: ${e instanceof Error ? e.message : String(e)}`);
     }
   }
@@ -149,6 +152,7 @@ export default function PendingTab() {
       setActionMsg(`Skipped ${id}`);
       await load();
     } catch (e) {
+      console.error('skip failed:', e instanceof Error ? e.message : String(e));
       setActionMsg(`skip failed: ${e instanceof Error ? e.message : String(e)}`);
     }
   }
@@ -161,6 +165,7 @@ export default function PendingTab() {
       setActionMsg(`Cleared ${res.cleared} candidate(s)`);
       await load();
     } catch (e) {
+      console.error('clearAll failed:', e instanceof Error ? e.message : String(e));
       setActionMsg(`clear all failed: ${e instanceof Error ? e.message : String(e)}`);
     }
   }
@@ -181,6 +186,7 @@ export default function PendingTab() {
       }
       setActionMsg(`${format} generated for ${candidate.title.slice(0, 50)}`);
     } catch (e) {
+      console.error('generate failed:', e instanceof Error ? e.message : String(e));
       setActionMsg(`${format} failed: ${e instanceof Error ? e.message : String(e)}`);
     } finally {
       setGenerating((prev) => ({ ...prev, [key]: '' }));
@@ -390,7 +396,8 @@ function SocialPreviewPanel({ preview, onClose }: { preview: SocialPreview; onCl
       await navigator.clipboard.writeText(text);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    } catch {
+    } catch (_catchErr) {
+      console.error('copyText failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       // fallback: select the textarea content
     }
   }

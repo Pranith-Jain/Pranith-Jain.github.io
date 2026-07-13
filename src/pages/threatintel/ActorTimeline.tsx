@@ -251,7 +251,8 @@ export default function ActorTimeline(): JSX.Element {
                           let host = ref;
                           try {
                             host = new URL(ref).hostname.replace(/^www\./, '');
-                          } catch {
+                          } catch (_catchErr) {
+                            console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
                             /* ignore */
                           }
                           return (

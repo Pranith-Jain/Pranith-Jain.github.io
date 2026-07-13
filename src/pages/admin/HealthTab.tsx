@@ -40,6 +40,7 @@ export default function HealthTab() {
       setHealth(d);
       setFetchedAt(new Date());
     } catch (e) {
+      console.error('HealthTab failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : 'failed to load');
     } finally {
       setLoading(false);

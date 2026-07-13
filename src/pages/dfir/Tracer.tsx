@@ -97,7 +97,8 @@ export default function Tracer(): JSX.Element {
         setWarning(data.warning ?? null);
         setCluster(data.cluster ?? null);
         setGraph((prev) => mergeExpand(prev ?? base ?? emptyGraph(data.root.id), data));
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         setError('Network error');
       } finally {
         setLoading(false);
@@ -139,7 +140,8 @@ export default function Tracer(): JSX.Element {
       const data = (await res.json()) as { total?: number };
       const n = data.total ?? 0;
       setUnifiedResult(`${n} result${n === 1 ? '' : 's'} — open in Unified Search`);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       setUnifiedResult('search unavailable');
     }
   }, []);
@@ -150,7 +152,8 @@ export default function Tracer(): JSX.Element {
       if (!res.ok) return;
       const data = (await res.json()) as { context?: { ens_name?: string | null } };
       if (data.context?.ens_name) setEnsName(data.context.ens_name);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* ignore — Tier-1 unaffected */
     }
   }, []);
@@ -258,7 +261,8 @@ export default function Tracer(): JSX.Element {
       setSeed(row.seed_address);
       setChain(row.chain);
       setSelected(null);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       setError('Saved trace is corrupted.');
     }
   }, []);
@@ -280,7 +284,8 @@ export default function Tracer(): JSX.Element {
         a.href = dataUrl;
         a.download = `${base}.png`;
         a.click();
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         setError('PNG export failed — JSON/CSV still work.');
       }
     },

@@ -104,7 +104,8 @@ export async function mtiHandler(c: Context<{ Bindings: Env }>): Promise<Respons
           { 'cache-control': 'no-store' }
         );
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* fall through to the error path */
     }
   }

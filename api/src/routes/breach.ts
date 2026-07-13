@@ -193,7 +193,8 @@ async function queryLeakIx(q: string): Promise<BreachEntry[]> {
       description: `${r.ip}:${r.port} — ${r.leak?.leak_data || 'no details'}`,
       source: 'leakix' as const,
     }));
-  } catch {
+  } catch (_catchErr) {
+    console.error('queryLeakIx failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -216,7 +217,8 @@ async function queryProxyNova(q: string): Promise<BreachEntry[]> {
           },
         ]
       : [];
-  } catch {
+  } catch (_catchErr) {
+    console.error('queryProxyNova failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -249,7 +251,8 @@ async function queryHudsonRockEmail(email: string): Promise<BreachEntry[]> {
       pwn_count: totalCreds,
       source: 'hudsonrock' as const,
     }));
-  } catch {
+  } catch (_catchErr) {
+    console.error('queryHudsonRockEmail failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -296,7 +299,8 @@ async function queryHudsonRockDomain(domain: string): Promise<BreachDomainEntry[
         source: 'hudsonrock' as const,
       },
     ];
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -343,7 +347,8 @@ async function queryProjectDiscovery(email: string): Promise<BreachEntry[]> {
         source: 'projectdiscovery' as const,
       },
     ];
-  } catch {
+  } catch (_catchErr) {
+    console.error('queryProjectDiscovery failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -380,7 +385,8 @@ async function queryProjectDiscoveryDomain(domain: string): Promise<BreachDomain
         source: 'projectdiscovery' as const,
       },
     ];
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -397,7 +403,8 @@ async function queryHackMyIp(email: string): Promise<BreachEntry[]> {
     });
     if (!res.ok) return [];
     return [];
-  } catch {
+  } catch (_catchErr) {
+    console.error('queryHackMyIp failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -473,7 +480,8 @@ async function queryThrowaway(email: string): Promise<ThrowawayResponse | null> 
     });
     if (!res.ok) return null;
     return (await res.json()) as ThrowawayResponse;
-  } catch {
+  } catch (_catchErr) {
+    console.error('queryThrowaway failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -492,7 +500,8 @@ async function queryRapid(email: string): Promise<RapidResponse | null> {
     });
     if (!res.ok) return null;
     return (await res.json()) as RapidResponse;
-  } catch {
+  } catch (_catchErr) {
+    console.error('queryRapid failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -654,7 +663,8 @@ export async function breachRangeHandler(c: Context<{ Bindings: Env }>): Promise
         'Cache-Control': 'public, max-age=3600',
       },
     });
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ error: 'upstream_error' }, 502, {
       'Cache-Control': 'no-store',
     });

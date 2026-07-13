@@ -178,6 +178,7 @@ export async function copilotChatHandler(c: Context<{ Bindings: Env }>): Promise
 
     return c.json({ sessionId: session.id, agentId });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);
   }
 }
@@ -212,7 +213,8 @@ export async function copilotChatStreamHandler(c: Context<{ Bindings: Env }>): P
         if (!closed) {
           try {
             controller.enqueue(encoder.encode(`data: ${data}\n\n`));
-          } catch {
+          } catch (_catchErr) {
+            console.error('copilotChatStreamHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
             closed = true;
           }
         }
@@ -258,7 +260,8 @@ export async function copilotChatStreamHandler(c: Context<{ Bindings: Env }>): P
 
               try {
                 await saveSession(db, session);
-              } catch {
+              } catch (_catchErr) {
+                console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
                 /* non-fatal */
               }
             }
@@ -275,11 +278,13 @@ export async function copilotChatStreamHandler(c: Context<{ Bindings: Env }>): P
             closed = true;
             try {
               controller.close();
-            } catch {
+            } catch (_catchErr) {
+              console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
               /* already closed */
             }
           }
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* poll */
         }
       }, 800);
@@ -297,7 +302,8 @@ export async function copilotChatStreamHandler(c: Context<{ Bindings: Env }>): P
           send(JSON.stringify({ type: 'error', error: 'Stream timed out after 120s' }));
           try {
             controller.close();
-          } catch {
+          } catch (_catchErr) {
+            console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
             /* already closed */
           }
         }
@@ -310,7 +316,8 @@ export async function copilotChatStreamHandler(c: Context<{ Bindings: Env }>): P
         clearTimeout(timeout);
         try {
           controller.close();
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* already closed */
         }
       });
@@ -345,6 +352,7 @@ export async function copilotChatHistoryHandler(c: Context<{ Bindings: Env }>): 
       updated_at: session.updated_at,
     });
   } catch (e) {
+    console.error('copilotChatHistoryHandler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);
   }
 }

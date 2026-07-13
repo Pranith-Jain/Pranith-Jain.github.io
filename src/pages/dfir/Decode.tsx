@@ -29,7 +29,8 @@ export default function Decode(): JSX.Element {
     if (!output) return;
     try {
       sessionStorage.setItem('ioc-extractor-pipe', output);
-    } catch {
+    } catch (_catchErr) {
+      console.error('Decode failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* sessionStorage unavailable — silent */
     }
     navigate('/dfir/extract?from=decoder');

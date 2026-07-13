@@ -129,6 +129,7 @@ export default function HostGraphView(): JSX.Element {
         if (!res.ok) throw new Error(body.message || `HTTP ${res.status}`);
         setResult(body as GraphResponse);
       } catch (e) {
+        console.error('handler failed:', e instanceof Error ? e.message : String(e));
         if (e instanceof DOMException && e.name === 'AbortError') return;
         if (!mountedRef.current) return;
         setError(e instanceof Error ? e.message : 'Lookup failed');

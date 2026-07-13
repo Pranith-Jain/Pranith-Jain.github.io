@@ -38,6 +38,7 @@ threatIntelRouter.get('/threat-intel/', async (c) => {
       counts: idx.counts,
     });
   } catch (e) {
+    console.error('loadTiMod failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `ti_index_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -68,6 +69,7 @@ threatIntelRouter.get('/threat-intel/cves', async (c) => {
     });
     return c.json({ total: idx.counts.cves, returned: cves.length, cves });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `ti_cves_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -81,6 +83,7 @@ threatIntelRouter.get('/threat-intel/cves/:cveId', async (c) => {
     if (!body) return notFound(c, `cve_not_found: ${cveId}`);
     return c.json(body);
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `ti_cve_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -97,6 +100,7 @@ threatIntelRouter.get('/threat-intel/kev', async (c) => {
     const sliced = limit ? out.slice(0, limit) : out;
     return c.json({ total: kev.length, returned: sliced.length, entries: sliced });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `ti_kev_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -117,6 +121,7 @@ threatIntelRouter.get('/threat-intel/iocs', async (c) => {
     });
     return c.json({ total: idx.counts.iocs, returned: iocs.length, iocs });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `ti_iocs_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -130,6 +135,7 @@ threatIntelRouter.get('/threat-intel/iocs/:slug', async (c) => {
     if (!body) return notFound(c, `ioc_family_not_found: ${slug}`);
     return c.json(body);
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `ti_ioc_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -141,6 +147,7 @@ threatIntelRouter.get('/threat-intel/sectors', async (c) => {
     const idx = await mod.loadTiIndex(c.env.ASSETS);
     return c.json({ sectors: idx.sectors });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `ti_sectors_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -157,6 +164,7 @@ threatIntelRouter.get('/threat-intel/sectors/:sector', async (c) => {
     if (!body) return notFound(c, `sector_not_found: ${sector}`);
     return c.json(body);
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `ti_sector_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -176,6 +184,7 @@ threatIntelRouter.get('/threat-intel/stats', async (c) => {
       cache,
     });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `ti_stats_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -218,6 +227,7 @@ threatIntelRouter.get('/threat-intel/search/otx', async (c) => {
     }));
     return c.json({ query: q, total: pulses.length, pulses });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
   }
 });
@@ -260,6 +270,7 @@ threatIntelRouter.get('/threat-intel/search/threatfox', async (c) => {
     }));
     return c.json({ query: q, total: iocs.length, iocs });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
   }
 });
@@ -300,6 +311,7 @@ threatIntelRouter.get('/threat-intel/search/malwarebazaar', async (c) => {
     }));
     return c.json({ query: q, search_mode: mode, total: samples.length, samples });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
   }
 });
@@ -341,13 +353,15 @@ threatIntelRouter.get('/threat-intel/search/ransomware-live', async (c) => {
           tools: d.tools ?? [],
           victim_count: d._victim_count ?? 0,
         };
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         return null;
       }
     };
     const details = (await Promise.all(matched.map((g) => fetchDetail(g.name)))).filter(Boolean);
     return c.json({ query: q, total: details.length, groups: details });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
   }
 });

@@ -73,7 +73,8 @@ async function fetchFromCollection(collectionId: string, stixId: string): Promis
     if (!res.ok) return { obj: null, status: res.status };
     const body = (await res.json()) as TaxiiEnvelope;
     return { obj: body.objects?.[0] ?? null, status: 200 };
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchFromCollection failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return { obj: null, status: -1 };
   } finally {
     clearTimeout(timer);

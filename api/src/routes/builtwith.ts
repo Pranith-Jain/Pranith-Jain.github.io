@@ -384,7 +384,8 @@ export async function builtwithHandler(c: Context<{ Bindings: Env }>): Promise<R
     try {
       const raw = await res.text();
       body = raw.length > 512 * 1024 ? raw.slice(0, 512 * 1024) : raw;
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       body = '';
     }
 
@@ -424,6 +425,7 @@ export async function builtwithHandler(c: Context<{ Bindings: Env }>): Promise<R
       { 'Cache-Control': 'public, max-age=3600' }
     );
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     // SSRF guard rejected the host (private/reserved/metadata, or a redirect to
     // one). Fail closed with a generic 400 — don't echo the blocked IP/internal
     // detail back to the caller (no SSRF oracle).

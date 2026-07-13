@@ -177,6 +177,7 @@ export default function StixViewer(): JSX.Element {
       setFilterTypes(new Set());
       setFetchedFrom({ collection: data.collection ?? 'unknown', attackId: data.attack_id });
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setFetchError((e as Error).message);
     } finally {
       setFetching(false);
@@ -199,6 +200,7 @@ export default function StixViewer(): JSX.Element {
         objects,
       };
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setParseError((e as Error).message);
       return null;
     }

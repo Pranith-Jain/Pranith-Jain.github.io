@@ -94,7 +94,8 @@ export default function ActorKb(): JSX.Element {
         const data = (await r.json()) as { items?: SkeletonActor[] };
         setSkeletons(data.items ?? []);
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('ActorKb failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* swallow — empty list */
     } finally {
       setSkeletonsLoading(false);
@@ -147,6 +148,7 @@ export default function ActorKb(): JSX.Element {
         setSyncError(`Sync failed: ${data.error ?? 'unknown'}`);
       }
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setSyncError(`Sync failed: ${(e as Error).message}`);
     } finally {
       setSyncing(false);

@@ -73,7 +73,8 @@ export default function CertStreamLive(): JSX.Element {
   const [keyword, setKeyword] = useState(() => {
     try {
       return localStorage.getItem(STORAGE_KEY) ?? '';
-    } catch {
+    } catch (_catchErr) {
+      console.error('CertStreamLive failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return '';
     }
   });
@@ -120,6 +121,7 @@ export default function CertStreamLive(): JSX.Element {
       }
       setLastPoll(data.generated_at);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setError((e as Error).message);
     } finally {
       setLoading(false);
@@ -148,7 +150,8 @@ export default function CertStreamLive(): JSX.Element {
     if (!keyword.trim()) return;
     try {
       localStorage.setItem(STORAGE_KEY, keyword.trim());
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* localStorage unavailable — fine, just won't persist */
     }
     setItems([]);

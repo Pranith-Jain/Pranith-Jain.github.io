@@ -102,6 +102,7 @@ export default function DomainReputation(): JSX.Element {
         setResults(data);
       }
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       if (!signal.aborted) setError(e instanceof Error ? e.message : 'check failed');
     } finally {
       if (!signal.aborted) setLoading(false);

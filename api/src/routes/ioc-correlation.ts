@@ -85,7 +85,8 @@ async function fetchText(url: string): Promise<string | null> {
     });
     if (!res.ok) return null;
     return await res.text();
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchText failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -141,7 +142,8 @@ function norm(s: string): string {
 function hostOf(u: string): string | null {
   try {
     return new URL(u).hostname.toLowerCase();
-  } catch {
+  } catch (_catchErr) {
+    console.error('hostOf failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }

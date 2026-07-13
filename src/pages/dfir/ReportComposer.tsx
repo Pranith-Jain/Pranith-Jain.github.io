@@ -44,7 +44,8 @@ function loadDraft(): ReportDoc | null {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return null;
     return JSON.parse(raw) as ReportDoc;
-  } catch {
+  } catch (_catchErr) {
+    console.error('loadDraft failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -52,7 +53,8 @@ function loadDraft(): ReportDoc | null {
 function saveDraft(doc: ReportDoc): void {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(doc));
-  } catch {
+  } catch (_catchErr) {
+    console.error('saveDraft failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* quota */
   }
 }
@@ -182,6 +184,7 @@ export default function ReportComposer(): JSX.Element {
         downloadBlob(blob, docxFilename(doc));
       }
     } catch (e) {
+      console.error('handleExport failed:', e instanceof Error ? e.message : String(e));
       setExportError((e as Error).message);
     } finally {
       setExporting(null);

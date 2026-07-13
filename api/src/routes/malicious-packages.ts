@@ -92,6 +92,7 @@ export async function maliciousPackagesHandler(c: Context<{ Bindings: Env }>): P
       upstreamError = `github contents ${res.status}`;
     }
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     upstreamError = `fetch failed: ${(err as Error).message}`;
   }
 
@@ -110,7 +111,8 @@ export async function maliciousPackagesHandler(c: Context<{ Bindings: Env }>): P
             { 'Cache-Control': 'public, max-age=300' }
           );
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* stale read failed; fall through to error */
       }
     }

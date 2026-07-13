@@ -119,7 +119,8 @@ async function withTimeout<T>(p: Promise<T>, ms: number): Promise<T | null> {
         timer = setTimeout(() => reject(new Error('timeout')), ms);
       }),
     ]);
-  } catch {
+  } catch (_catchErr) {
+    console.error('withTimeout failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   } finally {
     if (timer) clearTimeout(timer);
@@ -188,6 +189,7 @@ async function fetchBtc(address: string): Promise<ChainResult> {
       explorer_url,
     };
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return {
       chain: 'btc',
       label: 'Bitcoin',
@@ -282,7 +284,8 @@ async function rpcCall<T>(rpc: string, method: string, params: unknown[]): Promi
     if (!r.ok) return null;
     const j = (await r.json()) as RpcResp<T>;
     return j.result ?? null;
-  } catch {
+  } catch (_catchErr) {
+    console.error('rpcCall failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }

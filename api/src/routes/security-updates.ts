@@ -123,7 +123,8 @@ async function fetchKevUpdates(vendor?: string): Promise<SecurityUpdateEntry[]> 
       });
     }
     return entries;
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchKevUpdates failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -155,7 +156,8 @@ async function fetchVendorAdvisories(env: Env, vendor?: string, product?: string
           results.push(vcRecordToEntry(item, item.vendor || vendor || 'Unknown', results.length));
         }
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('fetchVendorAdvisories failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       // VulnCheck failed, continue with the HTML-advisory fallback.
     }
   }
@@ -198,7 +200,8 @@ async function fetchVendorAdvisories(env: Env, vendor?: string, product?: string
             }
           }
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         // Advisory page unreachable — degrade to whatever we already have.
       }
     }
@@ -246,7 +249,8 @@ export async function securityUpdatesHandler(c: Context<{ Bindings: Env }>): Pro
               entries.push(vcRecordToEntry(item, item.vendor || 'Unknown', entries.length));
             }
           }
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           // Continue with KEV entries
         }
       }
@@ -277,6 +281,7 @@ export async function securityUpdatesHandler(c: Context<{ Bindings: Env }>): Pro
       'Cache-Control': 'public, max-age=3600',
     });
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     return c.json(
       {
         error: 'Security updates lookup failed',

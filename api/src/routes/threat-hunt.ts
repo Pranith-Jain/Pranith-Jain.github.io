@@ -59,6 +59,7 @@ export async function threatHuntHandler(c: Context<{ Bindings: Env }>): Promise<
       { 'Cache-Control': 'public, max-age=30' }
     );
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : 'hunt failed' }, 500);
   }
 }

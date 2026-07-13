@@ -27,12 +27,14 @@ async function readCachedFeed<T>(cacheKey: string, fetcher: () => Promise<T>): P
     if (cached) {
       return (await cached.json()) as T;
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('readCachedFeed failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* cold cache or cache lookup failed — fall through to live fetch */
   }
   try {
     return await fetcher();
-  } catch {
+  } catch (_catchErr) {
+    console.error('readCachedFeed failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -358,6 +360,7 @@ async function fetchXPulse(env: Env, out: Map<string, PulseEntity>): Promise<voi
       }
     }
   } catch (err) {
+    console.error('fetchXPulse failed:', err instanceof Error ? err.message : String(err));
     // Either cookies not configured, or transient error. Either is fine
     // — the IOC-feed-based fallback below still runs.
     if (!(err instanceof XAuthMissingError)) {
@@ -374,7 +377,8 @@ async function fetchXPulse(env: Env, out: Map<string, PulseEntity>): Promise<voi
       const handle = item.author.screen_name || 'unknown';
       classifyEntities(item.text ?? '', `x:${handle}`, out);
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* swallow — already have whatever the authed path yielded */
   }
 }

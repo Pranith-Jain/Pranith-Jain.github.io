@@ -98,6 +98,7 @@ export default function StixIpExport() {
       );
       setResult(r);
     } catch (e) {
+      console.error('StixIpExport failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : 'Enrichment failed.');
     } finally {
       setLoading(false);
@@ -122,6 +123,7 @@ export default function StixIpExport() {
       });
       setBatchResult(r);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : 'Batch enrichment failed.');
     } finally {
       setLoading(false);

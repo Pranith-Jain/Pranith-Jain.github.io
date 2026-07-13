@@ -57,7 +57,8 @@ export default function UrlReputation(): JSX.Element {
   const domain = useMemo(() => {
     try {
       return input.trim() ? new URL(input.trim()).hostname : '';
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return '';
     }
   }, [input]);

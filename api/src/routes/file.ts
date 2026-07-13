@@ -33,7 +33,8 @@ export async function fileAnalyzeHandler(c: Context<{ Bindings: Env }>) {
   let parsed: RequestBody;
   try {
     parsed = JSON.parse(raw) as RequestBody;
-  } catch {
+  } catch (_catchErr) {
+    console.error('fileAnalyzeHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ error: 'invalid JSON' }, 400);
   }
 
@@ -61,6 +62,7 @@ export async function fileAnalyzeHandler(c: Context<{ Bindings: Env }>) {
     try {
       return await fn(indicator, env, signal);
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       return {
         source: name as ProviderResult['source'],
         status: 'error',

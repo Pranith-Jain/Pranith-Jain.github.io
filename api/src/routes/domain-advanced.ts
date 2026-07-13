@@ -58,7 +58,8 @@ async function checkIpBlacklist(ip: string, bl: string, signal?: AbortSignal): P
       listed,
       details: listed ? data.Answer?.[0]?.data : undefined,
     };
-  } catch {
+  } catch (_catchErr) {
+    console.error('checkIpBlacklist failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return { source: bl, listed: false };
   }
 }
@@ -78,7 +79,8 @@ async function checkDomainBlacklist(domain: string, bl: string, signal?: AbortSi
       listed,
       details: listed ? data.Answer?.[0]?.data : undefined,
     };
-  } catch {
+  } catch (_catchErr) {
+    console.error('checkDomainBlacklist failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return { source: bl, listed: false };
   }
 }
@@ -102,7 +104,8 @@ async function resolveDomain(domain: string, signal?: AbortSignal): Promise<stri
     const data = (await res.json()) as { Answer?: Array<{ data: string }>; Status?: number };
     if (data.Status === 3) return [];
     return (data.Answer ?? []).map((a) => a.data).filter((ip) => /^\d+\.\d+\.\d+\.\d+$/.test(ip));
-  } catch {
+  } catch (_catchErr) {
+    console.error('resolveDomain failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -185,6 +188,7 @@ export async function domainRepHandler(c: Context<{ Bindings: Env }>): Promise<R
       { 'Cache-Control': 'public, max-age=300' }
     );
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json(
       {
         error: e instanceof Error ? e.message : 'reputation check failed',
@@ -308,7 +312,8 @@ async function batchResolve(
         try {
           const ips = await resolveDomain(v.domain);
           return { domain: v.domain, ips, type: v.type };
-        } catch {
+        } catch (_catchErr) {
+          console.error('batchResolve failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           return { domain: v.domain, ips: [] as string[], type: v.type };
         }
       })
@@ -374,6 +379,7 @@ export async function domainMonitorHandler(c: Context<{ Bindings: Env }>): Promi
       { 'Cache-Control': 'public, max-age=300' }
     );
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json(
       {
         error: e instanceof Error ? e.message : 'domain monitor failed',

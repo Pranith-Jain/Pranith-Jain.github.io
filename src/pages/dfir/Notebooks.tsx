@@ -118,6 +118,7 @@ export default function Notebooks() {
       setNotebooks(nbData.notebooks);
       setStats(stData);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : 'Failed to load notebooks');
     } finally {
       setLoading(false);
@@ -133,7 +134,8 @@ export default function Notebooks() {
     try {
       const data = await api.get<{ notebook: Notebook; entries: NotebookEntry[] }>(`/api/v1/notebooks/${nbId}`);
       setEntries(data.entries);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       setEntries([]);
     } finally {
       setEntriesLoading(false);
@@ -163,6 +165,7 @@ export default function Notebooks() {
       setNewSeverity('info');
       loadNotebooks();
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : 'Failed to create notebook');
     } finally {
       setCreating(false);
@@ -179,6 +182,7 @@ export default function Notebooks() {
       }
       loadNotebooks();
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : 'Failed to delete notebook');
     }
   };
@@ -195,6 +199,7 @@ export default function Notebooks() {
       setEntryContent('');
       loadEntries(selectedNotebook);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : 'Failed to add entry');
     } finally {
       setAddingEntry(false);
@@ -207,6 +212,7 @@ export default function Notebooks() {
       await api.delete(`/api/v1/notebooks/${selectedNotebook}/entries/${entryId}`);
       loadEntries(selectedNotebook);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : 'Failed to delete entry');
     }
   };

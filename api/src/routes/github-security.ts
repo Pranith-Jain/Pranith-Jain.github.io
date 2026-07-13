@@ -71,7 +71,8 @@ async function githubRequest(endpoint: string, token?: string): Promise<GitHubFe
     if (res.ok) {
       try {
         return { data: await res.json(), status: res.status, rateLimited: false };
-      } catch {
+      } catch (_catchErr) {
+        console.error('githubRequest failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         return { data: null, status: res.status, rateLimited: false };
       }
     }
@@ -207,6 +208,7 @@ export async function gitHubSecurityHandler(c: Context<{ Bindings: Env }>): Prom
       'Cache-Control': `public, max-age=${CACHE_TTL}`,
     });
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     return c.json(
       {
         error: 'GitHub Security lookup failed',

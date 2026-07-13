@@ -82,7 +82,8 @@ async function lookupGravatar(email: string): Promise<EmailProfile['gravatar']> 
         profileUrl = entry.profileUrl || entry.urls?.[0]?.value || null;
       }
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('lookupGravatar failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* fallback: avatar only */
   }
 
@@ -91,7 +92,8 @@ async function lookupGravatar(email: string): Promise<EmailProfile['gravatar']> 
   try {
     const imgRes = await fetch(avatarUrl, { method: 'HEAD', signal: AbortSignal.timeout(3000) });
     hasAvatar = imgRes.ok;
-  } catch {
+  } catch (_catchErr) {
+    console.error('lookupGravatar failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* */
   }
 
@@ -149,7 +151,8 @@ async function lookupGitHub(email: string): Promise<EmailProfile['github']> {
       result.company = userData.company || null;
       result.location = userData.location || null;
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* fallback */
   }
 
@@ -185,7 +188,8 @@ async function lookupBreach(email: string): Promise<EmailProfile['breach']> {
         }));
       }
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('lookupBreach failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* fallback */
   }
 
@@ -222,7 +226,8 @@ async function lookupReputation(email: string): Promise<EmailProfile['reputation
       result.references = data.references ?? 0;
       result.details = data.details || {};
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('lookupReputation failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* fallback */
   }
 
@@ -244,7 +249,8 @@ async function lookupDns(email: string): Promise<EmailProfile['dns']> {
     });
     const mxData = (await mxRes.json()) as { Answer?: Array<{ data: string }> };
     result.mx = (mxData.Answer || []).map((a) => a.data.replace(/\d+\s+/, ''));
-  } catch {
+  } catch (_catchErr) {
+    console.error('lookupDns failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* */
   }
 
@@ -257,7 +263,8 @@ async function lookupDns(email: string): Promise<EmailProfile['dns']> {
     const txts = (txtData.Answer || []).map((a) => a.data.replace(/"/g, ''));
     result.spf = txts.find((t) => t.startsWith('v=spf1')) || null;
     result.dmarc = null; // DMARC is _dmarc.domain
-  } catch {
+  } catch (_catchErr) {
+    console.error('lookupDns failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* */
   }
 
@@ -269,7 +276,8 @@ async function lookupDns(email: string): Promise<EmailProfile['dns']> {
     const dmarcData = (await dmarcRes.json()) as { Answer?: Array<{ data: string }> };
     const dmarcTxts = (dmarcData.Answer || []).map((a) => a.data.replace(/"/g, ''));
     result.dmarc = dmarcTxts.find((t) => t.startsWith('v=DMARC1')) || null;
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* */
   }
 
@@ -295,7 +303,8 @@ async function lookupPgp(email: string): Promise<EmailProfile['pgp']> {
         if (uidMatch?.[1]) result.uids = [uidMatch[1]];
       }
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('lookupPgp failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* fallback */
   }
 
@@ -398,7 +407,8 @@ async function lookupBehindTheEmail(email: string, apiKey: string): Promise<BTER
     if (!res.ok) return null;
     const data = (await res.json()) as { data?: { profile?: BTEResult } };
     return data.data?.profile || null;
-  } catch {
+  } catch (_catchErr) {
+    console.error('lookupBehindTheEmail failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -560,7 +570,8 @@ export async function emailOsnitBulkHandler(c: Context<{ Bindings: Env }>): Prom
       try {
         const res = await fetch(`http://localhost/api/v1/email-osnit/profile?email=${encodeURIComponent(email)}`);
         return await res.json();
-      } catch {
+      } catch (_catchErr) {
+        console.error('emailOsnitBulkHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         return { email, error: 'lookup failed' };
       }
     })

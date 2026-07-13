@@ -116,7 +116,8 @@ async function fetchFirms(): Promise<FirmsFire[]> {
     if (!r.ok) return [];
     const csv = await r.text();
     return parseFirmsCsv(csv);
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchFirms failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -155,7 +156,8 @@ async function fetchUkmto(): Promise<UkmtoIncident[]> {
         reference: pick('reference', 'ref', 'id') ? String(pick('reference', 'ref', 'id')) : undefined,
       }];
     });
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -181,6 +183,7 @@ export async function firmsUkmtoHandler(_c: Context<{ Bindings: Env }>): Promise
     try { await cache.put(new Request(CACHE_KEY), res.clone()); } catch { /* best-effort */ }
     return res;
   } catch (e) {
+    console.error('firmsUkmtoHandler failed:', e instanceof Error ? e.message : String(e));
     return new Response(JSON.stringify({ error: (e as Error).message }), {
       status: 500,
       headers: { 'content-type': 'application/json' },

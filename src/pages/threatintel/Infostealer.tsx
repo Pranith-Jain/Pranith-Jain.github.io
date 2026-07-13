@@ -338,7 +338,8 @@ export default function Infostealer(): JSX.Element {
           .slice(0, 50);
         setArticles(merged);
         setArticlesErr(null);
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         setArticlesErr('failed to parse RSS feeds');
       }
 

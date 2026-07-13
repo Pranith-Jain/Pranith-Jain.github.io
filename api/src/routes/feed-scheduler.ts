@@ -44,7 +44,8 @@ const MAX_HISTORY = 20;
 function cacheApi(): Cache | null {
   try {
     return (caches as unknown as { default: Cache }).default;
-  } catch {
+  } catch (_catchErr) {
+    console.error('cacheApi failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -55,7 +56,8 @@ async function readJobsCached(): Promise<FeedJob[] | null> {
   try {
     const r = await cache.match(JOBS_CACHE_KEY);
     return r ? ((await r.json()) as FeedJob[]) : null;
-  } catch {
+  } catch (_catchErr) {
+    console.error('readJobsCached failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -70,7 +72,8 @@ async function writeJobsCache(jobs: FeedJob[]): Promise<void> {
         headers: { 'content-type': 'application/json', 'cache-control': `max-age=${JOBS_CACHE_TTL}` },
       })
     );
-  } catch {
+  } catch (_catchErr) {
+    console.error('writeJobsCache failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* best-effort */
   }
 }
@@ -101,7 +104,8 @@ async function readCombinedHistory(kv: KVNamespace): Promise<Record<string, Feed
   try {
     const raw = (await kv.get(HISTORY_ALL_KV_KEY, 'json')) as Record<string, FeedRunHistory[]> | null;
     return raw ?? {};
-  } catch {
+  } catch (_catchErr) {
+    console.error('readCombinedHistory failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return {};
   }
 }
@@ -120,7 +124,8 @@ async function writeCombinedHistoryForJob(kv: KVNamespace, jobId: string, hist: 
     const all = raw ?? {};
     all[jobId] = hist;
     await kv.put(HISTORY_ALL_KV_KEY, JSON.stringify(all));
-  } catch {
+  } catch (_catchErr) {
+    console.error('writeCombinedHistoryForJob failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* best-effort */
   }
 }
@@ -228,7 +233,8 @@ export async function createFeedJobHandler(c: Context<{ Bindings: Env }>): Promi
 
   try {
     new URL(body.source_url);
-  } catch {
+  } catch (_catchErr) {
+    console.error('createFeedJobHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return badRequest(c, 'Invalid source_url');
   }
 
@@ -277,7 +283,8 @@ export async function updateFeedJobHandler(c: Context<{ Bindings: Env }>): Promi
   if (body.source_url !== undefined) {
     try {
       new URL(body.source_url);
-    } catch {
+    } catch (_catchErr) {
+      console.error('updateFeedJobHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return badRequest(c, 'Invalid source_url');
     }
     job.source_url = body.source_url;
@@ -317,7 +324,8 @@ export async function deleteFeedJobHandler(c: Context<{ Bindings: Env }>): Promi
       delete raw[id];
       await kv.put(HISTORY_ALL_KV_KEY, JSON.stringify(raw));
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('deleteFeedJobHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* best-effort */
   }
 
@@ -377,6 +385,7 @@ export async function runFeedJobHandler(c: Context<{ Bindings: Env }>): Promise<
 
     return c.json({ job, run: history });
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     const errMsg = err instanceof Error ? err.message : String(err);
     job.last_status = 'error';
     job.last_error = errMsg;
@@ -487,7 +496,8 @@ export async function autoRunFeedJobs(
         try {
           new URL(trimmed);
           nodeType = 'url';
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* skip */
         }
       } else if (job.parser === 'plaintext-hashes') {
@@ -525,6 +535,7 @@ export async function autoRunFeedJobs(
     job.last_item_count = lines.length;
     job.last_error = null;
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     job.last_status = 'error';
     job.last_error = err instanceof Error ? err.message : String(err);
     job.last_item_count = 0;

@@ -48,6 +48,7 @@ export async function fetchPageHandler(ctx: Context<{ Bindings: Env }>): Promise
     }
     return ctx.json({ html: text, url, contentType: res.headers.get('content-type') ?? '' });
   } catch (err) {
+    console.error('fetchPageHandler failed:', err instanceof Error ? err.message : String(err));
     return ctx.json({ error: err instanceof Error ? err.message : 'fetch failed' }, 502);
   }
 }

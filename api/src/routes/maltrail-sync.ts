@@ -87,7 +87,8 @@ async function readSkeletonIndex(kv: KVNamespace): Promise<string[]> {
     if (!raw) return [];
     const parsed = JSON.parse(raw) as string[];
     return Array.isArray(parsed) ? parsed : [];
-  } catch {
+  } catch (_catchErr) {
+    console.error('readSkeletonIndex failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -111,6 +112,7 @@ export async function maltrailSyncHandler(c: Context<{ Bindings: Env }>): Promis
     }
     files = (await res.json()) as Array<{ name: string; size?: number; type?: string }>;
   } catch (err) {
+    console.error('maltrailSyncHandler failed:', err instanceof Error ? err.message : String(err));
     return c.json({ error: `maltrail list fetch: ${(err as Error).message}` }, 502);
   }
 
@@ -169,7 +171,8 @@ export async function maltrailSyncHandler(c: Context<{ Bindings: Env }>): Promis
         } else {
           record.discovered_at = now;
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         record.discovered_at = now;
       }
       updated.push(slug);
@@ -218,7 +221,8 @@ export async function listSkeletonActorsHandler(c: Context<{ Bindings: Env }>): 
   try {
     const hit = await cache.match(cacheReq);
     if (hit) return new Response(hit.body, hit);
-  } catch {
+  } catch (_catchErr) {
+    console.error('listSkeletonActorsHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* fall through to a fresh build */
   }
 
@@ -240,7 +244,8 @@ export async function listSkeletonActorsHandler(c: Context<{ Bindings: Env }>): 
       try {
         const raw = await kv.get(`${SKELETON_KEY_PREFIX}${slug}`);
         return raw ? (JSON.parse(raw) as SkeletonActor) : null;
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         return null;
       }
     })
@@ -273,7 +278,8 @@ export async function getSkeletonActorHandler(c: Context<{ Bindings: Env }>): Pr
   if (!raw) return c.json({ error: 'skeleton not found' }, 404);
   try {
     return c.json(JSON.parse(raw), 200, { 'cache-control': 'public, max-age=300' });
-  } catch {
+  } catch (_catchErr) {
+    console.error('getSkeletonActorHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ error: 'corrupted record' }, 500);
   }
 }

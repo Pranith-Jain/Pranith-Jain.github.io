@@ -99,7 +99,8 @@ export async function breachDisclosuresHandler(c: Context<{ Bindings: Env }>): P
       breaches.sort((a, b) => (b.added_date ?? '').localeCompare(a.added_date ?? ''));
       breaches = breaches.slice(0, MAX_ITEMS);
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* HIBP unreachable - return what we have */
   }
 

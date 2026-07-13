@@ -192,7 +192,8 @@ export default function AiRuleGenerator(): JSX.Element {
         try {
           const p = JSON.parse(errBody) as { error?: string };
           msg = p.error ?? msg;
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* ok */
         }
         throw new Error(msg);
@@ -201,6 +202,7 @@ export default function AiRuleGenerator(): JSX.Element {
       if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
       setResult(await res.json());
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       setError(err instanceof Error ? err.message : String(err));
     } finally {
       setLoading(false);

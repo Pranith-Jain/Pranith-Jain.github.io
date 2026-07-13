@@ -42,7 +42,8 @@ export function iocFromThreatMap(data: {
             country: c.country,
           },
         ];
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         return [];
       }
     });
@@ -67,7 +68,8 @@ export function fromReddit(data: {
           url: i.link,
         },
       ];
-    } catch {
+    } catch (_catchErr) {
+      console.error('fromReddit failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return [];
     }
   });
@@ -204,7 +206,8 @@ export function fromLiveIocs(data: {
           url: '/threatintel/live-iocs',
         },
       ];
-    } catch {
+    } catch (_catchErr) {
+      console.error('fromLiveIocs failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return [];
     }
   });
@@ -630,7 +633,8 @@ export function fromUkmto(data: { incidents?: UkmtoIncidentLike[] } | null | und
     let ts: string;
     try {
       ts = new Date(i.date).toISOString();
-    } catch {
+    } catch (_catchErr) {
+      console.error('fromUkmto failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       ts = new Date().toISOString();
     }
     return {

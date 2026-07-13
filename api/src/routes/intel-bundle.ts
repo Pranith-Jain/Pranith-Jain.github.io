@@ -127,7 +127,8 @@ async function publishStatusSnapshot(
         },
       })
     );
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* best-effort; feed-status falls back to 'cold' */
   }
 }
@@ -274,7 +275,8 @@ export async function intelBundleHandler(c: Context<{ Bindings: Env }>): Promise
         200,
         300
       );
-    } catch {
+    } catch (_catchErr) {
+      console.error('intelBundleHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       // Corrupt row — fall through to recompute below.
     }
   }
@@ -364,7 +366,8 @@ export async function intelBundlePostHandler(c: Context<{ Bindings: Env }>): Pro
   let parsed: unknown;
   try {
     parsed = await c.req.json();
-  } catch {
+  } catch (_catchErr) {
+    console.error('intelBundlePostHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return jsonResponse(c, { error: 'invalid_json' }, 400);
   }
   const body = parseBundlePostBody(parsed);
@@ -393,7 +396,8 @@ export async function intelBundlePostHandler(c: Context<{ Bindings: Env }>): Pro
         200,
         300
       );
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* corrupt row — recompute below */
     }
   }
@@ -589,6 +593,7 @@ export async function intelBundleBuildHandler(c: Context<{ Bindings: Env }>): Pr
       inputUrl = fetched.url;
     }
   } catch (err) {
+    console.error('intelBundleBuildHandler failed:', err instanceof Error ? err.message : String(err));
     if (err instanceof SsrfError) {
       return jsonResponse(c, { error: 'ssrf_blocked', detail: 'blocked' }, 400);
     }
@@ -626,6 +631,7 @@ export async function intelBundleBuildHandler(c: Context<{ Bindings: Env }>): Pr
   try {
     built = await buildBundleFromReport(c, report, preIocs);
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     if (err instanceof BundleBuildError) {
       return jsonResponse(c, { error: err.code }, 502);
     }
@@ -667,7 +673,8 @@ export async function intelBundleByIdHandler(c: Context<{ Bindings: Env }>): Pro
       200,
       300
     );
-  } catch {
+  } catch (_catchErr) {
+    console.error('intelBundleByIdHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return jsonResponse(c, { error: 'corrupt_view_json' }, 500);
   }
 }
@@ -803,7 +810,8 @@ export async function intelBundleAdminHandler(c: Context<{ Bindings: Env }>): Pr
   let view: Record<string, unknown>;
   try {
     view = JSON.parse(row.view_json) as Record<string, unknown>;
-  } catch {
+  } catch (_catchErr) {
+    console.error('intelBundleAdminHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return jsonResponse(c, { error: 'corrupt_view_json' }, 500);
   }
 

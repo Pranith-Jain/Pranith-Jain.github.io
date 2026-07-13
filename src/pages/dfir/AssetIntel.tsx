@@ -123,7 +123,8 @@ function formatDate(d?: string) {
   if (!d) return '—';
   try {
     return new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-  } catch {
+  } catch (_catchErr) {
+    console.error('formatDate failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return d;
   }
 }
@@ -138,7 +139,8 @@ function formatDateTime(d?: string) {
       hour: '2-digit',
       minute: '2-digit',
     });
-  } catch {
+  } catch (_catchErr) {
+    console.error('formatDateTime failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return d;
   }
 }
@@ -261,7 +263,8 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const result = (await res.json()) as PivotResult;
       setPivots(result);
-    } catch {
+    } catch (_catchErr) {
+      console.error('WhoisPanel failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* swallow */
     } finally {
       setPivotLoading(false);
@@ -528,6 +531,7 @@ export default function AssetIntel(): JSX.Element {
         setWhoisData((await r.json()) as HistoryResult);
       }
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       setError(err instanceof Error ? err.message : 'lookup failed');
     } finally {
       setLoading(false);

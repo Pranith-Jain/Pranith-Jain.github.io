@@ -43,7 +43,8 @@ export async function aiSummaryHandler(c: Context<{ Bindings: Env }>): Promise<R
       const data = await cached.json();
       return c.json(data, 200, { 'cache-control': `public, max-age=${CACHE_TTL}` });
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('aiSummaryHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* cache miss — proceed */
   }
 
@@ -60,7 +61,8 @@ export async function aiSummaryHandler(c: Context<{ Bindings: Env }>): Promise<R
         headers: { 'content-type': 'application/json', 'cache-control': `max-age=${CACHE_TTL}` },
       })
     );
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* best-effort */
   }
 

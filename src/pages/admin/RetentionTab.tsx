@@ -59,6 +59,7 @@ export default function RetentionTab() {
         const r = await postJsonWithBody<RetentionResult>('/retention/run', { days, dry_run: dryRun });
         setResult(r);
       } catch (e) {
+        console.error('RetentionTab failed:', e instanceof Error ? e.message : String(e));
         setError(e instanceof Error ? e.message : String(e));
       } finally {
         setBusy(null);
@@ -75,6 +76,7 @@ export default function RetentionTab() {
       const r = await postJsonWithBody<TgCleanupResult>('/retention/telegram-cleanup', { days: tgDays });
       setTgResult(r);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setTgError(e instanceof Error ? e.message : String(e));
     } finally {
       setBusy(null);

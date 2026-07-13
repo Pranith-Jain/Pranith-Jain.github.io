@@ -78,6 +78,7 @@ export default function ThreatHunt(): JSX.Element {
       }
       setResult((await r.json()) as HuntV2Result);
     } catch (e) {
+      console.error('ThreatHunt failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : 'Hunt failed');
     }
     setHunting(false);

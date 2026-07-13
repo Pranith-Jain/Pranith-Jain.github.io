@@ -8,7 +8,8 @@ export async function readKvJson<T>(kv: KVNamespace | undefined, key: string): P
     const val = await kv.get(key);
     if (!val) return null;
     return JSON.parse(val) as T;
-  } catch {
+  } catch (_catchErr) {
+    console.error('readKvJson failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }

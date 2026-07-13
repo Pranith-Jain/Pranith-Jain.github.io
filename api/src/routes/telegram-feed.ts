@@ -287,7 +287,8 @@ export async function fetchHtml(url: string): Promise<string | null> {
     // the message-wrapper marker.
     if (!text.includes('tgme_widget_message_wrap')) return null;
     return text;
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchHtml failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   } finally {
     clearTimeout(timer);
@@ -459,7 +460,8 @@ export async function fetchTelegramFeed(kv?: KVNamespace): Promise<TelegramFeedR
           });
         }
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('fetchTelegramFeed failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* KV unavailable, skip custom channels */
     }
   }
@@ -533,7 +535,8 @@ export async function readBumpValue(env: Env): Promise<string | null> {
       const v = await shadow.text();
       return v || null;
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('readBumpValue failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* fall through to KV */
   }
   const fresh = env.KV_CACHE ? await safeNullLog('kv-get-tg-bump', env.KV_CACHE.get('tg:custom-channels:bump')) : null;
@@ -544,7 +547,8 @@ export async function readBumpValue(env: Env): Promise<string | null> {
       BUMP_SHADOW_CACHE_KEY,
       new Response(fresh ?? '', { headers: { 'cache-control': `max-age=${BUMP_SHADOW_TTL}` } })
     );
-  } catch {
+  } catch (_catchErr) {
+    console.error('readBumpValue failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* swallow */
   }
   return fresh;
@@ -580,12 +584,14 @@ export async function telegramFeedHandler(c: Context<{ Bindings: Env }>): Promis
     (async () => {
       try {
         await cache.put(cacheKey, cacheResponseBump);
-      } catch {
+      } catch (_catchErr) {
+        console.error('telegramFeedHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* swallow */
       }
       try {
         await cache.put(new Request(TELEGRAM_FEED_CACHE_KEY), cacheResponseBase);
-      } catch {
+      } catch (_catchErr) {
+        console.error('telegramFeedHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* swallow */
       }
     })()
@@ -608,7 +614,8 @@ export async function telegramCustomChannelsGetHandler(c: Context<{ Bindings: En
     const raw = await kv.get(CUSTOM_CHANNELS_KV_KEY);
     const channels: CustomChannelEntry[] = raw ? JSON.parse(raw) : [];
     return c.json({ channels }, 200, { 'cache-control': 'no-store' });
-  } catch {
+  } catch (_catchErr) {
+    console.error('telegramCustomChannelsGetHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ channels: [], error: 'failed to read custom channels' }, 500);
   }
 }
@@ -643,12 +650,14 @@ export async function telegramCustomChannelsPostHandler(c: Context<{ Bindings: E
     // immediately instead of waiting out the 60s shadow TTL.
     try {
       await (caches as unknown as { default: Cache }).default.delete(BUMP_SHADOW_CACHE_KEY);
-    } catch {
+    } catch (_catchErr) {
+      console.error('telegramCustomChannelsPostHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* swallow */
     }
 
     return c.json({ ok: true, channel: { handle, name } }, 201);
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ error: 'failed to save custom channel' }, 500);
   }
 }
@@ -673,11 +682,13 @@ export async function telegramCustomChannelsDeleteHandler(c: Context<{ Bindings:
     await kv.put('tg:custom-channels:bump', Date.now().toString());
     try {
       await (caches as unknown as { default: Cache }).default.delete(BUMP_SHADOW_CACHE_KEY);
-    } catch {
+    } catch (_catchErr) {
+      console.error('telegramCustomChannelsDeleteHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* swallow */
     }
     return c.json({ ok: true });
-  } catch {
+  } catch (_catchErr) {
+    console.error('telegramCustomChannelsDeleteHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ error: 'failed to delete custom channel' }, 500);
   }
 }

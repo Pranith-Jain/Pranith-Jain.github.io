@@ -425,6 +425,7 @@ export default function ReportAnalyzer(): JSX.Element {
       }
       setData((await res.json()) as AnalyzerOutput);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setLoading(false);
@@ -438,6 +439,7 @@ export default function ReportAnalyzer(): JSX.Element {
       const blob = await exportAnalyzerPdf(data);
       downloadBlob(blob, pdfFilename(data));
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setPdfExporting(false);
@@ -458,6 +460,7 @@ export default function ReportAnalyzer(): JSX.Element {
       if (!json.markdown) throw new Error('render returned no markdown');
       downloadBlob(new Blob([json.markdown], { type: 'text/markdown' }), `${slug(data.title)}.md`);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : String(e));
     }
   };
@@ -482,6 +485,7 @@ export default function ReportAnalyzer(): JSX.Element {
       const j = (await res.json()) as { id: string };
       setSavedMsg(`Saved as ${j.id.slice(0, 8)}…`);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setSaving(false);
@@ -507,7 +511,8 @@ export default function ReportAnalyzer(): JSX.Element {
         >;
       };
       setCorrelations(Object.keys(j.correlations).length > 0 ? j.correlations : null);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       // Silently fail — correlation is best-effort
     } finally {
       setCorrelating(false);
@@ -1787,6 +1792,7 @@ function TimelineTab() {
         setTimeline(d.timeline);
         setSharedIocs(d.sharedIocs);
       } catch (e) {
+        console.error('TimelineTab failed:', e instanceof Error ? e.message : String(e));
         setError(e instanceof Error ? e.message : String(e));
       } finally {
         setLoading(false);

@@ -224,6 +224,7 @@ export async function campaignGeneratorHandler(c: Context<{ Bindings: Env }>): P
     completionText = out.text;
     modelUsed = out.modelUsed;
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     if (err instanceof RateLimitError) {
       return c.json({ error: 'AI rate limited — try again in a few minutes', detail: err.message }, 429);
     }
@@ -240,7 +241,8 @@ export async function campaignGeneratorHandler(c: Context<{ Bindings: Env }>): P
   let modelParsed: unknown;
   try {
     modelParsed = JSON.parse(json);
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ error: 'model JSON malformed', raw: json.slice(0, 1000), model_used: modelUsed }, 502);
   }
   const doc = validate(modelParsed);

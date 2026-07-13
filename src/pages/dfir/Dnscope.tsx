@@ -60,7 +60,8 @@ export default function Dnscope(): JSX.Element {
         try {
           const p = JSON.parse(body) as { message?: string; error?: string };
           msg = p.message ?? p.error ?? msg;
-        } catch {
+        } catch (_catchErr) {
+          console.error('Dnscope failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* */
         }
         throw new Error(msg);
@@ -142,6 +143,7 @@ export default function Dnscope(): JSX.Element {
 
       setSections(built);
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       setError(err instanceof Error ? err.message : String(err));
     } finally {
       setScanning(false);

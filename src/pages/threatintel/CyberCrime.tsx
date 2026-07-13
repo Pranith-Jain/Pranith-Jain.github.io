@@ -78,7 +78,8 @@ function loadDisabledSources(): Set<string> {
   try {
     const raw = localStorage.getItem(SOURCES_STORAGE_KEY);
     return new Set(raw ? (JSON.parse(raw) as string[]) : []);
-  } catch {
+  } catch (_catchErr) {
+    console.error('loadDisabledSources failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return new Set();
   }
 }
@@ -100,7 +101,8 @@ export default function CyberCrime(): JSX.Element {
   useEffect(() => {
     try {
       localStorage.setItem(SOURCES_STORAGE_KEY, JSON.stringify([...disabledSources]));
-    } catch {
+    } catch (_catchErr) {
+      console.error('CyberCrime failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* localStorage unavailable */
     }
   }, [disabledSources]);

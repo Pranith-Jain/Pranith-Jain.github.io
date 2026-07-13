@@ -94,6 +94,7 @@ export async function mitreTechniqueHandler(c: Context<{ Bindings: Env }>) {
   try {
     objects = await fetchMitreData();
   } catch (err) {
+    console.error('mitreTechniqueHandler failed:', err instanceof Error ? err.message : String(err));
     if (err instanceof UpstreamError) {
       const status = err.upstreamStatus === 429 ? 429 : 502;
       return c.json(

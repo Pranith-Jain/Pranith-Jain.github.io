@@ -94,7 +94,8 @@ async function readLastGood(
         const parsed = JSON.parse(raw) as LastGoodSlice;
         if (Array.isArray(parsed.urls) && parsed.urls.length > 0) return parsed.urls;
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('readLastGood failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* fall through to legacy */
     }
   }
@@ -104,7 +105,8 @@ async function readLastGood(
   try {
     const lg = (await lgCached.json()) as LastGoodSlice;
     return Array.isArray(lg.urls) && lg.urls.length > 0 ? lg.urls : null;
-  } catch {
+  } catch (_catchErr) {
+    console.error('readLastGood failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -143,7 +145,8 @@ async function fetchOpenphish(): Promise<string | null> {
     );
     if (!res.ok) return null;
     return await res.text();
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchOpenphish failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -165,7 +168,8 @@ async function fetchPhishtank(apiKey?: string): Promise<string | null> {
     );
     if (!res.ok) return null;
     return await res.text();
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchPhishtank failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -388,7 +392,8 @@ export function brandFromUrl(rawUrl: string): string | undefined {
   try {
     const u = new URL(rawUrl);
     haystack = `${u.hostname}${u.pathname}`.toLowerCase();
-  } catch {
+  } catch (_catchErr) {
+    console.error('brandFromUrl failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     haystack = rawUrl.toLowerCase();
   }
   for (const { brand, patterns } of BRAND_KEYWORDS) {

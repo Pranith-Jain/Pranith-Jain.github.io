@@ -103,6 +103,7 @@ export default function InfraSearch(): JSX.Element {
       if (!r.ok) throw new Error(data.error ?? `HTTP ${r.status}`);
       setResult(data);
     } catch (err) {
+      console.error('InfraSearch failed:', err instanceof Error ? err.message : String(err));
       setError(err instanceof Error ? err.message : 'search failed');
     } finally {
       setLoading(false);

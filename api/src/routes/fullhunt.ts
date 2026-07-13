@@ -37,6 +37,7 @@ fullhuntRouter.get('/fullhunt/domain', async (c) => {
     }
     return c.json(body);
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : 'FullHunt unreachable' }, 502);
   }
 });
@@ -58,6 +59,7 @@ fullhuntRouter.get('/fullhunt/host', async (c) => {
     const data = await res.json();
     return c.json({ host, results: data, generated_at: new Date().toISOString() });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : 'FullHunt unreachable' }, 502);
   }
 });
@@ -79,6 +81,7 @@ fullhuntRouter.get('/fullhunt/subdomains', async (c) => {
     const data = await res.json();
     return c.json({ domain, results: data, generated_at: new Date().toISOString() });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : 'FullHunt unreachable' }, 502);
   }
 });

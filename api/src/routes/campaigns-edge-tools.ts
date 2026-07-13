@@ -20,6 +20,7 @@ campaignsRouter.get('/campaigns-catalog/stats', async (c) => {
       cache: mod.campaignsCacheStats(),
     });
   } catch (e) {
+    console.error('loadMod failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `campaigns_catalog_stats_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -40,6 +41,7 @@ campaignsRouter.get('/campaigns-catalog', async (c) => {
     });
     return c.json({ count: campaigns.length, campaigns });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `campaigns_catalog_list_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -53,6 +55,7 @@ campaignsRouter.get('/campaigns-catalog/:slug', async (c) => {
     if (!campaign) return notFound(c, `Campaign '${slug}' not found`);
     return c.json(campaign);
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `campaigns_catalog_get_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });

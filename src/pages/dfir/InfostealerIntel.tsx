@@ -116,7 +116,8 @@ function fmtDate(s: string): string {
   if (!s) return '—';
   try {
     return new Date(s).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-  } catch {
+  } catch (_catchErr) {
+    console.error('fmtDate failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return s;
   }
 }
@@ -131,7 +132,8 @@ function fmtDateTime(s: string): string {
       hour: '2-digit',
       minute: '2-digit',
     });
-  } catch {
+  } catch (_catchErr) {
+    console.error('fmtDateTime failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return s;
   }
 }
@@ -207,6 +209,7 @@ export default function InfostealerIntel(): JSX.Element {
       else if (tab === 'infection') setInfectionResult(data as InfectionResult);
       else setSearchResult(data as SearchResult);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       if (!mountedRef.current) return;
       setError((e as Error).message);
     } finally {

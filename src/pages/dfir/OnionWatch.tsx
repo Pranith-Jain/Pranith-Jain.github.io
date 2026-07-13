@@ -81,7 +81,8 @@ export default function OnionWatch(): JSX.Element {
         try {
           const parsed = JSON.parse(body) as { error?: string };
           msg = parsed.error ?? msg;
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* use default */
         }
         throw new Error(msg);
@@ -91,6 +92,7 @@ export default function OnionWatch(): JSX.Element {
       const json = (await res.json()) as OnionWatchResponse;
       setData(json);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       if (ctrl.signal.aborted) return;
       setError((e as Error).message);
     } finally {
@@ -149,7 +151,8 @@ export default function OnionWatch(): JSX.Element {
       await navigator.clipboard.writeText(text);
       setCopiedKey(key);
       setTimeout(() => setCopiedKey((k) => (k === key ? null : k)), 1500);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* clipboard blocked — silent */
     }
   };

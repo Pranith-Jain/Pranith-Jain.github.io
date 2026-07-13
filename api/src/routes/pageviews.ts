@@ -31,7 +31,8 @@ export async function pageViewsHandler(c: Context<{ Bindings: Env }>): Promise<R
       const res = c.json({ views: row?.n ?? 0 }, 200, { 'cache-control': 'public, max-age=60, s-maxage=60' });
       c.executionCtx.waitUntil(cache.put(CACHE_KEY, res.clone()));
       return res;
-    } catch {
+    } catch (_catchErr) {
+      console.error('pageViewsHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return c.json({ views: 0 }, 200, { 'cache-control': 'no-store' });
     }
   }
@@ -56,7 +57,8 @@ export async function pageViewsHandler(c: Context<{ Bindings: Env }>): Promise<R
       )
     );
     return c.json({ views }, 200, { 'cache-control': 'no-store' });
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ views: 0 }, 200, { 'cache-control': 'no-store' });
   }
 }

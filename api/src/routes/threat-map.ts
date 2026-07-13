@@ -87,7 +87,8 @@ async function fetchText(url: string): Promise<string | null> {
     }
     if (!res.ok) return null;
     return await res.text();
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchText failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -118,7 +119,8 @@ async function geolocateBatch(ips: string[]): Promise<Map<string, { country: str
           out.set(row.query, { country: row.country, countryCode: row.countryCode });
         }
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('geolocateBatch failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* skip batch on failure */
     }
   }
@@ -156,7 +158,8 @@ export async function fetchThreatMap(): Promise<ThreatMapResponse> {
       try {
         const host = new URL(e.value).hostname;
         if (/^(?:\d{1,3}\.){3}\d{1,3}$/.test(host)) addIp(host, 'urlhaus');
-      } catch {
+      } catch (_catchErr) {
+        console.error('fetchThreatMap failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* skip malformed url */
       }
     }

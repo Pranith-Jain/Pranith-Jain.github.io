@@ -22,7 +22,8 @@ export async function reportAnalyzerHandler(c: Context<{ Bindings: Env }>): Prom
   let body: AnalyzerInput;
   try {
     body = await c.req.json<AnalyzerInput>();
-  } catch {
+  } catch (_catchErr) {
+    console.error('reportAnalyzerHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ error: 'bad_request', message: 'invalid JSON body' }, 400);
   }
   if (!body.text && !body.url) {
@@ -39,6 +40,7 @@ export async function reportAnalyzerHandler(c: Context<{ Bindings: Env }>): Prom
     const out: AnalyzerOutput = await runReportAnalyzer(body, c.env);
     return c.json(out, 200, { 'cache-control': `no-store, max-age=${CACHE_TTL}` });
   } catch (e) {
+    console.error('reportAnalyzerHandler failed:', e instanceof Error ? e.message : String(e));
     const msg = e instanceof Error ? e.message : String(e);
     return c.json({ error: 'analysis_failed', message: msg }, 502);
   }

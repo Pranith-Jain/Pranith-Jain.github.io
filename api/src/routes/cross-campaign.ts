@@ -46,7 +46,8 @@ export async function crossCampaignCorrelationHandler(c: Context<{ Bindings: Env
             threatActors?: Array<{ name: string }>;
           };
           return { id: r.id, ...v };
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           return null;
         }
       })

@@ -64,7 +64,8 @@ async function readRotationState(): Promise<RotationState> {
       const json = (await hit.json()) as RotationState;
       if (json && typeof json === 'object') return json;
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('readRotationState failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* fall through */
   }
   return {};
@@ -82,7 +83,8 @@ async function writeRotationState(state: RotationState): Promise<void> {
         },
       })
     );
-  } catch {
+  } catch (_catchErr) {
+    console.error('writeRotationState failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* swallow */
   }
 }
@@ -234,6 +236,7 @@ export async function actorEnrichOtxStreamHandler(c: Context<{ Bindings: Env }>)
             attempted_at: now,
           });
         } catch (err) {
+          console.error('handler failed:', err instanceof Error ? err.message : String(err));
           skipped += 1;
           write('error', {
             type: 'error',

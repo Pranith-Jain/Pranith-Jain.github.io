@@ -78,7 +78,8 @@ export async function attackNavigatorHandler(c: Context<{ Bindings: Env }>): Pro
     if (res.ok) {
       mitreData = (await res.json()) as Record<string, unknown>;
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* fall through */
   }
 
@@ -285,7 +286,8 @@ export async function attackNavigatorHandler(c: Context<{ Bindings: Env }>): Pro
         }
       }
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* ThreatFox optional */
   }
 
@@ -316,7 +318,8 @@ export async function attackNavigatorHandler(c: Context<{ Bindings: Env }>): Pro
         scores[techId].n_scored++;
       }
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* URLhaus optional */
   }
 
@@ -347,7 +350,8 @@ export async function attackNavigatorHandler(c: Context<{ Bindings: Env }>): Pro
   if (kv) {
     try {
       await kv.put(kvKey, json, { expirationTtl: 7 * 24 * 60 * 60 });
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* quota */
     }
   }

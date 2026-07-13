@@ -44,6 +44,7 @@ export default function AttributionFramework(): JSX.Element {
       });
       setAssessment(data);
     } catch (err) {
+      console.error('AttributionFramework failed:', err instanceof Error ? err.message : String(err));
       setError(err instanceof Error ? err.message : String(err));
     } finally {
       setLoading(false);

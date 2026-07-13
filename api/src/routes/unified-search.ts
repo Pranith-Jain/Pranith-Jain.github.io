@@ -62,7 +62,8 @@ async function readCachedJson<T>(cacheKey: string): Promise<T | null> {
     const cache = (caches as unknown as { default: Cache }).default;
     const cached = await cache.match(new Request(cacheKey));
     if (cached) return (await cached.json()) as T;
-  } catch {
+  } catch (_catchErr) {
+    console.error('readCachedJson failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* cold cache */
   }
   return null;
@@ -478,7 +479,8 @@ async function searchIocCheck(needle: string, env: import('../env').Env): Promis
           );
         }
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* skip */
     }
 
@@ -504,7 +506,8 @@ async function searchIocCheck(needle: string, env: import('../env').Env): Promis
           );
         }
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* skip */
     }
   }
@@ -535,7 +538,8 @@ async function searchIocCheck(needle: string, env: import('../env').Env): Promis
           );
         }
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* skip */
     }
   }
@@ -570,7 +574,8 @@ async function searchIocCheck(needle: string, env: import('../env').Env): Promis
           );
         }
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* skip */
     }
   }
@@ -663,7 +668,8 @@ async function searchScrapedIntelHandles(needle: string, env: import('../env').E
         )
       );
     return { label, kind: 'actors', total: items.length, items };
-  } catch {
+  } catch (_catchErr) {
+    console.error('searchScrapedIntelHandles failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return empty;
   }
 }

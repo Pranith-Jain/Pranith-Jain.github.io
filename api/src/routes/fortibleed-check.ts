@@ -115,14 +115,16 @@ async function detectFortiGate(target: string): Promise<FortiGateResult> {
           try {
             const certInfo = await fetchCertInfo(target, port);
             if (certInfo) result.details.push(`Certificate: ${certInfo}`);
-          } catch {
+          } catch (_catchErr) {
+            console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
             /* skip */
           }
         }
 
         break;
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* port not reachable */
     }
   }
@@ -168,7 +170,8 @@ async function fetchCertInfo(target: string, port: number): Promise<string | nul
       method: 'HEAD',
     });
     return res.headers.get('server') || null;
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchCertInfo failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }

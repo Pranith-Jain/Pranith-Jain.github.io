@@ -32,7 +32,8 @@ const WATCHLIST_CACHE_TTL = 60;
 function cacheApi(): Cache | null {
   try {
     return (caches as unknown as { default: Cache }).default;
-  } catch {
+  } catch (_catchErr) {
+    console.error('cacheApi failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -43,7 +44,8 @@ async function readWatchlistCached(): Promise<Watchlist | null> {
   try {
     const r = await cache.match(WATCHLIST_CACHE_KEY);
     return r ? ((await r.json()) as Watchlist) : null;
-  } catch {
+  } catch (_catchErr) {
+    console.error('readWatchlistCached failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -58,7 +60,8 @@ async function writeWatchlistCache(wl: Watchlist): Promise<void> {
         headers: { 'content-type': 'application/json', 'cache-control': `max-age=${WATCHLIST_CACHE_TTL}` },
       })
     );
-  } catch {
+  } catch (_catchErr) {
+    console.error('writeWatchlistCache failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* best-effort */
   }
 }
@@ -77,7 +80,8 @@ async function readCache<T>(key: string): Promise<T | null> {
     const cache = caches.default;
     const cached = await cache.match(new Request(key));
     if (cached) return (await cached.json()) as T;
-  } catch {
+  } catch (_catchErr) {
+    console.error('readCache failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* miss */
   }
   return null;
@@ -117,7 +121,8 @@ function iocMatchesDomain(value: string, domain: string): boolean {
   try {
     const host = new URL(v.includes('://') ? v : 'http://' + v).hostname;
     return host === domain || host.endsWith('.' + domain);
-  } catch {
+  } catch (_catchErr) {
+    console.error('iocMatchesDomain failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return false;
   }
 }

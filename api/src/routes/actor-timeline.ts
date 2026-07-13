@@ -136,7 +136,8 @@ async function fetchJson<T>(url: string): Promise<T | null> {
       });
       if (res.ok) return (await res.json()) as T;
       if (res.status !== 429 && res.status < 500) return null; // 4xx (not 429) won't change
-    } catch {
+    } catch (_catchErr) {
+      console.error('fetchJson failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* timeout / network — retry */
     }
   }

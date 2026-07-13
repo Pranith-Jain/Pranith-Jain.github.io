@@ -729,7 +729,8 @@ export default function ScanResults() {
         body: JSON.stringify({ id: crawlId, target, hostname }),
       });
       pollCrawl(crawlId);
-    } catch {
+    } catch (_catchErr) {
+      console.error('ScanResults failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* crawl start failed, non-critical */
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -758,7 +759,8 @@ export default function ScanResults() {
         if (state.status !== 'error') {
           setTimeout(poll, 2000);
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         setTimeout(poll, 3000);
       }
     };

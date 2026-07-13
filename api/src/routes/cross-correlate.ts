@@ -69,7 +69,8 @@ export async function correlateHandler(c: Context<{ Bindings: Env }>): Promise<R
           }
         }
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* non-fatal */
     }
 
@@ -101,7 +102,8 @@ export async function correlateHandler(c: Context<{ Bindings: Env }>): Promise<R
             if (r.leak_type) recentRansomwareGroups.push(r.leak_type);
           }
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* non-fatal */
       }
     }
@@ -166,7 +168,8 @@ export async function correlateHandler(c: Context<{ Bindings: Env }>): Promise<R
           });
         }
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* non-fatal */
     }
 
@@ -197,7 +200,8 @@ export async function correlateHandler(c: Context<{ Bindings: Env }>): Promise<R
         if (pirs.results && pirs.results.length > 0) {
           // Generic gap: we have data but no detection coverage mapped
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* non-fatal */
       }
     }
@@ -218,6 +222,7 @@ export async function correlateHandler(c: Context<{ Bindings: Env }>): Promise<R
       { 'Cache-Control': 'no-store' }
     );
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
   }
 }

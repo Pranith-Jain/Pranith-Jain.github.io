@@ -214,6 +214,7 @@ export default function PeAnalyzer(): JSX.Element {
             await yieldToPaint();
             setPe(parsePE(await f.arrayBuffer()));
           } catch (ex) {
+            console.error('handler failed:', ex instanceof Error ? ex.message : String(ex));
             setPe(null);
             setErr(ex instanceof Error ? ex.message : String(ex));
           } finally {

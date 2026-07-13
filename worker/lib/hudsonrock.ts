@@ -461,7 +461,8 @@ export async function validateKey(env: HREnv): Promise<boolean> {
   try {
     await getAccount(env);
     return true;
-  } catch {
+  } catch (_catchErr) {
+    console.error('validateKey failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return false;
   }
 }

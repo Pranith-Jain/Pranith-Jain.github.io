@@ -83,7 +83,8 @@ async function fetchInternetDB(ip: string): Promise<InternetDBResponse | null> {
     );
     if (!res.ok) return null;
     return await res.json() as InternetDBResponse;
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchInternetDB failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -108,7 +109,8 @@ async function fetchIpApi(ip: string): Promise<IpApiResponse | null> {
     if (!res.ok) return null;
     const data = await res.json() as IpApiResponse;
     return data.status === 'success' ? data : null;
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchIpApi failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -129,7 +131,8 @@ async function fetchSpur(ip: string): Promise<{ isVpn: boolean; isTor: boolean; 
       isHosting: data.hosting ?? false,
       service: data.client?.proxy,
     };
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchSpur failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -251,6 +254,7 @@ export async function exposedHostHandler(c: Context<{ Bindings: Env }>): Promise
 
     return c.json(result, 200, { 'Cache-Control': 'public, max-age=3600' });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);
   }
 }

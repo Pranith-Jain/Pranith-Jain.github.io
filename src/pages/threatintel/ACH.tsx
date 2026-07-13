@@ -86,6 +86,7 @@ export default function ACH(): JSX.Element {
       }
       setResult((await res.json()) as AchResponse);
     } catch (e) {
+      console.error('analyze failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setLoading(false);

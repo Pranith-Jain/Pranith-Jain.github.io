@@ -88,7 +88,8 @@ async function fetchRssFeed(env: Env, feed: { id: string; name: string; url: str
       }
     }
     return items;
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -186,7 +187,8 @@ async function fetchDarknetSource(env: Env, source: DarknetSource): Promise<Sour
       }
     }
     return items.slice(0, 50);
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -238,7 +240,8 @@ export async function runSourcePipeline(db: D1Database, source: IntelSource, env
   let items: SourceItem[];
   try {
     items = await source.fetch(env);
-  } catch {
+  } catch (_catchErr) {
+    console.error('runSourcePipeline failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return { ...result, errors: 1 };
   }
 
@@ -347,7 +350,8 @@ export async function runSourcePipeline(db: D1Database, source: IntelSource, env
 
       result.storedItems++;
       result.storedBundleIds.push(buildResult.bundle.id);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       result.errors++;
     }
   }

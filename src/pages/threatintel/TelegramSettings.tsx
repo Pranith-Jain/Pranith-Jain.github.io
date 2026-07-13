@@ -59,6 +59,7 @@ export default function TelegramSettings(): JSX.Element {
         load();
       }
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       if ((e as Error).name === 'AbortError') return;
       setAddError((e as Error).message);
     } finally {
@@ -75,7 +76,8 @@ export default function TelegramSettings(): JSX.Element {
         signal: AbortSignal.timeout(15000),
       });
       if (res.ok) load();
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* ignore */
     }
   };

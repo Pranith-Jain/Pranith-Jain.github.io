@@ -254,6 +254,7 @@ export default function PhoneOsint(): JSX.Element {
       if (!res.ok) throw new Error(`API returned ${res.status}`);
       setApiResult(await res.json());
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       setApiError(err instanceof Error ? err.message : 'Failed to fetch phone intel');
     } finally {
       setLoading(false);

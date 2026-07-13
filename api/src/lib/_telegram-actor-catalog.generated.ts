@@ -18,55 +18,92 @@ export const TELEGRAM_ACTOR_CATALOG: TelegramActorCatalogEntry[] = [
     name: 'APT28 (Fancy Bear)',
     country: 'RU: Russia',
     type: 'apt',
-    telegram_handles: ['apt28world'],
-    telegram_handles_source: ['deepdarkCTI telegram_threat_actors.md (2026)'],
+    telegram_handles: [
+      'apt28world'
+    ],
+    telegram_handles_source: [
+      'deepdarkCTI telegram_threat_actors.md (2026)'
+    ]
   },
   {
     id: 'lazarus',
     name: 'Lazarus Group',
     country: 'KP: North Korea',
     type: 'apt',
-    telegram_handles: ['lazarus_group_official', 'cryptohackalert'],
-    telegram_handles_source: ['deepdarkCTI (2026)', 'UN Sanctions Panel reports (cited publicly)'],
+    telegram_handles: [
+      'lazarus_group_official',
+      'cryptohackalert'
+    ],
+    telegram_handles_source: [
+      'deepdarkCTI (2026)',
+      'UN Sanctions Panel reports (cited publicly)'
+    ]
   },
   {
     id: 'lockbit',
     name: 'LockBit',
     country: 'RU: Russia (likely)',
     type: 'ransomware',
-    telegram_handles: ['lockbitsupport', 'lockbit_sup'],
-    telegram_handles_source: ['Group-IB LockBit takedown report (2024)', 'deepdarkCTI (2026)'],
+    telegram_handles: [
+      'lockbitsupport',
+      'lockbit_sup'
+    ],
+    telegram_handles_source: [
+      'Group-IB LockBit takedown report (2024)',
+      'deepdarkCTI (2026)'
+    ]
   },
   {
     id: 'alphv',
     name: 'ALPHV (BlackCat)',
     country: 'RU: Russia (likely)',
     type: 'ransomware',
-    telegram_handles: ['alphvteam', 'alphv_locker'],
-    telegram_handles_source: ['FBI seizure notice (2023)', 'deepdarkCTI (2026)'],
+    telegram_handles: [
+      'alphvteam',
+      'alphv_locker'
+    ],
+    telegram_handles_source: [
+      'FBI seizure notice (2023)',
+      'deepdarkCTI (2026)'
+    ]
   },
   {
     id: 'scattered-spider',
     name: 'Scattered Spider',
     country: 'Global (English-speaking)',
     type: 'cybercrime',
-    telegram_handles: ['scatteredsw1nder', 'octo_temp'],
-    telegram_handles_source: ['Group-IB Spider analysis (2024)', 'vx-underground mirror'],
+    telegram_handles: [
+      'scatteredsw1nder',
+      'octo_temp'
+    ],
+    telegram_handles_source: [
+      'Group-IB Spider analysis (2024)',
+      'vx-underground mirror'
+    ]
   },
   {
     id: 'conti',
     name: 'Conti',
     country: 'RU: Russia',
     type: 'ransomware',
-    telegram_handles: ['contileaks'],
-    telegram_handles_source: ['Trellix Conti leaks analysis (2022)', 'vx-underground mirror'],
+    telegram_handles: [
+      'contileaks'
+    ],
+    telegram_handles_source: [
+      'Trellix Conti leaks analysis (2022)',
+      'vx-underground mirror'
+    ]
   },
   {
     id: 'revil',
     name: 'REvil (Sodinokibi)',
     country: 'RU: Russia',
     type: 'ransomware',
-    telegram_handles: ['revil'],
-    telegram_handles_source: ['deepdarkCTI (2026)'],
-  },
+    telegram_handles: [
+      'revil'
+    ],
+    telegram_handles_source: [
+      'deepdarkCTI (2026)'
+    ]
+  }
 ];

@@ -71,6 +71,7 @@ export default function ThreatGraph(): JSX.Element {
     try {
       setStats(await api.get<GraphStats>('/api/v1/graph/stats'));
     } catch (e) {
+      console.error('ThreatGraph failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setLoading(false);
@@ -83,6 +84,7 @@ export default function ThreatGraph(): JSX.Element {
       const d = await api.get<{ communities?: Community[] }>('/api/v1/graph/communities?min_size=2');
       setCommunities(d.communities ?? []);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setLoading(false);
@@ -100,6 +102,7 @@ export default function ThreatGraph(): JSX.Element {
       else if (/^https?:\/\//.test(query)) type = 'url';
       setSearchResult(await api.get(`/api/v1/graph/node/${type}/${encodeURIComponent(query)}?depth=2`));
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setLoading(false);
@@ -151,6 +154,7 @@ export default function ThreatGraph(): JSX.Element {
                 setIngestResult(`Ingested ${r.total.nodes_upserted} nodes, ${r.total.edges_created} edges`);
                 fetchStats();
               } catch (e) {
+                console.error('handler failed:', e instanceof Error ? e.message : String(e));
                 setIngestResult(`Error: ${e instanceof Error ? e.message : String(e)}`);
               } finally {
                 setIngesting(false);

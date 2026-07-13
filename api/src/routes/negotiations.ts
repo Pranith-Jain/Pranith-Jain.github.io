@@ -231,7 +231,8 @@ export async function negotiationTranscriptHandler(c: Context<{ Bindings: Env }>
       signal: AbortSignal.timeout(12_000),
       cf: { cacheTtl: 3600, cacheEverything: true },
     });
-  } catch {
+  } catch (_catchErr) {
+    console.error('negotiationTranscriptHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ error: 'upstream_unreachable' }, 502, { 'cache-control': 'no-store' });
   }
   if (!upstream.ok) {
@@ -240,7 +241,8 @@ export async function negotiationTranscriptHandler(c: Context<{ Bindings: Env }>
   let json: unknown;
   try {
     json = await upstream.json();
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ error: 'upstream_not_json' }, 502, { 'cache-control': 'no-store' });
   }
   const response = c.json({ source: 'Casualtek/Ransomchats', group, ...(rec(json) ? json : { raw: json }) }, 200, {

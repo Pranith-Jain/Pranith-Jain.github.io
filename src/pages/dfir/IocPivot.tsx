@@ -183,6 +183,7 @@ export default function IocPivot(): JSX.Element {
       if (!id) throw new Error('build response missing bundle.id');
       setStixBundleId(id);
     } catch (err) {
+      console.error('buildPivotStix failed:', err instanceof Error ? err.message : String(err));
       setStixError(err instanceof Error ? err.message : String(err));
     } finally {
       setStixBuilding(false);

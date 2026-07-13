@@ -205,7 +205,8 @@ async function loadPlatformReportedSet(db: D1Database): Promise<Set<string>> {
             set.add((i as { value: string }).value);
           }
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('loadPlatformReportedSet failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* skip malformed body */
       }
     }
@@ -231,7 +232,8 @@ async function loadDetectionFiredSet(env: Env): Promise<Set<string>> {
     try {
       const hit = await cache.match(new Request(CACHE_KEY));
       if (hit) return new Set<string>((await hit.json()) as string[]);
-    } catch {
+    } catch (_catchErr) {
+      console.error('loadDetectionFiredSet failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* fall through */
     }
   }
@@ -262,7 +264,8 @@ async function loadDetectionFiredSet(env: Env): Promise<Set<string>> {
               return parsed.iocs.filter((i): i is string => typeof i === 'string');
             }
             return null;
-          } catch {
+          } catch (_catchErr) {
+            console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
             return null;
           }
         })

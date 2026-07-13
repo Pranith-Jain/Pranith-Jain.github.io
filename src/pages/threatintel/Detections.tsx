@@ -277,6 +277,7 @@ export default function Detections(): JSX.Element {
       const res = (await r.json()) as { bundle: { id: string } };
       setStixBundleId(res.bundle.id);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setStixError(`STIX build failed: ${(e as Error).message}`);
     } finally {
       setStixLoading(false);

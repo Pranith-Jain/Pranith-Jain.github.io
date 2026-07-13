@@ -304,11 +304,13 @@ async function probeHttp(domain: string): Promise<HttpProbeResult> {
       try {
         const text = await res.text();
         result.bodySnippet = text.slice(0, 50_000);
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* body read failure is non-fatal */
       }
       break;
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       result.responseTimeMs = Date.now() - start;
       break;
     }
@@ -359,7 +361,8 @@ async function probeTls(domain: string): Promise<TlsInfo> {
       self_signed: false, // HTTPS succeeded, so not self-signed
       issuer: server ? `Server: ${server}` : undefined,
     };
-  } catch {
+  } catch (_catchErr) {
+    console.error('probeTls failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return {};
   }
 }
@@ -407,7 +410,8 @@ async function queryShodan(domain: string, env: Env): Promise<ShodanResult | nul
       vulns: host.vulns,
       hostnames: host.hostnames,
     };
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }

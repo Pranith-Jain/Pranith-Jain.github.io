@@ -94,7 +94,8 @@ function extractIocs(row: LeakEntry): Ioc[] {
           if (typeof d === 'string' && d.length > 0) push('domain', d.toLowerCase());
         }
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('push failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* skip */
     }
   }

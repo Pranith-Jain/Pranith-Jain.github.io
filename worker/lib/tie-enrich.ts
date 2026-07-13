@@ -24,7 +24,8 @@ async function fetchJson(
     const ms = Date.now() - t0;
     if (!res.ok) return { ok: false, ms };
     return { data: await res.json(), ok: true, ms };
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchJson failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return { ok: false, ms: Date.now() - t0 };
   }
 }

@@ -79,6 +79,7 @@ export default function IocLifecycle(): JSX.Element {
       const d = await api.get<{ stats?: Stats }>('/api/v1/ioc-lifecycle/stats');
       setStats(d.stats ?? null);
     } catch (e) {
+      console.error('IocLifecycle failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setLoading(false);
@@ -92,6 +93,7 @@ export default function IocLifecycle(): JSX.Element {
       const d = await api.get<{ trending?: IocLifecycle[] }>('/api/v1/ioc-lifecycle/trending?limit=50');
       setTrending(d.trending ?? []);
     } catch (e) {
+      console.error('IocLifecycle failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setLoading(false);
@@ -110,6 +112,7 @@ export default function IocLifecycle(): JSX.Element {
       if (d.found && d.lifecycle) setLifecycle(d.lifecycle);
       else setError('IOC not found');
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setLoading(false);

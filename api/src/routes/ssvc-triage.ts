@@ -64,7 +64,8 @@ async function enrichCve(cveId: string, env: Env): Promise<EnrichedCve | null> {
     const title = (data.description as string) ?? id;
 
     return { cve_id: id, cvssScore, epssScore, cisaKev, kevDate, ransomwareUse, exploitStatus, isPublicFacing, title };
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -95,7 +96,8 @@ export async function ssvcTriageHandler(c: Context<{ Bindings: Env }>): Promise<
     let body: { cve_ids?: string[]; alert_ids?: string[] };
     try {
       body = await c.req.json();
-    } catch {
+    } catch (_catchErr) {
+      console.error('ssvcTriageHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return badRequest(c, 'Invalid JSON body');
     }
 
@@ -212,6 +214,7 @@ export async function ssvcTriageHandler(c: Context<{ Bindings: Env }>): Promise<
       })),
     });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);
   }
 }
@@ -311,6 +314,7 @@ export async function ssvcStatsHandler(c: Context<{ Bindings: Env }>): Promise<R
       by_severity: bySeverity.results ?? [],
     });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);
   }
 }

@@ -188,7 +188,8 @@ export default function TgIntelSearch() {
         setPage(Math.floor(offset / limit));
         setTimeline(t.timeline || []);
         setTopChannels(t.topChannels || []);
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         setError('Search failed');
       }
       setLoading(false);
@@ -210,7 +211,8 @@ export default function TgIntelSearch() {
     try {
       const r = await fetch(`${api}/tg-saved-searches`);
       setSavedSearches((await r.json()).searches || []);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* */
     }
   }, []);
@@ -615,7 +617,8 @@ export default function TgIntelSearch() {
               const domains: string[] = (() => {
                 try {
                   return JSON.parse(entry.domains_found || '[]');
-                } catch {
+                } catch (_catchErr) {
+                  console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
                   return [];
                 }
               })();

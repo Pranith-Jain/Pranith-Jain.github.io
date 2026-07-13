@@ -74,7 +74,8 @@ export async function d3fendMatrixHandler(c: Context<{ Bindings: Env }>): Promis
       { attempts: 3, timeoutMs: 15000 }
     );
     if (res.ok) data = (await res.json()) as D3fendNode[];
-  } catch {
+  } catch (_catchErr) {
+    console.error('d3fendMatrixHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* fall through */
   }
 
@@ -103,7 +104,8 @@ export async function d3fendMatrixHandler(c: Context<{ Bindings: Env }>): Promis
   if (kv) {
     try {
       await kv.put(kvKey, json, { expirationTtl: 7 * 24 * 60 * 60 });
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* quota */
     }
   }

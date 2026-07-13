@@ -38,6 +38,7 @@ async function upsertNodesOnly(
       });
       result.nodes_upserted++;
     } catch (e) {
+      console.error('upsertNodesOnly failed:', e instanceof Error ? e.message : String(e));
       result.errors.push(`node(${ent.type}:${ent.value}): ${e instanceof Error ? e.message : String(e)}`);
     }
   }
@@ -127,6 +128,7 @@ async function ingestLiveIocs(db: D1Database): Promise<IngestResult> {
     // ensureGraphTables(6) + upsertNode(18 * 2) = 42, fits with margin.
     return ingestBulkIocs(db, items, 18);
   } catch (e) {
+    console.error('ingestLiveIocs failed:', e instanceof Error ? e.message : String(e));
     return {
       nodes_upserted: 0,
       edges_created: 0,
@@ -165,6 +167,7 @@ async function ingestPhishingUrls(db: D1Database): Promise<IngestResult> {
       timestamp: new Date().toISOString(),
     });
   } catch (e) {
+    console.error('ingestPhishingUrls failed:', e instanceof Error ? e.message : String(e));
     return { nodes_upserted: 0, edges_created: 0, errors: [`phishing: ${e instanceof Error ? e.message : String(e)}`] };
   }
 }
@@ -185,6 +188,7 @@ async function ingestTelegram(db: D1Database, maxItems: number = 30): Promise<In
     }));
     return ingestMultipleFeedItems(db, items, 'Telegram', maxItems);
   } catch (e) {
+    console.error('ingestTelegram failed:', e instanceof Error ? e.message : String(e));
     return { nodes_upserted: 0, edges_created: 0, errors: [`telegram: ${e instanceof Error ? e.message : String(e)}`] };
   }
 }
@@ -210,6 +214,7 @@ async function ingestRansomware(db: D1Database, env?: Env): Promise<IngestResult
     }
     return aggregated;
   } catch (e) {
+    console.error('ingestRansomware failed:', e instanceof Error ? e.message : String(e));
     return {
       nodes_upserted: 0,
       edges_created: 0,
@@ -259,6 +264,7 @@ export async function graphIngestManualHandler(c: Context<{ Bindings: Env }>): P
   try {
     results = await runGraphIngest(db, source, c.env);
   } catch (e) {
+    console.error('graphIngestManualHandler failed:', e instanceof Error ? e.message : String(e));
     return c.json(
       {
         ok: false,

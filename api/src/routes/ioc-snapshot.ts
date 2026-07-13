@@ -52,6 +52,7 @@ async function fetchOne(id: SourceId): Promise<SourcePayload> {
     summary.entries = summary.entries.slice(0, PER_SOURCE_LIMIT);
     return { ok: true, data: summary };
   } catch (e) {
+    console.error('fetchOne failed:', e instanceof Error ? e.message : String(e));
     const isTimeout = e instanceof Error && (e.name === 'TimeoutError' || e.name === 'AbortError');
     return { ok: false, data: null, error: isTimeout ? 'upstream timeout' : 'upstream error' };
   }

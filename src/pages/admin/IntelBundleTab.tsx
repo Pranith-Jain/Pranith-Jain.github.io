@@ -56,6 +56,7 @@ export default function IntelBundleTab() {
       );
       setData(out);
     } catch (e) {
+      console.error('inspect failed:', e instanceof Error ? e.message : String(e));
       const msg = e instanceof Error ? e.message : String(e);
       setError(msg);
     } finally {

@@ -208,13 +208,15 @@ export default function DfirCopilot(): JSX.Element {
         let msg = `HTTP ${res.status}`;
         try {
           msg = (JSON.parse(body) as { error?: string }).error ?? msg;
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* */
         }
         throw new Error(msg);
       }
       setResult(await res.json());
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setLoading(false);

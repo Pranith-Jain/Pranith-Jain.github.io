@@ -94,7 +94,8 @@ export default function UrlPreview(): JSX.Element {
     try {
       const p = new URL(input.trim());
       return p.protocol === 'http:' || p.protocol === 'https:';
-    } catch {
+    } catch (_catchErr) {
+      console.error('UrlPreview failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return false;
     }
   })();
@@ -106,7 +107,8 @@ export default function UrlPreview(): JSX.Element {
     try {
       const p = new URL(target);
       if (p.protocol !== 'http:' && p.protocol !== 'https:') return;
-    } catch {
+    } catch (_catchErr) {
+      console.error('UrlPreview failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return;
     }
     setLoading(true);
@@ -119,6 +121,7 @@ export default function UrlPreview(): JSX.Element {
       if (!r.ok) throw new Error(body.error ?? `HTTP ${r.status}`);
       setResult(body);
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       setError(err instanceof Error ? err.message : 'preview failed');
     } finally {
       setLoading(false);
@@ -255,7 +258,8 @@ export default function UrlPreview(): JSX.Element {
                     </Link>
                   </div>
                 );
-              } catch {
+              } catch (_catchErr) {
+                console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
                 return null;
               }
             })()}

@@ -134,6 +134,7 @@ export default function ExposedHostView(): JSX.Element {
         .then((d) => setCdnResult(d))
         .catch(() => {});
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : 'Lookup failed');
     } finally {
       setLoading(false);

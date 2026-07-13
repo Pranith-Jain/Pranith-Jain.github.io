@@ -161,7 +161,8 @@ async function fetchCertificates(domain: string): Promise<CrtShCert[]> {
     if (!res.ok) return [];
     const data = await res.json();
     return Array.isArray(data) ? data : [];
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchCertificates failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }

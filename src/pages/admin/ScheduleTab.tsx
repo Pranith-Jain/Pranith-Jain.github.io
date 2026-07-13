@@ -31,6 +31,7 @@ export default function ScheduleTab() {
       const d = await getJson<{ schedule: Slot[] }>('/schedule');
       setSchedule(d.schedule);
     } catch (e) {
+      console.error('ScheduleTab failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : 'failed to load');
     } finally {
       setLoading(false);
@@ -52,6 +53,7 @@ export default function ScheduleTab() {
       setMsg(r.ok ? `Published! /blog/${r.slug}` : `Error: ${r.error}`);
       await load();
     } catch (e) {
+      console.error('publishNow failed:', e instanceof Error ? e.message : String(e));
       setMsg(`Error: ${e instanceof Error ? e.message : String(e)}`);
     } finally {
       setPublishing(null);
@@ -66,6 +68,7 @@ export default function ScheduleTab() {
       setMsg('Removed');
       await load();
     } catch (e) {
+      console.error('removeSlot failed:', e instanceof Error ? e.message : String(e));
       setMsg(`Error: ${e instanceof Error ? e.message : String(e)}`);
     } finally {
       setPublishing(null);
@@ -96,6 +99,7 @@ export default function ScheduleTab() {
       setMsg(r.ok && r.slotAt ? `Rescheduled to ${new Date(r.slotAt).toLocaleString()}` : `Error: ${r.error}`);
       await load();
     } catch (e) {
+      console.error('confirmReschedule failed:', e instanceof Error ? e.message : String(e));
       setMsg(`Error: ${e instanceof Error ? e.message : String(e)}`);
     } finally {
       setPublishing(null);

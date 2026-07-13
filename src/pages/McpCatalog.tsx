@@ -111,7 +111,8 @@ function CopyableJson({ value, label }: { value: string; label: string }) {
       await navigator.clipboard.writeText(value);
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
-    } catch {
+    } catch (_catchErr) {
+      console.error('CopyableJson failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       // ignore
     }
   };

@@ -107,6 +107,7 @@ export async function traceixLookup(
       ms: Date.now() - t0,
     });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     result.diagnostics.push({
       provider: 'traceix',
       status: 'failed',

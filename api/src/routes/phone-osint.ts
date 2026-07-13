@@ -795,7 +795,8 @@ async function checkBreach(
   try {
     const result = await searchByUsername(env, [digits]);
     return { checked: true, reason: 'ok', stealerStats: result };
-  } catch {
+  } catch (_catchErr) {
+    console.error('checkBreach failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return { checked: false, reason: 'Hudson Rock API error' };
   }
 }
@@ -820,7 +821,8 @@ async function tryNumVerify(digits: string, env: Env): Promise<Record<string, st
       carrier: String(data.carrier ?? ''),
       line_type: String(data.line_type ?? ''),
     };
-  } catch {
+  } catch (_catchErr) {
+    console.error('tryNumVerify failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }

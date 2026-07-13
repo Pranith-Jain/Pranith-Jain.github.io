@@ -49,7 +49,8 @@ export async function actorCvesHandler(c: Context<{ Bindings: Env }>): Promise<R
         const data = (await res.json()) as { linked_cves?: string[] };
         cves = data.linked_cves ?? [];
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       // Non-fatal — return empty list
     }
   }

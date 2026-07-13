@@ -94,7 +94,8 @@ export async function irPlaybookHandler(c: Context<{ Bindings: Env }>): Promise<
   let body: { incident_type?: string; context?: string };
   try {
     body = await c.req.json();
-  } catch {
+  } catch (_catchErr) {
+    console.error('irPlaybookHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ error: 'bad_request', message: 'invalid JSON' }, 400);
   }
 

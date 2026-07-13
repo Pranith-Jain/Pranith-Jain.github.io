@@ -42,7 +42,8 @@ function loadChecks(): Record<string, Check> {
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     return raw ? (JSON.parse(raw) as Record<string, Check>) : {};
-  } catch {
+  } catch (_catchErr) {
+    console.error('loadChecks failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return {};
   }
 }
@@ -51,7 +52,8 @@ function saveChecks(checks: Record<string, Check>): void {
   if (typeof window === 'undefined') return;
   try {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(checks));
-  } catch {
+  } catch (_catchErr) {
+    console.error('saveChecks failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* private mode */
   }
 }

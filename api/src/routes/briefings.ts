@@ -482,7 +482,8 @@ export async function briefingsForActorHandler(c: Context<{ Bindings: Env }>) {
       try {
         const full = await readBriefing(db, b.slug);
         return full ? { b, full } : null;
-      } catch {
+      } catch (_catchErr) {
+        console.error('briefingsForActorHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         degraded = true;
         return null;
       }

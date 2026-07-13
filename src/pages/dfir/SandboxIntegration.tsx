@@ -57,7 +57,8 @@ export default function SandboxIntegration(): JSX.Element {
         try {
           const p = JSON.parse(body) as { error?: string };
           msg = p.error ?? msg;
-        } catch {
+        } catch (_catchErr) {
+          console.error('SandboxIntegration failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* ok */
         }
         throw new Error(msg);
@@ -66,6 +67,7 @@ export default function SandboxIntegration(): JSX.Element {
       if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
       setResult(await res.json());
     } catch (err) {
+      console.error('SandboxIntegration failed:', err instanceof Error ? err.message : String(err));
       setError(err instanceof Error ? err.message : String(err));
     } finally {
       setLoading(false);

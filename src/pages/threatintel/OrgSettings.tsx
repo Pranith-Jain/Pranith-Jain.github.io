@@ -52,6 +52,7 @@ export default function OrgSettings() {
       const data = await res.json();
       if (!ctrl.signal.aborted) setOrgs(data.organizations || []);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       if ((e as Error).name === 'AbortError') return;
       setError(e instanceof Error ? e.message : 'Failed to load organizations');
     } finally {
@@ -67,7 +68,8 @@ export default function OrgSettings() {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       setMembers(data.members || []);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       // non-fatal
     }
   };
@@ -91,7 +93,8 @@ export default function OrgSettings() {
       setShowCreate(false);
       setNewOrgName('');
       setNewOrgDesc('');
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       setActionError('Failed to create organization');
     }
   };
@@ -114,7 +117,8 @@ export default function OrgSettings() {
       }
       fetchMembers(selectedOrg.slug);
       setInviteEmail('');
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       setActionError('Failed to invite member');
     }
   };
@@ -127,7 +131,8 @@ export default function OrgSettings() {
         signal: AbortSignal.timeout(15000),
       });
       fetchMembers(selectedOrg.slug);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       // ignore
     }
   };

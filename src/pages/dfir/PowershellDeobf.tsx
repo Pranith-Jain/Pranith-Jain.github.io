@@ -101,7 +101,8 @@ export default function PowershellDeobf(): JSX.Element {
     if (!result) return;
     try {
       sessionStorage.setItem('ioc-extractor-pipe', result.output);
-    } catch {
+    } catch (_catchErr) {
+      console.error('PowershellDeobf failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       // sessionStorage can throw in private-mode/quota-exceeded; fall back to URL param truncation
     }
     navigate('/dfir/extract?from=ps-deob');

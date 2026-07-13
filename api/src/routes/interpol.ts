@@ -48,6 +48,7 @@ interpolRouter.get('/interpol/red-notices', async (c) => {
       c.executionCtx.waitUntil(c.env.KV_CACHE.put(cacheKey, JSON.stringify(body), { expirationTtl: CACHE_TTL }));
     return c.json(body);
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : 'Interpol API unreachable' }, 502);
   }
 });
@@ -68,6 +69,7 @@ interpolRouter.get('/interpol/red-notices/:noticeId', async (c) => {
     const data = await res.json();
     return c.json({ notice: data, generated_at: new Date().toISOString() });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : 'Interpol API unreachable' }, 502);
   }
 });

@@ -67,7 +67,8 @@ export async function a3mMatrixHandler(c: Context<{ Bindings: Env }>): Promise<R
       { attempts: 3, timeoutMs: 15000 }
     );
     if (res.ok) html = await res.text();
-  } catch {
+  } catch (_catchErr) {
+    console.error('a3mMatrixHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* fall through */
   }
 
@@ -96,7 +97,8 @@ export async function a3mMatrixHandler(c: Context<{ Bindings: Env }>): Promise<R
   if (kv) {
     try {
       await kv.put(kvKey, json, { expirationTtl: 7 * 24 * 60 * 60 });
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* quota */
     }
   }

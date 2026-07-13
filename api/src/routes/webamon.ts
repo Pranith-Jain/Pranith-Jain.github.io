@@ -67,7 +67,8 @@ async function webamonFetch(path: string, retries = 2): Promise<Response | null>
       });
       clearTimeout(timer);
       if (res.ok || res.status !== 429) return res;
-    } catch {
+    } catch (_catchErr) {
+      console.error('webamonFetch failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* noop */
     }
     if (attempt < retries) await new Promise((r) => setTimeout(r, 800 * attempt));
@@ -116,6 +117,7 @@ export async function webamonScanHandler(c: Context<{ Bindings: Env }>): Promise
     const data = await res.json();
     return c.json(data, (res.ok ? 200 : res.status) as ContentfulStatusCode);
   } catch (err) {
+    console.error('webamonScanHandler failed:', err instanceof Error ? err.message : String(err));
     return c.json(
       { error: 'internal_error', message: err instanceof Error ? err.message : 'scan handler failed' },
       500
@@ -134,6 +136,7 @@ export async function webamonReportsHandler(c: Context<{ Bindings: Env }>): Prom
     const data = await res.json();
     return c.json(data, (res.ok ? 200 : res.status) as ContentfulStatusCode);
   } catch (err) {
+    console.error('webamonReportsHandler failed:', err instanceof Error ? err.message : String(err));
     return c.json(
       { error: 'internal_error', message: err instanceof Error ? err.message : 'reports handler failed' },
       500
@@ -151,6 +154,7 @@ export async function webamonReportHandler(c: Context<{ Bindings: Env }>): Promi
     const data = await res.json();
     return c.json(data, (res.ok ? 200 : res.status) as ContentfulStatusCode);
   } catch (err) {
+    console.error('webamonReportHandler failed:', err instanceof Error ? err.message : String(err));
     return c.json(
       { error: 'internal_error', message: err instanceof Error ? err.message : 'report handler failed' },
       500
@@ -180,6 +184,7 @@ export async function webamonScreenshotHandler(c: Context<{ Bindings: Env }>): P
     }
     return c.json({ error: 'no screenshot in response' }, 404);
   } catch (err) {
+    console.error('webamonScreenshotHandler failed:', err instanceof Error ? err.message : String(err));
     return c.json(
       { error: 'internal_error', message: err instanceof Error ? err.message : 'screenshot handler failed' },
       500
@@ -200,6 +205,7 @@ export async function webamonDomainHandler(c: Context<{ Bindings: Env }>): Promi
     const data = await res.json();
     return c.json(data, (res.ok ? 200 : res.status) as ContentfulStatusCode);
   } catch (err) {
+    console.error('webamonDomainHandler failed:', err instanceof Error ? err.message : String(err));
     return c.json(
       { error: 'internal_error', message: err instanceof Error ? err.message : 'domain handler failed' },
       500
@@ -217,6 +223,7 @@ export async function webamonServerHandler(c: Context<{ Bindings: Env }>): Promi
     const data = await res.json();
     return c.json(data, (res.ok ? 200 : res.status) as ContentfulStatusCode);
   } catch (err) {
+    console.error('webamonServerHandler failed:', err instanceof Error ? err.message : String(err));
     return c.json(
       { error: 'internal_error', message: err instanceof Error ? err.message : 'server handler failed' },
       500
@@ -233,7 +240,8 @@ export async function webamonResourceHandler(c: Context<{ Bindings: Env }>): Pro
     if (!res) return c.json({ error: 'webamon upstream unreachable' }, 502);
     const data = await res.json();
     return c.json(data, (res.ok ? 200 : res.status) as ContentfulStatusCode);
-  } catch {
+  } catch (_catchErr) {
+    console.error('webamonResourceHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ error: 'internal_error', message: 'resource handler failed' }, 500);
   }
 }

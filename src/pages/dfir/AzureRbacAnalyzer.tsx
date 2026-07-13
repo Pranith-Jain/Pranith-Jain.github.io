@@ -302,6 +302,7 @@ function analyze(text: string): Analysis | null {
   try {
     doc = JSON.parse(trimmed);
   } catch (e) {
+    console.error('analyze failed:', e instanceof Error ? e.message : String(e));
     return { error: (e as Error).message, inputType: '', count: 0, findings: [] };
   }
   const root = doc as Record<string, unknown>;

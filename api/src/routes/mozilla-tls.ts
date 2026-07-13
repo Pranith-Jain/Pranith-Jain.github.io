@@ -28,6 +28,7 @@ mozillaTlsRouter.get('/mozilla-tls/scan', async (c) => {
       c.executionCtx.waitUntil(c.env.KV_CACHE.put(cacheKey, JSON.stringify(body), { expirationTtl: CACHE_TTL }));
     return c.json(body);
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : 'Mozilla TLS unreachable' }, 502);
   }
 });
@@ -49,6 +50,7 @@ mozillaTlsRouter.get('/mozilla-tls/result', async (c) => {
     const data = await res.json();
     return c.json({ scanId, results: data, generated_at: new Date().toISOString() });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : 'Mozilla TLS unreachable' }, 502);
   }
 });

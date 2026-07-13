@@ -57,7 +57,8 @@ export async function readCache<T>(key: string): Promise<T | null> {
     const cache = caches.default;
     const cached = await cache.match(new Request(key));
     if (cached) return (await cached.json()) as T;
-  } catch {
+  } catch (_catchErr) {
+    console.error('readCache failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* miss */
   }
   return null;
@@ -503,7 +504,8 @@ export async function gatherLiveEnrichment(query: string, queryType: QueryType, 
           },
         ];
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* cvedb optional */
     }
     return [];
@@ -559,7 +561,8 @@ export async function gatherLiveEnrichment(query: string, queryType: QueryType, 
           }
         }
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* ransomware KB optional */
     }
 
@@ -579,7 +582,8 @@ export async function gatherLiveEnrichment(query: string, queryType: QueryType, 
           data: mpData,
         });
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* malpedia optional */
     }
 
@@ -613,7 +617,8 @@ export async function gatherLiveEnrichment(query: string, queryType: QueryType, 
           });
         }
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* wikipedia direct page miss */
     }
     // Fallback: search Wikipedia for related pages
@@ -642,7 +647,8 @@ export async function gatherLiveEnrichment(query: string, queryType: QueryType, 
             });
           }
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* wikipedia search failed */
       }
     }
@@ -669,7 +675,8 @@ export async function gatherLiveEnrichment(query: string, queryType: QueryType, 
           },
         });
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* RL profile optional */
     }
 
@@ -728,7 +735,8 @@ export async function gatherLiveEnrichment(query: string, queryType: QueryType, 
           ];
         }
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* breach lookup optional */
     }
   }
@@ -1030,7 +1038,8 @@ export async function callWorkersAi(env: Env, system: string, user: string): Pro
       )) as Record<string, unknown>;
       const text = extractWorkersAiText(res);
       if (text) return text;
-    } catch {
+    } catch (_catchErr) {
+      console.error('callWorkersAi failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       continue;
     }
   }
@@ -1068,7 +1077,8 @@ export async function callGroq(env: Env, system: string, user: string): Promise<
       const data = await res.json<{ choices?: Array<{ message?: { content?: string } }> }>();
       const text = data?.choices?.[0]?.message?.content;
       if (text) return text;
-    } catch {
+    } catch (err) {
+      console.error(`copilot Groq ${model} failed:`, err instanceof Error ? err.message : String(err));
       continue;
     }
   }
@@ -1117,7 +1127,8 @@ export async function copilotInvestigateHandler(c: Context<{ Bindings: Env }>): 
           const results = await queryCorpus(c.env, query.trim(), 8, undefined);
           if (results.length > 0) ragContext = formatRetrievedContext(results);
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         // RAG is additive — failure is non-fatal
       }
 
@@ -1147,6 +1158,7 @@ export async function copilotInvestigateHandler(c: Context<{ Bindings: Env }>): 
         narrative = await callGroq(c.env, system, user);
         modelUsed = 'groq:openai/gpt-oss-120b';
       } catch (e) {
+        console.error('handler failed:', e instanceof Error ? e.message : String(e));
         throw new Error(`All LLM providers failed: ${e instanceof Error ? e.message : 'unknown'}`);
       }
 
@@ -1180,11 +1192,14 @@ export async function copilotInvestigateHandler(c: Context<{ Bindings: Env }>): 
 
       return c.json(response, 200, { 'Cache-Control': 'no-store' });
     } catch (e) {
+      console.error('copilot investigate failed:', e instanceof Error ? e.message : String(e));
       return internalError(c, e);
     }
   };
 
-  return Promise.race([work(), timeoutPromise]).catch((e) =>
-    internalError(c, e instanceof Error ? e : new Error(String(e)))
-  );
+  return Promise.race([work(), timeoutPromise]).catch((e) => {
+    const msg = e instanceof Error ? e.message : String(e);
+    console.error('copilot investigate timeout/fatal:', msg);
+    return internalError(c, e instanceof Error ? e : new Error(String(e)));
+  });
 }

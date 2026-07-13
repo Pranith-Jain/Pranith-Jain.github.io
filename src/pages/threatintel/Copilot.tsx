@@ -185,6 +185,7 @@ export default function Copilot(): JSX.Element {
         setReport(r);
         setProgress(null);
       } catch (e) {
+        console.error('Copilot failed:', e instanceof Error ? e.message : String(e));
         setError(e instanceof Error ? e.message : String(e));
         setProgress(null);
       }
@@ -259,6 +260,7 @@ export default function Copilot(): JSX.Element {
         }
         setResult(await res.json());
       } catch (e) {
+        console.error('handler failed:', e instanceof Error ? e.message : String(e));
         setError(e instanceof Error ? e.message : String(e));
       } finally {
         setLoading(false);
@@ -632,6 +634,7 @@ export default function Copilot(): JSX.Element {
                     if (!res.ok) throw new Error('Failed to save');
                     setSaved(true);
                   } catch (e) {
+                    console.error('handler failed:', e instanceof Error ? e.message : String(e));
                     setError(e instanceof Error ? e.message : 'Failed to save assessment');
                   } finally {
                     setSaving(false);

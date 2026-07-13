@@ -61,7 +61,8 @@ function loadInventory(): NhiEntry[] {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return [];
     return JSON.parse(raw) as NhiEntry[];
-  } catch {
+  } catch (_catchErr) {
+    console.error('loadInventory failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -109,7 +110,8 @@ export default function Nhi(): JSX.Element {
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
-    } catch {
+    } catch (_catchErr) {
+      console.error('Nhi failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* quota — non-fatal */
     }
   }, [items]);

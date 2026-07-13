@@ -82,7 +82,8 @@ export async function fetchRlUpstream(env: Env, path: string): Promise<unknown |
     );
     if (!r.ok) return null;
     return (await r.json()) as unknown;
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchRlUpstream failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -120,6 +121,7 @@ export async function ransomwareLiveHandler(c: Context<{ Bindings: Env }>): Prom
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
     });
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     // Scrubbed in production via safeErrorMessage; dev mode (DFIR_DEV_ERRORS=1)
     // gets the full err.message for debugging. Stops fetch/TLS/DNS error
     // text leaking internal probe behaviour to the client.
@@ -144,7 +146,8 @@ export async function ransomwareLiveHandler(c: Context<{ Bindings: Env }>): Prom
   let body: unknown;
   try {
     body = await upstream.json();
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ error: 'upstream_not_json' }, 502, { 'cache-control': 'no-store' });
   }
 

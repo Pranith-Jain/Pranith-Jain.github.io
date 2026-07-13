@@ -78,7 +78,8 @@ export default function EmailOsnit() {
       const res = await fetch(`/api/v1/email-osnit/profile?email=${encodeURIComponent(email)}`);
       if (!res.ok) throw new Error('Lookup failed');
       setProfile(await res.json());
-    } catch {
+    } catch (_catchErr) {
+      console.error('EmailOsnit failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       setError('Email lookup failed');
     }
     setLoading(false);

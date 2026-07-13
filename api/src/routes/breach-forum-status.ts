@@ -72,7 +72,8 @@ export async function breachForumStatusHandler(c: Context<{ Bindings: Env }>): P
   try {
     const hit = await caches.default.match(cacheKey);
     if (hit) return new Response(hit.body, hit);
-  } catch {
+  } catch (_catchErr) {
+    console.error('breachForumStatusHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* cache miss is fine */
   }
 
@@ -111,14 +112,16 @@ export async function breachForumStatusHandler(c: Context<{ Bindings: Env }>): P
             },
           })
         );
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* cache writes are non-fatal */
       }
       try {
         trackEvent(c.env, 'breach_forum_status_fetch', {
           indexes: [visitorCountry(c.req.raw)],
         });
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* telemetry is best-effort */
       }
     })()

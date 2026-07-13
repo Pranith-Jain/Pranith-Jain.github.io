@@ -280,7 +280,8 @@ async function fetchRansomfeedVictims(): Promise<RansomwareVictim[]> {
       if (items.length >= MAX_ITEMS) break;
     }
     return items;
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -339,7 +340,8 @@ async function fetchRansomwatchVictims(): Promise<RansomwareVictim[]> {
       });
     }
     return out;
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -393,7 +395,8 @@ async function fetchRansomwareLiveVictims(): Promise<RansomwareVictim[]> {
       });
     }
     return out;
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -464,7 +467,8 @@ async function fetchCtiFyiVictims(): Promise<RansomwareVictim[]> {
       if (out.length >= MAX_ITEMS) break;
     }
     return out;
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchCtiFyiVictims failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -591,7 +595,8 @@ export async function fetchRansomwareRecent(env?: Env): Promise<{
         });
         clearTimeout(timer);
         return res;
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         return null;
       }
     })(),
@@ -639,7 +644,8 @@ export async function fetchRansomwareRecent(env?: Env): Promise<{
           };
         });
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* upstream unreachable — fall through; secondary may still have data */
   }
 
@@ -777,10 +783,12 @@ async function writeRansomwareLastGood(env: Env, body: ResponseBody): Promise<vo
           headers: { 'content-type': 'application/json', 'cache-control': `max-age=${LASTGOOD_SHADOW_TTL_SECONDS}` },
         })
       );
-    } catch {
+    } catch (_catchErr) {
+      console.error('writeRansomwareLastGood failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* best-effort shadow */
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('writeRansomwareLastGood failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* non-fatal */
   }
 }
@@ -791,7 +799,8 @@ async function readRansomwareLastGood(env: Env): Promise<ResponseBody | null> {
   try {
     const hit = await cache.match(lastgoodShadowKey);
     if (hit) return (await hit.json()) as ResponseBody;
-  } catch {
+  } catch (_catchErr) {
+    console.error('readRansomwareLastGood failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* fall through to KV */
   }
   try {
@@ -804,13 +813,15 @@ async function readRansomwareLastGood(env: Env): Promise<ResponseBody | null> {
             headers: { 'content-type': 'application/json', 'cache-control': `max-age=${LASTGOOD_SHADOW_TTL_SECONDS}` },
           })
         );
-      } catch {
+      } catch (_catchErr) {
+        console.error('readRansomwareLastGood failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* best-effort shadow */
       }
       return lg;
     }
     return null;
-  } catch {
+  } catch (_catchErr) {
+    console.error('readRansomwareLastGood failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -928,7 +939,8 @@ export async function ransomwareRecentHandler(c: Context<{ Bindings: Env }>): Pr
               await cache.put(cacheKey, fresh);
               await writeRansomwareLastGood(c.env, body);
             }
-          } catch {
+          } catch (_catchErr) {
+            console.error('ransomwareRecentHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
             /* non-fatal */
           }
         })()

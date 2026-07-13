@@ -40,6 +40,7 @@ export default function ManualTab() {
       });
       setResult(r);
     } catch (e) {
+      console.error('handlePublish failed:', e instanceof Error ? e.message : String(e));
       setResult({ ok: false, error: e instanceof Error ? e.message : String(e) });
     } finally {
       setSending(false);

@@ -134,6 +134,7 @@ export default function EvtxParser(): JSX.Element {
             await yieldToPaint();
             setData(parse(await f.arrayBuffer()));
           } catch (ex) {
+            console.error('handler failed:', ex instanceof Error ? ex.message : String(ex));
             setData(null);
             setErr(ex instanceof Error ? ex.message : String(ex));
           } finally {

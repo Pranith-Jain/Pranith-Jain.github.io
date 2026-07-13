@@ -108,7 +108,8 @@ async function fetchForumText(url: string): Promise<string | null> {
     );
     if (!res.ok) return null;
     return await res.text();
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchForumText failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -220,7 +221,8 @@ export async function actorUsernamesStatsHandler(c: Context<{ Bindings: Env }>):
       };
       total = typeof json.metadata?.total_usernames === 'number' ? json.metadata.total_usernames : null;
       sources = Array.isArray(json.metadata?.sources) ? json.metadata!.sources! : [];
-    } catch {
+    } catch (_catchErr) {
+      console.error('actorUsernamesStatsHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* leave defaults */
     }
   }

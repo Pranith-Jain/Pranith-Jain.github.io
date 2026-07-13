@@ -67,6 +67,7 @@ export async function domainHistoryHandler(c: Context<{ Bindings: Env }>): Promi
       'Cache-Control': 'public, max-age=300',
     });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);
   }
 }
@@ -99,6 +100,7 @@ export async function domainChangesHandler(c: Context<{ Bindings: Env }>): Promi
       'Cache-Control': 'public, max-age=300',
     });
   } catch (e) {
+    console.error('domainChangesHandler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);
   }
 }
@@ -152,6 +154,7 @@ export async function domainPivotHandler(c: Context<{ Bindings: Env }>): Promise
       'Cache-Control': 'public, max-age=300',
     });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);
   }
 }
@@ -178,6 +181,7 @@ export async function domainHistoryStatsHandler(c: Context<{ Bindings: Env }>): 
       'Cache-Control': 'public, max-age=300',
     });
   } catch (e) {
+    console.error('domainHistoryStatsHandler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);
   }
 }
@@ -223,6 +227,7 @@ export async function domainRegistrantSearchHandler(c: Context<{ Bindings: Env }
       'Cache-Control': 'public, max-age=300',
     });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);
   }
 }
@@ -270,6 +275,7 @@ export async function domainSnapshotHandler(c: Context<{ Bindings: Env }>): Prom
       'Cache-Control': 'no-store',
     });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);
   }
 }

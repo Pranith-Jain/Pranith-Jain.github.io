@@ -94,7 +94,8 @@ function extractJson(text: string): unknown {
   // Try the whole string first.
   try {
     return JSON.parse(trimmed);
-  } catch {
+  } catch (_catchErr) {
+    console.error('extractJson failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     // Fall back to extracting the first {...} block.
     const start = trimmed.indexOf('{');
     const end = trimmed.lastIndexOf('}');
@@ -160,7 +161,8 @@ export async function fplensAnalyzeHandler(c: Context<{ Bindings: Env }>) {
   let body: FpLensRequest;
   try {
     body = (await c.req.json()) as FpLensRequest;
-  } catch {
+  } catch (_catchErr) {
+    console.error('fplensAnalyzeHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ error: 'invalid_json', message: 'request body must be JSON' }, 400);
   }
   if (!body.rule || typeof body.rule !== 'string' || body.rule.trim().length === 0) {
@@ -205,6 +207,7 @@ export async function fplensAnalyzeHandler(c: Context<{ Bindings: Env }>) {
     const result = normalizeFpLensResult(parsed);
     return c.json(result, 200, { 'cache-control': 'no-store' });
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     const msg = err instanceof Error ? err.message : String(err);
     if (msg === 'fplens-timeout') {
       return c.json({ error: 'timeout', message: 'FP analysis timed out' }, 504);

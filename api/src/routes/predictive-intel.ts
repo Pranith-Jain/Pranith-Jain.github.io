@@ -445,7 +445,8 @@ export async function predictiveGapsHandler(c: Context<{ Bindings: Env }>): Prom
   try {
     const lg = await readLastGood<Pir[]>(c.env, 'pirs');
     pirs = lg ?? undefined;
-  } catch {
+  } catch (_catchErr) {
+    console.error('predictiveGapsHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* best-effort */
   }
 
@@ -456,7 +457,8 @@ export async function predictiveGapsHandler(c: Context<{ Bindings: Env }>): Prom
       const body = (await cached.json()) as { rows?: Array<{ id: string; status: string }> };
       if (body.rows) for (const r of body.rows) sourceCoverage[r.id] = r.status;
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('predictiveGapsHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* best-effort */
   }
 

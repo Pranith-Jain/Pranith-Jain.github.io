@@ -28,6 +28,7 @@ export async function mozillaTlsScan(
     result.data = (await res.json()) as MozillaTlsResult;
     result.success = true;
   } catch (e) {
+    console.error('mozillaTlsScan failed:', e instanceof Error ? e.message : String(e));
     result.error = e instanceof Error ? e.message : String(e);
   }
   return result;

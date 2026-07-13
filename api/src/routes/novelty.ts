@@ -16,7 +16,8 @@ const NOVELTY_CACHE_PREFIX = 'https://novelty-cache.internal/v1/';
 function noveltyCacheApi(): Cache | null {
   try {
     return (caches as unknown as { default: Cache }).default;
-  } catch {
+  } catch (_catchErr) {
+    console.error('noveltyCacheApi failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -60,7 +61,8 @@ export async function checkNovelty(
         const { first_seen, score } = (await r.json()) as { first_seen: string; score: number };
         return { novel: false, score, first_seen };
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('checkNovelty failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* fall through */
     }
   }
@@ -107,6 +109,7 @@ export async function noveltyHandler(c: Context<{ Bindings: Env }>): Promise<Res
     const result = await checkNovelty(c.env, text, markSeen);
     return c.json(result, 200, { 'Cache-Control': 'public, max-age=60' });
   } catch (e) {
+    console.error('noveltyHandler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
   }
 }
@@ -125,6 +128,7 @@ export async function noveltyBatchHandler(c: Context<{ Bindings: Env }>): Promis
     const results = await Promise.all(body.texts.map((t) => checkNovelty(c.env, t, body.mark_seen ?? false)));
     return c.json({ results });
   } catch (e) {
+    console.error('noveltyBatchHandler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
   }
 }

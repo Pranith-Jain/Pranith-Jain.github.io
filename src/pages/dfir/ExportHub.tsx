@@ -82,6 +82,7 @@ export default function ExportHub(): JSX.Element {
       const text = await res.text();
       setResult(text);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setResult(`Error: ${(e as Error).message}`);
     } finally {
       setLoading(false);

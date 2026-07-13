@@ -195,6 +195,7 @@ export default function Pivex(): JSX.Element {
       setEdges(mappedEdges);
       setSeedInfo({ seed: data.seed, type: data.seed_type, truncated: data.truncated, warning: data.warning });
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : 'Graph build failed');
       setNodes([]);
       setEdges([]);

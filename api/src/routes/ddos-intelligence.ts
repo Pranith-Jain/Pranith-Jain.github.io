@@ -59,7 +59,8 @@ async function fetchFeodoTracker(): Promise<DDoSBotnet[]> {
       status: d.status || 'online',
       urlhausLink: d.urlhaus_link || '',
     }));
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchFeodoTracker failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -83,7 +84,8 @@ async function fetchUrlhausRecent(): Promise<
       dateAdded: u.date_added || '',
       tags: u.tags || [],
     }));
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchUrlhausRecent failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -111,7 +113,8 @@ async function fetchThreatFoxC2(): Promise<
       confidence: d.confidence_level || 50,
       firstSeen: d.first_seen || '',
     }));
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchThreatFoxC2 failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }

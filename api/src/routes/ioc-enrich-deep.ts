@@ -51,7 +51,8 @@ async function selfFetch(
     const req = new Request(`${INTERNAL}${path}`, { ...init, headers });
     if (self) return await self.fetch(req);
     return await fetch(req);
-  } catch {
+  } catch (_catchErr) {
+    console.error('selfFetch failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -73,6 +74,7 @@ async function timeIt<T>(
     const data = await fn();
     return { source: label, ok: true, data, ms: Date.now() - t0 };
   } catch (err) {
+    console.error('timeIt failed:', err instanceof Error ? err.message : String(err));
     return {
       source: label,
       ok: false,
@@ -238,6 +240,7 @@ export async function iocEnrichDeepHandler(c: Context<{ Bindings: Env }>): Promi
           const asnRes = await selfFetch(self, `/api/v1/asn/lookup?asn=${encodeURIComponent(asnStr)}`, token);
           return asnRes ? await asnRes.json() : { error: 'no-asn-response' };
         } catch (err) {
+          console.error('handler failed:', err instanceof Error ? err.message : String(err));
           return { error: err instanceof Error ? err.message : String(err) };
         }
       })
@@ -358,7 +361,8 @@ export async function iocEnrichDeepHandler(c: Context<{ Bindings: Env }>): Promi
 function safeHostname(url: string): string | null {
   try {
     return new URL(url).hostname.toLowerCase();
-  } catch {
+  } catch (_catchErr) {
+    console.error('safeHostname failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     // If the input isn't a full URL, treat the whole thing as a hostname
     // (only for the domain-lookup fan-out — URL-specific calls still need
     //  a real URL).

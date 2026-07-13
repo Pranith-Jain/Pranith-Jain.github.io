@@ -141,7 +141,8 @@ export async function upsertNode(
       if (typeof raw !== 'string' || !raw) return {};
       try {
         return JSON.parse(raw);
-      } catch {
+      } catch (_catchErr) {
+        console.error('upsertNode failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         return {};
       }
     };
@@ -150,7 +151,8 @@ export async function upsertNode(
       try {
         const p = JSON.parse(raw);
         return Array.isArray(p) ? p : [];
-      } catch {
+      } catch (_catchErr) {
+        console.error('upsertNode failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         return [];
       }
     };
@@ -229,7 +231,8 @@ export async function upsertEdge(
           (x): x is GraphEdge['evidence'][number] =>
             typeof x === 'object' && x !== null && 'source' in x && 'description' in x && 'timestamp' in x
         );
-      } catch {
+      } catch (_catchErr) {
+        console.error('upsertEdge failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         return [];
       }
     };

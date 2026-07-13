@@ -47,7 +47,8 @@ export async function cveSearchHandler(c: Context<{ Bindings: Env }>) {
       data.ssvc = ssvc;
 
       return c.json(data, 200, { 'Cache-Control': 'public, max-age=1800, s-maxage=3600' });
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       if (data) return c.json(data, 200, { 'Cache-Control': 'public, max-age=1800, s-maxage=3600' });
     }
   }

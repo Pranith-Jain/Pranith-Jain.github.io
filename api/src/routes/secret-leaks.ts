@@ -210,7 +210,8 @@ export async function secretLeaksHandler(c: Context<{ Bindings: Env }>): Promise
           return res;
         }
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('secretLeaksHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* continue to live fetch */
     }
   }
@@ -267,7 +268,8 @@ export async function secretLeaksHandler(c: Context<{ Bindings: Env }>): Promise
           url: item.html_url,
         });
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       // Skip failed pattern searches silently
     }
   });
@@ -329,7 +331,8 @@ export async function secretLeaksHandler(c: Context<{ Bindings: Env }>): Promise
   if (kv) {
     try {
       await kv.put(kvKey, JSON.stringify(response), { expirationTtl: 3600 });
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* quota */
     }
   }

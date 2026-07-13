@@ -178,7 +178,8 @@ function loadCustomHandles(): string[] {
     const parsed = JSON.parse(raw) as unknown;
     if (!Array.isArray(parsed)) return [];
     return parsed.filter((h): h is string => typeof h === 'string' && HANDLE_RE.test(h));
-  } catch {
+  } catch (_catchErr) {
+    console.error('loadCustomHandles failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -208,7 +209,8 @@ export default function XWatch(): JSX.Element {
   const [active, setActive] = useState<string>(() => {
     try {
       return localStorage.getItem(STORAGE_KEY_LAST) ?? DEFAULT_HANDLE;
-    } catch {
+    } catch (_catchErr) {
+      console.error('XWatch failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return DEFAULT_HANDLE;
     }
   });
@@ -218,21 +220,24 @@ export default function XWatch(): JSX.Element {
   const [sinceDays, setSinceDays] = useState<number>(() => {
     try {
       return Number(localStorage.getItem('x-watch.since-days') ?? '7') || 7;
-    } catch {
+    } catch (_catchErr) {
+      console.error('XWatch failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return 7;
     }
   });
   const [includeReplies, setIncludeReplies] = useState<boolean>(() => {
     try {
       return localStorage.getItem('x-watch.include-replies') === '1';
-    } catch {
+    } catch (_catchErr) {
+      console.error('XWatch failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return false;
     }
   });
   const [includePinned, setIncludePinned] = useState<boolean>(() => {
     try {
       return localStorage.getItem('x-watch.include-pinned') === '1';
-    } catch {
+    } catch (_catchErr) {
+      console.error('XWatch failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return false;
     }
   });
@@ -249,7 +254,8 @@ export default function XWatch(): JSX.Element {
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY_LAST, active);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* localStorage unavailable */
     }
   }, [active]);
@@ -257,7 +263,8 @@ export default function XWatch(): JSX.Element {
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY_CUSTOM, JSON.stringify(customHandles));
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* localStorage unavailable */
     }
   }, [customHandles]);
@@ -267,7 +274,8 @@ export default function XWatch(): JSX.Element {
       localStorage.setItem('x-watch.since-days', String(sinceDays));
       localStorage.setItem('x-watch.include-replies', includeReplies ? '1' : '0');
       localStorage.setItem('x-watch.include-pinned', includePinned ? '1' : '0');
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* localStorage unavailable */
     }
   }, [sinceDays, includeReplies, includePinned]);

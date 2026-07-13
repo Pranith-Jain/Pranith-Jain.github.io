@@ -901,7 +901,8 @@ async function probeOne(spec: FeedProbeSpec): Promise<FeedStatusRow> {
     const body = (await cached.json()) as unknown;
     const evaluated = spec.evaluate(body);
     return toRow(evaluated.status, evaluated.reason, evaluated.ageS);
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return toRow('down', 'cache read error');
   }
 }
@@ -982,7 +983,8 @@ export async function feedStatusHandler(c: Context<{ Bindings: Env }>): Promise<
       })
     );
     return response;
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     // Fallback: return a minimal response so the frontend never sees 503
     return new Response(
       JSON.stringify({

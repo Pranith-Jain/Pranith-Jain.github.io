@@ -58,7 +58,8 @@ export default function CertSearch(): JSX.Element {
         try {
           const parsed = JSON.parse(body) as { error?: string };
           msg = parsed.error ?? msg;
-        } catch {
+        } catch (_catchErr) {
+          console.error('CertSearch failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* use default */
         }
         throw new Error(msg);
@@ -67,6 +68,7 @@ export default function CertSearch(): JSX.Element {
       if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
       setData((await res.json()) as CertSearchResponse);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setError((e as Error).message);
     } finally {
       setLoading(false);

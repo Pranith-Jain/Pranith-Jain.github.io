@@ -47,7 +47,8 @@ function relativeTime(iso: string | undefined): string {
 function hostnameOf(url: string): string {
   try {
     return new URL(url).hostname.replace(/^www\./, '');
-  } catch {
+  } catch (_catchErr) {
+    console.error('hostnameOf failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return url;
   }
 }
@@ -119,7 +120,8 @@ export default function CuratedToolbox(): JSX.Element {
           return;
         }
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* ignore */
     }
     setOpenSet(new Set([data.sections[0]?.name].filter(Boolean) as string[]));
@@ -155,7 +157,8 @@ export default function CuratedToolbox(): JSX.Element {
       else next.add(name);
       try {
         window.localStorage.setItem('curated-toolbox:open', JSON.stringify(Array.from(next)));
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* ignore */
       }
       return next;
@@ -167,7 +170,8 @@ export default function CuratedToolbox(): JSX.Element {
     setOpenSet(all);
     try {
       window.localStorage.setItem('curated-toolbox:open', JSON.stringify(['__all__']));
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* ignore */
     }
   };
@@ -175,7 +179,8 @@ export default function CuratedToolbox(): JSX.Element {
     setOpenSet(new Set());
     try {
       window.localStorage.setItem('curated-toolbox:open', JSON.stringify([]));
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* ignore */
     }
   };

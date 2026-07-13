@@ -42,6 +42,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
       const d = (await res.json()) as { channels: DiscoveredChannel[] };
       setChannels(d.channels ?? []);
     } catch (e) {
+      console.error('TelegramDiscoveredChannels failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setLoading(false);
@@ -83,6 +84,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
       // both remove it from the unreviewed queue).
       setChannels((prev) => prev.filter((ch) => ch.handle !== handle));
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setBusy(null);

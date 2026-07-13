@@ -71,7 +71,8 @@ function parseHive(buf: ArrayBuffer): RKey {
         value =
           [...u8.subarray(dpos, dpos + Math.min(dataSize, 64))].map((b) => b.toString(16).padStart(2, '0')).join(' ') +
           (dataSize > 64 ? ' …' : '');
-    } catch {
+    } catch (_catchErr) {
+      console.error('readVal failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       value = '<unreadable>';
     }
     return { name, type: TYPES[type] ?? `0x${type.toString(16)}`, value };
@@ -106,7 +107,8 @@ function parseHive(buf: ArrayBuffer): RKey {
       for (let i = 0; i < nVal && nodes < MAX_NODES; i++) {
         try {
           key.values.push(readVal(d.getUint32(vl + i * 4, true)));
-        } catch {
+        } catch (_catchErr) {
+          console.error('readKey failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* skip */
         }
       }
@@ -117,7 +119,8 @@ function parseHive(buf: ArrayBuffer): RKey {
           if (nodes >= MAX_NODES) break;
           key.subkeys.push(readKey(so, depth + 1));
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('readKey failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* skip */
       }
     }
@@ -215,6 +218,7 @@ export default function RegistryHive(): JSX.Element {
             await yieldToPaint();
             setRoot(parseHive(await f.arrayBuffer()));
           } catch (ex) {
+            console.error('handler failed:', ex instanceof Error ? ex.message : String(ex));
             setRoot(null);
             setErr(ex instanceof Error ? ex.message : String(ex));
           } finally {

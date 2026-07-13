@@ -137,7 +137,8 @@ export async function waybackCdxHandler(c: Context<{ Bindings: Env }>): Promise<
         const remain = Math.max(parseInt(until, 10) - Math.floor(Date.now() / 1000), 1);
         return cooldownResponse(c, remain);
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* KV read blip — fail open, fall through to a real attempt. */
     }
   }
@@ -159,7 +160,8 @@ export async function waybackCdxHandler(c: Context<{ Bindings: Env }>): Promise<
           upstreamJson = await res.json();
           upstreamOk = true;
           break;
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           // Non-JSON upstream body (IA sometimes returns HTML error pages
           // under load). Treat as transient failure so the retry can catch
           // a healthy response.
@@ -185,6 +187,7 @@ export async function waybackCdxHandler(c: Context<{ Bindings: Env }>): Promise<
       lastError = { status: res.status };
       if (!transientStatus(res.status)) break; // 4xx other than 429 — don't bother retrying.
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       lastError = { message: e instanceof Error ? e.message : 'unknown' };
     }
   }

@@ -33,7 +33,8 @@ export async function hackMyIpBreachHandler(c: Context<{ Bindings: Env }>): Prom
     let data: unknown;
     try {
       data = await res.json();
-    } catch {
+    } catch (_catchErr) {
+      console.error('hackMyIpBreachHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return c.json({ error: 'HackMyIP returned invalid JSON' }, 502);
     }
     const body = JSON.stringify({
@@ -52,6 +53,7 @@ export async function hackMyIpBreachHandler(c: Context<{ Bindings: Env }>): Prom
     c.executionCtx.waitUntil(caches.default.put(cacheReq, response.clone()));
     return response;
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : 'HackMyIP unreachable' }, 502);
   }
 }

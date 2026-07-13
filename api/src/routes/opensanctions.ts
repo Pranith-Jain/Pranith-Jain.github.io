@@ -35,6 +35,7 @@ opensanctionsRouter.get('/opensanctions/search', async (c) => {
     }
     return c.json(body);
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : 'OpenSanctions unreachable' }, 502);
   }
 });
@@ -58,6 +59,7 @@ opensanctionsRouter.get('/opensanctions/entity', async (c) => {
     const data = await res.json();
     return c.json({ entity: data, generated_at: new Date().toISOString() });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : 'OpenSanctions unreachable' }, 502);
   }
 });
@@ -86,6 +88,7 @@ opensanctionsRouter.get('/opensanctions/stats', async (c) => {
     }
     return c.json(body);
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : 'OpenSanctions unreachable' }, 502);
   }
 });

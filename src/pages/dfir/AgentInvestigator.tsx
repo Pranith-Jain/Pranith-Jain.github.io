@@ -222,7 +222,8 @@ export default function AgentInvestigator(): JSX.Element {
       } else if (res.status === 401 || res.status === 403) {
         setError('Agent requires an admin session. Set your admin token in Settings.');
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('AgentInvestigator failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* non-fatal */
     }
   }, []);
@@ -316,6 +317,7 @@ export default function AgentInvestigator(): JSX.Element {
         error: null,
       });
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       setError(err instanceof Error ? err.message : String(err));
     } finally {
       setIsStarting(false);
@@ -346,7 +348,8 @@ export default function AgentInvestigator(): JSX.Element {
         setActiveId(null);
       }
       fetchSessions();
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* non-fatal */
     }
   };
@@ -598,6 +601,7 @@ export default function AgentInvestigator(): JSX.Element {
                 if (!res.ok) return { tool: 'hunting_queries', data: { error: `HTTP ${res.status}` } };
                 return { tool: 'hunting_queries', data: await res.json() };
               } catch (e) {
+                console.error('handler failed:', e instanceof Error ? e.message : String(e));
                 return { tool: 'hunting_queries', data: { error: e instanceof Error ? e.message : String(e) } };
               }
             }}
@@ -630,6 +634,7 @@ export default function AgentInvestigator(): JSX.Element {
                 if (!res.ok) return { tool: 'yara_rule', data: { error: `HTTP ${res.status}` } };
                 return { tool: 'yara_rule', data: await res.json() };
               } catch (e) {
+                console.error('handler failed:', e instanceof Error ? e.message : String(e));
                 return { tool: 'yara_rule', data: { error: e instanceof Error ? e.message : String(e) } };
               }
             }}

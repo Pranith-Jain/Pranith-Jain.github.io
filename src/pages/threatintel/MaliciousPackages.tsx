@@ -32,7 +32,8 @@ export default function MaliciousPackages(): JSX.Element {
   const [ecosystem, setEcosystem] = useState(() => {
     try {
       return localStorage.getItem(STORAGE_KEY) ?? 'npm';
-    } catch {
+    } catch (_catchErr) {
+      console.error('MaliciousPackages failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return 'npm';
     }
   });
@@ -51,7 +52,8 @@ export default function MaliciousPackages(): JSX.Element {
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY, ecosystem);
-    } catch {
+    } catch (_catchErr) {
+      console.error('MaliciousPackages failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* localStorage unavailable */
     }
     let cancelled = false;

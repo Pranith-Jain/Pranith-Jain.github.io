@@ -32,6 +32,7 @@ etdaActorsRouter.get('/apt-actors/', async (c) => {
       aptmap: idx.aptmap,
     });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `actors_index_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -57,6 +58,7 @@ etdaActorsRouter.get('/apt-actors/actors', async (c) => {
     });
     return c.json({ total: idx.counts.actors, returned: actors.length, actors });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `actors_list_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -69,6 +71,7 @@ etdaActorsRouter.get('/apt-actors/actors/:slug', async (c) => {
     if (!body) return notFound(c, `actor_not_found: ${slug}`);
     return c.json(body);
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `actor_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -95,6 +98,7 @@ etdaActorsRouter.get('/apt-actors/sectors', async (c) => {
 
     return c.json({ total: sectors.length, minActors, sectors });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `actors_sectors_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -110,6 +114,7 @@ etdaActorsRouter.get('/apt-actors/aptmap', async (c) => {
       graph,
     });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `aptmap_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -121,6 +126,7 @@ etdaActorsRouter.get('/apt-actors/aptmap/data', async (c) => {
     const files = mod.listAptmapDataFiles(idx);
     return c.json({ total: files.length, files });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `aptmap_data_list_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -133,6 +139,7 @@ etdaActorsRouter.get('/apt-actors/aptmap/data/:filename', async (c) => {
     if (!data) return notFound(c, `aptmap_data_not_found: ${filename} not available`);
     return c.json(data);
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `aptmap_data_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -152,6 +159,7 @@ etdaActorsRouter.get('/apt-actors/stats', async (c) => {
       cache,
     });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `actors_stats_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });

@@ -94,7 +94,8 @@ function loadDisabled(): Set<string> {
   try {
     const raw = localStorage.getItem(DISABLED_STORAGE_KEY);
     return new Set(raw ? (JSON.parse(raw) as string[]) : []);
-  } catch {
+  } catch (_catchErr) {
+    console.error('loadDisabled failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return new Set();
   }
 }
@@ -113,7 +114,8 @@ export default function TechAiNews(): JSX.Element {
   useEffect(() => {
     try {
       localStorage.setItem(DISABLED_STORAGE_KEY, JSON.stringify([...disabled]));
-    } catch {
+    } catch (_catchErr) {
+      console.error('TechAiNews failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* localStorage unavailable */
     }
   }, [disabled]);
@@ -131,6 +133,7 @@ export default function TechAiNews(): JSX.Element {
       setFeedsReturned(data.feeds_returned);
       setFeedStatuses(data.feeds ?? []);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setError((e as Error).message);
     } finally {
       setLoading(false);

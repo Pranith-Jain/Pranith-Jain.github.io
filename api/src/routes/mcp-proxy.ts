@@ -56,7 +56,8 @@ export async function mcpProxyHandler(c: Context<{ Bindings: Env }>): Promise<Re
   let body: ProxyRequest;
   try {
     body = (await c.req.json()) as ProxyRequest;
-  } catch {
+  } catch (_catchErr) {
+    console.error('mcpProxyHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ error: 'bad_request', message: 'invalid JSON body' }, 400);
   }
   if (!body.method || typeof body.method !== 'string') {
@@ -118,6 +119,7 @@ export async function mcpProxyHandler(c: Context<{ Bindings: Env }>): Promise<Re
       signal: ctl.signal,
     });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     clearTimeout(timer);
     const msg = e instanceof Error ? e.message : String(e);
     if (msg.includes('aborted')) {

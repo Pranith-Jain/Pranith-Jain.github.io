@@ -185,7 +185,8 @@ function analyzeContent(entries: WaybackEntry[]): WaybackAdvancedResponse['analy
       try {
         const url = new URL(e.original || '');
         return url.pathname;
-      } catch {
+      } catch (_catchErr) {
+        console.error('analyzeContent failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         return '';
       }
     })
@@ -380,6 +381,7 @@ export async function waybackAdvancedHandler(c: Context<{ Bindings: Env }>): Pro
       'Cache-Control': `public, max-age=${CACHE_TTL}`,
     });
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     return c.json(
       { error: 'Enhanced Wayback lookup failed', message: err instanceof Error ? err.message : 'Unknown error' },
       502,

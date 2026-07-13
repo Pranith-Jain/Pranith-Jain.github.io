@@ -141,7 +141,8 @@ export default function VerdiktAi(): JSX.Element {
           } else {
             narrative = raw;
           }
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           narrative = raw;
         }
       }
@@ -157,6 +158,7 @@ export default function VerdiktAi(): JSX.Element {
         detectionQueries,
       });
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       if (ctrl.signal.aborted) return;
       setError(err instanceof Error ? err.message : String(err));
     } finally {
@@ -170,7 +172,8 @@ export default function VerdiktAi(): JSX.Element {
       await navigator.clipboard.writeText(result.narrative);
       setCopiedNarrative(true);
       setTimeout(() => setCopiedNarrative(false), 1500);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* */
     }
   };

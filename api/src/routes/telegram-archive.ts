@@ -221,7 +221,8 @@ async function sendTo(env: Env, chatId: string, text: string): Promise<boolean> 
       }),
     });
     return r.ok; // 429 / 5xx → false
-  } catch {
+  } catch (_catchErr) {
+    console.error('sendTo failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return false;
   }
 }
@@ -250,7 +251,8 @@ export async function runTelegramArchive(env: Env): Promise<{ posted: number; sk
   let state: SeenState = {};
   try {
     state = ((await env.CASE_STUDIES.get(STATE_KEY, 'json')) as SeenState) ?? {};
-  } catch {
+  } catch (_catchErr) {
+    console.error('runTelegramArchive failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     state = {};
   }
   const ts = new Date().toISOString().replace('T', ' ').slice(0, 16) + ' UTC';
@@ -265,7 +267,8 @@ export async function runTelegramArchive(env: Env): Promise<{ posted: number; sk
     let body: unknown;
     try {
       body = await hit.json();
-    } catch {
+    } catch (_catchErr) {
+      console.error('runTelegramArchive failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       continue;
     }
     const seen = new Set(state[c.cat] ?? []);
@@ -291,7 +294,8 @@ export async function runTelegramArchive(env: Env): Promise<{ posted: number; sk
       let body: unknown;
       try {
         body = await hit.json();
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         body = null;
       }
       if (body) {
@@ -308,7 +312,8 @@ export async function runTelegramArchive(env: Env): Promise<{ posted: number; sk
   if (posted > 0) {
     try {
       await env.CASE_STUDIES.put(STATE_KEY, JSON.stringify(state));
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* KV write failed — items may repost next run; acceptable, non-fatal */
     }
   }

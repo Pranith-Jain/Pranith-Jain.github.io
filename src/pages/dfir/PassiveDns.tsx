@@ -56,6 +56,7 @@ export default function PassiveDns(): JSX.Element {
       const data = await res.json();
       setResult(data);
     } catch (err) {
+      console.error('PassiveDns failed:', err instanceof Error ? err.message : String(err));
       setError(err instanceof Error ? err.message : 'Failed to query passive DNS');
     } finally {
       setLoading(false);

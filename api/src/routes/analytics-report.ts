@@ -38,7 +38,8 @@ export async function analyticsReportHandler(c: Context<{ Bindings: Env }>): Pro
   let body: AnalyticsReportBody;
   try {
     body = await c.req.json<AnalyticsReportBody>();
-  } catch {
+  } catch (_catchErr) {
+    console.error('analyticsReportHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ error: 'bad_request', message: 'invalid JSON body' }, 400);
   }
 
@@ -69,6 +70,7 @@ export async function analyticsReportHandler(c: Context<{ Bindings: Env }>): Pro
     });
     return c.json({ markdown: md }, 200);
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     const msg = e instanceof Error ? e.message : String(e);
     return c.json({ error: 'build_failed', message: msg }, 500);
   }

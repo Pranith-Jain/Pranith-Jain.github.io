@@ -359,7 +359,8 @@ export default function RansomReport(): JSX.Element {
         doc.text(`Source: ransomware.live · pranithjain.qzz.io · page ${i}/${pages}`, margin, pageH - 20);
       }
       doc.save(`ransom-report-${(profile.group ?? selected).replace(/[^a-z0-9]/gi, '_')}.pdf`);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       setPdfError("Couldn't generate the PDF — the export library failed to load. Check your connection and retry.");
     } finally {
       setPdfBusy(false);

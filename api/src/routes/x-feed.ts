@@ -293,7 +293,8 @@ async function fetchHandle(spec: HandleSpec): Promise<{ ok: boolean; items: XFee
         pub_date: p.pub_date,
       }));
     return { ok: items.length > 0, items };
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     clearTimeout(timer);
     return { ok: false, items: [] };
   }

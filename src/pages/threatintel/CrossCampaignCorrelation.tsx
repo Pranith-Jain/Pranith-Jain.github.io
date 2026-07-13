@@ -34,6 +34,7 @@ export default function CrossCampaignCorrelation(): JSX.Element {
       const data = await api.get<CorrelationResponse>('/api/v1/threat-intel/cross-campaign/correlations');
       setCorrelations(data.correlations ?? []);
     } catch (err) {
+      console.error('CrossCampaignCorrelation failed:', err instanceof Error ? err.message : String(err));
       setError(err instanceof Error ? err.message : String(err));
     } finally {
       setLoading(false);

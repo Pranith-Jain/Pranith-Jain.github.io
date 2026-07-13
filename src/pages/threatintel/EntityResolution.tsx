@@ -136,7 +136,8 @@ export default function EntityResolution(): JSX.Element {
         const data = (await res.json()) as { results: PirRef[] };
         setRelevantPirs(data.results);
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('fetchRelevantPirs failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* non-fatal */
     }
   }
@@ -189,6 +190,7 @@ export default function EntityResolution(): JSX.Element {
       });
       fetchRelevantPirs(q.trim(), signal);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       if ((e as Error).name === 'AbortError') return;
       setError(e instanceof Error ? e.message : String(e));
     } finally {
@@ -219,6 +221,7 @@ export default function EntityResolution(): JSX.Element {
       const data = await res.json();
       if (!ctrl.signal.aborted) setExtracted(data.entities ?? []);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       if ((e as Error).name === 'AbortError') return;
       setError(e instanceof Error ? e.message : String(e));
     } finally {

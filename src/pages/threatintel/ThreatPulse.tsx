@@ -118,6 +118,7 @@ export default function ThreatPulse(): JSX.Element {
         const j = (await r.json()) as PulseResponse;
         if (!cancelled) setData(j);
       } catch (e) {
+        console.error('ThreatPulse failed:', e instanceof Error ? e.message : String(e));
         if (!cancelled && (e as { name?: string }).name !== 'AbortError') setError((e as Error).message);
       } finally {
         if (!cancelled) setLoading(false);
@@ -441,7 +442,8 @@ function CopyEntityButton({ entity }: { entity: PulseEntity }): JSX.Element {
       await navigator.clipboard.writeText(line);
       setDone(true);
       setTimeout(() => setDone(false), 1200);
-    } catch {
+    } catch (_catchErr) {
+      console.error('CopyEntityButton failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* clipboard blocked — silent */
     }
   };

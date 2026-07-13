@@ -45,7 +45,8 @@ async function readFilterEntry(kv: KVNamespace, type: string): Promise<unknown |
   try {
     const hit = await cache.match(filterCacheReq(type));
     if (hit) return await hit.json();
-  } catch {
+  } catch (_catchErr) {
+    console.error('readFilterEntry failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* fall through to KV */
   }
   const cached = await kv.get(`${KV_PREFIX}${type}`, 'json');

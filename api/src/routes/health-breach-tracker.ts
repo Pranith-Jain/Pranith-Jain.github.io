@@ -83,7 +83,8 @@ async function fetchHHSBreaches(): Promise<HealthBreach[]> {
       }
     }
     return breaches;
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -133,7 +134,8 @@ async function fetchHHSRSS(): Promise<HealthBreach[]> {
       }
     }
     return breaches;
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }

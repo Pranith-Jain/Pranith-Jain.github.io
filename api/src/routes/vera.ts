@@ -157,7 +157,8 @@ export async function veraChatHandler(c: Context<{ Bindings: Env }>): Promise<Re
     let body: { sessionId?: string; mode?: string; query?: string; role?: string };
     try {
       body = await c.req.json();
-    } catch {
+    } catch (_catchErr) {
+      console.error('veraChatHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return badRequest(c, 'Invalid JSON body');
     }
 
@@ -253,6 +254,7 @@ export async function veraChatHandler(c: Context<{ Bindings: Env }>): Promise<Re
       201
     );
   } catch (e) {
+    console.error('vera chat handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);
   }
 }
@@ -322,7 +324,8 @@ export async function veraChatStreamHandler(c: Context<{ Bindings: Env }>): Prom
         if (!closed) {
           try {
             controller.enqueue(encoder.encode(`data: ${data}\n\n`));
-          } catch {
+          } catch (_catchErr) {
+            console.error('veraChatStreamHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
             closed = true;
           }
         }
@@ -381,7 +384,8 @@ export async function veraChatStreamHandler(c: Context<{ Bindings: Env }>): Prom
 
               try {
                 await saveSession(db, session);
-              } catch {
+              } catch (_catchErr) {
+                console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
                 /* non-fatal */
               }
             }
@@ -399,11 +403,13 @@ export async function veraChatStreamHandler(c: Context<{ Bindings: Env }>): Prom
             closed = true;
             try {
               controller.close();
-            } catch {
+            } catch (_catchErr) {
+              console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
               /* already closed */
             }
           }
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* poll */
         }
       }, 700);
@@ -419,7 +425,8 @@ export async function veraChatStreamHandler(c: Context<{ Bindings: Env }>): Prom
         clearInterval(heartbeat);
         try {
           controller.close();
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* already closed */
         }
       });
@@ -457,6 +464,7 @@ export async function veraChatHistoryHandler(c: Context<{ Bindings: Env }>): Pro
       updated_at: session.updated_at,
     });
   } catch (e) {
+    console.error('vera chat history handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);
   }
 }
@@ -506,6 +514,7 @@ export async function veraSessionsListHandler(c: Context<{ Bindings: Env }>): Pr
 
     return c.json({ sessions }, 200, { 'Cache-Control': 'no-store' });
   } catch (e) {
+    console.error('vera sessions list handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);
   }
 }

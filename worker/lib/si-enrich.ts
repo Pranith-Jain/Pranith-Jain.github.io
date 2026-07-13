@@ -90,6 +90,7 @@ async function timed<T>(label: string, fn: () => Promise<T>): Promise<{ value?: 
     const v = await fn();
     return { value: v, ms: Date.now() - t0 };
   } catch (e) {
+    console.error('timed failed:', e instanceof Error ? e.message : String(e));
     return { ms: Date.now() - t0, error: e instanceof Error ? e.message : String(e) };
   }
 }

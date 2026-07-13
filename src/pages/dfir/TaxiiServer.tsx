@@ -45,7 +45,8 @@ export default function TaxiiServer(): JSX.Element {
       if (!ct.includes('json')) throw new Error('Server returned non-JSON');
       const data = (await res.json()) as { collections?: TaxiiCollection[] };
       setCollections(data.collections ?? []);
-    } catch {
+    } catch (_catchErr) {
+      console.error('TaxiiServer failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* silent */
     } finally {
       setLoading(false);
@@ -61,7 +62,8 @@ export default function TaxiiServer(): JSX.Element {
       if (!ct.includes('json')) throw new Error('Server returned non-JSON');
       const data = (await res.json()) as { objects?: TaxiiObject[] };
       setObjects(data.objects ?? []);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       setObjects([]);
     } finally {
       setObjectsLoading(false);

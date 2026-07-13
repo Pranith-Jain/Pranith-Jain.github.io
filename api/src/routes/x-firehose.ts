@@ -36,7 +36,8 @@ export async function xFirehoseHandler(c: Context<{ Bindings: Env }>): Promise<R
     try {
       readAuthCookies(c.env);
       return c.json({ ok: true, configured: true });
-    } catch {
+    } catch (_catchErr) {
+      console.error('xFirehoseHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return c.json({ ok: false, configured: false, reason: 'service unavailable' }, 200);
     }
   }
@@ -78,6 +79,7 @@ export async function xFirehoseHandler(c: Context<{ Bindings: Env }>): Promise<R
     }
     return c.json(body, 200, { 'cache-control': 'public, max-age=600, s-maxage=1800' });
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     if (err instanceof XAuthMissingError) {
       return c.json({ error: 'service unavailable', configured: false }, 503);
     }
@@ -92,7 +94,8 @@ export async function xFirehoseHandler(c: Context<{ Bindings: Env }>): Promise<R
             'cache-control': 'public, max-age=300',
           });
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* fall through */
       }
       return c.json({ error: 'rate-limited', retry_after: err.retryAfter ?? 'unknown' }, 429);

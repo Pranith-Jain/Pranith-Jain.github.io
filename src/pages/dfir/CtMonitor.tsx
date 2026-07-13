@@ -52,6 +52,7 @@ export default function CtMonitor(): JSX.Element {
       });
       setWatched(data.watched ?? []);
     } catch (err) {
+      console.error('CtMonitor failed:', err instanceof Error ? err.message : String(err));
       setError(err instanceof Error ? err.message : String(err));
     } finally {
       setLoading(false);
@@ -67,6 +68,7 @@ export default function CtMonitor(): JSX.Element {
       );
       setCerts(data.certs ?? []);
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       setError(err instanceof Error ? err.message : String(err));
     } finally {
       setCertsLoading(false);
@@ -89,6 +91,7 @@ export default function CtMonitor(): JSX.Element {
       setNewDomain('');
       await fetchWatched();
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       setError(err instanceof Error ? err.message : String(err));
     } finally {
       setLoading(false);
@@ -107,6 +110,7 @@ export default function CtMonitor(): JSX.Element {
           setCerts([]);
         }
       } catch (err) {
+        console.error('handler failed:', err instanceof Error ? err.message : String(err));
         setError(err instanceof Error ? err.message : String(err));
       }
     },

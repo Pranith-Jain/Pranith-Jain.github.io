@@ -118,6 +118,7 @@ export async function certInHandler(c: Context<{ Bindings: Env }>): Promise<Resp
       'Cache-Control': 'public, max-age=3600',
     });
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     return c.json(
       {
         error: 'CERT-In lookup failed',

@@ -94,6 +94,7 @@ export async function cidrLookupHandler(c: Context<{ Bindings: Env }>): Promise<
 
     return c.json(result, 200, { 'Cache-Control': 'public, max-age=3600' });
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     return c.json({ error: `CIDR lookup failed: ${err instanceof Error ? err.message : String(err)}` }, 502);
   }
 }

@@ -99,6 +99,7 @@ export default function StixBuilder(): JSX.Element {
         const result = (await res.json()) as IntelBundleResponse;
         if (!cancelled) setBuild({ status: 'ready', result });
       } catch (err) {
+        console.error('handler failed:', err instanceof Error ? err.message : String(err));
         if (!cancelled) {
           setBuild({ status: 'error', error: err instanceof Error ? err.message : String(err) });
         }
@@ -154,6 +155,7 @@ export default function StixBuilder(): JSX.Element {
       const result = (await res.json()) as IntelBundleResponse;
       if (buildCtrlRef.current === ctrl) setBuild({ status: 'ready', result });
     } catch (err) {
+      console.error('runBuild failed:', err instanceof Error ? err.message : String(err));
       if ((err as { name?: string }).name === 'AbortError') return;
       if (buildCtrlRef.current === ctrl) {
         setBuild({ status: 'error', error: err instanceof Error ? err.message : String(err) });
@@ -198,6 +200,7 @@ export default function StixBuilder(): JSX.Element {
       const result = (await res.json()) as IntelBundleResponse;
       if (buildCtrlRef.current === ctrl) setBuild({ status: 'ready', result });
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       if ((err as { name?: string }).name === 'AbortError') return;
       if (buildCtrlRef.current === ctrl) {
         setBuild({ status: 'error', error: err instanceof Error ? err.message : String(err) });
@@ -213,7 +216,8 @@ export default function StixBuilder(): JSX.Element {
         () => setCopyStatus('copied'),
         () => setCopyStatus('failed')
       );
-    } catch {
+    } catch (_catchErr) {
+      console.error('copyBundle failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       setCopyStatus('failed');
     }
   }

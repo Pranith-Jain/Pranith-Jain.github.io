@@ -108,7 +108,8 @@ export async function googleDorksHandler(c: Context<{ Bindings: Env }>): Promise
     try {
       const body = await cached.json();
       return jsonResponse(c, body, 200, CACHE_TTL_SECONDS);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* fall through to fresh fetch */
     }
   }
@@ -135,6 +136,7 @@ export async function googleDorksHandler(c: Context<{ Bindings: Env }>): Promise
     }
     upstream = (await res.json()) as SerpResponse;
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     return jsonResponse(
       c,
       { error: 'fetch_failed', detail: safeErrorMessage(c.env as unknown as Record<string, unknown>, err) },

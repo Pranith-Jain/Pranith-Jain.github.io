@@ -149,7 +149,8 @@ async function callNvidia(
       const data = await res.json<{ choices?: Array<{ message?: { content?: string } }> }>();
       const text = data?.choices?.[0]?.message?.content;
       if (text?.trim()) return text;
-    } catch {
+    } catch (_catchErr) {
+      console.error('callNvidia failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* try next model */
     }
   }
@@ -312,7 +313,8 @@ export async function threatAnalysisHandler(c: Context<{ Bindings: Env }>): Prom
     let analysis: unknown;
     try {
       analysis = JSON.parse(text);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       // Try to extract JSON from markdown code block
       const jsonMatch = text.match(/```(?:json)?\s*([\s\S]*?)```/);
       if (jsonMatch?.[1]) {
@@ -333,6 +335,7 @@ export async function threatAnalysisHandler(c: Context<{ Bindings: Env }>): Prom
       ...(validationIssues.length > 0 ? { quality_warnings: validationIssues } : {}),
     });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     const msg = e instanceof Error ? e.message : String(e);
     if (msg.includes('rate-limited')) {
       return c.json({ error: 'rate-limited', message: 'Groq API rate limit exceeded' }, 429);

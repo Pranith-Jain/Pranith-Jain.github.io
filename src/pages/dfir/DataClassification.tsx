@@ -32,7 +32,8 @@ export default function DataClassification(): JSX.Element {
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-    } catch {
+    } catch (_catchErr) {
+      console.error('DataClassification failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* quota */
     }
   }, [state]);

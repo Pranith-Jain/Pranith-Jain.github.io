@@ -14,6 +14,7 @@ cerastRouter.get('/cerast/search', async (c) => {
     const result = await cerastSearch(q);
     return c.json(result);
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `cerast_search_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });

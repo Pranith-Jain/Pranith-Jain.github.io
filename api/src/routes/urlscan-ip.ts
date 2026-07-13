@@ -67,6 +67,7 @@ export async function urlscanIpHandler(c: Context<{ Bindings: Env }>) {
 
     return c.json({ ip, total: json.total ?? 0, results });
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     return c.json({ error: err instanceof Error ? err.message : 'Unknown error' }, 502);
   }
 }

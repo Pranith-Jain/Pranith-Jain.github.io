@@ -26,7 +26,8 @@ export async function imageIocHandler(c: Context<{ Bindings: Env }>): Promise<Re
     let body: { url?: string };
     try {
       body = await c.req.json();
-    } catch {
+    } catch (_catchErr) {
+      console.error('imageIocHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return c.json({ error: 'bad_request', message: 'expected JSON {url} or image/* body' }, 400);
     }
     const url = typeof body.url === 'string' ? body.url : '';
@@ -34,7 +35,8 @@ export async function imageIocHandler(c: Context<{ Bindings: Env }>): Promise<Re
     let parsed: URL;
     try {
       parsed = new URL(url);
-    } catch {
+    } catch (_catchErr) {
+      console.error('imageIocHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return c.json({ error: 'bad_request', message: 'invalid url' }, 400);
     }
     if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
@@ -48,6 +50,7 @@ export async function imageIocHandler(c: Context<{ Bindings: Env }>): Promise<Re
         return c.json({ error: 'forbidden', message: check.error ?? 'host rejected' }, 403);
       }
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       if (e instanceof SsrfError) {
         return c.json({ error: 'forbidden', message: e.message }, 403);
       }
@@ -56,6 +59,7 @@ export async function imageIocHandler(c: Context<{ Bindings: Env }>): Promise<Re
     const r = await extractIocsFromImageUrl(url, c.env);
     return c.json(r, 200, { 'cache-control': 'no-store' });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: 'unhandled', message: e instanceof Error ? e.message : String(e) }, 500);
   }
 }

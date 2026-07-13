@@ -37,7 +37,8 @@ export async function buildMtiRansomwareRss(): Promise<{ xml: string; count: num
   let victims: Awaited<ReturnType<typeof fetchMythreatintelRansomwareVictims>> = [];
   try {
     victims = await fetchMythreatintelRansomwareVictims();
-  } catch {
+  } catch (_catchErr) {
+    console.error('buildMtiRansomwareRss failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     victims = [];
   }
 

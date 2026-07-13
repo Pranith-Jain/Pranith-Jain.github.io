@@ -172,6 +172,7 @@ function analyze(text: string): Analysis | null {
     try {
       doc = JSON.parse(trimmed) as Record<string, unknown>;
     } catch (e) {
+      console.error('analyze failed:', e instanceof Error ? e.message : String(e));
       return { error: `JSON parse error: ${(e as Error).message}`, mode: '', types: 0, findings: [] };
     }
     const schema = ((doc.data as Record<string, unknown>)?.__schema ??

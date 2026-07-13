@@ -20,7 +20,8 @@ async function selfFetch(self: Fetcher | undefined, path: string): Promise<Recor
       : await fetch(`${INTERNAL}${path}`, { headers: { accept: 'application/json' } });
     if (!res.ok) return null;
     return (await res.json()) as Record<string, unknown>;
-  } catch {
+  } catch (_catchErr) {
+    console.error('selfFetch failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -273,7 +274,8 @@ export async function stixIpEnrichBatchHandler(c: Context<{ Bindings: Env }>): P
   let body: { ips?: unknown; tlp?: unknown };
   try {
     body = await c.req.json();
-  } catch {
+  } catch (_catchErr) {
+    console.error('stixIpEnrichBatchHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ error: 'invalid_json', hint: 'Request body must be JSON with { ips: string[] }.' }, 400);
   }
 

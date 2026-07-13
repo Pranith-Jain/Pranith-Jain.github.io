@@ -51,7 +51,8 @@ async function fetchFile(cfg: DDCFileConfig): Promise<string | null> {
     );
     if (!res.ok) return null;
     return await res.text();
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchFile failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -103,7 +104,8 @@ async function resolveFile(
           },
         };
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* fall through */
     }
   }

@@ -240,6 +240,7 @@ export default function RansomwareMap(): JSX.Element {
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       setData((await r.json()) as RansomwareMapResponse);
     } catch (e) {
+      console.error('RansomwareMap failed:', e instanceof Error ? e.message : String(e));
       if ((e as Error).name === 'AbortError') return;
       setError((e as Error).message);
     } finally {

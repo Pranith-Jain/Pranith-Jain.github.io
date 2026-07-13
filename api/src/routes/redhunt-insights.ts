@@ -96,7 +96,8 @@ export async function getRedHuntInsightsHandler(c: Context<{ Bindings: Env }>): 
           'x-cache-age-s': Math.round(ageSec).toString(),
         });
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('getRedHuntInsightsHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* KV read failed — fall through to a direct fetch. */
     }
   }
@@ -120,7 +121,8 @@ async function refreshUpstream(kv: KVNamespace): Promise<void> {
       return;
     }
     await kv.put(CACHE_KEY_FOR_KV(), JSON.stringify(payload), { expirationTtl: CACHE_TTL_SECONDS * 2 });
-  } catch {
+  } catch (_catchErr) {
+    console.error('refreshUpstream failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* swallow — caller already has the stale snapshot. */
   }
 }
@@ -149,12 +151,14 @@ async function fetchAndCache(kv: KVNamespace | undefined): Promise<CachedPayload
       // Fire-and-forget; errors here don't block the response.
       try {
         await kv.put(CACHE_KEY_FOR_KV(), JSON.stringify(payload), { expirationTtl: CACHE_TTL_SECONDS * 2 });
-      } catch {
+      } catch (_catchErr) {
+        console.error('fetchAndCache failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* KV write failed — not fatal. */
       }
     }
     return payload;
   } catch (e) {
+    console.error('fetchAndCache failed:', e instanceof Error ? e.message : String(e));
     return { ...CACHE_FALLBACK, error: e instanceof Error ? e.message : 'upstream unreachable' };
   }
 }

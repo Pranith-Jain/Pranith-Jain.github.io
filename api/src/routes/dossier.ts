@@ -57,7 +57,8 @@ export async function dossierHandler(c: Context<{ Bindings: Env }>): Promise<Res
     let body: { query?: string; queryType?: string };
     try {
       body = await c.req.json();
-    } catch {
+    } catch (_catchErr) {
+      console.error('dossierHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return badRequest(c, 'Invalid JSON body');
     }
 
@@ -86,7 +87,8 @@ export async function dossierHandler(c: Context<{ Bindings: Env }>): Promise<Res
       if (ai) {
         fiveW = await extractFiveW(enrichment.rawText, c.env);
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       // 5W extraction is best-effort
     }
 
@@ -102,6 +104,7 @@ export async function dossierHandler(c: Context<{ Bindings: Env }>): Promise<Res
       tlp: 'CLEAR',
     } satisfies DossierResponse);
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);
   }
 }
@@ -162,7 +165,8 @@ async function buildCveDossier(c: Context<{ Bindings: Env }>, entity: DossierEnt
     if (ai) {
       fiveW = await extractFiveW(rawText, c.env);
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('buildCveDossier failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     // best-effort
   }
 
@@ -238,7 +242,8 @@ async function enrichEntity(
         sources.push('unified-search');
       }
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* best-effort */
   }
 
@@ -276,7 +281,8 @@ function buildDiamondModelFromEnrichment(
       fiveW,
       enrichment.rawText
     );
-  } catch {
+  } catch (_catchErr) {
+    console.error('buildDiamondModelFromEnrichment failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }

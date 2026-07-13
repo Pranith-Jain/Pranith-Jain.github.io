@@ -124,7 +124,8 @@ async function fetchJson<T>(url: string, timeoutMs: number = FETCH_TIMEOUT_MS): 
     });
     if (!res.ok) return null;
     return (await res.json()) as T;
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchJson failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -385,6 +386,7 @@ export async function victimReleaksHandler(c: Context<{ Bindings: Env }>): Promi
     }
     return json(body, 'no-store');
   } catch (err) {
+    console.error('victimReleaksHandler failed:', err instanceof Error ? err.message : String(err));
     return json(emptyReleaksResponse(err instanceof Error ? err.message : 'live run failed'), 'no-store');
   }
 }

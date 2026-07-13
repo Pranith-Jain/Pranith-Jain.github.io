@@ -40,6 +40,7 @@ export async function proxyNovaSearchHandler(c: Context<{ Bindings: Env }>): Pro
     c.executionCtx.waitUntil(caches.default.put(cacheReq, response.clone()));
     return response;
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : 'ProxyNova unreachable' }, 502);
   }
 }

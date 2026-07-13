@@ -146,6 +146,7 @@ export async function certStreamHandler(c: Context<{ Bindings: Env }>): Promise<
       succeeded = true;
       break;
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       lastError = `crt.sh fetch failed: ${(e as Error).message}`;
       if (attempt < RETRY_ATTEMPTS - 1) {
         await new Promise((r) => setTimeout(r, RETRY_BACKOFF_MS[attempt]));
@@ -221,7 +222,8 @@ export async function certStreamHandler(c: Context<{ Bindings: Env }>): Promise<
             );
           }
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* certspotter also failed; fall through to stale-cache path */
       }
     }

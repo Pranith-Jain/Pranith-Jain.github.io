@@ -17,7 +17,8 @@ function fmtNum(n: number | undefined): string {
 function fmtDate(iso: string): string {
   try {
     return new Date(iso).toLocaleString();
-  } catch {
+  } catch (_catchErr) {
+    console.error('fmtDate failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return iso;
   }
 }
@@ -96,6 +97,7 @@ function MetricsForm({ onSaved }: { onSaved: () => void }) {
       setForm(BLANK_FORM);
       onSaved();
     } catch (err) {
+      console.error('handleSubmit failed:', err instanceof Error ? err.message : String(err));
       setMsg(`Save failed: ${err instanceof Error ? err.message : String(err)}`);
     } finally {
       setBusy(false);
@@ -404,6 +406,7 @@ export default function AnalyticsTab() {
       const d = await getSocialAnalytics();
       setData(d);
     } catch (e) {
+      console.error('AnalyticsTab failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : 'failed to load');
     } finally {
       setLoading(false);

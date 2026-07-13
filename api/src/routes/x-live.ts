@@ -179,7 +179,8 @@ async function fetchFxTweet(statusId: string): Promise<FxTweet | null> {
     if (!res.ok) return null;
     const body = (await res.json()) as FxResponse;
     return body.tweet ?? null;
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchFxTweet failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -305,6 +306,7 @@ export async function xLiveHandler(c: Context<{ Bindings: Env }>): Promise<Respo
   try {
     csv = await fetchTweetFeed();
   } catch (err) {
+    console.error('xLiveHandler failed:', err instanceof Error ? err.message : String(err));
     return c.json({ error: `TweetFeed fetch failed: ${(err as Error).message}` }, 502);
   }
 

@@ -158,7 +158,8 @@ async function parseInput(c: Ctx): Promise<ParsedInput | { error: Response }> {
     let body: { hash?: string; filename?: string; size?: number };
     try {
       body = (await c.req.json()) as { hash?: string; filename?: string; size?: number };
-    } catch {
+    } catch (_catchErr) {
+      console.error('parseInput failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return { error: c.json({ error: 'invalid JSON' }, 400) };
     }
     const hash = body.hash?.trim().toLowerCase();
@@ -258,6 +259,7 @@ async function runHashFanOut(
           recordProviderFailure(p);
         }
       } catch (err) {
+        console.error('handler failed:', err instanceof Error ? err.message : String(err));
         recordProviderFailure(p);
         const errResult = makeErrorResult(p, err);
         collected.push(errResult);

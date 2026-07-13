@@ -10,7 +10,8 @@ export async function tieEnrichHandler(c: Context<{ Bindings: Env }>): Promise<R
   let body: { ioc?: string; ioc_type?: string; deep?: boolean };
   try {
     body = await c.req.json<{ ioc?: string; ioc_type?: string; deep?: boolean }>();
-  } catch {
+  } catch (_catchErr) {
+    console.error('tieEnrichHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return badRequest(c, 'Invalid JSON body');
   }
 
@@ -98,7 +99,8 @@ export async function tieEnrichStreamHandler(c: Context<{ Bindings: Env }>): Pro
         if (!closed) {
           try {
             controller.enqueue(encoder.encode(`data: ${data}\n\n`));
-          } catch {
+          } catch (_catchErr) {
+            console.error('tieEnrichStreamHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
             closed = true;
           }
         }
@@ -134,11 +136,13 @@ export async function tieEnrichStreamHandler(c: Context<{ Bindings: Env }>): Pro
             closed = true;
             try {
               controller.close();
-            } catch {
+            } catch (_catchErr) {
+              console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
               /* already closed */
             }
           }
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* poll error, retry next tick */
         }
       }, 500);
@@ -150,7 +154,8 @@ export async function tieEnrichStreamHandler(c: Context<{ Bindings: Env }>): Pro
           closed = true;
           try {
             controller.close();
-          } catch {
+          } catch (_catchErr) {
+            console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
             /* already closed */
           }
         }

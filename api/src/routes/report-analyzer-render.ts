@@ -25,7 +25,8 @@ export async function reportAnalyzerRenderHandler(c: Context<{ Bindings: Env }>)
   };
   try {
     body = await c.req.json();
-  } catch {
+  } catch (_catchErr) {
+    console.error('reportAnalyzerRenderHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ error: 'bad_request', message: 'invalid JSON body' }, 400);
   }
 
@@ -45,6 +46,7 @@ export async function reportAnalyzerRenderHandler(c: Context<{ Bindings: Env }>)
     // A raw text/markdown response would fail the MCP tool's json() parse.
     return c.json({ markdown: md }, 200);
   } catch (e) {
+    console.error('reportAnalyzerRenderHandler failed:', e instanceof Error ? e.message : String(e));
     const msg = e instanceof Error ? e.message : String(e);
     return c.json({ error: 'render_failed', message: msg }, 500);
   }

@@ -64,6 +64,7 @@ export async function watchlistActorsListHandler(c: Context<{ Bindings: Env }>):
 
     return c.json({ actors, suggestions: ACTOR_EXAMPLES });
   } catch (e) {
+    console.error('watchlistActorsListHandler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);
   }
 }
@@ -103,6 +104,7 @@ export async function watchlistActorsAddHandler(c: Context<{ Bindings: Env }>): 
 
     return c.json({ id, actor_name: name, ok: true }, 201);
   } catch (e) {
+    console.error('watchlistActorsAddHandler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);
   }
 }
@@ -119,6 +121,7 @@ export async function watchlistActorsDeleteHandler(c: Context<{ Bindings: Env }>
     await db.prepare('UPDATE actor_watchlist SET active = 0 WHERE id = ?').bind(id).run();
     return c.json({ ok: true });
   } catch (e) {
+    console.error('watchlistActorsDeleteHandler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);
   }
 }
@@ -149,6 +152,7 @@ export async function watchlistActorActivityHandler(c: Context<{ Bindings: Env }
       victims: victims ?? [],
     });
   } catch (e) {
+    console.error('watchlistActorActivityHandler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);
   }
 }
@@ -247,6 +251,7 @@ export async function watchlistDigestGenerateHandler(c: Context<{ Bindings: Env 
 
     return c.json({ digest, actor_count: entries.length });
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);
   }
 }
@@ -272,6 +277,7 @@ export async function watchlistDigestsListHandler(c: Context<{ Bindings: Env }>)
       digests: digests.filter(Boolean).sort((a, b) => b!.generated_at.localeCompare(a!.generated_at)),
     });
   } catch (e) {
+    console.error('watchlistDigestsListHandler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);
   }
 }

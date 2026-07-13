@@ -205,6 +205,7 @@ export default function TelegramLinkedActors(): JSX.Element {
       const j = (await r.json()) as SearchResponse;
       if (!ctrl.signal.aborted) setSearchData(j);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       if ((e as Error).name === 'AbortError') return;
       setSearchError((e as Error).message);
     } finally {

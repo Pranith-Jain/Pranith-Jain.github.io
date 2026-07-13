@@ -399,6 +399,7 @@ function IocsTab(props: { iocs: ExtractedIoc[]; apiKey: string; mcpStatus: McpSt
           const r = await searchIoc(apiKey, i.value);
           setEnrichments((prev) => ({ ...prev, [i.value]: { ioc: i, hit: r, loading: false } }));
         } catch (e) {
+          console.error('runEnrichment failed:', e instanceof Error ? e.message : String(e));
           const msg = e instanceof McpError ? e.message : e instanceof Error ? e.message : String(e);
           setEnrichments((prev) => ({ ...prev, [i.value]: { ioc: i, hit: null, loading: false, error: msg } }));
         }
@@ -676,6 +677,7 @@ function McpSearchPanel(props: { apiKey: string; status: McpStatus }): JSX.Eleme
         setHit({ reports: r });
       }
     } catch (e) {
+      console.error('run failed:', e instanceof Error ? e.message : String(e));
       const msg = e instanceof McpError ? e.message : e instanceof Error ? e.message : String(e);
       setErr(msg);
     } finally {
@@ -909,6 +911,7 @@ export default function AIReportShowcase(): JSX.Element {
         const d = (await r.json()) as AnalyzerOutput;
         setData(d);
       } catch (e) {
+        console.error('handler failed:', e instanceof Error ? e.message : String(e));
         const message = e instanceof Error ? e.message : String(e);
         setError(message || 'analysis failed');
       } finally {

@@ -39,7 +39,8 @@ async function extractError(r: Response): Promise<string> {
       const extra = body.message ?? body.detail;
       detail = extra ? `${body.error}: ${extra}` : body.error;
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('extractError failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* ignore parse errors */
   }
   return detail;
@@ -244,7 +245,8 @@ export async function probeAuth(): Promise<boolean> {
   try {
     const r = await fetch(`${BASE}/health`, { headers: headers(), credentials: 'same-origin' });
     return r.status !== 401;
-  } catch {
+  } catch (_catchErr) {
+    console.error('probeAuth failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return false;
   }
 }

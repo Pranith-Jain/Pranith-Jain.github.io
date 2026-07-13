@@ -50,6 +50,7 @@ export default function Yarahub(): JSX.Element {
       }
       if (!ctrl.signal.aborted) setRules(Array.isArray(json.data) ? json.data : []);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       if ((e as Error).name === 'AbortError') return;
       setError(e instanceof Error ? e.message : 'Failed to fetch YARA rules');
       if (!ctrl.signal.aborted) setRules([]);
@@ -119,6 +120,7 @@ export default function Yarahub(): JSX.Element {
         setRuleContent(text);
       }
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       if (latestRuleReq.current !== reqId) return;
       setContentError(e instanceof Error ? e.message : 'Unknown error');
       setRuleContent(null);

@@ -36,6 +36,7 @@ export default function RadarHome() {
       const data = await res.json();
       if (!ctrl.signal.aborted) navigate(`/radar/scan/${data.id}`);
     } catch (err) {
+      console.error('RadarHome failed:', err instanceof Error ? err.message : String(err));
       if ((err as Error).name === 'AbortError') return;
       setError(err instanceof Error ? err.message : 'Scan failed');
     } finally {

@@ -35,6 +35,7 @@ export async function yaraHubListHandler(c: Context<{ Bindings: Env }>) {
     const data = await res.json();
     return c.json(data);
   } catch (err) {
+    console.error('yaraHubListHandler failed:', err instanceof Error ? err.message : String(err));
     return c.json({ error: String(err) }, 500);
   }
 }
@@ -76,6 +77,7 @@ export async function yaraHubRuleHandler(c: Context<{ Bindings: Env }>) {
     }
     return c.text(text, 200, { 'content-type': 'text/plain; charset=utf-8' });
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     return c.json({ error: String(err) }, 500);
   }
 }

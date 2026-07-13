@@ -155,7 +155,8 @@ async function queryIocs(
       .bind(...bindings)
       .first<{ total: number }>();
     total = countRow?.total ?? 0;
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* best-effort count */
   }
 

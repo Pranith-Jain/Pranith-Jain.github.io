@@ -28,7 +28,8 @@ export async function mispProxyHandler(c: Context<{ Bindings: Env }>): Promise<R
   let parsed: URL;
   try {
     parsed = new URL(url);
-  } catch {
+  } catch (_catchErr) {
+    console.error('mispProxyHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ error: 'invalid baseUrl/endpoint' }, 400);
   }
   if (parsed.protocol !== 'https:') {
@@ -51,6 +52,7 @@ export async function mispProxyHandler(c: Context<{ Bindings: Env }>): Promise<R
       signal: AbortSignal.timeout(15000),
     });
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     if (err instanceof SsrfError) {
       return c.json({ error: err.detail }, err.status as 400 | 403 | 502);
     }
@@ -60,7 +62,8 @@ export async function mispProxyHandler(c: Context<{ Bindings: Env }>): Promise<R
   let body: unknown;
   try {
     body = await response.json();
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     if (response.body) safeNull(response.body.cancel());
     return c.json({ error: 'MISP returned invalid JSON' }, 502, { 'cache-control': 'no-store' });
   }

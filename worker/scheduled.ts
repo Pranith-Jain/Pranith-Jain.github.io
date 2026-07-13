@@ -1179,48 +1179,46 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
       } catch {
         /* fail open */
       }
+      // Bluesky/Mastodon: direct fetch first, then KV fallback
       try {
-        const raw = await env.KV_CACHE.get('gp:warm:x', 'json');
-        if (raw && typeof raw === 'object' && 'items' in (raw as Record<string, unknown>)) {
-          socialItems = (raw as { items: unknown[] }).items;
-        }
+        const sf = await fetchXFeed().catch(() => undefined);
+        socialItems = sf?.items as unknown[] | undefined;
       } catch {
         /* fail open */
       }
       if (!socialItems) {
         try {
-          const sf = await fetchXFeed().catch(() => undefined);
-          socialItems = sf?.items as unknown[] | undefined;
+          const raw = await env.KV_CACHE.get('gp:warm:x', 'json');
+          if (raw && typeof raw === 'object' && 'items' in (raw as Record<string, unknown>)) {
+            socialItems = (raw as { items: unknown[] }).items;
+          }
         } catch {
           /* fail open */
         }
       }
+      // Reddit: direct fetch first, then KV fallback
       try {
-        const raw = await env.KV_CACHE.get('gp:warm:reddit', 'json');
-        if (raw && typeof raw === 'object' && 'items' in (raw as Record<string, unknown>)) {
-          redditItems = (raw as { items: unknown[] }).items;
-        }
+        const rf = await fetchRedditFeed(
+          env as unknown as { ASSETS: import('@cloudflare/workers-types').Fetcher }
+        ).catch(() => undefined);
+        redditItems = rf?.items as unknown[] | undefined;
       } catch {
         /* fail open */
       }
       if (!redditItems) {
         try {
-          const rf = await fetchRedditFeed(
-            env as unknown as { ASSETS: import('@cloudflare/workers-types').Fetcher }
-          ).catch(() => undefined);
-          redditItems = rf?.items as unknown[] | undefined;
+          const raw = await env.KV_CACHE.get('gp:warm:reddit', 'json');
+          if (raw && typeof raw === 'object' && 'items' in (raw as Record<string, unknown>)) {
+            redditItems = (raw as { items: unknown[] }).items;
+          }
         } catch {
           /* fail open */
         }
       }
-      // Telegram is read via cache or direct fetch
-      const tgCacheKey = await getTelegramFeedCacheKey(env as unknown as ApiEnv);
+      // Telegram: direct fetch first, then KV fallback (bypass Cache API)
       try {
-        const tgCached = await caches.default.match(tgCacheKey);
-        if (tgCached) {
-          const j = (await tgCached.json()) as TelegramFeedResponse;
-          telegramItems = j.items;
-        }
+        const tg = await fetchTelegramFeed(env.KV_CACHE).catch(() => undefined);
+        telegramItems = tg?.items as unknown[] | undefined;
       } catch {
         /* fail open */
       }
@@ -1228,14 +1226,6 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
         try {
           const kvTg = (await env.KV_CACHE.get('gp:warm:telegram', 'json')) as TelegramFeedResponse | null;
           if (kvTg?.items?.length) telegramItems = kvTg.items;
-        } catch {
-          /* fail open */
-        }
-      }
-      if (!telegramItems) {
-        try {
-          const tg = await fetchTelegramFeed(env.KV_CACHE).catch(() => undefined);
-          telegramItems = tg?.items as unknown[] | undefined;
         } catch {
           /* fail open */
         }

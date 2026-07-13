@@ -32,7 +32,8 @@ export async function ttpExtractHandler(c: Context<{ Bindings: Env }>): Promise<
   let body: { text?: string; useLlm?: boolean };
   try {
     body = await c.req.json();
-  } catch {
+  } catch (_catchErr) {
+    console.error('ttpExtractHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return c.json({ error: 'bad_request', message: 'invalid JSON body' }, 400);
   }
   const text = typeof body.text === 'string' ? body.text : '';
@@ -54,7 +55,8 @@ export async function ttpExtractHandler(c: Context<{ Bindings: Env }>): Promise<
       const data = await cached.json();
       return c.json(data, 200, { 'cache-control': `public, max-age=${CACHE_TTL}` });
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('ttpExtractHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* miss — proceed */
   }
 

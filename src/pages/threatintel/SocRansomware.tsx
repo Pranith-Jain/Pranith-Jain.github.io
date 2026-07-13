@@ -62,6 +62,7 @@ export default function SocRansomware(): JSX.Element {
         })) as RansomwareResponse;
         setData(r);
       } catch (e) {
+        console.error('SocRansomware failed:', e instanceof Error ? e.message : String(e));
         if ((e as { name?: string }).name !== 'AbortError') {
           setError(e instanceof Error ? e.message : 'Failed to load.');
         }

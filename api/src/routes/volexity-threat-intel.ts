@@ -374,6 +374,7 @@ export async function volexityThreatIntelHandler(c: Context<{ Bindings: Env }>):
       }
       upstreamError = `upstream ${res.status}`;
     } catch (err) {
+      console.error('loadTree failed:', err instanceof Error ? err.message : String(err));
       upstreamError = err instanceof Error ? err.message : 'fetch failed';
     }
     // fall back to KV last-good tree
@@ -384,7 +385,8 @@ export async function volexityThreatIntelHandler(c: Context<{ Bindings: Env }>):
           const staleFull = JSON.parse(staleRaw) as TreeResponse;
           return { full: { ...staleFull, stale: true, upstream_error: upstreamError }, error: upstreamError };
         }
-      } catch {
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* stale read failed; fall through */
       }
     }
@@ -478,6 +480,7 @@ export async function volexityThreatIntelHandler(c: Context<{ Bindings: Env }>):
           upstreamError = `upstream ${res.status}`;
         }
       } catch (err) {
+        console.error('handler failed:', err instanceof Error ? err.message : String(err));
         upstreamError = err instanceof Error ? err.message : 'fetch failed';
       }
     } else {
@@ -511,7 +514,8 @@ export async function volexityThreatIntelHandler(c: Context<{ Bindings: Env }>):
               'Cache-Control': 'public, max-age=300',
             });
           }
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* fall through */
         }
       }

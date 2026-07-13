@@ -120,7 +120,8 @@ export default function Workspaces() {
       const res = await fetch(`${api}/workspaces?limit=50`, { headers: adminAuthHeaders() });
       const data = await res.json();
       setWorkspaces(data.workspaces || []);
-    } catch {
+    } catch (_catchErr) {
+      console.error('Workspaces failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       setError('Failed to load workspaces');
     }
     setLoading(false);
@@ -130,7 +131,8 @@ export default function Workspaces() {
     try {
       const res = await fetch(`${api}/workspaces/${id}/workflow/summary`, { headers: adminAuthHeaders() });
       setSummary(await res.json());
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* */
     }
   }, []);
@@ -160,7 +162,8 @@ export default function Workspaces() {
         await fetchWorkspaces();
         setSelectedId(ws.id);
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       setError('Failed to create workspace');
     }
   };
@@ -174,7 +177,8 @@ export default function Workspaces() {
         headers: adminAuthHeaders(),
       });
       if (res.ok) await fetchSummary(selectedId);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* */
     }
     setAdvancing(false);

@@ -141,6 +141,7 @@ export default function WhoisHistory(): JSX.Element {
       setHistory(data);
       setActiveTab('timeline');
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       if (e instanceof DOMException && e.name === 'AbortError') return;
       if (!mountedRef.current) return;
       setError(e instanceof Error ? e.message : 'lookup failed');
@@ -160,6 +161,7 @@ export default function WhoisHistory(): JSX.Element {
       setPivots(data);
       setActiveTab('pivots');
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       if (e instanceof DOMException && e.name === 'AbortError') return;
       if (!mountedRef.current) return;
       setError(e instanceof Error ? e.message : 'pivot failed');
@@ -177,7 +179,8 @@ export default function WhoisHistory(): JSX.Element {
     if (!d) return '—';
     try {
       return new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return d;
     }
   };
@@ -192,7 +195,8 @@ export default function WhoisHistory(): JSX.Element {
         hour: '2-digit',
         minute: '2-digit',
       });
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return d;
     }
   };

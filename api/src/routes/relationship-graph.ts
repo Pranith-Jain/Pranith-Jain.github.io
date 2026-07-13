@@ -49,7 +49,8 @@ export async function relationshipGraphHandler(c: Context<{ Bindings: Env }>): P
         c.executionCtx.waitUntil(edgeCache.put(edgeReq, response.clone()));
         return response;
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* ignore */
     }
   }

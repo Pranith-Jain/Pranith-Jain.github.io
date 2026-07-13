@@ -68,7 +68,8 @@ function toDomain(raw: string): string | null {
   if (s.includes('://')) {
     try {
       s = new URL(s).hostname;
-    } catch {
+    } catch (_catchErr) {
+      console.error('toDomain failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       s = s.split('://')[1] ?? s;
     }
   }
@@ -97,7 +98,8 @@ async function fetchRaw(): Promise<RawFeed | null> {
     );
     if (!res.ok) return null;
     return (await res.json()) as RawFeed;
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchRaw failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }

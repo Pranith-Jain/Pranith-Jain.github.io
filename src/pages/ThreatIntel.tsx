@@ -233,7 +233,8 @@ export default function ThreatIntel() {
       a.download = `${slug}-stix.json`;
       a.click();
       URL.revokeObjectURL(url);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* ignore */
     }
   };
@@ -251,7 +252,8 @@ export default function ThreatIntel() {
       };
       const res = await fetch(endpoints[searchProvider]);
       if (res.ok) setSearchResults(await res.json());
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* ignore */
     }
     setSearchLoading(false);

@@ -250,6 +250,7 @@ function DnsScanPanel(): JSX.Element {
       if (!r.ok) throw new Error(`scan failed (${r.status})`);
       setData((await r.json()) as DnsResponse);
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       setError(err instanceof Error ? err.message : String(err));
     } finally {
       setLoading(false);

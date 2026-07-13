@@ -94,6 +94,7 @@ export default function Privacy(): JSX.Element {
       setNetwork(getNetworkInfo());
       setBattery(batt);
     } catch (err) {
+      console.error('handler failed:', err instanceof Error ? err.message : String(err));
       if (ctrl.signal.aborted) return;
       setError(err instanceof Error ? err.message : 'scan failed');
     } finally {

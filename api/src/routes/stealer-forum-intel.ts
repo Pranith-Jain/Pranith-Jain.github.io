@@ -68,7 +68,8 @@ async function _readCachedJson<T>(cacheKey: string): Promise<T | null> {
     const hit = await cache.match(cacheKey);
     if (!hit) return null;
     return (await hit.json()) as T;
-  } catch {
+  } catch (_catchErr) {
+    console.error('_readCachedJson failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -93,7 +94,8 @@ export async function buildStealerForumIntel(env: Env, ctx: ExecutionContext): P
     forums = [...byCat.entries()]
       .map(([category, entries]) => ({ category, count: entries.length, entries }))
       .sort((a, b) => b.count - a.count);
-  } catch {
+  } catch (_catchErr) {
+    console.error('buildStealerForumIntel failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     forums = [];
   }
 
@@ -135,7 +137,8 @@ export async function buildStealerForumIntel(env: Env, ctx: ExecutionContext): P
     if (tgMatch) {
       tg = (await tgMatch.json()) as TgFeed;
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     tg = null;
   }
   try {
@@ -143,7 +146,8 @@ export async function buildStealerForumIntel(env: Env, ctx: ExecutionContext): P
     if (rdMatch) {
       rd = (await rdMatch.json()) as RdFeed;
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     rd = null;
   }
 

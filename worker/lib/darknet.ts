@@ -151,7 +151,8 @@ export function extractOnionHostname(input: string): string | null {
   if (clean.startsWith('http://') || clean.startsWith('https://')) {
     try {
       clean = new URL(clean).hostname;
-    } catch {
+    } catch (_catchErr) {
+      console.error('extractOnionHostname failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return null;
     }
   }
@@ -236,7 +237,8 @@ export async function torSearchOnion(query: string, limit = 20): Promise<AhmiaRe
         try {
           const parsed = new URL(href, 'https://ahmia.fi');
           href = parsed.searchParams.get('redirect_url') ?? href;
-        } catch {
+        } catch (_catchErr) {
+          console.error('torSearchOnion failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           /* keep as-is */
         }
       }
@@ -395,6 +397,7 @@ export async function btcAbuseCheck(address: string, apiKey?: string): Promise<C
       count: data.count ?? 0,
     };
   } catch (err) {
+    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     return {
       address,
       reports: [],

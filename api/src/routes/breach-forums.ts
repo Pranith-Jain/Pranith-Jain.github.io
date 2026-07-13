@@ -169,7 +169,8 @@ export async function buildBreachForums(env: Env, ctx: ExecutionContext): Promis
       });
       directory++;
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('buildBreachForums failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* deepdarkCTI cold/unavailable — curated list still renders */
   }
 

@@ -56,7 +56,8 @@ export default function Grc(): JSX.Element {
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(a));
-    } catch {
+    } catch (_catchErr) {
+      console.error('Grc failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* quota */
     }
   }, [a]);

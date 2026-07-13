@@ -33,7 +33,8 @@ export async function fetchEarthquakes(): Promise<PulseEvent[]> {
         url: f.properties.url,
       };
     });
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchEarthquakes failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -79,7 +80,8 @@ export async function fetchNaturalEvents(): Promise<PulseEvent[]> {
       });
     }
     return events;
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -133,7 +135,8 @@ export async function fetchFlights(): Promise<PulseEvent[]> {
         };
       })
       .filter((f) => f.lat !== 0 || f.lng !== 0);
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return getStaticFlights();
   }
 }
@@ -220,7 +223,8 @@ export async function fetchGdacsAlerts(): Promise<PulseEvent[]> {
           source: 'GDACS',
         };
       });
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -273,7 +277,8 @@ export async function fetchBotnetC2(): Promise<PulseEvent[]> {
         });
       }
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* skip source */
   }
 
@@ -308,7 +313,8 @@ export async function fetchBotnetC2(): Promise<PulseEvent[]> {
         });
       }
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* skip source */
   }
 
@@ -345,7 +351,8 @@ export async function fetchBotnetC2(): Promise<PulseEvent[]> {
         added++;
       }
     }
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* skip source */
   }
 
@@ -385,7 +392,8 @@ export async function fetchDShieldAttackers(): Promise<PulseEvent[]> {
         url: `https://isc.sans.edu/ipinfo.html?ip=${a.ip}`,
       };
     });
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -420,7 +428,8 @@ export async function fetchCompromisedIPs(): Promise<PulseEvent[]> {
         source: 'Emerging Threats',
       };
     });
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchCompromisedIPs failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -455,7 +464,8 @@ export async function fetchBlocklistAttackers(): Promise<PulseEvent[]> {
         source: 'Blocklist.de',
       };
     });
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchBlocklistAttackers failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -497,7 +507,8 @@ export async function fetchCisaKev(): Promise<PulseEvent[]> {
         source: 'CISA KEV',
         url: `https://nvd.nist.gov/vuln/detail/${v.cveID}`,
       }));
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -546,7 +557,8 @@ export async function fetchUrlhaus(): Promise<PulseEvent[]> {
           country: cc,
         };
       });
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
@@ -598,7 +610,8 @@ export async function fetchSupplyChain(): Promise<PulseEvent[]> {
         cti: 'other' as const,
       };
     });
-  } catch {
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }

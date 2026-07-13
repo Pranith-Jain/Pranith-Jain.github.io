@@ -70,6 +70,7 @@ export async function abuseRssHandler(c: Context<{ Bindings: Env }>) {
     const body = await upstream.text();
     entries = buildSummary(sourceParam, body).entries;
   } catch (err) {
+    console.error('abuseRssHandler failed:', err instanceof Error ? err.message : String(err));
     return c.json({ error: err instanceof Error ? err.message : 'fetch failed' }, 502);
   }
 

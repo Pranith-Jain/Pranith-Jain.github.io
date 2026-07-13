@@ -54,7 +54,8 @@ function parseManifest(text: string): { packages: Pkg[]; kind: string } {
           out.push({ name, ecosystem: 'npm', version: stripRange(String(ver)) || undefined });
       }
       return { packages: dedupe(out), kind: 'npm package.json' };
-    } catch {
+    } catch (_catchErr) {
+      console.error('parseManifest failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* fall through to text parsers */
     }
   }
@@ -143,6 +144,7 @@ export default function OsvScanner(): JSX.Element {
       setRows(sorted);
       setMeta({ kind, total: d.total_packages });
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       if (ctrl.signal.aborted) return;
       setErr((e as Error).message);
     } finally {

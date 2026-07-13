@@ -47,7 +47,8 @@ export default function EmailDefense(): JSX.Element {
         try {
           const parsed = JSON.parse(body) as { error?: string };
           msg = parsed.error ?? msg;
-        } catch {
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
           msg = `${msg}: ${body.slice(0, 200)}`;
         }
         throw new Error(msg);
@@ -57,6 +58,7 @@ export default function EmailDefense(): JSX.Element {
       const json = (await res.json()) as DomainApiResponse;
       setData(json);
     } catch (e) {
+      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : 'Lookup failed');
     } finally {
       setLoading(false);

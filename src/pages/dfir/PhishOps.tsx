@@ -157,7 +157,8 @@ function loadState(): InvestigationState | null {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) return JSON.parse(raw) as InvestigationState;
-  } catch {
+  } catch (_catchErr) {
+    console.error('loadState failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* ignore */
   }
   return null;

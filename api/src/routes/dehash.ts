@@ -61,6 +61,7 @@ dehashRouter.get('/dehash', async (c) => {
     }
     return c.json(body);
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : 'Dehash.lt unreachable' }, 502);
   }
 });

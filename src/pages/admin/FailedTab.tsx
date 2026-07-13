@@ -24,6 +24,7 @@ export default function FailedTab() {
       const d = await getJson<{ failures: FailureRecord[] }>('/failures');
       setFailures(d.failures);
     } catch (e) {
+      console.error('FailedTab failed:', e instanceof Error ? e.message : String(e));
       setError(e instanceof Error ? e.message : 'failed to load');
     } finally {
       setLoading(false);
@@ -42,6 +43,7 @@ export default function FailedTab() {
       setActionMsg(`Cleared ${slotId}`);
       await load();
     } catch (e) {
+      console.error('clearOne failed:', e instanceof Error ? e.message : String(e));
       setActionMsg(`clear failed: ${e instanceof Error ? e.message : String(e)}`);
     } finally {
       setBusy(null);
@@ -57,6 +59,7 @@ export default function FailedTab() {
       setActionMsg(`Cleared ${r.cleared} record(s)`);
       await load();
     } catch (e) {
+      console.error('clearAll failed:', e instanceof Error ? e.message : String(e));
       setActionMsg(`clear-all failed: ${e instanceof Error ? e.message : String(e)}`);
     } finally {
       setBusy(null);

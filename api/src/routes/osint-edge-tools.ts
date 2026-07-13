@@ -18,6 +18,7 @@ osintRouter.get('/osint/stats', async (c) => {
       cache: mod.osintCacheStats(),
     });
   } catch (e) {
+    console.error('loadMod failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `osint_stats_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -33,6 +34,7 @@ osintRouter.get('/osint', async (c) => {
     const portals = mod.listPortals(idx, { category: category as any, keyword, freeOnly, limit });
     return c.json({ count: portals.length, portals });
   } catch (e) {
+    console.error('loadMod failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `osint_list_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -46,6 +48,7 @@ osintRouter.get('/osint/:slug', async (c) => {
     if (!portal) return notFound(c, `Portal '${slug}' not found`);
     return c.json(portal);
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `osint_get_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });

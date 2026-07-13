@@ -138,11 +138,13 @@ function analyze(text: string): Analysis | null {
   let doc: Record<string, unknown>;
   try {
     doc = JSON.parse(trimmed) as Record<string, unknown>;
-  } catch {
+  } catch (_catchErr) {
+    console.error('analyze failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     try {
       doc = parseYaml(trimmed) as Record<string, unknown>;
       if (!doc || typeof doc !== 'object') throw new Error('not an object');
     } catch (e) {
+      console.error('analyze failed:', e instanceof Error ? e.message : String(e));
       return {
         error: `Could not parse as JSON or YAML (${(e as Error).message}). Tip: export the spec as JSON.`,
         spec: '',

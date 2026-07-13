@@ -145,7 +145,8 @@ async function resolveSubdomains(domain: string): Promise<string[]> {
       if (data.Status === 0 && data.Answer?.length) {
         subdomains.push(`${prefix}.${domain}`);
       }
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       // DNS resolution failed, skip
     }
   }

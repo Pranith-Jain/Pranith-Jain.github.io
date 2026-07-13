@@ -17,6 +17,7 @@ reportsRouter.get('/reports/stats', async (c) => {
       cache: mod.reportsCacheStats(),
     });
   } catch (e) {
+    console.error('loadMod failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `reports_stats_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -33,6 +34,7 @@ reportsRouter.get('/reports', async (c) => {
     const reports = mod.listReports(idx, { category: category as any, keyword, year, publisher, limit });
     return c.json({ count: reports.length, reports });
   } catch (e) {
+    console.error('loadMod failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `reports_list_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -46,6 +48,7 @@ reportsRouter.get('/reports/:slug', async (c) => {
     if (!report) return notFound(c, `Report '${slug}' not found`);
     return c.json(report);
   } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `reports_get_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });

@@ -103,7 +103,8 @@ async function fetchText(url: string, kind?: string): Promise<string | null> {
     const ct = res.headers.get('content-type') ?? '';
     if (ct.includes('text/html')) return null;
     return await res.text();
-  } catch {
+  } catch (_catchErr) {
+    console.error('fetchText failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
 }
@@ -169,7 +170,8 @@ function parseJsonFeed(body: string, kind: Writeup['kind'], sourceLabel: string)
   let parsed: unknown;
   try {
     parsed = JSON.parse(body);
-  } catch {
+  } catch (_catchErr) {
+    console.error('parseJsonFeed failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
   if (!parsed || typeof parsed !== 'object' || !('items' in parsed)) return [];
@@ -380,7 +382,8 @@ export async function fetchWriteups(): Promise<WriteupsResponse> {
       // Untrusted upstream XML — a parser throw must degrade this one
       // source, not reject Promise.all and 502 every writeup feed.
       parsed = parseFeedItems(body, kind, label);
-    } catch {
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       return { spec, label, kind, ok: false, items: [] as Writeup[], error: 'parse failed' };
     }
     // Trim per-source. Items inside a single feed are typically already

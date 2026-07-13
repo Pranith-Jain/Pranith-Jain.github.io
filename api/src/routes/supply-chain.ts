@@ -29,6 +29,7 @@ export async function depsDevPackageHandler(c: Context<{ Bindings: Env }>): Prom
     }
     return c.json(result, 200, { 'Cache-Control': 'public, max-age=1800' });
   } catch (err) {
+    console.error('depsDevPackageHandler failed:', err instanceof Error ? err.message : String(err));
     return c.json(
       { error: 'deps.dev lookup failed', message: err instanceof Error ? err.message : 'Unknown error' },
       502,
