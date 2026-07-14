@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { DataPageLayout } from '../../components/DataPageLayout';
+import { DataPageLayout, useInsideDataPageLayout } from '../../components/DataPageLayout';
 import { Search, RefreshCw, AlertTriangle, FileText, ExternalLink } from 'lucide-react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { SEVERITY_TONE } from '../../components/severity';
@@ -27,6 +27,7 @@ const LEAK_TYPE_ICONS: Record<string, typeof FileText> = {
 };
 
 export default function TelegramLeaks(): JSX.Element {
+  const insideLayout = useInsideDataPageLayout();
   const [entries, setEntries] = useState<LeakEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -99,6 +100,174 @@ export default function TelegramLeaks(): JSX.Element {
     setSearch(searchInput);
   };
 
+  const refreshButton = (
+    <button
+      type="button"
+      onClick={() => setRefreshKey((k) => k + 1)}
+      className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1"
+      aria-label="Refresh"
+    >
+      <RefreshCw size={11} /> refresh
+    </button>
+  );
+
+  const filters = (
+    <div className="animate-fade-in-up mb-8 flex flex-wrap items-center gap-3">
+      <form onSubmit={handleSearch} className="flex items-center gap-2">
+        <input
+          type="text"
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
+          placeholder="Search leaks…"
+          className="w-56 px-3 py-1.5 text-sm rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 font-mono"
+        />
+        <button
+          type="submit"
+          className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1"
+        >
+          <Search size={11} /> search
+        </button>
+      </form>
+
+      <select
+        value={severityFilter}
+        onChange={(e) => setSeverityFilter(e.target.value)}
+        className="px-3 py-1.5 text-sm rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-900 dark:text-slate-100 font-mono"
+      >
+        <option value="">All severities</option>
+        <option value="critical">Critical</option>
+        <option value="high">High</option>
+        <option value="medium">Medium</option>
+        <option value="low">Low</option>
+      </select>
+
+      <select
+        value={channelFilter}
+        onChange={(e) => setChannelFilter(e.target.value)}
+        className="px-3 py-1.5 text-sm rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-900 dark:text-slate-100 font-mono"
+      >
+        <option value="">All channels</option>
+        {channels.map((ch) => (
+          <option key={ch} value={ch}>
+            {ch}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+
+  const results = (
+    <div className="space-y-3">
+      {entries.map((entry) => {
+        const TypeIcon = LEAK_TYPE_ICONS[entry.leak_type] ?? FileText;
+        const domains: string[] = entry.domains_found
+          ? (() => {
+              try {
+                return JSON.parse(entry.domains_found);
+              } catch (_catchErr) {
+                console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+                return [];
+              }
+            })()
+          : [];
+        return (
+          <div
+            key={entry.id}
+            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))] transition-colors"
+          >
+            <div className="flex items-start justify-between gap-4 mb-2">
+              <div className="flex items-center gap-2 min-w-0">
+                <TypeIcon size={14} className="shrink-0 text-slate-500 dark:text-slate-400" />
+                <span className="text-xs font-mono text-slate-500 dark:text-slate-400 truncate">
+                  {entry.channel_handle}
+                </span>
+                <span
+                  className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEVERITY_TONE[entry.severity] ?? SEVERITY_TONE.low}`}
+                >
+                  {entry.severity}
+                </span>
+                <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400">
+                  {entry.leak_type}
+                </span>
+              </div>
+              <span className="text-micro font-mono text-slate-400 dark:text-slate-500 shrink-0">
+                {new Date(entry.discovered_at).toLocaleString()}
+              </span>
+            </div>
+
+            <p className="text-xs text-slate-700 dark:text-slate-300 line-clamp-3 mb-2 leading-relaxed font-mono">
+              {entry.message_text}
+            </p>
+
+            <div className="flex flex-wrap items-center gap-3 text-micro font-mono text-slate-500 dark:text-slate-400">
+              {entry.credential_count > 0 && (
+                <span className="inline-flex items-center gap-1">
+                  <AlertTriangle size={10} /> {entry.credential_count} credentials
+                </span>
+              )}
+              {domains.length > 0 && (
+                <span className="truncate max-w-[200px]">
+                  domains: {domains.slice(0, 3).join(', ')}
+                  {domains.length > 3 && ' …'}
+                </span>
+              )}
+              {entry.file_name && (
+                <span className="inline-flex items-center gap-1">
+                  <FileText size={10} /> {entry.file_name}
+                </span>
+              )}
+              {entry.message_link && (
+                <a
+                  href={sanitizeUrl(entry.message_link)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline ml-auto"
+                >
+                  <ExternalLink size={10} /> source
+                </a>
+              )}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+
+  const pagination = entries.length > 0 && (
+    <div className="mt-6 flex items-center justify-center gap-4">
+      <button
+        type="button"
+        disabled={offset === 0}
+        onClick={() => setOffset((prev) => Math.max(0, prev - pageSize))}
+        className="text-mini font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 disabled:opacity-30 disabled:cursor-not-allowed"
+      >
+        ← previous
+      </button>
+      <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
+        {offset + 1}–{offset + entries.length}
+      </span>
+      <button
+        type="button"
+        disabled={entries.length < pageSize}
+        onClick={() => setOffset((prev) => prev + pageSize)}
+        className="text-mini font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 disabled:opacity-30 disabled:cursor-not-allowed"
+      >
+        next →
+      </button>
+    </div>
+  );
+
+  if (insideLayout) {
+    return (
+      <>
+        {refreshButton}
+        {filters}
+        {results}
+        {pagination}
+      </>
+    );
+  }
+
   return (
     <DataPageLayout
       backTo="/threatintel"
@@ -108,160 +277,11 @@ export default function TelegramLeaks(): JSX.Element {
       loading={loading}
       error={error}
       maxWidthClass="max-w-6xl"
-      headerExtra={
-        <button
-          type="button"
-          onClick={() => setRefreshKey((k) => k + 1)}
-          className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1 mt-4"
-          aria-label="Refresh"
-        >
-          <RefreshCw size={11} /> refresh
-        </button>
-      }
+      headerExtra={<div className="mt-4">{refreshButton}</div>}
     >
-      {/* Filters */}
-      <div className="animate-fade-in-up mb-8 flex flex-wrap items-center gap-3">
-        <form onSubmit={handleSearch} className="flex items-center gap-2">
-          <input
-            type="text"
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-            placeholder="Search leaks…"
-            className="w-56 px-3 py-1.5 text-sm rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 font-mono"
-          />
-          <button
-            type="submit"
-            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1"
-          >
-            <Search size={11} /> search
-          </button>
-        </form>
-
-        <select
-          value={severityFilter}
-          onChange={(e) => setSeverityFilter(e.target.value)}
-          className="px-3 py-1.5 text-sm rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-900 dark:text-slate-100 font-mono"
-        >
-          <option value="">All severities</option>
-          <option value="critical">Critical</option>
-          <option value="high">High</option>
-          <option value="medium">Medium</option>
-          <option value="low">Low</option>
-        </select>
-
-        <select
-          value={channelFilter}
-          onChange={(e) => setChannelFilter(e.target.value)}
-          className="px-3 py-1.5 text-sm rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-900 dark:text-slate-100 font-mono"
-        >
-          <option value="">All channels</option>
-          {channels.map((ch) => (
-            <option key={ch} value={ch}>
-              {ch}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      {/* Results */}
-      <div className="space-y-3">
-        {entries.map((entry) => {
-          const TypeIcon = LEAK_TYPE_ICONS[entry.leak_type] ?? FileText;
-          const domains: string[] = entry.domains_found
-            ? (() => {
-                try {
-                  return JSON.parse(entry.domains_found);
-                } catch (_catchErr) {
-                  console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-                  return [];
-                }
-              })()
-            : [];
-          return (
-            <div
-              key={entry.id}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))] transition-colors"
-            >
-              <div className="flex items-start justify-between gap-4 mb-2">
-                <div className="flex items-center gap-2 min-w-0">
-                  <TypeIcon size={14} className="shrink-0 text-slate-500 dark:text-slate-400" />
-                  <span className="text-xs font-mono text-slate-500 dark:text-slate-400 truncate">
-                    {entry.channel_handle}
-                  </span>
-                  <span
-                    className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEVERITY_TONE[entry.severity] ?? SEVERITY_TONE.low}`}
-                  >
-                    {entry.severity}
-                  </span>
-                  <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400">
-                    {entry.leak_type}
-                  </span>
-                </div>
-                <span className="text-micro font-mono text-slate-400 dark:text-slate-500 shrink-0">
-                  {new Date(entry.discovered_at).toLocaleString()}
-                </span>
-              </div>
-
-              <p className="text-xs text-slate-700 dark:text-slate-300 line-clamp-3 mb-2 leading-relaxed font-mono">
-                {entry.message_text}
-              </p>
-
-              <div className="flex flex-wrap items-center gap-3 text-micro font-mono text-slate-500 dark:text-slate-400">
-                {entry.credential_count > 0 && (
-                  <span className="inline-flex items-center gap-1">
-                    <AlertTriangle size={10} /> {entry.credential_count} credentials
-                  </span>
-                )}
-                {domains.length > 0 && (
-                  <span className="truncate max-w-[200px]">
-                    domains: {domains.slice(0, 3).join(', ')}
-                    {domains.length > 3 && ' …'}
-                  </span>
-                )}
-                {entry.file_name && (
-                  <span className="inline-flex items-center gap-1">
-                    <FileText size={10} /> {entry.file_name}
-                  </span>
-                )}
-                {entry.message_link && (
-                  <a
-                    href={sanitizeUrl(entry.message_link)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline ml-auto"
-                  >
-                    <ExternalLink size={10} /> source
-                  </a>
-                )}
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-      {entries.length > 0 && (
-        <div className="mt-6 flex items-center justify-center gap-4">
-          <button
-            type="button"
-            disabled={offset === 0}
-            onClick={() => setOffset((prev) => Math.max(0, prev - pageSize))}
-            className="text-mini font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 disabled:opacity-30 disabled:cursor-not-allowed"
-          >
-            ← previous
-          </button>
-          <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
-            {offset + 1}–{offset + entries.length}
-          </span>
-          <button
-            type="button"
-            disabled={entries.length < pageSize}
-            onClick={() => setOffset((prev) => prev + pageSize)}
-            className="text-mini font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 disabled:opacity-30 disabled:cursor-not-allowed"
-          >
-            next →
-          </button>
-        </div>
-      )}
+      {filters}
+      {results}
+      {pagination}
     </DataPageLayout>
   );
 }
