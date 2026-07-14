@@ -308,7 +308,10 @@ async function generateThreatAssessment(domain: string): Promise<ThreatAssessmen
     hasSPF = txts.some((t) => t.includes('v=spf1'));
     hasDMARC = txts.some((t) => t.includes('v=DMARC1'));
   } catch (_catchErr) {
-    console.error('generateThreatAssessment failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    console.error(
+      'generateThreatAssessment failed:',
+      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+    );
     /* */
   }
 
@@ -316,7 +319,10 @@ async function generateThreatAssessment(domain: string): Promise<ThreatAssessmen
     const sslRes = await fetch(`https://${baseDomain}`, { signal: AbortSignal.timeout(5000), method: 'HEAD' });
     hasSSL = sslRes.url.startsWith('https');
   } catch (_catchErr) {
-    console.error('generateThreatAssessment failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    console.error(
+      'generateThreatAssessment failed:',
+      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+    );
     /* */
   }
 

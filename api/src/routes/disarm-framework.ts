@@ -177,10 +177,7 @@ function byFrameworkOrder(a: DisarmEntry, b: DisarmEntry): number {
 }
 
 /** Apply the optional query filters to a normalized full response. */
-function applyFilters(
-  full: DisarmResponse,
-  q: { type?: string; q?: string; limit?: number }
-): DisarmResponse {
+function applyFilters(full: DisarmResponse, q: { type?: string; q?: string; limit?: number }): DisarmResponse {
   let entries = full.entries;
   if (q.type) {
     const t = q.type.toLowerCase();
@@ -290,7 +287,12 @@ export async function disarmFrameworkHandler(c: Context<{ Bindings: Env }>): Pro
       }
     }
     return c.json(
-      { error: 'DISARM Frameworks unavailable', message: upstreamError || 'no data', source: SOURCE, source_url: SOURCE_URL },
+      {
+        error: 'DISARM Frameworks unavailable',
+        message: upstreamError || 'no data',
+        source: SOURCE,
+        source_url: SOURCE_URL,
+      },
       502,
       { 'Cache-Control': 'no-store' }
     );

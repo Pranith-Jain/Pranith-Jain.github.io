@@ -325,7 +325,10 @@ export async function veraChatStreamHandler(c: Context<{ Bindings: Env }>): Prom
           try {
             controller.enqueue(encoder.encode(`data: ${data}\n\n`));
           } catch (_catchErr) {
-            console.error('veraChatStreamHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+            console.error(
+              'veraChatStreamHandler failed:',
+              _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+            );
             closed = true;
           }
         }

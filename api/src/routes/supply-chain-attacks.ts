@@ -262,7 +262,12 @@ export async function supplyChainAttacksHandler(c: Context<{ Bindings: Env }>): 
       }
     }
     return c.json(
-      { error: 'supplychainattack.org unavailable', message: upstreamError || 'no data', source: SOURCE, source_url: SOURCE_URL },
+      {
+        error: 'supplychainattack.org unavailable',
+        message: upstreamError || 'no data',
+        source: SOURCE,
+        source_url: SOURCE_URL,
+      },
       502,
       { 'Cache-Control': 'no-store' }
     );

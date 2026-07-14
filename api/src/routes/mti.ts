@@ -78,9 +78,10 @@ export async function mtiHandler(c: Context<{ Bindings: Env }>): Promise<Respons
           // on every cache-miss success across colos (KV 1-write/sec/key limit +
           // write cost). The fallback only needs refreshing every few hours.
           if (!(await shouldWriteLastGood('mti:' + source))) return;
-          safeNullLog('kv-put-mti-lastgood',
+          safeNullLog(
+            'kv-put-mti-lastgood',
             kv.put(lastGoodKey, JSON.stringify(payload), { expirationTtl: MTI_LASTGOOD_TTL_SECONDS })
-          )
+          );
         })()
       );
     }

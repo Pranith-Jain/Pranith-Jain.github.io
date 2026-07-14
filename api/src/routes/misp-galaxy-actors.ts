@@ -113,10 +113,7 @@ function buildCountries(actors: GalaxyActor[]): Record<string, number> {
 }
 
 /** Apply the optional query filters to a normalized full response. */
-function applyFilters(
-  full: GalaxyResponse,
-  q: { search?: string; country?: string; limit: number }
-): GalaxyResponse {
+function applyFilters(full: GalaxyResponse, q: { search?: string; country?: string; limit: number }): GalaxyResponse {
   let actors = full.actors;
   if (q.country) {
     const c = q.country.toUpperCase();
@@ -168,9 +165,7 @@ export async function mispGalaxyActorsHandler(c: Context<{ Bindings: Env }>): Pr
     if (res.ok) {
       const data = (await res.json()) as { source?: string; values?: unknown };
       const rawValues = Array.isArray(data.values) ? data.values.slice(0, MAX_ACTORS) : [];
-      const actors = rawValues
-        .map((r) => normalizeActor((r ?? {}) as Record<string, unknown>))
-        .filter((a) => a.value);
+      const actors = rawValues.map((r) => normalizeActor((r ?? {}) as Record<string, unknown>)).filter((a) => a.value);
       full = {
         source: SOURCE,
         source_url: SOURCE_URL,

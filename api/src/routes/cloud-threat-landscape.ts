@@ -141,10 +141,7 @@ function byRecency(a: CloudIncident, b: CloudIncident): number {
 }
 
 /** Apply the optional query filters to a normalized full response. */
-function applyFilters(
-  full: CloudResponse,
-  q: { type?: string; label?: string; limit?: number }
-): CloudResponse {
+function applyFilters(full: CloudResponse, q: { type?: string; label?: string; limit?: number }): CloudResponse {
   let incidents = full.incidents;
   if (q.type) {
     const t = q.type.toLowerCase();
@@ -236,7 +233,12 @@ export async function cloudThreatLandscapeHandler(c: Context<{ Bindings: Env }>)
       }
     }
     return c.json(
-      { error: 'Wiz Cloud Threat Landscape unavailable', message: upstreamError || 'no data', source: SOURCE, source_url: SOURCE_URL },
+      {
+        error: 'Wiz Cloud Threat Landscape unavailable',
+        message: upstreamError || 'no data',
+        source: SOURCE,
+        source_url: SOURCE_URL,
+      },
       502,
       { 'Cache-Control': 'no-store' }
     );

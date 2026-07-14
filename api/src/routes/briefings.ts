@@ -483,7 +483,10 @@ export async function briefingsForActorHandler(c: Context<{ Bindings: Env }>) {
         const full = await readBriefing(db, b.slug);
         return full ? { b, full } : null;
       } catch (_catchErr) {
-        console.error('briefingsForActorHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        console.error(
+          'briefingsForActorHandler failed:',
+          _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+        );
         degraded = true;
         return null;
       }
@@ -607,8 +610,7 @@ export async function pruneEmptyBriefingsHandler(c: AdminCtx) {
   const auth = requireAdmin(c);
   if ('error' in auth) return auth.error;
 
-  const where =
-    "type IN ('daily','weekly') AND json_extract(stats_json,'$.findings') = 0";
+  const where = "type IN ('daily','weekly') AND json_extract(stats_json,'$.findings') = 0";
   try {
     const found = await db.prepare(`SELECT slug FROM briefings WHERE ${where}`).all<{ slug: string }>();
     const slugs = (found.results ?? []).map((r) => r.slug);

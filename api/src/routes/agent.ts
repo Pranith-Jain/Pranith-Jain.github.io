@@ -47,7 +47,10 @@ export async function agentInvestigateHandler(c: Context<{ Bindings: Env }>): Pr
     try {
       body = await c.req.json<{ query?: string; maxSteps?: number }>();
     } catch (_catchErr) {
-      console.error('agentInvestigateHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      console.error(
+        'agentInvestigateHandler failed:',
+        _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+      );
       return badRequest(c, 'Invalid JSON body');
     }
 
@@ -151,7 +154,10 @@ export async function agentStreamHandler(c: Context<{ Bindings: Env }>): Promise
           try {
             controller.enqueue(encoder.encode(`data: ${data}\n\n`));
           } catch (_catchErr) {
-            console.error('agentStreamHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+            console.error(
+              'agentStreamHandler failed:',
+              _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+            );
             closed = true;
           }
         }

@@ -1296,7 +1296,10 @@ async function maybeEnqueueAllFeeds(
           new Response('1', { headers: { 'cache-control': `max-age=${ENQUEUE_COOLDOWN_SECONDS}` } })
         );
       } catch (_catchErr) {
-        console.error('maybeEnqueueAllFeeds failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        console.error(
+          'maybeEnqueueAllFeeds failed:',
+          _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+        );
         /* best-effort */
       }
     }

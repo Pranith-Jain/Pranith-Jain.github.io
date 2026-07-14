@@ -41,8 +41,7 @@ const UPSTREAM = 'https://api.ransomwhe.re/export';
  * The data is the same Ransomwhere dataset, just redistributed by OpenSanctions.
  * @see https://www.opensanctions.org/datasets/ransomwhere/
  */
-const FALLBACK_UPSTREAM =
-  'https://data.opensanctions.org/datasets/latest/ransomwhere/source.json';
+const FALLBACK_UPSTREAM = 'https://data.opensanctions.org/datasets/latest/ransomwhere/source.json';
 
 const SOURCE = 'Ransomwhere';
 const SOURCE_URL = 'https://ransomwhe.re/';
@@ -165,9 +164,7 @@ export async function ransomwhereHandler(c: Context<{ Bindings: Env }>): Promise
   const family = c.req.query('family')?.trim();
   const blockchain = c.req.query('blockchain')?.trim();
   const limitRaw = c.req.query('limit');
-  const limit = limitRaw
-    ? Math.min(parseInt(limitRaw, 10) || DEFAULT_LIMIT, MAX_LIMIT)
-    : DEFAULT_LIMIT;
+  const limit = limitRaw ? Math.min(parseInt(limitRaw, 10) || DEFAULT_LIMIT, MAX_LIMIT) : DEFAULT_LIMIT;
   const filterQ = { family, blockchain, limit };
 
   const cache = (caches as unknown as { default: Cache }).default;

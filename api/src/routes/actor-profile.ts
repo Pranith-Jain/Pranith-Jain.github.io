@@ -157,12 +157,10 @@ export async function actorProfileHandler(c: Context<{ Bindings: Env }>): Promis
 
   // Build the unified profile.
   const enrich = sources.find((s) => s.source === 'enrich')?.data as
-    | { malpedia?: unknown[]; maltrail?: unknown[]; otx?: unknown[]; linked_cves?: string[] }
-    | undefined;
+    { malpedia?: unknown[]; maltrail?: unknown[]; otx?: unknown[]; linked_cves?: string[] } | undefined;
   const cves = sources.find((s) => s.source === 'cves')?.data as { cves?: string[] } | undefined;
   const dna = sources.find((s) => s.source === 'dna')?.data as
-    | { techniques?: unknown[]; software?: unknown[]; sectors?: unknown[] }
-    | undefined;
+    { techniques?: unknown[]; software?: unknown[]; sectors?: unknown[] } | undefined;
   const timeline = sources.find((s) => s.source === 'timeline')?.data;
   const malpedia = sources.find((s) => s.source === 'malpedia')?.data;
   const skeleton = sources.find((s) => s.source === 'skeleton')?.data;

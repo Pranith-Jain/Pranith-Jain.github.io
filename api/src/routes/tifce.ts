@@ -206,7 +206,10 @@ async function loadPlatformReportedSet(db: D1Database): Promise<Set<string>> {
           }
         }
       } catch (_catchErr) {
-        console.error('loadPlatformReportedSet failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        console.error(
+          'loadPlatformReportedSet failed:',
+          _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+        );
         /* skip malformed body */
       }
     }
@@ -233,7 +236,10 @@ async function loadDetectionFiredSet(env: Env): Promise<Set<string>> {
       const hit = await cache.match(new Request(CACHE_KEY));
       if (hit) return new Set<string>((await hit.json()) as string[]);
     } catch (_catchErr) {
-      console.error('loadDetectionFiredSet failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      console.error(
+        'loadDetectionFiredSet failed:',
+        _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+      );
       /* fall through */
     }
   }
@@ -278,7 +284,8 @@ async function loadDetectionFiredSet(env: Env): Promise<Set<string>> {
     } while (cursor);
 
     if (cache && set.size > 0) {
-      safeNullLog('cache-put-tifce-detection',
+      safeNullLog(
+        'cache-put-tifce-detection',
         cache.put(
           new Request(CACHE_KEY),
           new Response(JSON.stringify([...set]), {

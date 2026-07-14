@@ -125,7 +125,10 @@ async function writeCombinedHistoryForJob(kv: KVNamespace, jobId: string, hist: 
     all[jobId] = hist;
     await kv.put(HISTORY_ALL_KV_KEY, JSON.stringify(all));
   } catch (_catchErr) {
-    console.error('writeCombinedHistoryForJob failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    console.error(
+      'writeCombinedHistoryForJob failed:',
+      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+    );
     /* best-effort */
   }
 }
@@ -558,8 +561,7 @@ export async function autoRunFeedJobs(
     error: job.last_error,
   };
   const existing = (await safeNullLog('kv-get-feed-run-history', kv.get(historyKey, 'json'))) as
-    | FeedRunHistory[]
-    | null;
+    FeedRunHistory[] | null;
   const hist = [history, ...(existing ?? [])].slice(0, MAX_HISTORY);
   await kv.put(historyKey, JSON.stringify(hist));
   await writeCombinedHistoryForJob(kv, job.id, hist);

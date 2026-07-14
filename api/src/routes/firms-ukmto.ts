@@ -21,8 +21,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 
-const FIRMS_CSV_URL =
-  'https://firms.modaps.eosdis.nasa.gov/api/area/csv/VIIRS_NOAA20_NRT/world/1';
+const FIRMS_CSV_URL = 'https://firms.modaps.eosdis.nasa.gov/api/area/csv/VIIRS_NOAA20_NRT/world/1';
 const UKMTO_URL = 'https://www.ukmto.org/api/incidents';
 
 const CACHE_KEY = 'https://global-pulse-cache.internal/firms-ukmto-v1';
@@ -145,16 +144,20 @@ async function fetchUkmto(): Promise<UkmtoIncident[]> {
       const lng = Number(pick('lon', 'lng', 'longitude', 'Lon', 'Lng', 'Longitude'));
       if (!isFinite(lat) || !isFinite(lng)) return [];
       const date = String(pick('date', 'incident_date', 'date_of_incident', 'Date') ?? '');
-      return [{
-        id: `ukmto-${i}-${date}`,
-        title: String(pick('title', 'name', 'incident_title', 'Name') ?? 'Maritime incident'),
-        description: pick('description', 'details', 'summary') ? String(pick('description', 'details', 'summary')) : undefined,
-        date,
-        lat,
-        lng,
-        category: String(pick('category', 'type', 'incident_type', 'Type') ?? 'incident'),
-        reference: pick('reference', 'ref', 'id') ? String(pick('reference', 'ref', 'id')) : undefined,
-      }];
+      return [
+        {
+          id: `ukmto-${i}-${date}`,
+          title: String(pick('title', 'name', 'incident_title', 'Name') ?? 'Maritime incident'),
+          description: pick('description', 'details', 'summary')
+            ? String(pick('description', 'details', 'summary'))
+            : undefined,
+          date,
+          lat,
+          lng,
+          category: String(pick('category', 'type', 'incident_type', 'Type') ?? 'incident'),
+          reference: pick('reference', 'ref', 'id') ? String(pick('reference', 'ref', 'id')) : undefined,
+        },
+      ];
     });
   } catch (_catchErr) {
     console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
@@ -180,7 +183,11 @@ export async function firmsUkmtoHandler(_c: Context<{ Bindings: Env }>): Promise
         'cache-control': `public, max-age=${CACHE_TTL}`,
       },
     });
-    try { await cache.put(new Request(CACHE_KEY), res.clone()); } catch { /* best-effort */ }
+    try {
+      await cache.put(new Request(CACHE_KEY), res.clone());
+    } catch {
+      /* best-effort */
+    }
     return res;
   } catch (e) {
     console.error('firmsUkmtoHandler failed:', e instanceof Error ? e.message : String(e));

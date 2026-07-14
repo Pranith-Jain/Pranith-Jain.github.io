@@ -84,7 +84,10 @@ export async function malpediaSearchHandler(c: Context<{ Bindings: Env }>): Prom
       if (!res.ok) return [];
       return await res.json();
     } catch (_catchErr) {
-      console.error('malpediaSearchHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      console.error(
+        'malpediaSearchHandler failed:',
+        _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+      );
       return [];
     }
   };

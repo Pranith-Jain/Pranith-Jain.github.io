@@ -100,7 +100,10 @@ export async function tieEnrichStreamHandler(c: Context<{ Bindings: Env }>): Pro
           try {
             controller.enqueue(encoder.encode(`data: ${data}\n\n`));
           } catch (_catchErr) {
-            console.error('tieEnrichStreamHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+            console.error(
+              'tieEnrichStreamHandler failed:',
+              _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+            );
             closed = true;
           }
         }

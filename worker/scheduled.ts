@@ -23,7 +23,12 @@ import {
   scrapeWatchedChannels,
   cleanupLeakEntries,
 } from '../api/src/routes/telegram-leak-monitor';
-import { fetchTelegramFeed, getTelegramFeedCacheKey, type TelegramFeedResponse } from '../api/src/routes/telegram-feed';
+import {
+  fetchTelegramFeed,
+  getTelegramFeedCacheKey,
+  pollBotUpdates,
+  type TelegramFeedResponse,
+} from '../api/src/routes/telegram-feed';
 import { fetchXFeed } from '../api/src/routes/x-feed';
 import { refreshVictimReleaksCache } from '../api/src/routes/victim-releaks';
 import { warmIntelBundles } from '../api/src/lib/intel-bundle-warm';
@@ -1152,6 +1157,11 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
       })().catch(logCronFail('cp-30-enqueue'))
     );
 
+    // ── Telegram Bot API poll ──────────────────────────────────────────
+    // When t.me is unreachable, pollBotUpdates reads messages for
+    // channels where the bot is admin, storing them in KV for fallback.
+    ctx.waitUntil(pollBotUpdates(env as unknown as ApiEnv).catch(() => {}));
+
     // ── Inline ingestion: read from KV and produce incidents ────────────
     // Runs in the main cron thread (not waitUntil) so failures are visible.
     if (!env.KV_CACHE || !env.BRIEFINGS_DB) {
@@ -1217,7 +1227,7 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
       }
       // Telegram: direct fetch first, then KV fallback (bypass Cache API)
       try {
-        const tg = await fetchTelegramFeed(env.KV_CACHE).catch(() => undefined);
+        const tg = await fetchTelegramFeed(env.KV_CACHE, env as unknown as ApiEnv).catch(() => undefined);
         telegramItems = tg?.items as unknown[] | undefined;
       } catch {
         /* fail open */

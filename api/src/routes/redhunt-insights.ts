@@ -97,7 +97,10 @@ export async function getRedHuntInsightsHandler(c: Context<{ Bindings: Env }>): 
         });
       }
     } catch (_catchErr) {
-      console.error('getRedHuntInsightsHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      console.error(
+        'getRedHuntInsightsHandler failed:',
+        _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+      );
       /* KV read failed — fall through to a direct fetch. */
     }
   }

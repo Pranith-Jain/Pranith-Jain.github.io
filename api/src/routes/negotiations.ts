@@ -232,7 +232,10 @@ export async function negotiationTranscriptHandler(c: Context<{ Bindings: Env }>
       cf: { cacheTtl: 3600, cacheEverything: true },
     });
   } catch (_catchErr) {
-    console.error('negotiationTranscriptHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    console.error(
+      'negotiationTranscriptHandler failed:',
+      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+    );
     return c.json({ error: 'upstream_unreachable' }, 502, { 'cache-control': 'no-store' });
   }
   if (!upstream.ok) {

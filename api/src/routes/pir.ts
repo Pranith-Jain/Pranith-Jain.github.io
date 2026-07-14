@@ -24,14 +24,7 @@ for (const [probe, sources] of Object.entries(PROBE_COVERAGE)) {
 export type PirPriority = 'critical' | 'high' | 'medium' | 'low';
 export type PirStatus = 'active' | 'paused' | 'completed' | 'archived';
 export type PirCategory =
-  | 'ransomware'
-  | 'apt'
-  | 'phishing'
-  | 'vulnerability'
-  | 'supply_chain'
-  | 'insider'
-  | 'sector'
-  | 'general';
+  'ransomware' | 'apt' | 'phishing' | 'vulnerability' | 'supply_chain' | 'insider' | 'sector' | 'general';
 
 export interface Pir {
   id: string;
@@ -718,7 +711,8 @@ export async function detectPirAlerts(env: Pick<Env, 'KV_CACHE'>): Promise<{ tot
   // Only WRITE when there is genuinely a new alert id: the hourly cron otherwise
   // re-persists an identical set every run, burning the Free-plan write budget.
   if (alerts.length > 0 && env.KV_CACHE) {
-    const existing = (await safeNullLog('kv-get-pir-active', env.KV_CACHE.get(ALERT_ACTIVE_KEY, 'json'))) as PirAlert[] | null;
+    const existing = (await safeNullLog('kv-get-pir-active', env.KV_CACHE.get(ALERT_ACTIVE_KEY, 'json'))) as
+      PirAlert[] | null;
     const seen = new Set((existing ?? []).map((a) => a.id));
     const fresh = alerts.filter((a) => !seen.has(a.id));
     if (fresh.length > 0) {

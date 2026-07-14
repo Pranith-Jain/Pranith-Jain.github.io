@@ -669,7 +669,10 @@ async function searchScrapedIntelHandles(needle: string, env: import('../env').E
       );
     return { label, kind: 'actors', total: items.length, items };
   } catch (_catchErr) {
-    console.error('searchScrapedIntelHandles failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    console.error(
+      'searchScrapedIntelHandles failed:',
+      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+    );
     return empty;
   }
 }

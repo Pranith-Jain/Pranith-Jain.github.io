@@ -76,7 +76,8 @@ export async function checkNovelty(
     const result = { novel: false, score: Math.round(score * 100) / 100, first_seen: existing };
     // Populate per-colo cache so repeated queries of the same hash skip KV
     if (cache) {
-      safeNullLog('cache-put-novelty',
+      safeNullLog(
+        'cache-put-novelty',
         cache.put(
           new Request(NOVELTY_CACHE_PREFIX + hash(text)),
           new Response(JSON.stringify(result), { headers: { 'cache-control': 'max-age=60' } })

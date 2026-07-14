@@ -222,7 +222,10 @@ export async function listSkeletonActorsHandler(c: Context<{ Bindings: Env }>): 
     const hit = await cache.match(cacheReq);
     if (hit) return new Response(hit.body, hit);
   } catch (_catchErr) {
-    console.error('listSkeletonActorsHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    console.error(
+      'listSkeletonActorsHandler failed:',
+      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+    );
     /* fall through to a fresh build */
   }
 
@@ -279,7 +282,10 @@ export async function getSkeletonActorHandler(c: Context<{ Bindings: Env }>): Pr
   try {
     return c.json(JSON.parse(raw), 200, { 'cache-control': 'public, max-age=300' });
   } catch (_catchErr) {
-    console.error('getSkeletonActorHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    console.error(
+      'getSkeletonActorHandler failed:',
+      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+    );
     return c.json({ error: 'corrupted record' }, 500);
   }
 }

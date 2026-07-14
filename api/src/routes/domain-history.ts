@@ -16,12 +16,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { rdapLookup } from '../lib/rdap';
 import { whoisTcpLookup } from '../lib/whois-tcp';
-import {
-  storeWhoisSnapshot,
-  getWhoisHistory,
-  pivotDomains,
-  getWhoisStats,
-} from '../lib/whois-history';
+import { storeWhoisSnapshot, getWhoisHistory, pivotDomains, getWhoisStats } from '../lib/whois-history';
 import { badRequest, internalError } from '../lib/api-error';
 import { safeNullLog } from '../lib/safe-catch';
 
@@ -50,22 +45,26 @@ export async function domainHistoryHandler(c: Context<{ Bindings: Env }>): Promi
     // Get full history.
     const history = await getWhoisHistory(db, domain);
 
-    return c.json({
-      domain: history.domain,
-      current: history.current,
-      snapshots: history.snapshots,
-      changes: history.changes,
-      summary: {
-        total_snapshots: history.snapshots.length,
-        ownership_transfers: history.ownership_transfers,
-        registrar_changes: history.registrar_changes,
-        nameserver_changes: history.nameserver_changes,
-        first_seen: history.first_seen,
-        last_seen: history.last_seen,
+    return c.json(
+      {
+        domain: history.domain,
+        current: history.current,
+        snapshots: history.snapshots,
+        changes: history.changes,
+        summary: {
+          total_snapshots: history.snapshots.length,
+          ownership_transfers: history.ownership_transfers,
+          registrar_changes: history.registrar_changes,
+          nameserver_changes: history.nameserver_changes,
+          first_seen: history.first_seen,
+          last_seen: history.last_seen,
+        },
       },
-    }, 200, {
-      'Cache-Control': 'public, max-age=300',
-    });
+      200,
+      {
+        'Cache-Control': 'public, max-age=300',
+      }
+    );
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);
@@ -87,18 +86,22 @@ export async function domainChangesHandler(c: Context<{ Bindings: Env }>): Promi
   try {
     const history = await getWhoisHistory(db, domain);
 
-    return c.json({
-      domain: history.domain,
-      changes: history.changes,
-      summary: {
-        total_changes: history.changes.length,
-        ownership_transfers: history.ownership_transfers,
-        registrar_changes: history.registrar_changes,
-        nameserver_changes: history.nameserver_changes,
+    return c.json(
+      {
+        domain: history.domain,
+        changes: history.changes,
+        summary: {
+          total_changes: history.changes.length,
+          ownership_transfers: history.ownership_transfers,
+          registrar_changes: history.registrar_changes,
+          nameserver_changes: history.nameserver_changes,
+        },
       },
-    }, 200, {
-      'Cache-Control': 'public, max-age=300',
-    });
+      200,
+      {
+        'Cache-Control': 'public, max-age=300',
+      }
+    );
   } catch (e) {
     console.error('domainChangesHandler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);
@@ -144,15 +147,19 @@ export async function domainPivotHandler(c: Context<{ Bindings: Env }>): Promise
 
     const pivot = await pivotDomains(db, domain, pivotType);
 
-    return c.json({
-      target: pivot.target,
-      pivot_type: pivot.pivot_type,
-      related_domains: pivot.related_domains,
-      total_found: pivot.total_found,
-      query_time_ms: pivot.query_time_ms,
-    }, 200, {
-      'Cache-Control': 'public, max-age=300',
-    });
+    return c.json(
+      {
+        target: pivot.target,
+        pivot_type: pivot.pivot_type,
+        related_domains: pivot.related_domains,
+        total_found: pivot.total_found,
+        query_time_ms: pivot.query_time_ms,
+      },
+      200,
+      {
+        'Cache-Control': 'public, max-age=300',
+      }
+    );
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);
@@ -174,12 +181,16 @@ export async function domainHistoryStatsHandler(c: Context<{ Bindings: Env }>): 
   try {
     const stats = await getWhoisStats(db, domain);
 
-    return c.json({
-      domain: domain.toLowerCase(),
-      ...stats,
-    }, 200, {
-      'Cache-Control': 'public, max-age=300',
-    });
+    return c.json(
+      {
+        domain: domain.toLowerCase(),
+        ...stats,
+      },
+      200,
+      {
+        'Cache-Control': 'public, max-age=300',
+      }
+    );
   } catch (e) {
     console.error('domainHistoryStatsHandler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);
@@ -219,13 +230,17 @@ export async function domainRegistrantSearchHandler(c: Context<{ Bindings: Env }
 
     const results = await db.prepare(query).bind(param).all();
 
-    return c.json({
-      query: { email, org },
-      domains: results.results ?? [],
-      total: (results.results ?? []).length,
-    }, 200, {
-      'Cache-Control': 'public, max-age=300',
-    });
+    return c.json(
+      {
+        query: { email, org },
+        domains: results.results ?? [],
+        total: (results.results ?? []).length,
+      },
+      200,
+      {
+        'Cache-Control': 'public, max-age=300',
+      }
+    );
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);
@@ -265,15 +280,19 @@ export async function domainSnapshotHandler(c: Context<{ Bindings: Env }>): Prom
 
     const result = await storeWhoisSnapshot(db, domain, rdap, source);
 
-    return c.json({
-      ok: true,
-      domain: domain.toLowerCase(),
-      source,
-      snapshot_id: result.snapshotId,
-      changes_detected: result.changesDetected,
-    }, 200, {
-      'Cache-Control': 'no-store',
-    });
+    return c.json(
+      {
+        ok: true,
+        domain: domain.toLowerCase(),
+        source,
+        snapshot_id: result.snapshotId,
+        changes_detected: result.changesDetected,
+      },
+      200,
+      {
+        'Cache-Control': 'no-store',
+      }
+    );
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);

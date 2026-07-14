@@ -681,7 +681,12 @@ const PLATFORMS: PlatformCheck[] = [
 
   // ── New platforms from kaifcodec/user-scanner (2026-06-26) ────────────
   // Donation / Funding
-  { id: 'open-collective', name: 'Open Collective', category: 'finance', url: (u) => `https://opencollective.com/${u}` },
+  {
+    id: 'open-collective',
+    name: 'Open Collective',
+    category: 'finance',
+    url: (u) => `https://opencollective.com/${u}`,
+  },
   { id: 'gumroad', name: 'Gumroad', category: 'creative', url: (u) => `https://${u}.gumroad.com` },
   { id: 'etsy-shop', name: 'Etsy Shop', category: 'creative', url: (u) => `https://www.etsy.com/shop/${u}` },
   { id: 'redbubble', name: 'Redbubble', category: 'creative', url: (u) => `https://www.redbubble.com/people/${u}` },
@@ -691,7 +696,12 @@ const PLATFORMS: PlatformCheck[] = [
 
   // Community / Forum
   { id: 'producthunt-alt', name: 'Product Hunt', category: 'tech', url: (u) => `https://www.producthunt.com/@${u}` },
-  { id: 'indie-hackers', name: 'Indie Hackers', category: 'tech', url: (u) => `https://www.indiehackers.com/user/${u}` },
+  {
+    id: 'indie-hackers',
+    name: 'Indie Hackers',
+    category: 'tech',
+    url: (u) => `https://www.indiehackers.com/user/${u}`,
+  },
   { id: 'lobsters', name: 'Lobsters', category: 'tech', url: (u) => `https://lobste.rs/u/${u}` },
   { id: 'phabricator', name: 'Phabricator', category: 'dev', url: (u) => `https://phabricator.wikimedia.org/p/${u}` },
 
@@ -716,7 +726,12 @@ const PLATFORMS: PlatformCheck[] = [
 
   // Fitness / Sports
   { id: 'strava-alt', name: 'Strava', category: 'other', url: (u) => `https://www.strava.com/athletes/${u}` },
-  { id: 'myfitnesspal', name: 'MyFitnessPal', category: 'other', url: (u) => `https://www.myfitnesspal.com/profile/${u}` },
+  {
+    id: 'myfitnesspal',
+    name: 'MyFitnessPal',
+    category: 'other',
+    url: (u) => `https://www.myfitnesspal.com/profile/${u}`,
+  },
   { id: 'fitbit', name: 'Fitbit', category: 'other', url: (u) => `https://www.fitbit.com/profile/${u}` },
 
   // Hosting / Cloud (non-SE dashboards)
@@ -732,7 +747,12 @@ const PLATFORMS: PlatformCheck[] = [
   { id: 'udemy-alt', name: 'Udemy', category: 'tech', url: (u) => `https://www.udemy.com/user/${u}/` },
   { id: 'coursera-alt', name: 'Coursera', category: 'tech', url: (u) => `https://www.coursera.org/user/${u}` },
   { id: 'skillshare', name: 'Skillshare', category: 'tech', url: (u) => `https://www.skillshare.com/profile/${u}` },
-  { id: 'khan-academy', name: 'Khan Academy', category: 'tech', url: (u) => `https://www.khanacademy.org/profile/${u}` },
+  {
+    id: 'khan-academy',
+    name: 'Khan Academy',
+    category: 'tech',
+    url: (u) => `https://www.khanacademy.org/profile/${u}`,
+  },
 
   // Jobs / Professional
   { id: 'wellfound', name: 'Wellfound (AngelList)', category: 'tech', url: (u) => `https://wellfound.com/u/${u}` },
@@ -742,7 +762,12 @@ const PLATFORMS: PlatformCheck[] = [
   // Travel
   { id: 'tripadvisor', name: 'TripAdvisor', category: 'other', url: (u) => `https://www.tripadvisor.com/Profile/${u}` },
   { id: 'airbnb', name: 'Airbnb', category: 'other', url: (u) => `https://www.airbnb.com/users/show/${u}` },
-  { id: 'couchsurfing', name: 'Couchsurfing', category: 'other', url: (u) => `https://www.couchsurfing.com/people/${u}` },
+  {
+    id: 'couchsurfing',
+    name: 'Couchsurfing',
+    category: 'other',
+    url: (u) => `https://www.couchsurfing.com/people/${u}`,
+  },
 
   // Additional Social (from user-scanner)
   { id: 'mastodon-alt', name: 'Mastodon', category: 'social', url: (u) => `https://mastodon.social/@${u}` },
@@ -895,21 +920,33 @@ function generatePatterns(username: string): PatternResult[] {
   // Basic variations
   patterns.push({ pattern: lower, username: lower, description: 'lowercase' });
   patterns.push({ pattern: upper, username: upper, description: 'UPPERCASE' });
-  patterns.push({ pattern: 'camel', username: lower.charAt(0).toUpperCase() + lower.slice(1), description: 'CamelCase' });
+  patterns.push({
+    pattern: 'camel',
+    username: lower.charAt(0).toUpperCase() + lower.slice(1),
+    description: 'CamelCase',
+  });
 
   // Dot/underscore/hyphen separators
   if (!lower.includes('.')) {
     patterns.push({ pattern: 'dot', username: lower.split('').join('.'), description: 'with dots (j.o.h.n)' });
   }
   if (!lower.includes('_')) {
-    patterns.push({ pattern: 'underscore', username: lower.split('').join('_'), description: 'with underscores (j_o_h_n)' });
+    patterns.push({
+      pattern: 'underscore',
+      username: lower.split('').join('_'),
+      description: 'with underscores (j_o_h_n)',
+    });
   }
   if (!lower.includes('-')) {
     patterns.push({ pattern: 'hyphen', username: lower.split('').join('-'), description: 'with hyphens (j-o-h-n)' });
   }
 
   // Common typosquatting patterns
-  patterns.push({ pattern: 'double-letter', username: lower + lower.charAt(lower.length - 1), description: 'double last letter' });
+  patterns.push({
+    pattern: 'double-letter',
+    username: lower + lower.charAt(lower.length - 1),
+    description: 'double last letter',
+  });
   patterns.push({ pattern: 'prefix-the', username: 'the' + lower, description: 'prefixed with "the"' });
   patterns.push({ pattern: 'prefix-im', username: 'im' + lower, description: 'prefixed with "im"' });
   patterns.push({ pattern: 'suffix-underscore', username: lower + '_', description: 'trailing underscore' });
@@ -924,7 +961,8 @@ function generatePatterns(username: string): PatternResult[] {
   for (const [char, replacement] of Object.entries(leetMap)) {
     leet = leet.replace(new RegExp(char, 'g'), replacement);
   }
-  if (leet !== lower) patterns.push({ pattern: 'leetspeak', username: leet, description: 'leetspeak (a→4, e→3, etc.)' });
+  if (leet !== lower)
+    patterns.push({ pattern: 'leetspeak', username: leet, description: 'leetspeak (a→4, e→3, etc.)' });
 
   // Number suffixes
   for (const n of ['1', '2', '3', '01', '007', '69', '420', '1337']) {
@@ -934,7 +972,11 @@ function generatePatterns(username: string): PatternResult[] {
   // Underscore-separated words
   if (lower.length > 3) {
     const mid = Math.floor(lower.length / 2);
-    patterns.push({ pattern: 'split-underscore', username: lower.slice(0, mid) + '_' + lower.slice(mid), description: 'split with underscore' });
+    patterns.push({
+      pattern: 'split-underscore',
+      username: lower.slice(0, mid) + '_' + lower.slice(mid),
+      description: 'split with underscore',
+    });
   }
 
   return patterns;
@@ -1082,7 +1124,8 @@ export async function usernameProfileHandler(c: Context<{ Bindings: Env }>): Pro
           signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
           redirect: 'manual',
           headers: {
-            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'user-agent':
+              'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
             accept: 'text/html,*/*',
           },
         });
@@ -1096,7 +1139,14 @@ export async function usernameProfileHandler(c: Context<{ Bindings: Env }>): Pro
         if (status === 'found') {
           const html = await res.text();
           const profile = platform.scrape(html);
-          results.push({ platform: platform.id, name: platform.name, category: platform.category, status, url, profile });
+          results.push({
+            platform: platform.id,
+            name: platform.name,
+            category: platform.category,
+            status,
+            url,
+            profile,
+          });
         } else {
           results.push({ platform: platform.id, name: platform.name, category: platform.category, status, url });
         }

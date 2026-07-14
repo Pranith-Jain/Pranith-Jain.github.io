@@ -31,11 +31,14 @@ traceixRouter.get('/traceix/lookup', async (c) => {
       error?: { error_message?: string };
     }>();
     if (!res.ok || !body.success) {
-      return c.json({
-        success: false,
-        hash,
-        error: body.error?.error_message ?? 'traceix lookup failed',
-      }, 502);
+      return c.json(
+        {
+          success: false,
+          hash,
+          error: body.error?.error_message ?? 'traceix lookup failed',
+        },
+        502
+      );
     }
     return c.json({
       success: true,
@@ -45,10 +48,13 @@ traceixRouter.get('/traceix/lookup', async (c) => {
     });
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({
-      success: false,
-      hash,
-      error: e instanceof Error ? e.message : String(e),
-    }, 502);
+    return c.json(
+      {
+        success: false,
+        hash,
+        error: e instanceof Error ? e.message : String(e),
+      },
+      502
+    );
   }
 });

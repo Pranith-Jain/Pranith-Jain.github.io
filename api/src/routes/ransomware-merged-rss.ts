@@ -22,7 +22,14 @@ export const RANSOMWARE_MERGED_FEED_PATH = '/api/v1/feeds/ransomware-merged';
  * subrequest-budget pressure during a multi-feed aggregate.
  */
 export async function buildRansomwareMergedRss(env?: Env): Promise<{ xml: string; count: number }> {
-  let victims: { victim: string; group: string; discovered: string; description?: string; source_url?: string; origin?: string }[] = [];
+  let victims: {
+    victim: string;
+    group: string;
+    discovered: string;
+    description?: string;
+    source_url?: string;
+    origin?: string;
+  }[] = [];
   try {
     const cache = (caches as unknown as { default: Cache }).default;
     const cacheKey = new Request(RANSOMWARE_RECENT_CACHE_KEY);
@@ -35,7 +42,10 @@ export async function buildRansomwareMergedRss(env?: Env): Promise<{ xml: string
       victims = body.victims ?? [];
     }
   } catch (_catchErr) {
-    console.error('buildRansomwareMergedRss failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    console.error(
+      'buildRansomwareMergedRss failed:',
+      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+    );
     victims = [];
   }
 
@@ -46,7 +56,10 @@ export async function buildRansomwareMergedRss(env?: Env): Promise<{ xml: string
       const result = await fetchRansomwareRecent(env);
       victims = result.body.victims ?? [];
     } catch (_catchErr) {
-      console.error('buildRansomwareMergedRss failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      console.error(
+        'buildRansomwareMergedRss failed:',
+        _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+      );
       victims = [];
     }
   }
@@ -56,11 +69,9 @@ export async function buildRansomwareMergedRss(env?: Env): Promise<{ xml: string
     .map((v) => {
       const title = `RANSOMWARE: ${v.victim} — ${v.group}`;
       const link = v.source_url || `${getSiteUrl(env)}/threatintel/ransomware-activity`;
-      const descParts = [
-        `Group: ${v.group}`,
-        v.origin ? `Source: ${v.origin}` : '',
-        v.description ?? '',
-      ].filter(Boolean);
+      const descParts = [`Group: ${v.group}`, v.origin ? `Source: ${v.origin}` : '', v.description ?? ''].filter(
+        Boolean
+      );
       const pubDate = (() => {
         const t = Date.parse(v.discovered);
         return Number.isNaN(t) ? new Date().toUTCString() : new Date(t).toUTCString();

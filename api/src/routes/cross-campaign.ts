@@ -93,13 +93,13 @@ export async function crossCampaignCorrelationHandler(c: Context<{ Bindings: Env
     // Sort by confidence descending
     correlations.sort((a, b) => b.confidence - a.confidence);
 
-    return c.json(
-      { correlations: correlations.slice(0, 20), generated_at: new Date().toISOString() },
-      200,
-      { 'cache-control': 'public, max-age=300' }
-    );
+    return c.json({ correlations: correlations.slice(0, 20), generated_at: new Date().toISOString() }, 200, {
+      'cache-control': 'public, max-age=300',
+    });
   } catch (err) {
-    console.error(JSON.stringify({ job: 'cross-campaign-correlation', error: err instanceof Error ? err.message : String(err) }));
+    console.error(
+      JSON.stringify({ job: 'cross-campaign-correlation', error: err instanceof Error ? err.message : String(err) })
+    );
     return c.json({ correlations: [], generated_at: new Date().toISOString() });
   }
 }

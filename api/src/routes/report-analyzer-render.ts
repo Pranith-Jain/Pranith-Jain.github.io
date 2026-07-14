@@ -26,7 +26,10 @@ export async function reportAnalyzerRenderHandler(c: Context<{ Bindings: Env }>)
   try {
     body = await c.req.json();
   } catch (_catchErr) {
-    console.error('reportAnalyzerRenderHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    console.error(
+      'reportAnalyzerRenderHandler failed:',
+      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+    );
     return c.json({ error: 'bad_request', message: 'invalid JSON body' }, 400);
   }
 

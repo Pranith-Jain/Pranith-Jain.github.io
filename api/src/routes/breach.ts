@@ -12,13 +12,7 @@ const DOMAIN_RE = /^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}
 // ─── shared types ────────────────────────────────────────────────────────────
 
 type BreachSource =
-  | 'xposedornot'
-  | 'leakcheck'
-  | 'leakix'
-  | 'proxynova'
-  | 'hudsonrock'
-  | 'projectdiscovery'
-  | 'hackmyip';
+  'xposedornot' | 'leakcheck' | 'leakix' | 'proxynova' | 'hudsonrock' | 'projectdiscovery' | 'hackmyip';
 
 interface BreachEntry {
   name: string;

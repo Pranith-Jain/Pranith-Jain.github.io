@@ -43,8 +43,7 @@ import { shouldWriteLastGood } from '../lib/lastgood-debounce';
 // GitHub Contents API for the corpus directory. The corpus stores `.afb`
 // (Attack Flow Builder) source; the matching STIX 2.1 `.json` bundles are
 // published on the project's GitHub Pages site (see STIX_BASE below).
-const MANIFEST_API =
-  'https://api.github.com/repos/center-for-threat-informed-defense/attack-flow/contents/corpus';
+const MANIFEST_API = 'https://api.github.com/repos/center-for-threat-informed-defense/attack-flow/contents/corpus';
 // Published STIX 2.1 bundle base (GitHub Pages). A `.afb` named "<Name>.afb"
 // has its STIX export at "<STIX_BASE>/<Name>.json".
 const STIX_BASE = 'https://center-for-threat-informed-defense.github.io/attack-flow/corpus';
@@ -160,10 +159,7 @@ function byName(a: FlowEntry, b: FlowEntry): number {
 }
 
 /** Apply the optional manifest filters to a normalized full manifest. */
-function applyFilters(
-  full: ManifestResponse,
-  q: { search?: string; limit?: number }
-): ManifestResponse {
+function applyFilters(full: ManifestResponse, q: { search?: string; limit?: number }): ManifestResponse {
   let flows = full.flows;
   if (q.search) {
     const s = q.search.toLowerCase();
@@ -246,10 +242,7 @@ async function loadManifest(
 }
 
 /** Fetch ONE STIX 2.1 bundle on demand (1 extra subrequest). */
-async function loadFlowBundle(
-  c: Context<{ Bindings: Env }>,
-  entry: FlowEntry
-): Promise<Response> {
+async function loadFlowBundle(c: Context<{ Bindings: Env }>, entry: FlowEntry): Promise<Response> {
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheKey = new Request(
     `https://attack-flow-library-cache.internal/v1/flow?sha=${encodeURIComponent(entry.sha)}`
@@ -299,11 +292,9 @@ async function loadFlowBundle(
   // Guard against an oversized body before parsing.
   const lenHeader = parseInt(res.headers.get('content-length') ?? '', 10);
   if (Number.isFinite(lenHeader) && lenHeader > MAX_BUNDLE_BYTES) {
-    return c.json(
-      { error: 'Attack Flow bundle too large', source: SOURCE, source_url: SOURCE_URL },
-      502,
-      { 'Cache-Control': 'no-store' }
-    );
+    return c.json({ error: 'Attack Flow bundle too large', source: SOURCE, source_url: SOURCE_URL }, 502, {
+      'Cache-Control': 'no-store',
+    });
   }
 
   let parsed: { type?: unknown; id?: unknown; spec_version?: unknown; objects?: unknown };
@@ -311,16 +302,12 @@ async function loadFlowBundle(
     parsed = (await res.json()) as typeof parsed;
   } catch (_catchErr) {
     console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    return c.json(
-      { error: 'Attack Flow bundle not valid JSON', source: SOURCE, source_url: SOURCE_URL },
-      502,
-      { 'Cache-Control': 'no-store' }
-    );
+    return c.json({ error: 'Attack Flow bundle not valid JSON', source: SOURCE, source_url: SOURCE_URL }, 502, {
+      'Cache-Control': 'no-store',
+    });
   }
 
-  const rawObjects = Array.isArray(parsed.objects)
-    ? (parsed.objects as unknown[]).slice(0, MAX_BUNDLE_OBJECTS)
-    : [];
+  const rawObjects = Array.isArray(parsed.objects) ? (parsed.objects as unknown[]).slice(0, MAX_BUNDLE_OBJECTS) : [];
   const objects = rawObjects.map((o) => (o ?? {}) as Record<string, unknown>);
 
   const body: FlowBundleResponse = {
@@ -379,11 +366,9 @@ export async function attackFlowLibraryHandler(c: Context<{ Bindings: Env }>): P
       full.flows.find((f) => f.name.toLowerCase() === wanted) ??
       full.flows.find((f) => f.filename.toLowerCase() === wanted);
     if (!entry) {
-      return c.json(
-        { error: 'flow not found', flow: flowParam, source: SOURCE, source_url: SOURCE_URL },
-        404,
-        { 'Cache-Control': 'no-store' }
-      );
+      return c.json({ error: 'flow not found', flow: flowParam, source: SOURCE, source_url: SOURCE_URL }, 404, {
+        'Cache-Control': 'no-store',
+      });
     }
     return loadFlowBundle(c, entry);
   }

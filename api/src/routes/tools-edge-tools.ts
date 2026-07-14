@@ -30,7 +30,8 @@ toolsRouter.get('/tools', async (c) => {
     const idx = await mod.loadToolsIndex(c.env.ASSETS);
     const category = c.req.query('category') as string | undefined;
     const keyword = c.req.query('q');
-    const offensive = c.req.query('offensive') === 'true' ? true : c.req.query('offensive') === 'false' ? false : undefined;
+    const offensive =
+      c.req.query('offensive') === 'true' ? true : c.req.query('offensive') === 'false' ? false : undefined;
     const limit = c.req.query('limit') ? Math.min(200, Math.max(1, Number(c.req.query('limit')))) : undefined;
     const results = mod.listTools(idx, { category: category as any, keyword, offensive, limit });
     return c.json({ count: results.length, tools: results });

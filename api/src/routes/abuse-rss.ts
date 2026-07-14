@@ -25,9 +25,7 @@ function escapeXml(s: string): string {
 function entryToItem(entry: IocEntry, sourceName: string, siteUrl: string): string {
   const title = `${entry.type.toUpperCase()}: ${entry.value}`;
   const link =
-    entry.type === 'url'
-      ? entry.value
-      : `${siteUrl}/dfir/ioc-check?indicator=${encodeURIComponent(entry.value)}`;
+    entry.type === 'url' ? entry.value : `${siteUrl}/dfir/ioc-check?indicator=${encodeURIComponent(entry.value)}`;
   const description = entry.context ?? `${sourceName} ${entry.type}`;
   const guid = `${sourceName}:${entry.value}`;
   const pubDate = entry.timestamp

@@ -191,9 +191,7 @@ export async function k8sCveHandler(c: Context<{ Bindings: Env }>): Promise<Resp
     if (res.ok) {
       const data = (await res.json()) as { items?: unknown };
       const rawItems = Array.isArray(data.items) ? data.items.slice(0, MAX_ITEMS) : [];
-      const items = rawItems
-        .map((r) => normalizeItem((r ?? {}) as Record<string, unknown>))
-        .filter((i) => i.id);
+      const items = rawItems.map((r) => normalizeItem((r ?? {}) as Record<string, unknown>)).filter((i) => i.id);
       full = {
         source: SOURCE,
         source_url: SOURCE_URL,

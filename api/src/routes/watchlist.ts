@@ -200,9 +200,7 @@ export async function watchlistDigestGenerateHandler(c: Context<{ Bindings: Env 
 
     // Load watched actors
     const rows = await db
-      .prepare(
-        `SELECT id, actor_name, target_sectors FROM actor_watchlist WHERE active = 1 ORDER BY created_at DESC`
-      )
+      .prepare(`SELECT id, actor_name, target_sectors FROM actor_watchlist WHERE active = 1 ORDER BY created_at DESC`)
       .all<{ id: string; actor_name: string; target_sectors: string }>();
 
     const actors = rows.results ?? [];
@@ -210,24 +208,32 @@ export async function watchlistDigestGenerateHandler(c: Context<{ Bindings: Env 
 
     for (const row of actors) {
       const sectors = JSON.parse(row.target_sectors) as string[];
-      const sectorMatch = estateSector && sectors.length > 0
-        ? sectors.some((s) => s.toLowerCase() === estateSector.toLowerCase())
-        : sectors.length === 0; // wildcard match if no sectors specified
+      const sectorMatch =
+        estateSector && sectors.length > 0
+          ? sectors.some((s) => s.toLowerCase() === estateSector.toLowerCase())
+          : sectors.length === 0; // wildcard match if no sectors specified
 
       if (!sectorMatch) continue;
 
-      const activity = await kv.get(`actor:news:${row.actor_name}`, 'json').catch(() => null) as
-        | Array<{ title: string; url: string; date: string }>
-        | null;
+      const activity = (await kv.get(`actor:news:${row.actor_name}`, 'json').catch(() => null)) as Array<{
+        title: string;
+        url: string;
+        date: string;
+      }> | null;
 
-      const victims = await kv.get(`ransomware:actor:${row.actor_name}`, 'json').catch(() => null) as
-        | Array<{ victim: string; date: string; country: string }>
-        | null;
+      const victims = (await kv.get(`ransomware:actor:${row.actor_name}`, 'json').catch(() => null)) as Array<{
+        victim: string;
+        date: string;
+        country: string;
+      }> | null;
 
       entries.push({
         actor: row.actor_name,
         sector: estateSector || 'unknown',
-        activity: (activity ?? []).slice(0, 10).map((a) => a.title).join('; '),
+        activity: (activity ?? [])
+          .slice(0, 10)
+          .map((a) => a.title)
+          .join('; '),
         victims: (victims ?? []).length,
         sources: ['actor:news', 'ransomware:actor'],
       });
@@ -268,7 +274,7 @@ export async function watchlistDigestsListHandler(c: Context<{ Bindings: Env }>)
     const listed = await kv.list<unknown>({ prefix: 'digest:weekly:', limit: 20 });
     const digests = await Promise.all(
       listed.keys.map(async (key) => {
-        const val = await kv.get(key.name, 'json').catch(() => null) as DigestResult | null;
+        const val = (await kv.get(key.name, 'json').catch(() => null)) as DigestResult | null;
         return val;
       })
     );
@@ -316,9 +322,7 @@ function getIsoWeek(date: Date): string {
  */
 export async function runWeeklyWatchlistDigest(db: D1Database, kv: KVNamespace): Promise<void> {
   try {
-    const count = await db
-      .prepare('SELECT COUNT(*) as c FROM actor_watchlist WHERE active = 1')
-      .first<{ c: number }>();
+    const count = await db.prepare('SELECT COUNT(*) as c FROM actor_watchlist WHERE active = 1').first<{ c: number }>();
     if (!count || count.c === 0) {
       console.log('watchlist-digest: no active actors — skip');
       return;
@@ -327,29 +331,40 @@ export async function runWeeklyWatchlistDigest(db: D1Database, kv: KVNamespace):
     // Generate the digest by calling the generation logic inline
     const now = new Date();
     const isoWeek = getIsoWeek(now);
-    const estateRow = await db.prepare('SELECT sector FROM estate_config WHERE id = ?').bind('default').first<{ sector: string }>();
+    const estateRow = await db
+      .prepare('SELECT sector FROM estate_config WHERE id = ?')
+      .bind('default')
+      .first<{ sector: string }>();
     const estateSector = estateRow?.sector ?? '';
 
     const rows = await db
-      .prepare("SELECT id, actor_name, target_sectors FROM actor_watchlist WHERE active = 1")
+      .prepare('SELECT id, actor_name, target_sectors FROM actor_watchlist WHERE active = 1')
       .all<{ id: string; actor_name: string; target_sectors: string }>();
 
     const entries: DigestEntry[] = [];
     for (const row of rows.results ?? []) {
       const sectors = JSON.parse(row.target_sectors) as string[];
-      const sectorMatch = estateSector && sectors.length > 0
-        ? sectors.some((s) => s.toLowerCase() === estateSector.toLowerCase())
-        : sectors.length === 0;
+      const sectorMatch =
+        estateSector && sectors.length > 0
+          ? sectors.some((s) => s.toLowerCase() === estateSector.toLowerCase())
+          : sectors.length === 0;
 
       if (!sectorMatch && estateSector) continue;
 
-      const activity = await kv.get(`actor:news:${row.actor_name}`, 'json').catch(() => null) as Array<{ title: string }> | null;
-      const victims = await kv.get(`ransomware:actor:${row.actor_name}`, 'json').catch(() => null) as Array<unknown> | null;
+      const activity = (await kv.get(`actor:news:${row.actor_name}`, 'json').catch(() => null)) as Array<{
+        title: string;
+      }> | null;
+      const victims = (await kv
+        .get(`ransomware:actor:${row.actor_name}`, 'json')
+        .catch(() => null)) as Array<unknown> | null;
 
       entries.push({
         actor: row.actor_name,
         sector: estateSector || 'unknown',
-        activity: (activity ?? []).slice(0, 10).map((a) => a.title).join('; '),
+        activity: (activity ?? [])
+          .slice(0, 10)
+          .map((a) => a.title)
+          .join('; '),
         victims: (victims ?? []).length,
         sources: ['actor:news', 'ransomware:actor'],
       });

@@ -571,7 +571,10 @@ export async function emailOsnitBulkHandler(c: Context<{ Bindings: Env }>): Prom
         const res = await fetch(`http://localhost/api/v1/email-osnit/profile?email=${encodeURIComponent(email)}`);
         return await res.json();
       } catch (_catchErr) {
-        console.error('emailOsnitBulkHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        console.error(
+          'emailOsnitBulkHandler failed:',
+          _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+        );
         return { email, error: 'lookup failed' };
       }
     })

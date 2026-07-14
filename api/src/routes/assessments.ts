@@ -186,7 +186,10 @@ export async function assessmentDetailHandler(c: Context<{ Bindings: Env }>): Pr
         const r = await cache.match(new Request(cacheKey));
         if (r) return c.json((await r.json()) as Assessment);
       } catch (_catchErr) {
-        console.error('assessmentDetailHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        console.error(
+          'assessmentDetailHandler failed:',
+          _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+        );
         /* fall through */
       }
     }

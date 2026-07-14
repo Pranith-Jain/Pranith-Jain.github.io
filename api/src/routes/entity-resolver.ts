@@ -76,7 +76,10 @@ export async function entityProfileHandler(c: Context<{ Bindings: Env }>): Promi
         const profile = await buildEntityProfile(entity);
         results.push({ query: id, entity, profile });
       } catch (_catchErr) {
-        console.error('entityProfileHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        console.error(
+          'entityProfileHandler failed:',
+          _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+        );
         results.push({ query: id, error: 'resolution_failed' });
       }
     }

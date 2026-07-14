@@ -1012,11 +1012,8 @@ export async function fetchXSearchPosts(
     readAuthCookies(env);
   } catch (e) {
     authed = false;
-    if (e instanceof XAuthMissingError) {
-      console.warn('X search auth not configured — skipping X search');
-    } else {
-      console.warn(`X search auth error: ${e instanceof Error ? e.message : e} — skipping X search`);
-    }
+    const errMsg = e instanceof Error ? e.message : String(e);
+    console.warn(JSON.stringify({ job: 'x-search', status: 'auth_error', error: errMsg }));
     return posts;
   }
 
@@ -1044,7 +1041,6 @@ export async function fetchXSearchPosts(
         });
       }
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
       if (e instanceof XAuthMissingError) break;
       if (e instanceof XAuthInvalidError) {
         searchErrors.push(`X search auth rejected (HTTP ${e.status})`);
@@ -1061,7 +1057,9 @@ export async function fetchXSearchPosts(
       searchErrors.push(`X search query failed: ${e instanceof Error ? e.message : e}`);
     }
   }
-  if (searchErrors.length > 0) console.warn(searchErrors.join('; '));
+  if (searchErrors.length > 0) {
+    console.warn(JSON.stringify({ job: 'x-search', errors: searchErrors }));
+  }
   return posts;
 }
 
@@ -1287,12 +1285,15 @@ function xFeedItemToRawPost(item: XFeedItem): RawPost | null {
  * Fetch Telegram breach/leak feed. When `items` is supplied (reused from the
  * cron's earlier fetch) no new t.me request is made — see CyberPulsePrefetch.
  */
-async function fetchTelegramBreachFeed(kv?: KVNamespace, items?: TelegramFeedItem[]): Promise<RawPost[]> {
+async function fetchTelegramBreachFeed(kv?: KVNamespace, items?: TelegramFeedItem[], env?: Env): Promise<RawPost[]> {
   try {
-    const feedItems = items ?? (await fetchTelegramFeed(kv)).items;
+    const feedItems = items ?? (await fetchTelegramFeed(kv, env)).items;
     return feedItems.map(telegramItemToRawPost).filter((p): p is RawPost => p !== null);
   } catch (_catchErr) {
-    console.error('fetchTelegramBreachFeed failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    console.error(
+      'fetchTelegramBreachFeed failed:',
+      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+    );
     return [];
   }
 }
@@ -1520,7 +1521,7 @@ export async function runCyberPulseIngestion(
   // ── 3. Telegram breach/leak channels ─────────────────────────────────
   const tgStart = Date.now();
   try {
-    const tgPosts = await fetchTelegramBreachFeed(env.KV_CACHE, prefetched.telegramItems);
+    const tgPosts = await fetchTelegramBreachFeed(env.KV_CACHE, prefetched.telegramItems, env);
     let created = 0;
     let deduped = 0;
     const incidents: CyberPulseIncident[] = [];

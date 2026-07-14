@@ -88,7 +88,10 @@ export async function intodnsSnapshotHandler(c: Context<{ Bindings: Env }>): Pro
         return new Response(cached.body, { status: 200, headers });
       }
     } catch (_catchErr) {
-      console.error('intodnsSnapshotHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      console.error(
+        'intodnsSnapshotHandler failed:',
+        _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+      );
       // Cache miss / corruption is non-fatal — fall through to upstream.
     }
   }
@@ -224,7 +227,10 @@ export async function intodnsExplainHandler(c: Context<{ Bindings: Env }>): Prom
         );
       }
     } catch (_catchErr) {
-      console.error('intodnsExplainHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      console.error(
+        'intodnsExplainHandler failed:',
+        _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+      );
       // fall through
     }
   }

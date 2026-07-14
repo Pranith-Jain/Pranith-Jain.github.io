@@ -21,16 +21,7 @@ interface SourceConfig {
   label: string;
   repo: string; // owner/name
   type:
-    | 'Sigma'
-    | 'YARA'
-    | 'Elastic'
-    | 'Splunk SPL'
-    | 'KQL'
-    | 'Suricata'
-    | 'Snort'
-    | 'PowerShell'
-    | 'DLP'
-    | 'Supply chain';
+    'Sigma' | 'YARA' | 'Elastic' | 'Splunk SPL' | 'KQL' | 'Suricata' | 'Snort' | 'PowerShell' | 'DLP' | 'Supply chain';
   description: string;
   rules_path: string; // path within the repo where rules live (for direct browse link)
   homepage?: string;

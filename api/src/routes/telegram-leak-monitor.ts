@@ -813,7 +813,7 @@ export async function telegramLeakScanTriggerHandler(c: Context<{ Bindings: Env 
   if (!db) return c.json({ error: 'D1 not configured' }, 500);
 
   try {
-    const feed = await fetchTelegramFeed(kv);
+    const feed = await fetchTelegramFeed(kv, c.env);
     if (!feed?.items?.length) return c.json({ error: 'no feed items', feed_items: 0 });
     const result = await runTelegramLeakScanner(db, feed.items);
     return c.json({
@@ -854,7 +854,10 @@ export async function telegramLeakGeoHandler(c: Context<{ Bindings: Env }>): Pro
           }
         }
       } catch (_catchErr) {
-        console.error('telegramLeakGeoHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        console.error(
+          'telegramLeakGeoHandler failed:',
+          _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+        );
         /* skip malformed json */
       }
     }

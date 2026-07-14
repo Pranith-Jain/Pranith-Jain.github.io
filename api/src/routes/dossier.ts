@@ -66,7 +66,7 @@ export async function dossierHandler(c: Context<{ Bindings: Env }>): Promise<Res
     if (!query) return badRequest(c, 'query is required');
     if (query.length > 500) return badRequest(c, 'query too long (max 500 chars)');
 
-    const queryType = body.queryType ?? detectType(query) as string;
+    const queryType = body.queryType ?? (detectType(query) as string);
     const entity = classifyEntity(query, queryType);
 
     // Early return for CVE — we can enrich directly from KV cache
@@ -175,22 +175,27 @@ async function buildCveDossier(c: Context<{ Bindings: Env }>, entity: DossierEnt
   if (kev?.in_kev) entities.push('cisa_kev: listed');
   if ((data as Record<string, unknown>).exploit_poc) entities.push('poc: available');
 
-  const iocs: ExtractedIoc[] = [{ value: entity.value, kind: 'cve', confidence: 85, confidence_band: 'high', evidence: 'CVE identifier', source: 'report-text' }];
+  const iocs: ExtractedIoc[] = [
+    {
+      value: entity.value,
+      kind: 'cve',
+      confidence: 85,
+      confidence_band: 'high',
+      evidence: 'CVE identifier',
+      source: 'report-text',
+    },
+  ];
 
-  const diamond = buildDiamondModel(
-    { actors: [], malware: [] },
-    [],
-    iocs,
-    fiveW,
-    rawText
-  );
+  const diamond = buildDiamondModel({ actors: [], malware: [] }, [], iocs, fiveW, rawText);
 
   const enrichment: EnrichmentResult = {
     entity,
     rawText,
     sources: ['kv-cache'],
     scores: {
-      severity: ((cvss as Record<string, unknown>)?.severity as string)?.toLowerCase() as 'critical' | 'high' | 'medium' | 'low' | 'info' ?? 'medium',
+      severity:
+        (((cvss as Record<string, unknown>)?.severity as string)?.toLowerCase() as
+          'critical' | 'high' | 'medium' | 'low' | 'info') ?? 'medium',
       confidence: epss?.score ? Math.round(Number(epss.score) * 100) : 50,
       malicious: kev?.in_kev === true,
     },
@@ -211,10 +216,7 @@ async function buildCveDossier(c: Context<{ Bindings: Env }>, entity: DossierEnt
   return c.json(dossier);
 }
 
-async function enrichEntity(
-  c: Context<{ Bindings: Env }>,
-  entity: DossierEntity
-): Promise<EnrichmentResult | null> {
+async function enrichEntity(c: Context<{ Bindings: Env }>, entity: DossierEntity): Promise<EnrichmentResult | null> {
   const kv = c.env.KV_CACHE;
   const parts: string[] = [];
   const sources: string[] = [];
@@ -236,7 +238,7 @@ async function enrichEntity(
       { headers: { 'x-internal-agent': 'true' } }
     );
     if (searchRes.ok) {
-      const searchData = await searchRes.json() as { results?: unknown[] };
+      const searchData = (await searchRes.json()) as { results?: unknown[] };
       if (searchData.results?.length) {
         parts.push(JSON.stringify(searchData.results.slice(0, 3)));
         sources.push('unified-search');
@@ -263,35 +265,31 @@ function buildDiamondModelFromEnrichment(
   fiveW: FiveW | null
 ): DiamondModel | null {
   try {
-    const iocs: ExtractedIoc[] = [{
-      value: entity.value,
-      kind: entity.type === 'ip' ? 'ip' : entity.type === 'domain' ? 'domain' : entity.type === 'hash' ? 'hash' : 'cve',
-      confidence: 80,
-      confidence_band: 'high',
-      evidence: enrichment.sources.join(', '),
-      source: 'report-text',
-    }];
+    const iocs: ExtractedIoc[] = [
+      {
+        value: entity.value,
+        kind:
+          entity.type === 'ip' ? 'ip' : entity.type === 'domain' ? 'domain' : entity.type === 'hash' ? 'hash' : 'cve',
+        confidence: 80,
+        confidence_band: 'high',
+        evidence: enrichment.sources.join(', '),
+        source: 'report-text',
+      },
+    ];
 
     const actors: string[] = entity.type === 'actor' || entity.type === 'ransomware' ? [entity.value] : [];
 
-    return buildDiamondModel(
-      { actors, malware: [] },
-      [],
-      iocs,
-      fiveW,
-      enrichment.rawText
-    );
+    return buildDiamondModel({ actors, malware: [] }, [], iocs, fiveW, enrichment.rawText);
   } catch (_catchErr) {
-    console.error('buildDiamondModelFromEnrichment failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    console.error(
+      'buildDiamondModelFromEnrichment failed:',
+      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+    );
     return null;
   }
 }
 
-function buildMinimalDossier(
-  entity: DossierEntity,
-  query: string,
-  note: string
-): DossierResponse {
+function buildMinimalDossier(entity: DossierEntity, query: string, note: string): DossierResponse {
   return {
     entity,
     fiveW: null,

@@ -784,11 +784,17 @@ async function writeRansomwareLastGood(env: Env, body: ResponseBody): Promise<vo
         })
       );
     } catch (_catchErr) {
-      console.error('writeRansomwareLastGood failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      console.error(
+        'writeRansomwareLastGood failed:',
+        _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+      );
       /* best-effort shadow */
     }
   } catch (_catchErr) {
-    console.error('writeRansomwareLastGood failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    console.error(
+      'writeRansomwareLastGood failed:',
+      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+    );
     /* non-fatal */
   }
 }
@@ -814,7 +820,10 @@ async function readRansomwareLastGood(env: Env): Promise<ResponseBody | null> {
           })
         );
       } catch (_catchErr) {
-        console.error('readRansomwareLastGood failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        console.error(
+          'readRansomwareLastGood failed:',
+          _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+        );
         /* best-effort shadow */
       }
       return lg;
@@ -940,7 +949,10 @@ export async function ransomwareRecentHandler(c: Context<{ Bindings: Env }>): Pr
               await writeRansomwareLastGood(c.env, body);
             }
           } catch (_catchErr) {
-            console.error('ransomwareRecentHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+            console.error(
+              'ransomwareRecentHandler failed:',
+              _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+            );
             /* non-fatal */
           }
         })()

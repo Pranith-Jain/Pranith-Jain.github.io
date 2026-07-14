@@ -260,6 +260,52 @@ function rssUrl(spec: HandleSpec): string {
   return `https://${instance}/@${encodeURIComponent(spec.handle)}.rss`;
 }
 
+/** Fetch Bluesky posts via the AT Protocol (public, keyless) API.
+ *  Fallback when the deprecated RSS endpoint returns stale/empty data. */
+async function fetchBlueskyApi(spec: HandleSpec): Promise<{ ok: boolean; items: XFeedItem[] }> {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
+  try {
+    const url = `https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=${encodeURIComponent(spec.handle)}&limit=${MAX_POSTS_PER_HANDLE}`;
+    const r = await fetch(url, {
+      signal: ctrl.signal,
+      headers: { accept: 'application/json' },
+    });
+    clearTimeout(timer);
+    if (!r.ok) return { ok: false, items: [] };
+    const body = (await r.json()) as {
+      feed?: Array<{
+        post: {
+          uri: string;
+          author: { handle: string; displayName?: string };
+          record: { text: string; createdAt: string; embed?: unknown };
+          likeCount?: number;
+          repostCount?: number;
+          replyCount?: number;
+        };
+      }>;
+    };
+    if (!body.feed) return { ok: false, items: [] };
+    const items: XFeedItem[] = body.feed
+      .filter((f) => f.post?.record?.text && f.post?.uri)
+      .map((f) => ({
+        handle: spec.handle,
+        handle_name: spec.name,
+        handle_topic: spec.topic,
+        handle_blurb: spec.blurb,
+        platform: 'bluesky' as Platform,
+        text: (f.post.record.text || '').slice(0, MAX_TEXT_LEN),
+        link: f.post.uri,
+        pub_date: f.post.record.createdAt,
+      }));
+    return { ok: items.length > 0, items };
+  } catch (_catchErr) {
+    console.error('bsky-api failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    clearTimeout(timer);
+    return { ok: false, items: [] };
+  }
+}
+
 async function fetchHandle(spec: HandleSpec): Promise<{ ok: boolean; items: XFeedItem[] }> {
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
@@ -274,28 +320,35 @@ async function fetchHandle(spec: HandleSpec): Promise<{ ok: boolean; items: XFee
       cf: { cacheTtl: 1800, cacheEverything: true },
     });
     clearTimeout(timer);
-    if (!r.ok) return { ok: false, items: [] };
-    const body = await r.text();
-    if (!body.includes('<rss') && !body.includes('<channel>')) return { ok: false, items: [] };
-    const parsed = parseRssItems(body).slice(0, MAX_POSTS_PER_HANDLE);
-    const items: XFeedItem[] = parsed
-      .filter((p) => p.link)
-      .map((p) => ({
-        handle: spec.handle,
-        handle_name: spec.name,
-        handle_topic: spec.topic,
-        handle_blurb: spec.blurb,
-        platform: spec.platform,
-        // Bluesky lacks <title>, only <description>. Mastodon has the post
-        // text in <description>. Prefer description; fall back to title.
-        text: (p.description || p.title || '').slice(0, MAX_TEXT_LEN),
-        link: p.link,
-        pub_date: p.pub_date,
-      }));
-    return { ok: items.length > 0, items };
+    if (r.ok) {
+      const body = await r.text();
+      if (body.includes('<rss') || body.includes('<channel>')) {
+        const parsed = parseRssItems(body).slice(0, MAX_POSTS_PER_HANDLE);
+        const items: XFeedItem[] = parsed
+          .filter((p) => p.link)
+          .map((p) => ({
+            handle: spec.handle,
+            handle_name: spec.name,
+            handle_topic: spec.topic,
+            handle_blurb: spec.blurb,
+            platform: spec.platform,
+            text: (p.description || p.title || '').slice(0, MAX_TEXT_LEN),
+            link: p.link,
+            pub_date: p.pub_date,
+          }));
+        return { ok: items.length > 0, items };
+      }
+    }
+    // RSS failed or returned empty — try AT Protocol API for Bluesky
+    if (spec.platform === 'bluesky') {
+      return fetchBlueskyApi(spec);
+    }
+    return { ok: false, items: [] };
   } catch (_catchErr) {
     console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     clearTimeout(timer);
+    // Last-resort fallback for Bluesky
+    if (spec.platform === 'bluesky') return fetchBlueskyApi(spec);
     return { ok: false, items: [] };
   }
 }

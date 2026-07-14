@@ -82,7 +82,7 @@ async function fetchInternetDB(ip: string): Promise<InternetDBResponse | null> {
       { attempts: 2, timeoutMs: 5000 }
     );
     if (!res.ok) return null;
-    return await res.json() as InternetDBResponse;
+    return (await res.json()) as InternetDBResponse;
   } catch (_catchErr) {
     console.error('fetchInternetDB failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
@@ -107,7 +107,7 @@ async function fetchIpApi(ip: string): Promise<IpApiResponse | null> {
       { attempts: 2, timeoutMs: 5000 }
     );
     if (!res.ok) return null;
-    const data = await res.json() as IpApiResponse;
+    const data = (await res.json()) as IpApiResponse;
     return data.status === 'success' ? data : null;
   } catch (_catchErr) {
     console.error('fetchIpApi failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
@@ -115,7 +115,9 @@ async function fetchIpApi(ip: string): Promise<IpApiResponse | null> {
   }
 }
 
-async function fetchSpur(ip: string): Promise<{ isVpn: boolean; isTor: boolean; isProxy: boolean; isHosting: boolean; service?: string } | null> {
+async function fetchSpur(
+  ip: string
+): Promise<{ isVpn: boolean; isTor: boolean; isProxy: boolean; isHosting: boolean; service?: string } | null> {
   try {
     const res = await fetchResilient(
       `https://api.spur.us/v2/context/${encodeURIComponent(ip)}`,
@@ -123,7 +125,13 @@ async function fetchSpur(ip: string): Promise<{ isVpn: boolean; isTor: boolean; 
       { attempts: 2, timeoutMs: 5000 }
     );
     if (!res.ok) return null;
-    const data = await res.json() as { vpn?: boolean; tor?: boolean; proxy?: boolean; hosting?: boolean; client?: { proxy?: string } };
+    const data = (await res.json()) as {
+      vpn?: boolean;
+      tor?: boolean;
+      proxy?: boolean;
+      hosting?: boolean;
+      client?: { proxy?: string };
+    };
     return {
       isVpn: data.vpn ?? false,
       isTor: data.tor ?? false,
@@ -142,17 +150,39 @@ async function fetchSpur(ip: string): Promise<{ isVpn: boolean; isTor: boolean; 
 /** Common port-to-protocol mapping. Hoisted to module scope to avoid
  *  allocating a new object on every request. */
 const KNOWN_PROTOCOLS: Record<number, string> = {
-  21: 'ftp', 22: 'ssh', 23: 'telnet', 25: 'smtp', 53: 'dns',
-  80: 'http', 110: 'pop3', 143: 'imap', 443: 'https', 445: 'smb',
-  993: 'imaps', 995: 'pop3s', 1433: 'mssql', 3306: 'mysql',
-  3389: 'rdp', 5432: 'postgresql', 5900: 'vnc', 6379: 'redis',
-  8080: 'http-alt', 8443: 'https-alt', 27017: 'mongodb',
-  9200: 'elasticsearch', 11211: 'memcached', 2375: 'docker',
-  2376: 'docker-tls', 10250: 'kubelet', 6443: 'kubernetes-api',
+  21: 'ftp',
+  22: 'ssh',
+  23: 'telnet',
+  25: 'smtp',
+  53: 'dns',
+  80: 'http',
+  110: 'pop3',
+  143: 'imap',
+  443: 'https',
+  445: 'smb',
+  993: 'imaps',
+  995: 'pop3s',
+  1433: 'mssql',
+  3306: 'mysql',
+  3389: 'rdp',
+  5432: 'postgresql',
+  5900: 'vnc',
+  6379: 'redis',
+  8080: 'http-alt',
+  8443: 'https-alt',
+  27017: 'mongodb',
+  9200: 'elasticsearch',
+  11211: 'memcached',
+  2375: 'docker',
+  2376: 'docker-tls',
+  10250: 'kubelet',
+  6443: 'kubernetes-api',
 };
 
 /** Ports commonly associated with insecure or exploitable services. */
-const RISKY_PORTS = new Set([21, 23, 445, 1433, 3306, 3389, 5432, 5900, 6379, 8080, 9200, 11211, 2375, 2376, 10250, 6443]);
+const RISKY_PORTS = new Set([
+  21, 23, 445, 1433, 3306, 3389, 5432, 5900, 6379, 8080, 9200, 11211, 2375, 2376, 10250, 6443,
+]);
 
 /** Tags that indicate malicious activity. */
 const C2_TAGS = ['c2', 'malware', 'botnet', 'scanner', 'spam', 'brute-force'];
@@ -181,11 +211,7 @@ export async function exposedHostHandler(c: Context<{ Bindings: Env }>): Promise
 
   try {
     // Fetch all sources in parallel
-    const [internetDB, ipApi, spur] = await Promise.all([
-      fetchInternetDB(ip),
-      fetchIpApi(ip),
-      fetchSpur(ip),
-    ]);
+    const [internetDB, ipApi, spur] = await Promise.all([fetchInternetDB(ip), fetchIpApi(ip), fetchSpur(ip)]);
 
     if (internetDB) sources.push('shodan-internetdb');
     if (ipApi) sources.push('ip-api');
@@ -198,10 +224,12 @@ export async function exposedHostHandler(c: Context<{ Bindings: Env }>): Promise
     }));
 
     // Build vulns list with CVSS scores
-    const vulns = Object.entries(internetDB?.vulns ?? {}).map(([id, data]) => ({
-      id,
-      cvss: data.cvss,
-    })).sort((a, b) => (b.cvss ?? 0) - (a.cvss ?? 0));
+    const vulns = Object.entries(internetDB?.vulns ?? {})
+      .map(([id, data]) => ({
+        id,
+        cvss: data.cvss,
+      }))
+      .sort((a, b) => (b.cvss ?? 0) - (a.cvss ?? 0));
 
     // Detect risky ports
     const hasRiskyPorts = protocols.some((p) => RISKY_PORTS.has(p.port));

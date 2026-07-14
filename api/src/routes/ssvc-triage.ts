@@ -43,21 +43,25 @@ async function enrichCve(cveId: string, env: Env): Promise<EnrichedCve | null> {
 
   try {
     // Try KV fast-path first
-    const cached = await kv.get(`cve:${id}`, 'json').catch(() => null) as Record<string, unknown> | null;
+    const cached = (await kv.get(`cve:${id}`, 'json').catch(() => null)) as Record<string, unknown> | null;
     const data = cached ?? {};
 
     const cvssScore = ((data.cvss as Record<string, unknown>)?.score as number) ?? null;
     const epssScore = ((data.epss as Record<string, unknown>)?.score as number) ?? null;
     const kevData = data.kev as Record<string, unknown> | undefined;
     const cisaKev = kevData?.in_kev === true;
-    const kevDate = cisaKev ? (kevData?.date_added as string) ?? null : null;
-    const ransomwareUse = kevData?.known_ransomware === true || data.ransomware_use === 'Known' || data.ransomware_use === 'Suspected';
+    const kevDate = cisaKev ? ((kevData?.date_added as string) ?? null) : null;
+    const ransomwareUse =
+      kevData?.known_ransomware === true || data.ransomware_use === 'Known' || data.ransomware_use === 'Suspected';
     const exploitStatusRaw = (data.exploit_status as string) ?? null;
     const exploitStatus: 'active' | 'poc' | 'none' | null =
-      exploitStatusRaw === 'in-the-wild' ? 'active'
-        : exploitStatusRaw === 'weaponized' || exploitStatusRaw === 'poc-public' ? 'poc'
-        : cisaKev ? 'active'
-        : null;
+      exploitStatusRaw === 'in-the-wild'
+        ? 'active'
+        : exploitStatusRaw === 'weaponized' || exploitStatusRaw === 'poc-public'
+          ? 'poc'
+          : cisaKev
+            ? 'active'
+            : null;
 
     const accessVector = (data.cvss as Record<string, unknown>)?.accessVector as string | undefined;
     const isPublicFacing: boolean | null = accessVector === 'NETWORK' ? true : accessVector ? true : null;
@@ -117,9 +121,7 @@ export async function ssvcTriageHandler(c: Context<{ Bindings: Env }>): Promise<
     if (alertIds.length > 0 && db) {
       const placeholders = alertIds.map(() => '?').join(',');
       const rows = await db
-        .prepare(
-          `SELECT id, title, source_url FROM alert_feeds WHERE id IN (${placeholders})`
-        )
+        .prepare(`SELECT id, title, source_url FROM alert_feeds WHERE id IN (${placeholders})`)
         .bind(...alertIds)
         .all<{ id: string; title: string; source_url: string }>();
 
@@ -189,13 +191,7 @@ export async function ssvcTriageHandler(c: Context<{ Bindings: Env }>): Promise<
       );
 
       for (const a of alertsToUpdate) {
-        await stmt
-          .bind(
-            JSON.stringify(a.ssvc),
-            ssvcDecisionToSeverity(a.ssvc.decision),
-            a.alert_id
-          )
-          .run();
+        await stmt.bind(JSON.stringify(a.ssvc), ssvcDecisionToSeverity(a.ssvc.decision), a.alert_id).run();
       }
     }
 

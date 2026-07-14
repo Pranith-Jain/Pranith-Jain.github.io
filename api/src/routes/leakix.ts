@@ -23,15 +23,19 @@ export async function leakIxSearchHandler(c: Context<{ Bindings: Env }>): Promis
   try {
     const res = await fetch(`https://leakix.net/search?q=${encodeURIComponent(q)}`, {
       headers: {
-        'accept': 'application/json',
+        accept: 'application/json',
         'user-agent': 'pranithjain.qzz.io DFIR toolkit',
       },
       signal: AbortSignal.timeout(10000),
     });
     if (!res.ok) return c.json({ error: `LeakIX upstream ${res.status}` }, 502);
 
-    const data = await res.json() as LeakIxResult[];
-    const body = JSON.stringify({ count: data.length, results: data.slice(0, 50), generated_at: new Date().toISOString() });
+    const data = (await res.json()) as LeakIxResult[];
+    const body = JSON.stringify({
+      count: data.length,
+      results: data.slice(0, 50),
+      generated_at: new Date().toISOString(),
+    });
     const response = new Response(body, {
       status: 200,
       headers: { 'content-type': 'application/json', 'cache-control': `public, max-age=${CACHE_TTL_SECONDS}` },

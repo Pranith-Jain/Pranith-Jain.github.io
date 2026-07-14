@@ -410,7 +410,10 @@ export async function ironsightPolymarketHandler(c: Context) {
           try {
             outcomes = typeof market.outcomes === 'string' ? JSON.parse(market.outcomes) : market.outcomes || [];
           } catch (_catchErr) {
-            console.error('ironsightPolymarketHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+            console.error(
+              'ironsightPolymarketHandler failed:',
+              _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+            );
             outcomes = [];
           }
           results.push({

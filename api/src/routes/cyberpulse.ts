@@ -280,8 +280,7 @@ export async function cyberpulseIngestHandler(c: Context<{ Bindings: Env }>): Pr
   if ('error' in adminCheck) return adminCheck.error;
 
   const db = (c.env as unknown as Record<string, unknown>).BRIEFINGS_DB as
-    | import('@cloudflare/workers-types').D1Database
-    | undefined;
+    import('@cloudflare/workers-types').D1Database | undefined;
   if (!db) return c.json({ error: 'database not configured' }, 503);
 
   const start = Date.now();

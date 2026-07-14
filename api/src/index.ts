@@ -96,6 +96,8 @@ import {
   telegramCustomChannelsGetHandler,
   telegramCustomChannelsPostHandler,
   telegramCustomChannelsDeleteHandler,
+  telegramBotStatusHandler,
+  telegramBotRegisterHandler,
 } from './routes/telegram-feed';
 import { telegramSearchHandler, telegramChannelMetaHandler } from './routes/telegram-search';
 import { cveRecentHandler } from './routes/cve-recent';
@@ -1234,6 +1236,8 @@ app.post(
   telegramCustomChannelsPostHandler
 );
 app.delete('/api/v1/telegram-custom-channels/:handle', telegramCustomChannelsDeleteHandler);
+app.get('/api/v1/admin/telegram/bot-status', telegramBotStatusHandler);
+app.post('/api/v1/admin/telegram/bot/register', telegramBotRegisterHandler);
 
 // ── Telegram Leak Monitor (Tier 1: t.me scraping) ─────────────────────────
 app.get('/api/v1/telegram-leaks/search', telegramLeakSearchHandler);

@@ -206,10 +206,13 @@ async function warmTelegramCaches(c: Context<{ Bindings: Env }>, body: TelegramF
 /** Fetch the live telegram feed in the background and write to caches. */
 async function warmTelegramCachesFromLive(c: Context<{ Bindings: Env }>): Promise<void> {
   try {
-    const body = await fetchTelegramFeed(c.env.KV_CACHE);
+    const body = await fetchTelegramFeed(c.env.KV_CACHE, c.env);
     await warmTelegramCaches(c, body);
   } catch (_catchErr) {
-    console.error('warmTelegramCachesFromLive failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    console.error(
+      'warmTelegramCachesFromLive failed:',
+      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+    );
     /* best-effort */
   }
 }
@@ -237,7 +240,7 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
               safe(async () => {
                 const warm = await readWarmTelegram(c.env.KV_CACHE);
                 if (warm) return warm;
-                const body = await fetchTelegramFeed();
+                const body = await fetchTelegramFeed(c.env.KV_CACHE, c.env);
                 c.executionCtx.waitUntil(warmTelegramCaches(c, body));
                 return body;
               }),
@@ -323,7 +326,7 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
       // Cold miss: race the live rebuild against the budget timer.
       let bgWarm: Promise<void> | undefined;
       const result = await Promise.race<SourcePayload<unknown>>([
-        fetchTelegramFeed(c.env.KV_CACHE).then((body): SourcePayload<unknown> => {
+        fetchTelegramFeed(c.env.KV_CACHE, c.env).then((body): SourcePayload<unknown> => {
           bgWarm = warmTelegramCaches(c, body);
           return { ok: true, data: body };
         }),

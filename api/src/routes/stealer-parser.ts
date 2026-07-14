@@ -173,7 +173,10 @@ export async function stealerParserHandler(c: Context<{ Bindings: Env }>): Promi
       try {
         body = await c.req.json();
       } catch (_catchErr) {
-        console.error('stealerParserHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        console.error(
+          'stealerParserHandler failed:',
+          _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+        );
         return c.json({ error: 'invalid JSON' }, 400);
       }
       const parsed = stealerParserJsonSchema.safeParse(body);

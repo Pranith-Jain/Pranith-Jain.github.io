@@ -55,7 +55,7 @@ interface ChannelSpec {
   /** What this channel covers — surfaces as a tooltip. */
   blurb: string;
   /** Pill-colour hint so the panel can colour-code by topic. */
-  topic: 'malware' | 'ransomware' | 'hacktivism' | 'osint' | 'news' | 'leaks';
+  topic: 'malware' | 'ransomware' | 'hacktivism' | 'osint' | 'news' | 'leaks' | 'bot-monitored';
 }
 
 /**
@@ -266,33 +266,49 @@ export interface TelegramFeedResponse {
   warnings: string[];
 }
 
-export async function fetchHtml(url: string): Promise<string | null> {
-  const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
-  try {
-    const r = await fetch(url, {
-      signal: ctrl.signal,
-      // Telegram's preview view sometimes 302s if no Accept header is set.
-      headers: {
-        accept: 'text/html,application/xhtml+xml',
-        'accept-language': 'en-US,en;q=0.9',
-        'user-agent': 'Mozilla/5.0 (compatible; pranithjain-dfir/1.0; +https://pranithjain.qzz.io)',
-      },
-      redirect: 'follow',
-    });
-    if (!r.ok) return null;
-    const text = await r.text();
-    // A 200 with the channel-not-found body is still a "miss" — Telegram serves
-    // the homepage HTML instead of a 404 in some cases. Detect by absence of
-    // the message-wrapper marker.
-    if (!text.includes('tgme_widget_message_wrap')) return null;
-    return text;
-  } catch (_catchErr) {
-    console.error('fetchHtml failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    return null;
-  } finally {
-    clearTimeout(timer);
+const BROWSER_UA =
+  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36';
+
+async function fetchWithRetry(url: string): Promise<string | null> {
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
+    try {
+      const ua =
+        attempt === 0 ? 'Mozilla/5.0 (compatible; pranithjain-dfir/1.0; +https://pranithjain.qzz.io)' : BROWSER_UA;
+      const fetchUrl = attempt >= 2 ? `${url}${url.includes('?') ? '&' : '?'}_=${Date.now()}` : url;
+      const r = await fetch(fetchUrl, {
+        signal: ctrl.signal,
+        headers: {
+          accept: 'text/html,application/xhtml+xml',
+          'accept-language': 'en-US,en;q=0.9',
+          'user-agent': ua,
+        },
+        redirect: 'follow',
+      });
+      clearTimeout(timer);
+      if (!r.ok) continue;
+      const text = await r.text();
+      if (!text.includes('tgme_widget_message_wrap')) continue;
+      return text;
+    } catch (_catchErr) {
+      console.error(
+        'fetchHtml attempt %d failed:',
+        attempt,
+        _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+      );
+      clearTimeout(timer);
+    }
   }
+  return null;
+}
+
+export async function fetchHtml(url: string): Promise<string | null> {
+  const result = await fetchWithRetry(url);
+  if (!result) {
+    console.error('fetchHtml: all attempts failed for URL (t.me may be on hold)');
+  }
+  return result;
 }
 
 /**
@@ -435,11 +451,132 @@ function scoreChannel(messages: ParsedMessage[]): ChannelQuality {
 }
 
 /**
+ * Bot-API update schema (subset needed for channel messages).
+ * Telegram Bot API returns channel posts when the bot is admin of the channel.
+ */
+interface BotApiUpdate {
+  update_id: number;
+  channel_post?: {
+    message_id: number;
+    chat: { id: number; username?: string; title: string; type: string };
+    date: number;
+    text?: string;
+    caption?: string;
+    reply_to_message?: { text?: string };
+    forward_from_chat?: { username?: string };
+  };
+}
+
+/**
+ * Poll the Telegram Bot API `getUpdates` endpoint, storing channel messages
+ * in KV so `fetchTelegramFeed` can read them as a fallback when t.me is down.
+ *
+ * Call from the 30-min cron alongside pre-warm. Idempotent; stores at most
+ * the latest 50 messages per channel.
+ */
+export async function pollBotUpdates(env: Env): Promise<void> {
+  if (!env.TELEGRAM_BOT_TOKEN || !env.KV_CACHE) return;
+  const kv = env.KV_CACHE;
+
+  const offsetStr = await kv.get('tg:bot-offset').catch(() => null);
+  const offset = offsetStr ? parseInt(offsetStr, 10) : undefined;
+
+  const url = `https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/getUpdates?timeout=3${
+    offset ? `&offset=${offset}` : ''
+  }`;
+  const r = await fetch(url).catch(() => null);
+  if (!r || !r.ok) return;
+
+  const data = (await r.json().catch(() => null)) as { ok: boolean; result?: BotApiUpdate[] } | null;
+  if (!data?.ok || !data?.result?.length) return;
+
+  let maxId = offset ?? 0;
+  const byChat = new Map<string, BotApiUpdate['channel_post'][]>();
+
+  for (const u of data.result) {
+    if (u.update_id > maxId) maxId = u.update_id + 1;
+    if (!u.channel_post?.chat) continue;
+    if (u.channel_post.chat.type !== 'channel') continue;
+    const cid = String(u.channel_post.chat.id);
+    if (!byChat.has(cid)) byChat.set(cid, []);
+    byChat.get(cid)!.push(u.channel_post);
+  }
+
+  // Build handle→chat_id mapping from channels that have a username.
+  // This is what lets fetchFromBotApiCache look up messages by t.me handle.
+  const existingMap = await getBotChannelMap(kv);
+  let mapChanged = false;
+  for (const [cid, posts] of byChat) {
+    const first = posts[0];
+    if (first?.chat?.username) {
+      const handle = first.chat.username.toLowerCase();
+      if (existingMap.get(handle) !== Number(cid)) {
+        existingMap.set(handle, Number(cid));
+        mapChanged = true;
+      }
+    }
+    const raw = await kv.get(`tg:bot-posts:${cid}`).catch(() => null);
+    const existing: BotApiUpdate['channel_post'][] = raw ? JSON.parse(raw) : [];
+    const merged = [...existing, ...posts].slice(-50);
+    await kv.put(`tg:bot-posts:${cid}`, JSON.stringify(merged));
+  }
+  if (mapChanged) {
+    await kv.put(BOT_CHANNEL_MAP_KEY, JSON.stringify(Object.fromEntries(existingMap)));
+  }
+
+  if (maxId > (offset ?? 0)) {
+    await kv.put('tg:bot-offset', String(maxId));
+  }
+}
+
+/** Mapping between Telegram chat IDs and known channel handles, stored in KV. */
+const BOT_CHANNEL_MAP_KEY = 'tg:bot-channel-map';
+
+/** Read the bot channel map from KV — maps t.me handles → numeric chat IDs. */
+async function getBotChannelMap(kv: KVNamespace): Promise<Map<string, number>> {
+  try {
+    const raw = await kv.get(BOT_CHANNEL_MAP_KEY);
+    if (!raw) return new Map();
+    return new Map(Object.entries(JSON.parse(raw)));
+  } catch {
+    return new Map();
+  }
+}
+
+/**
+ * Try reading a channel's messages from the Bot-API KV cache.
+ * Returns null if no Bot API data exists for the handle's chat ID.
+ */
+async function fetchFromBotApiCache(kv: KVNamespace, handle: string): Promise<ParsedMessage[] | null> {
+  const map = await getBotChannelMap(kv);
+  const chatId = map.get(handle) ?? map.get(handle.toLowerCase());
+  if (!chatId) return null;
+
+  try {
+    const raw = await kv.get(`tg:bot-posts:${chatId}`);
+    if (!raw) return null;
+    const posts: BotApiUpdate['channel_post'][] = JSON.parse(raw);
+    if (!posts.length) return null;
+
+    return posts
+      .filter((p): p is NonNullable<BotApiUpdate['channel_post']> => p != null)
+      .map((p) => ({
+        permalink: `https://t.me/${handle}/${p.message_id}`,
+        datetime: new Date(p.date * 1000).toISOString(),
+        views: undefined,
+        text: (p.text || p.caption || '').slice(0, MAX_TEXT_LEN),
+      }));
+  } catch {
+    return null;
+  }
+}
+
+/**
  * Pure-data fetcher exposed for /api/v1/snapshot. Returns the full payload
  * (no Response wrapping) so the snapshot handler can compose it directly
  * without a worker-internal HTTP call (which Cloudflare 522s on same-worker).
  */
-export async function fetchTelegramFeed(kv?: KVNamespace): Promise<TelegramFeedResponse> {
+export async function fetchTelegramFeed(kv?: KVNamespace, env?: Env): Promise<TelegramFeedResponse> {
   const warnings: string[] = [];
   const channelStatus: TelegramFeedResponse['channels'] = [];
   const allItems: TelegramFeedItem[] = [];
@@ -471,13 +608,24 @@ export async function fetchTelegramFeed(kv?: KVNamespace): Promise<TelegramFeedR
     while (queue.length > 0) {
       const ch = queue.shift();
       if (!ch) return;
+      let messages: ParsedMessage[] = [];
       const html = await fetchHtml(`https://t.me/s/${encodeURIComponent(ch.handle)}`);
-      if (!html) {
-        warnings.push(`could not fetch t.me/s/${ch.handle}`);
+      if (html) {
+        messages = parseChannelHtml(html);
+      }
+      // If t.me scrape failed (or returned no messages), try Bot API KV cache
+      if (messages.length === 0 && kv && env) {
+        const botMsgs = await fetchFromBotApiCache(kv, ch.handle);
+        if (botMsgs) {
+          messages = botMsgs;
+        } else {
+          warnings.push(`could not fetch t.me/s/${ch.handle} (bot-cache miss)`);
+        }
+      }
+      if (messages.length === 0) {
         channelStatus.push({ handle: ch.handle, name: ch.name, topic: ch.topic, ok: false, count: 0 });
         continue;
       }
-      const messages = parseChannelHtml(html);
       const quality = scoreChannel(messages);
       let textCount = 0;
       for (const m of messages) {
@@ -505,6 +653,49 @@ export async function fetchTelegramFeed(kv?: KVNamespace): Promise<TelegramFeedR
     }
   }
   await Promise.all(Array.from({ length: CONCURRENCY }, worker));
+
+  // If kv+env are available, pull in any Bot-API cached channels that are NOT
+  // in the hardcoded CHANNELS list (bot-admin channels the user added manually).
+  if (kv && env) {
+    try {
+      const map = await getBotChannelMap(kv);
+      const knownHandles = new Set(queue.map((c) => c.handle.toLowerCase()));
+      for (const [handle, _chatId] of map) {
+        if (knownHandles.has(handle)) continue;
+        const botMsgs = await fetchFromBotApiCache(kv, handle);
+        if (!botMsgs || botMsgs.length === 0) continue;
+        const quality = scoreChannel(botMsgs);
+        let textCount = 0;
+        for (const m of botMsgs) {
+          if (!m.text) continue;
+          textCount += 1;
+          allItems.push({
+            channel_handle: handle,
+            channel_name: `[Bot] ${handle}`,
+            channel_topic: 'bot-monitored',
+            channel_blurb: `Bot-monitored channel: ${handle}`,
+            permalink: m.permalink,
+            datetime: m.datetime,
+            text: m.text,
+            views: undefined,
+          });
+        }
+        channelStatus.push({
+          handle,
+          name: `[Bot] ${handle}`,
+          topic: 'bot-monitored',
+          ok: true,
+          count: textCount,
+          quality,
+        });
+      }
+    } catch (_catchErr) {
+      console.error(
+        'fetchTelegramFeed (bot-bonus) failed:',
+        _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+      );
+    }
+  }
 
   allItems.sort((a, b) => b.datetime.localeCompare(a.datetime));
 
@@ -565,7 +756,7 @@ export async function telegramFeedHandler(c: Context<{ Bindings: Env }>): Promis
   const cached = await cache.match(cacheKey);
   if (cached) return new Response(cached.body, cached);
 
-  const body = await fetchTelegramFeed(c.env.KV_CACHE);
+  const body = await fetchTelegramFeed(c.env.KV_CACHE, c.env);
   // Serialize once and build TWO independent Response objects — one to
   // return to the client, two to cache. Cloning the returned response
   // in `waitUntil` was failing (the cloned stream got canceled by the
@@ -585,13 +776,19 @@ export async function telegramFeedHandler(c: Context<{ Bindings: Env }>): Promis
       try {
         await cache.put(cacheKey, cacheResponseBump);
       } catch (_catchErr) {
-        console.error('telegramFeedHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        console.error(
+          'telegramFeedHandler failed:',
+          _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+        );
         /* swallow */
       }
       try {
         await cache.put(new Request(TELEGRAM_FEED_CACHE_KEY), cacheResponseBase);
       } catch (_catchErr) {
-        console.error('telegramFeedHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        console.error(
+          'telegramFeedHandler failed:',
+          _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+        );
         /* swallow */
       }
     })()
@@ -615,7 +812,10 @@ export async function telegramCustomChannelsGetHandler(c: Context<{ Bindings: En
     const channels: CustomChannelEntry[] = raw ? JSON.parse(raw) : [];
     return c.json({ channels }, 200, { 'cache-control': 'no-store' });
   } catch (_catchErr) {
-    console.error('telegramCustomChannelsGetHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    console.error(
+      'telegramCustomChannelsGetHandler failed:',
+      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+    );
     return c.json({ channels: [], error: 'failed to read custom channels' }, 500);
   }
 }
@@ -651,7 +851,10 @@ export async function telegramCustomChannelsPostHandler(c: Context<{ Bindings: E
     try {
       await (caches as unknown as { default: Cache }).default.delete(BUMP_SHADOW_CACHE_KEY);
     } catch (_catchErr) {
-      console.error('telegramCustomChannelsPostHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      console.error(
+        'telegramCustomChannelsPostHandler failed:',
+        _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+      );
       /* swallow */
     }
 
@@ -683,12 +886,113 @@ export async function telegramCustomChannelsDeleteHandler(c: Context<{ Bindings:
     try {
       await (caches as unknown as { default: Cache }).default.delete(BUMP_SHADOW_CACHE_KEY);
     } catch (_catchErr) {
-      console.error('telegramCustomChannelsDeleteHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      console.error(
+        'telegramCustomChannelsDeleteHandler failed:',
+        _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+      );
       /* swallow */
     }
     return c.json({ ok: true });
   } catch (_catchErr) {
-    console.error('telegramCustomChannelsDeleteHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    console.error(
+      'telegramCustomChannelsDeleteHandler failed:',
+      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+    );
     return c.json({ error: 'failed to delete custom channel' }, 500);
+  }
+}
+
+// ─── Bot status & manual channel registration ──────────────────────────────
+
+/**
+ * Returns the bot's username (from getMe) + a list of channels the bot
+ * has cached data for (channels where it's been added as admin).
+ */
+export async function telegramBotStatusHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const kv = c.env.KV_CACHE;
+  const token = c.env.TELEGRAM_BOT_TOKEN;
+  const configured = !!token;
+
+  let botUsername: string | null = null;
+  if (token) {
+    try {
+      const r = await fetch(`https://api.telegram.org/bot${token}/getMe`);
+      if (r.ok) {
+        const data = (await r.json()) as { ok: boolean; result?: { username?: string } };
+        botUsername = data?.result?.username ?? null;
+      }
+    } catch {
+      /* swallow */
+    }
+  }
+
+  const cachedChannels: Array<{ handle: string; chat_id: number }> = [];
+  if (kv) {
+    try {
+      const map = await getBotChannelMap(kv);
+      for (const [handle, chatId] of map) {
+        const raw = await kv.get(`tg:bot-posts:${chatId}`).catch(() => null);
+        if (raw) {
+          JSON.parse(raw);
+          cachedChannels.push({ handle, chat_id: chatId });
+        }
+      }
+    } catch {
+      /* swallow */
+    }
+  }
+
+  return c.json({
+    configured,
+    bot_username: botUsername,
+    bot_token_prefix: token ? token.slice(0, 8) + '…' : null,
+    cached_channels: cachedChannels.sort((a, b) => a.handle.localeCompare(b.handle)),
+    cached_channel_count: cachedChannels.length,
+    help:
+      'To add a channel: (1) add @' +
+      (botUsername ?? 'your-bot') +
+      ' as admin to your Telegram channel, ' +
+      '(2) wait for the next 30-min cron poll (or use POST /api/v1/admin/telegram/bot/register with {handle, chat_id}).',
+  });
+}
+
+/**
+ * Manually register a channel handle → chat_id mapping for Bot API monitoring.
+ * Use this after adding the bot as admin to a channel so the feed knows
+ * which handle to associate the chat_id with.
+ */
+export async function telegramBotRegisterHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const gate = requireAdmin(c);
+  if ('error' in gate) return gate.error;
+  const kv = c.env.KV_CACHE;
+  if (!kv) return c.json({ error: 'KV not configured' }, 500);
+
+  const body = (await c.req.json()) as { handle?: string; chat_id?: number };
+  const handle = body.handle?.trim().replace(/^@/, '').toLowerCase();
+  const chatId = body.chat_id;
+
+  if (!handle || !chatId) {
+    return c.json({ error: 'handle and chat_id are required' }, 400);
+  }
+  if (!/^[a-zA-Z][a-zA-Z0-9_]{3,31}$/.test(handle)) {
+    return c.json({ error: 'invalid handle' }, 400);
+  }
+
+  try {
+    const map = await getBotChannelMap(kv);
+    map.set(handle, chatId);
+    await kv.put(BOT_CHANNEL_MAP_KEY, JSON.stringify(Object.fromEntries(map)));
+    // If no posts cached yet, we already polled — ensure we have an empty slot
+    const existing = await kv.get(`tg:bot-posts:${chatId}`).catch(() => null);
+    if (!existing) {
+      await kv.put(`tg:bot-posts:${chatId}`, JSON.stringify([]));
+    }
+    return c.json({ ok: true, channel: { handle, chat_id: chatId } }, 200);
+  } catch (_catchErr) {
+    console.error(
+      'telegramBotRegisterHandler failed:',
+      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+    );
+    return c.json({ error: 'failed to register channel' }, 500);
   }
 }

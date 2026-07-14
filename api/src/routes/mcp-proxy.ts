@@ -81,10 +81,7 @@ export async function mcpProxyHandler(c: Context<{ Bindings: Env }>): Promise<Re
       // Allow printable ASCII only -- the upstream HTTP layer rejects
       // anything else with a ByteString conversion error.
       if (cc < 0x20 || cc > 0x7e) {
-        return c.json(
-          { error: 'bad_request', message: `apiKey contains non-ASCII character at index ${i}` },
-          400
-        );
+        return c.json({ error: 'bad_request', message: `apiKey contains non-ASCII character at index ${i}` }, 400);
       }
     }
   }
@@ -124,7 +121,10 @@ export async function mcpProxyHandler(c: Context<{ Bindings: Env }>): Promise<Re
     const msg = e instanceof Error ? e.message : String(e);
     if (msg.includes('aborted')) {
       return c.json(
-        { error: 'upstream_timeout', message: `upstream MCP timed out after ${Math.round(UPSTREAM_TIMEOUT_MS / 1000)}s` },
+        {
+          error: 'upstream_timeout',
+          message: `upstream MCP timed out after ${Math.round(UPSTREAM_TIMEOUT_MS / 1000)}s`,
+        },
         504
       );
     }

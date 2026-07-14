@@ -232,8 +232,7 @@ export async function iocEnrichDeepHandler(c: Context<{ Bindings: Env }>): Promi
           const hostRes = await selfFetch(self, `/api/v1/host?ip=${enc}`, token);
           if (!hostRes) return { error: 'no-host-response' };
           const hostData = (await hostRes.json()) as
-            | { asn?: string | number; network?: { asn?: string | number } }
-            | undefined;
+            { asn?: string | number; network?: { asn?: string | number } } | undefined;
           const asn = hostData?.asn ?? hostData?.network?.asn;
           if (!asn) return { skipped: 'no-asn-on-host' };
           const asnStr = String(asn).toUpperCase().startsWith('AS') ? String(asn) : `AS${asn}`;

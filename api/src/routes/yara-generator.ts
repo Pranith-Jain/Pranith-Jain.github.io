@@ -432,7 +432,10 @@ function validateDlpSyntax(rule: string): { valid: boolean; errors: string[]; wa
         try {
           new RegExp(p.regex ?? p.pattern ?? '');
         } catch (_catchErr) {
-          console.error('validateDlpSyntax failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          console.error(
+            'validateDlpSyntax failed:',
+            _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+          );
           errors.push(`Invalid regex in pattern: ${p.regex ?? p.pattern}`);
         }
       }

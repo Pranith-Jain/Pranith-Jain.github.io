@@ -51,7 +51,8 @@ async function readFilterEntry(kv: KVNamespace, type: string): Promise<unknown |
   }
   const cached = await kv.get(`${KV_PREFIX}${type}`, 'json');
   if (cached) {
-    safeNullLog('cache-put-bloom-filter-loaded',
+    safeNullLog(
+      'cache-put-bloom-filter-loaded',
       cache.put(
         filterCacheReq(type),
         new Response(JSON.stringify(cached), { headers: { 'cache-control': `max-age=${FILTER_ENTRY_CACHE_TTL}` } })
@@ -207,7 +208,8 @@ export async function bloomFilterHandler(c: Context<{ Bindings: Env }>): Promise
   await kv.put(cacheKey, JSON.stringify(entry), { expirationTtl: 3600 });
   // Write-through the per-colo cache so the freshly built filter is reused
   // without a KV round-trip on subsequent same-colo requests.
-  safeNullLog('cache-put-bloom-filter-built',
+  safeNullLog(
+    'cache-put-bloom-filter-built',
     (caches as unknown as { default: Cache }).default.put(
       filterCacheReq(type),
       new Response(JSON.stringify(entry), { headers: { 'cache-control': `max-age=${FILTER_ENTRY_CACHE_TTL}` } })

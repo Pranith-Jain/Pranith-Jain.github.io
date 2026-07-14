@@ -811,7 +811,10 @@ export async function intelBundleAdminHandler(c: Context<{ Bindings: Env }>): Pr
   try {
     view = JSON.parse(row.view_json) as Record<string, unknown>;
   } catch (_catchErr) {
-    console.error('intelBundleAdminHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    console.error(
+      'intelBundleAdminHandler failed:',
+      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+    );
     return jsonResponse(c, { error: 'corrupt_view_json' }, 500);
   }
 

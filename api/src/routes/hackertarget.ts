@@ -35,7 +35,7 @@ function makeHandler(endpoint: string, cacheKeyPrefix: string) {
     if (kv) {
       const kvCached = await safeNullLog('kv-get-hackertarget', kv.get(kvKey, 'json'));
       if (kvCached && typeof kvCached === 'object' && kvCached !== null && 'raw' in kvCached) {
-        const body = JSON.stringify({ ...kvCached as Record<string, unknown>, from_kv: true });
+        const body = JSON.stringify({ ...(kvCached as Record<string, unknown>), from_kv: true });
         const response = new Response(body, {
           status: 200,
           headers: { 'content-type': 'application/json', 'cache-control': `public, max-age=${CACHE_TTL_SECONDS}` },
@@ -62,10 +62,18 @@ function makeHandler(endpoint: string, cacheKeyPrefix: string) {
         if (kv) {
           const kvCached = await safeNullLog('kv-get-hackertarget-rate', kv.get(kvKey, 'json'));
           if (kvCached && typeof kvCached === 'object' && kvCached !== null && 'raw' in kvCached) {
-            return c.json({ ...kvCached as Record<string, unknown>, from_kv: true, stale: true }, 200);
+            return c.json({ ...(kvCached as Record<string, unknown>), from_kv: true, stale: true }, 200);
           }
         }
-        return c.json({ error: 'rate_limited', message: 'HackerTarget free tier limit reached (100 req/day). Try again tomorrow or use CertSpotter / crt.sh for subdomain discovery.', retry_after: 86400 }, 429);
+        return c.json(
+          {
+            error: 'rate_limited',
+            message:
+              'HackerTarget free tier limit reached (100 req/day). Try again tomorrow or use CertSpotter / crt.sh for subdomain discovery.',
+            retry_after: 86400,
+          },
+          429
+        );
       }
       return c.json({ error: e instanceof Error ? e.message : 'HackerTarget unreachable' }, 502);
     }

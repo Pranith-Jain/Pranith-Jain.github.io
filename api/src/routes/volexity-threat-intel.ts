@@ -44,8 +44,7 @@ const RAW_BASE = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/`
 
 const SOURCE = 'Volexity';
 const SOURCE_URL = 'https://github.com/volexity/threat-intel';
-const DEFAULT_LICENSE =
-  'BSD-2-Clause — Volexity threat-intel; free to display and cite with attribution to Volexity.';
+const DEFAULT_LICENSE = 'BSD-2-Clause — Volexity threat-intel; free to display and cite with attribution to Volexity.';
 
 const CACHE_TTL_SECONDS = 3600; // 1h — repo changes only when a new blogpost folder lands
 const KV_TREE_KEY = 'volexity-ti:tree:lastgood:v1';
@@ -310,10 +309,7 @@ function buildYears(folders: FolderEntry[]): Record<string, number> {
   return years;
 }
 
-function applyFolderListFilters(
-  full: TreeResponse,
-  q: { year?: string; q?: string; limit?: number }
-): TreeResponse {
+function applyFolderListFilters(full: TreeResponse, q: { year?: string; q?: string; limit?: number }): TreeResponse {
   let folders = full.folders;
   if (q.year) folders = folders.filter((f) => f.year === q.year);
   if (q.q) {
@@ -331,9 +327,7 @@ export async function volexityThreatIntelHandler(c: Context<{ Bindings: Env }>):
   const year = c.req.query('year')?.trim();
   const q = c.req.query('q')?.trim();
   const limitRaw = c.req.query('limit');
-  const limit = limitRaw
-    ? Math.min(parseInt(limitRaw, 10) || MAX_FOLDER_LIST_LIMIT, MAX_FOLDER_LIST_LIMIT)
-    : undefined;
+  const limit = limitRaw ? Math.min(parseInt(limitRaw, 10) || MAX_FOLDER_LIST_LIMIT, MAX_FOLDER_LIST_LIMIT) : undefined;
 
   const cache = (caches as unknown as { default: Cache }).default;
   const kv = c.env.KV_CACHE;
@@ -355,9 +349,7 @@ export async function volexityThreatIntelHandler(c: Context<{ Bindings: Env }>):
       );
       if (res.ok) {
         const data = (await res.json()) as { tree?: unknown };
-        const rawNodes = Array.isArray(data.tree)
-          ? (data.tree.slice(0, MAX_TREE_ENTRIES) as RawTreeNode[])
-          : [];
+        const rawNodes = Array.isArray(data.tree) ? (data.tree.slice(0, MAX_TREE_ENTRIES) as RawTreeNode[]) : [];
         const folders = buildFolders(rawNodes);
         const full: TreeResponse = {
           source: SOURCE,
@@ -395,9 +387,7 @@ export async function volexityThreatIntelHandler(c: Context<{ Bindings: Env }>):
 
   // ─────────── FOLDER MODE: parse one folder's iocs.csv on demand ──────────
   if (folderQ) {
-    const folderCacheKey = new Request(
-      `https://volexity-ti-cache.internal/v1/folder?f=${encodeURIComponent(folderQ)}`
-    );
+    const folderCacheKey = new Request(`https://volexity-ti-cache.internal/v1/folder?f=${encodeURIComponent(folderQ)}`);
     const cachedFolder = await cache.match(folderCacheKey);
     if (cachedFolder) return new Response(cachedFolder.body, cachedFolder);
 

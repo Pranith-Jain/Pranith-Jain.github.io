@@ -82,7 +82,8 @@ async function readDynamic(kv: KVNamespace): Promise<ExternalResource[]> {
   if (!raw || !Array.isArray(raw)) return [];
   const items = raw as ExternalResource[];
   if (cache && items.length > 0) {
-    safeNullLog('cache-put-ext-resources',
+    safeNullLog(
+      'cache-put-ext-resources',
       cache.put(
         RES_CACHE_KEY,
         new Response(JSON.stringify(items), { headers: { 'cache-control': `max-age=${RES_CACHE_TTL}` } })
@@ -96,7 +97,8 @@ async function writeDynamic(kv: KVNamespace, items: ExternalResource[]): Promise
   await kv.put(KV_KEY, JSON.stringify(items));
   const cache = resCacheApi();
   if (cache) {
-    safeNullLog('cache-put-ext-resources-save',
+    safeNullLog(
+      'cache-put-ext-resources-save',
       cache.put(
         RES_CACHE_KEY,
         new Response(JSON.stringify(items), { headers: { 'cache-control': `max-age=${RES_CACHE_TTL}` } })
@@ -169,7 +171,10 @@ export async function createExternalResourceHandler(c: AdminCtx) {
       return c.json({ error: 'url must use http or https' }, 400);
     }
   } catch (_catchErr) {
-    console.error('createExternalResourceHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    console.error(
+      'createExternalResourceHandler failed:',
+      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+    );
     return c.json({ error: 'url is malformed' }, 400);
   }
 

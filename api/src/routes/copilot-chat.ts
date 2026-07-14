@@ -214,7 +214,10 @@ export async function copilotChatStreamHandler(c: Context<{ Bindings: Env }>): P
           try {
             controller.enqueue(encoder.encode(`data: ${data}\n\n`));
           } catch (_catchErr) {
-            console.error('copilotChatStreamHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+            console.error(
+              'copilotChatStreamHandler failed:',
+              _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+            );
             closed = true;
           }
         }

@@ -308,7 +308,10 @@ export async function intodnsDebugEmailHandler(c: Context<{ Bindings: Env }>): P
     try {
       body = await c.req.json();
     } catch (_catchErr) {
-      console.error('intodnsDebugEmailHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      console.error(
+        'intodnsDebugEmailHandler failed:',
+        _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+      );
       return badRequest(c, 'invalid JSON body');
     }
     if (typeof body !== 'object' || body === null) return badRequest(c, 'expected object with raw_email');

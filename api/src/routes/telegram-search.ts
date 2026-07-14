@@ -297,7 +297,10 @@ export async function telegramSearchHandler(c: Context<{ Bindings: Env }>): Prom
       try {
         cachedPayload = (await hit.json()) as CachedSearchPayload;
       } catch (_catchErr) {
-        console.error('telegramSearchHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        console.error(
+          'telegramSearchHandler failed:',
+          _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+        );
         cachedPayload = null;
       }
     }
