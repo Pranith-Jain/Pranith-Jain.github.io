@@ -482,7 +482,7 @@ export async function scrapeWatchedChannels(
     while (idx < channels.length) {
       const ch = channels[idx++];
       if (!ch?.handle) continue;
-      const html = await fetchHtml(`https://t.me/s/${encodeURIComponent(ch.handle)}`);
+      const html = await fetchHtml(`https://telegram.me/s/${encodeURIComponent(ch.handle)}`);
       const msgs = html ? parseChannelHtml(html) : [];
       for (const m of msgs) {
         allItems.push({

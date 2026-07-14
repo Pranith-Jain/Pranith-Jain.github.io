@@ -273,12 +273,12 @@ export default function TelegramChannelSearch(): JSX.Element {
 
               <div className="flex flex-wrap items-center gap-2">
                 <a
-                  href={sanitizeUrl(`https://t.me/s/${r.handle}`)}
+                  href={sanitizeUrl(`https://telegram.me/s/${r.handle}`)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1"
                 >
-                  <ExternalLink size={11} /> t.me/s/{r.handle}
+                  <ExternalLink size={11} /> telegram.me/s/{r.handle}
                 </a>
                 <a
                   href={sanitizeUrl(r.tgstat_url)}

@@ -1176,7 +1176,7 @@ export function RansomwareActivityPanel(): JSX.Element {
 
 // ─────────────────────────────────────────────────────────────────────────
 // Telegram firehose panel — aggregated cybersec channel preview from
-// /api/v1/telegram-feed. Server fetches t.me/s/<handle> for ~10 curated
+// /api/v1/telegram-feed. Server fetches telegram.me/s/<handle> for ~10 curated
 // channels and we render the merged stream here. Watchlist matches use
 // the same localStorage key as the main feed.
 // ─────────────────────────────────────────────────────────────────────────
@@ -1376,7 +1376,7 @@ export function TelegramFeedPanel(): JSX.Element {
         <Link to="/threatintel/telegram-monitor" className="text-brand-600 dark:text-brand-400 hover:underline">
           full catalogue
         </Link>
-        . Server-side scrape of <code>t.me/s/&lt;handle&gt;</code>; no Telegram account required.
+        . Server-side scrape of <code>telegram.me/s/&lt;handle&gt;</code>; no Telegram account required.
       </p>
 
       {error && (
@@ -1455,7 +1455,7 @@ export function TelegramFeedPanel(): JSX.Element {
               className="text-micro font-mono px-1.5 py-0.5 rounded border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-300"
               title={w}
             >
-              {w.replace('could not fetch t.me/s/', '! ')}
+              {w.replace('could not fetch telegram.me/s/', '! ')}
             </span>
           ))}
         </div>

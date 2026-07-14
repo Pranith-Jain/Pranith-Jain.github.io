@@ -463,8 +463,8 @@ export default function TelegramHub(): JSX.Element {
       {/* Source provenance footer */}
       <footer className="mt-8 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
         <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
-          Sources: tgstat.com (HTML scrape, 12h cache) · t.me/s/ previews (hourly poll) · D1 leak store · cross-source
-          IOC consensus. All free-tier, no API keys.
+          Sources: tgstat.com (HTML scrape, 12h cache) · telegram.me/s/ previews (hourly poll) · D1 leak store ·
+          cross-source IOC consensus. All free-tier, no API keys.
         </p>
       </footer>
     </DataPageLayout>

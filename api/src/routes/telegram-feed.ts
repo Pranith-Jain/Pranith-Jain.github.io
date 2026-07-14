@@ -9,7 +9,7 @@ const CUSTOM_CHANNELS_KV_KEY = 'tg:custom-channels:v1';
  * Aggregated cybersec Telegram firehose.
  *
  * Telegram exposes a server-rendered preview of any public channel at
- * `https://t.me/s/<handle>`. The HTML contains the latest ~20 messages
+ * `https://telegram.me/s/<handle>`. The HTML contains the latest ~20 messages
  * with timestamps, permalinks, view counts, and text — no auth, no
  * Bot API, no MTProto. This is what tg-rss services scrape internally.
  *
@@ -33,7 +33,7 @@ const CONCURRENCY = 8;
  *  page from ~176 messages → up to ~440 across 22 channels with newer
  *  ones bubbling to the top naturally. */
 // Per-channel cap. Bumped 20 → 50 alongside the cross-platform "show
-// last 500 items OR 7 days" upgrade. Telegram's t.me/s/ preview view
+// last 500 items OR 7 days" upgrade. Telegram's telegram.me/s/ preview view
 // surfaces ~30-50 most-recent messages — 50 captures the realistic
 // upstream ceiling without an extra paginated fetch.
 const MAX_MESSAGES_PER_CHANNEL = 50;
@@ -306,7 +306,7 @@ async function fetchWithRetry(url: string): Promise<string | null> {
 export async function fetchHtml(url: string): Promise<string | null> {
   const result = await fetchWithRetry(url);
   if (!result) {
-    console.error('fetchHtml: all attempts failed for URL (t.me may be on hold)');
+    console.error('fetchHtml: all attempts failed for URL (telegram.me may be on hold)');
   }
   return result;
 }
@@ -677,7 +677,7 @@ export async function fetchTelegramFeed(kv?: KVNamespace, env?: Env): Promise<Te
       const ch = queue.shift();
       if (!ch) return;
       let messages: ParsedMessage[] = [];
-      const html = await fetchHtml(`https://t.me/s/${encodeURIComponent(ch.handle)}`);
+      const html = await fetchHtml(`https://telegram.me/s/${encodeURIComponent(ch.handle)}`);
       if (html) {
         messages = parseChannelHtml(html);
       }
@@ -687,7 +687,7 @@ export async function fetchTelegramFeed(kv?: KVNamespace, env?: Env): Promise<Te
         if (botMsgs) {
           messages = botMsgs;
         } else {
-          warnings.push(`could not fetch t.me/s/${ch.handle} (bot-cache miss)`);
+          warnings.push(`could not fetch telegram.me/s/${ch.handle} (bot-cache miss)`);
         }
       }
       if (messages.length === 0) {

@@ -136,7 +136,7 @@ export default function TelegramSettings(): JSX.Element {
         <p className="text-sm font-mono text-muted mt-1">
           Add public Telegram channels to monitor. They will appear alongside the curated channels on the Telegram feed.
           Enter the channel handle without the @ prefix. Channels must have public{' '}
-          <code className="text-xs">t.me/s/</code> preview enabled.
+          <code className="text-xs">telegram.me/s/</code> preview enabled.
         </p>
       </div>
 
@@ -231,6 +231,9 @@ export default function TelegramSettings(): JSX.Element {
         <p className="mt-2 text-micro font-mono text-slate-400">
           Channel is checked on the next feed refresh (cached up to 30 min).
         </p>
+        <p className="mt-1 text-micro font-mono text-slate-400">
+          Uses <code className="text-xs">telegram.me/s/</code> for scraping (t.me is blocked from Cloudflare Workers).
+        </p>
       </form>
 
       <div className="flex items-center justify-between mb-4">
@@ -278,7 +281,7 @@ export default function TelegramSettings(): JSX.Element {
               </div>
               <div className="flex items-center gap-2 shrink-0">
                 <a
-                  href={`https://t.me/s/${ch.handle}`}
+                  href={`https://telegram.me/s/${ch.handle}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1.5 text-slate-500 hover:text-brand-600"

@@ -519,12 +519,12 @@ function PivotCard({ pivot, onClearFilter }: { pivot: HandlePivot; onClearFilter
         </div>
         <div className="flex flex-wrap items-center gap-1.5">
           <a
-            href={sanitizeUrl(`https://t.me/s/${pivot.handle}`)}
+            href={sanitizeUrl(`https://telegram.me/s/${pivot.handle}`)}
             target="_blank"
             rel="noopener noreferrer"
             className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1"
           >
-            <ExternalLink size={11} /> t.me/s/{pivot.handle}
+            <ExternalLink size={11} /> telegram.me/s/{pivot.handle}
           </a>
           {noAttribution && (
             <button
