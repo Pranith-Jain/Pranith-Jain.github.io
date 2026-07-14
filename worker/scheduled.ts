@@ -220,14 +220,34 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
               const tgCacheKey = await getTelegramFeedCacheKey(env as unknown as ApiEnv);
               const tgCached = await caches.default.match(tgCacheKey);
               if (tgCached) {
-                telegramFeed = (await tgCached.json()) as TelegramFeedResponse;
-              } else {
+                const cached = (await tgCached.json()) as TelegramFeedResponse;
+                // Only use cache if it has items — stale empty cache means
+                // t.me was blocked; force a direct fetch instead.
+                if (cached?.items?.length) {
+                  telegramFeed = cached;
+                }
+              }
+              if (!telegramFeed) {
                 // Fallback to gp:warm KV slice (written by queue consumer)
                 const kvWarm = (
                   env.KV_CACHE ? await env.KV_CACHE.get('gp:warm:telegram', 'json') : null
                 ) as TelegramFeedResponse | null;
                 if (kvWarm?.items?.length) {
                   telegramFeed = kvWarm;
+                }
+              }
+              if (!telegramFeed) {
+                // Both cache and KV empty — fetch directly (uses telegram.me/s/)
+                try {
+                  telegramFeed = await fetchTelegramFeed(env.KV_CACHE, env as unknown as ApiEnv);
+                } catch (e) {
+                  console.warn(
+                    JSON.stringify({
+                      job: 'telegram-direct-fetch',
+                      status: 'failed',
+                      error: e instanceof Error ? e.message : String(e),
+                    })
+                  );
                 }
               }
               if (telegramFeed?.items?.length) {
