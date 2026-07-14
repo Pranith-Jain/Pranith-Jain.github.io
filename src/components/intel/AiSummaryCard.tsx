@@ -29,7 +29,7 @@ export interface AiSummaryCardProps {
   endpoint?: string;
   /** Require an admin token to render + fetch. Default true (feed surfaces). */
   requireAdmin?: boolean;
-  /** Auto-fetch on mount. Default true; set false for opt-in (button-triggered). */
+  /** Auto-fetch on mount. Default false; set true to pre-generate on load. */
   autoFetch?: boolean;
   /** Extra fields merged into the POST body (e.g. `{ q }` for the omnibox). */
   extraBody?: Record<string, unknown>;
@@ -48,7 +48,7 @@ export function AiSummaryCard({
   className,
   endpoint = '/api/v1/ai-summary',
   requireAdmin = true,
-  autoFetch = true,
+  autoFetch = false,
   extraBody,
 }: AiSummaryCardProps): JSX.Element | null {
   const [data, setData] = useState<SummaryResponse | null>(null);
