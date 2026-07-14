@@ -1585,7 +1585,7 @@ export async function runCyberPulseIngestion(
 
     for (const post of socialPosts) {
       const classification = classifyIncident(post.text, post.platform, post.url);
-      if (classification.confidence < 0.25 && classification.incident_type === 'other') continue;
+      if (classification.confidence < 0.15 && classification.incident_type === 'other') continue;
 
       const hash = dedupHash(post.text.slice(0, 200), classification.victim_name ?? '', post.platform);
       if (existingHashes.has(hash)) {

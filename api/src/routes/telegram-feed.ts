@@ -484,8 +484,16 @@ export async function pollBotUpdates(env: Env): Promise<void> {
   const url = `https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/getUpdates?timeout=3${
     offset ? `&offset=${offset}` : ''
   }`;
-  const r = await fetch(url).catch(() => null);
-  if (!r || !r.ok) return;
+  const r = await fetch(url).catch((e) => {
+    console.error(
+      JSON.stringify({ job: 'tg-bot-poll', status: 'fetch_failed', error: e instanceof Error ? e.message : String(e) })
+    );
+    return null;
+  });
+  if (!r || !r.ok) {
+    console.warn(JSON.stringify({ job: 'tg-bot-poll', status: 'bad_response', httpStatus: r?.status }));
+    return;
+  }
 
   const data = (await r.json().catch(() => null)) as { ok: boolean; result?: BotApiUpdate[] } | null;
   if (!data?.ok || !data?.result?.length) return;

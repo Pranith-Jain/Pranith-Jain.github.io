@@ -53,6 +53,7 @@ import { enqueueGpFeeds } from '../api/src/routes/global-pulse';
 import { scanForPhishingDomains, type PassiveDnsEnv } from '../api/src/lib/passive-dns';
 import { runCyberPulseIngestion } from '../api/src/routes/cyberpulse-ingest';
 import { fetchXClaims } from '../api/src/routes/x-claims';
+import { readAuthCookies, XAuthMissingError } from '../api/src/lib/twitter-auth-graphql';
 import { fetchRedditFeed } from '../api/src/routes/reddit-feed';
 import type { D1Database } from '@cloudflare/workers-types';
 import { acquireCronLease, releaseCronLease, heartbeatCronLease } from './durable-objects/cron-lock';
@@ -276,6 +277,14 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
                 error: e instanceof Error ? e.message : String(e),
               })
             );
+          }
+
+          // ── X auth diagnostic ──────────────────────────────────────────────
+          try {
+            readAuthCookies(env);
+          } catch (e) {
+            const reason = e instanceof XAuthMissingError ? 'missing' : e instanceof Error ? e.message : String(e);
+            console.warn(JSON.stringify({ job: 'x-auth-diagnostic', status: 'unavailable', reason }));
           }
 
           // ── Pre-warm x-claims so CyberPulse gets breach/ransomware claims
@@ -1160,7 +1169,17 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
     // ── Telegram Bot API poll ──────────────────────────────────────────
     // When t.me is unreachable, pollBotUpdates reads messages for
     // channels where the bot is admin, storing them in KV for fallback.
-    ctx.waitUntil(pollBotUpdates(env as unknown as ApiEnv).catch(() => {}));
+    if (!(env as unknown as Record<string, unknown>).TELEGRAM_BOT_TOKEN) {
+      console.warn(JSON.stringify({ job: 'tg-bot-poll', status: 'skipped', reason: 'TELEGRAM_BOT_TOKEN not set' }));
+    } else {
+      ctx.waitUntil(
+        pollBotUpdates(env as unknown as ApiEnv).catch((e) => {
+          console.error(
+            JSON.stringify({ job: 'tg-bot-poll', status: 'failed', error: e instanceof Error ? e.message : String(e) })
+          );
+        })
+      );
+    }
 
     // ── Inline ingestion: read from KV and produce incidents ────────────
     // Runs in the main cron thread (not waitUntil) so failures are visible.
@@ -1191,8 +1210,20 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
       }
       // Bluesky/Mastodon: direct fetch first, then KV fallback
       try {
-        const sf = await fetchXFeed().catch(() => undefined);
+        const sf = await fetchXFeed().catch((e) => {
+          console.warn(
+            JSON.stringify({
+              job: 'cp-30-bluesky',
+              status: 'fetch_failed',
+              error: e instanceof Error ? e.message : String(e),
+            })
+          );
+          return undefined;
+        });
         socialItems = sf?.items as unknown[] | undefined;
+        if (socialItems && socialItems.length > 0) {
+          console.log(JSON.stringify({ job: 'cp-30-bluesky', status: 'fetched', count: socialItems.length }));
+        }
       } catch {
         /* fail open */
       }
@@ -1227,8 +1258,29 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
       }
       // Telegram: direct fetch first, then KV fallback (bypass Cache API)
       try {
-        const tg = await fetchTelegramFeed(env.KV_CACHE, env as unknown as ApiEnv).catch(() => undefined);
+        const tg = await fetchTelegramFeed(env.KV_CACHE, env as unknown as ApiEnv).catch((e) => {
+          console.warn(
+            JSON.stringify({
+              job: 'cp-30-telegram',
+              status: 'fetch_failed',
+              error: e instanceof Error ? e.message : String(e),
+            })
+          );
+          return undefined;
+        });
         telegramItems = tg?.items as unknown[] | undefined;
+        if (telegramItems && telegramItems.length > 0) {
+          console.log(JSON.stringify({ job: 'cp-30-telegram', status: 'fetched', count: telegramItems.length }));
+        } else {
+          console.warn(
+            JSON.stringify({
+              job: 'cp-30-telegram',
+              status: 'empty',
+              channels_ok: tg?.channels?.filter((c) => c.ok).length ?? 0,
+              channels_fail: tg?.channels?.filter((c) => !c.ok).length ?? 0,
+            })
+          );
+        }
       } catch {
         /* fail open */
       }
