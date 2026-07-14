@@ -778,7 +778,7 @@ export async function fetchTelegramFeed(kv?: KVNamespace, env?: Env): Promise<Te
 /** Exported so /api/v1/snapshot can read the same cached payload directly. */
 // Bumped v8 → v9 alongside MAX_MESSAGES_PER_CHANNEL 8→20 and the 7d filter
 // so the next request abandons any cached payload built under the old caps.
-export const TELEGRAM_FEED_CACHE_KEY = 'https://telegram-feed-cache.internal/v10-7d-50pc';
+export const TELEGRAM_FEED_CACHE_KEY = 'https://telegram-feed-cache.internal/v11-telegram-me';
 
 // Bump value is read on every TG feed visit to invalidate the cache
 // when custom channels change. Shadow it in caches.default with a 60s
