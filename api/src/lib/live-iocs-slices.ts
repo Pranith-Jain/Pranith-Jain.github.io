@@ -48,7 +48,7 @@ export interface FeedQueueMessage {
    *  invocation → its own 50-subrequest budget. The consumer fetches the source
    *  and writes to `cp:warm:<type>` KV key; the cron reads from KV and passes
    *  into runCyberPulseIngestion as prefetched data. */
-  cp?: { type: 'x_accounts' | 'x_search' };
+  cp?: { type: 'x_accounts' };
 }
 
 export const SLICE_KEY_PREFIX = 'live-iocs:slice:';

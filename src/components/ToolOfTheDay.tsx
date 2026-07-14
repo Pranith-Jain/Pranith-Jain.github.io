@@ -18,7 +18,7 @@ const TOOLS = [
   },
   { path: '/dfir/email-defense', name: 'Email Defense', desc: 'Audit SPF, DKIM, DMARC, and BIMI records.' },
   {
-    path: '/threatintel/actors/kb',
+    path: '/threatintel/actors/directory',
     name: 'Threat Actor KB',
     desc: 'Research threat actors, their TTPs and infrastructure.',
   },

@@ -283,7 +283,7 @@ export default function ThreatIntelHome(): JSX.Element {
             <span>Popular:</span>
             {[
               { label: 'Ransomware Live', href: '/threatintel/ransomware-live' },
-              { label: 'Actor KB', href: '/threatintel/actors/kb' },
+              { label: 'Actor KB', href: '/threatintel/actors/directory' },
               { label: 'CVE Intel', href: '/threatintel/cves/cves' },
               { label: 'Live IOCs', href: '/threatintel/iocs/live' },
             ].map((link) => (
@@ -380,7 +380,12 @@ export default function ThreatIntelHome(): JSX.Element {
                     icon: Flame,
                     badge: 'live',
                   },
-                  { label: 'Actor KB', desc: 'Threat actor profiles', href: '/threatintel/actors/kb', icon: Users },
+                  {
+                    label: 'Actor KB',
+                    desc: 'Threat actor profiles',
+                    href: '/threatintel/actors/directory',
+                    icon: Users,
+                  },
                   {
                     label: 'Cross-Campaign',
                     desc: 'Find hidden connections',

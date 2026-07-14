@@ -605,7 +605,7 @@ export const navLinks: NavLinkExt[] = [
       { label: 'Global Pulse', href: '/threatintel/predictive/global-pulse' },
       { label: 'Intel Dashboard', href: '/threatintel/predictive/dashboard' },
       { label: 'Most Wanted', href: '/threatintel/most-wanted' },
-      { label: 'Actor KB', href: '/threatintel/actors/kb' },
+      { label: 'Actor KB', href: '/threatintel/actors/directory' },
     ],
   },
   {

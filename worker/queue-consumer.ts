@@ -18,12 +18,7 @@ import { writeSlice, type FeedQueueMessage } from '../api/src/lib/live-iocs-slic
 import { gpWarmKey } from '../api/src/routes/global-pulse';
 import { concurrentMap } from '../api/src/lib/concurrent-map';
 import { signInternalToken } from '../api/src/lib/internal-token';
-import {
-  fetchXAccountPosts,
-  fetchXSearchPosts,
-  X_ACCOUNTS,
-  X_SEARCH_QUERIES,
-} from '../api/src/routes/cyberpulse-ingest';
+import { fetchXAccountPosts, X_ACCOUNTS } from '../api/src/routes/cyberpulse-ingest';
 
 // `gp:warm:<key>` slice TTL — 90 min. Short enough that stale data expires
 // quickly (the direct-fetch fallback in the 30-min cron kicks in once KV is
@@ -107,8 +102,6 @@ export async function handleQueue(
             let posts: unknown[] = [];
             if (cp.type === 'x_accounts') {
               posts = await fetchXAccountPosts(env as unknown as ApiEnv, X_ACCOUNTS, 1);
-            } else if (cp.type === 'x_search') {
-              posts = await fetchXSearchPosts(env as unknown as ApiEnv, X_SEARCH_QUERIES, 15);
             } else {
               console.warn(JSON.stringify({ job: 'cp-warm-slice', type: cp.type, status: 'unknown_type' }));
               msg.ack();

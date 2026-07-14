@@ -12,7 +12,6 @@
 import type { D1Database } from '@cloudflare/workers-types';
 import {
   fetchAuthedTimeline,
-  fetchSearchTimeline,
   readAuthCookies,
   XAuthMissingError,
   XAuthInvalidError,
@@ -52,9 +51,6 @@ export interface CyberPulsePrefetch {
   /** Pre-fetched X account posts (from gp:warm queue). When provided, the
    *  cron skips all GraphQL fetches for X accounts and uses these directly. */
   xAccountPosts?: RawPost[];
-  /** Pre-fetched X search posts (from gp:warm queue). When provided, the
-   *  cron skips all GraphQL searches and uses these directly. */
-  xSearchPosts?: RawPost[];
 }
 
 // ─── Types ─────────────────────────────────────────────────────────────────
@@ -996,73 +992,6 @@ export async function fetchXAccountPosts(
   return posts;
 }
 
-/** Search X for breach/leak keywords via authenticated GraphQL. */
-export async function fetchXSearchPosts(
-  env: Env,
-  queries: string[],
-  count: number = 20,
-  prefetchedPosts?: RawPost[]
-): Promise<RawPost[]> {
-  // When prefetched posts are provided (from gp:warm queue), skip GraphQL.
-  if (prefetchedPosts) return prefetchedPosts;
-
-  const posts: RawPost[] = [];
-  let authed = true;
-  try {
-    readAuthCookies(env);
-  } catch (e) {
-    authed = false;
-    const errMsg = e instanceof Error ? e.message : String(e);
-    console.warn(JSON.stringify({ job: 'x-search', status: 'auth_error', error: errMsg }));
-    return posts;
-  }
-
-  const searchErrors: string[] = [];
-  for (const query of queries) {
-    try {
-      const resp = await fetchSearchTimeline(env, query, {
-        count,
-        product: 'Latest',
-      });
-      for (const item of resp.items) {
-        if (item.is_retweet) continue;
-        posts.push({
-          text: item.text,
-          url: item.url,
-          platform: 'x',
-          handle: item.author.screen_name,
-          author: item.author.name,
-          avatar: item.author.avatar_url ?? null,
-          published_at: item.created_at,
-          likes: item.favorite_count ?? 0,
-          retweets: item.retweet_count ?? 0,
-          replies: item.reply_count ?? 0,
-          views: item.view_count ?? 0,
-        });
-      }
-    } catch (e) {
-      if (e instanceof XAuthMissingError) break;
-      if (e instanceof XAuthInvalidError) {
-        searchErrors.push(`X search auth rejected (HTTP ${e.status})`);
-        if (authed) {
-          authed = false;
-          searchErrors.push('Falling back to anonymous search');
-        }
-        continue;
-      }
-      if (e instanceof XAuthRateLimitedError) {
-        searchErrors.push(`X search rate-limited`);
-        continue;
-      }
-      searchErrors.push(`X search query failed: ${e instanceof Error ? e.message : e}`);
-    }
-  }
-  if (searchErrors.length > 0) {
-    console.warn(JSON.stringify({ job: 'x-search', errors: searchErrors }));
-  }
-  return posts;
-}
-
 // ─── D1 operations ─────────────────────────────────────────────────────────
 
 async function getExistingDedupHashes(db: D1Database, hoursBack: number = 48): Promise<Set<string>> {
@@ -1383,16 +1312,6 @@ export const X_ACCOUNTS = [
   'spchainattack',
 ];
 
-export const X_SEARCH_QUERIES = [
-  '"data breach" (confirmed OR leaked OR exposed)',
-  '"ransomware" (claim OR victim OR leak)',
-  '"leaked data" OR "data dump" OR "database leak"',
-  'extortion (cyber OR data OR breach)',
-  'hacktivist (claim OR defaced OR attacked)',
-  '"supply chain" attack compromised',
-  '0day OR "zero day" exploited',
-];
-
 /** Full ingestion pass — called by the hourly cron. */
 export async function runCyberPulseIngestion(
   env: Env,
@@ -1461,64 +1380,7 @@ export async function runCyberPulseIngestion(
     });
   }
 
-  // ── 2. X keyword search ──────────────────────────────────────────────
-  const xSearchStart = Date.now();
-  try {
-    const xSearchPosts = await fetchXSearchPosts(env, X_SEARCH_QUERIES, 15, prefetched.xSearchPosts);
-    let created = 0;
-    let deduped = 0;
-    const incidents: CyberPulseIncident[] = [];
-
-    for (const post of xSearchPosts) {
-      const classification = classifyIncident(post.text, 'x', post.url);
-      if (classification.confidence < 0.3 && classification.incident_type === 'other') continue;
-
-      const hash = dedupHash(post.text.slice(0, 200), classification.victim_name ?? '', 'x');
-      if (existingHashes.has(hash)) {
-        deduped++;
-        continue;
-      }
-      existingHashes.add(hash);
-
-      incidents.push(buildIncident(classification, post, now, hash, 'x'));
-    }
-
-    const inserted = await insertIncidents(db, incidents);
-    created += inserted;
-    await logScan(
-      db,
-      'x_search',
-      null,
-      X_SEARCH_QUERIES.join(' | '),
-      xSearchPosts.length,
-      created,
-      deduped,
-      Date.now() - xSearchStart,
-      null
-    );
-    results.push({
-      source: 'x_search',
-      items_scanned: xSearchPosts.length,
-      incidents_created: created,
-      incidents_deduped: deduped,
-      errors: [],
-      duration_ms: Date.now() - xSearchStart,
-    });
-  } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    const err = e instanceof Error ? e.message : String(e);
-    await logScan(db, 'x_search', null, null, 0, 0, 0, Date.now() - xSearchStart, err);
-    results.push({
-      source: 'x_search',
-      items_scanned: 0,
-      incidents_created: 0,
-      incidents_deduped: 0,
-      errors: [err],
-      duration_ms: Date.now() - xSearchStart,
-    });
-  }
-
-  // ── 3. Telegram breach/leak channels ─────────────────────────────────
+  // ── 2. Telegram breach/leak channels ─────────────────────────────────
   const tgStart = Date.now();
   try {
     const tgPosts = await fetchTelegramBreachFeed(env.KV_CACHE, prefetched.telegramItems, env);

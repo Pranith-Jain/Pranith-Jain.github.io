@@ -339,23 +339,16 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           // for the rest of the hourly pipeline.
           try {
             if (env.BRIEFINGS_DB) {
-              // Read X accounts and X search from KV (warmed by queue consumer).
+              // Read X accounts from KV (warmed by queue consumer).
               // Fail open: if the KV key is stale or missing, runCyberPulseIngestion
               // falls back to its own GraphQL fetches.
               let xAccountPosts: unknown[] | undefined;
-              let xSearchPosts: unknown[] | undefined;
               if (env.KV_CACHE) {
                 try {
                   const raw = await env.KV_CACHE.get('cp:warm:x_accounts', 'json');
                   if (Array.isArray(raw) && raw.length > 0) xAccountPosts = raw as unknown[];
                 } catch {
                   /* fail open — CyberPulse falls back to direct GraphQL */
-                }
-                try {
-                  const raw = await env.KV_CACHE.get('cp:warm:x_search', 'json');
-                  if (Array.isArray(raw) && raw.length > 0) xSearchPosts = raw as unknown[];
-                } catch {
-                  /* fail open */
                 }
               }
               // Read social and reddit from gp:warm KV slices (warmed by gp queue).
@@ -403,7 +396,6 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
                 redditItems: redditItems as undefined,
                 xClaimsBreach,
                 xAccountPosts: xAccountPosts as any,
-                xSearchPosts: xSearchPosts as any,
               });
               const totalCreated = cpResults.reduce((s, r) => s + r.incidents_created, 0);
               const totalDeduped = cpResults.reduce((s, r) => s + r.incidents_deduped, 0);
@@ -1161,15 +1153,14 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           // Enqueue X-specific warm messages (cp:warm namespace)
           await queue.sendBatch([
             { body: { cp: { type: 'x_accounts' } }, delaySeconds: 0 },
-            { body: { cp: { type: 'x_search' } }, delaySeconds: 2 },
             // Bluesky/Reddit warm via gp:warm (existing handler in queue consumer)
-            { body: { gp: { key: 'x', path: '/api/v1/x-feed' } }, delaySeconds: 4 },
-            { body: { gp: { key: 'reddit', path: '/api/v1/reddit-feed' } }, delaySeconds: 6 },
+            { body: { gp: { key: 'x', path: '/api/v1/x-feed' } }, delaySeconds: 2 },
+            { body: { gp: { key: 'reddit', path: '/api/v1/reddit-feed' } }, delaySeconds: 4 },
           ]);
           console.log(
             JSON.stringify({
               job: 'cp-30-enqueue',
-              sources: ['x_accounts', 'x_search', 'gp:x', 'gp:reddit'],
+              sources: ['x_accounts', 'gp:x', 'gp:reddit'],
               ok: true,
             })
           );
@@ -1211,7 +1202,6 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
     try {
       // Read warmed data from KV (may be from this tick's enqueue or previous run)
       let xAccountPosts: unknown[] | undefined;
-      let xSearchPosts: unknown[] | undefined;
       let socialItems: unknown[] | undefined;
       let redditItems: unknown[] | undefined;
       let telegramItems: unknown[] | undefined;
@@ -1219,12 +1209,6 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
       try {
         const raw = await env.KV_CACHE.get('cp:warm:x_accounts', 'json');
         if (Array.isArray(raw) && raw.length > 0) xAccountPosts = raw as unknown[];
-      } catch {
-        /* fail open */
-      }
-      try {
-        const raw = await env.KV_CACHE.get('cp:warm:x_search', 'json');
-        if (Array.isArray(raw) && raw.length > 0) xSearchPosts = raw as unknown[];
       } catch {
         /* fail open */
       }
@@ -1318,7 +1302,6 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
         socialItems: socialItems as any,
         redditItems: redditItems as any,
         xAccountPosts: xAccountPosts as any,
-        xSearchPosts: xSearchPosts as any,
       });
       const totalCreated = cpResults.reduce((s, r) => s + r.incidents_created, 0);
       console.log(
