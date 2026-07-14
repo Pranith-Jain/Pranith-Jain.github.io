@@ -98,6 +98,7 @@ import {
   telegramCustomChannelsDeleteHandler,
   telegramBotStatusHandler,
   telegramBotRegisterHandler,
+  pollBotUpdatesWithResult,
 } from './routes/telegram-feed';
 import { telegramSearchHandler, telegramChannelMetaHandler } from './routes/telegram-search';
 import { cveRecentHandler } from './routes/cve-recent';
@@ -1238,6 +1239,38 @@ app.post(
 app.delete('/api/v1/telegram-custom-channels/:handle', telegramCustomChannelsDeleteHandler);
 app.get('/api/v1/admin/telegram/bot-status', telegramBotStatusHandler);
 app.post('/api/v1/admin/telegram/bot/register', telegramBotRegisterHandler);
+app.post('/api/v1/admin/telegram/bot/poll', async (c) => {
+  const result = await pollBotUpdatesWithResult(c.env);
+  return c.json(result);
+});
+app.get('/api/v1/telegram-bot/status', async (c) => {
+  const env = c.env as unknown as Record<string, unknown>;
+  const token = env.TELEGRAM_BOT_TOKEN as string | undefined;
+  const kv = env.KV_CACHE as import('@cloudflare/workers-types').KVNamespace | undefined;
+  const configured = !!token;
+  let botUsername: string | null = null;
+  if (token) {
+    try {
+      const r = await fetch(`https://api.telegram.org/bot${token}/getMe`);
+      if (r.ok) {
+        const data = (await r.json()) as { ok: boolean; result?: { username?: string } };
+        botUsername = data?.result?.username ?? null;
+      }
+    } catch {
+      /* swallow */
+    }
+  }
+  let cachedChannels: string[] = [];
+  if (kv) {
+    try {
+      const raw = await kv.get('tg:bot-channel-map');
+      if (raw) cachedChannels = Object.keys(JSON.parse(raw));
+    } catch {
+      /* swallow */
+    }
+  }
+  return c.json({ configured, bot_username: botUsername, cached_channels: cachedChannels });
+});
 
 // ── Telegram Leak Monitor (Tier 1: t.me scraping) ─────────────────────────
 app.get('/api/v1/telegram-leaks/search', telegramLeakSearchHandler);

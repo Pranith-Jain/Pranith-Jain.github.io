@@ -537,6 +537,66 @@ export async function pollBotUpdates(env: Env): Promise<void> {
   }
 }
 
+/** Poll bot updates and return a result object (for manual trigger UI). */
+export async function pollBotUpdatesWithResult(env: Env): Promise<{
+  ok: boolean;
+  updates_processed: number;
+  channels_updated: number;
+  error?: string;
+}> {
+  if (!env.TELEGRAM_BOT_TOKEN)
+    return { ok: false, updates_processed: 0, channels_updated: 0, error: 'TELEGRAM_BOT_TOKEN not set' };
+  if (!env.KV_CACHE) return { ok: false, updates_processed: 0, channels_updated: 0, error: 'KV_CACHE not available' };
+  const kv = env.KV_CACHE;
+
+  const offsetStr = await kv.get('tg:bot-offset').catch(() => null);
+  const offset = offsetStr ? parseInt(offsetStr, 10) : undefined;
+
+  const url = `https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/getUpdates?timeout=3${offset ? `&offset=${offset}` : ''}`;
+  const r = await fetch(url).catch(() => null);
+  if (!r || !r.ok)
+    return { ok: false, updates_processed: 0, channels_updated: 0, error: `HTTP ${r?.status ?? 'fetch failed'}` };
+
+  const data = (await r.json().catch(() => null)) as { ok: boolean; result?: BotApiUpdate[] } | null;
+  if (!data?.ok || !data?.result?.length) return { ok: true, updates_processed: 0, channels_updated: 0 };
+
+  let maxId = offset ?? 0;
+  const byChat = new Map<string, BotApiUpdate['channel_post'][]>();
+  for (const u of data.result) {
+    if (u.update_id > maxId) maxId = u.update_id + 1;
+    if (!u.channel_post?.chat) continue;
+    if (u.channel_post.chat.type !== 'channel') continue;
+    const cid = String(u.channel_post.chat.id);
+    if (!byChat.has(cid)) byChat.set(cid, []);
+    byChat.get(cid)!.push(u.channel_post);
+  }
+
+  const existingMap = await getBotChannelMap(kv);
+  let channelsUpdated = 0;
+  for (const [cid, posts] of byChat) {
+    const first = posts[0];
+    if (first?.chat?.username) {
+      const handle = first.chat.username.toLowerCase();
+      if (existingMap.get(handle) !== Number(cid)) {
+        existingMap.set(handle, Number(cid));
+        channelsUpdated++;
+      }
+    }
+    const raw = await kv.get(`tg:bot-posts:${cid}`).catch(() => null);
+    const existing: BotApiUpdate['channel_post'][] = raw ? JSON.parse(raw) : [];
+    const merged = [...existing, ...posts].slice(-50);
+    await kv.put(`tg:bot-posts:${cid}`, JSON.stringify(merged));
+  }
+  if (channelsUpdated > 0) {
+    await kv.put(BOT_CHANNEL_MAP_KEY, JSON.stringify(Object.fromEntries(existingMap)));
+  }
+  if (maxId > (offset ?? 0)) {
+    await kv.put('tg:bot-offset', String(maxId));
+  }
+
+  return { ok: true, updates_processed: data.result.length, channels_updated: channelsUpdated };
+}
+
 /** Mapping between Telegram chat IDs and known channel handles, stored in KV. */
 const BOT_CHANNEL_MAP_KEY = 'tg:bot-channel-map';
 

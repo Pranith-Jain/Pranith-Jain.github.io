@@ -1,11 +1,24 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Plus, Trash2, ExternalLink, RefreshCw, Loader2 } from 'lucide-react';
+import { Plus, Trash2, ExternalLink, RefreshCw, Loader2, Bot, Radio } from 'lucide-react';
 import { adminAuthHeaders } from '../../lib/admin-token';
 
 interface CustomChannel {
   handle: string;
   name: string;
   added_at: string;
+}
+
+interface BotStatus {
+  configured: boolean;
+  bot_username: string | null;
+  cached_channels: string[];
+}
+
+interface PollResult {
+  ok: boolean;
+  updates_processed: number;
+  channels_updated: number;
+  error?: string;
 }
 
 export default function TelegramSettings(): JSX.Element {
@@ -16,6 +29,10 @@ export default function TelegramSettings(): JSX.Element {
   const [name, setName] = useState('');
   const [adding, setAdding] = useState(false);
   const [addError, setAddError] = useState<string | null>(null);
+
+  const [botStatus, setBotStatus] = useState<BotStatus | null>(null);
+  const [polling, setPolling] = useState(false);
+  const [pollResult, setPollResult] = useState<PollResult | null>(null);
 
   const loadCtrlRef = useRef<AbortController | null>(null);
   const load = useCallback(() => {
@@ -33,9 +50,19 @@ export default function TelegramSettings(): JSX.Element {
       .finally(() => setLoading(false));
   }, []);
 
+  const loadBotStatus = useCallback(() => {
+    fetch('/api/v1/telegram-bot/status', { signal: AbortSignal.timeout(10000) })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (d) setBotStatus(d);
+      })
+      .catch(() => {});
+  }, []);
+
   useEffect(() => {
     load();
-  }, [load]);
+    loadBotStatus();
+  }, [load, loadBotStatus]);
 
   const addChannel = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -78,7 +105,25 @@ export default function TelegramSettings(): JSX.Element {
       if (res.ok) load();
     } catch (_catchErr) {
       console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-      /* ignore */
+    }
+  };
+
+  const pollBot = async () => {
+    setPolling(true);
+    setPollResult(null);
+    try {
+      const res = await fetch('/api/v1/admin/telegram/bot/poll', {
+        method: 'POST',
+        headers: adminAuthHeaders(),
+        signal: AbortSignal.timeout(30000),
+      });
+      const data = await res.json();
+      setPollResult(data);
+      loadBotStatus();
+    } catch (e) {
+      setPollResult({ ok: false, updates_processed: 0, channels_updated: 0, error: (e as Error).message });
+    } finally {
+      setPolling(false);
     }
   };
 
@@ -93,6 +138,66 @@ export default function TelegramSettings(): JSX.Element {
           Enter the channel handle without the @ prefix. Channels must have public{' '}
           <code className="text-xs">t.me/s/</code> preview enabled.
         </p>
+      </div>
+
+      {/* Bot Status Section */}
+      <div className="mb-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+        <h2 className="font-display font-semibold text-sm mb-3 flex items-center gap-2">
+          <Bot size={16} className="text-brand-600 dark:text-brand-400" /> Bot API Status
+        </h2>
+        {botStatus === null ? (
+          <div className="flex items-center gap-2 font-mono text-sm text-slate-500">
+            <Loader2 size={14} className="animate-spin" /> loading...
+          </div>
+        ) : (
+          <div className="space-y-3">
+            <div className="flex flex-wrap gap-x-6 gap-y-2 font-mono text-sm">
+              <span className="flex items-center gap-1.5">
+                <span
+                  className={`inline-block w-2 h-2 rounded-full ${botStatus.configured ? 'bg-emerald-500' : 'bg-rose-500'}`}
+                />
+                {botStatus.configured ? 'Token configured' : 'Token missing'}
+              </span>
+              {botStatus.bot_username && <span className="text-slate-500">@{botStatus.bot_username}</span>}
+              <span className="text-slate-500">{botStatus.cached_channels.length} channel(s) mapped</span>
+            </div>
+            {botStatus.configured && botStatus.cached_channels.length === 0 && (
+              <p className="text-xs font-mono text-amber-600 dark:text-amber-400">
+                Bot has no mapped channels. Add @{botStatus.bot_username ?? 'your-bot'} as admin to Telegram channels,
+                then click Poll to discover them.
+              </p>
+            )}
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={pollBot}
+                disabled={polling || !botStatus.configured}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-brand-600 text-white text-xs font-mono hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {polling ? <Loader2 size={12} className="animate-spin" /> : <Radio size={12} />}
+                Poll now
+              </button>
+              <button
+                type="button"
+                onClick={loadBotStatus}
+                className="inline-flex items-center gap-1 text-xs font-mono text-slate-500 hover:text-brand-600"
+              >
+                <RefreshCw size={10} /> refresh
+              </button>
+            </div>
+            {pollResult && (
+              <div
+                className={`rounded-lg p-3 font-mono text-xs ${pollResult.ok ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300' : 'bg-rose-500/10 text-rose-700 dark:text-rose-300'}`}
+              >
+                {pollResult.ok
+                  ? pollResult.updates_processed > 0
+                    ? `Processed ${pollResult.updates_processed} update(s), ${pollResult.channels_updated} new channel(s) mapped`
+                    : 'No pending updates. Bot needs to be admin of channels to receive posts.'
+                  : (pollResult.error ?? 'Poll failed')}
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       <form
@@ -143,7 +248,7 @@ export default function TelegramSettings(): JSX.Element {
 
       {loading && (
         <div className="flex items-center gap-2 font-mono text-sm text-slate-500">
-          <Loader2 size={14} className="animate-spin" /> loading…
+          <Loader2 size={14} className="animate-spin" /> loading...
         </div>
       )}
 
