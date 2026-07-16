@@ -1,0 +1,41 @@
+name: Telegram RSS Cache
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch-telegram:
+    name: Fetch Telegram RSS and publish to data branch
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install dependencies
+        run: npm ci --no-fund || npm install --no-fund
+      - name: Build RSS cache
+        run: node scripts/fetch-telegram-rss.mjs
+      - name: Publish to telegram-rss-cache branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -s telegram-rss-cache.json
+          tmp="$(mktemp -d)"
+          cp telegram-rss-cache.json "$tmp/telegram-rss-cache.json"
+          cd "$tmp"
+          git init -q
+          git checkout -q -b telegram-rss-cache
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add telegram-rss-cache.json
+          git commit -q -m "chore(telegram): rss cache $(date -u +%FT%TZ) [skip ci]"
+          git push -q -f "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:telegram-rss-cache
+          echo "Published telegram-rss-cache.json to telegram-rss-cache branch"

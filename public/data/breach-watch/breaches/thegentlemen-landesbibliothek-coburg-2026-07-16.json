@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-landesbibliothek-coburg-2026-07-16",
+  "title": "Landesbibliothek Coburg",
+  "group": "thegentlemen",
+  "discovered": "2026-07-16T12:59:13.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "***.de zoominfo.com/c/landesbibliothek-coburg/429940598 regional state scientific library in Bavaria, Germany, originally founded in 1547. Located in the historic Ehrenburg Palace in Coburg, it houses a vast collection of around 500,000 volumes, including rare manuscripts, incunabula, and the historical book collections of the former Dukes of Coburg. Since 1973, the library has been administered by the Free State of Bavaria, serving as a vital cultural and research institution dedicated to preserving the region's historical heritage",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Public Sector",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-kaneko-2026-07-16",
+  "title": "Kaneko",
+  "group": "thegentlemen",
+  "discovered": "2026-07-16T12:56:09.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "JP",
+  "sizeBytes": 0,
+  "description": "***.co.jp zoominfo.com/c/kaneko/540044079 Japanese software company based in Itoigawa, Niigata, specializing in construction project management solutions. For over three decades, the company has developed the CDPM series, a widely recognized software for creating and managing complex construction schedules. Recently, the company has been actively driving digital transformation in the construction industry through its advanced CDPM-X64 platform, which introduces innovative features like native JSON support and comprehensive schedule analysis tools",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

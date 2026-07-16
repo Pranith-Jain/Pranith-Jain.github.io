@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-customs-watch-2026-07-16",
+  "title": "Customs Watch",
+  "group": "thegentlemen",
+  "discovered": "2026-07-16T13:01:09.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "***.com zoominfo.com/c/customs-watch/467458469 is an intelligence and IT consulting company specializing in anti-counterfeiting and product protection strategies throughout their lifecycle. The company primarily serves the pharmaceutical sector, working with 22 of the 25 largest pharmaceutical companies globally. Founded in 2001, it employs 51 to 200 people and is an active member of the International AntiCounterfeiting Coalition.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Public Sector",
+  "references": ["ransomware.live"]
+}

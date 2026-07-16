@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-gallant-2026-07-16",
+  "title": "Gallant",
+  "group": "thegentlemen",
+  "discovered": "2026-07-16T13:00:45.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "FI",
+  "sizeBytes": 0,
+  "description": "***.fi zoominfo.com/c/gallant/474332534 is a forward-looking Finnish advisory and accounting company founded in 1967. It provides comprehensive financial, HR administration, taxation, and business law solutions for businesses of all sizes. The company operates in multiple locations across Finland, aiming to keep its clients one step ahead of their competition through modern financial management and strategic support",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

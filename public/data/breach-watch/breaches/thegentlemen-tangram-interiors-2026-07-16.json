@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-tangram-interiors-2026-07-16",
+  "title": "Tangram Interiors",
+  "group": "thegentlemen",
+  "discovered": "2026-07-16T13:01:58.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "www.***.com Revenue $245.1 Million Founded in 1963, At Tangram Interiors, we've spent decades transforming spaces to inspire and empower. As industry leaders, our reputation stands on top-notch craftsmanship and innovative design. Tangram Interiors is a prominent commercial interior solutions provider and Steelcase dealer, specializing in integrated workspaces, including furniture, technology, and design. Serving Southern California, the Central Valley, and Texas, the firm offers comprehensive services ranging from space planning to custom, bespoke furniture solutions. Client pesonal data included. 400+gb",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-https-www-statebankofnauvoo-com-2026-07-16",
+  "title": "https://www.statebankofnauvoo.com/",
+  "group": "incransom",
+  "discovered": "2026-07-16T12:57:21.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "State Bank of Nauvoo offers a range of banking services including deposit accounts, loans, and online banking solutions",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
+}

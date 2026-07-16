@@ -23,6 +23,9 @@ const CUSTOM_CHANNELS_KV_KEY = 'tg:custom-channels:v1';
  * often is wasteful and risks rate-limiting from Telegram's edge.
  */
 
+const TELEGRAM_RSS_CACHE_RAW_URL =
+  'https://raw.githubusercontent.com/pranithjain/portfolio/telegram-rss-cache/telegram-rss-cache.json';
+
 const FETCH_TIMEOUT_MS = 12_000;
 const CACHE_TTL = 75 * 60; // 75 min — over the hourly cron interval so every-other
 // tick avoids re-fetching all 34+ Telegram channels and preserves subrequest
@@ -732,6 +735,42 @@ export async function fetchTelegramFeed(kv?: KVNamespace, env?: Env): Promise<Te
   }
 
   const queue = [...CHANNELS, ...customChannels];
+
+  // Try GitHub RSS cache (pre-baked by GitHub Actions from RSS bridges, never
+  // blocked by Telegram's Cloudflare edge). Fetched once upfront so every
+  // channel can fall back to it without issuing N individual requests.
+  let gitHubCache: Map<string, ParsedMessage[]> | undefined;
+  try {
+    const ghReq = new Request(TELEGRAM_RSS_CACHE_RAW_URL);
+    const ghRes = await fetch(ghReq);
+    if (ghRes.ok) {
+      const raw = (await ghRes.json()) as {
+        items?: Array<{
+          channel_handle: string;
+          datetime: string;
+          text: string;
+          views?: string;
+          permalink: string;
+        }>;
+      };
+      if (raw?.items?.length) {
+        gitHubCache = new Map();
+        for (const item of raw.items) {
+          const h = item.channel_handle;
+          if (!gitHubCache.has(h)) gitHubCache.set(h, []);
+          gitHubCache.get(h)!.push({
+            permalink: item.permalink,
+            datetime: item.datetime,
+            text: item.text,
+            views: item.views,
+          });
+        }
+      }
+    }
+  } catch {
+    /* GitHub cache unavailable — continue without it */
+  }
+
   async function worker() {
     while (queue.length > 0) {
       const ch = queue.shift();
@@ -750,6 +789,10 @@ export async function fetchTelegramFeed(kv?: KVNamespace, env?: Env): Promise<Te
         if (rss && rss.length > 0) {
           messages = rss;
         }
+      }
+      // If live fetches failed, try GitHub RSS cache (pre-baked, never blocked)
+      if (messages.length === 0 && gitHubCache?.has(ch.handle)) {
+        messages = gitHubCache.get(ch.handle)!;
       }
       // If all scrapes failed, try Bot API KV cache
       if (messages.length === 0 && kv && env) {

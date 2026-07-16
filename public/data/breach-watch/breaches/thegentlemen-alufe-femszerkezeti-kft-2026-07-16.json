@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-alufe-femszerkezeti-kft-2026-07-16",
+  "title": "ALUFE Femszerkezeti Kft",
+  "group": "thegentlemen",
+  "discovered": "2026-07-16T12:58:53.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "HU",
+  "sizeBytes": 0,
+  "description": "***.hu zoominfo.com/c/alufe-fémszerkezeti-kft/452408141 Hungarian manufacturing and construction company based in Székesfehérvár, with a history of aluminum production dating back to 1968. The company specializes in manufacturing and installing aluminum windows, doors, curtain walls, and complex facade systems, including steel, glass, and ceramic structures. With around 150 employees, it provides comprehensive, high-quality metal structure solutions for commercial and architectural projects across the region",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

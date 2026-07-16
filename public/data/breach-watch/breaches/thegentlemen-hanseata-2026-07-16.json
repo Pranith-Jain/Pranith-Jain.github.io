@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-hanseata-2026-07-16",
+  "title": "Hanseata",
+  "group": "thegentlemen",
+  "discovered": "2026-07-16T13:00:19.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "***.de traditional German flat glass wholesaler based near Hamburg, operating since 1953. The company specializes in supplying high-quality glass solutions, including vacuum glass, flat glass, and insulating glass, to commercial clients, architects, and construction firms worldwide. They are particularly known for their extensive stock capacity, specialized consulting for energy-efficient vacuum glazing, and comprehensive global logistics services",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
+}

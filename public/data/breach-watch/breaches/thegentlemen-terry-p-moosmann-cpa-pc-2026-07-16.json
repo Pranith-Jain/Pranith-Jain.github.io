@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-terry-p-moosmann-cpa-pc-2026-07-16",
+  "title": "Terry P Moosmann CPA PC",
+  "group": "thegentlemen",
+  "discovered": "2026-07-16T12:55:26.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Terry P. Moosmann CPA PC is a local accounting and tax preparation firm based in Washington, Missouri. Owned by Terry Moosmann, the company provides professional financial, accounting, and tax services tailored to individuals and small businesses in the surrounding communities. The firm is recognized for its personalized approach and long-standing presence in the local business community",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
+}
