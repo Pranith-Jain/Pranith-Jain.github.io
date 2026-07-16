@@ -145,7 +145,10 @@ export async function ctiPredictionsPostHandler(c: Context<{ Bindings: Env }>) {
   if (!ai) return c.json({ error: 'AI binding unavailable' }, 503);
 
   const body = await c.req.json<{ count?: number; focus_sector?: string; focus_region?: string }>().catch(() => ({}));
-  const result = await generatePredictions(db, ai, body);
+  const result = await generatePredictions(db, ai, body, {
+    groqKey: c.env.GROQ_API_KEY,
+    googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY,
+  });
   return c.json(result);
 }
 
@@ -161,12 +164,19 @@ export async function ctiMutateHandler(c: Context<{ Bindings: Env }>) {
   const input = String(body.input || '');
   if (!input) return c.json({ error: 'input is required' }, 400);
 
-  const seed = await parseSeedAttack(db, ai, input, String(body.seed_type || 'auto'));
-  const variants = await generateVariants(db, ai, seed, {
-    count: typeof body.count === 'number' ? body.count : undefined,
-    strategies: Array.isArray(body.strategies) ? body.strategies : undefined,
-    target_sector: typeof body.target_sector === 'string' ? body.target_sector : undefined,
-  });
+  const keys = { groqKey: c.env.GROQ_API_KEY, googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY };
+  const seed = await parseSeedAttack(db, ai, input, String(body.seed_type || 'auto'), keys);
+  const variants = await generateVariants(
+    db,
+    ai,
+    seed,
+    {
+      count: typeof body.count === 'number' ? body.count : undefined,
+      strategies: Array.isArray(body.strategies) ? body.strategies : undefined,
+      target_sector: typeof body.target_sector === 'string' ? body.target_sector : undefined,
+    },
+    keys
+  );
 
   return c.json({ seed, variants });
 }
