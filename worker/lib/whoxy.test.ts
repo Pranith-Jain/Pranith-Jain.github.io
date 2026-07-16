@@ -30,7 +30,7 @@ it('returns domains for a valid email search', async () => {
   const r = await whoxyReverseWhois(env, 'john@example.com', 'email');
   expect(r.success).toBe(true);
   expect(r.domains).toHaveLength(2);
-  expect(r.domains[0].domain_name).toBe('example.com');
+  expect(r.domains[0]!.domain_name).toBe('example.com');
   expect(r.total_results).toBe(2);
   expect(r.pages_fetched).toBe(1);
   const d0 = r.diagnostics[0]!;
@@ -123,7 +123,7 @@ it('supports name search type', async () => {
   const r = await whoxyReverseWhois(env, 'John Smith', 'name');
   expect(r.success).toBe(true);
   expect(r.search_type).toBe('name');
-  expect(r.domains[0].domain_name).toBe('johnsmith.com');
+  expect(r.domains[0]!.domain_name).toBe('johnsmith.com');
 });
 
 it('supports company search type', async () => {
@@ -159,6 +159,6 @@ it('supports keyword search type', async () => {
   expect(r.success).toBe(true);
   expect(r.search_type).toBe('keyword');
   // keyword uses identifier=keyword in URL, not email/name/company
-  const calledUrl = vi.mocked(globalThis.fetch).mock.calls[0][0] as string;
+  const calledUrl = vi.mocked(globalThis.fetch).mock.calls[0]![0] as string;
   expect(calledUrl).toContain('keyword=yahoo');
 });
