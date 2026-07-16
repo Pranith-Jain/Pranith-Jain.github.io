@@ -1,7 +1,10 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { ExternalLink, Loader2, RefreshCw, ShieldAlert, Search, Filter } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { sanitizeUrl } from '../../lib/sanitize-url';
+import { LiveFreshnessPill } from '../../components/LiveFreshnessPill';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 
 type BwCategory = 'ransomware' | 'data_breach' | 'combo_list' | 'source_code' | 'credential_leak' | 'other';
 type BwSeverity = 'critical' | 'high' | 'medium' | 'low' | 'unknown';
@@ -32,6 +35,10 @@ interface BwGroupEntry {
 }
 
 interface BwIndex {
+  source: string;
+  license: string;
+  replicatedAt: string;
+  lastSyncedAt: string | null;
   counts: { breaches: number; groups: number; categories: number };
   categories: Array<{ key: BwCategory; label: string; count: number }>;
 }
@@ -60,12 +67,57 @@ function humanSize(bytes: number): string {
   return `${bytes} B`;
 }
 
-function BreachCard({ entry, onSelect }: { entry: BwBreachIndexEntry; onSelect: () => void }): JSX.Element {
+function formatDate(iso: string | null): string {
+  if (!iso) return '—';
+  try {
+    return new Date(iso).toLocaleString();
+  } catch {
+    return iso;
+  }
+}
+
+function shortRel(iso: string | null): string {
+  if (!iso) return '';
+  const diff = Date.now() - new Date(iso).getTime();
+  const mins = Math.floor(diff / 60000);
+  if (mins < 1) return 'just now';
+  if (mins < 60) return `${mins}m ago`;
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return `${hrs}h ago`;
+  return `${Math.floor(hrs / 24)}d ago`;
+}
+
+function freshnessTone(iso: string | null): 'live' | 'fresh' | 'recent' | 'stale' | 'cold' | 'unknown' {
+  if (!iso) return 'unknown';
+  const diff = Date.now() - new Date(iso).getTime();
+  if (diff < 3600000) return 'live';
+  if (diff < 86400000) return 'fresh';
+  if (diff < 604800000) return 'recent';
+  if (diff < 2592000000) return 'stale';
+  return 'cold';
+}
+
+const LIMIT = 200;
+const DAYS_OPTIONS = [7, 14, 30, 90, 180, 365];
+
+function BreachCard({
+  entry,
+  onSelect,
+  selected,
+}: {
+  entry: BwBreachIndexEntry;
+  onSelect: () => void;
+  selected: boolean;
+}): JSX.Element {
   return (
     <button
       type="button"
       onClick={onSelect}
-      className="w-full text-left rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 hover:border-brand-500/40 transition-colors"
+      className={`w-full text-left rounded-xl border bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 hover:border-brand-500/40 transition-colors ${
+        selected
+          ? 'border-brand-500/60 ring-1 ring-brand-500/30'
+          : 'border-slate-200 dark:border-[rgb(var(--border-400))]'
+      }`}
     >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0 flex-1">
@@ -75,7 +127,7 @@ function BreachCard({ entry, onSelect }: { entry: BwBreachIndexEntry; onSelect: 
           <div className="flex items-center gap-2 mt-1 text-mini font-mono text-slate-500 flex-wrap">
             <span className="text-brand-600 dark:text-brand-400">{entry.group}</span>
             {entry.country && <span>{entry.country}</span>}
-            {entry.discovered && <span>{new Date(entry.discovered).toLocaleDateString()}</span>}
+            <span>{entry.discovered ? new Date(entry.discovered).toLocaleDateString() : ''}</span>
           </div>
         </div>
         <div className="flex items-center gap-2 shrink-0">
@@ -87,20 +139,17 @@ function BreachCard({ entry, onSelect }: { entry: BwBreachIndexEntry; onSelect: 
           <span className="text-micro font-mono text-slate-400">{humanSize(entry.sizeBytes)}</span>
         </div>
       </div>
-      <span className="text-micro font-mono text-slate-400 mt-2 inline-block">
-        {CATEGORY_LABELS[entry.category] ?? entry.category}
-      </span>
+      <div className="flex items-center justify-between mt-2">
+        <span className="text-micro font-mono text-slate-400">{CATEGORY_LABELS[entry.category] ?? entry.category}</span>
+        <PostAnalysisButton
+          title={entry.title}
+          source={entry.group}
+          link={`/api/v1/breach-watch/breaches/${entry.slug}`}
+          compact
+        />
+      </div>
     </button>
   );
-}
-
-function formatDate(iso: string | null): string {
-  if (!iso) return '—';
-  try {
-    return new Date(iso).toLocaleString();
-  } catch {
-    return iso;
-  }
 }
 
 function BreachDetail({ slug, onClose }: { slug: string; onClose: () => void }): JSX.Element {
@@ -231,6 +280,13 @@ function BreachDetail({ slug, onClose }: { slug: string; onClose: () => void }):
               </ul>
             </div>
           )}
+
+          <PostAnalysisButton
+            title={body.title}
+            description={body.description ?? undefined}
+            source={body.group}
+            link={body.source_url}
+          />
         </div>
       )}
     </section>
@@ -238,31 +294,58 @@ function BreachDetail({ slug, onClose }: { slug: string; onClose: () => void }):
 }
 
 export default function BreachWatch(): JSX.Element {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [index, setIndex] = useState<BwIndex | null>(null);
   const [groups, setGroups] = useState<BwGroupEntry[]>([]);
   const [breaches, setBreaches] = useState<BwBreachIndexEntry[]>([]);
   const [totalBreaches, setTotalBreaches] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [refreshKey, setRefreshKey] = useState(0);
-
-  const [searchQuery, setSearchQuery] = useState('');
-  const [filterGroup, setFilterGroup] = useState('');
-  const [filterCategory, setFilterCategory] = useState('');
-  const [filterSeverity, setFilterSeverity] = useState('');
   const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
+  const [page, setPage] = useState(0);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const mounted = useRef(false);
 
-  useEffect(() => {
-    let cancelled = false;
-    setLoading(true);
-    setError(null);
+  const filterGroup = searchParams.get('group') ?? '';
+  const filterCategory = searchParams.get('category') ?? '';
+  const filterSeverity = searchParams.get('severity') ?? '';
+  const filterCountry = searchParams.get('country') ?? '';
+  const filterDays = searchParams.get('days') ?? '';
+  const searchQuery = searchParams.get('q') ?? '';
 
-    async function load() {
+  const setFilter = useCallback(
+    (key: string, value: string) => {
+      setSearchParams(
+        (prev) => {
+          const out = new URLSearchParams(prev);
+          if (value) out.set(key, value);
+          else out.delete(key);
+          return out;
+        },
+        { replace: true }
+      );
+    },
+    [setSearchParams]
+  );
+
+  const loadData = useCallback(
+    async (isInitial = false) => {
+      setLoading(true);
+      setError(null);
       try {
+        const params = new URLSearchParams();
+        params.set('limit', String(LIMIT));
+        if (searchQuery) params.set('q', searchQuery);
+        if (filterGroup) params.set('group', filterGroup);
+        if (filterCategory) params.set('category', filterCategory);
+        if (filterSeverity) params.set('severity', filterSeverity);
+        if (filterCountry) params.set('country', filterCountry);
+        if (filterDays) params.set('days_back', filterDays);
+
         const [idxRes, groupsRes, breachesRes] = await Promise.all([
           fetch('/api/v1/breach-watch/'),
           fetch('/api/v1/breach-watch/groups?limit=200'),
-          fetch('/api/v1/breach-watch/breaches?limit=200'),
+          fetch(`/api/v1/breach-watch/breaches?${params}`),
         ]);
         if (!idxRes.ok) throw new Error(`index HTTP ${idxRes.status}`);
         if (!groupsRes.ok) throw new Error(`groups HTTP ${groupsRes.status}`);
@@ -272,41 +355,68 @@ export default function BreachWatch(): JSX.Element {
         const groupsData = (await groupsRes.json()) as { groups: BwGroupEntry[] };
         const breachesData = (await breachesRes.json()) as { total: number; breaches: BwBreachIndexEntry[] };
 
-        if (!cancelled) {
-          setIndex(idxData);
-          setGroups(groupsData.groups);
-          setBreaches(breachesData.breaches);
-          setTotalBreaches(breachesData.total);
-        }
+        setIndex(idxData);
+        setGroups(groupsData.groups);
+        setBreaches(breachesData.breaches);
+        setTotalBreaches(breachesData.total);
+        setPage(0);
+        if (!isInitial) setSelectedSlug(null);
       } catch (e: unknown) {
-        if (!cancelled) setError(e instanceof Error ? e.message : String(e));
+        setError(e instanceof Error ? e.message : String(e));
       } finally {
-        if (!cancelled) setLoading(false);
+        setLoading(false);
+      }
+    },
+    [searchQuery, filterGroup, filterCategory, filterSeverity, filterCountry, filterDays]
+  );
+
+  useEffect(() => {
+    mounted.current = true;
+    loadData(!mounted.current);
+    return () => {
+      mounted.current = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchQuery, filterGroup, filterCategory, filterSeverity, filterCountry, filterDays]);
+
+  const uniqueCountries = useMemo(() => {
+    const seen = new Set<string>();
+    const out: string[] = [];
+    for (const b of breaches) {
+      if (b.country && !seen.has(b.country)) {
+        seen.add(b.country);
+        out.push(b.country);
       }
     }
+    return out.sort();
+  }, [breaches]);
 
-    load();
-    return () => {
-      cancelled = true;
-    };
-  }, [refreshKey]);
+  const canLoadMore = breaches.length >= LIMIT && breaches.length < totalBreaches;
+  const loadMore = useCallback(async () => {
+    const next = page + 1;
+    setLoadingMore(true);
+    const params = new URLSearchParams();
+    params.set('limit', String(LIMIT));
+    params.set('offset', String(next * LIMIT));
+    if (searchQuery) params.set('q', searchQuery);
+    if (filterGroup) params.set('group', filterGroup);
+    if (filterCategory) params.set('category', filterCategory);
+    if (filterSeverity) params.set('severity', filterSeverity);
+    if (filterCountry) params.set('country', filterCountry);
+    if (filterDays) params.set('days_back', filterDays);
 
-  const filteredBreaches = useMemo(() => {
-    let out = breaches;
-    if (searchQuery) {
-      const q = searchQuery.toLowerCase();
-      out = out.filter(
-        (b) =>
-          b.title.toLowerCase().includes(q) ||
-          b.group.toLowerCase().includes(q) ||
-          (b.country ?? '').toLowerCase().includes(q)
-      );
+    try {
+      const r = await fetch(`/api/v1/breach-watch/breaches?${params}`);
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      const data = (await r.json()) as { breaches: BwBreachIndexEntry[] };
+      setBreaches((prev) => [...prev, ...data.breaches]);
+      setPage(next);
+    } catch (e: unknown) {
+      console.error('loadMore failed:', e instanceof Error ? e.message : String(e));
+    } finally {
+      setLoadingMore(false);
     }
-    if (filterGroup) out = out.filter((b) => b.group === filterGroup);
-    if (filterCategory) out = out.filter((b) => b.category === filterCategory);
-    if (filterSeverity) out = out.filter((b) => b.severity === filterSeverity);
-    return out;
-  }, [breaches, searchQuery, filterGroup, filterCategory, filterSeverity]);
+  }, [page, searchQuery, filterGroup, filterCategory, filterSeverity, filterCountry, filterDays]);
 
   return (
     <DataPageLayout
@@ -381,22 +491,26 @@ export default function BreachWatch(): JSX.Element {
       headerExtra={
         <div className="flex items-center gap-3">
           {index && (
-            <span className="text-mini font-mono text-slate-400">
-              {index.counts.breaches.toLocaleString()} breaches · {index.counts.groups} groups
-            </span>
+            <>
+              <LiveFreshnessPill tone={freshnessTone(index.lastSyncedAt)} ago={shortRel(index.lastSyncedAt)} />
+              <span className="text-mini font-mono text-slate-400">
+                {index.counts.breaches.toLocaleString()} breaches · {index.counts.groups} groups
+              </span>
+            </>
           )}
           <button
             type="button"
-            onClick={() => setRefreshKey((k) => k + 1)}
-            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1"
+            onClick={() => loadData(false)}
+            disabled={loading}
+            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1 disabled:opacity-40"
             aria-label="Refresh breach watch data"
           >
-            <RefreshCw size={11} /> refresh
+            <RefreshCw size={11} className={loading ? 'animate-spin' : ''} /> refresh
           </button>
         </div>
       }
     >
-      {loading && (
+      {loading && !index && (
         <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 inline-flex items-center gap-2 font-mono text-sm text-slate-500">
           <Loader2 size={14} className="animate-spin" /> loading breach watch data…
         </div>
@@ -405,10 +519,13 @@ export default function BreachWatch(): JSX.Element {
       {error && (
         <div className="rounded-xl border border-rose-500/40 bg-rose-500/5 p-3 font-mono text-sm text-rose-600 dark:text-rose-300">
           Error: {error}
+          <button type="button" onClick={() => loadData(false)} className="ml-3 underline hover:no-underline">
+            retry
+          </button>
         </div>
       )}
 
-      {!loading && !error && (
+      {(!loading || index) && !error && (
         <>
           {/* Categories overview */}
           {index && index.categories.length > 0 && (
@@ -417,7 +534,7 @@ export default function BreachWatch(): JSX.Element {
                 <button
                   key={c.key}
                   type="button"
-                  onClick={() => setFilterCategory(filterCategory === c.key ? '' : c.key)}
+                  onClick={() => setFilter('category', filterCategory === c.key ? '' : c.key)}
                   className={`text-micro font-mono px-2.5 py-1 rounded-full border transition-colors ${
                     filterCategory === c.key
                       ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300 border-brand-500/40'
@@ -437,17 +554,17 @@ export default function BreachWatch(): JSX.Element {
               <input
                 type="text"
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => setFilter('q', e.target.value)}
                 placeholder="Search breaches…"
                 className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500"
               />
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
               <Filter size={13} className="text-slate-400" />
               <select
                 value={filterGroup}
-                onChange={(e) => setFilterGroup(e.target.value)}
+                onChange={(e) => setFilter('group', e.target.value)}
                 className="text-mini font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300"
               >
                 <option value="">All groups</option>
@@ -460,7 +577,7 @@ export default function BreachWatch(): JSX.Element {
 
               <select
                 value={filterSeverity}
-                onChange={(e) => setFilterSeverity(e.target.value)}
+                onChange={(e) => setFilter('severity', e.target.value)}
                 className="text-mini font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300"
               >
                 <option value="">All severity</option>
@@ -469,30 +586,78 @@ export default function BreachWatch(): JSX.Element {
                 <option value="medium">Medium</option>
                 <option value="low">Low</option>
               </select>
+
+              <select
+                value={filterCountry}
+                onChange={(e) => setFilter('country', e.target.value)}
+                className="text-mini font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300"
+              >
+                <option value="">All countries</option>
+                {uniqueCountries.map((c) => (
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
+                ))}
+              </select>
+
+              <select
+                value={filterDays}
+                onChange={(e) => setFilter('days', e.target.value)}
+                className="text-mini font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300"
+              >
+                <option value="">All time</option>
+                {DAYS_OPTIONS.map((d) => (
+                  <option key={d} value={String(d)}>
+                    Last {d} days
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
 
           <div className="flex items-center justify-between mb-3">
             <p className="text-mini font-mono text-slate-500">
-              {filteredBreaches.length} of {totalBreaches.toLocaleString()} breaches
+              {breaches.length} of {totalBreaches.toLocaleString()} breaches
+              {loading && <Loader2 size={11} className="inline animate-spin ml-1" />}
             </p>
           </div>
 
           {/* Breach list */}
+          {loading && index && (
+            <div className="flex items-center gap-2 text-muted text-sm font-mono mb-3">
+              <Loader2 size={14} className="animate-spin" /> re-filtering…
+            </div>
+          )}
+
           <div className="grid gap-2">
-            {filteredBreaches.length === 0 && (
+            {breaches.length === 0 && !loading && (
               <p className="text-sm font-mono text-slate-500 italic py-4 text-center">
                 No breaches match the current filters.
               </p>
             )}
-            {filteredBreaches.map((b) => (
+            {breaches.map((b) => (
               <BreachCard
                 key={b.slug}
                 entry={b}
+                selected={selectedSlug === b.slug}
                 onSelect={() => setSelectedSlug(selectedSlug === b.slug ? null : b.slug)}
               />
             ))}
           </div>
+
+          {canLoadMore && (
+            <div className="mt-4 text-center">
+              <button
+                type="button"
+                onClick={loadMore}
+                disabled={loadingMore}
+                className="text-mini font-mono px-4 py-2 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 bg-white dark:bg-[rgb(var(--surface-200))] disabled:opacity-40 inline-flex items-center gap-2"
+              >
+                {loadingMore && <Loader2 size={12} className="animate-spin" />}
+                Load more
+              </button>
+            </div>
+          )}
 
           {/* Detail panel */}
           {selectedSlug && (
@@ -502,7 +667,7 @@ export default function BreachWatch(): JSX.Element {
           )}
 
           {/* Groups section */}
-          {groups.length > 0 && (
+          {groups.length > 0 && !filterGroup && (
             <section className="mt-10">
               <h2 className="font-display font-bold text-xl mb-3 inline-flex items-center gap-2">
                 <ShieldAlert size={18} className="text-brand-600 dark:text-brand-400" /> Threat actor groups
@@ -512,12 +677,7 @@ export default function BreachWatch(): JSX.Element {
                   <button
                     key={g.name}
                     type="button"
-                    onClick={() => {
-                      setFilterGroup(g.name);
-                      setFilterCategory('');
-                      setFilterSeverity('');
-                      setSearchQuery('');
-                    }}
+                    onClick={() => setFilter('group', g.name)}
                     className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 hover:border-brand-500/40 transition-colors text-left"
                   >
                     <div className="flex items-center justify-between">

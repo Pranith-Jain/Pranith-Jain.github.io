@@ -53,6 +53,7 @@ breachWatchRouter.get('/breach-watch/breaches', async (c) => {
       : undefined;
     const keyword = c.req.query('q');
     const limit = c.req.query('limit') ? Math.min(200, Math.max(1, Number(c.req.query('limit')))) : undefined;
+    const offset = c.req.query('offset') ? Math.max(0, Number(c.req.query('offset'))) : undefined;
 
     const breaches = mod.filterBreaches(idx, {
       group: group || undefined,
@@ -62,6 +63,7 @@ breachWatchRouter.get('/breach-watch/breaches', async (c) => {
       daysBack,
       keyword: keyword || undefined,
       limit,
+      offset,
     });
     return c.json({ total: idx.counts.breaches, returned: breaches.length, breaches });
   } catch (e) {

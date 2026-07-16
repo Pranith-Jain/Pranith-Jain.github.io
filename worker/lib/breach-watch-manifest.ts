@@ -131,14 +131,17 @@ export interface BwListBreachesOptions {
   daysBack?: number;
   keyword?: string;
   limit?: number;
+  /** Number of matching results to skip before returning (for pagination). */
+  offset?: number;
 }
 
 export function filterBreaches(idx: BwIndex, opts: BwListBreachesOptions = {}): BwBreachIndexEntry[] {
-  const { group, category, severity, country, daysBack, keyword, limit = 100 } = opts;
+  const { group, category, severity, country, daysBack, keyword, limit = 100, offset = 0 } = opts;
   const needle = keyword?.toLowerCase();
   const now = Date.now();
   const cutoffMs = daysBack ? daysBack * 86_400_000 : null;
   const countryNeedle = country?.toLowerCase();
+  let skipped = 0;
 
   const out: BwBreachIndexEntry[] = [];
   for (const b of idx.breachIndex) {
@@ -153,6 +156,10 @@ export function filterBreaches(idx: BwIndex, opts: BwListBreachesOptions = {}): 
     if (needle) {
       const hay = `${b.slug} ${b.title} ${b.group}`.toLowerCase();
       if (!hay.includes(needle)) continue;
+    }
+    if (skipped < offset) {
+      skipped++;
+      continue;
     }
     out.push(b);
     if (out.length >= limit) break;
