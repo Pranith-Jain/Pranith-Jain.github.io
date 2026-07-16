@@ -171,6 +171,11 @@ export async function cyberpulseStatsHandler(c: Context<{ Bindings: Env }>): Pro
         .all(),
     ]);
 
+  // Get last scan timestamp for freshness indicator
+  const lastScan = await db
+    .prepare('SELECT scanned_at FROM cyberpulse_scan_log ORDER BY scanned_at DESC LIMIT 1')
+    .first<{ scanned_at: string }>();
+
   return c.json({
     period_days: daysBack,
     total: total?.total ?? 0,
@@ -182,6 +187,7 @@ export async function cyberpulseStatsHandler(c: Context<{ Bindings: Env }>): Pro
     daily_trend: dailyTrend.results,
     top_actors: topActors.results,
     top_victims: topVictims.results,
+    last_scan: lastScan?.scanned_at ?? null,
   });
 }
 

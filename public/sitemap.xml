@@ -81,7 +81,7 @@
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
-  <!-- DFIR tools (169) -->
+  <!-- DFIR tools (170) -->
   <url>
     <loc>https://pranithjain.qzz.io/dfir/catalog</loc>
     <lastmod>2026-07-16</lastmod>
@@ -803,6 +803,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://pranithjain.qzz.io/dfir/whoxy</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://pranithjain.qzz.io/dfir/winreg</loc>
     <lastmod>2026-07-16</lastmod>
     <changefreq>monthly</changefreq>
@@ -1096,7 +1102,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  <!-- Threat Intel — pages (254) -->
+  <!-- Threat Intel — pages (256) -->
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/catalog</loc>
     <lastmod>2026-07-16</lastmod>
@@ -1111,6 +1117,12 @@
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/actors/catalog</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pranithjain.qzz.io/threatintel/actors/profiles</loc>
     <lastmod>2026-07-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -2521,6 +2533,12 @@
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/ti-dashboard</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pranithjain.qzz.io/threatintel/dashboard</loc>
     <lastmod>2026-07-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>

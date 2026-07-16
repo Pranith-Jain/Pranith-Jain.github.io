@@ -31,6 +31,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [X-VERDIKT Multi-Source Verdict](https://pranithjain.qzz.io/dfir/x-verdikt) (dfir): Streaming verdicts from X (Twitter) intelligence feeds.
 - [ORKL Library Search](https://pranithjain.qzz.io/dfir/orkl) (dfir): Search the ORKL open-source threat intelligence library — reports, actors, CVEs from hundreds of sources.
 - [Traceix Hash Lookup](https://pranithjain.qzz.io/dfir/traceix) (dfir): SHA-256 hash reputation lookup via Traceix — per-engine antivirus/AV verdicts (Safe/Malicious/Unknown).
+- [Whoxy Reverse WHOIS](https://pranithjain.qzz.io/dfir/whoxy) (dfir): Reverse WHOIS lookup via Whoxy — find all domains registered by an email, name, company, or keyword.
 - [Malware Analyzer](https://pranithjain.qzz.io/dfir/malware-analyzer) (dfir): PE / ELF / Mach-O static analysis with import hashing + section entropy.
 - [Infostealer Log Parser](https://pranithjain.qzz.io/dfir/stealer-parser) (dfir): Parse RedLine / Raccoon / Vidar / LummaC stealer logs — credentials, system, browser data.
 - [Bloom Filter Lookup](https://pranithjain.qzz.io/dfir/bloom) (dfir): Membership-test against a corpus of known-bad indicators.
@@ -180,6 +181,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Actor Usernames](https://pranithjain.qzz.io/threatintel/actors/usernames) (threatintel): Search forum handles across 2M+ records.
 - [Attribution Framework](https://pranithjain.qzz.io/threatintel/actors/attribution) (threatintel): Attribution framework and analysis.
 - [Threat Actor Catalog](https://pranithjain.qzz.io/threatintel/actors/catalog) (threatintel): Curated profiles — aliases, countries, malware, TTPs.
+- [Actor Profiles](https://pranithjain.qzz.io/threatintel/actors/profiles) (threatintel): Expandable actor cards — aliases, malware, targeted sectors, campaigns, MITRE mapping.
 - [Actor Graph](https://pranithjain.qzz.io/threatintel/actors/graph) (threatintel): Visualize actor → actor → IOC connections.
 - [APT Tracker](https://pranithjain.qzz.io/threatintel/apt-tracker) (threatintel): APT group tracker organised by region — China, Russia, Iran, North Korea, NATO, Middle East, Israel.
 - [Most Wanted Actors](https://pranithjain.qzz.io/threatintel/most-wanted) (threatintel): Top-priority threat actors — LockBit, Cl0p, Scattered Spider, BlackCat, and other high-impact groups.
@@ -204,7 +206,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [IOC Correlation](https://pranithjain.qzz.io/threatintel/iocs/correlation) (threatintel): IOC correlation analysis with timeline.
 - [Aggregated Feeds](https://pranithjain.qzz.io/threatintel/iocs/aggregated) (threatintel): Aggregated feed browser — what each provider ships.
 - [Observable DB](https://pranithjain.qzz.io/threatintel/iocs/observable) (threatintel): Every indicator seen, with provenance.
-- [SOC IOC View](https://pranithjain.qzz.io/threatintel/soc-dashboard) (threatintel): SOC-focused IOC dashboard — relevant indicators sorted by priority with enrichment context.
+- [SOC IOC View](https://pranithjain.qzz.io/threatintel/soc-dashboard?tab=iocs) (threatintel): SOC-focused IOC dashboard — relevant indicators sorted by priority with enrichment context.
 - [CVE Intel](https://pranithjain.qzz.io/threatintel/cves/cves) (threatintel): Unified CVE intelligence — NVD + KEV + EPSS + exploit availability.
 - [GitHub Advisories](https://pranithjain.qzz.io/threatintel/cves/advisories) (threatintel): GitHub security advisories with affected versions and patches.
 - [CVE Resources](https://pranithjain.qzz.io/threatintel/cves/resources) (threatintel): CVE resource catalogs — patch priority, exploit DB, vendor bulletins.
@@ -248,6 +250,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Infostealer Logs](https://pranithjain.qzz.io/threatintel/darkweb/infostealer) (threatintel): Infostealer log analysis — credentials, cookies, system fingerprints.
 - [Secret Leaks](https://pranithjain.qzz.io/threatintel/darkweb/leaks) (threatintel): Secret and credential leak monitoring across paste sites.
 - [Breach Disclosures](https://pranithjain.qzz.io/threatintel/darkweb/disclosures) (threatintel): Breach disclosure feed — official statements and regulatory filings.
+- [Breach Watch](https://pranithjain.qzz.io/threatintel/darkweb/breach-watch) (threatintel): Aggregated breach and leak corpus from 6 public trackers — ransomware leaks, data breaches, combo lists.
 - [Ransom Report](https://pranithjain.qzz.io/threatintel/darkweb/ransom-report) (threatintel): Per-group ransomware CTI dossier — TTPs, victims, demands.
 - [Ransomware Activity](https://pranithjain.qzz.io/threatintel/darkweb/ransom-activity) (threatintel): Live ransomware activity feed — new victims, leak posts.
 - [Ransomware Map](https://pranithjain.qzz.io/threatintel/darkweb/ransom-map) (threatintel): Ransomware victim geo map — country, sector, group.
@@ -331,10 +334,11 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Analyze](https://pranithjain.qzz.io/threatintel/predictive/analyze) (threatintel): Intelligence analysis workspace.
 - [Assessments](https://pranithjain.qzz.io/threatintel/predictive/assessments) (threatintel): Security assessments and risk scoring.
 - [Observe](https://pranithjain.qzz.io/threatintel/predictive/observe) (threatintel): Observation dashboard — what is happening right now.
-- [SOC Dashboard](https://pranithjain.qzz.io/threatintel/soc-dashboard) (threatintel): Unified tactical SOC view — ransomware, vulnerabilities, and IOC stream panels.
+- [SOC Dashboard](https://pranithjain.qzz.io/threatintel/soc-dashboard?tab=ransomware) (threatintel): Unified tactical SOC view — ransomware, vulnerabilities, and IOC stream panels.
 - [Live Center — Web OSINT](https://pranithjain.qzz.io/threatintel/live-center) (threatintel): Browser-based live OSINT tools with install, example, and reference URL per tool.
 - [TI Dashboard](https://pranithjain.qzz.io/threatintel/ti-dashboard) (threatintel): Weekly threat intelligence report — IOCs, threat stories, actor profiles, vulnerabilities, hunting leads, and supply chain incidents.
 - [CTI Dashboard](https://pranithjain.qzz.io/threatintel/cti-dashboard) (threatintel): Central CTI operations dashboard — KPI cards, feed health, alert volume, and recent intel.
+- [Threat Dashboard](https://pranithjain.qzz.io/threatintel/dashboard) (threatintel): Live threat landscape — IOCs, ransomware victims, and breach disclosures with sortable table and severity filters.
 - [Alert Feed](https://pranithjain.qzz.io/threatintel/alerts) (threatintel): Prioritised threat intelligence alerts — noise-filtered, confidence-scored, and matched to your estate.
 - [Ransomware Live](https://pranithjain.qzz.io/threatintel/ransomware-live) (threatintel): Live ransomware victim and group monitoring with sector/region filtering.
 - [Estate Config](https://pranithjain.qzz.io/threatintel/estate) (threatintel): Manage your digital estate — assets, tech stack, sector, and data types for personalised correlation.

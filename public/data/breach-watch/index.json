@@ -1,33 +1,33 @@
 {
   "source": "ransomware.live + ransomlook.io + Darkfield + RecentBreaches.com + CTI.FYI + XposedOrNot",
   "license": "CC0 — public data from open trackers",
-  "replicatedAt": "2026-07-16T15:40:02.707Z",
-  "counts": { "breaches": 2492, "groups": 100, "categories": 3 },
-  "lastSyncedAt": "2026-07-16T15:40:02.707Z",
+  "replicatedAt": "2026-07-16T17:55:08.251Z",
+  "counts": { "breaches": 2434, "groups": 91, "categories": 3 },
+  "lastSyncedAt": "2026-07-16T17:55:08.251Z",
   "categories": [
-    { "key": "ransomware", "label": "Ransomware", "count": 2007 },
-    { "key": "data_breach", "label": "Data Breach", "count": 483 },
+    { "key": "ransomware", "label": "Ransomware", "count": 1990 },
+    { "key": "data_breach", "label": "Data Breach", "count": 442 },
     { "key": "credential_leak", "label": "Credential Leak", "count": 2 }
   ],
   "groups": [
-    { "name": "qilin", "count": 325, "topCategory": "ransomware" },
+    { "name": "qilin", "count": 323, "topCategory": "ransomware" },
     { "name": "thegentlemen", "count": 298, "topCategory": "ransomware" },
     { "name": "dragonforce", "count": 132, "topCategory": "ransomware" },
     { "name": "akira", "count": 97, "topCategory": "ransomware" },
-    { "name": "incransom", "count": 96, "topCategory": "ransomware" },
+    { "name": "incransom", "count": 95, "topCategory": "ransomware" },
     { "name": "lockbit5", "count": 90, "topCategory": "ransomware" },
     { "name": "apt73", "count": 80, "topCategory": "data_breach" },
     { "name": "Deadlock", "count": 76, "topCategory": "ransomware" },
-    { "name": "safepay", "count": 72, "topCategory": "ransomware" },
+    { "name": "safepay", "count": 63, "topCategory": "ransomware" },
     { "name": "nova", "count": 57, "topCategory": "ransomware" },
-    { "name": "krybit", "count": 56, "topCategory": "ransomware" },
+    { "name": "krybit", "count": 55, "topCategory": "ransomware" },
     { "name": "nightspire", "count": 49, "topCategory": "ransomware" },
     { "name": "Unattributed", "count": 47, "topCategory": "data_breach" },
-    { "name": "payoutsking", "count": 46, "topCategory": "ransomware" },
     { "name": "shinyhunters", "count": 45, "topCategory": "ransomware" },
+    { "name": "payoutsking", "count": 45, "topCategory": "ransomware" },
     { "name": "play", "count": 38, "topCategory": "ransomware" },
-    { "name": "genesis", "count": 38, "topCategory": "ransomware" },
     { "name": "cmdorganization", "count": 37, "topCategory": "ransomware" },
+    { "name": "genesis", "count": 37, "topCategory": "ransomware" },
     { "name": "payload", "count": 35, "topCategory": "ransomware" },
     { "name": "coinbasecartel", "count": 34, "topCategory": "ransomware" },
     { "name": "pear", "count": 30, "topCategory": "ransomware" },
@@ -35,7 +35,7 @@
     { "name": "worldleaks", "count": 29, "topCategory": "ransomware" },
     { "name": "settra", "count": 28, "topCategory": "data_breach" },
     { "name": "medusalocker", "count": 27, "topCategory": "ransomware" },
-    { "name": "chaos", "count": 25, "topCategory": "ransomware" },
+    { "name": "chaos", "count": 26, "topCategory": "ransomware" },
     { "name": "fulcrumsec", "count": 25, "topCategory": "ransomware" },
     { "name": "everest", "count": 25, "topCategory": "ransomware" },
     { "name": "anubis", "count": 24, "topCategory": "ransomware" },
@@ -46,30 +46,28 @@
     { "name": "aurora", "count": 21, "topCategory": "data_breach" },
     { "name": "AiLock", "count": 20, "topCategory": "ransomware" },
     { "name": "lamashtu", "count": 20, "topCategory": "data_breach" },
-    { "name": "the gentlemen", "count": 19, "topCategory": "data_breach" },
     { "name": "titan", "count": 15, "topCategory": "ransomware" },
     { "name": "SilentRansomGroup", "count": 14, "topCategory": "data_breach" },
+    { "name": "ransomhouse", "count": 13, "topCategory": "ransomware" },
     { "name": "blacknevas", "count": 13, "topCategory": "ransomware" },
     { "name": "interlock", "count": 12, "topCategory": "data_breach" },
-    { "name": "ransomhouse", "count": 12, "topCategory": "ransomware" },
     { "name": "lynx", "count": 12, "topCategory": "data_breach" },
     { "name": "gunra", "count": 11, "topCategory": "data_breach" },
     { "name": "bravox", "count": 11, "topCategory": "data_breach" },
     { "name": "Icarus", "count": 11, "topCategory": "data_breach" },
     { "name": "shadowbyt3$", "count": 11, "topCategory": "data_breach" },
     { "name": "AuditTeam", "count": 10, "topCategory": "data_breach" },
-    { "name": "kairos", "count": 9, "topCategory": "data_breach" },
     { "name": "LeakBazaar", "count": 9, "topCategory": "data_breach" },
     { "name": "lapsus$", "count": 8, "topCategory": "data_breach" },
+    { "name": "kairos", "count": 8, "topCategory": "data_breach" },
     { "name": "Booba Project", "count": 7, "topCategory": "ransomware" },
     { "name": "arcusmedia", "count": 7, "topCategory": "ransomware" },
     { "name": "blackwater", "count": 7, "topCategory": "data_breach" },
-    { "name": "termite", "count": 7, "topCategory": "data_breach" },
     { "name": "Black X", "count": 6, "topCategory": "data_breach" },
-    { "name": "arcus media", "count": 6, "topCategory": "data_breach" },
     { "name": "Doommageddon", "count": 6, "topCategory": "data_breach" },
     { "name": "CRPxO", "count": 6, "topCategory": "data_breach" },
     { "name": "morpheus", "count": 6, "topCategory": "data_breach" },
+    { "name": "termite", "count": 6, "topCategory": "data_breach" },
     { "name": "sinobi", "count": 6, "topCategory": "data_breach" },
     { "name": "securotrop", "count": 5, "topCategory": "data_breach" },
     { "name": "DragonForce", "count": 5, "topCategory": "ransomware" },
@@ -79,29 +77,22 @@
     { "name": "rhysida", "count": 5, "topCategory": "ransomware" },
     { "name": "killsec", "count": 5, "topCategory": "data_breach" },
     { "name": "0day Syndicate", "count": 5, "topCategory": "data_breach" },
-    { "name": "ailock", "count": 4, "topCategory": "ransomware" },
     { "name": "cloak", "count": 4, "topCategory": "data_breach" },
     { "name": "direwolf", "count": 4, "topCategory": "data_breach" },
-    { "name": "inc ransom", "count": 3, "topCategory": "data_breach" },
-    { "name": "space bears", "count": 3, "topCategory": "data_breach" },
     { "name": "Qilin", "count": 3, "topCategory": "ransomware" },
     { "name": "D1R", "count": 3, "topCategory": "ransomware" },
     { "name": "moneymessage", "count": 3, "topCategory": "data_breach" },
-    { "name": "ransomexx", "count": 3, "topCategory": "data_breach" },
     { "name": "abyss", "count": 3, "topCategory": "ransomware" },
     { "name": "mnt6", "count": 3, "topCategory": "data_breach" },
-    { "name": "black x", "count": 2, "topCategory": "data_breach" },
-    { "name": "cmd organization", "count": 2, "topCategory": "data_breach" },
-    { "name": "coinbase cartel", "count": 2, "topCategory": "data_breach" },
     { "name": "unsafe", "count": 2, "topCategory": "data_breach" },
     { "name": "Blackfield", "count": 2, "topCategory": "data_breach" },
     { "name": "embargo", "count": 2, "topCategory": "data_breach" },
     { "name": "Redact", "count": 2, "topCategory": "data_breach" },
+    { "name": "ransomexx", "count": 2, "topCategory": "data_breach" },
     { "name": "Triple X", "count": 2, "topCategory": "data_breach" },
     { "name": "nitrogen", "count": 2, "topCategory": "data_breach" },
     { "name": "beast", "count": 2, "topCategory": "data_breach" },
     { "name": "clop", "count": 2, "topCategory": "ransomware" },
-    { "name": "leaknet", "count": 1, "topCategory": "data_breach" },
     { "name": "Akira", "count": 1, "topCategory": "ransomware" },
     { "name": "ShinyHunters", "count": 1, "topCategory": "ransomware" },
     { "name": "cry0", "count": 1, "topCategory": "data_breach" },
@@ -113,14 +104,24 @@
   ],
   "breachIndex": [
     {
-      "slug": "inc-ransom-https-www-statebankofnauvoo-com-2026-07-16",
-      "title": "https://www.statebankofnauvoo.com/",
-      "group": "inc ransom",
-      "discovered": "2026-07-16T14:51:43.000Z",
-      "category": "data_breach",
+      "slug": "chaos-radiax-com-2026-07-16",
+      "title": "radiax.com",
+      "group": "chaos",
+      "discovered": "2026-07-16T17:22:01.000Z",
+      "category": "ransomware",
       "severity": "high",
-      "country": null,
-      "sizeBytes": 418
+      "country": "US",
+      "sizeBytes": 629
+    },
+    {
+      "slug": "ransomhouse-megawork-2026-07-16",
+      "title": "Megawork",
+      "group": "ransomhouse",
+      "discovered": "2026-07-16T16:01:00.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": "BR",
+      "sizeBytes": 1000
     },
     {
       "slug": "interlock-converting-equipment-international-2026-07-16",
@@ -131,16 +132,6 @@
       "severity": "high",
       "country": "GB",
       "sizeBytes": 912
-    },
-    {
-      "slug": "black-x-sanaa-2026-07-16",
-      "title": "sanaa",
-      "group": "black x",
-      "discovered": "2026-07-16T13:50:04.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 336
     },
     {
       "slug": "black-x-sanaa-2026-07-16",
@@ -181,16 +172,6 @@
       "severity": "critical",
       "country": "US",
       "sizeBytes": 798
-    },
-    {
-      "slug": "the-gentlemen-terry-p-moosmann-cpa-pc-2026-07-16",
-      "title": "Terry P Moosmann CPA PC",
-      "group": "the gentlemen",
-      "discovered": "2026-07-16T13:01:08.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 749
     },
     {
       "slug": "thegentlemen-gallant-2026-07-16",
@@ -363,36 +344,6 @@
       "sizeBytes": 779
     },
     {
-      "slug": "the-gentlemen-mesto-celakovice-2026-07-16",
-      "title": "Mesto Celakovice",
-      "group": "the gentlemen",
-      "discovered": "2026-07-16T12:53:05.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 827
-    },
-    {
-      "slug": "the-gentlemen-kaneko-2026-07-16",
-      "title": "Kaneko",
-      "group": "the gentlemen",
-      "discovered": "2026-07-16T12:53:04.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 885
-    },
-    {
-      "slug": "the-gentlemen-byggelit-sverige-2026-07-16",
-      "title": "Byggelit Sverige",
-      "group": "the gentlemen",
-      "discovered": "2026-07-16T12:53:02.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 795
-    },
-    {
       "slug": "akira-plumley-engineering-2026-07-16",
       "title": "Plumley Engineering",
       "group": "akira",
@@ -403,96 +354,6 @@
       "sizeBytes": 755
     },
     {
-      "slug": "the-gentlemen-comet-enterprise-corp-2026-07-16",
-      "title": "Comet Enterprise Corp",
-      "group": "the gentlemen",
-      "discovered": "2026-07-16T12:40:45.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 985
-    },
-    {
-      "slug": "the-gentlemen-landesbibliothek-coburg-2026-07-16",
-      "title": "Landesbibliothek Coburg",
-      "group": "the gentlemen",
-      "discovered": "2026-07-16T12:40:44.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 917
-    },
-    {
-      "slug": "the-gentlemen-alufe-femszerkezeti-kft-2026-07-16",
-      "title": "ALUFE Femszerkezeti Kft",
-      "group": "the gentlemen",
-      "discovered": "2026-07-16T12:40:43.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 879
-    },
-    {
-      "slug": "the-gentlemen-tooltec-2026-07-16",
-      "title": "Tooltec",
-      "group": "the gentlemen",
-      "discovered": "2026-07-16T12:40:42.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 859
-    },
-    {
-      "slug": "the-gentlemen-terra-vitis-2026-07-16",
-      "title": "Terra Vitis",
-      "group": "the gentlemen",
-      "discovered": "2026-07-16T12:40:41.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 889
-    },
-    {
-      "slug": "the-gentlemen-vignobles-toutigeac-2026-07-16",
-      "title": "Vignobles Toutigeac",
-      "group": "the gentlemen",
-      "discovered": "2026-07-16T12:40:40.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 900
-    },
-    {
-      "slug": "the-gentlemen-dink-co-ltd-2026-07-16",
-      "title": "Dink Co Ltd",
-      "group": "the gentlemen",
-      "discovered": "2026-07-16T12:40:39.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 893
-    },
-    {
-      "slug": "the-gentlemen-lsn-2026-07-16",
-      "title": "Lsn",
-      "group": "the gentlemen",
-      "discovered": "2026-07-16T12:40:38.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 844
-    },
-    {
-      "slug": "the-gentlemen-giraudi-group-2026-07-16",
-      "title": "Giraudi Group",
-      "group": "the gentlemen",
-      "discovered": "2026-07-16T12:40:37.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 953
-    },
-    {
       "slug": "dragonforce-petrini-valores-2026-07-16",
       "title": "Petrini Valores",
       "group": "dragonforce",
@@ -501,46 +362,6 @@
       "severity": "critical",
       "country": "AR",
       "sizeBytes": 986
-    },
-    {
-      "slug": "the-gentlemen-customs-watch-2026-07-16",
-      "title": "Customs Watch",
-      "group": "the gentlemen",
-      "discovered": "2026-07-16T12:25:21.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 782
-    },
-    {
-      "slug": "the-gentlemen-gallant-2026-07-16",
-      "title": "Gallant",
-      "group": "the gentlemen",
-      "discovered": "2026-07-16T12:25:20.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 750
-    },
-    {
-      "slug": "the-gentlemen-hanseata-2026-07-16",
-      "title": "Hanseata",
-      "group": "the gentlemen",
-      "discovered": "2026-07-16T12:25:19.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 785
-    },
-    {
-      "slug": "the-gentlemen-metro-mondego-2026-07-16",
-      "title": "Metro Mondego",
-      "group": "the gentlemen",
-      "discovered": "2026-07-16T12:25:18.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 895
     },
     {
       "slug": "dragonforce-sinai-grand-casino-2026-07-16",
@@ -603,26 +424,6 @@
       "sizeBytes": 435
     },
     {
-      "slug": "space-bears-fitcrunch-2026-07-16",
-      "title": "FITcrunch",
-      "group": "space bears",
-      "discovered": "2026-07-16T08:52:18.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 732
-    },
-    {
-      "slug": "cmd-organization-saint-georges-school-2026-07-16",
-      "title": "Saint George's School",
-      "group": "cmd organization",
-      "discovered": "2026-07-16T08:51:56.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 523
-    },
-    {
       "slug": "settra-acilab-com-2026-07-16",
       "title": "acilab.com",
       "group": "settra",
@@ -653,16 +454,6 @@
       "sizeBytes": 543
     },
     {
-      "slug": "qilin-danone-international-delights-2026-07-15",
-      "title": "Danone (International Delights)",
-      "group": "qilin",
-      "discovered": "2026-07-15T20:50:04.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 422
-    },
-    {
       "slug": "qilin-international-delights-2026-07-15",
       "title": "International Delights",
       "group": "qilin",
@@ -691,16 +482,6 @@
       "severity": "high",
       "country": "JP",
       "sizeBytes": 831
-    },
-    {
-      "slug": "leaknet-anglo-belgian-corp-natos-nightmare-6tb-of-submarine-secrets-nuclear-plant-schematics-2026-07-15",
-      "title": "Anglo Belgian Corp: NATO's Nightmare? 6TB of Submarine Secrets, Nuclear Plant Schematics,",
-      "group": "leaknet",
-      "discovered": "2026-07-15T15:53:56.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 672
     },
     {
       "slug": "dragonforce-heritage-mechanical-llc-2026-07-15",
@@ -773,46 +554,6 @@
       "sizeBytes": 382
     },
     {
-      "slug": "coinbase-cartel-panasonicaero-2026-07-15",
-      "title": "PanasonicAero",
-      "group": "coinbase cartel",
-      "discovered": "2026-07-15T11:54:04.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 407
-    },
-    {
-      "slug": "ailock-nihon-kotsu-co-ltd-2026-07-15",
-      "title": "Nihon Kotsu Co., Ltd.",
-      "group": "ailock",
-      "discovered": "2026-07-15T11:54:00.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 339
-    },
-    {
-      "slug": "ailock-solid-advance-inc-2026-07-15",
-      "title": "Solid Advance Inc.",
-      "group": "ailock",
-      "discovered": "2026-07-15T11:53:59.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 335
-    },
-    {
-      "slug": "ailock-ferrovial-2026-07-15",
-      "title": "Ferrovial",
-      "group": "ailock",
-      "discovered": "2026-07-15T11:53:58.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 318
-    },
-    {
       "slug": "pear-carient-heart-vascular-2026-07-15",
       "title": "Carient Heart & Vascular",
       "group": "pear",
@@ -871,16 +612,6 @@
       "severity": "critical",
       "country": "ES",
       "sizeBytes": 330
-    },
-    {
-      "slug": "black-x-sanaa-center-2026-07-15",
-      "title": "sanaa.center",
-      "group": "black x",
-      "discovered": "2026-07-15T05:59:23.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 579
     },
     {
       "slug": "qilin-levin-furniture-2026-07-15",
@@ -1013,96 +744,6 @@
       "sizeBytes": 525
     },
     {
-      "slug": "coinbase-cartel-axiom-global-new-2026-07-14",
-      "title": "Axiom Global NEW",
-      "group": "coinbase cartel",
-      "discovered": "2026-07-14T23:58:43.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 426
-    },
-    {
-      "slug": "inc-ransom-vantagepoint-management-autoclear-2026-07-14",
-      "title": "VantagePoint Management & Autoclear",
-      "group": "inc ransom",
-      "discovered": "2026-07-14T21:53:42.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 433
-    },
-    {
-      "slug": "inc-ransom-golden-glasko-associates-2026-07-14",
-      "title": "Golden Glasko & Associates",
-      "group": "inc ransom",
-      "discovered": "2026-07-14T21:53:41.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 406
-    },
-    {
-      "slug": "arcus-media-perpustam-2026-07-14",
-      "title": "Perpustam",
-      "group": "arcus media",
-      "discovered": "2026-07-14T21:53:36.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 360
-    },
-    {
-      "slug": "arcus-media-gemese-pt-2026-07-14",
-      "title": "gemese.pt",
-      "group": "arcus media",
-      "discovered": "2026-07-14T21:53:34.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 359
-    },
-    {
-      "slug": "arcus-media-distribox-2026-07-14",
-      "title": "Distribox",
-      "group": "arcus media",
-      "discovered": "2026-07-14T21:53:33.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 360
-    },
-    {
-      "slug": "arcus-media-be-travel-2026-07-14",
-      "title": "Be Travel",
-      "group": "arcus media",
-      "discovered": "2026-07-14T21:53:32.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 360
-    },
-    {
-      "slug": "arcus-media-corebi-nowvertical-2026-07-14",
-      "title": "COREBI(NowVertical)",
-      "group": "arcus media",
-      "discovered": "2026-07-14T21:53:31.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 389
-    },
-    {
-      "slug": "arcus-media-i-fitness-2026-07-14",
-      "title": "I-FITNESS",
-      "group": "arcus media",
-      "discovered": "2026-07-14T21:53:30.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 360
-    },
-    {
       "slug": "coinbasecartel-axiom-globalnew-2026-07-14",
       "title": "Axiom GlobalNEW",
       "group": "coinbasecartel",
@@ -1223,16 +864,6 @@
       "sizeBytes": 876
     },
     {
-      "slug": "the-gentlemen-brac-2026-07-14",
-      "title": "BRAC",
-      "group": "the gentlemen",
-      "discovered": "2026-07-14T19:14:33.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 721
-    },
-    {
       "slug": "incransom-vantagepoint-management-autoclear-2026-07-14",
       "title": "VantagePoint Management & Autoclear",
       "group": "incransom",
@@ -1251,16 +882,6 @@
       "severity": "high",
       "country": "IT",
       "sizeBytes": 848
-    },
-    {
-      "slug": "ailock-wbf-construction-2026-07-14",
-      "title": "WBF Construction",
-      "group": "ailock",
-      "discovered": "2026-07-14T16:45:56.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 332
     },
     {
       "slug": "chaos-aphenapharma-com-2026-07-14",
@@ -1393,16 +1014,6 @@
       "sizeBytes": 1038
     },
     {
-      "slug": "cmd-organization-target-energy-solutions-2026-07-14",
-      "title": "Target Energy Solutions",
-      "group": "cmd organization",
-      "discovered": "2026-07-14T09:54:24.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 767
-    },
-    {
       "slug": "dragonforce-asimar-com-2026-07-14",
       "title": "asimar.com",
       "group": "dragonforce",
@@ -1441,16 +1052,6 @@
       "severity": "critical",
       "country": "CN",
       "sizeBytes": 801
-    },
-    {
-      "slug": "the-gentlemen-tangram-interiors-2026-07-13",
-      "title": "Tangram Interiors",
-      "group": "the gentlemen",
-      "discovered": "2026-07-13T22:47:53.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 972
     },
     {
       "slug": "qilin-counts-dobyns-2026-07-13",
@@ -1543,16 +1144,6 @@
       "sizeBytes": 353
     },
     {
-      "slug": "payoutsking-casta-diva-group-2026-07-13",
-      "title": "Casta Diva Group",
-      "group": "payoutsking",
-      "discovered": "2026-07-13T19:56:18.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 342
-    },
-    {
       "slug": "qilin-urh-hoteliers-2026-07-13",
       "title": "URH Hoteliers",
       "group": "qilin",
@@ -1581,26 +1172,6 @@
       "severity": "high",
       "country": "US",
       "sizeBytes": 460
-    },
-    {
-      "slug": "space-bears-turbosoft-2026-07-13",
-      "title": "Turbosoft",
-      "group": "space bears",
-      "discovered": "2026-07-13T16:53:27.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 718
-    },
-    {
-      "slug": "space-bears-techpol-system-2026-07-13",
-      "title": "Techpol-System",
-      "group": "space bears",
-      "discovered": "2026-07-13T16:53:26.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 843
     },
     {
       "slug": "dragonforce-northeast-rescue-systems-2026-07-13",
@@ -24871,166 +24442,6 @@
       "severity": "critical",
       "country": "AT",
       "sizeBytes": 1014
-    },
-    {
-      "slug": "kairos-strata-republic-2026-04-17",
-      "title": "Strata Republic",
-      "group": "kairos",
-      "discovered": "2026-04-17T17:16:55.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "AU",
-      "sizeBytes": 958
-    },
-    {
-      "slug": "incransom-alupco-com-2026-04-17",
-      "title": "alupco.com",
-      "group": "incransom",
-      "discovered": "2026-04-17T17:13:23.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": "SA",
-      "sizeBytes": 896
-    },
-    {
-      "slug": "genesis-2026-04-17",
-      "title": "***",
-      "group": "genesis",
-      "discovered": "2026-04-17T17:11:57.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 333
-    },
-    {
-      "slug": "termite-millennium-dental-technologies-2026-04-17",
-      "title": "Millennium Dental Technologies",
-      "group": "termite",
-      "discovered": "2026-04-17T16:34:38.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "US",
-      "sizeBytes": 645
-    },
-    {
-      "slug": "safepay-bbalawgroup-com-2026-04-17",
-      "title": "bbalawgroup.com",
-      "group": "safepay",
-      "discovered": "2026-04-17T16:29:25.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "US",
-      "sizeBytes": 482
-    },
-    {
-      "slug": "safepay-firstcambodia-com-kh-2026-04-17",
-      "title": "firstcambodia.com.kh",
-      "group": "safepay",
-      "discovered": "2026-04-17T16:28:48.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "KH",
-      "sizeBytes": 493
-    },
-    {
-      "slug": "safepay-cheeky-com-ar-2026-04-17",
-      "title": "cheeky.com.ar",
-      "group": "safepay",
-      "discovered": "2026-04-17T16:28:13.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "AR",
-      "sizeBytes": 491
-    },
-    {
-      "slug": "safepay-abfall-kreis-kassel-de-2026-04-17",
-      "title": "abfall-kreis-kassel.de",
-      "group": "safepay",
-      "discovered": "2026-04-17T16:27:38.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "DE",
-      "sizeBytes": 521
-    },
-    {
-      "slug": "safepay-genealogysa-org-au-2026-04-17",
-      "title": "genealogysa.org.au",
-      "group": "safepay",
-      "discovered": "2026-04-17T16:27:03.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "AU",
-      "sizeBytes": 495
-    },
-    {
-      "slug": "safepay-lynxprecast-co-uk-2026-04-17",
-      "title": "lynxprecast.co.uk",
-      "group": "safepay",
-      "discovered": "2026-04-17T16:26:29.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "GB",
-      "sizeBytes": 502
-    },
-    {
-      "slug": "safepay-thruwayplumbingservice-com-2026-04-17",
-      "title": "thruwayplumbingservice.com",
-      "group": "safepay",
-      "discovered": "2026-04-17T16:25:54.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "US",
-      "sizeBytes": 510
-    },
-    {
-      "slug": "safepay-favellefavco-com-2026-04-17",
-      "title": "favellefavco.com",
-      "group": "safepay",
-      "discovered": "2026-04-17T16:25:19.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "MY",
-      "sizeBytes": 469
-    },
-    {
-      "slug": "safepay-st-bernards-bham-sch-uk-2026-04-17",
-      "title": "st-bernards.bham.sch.uk",
-      "group": "safepay",
-      "discovered": "2026-04-17T16:24:43.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "GB",
-      "sizeBytes": 518
-    },
-    {
-      "slug": "ransomexx-gotip-2026-04-17",
-      "title": "GoTip",
-      "group": "ransomexx",
-      "discovered": "2026-04-17T16:21:07.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "JP",
-      "sizeBytes": 710
-    },
-    {
-      "slug": "qilin-hbx-group-2026-04-17",
-      "title": "HBX Group",
-      "group": "qilin",
-      "discovered": "2026-04-17T16:20:32.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": "SG",
-      "sizeBytes": 325
-    },
-    {
-      "slug": "krybit-putzbaer-berlin-2026-04-17",
-      "title": "putzbaer.berlin",
-      "group": "krybit",
-      "discovered": "2026-04-17T15:51:35.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "DE",
-      "sizeBytes": 464
     }
   ]
 }

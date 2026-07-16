@@ -125,6 +125,7 @@ interface Stats {
   daily_trend: Array<{ day: string; count: number }>;
   top_actors: Array<{ threat_actor: string; count: number }>;
   top_victims: Array<{ victim_name: string; count: number }>;
+  last_scan: string | null;
 }
 
 interface Trending {
@@ -310,6 +311,13 @@ export default function CyberPulse(): JSX.Element {
           </button>
         )}
         <div className="ml-auto flex items-center gap-2">
+          {stats?.last_scan && (
+            <span
+              className={`text-xs ${Date.now() - Date.parse(stats.last_scan) > 2 * 3600_000 ? 'text-amber-600 dark:text-amber-400' : 'text-slate-500 dark:text-slate-400'}`}
+            >
+              Last scan: {relativeTime(stats.last_scan)}
+            </span>
+          )}
           <span className="text-xs text-slate-600 dark:text-slate-500">{total.toLocaleString()} incidents</span>
           <button
             onClick={() => setRefreshKey((k) => k + 1)}
