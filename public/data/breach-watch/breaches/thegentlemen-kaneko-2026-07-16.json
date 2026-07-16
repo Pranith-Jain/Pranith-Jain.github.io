@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "JP",
   "sizeBytes": 0,
-  "description": "***.co.jp zoominfo.com/c/kaneko/540044079 Japanese software company based in Itoigawa, Niigata, specializing in construction project management solutions. For over three decades, the company has developed the CDPM series, a widely recognized software for creating and managing complex construction schedules. Recently, the company has been actively driving digital transformation in the construction industry through its advanced CDPM-X64 platform, which introduces innovative features like native JSON support and comprehensive schedule analysis tools",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/12664e01-6650-4ddb-b5d1-9e9256173baa",
   "groupAliases": ["the gentlemen"],
   "activity": "Not Found",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

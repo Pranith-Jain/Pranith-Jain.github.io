@@ -2,14 +2,14 @@
   "slug": "incransom-kewaunee-scientific-2026-06-11",
   "title": "Kewaunee Scientific",
   "group": "incransom",
-  "discovered": "2026-06-11T19:23:19.000Z",
+  "discovered": "2026-06-11T20:02:22.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": "US",
+  "country": null,
   "sizeBytes": 0,
-  "description": "Total data: 504GB\r Contains: 852,141 Files, 120,670 Folders\r \r Documents: Clients KYS & NDA, Financial documentation, Contracts, Drawings, Audit reports, \r Personal data, Contractors and subcontractors information, Scanned documents and much other important information.\r Tape: confidential\r Clients: Pfizer, Rusan Pharma Ltd., Samsung and many other world-famous laboratories.\r \r full information will be released in a few weeks",
-  "source_url": "https://www.ransomware.live/",
+  "description": null,
+  "source_url": "http://incbacg6bfwtrlzwdbqc55gsfl763s3twdtwhp27dzuik6s6rwdcityd.onion/blog/disclosures/6a2b072c5ae71db30c2b2723",
   "groupAliases": ["inc ransom", "INC"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
+  "activity": null,
+  "references": ["CTI.FYI"]
 }

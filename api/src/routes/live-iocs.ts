@@ -159,19 +159,17 @@ async function fetchText(url: string): Promise<string | null> {
       cf: { cacheTtl: 1500 },
     });
     if (!res.ok) return null;
-    // Many sites return HTTP 200 with an HTML challenge/captcha page
-    // (Cloudflare, Incapsula, etc.) instead of the expected plaintext.
-    // Detect this so the fallback URL is tried instead of the parser
-    // silently producing 0 items from the HTML body.
-    const ct = res.headers.get('content-type') ?? '';
-    if (ct.includes('text/html') || ct.includes('application/xhtml')) return null;
     const text = await res.text();
-    // Belt-and-suspenders: if the body looks like HTML despite the
-    // content-type, discard it.  Covers servers that send
-    // text/plain but serve HTML (rare but observed).
+    if (!text) return null;
+    // Detect HTML challenge/captcha pages (Cloudflare, Incapsula, etc.)
+    // by checking the actual body content — NOT the content-type header,
+    // which many feeds mislabel as text/html or application/octet-stream
+    // even when the body is valid plaintext.  The body check alone is
+    // sufficient: real challenge pages always start with <!DOCTYPE or <html;
+    // valid feeds never do.
     const firstNonWs = text.trimStart().slice(0, 16);
     if (firstNonWs.startsWith('<!DOCTYPE') || firstNonWs.startsWith('<html')) return null;
-    return text || null;
+    return text;
   } catch (_catchErr) {
     console.error('fetchText failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
@@ -196,11 +194,10 @@ async function fetchTextDiag(url: string): Promise<{ ok: boolean; status?: numbe
     if (!res.ok) {
       return { ok: false, status: res.status, error: `HTTP ${res.status}` };
     }
-    const ct = res.headers.get('content-type') ?? '';
-    if (ct.includes('text/html') || ct.includes('application/xhtml')) {
-      return { ok: false, status: res.status, error: `HTML challenge page (content-type: ${ct})` };
-    }
     const text = await res.text();
+    if (!text) {
+      return { ok: false, status: res.status, error: 'empty body' };
+    }
     const firstNonWs = text.trimStart().slice(0, 16);
     if (firstNonWs.startsWith('<!DOCTYPE') || firstNonWs.startsWith('<html')) {
       return { ok: false, status: res.status, error: `HTML challenge page (${text.length} bytes)` };

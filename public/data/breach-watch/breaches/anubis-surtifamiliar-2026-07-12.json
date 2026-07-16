@@ -5,11 +5,11 @@
   "discovered": "2026-07-12T22:22:32.000Z",
   "category": "ransomware",
   "severity": "high",
-  "country": "CO",
+  "country": null,
   "sizeBytes": 0,
-  "description": "Passports of supermarket chain employees.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/c5906254-de47-429a-b760-ace5da66c4da",
   "groupAliases": [],
   "activity": "Not Found",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

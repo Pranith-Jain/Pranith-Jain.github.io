@@ -100,9 +100,11 @@ async function fetchText(url: string, kind?: string): Promise<string | null> {
       },
     });
     if (!res.ok) return null;
-    const ct = res.headers.get('content-type') ?? '';
-    if (ct.includes('text/html')) return null;
-    return await res.text();
+    const text = await res.text();
+    if (!text) return null;
+    const firstNonWs = text.trimStart().slice(0, 16);
+    if (firstNonWs.startsWith('<!DOCTYPE') || firstNonWs.startsWith('<html')) return null;
+    return text;
   } catch (_catchErr) {
     console.error('fetchText failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;

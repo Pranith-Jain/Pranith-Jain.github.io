@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "The Schuett Companies, Inc. is a family-owned business with over 50 years of experience specializing in affordable housing for seniors, individuals with disabilities, and families. They manage approximately 1,600 housing units across Minnesota, North Dakota, and South Dakota. Since 1968, they have also offered Home Health Care services through their CompassionCare program, ensuring residents can age in place comfortably. The company's commitment to providing a supportive community emphasizes the importance of a stable home for a healthy life.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/1701492f-c961-426e-b2c5-f7edfd8ed16b",
   "groupAliases": ["DRAGON FORCE"],
   "activity": "Construction",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

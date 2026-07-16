@@ -13,6 +13,7 @@ import {
   ExternalLink,
   Filter,
   Globe,
+  Loader2,
   RefreshCw,
   Search,
   Shield,
@@ -169,6 +170,8 @@ export default function CyberPulse(): JSX.Element {
   const [error, setError] = useState<string | null>(null);
   const [total, setTotal] = useState(0);
   const [hasMore, setHasMore] = useState(false);
+  const [scanning, setScanning] = useState(false);
+  const [scanResult, setScanResult] = useState<string | null>(null);
 
   // Filters
   const [typeFilter, setTypeFilter] = useState(searchParams.get('type') ?? '');
@@ -320,6 +323,34 @@ export default function CyberPulse(): JSX.Element {
           )}
           <span className="text-xs text-slate-600 dark:text-slate-500">{total.toLocaleString()} incidents</span>
           <button
+            onClick={async () => {
+              if (scanning) return;
+              setScanning(true);
+              setScanResult(null);
+              try {
+                const res = await fetch('/api/v1/cyberpulse/scan', { method: 'POST' });
+                const data = await res.json();
+                if (data.ok) {
+                  setScanResult(
+                    `Scan complete — ${data.incidents_created} new, ${data.incidents_deduped} deduped in ${Math.round(data.duration_ms / 1000)}s`
+                  );
+                  setRefreshKey((k) => k + 1);
+                } else {
+                  setScanResult(data.error || 'Scan failed');
+                }
+              } catch (e) {
+                setScanResult(e instanceof Error ? e.message : 'Scan failed');
+              } finally {
+                setScanning(false);
+              }
+            }}
+            disabled={scanning}
+            className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors disabled:opacity-50"
+          >
+            {scanning ? <Loader2 className="w-3 h-3 animate-spin" /> : <Search className="w-3 h-3" />}
+            {scanning ? 'Scanning…' : 'Scan now'}
+          </button>
+          <button
             onClick={() => setRefreshKey((k) => k + 1)}
             className="p-1 rounded hover:bg-slate-200 dark:hover:bg-slate-700"
           >
@@ -329,6 +360,14 @@ export default function CyberPulse(): JSX.Element {
       </div>
 
       {error && <div className="text-center py-8 text-red-600 dark:text-red-400">{error}</div>}
+
+      {scanResult && (
+        <div
+          className={`mb-4 px-4 py-2 rounded-lg text-sm ${scanResult.includes('complete') ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300 border border-green-200 dark:border-green-800' : 'bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800'}`}
+        >
+          {scanResult}
+        </div>
+      )}
 
       {/* Main content: incidents feed + sidebar */}
       <div className="flex flex-col lg:flex-row gap-6">

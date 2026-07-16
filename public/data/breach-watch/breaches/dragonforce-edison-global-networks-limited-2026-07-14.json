@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "GB",
   "sizeBytes": 0,
-  "description": "Edison Global Networks Limited is a Hong Kong-based IT system integrator and managed service provider with regional offices in Shenzhen, Shanghai, and Beijing. They specialize in cloud solutions, network infrastructure, disaster recovery, global data center services, and communication systems.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/4ea558b0-93cf-4d84-9571-4ab2e2bb9fb9",
   "groupAliases": ["DRAGON FORCE"],
   "activity": "Telecommunication",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

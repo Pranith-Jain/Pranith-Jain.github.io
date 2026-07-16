@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "IT",
   "sizeBytes": 0,
-  "description": "***.it zoominfo.com/c/vicenzi-spa/1101977046 Vicenzi Group, founded in 1905 by Matilde Vicenzi, is a historic Italian confectionery company renowned for producing high-quality biscuits and traditional pastries. Based in Verona, the family-owned business has grown into a global brand dedicated to becoming the world leader in premium Italian sweet treats. The company employs hundreds of people and successfully combines authentic recipes with modern sustainable practices to deliver its products to international markets",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/b166b7bd-ca2d-4236-b605-62419f82a006",
   "groupAliases": ["the gentlemen"],
   "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

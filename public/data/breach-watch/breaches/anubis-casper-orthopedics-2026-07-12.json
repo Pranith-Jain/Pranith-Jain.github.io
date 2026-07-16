@@ -5,11 +5,11 @@
   "discovered": "2026-07-12T22:22:52.000Z",
   "category": "ransomware",
   "severity": "high",
-  "country": "US",
+  "country": null,
   "sizeBytes": 0,
-  "description": "Orthopedic clinic patients' data and medical records exposed.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/12a77788-8681-4cbf-9ba8-a4311182d4e0",
   "groupAliases": [],
   "activity": "Healthcare",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

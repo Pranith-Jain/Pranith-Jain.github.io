@@ -21,11 +21,11 @@ interface PostAnalysisButtonProps {
 }
 
 const THREAT_COLORS: Record<string, string> = {
-  critical: 'text-rose-400 bg-rose-500/10 border-rose-500/30',
-  high: 'text-orange-400 bg-orange-500/10 border-orange-500/30',
-  medium: 'text-amber-400 bg-amber-500/10 border-amber-500/30',
-  low: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30',
-  unknown: 'text-slate-400 bg-slate-500/10 border-slate-500/30',
+  critical: 'text-rose-700 dark:text-rose-400 bg-rose-500/10 border-rose-500/30',
+  high: 'text-orange-700 dark:text-orange-400 bg-orange-500/10 border-orange-500/30',
+  medium: 'text-amber-700 dark:text-amber-400 bg-amber-500/10 border-amber-500/30',
+  low: 'text-emerald-700 dark:text-emerald-400 bg-emerald-500/10 border-emerald-500/30',
+  unknown: 'text-slate-600 dark:text-slate-400 bg-slate-500/10 border-slate-500/30',
 };
 
 export function PostAnalysisButton({ title, description, source, compact }: PostAnalysisButtonProps) {
@@ -84,12 +84,12 @@ export function PostAnalysisButton({ title, description, source, compact }: Post
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full mt-2 z-50 w-[420px] max-h-[500px] overflow-y-auto rounded-xl border border-brand-500/30 bg-[rgb(var(--surface-200))] shadow-2xl animate-fade-in">
+        <div className="absolute right-0 top-full mt-2 z-50 w-[420px] max-h-[500px] overflow-y-auto rounded-xl border border-brand-500/30 bg-white dark:bg-[rgb(var(--surface-200))] shadow-2xl animate-fade-in">
           {/* Header */}
-          <div className="flex items-center justify-between px-4 py-2.5 border-b border-slate-700/50 sticky top-0 bg-[rgb(var(--surface-200))] z-10">
+          <div className="flex items-center justify-between px-4 py-2.5 border-b border-slate-200 dark:border-slate-700/50 sticky top-0 bg-white dark:bg-[rgb(var(--surface-200))] z-10">
             <div className="flex items-center gap-2">
               <Brain size={14} className="text-brand-400" />
-              <span className="text-xs font-semibold text-slate-200">AI Analysis</span>
+              <span className="text-xs font-semibold text-slate-900 dark:text-slate-200">AI Analysis</span>
               {model && (
                 <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-brand-500/10 text-brand-400">
                   {model}
@@ -100,11 +100,14 @@ export function PostAnalysisButton({ title, description, source, compact }: Post
               <button
                 onClick={fetchAnalysis}
                 disabled={loading}
-                className="p-1 rounded text-slate-400 hover:text-slate-200"
+                className="p-1 rounded text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
               >
                 <RefreshCw size={12} className={loading ? 'animate-spin' : ''} />
               </button>
-              <button onClick={() => setOpen(false)} className="p-1 rounded text-slate-400 hover:text-slate-200">
+              <button
+                onClick={() => setOpen(false)}
+                className="p-1 rounded text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+              >
                 <X size={12} />
               </button>
             </div>
@@ -115,14 +118,14 @@ export function PostAnalysisButton({ title, description, source, compact }: Post
             {loading && !analysis && (
               <div className="flex items-center gap-2 justify-center py-6">
                 <RefreshCw size={14} className="animate-spin text-brand-400" />
-                <span className="text-xs text-slate-400">Analyzing…</span>
+                <span className="text-xs text-slate-500 dark:text-slate-400">Analyzing…</span>
               </div>
             )}
 
             {/* Error */}
             {error && (
               <div className="rounded-xl bg-rose-500/10 border border-rose-500/20 p-3 text-center">
-                <p className="text-xs text-rose-400">{error}</p>
+                <p className="text-xs text-rose-600 dark:text-rose-400">{error}</p>
               </div>
             )}
 
@@ -139,19 +142,23 @@ export function PostAnalysisButton({ title, description, source, compact }: Post
                   <span className="text-micro font-mono text-slate-500">conf: {analysis.confidence}</span>
                 </div>
 
-                <p className="text-xs text-slate-300 leading-relaxed">{analysis.summary}</p>
+                <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">{analysis.summary}</p>
 
                 {analysis.impact && (
-                  <div className="rounded-xl bg-slate-800/50 p-2.5">
-                    <span className="text-micro font-mono uppercase text-slate-500 block mb-0.5">Impact</span>
-                    <p className="text-xs text-slate-400">{analysis.impact}</p>
+                  <div className="rounded-xl bg-slate-100 dark:bg-slate-800/50 p-2.5">
+                    <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-500 block mb-0.5">
+                      Impact
+                    </span>
+                    <p className="text-xs text-slate-700 dark:text-slate-400">{analysis.impact}</p>
                   </div>
                 )}
 
                 {analysis.context && (
-                  <div className="rounded-xl bg-slate-800/50 p-2.5">
-                    <span className="text-micro font-mono uppercase text-slate-500 block mb-0.5">Context</span>
-                    <p className="text-xs text-slate-400">{analysis.context}</p>
+                  <div className="rounded-xl bg-slate-100 dark:bg-slate-800/50 p-2.5">
+                    <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-500 block mb-0.5">
+                      Context
+                    </span>
+                    <p className="text-xs text-slate-700 dark:text-slate-400">{analysis.context}</p>
                   </div>
                 )}
 
@@ -162,7 +169,7 @@ export function PostAnalysisButton({ title, description, source, compact }: Post
                       {analysis.iocs.map((ioc, i) => (
                         <span
                           key={i}
-                          className="text-micro font-mono px-1.5 py-0.5 rounded bg-rose-500/10 text-rose-400 border border-rose-500/20 break-all"
+                          className="text-micro font-mono px-1.5 py-0.5 rounded bg-rose-500/10 text-rose-700 dark:text-rose-400 border border-rose-500/20 break-all"
                         >
                           {ioc}
                         </span>
@@ -178,7 +185,7 @@ export function PostAnalysisButton({ title, description, source, compact }: Post
                       {analysis.ttps.map((t, i) => (
                         <span
                           key={i}
-                          className="text-micro font-mono px-1.5 py-0.5 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20"
+                          className="text-micro font-mono px-1.5 py-0.5 rounded bg-purple-500/10 text-purple-700 dark:text-purple-400 border border-purple-500/20"
                         >
                           {t}
                         </span>
@@ -192,7 +199,7 @@ export function PostAnalysisButton({ title, description, source, compact }: Post
                     <span className="text-micro font-mono uppercase text-slate-500 block mb-1">Actions</span>
                     <ul className="space-y-0.5">
                       {analysis.recommended_actions.map((a, i) => (
-                        <li key={i} className="flex items-start gap-1.5 text-xs text-slate-400">
+                        <li key={i} className="flex items-start gap-1.5 text-xs text-slate-600 dark:text-slate-400">
                           <span className="text-brand-400 mt-0.5">•</span>
                           {a}
                         </li>

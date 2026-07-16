@@ -1,0 +1,15 @@
+{
+  "slug": "cmd-organization-target-energy-solutions-2026-07-14",
+  "title": "Target Energy Solutions",
+  "group": "cmd organization",
+  "discovered": "2026-07-14T09:54:24.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "TARGET is a rapidly growing digital oilfield services and solutions company, providing advanced web-based visualization, collaboration and workflow tools to the petrotechnical community. The MEERA platform and its associated products set a new benchmark for the industry, giving teams the ability to work effectively together using the same data sources, regardless of their device, location or domain.",
+  "source_url": "https://www.ransomlook.io/recent",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

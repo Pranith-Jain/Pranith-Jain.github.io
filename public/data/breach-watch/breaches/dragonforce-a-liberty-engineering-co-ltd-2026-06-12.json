@@ -2,14 +2,14 @@
   "slug": "dragonforce-a-liberty-engineering-co-ltd-2026-06-12",
   "title": "A. Liberty Engineering Co. Ltd",
   "group": "dragonforce",
-  "discovered": "2026-06-12T12:23:33.000Z",
+  "discovered": "2026-06-12T13:02:26.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": "HK",
+  "country": null,
   "sizeBytes": 0,
-  "description": "Founded in 1973 as Liberty Electrical Engineering Company Limited, A. Liberty Engineering Co Ltd has continually evolved to meet the dynamic needs of the electrical services sector. With a rich history in design and contracting, the company has expanded its offerings to include cutting-edge solutions in the realm of sustainable energy.\n\nIn response to the burgeoning demand for electric vehicle infrastructure, A. Liberty Engineering proudly introduces its self-branded EV chargers, designed for both AC and DC supercharging. These state-of-the-art systems enhance the efficiency of electric vehicle charging while seamlessly integrating with existing Intelligent EV Charging and IoT LV Switchboard Monitoring systems.",
-  "source_url": "https://www.ransomware.live/",
+  "description": null,
+  "source_url": "http://z3wqggtxft7id3ibr7srivv5gjof5fwg76slewnzwwakjuf3nlhukdid.onion/blog#a-liberty-engineering-co-ltd",
   "groupAliases": ["DRAGON FORCE"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
+  "activity": null,
+  "references": ["CTI.FYI"]
 }

@@ -2,14 +2,14 @@
   "slug": "incransom-fiza-2026-06-10",
   "title": "FIZA",
   "group": "incransom",
-  "discovered": "2026-06-10T12:22:59.000Z",
+  "discovered": "2026-06-10T12:02:34.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": "CZ",
+  "country": null,
   "sizeBytes": 0,
-  "description": "FIZA, a.s. is an established, medium-sized auditing and consulting company with a good capital base enabling its further development. \r Its roots go back to the very beginning of the 1990s, when it provided its services in the form of its legal predecessor, the association of individuals Ing. Jiří Ficbauer, civilingenjör. – FIZA. \r The current joint-stock company was established in 2001.\r We specialize in auditing, economic-organizational and tax consulting. \r We approach every job and every client carefully and responsibly. We want to become your long-term and trustworthy partner. \r We will be happy to accommodate you even in the case of one-off cooperation.\r \r Laek: 100GB \r WE HAS COLLECTED SUCH DATA AS: \r - Confidential documents \r - Clients Data \r - NDA \r - Financial data \r - Operations \r - Corporate data \r - Business Agreements \r - Development \r - Financial databases, all transactions, all clients\r And a lot of other VERY IMPORTANT information!",
-  "source_url": "https://www.ransomware.live/",
+  "description": null,
+  "source_url": "http://incbacg6bfwtrlzwdbqc55gsfl763s3twdtwhp27dzuik6s6rwdcityd.onion/blog/disclosures/6a270bf95ae71db30cb8589e",
   "groupAliases": ["inc ransom", "INC"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
+  "activity": null,
+  "references": ["CTI.FYI"]
 }

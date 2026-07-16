@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "BR",
   "sizeBytes": 0,
-  "description": "Bombas Ideal is a Spanish manufacturer established in 1902 specializing in water pumps and pressure systems for agricultural, industrial, and fire protection applications. Based in Valencia, the company offers a range of vertical, submerged, and solar pumping solutions with international operations.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/f7d54c30-0b55-4bea-a35a-b4786db07ca4",
   "groupAliases": [],
   "activity": "Manufacturing",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

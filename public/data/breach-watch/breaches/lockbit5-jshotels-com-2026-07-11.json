@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "JO",
   "sizeBytes": 0,
-  "description": "JS Hotels owns and manages ten hotel properties scattered all over Majorca. We pride ourselves on cu...",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/dbe931e2-d9d9-4b55-993a-fca968bbbc84",
   "groupAliases": [],
   "activity": "Hospitality and Tourism",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "PT",
   "sizeBytes": 0,
-  "description": "***.com Aveiro Constructors Limited is a Canadian general contractor established in 1976 and headquartered in Southwestern Ontario. The company specializes in the Industrial, Commercial, and Institutional (ICI) sectors, delivering design-build, new construction, and renovation projects both locally and internationally. Originally starting with pre-engineered steel buildings, they have grown over the decades into a comprehensive construction firm offering specialized services like HVAC and project management",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/c76d10c1-84fb-479b-8be3-71802d9b36f4",
   "groupAliases": ["the gentlemen"],
   "activity": "Construction",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

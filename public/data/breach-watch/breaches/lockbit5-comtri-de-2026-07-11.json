@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "DE",
   "sizeBytes": 0,
-  "description": "As a leading IT system house in the Stuttgart area, ComTRI GmbH is a highly qualified and trustworth...",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/f55ab374-c321-40c9-bf03-693488c8c2a9",
   "groupAliases": [],
   "activity": "Technology",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

@@ -141,6 +141,7 @@ import {
   cyberpulseTrendingHandler,
   cyberpulseScanLogHandler,
   cyberpulseIngestHandler,
+  cyberpulseScanHandler,
 } from './routes/cyberpulse';
 import { negotiationsHandler, negotiationTranscriptHandler } from './routes/negotiations';
 import { ransomwareLiveHandler } from './routes/ransomwarelive';
@@ -1223,6 +1224,7 @@ app.get('/api/v1/cyberpulse/stats', cyberpulseStatsHandler);
 app.get('/api/v1/cyberpulse/trending', cyberpulseTrendingHandler);
 app.get('/api/v1/cyberpulse/scan-log', cyberpulseScanLogHandler);
 app.get('/api/v1/cyberpulse/ingest', cyberpulseIngestHandler);
+app.post('/api/v1/cyberpulse/scan', cyberpulseScanHandler);
 app.get('/api/v1/ransomware-recent', ransomwareRecentHandler);
 app.get('/api/v1/ransomware-map', ransomwareMapHandler);
 app.get('/api/v1/crypto-trace', validate('query', cryptoTraceSchema), cryptoTraceHandler);

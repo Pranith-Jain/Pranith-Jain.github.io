@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Schlenker & Cantwell, P.A. is a certified public accounting firm based in the USA, offering services such as tax preparation and planning, auditing and assurance, bookkeeping, payroll, financial reporting, consulting, and estate-trust management.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/d67b2948-80df-4509-8c7a-f1741d45bfc1",
   "groupAliases": [],
   "activity": "Business Services",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

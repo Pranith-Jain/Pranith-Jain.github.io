@@ -2,14 +2,14 @@
   "slug": "qilin-maui-divers-jewelry-2026-06-11",
   "title": "Maui Divers Jewelry",
   "group": "qilin",
-  "discovered": "2026-06-11T12:24:20.000Z",
+  "discovered": "2026-06-11T12:05:03.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": "US",
+  "country": null,
   "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
+  "description": null,
+  "source_url": "http://ijzn3sicrcy7guixkzjkib4ukbiilwc3xhnmby4mcbccnsd7j2rekvqd.onion/site/blog?uuid=65aed0f9-1b58-4539-a84a-c167a0e7cf87",
   "groupAliases": [],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
+  "activity": null,
+  "references": ["CTI.FYI"]
 }

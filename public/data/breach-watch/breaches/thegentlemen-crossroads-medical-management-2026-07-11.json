@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "***.com zoominfo.com/c/crossroads-medical-management-llc/354034077 Crossroads Medical Management is a healthcare management company headquartered in Perry, Georgia, specializing in full-service financial, clinical, and operations management for the senior community. As a legacy organization with three generations of experience, they focus on providing quality-oriented care and a home-like environment across multiple affiliated skilled nursing facilities. Operating primarily in states like Georgia, the company manages several senior care centers, generating an estimated annual revenue of over $12 million while expanding to meet the evolving needs of elderly residents",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/9d3fcf02-aa60-45e1-9ead-daea23dd0ba9",
   "groupAliases": ["the gentlemen"],
   "activity": "Healthcare",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

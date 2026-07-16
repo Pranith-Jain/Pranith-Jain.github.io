@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "DE",
   "sizeBytes": 0,
-  "description": "EFCA a specialized accounting firm based in Paris, France. Core Expertise With over 30 years of experience, the firm specializes in real estate accounting and property management. Key services and areas of focus include: Property Management Support: Expertise in managing accounts for property administrators and real estate agencies. Trustee & Agent Accounting: Mastery of \"comptabilité mandants\" (client/trustee accounting) and navigating relationships with guarantee funds. Tax & Advisory: Handling complex tax and accounting issues specific to the real estate market.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/362c3df2-c368-4de8-9b0f-3929cb299503",
   "groupAliases": [],
   "activity": "Not Found",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

@@ -302,3 +302,54 @@ export async function cyberpulseIngestHandler(c: Context<{ Bindings: Env }>): Pr
     return c.json({ ok: false, error: e instanceof Error ? e.message : String(e) }, 500);
   }
 }
+
+// ─── POST /api/v1/cyberpulse/scan ──────────────────────────────────────────
+// Public endpoint (no admin auth) with per-IP rate limiting.
+// Allows users to trigger a scan from the UI without needing admin credentials.
+
+const scanRateLimits = new Map<string, number>();
+const SCAN_COOLDOWN_MS = 5 * 60 * 1000; // 5 minutes
+
+export async function cyberpulseScanHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const ip = c.req.header('cf-connecting-ip') ?? 'unknown';
+  const now = Date.now();
+  const lastScan = scanRateLimits.get(ip) ?? 0;
+
+  if (now - lastScan < SCAN_COOLDOWN_MS) {
+    const waitSeconds = Math.ceil((SCAN_COOLDOWN_MS - (now - lastScan)) / 1000);
+    return c.json(
+      { error: 'rate_limited', message: `Scan available in ${waitSeconds}s`, retry_after: waitSeconds },
+      429
+    );
+  }
+
+  const db = (c.env as unknown as Record<string, unknown>).BRIEFINGS_DB as
+    import('@cloudflare/workers-types').D1Database | undefined;
+  if (!db) return c.json({ error: 'database not configured' }, 503);
+
+  scanRateLimits.set(ip, now);
+
+  const start = Date.now();
+  try {
+    const results = await runCyberPulseIngestion(c.env, db);
+    const totalCreated = results.reduce((s, r) => s + r.incidents_created, 0);
+    const totalDeduped = results.reduce((s, r) => s + r.incidents_deduped, 0);
+    return c.json({
+      ok: true,
+      duration_ms: Date.now() - start,
+      incidents_created: totalCreated,
+      incidents_deduped: totalDeduped,
+      sources: results.map((r) => ({
+        source: r.source,
+        items_scanned: r.items_scanned,
+        created: r.incidents_created,
+        deduped: r.incidents_deduped,
+        errors: r.errors.length,
+        duration_ms: r.duration_ms,
+      })),
+    });
+  } catch (e) {
+    console.error('cyberpulseScanHandler failed:', e instanceof Error ? e.message : String(e));
+    return c.json({ ok: false, error: e instanceof Error ? e.message : String(e) }, 500);
+  }
+}

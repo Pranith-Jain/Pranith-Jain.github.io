@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "US",
   "sizeBytes": 0,
-  "description": "+1 (305) 884-3700 , WRT World Enterprises is a leading provider of purchasing and logistics services tailored for major retailers in Latin America. The company specializes in streamlining supply chain management through services such as shipping, storage, purchasing, and vendor management. With a focus on innovative solutions, WRT helps its clients remain competitive by offering order purchasing technology and comprehensive logistics services. Their extensive network and established relationships with suppliers enable them to negotiate favorable prices, ensuring their clients have access to the best products in the market. Stolen: 377 GB 267,891 Files",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/cc86fc8c-8afc-4123-a53b-f30811ffcbda",
   "groupAliases": [],
   "activity": "Business Services",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "AU",
   "sizeBytes": 0,
-  "description": "***.com.au zoominfo.com/c/royal-foods/98011908 Royal Foods is a privately-owned Australian gourmet food company that supplies high-quality, innovative products to the food service sector and independent retailers.Headquartered in Brisbane and operating across multiple states, the company employs around 250 staff dedicated to supporting the local food industry.Furthermore, their specialized Food Solutions division focuses on helping commercial kitchens solve challenges related to profitability and operational efficiency",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/6534b22e-a134-4022-813a-6b2ab74de1c1",
   "groupAliases": ["the gentlemen"],
   "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

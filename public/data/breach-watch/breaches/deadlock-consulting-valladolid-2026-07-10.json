@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "ES",
   "sizeBytes": 0,
-  "description": "Consulting Valladolid S.A. is a professional firm with over 40 years of experience providing comprehensive legal, tax, labor, and accounting services in Valladolid, Spain. The firm utilizes advanced technology to deliver tailored advisory solutions for both companies and individuals",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/8a1e4980-720e-4fea-8ef2-76abaac89116",
   "groupAliases": [],
   "activity": "Business Services",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }
