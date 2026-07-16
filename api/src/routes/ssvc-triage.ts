@@ -41,11 +41,7 @@ async function enrichCve(cveId: string, env: Env): Promise<EnrichedCve | null> {
   const kv = env.KV_CACHE;
   if (!kv) return null;
 
-  try {
-    // Try KV fast-path first
-    const cached = (await kv.get(`cve:${id}`, 'json').catch(() => null)) as Record<string, unknown> | null;
-    const data = cached ?? {};
-
+  function toEnriched(data: Record<string, unknown>): EnrichedCve {
     const cvssScore = ((data.cvss as Record<string, unknown>)?.score as number) ?? null;
     const epssScore = ((data.epss as Record<string, unknown>)?.score as number) ?? null;
     const kevData = data.kev as Record<string, unknown> | undefined;
@@ -62,12 +58,34 @@ async function enrichCve(cveId: string, env: Env): Promise<EnrichedCve | null> {
           : cisaKev
             ? 'active'
             : null;
-
     const accessVector = (data.cvss as Record<string, unknown>)?.accessVector as string | undefined;
     const isPublicFacing: boolean | null = accessVector === 'NETWORK' ? true : accessVector ? true : null;
     const title = (data.description as string) ?? id;
-
     return { cve_id: id, cvssScore, epssScore, cisaKev, kevDate, ransomwareUse, exploitStatus, isPublicFacing, title };
+  }
+
+  try {
+    // L1: Cache API (per-colo, free)
+    const l1Key = `https://cve-lookup/${id}`;
+    const l1Cached = await caches.default.match(new Request(l1Key));
+    if (l1Cached) {
+      const data = (await l1Cached.json()) as Record<string, unknown>;
+      return toEnriched(data);
+    }
+    // L2: KV (global, metered)
+    const cached = (await kv.get(`cve:${id}`, 'json').catch(() => null)) as Record<string, unknown> | null;
+    const data = cached ?? {};
+    const result = toEnriched(data);
+    // Shadow-write Cache API from KV hit (best-effort, no waitUntil available here)
+    if (cached) {
+      caches.default.put(
+        new Request(l1Key),
+        new Response(JSON.stringify(data), {
+          headers: { 'Content-Type': 'application/json', 'Cache-Control': 'public, s-maxage=1800' },
+        })
+      );
+    }
+    return result;
   } catch (_catchErr) {
     console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;

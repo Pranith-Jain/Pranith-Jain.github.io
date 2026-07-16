@@ -1920,6 +1920,14 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     group: 'threatintel',
   },
   {
+    path: '/threatintel/dashboard',
+    label: 'Threat Intel Dashboard',
+    description: 'Unified threat-intel dashboard — live intelligence, top sources, and recent campaigns.',
+    sectionLabel: 'Threat Intel · Predictive',
+    group: 'threatintel',
+    keywords: ['dashboard', 'home', 'landing', 'intelligence'],
+  },
+  {
     path: '/threatintel/intel-dashboard',
     label: 'Intel Dashboard',
     description: 'Curated intel dashboard — top stories, top IOCs, and trending actors.',
@@ -4118,6 +4126,28 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     description: 'Boolean search across Telegram messages — AND/OR/NOT, field qualifiers, IOC extraction.',
     sectionLabel: 'Threat Intel · Tools',
     group: 'threatintel',
+  },
+  {
+    path: '/threatintel/tools/darknet-intel',
+    label: 'Darknet Intel',
+    description:
+      'Deep darknet intelligence — 22+ sources including GreyNoise, Pulsedive, Vulners, AbuseIPDB, ransomware.live, HIBP, ThreatFox, MalwareBazaar, OTX, and Hybrid Analysis.',
+    sectionLabel: 'Threat Intel · Tools',
+    group: 'threatintel',
+    keywords: [
+      'darknet',
+      'intel',
+      'greynoise',
+      'pulsedive',
+      'vulners',
+      'abuseipdb',
+      'ransomware',
+      'hibp',
+      'threatfox',
+      'malwarebazaar',
+      'otx',
+      'hybrid analysis',
+    ],
   },
   {
     path: '/threatintel/tools/socradar-tools',

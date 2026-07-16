@@ -1,4 +1,5 @@
-import { Suspense, lazy, useState } from 'react';
+import { Suspense, lazy, useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { TabLoader } from '../../components/ui/TabLoader';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { Shield } from 'lucide-react';
@@ -16,7 +17,23 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
 ];
 
 export default function SocDashboard(): JSX.Element {
-  const [activeTab, setActiveTab] = useState<TabId>('ransomware');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const paramTab = searchParams.get('tab') as TabId | null;
+  const [activeTab, setActiveTab] = useState<TabId>(
+    paramTab && TABS.some((t) => t.id === paramTab) ? paramTab : 'ransomware'
+  );
+
+  useEffect(() => {
+    const t = searchParams.get('tab') as TabId | null;
+    if (t && TABS.some((tt) => tt.id === t)) {
+      setActiveTab(t);
+    }
+  }, [searchParams]);
+
+  const handleTabChange = (tab: TabId) => {
+    setActiveTab(tab);
+    setSearchParams({ tab }, { replace: true });
+  };
 
   return (
     <DataPageLayout
@@ -33,7 +50,7 @@ export default function SocDashboard(): JSX.Element {
           <button
             key={t.id}
             type="button"
-            onClick={() => setActiveTab(t.id)}
+            onClick={() => handleTabChange(t.id)}
             className={`border-b-2 px-3 py-2 font-mono text-sm font-semibold transition-colors ${
               activeTab === t.id
                 ? 'border-rose-600 text-rose-600 dark:border-rose-400 dark:text-rose-400'

@@ -270,7 +270,11 @@ export async function watchlistDigestsListHandler(c: Context<{ Bindings: Env }>)
   if (!kv) return serviceUnavailable(c, 'KV cache not available');
 
   try {
-    // List keys matching digests
+    // L1: Cache API (per-colo, free)
+    const l1Cached = await caches.default.match(new Request(c.req.url));
+    if (l1Cached) return c.json(await l1Cached.json());
+
+    // L2: KV list + per-key get (N+1, but limited to 20 keys)
     const listed = await kv.list<unknown>({ prefix: 'digest:weekly:', limit: 20 });
     const digests = await Promise.all(
       listed.keys.map(async (key) => {
@@ -279,9 +283,21 @@ export async function watchlistDigestsListHandler(c: Context<{ Bindings: Env }>)
       })
     );
 
-    return c.json({
+    const result = {
       digests: digests.filter(Boolean).sort((a, b) => b!.generated_at.localeCompare(a!.generated_at)),
-    });
+    };
+
+    // Shadow-write Cache API
+    c.executionCtx.waitUntil(
+      caches.default.put(
+        new Request(c.req.url),
+        new Response(JSON.stringify(result), {
+          headers: { 'Content-Type': 'application/json', 'Cache-Control': 'public, s-maxage=600' },
+        })
+      )
+    );
+
+    return c.json(result);
   } catch (e) {
     console.error('watchlistDigestsListHandler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);

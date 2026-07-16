@@ -336,7 +336,7 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'ObservableDb',
       },
       {
-        path: '/threatintel/soc-dashboard',
+        path: '/threatintel/soc-dashboard?tab=iocs',
         tabId: 'iocs',
         label: 'SOC IOC View',
         desc: 'SOC-focused IOC dashboard — relevant indicators sorted by priority with enrichment context.',
@@ -1396,7 +1396,7 @@ export const HUB_META: readonly HubMeta[] = [
         badge: 'live',
       },
       {
-        path: '/threatintel/soc-dashboard',
+        path: '/threatintel/soc-dashboard?tab=ransomware',
         tabId: 'soc-dashboard',
         label: 'SOC Dashboard',
         desc: 'Unified tactical SOC view — ransomware, vulnerabilities, and IOC stream panels.',

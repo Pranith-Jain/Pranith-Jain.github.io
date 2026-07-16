@@ -1,4 +1,5 @@
 import { Hono } from 'hono';
+import type { Context } from 'hono';
 import type { Env } from '../env';
 
 const UA = 'pranithjain-threatintel/1.0';
@@ -6,7 +7,58 @@ const CACHE_SHORT = 300;
 const CACHE_MED = 600;
 const CACHE_LONG = 1800;
 
+function cacheApiTtl(path: string): number {
+  if (
+    path.includes('greynoise') ||
+    path.includes('ransomlook-recent') ||
+    path.includes('threatfox-iocs') ||
+    path.includes('bazaar-recent') ||
+    path.includes('hybrid/feed')
+  )
+    return 300;
+  if (
+    path.includes('abuseipdb/blacklist') ||
+    path.includes('vulners/id') ||
+    path.includes('hibp/breach') ||
+    path.includes('hibp/latest') ||
+    path.includes('hibp/data-classes') ||
+    path.includes('bazaar/hash') ||
+    path.includes('hybrid/search') ||
+    path.includes('otx/cve') ||
+    path.includes('ransomlook-groups')
+  )
+    return 1800;
+  return 600;
+}
+
+async function l1CacheGet(c: Context<{ Bindings: Env }>): Promise<Record<string, unknown> | null> {
+  const cached = await caches.default.match(new Request(c.req.url));
+  if (cached) return cached.json() as Promise<Record<string, unknown>>;
+  return null;
+}
+
+function l1CacheSet(c: Context<{ Bindings: Env }>, data: Record<string, unknown>, ttl: number): void {
+  const response = new Response(JSON.stringify(data), {
+    headers: { 'Content-Type': 'application/json', 'Cache-Control': `public, s-maxage=${ttl}` },
+  });
+  c.executionCtx.waitUntil(caches.default.put(new Request(c.req.url), response));
+}
+
 export const darknetIntelRouter = new Hono<{ Bindings: Env }>();
+
+darknetIntelRouter.use('/darknet-intel/*', async (c, next) => {
+  if (c.req.method !== 'GET') return next();
+  const cached = await l1CacheGet(c);
+  if (cached) return c.json({ ...cached, cached: true });
+  await next();
+  if (c.res.status !== 200) return;
+  const ct = c.res.headers.get('content-type');
+  if (!ct?.includes('application/json')) return;
+  const clone = c.res.clone();
+  const body = (await clone.json()) as Record<string, unknown>;
+  if (body.error) return;
+  l1CacheSet(c, body, cacheApiTtl(c.req.path));
+});
 
 // ─── GreyNoise Community (free, no key) ───────────────────────────────
 
