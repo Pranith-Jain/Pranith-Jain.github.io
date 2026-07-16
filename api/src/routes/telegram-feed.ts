@@ -311,6 +311,66 @@ export async function fetchHtml(url: string): Promise<string | null> {
   return result;
 }
 
+const RSS_BRIDGES = [
+  (handle: string) => `https://tg.i-c-a.su/rss/channel/${encodeURIComponent(handle)}`,
+  (handle: string) => `https://rsshub.app/telegram/channel/${encodeURIComponent(handle)}`,
+];
+
+async function fetchRssFeed(handle: string): Promise<ParsedMessage[] | null> {
+  for (const buildUrl of RSS_BRIDGES) {
+    try {
+      const url = buildUrl(handle);
+      const r = await fetch(url, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (compatible; pranithjain-dfir/1.0)',
+          accept: 'application/rss+xml, application/xml, text/xml',
+        },
+        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      });
+      if (!r.ok) continue;
+      const xml = await r.text();
+      if (!xml.includes('<item>')) continue;
+      const msgs = parseRssToMessages(xml);
+      if (msgs.length > 0) return msgs;
+    } catch {
+      continue;
+    }
+  }
+  return null;
+}
+
+function parseRssToMessages(xml: string): ParsedMessage[] {
+  const items: ParsedMessage[] = [];
+  const blocks = xml.split('<item>').slice(1);
+  for (const block of blocks) {
+    const content = block.split('</item>')[0];
+    if (!content) continue;
+    const link = /<link>(.*?)<\/link>/.exec(content)?.[1];
+    if (!link) continue;
+    const pubDate = /<pubDate>(.*?)<\/pubDate>/.exec(content)?.[1];
+    const description =
+      /<description><!\[CDATA\[(.*?)\]\]><\/description>/.exec(content)?.[1] ||
+      /<description>(.*?)<\/description>/.exec(content)?.[1];
+    const title =
+      /<title><!\[CDATA\[(.*?)\]\]><\/title>/.exec(content)?.[1] || /<title>(.*?)<\/title>/.exec(content)?.[1];
+
+    let text = (description || title || '').replace(/<br\s*\/?>/gi, '\n').replace(/<[^>]+>/g, '');
+    text = text
+      .replace(/&amp;/g, '&')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .trim();
+    if (text.length > MAX_TEXT_LEN) text = text.slice(0, MAX_TEXT_LEN - 1) + '…';
+
+    const datetime = pubDate ? new Date(pubDate).toISOString() : '';
+    items.push({ permalink: link, datetime, views: undefined, text });
+  }
+  const cutoff = Date.now() - MAX_MESSAGE_AGE_DAYS * 86_400_000;
+  return items.filter((m) => new Date(m.datetime).getTime() >= cutoff).slice(0, MAX_MESSAGES_PER_CHANNEL);
+}
+
 /**
  * Decode the tiny subset of HTML entities that appear in Telegram message
  * text. Telegram only emits these five via their preview renderer.
@@ -677,17 +737,27 @@ export async function fetchTelegramFeed(kv?: KVNamespace, env?: Env): Promise<Te
       const ch = queue.shift();
       if (!ch) return;
       let messages: ParsedMessage[] = [];
-      const html = await fetchHtml(`https://telegram.me/s/${encodeURIComponent(ch.handle)}`);
-      if (html) {
-        messages = parseChannelHtml(html);
+      const handle = encodeURIComponent(ch.handle);
+      const previewUrls = [`https://t.me/s/${handle}`, `https://telegram.me/s/${handle}`];
+      for (const url of previewUrls) {
+        if (messages.length > 0) break;
+        const html = await fetchHtml(url);
+        if (html) messages = parseChannelHtml(html);
       }
-      // If t.me scrape failed (or returned no messages), try Bot API KV cache
+      // If preview scrape failed, try RSS bridge (avoids Workers IP block)
+      if (messages.length === 0) {
+        const rss = await fetchRssFeed(ch.handle);
+        if (rss && rss.length > 0) {
+          messages = rss;
+        }
+      }
+      // If all scrapes failed, try Bot API KV cache
       if (messages.length === 0 && kv && env) {
         const botMsgs = await fetchFromBotApiCache(kv, ch.handle);
         if (botMsgs) {
           messages = botMsgs;
         } else {
-          warnings.push(`could not fetch telegram.me/s/${ch.handle} (bot-cache miss)`);
+          warnings.push(`could not fetch t.me/s/${ch.handle} (bot-cache miss)`);
         }
       }
       if (messages.length === 0) {
