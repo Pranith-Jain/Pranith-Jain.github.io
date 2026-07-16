@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "SE",
   "sizeBytes": 0,
-  "description": "ONE Contact is a Swedish-managed contact center located in Barcelona, Spain, offering customer service, telemarketing, and retention strategies targeted at the Scandinavian market. Services include 1st/2nd line support and digital customer service solutions, with a physical office located on Calle Padilla in Barcelona.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/144f2dbe-c0a4-4af6-ad93-fedf5384cdc6",
   "groupAliases": [],
   "activity": "Business Services",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

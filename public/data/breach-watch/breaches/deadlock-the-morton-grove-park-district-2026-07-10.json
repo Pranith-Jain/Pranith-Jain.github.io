@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "The Morton Grove Park District (MGPD) is a separate municipal agency established in 1951, governed by five elected commissioners and subject to Illinois state laws. Their motto is: Everyone who lives in, works in, or visits Morton Grove has constitutional rights, no matter their citizenship or immigration status. The Village is committed to making sure every person feels safe, supported, and respected. More than 50 GB of data containing personal and sensitive information belonging to both internal employees and the organization's clients and suppliers. Documents on financial plans and internal policies are protected by a non-disclosure policy. (Including racist and sexist insights) We invite all journalists, lawyers, and law enforcement agencies to review this information.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/0a7c4c86-de71-466d-9c90-c4151f663102",
   "groupAliases": [],
   "activity": "Public Sector",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

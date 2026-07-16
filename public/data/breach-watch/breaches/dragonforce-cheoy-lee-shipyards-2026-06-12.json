@@ -2,14 +2,14 @@
   "slug": "dragonforce-cheoy-lee-shipyards-2026-06-12",
   "title": "Cheoy Lee Shipyards",
   "group": "dragonforce",
-  "discovered": "2026-06-12T13:52:24.000Z",
+  "discovered": "2026-06-12T16:19:54.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": "HK",
+  "country": null,
   "sizeBytes": 0,
-  "description": "Cheoy Lee Shipyards Ltd. specializes in the design and manufacturing of a diverse range of vessels, including tugs, ferries, crew boats, pilot boats, and luxury yachts. Their state-of-the-art facility in Zhuhai, China, is equipped with advanced machinery, enabling the production of high-quality vessels up to 70 meters in length. The company serves a global clientele, focusing on maritime industries that require innovative and efficient solutions for various operational needs. Cheoy Lee is committed to excellence, sustainability, and employee welfare, fostering a strong community within their workforce.",
-  "source_url": "https://www.ransomware.live/",
+  "description": null,
+  "source_url": "http://z3wqggtxft7id3ibr7srivv5gjof5fwg76slewnzwwakjuf3nlhukdid.onion/blog#cheoy-lee-shipyards",
   "groupAliases": ["DRAGON FORCE"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
+  "activity": null,
+  "references": ["CTI.FYI"]
 }

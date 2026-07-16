@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "IE",
   "sizeBytes": 0,
-  "description": "Ireland, 41a Pleasants Saint Kevins St, D08 KR99 ,Eclective is Ireland's largest hospitality group, renowned for creating dynamic and diverse hospitality and lifestyle brands. They offer a variety of venues suitable for different occasions, including intimate dining, social gatherings, and family-friendly environments. Their commitment to exceptional experiences highlights their understanding of what makes an outing enjoyable while fostering community connections. Eclective also provides tailored event spaces with modern amenities for corporate and private events. Stolen: 857 GB 1,683,762 Files",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/4cc172b7-f64d-4693-8fac-5278fb8ab388",
   "groupAliases": [],
   "activity": "Not Found",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

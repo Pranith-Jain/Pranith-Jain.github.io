@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "DO",
   "sizeBytes": 0,
-  "description": "Magna Dominicana has over 50 years of experience offering globally recognized vehicle brands, specia...",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/dcb484c1-2ae4-465a-bee0-189449adaf65",
   "groupAliases": [],
   "activity": "Business Services",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

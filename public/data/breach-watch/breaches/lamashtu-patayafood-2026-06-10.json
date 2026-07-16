@@ -2,14 +2,14 @@
   "slug": "lamashtu-patayafood-2026-06-10",
   "title": "PatayaFood",
   "group": "lamashtu",
-  "discovered": "2026-06-10T22:24:25.000Z",
+  "discovered": "2026-06-10T22:08:59.000Z",
   "category": "data_breach",
   "severity": "high",
-  "country": "TH",
+  "country": null,
   "sizeBytes": 0,
-  "description": "PatayaFood is a Thai food manufacturer and supplier producing ingredients, frozen foods, and ready-to-eat products for retail and restaurant customers. They provide quality control and export certifications, plus packaging and logistics services.",
-  "source_url": "https://www.ransomware.live/",
+  "description": null,
+  "source_url": "http://lamashtux5j74mcm7lwwgn5yrvuwtrpxjoyendif3v3hrztjesfoyayd.onion/post/5be90be12d871d5b27cc0ac200fa2df2",
   "groupAliases": [],
-  "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
+  "activity": null,
+  "references": ["CTI.FYI"]
 }

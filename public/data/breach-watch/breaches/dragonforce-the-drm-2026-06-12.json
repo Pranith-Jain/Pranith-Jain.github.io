@@ -2,14 +2,14 @@
   "slug": "dragonforce-the-drm-2026-06-12",
   "title": "The DRM",
   "group": "dragonforce",
-  "discovered": "2026-06-12T12:21:47.000Z",
+  "discovered": "2026-06-12T13:02:26.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": "BH",
+  "country": null,
   "sizeBytes": 0,
-  "description": "Durrat Resort Management specializes in providing high-quality resort management services. Their offerings include operational management, marketing strategies, and guest services tailored to enhance the overall experience of resort guests. The company primarily targets luxury resort owners and investors looking to optimize their properties' performance. With a focus on excellence and customer satisfaction, Durrat aims to elevate the standards of resort management in the industry.",
-  "source_url": "https://www.ransomware.live/",
+  "description": null,
+  "source_url": "http://z3wqggtxft7id3ibr7srivv5gjof5fwg76slewnzwwakjuf3nlhukdid.onion/blog#the-drm",
   "groupAliases": ["DRAGON FORCE"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
+  "activity": null,
+  "references": ["CTI.FYI"]
 }

@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "PL",
   "sizeBytes": 0,
-  "description": "LIVISTO is an international pharmaceutical company with extensive experience in the veterinary market.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/46b5ee0e-a5c7-4a1d-8373-40edd424e2dd",
   "groupAliases": [],
   "activity": "Not Found",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

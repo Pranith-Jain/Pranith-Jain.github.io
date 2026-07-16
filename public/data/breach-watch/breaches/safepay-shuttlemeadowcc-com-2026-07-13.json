@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Founded in 1917, the club is one of the oldest and most prestigious private golf clubs in New England. It …",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/305e9050-1985-4034-b72d-e439a4788457",
   "groupAliases": [],
   "activity": "Consumer Services",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

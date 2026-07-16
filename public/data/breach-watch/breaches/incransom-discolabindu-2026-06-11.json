@@ -2,14 +2,14 @@
   "slug": "incransom-discolabindu-2026-06-11",
   "title": "DISCOLABINDU",
   "group": "incransom",
-  "discovered": "2026-06-11T16:22:08.000Z",
+  "discovered": "2026-06-11T16:02:45.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": "FR",
+  "country": null,
   "sizeBytes": 0,
-  "description": "Unauthorized access has been gained to the company's confidential files, including client data, proprietary R&D, and financial documentation.",
-  "source_url": "https://www.ransomware.live/",
+  "description": null,
+  "source_url": "http://incbacg6bfwtrlzwdbqc55gsfl763s3twdtwhp27dzuik6s6rwdcityd.onion/blog/disclosures/6a2a7bbf5ae71db30c1d4136",
   "groupAliases": ["inc ransom", "INC"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
+  "activity": null,
+  "references": ["CTI.FYI"]
 }

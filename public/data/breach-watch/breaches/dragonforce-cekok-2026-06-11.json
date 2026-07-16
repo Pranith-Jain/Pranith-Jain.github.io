@@ -2,14 +2,14 @@
   "slug": "dragonforce-cekok-2026-06-11",
   "title": "Cekok",
   "group": "dragonforce",
-  "discovered": "2026-06-11T14:52:40.000Z",
+  "discovered": "2026-06-11T15:02:31.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": "TR",
+  "country": null,
   "sizeBytes": 0,
-  "description": "Çekok Gıda is a leading fruit and vegetable producer in Turkey and Europe, known for its commitment to sustainable agriculture and high-quality products. The company cultivates 35 types of fruits and vegetables across 13,500 decares of farmland, utilizing advanced technology and adhering to strict environmental and safety",
-  "source_url": "https://www.ransomware.live/",
+  "description": null,
+  "source_url": "http://z3wqggtxft7id3ibr7srivv5gjof5fwg76slewnzwwakjuf3nlhukdid.onion/blog#cekok",
   "groupAliases": ["DRAGON FORCE"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
+  "activity": null,
+  "references": ["CTI.FYI"]
 }

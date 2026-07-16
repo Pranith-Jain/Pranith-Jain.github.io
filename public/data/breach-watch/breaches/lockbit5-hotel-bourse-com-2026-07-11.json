@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "FR",
   "sizeBytes": 0,
-  "description": "14 rue de la Bourse 68100 Mulhouse info@hotel-bourse.com +33 3 89 56 18 44",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/b2c9bd68-5a03-41d8-b659-be68b2ed9de5",
   "groupAliases": [],
   "activity": "Hospitality and Tourism",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

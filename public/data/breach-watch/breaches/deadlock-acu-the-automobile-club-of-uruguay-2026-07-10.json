@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "UY",
   "sizeBytes": 0,
-  "description": "[AI generated] The Automobile Club of Uruguay (ACU) is a nonprofit organization based in Uruguay that provides services to motorists and travelers. It offers roadside assistance, vehicle inspections, travel planning, and tourism-related services. Operating within the automotive services and transportation industry, ACU also promotes road safety and mobility across Uruguay. It maintains affiliations with international automobile club networks, extending member benefits abroad.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/275352b2-3c7a-4559-b00a-c5895d631dea",
   "groupAliases": [],
   "activity": "Transportation/Logistics",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

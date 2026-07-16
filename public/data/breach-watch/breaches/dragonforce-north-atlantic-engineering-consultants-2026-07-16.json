@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "BW",
   "sizeBytes": 0,
-  "description": "Established in the early 1980's North Atlantic Engineering Consultants has since inception conscientiously led the way with holistic sustainable energy solutions and responsible engineering practice. With a human resource base of professionals of the highest calibre, who are qualified and experienced in project design, co-ordination and management, the firm has grown steadily over the years with a steadfast commitment to quality and cutting-edge design, establishing itself as a trend setter in the field of sustainable building services engineering.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/0f647aa2-1e1c-4956-8f0b-3a3e31b8762c",
   "groupAliases": ["DRAGON FORCE"],
   "activity": "Business Services",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

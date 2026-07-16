@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "FR",
   "sizeBytes": 0,
-  "description": "www.distribox.frDistribox helps businesses deliver great products by providing smart techn Deadline: 2026-07-21 18:51:00.000000",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/1b0833ad-4093-4688-8b9e-eb1137249b12",
   "groupAliases": ["arcus media"],
   "activity": "Transportation/Logistics",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

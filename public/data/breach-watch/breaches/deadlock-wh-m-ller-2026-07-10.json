@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "DE",
   "sizeBytes": 0,
-  "description": "WH Müller is a family business in the field of electrical engineering and IT technology.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/4bcca296-e66f-494f-910e-1d058c38eae5",
   "groupAliases": [],
   "activity": "Manufacturing",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

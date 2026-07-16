@@ -1,15 +1,15 @@
 {
   "slug": "bravox-ccs-global-tech-2026-06-12",
-  "title": "CCS GLOBAL TECH",
+  "title": "CCS GLOBAL TECH 🇺🇸",
   "group": "bravox",
-  "discovered": "2026-06-12T02:50:51.000Z",
+  "discovered": "2026-06-12T03:10:03.000Z",
   "category": "data_breach",
   "severity": "high",
-  "country": "US",
+  "country": null,
   "sizeBytes": 0,
-  "description": "They provide digital and cloud solutions for business processes.",
-  "source_url": "https://www.ransomware.live/",
+  "description": null,
+  "source_url": "http://bravoxxtrmqeeevhl7gdh2yzvlrjxajr66d33c7ozosrccx4cz7cepad.onion/blog/57e87409-0a66-4489-9554-4f84195ca31c",
   "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
+  "activity": null,
+  "references": ["CTI.FYI"]
 }

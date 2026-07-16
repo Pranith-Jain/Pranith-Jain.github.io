@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "CZ",
   "sizeBytes": 0,
-  "description": "***.cz zoominfo.com/c/energon/430910504 ENERGON HOLDING is a prominent Czech group uniting various companies specialized in energy services, photovoltaics, and modern sustainable technologies. With over 25 years of industry experience, the group drives innovations that enhance the energy independence and competitiveness of the Czech Republic. They also actively invest in startups focused on renewable energy optimization, diagnostics, and the security of power infrastructure",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/282a1340-7cb1-4217-990b-7884fce88069",
   "groupAliases": ["the gentlemen"],
   "activity": "Energy",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

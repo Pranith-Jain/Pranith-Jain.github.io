@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "***.com zoominfo.com/c/lopes-law-llc/449811320 Lopes Law LLC is a Philadelphia-based law firm founded by Anthony Lopes that specializes in franchise law, representing both franchisees and franchisors nationwide. The firm provides comprehensive legal services including Franchise Disclosure Document (FDD) reviews, franchise agreement negotiations, and dispute resolution using transparent flat-fee pricing. In addition to franchise expertise, the practice acts as fractional general counsel for businesses and offers specialized tax law services to help companies navigate complex legal landscapes",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/eaa5bb3a-c03b-4092-aafb-7fe5daeba6a1",
   "groupAliases": ["the gentlemen"],
   "activity": "Business Services",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

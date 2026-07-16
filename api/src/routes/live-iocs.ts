@@ -1163,15 +1163,11 @@ export async function fetchLiveIocs(
   // silently cut the last 5 sources after more feeds were added. It's now
   // derived from FEED_SOURCES.length so it stays correct as feeds change.
   // The cap leaves headroom for the analytics + KV/queue reads that follow
-  // the fan-out in composeOrFallback. The old calculation used
-  // min(FEED_SOURCES.length, 45) — counting source *dispatches* not actual
-  // *subrequests*. Each source's run() does 1-3 fetch subrequests (+ KV
-  // reads), so 30 sources could total 60-90 subrequests, well above the
-  // 50-subrequest free-plan cap. The fix: budget against estimated actual
-  // subrequests (2 per source on average) with headroom for post-fan-out
-  // analytics/KV reads.
-  const AVG_SUBREQUESTS_PER_SOURCE = 2;
-  const SUBREQUEST_BUDGET = Math.min(Math.floor(45 / AVG_SUBREQUESTS_PER_SOURCE), FEED_SOURCES.length);
+  // the fan-out in composeOrFallback. Each source's run() does exactly 1
+  // fetch subrequest (+ optional KV reads for cached helpers like
+  // malwarebazaar/phishing). With 30 sources the total stays well under the
+  // 50-subrequest free-plan cap. Capped at 45 for safety margin.
+  const SUBREQUEST_BUDGET = Math.min(FEED_SOURCES.length, 45);
   const budget = { used: 0, max: SUBREQUEST_BUDGET };
   const deps: FeedDeps = { executionCtx, kv, env, budget };
   const feedResults = await concurrentMap(

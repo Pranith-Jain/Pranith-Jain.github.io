@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "PL",
   "sizeBytes": 0,
-  "description": "Techpol-System, based in Bieruń, Poland, is an engineering enterprise specializing in industrial power solutions, including traction battery maintenance, along with laser processing and steel structure fabrication. The company provides comprehensive, end-to-end services tailored to industrial clients through precision manufacturing and system integration.-Personal information of employees and clients -Financial documents -Other files https://***.pl/",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/501c0ced-1b99-4f44-b22a-a36c02d9f59f",
   "groupAliases": ["space bears"],
   "activity": "Technology",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

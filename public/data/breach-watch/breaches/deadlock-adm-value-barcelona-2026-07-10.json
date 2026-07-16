@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "ES",
   "sizeBytes": 0,
-  "description": "ADM Value is a leading international company specializing in outsourced customer relationship management (CRM) and Business Process Outsourcing (BPO)",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/ef91ce7f-ff80-4ea8-8595-efe0448ebc3c",
   "groupAliases": [],
   "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

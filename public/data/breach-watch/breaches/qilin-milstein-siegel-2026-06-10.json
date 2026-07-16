@@ -2,14 +2,14 @@
   "slug": "qilin-milstein-siegel-2026-06-10",
   "title": "Milstein Siegel",
   "group": "qilin",
-  "discovered": "2026-06-10T21:26:43.000Z",
+  "discovered": "2026-06-10T22:04:58.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": "US",
+  "country": null,
   "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
+  "description": null,
+  "source_url": "http://ijzn3sicrcy7guixkzjkib4ukbiilwc3xhnmby4mcbccnsd7j2rekvqd.onion/site/blog?uuid=b939b9fa-7603-4bef-86c3-fc1009fbcab4",
   "groupAliases": [],
-  "activity": "Financial Services",
-  "references": ["ransomware.live"]
+  "activity": null,
+  "references": ["CTI.FYI"]
 }

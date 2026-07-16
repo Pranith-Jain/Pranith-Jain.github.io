@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "AU",
   "sizeBytes": 0,
-  "description": "Access Group International is a leading privately owned provider of access, material handling, power generation, and construction equipment. The company is dedicated to safety, performance, and reliability, serving Australia's demanding industries with dependable equipment and expertise. Their integrated services include maintenance, OEM manufacturing, transport, logistics, and workforce solutions, allowing for seamless project support. With a focus on adaptability and tailored solutions, Access Group International is a trusted partner for projects of all sizes.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/b6b4150f-8eb0-4dd6-858a-28a6b5c1644f",
   "groupAliases": ["DRAGON FORCE"],
   "activity": "Construction",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

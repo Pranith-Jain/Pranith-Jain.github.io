@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "AR",
   "sizeBytes": 0,
-  "description": "CIATI is a technology center dedicated to providing analytical services, technical assistance, and research and development for the food, geochemistry, and environmental industries.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/c2152e61-e7d0-473e-af43-73d84e54c40d",
   "groupAliases": [],
   "activity": "Not Found",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

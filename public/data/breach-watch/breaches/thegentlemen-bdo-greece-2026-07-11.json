@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "GR",
   "sizeBytes": 0,
-  "description": "***.gr zoominfo.com/c/bdo-certified-public-accountants-sa/372555588 BDO Greece is a leading Athens-based accounting, tax, and advisory firm that operates as a member of the global BDO network. The company provides comprehensive audit, assurance, and business consulting services to a diverse range of industries, including real estate, hospitality, and the public sector. Employing between 50 and 200 professionals, the firm generates an estimated annual revenue of over $23 million while helping clients navigate complex financial and regulatory landscapes",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/779e5307-d3a9-4a98-a17e-d9ed1252a057",
   "groupAliases": ["the gentlemen"],
   "activity": "Business Services",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

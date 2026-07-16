@@ -2,14 +2,14 @@
   "slug": "dragonforce-al-shafar-grc-2026-06-12",
   "title": "Al Shafar GRC",
   "group": "dragonforce",
-  "discovered": "2026-06-12T12:22:43.000Z",
+  "discovered": "2026-06-12T13:02:26.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": "AE",
+  "country": null,
   "sizeBytes": 0,
-  "description": "ASGRC is a leading provider of Glass Fiber Reinforced Concrete (GRC) solutions, specializing in the design, manufacturing, and installation of high-quality products for both residential and industrial projects. Established in 2003, the company has grown to become the largest GRC facility in the UAE, known for its innovative and aesthetically pleasing cladding systems, decorative screens, domes, furniture, and precast units. ASGRC has contributed to iconic architectural landmarks in the UAE, combining craftsmanship with sustainability. The company also offers expert construction consulting services to ensure that client visions are realized effectively.",
-  "source_url": "https://www.ransomware.live/",
+  "description": null,
+  "source_url": "http://z3wqggtxft7id3ibr7srivv5gjof5fwg76slewnzwwakjuf3nlhukdid.onion/blog#al-shafar-grc",
   "groupAliases": ["DRAGON FORCE"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
+  "activity": null,
+  "references": ["CTI.FYI"]
 }

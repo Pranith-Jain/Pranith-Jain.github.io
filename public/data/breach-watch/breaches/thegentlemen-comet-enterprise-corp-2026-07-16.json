@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "TW",
   "sizeBytes": 0,
-  "description": "***.com.tw zoominfo.com/c/comet-enterprise-corp/425713239  leading Taiwanese industrial bearing distributor founded in 1973, serving as one of the major authorized distributors of the Schaeffler Group's FAG and INA brands in Taiwan. The company provides high-quality precision bearings for machine tools, power machinery, and equipment maintenance, backed by comprehensive factory technical support. With its headquarters in New Taipei City and branches across Taiwan, China, and Thailand, it offers extensive inventory and one-stop procurement solutions to help clients minimize equipment downtime and maintenance costs",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/ae2d05b7-4be2-4aa5-97bc-396c6bb32f8e",
   "groupAliases": ["the gentlemen"],
   "activity": "Not Found",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }
