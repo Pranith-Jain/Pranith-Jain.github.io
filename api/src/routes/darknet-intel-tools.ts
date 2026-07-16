@@ -13,9 +13,17 @@ const CACHE_LONG = 1800;
 const RATE_LIMIT_MAX = 30;
 const RATE_LIMIT_WINDOW_MS = 60_000;
 const rateLimitMap = new Map<string, { count: number; windowStart: number }>();
+let lastCleanup = Date.now();
 
 function checkRateLimit(ip: string): boolean {
   const now = Date.now();
+  // Lazy cleanup every 5 minutes (runs inside request context, not global)
+  if (now - lastCleanup > 300_000) {
+    lastCleanup = now;
+    for (const [key, entry] of rateLimitMap) {
+      if (now - entry.windowStart > RATE_LIMIT_WINDOW_MS * 2) rateLimitMap.delete(key);
+    }
+  }
   const entry = rateLimitMap.get(ip);
   if (!entry || now - entry.windowStart > RATE_LIMIT_WINDOW_MS) {
     rateLimitMap.set(ip, { count: 1, windowStart: now });
@@ -24,14 +32,6 @@ function checkRateLimit(ip: string): boolean {
   entry.count++;
   return entry.count <= RATE_LIMIT_MAX;
 }
-
-// Evict stale entries every 5 minutes to prevent memory leak
-setInterval(() => {
-  const now = Date.now();
-  for (const [ip, entry] of rateLimitMap) {
-    if (now - entry.windowStart > RATE_LIMIT_WINDOW_MS * 2) rateLimitMap.delete(ip);
-  }
-}, 300_000);
 
 function cacheApiTtl(path: string): number {
   if (
