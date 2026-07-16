@@ -76,7 +76,19 @@ function getCountryCode(country: string): string {
   return match?.[1] ?? 'Unknown';
 }
 
-function ActorCard({ actor, isExpanded, onToggle }: { actor: ThreatActor; isExpanded: boolean; onToggle: () => void }) {
+function ActorCard({
+  actor,
+  isExpanded,
+  onToggle,
+  onMalwareClick,
+  onSectorClick,
+}: {
+  actor: ThreatActor;
+  isExpanded: boolean;
+  onToggle: () => void;
+  onMalwareClick?: (m: string) => void;
+  onSectorClick?: (s: string) => void;
+}) {
   const cc = getCountryCode(actor.country);
   const flag = COUNTRY_FLAGS[cc] ?? '🌐';
   const statusCls = STATUS_PILL[actor.status] ?? STATUS_PILL.unknown;
@@ -154,12 +166,17 @@ function ActorCard({ actor, isExpanded, onToggle }: { actor: ThreatActor; isExpa
               </span>
               <div className="flex flex-wrap gap-1.5 mt-1.5">
                 {actor.malware.map((m) => (
-                  <span
+                  <button
                     key={m}
-                    className="text-xs font-mono bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800 rounded-full px-2 py-0.5"
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onMalwareClick?.(m);
+                    }}
+                    className="text-xs font-mono bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800 rounded-full px-2 py-0.5 hover:bg-rose-100 dark:hover:bg-rose-900/60 transition-colors cursor-pointer"
                   >
                     {m}
-                  </span>
+                  </button>
                 ))}
                 {actor.malware.length === 0 && <span className="text-xs text-slate-400 italic">None listed</span>}
               </div>
@@ -189,12 +206,17 @@ function ActorCard({ actor, isExpanded, onToggle }: { actor: ThreatActor; isExpa
             </span>
             <div className="flex flex-wrap gap-1.5 mt-1.5">
               {actor.targets.map((t) => (
-                <span
+                <button
                   key={t}
-                  className="inline-flex items-center gap-1 text-xs font-mono bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300 border border-brand-200 dark:border-brand-800 rounded-full px-2 py-0.5"
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onSectorClick?.(t);
+                  }}
+                  className="inline-flex items-center gap-1 text-xs font-mono bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300 border border-brand-200 dark:border-brand-800 rounded-full px-2 py-0.5 hover:bg-brand-100 dark:hover:bg-brand-900/60 transition-colors cursor-pointer"
                 >
                   <Target className="h-3 w-3" /> {t}
-                </span>
+                </button>
               ))}
             </div>
           </div>
@@ -292,6 +314,8 @@ export default function ActorProfiles() {
   const [activeType, setActiveType] = useState<ActorType | null>(null);
   const [activeStatus, setActiveStatus] = useState<ActorStatus | null>(null);
   const [activeCountry, setActiveCountry] = useState<string | null>(null);
+  const [activeMalware, setActiveMalware] = useState<string | null>(null);
+  const [activeSector, setActiveSector] = useState<string | null>(null);
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
 
   const filtered = useMemo(() => {
@@ -299,6 +323,9 @@ export default function ActorProfiles() {
     if (activeType) list = list.filter((a) => a.type === activeType);
     if (activeStatus) list = list.filter((a) => a.status === activeStatus);
     if (activeCountry) list = list.filter((a) => getCountryCode(a.country) === activeCountry);
+    if (activeMalware)
+      list = list.filter((a) => a.malware.some((m) => m.toLowerCase() === activeMalware.toLowerCase()));
+    if (activeSector) list = list.filter((a) => a.targets.some((t) => t.toLowerCase() === activeSector.toLowerCase()));
     if (query.trim()) {
       const q = query.toLowerCase();
       list = list.filter(
@@ -312,7 +339,7 @@ export default function ActorProfiles() {
       );
     }
     return list;
-  }, [query, activeType, activeStatus, activeCountry]);
+  }, [query, activeType, activeStatus, activeCountry, activeMalware, activeSector]);
 
   const toggle = (id: string) => {
     setExpanded((prev) => {
@@ -321,6 +348,14 @@ export default function ActorProfiles() {
       else next.add(id);
       return next;
     });
+  };
+
+  const expandAll = () => {
+    setExpanded(new Set(filtered.map((a) => a.id)));
+  };
+
+  const collapseAll = () => {
+    setExpanded(new Set());
   };
 
   const typeCounts = useMemo(() => {
@@ -472,7 +507,54 @@ export default function ActorProfiles() {
         )}
       </div>
 
+      {/* Active filter chips */}
+      {(activeMalware || activeSector) && (
+        <div className="flex flex-wrap items-center gap-2 mb-3">
+          <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            Filtered by:
+          </span>
+          {activeMalware && (
+            <button
+              onClick={() => setActiveMalware(null)}
+              className="inline-flex items-center gap-1 text-[11px] font-mono bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800 rounded-full px-2 py-0.5"
+            >
+              Malware: {activeMalware} ×
+            </button>
+          )}
+          {activeSector && (
+            <button
+              onClick={() => setActiveSector(null)}
+              className="inline-flex items-center gap-1 text-[11px] font-mono bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300 border border-brand-200 dark:border-brand-800 rounded-full px-2 py-0.5"
+            >
+              Sector: {activeSector} ×
+            </button>
+          )}
+        </div>
+      )}
+
       {/* Actor cards */}
+      <div className="flex items-center justify-between mb-3">
+        <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
+          {filtered.length} actor{filtered.length !== 1 ? 's' : ''}
+        </span>
+        <div className="flex gap-1.5">
+          <button
+            type="button"
+            onClick={expandAll}
+            className="text-[11px] font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+          >
+            Expand all
+          </button>
+          <span className="text-slate-300 dark:text-slate-600">·</span>
+          <button
+            type="button"
+            onClick={collapseAll}
+            className="text-[11px] font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+          >
+            Collapse all
+          </button>
+        </div>
+      </div>
       <div className="space-y-3">
         {filtered.length === 0 ? (
           <div className={`${CARD} p-8 text-center text-sm text-slate-500 dark:text-slate-400`}>
@@ -485,6 +567,8 @@ export default function ActorProfiles() {
               actor={actor}
               isExpanded={expanded.has(actor.id)}
               onToggle={() => toggle(actor.id)}
+              onMalwareClick={(m) => setActiveMalware(activeMalware === m ? null : m)}
+              onSectorClick={(s) => setActiveSector(activeSector === s ? null : s)}
             />
           ))
         )}

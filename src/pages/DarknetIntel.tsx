@@ -85,6 +85,8 @@ function ToolForm({
   loading,
   result,
   error,
+  examples,
+  lastUpdated,
 }: {
   title: string;
   description: string;
@@ -93,15 +95,52 @@ function ToolForm({
   loading: boolean;
   result: unknown;
   error: string | null;
+  examples?: Record<string, string>;
+  lastUpdated?: string;
 }) {
   const [values, setValues] = useState<Record<string, string>>({});
   const set = (k: string) => (e: React.ChangeEvent<HTMLInputElement>) =>
     setValues((v) => ({ ...v, [k]: e.target.value }));
+
+  const applyExample = () => {
+    if (examples) {
+      setValues(examples);
+      onRun(examples);
+    }
+  };
+
+  const ageText = lastUpdated
+    ? (() => {
+        const diff = Date.now() - new Date(lastUpdated).getTime();
+        const mins = Math.floor(diff / 60000);
+        if (mins < 1) return 'just now';
+        if (mins < 60) return `${mins}m ago`;
+        const hrs = Math.floor(mins / 60);
+        if (hrs < 24) return `${hrs}h ago`;
+        return `${Math.floor(hrs / 24)}d ago`;
+      })()
+    : null;
   return (
     <div className={`${CARD} overflow-hidden`}>
       <div className="px-4 py-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-        <h4 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{title}</h4>
-        <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{description}</p>
+        <div className="flex items-center justify-between">
+          <div>
+            <h4 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{title}</h4>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{description}</p>
+          </div>
+          <div className="flex items-center gap-2 shrink-0">
+            {ageText && <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500">{ageText}</span>}
+            {examples && (
+              <button
+                type="button"
+                onClick={applyExample}
+                className="text-[10px] font-mono text-brand-600 dark:text-brand-400 border border-brand-200 dark:border-brand-800 rounded px-1.5 py-0.5 hover:bg-brand-50 dark:hover:bg-brand-950/40 transition-colors"
+              >
+                Try it
+              </button>
+            )}
+          </div>
+        </div>
       </div>
       <div className="p-4 space-y-3">
         <div className="flex flex-wrap gap-2">
@@ -140,6 +179,7 @@ function ProvidersTab() {
   const [sources, setSources] = useState<ProviderStatus[] | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [keyStatus, setKeyStatus] = useState<Record<string, 'configured' | 'missing' | 'unknown'>>({});
 
   useEffect(() => {
     let cancelled = false;
@@ -153,6 +193,26 @@ function ProvidersTab() {
       .finally(() => {
         if (!cancelled) setLoading(false);
       });
+
+    // Check key status by probing a free endpoint for each key-required provider
+    const keyChecks: Array<{ provider: string; endpoint: string }> = [
+      { provider: 'AbuseIPDB', endpoint: '/api/v1/darknet-intel/abuseipdb/check?ip=127.0.0.1' },
+      { provider: 'IntelligenceX', endpoint: '/api/v1/darknet-intel/intelx/search?q=test' },
+      { provider: 'Hybrid Analysis', endpoint: '/api/v1/darknet-intel/hybrid/search?hash=aa' },
+    ];
+    for (const check of keyChecks) {
+      fetch(check.endpoint, { signal: AbortSignal.timeout(5000) })
+        .then((r) => r.json())
+        .then((d: Record<string, unknown>) => {
+          if (cancelled) return;
+          const isConfigured = !d.error || !(d.error as string).includes('not configured');
+          setKeyStatus((prev) => ({ ...prev, [check.provider]: isConfigured ? 'configured' : 'missing' }));
+        })
+        .catch(() => {
+          if (!cancelled) setKeyStatus((prev) => ({ ...prev, [check.provider]: 'unknown' }));
+        });
+    }
+
     return () => {
       cancelled = true;
     };
@@ -197,6 +257,23 @@ function ProvidersTab() {
             <span className="text-[11px] text-slate-500 dark:text-slate-400">
               {s.auth === 'none' ? 'No key needed' : s.auth === 'optional' ? 'Key optional' : `Key: ${s.key_env}`}
             </span>
+            {s.auth !== 'none' && keyStatus[s.name] && (
+              <span
+                className={`text-[10px] font-mono px-1 py-0.5 rounded ${
+                  keyStatus[s.name] === 'configured'
+                    ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400'
+                    : keyStatus[s.name] === 'missing'
+                      ? 'bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400'
+                      : 'bg-slate-100 dark:bg-slate-800 text-slate-400'
+                }`}
+              >
+                {keyStatus[s.name] === 'configured'
+                  ? '● active'
+                  : keyStatus[s.name] === 'missing'
+                    ? '○ missing'
+                    : '? unknown'}
+              </span>
+            )}
           </div>
         </div>
       ))}
@@ -234,6 +311,7 @@ function IpIntelTab() {
         title="GreyNoise IP Lookup"
         description="Classify an IP: benign/malicious/unknown scanner detection"
         inputs={[{ name: 'ip', placeholder: 'IP address (e.g. 8.8.8.8)', required: true }]}
+        examples={{ ip: '8.8.8.8' }}
         onRun={(p) => gn.run(() => apiGet(`/api/v1/darknet-intel/greynoise/ip?ip=${encodeURIComponent(p.ip ?? '')}`))}
         loading={gn.loading}
         result={gn.result}
@@ -243,6 +321,7 @@ function IpIntelTab() {
         title="AbuseIPDB Check"
         description="Abuse reports, confidence score, ISP, country for an IP"
         inputs={[{ name: 'ip', placeholder: 'IP address', required: true }]}
+        examples={{ ip: '118.208.1.1' }}
         onRun={(p) =>
           ab.run(() => apiGet(`/api/v1/darknet-intel/abuseipdb/check?ip=${encodeURIComponent(p.ip ?? '')}`))
         }
@@ -254,6 +333,7 @@ function IpIntelTab() {
         title="OTX IP Intelligence"
         description="AlienVault OTX: pulses, reputation, associated malware for an IP"
         inputs={[{ name: 'ip', placeholder: 'IPv4 address', required: true }]}
+        examples={{ ip: '8.8.8.8' }}
         onRun={(p) => otx.run(() => apiGet(`/api/v1/darknet-intel/otx/ip?ip=${encodeURIComponent(p.ip ?? '')}`))}
         loading={otx.loading}
         result={otx.result}
@@ -273,6 +353,7 @@ function HashIntelTab() {
         title="MalwareBazaar Hash Lookup"
         description="Look up malware sample by MD5/SHA1/SHA256"
         inputs={[{ name: 'hash', placeholder: 'MD5, SHA1, or SHA256 hash', required: true }]}
+        examples={{ hash: '8739c71478900446393c68a013ba2e8a73d9278c6e4005b1493e8c45e5543327' }}
         onRun={(p) =>
           mb.run(() => apiGet(`/api/v1/darknet-intel/abusech/bazaar-hash?hash=${encodeURIComponent(p.hash ?? '')}`))
         }
@@ -284,6 +365,7 @@ function HashIntelTab() {
         title="Hybrid Analysis Search"
         description="Sandbox detonation results, MITRE ATT&CK, network IOCs"
         inputs={[{ name: 'hash', placeholder: 'File hash', required: true }]}
+        examples={{ hash: '8739c71478900446393c68a013ba2e8a73d9278c6e4005b1493e8c45e5543327' }}
         onRun={(p) =>
           hybrid.run(() => apiGet(`/api/v1/darknet-intel/hybrid/search?hash=${encodeURIComponent(p.hash ?? '')}`))
         }
@@ -295,6 +377,7 @@ function HashIntelTab() {
         title="OTX File Hash Intelligence"
         description="AlienVault OTX pulse info for a file hash"
         inputs={[{ name: 'hash', placeholder: 'MD5, SHA1, or SHA256', required: true }]}
+        examples={{ hash: '8739c71478900446393c68a013ba2e8a73d9278c6e4005b1493e8c45e5543327' }}
         onRun={(p) => otx.run(() => apiGet(`/api/v1/darknet-intel/otx/hash?hash=${encodeURIComponent(p.hash ?? '')}`))}
         loading={otx.loading}
         result={otx.result}
@@ -314,6 +397,7 @@ function VulnTab() {
         title="Vulnerability Lookup"
         description="Vulners: CVSS, description, exploit availability by CVE/EDB/GHSA"
         inputs={[{ name: 'id', placeholder: 'CVE-2024-3094 or EDB-12345', required: true }]}
+        examples={{ id: 'CVE-2024-3094' }}
         onRun={(p) => vid.run(() => apiGet(`/api/v1/darknet-intel/vulners/id?id=${encodeURIComponent(p.id ?? '')}`))}
         loading={vid.loading}
         result={vid.result}
@@ -323,6 +407,7 @@ function VulnTab() {
         title="Vulners Search"
         description="Lucene search across the Vulners vulnerability database"
         inputs={[{ name: 'query', placeholder: 'Search query (e.g. "apache rce")', required: true }]}
+        examples={{ query: 'apache remote code execution' }}
         onRun={(p) => vsearch.run(() => apiPost('/api/v1/darknet-intel/vulners/search', { query: p.query }))}
         loading={vsearch.loading}
         result={vsearch.result}
@@ -332,6 +417,7 @@ function VulnTab() {
         title="OTX CVE Intelligence"
         description="AlienVault OTX: related pulses and exploitation activity for a CVE"
         inputs={[{ name: 'cve', placeholder: 'CVE-2024-3094', required: true }]}
+        examples={{ cve: 'CVE-2024-3094' }}
         onRun={(p) => otxcve.run(() => apiGet(`/api/v1/darknet-intel/otx/cve?cve=${encodeURIComponent(p.cve ?? '')}`))}
         loading={otxcve.loading}
         result={otxcve.result}
@@ -353,6 +439,7 @@ function RansomTab() {
         title="Ransomware Group Profile"
         description="Group details: description, aliases, tools, TTPs, CVEs"
         inputs={[{ name: 'name', placeholder: 'Group name (e.g. lockbit3, blackcat)', required: true }]}
+        examples={{ name: 'lockbit3' }}
         onRun={(p) =>
           group.run(() => apiGet(`/api/v1/darknet-intel/ransomware/group?name=${encodeURIComponent(p.name ?? '')}`))
         }
@@ -364,6 +451,7 @@ function RansomTab() {
         title="Search Ransomware Victims"
         description="Search across ransomware.live by company name or domain"
         inputs={[{ name: 'q', placeholder: 'Search keyword', required: true }]}
+        examples={{ q: 'microsoft' }}
         onRun={(p) =>
           search.run(() => apiGet(`/api/v1/darknet-intel/ransomware/search?q=${encodeURIComponent(p.q ?? '')}`))
         }
@@ -433,6 +521,7 @@ function MalwareTab() {
         title="ThreatFox Search"
         description="Search ThreatFox by IP, domain, hash, or URL"
         inputs={[{ name: 'q', placeholder: 'IOC value', required: true }]}
+        examples={{ q: '8.8.8.8' }}
         onRun={(p) =>
           tfSearch.run(() =>
             apiGet(`/api/v1/darknet-intel/abusech/threatfox-search?q=${encodeURIComponent(p.q ?? '')}`)
@@ -446,6 +535,7 @@ function MalwareTab() {
         title="ThreatFox Tag Search"
         description="Search by tag (e.g. Cobalt Strike, Emotet)"
         inputs={[{ name: 'tag', placeholder: 'Tag name', required: true }]}
+        examples={{ tag: 'Cobalt Strike' }}
         onRun={(p) =>
           tfTag.run(() => apiGet(`/api/v1/darknet-intel/abusech/threatfox-tag?tag=${encodeURIComponent(p.tag ?? '')}`))
         }
@@ -489,6 +579,7 @@ function BreachTab() {
         title="HIBP Breach Details"
         description="Get details of a specific data breach by name"
         inputs={[{ name: 'name', placeholder: 'Breach name (e.g. Adobe, LinkedIn)', required: true }]}
+        examples={{ name: 'Adobe' }}
         onRun={(p) =>
           hibpBreach.run(() => apiGet(`/api/v1/darknet-intel/hibp/breach?name=${encodeURIComponent(p.name ?? '')}`))
         }

@@ -262,6 +262,22 @@ export const SECTIONS: Section[] = [
       },
     ],
   },
+  // ── 7. Darknet Intel ─────────────────────────────────────────────
+  {
+    id: 'darknet-intel',
+    label: 'Darknet Intel',
+    blurb:
+      'Live threat lookups — IP reputation, malware analysis, vulnerability search, ransomware tracking, breach intelligence.',
+    tools: [
+      {
+        to: '/threatintel/tools/darknet-intel',
+        label: 'Darknet Intel Hub',
+        desc: '42 tools across 13 providers — GreyNoise, Pulsedive, Vulners, IntelX, AbuseIPDB, ransomware, HIBP, abuse.ch, OTX, Hybrid Analysis.',
+        icon: Shield,
+        badge: 'new',
+      },
+    ],
+  },
 ];
 
 // ── Helper functions ──────────────────────────────────────────────

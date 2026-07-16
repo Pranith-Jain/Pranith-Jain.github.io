@@ -249,6 +249,11 @@ function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' | 'radar' }): JSX
           )}
         </div>
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          {mode === 'threatintel' && (
+            <span className="hidden lg:inline text-brand-600 dark:text-brand-400 font-semibold tabular-nums">
+              240+ tools
+            </span>
+          )}
           <span className="hidden md:inline text-slate-500 dark:text-slate-400 tabular-nums">
             build {__BUILD_DATE__}
           </span>

@@ -7,6 +7,32 @@ const CACHE_SHORT = 300;
 const CACHE_MED = 600;
 const CACHE_LONG = 1800;
 
+// ── Per-IP rate limiter (in-memory, per-isolate) ──────────────────────
+// Prevents a single client from overwhelming upstream APIs. 30 req/min/IP
+// is generous for normal use but blocks scripted bursts.
+const RATE_LIMIT_MAX = 30;
+const RATE_LIMIT_WINDOW_MS = 60_000;
+const rateLimitMap = new Map<string, { count: number; windowStart: number }>();
+
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip);
+  if (!entry || now - entry.windowStart > RATE_LIMIT_WINDOW_MS) {
+    rateLimitMap.set(ip, { count: 1, windowStart: now });
+    return true;
+  }
+  entry.count++;
+  return entry.count <= RATE_LIMIT_MAX;
+}
+
+// Evict stale entries every 5 minutes to prevent memory leak
+setInterval(() => {
+  const now = Date.now();
+  for (const [ip, entry] of rateLimitMap) {
+    if (now - entry.windowStart > RATE_LIMIT_WINDOW_MS * 2) rateLimitMap.delete(ip);
+  }
+}, 300_000);
+
 function cacheApiTtl(path: string): number {
   if (
     path.includes('greynoise') ||
@@ -47,6 +73,17 @@ function l1CacheSet(c: Context<{ Bindings: Env }>, data: Record<string, unknown>
 export const darknetIntelRouter = new Hono<{ Bindings: Env }>();
 
 darknetIntelRouter.use('/darknet-intel/*', async (c, next) => {
+  // Per-IP rate limit (skip for cached responses)
+  const ip = c.req.header('cf-connecting-ip') ?? c.req.header('x-forwarded-for')?.split(',')[0]?.trim() ?? 'anon';
+  if (!checkRateLimit(ip)) {
+    return c.json(
+      { error: 'rate_limited', message: `Max ${RATE_LIMIT_MAX} requests per minute. Try again shortly.` },
+      429,
+      {
+        'Retry-After': '60',
+      }
+    );
+  }
   if (c.req.method !== 'GET') return next();
   const cached = await l1CacheGet(c);
   if (cached) return c.json({ ...cached, cached: true });
