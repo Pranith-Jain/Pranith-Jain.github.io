@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useDataFetch } from '../hooks/useDataFetch';
 import { DataPageLayout } from '../components/DataPageLayout';
 import { Search, Globe, Loader2, AlertTriangle } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface DomainResult {
   domain_name: string;
@@ -182,6 +183,9 @@ export default function Whoxy() {
                         <th className="text-left px-4 py-2 font-mono text-mini uppercase tracking-wider text-muted">
                           Expires
                         </th>
+                        <th className="text-left px-4 py-2 font-mono text-mini uppercase tracking-wider text-muted">
+                          History
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -208,6 +212,14 @@ export default function Whoxy() {
                           </td>
                           <td className="px-4 py-2 text-mini text-muted font-mono">{d.creation_date || '—'}</td>
                           <td className="px-4 py-2 text-mini text-muted font-mono">{d.expiry_date || '—'}</td>
+                          <td className="px-4 py-2">
+                            <Link
+                              to={`/dfir/whois-history?domain=${encodeURIComponent(d.domain_name)}`}
+                              className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                            >
+                              WHOIS History
+                            </Link>
+                          </td>
                         </tr>
                       ))}
                     </tbody>

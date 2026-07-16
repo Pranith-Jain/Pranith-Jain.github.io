@@ -1,4 +1,5 @@
 import { useState, useCallback, useRef, useEffect, type FormEvent } from 'react';
+import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import {
   Search,
@@ -496,6 +497,12 @@ export default function WhoisHistory(): JSX.Element {
           <p className="text-slate-500">Enter a domain to explore its WHOIS registration history</p>
           <p className="text-xs text-slate-400 mt-1">
             Track ownership changes, registrar transfers, and pivot across related domains
+          </p>
+          <p className="text-xs text-slate-400 mt-3">
+            Want to find all domains by an email? Try{' '}
+            <Link to="/dfir/whoxy" className="text-brand-600 dark:text-brand-400 hover:underline">
+              Whoxy Reverse WHOIS
+            </Link>
           </p>
         </div>
       )}
