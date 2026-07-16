@@ -741,9 +741,34 @@ export default function ThreatIntelDashboard() {
       <div className={`${CARD} p-6`}>
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{titleText}</h3>
-          <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
-            {filtered.length.toLocaleString()} CVEs in scope
-          </span>
+          <div className="flex items-center gap-3">
+            <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
+              {filtered.length.toLocaleString()} CVEs in scope
+            </span>
+            {viewData && viewData.length > 0 && (
+              <button
+                type="button"
+                onClick={() => {
+                  if (!viewData) return;
+                  const nonNull = viewData.filter(Boolean) as Record<string, unknown>[];
+                  if (nonNull.length === 0) return;
+                  const header = Object.keys(nonNull[0]!);
+                  const rows = nonNull.map((r) => header.map((h) => String(r[h] ?? '')).join(','));
+                  const csv = [header.join(','), ...rows].join('\n');
+                  const blob = new Blob([csv], { type: 'text/csv' });
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = `threat-dashboard-${view}-${new Date().toISOString().slice(0, 10)}.csv`;
+                  a.click();
+                  URL.revokeObjectURL(url);
+                }}
+                className="text-[11px] font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 border border-slate-300 dark:border-[rgb(var(--border-400))] rounded px-2 py-0.5 transition-colors"
+              >
+                ↓ CSV
+              </button>
+            )}
+          </div>
         </div>
 
         {viewData && viewData.length === 0 ? (
