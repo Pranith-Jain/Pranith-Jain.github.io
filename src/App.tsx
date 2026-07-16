@@ -265,7 +265,7 @@ const MaltrailTrails = lazy(() => import('./pages/threatintel/MaltrailTrails'));
 const MalwareIocs = lazy(() => import('./pages/threatintel/MalwareIocs'));
 const MalwareSandbox = lazy(() => import('./pages/threatintel/MalwareSandbox'));
 const MalwareVault = lazy(() => import('./pages/threatintel/MalwareVault'));
-const McpSearch = lazy(() => import('./pages/threatintel/McpSearch'));
+const McpToolsExplorer = lazy(() => import('./pages/threatintel/McpToolsExplorer'));
 const Metrics = lazy(() => import('./pages/threatintel/Metrics'));
 const MispBrowser = lazy(() => import('./pages/threatintel/MispBrowser'));
 const MitreMatrix = lazy(() => import('./pages/dfir/MitreMatrix'));
@@ -714,7 +714,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/social/crypto-scam', Component: CryptoScamFeed },
   { path: '/threatintel/social/scraped-intel', Component: ScrapedIntelUsernames },
   { path: '/threatintel/tools/copilot', Component: Copilot },
-  { path: '/threatintel/tools/mcp', Component: McpSearch },
+  { path: '/threatintel/tools/mcp', Component: McpToolsExplorer },
   { path: '/threatintel/tools/misp', Component: MispBrowser },
   { path: '/threatintel/tools/stix', Component: StixBundleBrowser },
   { path: '/threatintel/tools/stix-ip-export', Component: StixIpExport },

@@ -137,6 +137,26 @@ export function AppShell({ mode, isDark, onToggleTheme, children }: AppShellProp
   // dangling in front of a different page.
   const { showBackToTop, scrollToTop } = useScrollProgress();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+
+  // Keyboard shortcuts: / to focus search, Esc to close mobile nav
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === '/' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+        const active = document.activeElement;
+        if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA')) return;
+        e.preventDefault();
+        const searchInput = document.querySelector(
+          'input[type="search"], input[placeholder*="Search"], input[placeholder*="search"]'
+        ) as HTMLInputElement | null;
+        searchInput?.focus();
+      }
+      if (e.key === 'Escape') {
+        setMobileNavOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, []);
   useEffect(() => {
     setMobileNavOpen(false);
     // Record the visit for the "Recently used" row on the home pages.

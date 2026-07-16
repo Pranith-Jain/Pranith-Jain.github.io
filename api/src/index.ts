@@ -643,6 +643,37 @@ app.use('/api/v1/*', authenticate('external-only'));
 // same request-id and timing. Per-route `validate(...)` middleware still
 // runs for typed Zod parsing of the ~15 high-impact POST endpoints.
 app.use('/api/v1/*', looseValidation());
+// Cache-Control headers for GET responses — static data gets long cache,
+// live data gets short or no-cache. Prevents unnecessary re-fetches.
+app.use('/api/v1/*', async (c, next) => {
+  await next();
+  if (c.req.method !== 'GET' || c.res.status !== 200) return;
+  const path = new URL(c.req.url).pathname;
+  let maxAge = 0;
+  if (
+    path.includes('/si/') ||
+    path.includes('/threat-intel/') ||
+    path.includes('/winreg/') ||
+    path.includes('/etda-actors/') ||
+    path.includes('/tools/') ||
+    path.includes('/osint/') ||
+    path.includes('/reports/') ||
+    path.includes('/campaigns/')
+  ) {
+    maxAge = 300; // 5 min for static manifest data
+  } else if (path.includes('/darknet-intel/') || path.includes('/live-iocs') || path.includes('/ransomware-recent')) {
+    maxAge = 60; // 1 min for live data
+  } else if (path.includes('/feed-status') || path.includes('/briefings/')) {
+    maxAge = 120; // 2 min for status/briefings
+  }
+  const headers = new Headers(c.res.headers);
+  if (maxAge > 0) {
+    headers.set('Cache-Control', `public, s-maxage=${maxAge}, max-age=${maxAge}`);
+  } else {
+    headers.set('Cache-Control', 'no-store');
+  }
+  c.res = new Response(c.res.body, { ...c.res, headers });
+});
 app.use('/api/v1/*', requestLogger);
 app.use('/api/v1/*', rateLimit);
 // Per-API-key daily/per-minute quota (readonly 1k/day, admin 10k/day), enforced
