@@ -29,7 +29,7 @@ import {
 export async function ctiCollectHandler(c: Context<{ Bindings: Env }>) {
   const db = c.env.BRIEFINGS_DB;
   if (!db) return c.json({ error: 'database unavailable' }, 503);
-  const result = await runFullCollection(db);
+  const result = await runFullCollection(db, c.env.ABUSECH_AUTH_KEY);
   return c.json(result);
 }
 

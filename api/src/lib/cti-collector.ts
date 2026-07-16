@@ -64,10 +64,10 @@ async function safeFetch(url: string, opts: RequestInit = {}): Promise<Response 
 
 // ── Abuse.ch sources ───────────────────────────────────────────────────
 
-async function fetchThreatFox(): Promise<CollectedIoc[]> {
+async function fetchThreatFox(abuseChKey?: string): Promise<CollectedIoc[]> {
   const res = await safeFetch('https://threatfox-api.abuse.ch/api/v1/', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...HEADERS },
+    headers: { 'Content-Type': 'application/json', ...HEADERS, ...(abuseChKey ? { 'Auth-Key': abuseChKey } : {}) },
     body: JSON.stringify({ query: 'get_iocs', days: 1 }),
   });
   if (!res) return [];
@@ -88,8 +88,10 @@ async function fetchThreatFox(): Promise<CollectedIoc[]> {
     .filter((i) => i.value);
 }
 
-async function fetchUrlhaus(): Promise<CollectedIoc[]> {
-  const res = await safeFetch('https://urlhaus-api.abuse.ch/v1/urls/recent/');
+async function fetchUrlhaus(abuseChKey?: string): Promise<CollectedIoc[]> {
+  const res = await safeFetch('https://urlhaus-api.abuse.ch/v1/urls/recent/', {
+    headers: abuseChKey ? { 'Auth-Key': abuseChKey } : {},
+  });
   if (!res) {
     // Fallback: CSV bulk feed
     const csvRes = await safeFetch('https://urlhaus.abuse.ch/downloads/csv_online/');
@@ -129,10 +131,14 @@ async function fetchUrlhaus(): Promise<CollectedIoc[]> {
     .filter((i) => i.value);
 }
 
-async function fetchMalwareBazaar(): Promise<CollectedIoc[]> {
+async function fetchMalwareBazaar(abuseChKey?: string): Promise<CollectedIoc[]> {
   const res = await safeFetch('https://mb-api.abuse.ch/api/v1/', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded', ...HEADERS },
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      ...HEADERS,
+      ...(abuseChKey ? { 'Auth-Key': abuseChKey } : {}),
+    },
     body: 'query=get_recent&selector=100',
   });
   if (!res) return [];
@@ -494,7 +500,7 @@ export interface CollectionResult {
   sweep?: SweepResult;
 }
 
-export async function runFullCollection(db: D1Database): Promise<CollectionResult> {
+export async function runFullCollection(db: D1Database, abuseChKey?: string): Promise<CollectionResult> {
   const start = Date.now();
   const errors: string[] = [];
   let sourcesAttempted = 0;
@@ -502,9 +508,9 @@ export async function runFullCollection(db: D1Database): Promise<CollectionResul
 
   // Collect IOCs from all sources concurrently
   const iocFetchers: Array<[string, () => Promise<CollectedIoc[]>]> = [
-    ['threatfox', fetchThreatFox],
-    ['urlhaus', fetchUrlhaus],
-    ['malwarebazaar', fetchMalwareBazaar],
+    ['threatfox', () => fetchThreatFox(abuseChKey)],
+    ['urlhaus', () => fetchUrlhaus(abuseChKey)],
+    ['malwarebazaar', () => fetchMalwareBazaar(abuseChKey)],
     ['feodo_tracker', fetchFeodoTracker],
     ['sslbl', fetchSslbl],
     ['openphish', fetchOpenPhish],

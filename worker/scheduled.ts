@@ -626,7 +626,7 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           // ── CTI Collector: automated IOC + news ingestion (every hour) ────
           try {
             if (env.BRIEFINGS_DB) {
-              const ctiResult = await runFullCollection(env.BRIEFINGS_DB);
+              const ctiResult = await runFullCollection(env.BRIEFINGS_DB, env.ABUSECH_AUTH_KEY);
               console.log(
                 JSON.stringify({
                   job: 'cti-collector',
