@@ -3329,6 +3329,13 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     group: 'threatintel',
   },
   {
+    path: '/threatintel/actors/profiles',
+    label: 'Actor Profiles',
+    description: 'Detailed threat actor profiles with TTPs, infrastructure, and activity timelines.',
+    sectionLabel: 'Threat Intel · Actors',
+    group: 'threatintel',
+  },
+  {
     path: '/threatintel/campaigns/active',
     label: 'Active',
     description: 'Active campaign tracker.',
