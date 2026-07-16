@@ -708,6 +708,14 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'BreachDisclosures',
       },
       {
+        path: '/threatintel/darkweb/breach-watch',
+        tabId: 'breach-watch',
+        label: 'Breach Watch',
+        desc: 'Aggregated breach and leak corpus from 6 public trackers — ransomware leaks, data breaches, combo lists.',
+        compVar: 'BreachWatch',
+        badge: 'new',
+      },
+      {
         path: '/threatintel/darkweb/ransom-report',
         tabId: 'ransom-report',
         label: 'Ransom Report',

@@ -3435,6 +3435,13 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     group: 'threatintel',
   },
   {
+    path: '/threatintel/darkweb/breach-watch',
+    label: 'Breach Watch',
+    description: 'Aggregated breach and leak corpus from 6 public trackers.',
+    sectionLabel: 'Threat Intel · Dark Web',
+    group: 'threatintel',
+  },
+  {
     path: '/threatintel/darkweb/ransom-report',
     label: 'Ransom Report',
     description: 'Per-group CTI dossier.',

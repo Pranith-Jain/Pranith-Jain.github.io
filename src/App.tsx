@@ -208,6 +208,7 @@ const Attribution = lazy(() => import('./pages/threatintel/AttributionFramework'
 const AwesomeLists = lazy(() => import('./pages/dfir/AwesomeLists'));
 const BreachDisclosures = lazy(() => import('./pages/threatintel/BreachDisclosures'));
 const BreachForums = lazy(() => import('./pages/threatintel/BreachForums'));
+const BreachWatch = lazy(() => import('./pages/threatintel/BreachWatch'));
 const C2Tracker = lazy(() => import('./pages/threatintel/C2Tracker'));
 const CampaignGenerator = lazy(() => import('./pages/threatintel/CampaignGenerator'));
 const CampaignLifecycle = lazy(() => import('./pages/threatintel/CampaignLifecycle'));
@@ -625,6 +626,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/darkweb/infostealer', Component: Infostealer },
   { path: '/threatintel/darkweb/leaks', Component: SecretLeaks },
   { path: '/threatintel/darkweb/disclosures', Component: BreachDisclosures },
+  { path: '/threatintel/darkweb/breach-watch', Component: BreachWatch },
   { path: '/threatintel/darkweb/ransom-report', Component: RansomReport },
   { path: '/threatintel/darkweb/ransom-activity', Component: RansomwareActivity },
   { path: '/threatintel/darkweb/ransom-map', Component: RansomwareMap },
