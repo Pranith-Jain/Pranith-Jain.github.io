@@ -265,6 +265,7 @@ const MaltrailTrails = lazy(() => import('./pages/threatintel/MaltrailTrails'));
 const MalwareIocs = lazy(() => import('./pages/threatintel/MalwareIocs'));
 const MalwareSandbox = lazy(() => import('./pages/threatintel/MalwareSandbox'));
 const MalwareVault = lazy(() => import('./pages/threatintel/MalwareVault'));
+const McpSearch = lazy(() => import('./pages/threatintel/McpSearch'));
 const McpToolsExplorer = lazy(() => import('./pages/threatintel/McpToolsExplorer'));
 const Metrics = lazy(() => import('./pages/threatintel/Metrics'));
 const MispBrowser = lazy(() => import('./pages/threatintel/MispBrowser'));
@@ -598,6 +599,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel', Component: ThreatIntelHome },
   { path: '/threatintel/assessments/:id', Component: AssessmentDetail },
   { path: '/threatintel/apt-tracker', Component: AptTracker },
+  { path: '/threatintel/mcp-search', Component: McpSearch },
   { path: '/threatintel/most-wanted', Component: MostWanted },
   { path: '/threatintel/extremists', Component: Extremists },
   { path: '/threatintel/predators', Component: Predators },
@@ -932,7 +934,6 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   // ── Tools Hub ───────────────────────────────────────────────────
   { path: '/threatintel/copilot', to: '/threatintel/tools/copilot' },
   { path: '/threatintel/copilot-chat', to: '/threatintel/tools/copilot' },
-  { path: '/threatintel/mcp-search', to: '/threatintel/tools/mcp' },
   { path: '/threatintel/misp-browser', to: '/threatintel/tools/misp' },
   { path: '/threatintel/investigations', to: '/threatintel/tools/investigations' },
   { path: '/threatintel/watches', to: '/threatintel/tools/watches' },

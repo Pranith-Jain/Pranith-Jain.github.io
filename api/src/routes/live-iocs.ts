@@ -57,7 +57,7 @@ const CACHE_TTL_SECONDS = 30 * 60;
 // window so it recovers sooner — but NOT 60s: a persistently-down feed at 60s
 // would re-run the full source fan-out every minute.
 const DEGRADED_TTL_SECONDS = 5 * 60;
-const FETCH_TIMEOUT_MS = 20_000;
+const FETCH_TIMEOUT_MS = 30_000;
 const PER_FEED_CAP = 300;
 const AF_DEFACEMENTS_LASTGOOD_KEY = 'live-iocs/af-defacements-lastgood/v1';
 const LASTGOOD_TTL_SECONDS = 24 * 60 * 60;
@@ -330,7 +330,10 @@ const FEED_SOURCE_DEBUG_URLS: Record<string, { url: string; fallbackUrls?: strin
   'cps-collected': {
     url: 'https://raw.githubusercontent.com/CriticalPathSecurity/Public-Intelligence-Feeds/master/cps-collected-iocs.txt',
   },
-  'blocklist-de': { url: 'https://lists.blocklist.de/lists/all.txt' },
+  'blocklist-de': {
+    url: 'https://lists.blocklist.de/lists/all.txt',
+    fallbackUrls: ['https://raw.githubusercontent.com/stamparm/ipsum/master/levels/1.txt'],
+  },
   cinsscore: {
     url: 'https://cinsscore.com/list/ci-badguys.txt',
     fallbackUrls: ['https://raw.githubusercontent.com/stamparm/ipsum/master/levels/1.txt'],
@@ -835,6 +838,7 @@ const FEED_SOURCES: FeedSource[] = [
   textFeedSource({
     id: 'blocklist-de',
     url: 'https://lists.blocklist.de/lists/all.txt',
+    fallbackUrls: ['https://raw.githubusercontent.com/stamparm/ipsum/master/levels/1.txt'],
     parse: parsePlainTextIps,
     kind: 'ip',
     reporter: 'Blocklist.de',
@@ -1162,10 +1166,15 @@ export async function fetchLiveIocs(
   // silently cut the last 5 sources after more feeds were added. It's now
   // derived from FEED_SOURCES.length so it stays correct as feeds change.
   // The cap leaves headroom for the analytics + KV/queue reads that follow
-  // the fan-out in composeOrFallback. Capped at 45 (below the 50-subrequest
-  // free-plan limit) so the last few sources degrade gracefully instead of
-  // throwing and dropping ALL sources.
-  const SUBREQUEST_BUDGET = Math.min(FEED_SOURCES.length, 45);
+  // the fan-out in composeOrFallback. The old calculation used
+  // min(FEED_SOURCES.length, 45) — counting source *dispatches* not actual
+  // *subrequests*. Each source's run() does 1-3 fetch subrequests (+ KV
+  // reads), so 30 sources could total 60-90 subrequests, well above the
+  // 50-subrequest free-plan cap. The fix: budget against estimated actual
+  // subrequests (2 per source on average) with headroom for post-fan-out
+  // analytics/KV reads.
+  const AVG_SUBREQUESTS_PER_SOURCE = 2;
+  const SUBREQUEST_BUDGET = Math.min(Math.floor(45 / AVG_SUBREQUESTS_PER_SOURCE), FEED_SOURCES.length);
   const budget = { used: 0, max: SUBREQUEST_BUDGET };
   const deps: FeedDeps = { executionCtx, kv, env, budget };
   const feedResults = await concurrentMap(
