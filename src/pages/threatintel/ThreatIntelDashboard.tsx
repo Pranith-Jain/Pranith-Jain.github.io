@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useTheme } from '../../hooks';
+import { useLiveFeed } from '../../hooks/useLiveFeed';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import {
   Shield,
@@ -454,6 +455,7 @@ function buildImpactData(cves: CveEntry[]) {
 
 export default function ThreatIntelDashboard() {
   const { isDark } = useTheme();
+  const { feeds, connected } = useLiveFeed();
   const [cves, setCves] = useState<CveEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -627,6 +629,27 @@ export default function ThreatIntelDashboard() {
           icon={<Globe2 className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />}
         />
       </div>
+
+      {/* Live feed status */}
+      {connected && feeds.size > 0 && (
+        <div className="flex flex-wrap items-center gap-3 mb-4 text-[11px] font-mono text-slate-500 dark:text-slate-400">
+          <span className="inline-flex items-center gap-1.5">
+            <span className="relative inline-flex h-1.5 w-1.5">
+              <span className="absolute inset-0 rounded-full bg-emerald-500 live-pulse" />
+              <span className="relative inline-block h-1.5 w-1.5 rounded-full bg-emerald-500" />
+            </span>
+            Live feeds
+          </span>
+          {Array.from(feeds.entries()).map(([name, snap]) => (
+            <span
+              key={name}
+              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5"
+            >
+              {name}: {snap.total.toLocaleString()}
+            </span>
+          ))}
+        </div>
+      )}
 
       {/* View tabs */}
       <div className="mb-3 flex flex-wrap gap-1.5">

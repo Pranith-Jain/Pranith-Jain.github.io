@@ -16,6 +16,7 @@ import {
   FileText,
   Shield,
   Eye,
+  Sparkles,
 } from 'lucide-react';
 
 interface Notebook {
@@ -104,6 +105,8 @@ export default function Notebooks() {
   const [entryType, setEntryType] = useState<NotebookEntry['entry_type']>('note');
   const [entryContent, setEntryContent] = useState('');
   const [addingEntry, setAddingEntry] = useState(false);
+  const [summary, setSummary] = useState<string | null>(null);
+  const [summaryLoading, setSummaryLoading] = useState(false);
 
   const loadNotebooks = useCallback(async () => {
     setLoading(true);
@@ -430,15 +433,65 @@ export default function Notebooks() {
                       ))}
                     </div>
                   </div>
-                  <button
-                    onClick={() => setShowAddEntry(true)}
-                    className="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-mono text-xs font-medium transition-colors whitespace-nowrap"
-                  >
-                    <Plus size={14} className="inline mr-1" />
-                    Add Entry
-                  </button>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <button
+                      onClick={async () => {
+                        if (!selected || entries.length === 0) return;
+                        setSummaryLoading(true);
+                        try {
+                          const entryText = entries.map((e) => `[${e.entry_type}] ${e.content}`).join('\n');
+                          const res = await fetch('/api/v1/ai-summary', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                              text: `Summarize this investigation notebook:\n\nTitle: ${selected.title}\nDescription: ${selected.description || 'N/A'}\n\nEntries:\n${entryText}`,
+                            }),
+                          });
+                          if (res.ok) {
+                            const d = await res.json();
+                            setSummary(d.summary ?? d.text ?? JSON.stringify(d));
+                          }
+                        } catch {
+                          /* ignore */
+                        } finally {
+                          setSummaryLoading(false);
+                        }
+                      }}
+                      disabled={summaryLoading || entries.length === 0}
+                      className="px-3 py-2 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-xs font-mono text-slate-600 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors disabled:opacity-50 whitespace-nowrap"
+                    >
+                      {summaryLoading ? (
+                        <Loader2 size={14} className="inline mr-1 animate-spin" />
+                      ) : (
+                        <Sparkles size={14} className="inline mr-1" />
+                      )}
+                      Summarize
+                    </button>
+                    <button
+                      onClick={() => setShowAddEntry(true)}
+                      className="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-mono text-xs font-medium transition-colors whitespace-nowrap"
+                    >
+                      <Plus size={14} className="inline mr-1" />
+                      Add Entry
+                    </button>
+                  </div>
                 </div>
               </div>
+
+              {/* AI Summary */}
+              {summary && (
+                <div className="p-4 rounded-xl border border-violet-200 dark:border-violet-800 bg-violet-50 dark:bg-violet-950/40 mb-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Sparkles size={14} className="text-violet-600 dark:text-violet-400" />
+                    <span className="text-xs font-mono font-medium text-violet-700 dark:text-violet-300">
+                      AI Summary
+                    </span>
+                  </div>
+                  <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap">
+                    {summary}
+                  </p>
+                </div>
+              )}
 
               {/* Add entry form */}
               {showAddEntry && (
