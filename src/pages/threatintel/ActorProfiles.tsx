@@ -331,6 +331,15 @@ export default function ActorProfiles() {
     return c;
   }, []);
 
+  const countryCounts = useMemo(() => {
+    const c: Record<string, number> = {};
+    THREAT_ACTORS.forEach((a) => {
+      const cc = getCountryCode(a.country);
+      c[cc] = (c[cc] || 0) + 1;
+    });
+    return c;
+  }, []);
+
   const stats = useMemo(
     () => ({
       total: THREAT_ACTORS.length,
@@ -429,34 +438,27 @@ export default function ActorProfiles() {
         <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
           Country:
         </span>
-        {(() => {
-          const countryCounts: Record<string, number> = {};
-          THREAT_ACTORS.forEach((a) => {
-            const cc = getCountryCode(a.country);
-            countryCounts[cc] = (countryCounts[cc] || 0) + 1;
-          });
-          return Object.entries(countryCounts)
-            .sort((a, b) => b[1] - a[1])
-            .slice(0, 6)
-            .map(([cc, count]) => {
-              const flag = COUNTRY_FLAGS[cc] ?? '🌐';
-              const name = THREAT_ACTORS.find((a) => getCountryCode(a.country) === cc)?.country.split(': ')[1] ?? cc;
-              return (
-                <button
-                  key={cc}
-                  type="button"
-                  onClick={() => setActiveCountry(activeCountry === cc ? null : cc)}
-                  className={`px-2 py-0.5 rounded-full text-[11px] font-mono border transition-colors ${
-                    activeCountry === cc
-                      ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
-                      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'
-                  }`}
-                >
-                  {flag} {name} ({count})
-                </button>
-              );
-            });
-        })()}
+        {Object.entries(countryCounts)
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 6)
+          .map(([cc, count]) => {
+            const flag = COUNTRY_FLAGS[cc] ?? '🌐';
+            const name = THREAT_ACTORS.find((a) => getCountryCode(a.country) === cc)?.country.split(': ')[1] ?? cc;
+            return (
+              <button
+                key={cc}
+                type="button"
+                onClick={() => setActiveCountry(activeCountry === cc ? null : cc)}
+                className={`px-2 py-0.5 rounded-full text-[11px] font-mono border transition-colors ${
+                  activeCountry === cc
+                    ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
+                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'
+                }`}
+              >
+                {flag} {name} ({count})
+              </button>
+            );
+          })}
         {(activeStatus || activeCountry) && (
           <button
             onClick={() => {

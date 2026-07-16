@@ -284,50 +284,6 @@ function BarView({
   );
 }
 
-function StackedBarView({
-  data,
-  title,
-  isDark,
-}: {
-  data: Array<Record<string, string | number>>;
-  title: string;
-  isDark: boolean;
-}) {
-  const sevs = ['Critical', 'Important', 'Moderate', 'Low'];
-  return (
-    <div>
-      <h3 className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4">
-        {title}
-      </h3>
-      <ResponsiveContainer width="100%" height={Math.max(400, data.length * 28 + 50)}>
-        <BarChart data={data} layout="vertical" margin={{ left: 180, right: 20, top: 5, bottom: 5 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="rgba(148,163,184,0.15)" />
-          <XAxis type="number" tick={{ fill: '#94a3b8', fontSize: 11 }} />
-          <YAxis
-            type="category"
-            dataKey="name"
-            tick={{ fill: isDark ? '#cbd5e1' : '#475569', fontSize: 11 }}
-            width={175}
-          />
-          <Tooltip
-            contentStyle={{
-              backgroundColor: isDark ? 'rgb(15,23,42)' : 'white',
-              border: `1px solid ${isDark ? 'rgba(148,163,184,0.2)' : 'rgb(226,232,240)'}`,
-              borderRadius: 8,
-              fontSize: 12,
-              color: isDark ? '#e2e8f0' : '#1e293b',
-            }}
-          />
-          <Legend />
-          {sevs.map((sev) => (
-            <Bar key={sev} dataKey={sev} stackId="a" fill={SEVERITY_COLORS[sev]} />
-          ))}
-        </BarChart>
-      </ResponsiveContainer>
-    </div>
-  );
-}
-
 function LineView({
   data,
   title,
@@ -526,7 +482,7 @@ export default function ThreatIntelDashboard() {
                 description: item.description ?? item.shortDescription ?? '',
                 publishedAt: item.publishedAt ?? item.published ?? item.dateAdded ?? '',
                 cvssV3Score: item.cvssV3Score ?? item.cvss ?? null,
-                cvssV3Severity: item.cvssV3Severity ?? item.severity ?? item.cvssV3Severity ?? '',
+                cvssV3Severity: item.cvssV3Severity ?? item.severity ?? '',
                 inKev: item.inKev ?? item.kev ?? false,
                 priorityScore: item.priorityScore ?? 0,
                 vendor: item.vendor ?? '',
@@ -589,7 +545,9 @@ export default function ThreatIntelDashboard() {
   const stats = useMemo(() => {
     const total = filtered.length;
     const critical = filtered.filter((c) => c.cvssV3Severity === 'Critical' || (c.cvssV3Score ?? 0) >= 9).length;
-    const high = filtered.filter((c) => c.cvssV3Severity === 'High' || (c.cvssV3Score ?? 0) >= 7).length;
+    const high = filtered.filter(
+      (c) => c.cvssV3Severity === 'Important' || c.cvssV3Severity === 'High' || (c.cvssV3Score ?? 0) >= 7
+    ).length;
     const geo = new Set(filtered.map((c) => c.vendor).filter(Boolean)).size;
     return { total, critical, high, geo };
   }, [filtered]);
@@ -600,7 +558,6 @@ export default function ThreatIntelDashboard() {
   }, [view]);
 
   const isOverTime = view === 'over-time';
-  const isStacked = view === 'product-family' || view === 'product';
 
   return (
     <DataPageLayout
@@ -783,12 +740,6 @@ export default function ThreatIntelDashboard() {
             <>
               {isOverTime ? (
                 <LineView data={viewData as Array<Record<string, string | number>>} title={titleText} isDark={isDark} />
-              ) : isStacked ? (
-                <StackedBarView
-                  data={viewData as Array<Record<string, string | number>>}
-                  title={titleText}
-                  isDark={isDark}
-                />
               ) : view === 'exploited' ? (
                 <PieView data={viewData as Array<{ name: string; count: number }>} title={titleText} />
               ) : chartType === 'pie' ? (
