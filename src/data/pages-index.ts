@@ -687,6 +687,13 @@ const DFIR_PAGES: readonly PageEntry[] = [
     group: 'dfir',
   },
   {
+    path: '/dfir/whoxy',
+    label: 'Whoxy Reverse WHOIS',
+    description: 'Reverse WHOIS lookup via whoxy.com — find domains by email, owner name, company, or keyword.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
     path: '/dfir/winreg',
     label: 'Windows Registry Artifacts',
     description: '292 registry forensic artifacts across 16 categories, mapped to MITRE ATT&CK.',

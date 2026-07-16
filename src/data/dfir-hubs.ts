@@ -149,6 +149,13 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'SHA-256 hash reputation lookup via Traceix — per-engine antivirus/AV verdicts (Safe/Malicious/Unknown).',
         compVar: 'TraceixPage',
       },
+      {
+        path: '/dfir/whoxy',
+        tabId: 'whoxy',
+        label: 'Whoxy Reverse WHOIS',
+        desc: 'Reverse WHOIS lookup via Whoxy — find all domains registered by an email, name, company, or keyword.',
+        compVar: 'WhoxyPage',
+      },
     ],
   },
   {
