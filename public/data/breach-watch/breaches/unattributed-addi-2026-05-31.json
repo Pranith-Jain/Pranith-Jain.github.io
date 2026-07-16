@@ -1,0 +1,15 @@
+{
+  "slug": "unattributed-addi-2026-05-31",
+  "title": "Addi",
+  "group": "Unattributed",
+  "discovered": "2026-05-31T06:27:12.000Z",
+  "category": "data_breach",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Addi, a Colombian fintech company, identified unauthorized activity in March 2026 with the ShinyHunters group, later publishing a large dataset allegedly obtained from the company, exposing 25M unique email addresses along with government ID numbers, purchases, and other credit-related information.",
+  "source_url": "https://xposedornot.com/breach/Addi",
+  "groupAliases": [],
+  "activity": "Finance",
+  "references": ["XposedOrNot"]
+}

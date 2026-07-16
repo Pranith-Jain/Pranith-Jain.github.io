@@ -1,0 +1,15 @@
+{
+  "slug": "unattributed-mcgrawhill-2026-04-17",
+  "title": "McGrawHill",
+  "group": "Unattributed",
+  "discovered": "2026-04-17T12:06:48.000Z",
+  "category": "data_breach",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "McGraw Hill, an education company, confirmed a breach in April 2026 following an extortion attempt, with over 100GB of data later publicly distributed exposing 14.4M unique email addresses along with some names, physical addresses, and phone numbers.",
+  "source_url": "https://xposedornot.com/breach/McGrawHill",
+  "groupAliases": [],
+  "activity": "Education",
+  "references": ["XposedOrNot"]
+}

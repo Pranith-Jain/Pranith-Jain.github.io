@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-keifert-2026-07-07",
+  "title": "Keifert",
+  "group": "thegentlemen",
+  "discovered": "2026-07-07T18:32:54.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "***.de zoominfo.com/c/keifert-gmbh/429980133 Keifert GmbH master-certified building cleaning company based in Schallstadt, Germany, with over 35 years of industry experience.They offer a comprehensive range of professional services, including office, industrial, and specialized cleaning, as well as janitorial services across the Southern Baden region.As a quality-focused enterprise, the company is certified according to DIN EN ISO 9001 and 14001 standards, ensuring reliable and environmentally conscious solutions for their clients",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "payoutsking-sunsource-2026-04-30",
+  "title": "SunSource",
+  "group": "payoutsking",
+  "discovered": "2026-04-30T00:26:01.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "[AI generated] SunSource is a US-based industrial distribution company specializing in the supply of fluid power, fluid process, and motion control components and systems. It serves a wide range of industries including manufacturing, agriculture, and construction. The company provides products such as hydraulics, pneumatics, and related technical services, helping businesses maintain and optimize their industrial equipment and operations.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Energy",
+  "references": ["ransomware.live"]
+}

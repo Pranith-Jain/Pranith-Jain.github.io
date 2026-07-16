@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-ipe-2026-05-06",
+  "title": "IPE",
+  "group": "thegentlemen",
+  "discovered": "2026-05-06T13:35:36.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "ipesrl.com zoominfo.com/c/ipe-srl/372826031 IPE Technologies S.r.l. is an Italian company and the flagship entity of the IPE Group, specializing in the distribution of sealed lead-acid batteries, battery chargers, shielded cables, and Panasonic electronic components across Italy. Active in the sector since 1986, the company distributes premium brands such as Yuasa and Panasonic, alongside its own proprietary brands Remco and RemcoX. Its client base includes alarm system installers, UPS maintenance companies, specialized retailers, and industrial automation and telecommunications firms",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

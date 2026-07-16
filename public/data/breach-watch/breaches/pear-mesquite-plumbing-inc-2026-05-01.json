@@ -1,0 +1,15 @@
+{
+  "slug": "pear-mesquite-plumbing-inc-2026-05-01",
+  "title": "Mesquite Plumbing Inc.",
+  "group": "pear",
+  "discovered": "2026-05-01T10:06:44.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Plumbing Experts",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

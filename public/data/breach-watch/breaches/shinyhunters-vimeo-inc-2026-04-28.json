@@ -1,0 +1,15 @@
+{
+  "slug": "shinyhunters-vimeo-inc-2026-04-28",
+  "title": "Vimeo, Inc.",
+  "group": "shinyhunters",
+  "discovered": "2026-04-28T06:41:15.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Your Snowflake and Bigquery instances data was compromised thanks to Anodot.com. Pay or Leak. This is a final warning to reach out by 30 Apr 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 28 Apr 2026 | Warning: FINAL WARNING PAY OR LEAK",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

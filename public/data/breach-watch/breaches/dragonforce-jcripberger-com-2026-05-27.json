@@ -1,0 +1,15 @@
+{
+  "slug": "dragonforce-jcripberger-com-2026-05-27",
+  "title": "jcripberger.com",
+  "group": "dragonforce",
+  "discovered": "2026-05-27T15:23:52.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "J.C. Ripberger Construction Corporation is a full-service General Contractor, which self-performs Buildings/Structural Concrete, Carpentry, and Selective/Mass Demolition. Founded over 68 years ago in Zionsville, Indiana, our strategic focus has and continues to be new construction and renovations within the commercial, educational, health care and industrial sectors.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["DRAGON FORCE"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

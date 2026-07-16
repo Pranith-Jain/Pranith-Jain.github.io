@@ -1,0 +1,15 @@
+{
+  "slug": "cmdorganization-lee-law-offices-2026-05-30",
+  "title": "Lee Law Offices",
+  "group": "cmdorganization",
+  "discovered": "2026-05-30T12:50:10.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Lee Law Offices is a well-established law firm serving clients in North and South Carolina for over 30 years, specializing in personal injury, workers compensation, and social security disability cases. The firm is dedicated to advocating for individuals affected by auto accidents, workplace injuries, and other forms of negligence, ensuring that clients receive the compensation they deserve. With a no-fee guarantee, they focus on representing the best interests of their clients rather than insurance companies or corporations.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["cmd organization"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-arcelik-2026-05-06",
+  "title": "Arcelik",
+  "group": "thegentlemen",
+  "discovered": "2026-05-06T10:07:56.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "TR",
+  "sizeBytes": 0,
+  "description": "https://www.zoominfo.com/c/arelik-global/462472631 Stock Symbol\nARCLK Revenue $11.8 Billion Arcelik Global is a Turkish multinational household appliances manufacturer headquartered in Istanbul, Turkey. Founded in 1955 as a subsidiary of Koc Holding, the company has grown into a worldwide producer and marketer of consumer durables and consumer electronics. The company operates 46 production facilities across 14 countries. With approximately 55,000 employees globally, Arcelik maintains subsidiaries in 58 countries and provides goods and services in over 145 countries. 22 brands including Arcelik, Beko, Grundig, Blomberg, Arctic, Defy, Dawlance, Hotpoint, Indesit, Leisure, Singer, Voltas Beko, and ElektraBregenz.Confluence: 7,736 spaces, 16,371+ pages, 10,313+ attachments, with full technical documentation, internal rules, marketing, engineering specs, R&D results, quality manuals, and project docs across business units. Jira: 10,419 projects - ETC. Access broker - ADAPTAVIST LTD. Thanks",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

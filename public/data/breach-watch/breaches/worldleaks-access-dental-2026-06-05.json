@@ -1,0 +1,15 @@
+{
+  "slug": "worldleaks-access-dental-2026-06-05",
+  "title": "Access Dental",
+  "group": "worldleaks",
+  "discovered": "2026-06-05T13:54:36.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "[AI generated] Access Dental is a dental insurance and managed care company operating in the United States. It provides affordable dental health plans primarily to underserved and low-income populations, including Medicaid and individual plan members. The company works with a network of licensed dentists to deliver preventive and restorative dental services, focusing on improving access to oral healthcare across California and other states.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

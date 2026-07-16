@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-karmadata-2026-04-28",
+  "title": "KarmaData",
+  "group": "qilin",
+  "discovered": "2026-04-28T18:55:37.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

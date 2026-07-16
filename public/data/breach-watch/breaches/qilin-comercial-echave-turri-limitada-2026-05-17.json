@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-comercial-echave-turri-limitada-2026-05-17",
+  "title": "Comercial Echave Turri Limitada",
+  "group": "qilin",
+  "discovered": "2026-05-17T08:24:09.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "CL",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

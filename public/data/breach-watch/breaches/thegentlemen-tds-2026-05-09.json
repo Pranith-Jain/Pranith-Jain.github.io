@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-tds-2026-05-09",
+  "title": "TDS",
+  "group": "thegentlemen",
+  "discovered": "2026-05-09T09:15:28.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "tdstelecom.com TDS Telecommunications LLC, founded in 1969 and headquartered in Madison, Wisconsin, is a leading U.S. telecommunications provider serving residential and business customers across urban, suburban, and rural communities. The company delivers high-speed fiber-optic internet (up to 8 Gigabit), IP-based TV entertainment, and traditional phone services, alongside business solutions like VoIP, dedicated internet, and data networking. With over 1.1 million connections, TDS is a wholly owned subsidiary of Telephone and Data Systems, Inc. (NYSE: TDS), committed to enhancing communities through reliable, innovative communications technology.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Telecommunication",
+  "references": ["ransomware.live"]
+}

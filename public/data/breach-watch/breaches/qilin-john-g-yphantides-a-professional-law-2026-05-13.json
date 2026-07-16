@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-john-g-yphantides-a-professional-law-2026-05-13",
+  "title": "John G Yphantides A Professional Law",
+  "group": "qilin",
+  "discovered": "2026-05-13T17:23:57.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

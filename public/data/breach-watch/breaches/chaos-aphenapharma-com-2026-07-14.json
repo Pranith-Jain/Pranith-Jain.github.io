@@ -1,0 +1,15 @@
+{
+  "slug": "chaos-aphenapharma-com-2026-07-14",
+  "title": "aphenapharma.com",
+  "group": "chaos",
+  "discovered": "2026-07-14T15:23:06.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Aphena Pharma Solutions\n\nWe have gained full access to your corporate infrastructure. During this operation, we stole 142 GB of your most critical corporate data.\n\nThe stolen data includes:\n\n    Financial statements: capital expenditures (CAPEX), fixed assets, accounts receivable and accounts payabl…",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

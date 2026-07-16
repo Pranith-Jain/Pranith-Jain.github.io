@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-alupco-com-2026-04-17",
+  "title": "alupco.com",
+  "group": "incransom",
+  "discovered": "2026-04-17T17:13:23.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "SA",
+  "sizeBytes": 0,
+  "description": "ALUPCO is the Middle East's largest aluminium extruder, established in 1975, offering a diverse range of high-quality extruded profiles and comprehensive building solutions. The company specializes in project management, architectural solutions, and modular buildings, catering to clients across various sectors. With a commitment to sustainability and performance, ALUPCO aims to enhance efficiency in the building journey from start to finish. Their extensive operations span multiple countries, serving a wide array of customers globally.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

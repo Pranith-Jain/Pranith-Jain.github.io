@@ -1,0 +1,15 @@
+{
+  "slug": "settra-acilab-com-2026-07-16",
+  "title": "acilab.com",
+  "group": "settra",
+  "discovered": "2026-07-16T08:35:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "BR",
+  "sizeBytes": 0,
+  "description": "How ACI Financed Its Owners' Companies — and Paid Them Rent PROLOGUE Inside the archive of American ...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

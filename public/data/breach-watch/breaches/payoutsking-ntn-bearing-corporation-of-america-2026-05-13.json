@@ -1,0 +1,15 @@
+{
+  "slug": "payoutsking-ntn-bearing-corporation-of-america-2026-05-13",
+  "title": "NTN Bearing Corporation of America",
+  "group": "payoutsking",
+  "discovered": "2026-05-13T00:24:07.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "[AI generated] NTN Bearing Corporation of America is a US-based subsidiary of Japan's NTN Corporation, operating in the industrial manufacturing sector. The company produces and distributes precision bearings, driveshafts, and related mechanical components used in automotive, aerospace, and industrial machinery applications. Headquartered in Mount Prospect, Illinois, it serves customers across North America with engineering support and distribution services.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

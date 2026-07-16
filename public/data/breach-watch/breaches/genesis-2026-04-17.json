@@ -1,0 +1,15 @@
+{
+  "slug": "genesis-2026-04-17",
+  "title": "***",
+  "group": "genesis",
+  "discovered": "2026-04-17T17:11:57.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "A healthcare organization",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

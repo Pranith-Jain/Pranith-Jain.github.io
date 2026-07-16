@@ -11,7 +11,7 @@
     "og:png": "node scripts/generate-og-png.mjs",
     "sitemap": "node scripts/build-sitemap.mjs",
     "check:meta": "node scripts/check-meta-lengths.mjs",
-    "prebuild": "node scripts/build-telegram-actor-catalog.mjs && node scripts/extract-wiki-meta.mjs && node scripts/generate-og-png.mjs && node scripts/build-sitemap.mjs && node scripts/check-meta-lengths.mjs && node scripts/build-mcp-manifest.mjs && node scripts/build-llms-full.mjs",
+    "prebuild": "node scripts/build-telegram-actor-catalog.mjs && node scripts/extract-wiki-meta.mjs && node scripts/generate-og-png.mjs && node scripts/build-sitemap.mjs && node scripts/check-meta-lengths.mjs && node scripts/build-mcp-manifest.mjs && node scripts/build-llms-full.mjs && node scripts/build-breach-watch.mjs",
     "build:client": "vite build",
     "build:server": "vite build --ssr src/entry-server.tsx",
     "build:prerender": "node scripts/prerender.mjs",

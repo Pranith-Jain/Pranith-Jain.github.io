@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-thl-project-management-sdn-bhd-2026-06-18",
+  "title": "THL PROJECT MANAGEMENT SDN. BHD.",
+  "group": "qilin",
+  "discovered": "2026-06-18T18:25:30.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "MY",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

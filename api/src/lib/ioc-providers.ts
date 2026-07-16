@@ -5,11 +5,11 @@
  */
 
 import type { Env } from '../env';
-import { detectType } from './indicator';
+import { detectType, refang } from './indicator';
 import type { Indicator } from '../providers/types';
+import { WEIGHTS, compositeScore } from './scoring';
 import { ProviderCache } from './cache';
 import { isCircuitOpen, recordProviderFailure, recordProviderSuccess } from './circuit-breaker';
-import { compositeScore } from './scoring';
 import { admiraltyGrade } from './admiralty';
 import type { ProviderResult, ProviderId } from '../providers/types';
 import { ADAPTERS, buildProviderEnv, PROVIDER_SUPPORT, PROVIDER_TIMEOUT_MS } from '../providers';
@@ -85,11 +85,89 @@ const LOW_VALUE_PROVIDERS = new Set<ProviderId>([
   'otx',
 ]);
 
+export interface HuntingContext {
+  /** Malware family names extracted from threatfox/malwarebazaar/otx hits. */
+  malware_families: string[];
+  /** ThreatFox match details (first/last seen, confidence). */
+  threatfox_hits: Array<{ malware: string; confidence: number; first_seen: string; last_seen: string }>;
+  /** MalwareBazaar sample details (signature, file type, file name). */
+  malwarebazaar_hits: Array<{ signature: string; file_type: string; file_name: string }>;
+  /** OTX pulse names this indicator appears in. */
+  otx_pulses: string[];
+  /** Provider IDs that found this indicator malicious. */
+  malicious_sources: ProviderId[];
+  /** Provider IDs that found this indicator suspicious. */
+  suspicious_sources: ProviderId[];
+}
+
 export interface IocProviderRunResult {
   collected: ProviderResult[];
   composite: ReturnType<typeof compositeScore>;
   admiralty: ReturnType<typeof admiraltyGrade>;
   eligible: ProviderId[];
+  hunting: HuntingContext;
+}
+
+function buildHuntingContext(results: ProviderResult[]): HuntingContext {
+  const ctx: HuntingContext = {
+    malware_families: [],
+    threatfox_hits: [],
+    malwarebazaar_hits: [],
+    otx_pulses: [],
+    malicious_sources: [],
+    suspicious_sources: [],
+  };
+
+  for (const r of results) {
+    if (r.status !== 'ok') continue;
+
+    if (r.verdict === 'malicious') ctx.malicious_sources.push(r.source);
+    else if (r.verdict === 'suspicious') ctx.suspicious_sources.push(r.source);
+
+    if (r.source === 'threatfox') {
+      const rs = r.raw_summary as Record<string, unknown>;
+      const malware = rs.malware as string[] | undefined;
+      if (malware?.length) ctx.malware_families.push(...malware);
+      if (rs.match_count && (rs.match_count as number) > 0) {
+        ctx.threatfox_hits.push({
+          malware: (malware ?? [])[0] ?? '',
+          confidence: (rs.confidence as number) ?? 0,
+          first_seen: (rs.first_seen as string) ?? '',
+          last_seen: (rs.last_seen as string) ?? '',
+        });
+      }
+    }
+
+    if (r.source === 'malwarebazaar') {
+      const rs = r.raw_summary as Record<string, unknown>;
+      if (rs.signature) {
+        ctx.malware_families.push(rs.signature as string);
+        ctx.malwarebazaar_hits.push({
+          signature: rs.signature as string,
+          file_type: (rs.file_type as string) ?? '',
+          file_name: (rs.file_name as string) ?? '',
+        });
+      }
+    }
+
+    if (r.source === 'otx') {
+      const rs = r.raw_summary as Record<string, unknown>;
+      const pulses = rs.sample_pulses as string[] | undefined;
+      if (pulses?.length) ctx.otx_pulses.push(...pulses);
+      if (r.score >= 70) ctx.malware_families.push(...(r.tags ?? []));
+    }
+
+    // Extract malware family from tags
+    for (const tag of r.tags ?? []) {
+      if (tag.startsWith('malware:') && !ctx.malware_families.includes(tag.slice(8))) {
+        ctx.malware_families.push(tag.slice(8));
+      }
+    }
+  }
+
+  ctx.malware_families = [...new Set(ctx.malware_families)];
+  ctx.otx_pulses = [...new Set(ctx.otx_pulses)];
+  return ctx;
 }
 
 /**
@@ -107,7 +185,7 @@ export async function runIocProviders(
   options?: { skipLowValue?: boolean }
 ): Promise<IocProviderRunResult> {
   const type = detectType(raw);
-  const indicator: Indicator = { type, value: raw.trim() };
+  const indicator: Indicator = { type, value: refang(raw.trim()) };
   const allEligible = (Object.keys(ADAPTERS) as ProviderId[]).filter((p) => PROVIDER_SUPPORT[p].includes(type));
   const providerEnv = buildProviderEnv(env);
   const cache = new ProviderCache(env.KV_CACHE);
@@ -158,9 +236,14 @@ export async function runIocProviders(
     PROVIDER_CHUNK_SIZE
   );
 
-  // Only run tier-2 if tier-1 found no actionable signals (no malicious/suspicious)
-  const hasActionable = collected.some((r) => r.verdict === 'malicious' || r.verdict === 'suspicious');
-  if (!hasActionable && !options?.skipLowValue) {
+  // Only skip tier-2 when there's strong corroborated malicious evidence (weight >= 2, score >= 70).
+  // A single weak "suspicious" from a low-weight provider (e.g. ipinfo flagged VPN usage)
+  // should not block 30+ tier-2 corroboration sources (OTX, CINS Army, etc.).
+  const tierWeights = WEIGHTS[type] ?? {};
+  const hasStrongMalicious = collected.some(
+    (r) => r.status === 'ok' && r.verdict === 'malicious' && r.score >= 70 && (tierWeights[r.source] ?? 1) >= 2
+  );
+  if (!hasStrongMalicious && !options?.skipLowValue) {
     await runChunked(
       tier2,
       async (p) => {
@@ -207,5 +290,6 @@ export async function runIocProviders(
     collected.filter((r) => r.status === 'ok').map((r) => r.source)
   );
 
-  return { collected, composite, admiralty: adv, eligible: allEligible };
+  const hunting = buildHuntingContext(collected);
+  return { collected, composite, admiralty: adv, eligible: allEligible, hunting };
 }

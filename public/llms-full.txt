@@ -187,7 +187,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Online Predators](https://pranithjain.qzz.io/threatintel/predators) (threatintel): Online predator categories, regional risk, and intervention resources.
 - [APT Actor Database](https://pranithjain.qzz.io/threatintel/apt-actors) (threatintel): ETDA Threat Group Cards — 416+ threat actors with attribution, tools, sectors, and operations.
 - [APTmap Malware Analysis](https://pranithjain.qzz.io/threatintel/aptmap) (threatintel): Cross-sample malware analysis across 18,000+ samples — file types, PE metadata, DLL imports, certificates, and APT-to-tool relationships.
-- [Threat Actor Knowledge Base](https://pranithjain.qzz.io/threatintel/actors/kb) (threatintel): Knowledge base of threat actors with profiles, aliases, TTPs, and associated campaigns.
+- [Threat Actor Knowledge Base](https://pranithjain.qzz.io/threatintel/actors/directory) (threatintel): Knowledge base of threat actors with profiles, aliases, TTPs, and associated campaigns.
 - [Active Campaigns](https://pranithjain.qzz.io/threatintel/campaigns/active) (threatintel): Active campaign tracker with status, severity, and IOC rollups.
 - [Campaign Lifecycle](https://pranithjain.qzz.io/threatintel/campaigns/lifecycle) (threatintel): Discovery → exploitation → actions on objectives.
 - [Campaign Generator](https://pranithjain.qzz.io/threatintel/campaigns/generator) (threatintel): AI-powered campaign generation for tabletop exercises.
@@ -204,7 +204,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [IOC Correlation](https://pranithjain.qzz.io/threatintel/iocs/correlation) (threatintel): IOC correlation analysis with timeline.
 - [Aggregated Feeds](https://pranithjain.qzz.io/threatintel/iocs/aggregated) (threatintel): Aggregated feed browser — what each provider ships.
 - [Observable DB](https://pranithjain.qzz.io/threatintel/iocs/observable) (threatintel): Every indicator seen, with provenance.
-- [SOC IOC View](https://pranithjain.qzz.io/threatintel/iocs/soc) (threatintel): SOC-focused IOC dashboard — relevant indicators sorted by priority with enrichment context.
+- [SOC IOC View](https://pranithjain.qzz.io/threatintel/soc-dashboard) (threatintel): SOC-focused IOC dashboard — relevant indicators sorted by priority with enrichment context.
 - [CVE Intel](https://pranithjain.qzz.io/threatintel/cves/cves) (threatintel): Unified CVE intelligence — NVD + KEV + EPSS + exploit availability.
 - [GitHub Advisories](https://pranithjain.qzz.io/threatintel/cves/advisories) (threatintel): GitHub security advisories with affected versions and patches.
 - [CVE Resources](https://pranithjain.qzz.io/threatintel/cves/resources) (threatintel): CVE resource catalogs — patch priority, exploit DB, vendor bulletins.
@@ -221,8 +221,8 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Feed Scheduler](https://pranithjain.qzz.io/threatintel/feeds/scheduler) (threatintel): Feed scheduling and orchestration — cron, retry, backoff.
 - [Threat Feeds](https://pranithjain.qzz.io/threatintel/feeds/threatfeeds) (threatintel): Curated threat intelligence feeds from 50+ providers.
 - [My Threat Intel](https://pranithjain.qzz.io/threatintel/feeds/mythreatintel) (threatintel): My curated threat-intel feed — personal bookmarks and follows.
-- [Feed Reliability](https://pranithjain.qzz.io/threatintel/feeds/reliability) (threatintel): Reliability scoring for each feed provider — uptime, freshness, accuracy, and NATO Admiralty trust grades.
-- [Feed Status](https://pranithjain.qzz.io/threatintel/feeds/status) (threatintel): Real-time operational status of all feed providers — last fetch, errors, rate limits.
+- [Feed Reliability](https://pranithjain.qzz.io/threatintel/source-health) (threatintel): Reliability scoring for each feed provider — uptime, freshness, accuracy, and NATO Admiralty trust grades.
+- [Feed Status](https://pranithjain.qzz.io/threatintel/source-health) (threatintel): Real-time operational status of all feed providers — last fetch, errors, rate limits.
 - [Source Health](https://pranithjain.qzz.io/threatintel/source-health) (threatintel): Operational status, SLO metrics, and NATO Admiralty trust grades for every upstream feed.
 - [Social Firehose](https://pranithjain.qzz.io/threatintel/social/firehose) (threatintel): Multi-platform social media firehose.
 - [Tech & AI News](https://pranithjain.qzz.io/threatintel/social/news) (threatintel): Tech and AI news aggregation.
@@ -232,10 +232,10 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Telegram IOC Pipeline](https://pranithjain.qzz.io/threatintel/telegram-iocs) (threatintel): Telegram-leaked IOCs flowing into the cross-source consensus — hashes, IPs, domains, CVEs, URLs from monitored channels (7-day window).
 - [Reddit CTI](https://pranithjain.qzz.io/threatintel/social/reddit) (threatintel): Reddit threat intelligence — monitor security-related subreddits for IOCs and discussions.
 - [Scraped Intel](https://pranithjain.qzz.io/threatintel/social/scraped-intel) (threatintel): Scraped intelligence from web sources — cleaned, deduplicated, and enriched.
-- [Telegram Channel Discovery](https://pranithjain.qzz.io/threatintel/social/telegram-channels) (threatintel): Discover Telegram channels relevant to threat intelligence — search, category, and language filters.
-- [Telegram Leak Feed](https://pranithjain.qzz.io/threatintel/social/telegram-leaks) (threatintel): Dedicated Telegram leak channel feed — credential dumps, data breaches, and exposed databases.
-- [Telegram Settings](https://pranithjain.qzz.io/threatintel/social/telegram-settings) (threatintel): Telegram integration settings — channel subscriptions, API configuration, notification preferences.
-- [Telegram Statistics](https://pranithjain.qzz.io/threatintel/social/telegram-stats) (threatintel): Telegram channel analytics — message volume, engagement, IOC yield, and provider reliability.
+- [Telegram Channel Discovery](https://pranithjain.qzz.io/threatintel/telegram-monitor?tab=channels) (threatintel): Discover Telegram channels relevant to threat intelligence — search, category, and language filters.
+- [Telegram Leak Feed](https://pranithjain.qzz.io/threatintel/telegram-monitor?tab=leaks) (threatintel): Dedicated Telegram leak channel feed — credential dumps, data breaches, and exposed databases.
+- [Telegram Settings](https://pranithjain.qzz.io/threatintel/telegram-monitor?tab=settings) (threatintel): Telegram integration settings — channel subscriptions, API configuration, notification preferences.
+- [Telegram Statistics](https://pranithjain.qzz.io/threatintel/telegram-monitor?tab=stats) (threatintel): Telegram channel analytics — message volume, engagement, IOC yield, and provider reliability.
 - [X/Twitter Firehose](https://pranithjain.qzz.io/threatintel/social/x-firehose) (threatintel): X/Twitter threat intelligence firehose — real-time posts from monitored security accounts.
 - [X/Twitter Live Stream](https://pranithjain.qzz.io/threatintel/social/x-live) (threatintel): Live X/Twitter stream — real-time security event and IOC posting monitor.
 - [X/Twitter Watch](https://pranithjain.qzz.io/threatintel/social/x-watch) (threatintel): X/Twitter watchlist — monitor specific accounts, keywords, and hashtags for threat intel.
@@ -313,6 +313,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Unified Search](https://pranithjain.qzz.io/threatintel/tools/unified-search) (threatintel): Cross-source search across the entire platform.
 - [Integrations & Settings](https://pranithjain.qzz.io/threatintel/tools/settings) (threatintel): What integrations are wired in and what capability each one unlocks for the platform.
 - [Security Tools Directory](https://pranithjain.qzz.io/threatintel/tools/directory) (threatintel): Curated catalog of 53 security tools organized by category.
+- [Darknet Intel](https://pranithjain.qzz.io/threatintel/tools/darknet-intel) (threatintel): 42 tools across 13 providers — IP reputation, malware analysis, vulnerability lookup, ransomware tracking, breach intelligence.
 - [External Resources](https://pranithjain.qzz.io/threatintel/external/external) (threatintel): Off-site cross-references — dashboards, OSINT directories, training labs.
 - [Supply Chain Intel](https://pranithjain.qzz.io/threatintel/external/supply) (threatintel): Supply chain intelligence — SolarWinds, 3CX, MOVEit, XZ Utils.
 - [Awesome Lists](https://pranithjain.qzz.io/threatintel/external/awesome) (threatintel): Curated awesome-security list — vetted, ranked, kept current.
@@ -349,6 +350,10 @@ Drop-in configs: https://pranithjain.qzz.io/mcp/{claude-desktop,cursor,vscode-mc
 - [analyze_phishing_url](https://pranithjain.qzz.io/mcp) (mcp:phishing): Analyze a URL for phishing indicators. Checks against PhishTank, OpenPhish, URLhaus, and performs visual similarity analysis.
 - [analyze_report](https://pranithjain.qzz.io/mcp) (mcp:analysis): Unified per-report analyzer. Runs summary + IOC extraction (with allowlist + confidence) + MITRE ATT&CK TTP mapping + 5W context + CVE extraction + image-OCR + STIX 2.1 bundle in a single round-trip. Accepts text, URL, or both; optionally takes image URLs to OCR. When format=markdown returns a TI Mindmap HUB-style rich formatted markdown report.
 - [btc_abuse_check](https://pranithjain.qzz.io/mcp) (mcp:other): Check a Bitcoin address for abuse/scam reports on ChainAbuse. Returns report count, categories (phishing, ransomware, scam, etc.), descriptions, and associated scam types. Useful for tracing illicit crypto transactions.
+- [bw_get_breach](https://pranithjain.qzz.io/mcp) (mcp:other): Return the full body of a single breach/leak claim by slug. Includes description, source URL, activity sector, and references. Use bw_list_breaches first to discover slugs.
+- [bw_list_breaches](https://pranithjain.qzz.io/mcp) (mcp:other): List live breach/leak/ransomware claims from free public trackers. Filter by threat actor group, category (ransomware, data_breach, combo_list, source_code, credential_leak), severity, country, days back, or free-text keyword.
+- [bw_list_groups](https://pranithjain.qzz.io/mcp) (mcp:other): List threat actor groups tracked in the Breach Watch database with their breach counts and top category. Filter by keyword or minimum count.
+- [bw_stats](https://pranithjain.qzz.io/mcp) (mcp:other): Return cache + manifest stats for the Breach Watch data: breach counts, group counts, categories, and LRU body-cache hit/miss ratios.
 - [campaigns_get](https://pranithjain.qzz.io/mcp) (mcp:other): Return the full details of a single threat campaign entry by slug, including writeup links, TTPs, targets, and geography. Use campaigns_list first to discover slugs.
 - [campaigns_list](https://pranithjain.qzz.io/mcp) (mcp:other): List currently active threat campaigns from the curated tracker. Filter by status (active, dormant, concluded), category (ransomware, apt, malware, phishing, c2, supply-chain, cyber-espionage, hacktivism, other), or keyword.
 - [campaigns_stats](https://pranithjain.qzz.io/mcp) (mcp:other): Return cache + manifest stats for the Active Campaigns tracker: total campaigns, active vs dormant/concluded breakdown, categories, and index cache status.
@@ -360,6 +365,49 @@ Drop-in configs: https://pranithjain.qzz.io/mcp/{claude-desktop,cursor,vscode-mc
 - [cve_poc_map](https://pranithjain.qzz.io/mcp) (mcp:cve): Get the cached CVE-to-GitHub-repo mapping. Pass ?id=CVE-XXXX-XXXXX for a single CVE, or ?year=YYYY for a year-scoped index of all mapped CVEs. Results are KV-cached for 24h.
 - [cyber_news](https://pranithjain.qzz.io/mcp) (mcp:other): Aggregate cybersecurity news from 11 RSS feeds across 5 tiers (Advisory, Exploit, Research, Vendor, Community). Supports tier filtering and keyword search. Sources: CISA, Rapid7, Packet Storm, BleepingComputer, Hacker News, GitHub Security, ZDI, Reddit netsec/exploitdev/bugbounty.
 - [dehash_lookup](https://pranithjain.qzz.io/mcp) (mcp:other): Look up a cryptographic hash (md5/sha1/sha256/sha384/sha512) against Dehash.lt to find its plaintext value. Useful for cracking password hashes or identifying known hash values. No API key required.
+- [dn_abuseipdb_blacklist](https://pranithjain.qzz.io/mcp) (mcp:other): Get AbuseIPDB blacklist of the most reported malicious IP addresses. Requires ABUSEIPDB_API_KEY.
+- [dn_abuseipdb_check](https://pranithjain.qzz.io/mcp) (mcp:other): Check an IP address on AbuseIPDB for abuse reports: confidence score, ISP, country, report count, categories. Requires ABUSEIPDB_API_KEY.
+- [dn_abuseipdb_check_block](https://pranithjain.qzz.io/mcp) (mcp:other): Check an entire CIDR network block for abuse reports on AbuseIPDB. Requires ABUSEIPDB_API_KEY.
+- [dn_abuseipdb_reports](https://pranithjain.qzz.io/mcp) (mcp:other): Get individual abuse reports for an IP from AbuseIPDB with detailed comments and categories. Requires ABUSEIPDB_API_KEY.
+- [dn_bazaar_hash](https://pranithjain.qzz.io/mcp) (mcp:other): Look up a malware sample in MalwareBazaar by MD5, SHA1, or SHA256 hash. Returns tags, signature, file type, first/last seen. Free, no key.
+- [dn_bazaar_recent](https://pranithjain.qzz.io/mcp) (mcp:other): Get the most recently submitted malware samples from MalwareBazaar (last 100). Free, no key.
+- [dn_bazaar_tag](https://pranithjain.qzz.io/mcp) (mcp:other): Search MalwareBazaar by tag or YARA signature name. Free, no key.
+- [dn_greynoise_check](https://pranithjain.qzz.io/mcp) (mcp:other): Quick check: is this IP a known scanner or known benign service? Returns classification only (benign/malicious/unknown). Free, no key.
+- [dn_greynoise_ip](https://pranithjain.qzz.io/mcp) (mcp:other): Look up an IP on GreyNoise Community: classification (benign/malicious/unknown), internet scanner detection, ASN, country. Free, no API key required.
+- [dn_hibp_breach](https://pranithjain.qzz.io/mcp) (mcp:other): Get details of a specific data breach by name from HIBP: description, data classes, pwn count, breach date. Free, no key.
+- [dn_hibp_data_classes](https://pranithjain.qzz.io/mcp) (mcp:other): List all data classes (types of compromised data) known to HIBP: emails, passwords, credit cards, SSNs, etc. Free, no key.
+- [dn_hibp_latest](https://pranithjain.qzz.io/mcp) (mcp:other): Get the most recently added data breaches from HIBP. Free, no key.
+- [dn_hibp_password](https://pranithjain.qzz.io/mcp) (mcp:other): Check if a password has appeared in known breaches using HIBP k-anonymity (only SHA-1 prefix sent). Returns breach count. Free, no key.
+- [dn_hybrid_feed](https://pranithjain.qzz.io/mcp) (mcp:other): Get the latest malware detonation feed from Hybrid Analysis: recently analyzed samples with verdicts and threat scores. Requires HYBRID_ANALYSIS_API_KEY.
+- [dn_hybrid_search](https://pranithjain.qzz.io/mcp) (mcp:other): Search Hybrid Analysis sandbox by file hash: verdict, AV detection rate, MITRE ATT&CK techniques, network indicators. Requires HYBRID_ANALYSIS_API_KEY.
+- [dn_intelx_phonebook](https://pranithjain.qzz.io/mcp) (mcp:other): IntelligenceX Phonebook — find emails, domains, and URLs associated with a search term. Requires INTELX_API_KEY (paid).
+- [dn_intelx_phonebook_results](https://pranithjain.qzz.io/mcp) (mcp:other): Retrieve IntelligenceX Phonebook search results by search_id. Requires INTELX_API_KEY.
+- [dn_intelx_search](https://pranithjain.qzz.io/mcp) (mcp:other): Search IntelligenceX for leaked data, dark web content, paste sites, and breach archives. Requires INTELX_API_KEY (paid).
+- [dn_intelx_search_results](https://pranithjain.qzz.io/mcp) (mcp:other): Retrieve results for an IntelligenceX search by search_id (from dn_intelx_search). Requires INTELX_API_KEY.
+- [dn_otx_cve](https://pranithjain.qzz.io/mcp) (mcp:other): Look up threat intelligence for a CVE on AlienVault OTX: related pulses, indicators, and exploitation activity. Free, no key.
+- [dn_otx_domain](https://pranithjain.qzz.io/mcp) (mcp:other): Look up threat intelligence for a domain on AlienVault OTX: pulse info, WHOIS, reputation, associated malware. Free, no key.
+- [dn_otx_hash](https://pranithjain.qzz.io/mcp) (mcp:other): Look up threat intelligence for a file hash (MD5, SHA1, SHA256) on AlienVault OTX. Free, no key.
+- [dn_otx_ip](https://pranithjain.qzz.io/mcp) (mcp:other): Look up threat intelligence for an IP address on AlienVault OTX: pulse info, reputation, country, ASN, associated malware. Free, no key.
+- [dn_pulsedive_explore](https://pranithjain.qzz.io/mcp) (mcp:other): Explore linked indicators using Pulsedive advanced queries. Returns related IOCs with risk levels. Free, no key.
+- [dn_pulsedive_indicator](https://pranithjain.qzz.io/mcp) (mcp:other): Look up an indicator (IP, domain, URL, or hash) on Pulsedive: risk level, threats, feeds, and linked indicators. Free, no key required.
+- [dn_pulsedive_search](https://pranithjain.qzz.io/mcp) (mcp:other): Search Pulsedive indicators by value. Returns matching indicators with risk levels. Free, no key.
+- [dn_ransomlook_groups](https://pranithjain.qzz.io/mcp) (mcp:other): List all ransomware groups tracked by RansomLook (582+). Free, no key.
+- [dn_ransomlook_recent](https://pranithjain.qzz.io/mcp) (mcp:other): Fetch the most recent ransomware posts and victim claims from RansomLook. Free, no key.
+- [dn_ransomware_country](https://pranithjain.qzz.io/mcp) (mcp:other): Get ransomware victims filtered by ISO 3166-1 alpha-2 country code from ransomware.live. Free, no key.
+- [dn_ransomware_group](https://pranithjain.qzz.io/mcp) (mcp:other): Get a detailed profile for a specific ransomware group from ransomware.live: description, aliases, tools, TTPs, CVEs. Free, no key.
+- [dn_ransomware_search](https://pranithjain.qzz.io/mcp) (mcp:other): Search ransomware victims by keyword (company name, domain, etc.) across ransomware.live. Free, no key.
+- [dn_ransomware_sector](https://pranithjain.qzz.io/mcp) (mcp:other): Get ransomware victims filtered by sector/industry from ransomware.live. Free, no key.
+- [dn_ransomware_victims](https://pranithjain.qzz.io/mcp) (mcp:other): Get all victims claimed by a specific ransomware group from ransomware.live. Free, no key.
+- [dn_sources](https://pranithjain.qzz.io/mcp) (mcp:other): List all available darknet intel data sources with configuration status, API key status, tool counts, and free/paid indicators.
+- [dn_threatfox_iocs](https://pranithjain.qzz.io/mcp) (mcp:other): Get recent IOCs from ThreatFox reported in the last N days. Free, no key.
+- [dn_threatfox_malware](https://pranithjain.qzz.io/mcp) (mcp:other): Search ThreatFox IOCs by malware family using Malpedia naming. Free, no key.
+- [dn_threatfox_search](https://pranithjain.qzz.io/mcp) (mcp:other): Search ThreatFox IOCs by IP, domain, hash, or URL. Free, no key.
+- [dn_threatfox_tag](https://pranithjain.qzz.io/mcp) (mcp:other): Search ThreatFox IOCs by tag (e.g. Cobalt Strike, Emotet, AgentTesla). Free, no key.
+- [dn_urlhaus_lookup](https://pranithjain.qzz.io/mcp) (mcp:other): Look up a URL or host in URLhaus for malware distribution. Free, no key.
+- [dn_urlhaus_tag](https://pranithjain.qzz.io/mcp) (mcp:other): Search URLhaus entries by tag. Free, no key.
+- [dn_vulners_exploit](https://pranithjain.qzz.io/mcp) (mcp:other): Search specifically for exploits (ExploitDB entries) on Vulners. Returns exploit code references and details. Free.
+- [dn_vulners_id](https://pranithjain.qzz.io/mcp) (mcp:other): Look up a vulnerability by ID (CVE, EDB, GHSA) on Vulners. Returns CVSS, description, affected products, and exploit availability. Free, no key.
+- [dn_vulners_search](https://pranithjain.qzz.io/mcp) (mcp:other): Search the Vulners vulnerability database using Lucene queries. Returns matching CVEs/exploits with CVSS scores. Free.
 - [email_check_registration](https://pranithjain.qzz.io/mcp) (mcp:other): Check which platforms an email address is registered on using site-specific APIs (not just HTTP status codes). Returns rich profile metadata when available. Inspired by kaifcodec/user-scanner (MIT, 2.4k stars). Checks 20+ platforms: GitHub, GitLab, Instagram, TikTok, Etsy, Spotify, Steam, and more.
 - [email_list_registration_platforms](https://pranithjain.qzz.io/mcp) (mcp:other): List all platforms available for email registration checking. Returns platform IDs, names, and categories.
 - [enrich_actor](https://pranithjain.qzz.io/mcp) (mcp:actor): Get a threat actor profile. Returns aliases, country attribution, MITRE ATT&CK techniques, known campaigns, and associated malware families.
@@ -523,6 +571,7 @@ Drop-in configs: https://pranithjain.qzz.io/mcp/{claude-desktop,cursor,vscode-mc
 - [virushee_check](https://pranithjain.qzz.io/mcp) (mcp:other): Check a file hash (MD5/SHA1/SHA256) against the Virushee multi-engine AV database. Returns detection ratio and per-engine results. No API key required.
 - [watch_domain_ct](https://pranithjain.qzz.io/mcp) (mcp:domain): Add a domain to Certificate Transparency monitoring. Alerts on new subdomains, suspicious patterns, wildcard certs, and more. Uses crt.sh for unlimited free CT log queries.
 - [wayback_lookup](https://pranithjain.qzz.io/mcp) (mcp:domain): Check the Wayback Machine (archive.org) for historical snapshots of a URL. Useful for tracking website changes or recovering deleted content.
+- [whoxy_reverse_whois](https://pranithjain.qzz.io/mcp) (mcp:other): Reverse WHOIS lookup via whoxy.com — find all domains associated with an email, owner name, company, or keyword. Searches 705M+ WHOIS records. Returns domain names, registrant info, and dates. Requires WHOXY_API_KEY secret.
 - [wifi_investigation](https://pranithjain.qzz.io/mcp) (mcp:other): Investigate a wireless network by BSSID (MAC address) or SSID (network name). Returns OUI vendor lookup, MAC bit analysis (privacy/multicast), default SSID detection, WiGLE.net links, and security flags for rogue AP detection.
 - [winreg_get_artifact](https://pranithjain.qzz.io/mcp) (mcp:other): Return the full body of a single Windows Registry forensic artifact by slug. Includes registry keys, description, forensic value, parsers, and MITRE mapping. Use winreg_list_artifacts first to discover slugs.
 - [winreg_list_artifacts](https://pranithjain.qzz.io/mcp) (mcp:other): List Windows Registry forensic artifacts from the WinReg DFIR reference. Filter by category, hive, MITRE technique, or free-text keyword.

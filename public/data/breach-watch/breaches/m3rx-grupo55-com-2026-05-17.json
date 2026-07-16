@@ -1,0 +1,15 @@
+{
+  "slug": "m3rx-grupo55-com-2026-05-17",
+  "title": "grupo55.com",
+  "group": "m3rx",
+  "discovered": "2026-05-17T14:23:33.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "ES",
+  "sizeBytes": 0,
+  "description": "+34 918 892 727. Founded in 1996, Grupo 55 Correduría de Seguros leverages decades of professional expertise and a highly qualified team to deliver personalized, top-tier insurance solutions. Collaborating closely with a strong network of partners, the company continuously enhances its service quality to outperform competitors and ensure maximum solvency for its clients. Stolen: 178gb 166k files",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

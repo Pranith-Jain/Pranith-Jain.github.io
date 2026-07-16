@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-st-bernards-bham-sch-uk-2026-04-17",
+  "title": "st-bernards.bham.sch.uk",
+  "group": "safepay",
+  "discovered": "2026-04-17T16:24:43.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "St Bernard’s provides primary education for children, including: English, maths, science and general curriculum subjects Religious education (Catholic values are …",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Education",
+  "references": ["ransomware.live"]
+}

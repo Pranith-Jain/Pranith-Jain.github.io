@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-hiddenn-2026-06-20",
+  "title": "hiddenn",
+  "group": "thegentlemen",
+  "discovered": "2026-06-20T08:54:23.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "hiddenn",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

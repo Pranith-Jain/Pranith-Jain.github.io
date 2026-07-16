@@ -1,0 +1,15 @@
+{
+  "slug": "deadlock-secil-2026-06-15",
+  "title": "SECiL",
+  "group": "Deadlock",
+  "discovered": "2026-06-15T18:24:58.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "TR",
+  "sizeBytes": 0,
+  "description": "Seçil Kauçuk is a Turkish manufacturer, founded in 1983, specializing in rubber gaskets, sealing profiles, and industrial molded parts for sectors including construction, automotive, and infrastructure. Operating from a 70,000-square-meter facility in Tarsus, the company exports to over 50 countries and maintains an official R&D center for product testing.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

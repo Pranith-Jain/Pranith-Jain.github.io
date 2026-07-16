@@ -1,0 +1,15 @@
+{
+  "slug": "nightspire-pattono-s-r-l-2026-06-12",
+  "title": "Pattono S.r.l",
+  "group": "nightspire",
+  "discovered": "2026-06-12T02:24:32.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["NIGHT SPIRE"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "dragonforce-ifage-2026-07-14",
+  "title": "Ifage",
+  "group": "dragonforce",
+  "discovered": "2026-07-14T12:25:44.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "CH",
+  "sizeBytes": 0,
+  "description": "Ifage is a foundation based in Geneva dedicated to the continuous education and professional development of adults. It offers a wide range of courses in languages, management, administration, industry, construction, and new technologies. The foundation serves individuals seeking to enhance their skills and obtain recognized certifications, including federal diplomas and international certificates. Its clients include professionals looking to advance their careers and companies seeking training solutions for their employees.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["DRAGON FORCE"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

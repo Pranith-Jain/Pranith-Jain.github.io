@@ -1,0 +1,15 @@
+{
+  "slug": "stormous-sa2000-com-2026-06-04",
+  "title": "SA2000.COM",
+  "group": "stormous",
+  "discovered": "2026-06-04T01:52:43.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "SA",
+  "sizeBytes": 0,
+  "description": "150 GB of data has been extracted, including: COMPTABILITÉ - FACTURES ACHAT / FACTURES À PAYER / FACTURES MODIFIÉES - Banking Informations SA2000 - PAIEMENTS CLIENTS - CLIENTS / PO CLIENTS - FOURNISSEUR / TRANSPORTEURS - EMPLOYÉS / EMBAUCHE - ACTIONNAIRES - COURRIEL / DOCUMENTS ***.There is still an opportunity to communicate and resolve this situation. We are currently awaiting the company's !",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

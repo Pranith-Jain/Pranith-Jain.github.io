@@ -1,6 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { detectType } from '../lib/indicator';
+import { detectType, refang } from '../lib/indicator';
 import { sseStream } from '../lib/sse';
 import { claimSseSlot, SSE_MAX_CONCURRENT } from '../lib/sse-concurrency';
 import { trackEvent, visitorCountry } from '../lib/analytics';
@@ -51,15 +51,31 @@ export function createIocController(): IocController {
       const eligible = (Object.keys(ADAPTERS) as ProviderId[]).filter((p) => PROVIDER_SUPPORT[p].includes(type));
 
       return sseStream<unknown>(async (write) => {
-        write('meta', { type, value: raw.trim(), providers: eligible });
-        const { composite, admiralty } = await runIocProviders(raw, c.env, (r) => write('result', r));
-        write('done', { ...composite, admiralty });
-        trackEvent(c.env, 'ioc_check', {
-          blobs: [type, composite.verdict, composite.confidence],
-          doubles: [composite.score, composite.contributing],
-          indexes: [visitorCountry(c.req.raw)],
+        write('meta', { type, value: refang(raw.trim()), providers: eligible });
+        const { composite, admiralty, hunting } = await runIocProviders(raw, c.env, (r) => write('result', r));
+        const hasContext =
+          hunting.malware_families.length > 0 ||
+          hunting.threatfox_hits.length > 0 ||
+          hunting.malwarebazaar_hits.length > 0 ||
+          hunting.otx_pulses.length > 0;
+        if (hasContext) write('context', hunting);
+        write('done', {
+          ...composite,
+          admiralty,
+          hunting: hasContext
+            ? { malware_families: hunting.malware_families, malicious_sources: hunting.malicious_sources }
+            : undefined,
         });
-        c.executionCtx.waitUntil(slot.release());
+        try {
+          trackEvent(c.env, 'ioc_check', {
+            blobs: [type, composite.verdict, composite.confidence],
+            doubles: [composite.score, composite.contributing],
+            indexes: [visitorCountry(c.req.raw)],
+          });
+        } catch {}
+        try {
+          c.executionCtx.waitUntil(slot.release());
+        } catch {}
       });
     },
   };

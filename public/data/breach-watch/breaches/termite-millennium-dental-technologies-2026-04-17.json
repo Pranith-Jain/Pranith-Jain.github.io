@@ -1,0 +1,15 @@
+{
+  "slug": "termite-millennium-dental-technologies-2026-04-17",
+  "title": "Millennium Dental Technologies",
+  "group": "termite",
+  "discovered": "2026-04-17T16:34:38.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Founded in 1994 and Headquartered in Cerritos, California. Millennium Dental Technologies, Inc manufactures and distributes dental products. It offers PerioLase MVP-7, a laser designed especially for laser periodontal therapy that performs soft and hard tissue laser procedures.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

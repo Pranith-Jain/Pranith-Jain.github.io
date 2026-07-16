@@ -180,6 +180,7 @@ const ROUTES = [
   '/threatintel/tools/mcp',
   '/threatintel/tools/misp',
   '/threatintel/tools/directory',
+  '/threatintel/tools/darknet-intel',
   '/threatintel/tools/settings',
   '/threatintel/tools/stix',
   '/threatintel/tools/stix-bundles',

@@ -1,0 +1,15 @@
+{
+  "slug": "chaos-sleemanbreweries-ca-2026-07-14",
+  "title": "sleemanbreweries.ca",
+  "group": "chaos",
+  "discovered": "2026-07-14T20:23:10.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "CA",
+  "sizeBytes": 0,
+  "description": "Sleeman Breweries was founded in 1851 and headquartered in Guelph, Ontario. The company now markets and distributes world-class domestic and imported products.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

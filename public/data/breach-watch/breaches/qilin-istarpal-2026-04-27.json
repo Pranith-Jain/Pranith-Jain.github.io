@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-istarpal-2026-04-27",
+  "title": "Istarpal",
+  "group": "qilin",
+  "discovered": "2026-04-27T07:49:54.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "PS",
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

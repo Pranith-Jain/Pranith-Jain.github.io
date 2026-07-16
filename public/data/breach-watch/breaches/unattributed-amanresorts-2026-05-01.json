@@ -1,0 +1,15 @@
+{
+  "slug": "unattributed-amanresorts-2026-05-01",
+  "title": "AmanResorts",
+  "group": "Unattributed",
+  "discovered": "2026-05-01T12:11:03.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Aman, an ultra-luxury hotel brand, was allegedly targeted by the ShinyHunters group in April 2026 with data later leaked publicly, exposing over 262k unique email addresses along with some names, phone numbers, physical addresses, nationalities, dates of birth, and spouse names,.",
+  "source_url": "https://xposedornot.com/breach/AmanResorts",
+  "groupAliases": [],
+  "activity": "Hospitality",
+  "references": ["XposedOrNot"]
+}

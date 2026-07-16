@@ -1,0 +1,15 @@
+{
+  "slug": "coinbasecartel-kementerian-pertanian-2026-04-23",
+  "title": "Kementerian Pertanian",
+  "group": "coinbasecartel",
+  "discovered": "2026-04-23T09:58:26.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "ID",
+  "sizeBytes": 0,
+  "description": "[AI generated] Kementerian Pertanian is the Ministry of Agriculture of Indonesia, a government institution responsible for formulating and implementing agricultural policies. It oversees food crop production, horticulture, livestock, and plantation sectors. The ministry aims to achieve national food security, improve farmer welfare, and boost agricultural exports. It operates under the Indonesian central government and coordinates with regional agricultural agencies across the country.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["coinbase cartel"],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

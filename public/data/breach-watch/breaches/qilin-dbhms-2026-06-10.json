@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-dbhms-2026-06-10",
+  "title": "dbHMS",
+  "group": "qilin",
+  "discovered": "2026-06-10T21:28:30.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

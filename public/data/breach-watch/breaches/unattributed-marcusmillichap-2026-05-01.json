@@ -1,0 +1,15 @@
+{
+  "slug": "unattributed-marcusmillichap-2026-05-01",
+  "title": "MarcusMillichap",
+  "group": "Unattributed",
+  "discovered": "2026-05-01T12:11:04.000Z",
+  "category": "data_breach",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Marcus & Millichap, a real estate brokerage and advisory firm, was allegedly breached by the ShinyHunters group, exposing 1.8M email addresses along with personal information.",
+  "source_url": "https://xposedornot.com/breach/MarcusMillichap",
+  "groupAliases": [],
+  "activity": "Finance",
+  "references": ["XposedOrNot"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "unattributed-abrigo-2026-05-15",
+  "title": "Abrigo",
+  "group": "Unattributed",
+  "discovered": "2026-05-15T05:29:02.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Abrigo, a fintech software company, was targeted by the ShinyHunters group in April 2026, with data allegedly taken from its Salesforce instance later published publicly exposing over 779k unique email addresses along with employee and business contact information including names, institution names, and phone numbers.",
+  "source_url": "https://xposedornot.com/breach/Abrigo",
+  "groupAliases": [],
+  "activity": "Finance",
+  "references": ["XposedOrNot"]
+}

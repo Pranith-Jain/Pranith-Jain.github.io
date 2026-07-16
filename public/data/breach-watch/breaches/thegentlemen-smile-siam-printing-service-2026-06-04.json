@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-smile-siam-printing-service-2026-06-04",
+  "title": "Smile Siam Printing Service",
+  "group": "thegentlemen",
+  "discovered": "2026-06-04T09:10:09.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "TH",
+  "sizeBytes": 0,
+  "description": "***.com ***.com/c/smile-siam-printing-service-co-ltd/355813513 Smile Siam Printing Service is a distinguished Bangkok-based printing house founded in 1995, offering comprehensive one-stop solutions in offset, digital, inkjet, and silk screen printing for local and international clients. With ISO-certified production facilities and a dedicated team, they ensure exceptional quality, competitive pricing, and seamless project management from design to delivery. Their integrated logistics and business services further streamline operations, making them a trusted partner for premium printed materials and corporate solutions",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

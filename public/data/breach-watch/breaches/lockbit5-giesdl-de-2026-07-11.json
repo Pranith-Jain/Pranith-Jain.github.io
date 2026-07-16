@@ -1,0 +1,15 @@
+{
+  "slug": "lockbit5-giesdl-de-2026-07-11",
+  "title": "giesdl.de",
+  "group": "lockbit5",
+  "discovered": "2026-07-11T07:29:02.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "Die Gies Dienstleistungen GmbH ist ein deutsches Gebäudedienstleistungsunternehmen. Sie hat 19 Niede...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

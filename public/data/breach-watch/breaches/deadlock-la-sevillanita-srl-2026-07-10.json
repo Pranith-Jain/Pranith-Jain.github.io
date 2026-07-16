@@ -1,0 +1,15 @@
+{
+  "slug": "deadlock-la-sevillanita-srl-2026-07-10",
+  "title": "LA SEVILLANITA SRL",
+  "group": "Deadlock",
+  "discovered": "2026-07-10T13:14:08.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "AR",
+  "sizeBytes": 0,
+  "description": "LA SEVILLANITA is the leading transport company in Argentina.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

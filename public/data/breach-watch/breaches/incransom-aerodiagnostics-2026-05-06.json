@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-aerodiagnostics-2026-05-06",
+  "title": "Aerodiagnostics",
+  "group": "incransom",
+  "discovered": "2026-05-06T13:22:58.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Aerodiagnostics, LLC is a Massachusetts-based laboratory specializing in advanced diagnostic testing for gastrointestinal disorders, including Small Intestinal Bacterial Overgrowth (SIBO), fructose malabsorption, sucrose intolerance, and lactose intolerance. \r The company utilizes state-of-the-art technology and non-invasive breath tests to provide accurate results while ensuring a high level of customer service\r \r Laek: 50GB \r WE HAS COLLECTED SUCH DATA AS: \r - Confidential documents \r - Clients Data \r - NDA \r - Financial data \r - Operations \r - Corporate data \r - Business Agreements \r - Development \r - Financial databases, all transactions, all clients\r And a lot of other VERY IMPORTANT information!",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-ahorramas-2026-05-05",
+  "title": "Ahorramas",
+  "group": "qilin",
+  "discovered": "2026-05-05T12:54:19.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "ES",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

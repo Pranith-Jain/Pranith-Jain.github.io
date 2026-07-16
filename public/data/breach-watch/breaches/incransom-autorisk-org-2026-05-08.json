@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-autorisk-org-2026-05-08",
+  "title": "autorisk.org",
+  "group": "incransom",
+  "discovered": "2026-05-08T07:31:53.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "client data",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

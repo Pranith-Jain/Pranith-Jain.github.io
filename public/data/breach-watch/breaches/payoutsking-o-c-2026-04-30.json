@@ -1,0 +1,15 @@
+{
+  "slug": "payoutsking-o-c-2026-04-30",
+  "title": "O****C",
+  "group": "payoutsking",
+  "discovered": "2026-04-30T00:55:07.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

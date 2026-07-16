@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-tecnocurva-com-br-2026-07-07",
+  "title": "tecnocurva.com.br",
+  "group": "incransom",
+  "discovered": "2026-07-07T00:27:08.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "BR",
+  "sizeBytes": 0,
+  "description": "Company operating in the automotive sector. Heavy and agricultural segment. Forming of tubes and welded assemblies. \r Tecnocurva manufactures curved, welded, and stamped tubular assemblies, structural and exhaust pipes, and stamped parts with high technical standards and a total focus on performance.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-marc-cain-2026-04-24",
+  "title": "Marc Cain",
+  "group": "qilin",
+  "discovered": "2026-04-24T18:50:11.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

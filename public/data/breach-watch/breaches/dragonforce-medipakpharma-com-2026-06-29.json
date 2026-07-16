@@ -1,0 +1,15 @@
+{
+  "slug": "dragonforce-medipakpharma-com-2026-06-29",
+  "title": "medipakpharma.com",
+  "group": "dragonforce",
+  "discovered": "2026-06-29T12:23:59.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "PK",
+  "sizeBytes": 0,
+  "description": "The Pakistani pharmaceutical company Medipak Limited (***.com) specializes in the manufacture of infusion solutions, medical devices, and pharmaceutical products.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["DRAGON FORCE"],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

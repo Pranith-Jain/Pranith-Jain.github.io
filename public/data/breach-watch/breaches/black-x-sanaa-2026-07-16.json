@@ -1,0 +1,15 @@
+{
+  "slug": "black-x-sanaa-2026-07-16",
+  "title": "sanaa",
+  "group": "black x",
+  "discovered": "2026-07-16T13:50:04.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "https://www.ransomlook.io/screenshots/black x/sanaa.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

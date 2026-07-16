@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-tripod-farmers-2026-05-28",
+  "title": "Tripod Farmers",
+  "group": "qilin",
+  "discovered": "2026-05-28T13:32:17.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "AU",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

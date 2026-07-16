@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-al-khaja-holding-2026-06-20",
+  "title": "Al Khaja Holding",
+  "group": "thegentlemen",
+  "discovered": "2026-06-20T08:50:30.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "AE",
+  "sizeBytes": 0,
+  "description": "***.com rocketreach.co/al-khaja-holding-profile_b451cc56fc778622 Al Khaja Holding is a prominent multi-business conglomerate based in the United Arab Emirates, originally established in 1969 as the Abu Dhabi Tyre Company.The group manages a diverse portfolio of investments across various sectors, including oil and gas, healthcare, pharmaceuticals, and retail distribution.Operating from its headquarters in Abu Dhabi, the holding company plays a significant role in the region's commercial landscape by overseeing its wide variety of subsidiary enterprises",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

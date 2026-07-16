@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-vantagepoint-management-autoclear-2026-07-14",
+  "title": "VantagePoint Management & Autoclear",
+  "group": "incransom",
+  "discovered": "2026-07-14T18:27:40.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "VantagePoint Capital Partners is a global venture investor established in 1996, focusing on energy innovation and efficiency. With over $4 billion under management, the company supports start-up to scale-up companies by providing capital, strategic resources, and partnership alliances. Headquartered in Silicon Valley, VantagePoint also has offices in Beijing, China, and maintains strategic partnerships worldwide. Their diverse portfolio includes a range of entrepreneurs and companies in the energy sector.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "medusalocker-acad-mie-de-montpellier-csjm-2026-05-05",
+  "title": "Académie de Montpellier / CSJM",
+  "group": "medusalocker",
+  "discovered": "2026-05-05T20:31:21.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "FR",
+  "sizeBytes": 0,
+  "description": "French public school network. Domain CSJM.BEZIERS, part of Académie de Montpellier (ac-montpellier.fr). Occitanie region (laregion.fr). Teacher and admin staff credentials.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Education",
+  "references": ["ransomware.live"]
+}

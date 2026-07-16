@@ -1,6 +1,6 @@
 # DFIR-ThreatIntel MCP - tool catalog
 
-**194 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
+**242 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
 
 ## Quick start
 
@@ -14,15 +14,62 @@
 
 ## Tools by category
 
-### other (96)
+### other (144)
 
 - `btc_abuse_check` - Check a Bitcoin address for abuse/scam reports on ChainAbuse. Returns report count, categories (phishing, ransomware, scam, etc.), descriptions, and associated scam types. Useful for tracing illicit crypto transactions.
+- `bw_get_breach` - Return the full body of a single breach/leak claim by slug. Includes description, source URL, activity sector, and references. Use bw_list_breaches first to discover slugs.
+- `bw_list_breaches` - List live breach/leak/ransomware claims from free public trackers. Filter by threat actor group, category (ransomware, data_breach, combo_list, source_code, credential_leak), severity, country, days back, or free-text keyword.
+- `bw_list_groups` - List threat actor groups tracked in the Breach Watch database with their breach counts and top category. Filter by keyword or minimum count.
+- `bw_stats` - Return cache + manifest stats for the Breach Watch data: breach counts, group counts, categories, and LRU body-cache hit/miss ratios.
 - `campaigns_get` - Return the full details of a single threat campaign entry by slug, including writeup links, TTPs, targets, and geography. Use campaigns_list first to discover slugs.
 - `campaigns_list` - List currently active threat campaigns from the curated tracker. Filter by status (active, dormant, concluded), category (ransomware, apt, malware, phishing, c2, supply-chain, cyber-espionage, hacktivism, other), or keyword.
 - `campaigns_stats` - Return cache + manifest stats for the Active Campaigns tracker: total campaigns, active vs dormant/concluded breakdown, categories, and index cache status.
 - `cerast_domain_search` - Search Cerast Intelligence for exposed paths and misconfigurations on observed domains. Returns domain, path, category, impact level, OpenPageRank score, version, and first-seen date. Useful for discovering staging/dev environments, exposed admin panels, and misconfigured endpoints.
 - `cyber_news` - Aggregate cybersecurity news from 11 RSS feeds across 5 tiers (Advisory, Exploit, Research, Vendor, Community). Supports tier filtering and keyword search. Sources: CISA, Rapid7, Packet Storm, BleepingComputer, Hacker News, GitHub Security, ZDI, Reddit netsec/exploitdev/bugbounty.
 - `dehash_lookup` - Look up a cryptographic hash (md5/sha1/sha256/sha384/sha512) against Dehash.lt to find its plaintext value. Useful for cracking password hashes or identifying known hash values. No API key required.
+- `dn_abuseipdb_blacklist` - Get AbuseIPDB blacklist of the most reported malicious IP addresses. Requires ABUSEIPDB_API_KEY.
+- `dn_abuseipdb_check` - Check an IP address on AbuseIPDB for abuse reports: confidence score, ISP, country, report count, categories. Requires ABUSEIPDB_API_KEY.
+- `dn_abuseipdb_check_block` - Check an entire CIDR network block for abuse reports on AbuseIPDB. Requires ABUSEIPDB_API_KEY.
+- `dn_abuseipdb_reports` - Get individual abuse reports for an IP from AbuseIPDB with detailed comments and categories. Requires ABUSEIPDB_API_KEY.
+- `dn_bazaar_hash` - Look up a malware sample in MalwareBazaar by MD5, SHA1, or SHA256 hash. Returns tags, signature, file type, first/last seen. Free, no key.
+- `dn_bazaar_recent` - Get the most recently submitted malware samples from MalwareBazaar (last 100). Free, no key.
+- `dn_bazaar_tag` - Search MalwareBazaar by tag or YARA signature name. Free, no key.
+- `dn_greynoise_check` - Quick check: is this IP a known scanner or known benign service? Returns classification only (benign/malicious/unknown). Free, no key.
+- `dn_greynoise_ip` - Look up an IP on GreyNoise Community: classification (benign/malicious/unknown), internet scanner detection, ASN, country. Free, no API key required.
+- `dn_hibp_breach` - Get details of a specific data breach by name from HIBP: description, data classes, pwn count, breach date. Free, no key.
+- `dn_hibp_data_classes` - List all data classes (types of compromised data) known to HIBP: emails, passwords, credit cards, SSNs, etc. Free, no key.
+- `dn_hibp_latest` - Get the most recently added data breaches from HIBP. Free, no key.
+- `dn_hibp_password` - Check if a password has appeared in known breaches using HIBP k-anonymity (only SHA-1 prefix sent). Returns breach count. Free, no key.
+- `dn_hybrid_feed` - Get the latest malware detonation feed from Hybrid Analysis: recently analyzed samples with verdicts and threat scores. Requires HYBRID_ANALYSIS_API_KEY.
+- `dn_hybrid_search` - Search Hybrid Analysis sandbox by file hash: verdict, AV detection rate, MITRE ATT&CK techniques, network indicators. Requires HYBRID_ANALYSIS_API_KEY.
+- `dn_intelx_phonebook` - IntelligenceX Phonebook — find emails, domains, and URLs associated with a search term. Requires INTELX_API_KEY (paid).
+- `dn_intelx_phonebook_results` - Retrieve IntelligenceX Phonebook search results by search_id. Requires INTELX_API_KEY.
+- `dn_intelx_search` - Search IntelligenceX for leaked data, dark web content, paste sites, and breach archives. Requires INTELX_API_KEY (paid).
+- `dn_intelx_search_results` - Retrieve results for an IntelligenceX search by search_id (from dn_intelx_search). Requires INTELX_API_KEY.
+- `dn_otx_cve` - Look up threat intelligence for a CVE on AlienVault OTX: related pulses, indicators, and exploitation activity. Free, no key.
+- `dn_otx_domain` - Look up threat intelligence for a domain on AlienVault OTX: pulse info, WHOIS, reputation, associated malware. Free, no key.
+- `dn_otx_hash` - Look up threat intelligence for a file hash (MD5, SHA1, SHA256) on AlienVault OTX. Free, no key.
+- `dn_otx_ip` - Look up threat intelligence for an IP address on AlienVault OTX: pulse info, reputation, country, ASN, associated malware. Free, no key.
+- `dn_pulsedive_explore` - Explore linked indicators using Pulsedive advanced queries. Returns related IOCs with risk levels. Free, no key.
+- `dn_pulsedive_indicator` - Look up an indicator (IP, domain, URL, or hash) on Pulsedive: risk level, threats, feeds, and linked indicators. Free, no key required.
+- `dn_pulsedive_search` - Search Pulsedive indicators by value. Returns matching indicators with risk levels. Free, no key.
+- `dn_ransomlook_groups` - List all ransomware groups tracked by RansomLook (582+). Free, no key.
+- `dn_ransomlook_recent` - Fetch the most recent ransomware posts and victim claims from RansomLook. Free, no key.
+- `dn_ransomware_country` - Get ransomware victims filtered by ISO 3166-1 alpha-2 country code from ransomware.live. Free, no key.
+- `dn_ransomware_group` - Get a detailed profile for a specific ransomware group from ransomware.live: description, aliases, tools, TTPs, CVEs. Free, no key.
+- `dn_ransomware_search` - Search ransomware victims by keyword (company name, domain, etc.) across ransomware.live. Free, no key.
+- `dn_ransomware_sector` - Get ransomware victims filtered by sector/industry from ransomware.live. Free, no key.
+- `dn_ransomware_victims` - Get all victims claimed by a specific ransomware group from ransomware.live. Free, no key.
+- `dn_sources` - List all available darknet intel data sources with configuration status, API key status, tool counts, and free/paid indicators.
+- `dn_threatfox_iocs` - Get recent IOCs from ThreatFox reported in the last N days. Free, no key.
+- `dn_threatfox_malware` - Search ThreatFox IOCs by malware family using Malpedia naming. Free, no key.
+- `dn_threatfox_search` - Search ThreatFox IOCs by IP, domain, hash, or URL. Free, no key.
+- `dn_threatfox_tag` - Search ThreatFox IOCs by tag (e.g. Cobalt Strike, Emotet, AgentTesla). Free, no key.
+- `dn_urlhaus_lookup` - Look up a URL or host in URLhaus for malware distribution. Free, no key.
+- `dn_urlhaus_tag` - Search URLhaus entries by tag. Free, no key.
+- `dn_vulners_exploit` - Search specifically for exploits (ExploitDB entries) on Vulners. Returns exploit code references and details. Free.
+- `dn_vulners_id` - Look up a vulnerability by ID (CVE, EDB, GHSA) on Vulners. Returns CVSS, description, affected products, and exploit availability. Free, no key.
+- `dn_vulners_search` - Search the Vulners vulnerability database using Lucene queries. Returns matching CVEs/exploits with CVSS scores. Free.
 - `email_check_registration` - Check which platforms an email address is registered on using site-specific APIs (not just HTTP status codes). Returns rich profile metadata when available. Inspired by kaifcodec/user-scanner (MIT, 2.4k stars). Checks 20+ platforms: GitHub, GitLab, Instagram, TikTok, Etsy, Spotify, Steam, and more.
 - `email_list_registration_platforms` - List all platforms available for email registration checking. Returns platform IDs, names, and categories.
 - `etda_get_actor` - Return the full actor body for a single APT threat actor from the ETDA Threat Group Cards vertical. Includes names (with vendor sources), aliases, country, sponsor, motivation, description, sectors, tools, operations, counter operations, MITRE ATT&CK link, and information references. Use etda_list_actors first to discover slugs.
@@ -96,6 +143,7 @@
 - `username_generate_patterns` - Generate username variations for typosquatting detection and OSINT. Returns common patterns: leetspeak, double letters, prefix/suffix variations, dot/underscore/hyphen separators, number suffixes.
 - `username_scrape_profiles` - Scrape profile metadata (display name, bio, avatar, follower counts) from platforms where the username is found. Returns rich profile data, not just found/not-found.
 - `virushee_check` - Check a file hash (MD5/SHA1/SHA256) against the Virushee multi-engine AV database. Returns detection ratio and per-engine results. No API key required.
+- `whoxy_reverse_whois` - Reverse WHOIS lookup via whoxy.com — find all domains associated with an email, owner name, company, or keyword. Searches 705M+ WHOIS records. Returns domain names, registrant info, and dates. Requires WHOXY_API_KEY secret.
 - `wifi_investigation` - Investigate a wireless network by BSSID (MAC address) or SSID (network name). Returns OUI vendor lookup, MAC bit analysis (privacy/multicast), default SSID detection, WiGLE.net links, and security flags for rogue AP detection.
 - `winreg_get_artifact` - Return the full body of a single Windows Registry forensic artifact by slug. Includes registry keys, description, forensic value, parsers, and MITRE mapping. Use winreg_list_artifacts first to discover slugs.
 - `winreg_list_artifacts` - List Windows Registry forensic artifacts from the WinReg DFIR reference. Filter by category, hive, MITRE technique, or free-text keyword.

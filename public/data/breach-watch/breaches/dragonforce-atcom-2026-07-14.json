@@ -1,0 +1,15 @@
+{
+  "slug": "dragonforce-atcom-2026-07-14",
+  "title": "Atcom",
+  "group": "dragonforce",
+  "discovered": "2026-07-14T12:54:51.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "CN",
+  "sizeBytes": 0,
+  "description": "ATCOM Technology Co., LTD. specializes in manufacturing VoIP products, including various types of IP phones and IP PBX systems. They offer a range of solutions such as self-built VoIP, cloud VoIP, call center VoIP, and Wi-Fi VoIP solutions tailored for enterprises. Their focus is on creating value for customers through innovative products and excellent service. The intended clients include businesses looking for reliable and efficient communication systems.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["DRAGON FORCE"],
+  "activity": "Telecommunication",
+  "references": ["ransomware.live"]
+}

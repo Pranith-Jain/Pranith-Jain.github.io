@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-counts-dobyns-2026-07-13",
+  "title": "Counts & Dobyns",
+  "group": "qilin",
+  "discovered": "2026-07-13T21:02:04.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

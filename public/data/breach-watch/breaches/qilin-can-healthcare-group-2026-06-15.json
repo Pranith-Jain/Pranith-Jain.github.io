@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-can-healthcare-group-2026-06-15",
+  "title": "Can Healthcare Group",
+  "group": "qilin",
+  "discovered": "2026-06-15T17:23:28.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "TR",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

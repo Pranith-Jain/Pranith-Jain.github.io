@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-titantv-inc-2026-07-13",
+  "title": "TitanTV, Inc.",
+  "group": "qilin",
+  "discovered": "2026-07-13T18:26:38.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

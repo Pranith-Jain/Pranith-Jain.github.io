@@ -1,0 +1,15 @@
+{
+  "slug": "chaos-corepharma-com-2026-07-08",
+  "title": "corepharma.com",
+  "group": "chaos",
+  "discovered": "2026-07-08T07:22:23.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "DATA EXPOSURE: CorePharma – Full GMP & Regulatory Compromise\n\nWe are officially announcing that our security team has successfully breached the internal network of CorePharma. We are currently in possession of a comprehensive archive of the company’s internal operations, including sensitive regu…",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

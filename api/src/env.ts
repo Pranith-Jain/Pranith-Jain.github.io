@@ -270,9 +270,27 @@ export interface Env {
   /** Traceix.com (PCEF) API key for SHA-256 hash AV/reputation lookups.
    *  Set via `wrangler secret put TRACEIX_API_KEY`. Free at perkinsfund.org. */
   TRACEIX_API_KEY?: string;
+  /** Whoxy.com Reverse WHOIS API key.
+   *  Set via `wrangler secret put WHOXY_API_KEY`. Paid ($0.01/query at whoxy.com). */
+  WHOXY_API_KEY?: string;
   /** Static asset bucket binding. Type matches `Fetcher` from
    *  @cloudflare/workers-types so the SVG-PNG renderer's `env.ASSETS.fetch(...)`
    *  call is fully typed end-to-end. Optional so api-only unit tests still
    *  compile when the binding is unbound. */
   ASSETS: Fetcher;
+  /** GreyNoise Community API key (optional, free community tier works without).
+   *  Set via `wrangler secret put GREYNOISE_API_KEY`. Raises rate limits. */
+  GREYNOISE_API_KEY?: string;
+  /** Pulsedive API key (optional). Set via `wrangler secret put PULSEDIVE_API_KEY`.
+   *  Free tier works without; key raises rate limits. */
+  PULSEDIVE_API_KEY?: string;
+  /** Vulners API key (optional). Set via `wrangler secret put VULNERS_API_KEY`.
+   *  Free tier works for ID lookups; key enables search/exploit queries. */
+  VULNERS_API_KEY?: string;
+  /** IntelligenceX API key (paid). Set via `wrangler secret put INTELX_API_KEY`.
+   *  Required for intelx_search, intelx_phonebook, and result endpoints. */
+  INTELX_API_KEY?: string;
+  /** Have I Been Pwned API key (paid). Set via `wrangler secret put HIBP_API_KEY`.
+   *  Required for account/paste search; breach list endpoints work without. */
+  HIBP_API_KEY?: string;
 }

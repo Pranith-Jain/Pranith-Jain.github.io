@@ -1,0 +1,15 @@
+{
+  "slug": "settra-torsiongroup-co-uk-2026-07-16",
+  "title": "torsiongroup.co.uk",
+  "group": "settra",
+  "discovered": "2026-07-16T08:34:08.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "END OF THE LINE A company that builds homes and promises safety to its residents failed to protect t...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

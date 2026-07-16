@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-institucion-cervantes-2026-06-08",
+  "title": "Institucion Cervantes",
+  "group": "thegentlemen",
+  "discovered": "2026-06-08T09:57:50.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "AR",
+  "sizeBytes": 0,
+  "description": "***.edu.ar zoominfo.com/c/institución-cervantes/372383480 nstitucion Cervantes is a private higher education institution based in Córdoba, Argentina, with over 60 years of history and more than 3,000 students. The school specializes in short-term, future-oriented careers ranging from one to three years, focusing on practical fields like Business Administration, Data Science, IT, and Law. It is highly recognized in the region for its strong commitment to student development and rapid professional integration into the job market",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Education",
+  "references": ["ransomware.live"]
+}

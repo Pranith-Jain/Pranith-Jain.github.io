@@ -1,0 +1,15 @@
+{
+  "slug": "space-bears-techpol-system-2026-07-13",
+  "title": "Techpol-System",
+  "group": "space bears",
+  "discovered": "2026-07-13T16:53:26.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Techpol-System, based in Bieruń, Poland, is an engineering enterprise specializing in industrial power solutions, including traction battery maintenance, along with laser processing and steel structure fabrication. The company provides comprehensive, end-to-end services tailored to industrial clients through precision manufacturing and system integration.-Personal information of employees and clients\n-Financial\ndocuments\n-Other files\nhttps://techpolsystem.pl/",
+  "source_url": "https://www.ransomlook.io/screenshots/space bears/Techpol-System.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

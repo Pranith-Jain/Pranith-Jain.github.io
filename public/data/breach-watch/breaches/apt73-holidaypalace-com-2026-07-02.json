@@ -1,0 +1,15 @@
+{
+  "slug": "apt73-holidaypalace-com-2026-07-02",
+  "title": "holidaypalace.com",
+  "group": "apt73",
+  "discovered": "2026-07-02T16:21:09.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "MO",
+  "sizeBytes": 0,
+  "description": "Holiday Palace Hotel in Spain. Guest information, internal documents, reports, photos, videos, an...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Eraleign"],
+  "activity": "Hospitality and Tourism",
+  "references": ["ransomware.live"]
+}

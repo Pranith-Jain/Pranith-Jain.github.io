@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-shajarpak-securities-2026-05-12",
+  "title": "Shajarpak Securities",
+  "group": "thegentlemen",
+  "discovered": "2026-05-12T19:29:38.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "IR",
+  "sizeBytes": 0,
+  "description": "shajarpaksecurities.com Shajarpak Securities is a trusted SECP-licensed brokerage and part of the Shajarpak Group, empowering clients with secure online trading on the Pakistan Stock Exchange. Their seasoned equity team brings 60+ years of combined experience, delivering timely market insights and best-in-class execution with strict compliance and ethical standards. With a robust Oracle®-based platform, mobile apps, and dedicated support for NRPs and institutional investors, they make intelligent investing accessible anytime, anywhere",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
+}

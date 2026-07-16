@@ -1,0 +1,15 @@
+{
+  "slug": "dragonforce-medicalnetworks-cj-gmbh-co-kg-2026-04-17",
+  "title": "medicalnetworks CJ GmbH & Co. KG",
+  "group": "dragonforce",
+  "discovered": "2026-04-17T14:42:24.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "Medicalnetworks specializes in integrated healthcare solutions, offering services such as ascleoncare and Hybrid-DRG billing. Their products are designed to streamline processes for health insurance providers and medical practices. The company aims to enhance the efficiency of healthcare delivery through innovative technology. Their intended clients include healthcare providers and insurance companies seeking to improve their operational workflows",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["DRAGON FORCE"],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

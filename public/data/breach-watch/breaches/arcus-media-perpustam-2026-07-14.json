@@ -1,0 +1,15 @@
+{
+  "slug": "arcus-media-perpustam-2026-07-14",
+  "title": "Perpustam",
+  "group": "arcus media",
+  "discovered": "2026-07-14T21:53:36.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "https://www.ransomlook.io/screenshots/arcus media/Perpustam.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

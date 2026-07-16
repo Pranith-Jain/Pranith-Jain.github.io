@@ -1,0 +1,15 @@
+{
+  "slug": "the-gentlemen-byggelit-sverige-2026-07-16",
+  "title": "Byggelit Sverige",
+  "group": "the gentlemen",
+  "discovered": "2026-07-16T12:53:02.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "byggelit.se zoominfo.com/c/byggelit-sverige-ab/6046017 Swedish manufacturing company based in Lit that has been producing particleboard since 1962. They specialize in sustainable, customized particleboard component solutions, using advanced CNC technology to cut, drill, and mill panels to exact customer specifications. This approach minimizes on-site labor and waste while promoting a circular economy by recycling production scraps into new boards",
+  "source_url": "https://www.ransomlook.io/recent",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

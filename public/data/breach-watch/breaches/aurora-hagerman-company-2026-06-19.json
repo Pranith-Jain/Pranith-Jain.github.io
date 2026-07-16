@@ -1,0 +1,15 @@
+{
+  "slug": "aurora-hagerman-company-2026-06-19",
+  "title": "Hagerman & Company",
+  "group": "aurora",
+  "discovered": "2026-06-19T13:52:11.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "*** — a 40-year-old Autodesk Platinum Partner headquartered in Mt. Zion, Illinois, serving 250+ enterprise customers across manufacturing, energy, defense, healthcare, and education.\nThe exposed dataset includes:\n\nComplete proprietary source code for 15+ commercial products including the HNC Licensing System (License Generator, License Server, License Manager) — enabling unlimited piracy of all Hagerman products.\n8+ plaintext database credentials in .udl files, including an Oracle SYS (DBA superuser) account with password \"Hagerman@1!\" reused across multiple systems.\nEngineering vault databases for 14+ critical infrastructure entities — NYPA (7 power plants including Niagara Falls), Kinder Morgan (Elba Island LNG terminal), HydroOne (Ontario electricity), Phillips 66, Chevron, and 8+ petroleum refineries.\nDefense/government data — NASA IT Security Requirements, Lockheed Martin configurations, Boeing-SVS vault data, JPL configurations.\nAzure DevOps transaction logs (1.6 GB) containing complete source code version history and potentially CI/CD deployment secrets.\nThird-party database credentials for Michigan State University (3 databases), Cal State Long Beach, and Beth Israel Deaconess Medical Center infrastructure.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

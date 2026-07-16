@@ -1,0 +1,15 @@
+{
+  "slug": "kairos-strata-republic-2026-04-17",
+  "title": "Strata Republic",
+  "group": "kairos",
+  "discovered": "2026-04-17T17:16:55.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "AU",
+  "sizeBytes": 0,
+  "description": "Strata Republic is a strata management company based in Sydney and Byron Bay, specializing in residential and commercial strata services. With over a decade of experience, they focus on effective communication and technology-enabled solutions to provide reliable management for their clients. Their services include comprehensive residential strata management, commercial strata management, and community property management, ensuring optimal returns for property owners. Strata Republic caters to a diverse clientele, including owners corporations and property developers, across various regions in New South Wales.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

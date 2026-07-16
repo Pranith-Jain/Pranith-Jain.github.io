@@ -1,0 +1,15 @@
+{
+  "slug": "d1r-synopsys-2026-07-13",
+  "title": "Synopsys",
+  "group": "D1R",
+  "discovered": "2026-07-13T11:32:50.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/07dabd69-42be-40f9-9909-a0c098cf0698",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["Darkfield"]
+}

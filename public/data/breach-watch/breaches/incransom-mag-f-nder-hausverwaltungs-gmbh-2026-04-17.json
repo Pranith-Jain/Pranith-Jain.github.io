@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-mag-f-nder-hausverwaltungs-gmbh-2026-04-17",
+  "title": "Mag. Fünder Hausverwaltungs GmbH",
+  "group": "incransom",
+  "discovered": "2026-04-17T18:37:18.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "AT",
+  "sizeBytes": 0,
+  "description": "Mag. Fünder Hausverwaltungs GmbH is a property management company operating throughout Austria, offering services such as professional real estate management, tailored property care, precise property accounting, and expert apartment renovations. The company focuses on transparency, fairness, sustainability, and innovation to build long-term relationships with clients. They cater to both small and large property management needs, ensuring high engagement regardless of the property size. Their team is well-trained and motivated, providing customized service packages to meet individual client requirements.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "arcusmedia-gemese-pt-2026-07-14",
+  "title": "gemese.pt",
+  "group": "arcusmedia",
+  "discovered": "2026-07-14T20:12:22.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "PT",
+  "sizeBytes": 0,
+  "description": "gemese.ptFounded in 1997, Milenia – Informática e Serviços, headquartered in Bustos in the Deadline: 2026-07-21 18:51:00.000000",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["arcus media"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

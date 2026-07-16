@@ -1,0 +1,15 @@
+{
+  "slug": "arcusmedia-be-travel-2026-07-14",
+  "title": "Be Travel",
+  "group": "arcusmedia",
+  "discovered": "2026-07-14T20:11:03.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "ZA",
+  "sizeBytes": 0,
+  "description": "betravel.co.zaBaithaupi Executive Travel trading as BE Travel , with 19 years experience i Deadline: 2026-07-21 18:51:00.000000",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["arcus media"],
+  "activity": "Hospitality and Tourism",
+  "references": ["ransomware.live"]
+}

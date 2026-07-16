@@ -1,0 +1,15 @@
+{
+  "slug": "unattributed-pitneybowes-2026-04-28",
+  "title": "PitneyBowes",
+  "group": "Unattributed",
+  "discovered": "2026-04-28T04:51:11.000Z",
+  "category": "data_breach",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Pitney Bowes, a shipping and mailing services company, was allegedly breached in April 2026 by the ShinyHunters group, with data later released publicly exposing 8.3M unique email addresses along with names, phone numbers, and physical addresses.",
+  "source_url": "https://xposedornot.com/breach/PitneyBowes",
+  "groupAliases": [],
+  "activity": "Information Technology",
+  "references": ["XposedOrNot"]
+}

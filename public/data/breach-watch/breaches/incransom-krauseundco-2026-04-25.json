@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-krauseundco-2026-04-25",
+  "title": "krauseundco",
+  "group": "incransom",
+  "discovered": "2026-04-25T00:04:02.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "Provision of civil engineering services, renovation and restoration of all types of buildings, road and path construction, sewer construction, pipeline construction for gas, water, and district heating, plant construction, engineering services, specialized civil engineering services, concrete restoration, trade in building materials, and all activities conducive to furthering the company’s purpose.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

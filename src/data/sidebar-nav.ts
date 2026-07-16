@@ -216,6 +216,7 @@ const PAGE_ICON_OVERRIDES: Record<string, LucideIcon> = {
   '/threatintel/tools/investigations': FolderTree,
   '/threatintel/tools/watches': Eye,
   '/threatintel/tools/unified-search': Search,
+  '/threatintel/tools/darknet-intel': Shield,
   // External
   '/threatintel/external/external': ExternalLink,
   '/threatintel/external/supply': Package,

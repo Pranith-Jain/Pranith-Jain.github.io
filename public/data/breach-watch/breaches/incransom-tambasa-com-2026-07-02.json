@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-tambasa-com-2026-07-02",
+  "title": "tambasa.com",
+  "group": "incransom",
+  "discovered": "2026-07-02T16:55:44.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "BR",
+  "sizeBytes": 0,
+  "description": "Tambasa Atacadistas is one of the largest wholesale distributors in Brazil, operating primarily in the B2B marketplace. Founded in 1949, the company supplies retail stores, supermarkets, and construction shops across the entire national territory.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

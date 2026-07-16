@@ -1,0 +1,15 @@
+{
+  "slug": "payoutsking-casta-diva-group-2026-07-14",
+  "title": "Casta Diva Group",
+  "group": "payoutsking",
+  "discovered": "2026-07-14T17:04:40.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "[AI generated] Casta Diva Group is an Italian communications and entertainment company headquartered in Milan, Italy. It operates in the media, events, and live entertainment industry, offering services including event production, branded entertainment, digital communication, and audiovisual content creation. The group serves corporate clients and institutions, managing large-scale events, product launches, and integrated communication campaigns across Italy and international markets.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Hospitality and Tourism",
+  "references": ["ransomware.live"]
+}

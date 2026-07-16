@@ -1,0 +1,15 @@
+{
+  "slug": "unattributed-intersport-2026-04-24",
+  "title": "Intersport",
+  "group": "Unattributed",
+  "discovered": "2026-04-24T06:59:52.000Z",
+  "category": "data_breach",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Intersport, a sports retailer, confirmed a cyberattack in March 2025 that exposed data of 2.6M customers, including full names, email addresses, physical addresses, zip codes, and phone numbers.",
+  "source_url": "https://xposedornot.com/breach/Intersport",
+  "groupAliases": [],
+  "activity": "Retail",
+  "references": ["XposedOrNot"]
+}

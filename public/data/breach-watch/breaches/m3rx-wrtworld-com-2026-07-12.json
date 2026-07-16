@@ -1,0 +1,15 @@
+{
+  "slug": "m3rx-wrtworld-com-2026-07-12",
+  "title": "wrtworld.com",
+  "group": "m3rx",
+  "discovered": "2026-07-12T13:00:40.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "+1 (305) 884-3700 , WRT World Enterprises is a leading provider of purchasing and logistics services tailored for major retailers in Latin America. The company specializes in streamlining supply chain management through services such as shipping, storage, purchasing, and vendor management. With a focus on innovative solutions, WRT helps its clients remain competitive by offering order purchasing technology and comprehensive logistics services. Their extensive network and established relationships with suppliers enable them to negotiate favorable prices, ensuring their clients have access to the best products in the market. Stolen: 377 GB 267,891 Files",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "braincipher-goldenstateortho-com-2026-07-01",
+  "title": "goldenstateortho.com",
+  "group": "BrainCipher",
+  "discovered": "2026-07-01T15:51:11.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "[AI generated] Golden State Ortho appears to be an orthopedic medical practice or orthopedic supply company based in the United States, likely California given the \"Golden State\" reference. It operates in the healthcare industry, potentially offering orthopedic surgical services, prosthetics, orthotics, or related medical products and patient care. Specific verified details about this company are limited, so full operational details cannot be confirmed with certainty.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["brain cipher"],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

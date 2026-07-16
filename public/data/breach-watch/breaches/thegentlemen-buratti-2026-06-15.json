@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-buratti-2026-06-15",
+  "title": "Buratti",
+  "group": "thegentlemen",
+  "discovered": "2026-06-15T12:59:12.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "***.it zoominfo.com/c/buratti-store/533160142 Buratti is a historic, third-generation Italian family business based in Bolzano, renowned for its premium footwear boutiques. They offer a vast selection of elegant, casual, and mountain shoes for men, women, and children from top Italian brands. Additionally, they specialize in professional safety footwear and work accessories for the agricultural and industrial sectors, ensuring maximum protection for workers",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

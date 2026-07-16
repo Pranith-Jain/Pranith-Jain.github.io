@@ -1,0 +1,15 @@
+{
+  "slug": "dragonforce-northeast-rescue-systems-2026-07-13",
+  "title": "Northeast Rescue Systems",
+  "group": "dragonforce",
+  "discovered": "2026-07-13T15:52:40.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Northeast Rescue Systems is a dedicated provider of specialized rescue, safety, and protective equipment serving emergency services and industrial safety communities throughout the New England region. The company is known for supplying a wide selection of highquality gear, including protective clothing, technical rescue tools, detection instruments, and missioncritical hardware tailored to the demanding needs of first responders and safety professionals. With a focus on reliability, expert guidance, and personalized service, Northeast Rescue Systems supports teams that operate in hazardous environments by equipping them with trusted products from reputable manufacturers and fostering strong relationships built on professionalism and trust",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["DRAGON FORCE"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

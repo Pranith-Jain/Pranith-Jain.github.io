@@ -1,0 +1,15 @@
+{
+  "slug": "krybit-nacs-com-hk-2026-05-19",
+  "title": "nacs.com.hk",
+  "group": "krybit",
+  "discovered": "2026-05-19T12:52:56.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "HK",
+  "sizeBytes": 0,
+  "description": "nacs.com.hk is a Hong Kong-based corporate and administrative services company, specializing in company formation and ma...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

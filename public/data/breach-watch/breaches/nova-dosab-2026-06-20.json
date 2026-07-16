@@ -1,0 +1,15 @@
+{
+  "slug": "nova-dosab-2026-06-20",
+  "title": "Dosab",
+  "group": "nova",
+  "discovered": "2026-06-20T14:34:33.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "SA",
+  "sizeBytes": 0,
+  "description": "Demirtaş Organize Sanayi Bölgesi (DOSAB) provides a range of services including waste water treatment, energy supply, and social facilities to support its industrial clients. The region hosts over 573 active companies and employs around 44,000 people, focusing on sectors such as automotive and textile. DOSAB is committed to sustainability and offers various online services and resources for its members. The organization also emphasizes social responsibility through community engagement and educational initiatives - Nova Provide tree and samples from stolen data to the company when its get in touch with support department.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "nightspire-cedar-crest-college-2026-07-14",
+  "title": "Cedar Crest College",
+  "group": "nightspire",
+  "discovered": "2026-07-14T19:30:02.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Data is not available now.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["NIGHT SPIRE"],
+  "activity": "Education",
+  "references": ["ransomware.live"]
+}

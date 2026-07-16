@@ -1,0 +1,15 @@
+{
+  "slug": "payload-peroni-sosa-tellechea-burt-narvaja-2026-04-23",
+  "title": "Peroni Sosa Tellechea Burt & Narvaja",
+  "group": "payload",
+  "discovered": "2026-04-23T18:05:05.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "UY",
+  "sizeBytes": 0,
+  "description": "PSTBN Peroni Sosa Tellechea Burt & Narvaja is one of the largest and most prestigious law firms in Paraguay, founded in 1968. The firm is committed to meeting the diverse legal needs of its clients across various practice areas, including corporate law, tax law, agribusiness, and regulatory compliance.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

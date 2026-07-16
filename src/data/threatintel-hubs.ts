@@ -1246,6 +1246,14 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'ToolsDirectory',
         badge: 'new',
       },
+      {
+        path: '/threatintel/tools/darknet-intel',
+        tabId: 'darknet-intel',
+        label: 'Darknet Intel',
+        desc: '42 tools across 13 providers — IP reputation, malware analysis, vulnerability lookup, ransomware tracking, breach intelligence.',
+        compVar: 'DarknetIntel',
+        badge: 'new',
+      },
     ],
   },
   {

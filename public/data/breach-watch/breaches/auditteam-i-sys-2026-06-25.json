@@ -1,0 +1,15 @@
+{
+  "slug": "auditteam-i-sys-2026-06-25",
+  "title": "I-SYS",
+  "group": "AuditTeam",
+  "discovered": "2026-06-25T04:20:19.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "RU",
+  "sizeBytes": 0,
+  "description": "I-SYS is a Russian software development and business automation company with 25 years of experience, offering custom development, digital transformation consulting, and DevOps services, with core products including the DocTrix electronic document management platform and the AI assistant Матрёшка, serving over half of Russia's TOP-100 enterprises.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["audit team"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

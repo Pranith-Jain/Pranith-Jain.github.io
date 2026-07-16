@@ -1,0 +1,15 @@
+{
+  "slug": "akira-clarkson-walsh-coulter-2026-05-11",
+  "title": "Clarkson Walsh & Coulter",
+  "group": "akira",
+  "discovered": "2026-05-11T12:50:19.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Clarkson Walsh & Coulter provides innovative legal solutions and aggressive litigation services\nto clients of all sizes across South Carolina. The firm specializes in various areas including\ngeneral liability, employment, medical malpractice, and commercial matters, representing indiv\niduals, corporations, and insurance carriers in both State and Federal Court.\n\nWe will upload 236gb of corporate data soon. Client personal information (passports, DLs, and s\no on), contracts and agreements, lots of legal confidential docs (court records, police reports\n, etc), employee information, financials and so on.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Megazord"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-cemoi-2026-07-13",
+  "title": "Cemoi",
+  "group": "qilin",
+  "discovered": "2026-07-13T21:00:59.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "FR",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-lynxprecast-co-uk-2026-04-17",
+  "title": "lynxprecast.co.uk",
+  "group": "safepay",
+  "discovered": "2026-04-17T16:26:29.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "Lynx Precast Ltd is a UK-based construction manufacturing company specialising in the design, manufacture and installation of precast concrete products …",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

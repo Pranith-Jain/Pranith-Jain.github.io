@@ -1,0 +1,15 @@
+{
+  "slug": "arcus-media-i-fitness-2026-07-14",
+  "title": "I-FITNESS",
+  "group": "arcus media",
+  "discovered": "2026-07-14T21:53:30.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "https://www.ransomlook.io/screenshots/arcus media/I-FITNESS.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

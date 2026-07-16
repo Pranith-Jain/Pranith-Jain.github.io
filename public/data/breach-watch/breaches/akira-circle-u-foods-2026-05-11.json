@@ -1,0 +1,15 @@
+{
+  "slug": "akira-circle-u-foods-2026-05-11",
+  "title": "Circle U Foods",
+  "group": "akira",
+  "discovered": "2026-05-11T12:20:42.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Circle U Foods, Inc. is a manufacturer of custom seasonings and flavored food grade oils based \nin Fort Worth, TX. The company serves domestic and international restaurant chains, distributor\ns, and food manufacturers.\n\nWe will upload 13gb of corporate data soon. Employee personal information (phones, addresses, e\nmails, SSNs, passports numbers and so on), client data, financials, payment details, projects i\nnformation (drawings, specifications, etc), NDAs and so on.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Megazord"],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "coinbasecartel-precision-coating-2026-04-23",
+  "title": "Precision Coating",
+  "group": "coinbasecartel",
+  "discovered": "2026-04-23T09:57:13.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A\n\nThere are multiple companies operating under the name \"Precision Coating\" across various industries and countries, and without additional context such as location or sector, I cannot reliably identify a specific organization to provide an accurate and factual description without risking confusion or misinformation.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["coinbase cartel"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

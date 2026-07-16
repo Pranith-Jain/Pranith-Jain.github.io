@@ -1,0 +1,15 @@
+{
+  "slug": "payload-al-sulaiti-law-firm-2026-04-20",
+  "title": "Al Sulaiti Law Firm",
+  "group": "payload",
+  "discovered": "2026-04-20T12:11:27.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "QA",
+  "sizeBytes": 0,
+  "description": "Al Sulaiti Law Firm is one of the largest law firms in Qatar, established in 2002, offering a wide range of legal services including arbitration, banking, corporate, employment, energy, and intellectual property. The firm emphasizes teamwork and collaboration, aiming to build strong relationships with clients to exceed their expectations. With a diverse and innovative team, they provide high-quality professional services tailored to meet the unique needs of their clients. Their commitment to integrity and client satisfaction has earned them recognition and respect in the legal community.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

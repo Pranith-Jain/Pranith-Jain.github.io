@@ -1,0 +1,15 @@
+{
+  "slug": "coinbasecartel-marlborough-partners-2026-04-25",
+  "title": "Marlborough Partners",
+  "group": "coinbasecartel",
+  "discovered": "2026-04-25T15:09:20.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "[AI generated] Marlborough Partners is a UK-based independent corporate finance advisory firm specialising in mergers and acquisitions, private equity transactions, and strategic advisory services. The firm primarily works with mid-market companies, providing guidance on buyouts, disposals, fundraising, and growth strategies. It operates within the financial services and investment banking sector, serving clients across Europe and beyond.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["coinbase cartel"],
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
+}

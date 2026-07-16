@@ -1,0 +1,15 @@
+{
+  "slug": "nightspire-huse-incorporated-2026-05-18",
+  "title": "Huse Incorporated",
+  "group": "nightspire",
+  "discovered": "2026-05-18T18:24:01.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "- MSSQL-DB- HR Documents- Contracts",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["NIGHT SPIRE"],
+  "activity": "Hospitality and Tourism",
+  "references": ["ransomware.live"]
+}

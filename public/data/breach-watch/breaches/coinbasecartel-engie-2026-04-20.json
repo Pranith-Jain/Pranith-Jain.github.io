@@ -1,0 +1,15 @@
+{
+  "slug": "coinbasecartel-engie-2026-04-20",
+  "title": "Engie",
+  "group": "coinbasecartel",
+  "discovered": "2026-04-20T20:29:34.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "FR",
+  "sizeBytes": 0,
+  "description": "[AI generated] Engie is a French multinational energy company headquartered in Paris, France. It operates across the electricity generation, natural gas distribution, and renewable energy sectors. The company provides energy services to individuals, businesses, and local authorities worldwide, with activities spanning power production, infrastructure management, and energy efficiency solutions. Engie is active in over 70 countries globally.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["coinbase cartel"],
+  "activity": "Energy",
+  "references": ["ransomware.live"]
+}

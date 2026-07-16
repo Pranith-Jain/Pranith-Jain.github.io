@@ -1,0 +1,15 @@
+{
+  "slug": "cmdorganization-golden-star-resources-2026-07-11",
+  "title": "Golden Star Resources",
+  "group": "cmdorganization",
+  "discovered": "2026-07-11T10:50:29.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "GH",
+  "sizeBytes": 0,
+  "description": "Wassa is located in south-western Ghana. Golden Star commenced production from the surface operation at Wassa in 2005 and commercial production was achieved at Wassa Underground on January 1, 2017. In early 2018 Wassa transitioned into an underground-focused operation. Thanks to the scale of the historical open pit mining operation the processing plant has significant excess capacity and is currently only running at 70-80% (based on 2020 actuals) utilization. Development of the large inferred mineral resource which comprises the southern Extension zone, was the subject of a Preliminary Economic Assessment which was included in the March 2021 Technical Report. Given the scale of the resource at Wassa, the Company is exploring the potential to increase the mining rate in order to fill the mill.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["cmd organization"],
+  "activity": "Energy",
+  "references": ["ransomware.live"]
+}

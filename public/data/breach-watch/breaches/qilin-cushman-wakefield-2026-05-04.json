@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-cushman-wakefield-2026-05-04",
+  "title": "Cushman & Wakefield",
+  "group": "qilin",
+  "discovered": "2026-05-04T17:55:56.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

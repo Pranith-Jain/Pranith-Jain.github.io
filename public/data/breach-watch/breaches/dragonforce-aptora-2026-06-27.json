@@ -1,0 +1,15 @@
+{
+  "slug": "dragonforce-aptora-2026-06-27",
+  "title": "Aptora",
+  "group": "dragonforce",
+  "discovered": "2026-06-27T00:52:38.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Aptora is an aggressively growing software company in Lenexa, KS. The company offers award-winning software and consulting services to the service and contracting industries. In 2006, the company were voted one of the top twenty-five companies in the Kansas City area by the Business Journal. Aptora also provides data hosting and processing services for its clients on its own infrastructure. During our visit, we took not only the company’s own data but also the databases of its clients. Unfortunately, the company showed no interest in preserving its clients’ data. When we contacted them, they told us the company had assured them there was no leak. That’s not true. For the release, we have prepared not only Aptora data but also archives containing the databases of more than 100 of its clients. This could affect Aptora leadership, and they may decide to prevent publication.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["DRAGON FORCE"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

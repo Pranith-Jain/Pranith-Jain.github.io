@@ -1,0 +1,15 @@
+{
+  "slug": "anubis-tractial-2026-04-23",
+  "title": "Tractial",
+  "group": "anubis",
+  "discovered": "2026-04-23T02:59:05.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "A small but substantial data breach at a fintech company.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

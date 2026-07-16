@@ -863,13 +863,16 @@ import {
 import { siEdgeToolsRouter } from './routes/si-edge-tools';
 import { threatIntelRouter } from './routes/threat-intel-edge-tools';
 import { winRegRouter } from './routes/winreg-edge-tools';
+import { breachWatchRouter } from './routes/breach-watch-edge-tools';
 import { osintRouter } from './routes/osint-edge-tools';
 import { reportsRouter } from './routes/reports-edge-tools';
 import { campaignsRouter } from './routes/campaigns-edge-tools';
 import { traceixRouter } from './routes/traceix';
+import { whoxyRouter } from './routes/whoxy';
 import { fullhuntRouter } from './routes/fullhunt';
 import { opensanctionsRouter } from './routes/opensanctions';
 import { dehashRouter } from './routes/dehash';
+import { darknetIntelRouter } from './routes/darknet-intel-tools';
 import { fbiWantedRouter } from './routes/fbi-wanted';
 import { interpolRouter } from './routes/interpol';
 import { mozillaTlsRouter } from './routes/mozilla-tls';
@@ -1882,6 +1885,11 @@ app.route('/api/v1', threatIntelRouter);
 // Upstream: https://dfir-scripts.github.io/registry/
 app.route('/api/v1', winRegRouter);
 
+// Breach Watch — live breach/leak data from 6 free public trackers
+// (ransomware.live + ransomlook.io + Darkfield + RecentBreaches.com +
+// CTI.FYI + XposedOrNot). Data ships in public/data/breach-watch/.
+app.route('/api/v1', breachWatchRouter);
+
 // OSINT Portal Directory — curated list of 40 free/paid OSINT portals.
 // Data ships in public/data/osint/ built by scripts/build-osint-manifest.mjs.
 app.route('/api/v1', osintRouter);
@@ -1906,6 +1914,11 @@ app.route('/api/v1', etdaActorsRouter);
 // Requires TRACEIX_API_KEY Worker secret.
 app.route('/api/v1', traceixRouter);
 
+// Whoxy — reverse WHOIS lookup by email/name/company/keyword.
+// Requires WHOXY_API_KEY Worker secret.
+// Endpoint: GET /api/v1/whoxy/reverse?q=<term>&type=email|name|company|keyword
+app.route('/api/v1', whoxyRouter);
+
 // FullHunt — attack surface discovery.
 // Requires FULLHUNT_API_KEY Worker secret (free at fullhunt.io).
 // Endpoints: GET /api/v1/fullhunt/domain?domain=
@@ -1924,6 +1937,11 @@ app.route('/api/v1', opensanctionsRouter);
 // No API key required.
 // Endpoint: GET /api/v1/dehash?hash=
 app.route('/api/v1', dehashRouter);
+
+// Darknet Intel Tools — GreyNoise, Pulsedive, Vulners, IntelX, AbuseIPDB,
+// deep ransomware, HIBP, abuse.ch, OTX, Hybrid Analysis.
+// Partially key-gated (see source-status endpoint for details).
+app.route('/api/v1', darknetIntelRouter);
 
 // FBI Wanted — search the FBI wanted persons database.
 // No API key required (public government API).

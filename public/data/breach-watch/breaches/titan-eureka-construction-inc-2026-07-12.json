@@ -1,0 +1,15 @@
+{
+  "slug": "titan-eureka-construction-inc-2026-07-12",
+  "title": "Eureka Construction INC",
+  "group": "titan",
+  "discovered": "2026-07-12T09:22:00.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Construction",
+  "references": ["ransomware.live"]
+}

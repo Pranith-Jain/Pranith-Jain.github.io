@@ -1,0 +1,15 @@
+{
+  "slug": "krybit-aasa-ae-2026-06-19",
+  "title": "aasa.ae",
+  "group": "krybit",
+  "discovered": "2026-06-19T21:01:34.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "AE",
+  "sizeBytes": 0,
+  "description": "AASA CP Holding Company (AASA Group) is a multinational business headquartered in Dubai, UAE, with a proud legacy of exc...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

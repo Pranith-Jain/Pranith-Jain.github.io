@@ -1,0 +1,15 @@
+{
+  "slug": "nova-nsw-rural-fire-service-2026-06-26",
+  "title": "NSW Rural Fire Service",
+  "group": "nova",
+  "discovered": "2026-06-26T11:28:34.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "AU",
+  "sizeBytes": 0,
+  "description": "Data Leaked, Updated from Nova Team by investigate Affiliate provided informations.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Public Sector",
+  "references": ["ransomware.live"]
+}

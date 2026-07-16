@@ -1,0 +1,15 @@
+{
+  "slug": "blackwater-shenzhen-gongjin-electronics-2026-05-02",
+  "title": "Shenzhen Gongjin Electronics",
+  "group": "blackwater",
+  "discovered": "2026-05-02T08:47:54.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "CN",
+  "sizeBytes": 0,
+  "description": "Shenzhen Gongjin Electronics, founded in 1998 and also known as T&W, is a telecommunications manufacturing company specializing in broadband communication technology.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["BLACK WATER"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

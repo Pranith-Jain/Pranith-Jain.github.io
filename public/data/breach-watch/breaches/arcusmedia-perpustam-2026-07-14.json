@@ -1,0 +1,15 @@
+{
+  "slug": "arcusmedia-perpustam-2026-07-14",
+  "title": "Perpustam",
+  "group": "arcusmedia",
+  "discovered": "2026-07-14T20:12:59.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "MY",
+  "sizeBytes": 0,
+  "description": "Perpustam.gov.myPERPUSTAM stands for the Malacca Public Library Corporation, which is the Deadline: 2026-07-21 18:51:00.000000",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["arcus media"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

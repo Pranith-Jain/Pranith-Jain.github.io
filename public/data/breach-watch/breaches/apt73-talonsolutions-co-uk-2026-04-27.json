@@ -1,0 +1,15 @@
+{
+  "slug": "apt73-talonsolutions-co-uk-2026-04-27",
+  "title": "talonsolutions.co.uk",
+  "group": "apt73",
+  "discovered": "2026-04-27T16:55:02.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "Talon Solutions Ltd was formed by Vince Cluderay in 2002 for the purpose of selling document mana...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Eraleign"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

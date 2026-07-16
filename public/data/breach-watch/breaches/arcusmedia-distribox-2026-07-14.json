@@ -1,0 +1,15 @@
+{
+  "slug": "arcusmedia-distribox-2026-07-14",
+  "title": "Distribox",
+  "group": "arcusmedia",
+  "discovered": "2026-07-14T20:11:39.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "FR",
+  "sizeBytes": 0,
+  "description": "www.distribox.frDistribox helps businesses deliver great products by providing smart techn Deadline: 2026-07-21 18:51:00.000000",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["arcus media"],
+  "activity": "Transportation/Logistics",
+  "references": ["ransomware.live"]
+}

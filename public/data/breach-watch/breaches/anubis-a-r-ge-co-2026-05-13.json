@@ -1,0 +1,15 @@
+{
+  "slug": "anubis-a-r-ge-co-2026-05-13",
+  "title": "A.R.Ge.Co",
+  "group": "anubis",
+  "discovered": "2026-05-13T02:20:40.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "FR",
+  "sizeBytes": 0,
+  "description": "Accounting firm data breach.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

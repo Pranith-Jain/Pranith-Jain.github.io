@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-ergomed-2026-07-01",
+  "title": "ErgoMed",
+  "group": "thegentlemen",
+  "discovered": "2026-07-01T22:23:13.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "***.net ErgoMed Work Systems is a US-based occupational health and employment testing company that has been providing loss control programs since 1992.They specialize in physical demand simulation testing, musculoskeletal evaluations, and post-offer employment screening to help businesses and HR managers reduce workplace injuries",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

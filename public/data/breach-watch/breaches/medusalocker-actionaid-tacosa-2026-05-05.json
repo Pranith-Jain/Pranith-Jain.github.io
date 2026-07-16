@@ -1,0 +1,15 @@
+{
+  "slug": "medusalocker-actionaid-tacosa-2026-05-05",
+  "title": "ActionAid / TACOSA",
+  "group": "medusalocker",
+  "discovered": "2026-05-05T20:31:50.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "NGO sector. Domains: actionaid.org, tacosa.org.za, immigration.go.tz.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Public Sector",
+  "references": ["ransomware.live"]
+}

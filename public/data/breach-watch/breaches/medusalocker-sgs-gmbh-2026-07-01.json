@@ -1,0 +1,15 @@
+{
+  "slug": "medusalocker-sgs-gmbh-2026-07-01",
+  "title": "Sgs Gmbh",
+  "group": "medusalocker",
+  "discovered": "2026-07-01T22:32:52.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "Organization with 933 emails extracted. Domain: sgs-gmbh.com",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

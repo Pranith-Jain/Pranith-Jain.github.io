@@ -1,0 +1,15 @@
+{
+  "slug": "nightspire-s-s-a-a-ul-e-c-s-2026-04-18",
+  "title": "S***s*a A**ul***e C***s",
+  "group": "nightspire",
+  "discovered": "2026-04-18T02:42:29.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Data is not available now.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["NIGHT SPIRE"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

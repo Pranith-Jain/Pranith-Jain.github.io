@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-comp-trading-co-2026-07-01",
+  "title": "Comp Trading Co",
+  "group": "thegentlemen",
+  "discovered": "2026-07-01T22:20:00.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "TH",
+  "sizeBytes": 0,
+  "description": "***.co.th Comp Trading Co., Ltd. (CTC), a premier Thai IT solutions and services provider founded in 1985 by former IBM engineers. The company specializes in enterprise IT infrastructure, data center solutions, cybersecurity, and comprehensive system maintenance. Today, CTC serves as a strategic technology partner for businesses, delivering disaster recovery, network support, and IT consulting services",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

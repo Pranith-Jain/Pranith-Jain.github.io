@@ -1,0 +1,15 @@
+{
+  "slug": "ailock-solid-advance-inc-2026-07-15",
+  "title": "Solid Advance Inc.",
+  "group": "AiLock",
+  "discovered": "2026-07-15T09:20:31.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "JP",
+  "sizeBytes": 0,
+  "description": "Solid Advance Inc. is a Japanese software company, founded in 2004, based in Tokyo and Aomori. It develops and sells All Gather CRM, a fully in-house-built, integrated CRM package covering customer management, sales support (SFA), marketing, and call centers, available both in the cloud and on-premise. The company also provides network and cybersecurity services, including LAN/WAN design and security infrastructure.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

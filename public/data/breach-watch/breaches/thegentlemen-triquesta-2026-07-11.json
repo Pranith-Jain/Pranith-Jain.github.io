@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-triquesta-2026-07-11",
+  "title": "Triquesta",
+  "group": "thegentlemen",
+  "discovered": "2026-07-11T07:22:06.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "MX",
+  "sizeBytes": 0,
+  "description": "***.com zoominfo.com/c/triquesta-pte-ltd/346670373 Triquesta is a Singapore-based fintech company specializing in collateral, compliance, and risk management software for structured commodity finance.Founded by seasoned banking professionals, the firm provides cutting-edge technology that helps global banks and direct lenders reliably track assets and mitigate risks.With a strong international presence across Europe and Australia, their solutions empower financial institutions to navigate complex commodity markets efficiently",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

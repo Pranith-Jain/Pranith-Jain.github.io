@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-progressive-propane-2026-04-24",
+  "title": "Progressive Propane",
+  "group": "qilin",
+  "discovered": "2026-04-24T18:49:35.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Energy",
+  "references": ["ransomware.live"]
+}

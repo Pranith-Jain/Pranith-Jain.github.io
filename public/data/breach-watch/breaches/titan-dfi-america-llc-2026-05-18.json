@@ -1,0 +1,15 @@
+{
+  "slug": "titan-dfi-america-llc-2026-05-18",
+  "title": "DFI AMERICA, LLC",
+  "group": "titan",
+  "discovered": "2026-05-18T17:58:44.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "[AI generated] DFI AMERICA, LLC is a U.S.-based company operating in the financial services and investment industry. It functions as an American subsidiary or affiliate of a broader financial group, providing investment advisory, asset management, and related financial services. The company operates within the United States and serves institutional and corporate clients, supporting capital markets and financial consulting activities in North America.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

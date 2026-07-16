@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-beran-concrete-2026-07-01",
+  "title": "Beran Concrete",
+  "group": "thegentlemen",
+  "discovered": "2026-07-01T22:22:32.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "CZ",
+  "sizeBytes": 0,
+  "description": "***.com zoominfo.com/c/beran-concrete-inc/4424481 Beran Concrete is a premier concrete construction and ready-mix supplier serving commercial and residential projects across Wichita, Kansas, and the broader Midwest.Founded in 1980, the company is driven by a deep pride in quality workmanship and a proven ability to consistently meet strict client deadlines.To support its continued growth and better serve local communities, the business actively expands its regional footprint by integrating additional ready-mix plants",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Construction",
+  "references": ["ransomware.live"]
+}

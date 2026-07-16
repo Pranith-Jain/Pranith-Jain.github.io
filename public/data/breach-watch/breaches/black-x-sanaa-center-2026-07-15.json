@@ -1,0 +1,15 @@
+{
+  "slug": "black-x-sanaa-center-2026-07-15",
+  "title": "sanaa.center",
+  "group": "black x",
+  "discovered": "2026-07-15T05:59:23.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "<p>Sanaa Center for Strategic Studies (sanaa.center) is an independent research organization focused on Yemen and the surrounding Middle East, particularly politics, conflict, economics, governance, and regional security.</p>",
+  "source_url": "https://www.ransomlook.io/screenshots/black x/sanaacenter.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

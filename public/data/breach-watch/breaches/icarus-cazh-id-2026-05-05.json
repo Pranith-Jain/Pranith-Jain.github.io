@@ -1,0 +1,15 @@
+{
+  "slug": "icarus-cazh-id-2026-05-05",
+  "title": "Cazh.id",
+  "group": "Icarus",
+  "discovered": "2026-05-05T20:10:06.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "ID",
+  "sizeBytes": 0,
+  "description": "- User DB: 300,000 Users (Email, Hash, Phone, Address, DOB) for https://bkdp.cazh.id/.\r\n\r\n- KYC Vault: 7,800 Government IDs + 4,200 Selfies (including \"Hold-to-Face\" ID selfies).\r\n\r\n- 34 SQL Databases for associated schools (Students/Parents/Staff).\r\n\r\n- Corporate/Financial: Full Investor Database + partner documents\r\n\r\n- Collateral documents (Vehicle Registration Documents & Property Deeds)\r\n\r\n- Billing Proofs\r\n\r\n- Full src code of their services\n\nData stolen: PII, SOURCE CODE, KYC",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
+}

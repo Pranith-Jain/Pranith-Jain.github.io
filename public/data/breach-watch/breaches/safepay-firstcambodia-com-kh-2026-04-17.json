@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-firstcambodia-com-kh-2026-04-17",
+  "title": "firstcambodia.com.kh",
+  "group": "safepay",
+  "discovered": "2026-04-17T16:28:48.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "KH",
+  "sizeBytes": 0,
+  "description": "First Cambodia Co., Ltd. is a leading IT services and system integration company headquartered in Phnom Penh, Cambodia. Founded in …",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Hospitality and Tourism",
+  "references": ["ransomware.live"]
+}

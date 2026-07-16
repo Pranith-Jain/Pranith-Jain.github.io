@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-mondottica-2026-07-01",
+  "title": "Mondottica",
+  "group": "thegentlemen",
+  "discovered": "2026-07-01T22:19:45.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "***.com zoominfo.com/c/mondottica-ltd/346397915 Mondottica, a leading global eyewear company specializing in the design, production, and worldwide distribution of premium sunglasses and optical frames. Headquartered in London, the firm is renowned for managing an extensive portfolio of prestigious international fashion and lifestyle brand licenses. They combine innovative design with high-quality craftsmanship to deliver luxury eyewear collections to global markets",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

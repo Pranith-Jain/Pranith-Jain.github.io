@@ -59,6 +59,7 @@ import type { D1Database } from '@cloudflare/workers-types';
 import { acquireCronLease, releaseCronLease, heartbeatCronLease } from './durable-objects/cron-lock';
 import { siCacheStats, loadSiIndex } from './lib/si-manifest';
 import { tiCacheStats, loadTiIndex } from './lib/threat-intel-manifest';
+import { bwCacheStats, loadBwIndex } from './lib/breach-watch-manifest';
 
 // Lease TTL for the cron single-flight gate. Generous so it covers the
 // worst-case job window (the briefing build runs well past the old 120s) —
@@ -121,6 +122,25 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
     } catch (e) {
       console.log(
         JSON.stringify({ job: 'ti-stats', status: 'failed', error: e instanceof Error ? e.message : String(e) })
+      );
+    }
+
+    // Breach Watch: log cache + manifest health once per cron tick.
+    try {
+      const idx = await loadBwIndex(env.ASSETS as unknown as Fetcher);
+      const cache = bwCacheStats();
+      console.log(
+        JSON.stringify({
+          job: 'bw-stats',
+          counts: idx.counts,
+          lastSyncedAt: idx.lastSyncedAt,
+          cacheHits: cache.breaches.hits,
+          cacheMisses: cache.breaches.misses,
+        })
+      );
+    } catch (e) {
+      console.log(
+        JSON.stringify({ job: 'bw-stats', status: 'failed', error: e instanceof Error ? e.message : String(e) })
       );
     }
   }

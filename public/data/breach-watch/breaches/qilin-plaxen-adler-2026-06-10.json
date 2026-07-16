@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-plaxen-adler-2026-06-10",
+  "title": "Plaxen & Adler",
+  "group": "qilin",
+  "discovered": "2026-06-10T22:53:26.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

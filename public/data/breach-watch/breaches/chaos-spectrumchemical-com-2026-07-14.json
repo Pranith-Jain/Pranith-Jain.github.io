@@ -1,0 +1,15 @@
+{
+  "slug": "chaos-spectrumchemical-com-2026-07-14",
+  "title": "spectrumchemical.com",
+  "group": "chaos",
+  "discovered": "2026-07-14T20:22:34.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Public Notice: Final Ultimatum to Spectrum Chemical Management\n\nTo the Management of Spectrum Chemical:\n\nWe have provided you with sufficient time to engage in a productive dialogue regarding the security breach of your infrastructure. Your refusal to communicate and your attempt to ignore the sever…",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

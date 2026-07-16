@@ -1,0 +1,15 @@
+{
+  "slug": "play-preneed-funeral-programs-2026-07-07",
+  "title": "Preneed Funeral Programs",
+  "group": "play",
+  "discovered": "2026-07-07T17:56:27.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "United States",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["PlayCrypt"],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

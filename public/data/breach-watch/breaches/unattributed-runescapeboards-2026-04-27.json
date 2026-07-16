@@ -1,0 +1,15 @@
+{
+  "slug": "unattributed-runescapeboards-2026-04-27",
+  "title": "RuneScapeBoards",
+  "group": "Unattributed",
+  "discovered": "2026-04-27T13:24:41.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "RuneScape Boards, a RuneScape community forum, was compromised in approximately August 2013, exposing 224k user records including usernames, email addresses, IP addresses, and salted vBulletin password hashes.",
+  "source_url": "https://xposedornot.com/breach/RuneScapeBoards",
+  "groupAliases": [],
+  "activity": "Entertainment",
+  "references": ["XposedOrNot"]
+}

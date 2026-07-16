@@ -1,0 +1,15 @@
+{
+  "slug": "black-x-african-national-congress-2026-06-02",
+  "title": "African National Congress",
+  "group": "Black X",
+  "discovered": "2026-06-02T09:32:03.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "ZA",
+  "sizeBytes": 0,
+  "description": "The ANC is a national liberation movement. It was formed in 1912 to unite the African people and spearhead the struggle for fundamental political, social and economic change. For ten decades the ANC has led the struggle against racism and oppression, organising mass resistance, mobilising the international community and taking up the armed struggle against apartheid.&nbsp;  The ANC achieved a decisive democratic breakthrough in the 1994 elections, where it was given a firm mandate to negotiate a new democratic Constitution for South Africa. The new Constitution was adopted in 1996. The ANC was re-elected in 1999 to national and provincial government with an increased mandate. The policies of the ANC are determined by its membership and its leadership is accountable to the membership.&nbsp;  Membership of the ANC is open to all South Africans above the age of 18 years, irrespective of race, colour and creed, who accept its principles, policies and programmes.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Public Sector",
+  "references": ["ransomware.live"]
+}

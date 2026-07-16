@@ -1,0 +1,15 @@
+{
+  "slug": "dragonforce-andrewtjohnson-com-2026-04-27",
+  "title": "andrewtjohnson.com",
+  "group": "dragonforce",
+  "discovered": "2026-04-27T13:53:32.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "The company is a leading provider of printing and reprographic services, offering image processing, printing, graphic design for exhibitions, copying, offset printing, and an online catalog of drawings",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["DRAGON FORCE"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

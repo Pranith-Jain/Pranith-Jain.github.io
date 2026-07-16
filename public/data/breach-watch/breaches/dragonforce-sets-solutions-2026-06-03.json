@@ -1,0 +1,15 @@
+{
+  "slug": "dragonforce-sets-solutions-2026-06-03",
+  "title": "SETS Solutions",
+  "group": "dragonforce",
+  "discovered": "2026-06-03T17:52:32.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "LB",
+  "sizeBytes": 0,
+  "description": "SETS Solutions is a prominent information technology company based in Lebanon, serving the Middle East since 1990. The company specializes in a diverse range of technology solutions, including its flagship Human Resources Management System, People365, which encompasses Time Attendance, Payroll, and HR modules. Additionally, SETS offers services in data center solutions, security, cloud computing, and end-user computing, catering to various industries. With over 25 years of experience, SETS aims to enhance organizational efficiency and productivity through innovative technology solutions.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["DRAGON FORCE"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

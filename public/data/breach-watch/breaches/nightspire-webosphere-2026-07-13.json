@@ -1,0 +1,15 @@
+{
+  "slug": "nightspire-webosphere-2026-07-13",
+  "title": "Webosphere",
+  "group": "nightspire",
+  "discovered": "2026-07-13T15:00:14.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "IN",
+  "sizeBytes": 0,
+  "description": "-SQL Database- Source Code",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["NIGHT SPIRE"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

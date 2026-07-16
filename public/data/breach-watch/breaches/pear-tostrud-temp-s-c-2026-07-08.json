@@ -1,0 +1,15 @@
+{
+  "slug": "pear-tostrud-temp-s-c-2026-07-08",
+  "title": "Tostrud & Temp, S.C.",
+  "group": "pear",
+  "discovered": "2026-07-08T11:01:13.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Full service CPA firm serving La Crosse",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

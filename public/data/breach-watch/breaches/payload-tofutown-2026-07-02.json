@@ -1,0 +1,15 @@
+{
+  "slug": "payload-tofutown-2026-07-02",
+  "title": "Tofutown",
+  "group": "payload",
+  "discovered": "2026-07-02T07:26:30.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "TOFUTOWN is a traditional organic manufacturer specializing in plant-based foods, founded in 1981. The company offers a diverse range of products including vegan spreads, tofu, and seitan, all made from high-quality organic ingredients. With a commitment to sustainability and natural ingredients, TOFUTOWN caters to health-conscious consumers looking for convenient and delicious plant-based meal options.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

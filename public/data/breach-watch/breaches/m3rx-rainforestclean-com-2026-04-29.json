@@ -1,0 +1,15 @@
+{
+  "slug": "m3rx-rainforestclean-com-2026-04-29",
+  "title": "rainforestclean.com",
+  "group": "m3rx",
+  "discovered": "2026-04-29T10:09:24.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Rainforest Carwash and Oil Change, along with it’s owner, enjoys giving back to our local community. Hopefully you are inspired to help after seeing the ways in which we try to help others. Stolen: 259gb 77k files",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

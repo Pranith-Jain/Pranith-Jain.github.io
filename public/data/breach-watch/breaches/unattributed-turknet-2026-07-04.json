@@ -1,0 +1,15 @@
+{
+  "slug": "unattributed-turknet-2026-07-04",
+  "title": "Turknet",
+  "group": "Unattributed",
+  "discovered": "2026-07-04T13:29:45.000Z",
+  "category": "credential_leak",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "TurkNet, a major Turkish internet service provider, was breached in March 2025, exposing over 2.8M customer records including dates of birth, email addresses, static IP addresses, names, national ID numbers, phone numbers, physical addresses, and a small number of plaintext passwords and usernames.",
+  "source_url": "https://xposedornot.com/breach/Turknet",
+  "groupAliases": [],
+  "activity": "Telecommunication",
+  "references": ["XposedOrNot"]
+}

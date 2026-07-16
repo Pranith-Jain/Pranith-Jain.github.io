@@ -1,0 +1,15 @@
+{
+  "slug": "chaos-gisy-com-2026-07-06",
+  "title": "gisy.com",
+  "group": "chaos",
+  "discovered": "2026-07-06T19:22:30.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Target: Gisy.com\nStatus: Data Exfiltration Confirmed\nVolume: 1.1 TB (341,712 files)\nDeadline: 24 Hours\n\nWe have successfully exfiltrated 1.1 Terabytes of internal data from Global Industries’ (gisy.com) primary network servers. This archive contains comprehensive documentation covering every layer…",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-gut-heckenhof-de-2026-06-17",
+  "title": "gut-heckenhof.de",
+  "group": "safepay",
+  "discovered": "2026-06-17T20:24:10.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "Established in 1992, the company operates a four-star hotel and one of the largest golf facilities in the region. The …",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

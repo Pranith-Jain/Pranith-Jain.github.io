@@ -40,6 +40,7 @@ const WinReg = lazy(() => import('./pages/WinReg'));
 const Aptmap = lazy(() => import('./pages/Aptmap'));
 const ETDAActors = lazy(() => import('./pages/ETDAActors'));
 const Traceix = lazy(() => import('./pages/Traceix'));
+const Whoxy = lazy(() => import('./pages/Whoxy'));
 const Cerast = lazy(() => import('./pages/threatintel/Cerast'));
 const ThreatMonInfostealer = lazy(() => import('./pages/threatintel/ThreatMonInfostealer'));
 const Projects = lazy(() => import('./pages/Projects'));
@@ -229,6 +230,7 @@ const CveResourcesCatalog = lazy(() => import('./pages/dfir/CveResourcesCatalog'
 const CyberCrime = lazy(() => import('./pages/threatintel/CyberCrime'));
 const DarkWeb = lazy(() => import('./pages/threatintel/DarkWebOsintTools'));
 const DarkWebRecon = lazy(() => import('./pages/threatintel/DarkWebRecon'));
+const DarknetIntel = lazy(() => import('./pages/DarknetIntel'));
 const OnionWatch = lazy(() => import('./pages/dfir/OnionWatch'));
 const DarknetMarketsTimeline = lazy(() => import('./pages/threatintel/DarknetMarketsTimeline'));
 const DeepDarkCTI = lazy(() => import('./pages/threatintel/DeepDarkCTI'));
@@ -420,6 +422,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threat-intel', Component: ThreatIntel },
   { path: '/dfir/winreg', Component: WinReg },
   { path: '/dfir/traceix', Component: Traceix },
+  { path: '/dfir/whoxy', Component: Whoxy },
   { path: '/threatintel/apt-actors', Component: ETDAActors },
   { path: '/threatintel/aptmap', Component: Aptmap },
   { path: '/threatintel/external/cerast', Component: Cerast },
@@ -715,6 +718,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/tools/watches', Component: Watches },
   { path: '/threatintel/tools/workspaces', Component: Workspaces },
   { path: '/threatintel/tools/directory', Component: ToolsDirectory },
+  { path: '/threatintel/tools/darknet-intel', Component: DarknetIntel },
   { path: '/threatintel/tools/tg-intel-search', Component: TgIntelSearch },
   { path: '/threatintel/tools/socradar-tools', Component: SocradarTools },
   { path: '/threatintel/tools/settings', Component: Settings },

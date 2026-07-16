@@ -1,0 +1,15 @@
+{
+  "slug": "genesis-wentworth-2026-05-30",
+  "title": "Wentworth",
+  "group": "genesis",
+  "discovered": "2026-05-30T18:53:43.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "the DC Metro area's premier design-build firm",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

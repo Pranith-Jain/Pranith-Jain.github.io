@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-interspa-betriebsverwaltungsgesellschaft-2026-06-05",
+  "title": "INTERSPA Betriebsverwaltungsgesellschaft",
+  "group": "qilin",
+  "discovered": "2026-06-05T10:53:15.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

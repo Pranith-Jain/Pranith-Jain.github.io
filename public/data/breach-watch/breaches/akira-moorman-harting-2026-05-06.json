@@ -1,0 +1,15 @@
+{
+  "slug": "akira-moorman-harting-2026-05-06",
+  "title": "Moorman Harting",
+  "group": "akira",
+  "discovered": "2026-05-06T12:50:16.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Moorman, Harting & Company is a comprehensive wealthcare firm that provides a variety of soluti\nons for tax, accounting, and financial needs. Their services include accounting, payroll, tax p\nreparation, retirement planning, and personalized financial coaching.\n\nWe will upload 21gb of corporate data soon. Employee personal information (passport numbers, Dl\ns, SSNs and other sensitive information), client files, financials, contracts and agreements, i\nnternal confidential files, NDAs and so on.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Megazord"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

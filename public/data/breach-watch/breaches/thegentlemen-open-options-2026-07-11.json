@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-open-options-2026-07-11",
+  "title": "Open Options",
+  "group": "thegentlemen",
+  "discovered": "2026-07-11T07:21:02.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "IE",
+  "sizeBytes": 0,
+  "description": "***.com Open Options was a prominent Texas-based software company specializing in open-architecture access control solutions, best known for its flagship enterprise platform, DNA Fusion. The company focused on delivering scalable physical security and identity management software tailored to complex organizational needs. Following a strategic acquisition, the company's technology and brand were integrated into Acre Security, where it continues to operate and evolve as DNA Fusion by acre security",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

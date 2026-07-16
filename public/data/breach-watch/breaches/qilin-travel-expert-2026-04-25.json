@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-travel-expert-2026-04-25",
+  "title": "Travel Expert",
+  "group": "qilin",
+  "discovered": "2026-04-25T14:46:20.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "HK",
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Hospitality and Tourism",
+  "references": ["ransomware.live"]
+}

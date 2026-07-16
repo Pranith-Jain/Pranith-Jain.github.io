@@ -1,0 +1,15 @@
+{
+  "slug": "apt73-minerasancristobal-com-2026-04-27",
+  "title": "minerasancristobal.com",
+  "group": "apt73",
+  "discovered": "2026-04-27T16:49:29.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "MX",
+  "sizeBytes": 0,
+  "description": "Minerals & Mining. financial docs, internal docs, personal docs.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Eraleign"],
+  "activity": "Energy",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "deadlock-nobani-co-2026-06-15",
+  "title": "Nobani Co",
+  "group": "Deadlock",
+  "discovered": "2026-06-15T18:23:57.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "IR",
+  "sizeBytes": 0,
+  "description": "Nobani & Co a professional financial services firm established in 1994. The company is headquartered in Amman, Jordan, and functions as an independent member of the ⁠Praxity international alliance of accounting and advisory firms.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

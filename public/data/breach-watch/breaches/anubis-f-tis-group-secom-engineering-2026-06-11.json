@@ -1,0 +1,15 @@
+{
+  "slug": "anubis-f-tis-group-secom-engineering-2026-06-11",
+  "title": "FÉTIS Group & SECOM Engineering",
+  "group": "anubis",
+  "discovered": "2026-06-11T22:51:05.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "FR",
+  "sizeBytes": 0,
+  "description": "Data breach at an engineering company. Financial records, project details, and personal information.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

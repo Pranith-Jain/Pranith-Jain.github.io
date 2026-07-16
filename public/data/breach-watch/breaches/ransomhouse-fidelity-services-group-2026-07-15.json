@@ -1,0 +1,15 @@
+{
+  "slug": "ransomhouse-fidelity-services-group-2026-07-15",
+  "title": "Fidelity Services Group",
+  "group": "ransomhouse",
+  "discovered": "2026-07-15T19:28:42.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "Fidelity Services Group is Southern Africa's largest integrated security solutions provider, specializing in innovative protection services. With over 60 years of experience, they offer a range of services including security guarding, cash management, and fire protection solutions tailored for corporate clients. Their commitment to excellence and technological advancement positions them as a leader in the security market. The company serves various industries, ensuring peace of mind through specialized and professionally trained personnel",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["RANSOM HOUSE"],
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
+}

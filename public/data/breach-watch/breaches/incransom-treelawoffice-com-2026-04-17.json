@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-treelawoffice-com-2026-04-17",
+  "title": "treelawoffice.com",
+  "group": "incransom",
+  "discovered": "2026-04-17T14:48:13.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Tree Law is a Social Security Disability law firm with 25 years of experience, dedicated to representing claimants in their pursuit of Social Security disability benefits. The firm specializes in assisting disabled individuals who are unable to work, guiding them through the entire Social Security process from initial applications to federal court. With a proven track record of helping thousands of clients, Tree Law aims to provide financial and medical benefits to those in need. Their services are available in Yakima and Tri-Cities, WA.\r Employees: 50\r Revenue: $5 Million\r Industry: Law Firms & Legal Services\r Phone Number: (509) 452-1700",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

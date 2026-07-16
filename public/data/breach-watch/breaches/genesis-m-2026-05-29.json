@@ -1,0 +1,15 @@
+{
+  "slug": "genesis-m-2026-05-29",
+  "title": "*M**",
+  "group": "genesis",
+  "discovered": "2026-05-29T21:23:34.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "A healthcare organization",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

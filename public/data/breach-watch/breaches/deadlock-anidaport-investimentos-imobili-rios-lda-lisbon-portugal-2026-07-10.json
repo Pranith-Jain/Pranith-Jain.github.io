@@ -1,0 +1,15 @@
+{
+  "slug": "deadlock-anidaport-investimentos-imobili-rios-lda-lisbon-portugal-2026-07-10",
+  "title": "Anidaport - Investimentos Imobiliários Lda., Lisbon, Portugal",
+  "group": "Deadlock",
+  "discovered": "2026-07-10T13:08:14.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "PT",
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
+}

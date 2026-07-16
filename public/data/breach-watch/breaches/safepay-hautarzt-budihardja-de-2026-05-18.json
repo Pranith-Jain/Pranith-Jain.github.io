@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-hautarzt-budihardja-de-2026-05-18",
+  "title": "hautarzt-budihardja.de",
+  "group": "safepay",
+  "discovered": "2026-05-18T19:55:18.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "The clinic is led by Dr. med. Debby Budihardja, a board-certified dermatologist and allergologist with extensive clinical experience gained at …",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

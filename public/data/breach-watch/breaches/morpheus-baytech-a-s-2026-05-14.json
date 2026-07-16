@@ -1,0 +1,15 @@
+{
+  "slug": "morpheus-baytech-a-s-2026-05-14",
+  "title": "BAYTECH A/S",
+  "group": "morpheus",
+  "discovered": "2026-05-14T09:24:46.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "DK",
+  "sizeBytes": 0,
+  "description": "**Website**: baytech.dk\n\n**Revenue**: $5 Million\n\nBaytech A/S is a Danish industrial engineering company that provides crane systems, material handling equipment, and logistics solutions for industria",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

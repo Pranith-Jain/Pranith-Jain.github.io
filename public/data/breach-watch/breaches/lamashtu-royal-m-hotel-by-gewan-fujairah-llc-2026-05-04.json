@@ -1,0 +1,15 @@
+{
+  "slug": "lamashtu-royal-m-hotel-by-gewan-fujairah-llc-2026-05-04",
+  "title": "ROYAL M HOTEL BY GEWAN FUJAIRAH LLC",
+  "group": "lamashtu",
+  "discovered": "2026-05-04T12:54:33.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "AE",
+  "sizeBytes": 0,
+  "description": "Royal M Hotel Fujairah by Gewan is an upscale 5-star hotel located in the heart of Fujairah, United Arab Emirates.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Hospitality and Tourism",
+  "references": ["ransomware.live"]
+}

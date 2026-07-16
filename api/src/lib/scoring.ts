@@ -2,7 +2,7 @@ import type { ProviderId, ProviderResult, Verdict } from '../providers/types';
 import type { IndicatorType } from './indicator';
 
 /** Per-indicator-type provider weights. Higher = more trusted for this type. */
-const WEIGHTS: Record<IndicatorType, Partial<Record<ProviderId, number>>> = {
+export const WEIGHTS: Record<IndicatorType, Partial<Record<ProviderId, number>>> = {
   ipv4: {
     maltiverse: 4,
     abuseipdb: 4,

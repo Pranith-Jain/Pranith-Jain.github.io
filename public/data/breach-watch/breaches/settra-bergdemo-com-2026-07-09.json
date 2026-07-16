@@ -1,0 +1,15 @@
+{
+  "slug": "settra-bergdemo-com-2026-07-09",
+  "title": "bergdemo.com",
+  "group": "settra",
+  "discovered": "2026-07-09T10:33:18.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "Berg / Crushing Corporation of America: Demolition on Federal Money PROLOGUE In our possession are i...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

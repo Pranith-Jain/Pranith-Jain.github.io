@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-b-e-juice-2026-04-20",
+  "title": "B&e Juice",
+  "group": "qilin",
+  "discovered": "2026-04-20T19:39:43.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

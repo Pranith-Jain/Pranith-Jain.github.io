@@ -1,0 +1,15 @@
+{
+  "slug": "akira-leo-international-2026-06-23",
+  "title": "Leo International",
+  "group": "akira",
+  "discovered": "2026-06-23T12:20:41.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Leo International, established in 1986, serves as a comprehensive source for the PVF, HVAC, and\r\nPlumbing Industry. The company specializes in manufacturing products through Forging, Casting,\r\nand Injection Molding processes.\r\n\r\nWe will upload 10gb of corporate data soon. Employee personal docs (passports, SSNs, DLs, medic\r\nal information, phones, photos, doc scans, addresses and so on), confidential internal files an\r\nd so on.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Megazord"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

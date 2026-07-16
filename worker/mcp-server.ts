@@ -36,6 +36,7 @@ import {
   winRegCacheStats,
   type WinRegListOptions,
 } from './lib/winreg-manifest';
+import { loadBwIndex, getBwBreach, filterBreaches, listGroups, bwCacheStats } from './lib/breach-watch-manifest';
 import {
   loadActorIndex,
   getActor,
@@ -51,6 +52,7 @@ import { validateRawKey } from '../api/src/lib/auth';
 import { signInternalToken } from '../api/src/lib/internal-token';
 import { enrichIp, enrichIpsBatch, isValidIp, type EnrichResult } from './lib/si-enrich';
 import { traceixLookup } from './lib/traceix';
+import { whoxyReverseWhois } from './lib/whoxy';
 import { fullhuntDomainDetails, fullhuntSubdomains } from './lib/fullhunt';
 import { opensanctionsSearch, opensanctionsEntity, opensanctionsStats } from './lib/opensanctions';
 import { dehashLookup } from './lib/dehash';
@@ -175,7 +177,7 @@ async function apiFetchSse(
   if (apiKey) {
     headers['authorization'] = `Bearer ${apiKey}`;
   }
-  const req = new Request(`${API_BASE_DEFAULT}${path}`, { headers, signal: AbortSignal.timeout(20000) });
+  const req = new Request(`${API_BASE_DEFAULT}${path}`, { headers, signal: AbortSignal.timeout(30000) });
   const res = self ? await self.fetch(req) : await fetch(req);
   if (!res.ok) {
     const body = await res.text().catch(() => '');
@@ -1603,6 +1605,112 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         }
       );
 
+      // ── Breach Watch tools ────────────────────────────────────────
+      // Live breach/leak data from 6 free public trackers
+      // (ransomware.live + ransomlook.io + Darkfield +
+      // RecentBreaches.com + CTI.FYI + XposedOrNot). Data ships in
+      // public/data/breach-watch/ built by scripts/build-breach-watch.mjs.
+
+      this.tools(
+        'bw_list_breaches',
+        'List live breach/leak/ransomware claims from free public trackers. Filter by threat actor group, category (ransomware, data_breach, combo_list, source_code, credential_leak), severity, country, days back, or free-text keyword.',
+        {
+          group: z.string().optional().describe('Filter by threat actor group name (e.g. dragonforce, qilin, lockbit)'),
+          category: z
+            .enum(['ransomware', 'data_breach', 'combo_list', 'source_code', 'credential_leak', 'other'])
+            .optional()
+            .describe('Restrict to a single breach category'),
+          severity: z
+            .enum(['critical', 'high', 'medium', 'low', 'unknown'])
+            .optional()
+            .describe('Filter by severity level'),
+          country: z.string().optional().describe('Filter by victim country (ISO name or code)'),
+          daysBack: z.number().int().min(1).max(365).optional().describe('Only breaches within this many days'),
+          keyword: z.string().optional().describe('Case-insensitive substring match against slug / title / group'),
+          limit: z.number().int().min(1).max(200).optional().describe('Max breaches to return (default 100)'),
+        },
+        async ({ group, category, severity, country, daysBack, keyword, limit }) => {
+          const idx = await loadBwIndex(ASSETS);
+          const breaches = filterBreaches(idx, {
+            group: group || undefined,
+            category: (category as any) || undefined,
+            severity: (severity as any) || undefined,
+            country: country || undefined,
+            daysBack,
+            keyword: keyword || undefined,
+            limit: limit ?? 100,
+          });
+          return untrustedToolResult({
+            total: idx.counts.breaches,
+            returned: breaches.length,
+            source: idx.source,
+            license: idx.license,
+            replicatedAt: idx.replicatedAt,
+            breaches,
+          });
+        }
+      );
+
+      this.tools(
+        'bw_get_breach',
+        'Return the full body of a single breach/leak claim by slug. Includes description, source URL, activity sector, and references. Use bw_list_breaches first to discover slugs.',
+        {
+          slug: z
+            .string()
+            .describe(
+              'Breach slug, e.g. "dragonforce-southport-outdoor-living-2026-07-16". Get these from bw_list_breaches.'
+            ),
+        },
+        async ({ slug }) => {
+          const body = await getBwBreach(ASSETS, slug);
+          if (!body) {
+            return untrustedToolResult({
+              error: 'breach_not_found',
+              slug,
+              hint: 'Call bw_list_breaches to see available slugs.',
+            });
+          }
+          return untrustedToolResult(body);
+        }
+      );
+
+      this.tools(
+        'bw_list_groups',
+        'List threat actor groups tracked in the Breach Watch database with their breach counts and top category. Filter by keyword or minimum count.',
+        {
+          keyword: z.string().optional().describe('Filter groups by name substring'),
+          minCount: z.number().int().min(1).optional().describe('Only groups with at least this many breaches'),
+          limit: z.number().int().min(1).max(200).optional().describe('Max groups to return (default 100)'),
+        },
+        async ({ keyword, minCount, limit }) => {
+          const idx = await loadBwIndex(ASSETS);
+          const groups = listGroups(idx, { keyword: keyword || undefined, minCount, limit: limit ?? 100 });
+          return untrustedToolResult({
+            total: idx.groups.length,
+            returned: groups.length,
+            source: idx.source,
+            groups,
+          });
+        }
+      );
+
+      this.tools(
+        'bw_stats',
+        'Return cache + manifest stats for the Breach Watch data: breach counts, group counts, categories, and LRU body-cache hit/miss ratios.',
+        {},
+        async () => {
+          const idx = await loadBwIndex(ASSETS);
+          return untrustedToolResult({
+            counts: idx.counts,
+            source: idx.source,
+            license: idx.license,
+            replicatedAt: idx.replicatedAt,
+            categories: idx.categories,
+            cache: bwCacheStats(),
+          });
+        }
+      );
+
       // ── OSINT Portal Directory tools ──────────────────────────────
       // Curated directory of 40 OSINT portals and resources. Data ships
       // in public/data/osint/ built by scripts/build-osint-manifest.mjs.
@@ -2699,6 +2807,23 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         },
         async ({ hash }) => {
           const r = await traceixLookup(this.env as { TRACEIX_API_KEY?: string }, hash);
+          return untrustedToolResult(r);
+        }
+      );
+
+      // ── Whoxy — reverse WHOIS by email/name/company/keyword ─────
+      this.tools(
+        'whoxy_reverse_whois',
+        'Reverse WHOIS lookup via whoxy.com — find all domains associated with an email, owner name, company, or keyword. Searches 705M+ WHOIS records. Returns domain names, registrant info, and dates. Requires WHOXY_API_KEY secret.',
+        {
+          query: z.string().describe('Search term: email address, owner name, company name, or domain keyword.'),
+          type: z
+            .enum(['email', 'name', 'company', 'keyword'])
+            .optional()
+            .describe('Search type (default: "email"). Use "keyword" to match domain name prefixes.'),
+        },
+        async ({ query, type }) => {
+          const r = await whoxyReverseWhois(this.env as { WHOXY_API_KEY?: string }, query, type ?? 'email');
           return untrustedToolResult(r);
         }
       );
@@ -4528,6 +4653,622 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       {},
       async () => {
         const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/agents/chat/roles', this.apiKey);
+        return untrustedToolResult(data);
+      }
+    );
+
+    // ══════════════════════════════════════════════════════════════════
+    // DARKNET INTEL TOOLS — GreyNoise, Pulsedive, Vulners, IntelX,
+    // AbuseIPDB, deep ransomware, HIBP, abuse.ch, OTX, Hybrid Analysis
+    // ══════════════════════════════════════════════════════════════════
+
+    // ── GreyNoise (free community tier) ──────────────────────────────
+    this.tools(
+      'dn_greynoise_ip',
+      'Look up an IP on GreyNoise Community: classification (benign/malicious/unknown), internet scanner detection, ASN, country. Free, no API key required.',
+      { ip: z.string().describe('IPv4 address to look up') },
+      async ({ ip }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/darknet-intel/greynoise/ip?ip=${encodeURIComponent(ip)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'dn_greynoise_check',
+      'Quick check: is this IP a known scanner or known benign service? Returns classification only (benign/malicious/unknown). Free, no key.',
+      { ip: z.string().describe('IPv4 address to check') },
+      async ({ ip }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/darknet-intel/greynoise/check?ip=${encodeURIComponent(ip)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+
+    // ── Pulsedive (free, optional key) ───────────────────────────────
+    this.tools(
+      'dn_pulsedive_indicator',
+      'Look up an indicator (IP, domain, URL, or hash) on Pulsedive: risk level, threats, feeds, and linked indicators. Free, no key required.',
+      {
+        type: z.enum(['ip', 'domain', 'url', 'hash']).describe('Indicator type'),
+        value: z.string().describe('Indicator value'),
+      },
+      async ({ type, value }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/darknet-intel/pulsedive/indicator?type=${type}&value=${encodeURIComponent(value)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'dn_pulsedive_search',
+      'Search Pulsedive indicators by value. Returns matching indicators with risk levels. Free, no key.',
+      { q: z.string().describe('Search term') },
+      async ({ q }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/darknet-intel/pulsedive/search?q=${encodeURIComponent(q)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'dn_pulsedive_explore',
+      'Explore linked indicators using Pulsedive advanced queries. Returns related IOCs with risk levels. Free, no key.',
+      { indicator: z.string().describe('Indicator to explore from (IP, domain, URL, or hash)') },
+      async ({ indicator }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/darknet-intel/pulsedive/explore?indicator=${encodeURIComponent(indicator)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+
+    // ── Vulners (free, optional key for search) ──────────────────────
+    this.tools(
+      'dn_vulners_id',
+      'Look up a vulnerability by ID (CVE, EDB, GHSA) on Vulners. Returns CVSS, description, affected products, and exploit availability. Free, no key.',
+      { id: z.string().describe('Vulnerability ID (e.g. CVE-2024-3094, EDB-12345)') },
+      async ({ id }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/darknet-intel/vulners/id?id=${encodeURIComponent(id)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'dn_vulners_search',
+      'Search the Vulners vulnerability database using Lucene queries. Returns matching CVEs/exploits with CVSS scores. Free.',
+      {
+        query: z.string().describe('Lucene search query'),
+        limit: z.number().int().min(1).max(100).optional().describe('Max results (default 20)'),
+      },
+      async ({ query, limit }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          '/api/v1/darknet-intel/vulners/search',
+          this.apiKey,
+          {
+            method: 'POST',
+            body: JSON.stringify({ query, limit }),
+          }
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'dn_vulners_exploit',
+      'Search specifically for exploits (ExploitDB entries) on Vulners. Returns exploit code references and details. Free.',
+      {
+        query: z.string().describe('Search query (CVE, keyword, or product name)'),
+        limit: z.number().int().min(1).max(100).optional().describe('Max results (default 20)'),
+      },
+      async ({ query, limit }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          '/api/v1/darknet-intel/vulners/exploit',
+          this.apiKey,
+          {
+            method: 'POST',
+            body: JSON.stringify({ query, limit }),
+          }
+        );
+        return untrustedToolResult(data);
+      }
+    );
+
+    // ── IntelligenceX (paid key required) ────────────────────────────
+    this.tools(
+      'dn_intelx_search',
+      'Search IntelligenceX for leaked data, dark web content, paste sites, and breach archives. Requires INTELX_API_KEY (paid).',
+      { q: z.string().describe('Search term (email, domain, keyword)') },
+      async ({ q }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/darknet-intel/intelx/search?q=${encodeURIComponent(q)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'dn_intelx_search_results',
+      'Retrieve results for an IntelligenceX search by search_id (from dn_intelx_search). Requires INTELX_API_KEY.',
+      { id: z.string().describe('Search ID from dn_intelx_search') },
+      async ({ id }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/darknet-intel/intelx/results?id=${encodeURIComponent(id)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'dn_intelx_phonebook',
+      'IntelligenceX Phonebook — find emails, domains, and URLs associated with a search term. Requires INTELX_API_KEY (paid).',
+      { q: z.string().describe('Search term (name, domain, keyword)') },
+      async ({ q }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/darknet-intel/intelx/phonebook?q=${encodeURIComponent(q)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'dn_intelx_phonebook_results',
+      'Retrieve IntelligenceX Phonebook search results by search_id. Requires INTELX_API_KEY.',
+      { id: z.string().describe('Search ID from dn_intelx_phonebook') },
+      async ({ id }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/darknet-intel/intelx/phonebook-results?id=${encodeURIComponent(id)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+
+    // ── AbuseIPDB (key required) ─────────────────────────────────────
+    this.tools(
+      'dn_abuseipdb_check',
+      'Check an IP address on AbuseIPDB for abuse reports: confidence score, ISP, country, report count, categories. Requires ABUSEIPDB_API_KEY.',
+      { ip: z.string().describe('IPv4 address to check') },
+      async ({ ip }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/darknet-intel/abuseipdb/check?ip=${encodeURIComponent(ip)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'dn_abuseipdb_reports',
+      'Get individual abuse reports for an IP from AbuseIPDB with detailed comments and categories. Requires ABUSEIPDB_API_KEY.',
+      { ip: z.string().describe('IPv4 address') },
+      async ({ ip }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/darknet-intel/abuseipdb/reports?ip=${encodeURIComponent(ip)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'dn_abuseipdb_blacklist',
+      'Get AbuseIPDB blacklist of the most reported malicious IP addresses. Requires ABUSEIPDB_API_KEY.',
+      {
+        confidence: z.string().optional().describe('Minimum confidence score (default 90)'),
+        limit: z.string().optional().describe('Max entries (default 10000)'),
+      },
+      async ({ confidence, limit }) => {
+        const params = new URLSearchParams();
+        if (confidence) params.set('confidence', confidence);
+        if (limit) params.set('limit', limit);
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/darknet-intel/abuseipdb/blacklist${params.toString() ? `?${params}` : ''}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'dn_abuseipdb_check_block',
+      'Check an entire CIDR network block for abuse reports on AbuseIPDB. Requires ABUSEIPDB_API_KEY.',
+      { network: z.string().describe('CIDR block (e.g. "118.208.0.0/16")') },
+      async ({ network }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/darknet-intel/abuseipdb/check-block?network=${encodeURIComponent(network)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+
+    // ── Deep Ransomware Intelligence (free) ──────────────────────────
+    this.tools(
+      'dn_ransomware_group',
+      'Get a detailed profile for a specific ransomware group from ransomware.live: description, aliases, tools, TTPs, CVEs. Free, no key.',
+      { name: z.string().describe('Ransomware group name (e.g. "lockbit3", "blackcat")') },
+      async ({ name }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/darknet-intel/ransomware/group?name=${encodeURIComponent(name)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'dn_ransomware_victims',
+      'Get all victims claimed by a specific ransomware group from ransomware.live. Free, no key.',
+      { name: z.string().describe('Ransomware group name') },
+      async ({ name }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/darknet-intel/ransomware/victims?name=${encodeURIComponent(name)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'dn_ransomware_search',
+      'Search ransomware victims by keyword (company name, domain, etc.) across ransomware.live. Free, no key.',
+      { q: z.string().describe('Search keyword') },
+      async ({ q }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/darknet-intel/ransomware/search?q=${encodeURIComponent(q)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'dn_ransomware_country',
+      'Get ransomware victims filtered by ISO 3166-1 alpha-2 country code from ransomware.live. Free, no key.',
+      { code: z.string().describe('ISO 3166-1 alpha-2 country code (e.g. "US", "GB", "DE")') },
+      async ({ code }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/darknet-intel/ransomware/country?code=${encodeURIComponent(code)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'dn_ransomware_sector',
+      'Get ransomware victims filtered by sector/industry from ransomware.live. Free, no key.',
+      { sector: z.string().describe('Sector name (e.g. "healthcare", "finance", "education")') },
+      async ({ sector }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/darknet-intel/ransomware/sector?sector=${encodeURIComponent(sector)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'dn_ransomlook_groups',
+      'List all ransomware groups tracked by RansomLook (582+). Free, no key.',
+      {},
+      async () => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          '/api/v1/darknet-intel/ransomware/ransomlook-groups',
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'dn_ransomlook_recent',
+      'Fetch the most recent ransomware posts and victim claims from RansomLook. Free, no key.',
+      {},
+      async () => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          '/api/v1/darknet-intel/ransomware/ransomlook-recent',
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+
+    // ── Deep HIBP Breach Intelligence ────────────────────────────────
+    this.tools(
+      'dn_hibp_breach',
+      'Get details of a specific data breach by name from HIBP: description, data classes, pwn count, breach date. Free, no key.',
+      { name: z.string().describe('Breach name (e.g. "Adobe", "LinkedIn", "Collection1")') },
+      async ({ name }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/darknet-intel/hibp/breach?name=${encodeURIComponent(name)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools('dn_hibp_latest', 'Get the most recently added data breaches from HIBP. Free, no key.', {}, async () => {
+      const data = await apiFetch<Record<string, unknown>>(
+        this.env.SELF,
+        '/api/v1/darknet-intel/hibp/latest',
+        this.apiKey
+      );
+      return untrustedToolResult(data);
+    });
+    this.tools(
+      'dn_hibp_data_classes',
+      'List all data classes (types of compromised data) known to HIBP: emails, passwords, credit cards, SSNs, etc. Free, no key.',
+      {},
+      async () => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          '/api/v1/darknet-intel/hibp/data-classes',
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'dn_hibp_password',
+      'Check if a password has appeared in known breaches using HIBP k-anonymity (only SHA-1 prefix sent). Returns breach count. Free, no key.',
+      { password: z.string().describe('Password to check') },
+      async ({ password }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/darknet-intel/hibp/password?password=${encodeURIComponent(password)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+
+    // ── Deep abuse.ch (ThreatFox, URLhaus, MalwareBazaar — free) ────
+    this.tools(
+      'dn_threatfox_iocs',
+      'Get recent IOCs from ThreatFox reported in the last N days. Free, no key.',
+      { days: z.number().int().min(1).max(30).optional().describe('Days to look back (default 3, max 30)') },
+      async ({ days }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/darknet-intel/abusech/threatfox-iocs?days=${days ?? 3}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'dn_threatfox_search',
+      'Search ThreatFox IOCs by IP, domain, hash, or URL. Free, no key.',
+      { q: z.string().describe('IOC value to search (IP, domain, hash, or URL)') },
+      async ({ q }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/darknet-intel/abusech/threatfox-search?q=${encodeURIComponent(q)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'dn_threatfox_tag',
+      'Search ThreatFox IOCs by tag (e.g. Cobalt Strike, Emotet, AgentTesla). Free, no key.',
+      {
+        tag: z.string().describe('Tag name'),
+        limit: z.number().int().min(1).max(500).optional().describe('Max results (default 50)'),
+      },
+      async ({ tag, limit }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/darknet-intel/abusech/threatfox-tag?tag=${encodeURIComponent(tag)}${limit ? `&limit=${limit}` : ''}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'dn_threatfox_malware',
+      'Search ThreatFox IOCs by malware family using Malpedia naming. Free, no key.',
+      { malware: z.string().describe('Malware family name (Malpedia naming)') },
+      async ({ malware }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/darknet-intel/abusech/threatfox-malware?malware=${encodeURIComponent(malware)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'dn_urlhaus_lookup',
+      'Look up a URL or host in URLhaus for malware distribution. Free, no key.',
+      {
+        url: z.string().optional().describe('URL to look up'),
+        host: z.string().optional().describe('Host to look up'),
+      },
+      async ({ url, host }) => {
+        const params = new URLSearchParams();
+        if (url) params.set('url', url);
+        if (host) params.set('host', host);
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/darknet-intel/abusech/urlhaus?${params}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'dn_urlhaus_tag',
+      'Search URLhaus entries by tag. Free, no key.',
+      { tag: z.string().describe('Tag name') },
+      async ({ tag }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/darknet-intel/abusech/urlhaus-tag?tag=${encodeURIComponent(tag)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'dn_bazaar_hash',
+      'Look up a malware sample in MalwareBazaar by MD5, SHA1, or SHA256 hash. Returns tags, signature, file type, first/last seen. Free, no key.',
+      { hash: z.string().describe('MD5, SHA1, or SHA256 hash') },
+      async ({ hash }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/darknet-intel/abusech/bazaar-hash?hash=${encodeURIComponent(hash)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'dn_bazaar_recent',
+      'Get the most recently submitted malware samples from MalwareBazaar (last 100). Free, no key.',
+      {},
+      async () => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          '/api/v1/darknet-intel/abusech/bazaar-recent',
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'dn_bazaar_tag',
+      'Search MalwareBazaar by tag or YARA signature name. Free, no key.',
+      {
+        tag: z.string().describe('Tag or YARA rule name'),
+        limit: z.number().int().min(1).max(1000).optional().describe('Max results (default 50)'),
+      },
+      async ({ tag, limit }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/darknet-intel/abusech/bazaar-tag?tag=${encodeURIComponent(tag)}${limit ? `&limit=${limit}` : ''}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+
+    // ── Deep AlienVault OTX (free, optional key) ────────────────────
+    this.tools(
+      'dn_otx_ip',
+      'Look up threat intelligence for an IP address on AlienVault OTX: pulse info, reputation, country, ASN, associated malware. Free, no key.',
+      { ip: z.string().describe('IPv4 address') },
+      async ({ ip }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/darknet-intel/otx/ip?ip=${encodeURIComponent(ip)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'dn_otx_domain',
+      'Look up threat intelligence for a domain on AlienVault OTX: pulse info, WHOIS, reputation, associated malware. Free, no key.',
+      { domain: z.string().describe('Domain name') },
+      async ({ domain }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/darknet-intel/otx/domain?domain=${encodeURIComponent(domain)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'dn_otx_hash',
+      'Look up threat intelligence for a file hash (MD5, SHA1, SHA256) on AlienVault OTX. Free, no key.',
+      { hash: z.string().describe('File hash (MD5, SHA1, or SHA256)') },
+      async ({ hash }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/darknet-intel/otx/hash?hash=${encodeURIComponent(hash)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'dn_otx_cve',
+      'Look up threat intelligence for a CVE on AlienVault OTX: related pulses, indicators, and exploitation activity. Free, no key.',
+      { cve: z.string().describe('CVE ID (e.g. "CVE-2024-3094")') },
+      async ({ cve }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/darknet-intel/otx/cve?cve=${encodeURIComponent(cve)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+
+    // ── Hybrid Analysis (key required) ───────────────────────────────
+    this.tools(
+      'dn_hybrid_search',
+      'Search Hybrid Analysis sandbox by file hash: verdict, AV detection rate, MITRE ATT&CK techniques, network indicators. Requires HYBRID_ANALYSIS_API_KEY.',
+      { hash: z.string().describe('File hash (MD5, SHA1, or SHA256)') },
+      async ({ hash }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/darknet-intel/hybrid/search?hash=${encodeURIComponent(hash)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'dn_hybrid_feed',
+      'Get the latest malware detonation feed from Hybrid Analysis: recently analyzed samples with verdicts and threat scores. Requires HYBRID_ANALYSIS_API_KEY.',
+      {},
+      async () => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          '/api/v1/darknet-intel/hybrid/feed',
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+
+    // ── Darknet Intel Source Status ──────────────────────────────────
+    this.tools(
+      'dn_sources',
+      'List all available darknet intel data sources with configuration status, API key status, tool counts, and free/paid indicators.',
+      {},
+      async () => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          '/api/v1/darknet-intel/sources',
+          this.apiKey
+        );
         return untrustedToolResult(data);
       }
     );

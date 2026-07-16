@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-gsp-crop-science-pvt-2026-06-25",
+  "title": "GSP Crop Science Pvt",
+  "group": "incransom",
+  "discovered": "2026-06-25T23:23:07.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "IN",
+  "sizeBytes": 0,
+  "description": "GSP Crop Science Limited is a leader in agricultural innovation, specializing in crop science and sustainable farming solutions. The company offers a wide range of products including pesticides, herbicides, fungicides, and plant growth regulators, designed to enhance crop productivity while minimizing environmental impact. Their target clients include farmers and agricultural businesses seeking effective and reliable crop protection solutions. With a strong commitment to research and development, GSP aims to revolutionize agriculture and support farmers in achieving high-quality, healthy crops.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

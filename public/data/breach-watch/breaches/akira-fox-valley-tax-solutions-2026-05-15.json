@@ -1,0 +1,15 @@
+{
+  "slug": "akira-fox-valley-tax-solutions-2026-05-15",
+  "title": "Fox Valley Tax Solutions",
+  "group": "akira",
+  "discovered": "2026-05-15T15:50:20.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Fox Valley Tax Solutions is a full-service tax firm located in Saint Charles, Illinois, special\nizing in personalized tax preparation and strategic planning services. They cater to individual\ns, businesses, trusts, and estates, offering a range of services including tax consultation, IR\nS issue resolution, and notary services.\n\nWe will upload 95gb of corporate data soon. Detailed client personal information (passports, DL\ns, SSNs, financial information), contracts and agreements, NDAs and other confidential docs.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Megazord"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

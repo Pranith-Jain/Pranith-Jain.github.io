@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-henley-2026-04-19",
+  "title": "Henley",
+  "group": "qilin",
+  "discovered": "2026-04-19T12:46:32.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

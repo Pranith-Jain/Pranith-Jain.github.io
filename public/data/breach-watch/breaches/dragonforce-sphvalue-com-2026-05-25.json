@@ -1,0 +1,15 @@
+{
+  "slug": "dragonforce-sphvalue-com-2026-05-25",
+  "title": "sphvalue.com",
+  "group": "dragonforce",
+  "discovered": "2026-05-25T11:23:29.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Since 1992, our team of experts in economics, accounting, finance, and valuation has earned an impeccable reputation for relentless analysis and exemplary quality work. Clients trust Sanli Pastore & Hill's expert opinions, unparalleled research, and in-depth analysis in critical business situations.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["DRAGON FORCE"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

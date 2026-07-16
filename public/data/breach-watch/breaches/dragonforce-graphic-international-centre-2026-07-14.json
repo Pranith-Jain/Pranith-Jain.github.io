@@ -1,0 +1,15 @@
+{
+  "slug": "dragonforce-graphic-international-centre-2026-07-14",
+  "title": "Graphic International Centre",
+  "group": "dragonforce",
+  "discovered": "2026-07-14T13:53:59.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Graphic International Centre LLC (GIC) has been providing top-tier printing solutions and office automation products in the UAE since 1982. The company specializes in managed print services, large format printing, and a variety of office accessories, catering to diverse sectors including hospitality, education, oil & gas, and retail. GIC is committed to empowering creativity with high-quality products like Copic markers and advanced printing technologies. With a focus on exceptional customer support, GIC aims to meet the evolving needs of its clients through innovative and technology-driven solutions.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["DRAGON FORCE"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

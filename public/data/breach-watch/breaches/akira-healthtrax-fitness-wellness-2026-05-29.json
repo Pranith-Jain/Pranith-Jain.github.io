@@ -1,0 +1,15 @@
+{
+  "slug": "akira-healthtrax-fitness-wellness-2026-05-29",
+  "title": "Healthtrax Fitness &Wellness",
+  "group": "akira",
+  "discovered": "2026-05-29T11:50:26.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Healthtrax, founded in 1979 and headquartered Glastonbury, CT, offers facilities and programs \nthat integrate fitness, wellness education, traditional medical services and rehabilitation. H\nealthtrax forms partnerships with leading health care systems to create a welcoming, centraliz\ned place for members of the community to achieve their personal fitness and health goals.\n\nHere is the access to 10gb of corporate data. Employee and clients personal information (name,\nDl and passport numbers, SSNs), contracts and agreements, personal records, financials, NDA a\nnd other confidential docs.\n\nClick the download button.\n\nYou will find several password-free archives. Click on any of them to start the download.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Megazord"],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

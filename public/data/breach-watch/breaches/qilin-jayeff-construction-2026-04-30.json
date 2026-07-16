@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-jayeff-construction-2026-04-30",
+  "title": "Jayeff Construction",
+  "group": "qilin",
+  "discovered": "2026-04-30T17:56:01.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Construction",
+  "references": ["ransomware.live"]
+}

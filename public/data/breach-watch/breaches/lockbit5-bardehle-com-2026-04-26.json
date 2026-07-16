@@ -1,0 +1,15 @@
+{
+  "slug": "lockbit5-bardehle-com-2026-04-26",
+  "title": "bardehle.com",
+  "group": "lockbit5",
+  "discovered": "2026-04-26T09:55:39.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "BARDEHLE PAGENBERG is a leading intellectual property law firm in Europe, specializing in patent lit...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

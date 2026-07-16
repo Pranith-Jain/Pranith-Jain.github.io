@@ -1,0 +1,15 @@
+{
+  "slug": "akira-arctic-home-living-2026-04-21",
+  "title": "Arctic Home Living",
+  "group": "akira",
+  "discovered": "2026-04-21T12:49:45.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Arctic Home is Alaska's locally owned hot tub dealer with over 25\nyears of experience, specializing in premium hot tubs, spas, sau\nnas, and cold plunges designed for the unique Alaskan environment\n.\n\nWe will upload corporate data soon. Employee information (scanned\npassports, DLs, I9s, SSNs, credit cards information and so on), \ncustomer data, agreements, etc.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Megazord"],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

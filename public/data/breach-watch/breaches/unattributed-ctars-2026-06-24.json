@@ -1,0 +1,15 @@
+{
+  "slug": "unattributed-ctars-2026-06-24",
+  "title": "CTARS",
+  "group": "Unattributed",
+  "discovered": "2026-06-24T13:54:53.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "NDIS (National Disability Insurance Scheme) faced a data breach in May 2022, with details subsequently posted on an online hacking forum. The breach impacted the CTARS cloud platform used by care providers to document NDIS participant details, often containing sensitive medical data. The breach affected over 67k unique email addresses and included physical addresses, names, dates of birth, phone numbers, along with patient treatment and condition data.",
+  "source_url": "https://xposedornot.com/breach/CTARS",
+  "groupAliases": [],
+  "activity": "Miscellaneous",
+  "references": ["XposedOrNot"]
+}

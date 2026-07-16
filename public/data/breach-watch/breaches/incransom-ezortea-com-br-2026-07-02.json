@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-ezortea-com-br-2026-07-02",
+  "title": "ezortea.com.br",
+  "group": "incransom",
+  "discovered": "2026-07-02T16:28:50.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "BR",
+  "sizeBytes": 0,
+  "description": "Estrutural Zortea is a Brazilian company founded in 1995, specializing in the design, fabrication, and assembly of large-scale metal structures. ISO 9001-2015 certified, they provide industrial, logistics, and port solutions throughout the country. Specialties include: roofing for grain warehouses and industrial sheds, hoppers, silos, metal towers, and buildings.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

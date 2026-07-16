@@ -1,0 +1,15 @@
+{
+  "slug": "silentransomgroup-he-t-s-t-2026-06-16",
+  "title": "He..t S..t.",
+  "group": "SilentRansomGroup",
+  "discovered": "2026-06-16T23:50:17.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

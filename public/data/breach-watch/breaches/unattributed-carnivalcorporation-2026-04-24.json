@@ -1,0 +1,15 @@
+{
+  "slug": "unattributed-carnivalcorporation-2026-04-24",
+  "title": "CarnivalCorporation",
+  "group": "Unattributed",
+  "discovered": "2026-04-24T06:59:51.000Z",
+  "category": "data_breach",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Carnival Corporation, a cruise operator, was allegedly breached by the ShinyHunters group in April 2026, with data later published exposing 8.7M records containing 7.5M unique email addresses, along with names, dates of birth, genders, and loyalty program details related to the Holland America Mariner Society.",
+  "source_url": "https://xposedornot.com/breach/CarnivalCorporation",
+  "groupAliases": [],
+  "activity": "Hospitality",
+  "references": ["XposedOrNot"]
+}

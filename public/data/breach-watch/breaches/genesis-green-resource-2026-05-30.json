@@ -1,0 +1,15 @@
+{
+  "slug": "genesis-green-resource-2026-05-30",
+  "title": "Green Resource",
+  "group": "genesis",
+  "discovered": "2026-05-30T18:53:14.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "A leading distributor of professional fertilizers, chemicals, and seeds for local and lawn grasses",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Energy",
+  "references": ["ransomware.live"]
+}

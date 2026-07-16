@@ -1,0 +1,15 @@
+{
+  "slug": "deadlock-3gi-solutions-is-an-it-services-provider-located-in-montreal-quebec-2026-07-10",
+  "title": "3Gi Solutions, is an IT Services Provider located in Montreal, Quebec.",
+  "group": "Deadlock",
+  "discovered": "2026-07-10T13:10:05.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "CA",
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "lockbit5-defcon5italy-com-2026-04-29",
+  "title": "defcon5italy.com",
+  "group": "lockbit5",
+  "discovered": "2026-04-29T10:33:20.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "DEFCON, the U.S. acronym for DEFense CONdition, tells of the highest degree of protection and effica...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

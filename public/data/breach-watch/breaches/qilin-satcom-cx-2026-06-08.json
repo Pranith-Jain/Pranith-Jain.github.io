@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-satcom-cx-2026-06-08",
+  "title": "SatCom CX",
+  "group": "qilin",
+  "discovered": "2026-06-08T17:53:20.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Telecommunication",
+  "references": ["ransomware.live"]
+}

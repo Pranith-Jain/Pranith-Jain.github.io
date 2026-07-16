@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-fortray-2026-07-11",
+  "title": "Fortray",
+  "group": "thegentlemen",
+  "discovered": "2026-07-11T07:23:07.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "***.com zoominfo.com/c/fortray-global-services-ltd/446823730 Fortray Global Services Limited is a UK-based IT company founded in 2011 that operates across tech education, managed IT services, and global recruitment.They offer specialized Tech and AI bootcamps with 1:1 mentorship to help individuals build in-demand digital skills and launch successful tech careers.Furthermore, they act as a Managed Service Provider (MSP) delivering scalable cloud solutions and cybersecurity to businesses.Simultaneously, their recruitment division connects ambitious IT professionals with top job opportunities worldwide",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

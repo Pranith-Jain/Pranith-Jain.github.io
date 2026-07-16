@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-edgewood-surgical-hospital-2026-06-04",
+  "title": "Edgewood Surgical Hospital",
+  "group": "thegentlemen",
+  "discovered": "2026-06-04T09:09:20.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "***.com ***.com/c/edgewood-surgical-hospital/52612741 Edgewood Surgical Hospital is a state-of-the-art specialty medical facility located in Transfer, Pennsylvania USA.\n\nWe have your data filles ~500gb\n\nSURGICAL CASE REVIEWS 2025-2026\n2026 January SURGICAL CASE REVIEW\n2026 March Surgical Case ***.docx\n2025 JANUARY PEER SURGICAL CASE REVIEW\n2025 MARCH SURGICAL CASE REVIEW\n2025 MAY SURGICAL CASE REVIEW\n2025 JULY SURGICAL CASE REVIEW\n2025 SEPTEMBER SURGICAL CASE REVIEW\n2025 NOVEMBER SURGICAL CASE REVIEW\n\nGOODMAN HP STI pdf Name + sexually transmitted infection\n\n(~300+ Anesthesia Records Anesthesia Records) Massive PHI leak — names + medical data of hundreds of patients\n\nMRI SCANS / EMPLOYEE HEALTH\n\nHISTORY & PHYSICAL (HP)\n\nNarcotic outdates + INPATIENT NARCOTIC INVENTORY",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

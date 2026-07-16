@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-roth-industries-2026-06-19",
+  "title": "Roth Industries",
+  "group": "qilin",
+  "discovered": "2026-06-19T18:04:59.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

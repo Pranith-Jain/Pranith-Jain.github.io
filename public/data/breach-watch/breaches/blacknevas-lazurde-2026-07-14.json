@@ -1,0 +1,15 @@
+{
+  "slug": "blacknevas-lazurde-2026-07-14",
+  "title": "L'azurde",
+  "group": "blacknevas",
+  "discovered": "2026-07-14T10:23:47.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "SA",
+  "sizeBytes": 0,
+  "description": "L'azurdeL'azurde Company for Jewelry is a prominent Middle Eastern jewelry manufacturer and retailer, headquartered in Riyadh, Saudi Arabia.Founded in the 1980s, it designs, manufactures, and sells gold, diamond, and gemstone jewelry across the Kingdom, Egypt, the UAE, Kuwait, Oman, and Qatar.Core InformationBrands: Operates under several lines including L'azurde, Instyle, Miss L', and Waves.Business Segments: Focuses on both wholesale distribution to independent jewelers and direct-to-consumer retail.Public Listing: Listed on the Saudi Stock Exchange (Tadawul) under the symbol 4011.Accessibility: Offers both online shopping and a vast physical footprint of stores across the region.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["black nevas"],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

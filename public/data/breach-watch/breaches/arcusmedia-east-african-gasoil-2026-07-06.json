@@ -1,0 +1,15 @@
+{
+  "slug": "arcusmedia-east-african-gasoil-2026-07-06",
+  "title": "East African Gasoil",
+  "group": "arcusmedia",
+  "discovered": "2026-07-06T07:09:21.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "KE",
+  "sizeBytes": 0,
+  "description": "EAGOL is an independent oil and gas company operating in Kenya and East Africa, dedicated Deadline: 2026-07-12 23:48:00.000000",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["arcus media"],
+  "activity": "Energy",
+  "references": ["ransomware.live"]
+}

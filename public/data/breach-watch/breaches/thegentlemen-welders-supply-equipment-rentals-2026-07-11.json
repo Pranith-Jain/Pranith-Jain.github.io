@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-welders-supply-equipment-rentals-2026-07-11",
+  "title": "Welders Supply Equipment Rentals",
+  "group": "thegentlemen",
+  "discovered": "2026-07-11T07:19:39.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "***.com  zoominfo.com/c/welders-supply--equipment-rentals/355927450 WSE Rentals (Welders Supply & Equipment Rentals) is a specialized equipment rental company headquartered in Port Allen, Louisiana. They focus on providing a comprehensive range of high-quality, reliable welding tools and machinery from well-known industry brands for various industrial projects. The company serves contractors and businesses by offering tailored rental solutions and dedicated delivery services to support their operational needs",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Construction",
+  "references": ["ransomware.live"]
+}

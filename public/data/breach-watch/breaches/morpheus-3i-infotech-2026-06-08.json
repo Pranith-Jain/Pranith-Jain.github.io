@@ -1,0 +1,15 @@
+{
+  "slug": "morpheus-3i-infotech-2026-06-08",
+  "title": "3I INFOTECH",
+  "group": "morpheus",
+  "discovered": "2026-06-08T12:25:05.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "IN",
+  "sizeBytes": 0,
+  "description": "**Website**: 3i-infotech.com\n\n**Revenue**: $96.8 Million\n\n3i Infotech, incorporated in 1993 as 'ICICI Investors Services Limited' and initially an ICICI subsidiary until 2002, is an Indian public glob",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

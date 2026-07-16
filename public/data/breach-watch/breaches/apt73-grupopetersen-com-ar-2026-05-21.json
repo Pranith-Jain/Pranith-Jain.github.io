@@ -1,0 +1,15 @@
+{
+  "slug": "apt73-grupopetersen-com-ar-2026-05-21",
+  "title": "grupopetersen.com.ar",
+  "group": "apt73",
+  "discovered": "2026-05-21T16:22:34.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "AR",
+  "sizeBytes": 0,
+  "description": "Grupo Petersen is a multidisciplinary financial and industrial group from Argentina, operating in...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Eraleign"],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

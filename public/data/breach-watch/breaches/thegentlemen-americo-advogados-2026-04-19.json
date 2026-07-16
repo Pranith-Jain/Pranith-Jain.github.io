@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-americo-advogados-2026-04-19",
+  "title": "Americo Advogados",
+  "group": "thegentlemen",
+  "discovered": "2026-04-19T17:06:10.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "BR",
+  "sizeBytes": 0,
+  "description": "americoadvogados.com.br zoominfo.com/c/americo-advogados-associados/513361264 Americo Advogados Associados is a Brazilian private law firm founded in 1995 and headquartered in Anápolis, Goiás, Brazil. The firm is a mid-to-large legal practice with 201–500 employees, offering a full range of legal services for individuals and businesses. It is one of the more established regional law firms in the Centre-West of Brazil, serving clients from its main office on Rua Engenheiro Portela in central Anápolis",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

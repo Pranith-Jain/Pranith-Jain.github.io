@@ -164,6 +164,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/tools/socradar-tools', '/__prerendered/threatintel__tools__socradar-tools'],
   ['/threatintel/tools/settings', '/__prerendered/threatintel__tools__settings'],
   ['/threatintel/tools/directory', '/__prerendered/threatintel__tools__directory'],
+  ['/threatintel/tools/darknet-intel', '/__prerendered/threatintel__tools__darknet-intel'],
   ['/threatintel/tools/unified-search', '/__prerendered/threatintel__tools__unified-search'],
   ['/threatintel/vera', '/__prerendered/threatintel__vera'],
   ['/threatintel/cves/cves', '/__prerendered/threatintel__cves__cves'],

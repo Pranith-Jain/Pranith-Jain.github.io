@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-trugreen-com-2026-04-22",
+  "title": "trugreen.com",
+  "group": "incransom",
+  "discovered": "2026-04-22T22:50:52.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "TruGreen is the nation's leading lawn care provider offering neighborhoods across the country tailored lawn, tree and shrub care along with protection against mosquitoes and other pests. As a company rooted in scientific expertise with a customer-centered approach, TruGreen helps homeowners achieve an outdoor living space that brings them pride.\r Employees: 10k+\r Revenue: $2.9 Billion\r Industry: Consumer Services\r Phone Number: (833) 830-2305",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

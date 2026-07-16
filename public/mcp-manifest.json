@@ -2,7 +2,7 @@
   "$schema": "https://modelcontextprotocol.io/schemas/manifest/v1.json",
   "name": "DFIR-ThreatIntel-MCP",
   "version": "1.0.0",
-  "description": "DFIR + Threat Intel MCP server. 194 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
+  "description": "DFIR + Threat Intel MCP server. 242 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
   "transport": "streamable-http",
   "endpoint": "https://pranithjain.qzz.io/api/mcp",
   "auth": {
@@ -16,8 +16,8 @@
       "listChanged": false
     }
   },
-  "toolCount": 194,
-  "generatedAt": "2026-07-14T04:12:38.257Z",
+  "toolCount": 242,
+  "generatedAt": "2026-07-16T12:06:11.816Z",
   "tools": [
     {
       "name": "analyze_phishing_email",
@@ -37,6 +37,26 @@
     {
       "name": "btc_abuse_check",
       "description": "Check a Bitcoin address for abuse/scam reports on ChainAbuse. Returns report count, categories (phishing, ransomware, scam, etc.), descriptions, and associated scam types. Useful for tracing illicit crypto transactions.",
+      "category": "other"
+    },
+    {
+      "name": "bw_get_breach",
+      "description": "Return the full body of a single breach/leak claim by slug. Includes description, source URL, activity sector, and references. Use bw_list_breaches first to discover slugs.",
+      "category": "other"
+    },
+    {
+      "name": "bw_list_breaches",
+      "description": "List live breach/leak/ransomware claims from free public trackers. Filter by threat actor group, category (ransomware, data_breach, combo_list, source_code, credential_leak), severity, country, days back, or free-text keyword.",
+      "category": "other"
+    },
+    {
+      "name": "bw_list_groups",
+      "description": "List threat actor groups tracked in the Breach Watch database with their breach counts and top category. Filter by keyword or minimum count.",
+      "category": "other"
+    },
+    {
+      "name": "bw_stats",
+      "description": "Return cache + manifest stats for the Breach Watch data: breach counts, group counts, categories, and LRU body-cache hit/miss ratios.",
       "category": "other"
     },
     {
@@ -92,6 +112,221 @@
     {
       "name": "dehash_lookup",
       "description": "Look up a cryptographic hash (md5/sha1/sha256/sha384/sha512) against Dehash.lt to find its plaintext value. Useful for cracking password hashes or identifying known hash values. No API key required.",
+      "category": "other"
+    },
+    {
+      "name": "dn_abuseipdb_blacklist",
+      "description": "Get AbuseIPDB blacklist of the most reported malicious IP addresses. Requires ABUSEIPDB_API_KEY.",
+      "category": "other"
+    },
+    {
+      "name": "dn_abuseipdb_check",
+      "description": "Check an IP address on AbuseIPDB for abuse reports: confidence score, ISP, country, report count, categories. Requires ABUSEIPDB_API_KEY.",
+      "category": "other"
+    },
+    {
+      "name": "dn_abuseipdb_check_block",
+      "description": "Check an entire CIDR network block for abuse reports on AbuseIPDB. Requires ABUSEIPDB_API_KEY.",
+      "category": "other"
+    },
+    {
+      "name": "dn_abuseipdb_reports",
+      "description": "Get individual abuse reports for an IP from AbuseIPDB with detailed comments and categories. Requires ABUSEIPDB_API_KEY.",
+      "category": "other"
+    },
+    {
+      "name": "dn_bazaar_hash",
+      "description": "Look up a malware sample in MalwareBazaar by MD5, SHA1, or SHA256 hash. Returns tags, signature, file type, first/last seen. Free, no key.",
+      "category": "other"
+    },
+    {
+      "name": "dn_bazaar_recent",
+      "description": "Get the most recently submitted malware samples from MalwareBazaar (last 100). Free, no key.",
+      "category": "other"
+    },
+    {
+      "name": "dn_bazaar_tag",
+      "description": "Search MalwareBazaar by tag or YARA signature name. Free, no key.",
+      "category": "other"
+    },
+    {
+      "name": "dn_greynoise_check",
+      "description": "Quick check: is this IP a known scanner or known benign service? Returns classification only (benign/malicious/unknown). Free, no key.",
+      "category": "other"
+    },
+    {
+      "name": "dn_greynoise_ip",
+      "description": "Look up an IP on GreyNoise Community: classification (benign/malicious/unknown), internet scanner detection, ASN, country. Free, no API key required.",
+      "category": "other"
+    },
+    {
+      "name": "dn_hibp_breach",
+      "description": "Get details of a specific data breach by name from HIBP: description, data classes, pwn count, breach date. Free, no key.",
+      "category": "other"
+    },
+    {
+      "name": "dn_hibp_data_classes",
+      "description": "List all data classes (types of compromised data) known to HIBP: emails, passwords, credit cards, SSNs, etc. Free, no key.",
+      "category": "other"
+    },
+    {
+      "name": "dn_hibp_latest",
+      "description": "Get the most recently added data breaches from HIBP. Free, no key.",
+      "category": "other"
+    },
+    {
+      "name": "dn_hibp_password",
+      "description": "Check if a password has appeared in known breaches using HIBP k-anonymity (only SHA-1 prefix sent). Returns breach count. Free, no key.",
+      "category": "other"
+    },
+    {
+      "name": "dn_hybrid_feed",
+      "description": "Get the latest malware detonation feed from Hybrid Analysis: recently analyzed samples with verdicts and threat scores. Requires HYBRID_ANALYSIS_API_KEY.",
+      "category": "other"
+    },
+    {
+      "name": "dn_hybrid_search",
+      "description": "Search Hybrid Analysis sandbox by file hash: verdict, AV detection rate, MITRE ATT&CK techniques, network indicators. Requires HYBRID_ANALYSIS_API_KEY.",
+      "category": "other"
+    },
+    {
+      "name": "dn_intelx_phonebook",
+      "description": "IntelligenceX Phonebook — find emails, domains, and URLs associated with a search term. Requires INTELX_API_KEY (paid).",
+      "category": "other"
+    },
+    {
+      "name": "dn_intelx_phonebook_results",
+      "description": "Retrieve IntelligenceX Phonebook search results by search_id. Requires INTELX_API_KEY.",
+      "category": "other"
+    },
+    {
+      "name": "dn_intelx_search",
+      "description": "Search IntelligenceX for leaked data, dark web content, paste sites, and breach archives. Requires INTELX_API_KEY (paid).",
+      "category": "other"
+    },
+    {
+      "name": "dn_intelx_search_results",
+      "description": "Retrieve results for an IntelligenceX search by search_id (from dn_intelx_search). Requires INTELX_API_KEY.",
+      "category": "other"
+    },
+    {
+      "name": "dn_otx_cve",
+      "description": "Look up threat intelligence for a CVE on AlienVault OTX: related pulses, indicators, and exploitation activity. Free, no key.",
+      "category": "other"
+    },
+    {
+      "name": "dn_otx_domain",
+      "description": "Look up threat intelligence for a domain on AlienVault OTX: pulse info, WHOIS, reputation, associated malware. Free, no key.",
+      "category": "other"
+    },
+    {
+      "name": "dn_otx_hash",
+      "description": "Look up threat intelligence for a file hash (MD5, SHA1, SHA256) on AlienVault OTX. Free, no key.",
+      "category": "other"
+    },
+    {
+      "name": "dn_otx_ip",
+      "description": "Look up threat intelligence for an IP address on AlienVault OTX: pulse info, reputation, country, ASN, associated malware. Free, no key.",
+      "category": "other"
+    },
+    {
+      "name": "dn_pulsedive_explore",
+      "description": "Explore linked indicators using Pulsedive advanced queries. Returns related IOCs with risk levels. Free, no key.",
+      "category": "other"
+    },
+    {
+      "name": "dn_pulsedive_indicator",
+      "description": "Look up an indicator (IP, domain, URL, or hash) on Pulsedive: risk level, threats, feeds, and linked indicators. Free, no key required.",
+      "category": "other"
+    },
+    {
+      "name": "dn_pulsedive_search",
+      "description": "Search Pulsedive indicators by value. Returns matching indicators with risk levels. Free, no key.",
+      "category": "other"
+    },
+    {
+      "name": "dn_ransomlook_groups",
+      "description": "List all ransomware groups tracked by RansomLook (582+). Free, no key.",
+      "category": "other"
+    },
+    {
+      "name": "dn_ransomlook_recent",
+      "description": "Fetch the most recent ransomware posts and victim claims from RansomLook. Free, no key.",
+      "category": "other"
+    },
+    {
+      "name": "dn_ransomware_country",
+      "description": "Get ransomware victims filtered by ISO 3166-1 alpha-2 country code from ransomware.live. Free, no key.",
+      "category": "other"
+    },
+    {
+      "name": "dn_ransomware_group",
+      "description": "Get a detailed profile for a specific ransomware group from ransomware.live: description, aliases, tools, TTPs, CVEs. Free, no key.",
+      "category": "other"
+    },
+    {
+      "name": "dn_ransomware_search",
+      "description": "Search ransomware victims by keyword (company name, domain, etc.) across ransomware.live. Free, no key.",
+      "category": "other"
+    },
+    {
+      "name": "dn_ransomware_sector",
+      "description": "Get ransomware victims filtered by sector/industry from ransomware.live. Free, no key.",
+      "category": "other"
+    },
+    {
+      "name": "dn_ransomware_victims",
+      "description": "Get all victims claimed by a specific ransomware group from ransomware.live. Free, no key.",
+      "category": "other"
+    },
+    {
+      "name": "dn_sources",
+      "description": "List all available darknet intel data sources with configuration status, API key status, tool counts, and free/paid indicators.",
+      "category": "other"
+    },
+    {
+      "name": "dn_threatfox_iocs",
+      "description": "Get recent IOCs from ThreatFox reported in the last N days. Free, no key.",
+      "category": "other"
+    },
+    {
+      "name": "dn_threatfox_malware",
+      "description": "Search ThreatFox IOCs by malware family using Malpedia naming. Free, no key.",
+      "category": "other"
+    },
+    {
+      "name": "dn_threatfox_search",
+      "description": "Search ThreatFox IOCs by IP, domain, hash, or URL. Free, no key.",
+      "category": "other"
+    },
+    {
+      "name": "dn_threatfox_tag",
+      "description": "Search ThreatFox IOCs by tag (e.g. Cobalt Strike, Emotet, AgentTesla). Free, no key.",
+      "category": "other"
+    },
+    {
+      "name": "dn_urlhaus_lookup",
+      "description": "Look up a URL or host in URLhaus for malware distribution. Free, no key.",
+      "category": "other"
+    },
+    {
+      "name": "dn_urlhaus_tag",
+      "description": "Search URLhaus entries by tag. Free, no key.",
+      "category": "other"
+    },
+    {
+      "name": "dn_vulners_exploit",
+      "description": "Search specifically for exploits (ExploitDB entries) on Vulners. Returns exploit code references and details. Free.",
+      "category": "other"
+    },
+    {
+      "name": "dn_vulners_id",
+      "description": "Look up a vulnerability by ID (CVE, EDB, GHSA) on Vulners. Returns CVSS, description, affected products, and exploit availability. Free, no key.",
+      "category": "other"
+    },
+    {
+      "name": "dn_vulners_search",
+      "description": "Search the Vulners vulnerability database using Lucene queries. Returns matching CVEs/exploits with CVSS scores. Free.",
       "category": "other"
     },
     {
@@ -908,6 +1143,11 @@
       "name": "wayback_lookup",
       "description": "Check the Wayback Machine (archive.org) for historical snapshots of a URL. Useful for tracking website changes or recovering deleted content.",
       "category": "domain"
+    },
+    {
+      "name": "whoxy_reverse_whois",
+      "description": "Reverse WHOIS lookup via whoxy.com — find all domains associated with an email, owner name, company, or keyword. Searches 705M+ WHOIS records. Returns domain names, registrant info, and dates. Requires WHOXY_API_KEY secret.",
+      "category": "other"
     },
     {
       "name": "wifi_investigation",

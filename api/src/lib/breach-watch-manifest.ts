@@ -1,0 +1,1 @@
+../../../worker/lib/breach-watch-manifest.ts

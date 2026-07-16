@@ -1,0 +1,15 @@
+{
+  "slug": "dragonforce-greenway-technologies-2026-05-27",
+  "title": "Greenway Technologies",
+  "group": "dragonforce",
+  "discovered": "2026-05-27T07:53:36.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "Greenway Technologies is a leading fire protection company based in Phoenix, AZ, specializing in a comprehensive range of services including fire suppression systems, alarms, sprinklers, and smoke control. Established in 2010, the company provides tailored fire protection design, installation, maintenance, and inspection services aimed at ensuring the safety of properties across the federal and commercial sectors. With a strong commitment to innovative, code-compliant solutions, Greenway Technologies aims to protect lives and property through their top-tier services. Their expert team is dedicated to delivering reliable, high-quality fire protection systems that meet the unique needs of their clients",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["DRAGON FORCE"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

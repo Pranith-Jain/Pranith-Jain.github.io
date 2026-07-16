@@ -1,0 +1,15 @@
+{
+  "slug": "unattributed-adt-2026-04-27",
+  "title": "ADT",
+  "group": "Unattributed",
+  "discovered": "2026-04-27T13:24:41.000Z",
+  "category": "data_breach",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "ADT, a home security company, confirmed a breach in April 2026 by the ShinyHunters group, exposing 5.5M unique email addresses along with names, phone numbers, physical addresses, and in some cases dates of birth and the last four digits of Social Security or Tax ID numbers.",
+  "source_url": "https://xposedornot.com/breach/ADT",
+  "groupAliases": [],
+  "activity": "Information Technology",
+  "references": ["XposedOrNot"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-precision-steel-services-2026-07-06",
+  "title": "Precision Steel Services",
+  "group": "qilin",
+  "discovered": "2026-07-06T14:02:11.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

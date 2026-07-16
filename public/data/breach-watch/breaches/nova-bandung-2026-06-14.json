@@ -1,0 +1,15 @@
+{
+  "slug": "nova-bandung-2026-06-14",
+  "title": "Bandung",
+  "group": "nova",
+  "discovered": "2026-06-14T14:53:51.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "ID",
+  "sizeBytes": 0,
+  "description": "Balai Besar POM di Bandung is a regulatory body focused on the supervision of food and drugs in Indonesia. They provide various services including certification for good distribution practices, food production, and testing of food and drugs. Their intended clients include manufacturers, importers, and the general public seeking information and assistance regarding food and drug safety. The organization operates with a commitment to transparency and public information, ensuring compliance with health regulations - Nova Provide tree and samples from stolen data to the company when its get in touch with support department.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

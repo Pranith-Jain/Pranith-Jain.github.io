@@ -1,0 +1,15 @@
+{
+  "slug": "dragonforce-southport-outdoor-living-2026-07-16",
+  "title": "Southport Outdoor Living",
+  "group": "dragonforce",
+  "discovered": "2026-07-16T10:28:06.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "Southport Outdoor Living is a Canadian company established in 2008, specializing in outdoor patio furniture. They offer a wide range of products including lounge furniture, dining sets, grills, umbrellas, and custom cushions, all with a focus on quality and thoughtful design. Their services include design consultation and a commitment to supporting local suppliers by providing Canadian-made products. The company aims to deliver exceptional value and reliable service to clients in Toronto, Woodbridge, and Vaughan.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["DRAGON FORCE"],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

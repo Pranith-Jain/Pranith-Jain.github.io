@@ -1,0 +1,15 @@
+{
+  "slug": "titan-abp-autoricambi-srl-evasione-fiscale-sistematica-abp-autoricambi-srl-2026-06-11",
+  "title": "Abp Autoricambi Srl\nEvasione Fiscale Sistematica — ABP Autoricambi SRL",
+  "group": "titan",
+  "discovered": "2026-06-11T12:09:41.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "https://titanblog.org/post/evasione-fiscale-sistematica-abp-autoricambi-srl-hkdvdl1vpp",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["CTI.FYI"]
+}

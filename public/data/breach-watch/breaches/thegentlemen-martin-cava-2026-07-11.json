@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-martin-cava-2026-07-11",
+  "title": "Martin Cava",
+  "group": "thegentlemen",
+  "discovered": "2026-07-11T07:22:47.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "ES",
+  "sizeBytes": 0,
+  "description": "***.com zoominfo.com/c/martin-cava-sa/366183664 Martin Cava S.A. is a prominent Argentine supplier of equipment, specialty papers, and consumables for the graphic and printing industry, boasting nearly 90 years of market experience.Based in Buenos Aires, they distribute a wide array of products including HP plotters, inks, holographic vinyls, and offset printing materials.The company is highly regarded for offering innovative solutions that allow businesses to personalize garments, promotional items, and various surfaces",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

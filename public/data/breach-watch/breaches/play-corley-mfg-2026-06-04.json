@@ -1,0 +1,15 @@
+{
+  "slug": "play-corley-mfg-2026-06-04",
+  "title": "Corley MFG",
+  "group": "play",
+  "discovered": "2026-06-04T21:56:29.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "United States",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["PlayCrypt"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}
