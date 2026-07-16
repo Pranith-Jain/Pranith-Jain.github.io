@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   AlertTriangle,
   BookOpen,
@@ -21,9 +21,15 @@ import {
   listBriefings,
   searchCvesByKeyword,
   kgSearch,
+  listTools,
+  kgCluster,
+  kgTimeline,
   listStixBundles,
   sanitizeKey,
   idForReport,
+  type McpToolDef,
+  type KgClusterResult,
+  type KgTimelineResult,
   type TiReportSummary,
   type IocSearchResult,
   type CveSearchResult,
@@ -79,7 +85,92 @@ export function CrossSearchWorkbench(props: { showHeader?: boolean }): JSX.Eleme
   const [expanded, setExpanded] = useState<Set<string>>(new Set(['reports', 'cves']));
   const [showKeyInput, setShowKeyInput] = useState(false);
   const [keyInput, setKeyInput] = useState('');
+  const [tools, setTools] = useState<McpToolDef[]>([]);
+  const [toolsLoading, setToolsLoading] = useState(false);
+  const [selectedEntity, setSelectedEntity] = useState<KgEntity | null>(null);
+  const [entityCluster, setEntityCluster] = useState<KgClusterResult | null>(null);
+  const [entityTimeline, setEntityTimeline] = useState<KgTimelineResult | null>(null);
+  const [entityDetailBusy, setEntityDetailBusy] = useState(false);
   const abortRef = useRef<AbortController | null>(null);
+
+  // Discover tools after connecting
+  useEffect(() => {
+    if (status === 'connected' && apiKey && tools.length === 0 && !toolsLoading) {
+      setToolsLoading(true);
+      listTools(apiKey)
+        .then((t) => {
+          setTools(t);
+          setToolsLoading(false);
+        })
+        .catch(() => setToolsLoading(false));
+    }
+  }, [status, apiKey, tools.length, toolsLoading]);
+
+  const toolsByCategory = useMemo(() => {
+    const map: Record<string, McpToolDef[]> = {};
+    const catOrder = ['reports', 'cves', 'iocs', 'briefings', 'stix', 'knowledge', 'platform'];
+    const catNames: Record<string, string> = {
+      reports: 'Reports',
+      cves: 'CVE Intel',
+      iocs: 'IOC Search',
+      briefings: 'Briefings',
+      stix: 'STIX Bundles',
+      knowledge: 'Knowledge Graph',
+      platform: 'Platform',
+    };
+    const nameToCat: Record<string, string> = {
+      list_reports: 'reports',
+      get_report_details: 'reports',
+      get_report_content: 'reports',
+      get_available_sources: 'reports',
+      get_available_tags: 'reports',
+      get_latest_briefing: 'briefings',
+      list_briefings: 'briefings',
+      get_briefing_by_date: 'briefings',
+      search_ioc: 'iocs',
+      search_cve: 'cves',
+      search_cves_by_keyword: 'cves',
+      list_cves: 'cves',
+      get_cves_by_article: 'cves',
+      get_cve_statistics: 'cves',
+      get_stix_bundle: 'stix',
+      list_stix_bundles: 'stix',
+      get_stix_statistics: 'stix',
+      get_statistics: 'platform',
+      submit_article: 'platform',
+      kg_stats: 'knowledge',
+      kg_search: 'knowledge',
+      kg_cluster: 'knowledge',
+      kg_timeline: 'knowledge',
+      kg_attack_path: 'knowledge',
+      kg_cross_report: 'knowledge',
+    };
+    for (const t of tools) {
+      const cat = nameToCat[t.name] ?? 'platform';
+      if (!map[cat]) map[cat] = [];
+      map[cat].push(t);
+    }
+    return catOrder.filter((c) => map[c]?.length).map((c) => ({ id: c, name: catNames[c] ?? c, tools: map[c]! }));
+  }, [tools]);
+
+  async function drillEntity(entity: KgEntity): Promise<void> {
+    if (!apiKey) return;
+    setSelectedEntity(entity);
+    setEntityCluster(null);
+    setEntityTimeline(null);
+    setEntityDetailBusy(true);
+    try {
+      const [cluster, timeline] = await Promise.allSettled([
+        kgCluster(apiKey, entity.canon_id, { depth: 1 }),
+        kgTimeline(apiKey, entity.canon_id),
+      ]);
+      if (cluster.status === 'fulfilled') setEntityCluster(cluster.value);
+      if (timeline.status === 'fulfilled') setEntityTimeline(timeline.value);
+    } catch {
+      /* ignore */
+    }
+    setEntityDetailBusy(false);
+  }
 
   const mode = useMemo(() => guessMode(q), [q]);
 
@@ -276,6 +367,43 @@ export function CrossSearchWorkbench(props: { showHeader?: boolean }): JSX.Eleme
         )}
       </div>
 
+      {/* Tool Explorer (dynamic via tools/list) */}
+      {tools.length > 0 && !hasResults && !err && (
+        <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+          <div className="px-4 py-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <p className="text-micro font-mono uppercase tracking-wider text-slate-500">
+              Discovered Tools · {tools.length} via MCP tools/list
+            </p>
+          </div>
+          {toolsByCategory.map((cat) => (
+            <div
+              key={cat.id}
+              className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] last:border-b-0"
+            >
+              <div className="flex items-center gap-2 px-4 py-2">
+                <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">{cat.name}</span>
+                <span className="text-micro font-mono text-slate-500">{cat.tools.length}</span>
+              </div>
+              <div className="px-4 pb-2 grid grid-cols-1 sm:grid-cols-2 gap-1">
+                {cat.tools.map((t) => (
+                  <div key={t.name} className="rounded px-2 py-1 bg-slate-50 dark:bg-[rgb(var(--input-200))]">
+                    <p className="text-[11px] font-mono font-medium text-slate-800 dark:text-slate-200">{t.name}</p>
+                    {t.description && (
+                      <p className="text-[10px] text-slate-500 dark:text-slate-400 line-clamp-2">{t.description}</p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+      {toolsLoading && !hasResults && (
+        <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] p-4 flex items-center gap-2 text-xs text-slate-500">
+          <Loader2 className="h-3 w-3 animate-spin" /> Discovering available tools…
+        </div>
+      )}
+
       {/* Results */}
       {hasResults && (
         <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
@@ -334,10 +462,67 @@ export function CrossSearchWorkbench(props: { showHeader?: boolean }): JSX.Eleme
               onToggle={toggleSection}
             >
               {result!.kg.entities.map((e, i) => (
-                <KgEntityRow key={e.canon_id || i} entity={e} />
+                <KgEntityRow key={e.canon_id || i} entity={e} onDrill={drillEntity} />
               ))}
             </Section>
           ) : null}
+          {selectedEntity && (entityCluster || entityTimeline) && (
+            <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <Map className="h-4 w-4 text-cyan-600 dark:text-cyan-400" />
+                <span className="text-xs font-semibold text-slate-900 dark:text-slate-100">{selectedEntity.name}</span>
+                <span className="text-[10px] font-mono text-slate-500">{selectedEntity.entity_type}</span>
+                <button
+                  onClick={() => {
+                    setSelectedEntity(null);
+                    setEntityCluster(null);
+                    setEntityTimeline(null);
+                  }}
+                  className="ml-auto text-[10px] text-slate-500 hover:text-rose-600"
+                >
+                  ✕
+                </button>
+              </div>
+              {entityCluster?.entities != null && entityCluster.entities.length > 0 && (
+                <div className="mb-2">
+                  <p className="text-[10px] font-mono uppercase text-slate-500 mb-1">
+                    Local Graph — {entityCluster.entities.length} entities
+                  </p>
+                  <div className="flex flex-wrap gap-1">
+                    {entityCluster.entities.slice(0, 8).map((e) => (
+                      <span
+                        key={e.canon_id}
+                        className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5 text-[10px]"
+                      >
+                        <span className="font-mono text-slate-500">{e.entity_type}</span>{' '}
+                        <span className="text-slate-800 dark:text-slate-200">{e.name}</span>
+                      </span>
+                    ))}
+                    {entityCluster.entities.length > 8 && (
+                      <span className="text-[10px] text-slate-500">+{entityCluster.entities.length - 8} more</span>
+                    )}
+                  </div>
+                </div>
+              )}
+              {entityTimeline?.timeline?.length ? (
+                <div>
+                  <p className="text-[10px] font-mono uppercase text-slate-500 mb-1">Timeline</p>
+                  <div className="space-y-1 max-h-40 overflow-y-auto">
+                    {entityTimeline.timeline.slice(0, 6).map((entry, i) => (
+                      <div key={i} className="text-[11px] text-slate-600 dark:text-slate-400">
+                        <span className="font-mono text-slate-500">{entry.date ?? '?'}</span> {entry.title}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          )}
+          {entityDetailBusy && (
+            <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] p-3 flex items-center gap-2 text-xs text-slate-500">
+              <Loader2 className="h-3 w-3 animate-spin" /> Loading entity details…
+            </div>
+          )}
           {result!.latestBriefing ? (
             <Section
               icon={BookOpen}
@@ -517,12 +702,16 @@ function IocRow({ hit }: { hit: IocSearchResult }): JSX.Element {
   );
 }
 
-function KgEntityRow({ entity }: { entity: KgEntity }): JSX.Element {
+function KgEntityRow({ entity, onDrill }: { entity: KgEntity; onDrill?: (e: KgEntity) => void }): JSX.Element {
   return (
-    <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-2.5 py-1.5">
+    <div
+      className={`rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-2.5 py-1.5 ${onDrill ? 'cursor-pointer hover:border-brand-400 hover:bg-brand-50/50 dark:hover:bg-brand-950/20' : ''}`}
+      onClick={() => onDrill?.(entity)}
+    >
       <div className="flex items-center gap-2">
         <span className="text-xs font-semibold text-slate-800 dark:text-slate-200">{entity.name}</span>
         <span className="text-[10px] font-mono text-slate-500">{entity.entity_type}</span>
+        {onDrill && <span className="ml-auto text-[10px] text-brand-600 dark:text-brand-400">drill →</span>}
       </div>
       {entity.description && (
         <p className="mt-0.5 text-[11px] text-slate-600 dark:text-slate-400 line-clamp-2">{entity.description}</p>
