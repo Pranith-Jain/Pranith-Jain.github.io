@@ -16,6 +16,7 @@ import {
   THREAT_ACTORS,
   TYPE_LABELS,
   type ActorType,
+  type ActorStatus,
   type ThreatActor,
 } from '../../data/threatintel/threat-actor-catalog';
 
@@ -289,11 +290,15 @@ function ActorCard({ actor, isExpanded, onToggle }: { actor: ThreatActor; isExpa
 export default function ActorProfiles() {
   const [query, setQuery] = useState('');
   const [activeType, setActiveType] = useState<ActorType | null>(null);
+  const [activeStatus, setActiveStatus] = useState<ActorStatus | null>(null);
+  const [activeCountry, setActiveCountry] = useState<string | null>(null);
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
 
   const filtered = useMemo(() => {
     let list = THREAT_ACTORS;
     if (activeType) list = list.filter((a) => a.type === activeType);
+    if (activeStatus) list = list.filter((a) => a.status === activeStatus);
+    if (activeCountry) list = list.filter((a) => getCountryCode(a.country) === activeCountry);
     if (query.trim()) {
       const q = query.toLowerCase();
       list = list.filter(
@@ -307,7 +312,7 @@ export default function ActorProfiles() {
       );
     }
     return list;
-  }, [query, activeType]);
+  }, [query, activeType, activeStatus, activeCountry]);
 
   const toggle = (id: string) => {
     setExpanded((prev) => {
@@ -395,6 +400,74 @@ export default function ActorProfiles() {
             {TYPE_ICONS[t]} {TYPE_LABELS[t]} ({typeCounts[t]})
           </button>
         ))}
+      </div>
+
+      {/* Status filter pills */}
+      <div className="flex flex-wrap items-center gap-2 mb-4">
+        <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          Status:
+        </span>
+        {(['active', 'dormant', 'defunct'] as ActorStatus[]).map((s) => {
+          const count = THREAT_ACTORS.filter((a) => a.status === s).length;
+          if (count === 0) return null;
+          return (
+            <button
+              key={s}
+              type="button"
+              onClick={() => setActiveStatus(activeStatus === s ? null : s)}
+              className={`px-2 py-0.5 rounded-full text-[11px] font-mono border transition-colors ${
+                activeStatus === s
+                  ? `${STATUS_PILL[s]} border-current`
+                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'
+              }`}
+            >
+              {s} ({count})
+            </button>
+          );
+        })}
+        <div className="w-px h-5 bg-slate-200 dark:bg-[rgb(var(--border-400))]" />
+        <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          Country:
+        </span>
+        {(() => {
+          const countryCounts: Record<string, number> = {};
+          THREAT_ACTORS.forEach((a) => {
+            const cc = getCountryCode(a.country);
+            countryCounts[cc] = (countryCounts[cc] || 0) + 1;
+          });
+          return Object.entries(countryCounts)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 6)
+            .map(([cc, count]) => {
+              const flag = COUNTRY_FLAGS[cc] ?? '🌐';
+              const name = THREAT_ACTORS.find((a) => getCountryCode(a.country) === cc)?.country.split(': ')[1] ?? cc;
+              return (
+                <button
+                  key={cc}
+                  type="button"
+                  onClick={() => setActiveCountry(activeCountry === cc ? null : cc)}
+                  className={`px-2 py-0.5 rounded-full text-[11px] font-mono border transition-colors ${
+                    activeCountry === cc
+                      ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
+                      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'
+                  }`}
+                >
+                  {flag} {name} ({count})
+                </button>
+              );
+            });
+        })()}
+        {(activeStatus || activeCountry) && (
+          <button
+            onClick={() => {
+              setActiveStatus(null);
+              setActiveCountry(null);
+            }}
+            className="text-[11px] text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 ml-1"
+          >
+            Clear
+          </button>
+        )}
       </div>
 
       {/* Actor cards */}
