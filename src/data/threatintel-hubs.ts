@@ -1423,6 +1423,14 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Central CTI operations dashboard — KPI cards, feed health, alert volume, and recent intel.',
         compVar: 'CtiDashboard',
       },
+      {
+        path: '/threatintel/dashboard',
+        tabId: 'dashboard-live',
+        label: 'Threat Dashboard',
+        desc: 'Live threat landscape — IOCs, ransomware victims, and breach disclosures with sortable table and severity filters.',
+        compVar: 'ThreatIntelDashboard',
+        badge: 'new',
+      },
     ],
   },
   {
