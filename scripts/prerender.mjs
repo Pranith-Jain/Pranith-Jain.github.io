@@ -353,6 +353,7 @@ const ROUTES = [
   '/dfir/asn',
   '/dfir/breach',
   '/dfir/traceix',
+  '/dfir/whoxy',
   '/threatintel/external/cerast',
   '/threatintel/external/threatmon',
   '/dfir/winreg',

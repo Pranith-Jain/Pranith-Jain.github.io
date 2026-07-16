@@ -767,6 +767,7 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/dfir/identity-lookup', to: '/dfir/username-investigator' },
   { path: '/winreg', to: '/dfir/winreg' },
   { path: '/traceix', to: '/dfir/traceix' },
+  { path: '/whoxy', to: '/dfir/whoxy' },
   { path: '/threatintel/research-hub/campaign-gen', to: '/threatintel/campaigns/generator' },
   { path: '/threatintel/tools/graph', to: '/threatintel/actors/graph' },
   // Tab-hub aliases — same component, different default tab

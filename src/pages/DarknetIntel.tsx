@@ -18,21 +18,21 @@ import {
 type Tab = 'providers' | 'ip' | 'hash' | 'vuln' | 'ransom' | 'malware' | 'breach';
 
 const TABS: { id: Tab; label: string; icon: React.ReactNode }[] = [
-  { id: 'providers', label: 'Sources', icon: <Shield className="h-4 w-4" /> },
-  { id: 'ip', label: 'IP Intel', icon: <Globe2 className="h-4 w-4" /> },
-  { id: 'hash', label: 'Hash Intel', icon: <SearchIcon className="h-4 w-4" /> },
-  { id: 'vuln', label: 'Vulnerabilities', icon: <Bug className="h-4 w-4" /> },
-  { id: 'ransom', label: 'Ransomware', icon: <Skull className="h-4 w-4" /> },
-  { id: 'malware', label: 'Malware IOCs', icon: <FileWarning className="h-4 w-4" /> },
-  { id: 'breach', label: 'Breach Intel', icon: <Lock className="h-4 w-4" /> },
+  { id: 'providers', label: 'Sources', icon: <Shield className="h-3.5 w-3.5" /> },
+  { id: 'ip', label: 'IP Intel', icon: <Globe2 className="h-3.5 w-3.5" /> },
+  { id: 'hash', label: 'Hash Intel', icon: <SearchIcon className="h-3.5 w-3.5" /> },
+  { id: 'vuln', label: 'Vulnerabilities', icon: <Bug className="h-3.5 w-3.5" /> },
+  { id: 'ransom', label: 'Ransomware', icon: <Skull className="h-3.5 w-3.5" /> },
+  { id: 'malware', label: 'Malware IOCs', icon: <FileWarning className="h-3.5 w-3.5" /> },
+  { id: 'breach', label: 'Breach Intel', icon: <Lock className="h-3.5 w-3.5" /> },
 ];
 
 const CARD =
   'rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1';
 const INPUT =
-  'w-full rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/40';
+  'w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500';
 const BTN =
-  'inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-700 transition-colors disabled:opacity-50';
+  'inline-flex items-center gap-1.5 rounded-xl bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-700 transition-colors disabled:opacity-50';
 
 interface ProviderStatus {
   name: string;
@@ -575,16 +575,16 @@ export default function DarknetIntel() {
       description="42 tools across 13 providers — IP reputation, malware analysis, vulnerability lookup, ransomware tracking, breach intelligence, and dark web search."
       maxWidthClass="max-w-6xl"
     >
-      <div className="flex flex-wrap gap-1 mb-6 border-b border-slate-200 dark:border-[rgb(var(--border-400))] pb-0">
+      <div className="mb-6 flex flex-wrap gap-1.5">
         {TABS.map((t) => (
           <button
             key={t.id}
             type="button"
             onClick={() => setTab(t.id)}
-            className={`flex items-center gap-1.5 px-3 py-2 text-sm font-medium border-b-2 transition-colors ${
+            className={`inline-flex items-center gap-1.5 text-mini font-mono rounded-full border px-2.5 py-1 transition-colors ${
               tab === t.id
-                ? 'border-brand-600 text-brand-600 dark:text-brand-400 dark:border-brand-400'
-                : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600'
+                ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
+                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'
             }`}
           >
             {t.icon}

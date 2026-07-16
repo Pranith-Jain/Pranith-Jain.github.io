@@ -537,6 +537,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/orkl', '/__prerendered/dfir__orkl'],
   ['/dfir/wifi-investigation', '/__prerendered/dfir__wifi-investigation'],
   ['/dfir/traceix', '/__prerendered/dfir__traceix'],
+  ['/dfir/whoxy', '/__prerendered/dfir__whoxy'],
   ['/dfir/winreg', '/__prerendered/dfir__winreg'],
   ['/dfir/fleet-map', '/__prerendered/dfir__fleet-map'],
   // ── Standalone SPA pages ──────────────────────────────────────
