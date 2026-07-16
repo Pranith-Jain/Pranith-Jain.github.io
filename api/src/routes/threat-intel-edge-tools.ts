@@ -56,7 +56,7 @@ threatIntelRouter.get('/threat-intel/cves', async (c) => {
       : undefined;
     const minPriority = c.req.query('min_priority') ? Number(c.req.query('min_priority')) : undefined;
     const keyword = c.req.query('q');
-    const limit = c.req.query('limit') ? Math.min(200, Math.max(1, Number(c.req.query('limit')))) : undefined;
+    const limit = c.req.query('limit') ? Math.min(1000, Math.max(1, Number(c.req.query('limit')))) : undefined;
 
     const cves = mod.filterCves(idx, {
       severity: severity as any,

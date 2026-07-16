@@ -61,6 +61,16 @@ const VIEW_TABS: { id: ViewTab; label: string }[] = [
   { id: 'over-time', label: 'Over time' },
 ];
 
+function normalizeSeverity(s: string | null | undefined): string {
+  if (!s) return '(none)';
+  const low = s.toLowerCase();
+  if (low === 'critical' || low === 'crítica') return 'Critical';
+  if (low === 'high' || low === 'important') return 'Important';
+  if (low === 'medium' || low === 'moderate') return 'Moderate';
+  if (low === 'low') return 'Low';
+  return '(none)';
+}
+
 const SEVERITY_COLORS: Record<string, string> = {
   Critical: '#ef4444',
   Important: '#f97316',
@@ -465,31 +475,36 @@ export default function ThreatIntelDashboard() {
     const fetchAll = async () => {
       try {
         const results = await Promise.allSettled([
-          fetch('/api/v1/threat-intel/cves?limit=500', {
-            signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(20000)]),
+          fetch('/api/v1/threat-intel/cves?limit=1000', {
+            signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(25000)]),
           }),
-          fetch('/api/v1/cve-recent?limit=200', { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(20000)]) }),
+          fetch('/api/v1/cve-recent?limit=500', { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(25000)]) }),
         ]);
         if (cancelled) return;
+        const seen = new Set<string>();
         const allCves: CveEntry[] = [];
         for (const r of results) {
           if (r.status === 'fulfilled' && r.value.ok) {
             const d = await r.value.json();
             const items = d.cves ?? d.data ?? d.entries ?? [];
             for (const item of items) {
+              const cveId = item.cveId ?? item.id ?? '';
+              if (!cveId || seen.has(cveId)) continue;
+              seen.add(cveId);
+              const sev = normalizeSeverity(item.cvssV3Severity ?? item.severity);
               allCves.push({
-                cveId: item.cveId ?? item.cve ?? item.id ?? '',
+                cveId,
                 description: item.description ?? item.shortDescription ?? '',
                 publishedAt: item.publishedAt ?? item.published ?? item.dateAdded ?? '',
-                cvssV3Score: item.cvssV3Score ?? item.cvss ?? null,
-                cvssV3Severity: item.cvssV3Severity ?? item.severity ?? '',
+                cvssV3Score: item.cvssV3Score ?? item.score ?? item.cvss ?? null,
+                cvssV3Severity: sev,
                 inKev: item.inKev ?? item.kev ?? false,
                 priorityScore: item.priorityScore ?? 0,
                 vendor: item.vendor ?? '',
                 product: item.product ?? '',
                 family: item.family ?? item.productFamily ?? '',
-                cna: item.cna ?? item.issuingCna ?? '',
-                exploited: item.exploited ?? item.inKev ?? false,
+                cna: item.cna ?? item.issuingCna ?? item.origin ?? '',
+                exploited: item.exploited ?? item.inKev ?? item.kev ?? false,
                 impactType: item.impactType ?? item.impact ?? '',
               });
             }
