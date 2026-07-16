@@ -614,6 +614,224 @@ export async function getStats(apiKey: string): Promise<PlatformStats> {
   return callTool<PlatformStats>('get_statistics', {}, apiKey);
 }
 
+// ── Tool discovery ──────────────────────────────────────────────────
+
+export interface McpToolDef {
+  name: string;
+  description?: string;
+  inputSchema?: Record<string, unknown>;
+}
+
+export async function listTools(apiKey: string, endpoint = PROXY_URL): Promise<McpToolDef[]> {
+  const { data } = await callRaw<{ tools: McpToolDef[] }>('tools/list', undefined, apiKey, endpoint);
+  return data.result?.tools ?? [];
+}
+
+// ── Briefings (3 tools — wrapping the 1 missing one) ────────────────
+
+export async function getBriefingByDate(apiKey: string, date: string): Promise<BriefingSummary | null> {
+  const res = await callTool<BriefingListResult>('get_briefing_by_date', { date }, apiKey);
+  return res.briefings?.[0] ?? null;
+}
+
+// ── CVE Intelligence (5 tools — wrapping the 4 missing ones) ────────
+
+export interface CveSummary {
+  cve_id: string;
+  cvss_score?: number;
+  severity?: string;
+  epss_score?: number;
+  exploited?: boolean;
+  description?: string;
+  published_at?: string;
+}
+
+export interface CveListResult {
+  cves?: CveSummary[];
+  total?: number;
+  page?: number;
+  size?: number;
+}
+
+export async function searchCvesByKeyword(apiKey: string, query: string, limit = 12): Promise<CveListResult> {
+  return callTool<CveListResult>('search_cves_by_keyword', { query, limit }, apiKey);
+}
+
+export async function listCves(
+  apiKey: string,
+  opts: { page?: number; size?: number; severity?: string; sort_by?: string; sort_order?: string } = {}
+): Promise<CveListResult> {
+  return callTool<CveListResult>('list_cves', opts, apiKey);
+}
+
+export async function getCvesByArticle(apiKey: string, articleId: string): Promise<CveListResult> {
+  return callTool<CveListResult>('get_cves_by_article', { article_id: articleId }, apiKey);
+}
+
+export interface CveStatistics {
+  total_cves?: number;
+  by_severity?: Record<string, number>;
+  top_vendors?: Array<{ vendor: string; count: number }>;
+  exploited_count?: number;
+  avg_cvss?: number;
+  trend?: Array<{ month: string; count: number }>;
+}
+
+export async function getCveStatistics(apiKey: string): Promise<CveStatistics> {
+  return callTool<CveStatistics>('get_cve_statistics', {}, apiKey);
+}
+
+// ── STIX Bundles (3 tools — all missing) ────────────────────────────
+
+export interface StixBundleSummary {
+  article_id: string;
+  title?: string;
+  stix_size?: number;
+  created_at?: string;
+}
+
+export interface StixBundleListResult {
+  bundles?: StixBundleSummary[];
+  total?: number;
+}
+
+export async function getStixBundle(apiKey: string, articleId: string): Promise<Record<string, unknown>> {
+  return callTool<Record<string, unknown>>('get_stix_bundle', { article_id: articleId }, apiKey);
+}
+
+export async function listStixBundles(
+  apiKey: string,
+  opts: { limit?: number; offset?: number } = {}
+): Promise<StixBundleListResult> {
+  return callTool<StixBundleListResult>('list_stix_bundles', opts, apiKey);
+}
+
+export interface StixStatistics {
+  total_bundles?: number;
+  total_objects?: number;
+  by_type?: Record<string, number>;
+}
+
+export async function getStixStatistics(apiKey: string): Promise<StixStatistics> {
+  return callTool<StixStatistics>('get_stix_statistics', {}, apiKey);
+}
+
+// ── Submissions (1 missing) ─────────────────────────────────────────
+
+export interface SubmitArticleResult {
+  article_id?: string;
+  status?: string;
+  message?: string;
+}
+
+export async function submitArticle(apiKey: string, url: string): Promise<SubmitArticleResult> {
+  return callTool<SubmitArticleResult>('submit_article', { url }, apiKey);
+}
+
+// ── Knowledge Graph — STIX Constellation (6 tools — all missing) ────
+
+export interface KgStatsResult {
+  total_entities?: number;
+  total_relationships?: number;
+  entity_types?: Record<string, number>;
+  relationship_types?: Record<string, number>;
+}
+
+export async function kgStats(apiKey: string): Promise<KgStatsResult> {
+  return callTool<KgStatsResult>('kg_stats', {}, apiKey);
+}
+
+export interface KgEntity {
+  canon_id: string;
+  name: string;
+  entity_type: string;
+  aliases?: string[];
+  description?: string;
+}
+
+export interface KgSearchResult {
+  entities?: KgEntity[];
+  total?: number;
+}
+
+export async function kgSearch(
+  apiKey: string,
+  query: string,
+  opts: { entity_type?: string; limit?: number } = {}
+): Promise<KgSearchResult> {
+  return callTool<KgSearchResult>('kg_search', { query, ...opts }, apiKey);
+}
+
+export interface KgRelationship {
+  source_id: string;
+  source_name: string;
+  target_id: string;
+  target_name: string;
+  relationship_type: string;
+  confidence?: number;
+}
+
+export interface KgClusterResult {
+  center: KgEntity;
+  entities?: KgEntity[];
+  relationships?: KgRelationship[];
+}
+
+export async function kgCluster(
+  apiKey: string,
+  canonId: string,
+  opts: { depth?: number; include_inferred?: boolean } = {}
+): Promise<KgClusterResult> {
+  return callTool<KgClusterResult>('kg_cluster', { canon_id: canonId, ...opts }, apiKey);
+}
+
+export interface KgTimelineEntry {
+  report_id: string;
+  title?: string;
+  date?: string;
+  summary?: string;
+}
+
+export interface KgTimelineResult {
+  entity: KgEntity;
+  timeline?: KgTimelineEntry[];
+}
+
+export async function kgTimeline(apiKey: string, canonId: string): Promise<KgTimelineResult> {
+  return callTool<KgTimelineResult>('kg_timeline', { canon_id: canonId }, apiKey);
+}
+
+export interface KgAttackPathResult {
+  paths?: Array<{
+    source: KgEntity;
+    target: KgEntity;
+    steps: Array<{ entity: KgEntity; relationship: KgRelationship }>;
+  }>;
+}
+
+export async function kgAttackPath(
+  apiKey: string,
+  ttpQuery: string,
+  opts: { depth?: number } = {}
+): Promise<KgAttackPathResult> {
+  return callTool<KgAttackPathResult>('kg_attack_path', { ttp_query: ttpQuery, ...opts }, apiKey);
+}
+
+export interface KgCrossReportResult {
+  report_a: string;
+  report_b: string;
+  shared_entities?: KgEntity[];
+  shared_count?: number;
+}
+
+export async function kgCrossReport(
+  apiKey: string,
+  reportIdA: string,
+  reportIdB: string
+): Promise<KgCrossReportResult> {
+  return callTool<KgCrossReportResult>('kg_cross_report', { report_id_a: reportIdA, report_id_b: reportIdB }, apiKey);
+}
+
 /** One-shot probe: validates the key by initializing a session.
  *  Returns `{ ok, error? }` -- never throws. */
 export async function probeConnection(
