@@ -334,7 +334,7 @@ export default function InfostealerIntel(): JSX.Element {
             </div>
           )}
 
-          {searchResult.results.map((entry, i) => (
+          {(searchResult.results ?? []).map((entry, i) => (
             <div
               key={i}
               className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 overflow-hidden"
@@ -362,7 +362,7 @@ export default function InfostealerIntel(): JSX.Element {
                 ) : null}
               </div>
               <div className="divide-y divide-slate-100 dark:divide-slate-800/50">
-                {entry.credentials.map((cred, j) => (
+                {(entry.credentials ?? []).map((cred, j) => (
                   <div key={j} className="px-4 py-2 flex flex-wrap items-center gap-2.5 text-xs">
                     <span
                       className={`inline-block px-2 py-0.5 rounded-full border text-xs ${TYPE_COLORS[cred.type] ?? 'bg-slate-100 text-slate-600 border-slate-200 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400 dark:border-[rgb(var(--border-400))]'}`}
@@ -465,7 +465,7 @@ export default function InfostealerIntel(): JSX.Element {
                   <Clock className="w-4 h-4 text-slate-400" /> Infection Flow
                 </h3>
                 <div className="space-y-3">
-                  {infectionResult.analysis.infection_flow.map((step, i) => (
+                  {(infectionResult.analysis.infection_flow ?? []).map((step, i) => (
                     <div key={i} className="flex gap-3 text-sm">
                       <div className="flex flex-col items-center">
                         <div className="w-2 h-2 rounded-full bg-brand-600 dark:bg-brand-400 shrink-0 mt-1.5" />
