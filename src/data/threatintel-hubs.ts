@@ -145,6 +145,14 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'ThreatActorCatalog',
       },
       {
+        path: '/threatintel/actors/profiles',
+        tabId: 'profiles',
+        label: 'Actor Profiles',
+        desc: 'Expandable actor cards — aliases, malware, targeted sectors, campaigns, MITRE mapping.',
+        compVar: 'ActorProfiles',
+        badge: 'new',
+      },
+      {
         path: '/threatintel/actors/graph',
         tabId: 'graph',
         label: 'Actor Graph',

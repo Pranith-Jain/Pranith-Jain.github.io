@@ -40,6 +40,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/actors/usernames', '/__prerendered/threatintel__actors__usernames'],
   ['/threatintel/actors/attribution', '/__prerendered/threatintel__actors__attribution'],
   ['/threatintel/actors/catalog', '/__prerendered/threatintel__actors__catalog'],
+  ['/threatintel/actors/profiles', '/__prerendered/threatintel__actors__profiles'],
   ['/threatintel/actors/kb', '/__prerendered/threatintel__actors__kb'],
   ['/threatintel/actors/graph', '/__prerendered/threatintel__actors__graph'],
   ['/threatintel/campaigns/active', '/__prerendered/threatintel__campaigns__active'],

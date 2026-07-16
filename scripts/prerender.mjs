@@ -61,6 +61,7 @@ const ROUTES = [
   '/threatintel/catalog',
   '/threatintel/actors/attribution',
   '/threatintel/actors/catalog',
+  '/threatintel/actors/profiles',
   '/threatintel/actors/directory',
   '/threatintel/actors/dna',
   '/threatintel/actors/graph',

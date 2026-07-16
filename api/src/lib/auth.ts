@@ -77,9 +77,40 @@ const EXEMPT_PATHS = new Set([
   '/api/v1/telegram-leaks/bot-webhook',
   '/api/v1/telegram-leaks/register-webhook',
   '/api/v1/csp-report', // CSP violation reports — POST from browsers, no auth needed
-  // NOTE: removed the dead '/api/v1/telegram-leaks/trigger-scan' entry — no
-  // handler is registered for it. Re-add ONLY together with a self-authenticating
-  // handler, else a future handler at that path would be silently keyless + CSRF-exempt.
+  // Darknet Intel tools — read-only, same-origin frontend tools (no sensitive data)
+  '/api/v1/darknet-intel/sources',
+  '/api/v1/darknet-intel/greynoise/ip',
+  '/api/v1/darknet-intel/greynoise/check',
+  '/api/v1/darknet-intel/pulsedive/indicator',
+  '/api/v1/darknet-intel/pulsedive/search',
+  '/api/v1/darknet-intel/pulsedive/explore',
+  '/api/v1/darknet-intel/vulners/id',
+  '/api/v1/darknet-intel/otx/ip',
+  '/api/v1/darknet-intel/otx/domain',
+  '/api/v1/darknet-intel/otx/hash',
+  '/api/v1/darknet-intel/otx/cve',
+  '/api/v1/darknet-intel/ransomware/group',
+  '/api/v1/darknet-intel/ransomware/victims',
+  '/api/v1/darknet-intel/ransomware/search',
+  '/api/v1/darknet-intel/ransomware/country',
+  '/api/v1/darknet-intel/ransomware/sector',
+  '/api/v1/darknet-intel/ransomware/ransomlook-groups',
+  '/api/v1/darknet-intel/ransomware/ransomlook-recent',
+  '/api/v1/darknet-intel/hibp/breach',
+  '/api/v1/darknet-intel/hibp/latest',
+  '/api/v1/darknet-intel/hibp/data-classes',
+  '/api/v1/darknet-intel/hibp/password',
+  '/api/v1/darknet-intel/abusech/threatfox-iocs',
+  '/api/v1/darknet-intel/abusech/threatfox-search',
+  '/api/v1/darknet-intel/abusech/threatfox-tag',
+  '/api/v1/darknet-intel/abusech/threatfox-malware',
+  '/api/v1/darknet-intel/abusech/urlhaus',
+  '/api/v1/darknet-intel/abusech/urlhaus-tag',
+  '/api/v1/darknet-intel/abusech/bazaar-hash',
+  '/api/v1/darknet-intel/abusech/bazaar-recent',
+  '/api/v1/darknet-intel/abusech/bazaar-tag',
+  '/api/v1/darknet-intel/vulners/search',
+  '/api/v1/darknet-intel/vulners/exploit',
 ]);
 
 export interface AuthUser {

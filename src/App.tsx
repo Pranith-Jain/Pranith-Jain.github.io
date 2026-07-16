@@ -310,6 +310,7 @@ const SupplyChainIntelligence = lazy(() => import('./pages/threatintel/SupplyCha
 const TechAiNews = lazy(() => import('./pages/dfir/TechAiNews'));
 
 const ThreatActorCatalog = lazy(() => import('./pages/threatintel/ThreatActorCatalog'));
+const ActorProfiles = lazy(() => import('./pages/threatintel/ActorProfiles'));
 const ThreatFeeds = lazy(() => import('./pages/dfir/ThreatFeeds'));
 const ThreatMap = lazy(() => import('./pages/dfir/ThreatMap'));
 const ThreatPulse = lazy(() => import('./pages/threatintel/ThreatPulse'));
@@ -608,6 +609,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/actors/usernames', Component: ActorUsernameSearch },
   { path: '/threatintel/actors/attribution', Component: Attribution },
   { path: '/threatintel/actors/catalog', Component: ThreatActorCatalog },
+  { path: '/threatintel/actors/profiles', Component: ActorProfiles },
   { path: '/threatintel/actors/graph', Component: RelationshipGraph },
   { path: '/threatintel/campaigns/active', Component: Campaigns },
   { path: '/threatintel/campaigns/lifecycle', Component: CampaignLifecycle },

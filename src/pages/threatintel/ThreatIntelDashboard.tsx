@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useTheme } from '../../hooks';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import {
   Shield,
@@ -221,10 +222,12 @@ function BarView({
   data,
   title,
   horizontal = true,
+  isDark,
 }: {
   data: Array<{ name: string; count: number }>;
   title: string;
   horizontal?: boolean;
+  isDark: boolean;
 }) {
   return (
     <div>
@@ -240,24 +243,34 @@ function BarView({
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(148,163,184,0.15)" />
           {horizontal ? (
             <>
-              <XAxis type="number" tick={{ fill: '#94a3b8', fontSize: 11 }} />
-              <YAxis type="category" dataKey="name" tick={{ fill: '#cbd5e1', fontSize: 11 }} width={115} />
+              <XAxis type="number" tick={{ fill: isDark ? '#94a3b8' : '#64748b', fontSize: 11 }} />
+              <YAxis
+                type="category"
+                dataKey="name"
+                tick={{ fill: isDark ? '#cbd5e1' : '#475569', fontSize: 11 }}
+                width={115}
+              />
             </>
           ) : (
             <>
-              <XAxis dataKey="name" tick={{ fill: '#cbd5e1', fontSize: 10 }} angle={-45} textAnchor="end" height={80} />
-              <YAxis tick={{ fill: '#94a3b8', fontSize: 11 }} />
+              <XAxis
+                dataKey="name"
+                tick={{ fill: isDark ? '#cbd5e1' : '#475569', fontSize: 10 }}
+                angle={-45}
+                textAnchor="end"
+                height={80}
+              />
+              <YAxis tick={{ fill: isDark ? '#94a3b8' : '#64748b', fontSize: 11 }} />
             </>
           )}
           <Tooltip
             contentStyle={{
-              backgroundColor: 'rgb(15,23,42)',
-              border: '1px solid rgba(148,163,184,0.2)',
+              backgroundColor: isDark ? 'rgb(15,23,42)' : 'white',
+              border: `1px solid ${isDark ? 'rgba(148,163,184,0.2)' : 'rgb(226,232,240)'}`,
               borderRadius: 8,
               fontSize: 12,
+              color: isDark ? '#e2e8f0' : '#1e293b',
             }}
-            labelStyle={{ color: '#e2e8f0' }}
-            itemStyle={{ color: '#94a3b8' }}
           />
           <Bar dataKey="count" radius={[0, 4, 4, 0]}>
             {data.map((_, i) => (
@@ -271,7 +284,15 @@ function BarView({
   );
 }
 
-function StackedBarView({ data, title }: { data: Array<Record<string, string | number>>; title: string }) {
+function StackedBarView({
+  data,
+  title,
+  isDark,
+}: {
+  data: Array<Record<string, string | number>>;
+  title: string;
+  isDark: boolean;
+}) {
   const sevs = ['Critical', 'Important', 'Moderate', 'Low'];
   return (
     <div>
@@ -282,15 +303,20 @@ function StackedBarView({ data, title }: { data: Array<Record<string, string | n
         <BarChart data={data} layout="vertical" margin={{ left: 180, right: 20, top: 5, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(148,163,184,0.15)" />
           <XAxis type="number" tick={{ fill: '#94a3b8', fontSize: 11 }} />
-          <YAxis type="category" dataKey="name" tick={{ fill: '#cbd5e1', fontSize: 11 }} width={175} />
+          <YAxis
+            type="category"
+            dataKey="name"
+            tick={{ fill: isDark ? '#cbd5e1' : '#475569', fontSize: 11 }}
+            width={175}
+          />
           <Tooltip
             contentStyle={{
-              backgroundColor: 'rgb(15,23,42)',
-              border: '1px solid rgba(148,163,184,0.2)',
+              backgroundColor: isDark ? 'rgb(15,23,42)' : 'white',
+              border: `1px solid ${isDark ? 'rgba(148,163,184,0.2)' : 'rgb(226,232,240)'}`,
               borderRadius: 8,
               fontSize: 12,
+              color: isDark ? '#e2e8f0' : '#1e293b',
             }}
-            labelStyle={{ color: '#e2e8f0' }}
           />
           <Legend />
           {sevs.map((sev) => (
@@ -302,7 +328,15 @@ function StackedBarView({ data, title }: { data: Array<Record<string, string | n
   );
 }
 
-function LineView({ data, title }: { data: Array<Record<string, string | number>>; title: string }) {
+function LineView({
+  data,
+  title,
+  isDark,
+}: {
+  data: Array<Record<string, string | number>>;
+  title: string;
+  isDark: boolean;
+}) {
   const lines = ['Critical', 'Important', 'Moderate', 'Low'];
   return (
     <div>
@@ -312,16 +346,16 @@ function LineView({ data, title }: { data: Array<Record<string, string | number>
       <ResponsiveContainer width="100%" height={380}>
         <LineChart data={data} margin={{ left: 10, right: 10, top: 5, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(148,163,184,0.15)" />
-          <XAxis dataKey="month" tick={{ fill: '#94a3b8', fontSize: 10 }} />
-          <YAxis tick={{ fill: '#94a3b8', fontSize: 11 }} />
+          <XAxis dataKey="month" tick={{ fill: isDark ? '#94a3b8' : '#64748b', fontSize: 10 }} />
+          <YAxis tick={{ fill: isDark ? '#94a3b8' : '#64748b', fontSize: 11 }} />
           <Tooltip
             contentStyle={{
-              backgroundColor: 'rgb(15,23,42)',
-              border: '1px solid rgba(148,163,184,0.2)',
+              backgroundColor: isDark ? 'rgb(15,23,42)' : 'white',
+              border: `1px solid ${isDark ? 'rgba(148,163,184,0.2)' : 'rgb(226,232,240)'}`,
               borderRadius: 8,
               fontSize: 12,
+              color: isDark ? '#e2e8f0' : '#1e293b',
             }}
-            labelStyle={{ color: '#e2e8f0' }}
           />
           <Legend />
           {lines.map((sev) => (
@@ -453,6 +487,7 @@ function buildImpactData(cves: CveEntry[]) {
 }
 
 export default function ThreatIntelDashboard() {
+  const { isDark } = useTheme();
   const [cves, setCves] = useState<CveEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -747,23 +782,38 @@ export default function ThreatIntelDashboard() {
           viewData && (
             <>
               {isOverTime ? (
-                <LineView data={viewData as Array<Record<string, string | number>>} title={titleText} />
+                <LineView data={viewData as Array<Record<string, string | number>>} title={titleText} isDark={isDark} />
               ) : isStacked ? (
-                <StackedBarView data={viewData as Array<Record<string, string | number>>} title={titleText} />
+                <StackedBarView
+                  data={viewData as Array<Record<string, string | number>>}
+                  title={titleText}
+                  isDark={isDark}
+                />
               ) : view === 'exploited' ? (
                 <PieView data={viewData as Array<{ name: string; count: number }>} title={titleText} />
               ) : chartType === 'pie' ? (
                 <PieView data={viewData as Array<{ name: string; count: number }>} title={titleText} />
               ) : chartType === 'bar' ? (
-                <BarView data={viewData as Array<{ name: string; count: number }>} title={titleText} horizontal />
+                <BarView
+                  data={viewData as Array<{ name: string; count: number }>}
+                  title={titleText}
+                  horizontal
+                  isDark={isDark}
+                />
               ) : chartType === 'column' ? (
                 <BarView
                   data={viewData as Array<{ name: string; count: number }>}
                   title={titleText}
                   horizontal={false}
+                  isDark={isDark}
                 />
               ) : (
-                <BarView data={viewData as Array<{ name: string; count: number }>} title={titleText} horizontal />
+                <BarView
+                  data={viewData as Array<{ name: string; count: number }>}
+                  title={titleText}
+                  horizontal
+                  isDark={isDark}
+                />
               )}
             </>
           )
