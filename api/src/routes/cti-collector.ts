@@ -93,7 +93,13 @@ export async function ctiIocsHandler(c: Context<{ Bindings: Env }>) {
     offset,
     iocs: rows.results.map((r) => ({
       ...r,
-      tags: JSON.parse(String(r.tags || '[]')),
+      tags: (() => {
+        try {
+          return JSON.parse(String(r.tags || '[]'));
+        } catch {
+          return [];
+        }
+      })(),
     })),
   });
 }
@@ -123,7 +129,13 @@ export async function ctiNewsHandler(c: Context<{ Bindings: Env }>) {
     total: rows.results.length,
     news: rows.results.map((r) => ({
       ...r,
-      tags: JSON.parse(String(r.tags || '[]')),
+      tags: (() => {
+        try {
+          return JSON.parse(String(r.tags || '[]'));
+        } catch {
+          return [];
+        }
+      })(),
     })),
   });
 }
@@ -164,21 +176,26 @@ export async function ctiMutateHandler(c: Context<{ Bindings: Env }>) {
   const input = String(body.input || '');
   if (!input) return c.json({ error: 'input is required' }, 400);
 
-  const keys = { groqKey: c.env.GROQ_API_KEY, googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY };
-  const seed = await parseSeedAttack(db, ai, input, String(body.seed_type || 'auto'), keys);
-  const variants = await generateVariants(
-    db,
-    ai,
-    seed,
-    {
-      count: typeof body.count === 'number' ? body.count : undefined,
-      strategies: Array.isArray(body.strategies) ? body.strategies : undefined,
-      target_sector: typeof body.target_sector === 'string' ? body.target_sector : undefined,
-    },
-    keys
-  );
+  try {
+    const keys = { groqKey: c.env.GROQ_API_KEY, googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY };
+    const seed = await parseSeedAttack(db, ai, input, String(body.seed_type || 'auto'), keys);
+    const variants = await generateVariants(
+      db,
+      ai,
+      seed,
+      {
+        count: typeof body.count === 'number' ? body.count : undefined,
+        strategies: Array.isArray(body.strategies) ? body.strategies : undefined,
+        target_sector: typeof body.target_sector === 'string' ? body.target_sector : undefined,
+      },
+      keys
+    );
 
-  return c.json({ seed, variants });
+    return c.json({ seed, variants });
+  } catch (e) {
+    console.error('ctiMutateHandler failed:', e instanceof Error ? e.message : String(e));
+    return c.json({ error: e instanceof Error ? e.message : 'mutation failed' }, 500);
+  }
 }
 
 export async function ctiMutationsHandler(c: Context<{ Bindings: Env }>) {
@@ -211,7 +228,7 @@ export async function ctiDecayHandler(c: Context<{ Bindings: Env }>) {
 export async function ctiSweepHandler(c: Context<{ Bindings: Env }>) {
   const db = c.env.BRIEFINGS_DB;
   if (!db) return c.json({ error: 'database unavailable' }, 503);
-  const days = parseInt(c.req.query('days') || '30');
+  const days = parseInt(c.req.query('days') || '30') || 30;
   const result = await sweepStaleData(db, days);
   return c.json({ days, ...result });
 }

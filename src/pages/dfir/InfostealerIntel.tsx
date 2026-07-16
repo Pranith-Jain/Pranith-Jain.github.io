@@ -220,7 +220,7 @@ export default function InfostealerIntel(): JSX.Element {
   const handleCopyJson = useCallback(() => {
     const data = tab === 'overview' ? overviewResult : tab === 'infection' ? infectionResult : searchResult;
     if (!data) return;
-    navigator.clipboard.writeText(JSON.stringify(data, null, 2));
+    navigator.clipboard.writeText(JSON.stringify(data, null, 2)).catch(() => {});
     setCopied(true);
     if (copyTimer.current) clearTimeout(copyTimer.current);
     copyTimer.current = setTimeout(() => setCopied(false), 2000);

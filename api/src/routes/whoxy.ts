@@ -41,7 +41,7 @@ whoxyRouter.get('/whoxy/reverse', async (c) => {
 
     while (page <= totalPages && page <= 100) {
       const pageUrl = page === 1 ? url : `${url}&page=${page}`;
-      const res = await fetch(pageUrl);
+      const res = await fetch(pageUrl, { signal: AbortSignal.timeout(10_000) });
 
       if (!res.ok) {
         const errBody = await res.text().catch(() => '');

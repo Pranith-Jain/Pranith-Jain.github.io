@@ -220,10 +220,9 @@ export default function CtiDashboard(): JSX.Element {
       loading={loading}
       error={error}
       onRetry={() => {
-        fetchStats();
-        fetchPredictions();
-        fetchMutations();
-        fetchNews();
+        setLoading(true);
+        setLoadError(false);
+        Promise.all([fetchStats(), fetchPredictions(), fetchMutations(), fetchNews()]).finally(() => setLoading(false));
       }}
       empty={!stats || (stats.total_iocs === 0 && stats.recent_news === 0)}
       emptyMessage="No CTI data yet. Run a collection to populate the database."
