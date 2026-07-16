@@ -211,10 +211,17 @@ const CHANNELS: ChannelSpec[] = [
   },
   // Intelligence digests
   {
-    handle: 'IntCyberDigest',
-    name: 'IntCyberDigest',
-    blurb: 'Cyber intelligence digest — threat actor analysis, campaign tracking, and CTI round-ups',
+    handle: 'threatinteltrends',
+    name: 'CTT CTI Trends',
+    blurb: 'Community-driven CTI trends — threat actor tracking, campaign intel, and curated security news',
     topic: 'osint',
+  },
+  // Malware analysis — partner channel of CVE Notify, verified 20+ recent msgs
+  {
+    handle: 'malwr',
+    name: 'Malware Analysis',
+    blurb: 'Malware analysis reports, sample drops, and reverse-engineering write-ups',
+    topic: 'malware',
   },
 ];
 

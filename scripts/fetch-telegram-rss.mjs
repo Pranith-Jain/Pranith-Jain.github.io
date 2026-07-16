@@ -25,7 +25,8 @@ const CHANNELS = [
   { handle: 'cyber_security_channel', name: 'Cyber Security Channel', blurb: 'High-volume security-news aggregator', topic: 'news' },
   { handle: 'cyberscoop', name: 'CyberScoop', blurb: 'CyberScoop news + government-cyber coverage', topic: 'news' },
   { handle: 'dailybountywriteup', name: 'Daily Bounty Writeup', blurb: 'Curated bug-bounty write-ups + disclosed vuln reports', topic: 'osint' },
-  { handle: 'IntCyberDigest', name: 'IntCyberDigest', blurb: 'Cyber intelligence digest — threat actor analysis, campaign tracking, and CTI round-ups', topic: 'osint' },
+  { handle: 'threatinteltrends', name: 'CTT CTI Trends', blurb: 'Community-driven CTI trends — threat actor tracking, campaign intel, and curated security news', topic: 'osint' },
+  { handle: 'malwr', name: 'Malware Analysis', blurb: 'Malware analysis reports, sample drops, and reverse-engineering write-ups', topic: 'malware' },
 ];
 
 const RSS_BRIDGES = [
