@@ -1,0 +1,15 @@
+{
+  "slug": "medusalocker-mairie-thiverval-grignon-2026-07-01",
+  "title": "Mairie Thiverval Grignon",
+  "group": "medusalocker",
+  "discovered": "2026-07-01T22:30:36.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "FR",
+  "sizeBytes": 0,
+  "description": "Organization with 162 emails extracted. Domain: mairie-thiverval-grignon.fr",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Public Sector",
+  "references": ["ransomware.live"]
+}

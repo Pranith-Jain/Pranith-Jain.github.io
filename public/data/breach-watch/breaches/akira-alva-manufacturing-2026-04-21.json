@@ -1,0 +1,15 @@
+{
+  "slug": "akira-alva-manufacturing-2026-04-21",
+  "title": "Alva Manufacturing",
+  "group": "akira",
+  "discovered": "2026-04-21T15:49:38.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Alva Manufacturing specializes in CNC precision machining, focusi\nng on milling and multi-axis turning for high-tech industries suc\nh as defense and space. They utilize state-of-the-art automated m\nachining centers and advanced measuring technology, including Hex\nagon CMM and Keyence systems.\n\nWe will upload corporate data soon. Employee information (passpor\nts, SSNs, addresses, phones, photos and so on), projects (BOEING \nand Lockheed Martin files and so on), financials, lots of NDAs an\nd so on.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Megazord"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

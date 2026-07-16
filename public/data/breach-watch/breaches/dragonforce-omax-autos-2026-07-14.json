@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "IN",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/87cf049a-8083-4922-9934-67be51d1262b",
+  "description": "OMAX Autos Limited is a leading manufacturer of sheet metal components, specializing in the production of auto and non-auto components. The company serves various sectors, including commercial vehicles, passenger cars, and railways, with a focus on innovative design and manufacturing solutions. OMAX is committed to bridging the gap between human and technology, evolving from a manufacturing to an engineering company. Their mission emphasizes a performance-driven culture and respect for intellectual property.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["DRAGON FORCE"],
   "activity": "Manufacturing",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

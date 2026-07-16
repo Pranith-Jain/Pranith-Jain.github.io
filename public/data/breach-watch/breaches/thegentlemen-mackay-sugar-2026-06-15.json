@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-mackay-sugar-2026-06-15",
+  "title": "Mackay Sugar",
+  "group": "thegentlemen",
+  "discovered": "2026-06-15T12:59:55.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "AU",
+  "sizeBytes": 0,
+  "description": "***.com.au zoominfo.com/c/mackay-sugar-ltd/1147904633 Mackay Sugar is Australia's second-largest sugar manufacturer, headquartered in tropical North Queensland with over 140 years of rich industry heritage. Owned primarily by local sugarcane farmers, the company operates major mills to produce raw sugar, molasses, and renewable electricity generated from bagasse. With an annual turnover exceeding $600 million, they serve as a vital economic pillar in the region, dedicated to sustainable practices and supplying high-quality products to global markets",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

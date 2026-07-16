@@ -1,0 +1,15 @@
+{
+  "slug": "nitrogen-pyramid-2026-06-03",
+  "title": "Pyramid",
+  "group": "nitrogen",
+  "discovered": "2026-06-03T16:16:24.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Ownership and management of shopping center. Development and redevelopment of real estate properties.  Leasing of space to retail chains, restaurants, and entertainment venues",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

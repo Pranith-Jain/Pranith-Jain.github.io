@@ -1,0 +1,15 @@
+{
+  "slug": "braincipher-anglomoil-com-2026-06-15",
+  "title": "anglomoil.com",
+  "group": "BrainCipher",
+  "discovered": "2026-06-15T17:50:26.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "[AI generated] Anglomoil is an Australian company specialising in the manufacture and supply of lubricants and associated products. Operating in the industrial and automotive lubricant sector, it serves mining, transport, agriculture, and general industry markets. Headquartered in Australia, the company produces engine oils, greases, hydraulic fluids, and specialty lubricants, distributing products nationally and to select international markets.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["brain cipher"],
+  "activity": "Energy",
+  "references": ["ransomware.live"]
+}

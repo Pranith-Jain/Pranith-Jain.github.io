@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-accurate-nursing-services-2026-05-01",
+  "title": "Accurate Nursing Services",
+  "group": "qilin",
+  "discovered": "2026-05-01T15:23:47.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

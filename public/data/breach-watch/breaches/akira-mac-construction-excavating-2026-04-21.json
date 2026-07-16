@@ -1,0 +1,15 @@
+{
+  "slug": "akira-mac-construction-excavating-2026-04-21",
+  "title": "MAC Construction & Excavating",
+  "group": "akira",
+  "discovered": "2026-04-21T14:20:01.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "MAC is a diversified construction company with integrated divisio\nns working closely together to provide a wide variety of quality \nconstruction and excavation services, quality workmanship - produ\nced by quality people. \n\nWe will upload 30gb of corporate data soon. DB data (Salary / Inc\nome 2490386 rows, Physical Address 223606 rows,Online Account 123\n070 rows, Phone / Fax 111784 rows, Bank / Financial 73100 rows, I\nP / Device 5923 rows, Password / Secret 1783 rows, Tax ID 1686 ro\nws, Name (Person) 1074 rows, Email 967 rows, Photo / Biometric 13\n7 rows, FR - Contact 100 rows, Property 28 rows, Employment 18 ro\nws, SSN / National ID 8 rows) and a lot of other internal files.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Megazord"],
+  "activity": "Construction",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "fulcrumsec-refocus-ai-2026-05-01",
+  "title": "ReFocus AI",
+  "group": "fulcrumsec",
+  "discovered": "2026-05-01T17:06:59.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

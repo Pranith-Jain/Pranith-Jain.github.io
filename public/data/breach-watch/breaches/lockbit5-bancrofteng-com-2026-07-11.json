@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "GB",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/2f5cc3eb-603e-4ade-acca-de007333cb44",
+  "description": "Bancroft Engineering specializes in the design and manufacturing of automated welding equipment and...",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Construction",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

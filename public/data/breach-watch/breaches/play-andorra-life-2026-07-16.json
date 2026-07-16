@@ -1,0 +1,15 @@
+{
+  "slug": "play-andorra-life-2026-07-16",
+  "title": "Andorra Life",
+  "group": "play",
+  "discovered": "2026-07-16T17:57:17.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "AD",
+  "sizeBytes": 0,
+  "description": "United States",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["PlayCrypt"],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

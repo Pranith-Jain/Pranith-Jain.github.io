@@ -1,0 +1,15 @@
+{
+  "slug": "chaos-polycorp-com-2026-04-20",
+  "title": "polycorp.com",
+  "group": "chaos",
+  "discovered": "2026-04-20T22:05:37.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "If the company does not contact us within 48 hours, the files will be published.\n\nPolycorp is a privately owned Canadian Company that specializes in the design and manufacture of engineered elastomeric parts that provide our customers with cost effective solutions to their corrosion, abrasion, impac…",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

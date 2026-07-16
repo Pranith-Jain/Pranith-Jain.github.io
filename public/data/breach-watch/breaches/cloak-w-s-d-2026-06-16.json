@@ -1,0 +1,15 @@
+{
+  "slug": "cloak-w-s-d-2026-06-16",
+  "title": "W******S*******D",
+  "group": "cloak",
+  "discovered": "2026-06-16T11:21:48.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Country: *** | Size: 102GB | Private | Views: 0",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

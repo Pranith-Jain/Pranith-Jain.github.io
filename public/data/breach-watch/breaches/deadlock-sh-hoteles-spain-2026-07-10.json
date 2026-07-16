@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "ES",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/a401308e-b67c-43f2-96bc-b97a437525dd",
+  "description": "This chain operates various urban and beach properties primarily in the Valencia and Alicante regions. Key Properties: SH Valencia Palace: A 5-star hotel located near the city center of Valencia. SH Villa Gadea: A luxury resort in Altea known for its extensive Thalasso-Spa facilities. SH Inglés: A boutique hotel situated in a renovated 18th-century palace in Valencia's historical center. Other locations: Includes properties in Jávea, Denia, and Gandía",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Hospitality and Tourism",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

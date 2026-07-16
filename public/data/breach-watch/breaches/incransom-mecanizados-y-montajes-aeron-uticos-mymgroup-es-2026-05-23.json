@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-mecanizados-y-montajes-aeron-uticos-mymgroup-es-2026-05-23",
+  "title": "Mecanizados y Montajes Aeronáuticos (mymgroup.es)",
+  "group": "incransom",
+  "discovered": "2026-05-23T13:22:39.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "ES",
+  "sizeBytes": 0,
+  "description": "MyM specializes in the manufacturing of metallic components and subassemblies for aerospace applications, serving major Tier 1 and OEM programs globally. \r The company is committed to excellence, utilizing advanced technology, infrastructure, and a skilled workforce to ensure high-quality production and timely delivery. \r MyM is recognized as an innovative SME, actively engaging in research and development within the aerospace and industrial sectors. \r Their clientele includes prominent companies such as Airbus, Boeing, Embraer, and Leonardo.\r \r Laek: 100GB \r WE HAS COLLECTED SUCH DATA AS: \r - Confidential documents \r - Clients Data \r - NDA \r - Financial data \r - Operations \r - Corporate data \r - Business Agreements \r - Development \r - Financial databases, all transactions, all clients\r And a lot of other VERY IMPORTANT information!",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

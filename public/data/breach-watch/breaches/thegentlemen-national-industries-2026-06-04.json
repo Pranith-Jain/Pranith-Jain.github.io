@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-national-industries-2026-06-04",
+  "title": "National Industries",
+  "group": "thegentlemen",
+  "discovered": "2026-06-04T09:09:49.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "IN",
+  "sizeBytes": 0,
+  "description": "***.in ***.com/c/national-industries/453107978 Established in 1976 in Ludhiana, National Industries is a premier automotive manufacturing enterprise and a core part of the esteemed Metalman Group. Specializing in precision-engineered components, the company supplies high-quality parts to top-tier two-wheeler brands, combining decades of expertise with modern manufacturing excellence. With a strong foundation in engineering innovation and award-winning workplace practices, National Industries continues to drive reliability and technological advancement in the automotive sector",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

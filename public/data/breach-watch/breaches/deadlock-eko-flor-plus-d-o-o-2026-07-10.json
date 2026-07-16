@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "HR",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/06e6e5bf-16f5-4e5e-9bc0-597e4aace794",
+  "description": "Eko-Flor Plus d.o.o. is the largest private waste management company in Croatia. Headquartered in Oroslavje, the company specializes in collecting, sorting, and processing municipal and non-hazardous waste.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Agriculture and Food Production",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

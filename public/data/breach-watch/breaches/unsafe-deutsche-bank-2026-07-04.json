@@ -1,0 +1,15 @@
+{
+  "slug": "unsafe-deutsche-bank-2026-07-04",
+  "title": "Deutsche Bank",
+  "group": "unsafe",
+  "discovered": "2026-07-04T11:30:53.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "Revenue: 30 billion",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
+}

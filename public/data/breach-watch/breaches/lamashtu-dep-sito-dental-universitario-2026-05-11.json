@@ -1,0 +1,15 @@
+{
+  "slug": "lamashtu-dep-sito-dental-universitario-2026-05-11",
+  "title": "Depósito Dental Universitario",
+  "group": "lamashtu",
+  "discovered": "2026-05-11T16:53:57.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "MX",
+  "sizeBytes": 0,
+  "description": "Depósito Dental Universitario (DDU), a Mexican company specializing in the distribution of dental supplies and radiological services.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

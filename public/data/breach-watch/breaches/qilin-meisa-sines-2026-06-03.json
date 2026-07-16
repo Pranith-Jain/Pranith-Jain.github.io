@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-meisa-sines-2026-06-03",
+  "title": "MEISA - Sines",
+  "group": "qilin",
+  "discovered": "2026-06-03T08:27:27.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "PT",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Energy",
+  "references": ["ransomware.live"]
+}

@@ -597,6 +597,9 @@ app.post('/api/v1/radar/scan', radarScanHandler);
 app.get('/api/v1/radar/scan/:id', radarGetScanHandler);
 app.get('/api/v1/radar/recent', radarRecentHandler);
 
+// ── CyberPulse scan (public, rate-limited) ─────────────────────────────
+app.post('/api/v1/cyberpulse/scan', cyberpulseScanHandler);
+
 // ── IRONSIGHT (public, no auth required — proxy to free external APIs) ──
 app.use(
   '/api/v1/ironsight/*',
@@ -1224,7 +1227,6 @@ app.get('/api/v1/cyberpulse/stats', cyberpulseStatsHandler);
 app.get('/api/v1/cyberpulse/trending', cyberpulseTrendingHandler);
 app.get('/api/v1/cyberpulse/scan-log', cyberpulseScanLogHandler);
 app.get('/api/v1/cyberpulse/ingest', cyberpulseIngestHandler);
-app.post('/api/v1/cyberpulse/scan', cyberpulseScanHandler);
 app.get('/api/v1/ransomware-recent', ransomwareRecentHandler);
 app.get('/api/v1/ransomware-map', ransomwareMapHandler);
 app.get('/api/v1/crypto-trace', validate('query', cryptoTraceSchema), cryptoTraceHandler);

@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-mtci-2026-04-27",
+  "title": "MTCI",
+  "group": "incransom",
+  "discovered": "2026-04-27T07:38:46.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "MTCI\r \r Telecommunications and IT Consulting . Specializes in VoIP, structured cabling, network protection, and cloud services.  They highlight being an independent consultant (vendor-agnostic) and offer 24/7/365 support . They have won the Cincinnati US Regional Chamber of Commerce Small Business of the Year award.\r \r 11260 Chester Road, Cincinnati, Ohio, USA\r mtci.com\r \r Leaked data: 320 Gb\r \r company projects (including special projects of devices with drawings, air bridges, Wi-Fi bank and many other projects), information about employees with personal data, insurance, medical secrets; corporate information with guidance documents and correspondence with counterparties; finance; employee Video surveillance Files",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Telecommunication",
+  "references": ["ransomware.live"]
+}

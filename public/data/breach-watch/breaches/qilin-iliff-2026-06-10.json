@@ -2,14 +2,14 @@
   "slug": "qilin-iliff-2026-06-10",
   "title": "Iliff",
   "group": "qilin",
-  "discovered": "2026-06-10T22:04:58.000Z",
+  "discovered": "2026-06-10T21:56:37.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": null,
+  "country": "US",
   "sizeBytes": 0,
-  "description": null,
-  "source_url": "http://ijzn3sicrcy7guixkzjkib4ukbiilwc3xhnmby4mcbccnsd7j2rekvqd.onion/site/blog?uuid=806380d5-78f0-439d-ab13-02b17a0608b2",
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
-  "activity": null,
-  "references": ["CTI.FYI"]
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
 }

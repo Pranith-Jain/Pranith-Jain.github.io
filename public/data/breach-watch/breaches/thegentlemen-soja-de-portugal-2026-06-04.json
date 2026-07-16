@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-soja-de-portugal-2026-06-04",
+  "title": "Soja de Portugal",
+  "group": "thegentlemen",
+  "discovered": "2026-06-04T09:09:36.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "PT",
+  "sizeBytes": 0,
+  "description": "***.pt ***.com/c/soja-de-portugal/458493209 \n\n491GB leaked from there as a result of this breach. \n\nWhat kind of data leaked: \n- SAP data \n- contacts \n- contracts \n- planning \n- logistics \n- projects data \n- personal data \n- employee data \n- partners data \n- customers data \n- financial data \n- correspondence \n- production data \n- quality control data \n- offers and proposals \n- data related to Sorgal, Avicasal, Savinor and other brands \n- other sensitive business data\n\nInstead of negotiations, threats were made and the leaked data was not even reported to anyone\n\nhere is the text they wrote https://***.as/***.md",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

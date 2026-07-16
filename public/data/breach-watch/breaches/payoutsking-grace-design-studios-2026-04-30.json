@@ -1,0 +1,15 @@
+{
+  "slug": "payoutsking-grace-design-studios-2026-04-30",
+  "title": "Grace Design Studios",
+  "group": "payoutsking",
+  "discovered": "2026-04-30T00:33:36.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

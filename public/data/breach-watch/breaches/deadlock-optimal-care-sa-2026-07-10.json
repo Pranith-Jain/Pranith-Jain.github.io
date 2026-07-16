@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "AR",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/e1160aca-de17-430b-bc53-ce514a58e4b2",
+  "description": "Optimal Care Sociedad Anonima manufactures cleaning applications. The Company offers wet wipes for personal care, baby wipes, make-up remover, multipurpose wipes, and cleaning applications. Optimal Care serves customers in Spain.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Healthcare",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

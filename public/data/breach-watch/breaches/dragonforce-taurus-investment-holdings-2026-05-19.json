@@ -1,0 +1,15 @@
+{
+  "slug": "dragonforce-taurus-investment-holdings-2026-05-19",
+  "title": "TAURUS INVESTMENT HOLDINGS",
+  "group": "dragonforce",
+  "discovered": "2026-05-19T17:52:23.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "CY",
+  "sizeBytes": 0,
+  "description": "Established in 1976, Taurus is a global real estate private equity firm with over 40 years of experience as a general partner, investor, and operator. Currently active in the United States, Western Europe, Asia, and South America, the firm makes strategic investments into value-add, core-plus, and development opportunities. Throughout North America and Europe, Taurus is consistently recognized as one of the premier owner operators of both directly managed and joint venture commercial real estate. To date, Taurus has purchased and developed more than 54 million square feet (5.01 million square meters) of residential, office, industrial, retail and other commercial real estate assets throughout the world with a total acquisition value of over $8 billion. www.tiholdings.com",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["DRAGON FORCE"],
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
+}

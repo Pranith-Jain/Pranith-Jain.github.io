@@ -1,0 +1,15 @@
+{
+  "slug": "fulcrumsec-parkengage-2026-05-01",
+  "title": "ParkEngage",
+  "group": "fulcrumsec",
+  "discovered": "2026-05-01T16:51:16.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "[AI generated] ParkEngage is a US-based technology company specializing in smart parking solutions. It provides cloud-based software platforms that help parking operators manage reservations, payments, and customer engagement. Its services cater to airports, hospitals, universities, and commercial facilities. The company focuses on enhancing the parking experience through digital tools including mobile apps, contactless payments, and data analytics to optimize parking operations and revenue management.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

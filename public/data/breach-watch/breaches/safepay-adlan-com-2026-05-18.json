@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-adlan-com-2026-05-18",
+  "title": "adlan.com",
+  "group": "safepay",
+  "discovered": "2026-05-18T19:24:12.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "CA",
+  "sizeBytes": 0,
+  "description": "Founded in 1995, the company specializes in IT infrastructure, network design, cybersecurity, disaster recovery, and managed technology services for small …",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

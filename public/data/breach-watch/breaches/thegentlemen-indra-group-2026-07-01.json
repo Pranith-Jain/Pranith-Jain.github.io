@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-indra-group-2026-07-01",
+  "title": "Indra Group",
+  "group": "thegentlemen",
+  "discovered": "2026-07-01T22:20:26.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "ES",
+  "sizeBytes": 0,
+  "description": "***.com zoominfo.com/c/indra-sistemas-sa/136495916 Indra, a leading Spanish multinational technology and consulting company. It specializes in innovative solutions for defense, aerospace, air traffic management, smart mobility, and digital transformation (via its Minsait brand). The company serves as a strategic technological partner for governments and major corporations worldwide, driving modernization and security across critical sectors",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

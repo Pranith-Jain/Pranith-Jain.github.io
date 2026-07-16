@@ -1,0 +1,15 @@
+{
+  "slug": "kairos-nordenta-a-daughter-company-of-lifco-2026-04-20",
+  "title": "Nordenta (a daughter company of LIFCO)",
+  "group": "kairos",
+  "discovered": "2026-04-20T20:40:32.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "DK",
+  "sizeBytes": 0,
+  "description": "Nordenta og al dente nyhedsbrev Tilbud, produktnyheder og inspiration Ja tak, jeg vil gerne modtage tilbud, information og nyheder fra Nordenta og al dente via e-mail vedrørende varer og services inden for Nordenta og al dentes produktsortiment. Samtykket kan til enhver tid trkkes tilbage. Personoplysninger behandles fortroligt, ls mere i vores privatlivs- og cookiepolitik.\n\"The beneficial owner of Nordenta is Carl Bennet\".",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

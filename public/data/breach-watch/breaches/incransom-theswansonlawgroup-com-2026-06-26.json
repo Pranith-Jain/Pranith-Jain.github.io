@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-theswansonlawgroup-com-2026-06-26",
+  "title": "theswansonlawgroup.com",
+  "group": "incransom",
+  "discovered": "2026-06-26T19:22:55.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Meet Ben Swanson. The clients confidentiality worst nightmare.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

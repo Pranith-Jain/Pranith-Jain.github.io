@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "MX",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/f4a3e4ad-15d1-4a19-9f94-eec251649b2e",
+  "description": "Grupo Mercurio is a leading Mexican business conglomerate primarily recognized for its dominance in the bicycle and sports industry. Based in San Luis Potosí, the group operates one of the largest bicycle manufacturing plants in Mexico.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Business Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

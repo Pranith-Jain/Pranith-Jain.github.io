@@ -1,0 +1,15 @@
+{
+  "slug": "pear-spector-and-lenz-pc-2026-06-30",
+  "title": "Spector and Lenz, PC",
+  "group": "pear",
+  "discovered": "2026-06-30T12:29:51.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Firm provides legal representation to clients facing disability, injury, or serious illness",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

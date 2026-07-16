@@ -1,0 +1,15 @@
+{
+  "slug": "m3rx-boxtopia-co-uk-2026-04-29",
+  "title": "boxtopia.co.uk",
+  "group": "m3rx",
+  "discovered": "2026-04-29T10:08:27.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "+44 1476576090 . Boxtopia is the UK's leading supplier of custom cardboard boxes and printed boxes, specializing in short runs for small businesses with no minimum order. Stolen: 166gb 280k files",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

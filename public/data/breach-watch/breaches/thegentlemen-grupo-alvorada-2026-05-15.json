@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-grupo-alvorada-2026-05-15",
+  "title": "Grupo Alvorada",
+  "group": "thegentlemen",
+  "discovered": "2026-05-15T10:53:11.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "BR",
+  "sizeBytes": 0,
+  "description": "galvorada.com zoominfo.com/c/grupo-alvorada/536571880 a prestigious Brazilian family-owned agribusiness founded in the 1970s and based in São Paulo. The company specializes in the production and export of high-quality fertile eggs and day-old chicks, serving both domestic and international markets with a strong focus on biosecurity and antibiotic-free practices. With over 50 years of heritage, Grupo Alvorada combines tradition, innovation, and sustainability to deliver excellence in poultry genetics and animal nutrition",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

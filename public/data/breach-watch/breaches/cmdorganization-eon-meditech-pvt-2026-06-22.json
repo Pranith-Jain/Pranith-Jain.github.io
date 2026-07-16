@@ -1,0 +1,15 @@
+{
+  "slug": "cmdorganization-eon-meditech-pvt-2026-06-22",
+  "title": "EON Meditech Pvt",
+  "group": "cmdorganization",
+  "discovered": "2026-06-22T20:50:15.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "IN",
+  "sizeBytes": 0,
+  "description": "EON Meditech specializes in innovative medical technology solutions aimed at enhancing patient care and improving healthcare outcomes. Their product offerings include advanced medical devices and software solutions tailored for healthcare providers. The company primarily serves hospitals, clinics, and healthcare professionals looking for cutting-edge technology to streamline operations and enhance patient experiences. EON Meditech is committed to driving advancements in the medical field through research and development.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["cmd organization"],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "krybit-imbriefamilylaw-com-2026-04-20",
+  "title": "imbriefamilylaw.com",
+  "group": "krybit",
+  "discovered": "2026-04-20T14:39:23.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "The attorneys at the Imbrie Law Firm practice primarily in the following counties: Brazos, Robertson, Burleson, Lee, Gri...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

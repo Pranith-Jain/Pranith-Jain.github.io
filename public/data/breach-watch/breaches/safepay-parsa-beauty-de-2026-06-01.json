@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-parsa-beauty-de-2026-06-01",
+  "title": "parsa-beauty.de",
+  "group": "safepay",
+  "discovered": "2026-06-01T19:53:14.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "Founded in 1986, the company has become one of Europe’s leading manufacturers and distributors of hair, beauty, and personal care …",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "TR",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/574d0179-8f3a-4181-8a52-44c99c98cb83",
+  "description": "Senoco Tekstil Sanayi ve Ticaret A.Ş., a Turkish company specializing in the production of nonwoven fabrics. Maxplast is a Turkish manufacturing company based in Gaziantep that specializes in plastic packaging and houseware solutions. Founded in 2016, the company produces a wide range of PET and PE containers for various industries, including food, cosmetics, agriculture, and chemistry. https://www.maxplast.com.tr/",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Manufacturing",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

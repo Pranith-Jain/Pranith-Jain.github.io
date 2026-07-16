@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/dbfc33a3-cb08-457b-bdc9-39a8ab7b6085",
+  "description": "+1 (716) 664-5602 , FORECON Inc. specializes in custom-crafted forest management, due diligence, appraisal, analytics, and rural brokerage services across New York, Pennsylvania, and West Virginia. Established in 1954, the company focuses on balancing the needs of people and the environment through sustainable forestry practices. Their services include technical, advisory, and valuation support for forestry projects, land management, and conservation solutions. Additionally, FORECON offers a HuntLease program that connects landowners with hunters to promote wildlife management and forest health. Stolen: 860 Gb 437,048 Files",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Business Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

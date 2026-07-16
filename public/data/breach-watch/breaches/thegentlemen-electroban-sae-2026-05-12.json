@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-electroban-sae-2026-05-12",
+  "title": "Electroban SAE",
+  "group": "thegentlemen",
+  "discovered": "2026-05-12T19:29:11.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "PY",
+  "sizeBytes": 0,
+  "description": "electroban.com.py zoominfo.com/c/electroban-sae/372861276 Electroban is a leading 100% Paraguayan retail company founded in 2007, specializing in home appliances, electronics, furniture, and motorcycles. With nationwide coverage through numerous branches and home delivery, they serve over 100,000 customers with a certified e-commerce platform and reliable after-sales support. Backed by a team of 700+ employees and values like honesty and continuous learning, Electroban is expanding toward 70 stores to bring innovation and quality of life to families across Paraguay",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

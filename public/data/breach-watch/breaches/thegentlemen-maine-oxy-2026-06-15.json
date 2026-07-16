@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-maine-oxy-2026-06-15",
+  "title": "Maine Oxy",
+  "group": "thegentlemen",
+  "discovered": "2026-06-15T12:56:27.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "***.com zoominfo.com/c/maine-oxy/59165071 Founded in 1929, Maine Oxy is a trusted, family-owned leader in supplying industrial, medical, and specialty gases alongside premium welding equipment.Growing from a single location in Auburn to over 20 branches across New England, they provide comprehensive industry solutions and reliable services.For nearly a century, their unwavering dedication to innovation has made them an essential, customer-focused partner for businesses across nine states",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Energy",
+  "references": ["ransomware.live"]
+}

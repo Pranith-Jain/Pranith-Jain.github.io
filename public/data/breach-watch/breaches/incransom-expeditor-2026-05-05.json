@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-expeditor-2026-05-05",
+  "title": "EXPEDITOR",
+  "group": "incransom",
+  "discovered": "2026-05-05T12:52:31.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Expeditor Systems specializes in improving patient flow through innovative light signaling systems designed for medical practices and institutions. \r Their solutions, including the LEAN Patient Flow System and Life Safety Nurse Call Systems, aim to enhance patient experience, increase operational efficiency, and boost revenues. \r With over 40 years of experience and a client base exceeding 8,000\r \r Laek: 50GB \r WE HAS COLLECTED SUCH DATA AS: \r - Confidential documents \r - Clients Data \r - NDA \r - Financial data \r - Operations \r - Corporate data \r - Business Agreements \r - Development \r - Financial databases, all transactions, all clients\r And a lot of other VERY IMPORTANT information!",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Transportation/Logistics",
+  "references": ["ransomware.live"]
+}

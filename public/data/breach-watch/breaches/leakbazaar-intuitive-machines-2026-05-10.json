@@ -1,0 +1,15 @@
+{
+  "slug": "leakbazaar-intuitive-machines-2026-05-10",
+  "title": "Intuitive Machines",
+  "group": "LeakBazaar",
+  "discovered": "2026-05-10T08:57:05.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Intuitive Machines, Inc. designs, manufactures, and operates space products and services in the United States. Its space systems and space infrastructure enable scientific and human exploration and utilization of lunar resources to support sustainable human presence on the moon. The company offers lunar access services, such µNova, lunar surface rover services, fixed lunar surface services, lunar orbit delivery services, rideshare delivery services to lunar orbit, as well as content sales and marketing sponsorships; and orbital services, including satellite delivery and rideshare, satellite servicing and refueling, space station servicing, satellite repositioning, and orbital debris removal. It also provides lunar data services, comprising Lunar data network, lunar south pole and far-side coverage, lunar positioning services, data relay, and data storage/caching.\n\n70GB important information + 9 separate categories. \n\n1. CONFIDENTIAL DATA (17GB); Price: $20 000 one hand / $10 000 many hands.\n2. BUYBACK (30MB); Price : $500  one hand / $250 many hands.\n3. CALCULATION COST OF PRODUCTION (786MB) - $15 000 one hand / $7500 many hands.\n4. DIVIDENDS - $300 one hand / $150 many hands.\n5. FINANCE (16GB) - $20 000 one hand / $10 000 many hands.\n6. GUIDANCE (18.5GB) - $10 000 one hand / $5 000 many hands.\n7. POSSIBLE VIOLATIONS $1 000 one hand / $500 many hands.\n8. QUARTERLY REPORTS - $500 one hand / $250 many hands.\n9. RESEARCH REPORTS - $7 500 one hand / $3 750 many hands.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["leak bazaar"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

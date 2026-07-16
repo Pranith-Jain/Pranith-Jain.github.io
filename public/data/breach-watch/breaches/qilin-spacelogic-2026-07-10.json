@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-spacelogic-2026-07-10",
+  "title": "SPACElogic",
+  "group": "qilin",
+  "discovered": "2026-07-10T12:33:39.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "SG",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-amigest-2026-06-20",
+  "title": "Amigest",
+  "group": "thegentlemen",
+  "discovered": "2026-06-20T08:52:16.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "FR",
+  "sizeBytes": 0,
+  "description": "***.fr zoominfo.com/c/amigest/533109979 Amigest is a prominent French IT integrator based in the Lyon region, specializing in management software, professional telephony, and comprehensive IT infrastructure for SMEs. As a highly certified partner for leading brands like Sage and EBP, they provide tailored ERP solutions, cloud services, and cybersecurity to optimize business operations. With decades of experience, the company supports organizations through digital transformation, electronic invoicing compliance, and ongoing technical expertise",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

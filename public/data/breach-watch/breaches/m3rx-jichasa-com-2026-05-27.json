@@ -1,0 +1,15 @@
+{
+  "slug": "m3rx-jichasa-com-2026-05-27",
+  "title": "jichasa.com",
+  "group": "m3rx",
+  "discovered": "2026-05-27T15:25:52.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "MX",
+  "sizeBytes": 0,
+  "description": "+1 (915) 881-8883. Jichasa Smart Logistics specializes in providing comprehensive solutions in foreign trade and logistics, with a focus on door-to-door services. Established in 1980, the company boasts over 30 years of experience and offers a wide range of services including customs consulting, inventory management, and supply chain management. Their intended clients span various industries such as automotive, aerospace, electronics, and agriculture, ensuring personalized attention through dedicated account executives. With a strong presence across Mexico and advanced technology for real-time operations, Jichasa aims to exceed client expectations in logistics and legal consulting. Stolen: 116gb 98k files",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

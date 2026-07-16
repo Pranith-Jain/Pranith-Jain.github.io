@@ -1,0 +1,15 @@
+{
+  "slug": "shinyhunters-moody-edu-2026-06-15",
+  "title": "moody.edu",
+  "group": "shinyhunters",
+  "discovered": "2026-06-15T19:28:21.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Over 23 gigabytes of Moody Bible Institute data (1,300+ files, tens of millions of records) was compromised across enrollment, donor relations, payroll, and communications systems (MBI, EDC/Salesforce leads, PeopleSoft PS_COMMUNICATION, Horizon SIS, WHPD donor database, and Cadence admissions), including 46 million communication records, 2.2 million enrollment lead records, 108,000 biodemographic master files with addresses and birthdates, 3.3 gigabytes of donor gift data, employee payroll XML with home addresses and earnings, 1,100+ admissions outreach files, and student housing assignment records. This is a final warning to reach out by 18 June 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 16 June 2026 | Warning: FINAL WARNING PAY OR LEAK",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Education",
+  "references": ["ransomware.live"]
+}

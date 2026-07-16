@@ -1,0 +1,15 @@
+{
+  "slug": "direwolf-jewelex-2026-06-12",
+  "title": "Jewelex",
+  "group": "direwolf",
+  "discovered": "2026-06-12T01:23:17.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "CY",
+  "sizeBytes": 0,
+  "description": "Manufacturing",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["DIRE WOLF"],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

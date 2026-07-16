@@ -1,0 +1,15 @@
+{
+  "slug": "payload-tang-seng-nitrogen-pump-systems-pte-ltd-2026-05-19",
+  "title": "Tang Seng Nitrogen & Pump Systems Pte. Ltd.",
+  "group": "payload",
+  "discovered": "2026-05-19T08:23:28.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "SG",
+  "sizeBytes": 0,
+  "description": "Tang Seng Nitrogen & Pump Systems Pte. Ltd. is a Singapore-based engineering and manufacturing company established in 1990. It specializes in designing, fabricating, and servicing equipment for the marine, oil and gas, and offshore industries. Their product portfolio includes nitrogen pumping units, industrial pumps, fire-fighting systems, and oil spill response equipment.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

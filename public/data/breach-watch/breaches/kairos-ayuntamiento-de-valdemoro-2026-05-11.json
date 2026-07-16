@@ -1,0 +1,15 @@
+{
+  "slug": "kairos-ayuntamiento-de-valdemoro-2026-05-11",
+  "title": "Ayuntamiento de Valdemoro",
+  "group": "kairos",
+  "discovered": "2026-05-11T20:53:06.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "ES",
+  "sizeBytes": 0,
+  "description": "Ayuntamiento de Valdemoro is the municipal government of Valdemoro, a town in the Madrid region of Spain. The site valdemoro.es is its official portal for residents, local news, and access to administrative services. The council plans and delivers local public services such as urban maintenance, social and cultural programmes, education and sports facilities where it is responsible, and citizen support. It passes local regulations within national and regional law, manages municipal assets, and interacts with higher tiers of government on regional and national programmes. In short, it is the local authority that governs and runs day-to-day public administration for the municipality.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Public Sector",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "ransomhouse-ma-pak-leung-company-limited-2026-06-08",
+  "title": "Ma Pak Leung Company Limited",
+  "group": "ransomhouse",
+  "discovered": "2026-06-08T18:25:36.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "HK",
+  "sizeBytes": 0,
+  "description": "Founded in Foshan, Guangdong in 1822 during the Qing Dynasty, Ma Pak Leung Company Limited is a family-owned Traditional Chinese Medicine (TCM) manufacturer with over two centuries of heritage. The company relocated its operations to Hong Kong and was formally incorporated there in 1958, where it remains headquartered today. The company specializes in the research, development, and production of proprietary TCM remedies - including classical formulas such as Angong Niuhuang Wan - as well as modern health food products like chicken essence and flavored TCM candies. Under fifth-generation leadership, Ma Pak Leung has successfully modernized its branding, expanded distribution across major Hong Kong retail chains, and established research partnerships with Hong Kong Baptist University to advance neuromedicine. Currently employing approximately 52 full-time staff, the company blends traditional medicinal knowledge with contemporary manufacturing and marketing strategies to serve health-conscious consumers in Hong Kong and beyond.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["RANSOM HOUSE"],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

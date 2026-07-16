@@ -1,0 +1,15 @@
+{
+  "slug": "rhysida-ids-group-2026-05-25",
+  "title": "IDS Group",
+  "group": "rhysida",
+  "discovered": "2026-05-25T17:25:44.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "IDS Group IDS Group is an award-winning multi-discipline design, engineering, and management consulting firm based in Southern California.    More",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

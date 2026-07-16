@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-sgs-malaysia-2026-06-20",
+  "title": "SGS Malaysia",
+  "group": "thegentlemen",
+  "discovered": "2026-06-20T08:53:17.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "MY",
+  "sizeBytes": 0,
+  "description": "***.com SGS Malaysia provides integrated, AI-powered cloud, FinTech, and digital transformation solutions designed to optimize business operations and drive financial growth. Their comprehensive services span cloud workforce management, automated payroll compliance, and advanced cybersecurity protocols to ensure secure technology ecosystems. By leveraging innovative analytics and tailored platforms, the company empowers organizations to operate efficiently and scale confidently on a global level",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

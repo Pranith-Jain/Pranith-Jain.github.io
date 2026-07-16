@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "TR",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/395a8fda-818a-4319-b772-728530a328d2",
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Manufacturing",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

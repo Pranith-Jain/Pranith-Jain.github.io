@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-el-ordeno-2026-04-19",
+  "title": "El Ordeno",
+  "group": "thegentlemen",
+  "discovered": "2026-04-19T17:02:33.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "EC",
+  "sizeBytes": 0,
+  "description": "elordeno.com zoominfo.com/c/el-ordeño/363579816 El Ordeño (Sociedad Industrial Ganadera El Ordeño S.A.) is an Ecuadorian agro-industrial dairy company founded in 2001, headquartered in Quito, Pichincha Province. It operates an inclusive and associative business model that connects over 6,000 small and medium dairy producers across 100+ collection centers in the Ecuadorian highlands and Amazon. In 2019, it became the first certified B Corporation dairy company in Ecuador, Latin America, and the Caribbean",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

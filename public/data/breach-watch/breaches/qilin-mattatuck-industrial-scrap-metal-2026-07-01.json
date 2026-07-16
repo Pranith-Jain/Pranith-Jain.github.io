@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-mattatuck-industrial-scrap-metal-2026-07-01",
+  "title": "Mattatuck Industrial Scrap Metal",
+  "group": "qilin",
+  "discovered": "2026-07-01T13:18:10.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

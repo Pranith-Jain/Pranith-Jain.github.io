@@ -1,0 +1,15 @@
+{
+  "slug": "chaos-sterlingindustries-com-2026-05-27",
+  "title": "sterlingindustries.com",
+  "group": "chaos",
+  "discovered": "2026-05-27T20:51:58.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "STERLING INDUSTRIES: FINAL NOTICE BEFORE FULL RELEASE\n\nSTATUS: PENDING FINAL PUBLICATION \nENTITY: Sterling Industries (sterlingindustries.com)\nLEAK SIZE: ~503 GB\nATTENTION MANAGEMENT\n\nWe are currently in the final stages of preparing your data for public release. We have provided you with ample time…",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

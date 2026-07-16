@@ -1,0 +1,15 @@
+{
+  "slug": "m3rx-werkstoff-service-de-2026-06-11",
+  "title": "werkstoff-service.de",
+  "group": "m3rx",
+  "discovered": "2026-06-11T17:56:53.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "+49 2013168440. W.S. Werkstoff Service GmbH specializes in material engineering, offering a range of services including material testing, damage analysis, and professional training in material technology. Their expert team, consisting of chemists, physicists, and engineers, provides accredited inspection services and consulting for various industries, particularly in the railway sector. The company is located in Essen, Germany, and serves clients globally with a focus on high-quality standards and innovative solutions. They also offer certified retraining and qualification programs in material testing and non-destructive testing Stolen: 1.82 TB. 1,719,610 Files",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

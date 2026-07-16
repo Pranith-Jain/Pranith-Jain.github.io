@@ -1,0 +1,15 @@
+{
+  "slug": "akira-alpine-aerotech-2026-05-28",
+  "title": "Alpine Aerotech",
+  "group": "akira",
+  "discovered": "2026-05-28T12:20:36.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Alpine Aerotech is a full-service rotorcraft support facility specializing in comprehensive man\nufacturing and maintenance services for various helicopter models, including Bell, Airbus, and \nSikorsky.\n\nWe will upload 12gb of corporate data soon. Employee personal document scans, financials, drawi\nngs and specifications, contracts and agreements, NDAs, clients info and so on.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Megazord"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

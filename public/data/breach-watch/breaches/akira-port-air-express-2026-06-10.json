@@ -2,14 +2,14 @@
   "slug": "akira-port-air-express-2026-06-10",
   "title": "Port Air Express",
   "group": "akira",
-  "discovered": "2026-06-10T14:01:30.000Z",
+  "discovered": "2026-06-10T13:50:26.000Z",
   "category": "ransomware",
   "severity": "critical",
   "country": null,
   "sizeBytes": 0,
-  "description": null,
-  "source_url": "https://akiral2iz6a7qgd3ayp3l6yub7xx2uep76idk3u2kollpj5z3z636bad.onion/#news/port-air-express",
+  "description": "Port Air Express Inc. specializes in reliable logistics and transport solutions, negotiating co\nmpetitive rates with airlines and shipping companies globally. Their services include domestic \nand international shipping, containerized shipping, breakbulk cargo handling, heavy lift operat\nions, and customs clearance.\n\nWe will upload 15gb of corporate data soon. Employee personal information (passports, DL scans,\nSSN cards and more), financial information payment details, credit cards, etc.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["Megazord"],
-  "activity": null,
-  "references": ["CTI.FYI"]
+  "activity": "Transportation/Logistics",
+  "references": ["ransomware.live"]
 }

@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-sgt-2026-04-19",
+  "title": "Sgt",
+  "group": "thegentlemen",
+  "discovered": "2026-04-19T17:10:03.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "FR",
+  "sizeBytes": 0,
+  "description": "sgt-pet.com zoominfo.com/c/sgt/370244282 SGT founded in 1981 and based in France, is a specialist in PET and RPET packaging . The company designs and manufactures PET/RPET preforms (mono- and multi-layer), HDPE caps, and bottles for the beverage and industrial sectors . With over 200 employees, 26 injection presses, and two recycled PET (SGR) factories, SGT is strongly committed to eco-responsibility and circular packaging .",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

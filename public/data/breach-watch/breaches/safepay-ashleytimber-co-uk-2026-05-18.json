@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-ashleytimber-co-uk-2026-05-18",
+  "title": "ashleytimber.co.uk",
+  "group": "safepay",
+  "discovered": "2026-05-18T19:54:28.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "Founded in 1988, the company operates as a family-run SME and has developed a strong regional presence in the North …",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Construction",
+  "references": ["ransomware.live"]
+}

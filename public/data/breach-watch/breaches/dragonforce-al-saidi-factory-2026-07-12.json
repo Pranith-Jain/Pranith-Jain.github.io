@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "SA",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/93fec037-89c2-4dc3-a1d2-a303604c0abb",
+  "description": "Al Saidi Al Saidi Trading and Industry is a prominent group of companies providing tailored chemical and logistics solutions primarily for clients in the Middle East. They offer a comprehensive range of global logistics services, including supply chain management and freight forwarding, designed to enhance business efficiency. Additionally, the company specializes in manufacturing chemicals for the Oil & Gas and petrochemical industries, focusing on reliability and sustainability. With a commitment to high-quality, environmentally friendly products, Al Saidi aims to support clients in maximizing their operational effectiveness.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["DRAGON FORCE"],
   "activity": "Manufacturing",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

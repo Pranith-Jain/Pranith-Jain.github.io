@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-open-door-health-center-2026-05-25",
+  "title": "Open Door Health Center",
+  "group": "incransom",
+  "discovered": "2026-05-25T20:22:26.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Open Door Health Center of Illinois offers a comprehensive medical home approach to primary health care, focusing on improving community health since 1977. Their services include medical assistance, HIV programs, behavioral health, case management, and community outreach, catering especially to LGBTQI individuals and those living with HIV/AIDS. The center aims to provide affordable and accessible healthcare without discrimination, while also engaging in education and training initiatives. Their intended clients include patients in need of medical care, community members seeking support, and volunteers looking to contribute to health equity.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

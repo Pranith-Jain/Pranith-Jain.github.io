@@ -1,0 +1,15 @@
+{
+  "slug": "akira-kennon-worldwide-2026-06-05",
+  "title": "Kennon Worldwide",
+  "group": "akira",
+  "discovered": "2026-06-05T14:20:38.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Kennon Worldwide offers a wide range of telecommunications services including PRI, VoIP, and in\ntegrated services, representing over 40 service providers to ensure the best pricing and soluti\nons for clients.\n\nWe will upload 30gb of corporate data soon. Contracts, client information, NDAs, and other inte\nrnal files.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Megazord"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

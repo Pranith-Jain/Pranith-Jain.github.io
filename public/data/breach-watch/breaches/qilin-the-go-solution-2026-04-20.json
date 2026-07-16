@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-the-go-solution-2026-04-20",
+  "title": "The Go Solution",
+  "group": "qilin",
+  "discovered": "2026-04-20T16:47:51.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "IE",
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

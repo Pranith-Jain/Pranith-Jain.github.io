@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/49d5bdb9-5007-486e-b61f-0aefd4e4f666",
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Agriculture and Food Production",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

@@ -1,0 +1,15 @@
+{
+  "slug": "akira-sunrise-toscana-country-club-andalusia-country-club-2026-05-26",
+  "title": "Sunrise, Toscana Country Club,Andalusia Country Club.",
+  "group": "akira",
+  "discovered": "2026-05-26T12:50:15.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Sunrise Company is a renowned real estate developer and builder specializing in resort and golf\ncourse communities. Established in 1963, the company has developed over 16,000 homes and condo\nminiums, along with creating multiple resort hotels and commercial structures. \n\nToscana Country Club is a luxury private equity club and residential community located in India\nn Wells, California, offering an exceptional lifestyle amidst beautiful olive and cypress lands\ncapes.\n\nAndalusia Country Club is a luxurious community near Palm Springs, offering distinctive golf co\nurse homes and a premier country club experience.\n\nWe will upload 13gb of corporate data of the above mentioned entities. Employee personal inform\nation including family of the CEO (passports, DLs, death records and so on), contracts and agre\nements, detailed financials, clients information, projects, etc.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Megazord"],
+  "activity": "Hospitality and Tourism",
+  "references": ["ransomware.live"]
+}

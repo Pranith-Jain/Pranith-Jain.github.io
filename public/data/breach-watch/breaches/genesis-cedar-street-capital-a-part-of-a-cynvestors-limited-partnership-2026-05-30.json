@@ -1,0 +1,15 @@
+{
+  "slug": "genesis-cedar-street-capital-a-part-of-a-cynvestors-limited-partnership-2026-05-30",
+  "title": "Cedar Street Capital (A part of a Cynvestors Limited Partnership)",
+  "group": "genesis",
+  "discovered": "2026-05-30T18:52:46.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "A private investment entity associated with Cynthia Stiehl",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
+}

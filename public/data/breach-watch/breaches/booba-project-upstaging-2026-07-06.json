@@ -1,0 +1,15 @@
+{
+  "slug": "booba-project-upstaging-2026-07-06",
+  "title": "Upstaging",
+  "group": "Booba Project",
+  "discovered": "2026-07-06T12:50:20.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Entertainment Providers Stolen data: 10 GB",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

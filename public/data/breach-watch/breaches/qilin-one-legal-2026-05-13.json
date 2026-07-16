@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-one-legal-2026-05-13",
+  "title": "One Legal",
+  "group": "qilin",
+  "discovered": "2026-05-13T17:24:24.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "SG",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

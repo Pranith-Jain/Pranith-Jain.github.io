@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-cmswpc-com-2026-05-08",
+  "title": "cmswpc.com",
+  "group": "incransom",
+  "discovered": "2026-05-08T07:32:18.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "All patient medical records in their entirety. All data from the medical center, including personal and confidential information, will be stolen. The data will be divided into 7 parts, with each part containing 200–300 GB",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

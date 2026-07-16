@@ -1,0 +1,15 @@
+{
+  "slug": "akira-miami-machine-2026-06-24",
+  "title": "Miami Machine",
+  "group": "akira",
+  "discovered": "2026-06-24T12:20:22.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Miami Machine Inc. specializes in machining, fabrication, and engineering services tailored for\nthe paper, power, steel, and OEM markets. With over 50 years of experience and a manufacturing\nspace of 86,000 sq. ft, they provide high-quality, custom machinery and equipment solutions.\n\nWe will upload corporate data soon. Employee personal docs (passports and other docs, photos), \nNDAs, projects, contracts and agreements, client information, etc.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Megazord"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

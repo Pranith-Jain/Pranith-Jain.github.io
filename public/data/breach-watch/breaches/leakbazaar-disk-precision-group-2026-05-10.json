@@ -1,0 +1,15 @@
+{
+  "slug": "leakbazaar-disk-precision-group-2026-05-10",
+  "title": "Disk Precision Group",
+  "group": "LeakBazaar",
+  "discovered": "2026-05-10T08:58:30.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "SG",
+  "sizeBytes": 0,
+  "description": "Disk Precision Group is a leading precision engineering company based in Singapore, specializing in CNC machining, fabrication, and full-service manufacturing.\n80GB valuable information + 10 separate categories. \n\n1. GUIDANCE(9.72 GB); Price: $1000 - one hands / $500 - many hands.\n\n2. SECURITY_REPORTS(94.42 MB) ; Price: $500 - one hands / $250 - many hands.\n\n3. RESEARCH REPORTS(1.46 GB); Price: $1500 - one hands / $750 - many hands.\n\n4. SANCTIONS  Size(146.62 KB); Price: $150 - one hands / $75 - many hands.\n\n5. SUPPLIERS AND BUYERS (544.57 MB); Price: $1000 - one hands / $500 - many hands.\n\n6. CALCULATION COST OF PRODUCTION(185.95 MB); Price: $400 - one hands / $200 - many hands. SOLD\n\n7. QUARTERLY REPORTS(1.9 GB); Price: $500 - one hands / $250 - many hands.SOLD\n\n8. FINANCE(29.68 GB); Price: $2000 - one hands / $1000 - many hands.\n\n9. SECURITY REPORTS(8.15 MB); Price: $100 - one hands / $50 - many hands.\n\n10. CONFIDENTIAL DATA(674.87 MB); Price: $2000 - one hands / $1000 - many hands.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["leak bazaar"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

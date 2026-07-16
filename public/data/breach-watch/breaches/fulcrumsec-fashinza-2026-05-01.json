@@ -1,0 +1,15 @@
+{
+  "slug": "fulcrumsec-fashinza-2026-05-01",
+  "title": "Fashinza",
+  "group": "fulcrumsec",
+  "discovered": "2026-05-01T16:48:31.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "IN",
+  "sizeBytes": 0,
+  "description": "[AI generated] Fashinza is an AI-driven B2B fashion supply chain platform founded in India. It connects fashion brands and retailers with manufacturers, streamlining apparel production by managing sourcing, sampling, production tracking, and quality control. Operating primarily in India with global clientele, the company leverages technology to improve transparency and efficiency in garment manufacturing, reducing lead times and costs for fashion businesses.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

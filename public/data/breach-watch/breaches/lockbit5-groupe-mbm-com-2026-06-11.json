@@ -1,0 +1,15 @@
+{
+  "slug": "lockbit5-groupe-mbm-com-2026-06-11",
+  "title": "groupe-mbm.com",
+  "group": "lockbit5",
+  "discovered": "2026-06-11T07:18:02.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "FR",
+  "sizeBytes": 0,
+  "description": "Groupe MBM is a French group of companies specializing in carpentry, interior finishing, and interio...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

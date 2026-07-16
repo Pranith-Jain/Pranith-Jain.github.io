@@ -1,0 +1,15 @@
+{
+  "slug": "everest-epiq-global-2026-05-02",
+  "title": "Epiq Global",
+  "group": "everest",
+  "discovered": "2026-05-02T03:54:06.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "[AI generated] Epiq Global is a US-based legal services company specializing in technology-driven solutions for complex legal matters. It provides services including class action and mass tort administration, bankruptcy case management, eDiscovery, document review, and legal notification. Operating across multiple countries, Epiq serves law firms, corporations, and government entities, helping manage large-scale legal proceedings efficiently.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "settra-hmcfarms-com-2026-06-28",
+  "title": "hmcfarms.com",
+  "group": "settra",
+  "discovered": "2026-06-28T19:54:44.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "THE HMC GROUP: OPEN FIELD A California Central Valley agricultural holding feeds America peaches. It...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

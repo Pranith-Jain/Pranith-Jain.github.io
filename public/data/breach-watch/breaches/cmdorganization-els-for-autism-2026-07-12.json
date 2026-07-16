@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/fd8132e6-d7a8-4c01-a277-85fd8709ec6c",
+  "description": "Els for Autism Foundation, founded by Liezl and Ernie Els, offers programs and resources for adults and children with autism spectrum disorder (ASD). The Els Center of Excellence campus is a world-class site hosting leading-edge programs and services for individuals with autism. Based in Jupiter, Florida, The Els Center of Excellence is on track to be a global leader in the field of autism and a leading example of what can be available to individuals on the spectrum.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["cmd organization"],
   "activity": "Healthcare",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-longwood-engineering-company-2026-04-27",
+  "title": "Longwood Engineering Company",
+  "group": "qilin",
+  "discovered": "2026-04-27T07:49:22.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

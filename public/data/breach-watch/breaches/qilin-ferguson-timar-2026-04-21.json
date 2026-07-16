@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-ferguson-timar-2026-04-21",
+  "title": "Ferguson Timar",
+  "group": "qilin",
+  "discovered": "2026-04-21T16:33:29.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Construction",
+  "references": ["ransomware.live"]
+}

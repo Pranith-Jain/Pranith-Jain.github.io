@@ -1,0 +1,15 @@
+{
+  "slug": "leakbazaar-millennium-packages-2026-05-10",
+  "title": "Millennium packages",
+  "group": "LeakBazaar",
+  "discovered": "2026-05-10T08:55:45.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "120GB valuable information + 11 separate categories. \n1. CALCULATION COST OF PRODUCTION (2.15GB); \nPrice: $1000 / $500\n\n2. CONFIDENTIAL DATA(17.38gb); Price: $1000 - one hands / $500 - many hands\n\n3. FINANCE(6.59GB); \nPrice: $1000 - one hands / $500 - many hands\n\n4. GUIDANCE(36.52GB);\nPrice: $1000 - one hands / $500 - many hands\n\n\n5. INSURANCE(6.69GB);\nPrice: $1000 - one hands / $500 - many hands\n\n\n6. ORGANIZATION(558.64MB);\nPrice: $1000 - one hands / $500 - many hands\n\n\n7. POSSIBLE VIOLATIONS(16.59MB);\nPrice: $1000 - one hands / $500 - many hands\n\n8. QUARTERLY REPORTS(789.15MB;\nPrice: $1000 - one hands / $500 - many hands\n\n9. RESEARCH REPORTS(655.02MB);\nPrice: $1000 - one hands / $500 - many hands\n\n10. SANCTIONS(48.75MB);\nPrice: $1000 - one hands / $500 - many hands.\n\n\n11. SUPPLIERS AND BUYERS(3.8GB);\nPrice: $1000 - one hands / $500 - many hands",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["leak bazaar"],
+  "activity": "Transportation/Logistics",
+  "references": ["ransomware.live"]
+}

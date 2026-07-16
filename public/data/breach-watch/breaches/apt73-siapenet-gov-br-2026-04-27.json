@@ -1,0 +1,15 @@
+{
+  "slug": "apt73-siapenet-gov-br-2026-04-27",
+  "title": "siapenet.gov.br",
+  "group": "apt73",
+  "discovered": "2026-04-27T16:50:47.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "BR",
+  "sizeBytes": 0,
+  "description": "Today, SIAPE processes the remuneration of civil servants, regulated both by the uniform federal ...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Eraleign"],
+  "activity": "Public Sector",
+  "references": ["ransomware.live"]
+}

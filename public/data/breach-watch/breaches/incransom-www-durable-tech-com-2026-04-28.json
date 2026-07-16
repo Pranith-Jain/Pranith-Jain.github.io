@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-www-durable-tech-com-2026-04-28",
+  "title": "www.durable-tech.com",
+  "group": "incransom",
+  "discovered": "2026-04-28T09:46:08.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Durable Mecco is a small company (1-10 employees) operating in the HR & Staffing industry, located at 176 Thorn Hill Rd, Warrendale, Pennsylvania, 15086. This entity is distinct from \"Durable Technologies,\" which focuses on industrial marking equipment.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

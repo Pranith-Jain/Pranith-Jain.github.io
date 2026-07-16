@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-teloh-2026-06-04",
+  "title": "TeLoh",
+  "group": "thegentlemen",
+  "discovered": "2026-06-04T09:09:33.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "***.de ***.co/te-loh-michael-korn-gmbh-profile_b7c5fa01c183a43f TE-LOH Germany GmbH is an established Electronics Manufacturing Services provider located in Norderstedt, Germany. With over 30 years of industry experience, the company specializes in circuit board assembly, cable harness production, and complete electronic device manufacturing. They offer comprehensive, tailor-made solutions from a single source, focusing primarily on high-quality small to medium production series",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

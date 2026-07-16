@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-south-texas-spinal-clinic-2026-06-15",
+  "title": "South Texas Spinal Clinic",
+  "group": "thegentlemen",
+  "discovered": "2026-06-15T13:02:45.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "***.com zoominfo.com/c/south-texas-spinal-clinic-pa/57099280 South Texas Spinal Clinic has been a trusted regional leader in orthopedic care since 1986, specializing in comprehensive spine, bone, and joint treatments across San Antonio and South Texas. Their team of board-certified specialists focuses on delivering exceptional, patient-centered care ranging from advanced pain management to targeted bone health therapies. They are dedicated to improving mobility and quality of life through expert prevention, education, and innovative medical solutions",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

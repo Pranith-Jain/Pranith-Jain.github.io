@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-eat-salad-2026-06-03",
+  "title": "Eat Salad",
+  "group": "qilin",
+  "discovered": "2026-06-03T09:08:45.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "BR",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

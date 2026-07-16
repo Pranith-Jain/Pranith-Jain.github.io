@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-ic-partners-2026-04-19",
+  "title": "IC Partners",
+  "group": "thegentlemen",
+  "discovered": "2026-04-19T17:03:22.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "icpartners.it rocketreach.co/icadvisory-services-india-pvt-ltd-profile_b5c0f34ff42e08a0 IC&Partners is an Italian management consulting firm founded in 1999, headquartered in Udine and Milan, specializing in internationalization strategies for SMEs and large companies. With 27 subsidiaries across Central & Eastern Europe, Russia, China, South Asia, and the Americas, they provide tax, legal, accounting, financial, and HR support for foreign market entry.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

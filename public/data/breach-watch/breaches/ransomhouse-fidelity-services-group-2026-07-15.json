@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "GB",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/594c6f61-d05c-4d01-9725-1b8266b0644c",
+  "description": "Fidelity Services Group is Southern Africa's largest integrated security solutions provider, specializing in innovative protection services. With over 60 years of experience, they offer a range of services including security guarding, cash management, and fire protection solutions tailored for corporate clients. Their commitment to excellence and technological advancement positions them as a leader in the security market. The company serves various industries, ensuring peace of mind through specialized and professionally trained personnel",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["RANSOM HOUSE"],
   "activity": "Financial Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

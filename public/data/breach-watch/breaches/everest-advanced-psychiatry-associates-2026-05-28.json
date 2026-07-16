@@ -1,0 +1,15 @@
+{
+  "slug": "everest-advanced-psychiatry-associates-2026-05-28",
+  "title": "Advanced Psychiatry Associates",
+  "group": "everest",
+  "discovered": "2026-05-28T15:25:52.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "[AI generated] Advanced Psychiatry Associates is a psychiatric medical practice based in the United States. The company provides comprehensive mental health services, including evaluation, diagnosis, and treatment of psychiatric conditions such as depression, anxiety, ADHD, and bipolar disorder. It operates within the healthcare and behavioral health industry, offering both medication management and therapy services to adult and adolescent patients across its clinic locations.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

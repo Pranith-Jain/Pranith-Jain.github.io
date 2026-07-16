@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "DE",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/98b3d39c-6915-43a0-af7a-522c7497b9c7",
+  "description": "***.de zoominfo.com/c/inet/429716454 INTERNET AG is a professional German IT service provider specializing in reliable, sustainable, and flexible hosting and server solutions. The company delivers customized IT infrastructures, managed services, and global network connectivity tailored to complex business needs. Alongside its partner INTERNIC GmbH, it offers comprehensive enterprise software and secure digital operations for corporate clients",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["the gentlemen"],
   "activity": "Technology",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

@@ -1,0 +1,15 @@
+{
+  "slug": "nova-aspire-hospital-2026-06-05",
+  "title": "Aspire hospital",
+  "group": "nova",
+  "discovered": "2026-06-05T21:23:59.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "IN",
+  "sizeBytes": 0,
+  "description": "Both aspirehospitals.co.in and aspirehospitals.in Under Nova Company Control, servers encrypted and patients data stolen, A Healthcare provider based on Plot No: 163, 208, Ekamra Road, Unit-6, Ganga Nagar, Bhubaneswar, India, Odisha, you need to think well to contact us for recover and to secure patients records - Nova Provide tree and samples from stolen data, free 2 files decrypt to the company when its get in touch with support department.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

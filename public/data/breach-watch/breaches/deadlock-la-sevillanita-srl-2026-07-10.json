@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "AR",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/b36c4f57-3fee-4fbf-abf9-0ea90f0bd1fc",
+  "description": "LA SEVILLANITA is the leading transport company in Argentina.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Agriculture and Food Production",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

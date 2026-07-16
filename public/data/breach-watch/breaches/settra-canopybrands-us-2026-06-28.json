@@ -1,0 +1,15 @@
+{
+  "slug": "settra-canopybrands-us-2026-06-28",
+  "title": "canopybrands.us",
+  "group": "settra",
+  "discovered": "2026-06-28T19:56:26.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "CA",
+  "sizeBytes": 0,
+  "description": "Limit of Travel A holding company that sells people safety at height failed to keep its own data saf...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

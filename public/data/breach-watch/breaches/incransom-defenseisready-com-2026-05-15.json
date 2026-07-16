@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-defenseisready-com-2026-05-15",
+  "title": "defenseisready.com",
+  "group": "incransom",
+  "discovered": "2026-05-15T14:23:54.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Deandra Grant Law is a Texas criminal defense and DWI firm with a practice exclusively concentrated on DWI, federal and criminal defense. The firm has defended clients across North and Central Texas for more than 30 years, with more than 500 cases tried to verdict.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

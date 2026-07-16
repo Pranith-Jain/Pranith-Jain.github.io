@@ -1,0 +1,15 @@
+{
+  "slug": "nightspire-artistic-smiles-2026-06-21",
+  "title": "Artistic Smiles",
+  "group": "nightspire",
+  "discovered": "2026-06-21T08:06:34.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Data is not available now.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["NIGHT SPIRE"],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

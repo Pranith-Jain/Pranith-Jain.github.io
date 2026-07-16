@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-mayelia-automotive-2026-05-28",
+  "title": "Mayelia Automotive",
+  "group": "thegentlemen",
+  "discovered": "2026-05-28T18:54:43.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "MX",
+  "sizeBytes": 0,
+  "description": "mayelia.com zoominfo.com/c/mayelia-automotive/480899337 is an Ivorian automotive company specializing in vehicle technical inspections.Founded in 2019, it operates under Mayelia Participations holding across multiple African sectors.Services include technical checks, stickers, and corporate solutions for drivers and businesses.The company emphasizes customer service, modern equipment, and road safety education",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

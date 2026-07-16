@@ -1,0 +1,15 @@
+{
+  "slug": "akira-national-standard-parts-associates-2026-06-04",
+  "title": "National Standard Parts Associates",
+  "group": "akira",
+  "discovered": "2026-06-04T13:50:31.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "NSPA is an American manufacturer specializing in heat shrink terminals and connectors, as well \nas heat shrink tubing and installation tools. Their product offerings cater to industries requi\nring reliable sealed electrical systems.\n\nWe will upload 53gb of corporate data soon. Employee personal docs (passports, DLs, SSNs and ot\nher information), contracts and agreements, a bit of client and partners information, lots of N\nDAs, detailed financials, confidential files, and so on.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Megazord"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "CZ",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/9167cc29-73ba-4eb0-9640-0ec2a8d4c3ed",
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Business Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

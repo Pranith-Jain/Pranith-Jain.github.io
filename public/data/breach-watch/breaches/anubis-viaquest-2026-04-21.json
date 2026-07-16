@@ -1,0 +1,15 @@
+{
+  "slug": "anubis-viaquest-2026-04-21",
+  "title": "ViaQuest",
+  "group": "anubis",
+  "discovered": "2026-04-21T03:50:43.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Large-scale data breach at a care provider for seriously ill patients.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Transportation/Logistics",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-anderlues-2026-04-19",
+  "title": "Anderlues",
+  "group": "thegentlemen",
+  "discovered": "2026-04-19T16:59:40.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "BE",
+  "sizeBytes": 0,
+  "description": "Anderlues.be is the official website of the municipality of Anderlues, a small town in the province of Hainaut, Wallonia, Belgium, with a population of approximately 12,000 residents and an area of 17 km². The site serves as the main digital portal for local government services, including an e-counter (E-Guichet) for requesting official documents online, news and announcements, cultural events, and public infrastructure services. The municipality is governed by a local council and offers residents services such as recycling centres, social assistance, energy subsidies, and cultural programmes through its community centre \"La Bourlette\"",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

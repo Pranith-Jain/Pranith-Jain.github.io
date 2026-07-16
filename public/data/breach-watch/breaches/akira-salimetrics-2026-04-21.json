@@ -1,0 +1,15 @@
+{
+  "slug": "akira-salimetrics-2026-04-21",
+  "title": "Salimetrics",
+  "group": "akira",
+  "discovered": "2026-04-21T15:49:41.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Salimetrics specializes in salivary bioscience, offering industry\n-standard saliva collection methods, salivary assay kits, and tes\nting services for reliable results. Their products cater to resea\nrchers and clinicians involved in biobehavioral research and diag\nnostics, providing tools for sample collection and analysis. \n\nWe will upload corporate data soon. Employee information, patient\ns information (blood tests and other health information), financi\nals, internal confidential files and so on.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Megazord"],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

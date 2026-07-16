@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "IT",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/1f2cb683-6920-4f3c-bb2c-5b09daafb350",
+  "description": "WIBEATS is one among the last few independent Italian Asset Management and Loans Service group, specialised performing and non performing real estate. Over 150 gigabytes of internal email datastore were stolen from this company. more than 50 GB of internal sensitive data containing contracts and official papers containing construction and renewal permits",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Technology",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

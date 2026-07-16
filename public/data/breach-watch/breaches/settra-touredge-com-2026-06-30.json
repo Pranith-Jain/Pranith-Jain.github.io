@@ -1,0 +1,15 @@
+{
+  "slug": "settra-touredge-com-2026-06-30",
+  "title": "touredge.com",
+  "group": "settra",
+  "discovered": "2026-06-30T11:03:23.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "The Breaking Point A golf club manufacturer sells precision, durability, and control as a philosophy...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Hospitality and Tourism",
+  "references": ["ransomware.live"]
+}

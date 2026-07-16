@@ -1,0 +1,15 @@
+{
+  "slug": "dragonforce-fatbrands-com-2026-04-27",
+  "title": "fatbrands.com",
+  "group": "dragonforce",
+  "discovered": "2026-04-27T13:53:02.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "FAT Brands is a leading global franchising company that strategically acquires, promotes, and develops quick-service, fast-casual, \nand casual dining concepts around the world.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["DRAGON FORCE"],
+  "activity": "Hospitality and Tourism",
+  "references": ["ransomware.live"]
+}

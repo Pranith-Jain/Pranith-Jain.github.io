@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-teamster773-org-2026-04-22",
+  "title": "teamster773.org",
+  "group": "incransom",
+  "discovered": "2026-04-22T22:50:40.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Teamsters Local 773 is a union dedicated to building unity and power for working people in the Greater Lehigh Valley. They focus on educating and engaging members, organizing unorganized workers, and mobilizing them to stand in solidarity. The union advocates for strong contracts, better pay, job security, and dignity in the workplace, empowering employees to effect positive changes in their work environments. With over a century of experience, Teamsters Local 773 provides support and resources to ensure that every member has the opportunity to thrive.\r Employees: 50\r Revenue: $5 Million\r Industry: Membership Organizations\r Phone Number: (610) 434-4451",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Transportation/Logistics",
+  "references": ["ransomware.live"]
+}

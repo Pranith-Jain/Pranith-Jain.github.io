@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-liztex-guatemala-2026-06-04",
+  "title": "Liztex Guatemala",
+  "group": "thegentlemen",
+  "discovered": "2026-06-04T09:09:30.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "GT",
+  "sizeBytes": 0,
+  "description": "***.com Liztex is a leading Guatemalan textile manufacturer with over 50 years of experience in producing fabrics.\n\nWe want to inform you that our group managed to breach and encrypt Liztex network. \n398GB leaked from there as a result of this breach. \n\nWhat kind of data leaked: \n- SAP data \n- contacts \n- contracts \n- planning \n- logistics \n- projects data \n- personal data \n- employee data \n- medical data \n- partners data \n- customers data \n- financial data \n- correspondence \n- production data \n- quality control data \n- offers and proposals \n- subsidiary data \n- other sensitive business data",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "worldleaks-ch-karnchang-public-2026-06-05",
+  "title": "CH Karnchang Public",
+  "group": "worldleaks",
+  "discovered": "2026-06-05T09:24:54.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "TH",
+  "sizeBytes": 0,
+  "description": "[AI generated] CH Karnchang Public Company Limited is a major Thai construction and engineering conglomerate headquartered in Bangkok, Thailand. The company specializes in large-scale infrastructure projects including highways, expressways, dams, tunnels, and civil engineering works. It operates primarily in Thailand but also undertakes international projects. CH Karnchang is listed on the Stock Exchange of Thailand and is considered one of the country's leading construction firms.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Construction",
+  "references": ["ransomware.live"]
+}

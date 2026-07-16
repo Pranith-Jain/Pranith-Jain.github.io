@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-jumbo-transport-2026-04-19",
+  "title": "Jumbo Transport",
+  "group": "thegentlemen",
+  "discovered": "2026-04-19T17:01:18.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "DK",
+  "sizeBytes": 0,
+  "description": "jumbotransport.dk zoominfo.com/c/jumbo-transport/1161644600 Jumbo Transport A/S is a privately-owned Danish freight forwarding and logistics company founded in 1982, headquartered in Brøndby (Copenhagen) with 3 locations in Denmark and own offices in Sweden, Norway, and Finland. The company operates 100+ trucks across Europe daily, 14,000 m² of heated warehouse space, and is an IATA-certified air cargo agent with 38 partners across Europe. Its services cover road, sea, and air freight, warehousing, logistics, ADR dangerous goods, and specialized transport (wine & spirits, furniture, point-of-sale materials)",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Transportation/Logistics",
+  "references": ["ransomware.live"]
+}

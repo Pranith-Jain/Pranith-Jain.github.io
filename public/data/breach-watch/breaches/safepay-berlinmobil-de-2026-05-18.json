@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-berlinmobil-de-2026-05-18",
+  "title": "Berlinmobil.de",
+  "group": "safepay",
+  "discovered": "2026-05-18T15:55:06.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "Is a German transportation company headquartered in Berlin, specializing in bus charter services, passenger transportation, school transport, and mobility solutions …",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Transportation/Logistics",
+  "references": ["ransomware.live"]
+}

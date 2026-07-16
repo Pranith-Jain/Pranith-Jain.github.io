@@ -1,0 +1,15 @@
+{
+  "slug": "payload-mosaic-partners-2026-06-26",
+  "title": "Mosaic Partners",
+  "group": "payload",
+  "discovered": "2026-06-26T10:29:15.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "CH",
+  "sizeBytes": 0,
+  "description": "The Swiss company Mosaic Partners specializes in providing IT services, software development, and systems engineering. It creates tailored digital solutions and applications to optimize business processes, covering areas such as CRM, cloud computing, and process management (e.g., in winemaking). The company's products are adapted to individual client needs, ensuring easy integration, data security, and rapid customization to meet market demands.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "nova-lockers-it-2026-06-21",
+  "title": "Lockers IT",
+  "group": "nova",
+  "discovered": "2026-06-21T09:07:46.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "LockersIT is a self-owned Bangladeshi IT company founded in 2013, headquartered in Chandpur, that specializes in custom software development with a team of 11-50 employees - allcashdealer.com dealmart24.com dev1.lockersit.com erp.lockersit.com sales.lockersit.com brm.lockersit.com debnathashu.com dev2.lockersit.com eshop.lockersit.com cloud.debnathashu.com  dev.allcashdealer.com  dev3.lockersit.com lockersit.com cloud.lockersit.com dev.lockersit.com emailer.debnathashu.com project.debnathashu.com effected with the encryption, Data From the server has been taken, Nova Provide tree and samples from stolen data to the company with decrypt 1 file as sample when its get in touch with support department.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "genesis-fargo-moorhead-west-fargo-chamber-2026-05-11",
+  "title": "Fargo Moorhead West Fargo Chamber",
+  "group": "genesis",
+  "discovered": "2026-05-11T23:24:42.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "A business services provider.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

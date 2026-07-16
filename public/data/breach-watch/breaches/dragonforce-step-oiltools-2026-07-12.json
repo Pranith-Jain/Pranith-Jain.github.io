@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "RO",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/70dccabc-a8ff-4e2c-87ae-036b66e2786a",
+  "description": "STEP Oiltools is a leading global provider of solids control and drilling waste management services, primarily serving the oil and gas and civil engineering industries. The company offers a range of products including mini separation systems, modular recyclers, and dewatering systems, aimed at enhancing efficiency and sustainability in drilling operations. With a commitment to health and safety, STEP Oiltools has received recognition for its high standards in workplace safety. Their clientele includes major players in the energy sector, civil construction, and water treatment markets.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["DRAGON FORCE"],
   "activity": "Energy",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

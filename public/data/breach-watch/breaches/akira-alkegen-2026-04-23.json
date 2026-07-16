@@ -1,0 +1,15 @@
+{
+  "slug": "akira-alkegen-2026-04-23",
+  "title": "Alkegen",
+  "group": "akira",
+  "discovered": "2026-04-23T15:57:13.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Alkegen creates high performance specialty materials used in adva\nnced applications including electric vehicles, energy storage, fi\nltration, fire protection and high-temperature insulation, among \nmany others.\n\nWe will upload 57gb of corporate data soon. Employee personal doc\numents (passports, DLs, contacts, addresses, medical information \nand so on), client personal information, lots of confidential fil\nes, projects, contracts and agreements, detailed financials, NDAs\n, etc.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Megazord"],
+  "activity": "Energy",
+  "references": ["ransomware.live"]
+}

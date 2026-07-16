@@ -1,0 +1,15 @@
+{
+  "slug": "rhysida-tower-view-primary-school-2026-05-15",
+  "title": "Tower View Primary School",
+  "group": "rhysida",
+  "discovered": "2026-05-15T16:55:09.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "Tower View Primary School Tower View Primary School is an educational institution that serves approximately 380 pupils across 14 classes.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Education",
+  "references": ["ransomware.live"]
+}

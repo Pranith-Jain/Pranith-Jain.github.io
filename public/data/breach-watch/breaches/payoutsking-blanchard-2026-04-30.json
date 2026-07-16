@@ -1,0 +1,15 @@
+{
+  "slug": "payoutsking-blanchard-2026-04-30",
+  "title": "Blanchard",
+  "group": "payoutsking",
+  "discovered": "2026-04-30T00:34:44.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "[AI generated] Blanchard is a US-based professional development and leadership training company founded by Ken Blanchard, co-author of \"The One Minute Manager.\" Operating in the corporate training and consulting industry, it offers leadership development programs, coaching services, and organizational effectiveness solutions to businesses worldwide. Headquartered in Escondido, California, the company serves clients across various sectors globally.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

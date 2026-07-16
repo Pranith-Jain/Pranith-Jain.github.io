@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-pdcbodynits-2026-06-04",
+  "title": "pdcbodynits",
+  "group": "incransom",
+  "discovered": "2026-06-04T12:58:08.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "SG",
+  "sizeBytes": 0,
+  "description": "Bodynits Group is a leading apparel manufacturer specializing in design and innovation, offering comprehensive manufacturing solutions.Access was gained to accounting and finance, all asset management systems, client databases, employee personal data, non-disclosure agreements, as well as developments and technologies.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

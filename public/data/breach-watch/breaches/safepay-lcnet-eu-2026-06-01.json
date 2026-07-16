@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-lcnet-eu-2026-06-01",
+  "title": "lcnet.eu",
+  "group": "safepay",
+  "discovered": "2026-06-01T19:24:01.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "The network was established to provide integrated cross-border transport solutions, allowing member companies to coordinate freight movements efficiently throughout Europe. …",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

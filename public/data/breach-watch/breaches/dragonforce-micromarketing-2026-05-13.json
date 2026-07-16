@@ -1,0 +1,15 @@
+{
+  "slug": "dragonforce-micromarketing-2026-05-13",
+  "title": "MicroMarketing",
+  "group": "dragonforce",
+  "discovered": "2026-05-13T17:53:31.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "MicroMarketing specializes in expert title selections for books, audio CDs, and DVDs, catering primarily to librarians and libraries. The company is known for its personalized service, ensuring that clients receive timely and efficient support without automated responses. They offer valuable services such as downloadable invoices and MARC records, along with a strong price-value proposition. MicroMarketing's commitment to quality and customer satisfaction has garnered positive testimonials from clients who appreciate their reliable and responsive service",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["DRAGON FORCE"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

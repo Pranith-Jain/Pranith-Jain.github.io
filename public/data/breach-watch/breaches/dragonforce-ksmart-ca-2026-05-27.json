@@ -1,0 +1,15 @@
+{
+  "slug": "dragonforce-ksmart-ca-2026-05-27",
+  "title": "ksmart.ca",
+  "group": "dragonforce",
+  "discovered": "2026-05-27T16:23:44.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "CA",
+  "sizeBytes": 0,
+  "description": "K. Smart Associates Limited is a consulting engineering and planning company established in 1975, specialising in civil engineering and land use planning.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["DRAGON FORCE"],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

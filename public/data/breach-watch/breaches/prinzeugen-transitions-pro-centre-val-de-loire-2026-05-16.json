@@ -1,0 +1,15 @@
+{
+  "slug": "prinzeugen-transitions-pro-centre-val-de-loire-2026-05-16",
+  "title": "Transitions Pro Centre Val de Loire",
+  "group": "PrinzEugen",
+  "discovered": "2026-05-16T17:25:37.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "FR",
+  "sizeBytes": 0,
+  "description": "The swift attack has resulted in both the exfiltration and encryption of hundreds of gigabytes.\n\nIn the event of complete non-compliance; Files will be fully released for public download.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["prinz eugen"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

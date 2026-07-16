@@ -1,0 +1,15 @@
+{
+  "slug": "krybit-ecci-srl-com-2026-05-30",
+  "title": "ecci-srl.com",
+  "group": "krybit",
+  "discovered": "2026-05-30T01:22:49.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "Empresa dedicada al rubro de construcción de proyectos inmobiliarios, particularmente la Ciudad Nueva Santa Cruz. El á...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "lockbit5-felizhotelboracay-com-2026-06-20",
+  "title": "felizhotelboracay.com",
+  "group": "lockbit5",
+  "discovered": "2026-06-20T09:27:08.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "PH",
+  "sizeBytes": 0,
+  "description": "Feel the Tranquility and ComfortFeliz Hotel Boracay provides a serene island retreat with spacious,...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Hospitality and Tourism",
+  "references": ["ransomware.live"]
+}

@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "IT",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/1bc5abff-c6f6-471b-9f64-983d39fab172",
+  "description": "Industrie Tecnologiche is a software development center for the food industry.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Technology",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

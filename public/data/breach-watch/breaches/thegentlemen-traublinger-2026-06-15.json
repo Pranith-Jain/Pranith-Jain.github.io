@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-traublinger-2026-06-15",
+  "title": "Traublinger",
+  "group": "thegentlemen",
+  "discovered": "2026-06-15T12:58:10.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "***.de Backerei Traublinger is a traditional, family-owned German bakery and confectionery company founded in 1912, headquartered near Munich in Bavaria.With over a century of heritage and around 165 employees, they expertly blend time-honored artisanal baking craftsmanship with modern culinary innovation.The company produces and distributes a wide variety of premium breads, pastries, cakes, and snacks through its extensive network of local retail branches across the region",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

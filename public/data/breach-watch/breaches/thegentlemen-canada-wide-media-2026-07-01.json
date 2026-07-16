@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-canada-wide-media-2026-07-01",
+  "title": "Canada Wide Media",
+  "group": "thegentlemen",
+  "discovered": "2026-07-01T22:23:31.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "CA",
+  "sizeBytes": 0,
+  "description": "***.com zoominfo.com/c/canada-wide-media-ltd/24612070 Canada Wide Media is Western Canada's leading independent publishing and custom content creation company, headquartered in Burnaby, British Columbia.They produce over 48 premium print and digital publications, such as BC Business and TV Week, reaching an audience of over 6 million readers.The firm specializes in audience engagement, custom publishing, and prestige media solutions tailored for various industries",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Telecommunication",
+  "references": ["ransomware.live"]
+}

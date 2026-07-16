@@ -1,0 +1,15 @@
+{
+  "slug": "lockbit5-dentoncalvary-org-2026-05-12",
+  "title": "dentoncalvary.org",
+  "group": "lockbit5",
+  "discovered": "2026-05-12T19:22:13.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Denton Calvary Academy is a K-12 University-Model school that focuses on fostering a love of learnin...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-devco-2026-05-09",
+  "title": "DEVCO",
+  "group": "thegentlemen",
+  "discovered": "2026-05-09T09:16:50.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "PL",
+  "sizeBytes": 0,
+  "description": "devco.pl DEVCO Sp. z o.o. is a Polish real estate company established in 1997, headquartered in Wroclaw at ul. Strzegomska 46-56. The company specializes in renting office and warehouse spaces, notably operating the Wroclawski Park Biznesu (Wroclaw Business Park). Their mission is to create comfortable, inspiring, and business-friendly work environments for tenants.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

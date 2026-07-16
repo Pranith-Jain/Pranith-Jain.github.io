@@ -1,0 +1,15 @@
+{
+  "slug": "icarus-huntress-2026-06-22",
+  "title": "Huntress",
+  "group": "Icarus",
+  "discovered": "2026-06-22T21:21:56.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Salesforce data of Huntress.\n\nData stolen: SF data - Compressed",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

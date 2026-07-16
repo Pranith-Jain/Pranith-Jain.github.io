@@ -1,0 +1,15 @@
+{
+  "slug": "lamashtu-naraya-2026-05-12",
+  "title": "NaRaYa",
+  "group": "lamashtu",
+  "discovered": "2026-05-12T09:54:13.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "TH",
+  "sizeBytes": 0,
+  "description": "NaRaYa is a famous Thai brand recognized worldwide for its distinctive fabric bags and accessories. Founded in 1989, it has grown into one of Asia's most influential brands, specializing in high-quality, handcrafted products that showcase Thai crafts",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-atkinson-ritson-solicitors-limited-2026-04-20",
+  "title": "ATKINSON RITSON SOLICITORS LIMITED",
+  "group": "qilin",
+  "discovered": "2026-04-20T19:39:03.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "shinyhunters-adapt-2026-06-24",
+  "title": "Adapt******",
+  "group": "shinyhunters",
+  "discovered": "2026-06-24T18:53:58.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Data being leaked by today 12:00 AM New York time. | Updated: 25 June 2026 | Warning: FINAL WARNING PAY OR LEAK",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

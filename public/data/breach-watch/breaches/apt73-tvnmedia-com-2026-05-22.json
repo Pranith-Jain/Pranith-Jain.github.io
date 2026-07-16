@@ -1,0 +1,15 @@
+{
+  "slug": "apt73-tvnmedia-com-2026-05-22",
+  "title": "tvnmedia.com",
+  "group": "apt73",
+  "discovered": "2026-05-22T09:50:34.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "PL",
+  "sizeBytes": 0,
+  "description": "TVN Media is a multimedia company from Panama, engaged in broadcasting, radio, digital media and ...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Eraleign"],
+  "activity": "Telecommunication",
+  "references": ["ransomware.live"]
+}

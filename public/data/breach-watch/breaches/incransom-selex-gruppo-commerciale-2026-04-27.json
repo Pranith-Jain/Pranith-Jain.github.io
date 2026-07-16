@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-selex-gruppo-commerciale-2026-04-27",
+  "title": "Selex - Gruppo Commerciale",
+  "group": "incransom",
+  "discovered": "2026-04-27T13:57:41.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "Selex Group Announces Cyber Attack and Data Breach\r \r Today We confirm that Selex, a leading grocery retailer and distributor in Italy, has fallen victim to a large-scale cyber attack. The breach, which occurred in recent days, has compromised approximately 1 terabyte of sensitive data, including both production and development sources, as well as the personal and financial information of employees, customers, and partners.\r It is estimated that the attack affected a significant amount of critical company data, including:\r \r Production and Development Sources: Intellectual property, project plans, and confidential development documents.\r \r Personal and Financial Data: Sensitive personal information, including names, addresses, financial records, and employee payroll details.\r \r Customer and Partner Information: Data related to Selex’s customer base and business partners, including transaction history and contractual agreements.\r \r Moreover, We dumped databases include: products, suppliers, specifications, login credentials, tokens, workflow engine, production data, and BPM system.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

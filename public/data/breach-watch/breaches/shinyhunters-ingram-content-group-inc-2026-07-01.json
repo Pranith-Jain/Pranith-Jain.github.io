@@ -1,0 +1,15 @@
+{
+  "slug": "shinyhunters-ingram-content-group-inc-2026-07-01",
+  "title": "Ingram Content Group, Inc.",
+  "group": "shinyhunters",
+  "discovered": "2026-07-01T10:29:15.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "The Company failed to reach an agreement with us despite our incredible patience, all the chances and offers we made. They don't care. | Updated: 02 July 2026 | SHA256: f3c961b709bcff8f70dbb8361116831d2c86361754a09658115b9efed39308e5",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

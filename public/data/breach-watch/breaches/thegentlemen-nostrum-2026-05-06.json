@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-nostrum-2026-05-06",
+  "title": "Nostrum",
+  "group": "thegentlemen",
+  "discovered": "2026-05-06T10:08:41.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "JP",
+  "sizeBytes": 0,
+  "description": "nostrum.co.jp Nostrum Corporation, based in Japan, was founded in 1991 and specializes in smartphone app development, web system development, and website construction. The company is represented by Ryoichi Jono and is registered on the J-GoodTech platform as a verified Japanese technology business. One of their flagship self-developed products is a job aptitude test preparation tool — a simulation platform replicating real SPI, TG-WEB, and similar employment exam interfaces used by major Japanese companies",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

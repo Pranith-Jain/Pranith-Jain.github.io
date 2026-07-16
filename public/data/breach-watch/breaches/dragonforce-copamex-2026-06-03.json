@@ -1,0 +1,15 @@
+{
+  "slug": "dragonforce-copamex-2026-06-03",
+  "title": "Copamex",
+  "group": "dragonforce",
+  "discovered": "2026-06-03T17:53:14.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "MX",
+  "sizeBytes": 0,
+  "description": "Copamex, headquartered in Monterrey, Mexico, and established in 1928, is a paper manufacturing company offering writing and printing, special, corrugated, and kraft paper solutions.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["DRAGON FORCE"],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

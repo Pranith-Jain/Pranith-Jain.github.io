@@ -1,0 +1,15 @@
+{
+  "slug": "everest-umiles-group-2026-04-20",
+  "title": "Umiles Group",
+  "group": "everest",
+  "discovered": "2026-04-20T02:34:01.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "ES",
+  "sizeBytes": 0,
+  "description": "[AI generated] Umiles Group is a Spanish technology and services company specializing in drone operations, urban air mobility, and advanced aerial solutions. Based in Spain, it provides unmanned aerial vehicle services for sectors including logistics, inspection, surveillance, and emergency response. The company also focuses on developing regulatory frameworks and training programs to support the integration of drones into civil airspace across Europe.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

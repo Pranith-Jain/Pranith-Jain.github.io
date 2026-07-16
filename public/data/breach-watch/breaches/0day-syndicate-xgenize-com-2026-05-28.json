@@ -1,0 +1,15 @@
+{
+  "slug": "0day-syndicate-xgenize-com-2026-05-28",
+  "title": "xgenize.com",
+  "group": "0day Syndicate",
+  "discovered": "2026-05-28T09:05:24.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "XGenize is an AI development company that builds custom automation tools and AI assistants for businesses",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

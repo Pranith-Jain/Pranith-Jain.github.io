@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-vial-agro-2026-05-20",
+  "title": "Vial Agro",
+  "group": "qilin",
+  "discovered": "2026-05-20T14:54:53.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "AR",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

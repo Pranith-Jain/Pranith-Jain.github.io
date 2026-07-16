@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-b-to-b-visions-2026-04-23",
+  "title": "B to B Visions",
+  "group": "qilin",
+  "discovered": "2026-04-23T18:08:35.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

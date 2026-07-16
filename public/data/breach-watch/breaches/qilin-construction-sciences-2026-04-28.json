@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-construction-sciences-2026-04-28",
+  "title": "Construction Sciences",
+  "group": "qilin",
+  "discovered": "2026-04-28T17:25:40.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Construction",
+  "references": ["ransomware.live"]
+}

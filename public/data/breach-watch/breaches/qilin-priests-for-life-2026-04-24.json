@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-priests-for-life-2026-04-24",
+  "title": "Priests for Life",
+  "group": "qilin",
+  "discovered": "2026-04-24T17:15:59.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

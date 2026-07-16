@@ -1,0 +1,15 @@
+{
+  "slug": "coinbasecartel-evict-them-for-me-2026-04-18",
+  "title": "Evict them for me",
+  "group": "coinbasecartel",
+  "discovered": "2026-04-18T15:31:08.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["coinbase cartel"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

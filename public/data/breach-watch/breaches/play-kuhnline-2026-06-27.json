@@ -1,0 +1,15 @@
+{
+  "slug": "play-kuhnline-2026-06-27",
+  "title": "Kuhnline",
+  "group": "play",
+  "discovered": "2026-06-27T18:27:04.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "United States",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["PlayCrypt"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

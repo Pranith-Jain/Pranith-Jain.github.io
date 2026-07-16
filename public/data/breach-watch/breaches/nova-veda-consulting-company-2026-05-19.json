@@ -1,0 +1,15 @@
+{
+  "slug": "nova-veda-consulting-company-2026-05-19",
+  "title": "Veda Consulting Company",
+  "group": "nova",
+  "discovered": "2026-05-19T10:24:21.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "veda.cc is the website for Veda Consulting Company, a specialized consultancy firm that helps nonprofit organizations implement and get the most out of their CRM (Customer Relationship Management) systems - Nova Provide tree and samples from stolen data to the company when its get in touch with support department.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

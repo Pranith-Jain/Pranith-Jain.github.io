@@ -1,0 +1,15 @@
+{
+  "slug": "anubis-exceed-energy-2026-05-27",
+  "title": "EXCEED Energy",
+  "group": "anubis",
+  "discovered": "2026-05-27T13:21:31.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Data breach at an international well management specialist.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Energy",
+  "references": ["ransomware.live"]
+}

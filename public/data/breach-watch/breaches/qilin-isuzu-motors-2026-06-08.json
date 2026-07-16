@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-isuzu-motors-2026-06-08",
+  "title": "Isuzu Motors",
+  "group": "qilin",
+  "discovered": "2026-06-08T16:55:13.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "TH",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-accelirate-2026-07-07",
+  "title": "Accelirate",
+  "group": "qilin",
+  "discovered": "2026-07-07T14:00:15.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-mainstreet-organization-of-realtors-2026-05-27",
+  "title": "Mainstreet Organization of REALTORS",
+  "group": "qilin",
+  "discovered": "2026-05-27T16:56:42.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

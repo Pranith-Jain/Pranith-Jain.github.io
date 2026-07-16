@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-trrac-net-2026-06-02",
+  "title": "trrac.net",
+  "group": "incransom",
+  "discovered": "2026-06-02T19:37:14.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "150gb",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Transportation/Logistics",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-c2o-architects-2026-05-06",
+  "title": "C2O Architects",
+  "group": "thegentlemen",
+  "discovered": "2026-05-06T13:34:55.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "BE",
+  "sizeBytes": 0,
+  "description": "c2o-architects.be zoominfo.com/c/c2o-architects/451291685 C2O Architects (C2O-Architects bv) is a Belgian architectural and urban planning firm founded on June 29, 2000, headquartered at Nieuwstraat 26, Asse, Flemish Brabant, Belgium. The studio is led by Marnik Dehaen, who also serves as Chairman of the Flemish Council of the Order of Architects, and co-owned by Erna Polspoel. The firm works across a wide range — from small private renovations and residential expansions to large-scale public projects — with a multidisciplinary team that adds value through expertise in architecture, urban design, and spatial planning. A notable project includes the award-winning Asse Landform complex (2014), a regional fire station and youth center designed in collaboration with ORG Permanent Modernity",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

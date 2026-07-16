@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-polyrack-2026-05-18",
+  "title": "Polyrack",
+  "group": "thegentlemen",
+  "discovered": "2026-05-18T18:54:38.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "polyrack.com zoominfo.com/c/polyrack-ag/30835122 POLYRACK tech-group is a German family-owned engineering company founded in 1979, specializing in high-quality electronic packaging solutions and customized mechanical systems. They design and manufacture subracks, aluminum housings, backplanes, and ruggedized components for demanding industries like aerospace, medical technology, telecommunications, and transportation. With over 45 years of expertise and 500+ employees worldwide, POLYRACK delivers innovative, future-oriented solutions that combine precision engineering with reliable series production",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}
