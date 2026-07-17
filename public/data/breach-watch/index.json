@@ -1,11 +1,11 @@
 {
   "source": "ransomware.live + ransomlook.io + Darkfield + RecentBreaches.com + CTI.FYI + XposedOrNot",
   "license": "CC0 — public data from open trackers",
-  "replicatedAt": "2026-07-17T09:13:22.513Z",
-  "counts": { "breaches": 2492, "groups": 100, "categories": 3 },
-  "lastSyncedAt": "2026-07-17T09:13:22.513Z",
+  "replicatedAt": "2026-07-17T09:52:46.111Z",
+  "counts": { "breaches": 2493, "groups": 100, "categories": 3 },
+  "lastSyncedAt": "2026-07-17T09:52:46.111Z",
   "categories": [
-    { "key": "ransomware", "label": "Ransomware", "count": 2003 },
+    { "key": "ransomware", "label": "Ransomware", "count": 2004 },
     { "key": "data_breach", "label": "Data Breach", "count": 487 },
     { "key": "credential_leak", "label": "Credential Leak", "count": 2 }
   ],
@@ -30,8 +30,8 @@
     { "name": "genesis", "count": 37, "topCategory": "ransomware" },
     { "name": "payload", "count": 35, "topCategory": "ransomware" },
     { "name": "coinbasecartel", "count": 34, "topCategory": "ransomware" },
+    { "name": "m3rx", "count": 30, "topCategory": "ransomware" },
     { "name": "pear", "count": 30, "topCategory": "ransomware" },
-    { "name": "m3rx", "count": 29, "topCategory": "ransomware" },
     { "name": "worldleaks", "count": 29, "topCategory": "ransomware" },
     { "name": "settra", "count": 28, "topCategory": "data_breach" },
     { "name": "medusalocker", "count": 27, "topCategory": "ransomware" },
@@ -112,6 +112,16 @@
     { "name": "tridentlocker", "count": 1, "topCategory": "data_breach" }
   ],
   "breachIndex": [
+    {
+      "slug": "m3rx-arambol-co-uk-2026-07-17",
+      "title": "arambol.co.uk",
+      "group": "m3rx",
+      "discovered": "2026-07-17T09:29:38.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": "GB",
+      "sizeBytes": 950
+    },
     {
       "slug": "interlock-district-of-columbia-housing-authority-2026-07-17",
       "title": "District of Columbia Housing Authority",

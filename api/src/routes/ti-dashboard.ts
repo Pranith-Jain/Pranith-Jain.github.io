@@ -9,7 +9,7 @@ tiDashboardRouter.get('/ti-dashboard/', async (c) => {
     const mod = await import('../lib/ti-dashboard/build');
     const db = c.env.BRIEFINGS_DB;
     if (!db) return internalError(c, 'no_db');
-    const report = await mod.readDashboard(db as any, undefined);
+    const report = await mod.readDashboard(db!, undefined);
     if (!report) return notFound(c, 'no_dashboard_found');
     return c.json(report);
   } catch (e) {
@@ -24,7 +24,7 @@ tiDashboardRouter.get('/ti-dashboard/:slug', async (c) => {
     const mod = await import('../lib/ti-dashboard/build');
     const db = c.env.BRIEFINGS_DB;
     if (!db) return internalError(c, 'no_db');
-    const report = await mod.readDashboard(db as any, slug);
+    const report = await mod.readDashboard(db!, slug);
     if (!report) return notFound(c, `dashboard_not_found: ${slug}`);
     return c.json(report);
   } catch (e) {
@@ -39,7 +39,7 @@ tiDashboardRouter.post('/ti-dashboard/build', async (c) => {
     const db = c.env.BRIEFINGS_DB;
     if (!db) return internalError(c, 'no_db');
     const report = await mod.buildWeeklyDashboard(c.env);
-    await mod.persistDashboard(db as any, report);
+    await mod.persistDashboard(db!, report);
     return c.json({ ok: true, slug: report.slug, sources: report.metadata.documents_analyzed });
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
@@ -52,7 +52,7 @@ tiDashboardRouter.get('/ti-dashboard/sources/articles', async (c) => {
     const mod = await import('../lib/ti-dashboard/feeds');
     const db = c.env.BRIEFINGS_DB;
     if (!db) return internalError(c, 'no_db');
-    const articles = await mod.fetchRecentArticles(db as any, 100);
+    const articles = await mod.fetchRecentArticles(db!, 100);
     return c.json({ articles });
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
@@ -65,7 +65,7 @@ tiDashboardRouter.get('/ti-dashboard/sources/supply-chain', async (c) => {
     const mod = await import('../lib/ti-dashboard/feeds');
     const db = c.env.BRIEFINGS_DB;
     if (!db) return internalError(c, 'no_db');
-    const incidents = await mod.fetchRecentSupplyChainIncidents(db as any, 50);
+    const incidents = await mod.fetchRecentSupplyChainIncidents(db!, 50);
     return c.json({ incidents });
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));

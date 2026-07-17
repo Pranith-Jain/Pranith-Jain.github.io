@@ -150,7 +150,7 @@ async function callAi(env: Env, system: string, user: string): Promise<string> {
     }
   }
 
-  const nvidiaKey = (env as any).NVIDIA_API_KEY as string | undefined;
+  const nvidiaKey = env.NVIDIA_API_KEY;
   if (nvidiaKey) {
     try {
       return await callNvidia(nvidiaKey, system, user, 2000, 0.2);
@@ -160,17 +160,14 @@ async function callAi(env: Env, system: string, user: string): Promise<string> {
     }
   }
 
-  const fallback = (await env.AI.run(
-    '@cf/meta/llama-3.3-70b-instruct-fp8-fast' as any,
-    {
-      messages: [
-        { role: 'system', content: system },
-        { role: 'user', content: user },
-      ],
-      max_tokens: 2000,
-      temperature: 0.2,
-    } as any
-  )) as { response?: string };
+  const fallback = (await env.AI.run('@cf/meta/llama-3.3-70b-instruct-fp8-fast', {
+    messages: [
+      { role: 'system', content: system },
+      { role: 'user', content: user },
+    ],
+    max_tokens: 2000,
+    temperature: 0.2,
+  })) as { response?: string };
   return fallback.response ?? 'No response.';
 }
 

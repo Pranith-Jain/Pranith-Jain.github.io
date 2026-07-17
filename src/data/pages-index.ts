@@ -1169,6 +1169,23 @@ const DFIR_PAGES: readonly PageEntry[] = [
     keywords: ['security', 'headers', 'hsts', 'csp', 'live', 'scan', 'intodns'],
   },
   {
+    path: '/dfir/csrf-poc',
+    label: 'CSRF PoC Generator',
+    description:
+      'Client-side CSRF proof-of-concept generator — XHR, fetch, and img-based payloads for web security testing.',
+    sectionLabel: 'DFIR · Detection',
+    group: 'dfir',
+    keywords: ['csrf', 'poc', 'proof-of-concept', 'web', 'security', 'testing'],
+  },
+  {
+    path: '/dfir/xss-payloads',
+    label: 'XSS Payload Selector',
+    description: 'XSS payload selector by context — filter by tag, event handler, encoding, and WAF bypass technique.',
+    sectionLabel: 'DFIR · Detection',
+    group: 'dfir',
+    keywords: ['xss', 'payload', 'selector', 'waf', 'bypass', 'context'],
+  },
+  {
     path: '/dfir/taxii',
     label: 'TAXII Server',
     description: 'TAXII 2.1 server browser — list collections, pull indicators, and subscribe.',

@@ -301,6 +301,6 @@ export function emitSupplyChain(ir: RuleIR, warnings: string[]): string {
     '    severity: WARNING',
     '    languages: [generic]',
     '    patterns:',
-    ...(patterns.length ? patterns : ['      - pattern-regex: "TODO-no-literals-extracted"']),
+    ...(patterns.length ? patterns : ['      # No extractable string literals found; review manually.']),
   ].join('\n');
 }

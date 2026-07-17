@@ -217,8 +217,13 @@ export default function DraftsTab() {
       await postJsonWithBody(`/social/${encodeURIComponent(slug)}/${platform}`, {});
       setActionMsg(`${platform} generated for ${slug}`);
     } catch (e) {
-      console.error('generateSocial failed:', e instanceof Error ? e.message : String(e));
-      setActionMsg(`${platform} failed: ${e instanceof Error ? e.message : String(e)}`);
+      const msg = e instanceof Error ? e.message : String(e);
+      console.error('generateSocial failed:', msg);
+      setActionMsg(
+        msg.includes('404')
+          ? `${platform} not available for drafts yet — publish first, then generate.`
+          : `${platform} failed: ${msg}`
+      );
     } finally {
       setSocialGen((prev) => ({ ...prev, [key]: '' }));
     }

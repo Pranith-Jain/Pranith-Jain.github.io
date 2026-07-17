@@ -3,9 +3,7 @@ import tseslint from 'typescript-eslint';
 export default tseslint.config(
   { ignores: ['**/*.test.ts', '**/*.d.ts'] },
   {
-    extends: [
-      ...tseslint.configs.recommended,
-    ],
+    extends: [...tseslint.configs.recommended],
     files: ['src/**/*.ts'],
     languageOptions: {
       parserOptions: {
@@ -68,14 +66,17 @@ export default tseslint.config(
       },
     },
     rules: {
-      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-require-imports': 'off',
 
-      '@typescript-eslint/no-unused-vars': ['error', {
-        argsIgnorePattern: '^_',
-        varsIgnorePattern: '^_',
-        ignoreRestSiblings: true,
-      }],
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          ignoreRestSiblings: true,
+        },
+      ],
       'no-unused-vars': 'off',
       'no-throw-literal': 'error',
 
@@ -95,5 +96,5 @@ export default tseslint.config(
       '@typescript-eslint/ban-ts-comment': 'warn',
       '@typescript-eslint/no-non-null-asserted-optional-chain': 'warn',
     },
-  },
+  }
 );

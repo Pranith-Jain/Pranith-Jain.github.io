@@ -142,6 +142,8 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Live Security Headers](https://pranithjain.qzz.io/dfir/sec-headers-live) (dfir): Third-party live HSTS/CSP/X-Frame-Options scan via IntoDNS.ai with ready-to-paste Nginx/Apache/Caddy/Cloudflare configs.
 - [Secret Scanner](https://pranithjain.qzz.io/dfir/secret-scan) (dfir): Scan a text blob / repo for API keys, tokens, private keys.
 - [Medusa Scanner](https://pranithjain.qzz.io/dfir/medusa-scan) (dfir): AI-first security scanner — SAST (Python/JS/Go/Rust/PHP), secrets, prompt injection detection. 140+ rules, runs entirely in browser.
+- [CSRF PoC Generator](https://pranithjain.qzz.io/dfir/csrf-poc) (dfir): Generate HTML/XHR/fetch proof-of-concept exploits for CSRF testing.
+- [XSS Payload Selector](https://pranithjain.qzz.io/dfir/xss-payloads) (dfir): Curated XSS payload library — filter by context, severity, or tags.
 - [Google Dorks Builder](https://pranithjain.qzz.io/dfir/google-dorks) (dfir): Compose a Google dork for a target — site:, inurl:, filetype:.
 - [Log Parser](https://pranithjain.qzz.io/dfir/log-parser) (dfir): Generic log parser — pattern detection + anomaly highlighting.
 - [DFIR Copilot](https://pranithjain.qzz.io/dfir/copilot) (dfir): Conversational copilot — ask in plain English, get a runbook.

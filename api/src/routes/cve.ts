@@ -26,11 +26,12 @@ export async function cveSearchHandler(c: Context<{ Bindings: Env }>) {
       }
 
       // SSVC-V decision engine enrichment
-      const cvssScore = (data as any)?.cvss?.score ?? null;
-      const epssScore = (data as any)?.epss?.score ?? null;
-      const kev = (data as any)?.kev === true;
-      const ransomwareUse = (data as any)?.ransomware_use === 'Known' || (data as any)?.ransomware_use === 'Suspected';
-      const exploitStatus = (data as any)?.exploit_status ?? null;
+      const d = data as Record<string, Record<string, unknown> | boolean | string | null>;
+      const cvssScore = (d?.cvss as { score?: number } | undefined)?.score ?? null;
+      const epssScore = (d?.epss as { score?: number } | undefined)?.score ?? null;
+      const kev = d?.kev === true;
+      const ransomwareUse = d?.ransomware_use === 'Known' || d?.ransomware_use === 'Suspected';
+      const exploitStatus = (d?.exploit_status as string | null) ?? null;
 
       const ssvc = computeSsvcV({
         cvssScore,
