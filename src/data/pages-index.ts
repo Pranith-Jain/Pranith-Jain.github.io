@@ -1524,6 +1524,13 @@ const DFIR_PAGES: readonly PageEntry[] = [
     group: 'dfir',
   },
   {
+    path: '/dfir/one-time-secret',
+    label: 'One-Time Secret',
+    description: 'Encrypted secret sharing with burn-after-reading — AES-GCM in-browser, zero-knowledge server.',
+    sectionLabel: 'DFIR · Operations',
+    group: 'dfir',
+  },
+  {
     path: '/dfir/tor-gateway',
     label: 'Tor Gateway',
     description: 'Tor / .onion gateway — route a fetch through Tor to reach onion services.',

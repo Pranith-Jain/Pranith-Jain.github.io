@@ -355,6 +355,7 @@ const WhoisHistory = lazy(() => import('./pages/dfir/WhoisHistory'));
 const OpenDirectory = lazy(() => import('./pages/dfir/OpenDirectory'));
 const ApkAnalyzer = lazy(() => import('./pages/dfir/ApkAnalyzer'));
 const PgpTool = lazy(() => import('./pages/dfir/PgpTool'));
+const OneTimeSecret = lazy(() => import('./pages/dfir/OneTimeSecret'));
 const TorGateway = lazy(() => import('./pages/dfir/TorGateway'));
 const EmailReputation = lazy(() => import('./pages/dfir/EmailReputation'));
 const EmailOsnit = lazy(() => import('./pages/dfir/EmailOsnit'));
@@ -744,6 +745,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/cves/advisories', Component: GithubAdvisories },
   { path: '/threatintel/cves/resources', Component: CveResourcesCatalog },
   { path: '/dfir/pgp-tool', Component: PgpTool },
+  { path: '/dfir/one-time-secret', Component: OneTimeSecret },
   { path: '/dfir/tor-gateway', Component: TorGateway },
   { path: '/dfir/blocklists', Component: Blocklists },
   // ── 24 Gap Features ──────────────────────────────────────────────

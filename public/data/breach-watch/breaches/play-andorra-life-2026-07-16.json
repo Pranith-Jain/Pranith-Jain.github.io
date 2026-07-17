@@ -1,15 +1,15 @@
 {
   "slug": "play-andorra-life-2026-07-16",
   "title": "Andorra Life",
-  "group": "Play",
-  "discovered": "2026-07-16T00:00:00.000Z",
+  "group": "play",
+  "discovered": "2026-07-16T17:57:17.000Z",
   "category": "ransomware",
   "severity": "critical",
   "country": "AD",
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated in ransomware attack",
-  "source_url": "https://recentbreaches.com/breach/andorra-life-play-2026-07",
+  "description": "United States",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["PlayCrypt"],
   "activity": "Healthcare",
-  "references": ["RecentBreaches.com"]
+  "references": ["ransomware.live"]
 }

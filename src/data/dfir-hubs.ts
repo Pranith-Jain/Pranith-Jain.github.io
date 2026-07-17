@@ -1221,6 +1221,13 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'PgpTool',
       },
       {
+        path: '/dfir/one-time-secret',
+        tabId: 'one-time-secret',
+        label: 'One-Time Secret',
+        desc: 'Encrypted secret sharing — AES-GCM in-browser, burn after reading, zero-knowledge server.',
+        compVar: 'OneTimeSecret',
+      },
+      {
         path: '/dfir/tor-gateway',
         tabId: 'tor-gateway',
         label: 'Tor Gateway',

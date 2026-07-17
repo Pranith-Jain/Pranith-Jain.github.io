@@ -1962,6 +1962,11 @@ app.route('/api/v1/auth', authRoutes);
 app.route('/api/v1/orgs', orgRoutes);
 app.route('/api/v1/leaderboard', leaderboardRoutes);
 
+// One-Time Secret — encrypted secret sharing with burn-after-reading
+import { createSecretHandler, getSecretHandler } from './routes/one-time-secret';
+app.post('/api/v1/one-time-secret', createSecretHandler);
+app.get('/api/v1/one-time-secret/:id', getSecretHandler);
+
 // Threat Intelligence vertical routes
 import tiFeedAggregateRoutes from './routes/ti-feed-aggregate';
 import tiAsmRoutes from './routes/ti-asm';

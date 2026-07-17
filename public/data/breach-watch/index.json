@@ -1,12 +1,12 @@
 {
   "source": "ransomware.live + ransomlook.io + Darkfield + RecentBreaches.com + CTI.FYI + XposedOrNot",
   "license": "CC0 — public data from open trackers",
-  "replicatedAt": "2026-07-17T09:52:46.111Z",
-  "counts": { "breaches": 2493, "groups": 100, "categories": 3 },
-  "lastSyncedAt": "2026-07-17T09:52:46.111Z",
+  "replicatedAt": "2026-07-17T10:11:04.856Z",
+  "counts": { "breaches": 2479, "groups": 96, "categories": 3 },
+  "lastSyncedAt": "2026-07-17T10:11:04.856Z",
   "categories": [
-    { "key": "ransomware", "label": "Ransomware", "count": 2004 },
-    { "key": "data_breach", "label": "Data Breach", "count": 487 },
+    { "key": "ransomware", "label": "Ransomware", "count": 1997 },
+    { "key": "data_breach", "label": "Data Breach", "count": 480 },
     { "key": "credential_leak", "label": "Credential Leak", "count": 2 }
   ],
   "groups": [
@@ -30,7 +30,7 @@
     { "name": "genesis", "count": 37, "topCategory": "ransomware" },
     { "name": "payload", "count": 35, "topCategory": "ransomware" },
     { "name": "coinbasecartel", "count": 34, "topCategory": "ransomware" },
-    { "name": "m3rx", "count": 30, "topCategory": "ransomware" },
+    { "name": "m3rx", "count": 31, "topCategory": "ransomware" },
     { "name": "pear", "count": 30, "topCategory": "ransomware" },
     { "name": "worldleaks", "count": 29, "topCategory": "ransomware" },
     { "name": "settra", "count": 28, "topCategory": "data_breach" },
@@ -71,8 +71,6 @@
     { "name": "morpheus", "count": 6, "topCategory": "data_breach" },
     { "name": "termite", "count": 6, "topCategory": "data_breach" },
     { "name": "sinobi", "count": 6, "topCategory": "data_breach" },
-    { "name": "The Gentlemen", "count": 5, "topCategory": "data_breach" },
-    { "name": "Play", "count": 5, "topCategory": "ransomware" },
     { "name": "securotrop", "count": 5, "topCategory": "data_breach" },
     { "name": "Wallstreet", "count": 5, "topCategory": "data_breach" },
     { "name": "PrinzEugen", "count": 5, "topCategory": "data_breach" },
@@ -84,12 +82,10 @@
     { "name": "ailock", "count": 4, "topCategory": "ransomware" },
     { "name": "cloak", "count": 4, "topCategory": "data_breach" },
     { "name": "direwolf", "count": 4, "topCategory": "data_breach" },
-    { "name": "Nova", "count": 3, "topCategory": "ransomware" },
     { "name": "D1R", "count": 3, "topCategory": "ransomware" },
     { "name": "moneymessage", "count": 3, "topCategory": "data_breach" },
     { "name": "abyss", "count": 3, "topCategory": "ransomware" },
     { "name": "mnt6", "count": 3, "topCategory": "data_breach" },
-    { "name": "INC Ransom", "count": 2, "topCategory": "data_breach" },
     { "name": "black x", "count": 2, "topCategory": "data_breach" },
     { "name": "cmd organization", "count": 2, "topCategory": "data_breach" },
     { "name": "coinbase cartel", "count": 2, "topCategory": "data_breach" },
@@ -112,6 +108,16 @@
     { "name": "tridentlocker", "count": 1, "topCategory": "data_breach" }
   ],
   "breachIndex": [
+    {
+      "slug": "m3rx-suppcentersa-com-2026-07-17",
+      "title": "suppcentersa.com",
+      "group": "m3rx",
+      "discovered": "2026-07-17T09:30:48.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": "ZA",
+      "sizeBytes": 940
+    },
     {
       "slug": "m3rx-arambol-co-uk-2026-07-17",
       "title": "arambol.co.uk",
@@ -211,46 +217,6 @@
       "severity": "high",
       "country": "CZ",
       "sizeBytes": 458
-    },
-    {
-      "slug": "nova-integrated-marketing-services-2026-07-17",
-      "title": "Integrated Marketing Services",
-      "group": "Nova",
-      "discovered": "2026-07-17T00:00:00.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 463
-    },
-    {
-      "slug": "nova-digipro-2026-07-17",
-      "title": "Digipro",
-      "group": "Nova",
-      "discovered": "2026-07-17T00:00:00.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 390
-    },
-    {
-      "slug": "inc-ransom-kyokuto-kaihatsu-kogyo-2026-07-17",
-      "title": "Kyokuto Kaihatsu Kogyo",
-      "group": "INC Ransom",
-      "discovered": "2026-07-17T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "Japan",
-      "sizeBytes": 459
-    },
-    {
-      "slug": "nova-phi-2026-07-17",
-      "title": "Phi",
-      "group": "Nova",
-      "discovered": "2026-07-17T00:00:00.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 377
     },
     {
       "slug": "interlock-district-of-columbia-housing-authority-2026-07-16",
@@ -901,116 +867,6 @@
       "severity": "high",
       "country": "CO",
       "sizeBytes": 543
-    },
-    {
-      "slug": "the-gentlemen-giraudi-group-2026-07-16",
-      "title": "Giraudi Group",
-      "group": "The Gentlemen",
-      "discovered": "2026-07-16T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "Italy",
-      "sizeBytes": 441
-    },
-    {
-      "slug": "play-boston-electric-and-telephone-2026-07-16",
-      "title": "Boston Electric and Telephone",
-      "group": "Play",
-      "discovered": "2026-07-16T00:00:00.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": "United States",
-      "sizeBytes": 489
-    },
-    {
-      "slug": "play-ag-scholtes-2026-07-16",
-      "title": "AG Scholtes",
-      "group": "Play",
-      "discovered": "2026-07-16T00:00:00.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": "Netherlands",
-      "sizeBytes": 429
-    },
-    {
-      "slug": "play-svensk-direktreklam-2026-07-16",
-      "title": "Svensk Direktreklam",
-      "group": "Play",
-      "discovered": "2026-07-16T00:00:00.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": "Sweden",
-      "sizeBytes": 452
-    },
-    {
-      "slug": "the-gentlemen-dink-co-ltd-2026-07-16",
-      "title": "Dink Co Ltd",
-      "group": "The Gentlemen",
-      "discovered": "2026-07-16T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "Japan",
-      "sizeBytes": 431
-    },
-    {
-      "slug": "the-gentlemen-comet-enterprise-2026-07-16",
-      "title": "Comet Enterprise",
-      "group": "The Gentlemen",
-      "discovered": "2026-07-16T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "Taiwan",
-      "sizeBytes": 447
-    },
-    {
-      "slug": "the-gentlemen-gallant-2026-07-16",
-      "title": "Gallant",
-      "group": "The Gentlemen",
-      "discovered": "2026-07-16T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "Finland",
-      "sizeBytes": 421
-    },
-    {
-      "slug": "play-andorra-life-2026-07-16",
-      "title": "Andorra Life",
-      "group": "Play",
-      "discovered": "2026-07-16T00:00:00.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": "AD",
-      "sizeBytes": 420
-    },
-    {
-      "slug": "inc-ransom-asa-international-com-2026-07-16",
-      "title": "asa-international.com",
-      "group": "INC Ransom",
-      "discovered": "2026-07-16T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "United Kingdom",
-      "sizeBytes": 469
-    },
-    {
-      "slug": "play-wring-group-2026-07-16",
-      "title": "Wring Group",
-      "group": "Play",
-      "discovered": "2026-07-16T00:00:00.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": "United Kingdom",
-      "sizeBytes": 428
-    },
-    {
-      "slug": "the-gentlemen-tooltec-2026-07-16",
-      "title": "Tooltec",
-      "group": "The Gentlemen",
-      "discovered": "2026-07-16T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "Sweden",
-      "sizeBytes": 424
     },
     {
       "slug": "qilin-danone-international-delights-2026-07-15",

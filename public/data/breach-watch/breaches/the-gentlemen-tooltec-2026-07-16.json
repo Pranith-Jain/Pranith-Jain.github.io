@@ -1,15 +1,15 @@
 {
   "slug": "the-gentlemen-tooltec-2026-07-16",
   "title": "Tooltec",
-  "group": "The Gentlemen",
-  "discovered": "2026-07-16T00:00:00.000Z",
+  "group": "the gentlemen",
+  "discovered": "2026-07-16T12:40:42.000Z",
   "category": "data_breach",
   "severity": "high",
-  "country": "Sweden",
+  "country": null,
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated in ransomware attack",
-  "source_url": "https://recentbreaches.com/breach/tooltec-thegentlemen-2026-07",
+  "description": "tooltec.se zoominfo.com/c/tooltec-ab/371817746 advanced manufacturing company based in Trollhättan, Sweden, specializing in the precision machining of complex components. The company utilizes technologies like 5-axis milling, turning, and Wire EDM to produce high-quality parts for the automotive, energy, aeronautical, and aerospace industries. As an ISO 9001 certified supplier, Tooltec is recognized for its strict quality standards, delivery reliability, and commitment to long-term partnerships with both clients and employees",
+  "source_url": "https://www.ransomlook.io/recent",
   "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["RecentBreaches.com"]
+  "activity": null,
+  "references": ["ransomlook.io"]
 }
