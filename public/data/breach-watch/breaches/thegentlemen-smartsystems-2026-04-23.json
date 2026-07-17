@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-smartsystems-2026-04-23",
+  "title": "SmartSystems",
+  "group": "thegentlemen",
+  "discovered": "2026-04-23T06:28:07.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "IE",
+  "sizeBytes": 0,
+  "description": "iesmartsystems.com zoominfo.com/c/smart-systems/139592895 Technology integrator since 2000 — Founded in Houston, Texas by Gary and Doug Colvin, i.e. Smart Systems has over 25 years of experience delivering design-build technology solutions for commercial clients.Core services: A/V, Cabling & Security — The company specializes in audio/video systems, structured cabling (fiber optic, voice, network), security systems (video surveillance, access control), wireless networks, and video conferencing solutions.Strong client loyalty — More than 90% of their business comes from repeat customers, ranging from small municipalities to large publicly-traded corporations; they serve universities, oil & gas campuses, banks, and more across Texas.Award-winning company — i.e. Smart Systems is a four-time Houston Business Journal Fast Tech 50 award recipient, with ~94 employees and revenue of approximately $18.7 million.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

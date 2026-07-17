@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-meccanica-gn-2026-07-01",
+  "title": "Meccanica Gn",
+  "group": "thegentlemen",
+  "discovered": "2026-07-01T22:22:52.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "***.com zoominfo.com/c/meccanica-gn/368731563 Meccanica GN is an Italian precision manufacturing company based in Carpi, specializing in high-accuracy machining like milling, turning, and grinding.With over two decades of experience, they produce critical components for demanding sectors, including Formula 1 motorsport, aerospace, automotive, and biomedical.The company is recognized for its advanced technology, strict quality assurance, and commitment to maximum performance",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

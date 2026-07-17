@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-greenpharma-2026-04-19",
+  "title": "Greenpharma",
+  "group": "thegentlemen",
+  "discovered": "2026-04-19T17:04:09.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "BR",
+  "sizeBytes": 0,
+  "description": "greenpharma.com.br zoominfo.com/c/greenpharma-química-e-farmacêutica-eireli/558034818 Greenpharma Química & Farmaceutica is a Brazilian pharmaceutical manufacturer founded in 1989 in Anapolis, Goiás, acquired in 1995 by industrial pharmacist Eduardo Gonçalves. The company produces generic and OTC medicines, distributes across all Brazilian states through pharmacy and hospital channels, and operates its own certified pharmaceutical equivalence laboratory (EQFAR-21) accredited by ANVISA",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

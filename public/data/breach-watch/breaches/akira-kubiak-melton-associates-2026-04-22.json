@@ -1,0 +1,15 @@
+{
+  "slug": "akira-kubiak-melton-associates-2026-04-22",
+  "title": "Kubiak Melton & Associates",
+  "group": "akira",
+  "discovered": "2026-04-22T16:39:14.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Kubiak & Melton, LLC provides audit, tax and bookkeeping services\n. We prepare monthly financial statements, governmental complianc\ne forms, payroll, and tax returns.\n\nWe will upload 12gb of corporate data soon. Client personal infor\nmation (passports, DLs, birth and death certs, SSNs, addresses, p\nhones, CC statements and much more), client financial information\n, financials, NDAs, numerous internal confidential files, etc.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Megazord"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

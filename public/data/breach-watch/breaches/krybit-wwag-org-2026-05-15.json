@@ -1,0 +1,15 @@
+{
+  "slug": "krybit-wwag-org-2026-05-15",
+  "title": "wwag.org",
+  "group": "krybit",
+  "discovered": "2026-05-15T14:55:47.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "AT",
+  "sizeBytes": 0,
+  "description": "An organization known as Wa Wai Assembly of God Church, an entity located in Hong Kong 🇭🇰 and operating under a na...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

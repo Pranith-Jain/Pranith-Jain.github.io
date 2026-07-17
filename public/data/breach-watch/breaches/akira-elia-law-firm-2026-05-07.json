@@ -1,0 +1,15 @@
+{
+  "slug": "akira-elia-law-firm-2026-05-07",
+  "title": "Elia Law Firm",
+  "group": "akira",
+  "discovered": "2026-05-07T15:20:16.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Elia Law Firm APC is a top San Diego law firm specializing in personal injury, civil litigation\n, and business law. They are dedicated to fighting for their clients' rights and maximizing rec\novery for physical, mental, and financial losses.\n\nWe will upload 100gb of corporate data soon. Detailed employee personal information (passport, \nDLs, SSN, death and birth certificates, financial information, payment details and so on), lots\nof legal files (court hearings, police reports and so on), financials, etc.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Megazord"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

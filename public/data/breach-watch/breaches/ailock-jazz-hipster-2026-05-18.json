@@ -1,0 +1,15 @@
+{
+  "slug": "ailock-jazz-hipster-2026-05-18",
+  "title": "Jazz Hipster",
+  "group": "AiLock",
+  "discovered": "2026-05-18T10:20:05.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Jazz Hipster was established in 1981 as a professional speaker manufacturer responding to market demands and embracing the evolution in technology.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

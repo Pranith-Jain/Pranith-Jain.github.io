@@ -1,0 +1,15 @@
+{
+  "slug": "chaos-entransinternational-com-2026-05-28",
+  "title": "entransinternational.com",
+  "group": "chaos",
+  "discovered": "2026-05-28T21:21:02.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "STATUS: PENDING PUBLICATION | TIME REMAINING: 72 HOURS\nENTITY: Entrans International (entransinternational.com)\nTHE REALITY OF ENTRANS INTERNATIONAL\n\nWe have been in possession of your internal data for some time. Throughout this period, we have attempted to engage with your management, but their si…",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

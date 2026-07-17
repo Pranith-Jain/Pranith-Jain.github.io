@@ -1,0 +1,15 @@
+{
+  "slug": "akira-gitis-2026-05-22",
+  "title": "Gitis",
+  "group": "akira",
+  "discovered": "2026-05-22T15:50:26.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "GITIS S.r.l. specializes in the production of high-quality rubber components, including O-rings\n, rubber moulded components, and co-moulded components. Their products cater to various industr\nies such as automotive, general industry, food, pharmaceuticals, biomedical, oil and gas, and h\nydrogen technology.\n\nWe will upload 30gb of corporate data soon. Employee personal information, contracts and agreem\nents, financials, clients information, lots of projects, NDAs, etc.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Megazord"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

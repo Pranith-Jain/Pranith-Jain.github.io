@@ -2,14 +2,14 @@
   "slug": "ransomhouse-megawork-2026-07-16",
   "title": "Megawork",
   "group": "ransomhouse",
-  "discovered": "2026-07-16T18:49:57.000Z",
+  "discovered": "2026-07-16T16:01:00.000Z",
   "category": "ransomware",
   "severity": "high",
-  "country": null,
+  "country": "BR",
   "sizeBytes": 0,
-  "description": null,
-  "source_url": "https://www.ransomlook.io/screenshots/ransomhouse/Megawork.png",
+  "description": "Megawork is a leading SAP consultancy specializing in the implementation, support, and optimization of technologies such as SAP S/4HANA and Microsoft Power Platform. They provide integrated solutions tailored for various sectors including services, wholesale, utilities, mining, and steel industries. The company offers a range of services including ERP system implementation, SAP S/4HANA migration, application management services, and IT professional allocation. Targeting medium and large enterprises, Megawork aims to enhance business management and delivers thorough support throughout the entire lifecycle of their clients' management systems.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["RANSOM HOUSE"],
-  "activity": null,
-  "references": ["ransomlook.io"]
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
 }

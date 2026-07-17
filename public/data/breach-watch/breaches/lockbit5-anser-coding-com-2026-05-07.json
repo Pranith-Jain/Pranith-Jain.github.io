@@ -1,0 +1,15 @@
+{
+  "slug": "lockbit5-anser-coding-com-2026-05-07",
+  "title": "anser-coding.com",
+  "group": "lockbit5",
+  "discovered": "2026-05-07T16:13:32.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "FOUNDED IN 1986 ANSER is one of the world leading solution provider of product coding & marking equ...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

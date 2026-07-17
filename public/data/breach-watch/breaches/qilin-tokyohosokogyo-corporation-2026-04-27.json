@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-tokyohosokogyo-corporation-2026-04-27",
+  "title": "TokyoHosoKogyo Corporation",
+  "group": "qilin",
+  "discovered": "2026-04-27T14:47:59.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "JP",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

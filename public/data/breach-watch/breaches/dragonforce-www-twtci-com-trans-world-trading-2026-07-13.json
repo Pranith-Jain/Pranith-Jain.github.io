@@ -5,11 +5,11 @@
   "discovered": "2026-07-13T09:23:46.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": null,
+  "country": "PH",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/e690ddf6-dc80-4a5b-84ef-00f9731f8377",
+  "description": "Trans World Trading Company, Inc. is a leading business conglomerate in the Philippines, recognized for its trust and reliability since 1946. The company specializes in providing sustainable material solutions through its divisions in plastics, chemicals, industrial products, and agrochemicals. With a strong commitment to integrating global innovations with local expertise, it serves various industries across the nation. Trans World continues to expand its operations and influence, shaping the future of the Philippine industry",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["DRAGON FORCE"],
   "activity": "Business Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

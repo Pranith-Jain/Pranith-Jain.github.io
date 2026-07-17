@@ -1,15 +1,15 @@
 {
   "slug": "qilin-feliubadal-2026-07-15",
   "title": "Feliubadaló",
-  "group": "Qilin",
-  "discovered": "2026-07-15T00:00:00.000Z",
+  "group": "qilin",
+  "discovered": "2026-07-15T08:31:36.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": "Spain",
+  "country": "ES",
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated in ransomware attack",
-  "source_url": "https://recentbreaches.com/breach/feliubadal-qilin-2026-07",
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Not Found",
-  "references": ["RecentBreaches.com"]
+  "references": ["ransomware.live"]
 }

@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-executive-coach-2026-06-15",
+  "title": "Executive Coach",
+  "group": "thegentlemen",
+  "discovered": "2026-06-15T13:00:16.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "***.net zoominfo.com/c/executive-coach-inc/32002101 Executive Coach Inc. is a premier group transportation and luxury motorcoach charter company based in Lancaster, Pennsylvania, proudly serving clients since 1979. Despite its corporate-sounding name, the company does not offer leadership training; instead, it specializes in comfortable charter bus rentals, airport transfers, and customized group tours. They provide reliable, high-end travel solutions across Pennsylvania, Maryland, and beyond, seamlessly accommodating groups of all sizes with a modern and well-maintained fleet",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-zaunsysteme-de-2026-06-17",
+  "title": "zaunsysteme.de",
+  "group": "safepay",
+  "discovered": "2026-06-17T20:25:14.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "Operating within Germany’s construction materials and perimeter security sector, the company provides a wide range of products, including double-wire mesh …",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

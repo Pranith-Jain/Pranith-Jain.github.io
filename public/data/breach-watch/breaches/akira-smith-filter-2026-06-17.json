@@ -1,0 +1,15 @@
+{
+  "slug": "akira-smith-filter-2026-06-17",
+  "title": "Smith Filter",
+  "group": "akira",
+  "discovered": "2026-06-17T12:50:24.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Smith Filter is a leading manufacturer of high-quality air and grease filters, established in 1\n939. They offer a wide range of products including permanent, disposable, and high-efficiency f\nilters, catering to both OEM and custom orders.\n\nWe will upload 10gb of corporate data soon. Employee personal information (passports, SSNs, DLs\nand other docs scans), credit cards information, projects info, clients information, NDAs, etc\n.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Megazord"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

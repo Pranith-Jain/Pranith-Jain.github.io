@@ -1,0 +1,15 @@
+{
+  "slug": "aurora-ntp-b-v-civil-engineering-construction-2026-06-22",
+  "title": "NTP B.V. Civil Engineering Construction",
+  "group": "aurora",
+  "discovered": "2026-06-22T09:51:37.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "NL",
+  "sizeBytes": 0,
+  "description": "[engineering] NTP B.V. (trading as NTP Infra / NTP Groep) is a Dutch civil engineering contractor headquartered in Hattem, Gelderland. They build roads, lay cables, install sewers, and perform ground works across the Netherlands. With 150–200 employees, offices in Hattem, Enschede, and Zevenaar, and a 2024/2025 acquisition of Aannemingsbedrijf Dubbink B.V., they are a typical mid-market Dutch “aannemingsbedrijf” — government contracts, municipal works, private developments.\n\nTheir file server contained everything: 10+ years of operations, every employee's personal files, the complete HR/payroll system exports, every network device configuration, every project bid, and every financial record.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Construction",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-suburban-water-2026-06-04",
+  "title": "Suburban Water",
+  "group": "thegentlemen",
+  "discovered": "2026-06-04T09:09:42.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "***.com ***.com/c/suburban-water-inc/350908787 Suburban Water, Inc. is a dedicated public water utility based in Basehor, Kansas, committed to delivering safe and reliable drinking water to local residential and commercial communities. Operating as a vital part of the regional infrastructure, the company prioritizes strict water quality standards, sustainable resource management, and exceptional customer service. Through continuous system maintenance and proactive operations, they ensure the long-term health, safety, and well-being of the neighborhoods they proudly serve",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Energy",
+  "references": ["ransomware.live"]
+}

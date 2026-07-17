@@ -1,0 +1,15 @@
+{
+  "slug": "redact-fcci-insurance-group-2026-06-28",
+  "title": "FCCI Insurance Group",
+  "group": "Redact",
+  "discovered": "2026-06-28T08:37:44.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Sector: Insurance",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
+}

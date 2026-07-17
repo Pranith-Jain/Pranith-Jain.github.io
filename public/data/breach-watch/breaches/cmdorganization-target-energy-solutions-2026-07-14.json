@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/ecad7657-70e3-4bac-8aa6-7cd437e2d96d",
+  "description": "TARGET is a rapidly growing digital oilfield services and solutions company, providing advanced web-based visualization, collaboration and workflow tools to the petrotechnical community. The MEERA platform and its associated products set a new benchmark for the industry, giving teams the ability to work effectively together using the same data sources, regardless of their device, location or domain.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["cmd organization"],
   "activity": "Energy",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

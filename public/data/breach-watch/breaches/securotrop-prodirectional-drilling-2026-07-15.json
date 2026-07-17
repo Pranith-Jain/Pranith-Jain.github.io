@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/7f777c13-fd0d-4417-a620-1f851de154a8",
+  "description": "Status: AWAITING\nSize: 4329 GB",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Energy",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

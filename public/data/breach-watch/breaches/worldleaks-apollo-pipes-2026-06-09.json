@@ -1,0 +1,15 @@
+{
+  "slug": "worldleaks-apollo-pipes-2026-06-09",
+  "title": "Apollo Pipes",
+  "group": "worldleaks",
+  "discovered": "2026-06-09T17:56:44.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "IN",
+  "sizeBytes": 0,
+  "description": "[AI generated] Apollo Pipes is an Indian manufacturer specializing in PVC and CPVC piping systems and fittings. Headquartered in India, the company serves the plumbing, irrigation, and construction sectors. It operates under the broader Apollo Group and supplies products for residential, commercial, and agricultural applications. Apollo Pipes is listed on Indian stock exchanges and distributes its products across domestic markets through an extensive dealer network.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

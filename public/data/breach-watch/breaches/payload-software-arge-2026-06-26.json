@@ -1,0 +1,15 @@
+{
+  "slug": "payload-software-arge-2026-06-26",
+  "title": "Software Arge",
+  "group": "payload",
+  "discovered": "2026-06-26T10:58:56.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "TR",
+  "sizeBytes": 0,
+  "description": "Software Arge is a leading technology company established in 2016, specializing in data analytics, data integration, data management, and artificial intelligence solutions tailored for enterprises. They offer a range of products including Qlik Cloud Analytics, Qlik Sense, and various Talend solutions, aimed at enhancing data-driven decision-making for clients across sectors such as banking, finance, energy, and manufacturing.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

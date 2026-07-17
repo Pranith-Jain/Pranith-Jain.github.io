@@ -1,0 +1,15 @@
+{
+  "slug": "deadlock-dyhrberg-ag-switzerland-2026-07-10",
+  "title": "Dyhrberg AG Switzerland",
+  "group": "Deadlock",
+  "discovered": "2026-07-10T12:57:36.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "CH",
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

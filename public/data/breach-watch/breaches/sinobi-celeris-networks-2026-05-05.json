@@ -1,0 +1,15 @@
+{
+  "slug": "sinobi-celeris-networks-2026-05-05",
+  "title": "Celeris Networks",
+  "group": "sinobi",
+  "discovered": "2026-05-05T19:54:51.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Celeris Networks is a business IT support provider based in Knoxville, specializing in managed IT services, cybersecurity solutions, and cloud managed services. The firm serves various industries, including accounting, distribution, legal services, nonprofits, and professional services. Composed of expert technology specialists, Celeris Networks aims to alleviate IT challenges and help local businesses maximize productivity. With a commitment to personalized service, they ensure that clients receive dedicated support tailored to their needs.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

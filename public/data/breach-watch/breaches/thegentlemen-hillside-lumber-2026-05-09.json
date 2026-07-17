@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-hillside-lumber-2026-05-09",
+  "title": "Hillside Lumber",
+  "group": "thegentlemen",
+  "discovered": "2026-05-09T09:17:05.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "hillsidelumber.com Hillside Lumber is a family-owned full-service building materials supplier established in 1979, based in Westbrook, Maine. The company serves builders, contractors, and DIY enthusiasts throughout Southern Maine with high-quality lumber, saw mill products, kitchen design, and building supplies. With 38 employees, they provide professional service to both construction professionals and homeowners.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

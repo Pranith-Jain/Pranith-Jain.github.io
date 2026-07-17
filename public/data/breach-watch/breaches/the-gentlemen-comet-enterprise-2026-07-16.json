@@ -1,0 +1,15 @@
+{
+  "slug": "the-gentlemen-comet-enterprise-2026-07-16",
+  "title": "Comet Enterprise",
+  "group": "The Gentlemen",
+  "discovered": "2026-07-16T00:00:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "Taiwan",
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated in ransomware attack",
+  "source_url": "https://recentbreaches.com/breach/comet-enterprise-thegentlemen-2026-07",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["RecentBreaches.com"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "dragonforce-president-container-group-2026-05-27",
+  "title": "President Container Group",
+  "group": "dragonforce",
+  "discovered": "2026-05-27T18:53:09.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "President Container Inc., founded in 1947 by Marvin and George Grossbard, not only grew into one of the largest independent manufacturers of corrugated products in the country, but was also the seed of what has become todays President Container Group. From the beginning, President Containers philosophy was simple: Always ensure complete customer satisfaction by providing exceptional service and quality products. At President Container we realized that to ensure satisfaction we must continue to expand our products and services to meet the demands of the marketplace as our customers continue to evolve.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["DRAGON FORCE"],
+  "activity": "Transportation/Logistics",
+  "references": ["ransomware.live"]
+}

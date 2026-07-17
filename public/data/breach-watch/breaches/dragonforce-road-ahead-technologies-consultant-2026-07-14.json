@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "CN",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/34408a76-b3d6-40e2-aa4b-21676d8bb848",
+  "description": "马路科技 specializes in advanced 3D scanning and measurement solutions, offering a range of products including GOM ATOS 3D scanners, industrial CT systems, and 3D printers. They serve various industries such as automotive, aerospace, and medical devices, providing high-precision measurement and reverse engineering services. As the authorized distributor for ZEISS in China, they ensure high-quality products and support for their clients. Their services also include software solutions for quality management and 3D data analysis",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["DRAGON FORCE"],
   "activity": "Business Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

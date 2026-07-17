@@ -1,0 +1,15 @@
+{
+  "slug": "shinyhunters-nexstar-tv-2026-06-11",
+  "title": "Nexstar.tv",
+  "group": "shinyhunters",
+  "discovered": "2026-06-11T09:54:44.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Over 1 million Salesforce records and other internal corporate data containing PII was compromised. This is a final warning to reach out by 14 June 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 11 June 2026 | Warning: FINAL WARNING",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

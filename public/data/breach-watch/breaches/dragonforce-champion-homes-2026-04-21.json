@@ -1,0 +1,15 @@
+{
+  "slug": "dragonforce-champion-homes-2026-04-21",
+  "title": "Champion Homes",
+  "group": "dragonforce",
+  "discovered": "2026-04-21T11:29:59.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "AU",
+  "sizeBytes": 0,
+  "description": "Champion Homes is a progressive residential building company which undertakes building work in the Greater Sydney and Illawarra region. Champion Homes operates as a specialist residential builder in the following major segments of the residential home building market: Duplex Builder Knockdown Rebuild Own Designs Narrow Lot Designs New Home Builder Sydney Townhouse Builder New Home Property Sales Project Home Builder Home and Land Packages Sydney Champion Homes is structured to use its construction expertise and resources so as to cater for both individual and corporate clients. Champion Homes has considerable experience building in the older established suburbs of Sydney. Champion Homes can help you with narrow lots, difficult building lots and customise designs to suit your needs. When the time comes to find project home builders in Sydney, Champion homes has earned their reputation as one of the most trusted and reliable project home builders in Australia",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["DRAGON FORCE"],
+  "activity": "Construction",
+  "references": ["ransomware.live"]
+}

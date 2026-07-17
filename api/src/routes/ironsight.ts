@@ -13,14 +13,28 @@ async function fetchWithTimeout(url: string, timeoutMs = 10000, init?: RequestIn
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), timeoutMs);
   try {
-    return await fetch(url, { ...init, signal: controller.signal } as any);
+    return await fetch(url, { ...init, signal: controller.signal });
   } finally {
     clearTimeout(id);
   }
 }
 
-function j(v: any): Record<string, any> {
-  return v && typeof v === 'object' ? v : {};
+function j(v: unknown): Record<string, unknown> {
+  return v && typeof v === 'object' ? (v as Record<string, unknown>) : {};
+}
+
+function getIn(obj: Record<string, unknown>, ...path: string[]): unknown {
+  let cur: unknown = obj;
+  for (const key of path) {
+    if (!cur || typeof cur !== 'object') return undefined;
+    cur = (cur as Record<string, unknown>)[key];
+  }
+  return cur;
+}
+
+function metaVal(meta: Record<string, unknown>, key: string, fallback: number): number {
+  const v = meta[key];
+  return typeof v === 'number' ? v : fallback;
 }
 
 /** Proxy: Israel Alert Status (Tzeva Adom) */
@@ -322,11 +336,14 @@ export async function ironsightMarketsHandler(c: Context) {
           );
           if (!res.ok) throw new Error('fail');
 
-          const raw: any = await res.json();
-          const meta = j(raw?.chart?.result?.[0])?.meta;
+          const raw = (await res.json()) as Record<string, unknown>;
+          const chart = j(getIn(raw, 'chart'));
+          const arr = getIn(chart, 'result');
+          const chartResult = Array.isArray(arr) ? (arr as Record<string, unknown>[]) : [];
+          const meta = j(chartResult[0]);
           if (!meta) throw new Error('no data');
-          const price = meta.regularMarketPrice ?? 0;
-          const prev = meta.chartPreviousClose ?? meta.previousClose ?? price;
+          const price = metaVal(meta, 'regularMarketPrice', 0);
+          const prev = metaVal(meta, 'chartPreviousClose', metaVal(meta, 'previousClose', price));
           const change = Math.round((price - prev) * 100) / 100;
           const pct = prev ? Math.round(((price - prev) / prev) * 10000) / 100 : 0;
           return { symbol: s.symbol, name: s.name, price: Math.round(price * 100) / 100, change, changePercent: pct };

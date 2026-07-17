@@ -1,0 +1,15 @@
+{
+  "slug": "deadlock-skk-networks-sp-z-o-o-and-unicard-systems-sp-z-o-o-and-skk-sa-2026-07-10",
+  "title": "SKK Networks Sp. z o.o. and UNICARD Systems Sp. z o. o. and SKK SA",
+  "group": "Deadlock",
+  "discovered": "2026-07-10T12:57:57.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "PL",
+  "sizeBytes": 0,
+  "description": "SKK Networks is a specialized IT infrastructure provider based in Kraków, Poland, that designs, builds, and maintains professional LAN and WLAN networks. They focus on creating high-performance connectivity solutions for challenging environments like high-bay warehouses, cold storage facilities, and industrial plants. Unicard Systems is a Polish manufacturer and integrator of security and building automation systems with over 30 years of experience. Based in Kraków, the company specializes in designing and implementing proprietary hardware and software solutions for business and public infrastructure. SKK Labels , a prominent Polish label manufacturer and printing company based in Kraków. With over 30 years of experience, the company provides comprehensive product marking solutions across various industries, including pharmaceutical, automotive, and logistics.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "IE",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/fa6fd888-d5e5-4487-a01e-1a1bb7f12802",
+  "description": "***.com Open Options was a prominent Texas-based software company specializing in open-architecture access control solutions, best known for its flagship enterprise platform, DNA Fusion. The company focused on delivering scalable physical security and identity management software tailored to complex organizational needs. Following a strategic acquisition, the company's technology and brand were integrated into Acre Security, where it continues to operate and evolve as DNA Fusion by acre security",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["the gentlemen"],
   "activity": "Business Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

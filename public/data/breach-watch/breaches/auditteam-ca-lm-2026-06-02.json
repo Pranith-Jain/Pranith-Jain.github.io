@@ -1,0 +1,15 @@
+{
+  "slug": "auditteam-ca-lm-2026-06-02",
+  "title": "ca***lm",
+  "group": "AuditTeam",
+  "discovered": "2026-06-02T08:50:16.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "RU",
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["audit team"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

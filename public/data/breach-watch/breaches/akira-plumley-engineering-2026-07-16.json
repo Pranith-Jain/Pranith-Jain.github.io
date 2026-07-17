@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "GB",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/c44a80d3-5c65-45b5-a520-69c3b8b7a3ed",
+  "description": "Plumley Engineering is a firm specializing in civil, environmental, and geotechnical engineerin\ng services. They prioritize client service and quality, focusing on problem-solving and design \nwith a common-sense approach.\n\nWe will upload 11gb of corporate data soon. Client and employee personal information, projects \ninformation, contracts and agreements, confidential files, NDAs and so on.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["Megazord"],
   "activity": "Manufacturing",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

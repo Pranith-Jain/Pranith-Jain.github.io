@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-p-g-trading-2026-05-24",
+  "title": "P & G Trading",
+  "group": "qilin",
+  "discovered": "2026-05-24T17:54:06.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

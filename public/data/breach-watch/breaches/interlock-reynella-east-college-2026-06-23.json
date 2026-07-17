@@ -1,0 +1,15 @@
+{
+  "slug": "interlock-reynella-east-college-2026-06-23",
+  "title": "Reynella East College",
+  "group": "interlock",
+  "discovered": "2026-06-23T14:36:09.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "AU",
+  "sizeBytes": 0,
+  "description": "Reynella East College is an innovative educational institution offering a comprehensive curriculum for students from preschool to 12th grade. However, the school failed to adequately protect the privacy of its students and staff and made no attempt to do so, resulting in the leak of their sensitive personal data online. We are providing you with 600 GB of interesting files and documents, including contracts, financial reports, personal data, student and staff identification numbers, seating charts, and much more.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

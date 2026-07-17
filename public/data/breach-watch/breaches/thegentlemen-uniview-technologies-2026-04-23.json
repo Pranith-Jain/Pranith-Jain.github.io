@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-uniview-technologies-2026-04-23",
+  "title": "Uniview Technologies",
+  "group": "thegentlemen",
+  "discovered": "2026-04-23T06:27:15.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "CN",
+  "sizeBytes": 0,
+  "description": "www.uniview.com https://www.zoominfo.com/c/uniview-technologies-co-ltd/88113211\nUniview Technologies Co Ltd is the third-largest video surveillance manufacturer in China and fourth-largest globally, having achieved approximately 13-fold revenue growth since its founding in 2011. Differentiated by its core networking expertise, Uniview approaches the CCTV and video surveillance market with a technology-forward strategy that sets it apart from traditional competitors. The company prioritizes continuous research and development to maintain competitive advantage in a market where technological capabilities are superseded every three years, enabling Uniview to deliver professional, reliable, and cutting-edge surveillance products and services designed to build safer communities worldwide. With operations spanning 145 countries and regions. DATA SUMMARY - 2,992,978 files, 4.3 TB...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

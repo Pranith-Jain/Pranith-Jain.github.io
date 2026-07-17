@@ -1,0 +1,15 @@
+{
+  "slug": "silentransomgroup-chartwell-law-2026-04-23",
+  "title": "Chartwell Law",
+  "group": "SilentRansomGroup",
+  "discovered": "2026-04-23T20:18:57.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "[AI generated] Chartwell Law is a United States-based law firm specializing in insurance defense litigation. Operating primarily across multiple states, the firm represents insurance companies, self-insured entities, and businesses in matters including workers compensation, general liability, professional liability, and coverage disputes. It is known for providing legal counsel and courtroom representation within the broader insurance and legal services industry.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "cmdorganization-mount-royal-university-2026-07-07",
+  "title": "Mount Royal University",
+  "group": "cmdorganization",
+  "discovered": "2026-07-07T13:20:29.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "CA",
+  "sizeBytes": 0,
+  "description": "The university was established in 1910. Mount Royal University is a public university in Calgary, Canada. Its programs include bachelor of arts, bachelor of communication, bachelor of health & physical education, bachelor of interior design, bachelor of nursing, and bachelor of science.More than 10TB of data!!!",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["cmd organization"],
+  "activity": "Education",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "payoutsking-welldyne-2026-07-07",
+  "title": "Welldyne",
+  "group": "payoutsking",
+  "discovered": "2026-07-07T18:27:48.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "[AI generated] Welldyne is a pharmacy benefit management (PBM) company based in the United States. It provides prescription drug management services to health plans, employers, and government programs. The company focuses on improving medication adherence and controlling prescription costs through its pharmacy network, mail-order pharmacy services, and data-driven clinical programs. Welldyne operates primarily across the US healthcare sector.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

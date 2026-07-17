@@ -1,0 +1,15 @@
+{
+  "slug": "krybit-eclagestio360-com-2026-05-09",
+  "title": "eclagestio360.com",
+  "group": "krybit",
+  "discovered": "2026-05-09T20:52:25.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "ES",
+  "sizeBytes": 0,
+  "description": "ECLAGESTIÓ\nA Spanish company specializing in comprehensive management for businesses and individuals, operating in the...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

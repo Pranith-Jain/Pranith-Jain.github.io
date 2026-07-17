@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-mbo-gmbh-2026-07-01",
+  "title": "MBO GmbH",
+  "group": "thegentlemen",
+  "discovered": "2026-07-01T22:23:09.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "***.com MBO GmbH is a German surface technology company based in Roding, serving as the in-house surface treatment unit for the Mühlbauer Parts & Systems Group.With over 40 years of experience, they specialize in various advanced coating processes, including electroplating, powder coating, and painting.The company provides comprehensive technical advice and surface finishing solutions that are directly integrated with their parent company's production lines",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

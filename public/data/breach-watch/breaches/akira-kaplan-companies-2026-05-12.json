@@ -1,0 +1,15 @@
+{
+  "slug": "akira-kaplan-companies-2026-05-12",
+  "title": "Kaplan Companies",
+  "group": "akira",
+  "discovered": "2026-05-12T14:20:17.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Kaplan Companies specializes in providing rental and commercial properties, focusing on new hom\nes and maintenance services for current residents. The company aims to cater to individuals and\nfamilies seeking quality housing solutions.\n\nWe will upload 45gb of corporate data soon. Employee and owners personal information (passports\n, DLs, SSNs, and other personal docs), contracts and agreements, client information, financials\n, payment details, projects files, drawings and specifications and so on.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Megazord"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

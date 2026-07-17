@@ -11,7 +11,7 @@
  * Client-side React still mounts: main.tsx uses hydrateRoot() (added in
  * Phase 2) which adopts the existing DOM rather than creating new nodes.
  *
- * Production: all 448 routes in ROUTES below are prerendered to static
+ * Production: all routes in ROUTES below are prerendered to static
  * HTML during the build. The Worker serves prerendered HTML for every
  * route (fast initial paint before React hydrates); the SPA shell is
  * only used for unmatched/404 routes.

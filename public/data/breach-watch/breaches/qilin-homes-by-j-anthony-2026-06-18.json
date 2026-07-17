@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-homes-by-j-anthony-2026-06-18",
+  "title": "Homes By J Anthony",
+  "group": "qilin",
+  "discovered": "2026-06-18T17:54:58.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Construction",
+  "references": ["ransomware.live"]
+}

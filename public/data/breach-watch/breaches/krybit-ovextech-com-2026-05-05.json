@@ -1,0 +1,15 @@
+{
+  "slug": "krybit-ovextech-com-2026-05-05",
+  "title": "ovextech.com",
+  "group": "krybit",
+  "discovered": "2026-05-05T20:23:17.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Ovex Tech specializes in providing comprehensive BPO services and call center solutions, including inbound and outbound ...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "embargo-www-maytrucking-com-2026-06-30",
+  "title": "www.maytrucking.com",
+  "group": "embargo",
+  "discovered": "2026-06-30T04:54:43.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "May Trucking Company is a family-owned interstate transport carrier founded in 1945, headquartered in Brooks, Oregon. They provide dry freight and temperature-c... - TOTAL QUANTITY OF DATA 1 TB",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Transportation/Logistics",
+  "references": ["ransomware.live"]
+}

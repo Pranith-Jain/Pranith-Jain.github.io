@@ -1,0 +1,15 @@
+{
+  "slug": "m3rx-anvilarts-org-uk-2026-04-29",
+  "title": "anvilarts.org.uk",
+  "group": "m3rx",
+  "discovered": "2026-04-29T10:10:21.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "Anvil Arts is the largest performing arts organization in Hampshire, operating as an independent charitable trust. It manages three venues in Basingstoke, including The Anvil and The Haymarket, providing a diverse range of performances and cultural events. Stolen: 480gb 299k files",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

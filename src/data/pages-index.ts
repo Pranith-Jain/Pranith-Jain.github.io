@@ -94,6 +94,22 @@ const PORTFOLIO_PAGES: readonly PageEntry[] = [
     group: 'portfolio',
   },
   {
+    path: '/auth/login',
+    label: 'Login',
+    description: 'Sign in to your account for personalized threat intel features.',
+    sectionLabel: 'Portfolio',
+    group: 'portfolio',
+    keywords: ['sign in', 'authentication'],
+  },
+  {
+    path: '/auth/register',
+    label: 'Register',
+    description: 'Create an account to enable workspace, watchlist, and saved-searches features.',
+    sectionLabel: 'Portfolio',
+    group: 'portfolio',
+    keywords: ['sign up', 'create account'],
+  },
+  {
     path: '/threat-intel',
     label: 'Threat Intel',
     description:

@@ -1,0 +1,15 @@
+{
+  "slug": "m3rx-dmschweiz-ch-2026-04-29",
+  "title": "dmschweiz.ch",
+  "group": "m3rx",
+  "discovered": "2026-04-29T10:10:38.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "CH",
+  "sizeBytes": 0,
+  "description": "Sie haben im Katalog unsere Angebote von installierten und betriebsbereiten Gerten. Die Installationen können nach Ihren Wünschen angepasst werden. DM Standard-Installation ist optimiert und ohne Herstellerwerbung. Stolen: 120gb 100k files",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-acworth-ga-gov-2026-07-02",
+  "title": "acworth-ga.gov",
+  "group": "incransom",
+  "discovered": "2026-07-02T16:32:48.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Acworth is located in the foothills of the North Georgia mountains and is nestled along the banks of Lake Acworth and Lake Allatoona, hence its nickname “The Lake City.” The city boasts a rich history, a charming downtown, abundant outdoor recreational activities, a vibrant restaurant scene, and an active festival and events calendar. Acworth is one of the best, family-friendly destinations in the Atlanta region.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Public Sector",
+  "references": ["ransomware.live"]
+}

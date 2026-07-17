@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-kolin-turkey-2026-04-21",
+  "title": "Kolin Turkey",
+  "group": "qilin",
+  "discovered": "2026-04-21T19:40:35.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "TR",
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

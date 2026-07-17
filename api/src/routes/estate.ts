@@ -3,6 +3,40 @@ import type { Env } from '../env';
 
 const app = new Hono<{ Bindings: Env }>();
 
+interface EstateAssetRow {
+  id: string;
+  asset_type: string;
+  value: string;
+  label: string;
+  tags: string;
+  criticality: string;
+  metadata: string;
+  created_at: string;
+  updated_at?: string;
+}
+
+interface AlertFeedRow {
+  id: string;
+  alert_type: string;
+  title: string;
+  description: string;
+  confidence: number;
+  severity: string;
+  source: string;
+  source_url?: string;
+  topics: string;
+  matched_assets: string;
+  matched_sector: string;
+  tlp: string;
+  read: number;
+  dismissed: number;
+  created_at: string;
+}
+
+interface CountResult {
+  c: number;
+}
+
 // ── Estate Config ──────────────────────────────────────────────────────────
 
 const SECTORS = [
@@ -109,13 +143,16 @@ export const estateRoutes = app
     const rows = type
       ? await db.prepare('SELECT * FROM estate_assets WHERE asset_type = ? ORDER BY created_at DESC').bind(type).all()
       : await db.prepare('SELECT * FROM estate_assets ORDER BY created_at DESC').all();
-    const assets = (rows.results ?? []).map((r) => ({
-      ...r,
-      tags: JSON.parse((r as any).tags ?? '[]'),
-      metadata: JSON.parse((r as any).metadata ?? '{}'),
-      created_at: (r as any).created_at,
-      updated_at: (r as any).updated_at,
-    }));
+    const assets = (rows.results ?? []).map((r) => {
+      const row = r as unknown as EstateAssetRow;
+      return {
+        ...r,
+        tags: JSON.parse(row.tags ?? '[]'),
+        metadata: JSON.parse(row.metadata ?? '{}'),
+        created_at: row.created_at,
+        updated_at: row.updated_at,
+      };
+    });
     return c.json({ assets });
   })
   .post('/assets', async (c) => {
@@ -183,11 +220,14 @@ export const estateRoutes = app
       .prepare(sql)
       .bind(...params)
       .all();
-    const alerts = (rows.results ?? []).map((r) => ({
-      ...r,
-      topics: JSON.parse((r as any).topics ?? '[]'),
-      matched_assets: JSON.parse((r as any).matched_assets ?? '[]'),
-    }));
+    const alerts = (rows.results ?? []).map((r) => {
+      const row = r as unknown as AlertFeedRow;
+      return {
+        ...r,
+        topics: JSON.parse(row.topics ?? '[]'),
+        matched_assets: JSON.parse(row.matched_assets ?? '[]'),
+      };
+    });
     return c.json({ alerts, total: alerts.length });
   })
   .post('/alerts', async (c) => {
@@ -241,10 +281,15 @@ export const estateRoutes = app
         "SELECT severity, COUNT(*) as c FROM alert_feeds WHERE dismissed = 0 GROUP BY severity ORDER BY CASE severity WHEN 'critical' THEN 0 WHEN 'high' THEN 1 WHEN 'medium' THEN 2 WHEN 'low' THEN 3 ELSE 4 END"
       )
       .all();
+    const totalRow = total as unknown as CountResult | null;
+    const unreadRow = unread as unknown as CountResult | null;
     return c.json({
-      total: (total as any)?.c ?? 0,
-      unread: (unread as any)?.c ?? 0,
-      bySeverity: (bySeverity.results ?? []).map((r) => ({ severity: (r as any).severity, count: (r as any).c })),
+      total: totalRow?.c ?? 0,
+      unread: unreadRow?.c ?? 0,
+      bySeverity: (bySeverity.results ?? []).map((r) => {
+        const row = r as unknown as CountResult & { severity: string };
+        return { severity: row.severity, count: row.c };
+      }),
     });
   });
 

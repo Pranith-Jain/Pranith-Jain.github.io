@@ -218,8 +218,7 @@ import { phishingAnalyzeAutoHandler } from './routes/phishing-auto-analyze';
 import { registerBlogRoutes } from './routes/blog-public';
 import { pageViewsHandler } from './routes/pageviews';
 import { registerAdminRoutes } from './routes/case-study-admin';
-import { healthDetailedHandler } from './routes/health-detailed';
-import { featuresHandler } from './routes/features';
+
 import { c2TrackerHandler } from './routes/c2-tracker';
 import {
   intelBundleHandler,
@@ -864,8 +863,7 @@ import {
 } from './lib/validation-schemas';
 
 // ── Health Checks ──────────────────────────────────────────────────
-import { generateOpenApiSpec } from './lib/openapi';
-import { API_DOCS_HTML } from './lib/api-docs-html';
+
 import { apiVersion } from './lib/api-version';
 import {
   exportStixHandler,
@@ -950,169 +948,8 @@ import {
   exportWorkspaceHandler,
 } from './routes/cti-workspaces';
 
-app.get('/api/v1/health', (c) =>
-  c.json({ ok: true, timestamp: new Date().toISOString() }, 200, { 'Cache-Control': 'public, max-age=60' })
-);
-app.get('/api/v1/health/detailed', healthDetailedHandler);
-
-// Public boolean map of configured optional self-hosted bridges. The
-// frontend probes this to hide dormant tools until their *_BRIDGE_URL
-// secret is set. Booleans only.
-app.get('/api/v1/features', featuresHandler);
-
-// ── OpenAPI Specification ────────────────────────────────────────
-app.get('/api/v1/openapi.json', (c) => {
-  return c.json(generateOpenApiSpec(), 200, {
-    'Cache-Control': 'public, max-age=3600',
-    'Access-Control-Allow-Origin': getSiteUrl(c.env as { SITE_URL?: string }),
-  });
-});
-
-// ── OpenAPI Browser (Scalar) ────────────────────────────────────
-// Static HTML page that mounts Scalar pointing at /api/v1/openapi.json.
-// Asset: public/api-docs.html. Mirror the security headers the Worker
-// applies to every other HTML response (CSP nonce is generated at the
-// Worker level - the html file is served as-is here, so we don't try
-// to add a per-response nonce; CSP for the Scalar page is permissive
-// only for the Scalar CDN host and our own origin).
-app.get('/api/docs', (c) => {
-  return c.body(API_DOCS_HTML, 200, {
-    'content-type': 'text/html; charset=utf-8',
-    'Cache-Control': 'public, max-age=300',
-  });
-});
-
-app.get('/api/v1/docs', (c) => c.redirect('/api/docs', 301));
-
-// CSP violation report collector. Browsers POST violation reports here
-// when a CSP directive is violated. Accept and discard — the data is
-// informational only.
-app.post('/api/v1/csp-report', async (c) => {
-  try {
-    const body = await c.req.json();
-    if (body && typeof body === 'object') {
-      console.log('CSP violation:', JSON.stringify(body).slice(0, 2000));
-    }
-  } catch {
-    // silently ignore malformed reports
-  }
-  return c.body(null, 204);
-});
-
-app.get('/api/v1/health/d1', async (c) => {
-  const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ status: 'unavailable', binding: 'BRIEFINGS_DB' }, 503);
-  try {
-    const start = Date.now();
-    await db.prepare('SELECT 1').first();
-    return c.json({ status: 'ok', latency_ms: Date.now() - start }, 200, { 'Cache-Control': 'no-store' });
-  } catch (e) {
-    return c.json({ status: 'error', error: e instanceof Error ? e.message : 'unknown' }, 503);
-  }
-});
-
-app.get('/api/v1/health/kv', async (c) => {
-  const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ status: 'unavailable', binding: 'KV_CACHE' }, 503);
-  try {
-    const start = Date.now();
-    await kv.get('__health_check__');
-    return c.json({ status: 'ok', latency_ms: Date.now() - start }, 200, { 'Cache-Control': 'no-store' });
-  } catch (e) {
-    return c.json({ status: 'error', error: e instanceof Error ? e.message : 'unknown' }, 503);
-  }
-});
-
-app.get('/api/v1/health/ai', async (c) => {
-  const ai = c.env.AI;
-  if (!ai) return c.json({ status: 'unavailable', binding: 'AI' }, 503);
-  try {
-    const start = Date.now();
-    // Use a minimal prompt to test AI binding availability
-    await ai.run('@cf/meta/llama-3.1-8b-instruct', {
-      messages: [{ role: 'user', content: 'ping' }],
-      max_tokens: 5,
-    });
-    return c.json({ status: 'ok', latency_ms: Date.now() - start, model: 'llama-3.1-8b' }, 200, {
-      'Cache-Control': 'no-store',
-    });
-  } catch (e) {
-    return c.json({ status: 'error', error: e instanceof Error ? e.message : 'unknown' }, 503);
-  }
-});
-
-app.get('/api/v1/health/vectorize', async (c) => {
-  const vec = c.env.VECTORIZE;
-  if (!vec) return c.json({ status: 'unavailable', binding: 'VECTORIZE' }, 503);
-  try {
-    const start = Date.now();
-    await vec.query(new Array(768).fill(0), { topK: 1 });
-    return c.json({ status: 'ok', latency_ms: Date.now() - start }, 200, { 'Cache-Control': 'no-store' });
-  } catch (e) {
-    return c.json({ status: 'error', error: e instanceof Error ? e.message : 'unknown' }, 503);
-  }
-});
-
-app.get('/api/v1/debug/llm', async (c) => {
-  const env = c.env;
-  const ping = { messages: [{ role: 'user', content: 'ping' }], max_tokens: 5 };
-  const testEndpoint = async (url: string, key: string | undefined, body: unknown) => {
-    if (!key) return { status: 'no_key' };
-    try {
-      const res = await fetch(url, {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${key}`, 'content-type': 'application/json' },
-        body: JSON.stringify(body),
-        signal: AbortSignal.timeout(10_000),
-      });
-      const text = await res.text().catch(() => '');
-      return { status: res.status, ok: res.ok, body: text.slice(0, 300) };
-    } catch (e) {
-      return { error: e instanceof Error ? e.message : String(e) };
-    }
-  };
-  return c.json(
-    {
-      keys: {
-        nvidia: !!env.NVIDIA_API_KEY,
-        groq: !!env.GROQ_API_KEY,
-        google: !!env.GOOGLE_AI_STUDIO_API_KEY,
-      },
-      nvidia: await testEndpoint('https://integrate.api.nvidia.com/v1/chat/completions', env.NVIDIA_API_KEY, {
-        ...ping,
-        model: 'minimaxai/minimax-m2.7',
-      }),
-      nvidiaFallback: await testEndpoint('https://integrate.api.nvidia.com/v1/chat/completions', env.NVIDIA_API_KEY, {
-        ...ping,
-        model: 'z-ai/glm-5.2',
-      }),
-      groq: await testEndpoint('https://api.groq.com/openai/v1/chat/completions', env.GROQ_API_KEY, {
-        model: 'llama-3.1-8b-instant',
-        messages: [{ role: 'user', content: 'ping' }],
-        max_completion_tokens: 5,
-      }),
-      groqFallback: await testEndpoint('https://api.groq.com/openai/v1/chat/completions', env.GROQ_API_KEY, {
-        model: 'openai/gpt-oss-20b',
-        messages: [{ role: 'user', content: 'ping' }],
-        max_completion_tokens: 5,
-      }),
-      google: await testEndpoint(
-        'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=' +
-          env.GOOGLE_AI_STUDIO_API_KEY,
-        env.GOOGLE_AI_STUDIO_API_KEY,
-        { contents: [{ role: 'user', parts: [{ text: 'ping' }] }], generationConfig: { maxOutputTokens: 5 } }
-      ),
-      googleFallback: await testEndpoint(
-        'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' +
-          env.GOOGLE_AI_STUDIO_API_KEY,
-        env.GOOGLE_AI_STUDIO_API_KEY,
-        { contents: [{ role: 'user', parts: [{ text: 'ping' }] }], generationConfig: { maxOutputTokens: 5 } }
-      ),
-    },
-    200,
-    { 'Cache-Control': 'no-store' }
-  );
-});
+import healthRoutes from './routes/health';
+app.route('/', healthRoutes);
 
 app.get('/api/v1/ioc/enrich-deep', iocEnrichDeepHandler);
 app.post('/api/v1/ioc/enrich-deep', iocEnrichDeepHandler);

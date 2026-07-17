@@ -1,0 +1,15 @@
+{
+  "slug": "everest-super-ai-2026-04-28",
+  "title": "Super AI",
+  "group": "everest",
+  "discovered": "2026-04-28T06:24:07.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "Automate business processes end-to-end with guaranteed results using super.AI Intelligent Document Processing (IDP). Quickly extract data from complex documents using the latest AI models.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

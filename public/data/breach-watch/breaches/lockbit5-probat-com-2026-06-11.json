@@ -1,0 +1,15 @@
+{
+  "slug": "lockbit5-probat-com-2026-06-11",
+  "title": "probat.com",
+  "group": "lockbit5",
+  "discovered": "2026-06-11T07:12:43.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "Probat is a medium-sized group of companies headquartered in Emmerich am Rhein, Germany. As a global...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

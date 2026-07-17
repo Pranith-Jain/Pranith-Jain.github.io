@@ -1,0 +1,15 @@
+{
+  "slug": "fulcrumsec-rotary-club-2026-05-01",
+  "title": "Rotary Club",
+  "group": "fulcrumsec",
+  "discovered": "2026-05-01T16:49:55.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "[AI generated] Rotary Club, formally known as Rotary International, is a global humanitarian service organization founded in 1905 in Chicago, USA. It operates across more than 200 countries with over 35,000 clubs and 1.4 million members. The organization focuses on community service, vocational development, and international goodwill, with notable initiatives including the near-eradication of polio worldwide through its PolioPlus program.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "ransomexx-go2joy-go2joy-vn-2026-06-20",
+  "title": "Go2Joy (go2joy.vn)",
+  "group": "ransomexx",
+  "discovered": "2026-06-20T14:35:35.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "VN",
+  "sizeBytes": 0,
+  "description": "We have released the complete database of Go2Joy, Vietnam’s leading platform for hourly and short-stay hotel bookings.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Ransom X", "Defray777", "Defray-777", "Defray 2018"],
+  "activity": "Hospitality and Tourism",
+  "references": ["ransomware.live"]
+}

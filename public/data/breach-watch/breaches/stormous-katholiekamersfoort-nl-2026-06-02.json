@@ -1,0 +1,15 @@
+{
+  "slug": "stormous-katholiekamersfoort-nl-2026-06-02",
+  "title": "katholiekamersfoort.nl",
+  "group": "stormous",
+  "discovered": "2026-06-02T21:33:29.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "NL",
+  "sizeBytes": 0,
+  "description": "The church website's network (katholiekamersfoort.nl/) has been breached, resulting in the exfiltration of over 10 GB of data. This data pertains to donors, staff, and the personal information of a large number of individuals. The compromised data includes: Databases and Personally Identifiable Information (PII), internal network shares and document, contact lists, board and committee data, as well as system metadata.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Education",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "rhysida-landeshauptstadt-stuttgart-2026-05-19",
+  "title": "Landeshauptstadt Stuttgart",
+  "group": "rhysida",
+  "discovered": "2026-05-19T10:24:33.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "Landeshauptstadt Stuttgart Stuttgart is the capital city of Baden-Wurttemberg in southwestern Germany.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Public Sector",
+  "references": ["ransomware.live"]
+}

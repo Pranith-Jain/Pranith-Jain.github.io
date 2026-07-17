@@ -5,6 +5,7 @@ import {
   ChevronDown,
   ChevronRight,
   Crosshair,
+  ExternalLink,
   FileText,
   Layers,
   Loader2,
@@ -27,6 +28,8 @@ import {
   listStixBundles,
   sanitizeKey,
   idForReport,
+  getReportDetailsFlexible,
+  getReportContent,
   type McpToolDef,
   type KgClusterResult,
   type KgTimelineResult,
@@ -41,6 +44,7 @@ import {
   type KgEntity,
   type StixBundleSummary,
   type StixBundleListResult,
+  type ReportDetailsResult,
 } from '../../lib/ti-mindmap-mcp';
 
 interface CrossSearchResult {
@@ -91,6 +95,10 @@ export function CrossSearchWorkbench(props: { showHeader?: boolean }): JSX.Eleme
   const [entityCluster, setEntityCluster] = useState<KgClusterResult | null>(null);
   const [entityTimeline, setEntityTimeline] = useState<KgTimelineResult | null>(null);
   const [entityDetailBusy, setEntityDetailBusy] = useState(false);
+  const [selectedReport, setSelectedReport] = useState<TiReportSummary | null>(null);
+  const [reportDetail, setReportDetail] = useState<ReportDetailsResult | null>(null);
+  const [reportDetailBusy, setReportDetailBusy] = useState(false);
+  const [reportContent, setReportContent] = useState<string | null>(null);
   const abortRef = useRef<AbortController | null>(null);
 
   // Discover tools after connecting
@@ -170,6 +178,35 @@ export function CrossSearchWorkbench(props: { showHeader?: boolean }): JSX.Eleme
       /* ignore */
     }
     setEntityDetailBusy(false);
+  }
+
+  async function openReport(r: TiReportSummary): Promise<void> {
+    if (!apiKey) return;
+    const rid = idForReport(r);
+    if (!rid) return;
+    if (selectedReport === r) {
+      setSelectedReport(null);
+      setReportDetail(null);
+      setReportContent(null);
+      return;
+    }
+    setSelectedReport(r);
+    setReportDetail(null);
+    setReportContent(null);
+    setReportDetailBusy(true);
+    try {
+      const detail = await getReportDetailsFlexible(apiKey, rid);
+      setReportDetail(detail);
+      try {
+        const content = await getReportContent(apiKey, rid, 'summary');
+        setReportContent(typeof content === 'string' ? content : null);
+      } catch {
+        // summary content may not be available for all reports
+      }
+    } catch (e) {
+      // details fetch failed
+    }
+    setReportDetailBusy(false);
   }
 
   const mode = useMemo(() => guessMode(q), [q]);
@@ -417,7 +454,15 @@ export function CrossSearchWorkbench(props: { showHeader?: boolean }): JSX.Eleme
               onToggle={toggleSection}
             >
               {result!.reports.reports.map((r) => (
-                <ReportRow key={idForReport(r) || r.title || ''} r={r} />
+                <ReportRow
+                  key={idForReport(r) || r.title || ''}
+                  r={r}
+                  selected={selectedReport === r}
+                  detail={selectedReport === r ? reportDetail : null}
+                  detailBusy={selectedReport === r && reportDetailBusy}
+                  content={selectedReport === r ? reportContent : null}
+                  onSelect={() => openReport(r)}
+                />
               ))}
             </Section>
           ) : null}
@@ -478,9 +523,9 @@ export function CrossSearchWorkbench(props: { showHeader?: boolean }): JSX.Eleme
                     setEntityCluster(null);
                     setEntityTimeline(null);
                   }}
-                  className="ml-auto text-[10px] text-slate-500 hover:text-rose-600"
+                  className="ml-auto p-0.5 rounded text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/30"
                 >
-                  ✕
+                  <X className="h-3 w-3" />
                 </button>
               </div>
               {entityCluster?.entities != null && entityCluster.entities.length > 0 && (
@@ -604,9 +649,30 @@ function Section(props: {
 
 // ── Row components ─────────────────────────────────────────────────
 
-function ReportRow({ r }: { r: TiReportSummary }): JSX.Element {
+function ReportRow({
+  r,
+  selected,
+  detail,
+  detailBusy,
+  content,
+  onSelect,
+}: {
+  r: TiReportSummary;
+  selected: boolean;
+  detail: ReportDetailsResult | null;
+  detailBusy: boolean;
+  content: string | null;
+  onSelect: () => void;
+}): JSX.Element {
   return (
-    <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-2.5 py-1.5">
+    <div
+      onClick={onSelect}
+      className={`rounded border cursor-pointer px-2.5 py-1.5 transition-colors ${
+        selected
+          ? 'border-brand-400 dark:border-brand-600 bg-brand-50/60 dark:bg-brand-950/20'
+          : 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-400/50'
+      }`}
+    >
       <p className="text-xs font-medium text-slate-800 dark:text-slate-200 line-clamp-2">{r.title || '-'}</p>
       <p className="mt-0.5 text-[10px] font-mono uppercase text-slate-500">
         {r.source ?? '?'}
@@ -616,6 +682,114 @@ function ReportRow({ r }: { r: TiReportSummary }): JSX.Element {
         {r.ioc_count ? <span className="ml-2 text-cyan-600">{r.ioc_count} IOCs</span> : null}
         {r.ttp_count ? <span className="ml-2 text-violet-600">{r.ttp_count} TTPs</span> : null}
       </p>
+
+      {selected && detailBusy && (
+        <div className="mt-2 flex items-center gap-1.5 text-[10px] text-slate-500">
+          <Loader2 className="h-3 w-3 animate-spin" /> Loading details...
+        </div>
+      )}
+
+      {selected && detail && (
+        <div className="mt-2 space-y-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-2">
+          {detail.summary && (
+            <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">{detail.summary}</p>
+          )}
+
+          {content && (
+            <div className="rounded bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)] p-2 max-h-40 overflow-y-auto">
+              <pre className="text-[10px] text-slate-600 dark:text-slate-400 whitespace-pre-wrap font-sans leading-relaxed">
+                {content}
+              </pre>
+            </div>
+          )}
+
+          {detail.iocs?.length ? (
+            <div>
+              <p className="text-[10px] font-mono uppercase text-slate-500 mb-0.5">IOCs</p>
+              <div className="flex flex-wrap gap-1">
+                {detail.iocs.slice(0, 10).map((ioc, i) => (
+                  <span
+                    key={i}
+                    className="rounded bg-rose-100 dark:bg-rose-950/30 px-1 py-0.5 text-[10px] font-mono text-rose-700 dark:text-rose-300"
+                  >
+                    {ioc.value}
+                  </span>
+                ))}
+                {detail.iocs.length > 10 && (
+                  <span className="text-[10px] text-slate-500">+{detail.iocs.length - 10} more</span>
+                )}
+              </div>
+            </div>
+          ) : null}
+
+          {detail.ttps?.length ? (
+            <div>
+              <p className="text-[10px] font-mono uppercase text-slate-500 mb-0.5">TTPs</p>
+              <div className="flex flex-wrap gap-1">
+                {detail.ttps.slice(0, 6).map((ttp, i) => (
+                  <span
+                    key={i}
+                    className="rounded bg-violet-100 dark:bg-violet-950/30 px-1 py-0.5 text-[10px] font-mono text-violet-700 dark:text-violet-300"
+                  >
+                    {ttp.name ?? ttp.id}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ) : null}
+
+          {detail.cves?.length ? (
+            <div>
+              <p className="text-[10px] font-mono uppercase text-slate-500 mb-0.5">CVEs</p>
+              <div className="flex flex-wrap gap-1">
+                {detail.cves.slice(0, 5).map((cve, i) => (
+                  <span
+                    key={i}
+                    className="rounded bg-orange-100 dark:bg-orange-950/30 px-1 py-0.5 text-[10px] font-mono text-orange-700 dark:text-orange-300"
+                  >
+                    {cve}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ) : null}
+
+          {detail.malware?.length ? (
+            <div>
+              <p className="text-[10px] font-mono uppercase text-slate-500 mb-0.5">Malware</p>
+              <div className="flex flex-wrap gap-1">
+                {detail.malware.map((m, i) => (
+                  <span
+                    key={i}
+                    className="rounded bg-emerald-100 dark:bg-emerald-950/30 px-1 py-0.5 text-[10px] font-mono text-emerald-700 dark:text-emerald-300"
+                  >
+                    {m}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ) : null}
+
+          <div className="flex items-center gap-2 pt-1">
+            {detail.url && (
+              <a
+                href={detail.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-[10px] text-brand-600 dark:text-brand-400 hover:underline"
+              >
+                <ExternalLink className="h-3 w-3" /> View on TI-Mindmap-Hub
+              </a>
+            )}
+            {detail.severity && (
+              <span className="text-[10px] font-mono text-slate-500">severity: {detail.severity}</span>
+            )}
+            {typeof detail.cvss === 'number' && (
+              <span className="text-[10px] font-mono text-slate-500">CVSS {detail.cvss.toFixed(1)}</span>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

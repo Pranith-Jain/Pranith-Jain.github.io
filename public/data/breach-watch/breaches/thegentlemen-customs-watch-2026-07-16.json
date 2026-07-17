@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/0b21686f-cbfe-4677-ac3d-cb8c0f3e9071",
+  "description": "***.com zoominfo.com/c/customs-watch/467458469 is an intelligence and IT consulting company specializing in anti-counterfeiting and product protection strategies throughout their lifecycle. The company primarily serves the pharmaceutical sector, working with 22 of the 25 largest pharmaceutical companies globally. Founded in 2001, it employs 51 to 200 people and is an active member of the International AntiCounterfeiting Coalition.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["the gentlemen"],
   "activity": "Public Sector",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

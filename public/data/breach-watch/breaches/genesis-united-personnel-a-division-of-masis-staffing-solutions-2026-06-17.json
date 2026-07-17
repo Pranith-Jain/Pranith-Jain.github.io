@@ -1,0 +1,15 @@
+{
+  "slug": "genesis-united-personnel-a-division-of-masis-staffing-solutions-2026-06-17",
+  "title": "United Personnel (a division of Masis Staffing Solutions)",
+  "group": "genesis",
+  "discovered": "2026-06-17T23:53:24.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "A provider of staffing services",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

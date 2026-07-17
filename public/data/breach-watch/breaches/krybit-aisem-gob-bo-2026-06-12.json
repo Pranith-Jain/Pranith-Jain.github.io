@@ -1,0 +1,15 @@
+{
+  "slug": "krybit-aisem-gob-bo-2026-06-12",
+  "title": "aisem.gob.bo",
+  "group": "krybit",
+  "discovered": "2026-06-12T06:55:30.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "BO",
+  "sizeBytes": 0,
+  "description": "AISEM (Agencia de Infraestructura en Salud y Equipamiento Médico) is a Bolivian government agency responsible for the d...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Public Sector",
+  "references": ["ransomware.live"]
+}

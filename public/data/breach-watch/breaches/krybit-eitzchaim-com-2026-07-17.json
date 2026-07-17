@@ -1,0 +1,15 @@
+{
+  "slug": "krybit-eitzchaim-com-2026-07-17",
+  "title": "eitzchaim.com",
+  "group": "krybit",
+  "discovered": "2026-07-17T00:30:53.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "IL",
+  "sizeBytes": 0,
+  "description": "Eitz Chaim Schools (Hebrew: ישיבת עץ חיים — Yeshivas Eitz Chaim) is a private Orthodox Jewish elementary sc...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

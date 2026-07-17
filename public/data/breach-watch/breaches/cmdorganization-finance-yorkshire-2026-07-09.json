@@ -1,0 +1,15 @@
+{
+  "slug": "cmdorganization-finance-yorkshire-2026-07-09",
+  "title": "Finance Yorkshire",
+  "group": "cmdorganization",
+  "discovered": "2026-07-09T19:20:22.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "Finance Yorkshire provides funding solutions for small and medium-sized enterprises (SMEs) located in or planning to relocate to Yorkshire. Their offerings include business loans ranging from £25,000 to £250,000, equity-linked investments, and seedcorn startup finance, with a focus on supporting growth and innovation. The organization aims to invest over £50 million in the region over the next five years, targeting businesses that seek to expand, create jobs, and enhance productivity. With a legacy of successful investments, Finance Yorkshire is dedicated to fostering the development of technology and knowledge-based companies.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["cmd organization"],
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
+}

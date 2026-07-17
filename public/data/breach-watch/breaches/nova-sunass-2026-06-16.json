@@ -1,0 +1,15 @@
+{
+  "slug": "nova-sunass-2026-06-16",
+  "title": "Sunass",
+  "group": "nova",
+  "discovered": "2026-06-16T10:54:26.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "PE",
+  "sizeBytes": 0,
+  "description": "SUNASS is a public regulatory body established by Law Decree No. 25965, with legal personality and administrative, functional, technical, economic, and financial autonomy. The organization focuses on regulating and overseeing water supply and sanitation services in Peru. Its intended clients include service providers in rural areas and small cities, as well as the general public seeking information and assistance regarding water and sanitation services. SUNASS also engages in educational programs and campaigns to promote water conservation and proper sanitation practices - Nova Provide tree and samples from stolen data to the company when its get in touch with support department.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

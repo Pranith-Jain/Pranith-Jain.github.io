@@ -1,0 +1,15 @@
+{
+  "slug": "threeam-jetmachprod-com-2026-06-12",
+  "title": "jetmachprod.com",
+  "group": "threeam",
+  "discovered": "2026-06-12T20:07:11.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Jet Machined Products specializes in high-performance milled and turned components for the aerospace, instrumentation, robotics, and other specialized industries. With decades of experience, they focus on precision manufacturing to meet exacting t",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

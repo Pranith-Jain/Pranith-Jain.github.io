@@ -1,15 +1,15 @@
 {
   "slug": "dragonforce-shillen-mackall-seldon-2026-07-15",
   "title": "Shillen Mackall & Seldon",
-  "group": "DragonForce",
-  "discovered": "2026-07-15T00:00:00.000Z",
+  "group": "dragonforce",
+  "discovered": "2026-07-15T12:54:28.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": "United States",
+  "country": "US",
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated in ransomware attack",
-  "source_url": "https://recentbreaches.com/breach/shillen-mackall-seldon-dragonforce-2026-07",
+  "description": "Shillen Mackall Seldon Spicer & Fraas is a law firm dedicated to representing personal injury victims primarily in Vermont, New Hampshire, and Florida since 1980. They offer legal services for a wide range of personal injury cases, including car accidents, medical malpractice, and workers' compensation. The firm is committed to providing compassionate legal counsel and fighting for the rights of clients facing physical, emotional, and financial challenges after accidents. With a team of experienced attorneys, they strive to secure maximum compensation for their clients while ensuring a supportive and understanding environment.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["DRAGON FORCE"],
   "activity": "Business Services",
-  "references": ["RecentBreaches.com"]
+  "references": ["ransomware.live"]
 }

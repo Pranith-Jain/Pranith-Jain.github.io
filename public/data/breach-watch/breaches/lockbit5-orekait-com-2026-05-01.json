@@ -1,0 +1,15 @@
+{
+  "slug": "lockbit5-orekait-com-2026-05-01",
+  "title": "orekait.com",
+  "group": "lockbit5",
+  "discovered": "2026-05-01T12:46:34.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "JP",
+  "sizeBytes": 0,
+  "description": "Oreka IT is a technology services company that works closely with Euskal Trenbide Sarea (Basque Rail...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

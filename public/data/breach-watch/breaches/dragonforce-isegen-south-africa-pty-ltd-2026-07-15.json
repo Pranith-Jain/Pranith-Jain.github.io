@@ -1,15 +1,15 @@
 {
   "slug": "dragonforce-isegen-south-africa-pty-ltd-2026-07-15",
   "title": "Isegen South Africa (Pty) Ltd",
-  "group": "DragonForce",
-  "discovered": "2026-07-15T00:00:00.000Z",
+  "group": "dragonforce",
+  "discovered": "2026-07-15T12:56:20.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": "South Africa",
+  "country": "ZA",
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated in ransomware attack",
-  "source_url": "https://recentbreaches.com/breach/isegen-south-africa-pty-ltd-dragonforce-2026-07",
+  "description": "Isegen South Africa (Pty) Ltd is a South African chemical company founded in 1974. It is the sole producer of certain chemical products in South Africa.\nData that will be published:\n    Corporate correspondence\n    Passport / personal identification data\n    Contracts\n    Certificates\n    Intellectual property data\n    And other related information",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["DRAGON FORCE"],
   "activity": "Energy",
-  "references": ["RecentBreaches.com"]
+  "references": ["ransomware.live"]
 }

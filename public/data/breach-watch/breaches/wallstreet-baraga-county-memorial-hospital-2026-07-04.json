@@ -1,0 +1,15 @@
+{
+  "slug": "wallstreet-baraga-county-memorial-hospital-2026-07-04",
+  "title": "Baraga County Memorial Hospital",
+  "group": "Wallstreet",
+  "discovered": "2026-07-04T20:50:32.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Baraga County Memorial Hospital is a critical access hospital serving Baraga County with emergency, surgery, imaging, rehab, and outpatient care.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

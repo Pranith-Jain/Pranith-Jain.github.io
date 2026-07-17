@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-newspaper-media-group-2026-06-20",
+  "title": "Newspaper Media Group",
+  "group": "incransom",
+  "discovered": "2026-06-20T19:35:30.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Newspaper Media Group is a local news organization that provides comprehensive coverage of news, sports, entertainment, and community events across various regions, including Central Jersey and South Jersey. They publish multiple newspapers and magazines, ensuring that they reach more households than their competitors in nearly every zip code they cover. Their services are aimed at local communities, delivering news that is often not found elsewhere. With a commitment to connecting readers to the communities they care about, NMG stands out for its focus on local reporting.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-advanced-laundry-systems-2026-05-08",
+  "title": "Advanced Laundry Systems",
+  "group": "qilin",
+  "discovered": "2026-05-08T18:47:31.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

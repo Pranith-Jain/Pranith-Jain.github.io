@@ -1,0 +1,15 @@
+{
+  "slug": "payoutsking-central-national-gottesman-2026-04-30",
+  "title": "Central National Gottesman",
+  "group": "payoutsking",
+  "discovered": "2026-04-30T00:36:57.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "[AI generated] Central National Gottesman is a privately held global pulp and paper merchant headquartered in Purchase, New York, USA. Founded in 1886, the company distributes printing and writing papers, packaging materials, pulp, and tissue products. It operates across multiple continents, serving publishers, printers, and converters. It is one of the largest independent paper distribution companies in the world.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

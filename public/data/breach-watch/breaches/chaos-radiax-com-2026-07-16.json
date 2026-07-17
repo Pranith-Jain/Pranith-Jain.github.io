@@ -2,14 +2,14 @@
   "slug": "chaos-radiax-com-2026-07-16",
   "title": "radiax.com",
   "group": "chaos",
-  "discovered": "2026-07-16T19:49:23.000Z",
+  "discovered": "2026-07-16T17:22:01.000Z",
   "category": "ransomware",
   "severity": "high",
-  "country": null,
+  "country": "US",
   "sizeBytes": 0,
   "description": "NOTICE OF DATA BREACH: RADIAX.COM\n\nWe are officially announcing that we have gained full access to the internal network and sensitive data infrastructure of Radiax.com.\n\nTo prove the authenticity of our access, we have published an initial 5% of the total exfiltrated data. This is merely a sample. W…",
-  "source_url": "https://www.ransomlook.io/screenshots/chaos/radiaxcom.png",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
-  "activity": null,
-  "references": ["ransomlook.io"]
+  "activity": "Technology",
+  "references": ["ransomware.live"]
 }

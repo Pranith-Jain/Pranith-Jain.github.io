@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "BR",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/c81b2e18-43dc-4c72-b03d-3dca4ee8444d",
+  "description": "Werken Química Brasil S.A. is a company specializing in the development and supply of chemical products, headquartered in Indaial, Santa Catarina. It operates primarily within the textile industry, offering solutions for pretreatment, dyeing, printing, yarn lubrication, and effluent treatment, with a focus on functional technologies.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Manufacturing",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

@@ -1,0 +1,15 @@
+{
+  "slug": "apt73-aydeniz-com-2026-07-03",
+  "title": "aydeniz.com",
+  "group": "apt73",
+  "discovered": "2026-07-03T12:22:02.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "TR",
+  "sizeBytes": 0,
+  "description": "Aydeniz Group is a family-owned group of companies founded in 1975, operating in several key indu...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Eraleign"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

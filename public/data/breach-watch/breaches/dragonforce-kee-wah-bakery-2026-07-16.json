@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "HK",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/807a7e68-d78e-4cb3-95c1-0936f4df5825",
+  "description": "Kee Wah Bakery specializes in traditional and innovative baked goods, offering a wide range of products including mooncakes, festive treats, and gift items. The company prides itself on using high-quality ingredients and advanced techniques to create its renowned products. Targeting both individual consumers and corporate clients, Kee Wah Bakery also provides promotional offers and a membership program for added benefits. With a commitment to quality and tradition, the brand continues to uphold its legacy in the baking industry.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["DRAGON FORCE"],
   "activity": "Agriculture and Food Production",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

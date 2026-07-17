@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-bmiprojects-de-2026-07-06",
+  "title": "bmiprojects.de",
+  "group": "safepay",
+  "discovered": "2026-07-06T19:42:23.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "Originally operating under the name Bez Marine Interiors GmbH, the company built on decades of experience in the maritime industry …",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Construction",
+  "references": ["ransomware.live"]
+}

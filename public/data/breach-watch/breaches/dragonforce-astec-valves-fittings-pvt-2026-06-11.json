@@ -2,14 +2,14 @@
   "slug": "dragonforce-astec-valves-fittings-pvt-2026-06-11",
   "title": "Astec Valves & Fittings Pvt",
   "group": "dragonforce",
-  "discovered": "2026-06-11T16:02:31.000Z",
+  "discovered": "2026-06-11T15:21:35.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": null,
+  "country": "IN",
   "sizeBytes": 0,
-  "description": null,
-  "source_url": "http://z3wqggtxft7id3ibr7srivv5gjof5fwg76slewnzwwakjuf3nlhukdid.onion/blog#astec-valves-fittings-pvt",
+  "description": "Astec Valves & Fittings Private Limited specializes in providing high-quality instrumentation and piping solutions for various industries, including Oil & Gas, Refining, Petrochemical, and Nuclear Power. Established in 1965, the company offers a range of products such as instrument tube fittings, valves, and integrated assemblies, with a focus on innovative technologies that enhance process measurement and reduce maintenance downtime. With a presence in 40 countries and over a million installations, Astec is recognized for its eco-friendly product technologies and has received multiple awards for technical innovation. Their clients include sectors like shipbuilding, water treatment, and pharmaceuticals, making them a trusted partner for instrumentation and piping engineers worldwide.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["DRAGON FORCE"],
-  "activity": null,
-  "references": ["CTI.FYI"]
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
 }

@@ -1,0 +1,15 @@
+{
+  "slug": "cmdorganization-lake-washington-school-district-2026-05-31",
+  "title": "Lake Washington School District",
+  "group": "cmdorganization",
+  "discovered": "2026-05-31T10:50:12.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Founded in 1914, Lake Washington School District is the administrative body responsible for planning and managing public education for 33 elementary, 14 middle, and 9 high schools. It serves communities of Kirkland, Redmond and about half of Sammamish. The company is headquartered in Redmond, Washington.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["cmd organization"],
+  "activity": "Education",
+  "references": ["ransomware.live"]
+}

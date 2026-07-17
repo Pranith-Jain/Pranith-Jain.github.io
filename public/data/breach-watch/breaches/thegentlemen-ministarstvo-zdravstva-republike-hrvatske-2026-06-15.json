@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-ministarstvo-zdravstva-republike-hrvatske-2026-06-15",
+  "title": "Ministarstvo zdravstva Republike Hrvatske",
+  "group": "thegentlemen",
+  "discovered": "2026-06-15T13:01:41.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "HR",
+  "sizeBytes": 0,
+  "description": "***.gov.hr zoominfo.com/c/ministarstvo-zdravstva-republike-hrvatske/1339932847 The Ministry of Health of the Republic of Croatia is the central government authority responsible for shaping national health policies, regulating medical standards, and managing the public healthcare system. Through its official portal, it provides citizens with crucial public health guidelines, legislative updates, and secure access to modern digital e-Health services. Their primary mission is to protect population well-being, ensure equitable access to high-quality medical care, and continuously modernize the national health infrastructure",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Public Sector",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-https-sibillacapital-com-2026-05-10",
+  "title": "https://sibillacapital.com/",
+  "group": "incransom",
+  "discovered": "2026-05-10T03:52:43.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "data",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
+}

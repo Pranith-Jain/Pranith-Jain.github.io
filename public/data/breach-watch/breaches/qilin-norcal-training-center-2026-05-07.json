@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-norcal-training-center-2026-05-07",
+  "title": "Norcal Training Center",
+  "group": "qilin",
+  "discovered": "2026-05-07T17:49:56.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Education",
+  "references": ["ransomware.live"]
+}

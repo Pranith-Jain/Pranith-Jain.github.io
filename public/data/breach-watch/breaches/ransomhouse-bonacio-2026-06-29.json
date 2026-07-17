@@ -1,0 +1,15 @@
+{
+  "slug": "ransomhouse-bonacio-2026-06-29",
+  "title": "Bonacio",
+  "group": "ransomhouse",
+  "discovered": "2026-06-29T15:28:25.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "Bonacio Steel is a division of Bonacio Construction that provides comprehensive steel design and fabrication services, specializing in both commercial and residential projects in the Northeast. With a 35-year history of construction accomplishments, they offer innovative solutions including structural steel fabrication, installation, and custom ornamental metals. Bonacio Steel caters to a variety of industries such as equine, medical, retail, and residential, ensuring quality and timely delivery through their skilled team. Committed to integrity and community impact, Bonacio Steel continuously improves its processes to meet the diverse needs of general contractors, developers, and custom home builders.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["RANSOM HOUSE"],
+  "activity": "Construction",
+  "references": ["ransomware.live"]
+}

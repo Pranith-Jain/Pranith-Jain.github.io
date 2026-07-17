@@ -1,0 +1,15 @@
+{
+  "slug": "akira-tsg-enterprises-2026-05-19",
+  "title": "TSG Enterprises",
+  "group": "akira",
+  "discovered": "2026-05-19T14:50:21.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "TSG Enterprises, LLC empowers entrepreneurs and businesses through expert consultations, strate\ngic guidance, and customized solutions. Their mission is to provide the knowledge, resources, a\nnd innovation essential for thriving in today's market. The company focuses on building strong \npartnerships that drive growth and support long-term success, enabling clients to achieve their\ngoals with clarity and confidence.\n\nWe will upload 18gb of corporate data soon. Detailed employee and clients personal information \n(name, addresses, SSN numbers, DLs and passport scans), contracts and agreements, detailed fina\nncials, NDAs and other confidential docs.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Megazord"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

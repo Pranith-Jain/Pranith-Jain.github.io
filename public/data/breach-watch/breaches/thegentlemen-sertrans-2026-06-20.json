@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-sertrans-2026-06-20",
+  "title": "Sertrans",
+  "group": "thegentlemen",
+  "discovered": "2026-06-20T08:51:14.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "ES",
+  "sizeBytes": 0,
+  "description": "***.es zoominfo.com/c/sertrans/372599324 Sertrans is a prominent Spanish logistics and supply chain management company founded in 1987, which has grown from a small family business into a major industry player.The company specializes in comprehensive goods transportation, offering services that range from domestic road haulage and parcel delivery to international freight.With an extensive network and decades of experience, Sertrans efficiently connects businesses across Spain, the rest of Europe, and Morocco",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Transportation/Logistics",
+  "references": ["ransomware.live"]
+}

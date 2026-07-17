@@ -1,0 +1,15 @@
+{
+  "slug": "shinyhunters-icsecurity-com-2026-06-18",
+  "title": "icsecurity.com",
+  "group": "shinyhunters",
+  "discovered": "2026-06-18T15:26:05.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Over 2.7 million records and other internal corporate data was compromised. This is a final warning to reach out by 22 June 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 19 June 2026 | Warning: FINAL WARNING PAY OR LEAK",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

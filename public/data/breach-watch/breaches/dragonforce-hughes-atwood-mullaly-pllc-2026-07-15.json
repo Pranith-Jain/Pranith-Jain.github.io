@@ -1,15 +1,15 @@
 {
   "slug": "dragonforce-hughes-atwood-mullaly-pllc-2026-07-15",
   "title": "Hughes Atwood & Mullaly pllc",
-  "group": "DragonForce",
-  "discovered": "2026-07-15T00:00:00.000Z",
+  "group": "dragonforce",
+  "discovered": "2026-07-15T12:55:27.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": "United States",
+  "country": "US",
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated in ransomware attack",
-  "source_url": "https://recentbreaches.com/breach/hughes-atwood-mullaly-pllc-dragonforce-2026-07",
+  "description": "Hughes Atwood & Mullaly PLLC is a full-service law firm that offers professional legal services to individuals, businesses, and institutions in the Upper Valley Region of New Hampshire and Vermont. The firm specializes in various practice areas including Business Law, Civil Litigation, Criminal Law, Estate Planning, Real Estate, Divorce Law, Municipal Law, Collections, and Landlord-Tenant issues. Their experienced attorneys are dedicated to providing caring legal support tailored to their clients' needs. The firm does not solicit legal business from clients in jurisdictions where they are not licensed to practice.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["DRAGON FORCE"],
   "activity": "Business Services",
-  "references": ["RecentBreaches.com"]
+  "references": ["ransomware.live"]
 }

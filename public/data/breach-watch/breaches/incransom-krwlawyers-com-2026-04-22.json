@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-krwlawyers-com-2026-04-22",
+  "title": "krwlawyers.com",
+  "group": "incransom",
+  "discovered": "2026-04-22T19:52:26.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "At KRW Lawyers, we understand the profound impacts that an unexpected accident can have on your physical, emotional, and financial well-being. Our personal injury and mass tort lawyers are dedicated to holding negligent parties accountable and recovering a comprehensive settlement for all your current and future care needs. \r \r With decades of experience and over $1 Billion recovered, you can trust our attorneys to represent your best interests in and out of the courtroom. Our firm is proud to have its members recognized by Super Lawyers and Martindale-Hubbell, underscoring our impressive record of results and commitment to excellence, integrity, and service.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

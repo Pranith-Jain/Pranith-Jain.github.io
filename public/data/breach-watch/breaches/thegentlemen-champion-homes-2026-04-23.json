@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-champion-homes-2026-04-23",
+  "title": "Champion Homes",
+  "group": "thegentlemen",
+  "discovered": "2026-04-23T06:27:43.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "AU",
+  "sizeBytes": 0,
+  "description": "championhomes.com.au zoominfo.com/c/champion-homes-pty-ltd/345413802 Established Sydney home builder since 1998 — Champion Homes is a residential building company operating in Greater Sydney and the Illawarra region of NSW, with thousands of homes built over more than 25 years. Specializes in duplexes, knockdown rebuilds & house/land packages — Their core offerings include duplex construction, knock-down rebuilds, house & land packages, narrow lot designs, and custom single or double-storey homes with 3–5 bedrooms.Quality-first approach with guarantees — Every completed home comes with 9 Champion Certificates & Guarantees, and the company partners exclusively with leading Australian brands as standard inclusions for maximum value.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Construction",
+  "references": ["ransomware.live"]
+}

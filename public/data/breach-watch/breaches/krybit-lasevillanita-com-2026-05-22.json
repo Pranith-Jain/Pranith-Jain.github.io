@@ -1,0 +1,15 @@
+{
+  "slug": "krybit-lasevillanita-com-2026-05-22",
+  "title": "lasevillanita.com",
+  "group": "krybit",
+  "discovered": "2026-05-22T22:22:56.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "ES",
+  "sizeBytes": 0,
+  "description": "Transportes La Sevillanita Srl is a company that operates in the Freight & Logistics Services industry. It employs 10to1...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Hospitality and Tourism",
+  "references": ["ransomware.live"]
+}

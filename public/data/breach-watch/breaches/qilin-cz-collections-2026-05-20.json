@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-cz-collections-2026-05-20",
+  "title": "Cz Collections",
+  "group": "qilin",
+  "discovered": "2026-05-20T15:25:15.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "CZ",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

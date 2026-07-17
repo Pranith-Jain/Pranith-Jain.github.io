@@ -1,0 +1,15 @@
+{
+  "slug": "krybit-www-lagus-cz-2026-07-17",
+  "title": "www.lagus.cz",
+  "group": "krybit",
+  "discovered": "2026-07-17T00:28:54.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "CZ",
+  "sizeBytes": 0,
+  "description": "LAGUS s.r.o. is a genuine Czech manufacturing company established on April 21, 1998, headquartered in Hruškové Dvory (...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

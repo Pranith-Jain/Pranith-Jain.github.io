@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-al-dhow-group-2026-07-01",
+  "title": "Al Dhow Group",
+  "group": "thegentlemen",
+  "discovered": "2026-07-01T22:22:49.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "AE",
+  "sizeBytes": 0,
+  "description": "***.com zoominfo.com/c/al-dhow/345585723 Dhow International Holding is a diversified group of companies with a portfolio spanning high-growth and high-impact industries across the GCC region.Their extensive operations encompass a wide range of sectors, including engineering, architectural solutions, hospitality, food & beverage, logistics, healthcare, and venture capital. The group is committed to delivering integrated, end-to-end services while fostering long-term sustainable growth across all its businesses",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Transportation/Logistics",
+  "references": ["ransomware.live"]
+}

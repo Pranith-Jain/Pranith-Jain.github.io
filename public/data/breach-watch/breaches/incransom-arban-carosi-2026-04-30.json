@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-arban-carosi-2026-04-30",
+  "title": "Arban & Carosi",
+  "group": "incransom",
+  "discovered": "2026-04-30T01:23:23.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Arban Carosi: 1TB customer and company data leaked due to negligence.       * * Full employee base: Including names, positions, personal and work email addresses, phone numbers.     * * Financial Documentation: Contracts, Invoices, Revenue Data     * * Customer base: Customer contact details, project details     * * Internal correspondence: Service emails and documents disclosing internal processes and company plans.   !! In the screenshots, you can see that we have accessed detailed plans of various buildings, including U.S. Army buildings!!  We will publish all the data in a week and everyone can use it for their own purposes.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

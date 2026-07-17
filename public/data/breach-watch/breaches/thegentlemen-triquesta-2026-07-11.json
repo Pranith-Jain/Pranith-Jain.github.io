@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "MX",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/5fd0be97-0e35-414b-87b0-067fca739693",
+  "description": "***.com zoominfo.com/c/triquesta-pte-ltd/346670373 Triquesta is a Singapore-based fintech company specializing in collateral, compliance, and risk management software for structured commodity finance.Founded by seasoned banking professionals, the firm provides cutting-edge technology that helps global banks and direct lenders reliably track assets and mitigate risks.With a strong international presence across Europe and Australia, their solutions empower financial institutions to navigate complex commodity markets efficiently",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["the gentlemen"],
   "activity": "Not Found",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

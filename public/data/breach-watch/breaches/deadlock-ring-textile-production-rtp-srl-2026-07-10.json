@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": null,
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/26ac2a23-7234-4c05-8e97-24b69b63a434",
+  "description": "rtpbz.ro is the official domain for Ring Textile Production RTP SRL, a Romanian textile manufacturing company based in Buzău. Industry: Manufacture of outerwear and tricot clothing, specializing in women's nightwear, underwear, and cotton/linen apparel.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Manufacturing",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

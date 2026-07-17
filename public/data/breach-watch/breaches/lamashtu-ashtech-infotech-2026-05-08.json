@@ -1,0 +1,15 @@
+{
+  "slug": "lamashtu-ashtech-infotech-2026-05-08",
+  "title": "Ashtech Infotech",
+  "group": "lamashtu",
+  "discovered": "2026-05-08T17:23:31.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "IN",
+  "sizeBytes": 0,
+  "description": "Ashtech Infotech (India) Pvt. Ltd. is a leading System Integrator and IT service provider based in Mumbai, India. Established in 1986, the company specializes in delivering end-to-end technology solutions to enterprises.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

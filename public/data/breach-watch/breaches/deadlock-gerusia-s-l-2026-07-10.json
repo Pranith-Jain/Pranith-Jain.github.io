@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "ES",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/7f3c47c8-bf0b-4bf2-aaac-46b85fded76d",
+  "description": "Gerusia S.L., a Spanish service company headquartered in Oviedo, Asturias. Founded in 1995 and managed by women, the company provides a wide range of cleaning, auxiliary, and social-sanitary services for both public and private sectors throughout the Asturias region.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Not Found",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

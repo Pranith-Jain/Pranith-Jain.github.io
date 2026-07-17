@@ -2,14 +2,14 @@
   "slug": "lynx-www-commonwealth-partners-com-2026-06-11",
   "title": "www.commonwealth-partners.com",
   "group": "lynx",
-  "discovered": "2026-06-11T16:07:25.000Z",
+  "discovered": "2026-06-11T15:52:47.000Z",
   "category": "data_breach",
   "severity": "high",
-  "country": null,
+  "country": "GB",
   "sizeBytes": 0,
-  "description": null,
-  "source_url": "http://lynxblogxutufossaeawlij3j3uikaloll5ko6grzhkwdclrjngrfoid.onion/leaks#wwwcommonwealth-partnerscom",
+  "description": "CommonWealth Partners Properties specializes in a range of real estate services including investment transactions, portfolio management, asset management, and property management. The company is committed to environmental, social, and governance (ESG) principles and emphasizes stakeholder engagement. Their intended clients include property owners and tenants seeking comprehensive management and development solutions. With a focus on delivering value and sustainability, they aim to enhance the performance of their real estate assets.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
-  "activity": null,
-  "references": ["CTI.FYI"]
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
 }

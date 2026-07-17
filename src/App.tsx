@@ -48,6 +48,8 @@ const CaseStudy = lazy(() => import('./pages/CaseStudy'));
 const ResearchPostPage = lazy(() => import('./pages/threatintel/ResearchPost'));
 const DFIR = lazy(() => import('./pages/DFIR'));
 
+const LoginPage = lazy(() => import('./pages/auth/LoginPage'));
+const RegisterPage = lazy(() => import('./pages/auth/RegisterPage'));
 const Phishing = lazy(() => import('./pages/dfir/Phishing'));
 const Exposure = lazy(() => import('./pages/dfir/Exposure'));
 const AssetIntel = lazy(() => import('./pages/dfir/AssetIntel'));
@@ -416,6 +418,8 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/projects', Component: Projects },
   { path: '/projects/:slug', Component: CaseStudy },
   { path: '/behind-the-reports', Component: BehindTheReports },
+  { path: '/auth/login', Component: LoginPage },
+  { path: '/auth/register', Component: RegisterPage },
   { path: '/sponsor', Component: Sponsor },
   { path: '/blog', Component: Blog },
   { path: '/blog/c/:type', Component: Blog },

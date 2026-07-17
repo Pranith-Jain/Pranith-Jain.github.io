@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-marketjoy-2026-06-03",
+  "title": "MarketJoy",
+  "group": "qilin",
+  "discovered": "2026-06-03T09:09:02.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

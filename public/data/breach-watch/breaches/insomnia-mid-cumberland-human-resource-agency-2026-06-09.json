@@ -1,0 +1,15 @@
+{
+  "slug": "insomnia-mid-cumberland-human-resource-agency-2026-06-09",
+  "title": "Mid-Cumberland Human Resource Agency",
+  "group": "insomnia",
+  "discovered": "2026-06-09T20:53:07.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "MCHRA is a nonprofit promoting self-sufficiency via Meals-on-Wheels, public transit, in-home services, and community corrections. It serves adults needing care, transit users, and long-term care residents, emphasizing inclusivity and translation services.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

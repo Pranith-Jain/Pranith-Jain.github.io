@@ -1,0 +1,15 @@
+{
+  "slug": "payload-the-commune-of-castries-2026-07-09",
+  "title": "The commune of Castries",
+  "group": "payload",
+  "discovered": "2026-07-09T13:27:51.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "FR",
+  "sizeBytes": 0,
+  "description": "The commune of Castries is a picturesque, historic town in the south of France, renowned for its majestic 17th-century château and unique aqueduct. The city's official website (castries.fr) provides visitors and locals with the latest news, cultural event schedules, and tourism information. Additionally, the portal serves as a convenient digital platform for residents to access municipal services and connect with the town hall.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Public Sector",
+  "references": ["ransomware.live"]
+}

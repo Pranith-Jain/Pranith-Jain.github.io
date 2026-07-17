@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-euro-creations-2026-04-23",
+  "title": "Euro Creations",
+  "group": "thegentlemen",
+  "discovered": "2026-04-23T06:27:39.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "TH",
+  "sizeBytes": 0,
+  "description": "eurocreations.co.th Luxury furniture retailer founded in 1996, Bangkok — Euro Creations is a Thailand-based public company (SET: EURO) specializing in importing and distributing European luxury furniture, lighting, and home accessories, headquartered on Sukhumvit Road, Bangkok. Three flagship stores in prime Bangkok locations — The company operates showrooms at CDC, Siam Paragon, and Thonglor, offering curated collections from world-renowned European brands across living room, bedroom, bathroom, kitchen, outdoor, and wardrobe categories.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

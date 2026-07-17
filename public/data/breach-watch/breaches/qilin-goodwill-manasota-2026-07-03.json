@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-goodwill-manasota-2026-07-03",
+  "title": "Goodwill Manasota",
+  "group": "qilin",
+  "discovered": "2026-07-03T18:29:28.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

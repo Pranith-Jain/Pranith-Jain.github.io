@@ -1,0 +1,15 @@
+{
+  "slug": "pear-sociedad-latina-2026-06-30",
+  "title": "Sociedad Latina",
+  "group": "pear",
+  "discovered": "2026-06-30T12:28:27.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Support in education, civic engagement, workforce development, and arts and culture, specifically tailored for multilingual learners",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

@@ -2,14 +2,14 @@
   "slug": "qilin-bitek-system-2026-06-11",
   "title": "Bitek System",
   "group": "qilin",
-  "discovered": "2026-06-11T07:05:33.000Z",
+  "discovered": "2026-06-11T06:53:30.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": null,
+  "country": "KR",
   "sizeBytes": 0,
-  "description": null,
-  "source_url": "http://ijzn3sicrcy7guixkzjkib4ukbiilwc3xhnmby4mcbccnsd7j2rekvqd.onion/site/blog?uuid=1bf9d880-109f-4804-a623-d7164ff437f8",
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
-  "activity": null,
-  "references": ["CTI.FYI"]
+  "activity": "Technology",
+  "references": ["ransomware.live"]
 }

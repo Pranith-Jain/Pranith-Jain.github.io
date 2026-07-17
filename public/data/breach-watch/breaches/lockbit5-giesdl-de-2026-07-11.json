@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "DE",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/d804780c-c942-474b-810f-d4070570e848",
+  "description": "Die Gies Dienstleistungen GmbH ist ein deutsches Gebäudedienstleistungsunternehmen. Sie hat 19 Niede...",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Not Found",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

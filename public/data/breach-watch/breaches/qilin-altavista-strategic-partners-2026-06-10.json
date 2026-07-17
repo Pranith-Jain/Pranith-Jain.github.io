@@ -2,14 +2,14 @@
   "slug": "qilin-altavista-strategic-partners-2026-06-10",
   "title": "AltaVista Strategic Partners",
   "group": "qilin",
-  "discovered": "2026-06-10T22:04:58.000Z",
+  "discovered": "2026-06-10T22:54:01.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": null,
+  "country": "MX",
   "sizeBytes": 0,
-  "description": null,
-  "source_url": "http://ijzn3sicrcy7guixkzjkib4ukbiilwc3xhnmby4mcbccnsd7j2rekvqd.onion/site/blog?uuid=d5982988-74d9-44ba-9efb-5dd13361ea10",
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
-  "activity": null,
-  "references": ["CTI.FYI"]
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
 }

@@ -2,14 +2,14 @@
   "slug": "qilin-wright-constable-skeen-2026-06-10",
   "title": "Wright Constable & Skeen",
   "group": "qilin",
-  "discovered": "2026-06-10T21:04:47.000Z",
+  "discovered": "2026-06-10T21:27:20.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": null,
+  "country": "US",
   "sizeBytes": 0,
-  "description": null,
-  "source_url": "http://ijzn3sicrcy7guixkzjkib4ukbiilwc3xhnmby4mcbccnsd7j2rekvqd.onion/site/blog?uuid=87496ad5-3fa6-435b-8ab2-6a412010225d",
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
-  "activity": null,
-  "references": ["CTI.FYI"]
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
 }

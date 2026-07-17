@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-ruskcountywi-us-2026-04-21",
+  "title": "ruskcountywi.us",
+  "group": "qilin",
+  "discovered": "2026-04-21T15:05:45.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Public Sector",
+  "references": ["ransomware.live"]
+}

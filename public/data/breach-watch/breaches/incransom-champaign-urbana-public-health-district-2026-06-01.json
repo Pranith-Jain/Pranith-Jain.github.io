@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-champaign-urbana-public-health-district-2026-06-01",
+  "title": "Champaign-Urbana Public Health District",
+  "group": "incransom",
+  "discovered": "2026-06-01T11:54:42.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Champaign Urbana Public Health District provides a wide range of health services including dental care, nutrition assistance, mental health support, and food safety inspections. Their programs cater to various demographics, including adolescents, women, infants, and families, focusing on preventive health and education. The district also offers resources for substance abuse treatment, sexual health, and community food initiatives. Their intended clients include residents of Champaign County seeking health services, food assistance, and educational resources.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Public Sector",
+  "references": ["ransomware.live"]
+}

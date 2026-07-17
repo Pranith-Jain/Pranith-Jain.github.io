@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-chamco-2026-06-30",
+  "title": "Chamco",
+  "group": "qilin",
+  "discovered": "2026-06-30T12:32:00.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

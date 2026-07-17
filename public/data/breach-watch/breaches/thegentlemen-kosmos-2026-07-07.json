@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-kosmos-2026-07-07",
+  "title": "Kosmos",
+  "group": "thegentlemen",
+  "discovered": "2026-07-07T18:32:34.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "***.de zoominfo.com/c/kosmos/470278755 Franckh-Kosmos Verlags-GmbH & Co. KG, a prominent media publishing house based in Stuttgart, Germany.Founded in 1822 by Johann Friedrich Franckh, the company is one of the leading publishers of guidebooks, children's books, board games, and educational experiment kits.It successfully combines long-standing tradition with modern trends to offer engaging products for children, families, and hobbyists",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Energy",
+  "references": ["ransomware.live"]
+}

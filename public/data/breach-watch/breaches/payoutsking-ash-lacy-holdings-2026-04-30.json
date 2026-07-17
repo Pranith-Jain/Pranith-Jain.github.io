@@ -1,0 +1,15 @@
+{
+  "slug": "payoutsking-ash-lacy-holdings-2026-04-30",
+  "title": "Ash & Lacy Holdings",
+  "group": "payoutsking",
+  "discovered": "2026-04-30T00:53:53.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "[AI generated] Ash & Lacy Holdings is a UK-based manufacturing company specialising in building envelope products and construction systems. It produces metal framing, rainscreen cladding, and roofing solutions primarily for the construction industry. Operating from the West Midlands, England, the company serves commercial and residential sectors, supplying architects, contractors, and specifiers with structural and aesthetic building components.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

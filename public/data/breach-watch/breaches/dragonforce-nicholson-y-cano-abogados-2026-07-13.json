@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "AR",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/bce5a60a-0bee-4eb2-8d31-b1fc0d38fc2a",
+  "description": "Nicholson y Cano is a leading full-service law firm in Argentina, established in 1976, with a team of 29 partners and over 150 lawyers. The firm provides exceptional legal services to both local and international clients across all sectors of the economy, focusing on strategic solutions that drive business success. With expertise in 20 practice areas, they handle complex legal matters and transactions. Their commitment to client success is reflected in their personalized attention and innovative approaches.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["DRAGON FORCE"],
   "activity": "Business Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

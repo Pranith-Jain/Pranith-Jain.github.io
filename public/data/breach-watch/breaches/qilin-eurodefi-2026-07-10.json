@@ -5,11 +5,11 @@
   "discovered": "2026-07-10T15:57:41.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": "FR",
+  "country": "MA",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/95c45801-ce0a-4029-a6b0-a8667dda2ba2",
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Financial Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

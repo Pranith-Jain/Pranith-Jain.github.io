@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-emas-group-2026-07-01",
+  "title": "EMAS Group",
+  "group": "thegentlemen",
+  "discovered": "2026-07-01T22:19:01.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "CZ",
+  "sizeBytes": 0,
+  "description": "***.cz zoominfo.com/c/janča--emas-group-sro/532190785 JANCA & EMAS group s.r.o., one of the largest wholesale distributors of electrical equipment and materials in the Czech Republic. The company supplies a comprehensive range of electrical components, including switches, sockets, and smart home automation systems, primarily serving professional electricians and businesses. They operate an extensive network of physical branches across the country and offer a dedicated mobile app for quick ordering and inventory management.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Energy",
+  "references": ["ransomware.live"]
+}

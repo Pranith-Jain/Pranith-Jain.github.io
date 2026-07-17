@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-brscappuccio-it-2026-06-17",
+  "title": "brscappuccio.it",
+  "group": "safepay",
+  "discovered": "2026-06-17T20:24:43.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "Headquartered in Casandrino, near Naples in the Campania region, the company specializes in the distribution and supply of medical devices, …",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

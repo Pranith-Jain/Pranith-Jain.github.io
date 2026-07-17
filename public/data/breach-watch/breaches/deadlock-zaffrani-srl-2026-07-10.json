@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "IT",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/a93feabc-7072-4137-bb9f-48906ebbb67a",
+  "description": "Zaffrani Srl, an Italian manufacturer specializing in advanced agricultural machinery. Founded in 1959, the company is headquartered in the Marche region of Italy and has become a global leader in crop harvesting and drying technology.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Business Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

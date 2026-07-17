@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-cyuou-com-2026-05-25",
+  "title": "cyuou.com",
+  "group": "safepay",
+  "discovered": "2026-05-25T18:54:28.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "JP",
+  "sizeBytes": 0,
+  "description": "Founded in 2000, the company specializes in website development, digital advertising, graphic design, Wi-Fi infrastructure projects, and online business support …",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-foxstone-financial-2026-05-04",
+  "title": "Foxstone Financial",
+  "group": "qilin",
+  "discovered": "2026-05-04T17:57:06.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "AU",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
+}

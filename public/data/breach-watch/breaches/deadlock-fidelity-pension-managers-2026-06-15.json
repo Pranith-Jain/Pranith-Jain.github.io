@@ -1,0 +1,15 @@
+{
+  "slug": "deadlock-fidelity-pension-managers-2026-06-15",
+  "title": "Fidelity Pension Managers",
+  "group": "Deadlock",
+  "discovered": "2026-06-15T18:24:17.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "NG",
+  "sizeBytes": 0,
+  "description": "Fidelity Pension Managers Limited regulated by PenCom in Nigeria, is a licensed Pension Fund Administrator (PFA) established in 2004 to manage retirement savings accounts (RSA). The company offers investment portfolio management and digital services, including the iPension portal and FidApp Plus, to facilitate RSA contributions.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
+}

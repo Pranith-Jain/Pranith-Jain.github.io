@@ -1,0 +1,15 @@
+{
+  "slug": "lockbit5-instapack-es-2026-04-29",
+  "title": "instapack.es",
+  "group": "lockbit5",
+  "discovered": "2026-04-29T10:32:35.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "ES",
+  "sizeBytes": 0,
+  "description": "Instapack is a professional courier service with over 30 years of experience, offering immediate del...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

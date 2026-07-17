@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-domaine-des-tournels-2026-05-13",
+  "title": "Domaine Des Tournels",
+  "group": "qilin",
+  "discovered": "2026-05-13T17:58:40.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "FR",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

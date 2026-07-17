@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-e-control-systems-2026-05-18",
+  "title": "E-Control Systems",
+  "group": "thegentlemen",
+  "discovered": "2026-05-18T18:54:05.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "AT",
+  "sizeBytes": 0,
+  "description": "econtrolsystems.com zoominfo.com/c/e-control-systems-inc/34461104 E-Control Systems is a California-based technology leader founded in 1998, specializing in IoT-powered wireless temperature monitoring solutions for critical environments. Their turnkey FusionLive™ platform delivers real-time alerts, cloud-based dashboards, and regulatory compliance tools for food service, healthcare, life sciences, and retail industries. With 5,000+ installations nationwide, ECS combines custom-engineered hardware and intuitive software to safeguard products, ensure safety standards, and streamline operations 24/7",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

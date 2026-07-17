@@ -1,0 +1,15 @@
+{
+  "slug": "krybit-rehabmalaysia-com-2026-07-17",
+  "title": "rehabmalaysia.com",
+  "group": "krybit",
+  "discovered": "2026-07-17T00:29:31.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "MY",
+  "sizeBytes": 0,
+  "description": "Pusat Rehabilitasi PERKESO Tun Abdul Razak (PERKESO Rehabilitation Centre Malaysia) is a Malaysian government-linked reh...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

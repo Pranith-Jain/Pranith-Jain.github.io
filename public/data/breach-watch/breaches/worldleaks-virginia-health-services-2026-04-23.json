@@ -1,0 +1,15 @@
+{
+  "slug": "worldleaks-virginia-health-services-2026-04-23",
+  "title": "Virginia Health Services",
+  "group": "worldleaks",
+  "discovered": "2026-04-23T10:54:17.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "[AI generated] Virginia Health Services is a healthcare organization based in Virginia, United States. It provides a range of senior care and rehabilitation services, including skilled nursing, assisted living, memory care, and outpatient therapy. Operating multiple facilities across the Hampton Roads region, the company serves elderly and recovering patients, focusing on long-term care, post-acute rehabilitation, and community-based health support services.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

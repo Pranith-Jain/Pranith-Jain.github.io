@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-life-bridges-2026-06-25",
+  "title": "Life Bridges",
+  "group": "incransom",
+  "discovered": "2026-06-25T23:23:37.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Life Bridges is a non-profit organization dedicated to supporting individuals with intellectual and developmental disabilities, providing a range of services including residential support, healthcare, and community living services. Established in 1973, the organization focuses on promoting independence and dignity for its clients through tailored support and therapeutic services. Their intended clients include individuals with various developmental disabilities, as well as their families, ensuring a holistic approach to care and community involvement. Life Bridges is committed to bridging the gap between abilities and disabilities, fostering an inclusive environment where all individuals can thrive.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

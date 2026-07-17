@@ -1,0 +1,15 @@
+{
+  "slug": "stormous-monoprix-tn-2026-06-28",
+  "title": "monoprix.tn",
+  "group": "stormous",
+  "discovered": "2026-06-28T21:29:18.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "TN",
+  "sizeBytes": 0,
+  "description": "Data description: Pending update",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

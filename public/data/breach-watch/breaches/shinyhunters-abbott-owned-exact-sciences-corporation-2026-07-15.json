@@ -1,15 +1,15 @@
 {
   "slug": "shinyhunters-abbott-owned-exact-sciences-corporation-2026-07-15",
   "title": "Abbott owned Exact Sciences Corporation",
-  "group": "ShinyHunters",
-  "discovered": "2026-07-15T00:00:00.000Z",
+  "group": "shinyhunters",
+  "discovered": "2026-07-15T00:00:53.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": "United States",
+  "country": "US",
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated in ransomware attack",
-  "source_url": "https://recentbreaches.com/breach/abbott-owned-exact-sciences-corporation-shinyhunters-2026-07",
+  "description": "You wouldn't want us to describe what was exfiltrated from you publicly. This is a final warning to reach out by 18 July 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 15 July 2026 | Warning: FINAL WARNING PAY OR LEAK",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Healthcare",
-  "references": ["RecentBreaches.com"]
+  "references": ["ransomware.live"]
 }

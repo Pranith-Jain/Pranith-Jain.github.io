@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-triquim-2026-05-06",
+  "title": "Triquim",
+  "group": "thegentlemen",
+  "discovered": "2026-05-06T10:07:45.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "AR",
+  "sizeBytes": 0,
+  "description": "triquim.com.ar zoominfo.com/c/triquim-sa/430429498 TRIQUIM S.A. is an Argentine pharmaceutical manufacturer founded in 1980 and headquartered in Tortuguitas, Buenos Aires, that has dedicated over 40 years to the synthesis and supply of Active Pharmaceutical Ingredients (APIs) for human and veterinary use. The company operates as a CMO/CDMO partner, offering custom API development, contract manufacturing, regulatory services, containment, and analytical services to pharma clients worldwide. TRIQUIM holds certifications from Brazil's ANVISA and Mexico's COFEPRIS, and supplies clients across North America, Europe, and emerging markets with a portfolio of 16 pharmaceutical products including Benfotiamine, Bosentan, and Clonixinal",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

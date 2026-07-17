@@ -301,7 +301,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [OSINT Portal Directory](https://pranithjain.qzz.io/threatintel/osint/directory) (threatintel): Curated directory of 40 OSINT portals and resources filtered by category.
 - [Threat Intel Copilot](https://pranithjain.qzz.io/threatintel/tools/copilot) (threatintel): AI copilot — ask, pivot, summarize, draft.
 - [Vera](https://pranithjain.qzz.io/threatintel/vera) (threatintel): Vera — AI-powered investigative assistant for threat intelligence workflows.
-- [MCP Search](https://pranithjain.qzz.io/threatintel/tools/mcp) (threatintel): MCP (Model Context Protocol) tool search.
+- [MCP Search · TI Mindmap Hub](https://pranithjain.qzz.io/threatintel/tools/mcp) (threatintel): Search 1,628+ reports, CVEs, IOCs, briefings, STIX bundles, and knowledge graph via 25 MCP tools on ti-mindmap-hub.com.
 - [MISP Browser](https://pranithjain.qzz.io/threatintel/tools/misp) (threatintel): MISP galaxy and event browser.
 - [STIX Bundle Browser](https://pranithjain.qzz.io/threatintel/tools/stix) (threatintel): Browse and download STIX 2.1 bundles for OpenCTI, MISP, etc.
 - [STIX IP Enrichment](https://pranithjain.qzz.io/threatintel/tools/stix-ip-export) (threatintel): Enrich IPs via IPinfo/AbuseIPDB/Shodan and export as STIX 2.1 bundle.

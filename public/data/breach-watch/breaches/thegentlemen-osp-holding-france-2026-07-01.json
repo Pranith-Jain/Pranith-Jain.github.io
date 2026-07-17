@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-osp-holding-france-2026-07-01",
+  "title": "OSP HOLDING FRANCE",
+  "group": "thegentlemen",
+  "discovered": "2026-07-01T22:19:38.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "FR",
+  "sizeBytes": 0,
+  "description": "***.com pappers.fr/entreprise/osp-holding-france-838877108 838877108 OSP HOLDING (FRANCE) is an active French company founded in 2018 and managed by APInvest France, with a substantial share capital of over €14.4 million. It specializes in the design and assembly of industrial process control equipment, as well as the development and maintenance of software for parking management systems. The company employs between 50 and 99 people and is headquartered in Boulogne-Billancourt",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

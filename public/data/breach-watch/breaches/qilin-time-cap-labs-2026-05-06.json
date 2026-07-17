@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-time-cap-labs-2026-05-06",
+  "title": "Time-Cap Labs",
+  "group": "qilin",
+  "discovered": "2026-05-06T17:54:00.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

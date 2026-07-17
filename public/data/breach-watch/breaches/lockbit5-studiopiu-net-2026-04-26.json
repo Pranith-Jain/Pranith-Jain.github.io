@@ -1,0 +1,15 @@
+{
+  "slug": "lockbit5-studiopiu-net-2026-04-26",
+  "title": "studiopiu.net",
+  "group": "lockbit5",
+  "discovered": "2026-04-26T09:56:07.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "Di fronte al Lago di Garda, a Desenzano, batte uno dei cuori storici della radiofonia dance italiana...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

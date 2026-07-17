@@ -1,0 +1,15 @@
+{
+  "slug": "apt73-ifmis-go-ke-2026-04-27",
+  "title": "ifmis.go.ke",
+  "group": "apt73",
+  "discovered": "2026-04-27T16:39:44.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "KE",
+  "sizeBytes": 0,
+  "description": "Integrated Financial Management Information System (IFMIS) is a government system in Kenya that i...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Eraleign"],
+  "activity": "Public Sector",
+  "references": ["ransomware.live"]
+}

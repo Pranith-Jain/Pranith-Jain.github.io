@@ -1,0 +1,15 @@
+{
+  "slug": "genesis-k2-electric-inc-2026-04-21",
+  "title": "K2 Electric, Inc",
+  "group": "genesis",
+  "discovered": "2026-04-21T20:34:48.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Commercial and industrial electrical contractor.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Energy",
+  "references": ["ransomware.live"]
+}

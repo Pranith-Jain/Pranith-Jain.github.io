@@ -1,0 +1,15 @@
+{
+  "slug": "dragonforce-sayre-associates-2026-06-10",
+  "title": "Sayre Associates",
+  "group": "dragonforce",
+  "discovered": "2026-06-10T06:22:53.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "(Including clients, projects, emails and financial documents) Sayre Associates, Inc. is a civil engineering and land surveying firm based in Sioux Falls, South Dakota, established in 1969. The company offers a range of services including land development planning, parks and recreation facilities design, drainage and erosion control, and construction administration. They focus on delivering high-quality solutions through collaboration and innovation, serving clients in South Dakota, Iowa, and Minnesota. Their talented team of engineers and surveyors is dedicated to improving community efficiency and quality of life.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["DRAGON FORCE"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

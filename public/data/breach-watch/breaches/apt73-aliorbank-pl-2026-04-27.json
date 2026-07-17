@@ -1,0 +1,15 @@
+{
+  "slug": "apt73-aliorbank-pl-2026-04-27",
+  "title": "aliorbank.pl",
+  "group": "apt73",
+  "discovered": "2026-04-27T16:50:08.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "PL",
+  "sizeBytes": 0,
+  "description": "Polish bank. Financial docs, internal docs. 0,06 GB of data.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Eraleign"],
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "gunra-dissinger-and-dissinger-law-firm-2026-07-16",
+  "title": "Dissinger and Dissinger Law Firm",
+  "group": "gunra",
+  "discovered": "2026-07-16T18:57:22.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

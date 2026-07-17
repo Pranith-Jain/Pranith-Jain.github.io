@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-tokabei-japan-2026-06-11",
+  "title": "Tokabei Japan",
+  "group": "thegentlemen",
+  "discovered": "2026-06-11T17:27:54.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "JP",
+  "sizeBytes": 0,
+  "description": "Tokabei is a Kyoto-based Japanese brand specialising in handcrafted textiles such as tenugui, furoshiki, and scarves. Their products are dyed using traditional aizome (indigo) techniques with natural indigo and historical patterns. The company is dedicated to preserving centuries-old craftsmanship while blending it with contemporary design",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

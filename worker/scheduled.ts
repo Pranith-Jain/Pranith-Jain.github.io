@@ -55,7 +55,7 @@ import { runCyberPulseIngestion } from '../api/src/routes/cyberpulse-ingest';
 import { fetchXClaims } from '../api/src/routes/x-claims';
 import { readAuthCookies, XAuthMissingError } from '../api/src/lib/twitter-auth-graphql';
 import { fetchRedditFeed } from '../api/src/routes/reddit-feed';
-import type { D1Database } from '@cloudflare/workers-types';
+import type { D1Database, ScheduledEvent, ExecutionContext } from '@cloudflare/workers-types';
 import { acquireCronLease, releaseCronLease, heartbeatCronLease } from './durable-objects/cron-lock';
 import { siCacheStats, loadSiIndex } from './lib/si-manifest';
 import { tiCacheStats, loadTiIndex } from './lib/threat-intel-manifest';
@@ -1161,192 +1161,152 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
   // (or falls back to direct fetch) and runs the full ingestion pipeline so
   // incidents appear every 30 min, not just hourly.
   if (cron === '*/30 * * * *') {
-    const queue = env.FEEDS_QUEUE;
-    if (!queue) {
-      console.warn(JSON.stringify({ job: 'cp-30-enqueue', status: 'no_queue' }));
-      await releaseLease();
-      return;
-    }
     ctx.waitUntil(
       (async () => {
+        const queue = env.FEEDS_QUEUE;
+        // ── Enqueue X warm messages ──
+        if (queue) {
+          try {
+            await queue.sendBatch([
+              { body: { cp: { type: 'x_accounts' } }, delaySeconds: 0 },
+              { body: { gp: { key: 'x', path: '/api/v1/x-feed' } }, delaySeconds: 2 },
+              { body: { gp: { key: 'reddit', path: '/api/v1/reddit-feed' } }, delaySeconds: 4 },
+            ]);
+            console.log(
+              JSON.stringify({
+                job: 'cp-30-enqueue',
+                sources: ['x_accounts', 'gp:x', 'gp:reddit'],
+                ok: true,
+              })
+            );
+          } catch (e) {
+            console.error(
+              JSON.stringify({
+                job: 'cp-30-enqueue',
+                status: 'failed',
+                error: e instanceof Error ? e.message : String(e),
+              })
+            );
+          }
+        } else {
+          console.warn(JSON.stringify({ job: 'cp-30-enqueue', status: 'no_queue' }));
+        }
+
+        // ── Telegram Bot API poll ──
+        const tgToken = (env as unknown as Record<string, unknown>).TELEGRAM_BOT_TOKEN as string | undefined;
+        if (!tgToken) {
+          console.warn(JSON.stringify({ job: 'tg-bot-poll', status: 'skipped', reason: 'TELEGRAM_BOT_TOKEN not set' }));
+        } else {
+          try {
+            await pollBotUpdates(env as unknown as ApiEnv);
+          } catch (e) {
+            console.error(
+              JSON.stringify({
+                job: 'tg-bot-poll',
+                status: 'failed',
+                error: e instanceof Error ? e.message : String(e),
+              })
+            );
+          }
+        }
+
+        // ── Inline ingestion: read from KV and produce incidents ────────────
+        if (!env.KV_CACHE || !env.BRIEFINGS_DB) {
+          console.warn(JSON.stringify({ job: 'cp-30-ingest', status: 'skipped', reason: 'missing bindings' }));
+          return;
+        }
         try {
-          // Enqueue X-specific warm messages (cp:warm namespace)
-          await queue.sendBatch([
-            { body: { cp: { type: 'x_accounts' } }, delaySeconds: 0 },
-            // Bluesky/Reddit warm via gp:warm (existing handler in queue consumer)
-            { body: { gp: { key: 'x', path: '/api/v1/x-feed' } }, delaySeconds: 2 },
-            { body: { gp: { key: 'reddit', path: '/api/v1/reddit-feed' } }, delaySeconds: 4 },
-          ]);
+          let xAccountPosts: unknown[] | undefined;
+          let socialItems: unknown[] | undefined;
+          let redditItems: unknown[] | undefined;
+          let telegramItems: unknown[] | undefined;
+
+          // KV-only reads — no direct fetches (preserves subrequest budget).
+          // Queue consumer (gp:warm / cp:warm) writes these keys before the
+          // cron reads them; if a key is cold it's skipped with a warning.
+          try {
+            const raw = await env.KV_CACHE.get('cp:warm:x_accounts', 'json');
+            if (Array.isArray(raw) && raw.length > 0) xAccountPosts = raw as unknown[];
+          } catch {
+            /* fail open */
+          }
+          try {
+            const raw = await env.KV_CACHE.get('gp:warm:x', 'json');
+            if (raw && typeof raw === 'object' && 'items' in (raw as Record<string, unknown>)) {
+              const items = (raw as { items: unknown[] }).items;
+              if (items.length > 0) {
+                socialItems = items;
+                console.log(JSON.stringify({ job: 'cp-30-social', status: 'kv_hit', count: items.length }));
+              }
+            }
+            if (!socialItems) {
+              console.warn(JSON.stringify({ job: 'cp-30-social', status: 'kv_miss', reason: 'gp:warm:x cold' }));
+            }
+          } catch {
+            /* fail open */
+          }
+          try {
+            const raw = await env.KV_CACHE.get('gp:warm:reddit', 'json');
+            if (raw && typeof raw === 'object' && 'items' in (raw as Record<string, unknown>)) {
+              const items = (raw as { items: unknown[] }).items;
+              if (items.length > 0) {
+                redditItems = items;
+                console.log(JSON.stringify({ job: 'cp-30-reddit', status: 'kv_hit', count: items.length }));
+              }
+            }
+            if (!redditItems) {
+              console.warn(JSON.stringify({ job: 'cp-30-reddit', status: 'kv_miss', reason: 'gp:warm:reddit cold' }));
+            }
+          } catch {
+            /* fail open */
+          }
+          try {
+            const kvTg = (await env.KV_CACHE.get('gp:warm:telegram', 'json')) as TelegramFeedResponse | null;
+            if (kvTg?.items?.length) {
+              telegramItems = kvTg.items;
+              console.log(JSON.stringify({ job: 'cp-30-telegram', status: 'kv_hit', count: telegramItems.length }));
+            } else {
+              console.warn(
+                JSON.stringify({ job: 'cp-30-telegram', status: 'kv_miss', reason: 'gp:warm:telegram cold or empty' })
+              );
+            }
+          } catch {
+            /* fail open */
+          }
+
+          const cpResults = await runCyberPulseIngestion(env, env.BRIEFINGS_DB, {
+            telegramItems: telegramItems as any,
+            socialItems: socialItems as any,
+            redditItems: redditItems as any,
+            xAccountPosts: xAccountPosts as any,
+          });
+          const totalCreated = cpResults.reduce((s, r) => s + r.incidents_created, 0);
           console.log(
             JSON.stringify({
-              job: 'cp-30-enqueue',
-              sources: ['x_accounts', 'gp:x', 'gp:reddit'],
-              ok: true,
+              job: 'cp-30-ingest',
+              incidents_created: totalCreated,
+              sources: cpResults.map((r) => ({
+                source: r.source,
+                items_scanned: r.items_scanned,
+                created: r.incidents_created,
+                deduped: r.incidents_deduped,
+                errors: r.errors.length,
+              })),
             })
           );
         } catch (e) {
           console.error(
             JSON.stringify({
-              job: 'cp-30-enqueue',
+              job: 'cp-30-ingest',
               status: 'failed',
               error: e instanceof Error ? e.message : String(e),
             })
           );
         }
-        logCronDone({ path: 'cp-30-enqueue' });
-      })().catch(logCronFail('cp-30-enqueue'))
+      })()
+        .catch(logCronFail('cp-30'))
+        .finally(releaseLease)
     );
-
-    // ── Telegram Bot API poll ──────────────────────────────────────────
-    // When t.me is unreachable, pollBotUpdates reads messages for
-    // channels where the bot is admin, storing them in KV for fallback.
-    if (!(env as unknown as Record<string, unknown>).TELEGRAM_BOT_TOKEN) {
-      console.warn(JSON.stringify({ job: 'tg-bot-poll', status: 'skipped', reason: 'TELEGRAM_BOT_TOKEN not set' }));
-    } else {
-      ctx.waitUntil(
-        pollBotUpdates(env as unknown as ApiEnv).catch((e) => {
-          console.error(
-            JSON.stringify({ job: 'tg-bot-poll', status: 'failed', error: e instanceof Error ? e.message : String(e) })
-          );
-        })
-      );
-    }
-
-    // ── Inline ingestion: read from KV and produce incidents ────────────
-    // Runs in the main cron thread (not waitUntil) so failures are visible.
-    if (!env.KV_CACHE || !env.BRIEFINGS_DB) {
-      console.warn(JSON.stringify({ job: 'cp-30-ingest', status: 'skipped', reason: 'missing bindings' }));
-      await releaseLease();
-      return;
-    }
-    try {
-      // Read warmed data from KV (may be from this tick's enqueue or previous run)
-      let xAccountPosts: unknown[] | undefined;
-      let socialItems: unknown[] | undefined;
-      let redditItems: unknown[] | undefined;
-      let telegramItems: unknown[] | undefined;
-
-      try {
-        const raw = await env.KV_CACHE.get('cp:warm:x_accounts', 'json');
-        if (Array.isArray(raw) && raw.length > 0) xAccountPosts = raw as unknown[];
-      } catch {
-        /* fail open */
-      }
-      // Bluesky/Mastodon: direct fetch first, then KV fallback
-      try {
-        const sf = await fetchXFeed().catch((e) => {
-          console.warn(
-            JSON.stringify({
-              job: 'cp-30-bluesky',
-              status: 'fetch_failed',
-              error: e instanceof Error ? e.message : String(e),
-            })
-          );
-          return undefined;
-        });
-        socialItems = sf?.items as unknown[] | undefined;
-        if (socialItems && socialItems.length > 0) {
-          console.log(JSON.stringify({ job: 'cp-30-bluesky', status: 'fetched', count: socialItems.length }));
-        }
-      } catch {
-        /* fail open */
-      }
-      if (!socialItems) {
-        try {
-          const raw = await env.KV_CACHE.get('gp:warm:x', 'json');
-          if (raw && typeof raw === 'object' && 'items' in (raw as Record<string, unknown>)) {
-            socialItems = (raw as { items: unknown[] }).items;
-          }
-        } catch {
-          /* fail open */
-        }
-      }
-      // Reddit: direct fetch first, then KV fallback
-      try {
-        const rf = await fetchRedditFeed(
-          env as unknown as { ASSETS: import('@cloudflare/workers-types').Fetcher }
-        ).catch(() => undefined);
-        redditItems = rf?.items as unknown[] | undefined;
-      } catch {
-        /* fail open */
-      }
-      if (!redditItems) {
-        try {
-          const raw = await env.KV_CACHE.get('gp:warm:reddit', 'json');
-          if (raw && typeof raw === 'object' && 'items' in (raw as Record<string, unknown>)) {
-            redditItems = (raw as { items: unknown[] }).items;
-          }
-        } catch {
-          /* fail open */
-        }
-      }
-      // Telegram: direct fetch first, then KV fallback (bypass Cache API)
-      try {
-        const tg = await fetchTelegramFeed(env.KV_CACHE, env as unknown as ApiEnv).catch((e) => {
-          console.warn(
-            JSON.stringify({
-              job: 'cp-30-telegram',
-              status: 'fetch_failed',
-              error: e instanceof Error ? e.message : String(e),
-            })
-          );
-          return undefined;
-        });
-        telegramItems = tg?.items as unknown[] | undefined;
-        if (telegramItems && telegramItems.length > 0) {
-          console.log(JSON.stringify({ job: 'cp-30-telegram', status: 'fetched', count: telegramItems.length }));
-        } else {
-          console.warn(
-            JSON.stringify({
-              job: 'cp-30-telegram',
-              status: 'empty',
-              channels_ok: tg?.channels?.filter((c) => c.ok).length ?? 0,
-              channels_fail: tg?.channels?.filter((c) => !c.ok).length ?? 0,
-            })
-          );
-        }
-      } catch {
-        /* fail open */
-      }
-      if (!telegramItems) {
-        try {
-          const kvTg = (await env.KV_CACHE.get('gp:warm:telegram', 'json')) as TelegramFeedResponse | null;
-          if (kvTg?.items?.length) telegramItems = kvTg.items;
-        } catch {
-          /* fail open */
-        }
-      }
-
-      const cpResults = await runCyberPulseIngestion(env, env.BRIEFINGS_DB, {
-        telegramItems: telegramItems as any,
-        socialItems: socialItems as any,
-        redditItems: redditItems as any,
-        xAccountPosts: xAccountPosts as any,
-      });
-      const totalCreated = cpResults.reduce((s, r) => s + r.incidents_created, 0);
-      console.log(
-        JSON.stringify({
-          job: 'cp-30-ingest',
-          incidents_created: totalCreated,
-          sources: cpResults.map((r) => ({
-            source: r.source,
-            items_scanned: r.items_scanned,
-            created: r.incidents_created,
-            deduped: r.incidents_deduped,
-            errors: r.errors.length,
-          })),
-        })
-      );
-    } catch (e) {
-      console.error(
-        JSON.stringify({
-          job: 'cp-30-ingest',
-          status: 'failed',
-          error: e instanceof Error ? e.message : String(e),
-        })
-      );
-    }
-    await releaseLease();
     return;
   }
 

@@ -5,11 +5,11 @@
   "discovered": "2026-07-11T13:32:59.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": "NH",
+  "country": null,
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/79c01311-78f3-4258-b3f7-192606f4658b",
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Business Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

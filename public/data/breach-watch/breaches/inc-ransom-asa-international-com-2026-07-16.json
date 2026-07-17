@@ -1,0 +1,15 @@
+{
+  "slug": "inc-ransom-asa-international-com-2026-07-16",
+  "title": "asa-international.com",
+  "group": "INC Ransom",
+  "discovered": "2026-07-16T00:00:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "United Kingdom",
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated in ransomware attack",
+  "source_url": "https://recentbreaches.com/breach/asa-international-com-incransom-2026-07",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["RecentBreaches.com"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "fulcrumsec-credielite-2026-05-01",
+  "title": "CrediElite",
+  "group": "fulcrumsec",
+  "discovered": "2026-05-01T16:48:54.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
+}

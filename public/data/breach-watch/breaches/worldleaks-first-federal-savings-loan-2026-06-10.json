@@ -2,14 +2,14 @@
   "slug": "worldleaks-first-federal-savings-loan-2026-06-10",
   "title": "First Federal Savings & Loan",
   "group": "worldleaks",
-  "discovered": "2026-06-10T09:09:04.000Z",
+  "discovered": "2026-06-10T09:26:30.000Z",
   "category": "ransomware",
   "severity": "high",
-  "country": null,
+  "country": "US",
   "sizeBytes": 0,
-  "description": null,
-  "source_url": "https://worldleaksartrjm3c6vasllvgacbi5u3mgzkluehrzhk2jz4taufuid.onion/companies/2508947949",
+  "description": "[AI generated] First Federal Savings & Loan is a community-based financial institution operating in the United States. It provides traditional banking services including savings and checking accounts, mortgage loans, personal loans, and related financial products. Operating within the retail banking and thrift industry, it primarily serves individual consumers and local communities, functioning under federal or state regulatory oversight typical of American savings institutions.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
-  "activity": null,
-  "references": ["CTI.FYI"]
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
 }

@@ -1,0 +1,15 @@
+{
+  "slug": "0day-syndicate-braincell-braincell-sa-rfcargo-braincell-solutions-rf-braincell-solutions-governata-com-2026-05-29",
+  "title": "Braincell Braincell.sa rfcargo.braincell.solutions rf.braincell.solutions governata.com",
+  "group": "0day Syndicate",
+  "discovered": "2026-05-29T13:50:35.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Braincell is a Saudi technology startup that optimizes business decision-making through AI-powered automation and data integration",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

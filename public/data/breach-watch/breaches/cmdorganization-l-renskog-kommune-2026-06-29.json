@@ -1,0 +1,15 @@
+{
+  "slug": "cmdorganization-l-renskog-kommune-2026-06-29",
+  "title": "Lørenskog kommune",
+  "group": "cmdorganization",
+  "discovered": "2026-06-29T15:50:20.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "NO",
+  "sizeBytes": 0,
+  "description": "Lørenskog kommune offers a range of services including education, health care, social services, and community development. Their intended clients include residents seeking information on property tax, childcare, and various cultural and recreational activities. The municipality also engages with the public through political meetings and community involvement initiatives. Additionally, Lørenskog kommune celebrates local events and milestones, fostering a sense of community among its residents.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["cmd organization"],
+  "activity": "Public Sector",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "lockbit5-parampackaging-com-2026-06-20",
+  "title": "parampackaging.com",
+  "group": "lockbit5",
+  "discovered": "2026-06-20T09:23:37.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "TR",
+  "sizeBytes": 0,
+  "description": "The Print & Pack group based at Mumbai – India, is a leading manufacturer of top quality printed pac...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

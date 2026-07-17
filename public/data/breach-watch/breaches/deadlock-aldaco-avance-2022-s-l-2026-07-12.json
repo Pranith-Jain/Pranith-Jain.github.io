@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "ES",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/a7951553-84a0-4093-b1f1-2ed1bb4400a8",
+  "description": "Aldaco is a Spanish company specializing in industrial engineering, construction materials, civil engineering, mining and labor security, with seats in Asturias, Galicia and Madrid. The company distributes machines and technical tools, offers specialized asesoramients and support for professional projects.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Business Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

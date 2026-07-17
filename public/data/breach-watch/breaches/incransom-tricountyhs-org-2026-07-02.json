@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-tricountyhs-org-2026-07-02",
+  "title": "tricountyhs.org",
+  "group": "incransom",
+  "discovered": "2026-07-02T16:54:37.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Flowers Early Learning (formerly known as Tri-County Head Start) is a non-profit 501(c)(3) organization providing free, high-quality early childhood education and family support services across Berrien, Cass, and Van Buren counties in Southwest Michigan. Funded by a federal grant through the Office of Head Start, the organization serves eligible families with children from birth to age five, as well as expectant mothers.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Education",
+  "references": ["ransomware.live"]
+}

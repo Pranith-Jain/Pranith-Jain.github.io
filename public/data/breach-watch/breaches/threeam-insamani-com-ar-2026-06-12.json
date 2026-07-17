@@ -1,0 +1,15 @@
+{
+  "slug": "threeam-insamani-com-ar-2026-06-12",
+  "title": "insamani.com.ar",
+  "group": "threeam",
+  "discovered": "2026-06-12T20:05:28.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "AR",
+  "sizeBytes": 0,
+  "description": "INSA INDELMA S.A. is a leading agro-industrial company in Argentina specializing in peanut production, exporting 80% of its output to over 30 countries worldwide. The company emphasizes quality through a comprehensive traceability system that ensu",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

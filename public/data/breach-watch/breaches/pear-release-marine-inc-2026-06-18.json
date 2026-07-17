@@ -1,0 +1,15 @@
+{
+  "slug": "pear-release-marine-inc-2026-06-18",
+  "title": "Release Marine, Inc.",
+  "group": "pear",
+  "discovered": "2026-06-18T14:27:42.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Handmade sport fishing equipment and yacht furnishings",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Transportation/Logistics",
+  "references": ["ransomware.live"]
+}

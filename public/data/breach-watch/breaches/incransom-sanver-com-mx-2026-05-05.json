@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-sanver-com-mx-2026-05-05",
+  "title": "sanver.com.mx",
+  "group": "incransom",
+  "discovered": "2026-05-05T01:53:55.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "MX",
+  "sizeBytes": 0,
+  "description": "Sanver Forte is a leading hardware wholesaler with over 30 years of experience in the northeastern, central, and Bajío regions of Mexico. The company offers a wide range of products and services related to hardware and construction, focusing on meeting the needs and expectations of its clients through timely deliveries and excellent customer service. Their mission is to simplify the distribution of leading brands, ensuring satisfaction and profitability for customers, collaborators, and shareholders. Sanver Forte aims to be the most comprehensive and secure provider of hardware and home preservation products, contributing to the growth of its employees and the community.\r Employees: 1000\r Revenue: $30 Million\r Industry: Home Improvement & Hardware Retail \r Phone Number: +52 7898933030",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

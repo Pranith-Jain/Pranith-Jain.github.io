@@ -1,0 +1,15 @@
+{
+  "slug": "shinyhunters-ralph-lauren-2026-06-16",
+  "title": "Ralph Lauren",
+  "group": "shinyhunters",
+  "discovered": "2026-06-16T12:54:26.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Over 220GB of data containing customer PII, purchase/trasnaction info, future unreleased releases from 2027 and onward, and more was compromised. The Company failed to reach an agreement with us despite our incredible patience, all the chances and offers we made. They don't care. | Size: 163GB+ (compressed) | Updated: 16 June 2026 | SHA256: 17a7af9c00ea38ce822e2f022c0ceb5149535610a15f009b866d616e70cbf7e2",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

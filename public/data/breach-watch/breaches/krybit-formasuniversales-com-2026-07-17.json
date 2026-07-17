@@ -1,0 +1,15 @@
+{
+  "slug": "krybit-formasuniversales-com-2026-07-17",
+  "title": "formasuniversales.com",
+  "group": "krybit",
+  "discovered": "2026-07-17T00:30:15.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "MX",
+  "sizeBytes": 0,
+  "description": "Formas Universales, S.A. is a Panamanian company founded in 1985, specializing in the production and commercialization o...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

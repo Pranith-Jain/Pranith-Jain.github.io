@@ -1,0 +1,15 @@
+{
+  "slug": "lockbit5-murni-co-id-2026-04-26",
+  "title": "murni.co.id",
+  "group": "lockbit5",
+  "discovered": "2026-04-26T09:55:53.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "ID",
+  "sizeBytes": 0,
+  "description": "PT Murni Solusindo Nusantara is an ICT-based solution provider company with ISO 9001:2015 certificat...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

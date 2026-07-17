@@ -1,0 +1,15 @@
+{
+  "slug": "dragonforce-helix-international-2026-05-24",
+  "title": "HELIX INTERNATIONAL",
+  "group": "dragonforce",
+  "discovered": "2026-05-24T09:52:16.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "Helix International is a software platform and managed services provider specializing in enterprise content management and data migration. They cater to medium, large, and Fortune 500 companies across various industries, including healthcare, finance, retail, and entertainment. The company offers a variety of solutions, such as custom development, hosting, and GDPR compliance, enabled by their advanced software platform and proprietary extraction tools. With a track record of 100% project success and partnerships with major firms like IBM, Helix International is recognized for its ability to manage and optimize complex data environments.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["DRAGON FORCE"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

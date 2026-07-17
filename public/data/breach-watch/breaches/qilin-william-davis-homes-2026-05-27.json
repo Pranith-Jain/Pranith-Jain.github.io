@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-william-davis-homes-2026-05-27",
+  "title": "William Davis Homes",
+  "group": "qilin",
+  "discovered": "2026-05-27T16:55:19.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Construction",
+  "references": ["ransomware.live"]
+}

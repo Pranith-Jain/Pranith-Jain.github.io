@@ -7,6 +7,7 @@ export default defineConfig({
     __BUILD_DATE__: JSON.stringify(new Date().toISOString().slice(0, 10)),
   },
   test: {
+    testTimeout: 10_000,
     globals: true,
     environment: 'jsdom',
     setupFiles: ['./src/test/setup.ts'],

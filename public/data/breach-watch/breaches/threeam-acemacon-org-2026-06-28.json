@@ -1,0 +1,15 @@
+{
+  "slug": "threeam-acemacon-org-2026-06-28",
+  "title": "acemacon.org",
+  "group": "threeam",
+  "discovered": "2026-06-28T19:30:19.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "MX",
+  "sizeBytes": 0,
+  "description": "The Academy for Classical Education is dedicated to fostering knowledge and critical thinking skills in children, preparing them to be independent learners for life. It offers a comprehensive educational experience that includes fine arts, athleti",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

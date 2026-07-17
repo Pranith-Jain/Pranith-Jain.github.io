@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-osool-poultry-2026-05-28",
+  "title": "Osool Poultry",
+  "group": "qilin",
+  "discovered": "2026-05-28T13:28:02.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "SA",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-johndufourlaw-com-2026-06-26",
+  "title": "johndufourlaw.com",
+  "group": "incransom",
+  "discovered": "2026-06-26T19:23:53.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "If you find yourself injured, disabled or deep in debt, the Law Office of John Dufour is ready to help. John brings 25 years of focused experience and favorable outcomes. Our success is built on attentive service and attention to the legal details.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

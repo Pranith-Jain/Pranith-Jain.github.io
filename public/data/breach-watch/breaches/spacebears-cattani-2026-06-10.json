@@ -2,14 +2,14 @@
   "slug": "spacebears-cattani-2026-06-10",
   "title": "Cattani",
   "group": "spacebears",
-  "discovered": "2026-06-10T13:08:08.000Z",
+  "discovered": "2026-06-10T12:55:41.000Z",
   "category": "data_breach",
   "severity": "high",
-  "country": null,
+  "country": "IT",
   "sizeBytes": 0,
-  "description": null,
-  "source_url": "http://5butbkrljkaorg5maepuca25oma7eiwo6a2rlhvkblb4v6mf3ki2ovid.onion/companies/50/cattani",
+  "description": "Established in 1967, Cattani S.p.A. is now a leader in the dental field, exporting its range of products to all continents. After becoming a publicly limited company in 1981, Cattani S.p.A. founded the division Esam in 1984, extending the group’s business activities into the industrial field. In 2003 Cattani S.p.A. launched Magnolia, a chemical company specialising in the production of detergent disinfectant products for surgery instruments and, in particular, dental aspiration systems.The Cattani group designed and manufactured one of the scientific components in the famous NASA space shuttle. Due to our reputation for reliability, Ferrari Engineering (supplier of the European Space Agency) chose us as one of its prestigious suppliers for the production of a 180 gram compressor, which reached a pressure of 38 bar. The group has also taken part in the Eurostar project, the pride of the Italian railway system, producing the train’s pressurization system.-Personal information of employees and clients -Financial documents- 200 000 + other files  https://www.***.it/en/",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["space bears"],
-  "activity": null,
-  "references": ["CTI.FYI"]
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
 }

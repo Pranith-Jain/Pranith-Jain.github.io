@@ -1,0 +1,15 @@
+{
+  "slug": "ailock-schneebeli-2026-06-01",
+  "title": "Schneebeli",
+  "group": "AiLock",
+  "discovered": "2026-06-01T07:50:05.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "CH",
+  "sizeBytes": 0,
+  "description": "Schneebeli AG is a Swiss carpentry firm located in Ottenbach, specializing in custom furniture, kitchens, and interior construction tailored to individual client needs.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

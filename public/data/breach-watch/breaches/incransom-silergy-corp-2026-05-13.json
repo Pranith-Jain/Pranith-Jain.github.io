@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-silergy-corp-2026-05-13",
+  "title": "Silergy Corp",
+  "group": "incransom",
+  "discovered": "2026-05-13T19:22:33.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "About Silergy\r Silergy Corp. specializes in the manufacture and sale of power integrated circuits. Silergy Corp. is headquartered in Hangzhou, Zhejiang, China.\r ----\r More than 450 GB of personal data was leaked, along with a vast amount of financial and private information, including contracts containing non-disclosure clauses, passports, and customer and partner data.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

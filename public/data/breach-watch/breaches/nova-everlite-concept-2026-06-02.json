@@ -1,0 +1,15 @@
+{
+  "slug": "nova-everlite-concept-2026-06-02",
+  "title": "Everlite concept",
+  "group": "nova",
+  "discovered": "2026-06-02T10:25:28.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "FR",
+  "sizeBytes": 0,
+  "description": "Everlite Concept is a French company that specializes in polycarbonate solutions for building envelopes. It is known for its innovative, high-performance systems used in walls, roofing, and façades for buildings like sports complexes and museums - Nova Provide tree and samples from stolen data to the company when its get in touch with support department.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": null,
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/99811ad7-7077-4bf0-9aae-6d049d406905",
+  "description": "***.io zoominfo.com/c/lsn/557824732 software development company specializing in tailor-made IT solutions for the insurance industry. Founded in 2008 as Logisfera Nova and rebranded in 2020, the company provides full-stack services including back-office development, UX/UI design, data science, and enterprise software architecture. Headquartered in Gdańsk, Poland, with a branch in Athens, Greece, LSN partners with leading insurance sector clients to deliver agile, business-focused, and customized technological solutions",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["the gentlemen"],
   "activity": "Not Found",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

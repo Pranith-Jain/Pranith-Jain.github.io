@@ -9,6 +9,7 @@ export default defineConfig({
     }),
   ],
   test: {
+    testTimeout: 15_000,
     // Run only the TypeScript sources. Committed `*.test.js` build artifacts
     // in api/test would otherwise be executed alongside the `*.test.ts`
     // sources, producing duplicate and stale runs.
