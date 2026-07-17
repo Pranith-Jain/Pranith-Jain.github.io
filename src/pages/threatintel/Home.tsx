@@ -9,7 +9,7 @@ import {
   Compass,
   Flame,
   Globe,
-  Link2,
+  Plug,
   Radio,
   Search,
   Shield,
@@ -143,6 +143,15 @@ const CATEGORY_CARDS: CategoryCard[] = [
     href: '/threatintel/catalog?cat=feeds',
     tone: 'text-sky-600 dark:text-sky-400 hover:border-sky-500/40',
     pages: 9,
+  },
+  {
+    id: 'tools',
+    label: 'Tools & Integrations',
+    description: 'MCP Search, AI copilot, MISP browser, STIX export, investigations, and security tools directory.',
+    icon: Plug,
+    href: '/threatintel/catalog?cat=tools',
+    tone: 'text-amber-600 dark:text-amber-400 hover:border-amber-500/40',
+    pages: 18,
   },
 ];
 
@@ -284,6 +293,7 @@ export default function ThreatIntelHome(): JSX.Element {
             {[
               { label: 'Ransomware Live', href: '/threatintel/ransomware-live' },
               { label: 'Actor KB', href: '/threatintel/actors/directory' },
+              { label: 'MCP Search', href: '/threatintel/mcp-search' },
               { label: 'CVE Intel', href: '/threatintel/cves/cves' },
               { label: 'Live IOCs', href: '/threatintel/iocs/live' },
             ].map((link) => (
@@ -374,6 +384,12 @@ export default function ThreatIntelHome(): JSX.Element {
                     badge: 'live',
                   },
                   {
+                    label: 'MCP Search',
+                    desc: '1,628+ reports via 25 MCP tools',
+                    href: '/threatintel/mcp-search',
+                    icon: Plug,
+                  },
+                  {
                     label: 'Ransomware Live',
                     desc: 'Active leak sites',
                     href: '/threatintel/ransomware-live',
@@ -385,12 +401,6 @@ export default function ThreatIntelHome(): JSX.Element {
                     desc: 'Threat actor profiles',
                     href: '/threatintel/actors/directory',
                     icon: Users,
-                  },
-                  {
-                    label: 'Cross-Campaign',
-                    desc: 'Find hidden connections',
-                    href: '/threatintel/campaigns/cross',
-                    icon: Link2,
                   },
                 ].map((item) => {
                   const Icon = item.icon;
