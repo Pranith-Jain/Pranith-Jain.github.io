@@ -1150,9 +1150,10 @@ export const HUB_META: readonly HubMeta[] = [
       {
         path: '/threatintel/tools/mcp',
         tabId: 'mcp',
-        label: 'MCP Search',
-        desc: 'MCP (Model Context Protocol) tool search.',
+        label: 'MCP Search · TI Mindmap Hub',
+        desc: 'Search 1,628+ reports, CVEs, IOCs, briefings, STIX bundles, and knowledge graph via 25 MCP tools on ti-mindmap-hub.com.',
         compVar: 'McpSearch',
+        badge: 'new',
       },
       {
         path: '/threatintel/tools/misp',

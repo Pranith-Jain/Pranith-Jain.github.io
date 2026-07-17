@@ -10,7 +10,7 @@
  * catalog content is merged in once `loadCatalogIndex()` resolves.
  */
 
-export type SearchKind = 'tool' | 'wiki' | 'telegram' | 'secops' | 'cve' | 'actor';
+export type SearchKind = 'tool' | 'wiki' | 'telegram' | 'secops' | 'cve' | 'actor' | 'threatintel';
 
 export interface SearchEntry {
   kind: SearchKind;
@@ -31,6 +31,7 @@ export const KIND_LABEL: Record<SearchKind, string> = {
   secops: 'SecOps',
   cve: 'CVE Res.',
   actor: 'Actor',
+  threatintel: 'Threat Intel',
 };
 
 /** Tailwind colour pill per kind for the result-row badge. */
@@ -41,6 +42,7 @@ export const KIND_PILL: Record<SearchKind, string> = {
   secops: 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
   cve: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   actor: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
+  threatintel: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
 };
 
 /**
@@ -52,9 +54,10 @@ export const KIND_PRIORITY: Record<SearchKind, number> = {
   tool: 0,
   wiki: 1,
   actor: 2,
-  telegram: 3,
-  cve: 4,
-  secops: 5,
+  threatintel: 3,
+  telegram: 4,
+  cve: 5,
+  secops: 6,
 };
 
 let catalogCache: SearchEntry[] | null = null;
@@ -69,12 +72,13 @@ export function loadCatalogIndex(): Promise<SearchEntry[]> {
   if (catalogCache) return Promise.resolve(catalogCache);
   if (catalogPromise) return catalogPromise;
   catalogPromise = (async () => {
-    const [wikiM, tgM, secopsM, cveM, actorM] = await Promise.all([
+    const [wikiM, tgM, secopsM, cveM, actorM, tiM] = await Promise.all([
       import('./wiki-articles'),
       import('./telegram-watch-catalog'),
       import('./secops-catalog'),
       import('./cve-resources-catalog'),
       import('./threat-actors'),
+      import('../pages-index'),
     ]);
 
     const out: SearchEntry[] = [];
@@ -137,6 +141,49 @@ export function loadCatalogIndex(): Promise<SearchEntry[]> {
         desc: (desc ? desc.slice(0, 120) : 'Threat actor profile') + aliasHint,
         path: `/threatintel/actors/${a.slug}`,
         sectionLabel: 'Threat Actor',
+      });
+    }
+
+    // Threat-intel pages from pages-index — high-value pages that analysts
+    // search for by keyword (MCP Search, tools, feeds, dashboards, etc.)
+    const TI_PRIORITY = new Set([
+      '/threatintel/mcp-search',
+      '/threatintel/tools/mcp',
+      '/threatintel/copilot',
+      '/threatintel/ai-report',
+      '/threatintel/unified-search',
+      '/threatintel/threat-feeds',
+      '/threatintel/live-iocs',
+      '/threatintel/ransomware-live',
+      '/threatintel/cve-list',
+      '/threatintel/external/external',
+      '/threatintel/secops-tools',
+      '/threatintel/osint-framework',
+      '/threatintel/threat-landscape',
+      '/threatintel/investigations',
+      '/threatintel/watches',
+      '/threatintel/misp-browser',
+      '/threatintel/yara',
+      '/threatintel/stix-bundles',
+      '/threatintel/feed-catalog',
+      '/threatintel/darkweb-tools',
+      '/threatintel/breach',
+      '/threatintel/telegram',
+      '/threatintel/onion-watch',
+      '/threatintel/infostealer',
+      '/threatintel/c2-tracker',
+      '/threatintel/entity-resolution',
+      '/threatintel/relationship-graph',
+      '/threatintel/cross-correlate',
+    ]);
+    for (const p of tiM.PAGES) {
+      if (!TI_PRIORITY.has(p.path)) continue;
+      out.push({
+        kind: 'threatintel',
+        label: p.label,
+        desc: p.description,
+        path: p.path,
+        sectionLabel: p.sectionLabel ?? 'Threat Intel',
       });
     }
 
