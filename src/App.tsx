@@ -145,6 +145,8 @@ const IpGeo = lazy(() => import('./pages/dfir/IpGeo'));
 const LogParser = lazy(() => import('./pages/dfir/LogParser'));
 const Blocklists = lazy(() => import('./pages/dfir/Blocklists'));
 const MedusaScanner = lazy(() => import('./pages/dfir/MedusaScanner'));
+const CsrfPocGenerator = lazy(() => import('./pages/dfir/CsrfPocGenerator'));
+const XssPayloadSelector = lazy(() => import('./pages/dfir/XssPayloadSelector'));
 
 const Socmint = lazy(() => import('./pages/dfir/Socmint'));
 const OsintMapper = lazy(() => import('./pages/dfir/OsintMapper'));
@@ -480,6 +482,8 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/sec-headers-live', Component: SecHeadersLive },
   { path: '/dfir/secret-scan', Component: SecretScanner },
   { path: '/dfir/medusa-scan', Component: MedusaScanner },
+  { path: '/dfir/csrf-poc', Component: CsrfPocGenerator },
+  { path: '/dfir/xss-payloads', Component: XssPayloadSelector },
   { path: '/dfir/graphql-audit', Component: GraphqlAuditor },
   { path: '/dfir/osv-scan', Component: OsvScanner },
   { path: '/dfir/punycode', Component: Punycode },
