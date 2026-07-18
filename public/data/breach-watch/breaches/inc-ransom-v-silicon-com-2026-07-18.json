@@ -1,0 +1,15 @@
+{
+  "slug": "inc-ransom-v-silicon-com-2026-07-18",
+  "title": "v-silicon.com",
+  "group": "inc ransom",
+  "discovered": "2026-07-18T04:53:24.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "https://www.ransomlook.io/screenshots/inc ransom/v-siliconcom.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

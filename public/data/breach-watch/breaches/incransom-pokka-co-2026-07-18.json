@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-pokka-co-2026-07-18",
+  "title": "pokka.co",
+  "group": "incransom",
+  "discovered": "2026-07-18T02:01:30.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "SG",
+  "sizeBytes": 0,
+  "description": "Founded in 1977 and headquartered in Central Singapore, Pokka Sg manufactures and markets a wide range of beverages",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

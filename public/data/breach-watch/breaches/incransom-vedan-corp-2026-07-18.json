@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-vedan-corp-2026-07-18",
+  "title": "vedan corp",
+  "group": "incransom",
+  "discovered": "2026-07-18T02:02:06.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "VN",
+  "sizeBytes": 0,
+  "description": "Vedan Vietnam is a leading manufacturer specializing in a wide range of products including seasoning, starch, MSG, chemicals, and consumer goods. The company is committed to quality and safety, utilizing advanced technology and local agricultural resources to produce high-quality products. Their services also extend to port operations and frozen food offerings, catering to both domestic and international markets. Vedan Vietnam aims to meet the growing demand for natural and non-GMO food products while maintaining a strong focus on corporate social responsibility and environmental protection.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

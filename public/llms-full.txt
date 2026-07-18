@@ -102,6 +102,14 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [CVE Resources Catalog](https://pranithjain.qzz.io/dfir/vuln-toolkit) (dfir): Curated list of CVE databases, exploit trackers, vendor PSIRTs.
 - [OSV Dependency Scan](https://pranithjain.qzz.io/dfir/osv-scan) (dfir): Paste a manifest.json / package-lock / requirements.txt — known vulns.
 - [WordPress Vulnerability Simulator](https://pranithjain.qzz.io/dfir/wordpress-sim) (dfir): Simulate WordPress vulnerability scenarios — core, plugin, and theme CVE testing.
+- [Fusion Exposure Worklist](https://pranithjain.qzz.io/dfir/fusion-exposure) (dfir): Composite 4-dimension scoring (CVSS/KEV/EPSS/Exploit-DB) — ranked worklist with per-dimension breakdown.
+- [Risk Register](https://pranithjain.qzz.io/dfir/risk-register) (dfir): Full lifecycle CRUD with FAIR quantification, inherent->residual levels, and treatment plans.
+- [Attack Path Graph](https://pranithjain.qzz.io/dfir/attack-path) (dfir): BFS shortest-path reachability from exposed assets to crown jewels — choke point detection, demo fallback.
+- [GRC Compliance Evidence](https://pranithjain.qzz.io/dfir/grc-evidence) (dfir): Framework selector (SOC2/ISO27001/NIST/PCI/HIPAA), control tree, evidence collection with inline status.
+- [Vulnerability Ops (VOC)](https://pranithjain.qzz.io/dfir/vulnerability-ops) (dfir): Intake / triage / SLA tracking — severity, status, source filters with auto-computed deadlines.
+- [Ransomware Quantification](https://pranithjain.qzz.io/dfir/ransomware-quant) (dfir): Scenario-based financial impact across 7 cost dimensions with insurance recovery modeling.
+- [Patch & Task Manager](https://pranithjain.qzz.io/dfir/patch-task-mgr) (dfir): Vendor advisory intake, maintenance window scheduling, approval workflows, deploy tracking.
+- [SOC Automation Engine](https://pranithjain.qzz.io/dfir/soc-automation) (dfir): Playbook engine with configurable actions (webhook/email/slack/KB/MCP) — one-click execute, run history.
 - [Rule Converter](https://pranithjain.qzz.io/dfir/rule-converter) (dfir): Sigma — KQL — SPL — YARA via one canonical IR.
 - [YARA Workbench](https://pranithjain.qzz.io/dfir/yara-workbench) (dfir): Collaborative YARA editor with malware test corpus.
 - [Threat Graph](https://pranithjain.qzz.io/dfir/threat-graph) (dfir): Indicator — relationship graph — visual pivot from any node.

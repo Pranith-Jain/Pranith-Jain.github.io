@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-powder-river-heating-air-conditioning-2026-07-17",
+  "title": "Powder River Heating & Air Conditioning",
+  "group": "qilin",
+  "discovered": "2026-07-17T23:54:38.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Construction",
+  "source_url": "https://www.ransomlook.io/screenshots/qilin/Powder River Heating & Air Conditioning.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}
