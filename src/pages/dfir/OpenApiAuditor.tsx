@@ -441,7 +441,7 @@ export default function OpenApiAuditor(): JSX.Element {
       {analysis?.error && <p className="mt-6 text-sm font-mono text-rose-600 dark:text-rose-400">{analysis.error}</p>}
       {analysis && !analysis.error && (
         <div className="mt-8 space-y-6">
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+          <section className="surface-card p-5">
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
               <span>
                 <span className="text-slate-500">Spec:</span> <span className="font-mono">{analysis.spec}</span>
@@ -477,10 +477,7 @@ export default function OpenApiAuditor(): JSX.Element {
               {analysis.findings.map((f, idx) => {
                 const st = SEV_STYLE[f.sev];
                 return (
-                  <div
-                    key={`${f.where}-${f.title}-${idx}`}
-                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
-                  >
+                  <div key={`${f.where}-${f.title}-${idx}`} className="surface-card p-4">
                     <div className="flex items-start gap-2.5">
                       <st.Icon size={16} className={`mt-0.5 flex-shrink-0 ${st.text}`} />
                       <div className="min-w-0 flex-1">

@@ -51,7 +51,7 @@ export default function Tracerules(): JSX.Element {
         </p>
       </div>
 
-      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5 mb-6">
+      <div className="surface-card/40 shadow-e1 p-5 mb-6">
         <div className="flex flex-wrap gap-3 items-center">
           <div className="relative flex-1 min-w-[200px]">
             <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -114,10 +114,7 @@ export default function Tracerules(): JSX.Element {
           const FIcon = FORMAT_ICONS[rule.format];
           const isOpen = expanded === rule.id;
           return (
-            <div
-              key={rule.id}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 overflow-hidden"
-            >
+            <div key={rule.id} className="surface-card/40 shadow-e1 overflow-hidden">
               <button
                 type="button"
                 onClick={() => setExpanded(isOpen ? null : rule.id)}

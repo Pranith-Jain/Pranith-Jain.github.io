@@ -176,7 +176,7 @@ export default function SecHeadersLive(): JSX.Element {
       {data && (
         <div className="space-y-6">
           {/* Hero */}
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+          <section className="surface-card p-5">
             <div className="flex flex-wrap items-center gap-4">
               <div
                 className={`flex h-16 w-16 shrink-0 items-center justify-center rounded-xl font-mono text-2xl font-bold ring-2 ${gradeTone}`}
@@ -217,7 +217,7 @@ export default function SecHeadersLive(): JSX.Element {
           </section>
 
           {/* Per-header status */}
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+          <section className="surface-card p-5">
             <h2 className="font-display font-bold text-lg mb-3">Per-header status</h2>
             <ul className="space-y-2">
               {(data.current ?? []).map((h, i) => {
@@ -251,7 +251,7 @@ export default function SecHeadersLive(): JSX.Element {
 
           {/* Ready-to-paste outputs */}
           {data.outputs && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+            <section className="surface-card p-5">
               <h2 className="font-display font-bold text-lg mb-3">Ready-to-paste config</h2>
               <p className="text-xs text-slate-600 dark:text-slate-400 mb-3">
                 Drop into your server config or generate a fresh policy via the{' '}

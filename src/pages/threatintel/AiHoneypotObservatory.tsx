@@ -375,7 +375,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
       </div>
 
       {/* IP table */}
-      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
+      <div className="surface-card overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-xs">
             <thead>
@@ -499,7 +499,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
                                 <span className="font-semibold text-slate-700 dark:text-slate-300">
                                   Sample Prompts:
                                 </span>
-                                <div className="mt-1 max-h-24 overflow-y-auto rounded bg-slate-100 dark:bg-slate-800 p-2 font-mono text-[10px] text-slate-600 dark:text-slate-400 whitespace-pre-wrap">
+                                <div className="mt-1 max-h-24 overflow-y-auto rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] p-2 font-mono text-[10px] text-slate-600 dark:text-slate-400 whitespace-pre-wrap">
                                   {entry.sample_prompts[0]}
                                 </div>
                               </div>
@@ -524,10 +524,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
             const Icon = cfg?.icon ?? Shield;
             const count = summary?.by_category[key] ?? 0;
             return (
-              <div
-                key={key}
-                className="flex items-start gap-3 p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]"
-              >
+              <div key={key} className="flex items-start gap-3 p-3 surface-card">
                 <div className={`p-1.5 rounded ${cfg?.color?.split(' ').slice(0, 2).join(' ') ?? 'bg-slate-500/10'}`}>
                   <Icon className="w-4 h-4" />
                 </div>
@@ -546,7 +543,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
 
       {/* Confidence levels */}
       {feed?.taxonomy?.confidence_levels && (
-        <div className="mt-4 p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
+        <div className="mt-4 p-3 surface-card">
           <h3 className="text-xs font-semibold text-slate-700 dark:text-slate-300 mb-2">Confidence Levels</h3>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             {Object.entries(feed.taxonomy.confidence_levels).map(([level, desc]) => (
@@ -578,7 +575,7 @@ function StatCard({
   color: string;
 }) {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3 text-center">
+    <div className="surface-card p-3 text-center">
       <div className={`text-xl font-bold ${color}`}>{displayValue ?? formatHits(value)}</div>
       <div className="text-[10px] font-mono uppercase tracking-wider text-slate-600 dark:text-slate-500 mt-0.5">
         {label}

@@ -81,8 +81,7 @@ const TONE: Record<string, string> = {
   emerald: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
 };
 
-const CARD =
-  'rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1';
+const CARD = 'surface-card';
 
 export default function CrossChainEcosystem() {
   return (

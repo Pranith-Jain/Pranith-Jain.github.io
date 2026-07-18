@@ -309,7 +309,7 @@ export default function MispBrowser() {
           back to events
         </button>
 
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-6 space-y-4">
+        <div className="surface-card p-6 space-y-4">
           <div className="flex items-start justify-between gap-4 flex-wrap">
             <div className="space-y-1">
               <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">
@@ -591,7 +591,7 @@ export default function MispBrowser() {
             <button
               key={e.id}
               onClick={() => loadEventDetail(e.id)}
-              className="text-left w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 hover:border-brand-400 dark:hover:border-brand-600 transition-colors group"
+              className="text-left w-full surface-card p-4 hover:border-brand-400 dark:hover:border-brand-600 transition-colors group"
             >
               <div className="flex items-start justify-between gap-3 flex-wrap">
                 <div className="min-w-0 flex-1">

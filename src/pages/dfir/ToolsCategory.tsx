@@ -127,7 +127,7 @@ export default function ToolsCategory(): JSX.Element {
             {s.tools.map((t) => {
               const Icon = t.icon;
               const card = (
-                <div className="group h-full flex flex-col rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5 hover:border-brand-500/40 transition-colors">
+                <div className="group h-full flex flex-col surface-card p-5 hover:border-brand-500/40 transition-colors">
                   <div className="flex items-center gap-2 mb-2">
                     <Icon size={18} className="text-brand-600 dark:text-brand-400" />
                     <span className="font-display font-semibold group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
@@ -186,10 +186,7 @@ export default function ToolsCategory(): JSX.Element {
               },
               { platform: 'PyPI', username: 'pranith', profileUrl: 'https://pypi.org/user/pranith/' },
             ].map((ex) => (
-              <div
-                key={ex.platform}
-                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 shadow-e1 p-3 flex items-center gap-3"
-              >
+              <div key={ex.platform} className="surface-card/60 shadow-e1 p-3 flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full bg-brand-500/10 flex items-center justify-center text-xs font-mono text-brand-600 dark:text-brand-400">
                   ✓
                 </div>
@@ -217,7 +214,7 @@ export default function ToolsCategory(): JSX.Element {
         </section>
       )}
 
-      <section className="mt-12 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-8">
+      <section className="mt-12 surface-card p-8">
         <h2 className="font-display font-bold text-xl flex items-center gap-2">
           <ShieldCheck size={20} className="text-brand-600 dark:text-brand-400" /> Why local analysis matters
         </h2>
@@ -235,10 +232,7 @@ export default function ToolsCategory(): JSX.Element {
         </h2>
         <div className="grid gap-3 sm:grid-cols-3">
           {AUDIENCE.map((a) => (
-            <div
-              key={a.who}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5"
-            >
+            <div key={a.who} className="surface-card p-5">
               <div className="font-display font-semibold mb-1">{a.who}</div>
               <p className="text-sm font-mono text-muted leading-relaxed">{a.what}</p>
             </div>

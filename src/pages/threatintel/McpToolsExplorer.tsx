@@ -45,8 +45,7 @@ const CATEGORY_COLORS: Record<string, string> = {
   other: 'bg-slate-50 dark:bg-slate-950/40 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700',
 };
 
-const CARD =
-  'rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1';
+const CARD = 'surface-card';
 const INPUT =
   'w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500';
 
@@ -98,7 +97,7 @@ function ToolCard({ tool, isExpanded, onToggle }: { tool: McpTool; isExpanded: b
           <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">{tool.description}</p>
           <div className="flex items-center gap-2">
             <span className="text-[10px] font-mono text-slate-400">MCP name:</span>
-            <code className="text-[11px] font-mono bg-slate-100 dark:bg-slate-800 rounded px-1.5 py-0.5 text-slate-700 dark:text-slate-300">
+            <code className="text-[11px] font-mono bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded px-1.5 py-0.5 text-slate-700 dark:text-slate-300">
               {tool.name}
             </code>
           </div>

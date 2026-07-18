@@ -214,10 +214,7 @@ export default function Watches(): JSX.Element {
                   w.type.includes(search.toLowerCase())
               )
               .map((watch) => (
-                <div
-                  key={watch.id}
-                  className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-4 py-3"
-                >
+                <div key={watch.id} className="surface-card px-4 py-3">
                   {editingId === watch.id ? (
                     <div className="space-y-3">
                       <div>
@@ -339,7 +336,7 @@ export default function Watches(): JSX.Element {
         {/* Right panel — create form + alert log */}
         <div className="lg:col-span-2 space-y-6">
           {showForm && (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+            <div className="surface-card p-4">
               <h3 className="font-display font-semibold text-sm mb-4">Create Watch</h3>
               <div className="space-y-3">
                 <div>
@@ -440,10 +437,7 @@ export default function Watches(): JSX.Element {
                 <p className="text-mini font-mono text-slate-400 italic">No alerts yet.</p>
               ) : (
                 alerts.map((alert, i) => (
-                  <div
-                    key={i}
-                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2.5"
-                  >
+                  <div key={i} className="surface-card px-3 py-2.5">
                     <div className="flex items-center gap-2 mb-0.5">
                       <span className={`text-micro font-mono uppercase tracking-wider ${TYPE_COLORS[alert.type]}`}>
                         {TYPE_LABELS[alert.type]}

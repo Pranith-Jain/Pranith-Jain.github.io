@@ -496,7 +496,7 @@ export default function MedusaScanner(): JSX.Element {
       {result && (
         <div className="mt-8 space-y-6">
           {/* Summary bar */}
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+          <section className="surface-card p-4">
             <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
               <span className="font-mono font-semibold">
                 {totalHits} finding{totalHits !== 1 ? 's' : ''}
@@ -552,10 +552,7 @@ export default function MedusaScanner(): JSX.Element {
                 if (grp.length === 0) return null;
                 const st = SEV_STYLE[sev];
                 return (
-                  <section
-                    key={sev}
-                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden"
-                  >
+                  <section key={sev} className="surface-card overflow-hidden">
                     <div
                       className={`px-4 py-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] ${st.bg} flex items-center gap-2`}
                     >

@@ -286,13 +286,7 @@ export function McpSearchWorkbench(props: {
   const hasFilters = activeFilterCount > 0;
 
   return (
-    <div
-      className={
-        props.compact
-          ? ''
-          : 'rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1'
-      }
-    >
+    <div className={props.compact ? '' : 'surface-card'}>
       <div className={props.compact ? '' : 'p-4'}>
         <div className="flex flex-wrap items-center gap-2 mb-3">
           <Search className="h-4 w-4 text-brand-600 dark:text-brand-400" />
@@ -586,7 +580,7 @@ function IocHitCard({
   const reports = hit.reports ?? [];
   const total = hit.total_reports ?? reports.length;
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+    <div className="surface-card overflow-hidden">
       <div className="flex items-center justify-between gap-2 px-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.3)] border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
         <div className="flex items-center gap-2 min-w-0">
           <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300">
@@ -637,7 +631,7 @@ function IocHitCard({
 
 function CveHitCard({ hit }: { hit: CveSearchResult }): JSX.Element {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+    <div className="surface-card overflow-hidden">
       <div className="flex items-center justify-between gap-2 px-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.3)] border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
         <div className="flex items-center gap-2 min-w-0">
           <Shield className="h-4 w-4 text-orange-500 shrink-0" />
@@ -727,7 +721,7 @@ function ReportsHitCard({
 }): JSX.Element {
   const reports = hit.reports ?? [];
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+    <div className="surface-card overflow-hidden">
       <div className="flex items-center justify-between gap-2 px-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.3)] border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
         <div className="flex items-center gap-2">
           <FileText className="h-4 w-4 text-blue-500" />
@@ -873,7 +867,7 @@ function DetailSection({
 
 function BriefingsHitCard({ briefings }: { briefings: BriefingSummary[] }): JSX.Element {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+    <div className="surface-card overflow-hidden">
       <div className="flex items-center gap-2 px-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.3)] border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
         <span className="text-xs font-semibold text-slate-800 dark:text-slate-200">Briefings</span>
         <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-purple-100 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300">

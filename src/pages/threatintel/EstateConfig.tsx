@@ -191,7 +191,7 @@ export default function EstateConfig() {
     >
       {/* Profile */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        <div className="rounded-xl border border-slate-200/60 dark:border-slate-700 bg-white dark:bg-slate-800 p-6">
+        <div className="rounded-xl border border-slate-200/60 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
           <h3 className="font-semibold text-sm uppercase tracking-wider text-slate-500 mb-4">Organisation Profile</h3>
           <div className="space-y-4">
             <div>
@@ -199,7 +199,7 @@ export default function EstateConfig() {
               <select
                 value={config.sector}
                 onChange={(e) => setConfig((prev) => ({ ...prev, sector: e.target.value }))}
-                className="mt-1 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
+                className="mt-1 w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
               >
                 {SECTORS.map((s) => (
                   <option key={s.id} value={s.id}>
@@ -214,7 +214,7 @@ export default function EstateConfig() {
                 value={config.sub_sector}
                 onChange={(e) => setConfig((prev) => ({ ...prev, sub_sector: e.target.value }))}
                 placeholder="e.g. Payment Processing, Cloud Security"
-                className="mt-1 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
+                className="mt-1 w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
               />
             </div>
             <div>
@@ -222,7 +222,7 @@ export default function EstateConfig() {
               <select
                 value={config.region}
                 onChange={(e) => setConfig((prev) => ({ ...prev, region: e.target.value }))}
-                className="mt-1 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
+                className="mt-1 w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
               >
                 {REGIONS.map((r) => (
                   <option key={r.id} value={r.id}>
@@ -234,7 +234,7 @@ export default function EstateConfig() {
           </div>
         </div>
 
-        <div className="rounded-xl border border-slate-200/60 dark:border-slate-700 bg-white dark:bg-slate-800 p-6">
+        <div className="rounded-xl border border-slate-200/60 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
           <h3 className="font-semibold text-sm uppercase tracking-wider text-slate-500 mb-4">Tech Stack</h3>
           <div className="flex gap-2 mb-3">
             <input
@@ -242,7 +242,7 @@ export default function EstateConfig() {
               onChange={(e) => setTechInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addTech(techInput))}
               placeholder="Add technology (e.g. AWS, Azure, Kubernetes)"
-              className="flex-1 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
+              className="flex-1 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
             />
             <button
               onClick={() => addTech(techInput)}
@@ -277,7 +277,7 @@ export default function EstateConfig() {
                 className={`px-2.5 py-1 rounded-full text-xs font-medium border transition-colors ${
                   config.data_types.includes(dt.id)
                     ? 'bg-amber-50 dark:bg-amber-900/20 border-amber-300 dark:border-amber-700 text-amber-700 dark:text-amber-300'
-                    : 'border-slate-200 dark:border-slate-700 text-slate-500 hover:border-amber-300'
+                    : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-amber-300'
                 }`}
               >
                 {dt.label}
@@ -296,13 +296,13 @@ export default function EstateConfig() {
       </button>
 
       {/* Assets */}
-      <div className="rounded-xl border border-slate-200/60 dark:border-slate-700 bg-white dark:bg-slate-800 p-6 mb-8">
+      <div className="rounded-xl border border-slate-200/60 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6 mb-8">
         <h3 className="font-semibold text-sm uppercase tracking-wider text-slate-500 mb-4">Monitored Assets</h3>
-        <div className="flex flex-wrap gap-3 mb-6 p-3 rounded-xl bg-slate-50 dark:bg-slate-900/50">
+        <div className="flex flex-wrap gap-3 mb-6 p-3 rounded-xl bg-slate-50 dark:bg-[rgb(var(--surface-100))]/50">
           <select
             value={newAsset.asset_type}
             onChange={(e) => setNewAsset((prev) => ({ ...prev, asset_type: e.target.value }))}
-            className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
+            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
           >
             <option value="domain">Domain</option>
             <option value="ip">IP</option>
@@ -317,18 +317,18 @@ export default function EstateConfig() {
             value={newAsset.value}
             onChange={(e) => setNewAsset((prev) => ({ ...prev, value: e.target.value }))}
             placeholder="Value (domain, IP, account ID...)"
-            className="flex-1 min-w-[200px] rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
+            className="flex-1 min-w-[200px] rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
           />
           <input
             value={newAsset.label}
             onChange={(e) => setNewAsset((prev) => ({ ...prev, label: e.target.value }))}
             placeholder="Label (optional)"
-            className="w-40 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
+            className="w-40 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
           />
           <select
             value={newAsset.criticality}
             onChange={(e) => setNewAsset((prev) => ({ ...prev, criticality: e.target.value }))}
-            className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
+            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
           >
             <option value="critical">Critical</option>
             <option value="high">High</option>
@@ -354,7 +354,7 @@ export default function EstateConfig() {
               return (
                 <div
                   key={a.id}
-                  className="flex items-center gap-3 p-3 rounded-xl border border-slate-200 dark:border-slate-700/50 hover:bg-slate-50 dark:hover:bg-slate-700/30"
+                  className="flex items-center gap-3 p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]/50 hover:bg-slate-50 dark:hover:bg-slate-700/30"
                 >
                   <Icon size={18} className="text-slate-400" />
                   <div className="flex-1 min-w-0">

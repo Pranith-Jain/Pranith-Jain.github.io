@@ -150,7 +150,7 @@ export function PivotsTab({
   if (pivots.length === 0) return null;
 
   return (
-    <section className="mb-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+    <section className="mb-8 surface-card p-5">
       <div className="flex items-center gap-2 mb-4">
         <Fingerprint size={16} className="text-brand-600 dark:text-brand-400" />
         <h3 className="font-display font-semibold text-base">Pivots — extracted artifacts</h3>

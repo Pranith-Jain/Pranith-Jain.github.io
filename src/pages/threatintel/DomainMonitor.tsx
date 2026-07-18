@@ -134,7 +134,7 @@ export default function DomainMonitor(): JSX.Element {
       {results && (
         <div className="space-y-6">
           {/* Summary Stats */}
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+          <section className="surface-card p-4">
             <h2 className="font-display font-bold text-xl mb-4">{results.domain}</h2>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               <div className="text-center">
@@ -176,7 +176,7 @@ export default function DomainMonitor(): JSX.Element {
 
           {/* Active Domains (Potential Threats) */}
           {results.results.active.length > 0 && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+            <section className="surface-card p-4">
               <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-rose-600 dark:text-rose-400 font-mono mb-3 flex items-center gap-2">
                 <AlertTriangle size={12} /> Active Typosquats ({results.results.active.length})
               </h3>
@@ -214,7 +214,7 @@ export default function DomainMonitor(): JSX.Element {
 
           {/* Inactive Domains (Safe) */}
           {results.results.inactive.length > 0 && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+            <section className="surface-card p-4">
               <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 font-mono mb-3">
                 Inactive Variants ({results.results.inactive.length})
               </h3>
@@ -234,7 +234,7 @@ export default function DomainMonitor(): JSX.Element {
 
           {/* Unchecked Variants */}
           {results.results.unchecked.length > 0 && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+            <section className="surface-card p-4">
               <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-slate-500 font-mono mb-3">
                 Additional Variants ({results.results.unchecked.length})
               </h3>
@@ -262,7 +262,7 @@ export default function DomainMonitor(): JSX.Element {
           )}
 
           {/* Type Legend */}
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+          <section className="surface-card p-4">
             <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
               Detection Types
             </h3>

@@ -312,10 +312,7 @@ export default function LiveCenter(): JSX.Element {
     >
       <div className="mb-6 grid grid-cols-2 gap-2 sm:grid-cols-4">
         {CATEGORIES.map((cat) => (
-          <div
-            key={cat.id}
-            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2"
-          >
+          <div key={cat.id} className="surface-card px-3 py-2">
             <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
               {cat.label}
             </div>
@@ -344,10 +341,7 @@ export default function LiveCenter(): JSX.Element {
                 const key = `${cat.id}:${tool.name}`;
                 const open = expanded[key] ?? false;
                 return (
-                  <div
-                    key={tool.name}
-                    className="surface-card overflow-hidden rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 transition-all"
-                  >
+                  <div key={tool.name} className="surface-card overflow-hidden surface-card transition-all">
                     <div className="p-4">
                       <div className="flex items-start justify-between gap-2 mb-2">
                         <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">

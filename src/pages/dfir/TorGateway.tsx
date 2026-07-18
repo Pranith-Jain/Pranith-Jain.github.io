@@ -75,7 +75,7 @@ export default function TorGateway() {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between px-4 py-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-brand-400 dark:hover:border-brand-600 transition-colors group"
+                  className="flex items-center justify-between px-4 py-3 surface-card hover:border-brand-400 dark:hover:border-brand-600 transition-colors group"
                 >
                   <span className="text-xs font-mono text-slate-700 dark:text-slate-300">{gw.label}</span>
                   <span className="text-mini font-mono text-brand-600 dark:text-brand-400 group-hover:underline truncate ml-2 max-w-[200px]">

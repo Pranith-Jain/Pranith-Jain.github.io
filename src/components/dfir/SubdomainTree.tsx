@@ -7,10 +7,7 @@ export function SubdomainTree({ subdomains }: { subdomains: ExposureScanResponse
   return (
     <ul className="space-y-2">
       {subdomains.map((s) => (
-        <li
-          key={s.name}
-          className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
-        >
+        <li key={s.name} className="surface-card p-3">
           <div className="flex items-center justify-between">
             <span className="font-mono text-sm text-slate-900 dark:text-slate-100">{s.name}</span>
             <span className="font-mono text-xs text-muted">

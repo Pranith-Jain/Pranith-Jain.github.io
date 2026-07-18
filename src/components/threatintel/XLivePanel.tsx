@@ -87,9 +87,7 @@ export function XLivePanel({
   }, [sinceHours, limit]);
 
   return (
-    <section
-      className={`rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 ${className}`}
-    >
+    <section className={`surface-card p-4 ${className}`}>
       <div className="flex items-center justify-between mb-3">
         <h3 className="font-display font-semibold text-sm inline-flex items-center gap-1.5">
           <Twitter size={14} className="text-brand-600 dark:text-brand-400" /> {title}

@@ -151,21 +151,21 @@ export default function InfostealerDetail(): JSX.Element {
       maxWidthClass="max-w-5xl"
     >
       <div className="grid gap-6 md:grid-cols-3 mb-8 animate-fade-in-up">
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
+        <div className="surface-card p-4">
           <div className="flex items-center gap-2 mb-2">
             <Calendar size={14} className="text-slate-500" />
             <span className="text-micro font-mono uppercase tracking-wider text-slate-500">First seen</span>
           </div>
           <p className="font-mono text-sm font-semibold">{family.firstSeen}</p>
         </div>
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
+        <div className="surface-card p-4">
           <div className="flex items-center gap-2 mb-2">
             <Globe size={14} className="text-slate-500" />
             <span className="text-micro font-mono uppercase tracking-wider text-slate-500">Platforms</span>
           </div>
           <p className="font-mono text-sm font-semibold">{family.platforms.join(', ')}</p>
         </div>
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
+        <div className="surface-card p-4">
           <div className="flex items-center gap-2 mb-2">
             <Layers size={14} className="text-slate-500" />
             <span className="text-micro font-mono uppercase tracking-wider text-slate-500">Capabilities</span>
@@ -246,10 +246,7 @@ export default function InfostealerDetail(): JSX.Element {
         ) : (
           <ul className="grid gap-2 md:grid-cols-2">
             {samples.map((s, i) => (
-              <li
-                key={i}
-                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
-              >
+              <li key={i} className="surface-card p-3">
                 <div className="flex items-center justify-between gap-2 mb-1">
                   <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 font-mono text-micro uppercase text-rose-700 dark:text-rose-300">
                     {s.family}
@@ -298,10 +295,7 @@ export default function InfostealerDetail(): JSX.Element {
         ) : (
           <ul className="grid gap-2 md:grid-cols-2">
             {c2.map((x, i) => (
-              <li
-                key={i}
-                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
-              >
+              <li key={i} className="surface-card p-3">
                 <div className="flex items-center justify-between gap-2">
                   <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 font-mono text-micro uppercase text-rose-700 dark:text-rose-300">
                     {x.family}

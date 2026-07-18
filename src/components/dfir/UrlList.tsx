@@ -21,7 +21,7 @@ function hostOf(url: string): string | null {
 export function UrlList({ urls }: UrlListProps): JSX.Element | null {
   if (urls.length === 0) {
     return (
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+      <section className="surface-card p-6">
         <h2 className="font-display font-bold text-xl mb-2">URLs Extracted</h2>
         <p className="text-sm font-mono text-slate-500">No URLs found in email body.</p>
       </section>
@@ -29,7 +29,7 @@ export function UrlList({ urls }: UrlListProps): JSX.Element | null {
   }
 
   return (
-    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+    <section className="surface-card p-6">
       <h2 className="font-display font-bold text-xl mb-4">
         URLs Extracted <span className="text-sm font-mono text-muted font-normal">({urls.length})</span>
       </h2>

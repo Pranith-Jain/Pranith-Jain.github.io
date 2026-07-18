@@ -244,7 +244,7 @@ export default function AiRuleGenerator(): JSX.Element {
         {/* Input Panel */}
         <div className="space-y-5">
           {/* Rule Type Selector */}
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+          <div className="surface-card/40 shadow-e1 p-5">
             <h2 className="font-display font-bold text-sm mb-3">Rule Format</h2>
             {categories.map((cat) => {
               const items = RULE_TYPES.filter((rt) => rt.category === cat);
@@ -278,7 +278,7 @@ export default function AiRuleGenerator(): JSX.Element {
           </div>
 
           {/* Description */}
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+          <div className="surface-card/40 shadow-e1 p-5">
             <h2 className="font-display font-bold text-sm mb-3">Detection Description</h2>
             <textarea
               value={description}
@@ -300,7 +300,7 @@ export default function AiRuleGenerator(): JSX.Element {
           </div>
 
           {/* Known Indicators */}
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+          <div className="surface-card/40 shadow-e1 p-5">
             <h2 className="font-display font-bold text-sm mb-3">
               Known Indicators <span className="font-normal text-slate-500">(optional)</span>
             </h2>
@@ -313,7 +313,7 @@ export default function AiRuleGenerator(): JSX.Element {
           </div>
 
           {/* Options */}
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+          <div className="surface-card/40 shadow-e1 p-5">
             <h2 className="font-display font-bold text-sm mb-3">Options</h2>
             <div className="space-y-3">
               <div>
@@ -404,7 +404,7 @@ export default function AiRuleGenerator(): JSX.Element {
 
           {result ? (
             <>
-              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+              <div className="surface-card/40 shadow-e1 p-5">
                 <div className="flex items-center justify-between mb-3">
                   <h2 className="font-display font-bold text-sm flex items-center gap-2">
                     <Code size={14} className="text-brand-600 dark:text-brand-400" /> Generated Rule
@@ -422,7 +422,7 @@ export default function AiRuleGenerator(): JSX.Element {
                 </pre>
               </div>
 
-              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+              <div className="surface-card/40 shadow-e1 p-5">
                 <h2 className="font-display font-bold text-sm mb-3">Metadata</h2>
                 <div className="grid grid-cols-2 gap-3 text-sm">
                   <div>
@@ -459,7 +459,7 @@ export default function AiRuleGenerator(): JSX.Element {
               </div>
 
               {result.mitre_techniques.length > 0 && (
-                <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+                <div className="surface-card/40 shadow-e1 p-5">
                   <h2 className="font-display font-bold text-sm mb-3">MITRE ATT&CK</h2>
                   <div className="flex flex-wrap gap-1.5">
                     {result.mitre_techniques.map((t, i) => (
@@ -478,7 +478,7 @@ export default function AiRuleGenerator(): JSX.Element {
               )}
 
               {result.testing_notes && (
-                <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+                <div className="surface-card/40 shadow-e1 p-5">
                   <h2 className="font-display font-bold text-sm mb-2">Testing Notes</h2>
                   <p className="text-sm text-muted leading-relaxed">{result.testing_notes}</p>
                 </div>

@@ -248,7 +248,7 @@ export default function FeedQuality(): JSX.Element {
               />
             ))}
             {filtered.length === 0 && (
-              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-6 text-center text-sm text-slate-500 font-mono">
+              <div className="surface-card p-6 text-center text-sm text-slate-500 font-mono">
                 No feeds match the current filter.
               </div>
             )}
@@ -261,7 +261,7 @@ export default function FeedQuality(): JSX.Element {
 
 function SummaryStrip({ data }: { data: TifceResponse }): JSX.Element {
   return (
-    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
+    <section className="surface-card p-4 mb-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
       <Stat
         label="Feeds evaluated"
         value={data.summary.feeds_evaluated}
@@ -310,7 +310,7 @@ function FilterBar({
   meta: TifceResponse['_meta'];
 }): JSX.Element {
   return (
-    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
+    <section className="surface-card p-4 mb-4">
       <div className="flex items-center gap-3 flex-wrap">
         <div className="relative flex-1 min-w-[200px]">
           <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -398,7 +398,7 @@ function FeedRow({
   onToggle: () => void;
 }): JSX.Element {
   return (
-    <article className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+    <article className="surface-card overflow-hidden">
       <button
         type="button"
         onClick={onToggle}

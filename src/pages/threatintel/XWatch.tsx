@@ -630,7 +630,7 @@ export default function XWatch(): JSX.Element {
         </div>
       </div>
 
-      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+      <div className="surface-card p-5">
         <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
           <div>
             <h2 className="text-xl font-display font-bold inline-flex items-center gap-2">

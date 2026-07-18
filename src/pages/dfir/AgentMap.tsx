@@ -179,7 +179,7 @@ export default function AgentMap(): JSX.Element {
       }
       maxWidthClass="max-w-6xl"
     >
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <section className="surface-card p-4 mb-6">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
           <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
             Config JSON
@@ -224,7 +224,7 @@ export default function AgentMap(): JSX.Element {
         <>
           <section className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-4 mb-6">
             {/* Graph */}
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+            <div className="surface-card p-4">
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
                 Capability graph ({graph.tools.length} tool{graph.tools.length === 1 ? '' : 's'})
               </h2>
@@ -269,7 +269,7 @@ export default function AgentMap(): JSX.Element {
             </div>
 
             {/* Capability legend */}
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+            <div className="surface-card p-4">
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
                 Capabilities
               </h2>
@@ -294,7 +294,7 @@ export default function AgentMap(): JSX.Element {
 
           {/* Risk paths */}
           {graph.risks.length > 0 ? (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+            <section className="surface-card p-4 mb-6">
               <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-rose-600 dark:text-rose-400 font-mono mb-3 inline-flex items-center gap-1.5">
                 <AlertTriangle size={12} /> Risk paths ({graph.risks.length})
               </h2>
@@ -340,7 +340,7 @@ export default function AgentMap(): JSX.Element {
 
           {/* Tool list */}
           {graph.tools.length > 0 && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+            <section className="surface-card p-4 mb-6">
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
                 Tools
               </h2>
@@ -377,7 +377,7 @@ export default function AgentMap(): JSX.Element {
         </>
       )}
 
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <section className="surface-card p-4">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           References
         </h2>

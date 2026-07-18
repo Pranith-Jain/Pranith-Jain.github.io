@@ -73,10 +73,7 @@ function StatsView({ data }: { data: unknown }) {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
       {entries.map(([k, v]) => (
-        <div
-          key={k}
-          className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
-        >
+        <div key={k} className="surface-card p-4">
           <div className="text-micro font-mono uppercase tracking-wider text-slate-500">{k.replace(/_/g, ' ')}</div>
           <div className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">{String(v)}</div>
         </div>
@@ -107,10 +104,7 @@ function ListView({ data }: { data: unknown }) {
       {rows.slice(0, 200).map((row, i) => {
         if (!isRecord(row)) {
           return (
-            <li
-              key={i}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 font-mono text-meta"
-            >
+            <li key={i} className="surface-card p-3 font-mono text-meta">
               {String(row)}
             </li>
           );
@@ -120,10 +114,7 @@ function ListView({ data }: { data: unknown }) {
         const date = pick(row, ['date', 'discovered', 'published', 'added_date', 'created']);
         const count = pick(row, ['count', 'rules', 'chats', 'total']);
         return (
-          <li
-            key={i}
-            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
-          >
+          <li key={i} className="surface-card p-3">
             <div className="flex items-baseline justify-between gap-2">
               <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 truncate">
                 {title}

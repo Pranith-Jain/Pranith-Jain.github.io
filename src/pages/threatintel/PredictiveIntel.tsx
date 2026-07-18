@@ -105,10 +105,7 @@ export default function PredictiveIntel(): JSX.Element {
           <h2 className="text-lg font-display font-bold mb-4">Sector Risk Assessment</h2>
           <div className="grid gap-4 sm:grid-cols-2">
             {sectorRisks.map((s, i) => (
-              <div
-                key={i}
-                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5"
-              >
+              <div key={i} className="surface-card/40 shadow-e1 p-5">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
                     <h3 className="font-display font-bold text-sm capitalize">{s.sector}</h3>
@@ -150,10 +147,7 @@ export default function PredictiveIntel(): JSX.Element {
           <h2 className="text-lg font-display font-bold mb-4">Threat Forecasts</h2>
           <div className="space-y-4">
             {forecasts.map((f, i) => (
-              <div
-                key={i}
-                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5"
-              >
+              <div key={i} className="surface-card/40 shadow-e1 p-5">
                 <div className="flex items-start justify-between mb-3">
                   <div>
                     <h3 className="font-display font-bold text-sm capitalize">{f.threat_type.replace(/_/g, ' ')}</h3>

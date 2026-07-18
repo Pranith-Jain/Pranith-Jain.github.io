@@ -508,7 +508,7 @@ export default function RedHuntInsights(): JSX.Element {
           </div>
 
           {/* ── Collected Assets: 6-week chart for subdomains + APKs ─── */}
-          <div className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+          <div className="mb-6 surface-card p-5">
             <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
               <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Collected Assets</h3>
               <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
@@ -542,7 +542,7 @@ export default function RedHuntInsights(): JSX.Element {
           </div>
 
           {/* ── Top 25 Domains Word Cloud ────────────────────────────── */}
-          <div className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+          <div className="mb-6 surface-card p-5">
             <div className="mb-1 flex flex-wrap items-baseline justify-between gap-2">
               <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Top 25 Domains Word Cloud</h3>
               <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
@@ -634,7 +634,7 @@ export default function RedHuntInsights(): JSX.Element {
 
           {/* ── Commits Over Time + Secrets Found Over Time ──────────── */}
           <div className="mb-6 grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+            <div className="surface-card p-5">
               <h3 className="mb-1 text-base font-semibold text-slate-900 dark:text-slate-100">Commits Over Time</h3>
               <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 Code Commits Scanned Across Major Code Platforms in Last 6 Weeks
@@ -651,7 +651,7 @@ export default function RedHuntInsights(): JSX.Element {
                 />
               </div>
             </div>
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+            <div className="surface-card p-5">
               <h3 className="mb-1 text-base font-semibold text-slate-900 dark:text-slate-100">
                 Secrets Found Over Time
               </h3>
@@ -674,7 +674,7 @@ export default function RedHuntInsights(): JSX.Element {
 
           {/* ── Recently Discovered Secrets + Top 10 Secret Types ────── */}
           <div className="mb-6 grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+            <div className="surface-card p-5">
               <h3 className="mb-1 text-base font-semibold text-slate-900 dark:text-slate-100">
                 Recently Discovered Secrets
               </h3>
@@ -702,7 +702,7 @@ export default function RedHuntInsights(): JSX.Element {
                 </ul>
               )}
             </div>
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+            <div className="surface-card p-5">
               <div className="flex items-baseline justify-between">
                 <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">Top 10 Secrets Type</h3>
                 <p className="text-sm font-display font-bold text-slate-900 dark:text-slate-100 tabular-nums">
@@ -744,7 +744,7 @@ export default function RedHuntInsights(): JSX.Element {
               />
             </div>
           </div>
-          <div className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+          <div className="mb-6 surface-card p-5">
             <h3 className="mb-1 text-base font-semibold text-slate-900 dark:text-slate-100">
               Collections and Environments Growth
             </h3>

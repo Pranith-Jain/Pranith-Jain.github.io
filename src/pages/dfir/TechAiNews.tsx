@@ -221,7 +221,7 @@ export default function TechAiNews(): JSX.Element {
       </div>
 
       {/* Filters */}
-      <section className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5 space-y-3">
+      <section className="mb-6 surface-card p-5 space-y-3">
         <div className="flex items-center gap-2">
           <Search size={14} className="text-brand-600 dark:text-brand-400" aria-hidden="true" />
           <input

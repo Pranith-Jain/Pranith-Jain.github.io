@@ -240,10 +240,7 @@ export default function PeAnalyzer(): JSX.Element {
               ['Entry point', pe.entry],
               ['Image base', pe.imageBase],
             ].map(([k, v]) => (
-              <div
-                key={k}
-                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
-              >
+              <div key={k} className="surface-card p-3">
                 <div className="text-micro font-mono uppercase tracking-wider text-slate-500">{k}</div>
                 <div className="font-mono text-meta break-all">{v}</div>
               </div>
@@ -294,10 +291,7 @@ export default function PeAnalyzer(): JSX.Element {
           </div>
 
           {pe.imports.map((im) => (
-            <div
-              key={im.dll}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
-            >
+            <div key={im.dll} className="surface-card p-3">
               <div className="font-mono text-meta text-slate-900 dark:text-slate-100 mb-1">
                 {im.dll} <span className="text-slate-500">· {im.fns.length} imports</span>
               </div>

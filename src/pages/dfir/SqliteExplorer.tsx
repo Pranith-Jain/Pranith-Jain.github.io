@@ -122,7 +122,7 @@ export default function SqliteExplorer(): JSX.Element {
 
       {db && (
         <div className="mt-6 grid gap-4 md:grid-cols-[220px_1fr]">
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 max-h-[60vh] overflow-auto">
+          <div className="surface-card p-3 max-h-[60vh] overflow-auto">
             <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-2">
               Tables ({db.tables.length})
             </div>
@@ -146,7 +146,7 @@ export default function SqliteExplorer(): JSX.Element {
                 value={sqlText}
                 onChange={(e) => setSqlText(e.target.value)}
                 placeholder='SELECT * FROM "moz_places" LIMIT 50'
-                className="flex-1 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2 font-mono text-meta focus:border-brand-500 focus:outline-none"
+                className="flex-1 surface-card px-3 py-2 font-mono text-meta focus:border-brand-500 focus:outline-none"
               />
               <button
                 type="button"

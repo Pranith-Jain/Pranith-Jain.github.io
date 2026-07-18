@@ -226,7 +226,7 @@ export default function Nhi(): JSX.Element {
                       return next;
                     });
                   }}
-                  className="w-full flex items-center gap-3 text-left rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 hover:border-brand-500/40 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.6)] px-4 py-3 transition-colors"
+                  className="w-full flex items-center gap-3 text-left surface-card hover:border-brand-500/40 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.6)] px-4 py-3 transition-colors"
                   aria-expanded={expanded}
                 >
                   <span className="flex-none w-12 font-mono text-mini text-brand-600 dark:text-brand-400 font-bold">
@@ -296,7 +296,7 @@ export default function Nhi(): JSX.Element {
         <>
           {/* Aggregate */}
           {items.length > 0 && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+            <section className="surface-card p-4 mb-6">
               <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
                 <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
                   Inventory risk distribution
@@ -358,10 +358,7 @@ export default function Nhi(): JSX.Element {
                 const risk = entryRisk(e);
                 const isOpen = expandedItem === e.id;
                 return (
-                  <li
-                    key={e.id}
-                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1"
-                  >
+                  <li key={e.id} className="surface-card">
                     {/* Row header */}
                     <button
                       onClick={() => setExpandedItem(isOpen ? null : e.id)}
@@ -534,7 +531,7 @@ export default function Nhi(): JSX.Element {
         </>
       )}
 
-      <section className="mt-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <section className="mt-8 surface-card p-4">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           References
         </h2>

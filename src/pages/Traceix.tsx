@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useDataFetch } from '../hooks/useDataFetch';
 import { DataPageLayout } from '../components/DataPageLayout';
-import { Search, Shield, Hash, Loader2, AlertTriangle } from 'lucide-react';
+import { Button } from '../components/ui/Button';
+import { Spinner } from '../components/ui/Spinner';
+import { Search, Shield, Hash, AlertTriangle } from 'lucide-react';
 
 interface AvResult {
   engine: string;
@@ -81,7 +83,7 @@ export default function Traceix() {
       }
     >
       <div className="space-y-6 max-w-2xl mx-auto">
-        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <section className="surface-card p-4">
           <form onSubmit={handleSubmit} className="flex gap-3">
             <div className="relative flex-1">
               <Hash size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
@@ -95,14 +97,16 @@ export default function Traceix() {
                 spellCheck={false}
               />
             </div>
-            <button
+            <Button
               type="submit"
-              disabled={loading || !/^[0-9a-f]{64}$/i.test(hash.trim())}
-              className="px-4 py-2 rounded bg-brand-600 hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-400 text-white font-mono text-sm disabled:opacity-50 inline-flex items-center gap-2"
+              variant="primary-brand"
+              size="sm"
+              loading={loading}
+              disabled={!/^[0-9a-f]{64}$/i.test(hash.trim())}
+              icon={<Search size={14} />}
             >
-              {loading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
               {loading ? 'looking up…' : 'lookup'}
-            </button>
+            </Button>
           </form>
           <div className="flex flex-wrap gap-1.5 mt-3">
             <span className="text-micro font-mono text-slate-400 dark:text-slate-400 self-center mr-1">samples:</span>
@@ -124,21 +128,22 @@ export default function Traceix() {
 
         {loading && (
           <div className="flex items-center justify-center py-12 text-slate-500">
-            <Loader2 size={20} className="animate-spin mr-3" />
+            <Spinner size="md" className="mr-3" />
             Looking up hash...
           </div>
         )}
 
         {error && !loading && (
-          <p className="text-sm font-mono text-rose-600 dark:text-rose-400 mb-4 inline-flex items-center gap-2">
-            <AlertTriangle size={14} /> {error}
-          </p>
+          <div className="rounded-xl border border-rose-300/70 dark:border-rose-800/60 bg-rose-50/60 dark:bg-rose-950/30 p-4 flex items-center gap-3">
+            <AlertTriangle size={16} className="text-rose-600 dark:text-rose-400 flex-shrink-0" />
+            <p className="text-sm font-mono text-rose-700 dark:text-rose-300">{error}</p>
+          </div>
         )}
 
         {data && !loading && (
           <div className="space-y-4">
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
-              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3">
+            <section className="surface-card p-4">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400 mb-3">
                 Summary
               </h2>
               <div className="flex gap-6">
@@ -157,8 +162,8 @@ export default function Traceix() {
               </div>
             </section>
 
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
-              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3">
+            <section className="surface-card p-4">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400 mb-3">
                 Engine Results ({data.avResults.length})
               </h2>
               {data.avResults.length > 0 ? (

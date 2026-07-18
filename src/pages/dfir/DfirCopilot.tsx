@@ -237,7 +237,7 @@ export default function DfirCopilot(): JSX.Element {
           e.preventDefault();
           investigate(query);
         }}
-        className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 mb-6"
+        className="surface-card p-4 mb-6"
       >
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
@@ -311,7 +311,7 @@ export default function DfirCopilot(): JSX.Element {
       {result && (
         <div className="space-y-6">
           {/* Header card */}
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+          <div className="surface-card p-5">
             <div className="flex items-start justify-between gap-4 mb-3">
               <div className="flex flex-wrap items-center gap-3">
                 <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">{result.query}</h2>
@@ -364,7 +364,7 @@ export default function DfirCopilot(): JSX.Element {
           </div>
 
           {/* Narrative report */}
-          <div className="overflow-hidden rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
+          <div className="overflow-hidden surface-card">
             <div className="flex items-center gap-2 border-b border-slate-100 bg-slate-50/80 px-6 py-3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.4)]">
               <FileText size={15} className="text-brand-600 dark:text-brand-400" />
               <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">Investigation Report</span>

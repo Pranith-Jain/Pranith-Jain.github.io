@@ -119,7 +119,7 @@ export default function WebLogAnalyzer(): JSX.Element {
         onChange={(e) => setText(e.target.value)}
         rows={6}
         placeholder='127.0.0.1 - - [10/May/2026:13:55:36 +0000] "GET /?id=1%27%20OR%201=1 HTTP/1.1" 200 1234 "-" "sqlmap/1.7"'
-        className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2 font-mono text-meta focus:border-brand-500 focus:outline-none"
+        className="w-full surface-card px-3 py-2 font-mono text-meta focus:border-brand-500 focus:outline-none"
       />
       <button
         type="button"

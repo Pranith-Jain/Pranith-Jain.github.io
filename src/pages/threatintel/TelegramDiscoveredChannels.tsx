@@ -131,7 +131,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
       </div>
 
       {showToken && (
-        <div className="animate-fade-in-up mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3.5">
+        <div className="animate-fade-in-up mb-6 surface-card p-3.5">
           <label htmlFor="vt-admin-token" className="block text-micro uppercase tracking-wider text-slate-500 mb-1.5">
             Admin token — stored locally, sent only with approve/reject requests
           </label>
@@ -192,10 +192,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
         ) : (
           <div className="space-y-2">
             {filtered.map((ch) => (
-              <div
-                key={ch.id}
-                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3.5 flex items-center justify-between gap-4"
-              >
+              <div key={ch.id} className="surface-card p-3.5 flex items-center justify-between gap-4">
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="font-mono text-sm font-semibold text-slate-900 dark:text-slate-100">

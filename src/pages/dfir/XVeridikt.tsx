@@ -220,7 +220,7 @@ export default function XVeridikt(): JSX.Element {
             </button>
           </div>
 
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+          <div className="surface-card/40 shadow-e1 p-5">
             {mode === 'single' ? (
               <div className="space-y-3">
                 <div className="flex items-center gap-2">
@@ -286,7 +286,7 @@ export default function XVeridikt(): JSX.Element {
           </div>
 
           {results.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-4">
+            <div className="surface-card/40 shadow-e1 p-4">
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Filter</span>
               </div>
@@ -321,7 +321,7 @@ export default function XVeridikt(): JSX.Element {
 
         <div>
           {loading && (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-8 flex flex-col items-center gap-3">
+            <div className="surface-card/40 shadow-e1 p-8 flex flex-col items-center gap-3">
               <Loader2 size={32} className="animate-spin text-brand-600" />
               <p className="text-sm font-mono text-slate-500">Querying threat-intel sources in parallel…</p>
             </div>
@@ -344,10 +344,7 @@ export default function XVeridikt(): JSX.Element {
               {filtered.map((result) => {
                 const VIcon = VERDICT_ICONS[result.verdict];
                 return (
-                  <div
-                    key={result.ioc}
-                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5"
-                  >
+                  <div key={result.ioc} className="surface-card/40 shadow-e1 p-5">
                     <div className="flex items-start justify-between gap-3 mb-3">
                       <div>
                         <h3 className="font-display font-semibold text-slate-900 dark:text-slate-100">{result.ioc}</h3>

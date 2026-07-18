@@ -157,10 +157,7 @@ export default function PhishFeed(): JSX.Element {
           { label: 'PhishTank', value: stats.phishtank, icon: Tag, cls: 'text-sky-600 dark:text-sky-400' },
           { label: 'Risky TLDs', value: stats.riskyTld, icon: Filter, cls: 'text-amber-600 dark:text-amber-400' },
         ].map(({ label, value, icon: Icon, cls }) => (
-          <div
-            key={label}
-            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 shadow-e1 p-2.5"
-          >
+          <div key={label} className="surface-card/50 shadow-e1 p-2.5">
             <div className={`flex items-center gap-1.5 text-mini uppercase tracking-wider mb-0.5 ${cls}`}>
               <Icon className="w-3 h-3" /> {label}
             </div>
@@ -313,7 +310,7 @@ export default function PhishFeed(): JSX.Element {
 
       {/* Target brand breakdown */}
       {targetBreakdown.length > 0 && (
-        <div className="mt-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4">
+        <div className="mt-8 surface-card/50 p-4">
           <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-3">Targeted Brands (PhishTank)</h3>
           <div className="space-y-1.5">
             {targetBreakdown.map(([brand, count]) => (

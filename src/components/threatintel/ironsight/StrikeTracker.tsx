@@ -94,7 +94,7 @@ export default function StrikeTracker() {
         {loading ? (
           <div className="space-y-2">
             {[...Array(5)].map((_, i) => (
-              <div key={i} className="h-12 rounded-xl bg-slate-100 dark:bg-slate-800 animate-pulse" />
+              <div key={i} className="h-12 rounded-xl bg-slate-100 dark:bg-[rgb(var(--surface-200))] animate-pulse" />
             ))}
           </div>
         ) : strikes.length === 0 ? (

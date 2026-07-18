@@ -234,7 +234,7 @@ export default function SecretScanner(): JSX.Element {
       />
       {result && (
         <div className="mt-8 space-y-6">
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+          <section className="surface-card p-5">
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
               <span>
                 <span className="text-slate-500">Findings:</span>{' '}
@@ -270,7 +270,7 @@ export default function SecretScanner(): JSX.Element {
                 return (
                   <div
                     key={`${hit.kind}-${idx}`}
-                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
+                    className="surface-card p-3"
                   >
                     <div className="flex items-center gap-2.5 flex-wrap">
                       <st.Icon size={15} className={`flex-shrink-0 ${st.text}`} />

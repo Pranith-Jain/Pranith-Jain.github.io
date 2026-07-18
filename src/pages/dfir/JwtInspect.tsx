@@ -168,7 +168,7 @@ export default function JwtInspect(): JSX.Element {
       {decoded && !decoded.error && (
         <div className="mt-8 space-y-6">
           {(decoded.warnings.length > 0 || decoded.oks.length > 0 || decoded.notes.length > 0) && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5 space-y-2">
+            <section className="surface-card p-5 space-y-2">
               {decoded.warnings.map((w) => (
                 <div key={w} className="flex items-start gap-2 text-sm text-rose-700 dark:text-rose-400">
                   <AlertTriangle size={14} className="mt-0.5 flex-shrink-0" />
@@ -192,7 +192,7 @@ export default function JwtInspect(): JSX.Element {
 
           <Section title="Header" json={decoded.header} />
           <Section title="Payload" json={decoded.payload} />
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+          <section className="surface-card p-5">
             <h3 className="font-display font-semibold mb-3">Signature</h3>
             <pre className="font-mono text-sm break-all text-slate-700 dark:text-slate-300">
               {decoded.signature || '(empty)'}
@@ -206,7 +206,7 @@ export default function JwtInspect(): JSX.Element {
 
 function Section({ title, json }: { title: string; json: Record<string, unknown> }): JSX.Element {
   return (
-    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+    <section className="surface-card p-5">
       <h3 className="font-display font-semibold mb-3">{title}</h3>
       <pre className="font-mono text-sm text-slate-700 dark:text-slate-300 overflow-x-auto whitespace-pre-wrap">
         {JSON.stringify(json, null, 2)}

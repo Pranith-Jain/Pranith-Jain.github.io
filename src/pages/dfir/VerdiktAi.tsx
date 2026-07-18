@@ -224,7 +224,7 @@ export default function VerdiktAi(): JSX.Element {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Input Panel */}
         <div className="space-y-5">
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+          <div className="surface-card/40 shadow-e1 p-5">
             <div className="flex items-baseline justify-between mb-2">
               <h2 className="font-display font-bold text-sm">IOC Value</h2>
               <span className="text-micro font-mono uppercase tracking-wider text-slate-400">required</span>
@@ -276,7 +276,7 @@ export default function VerdiktAi(): JSX.Element {
           )}
 
           {loading && (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-10 text-center">
+            <div className="surface-card/40 shadow-e1 p-10 text-center">
               <Loader2 size={32} className="text-brand-600 dark:text-brand-400 mx-auto mb-3 animate-spin" />
               <p className="text-sm text-slate-600 dark:text-slate-300">Checking IOC sources…</p>
               <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">Generating analyst narrative</p>
@@ -286,7 +286,7 @@ export default function VerdiktAi(): JSX.Element {
           {result && !loading && (
             <>
               {/* IOC Detail Card */}
-              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+              <div className="surface-card/40 shadow-e1 p-5">
                 <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                   <Fingerprint size={14} className="text-brand-600 dark:text-brand-400" /> IOC Details
                 </h2>
@@ -312,7 +312,7 @@ export default function VerdiktAi(): JSX.Element {
 
               {/* Enrichment Sources */}
               {result.enrichmentSources && result.enrichmentSources.length > 0 && (
-                <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+                <div className="surface-card/40 shadow-e1 p-5">
                   <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                     <Network size={14} className="text-brand-600 dark:text-brand-400" /> Enrichment Sources
                   </h2>
@@ -342,7 +342,7 @@ export default function VerdiktAi(): JSX.Element {
 
               {/* AI Narrative */}
               {result.narrative && (
-                <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+                <div className="surface-card/40 shadow-e1 p-5">
                   <div className="flex items-center justify-between mb-2">
                     <h2 className="font-display font-bold text-sm flex items-center gap-2">
                       <FileText size={14} className="text-brand-600 dark:text-brand-400" /> Analyst Narrative
@@ -363,7 +363,7 @@ export default function VerdiktAi(): JSX.Element {
 
               {/* MITRE ATT&CK */}
               {result.mitreTechniques && result.mitreTechniques.length > 0 && (
-                <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+                <div className="surface-card/40 shadow-e1 p-5">
                   <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                     <Shield size={14} className="text-amber-600 dark:text-amber-400" /> MITRE ATT&CK
                   </h2>
@@ -385,7 +385,7 @@ export default function VerdiktAi(): JSX.Element {
 
               {/* Detection Queries */}
               {result.detectionQueries && result.detectionQueries.length > 0 && (
-                <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+                <div className="surface-card/40 shadow-e1 p-5">
                   <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                     <Terminal size={14} className="text-brand-600 dark:text-brand-400" /> Detection Queries
                   </h2>

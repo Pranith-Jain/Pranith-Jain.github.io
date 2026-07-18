@@ -126,7 +126,7 @@ export default function EmailOsnit() {
       {profile && (
         <div className="space-y-4">
           {/* Header + Risk */}
-          <div className="flex items-center gap-4 p-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
+          <div className="flex items-center gap-4 p-4 surface-card">
             {profile.gravatar.avatarUrl ? (
               <img src={profile.gravatar.avatarUrl} alt="" className="w-12 h-12 rounded-full" />
             ) : (
@@ -383,7 +383,7 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+    <div className="surface-card overflow-hidden">
       <button
         onClick={onToggle}
         className="w-full flex items-center justify-between p-3 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-100))] transition-colors"

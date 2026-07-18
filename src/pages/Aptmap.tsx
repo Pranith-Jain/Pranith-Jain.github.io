@@ -215,7 +215,7 @@ export default function AptmapPage() {
       {/* Stats Bar */}
       {index?.aptmap && (
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 mb-4">
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 shadow-e1 p-4">
+          <div className="surface-card/60 shadow-e1 p-4">
             <div className="text-eyebrow uppercase text-slate-500 mb-1">Total Samples</div>
             <div className="text-2xl font-display font-bold text-slate-900 dark:text-white tabular-nums">
               {index.aptmap.nodes.toLocaleString()}
@@ -415,7 +415,7 @@ export default function AptmapPage() {
               aria-label="Search graph nodes"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-8 pr-8 py-2 text-xs font-mono rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 text-slate-700 dark:text-slate-300 placeholder-slate-400 focus:outline-none focus:border-brand-500/50"
+              className="w-full pl-8 pr-8 py-2 text-xs font-mono surface-card text-slate-700 dark:text-slate-300 placeholder-slate-400 focus:outline-none focus:border-brand-500/50"
             />
             <Search size={12} className="absolute left-2.5 top-2.5 text-slate-400" />
             {searchQuery && (

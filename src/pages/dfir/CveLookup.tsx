@@ -245,7 +245,7 @@ export default function CveLookup(): JSX.Element {
       {result && (
         <div className="space-y-6">
           {/* Header */}
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+          <section className="surface-card p-6">
             <div className="flex flex-wrap items-start gap-3 mb-3">
               <h2 className="font-display font-bold text-2xl font-mono">{result.cve_id}</h2>
               {result.kev.in_kev && (
@@ -298,7 +298,7 @@ export default function CveLookup(): JSX.Element {
             const p = prioritise({ cvss: result.cvss, epss: result.epss, kev: result.kev });
             const total = p.contributions.cvss + p.contributions.epss + p.contributions.kev;
             return (
-              <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+              <section className="surface-card p-6">
                 <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
                   <h3 className="font-display font-semibold text-lg inline-flex items-center gap-2">
                     <Gauge size={18} className="text-brand-600 dark:text-brand-400" /> Patch priority
@@ -407,7 +407,7 @@ export default function CveLookup(): JSX.Element {
               type="button"
               onClick={explainCve}
               disabled={explainLoading}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 text-sm font-medium text-slate-700 dark:text-slate-300 hover:border-brand-500/40 transition-colors disabled:opacity-50"
+              className="inline-flex items-center gap-1.5 px-4 py-2 surface-card/40 shadow-e1 text-sm font-medium text-slate-700 dark:text-slate-300 hover:border-brand-500/40 transition-colors disabled:opacity-50"
             >
               {explainLoading ? <Loader2 size={14} className="animate-spin" /> : <ChevronDown size={14} />}
               AI explain
@@ -432,7 +432,7 @@ export default function CveLookup(): JSX.Element {
                 type="button"
                 onClick={generateRule}
                 disabled={ruleLoading}
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 text-sm font-medium text-slate-700 dark:text-slate-300 hover:border-brand-500/40 transition-colors disabled:opacity-50"
+                className="inline-flex items-center gap-1.5 px-4 py-2 surface-card/40 shadow-e1 text-sm font-medium text-slate-700 dark:text-slate-300 hover:border-brand-500/40 transition-colors disabled:opacity-50"
               >
                 {ruleLoading ? <Loader2 size={14} className="animate-spin" /> : <FileCode size={14} />}
                 Generate rule
@@ -441,7 +441,7 @@ export default function CveLookup(): JSX.Element {
           </section>
 
           {explainText && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 animate-fade-in-up">
+            <section className="surface-card p-4 animate-fade-in-up">
               <div className="flex items-center justify-between mb-2">
                 <h3 className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                   AI Analysis
@@ -465,7 +465,7 @@ export default function CveLookup(): JSX.Element {
           )}
 
           {ruleText && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 animate-fade-in-up">
+            <section className="surface-card animate-fade-in-up">
               <div className="flex items-center justify-between p-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                 <div className="flex items-center gap-2">
                   <FileCode size={14} className="text-brand-600 dark:text-brand-400" />
@@ -495,7 +495,7 @@ export default function CveLookup(): JSX.Element {
 
           {/* Description */}
           {result.description && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="surface-card p-6">
               <h3 className="font-display font-semibold text-lg mb-3">Description</h3>
               <p className="text-slate-700 dark:text-slate-300 leading-relaxed">{result.description}</p>
             </section>
@@ -503,7 +503,7 @@ export default function CveLookup(): JSX.Element {
 
           {/* CVSS */}
           {result.cvss && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="surface-card p-6">
               <h3 className="font-display font-semibold text-lg mb-4">CVSS {result.cvss.version}</h3>
               <div className="flex items-center gap-6">
                 <div className="text-center">
@@ -527,7 +527,7 @@ export default function CveLookup(): JSX.Element {
 
           {/* EPSS */}
           {result.epss && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="surface-card p-6">
               <h3 className="font-display font-semibold text-lg mb-3">EPSS, Exploit Prediction</h3>
               <div className="flex gap-8 font-mono">
                 <div>
@@ -690,7 +690,7 @@ export default function CveLookup(): JSX.Element {
 
           {/* CWEs */}
           {result.cwe && result.cwe.length > 0 && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="surface-card p-6">
               <h3 className="font-display font-semibold text-lg mb-3">Weaknesses (CWE)</h3>
               <div className="flex flex-wrap gap-2">
                 {result.cwe.map((id) => {
@@ -714,7 +714,7 @@ export default function CveLookup(): JSX.Element {
 
           {/* Affected Products */}
           {result.affected_products && result.affected_products.length > 0 && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="surface-card p-6">
               <h3 className="font-display font-semibold text-lg mb-3">Affected Products</h3>
               <ul className="space-y-1">
                 {result.affected_products.map((cpe) => (
@@ -745,7 +745,7 @@ export default function CveLookup(): JSX.Element {
                   return next;
                 });
               return (
-                <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+                <section className="surface-card p-6">
                   <div className="flex items-baseline justify-between gap-2 mb-3">
                     <h3 className="font-display font-semibold text-lg">
                       References{' '}

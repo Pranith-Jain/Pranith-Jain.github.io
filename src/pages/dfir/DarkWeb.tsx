@@ -339,7 +339,7 @@ export default function DarkWeb(): JSX.Element {
     >
       <>
         {/* Search + filters */}
-        <section className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5 space-y-4">
+        <section className="mb-6 surface-card p-5 space-y-4">
           <div className="flex items-center gap-2">
             <Search size={14} className="text-brand-600 dark:text-brand-400" />
             <input
@@ -412,7 +412,7 @@ export default function DarkWeb(): JSX.Element {
         </section>
 
         {/* Watchlist control */}
-        <section className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+        <section className="mb-6 surface-card p-5">
           <div className="flex items-center gap-2 mb-3">
             <Bell size={14} className="text-brand-600 dark:text-brand-400" />
             <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
@@ -666,7 +666,7 @@ export function BreachDisclosuresPanel(): JSX.Element {
   const visible = data?.breaches.slice(0, expanded ? data.breaches.length : 8) ?? [];
 
   return (
-    <section className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+    <section className="mb-6 surface-card p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-3 mb-3">
         <h2 className="font-display font-semibold text-lg inline-flex items-center gap-2">
           Recent breach disclosures
@@ -928,7 +928,7 @@ export function RansomwareActivityPanel(): JSX.Element {
   );
 
   return (
-    <section className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+    <section className="mb-6 surface-card p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-3 mb-3">
         <h2 className="font-display font-semibold text-lg inline-flex items-center gap-2">
           Recent ransomware activity
@@ -1338,7 +1338,7 @@ export function TelegramFeedPanel(): JSX.Element {
   const watchHits = matchedItems.filter((m) => m.matches.length > 0).length;
 
   return (
-    <section className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+    <section className="mb-6 surface-card p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-3 mb-1">
         <h2 className="font-display font-semibold text-lg inline-flex items-center gap-2">
           Cybersec Telegram firehose

@@ -352,7 +352,7 @@ function Section({
   children: React.ReactNode;
 }): JSX.Element {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+    <div className="surface-card p-4">
       <h2 className="font-display font-semibold text-sm flex items-center gap-2 mb-1">
         {icon} {title} {count > 0 && <span className="text-xs font-mono text-slate-500">({count})</span>}
       </h2>

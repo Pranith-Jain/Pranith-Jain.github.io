@@ -113,7 +113,7 @@ export function ToolSearchBar(): JSX.Element {
   );
 
   return (
-    <section className="mb-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 sm:p-5">
+    <section className="mb-8 surface-card p-4 sm:p-5">
       <label
         htmlFor="dfir-tool-search"
         className="inline-flex items-center gap-2 text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-2"

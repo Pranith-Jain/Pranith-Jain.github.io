@@ -121,7 +121,7 @@ function ActorCard({
   onToggle: () => void;
 }): JSX.Element {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden transition-all hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]">
+    <div className="surface-card overflow-hidden transition-all hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]">
       <button type="button" onClick={onToggle} className="w-full text-left p-4 flex items-start gap-4">
         <span className="text-lg mt-0.5">{actor.country.split(' ')[0]}</span>
         <div className="flex-1 min-w-0">

@@ -35,7 +35,7 @@ function JsonBlock({ label, data }: { label: string; data: unknown }) {
       <summary className="cursor-pointer text-sm font-medium text-cyan-700 dark:text-cyan-400 hover:text-cyan-600">
         {label} <span className="text-xs opacity-50">(click to expand)</span>
       </summary>
-      <pre className="mt-1 max-h-96 overflow-auto rounded border border-slate-200 bg-slate-50 p-3 text-xs dark:border-slate-700 dark:bg-slate-900">
+      <pre className="mt-1 max-h-96 overflow-auto rounded border border-slate-200 bg-slate-50 p-3 text-xs dark:border-slate-700 dark:bg-[rgb(var(--surface-100))]">
         {JSON.stringify(data, null, 2)}
       </pre>
     </details>
@@ -154,7 +154,7 @@ export default function TieEnrich() {
           <select
             value={iocType}
             onChange={(e) => setIocType(e.target.value as IocType)}
-            className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm dark:border-slate-600 dark:bg-slate-800"
+            className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm dark:border-slate-600 dark:bg-[rgb(var(--surface-200))]"
           >
             {(['ip', 'hash', 'domain', 'url'] as IocType[]).map((t) => (
               <option key={t} value={t}>
@@ -175,7 +175,7 @@ export default function TieEnrich() {
                     ? 'example.com'
                     : 'https://...'
             }
-            className="flex-1 min-w-[200px] rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm dark:border-slate-600 dark:bg-slate-800"
+            className="flex-1 min-w-[200px] rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm dark:border-slate-600 dark:bg-[rgb(var(--surface-200))]"
           />
           <button
             type="submit"
@@ -193,7 +193,7 @@ export default function TieEnrich() {
       </form>
 
       {loading && !deep && (
-        <div className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-800">
+        <div className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-[rgb(var(--surface-200))]">
           <div className="h-5 w-5 animate-spin rounded-full border-2 border-cyan-600 border-t-transparent" />
           <span className="text-sm text-slate-500">Running enrichment across providers...</span>
         </div>
@@ -207,7 +207,7 @@ export default function TieEnrich() {
       )}
 
       {result && result.status === 'done' && result.report && (
-        <div className="rounded-xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-800">
+        <div className="rounded-xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-[rgb(var(--surface-200))]">
           <h2 className="mb-4 text-lg font-semibold text-slate-800 dark:text-slate-200">Investigation Report</h2>
           <div className="prose prose-sm max-w-none dark:prose-invert">
             {result.report.split('\n').map((line, i) => (
@@ -220,7 +220,7 @@ export default function TieEnrich() {
       )}
 
       {result && result.status === 'running' && (
-        <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-800">
+        <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-[rgb(var(--surface-200))]">
           <div className="flex items-center gap-2 text-sm text-slate-500">
             <div className="h-4 w-4 animate-spin rounded-full border-2 border-cyan-600 border-t-transparent" />
             Investigation in progress...
@@ -245,7 +245,7 @@ export default function TieEnrich() {
           )}
 
           {result.geo && (
-            <div className="grid grid-cols-2 gap-2 rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm dark:border-slate-700 dark:bg-slate-800/50">
+            <div className="grid grid-cols-2 gap-2 rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm dark:border-slate-700 dark:bg-[rgb(var(--surface-200))]/50">
               {result.geo.country && (
                 <div>
                   <span className="font-medium">Country:</span> {result.geo.country}

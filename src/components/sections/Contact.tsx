@@ -1,6 +1,7 @@
 import { Mail, Calendar, Linkedin, Github, FileText } from 'lucide-react';
 import type { PersonalInfo } from '../../core/entities';
 import { CopyToClipboard } from '../../components/CopyToClipboard';
+import { Button } from '../ui/Button';
 
 interface ContactProps {
   personalInfo: PersonalInfo;
@@ -58,24 +59,17 @@ export function Contact({ personalInfo }: ContactProps) {
               instead of dark:bg-white because the global CSS override
               (.dark .bg-white → #12121a) would make the button invisible. */}
           <div className="mt-8 flex flex-wrap justify-center gap-2.5">
-            <a
-              href={personalInfo.calendlyUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex h-12 items-center gap-1.5 rounded bg-slate-900 px-5 text-base font-medium text-white transition-colors hover:bg-slate-800 dark:bg-[rgb(28,28,36)] dark:text-white dark:hover:bg-[rgb(38,38,48)] dark:ring-1 dark:ring-white/10 focus-visible:outline-none"
-              aria-label="Schedule a 30-minute consultation call"
-            >
-              <Calendar className="h-4 w-4" aria-hidden="true" />
+            <Button href={personalInfo.calendlyUrl} variant="primary" size="lg" icon={<Calendar className="h-4 w-4" />}>
               Schedule call
-            </a>
-            <a
+            </Button>
+            <Button
               href={`mailto:${personalInfo.email}`}
-              className="inline-flex h-12 items-center gap-1.5 rounded border border-black/15 bg-white px-5 text-base font-medium text-slate-900 transition-colors hover:bg-black/5 hover:border-black/25 dark:bg-transparent dark:text-slate-100 dark:border-white/20 dark:hover:bg-white/5 dark:hover:border-white/30 focus-visible:outline-none"
-              aria-label={`Send email to ${personalInfo.email}`}
+              variant="secondary"
+              size="lg"
+              icon={<Mail className="h-4 w-4" />}
             >
-              <Mail className="h-4 w-4" aria-hidden="true" />
               Email me
-            </a>
+            </Button>
           </div>
 
           {/* Email Copy Feature */}

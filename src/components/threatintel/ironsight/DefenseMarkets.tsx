@@ -78,7 +78,7 @@ export default function DefenseMarkets() {
       {loading ? (
         <div className="space-y-2">
           {[...Array(6)].map((_, i) => (
-            <div key={i} className="h-8 rounded bg-slate-100 dark:bg-slate-800 animate-pulse" />
+            <div key={i} className="h-8 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] animate-pulse" />
           ))}
         </div>
       ) : (

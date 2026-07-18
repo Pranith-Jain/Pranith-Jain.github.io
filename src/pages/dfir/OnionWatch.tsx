@@ -198,7 +198,7 @@ export default function OnionWatch(): JSX.Element {
       </div>
 
       {/* Headline stats */}
-      <section className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
+      <section className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[rgb(var(--surface-100))] shadow-e1 p-4 mb-6">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
           <Stat label="reachable groups" value={data?.reachable_count} loading={loading} />
           <Stat label="tracked groups" value={data?.groups.length} loading={loading} />
@@ -239,7 +239,7 @@ export default function OnionWatch(): JSX.Element {
       )}
 
       {/* Filters */}
-      <section className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
+      <section className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[rgb(var(--surface-100))] shadow-e1 p-4 mb-6">
         <div className="relative">
           <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
           <input
@@ -269,7 +269,7 @@ export default function OnionWatch(): JSX.Element {
               className={`px-2 py-1 rounded border ${
                 sortMode === m
                   ? 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-300 dark:border-slate-700 text-slate-500'
+                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
               }`}
             >
               {m}
@@ -281,7 +281,7 @@ export default function OnionWatch(): JSX.Element {
               type="button"
               onClick={copyAllReachable}
               disabled={visibleGroups.length === 0}
-              className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/60 disabled:opacity-40 disabled:cursor-not-allowed"
+              className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/60 disabled:opacity-40 disabled:cursor-not-allowed"
               title="Copy every visible mirror URL, one per line"
             >
               {copiedKey === '__all__' ? <Check size={11} /> : <Copy size={11} />}
@@ -291,7 +291,7 @@ export default function OnionWatch(): JSX.Element {
               type="button"
               onClick={() => void load(true)}
               disabled={refreshing}
-              className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/60 disabled:opacity-40"
+              className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/60 disabled:opacity-40"
               title="Force-refresh from origin (skips edge cache)"
             >
               <RefreshCw size={11} className={refreshing ? 'animate-spin' : ''} /> refresh
@@ -354,7 +354,7 @@ export default function OnionWatch(): JSX.Element {
                         className={`text-micro font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${
                           g.any_reachable
                             ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
-                            : 'border-slate-300 dark:border-slate-700 text-slate-500'
+                            : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
                         }`}
                       >
                         {g.any_reachable ? 'reachable' : 'all offline'}
@@ -366,7 +366,7 @@ export default function OnionWatch(): JSX.Element {
                     {g.mirrors.map((m) => (
                       <li
                         key={m.slug}
-                        className="flex flex-wrap items-baseline gap-2 text-mini font-mono px-2 py-1 rounded bg-white/60 dark:bg-slate-900/60"
+                        className="flex flex-wrap items-baseline gap-2 text-mini font-mono px-2 py-1 rounded bg-white/60 dark:bg-[rgb(var(--surface-100))]/60"
                       >
                         <span
                           className={`shrink-0 inline-block w-1.5 h-1.5 rounded-full ${
@@ -402,7 +402,7 @@ export default function OnionWatch(): JSX.Element {
                         )}
                         {typeof m.version === 'number' && (
                           <span
-                            className="text-micro uppercase tracking-wider px-1 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-500"
+                            className="text-micro uppercase tracking-wider px-1 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500"
                             title="Tor onion-service address version"
                           >
                             v{m.version}

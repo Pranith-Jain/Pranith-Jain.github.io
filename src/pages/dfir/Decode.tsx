@@ -220,7 +220,7 @@ export default function Decode(): JSX.Element {
 
       {/* Multi-pass steps */}
       {steps.length > 1 && (
-        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+        <section className="surface-card p-6">
           <h3 className="font-display font-semibold text-lg mb-4">Decode chain: {steps.length} passes</h3>
           <div className="space-y-3">
             {steps.map((step, i) => (

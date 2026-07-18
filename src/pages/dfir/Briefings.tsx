@@ -196,10 +196,7 @@ export default function Briefings(): JSX.Element {
         {loading && (
           <div className="space-y-4" aria-busy="true" aria-label="Loading briefings">
             {Array.from({ length: 4 }).map((_, i) => (
-              <div
-                key={i}
-                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6 animate-pulse"
-              >
+              <div key={i} className="surface-card p-6 animate-pulse">
                 <div className="h-4 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded w-1/2 mb-2" />
                 <div className="h-3 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded w-1/4 mb-4" />
                 <div className="h-3 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded w-3/4" />
@@ -259,7 +256,7 @@ export default function Briefings(): JSX.Element {
             <Link
               key={item.slug}
               to={`/threatintel/briefings/${item.slug}`}
-              className="block rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6 hover:border-brand-500/40 transition-colors"
+              className="block surface-card p-6 hover:border-brand-500/40 transition-colors"
             >
               <div className="flex items-start justify-between gap-4 mb-2">
                 <div className="min-w-0">

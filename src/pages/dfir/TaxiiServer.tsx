@@ -92,7 +92,7 @@ export default function TaxiiServer(): JSX.Element {
       </div>
 
       {/* Connection Details */}
-      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5 mb-6">
+      <div className="surface-card/40 shadow-e1 p-5 mb-6">
         <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
           <Database size={14} className="text-brand-600 dark:text-brand-400" /> Connection
         </h2>
@@ -111,7 +111,7 @@ export default function TaxiiServer(): JSX.Element {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {/* Collections */}
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+        <div className="surface-card/40 shadow-e1 p-5">
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-display font-bold text-sm flex items-center gap-2">
               <Shield size={14} className="text-brand-600 dark:text-brand-400" /> Collections ({collections.length})
@@ -162,7 +162,7 @@ export default function TaxiiServer(): JSX.Element {
         </div>
 
         {/* Objects */}
-        <div className="lg:col-span-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+        <div className="lg:col-span-2 surface-card/40 shadow-e1 p-5">
           <h2 className="font-display font-bold text-sm mb-4 flex items-center gap-2">
             <Database size={14} className="text-brand-600 dark:text-brand-400" />
             STIX Objects{' '}
@@ -189,7 +189,7 @@ export default function TaxiiServer(): JSX.Element {
       </div>
 
       {/* Usage Examples */}
-      <div className="mt-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+      <div className="mt-6 surface-card/40 shadow-e1 p-5">
         <h2 className="font-display font-bold text-sm mb-4">Quick Start</h2>
         <div className="space-y-3">
           <CodeBlock

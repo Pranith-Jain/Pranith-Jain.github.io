@@ -50,7 +50,7 @@ export default function PredictionMarkets() {
         {loading ? (
           <div className="space-y-2">
             {[...Array(3)].map((_, i) => (
-              <div key={i} className="h-14 rounded-xl bg-slate-100 dark:bg-slate-800 animate-pulse" />
+              <div key={i} className="h-14 rounded-xl bg-slate-100 dark:bg-[rgb(var(--surface-200))] animate-pulse" />
             ))}
           </div>
         ) : markets.length === 0 ? (
@@ -88,7 +88,7 @@ export default function PredictionMarkets() {
                     )}
                   </div>
                 </div>
-                <div className="mt-1 h-1.5 rounded overflow-hidden bg-slate-100 dark:bg-slate-800">
+                <div className="mt-1 h-1.5 rounded overflow-hidden bg-slate-100 dark:bg-[rgb(var(--surface-200))]">
                   <div
                     className={`h-full rounded transition-all duration-500 ${price >= 70 ? 'bg-emerald-400' : price >= 40 ? 'bg-amber-400' : 'bg-red-400'}`}
                     style={{ width: `${Math.max(price, 2)}%`, opacity: 0.8 }}

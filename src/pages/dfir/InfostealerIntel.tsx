@@ -258,7 +258,7 @@ export default function InfostealerIntel(): JSX.Element {
       </div>
 
       {/* Input + search */}
-      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5 mb-6">
+      <div className="surface-card/40 shadow-e1 p-5 mb-6">
         <div className="flex gap-2">
           <div className="flex-1 relative">
             <TabIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
@@ -329,16 +329,13 @@ export default function InfostealerIntel(): JSX.Element {
           </div>
 
           {!searchResult.found && (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-8 text-center text-muted">
+            <div className="surface-card/40 shadow-e1 p-8 text-center text-muted">
               No infostealer compromises found.
             </div>
           )}
 
           {(searchResult.results ?? []).map((entry, i) => (
-            <div
-              key={i}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 overflow-hidden"
-            >
+            <div key={i} className="surface-card/40 shadow-e1 overflow-hidden">
               <div className="px-4 py-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))] flex flex-wrap items-center gap-2.5 text-sm">
                 <span className="px-2 py-0.5 rounded text-xs font-mono font-medium bg-rose-500/10 text-rose-700 dark:text-rose-300 border border-rose-500/20">
                   {entry.stealer_family}
@@ -418,7 +415,7 @@ export default function InfostealerIntel(): JSX.Element {
               />
             </div>
           ) : (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-8 text-center text-muted">
+            <div className="surface-card/40 shadow-e1 p-8 text-center text-muted">
               No overview data available for this domain.
             </div>
           )}
@@ -434,7 +431,7 @@ export default function InfostealerIntel(): JSX.Element {
             </div>
           ) : infectionResult.analysis ? (
             <div className="space-y-4">
-              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+              <div className="surface-card/40 shadow-e1 p-5">
                 <div className="flex items-center gap-3 mb-3">
                   <Shield className="w-5 h-5 text-brand-600 dark:text-brand-400" />
                   <span className="font-medium">Infection Confidence</span>
@@ -460,7 +457,7 @@ export default function InfostealerIntel(): JSX.Element {
                 </p>
               </div>
 
-              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+              <div className="surface-card/40 shadow-e1 p-5">
                 <h3 className="font-medium mb-3 flex items-center gap-2 text-sm">
                   <Clock className="w-4 h-4 text-slate-400" /> Infection Flow
                 </h3>
@@ -484,7 +481,7 @@ export default function InfostealerIntel(): JSX.Element {
               </div>
             </div>
           ) : (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-8 text-center text-muted">
+            <div className="surface-card/40 shadow-e1 p-8 text-center text-muted">
               No infection analysis available for this stealer.
             </div>
           )}
@@ -511,7 +508,7 @@ export default function InfostealerIntel(): JSX.Element {
 
 function OverviewCard({ label, value, accent }: { label: string; value: string | number; accent: string }) {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-4">
+    <div className="surface-card/40 shadow-e1 p-4">
       <div className="text-xs text-slate-400 mb-1">{label}</div>
       <div className={`text-2xl font-bold ${accent}`}>{value}</div>
     </div>

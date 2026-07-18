@@ -750,7 +750,7 @@ function IocTable({ iocs }: { iocs: ReportIoc[] }): JSX.Element | null {
     malware: 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300',
   };
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] mb-4 overflow-hidden">
+    <div className="surface-card mb-4 overflow-hidden">
       <div className="px-3 py-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] flex items-center gap-2 text-mini font-mono uppercase tracking-wider text-slate-500">
         <Database size={12} /> Indicators ({iocs.length})
       </div>
@@ -859,7 +859,7 @@ function MitreTable({ mitre }: { mitre: ReportMitre[] }): JSX.Element | null {
     none: 'bg-slate-100 text-slate-500 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400',
   };
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] mb-4 overflow-hidden">
+    <div className="surface-card mb-4 overflow-hidden">
       <div className="px-3 py-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] flex items-center gap-2 text-mini font-mono uppercase tracking-wider text-slate-500">
         <Target size={12} /> MITRE ATT&CK ({mitre.length} technique{mitre.length === 1 ? '' : 's'})
       </div>
@@ -931,7 +931,7 @@ function DiamondModelCard({ diamond }: { diamond: ReportDiamond | undefined }): 
   ).length;
   if (filled < 2) return null;
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] mb-4 overflow-hidden">
+    <div className="surface-card mb-4 overflow-hidden">
       <div className="px-3 py-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] flex items-center gap-2 text-mini font-mono uppercase tracking-wider text-slate-500">
         <Diamond size={12} /> Diamond Model
       </div>
@@ -978,7 +978,7 @@ function ActionsList({
     : actions;
   if (filtered.length === 0) return null;
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] mb-4 overflow-hidden">
+    <div className="surface-card mb-4 overflow-hidden">
       <div className="px-3 py-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] flex items-center gap-2 text-mini font-mono uppercase tracking-wider text-slate-500">
         <Shield size={12} /> Containment &amp; Response ({filtered.length})
       </div>
@@ -1033,7 +1033,7 @@ function ActionsList({
 function PirList({ pirs }: { pirs: ReportPir[] }): JSX.Element | null {
   if (pirs.length === 0) return null;
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] mb-4 overflow-hidden">
+    <div className="surface-card mb-4 overflow-hidden">
       <div className="px-3 py-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] flex items-center gap-2 text-mini font-mono uppercase tracking-wider text-slate-500">
         <Flag size={12} /> Priority Intelligence Requirements
       </div>
@@ -1062,7 +1062,7 @@ function PirList({ pirs }: { pirs: ReportPir[] }): JSX.Element | null {
 function TimelineList({ timeline }: { timeline: ReportActionCard['timeline'] }): JSX.Element | null {
   if (!timeline || timeline.length === 0) return null;
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] mb-4 overflow-hidden">
+    <div className="surface-card mb-4 overflow-hidden">
       <div className="px-3 py-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] flex items-center gap-2 text-mini font-mono uppercase tracking-wider text-slate-500">
         <Activity size={12} /> Timeline
       </div>
@@ -1149,7 +1149,7 @@ function NextActionsBar({
   const hasNavigator = (actionCard?.navigatorLayer?.techniques?.length ?? 0) > 0;
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] mb-4">
+    <div className="surface-card mb-4">
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
@@ -1417,7 +1417,7 @@ export function ReportView({
       <CveMetaCard card={actionCard} />
 
       {actionCard.reportHeader?.bluf && (
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3 mb-4">
+        <div className="surface-card p-3 mb-4">
           <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">Executive Summary</div>
           <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{actionCard.reportHeader.bluf}</p>
           {actionCard.reportHeader.key_takeaway && (
@@ -1430,7 +1430,7 @@ export function ReportView({
       )}
 
       {!actionCard.reportHeader && headline && (
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3 mb-4">
+        <div className="surface-card p-3 mb-4">
           <div className="flex items-start gap-2">
             <AlertOctagon size={14} className="mt-0.5 text-slate-500 shrink-0" />
             <div className="flex-1 min-w-0">
@@ -1489,7 +1489,7 @@ export function ReportView({
 
       {/* Technical details — collapsible. Analyst can fold the body and
           just see BLUF + action card + IOCs at a glance. */}
-      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] mb-4">
+      <div className="surface-card mb-4">
         <button
           type="button"
           onClick={() => setShowTechnical((v) => !v)}

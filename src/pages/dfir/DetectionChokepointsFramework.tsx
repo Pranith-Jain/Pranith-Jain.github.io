@@ -226,7 +226,7 @@ export default function DetectionChokepointsFramework(): JSX.Element {
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-4">
           4-Question Chokepoint Validation Test
         </h2>
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <div className="surface-card p-4">
           <div className="space-y-3">
             {VALIDATION_QUESTIONS.map((q, i) => (
               <div key={i} className="flex items-start gap-3">
@@ -250,7 +250,7 @@ export default function DetectionChokepointsFramework(): JSX.Element {
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-4">
           Chokepoint Detection vs Tool Detection
         </h2>
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+        <div className="surface-card overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm font-mono">
               <thead>
@@ -275,7 +275,7 @@ export default function DetectionChokepointsFramework(): JSX.Element {
                   <tr
                     key={r.dimension}
                     className={`border-b border-slate-100 dark:border-slate-800 last:border-0 ${
-                      i % 2 === 0 ? 'bg-slate-50/50 dark:bg-slate-900/50' : ''
+                      i % 2 === 0 ? 'bg-slate-50/50 dark:bg-[rgb(var(--surface-100))]/50' : ''
                     }`}
                   >
                     <td className="px-4 py-2 font-bold text-slate-900 dark:text-slate-100 whitespace-nowrap">

@@ -35,7 +35,7 @@ function Chip({ label, ok, detail, warn }: ChipProps): JSX.Element {
 
 export function EmailAuthCard({ auth }: { auth: DomainLookupResponse['email_auth'] }): JSX.Element {
   return (
-    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+    <section className="surface-card p-6">
       <div className="flex items-baseline justify-between mb-3">
         <h3 className="font-display font-bold text-lg">Email Authentication</h3>
         <span className="font-mono text-sm text-muted">

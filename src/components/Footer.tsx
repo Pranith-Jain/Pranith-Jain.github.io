@@ -41,7 +41,7 @@ export const Footer = memo(function Footer({ personalInfo }: FooterProps) {
   const { count, isNewSession } = usePageViewCounter();
 
   return (
-    <footer className="mt-24 pb-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))]" role="contentinfo">
+    <footer className="mt-24 pb-6" role="contentinfo">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="grid gap-8 border-t border-slate-200/60 pt-10 dark:border-white/10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-[1.4fr_1fr_1fr]">
           {/* Brand column */}
@@ -99,7 +99,7 @@ export const Footer = memo(function Footer({ personalInfo }: FooterProps) {
                 <li key={l.href}>
                   <Link
                     to={l.href}
-                    className="text-sm text-slate-600 hover:text-brand-600 dark:text-slate-400 dark:hover:text-brand-400 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded"
+                    className="text-sm text-slate-600 hover:text-brand-600 dark:text-slate-400 dark:hover:text-brand-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded"
                   >
                     {l.label}
                   </Link>
@@ -116,7 +116,7 @@ export const Footer = memo(function Footer({ personalInfo }: FooterProps) {
                 <li key={l.href}>
                   <Link
                     to={l.href}
-                    className="text-sm text-slate-600 hover:text-brand-600 dark:text-slate-400 dark:hover:text-brand-400 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded"
+                    className="text-sm text-slate-600 hover:text-brand-600 dark:text-slate-400 dark:hover:text-brand-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded"
                   >
                     {l.label}
                   </Link>

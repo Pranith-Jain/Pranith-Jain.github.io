@@ -122,10 +122,7 @@ export default function ActorUsernames(): JSX.Element {
         )}
       </div>
 
-      <form
-        onSubmit={submit}
-        className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6"
-      >
+      <form onSubmit={submit} className="surface-card p-4 mb-6">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -193,10 +190,7 @@ export default function ActorUsernames(): JSX.Element {
         >
           <ul className="space-y-2">
             {data?.results.map((m) => (
-              <li
-                key={m.username}
-                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
-              >
+              <li key={m.username} className="surface-card p-3">
                 <div className="flex items-baseline justify-between gap-2 mb-2 flex-wrap">
                   <span className="font-mono font-semibold text-sm text-slate-900 dark:text-slate-100 break-all">
                     {m.username}

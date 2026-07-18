@@ -120,7 +120,7 @@ export default function ActorTimeline(): JSX.Element {
       onRetry={refetch}
       maxWidthClass="max-w-6xl"
       headerExtra={
-        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 flex items-center justify-between gap-3 flex-wrap">
+        <section className="surface-card p-4 flex items-center justify-between gap-3 flex-wrap">
           {data && (
             <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
               {data.groups.length} active groups · snapshot{' '}
@@ -172,10 +172,7 @@ export default function ActorTimeline(): JSX.Element {
                 {data.groups.map((g) => {
                   const max = rowMaxes.get(g.slug) ?? 0;
                   return (
-                    <li
-                      key={g.slug}
-                      className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
-                    >
+                    <li key={g.slug} className="surface-card p-3">
                       <div
                         className="grid items-center gap-1"
                         style={{ gridTemplateColumns: `200px repeat(${g.buckets.length}, minmax(0,1fr))` }}
@@ -252,7 +249,10 @@ export default function ActorTimeline(): JSX.Element {
                           try {
                             host = new URL(ref).hostname.replace(/^www\./, '');
                           } catch (_catchErr) {
-                            console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+                            console.error(
+                              'handler failed:',
+                              _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+                            );
                             /* ignore */
                           }
                           return (

@@ -58,7 +58,10 @@ export default function SandboxIntegration(): JSX.Element {
           const p = JSON.parse(body) as { error?: string };
           msg = p.error ?? msg;
         } catch (_catchErr) {
-          console.error('SandboxIntegration failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          console.error(
+            'SandboxIntegration failed:',
+            _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+          );
           /* ok */
         }
         throw new Error(msg);
@@ -109,11 +112,7 @@ export default function SandboxIntegration(): JSX.Element {
       </div>
 
       {/* Input */}
-      <div
-        className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5 mb-6"
-        onDrop={handleDrop}
-        onDragOver={(e) => e.preventDefault()}
-      >
+      <div className="surface-card/40 shadow-e1 p-5 mb-6" onDrop={handleDrop} onDragOver={(e) => e.preventDefault()}>
         <h2 className="font-display font-bold text-sm mb-3">File Hash</h2>
         <input
           type="text"
@@ -169,10 +168,7 @@ export default function SandboxIntegration(): JSX.Element {
           {result.results.map((r, i) => {
             const Icon = SOURCE_ICONS[r.source] ?? Shield;
             return (
-              <div
-                key={i}
-                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5"
-              >
+              <div key={i} className="surface-card/40 shadow-e1 p-5">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
                     <Icon size={14} className="text-brand-600 dark:text-brand-400" />

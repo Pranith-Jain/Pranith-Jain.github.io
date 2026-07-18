@@ -1067,7 +1067,7 @@ export default function Metrics(): JSX.Element {
       </div>
 
       {/* Headline totals + window toggle + refresh */}
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
+      <section className="surface-card p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
         <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-3 text-tool sm:text-meta font-mono w-full sm:w-auto">
           <Stat
             label={`ransomware claims · ${windowDays}d`}
@@ -1127,7 +1127,7 @@ export default function Metrics(): JSX.Element {
       </section>
 
       {state.loading && (
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-6 inline-flex items-center gap-2 font-mono text-sm text-slate-500">
+        <div className="surface-card p-6 inline-flex items-center gap-2 font-mono text-sm text-slate-500">
           <Loader2 size={14} className="animate-spin" /> computing aggregates from upstream feeds…
         </div>
       )}
@@ -1446,7 +1446,7 @@ export default function Metrics(): JSX.Element {
 
       {/* Related-surfaces footer. Plain <a> caused full-page reloads —
           use <Link> so router state survives the navigation. */}
-      <section className="mt-10 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+      <section className="mt-10 surface-card p-5">
         <h3 className="font-display font-semibold text-sm mb-3">Related surfaces</h3>
         <div className="grid sm:grid-cols-2 gap-2 text-meta font-mono">
           <Link
@@ -1559,7 +1559,7 @@ function ChartCard({
   interpretation?: string;
 }) {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+    <div className="surface-card p-4">
       <div className="flex items-baseline justify-between gap-2 mb-1">
         <h3 className="font-display font-semibold text-sm inline-flex items-center gap-2">
           <Icon size={14} className="text-brand-600 dark:text-brand-400" /> {title}

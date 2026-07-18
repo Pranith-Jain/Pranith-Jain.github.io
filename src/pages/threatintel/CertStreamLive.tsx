@@ -163,7 +163,7 @@ export default function CertStreamLive(): JSX.Element {
   const displayItems = showOnlySuspicious ? items.filter((it) => suspicionScore(it, keyword) >= 2) : items;
 
   const headerExtra = (
-    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+    <section className="surface-card p-5">
       <div className="mb-3">
         <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
           live
@@ -259,7 +259,7 @@ export default function CertStreamLive(): JSX.Element {
       )}
 
       {streaming && (
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+        <div className="surface-card p-5">
           <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
             <div className="text-xs font-mono text-slate-500 dark:text-slate-400">
               {loading ? (

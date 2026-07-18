@@ -64,7 +64,7 @@ export function ActorTtpsPanel({
   if (loading) {
     return (
       <section
-        className={`${mbClass} rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5 inline-flex items-center gap-2 font-mono text-sm text-slate-500`}
+        className={`${mbClass} surface-card p-5 inline-flex items-center gap-2 font-mono text-sm text-slate-500`}
       >
         <Loader2 size={14} className="animate-spin" /> loading TTP distribution from active actors…
       </section>
@@ -79,9 +79,7 @@ export function ActorTtpsPanel({
   const maxCount = data.aggregate_techniques[0]?.used_by_count || 1;
 
   return (
-    <section
-      className={`${mbClass} rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5`}
-    >
+    <section className={`${mbClass} surface-card p-5`}>
       <div className="flex items-start justify-between gap-3 mb-3 flex-wrap">
         <div>
           <h3 className="font-display font-semibold text-base">{title}</h3>

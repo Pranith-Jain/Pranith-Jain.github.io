@@ -92,7 +92,7 @@ export default function CrossCorrelate(): JSX.Element {
             onChange={(e) => setSector(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && load(sector)}
             placeholder="Filter by sector (e.g. finance, healthcare, energy)…"
-            className="flex-1 text-sm px-4 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 shadow-e1 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
+            className="flex-1 text-sm px-4 py-2 surface-card/60 shadow-e1 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
           />
           <button
             type="button"
@@ -108,7 +108,7 @@ export default function CrossCorrelate(): JSX.Element {
         <>
           {/* KPI row */}
           <div className="grid grid-cols-3 gap-3 mb-6">
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+            <div className="surface-card p-4">
               <p className="text-mini font-mono text-slate-500 mb-1">Insights</p>
               <p className="text-2xl font-bold font-display">{data.total}</p>
             </div>

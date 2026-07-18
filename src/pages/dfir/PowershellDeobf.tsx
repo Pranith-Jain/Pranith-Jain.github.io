@@ -145,7 +145,7 @@ export default function PowershellDeobf(): JSX.Element {
         </p>
       </div>
 
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <section className="surface-card p-4 mb-6">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
           <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
             Input
@@ -182,7 +182,7 @@ export default function PowershellDeobf(): JSX.Element {
 
       {result && (
         <>
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+          <section className="surface-card p-4 mb-6">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
                 Decoded output
@@ -244,7 +244,7 @@ export default function PowershellDeobf(): JSX.Element {
           )}
 
           {result.steps.length > 0 && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+            <section className="surface-card p-4 mb-6">
               <button
                 onClick={() => setShowSteps((v) => !v)}
                 className="w-full flex items-center justify-between gap-3 text-left"
@@ -272,7 +272,7 @@ export default function PowershellDeobf(): JSX.Element {
         </>
       )}
 
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <section className="surface-card p-4">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           Passes
         </h2>

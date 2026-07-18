@@ -137,7 +137,7 @@ export default function Leaderboard() {
       )}
 
       {/* Leaderboard List */}
-      <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 overflow-hidden">
+      <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
         {loading ? (
           <div className="p-8 text-center text-slate-400 text-sm">Loading...</div>
         ) : entries.length === 0 ? (

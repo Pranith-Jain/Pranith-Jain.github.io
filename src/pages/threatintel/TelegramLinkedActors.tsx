@@ -310,7 +310,7 @@ export default function TelegramLinkedActors(): JSX.Element {
   return (
     <div className="space-y-4">
       {/* Intro / search */}
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
+      <section className="surface-card p-4">
         <h2 className="font-display font-semibold text-lg flex items-center gap-2">
           <Shield size={18} className="text-rose-600 dark:text-rose-400" /> Linked actors
           <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300">
@@ -370,7 +370,7 @@ export default function TelegramLinkedActors(): JSX.Element {
       </section>
 
       {/* Catalog index stats */}
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
+      <section className="surface-card p-4">
         <h3 className="font-mono text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3 inline-flex items-center gap-2">
           <Crosshair size={12} /> Catalog index
         </h3>
@@ -398,7 +398,7 @@ export default function TelegramLinkedActors(): JSX.Element {
         rows={4}
       >
         {standaloneHandle && (
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
+          <div className="surface-card p-4">
             <p className="text-sm font-mono text-slate-600 dark:text-slate-300">
               <strong>@{standaloneHandle}</strong> is not in the catalog or in the recent leak feed. Try a known handle
               (e.g.{' '}

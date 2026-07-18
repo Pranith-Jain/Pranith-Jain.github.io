@@ -66,10 +66,7 @@ export default function CrossCampaignCorrelation(): JSX.Element {
     >
       <div className="space-y-4">
         {correlations.map((c, i) => (
-          <div
-            key={i}
-            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5"
-          >
+          <div key={i} className="surface-card/40 shadow-e1 p-5">
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
                 <span className="text-sm font-mono font-medium">{c.campaign_a}</span>

@@ -163,7 +163,7 @@ export default function StixIpExport() {
     >
       <div className="space-y-6">
         {/* Input panel */}
-        <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4">
+        <div className="surface-card p-4">
           <div className="flex flex-wrap gap-3 items-end">
             <div className="flex-1 min-w-[250px]">
               <label className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">
@@ -174,7 +174,7 @@ export default function StixIpExport() {
                 onChange={(e) => setIpInput(e.target.value)}
                 placeholder={isBatch ? '203.0.113.42&#10;198.51.100.7' : '203.0.113.42'}
                 rows={isBatch ? 4 : 1}
-                className="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/50 font-mono"
+                className="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/50 font-mono"
               />
             </div>
             <div>
@@ -182,7 +182,7 @@ export default function StixIpExport() {
               <select
                 value={tlp}
                 onChange={(e) => setTlp(e.target.value as typeof tlp)}
-                className="text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2"
+                className="text-sm surface-card text-slate-900 dark:text-slate-100 px-3 py-2"
               >
                 <option value="WHITE">TLP:WHITE</option>
                 <option value="GREEN">TLP:GREEN</option>
@@ -213,10 +213,7 @@ export default function StixIpExport() {
               {enrichments.map((r) => {
                 const conf = computeConfidence(r);
                 return (
-                  <div
-                    key={r.ip}
-                    className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4"
-                  >
+                  <div key={r.ip} className="surface-card p-4">
                     <div className="flex items-center justify-between mb-2">
                       <span className="font-mono text-sm font-bold text-slate-900 dark:text-slate-100">{r.ip}</span>
                       <span className={`text-xs font-bold ${confidenceColor(conf)}`}>{conf}% confidence</span>
@@ -292,7 +289,7 @@ export default function StixIpExport() {
 
             {/* STIX bundle actions */}
             {bundle && (
-              <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4">
+              <div className="surface-card p-4">
                 <div className="flex items-center justify-between mb-3">
                   <div>
                     <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">STIX 2.1 Bundle</h3>
@@ -303,7 +300,7 @@ export default function StixIpExport() {
                   <div className="flex gap-2">
                     <button
                       onClick={copyJson}
-                      className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-xl border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
+                      className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-500))] text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
                     >
                       {copied ? <Check size={12} className="text-green-500" /> : <Copy size={12} />}
                       {copied ? 'Copied' : 'Copy JSON'}

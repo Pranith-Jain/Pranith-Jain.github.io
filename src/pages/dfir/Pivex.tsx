@@ -266,7 +266,7 @@ export default function Pivex(): JSX.Element {
         </p>
       </div>
 
-      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5 mb-6">
+      <div className="surface-card/40 shadow-e1 p-5 mb-6">
         <h2 className="font-display font-bold text-sm mb-3">Start Investigation</h2>
         <div className="flex gap-2">
           <div className="relative flex-1">
@@ -297,7 +297,7 @@ export default function Pivex(): JSX.Element {
       )}
 
       {!showGraph && !loading && (
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-8 text-center">
+        <div className="surface-card/40 shadow-e1 p-8 text-center">
           <Network size={48} className="mx-auto mb-3 text-slate-300 dark:text-slate-400" />
           <p className="text-sm text-slate-500 dark:text-slate-400">
             Enter an IP, domain, CVE, or actor name and click{' '}
@@ -499,7 +499,7 @@ function RelationCard({
   getNodeColor: (t: string) => string;
 }) {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-4">
+    <div className="surface-card/40 shadow-e1 p-4">
       <h3 className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
         {title}
       </h3>

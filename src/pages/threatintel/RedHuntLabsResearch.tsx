@@ -322,7 +322,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
       maxWidthClass="max-w-6xl"
     >
       {/* Tabs */}
-      <div className="mb-4 flex flex-wrap items-center gap-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-2">
+      <div className="mb-4 flex flex-wrap items-center gap-1.5 surface-card p-2">
         {TABS.map((t) => {
           const Icon = t.icon;
           const active = t.id === tab;
@@ -357,7 +357,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
 
       {/* Toolbar (only on list tabs) */}
       {tab !== 'about' && (
-        <section className="mb-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <section className="mb-4 surface-card p-4">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="relative flex-1">
               <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
@@ -458,7 +458,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
       {tab === 'about' && (
         <div className="space-y-4">
           {/* Mission */}
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+          <div className="surface-card p-5">
             <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Our Mission</h2>
             <p className="mt-2 text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{ABOUT.mission}</p>
           </div>
@@ -483,7 +483,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
 
           {/* Contact + Socials */}
           <div className="grid gap-2 sm:grid-cols-2">
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
+            <div className="surface-card p-4">
               <h3 className="text-sm font-medium text-slate-900 dark:text-slate-100">Contact</h3>
               <ul className="mt-2 space-y-1 text-sm">
                 {ABOUT.contact.map((c) => (
@@ -499,7 +499,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
                 ))}
               </ul>
             </div>
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
+            <div className="surface-card p-4">
               <h3 className="text-sm font-medium text-slate-900 dark:text-slate-100">Social</h3>
               <ul className="mt-2 space-y-1 text-sm">
                 {ABOUT.socials.map((s) => {
@@ -533,7 +533,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
 
 function Stat({ label, value }: { label: string; value: React.ReactNode }): JSX.Element {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2">
+    <div className="surface-card px-3 py-2">
       <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">{label}</div>
       <div className="text-lg font-semibold text-slate-900 dark:text-slate-100 truncate">{value}</div>
     </div>

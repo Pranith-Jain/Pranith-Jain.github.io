@@ -268,10 +268,7 @@ export default function Notebooks() {
             { label: 'Open', value: stats.by_status.open ?? 0, icon: Eye },
             { label: 'Investigating', value: stats.by_status.investigating ?? 0, icon: Search },
           ].map((s) => (
-            <div
-              key={s.label}
-              className="p-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]"
-            >
+            <div key={s.label} className="p-4 surface-card">
               <div className="text-2xl font-bold text-brand-600 dark:text-brand-400">{s.value}</div>
               <div className="text-xs font-mono text-muted flex items-center gap-1.5">
                 <s.icon size={12} /> {s.label}
@@ -293,7 +290,7 @@ export default function Notebooks() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search notebooks..."
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+                className="w-full pl-10 pr-4 py-2.5 surface-card font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
               />
             </div>
             <button
@@ -406,7 +403,7 @@ export default function Notebooks() {
           ) : (
             <div>
               {/* Notebook header */}
-              <div className="p-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] mb-4">
+              <div className="p-4 surface-card mb-4">
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     <h2 className="text-lg font-display font-semibold">{selected.title}</h2>
@@ -531,7 +528,7 @@ export default function Notebooks() {
                             : 'Write your note...'
                     }
                     rows={5}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 resize-y"
+                    className="w-full px-4 py-3 surface-card font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 resize-y"
                   />
                   <div className="flex justify-end gap-2 mt-3">
                     <button
@@ -628,7 +625,7 @@ export default function Notebooks() {
             }
           }}
         >
-          <div className="w-full max-w-md mx-4 p-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e3">
+          <div className="w-full max-w-md mx-4 p-6 surface-card shadow-e3">
             <h3 className="text-lg font-display font-semibold mb-4">New Investigation Notebook</h3>
             <div className="space-y-4">
               <div>
@@ -641,7 +638,7 @@ export default function Notebooks() {
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
                   placeholder="e.g. Phishing Campaign — example.com"
-                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+                  className="w-full px-4 py-2.5 surface-card font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
                 />
               </div>
               <div>
@@ -654,7 +651,7 @@ export default function Notebooks() {
                   onChange={(e) => setNewDesc(e.target.value)}
                   placeholder="Brief summary of the investigation..."
                   rows={2}
-                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 resize-none"
+                  className="w-full px-4 py-2.5 surface-card font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 resize-none"
                 />
               </div>
               <div>

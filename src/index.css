@@ -13,7 +13,7 @@
      inherited ~16px base (oversized mono chrome on every page). */
   --text-eyebrow: 0.6875rem;
   --text-eyebrow--line-height: 1rem;
-  --text-eyebrow--letter-spacing: 0.16em;
+  --text-eyebrow--letter-spacing: 0.2em;
   --text-meta: 0.75rem;
   --text-meta--line-height: 1.1rem;
   --text-tool: 0.8125rem;

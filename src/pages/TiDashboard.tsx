@@ -145,8 +145,7 @@ function severityPill(s: string): string {
   return SEVERITY_STYLES[s?.toLowerCase() ?? ''] ?? SEV_DEFAULT;
 }
 
-const CARD =
-  'rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1';
+const CARD = 'surface-card';
 
 export default function TiDashboard() {
   const [tab, setTab] = useState<Tab>('brief');
@@ -561,7 +560,7 @@ export default function TiDashboard() {
                           {actor.targets.map((t, ti) => (
                             <span
                               key={ti}
-                              className="text-xs text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded"
+                              className="text-xs text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-[rgb(var(--surface-200))] px-2 py-0.5 rounded"
                             >
                               {t}
                             </span>
@@ -578,7 +577,7 @@ export default function TiDashboard() {
                           {actor.ttps.map((t, ti) => (
                             <code
                               key={ti}
-                              className="text-xs font-mono text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded"
+                              className="text-xs font-mono text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-[rgb(var(--surface-200))] px-1.5 py-0.5 rounded"
                             >
                               {t}
                             </code>
@@ -705,7 +704,7 @@ export default function TiDashboard() {
                         {lead.indicators.map((ind, ii) => (
                           <span
                             key={ii}
-                            className="text-xs text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded"
+                            className="text-xs text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-[rgb(var(--surface-200))] px-2 py-0.5 rounded"
                           >
                             {ind}
                           </span>
@@ -770,10 +769,10 @@ export default function TiDashboard() {
                           {inc.title} <ExternalLink className="h-3 w-3" />
                         </a>
                         <div className="flex flex-wrap gap-1.5 mt-2">
-                          <span className="text-micro font-mono uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-1.5 py-0.5 rounded">
+                          <span className="text-micro font-mono uppercase tracking-wider bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-300 px-1.5 py-0.5 rounded">
                             {inc.ecosystem}
                           </span>
-                          <span className="text-micro font-mono uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-1.5 py-0.5 rounded">
+                          <span className="text-micro font-mono uppercase tracking-wider bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-300 px-1.5 py-0.5 rounded">
                             {inc.attack_vector}
                           </span>
                           <span
@@ -834,7 +833,7 @@ export default function TiDashboard() {
                         {formatDate(src.published_date)}
                       </span>
                     </div>
-                    <span className="text-micro font-mono uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 px-1.5 py-0.5 rounded shrink-0">
+                    <span className="text-micro font-mono uppercase tracking-wider bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-500 dark:text-slate-400 px-1.5 py-0.5 rounded shrink-0">
                       {src.source_type}
                     </span>
                     <ExternalLink className="w-3 h-3 text-slate-400 shrink-0" />

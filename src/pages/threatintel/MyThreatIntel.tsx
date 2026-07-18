@@ -139,7 +139,7 @@ function DistBar({ rows, distKey }: { rows: MtiRow[]; distKey: string | null }):
   const max = buckets[0]?.[1] ?? 1;
 
   return (
-    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+    <section className="surface-card p-4 mb-6">
       <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-3">distribution by {distKey}</div>
       <div className="space-y-2">
         {buckets.map(([label, n]) => (
@@ -264,10 +264,7 @@ function DnsScanPanel(): JSX.Element {
 
   return (
     <div>
-      <form
-        onSubmit={scan}
-        className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4 space-y-3"
-      >
+      <form onSubmit={scan} className="surface-card p-4 mb-4 space-y-3">
         <div className="flex flex-col sm:flex-row gap-3">
           <input
             type="text"
@@ -475,7 +472,7 @@ export default function MyThreatIntel(): JSX.Element {
         </p>
       }
     >
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
+      <section className="surface-card p-4 mb-4">
         <div className="flex flex-wrap items-center gap-1.5 mb-3">
           {SOURCES.map((s) => (
             <button

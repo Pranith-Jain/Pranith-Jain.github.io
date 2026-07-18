@@ -88,7 +88,7 @@ export default function ThreatLandscapeIocs(): JSX.Element {
       hash_sha1: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300',
       hash_sha256: 'bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300',
     };
-    return colors[type] ?? 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300';
+    return colors[type] ?? 'bg-slate-100 text-slate-700 dark:bg-[rgb(var(--surface-200))] dark:text-slate-300';
   };
 
   return (
@@ -108,14 +108,14 @@ export default function ThreatLandscapeIocs(): JSX.Element {
           <div className="flex gap-2">
             <button
               onClick={fetchData}
-              className="text-xs flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700"
+              className="text-xs flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] hover:bg-slate-100 dark:hover:bg-slate-700"
             >
               <RefreshCw size={12} /> Refresh
             </button>
             <button
               onClick={exportAsJson}
               disabled={!data?.length}
-              className="text-xs flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-40"
+              className="text-xs flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-40"
             >
               <Download size={12} /> Export JSON
             </button>
@@ -123,7 +123,7 @@ export default function ThreatLandscapeIocs(): JSX.Element {
         }
       >
         {/* Tab selector */}
-        <div className="mb-3 flex gap-1 border-b border-slate-200 dark:border-slate-700">
+        <div className="mb-3 flex gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
           <button
             onClick={() => {
               setActiveTab('all');
@@ -149,7 +149,7 @@ export default function ThreatLandscapeIocs(): JSX.Element {
             <select
               value={iocType}
               onChange={(e) => setIocType(e.target.value)}
-              className="text-xs px-2 py-1 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800"
+              className="text-xs px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] bg-white dark:bg-[rgb(var(--surface-200))]"
             >
               <option value="">Select type...</option>
               {IOC_TYPES.map((t) => (
@@ -163,7 +163,7 @@ export default function ThreatLandscapeIocs(): JSX.Element {
           <input
             value={order}
             onChange={(e) => setOrder(e.target.value)}
-            className="w-40 text-xs px-2 py-1 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800"
+            className="w-40 text-xs px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] bg-white dark:bg-[rgb(var(--surface-200))]"
             placeholder="seq_id.desc"
           />
           <label className="text-xs font-medium">Limit:</label>
@@ -171,7 +171,7 @@ export default function ThreatLandscapeIocs(): JSX.Element {
             type="number"
             value={limit}
             onChange={(e) => setLimit(e.target.value)}
-            className="w-20 text-xs px-2 py-1 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800"
+            className="w-20 text-xs px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] bg-white dark:bg-[rgb(var(--surface-200))]"
           />
           <button
             onClick={fetchData}
@@ -205,10 +205,10 @@ export default function ThreatLandscapeIocs(): JSX.Element {
           emptyLabel="No IOCs match these filters."
         >
           {data && (
-            <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
+            <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))]">
               <table className="w-full text-xs">
                 <thead>
-                  <tr className="bg-slate-100 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
+                  <tr className="bg-slate-100 dark:bg-[rgb(var(--surface-200))] border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                     <th className="px-3 py-2 text-left font-medium">Type</th>
                     <th className="px-3 py-2 text-left font-medium">Value</th>
                     <th className="px-3 py-2 text-left font-medium">Valid Until</th>

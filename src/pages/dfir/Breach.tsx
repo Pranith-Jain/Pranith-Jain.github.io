@@ -295,7 +295,7 @@ function VerificationCard({ verification }: { verification: EmailVerification })
   const Icon = v.Icon;
   const sourceCount = (verification.sources.throwaway ? 1 : 0) + (verification.sources.rapid ? 1 : 0);
   return (
-    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+    <section className="surface-card p-5">
       <div className="flex items-start gap-4">
         <Icon size={22} className="shrink-0 mt-0.5 text-slate-500" />
         <div className="flex-1 min-w-0">
@@ -771,7 +771,7 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
 
           {/* Breach cards */}
           {result.breaches.length > 0 && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="surface-card p-6">
               <h3 className="font-display font-semibold text-lg mb-4 flex items-center gap-2">
                 <ShieldAlert size={18} className="text-rose-500" />
                 Found in {result.breaches.length} breach{result.breaches.length !== 1 ? 'es' : ''}
@@ -1012,7 +1012,7 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
 
           {/* Breach cards */}
           {result.breaches.length > 0 && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="surface-card p-6">
               <h3 className="font-display font-semibold text-lg mb-4 flex items-center gap-2">
                 <ShieldAlert size={18} className="text-rose-500" />
                 Found in {result.breaches.length} breach{result.breaches.length !== 1 ? 'es' : ''}

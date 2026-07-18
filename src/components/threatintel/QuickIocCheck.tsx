@@ -40,7 +40,7 @@ export default function QuickIocCheck() {
   };
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+    <div className="surface-card p-4">
       <h4 className="font-semibold text-sm mb-3 flex items-center gap-2">
         <Shield size={14} className="text-brand-600 dark:text-brand-400" aria-hidden="true" />
         IOC Check

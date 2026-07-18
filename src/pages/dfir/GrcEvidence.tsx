@@ -314,10 +314,7 @@ export default function GrcEvidence(): JSX.Element {
                 const isExpanded = expandedControls.has(ctrl.id);
                 const ctrlEvidence = evidence.filter((e) => e.control_id === ctrl.id);
                 return (
-                  <div
-                    key={ctrl.id}
-                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden"
-                  >
+                  <div key={ctrl.id} className="surface-card overflow-hidden">
                     <button
                       type="button"
                       onClick={() => {

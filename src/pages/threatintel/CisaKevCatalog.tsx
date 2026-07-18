@@ -38,7 +38,8 @@ const SEVERITY_PILL: Record<string, string> = {
   High: 'border-orange-300 dark:border-orange-600 bg-orange-50 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300',
   Medium: 'border-amber-300 dark:border-amber-600 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300',
   Low: 'border-emerald-300 dark:border-emerald-600 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300',
-  '(none)': 'border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400',
+  '(none)':
+    'border-slate-300 dark:border-[rgb(var(--border-500))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-slate-500 dark:text-slate-400',
 };
 
 const SEV_ORDER = ['Critical', 'High', 'Medium', 'Low'];
@@ -78,7 +79,7 @@ function SeverityBar({ counts }: { counts: Record<string, number> }) {
     .map((b) => ({ ...b, pct: (b.count / total) * 100 }));
   return (
     <div className="space-y-1">
-      <div className="flex h-5 rounded-full overflow-hidden border border-slate-200 dark:border-slate-700">
+      <div className="flex h-5 rounded-full overflow-hidden border border-slate-200 dark:border-[rgb(var(--border-400))]">
         {bars.map((b) => (
           <div
             key={b.sev}
@@ -243,10 +244,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
           },
           { label: 'Showing', value: filtered.length, color: 'text-brand-600 dark:text-brand-400' },
         ].map((kpi) => (
-          <div
-            key={kpi.label}
-            className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-3"
-          >
+          <div key={kpi.label} className="surface-card p-3">
             <div className="text-xs text-slate-500 dark:text-slate-400">{kpi.label}</div>
             <div className={`text-xl font-bold ${kpi.color}`}>{kpi.value.toLocaleString()}</div>
           </div>
@@ -255,7 +253,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
 
       {/* Severity distribution bar */}
       {filtered.length > 0 && (
-        <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-3">
+        <div className="surface-card p-3">
           <div className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-2">Severity Distribution</div>
           <SeverityBar counts={severityCounts} />
         </div>
@@ -269,13 +267,13 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search CVE, product, name..."
-            className="w-full pl-8 pr-3 py-2 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/50"
+            className="w-full pl-8 pr-3 py-2 text-sm surface-card text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/50"
           />
         </div>
         <select
           value={vendorFilter}
           onChange={(e) => setVendorFilter(e.target.value)}
-          className="text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2"
+          className="text-sm surface-card text-slate-900 dark:text-slate-100 px-3 py-2"
         >
           <option value="">All vendors</option>
           {vendors.slice(0, 100).map((v) => (
@@ -287,7 +285,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
         <select
           value={daysFilter ?? ''}
           onChange={(e) => setDaysFilter(e.target.value ? Number(e.target.value) : null)}
-          className="text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2"
+          className="text-sm surface-card text-slate-900 dark:text-slate-100 px-3 py-2"
         >
           <option value="">All time</option>
           <option value="7">Last 7 days</option>
@@ -298,7 +296,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
         <select
           value={severityFilter}
           onChange={(e) => setSeverityFilter(e.target.value)}
-          className="text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2"
+          className="text-sm surface-card text-slate-900 dark:text-slate-100 px-3 py-2"
         >
           <option value="">All severity</option>
           {SEV_ORDER.map((s) => (
@@ -312,17 +310,17 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
             type="checkbox"
             checked={ransomwareOnly}
             onChange={(e) => setRansomwareOnly(e.target.checked)}
-            className="rounded border-slate-300 dark:border-slate-600"
+            className="rounded border-slate-300 dark:border-[rgb(var(--border-500))]"
           />
           <AlertTriangle size={12} className="text-red-500" /> Ransomware only
         </label>
       </div>
 
       {/* Table */}
-      <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700">
+      <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50">
+            <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50">
               {[
                 { key: 'date_added' as const, label: 'Added' },
                 { key: 'cve_id' as const, label: 'CVE ID' },
@@ -398,7 +396,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
 
         {/* Pagination */}
         {filtered.length > 0 && (
-          <div className="flex flex-wrap items-center justify-between gap-2 px-3 py-2 border-t border-slate-200 dark:border-slate-700 text-xs text-slate-500 dark:text-slate-400">
+          <div className="flex flex-wrap items-center justify-between gap-2 px-3 py-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-slate-500 dark:text-slate-400">
             <span>
               {filtered.length.toLocaleString()} result{filtered.length !== 1 ? 's' : ''}
               {pageSize < filtered.length && ` — page ${page + 1} of ${pageCount} (${pageEntries.length} shown)`}
@@ -411,7 +409,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
                   setPageSize(Number(e.target.value));
                   setPage(0);
                 }}
-                className="text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-2 py-1"
+                className="text-xs rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300 px-2 py-1"
               >
                 {PAGE_SIZES.map((s) => (
                   <option key={s} value={s}>

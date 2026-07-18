@@ -131,7 +131,7 @@ export default function ToolsDirectory(): JSX.Element {
           </div>
 
           {/* Toolbar */}
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
+          <section className="surface-card p-4 mb-4">
             <div className="flex flex-col gap-3">
               <div className="relative flex-1">
                 <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
@@ -220,7 +220,7 @@ export default function ToolsDirectory(): JSX.Element {
 
 function Stat({ label, value }: { label: string; value: React.ReactNode }) {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2">
+    <div className="surface-card px-3 py-2">
       <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">{label}</div>
       <div className="text-lg font-semibold text-slate-900 dark:text-slate-100 truncate">{value}</div>
     </div>
@@ -233,7 +233,7 @@ function ToolCard({ tool }: { tool: ToolEntry }) {
       href={tool.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group block rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 hover:border-brand-500/50 hover:shadow-e2 transition-all"
+      className="group block surface-card p-4 hover:border-brand-500/50 hover:shadow-e2 transition-all"
     >
       <div className="flex items-start justify-between gap-2 mb-2">
         <h3 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors leading-snug">

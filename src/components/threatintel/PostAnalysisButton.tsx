@@ -145,7 +145,7 @@ export function PostAnalysisButton({ title, description, source, compact }: Post
                 <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">{analysis.summary}</p>
 
                 {analysis.impact && (
-                  <div className="rounded-xl bg-slate-100 dark:bg-slate-800/50 p-2.5">
+                  <div className="rounded-xl bg-slate-100 dark:bg-[rgb(var(--surface-200))]/50 p-2.5">
                     <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-500 block mb-0.5">
                       Impact
                     </span>
@@ -154,7 +154,7 @@ export function PostAnalysisButton({ title, description, source, compact }: Post
                 )}
 
                 {analysis.context && (
-                  <div className="rounded-xl bg-slate-100 dark:bg-slate-800/50 p-2.5">
+                  <div className="rounded-xl bg-slate-100 dark:bg-[rgb(var(--surface-200))]/50 p-2.5">
                     <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-500 block mb-0.5">
                       Context
                     </span>

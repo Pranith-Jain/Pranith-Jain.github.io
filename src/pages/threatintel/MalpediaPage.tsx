@@ -67,7 +67,7 @@ export default function MalpediaPage(): JSX.Element {
         </a>{' '}
         — search actors and malware families for descriptions, associated malware, and references.
       </p>
-      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+      <div className="surface-card p-5">
         <div className="flex gap-3 mb-4">
           {(['search', 'actor', 'family'] as const).map((m) => (
             <button
@@ -136,10 +136,7 @@ export default function MalpediaPage(): JSX.Element {
                 {result.actors.map((a) => {
                   const desc = typeof a.description === 'string' ? a.description : '';
                   return (
-                    <div
-                      key={String(a.actor_name ?? a.name ?? '')}
-                      className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
-                    >
+                    <div key={String(a.actor_name ?? a.name ?? '')} className="surface-card p-3">
                       <div className="font-display font-semibold text-sm">{String(a.actor_name ?? a.name ?? '?')}</div>
                       {desc && (
                         <p className="text-mini font-mono text-slate-500 mt-1 line-clamp-2">{desc.slice(0, 200)}</p>
@@ -159,10 +156,7 @@ export default function MalpediaPage(): JSX.Element {
                 {result.families.map((f) => {
                   const desc = typeof f.description === 'string' ? f.description : '';
                   return (
-                    <div
-                      key={String(f.family_name ?? f.common_name ?? '')}
-                      className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
-                    >
+                    <div key={String(f.family_name ?? f.common_name ?? '')} className="surface-card p-3">
                       <div className="font-display font-semibold text-sm">
                         {String(f.family_name ?? f.common_name ?? '?')}
                       </div>
@@ -188,7 +182,7 @@ export default function MalpediaPage(): JSX.Element {
 
       {/* Actor / Family detail */}
       {result && mode !== 'search' && result.data && (
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+        <div className="surface-card p-5">
           <div className="flex items-center gap-3 mb-4">
             {mode === 'actor' ? (
               <Users size={20} className="text-brand-600" />

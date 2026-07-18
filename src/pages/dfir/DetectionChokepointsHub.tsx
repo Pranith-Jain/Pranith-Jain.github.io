@@ -656,8 +656,7 @@ const TRENDS: Trend[] = [
 // COMPONENT
 // ═══════════════════════════════════════════════════════════════════
 
-const CARD =
-  'rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1';
+const CARD = 'surface-card';
 
 export default function DetectionChokepointsHub() {
   const [tab, setTab] = useState<Tab>('chokepoints');

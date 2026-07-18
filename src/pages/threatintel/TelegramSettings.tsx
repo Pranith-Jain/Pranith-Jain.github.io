@@ -141,7 +141,7 @@ export default function TelegramSettings(): JSX.Element {
       </div>
 
       {/* Bot Status Section */}
-      <div className="mb-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+      <div className="mb-8 surface-card p-5">
         <h2 className="font-display font-semibold text-sm mb-3 flex items-center gap-2">
           <Bot size={16} className="text-brand-600 dark:text-brand-400" /> Bot API Status
         </h2>
@@ -200,23 +200,20 @@ export default function TelegramSettings(): JSX.Element {
         )}
       </div>
 
-      <form
-        onSubmit={addChannel}
-        className="mb-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5"
-      >
+      <form onSubmit={addChannel} className="mb-8 surface-card p-5">
         <h2 className="font-display font-semibold text-sm mb-3">Add a channel</h2>
         <div className="flex flex-wrap gap-3">
           <input
             value={handle}
             onChange={(e) => setHandle(e.target.value)}
             placeholder="handle (e.g. IntCyberDigest)"
-            className="flex-1 min-w-[180px] px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
+            className="flex-1 min-w-[180px] px-3 py-2 surface-card text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
           />
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="display name (optional)"
-            className="flex-1 min-w-[140px] px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
+            className="flex-1 min-w-[140px] px-3 py-2 surface-card text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
           />
           <button
             type="submit"
@@ -268,10 +265,7 @@ export default function TelegramSettings(): JSX.Element {
       {!loading && channels.length > 0 && (
         <ul className="space-y-2">
           {channels.map((ch) => (
-            <li
-              key={ch.handle}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 flex items-center justify-between gap-3"
-            >
+            <li key={ch.handle} className="surface-card p-3 flex items-center justify-between gap-3">
               <div className="min-w-0">
                 <span className="font-display font-semibold text-sm">{ch.name}</span>
                 <code className="ml-2 text-xs font-mono text-slate-500">@{ch.handle}</code>

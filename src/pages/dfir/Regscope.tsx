@@ -74,7 +74,7 @@ export default function Regscope(): JSX.Element {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="space-y-4">
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+          <div className="surface-card/40 shadow-e1 p-5">
             <div className="flex items-center gap-2 mb-3">
               <Search size={14} className="text-slate-400" />
               <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Registry Key Path</span>
@@ -126,7 +126,7 @@ export default function Regscope(): JSX.Element {
             </div>
           </div>
 
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+          <div className="surface-card/40 shadow-e1 p-5">
             <button
               type="button"
               onClick={() => setShowAll(!showAll)}
@@ -227,7 +227,7 @@ export default function Regscope(): JSX.Element {
 
           {result && (
             <div className="space-y-4">
-              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+              <div className="surface-card/40 shadow-e1 p-5">
                 <div className="flex items-start justify-between gap-3 mb-3">
                   <div className="flex-1 min-w-0">
                     <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-1">
@@ -290,7 +290,7 @@ export default function Regscope(): JSX.Element {
           )}
 
           {keyPath.trim() && !result && (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+            <div className="surface-card/40 shadow-e1 p-5">
               <div className="flex items-center gap-2 text-amber-600 dark:text-amber-400">
                 <HelpCircle size={16} />
                 <p className="text-sm font-mono">

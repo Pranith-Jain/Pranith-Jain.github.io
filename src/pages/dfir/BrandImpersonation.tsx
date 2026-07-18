@@ -48,7 +48,7 @@ function variants(domain: string): { typo: string[]; homo: string[]; affix: stri
 
 function Group({ title, items }: { title: string; items: string[] }) {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3">
+    <div className="surface-card p-3">
       <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-2">
         {title} · {items.length}
       </div>
@@ -96,7 +96,7 @@ export default function BrandImpersonation(): JSX.Element {
         value={input}
         onChange={(e) => setInput(e.target.value)}
         placeholder="brand domain — e.g. example.com"
-        className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2.5 font-mono text-sm focus:border-brand-500 focus:outline-none"
+        className="w-full surface-card px-3 py-2.5 font-mono text-sm focus:border-brand-500 focus:outline-none"
       />
 
       {v && (

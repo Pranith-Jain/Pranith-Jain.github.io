@@ -98,7 +98,7 @@ export default function MaltrailTrails(): JSX.Element {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Sidebar — trail file list */}
         <div className="lg:col-span-1">
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+          <div className="surface-card p-4">
             <h2 className="font-display font-semibold text-sm mb-3 flex items-center gap-2">
               <FileText size={15} className="text-brand-600 dark:text-brand-400" />
               Trail files ({files?.length ?? '…'})
@@ -130,14 +130,14 @@ export default function MaltrailTrails(): JSX.Element {
         {/* Main — trail content */}
         <div className="lg:col-span-2">
           {!selected && !contentLoading && (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-8 text-center">
+            <div className="surface-card p-8 text-center">
               <Search size={32} className="mx-auto text-slate-300 mb-3" />
               <p className="text-sm font-mono text-slate-500">Select a trail file from the list to view its IOCs.</p>
             </div>
           )}
 
           {contentLoading && (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-8 text-center">
+            <div className="surface-card p-8 text-center">
               <p role="status" aria-live="polite" className="text-xs font-mono text-slate-500 animate-pulse">
                 fetching trail file…
               </p>
@@ -145,7 +145,7 @@ export default function MaltrailTrails(): JSX.Element {
           )}
 
           {content && (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
+            <div className="surface-card">
               <div className="p-4 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                 <div className="flex items-center justify-between gap-3">
                   <h2 className="font-display font-semibold text-base">{content.filename}</h2>

@@ -292,7 +292,7 @@ export default function UnifiedSearch(): JSX.Element {
 
       {/* Tools — instant client-side catalog matches. */}
       {toolMatches.length > 0 && (
-        <section className="mb-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+        <section className="mb-4 surface-card overflow-hidden">
           <div className="flex items-center gap-2 px-4 py-2.5 border-b border-slate-200 dark:border-[rgb(var(--border-400))] text-brand-600 dark:text-brand-400">
             <Wrench size={14} />
             <span className="font-display font-semibold text-sm">Tools</span>
@@ -322,7 +322,7 @@ export default function UnifiedSearch(): JSX.Element {
           portfolio, blog, admin). Surfaces routes that aren't in the
           tile-level SECTIONS catalog. */}
       {pageMatches.length > 0 && (
-        <section className="mb-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+        <section className="mb-4 surface-card overflow-hidden">
           <div className="flex items-center gap-2 px-4 py-2.5 border-b border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-200">
             <Compass size={14} />
             <span className="font-display font-semibold text-sm">Pages</span>
@@ -406,10 +406,7 @@ export default function UnifiedSearch(): JSX.Element {
               SECTION_COLORS[section.kind] ??
               'text-slate-600 dark:text-slate-300 border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)]';
             return (
-              <section
-                key={section.kind}
-                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden"
-              >
+              <section key={section.kind} className="surface-card overflow-hidden">
                 <div
                   className={`flex items-center gap-2 px-4 py-2.5 border-b border-slate-200 dark:border-[rgb(var(--border-400))] ${color.split(' ').slice(0, 1).join(' ')}`}
                 >

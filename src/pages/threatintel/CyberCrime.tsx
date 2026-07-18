@@ -283,10 +283,7 @@ export default function CyberCrime(): JSX.Element {
       >
         <ul className="space-y-3">
           {filtered.map((it, i) => (
-            <li
-              key={`${it.url}-${i}`}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 hover:border-brand-500/40 transition-colors"
-            >
+            <li key={`${it.url}-${i}`} className="surface-card p-4 hover:border-brand-500/40 transition-colors">
               <div className="flex flex-wrap items-baseline gap-2 mb-2">
                 <a
                   href={sanitizeUrl(it.url) || undefined}

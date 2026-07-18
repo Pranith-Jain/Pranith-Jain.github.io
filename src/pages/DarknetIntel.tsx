@@ -27,12 +27,11 @@ const TABS: { id: Tab; label: string; icon: React.ReactNode }[] = [
   { id: 'breach', label: 'Breach Intel', icon: <Lock className="h-3.5 w-3.5" /> },
 ];
 
-const CARD =
-  'rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1';
+const CARD = 'surface-card';
 const INPUT =
-  'w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500';
+  'w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 focus:border-brand-500 transition-colors';
 const BTN =
-  'inline-flex items-center gap-1.5 rounded-xl bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-700 transition-colors disabled:opacity-50';
+  'inline-flex items-center gap-1.5 rounded bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-500 transition-colors disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
 
 interface ProviderStatus {
   name: string;
@@ -264,7 +263,7 @@ function ProvidersTab() {
                     ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400'
                     : keyStatus[s.name] === 'missing'
                       ? 'bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400'
-                      : 'bg-slate-100 dark:bg-slate-800 text-slate-400'
+                      : 'bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-400'
                 }`}
               >
                 {keyStatus[s.name] === 'configured'

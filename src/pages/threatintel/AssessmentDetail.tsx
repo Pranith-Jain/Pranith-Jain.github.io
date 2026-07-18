@@ -143,9 +143,7 @@ export default function AssessmentDetail(): JSX.Element {
           )}
 
           {/* Body */}
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-6 mb-6 text-sm leading-relaxed whitespace-pre-wrap">
-            {assessment.body}
-          </div>
+          <div className="surface-card p-6 mb-6 text-sm leading-relaxed whitespace-pre-wrap">{assessment.body}</div>
 
           {/* Status transition actions */}
           {(STATUS_ACTIONS[assessment.status]?.length ?? 0) > 0 && (

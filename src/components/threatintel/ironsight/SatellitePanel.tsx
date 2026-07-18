@@ -88,7 +88,7 @@ export default function SatellitePanel() {
         {loading ? (
           <div className="space-y-2">
             {[...Array(4)].map((_, i) => (
-              <div key={i} className="h-8 rounded bg-slate-100 dark:bg-slate-800 animate-pulse" />
+              <div key={i} className="h-8 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] animate-pulse" />
             ))}
           </div>
         ) : events.length === 0 ? (

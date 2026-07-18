@@ -71,8 +71,7 @@ type DoneEvent = {
 
 type Phase = 'idle' | 'hashing' | 'streaming' | 'done' | 'error';
 
-const CARD =
-  'rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4';
+const CARD = 'surface-card p-4';
 const H2 =
   'text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono inline-flex items-center gap-2';
 

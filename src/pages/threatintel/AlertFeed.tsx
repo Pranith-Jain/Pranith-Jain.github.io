@@ -118,7 +118,7 @@ export default function AlertFeed() {
               className={`rounded-xl border p-4 text-left transition-all ${
                 filter === sev
                   ? 'border-amber-500 dark:border-amber-400 bg-amber-50 dark:bg-amber-900/10'
-                  : 'border-slate-200/60 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-amber-300'
+                  : 'border-slate-200/60 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-amber-300'
               }`}
             >
               <div className="flex items-center gap-2 mb-1">
@@ -160,7 +160,7 @@ export default function AlertFeed() {
               className={`rounded-xl border p-4 transition-all ${
                 !alert.read
                   ? 'border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-900/5'
-                  : 'border-slate-200/60 dark:border-slate-700 bg-white dark:bg-slate-800'
+                  : 'border-slate-200/60 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]'
               }`}
             >
               <div className="flex items-start gap-3">

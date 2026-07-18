@@ -184,7 +184,7 @@ export default function Owasp(): JSX.Element {
       </div>
 
       {/* Stats */}
-      <section className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+      <section className="mb-6 surface-card p-5">
         <div className="flex flex-wrap items-baseline justify-between gap-4">
           <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 text-xs font-mono">
             <span className="text-slate-500">Coverage:</span>

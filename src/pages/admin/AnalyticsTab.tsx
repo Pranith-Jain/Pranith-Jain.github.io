@@ -206,7 +206,7 @@ function MetricsForm({ onSaved }: { onSaved: () => void }) {
           <button
             type="submit"
             disabled={busy}
-            className="px-4 py-1.5 border border-slate-300 dark:border-slate-600 rounded text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] hover:text-slate-900 dark:hover:text-white disabled:opacity-50 transition-colors"
+            className="px-4 py-1.5 border border-slate-300 dark:border-[rgb(var(--border-500))] rounded text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] hover:text-slate-900 dark:hover:text-white disabled:opacity-50 transition-colors"
           >
             {busy ? 'Saving…' : 'Save metrics'}
           </button>

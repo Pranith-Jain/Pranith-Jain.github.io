@@ -324,10 +324,7 @@ export default function AnalyticsDashboard(): JSX.Element {
             {(['A', 'B', 'C', 'D', 'E', 'F', 'ungraded'] as const).map((grade) => {
               const count = feed.reliability_distribution[grade] ?? 0;
               return (
-                <div
-                  key={grade}
-                  className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3 text-center"
-                >
+                <div key={grade} className="surface-card p-3 text-center">
                   <div className={`text-2xl font-display font-bold ${reliabilityColor(grade)}`}>
                     {grade === 'ungraded' ? '—' : grade}
                   </div>
@@ -347,7 +344,7 @@ export default function AnalyticsDashboard(): JSX.Element {
           <h2 className="font-display font-semibold text-lg text-slate-700 dark:text-slate-300 mb-3">
             Health by Category
           </h2>
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] divide-y divide-slate-100 dark:divide-slate-800">
+          <div className="surface-card divide-y divide-slate-100 dark:divide-slate-800">
             {categoryBreakdown.map((cat) => (
               <div key={cat.name} className="flex items-center gap-4 px-4 py-3">
                 <span className="font-mono text-sm text-slate-700 dark:text-slate-300 w-32 shrink-0 capitalize">
@@ -374,7 +371,7 @@ export default function AnalyticsDashboard(): JSX.Element {
           <h2 className="font-display font-semibold text-lg text-slate-700 dark:text-slate-300 mb-3">
             All Sources ({feed.rows.length})
           </h2>
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
+          <div className="surface-card overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
@@ -527,8 +524,7 @@ function KpiCard({
     </>
   );
 
-  const cardClass =
-    'rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 transition hover:-translate-y-0.5 hover:shadow-e2';
+  const cardClass = 'surface-card p-4 transition hover:-translate-y-0.5 hover:shadow-e2';
 
   if (href) {
     return (

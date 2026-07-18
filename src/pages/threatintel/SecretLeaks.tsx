@@ -334,7 +334,7 @@ export default function SecretLeaks(): JSX.Element {
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 <a
                   href="/threatintel/redhunt-labs"
-                  className="group flex items-start gap-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 hover:border-brand-500/60 hover:shadow-e2 transition-all"
+                  className="group flex items-start gap-3 surface-card p-4 hover:border-brand-500/60 hover:shadow-e2 transition-all"
                 >
                   <FlaskConical className="mt-0.5 h-5 w-5 shrink-0 text-brand-600 dark:text-brand-400" />
                   <div className="min-w-0 flex-1">
@@ -358,7 +358,7 @@ export default function SecretLeaks(): JSX.Element {
                   href="https://research.redhuntlabs.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-start gap-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 hover:border-brand-500/60 hover:shadow-e2 transition-all"
+                  className="group flex items-start gap-3 surface-card p-4 hover:border-brand-500/60 hover:shadow-e2 transition-all"
                 >
                   <Bug className="mt-0.5 h-5 w-5 shrink-0 text-brand-600 dark:text-brand-400" />
                   <div className="min-w-0 flex-1">
@@ -379,7 +379,7 @@ export default function SecretLeaks(): JSX.Element {
                 </a>
                 <a
                   href="/threatintel/redhunt-insights"
-                  className="group flex items-start gap-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 hover:border-brand-500/60 hover:shadow-e2 transition-all"
+                  className="group flex items-start gap-3 surface-card p-4 hover:border-brand-500/60 hover:shadow-e2 transition-all"
                 >
                   <Activity className="mt-0.5 h-5 w-5 shrink-0 text-brand-600 dark:text-brand-400" />
                   <div className="min-w-0 flex-1">

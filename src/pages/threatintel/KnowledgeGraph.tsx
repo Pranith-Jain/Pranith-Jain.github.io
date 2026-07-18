@@ -174,7 +174,7 @@ export default function KnowledgeGraph(): JSX.Element {
       maxWidthClass="max-w-6xl"
     >
       {/* Filter card */}
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
+      <section className="surface-card p-4 mb-4">
         <div className="flex flex-wrap items-center gap-3">
           <Filter className="h-4 w-4 text-slate-500 dark:text-slate-400" />
           <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
@@ -293,10 +293,7 @@ export default function KnowledgeGraph(): JSX.Element {
       {/* Graph */}
       {data &&
         (data.nodes.length > 0 ? (
-          <section
-            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1"
-            style={{ height: 620 }}
-          >
+          <section className="surface-card" style={{ height: 620 }}>
             <ReactFlowProvider>
               <ReactFlow
                 nodes={nodes}

@@ -1,7 +1,8 @@
 import { useState, useMemo } from 'react';
 import { useDataFetch } from '../hooks/useDataFetch';
 import { DataPageLayout } from '../components/DataPageLayout';
-import { Database, Search, ExternalLink, FileJson, X } from 'lucide-react';
+import { Modal } from '../components/ui/Modal';
+import { Database, Search, ExternalLink, FileJson } from 'lucide-react';
 
 interface WinRegIndex {
   source: string;
@@ -66,113 +67,101 @@ function hiveLabel(hive: string): string {
   return hive.toUpperCase().replace('.DAT', '').replace('.HVE', '').slice(0, 10);
 }
 
-const CARD =
-  'rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1';
+const CARD = 'surface-card';
 
 function ArtifactDetail({ body, onClose }: { body: ArtifactBody; onClose: () => void }) {
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-start justify-center pt-16 pb-8 px-4 bg-black/60 backdrop-blur-sm overflow-y-auto"
-      onClick={onClose}
-    >
-      <div className={`relative w-full max-w-3xl ${CARD}`} onClick={(e) => e.stopPropagation()}>
-        <div className="flex items-center justify-between p-5 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-          <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 pr-8">{body.name}</h2>
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-700 dark:hover:text-white p-1">
-            <X size={20} />
-          </button>
-        </div>
-        <div className="p-5 space-y-5 max-h-[70vh] overflow-y-auto">
-          {body.keys.length > 0 && (
-            <div>
-              <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
-                Registry Keys
-              </div>
-              <div className="space-y-1">
-                {body.keys.map((k, i) => (
-                  <div
-                    key={i}
-                    className="font-mono text-xs text-brand-600 dark:text-brand-400 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded px-3 py-1.5 break-all"
-                  >
-                    {k}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+    <Modal open onClose={onClose} title={body.name} size="lg">
+      <div className="space-y-5 max-h-[70vh] overflow-y-auto">
+        {body.keys.length > 0 && (
           <div>
-            <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
-              Description
+            <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
+              Registry Keys
             </div>
-            <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body.description}</p>
+            <div className="space-y-1">
+              {body.keys.map((k, i) => (
+                <div
+                  key={i}
+                  className="font-mono text-xs text-brand-600 dark:text-brand-400 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded px-3 py-1.5 break-all"
+                >
+                  {k}
+                </div>
+              ))}
+            </div>
           </div>
-          {body.forensic_value && (
-            <div className="border-l-2 border-violet-500 pl-4 py-2 bg-violet-50 dark:bg-violet-950/20 rounded-r-lg">
-              <div className="text-xs font-semibold text-violet-600 dark:text-violet-400 uppercase tracking-wider mb-1">
-                Forensic Value
-              </div>
-              <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body.forensic_value}</p>
-            </div>
-          )}
-          <div className="flex flex-wrap gap-2">
-            {body.hive.map((h) => (
-              <span key={h} className={`font-mono text-[10px] font-bold px-2 py-0.5 rounded border ${hiveColor(h)}`}>
-                {hiveLabel(h)}
-              </span>
-            ))}
+        )}
+        <div>
+          <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
+            Description
           </div>
-          {body.techniques.length > 0 && (
-            <div>
-              <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
-                MITRE ATT&CK
-              </div>
-              <div className="flex flex-wrap gap-1.5">
-                {body.techniques.map((t) => (
-                  <a
-                    key={t}
-                    href={`https://attack.mitre.org/techniques/${t.replace('.', '/')}/`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 font-mono text-[10px] font-bold text-orange-700 dark:text-orange-300 bg-orange-50 dark:bg-orange-950/40 border border-orange-300 dark:border-orange-800 px-2 py-0.5 rounded hover:bg-orange-100 dark:hover:bg-orange-950/60"
-                  >
-                    {t} <ExternalLink size={10} />
-                  </a>
-                ))}
-              </div>
+          <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body.description}</p>
+        </div>
+        {body.forensic_value && (
+          <div className="border-l-2 border-violet-500 pl-4 py-2 bg-violet-50 dark:bg-violet-950/20 rounded-r-lg">
+            <div className="text-xs font-semibold text-violet-600 dark:text-violet-400 uppercase tracking-wider mb-1">
+              Forensic Value
             </div>
-          )}
-          {body.parsers.length > 0 && (
-            <div>
-              <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
-                Parsers / Tools
-              </div>
-              <div className="flex flex-wrap gap-1.5">
-                {body.parsers.map((p, i) => (
-                  <span
-                    key={i}
-                    className="font-mono text-[10px] text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-2 py-0.5 rounded"
-                  >
-                    {p}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-          <div className="text-[10px] text-slate-500 dark:text-slate-500 pt-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
-            Data from{' '}
-            <a
-              href={body.sourceUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline"
-            >
-              {body.source}
-            </a>{' '}
-            ({body.license})
+            <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body.forensic_value}</p>
           </div>
+        )}
+        <div className="flex flex-wrap gap-2">
+          {body.hive.map((h) => (
+            <span key={h} className={`font-mono text-[10px] font-bold px-2 py-0.5 rounded border ${hiveColor(h)}`}>
+              {hiveLabel(h)}
+            </span>
+          ))}
+        </div>
+        {body.techniques.length > 0 && (
+          <div>
+            <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
+              MITRE ATT&CK
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {body.techniques.map((t) => (
+                <a
+                  key={t}
+                  href={`https://attack.mitre.org/techniques/${t.replace('.', '/')}/`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 font-mono text-[10px] font-bold text-orange-700 dark:text-orange-300 bg-orange-50 dark:bg-orange-950/40 border border-orange-300 dark:border-orange-800 px-2 py-0.5 rounded hover:bg-orange-100 dark:hover:bg-orange-950/60"
+                >
+                  {t} <ExternalLink size={10} />
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+        {body.parsers.length > 0 && (
+          <div>
+            <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
+              Parsers / Tools
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {body.parsers.map((p, i) => (
+                <span
+                  key={i}
+                  className="font-mono text-[10px] text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-slate-700 px-2 py-0.5 rounded"
+                >
+                  {p}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+        <div className="text-[10px] text-slate-500 dark:text-slate-500 pt-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+          Data from{' '}
+          <a
+            href={body.sourceUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-brand-600 dark:text-brand-400 hover:underline"
+          >
+            {body.source}
+          </a>{' '}
+          ({body.license})
         </div>
       </div>
-    </div>
+    </Modal>
   );
 }
 

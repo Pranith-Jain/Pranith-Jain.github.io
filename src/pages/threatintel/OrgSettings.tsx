@@ -164,7 +164,7 @@ export default function OrgSettings() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Org List */}
         <div className="lg:col-span-1">
-          <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4">
+          <div className="surface-card p-4">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-sm font-semibold text-slate-700 dark:text-slate-300">Organizations</h2>
               <button
@@ -176,21 +176,24 @@ export default function OrgSettings() {
             </div>
 
             {showCreate && (
-              <form onSubmit={createOrg} className="mb-4 p-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 space-y-2">
+              <form
+                onSubmit={createOrg}
+                className="mb-4 p-3 rounded-xl bg-slate-50 dark:bg-[rgb(var(--surface-100))]/50 space-y-2"
+              >
                 <input
                   type="text"
                   value={newOrgName}
                   onChange={(e) => setNewOrgName(e.target.value)}
                   placeholder="Organization name"
                   required
-                  className="w-full px-3 py-1.5 text-xs rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100"
+                  className="w-full px-3 py-1.5 text-xs rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] text-slate-900 dark:text-slate-100"
                 />
                 <input
                   type="text"
                   value={newOrgDesc}
                   onChange={(e) => setNewOrgDesc(e.target.value)}
                   placeholder="Description (optional)"
-                  className="w-full px-3 py-1.5 text-xs rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100"
+                  className="w-full px-3 py-1.5 text-xs rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] text-slate-900 dark:text-slate-100"
                 />
                 <div className="flex gap-2">
                   <button
@@ -241,7 +244,7 @@ export default function OrgSettings() {
         {/* Members Panel */}
         <div className="lg:col-span-2">
           {selectedOrg ? (
-            <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4">
+            <div className="surface-card p-4">
               <h2 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-4">
                 {selectedOrg.name} — Members
               </h2>
@@ -253,7 +256,7 @@ export default function OrgSettings() {
                   onChange={(e) => setInviteEmail(e.target.value)}
                   placeholder="Invite by email"
                   required
-                  className="flex-1 px-3 py-1.5 text-xs rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100"
+                  className="flex-1 px-3 py-1.5 text-xs rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] text-slate-900 dark:text-slate-100"
                 />
                 <button
                   type="submit"
@@ -290,7 +293,7 @@ export default function OrgSettings() {
               </div>
             </div>
           ) : (
-            <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-8 text-center text-slate-400 text-sm">
+            <div className="surface-card p-8 text-center text-slate-400 text-sm">
               Select an organization to manage members
             </div>
           )}

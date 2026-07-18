@@ -153,7 +153,7 @@ const IOC_PILL: Record<IocKind, string> = {
 
 function SummaryTab({ data, sample }: { data: AnalyzerOutput; sample: SampleReport }): JSX.Element {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5 space-y-4">
+    <div className="surface-card p-5 space-y-4">
       <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] pb-3">
         <div>
           <p className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
@@ -273,7 +273,7 @@ function StixTab({ data }: { data: AnalyzerOutput }): JSX.Element {
     }
   }
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5 space-y-4">
+    <div className="surface-card p-5 space-y-4">
       <div className="flex items-baseline justify-between">
         <p className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
           STIX 2.1 Bundle · {objects.length} objects
@@ -409,7 +409,7 @@ function IocsTab(props: { iocs: ExtractedIoc[]; apiKey: string; mcpStatus: McpSt
   }
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+    <div className="surface-card overflow-hidden">
       <div className="flex flex-wrap items-center gap-2 px-4 py-2.5 border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]">
         <Link2 className="h-4 w-4 text-brand-600 dark:text-brand-400" />
         <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">
@@ -507,7 +507,7 @@ function IocsTab(props: { iocs: ExtractedIoc[]; apiKey: string; mcpStatus: McpSt
 function TtpsTab({ ttp }: { ttp: TtpHit[] }): JSX.Element {
   if (ttp.length === 0) return <EmptyTab msg="No MITRE ATT&CK techniques were extracted." />;
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+    <div className="surface-card overflow-hidden">
       <table className="w-full text-sm">
         <thead className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
           <tr>
@@ -596,7 +596,7 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }): JSX.Element {
     { q: 'Why', a: fiveW.why, icon: Eye },
   ];
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5 space-y-3">
+    <div className="surface-card p-5 space-y-3">
       <p className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
         5W Analysis · AI confidence {fmtConfidence(fiveW.confidence)}
       </p>
@@ -686,7 +686,7 @@ function McpSearchPanel(props: { apiKey: string; status: McpStatus }): JSX.Eleme
   }
 
   return (
-    <div className="mt-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+    <div className="mt-3 surface-card p-4">
       <div className="flex flex-wrap items-center gap-2 mb-3">
         <Search className="h-4 w-4 text-brand-600 dark:text-brand-400" />
         <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Cross-Source Search</h3>
@@ -1000,7 +1000,7 @@ export default function AIReportShowcase(): JSX.Element {
       maxWidthClass="max-w-7xl"
     >
       {/* ── Sample picker ───────────────────────────────────────────── */}
-      <div className="mb-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <div className="mb-4 surface-card p-4">
         <div className="flex items-center gap-2 mb-3">
           <Beaker className="h-4 w-4 text-brand-600 dark:text-brand-400" />
           <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Pick a sample report</h3>

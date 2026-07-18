@@ -361,10 +361,7 @@ export default function PhysicalBitcoinAttacks(): JSX.Element {
           { label: 'Arrested', value: stats.arrested, icon: Users, cls: 'text-emerald-600 dark:text-emerald-400' },
           { label: 'Countries', value: stats.countries, icon: Globe, cls: 'text-sky-600 dark:text-sky-400' },
         ].map(({ label, value, icon: Icon, cls }) => (
-          <div
-            key={label}
-            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 shadow-e1 p-2.5"
-          >
+          <div key={label} className="surface-card/50 shadow-e1 p-2.5">
             <div className={`flex items-center gap-1.5 text-mini uppercase tracking-wider mb-0.5 ${cls}`}>
               <Icon className="w-3 h-3" /> {label}
             </div>
@@ -427,10 +424,7 @@ export default function PhysicalBitcoinAttacks(): JSX.Element {
           const outcome = OUTCOME_META[a.outcome]!;
           const VictimIcon = VICTIM_ICONS[a.victim_type] || Shield;
           return (
-            <div
-              key={a.id}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4 hover:shadow-e1 transition"
-            >
+            <div key={a.id} className="surface-card/50 p-4 hover:shadow-e1 transition">
               <div className="flex items-start gap-3">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap mb-1">

@@ -268,17 +268,14 @@ export default function PrefetchAnalyzer(): JSX.Element {
               ['Prefetch hash', pf.hash],
               ['Run count', String(pf.runCount)],
             ].map(([k, v]) => (
-              <div
-                key={k}
-                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
-              >
+              <div key={k} className="surface-card p-3">
                 <div className="text-micro font-mono uppercase tracking-wider text-slate-500">{k}</div>
                 <div className="font-mono text-meta break-all">{v}</div>
               </div>
             ))}
           </div>
           {pf.lastRuns.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3">
+            <div className="surface-card p-3">
               <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">
                 Last run times ({pf.lastRuns.length})
               </div>
@@ -290,9 +287,9 @@ export default function PrefetchAnalyzer(): JSX.Element {
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder={`filter ${pf.files.length} referenced files…`}
-              className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none mb-2"
+              className="w-full surface-card px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none mb-2"
             />
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 overflow-auto max-h-[55vh]">
+            <div className="surface-card p-3 overflow-auto max-h-[55vh]">
               {shown.slice(0, 3000).map((f, i) => (
                 <div key={i} className="font-mono text-mini text-muted break-all">
                   {f}

@@ -102,10 +102,7 @@ function MaturityScorecard({ report }: { report: MaturityReport }): JSX.Element 
       </div>
       <div className="space-y-3">
         {report.domains.map((d) => (
-          <div
-            key={d.id}
-            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
-          >
+          <div key={d.id} className="surface-card p-3">
             <div className="flex items-center justify-between mb-1.5">
               <span className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300">
                 {d.name}
@@ -161,7 +158,7 @@ function ReliabilityHistogram({ data }: { data: FeedStatusResponse }): JSX.Eleme
         </h3>
         <span className="text-micro font-mono text-slate-500">{total} sources graded</span>
       </div>
-      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 space-y-2">
+      <div className="surface-card p-3 space-y-2">
         {grades.map((g) => {
           const n = dist[g] ?? 0;
           const pct = total > 0 ? (n / total) * 100 : 0;
@@ -232,7 +229,7 @@ export function MaturityPanel(): JSX.Element {
   }
   return (
     <DataState rows={1}>
-      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+      <div className="surface-card p-5">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <MaturityScorecard report={maturity} />
           <ReliabilityHistogram data={feed} />

@@ -170,7 +170,7 @@ export default function Dnscope(): JSX.Element {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="space-y-4">
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+          <div className="surface-card/40 shadow-e1 p-5">
             <div className="flex items-center gap-2 mb-3">
               <Search size={14} className="text-slate-400" />
               <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Target Domain</span>
@@ -209,7 +209,7 @@ export default function Dnscope(): JSX.Element {
 
         <div>
           {scanning && (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-8 flex flex-col items-center gap-3">
+            <div className="surface-card/40 shadow-e1 p-8 flex flex-col items-center gap-3">
               <Loader2 size={32} className="animate-spin text-brand-600" />
               <p className="text-sm font-mono text-slate-500">Querying DNS, RDAP, certificates, and threat intel…</p>
             </div>
@@ -234,10 +234,7 @@ export default function Dnscope(): JSX.Element {
               </div>
               <div className="space-y-2">
                 {sections.map((section) => (
-                  <div
-                    key={section.id}
-                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-4"
-                  >
+                  <div key={section.id} className="surface-card/40 shadow-e1 p-4">
                     <div className="flex items-center justify-between mb-2">
                       <h3 className="font-mono text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                         {section.label}

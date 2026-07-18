@@ -68,7 +68,7 @@ export default function AgenticReports(): JSX.Element {
             key={r.id}
             type="button"
             onClick={() => setSelectedId(r.id)}
-            className="w-full text-left rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 hover:border-brand-400/60 hover:shadow-e2 transition-all"
+            className="w-full text-left surface-card p-4 hover:border-brand-400/60 hover:shadow-e2 transition-all"
           >
             <div className="flex flex-wrap items-start gap-2 mb-2">
               <span
@@ -244,7 +244,7 @@ function ReportDetail({ report }: { report: AgenticReport }) {
                 </div>
                 <p className="text-xs text-slate-600 dark:text-slate-300 mb-1">{d.description}</p>
                 {d.query && (
-                  <pre className="text-xs font-mono text-slate-800 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 rounded p-2 overflow-x-auto mt-2">
+                  <pre className="text-xs font-mono text-slate-800 dark:text-slate-200 bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded p-2 overflow-x-auto mt-2">
                     {d.query}
                   </pre>
                 )}
@@ -408,7 +408,7 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-3">
+    <section className="surface-card p-4 mb-3">
       <div className="flex items-center gap-2 mb-3">
         <span className="text-brand-600 dark:text-brand-400">{icon}</span>
         <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{title}</h3>

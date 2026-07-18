@@ -264,7 +264,7 @@ export default function LiveIocs(): JSX.Element {
         </>
       }
     >
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
+      <section className="surface-card p-4 mb-4">
         <div className="flex flex-wrap items-center gap-3">
           <div className="relative flex-1 min-w-[200px]">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -441,10 +441,7 @@ export default function LiveIocs(): JSX.Element {
           {pageItems.map((it, i) => {
             const sourcePill = sourceColor(it.source);
             return (
-              <li
-                key={`${it.source}:${it.value}:${i}`}
-                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2.5 flex items-center gap-3"
-              >
+              <li key={`${it.source}:${it.value}:${i}`} className="surface-card px-3 py-2.5 flex items-center gap-3">
                 <span
                   className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${KIND_PILL[it.kind]} shrink-0`}
                 >

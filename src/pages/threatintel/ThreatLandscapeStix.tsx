@@ -133,14 +133,14 @@ export default function ThreatLandscapeStix(): JSX.Element {
           <div className="flex gap-2">
             <button
               onClick={addFilter}
-              className="text-xs flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700"
+              className="text-xs flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] hover:bg-slate-100 dark:hover:bg-slate-700"
             >
               <Filter size={12} /> Add Filter
             </button>
             <button
               onClick={exportAsJson}
               disabled={!data?.length}
-              className="text-xs flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-40"
+              className="text-xs flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-40"
             >
               <Download size={12} /> Export JSON
             </button>
@@ -154,14 +154,14 @@ export default function ThreatLandscapeStix(): JSX.Element {
             <input
               value={select}
               onChange={(e) => setSelect(e.target.value)}
-              className="flex-1 min-w-[200px] text-xs px-2 py-1 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800"
+              className="flex-1 min-w-[200px] text-xs px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] bg-white dark:bg-[rgb(var(--surface-200))]"
               placeholder="bundle_id,source_type,title"
             />
             <label className="text-xs font-medium">Order:</label>
             <input
               value={order}
               onChange={(e) => setOrder(e.target.value)}
-              className="w-52 text-xs px-2 py-1 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800"
+              className="w-52 text-xs px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] bg-white dark:bg-[rgb(var(--surface-200))]"
               placeholder="stix_published_at.desc"
             />
             <label className="text-xs font-medium">Limit:</label>
@@ -169,7 +169,7 @@ export default function ThreatLandscapeStix(): JSX.Element {
               type="number"
               value={limit}
               onChange={(e) => setLimit(e.target.value)}
-              className="w-20 text-xs px-2 py-1 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800"
+              className="w-20 text-xs px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] bg-white dark:bg-[rgb(var(--surface-200))]"
             />
             <button
               onClick={fetchData}
@@ -194,7 +194,7 @@ export default function ThreatLandscapeStix(): JSX.Element {
                     <select
                       value={f.column}
                       onChange={(e) => updateFilter(i, 'column', e.target.value)}
-                      className="text-xs px-2 py-1 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800"
+                      className="text-xs px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] bg-white dark:bg-[rgb(var(--surface-200))]"
                     >
                       {COLUMNS.map((c) => (
                         <option key={c.value} value={c.value}>
@@ -205,7 +205,7 @@ export default function ThreatLandscapeStix(): JSX.Element {
                     <select
                       value={f.op}
                       onChange={(e) => updateFilter(i, 'op', e.target.value as FilterOp)}
-                      className="text-xs px-2 py-1 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800"
+                      className="text-xs px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] bg-white dark:bg-[rgb(var(--surface-200))]"
                     >
                       <option value="eq">= (eq)</option>
                       <option value="neq">!= (neq)</option>
@@ -217,7 +217,7 @@ export default function ThreatLandscapeStix(): JSX.Element {
                     <input
                       value={f.value}
                       onChange={(e) => updateFilter(i, 'value', e.target.value)}
-                      className="text-xs px-2 py-1 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 min-w-[200px]"
+                      className="text-xs px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] bg-white dark:bg-[rgb(var(--surface-200))] min-w-[200px]"
                       placeholder="Value"
                     />
                     <button
@@ -242,10 +242,10 @@ export default function ThreatLandscapeStix(): JSX.Element {
           emptyLabel="No bundles match these filters."
         >
           {data && (
-            <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
+            <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))]">
               <table className="w-full text-xs">
                 <thead>
-                  <tr className="bg-slate-100 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
+                  <tr className="bg-slate-100 dark:bg-[rgb(var(--surface-200))] border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                     <th className="px-3 py-2 text-left font-medium">Bundle ID</th>
                     <th className="px-3 py-2 text-left font-medium">Type</th>
                     <th className="px-3 py-2 text-left font-medium">Title</th>

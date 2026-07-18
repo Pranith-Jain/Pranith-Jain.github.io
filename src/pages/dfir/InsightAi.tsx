@@ -187,7 +187,7 @@ export default function InsightAi(): JSX.Element {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Input Panel */}
         <div className="space-y-5">
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+          <div className="surface-card/40 shadow-e1 p-5">
             <div className="flex items-baseline justify-between mb-2">
               <h2 className="font-display font-bold text-sm">Alert / Log Content</h2>
               <span className="text-micro font-mono uppercase tracking-wider text-slate-400">required</span>
@@ -213,7 +213,7 @@ export default function InsightAi(): JSX.Element {
             </div>
           </div>
 
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+          <div className="surface-card/40 shadow-e1 p-5">
             <h2 className="font-display font-bold text-sm mb-3">Runbook Modes</h2>
             <div className="flex flex-wrap gap-1.5">
               {MODES.map((m) => (
@@ -232,7 +232,7 @@ export default function InsightAi(): JSX.Element {
             </div>
           </div>
 
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+          <div className="surface-card/40 shadow-e1 p-5">
             <h2 className="font-display font-bold text-sm mb-3">SIEM Formats</h2>
             <div className="flex flex-wrap gap-1.5">
               {SIEM_FORMATS.map((s) => (
@@ -281,7 +281,7 @@ export default function InsightAi(): JSX.Element {
           )}
 
           {loading && (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-10 text-center">
+            <div className="surface-card/40 shadow-e1 p-10 text-center">
               <Loader2 size={32} className="text-brand-600 dark:text-brand-400 mx-auto mb-3 animate-spin" />
               <p className="text-sm text-slate-600 dark:text-slate-300">Generating runbook…</p>
               <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">This may take 15–30 seconds</p>
@@ -291,7 +291,7 @@ export default function InsightAi(): JSX.Element {
           {result && !loading && (
             <>
               {selectedModes.size > 1 && (
-                <div className="flex flex-wrap gap-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-2">
+                <div className="flex flex-wrap gap-1.5 surface-card/40 shadow-e1 p-2">
                   {[...selectedModes].map((m) => {
                     const mode = MODES.find((mm) => mm.id === m);
                     if (!mode) return null;
@@ -312,7 +312,7 @@ export default function InsightAi(): JSX.Element {
                 </div>
               )}
 
-              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+              <div className="surface-card/40 shadow-e1 p-5">
                 <div className="flex items-center justify-between mb-3">
                   <h2 className="font-display font-bold text-sm flex items-center gap-2">
                     <BookOpen size={14} className="text-brand-600 dark:text-brand-400" />

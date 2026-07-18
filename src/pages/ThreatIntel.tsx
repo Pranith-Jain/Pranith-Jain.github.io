@@ -94,8 +94,7 @@ function hypeColor(hype: number): string {
   return 'text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-950/40 border border-slate-300 dark:border-slate-700';
 }
 
-const CARD =
-  'rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1';
+const CARD = 'surface-card';
 
 export default function ThreatIntel() {
   const [tab, setTab] = useState<Tab>('cves');
@@ -369,7 +368,7 @@ export default function ThreatIntel() {
                     )}
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className="w-24 h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                    <div className="w-24 h-1.5 bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded-full overflow-hidden">
                       <div
                         className={`h-full rounded-full ${priorityBar(cve.priorityScore)}`}
                         style={{ width: `${Math.min(100, cve.priorityScore)}%` }}
@@ -442,7 +441,7 @@ export default function ThreatIntel() {
                       className={`h-3 w-3 text-slate-400 transition-transform ${selectedIoc === ioc.slug ? 'rotate-90' : ''}`}
                     />
                   </div>
-                  <span className="text-micro font-mono uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 px-1.5 py-0.5 rounded">
+                  <span className="text-micro font-mono uppercase tracking-wider bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-500 dark:text-slate-400 px-1.5 py-0.5 rounded">
                     {ioc.category}
                   </span>
                 </div>
@@ -484,7 +483,7 @@ export default function ThreatIntel() {
                           ).map(([type, count]) => (
                             <span
                               key={type}
-                              className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
+                              className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-300"
                             >
                               {type}: {count}
                             </span>
@@ -604,7 +603,7 @@ export default function ThreatIntel() {
               <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-200 mb-3">
                 Results from {searchProvider === 'ransomware' ? 'ransomware.live' : searchProvider}
               </h3>
-              <pre className="text-xs text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-900 rounded-lg p-3 overflow-x-auto max-h-96 overflow-y-auto">
+              <pre className="text-xs text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-[rgb(var(--surface-100))] rounded-lg p-3 overflow-x-auto max-h-96 overflow-y-auto">
                 {JSON.stringify(searchResults, null, 2)}
               </pre>
             </div>

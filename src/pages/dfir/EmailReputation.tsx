@@ -263,7 +263,7 @@ export default function EmailReputation(): JSX.Element {
 
       {result && (
         <div className="space-y-4">
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+          <section className="surface-card p-4">
             <div className="flex items-baseline justify-between mb-3">
               <h2 className="font-display font-bold text-xl">{result.domain}</h2>
               <span
@@ -298,7 +298,7 @@ export default function EmailReputation(): JSX.Element {
           </div>
 
           {result.emailRep && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+            <section className="surface-card p-4">
               <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 inline-flex items-center gap-2">
                 <Mail size={12} aria-hidden="true" /> Address reputation (emailrep.io){' '}
                 <span className="font-normal text-slate-500 normal-case">· {result.emailRep.email}</span>
@@ -363,7 +363,7 @@ export default function EmailReputation(): JSX.Element {
           )}
 
           {result.domainBl.length > 0 && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+            <section className="surface-card p-4">
               <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 inline-flex items-center gap-2">
                 <Globe size={12} aria-hidden="true" /> Domain blacklist status ({result.domainBl.length} sources)
               </h3>
@@ -382,10 +382,7 @@ export default function EmailReputation(): JSX.Element {
             );
             const cleanCount = checks.length - blScore;
             return (
-              <section
-                key={ip}
-                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
-              >
+              <section key={ip} className="surface-card p-4">
                 <div className="flex items-baseline justify-between gap-2 mb-3">
                   <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono inline-flex items-center gap-2">
                     <Mail size={12} aria-hidden="true" /> {exchange}{' '}

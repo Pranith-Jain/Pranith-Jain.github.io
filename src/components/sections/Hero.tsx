@@ -3,6 +3,7 @@ import { ArrowRight } from 'lucide-react';
 import type { PersonalInfo } from '../../core/entities';
 import { HeroLiveSparkline } from '../HeroLiveSparkline';
 import { PjMark } from '../PjMark';
+import { Button } from '../ui/Button';
 
 interface HeroProps {
   personalInfo: PersonalInfo;
@@ -64,18 +65,12 @@ export function Hero({ personalInfo }: HeroProps) {
               secondary uses a translucent gray-alpha border with a
               black/5 hover wash (the 100→200 step from the spec). */}
           <div className="mt-6 flex flex-wrap gap-2.5">
-            <Link
-              to="/dfir/ioc-investigate"
-              className="inline-flex h-10 items-center justify-center gap-1.5 rounded bg-brand-600 px-4 text-sm font-medium text-white transition-colors hover:bg-brand-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-950"
-            >
+            <Button href="/dfir/ioc-investigate" variant="primary-brand" size="md">
               Try IOC Check
-            </Link>
-            <Link
-              to="/threatintel"
-              className="inline-flex h-10 items-center justify-center gap-1.5 rounded border border-black/15 bg-white px-4 text-sm font-medium text-slate-900 transition-colors hover:bg-black/5 hover:border-black/25 dark:bg-transparent dark:text-slate-100 dark:border-white/10 dark:hover:bg-white/5 dark:hover:border-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-950"
-            >
+            </Button>
+            <Button href="/threatintel" variant="secondary" size="md">
               Threat Intel Platform
-            </Link>
+            </Button>
           </div>
         </div>
 

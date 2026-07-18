@@ -110,7 +110,7 @@ export default function AttackChain(): JSX.Element {
       </div>
 
       {/* Input */}
-      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5 mb-6">
+      <div className="surface-card/40 shadow-e1 p-5 mb-6">
         <h2 className="font-display font-bold text-sm mb-3">Indicators of Compromise</h2>
         <textarea
           value={input}
@@ -166,7 +166,7 @@ export default function AttackChain(): JSX.Element {
       {result && (
         <div className="space-y-5 animate-fade-in-up">
           {/* Kill Chain Progress */}
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+          <div className="surface-card/40 shadow-e1 p-5">
             <div className="flex items-center justify-between mb-3">
               <h2 className="font-display font-bold text-sm">Kill Chain Progress</h2>
               <span className="text-2xl font-display font-bold text-brand-600 dark:text-brand-400">
@@ -193,7 +193,7 @@ export default function AttackChain(): JSX.Element {
           </div>
 
           {/* ATT&CK Kill Chain */}
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+          <div className="surface-card/40 shadow-e1 p-5">
             <h2 className="font-display font-bold text-sm mb-4">MITRE ATT&CK Kill Chain</h2>
             <div className="space-y-1.5">
               {result.tactics.map((t, i) => (
@@ -282,7 +282,7 @@ export default function AttackChain(): JSX.Element {
 
           {/* Recommendations */}
           {result.recommendations.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+            <div className="surface-card/40 shadow-e1 p-5">
               <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                 <CheckCircle size={14} className="text-emerald-600 dark:text-emerald-400" /> Detection Recommendations
               </h2>

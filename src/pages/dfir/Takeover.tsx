@@ -136,7 +136,7 @@ export default function Takeover(): JSX.Element {
             )}
           </section>
 
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+          <section className="surface-card p-5">
             <h3 className="font-display font-semibold mb-3">CNAME chain</h3>
             {result.cname_chain.length === 0 ? (
               <p className="text-sm font-mono text-slate-500">No CNAME records.</p>
@@ -153,7 +153,7 @@ export default function Takeover(): JSX.Element {
           </section>
 
           {result.notes.length > 0 && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5 space-y-2">
+            <section className="surface-card p-5 space-y-2">
               {result.notes.map((n) => (
                 <div key={n} className="flex items-start gap-2 text-sm text-muted">
                   <Info size={14} className="mt-0.5 flex-shrink-0" />

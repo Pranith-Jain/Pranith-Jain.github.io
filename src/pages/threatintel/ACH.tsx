@@ -115,7 +115,7 @@ export default function ACH(): JSX.Element {
             onChange={(e) => setTopic(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && void analyze()}
             placeholder="e.g. Qilin ransomware, Scattered Spider, CVE-2024-1709 campaign attribution…"
-            className="flex-1 text-sm px-4 py-2.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 shadow-e1 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40 placeholder:text-slate-400"
+            className="flex-1 text-sm px-4 py-2.5 surface-card/60 shadow-e1 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40 placeholder:text-slate-400"
             disabled={loading}
           />
           <button
@@ -146,7 +146,7 @@ export default function ACH(): JSX.Element {
       {result && (
         <div className="space-y-6 animate-fade-in-up">
           {/* Question + meta */}
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+          <div className="surface-card p-5">
             <h2 className="text-lg font-bold mb-1">{result.question}</h2>
             <div className="flex flex-wrap gap-3 text-mini font-mono text-slate-400">
               <span>topic: {result.topic}</span>
@@ -316,7 +316,7 @@ export default function ACH(): JSX.Element {
 
           {/* Key Assumptions */}
           {result.key_assumptions.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+            <div className="surface-card p-5">
               <h3 className="text-xs font-bold uppercase tracking-[0.15em] text-slate-500 font-mono mb-3 flex items-center gap-2">
                 <AlertTriangle size={12} /> Key Assumptions
               </h3>
@@ -333,7 +333,7 @@ export default function ACH(): JSX.Element {
 
           {/* Recommended Collection */}
           {result.recommended_collection.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+            <div className="surface-card p-5">
               <h3 className="text-xs font-bold uppercase tracking-[0.15em] text-slate-500 font-mono mb-3 flex items-center gap-2">
                 <Search size={12} /> Recommended Collection
               </h3>

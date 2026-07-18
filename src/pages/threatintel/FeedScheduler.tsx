@@ -334,10 +334,7 @@ export default function FeedScheduler(): JSX.Element {
       onRetry={() => void fetchData()}
     >
       {showForm && (
-        <form
-          onSubmit={(e) => void createJob(e)}
-          className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
-        >
+        <form onSubmit={(e) => void createJob(e)} className="mb-6 surface-card p-4">
           <h2 className="font-display font-semibold text-sm mb-3">Add Feed Source</h2>
 
           <div className="mb-3">
@@ -447,7 +444,7 @@ export default function FeedScheduler(): JSX.Element {
       )}
 
       {filtered.length === 0 && (
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-12 text-center">
+        <div className="surface-card p-12 text-center">
           <RefreshCw size={32} className="mx-auto text-slate-300 dark:text-slate-700 mb-3" />
           <p className="text-sm font-mono text-slate-500">{search ? 'No matching feeds' : 'No feed jobs configured'}</p>
           <p className="text-xs font-mono text-slate-400 mt-1">

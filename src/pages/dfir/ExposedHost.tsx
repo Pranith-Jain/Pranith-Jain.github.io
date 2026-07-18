@@ -168,7 +168,7 @@ export default function ExposedHostView(): JSX.Element {
             value={ip}
             onChange={(e) => setIp(e.target.value)}
             placeholder="8.8.8.8"
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2.5 surface-card text-sm font-mono focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-transparent"
           />
         </div>
         <button
@@ -191,7 +191,7 @@ export default function ExposedHostView(): JSX.Element {
       {result && (
         <>
           {/* Header Card */}
-          <div className="mb-6 p-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
+          <div className="mb-6 p-4 surface-card">
             <div className="flex items-start justify-between mb-3">
               <div>
                 <div className="flex items-center gap-3 mb-1">
@@ -274,10 +274,7 @@ export default function ExposedHostView(): JSX.Element {
               { label: 'Hostnames', value: result.hostnames.length, icon: Globe },
               { label: 'Artifacts', value: result.artifactCount, icon: File },
             ].map(({ label, value, icon: Icon }) => (
-              <div
-                key={label}
-                className="p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1"
-              >
+              <div key={label} className="p-3 surface-card">
                 <div className="flex items-center gap-1.5 mb-1">
                   <Icon size={12} className="text-slate-400" />
                   <span className="text-micro font-mono uppercase text-slate-500">{label}</span>
@@ -288,7 +285,7 @@ export default function ExposedHostView(): JSX.Element {
           </div>
 
           {/* Network Info */}
-          <div className="mb-4 p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
+          <div className="mb-4 p-3 surface-card">
             <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-2 flex items-center gap-1.5">
               <Network size={12} /> Network
             </h3>

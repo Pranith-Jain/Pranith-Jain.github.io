@@ -185,10 +185,7 @@ export default function DeepDarkCTI(): JSX.Element {
 
           <ul className="grid gap-2 md:grid-cols-2">
             {filtered.map((e, idx) => (
-              <li
-                key={`${e.source_file}:${e.url}:${idx}`}
-                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
-              >
+              <li key={`${e.source_file}:${e.url}:${idx}`} className="surface-card p-3">
                 <div className="flex items-start justify-between gap-2">
                   <div className="min-w-0">
                     <div className="flex items-center gap-1.5 flex-wrap">

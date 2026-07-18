@@ -353,10 +353,7 @@ export default function IocExtractor(): JSX.Element {
           const blob = values.map((v) => renderValue(bucket, v)).join('\n');
           const id = `${bucket}-${values.length}`;
           return (
-            <section
-              key={bucket}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5"
-            >
+            <section key={bucket} className="surface-card p-5">
               <div className="flex items-center justify-between mb-3">
                 <h3 className="font-display font-semibold text-slate-900 dark:text-slate-100">
                   {LABELS[bucket]} <span className="text-xs font-mono text-slate-500 ml-2">{values.length}</span>

@@ -91,7 +91,7 @@ function dimBg(score: number): string {
   if (score >= 80) return 'bg-rose-50 dark:bg-rose-950/30';
   if (score >= 60) return 'bg-orange-50 dark:bg-orange-950/30';
   if (score >= 40) return 'bg-amber-50 dark:bg-amber-950/30';
-  return 'bg-slate-50 dark:bg-slate-900/30';
+  return 'bg-slate-50 dark:bg-[rgb(var(--surface-100))]/30';
 }
 
 export default function FusionExposure(): JSX.Element {
@@ -157,7 +157,7 @@ export default function FusionExposure(): JSX.Element {
       maxWidthClass="max-w-6xl"
     >
       {/* Filter bar */}
-      <div className="mb-5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 space-y-3">
+      <div className="mb-5 surface-card p-4 space-y-3">
         <div className="flex flex-wrap items-center gap-3">
           <Filter size={14} className="text-slate-500 shrink-0" />
           <select
@@ -233,10 +233,7 @@ export default function FusionExposure(): JSX.Element {
           const style = sev[item.fusion_label] ?? sev.Low;
           const isOpen = expanded.has(item.cve_id);
           return (
-            <div
-              key={item.cve_id}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden"
-            >
+            <div key={item.cve_id} className="surface-card overflow-hidden">
               {/* Header row */}
               <button
                 type="button"

@@ -146,7 +146,7 @@ export default function CampaignsReference(): JSX.Element {
       {data && (
         <>
           {/* Toolbar */}
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
+          <section className="surface-card p-4 mb-4">
             <div className="relative mb-3">
               <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
               <input
@@ -236,7 +236,7 @@ export default function CampaignsReference(): JSX.Element {
 
 function Stat({ label, value }: { label: string; value: React.ReactNode }) {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2">
+    <div className="surface-card px-3 py-2">
       <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">{label}</div>
       <div className="text-lg font-semibold text-slate-900 dark:text-slate-100">{value}</div>
     </div>
@@ -247,7 +247,7 @@ function CampaignCard({ campaign: c }: { campaign: CampaignEntry }) {
   const [expanded, setExpanded] = useState(false);
   return (
     <div
-      className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 hover:border-brand-500/40 transition-colors cursor-pointer"
+      className="surface-card p-4 hover:border-brand-500/40 transition-colors cursor-pointer"
       onClick={() => setExpanded((v) => !v)}
       role="button"
       tabIndex={0}

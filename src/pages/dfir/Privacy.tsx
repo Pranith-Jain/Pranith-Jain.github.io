@@ -203,9 +203,7 @@ export default function Privacy(): JSX.Element {
       )}
 
       {opsec && (
-        <section
-          className={`mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6 ring-1 ${GRADE_STYLES[opsec.grade].ring}`}
-        >
+        <section className={`mb-6 surface-card p-6 ring-1 ${GRADE_STYLES[opsec.grade].ring}`}>
           <div className="flex items-center gap-6 mb-4">
             <div
               className={`flex flex-col items-center justify-center w-24 h-24 rounded-full ${GRADE_STYLES[opsec.grade].bg} ${GRADE_STYLES[opsec.grade].text}`}
@@ -254,7 +252,7 @@ export default function Privacy(): JSX.Element {
 
       <div className="space-y-6">
         {server && (
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+          <section className="surface-card p-6">
             <h2 className="font-display font-bold text-lg mb-3 flex items-center gap-2">
               <Eye size={16} className="text-brand-600 dark:text-brand-400" />
               Server-side view
@@ -271,7 +269,7 @@ export default function Privacy(): JSX.Element {
         )}
 
         {webrtc && (
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+          <section className="surface-card p-6">
             <h2 className="font-display font-bold text-lg mb-3">WebRTC leak detection</h2>
             <Row label="local IPs" value={webrtc.localIps.join(', ') || undefined} />
             <Row label="public IPs (RTC)" value={webrtc.publicIps.join(', ') || undefined} />
@@ -284,7 +282,7 @@ export default function Privacy(): JSX.Element {
         )}
 
         {fp && (
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+          <section className="surface-card p-6">
             <h2 className="font-display font-bold text-lg mb-3">Browser fingerprint</h2>
             <Row label="user-agent" value={fp.userAgent} mono={false} />
             <Row label="platform" value={fp.platform} />
@@ -305,7 +303,7 @@ export default function Privacy(): JSX.Element {
         )}
 
         {network && (
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+          <section className="surface-card p-6">
             <h2 className="font-display font-bold text-lg mb-3">Network</h2>
             <Row label="connection" value={network.effectiveType} />
             <Row label="downlink (Mbps)" value={network.downlink} />
@@ -315,7 +313,7 @@ export default function Privacy(): JSX.Element {
         )}
 
         {battery && (
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+          <section className="surface-card p-6">
             <h2 className="font-display font-bold text-lg mb-3">Battery</h2>
             <Row
               label="level"

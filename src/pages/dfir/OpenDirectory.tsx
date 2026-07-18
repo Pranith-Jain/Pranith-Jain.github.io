@@ -105,7 +105,7 @@ export default function OpenDirectory(): JSX.Element {
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             placeholder="https://suspicious-server.com/uploads/"
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2.5 surface-card text-sm font-mono focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-transparent"
           />
         </div>
         <button
@@ -136,10 +136,7 @@ export default function OpenDirectory(): JSX.Element {
               { label: 'Server', value: result.server ?? '—', icon: Server },
               { label: 'Scan Time', value: `${result.scanTimeMs}ms`, icon: Clock },
             ].map(({ label, value, icon: Icon }) => (
-              <div
-                key={label}
-                className="p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1"
-              >
+              <div key={label} className="p-3 surface-card">
                 <div className="flex items-center gap-1.5 mb-1">
                   <Icon size={12} className="text-slate-400" />
                   <span className="text-micro font-mono uppercase text-slate-500">{label}</span>
@@ -213,7 +210,7 @@ export default function OpenDirectory(): JSX.Element {
           </div>
 
           {/* File List */}
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+          <div className="surface-card overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-xs">
                 <thead className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] sticky top-0">

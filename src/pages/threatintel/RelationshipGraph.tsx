@@ -448,7 +448,7 @@ export default function RelationshipGraphPage(): JSX.Element {
         {/* Detail panel */}
         <aside className="space-y-4">
           {selectedNode ? (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 animate-fade-in-up">
+            <div className="surface-card p-4 animate-fade-in-up">
               <div className="flex items-center justify-between mb-3">
                 <div className="text-xs font-mono uppercase tracking-wider text-slate-500">Selected</div>
               </div>
@@ -481,7 +481,7 @@ export default function RelationshipGraphPage(): JSX.Element {
               </button>
             </div>
           ) : graphData ? (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 text-center text-xs font-mono text-slate-500 space-y-2">
+            <div className="surface-card p-4 text-center text-xs font-mono text-slate-500 space-y-2">
               <Bug size={16} className="mx-auto text-slate-400" />
               <div>Click any node to inspect.</div>
               <div className="text-micro text-slate-400">
@@ -492,7 +492,7 @@ export default function RelationshipGraphPage(): JSX.Element {
 
           {/* Legend */}
           {graphData && (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+            <div className="surface-card p-4">
               <div className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-3">Legend</div>
               <div className="grid grid-cols-2 gap-x-3 gap-y-1.5">
                 {(Object.entries(NODE_COLORS) as [GraphNodeData['type'], string][]).map(([type, color]) => (

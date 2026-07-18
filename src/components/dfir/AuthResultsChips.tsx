@@ -57,7 +57,7 @@ interface AuthResultsChipsProps {
 
 export function AuthResultsChips({ auth }: AuthResultsChipsProps): JSX.Element {
   return (
-    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+    <section className="surface-card p-6">
       <h2 className="font-display font-bold text-xl mb-4">Authentication Results</h2>
       <div className="flex flex-wrap gap-3">
         <AuthChip label="SPF" verdict={auth.spf} />

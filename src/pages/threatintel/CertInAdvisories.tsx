@@ -197,10 +197,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
           { label: 'With CVE', value: stats.withCve, icon: Hash, cls: 'text-sky-600 dark:text-sky-400' },
           { label: 'Years', value: stats.years, icon: Calendar, cls: 'text-violet-600 dark:text-violet-400' },
         ].map(({ label, value, icon: Icon, cls }) => (
-          <div
-            key={label}
-            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 shadow-e1 p-2.5"
-          >
+          <div key={label} className="surface-card/50 shadow-e1 p-2.5">
             <div className={`flex items-center gap-1.5 text-mini uppercase tracking-wider mb-0.5 ${cls}`}>
               <Icon className="w-3 h-3" /> {label}
             </div>

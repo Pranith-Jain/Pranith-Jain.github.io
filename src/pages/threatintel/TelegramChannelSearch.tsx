@@ -153,7 +153,7 @@ export default function TelegramChannelSearch(): JSX.Element {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="keyword (e.g. ransomware, stealer, APT)"
-          className="flex-1 min-w-[220px] px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
+          className="flex-1 min-w-[220px] px-3 py-2 surface-card text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
           aria-label="Search keyword"
         />
         <button
@@ -196,7 +196,7 @@ export default function TelegramChannelSearch(): JSX.Element {
       )}
 
       {data && data.results.length === 0 && !loading && (
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-8 text-center font-mono text-sm text-slate-500">
+        <div className="surface-card p-8 text-center font-mono text-sm text-slate-500">
           No channels matched <strong>{data.query}</strong>. Try a broader keyword.
         </div>
       )}
@@ -209,10 +209,7 @@ export default function TelegramChannelSearch(): JSX.Element {
             {data.stale && ' · stale'}
           </p>
           {data.results.map((r) => (
-            <div
-              key={r.handle}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
-            >
+            <div key={r.handle} className="surface-card p-4">
               <div className="flex flex-wrap items-start justify-between gap-3 mb-2">
                 <div className="min-w-0">
                   <h3 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 truncate">

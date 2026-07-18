@@ -157,7 +157,7 @@ export default function MalbriefAi(): JSX.Element {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Input Panel */}
         <div className="space-y-5">
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+          <div className="surface-card/40 shadow-e1 p-5">
             <div className="flex items-baseline justify-between mb-2">
               <h2 className="font-display font-bold text-sm">Behavioral Indicators</h2>
               <span className="text-micro font-mono uppercase tracking-wider text-slate-400">required</span>
@@ -201,7 +201,7 @@ export default function MalbriefAi(): JSX.Element {
           )}
 
           {loading && (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-10 text-center">
+            <div className="surface-card/40 shadow-e1 p-10 text-center">
               <Loader2 size={32} className="text-brand-600 dark:text-brand-400 mx-auto mb-3 animate-spin" />
               <p className="text-sm text-slate-600 dark:text-slate-300">Analyzing indicators…</p>
             </div>
@@ -210,7 +210,7 @@ export default function MalbriefAi(): JSX.Element {
           {result && !loading && (
             <>
               {result.classification && (
-                <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+                <div className="surface-card/40 shadow-e1 p-5">
                   <div className="flex items-center justify-between mb-3">
                     <h2 className="font-display font-bold text-sm flex items-center gap-2">
                       <Bug size={14} className="text-brand-600 dark:text-brand-400" /> Classification
@@ -228,7 +228,7 @@ export default function MalbriefAi(): JSX.Element {
               )}
 
               {result.mitre && result.mitre.length > 0 && (
-                <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+                <div className="surface-card/40 shadow-e1 p-5">
                   <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                     <Shield size={14} className="text-amber-600 dark:text-amber-400" /> MITRE ATT&CK
                   </h2>
@@ -249,7 +249,7 @@ export default function MalbriefAi(): JSX.Element {
               )}
 
               {result.signatures && result.signatures.length > 0 && (
-                <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+                <div className="surface-card/40 shadow-e1 p-5">
                   <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                     <FileSearch size={14} className="text-brand-600 dark:text-brand-400" /> Detection Signatures
                   </h2>
@@ -267,7 +267,7 @@ export default function MalbriefAi(): JSX.Element {
               )}
 
               {result.huntingPivots && result.huntingPivots.length > 0 && (
-                <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+                <div className="surface-card/40 shadow-e1 p-5">
                   <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                     <Crosshair size={14} className="text-emerald-600 dark:text-emerald-400" /> Hunting Pivots
                   </h2>
@@ -283,7 +283,7 @@ export default function MalbriefAi(): JSX.Element {
               )}
 
               {result.summary && (
-                <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+                <div className="surface-card/40 shadow-e1 p-5">
                   <h2 className="font-display font-bold text-sm mb-2 flex items-center gap-2">
                     <ListChecks size={14} className="text-brand-600 dark:text-brand-400" /> Analysis Summary
                   </h2>

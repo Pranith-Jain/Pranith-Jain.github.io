@@ -131,7 +131,7 @@ export default function Tabletop(): JSX.Element {
       </div>
 
       {/* Controls */}
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <section className="surface-card p-4 mb-6">
         <div className="grid gap-3 md:grid-cols-3">
           <label className="block">
             <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1 block">
@@ -206,7 +206,7 @@ export default function Tabletop(): JSX.Element {
       </section>
 
       {/* Scenario header */}
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <section className="surface-card p-4 mb-6">
         <div className="flex flex-wrap items-baseline justify-between gap-3 mb-2">
           <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">{archetype.name}</h2>
           <span className="text-mini font-mono text-slate-400 dark:text-slate-400">{archetype.timingCue}</span>
@@ -238,10 +238,7 @@ export default function Tabletop(): JSX.Element {
       {/* Inject timeline */}
       <section className="space-y-3 mb-6">
         {archetype.injects.map((inj, i) => (
-          <div
-            key={i}
-            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
-          >
+          <div key={i} className="surface-card p-4">
             <div className="flex flex-wrap items-baseline gap-3 mb-1.5">
               <span className="font-mono text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
                 {inj.t}
@@ -270,7 +267,7 @@ export default function Tabletop(): JSX.Element {
         ))}
       </section>
 
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <section className="surface-card p-4">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           Facilitator notes
         </h2>

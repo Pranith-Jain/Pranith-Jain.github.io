@@ -74,10 +74,7 @@ export default function SourceReliability(): JSX.Element {
         {sources.map((s) => {
           const Icon = CATEGORY_ICONS[s.category] ?? Shield;
           return (
-            <div
-              key={s.id}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-4"
-            >
+            <div key={s.id} className="surface-card/40 shadow-e1 p-4">
               <div className="flex items-start gap-3">
                 <span
                   className={`text-mini font-mono px-1.5 py-0.5 rounded font-bold border ${RELIABILITY_COLORS[s.reliability] ?? ''}`}

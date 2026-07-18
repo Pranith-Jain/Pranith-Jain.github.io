@@ -20,7 +20,7 @@ function AptGroupCard({ group, onClick }: { group: AptGroup; onClick: () => void
     <button
       type="button"
       onClick={onClick}
-      className="text-left rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 hover:border-brand-500/40 hover:shadow-e2 transition-all"
+      className="text-left surface-card p-4 hover:border-brand-500/40 hover:shadow-e2 transition-all"
     >
       <div className="flex items-start justify-between gap-2 mb-2">
         <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">{group.name}</h3>
@@ -167,15 +167,15 @@ export default function AptTracker(): JSX.Element {
       description="Open-source APT groups and operations database — 411 groups across 9 regions. Data from onuroktay14/APTTracker (CC BY 4.0)."
     >
       <div className="grid grid-cols-3 gap-4 mb-6">
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 text-center">
+        <div className="surface-card p-4 text-center">
           <div className="text-2xl font-display font-bold text-brand-600 dark:text-brand-400">{totalGroups}</div>
           <div className="text-micro font-mono text-slate-500 uppercase">APT Groups</div>
         </div>
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 text-center">
+        <div className="surface-card p-4 text-center">
           <div className="text-2xl font-display font-bold text-brand-600 dark:text-brand-400">{APT_REGIONS.length}</div>
           <div className="text-micro font-mono text-slate-500 uppercase">Regions</div>
         </div>
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 text-center">
+        <div className="surface-card p-4 text-center">
           <div className="text-2xl font-display font-bold text-brand-600 dark:text-brand-400">{totalOps}</div>
           <div className="text-micro font-mono text-slate-500 uppercase">Operations</div>
         </div>

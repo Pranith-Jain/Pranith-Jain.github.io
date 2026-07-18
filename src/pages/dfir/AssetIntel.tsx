@@ -183,7 +183,7 @@ function ErrorBanner({ error }: { error: string }) {
 
 function HostIntelPanel({ data }: { data: HostIntel }) {
   return (
-    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+    <section className="surface-card p-6">
       <div className="flex items-baseline justify-between flex-wrap gap-2">
         <h2 className="font-display font-bold text-2xl tracking-tight flex items-center gap-3">
           <Server size={22} className="text-brand-600" /> {data.ip}
@@ -277,7 +277,7 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
 
   return (
     <div className="space-y-6">
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+      <section className="surface-card p-6">
         <h2 className="font-display font-bold text-xl mb-4 flex items-center gap-2">
           <Globe size={20} className="text-brand-600" /> {data.domain}
         </h2>
@@ -407,7 +407,7 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
         </div>
       </section>
 
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+      <section className="surface-card p-6">
         <h3 className="font-display font-bold text-lg mb-3">Related Domains</h3>
         {pivotLoading ? (
           <Loading text="Searching for related domains…" />
@@ -458,7 +458,7 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
       </section>
 
       {data.changes.length > 0 && (
-        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+        <section className="surface-card p-6">
           <h3 className="font-display font-bold text-lg mb-3">
             Detected Changes
             <span className="ml-2 px-1.5 py-0.5 rounded-full text-micro bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 align-middle">
@@ -595,7 +595,7 @@ export default function AssetIntel(): JSX.Element {
       {hostIntel && (
         <div className="space-y-6">
           <HostIntelPanel data={hostIntel} />
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+          <section className="surface-card p-6">
             <h3 className="font-display font-bold text-lg mb-3">Exposed services &amp; artifacts</h3>
             <ArtifactTable artifacts={hostIntel.artifacts} />
           </section>

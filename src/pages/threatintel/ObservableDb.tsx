@@ -301,10 +301,7 @@ export default function ObservableDb(): JSX.Element {
       maxWidthClass="max-w-7xl"
     >
       {showAddForm && (
-        <form
-          onSubmit={(e) => void addObservable(e)}
-          className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
-        >
+        <form onSubmit={(e) => void addObservable(e)} className="mb-6 surface-card p-4">
           <h2 className="font-display font-semibold text-sm mb-3">Add Observable Manually</h2>
           <div className="flex flex-wrap gap-3">
             <input
@@ -392,13 +389,13 @@ export default function ObservableDb(): JSX.Element {
       <div className="grid lg:grid-cols-3 gap-6">
         <div className={`${selected ? 'lg:col-span-2' : 'lg:col-span-3'}`}>
           {loading && (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-12 text-center">
+            <div className="surface-card p-12 text-center">
               <Loader2 size={20} className="animate-spin mx-auto text-slate-400 mb-2" />
             </div>
           )}
 
           {!loading && entries.length === 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-12 text-center">
+            <div className="surface-card p-12 text-center">
               <Database size={32} className="mx-auto text-slate-300 dark:text-slate-700 mb-3" />
               <p className="text-sm font-mono text-slate-500">No observables saved yet</p>
               <p className="text-xs font-mono text-slate-400 mt-1">
@@ -480,7 +477,7 @@ export default function ObservableDb(): JSX.Element {
 
         {selected && (
           <div className="lg:col-span-1">
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 sticky top-24">
+            <div className="surface-card p-4 sticky top-24">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="font-display font-semibold text-sm">Details</h2>
                 <button

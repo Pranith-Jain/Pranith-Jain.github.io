@@ -42,10 +42,7 @@ export default function FleetMap(): JSX.Element {
           { label: '2018–2025', desc: '7-year simulation window' },
           { label: '6 exposure types', desc: 'SSL-VPN, Citrix, Horizon, RDP, WP, Mgmt' },
         ].map((f) => (
-          <div
-            key={f.label}
-            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3 shadow-e1"
-          >
+          <div key={f.label} className="surface-card p-3 shadow-e1">
             <div className="text-sm font-display font-bold text-slate-900 dark:text-slate-100">{f.label}</div>
             <div className="text-xs font-mono text-muted">{f.desc}</div>
           </div>
@@ -53,7 +50,7 @@ export default function FleetMap(): JSX.Element {
       </div>
 
       {/* Embedded simulation */}
-      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e2 overflow-hidden">
+      <div className="surface-card shadow-e2 overflow-hidden">
         <div className="flex items-center gap-2 px-4 py-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-100))]">
           <span className="shrink-0 w-2.5 h-2.5 rounded-full bg-emerald-500" />
           <span className="text-xs font-mono text-muted">Fleet simulation running</span>
@@ -77,7 +74,7 @@ export default function FleetMap(): JSX.Element {
       </div>
 
       {/* Legend */}
-      <section className="mt-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <section className="mt-4 surface-card p-4">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3">
           Exposure Types
         </h2>
@@ -101,7 +98,7 @@ export default function FleetMap(): JSX.Element {
       </section>
 
       {/* Source */}
-      <section className="mt-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <section className="mt-4 surface-card p-4">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3">
           Upstream
         </h2>

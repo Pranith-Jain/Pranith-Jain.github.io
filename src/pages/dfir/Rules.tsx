@@ -212,10 +212,7 @@ export default function Rules(): JSX.Element {
             <h2 className="font-display font-bold text-xl mb-4">Sources</h2>
             <div className="grid sm:grid-cols-2 gap-3">
               {filteredSources.map((s) => (
-                <article
-                  key={s.id}
-                  className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 flex flex-col gap-3"
-                >
+                <article key={s.id} className="surface-card p-4 flex flex-col gap-3">
                   <header className="flex items-start justify-between gap-3">
                     <div>
                       <h3 className="font-display font-semibold">{s.label}</h3>
@@ -290,10 +287,7 @@ export default function Rules(): JSX.Element {
             ) : (
               <ul className="space-y-2">
                 {filteredCommits.map((c, i) => (
-                  <li
-                    key={`${c.source_id}-${i}`}
-                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
-                  >
+                  <li key={`${c.source_id}-${i}`} className="surface-card p-3">
                     <a
                       href={sanitizeUrl(c.link) || undefined}
                       target="_blank"

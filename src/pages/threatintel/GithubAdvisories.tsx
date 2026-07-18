@@ -159,10 +159,7 @@ export default function GithubAdvisories(): JSX.Element {
           { label: 'Low', value: stats.low, cls: 'text-slate-500' },
           { label: 'Ecosystems', value: stats.ecosystems, cls: 'text-sky-600 dark:text-sky-400' },
         ].map(({ label, value, cls }) => (
-          <div
-            key={label}
-            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 shadow-e1 p-2.5"
-          >
+          <div key={label} className="surface-card/50 shadow-e1 p-2.5">
             <div className={`text-mini uppercase tracking-wider mb-0.5 ${cls}`}>{label}</div>
             <div className="text-lg font-bold text-slate-900 dark:text-slate-100">{value}</div>
           </div>
@@ -342,7 +339,7 @@ export default function GithubAdvisories(): JSX.Element {
 
       {/* Ecosystem breakdown */}
       {ecoBreakdown.length > 0 && (
-        <div className="mt-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4">
+        <div className="mt-8 surface-card/50 p-4">
           <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-3">Ecosystem Breakdown</h3>
           <div className="space-y-1.5">
             {ecoBreakdown.map(([eco, count]) => (

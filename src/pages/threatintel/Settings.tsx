@@ -269,7 +269,7 @@ export default function Settings(): JSX.Element {
       {/* ── Preferences ──────────────────────────────────────────── */}
       <section className="mb-10 animate-fade-in-up">
         <h2 className="font-display font-semibold text-base mb-3 text-slate-800 dark:text-slate-200">Preferences</h2>
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <div className="surface-card p-4">
           <div className="flex items-center justify-between">
             <div>
               <p className="font-medium text-sm text-slate-900 dark:text-slate-100">Dark mode</p>
@@ -309,10 +309,7 @@ export default function Settings(): JSX.Element {
               {items.map((i) => {
                 const Icon = i.icon;
                 return (
-                  <div
-                    key={i.name}
-                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 flex items-start gap-3"
-                  >
+                  <div key={i.name} className="surface-card p-3 flex items-start gap-3">
                     <Icon size={16} className="text-slate-500 shrink-0 mt-0.5" />
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2 flex-wrap">

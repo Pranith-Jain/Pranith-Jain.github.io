@@ -135,23 +135,23 @@ export default function IntelDashboard(): JSX.Element {
           <div className="space-y-8">
             {/* KPI row */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+              <div className="surface-card p-4">
                 <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-1">Leaks indexed</p>
                 <p className="text-2xl font-bold font-display">{data.telegram_monitor.total_leaks}</p>
                 <p className="text-mini text-slate-400 mt-0.5">{data.telegram_monitor.leaks_24h} in 24h</p>
               </div>
-              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+              <div className="surface-card p-4">
                 <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-1">Watched channels</p>
                 <p className="text-2xl font-bold font-display">{data.telegram_monitor.watched_channels}</p>
                 <p className="text-mini text-slate-400 mt-0.5">
                   {data.telegram_monitor.unreviewed_channels} unreviewed
                 </p>
               </div>
-              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+              <div className="surface-card p-4">
                 <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-1">New leaks (7d)</p>
                 <p className="text-2xl font-bold font-display">{data.leaks_7d}</p>
               </div>
-              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+              <div className="surface-card p-4">
                 <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-1">Feed health</p>
                 <p
                   className={`text-2xl font-bold font-display ${data.feed_health === 'ok' ? 'text-emerald-500' : data.feed_health === 'degraded' ? 'text-amber-500' : 'text-rose-500'}`}
@@ -196,7 +196,7 @@ export default function IntelDashboard(): JSX.Element {
             </section>
 
             {/* Quick links */}
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+            <section className="surface-card p-5">
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
                 Quick Actions
               </h2>

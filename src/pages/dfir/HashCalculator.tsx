@@ -138,7 +138,7 @@ export default function HashCalculator(): JSX.Element {
         onChange={(e) => setText(e.target.value)}
         rows={4}
         placeholder="Type or paste text to hash…"
-        className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none"
+        className="w-full surface-card px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none"
       />
       <div className="mt-2 flex flex-wrap gap-2 text-meta font-mono">
         <button
@@ -177,10 +177,7 @@ export default function HashCalculator(): JSX.Element {
 
       <ul className="mt-6 space-y-2">
         {Object.entries(out).map(([k, v]) => (
-          <li
-            key={k}
-            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
-          >
+          <li key={k} className="surface-card p-3">
             <div className="flex items-center justify-between gap-2">
               <span className="text-micro font-mono uppercase tracking-wider text-slate-500">{k}</span>
               <CopyButton text={v} variant="ghost" size="sm" label={`Copy ${k}`} />

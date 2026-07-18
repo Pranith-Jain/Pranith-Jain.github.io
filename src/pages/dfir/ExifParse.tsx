@@ -206,7 +206,7 @@ export default function ExifParse(): JSX.Element {
 
           {/* GPS */}
           {lat !== undefined && lon !== undefined && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="surface-card p-6">
               <h2 className="font-display font-bold text-lg mb-3 flex items-center gap-2">
                 <MapPin size={16} className="text-brand-600 dark:text-brand-400" />
                 GPS Location
@@ -232,7 +232,7 @@ export default function ExifParse(): JSX.Element {
 
           {/* Camera */}
           {(metadata.Make || metadata.Model || metadata.LensModel) && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="surface-card p-6">
               <h2 className="font-display font-bold text-lg mb-3 flex items-center gap-2">
                 <Camera size={16} className="text-brand-600 dark:text-brand-400" />
                 Camera
@@ -250,7 +250,7 @@ export default function ExifParse(): JSX.Element {
             metadata.FNumber !== undefined ||
             metadata.ISO !== undefined ||
             metadata.FocalLength !== undefined) && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="surface-card p-6">
               <h2 className="font-display font-bold text-lg mb-3 flex items-center gap-2">
                 <Camera size={16} className="text-brand-600 dark:text-brand-400" />
                 Capture Settings
@@ -269,7 +269,7 @@ export default function ExifParse(): JSX.Element {
 
           {/* Image info */}
           {(metadata.ImageWidth || metadata.ImageHeight || metadata.Orientation || metadata.ColorSpace) && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="surface-card p-6">
               <h2 className="font-display font-bold text-lg mb-3 flex items-center gap-2">
                 <Image size={16} className="text-brand-600 dark:text-brand-400" />
                 Image
@@ -284,7 +284,7 @@ export default function ExifParse(): JSX.Element {
 
           {/* IPTC */}
           {(metadata.Copyright || metadata.Caption || keywordsStr) && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="surface-card p-6">
               <h2 className="font-display font-bold text-lg mb-3 flex items-center gap-2">
                 <FileText size={16} className="text-brand-600 dark:text-brand-400" />
                 IPTC Metadata

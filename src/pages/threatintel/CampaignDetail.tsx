@@ -226,7 +226,7 @@ export default function CampaignDetail(): JSX.Element {
       error={error}
     >
       {data && (
-        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+        <section className="surface-card p-6">
           {(data.input.actor || data.input.sector) && (
             <div className="flex flex-wrap gap-2 mb-4 text-mini font-mono">
               {data.input.actor && (

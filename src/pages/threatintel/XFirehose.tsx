@@ -143,7 +143,7 @@ export default function XFirehose(): JSX.Element {
 
   const headerExtra = (
     <>
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <section className="surface-card p-4">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -269,10 +269,7 @@ export default function XFirehose(): JSX.Element {
       )}
       <ul className="space-y-2">
         {filtered.slice(0, visible).map((it, i) => (
-          <li
-            key={`${it.link}-${i}`}
-            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
-          >
+          <li key={`${it.link}-${i}`} className="surface-card p-3">
             <a
               href={sanitizeUrl(it.link) || undefined}
               target="_blank"

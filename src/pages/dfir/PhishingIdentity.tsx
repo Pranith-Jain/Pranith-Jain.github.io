@@ -264,7 +264,7 @@ export default function PhishingIdentity(): JSX.Element {
 
       <div className="grid lg:grid-cols-[1fr_320px] gap-6">
         <div className="space-y-6">
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+          <section className="surface-card p-5">
             <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-4">
               Defenses
             </h2>
@@ -315,7 +315,7 @@ export default function PhishingIdentity(): JSX.Element {
             </div>
           </section>
 
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+          <section className="surface-card p-5">
             <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-4">
               Timeline — Eras
             </h2>
@@ -369,7 +369,7 @@ export default function PhishingIdentity(): JSX.Element {
             </div>
           </section>
 
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+          <section className="surface-card p-5">
             <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3">
               Email Flow
             </h2>
@@ -410,9 +410,7 @@ export default function PhishingIdentity(): JSX.Element {
           </section>
         </div>
 
-        <aside
-          className={`rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden ${socOpen ? 'p-5' : 'p-3'}`}
-        >
+        <aside className={`surface-card overflow-hidden ${socOpen ? 'p-5' : 'p-3'}`}>
           <button onClick={() => setSocOpen(!socOpen)} className="w-full flex items-center justify-between mb-3">
             <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
               SOC Panel

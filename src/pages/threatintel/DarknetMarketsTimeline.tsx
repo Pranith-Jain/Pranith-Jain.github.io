@@ -345,10 +345,7 @@ export default function DarknetMarketsTimeline(): JSX.Element {
           { label: 'Seized', value: stats.seized, cls: 'text-rose-600 dark:text-rose-400' },
           { label: 'Exit Scams', value: stats.exitScam, cls: 'text-amber-600 dark:text-amber-400' },
         ].map(({ label, value, cls }) => (
-          <div
-            key={label}
-            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 shadow-e1 p-2.5"
-          >
+          <div key={label} className="surface-card/50 shadow-e1 p-2.5">
             <div className={`text-mini uppercase tracking-wider mb-0.5 ${cls}`}>{label}</div>
             <div className="text-lg font-bold text-slate-900 dark:text-slate-100">{value}</div>
           </div>

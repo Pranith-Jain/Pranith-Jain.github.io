@@ -12,7 +12,7 @@ const DefenseMarkets = lazy(() => import('../../components/threatintel/ironsight
 const SatellitePanel = lazy(() => import('../../components/threatintel/ironsight/SatellitePanel'));
 
 const Fallback = ({ className = 'h-48' }: { className?: string }) => (
-  <div className={`${className} rounded-xl bg-slate-100 dark:bg-slate-800 animate-pulse`} />
+  <div className={`${className} rounded-xl bg-slate-100 dark:bg-[rgb(var(--surface-200))] animate-pulse`} />
 );
 
 export default function Ironsight() {

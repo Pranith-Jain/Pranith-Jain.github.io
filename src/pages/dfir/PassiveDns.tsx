@@ -88,7 +88,7 @@ export default function PassiveDns(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Enter domain or IP address..."
-              className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+              className="w-full pl-10 pr-4 py-3 surface-card font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
             />
           </div>
           <button
@@ -114,30 +114,30 @@ export default function PassiveDns(): JSX.Element {
         <div className="space-y-6">
           {/* Summary Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="p-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
+            <div className="p-4 surface-card">
               <div className="text-2xl font-bold text-brand-600 dark:text-brand-400">
                 {result.unique_resolved.length}
               </div>
               <div className="text-xs font-mono text-muted">Unique IPs</div>
             </div>
-            <div className="p-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
+            <div className="p-4 surface-card">
               <div className="text-2xl font-bold text-brand-600 dark:text-brand-400">{result.total_observations}</div>
               <div className="text-xs font-mono text-muted">Total Records</div>
             </div>
-            <div className="p-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
+            <div className="p-4 surface-card">
               <div className="text-2xl font-bold text-brand-600 dark:text-brand-400">
                 {Object.keys(result.source_summary).length}
               </div>
               <div className="text-xs font-mono text-muted">Sources</div>
             </div>
-            <div className="p-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
+            <div className="p-4 surface-card">
               <div className="text-2xl font-bold text-brand-600 dark:text-brand-400">{result.query_time_ms}ms</div>
               <div className="text-xs font-mono text-muted">Query Time</div>
             </div>
           </div>
 
           {/* Source Breakdown */}
-          <div className="p-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
+          <div className="p-4 surface-card">
             <h3 className="font-display font-semibold mb-3 flex items-center gap-2">
               <Server size={16} /> Sources
             </h3>
@@ -184,7 +184,7 @@ export default function PassiveDns(): JSX.Element {
 
           {/* Resolved IPs */}
           {result.unique_resolved.length > 0 && (
-            <div className="p-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
+            <div className="p-4 surface-card">
               <h3 className="font-display font-semibold mb-3 flex items-center gap-2">
                 <Globe size={16} /> Resolved IPs
               </h3>
@@ -203,7 +203,7 @@ export default function PassiveDns(): JSX.Element {
 
           {/* Records Table */}
           {result.records.length > 0 && (
-            <div className="p-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
+            <div className="p-4 surface-card">
               <h3 className="font-display font-semibold mb-3 flex items-center gap-2">
                 <Clock size={16} /> Resolution History
               </h3>

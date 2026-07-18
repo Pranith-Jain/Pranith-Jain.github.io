@@ -299,7 +299,7 @@ export default function PhoneOsint(): JSX.Element {
 
       {/* Parsed info */}
       {parsed && (
-        <div className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <div className="mb-6 surface-card p-4">
           <div className="flex flex-wrap items-center gap-4 text-sm font-mono">
             <div>
               <span className="text-slate-500 dark:text-slate-400">E.164:</span>{' '}
@@ -318,7 +318,7 @@ export default function PhoneOsint(): JSX.Element {
 
       {/* Loading */}
       {loading && (
-        <div className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 text-center">
+        <div className="mb-6 surface-card p-4 text-center">
           <p className="text-sm font-mono text-slate-500 dark:text-slate-400">Investigating phone number...</p>
         </div>
       )}
@@ -332,7 +332,7 @@ export default function PhoneOsint(): JSX.Element {
 
       {/* API Result — carrier + breach details */}
       {apiResult && (
-        <div className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <div className="mb-6 surface-card p-4">
           <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-3">
             Server-Side Intel
           </h3>
@@ -450,10 +450,7 @@ export default function PhoneOsint(): JSX.Element {
             {filtered.map((l) => {
               const Icon = CATEGORY_ICONS[l.category] ?? Globe;
               return (
-                <li
-                  key={l.service + l.url}
-                  className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
-                >
+                <li key={l.service + l.url} className="surface-card p-4">
                   <div className="flex items-start justify-between gap-2 mb-1">
                     <a
                       href={l.url}
@@ -489,7 +486,7 @@ export default function PhoneOsint(): JSX.Element {
       )}
 
       {/* Tips */}
-      <div className="mt-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <div className="mt-8 surface-card p-4">
         <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-2">
           Investigation Tips
         </h3>

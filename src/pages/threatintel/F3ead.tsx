@@ -391,7 +391,7 @@ export default function F3ead(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setOpenPhase(openPhase === p.id ? null : p.id)}
-                  className={`w-full text-left rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 ring-1 ${p.ringClass} hover:shadow-e1 transition-shadow`}
+                  className={`w-full text-left surface-card p-4 ring-1 ${p.ringClass} hover:shadow-e1 transition-shadow`}
                 >
                   <div className={`absolute inset-0 rounded-xl ${p.accent} pointer-events-none opacity-60`} />
                   <div className="relative flex items-start justify-between gap-2">
@@ -520,7 +520,7 @@ export default function F3ead(): JSX.Element {
           </p>
         </header>
 
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+        <div className="surface-card p-5">
           <div className="flex flex-wrap gap-1.5 mb-4">
             {WALK.map((w, i) => {
               const phase = PHASES.find((p) => p.id === w.phase)!;

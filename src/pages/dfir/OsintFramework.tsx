@@ -80,7 +80,7 @@ export default function OsintFramework(): JSX.Element {
         </p>
       </div>
 
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6 space-y-3">
+      <section className="surface-card p-4 mb-6 space-y-3">
         <div className="relative">
           <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
           <input
@@ -165,10 +165,7 @@ export default function OsintFramework(): JSX.Element {
 
       <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.map((e) => (
-          <article
-            key={e.id}
-            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
-          >
+          <article key={e.id} className="surface-card p-3">
             <header className="flex flex-wrap items-baseline gap-2 mb-1">
               <a
                 href={sanitizeUrl(e.url) || undefined}

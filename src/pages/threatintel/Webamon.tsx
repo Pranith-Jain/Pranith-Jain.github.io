@@ -423,7 +423,7 @@ interface EntityResult {
 function JsonBlock({ data, label }: { data: Record<string, unknown>; label: string }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+    <div className="surface-card overflow-hidden">
       <button
         onClick={() => setOpen(!open)}
         className="w-full flex items-center gap-2 px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)] transition-colors"
@@ -727,7 +727,7 @@ function SandboxTab() {
 
       {result && (
         <div className="space-y-6">
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+          <section className="surface-card p-6">
             <h2 className="font-display font-bold text-lg mb-4 flex items-center gap-2">
               <CheckCircle size={18} className="text-emerald-500" /> Scan Submitted
             </h2>
@@ -754,7 +754,7 @@ function SandboxTab() {
           </section>
 
           {loadingReport && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="surface-card p-6">
               <div className="flex items-center gap-2 text-sm text-slate-500 font-mono">
                 <Loader2 size={14} className="animate-spin" /> Loading report…
               </div>
@@ -767,7 +767,7 @@ function SandboxTab() {
             (() => {
               const r = reportData.results[0]!;
               return (
-                <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6 space-y-6">
+                <section className="surface-card p-6 space-y-6">
                   <h2 className="font-display font-bold text-lg mb-4 flex items-center gap-2">
                     <FileImage size={18} className="text-brand-600 dark:text-brand-400" /> Scan Report
                   </h2>
@@ -1077,7 +1077,7 @@ function SandboxTab() {
           )}
 
           {screenshotLoading && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="surface-card p-6">
               <div className="flex items-center gap-2 text-sm text-slate-500 font-mono">
                 <Loader2 size={14} className="animate-spin" /> Loading screenshot…
               </div>
@@ -1085,7 +1085,7 @@ function SandboxTab() {
           )}
 
           {screenshotUrl && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="surface-card p-6">
               <h2 className="font-display font-bold text-lg mb-4 flex items-center gap-2">
                 <FileImage size={18} className="text-brand-600 dark:text-brand-400" /> Screenshot
               </h2>
@@ -1163,7 +1163,7 @@ function InfraTab() {
     <div>
       <form onSubmit={doLookup} className="mb-6">
         <div className="flex gap-2 max-w-3xl">
-          <div className="flex rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+          <div className="flex surface-card overflow-hidden">
             {MODES.map((m) => {
               const Icon = m.icon;
               const active = mode === m.key;

@@ -149,23 +149,23 @@ export default function RansomwareQuant(): JSX.Element {
     >
       {stats && (
         <div className="mb-5 grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3">
+          <div className="surface-card p-3">
             <div className="text-micro font-mono text-slate-500">Scenarios</div>
             <div className="text-xl font-bold font-mono mt-1">{stats.total_scenarios}</div>
           </div>
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3">
+          <div className="surface-card p-3">
             <div className="text-micro font-mono text-slate-500">Total at Risk</div>
             <div className="text-xl font-bold font-mono mt-1 text-rose-600 dark:text-rose-400">
               {fmt(stats.total_at_risk)}
             </div>
           </div>
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3">
+          <div className="surface-card p-3">
             <div className="text-micro font-mono text-slate-500">After Insurance</div>
             <div className="text-xl font-bold font-mono mt-1 text-amber-600 dark:text-amber-400">
               {fmt(stats.total_after_insurance)}
             </div>
           </div>
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3">
+          <div className="surface-card p-3">
             <div className="text-micro font-mono text-slate-500">Avg Downtime</div>
             <div className="text-xl font-bold font-mono mt-1">{stats.avg_downtime_hours}h</div>
           </div>
@@ -343,7 +343,7 @@ export default function RansomwareQuant(): JSX.Element {
               </div>
 
               {/* Breakdown */}
-              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3 space-y-2">
+              <div className="surface-card p-3 space-y-2">
                 <h4 className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-3 flex items-center gap-1.5">
                   Cost Breakdown
                 </h4>
@@ -386,7 +386,7 @@ export default function RansomwareQuant(): JSX.Element {
                 ].map((item) => (
                   <div key={item.label} className="flex items-center gap-3">
                     <span className="text-[10px] font-mono w-28 text-slate-500 shrink-0">{item.label}</span>
-                    <div className="flex-1 h-3 rounded bg-slate-100 dark:bg-slate-800 overflow-hidden">
+                    <div className="flex-1 h-3 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] overflow-hidden">
                       <div className="h-full rounded bg-brand-500" style={{ width: `${Math.min(item.pct, 100)}%` }} />
                     </div>
                     <span className="text-[10px] font-mono w-20 text-right text-slate-600 dark:text-slate-400 shrink-0">
@@ -404,7 +404,7 @@ export default function RansomwareQuant(): JSX.Element {
               </div>
 
               {/* Parameters */}
-              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3">
+              <div className="surface-card p-3">
                 <h4 className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-3 flex items-center gap-1.5">
                   Parameters
                 </h4>

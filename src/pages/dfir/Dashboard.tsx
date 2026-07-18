@@ -73,10 +73,7 @@ export default function Dashboard(): JSX.Element {
           { k: 'Most used', v: stats.top },
           { k: 'Last run', v: stats.last },
         ].map((s) => (
-          <div
-            key={s.k}
-            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-4 py-3.5"
-          >
+          <div key={s.k} className="surface-card px-4 py-3.5">
             <div className="text-mini font-mono uppercase tracking-[0.16em] text-slate-500">{s.k}</div>
             <div className="mt-1 font-display font-bold text-xl text-slate-900 dark:text-slate-100 truncate">{s.v}</div>
           </div>
@@ -93,7 +90,7 @@ export default function Dashboard(): JSX.Element {
             <Link
               key={to}
               to={to}
-              className="group flex items-center gap-2.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3.5 py-3 text-sm font-medium transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-brand-500/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
+              className="group flex items-center gap-2.5 surface-card px-3.5 py-3 text-sm font-medium transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-brand-500/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
             >
               <span className="inline-flex h-7 w-7 items-center justify-center rounded bg-brand-50 text-brand-600 ring-1 ring-brand-200/60 group-hover:bg-brand-600 group-hover:text-white dark:bg-brand-500/10 dark:text-brand-400 dark:ring-brand-500/20 transition-colors">
                 <Icon size={15} aria-hidden="true" />

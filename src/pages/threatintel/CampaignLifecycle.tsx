@@ -57,7 +57,7 @@ export default function CampaignLifecycle(): JSX.Element {
   }, [campaignName, indicators]);
 
   const headerExtra = (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+    <div className="surface-card/40 shadow-e1 p-5">
       <input
         type="text"
         value={campaignName}
@@ -93,7 +93,7 @@ export default function CampaignLifecycle(): JSX.Element {
     >
       {lifecycle && (
         <div className="space-y-5">
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+          <div className="surface-card/40 shadow-e1 p-5">
             <div className="flex items-center justify-between mb-2">
               <h2 className="font-display font-bold text-lg">{lifecycle.name}</h2>
               <span className="text-micro font-mono text-slate-400">Confidence: {lifecycle.confidence}%</span>
@@ -111,10 +111,7 @@ export default function CampaignLifecycle(): JSX.Element {
             {lifecycle.phases.map((phase, i) => {
               const isOpen = expandedPhase === phase.name;
               return (
-                <div
-                  key={phase.name}
-                  className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 overflow-hidden"
-                >
+                <div key={phase.name} className="surface-card/40 shadow-e1 overflow-hidden">
                   <button
                     onClick={() => setExpandedPhase(isOpen ? null : phase.name)}
                     className="w-full flex items-center gap-3 p-4 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.2)] transition-colors"

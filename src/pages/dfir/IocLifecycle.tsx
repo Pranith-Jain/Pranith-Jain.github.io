@@ -144,7 +144,7 @@ export default function IocLifecycle(): JSX.Element {
         ))}
       </div>
       {searchType === 'lookup' && (
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5 mb-6">
+        <div className="surface-card/40 shadow-e1 p-5 mb-6">
           <div className="flex gap-2">
             <input
               type="text"
@@ -193,7 +193,7 @@ export default function IocLifecycle(): JSX.Element {
         </div>
       )}
       {searchType === 'trending' && trending.length > 0 && (
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 overflow-hidden animate-fade-in-up">
+        <div className="surface-card/40 shadow-e1 overflow-hidden animate-fade-in-up">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
@@ -259,7 +259,7 @@ export default function IocLifecycle(): JSX.Element {
         </div>
       )}
       {searchType === 'lookup' && lifecycle && (
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5 animate-fade-in-up">
+        <div className="surface-card/40 shadow-e1 p-5 animate-fade-in-up">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h2 className="text-lg font-display font-bold font-mono">{lifecycle.indicator}</h2>
@@ -341,7 +341,7 @@ function StatCard({
   color?: string;
 }) {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-4">
+    <div className="surface-card/40 shadow-e1 p-4">
       <div className="flex items-center gap-2 mb-1.5">
         {icon && <span className={color ?? 'text-slate-400'}>{icon}</span>}
         <span className="text-micro font-mono uppercase tracking-wider text-slate-400">{label}</span>

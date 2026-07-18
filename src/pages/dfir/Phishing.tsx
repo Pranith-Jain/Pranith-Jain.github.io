@@ -237,7 +237,7 @@ export default function Phishing(): JSX.Element {
 
       {result && (
         <div className="space-y-6">
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+          <section className="surface-card p-6">
             <div className="flex items-baseline justify-between mb-3 flex-wrap gap-2">
               <h2 ref={resultRef} tabIndex={-1} className="font-display font-bold text-2xl focus:outline-none">
                 Risk verdict
@@ -287,10 +287,7 @@ export default function Phishing(): JSX.Element {
           />
         </div>
       )}
-      <section
-        id="fingerprint"
-        className="mt-12 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5"
-      >
+      <section id="fingerprint" className="mt-12 surface-card p-5">
         <h2 className="text-lg font-display font-semibold mb-2 flex items-center gap-2">
           <Fingerprint size={16} className="text-brand-600 dark:text-brand-400" />
           Phishing Kit Fingerprint
@@ -367,10 +364,7 @@ export default function Phishing(): JSX.Element {
       </section>
 
       {/* ─── URL Auto-Analysis ─────────────────────────────────────────────── */}
-      <section
-        id="auto-analyze"
-        className="mt-12 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5"
-      >
+      <section id="auto-analyze" className="mt-12 surface-card p-5">
         <h2 className="text-lg font-display font-semibold mb-2 flex items-center gap-2">
           <Eye size={16} className="text-brand-600 dark:text-brand-400" />
           URL Auto-Analysis

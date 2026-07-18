@@ -57,7 +57,8 @@ const SEVERITY_COLORS: Record<string, string> = {
   high: 'bg-orange-100 text-orange-800 dark:bg-orange-900/40 dark:text-orange-300 border-orange-300 dark:border-orange-700',
   medium: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 border-amber-300 dark:border-amber-700',
   low: 'bg-sky-100 text-cyan-800 dark:bg-sky-900/40 dark:text-sky-300 border-sky-300 dark:border-sky-700',
-  unknown: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 border-slate-300 dark:border-slate-600',
+  unknown:
+    'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-200))] dark:text-slate-400 border-slate-300 dark:border-slate-600',
 };
 
 function humanSize(bytes: number): string {
@@ -181,7 +182,7 @@ function BreachDetail({ slug, onClose }: { slug: string; onClose: () => void }):
   }, [slug]);
 
   return (
-    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5 animate-fade-in-up">
+    <section className="surface-card p-5 animate-fade-in-up">
       <div className="flex items-center justify-between mb-4">
         <h3 className="font-display font-bold text-lg">Breach detail</h3>
         <button
@@ -511,7 +512,7 @@ export default function BreachWatch(): JSX.Element {
       }
     >
       {loading && !index && (
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 inline-flex items-center gap-2 font-mono text-sm text-slate-500">
+        <div className="surface-card p-4 inline-flex items-center gap-2 font-mono text-sm text-slate-500">
           <Loader2 size={14} className="animate-spin" /> loading breach watch data…
         </div>
       )}
@@ -678,7 +679,7 @@ export default function BreachWatch(): JSX.Element {
                     key={g.name}
                     type="button"
                     onClick={() => setFilter('group', g.name)}
-                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 hover:border-brand-500/40 transition-colors text-left"
+                    className="surface-card p-3 hover:border-brand-500/40 transition-colors text-left"
                   >
                     <div className="flex items-center justify-between">
                       <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 truncate">

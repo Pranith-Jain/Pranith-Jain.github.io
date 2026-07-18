@@ -226,7 +226,7 @@ export default function WhoisHistory(): JSX.Element {
             onChange={(e) => setQuery(e.target.value)}
             placeholder="example.com"
             aria-label="Domain name"
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2.5 surface-card text-sm font-mono focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-transparent"
           />
         </div>
         <button
@@ -255,10 +255,7 @@ export default function WhoisHistory(): JSX.Element {
               { label: 'Registrar Changes', value: history.summary.registrar_changes, icon: Building2 },
               { label: 'NS Changes', value: history.summary.nameserver_changes, icon: Server },
             ].map(({ label, value, icon: Icon }) => (
-              <div
-                key={label}
-                className="p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1"
-              >
+              <div key={label} className="p-3 surface-card">
                 <div className="flex items-center gap-2 mb-1">
                   <Icon size={14} className="text-slate-400" />
                   <span className="text-mini font-mono uppercase text-slate-500">{label}</span>
@@ -269,7 +266,7 @@ export default function WhoisHistory(): JSX.Element {
           </div>
 
           {history.current && (
-            <div className="mb-6 p-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
+            <div className="mb-6 p-4 surface-card">
               <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
                 <Globe size={14} className="text-brand-600" /> Current Registration
               </h3>
@@ -449,10 +446,7 @@ export default function WhoisHistory(): JSX.Element {
                     {pivots.related_domains.map((d) => {
                       const PivotIcon = PIVOT_ICONS[d.match_reason] ?? Network;
                       return (
-                        <div
-                          key={`${d.domain}-${d.match_reason}`}
-                          className="p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1"
-                        >
+                        <div key={`${d.domain}-${d.match_reason}`} className="p-3 surface-card">
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
                               <PivotIcon size={14} className="text-brand-600" />

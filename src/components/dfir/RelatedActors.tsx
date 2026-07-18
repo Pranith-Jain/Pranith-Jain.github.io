@@ -7,7 +7,7 @@ export function RelatedActors({ hints }: { hints: CtiHints }): JSX.Element | nul
   if (matches.length === 0) return null;
 
   return (
-    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+    <section className="surface-card p-6">
       <header className="flex items-center gap-2 mb-4">
         <Users size={16} className="text-brand-600 dark:text-brand-400" aria-hidden="true" />
         <h3 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">Related Threat Actors</h3>

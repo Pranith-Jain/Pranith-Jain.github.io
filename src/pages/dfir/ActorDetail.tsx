@@ -131,12 +131,12 @@ export default function ActorDetail(): JSX.Element {
         </div>
       </div>
 
-      <section className="mb-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+      <section className="mb-8 surface-card p-6">
         <p className="text-base text-muted leading-relaxed whitespace-pre-line">{actor.description}</p>
       </section>
 
       <div className="grid sm:grid-cols-2 gap-6 mb-8">
-        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+        <section className="surface-card p-6">
           <h2 className="font-display font-bold text-lg mb-3">Motivation</h2>
           <p className="font-mono text-sm text-slate-900 dark:text-slate-100">{actor.motivation}</p>
           {actor.active_since && (
@@ -145,7 +145,7 @@ export default function ActorDetail(): JSX.Element {
           {actor.last_activity && <p className="font-mono text-xs text-muted">last activity: {actor.last_activity}</p>}
         </section>
 
-        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+        <section className="surface-card p-6">
           <h2 className="font-display font-bold text-lg mb-3">Targets</h2>
           <ul className="space-y-1 text-sm font-mono text-muted">
             {actor.targets.map((t) => (
@@ -155,7 +155,7 @@ export default function ActorDetail(): JSX.Element {
         </section>
       </div>
 
-      <section className="mb-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+      <section className="mb-8 surface-card p-6">
         <h2 className="font-display font-bold text-lg mb-3">Malware &amp; Tools</h2>
         {actor.malware.length > 0 ? (
           <div className="flex flex-wrap gap-2">
@@ -175,7 +175,7 @@ export default function ActorDetail(): JSX.Element {
 
       <DiamondModelSection actor={actor} />
 
-      <section className="mb-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+      <section className="mb-8 surface-card p-6">
         <h2 className="font-display font-bold text-lg mb-1 inline-flex items-center gap-2">
           <ShieldAlert size={18} className="text-rose-500" /> Linked CVEs
           {linkedCves && linkedCves.length > 0 && (
@@ -309,7 +309,7 @@ export default function ActorDetail(): JSX.Element {
         )}
       </section>
 
-      <section className="mb-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+      <section className="mb-8 surface-card p-6">
         <h2 className="font-display font-bold text-lg mb-3">MITRE ATT&amp;CK Techniques</h2>
         <div className="flex flex-wrap gap-2">
           {actor.techniques.map((t) => (
@@ -327,7 +327,7 @@ export default function ActorDetail(): JSX.Element {
       </section>
 
       {actor.references && actor.references.length > 0 && (
-        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+        <section className="surface-card p-6">
           <h2 className="font-display font-bold text-lg mb-3">References</h2>
           <ul className="space-y-2">
             {actor.references.map((r) => (

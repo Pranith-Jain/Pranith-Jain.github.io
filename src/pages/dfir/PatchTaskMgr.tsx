@@ -184,23 +184,23 @@ export default function PatchTaskMgr(): JSX.Element {
     >
       {stats && (
         <div className="mb-5 grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3">
+          <div className="surface-card p-3">
             <div className="text-micro font-mono text-slate-500">Patches</div>
             <div className="text-xl font-bold font-mono mt-1">{stats.total_patches}</div>
           </div>
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3">
+          <div className="surface-card p-3">
             <div className="text-micro font-mono text-slate-500">Open</div>
             <div className="text-xl font-bold font-mono mt-1 text-amber-600 dark:text-amber-400">
               {stats.open_patches}
             </div>
           </div>
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3">
+          <div className="surface-card p-3">
             <div className="text-micro font-mono text-slate-500">Critical</div>
             <div className="text-xl font-bold font-mono mt-1 text-rose-600 dark:text-rose-400">
               {stats.critical_patches}
             </div>
           </div>
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3">
+          <div className="surface-card p-3">
             <div className="text-micro font-mono text-slate-500">Upcoming Windows</div>
             <div className="text-xl font-bold font-mono mt-1">{stats.upcoming_windows}</div>
           </div>
@@ -315,10 +315,7 @@ export default function PatchTaskMgr(): JSX.Element {
 
           <div className="space-y-2">
             {patches.map((p) => (
-              <div
-                key={p.id}
-                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3"
-              >
+              <div key={p.id} className="surface-card p-3">
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
@@ -327,7 +324,7 @@ export default function PatchTaskMgr(): JSX.Element {
                       >
                         {p.severity.toUpperCase()}
                       </span>
-                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-400">
                         {p.vendor}
                       </span>
                       <span className="text-[10px] font-mono text-slate-500">{p.status.replace(/_/g, ' ')}</span>
@@ -421,10 +418,7 @@ export default function PatchTaskMgr(): JSX.Element {
 
           <div className="space-y-2">
             {windows.map((w) => (
-              <div
-                key={w.id}
-                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3"
-              >
+              <div key={w.id} className="surface-card p-3">
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">

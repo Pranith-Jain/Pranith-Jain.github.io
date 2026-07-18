@@ -109,7 +109,7 @@ export function McpKeyBar({ className = '' }: { className?: string }): JSX.Eleme
         <ChevronDown className={`h-3 w-3 transition-transform ${open ? 'rotate-180' : ''}`} />
       </button>
       {open && (
-        <div className="absolute right-0 mt-1.5 w-80 max-w-[calc(100vw-1rem)] rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e2 p-3 z-50">
+        <div className="absolute right-0 mt-1.5 w-80 max-w-[calc(100vw-1rem)] surface-card shadow-e2 p-3 z-50">
           <p className="flex items-center gap-1.5 text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
             <Settings2 className="h-3 w-3" /> MCP settings
           </p>

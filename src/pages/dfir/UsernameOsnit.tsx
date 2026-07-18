@@ -81,7 +81,7 @@ export default function UsernameOsnit(): JSX.Element {
         </p>
       </div>
 
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <section className="surface-card p-4 mb-6">
         <form onSubmit={onSubmit} className="flex gap-2">
           <div className="relative flex-1 min-w-[220px]">
             <Users size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
@@ -150,7 +150,7 @@ export default function UsernameOsnit(): JSX.Element {
 
           {/* Found */}
           {found.length > 0 && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="surface-card p-6">
               <h2 className="font-display font-bold text-xl mb-4 flex items-center gap-2">
                 <CheckCircle2 size={18} className="text-emerald-500" /> Found ({found.length})
               </h2>
@@ -179,7 +179,7 @@ export default function UsernameOsnit(): JSX.Element {
 
           {/* Not Found */}
           {filter === 'all' && notFound.length > 0 && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="surface-card p-6">
               <h2 className="font-display font-bold text-xl mb-4 text-slate-400">Not Found ({notFound.length})</h2>
               <div className="flex flex-wrap gap-1.5">
                 {notFound.map((r) => (
@@ -196,7 +196,7 @@ export default function UsernameOsnit(): JSX.Element {
 
           {/* Category Breakdown */}
           {Object.keys(result.summary).length > 0 && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="surface-card p-6">
               <h2 className="font-display font-bold text-xl mb-4 text-slate-400">Category Breakdown</h2>
               <div className="flex flex-wrap gap-2">
                 {Object.entries(result.summary)

@@ -423,7 +423,7 @@ export default function CyberPulse(): JSX.Element {
         <div className="w-full lg:w-80 space-y-4">
           {/* Type breakdown */}
           {stats && stats.by_type.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
+            <div className="surface-card p-4">
               <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3 flex items-center gap-2">
                 <Shield className="w-4 h-4" /> By Type
               </h3>
@@ -449,7 +449,7 @@ export default function CyberPulse(): JSX.Element {
 
           {/* Trending actors */}
           {trending && trending.trending_actors.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
+            <div className="surface-card p-4">
               <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3 flex items-center gap-2">
                 <TrendingUp className="w-4 h-4" /> Trending Actors
               </h3>
@@ -473,7 +473,7 @@ export default function CyberPulse(): JSX.Element {
 
           {/* Top victims */}
           {stats && stats.top_victims.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
+            <div className="surface-card p-4">
               <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3 flex items-center gap-2">
                 <Building2 className="w-4 h-4" /> Most Targeted
               </h3>
@@ -493,7 +493,7 @@ export default function CyberPulse(): JSX.Element {
 
           {/* Daily trend mini chart */}
           {stats && stats.daily_trend.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
+            <div className="surface-card p-4">
               <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3 flex items-center gap-2">
                 <Calendar className="w-4 h-4" /> Daily Trend
               </h3>
@@ -525,7 +525,7 @@ export default function CyberPulse(): JSX.Element {
 
 function StatCard({ label, value, color }: { label: string; value: number; color: string }) {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3 text-center">
+    <div className="surface-card p-3 text-center">
       <div className={`text-xl font-bold ${color}`}>{formatNumber(value)}</div>
       <div className="text-[10px] font-mono uppercase tracking-wider text-slate-600 dark:text-slate-500 mt-0.5">
         {label}
@@ -599,7 +599,7 @@ function IncidentCard({ incident: inc, postSummary }: { incident: Incident; post
   })();
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 hover:border-slate-300 dark:hover:border-[rgb(var(--border-500))] transition-colors">
+    <div className="surface-card p-4 hover:border-slate-300 dark:hover:border-[rgb(var(--border-500))] transition-colors">
       <PostSummary text={postSummary} />
       <div className="flex items-start gap-3">
         <div
@@ -652,7 +652,7 @@ function IncidentCard({ incident: inc, postSummary }: { incident: Incident; post
             {tags.slice(0, 5).map((tag) => (
               <span
                 key={tag}
-                className="px-1.5 py-0.5 text-[10px] rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-500"
+                className="px-1.5 py-0.5 text-[10px] rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-500"
               >
                 {tag}
               </span>

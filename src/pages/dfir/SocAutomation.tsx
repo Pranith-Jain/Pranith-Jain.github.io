@@ -159,21 +159,21 @@ export default function SocAutomation(): JSX.Element {
     >
       {stats && (
         <div className="mb-5 grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3">
+          <div className="surface-card p-3">
             <div className="text-micro font-mono text-slate-500">Playbooks</div>
             <div className="text-xl font-bold font-mono mt-1">{stats.total_playbooks}</div>
           </div>
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3">
+          <div className="surface-card p-3">
             <div className="text-micro font-mono text-slate-500">Enabled</div>
             <div className="text-xl font-bold font-mono mt-1 text-emerald-600 dark:text-emerald-400">
               {stats.enabled_playbooks}
             </div>
           </div>
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3">
+          <div className="surface-card p-3">
             <div className="text-micro font-mono text-slate-500">Total Runs</div>
             <div className="text-xl font-bold font-mono mt-1">{stats.total_runs}</div>
           </div>
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3">
+          <div className="surface-card p-3">
             <div className="text-micro font-mono text-slate-500">Success Rate</div>
             <div
               className={`text-xl font-bold font-mono mt-1 ${stats.success_rate >= 80 ? 'text-emerald-600 dark:text-emerald-400' : stats.success_rate >= 50 ? 'text-amber-600 dark:text-amber-400' : 'text-rose-600 dark:text-rose-400'}`}
@@ -271,10 +271,7 @@ export default function SocAutomation(): JSX.Element {
             {playbooks.map((pb) => {
               const isExpanded = expandedPb.has(pb.id);
               return (
-                <div
-                  key={pb.id}
-                  className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden"
-                >
+                <div key={pb.id} className="surface-card overflow-hidden">
                   <div className="px-4 py-3">
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex-1 min-w-0">
@@ -336,7 +333,7 @@ export default function SocAutomation(): JSX.Element {
                             {pb.tags.map((t) => (
                               <span
                                 key={t}
-                                className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500"
+                                className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-500"
                               >
                                 {t}
                               </span>
@@ -376,10 +373,7 @@ export default function SocAutomation(): JSX.Element {
       {tab === 'runs' && (
         <div className="space-y-2">
           {runs.map((r) => (
-            <div
-              key={r.id}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3"
-            >
+            <div key={r.id} className="surface-card p-3">
               <div className="flex items-start justify-between gap-3">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">

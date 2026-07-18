@@ -197,7 +197,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
       }
     >
       {/* ── Package Verdict Checker ────────────────────────────────────── */}
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-6 mb-8">
+      <section className="surface-card/50 p-6 mb-8">
         <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-2">
           <Search className="w-5 h-5 text-brand-500" /> Package Verdict Checker
         </h2>
@@ -313,7 +313,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
       </section>
 
       {/* ── OSSF Malicious Packages Directory ──────────────────────────── */}
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-6">
+      <section className="surface-card/50 p-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
             <Bug className="w-5 h-5 text-rose-500" /> OSSF Malicious Packages
@@ -405,16 +405,13 @@ export default function SupplyChainIntelligence(): JSX.Element {
       <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
         <a
           href="/threatintel/malicious-packages"
-          className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4 hover:shadow-e1 transition text-center"
+          className="surface-card/50 p-4 hover:shadow-e1 transition text-center"
         >
           <Package className="w-6 h-6 text-brand-500 mx-auto mb-2" />
           <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">Malicious Packages</div>
           <div className="text-xs text-slate-500">Full OSSF directory browser</div>
         </a>
-        <a
-          href="/threatintel/external/supply"
-          className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4 hover:shadow-e1 transition text-center"
-        >
+        <a href="/threatintel/external/supply" className="surface-card/50 p-4 hover:shadow-e1 transition text-center">
           <AlertOctagon className="w-6 h-6 text-amber-500 mx-auto mb-2" />
           <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">Supply Chain Attacks</div>
           <div className="text-xs text-slate-500">Incident catalog from supplychainattack.org</div>
@@ -423,7 +420,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
           href="https://osv.dev"
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4 hover:shadow-e1 transition text-center"
+          className="surface-card/50 p-4 hover:shadow-e1 transition text-center"
         >
           <Shield className="w-6 h-6 text-emerald-500 mx-auto mb-2" />
           <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">OSV.dev</div>

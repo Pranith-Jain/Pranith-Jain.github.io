@@ -156,10 +156,7 @@ export default function DataClassification(): JSX.Element {
           {TIERS.map((t) => {
             const p = state.policies[t];
             return (
-              <div
-                key={t}
-                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
-              >
+              <div key={t} className="surface-card p-4">
                 <div className="flex flex-wrap items-baseline gap-2 mb-2">
                   <span
                     className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${TIER_STYLES[t]}`}
@@ -292,10 +289,7 @@ export default function DataClassification(): JSX.Element {
             state.datasets.map((d) => {
               const isOpen = expanded === d.id;
               return (
-                <div
-                  key={d.id}
-                  className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1"
-                >
+                <div key={d.id} className="surface-card">
                   <button
                     onClick={() => setExpanded(isOpen ? null : d.id)}
                     className="w-full flex items-center gap-3 text-left px-4 py-3 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.4)]"
@@ -435,7 +429,7 @@ export default function DataClassification(): JSX.Element {
 
       {/* ── Matrix ── */}
       {tab === 'matrix' && (
-        <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
+        <div className="overflow-x-auto surface-card">
           <table className="w-full text-xs font-mono">
             <thead className="bg-slate-50 dark:bg-[rgb(var(--input-200))] text-left">
               <tr>
@@ -497,7 +491,7 @@ export default function DataClassification(): JSX.Element {
         </div>
       )}
 
-      <section className="mt-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <section className="mt-8 surface-card p-4">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           References
         </h2>

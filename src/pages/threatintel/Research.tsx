@@ -62,10 +62,7 @@ export default function Research(): JSX.Element {
 
       <ul className="space-y-4">
         {posts.map((p) => (
-          <li
-            key={p.slug}
-            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5 transition hover:border-brand-500/40"
-          >
+          <li key={p.slug} className="surface-card/40 shadow-e1 p-5 transition hover:border-brand-500/40">
             <Link to={`/threatintel/research/${p.slug}`} className="group block">
               <div className="text-micro font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400 mb-1.5">
                 {p.kicker}

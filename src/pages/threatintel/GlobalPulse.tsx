@@ -1024,7 +1024,7 @@ export default function GlobalPulse(): JSX.Element {
           {/* ─── Top Stats Bar ─── */}
           <div className="grid grid-cols-2 lg:grid-cols-5 gap-3">
             {/* Total events */}
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 shadow-e1 p-4">
+            <div className="surface-card/60 shadow-e1 p-4">
               <div className="flex items-center justify-between gap-2 mb-2">
                 <span className="flex items-center gap-1.5 text-eyebrow uppercase text-slate-500">
                   <Activity size={12} className="text-slate-400" /> Total Events
@@ -1098,7 +1098,7 @@ export default function GlobalPulse(): JSX.Element {
             </div>
 
             {/* Active layers */}
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 shadow-e1 p-4">
+            <div className="surface-card/60 shadow-e1 p-4">
               <div className="flex items-center gap-1.5 text-eyebrow uppercase text-slate-500 mb-2">
                 <Layers size={12} className="text-slate-400" /> Active Layers
               </div>
@@ -1112,7 +1112,7 @@ export default function GlobalPulse(): JSX.Element {
             </div>
 
             {/* Live status */}
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 shadow-e1 p-4">
+            <div className="surface-card/60 shadow-e1 p-4">
               <div className="flex items-center gap-1.5 text-eyebrow uppercase text-slate-500 mb-2">
                 <Clock size={12} className="text-slate-400" /> Last Update
               </div>
@@ -1148,7 +1148,7 @@ export default function GlobalPulse(): JSX.Element {
             </div>
 
             {/* OSINT Country Map source */}
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 shadow-e1 p-4">
+            <div className="surface-card/60 shadow-e1 p-4">
               <div className="flex items-center gap-1.5 text-eyebrow uppercase text-slate-500 mb-2">
                 <Globe size={12} className="text-slate-400" /> OSINT Map Source
               </div>
@@ -1183,7 +1183,7 @@ export default function GlobalPulse(): JSX.Element {
                 aria-label="Search events"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-8 pr-3 py-2 text-xs font-mono rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 text-slate-700 dark:text-slate-300 placeholder-slate-400 focus:outline-none focus:border-brand-500/50"
+                className="w-full pl-8 pr-3 py-2 text-xs font-mono surface-card text-slate-700 dark:text-slate-300 placeholder-slate-400 focus:outline-none focus:border-brand-500/50"
               />
               <svg
                 className="absolute left-2.5 top-2.5 w-3.5 h-3.5 text-slate-400"
@@ -1425,7 +1425,7 @@ export default function GlobalPulse(): JSX.Element {
 
           {/* ─── Filters Panel ─── */}
           {showFilters && (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 shadow-e1 p-4 animate-fade-in">
+            <div className="surface-card/60 shadow-e1 p-4 animate-fade-in">
               {/* Severity Filter */}
               <div className="mb-4">
                 <h4 className="text-micro font-mono uppercase text-slate-500 mb-2">Severity</h4>
@@ -1723,7 +1723,7 @@ export default function GlobalPulse(): JSX.Element {
 
             {/* Event Feed */}
             <aside
-              className="flex flex-col rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 overflow-hidden"
+              className="flex flex-col surface-card/40 shadow-e1 overflow-hidden"
               style={{ minHeight: '600px', maxHeight: '750px' }}
             >
               {/* Feed Header */}

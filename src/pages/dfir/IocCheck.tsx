@@ -705,7 +705,7 @@ export default function IocCheck(): JSX.Element {
           const Icon = next.tone === 'malicious' ? ShieldAlert : next.tone === 'suspicious' ? AlertCircle : ShieldCheck;
           return (
             <>
-              <section className="mb-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+              <section className="mb-4 surface-card p-6">
                 <div className="flex items-baseline justify-between mb-2">
                   <h2 ref={summaryRef} tabIndex={-1} className="font-display font-bold text-2xl focus:outline-none">
                     Composite verdict
@@ -735,7 +735,7 @@ export default function IocCheck(): JSX.Element {
                 </div>
               </section>
               {summary.admiralty && (
-                <section className="mb-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+                <section className="mb-4 surface-card p-5">
                   <h3 className="font-display font-semibold text-sm mb-2">NATO Admiralty Code</h3>
                   <p className="text-sm font-mono text-muted leading-relaxed">
                     <span className="font-bold">{summary.admiralty.label}</span>
@@ -751,7 +751,7 @@ export default function IocCheck(): JSX.Element {
                   type="button"
                   onClick={explainVerdict}
                   disabled={explainLoading}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 text-sm font-medium text-slate-700 dark:text-slate-300 hover:border-brand-500/40 transition-colors disabled:opacity-50"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 surface-card/40 shadow-e1 text-sm font-medium text-slate-700 dark:text-slate-300 hover:border-brand-500/40 transition-colors disabled:opacity-50"
                 >
                   {explainLoading ? <Loader2 size={14} className="animate-spin" /> : <ChevronDown size={14} />}
                   AI explain verdict
@@ -776,7 +776,7 @@ export default function IocCheck(): JSX.Element {
                     type="button"
                     onClick={generateRule}
                     disabled={ruleLoading}
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 text-sm font-medium text-slate-700 dark:text-slate-300 hover:border-brand-500/40 transition-colors disabled:opacity-50"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 surface-card/40 shadow-e1 text-sm font-medium text-slate-700 dark:text-slate-300 hover:border-brand-500/40 transition-colors disabled:opacity-50"
                   >
                     {ruleLoading ? <Loader2 size={14} className="animate-spin" /> : <FileCode size={14} />}
                     Generate rule
@@ -785,7 +785,7 @@ export default function IocCheck(): JSX.Element {
               </section>
 
               {explainText && (
-                <section className="mb-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 animate-fade-in-up">
+                <section className="mb-8 surface-card p-4 animate-fade-in-up">
                   <div className="flex items-center justify-between mb-2">
                     <h3 className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                       AI Verdict Explanation
@@ -809,7 +809,7 @@ export default function IocCheck(): JSX.Element {
               )}
 
               {ruleText && (
-                <section className="mb-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 animate-fade-in-up">
+                <section className="mb-8 surface-card animate-fade-in-up">
                   <div className="flex items-center justify-between p-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                     <div className="flex items-center gap-2">
                       <FileCode size={14} className="text-brand-600 dark:text-brand-400" />
@@ -876,10 +876,7 @@ export default function IocCheck(): JSX.Element {
                   const r = resultMap.get(p);
                   if (r) return <IocResultRow key={p} r={r} />;
                   return (
-                    <div
-                      key={p}
-                      className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 animate-pulse"
-                    >
+                    <div key={p} className="surface-card p-4 animate-pulse">
                       <span className="font-display capitalize text-muted">{p}</span>
                       <span className="block mt-2 text-xs font-mono text-slate-500">querying…</span>
                     </div>
@@ -931,7 +928,7 @@ export default function IocCheck(): JSX.Element {
       )}
 
       {mode === 'single' && summary && (
-        <section className="mt-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+        <section className="mt-6 surface-card p-5">
           <h3 className="font-display font-semibold text-sm mb-3 inline-flex items-center gap-2">
             <Search size={14} /> External Enrichment
           </h3>

@@ -109,7 +109,7 @@ export function McpReportBrowser(props: {
   const hasPrev = page > 1;
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
+    <div className="surface-card">
       <div className="p-4 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
         <div className="flex flex-wrap items-center gap-2 mb-3">
           <Search className="h-4 w-4 text-brand-600 dark:text-brand-400" />

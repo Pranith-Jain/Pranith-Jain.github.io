@@ -248,7 +248,7 @@ export default function BreachForums(): JSX.Element {
           </span>
         </div>
       )}
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
+      <section className="surface-card p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
         {data && (
           <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
             {data.rows.length} entries · {data.totals.directory} from deepdarkCTI · {data.totals.curated} curated
@@ -291,10 +291,7 @@ export default function BreachForums(): JSX.Element {
               </h2>
               <ul className="grid gap-2 md:grid-cols-2">
                 {rows.map((r, i) => (
-                  <li
-                    key={`${r.name}-${i}`}
-                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
-                  >
+                  <li key={`${r.name}-${i}`} className="surface-card p-3">
                     <div className="flex items-center justify-between gap-2">
                       <span className="font-display font-semibold text-sm truncate" title={r.name}>
                         {r.name}
@@ -365,7 +362,7 @@ export default function BreachForums(): JSX.Element {
               {statusData.deltas.map((d, i) => (
                 <li
                   key={`${d.name}-${d.observed_at}-${i}`}
-                  className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 flex items-center gap-3 flex-wrap"
+                  className="surface-card p-3 flex items-center gap-3 flex-wrap"
                 >
                   <span className="font-display font-semibold text-sm truncate" title={d.name}>
                     {d.name}
@@ -434,10 +431,7 @@ export default function BreachForums(): JSX.Element {
           {coverageData && coverageData.items.length > 0 && (
             <ul className="space-y-2">
               {coverageData.items.map((it, i) => (
-                <li
-                  key={`${it.link}-${i}`}
-                  className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
-                >
+                <li key={`${it.link}-${i}`} className="surface-card p-3">
                   <div className="flex items-baseline gap-2 flex-wrap">
                     <a
                       href={sanitizeUrl(it.link) || '#'}
@@ -486,10 +480,7 @@ export default function BreachForums(): JSX.Element {
           {mentionsData && mentionsData.items.length > 0 && (
             <ul className="space-y-2">
               {mentionsData.items.map((it, i) => (
-                <li
-                  key={`${it.link}-${i}`}
-                  className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
-                >
+                <li key={`${it.link}-${i}`} className="surface-card p-3">
                   <div className="flex items-baseline gap-2 flex-wrap">
                     <a
                       href={sanitizeUrl(it.link) || '#'}

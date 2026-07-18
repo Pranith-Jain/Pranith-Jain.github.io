@@ -156,7 +156,7 @@ export default function LongWatch(): JSX.Element {
       </div>
 
       {/* Feature highlights */}
-      <section className="mt-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <section className="mt-8 surface-card p-4">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           Platform Features
         </h2>
@@ -185,7 +185,7 @@ export default function LongWatch(): JSX.Element {
       </section>
 
       {/* Upstream reference */}
-      <section className="mt-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <section className="mt-4 surface-card p-4">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           Upstream
         </h2>

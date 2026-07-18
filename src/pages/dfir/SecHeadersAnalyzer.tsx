@@ -386,7 +386,7 @@ export default function SecHeadersAnalyzer(): JSX.Element {
       />
       {result && (
         <div className="mt-8 space-y-6">
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+          <section className="surface-card p-5">
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
               <span className="text-2xl font-display font-bold">
                 Grade{' '}
@@ -431,10 +431,7 @@ export default function SecHeadersAnalyzer(): JSX.Element {
               {result.findings.map((f, idx) => {
                 const st = SEV_STYLE[f.sev];
                 return (
-                  <div
-                    key={`${f.title}-${idx}`}
-                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
-                  >
+                  <div key={`${f.title}-${idx}`} className="surface-card p-4">
                     <div className="flex items-start gap-2.5">
                       <st.Icon size={16} className={`mt-0.5 flex-shrink-0 ${st.text}`} />
                       <div className="min-w-0 flex-1">

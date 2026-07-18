@@ -310,7 +310,7 @@ export default function CampaignGenerator(): JSX.Element {
       }
       maxWidthClass="max-w-5xl"
     >
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5 mb-6">
+      <section className="surface-card p-5 mb-6">
         <div className="flex items-center justify-between mb-4 gap-2 flex-wrap">
           <h2 className="text-sm font-display font-semibold inline-flex items-center gap-2">
             <Target size={14} className="text-brand-600 dark:text-brand-400" /> Analyst brief
@@ -443,7 +443,7 @@ export default function CampaignGenerator(): JSX.Element {
       )}
 
       {result && (
-        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6 mb-6 animate-fade-in-up">
+        <section className="surface-card p-6 mb-6 animate-fade-in-up">
           <div className="flex items-start justify-between gap-3 mb-4 flex-wrap">
             <div>
               <h2 className="text-2xl font-display font-bold mb-1">{result.campaign.campaign_name}</h2>

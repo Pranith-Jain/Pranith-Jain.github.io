@@ -199,10 +199,7 @@ export default function TrendClickFix(): JSX.Element {
       <section className="mb-8">
         <div className="grid gap-3 sm:grid-cols-4">
           {STATS.map((s) => (
-            <div
-              key={s.label}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
-            >
+            <div key={s.label} className="surface-card p-4">
               <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 block mb-1">
                 {s.label}
               </span>
@@ -218,10 +215,7 @@ export default function TrendClickFix(): JSX.Element {
         </h2>
         <div className="grid gap-3 sm:grid-cols-2">
           {KEY_FINDINGS.map((f) => (
-            <div
-              key={f.label}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
-            >
+            <div key={f.label} className="surface-card p-4">
               <h3 className="font-display font-bold text-slate-900 dark:text-slate-100 text-sm mb-1">{f.label}</h3>
               <p className="text-sm font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{f.detail}</p>
             </div>

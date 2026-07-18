@@ -219,7 +219,7 @@ export default function Grc(): JSX.Element {
             <div key={fn.id}>
               <button
                 onClick={() => toggleExpanded(fn.id)}
-                className="w-full flex items-center gap-3 text-left rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 hover:border-brand-500/40 px-4 py-3"
+                className="w-full flex items-center gap-3 text-left surface-card hover:border-brand-500/40 px-4 py-3"
                 aria-expanded={expanded.has(fn.id)}
               >
                 <span className="flex-none w-12 font-mono text-xs font-bold text-brand-600 dark:text-brand-400">
@@ -290,10 +290,7 @@ export default function Grc(): JSX.Element {
       {tab === 'iso-27001' && (
         <div className="space-y-3">
           {ISO_27001.map((theme) => (
-            <div
-              key={theme.id}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
-            >
+            <div key={theme.id} className="surface-card p-4">
               <div className="flex flex-wrap items-baseline gap-2 mb-1">
                 <span className="font-mono text-xs font-bold text-brand-600 dark:text-brand-400">A.{theme.number}</span>
                 <h3 className="font-display font-semibold text-slate-900 dark:text-slate-100">{theme.title}</h3>
@@ -361,10 +358,7 @@ export default function Grc(): JSX.Element {
             (operational AI tooling).
           </p>
           {ISO_42001.map((domain) => (
-            <div
-              key={domain.id}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
-            >
+            <div key={domain.id} className="surface-card p-4">
               <div className="flex flex-wrap items-baseline gap-2 mb-1">
                 <span className="font-mono text-xs font-bold text-brand-600 dark:text-brand-400">{domain.shortId}</span>
                 <h3 className="font-display font-semibold text-slate-900 dark:text-slate-100">{domain.title}</h3>
@@ -453,10 +447,7 @@ export default function Grc(): JSX.Element {
               const items = SOC2_TSC.filter((c) => c.category === cat);
               if (items.length === 0) return null;
               return (
-                <div
-                  key={cat}
-                  className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
-                >
+                <div key={cat} className="surface-card p-4">
                   <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-2">
                     {cat} ({items.length})
                   </h3>
@@ -500,10 +491,7 @@ export default function Grc(): JSX.Element {
           {SOC_CMM.map((d) => {
             const lvl: MaturityLevel = a.socCmm[d.id] ?? 0;
             return (
-              <div
-                key={d.id}
-                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
-              >
+              <div key={d.id} className="surface-card p-4">
                 <div className="flex flex-wrap items-baseline gap-3 mb-1">
                   <h3 className="font-display font-semibold text-slate-900 dark:text-slate-100">{d.title}</h3>
                   <span className="text-micro font-mono text-slate-400 dark:text-slate-400">{d.description}</span>
@@ -532,7 +520,7 @@ export default function Grc(): JSX.Element {
         </div>
       )}
 
-      <section className="mt-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <section className="mt-8 surface-card p-4">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           References
         </h2>

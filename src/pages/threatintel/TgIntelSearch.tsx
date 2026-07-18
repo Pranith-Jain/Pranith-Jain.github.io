@@ -286,7 +286,7 @@ export default function TgIntelSearch() {
 
       {/* Saved Searches */}
       {showSaved && (
-        <div className="mb-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <div className="mb-4 surface-card p-4">
           <div className="flex items-center justify-between mb-2">
             <h3 className="font-display font-semibold text-sm">Saved Searches</h3>
             <button
@@ -325,7 +325,7 @@ export default function TgIntelSearch() {
       {/* Search Bar */}
       <form onSubmit={handleSearch} className="mb-4">
         <div className="flex gap-2">
-          <div className="flex items-center rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden flex-1">
+          <div className="flex items-center surface-card overflow-hidden flex-1">
             <select
               value={mode}
               onChange={(e) => setMode(e.target.value as 'boolean' | 'general')}
@@ -402,7 +402,7 @@ export default function TgIntelSearch() {
 
       {/* Filters */}
       {showFilters && (
-        <div className="mb-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <div className="mb-4 surface-card p-4">
           <div className="flex flex-wrap items-end gap-3">
             <div>
               <label htmlFor="tg-ch" className="block text-micro font-mono text-slate-500 mb-1">
@@ -545,7 +545,7 @@ export default function TgIntelSearch() {
 
       {/* Timeline */}
       {timeline.length > 0 && (
-        <div className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <div className="mb-6 surface-card p-4">
           <div className="flex items-center justify-between mb-2">
             <h3 className="font-display font-semibold text-sm flex items-center gap-1.5">
               <BarChart3 size={12} className="text-brand-500" /> Activity Timeline
@@ -623,10 +623,7 @@ export default function TgIntelSearch() {
                 }
               })();
               return (
-                <div
-                  key={entry.id}
-                  className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden"
-                >
+                <div key={entry.id} className="surface-card overflow-hidden">
                   <div
                     role="button"
                     tabIndex={0}

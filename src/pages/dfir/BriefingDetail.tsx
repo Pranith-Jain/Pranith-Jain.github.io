@@ -187,9 +187,7 @@ function MitreChip({ technique }: { technique: string }) {
 function FindingCard({ finding }: { finding: BriefingFinding }) {
   const canon = canonSeverity(finding.severity);
   return (
-    <article
-      className={`rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5 ring-1 ${SEVERITY_RING[canon]}`}
-    >
+    <article className={`surface-card p-5 ring-1 ${SEVERITY_RING[canon]}`}>
       <div className="flex items-start justify-between gap-3 mb-2">
         <h4 className="font-display font-bold text-base text-slate-900 dark:text-white leading-snug">
           {finding.title}
@@ -347,7 +345,7 @@ function IocDumpPanel({
   };
 
   return (
-    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+    <section className="surface-card p-5">
       <div className="mb-3 flex flex-wrap items-center gap-2">
         <button
           type="button"
@@ -511,7 +509,7 @@ function LandscapeReportView({ briefing }: { briefing: LandscapeReport }): JSX.E
   return (
     <>
       {/* Landscape KPI bar */}
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-8">
+      <section className="surface-card p-4 mb-8">
         <div className="flex flex-wrap items-center justify-around gap-6">
           <StatPill label="victims" value={stats.ransomware_victims} accent="text-rose-600 dark:text-rose-400" />
           <StatPill label="actors" value={stats.top_groups} accent="text-violet-600 dark:text-violet-400" />
@@ -543,10 +541,7 @@ function LandscapeReportView({ briefing }: { briefing: LandscapeReport }): JSX.E
             <p className="text-sm text-muted mb-4">{section.blurb}</p>
             <div className="space-y-3">
               {section.findings.map((f) => (
-                <article
-                  key={f.id}
-                  className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5"
-                >
+                <article key={f.id} className="surface-card p-5">
                   <div className="flex items-start justify-between gap-3 mb-2">
                     <h4 className="font-display font-bold text-base text-slate-900 dark:text-white leading-snug">
                       {f.title}
@@ -798,7 +793,7 @@ export default function BriefingDetail(): JSX.Element {
 
       {/* Stats bar — daily/weekly only; landscape has its own stats in LandscapeReportView. */}
       {briefing.type !== 'landscape' && (
-        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-8">
+        <section className="surface-card p-4 mb-8">
           <div className="flex flex-wrap items-center justify-around gap-6">
             <StatPill label="findings" value={stats.findings} />
             <StatPill label="sections" value={stats.sections} />
@@ -886,7 +881,7 @@ export default function BriefingDetail(): JSX.Element {
         briefing.sections.length === 0 &&
         briefing.ioc_dump &&
         briefing.ioc_dump.count > 0 && (
-          <section className="mb-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+          <section className="mb-8 surface-card p-5">
             <div className="flex items-start gap-3">
               <AlertTriangle size={18} className="text-amber-500 mt-0.5 shrink-0" />
               <div>

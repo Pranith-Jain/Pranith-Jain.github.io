@@ -227,7 +227,7 @@ export default function EmailDeliverability(): JSX.Element {
           onChange={(e) => setRawEml(e.target.value)}
           placeholder="Paste the full email source (headers + body). For .eml files, upload below."
           rows={10}
-          className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3 font-mono text-xs text-slate-800 dark:text-slate-200 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full surface-card p-3 font-mono text-xs text-slate-800 dark:text-slate-200 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           spellCheck={false}
         />
         <div className="mt-3 flex flex-wrap items-center gap-2">
@@ -339,7 +339,7 @@ export default function EmailDeliverability(): JSX.Element {
           </section>
 
           {/* Auth alignment */}
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+          <section className="surface-card p-5">
             <h2 className="font-display font-bold text-lg mb-3">Authentication alignment</h2>
             <div className="grid gap-3 sm:grid-cols-3">
               <AuthRow
@@ -365,7 +365,7 @@ export default function EmailDeliverability(): JSX.Element {
 
           {/* Header analysis */}
           {result.headerAnalysis?.issues?.length || result.headerAnalysis?.warnings?.length ? (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+            <section className="surface-card p-5">
               <div className="mb-3 flex items-center justify-between">
                 <h2 className="font-display font-bold text-lg">Header analysis</h2>
                 <button
@@ -417,7 +417,7 @@ export default function EmailDeliverability(): JSX.Element {
 
           {/* Suggestions */}
           {result.suggestions && result.suggestions.length > 0 && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+            <section className="surface-card p-5">
               <h2 className="font-display font-bold text-lg mb-3">Suggestions</h2>
               <ul className="space-y-2">
                 {result.suggestions

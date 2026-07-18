@@ -119,10 +119,7 @@ export default function TrendMasqInfra(): JSX.Element {
       <section className="mb-8">
         <div className="grid gap-3 sm:grid-cols-5">
           {STATS.map((s) => (
-            <div
-              key={s.label}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
-            >
+            <div key={s.label} className="surface-card p-4">
               <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 block mb-1">
                 {s.label}
               </span>

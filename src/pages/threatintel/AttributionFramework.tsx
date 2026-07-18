@@ -58,7 +58,7 @@ export default function AttributionFramework(): JSX.Element {
       title="Attribution Framework"
       description="Multi-signal attribution with confidence scoring."
     >
-      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5 mb-6">
+      <div className="surface-card/40 shadow-e1 p-5 mb-6">
         <h2 className="font-display font-bold text-sm mb-3">Indicators & Evidence</h2>
         <textarea
           value={indicators}
@@ -96,7 +96,7 @@ export default function AttributionFramework(): JSX.Element {
       )}
       {assessment && (
         <div className="space-y-5 animate-fade-in-up">
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+          <div className="surface-card/40 shadow-e1 p-5">
             <div className="flex items-center justify-between mb-3">
               <div>
                 <h2 className="font-display font-bold text-lg">{assessment.actor}</h2>
@@ -115,7 +115,7 @@ export default function AttributionFramework(): JSX.Element {
               <div className="bg-brand-500 h-2 rounded-full" style={{ width: `${assessment.confidence}%` }} />
             </div>
           </div>
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 overflow-hidden">
+          <div className="surface-card/40 shadow-e1 overflow-hidden">
             <button
               onClick={() => setExpandedEvidence(!expandedEvidence)}
               className="w-full flex items-center justify-between p-4 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.2)] transition-colors"
@@ -149,7 +149,7 @@ export default function AttributionFramework(): JSX.Element {
             )}
           </div>
           {assessment.methodology && (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+            <div className="surface-card/40 shadow-e1 p-5">
               <h3 className="font-display font-bold text-sm mb-2">Methodology</h3>
               <p className="text-xs text-muted leading-relaxed">{assessment.methodology}</p>
             </div>

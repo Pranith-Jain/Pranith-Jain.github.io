@@ -180,7 +180,7 @@ export default function QuerycraftAi(): JSX.Element {
 
       {/* History */}
       {history.length > 0 && (
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-4 mb-6">
+        <div className="surface-card/40 shadow-e1 p-4 mb-6">
           <div className="flex items-center justify-between mb-2">
             <h2 className="font-display font-bold text-xs flex items-center gap-2">
               <Clock size={12} /> Recent Queries
@@ -207,7 +207,7 @@ export default function QuerycraftAi(): JSX.Element {
       )}
 
       {/* Input */}
-      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5 mb-6">
+      <div className="surface-card/40 shadow-e1 p-5 mb-6">
         <h2 className="font-display font-bold text-sm mb-3">What to detect</h2>
         <textarea
           value={description}
@@ -296,7 +296,7 @@ export default function QuerycraftAi(): JSX.Element {
 
       {result && (
         <div className="space-y-5 animate-fade-in-up">
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+          <div className="surface-card/40 shadow-e1 p-5">
             <div className="flex items-center justify-between mb-3">
               <h2 className="font-display font-bold text-sm flex items-center gap-2">
                 <Terminal size={14} className="text-brand-600 dark:text-brand-400" /> Generated Query
@@ -317,7 +317,7 @@ export default function QuerycraftAi(): JSX.Element {
           </div>
 
           {result.mitre_techniques.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+            <div className="surface-card/40 shadow-e1 p-5">
               <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                 <Shield size={14} className="text-brand-600 dark:text-brand-400" /> MITRE ATT&CK
               </h2>

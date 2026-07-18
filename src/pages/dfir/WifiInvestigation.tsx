@@ -273,7 +273,7 @@ export default function WifiInvestigation(): JSX.Element {
       </form>
 
       {result && result.type === 'bssid' && (
-        <div className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <div className="mb-6 surface-card p-4">
           <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-3 flex items-center gap-2">
             <Radio size={14} /> MAC Address Analysis
           </h3>
@@ -353,7 +353,7 @@ export default function WifiInvestigation(): JSX.Element {
       )}
 
       {result && result.type === 'ssid' && (
-        <div className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <div className="mb-6 surface-card p-4">
           <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-3 flex items-center gap-2">
             <Radio size={14} /> SSID Analysis
           </h3>
@@ -399,7 +399,7 @@ export default function WifiInvestigation(): JSX.Element {
       )}
 
       {loading && (
-        <div className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 text-center">
+        <div className="mb-6 surface-card p-4 text-center">
           <p className="text-sm font-mono text-slate-500 dark:text-slate-400">Investigating...</p>
         </div>
       )}
@@ -436,10 +436,7 @@ export default function WifiInvestigation(): JSX.Element {
           <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-3">Lookup Links</h3>
           <ul className="grid gap-3 md:grid-cols-2">
             {lookups.map((l) => (
-              <li
-                key={l.service + l.url}
-                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
-              >
+              <li key={l.service + l.url} className="surface-card p-4">
                 <a
                   href={l.url}
                   target="_blank"
@@ -458,7 +455,7 @@ export default function WifiInvestigation(): JSX.Element {
         </div>
       )}
 
-      <div className="mt-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <div className="mt-8 surface-card p-4">
         <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-2">
           Investigation Tips
         </h3>

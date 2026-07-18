@@ -494,7 +494,7 @@ export default function AttmapAi(): JSX.Element {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="space-y-4">
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
+          <div className="surface-card/40 shadow-e1 p-5">
             <div className="flex items-center gap-2 mb-3">
               <Sparkles size={14} className="text-slate-400" />
               <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Input</span>
@@ -569,7 +569,7 @@ export default function AttmapAi(): JSX.Element {
 
         <div>
           {loading && (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-8 flex flex-col items-center gap-3">
+            <div className="surface-card/40 shadow-e1 p-8 flex flex-col items-center gap-3">
               <Loader2 size={32} className="animate-spin text-brand-600" />
               <p className="text-sm font-mono text-slate-500">Mapping behavior to ATT&CK techniques…</p>
             </div>
@@ -593,10 +593,7 @@ export default function AttmapAi(): JSX.Element {
                 {mappings.length} technique{mappings.length !== 1 ? 's' : ''} mapped
               </div>
               {groupedByTactic.map(({ tactic, techniques }) => (
-                <div
-                  key={tactic}
-                  className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5"
-                >
+                <div key={tactic} className="surface-card/40 shadow-e1 p-5">
                   <h3
                     className={`inline-block text-micro font-mono font-semibold uppercase tracking-wider px-2 py-1 rounded border mb-3 ${TACTIC_COLORS[tactic] ?? ''}`}
                   >

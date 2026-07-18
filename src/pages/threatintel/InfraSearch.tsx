@@ -139,7 +139,7 @@ export default function InfraSearch(): JSX.Element {
       </div>
 
       {/* Search bar */}
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <section className="surface-card p-4 mb-6">
         <form onSubmit={(e) => onSubmit(e)} className="flex gap-2">
           <div className="relative flex-1 min-w-[220px]">
             <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
@@ -226,7 +226,7 @@ export default function InfraSearch(): JSX.Element {
           {/* Map + Results side by side */}
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-4">
             {/* Map */}
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
+            <section className="surface-card overflow-hidden">
               <div className="flex items-center justify-between px-4 py-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                 <div className="flex items-center gap-2 text-xs font-mono text-slate-500">
                   <Map size={12} />
@@ -308,7 +308,7 @@ export default function InfraSearch(): JSX.Element {
               )}
 
               {/* Results list */}
-              <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
+              <section className="surface-card">
                 <div className="px-4 py-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] flex items-center justify-between">
                   <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
                     {filtered.length} result{filtered.length !== 1 ? 's' : ''}
@@ -353,7 +353,7 @@ export default function InfraSearch(): JSX.Element {
 
       {/* Empty state — global map when no search */}
       {!result && !loading && !error && (
-        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
+        <section className="surface-card overflow-hidden">
           <div className="px-4 py-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] flex items-center gap-2 text-xs font-mono text-slate-500">
             <Globe size={12} />
             Global infrastructure map — search above to populate

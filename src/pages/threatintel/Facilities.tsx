@@ -695,7 +695,7 @@ export default function Facilities({ bare }: FacilitiesProps): JSX.Element {
     <div className="space-y-4">
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 p-3">
+        <div className="surface-card/60 p-3">
           <div className="text-micro font-mono uppercase text-slate-500 mb-1">Total</div>
           <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{stats.total}</div>
         </div>
@@ -722,7 +722,7 @@ export default function Facilities({ bare }: FacilitiesProps): JSX.Element {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search facilities..."
-            className="w-full pl-9 pr-3 py-2 text-sm font-mono rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+            className="w-full pl-9 pr-3 py-2 text-sm font-mono surface-card/60 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
           />
         </div>
         <div className="flex items-center gap-1">
@@ -752,7 +752,7 @@ export default function Facilities({ bare }: FacilitiesProps): JSX.Element {
         <select
           value={regionFilter}
           onChange={(e) => setRegionFilter(e.target.value as 'all' | 'mena')}
-          className="px-3 py-1.5 text-xs font-mono rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 text-slate-900 dark:text-slate-100"
+          className="px-3 py-1.5 text-xs font-mono surface-card/60 text-slate-900 dark:text-slate-100"
         >
           <option value="all">All Regions</option>
           <option value="mena">MENA Focus</option>
@@ -760,7 +760,7 @@ export default function Facilities({ bare }: FacilitiesProps): JSX.Element {
         <select
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value as 'name' | 'severity' | 'type')}
-          className="px-3 py-1.5 text-xs font-mono rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 text-slate-900 dark:text-slate-100"
+          className="px-3 py-1.5 text-xs font-mono surface-card/60 text-slate-900 dark:text-slate-100"
         >
           <option value="type">Sort by Type</option>
           <option value="severity">Sort by Severity</option>
@@ -824,7 +824,7 @@ export default function Facilities({ bare }: FacilitiesProps): JSX.Element {
 
       {/* Table View */}
       {view === 'table' && (
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 overflow-hidden">
+        <div className="surface-card/60 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>

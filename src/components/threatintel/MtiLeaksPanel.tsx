@@ -128,7 +128,7 @@ export function MtiLeaksPanel(): JSX.Element {
   }, [data, query, sortBy]);
 
   return (
-    <section className="mb-10 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
+    <section className="mb-10 surface-card p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-3 mb-3">
         <h2 className="font-display font-bold text-xl inline-flex items-center gap-2">
           <Database size={20} className="text-brand-600 dark:text-brand-400" /> Active leak listings
@@ -195,7 +195,7 @@ export function MtiLeaksPanel(): JSX.Element {
       </div>
 
       {loading && (
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 inline-flex items-center gap-2 font-mono text-sm text-slate-500">
+        <div className="surface-card p-3 inline-flex items-center gap-2 font-mono text-sm text-slate-500">
           <Loader2 size={14} className="animate-spin" /> loading MyThreatIntel leaks feed…
         </div>
       )}

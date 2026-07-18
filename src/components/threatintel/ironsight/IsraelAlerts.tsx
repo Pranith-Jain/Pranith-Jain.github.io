@@ -111,7 +111,7 @@ export default function IsraelAlerts() {
         </div>
       </div>
       {loading ? (
-        <div className="h-16 rounded-xl bg-slate-100 dark:bg-slate-800 animate-pulse" />
+        <div className="h-16 rounded-xl bg-slate-100 dark:bg-[rgb(var(--surface-200))] animate-pulse" />
       ) : isActive ? (
         <div className="space-y-2">
           {data?.alerts.slice(0, 5).map((alert, i) => (

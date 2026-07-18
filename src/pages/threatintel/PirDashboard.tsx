@@ -435,10 +435,7 @@ export default function PirDashboard(): JSX.Element {
       }
     >
       {showCreateForm && (
-        <form
-          onSubmit={handleCreate}
-          className="mb-8 p-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 shadow-e1 space-y-3"
-        >
+        <form onSubmit={handleCreate} className="mb-8 p-4 surface-card/60 shadow-e1 space-y-3">
           {editingId && <p className="text-mini font-mono text-brand-600">Editing {editingId}</p>}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
@@ -675,7 +672,7 @@ export default function PirDashboard(): JSX.Element {
           </button>
 
           {showRouting && (
-            <div className="mt-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 overflow-hidden">
+            <div className="mt-3 surface-card/40 shadow-e1 overflow-hidden">
               {/* Gantt chart */}
               {ganttRows.length > 0 && (
                 <div className="p-4 border-b border-slate-100 dark:border-[rgb(var(--border-400))]">
@@ -742,7 +739,7 @@ export default function PirDashboard(): JSX.Element {
       )}
 
       {/* ── Filter bar ──────────────────────────────────────────────────── */}
-      <div className="mb-6 p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1">
+      <div className="mb-6 p-3 surface-card/40 shadow-e1">
         <div className="flex items-center gap-2 text-micro font-mono text-slate-500 mb-2">
           <Filter size={12} /> Filters
         </div>
@@ -846,22 +843,22 @@ export default function PirDashboard(): JSX.Element {
         {data && (
           <>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
-              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+              <div className="surface-card p-4">
                 <p className="text-mini font-mono text-slate-500 mb-1">Active PIRs</p>
                 <p className="text-2xl font-bold font-display">{data.active_count}</p>
               </div>
-              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+              <div className="surface-card p-4">
                 <p className="text-mini font-mono text-slate-500 mb-1">Fresh Sources</p>
                 <p className="text-2xl font-bold font-display text-emerald-500">{data.fresh_sources.length}</p>
               </div>
-              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+              <div className="surface-card p-4">
                 <p className="text-mini font-mono text-slate-500 mb-1">Scores</p>
                 <p className="text-2xl font-bold font-display flex items-center gap-2">
                   {data.scores.filter((s) => s.composite_coverage >= 70).length}
                   <Shield size={16} className="text-emerald-500" />
                 </p>
               </div>
-              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+              <div className="surface-card p-4">
                 <p className="text-mini font-mono text-slate-500 mb-1">Avg Coverage</p>
                 <p className="text-2xl font-bold font-display">
                   {data.scores.length > 0
@@ -879,10 +876,7 @@ export default function PirDashboard(): JSX.Element {
                 const answers = kiqAnswers[pir.id] ?? {};
                 const answeredCount = Object.values(answers).filter((a) => a.answered).length;
                 return (
-                  <div
-                    key={pir.id}
-                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 overflow-hidden"
-                  >
+                  <div key={pir.id} className="surface-card/40 shadow-e1 overflow-hidden">
                     <button
                       type="button"
                       onClick={() =>

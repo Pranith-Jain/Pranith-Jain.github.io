@@ -146,7 +146,7 @@ export default function IocEnrichment(): JSX.Element {
       }
       maxWidthClass="max-w-6xl"
       headerExtra={
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 sm:p-6">
+        <div className="surface-card p-4 sm:p-6">
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="relative flex-1">
               <div className="relative">
@@ -236,7 +236,7 @@ export default function IocEnrichment(): JSX.Element {
       emptyMessage={`No results from ${source.label} for this query.`}
     >
       {!!data && !isEmptyResult && (
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+        <div className="surface-card overflow-hidden">
           <button
             type="button"
             onClick={() => setExpanded(!expanded)}

@@ -211,23 +211,23 @@ export default function AttackPathGraph(): JSX.Element {
       {/* Stats bar */}
       {data && (
         <div className="mb-5 grid grid-cols-2 sm:grid-cols-5 gap-3">
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3">
+          <div className="surface-card p-3">
             <div className="text-micro font-mono text-slate-500">Nodes</div>
             <div className="text-lg font-bold font-mono mt-1">{data.stats.total_nodes}</div>
           </div>
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3">
+          <div className="surface-card p-3">
             <div className="text-micro font-mono text-slate-500">Edges</div>
             <div className="text-lg font-bold font-mono mt-1">{data.stats.total_edges}</div>
           </div>
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3">
+          <div className="surface-card p-3">
             <div className="text-micro font-mono text-slate-500">Attack Paths</div>
             <div className="text-lg font-bold font-mono mt-1">{data.stats.total_paths}</div>
           </div>
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3">
+          <div className="surface-card p-3">
             <div className="text-micro font-mono text-slate-500">Avg Path Length</div>
             <div className="text-lg font-bold font-mono mt-1">{data.stats.avg_path_length}</div>
           </div>
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3">
+          <div className="surface-card p-3">
             <div className="text-micro font-mono text-slate-500">Worst Score</div>
             <div className="text-lg font-bold font-mono mt-1 text-rose-600 dark:text-rose-400">
               {data.stats.worst_score}
@@ -240,7 +240,7 @@ export default function AttackPathGraph(): JSX.Element {
       {!loading && data && layout && (
         <div className="grid lg:grid-cols-3 gap-5">
           {/* Graph canvas */}
-          <div className="lg:col-span-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 overflow-hidden">
+          <div className="lg:col-span-2 surface-card p-4 overflow-hidden">
             <svg
               ref={svgRef}
               viewBox={`0 0 800 500`}
@@ -380,7 +380,7 @@ export default function AttackPathGraph(): JSX.Element {
           {/* Sidebar */}
           <div className="space-y-4">
             {/* Attack paths list */}
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
+            <div className="surface-card p-4">
               <h3 className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-3 flex items-center gap-1.5">
                 <TrendingUp size={12} /> Attack Paths
               </h3>
@@ -422,7 +422,7 @@ export default function AttackPathGraph(): JSX.Element {
             </div>
 
             {/* Choke points */}
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
+            <div className="surface-card p-4">
               <h3 className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-3 flex items-center gap-1.5">
                 <ShieldAlert size={12} /> Choke Points
               </h3>

@@ -198,7 +198,7 @@ export default function Socmint(): JSX.Element {
         </p>
       </div>
 
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <section className="surface-card p-4 mb-6">
         <div className="flex gap-2">
           <div className="relative flex-1">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
@@ -296,10 +296,7 @@ export default function Socmint(): JSX.Element {
           const meta = CATEGORY_META[cat];
           const Icon = meta.icon;
           return (
-            <section
-              key={cat}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
-            >
+            <section key={cat} className="surface-card p-4">
               <div className="flex items-center gap-2 mb-3">
                 <span
                   className={`inline-flex items-center gap-1 text-xs font-mono px-2 py-1 rounded border ${meta.pillCls}`}

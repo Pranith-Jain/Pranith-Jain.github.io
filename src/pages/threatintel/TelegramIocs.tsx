@@ -355,7 +355,7 @@ function KpiCard({
   tone: string;
 }): JSX.Element {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+    <div className="surface-card p-4">
       <div className={`flex items-center gap-2 text-xs font-mono mb-1 ${tone}`}>
         {icon} {label}
       </div>
@@ -411,7 +411,7 @@ function PipelineView({
   return (
     <div className="space-y-6">
       {/* IOC summary */}
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+      <section className="surface-card p-5">
         <h2 className="font-display font-semibold text-base mb-3">Extracted IOCs (last 50 leak rows)</h2>
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 text-sm font-mono">
           <TypePill label="Hashes" value={byType.hash.length} tone="text-violet-700 dark:text-violet-300" />
@@ -430,10 +430,7 @@ function PipelineView({
             const iocs = extractIocs(row);
             if (iocs.length === 0) return null;
             return (
-              <li
-                key={row.id}
-                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
-              >
+              <li key={row.id} className="surface-card p-4">
                 <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
                   <div className="flex items-center gap-2 min-w-0">
                     <span className="text-sm font-mono font-semibold text-slate-900 dark:text-slate-100 truncate">
@@ -526,10 +523,7 @@ function ConsensusView({
   return (
     <ul className="space-y-2">
       {matches.map((m) => (
-        <li
-          key={`${m.kind}:${m.ioc.value}`}
-          className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 flex flex-wrap items-center gap-3"
-        >
+        <li key={`${m.kind}:${m.ioc.value}`} className="surface-card p-3 flex flex-wrap items-center gap-3">
           <span
             className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${IOC_TYPE_TONE[m.kind === 'ip' ? 'ipv4' : m.kind]} shrink-0`}
           >

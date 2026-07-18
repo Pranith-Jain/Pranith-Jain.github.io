@@ -717,17 +717,14 @@ export default function Tracepulse(): JSX.Element {
 
       {/* Packs */}
       {filteredPacks.length === 0 ? (
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-8 text-center">
+        <div className="surface-card/40 shadow-e1 p-8 text-center">
           <AlertTriangle size={24} className="mx-auto mb-2 text-slate-400" />
           <p className="text-sm text-slate-500">No query packs match your filter.</p>
         </div>
       ) : (
         <div className="space-y-4">
           {filteredPacks.map((pack) => (
-            <div
-              key={pack.id}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 overflow-hidden"
-            >
+            <div key={pack.id} className="surface-card/40 shadow-e1 overflow-hidden">
               {/* Header */}
               <div className="p-5 border-b border-slate-100 dark:border-[rgb(var(--border-400))]">
                 <div className="flex items-start justify-between gap-3 flex-wrap">

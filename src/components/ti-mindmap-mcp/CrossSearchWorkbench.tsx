@@ -295,7 +295,7 @@ export function CrossSearchWorkbench(props: { showHeader?: boolean }): JSX.Eleme
       result.stix?.bundles?.length);
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
+    <div className="surface-card">
       <div className="p-4">
         {props.showHeader !== false && (
           <div className="flex items-center gap-2 mb-3">

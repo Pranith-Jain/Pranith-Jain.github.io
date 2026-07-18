@@ -305,7 +305,7 @@ export default function TelegramFirehose(): JSX.Element {
   return (
     <div className="space-y-4">
       {/* Header strip */}
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
+      <section className="surface-card p-4">
         <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
           <div>
             <h2 className="font-display font-semibold text-lg flex items-center gap-2">

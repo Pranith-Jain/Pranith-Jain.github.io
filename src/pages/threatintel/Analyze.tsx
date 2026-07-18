@@ -252,7 +252,7 @@ export default function Analyze(): JSX.Element {
       </form>
 
       {streaming && results.length === 0 && (
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-8 text-center animate-pulse">
+        <div className="surface-card p-8 text-center animate-pulse">
           <Loader2 size={24} className="animate-spin mx-auto text-slate-400 mb-3" />
           <p className="text-sm font-mono text-slate-500">Opening SSE stream to 45 providers…</p>
         </div>
@@ -365,7 +365,7 @@ export default function Analyze(): JSX.Element {
             </div>
           </div>
 
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+          <div className="surface-card overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead className="bg-slate-50 dark:bg-[rgb(var(--surface-200))]/60 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
@@ -564,7 +564,7 @@ export default function Analyze(): JSX.Element {
       )}
 
       {!streaming && results.length === 0 && !error && !summary && (
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-12 text-center">
+        <div className="surface-card p-12 text-center">
           <Search size={32} className="mx-auto text-slate-300 dark:text-slate-700 mb-3" />
           <p className="text-sm font-mono text-slate-500">Enter an observable above to run a multi-source analysis</p>
           <p className="text-xs font-mono text-slate-400 mt-2">

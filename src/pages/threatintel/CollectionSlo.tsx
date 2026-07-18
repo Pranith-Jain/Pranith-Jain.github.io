@@ -177,7 +177,7 @@ export default function CollectionSlo(): JSX.Element {
             </div>
 
             {/* Source table */}
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+            <div className="surface-card overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>

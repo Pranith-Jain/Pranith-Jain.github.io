@@ -688,17 +688,14 @@ export default function Quicktrace(): JSX.Element {
 
       {/* Query cards */}
       {categoryQueries.length === 0 ? (
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-8 text-center">
+        <div className="surface-card/40 shadow-e1 p-8 text-center">
           <AlertTriangle size={24} className="mx-auto mb-2 text-slate-400" />
           <p className="text-sm text-slate-500">No queries match your filter.</p>
         </div>
       ) : (
         <div className="space-y-4">
           {categoryQueries.map((query) => (
-            <div
-              key={query.id}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5"
-            >
+            <div key={query.id} className="surface-card/40 shadow-e1 p-5">
               <div className="flex items-start justify-between gap-3 mb-2">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1 flex-wrap">
@@ -734,7 +731,7 @@ export default function Quicktrace(): JSX.Element {
       )}
 
       {/* Summary footer */}
-      <div className="mt-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-4 text-center text-xs text-slate-500 dark:text-slate-400 font-mono">
+      <div className="mt-8 surface-card/40 shadow-e1 p-4 text-center text-xs text-slate-500 dark:text-slate-400 font-mono">
         {totalQueries} queries across 4 domains · {totalAuth} authentication · {totalNet} network · {totalEnd} endpoint
         · {totalCloud} cloud
       </div>

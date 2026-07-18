@@ -79,7 +79,7 @@ const RISK_COLORS: Record<RiskLevel, { text: string; chip: string; bar: string }
 };
 
 const STATUS_TONES: Record<RiskStatus, string> = {
-  identified: 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400',
+  identified: 'bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-400',
   assessed: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300',
   treatment: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300',
   monitoring: 'bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-300',
@@ -225,21 +225,21 @@ export default function RiskRegister(): JSX.Element {
       {/* Stats bar */}
       {stats && (
         <div className="mb-5 grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3">
+          <div className="surface-card p-3">
             <div className="text-micro font-mono text-slate-500">Total Risks</div>
             <div className="text-xl font-bold font-mono mt-1">{stats.total}</div>
           </div>
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3">
+          <div className="surface-card p-3">
             <div className="text-micro font-mono text-slate-500">Open</div>
             <div className="text-xl font-bold font-mono mt-1 text-amber-600 dark:text-amber-400">
               {stats.open_risks}
             </div>
           </div>
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3">
+          <div className="surface-card p-3">
             <div className="text-micro font-mono text-slate-500">High / Critical</div>
             <div className="text-xl font-bold font-mono mt-1 text-rose-600 dark:text-rose-400">{summary.high}</div>
           </div>
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3">
+          <div className="surface-card p-3">
             <div className="text-micro font-mono text-slate-500">Total ALE</div>
             <div className="text-xl font-bold font-mono mt-1 text-emerald-600 dark:text-emerald-400">
               {stats.total_ale > 0
@@ -251,7 +251,7 @@ export default function RiskRegister(): JSX.Element {
       )}
 
       {/* Filters + actions */}
-      <div className="mb-5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 space-y-3">
+      <div className="mb-5 surface-card p-4 space-y-3">
         <div className="flex flex-wrap items-center gap-3">
           <select
             value={statusFilter}
@@ -405,10 +405,7 @@ export default function RiskRegister(): JSX.Element {
           const residualStyle = RISK_COLORS[entry.residual_level];
           const statusTone = STATUS_TONES[entry.status];
           return (
-            <div
-              key={entry.id}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden"
-            >
+            <div key={entry.id} className="surface-card overflow-hidden">
               <button
                 type="button"
                 onClick={() => toggleExpand(entry.id)}

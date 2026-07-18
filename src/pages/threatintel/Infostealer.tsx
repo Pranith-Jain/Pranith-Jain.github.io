@@ -432,10 +432,7 @@ export default function Infostealer(): JSX.Element {
                 const sub = str(row, ['description', 'country', 'activity', 'group', 'group_name']);
                 const date = str(row, ['discovered', 'published', 'date', 'added_date']);
                 return (
-                  <li
-                    key={`${title}-${date}-${i}`}
-                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
-                  >
+                  <li key={`${title}-${date}-${i}`} className="surface-card p-3">
                     <div className="font-display font-semibold text-sm truncate">{title}</div>
                     {sub && <p className="font-mono text-mini text-muted mt-1 line-clamp-2">{sub}</p>}
                     {date && <p className="font-mono text-micro text-slate-400 mt-1">{date}</p>}
@@ -451,10 +448,7 @@ export default function Infostealer(): JSX.Element {
       {!loading && tab === 'markets' && (
         <ul className="grid gap-2 md:grid-cols-2">
           {(markets ?? []).map((m) => (
-            <li
-              key={m.title}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
-            >
+            <li key={m.title} className="surface-card p-3">
               <div className="flex items-start justify-between gap-2">
                 <a
                   href={sanitizeUrl(m.url)}
@@ -486,10 +480,7 @@ export default function Infostealer(): JSX.Element {
       {!loading && tab === 'telegram' && (
         <ul className="grid gap-2 md:grid-cols-2">
           {(tg ?? []).map((c) => (
-            <li
-              key={c.name}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
-            >
+            <li key={c.name} className="surface-card p-3">
               <div className="flex items-center justify-between gap-2">
                 <span className="font-display font-semibold text-sm truncate">{c.name}</span>
                 <span
@@ -527,10 +518,7 @@ export default function Infostealer(): JSX.Element {
       {!loading && tab === 'samples' && (
         <ul className="grid gap-2 md:grid-cols-2">
           {(samples ?? []).map((s) => (
-            <li
-              key={s.sha256}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
-            >
+            <li key={s.sha256} className="surface-card p-3">
               <div className="flex items-center justify-between gap-2">
                 <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 font-mono text-micro uppercase text-rose-700 dark:text-rose-300">
                   {s.family}
@@ -571,10 +559,7 @@ export default function Infostealer(): JSX.Element {
       {!loading && tab === 'c2' && (
         <ul className="grid gap-2 md:grid-cols-2">
           {(c2 ?? []).map((x) => (
-            <li
-              key={x.value}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
-            >
+            <li key={x.value} className="surface-card p-3">
               <div className="flex items-center justify-between gap-2">
                 <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 font-mono text-micro uppercase text-rose-700 dark:text-rose-300">
                   {x.family}
@@ -608,10 +593,7 @@ export default function Infostealer(): JSX.Element {
       {!loading && tab === 'encyclopedia' && (
         <div className="space-y-4">
           {INFOSTEALER_FAMILIES.map((fam) => (
-            <details
-              key={fam.slug}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 group open:border-brand-500/40"
-            >
+            <details key={fam.slug} className="surface-card group open:border-brand-500/40">
               <summary className="flex items-center justify-between gap-3 px-4 py-3 cursor-pointer select-none hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200))] rounded-xl list-none">
                 <div className="min-w-0">
                   <Link
@@ -711,10 +693,7 @@ export default function Infostealer(): JSX.Element {
                   </h3>
                   <ul className="grid gap-2 md:grid-cols-2">
                     {g.entries.slice(0, 60).map((e, i) => (
-                      <li
-                        key={`${e.name}-${i}`}
-                        className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
-                      >
+                      <li key={`${e.name}-${i}`} className="surface-card p-3">
                         <div className="flex items-center justify-between gap-2">
                           <span className="font-display font-semibold text-sm truncate" title={e.name}>
                             {e.name}
@@ -766,7 +745,7 @@ export default function Infostealer(): JSX.Element {
                       {block.samples.map((s, i) => (
                         <li
                           key={`${src}-${i}`}
-                          className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-2.5 font-mono text-mini flex items-center gap-2 flex-wrap"
+                          className="surface-card p-2.5 font-mono text-mini flex items-center gap-2 flex-wrap"
                         >
                           <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 text-micro uppercase text-rose-700 dark:text-rose-300">
                             {s.keyword}
@@ -831,10 +810,7 @@ export default function Infostealer(): JSX.Element {
                 return (
                   <ul className="grid gap-3 md:grid-cols-2">
                     {filtered.map((a) => (
-                      <li
-                        key={a.link}
-                        className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
-                      >
+                      <li key={a.link} className="surface-card p-3">
                         <a
                           href={sanitizeUrl(a.link)}
                           target="_blank"

@@ -116,7 +116,7 @@ export default function DomainWebcheck(): JSX.Element {
         </p>
       </div>
 
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <section className="surface-card p-4 mb-6">
         <form onSubmit={onSubmit} className="flex gap-2">
           <input
             type="text"
@@ -172,7 +172,7 @@ export default function DomainWebcheck(): JSX.Element {
           </div>
 
           {/* Security Headers */}
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+          <section className="surface-card p-6">
             <h2 className="font-display font-bold text-xl mb-4 flex items-center gap-2">
               <Shield size={18} className="text-brand-600 dark:text-brand-400" /> Security Headers
             </h2>
@@ -198,7 +198,7 @@ export default function DomainWebcheck(): JSX.Element {
 
           {/* Technology Stack */}
           {result.technology.length > 0 && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="surface-card p-6">
               <h2 className="font-display font-bold text-xl mb-4 flex items-center gap-2">
                 <Server size={18} className="text-brand-600 dark:text-brand-400" /> Technology Stack
               </h2>
@@ -217,7 +217,7 @@ export default function DomainWebcheck(): JSX.Element {
 
           {/* Shodan */}
           {result.shodan && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="surface-card p-6">
               <h2 className="font-display font-bold text-xl mb-4 flex items-center gap-2">
                 <Lock size={18} className="text-brand-600 dark:text-brand-400" /> Shodan Intelligence
               </h2>
@@ -242,7 +242,7 @@ export default function DomainWebcheck(): JSX.Element {
 
           {/* CDN/WAF Detection — metabigor cdn equivalent */}
           {cdnResult && cdnResult.is_cdn && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="surface-card p-6">
               <h2 className="font-display font-bold text-xl mb-2 flex items-center gap-2">
                 <Wifi size={18} className="text-brand-600 dark:text-brand-400" /> CDN / WAF Detected
               </h2>
@@ -263,7 +263,7 @@ export default function DomainWebcheck(): JSX.Element {
 
           {/* Redirect Chain */}
           {result.http.redirect_chain.length > 0 && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="surface-card p-6">
               <h2 className="font-display font-bold text-xl mb-4 flex items-center gap-2">
                 <ExternalLink size={18} className="text-brand-600 dark:text-brand-400" /> Redirect Chain
               </h2>
@@ -295,7 +295,7 @@ function StatCard({
   sub?: string;
 }) {
   return (
-    <div className="p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
+    <div className="p-3 surface-card">
       <div className="text-xs font-mono text-slate-400">{label}</div>
       <div className={`text-lg font-bold font-mono mt-0.5 ${valueClass ?? 'text-slate-900 dark:text-slate-100'}`}>
         {value}

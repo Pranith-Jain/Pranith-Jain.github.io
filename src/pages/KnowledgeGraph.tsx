@@ -87,10 +87,7 @@ export default function KnowledgeGraph() {
 
       {/* Graph canvas */}
       {graph && (
-        <div
-          className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden"
-          style={{ height: 'calc(100vh - 280px)', minHeight: 500 }}
-        >
+        <div className="surface-card overflow-hidden" style={{ height: 'calc(100vh - 280px)', minHeight: 500 }}>
           <React.Suspense
             fallback={
               <div className="flex items-center justify-center h-full text-slate-500 dark:text-slate-400 text-sm">

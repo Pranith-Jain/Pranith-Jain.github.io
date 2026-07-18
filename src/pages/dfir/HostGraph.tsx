@@ -172,7 +172,7 @@ export default function HostGraphView(): JSX.Element {
             spellCheck={false}
             autoCapitalize="off"
             autoCorrect="off"
-            className="w-full pl-10 pr-24 py-2.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-transparent"
+            className="w-full pl-10 pr-24 py-2.5 surface-card text-sm font-mono focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-transparent"
           />
           {query && (
             <span
@@ -234,7 +234,7 @@ function Section({
   children: React.ReactNode;
 }): JSX.Element {
   return (
-    <section className="mb-6 p-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
+    <section className="mb-6 p-4 surface-card">
       <h2 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
         <Icon size={14} />
         {title}

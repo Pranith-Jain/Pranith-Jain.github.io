@@ -130,7 +130,7 @@ export default function AsnLookup(): JSX.Element {
       {result && (
         <div className="space-y-6">
           {/* Header */}
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+          <section className="surface-card p-6">
             <div className="flex flex-wrap items-start gap-3 mb-3">
               <h2 className="font-display font-bold text-2xl font-mono">AS{result.asn}</h2>
               {result.name && (
@@ -159,7 +159,7 @@ export default function AsnLookup(): JSX.Element {
 
           {/* Contacts */}
           {result.abuse_contacts && result.abuse_contacts.length > 0 && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="surface-card p-6">
               <h3 className="font-display font-semibold text-lg mb-3">Abuse Contacts</h3>
               <div className="flex flex-wrap gap-2">
                 {result.abuse_contacts.map((email) => (
@@ -177,7 +177,7 @@ export default function AsnLookup(): JSX.Element {
 
           {/* RIR */}
           {result.rir && (result.rir.name || result.rir.description) && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+            <section className="surface-card p-6">
               <h3 className="font-display font-semibold text-lg mb-3">RIR / Registry</h3>
               <div className="grid sm:grid-cols-2 gap-4 font-mono text-sm">
                 {result.rir.name && (
@@ -197,7 +197,7 @@ export default function AsnLookup(): JSX.Element {
           )}
 
           {/* Prefixes */}
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+          <section className="surface-card p-6">
             <h3 className="font-display font-semibold text-lg mb-4">Announced Prefixes</h3>
             <div className="grid sm:grid-cols-2 gap-6">
               <div>

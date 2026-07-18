@@ -529,7 +529,7 @@ export default function ReportAnalyzer(): JSX.Element {
       maxWidthClass="max-w-6xl"
     >
       {/* Input card */}
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
+      <section className="surface-card p-4 mb-4">
         <div className="grid gap-3 md:grid-cols-3">
           <div className="md:col-span-2">
             <label
@@ -797,7 +797,7 @@ function SummaryTab({ data }: { data: AnalyzerOutput }) {
     return <EmptyState message="Summary branch failed. Check the degraded-branches badge for details." />;
   }
   return (
-    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+    <section className="surface-card p-4">
       <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
         model <span className="text-slate-700 dark:text-slate-200">{data.summary.model}</span>
       </div>
@@ -824,7 +824,7 @@ function IocsTab({
   }, [iocs, filter]);
   if (iocs.length === 0) return <EmptyState message="No indicators survived allowlist filtering." />;
   return (
-    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+    <section className="surface-card p-4">
       <div className="flex items-start gap-2">
         <div className="flex-1">
           <FilterInput value={filter} setValue={setFilter} placeholder={`Filter ${iocs.length} IOCs…`} />
@@ -911,7 +911,7 @@ function TtpsTab({ ttp, filter, setFilter }: { ttp: TtpHit[]; filter: string; se
   }, [filtered]);
   if (ttp.length === 0) return <EmptyState message="No MITRE ATT&CK techniques identified." />;
   return (
-    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+    <section className="surface-card p-4">
       <FilterInput value={filter} setValue={setFilter} placeholder={`Filter ${ttp.length} techniques…`} />
       <div className="space-y-3">
         {grouped.map(([tactic, hits]) => (
@@ -985,7 +985,7 @@ function CvesTab({
 
   if (cves.length === 0) return <EmptyState message="No CVEs mentioned in the report." />;
   return (
-    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+    <section className="surface-card p-4">
       <FilterInput value={filter} setValue={setFilter} placeholder={`Filter ${cves.length} CVEs…`} />
       <div className="space-y-3">
         {filtered.map((c) => (
@@ -1065,7 +1065,7 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }) {
   if (fiveW.so_what) extraRows.push({ label: 'So What', value: fiveW.so_what });
   if (fiveW.what_next) extraRows.push({ label: 'What Next', value: fiveW.what_next });
   return (
-    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+    <section className="surface-card p-4">
       <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
         confidence <span className="text-slate-700 dark:text-slate-200">{Math.round(fiveW.confidence * 100)}%</span>
       </div>
@@ -1279,10 +1279,7 @@ function MindmapTab({ mindmap }: { mindmap: { nodes: MindmapNode[]; edges: Mindm
   const { nodes, edges } = useMemo(() => layoutNodes(mindmap.nodes, mindmap.edges), [mindmap]);
   if (mindmap.nodes.length === 0) return <EmptyState message="Mindmap is empty (no entities extracted)." />;
   return (
-    <section
-      className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1"
-      style={{ height: 540 }}
-    >
+    <section className="surface-card" style={{ height: 540 }}>
       <ReactFlowProvider>
         <ReactFlow
           nodes={nodes}
@@ -1315,7 +1312,7 @@ function StixTab({ data }: { data: AnalyzerOutput }) {
   if (!bundle) return <EmptyState message="STIX bundle generation failed." />;
   const downloadHref = `data:application/json;charset=utf-8,${encodeURIComponent(JSON.stringify(bundle, null, 2))}`;
   return (
-    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+    <section className="surface-card p-4">
       <div className="flex flex-wrap items-center gap-2 mb-3">
         <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
           STIX 2.1 bundle · {bundle.objects.length} objects
@@ -1387,7 +1384,7 @@ function DetectionTab({ detection }: { detection: AnalyzerOutput['detection'] })
       </div>
       {/* SIEM Rules */}
       {detection.siemRules.length > 0 && (
-        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <section className="surface-card p-4">
           <div className="flex items-center gap-2 mb-3">
             <Shield className="h-4 w-4 text-brand-600 dark:text-brand-400" />
             <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">SIEM Detection Rules</h3>
@@ -1417,7 +1414,7 @@ function DetectionTab({ detection }: { detection: AnalyzerOutput['detection'] })
                 </div>
                 <p className="text-xs text-slate-600 dark:text-slate-300 mb-2">{rule.description}</p>
                 {rule.query && (
-                  <pre className="text-xs font-mono text-slate-800 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 rounded p-2 overflow-x-auto">
+                  <pre className="text-xs font-mono text-slate-800 dark:text-slate-200 bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded p-2 overflow-x-auto">
                     {rule.query}
                   </pre>
                 )}
@@ -1429,7 +1426,7 @@ function DetectionTab({ detection }: { detection: AnalyzerOutput['detection'] })
 
       {/* Monitoring Guidance */}
       {detection.monitoringGuidance.length > 0 && (
-        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <section className="surface-card p-4">
           <div className="flex items-center gap-2 mb-3">
             <Network className="h-4 w-4 text-brand-600 dark:text-brand-400" />
             <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Monitoring Guidance</h3>
@@ -1456,7 +1453,7 @@ function DetectionTab({ detection }: { detection: AnalyzerOutput['detection'] })
 
       {/* CLI Commands */}
       {detection.cliCommands.length > 0 && (
-        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <section className="surface-card p-4">
           <div className="flex items-center gap-2 mb-3">
             <Terminal className="h-4 w-4 text-brand-600 dark:text-brand-400" />
             <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">CLI Verification Commands</h3>
@@ -1468,7 +1465,7 @@ function DetectionTab({ detection }: { detection: AnalyzerOutput['detection'] })
                 className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2"
               >
                 <div className="text-xs text-slate-600 dark:text-slate-300 mb-1">{cmd.purpose}</div>
-                <pre className="text-xs font-mono text-slate-800 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 rounded p-2 overflow-x-auto">
+                <pre className="text-xs font-mono text-slate-800 dark:text-slate-200 bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded p-2 overflow-x-auto">
                   {cmd.command}
                 </pre>
                 {cmd.platform && (
@@ -1527,7 +1524,7 @@ function ConclusionTab({ conclusion }: { conclusion: AnalyzerOutput['conclusion'
 
       {/* Key Takeaways */}
       {conclusion.keyTakeaways.length > 0 && (
-        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <section className="surface-card p-4">
           <div className="flex items-center gap-2 mb-3">
             <CheckCircle className="h-4 w-4 text-brand-600 dark:text-brand-400" />
             <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Key Takeaways</h3>
@@ -1545,7 +1542,7 @@ function ConclusionTab({ conclusion }: { conclusion: AnalyzerOutput['conclusion'
 
       {/* Recommended Actions */}
       {conclusion.recommendedActions.length > 0 && (
-        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <section className="surface-card p-4">
           <div className="flex items-center gap-2 mb-3">
             <Shield className="h-4 w-4 text-brand-600 dark:text-brand-400" />
             <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Recommended Actions</h3>
@@ -1625,20 +1622,20 @@ function HeatmapTab({ ttp }: { ttp: TtpHit[] }) {
   );
 
   return (
-    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 overflow-x-auto">
+    <section className="surface-card p-4 overflow-x-auto">
       {/* Header */}
       <div className="flex flex-wrap items-center gap-3 mb-4">
         <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
           MITRE ATT&CK Heatmap
         </div>
         <div className="flex items-center gap-2 text-xs">
-          <span className="rounded bg-slate-100 dark:bg-slate-800 px-2 py-0.5 font-mono text-slate-600 dark:text-slate-300">
+          <span className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] px-2 py-0.5 font-mono text-slate-600 dark:text-slate-300">
             {uniqueTechniques} techniques
           </span>
-          <span className="rounded bg-slate-100 dark:bg-slate-800 px-2 py-0.5 font-mono text-slate-600 dark:text-slate-300">
+          <span className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] px-2 py-0.5 font-mono text-slate-600 dark:text-slate-300">
             {activeTactics.length + otherTactics.length} tactics
           </span>
-          <span className="rounded bg-slate-100 dark:bg-slate-800 px-2 py-0.5 font-mono text-slate-600 dark:text-slate-300">
+          <span className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] px-2 py-0.5 font-mono text-slate-600 dark:text-slate-300">
             {ttp.length} mappings
           </span>
         </div>
@@ -1676,7 +1673,7 @@ function HeatmapTab({ ttp }: { ttp: TtpHit[] }) {
                 background: `rgba(59, 130, 246, ${0.03 + density * 0.08})`,
               }}
             >
-              <div className="px-2 py-1.5 bg-slate-100 dark:bg-slate-800/60 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+              <div className="px-2 py-1.5 bg-slate-100 dark:bg-[rgb(var(--surface-200))]/60 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                 <div className="text-[9px] font-mono font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300 truncate">
                   {tactic}
                 </div>
@@ -1715,7 +1712,7 @@ function HeatmapTab({ ttp }: { ttp: TtpHit[] }) {
             return (
               <div key={tactic} className="flex items-center gap-2 text-[10px]">
                 <span className="w-24 truncate font-mono text-slate-500 dark:text-slate-400">{tactic}</span>
-                <div className="flex-1 h-2 bg-slate-100 dark:bg-slate-800 rounded overflow-hidden">
+                <div className="flex-1 h-2 bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded overflow-hidden">
                   <div
                     className="h-full bg-blue-500 dark:bg-blue-400 rounded transition-all"
                     style={{ width: `${pct}%` }}
@@ -1734,7 +1731,7 @@ function HeatmapTab({ ttp }: { ttp: TtpHit[] }) {
 function SourceTab({ url, data }: { url: string; data: AnalyzerOutput }) {
   const displayText = data.sourceText || '';
   return (
-    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+    <section className="surface-card p-4">
       <div className="flex flex-wrap items-center gap-2 mb-3 text-xs text-slate-500 dark:text-slate-400">
         <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono">
           {data.textLength.toLocaleString()} chars
@@ -1802,7 +1799,7 @@ function TimelineTab() {
 
   if (loading) {
     return (
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-8 text-center">
+      <section className="surface-card p-8 text-center">
         <RefreshCw className="h-6 w-6 animate-spin text-slate-400 mx-auto mb-2" />
         <span className="text-sm text-slate-500 dark:text-slate-400">Loading timeline…</span>
       </section>
@@ -1816,13 +1813,13 @@ function TimelineTab() {
   const sharedIocSet = new Set(sharedIocs.map((s) => s.value.toLowerCase()));
 
   return (
-    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+    <section className="surface-card p-4">
       <div className="flex flex-wrap items-center gap-3 mb-4">
         <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
           Report Timeline
         </div>
         <div className="flex items-center gap-2 text-xs">
-          <span className="rounded bg-slate-100 dark:bg-slate-800 px-2 py-0.5 font-mono text-slate-600 dark:text-slate-300">
+          <span className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] px-2 py-0.5 font-mono text-slate-600 dark:text-slate-300">
             {timeline.length} reports
           </span>
           <span className="rounded bg-amber-100 dark:bg-amber-900/40 px-2 py-0.5 font-mono text-amber-700 dark:text-amber-300">
@@ -1871,7 +1868,7 @@ function TimelineTab() {
                   className={`absolute left-2.5 top-2 w-3 h-3 rounded-full border-2 ${
                     sharedInReport.length > 0
                       ? 'border-amber-500 bg-amber-100 dark:bg-amber-900/40'
-                      : 'border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800'
+                      : 'border-slate-300 dark:border-[rgb(var(--border-500))] bg-white dark:bg-[rgb(var(--surface-200))]'
                   }`}
                 />
 
@@ -1913,7 +1910,7 @@ function TimelineTab() {
                             className={`inline-flex items-center rounded px-1.5 py-0.5 text-[9px] font-mono ${
                               isShared
                                 ? 'border border-amber-400 dark:border-amber-600 bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-200 font-semibold'
-                                : 'border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400'
+                                : 'border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-400'
                             }`}
                             title={isShared ? 'Shared across reports' : ioc.kind}
                           >

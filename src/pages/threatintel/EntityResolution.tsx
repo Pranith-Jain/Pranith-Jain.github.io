@@ -303,7 +303,7 @@ export default function EntityResolution(): JSX.Element {
           {entity && (
             <div className="space-y-4 animate-fade-in-up">
               {/* Entity header */}
-              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+              <div className="surface-card p-5">
                 <div className="flex items-start justify-between mb-3">
                   <div>
                     <div className="flex items-center gap-2 mb-2">
@@ -405,7 +405,7 @@ export default function EntityResolution(): JSX.Element {
                 <>
                   {/* Cross-references */}
                   {profile.cross_references.length > 0 && (
-                    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+                    <div className="surface-card p-5">
                       <h3 className="text-xs font-mono font-semibold text-slate-500 uppercase tracking-wider mb-3">
                         Cross-references
                       </h3>
@@ -423,7 +423,7 @@ export default function EntityResolution(): JSX.Element {
 
                   {/* CVEs */}
                   {profile.cves && profile.cves.length > 0 && (
-                    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+                    <div className="surface-card p-5">
                       <h3 className="text-xs font-mono font-semibold text-slate-500 uppercase tracking-wider mb-3">
                         Linked CVEs ({profile.cves.length})
                       </h3>
@@ -442,7 +442,7 @@ export default function EntityResolution(): JSX.Element {
 
                   {/* Links */}
                   {profile.links.length > 0 && (
-                    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+                    <div className="surface-card p-5">
                       <h3 className="text-xs font-mono font-semibold text-slate-500 uppercase tracking-wider mb-3">
                         Relationships ({profile.links.length})
                       </h3>
@@ -510,10 +510,7 @@ export default function EntityResolution(): JSX.Element {
                   const cfg = (ENTITY_TYPE_CONFIG[e.type] ?? ENTITY_TYPE_CONFIG.unknown)!;
                   const Icon = cfg.icon;
                   return (
-                    <div
-                      key={e.id}
-                      className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 flex items-center justify-between"
-                    >
+                    <div key={e.id} className="surface-card p-3 flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <Icon size={16} className="text-slate-400 shrink-0" />
                         <div>

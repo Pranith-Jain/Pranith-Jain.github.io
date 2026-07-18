@@ -181,7 +181,7 @@ export default function DomainReputation(): JSX.Element {
       {results && !results.error && (
         <div className="space-y-6">
           {/* Score Summary */}
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+          <section className="surface-card p-4">
             <div className="flex flex-wrap items-baseline justify-between gap-3 mb-3">
               <h2 className="font-display font-bold text-xl">{results.target}</h2>
               {(() => {
@@ -216,7 +216,7 @@ export default function DomainReputation(): JSX.Element {
 
           {/* Domain Blacklists */}
           {results.domain && results.domain.length > 0 && (
-            <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+            <section className="surface-card p-4">
               <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
                 Domain blacklists ({results.domain.length})
               </h3>
@@ -236,10 +236,7 @@ export default function DomainReputation(): JSX.Element {
                 const ipScore = ipListed === 0 ? 100 : ipListed <= 2 ? 70 : ipListed <= 5 ? 40 : 10;
                 const { label, classes } = getScoreLabel(ipScore);
                 return (
-                  <section
-                    key={ip}
-                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
-                  >
+                  <section key={ip} className="surface-card p-4">
                     <div className="flex items-baseline justify-between gap-2 mb-3">
                       <h3 className="font-display font-semibold text-base inline-flex items-center gap-2">
                         <Globe size={14} className="text-brand-600 dark:text-brand-400" aria-hidden="true" /> {ip}
@@ -292,7 +289,7 @@ export default function DomainReputation(): JSX.Element {
           </div>
 
           {/* External Tools */}
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+          <section className="surface-card p-4">
             <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 inline-flex items-center gap-2">
               <BookOpen size={12} aria-hidden="true" /> External reputation lookups
             </h3>

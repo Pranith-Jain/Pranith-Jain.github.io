@@ -162,7 +162,7 @@ function SpecialistProgressBar({ steps }: { steps: AgentStep[] }): JSX.Element {
   if (chain.length <= 1) return <></>;
 
   return (
-    <div className="mb-4 p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
+    <div className="mb-4 p-3 surface-card">
       <div className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 mb-2 flex items-center gap-2">
         <Bot size={12} /> Specialist Chain
       </div>
@@ -394,7 +394,7 @@ export default function AgentInvestigator(): JSX.Element {
       maxWidthClass="max-w-6xl"
     >
       {/* Query input */}
-      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <div className="surface-card p-4 mb-6">
         <div className="flex gap-3">
           <div className="relative flex-1">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -485,7 +485,7 @@ export default function AgentInvestigator(): JSX.Element {
 
       {/* Report + Download */}
       {agentState?.report && (
-        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-6 mb-6 animate-fade-in-up">
+        <section className="surface-card p-6 mb-6 animate-fade-in-up">
           <div className="flex items-center gap-2 mb-4 flex-wrap">
             <Shield size={16} className="text-emerald-600" />
             <h2 className="text-lg font-display font-bold">Intelligence Report</h2>
@@ -651,7 +651,7 @@ export default function AgentInvestigator(): JSX.Element {
 
       {/* Sessions list */}
       {sessions && sessions.length > 0 && !agentState && (
-        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <section className="surface-card p-4">
           <h2 className="text-sm font-mono font-bold uppercase tracking-wider text-slate-500 mb-3 flex items-center gap-2">
             <Clock size={14} /> Recent Investigations
           </h2>
@@ -719,7 +719,7 @@ function StepCard({ step, prevStep }: { step: AgentStep; prevStep?: AgentStep })
   const phaseColor = phaseColors[phase] ?? phaseColors.collection;
 
   return (
-    <article className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+    <article className="surface-card overflow-hidden">
       <button
         type="button"
         onClick={() => setExpanded(!expanded)}

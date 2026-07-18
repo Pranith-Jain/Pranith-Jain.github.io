@@ -90,7 +90,7 @@ export default function Exposure(): JSX.Element {
 
       {result && (
         <div className="space-y-6">
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+          <section className="surface-card p-6">
             <div className="flex items-baseline justify-between">
               <h2 className="font-display font-bold text-2xl">{result.domain}</h2>
               <span className="font-mono text-sm">
@@ -113,7 +113,7 @@ export default function Exposure(): JSX.Element {
               {result.shodan_enabled ? 'enabled' : 'unavailable'}
             </p>
           </section>
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+          <section className="surface-card p-6">
             <h3 className="font-display font-bold text-lg mb-3">Subdomains seen in CT logs</h3>
             <SubdomainTree subdomains={result.subdomains} />
           </section>

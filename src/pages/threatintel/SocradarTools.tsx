@@ -207,10 +207,7 @@ function DDoSPanel() {
               { label: 'Threat Fox IOCs', value: data.threatFoxC2.length, icon: Shield, color: 'text-violet-500' },
               { label: 'Sources', value: 3, icon: Database, color: 'text-sky-500' },
             ].map((kpi) => (
-              <div
-                key={kpi.label}
-                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
-              >
+              <div key={kpi.label} className="surface-card p-3">
                 <div className="flex items-center gap-2 mb-1">
                   <kpi.icon size={12} className={kpi.color} />
                   <span className="text-micro font-mono text-muted">{kpi.label}</span>
@@ -222,7 +219,7 @@ function DDoSPanel() {
 
           {/* Top Malware */}
           {data.stats.topMalware.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+            <div className="surface-card p-4">
               <h3 className="font-display font-semibold text-sm mb-2">Top Botnet Malware</h3>
               <div className="space-y-1.5">
                 {data.stats.topMalware.map((m) => (
@@ -256,7 +253,7 @@ function DDoSPanel() {
           </div>
 
           {/* Botnet List */}
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+          <div className="surface-card overflow-hidden">
             <div className="p-3 border-b border-slate-100 dark:border-[rgb(var(--border-300))]">
               <h3 className="font-display font-semibold text-sm">Botnet C2 Servers (Feodo Tracker)</h3>
             </div>
@@ -359,7 +356,7 @@ function FortiBleedPanel() {
 
   return (
     <div className="space-y-6">
-      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <div className="surface-card p-4">
         <div className="flex items-center gap-2 mb-3">
           <Lock size={14} className="text-amber-500" />
           <h3 className="font-display font-semibold text-sm">FortiGate / FortiOS Vulnerability Check</h3>
@@ -392,7 +389,7 @@ function FortiBleedPanel() {
       )}
 
       {result && (
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <div className="surface-card p-4">
           <div className="flex items-center justify-between mb-3">
             <div>
               <h3 className="font-display font-semibold text-sm">{result.target}</h3>
@@ -535,22 +532,22 @@ function HealthcarePanel() {
       {data && (
         <>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3">
+            <div className="surface-card p-3">
               <span className="text-micro font-mono text-muted">Total Breaches</span>
               <p className="text-xl font-display font-bold">{data.stats.totalBreaches}</p>
             </div>
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3">
+            <div className="surface-card p-3">
               <span className="text-micro font-mono text-muted">Individuals Affected</span>
               <p className="text-xl font-display font-bold">{fmtNum(data.stats.totalIndividuals)}</p>
             </div>
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3">
+            <div className="surface-card p-3">
               <span className="text-micro font-mono text-muted">Top Targeted State</span>
               <p className="text-xl font-display font-bold">{data.stats.topStates[0]?.state || 'N/A'}</p>
             </div>
           </div>
 
           {data.stats.topStates.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+            <div className="surface-card p-4">
               <h3 className="font-display font-semibold text-sm mb-2">Top Targeted States</h3>
               <div className="space-y-1.5">
                 {data.stats.topStates.slice(0, 8).map((s) => (
@@ -582,7 +579,7 @@ function HealthcarePanel() {
             </div>
           </div>
 
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+          <div className="surface-card overflow-hidden">
             <div className="divide-y divide-slate-100 dark:divide-[rgb(var(--border-300))]">
               {filtered.slice(0, 30).map((b, i) => (
                 <div
@@ -683,7 +680,7 @@ function ThreatReportsPanel() {
 
   return (
     <div className="space-y-6">
-      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+      <div className="surface-card p-4">
         <div className="flex items-center gap-2 mb-3">
           <Shield size={14} className="text-violet-500" />
           <h3 className="font-display font-semibold text-sm">Threat Intelligence Reports</h3>
@@ -791,7 +788,7 @@ function ThreatReportsPanel() {
       )}
 
       {data && !!data.country && (
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <div className="surface-card p-4">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-display font-semibold text-sm">
               {(data.country as ThreatReportCountry).name} Threat Landscape
@@ -871,7 +868,7 @@ function ThreatReportsPanel() {
       )}
 
       {data && !!data.industry && (
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <div className="surface-card p-4">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-display font-semibold text-sm">
               {(data.industry as ThreatReportIndustry).name} Threat Landscape
@@ -935,7 +932,7 @@ function ThreatReportsPanel() {
       )}
 
       {data && !!data.assessment && (
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <div className="surface-card p-4">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-display font-semibold text-sm">
               {(data.assessment as ThreatReportAssessment).domain} External Threat Assessment

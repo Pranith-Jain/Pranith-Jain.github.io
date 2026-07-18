@@ -84,7 +84,7 @@ export default function AttackChainHypervisor(): JSX.Element {
       maxWidthClass="max-w-6xl"
     >
       <div className="animate-fade-in-up space-y-6">
-        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+        <section className="surface-card p-5">
           <div className="flex flex-wrap items-center gap-3 mb-3">
             <h2 className="font-display font-bold text-lg">Hypervisor Kill Chain</h2>
             <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300">
@@ -130,7 +130,7 @@ export default function AttackChainHypervisor(): JSX.Element {
           </div>
         </section>
 
-        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+        <section className="surface-card p-5">
           <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3">
             TTP Overlap Matrix
           </h2>
@@ -171,7 +171,7 @@ export default function AttackChainHypervisor(): JSX.Element {
           </div>
         </section>
 
-        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+        <section className="surface-card p-5">
           <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3">
             Actor Convergence Grid
           </h2>
@@ -194,7 +194,7 @@ export default function AttackChainHypervisor(): JSX.Element {
           </div>
         </section>
 
-        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+        <section className="surface-card p-5">
           <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3">
             Chokepoints Per Stage
           </h2>
@@ -216,7 +216,7 @@ export default function AttackChainHypervisor(): JSX.Element {
           </div>
         </section>
 
-        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
+        <section className="surface-card p-5">
           <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3 flex items-center gap-2">
             <Eye size={14} /> Detection Signals
           </h2>

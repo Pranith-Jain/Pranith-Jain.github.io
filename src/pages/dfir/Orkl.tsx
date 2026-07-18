@@ -197,7 +197,7 @@ export default function Orkl(): JSX.Element {
       </button>
 
       {showInfo && info && (
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 mb-6 grid grid-cols-2 sm:grid-cols-5 gap-4 text-center">
+        <div className="surface-card p-4 mb-6 grid grid-cols-2 sm:grid-cols-5 gap-4 text-center">
           {[
             { label: 'Reports', value: info.library_entries.toLocaleString() },
             { label: 'Sources', value: info.source_entries.toLocaleString() },
@@ -285,7 +285,7 @@ export default function Orkl(): JSX.Element {
           {/* Detail panel */}
           {selected && (
             <div className="lg:col-span-2 space-y-4">
-              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
+              <div className="surface-card p-4">
                 <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">
                   {selected.llm_title || selected.title || 'Untitled'}
                 </h2>
@@ -381,7 +381,7 @@ export default function Orkl(): JSX.Element {
               </div>
 
               {/* Plain text */}
-              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
+              <div className="surface-card p-4">
                 <h3 className="text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-400 mb-3">
                   Full Text
                 </h3>

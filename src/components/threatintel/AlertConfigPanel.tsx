@@ -101,7 +101,7 @@ export function AlertConfigPanel({ events }: AlertConfigPanelProps) {
   }, [rules, events]);
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 p-4 space-y-4">
+    <div className="surface-card/60 p-4 space-y-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Bell size={16} className="text-brand-500" />
@@ -142,21 +142,21 @@ export function AlertConfigPanel({ events }: AlertConfigPanelProps) {
           value={newName}
           onChange={(e) => setNewName(e.target.value)}
           placeholder="Rule name (e.g., APT28 watch)"
-          className="w-full px-3 py-1.5 text-xs font-mono rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300"
+          className="w-full px-3 py-1.5 text-xs font-mono surface-card text-slate-700 dark:text-slate-300"
         />
         <input
           type="text"
           value={newKeywords}
           onChange={(e) => setNewKeywords(e.target.value)}
           placeholder="Keywords (comma-separated)"
-          className="w-full px-3 py-1.5 text-xs font-mono rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300"
+          className="w-full px-3 py-1.5 text-xs font-mono surface-card text-slate-700 dark:text-slate-300"
         />
         <input
           type="text"
           value={newWebhook}
           onChange={(e) => setNewWebhook(e.target.value)}
           placeholder="Webhook URL (optional)"
-          className="w-full px-3 py-1.5 text-xs font-mono rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300"
+          className="w-full px-3 py-1.5 text-xs font-mono surface-card text-slate-700 dark:text-slate-300"
         />
         <button
           onClick={addRule}

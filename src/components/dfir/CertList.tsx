@@ -12,7 +12,7 @@ export function CertList({ certs }: { certs: DomainLookupResponse['certificates'
   const visibleTimeline = expanded ? sortedByDate : sortedByDate.slice(0, 10);
 
   return (
-    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+    <section className="surface-card p-6">
       <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
         <h3 className="font-display font-bold text-lg">
           Certificate Transparency <span className="text-sm font-mono text-muted">({certs.length} entries)</span>

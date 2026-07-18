@@ -156,14 +156,14 @@ export default function ScreenshotIntel(): JSX.Element {
       {note && <p className="mt-3 font-mono text-meta text-amber-600 dark:text-amber-400">{note}</p>}
 
       {qr ? (
-        <div className="mt-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3">
+        <div className="mt-6 surface-card p-3">
           <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">QR / barcode payload</div>
           <code className="font-mono text-meta break-all text-slate-900 dark:text-slate-100">{qr}</code>
         </div>
       ) : null}
 
       {ocr !== null && ocr !== '' && (
-        <div className="mt-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3">
+        <div className="mt-4 surface-card p-3">
           <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">OCR text</div>
           <pre className="font-mono text-mini whitespace-pre-wrap break-words text-slate-700 dark:text-slate-300 max-h-[40vh] overflow-auto">
             {ocr}
@@ -174,10 +174,7 @@ export default function ScreenshotIntel(): JSX.Element {
       {ents.length > 0 && (
         <div className="mt-4 grid gap-2 sm:grid-cols-2">
           {ents.map(([k, vs]) => (
-            <div
-              key={k}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
-            >
+            <div key={k} className="surface-card p-3">
               <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">
                 {k} · {vs.length}
               </div>
@@ -197,7 +194,7 @@ export default function ScreenshotIntel(): JSX.Element {
       )}
 
       {meta && (
-        <div className="mt-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3">
+        <div className="mt-4 surface-card p-3">
           <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-2">EXIF / metadata</div>
           <pre className="font-mono text-mini overflow-auto max-h-[40vh] text-slate-700 dark:text-slate-300">
             {JSON.stringify(meta, (_k, v) => (v instanceof Date ? v.toISOString() : v), 2)}

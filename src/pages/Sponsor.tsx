@@ -1,4 +1,5 @@
 import { Mail } from 'lucide-react';
+import { Button } from '../components/ui/Button';
 
 const tiers = [
   {
@@ -76,13 +77,15 @@ export default function Sponsor() {
                   </li>
                 ))}
               </ul>
-              <a
+              <Button
                 href="mailto:hello@pranithjain.com?subject=Sponsorship%20Inquiry"
-                className="inline-flex items-center justify-center gap-2 rounded bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+                variant="primary-brand"
+                size="md"
+                icon={<Mail className="h-4 w-4" />}
+                fullWidth
               >
-                <Mail className="h-4 w-4" />
                 Get in Touch
-              </a>
+              </Button>
             </div>
           ))}
         </div>
@@ -131,13 +134,14 @@ export default function Sponsor() {
           <p className="text-base text-slate-700 dark:text-slate-300 leading-relaxed mb-4">
             Interested in sponsoring? Let's talk about what fits your goals.
           </p>
-          <a
+          <Button
             href="mailto:hello@pranithjain.com?subject=Sponsorship%20Inquiry"
-            className="inline-flex items-center justify-center gap-2 rounded bg-brand-600 px-6 py-3 text-sm font-semibold text-white hover:bg-brand-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+            variant="primary-brand"
+            size="lg"
+            icon={<Mail className="h-4 w-4" />}
           >
-            <Mail className="h-4 w-4" />
             hello@pranithjain.com
-          </a>
+          </Button>
         </div>
       </div>
     </>

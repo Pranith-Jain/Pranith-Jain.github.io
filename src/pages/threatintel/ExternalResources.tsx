@@ -247,7 +247,7 @@ export default function ExternalResources(): JSX.Element {
       )}
 
       {/* Research discovery + featured toggle */}
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <section className="surface-card p-4 mb-6">
         <div className="flex flex-wrap items-center gap-2">
           <button
             type="button"
@@ -314,7 +314,7 @@ export default function ExternalResources(): JSX.Element {
       </section>
 
       {/* Search */}
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <section className="surface-card p-4 mb-6">
         <div className="relative">
           <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
           <input
@@ -329,7 +329,7 @@ export default function ExternalResources(): JSX.Element {
       </section>
 
       {/* Kind pills */}
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <section className="surface-card p-4 mb-6">
         <div className="flex flex-wrap items-center gap-1.5">
           <span className="text-mini font-mono text-slate-500 mr-1">kind:</span>
           {ALL_KINDS.map((k) => {
@@ -356,7 +356,7 @@ export default function ExternalResources(): JSX.Element {
       </section>
 
       {/* Tag pills */}
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+      <section className="surface-card p-4 mb-6">
         <div className="flex flex-wrap items-center gap-1.5">
           <span className="text-mini font-mono text-slate-500 mr-1">tag:</span>
           {ALL_TAGS.map((t) => {
@@ -409,10 +409,7 @@ export default function ExternalResources(): JSX.Element {
 
       <ul className="grid gap-3 md:grid-cols-2">
         {filtered.map((r) => (
-          <li
-            key={r.id}
-            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
-          >
+          <li key={r.id} className="surface-card p-4">
             <div className="flex items-baseline justify-between gap-2 mb-1">
               <a
                 href={sanitizeUrl(r.url)}
