@@ -269,6 +269,14 @@ const ROUTES = [
   '/dfir/mcp-audit',
   '/dfir/agent-map',
   '/dfir/cve-prioritizer',
+  '/dfir/fusion-exposure',
+  '/dfir/risk-register',
+  '/dfir/attack-path',
+  '/dfir/grc-evidence',
+  '/dfir/vulnerability-ops',
+  '/dfir/ransomware-quant',
+  '/dfir/patch-task-mgr',
+  '/dfir/soc-automation',
 
   // ── DFIR: cloud security (7) — 0 API calls ────────────────────
   '/dfir/iam-analyzer',

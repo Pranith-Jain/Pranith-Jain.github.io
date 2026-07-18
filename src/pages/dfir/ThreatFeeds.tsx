@@ -453,7 +453,7 @@ export default function ThreatFeeds(): JSX.Element {
       {showDigest && (
         <div className="mb-6">
           <FeedDigestPanel
-            items={annotated.slice(0, 50).map(({ item }) => ({
+            items={annotated.slice(0, 30).map(({ item }) => ({
               title: item.title,
               description: item.description,
               source: item.source,

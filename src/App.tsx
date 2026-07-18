@@ -77,6 +77,14 @@ const SecurityGroupAnalyzer = lazy(() => import('./pages/dfir/SecurityGroupAnaly
 const CloudTrailTriage = lazy(() => import('./pages/dfir/CloudTrailTriage'));
 const K8sRbacAnalyzer = lazy(() => import('./pages/dfir/K8sRbacAnalyzer'));
 const CvePrioritizer = lazy(() => import('./pages/dfir/CvePrioritizer'));
+const FusionExposure = lazy(() => import('./pages/dfir/FusionExposure'));
+const RiskRegister = lazy(() => import('./pages/dfir/RiskRegister'));
+const AttackPathGraph = lazy(() => import('./pages/dfir/AttackPathGraph'));
+const GrcEvidence = lazy(() => import('./pages/dfir/GrcEvidence'));
+const VulnerabilityOps = lazy(() => import('./pages/dfir/VulnerabilityOps'));
+const RansomwareQuant = lazy(() => import('./pages/dfir/RansomwareQuant'));
+const PatchTaskMgr = lazy(() => import('./pages/dfir/PatchTaskMgr'));
+const SocAutomation = lazy(() => import('./pages/dfir/SocAutomation'));
 const RuleConverter = lazy(() => import('./pages/dfir/RuleConverter'));
 const LinuxTriage = lazy(() => import('./pages/dfir/LinuxTriage'));
 const TerraformScanner = lazy(() => import('./pages/dfir/TerraformScanner'));
@@ -473,6 +481,14 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/cloudtrail-triage', Component: CloudTrailTriage },
   { path: '/dfir/k8s-rbac', Component: K8sRbacAnalyzer },
   { path: '/dfir/cve-prioritizer', Component: CvePrioritizer },
+  { path: '/dfir/fusion-exposure', Component: FusionExposure },
+  { path: '/dfir/risk-register', Component: RiskRegister },
+  { path: '/dfir/attack-path', Component: AttackPathGraph },
+  { path: '/dfir/grc-evidence', Component: GrcEvidence },
+  { path: '/dfir/vulnerability-ops', Component: VulnerabilityOps },
+  { path: '/dfir/ransomware-quant', Component: RansomwareQuant },
+  { path: '/dfir/patch-task-mgr', Component: PatchTaskMgr },
+  { path: '/dfir/soc-automation', Component: SocAutomation },
   { path: '/dfir/rule-converter', Component: RuleConverter },
   { path: '/dfir/linux-triage', Component: LinuxTriage },
   { path: '/dfir/terraform-scan', Component: TerraformScanner },

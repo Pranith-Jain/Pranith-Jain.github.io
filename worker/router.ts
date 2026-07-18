@@ -224,6 +224,14 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/mcp-audit', '/__prerendered/dfir__mcp-audit'],
   ['/dfir/agent-map', '/__prerendered/dfir__agent-map'],
   ['/dfir/cve-prioritizer', '/__prerendered/dfir__cve-prioritizer'],
+  ['/dfir/fusion-exposure', '/__prerendered/dfir__fusion-exposure'],
+  ['/dfir/risk-register', '/__prerendered/dfir__risk-register'],
+  ['/dfir/attack-path', '/__prerendered/dfir__attack-path'],
+  ['/dfir/grc-evidence', '/__prerendered/dfir__grc-evidence'],
+  ['/dfir/vulnerability-ops', '/__prerendered/dfir__vulnerability-ops'],
+  ['/dfir/ransomware-quant', '/__prerendered/dfir__ransomware-quant'],
+  ['/dfir/patch-task-mgr', '/__prerendered/dfir__patch-task-mgr'],
+  ['/dfir/soc-automation', '/__prerendered/dfir__soc-automation'],
 
   // ── DFIR: cloud security ──────────────────────────────────────
   ['/dfir/iam-analyzer', '/__prerendered/dfir__iam-analyzer'],

@@ -537,6 +537,65 @@ import {
   telegramLeakBotWebhookStatusHandler,
 } from './routes/telegram-leak-bot';
 import { exploitDbHandler } from './routes/exploit-db';
+import { fusionExposureHandler } from './routes/fusion-exposure';
+import {
+  riskRegisterListHandler,
+  riskRegisterGetHandler,
+  riskRegisterCreateHandler,
+  riskRegisterUpdateHandler,
+  riskRegisterDeleteHandler,
+  riskRegisterStatsHandler,
+} from './routes/risk-register';
+import { attackPathGraphHandler } from './routes/attack-path-graph';
+import {
+  grcListFrameworks,
+  grcGetFramework,
+  grcUpdateFramework,
+  grcListControls,
+  grcGetControl,
+  grcCreateControl,
+  grcUpdateControl,
+  grcDeleteControl,
+  grcListEvidence,
+  grcGetEvidence,
+  grcCreateEvidence,
+  grcUpdateEvidence,
+  grcDeleteEvidence,
+  grcStats,
+} from './routes/grc-evidence';
+import { vocList, vocGet, vocCreate, vocUpdate, vocDelete, vocStats } from './routes/vulnerability-ops';
+import {
+  ransomList,
+  ransomGet,
+  ransomCreate,
+  ransomUpdate,
+  ransomDelete,
+  ransomStats,
+} from './routes/ransomware-quant';
+import {
+  ptmListPatches,
+  ptmGetPatch,
+  ptmCreatePatch,
+  ptmUpdatePatch,
+  ptmDeletePatch,
+  ptmListWindows,
+  ptmGetWindow,
+  ptmCreateWindow,
+  ptmUpdateWindow,
+  ptmDeleteWindow,
+  ptmStats,
+} from './routes/patch-task-mgr';
+import {
+  socListPlaybooks,
+  socGetPlaybook,
+  socCreatePlaybook,
+  socUpdatePlaybook,
+  socDeletePlaybook,
+  socExecutePlaybook,
+  socListRuns,
+  socGetRun,
+  socStats,
+} from './routes/soc-automation';
 import { securityUpdatesHandler } from './routes/security-updates';
 import { cisaKevHandler } from './routes/cisa-kev';
 import { certInHandler } from './routes/cert-in';
@@ -1634,6 +1693,75 @@ app.post('/api/v1/open-dir/scan', validate('json', openDirScanSchema), openDirec
 // ── Exposed Host Intelligence ────────────────────────────────────
 app.get('/api/v1/exposed-host', exposedHostHandler);
 app.get('/api/v1/exploit-db', validate('query', exploitDbSchema), exploitDbHandler);
+app.get('/api/v1/fusion-exposure', fusionExposureHandler);
+
+// ── Risk Register ───────────────────────────────────────────────────
+app.get('/api/v1/risk-register', riskRegisterListHandler);
+app.get('/api/v1/risk-register/stats', riskRegisterStatsHandler);
+app.get('/api/v1/risk-register/:id', riskRegisterGetHandler);
+app.post('/api/v1/risk-register', riskRegisterCreateHandler);
+app.put('/api/v1/risk-register/:id', riskRegisterUpdateHandler);
+app.delete('/api/v1/risk-register/:id', riskRegisterDeleteHandler);
+
+// ── Attack Path Graph ────────────────────────────────────────────────
+app.get('/api/v1/attack-path-graph', attackPathGraphHandler);
+
+// ── GRC Compliance Evidence ──────────────────────────────────────────
+app.get('/api/v1/grc/frameworks', grcListFrameworks);
+app.get('/api/v1/grc/frameworks/:id', grcGetFramework);
+app.put('/api/v1/grc/frameworks/:id', grcUpdateFramework);
+app.get('/api/v1/grc/controls', grcListControls);
+app.get('/api/v1/grc/controls/:id', grcGetControl);
+app.post('/api/v1/grc/controls', grcCreateControl);
+app.put('/api/v1/grc/controls/:id', grcUpdateControl);
+app.delete('/api/v1/grc/controls/:id', grcDeleteControl);
+app.get('/api/v1/grc/evidence', grcListEvidence);
+app.get('/api/v1/grc/evidence/:id', grcGetEvidence);
+app.post('/api/v1/grc/evidence', grcCreateEvidence);
+app.put('/api/v1/grc/evidence/:id', grcUpdateEvidence);
+app.delete('/api/v1/grc/evidence/:id', grcDeleteEvidence);
+app.get('/api/v1/grc/stats', grcStats);
+
+// ── Vulnerability Ops (VOC) ─────────────────────────────────────────
+app.get('/api/v1/voc', vocList);
+app.get('/api/v1/voc/stats', vocStats);
+app.get('/api/v1/voc/:id', vocGet);
+app.post('/api/v1/voc', vocCreate);
+app.put('/api/v1/voc/:id', vocUpdate);
+app.delete('/api/v1/voc/:id', vocDelete);
+
+// ── Ransomware Quantification ───────────────────────────────────────
+app.get('/api/v1/ransomware', ransomList);
+app.get('/api/v1/ransomware/stats', ransomStats);
+app.get('/api/v1/ransomware/:id', ransomGet);
+app.post('/api/v1/ransomware', ransomCreate);
+app.put('/api/v1/ransomware/:id', ransomUpdate);
+app.delete('/api/v1/ransomware/:id', ransomDelete);
+
+// ── Patch & Task Manager (PTM) ──────────────────────────────────────
+app.get('/api/v1/ptm/patches', ptmListPatches);
+app.get('/api/v1/ptm/patches/:id', ptmGetPatch);
+app.post('/api/v1/ptm/patches', ptmCreatePatch);
+app.put('/api/v1/ptm/patches/:id', ptmUpdatePatch);
+app.delete('/api/v1/ptm/patches/:id', ptmDeletePatch);
+app.get('/api/v1/ptm/windows', ptmListWindows);
+app.get('/api/v1/ptm/windows/:id', ptmGetWindow);
+app.post('/api/v1/ptm/windows', ptmCreateWindow);
+app.put('/api/v1/ptm/windows/:id', ptmUpdateWindow);
+app.delete('/api/v1/ptm/windows/:id', ptmDeleteWindow);
+app.get('/api/v1/ptm/stats', ptmStats);
+
+// ── SOC Automation ──────────────────────────────────────────────────
+app.get('/api/v1/soc/playbooks', socListPlaybooks);
+app.get('/api/v1/soc/playbooks/:id', socGetPlaybook);
+app.post('/api/v1/soc/playbooks', socCreatePlaybook);
+app.put('/api/v1/soc/playbooks/:id', socUpdatePlaybook);
+app.delete('/api/v1/soc/playbooks/:id', socDeletePlaybook);
+app.post('/api/v1/soc/playbooks/:id/execute', socExecutePlaybook);
+app.get('/api/v1/soc/runs', socListRuns);
+app.get('/api/v1/soc/runs/:id', socGetRun);
+app.get('/api/v1/soc/stats', socStats);
+
 app.get('/api/v1/security-updates', validate('query', securityUpdatesSchema), securityUpdatesHandler);
 app.get('/api/v1/cisa-kev', validate('query', cisaKevSchema), cisaKevHandler);
 import { stixIpEnrichHandler, stixIpEnrichBatchHandler } from './routes/stix-ip-enrich';
