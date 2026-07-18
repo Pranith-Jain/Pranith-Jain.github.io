@@ -58,6 +58,7 @@ import {
   Bot,
   Bug,
   FileText,
+  AlertTriangle,
   type LucideIcon,
 } from 'lucide-react';
 import type { FeatureFlag } from '../../lib/features';
@@ -557,6 +558,72 @@ export const SECTIONS: Section[] = [
         label: 'JWT Inspector',
         desc: 'Decode + flag alg=none, exp, weak claims',
         icon: KeyRound,
+      },
+    ],
+  },
+  // ── CTEM & Exposure Management ─────────────────────────────────────
+  {
+    id: 'ctem',
+    group: 'specialized',
+    label: 'CTEM & Exposure Management',
+    blurb:
+      'Fusion scoring, attack path analysis, risk register, GRC evidence, vuln ops, ransomware quantification, patch management, SOC automation.',
+    tools: [
+      {
+        path: '/dfir/fusion-exposure',
+        useCase: 'Rank exposures by composite CVSS/KEV/EPSS/Exploit-DB score.',
+        label: 'Fusion Exposure Worklist',
+        desc: '4-dimension weighted scoring · per-dimension breakdown · ranked worklist · source links',
+        icon: Crosshair,
+      },
+      {
+        path: '/dfir/risk-register',
+        useCase: 'Log a risk with FAIR quantification and track it through treatment.',
+        label: 'Risk Register',
+        desc: 'Inherent · current · residual levels · FAIR quantification · treatment plans · lifecycle states',
+        icon: AlertTriangle,
+      },
+      {
+        path: '/dfir/attack-path',
+        useCase: 'Find the shortest path from an exposed asset to a crown jewel.',
+        label: 'Attack Path Graph',
+        desc: 'BFS shortest-path · choke-point detection · force-directed SVG graph · demo fallback',
+        icon: GitBranch,
+      },
+      {
+        path: '/dfir/grc-evidence',
+        useCase: 'Map controls to a framework and attach evidence artifacts.',
+        label: 'GRC Compliance Evidence',
+        desc: 'Framework selector (SOC2/ISO27001/NIST/PCI/HIPAA) · control tree · evidence status workflow',
+        icon: ShieldCheck,
+      },
+      {
+        path: '/dfir/vulnerability-ops',
+        useCase: 'Track a vuln from intake through triage to SLA deadline.',
+        label: 'Vulnerability Ops (VOC)',
+        desc: 'Intake · triage · SLA deadlines · severity/status/source filters · recurrence tracking',
+        icon: Bug,
+      },
+      {
+        path: '/dfir/ransomware-quant',
+        useCase: 'Model the financial impact of a ransomware scenario.',
+        label: 'Ransomware Quantification',
+        desc: '7 cost dimensions · insurance recovery · scenario save/load · cost bar charts',
+        icon: Coins,
+      },
+      {
+        path: '/dfir/patch-task-mgr',
+        useCase: 'Schedule a critical patch during the next maintenance window.',
+        label: 'Patch & Task Manager',
+        desc: 'Vendor advisory intake · maintenance windows · approval · deploy tracking',
+        icon: Server,
+      },
+      {
+        path: '/dfir/soc-automation',
+        useCase: 'Build and run a SOC playbook with one click.',
+        label: 'SOC Automation Engine',
+        desc: 'Playbook CRUD · configurable actions (webhook/email/slack/KB/MCP) · run history · per-action results',
+        icon: Bot,
       },
     ],
   },
