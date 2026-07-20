@@ -20,7 +20,17 @@ export function PageMeta({ title, description, section, canonicalPath, fullTitle
     : `${siteUrl}/og-image.svg`;
 
   const ogUrl = canonicalPath ? `${siteUrl}${canonicalPath}` : siteUrl;
-  const ogType = section === 'Threat Intel' || section === 'DFIR' ? 'website' : 'profile';
+  // Product surfaces (codenames + legacy section labels) are tools, not profile pages.
+  const productSections = new Set([
+    'CRUCIBLE',
+    'PANOPTICON',
+    'SCOUT',
+    'ARGUS',
+    'CVE & KEV Catalog',
+    'Threat Intel',
+    'DFIR',
+  ]);
+  const ogType = section && productSections.has(section) ? 'website' : 'profile';
 
   return (
     <>

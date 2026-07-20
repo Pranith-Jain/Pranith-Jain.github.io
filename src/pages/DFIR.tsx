@@ -19,7 +19,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { MAIN_TOOL_COUNT } from '../components/dfir/tool-sections';
-import { catalogSearch } from '../data/dfir-catalog';
+import { catalogSearch, CATALOG } from '../data/dfir-catalog';
 import { useRecentTools } from '../hooks/useRecentTools';
 import { getSidebarForSection } from '../data/sidebar-nav';
 import { DfirStructuredData } from '../components/ToolStructuredData';
@@ -27,6 +27,7 @@ import { FaqStructuredData, HowToStructuredData } from '../components/FaqStructu
 import { BreadcrumbListSchema } from '../components/BreadcrumbStructuredData';
 import { PageMeta } from '../components/PageMeta';
 import { DFIR_FAQ } from '../data/dfir-faq';
+import { PRODUCTS } from '../lib/product-brands';
 
 /**
  * DFIR home page — redesigned following SaaS UX patterns from
@@ -58,7 +59,11 @@ interface CategoryCard {
   icon: LucideIcon;
   href: string;
   tone: string;
-  pages: number;
+}
+
+/** Live page counts from the hub registry — never hard-code. */
+function hubPageCount(hubId: string): number {
+  return CATALOG.find((h) => h.id === hubId)?.pages.length ?? 0;
 }
 
 const CATEGORY_CARDS: CategoryCard[] = [
@@ -69,7 +74,6 @@ const CATEGORY_CARDS: CategoryCard[] = [
     icon: Crosshair,
     href: '/dfir/catalog?cat=ioc-triage',
     tone: 'text-rose-600 dark:text-rose-400 hover:border-rose-500/40',
-    pages: 9,
   },
   {
     id: 'malware',
@@ -78,7 +82,6 @@ const CATEGORY_CARDS: CategoryCard[] = [
     icon: Bug,
     href: '/dfir/catalog?cat=malware',
     tone: 'text-orange-600 dark:text-orange-400 hover:border-orange-500/40',
-    pages: 7,
   },
   {
     id: 'email',
@@ -87,7 +90,6 @@ const CATEGORY_CARDS: CategoryCard[] = [
     icon: Mail,
     href: '/dfir/catalog?cat=email',
     tone: 'text-violet-600 dark:text-violet-400 hover:border-violet-500/40',
-    pages: 9,
   },
   {
     id: 'cloud',
@@ -96,7 +98,6 @@ const CATEGORY_CARDS: CategoryCard[] = [
     icon: Shield,
     href: '/dfir/catalog?cat=cloud',
     tone: 'text-emerald-600 dark:text-emerald-400 hover:border-emerald-500/40',
-    pages: 9,
   },
   {
     id: 'detection',
@@ -105,7 +106,6 @@ const CATEGORY_CARDS: CategoryCard[] = [
     icon: FileSearch,
     href: '/dfir/catalog?cat=detection',
     tone: 'text-amber-600 dark:text-amber-400 hover:border-amber-500/40',
-    pages: 8,
   },
   {
     id: 'artifacts',
@@ -114,7 +114,6 @@ const CATEGORY_CARDS: CategoryCard[] = [
     icon: FileText,
     href: '/dfir/catalog?cat=artifacts',
     tone: 'text-sky-600 dark:text-sky-400 hover:border-sky-500/40',
-    pages: 8,
   },
   {
     id: 'domain-network',
@@ -123,7 +122,6 @@ const CATEGORY_CARDS: CategoryCard[] = [
     icon: Globe,
     href: '/dfir/catalog?cat=domain-network',
     tone: 'text-pink-600 dark:text-pink-400 hover:border-pink-500/40',
-    pages: 9,
   },
   {
     id: 'frameworks',
@@ -132,7 +130,6 @@ const CATEGORY_CARDS: CategoryCard[] = [
     icon: GitBranch,
     href: '/dfir/catalog?cat=frameworks',
     tone: 'text-indigo-600 dark:text-indigo-400 hover:border-indigo-500/40',
-    pages: 8,
   },
 ];
 
@@ -232,9 +229,9 @@ export default function DFIRPage(): JSX.Element {
   return (
     <>
       <PageMeta
-        title="DFIR Toolkit"
-        description="60+ browser-side security tools for incident response, forensics, and detection engineering. IOC checks, CVE triage, rule conversion, and more."
-        section="DFIR"
+        title={PRODUCTS.crucible.code}
+        description={`${MAIN_TOOL_COUNT}+ browser-side security tools for incident response, forensics, and detection engineering. IOC checks, CVE triage, rule conversion, and more.`}
+        section={PRODUCTS.crucible.metaSection}
         canonicalPath="/dfir"
         ogImage="/og-dfir.svg"
       />
@@ -243,13 +240,13 @@ export default function DFIRPage(): JSX.Element {
         <BreadcrumbListSchema
           items={[
             { name: 'Home', url: 'https://pranithjain.qzz.io' },
-            { name: 'DFIR Toolkit', url: 'https://pranithjain.qzz.io/dfir' },
+            { name: PRODUCTS.crucible.code, url: 'https://pranithjain.qzz.io/dfir' },
           ]}
         />
         <FaqStructuredData entries={DFIR_FAQ} />
         <HowToStructuredData
-          name="How to triage an indicator of compromise with the DFIR toolkit"
-          description="Three-step browser-side workflow: pick a tool, paste the indicator, read the aggregated verdict. No signup, no data egress."
+          name="How to triage an indicator of compromise with CRUCIBLE"
+          description="Three-step browser-side workflow: pick a tool, paste the indicator, read the aggregated verdict. No signup required."
           steps={[
             {
               name: 'Pick a tool',
@@ -257,7 +254,7 @@ export default function DFIRPage(): JSX.Element {
             },
             {
               name: 'Paste the indicator',
-              text: 'Drop the value into the input field. The page calls public APIs directly from your browser using fetch, in parallel.',
+              text: 'Drop the value into the input field. Many tools call public APIs from your browser in parallel; some use edge-hosted providers.',
             },
             {
               name: 'Read the verdict',
@@ -272,9 +269,7 @@ export default function DFIRPage(): JSX.Element {
         <section className="surface-elevated relative p-6 sm:p-10 lg:p-12">
           <div aria-hidden className="pointer-events-none absolute top-0 left-0 h-px w-12 bg-brand-500/60" />
 
-          {/* Status ribbon — single source of "is the platform working?".
-            The pulse uses the .live-pulse utility (see index.css) so it's
-            one animation, not a per-element keyframe. */}
+          {/* Status ribbon — product-accurate kicker (not blanket "local only"). */}
           <div className="mb-5 sm:mb-7 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-mini uppercase tracking-[0.16em] text-slate-500">
             <span className="inline-flex items-center gap-1.5">
               <span className="relative inline-flex h-1.5 w-1.5">
@@ -587,7 +582,7 @@ export default function DFIRPage(): JSX.Element {
                           <div className="flex items-center gap-1.5 text-slate-500">
                             <dt className="uppercase tracking-wider opacity-70">tools</dt>
                             <dd className="font-semibold tabular-nums text-slate-700 dark:text-slate-300">
-                              {cat.pages}
+                              {hubPageCount(cat.id)}
                             </dd>
                           </div>
                           <span className="inline-flex items-center gap-0.5 text-slate-500 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">

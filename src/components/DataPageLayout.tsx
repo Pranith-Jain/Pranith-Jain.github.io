@@ -2,6 +2,9 @@ import { createContext, useContext, type ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ArrowLeft, Loader2, AlertTriangle, RefreshCw } from 'lucide-react';
 import { backCategoryFor } from '../lib/back-link';
+import { accentClassForPath, metaSectionForPath, productForPath } from '../lib/product-brands';
+import { PageMeta } from './PageMeta';
+import { EmptyState } from './ui/EmptyState';
 
 /**
  * When a `DataPageLayout` is already mounted higher in the tree, nested
@@ -51,15 +54,24 @@ export interface DataPageLayoutProps {
    *  `/threatintel/catalog?cat=predictive`, so "back" should return to
    *  the portfolio home, not the threat-intel hub). */
   backToOverride?: string;
-  /** Accent color for the H1 icon. Defaults to brand (blue, for DFIR).
-   *  Pass e.g. "text-rose-600 dark:text-rose-400" for threat-intel pages so
-   *  the header icon matches the page accent. */
+  /** Accent color for the H1 icon. When omitted, derived from the route
+   *  (brand for CRUCIBLE/SCOUT, rose for PANOPTICON / CVE catalog). */
   accentClass?: string;
+  /** Skip automatic <PageMeta> (e.g. when the page sets its own). */
+  skipMeta?: boolean;
+  /** Optional meta description override when `description` is not a string. */
+  metaDescription?: string;
+}
+
+function descriptionText(description: ReactNode | undefined, metaDescription?: string): string | undefined {
+  if (metaDescription) return metaDescription;
+  if (typeof description === 'string') return description;
+  return undefined;
 }
 
 export function DataPageLayout({
   backTo,
-  backLabel = 'back',
+  backLabel,
   icon,
   title,
   description,
@@ -75,7 +87,9 @@ export function DataPageLayout({
   maxWidthClass = 'max-w-5xl',
   hideBack = false,
   backToOverride,
-  accentClass = 'text-brand-600 dark:text-brand-400',
+  accentClass,
+  skipMeta = false,
+  metaDescription,
 }: DataPageLayoutProps): JSX.Element {
   // Smart back target: return to the category-filtered hub the user likely came
   // from (e.g. /threatintel/c/knowledge) when one is mapped for this route, else
@@ -85,23 +99,40 @@ export function DataPageLayout({
   // pages surfaced as cross-surface cards where "back" should return to the
   // parent surface (e.g. portfolio home), not the threatintel hub.
   const { pathname } = useLocation();
+  const insideLayout = useInsideDataPageLayout();
+  const product = productForPath(pathname);
   const backTarget = backToOverride ?? backCategoryFor(pathname) ?? backTo;
+  const resolvedBackLabel = backLabel ?? product.backLabel;
+  const resolvedAccent = accentClass ?? accentClassForPath(pathname);
+  const metaDesc = descriptionText(description, metaDescription);
+
   return (
     <div
       className={`${maxWidthClass} mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100 ${className ?? ''}`}
     >
+      {/* Outermost layout owns document meta so every tool page gets a
+          product-scoped title without each page wiring PageMeta by hand. */}
+      {!insideLayout && !skipMeta && (
+        <PageMeta
+          title={title}
+          description={metaDesc}
+          section={metaSectionForPath(pathname)}
+          canonicalPath={pathname}
+        />
+      )}
+
       {!hideBack && (
         <Link
           to={backTarget}
           className="inline-flex items-center gap-1.5 px-3 py-1.5 -ml-3 text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[rgb(var(--hover-100))] rounded-lg mb-8 font-mono transition-colors"
         >
-          <ArrowLeft size={14} /> {backLabel}
+          <ArrowLeft size={14} /> {resolvedBackLabel}
         </Link>
       )}
 
       <div className="animate-fade-in-up mb-10">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold tracking-[-1.28px] mb-2 flex items-center gap-3">
-          <span className={accentClass}>{icon}</span> {title}
+          <span className={resolvedAccent}>{icon}</span> {title}
         </h1>
         {description && <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">{description}</p>}
         {headerExtra && <div className="mt-4">{headerExtra}</div>}
@@ -114,7 +145,10 @@ export function DataPageLayout({
         >
           <div className="flex items-center gap-3">
             <AlertTriangle size={16} className="text-rose-600 dark:text-rose-400 flex-shrink-0" />
-            <p className="text-sm text-rose-700 dark:text-rose-300">{error}</p>
+            <div>
+              <p className="text-sm font-medium text-rose-800 dark:text-rose-200">Couldn&rsquo;t load this.</p>
+              <p className="text-sm text-rose-700 dark:text-rose-300">{error}</p>
+            </div>
           </div>
           {onRetry && (
             <button
@@ -129,18 +163,17 @@ export function DataPageLayout({
       )}
 
       {loading ? (
-        <div className="flex items-center justify-center py-16" role="status" aria-live="polite">
+        <div className="flex items-center justify-center py-16" role="status" aria-live="polite" aria-busy="true">
           <Loader2 size={24} className="animate-spin text-slate-400" aria-hidden="true" />
           <span className="sr-only">Loading…</span>
         </div>
       ) : empty ? (
-        <div
-          className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center"
-          role="status"
-        >
-          {emptyIcon && <div className="mb-3">{emptyIcon}</div>}
-          <p className="text-sm text-slate-500 dark:text-slate-400">{emptyMessage}</p>
-        </div>
+        <EmptyState
+          icon={emptyIcon}
+          title={emptyMessage}
+          size="md"
+          className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))]"
+        />
       ) : (
         <DataPageLayoutContext value>
           <div className="animate-fade-in-up">{children}</div>

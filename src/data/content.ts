@@ -596,7 +596,7 @@ export const navLinks: NavLinkExt[] = [
     ],
   },
   {
-    label: 'Threat Intel',
+    label: 'PANOPTICON',
     href: '/threatintel',
     children: [
       { label: 'Catalog', href: '/threatintel/catalog' },
@@ -606,11 +606,12 @@ export const navLinks: NavLinkExt[] = [
       { label: 'Intel Dashboard', href: '/threatintel/predictive/dashboard' },
       { label: 'Most Wanted', href: '/threatintel/most-wanted' },
       { label: 'Actor KB', href: '/threatintel/actors/directory' },
+      { label: 'CVE & KEV Catalog', href: '/threat-intel' },
     ],
   },
   {
-    label: 'DFIR',
-    href: '/dfir/catalog',
+    label: 'CRUCIBLE',
+    href: '/dfir',
     children: [
       { label: 'Catalog', href: '/dfir/catalog' },
       { label: 'IOC Check', href: '/dfir/ioc-check' },

@@ -1,19 +1,14 @@
 /**
  * Reusable UI Component Library
  *
- * Production-ready components with:
- * - Full accessibility (ARIA attributes, keyboard navigation)
- * - Responsive design
- * - Dark mode support
- * - Loading states and edge cases
- * - Memoized for performance
+ * Prefer these primitives for new tool pages instead of one-off Tailwind
+ * buttons/inputs. Keeps focus rings, sizes, empty states, and copy UX
+ * consistent across CRUCIBLE / PANOPTICON / SCOUT.
  */
 
-// Existing components
 export { ScrollProgress } from './ScrollProgress';
 export { BackToTop } from './BackToTop';
 
-// New reusable components
 // (ui/Badge removed — consolidated onto the canonical components/Badge.tsx
 //  Badge + SeverityPill, the documented single source of truth.)
 
@@ -24,7 +19,20 @@ export { EmptyState } from './EmptyState';
 
 export { Tooltip } from './Tooltip';
 
-export { CopyButton } from './CopyButton';
+export { CopyButton, CopyChip } from './CopyButton';
 
 export { StatusIndicator } from './StatusIndicator';
 export type { Status } from './StatusIndicator';
+
+export { Button } from './Button';
+export type { ButtonProps, ButtonVariant, ButtonSize } from './Button';
+
+export { TextField } from './TextField';
+export { SearchInput } from './SearchInput';
+export { Spinner } from './Spinner';
+export { Modal } from './Modal';
+export { TabBar } from './TabBar';
+export { Tabs } from './Tabs';
+export type { Toast } from './Toast';
+export { ToastProvider, useToast } from './Toast';
+export { FilterBar } from './FilterBar';

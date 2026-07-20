@@ -63,8 +63,8 @@ const ROUTE_LABELS: Record<string, string> = {
   '/dfir/owasp': 'OWASP Top 10',
   '/dfir/tools': 'All Tools',
   '/dfir/tools/about': 'About the Toolkit',
-  // ── Threat Intel ────────────────────────────────────────────
-  '/threatintel': 'Threat Intel',
+  // ── PANOPTICON (threat intel) ────────────────────────────────
+  '/threatintel': 'PANOPTICON',
   '/threatintel/threat-landscape': 'Threat Landscape',
   '/threatintel/threat-actor-catalog': 'Threat Actor Catalog',
   '/threatintel/actors': 'Actor Directory',
@@ -88,7 +88,7 @@ const ROUTE_LABELS: Record<string, string> = {
   '/threatintel/feeds': 'Feed Hub',
   '/threatintel/external': 'External Resources',
   '/threatintel/wiki': 'Knowledge Base',
-  '/threatintel/about': 'About',
+  '/threatintel/about': 'About PANOPTICON',
   '/threatintel/research-hub': 'Research Hub',
   '/threatintel/predictive': 'Predictive Intel',
   '/threatintel/metrics': 'Metrics',
@@ -96,6 +96,10 @@ const ROUTE_LABELS: Record<string, string> = {
   '/threatintel/malpedia': 'Malpedia',
   '/threatintel/ti-dashboard': 'TI Dashboard',
   '/threatintel/cti-dashboard': 'CTI Dashboard',
+  // ── CRUCIBLE home ────────────────────────────────────────────
+  '/dfir': 'CRUCIBLE',
+  // ── SCOUT ────────────────────────────────────────────────────
+  '/radar': 'SCOUT',
 };
 
 /**
@@ -160,8 +164,8 @@ export function AppShell({ mode, isDark, onToggleTheme, children }: AppShellProp
   useEffect(() => {
     setMobileNavOpen(false);
     // Record the visit for the "Recently used" row on the home pages.
-    // Section-prefixed so a DFIR visitor doesn't see Threat Intel
-    // visits in their DFIR "Recently used" row.
+    // Section-prefixed so a CRUCIBLE visitor doesn't see PANOPTICON
+    // visits in their "Recently used" row.
     const label = ROUTE_LABELS[location.pathname] ?? humaniseLastSegment(location.pathname);
     recordVisit(mode, location.pathname, label);
   }, [location.pathname, mode]);

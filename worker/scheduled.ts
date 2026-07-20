@@ -57,9 +57,6 @@ import { readAuthCookies, XAuthMissingError } from '../api/src/lib/twitter-auth-
 import { fetchRedditFeed } from '../api/src/routes/reddit-feed';
 import type { D1Database, ScheduledEvent, ExecutionContext } from '@cloudflare/workers-types';
 import { acquireCronLease, releaseCronLease, heartbeatCronLease } from './durable-objects/cron-lock';
-import { siCacheStats, loadSiIndex } from './lib/si-manifest';
-import { tiCacheStats, loadTiIndex } from './lib/threat-intel-manifest';
-import { bwCacheStats, loadBwIndex } from './lib/breach-watch-manifest';
 
 // Lease TTL for the cron single-flight gate. Generous so it covers the
 // worst-case job window (the briefing build runs well past the old 120s) —
@@ -86,65 +83,6 @@ import type { Env } from './env';
  *                  cache TTL bumped to 1h to match.
  */
 export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: ExecutionContext): Promise<void> {
-  // Security Investigator: log cache + manifest health once per cron tick.
-  // Cheap (in-memory); no I/O. If the counts drift, the next deploy will
-  // rebuild the manifest via scripts/build-si-manifest.mjs.
-  if (env.ASSETS) {
-    try {
-      const idx = await loadSiIndex(env.ASSETS as unknown as Fetcher);
-      const cache = siCacheStats();
-      console.log(
-        JSON.stringify({
-          job: 'si-stats',
-          counts: idx.counts,
-          cacheHits: cache.skills.hits + cache.queries.hits + cache.automations.hits,
-          cacheMisses: cache.skills.misses + cache.queries.misses + cache.automations.misses,
-        })
-      );
-    } catch (e) {
-      console.log(
-        JSON.stringify({ job: 'si-stats', status: 'failed', error: e instanceof Error ? e.message : String(e) })
-      );
-    }
-    // Threat Intel: log cache + manifest health once per cron tick.
-    try {
-      const idx = await loadTiIndex(env.ASSETS as unknown as Fetcher);
-      const cache = tiCacheStats();
-      console.log(
-        JSON.stringify({
-          job: 'ti-stats',
-          counts: idx.counts,
-          lastSyncedAt: idx.lastSyncedAt,
-          cacheHits: cache.cves.hits + cache.iocs.hits + cache.sectors.hits,
-          cacheMisses: cache.cves.misses + cache.iocs.misses + cache.sectors.misses,
-        })
-      );
-    } catch (e) {
-      console.log(
-        JSON.stringify({ job: 'ti-stats', status: 'failed', error: e instanceof Error ? e.message : String(e) })
-      );
-    }
-
-    // Breach Watch: log cache + manifest health once per cron tick.
-    try {
-      const idx = await loadBwIndex(env.ASSETS as unknown as Fetcher);
-      const cache = bwCacheStats();
-      console.log(
-        JSON.stringify({
-          job: 'bw-stats',
-          counts: idx.counts,
-          lastSyncedAt: idx.lastSyncedAt,
-          cacheHits: cache.breaches.hits,
-          cacheMisses: cache.breaches.misses,
-        })
-      );
-    } catch (e) {
-      console.log(
-        JSON.stringify({ job: 'bw-stats', status: 'failed', error: e instanceof Error ? e.message : String(e) })
-      );
-    }
-  }
-
   const cron = event.cron;
   const startMs = Date.now();
 
@@ -648,140 +586,8 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
             );
           }
 
-          // Cache-warm fan-out. Runs after the self-heal above, which was
-          // starved by the fan-out when placed after it.
-          const start = Date.now();
-          const baseUrl = (env as unknown as { SITE_URL?: string }).SITE_URL ?? 'https://pranithjain.qzz.io';
-
-          // (gp:warm feeds are warmed off this invocation entirely — enqueued at
-          // the top of the `0 * * * *` block, fetched one-per-message by the queue
-          // consumer — so they no longer compete for this cron's subrequest budget.)
-
-          const perSourceTargets = [
-            '/api/v1/threat-map',
-            '/api/v1/rules',
-            // Warm x-claims BEFORE ransomware-recent so the latter's cache-only
-            // read of X (FalconFeeds / @DailyDarkWeb) ransomware claims is fresh.
-            '/api/v1/x-claims',
-            '/api/v1/ransomware-recent',
-            // NOTE: /api/v1/telegram-feed intentionally NOT warmed here — the
-            // telegram leak scan above already scrapes t.me this run, and a second
-            // burst gets throttled by Telegram. The feed endpoint warms itself on
-            // the first real page visit.
-            '/api/v1/onion-watch',
-            '/api/v1/cve-recent',
-            '/api/v1/phishing-urls',
-            '/api/v1/malware-samples',
-            '/api/v1/reddit-feed',
-            '/api/v1/x-feed',
-            '/api/v1/detections',
-            // NOTE: /api/v1/global-pulse intentionally NOT warmed here — building it
-            // triggers its own ~80-subrequest fan-out *inside this cron invocation*,
-            // blowing the 50-subrequest cap before the KV-warm block below runs (so
-            // the gp:* feed keys never get written → telegram/x/reddit/cve come back
-            // empty on the page). global-pulse caches itself on the first page visit.
-            '/api/v1/crypto-scam-feed',
-            '/api/v1/breach-disclosures',
-            // NOTE: /api/v1/live-iocs intentionally NOT warmed here - its
-            // synchronous fan-out is 36 subrequests (one per registered feed
-            // source) plus 1 KV/queue write, blowing the 50-subrequest cap on
-            // the cache-warm Worker invocation when paired with the other 21
-            // endpoints fanned out above. The hourly cron already enqueues 36
-            // per-source queue messages; the consumer fills the per-colo
-            // Cache API slices, and the compose-on-read path serves from there.
-            // live-iocs warms itself on the first real page visit via the
-            // single-flight path in buildLiveIocsSingleFlight.
-            '/api/v1/deepdarkcti',
-            '/api/v1/stealer-forum-intel',
-            '/api/v1/cyber-crime',
-            '/api/v1/writeups',
-            '/api/v1/telegram-feed',
-            '/api/v1/secret-leaks',
-          ];
-          // USGS earthquake warmup — write to a dedicated cache key so
-          // global-pulse can read it without doing its own fetch.
-          async function warmUsgs() {
-            try {
-              const res = await fetch('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_day.geojson');
-              if (!res.ok) return;
-              const data = (await res.json()) as {
-                features: Array<{ properties: Record<string, unknown>; geometry: { coordinates: number[] } }>;
-              };
-              const events = data.features.map((f) => {
-                const p = f.properties;
-                const [lng, lat] = f.geometry.coordinates as [number, number, number?];
-                const mag = p.mag as number;
-                return {
-                  id: `eq-${p.code}`,
-                  kind: 'earthquake',
-                  title: p.title ?? `M${mag} earthquake`,
-                  description: p.place ?? 'Unknown location',
-                  lat,
-                  lng,
-                  magnitude: mag,
-                  timestamp: new Date(p.time as number).toISOString(),
-                  severity: mag >= 6 ? 'critical' : mag >= 5 ? 'high' : mag >= 4 ? 'medium' : 'low',
-                  source: 'USGS',
-                  url: p.url,
-                };
-              });
-              const cache = caches.default;
-              const usgsReq = new Request('https://usgs-earthquake-cache.internal/v1');
-              const usgsResp = new Response(JSON.stringify(events), {
-                headers: { 'content-type': 'application/json', 'cache-control': 'public, max-age=600' },
-              });
-              await cache.put(usgsReq, usgsResp);
-              console.log(JSON.stringify({ job: 'cache-warm', sub: 'usgs', events: events.length }));
-            } catch (e) {
-              console.error(
-                JSON.stringify({
-                  job: 'cache-warm',
-                  sub: 'usgs',
-                  status: 'failed',
-                  error: e instanceof Error ? e.message : String(e),
-                })
-              );
-            }
-          }
-          const composerTargets = [
-            '/api/v1/snapshot',
-            '/api/v1/ioc-snapshot',
-            // IOC correlation route: cross-source consensus that now includes
-            // Telegram leaks as source #25. Caches on read at 1h TTL; warming
-            // once per hour keeps the consensus fresh. The route does ~24
-            // subrequests to upstream feeds, well within the 50 cap when paired
-            // with the existing composer block.
-            '/api/v1/ioc-correlation',
-          ];
-          async function warm(path: string) {
-            const req = new Request(baseUrl + path, {
-              method: 'GET',
-              headers: { Referer: baseUrl + '/' },
-            });
-            const res = await apiApp.fetch(req, env as never, ctx);
-            await res.arrayBuffer();
-            return { path, status: res.status };
-          }
-          {
-            const perSource = await Promise.allSettled(perSourceTargets.map(warm));
-            const composers = await Promise.allSettled(composerTargets.map(warm));
-            // Warm USGS earthquakes into dedicated cache
-            await warmUsgs();
-            const allSettled = [...perSource, ...composers];
-            const allTargets = [...perSourceTargets, ...composerTargets];
-            const summary = allSettled
-              .map((r, i) => {
-                const path = allTargets[i];
-                return r.status === 'fulfilled'
-                  ? `${r.value.path}=${r.value.status}`
-                  : `${path}=err(${(r.reason as Error).message})`;
-              })
-              .join(' ');
-            console.log(JSON.stringify({ job: 'cache-warm', duration_ms: Date.now() - start, summary }));
-          }
-
-          // (gp:warm feeds are warmed via the queue, off this invocation — see the
-          // enqueueGpFeeds call at the top of this block.)
+          // (Cache-warm fan-out removed: routes cache on first real visit, which
+          // is more reliable than warming 26 endpoints within the 10ms CPU budget.)
 
           // === Watch engine ===
           try {
@@ -995,6 +801,7 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           // Results are cached in KV for the Open Directory Scanner tool.
           // Runs at :15 past the hour to avoid colliding with other jobs.
           try {
+            const baseUrl = (env as unknown as { SITE_URL?: string }).SITE_URL ?? 'https://pranithjain.qzz.io';
             const infraTargets = [
               'http://malware-traffic-analysis.net/',
               'http://cybercrime-tracker.net/',

@@ -3315,6 +3315,74 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     sectionLabel: 'DFIR · Triage',
     group: 'dfir',
   },
+  {
+    path: '/dfir/fusion-exposure',
+    label: 'Fusion Exposure Worklist',
+    description:
+      'Composite 4-dimension scoring (CVSS/KEV/EPSS/Exploit-DB) — ranked worklist with per-dimension breakdown.',
+    sectionLabel: 'DFIR · Operations',
+    group: 'dfir',
+    keywords: ['fusion', 'exposure', 'scoring', 'cvss', 'kev', 'epss', 'prioritization'],
+  },
+  {
+    path: '/dfir/risk-register',
+    label: 'Risk Register',
+    description: 'Full lifecycle CRUD with FAIR quantification, inherent->residual levels, and treatment plans.',
+    sectionLabel: 'DFIR · Operations',
+    group: 'dfir',
+    keywords: ['risk', 'register', 'fair', 'quantification', 'treatment'],
+  },
+  {
+    path: '/dfir/attack-path',
+    label: 'Attack Path Graph',
+    description:
+      'BFS shortest-path reachability from exposed assets to crown jewels — choke point detection, demo fallback.',
+    sectionLabel: 'DFIR · Operations',
+    group: 'dfir',
+    keywords: ['attack', 'path', 'graph', 'bfs', 'choke', 'crown jewel'],
+  },
+  {
+    path: '/dfir/grc-evidence',
+    label: 'GRC Compliance Evidence',
+    description:
+      'Framework selector (SOC2/ISO27001/NIST/PCI/HIPAA), control tree, evidence collection with inline status.',
+    sectionLabel: 'DFIR · Operations',
+    group: 'dfir',
+    keywords: ['grc', 'compliance', 'evidence', 'framework', 'control'],
+  },
+  {
+    path: '/dfir/vulnerability-ops',
+    label: 'Vulnerability Ops (VOC)',
+    description: 'Intake / triage / SLA tracking — severity, status, source filters with auto-computed deadlines.',
+    sectionLabel: 'DFIR · Operations',
+    group: 'dfir',
+    keywords: ['vulnerability', 'vuln', 'ops', 'sla', 'triage', 'patch'],
+  },
+  {
+    path: '/dfir/ransomware-quant',
+    label: 'Ransomware Quantification',
+    description: 'Scenario-based financial impact across 7 cost dimensions with insurance recovery modeling.',
+    sectionLabel: 'DFIR · Operations',
+    group: 'dfir',
+    keywords: ['ransomware', 'quantification', 'financial', 'insurance', 'scenario'],
+  },
+  {
+    path: '/dfir/patch-task-mgr',
+    label: 'Patch & Task Manager',
+    description: 'Vendor advisory intake, maintenance window scheduling, approval workflows, deploy tracking.',
+    sectionLabel: 'DFIR · Operations',
+    group: 'dfir',
+    keywords: ['patch', 'task', 'manager', 'ptm', 'maintenance', 'deploy'],
+  },
+  {
+    path: '/dfir/soc-automation',
+    label: 'SOC Automation Engine',
+    description:
+      'Playbook engine with configurable actions (webhook/email/slack/KB/MCP) — one-click execute, run history.',
+    sectionLabel: 'DFIR · Operations',
+    group: 'dfir',
+    keywords: ['soc', 'automation', 'playbook', 'webhook', 'orchestration'],
+  },
 
   {
     path: '/threatintel/catalog',

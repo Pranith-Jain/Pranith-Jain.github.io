@@ -12,18 +12,18 @@ interface SolutionPillar {
 
 const PILLARS: SolutionPillar[] = [
   {
-    title: 'DFIR Toolkit',
-    desc: 'Interactive analyst tools — IOC enrichment, domain triage, email defense, breach lookup, OSINT pivots, web/cert scanning. All client-side or edge-hosted.',
+    title: 'CRUCIBLE',
+    desc: 'DFIR toolkit — IOC enrichment, domain triage, email defense, breach lookup, OSINT pivots, web/cert scanning. Browser-side or edge-hosted.',
     href: '/dfir',
     icon: ShieldAlert,
-    bullets: ['60+ tools', 'IOC Checker', 'Email Defense (SPF/DKIM/DMARC)', 'Domain · ASN · Cert · Web'],
+    bullets: ['90+ tools', 'IOC Checker', 'Email Defense (SPF/DKIM/DMARC)', 'Domain · ASN · Cert · Web'],
   },
   {
-    title: 'Threat Intel Platform',
-    desc: 'Live CTI surface — ransomware leak claims, infostealer logs, CVE/KEV stream, Telegram/Bluesky/Mastodon firehose, dark-web watch, daily + weekly briefings.',
+    title: 'PANOPTICON',
+    desc: 'Threat intel platform — ransomware leak claims, infostealer logs, CVE/KEV stream, Telegram/Bluesky/Mastodon firehose, dark-web watch, daily + weekly briefings.',
     href: '/threatintel',
     icon: Activity,
-    bullets: ['40+ live feeds', 'Ransomware activity', 'Live CVE + KEV', 'Threat Pulse'],
+    bullets: ['100+ live feeds', 'Ransomware activity', 'Live CVE + KEV', 'Threat Pulse'],
   },
   {
     title: 'Knowledge Base',

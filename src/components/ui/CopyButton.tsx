@@ -121,3 +121,69 @@ export function CopyButton({
     </button>
   );
 }
+
+interface CopyChipProps {
+  /** Text to copy */
+  value: string;
+  /** Text shown next to the icon. Defaults to "copy" / "copied". */
+  label?: string;
+  /** A11y label for screen readers + tooltip text. */
+  title?: string;
+  className?: string;
+}
+
+/**
+ * Bordered chip with icon + short label — for toolbars and headers where
+ * the copy action needs to be visible (not icon-only).
+ */
+export function CopyChip({
+  value,
+  label = 'copy',
+  title = 'Copy to clipboard',
+  className = '',
+}: CopyChipProps): JSX.Element {
+  const [copied, setCopied] = useState(false);
+  const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
+    };
+  }, []);
+
+  const handleCopy = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(true);
+    } catch {
+      try {
+        const textArea = document.createElement('textarea');
+        textArea.value = value;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        setCopied(true);
+      } catch {
+        return;
+      }
+    }
+    if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
+    resetTimerRef.current = setTimeout(() => setCopied(false), 1200);
+  }, [value]);
+
+  return (
+    <button
+      type="button"
+      onClick={() => void handleCopy()}
+      title={title}
+      aria-label={copied ? 'Copied!' : title}
+      className={`text-xs font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 ${className}`}
+    >
+      {copied ? <Check size={11} /> : <Copy size={11} />}
+      {copied ? 'copied' : label}
+    </button>
+  );
+}

@@ -28,7 +28,7 @@ export interface TroyNode {
 export interface TroyEdge {
   from: string;
   to: string;
-  phase: string;
+  phase?: string;
   label?: string;
   kind?: string;
 }
