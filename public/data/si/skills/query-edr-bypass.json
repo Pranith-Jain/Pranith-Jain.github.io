@@ -1,5 +1,0 @@
-{
-  "slug": "query/edr-bypass",
-  "name": "query-edr-bypass",
-  "bodyMarkdown": "# EDR Bypass Detection Query\n\n**Category:** Detection Chokepoints | **Maturity:** Hunt | **FP Rate:** Medium\n**Techniques:** T1562.001, T1562.006 | **Log Sources:** Sysmon EID 6, EID 10, WEL 7036/7040\n\n```kql\nDeviceEvents\n| where Timestamp > ago(1h)\n| where ActionType == \"DriverLoaded\"\n| where AdditionalFields !contains \"Microsoft\"\n| extend LoadedBy = tostring(parse_json(AdditionalFields).LoadedImage)\n| where LoadedBy !in (\"csrss.exe\", \"svchost.exe\", \"lsass.exe\")\n| project Timestamp, DeviceName, LoadedBy, FileName=tostring(parse_json(AdditionalFields).FileName), SHA256=tostring(parse_json(AdditionalFields).SHA256)\n| sort by Timestamp desc\n```"
-}

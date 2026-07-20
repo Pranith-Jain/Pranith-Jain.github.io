@@ -294,9 +294,9 @@ foreach ($p in $phasesToRun) {
                     $jmespath = $parsed["jmespath"]
 
                     $rawResult = if ($jmespath) {
-                        az rest --method get --url $url --query $jmespath -o json 2>&1
+                        az rest --method get --url $url --query $jmespath -o json --only-show-errors 2>&1
                     } else {
-                        az rest --method get --url $url -o json 2>&1
+                        az rest --method get --url $url -o json --only-show-errors 2>&1
                     }
 
                     if ($LASTEXITCODE -eq 0) {
