@@ -1,5 +1,0 @@
-{
-  "slug": "query/oauth-device-code",
-  "name": "query-oauth-device-code",
-  "bodyMarkdown": "# OAuth Device Code Phishing Detection Query\n\n**Category:** Detection Chokepoints | **Maturity:** Hunt | **FP Rate:** Low\n**Techniques:** T1550.001 | **Log Sources:** Entra ID SigninLogs\n\n```kql\nSigninLogs\n| where TimeGenerated > ago(1h)\n| where AuthenticationProtocol == \"deviceCode\"\n| where AppId == \"29d9ed98-a469-4536-ade2-f981bc1d605e\"\n| where ResultType == 0\n| project TimeGenerated, UserPrincipalName, AppId, AppDisplayName, AuthenticationProtocol, IsInteractive, IPAddress\n| sort by TimeGenerated desc\n```"
-}

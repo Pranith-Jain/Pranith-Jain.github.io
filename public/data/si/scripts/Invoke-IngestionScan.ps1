@@ -539,7 +539,7 @@ if ($phasesToRun -contains 3) {
                     foreach ($k in $configReplacements.Keys) {
                         $url = $url.Replace($k, $configReplacements[$k])
                     }
-                    $rawResult = az rest --method get --url $url --query $jmespath -o json 2>&1
+                    $rawResult = az rest --method get --url $url --query $jmespath -o json --only-show-errors 2>&1
                     if ($LASTEXITCODE -eq 0) {
                         $data = $rawResult | ConvertFrom-Json
                         $rowCount = if ($data -is [array]) { $data.Count } else { 1 }

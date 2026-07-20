@@ -1,5 +1,0 @@
-{
-  "slug": "query/graph-api-recon",
-  "name": "query-graph-api-recon",
-  "bodyMarkdown": "# Graph API Reconnaissance Burst Detection Query\n\n**Category:** Detection Chokepoints | **Maturity:** Hunt | **FP Rate:** Medium\n**Techniques:** T1087.004, T1069.003 | **Log Sources:** Microsoft Graph Activity Logs\n\n```kql\nMicrosoftGraphActivityLogs\n| where TimeGenerated > ago(1h)\n| extend EndpointCategory = case(\n    Resource has \"roleManagement\" or Resource has \"directoryRole\", \"role-discovery\",\n    Resource has \"tenantRelationships\", \"cross-tenant\",\n    Resource has \"mailboxSettings\" or Resource has \"messages\", \"mailbox\",\n    Resource has \"contactFolders\" or Resource has \"contacts\", \"contacts\",\n    Resource has \"subscribedSkus\" or Resource has \"organization\", \"org-licensing\",\n    \"other\"\n  )\n| summarize EndpointCategories = dcount(EndpointCategory), TotalCalls = count(), DistinctEndpoints = dcount(Resource) by UserPrincipalName, bin(TimeGenerated, 1m)\n| where EndpointCategories >= 4\n| project TimeGenerated, UserPrincipalName, EndpointCategories, TotalCalls, DistinctEndpoints\n| sort by TotalCalls desc\n```"
-}

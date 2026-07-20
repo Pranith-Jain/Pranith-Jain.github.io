@@ -1,829 +1,937 @@
 {
   "source": "github.com/SCStelz/security-investigator",
   "license": "MIT",
-  "replicatedAt": "2026-07-05",
+  "replicatedAt": "2026-07-20",
   "counts": {
-    "skills": 48,
-    "queries": 62,
+    "skills": 27,
+    "queries": 52,
     "automations": 3,
     "docs": 10,
     "referenceData": 14,
     "routingPromptBytes": 91715,
-    "scripts": 9
+    "scripts": 5
   },
   "skills": [
-    {
-      "slug": "ai-agent-posture",
-      "name": "ai-agent-posture",
-      "category": "Posture & Exposure",
-      "description": "# AI Agent Security Posture — Instructions  ## Purpose",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "app-registration-posture",
-      "name": "app-registration-posture",
-      "category": "Posture & Exposure",
-      "description": "# App Registration Security Posture — Instructions  ## Purpose",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "attack-chain/aitm",
-      "name": "attack-chain-aitm",
-      "category": "Attack Chains",
-      "description": "# AiTM Attack Chain — Detection & Response  **Category:** Attack Chains",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "attack-chain/hypervisor",
-      "name": "attack-chain-hypervisor",
-      "category": "Attack Chains",
-      "description": "# Hypervisor Attack Chain — Detection & Response  **Category:** Attack Chains",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "attack-chain/identity",
-      "name": "attack-chain-identity",
-      "category": "Attack Chains",
-      "description": "# Identity Attack Chain — Detection & Response  **Category:** Attack Chains",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "attack-chain/infostealers",
-      "name": "attack-chain-infostealers",
-      "category": "Attack Chains",
-      "description": "# Infostealer Attack Chain — Detection & Response  **Category:** Attack Chains",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "attack-chain/ransomware",
-      "name": "attack-chain-ransomware",
-      "category": "Attack Chains",
-      "description": "# Ransomware Attack Chain — Detection & Response  **Category:** Attack Chains",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "authentication-tracing",
-      "name": "authentication-tracing",
-      "category": "Auth & Access",
-      "description": "# Authentication Tracing - Instructions  ## Purpose",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "ca-policy-investigation",
-      "name": "ca-policy-investigation",
-      "category": "Auth & Access",
-      "description": "# Conditional Access Policy Investigation - Instructions  ## Purpose",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "chokepoint/aitm-prt",
-      "name": "chokepoint-aitm-prt",
-      "category": "Detection Chokepoints",
-      "description": "# AiTM Kit Device PRT Enrollment — Detection Chokepoint  **Priority:** HIGH | **Tactic:** Persistence | **Difficulty:** LOW | **Prevalence:** MEDIUM",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "chokepoint/aitm-relay",
-      "name": "chokepoint-aitm-relay",
-      "category": "Detection Chokepoints",
-      "description": "# AiTM WebSocket Kit Relay — Detection Chokepoint  **Priority:** CRITICAL | **Tactic:** Credential Access | **Difficulty:** MEDIUM | **Prevalence:** HIGH",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "chokepoint/browser-credential-theft",
-      "name": "chokepoint-browser-credential-theft",
-      "category": "Detection Chokepoints",
-      "description": "# Infostealer Browser Credential Theft — Detection Chokepoint  **Priority:** CRITICAL | **Tactic:** Credential Access | **Difficulty:** MEDIUM | **Prevalence:** HIGH",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "chokepoint/byosi",
-      "name": "chokepoint-byosi",
-      "category": "Detection Chokepoints",
-      "description": "# BYOSI Scripting Interpreters — Detection Chokepoint  **Priority:** HIGH | **Tactic:** Defense Evasion, Execution | **Difficulty:** HIGH | **Prevalence:** EMERGING",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "chokepoint/clickfix",
-      "name": "chokepoint-clickfix",
-      "category": "Detection Chokepoints",
-      "description": "# ClickFix Techniques — Detection Chokepoint  **Priority:** HIGH | **Tactic:** Initial Access | **Difficulty:** LOW | **Prevalence:** HIGH",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "chokepoint/edr-bypass",
-      "name": "chokepoint-edr-bypass",
-      "category": "Detection Chokepoints",
-      "description": "# EDR Bypass Techniques — Detection Chokepoint  **Priority:** CRITICAL | **Tactic:** Defense Evasion | **Difficulty:** HIGH | **Prevalence:** HIGH",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "chokepoint/graph-api-recon",
-      "name": "chokepoint-graph-api-recon",
-      "category": "Detection Chokepoints",
-      "description": "# Post-AiTM Graph API Reconnaissance Burst — Detection Chokepoint  **Priority:** HIGH | **Tactic:** Discovery | **Difficulty:** MEDIUM | **Prevalence:** MEDIUM",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "chokepoint/lsass-dumping",
-      "name": "chokepoint-lsass-dumping",
-      "category": "Detection Chokepoints",
-      "description": "# LSASS Credential Dumping — Detection Chokepoint  **Priority:** CRITICAL | **Tactic:** Credential Access | **Difficulty:** MEDIUM | **Prevalence:** VERY HIGH",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "chokepoint/oauth-device-code",
-      "name": "chokepoint-oauth-device-code",
-      "category": "Detection Chokepoints",
-      "description": "# OAuth Device Code Phishing via Auth Broker — Detection Chokepoint  **Priority:** HIGH | **Tactic:** Defense Evasion | **Difficulty:** LOW | **Prevalence:** MEDIUM",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "chokepoint/ransomware-service",
-      "name": "chokepoint-ransomware-service",
-      "category": "Detection Chokepoints",
-      "description": "# Ransomware Service Manipulation — Detection Chokepoint  **Priority:** CRITICAL | **Tactic:** Defense Evasion, Impact | **Difficulty:** LOW | **Prevalence:** HIGH",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "chokepoint/remote-execution",
-      "name": "chokepoint-remote-execution",
-      "category": "Detection Chokepoints",
-      "description": "# Remote Execution Tools (HackTools) — Detection Chokepoint  **Priority:** HIGH | **Tactic:** Lateral Movement, Execution | **Difficulty:** MEDIUM | **Prevalence:** HIGH",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "chokepoint/renamed-rmm",
-      "name": "chokepoint-renamed-rmm",
-      "category": "Detection Chokepoints",
-      "description": "# Renamed RMM Tools — Detection Chokepoint  **Priority:** HIGH | **Tactic:** Initial Access, C2 | **Difficulty:** MEDIUM | **Prevalence:** HIGH",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "chokepoint/web-shells",
-      "name": "chokepoint-web-shells",
-      "category": "Detection Chokepoints",
-      "description": "# Web Shell Persistence — Detection Chokepoint  **Priority:** CRITICAL | **Tactic:** Persistence, Initial Access, Execution | **Difficulty:** MEDIUM | **Prevalence:** HIGH",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "computer-investigation",
-      "name": "computer-investigation",
-      "category": "Core Investigation",
-      "description": "# Computer Security Investigation - Instructions  ## Purpose",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "context-memory-review",
-      "name": "context-memory-review",
-      "category": "Quick Scan",
-      "description": "# Context Memory Review — Instructions  ## Purpose",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "data-security-analysis",
-      "name": "data-security-analysis",
-      "category": "Data Security",
-      "description": "# Data Security Events Analysis — Instructions  ## Purpose",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "detection-authoring",
-      "name": "detection-authoring",
-      "category": "Tooling",
-      "description": "# Custom Detection Authoring — Instructions  ## Purpose",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "email-threat-posture",
-      "name": "email-threat-posture",
-      "category": "Posture & Exposure",
-      "description": "# Email Threat Protection Posture — Instructions  ## Purpose",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "exposure-investigation",
-      "name": "exposure-investigation",
-      "category": "Posture & Exposure",
-      "description": "# Vulnerability & Exposure Management Report — Instructions  ## Purpose",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "geomap-visualization",
-      "name": "geomap-visualization",
-      "category": "Visualization",
-      "description": "# Geomap Visualization Skill  ## Purpose",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "heatmap-visualization",
-      "name": "heatmap-visualization",
-      "category": "Visualization",
-      "description": "# Heatmap Visualization Skill  ## Purpose",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "honeypot-investigation",
-      "name": "honeypot-investigation",
-      "category": "Core Investigation",
-      "description": "# Honeypot Investigation Agent - Instructions  ## Purpose",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "identity-posture",
-      "name": "identity-posture",
-      "category": "Posture & Exposure",
-      "description": "# Identity Security Posture — Instructions  ## Purpose",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "incident-investigation",
-      "name": "incident-investigation",
-      "category": "Core Investigation",
-      "description": "# Incident Investigation - Instructions  ## Purpose",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "ioc-investigation",
-      "name": "ioc-investigation",
-      "category": "Core Investigation",
-      "description": "# IoC (Indicator of Compromise) Investigation - Instructions  ## Purpose",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "kql-query-authoring",
-      "name": "kql-query-authoring",
-      "category": "Tooling",
-      "description": "# KQL Query Authoring - Instructions  ## Purpose",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "mcp-usage-monitoring",
-      "name": "mcp-usage-monitoring",
-      "category": "Tooling",
-      "description": "# MCP Server Usage Monitoring — Instructions  ## Purpose",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "mitre-coverage-report",
-      "name": "mitre-coverage-report",
-      "category": "Tooling",
-      "description": "# MITRE ATT&CK Coverage Report — Instructions  ## Purpose",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
     {
       "slug": "scope-drift-detection/device",
       "name": "scope-drift-detection-device",
       "category": "Behavioral Drift",
-      "description": "# Device Scope Drift Detection — Instructions  ## Purpose",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
+      "description": "Use this skill when asked to detect scope drift, behavioral expansion, or process baseline deviation on devices or endpoints. Triggers on keywords like \"device drift\", \"device process drift\", \"endpoint drift\", \"process baseline\", \"device behavioral change\", or when investigating whether a device has gradually expanded its process execution beyond an established baseline. This skill builds a configurable-window behavioral baseline using DeviceProcessEvents, compares baseline with recent activity, computes a weighted Drift Score across 5 dimensions (Volume, Processes, Accounts, Process Chains, Signing Companies), and correlates with SecurityAlert, DeviceInfo (for uptime corroboration via MDE sensor health), and command-line pattern analysis. Supports fleet-wide and single-device modes.",
+      "triggerKeywords": [
+        "keywords like \"device drift",
+        "device process drift",
+        "endpoint drift",
+        "process baseline",
+        "device behavioral change"
+      ],
+      "hasAssets": true,
+      "hasSvgWidgets": true,
+      "sizeBytes": 57002
     },
     {
       "slug": "scope-drift-detection/spn",
       "name": "scope-drift-detection-spn",
       "category": "Behavioral Drift",
-      "description": "# Service Principal Scope Drift Detection — Instructions  ## Purpose",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
+      "description": "Use this skill when asked to detect scope drift, behavioral expansion, or gradual privilege/access creep in service principals or automation accounts. Triggers on keywords like \"scope drift\", \"service principal drift\", \"SPN behavioral change\", \"automation account drift\", \"baseline deviation\", \"access expansion\", or when investigating whether a service principal has gradually expanded beyond its intended purpose. This skill builds a 90-day behavioral baseline per SPN, compares it with 7-day recent activity, computes a weighted Drift Score across 5 dimensions, and correlates with SecurityAlert and AuditLogs for corroborating evidence.",
+      "triggerKeywords": [
+        "keywords like \"scope drift",
+        "service principal drift",
+        "SPN behavioral change",
+        "automation account drift",
+        "baseline deviation",
+        "access expansion"
+      ],
+      "hasAssets": true,
+      "hasSvgWidgets": true,
+      "sizeBytes": 37652
     },
     {
       "slug": "scope-drift-detection/user",
       "name": "scope-drift-detection-user",
       "category": "Behavioral Drift",
-      "description": "# User Account Scope Drift Detection — Instructions  ## Purpose",
-      "triggerKeywords": [],
+      "description": "Use this skill when asked to detect scope drift, behavioral expansion, or gradual privilege/access creep in user accounts. Triggers on keywords like \"user drift\", \"user behavioral change\", \"user scope drift\", \"user baseline deviation\", \"user access expansion\", or when investigating whether a user account has gradually expanded beyond its established behavioral baseline. This skill builds a 90-day behavioral baseline for both interactive and non-interactive sign-ins, compares with 7-day recent activity, computes weighted Drift Scores (7 dimensions for interactive, 6 for non-interactive), and correlates with SecurityAlert, AuditLogs, Identity Protection, custom anomaly tables, CloudAppEvents (cloud app activity drift), and EmailEvents (email pattern drift).",
+      "triggerKeywords": [
+        "keywords like \"user drift",
+        "user behavioral change",
+        "user scope drift",
+        "user baseline deviation",
+        "user access expansion"
+      ],
+      "hasAssets": true,
+      "hasSvgWidgets": true,
+      "sizeBytes": 53967
+    },
+    {
+      "slug": "ai-agent-posture",
+      "name": "ai-agent-posture",
+      "category": "Posture & Exposure",
+      "description": "Use this skill when asked to audit, assess, or report on AI agent security posture across Copilot Studio, Microsoft 365 Copilot, Microsoft Foundry, and third-party agents. Triggers on keywords like \"AI agent posture\", \"agent security audit\", \"Copilot Studio agents\", \"agent inventory\", \"agent access\", \"broadly accessible agents\", \"agent tools\", \"MCP tools on agents\", \"agent knowledge sources\", \"XPIA risk\", \"agent sprawl\", \"AI agent risk\", \"agent governance\", or when investigating AI agent configurations, access posture, tool permissions, or credential exposure. This skill queries the AgentsInfo table in Advanced Hunting to produce a comprehensive security posture assessment covering agent inventory, access posture, broadly-accessible agent exposure, MCP tool proliferation, knowledge source exposure, XPIA email exfiltration risk, hard-coded credential detection, external endpoint risks, creator governance, and agent sprawl analysis. Supports inline chat and markdown file output.",
+      "triggerKeywords": [
+        "keywords like \"AI agent posture",
+        "agent security audit",
+        "Copilot Studio agents",
+        "agent inventory",
+        "agent access",
+        "broadly accessible agents",
+        "agent tools",
+        "MCP tools on agents",
+        "agent knowledge sources",
+        "XPIA risk",
+        "agent sprawl",
+        "AI agent risk",
+        "agent governance",
+        "or when investigating AI agent configurations",
+        "access posture",
+        "tool permissions",
+        "or credential exposure"
+      ],
+      "hasAssets": true,
+      "hasSvgWidgets": true,
+      "sizeBytes": 69471
+    },
+    {
+      "slug": "app-registration-posture",
+      "name": "app-registration-posture",
+      "category": "Posture & Exposure",
+      "description": "Audit Entra ID app registration and service principal security posture. Triggers on keywords like \"app registration posture\", \"service principal permissions\", \"dangerous app permissions\", \"app ownership\", \"app credential abuse\", \"SPN lateral movement\", \"app consent grant\", \"overprivileged apps\", \"cross-tenant SPN\", \"app registration kill chain\", \"app persistence\", \"credential add chain\", \"Graph API permissions audit\". Combines Graph API current-state inventory (dangerous permissions, ownership, credential hygiene) with KQL chain detection (AuditLogs, AADServicePrincipalSignInLogs, AADUserRiskEvents, MicrosoftGraphActivityLogs) for posture assessment covering permission concentration, owner risk, credential hygiene, cross-tenant exposure, and active abuse signals. Includes 5-dimension App Permission Risk Score. Inline chat or markdown output.",
+      "triggerKeywords": [
+        "keywords like \"app registration posture",
+        "service principal permissions",
+        "dangerous app permissions",
+        "app ownership",
+        "app credential abuse",
+        "SPN lateral movement",
+        "app consent grant",
+        "overprivileged apps",
+        "cross-tenant SPN",
+        "app registration kill chain",
+        "app persistence",
+        "credential add chain",
+        "Graph API permissions audit"
+      ],
+      "hasAssets": true,
+      "hasSvgWidgets": true,
+      "sizeBytes": 83852
+    },
+    {
+      "slug": "authentication-tracing",
+      "name": "authentication-tracing",
+      "category": "Auth & Access",
+      "description": "Use this skill when asked to trace authentication flows, analyze SessionId chains, investigate token reuse vs interactive MFA, or assess geographic anomalies in sign-ins. Triggers on keywords like \"trace authentication\", \"trace back to interactive MFA\", \"SessionId analysis\", \"token reuse\", \"geographic anomaly\", \"impossible travel\", or when investigating suspicious sign-in locations. This skill provides forensic analysis of Entra ID authentication chains to distinguish legitimate activity from credential/token theft.",
+      "triggerKeywords": [
+        "keywords like \"trace authentication",
+        "trace back to interactive MFA",
+        "SessionId analysis",
+        "token reuse",
+        "geographic anomaly",
+        "impossible travel",
+        "or when investigating suspicious sign-in locations"
+      ],
       "hasAssets": false,
-      "hasSvgWidgets": false
+      "hasSvgWidgets": false,
+      "sizeBytes": 33566
+    },
+    {
+      "slug": "ca-policy-investigation",
+      "name": "ca-policy-investigation",
+      "category": "Auth & Access",
+      "description": "Use this skill when asked to investigate Conditional Access policy changes, sign-in failures related to CA policies (error codes 53000, 50074, 530032), or suspected policy bypass/manipulation. Triggers on keywords like \"Conditional Access\", \"CA policy\", \"device compliance\", \"policy bypass\", \"53000\", \"50074\", or when investigating why a user was blocked then suddenly unblocked. This skill provides forensic analysis of CA policy modifications correlated with sign-in failures.",
+      "triggerKeywords": [
+        "keywords like \"Conditional Access",
+        "CA policy",
+        "device compliance",
+        "policy bypass",
+        "53000",
+        "50074"
+      ],
+      "hasAssets": false,
+      "hasSvgWidgets": false,
+      "sizeBytes": 14337
+    },
+    {
+      "slug": "computer-investigation",
+      "name": "computer-investigation",
+      "category": "Core Investigation",
+      "description": "Use this skill when asked to investigate a computer, device, endpoint, or machine for security issues, suspicious activity, malware, or compliance review. Triggers on keywords like \"investigate computer\", \"investigate device\", \"investigate endpoint\", \"check machine\", \"device security\", \"endpoint investigation\", or when a device name/hostname is mentioned with investigation context. This skill provides comprehensive device security analysis including Defender alerts, sign-in patterns, logged-on users, vulnerabilities, software inventory, compliance status, network activity, and automated investigation tracking for Entra Joined, Hybrid Joined, and Entra Registered devices.",
+      "triggerKeywords": [
+        "keywords like \"investigate computer",
+        "investigate device",
+        "investigate endpoint",
+        "check machine",
+        "device security",
+        "endpoint investigation"
+      ],
+      "hasAssets": true,
+      "hasSvgWidgets": true,
+      "sizeBytes": 59852
+    },
+    {
+      "slug": "context-memory-review",
+      "name": "context-memory-review",
+      "category": "Quick Scan",
+      "description": "Weekly review of an investigation tenant-context memory file against the most recent SOC scan reports (e.g. Threat Pulse). Surfaces candidate ADD / MODIFY / FLAG changes to the context file as a propose-only review document for human approval — it NEVER edits the context file, commits, or opens a PR. Trigger on 'review my context file', 'review tenant context', 'propose context updates', 'what should I add to my context memory'.",
+      "triggerKeywords": [
+        "review my context file",
+        "review tenant context",
+        "propose context updates",
+        "what should I add to my context memory"
+      ],
+      "hasAssets": false,
+      "hasSvgWidgets": false,
+      "sizeBytes": 12600
+    },
+    {
+      "slug": "data-security-analysis",
+      "name": "data-security-analysis",
+      "category": "Data Security",
+      "description": "Analyze data security events, sensitive information type (SIT) access, sensitivity label access, DLP matches, or Purview insider risk activity. Triggers on keywords like \"data security\", \"sensitive information type\", \"SIT access\", \"DLP events\", \"DataSecurityEvents\", \"EDM access\", \"credit card access\", \"insider risk activity\", \"Purview data security\", \"sensitivity label\", \"label downgrade\", \"label change\", \"Copilot label exposure\". Queries DataSecurityEvents in Advanced Hunting to produce SIT and label access analysis: volume breakdowns, user drill-downs, file inventories, action type distribution, DLP correlation, label change tracking, Copilot label exposure, temporal patterns, and risk-ranked user summaries. Inline chat or markdown output. Designed for large environments (100k+ users) with tiered drill-down.",
+      "triggerKeywords": [
+        "keywords like \"data security",
+        "sensitive information type",
+        "SIT access",
+        "DLP events",
+        "DataSecurityEvents",
+        "EDM access",
+        "credit card access",
+        "insider risk activity",
+        "Purview data security",
+        "sensitivity label",
+        "label downgrade",
+        "label change",
+        "Copilot label exposure"
+      ],
+      "hasAssets": true,
+      "hasSvgWidgets": true,
+      "sizeBytes": 84803
+    },
+    {
+      "slug": "detection-authoring",
+      "name": "detection-authoring",
+      "category": "Tooling",
+      "description": "Create, deploy, update, and manage custom detection rules in Microsoft Defender XDR via the Graph API (/beta/security/rules/detectionRules). Covers query adaptation from Sentinel KQL to custom detection format, deployment via PowerShell (Invoke-MgGraphRequest), manifest-driven batch deployment, and lifecycle management (list, enable/disable, delete). Companion script: Deploy-CustomDetections.ps1.",
+      "triggerKeywords": [],
+      "hasAssets": true,
+      "hasSvgWidgets": false,
+      "sizeBytes": 67701
+    },
+    {
+      "slug": "email-threat-posture",
+      "name": "email-threat-posture",
+      "category": "Posture & Exposure",
+      "description": "Generate email threat protection reports and assess email security posture. Triggers on keywords like \"email threat report\", \"email security posture\", \"phishing report\", \"MDO report\", \"Defender for Office 365 report\", \"ZAP effectiveness\", \"Safe Links report\", \"DMARC report\", \"spam report\", \"email volume report\". Queries EmailEvents, EmailPostDeliveryEvents, UrlClickEvents, and EmailAttachmentInfo in Advanced Hunting for a posture assessment covering inbound mail flow, threat composition, phishing detection, email authentication (DMARC/DKIM/SPF), post-delivery remediation (ZAP), Safe Links click protection, attachment analysis, detection method effectiveness, and delivery disposition. Supports inline chat, markdown file, and SVG dashboard output.",
+      "triggerKeywords": [
+        "keywords like \"email threat report",
+        "email security posture",
+        "phishing report",
+        "MDO report",
+        "Defender for Office 365 report",
+        "ZAP effectiveness",
+        "Safe Links report",
+        "DMARC report",
+        "spam report",
+        "email volume report"
+      ],
+      "hasAssets": true,
+      "hasSvgWidgets": true,
+      "sizeBytes": 37739
+    },
+    {
+      "slug": "exposure-investigation",
+      "name": "exposure-investigation",
+      "category": "Posture & Exposure",
+      "description": "Use this skill when asked to generate a vulnerability and exposure management report, assess security posture, or review CVEs, security configurations, and attack paths. Triggers on keywords like \"vulnerability report\", \"exposure report\", \"CVE assessment\", \"security posture\", \"vulnerability assessment\", \"exposure management\", \"patch status\", \"end of support\", \"security recommendations\", \"attack paths\", \"critical assets\", \"configuration compliance\", \"Defender device health\", \"security score\", \"TVM\", \"threat and vulnerability management\", or when asking about overall organizational vulnerability/exposure state. This skill queries DeviceTvm* tables and ExposureGraphNodes/Edges to produce a comprehensive posture report covering CVEs, exploitable vulnerabilities, security configuration compliance, end-of-support software, critical asset inventory, attack paths, Defender device health, and certificate status. Supports org-wide and per-device scoping with inline chat and markdown file output.",
+      "triggerKeywords": [
+        "keywords like \"vulnerability report",
+        "exposure report",
+        "CVE assessment",
+        "security posture",
+        "vulnerability assessment",
+        "exposure management",
+        "patch status",
+        "end of support",
+        "security recommendations",
+        "attack paths",
+        "critical assets",
+        "configuration compliance",
+        "Defender device health",
+        "security score",
+        "TVM",
+        "threat and vulnerability management"
+      ],
+      "hasAssets": false,
+      "hasSvgWidgets": false,
+      "sizeBytes": 60130
+    },
+    {
+      "slug": "geomap-visualization",
+      "name": "geomap-visualization",
+      "category": "Visualization",
+      "description": "Use this skill when asked to create geographic maps, visualize attack origins on a world map, show location-based data, or display IP geolocation. Triggers on keywords like \"geomap\", \"world map\", \"geographic\", \"attack map\", \"show on map\", \"visualize locations\", \"attack origins\", or when analyzing data with latitude/longitude coordinates.",
+      "triggerKeywords": [
+        "keywords like \"geomap",
+        "world map",
+        "geographic",
+        "attack map",
+        "show on map",
+        "visualize locations",
+        "attack origins",
+        "or when analyzing data with latitude/longitude coordinates"
+      ],
+      "hasAssets": false,
+      "hasSvgWidgets": false,
+      "sizeBytes": 29993
+    },
+    {
+      "slug": "heatmap-visualization",
+      "name": "heatmap-visualization",
+      "category": "Visualization",
+      "description": "Use this skill when asked to create heatmaps, visualize patterns over time, show activity grids, or display aggregated data in a matrix format. Triggers on keywords like \"heatmap\", \"show heatmap\", \"visualize patterns\", \"activity grid\", \"time-based visualization\", or when analyzing attack patterns, sign-in activity, or event distributions by time period.",
+      "triggerKeywords": [
+        "keywords like \"heatmap",
+        "show heatmap",
+        "visualize patterns",
+        "activity grid",
+        "time-based visualization",
+        "or when analyzing attack patterns",
+        "sign-in activity",
+        "or event distributions by time period"
+      ],
+      "hasAssets": false,
+      "hasSvgWidgets": false,
+      "sizeBytes": 13263
+    },
+    {
+      "slug": "honeypot-investigation",
+      "name": "honeypot-investigation",
+      "category": "Core Investigation",
+      "description": "Use this skill when asked to analyze, investigate, or report on honeypot server security. Triggers on keywords like \"honeypot investigation\", \"analyze honeypot\", \"honeypot security\", \"honeypot report\", or when a server name is mentioned with honeypot analysis context. This skill provides comprehensive security analysis including attack patterns, threat intelligence correlation, IP enrichment, vulnerability assessment, and executive report generation.",
+      "triggerKeywords": [
+        "keywords like \"honeypot investigation",
+        "analyze honeypot",
+        "honeypot security",
+        "honeypot report"
+      ],
+      "hasAssets": false,
+      "hasSvgWidgets": false,
+      "sizeBytes": 22414
+    },
+    {
+      "slug": "identity-posture",
+      "name": "identity-posture",
+      "category": "Posture & Exposure",
+      "description": "Audit identity security posture across the organization. Triggers on keywords like \"identity posture\", \"identity security report\", \"account hygiene\", \"stale accounts\", \"privileged accounts\", \"password posture\", \"identity providers\", \"multi-provider identity\", \"identity sprawl\", \"service accounts\", \"deleted accounts with roles\", \"cross-IdP\", \"honeytoken\", \"sensitive accounts\". Queries IdentityAccountInfo in Advanced Hunting (enriched with IdentityInfo and IdentityLogonEvents) for a posture assessment covering account inventory by provider, privileged account audit, stale/deleted account hygiene, password posture, risk distribution, multi-provider identity linking, MDI tag analysis, and department-level insights. Inline chat or markdown output.",
+      "triggerKeywords": [
+        "keywords like \"identity posture",
+        "identity security report",
+        "account hygiene",
+        "stale accounts",
+        "privileged accounts",
+        "password posture",
+        "identity providers",
+        "multi-provider identity",
+        "identity sprawl",
+        "service accounts",
+        "deleted accounts with roles",
+        "cross-IdP",
+        "honeytoken",
+        "sensitive accounts"
+      ],
+      "hasAssets": true,
+      "hasSvgWidgets": true,
+      "sizeBytes": 55749
+    },
+    {
+      "slug": "incident-investigation",
+      "name": "incident-investigation",
+      "category": "Core Investigation",
+      "description": "Use this skill when asked to investigate a security incident by ID from Microsoft Defender XDR or Microsoft Sentinel. Triggers on keywords like \"investigate incident\", \"incident ID\", \"incident investigation\", \"analyze incident\", \"triage incident\", or when an incident number/ID is mentioned with investigation context. This skill provides comprehensive incident analysis including metadata retrieval, alert listing, asset enumeration, evidence filtering, and deep entity investigation using Sentinel MCP tools and specialized skills.",
+      "triggerKeywords": [
+        "keywords like \"investigate incident",
+        "incident ID",
+        "incident investigation",
+        "analyze incident",
+        "triage incident"
+      ],
+      "hasAssets": false,
+      "hasSvgWidgets": false,
+      "sizeBytes": 34157
+    },
+    {
+      "slug": "ioc-investigation",
+      "name": "ioc-investigation",
+      "category": "Core Investigation",
+      "description": "Use this skill when asked to investigate an Indicator of Compromise (IoC) such as an IP address, DNS domain, URL, or file hash. Triggers on keywords like \"investigate IP\", \"check domain\", \"IoC investigation\", \"threat intel\", \"is this malicious\", \"suspicious URL\", or when an IP/domain/URL/hash is mentioned with investigation context. This skill provides comprehensive IoC analysis using Microsoft Defender Threat Intelligence, Sentinel Threat Intel tables, Advanced Hunting, organizational exposure assessment, CVE correlation, and affected device enumeration.",
+      "triggerKeywords": [
+        "keywords like \"investigate IP",
+        "check domain",
+        "IoC investigation",
+        "threat intel",
+        "is this malicious",
+        "suspicious URL"
+      ],
+      "hasAssets": false,
+      "hasSvgWidgets": false,
+      "sizeBytes": 36688
+    },
+    {
+      "slug": "kql-query-authoring",
+      "name": "kql-query-authoring",
+      "category": "Tooling",
+      "description": "Use this skill when asked to write, create, or help with KQL (Kusto Query Language) queries for Microsoft Sentinel, Defender XDR, or Azure Data Explorer. Triggers on keywords like \"write KQL\", \"create KQL query\", \"help with KQL\", \"query [table]\", \"KQL for [scenario]\", or when a user requests queries for specific data analysis scenarios. This skill uses schema validation, Microsoft Learn documentation, and community examples to generate production-ready KQL queries.",
+      "triggerKeywords": [
+        "keywords like \"write KQL",
+        "create KQL query",
+        "help with KQL",
+        "query [table]",
+        "KQL for [scenario]"
+      ],
+      "hasAssets": false,
+      "hasSvgWidgets": false,
+      "sizeBytes": 22476
+    },
+    {
+      "slug": "mcp-usage-monitoring",
+      "name": "mcp-usage-monitoring",
+      "category": "Tooling",
+      "description": "Use this skill when asked to monitor, audit, or analyze MCP (Model Context Protocol) server usage in the environment. Triggers on keywords like \"MCP usage\", \"MCP server monitoring\", \"MCP activity\", \"Graph MCP\", \"Sentinel MCP\", \"Azure MCP\", \"MCP audit\", \"tool usage monitoring\", \"MCP breakdown\", \"who is using MCP\", or when investigating MCP user activity, Graph API calls from MCP servers, or workspace query governance. This skill provides comprehensive MCP server telemetry analysis across Graph MCP, Sentinel MCP, and Azure MCP servers including usage trends, endpoint access patterns, user attribution, cross-server user analysis, sensitive API detection, workspace query governance, and security risk assessment with inline and markdown file reporting.",
+      "triggerKeywords": [
+        "keywords like \"MCP usage",
+        "MCP server monitoring",
+        "MCP activity",
+        "Graph MCP",
+        "Sentinel MCP",
+        "Azure MCP",
+        "MCP audit",
+        "tool usage monitoring",
+        "MCP breakdown",
+        "who is using MCP",
+        "or when investigating MCP user activity",
+        "Graph API calls from MCP servers",
+        "or workspace query governance"
+      ],
+      "hasAssets": true,
+      "hasSvgWidgets": true,
+      "sizeBytes": 120398
+    },
+    {
+      "slug": "mitre-coverage-report",
+      "name": "mitre-coverage-report",
+      "category": "Tooling",
+      "description": "MITRE ATT&CK Coverage Report — YAML-driven PowerShell pipeline gathers analytic rule MITRE tags, custom detection techniques, SOC Optimization recommendations, and alert/incident operational data via az rest/az monitor/Graph API, writes a deterministic scratchpad, LLM renders the report. Covers tactic-level coverage matrix, technique-level drill-down with rule mapping, coverage gap identification, SOC Optimization threat scenario alignment, untagged rule remediation, ICS/OT technique tracking, and MITRE Coverage Score (5 weighted dimensions). Inline chat and markdown file output.",
+      "triggerKeywords": [],
+      "hasAssets": true,
+      "hasSvgWidgets": true,
+      "sizeBytes": 39858
     },
     {
       "slug": "sentinel-ingestion-report",
       "name": "sentinel-ingestion-report",
       "category": "Tooling",
-      "description": "# Sentinel Ingestion Analysis Report — Instructions  ## Purpose",
+      "description": "Sentinel Ingestion Report — YAML-driven PowerShell pipeline gathers all data via az monitor/az rest/Graph API, writes a deterministic scratchpad, LLM renders the report. Covers table-level volume breakdown, tier classification (Analytics/Basic/Data Lake), SecurityEvent/Syslog/CommonSecurityLog deep dives, ingestion anomaly detection (24h and WoW), analytic rule inventory via REST API, rule health via SentinelHealth, detection coverage cross-reference, tier migration candidates with DL-eligibility lookup, license benefit analysis (DfS P2 500MB/server/day, M365 E5 data grant). Inline chat and markdown file output.",
       "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
+      "hasAssets": true,
+      "hasSvgWidgets": true,
+      "sizeBytes": 64248
     },
     {
       "slug": "svg-dashboard",
       "name": "svg-dashboard",
       "category": "Visualization",
-      "description": "# SVG Dashboard Generator  > Renders SVG data visualization dashboards — either from a skill's `svg-widgets.yaml` manifest (structured dashboards) or freeform from ad-hoc investigation data in context.",
-      "triggerKeywords": [],
+      "description": "Use this skill when asked to generate SVG data visualization dashboards from investigation data or skill reports. Triggers on keywords like \"generate SVG dashboard\", \"create a visual dashboard\", \"visualize this report\", \"SVG from the report\", \"visualize results\", \"create SVG chart\", \"SVG from this data\". Supports two modes: manifest-driven structured dashboards (from skill reports with svg-widgets.yaml) and freeform adaptive visualizations from ad-hoc investigation data. Component library includes KPI cards, score cards, bar charts, line charts, donut charts, waterfall charts, tables, recommendation cards, assessment banners. SharePoint Dark Theme default palette.",
+      "triggerKeywords": [
+        "keywords like \"generate SVG dashboard",
+        "create a visual dashboard",
+        "visualize this report",
+        "SVG from the report",
+        "visualize results",
+        "create SVG chart",
+        "SVG from this data"
+      ],
       "hasAssets": false,
-      "hasSvgWidgets": false
+      "hasSvgWidgets": false,
+      "sizeBytes": 22079
     },
     {
       "slug": "threat-intel-campaign",
       "name": "threat-intel-campaign",
       "category": "Tooling",
-      "description": "# Threat Intelligence Campaign Authoring — Instructions  ## Purpose",
+      "description": "Turn a published threat-intelligence article into a tested threat-hunting campaign. Reads a platform-agnostic RSS/Atom feed (feed_url is a parameter — nothing vendor-specific is hardcoded), triages articles from a recent window, applies a huntability relevance gate to decide whether an article warrants a campaign, then writes/tests/tunes KQL hunts and publishes them as a campaign file under queries/threat-intelligence/YYYY-MM/. Also supports a single-article mode (pass an article URL directly). Side-effect-free: it writes campaign files and regenerates the manifest/TOCs but performs NO git commits or PRs — branch/PR orchestration belongs to the calling automation. Trigger keywords: \"threat intel campaign\", \"ingest threat intelligence\", \"TI feed\", \"write hunts from this article\", \"threat intelligence blog\", \"build a hunting campaign\".",
       "triggerKeywords": [],
       "hasAssets": false,
-      "hasSvgWidgets": false
+      "hasSvgWidgets": false,
+      "sizeBytes": 26523
     },
     {
       "slug": "threat-pulse",
       "name": "threat-pulse",
       "category": "Quick Scan",
-      "description": "# Threat Pulse — Instructions  ## Purpose",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "trend/clickfix-delivery",
-      "name": "trend-clickfix-delivery",
-      "category": "Trends",
-      "description": "# ClickFix Delivery Trend Analysis  **Category:** Trends",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "trend/edge-exploits",
-      "name": "trend-edge-exploits",
-      "category": "Trends",
-      "description": "# Edge Exploit Trend Analysis  **Category:** Trends",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
-    },
-    {
-      "slug": "trend/masq-infra",
-      "name": "trend-masq-infra",
-      "category": "Trends",
-      "description": "# Masqueraded Infrastructure Trend Analysis  **Category:** Trends",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
+      "description": "Recommended starting point for new users and daily SOC operations. 15-minute broad security scan across 7 domains (incidents, identity, NHI, endpoint, email, admin/cloud, exposure) producing a Threat Pulse Dashboard with drill-down recommendations to specialized skills. Trigger on getting-started questions like \"where do I start\", \"what can you do\", \"help me investigate\".",
+      "triggerKeywords": [
+        "getting-started questions like \"where do I start",
+        "what can you do",
+        "help me investigate"
+      ],
+      "hasAssets": true,
+      "hasSvgWidgets": true,
+      "sizeBytes": 98801
     },
     {
       "slug": "user-investigation",
       "name": "user-investigation",
       "category": "Core Investigation",
-      "description": "# User Security Investigation - Instructions  ## Purpose",
-      "triggerKeywords": [],
-      "hasAssets": false,
-      "hasSvgWidgets": false
+      "description": "Use this skill when asked to investigate a user account for security issues, suspicious activity, or compliance review. Triggers on keywords like \"investigate user\", \"security investigation\", \"user investigation\", \"check user activity\", \"analyze sign-ins\", or when a UPN/email is mentioned with investigation context. This skill provides comprehensive Entra ID user security analysis including sign-in anomalies, MFA status, device compliance, audit logs, security incidents, Identity Protection risk, and automated reports (HTML, markdown file, or inline chat).",
+      "triggerKeywords": [
+        "keywords like \"investigate user",
+        "security investigation",
+        "user investigation",
+        "check user activity",
+        "analyze sign-ins",
+        "or when a UPN/email is mentioned with investigation context"
+      ],
+      "hasAssets": true,
+      "hasSvgWidgets": true,
+      "sizeBytes": 54318
     }
   ],
   "queries": [
     {
       "slug": "cloud/agent365_observability",
-      "category": "Cloud",
-      "description": "# Agent 365 Observability — AI Agent Telemetry Hunting  **Created:** 2026-05-22  "
+      "domain": "cloud",
+      "subdomain": null,
+      "title": "Agent 365 Observability — AI Agent Telemetry Hunting",
+      "filename": "agent365_observability.md",
+      "sizeBytes": 87156
     },
     {
       "slug": "cloud/anomaly_threat_detection",
-      "category": "Cloud",
-      "description": "# Anomaly & Behavior Threat Detection — Sentinel UEBA + MCAS Hunting  **Created:** 2026-03-26  "
+      "domain": "cloud",
+      "subdomain": null,
+      "title": "Anomaly & Behavior Threat Detection — Sentinel UEBA + MCAS Hunting",
+      "filename": "anomaly_threat_detection.md",
+      "sizeBytes": 26565
     },
     {
       "slug": "cloud/azure_blob_storage_defense_program",
-      "category": "Cloud",
-      "description": "# Azure Blob Storage — Defensive Program & Threat Hunting Campaign  **Created:** 2026-02-12  "
+      "domain": "cloud",
+      "subdomain": null,
+      "title": "Azure Blob Storage — Defensive Program & Threat Hunting Campaign",
+      "filename": "azure_blob_storage_defense_program.md",
+      "sizeBytes": 64628
     },
     {
       "slug": "cloud/cloudappevents_exploration",
-      "category": "Cloud",
-      "description": "# CloudAppEvents Exploration - Microsoft Sentinel Queries  **Created:** 2026-01-13  "
+      "domain": "cloud",
+      "subdomain": null,
+      "title": "CloudAppEvents Exploration - Microsoft Sentinel Queries",
+      "filename": "cloudappevents_exploration.md",
+      "sizeBytes": 27758
     },
     {
       "slug": "cloud/copilot_activity_investigation",
-      "category": "Cloud",
-      "description": "# Copilot & AI Activity Investigation — Reconstructing AI Usage in IR  **Created:** 2026-06-10  "
+      "domain": "cloud",
+      "subdomain": null,
+      "title": "Copilot & AI Activity Investigation — Reconstructing AI Usage in IR",
+      "filename": "copilot_activity_investigation.md",
+      "sizeBytes": 29875
     },
     {
       "slug": "cloud/easm_asset_inventory",
-      "category": "Cloud",
-      "description": "# Defender EASM — Asset Inventory & Risk Exploration  **Created:** 2026-05-27  "
+      "domain": "cloud",
+      "subdomain": null,
+      "title": "Defender EASM — Asset Inventory & Risk Exploration",
+      "filename": "easm_asset_inventory.md",
+      "sizeBytes": 20234
     },
     {
       "slug": "cloud/exposure_graph_attack_paths",
-      "category": "Cloud",
-      "description": "# ExposureGraph Critical Assets & Attack Paths - Complete Query Library  **Created:** 2026-01-15  "
+      "domain": "cloud",
+      "subdomain": null,
+      "title": "ExposureGraph Critical Assets & Attack Paths - Complete Query Library",
+      "filename": "exposure_graph_attack_paths.md",
+      "sizeBytes": 82517
     },
     {
       "slug": "cloud/graph_api_security_monitoring",
-      "category": "Cloud",
-      "description": "# Graph API Security Monitoring — Threat Detection & Abuse Hunting  **Created:** 2026-04-16  "
+      "domain": "cloud",
+      "subdomain": null,
+      "title": "Graph API Security Monitoring — Threat Detection & Abuse Hunting",
+      "filename": "graph_api_security_monitoring.md",
+      "sizeBytes": 36647
     },
     {
       "slug": "cloud/keyvault_storage_access_monitoring",
-      "category": "Cloud",
-      "description": "# Key Vault & Storage Account Access Monitoring  **Created:** 2026-04-12  "
+      "domain": "cloud",
+      "subdomain": null,
+      "title": "Key Vault & Storage Account Access Monitoring",
+      "filename": "keyvault_storage_access_monitoring.md",
+      "sizeBytes": 47777
     },
     {
       "slug": "cloud/sap_threat_detection",
-      "category": "Cloud",
-      "description": "# SAP Threat Hunting — Microsoft Sentinel Queries  **Created:** 2026-04-14  "
+      "domain": "cloud",
+      "subdomain": null,
+      "title": "SAP Threat Hunting — Microsoft Sentinel Queries",
+      "filename": "sap_threat_detection.md",
+      "sizeBytes": 40519
     },
     {
       "slug": "cloud/secure_score_leadership_reporting",
-      "category": "Cloud",
-      "description": "# Secure Score Leadership Reporting — Defender for Cloud  **Created:** 2026-03-04  "
+      "domain": "cloud",
+      "subdomain": null,
+      "title": "Secure Score Leadership Reporting — Defender for Cloud",
+      "filename": "secure_score_leadership_reporting.md",
+      "sizeBytes": 19701
     },
     {
       "slug": "cloud/security_copilot_utilization",
-      "category": "Cloud",
-      "description": "# Security Copilot Utilization Tracking  **Created:** 2026-03-19  "
+      "domain": "cloud",
+      "subdomain": null,
+      "title": "Security Copilot Utilization Tracking",
+      "filename": "security_copilot_utilization.md",
+      "sizeBytes": 26639
+    },
+    {
+      "slug": "cloud/sentinel_ingestion_split_rule_targeting",
+      "domain": "cloud",
+      "subdomain": null,
+      "title": "Sentinel Ingestion Breakdown — CommonSecurityLog & Syslog (Split-Rule Targeting)",
+      "filename": "sentinel_ingestion_split_rule_targeting.md",
+      "sizeBytes": 17819
     },
     {
       "slug": "email/email_threat_detection",
-      "category": "Email",
-      "description": "# Email Threat Detection & Investigation Queries  **Created:** 2026-02-06  "
+      "domain": "email",
+      "subdomain": null,
+      "title": "Email Threat Detection & Investigation Queries",
+      "filename": "email_threat_detection.md",
+      "sizeBytes": 50075
     },
     {
       "slug": "endpoint/asset_vulnerability_report",
-      "category": "Endpoint",
-      "description": "# Asset and Vulnerability Report  **Created:** 2026-03-03  "
+      "domain": "endpoint",
+      "subdomain": null,
+      "title": "Asset and Vulnerability Report",
+      "filename": "asset_vulnerability_report.md",
+      "sizeBytes": 33774
     },
     {
       "slug": "endpoint/device_logon_attack_disruption",
-      "category": "Endpoint",
-      "description": "# Attack Disruption & Endpoint Logon Forensics  **Created:** 2026-04-16  "
+      "domain": "endpoint",
+      "subdomain": null,
+      "title": "Attack Disruption & Endpoint Logon Forensics",
+      "filename": "device_logon_attack_disruption.md",
+      "sizeBytes": 19614
     },
     {
       "slug": "endpoint/endpoint_failed_connections",
-      "category": "Endpoint",
-      "description": "# Defender for Endpoint - Failed Connections & Logon Attempts  **Created:** 2026-01-13  "
+      "domain": "endpoint",
+      "subdomain": null,
+      "title": "Defender for Endpoint - Failed Connections & Logon Attempts",
+      "filename": "endpoint_failed_connections.md",
+      "sizeBytes": 49193
     },
     {
       "slug": "endpoint/openclaw_shadow_ai_hunting",
-      "category": "Endpoint",
-      "description": "# OpenClaw Shadow AI Agent — Threat Hunting Queries  **Created:** 2026-03-30  "
+      "domain": "endpoint",
+      "subdomain": null,
+      "title": "OpenClaw Shadow AI Agent — Threat Hunting Queries",
+      "filename": "openclaw_shadow_ai_hunting.md",
+      "sizeBytes": 24308
     },
     {
       "slug": "endpoint/rare_process_chains",
-      "category": "Endpoint",
-      "description": "# Rare Parent–Child Process Chain Detection  **Created:** 2026-02-06  "
+      "domain": "endpoint",
+      "subdomain": null,
+      "title": "Rare Parent–Child Process Chain Detection",
+      "filename": "rare_process_chains.md",
+      "sizeBytes": 14473
     },
     {
       "slug": "endpoint/rdp_threat_detection",
-      "category": "Endpoint",
-      "description": "# RDP Threat Detection — Brute-Force, Lateral Movement & External Access  **Created:** 2026-01-28  "
+      "domain": "endpoint",
+      "subdomain": null,
+      "title": "RDP Threat Detection — Brute-Force, Lateral Movement & External Access",
+      "filename": "rdp_threat_detection.md",
+      "sizeBytes": 43454
     },
     {
       "slug": "endpoint/smb_threat_detection",
-      "category": "Endpoint",
-      "description": "# SMB/NTLM Threat Detection — Brute-Force, Lateral Movement & External Access  **Created:** 2026-04-16  "
+      "domain": "endpoint",
+      "subdomain": null,
+      "title": "SMB/NTLM Threat Detection — Brute-Force, Lateral Movement & External Access",
+      "filename": "smb_threat_detection.md",
+      "sizeBytes": 41265
     },
     {
       "slug": "endpoint/startup_folder_persistence",
-      "category": "Endpoint",
-      "description": "# Windows Startup Folder Persistence Hunting  **Created:** 2026-03-27  "
+      "domain": "endpoint",
+      "subdomain": null,
+      "title": "Windows Startup Folder Persistence Hunting",
+      "filename": "startup_folder_persistence.md",
+      "sizeBytes": 32408
     },
     {
       "slug": "identity/aitm_threat_detection",
-      "category": "Identity",
-      "description": "# AiTM / Adversary-in-the-Middle — Defensive Program & Hunting Playbook  **Created:** 2026-02-11  "
+      "domain": "identity",
+      "subdomain": null,
+      "title": "AiTM / Adversary-in-the-Middle — Defensive Program & Hunting Playbook",
+      "filename": "aitm_threat_detection.md",
+      "sizeBytes": 51855
     },
     {
       "slug": "identity/app_credential_management",
-      "category": "Identity",
-      "description": "# Application & Service Principal Credential Management Queries  **Created:** 2026-02-06  "
+      "domain": "identity",
+      "subdomain": null,
+      "title": "Application & Service Principal Credential Management Queries",
+      "filename": "app_credential_management.md",
+      "sizeBytes": 25537
     },
     {
       "slug": "identity/app_registration_abuse_chains",
-      "category": "Identity",
-      "description": "# App Registration Abuse — Attack Chain Detections  **Created:** 2026-03-30  "
+      "domain": "identity",
+      "subdomain": null,
+      "title": "App Registration Abuse — Attack Chain Detections",
+      "filename": "app_registration_abuse_chains.md",
+      "sizeBytes": 36711
     },
     {
       "slug": "identity/device_code_phishing",
-      "category": "Identity",
-      "description": "# AI-Enabled Device Code Phishing — Hunting & Detection Queries  **Created:** 2026-04-06  "
+      "domain": "identity",
+      "subdomain": null,
+      "title": "AI-Enabled Device Code Phishing — Hunting & Detection Queries",
+      "filename": "device_code_phishing.md",
+      "sizeBytes": 29867
     },
     {
       "slug": "identity/mcp_anomaly_detection_kql_jobs",
-      "category": "Identity",
-      "description": "# MCP Anomaly Detection — Sentinel Data Lake KQL Jobs  **Created:** 2026-02-08  "
+      "domain": "identity",
+      "subdomain": null,
+      "title": "MCP Anomaly Detection — Sentinel Data Lake KQL Jobs",
+      "filename": "mcp_anomaly_detection_kql_jobs.md",
+      "sizeBytes": 55191
     },
     {
       "slug": "identity/service_principal_scope_drift",
-      "category": "Identity",
-      "description": "# Service Principal Scope Drift Detection  **Created:** 2026-02-06  "
+      "domain": "identity",
+      "subdomain": null,
+      "title": "Service Principal Scope Drift Detection",
+      "filename": "service_principal_scope_drift.md",
+      "sizeBytes": 42318
     },
     {
       "slug": "identity/teams_threat_defense_program",
-      "category": "Identity",
-      "description": "# Microsoft Teams — Threat Defense Program & Hunting Playbook  **Created:** 2026-02-12  "
+      "domain": "identity",
+      "subdomain": null,
+      "title": "Microsoft Teams — Threat Defense Program & Hunting Playbook",
+      "filename": "teams_threat_defense_program.md",
+      "sizeBytes": 84091
     },
     {
       "slug": "incidents/security_incident_analysis",
-      "category": "Incidents",
-      "description": "# SecurityIncident — Incident Analysis & Entity Correlation  **Created:** 2026-04-11  "
+      "domain": "incidents",
+      "subdomain": null,
+      "title": "SecurityIncident — Incident Analysis & Entity Correlation",
+      "filename": "security_incident_analysis.md",
+      "sizeBytes": 18780
     },
     {
       "slug": "network/gsa_generative_ai_insights",
-      "category": "Network",
-      "description": "# Global Secure Access — Generative AI Insights (Client GenAI + Agent MCP)  **Created:** 2026-06-17  "
+      "domain": "network",
+      "subdomain": null,
+      "title": "Global Secure Access — Generative AI Insights (Client GenAI + Agent MCP)",
+      "filename": "gsa_generative_ai_insights.md",
+      "sizeBytes": 30771
     },
     {
       "slug": "network/internet_exposure_analysis",
-      "category": "Network",
-      "description": "# Internet Exposure Analysis  **Created:** 2026-03-31  "
+      "domain": "network",
+      "subdomain": null,
+      "title": "Internet Exposure Analysis",
+      "filename": "internet_exposure_analysis.md",
+      "sizeBytes": 35253
     },
     {
       "slug": "network/network_anomaly_detection",
-      "category": "Network",
-      "description": "# Network Anomaly Detection Using series_decompose_anomalies()  **Created:** 2026-01-15  "
+      "domain": "network",
+      "subdomain": null,
+      "title": "Network Anomaly Detection Using series_decompose_anomalies()",
+      "filename": "network_anomaly_detection.md",
+      "sizeBytes": 20563
     },
     {
       "slug": "threat-intelligence/2026-02/infostealer_hunting_campaign",
-      "category": "Threat Intelligence",
-      "description": "# Infostealer Hunting Campaign — PXA Stealer, Eternidade, CrystalPDF & macOS Stealers  **Created:** 2026-02-07  "
+      "domain": "threat-intelligence",
+      "subdomain": "2026-02",
+      "title": "Infostealer Hunting Campaign — PXA Stealer, Eternidade, CrystalPDF & macOS Stealers",
+      "filename": "infostealer_hunting_campaign.md",
+      "sizeBytes": 50398
     },
     {
       "slug": "threat-intelligence/2026-03/npm_supply_chain_attack",
-      "category": "Threat Intelligence",
-      "description": "# npm Supply Chain Attack Hunting — axios Compromise  **Created:** 2026-03-31  "
+      "domain": "threat-intelligence",
+      "subdomain": "2026-03",
+      "title": "npm Supply Chain Attack Hunting — axios Compromise",
+      "filename": "npm_supply_chain_attack.md",
+      "sizeBytes": 60031
     },
     {
       "slug": "threat-intelligence/2026-03/python_supply_chain_attack",
-      "category": "Threat Intelligence",
-      "description": "# Python Supply Chain Attack Hunting — LiteLLM / PyPI Compromise  **Created:** 2026-03-25  "
+      "domain": "threat-intelligence",
+      "subdomain": "2026-03",
+      "title": "Python Supply Chain Attack Hunting — LiteLLM / PyPI Compromise",
+      "filename": "python_supply_chain_attack.md",
+      "sizeBytes": 69196
     },
     {
       "slug": "threat-intelligence/2026-04/adobe_reader_zero_day_hunt",
-      "category": "Threat Intelligence",
-      "description": "# Adobe Reader Zero-Day Exploitation & NTLM Leak Hunting Campaign  **Created:** 2026-04-09  "
+      "domain": "threat-intelligence",
+      "subdomain": "2026-04",
+      "title": "Adobe Reader Zero-Day Exploitation & NTLM Leak Hunting Campaign",
+      "filename": "adobe_reader_zero_day_hunt.md",
+      "sizeBytes": 39593
     },
     {
       "slug": "threat-intelligence/2026-04/dns_hijacking_soho_compromise",
-      "category": "Threat Intelligence",
-      "description": "# DNS Hijacking via SOHO Router Compromise — Detection Queries  **Created:** 2026-04-08  "
+      "domain": "threat-intelligence",
+      "subdomain": "2026-04",
+      "title": "DNS Hijacking via SOHO Router Compromise — Detection Queries",
+      "filename": "dns_hijacking_soho_compromise.md",
+      "sizeBytes": 25498
     },
     {
       "slug": "threat-intelligence/2026-04/email_threat_landscape_q1_2026",
-      "category": "Threat Intelligence",
-      "description": "# Email Threat Landscape Q1 2026 — TTPs & IOCs  **Created:** 2026-05-01  "
+      "domain": "threat-intelligence",
+      "subdomain": "2026-04",
+      "title": "Email Threat Landscape Q1 2026 — TTPs & IOCs",
+      "filename": "email_threat_landscape_q1_2026.md",
+      "sizeBytes": 26127
     },
     {
       "slug": "threat-intelligence/2026-04/sapphire_sleet_macos_intrusion",
-      "category": "Threat Intelligence",
-      "description": "# Sapphire Sleet macOS Intrusion — From Lure to Compromise  **Created:** 2026-04-16  "
+      "domain": "threat-intelligence",
+      "subdomain": "2026-04",
+      "title": "Sapphire Sleet macOS Intrusion — From Lure to Compromise",
+      "filename": "sapphire_sleet_macos_intrusion.md",
+      "sizeBytes": 35583
     },
     {
       "slug": "threat-intelligence/2026-04/storm_1175_medusa_ransomware_campaign",
-      "category": "Threat Intelligence",
-      "description": "# Storm-1175 / Medusa Ransomware — Threat Hunting Campaign  **Created:** 2026-04-07  "
+      "domain": "threat-intelligence",
+      "subdomain": "2026-04",
+      "title": "Storm-1175 / Medusa Ransomware — Threat Hunting Campaign",
+      "filename": "storm_1175_medusa_ransomware_campaign.md",
+      "sizeBytes": 33441
     },
     {
       "slug": "threat-intelligence/2026-04/storm_2755_payroll_pirate",
-      "category": "Threat Intelligence",
-      "description": "# Storm-2755 \"Payroll Pirate\" — AiTM Campaign Targeting Canadian Employees  **Created:** 2026-04-11  "
+      "domain": "threat-intelligence",
+      "subdomain": "2026-04",
+      "title": "Storm-2755 \"Payroll Pirate\" — AiTM Campaign Targeting Canadian Employees",
+      "filename": "storm_2755_payroll_pirate.md",
+      "sizeBytes": 31700
     },
     {
       "slug": "threat-intelligence/2026-05/code_of_conduct_aitm_phishing",
-      "category": "Threat Intelligence",
-      "description": "# Code of Conduct AiTM Phishing Campaign — TTPs & IOCs  **Created:** 2026-05-04  "
+      "domain": "threat-intelligence",
+      "subdomain": "2026-05",
+      "title": "Code of Conduct AiTM Phishing Campaign — TTPs & IOCs",
+      "filename": "code_of_conduct_aitm_phishing.md",
+      "sizeBytes": 27431
     },
     {
       "slug": "threat-intelligence/2026-05/gentlemen_ransomware_go_encryptor",
-      "category": "Threat Intelligence",
-      "description": "# The Gentlemen Ransomware (Storm-2697) — Threat Hunts  **Created:** 2026-06-18  "
+      "domain": "threat-intelligence",
+      "subdomain": "2026-05",
+      "title": "The Gentlemen Ransomware (Storm-2697) — Threat Hunts",
+      "filename": "gentlemen_ransomware_go_encryptor.md",
+      "sizeBytes": 24747
     },
     {
       "slug": "threat-intelligence/2026-05/kazuar_secret_blizzard",
-      "category": "Threat Intelligence",
-      "description": "# Kazuar / Secret Blizzard (Turla) — Threat Hunts  **Created:** 2026-05-15  "
+      "domain": "threat-intelligence",
+      "subdomain": "2026-05",
+      "title": "Kazuar / Secret Blizzard (Turla) — Threat Hunts",
+      "filename": "kazuar_secret_blizzard.md",
+      "sizeBytes": 26017
     },
     {
       "slug": "threat-intelligence/2026-05/npm_dependency_confusion",
-      "category": "Threat Intelligence",
-      "description": "# npm Dependency Confusion Campaign Hunting — 33 Malicious Packages (May 2026)  **Created:** 2026-05-30  "
+      "domain": "threat-intelligence",
+      "subdomain": "2026-05",
+      "title": "npm Dependency Confusion Campaign Hunting — 33 Malicious Packages (May 2026)",
+      "filename": "npm_dependency_confusion.md",
+      "sizeBytes": 59102
     },
     {
       "slug": "threat-intelligence/2026-05/trusted_third_party_intrusion",
-      "category": "Threat Intelligence",
-      "description": "# Trusted Third-Party Intrusion (HPE OA / HPOM Abuse) — TTPs & Hunting  **Created:** 2026-05-12  "
+      "domain": "threat-intelligence",
+      "subdomain": "2026-05",
+      "title": "Trusted Third-Party Intrusion (HPE OA / HPOM Abuse) — TTPs & Hunting",
+      "filename": "trusted_third_party_intrusion.md",
+      "sizeBytes": 44192
     },
     {
       "slug": "threat-intelligence/2026-06/ai_brands_as_bait_social_engineering",
-      "category": "Threat Intelligence",
-      "description": "# AI Brands as Bait — Social Engineering Threat Hunts  **Created:** 2026-06-12  "
+      "domain": "threat-intelligence",
+      "subdomain": "2026-06",
+      "title": "AI Brands as Bait — Social Engineering Threat Hunts",
+      "filename": "ai_brands_as_bait_social_engineering.md",
+      "sizeBytes": 28072
     },
     {
       "slug": "threat-intelligence/2026-06/mastra_npm_supply_chain",
-      "category": "Threat Intelligence",
-      "description": "# Sapphire Sleet — Mastra npm Supply Chain Compromise (easy-day-js) — Threat Hunts  **Created:** 2026-06-24  "
+      "domain": "threat-intelligence",
+      "subdomain": "2026-06",
+      "title": "Sapphire Sleet — Mastra npm Supply Chain Compromise (easy-day-js) — Threat Hunts",
+      "filename": "mastra_npm_supply_chain.md",
+      "sizeBytes": 25670
     },
     {
       "slug": "threat-intelligence/2026-06/stealc_amadey_infostealer",
-      "category": "Threat Intelligence",
-      "description": "# StealC & Amadey — Infostealer + Loader-as-a-Service — Threat Hunts  **Created:** 2026-06-24  "
+      "domain": "threat-intelligence",
+      "subdomain": "2026-06",
+      "title": "StealC & Amadey — Infostealer + Loader-as-a-Service — Threat Hunts",
+      "filename": "stealc_amadey_infostealer.md",
+      "sizeBytes": 25098
     },
     {
-      "slug": "detection-chokepoints/aitm-prt",
-      "name": "query-aitm-prt",
-      "category": "Detection Chokepoints",
-      "description": "# AiTM Device PRT Enrollment Detection Query  **Category:** Detection Chokepoints | **Maturity:** Hunt | **FP Rate:** Low"
+      "slug": "threat-intelligence/2026-07/asyncapi_npm_import_time_compromise",
+      "domain": "threat-intelligence",
+      "subdomain": "2026-07",
+      "title": "AsyncAPI npm Supply Chain Compromise — Import-Time Payload (Miasma) — Threat Hunts",
+      "filename": "asyncapi_npm_import_time_compromise.md",
+      "sizeBytes": 30169
     },
     {
-      "slug": "detection-chokepoints/aitm-relay",
-      "name": "query-aitm-relay",
-      "category": "Detection Chokepoints",
-      "description": "# AiTM WebSocket Relay Detection Query  **Category:** Detection Chokepoints | **Maturity:** Hunt | **FP Rate:** Low"
-    },
-    {
-      "slug": "detection-chokepoints/browser-creds",
-      "name": "query-browser-credential-theft",
-      "category": "Detection Chokepoints",
-      "description": "# Browser Credential Theft Detection Query  **Category:** Detection Chokepoints | **Maturity:** Hunt | **FP Rate:** Medium"
-    },
-    {
-      "slug": "detection-chokepoints/byosi",
-      "name": "query-byosi",
-      "category": "Detection Chokepoints",
-      "description": "# BYOSI Scripting Interpreter Detection Query  **Category:** Detection Chokepoints | **Maturity:** Hunt | **FP Rate:** Medium"
-    },
-    {
-      "slug": "detection-chokepoints/clickfix",
-      "name": "query-clickfix",
-      "category": "Detection Chokepoints",
-      "description": "# ClickFix Detection Query  **Category:** Detection Chokepoints | **Maturity:** Hunt | **FP Rate:** Medium"
-    },
-    {
-      "slug": "detection-chokepoints/edr-bypass",
-      "name": "query-edr-bypass",
-      "category": "Detection Chokepoints",
-      "description": "# EDR Bypass Detection Query  **Category:** Detection Chokepoints | **Maturity:** Hunt | **FP Rate:** Medium"
-    },
-    {
-      "slug": "detection-chokepoints/graph-api-recon",
-      "name": "query-graph-api-recon",
-      "category": "Detection Chokepoints",
-      "description": "# Graph API Reconnaissance Burst Detection Query  **Category:** Detection Chokepoints | **Maturity:** Hunt | **FP Rate:** Medium"
-    },
-    {
-      "slug": "detection-chokepoints/lsass-dumping",
-      "name": "query-lsass-dumping",
-      "category": "Detection Chokepoints",
-      "description": "# LSASS Credential Dump Detection Query  **Category:** Detection Chokepoints | **Maturity:** Hunt | **FP Rate:** Medium"
-    },
-    {
-      "slug": "detection-chokepoints/oauth-device-code",
-      "name": "query-oauth-device-code",
-      "category": "Detection Chokepoints",
-      "description": "# OAuth Device Code Phishing Detection Query  **Category:** Detection Chokepoints | **Maturity:** Hunt | **FP Rate:** Low"
-    },
-    {
-      "slug": "detection-chokepoints/ransomware-service",
-      "name": "query-ransomware-service-manipulation",
-      "category": "Detection Chokepoints",
-      "description": "# Ransomware Service Manipulation Detection Query  **Category:** Detection Chokepoints | **Maturity:** Hunt | **FP Rate:** Medium"
-    },
-    {
-      "slug": "detection-chokepoints/remote-execution",
-      "name": "query-remote-execution",
-      "category": "Detection Chokepoints",
-      "description": "# Remote Execution (HackTools) Detection Query  **Category:** Detection Chokepoints | **Maturity:** Hunt | **FP Rate:** Medium"
-    },
-    {
-      "slug": "detection-chokepoints/renamed-rmm",
-      "name": "query-renamed-rmm",
-      "category": "Detection Chokepoints",
-      "description": "# Renamed RMM Tool Detection Query  **Category:** Detection Chokepoints | **Maturity:** Hunt | **FP Rate:** Medium"
-    },
-    {
-      "slug": "detection-chokepoints/web-shells",
-      "name": "query-web-shells",
-      "category": "Detection Chokepoints",
-      "description": "# Web Shell Detection Query  **Category:** Detection Chokepoints | **Maturity:** Hunt | **FP Rate:** Medium"
+      "slug": "threat-intelligence/2026-07/legacyhive_profsvc_hive_hijack",
+      "domain": "threat-intelligence",
+      "subdomain": "2026-07",
+      "title": "LegacyHive — ProfSvc Registry Hive Hijack Local Privilege Escalation — Threat Hunts",
+      "filename": "legacyhive_profsvc_hive_hijack.md",
+      "sizeBytes": 34852
     }
   ],
-  "scripts": [
+  "automations": [
     {
-      "slug": "chokepoint-clickfix-emulation",
-      "name": "chokepoint-clickfix-emulation",
-      "category": "Execution",
-      "description": ""
+      "slug": "daily-mcp-auth-health-check",
+      "title": "Daily MCP Auth Health Check",
+      "filename": "daily-mcp-auth-health-check.workflow.md",
+      "interval": "daily",
+      "sizeBytes": 9272
     },
     {
-      "slug": "chokepoint-edr-bypass-emulation",
-      "name": "chokepoint-edr-bypass-emulation",
-      "category": "Defense Evasion",
-      "description": ""
+      "slug": "daily-threat-pulse",
+      "title": "Daily Threat Pulse",
+      "filename": "daily-threat-pulse.workflow.md",
+      "interval": "daily",
+      "sizeBytes": 11062
     },
     {
-      "slug": "chokepoint-lsass-emulation",
-      "name": "chokepoint-lsass-emulation",
-      "category": "Credential Access",
-      "description": ""
-    },
-    {
-      "slug": "chokepoint-ransomware-service-emulation",
-      "name": "chokepoint-ransomware-service-emulation",
-      "category": "Impact",
-      "description": ""
-    },
-    {
-      "slug": "chokepoint-remote-execution-emulation",
-      "name": "chokepoint-remote-execution-emulation",
-      "category": "Uncategorized",
-      "description": "# Remote Execution Tools Emulation  **MITRE:** T1021.002 + T1569.002 | **Lab use only** | **Requires Admin**"
-    },
-    {
-      "slug": "chokepoint-renamed-rmm-emulation",
-      "name": "chokepoint-renamed-rmm-emulation",
-      "category": "Detection Chokepoints",
-      "description": "# Renamed RMM Tool Emulation  **MITRE:** T1219.002 | **Lab use only**"
-    },
-    {
-      "slug": "chokepoint-web-shells-emulation",
-      "name": "chokepoint-web-shells-emulation",
-      "category": "Detection Chokepoints",
-      "description": "# Web Shell Emulation  **MITRE:** T1505.003 | **Lab use only**"
-    },
-    {
-      "slug": "sentinel/chokepoint-rules",
-      "name": "sentinel-chokepoint-rules",
-      "category": "Detection Chokepoints",
-      "description": "Sentinel scheduled analytics rules manifest — 13 rules with severity, entity mapping, MITRE mapping, and suppression config."
-    },
-    {
-      "slug": "sentinel/deploy-rules",
-      "name": "Deploy-SentinelChokepointRules",
-      "category": "Detection Chokepoints",
-      "description": "PowerShell deployment script for Sentinel chokepoint rules via Microsoft Graph Security API. Supports dry-run mode."
+      "slug": "weekly-threat-intel-campaign",
+      "title": "Weekly Threat Intel Campaign",
+      "filename": "weekly-threat-intel-campaign.workflow.md",
+      "interval": "weekly",
+      "sizeBytes": 11085
     }
   ]
 }
