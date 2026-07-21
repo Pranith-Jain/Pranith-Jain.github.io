@@ -2,7 +2,7 @@
   "$schema": "https://modelcontextprotocol.io/schemas/manifest/v1.json",
   "name": "DFIR-ThreatIntel-MCP",
   "version": "1.0.0",
-  "description": "DFIR + Threat Intel MCP server. 242 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
+  "description": "DFIR + Threat Intel MCP server. 251 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
   "transport": "streamable-http",
   "endpoint": "https://pranithjain.qzz.io/api/mcp",
   "auth": {
@@ -16,9 +16,24 @@
       "listChanged": false
     }
   },
-  "toolCount": 242,
-  "generatedAt": "2026-07-21T17:01:36.347Z",
+  "toolCount": 251,
+  "generatedAt": "2026-07-21T18:06:59.677Z",
   "tools": [
+    {
+      "name": "ai_threats_get",
+      "description": "Return the full entry body for an AI-capable threat actor — includes full brief, aliases, raw TTP markdown, reported/activity dates, and MITRE technique IDs. Use ai_threats_list first to discover slugs.",
+      "category": "other"
+    },
+    {
+      "name": "ai_threats_list",
+      "description": "List AI-capable threat actors from the Cybershujin tracker (79 entries, MIT). Each entry documents real-world confirmed use of AI/LLMs by threat actors. Filter by table (main/deepfake), category, TTP, or keyword.",
+      "category": "other"
+    },
+    {
+      "name": "ai_threats_stats",
+      "description": "Return cache + manifest stats for the AI Threat Actors data: total entries, index load state, body-cache hit ratios.",
+      "category": "other"
+    },
     {
       "name": "analyze_phishing_email",
       "description": "Analyze raw email source for phishing indicators. Parses headers, checks SPF/DKIM/DMARC, extracts URLs, and computes a risk score with flags.",
@@ -107,6 +122,21 @@
     {
       "name": "cyber_news",
       "description": "Aggregate cybersecurity news from 11 RSS feeds across 5 tiers (Advisory, Exploit, Research, Vendor, Community). Supports tier filtering and keyword search. Sources: CISA, Rapid7, Packet Storm, BleepingComputer, Hacker News, GitHub Security, ZDI, Reddit netsec/exploitdev/bugbounty.",
+      "category": "other"
+    },
+    {
+      "name": "db_get_brief",
+      "description": "Return the full daily intelligence brief for a given type and date. Includes executive summary, key findings, events/incidents, and structured data. Use db_list_briefs to discover available dates.",
+      "category": "other"
+    },
+    {
+      "name": "db_list_briefs",
+      "description": "List available daily intelligence briefs by type (cyber, deepfake, disaster). Returns dates and metadata. Use db_get_brief to retrieve the full brief body.",
+      "category": "other"
+    },
+    {
+      "name": "db_stats",
+      "description": "Return cache + manifest stats for the Daily Briefs data: index loaded, body-cache sizes and hit ratios. Useful for diagnosing cold-start latency.",
       "category": "other"
     },
     {
@@ -672,6 +702,21 @@
     {
       "name": "osint_stats",
       "description": "Return cache + manifest stats for the OSINT Portal Directory: total portals, indexed categories, and index cache status.",
+      "category": "other"
+    },
+    {
+      "name": "oss_feeds_get_category",
+      "description": "Return all feeds in a specific category with full URLs. Use oss_feeds_list first to discover category names.",
+      "category": "other"
+    },
+    {
+      "name": "oss_feeds_list",
+      "description": "List open-source threat intel feeds from the curated catalog (145+ feeds, BSD-3-Clause). Filter by vendor, category, status, or keyword. Each entry shows vendor, description, category, and feed status.",
+      "category": "other"
+    },
+    {
+      "name": "oss_feeds_stats",
+      "description": "Return cache + manifest stats for the OSS Feed Registry: total feeds, category breakdown, status breakdown, cache state.",
       "category": "other"
     },
     {

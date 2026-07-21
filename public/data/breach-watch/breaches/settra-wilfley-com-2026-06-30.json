@@ -1,0 +1,15 @@
+{
+  "slug": "settra-wilfley-com-2026-06-30",
+  "title": "wilfley.com",
+  "group": "settra",
+  "discovered": "2026-06-30T12:34:14.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "SEAL FAILURE A company that builds pumps for chemical and defense production — and undertakes to con...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "deadlock-breda-energia-2026-07-10",
+  "title": "Breda Energia",
+  "group": "Deadlock",
+  "discovered": "2026-07-10T12:52:59.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "Breda Energia S.p.A. is a global leader in the Oil & Gas industry, specializing in innovative products and services for onshore, offshore, and subsea applications. The company offers a wide range of solutions including wellheads, valves, high integrity pressure protection systems, and packaged systems, all designed with a focus on sustainability and cutting-edge technology. With over 60 years of experience, Breda Energia aims to be a partner to its clients, providing not just equipment but also qualified services to optimize performance and maintenance. Their commitment to quality is reflected in their adherence to various international standards and certifications.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Energy",
+  "references": ["ransomware.live"]
+}

@@ -406,7 +406,9 @@ socialRouter.post('/social/:slug/post-twitter', async (c) => {
   );
 
   if (!result.ok) {
-    notifySocialFailed(c.env as unknown as WebhookEnv, slug, 'twitter', result.error ?? 'unknown').catch(() => {});
+    notifySocialFailed(c.env as unknown as WebhookEnv, slug, 'twitter', result.error ?? 'unknown').catch((err) =>
+      console.error('notifySocialFailed (twitter) failed:', err)
+    );
     return c.json(result, 400);
   }
 
@@ -431,7 +433,9 @@ socialRouter.post('/social/:slug/post-linkedin', async (c) => {
       return c.json({ error: 'no_linkedin_content', hint: 'generate social content first' }, 400);
     const result = await postToLinkedin(combined.linkedin, c.env.LINKEDIN_ACCESS_TOKEN, image);
     if (!result.ok) {
-      notifySocialFailed(c.env as unknown as WebhookEnv, slug, 'linkedin', result.error ?? 'unknown').catch(() => {});
+      notifySocialFailed(c.env as unknown as WebhookEnv, slug, 'linkedin', result.error ?? 'unknown').catch((err) =>
+        console.error('notifySocialFailed (linkedin) failed:', err)
+      );
       return c.json(result, 400);
     }
     await markSocialPosted(c.env.CASE_STUDIES, slug, 'linkedin');
@@ -440,7 +444,9 @@ socialRouter.post('/social/:slug/post-linkedin', async (c) => {
 
   const result = await postToLinkedin(social, c.env.LINKEDIN_ACCESS_TOKEN, image);
   if (!result.ok) {
-    notifySocialFailed(c.env as unknown as WebhookEnv, slug, 'linkedin', result.error ?? 'unknown').catch(() => {});
+    notifySocialFailed(c.env as unknown as WebhookEnv, slug, 'linkedin', result.error ?? 'unknown').catch((err) =>
+      console.error('notifySocialFailed (linkedin) failed:', err)
+    );
     return c.json(result, 400);
   }
 

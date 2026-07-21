@@ -1,0 +1,15 @@
+{
+  "slug": "auditteam-paid-victim-b35411691ddc2265-2026-05-28",
+  "title": "Paid Victim B35411691DDC2265",
+  "group": "AuditTeam",
+  "discovered": "2026-05-28T16:20:17.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "RU",
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["audit team"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

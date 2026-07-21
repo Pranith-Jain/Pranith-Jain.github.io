@@ -37,7 +37,7 @@
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
-  <!-- Misc (5) -->
+  <!-- Misc (6) -->
   <url>
     <loc>https://pranithjain.qzz.io/behind-the-reports</loc>
     <lastmod>2026-07-21</lastmod>
@@ -52,6 +52,12 @@
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/radar</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://pranithjain.qzz.io/daily-briefs</loc>
     <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -81,7 +87,7 @@
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
-  <!-- DFIR tools (178) -->
+  <!-- DFIR tools (180) -->
   <url>
     <loc>https://pranithjain.qzz.io/dfir/catalog</loc>
     <lastmod>2026-07-21</lastmod>
@@ -852,6 +858,18 @@
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/whoxy</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pranithjain.qzz.io/dfir/ai-threats</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pranithjain.qzz.io/dfir/oss-feeds</loc>
     <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

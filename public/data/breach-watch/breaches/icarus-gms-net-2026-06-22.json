@@ -1,0 +1,15 @@
+{
+  "slug": "icarus-gms-net-2026-06-22",
+  "title": "Gms-net",
+  "group": "Icarus",
+  "discovered": "2026-06-22T21:21:16.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Salesforce data for this corp.\n\nData stolen: SF data - compressed",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

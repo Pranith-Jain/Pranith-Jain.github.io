@@ -1,0 +1,15 @@
+{
+  "slug": "krybit-sansilvestre-edu-pe-2026-06-25",
+  "title": "sansilvestre.edu.pe",
+  "group": "krybit",
+  "discovered": "2026-06-25T12:25:02.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "PE",
+  "sizeBytes": 0,
+  "description": "San Silvestre School (Asociación Civil) is one of Peru's most prestigious private all-girls British schools, founded in...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Education",
+  "references": ["ransomware.live"]
+}

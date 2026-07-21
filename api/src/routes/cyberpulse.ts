@@ -299,7 +299,9 @@ export async function cyberpulseIngestHandler(c: Context<{ Bindings: Env }>): Pr
     });
   } catch (e) {
     console.error('cyberpulseIngestHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ ok: false, error: e instanceof Error ? e.message : String(e) }, 500);
+    return c.json({ ok: false, error: e instanceof Error ? e.message : String(e) }, 500, {
+      'Cache-Control': 'no-store',
+    });
   }
 }
 
@@ -350,6 +352,8 @@ export async function cyberpulseScanHandler(c: Context<{ Bindings: Env }>): Prom
     });
   } catch (e) {
     console.error('cyberpulseScanHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ ok: false, error: e instanceof Error ? e.message : String(e) }, 500);
+    return c.json({ ok: false, error: e instanceof Error ? e.message : String(e) }, 500, {
+      'Cache-Control': 'no-store',
+    });
   }
 }

@@ -1,0 +1,15 @@
+{
+  "slug": "threeam-bsynchro-com-2026-06-12",
+  "title": "bsynchro.com",
+  "group": "threeam",
+  "discovered": "2026-06-12T20:04:55.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "BSynchro Holding is an insurtech software provider that specializes in innovative insurance solutions tailored for insurance companies, brokers, and reinsurance brokers. Their product offerings include advanced tools such as CORA for product confi",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "interlock-first-united-methodist-church-boerne-2026-05-11",
+  "title": "First United Methodist Church Boerne",
+  "group": "interlock",
+  "discovered": "2026-05-11T16:52:53.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "The First United Methodist Church in Bern offers a variety of programs for all age groups, including preschool, childrens, youth, and adult ministries. However, it does not ensure the protection of your personal data and does not seek to protect it; due to its negligence, there has been a leak of personal data including phone numbers, email addresses, and home addresses of staff, parishioners, and children attending the church, as well as financial and other confidential documents.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

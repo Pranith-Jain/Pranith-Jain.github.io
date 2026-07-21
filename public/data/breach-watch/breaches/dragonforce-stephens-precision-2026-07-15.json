@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/2270e915-6f22-4ac4-8d04-9e8f378de7c8",
+  "description": "Stephens Precision, Inc. is a versatile HUBZone manufacturing facility in Vermont, specializing in the machining of mechanical assemblies, components, and tooling for aerospace, defense, commercial, and research sectors. As a Woman-Owned Small Business, they offer solutions from prototype to volume production, emphasizing lean manufacturing and cost control through various programs. The company prides itself on achieving 100% quality and delivery ratings from major clients like Boeing and GE Aviation. With a commitment to quality and a skilled workforce, they provide precision machined parts and a wide range of materials, ensuring strong partnerships with their clients.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["DRAGON FORCE"],
   "activity": "Manufacturing",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

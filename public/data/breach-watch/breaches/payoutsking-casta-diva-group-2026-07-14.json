@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "IT",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/2f13b440-b5f2-4615-ad20-6c13cb45450a",
+  "description": "[AI generated] Casta Diva Group is an Italian communications and entertainment company headquartered in Milan, Italy. It operates in the media, events, and live entertainment industry, offering services including event production, branded entertainment, digital communication, and audiovisual content creation. The group serves corporate clients and institutions, managing large-scale events, product launches, and integrated communication campaigns across Italy and international markets.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Hospitality and Tourism",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

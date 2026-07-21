@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-naturghiaccio-2026-07-01",
+  "title": "NATURGHIACCIO",
+  "group": "thegentlemen",
+  "discovered": "2026-07-01T22:19:25.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "***.it dnb.com/business-directory/company-profiles.naturghiaccio_srl.eae47436d39ec78b7abc7007a3637507.html Naturghiaccio, an Italian company founded in 2013 that specializes in the production and distribution of high-quality, certified food-grade ice. Operating with a fully automated plant, they supply premium packaged ice to the Ho.Re.Ca. sector, supermarkets, and event organizers across Italy. The company is an official member of the European Packaged Ice Association (EPIA), ensuring strict quality and safety standards for their products",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

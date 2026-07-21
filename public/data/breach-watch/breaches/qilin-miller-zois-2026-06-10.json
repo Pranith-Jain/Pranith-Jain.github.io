@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-miller-zois-2026-06-10",
+  "title": "Miller & Zois",
+  "group": "qilin",
+  "discovered": "2026-06-10T21:57:09.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-thoresen-thai-agencies-2026-06-04",
+  "title": "Thoresen Thai Agencies",
+  "group": "thegentlemen",
+  "discovered": "2026-06-04T09:09:16.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "TH",
+  "sizeBytes": 0,
+  "description": "***.com ***.com/c/thoresen-thai-agencies-plc/56951398 Thoresen is a strategic investment holding company listed on the Stock Exchange of Thailand, with a maritime heritage dating back to 1904. Its core business, Thoresen Shipping, operates a modern fleet of dry bulk carriers transporting commodities like ore, coal, grain, and steel across global trade routes. The group serves major industrial clients in mining, agriculture, and energy sectors, combining owned and chartered vessels to deliver flexible, reliable logistics solutions",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Transportation/Logistics",
+  "references": ["ransomware.live"]
+}

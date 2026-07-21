@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/6e77ac99-30c6-4030-8636-648c60ad586b",
+  "description": "[AI generated] St. Francis Xavier Catholic School System is a private religious educational organization operating in the United States. It provides Catholic-based primary and secondary education, integrating faith formation with academic instruction. Operating under the Roman Catholic Church's educational mission, it serves students across multiple grade levels, emphasizing values-based learning, community involvement, and spiritual development alongside standard curriculum requirements.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Education",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

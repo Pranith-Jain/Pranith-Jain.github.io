@@ -396,6 +396,7 @@ const CtiDashboard = lazy(() => import('./pages/threatintel/CtiDashboard'));
 const TiDashboard = lazy(() => import('./pages/TiDashboard'));
 const ThreatIntelDashboard = lazy(() => import('./pages/threatintel/ThreatIntelDashboard'));
 const CommandCenter = lazy(() => import('./pages/cti/CommandCenter'));
+const IocBrowser = lazy(() => import('./pages/cti/IocBrowser'));
 
 /**
  * /dfir/file?h=<hash> is the legacy entry point for the standalone hash
@@ -443,6 +444,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/mcp', Component: McpCatalog },
   { path: '/status', Component: Status },
   { path: '/cti', Component: CommandCenter },
+  { path: '/cti/iocs', Component: IocBrowser },
   { path: '/threat-intel', Component: ThreatIntel },
   { path: '/daily-briefs', Component: DailyBriefs },
   { path: '/dfir/ai-threats', Component: AIThreats },

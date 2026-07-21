@@ -1,0 +1,15 @@
+{
+  "slug": "ulose-hize-aero-2026-06-09",
+  "title": "HIZE Aero",
+  "group": "ULose",
+  "discovered": "2026-06-09T00:00:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "KR",
+  "sizeBytes": 0,
+  "description": "We have all PDM Server`s data of HIZEAERO Company, partner Boeing. 1TB country: South Korea status: private",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

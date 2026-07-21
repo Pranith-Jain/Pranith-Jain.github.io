@@ -1,0 +1,15 @@
+{
+  "slug": "auditteam-tr-sor-public-2026-05-18",
+  "title": "Trésor Public",
+  "group": "AuditTeam",
+  "discovered": "2026-05-18T04:20:17.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "SN",
+  "sizeBytes": 0,
+  "description": "DGCPT (Direction Générale de la Comptabilité Publique et du Trésor) is Senegal's public treasury authority under the Ministry of Finance, responsible for public accounting, government fund management, cash flow, and public debt operations.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["audit team"],
+  "activity": "Public Sector",
+  "references": ["ransomware.live"]
+}

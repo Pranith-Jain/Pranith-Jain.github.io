@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-sumacinc-com-2026-04-28",
+  "title": "sumacinc.com",
+  "group": "incransom",
+  "discovered": "2026-04-28T03:49:46.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "all client data 2tb",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "deadlock-joso-2026-07-10",
+  "title": "JOSO",
+  "group": "Deadlock",
+  "discovered": "2026-07-10T12:59:24.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "NO",
+  "sizeBytes": 0,
+  "description": "JOSO, a Norwegian industrial engineering and manufacturing company. Based in Lonevåg, Norway, the company specializes in producing high-quality mechanical components and hardware.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

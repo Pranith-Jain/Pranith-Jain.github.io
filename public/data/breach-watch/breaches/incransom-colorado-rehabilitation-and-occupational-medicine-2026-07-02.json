@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-colorado-rehabilitation-and-occupational-medicine-2026-07-02",
+  "title": "Colorado Rehabilitation and Occupational Medicine",
+  "group": "incransom",
+  "discovered": "2026-07-02T00:28:12.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Colorado Rehabilitation & Occupational Medicine (CROM) is a leading Denver-area physiatry practice specializing in non-surgical treatments for musculoskeletal and neurological conditions. Founded in 1992, CROM operates multiple clinics across the Front Range, focusing on helping patients recover from sports, work, and auto injuries without narcotics or surgery.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "ulose-handok-2026-06-09",
+  "title": "HanDok",
+  "group": "ULose",
+  "discovered": "2026-06-09T00:00:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "KR",
+  "sizeBytes": 0,
+  "description": "We have all customer`s data of HanDok country: South Korea status: public",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

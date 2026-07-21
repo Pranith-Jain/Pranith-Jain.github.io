@@ -5,11 +5,11 @@
   "discovered": "2026-07-18T02:03:56.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": "TW",
+  "country": "CN",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/72ed9acc-cc5e-4a42-b542-d5afb6228734",
+  "description": "威视芯半导体（合肥）有限公司 specializes in advanced audio and video processing technologies for the global smart TV and set-top box market. The company offers a range of products including high-definition smart TV chips and network camera chips, aimed at enhancing smart home, community, and city solutions. Their target clients include manufacturers in the smart display and visual technology sectors. 威视芯 is committed to driving innovation in the audio-visual industry",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["inc ransom", "INC"],
   "activity": "Technology",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

@@ -15,13 +15,13 @@ async function readBlob(ns: KVNamespace): Promise<Candidate[]> {
   const { keys } = await ns.list({ prefix: kv.approvedPrefix, limit: 200 });
   const oldKeys = keys.filter((k) => k.name !== BLOB_KEY);
   if (oldKeys.length === 0) return [];
-  const migrated = (
-    await Promise.all(oldKeys.map((k) => ns.get(k.name, 'json') as Promise<Candidate | null>))
-  ).filter((x): x is Candidate => x !== null);
+  const migrated = (await Promise.all(oldKeys.map((k) => ns.get(k.name, 'json') as Promise<Candidate | null>))).filter(
+    (x): x is Candidate => x !== null
+  );
   if (migrated.length > 0) {
     await ns.put(BLOB_KEY, JSON.stringify(migrated));
     // Best-effort cleanup of old keys — don't await all deletes.
-    for (const k of oldKeys) ns.delete(k.name).catch(() => {});
+    for (const k of oldKeys) ns.delete(k.name).catch((err) => console.error('delete old approved key failed:', err));
   }
   return migrated;
 }
@@ -43,7 +43,7 @@ export async function unapprove(ns: KVNamespace, stableKey: string): Promise<voi
   const list = await readBlob(ns);
   await writeBlob(
     ns,
-    list.filter((x) => x.key !== stableKey),
+    list.filter((x) => x.key !== stableKey)
   );
 }
 

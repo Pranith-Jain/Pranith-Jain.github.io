@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-caka-grup-lojistik-2026-05-24",
+  "title": "Caka Grup Lojistik",
+  "group": "thegentlemen",
+  "discovered": "2026-05-24T09:01:30.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "TR",
+  "sizeBytes": 0,
+  "description": "cakagrup.com Turkish logistics provider delivering end-to-end solutions for domestic and international freight operations. Core services include warehousing, customs clearance, import-export facilitation, plus specialized trade in glass mosaic and packaging materials. Built on principles of speed, quality, and cost-efficiency, the company advances as a sector pioneer through expert teamwork and unwavering commitment to customer satisfaction.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Transportation/Logistics",
+  "references": ["ransomware.live"]
+}

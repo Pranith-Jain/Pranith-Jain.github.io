@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-gegenbauer-elektrotechnik-2026-07-01",
+  "title": "Gegenbauer Elektrotechnik",
+  "group": "thegentlemen",
+  "discovered": "2026-07-01T22:22:05.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "AT",
+  "sizeBytes": 0,
+  "description": "***.at Gegenbauer Elektrotechnik & IT GmbH is a Vienna-based service provider specializing in comprehensive electrical engineering and IT solutions for businesses.Evolving from a sole proprietorship with over 30 years of experience, the company was officially established in 2015 to offer end-to-end planning and implementation.They focus on delivering customized technical infrastructures, professional support, and employee training to meet the diverse needs of their clients",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

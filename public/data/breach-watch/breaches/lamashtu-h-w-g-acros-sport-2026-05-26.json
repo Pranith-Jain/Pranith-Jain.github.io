@@ -1,0 +1,15 @@
+{
+  "slug": "lamashtu-h-w-g-acros-sport-2026-05-26",
+  "title": "H-W-G & Acros Sport",
+  "group": "lamashtu",
+  "discovered": "2026-05-26T08:22:58.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "HWG (h-w-g.com): German manufacturer of bearings and mechanical components for industrial machinery and automation.\r\nAcros Components (acros-components.com): Distributor and supplier of electronic components and related logistics/technical support.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

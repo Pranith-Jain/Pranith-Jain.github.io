@@ -1,0 +1,15 @@
+{
+  "slug": "shinyhunters-bcd-travel-2026-05-29",
+  "title": "BCD Travel",
+  "group": "shinyhunters",
+  "discovered": "2026-05-29T13:24:06.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "NL",
+  "sizeBytes": 0,
+  "description": "Over 700k Salesforce records and various Sharepoint sites corporate data has been compromised. This is a final warning to reach out by 1 June 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. Pay or Leak. | Updated: 29 May 2026 | Warning: FINAL WARNING PAY OR LEAK",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

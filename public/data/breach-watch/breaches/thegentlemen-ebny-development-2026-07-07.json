@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-ebny-development-2026-07-07",
+  "title": "EBNY Development",
+  "group": "thegentlemen",
+  "discovered": "2026-07-07T18:32:13.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "EG",
+  "sizeBytes": 0,
+  "description": "***.com.eg Founded in 2012, EBNY Development is a pioneering real estate company focused on redefining the property market in Egypt and beyond. They create innovative and functional projects that combine elegant designs with thoughtful planning to elevate daily living and lifestyles. Ultimately, the company is dedicated to delivering long-lasting value and building a brighter, sustainable future for its clients",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Construction",
+  "references": ["ransomware.live"]
+}

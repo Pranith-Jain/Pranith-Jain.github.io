@@ -1,0 +1,15 @@
+{
+  "slug": "auditteam-mopas-online-supermarket-2026-05-23",
+  "title": "Mopas Online Supermarket",
+  "group": "AuditTeam",
+  "discovered": "2026-05-23T09:20:19.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "TR",
+  "sizeBytes": 0,
+  "description": "mopas.com.tr is a prominent Turkish retail chain and e-commerce platform primarily serving the Marmara region, offering an extensive online shopping experience that covers everything from fresh produce, halal meat, and dairy to household cleaning supplies and personal care products, all backed by a robust local delivery network that ensures fast, same-day service for residents in cities like Istanbul and Kocaeli.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["audit team"],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

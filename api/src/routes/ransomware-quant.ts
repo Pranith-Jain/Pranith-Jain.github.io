@@ -151,7 +151,7 @@ export async function ransomGet(c: Context<{ Bindings: Env }>): Promise<Response
   try {
     return c.json(JSON.parse(raw));
   } catch {
-    return c.json({ error: 'Not found' }, 404);
+    return c.json({ error: 'Not found' }, 404, { 'Cache-Control': 'no-store' });
   }
 }
 
@@ -194,7 +194,7 @@ export async function ransomUpdate(c: Context<{ Bindings: Env }>): Promise<Respo
   try {
     existing = JSON.parse(raw) as RansomScenario;
   } catch {
-    return c.json({ error: 'Not found' }, 404);
+    return c.json({ error: 'Not found' }, 404, { 'Cache-Control': 'no-store' });
   }
   const body = await c.req.json<Partial<RansomScenario>>();
   const merged = { ...existing, ...body, id: existing.id, updated_at: new Date().toISOString() };

@@ -1,0 +1,15 @@
+{
+  "slug": "nightspire-j-es-l-o-2026-04-27",
+  "title": "J**es **l*o",
+  "group": "nightspire",
+  "discovered": "2026-04-27T14:47:30.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Data is not available now.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["NIGHT SPIRE"],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "deadlock-grupolider-grupo-actual-2026-07-10",
+  "title": "Grupolider | Grupo Actual",
+  "group": "Deadlock",
+  "discovered": "2026-07-10T12:57:13.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "AO",
+  "sizeBytes": 0,
+  "description": "The leaked files will be available for download on May 10, 2026. Grupolider is a prominent Angolan conglomerate that has been operating in the national market since 1999. Headquartered in Catete, Luanda, the group initially started as a freight forwarding company and has since diversified into a wide range of sectors including agriculture, construction, and furniture. Grupo Actual is a human resources and recruitment agency in Portugal that provides temporary work solutions, permanent recruitment, and selection services.Following a rebranding in late 2025, the company formerly known as Leader now operates under the Actual brand.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

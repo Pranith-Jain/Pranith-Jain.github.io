@@ -1,0 +1,15 @@
+{
+  "slug": "dragonforce-tecfi-spa-2026-06-16",
+  "title": "Tecfi SpA",
+  "group": "dragonforce",
+  "discovered": "2026-06-16T12:51:54.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "Tecfi is a company specialising in the design, production and sale of fastening systems. Going into more detail, three production lines can be highlighted. ▪ Plastic and rubber moulding ▪ Sheet metal moulding with blanking ▪ Cold stamping and flatbed rolling machines",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["DRAGON FORCE"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

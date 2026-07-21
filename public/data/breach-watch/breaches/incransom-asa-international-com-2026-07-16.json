@@ -5,11 +5,11 @@
   "discovered": "2026-07-16T18:28:30.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": "GB",
+  "country": "NL",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/e8c021ff-66ab-4f38-8dba-63760dad58b5",
+  "description": "ASA International is a major international microfinance institution operating across South Asia, Southeast Asia, and Africa. The company's shares are traded on the London Stock Exchange under the ticker symbol ASAI",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["inc ransom", "INC"],
   "activity": "Business Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

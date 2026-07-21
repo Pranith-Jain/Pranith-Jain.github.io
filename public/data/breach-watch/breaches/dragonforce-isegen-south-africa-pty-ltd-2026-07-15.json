@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "ZA",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/86a512c9-0790-4a75-848c-ba7ec084dddc",
+  "description": "Isegen South Africa (Pty) Ltd is a South African chemical company founded in 1974. It is the sole producer of certain chemical products in South Africa.\nData that will be published:\n    Corporate correspondence\n    Passport / personal identification data\n    Contracts\n    Certificates\n    Intellectual property data\n    And other related information",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["DRAGON FORCE"],
   "activity": "Energy",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

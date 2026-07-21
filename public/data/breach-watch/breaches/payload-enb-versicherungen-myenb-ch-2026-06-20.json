@@ -1,0 +1,15 @@
+{
+  "slug": "payload-enb-versicherungen-myenb-ch-2026-06-20",
+  "title": "ENB Versicherungen | myenb.ch",
+  "group": "payload",
+  "discovered": "2026-06-20T15:07:05.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "CH",
+  "sizeBytes": 0,
+  "description": "enb AG is an independent insurance broker that collaborates with leading insurance companies to provide tailored insurance solutions. They assist both private and corporate clients in navigating the complexities of insurance products, offering services such as health insurance, vehicle insurance, and liability insurance. The company emphasizes the importance of employee satisfaction and offers professional pension plans and collective accident insurance for businesses.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
+}

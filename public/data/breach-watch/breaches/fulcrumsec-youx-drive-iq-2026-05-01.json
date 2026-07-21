@@ -1,0 +1,15 @@
+{
+  "slug": "fulcrumsec-youx-drive-iq-2026-05-01",
+  "title": "youX / Drive IQ",
+  "group": "fulcrumsec",
+  "discovered": "2026-05-01T17:10:19.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "AU",
+  "sizeBytes": 0,
+  "description": "[AI generated] youX, formerly known as Drive IQ, is an Australian technology company specializing in connected vehicle data and mobility intelligence. The company collects and analyzes telematics and driving behavior data to deliver insights for insurers, fleet operators, and automotive businesses. Its platform enables usage-based insurance and risk assessment solutions. youX operates primarily in Australia and positions itself within the insurtech and automotive data analytics sectors.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-kawaius-com-2026-06-15",
+  "title": "kawaius.com",
+  "group": "safepay",
+  "discovered": "2026-06-15T19:26:29.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Founded in Japan in 1927 by Koichi Kawai, the company has established a reputation for combining traditional Japanese craftsmanship with …",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

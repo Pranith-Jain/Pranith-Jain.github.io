@@ -319,7 +319,9 @@ export async function createConnectionHandler(c: Context<{ Bindings: Env }>): Pr
   if ('error' in body) return body.error;
   const b = body.value;
   if (!b.from_subject_id || !b.to_subject_id || !b.relationship)
-    return c.json({ error: 'from_subject_id, to_subject_id, relationship required' }, 400);
+    return c.json({ error: 'from_subject_id, to_subject_id, relationship required' }, 400, {
+      'Cache-Control': 'no-store',
+    });
 
   const id = genId('conn');
   await db
@@ -413,7 +415,7 @@ export async function addTimelineHandler(c: Context<{ Bindings: Env }>): Promise
   }>(c, { maxBytes: 4096 });
   if ('error' in body) return body.error;
   if (!body.value.event_date || !body.value.description)
-    return c.json({ error: 'event_date and description required' }, 400);
+    return c.json({ error: 'event_date and description required' }, 400, { 'Cache-Control': 'no-store' });
 
   const b = body.value;
   const result = await db

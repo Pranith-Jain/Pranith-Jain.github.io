@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-pj-daly-contracting-2026-06-19",
+  "title": "PJ Daly Contracting",
+  "group": "qilin",
+  "discovered": "2026-06-19T17:31:39.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "IE",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Construction",
+  "references": ["ransomware.live"]
+}

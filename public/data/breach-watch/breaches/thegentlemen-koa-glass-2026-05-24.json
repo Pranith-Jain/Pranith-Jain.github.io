@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-koa-glass-2026-05-24",
+  "title": "Koa Glass",
+  "group": "thegentlemen",
+  "discovered": "2026-05-24T09:00:48.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "JP",
+  "sizeBytes": 0,
+  "description": "koaglass.co.jp zoominfo.com/c/koa-glass-co-ltd/347978270 prestigious Japanese glass packaging manufacturer established in 1943 and headquartered in Tokyo. Specializes in high-end glass containers for cosmetics, fragrance, and pharmaceuticals, delivering end-to-end solutions: design, production, decoration, and innovative antibacterial \"Million Guard\" technology. With 500+ employees and facilities across Japan and China, Koa Glass serves global luxury brands including Chanel, Shiseido, L'Oreal, and Estee Lauder",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

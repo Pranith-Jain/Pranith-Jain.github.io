@@ -1,0 +1,15 @@
+{
+  "slug": "cmdorganization-ira-larry-goldberg-coins-collectibles-2026-05-14",
+  "title": "Ira & Larry Goldberg Coins & Collectibles",
+  "group": "cmdorganization",
+  "discovered": "2026-05-14T08:20:12.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Goldberg Coins & Collectibles Inc. is a family-owned business specializing in numismatic auctions and collectibles, with a legacy dating back to 1930. The company offers expert auction services, personal consultations, and has a strong reputation for achieving record-breaking prices for consignors. Their intended clients include coin collectors and investors looking to sell or acquire high-quality numismatic items. With over 80 years of combined experience, Ira and Larry Goldberg provide a professional and personalized service, ensuring client satisfaction and exceptional results.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["cmd organization"],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

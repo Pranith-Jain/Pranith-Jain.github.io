@@ -1,0 +1,15 @@
+{
+  "slug": "genesis-casino-gaming-commission-2026-05-11",
+  "title": "Casino Gaming Commission",
+  "group": "genesis",
+  "discovered": "2026-05-11T23:25:13.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "JM",
+  "sizeBytes": 0,
+  "description": "Official Casino Gaming Commission of Jamaica.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Public Sector",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "d1r-bosch-2026-07-13",
+  "title": "Bosch",
+  "group": "D1R",
+  "discovered": "2026-07-13T11:33:36.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "Again, thanks to database Synopsys provided us with After analyzing technical leaks by other groups and cross-referencing targets from TARGETLIST.txt A company access was found and in the archives, a $10,000 gem: Bosch CAN module implementation Now it is going for free for every engineer and car enthusiast, thanks to Synopsys providing us with neat roadmap to tech sector Sorry, Bosch, you got third-partied! Call the Synopsys CEO and thank them for letting us all know where the valuable data is!",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

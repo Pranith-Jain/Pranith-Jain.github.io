@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "JP",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/1fbd3ee3-0acc-4115-a2fc-01aeeeb15822",
+  "description": "[AI generated] Panasonic Avionics Corporation, commonly known as Panasonic Aero, is a US-based subsidiary of Panasonic Corporation specializing in in-flight entertainment and connectivity systems for commercial airlines. The company designs and supplies seatback screens, Wi-Fi connectivity, and cabin management solutions. Headquartered in Lake Forest, California, it serves major global airlines and operates within the aerospace and aviation technology industry.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["coinbase cartel"],
   "activity": "Manufacturing",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

@@ -1,0 +1,15 @@
+{
+  "slug": "lockbit5-ravagnan-com-2026-07-11",
+  "title": "ravagnan.com",
+  "group": "lockbit5",
+  "discovered": "2026-07-11T07:25:42.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "the RAVAGNAN GROUP employs about 250 people in Italy, and many more in Latin America. E’ specialized...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

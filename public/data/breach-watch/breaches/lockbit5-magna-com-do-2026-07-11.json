@@ -1,0 +1,15 @@
+{
+  "slug": "lockbit5-magna-com-do-2026-07-11",
+  "title": "magna.com.do",
+  "group": "lockbit5",
+  "discovered": "2026-07-11T07:29:36.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "DO",
+  "sizeBytes": 0,
+  "description": "Magna Dominicana has over 50 years of experience offering globally recognized vehicle brands, specia...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

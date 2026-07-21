@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "ZA",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/fbab17b4-3f23-46d6-85d7-11cb3cd3b3b6",
+  "description": "+506 40003397. SuppCenter Global Services officially positions itself as one of the leading Xcitium solution partners and providers in the Latin America region. Xcitium is the new name of COMODO’s enterprise business. Their key cybersecurity specialization is based on a threat prevention architecture that uses Xcitium Zero Trust and ZeroDwell technologies. Official partnership: SuppCenter Global acts as a managed security service provider, or MSSP. They implement, configure, and support Xcitium/Comodo security solutions for large businesses, retail companies, and the public sector. Stolen: --",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Business Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

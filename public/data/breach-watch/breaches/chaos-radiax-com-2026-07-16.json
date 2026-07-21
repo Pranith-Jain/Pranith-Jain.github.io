@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/6a9626b4-7566-4cd2-96f4-4104d9ed2f3e",
+  "description": "NOTICE OF DATA BREACH: RADIAX.COM\n\nWe are officially announcing that we have gained full access to the internal network and sensitive data infrastructure of Radiax.com.\n\nTo prove the authenticity of our access, we have published an initial 5% of the total exfiltrated data. This is merely a sample. W…",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Technology",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

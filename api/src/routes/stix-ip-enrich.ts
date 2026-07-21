@@ -205,7 +205,9 @@ export async function stixIpEnrichHandler(c: Context<{ Bindings: Env }>): Promis
   const tlp = (c.req.query('tlp')?.trim().toUpperCase() ?? 'GREEN') as string;
 
   if (!ip || !isValidIp(ip)) {
-    return c.json({ error: 'invalid_ip', hint: 'Pass a valid IPv4 or IPv6 address.' }, 400);
+    return c.json({ error: 'invalid_ip', hint: 'Pass a valid IPv4 or IPv6 address.' }, 400, {
+      'Cache-Control': 'no-store',
+    });
   }
 
   const self = (c.env as Env).SELF;
@@ -283,7 +285,9 @@ export async function stixIpEnrichBatchHandler(c: Context<{ Bindings: Env }>): P
   }
 
   if (!Array.isArray(body.ips) || body.ips.length === 0 || body.ips.length > 10) {
-    return c.json({ error: 'invalid_ips', hint: 'Pass 1-10 IP addresses in the ips array.' }, 400);
+    return c.json({ error: 'invalid_ips', hint: 'Pass 1-10 IP addresses in the ips array.' }, 400, {
+      'Cache-Control': 'no-store',
+    });
   }
 
   const tlp = (typeof body.tlp === 'string' ? body.tlp.toUpperCase() : 'GREEN') as string;

@@ -110,7 +110,7 @@ export async function ptmGetPatch(c: Context<{ Bindings: Env }>): Promise<Respon
   try {
     return c.json(JSON.parse(raw));
   } catch {
-    return c.json({ error: 'Not found' }, 404);
+    return c.json({ error: 'Not found' }, 404, { 'Cache-Control': 'no-store' });
   }
 }
 
@@ -134,7 +134,7 @@ export async function ptmUpdatePatch(c: Context<{ Bindings: Env }>): Promise<Res
   try {
     existing = JSON.parse(raw) as PatchAdvisory;
   } catch {
-    return c.json({ error: 'Not found' }, 404);
+    return c.json({ error: 'Not found' }, 404, { 'Cache-Control': 'no-store' });
   }
   const body = await c.req.json<Partial<PatchAdvisory>>();
   const updated: PatchAdvisory = { ...existing, ...body, id: existing.id, updated_at: new Date().toISOString() };
@@ -169,7 +169,7 @@ export async function ptmGetWindow(c: Context<{ Bindings: Env }>): Promise<Respo
   try {
     return c.json(JSON.parse(raw));
   } catch {
-    return c.json({ error: 'Not found' }, 404);
+    return c.json({ error: 'Not found' }, 404, { 'Cache-Control': 'no-store' });
   }
 }
 
@@ -193,7 +193,7 @@ export async function ptmUpdateWindow(c: Context<{ Bindings: Env }>): Promise<Re
   try {
     existing = JSON.parse(raw) as MaintenanceWindow;
   } catch {
-    return c.json({ error: 'Not found' }, 404);
+    return c.json({ error: 'Not found' }, 404, { 'Cache-Control': 'no-store' });
   }
   const body = await c.req.json<Partial<MaintenanceWindow>>();
   const updated: MaintenanceWindow = { ...existing, ...body, id: existing.id, updated_at: new Date().toISOString() };

@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-climax-technology-2026-07-01",
+  "title": "Climax Technology",
+  "group": "thegentlemen",
+  "discovered": "2026-07-01T22:20:20.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "TW",
+  "sizeBytes": 0,
+  "description": "***.com.tw zoominfo.com/c/climax-technology-co-ltd/440165694 Climax Technology Co., Ltd., a Taipei-based company founded in 1985 that specializes in smart security systems and telecare solutions. For over three decades, the firm has leveraged its telecommunications expertise to develop innovative hybrid security panels, emergency pendants, and long-term care alert technologies. Their comprehensive product line is designed to provide reliable safety, monitoring, and rapid emergency response for residential and healthcare environments globally",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

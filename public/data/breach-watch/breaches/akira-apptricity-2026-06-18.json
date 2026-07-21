@@ -1,0 +1,15 @@
+{
+  "slug": "akira-apptricity-2026-06-18",
+  "title": "Apptricity",
+  "group": "akira",
+  "discovered": "2026-06-18T12:20:27.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Apptricity Corporation is a global enterprise software provider for Supply Chain and Spend Mana\ngement. Apptricity differs from other manufacturers by offering platform-agnostic, secure solut\nions that optimize inventory, asset and expense tracking processes while still being easily int\negrated with existing systems.\n\nWe will upload 12gb of corporate data soon. Employee personal docs  (passports, SSNs, DLs, w9s,\nand other personal information), lots of projects, source codes, NDAs, client and partner file\ns, agreements and so on.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Megazord"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

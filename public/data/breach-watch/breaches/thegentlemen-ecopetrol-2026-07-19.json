@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "CO",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/52b73e0a-135d-4dbc-b72d-16627c83821f",
+  "description": "$33.1 Billion. www.***.com.co ECOPETROL copetrol SA is a company organized as a public limited company, of national order, linked to the Ministry of Mines and Energy. It has operations located in the center, south, east and north of Colombia, as well as abroad. It has two refineries in Barrancabermeja and Cartagena. Through its subsidiary Cenit, specialized in hydrocarbon transportation and logistics, it owns three ports for the export and import of fuels and crude oil in Coveñas (Sucre) and Cartagena (Bolvar) with access to the Atlantic, and Tumaco (Nariño) on the Pacific. Cenit also owns most of the country's oil and multi-purpose pipelines that connect production systems with large consumption centers and maritime terminals. Ecopetrol also has a stake in the biofuels business and is present in Brazil, Mexico and the United States (Gulf of Mexico and Permian Texas). 1TB+  Stock Symbol = ECOPETROL",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["the gentlemen"],
   "activity": "Energy",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

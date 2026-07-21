@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-oriental-diamond-2026-05-12",
+  "title": "Oriental Diamond",
+  "group": "thegentlemen",
+  "discovered": "2026-05-12T19:28:58.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "JP",
+  "sizeBytes": 0,
+  "description": "orientaldiamond.jp Oriental Diamond Inc. is a pioneering Japanese diamond enterprise established in 1966, specializing in the import, design, and manufacturing of fine diamond jewelry and loose stones. As the first company in Japan to earn the prestigious Sightholder qualification, they combine global sourcing with in-house craftsmanship to deliver conflict-free diamonds and elegant collections like Hoshi no Suna. With a heritage of excellence and a diversified portfolio spanning jewelry, bridal, and traditional kimono wholesale, they continue to innovate as a trusted market leader in Tokyo's luxury sector",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

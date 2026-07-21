@@ -5,11 +5,11 @@
   "discovered": "2026-07-17T12:51:00.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": null,
+  "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/cab0b3fd-5bc2-4e95-82f1-7581abc0c783",
+  "description": "Westcoast Communication Services is a leading expert in low voltage and structured cabling, spe\ncializing in voice and data cabling solutions across Florida. They offer a range of services in\ncluding network integration, telecommunication networks, and access control systems. \n\nWe will upload 20gb of corporate data soon. Employee personal information (DL, passports, SS ca\nrd scans and so on), contracts and agreements, customer info, financials, confidential agreemen\nts, etc.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["Megazord"],
   "activity": "Telecommunication",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

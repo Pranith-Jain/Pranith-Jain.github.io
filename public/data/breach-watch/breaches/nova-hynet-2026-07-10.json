@@ -1,0 +1,15 @@
+{
+  "slug": "nova-hynet-2026-07-10",
+  "title": "Hynet",
+  "group": "nova",
+  "discovered": "2026-07-10T02:57:59.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "Hynet helps businesses protect and manage their most important asset: information. With a team of skilled tech experts, they solve complex IT challenges by providing smart data storage and network security services. Their remote team works closely with clients to improve productivity and keep company data safe from growing digital threats - Nova Provide tree and samples from stolen data to the company when its get in touch with support department.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

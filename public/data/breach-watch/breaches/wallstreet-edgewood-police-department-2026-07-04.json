@@ -1,0 +1,15 @@
+{
+  "slug": "wallstreet-edgewood-police-department-2026-07-04",
+  "title": "Edgewood Police Department",
+  "group": "Wallstreet",
+  "discovered": "2026-07-04T18:20:51.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "The Edgewood Police Department is part of the Pierce County Sheriff’s Department, providing public safety and law enforcement services for the city.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Public Sector",
+  "references": ["ransomware.live"]
+}

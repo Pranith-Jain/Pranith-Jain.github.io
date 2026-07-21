@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-kozminski-university-2026-06-15",
+  "title": "Kozminski University",
+  "group": "thegentlemen",
+  "discovered": "2026-06-15T12:57:09.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "PL",
+  "sizeBytes": 0,
+  "description": "***.edu.pl zoominfo.com/c/kozminski-university/372606592 Kozminski University, located in Warsaw, is Poland's premier private business school and a globally recognized academic institution holding the prestigious \"Triple Crown\" accreditation. Consistently ranked among the top European business schools by the Financial Times, it specializes in management, finance, and law. The university is dedicated to shaping future business leaders through innovative, research-driven education and strong international partnership",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Education",
+  "references": ["ransomware.live"]
+}

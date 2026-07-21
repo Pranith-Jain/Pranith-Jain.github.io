@@ -49,7 +49,7 @@ export async function iocWatchlistCreateHandler(c: Context): Promise<Response> {
     return c.json({ error: `tlp must be one of: ${[...VALID_TLP].join(', ')}` }, 400);
   }
   if (body.min_confidence !== undefined && (body.min_confidence < 0 || body.min_confidence > 100)) {
-    return c.json({ error: 'min_confidence must be 0-100' }, 400);
+    return c.json({ error: 'min_confidence must be 0-100' }, 400, { 'Cache-Control': 'no-store' });
   }
 
   const db = c.env.BRIEFINGS_DB;

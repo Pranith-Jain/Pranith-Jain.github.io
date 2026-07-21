@@ -1,0 +1,15 @@
+{
+  "slug": "lamashtu-grandhome-2026-05-05",
+  "title": "GRANDHOME",
+  "group": "lamashtu",
+  "discovered": "2026-05-05T13:22:34.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "BD",
+  "sizeBytes": 0,
+  "description": "GRANDHOME is a leading Thai retailer specializing in construction materials, home decor, and furnishing products. Established in 1973, it has grown into a major hub for high-quality tiles, sanitary ware, and kitchen innovations",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

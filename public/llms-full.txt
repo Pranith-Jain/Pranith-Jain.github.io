@@ -29,6 +29,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Certificate Transparency Monitor](https://pranithjain.qzz.io/dfir/ct-monitor) (dfir): Watch CT logs for new certificates matching your watchlist.
 - [Abuse Reputation](https://pranithjain.qzz.io/dfir/abuse-rep) (dfir): Cross-source reputation: AbuseIPDB, Spamhaus, OTX, URLhaus.
 - [X-VERDIKT Multi-Source Verdict](https://pranithjain.qzz.io/dfir/x-verdikt) (dfir): Streaming verdicts from X (Twitter) intelligence feeds.
+- [OSS Feed Registry](https://pranithjain.qzz.io/dfir/oss-feeds) (dfir): Curated catalog of 145+ free open-source threat intel feeds — IP, DNS, URL, hash, CVE, JA3, and more. Search by vendor, category, or keyword.
 - [ORKL Library Search](https://pranithjain.qzz.io/dfir/orkl) (dfir): Search the ORKL open-source threat intelligence library — reports, actors, CVEs from hundreds of sources.
 - [Traceix Hash Lookup](https://pranithjain.qzz.io/dfir/traceix) (dfir): SHA-256 hash reputation lookup via Traceix — per-engine antivirus/AV verdicts (Safe/Malicious/Unknown).
 - [Whoxy Reverse WHOIS](https://pranithjain.qzz.io/dfir/whoxy) (dfir): Reverse WHOIS lookup via Whoxy — find all domains registered by an email, name, company, or keyword.
@@ -138,6 +139,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Agent Investigator](https://pranithjain.qzz.io/dfir/agent) (dfir): Investigate an autonomous agent — tool calls, prompt history, exfil.
 - [Agent Enrich](https://pranithjain.qzz.io/dfir/agent-enrich) (dfir): Enrich agent observables with external threat intel
 - [Agent Map](https://pranithjain.qzz.io/dfir/agent-map) (dfir): 
+- [AI Threat Actors](https://pranithjain.qzz.io/dfir/ai-threats) (dfir): Tracked real-world threat-actor uses of AI/LLMs — 79 entries, MITRE ATT&CK mapped, from the Cybershujin tracker.
 - [INSIGHT-AI](https://pranithjain.qzz.io/dfir/insight-ai) (dfir): AI-assisted incident summarisation and pattern detection.
 - [QUERYCRAFT-AI](https://pranithjain.qzz.io/dfir/querycraft-ai) (dfir): AI-assisted KQL / SPL / Lucene generation.
 - [CHRONO-AI](https://pranithjain.qzz.io/dfir/chrono-ai) (dfir): AI-assisted timeline reconstruction from logs + reports.
@@ -361,6 +363,9 @@ Auth: Authorization: Bearer <api-key> or X-API-Key: <key>
 Manifest: https://pranithjain.qzz.io/mcp-manifest.json
 Drop-in configs: https://pranithjain.qzz.io/mcp/{claude-desktop,cursor,vscode-mcp}.json
 
+- [ai_threats_get](https://pranithjain.qzz.io/mcp) (mcp:other): Return the full entry body for an AI-capable threat actor — includes full brief, aliases, raw TTP markdown, reported/activity dates, and MITRE technique IDs. Use ai_threats_list first to discover slugs.
+- [ai_threats_list](https://pranithjain.qzz.io/mcp) (mcp:other): List AI-capable threat actors from the Cybershujin tracker (79 entries, MIT). Each entry documents real-world confirmed use of AI/LLMs by threat actors. Filter by table (main/deepfake), category, TTP, or keyword.
+- [ai_threats_stats](https://pranithjain.qzz.io/mcp) (mcp:other): Return cache + manifest stats for the AI Threat Actors data: total entries, index load state, body-cache hit ratios.
 - [analyze_phishing_email](https://pranithjain.qzz.io/mcp) (mcp:phishing): Analyze raw email source for phishing indicators. Parses headers, checks SPF/DKIM/DMARC, extracts URLs, and computes a risk score with flags.
 - [analyze_phishing_url](https://pranithjain.qzz.io/mcp) (mcp:phishing): Analyze a URL for phishing indicators. Checks against PhishTank, OpenPhish, URLhaus, and performs visual similarity analysis.
 - [analyze_report](https://pranithjain.qzz.io/mcp) (mcp:analysis): Unified per-report analyzer. Runs summary + IOC extraction (with allowlist + confidence) + MITRE ATT&CK TTP mapping + 5W context + CVE extraction + image-OCR + STIX 2.1 bundle in a single round-trip. Accepts text, URL, or both; optionally takes image URLs to OCR. When format=markdown returns a TI Mindmap HUB-style rich formatted markdown report.
@@ -379,6 +384,9 @@ Drop-in configs: https://pranithjain.qzz.io/mcp/{claude-desktop,cursor,vscode-mc
 - [cve_health](https://pranithjain.qzz.io/mcp) (mcp:cve): Check the health of CVE data pipelines. Validates NVD API, EPSS API, CISA KEV, GitHub API rate limit, KV intel cache (EPSS coverage, KEV count, field completeness), and Exploit-DB mirror availability. Returns overall status (healthy/degraded/unhealthy) with per-check details.
 - [cve_poc_map](https://pranithjain.qzz.io/mcp) (mcp:cve): Get the cached CVE-to-GitHub-repo mapping. Pass ?id=CVE-XXXX-XXXXX for a single CVE, or ?year=YYYY for a year-scoped index of all mapped CVEs. Results are KV-cached for 24h.
 - [cyber_news](https://pranithjain.qzz.io/mcp) (mcp:other): Aggregate cybersecurity news from 11 RSS feeds across 5 tiers (Advisory, Exploit, Research, Vendor, Community). Supports tier filtering and keyword search. Sources: CISA, Rapid7, Packet Storm, BleepingComputer, Hacker News, GitHub Security, ZDI, Reddit netsec/exploitdev/bugbounty.
+- [db_get_brief](https://pranithjain.qzz.io/mcp) (mcp:other): Return the full daily intelligence brief for a given type and date. Includes executive summary, key findings, events/incidents, and structured data. Use db_list_briefs to discover available dates.
+- [db_list_briefs](https://pranithjain.qzz.io/mcp) (mcp:other): List available daily intelligence briefs by type (cyber, deepfake, disaster). Returns dates and metadata. Use db_get_brief to retrieve the full brief body.
+- [db_stats](https://pranithjain.qzz.io/mcp) (mcp:other): Return cache + manifest stats for the Daily Briefs data: index loaded, body-cache sizes and hit ratios. Useful for diagnosing cold-start latency.
 - [dehash_lookup](https://pranithjain.qzz.io/mcp) (mcp:other): Look up a cryptographic hash (md5/sha1/sha256/sha384/sha512) against Dehash.lt to find its plaintext value. Useful for cracking password hashes or identifying known hash values. No API key required.
 - [dn_abuseipdb_blacklist](https://pranithjain.qzz.io/mcp) (mcp:other): Get AbuseIPDB blacklist of the most reported malicious IP addresses. Requires ABUSEIPDB_API_KEY.
 - [dn_abuseipdb_check](https://pranithjain.qzz.io/mcp) (mcp:other): Check an IP address on AbuseIPDB for abuse reports: confidence score, ISP, country, report count, categories. Requires ABUSEIPDB_API_KEY.
@@ -492,6 +500,9 @@ Drop-in configs: https://pranithjain.qzz.io/mcp/{claude-desktop,cursor,vscode-mc
 - [osint_get_portal](https://pranithjain.qzz.io/mcp) (mcp:other): Return the full details of a single OSINT portal entry by slug. Use osint_list_portals first to discover slugs.
 - [osint_list_portals](https://pranithjain.qzz.io/mcp) (mcp:other): List OSINT portals and resources from the curated directory. Filter by category (threat-intel, paste-monitoring, dark-web, reputation, certificate, dns, domain, ip, hash, email, username, social-media, phone, crypto, breach, whois, forensics, misc), keyword, or free/paid status.
 - [osint_stats](https://pranithjain.qzz.io/mcp) (mcp:other): Return cache + manifest stats for the OSINT Portal Directory: total portals, indexed categories, and index cache status.
+- [oss_feeds_get_category](https://pranithjain.qzz.io/mcp) (mcp:other): Return all feeds in a specific category with full URLs. Use oss_feeds_list first to discover category names.
+- [oss_feeds_list](https://pranithjain.qzz.io/mcp) (mcp:other): List open-source threat intel feeds from the curated catalog (145+ feeds, BSD-3-Clause). Filter by vendor, category, status, or keyword. Each entry shows vendor, description, category, and feed status.
+- [oss_feeds_stats](https://pranithjain.qzz.io/mcp) (mcp:other): Return cache + manifest stats for the OSS Feed Registry: total feeds, category breakdown, status breakdown, cache state.
 - [parse_threat_report](https://pranithjain.qzz.io/mcp) (mcp:analysis): Parse a threat intelligence report or article to extract structured data: IOCs (IPs, domains, URLs, hashes), threat actors, malware families, MITRE ATT&CK techniques, CVEs, targeted sectors, and an executive summary. Use this when analyzing threat reports, blog posts, or incident write-ups.
 - [passive_dns_overlap](https://pranithjain.qzz.io/mcp) (mcp:pdns): Find IPs shared between multiple domains (infrastructure overlap detection). Useful for mapping shared malicious hosting.
 - [passive_dns_query](https://pranithjain.qzz.io/mcp) (mcp:pdns): Query passive DNS for a domain or IP. Returns historical DNS resolutions, infrastructure migrations, and fast-flux detection. Sources: VirusTotal, URLscan, crt.sh, CIRCL.

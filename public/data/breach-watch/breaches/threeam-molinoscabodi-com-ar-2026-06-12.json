@@ -1,0 +1,15 @@
+{
+  "slug": "threeam-molinoscabodi-com-ar-2026-06-12",
+  "title": "molinoscabodi.com.ar",
+  "group": "threeam",
+  "discovered": "2026-06-12T20:04:24.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "AR",
+  "sizeBytes": 0,
+  "description": "Molinos Cabodi Hnos. S.A. has been providing high-quality flour products since 1853, including various types of flour such as Harina 000, Harina 000 Pan de Miga, and semolina. The company serves clients across the MERCOSUR region, offering persona",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

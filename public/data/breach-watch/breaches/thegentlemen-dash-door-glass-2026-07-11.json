@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-dash-door-glass-2026-07-11",
+  "title": "Dash Door Glass",
+  "group": "thegentlemen",
+  "discovered": "2026-07-11T07:17:30.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "***.com Dash Door & Glass is a prominent commercial contractor and facility support specialist headquartered in Doral, Florida, with a rich history dating back to 1955. The company specializes in the supply, installation, and maintenance of commercial doors, glass, and architectural hardware for large-scale construction projects across South Florida. Operating with a dedicated team of professionals, the firm has established itself as a major industry player, generating an impressive annual revenue of approximately $113.3 million",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

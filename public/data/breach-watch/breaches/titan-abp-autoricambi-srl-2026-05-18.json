@@ -1,0 +1,15 @@
+{
+  "slug": "titan-abp-autoricambi-srl-2026-05-18",
+  "title": "Abp Autoricambi Srl",
+  "group": "titan",
+  "discovered": "2026-05-18T17:59:25.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

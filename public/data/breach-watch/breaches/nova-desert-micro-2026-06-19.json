@@ -1,0 +1,15 @@
+{
+  "slug": "nova-desert-micro-2026-06-19",
+  "title": "Desert Micro",
+  "group": "nova",
+  "discovered": "2026-06-19T15:00:48.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "DesertMicro.net is a Software & Internet based company located in Jacksonville, Florida, United States with over 25 - 100 employees, data included large sums of costumers data who use the company software service, such curbside waste company invoices and Storage data, foothillsSanitation + GreenEnviromnetal + InlandService + QC + FusionSite companies the same, credit cards Details and payments billings Documents, databases backups and more - Nova Provide tree and samples from stolen data to the company when its get in touch with support department.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

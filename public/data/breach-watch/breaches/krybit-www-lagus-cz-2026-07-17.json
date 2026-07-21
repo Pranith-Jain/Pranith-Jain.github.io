@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "CZ",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/78a33a8c-9165-46e1-96bb-8b84493db0db",
+  "description": "LAGUS s.r.o. is a genuine Czech manufacturing company established on April 21, 1998, headquartered in Hruškové Dvory (...",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Business Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

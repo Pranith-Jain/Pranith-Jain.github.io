@@ -1,0 +1,15 @@
+{
+  "slug": "blacknevas-promosfera-s-r-l-2026-04-30",
+  "title": "PROMOSFERA S.R.l.",
+  "group": "blacknevas",
+  "discovered": "2026-04-30T23:19:29.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "passports, employee and client documents, databases of promotional participants - hundreds of thousands of emails + full names, tens of thousands of emails + full names + phone numbersinternal company documentationhttps://gofile.io/d/5gNeSzhttps://gofile.io/d/dY7rYEWe ask all our partners, friends and clients to contact us to discuss the acquisition of this data. You know the contacts. For new members, please wait in the Contacts tab.Advertising:We are always ready to cooperate in any form, do you need specific data? We will try to provide it to you as soon as possible, we will receive and download your competitors' data, provide a list of what you are interested in. We are also ready to cooperate with law firms and data leak victims. We will provide all the information you need about the company that was negligent and provided access to data to its clients.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["black nevas"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

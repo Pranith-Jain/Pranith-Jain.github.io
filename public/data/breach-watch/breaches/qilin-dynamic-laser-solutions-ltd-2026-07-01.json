@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-dynamic-laser-solutions-ltd-2026-07-01",
+  "title": "Dynamic Laser Solutions Ltd.",
+  "group": "qilin",
+  "discovered": "2026-07-01T13:15:51.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

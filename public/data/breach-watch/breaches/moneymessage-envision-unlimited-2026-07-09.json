@@ -1,0 +1,15 @@
+{
+  "slug": "moneymessage-envision-unlimited-2026-07-09",
+  "title": "Envision Unlimited",
+  "group": "moneymessage",
+  "discovered": "2026-07-09T17:27:17.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "[AI generated] Envision Unlimited is a nonprofit human services organization based in the United States, primarily operating in Illinois. Founded in Chicago, it provides support services for individuals with intellectual and developmental disabilities. Its programs include residential services, day programs, employment support, and behavioral health services, aimed at promoting independence, inclusion, and quality of life for the people it serves.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["money message"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

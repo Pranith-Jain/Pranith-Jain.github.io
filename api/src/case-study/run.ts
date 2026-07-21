@@ -543,12 +543,16 @@ export async function runPublisherNow(env: CaseStudyEnv, now: Date) {
   // Notifications
   if (result.published === 1 && result.slug) {
     import('./notifications').then(({ notifyPublished }) =>
-      notifyPublished(env as unknown as WebhookEnv, result.slug!, result.slug!, 'published').catch(() => {})
+      notifyPublished(env as unknown as WebhookEnv, result.slug!, result.slug!, 'published').catch((err) =>
+        console.error('notifyPublished failed:', err)
+      )
     );
   }
   if (result.published === 0 && result.slug && env.BLOG_APPROVAL_REQUIRED === 'true') {
     import('./notifications').then(({ notifyDraftReady }) =>
-      notifyDraftReady(env as unknown as WebhookEnv, result.slug!, result.slug!, 'draft').catch(() => {})
+      notifyDraftReady(env as unknown as WebhookEnv, result.slug!, result.slug!, 'draft').catch((err) =>
+        console.error('notifyDraftReady failed:', err)
+      )
     );
   }
 

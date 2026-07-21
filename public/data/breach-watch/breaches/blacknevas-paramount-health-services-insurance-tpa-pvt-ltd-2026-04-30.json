@@ -1,0 +1,15 @@
+{
+  "slug": "blacknevas-paramount-health-services-insurance-tpa-pvt-ltd-2026-04-30",
+  "title": "Paramount Health Services & Insurance TPA Pvt. Ltd",
+  "group": "blacknevas",
+  "discovered": "2026-04-30T23:18:41.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "IN",
+  "sizeBytes": 0,
+  "description": "listing fileshttps://gofile.io/d/d34YJQThe website paramounttpa.com belongs to Paramount Health Services &amp; Insurance TPA Pvt. Ltd., a health insurance third-party administrator (TPA) in India. It provides services such as cashless hospitalization claims, reimbursement claims, and ePHR (electronic Personal Health Records) for policyholders. The company, established in 1996, is licensed by IRDAI and offers digital claim intimation",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["black nevas"],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

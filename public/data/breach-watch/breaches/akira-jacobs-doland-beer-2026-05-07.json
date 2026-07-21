@@ -1,0 +1,15 @@
+{
+  "slug": "akira-jacobs-doland-beer-2026-05-07",
+  "title": "Jacobs Doland Beer",
+  "group": "akira",
+  "discovered": "2026-05-07T14:50:34.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Jacobs Doland Beer (JDB) is a specialized foodservice design firm based in New York City, focus\ning on foodservice consulting for various projects across the country. The firm has worked on n\notable projects such as Eleven Madison Park, Mutual of America, and several food halls in New Y\nork City.\n\nWe will upload 170gb of corporate data soon. Employee personal information, client documents (D\nOB, name, address and so on), financials, credit card statements, contracts and agreements, NDA\ns, internal confidential files and so on.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Megazord"],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

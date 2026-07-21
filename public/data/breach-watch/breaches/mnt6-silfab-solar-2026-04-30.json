@@ -1,0 +1,15 @@
+{
+  "slug": "mnt6-silfab-solar-2026-04-30",
+  "title": "Silfab Solar",
+  "group": "mnt6",
+  "discovered": "2026-04-30T21:50:14.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "CA",
+  "sizeBytes": 0,
+  "description": "Silfab Solar is a leading North American manufacturer of high-efficiency, premium-quality solar panels for residential, commercial, and utility projects. With over 40 years of industry experience, the company operates advanced manufacturing facilities in Canada and the United States, focusing on producing durable, reliable solar modules. [Revenue: $217.3M]",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Energy",
+  "references": ["ransomware.live"]
+}

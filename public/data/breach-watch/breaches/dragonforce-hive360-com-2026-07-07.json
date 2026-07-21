@@ -1,0 +1,15 @@
+{
+  "slug": "dragonforce-hive360-com-2026-07-07",
+  "title": "hive360.com",
+  "group": "dragonforce",
+  "discovered": "2026-07-07T07:56:48.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "HIVE360 is a UK-based employment administration and employee benefits specialist. They help businesses streamline their payroll and HR operations while improving employee engagement",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["DRAGON FORCE"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

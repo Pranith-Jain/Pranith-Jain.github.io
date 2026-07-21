@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-sigmacontrol-2026-06-15",
+  "title": "SigmaControl",
+  "group": "thegentlemen",
+  "discovered": "2026-06-15T12:59:32.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "NL",
+  "sizeBytes": 0,
+  "description": "***.eu zoominfo.com/c/sigmacontrol-bv/446626536 SigmaControl B.V. is a premier Dutch industrial automation specialist and the exclusive Benelux distributor for the Austrian automation brand SIGMATEK. Based in Barendrecht, they deliver fully integrated machine control systems, robotics, SCADA software, and expert technical support tailored specifically for machine builders. Their core mission is to optimize manufacturing processes by providing innovative, high-quality hardware and software solutions for complex motion-oriented applications",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

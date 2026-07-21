@@ -1,0 +1,15 @@
+{
+  "slug": "akira-associated-investor-services-2026-06-10",
+  "title": "Associated Investor Services",
+  "group": "akira",
+  "discovered": "2026-06-10T11:50:20.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Associated Financial Consultants & Investor Services is an independent boutique firm dedicated \nto creating, growing, and protecting wealth since 1972. They offer a range of services includin\ng wealth management, life planning, retirement planning, and insurance for families and individ\nuals, as well as customized retirement and employee benefit plans for businesses.\n\nWe will upload 77gb of corporate data soon. Employee personal information (passports, DLs, SSNs\nand so on), financials, confidential legal documents, client and partners information, NDAs, e\ntc.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Megazord"],
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
+}

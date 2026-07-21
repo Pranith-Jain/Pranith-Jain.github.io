@@ -1,0 +1,15 @@
+{
+  "slug": "dragonforce-degeremcia-com-2026-07-13",
+  "title": "degeremcia.com",
+  "group": "dragonforce",
+  "discovered": "2026-07-13T09:24:09.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "TR",
+  "sizeBytes": 0,
+  "description": "DEGEREMCIA is a food operator that is dedicated to the production, distribution and sale of prepared food. It operates mainly through its own chain of fast-food stores; its main brands include Naturissimo and Soldia.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["DRAGON FORCE"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "ZA",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/501827e3-0421-46e4-9038-1591fb776252",
+  "description": "Reatile Group is an innovative, black-owned investment holding company established in 2003, focusing on the energy, petrochemical, and industrial sectors in South Africa. The company aims to leverage growth opportunities within these industrial sectors of the South African economy. Reatile Group is committed to improving the quality of life for disadvantaged communities through its foundation. Their strategic vision emphasizes growth and development in key sectors.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["inc ransom", "INC"],
   "activity": "Not Found",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

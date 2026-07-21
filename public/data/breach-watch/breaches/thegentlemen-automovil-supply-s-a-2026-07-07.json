@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-automovil-supply-s-a-2026-07-07",
+  "title": "Automovil Supply S.A",
+  "group": "thegentlemen",
+  "discovered": "2026-07-07T18:31:32.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "PY",
+  "sizeBytes": 0,
+  "description": "***.com.py zoominfo.com/c/automóvil-supply/405948730 Automovil Supply S.A., accessible via ***.com.py, is a prominent Paraguayan chain of auto parts stores founded on August 10, 1955.With over 70 years of experience in the automotive industry, the company employs between 200 and 500 staff members and operates multiple retail branches across Paraguay.Known for its slogan \"Over 70 years moving the country,\" it serves as a major importer and distributor of motor vehicle parts in the region",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

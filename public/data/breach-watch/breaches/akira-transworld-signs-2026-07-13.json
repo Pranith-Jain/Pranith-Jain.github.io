@@ -1,0 +1,15 @@
+{
+  "slug": "akira-transworld-signs-2026-07-13",
+  "title": "Transworld Signs",
+  "group": "akira",
+  "discovered": "2026-07-13T13:23:24.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "CA",
+  "sizeBytes": 0,
+  "description": "Transworld Signs produces and sources a complete range of promotional and POP graphics. The com\npany offers digital and standard menu boards, large scale graphics and any other interior graph\nics or signage to support the company's customers' needs.\n\nWe will upload 17gb of corporate data soon. Employee personal information (names, DOB and so on\n), projects files, financials, client internal information, contracts and agreements and so on.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Megazord"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

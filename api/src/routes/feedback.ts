@@ -173,7 +173,7 @@ export async function feedbackListHandler(c: Context<{ Bindings: Env }>): Promis
     const limit = Math.min(100, parseInt(c.req.query('limit') ?? '50', 10));
 
     const kv = c.env.KV_CACHE;
-    if (!kv) return c.json({ error: 'feedback storage not configured' }, 503);
+    if (!kv) return c.json({ error: 'feedback storage not configured' }, 503, { 'Cache-Control': 'no-store' });
 
     let feedbacks = await loadAllFeedback(kv);
     if (targetType) feedbacks = feedbacks.filter((fb) => fb.target_type === targetType);
@@ -185,7 +185,7 @@ export async function feedbackListHandler(c: Context<{ Bindings: Env }>): Promis
     });
   } catch (e) {
     console.error('feedbackListHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500, { 'Cache-Control': 'no-store' });
   }
 }
 
@@ -198,10 +198,10 @@ export async function feedbackAggregateHandler(c: Context<{ Bindings: Env }>): P
     const targetType = c.req.query('target_type') as FeedbackTarget;
     const targetId = c.req.query('target_id');
     if (!targetType || !targetId) {
-      return c.json({ error: 'target_type and target_id query params required' }, 400);
+      return c.json({ error: 'target_type and target_id query params required' }, 400, { 'Cache-Control': 'no-store' });
     }
     const kv = c.env.KV_CACHE;
-    if (!kv) return c.json({ error: 'feedback storage not configured' }, 503);
+    if (!kv) return c.json({ error: 'feedback storage not configured' }, 503, { 'Cache-Control': 'no-store' });
     const aggKey = `${KV_PREFIX}:agg:${targetType}:${targetId}`;
     const raw = await kv.get(aggKey);
     if (!raw) return c.json({ total: 0, overall_score: null });
@@ -209,7 +209,7 @@ export async function feedbackAggregateHandler(c: Context<{ Bindings: Env }>): P
     return c.json(agg);
   } catch (e) {
     console.error('feedbackAggregateHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500, { 'Cache-Control': 'no-store' });
   }
 }
 

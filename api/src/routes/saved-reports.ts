@@ -45,10 +45,10 @@ export async function saveReport(c: Context<{ Bindings: Env }>): Promise<Respons
     body = await c.req.json();
   } catch (_catchErr) {
     console.error('saveReport failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    return c.json({ error: 'bad_request', message: 'invalid JSON' }, 400);
+    return c.json({ error: 'bad_request', message: 'invalid JSON' }, 400, { 'Cache-Control': 'no-store' });
   }
   if (!body.reportJson) {
-    return c.json({ error: 'bad_request', message: 'reportJson required' }, 400);
+    return c.json({ error: 'bad_request', message: 'reportJson required' }, 400, { 'Cache-Control': 'no-store' });
   }
 
   let report: Record<string, unknown>;
@@ -56,7 +56,9 @@ export async function saveReport(c: Context<{ Bindings: Env }>): Promise<Respons
     report = JSON.parse(body.reportJson);
   } catch (_catchErr) {
     console.error('saveReport failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    return c.json({ error: 'bad_request', message: 'reportJson is not valid JSON' }, 400);
+    return c.json({ error: 'bad_request', message: 'reportJson is not valid JSON' }, 400, {
+      'Cache-Control': 'no-store',
+    });
   }
 
   const id = uuid();
@@ -92,7 +94,7 @@ export async function deleteSavedReport(c: Context<{ Bindings: Env }>): Promise<
 export async function correlateIocs(c: Context<{ Bindings: Env }>): Promise<Response> {
   const body = await c.req.json<{ iocs: string[] }>();
   if (!body.iocs || !Array.isArray(body.iocs) || body.iocs.length === 0) {
-    return c.json({ error: 'bad_request', message: 'iocs array required' }, 400);
+    return c.json({ error: 'bad_request', message: 'iocs array required' }, 400, { 'Cache-Control': 'no-store' });
   }
 
   const db = c.env.BRIEFINGS_DB!;

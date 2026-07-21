@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "BR",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/4e359762-8ef0-4ebd-b436-545d917fd4f5",
+  "description": "Megawork is a leading SAP consultancy specializing in the implementation, support, and optimization of technologies such as SAP S/4HANA and Microsoft Power Platform. They provide integrated solutions tailored for various sectors including services, wholesale, utilities, mining, and steel industries. The company offers a range of services including ERP system implementation, SAP S/4HANA migration, application management services, and IT professional allocation. Targeting medium and large enterprises, Megawork aims to enhance business management and delivers thorough support throughout the entire lifecycle of their clients' management systems.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["RANSOM HOUSE"],
   "activity": "Business Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

@@ -59,7 +59,7 @@ async function readTypeBlob(ns: KVNamespace, type: CaseStudyType): Promise<Candi
   );
   if (migrated.length > 0) {
     await ns.put(key, JSON.stringify(migrated), { expirationTtl: THIRTY_DAYS_SECONDS });
-    for (const k of oldKeys) ns.delete(k.name).catch(() => {});
+    for (const k of oldKeys) ns.delete(k.name).catch((err) => console.error('delete old candidate key failed:', err));
   }
   return migrated;
 }

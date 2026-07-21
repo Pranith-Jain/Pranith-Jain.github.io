@@ -1,0 +1,15 @@
+{
+  "slug": "gunra-starempire-2026-05-30",
+  "title": "STAREMPIRE",
+  "group": "gunra",
+  "discovered": "2026-05-30T13:52:55.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "VN",
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

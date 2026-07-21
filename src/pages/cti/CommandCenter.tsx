@@ -135,7 +135,6 @@ export default function CommandCenter() {
         },
       });
 
-      if (iocs?.recent) setActivity(iocs.recent.slice(0, 8));
       if (tiStats?.recentCves) setRecentCves(tiStats.recentCves.slice(0, 5));
       if (tiStats?.recentVictims) setRecentVictims(tiStats.recentVictims.slice(0, 5));
 
@@ -239,7 +238,7 @@ export default function CommandCenter() {
       <PageMeta
         title="Command Center — Threat Intelligence Platform"
         description="Global cyber threat intelligence in real time — IoCs, CVEs, ransomware, APTs, and active campaigns."
-        canonical="https://pranithjain.qzz.io/cti"
+        canonicalPath="/cti"
       />
 
       <div className="min-h-screen bg-[rgb(var(--surface-100))] dark:bg-[rgb(var(--surface-100))]">

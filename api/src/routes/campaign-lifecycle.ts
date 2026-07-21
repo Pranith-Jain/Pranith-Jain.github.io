@@ -308,7 +308,7 @@ export async function campaignAnalyzeHandler(c: Context<{ Bindings: Env }>): Pro
   }>();
 
   if (!body.indicators || body.indicators.length === 0) {
-    return c.json({ error: 'indicators array required' }, 400);
+    return c.json({ error: 'indicators array required' }, 400, { 'Cache-Control': 'no-store' });
   }
 
   const phases = detectCampaignPhases(body.indicators);

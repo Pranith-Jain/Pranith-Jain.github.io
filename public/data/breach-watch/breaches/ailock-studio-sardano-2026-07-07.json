@@ -1,0 +1,15 @@
+{
+  "slug": "ailock-studio-sardano-2026-07-07",
+  "title": "Studio Sardano",
+  "group": "AiLock",
+  "discovered": "2026-07-07T08:50:08.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "Studio Sardano is a company that operates in the Repair Services industry. It employs 10to19 people and has 1Mto5M of revenue. The company is headquartered in Riccione, Emilia-Romagna, Italy.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

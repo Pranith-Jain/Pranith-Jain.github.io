@@ -199,11 +199,11 @@ async function fetchCrtSh(target: string): Promise<CrtShCert[]> {
 
 export async function ctLogHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const target = (c.req.query('target') ?? '').trim();
-  if (!target) return c.json({ error: 'missing target parameter' }, 400);
+  if (!target) return c.json({ error: 'missing target parameter' }, 400, { 'Cache-Control': 'no-store' });
 
   const isDomain = /^[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
   if (!isDomain.test(target)) {
-    return c.json({ error: 'invalid target format (must be domain)' }, 400);
+    return c.json({ error: 'invalid target format (must be domain)' }, 400, { 'Cache-Control': 'no-store' });
   }
 
   const issuerFilter = c.req.query('issuer')?.trim().toLowerCase();

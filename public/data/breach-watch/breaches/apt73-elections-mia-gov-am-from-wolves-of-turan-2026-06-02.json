@@ -1,0 +1,15 @@
+{
+  "slug": "apt73-elections-mia-gov-am-from-wolves-of-turan-2026-06-02",
+  "title": "elections.mia.gov.am from WOLVES OF TURAN",
+  "group": "apt73",
+  "discovered": "2026-06-02T12:50:40.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "AM",
+  "sizeBytes": 0,
+  "description": "Hello, dear visitors of Bashe's blog. Today, we contacted the Turkish Wolves of Turan group and b...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Eraleign"],
+  "activity": "Public Sector",
+  "references": ["ransomware.live"]
+}

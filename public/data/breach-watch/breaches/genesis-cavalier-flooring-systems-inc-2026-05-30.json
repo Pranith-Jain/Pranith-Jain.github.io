@@ -1,0 +1,15 @@
+{
+  "slug": "genesis-cavalier-flooring-systems-inc-2026-05-30",
+  "title": "Cavalier Flooring Systems Inc.",
+  "group": "genesis",
+  "discovered": "2026-05-30T18:54:11.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "A flooring and tile contractor",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

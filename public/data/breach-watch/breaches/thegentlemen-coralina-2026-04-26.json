@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-coralina-2026-04-26",
+  "title": "Coralina",
+  "group": "thegentlemen",
+  "discovered": "2026-04-26T15:52:02.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "CO",
+  "sizeBytes": 0,
+  "description": "coralina.gov.co zoominfo.com/c/coralina/425697881 CORALINA (Corporación para el Desarrollo Sostenible del Archipiélago de San Andrés, Providencia y Santa Catalina) is the official Colombian government environmental authority responsible for managing and protecting the natural resources of the San Andrés, Providencia, and Santa Catalina archipelago in the Caribbean. It was created under Article 37 of Law 99 of December 22, 1993 and operates as a public entity with administrative and financial autonomy, its own assets, and legal status",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Public Sector",
+  "references": ["ransomware.live"]
+}

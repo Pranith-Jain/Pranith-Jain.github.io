@@ -1,0 +1,15 @@
+{
+  "slug": "genesis-carepoint-health-2026-05-09",
+  "title": "CarePoint Health",
+  "group": "genesis",
+  "discovered": "2026-05-09T10:24:18.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "CA",
+  "sizeBytes": 0,
+  "description": "CarePoint Health will provide all patients of the company's affiliated physicians who would benefit from team based care.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "akira-vandalia-rental-2026-07-10",
+  "title": "Vandalia Rental",
+  "group": "akira",
+  "discovered": "2026-07-10T13:51:14.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Vandalia Rental has served the Greater Dayton and Greater Cincinnati and Northern Kentucky mark\nets since 1961. Vandalia Rental proudly services construction rental accounts ranging from smal\nl businesses to large publicly traded corporations, government agencies, and municipalities thr\noughout the Ohio, Indiana, and Kentucky regions, and sales accounts throughout the country.\n\nWe will upload 40gb of corporate data soon. Detailed employee and client personal information (\nSSN numbers, name, DOB and so on), projects files, financials, client internal information, con\ntracts and agreements and so on.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Megazord"],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

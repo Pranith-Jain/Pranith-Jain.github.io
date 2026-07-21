@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "AU",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/f5cd6a76-5228-4d56-905a-d9d02ac30982",
+  "description": "Founded in 1916 by Ambrose Cecil Small, the firm has provided professional accounting and financial services to businesses and individuals …",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Business Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

@@ -1,0 +1,15 @@
+{
+  "slug": "termite-indiana-mills-and-manufacturing-2026-05-30",
+  "title": "Indiana Mills and Manufacturing",
+  "group": "termite",
+  "discovered": "2026-05-30T14:17:48.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "You have 24 hours to contact us.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

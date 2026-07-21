@@ -1,0 +1,15 @@
+{
+  "slug": "fulcrumsec-novo-nordisk-2026-06-16",
+  "title": "Novo Nordisk",
+  "group": "fulcrumsec",
+  "discovered": "2026-06-16T13:23:48.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "DK",
+  "sizeBytes": 0,
+  "description": "[AI generated] Novo Nordisk is a Danish multinational pharmaceutical company headquartered in Bagsværd, Denmark. Founded in 1923, it specializes in treatments for diabetes, obesity, hemophilia, and other chronic conditions. The company is a global leader in insulin production and develops drugs such as semaglutide. It operates in over 80 countries and is one of Europe's most valuable corporations by market capitalization.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

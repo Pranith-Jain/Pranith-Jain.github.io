@@ -1,0 +1,15 @@
+{
+  "slug": "genesis-synergy-interactive-2026-07-05",
+  "title": "Synergy Interactive",
+  "group": "genesis",
+  "discovered": "2026-07-05T13:54:07.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "A provider of staffing services",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

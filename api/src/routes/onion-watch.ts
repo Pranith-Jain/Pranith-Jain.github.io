@@ -236,7 +236,7 @@ export async function onionWatchHandler(c: Context<{ Bindings: Env }>): Promise<
       c.executionCtx.waitUntil(
         c.env.KV_CACHE.put(ONION_WATCH_LASTGOOD_KV_KEY, JSON.stringify(body), {
           expirationTtl: LASTGOOD_TTL,
-        }).catch(() => {})
+        }).catch((err) => console.error('onion-watch KV cache put failed:', err))
       );
     }
     const response = c.json(body, 200, { 'Cache-Control': `public, max-age=${CACHE_TTL}` });

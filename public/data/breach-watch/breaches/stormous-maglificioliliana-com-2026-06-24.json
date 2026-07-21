@@ -1,0 +1,15 @@
+{
+  "slug": "stormous-maglificioliliana-com-2026-06-24",
+  "title": "maglificioliliana.com",
+  "group": "stormous",
+  "discovered": "2026-06-24T18:56:11.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Over 400 GB of data has been accessed and exfiltrated. This includes product designs, historical fashion lines, and technical specifications for garments. Furthermore, we have obtained customer databases from various parts of the world, financial records, commercial contracts, employee data, personal files for all staff members within the network, daily operational documents, and more.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

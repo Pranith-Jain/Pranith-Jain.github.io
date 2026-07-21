@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "BG",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/d96437c1-04ea-4555-9cf2-04981d1b8c37",
+  "description": "Euroins Insurance Company AD (Застрахователна компания Евроинс АД) is one of the first a...",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Financial Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

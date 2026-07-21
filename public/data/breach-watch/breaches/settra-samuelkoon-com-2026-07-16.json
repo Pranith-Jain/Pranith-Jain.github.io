@@ -5,11 +5,11 @@
   "discovered": "2026-07-16T09:31:55.000Z",
   "category": "data_breach",
   "severity": "high",
-  "country": "SG",
+  "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/cae52cf2-322c-478e-9012-9a69eae6a2af",
+  "description": "How Samuel D. Koon &amp; Associates Controls a $25 Million Portfolio and 350+ Bank Accounts PROLOGUE...",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Not Found",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

@@ -1,0 +1,15 @@
+{
+  "slug": "settra-petradiamonds-com-2026-06-30",
+  "title": "petradiamonds.com",
+  "group": "settra",
+  "discovered": "2026-06-30T14:00:51.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "THE DIAMOND ARCHIVE: Petra Diamonds Limited Documents PROLOGUE A complete employee directory with na...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Energy",
+  "references": ["ransomware.live"]
+}

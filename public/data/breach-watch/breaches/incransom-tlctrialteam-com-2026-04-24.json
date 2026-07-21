@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-tlctrialteam-com-2026-04-24",
+  "title": "tlctrialteam.com",
+  "group": "incransom",
+  "discovered": "2026-04-24T15:08:14.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "TLC Trial Team is a personal injury law firm based in Winter Haven, Florida. The firm handles accident and injury-related cases.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

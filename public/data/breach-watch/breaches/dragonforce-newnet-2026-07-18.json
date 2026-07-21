@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "SA",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/96dd5e8f-012d-4236-991e-55e530c33d53",
+  "description": "NewNet S.A. is a Colombian company specializing in managing IT risks, offering advanced and personalized data protection services. Their extensive range of services includes information security, cybersecurity, business continuity, and governance, risk, and compliance (GRC) solutions. They cater to various sectors, providing consulting, technology, and managed services to ensure optimal IT operations for their clients. With a commitment to quality and collaboration with recognized manufacturers, NewNet S.A. has been delivering reliable and secure technology solutions since 1996",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["DRAGON FORCE"],
   "activity": "Telecommunication",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

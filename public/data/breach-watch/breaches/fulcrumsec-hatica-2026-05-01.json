@@ -1,0 +1,15 @@
+{
+  "slug": "fulcrumsec-hatica-2026-05-01",
+  "title": "Hatica",
+  "group": "fulcrumsec",
+  "discovered": "2026-05-01T17:06:29.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "[AI generated] Hatica is an engineering analytics platform founded in India that helps software development teams improve productivity and well-being. It aggregates data from tools like GitHub, Jira, and Slack to provide insights into developer workflows, sprint performance, and team health metrics. Operating in the developer productivity and engineering management industry, Hatica serves engineering leaders seeking data-driven decisions to reduce burnout and optimize delivery.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

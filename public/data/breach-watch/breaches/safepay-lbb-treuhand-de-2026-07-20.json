@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "DE",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/f550f57a-99f5-4a13-aa9c-46197c4b5d5f",
+  "description": "The company specializes in tax consulting, auditing, accounting, payroll administration, financial reporting, and business advisory services for private individuals, self-employed …",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Business Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

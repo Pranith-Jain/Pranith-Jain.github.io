@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/a1c67176-4c01-4334-9100-754b858d52ae",
+  "description": "Employee data breach at a major manufacturing company.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Consumer Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

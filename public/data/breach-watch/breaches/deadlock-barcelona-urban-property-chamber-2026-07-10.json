@@ -1,0 +1,15 @@
+{
+  "slug": "deadlock-barcelona-urban-property-chamber-2026-07-10",
+  "title": "BARCELONA URBAN PROPERTY CHAMBER",
+  "group": "Deadlock",
+  "discovered": "2026-07-10T13:08:59.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "ES",
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

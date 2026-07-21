@@ -22,7 +22,8 @@ const KV_PREFIX = 'hackertarget:v2:';
 function makeHandler(endpoint: string, cacheKeyPrefix: string) {
   return async (c: Context<{ Bindings: Env }>): Promise<Response> => {
     const q = c.req.query('q');
-    if (!q || q.length > 200) return c.json({ error: 'q parameter required (max 200)' }, 400);
+    if (!q || q.length > 200)
+      return c.json({ error: 'q parameter required (max 200)' }, 400, { 'Cache-Control': 'no-store' });
 
     const cacheUrl = `https://hackertarget-cache.internal/v2-${cacheKeyPrefix}-${encodeURIComponent(q)}`;
     const cacheReq = new Request(cacheUrl);
@@ -72,10 +73,13 @@ function makeHandler(endpoint: string, cacheKeyPrefix: string) {
               'HackerTarget free tier limit reached (100 req/day). Try again tomorrow or use CertSpotter / crt.sh for subdomain discovery.',
             retry_after: 86400,
           },
-          429
+          429,
+          { 'Cache-Control': 'no-store' }
         );
       }
-      return c.json({ error: e instanceof Error ? e.message : 'HackerTarget unreachable' }, 502);
+      return c.json({ error: e instanceof Error ? e.message : 'HackerTarget unreachable' }, 502, {
+        'Cache-Control': 'no-store',
+      });
     }
   };
 }

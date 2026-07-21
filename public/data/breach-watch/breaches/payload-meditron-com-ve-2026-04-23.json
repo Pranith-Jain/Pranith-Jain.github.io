@@ -1,0 +1,15 @@
+{
+  "slug": "payload-meditron-com-ve-2026-04-23",
+  "title": "meditron.com.ve",
+  "group": "payload",
+  "discovered": "2026-04-23T18:04:35.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "VE",
+  "sizeBytes": 0,
+  "description": "Meditron C.A. is a Venezuelan company founded in 1972, specializing in the marketing and after-sales service of medical equipment. They also design, construct, and equip healthcare infrastructures, providing comprehensive solutions in the health sector. Their offerings include a wide range of medical devices and technical support services, catering to various healthcare needs. Meditron represents globally recognized brands and is committed to supporting medical innovation and excellence in Venezuela.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

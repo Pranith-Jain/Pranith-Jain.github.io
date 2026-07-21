@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-la-woodworks-2026-05-28",
+  "title": "LA Woodworks",
+  "group": "qilin",
+  "discovered": "2026-05-28T13:29:28.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "LA",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

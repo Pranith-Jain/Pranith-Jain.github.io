@@ -1,0 +1,15 @@
+{
+  "slug": "spacebears-gerencial-2026-06-17",
+  "title": "Gerencial",
+  "group": "spacebears",
+  "discovered": "2026-06-17T05:59:15.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "BR",
+  "sizeBytes": 0,
+  "description": "Gerencial Contábil (Gerencial PR) is a Brazilian accounting and business advisory firm based in the state of Paraná. The company provides accounting, tax, payroll, business consulting, and HR outsourcing services for small and medium-sized businesses. It also assists entrepreneurs with company formation, tax compliance, and business management.The firm operates through multiple offices across Paraná, including locations in Pato Branco, Francisco Beltrão, Dois Vizinhos, Cascavel, Guarapuava, and other cities. Its services are tailored to sectors such as commerce, industry, service providers, and non-profit organizations.-personal digital certificates (amount ~ 1 000) (.pfx / .p12 files) and the corresponding passwords for accessing the Brazilian official government websites. -Clients info (tel, mail, id, passwords, etc)-600 000 + files with personal information https://***.com.br/",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["space bears"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

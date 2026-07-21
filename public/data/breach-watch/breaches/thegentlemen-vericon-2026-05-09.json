@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-vericon-2026-05-09",
+  "title": "VeriCon",
+  "group": "thegentlemen",
+  "discovered": "2026-05-09T09:15:55.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "NL",
+  "sizeBytes": 0,
+  "description": "vericon.nl VeriCon is an independent structural engineering consultancy firm based in Veldhoven, Netherlands, founded over 20 years ago by Jos Hoonhout. The company specializes in designing, calculating, and drawing constructions for civil and utility construction projects. VeriCon is active in BIM and industrial building, with particular expertise in prefabricated concrete and steel constructions. The firm distinguishes itself by integrating innovative solutions into structural designs and providing clients with additional information about constructive elements and building materials beyond standard deliverables.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

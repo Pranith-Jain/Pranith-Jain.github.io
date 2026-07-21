@@ -1,0 +1,15 @@
+{
+  "slug": "lapsus-ingka-group-2026-06-13",
+  "title": "INGKA GROUP",
+  "group": "lapsus$",
+  "discovered": "2026-06-13T10:02:51.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "SE",
+  "sizeBytes": 0,
+  "description": "Full mapping of global e-commerce architecture and internal coworker platforms. Supply chain logistics, cloud infrastructure, and AI/MLOps repositories",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

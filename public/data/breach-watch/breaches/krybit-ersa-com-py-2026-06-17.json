@@ -1,0 +1,15 @@
+{
+  "slug": "krybit-ersa-com-py-2026-06-17",
+  "title": "ersa.com.py",
+  "group": "krybit",
+  "discovered": "2026-06-17T10:23:15.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "PY",
+  "sizeBytes": 0,
+  "description": "ERSA (Enrique Remmele S.A.C.I.) is a 100% Paraguayan industrial company founded in 1928, originally established for the ...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

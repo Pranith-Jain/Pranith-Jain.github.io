@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "BR",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/5df175ca-3dfc-4982-9487-c308e477fb71",
+  "description": "FMZ Tecnologia em Sistemas is a Brazilian software company that develops solutions for the book industry. Its main product, HORUS, is an ERP system designed for publishers, bookstores, and distributors.\n\nThe system helps manage inventory, sales, royalties, and consignment operations. The company has over 15 years of experience and is based in São Paulo, Brazil.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Technology",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

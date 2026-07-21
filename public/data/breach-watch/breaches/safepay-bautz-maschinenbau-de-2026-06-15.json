@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-bautz-maschinenbau-de-2026-06-15",
+  "title": "bautz-maschinenbau.de",
+  "group": "safepay",
+  "discovered": "2026-06-15T19:25:27.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "Founded in 1960 by Alfred Bautz, the family-owned enterprise has developed over three generations into a specialized supplier of precision …",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

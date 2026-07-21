@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-technical-solutions-group-2026-07-07",
+  "title": "Technical Solutions Group",
+  "group": "thegentlemen",
+  "discovered": "2026-07-07T18:29:09.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "***.com zoominfo.com/c/medical-data-rx/346985484 Technical Solutions Group, LLC, an IT services company headquartered in Gladwin, Michigan, which also operates the specialized division Medical Data Rx.The organization provides comprehensive technology solutions, including networking, data backup, and hardware services, assisting both small businesses and medical professionals across the United States and Canada.As a diversified technology services provider, the company focuses on delivering reliable technical support and tailored IT management to its clients",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

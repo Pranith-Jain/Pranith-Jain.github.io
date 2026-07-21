@@ -1,0 +1,15 @@
+{
+  "slug": "nova-asian-lite-international-2026-05-19",
+  "title": "Asian Lite International",
+  "group": "nova",
+  "discovered": "2026-05-19T01:25:00.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Asian News from UK is a leading newspaper focused on politics, business, and economy, providing comprehensive news coverage across various regions including UK, Asia, and the USA. The publication offers a range of content including lifestyle, entertainment, and sports while also featuring international news. It aims to cater to the interests of the South Asian diaspora, expatriates, and a global audience interested in Asian affairs. Alongside digital editions, the company also provides PR services and media packs for potential collaborations - Nova Provide tree and samples from stolen data to the company when its get in touch with support department.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "threeam-ws-com-br-2026-06-12",
+  "title": "ws.com.br",
+  "group": "threeam",
+  "discovered": "2026-06-12T20:03:53.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "BR",
+  "sizeBytes": 0,
+  "description": "WS Group Brasil is a Brazilian operations and business services provider engaged in logistics, technical support, contract administration, and labor-intensive service delivery. The company serves a mix of government, institutional, and commercial",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

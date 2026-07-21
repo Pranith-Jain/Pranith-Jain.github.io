@@ -1,0 +1,15 @@
+{
+  "slug": "apt73-banak-com-2026-04-27",
+  "title": "banak.com",
+  "group": "apt73",
+  "discovered": "2026-04-27T16:46:38.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "TR",
+  "sizeBytes": 0,
+  "description": "Banak is a Spanish company that sells furniture and home decor. Internal documents, letters, atta...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Eraleign"],
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
+}

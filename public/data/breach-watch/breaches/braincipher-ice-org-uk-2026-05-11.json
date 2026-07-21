@@ -1,0 +1,15 @@
+{
+  "slug": "braincipher-ice-org-uk-2026-05-11",
+  "title": "ice.org.uk",
+  "group": "BrainCipher",
+  "discovered": "2026-05-11T16:20:27.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "[AI generated] ICE, the Institution of Civil Engineers, is a UK-based professional membership organisation founded in 1818. It supports civil engineers worldwide through qualifications, knowledge sharing, policy influence, and professional development. Headquartered in London, it operates across infrastructure, construction, and engineering sectors. ICE sets industry standards, accredits engineering programmes, and advocates for sustainable infrastructure development globally.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["brain cipher"],
+  "activity": "Education",
+  "references": ["ransomware.live"]
+}

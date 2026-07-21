@@ -1,0 +1,15 @@
+{
+  "slug": "threeam-agroexportavocados-com-2026-06-12",
+  "title": "agroexportavocados.com",
+  "group": "threeam",
+  "discovered": "2026-06-12T20:01:25.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "MX",
+  "sizeBytes": 0,
+  "description": "Agro Industrial Exportadora SA de CV (AGRIEXP) is a Mexican holding company which is engaged in the food processing sector. Through its subsidiaries, the Company purchases, processes and sells fruit and vegetables.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

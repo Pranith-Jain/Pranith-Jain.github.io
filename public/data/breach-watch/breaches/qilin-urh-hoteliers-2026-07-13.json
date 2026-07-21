@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "ES",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/0081de09-cac3-4b64-a4c6-017377de46e8",
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Hospitality and Tourism",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

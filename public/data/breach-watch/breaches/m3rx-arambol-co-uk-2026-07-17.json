@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "GB",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/095fe5f1-47d8-41c9-8764-6b991f9af2ae",
+  "description": "+44 2079276370 , Arambol LLP is a dynamic partnership of chartered surveyors and property consultants, recognized for their commitment to quality and professionalism in property services. They cater to a diverse clientele, including large property organizations, retailers, local authorities, and small residential developers. Their service offerings encompass property consultancy, project management, cost consultancy, building surveying, and construction management. Arambol operates across various sectors such as healthcare, industrial, commercial, public sector, education, and hospitality. Stolen: 922 GB 584,228 Files",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Not Found",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

@@ -177,7 +177,7 @@ export async function ctiMutateHandler(c: Context<{ Bindings: Env }>) {
     body = await c.req.json<Record<string, unknown>>();
   } catch (e) {
     console.warn('parse body failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: 'invalid_json_body' }, 400);
+    return c.json({ error: 'invalid_json_body' }, 400, { 'Cache-Control': 'no-store' });
   }
   const input = String(body.input || '');
   if (!input) return c.json({ error: 'input is required' }, 400);
@@ -200,7 +200,7 @@ export async function ctiMutateHandler(c: Context<{ Bindings: Env }>) {
     return c.json({ seed, variants });
   } catch (e) {
     console.error('ctiMutateHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'mutation failed' }, 500);
+    return c.json({ error: e instanceof Error ? e.message : 'mutation failed' }, 500, { 'Cache-Control': 'no-store' });
   }
 }
 

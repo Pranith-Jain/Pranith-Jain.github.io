@@ -17,10 +17,10 @@ export async function cryptoWatchAddHandler(c: Context<{ Bindings: Env }>): Prom
         'cryptoWatchAddHandler failed:',
         _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
       );
-      return c.json({ error: 'invalid webhook URL' }, 400);
+      return c.json({ error: 'invalid webhook URL' }, 400, { 'Cache-Control': 'no-store' });
     }
     if (url.protocol !== 'http:' && url.protocol !== 'https:') {
-      return c.json({ error: 'webhook must be http(s)' }, 400);
+      return c.json({ error: 'webhook must be http(s)' }, 400, { 'Cache-Control': 'no-store' });
     }
     const host = await assertPublicHost(url.hostname);
     if (!host.ok) return c.json({ error: 'webhook host not allowed' }, 400);

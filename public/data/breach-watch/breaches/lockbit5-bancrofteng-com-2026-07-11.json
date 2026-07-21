@@ -1,0 +1,15 @@
+{
+  "slug": "lockbit5-bancrofteng-com-2026-07-11",
+  "title": "bancrofteng.com",
+  "group": "lockbit5",
+  "discovered": "2026-07-11T07:30:08.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "Bancroft Engineering specializes in the design and manufacturing of automated welding equipment and...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Construction",
+  "references": ["ransomware.live"]
+}

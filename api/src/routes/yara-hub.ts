@@ -9,7 +9,7 @@ const YARAIFY_API = 'https://yaraify-api.abuse.ch/api/v1/';
 export async function yaraHubListHandler(c: Context<{ Bindings: Env }>) {
   const authKey = c.env.ABUSECH_AUTH_KEY;
   if (!authKey) {
-    return c.json({ error: 'ABUSECH_AUTH_KEY not configured on the server' }, 503);
+    return c.json({ error: 'ABUSECH_AUTH_KEY not configured on the server' }, 503, { 'Cache-Control': 'no-store' });
   }
 
   const resultMax = Math.min(Math.max(1, Number(c.req.query('max')) || 100), 300);
@@ -36,19 +36,19 @@ export async function yaraHubListHandler(c: Context<{ Bindings: Env }>) {
     return c.json(data);
   } catch (err) {
     console.error('yaraHubListHandler failed:', err instanceof Error ? err.message : String(err));
-    return c.json({ error: String(err) }, 500);
+    return c.json({ error: String(err) }, 500, { 'Cache-Control': 'no-store' });
   }
 }
 
 export async function yaraHubRuleHandler(c: Context<{ Bindings: Env }>) {
   const authKey = c.env.ABUSECH_AUTH_KEY;
   if (!authKey) {
-    return c.json({ error: 'ABUSECH_AUTH_KEY not configured on the server' }, 503);
+    return c.json({ error: 'ABUSECH_AUTH_KEY not configured on the server' }, 503, { 'Cache-Control': 'no-store' });
   }
 
   const uuid = c.req.param('uuid');
   if (!uuid) {
-    return c.json({ error: 'Rule UUID is required' }, 400);
+    return c.json({ error: 'Rule UUID is required' }, 400, { 'Cache-Control': 'no-store' });
   }
 
   try {
@@ -78,6 +78,6 @@ export async function yaraHubRuleHandler(c: Context<{ Bindings: Env }>) {
     return c.text(text, 200, { 'content-type': 'text/plain; charset=utf-8' });
   } catch (err) {
     console.error('handler failed:', err instanceof Error ? err.message : String(err));
-    return c.json({ error: String(err) }, 500);
+    return c.json({ error: String(err) }, 500, { 'Cache-Control': 'no-store' });
   }
 }

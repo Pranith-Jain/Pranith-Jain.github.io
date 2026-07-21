@@ -1,0 +1,15 @@
+{
+  "slug": "akira-rise-architecture-2026-07-07",
+  "title": "RISE Architecture",
+  "group": "akira",
+  "discovered": "2026-07-07T14:21:50.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "RISE Architecture is a full-service architectural firm based in New York and New Jersey that sp\necializes in dynamic design solutions for complex real estate projects across residential, comm\nercial, mixed-use, industrial, and institutional sectors.\n\nWe will upload 57gb of corporate data soon. Employee personal information, a bit of client file\ns, projects files, financials, contracts and agreements and so on.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Megazord"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

@@ -463,6 +463,9 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/assessments', '/__prerendered/threatintel__assessments'],
   ['/threatintel/feed-quality', '/__prerendered/threatintel__feed-quality'],
 
+  // ── Daily Briefs ────────────────────────────────────────────────
+  ['/daily-briefs', '/__prerendered/daily-briefs'],
+
   // ── Phase 4 (2026-06-04): 43 real static routes that existed in App.tsx
   //    but had no entry here, so they were served as the bare SPA shell.
   //    See scripts/prerender.mjs for the matching ROUTES entries.

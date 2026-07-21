@@ -1,0 +1,15 @@
+{
+  "slug": "dragonforce-reha-activ-2026-06-05",
+  "title": "REHA-ACTIV",
+  "group": "dragonforce",
+  "discovered": "2026-06-05T12:21:56.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "REHA-ACTIV is a medical supply company that has been supporting individuals with health limitations for over 30 years.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["DRAGON FORCE"],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

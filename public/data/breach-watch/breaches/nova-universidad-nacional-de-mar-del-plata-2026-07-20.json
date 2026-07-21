@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "AR",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/9eb4d85c-0675-4a77-a4ad-0f192c100922",
+  "description": "The Universidad Nacional de Mar del Plata offers a wide range of academic programs, including undergraduate and postgraduate degrees, vocational training, and distance education. It serves students, faculty, and the broader community by promoting research, innovation, and cultural activities. The university is committed to sustainability and social responsibility, providing various scholarships and support for international mobility. Additionally, it engages in partnerships and projects that enhance academic and technological transfer, contributing to local and global knowledge - Nova Provide tree and samples from stolen data to the company when its get in touch with support department.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Education",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

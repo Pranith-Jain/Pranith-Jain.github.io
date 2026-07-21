@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "PH",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/72324084-45eb-43af-9e34-7afa25765969",
+  "description": "FAST Logistics Group is a leading provider of end-to-end logistics and supply chain solutions in the Philippines, offering a comprehensive network of transport, warehousing, distribution, and logistics services. With over 50 years of experience, the company serves a diverse range of industries including FMCG, pharmaceuticals, and technology, enabling businesses of all sizes to expand their reach across the archipelago. Their innovative and sustainable solutions are designed to support business growth and ensure dependable operations at every stage of the supply chain. FAST Logistics Group is committed to helping clients navigate logistics challenges and achieve operational efficiency through tailored services and a strong nationwide presence.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["inc ransom", "INC"],
   "activity": "Technology",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

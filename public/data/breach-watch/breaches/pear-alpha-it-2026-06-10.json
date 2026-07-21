@@ -1,0 +1,15 @@
+{
+  "slug": "pear-alpha-it-2026-06-10",
+  "title": "Alpha IT",
+  "group": "pear",
+  "discovered": "2026-06-10T06:59:50.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "NO",
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

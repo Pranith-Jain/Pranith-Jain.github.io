@@ -5,11 +5,11 @@
   "discovered": "2026-07-17T01:30:03.000Z",
   "category": "ransomware",
   "severity": "high",
-  "country": null,
+  "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/0941867b-c2fd-41ef-8843-efe969dc23e8",
+  "description": "Integrated Marketing Services is a company that operates in the Commercial Printing industry. It employs 20to49 people and has 5Mto10M of revenue. The company is headquartered in Liverpool, New York - Nova Provide tree and samples from stolen data + decrypt sample to the company when its get in touch with support department.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Business Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

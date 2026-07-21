@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-exclusive-networks-2026-04-27",
+  "title": "Exclusive Networks",
+  "group": "qilin",
+  "discovered": "2026-04-27T07:49:38.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "FR",
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

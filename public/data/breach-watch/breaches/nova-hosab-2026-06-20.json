@@ -1,0 +1,15 @@
+{
+  "slug": "nova-hosab-2026-06-20",
+  "title": "Hosab",
+  "group": "nova",
+  "discovered": "2026-06-20T14:34:02.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "HOSAB, an organized industrial zone in Bursa, offers a range of services including natural gas, electricity, water management, wastewater treatment, and zero waste management. The company aims to support local businesses and industries by providing essential utilities and infrastructure. HOSAB is committed to sustainability, having received certifications for its environmental management systems. Its intended clients include industrial firms and businesses operating within the organized industrial zone - Nova Provide tree and samples from stolen data to the company when its get in touch with support department.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

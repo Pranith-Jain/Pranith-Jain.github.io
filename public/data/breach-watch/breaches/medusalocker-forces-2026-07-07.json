@@ -1,0 +1,15 @@
+{
+  "slug": "medusalocker-forces-2026-07-07",
+  "title": "Forces",
+  "group": "medusalocker",
+  "discovered": "2026-07-07T06:27:46.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "CA",
+  "sizeBytes": 0,
+  "description": "Organization with 28 emails extracted. Domain: ***.gc.ca",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

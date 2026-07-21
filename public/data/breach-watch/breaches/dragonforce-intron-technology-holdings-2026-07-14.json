@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "TW",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/40a4b084-9d0f-40da-ab52-14af627acea9",
+  "description": "Intron Technology Holdings Limited is a fast-growing automotive electronics solutions provider in China focuses on providing solutions targeting critical automotive electronic components applied in New Energy, Body Control, Safety and Powertrain systems. The Group utilizes its research and development and engineering capabilities to provide solutions incorporating advanced semiconductor devices to help OEMs achieve industry leading performance.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["DRAGON FORCE"],
   "activity": "Technology",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

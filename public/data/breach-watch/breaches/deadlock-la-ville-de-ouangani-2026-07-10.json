@@ -1,0 +1,15 @@
+{
+  "slug": "deadlock-la-ville-de-ouangani-2026-07-10",
+  "title": "La ville de Ouangani",
+  "group": "Deadlock",
+  "discovered": "2026-07-10T12:51:54.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "YT",
+  "sizeBytes": 0,
+  "description": "French municipality of Ouangani on Mayotte",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Public Sector",
+  "references": ["ransomware.live"]
+}

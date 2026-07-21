@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-aveiro-constructors-limited-2026-07-11",
+  "title": "Aveiro Constructors Limited",
+  "group": "thegentlemen",
+  "discovered": "2026-07-11T07:22:26.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "PT",
+  "sizeBytes": 0,
+  "description": "***.com Aveiro Constructors Limited is a Canadian general contractor established in 1976 and headquartered in Southwestern Ontario. The company specializes in the Industrial, Commercial, and Institutional (ICI) sectors, delivering design-build, new construction, and renovation projects both locally and internationally. Originally starting with pre-engineered steel buildings, they have grown over the decades into a comprehensive construction firm offering specialized services like HVAC and project management",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Construction",
+  "references": ["ransomware.live"]
+}

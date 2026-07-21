@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-gene-codes-forensics-2026-07-11",
+  "title": "Gene Codes Forensics",
+  "group": "thegentlemen",
+  "discovered": "2026-07-11T07:18:53.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "***.com zoominfo.com/c/gene-codes-forensics-inc/1208843964 Gene Codes Forensics is a Michigan-based technology company and a global leader in disaster victim identification and human DNA matching. They provide specialized forensic software, such as Sequencher and M-FISys, which are utilized by numerous states and countries as central DNA resources for identifying remains in mass disasters. In addition to providing software and consulting services, the company operates a one-million-dollar Humanitarian Grant Program to support non-profit organizations conducting forensic DNA testing",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

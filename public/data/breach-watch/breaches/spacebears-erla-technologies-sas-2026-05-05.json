@@ -1,0 +1,15 @@
+{
+  "slug": "spacebears-erla-technologies-sas-2026-05-05",
+  "title": "Erla Technologies SAS",
+  "group": "spacebears",
+  "discovered": "2026-05-05T04:55:39.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "FR",
+  "sizeBytes": 0,
+  "description": "Our company, Erla Technologies SAS, has specialised for more than 30 years in designing, manufacturing, installing and maintaining a huge range of innovative equipment with Guaranteed French Produced certification and intended for storage, distribution and management of petroleum products, biofuel, Adblue and industrial and chemical fluids.Aware of environmental issues, new energies are at the heart of the innovations and solutions brought by Erla Technologies.-One of the clients is the French army, documentation.-Personal information of employees and clients-Financial documents-Other files https://www.erla.fr",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["space bears"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

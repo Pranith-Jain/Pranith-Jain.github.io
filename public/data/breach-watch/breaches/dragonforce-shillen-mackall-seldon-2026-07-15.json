@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/91c12426-6cf7-4d50-aba5-ae99c535e79c",
+  "description": "Shillen Mackall Seldon Spicer & Fraas is a law firm dedicated to representing personal injury victims primarily in Vermont, New Hampshire, and Florida since 1980. They offer legal services for a wide range of personal injury cases, including car accidents, medical malpractice, and workers' compensation. The firm is committed to providing compassionate legal counsel and fighting for the rights of clients facing physical, emotional, and financial challenges after accidents. With a team of experienced attorneys, they strive to secure maximum compensation for their clients while ensuring a supportive and understanding environment.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["DRAGON FORCE"],
   "activity": "Business Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

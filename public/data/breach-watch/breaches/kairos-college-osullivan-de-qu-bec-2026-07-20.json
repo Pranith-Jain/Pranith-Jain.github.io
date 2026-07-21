@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "CA",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/7c51ea76-6241-4313-9ec7-7ba7b883c557",
+  "description": "Collège O'Sullivan de Québec offers a variety of training programs both in-class and online, focusing on fields such as administration, insurance, office management, IT, web development, and marketing. The institution aims to equip students with the skills needed for the job market and higher education through quality resources and personalized services. Their target clients include secondary school students, international students, and businesses seeking tailored training solutions. With over 80 years of history, the college is committed to fostering professional and personal competencies among its graduates.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Education",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

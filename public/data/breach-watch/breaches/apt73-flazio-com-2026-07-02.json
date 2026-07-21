@@ -1,0 +1,15 @@
+{
+  "slug": "apt73-flazio-com-2026-07-02",
+  "title": "flazio.com",
+  "group": "apt73",
+  "discovered": "2026-07-02T16:21:57.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "BR",
+  "sizeBytes": 0,
+  "description": "lazio.com — this is a company from Italy.\nFlazio is a website builder platform that allows use...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Eraleign"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "akira-hal-otey-financial-2026-06-03",
+  "title": "Hal Otey Financial",
+  "group": "akira",
+  "discovered": "2026-06-03T12:50:21.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Hal Otey Financial offers a range of financial services including wealth management, financial \nplanning, retirement planning, investment management, estate planning, and tax planning.\n\nWe will upload corporate data soon. Lots client data (passports, DLs, social security numbers, \nhealth and insurance files and so on), contracts and agreements, detailed financials, projects,\netc.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Megazord"],
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
+}

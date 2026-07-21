@@ -62,7 +62,7 @@ draftsRouter.post('/drafts/:slug/approve', async (c) => {
   const d1 = c.env.BRIEFINGS_DB as D1Database | undefined;
   if (d1) {
     import('../../case-study/storage/cs-posts-d1').then(({ upsertCsPostD1 }) =>
-      upsertCsPostD1(d1, promoted).catch(() => {})
+      upsertCsPostD1(d1, promoted).catch((err) => console.error('upsertCsPostD1 failed:', err))
     );
   }
 

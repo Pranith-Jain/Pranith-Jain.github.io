@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-hamer-childs-2026-05-20",
+  "title": "Hamer Childs",
+  "group": "qilin",
+  "discovered": "2026-05-20T21:57:39.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

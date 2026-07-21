@@ -223,11 +223,11 @@ export async function telegramLeakBotWebhookHandler(c: Context<{ Bindings: Env }
   // configured, refuse to process updates rather than accepting forged ones.
   const webhookSecret = c.env.TELEGRAM_WEBHOOK_SECRET;
   if (!webhookSecret) {
-    return c.json({ error: 'webhook secret not configured' }, 503);
+    return c.json({ error: 'webhook secret not configured' }, 503, { 'Cache-Control': 'no-store' });
   }
   const provided = c.req.header('x-telegram-bot-api-secret-token') ?? '';
   if (!safeEqual(provided, webhookSecret)) {
-    return c.json({ error: 'forbidden' }, 403);
+    return c.json({ error: 'forbidden' }, 403, { 'Cache-Control': 'no-store' });
   }
 
   // Parse defensively: a malformed body must not surface as a 500 (which
@@ -241,7 +241,7 @@ export async function telegramLeakBotWebhookHandler(c: Context<{ Bindings: Env }
       'telegramLeakBotWebhookHandler failed:',
       _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
     );
-    return c.json({ error: 'invalid JSON' }, 400);
+    return c.json({ error: 'invalid JSON' }, 400, { 'Cache-Control': 'no-store' });
   }
 
   // Handle chat join immediately (fast path).
@@ -336,7 +336,9 @@ export async function telegramLeakBotWebhookStatusHandler(c: Context<{ Bindings:
     return c.json(data);
   } catch (e) {
     console.error('telegramLeakBotWebhookStatusHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ ok: false, error: e instanceof Error ? e.message : 'failed' }, 502);
+    return c.json({ ok: false, error: e instanceof Error ? e.message : 'failed' }, 502, {
+      'Cache-Control': 'no-store',
+    });
   }
 }
 
@@ -367,6 +369,6 @@ export async function telegramLeakBotRegisterHandler(c: Context<{ Bindings: Env 
     return c.json(data);
   } catch (e) {
     console.error('telegramLeakBotRegisterHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'failed' }, 502);
+    return c.json({ error: e instanceof Error ? e.message : 'failed' }, 502, { 'Cache-Control': 'no-store' });
   }
 }

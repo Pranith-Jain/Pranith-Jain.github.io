@@ -1,0 +1,15 @@
+{
+  "slug": "stormous-eogb-co-uk-2026-06-28",
+  "title": "eogb.co.uk",
+  "group": "stormous",
+  "discovered": "2026-06-28T21:29:58.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "Deep access to Microsoft Dynamics GP containing complete corporate accounting, invoices, vendor details, and commercial transactions.Access to internal legal documents, partnership agreements, and customer contracts (such as CBIF OSMO agreements).Exfiltration of operational spreadsheets, financial reports, and executive documents via corporate",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Energy",
+  "references": ["ransomware.live"]
+}

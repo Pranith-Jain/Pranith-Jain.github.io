@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-mes-hybrid-document-systems-2026-04-30",
+  "title": "MES Hybrid Document Systems",
+  "group": "qilin",
+  "discovered": "2026-04-30T17:56:54.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "CA",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

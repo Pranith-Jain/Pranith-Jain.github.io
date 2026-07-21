@@ -5,11 +5,11 @@
   "discovered": "2026-07-16T14:25:33.000Z",
   "category": "data_breach",
   "severity": "high",
-  "country": "GB",
+  "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/0efea843-b460-411e-98c8-7b0c32f9970d",
+  "description": "CEI's mission is to produce high-quality equipment for the manufacturing industry through innovation, collaboration, and integrity. However, the company has a history of neglecting its own security, putting its customers and employees at risk. This negligence has resulted in the leakage of confidential information and personal data. We provide confidential information regarding equipment development, contracts, and customer relationships. We also have information about their subsidiaries and their entire financial structure.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Manufacturing",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

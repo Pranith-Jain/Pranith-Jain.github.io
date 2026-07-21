@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-mercado-libre-2026-07-07",
+  "title": "Mercado Libre",
+  "group": "thegentlemen",
+  "discovered": "2026-07-07T18:30:52.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "AR",
+  "sizeBytes": 0,
+  "description": "***.com.ar zoominfo.com/c/mercadolibre-srl/425378760 Argentine platform of MercadoLibre, the undisputed leader in Latin American e-commerce and fintech, founded in 1999 by Marcos Galperin. It operates a massive online marketplace integrated with a powerful ecosystem of services, including Mercado Pago for digital payments and Mercado Envíos for logistics. As a cornerstone of Argentina's digital economy, it connects millions of buyers and sellers, driving both retail innovation and financial inclusion across the nation",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

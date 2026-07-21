@@ -4,8 +4,10 @@ import type { Env } from '../env';
 export async function identityProxyHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const platform = c.req.query('platform');
   const username = c.req.query('username');
-  if (!platform || !username) return c.json({ error: 'missing platform or username' }, 400);
-  if (!/^[a-zA-Z0-9_-]{1,64}$/.test(username)) return c.json({ error: 'invalid username format' }, 400);
+  if (!platform || !username)
+    return c.json({ error: 'missing platform or username' }, 400, { 'Cache-Control': 'no-store' });
+  if (!/^[a-zA-Z0-9_-]{1,64}$/.test(username))
+    return c.json({ error: 'invalid username format' }, 400, { 'Cache-Control': 'no-store' });
 
   const TIMEOUT = 8_000;
   const MAX_BODY = 64 * 1024;
@@ -17,7 +19,8 @@ export async function identityProxyHandler(c: Context<{ Bindings: Env }>): Promi
       });
       if (!res.ok) return c.json(null);
       const text = await res.text();
-      if (text.length > MAX_BODY) return c.json({ error: 'upstream response too large' }, 502);
+      if (text.length > MAX_BODY)
+        return c.json({ error: 'upstream response too large' }, 502, { 'Cache-Control': 'no-store' });
       const data = JSON.parse(text);
       return c.json(data);
     }
@@ -29,7 +32,8 @@ export async function identityProxyHandler(c: Context<{ Bindings: Env }>): Promi
       });
       if (!res.ok) return c.json(null);
       const text = await res.text();
-      if (text.length > MAX_BODY) return c.json({ error: 'upstream response too large' }, 502);
+      if (text.length > MAX_BODY)
+        return c.json({ error: 'upstream response too large' }, 502, { 'Cache-Control': 'no-store' });
       const data = JSON.parse(text);
       return c.json(data);
     }

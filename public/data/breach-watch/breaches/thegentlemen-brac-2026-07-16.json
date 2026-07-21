@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "BD",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/754773da-768e-4a57-b26b-7fe2836f95d8",
+  "description": "***.net zoominfo.com/c/brac-centre/8079683 is the largest non-governmental development organization in the world, founded in Bangladesh in 1972.Its mission is to empower communities facing poverty, illiteracy, disease, and social injustice.Today, it operates across multiple countries, reaching over 145 million people annually through programs in education, healthcare, livelihood, and human rights",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["the gentlemen"],
   "activity": "Business Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-woodfields-consultants-2026-04-25",
+  "title": "Woodfields Consultants",
+  "group": "qilin",
+  "discovered": "2026-04-25T14:46:37.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "PH",
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

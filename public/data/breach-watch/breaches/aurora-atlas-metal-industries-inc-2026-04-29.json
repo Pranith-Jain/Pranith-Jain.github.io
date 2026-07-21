@@ -1,0 +1,15 @@
+{
+  "slug": "aurora-atlas-metal-industries-inc-2026-04-29",
+  "title": "Atlas Metal Industries Inc",
+  "group": "aurora",
+  "discovered": "2026-04-29T21:35:32.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "CA",
+  "sizeBytes": 0,
+  "description": "[food, metal] Atlas Metal Industries Inc. — a privately held commercial-foodservice-equipment manufacturer headquartered in Miami, Florida.\n\nThe dataset is a complete Microsoft Dynamics GP environment: production databases, payroll records, system credentials, Autodesk Vault product-design backups, CNC fabrication programs, and all supporting infrastructure configuration. The exfiltration occurred on or about April 8, 2026; the attack was identified April 22, 2026.\n\nThe exposed material includes:\n\n    15.8 GB of payroll-records database (PYREC) — full Employee Master with SSNs, DOBs, addresses, direct-deposit bank routing numbers, salary, W-4 tax data, garnishments, and check history dating to at least 2018.\n    30+ SQL Server login accounts with password hashes in a sp_help_revlogin dump — named employees, system admins (DYNSA, sa), service accounts, and Active Directory domain accounts.\n    74 GB of Autodesk Vault Professional backup — complete product-design history from 2019 through 2026, covering every product line Atlas Metal manufactures.\n    Hundreds of CNC fabrication programs — laser-cutter and Amada punch-press G-code for the full catalogue of sheet-metal components.\n    A base64-encoded SQL credential for the TimeClock Plus timekeeping system, stored in plaintext XML.\n    8 SQL Server databases with full backup chains — ATLAS (primary), PYREC (payroll), DYNAMICS (system), TEST (18 GB dev clone), TWO, AMIT, plus system databases (master, msdb, DynamicsGPSecurity).",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

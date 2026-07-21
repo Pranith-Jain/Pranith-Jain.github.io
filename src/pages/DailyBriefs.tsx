@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useDataFetch } from '../hooks/useDataFetch';
 import { DataPageLayout } from '../components/DataPageLayout';
-import { Shield, AlertTriangle, Cloud, Search as SearchIcon, ChevronRight, ExternalLink } from 'lucide-react';
+import { Shield, AlertTriangle, Cloud, ExternalLink } from 'lucide-react';
 
 type Tab = 'cyber' | 'deepfake' | 'disaster';
 
@@ -131,6 +131,9 @@ export default function DailyBriefs() {
 
   return (
     <DataPageLayout
+      backTo="/threatintel"
+      backLabel="Threat Intel"
+      icon={<Shield size={20} />}
       title="Daily Intelligence Briefs"
       description="AI-generated daily intelligence assessments covering OT/ICS cyber threats, deepfake/GenAI risks, and global disaster monitoring."
     >

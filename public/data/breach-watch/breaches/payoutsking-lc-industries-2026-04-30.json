@@ -1,0 +1,15 @@
+{
+  "slug": "payoutsking-lc-industries-2026-04-30",
+  "title": "Lc Industries",
+  "group": "payoutsking",
+  "discovered": "2026-04-30T00:30:20.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "[AI generated] LC Industries is a nonprofit organization based in the United States that provides employment and training opportunities for people who are blind or visually impaired. Operating primarily in North Carolina, it manufactures and supplies a range of products including military and government goods, fulfilling contracts through the AbilityOne Program, which connects nonprofit agencies with federal procurement opportunities.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

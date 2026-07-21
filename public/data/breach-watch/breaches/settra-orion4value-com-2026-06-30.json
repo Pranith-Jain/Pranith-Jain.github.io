@@ -1,0 +1,15 @@
+{
+  "slug": "settra-orion4value-com-2026-06-30",
+  "title": "orion4value.com",
+  "group": "settra",
+  "discovered": "2026-06-30T13:28:21.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "THE CERTIFICATE AS A VULNERABILITY: Documents of Orion Registrar Inc. PROLOGUE Financial reports and...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

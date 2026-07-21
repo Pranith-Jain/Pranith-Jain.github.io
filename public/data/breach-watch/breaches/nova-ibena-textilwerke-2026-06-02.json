@@ -1,0 +1,15 @@
+{
+  "slug": "nova-ibena-textilwerke-2026-06-02",
+  "title": "IBENA Textilwerke",
+  "group": "nova",
+  "discovered": "2026-06-02T10:25:16.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "IBENA HEIMTEX is a family-owned textile manufacturer based in Bocholt, Germany, established in 1826. The company specializes in high-quality home textiles, including cuddly blankets, bed linen, and technical textiles for various industries. Their products cater to both consumers and businesses, with offerings such as fireproof fabrics, digital printing textiles, and car interior fabrics for renowned automotive brands. IBENA is committed to sustainability and quality, ensuring their textiles meet numerous quality standards - Nova Provide tree and samples from stolen data, free 2 files decrypt to the company when its get in touch with support department.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-misr-chemical-industries-2026-05-09",
+  "title": "Misr Chemical Industries",
+  "group": "thegentlemen",
+  "discovered": "2026-05-09T09:15:15.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "EG",
+  "sizeBytes": 0,
+  "description": "mci.com.eg Misr Chemical Industries Co. (MCI), founded in 1959 and headquartered in Alexandria, Egypt, is a publicly listed chemical manufacturer on the Egyptian Exchange (EGX). As the oldest Egyptian producer of liquid caustic soda, chlorine gas, and derivatives, the company specializes in manufacturing chemicals including hydrochloric acid, sodium hydroxide solutions, and compressed hydrogen for domestic and regional markets. MCI serves industrial clients across Egypt and the Middle East, focusing on meeting local demand while exporting surplus production to support regional chemical supply chains.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

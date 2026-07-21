@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-3e-accounting-2026-06-04",
+  "title": "3E Accounting",
+  "group": "thegentlemen",
+  "discovered": "2026-06-04T09:09:27.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "SG",
+  "sizeBytes": 0,
+  "description": "***.com.sg ***.com/c/3e-accounting-pte-ltd/431955167 3E Accounting is a premier corporate services provider in Singapore, offering a comprehensive one-stop solution for business setup and management. The award-winning firm specializes in seamless online company registration, corporate secretarial work, accounting, and taxation. Through its fast and secure digital approach, the agency successfully helps both local and international entrepreneurs establish and grow their ventures",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

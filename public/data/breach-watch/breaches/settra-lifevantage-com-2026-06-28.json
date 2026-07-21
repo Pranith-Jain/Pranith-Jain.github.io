@@ -1,0 +1,15 @@
+{
+  "slug": "settra-lifevantage-com-2026-06-28",
+  "title": "lifevantage.com",
+  "group": "settra",
+  "discovered": "2026-06-28T19:46:22.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "THE NEUTRALIZING FACTOR: How LifeVantage Corporation Profits from Hope and Buries the Truth PROLOGUE...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

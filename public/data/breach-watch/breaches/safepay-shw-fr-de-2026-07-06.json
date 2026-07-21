@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-shw-fr-de-2026-07-06",
+  "title": "shw-fr.de",
+  "group": "safepay",
+  "discovered": "2026-07-06T19:39:07.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "The company traces its origins to 1596, making it one of Germany's oldest industrial manufacturers, although its current corporate structure …",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

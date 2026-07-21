@@ -5,11 +5,11 @@
   "discovered": "2026-07-20T13:53:07.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": null,
+  "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/0ca7afcf-5a1c-40f9-af21-f3dda46cba79",
+  "description": "L & A Transport is a reputable trucking company with over 50 years of experience in providing a\nwide range of shipping services, including international shipping, white glove handling, and l\nogistics solutions for businesses of all sizes. They specialize in truckloads, container loads,\nless than container truckloads, and offer warehousing services in Union, NJ.\n\nWe will upload corporate data soon. Detailed financials, employee information (DLs and so on), \ncontracts, client information, NDAs, etc.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["Megazord"],
   "activity": "Transportation/Logistics",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

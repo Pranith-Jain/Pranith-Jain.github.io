@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-https-sza-it-2026-06-30",
+  "title": "https://sza.it/",
+  "group": "incransom",
+  "discovered": "2026-06-30T13:23:59.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "client, contracts, personal, NDA  and other",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

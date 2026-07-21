@@ -1,0 +1,15 @@
+{
+  "slug": "silentransomgroup-jackson-lewis-2026-04-22",
+  "title": "Jackson Lewis",
+  "group": "SilentRansomGroup",
+  "discovered": "2026-04-22T22:40:37.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "[AI generated] Jackson Lewis P.C. is a United States-based law firm specializing exclusively in workplace law and employment-related legal services. Founded in 1958 and headquartered in New York, the firm operates across numerous offices throughout the country. It advises employers on labor relations, workplace safety, litigation, immigration, and employee benefits, serving clients across a wide range of industries nationwide.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

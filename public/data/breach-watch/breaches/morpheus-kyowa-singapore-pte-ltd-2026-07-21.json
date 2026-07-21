@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "SG",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/b7f89de0-9f6b-4a68-968a-77fee88464b0",
+  "description": "**Website**: kyowasingapore.com\n\n**Revenue**: $15 Million\n\nFounded in 1979 and headquartered at Benoi Road, Singapore, they primarily supply global consumer electronics, grooming, and automotive indus",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Business Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

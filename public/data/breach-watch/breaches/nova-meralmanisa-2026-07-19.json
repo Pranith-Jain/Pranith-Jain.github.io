@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "TR",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/091abbfe-1e71-4524-a81e-f115a43e44ce",
+  "description": "MER-AL was established in Turkey in 2005, but our experience in the automotive industry started in Germany in 1995. MER-AL started its activities with the production of cast filters, which are specifically used to produce aluminum wheels and components produced in low-pressure-casting. In addition, a significant part of the production department consists of “rim pallets” and “rim pallet covers.” As a result, MER-AL is now one of the world’s largest manufacturers of cast filters and rim pallet sets and a well-known brand in this field in many countries - 1.5 GB of sales data and secret documents, Nova Provide tree and samples from stolen data to the company when its get in touch with support department.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Not Found",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

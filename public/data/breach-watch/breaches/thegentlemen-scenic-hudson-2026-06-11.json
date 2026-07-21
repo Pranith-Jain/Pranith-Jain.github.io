@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-scenic-hudson-2026-06-11",
+  "title": "Scenic Hudson",
+  "group": "thegentlemen",
+  "discovered": "2026-06-11T17:28:37.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "***.org zoominfo.com/c/scenic-hudson-inc/61506079 Scenic Hudson is a U.S. nonprofit environmental organization founded in 1963 to protect the Hudson River Valley’s natural beauty. It preserves scenic landscapes, creates public parks, and fights industrial pollution. Today, Scenic Hudson also champions clean energy, climate resilience, and environmental justice throughout the region",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Public Sector",
+  "references": ["ransomware.live"]
+}

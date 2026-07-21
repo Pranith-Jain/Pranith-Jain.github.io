@@ -5,11 +5,11 @@
   "discovered": "2026-07-17T01:32:34.000Z",
   "category": "ransomware",
   "severity": "high",
-  "country": null,
+  "country": "CA",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/c66881cc-6574-4ff7-9bc7-f1a13463cd37",
+  "description": "PHI Studio focuses its activities on the presentation and curation of immersive works in virtual reality (VR), augmented reality (AR) and extended reality (XR). Recognized locally and internationally for its innovative production approach, technical expertise and achievements in new forms of storytelling, PHI Studio collaborates with major global industry players and has worked on many award-winning projects, with international presentations in New York, Tokyo, Venice, Frankfurt, Luxembourg and Salt Lake City, among others. As a pioneer in interactive experiences, PHI Studio pushes the boundaries of immersive projects, with a focus on enhancing the visitor experience through a keen sense of detail and the elaboration of high-quality scenography. With a reputation for close collaborations with artists, creators, directors and producers from different backgrounds, PHI Studio aspires to be a catalyst of innovation, supporting the development of present and future talent - Nova Provide tree and samples from stolen data to the company when its get in touch with support department.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Not Found",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

@@ -1,0 +1,15 @@
+{
+  "slug": "lockbit5-mediaservicemaastricht-nl-2026-07-11",
+  "title": "mediaservicemaastricht.nl",
+  "group": "lockbit5",
+  "discovered": "2026-07-11T07:26:16.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "NL",
+  "sizeBytes": 0,
+  "description": "Media Service Maastricht is a professional team specializing in audiovisual services, offering tailo...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

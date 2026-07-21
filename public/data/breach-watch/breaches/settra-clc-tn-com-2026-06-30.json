@@ -1,0 +1,15 @@
+{
+  "slug": "settra-clc-tn-com-2026-06-30",
+  "title": "clc-tn.com",
+  "group": "settra",
+  "discovered": "2026-06-30T12:57:35.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "TN",
+  "sizeBytes": 0,
+  "description": "City Lumber Company: Building Materials in Tennessee — What Lies Behind the Small Sign PROLOGUE In o...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

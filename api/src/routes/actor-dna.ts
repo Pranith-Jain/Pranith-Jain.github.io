@@ -458,7 +458,7 @@ export async function actorDnaMatchHandler(c: Context<{ Bindings: Env }>): Promi
   }>();
 
   if (!body.ttps || body.ttps.length === 0) {
-    return c.json({ error: 'ttps array required' }, 400);
+    return c.json({ error: 'ttps array required' }, 400, { 'Cache-Control': 'no-store' });
   }
 
   const matches = await matchActorDNA(body.ttps, body.infrastructure, { sectors: body.sectors, regions: body.regions });
@@ -470,12 +470,12 @@ export async function actorDnaMatchHandler(c: Context<{ Bindings: Env }>): Promi
 export async function actorDnaGetHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const actorId = c.req.param('actorId') ?? '';
   if (!actorId) {
-    return c.json({ error: 'actorId parameter required' }, 400);
+    return c.json({ error: 'actorId parameter required' }, 400, { 'Cache-Control': 'no-store' });
   }
   const dna = getActorDNA(actorId);
 
   if (!dna) {
-    return c.json({ error: 'Actor not found' }, 404);
+    return c.json({ error: 'Actor not found' }, 404, { 'Cache-Control': 'no-store' });
   }
 
   return c.json(dna);
@@ -504,12 +504,12 @@ export async function actorDnaCompareHandler(c: Context<{ Bindings: Env }>): Pro
   const actor2 = c.req.param('actor2') ?? '';
 
   if (!actor1 || !actor2) {
-    return c.json({ error: 'Both actor1 and actor2 parameters required' }, 400);
+    return c.json({ error: 'Both actor1 and actor2 parameters required' }, 400, { 'Cache-Control': 'no-store' });
   }
 
   const comparison = calculateSimilarity(actor1, actor2);
   if (!comparison) {
-    return c.json({ error: 'One or both actors not found' }, 404);
+    return c.json({ error: 'One or both actors not found' }, 404, { 'Cache-Control': 'no-store' });
   }
 
   return c.json({

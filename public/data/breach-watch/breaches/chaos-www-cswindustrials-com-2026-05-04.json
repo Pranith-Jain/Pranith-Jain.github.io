@@ -1,0 +1,15 @@
+{
+  "slug": "chaos-www-cswindustrials-com-2026-05-04",
+  "title": "www.cswindustrials.com",
+  "group": "chaos",
+  "discovered": "2026-05-04T17:51:02.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "If the company's management does not contact us within 24 hours, we will publish 540 GB of the company's internal files. \n\nCSW Industrials, Inc. is a diversified industrial growth company that operates across contractor solutions, specialized reliability solutions, and engineered building solutions.…",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

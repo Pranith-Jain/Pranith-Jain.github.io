@@ -1,0 +1,15 @@
+{
+  "slug": "moneymessage-forestdale-2026-05-11",
+  "title": "Forestdale",
+  "group": "moneymessage",
+  "discovered": "2026-05-11T17:23:02.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["money message"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

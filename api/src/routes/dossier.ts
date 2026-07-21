@@ -211,7 +211,10 @@ async function buildCveDossier(c: Context<{ Bindings: Env }>, entity: DossierEnt
   };
 
   // Cache for fast re-read
-  if (kv) await kv.put(`dossier:cve:${entity.value}`, JSON.stringify(dossier), { expirationTtl: 7200 }).catch(() => {});
+  if (kv)
+    await kv
+      .put(`dossier:cve:${entity.value}`, JSON.stringify(dossier), { expirationTtl: 7200 })
+      .catch((err) => console.error('dossier cache put failed:', err));
 
   return c.json(dossier);
 }

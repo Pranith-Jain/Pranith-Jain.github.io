@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/ec576c08-cfb1-431b-84bc-0e4ad9349209",
+  "description": "[AI generated] Caterpillar Inc. is an American multinational corporation headquartered in Irving, Texas. It is the world's leading manufacturer of construction and mining equipment, diesel and natural gas engines, industrial gas turbines, and diesel-electric locomotives. Operating in over 190 countries, Caterpillar serves industries including construction, mining, energy, and transportation through its equipment, financial services, and aftermarket parts divisions.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["coinbase cartel"],
   "activity": "Manufacturing",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

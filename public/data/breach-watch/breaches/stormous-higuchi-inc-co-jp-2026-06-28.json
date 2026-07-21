@@ -1,0 +1,15 @@
+{
+  "slug": "stormous-higuchi-inc-co-jp-2026-06-28",
+  "title": "higuchi-inc.co.jp",
+  "group": "stormous",
+  "discovered": "2026-06-28T21:30:38.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "JP",
+  "sizeBytes": 0,
+  "description": "(Dallas - HongKong - LosAngeles ) Comprehensive financial statements including Balance Sheets, Asset records, Liabilities, Capital, Accounts Receivable (A/R), and Accounts Payable (A/P) database backups from Sage 50 (formerly Peachtree Accounting software), indicated by the ⁠.ptb⁠ file extension Corporate data detailing domestic and international inventory tracking, trade checking, and business operations.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

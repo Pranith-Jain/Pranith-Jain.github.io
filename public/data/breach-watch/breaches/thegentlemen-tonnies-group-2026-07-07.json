@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-tonnies-group-2026-07-07",
+  "title": "Tonnies Group",
+  "group": "thegentlemen",
+  "discovered": "2026-07-07T18:31:53.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "***.de zoominfo.com/c/tönnies-group/427095219 Founded in 1971 as a family-owned business, the Tönnies Group is a leading German meat processing company headquartered in Rheda-Wiedenbrück.As a major global player in the food industry, it specializes in the slaughtering, butchering, and processing of pork and beef, generating around 5 billion euros in annual turnover with over 8,000 employees.Notably, the holding company is rebranding to \"Premium Food Group\" starting in 2025 to emphasize its focus on sustainable food solutions",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

@@ -25,10 +25,10 @@ interface UrlscanSearchResponse {
 
 export async function urlscanIpHandler(c: Context<{ Bindings: Env }>) {
   const ip = c.req.query('ip');
-  if (!ip) return c.json({ error: 'missing ip parameter' }, 400);
+  if (!ip) return c.json({ error: 'missing ip parameter' }, 400, { 'Cache-Control': 'no-store' });
 
   if (!/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(ip)) {
-    return c.json({ error: 'invalid IP format' }, 400);
+    return c.json({ error: 'invalid IP format' }, 400, { 'Cache-Control': 'no-store' });
   }
 
   const apiKey = c.env.URLSCAN_API_KEY;
@@ -41,7 +41,9 @@ export async function urlscanIpHandler(c: Context<{ Bindings: Env }>) {
     const res = await fetch(url, { headers, signal: AbortSignal.timeout(10000) });
 
     if (res.status === 401 || res.status === 403) {
-      return c.json({ results: [], total: 0, error: 'URLScan API key required or invalid' }, 200);
+      return c.json({ results: [], total: 0, error: 'URLScan API key required or invalid' }, 200, {
+        'Cache-Control': 'no-store',
+      });
     }
     if (!res.ok) {
       return c.json({ error: `URLScan API returned ${res.status}` }, 502);
@@ -68,6 +70,8 @@ export async function urlscanIpHandler(c: Context<{ Bindings: Env }>) {
     return c.json({ ip, total: json.total ?? 0, results });
   } catch (err) {
     console.error('handler failed:', err instanceof Error ? err.message : String(err));
-    return c.json({ error: err instanceof Error ? err.message : 'Unknown error' }, 502);
+    return c.json({ error: err instanceof Error ? err.message : 'Unknown error' }, 502, {
+      'Cache-Control': 'no-store',
+    });
   }
 }

@@ -1,0 +1,15 @@
+{
+  "slug": "braincipher-digitaldynamics-com-2026-07-01",
+  "title": "digitaldynamics.com",
+  "group": "BrainCipher",
+  "discovered": "2026-07-01T15:51:52.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["brain cipher"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

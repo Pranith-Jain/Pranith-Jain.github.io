@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/ea2071df-7b18-4c1a-af04-9031c52978f4",
+  "description": "[AI generated] Colliers International is a global commercial real estate services company headquartered in Toronto, Canada. It operates across more than 60 countries, offering services including property management, investment sales, leasing, valuation, and advisory. The firm serves corporate, institutional, and private clients across office, industrial, retail, and residential property sectors, making it one of the largest real estate services firms worldwide.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["coinbase cartel"],
   "activity": "Business Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

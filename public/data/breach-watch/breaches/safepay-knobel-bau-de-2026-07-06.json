@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-knobel-bau-de-2026-07-06",
+  "title": "knobel-bau.de",
+  "group": "safepay",
+  "discovered": "2026-07-06T19:41:15.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "Founded in 1947, the company has grown from a small sand and gravel business established after the Second World War …",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Construction",
+  "references": ["ransomware.live"]
+}

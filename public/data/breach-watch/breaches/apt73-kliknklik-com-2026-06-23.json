@@ -1,0 +1,15 @@
+{
+  "slug": "apt73-kliknklik-com-2026-06-23",
+  "title": "kliknklik.com",
+  "group": "apt73",
+  "discovered": "2026-06-23T13:20:43.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "ID",
+  "sizeBytes": 0,
+  "description": "KliknKlik.com — a company from Indonesia, an online retailer and distributor of computer equipm...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Eraleign"],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

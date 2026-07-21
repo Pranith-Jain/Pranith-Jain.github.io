@@ -18,7 +18,7 @@ async function readBlob(ns: KVNamespace): Promise<FailureRecord[]> {
   ).filter((x): x is FailureRecord => x !== null);
   if (migrated.length > 0) {
     await ns.put(BLOB_KEY, JSON.stringify(migrated), { expirationTtl: THIRTY_DAYS_SECONDS });
-    for (const k of oldKeys) ns.delete(k.name).catch(() => {});
+    for (const k of oldKeys) ns.delete(k.name).catch((err) => console.error('delete old failure key failed:', err));
   }
   return migrated;
 }
@@ -43,7 +43,7 @@ export async function deleteFailure(ns: KVNamespace, slotId: string): Promise<vo
   const list = await readBlob(ns);
   await writeBlob(
     ns,
-    list.filter((x) => x.slotId !== slotId),
+    list.filter((x) => x.slotId !== slotId)
   );
 }
 

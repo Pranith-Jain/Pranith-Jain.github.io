@@ -122,7 +122,7 @@ export async function socGetPlaybook(c: Context<{ Bindings: Env }>): Promise<Res
   try {
     return c.json(JSON.parse(raw));
   } catch {
-    return c.json({ error: 'Not found' }, 404);
+    return c.json({ error: 'Not found' }, 404, { 'Cache-Control': 'no-store' });
   }
 }
 
@@ -153,7 +153,7 @@ export async function socUpdatePlaybook(c: Context<{ Bindings: Env }>): Promise<
   try {
     existing = JSON.parse(raw) as Playbook;
   } catch {
-    return c.json({ error: 'Not found' }, 404);
+    return c.json({ error: 'Not found' }, 404, { 'Cache-Control': 'no-store' });
   }
   const body = await c.req.json<Partial<Playbook>>();
   const updated: Playbook = { ...existing, ...body, id: existing.id, updated_at: new Date().toISOString() };
@@ -182,7 +182,7 @@ export async function socExecutePlaybook(c: Context<{ Bindings: Env }>): Promise
   try {
     playbook = JSON.parse(raw) as Playbook;
   } catch {
-    return c.json({ error: 'Not found' }, 404);
+    return c.json({ error: 'Not found' }, 404, { 'Cache-Control': 'no-store' });
   }
   if (!playbook.actions) playbook.actions = [];
   const runId = makeId();
@@ -287,7 +287,7 @@ export async function socGetRun(c: Context<{ Bindings: Env }>): Promise<Response
   try {
     return c.json(JSON.parse(raw));
   } catch {
-    return c.json({ error: 'Not found' }, 404);
+    return c.json({ error: 'Not found' }, 404, { 'Cache-Control': 'no-store' });
   }
 }
 

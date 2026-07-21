@@ -1,0 +1,15 @@
+{
+  "slug": "krybit-moser-spiel-at-2026-04-28",
+  "title": "moser-spiel.at",
+  "group": "krybit",
+  "discovered": "2026-04-28T12:34:00.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "AT",
+  "sizeBytes": 0,
+  "description": "moser-spiel.at is an Austrian company specializing in the design and manufacture of outdoor play equipment and sports pa...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Consumer Services",
+  "references": ["ransomware.live"]
+}

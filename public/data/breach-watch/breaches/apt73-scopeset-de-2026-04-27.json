@@ -1,0 +1,15 @@
+{
+  "slug": "apt73-scopeset-de-2026-04-27",
+  "title": "scopeset.de",
+  "group": "apt73",
+  "discovered": "2026-04-27T16:54:05.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "We offer support services for all our developed solutions and tools with an emphasize on direct a...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Eraleign"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

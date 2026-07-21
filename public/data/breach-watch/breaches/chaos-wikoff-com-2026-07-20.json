@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/3f6b64d4-ffb0-4bcb-aff1-dba05c091d16",
+  "description": "[PUBLIC DISCLOSURE]\n\nTarget: Wikoff Color Corporation (wikoff.com)\nData Volume: 650 GB\nStatus: Full Compromise Confirmed\n\nWe are officially confirming that the entire internal infrastructure of Wikoff Color Corporation—ranging from Board of Directors financial reports and proprietary R&D formulas…",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Business Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

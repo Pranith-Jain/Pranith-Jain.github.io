@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-riggotts-2026-05-06",
+  "title": "Riggotts",
+  "group": "thegentlemen",
+  "discovered": "2026-05-06T13:35:49.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "riggott.co.uk zoominfo.com/c/riggotts--co-ltd/345701355 Riggotts (Riggott and Company Limited) is one of the UK's leading line marking and surface coating contractors, founded on 2 November 1994 by brothers Nick and Darren Riggott. Headquartered in Tuxford, Newark, Nottinghamshire, the company has grown to operate more than 50 specialist teams working 24/7 across the entire United Kingdom. Estimated annual turnover stands at approximately 8 million",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

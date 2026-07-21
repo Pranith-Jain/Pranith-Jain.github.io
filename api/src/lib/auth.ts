@@ -205,7 +205,7 @@ function touchLastUsed(db: D1Database, keyId: string): Promise<void> {
     .bind(new Date().toISOString(), keyId)
     .run()
     .then(() => {})
-    .catch(() => {});
+    .catch((err) => console.error('touch-last-used:', err));
 }
 
 /**

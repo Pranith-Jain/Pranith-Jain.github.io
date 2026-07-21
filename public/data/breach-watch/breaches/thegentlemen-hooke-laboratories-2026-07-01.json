@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-hooke-laboratories-2026-07-01",
+  "title": "Hooke Laboratories",
+  "group": "thegentlemen",
+  "discovered": "2026-07-01T22:23:56.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "***.com zoominfo.com/c/hooke-laboratories-inc/345976723 Hooke Laboratories is a biotechnology company based in Lawrence, Massachusetts, specializing in biological products for medical and pharmaceutical research.They are best known for their \"Hooke Kits™,\" which are ready-to-use emulsions used to induce animal models of autoimmune diseases, such as EAE, in laboratory rodents.The company operates strictly as a preclinical research supplier, working only with rodents and in vitro, and does not offer any products for human clinical use",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

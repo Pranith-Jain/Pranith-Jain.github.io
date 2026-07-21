@@ -1,0 +1,15 @@
+{
+  "slug": "dragonforce-incyte-2026-04-22",
+  "title": "INCYTE",
+  "group": "dragonforce",
+  "discovered": "2026-04-22T19:49:18.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Incyte Corporation, a biopharmaceutical company, focuses on the discovery, development, and commercialization of various therapeutics in the United States. The company offers JAKAFI, a drug for the treatment of myelofibrosis and polycythemia vera cancers; and Iclusig, a kinase inhibitor to treat chronic myeloid leukemia and philadelphia-chromosome positive acute lymphoblastic leukemia.\n\nYou have been given clear instructions, reach out to us before it's too late.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["DRAGON FORCE"],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

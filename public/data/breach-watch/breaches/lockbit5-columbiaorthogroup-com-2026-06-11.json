@@ -1,0 +1,15 @@
+{
+  "slug": "lockbit5-columbiaorthogroup-com-2026-06-11",
+  "title": "columbiaorthogroup.com",
+  "group": "lockbit5",
+  "discovered": "2026-06-11T07:19:17.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Columbia Orthopaedic Group is a healthcare provider located in mid-Missouri that specializes in the...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "JP",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/5f4faf91-f525-40f2-84d0-010878effa1a",
+  "description": "Solid Advance Inc. is a Japanese software company, founded in 2004, based in Tokyo and Aomori. It develops and sells All Gather CRM, a fully in-house-built, integrated CRM package covering customer management, sales support (SFA), marketing, and call centers, available both in the cloud and on-premise. The company also provides network and cybersecurity services, including LAN/WAN design and security infrastructure.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Business Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

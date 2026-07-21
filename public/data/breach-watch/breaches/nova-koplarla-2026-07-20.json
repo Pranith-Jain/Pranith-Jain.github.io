@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "ID",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/f7849baa-dccd-4c90-a671-9b47611d186f",
+  "description": "Koperasi Konsumen Karyawan PT Aplikanusa Lintasarta (KOPKARLA) was established in 1992 and at that time was focusing on saving and loan business. Since 1998, KOPKARLA has evolved and expanded its business to provide an installation services and solution of telecommunication network (datacomm)",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Not Found",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

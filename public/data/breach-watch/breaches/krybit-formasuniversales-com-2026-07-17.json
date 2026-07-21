@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "MX",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/d879282d-e006-47ae-8574-52e9e5d06feb",
+  "description": "Formas Universales, S.A. is a Panamanian company founded in 1985, specializing in the production and commercialization o...",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Business Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

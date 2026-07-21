@@ -1,0 +1,15 @@
+{
+  "slug": "dragonforce-ingelan-2026-05-17",
+  "title": "Ingelan",
+  "group": "dragonforce",
+  "discovered": "2026-05-17T14:21:42.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "ES",
+  "sizeBytes": 0,
+  "description": "Ingelan is a provider of engineering solutions for systems and communications environments. It specializes in security of information systems, information systems architecture, communications, and automation of plant systems. The company was founded in 1993 and is headquartered in ??Barcelona, Spain",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["DRAGON FORCE"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "dragonforce-al-ishrak-contracting-2026-06-12",
+  "title": "Al Ishrak Contracting",
+  "group": "dragonforce",
+  "discovered": "2026-06-12T13:21:57.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "AE",
+  "sizeBytes": 0,
+  "description": "Al Ishrak Contracting Company, established in 1975 in Dubai, specializes in construction works including industrial warehouses, residential and commercial buildings, and civil engineering projects on a turnkey basis. The company boasts a skilled workforce of over 250 personnel, including engineers and project managers, dedicated to delivering quality and timely services. Their commitment to client satisfaction is reflected in their values of quality, integrity, teamwork, and technical excellence. Al Ishrak's diverse portfolio includes various projects such as commercial buildings, industrial sheds, and labor accommodations.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["DRAGON FORCE"],
+  "activity": "Construction",
+  "references": ["ransomware.live"]
+}

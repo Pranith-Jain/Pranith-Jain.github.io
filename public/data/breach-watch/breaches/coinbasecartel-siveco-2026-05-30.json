@@ -1,0 +1,15 @@
+{
+  "slug": "coinbasecartel-siveco-2026-05-30",
+  "title": "Siveco -",
+  "group": "coinbasecartel",
+  "discovered": "2026-05-30T14:31:30.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "FR",
+  "sizeBytes": 0,
+  "description": "[AI generated] Siveco is a French software company specializing in computerized maintenance management systems (CMMS) and enterprise asset management (EAM) solutions. Founded in France, the company operates internationally, offering software and services to help organizations manage industrial maintenance, infrastructure, and assets. Its clients span sectors such as energy, transportation, manufacturing, and public utilities across Europe, Africa, and Asia.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["coinbase cartel"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "cmdorganization-cytek-biosciences-2026-05-02",
+  "title": "Cytek Biosciences",
+  "group": "cmdorganization",
+  "discovered": "2026-05-02T08:54:08.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "A biotechnology firm that develops and supplies advanced, cost-effective flow cytometry instruments and related services used worldwide by researchers and clinicians. Its compact systems and streamlined workflows enable high-throughput, single-cell analysis for applications such as cancer immunology, leukemia and lymphoma diagnosis, and transplant monitoring. Distinguished by offering high-end capabilities at lower cost, the company accelerates scientific discovery through technical innovation, exceptional customer support, and a commitment to ethical practices and community engagement. Headquartered in Fremont, California, it has been publicly traded on NASDAQ since 2021. We have 7.36 TB of downloaded data.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["cmd organization"],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

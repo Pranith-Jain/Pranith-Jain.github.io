@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-hussey-seatway-2026-05-24",
+  "title": "Hussey Seatway",
+  "group": "thegentlemen",
+  "discovered": "2026-05-24T09:01:33.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "husseyseatway.com zoominfo.com/c/hussey-seatway-ltd/137888631 UK-based specialist founded in 2002, expert in designing, manufacturing, and installing retractable, fixed, and portable seating systems for global venues. Serving education, sports, and performing arts sectors with 50+ installations yearly, including prestigious projects like the Royal Opera House and Alexandra Palace. End-to-end support covers consultancy, bespoke engineering, professional installation, and lifetime after-sales care.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Transportation/Logistics",
+  "references": ["ransomware.live"]
+}

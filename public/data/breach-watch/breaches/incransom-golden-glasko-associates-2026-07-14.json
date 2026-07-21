@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/6818e83c-46c0-4929-a8bb-3a3429658513",
+  "description": "Golden Glasko Haddy and Associates, P.A. is a law firm based in Miami specializing in estate law, probate, guardianship, and trust issues. With over 70 years of combined experience, they provide services including estate planning, probate litigation, and trust administration. The firm aims to offer personalized legal strategies and tenacious advocacy to support clients throughout South Florida. They also offer free initial consultations to prospective clients seeking legal guidance.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["inc ransom", "INC"],
   "activity": "Business Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

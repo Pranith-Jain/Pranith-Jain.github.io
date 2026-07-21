@@ -1,0 +1,15 @@
+{
+  "slug": "deadlock-idlochovice-city-2026-07-10",
+  "title": "Židlochovice city",
+  "group": "Deadlock",
+  "discovered": "2026-07-10T13:09:20.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "CZ",
+  "sizeBytes": 0,
+  "description": "Internal city administration documents have been leaked. Personal data from the database will be sold on darknet forums. Mayor 'Jan Vitula' claims the attack was prevented and no data was stolen. An investigation has been launched with the police, and countermeasures are being taken. =) xD In press: https://www.denik.cz/regiony/zidlochovice-hackeri-kyberneticky-utok-vykupne-data-software-ransomware-kldr.html https://www.irozhlas.cz/zpravy-domov/poslete-bitcoiny-nebo-vas-nepustime-k-datum-urad-v-zidlochovicich-zjistuje-skody_2603172012_bva https://www.***.cz/cs/aktuality/dulezite-upozorneni-mimoradne-uzavreni-meu.html Over 150 gigabytes of internal data",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Public Sector",
+  "references": ["ransomware.live"]
+}

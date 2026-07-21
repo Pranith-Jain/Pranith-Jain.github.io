@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "CA",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/7d549f41-f192-48d2-a7ea-701e7ef4eb21",
+  "description": "Sleeman Breweries was founded in 1851 and headquartered in Guelph, Ontario. The company now markets and distributes world-class domestic and imported products.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Agriculture and Food Production",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

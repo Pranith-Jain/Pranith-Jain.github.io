@@ -1,0 +1,15 @@
+{
+  "slug": "play-iwc-food-service-2026-05-12",
+  "title": "IWC Food Service",
+  "group": "play",
+  "discovered": "2026-05-12T20:25:01.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "United States",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["PlayCrypt"],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

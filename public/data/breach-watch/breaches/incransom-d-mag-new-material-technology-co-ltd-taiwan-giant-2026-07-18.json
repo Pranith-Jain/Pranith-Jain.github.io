@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "TW",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/1c4a3dcc-7a86-40d6-a61b-c6cc3e5a05a4",
+  "description": "D.MAG New Material Technology Co., Ltd. is a key manufacturing subsidiary controlled by Taiwan’s Giant Group (Giant Manufacturing Co., Ltd.). Specializing in aluminum and magnesium alloys, D.MAG operates from Kunshan, Jiangsu Province, China, to develop and supply lightweight, high-performance materials and components for the bicycle, automotive, railway, and aerospace industries",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["inc ransom", "INC"],
   "activity": "Manufacturing",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

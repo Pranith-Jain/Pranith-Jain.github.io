@@ -1,0 +1,15 @@
+{
+  "slug": "akira-insite-architects-2026-06-16",
+  "title": "Insite Architects",
+  "group": "akira",
+  "discovered": "2026-06-16T12:50:20.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "InSite Architects was founded in 2002 as a firm dedicated to the design and planning for senior\nand affordable housing. It is our belief that every project is as individual as the client, pr\nogram, and site.\n\nWe will upload 65gb of corporate data soon. Employee personal information (passports, SSNs, DLs\nand other personal docs), credit cards information, projects, clients and partners info, etc.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Megazord"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

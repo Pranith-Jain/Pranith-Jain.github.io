@@ -1,0 +1,15 @@
+{
+  "slug": "auditteam-paid-victim-111ceaa5ad9da2f1-2026-06-04",
+  "title": "Paid Victim 111CEAA5AD9DA2F1",
+  "group": "AuditTeam",
+  "discovered": "2026-06-04T14:50:17.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "RU",
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["audit team"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

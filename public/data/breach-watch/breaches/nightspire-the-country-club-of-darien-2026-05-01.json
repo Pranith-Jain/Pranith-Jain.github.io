@@ -1,0 +1,15 @@
+{
+  "slug": "nightspire-the-country-club-of-darien-2026-05-01",
+  "title": "The Country Club of Darien",
+  "group": "nightspire",
+  "discovered": "2026-05-01T09:51:32.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "- Sales / agent / commercial operations- Industrial / manufacturing / tooling business data- Research & development / technical project data- Business admin / office operations- Software / digital assets / branding",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["NIGHT SPIRE"],
+  "activity": "Hospitality and Tourism",
+  "references": ["ransomware.live"]
+}

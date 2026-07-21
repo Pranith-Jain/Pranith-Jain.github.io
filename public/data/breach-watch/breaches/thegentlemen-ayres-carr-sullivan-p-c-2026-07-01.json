@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-ayres-carr-sullivan-p-c-2026-07-01",
+  "title": "Ayres Carr & Sullivan, P.C.",
+  "group": "thegentlemen",
+  "discovered": "2026-07-01T22:21:07.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Ayres Carr & Sullivan, P.C. is a longstanding, general civil practice and trial law firm based in Indianapolis, Indiana. Tracing its roots back to 1914, the firm serves clients across the state with a focus on civil litigation, trial practice, and specialized matters including probate, bankruptcy, and corporation law. Primary Location: 251 E. Ohio St., Suite 500, Indianapolis, IN 46204 Primary Practice Areas: Civil Litigation, Trial Practice, Personal Injury, Corporation Law, Probate, and Bankruptcy Key Attorneys: William S. Ayres, John R. Carr III, and Bret Clement https://www.***.com/company/ayres-carr-&-sullivan-pc",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

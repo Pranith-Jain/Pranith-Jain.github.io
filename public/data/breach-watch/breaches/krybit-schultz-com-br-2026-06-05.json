@@ -1,0 +1,15 @@
+{
+  "slug": "krybit-schultz-com-br-2026-06-05",
+  "title": "schultz.com.br",
+  "group": "krybit",
+  "discovered": "2026-06-05T21:22:10.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "BR",
+  "sizeBytes": 0,
+  "description": "Schultz Operadora de Turismo helps people explore the world with easy travel planning. They handle everything from airli...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["ransomware.live"]
+}

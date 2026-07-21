@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-flipo-group-2026-04-24",
+  "title": "Flipo Group",
+  "group": "qilin",
+  "discovered": "2026-04-24T17:15:20.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "IN",
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}
