@@ -256,6 +256,12 @@ function parseCyberBrief(html, date) {
   const outlookSection = extractSection(html, 'Next 72');
   const outlook = stripTags(outlookSection).trim();
 
+  // Extract all CVE IDs mentioned anywhere in the brief (handle non-breaking hyphens)
+  const allCves = [...new Set(
+    (html.match(/CVE[\-\u2011]\d{4}[\-\u2011]\d{4,}/gi) || [])
+      .map(c => c.toUpperCase().replace(/[\u2011]/g, '-'))
+  )];
+
   return {
     type: 'cyber',
     date,
@@ -269,6 +275,7 @@ function parseCyberBrief(html, date) {
     events: eventCards,
     ttps: { descriptions: ttps, mitreIds },
     outlook72h: outlook,
+    relatedCves: allCves,
     rawMarkdown: stripTags(html).slice(0, 16384),
   };
 }

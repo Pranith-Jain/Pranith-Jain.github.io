@@ -175,6 +175,7 @@ export function loadCatalogIndex(): Promise<SearchEntry[]> {
       '/threatintel/entity-resolution',
       '/threatintel/relationship-graph',
       '/threatintel/cross-correlate',
+      '/daily-briefs',
     ]);
     for (const p of tiM.PAGES) {
       if (!TI_PRIORITY.has(p.path)) continue;

@@ -41,6 +41,7 @@ interface CyberBrief {
     sources: { url: string; label: string }[];
   }[];
   ttps: { descriptions: string[]; mitreIds: string[] };
+  relatedCves: string[];
   outlook72h: string;
 }
 
@@ -444,6 +445,26 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
               ))}
             </ul>
           )}
+        </section>
+      )}
+
+      {/* Related CVEs */}
+      {brief.relatedCves?.length > 0 && (
+        <section className="surface-card rounded-xl p-5">
+          <h2 className="mb-3 text-lg font-bold text-slate-900 dark:text-white">
+            Related CVEs ({brief.relatedCves.length})
+          </h2>
+          <div className="flex flex-wrap gap-1.5">
+            {brief.relatedCves.map((cve, i) => (
+              <a
+                key={i}
+                href={`/dfir/cve?cve=${cve}`}
+                className="inline-flex items-center gap-1 rounded-md bg-blue-50 px-2 py-1 text-xs font-mono text-blue-700 hover:bg-blue-100 dark:bg-blue-950/40 dark:text-blue-300 dark:hover:bg-blue-950/60"
+              >
+                {cve} <ExternalLink size={10} />
+              </a>
+            ))}
+          </div>
         </section>
       )}
 

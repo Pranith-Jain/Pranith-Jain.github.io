@@ -57,6 +57,7 @@ export interface DbCyberBrief {
   }[];
   ttps: { descriptions: string[]; mitreIds: string[] };
   outlook72h: string;
+  relatedCves: string[];
   rawMarkdown: string;
 }
 

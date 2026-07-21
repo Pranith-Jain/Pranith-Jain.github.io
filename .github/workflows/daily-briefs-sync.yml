@@ -1,0 +1,74 @@
+name: Daily Briefs sync (twice weekly)
+
+# Fetches OT/ICS cyber, deepfake, and disaster intelligence briefs from
+# agentic-ai-daily-reports.netlify.app, then rebuilds the
+# public/data/daily-briefs/ manifest. If data changed, opens a PR.
+
+on:
+  schedule:
+    - cron: "0 6 * * 1,4"
+  workflow_dispatch: {}
+
+concurrency:
+  group: db-sync
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install
+        run: npm ci --no-fund || npm install --no-fund
+
+      - name: Sync briefs (cyber + deepfake + disaster)
+        run: node scripts/sync-daily-briefs.mjs
+
+      - name: Build manifest
+        run: node scripts/build-daily-briefs.mjs
+
+      - name: Show diff stat
+        run: |
+          echo "=== public/data/daily-briefs/ changed files ==="
+          git status --short public/data/daily-briefs/ | head -20
+          echo "=== staging folder size ==="
+          du -sh daily-briefs-staging/ || true
+
+      - name: Open PR if data changed
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore(daily-briefs): sync intelligence briefs from upstream"
+          title: "Daily Briefs upstream sync — ${{ github.event.schedule || 'manual' }}"
+          body: |
+            Automated twice-weekly sync of daily intelligence briefs.
+
+            Re-runs `scripts/sync-daily-briefs.mjs` (fetches HTML from
+            agentic-ai-daily-reports.netlify.app) and
+            `scripts/build-daily-briefs.mjs` (parses HTML to structured JSON).
+
+            Sources:
+            - OT/ICS Cyber Threat Intelligence
+            - DeepFake and Generative AI Intelligence
+            - Global Disaster Intelligence
+
+            Trigger: `${{ github.event_name }}`
+            Run:     `${{ github.run_id }}`
+          branch: chore/daily-briefs-sync
+          delete-branch: true
+          add-paths: |
+            public/data/daily-briefs/
+            daily-briefs-staging/
