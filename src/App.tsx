@@ -397,6 +397,11 @@ const TiDashboard = lazy(() => import('./pages/TiDashboard'));
 const ThreatIntelDashboard = lazy(() => import('./pages/threatintel/ThreatIntelDashboard'));
 const CommandCenter = lazy(() => import('./pages/cti/CommandCenter'));
 const IocBrowser = lazy(() => import('./pages/cti/IocBrowser'));
+const CveBrowser = lazy(() => import('./pages/cti/CveBrowser'));
+const ThreatActorDirectory = lazy(() => import('./pages/cti/ThreatActorDirectory'));
+const VictimTracker = lazy(() => import('./pages/cti/VictimTracker'));
+const ReputationCheck = lazy(() => import('./pages/cti/ReputationCheck'));
+const IntelFeed = lazy(() => import('./pages/cti/IntelFeed'));
 
 /**
  * /dfir/file?h=<hash> is the legacy entry point for the standalone hash
@@ -445,6 +450,11 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/status', Component: Status },
   { path: '/cti', Component: CommandCenter },
   { path: '/cti/iocs', Component: IocBrowser },
+  { path: '/cti/vulnerabilities', Component: CveBrowser },
+  { path: '/cti/threats', Component: ThreatActorDirectory },
+  { path: '/cti/victims', Component: VictimTracker },
+  { path: '/cti/check', Component: ReputationCheck },
+  { path: '/cti/articles', Component: IntelFeed },
   { path: '/threat-intel', Component: ThreatIntel },
   { path: '/daily-briefs', Component: DailyBriefs },
   { path: '/dfir/ai-threats', Component: AIThreats },

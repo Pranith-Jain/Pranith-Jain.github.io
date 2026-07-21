@@ -119,6 +119,15 @@ const PORTFOLIO_PAGES: readonly PageEntry[] = [
     keywords: ['cve', 'kev', 'ioc', 'sector', 'briefing', 'vulnerability', 'ransomware'],
   },
   {
+    path: '/daily-briefs',
+    label: 'Daily Intelligence Briefs',
+    description:
+      'AI-generated daily intelligence assessments covering OT/ICS cyber threats, deepfake/GenAI risks, and global disaster monitoring.',
+    sectionLabel: 'Portfolio',
+    group: 'portfolio',
+    keywords: ['daily', 'brief', 'cyber', 'deepfake', 'disaster', 'intelligence', 'ot', 'ics', 'genai'],
+  },
+  {
     path: '/experience',
     label: 'Experience',
     description: 'Work history, role-by-role responsibilities, and the artifacts I owned.',
