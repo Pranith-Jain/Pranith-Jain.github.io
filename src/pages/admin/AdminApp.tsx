@@ -47,18 +47,18 @@ const TABS: Array<{ key: TabKey; label: string }> = [
   { key: 'analytics', label: 'Analytics' },
 ];
 
-const STAGES: Array<{ stage: 'discover' | 'plan' | 'publish'; label: string; hint: string }> = [
+const STAGES: Array<{ stage: 'discovery' | 'planner' | 'publisher'; label: string; hint: string }> = [
   {
-    stage: 'discover',
+    stage: 'discovery',
     label: 'Run discovery',
     hint: 'Populate the pending queue now (normally daily cron at 00:05 UTC)',
   },
   {
-    stage: 'plan',
+    stage: 'planner',
     label: 'Run planner',
     hint: 'Schedule approved candidates now (runs daily, chained after discovery)',
   },
-  { stage: 'publish', label: 'Publish now', hint: 'Generate + publish the next due slot (normally hourly cron)' },
+  { stage: 'publisher', label: 'Publish now', hint: 'Generate + publish the next due slot (normally hourly cron)' },
 ];
 
 function summariseRunResult(stage: string, result: unknown): string {
@@ -95,12 +95,12 @@ function PipelineBar() {
     setMsg(null);
     const parts: string[] = [];
     try {
-      const d = await postJson<{ ok?: boolean; result?: unknown; error?: string }>(`/run/discover`);
-      parts.push(summariseRunResult('discover', d.result));
-      const p = await postJson<{ ok?: boolean; result?: unknown; error?: string }>(`/run/plan`);
-      parts.push(summariseRunResult('plan', p.result));
-      const u = await postJson<{ ok?: boolean; result?: unknown; error?: string }>(`/run/publish`);
-      parts.push(summariseRunResult('publish', u.result));
+      const d = await postJson<{ ok?: boolean; result?: unknown; error?: string }>(`/run/discovery`);
+      parts.push(summariseRunResult('discovery', d.result));
+      const p = await postJson<{ ok?: boolean; result?: unknown; error?: string }>(`/run/planner`);
+      parts.push(summariseRunResult('planner', p.result));
+      const u = await postJson<{ ok?: boolean; result?: unknown; error?: string }>(`/run/publisher`);
+      parts.push(summariseRunResult('publisher', u.result));
       setMsg(parts.join(' · '));
     } catch (e) {
       console.error('runAll failed:', e instanceof Error ? e.message : String(e));
