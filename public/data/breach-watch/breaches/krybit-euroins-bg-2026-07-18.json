@@ -1,0 +1,15 @@
+{
+  "slug": "krybit-euroins-bg-2026-07-18",
+  "title": "euroins.bg",
+  "group": "krybit",
+  "discovered": "2026-07-18T16:26:43.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "BG",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/d96437c1-04ea-4555-9cf2-04981d1b8c37",
+  "groupAliases": [],
+  "activity": "Financial Services",
+  "references": ["Darkfield"]
+}

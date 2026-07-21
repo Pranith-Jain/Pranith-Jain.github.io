@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-acsmallmaxwell-com-au-2026-07-20",
+  "title": "acsmallmaxwell.com.au",
+  "group": "safepay",
+  "discovered": "2026-07-20T19:02:56.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "AU",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/f5cd6a76-5228-4d56-905a-d9d02ac30982",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["Darkfield"]
+}

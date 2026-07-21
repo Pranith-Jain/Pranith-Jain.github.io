@@ -1,0 +1,13 @@
+{
+  "slug": "indrik-spider",
+  "name": "Indrik Spider",
+  "akas": "Evil Corp",
+  "brief": "In February 2023, CrowdStrike Services responded to an INDRIK SPIDER incident involving BITWISE SPIDER’s LockBit RED ransomware. During this incident, INDRIK SPIDER exfiltrated credentials from cloud-based credential manager Azure Key Vault. Logs show that INDRIK SPIDER also visited ChatGPT while interacting with the Azure Portal. In addition to visiting ChatGPT while browsing the Azure Portal — presumably to understand how to navigate in Azure — browsing activity analysis indicates INDRIK SPIDER used search engines such as Google and Bing and searched on GitHub during the operations to understand how to exfiltrate Azure Key Vault credentials. Using search engines and visiting ChatGPT indicate that though INDRIK SPIDER is likely new to the cloud and not yet sophisticated in this domain, it is using generative AI to fill these knowledge gaps. Source",
+  "ttps": ["T1593"],
+  "categories": ["LLM-informed  reconnaissance"],
+  "reported": "Feb 2024",
+  "activity": "Feb 2023",
+  "table": "main",
+  "sizeBytes": 860,
+  "ttpMd": "**LLM-informed  reconnaissance**   T1593 - Search Open Websites/Domains      [Source](https://www.state.gov/digital-press-briefing-with-anne-neuberger-deputy-national-security-advisor-for-cyber-and-emerging-technologies/)"
+}

@@ -24,33 +24,34 @@ const CSP_REPORT_URI = 'https://pranithjain.qzz.io/api/v1/csp-report';
 const CSP_API =
   "default-src 'self';script-src 'self' 'wasm-unsafe-eval' https://static.cloudflareinsights.com;style-src 'self' 'unsafe-inline';img-src 'self' data: https:;connect-src 'self' https://api.cloudflare.com https://cloudflare-dns.com https://cloudflareinsights.com https://*.cloudflareinsights.com;frame-src 'none';font-src 'self' data:;frame-ancestors 'none';base-uri 'self';form-action 'self';object-src 'none';report-uri ${CSP_REPORT_URI}";
 
-export function cspHeader(nonce?: string): string {
-  if (!nonce) return CSP_API;
+export function cspHeader(nonce?: string, origin?: string): string {
+  const s = origin ?? "'self'";
+  if (!nonce) return CSP_API.replace(/'self'/g, s);
   return [
-    "default-src 'self'",
+    `default-src ${s}`,
     // Nonce-based script-src: only the theme-flash preventer (matching nonce)
     // and external module scripts (by source) can execute. Inline event handlers
     // (onload/onerror) are not needed — the font <link> uses media="all" and
     // no other inline handlers exist. This is critical: 'unsafe-inline' alongside
     // a nonce causes the nonce to be IGNORED per the CSP spec.
-    `script-src 'self' 'nonce-${nonce}' 'wasm-unsafe-eval' https://static.cloudflareinsights.com`,
-    "style-src 'self' 'unsafe-inline'",
-    "img-src 'self' data: https:",
-    "connect-src 'self' https://api.cloudflare.com https://cloudflare-dns.com https://cloudflareinsights.com https://*.cloudflareinsights.com https://unpkg.com https://mr-akuma.github.io https://nominatim.openstreetmap.org https://goxdr.fyi https://mr-r3b00t.github.io",
-    "font-src 'self' data:",
+    `script-src ${s} 'nonce-${nonce}' 'wasm-unsafe-eval' https://static.cloudflareinsights.com`,
+    `style-src ${s} 'unsafe-inline'`,
+    `img-src ${s} data: https:`,
+    `connect-src ${s} https://api.cloudflare.com https://cloudflare-dns.com https://cloudflareinsights.com https://*.cloudflareinsights.com https://unpkg.com https://mr-akuma.github.io https://nominatim.openstreetmap.org https://goxdr.fyi https://mr-r3b00t.github.io`,
+    `font-src ${s} data:`,
     "frame-ancestors 'none'",
-    "base-uri 'self'",
-    "form-action 'self'",
+    `base-uri ${s}`,
+    `form-action ${s}`,
     "object-src 'none'",
     `report-uri ${CSP_REPORT_URI}`,
   ].join(';');
 }
 
-export function withSecurityHeaders(response: Response, nonce?: string): Response {
+export function withSecurityHeaders(response: Response, nonce?: string, origin?: string): Response {
   // ASSETS binding returns responses with immutable headers. Clone into
   // a mutable Headers object so we can add CSP and other security headers.
   const h = new Headers(response.headers);
-  h.set('content-security-policy', cspHeader(nonce));
+  h.set('content-security-policy', cspHeader(nonce, origin));
   // Always override security headers with canonical secure values.
   // Previous behavior checked has() first, which allowed a misconfigured
   // upstream (ARGUS proxy, DO response) to pass through weakened headers.

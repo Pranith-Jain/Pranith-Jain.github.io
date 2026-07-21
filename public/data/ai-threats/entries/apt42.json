@@ -1,0 +1,13 @@
+{
+  "slug": "apt42",
+  "name": "APT42",
+  "akas": "Charming Kitten, Mint Sandstorm, TA453, Yellow Garuda (Iran, IRGC)",
+  "brief": "Used Gemini's text generation/editing to craft phishing material impersonating think-tank staff and for translation/geopolitical research; notably attempted to build a \"Data Processing Agent\" converting natural-language requests into SQL queries to mine sensitive personal data. GTIG",
+  "ttps": ["T1213", "T1566", "T1591"],
+  "categories": ["LLM-supported social engineering", "LLM-informed reconnaissance", "LLM-enhanced data manipulation"],
+  "reported": "Nov 2025",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 283,
+  "ttpMd": "**LLM-supported social engineering** T1566 - Phishing<br><br>**LLM-informed reconnaissance** T1591 - Gather Victim Org Information<br><br>**LLM-enhanced data manipulation** T1213 - Data from Information Repositories (NL-to-SQL agent)"
+}

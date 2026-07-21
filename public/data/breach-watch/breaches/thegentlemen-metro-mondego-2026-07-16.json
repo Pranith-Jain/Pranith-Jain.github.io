@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "PT",
   "sizeBytes": 0,
-  "description": "***.pt zoominfo.com/c/metro-mondego-sa/430685182 public transport company responsible for sustainable mobility in the Coimbra, Miranda do Corvo, and Lousã region of Portugal. Originally conceived as a light rail network, the project has been restructured into a fully electric, high-capacity Bus Rapid Transit system known as Metrobus. The network spans 42 kilometers with 42 dedicated stations and 35 electric buses, designed to provide efficient, eco-friendly, and integrated urban transportation for an estimated 13 million passengers annually",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/d80ac586-85f0-43e7-ab03-a7b564f1eb85",
   "groupAliases": ["the gentlemen"],
   "activity": "Transportation/Logistics",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

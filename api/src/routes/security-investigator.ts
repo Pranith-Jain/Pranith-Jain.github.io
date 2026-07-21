@@ -551,7 +551,13 @@ export async function siRenderHandler(c: Context<{ Bindings: Env }>) {
         });
       }
     } else {
-      const body = await c.req.json().catch(() => null);
+      let body: any;
+      try {
+        body = await c.req.json();
+      } catch (e) {
+        console.warn('parse body failed:', e instanceof Error ? e.message : String(e));
+        return c.json({ error: 'invalid_json_body' }, 400, { 'Cache-Control': 'no-store' });
+      }
       if (!body || typeof body !== 'object') {
         return c.json(
           {

@@ -1,0 +1,15 @@
+{
+  "slug": "payload-ckr-consulting-engineers-2026-07-19",
+  "title": "CKR Consulting Engineers",
+  "group": "payload",
+  "discovered": "2026-07-19T16:03:30.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/f08a460a-82ae-4de6-9ef5-e5852c1f5db5",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["Darkfield"]
+}

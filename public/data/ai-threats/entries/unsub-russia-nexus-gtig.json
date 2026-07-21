@@ -1,0 +1,13 @@
+{
+  "slug": "unsub-russia-nexus-gtig",
+  "name": "UnSub (Russia-nexus) — GTIG",
+  "akas": "UnSub; malware CANFAIL, LONGSTREAM",
+  "brief": "An unattributed Russia-nexus actor delivered AI-enabled malware (CANFAIL, LONGSTREAM) against Ukraine that uses LLM-generated decoy code (repetitive benign filler routines) to obfuscate its malicious functionality. GTIG",
+  "ttps": ["T1027", "T1587.001"],
+  "categories": ["LLM-aided development"],
+  "reported": "May 2026",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 219,
+  "ttpMd": "**LLM-aided development** T1587.001 - Develop Capabilities: Malware<br><br>T1027 - Obfuscated Files/Information (LLM-generated decoy code)"
+}

@@ -81,7 +81,7 @@ function computePriority(
 }
 
 function generateId(): string {
-  return `risk-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`;
+  return `risk-${Date.now().toString(36)}-${crypto.randomUUID().slice(0, 8)}`;
 }
 
 function cacheApi(): Cache | null {
@@ -193,8 +193,13 @@ export async function riskRegisterGetHandler(c: Context<{ Bindings: Env }>): Pro
 }
 
 export async function riskRegisterCreateHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const body = await c.req.json().catch(() => null);
-  if (!body) return c.json({ error: 'invalid JSON' }, 400);
+  let body: any;
+  try {
+    body = await c.req.json();
+  } catch (e) {
+    console.warn('parse body failed:', e instanceof Error ? e.message : String(e));
+    return c.json({ error: 'invalid_json_body' }, 400);
+  }
 
   const now = new Date().toISOString();
   const entry: RiskRegisterEntry = {
@@ -227,8 +232,13 @@ export async function riskRegisterCreateHandler(c: Context<{ Bindings: Env }>): 
 export async function riskRegisterUpdateHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const id = c.req.param('id');
   if (!id) return c.json({ error: 'id required' }, 400);
-  const body = await c.req.json().catch(() => null);
-  if (!body) return c.json({ error: 'invalid JSON' }, 400);
+  let body: any;
+  try {
+    body = await c.req.json();
+  } catch (e) {
+    console.warn('parse body failed:', e instanceof Error ? e.message : String(e));
+    return c.json({ error: 'invalid_json_body' }, 400);
+  }
 
   const kv = c.env.KV_CACHE;
   if (!kv) return c.json({ error: 'KV not available' }, 503);

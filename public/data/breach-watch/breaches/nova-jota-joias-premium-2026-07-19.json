@@ -1,0 +1,15 @@
+{
+  "slug": "nova-jota-joias-premium-2026-07-19",
+  "title": "Jota Joias Premium",
+  "group": "nova",
+  "discovered": "2026-07-19T18:07:22.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "BR",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/7baf0eeb-6c1e-4fa2-8801-96f99af9e1f2",
+  "groupAliases": [],
+  "activity": "Consumer Services",
+  "references": ["Darkfield"]
+}

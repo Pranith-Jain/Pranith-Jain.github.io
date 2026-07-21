@@ -48,6 +48,8 @@ import { liveVerifyUrls } from './generation/verify-references';
 import { createBatchedCachedVerify } from '../lib/verify-url-cache';
 import { generateSocialContent } from './generation/social';
 import { runSocialAutopost } from './posting/autopost';
+import type { WebhookEnv } from './notifications';
+import { getAi } from '../lib/ai-binding';
 import {
   getSocialSchedule,
   readAutopostQueue,
@@ -124,6 +126,10 @@ export interface CaseStudyEnv {
    *  unset, each published post gets an AI hero + in-body image (best-effort,
    *  falls back to the SVG hero on any failure). */
   BLOG_AI_IMAGES_DISABLED?: string;
+  /** Discord webhook URL for pipeline notifications. */
+  DISCORD_WEBHOOK_URL?: string;
+  /** Slack webhook URL for pipeline notifications. */
+  SLACK_WEBHOOK_URL?: string;
 }
 
 export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
@@ -446,7 +452,7 @@ export async function generateSocialForPost(slug: string, env: CaseStudyEnv, now
     }
     const social = await generateSocialContent(
       post,
-      env.AI as never,
+      getAi(env),
       now,
       env.GROQ_API_KEY,
       env.GOOGLE_AI_STUDIO_API_KEY,
@@ -481,7 +487,7 @@ export async function runPublisherNow(env: CaseStudyEnv, now: Date) {
     generatePost: (cand, n) =>
       generatePost({
         candidate: cand,
-        ai: env.AI as never,
+        ai: getAi(env),
         now: n,
         groqKey: env.GROQ_API_KEY,
         googleKey: env.GOOGLE_AI_STUDIO_API_KEY,
@@ -516,6 +522,33 @@ export async function runPublisherNow(env: CaseStudyEnv, now: Date) {
   if (result.published === 1 && result.slug) {
     generateSocialForPost(result.slug, env as unknown as CaseStudyEnv, now).catch((err) =>
       console.error('auto-social generation failed:', err)
+    );
+  }
+
+  // Mirror published post to D1 for search/scale
+  if (result.slug && env.BRIEFINGS_DB) {
+    import('./storage/cs-posts-d1').then(({ upsertCsPostD1 }) => {
+      // Fetch the post from KV and upsert into D1
+      import('./storage/posts').then(async ({ getPost }) => {
+        try {
+          const post = await getPost(env.CASE_STUDIES, result.slug!);
+          if (post) await upsertCsPostD1(env.BRIEFINGS_DB!, post);
+        } catch {
+          // D1 sync is non-critical
+        }
+      });
+    });
+  }
+
+  // Notifications
+  if (result.published === 1 && result.slug) {
+    import('./notifications').then(({ notifyPublished }) =>
+      notifyPublished(env as unknown as WebhookEnv, result.slug!, result.slug!, 'published').catch(() => {})
+    );
+  }
+  if (result.published === 0 && result.slug && env.BLOG_APPROVAL_REQUIRED === 'true') {
+    import('./notifications').then(({ notifyDraftReady }) =>
+      notifyDraftReady(env as unknown as WebhookEnv, result.slug!, result.slug!, 'draft').catch(() => {})
     );
   }
 
@@ -555,6 +588,18 @@ export async function refreshSocialMetricsNow(env: CaseStudyEnv, now: Date) {
     }
   }
   await upsertMetrics(env.CASE_STUDIES, records);
+
+  // Refresh D1 content_performance aggregates for the analytics feedback loop
+  if (env.BRIEFINGS_DB) {
+    try {
+      const { refreshContentPerformance } = await import('./analytics/content-performance');
+      const result = await refreshContentPerformance(env.BRIEFINGS_DB, env.CASE_STUDIES);
+      console.log(JSON.stringify({ job: 'content-performance', types: result.types, ts: now.toISOString() }));
+    } catch {
+      // D1 unavailable — content performance refresh is non-critical
+    }
+  }
+
   console.log(JSON.stringify({ job: 'social-metrics', refreshed: records.length, ts: now.toISOString() }));
   return { refreshed: records.length };
 }

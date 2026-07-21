@@ -1,15 +1,15 @@
 {
   "slug": "qilin-acosol-2026-07-17",
   "title": "Acosol",
-  "group": "Qilin",
-  "discovered": "2026-07-17T00:00:00.000Z",
+  "group": "qilin",
+  "discovered": "2026-07-17T14:58:06.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": "Spain",
+  "country": "ES",
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated in ransomware attack",
-  "source_url": "https://recentbreaches.com/breach/acosol-qilin-2026-07",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/0d86be82-67b0-4673-8da9-3d5cce6912f0",
   "groupAliases": [],
   "activity": "Not Found",
-  "references": ["RecentBreaches.com"]
+  "references": ["Darkfield"]
 }

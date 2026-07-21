@@ -1,0 +1,13 @@
+{
+  "slug": "unsub-carding-operator-anthropic",
+  "name": "UnSub carding operator — Anthropic",
+  "akas": "UnSub",
+  "brief": "Used Claude to build out a carding (stolen-payment-card) service, developing advanced API-integration and operational-resilience mechanisms for the criminal service. Anthropic",
+  "ttps": ["T1102", "T1587"],
+  "categories": ["LLM-advised resource development"],
+  "reported": "Aug 2025",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 175,
+  "ttpMd": "**LLM-advised resource development** T1587 - Develop Capabilities<br><br>T1102 - Web Service (API integration)"
+}

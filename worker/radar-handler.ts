@@ -20,7 +20,9 @@ export async function handleRadarCrawl(
       new Response(JSON.stringify({ error: 'radar crawler not configured' }), {
         status: 503,
         headers: { 'content-type': 'application/json' },
-      })
+      }),
+      undefined,
+      url.origin
     );
   }
 
@@ -31,7 +33,9 @@ export async function handleRadarCrawl(
       new Response(JSON.stringify({ error: 'api key required' }), {
         status: 401,
         headers: { 'content-type': 'application/json' },
-      })
+      }),
+      undefined,
+      url.origin
     );
   }
   const user = await validateRawKey(env.BRIEFINGS_DB, rawKey);
@@ -40,7 +44,9 @@ export async function handleRadarCrawl(
       new Response(JSON.stringify({ error: 'admin api key required' }), {
         status: 403,
         headers: { 'content-type': 'application/json' },
-      })
+      }),
+      undefined,
+      url.origin
     );
   }
 
@@ -50,7 +56,9 @@ export async function handleRadarCrawl(
       new Response(JSON.stringify({ error: 'missing crawl id' }), {
         status: 400,
         headers: { 'content-type': 'application/json' },
-      })
+      }),
+      undefined,
+      url.origin
     );
   }
 
@@ -63,9 +71,9 @@ export async function handleRadarCrawl(
     doRes = await env.RADAR_CRAWLER.get(doId).fetch(doRequest);
   } catch (err) {
     console.error('RADAR_CRAWLER fetch failed', err);
-    return withSecurityHeaders(new Response('Crawler unavailable', { status: 503 }));
+    return withSecurityHeaders(new Response('Crawler unavailable', { status: 503 }), undefined, url.origin);
   }
   const h = new Headers(doRes.headers);
   h.set('x-request-id', requestId);
-  return withSecurityHeaders(new Response(doRes.body, { status: doRes.status, headers: h }));
+  return withSecurityHeaders(new Response(doRes.body, { status: doRes.status, headers: h }), undefined, url.origin);
 }

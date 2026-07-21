@@ -1,0 +1,13 @@
+{
+  "slug": "baller423-goober2",
+  "name": "baller423/goober2",
+  "akas": "potentially star23/baller13 or just ties between them",
+  "brief": "Recently, our scanning environment flagged a particularly intriguing PyTorch model uploaded by a new user named baller423—though since deleted. The repository, baller423/goober2, contained a PyTorch model file harboring an intriguing payload....This IP address range belonging to KREOnet, which stands for “Korea Research Environment Open NETwork,” may serve as potential evidence suggesting the involvement of researchers in attempting the exploit Source",
+  "ttps": ["T1059.001", "T1195.001"],
+  "categories": ["LL  Models used for backdoor deployment"],
+  "reported": "Feb 2024",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 455,
+  "ttpMd": "**LL  Models used for backdoor deployment**   T1195.001 Supply Chain Compromise - Compromise Software Depedencies and  Development Tools      T1059.001 Command and Scripting Interpreter: Powershell"
+}

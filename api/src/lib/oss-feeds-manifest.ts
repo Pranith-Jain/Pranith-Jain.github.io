@@ -1,0 +1,1 @@
+../../../worker/lib/oss-feeds-manifest.ts

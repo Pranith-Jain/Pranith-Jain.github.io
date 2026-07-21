@@ -1,5 +1,5 @@
 /**
- * LLM client — Groq-only.
+ * LLM client — multi-provider with fallback chain: Groq → Google Gemini → NVIDIA.
  */
 
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
@@ -7,6 +7,14 @@ const GROQ_MODEL: string = 'openai/gpt-oss-120b';
 export const GROQ_MODEL_FALLBACK: string = 'llama-3.3-70b-versatile';
 const GROQ_MODEL_DEEP: string = 'openai/gpt-oss-120b';
 const GROQ_TIMEOUT_MS = 15_000;
+
+const GOOGLE_GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models';
+const GEMINI_MODEL = 'gemini-2.0-flash';
+const GEMINI_TIMEOUT_MS = 20_000;
+
+const NVIDIA_URL = 'https://integrate.api.nvidia.com/v1/chat/completions';
+const NVIDIA_MODEL = 'meta/llama-3.3-70b-instruct';
+const NVIDIA_TIMEOUT_MS = 20_000;
 
 export interface CompletionInput {
   system: string;
@@ -111,6 +119,67 @@ async function runGroq(key: string, input: CompletionInput, model?: string): Pro
   return text;
 }
 
+async function runGemini(key: string, input: CompletionInput): Promise<string> {
+  const url = `${GOOGLE_GEMINI_URL}/${GEMINI_MODEL}:generateContent?key=${key}`;
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ role: 'user', parts: [{ text: `${input.system}\n\n${input.user}` }] }],
+        generationConfig: {
+          maxOutputTokens: input.maxTokens ?? 4000,
+          temperature: input.temperature ?? 0.5,
+        },
+      }),
+      signal: AbortSignal.timeout(GEMINI_TIMEOUT_MS),
+    });
+    if (!res.ok) {
+      const body = await res.text().catch(() => '');
+      throw new Error(`gemini HTTP ${res.status}${body ? `: ${body.slice(0, 200)}` : ''}`);
+    }
+    const j = (await res.json()) as { candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }> };
+    const text = j?.candidates?.[0]?.content?.parts?.[0]?.text;
+    if (typeof text !== 'string' || !text.trim()) throw new Error('gemini empty response');
+    return text;
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error(`runGemini failed: ${msg.slice(0, 200)}`);
+    throw new Error(`gemini failed: ${msg}`);
+  }
+}
+
+async function runNvidia(key: string, input: CompletionInput): Promise<string> {
+  try {
+    const res = await fetch(NVIDIA_URL, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${key}`, 'content-type': 'application/json' },
+      body: JSON.stringify({
+        model: NVIDIA_MODEL,
+        messages: [
+          { role: 'system', content: input.system },
+          { role: 'user', content: input.user },
+        ],
+        max_tokens: input.maxTokens ?? 4000,
+        temperature: input.temperature ?? 0.5,
+      }),
+      signal: AbortSignal.timeout(NVIDIA_TIMEOUT_MS),
+    });
+    if (!res.ok) {
+      const body = await res.text().catch(() => '');
+      throw new Error(`nvidia HTTP ${res.status}${body ? `: ${body.slice(0, 200)}` : ''}`);
+    }
+    const j = (await res.json()) as { choices?: Array<{ message?: { content?: string } }> };
+    const text = j?.choices?.[0]?.message?.content;
+    if (typeof text !== 'string' || !text.trim()) throw new Error('nvidia empty response');
+    return text;
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error(`runNvidia failed: ${msg.slice(0, 200)}`);
+    throw new Error(`nvidia failed: ${msg}`);
+  }
+}
+
 export async function runCompletion(
   _ai: unknown,
   input: CompletionInput,
@@ -118,19 +187,51 @@ export async function runCompletion(
 ): Promise<CompletionOutput> {
   const errors: string[] = [];
   const groqKey = opts.groqKey;
-  if (!groqKey) throw new Error('GROQ_API_KEY not set');
 
-  const groqModels = [GROQ_MODEL, GROQ_MODEL_FALLBACK, GROQ_MODEL_DEEP, 'llama-3.1-8b-instant'];
-  for (const model of groqModels) {
+  // Try Groq first when key is available
+  if (groqKey) {
+    const groqModels = [GROQ_MODEL, GROQ_MODEL_FALLBACK, GROQ_MODEL_DEEP, 'llama-3.1-8b-instant'];
+    for (const model of groqModels) {
+      try {
+        const text = await runGroq(groqKey, input, model);
+        return { text, modelUsed: `groq:${model}` };
+      } catch (err) {
+        const errMsg = err instanceof Error ? err.message : String(err);
+        console.error(`runCompletion groq:${model} failed: ${errMsg.slice(0, 200)}`);
+        errors.push(`groq:${model}: ${errMsg.slice(0, 80)}`);
+        if (isAuthError(err)) break;
+      }
+    }
+  } else {
+    errors.push('groq: no key configured');
+  }
+
+  // Fallback to Google Gemini
+  if (opts.googleKey) {
     try {
-      const text = await runGroq(groqKey, input, model);
-      return { text, modelUsed: `groq:${model}` };
+      const text = await runGemini(opts.googleKey, input);
+      return { text, modelUsed: `gemini:${GEMINI_MODEL}` };
     } catch (err) {
       const errMsg = err instanceof Error ? err.message : String(err);
-      console.error(`runCompletion groq:${model} failed: ${errMsg.slice(0, 200)}`);
-      errors.push(`groq:${model}: ${errMsg.slice(0, 80)}`);
-      if (isAuthError(err)) break;
+      console.error(`runCompletion gemini failed: ${errMsg.slice(0, 200)}`);
+      errors.push(`gemini: ${errMsg.slice(0, 80)}`);
     }
+  } else {
+    errors.push('gemini: no key configured');
+  }
+
+  // Fallback to NVIDIA
+  if (opts.nvidiaKey) {
+    try {
+      const text = await runNvidia(opts.nvidiaKey, input);
+      return { text, modelUsed: `nvidia:${NVIDIA_MODEL}` };
+    } catch (err) {
+      const errMsg = err instanceof Error ? err.message : String(err);
+      console.error(`runCompletion nvidia failed: ${errMsg.slice(0, 200)}`);
+      errors.push(`nvidia: ${errMsg.slice(0, 80)}`);
+    }
+  } else {
+    errors.push('nvidia: no key configured');
   }
 
   throw new Error(`All LLM providers exhausted. Errors:\n${errors.map((e) => `  - ${e}`).join('\n')}`);

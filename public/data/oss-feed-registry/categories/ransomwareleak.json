@@ -1,0 +1,13 @@
+{
+  "category": "RANSOMWARELEAK",
+  "count": 1,
+  "feeds": [
+    {
+      "vendor": "ransomware.live",
+      "description": "Returns all victims mentioned on ransomware leaked sites",
+      "category": "RANSOMWARELEAK",
+      "url": "https://api.ransomware.live/allcyberattacks",
+      "feedStatus": "Active"
+    }
+  ]
+}

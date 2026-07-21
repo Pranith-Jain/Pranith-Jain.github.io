@@ -1,0 +1,13 @@
+{
+  "slug": "star23-baller13",
+  "name": "star23/baller13",
+  "akas": "potentially baller423/goober2 or just ties between them",
+  "brief": "Shortly after the model was removed, we encountered further instances of the same payload with varying IP addresses. One such instance remains active: star23/baller13. It’s worth noting the similarity in the model name to the deleted user, suggesting potential ties between them. Source",
+  "ttps": ["T1059.001", "T1195.001"],
+  "categories": ["LL  Models used for backdoor deployment"],
+  "reported": "Feb 2024",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 286,
+  "ttpMd": "**LL  Models used for backdoor deployment**   T1195.001 Supply Chain Compromise - Compromise Software Depedencies and  Development Tools   T1059.001 Command and Scripting Interpreter: Powershell"
+}

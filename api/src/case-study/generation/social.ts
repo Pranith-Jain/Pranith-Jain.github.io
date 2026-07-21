@@ -45,6 +45,10 @@ export interface SocialSource {
   /** Entity-derived hashtags (from `buildHashtags`) the prompts instruct the
    *  model to end with — specific, on-topic tags instead of generic stacks. */
   hashtags?: string[];
+  /** Optional audience-performance note injected into prompts as directional
+   *  signal — e.g. "breach-report content averages 2.3x the engagement of
+   *  threat-actor-profile". Populated by the route handler when D1 has data. */
+  performanceNote?: string;
 }
 
 const SOCIAL_SYSTEM =
@@ -478,7 +482,8 @@ function buildTwitterPrompt(src: SocialSource, includeLink = true): string {
     `<input>\n` +
     `Title: ${src.title}\n\n` +
     `Details:\n${gist(src.body)}\n` +
-    `</input>`
+    `</input>` +
+    (src.performanceNote ?? '')
   );
 }
 
@@ -518,6 +523,7 @@ function buildLinkedinPrompt(src: SocialSource, includeLink = true): string {
       ? `OUTPUT BLOCK ORDER (strict): HOOK -> INSIGHT + BULLETS -> CLOSE -> (optional) CAROUSEL OUTLINE: -> FIRST COMMENT: -> hashtags.\n`
       : `OUTPUT BLOCK ORDER (strict): HOOK -> INSIGHT + BULLETS -> CLOSE -> (optional) CAROUSEL OUTLINE: -> hashtags.\n`) +
     `</format>\n\n` +
+    (src.performanceNote ?? '') +
     `<examples>\n` +
     `GOOD — full post (the kind that gets saved and quoted):\n` +
     `\n` +
@@ -584,7 +590,8 @@ function buildInstagramPrompt(src: SocialSource): string {
     `- End with 5-8 specific hashtags on the final line (campaign/CVE/sector specific — never a generic #cybersecurity stack).${
       src.hashtags?.length ? ` Start from these (add a few broader-reach IG tags): ${src.hashtags.join(' ')}` : ''
     }\n\n` +
-    `TITLE: ${src.title}\n\nSOURCE:\n${src.body.slice(0, 4000)}\n`
+    `TITLE: ${src.title}\n\nSOURCE:\n${src.body.slice(0, 4000)}\n` +
+    (src.performanceNote ?? '')
   );
 }
 
@@ -789,7 +796,7 @@ async function generateSocialFromSource(
           quality: undefined as SocialQuality | undefined,
           slides: [] as Awaited<ReturnType<typeof buildCarouselSlides>>,
         }),
-    generateHookVariants(src, ai, groqKey, googleKey, nvidiaKey),
+    generateHookVariants(src, ai, groqKey, googleKey, nvidiaKey, src.performanceNote),
   ]);
 
   const ig = igRes.status === 'fulfilled' ? igRes.value : { caption: '', quality: undefined, slides: [] };
@@ -818,9 +825,17 @@ export async function generateSocialContent(
   now: Date,
   groqKey?: string,
   googleKey?: string,
-  nvidiaKey?: string
+  nvidiaKey?: string,
+  performanceNote?: string,
+  hookHint?: string
 ): Promise<SocialContent> {
-  return generateSocialFromSource(postToSource(post), ai, now, groqKey, googleKey, nvidiaKey, post);
+  const src = postToSource(post);
+  if (performanceNote) src.performanceNote = performanceNote;
+  if (hookHint)
+    src.body =
+      src.body +
+      `\n\nCRITICAL — Lead with this hook verbatim:\n"${hookHint}"\nBuild the rest of the post around this angle.\n`;
+  return generateSocialFromSource(src, ai, now, groqKey, googleKey, nvidiaKey, post);
 }
 
 export async function generateTwitterContent(

@@ -1,0 +1,13 @@
+{
+  "slug": "multiple-unsub-slashnext",
+  "name": "Multiple Unsub - SlashNext",
+  "akas": "N/A",
+  "brief": "Since Q4 of 2022 when ChatGPT became widely available, there has been a 1,265% increase in malicious phishing emails, with a 967% rise in credential phishing in particular. Source",
+  "ttps": ["T1566"],
+  "categories": ["LLM-supported  social engineering"],
+  "reported": "Oct 2023",
+  "activity": "Oct 2022 – Sep 2023",
+  "table": "main",
+  "sizeBytes": 179,
+  "ttpMd": "**LLM-supported  social engineering**   T1566 - Phishing"
+}

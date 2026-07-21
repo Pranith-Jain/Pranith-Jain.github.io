@@ -1,0 +1,15 @@
+{
+  "slug": "anubis-bath-fitter-2026-07-20",
+  "title": "Bath Fitter",
+  "group": "anubis",
+  "discovered": "2026-07-20T15:24:41.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/a1c67176-4c01-4334-9100-754b858d52ae",
+  "groupAliases": [],
+  "activity": "Consumer Services",
+  "references": ["Darkfield"]
+}

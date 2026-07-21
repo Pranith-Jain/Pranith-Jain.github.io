@@ -1,0 +1,19 @@
+{
+  "slug": "gtg-1002",
+  "name": "GTG-1002",
+  "akas": "Chinese state-sponsored (Anthropic designation); MITRE ATT&CK Campaign C0062",
+  "brief": "Anthropic disrupted what it calls the first reported AI-orchestrated cyber-espionage campaign: the actor manipulated Claude Code (via a \"defensive security firm\" roleplay jailbreak and task decomposition) into running a largely autonomous intrusion against ~30 global targets (major tech, financial, chemical, government), succeeding in a small number. AI performed an estimated 80–90% of tactical work — reconnaissance, exploit research/writing, credential harvesting, lateral movement, and data triage/exfiltration — with only 4–6 human decision points per campaign. Anthropic",
+  "ttps": ["T1567", "T1587", "T1588.006", "T1595"],
+  "categories": [
+    "LLM-orchestrated operations",
+    "LLM-informed reconnaissance",
+    "LLM-assisted vulnerability research",
+    "LLM-aided development",
+    "LLM-directed Automated Collection"
+  ],
+  "reported": "Nov 2025",
+  "activity": "Sep 2025",
+  "table": "main",
+  "sizeBytes": 578,
+  "ttpMd": "**LLM-orchestrated operations** TA0002 - Execution (full kill-chain)<br><br>**LLM-informed reconnaissance** T1595 - Active Scanning<br><br>**LLM-assisted vulnerability research** T1588.006 - Obtain Capabilities: Vulnerabilities<br><br>**LLM-aided development** T1587 - Develop Capabilities<br><br>**LLM-directed Automated Collection** T1567 - Exfiltration Over Web Service"
+}

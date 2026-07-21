@@ -1,0 +1,140 @@
+{
+  "type": "disaster",
+  "date": "2026-07-21",
+  "overallThreat": "HIGH",
+  "executiveSummary": "Mass-casualty disasters are ongoing: Venezuela’s earthquake death toll reportedly exceeds 5,000 with severe recovery needs; Europe’s late‑June heat wave is linked to >10,000 excess deaths. Flash flooding in Texas caused at least two deaths and >200 rescues across multiple counties; additional fatal flooding struck the U.S. Northeast. Landslides killed at least eight and left 34 missing in Chongqing, China; camp communities in Cox’s Bazar, Bangladesh suffered deadly slides during heavy rain. Wildfires continue under extreme heat: 12–13 fatalities in southern Spain; evacuations and transport disruption near Paris; smoke-driven health risks across the U.S. Midwest–Northeast. Severe floods continue to impact vulnerable populations, including 594,000+ affected in Mozambique; Missouri camp evacuations highlight U.S. Midwest flash‑flood exposure. Key Risk Drivers Compounding heat–wildfire nexus across Europe. High soil saturation and river response in Texas maintaining flash‑flood potential. Monsoon-season landslide/flood hazards in South and East Asia. Health-system strain from heat and smoke exposure across large populations. Assessment horizon Next 72 hours Confidence (overall) High for current impacts; Moderate for near‑term outlook",
+  "dashboard": { "kpis": [] },
+  "topEvents": [
+    {
+      "title": "Venezuela — Major Earthquake, >5,000 deaths reported",
+      "severity": "escalate",
+      "text": "Mass fatalities; protracted emergency aid; severe shelter, WASH, and medical needs.",
+      "sources": [
+        {
+          "url": "https://www.aljazeera.com/news/2026/7/18/venezuela-quake-death-toll-tops-5000-as-imf-releases-emergency-aid",
+          "label": "Al Jazeera (18 Jul)"
+        },
+        { "url": "https://www.unicef.org/emergencies/venezuela-earthquakes", "label": "UNICEF (24 Jun)" }
+      ]
+    },
+    {
+      "title": "Europe — Extreme Heat, >10,000 excess deaths estimated",
+      "severity": "escalate",
+      "text": "High health-system demand; elderly and medically vulnerable most at risk.",
+      "sources": [{ "url": "https://apnews.com/article/af0dbdc06870732e52f8d10bcebb5385", "label": "AP News (17 Jul)" }]
+    },
+    {
+      "title": "Texas Hill Country & South Texas, USA — Life‑threatening Flash Flooding",
+      "severity": "escalate",
+      "text": "At least 2 deaths; >200 rescues; evacuations; multiple disaster declarations; rivers and low-water crossings hazardous.",
+      "sources": [
+        { "url": "https://apnews.com/article/616ad82c32b5728d8a0f894c5e602b24", "label": "AP News (16 Jul)" },
+        { "url": "https://apnews.com/article/1e9b9ddbdd2a8963cccc707aee0d362e", "label": "AP News (15 Jul)" },
+        {
+          "url": "https://www.theguardian.com/us-news/2026/jul/16/texas-flooding-emergency-latest",
+          "label": "The Guardian (16 Jul)"
+        },
+        {
+          "url": "https://transcripts.cnn.com/show/sitroom/date/2026-07-16/segment/01",
+          "label": "CNN Transcript (16 Jul)"
+        }
+      ]
+    },
+    {
+      "title": "Pengshui County, Chongqing, China — Deadly Landslide",
+      "severity": "escalate",
+      "text": "8 dead; 34 missing; >1,100 evacuated; utilities disrupted; multiple structures buried/damaged.",
+      "sources": [
+        { "url": "https://apnews.com/article/127e504babcf9d70773e4ec67af34952", "label": "AP News (17 Jul)" },
+        {
+          "url": "https://www.aljazeera.com/news/2026/7/17/eight-killed-at-least-34-missing-after-landslide-in-chinas-chongqing",
+          "label": "Al Jazeera (17 Jul)"
+        }
+      ]
+    },
+    {
+      "title": "Mozambique — Multi‑province Flooding, 594,000+ affected",
+      "severity": "escalate",
+      "text": "306,000+ children among those affected; displacement concerns and operational strain ongoing.",
+      "sources": [
+        {
+          "url": "https://www.unicef.org/mozambique/en/reports/mozambique-flash-update-1",
+          "label": "UNICEF Flash Update (Date: Unknown)"
+        }
+      ]
+    }
+  ],
+  "escalateEvents": [
+    {
+      "title": "Venezuela — Major Earthquake, >5,000 deaths reported",
+      "severity": "escalate",
+      "text": "Mass fatalities; protracted emergency aid; severe shelter, WASH, and medical needs.",
+      "sources": [
+        {
+          "url": "https://www.aljazeera.com/news/2026/7/18/venezuela-quake-death-toll-tops-5000-as-imf-releases-emergency-aid",
+          "label": "Al Jazeera (18 Jul)"
+        },
+        { "url": "https://www.unicef.org/emergencies/venezuela-earthquakes", "label": "UNICEF (24 Jun)" }
+      ]
+    },
+    {
+      "title": "Europe — Extreme Heat, >10,000 excess deaths estimated",
+      "severity": "escalate",
+      "text": "High health-system demand; elderly and medically vulnerable most at risk.",
+      "sources": [{ "url": "https://apnews.com/article/af0dbdc06870732e52f8d10bcebb5385", "label": "AP News (17 Jul)" }]
+    },
+    {
+      "title": "Texas Hill Country & South Texas, USA — Life‑threatening Flash Flooding",
+      "severity": "escalate",
+      "text": "At least 2 deaths; >200 rescues; evacuations; multiple disaster declarations; rivers and low-water crossings hazardous.",
+      "sources": [
+        { "url": "https://apnews.com/article/616ad82c32b5728d8a0f894c5e602b24", "label": "AP News (16 Jul)" },
+        { "url": "https://apnews.com/article/1e9b9ddbdd2a8963cccc707aee0d362e", "label": "AP News (15 Jul)" },
+        {
+          "url": "https://www.theguardian.com/us-news/2026/jul/16/texas-flooding-emergency-latest",
+          "label": "The Guardian (16 Jul)"
+        },
+        {
+          "url": "https://transcripts.cnn.com/show/sitroom/date/2026-07-16/segment/01",
+          "label": "CNN Transcript (16 Jul)"
+        }
+      ]
+    },
+    {
+      "title": "Pengshui County, Chongqing, China — Deadly Landslide",
+      "severity": "escalate",
+      "text": "8 dead; 34 missing; >1,100 evacuated; utilities disrupted; multiple structures buried/damaged.",
+      "sources": [
+        { "url": "https://apnews.com/article/127e504babcf9d70773e4ec67af34952", "label": "AP News (17 Jul)" },
+        {
+          "url": "https://www.aljazeera.com/news/2026/7/17/eight-killed-at-least-34-missing-after-landslide-in-chinas-chongqing",
+          "label": "Al Jazeera (17 Jul)"
+        }
+      ]
+    },
+    {
+      "title": "Mozambique — Multi‑province Flooding, 594,000+ affected",
+      "severity": "escalate",
+      "text": "306,000+ children among those affected; displacement concerns and operational strain ongoing.",
+      "sources": [
+        {
+          "url": "https://www.unicef.org/mozambique/en/reports/mozambique-flash-update-1",
+          "label": "UNICEF Flash Update (Date: Unknown)"
+        }
+      ]
+    }
+  ],
+  "monitorEvents": [],
+  "outlook72h": "U.S. Gulf Coast: Tropical storm approaching Florida Panhandle and Alabama Gulf Coast may bring heavy rain, storm surge, and localized flooding; coastal preparedness (sandbagging, surge zones) underway. Texas Hill Country/South Texas: Saturated soils and elevated river stages sustain flash‑flood potential during any additional heavy rainfall. Northeastern U.S.: Intermittent heavy rain may trigger localized flash flooding where soils remain wet. Europe: Heat episodes keep wildfire risk elevated and continue to strain health services, especially among vulnerable groups. South/East Asia: Rain‑saturated slopes pose further landslide risk; response operations continue in Chongqing and Cox’s Bazar.",
+  "regionalTrends": [
+    "Texas flood cluster with repeated rescues and declarations; localized deadly flooding in the Northeast.",
+    "North American wildfire smoke continues to degrade air quality; remote-area evacuations in Minnesota.",
+    "Peru earthquake with fatalities and displacement; Venezuela quake with mass casualties and prolonged relief needs.",
+    "Persistent extreme heat linked to high excess mortality; elevated wildfire risk.",
+    "Fatal wildfire in southern Spain; evacuations and transport disruption near Paris.",
+    "Mozambique flooding affecting >594,000 people across multiple provinces.",
+    "Monsoon-driven landslide and flood risk elevated in South/East Asia; deadly landslide in Chongqing and in Cox’s Bazar camps.",
+    "Tropical Storm Maysak flooding impacts in southern China with dozens of deaths."
+  ],
+  "rawMarkdown": "Global Disaster Intelligence Brief — Open Source Intelligence Assessment Report type: Open Source Intelligence Assessment Escalate Monitor Ignore Overall Threat HIGH Global Disaster Intelligence Brief Tuesday, 21 July 2026 Executive Summary Mass-casualty disasters are ongoing: Venezuela’s earthquake death toll reportedly exceeds 5,000 with severe recovery needs; Europe’s late‑June heat wave is linked to >10,000 excess deaths. Flash flooding in Texas caused at least two deaths and >200 rescues across multiple counties; additional fatal flooding struck the U.S. Northeast. Landslides killed at least eight and left 34 missing in Chongqing, China; camp communities in Cox’s Bazar, Bangladesh suffered deadly slides during heavy rain. Wildfires continue under extreme heat: 12–13 fatalities in southern Spain; evacuations and transport disruption near Paris; smoke-driven health risks across the U.S. Midwest–Northeast. Severe floods continue to impact vulnerable populations, including 594,000+ affected in Mozambique; Missouri camp evacuations highlight U.S. Midwest flash‑flood exposure. Key Risk Drivers Compounding heat–wildfire nexus across Europe. High soil saturation and river response in Texas maintaining flash‑flood potential. Monsoon-season landslide/flood hazards in South and East Asia. Health-system strain from heat and smoke exposure across large populations. Assessment horizon Next 72 hours Confidence (overall) High for current impacts; Moderate for near‑term outlook Threat Dashboard Active Priority Incidents ESCALATE: 13 Multi-region, multi-hazard Watch List MONITOR: 2 Notable but subcritical Hazard Mix (ESCALATE) Flood/Flash Flood: 5 Wildfire/Smoke: 3 Earthquake: 2 Landslide: 2 Extreme Heat: 1 Populations at Highest Risk Children and displaced families (Mozambique; Cox’s Bazar) Elderly/medically vulnerable (Europe heat) Rural/riverine residents (Texas, Missouri) Remote visitors (Minnesota wilderness) Top Five Critical Events Venezuela — Major Earthquake, >5,000 deaths reported ESCALATE Mass fatalities; protracted emergency aid; severe shelter, WASH, and medical needs. Sources: Al Jazeera (18 Jul) · UNICEF (24 Jun) Europe — Extreme Heat, >10,000 excess deaths estimated ESCALATE High health-system demand; elderly and medically vulnerable most at risk. Source: AP News (17 Jul) Texas Hill Country & South Texas, USA — Life‑threatening Flash Flooding ESCALATE At least 2 deaths; >200 rescues; evacuations; multiple disaster declarations; rivers and low-water crossings hazardous. Sources: AP News (16 Jul) · AP News (15 Jul) · The Guardian (16 Jul) · CNN Transcript (16 Jul) Pengshui County, Chongqing, China — Deadly Landslide ESCALATE 8 dead; 34 missing; >1,100 evacuated; utilities disrupted; multiple structures buried/damaged. Sources: AP News (17 Jul) · Al Jazeera (17 Jul) Mozambique — Multi‑province Flooding, 594,000+ affected ESCALATE 306,000+ children among those affected; displacement concerns and operational strain ongoing. Source: UNICEF Flash Update (Date: Unknown) Humanitarian Impact Catastrophic mortality in Venezuela and Europe (heat) underscores urgent health, shelter, and WASH requirements. U.S. flash floods: rapid-onset rescues, evacuations, and fatalities in Texas and the Northeast highlight high exposure along rivers and low-water crossings. Children and refugees disproportionately affected: >306,000 children in Mozambique’s floods; deadly slides in Cox’s Bazar refugee camps. Wildfire impacts spanning evacuation, injury, and displacement: 12–13 fatalities in southern Spain; evacuations near Paris; smoke-related respiratory risk across U.S. regions. Infrastructure Concerns Road washouts, highway closures, and submerged intersections in Texas; isolation of communities and constrained ingress/egress. Structural collapse (Missouri campground building); widespread quake damage in Venezuela; building damage in Peru. Chongqing slide cut water/electricity/gas; multiple structures buried/damaged. Rail and motorway disruption near Paris due to wildfire; air-quality related service constraints across smoke-affected U.S. regions. Regional and Hazard Trends Americas Texas flood cluster with repeated rescues and declarations; localized deadly flooding in the Northeast. North American wildfire smoke continues to degrade air quality; remote-area evacuations in Minnesota. Peru earthquake with fatalities and displacement; Venezuela quake with mass casualties and prolonged relief needs. Europe Persistent extreme heat linked to high excess mortality; elevated wildfire risk. Fatal wildfire in southern Spain; evacuations and transport disruption near Paris. Africa & Asia Mozambique flooding affecting >594,000 people across multiple provinces. Monsoon-driven landslide and flood risk elevated in South/East Asia; deadly landslide in Chongqing and in Cox’s Bazar camps. Tropical Storm Maysak flooding impacts in southern China with dozens of deaths. Next 72‑Hour Outlook U.S. Gulf Coast: Tropical storm approaching Florida Panhandle and Alabama Gulf Coast may bring heavy rain, storm surge, and localized flooding; coastal preparedness (sandbagging, surge zones) underway. Texas Hill Country/South Texas: Saturated soils and elevated river stages sustain flash‑flood potential during any additional heavy rainfall. Northeastern U.S.: Intermittent heavy rain may trigger localized flash flooding where soils remain wet. Europe: Heat episodes keep wildfire risk elevated and continue to strain health services, especially among vulnerable groups. South/East Asia: Rain‑saturated slopes pose further landslide risk; response operations continue in Chongqing and Cox’s Bazar. Recommended Monitoring Priorities Venezuela earthquake: track casualty updates, aid access, WASH/health surveillance, and displacement dynamics. Texas: real‑time river gauges (e.g., Guadalupe, Pedernales), flash‑flood warnings, shelter capacities, and high‑water closure maps. Europe heat: mortality surveillance, hospital load, cooling‑center coverage, and wildfire watch indices. Mozambique: logistical access, shelter and WASH gaps, and disease outbreak early warning (cholera, diarrheal disease). Chongqing landslide: search‑and‑rescue tempo, missing persons status, utility restoration timelines, slope stability under continued rain. Cox’s Bazar: slope stabilization, drainage, relocations for highest‑risk shelters, child protection support. North American smoke: AQI trends, respiratory ER visits, targeted advisories for sensitive groups. Gulf Coast storm: NHC advisories, surge-prone zones, localized flash‑flood triggers, and power outage probabilities. Event Cards by Decision Level ESCALATE Earthquake — Venezuela ESCALATE People impact: Reported death toll >5,000; significant child protection, shelter, WASH, and medical needs. Infrastructure: Widespread structural collapse and prolonged emergency aid operations. Uncertainty: Figures may evolve as recovery proceeds. Sources: Al Jazeera (18 Jul) · UNICEF (24 Jun) Extreme Heat — Multiple countries in Europe ESCALATE People impact: Excess mortality may exceed 10,000; elderly and medically vulnerable at highest risk. Infrastructure: Health system strain; heat is the primary driver rather than physical damage. Source: AP News (17 Jul) Flash Floods — Texas Hill Country & South Texas, USA ESCALATE 2+ deaths 200+ rescues Evacuations People impact: At least two fatalities; widespread water rescues and evacuations across multiple counties. Reporting varies by source and locality. Infrastructure: Washed‑out highways, submerged intersections, rising rivers (e.g., Guadalupe, Pedernales), disaster declarations across affected areas. Sources: AP News (16 Jul) · AP News (15 Jul) · The Guardian (16 Jul) · CNN Transcript (16 Jul) Floods — Missouri, USA ESCALATE 200+ airlifted Camp building collapse People impact: >200 children and staff airlifted from a summer camp; additional rescues reported. Infrastructure: Camp facility collapse; state emergency response measures activated. Sources: The Guardian (11 Jul) · The Guardian (10 Jul) Floods — Mozambique (multi‑province) ESCALATE 594,681 affected 306,000+ children People impact: Large affected population with ongoing displacement concerns and needs for essential services. Infrastructure: Strained service delivery and humanitarian operations across several provinces. Source: UNICEF Flash Update (Date: Unknown) Landslide — Pengshui County, Chongqing, China ESCALATE 8 dead 34 missing 1,100+ evacuated People impact: Fatalities, missing persons, and evacuations following homes buried by slides. Infrastructure: Multiple buildings affected; water, electricity, and gas disrupted in the area. Sources: AP News (17 Jul) · Al Jazeera (17 Jul) Landslides & Flash Floods — Rohingya Camps, Cox’s Bazar, Bangladesh ESCALATE People impact: Fatalities, including children; highly vulnerable displaced population at risk. Infrastructure: Camp conditions destabilized; humanitarian partners coordinating emergency response. Source: UNICEF (9 Jul) Wildfire — Fontainebleau, near Paris, France ESCALATE People impact: Residential evacuations due to wildfire threat during a regional heat emergency. Infrastructure: Disrupted train lines; partial closure of A6 motorway. Sources: AP News (13 Jul) · Al Jazeera (13 Jul) Wildfire — Almería Province, Southern Spain ESCALATE 12–13 deaths (reports vary) 1,400+ evacuated People impact: Multiple fatalities; burn injuries reported; evacuations across affected communities. Infrastructure: >6,000 hectares burned; homes and communities threatened. Uncertainty: Fatality counts vary across reporting cycles. Sources: The Guardian (10 Jul) · The Guardian (12 Jul) · AP News (15 Jul) Earthquake — Near Sicaya, Peru ESCALATE People impact: At least six dead; >30 injured; ~300 displaced. Infrastructure: Building collapses in affected area. Source: The Guardian (19 Jul) Flash Floods — Northeastern United States ESCALATE People impact: At least two deaths; hundreds of rescues during torrential rain. Infrastructure: Flash‑flood warnings and flooding across multiple communities. Source: The Guardian (18 Jul) Flooding — Southern China (Tropical Storm Maysak) ESCALATE People impact: 39 deaths reported. Infrastructure: Mud and debris require extensive cleanup and disinfection. Source: Al Jazeera (9 Jul) Wildfire & Smoke — Minnesota wilderness; Midwest–Northeast U.S.; Ontario, Canada ESCALATE Evacuations Unhealthy air quality People impact: Thousands evacuated from a remote Minnesota wilderness; unhealthy smoke exposure across multiple U.S. states. Infrastructure: Remote access constraints complicate evacuation; broad air‑quality degradation affects daily life. Sources: AP News (15 Jul) · AP News (18 Jul) · Investing.com (18 Jul) MONITOR Tropical Storm — Florida Panhandle & Alabama Gulf Coast, USA MONITOR Outlook: Heavy rain, storm surge, and damaging wind possible; preparedness actions (sandbags, coastal advisories) underway. Action: Track NHC advisories; monitor surge zones and low‑lying communities. Source: AP News (21 Jul) Earthquake — Chiapas–Guatemala Border Region MONITOR Impact: Evacuations and limited injuries reported; no major structural damage confirmed. Action: Monitor aftershocks, landslide‑prone corridors, and cross‑border impact on services. Source: AP News (17 Jul) Heatwave — United States MONITOR Outlook: Prolonged dangerous heat and elevated overnight temperatures increase health risk for millions. Action: Expand cooling access and risk communications for sensitive groups. Source: AP News (11 Jul) IGNORE No IGNORE‑level incidents designated this cycle. Items previously labeled “ignore” were consolidated into monitoring where situational awareness remains warranted. Source References Al Jazeera Venezuela quake death toll tops 5,000 (18 Jul) Landslide in Chongqing (17 Jul) Wildfires near Paris (13 Jul) Tropical Storm Maysak flooding (9 Jul) AP News Europe heatwave excess mortality (17 Jul) Texas Hill Country floods (16 Jul) South Texas flooding rescues, evacuations (15 Jul) Chongqing landslide update (17 Jul) Wildfire near Paris disrupts transport (13 Jul) Minnesota wilderness evacuations; smoke (15 Jul) Southern Spain wildfire fatalities identified (15 Jul) Unhealthy air warnings; Canada evacuations (18 Jul) Tropical storm prep Gulf Coast (21 Jul) M7.3 quake Mexico–Guatemala border (17 Jul) U.S. heat dome (11 Jul) The Guardian Texas flooding emergency (16 Jul) Missouri camp airlift & rescues (11 Jul) Missouri state of emergency (10 Jul) Southern Spain wildfire (10 Jul) Spain wildfire injuries (12 Jul) Northeast U.S. flash floods (18 Jul) Peru quake tag page (19 Jul) UNICEF Venezuela earthquakes (24 Jun) Mozambique floods flash update (Date: Unknown) Cox’s Bazar landslides statement (9 Jul) Other CNN Transcript: Texas flooding (16 Jul) Investing.com: Ontario wildfire smoke (18 Jul) Open Source Intelligence Assessment — Generated from AI‑assisted RSS intelligence analysis. Links provided for source verification."
+}

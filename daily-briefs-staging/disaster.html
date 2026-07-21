@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Global Disaster Intelligence Brief — Open Source Intelligence Assessment</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root{
+      --bg:#0f172a;
+      --card:#111827;
+      --panel:#0b1224;
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --border:#1f2937;
+
+      --red:#e11d48;      /* ESCALATE */
+      --orange:#f59e0b;   /* MONITOR */
+      --green:#22c55e;    /* IGNORE/Stable */
+      --blue:#38bdf8;     /* Accents */
+      --purple:#8b5cf6;
+
+      --shadow:0 10px 25px rgba(0,0,0,0.25);
+      --radius:14px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 15% -10%, #1e293b 0%, #0b1224 35%, #070c1a 100%);
+      color:var(--text);
+      line-height:1.55;
+    }
+    a{color:#93c5fd; text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{
+      max-width:1200px; margin:0 auto; padding:28px 18px 80px;
+    }
+    /* Masthead */
+    .masthead{
+      background: linear-gradient(135deg, rgba(56,189,248,0.16) 0%, rgba(139,92,246,0.10) 50%, rgba(225,29,72,0.10) 100%);
+      border:1px solid rgba(148,163,184,0.16);
+      border-radius:18px;
+      padding:28px;
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .masthead::after{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(600px 200px at 80% -20%, rgba(59,130,246,0.16), transparent 60%),
+                  radial-gradient(600px 200px at 0% 120%, rgba(244,63,94,0.10), transparent 60%);
+      pointer-events:none;
+      mix-blend:screen;
+    }
+    .masthead .title{
+      font-weight:800; letter-spacing:0.2px; font-size:28px; margin:0 0 10px;
+    }
+    .masthead .meta{
+      display:flex; flex-wrap:wrap; gap:10px; align-items:center; color:var(--muted); font-size:14px;
+    }
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      border:1px solid var(--border);
+      background: rgba(2,6,23,0.55);
+      color:var(--text);
+      padding:8px 12px; border-radius:999px; font-weight:600; font-size:13px;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border-radius:999px; font-size:12px;
+      border:1px solid var(--border); color:var(--muted); background:rgba(255,255,255,0.03);
+    }
+    .dot{width:9px; height:9px; border-radius:50%}
+    .dot.red{background:var(--red)} .dot.orange{background:var(--orange)} .dot.green{background:var(--green)}
+    .threat{
+      margin-left:auto; display:flex; align-items:center; gap:10px; padding:8px 12px; border-radius:10px;
+      background: linear-gradient(135deg, rgba(225,29,72,0.18), rgba(225,29,72,0.08));
+      border:1px solid rgba(225,29,72,0.35);
+      color:#fecaca; font-weight:700; letter-spacing:0.3px;
+    }
+    .threat .level{font-size:20px}
+    /* Sections */
+    section{margin-top:26px}
+    .section{
+      background: linear-gradient(180deg, rgba(2,6,23,0.55), rgba(2,6,23,0.35));
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow: var(--shadow);
+      padding:22px;
+    }
+    .section h2{
+      margin:0 0 14px; font-size:20px; letter-spacing:0.2px;
+      display:flex; align-items:center; gap:10px;
+    }
+    .section h3{
+      margin:16px 0 10px; font-size:16px; color:#bfdbfe; letter-spacing:0.2px;
+    }
+    .grid{
+      display:grid; gap:14px;
+    }
+    @media(min-width:780px){
+      .grid.cols-2{grid-template-columns:1fr 1fr}
+      .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+      .grid.cols-4{grid-template-columns:repeat(4,1fr)}
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(17,24,39,0.85), rgba(11,18,36,0.85));
+      border:1px solid var(--border); border-radius:12px; padding:16px; position:relative; overflow:hidden;
+    }
+    .card .kicker{color:var(--muted); font-size:12px; letter-spacing:.2px}
+    .card h4{margin:6px 0 8px; font-size:16px}
+    .tiny{font-size:12px; color:var(--muted)}
+    ul{margin:8px 0 0 18px; padding:0}
+    li{margin:6px 0}
+    /* Event cards */
+    .event{
+      display:flex; flex-direction:column; gap:10px;
+      border-left:4px solid var(--border);
+    }
+    .event.escalate{border-left-color:var(--red)}
+    .event.monitor{border-left-color:var(--orange)}
+    .event.ignore{border-left-color:var(--green)}
+    .event .top{
+      display:flex; flex-wrap:wrap; gap:8px; align-items:center; justify-content:space-between;
+    }
+    .event .title{font-weight:700; font-size:16px}
+    .chips{display:flex; gap:8px; flex-wrap:wrap}
+    .chip{
+      font-size:11px; letter-spacing:0.2px; padding:5px 9px; border-radius:999px;
+      background:rgba(255,255,255,0.03); border:1px solid var(--border); color:var(--muted);
+    }
+    .priority{
+      display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; font-weight:700; font-size:12px;
+      border:1px solid var(--border);
+    }
+    .priority.escalate{background:rgba(225,29,72,0.18); color:#fecaca; border-color:rgba(225,29,72,0.35)}
+    .priority.monitor{background:rgba(245,158,11,0.20); color:#fde68a; border-color:rgba(245,158,11,0.35)}
+    .priority.ignore{background:rgba(34,197,94,0.18); color:#bbf7d0; border-color:rgba(34,197,94,0.35)}
+    .sources{background:rgba(148,163,184,0.08); border:1px dashed var(--border); padding:10px; border-radius:10px}
+    .muted{color:var(--muted)}
+    .spacer{height:8px}
+    /* Small table style (summary only) */
+    table.meta{width:100%; border-collapse:collapse; font-size:13px}
+    table.meta td{padding:6px 8px; border-bottom:1px solid var(--border); color:var(--muted)}
+    table.meta td:last-child{color:var(--text)}
+    /* Footer */
+    footer{
+      margin-top:26px; color:var(--muted); font-size:12px; text-align:center;
+    }
+    /* Accent separators */
+    .divider{
+      height:1px; background:linear-gradient(90deg, transparent, rgba(148,163,184,0.25), transparent);
+      margin:8px 0 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Publication Masthead -->
+    <div class="masthead">
+      <div class="meta">
+        <span class="badge">Report type: Open Source Intelligence Assessment</span>
+        <span class="pill"><span class="dot red"></span>Escalate</span>
+        <span class="pill"><span class="dot orange"></span>Monitor</span>
+        <span class="pill"><span class="dot green"></span>Ignore</span>
+        <div class="threat"><span>Overall Threat</span> <span class="level">HIGH</span></div>
+      </div>
+      <h1 class="title">Global Disaster Intelligence Brief</h1>
+      <div class="meta">
+        <span>Tuesday, 21 July 2026</span>
+      </div>
+    </div>
+
+    <!-- Executive Summary -->
+    <section class="section">
+      <h2>Executive Summary</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <ul>
+            <li>Mass-casualty disasters are ongoing: Venezuela’s earthquake death toll reportedly exceeds 5,000 with severe recovery needs; Europe’s late‑June heat wave is linked to >10,000 excess deaths.</li>
+            <li>Flash flooding in Texas caused at least two deaths and >200 rescues across multiple counties; additional fatal flooding struck the U.S. Northeast.</li>
+            <li>Landslides killed at least eight and left 34 missing in Chongqing, China; camp communities in Cox’s Bazar, Bangladesh suffered deadly slides during heavy rain.</li>
+            <li>Wildfires continue under extreme heat: 12–13 fatalities in southern Spain; evacuations and transport disruption near Paris; smoke-driven health risks across the U.S. Midwest–Northeast.</li>
+            <li>Severe floods continue to impact vulnerable populations, including 594,000+ affected in Mozambique; Missouri camp evacuations highlight U.S. Midwest flash‑flood exposure.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Key Risk Drivers</h4>
+          <ul>
+            <li>Compounding heat–wildfire nexus across Europe.</li>
+            <li>High soil saturation and river response in Texas maintaining flash‑flood potential.</li>
+            <li>Monsoon-season landslide/flood hazards in South and East Asia.</li>
+            <li>Health-system strain from heat and smoke exposure across large populations.</li>
+          </ul>
+          <div class="spacer"></div>
+          <table class="meta">
+            <tr><td>Assessment horizon</td><td>Next 72 hours</td></tr>
+            <tr><td>Confidence (overall)</td><td>High for current impacts; Moderate for near‑term outlook</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Threat Dashboard -->
+    <section class="section">
+      <h2>Threat Dashboard</h2>
+      <div class="grid cols-4">
+        <div class="card">
+          <div class="kicker">Active Priority Incidents</div>
+          <h4>ESCALATE: 13</h4>
+          <div class="tiny">Multi-region, multi-hazard</div>
+        </div>
+        <div class="card">
+          <div class="kicker">Watch List</div>
+          <h4>MONITOR: 2</h4>
+          <div class="tiny">Notable but subcritical</div>
+        </div>
+        <div class="card">
+          <div class="kicker">Hazard Mix (ESCALATE)</div>
+          <ul class="tiny">
+            <li>Flood/Flash Flood: 5</li>
+            <li>Wildfire/Smoke: 3</li>
+            <li>Earthquake: 2</li>
+            <li>Landslide: 2</li>
+            <li>Extreme Heat: 1</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="kicker">Populations at Highest Risk</div>
+          <ul class="tiny">
+            <li>Children and displaced families (Mozambique; Cox’s Bazar)</li>
+            <li>Elderly/medically vulnerable (Europe heat)</li>
+            <li>Rural/riverine residents (Texas, Missouri)</li>
+            <li>Remote visitors (Minnesota wilderness)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Top Five Critical Events -->
+    <section class="section">
+      <h2>Top Five Critical Events</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <div class="event escalate">
+            <div class="top">
+              <div class="title">Venezuela — Major Earthquake, >5,000 deaths reported</div>
+              <div class="priority escalate">ESCALATE</div>
+            </div>
+            <div class="muted">Mass fatalities; protracted emergency aid; severe shelter, WASH, and medical needs.</div>
+            <div class="sources tiny">
+              Sources: <a target="_blank" href="https://www.aljazeera.com/news/2026/7/18/venezuela-quake-death-toll-tops-5000-as-imf-releases-emergency-aid">Al Jazeera (18 Jul)</a> ·
+              <a target="_blank" href="https://www.unicef.org/emergencies/venezuela-earthquakes">UNICEF (24 Jun)</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="event escalate">
+            <div class="top">
+              <div class="title">Europe — Extreme Heat, >10,000 excess deaths estimated</div>
+              <div class="priority escalate">ESCALATE</div>
+            </div>
+            <div class="muted">High health-system demand; elderly and medically vulnerable most at risk.</div>
+            <div class="sources tiny">
+              Source: <a target="_blank" href="https://apnews.com/article/af0dbdc06870732e52f8d10bcebb5385">AP News (17 Jul)</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="event escalate">
+            <div class="top">
+              <div class="title">Texas Hill Country & South Texas, USA — Life‑threatening Flash Flooding</div>
+              <div class="priority escalate">ESCALATE</div>
+            </div>
+            <div class="muted">At least 2 deaths; >200 rescues; evacuations; multiple disaster declarations; rivers and low-water crossings hazardous.</div>
+            <div class="sources tiny">
+              Sources: <a target="_blank" href="https://apnews.com/article/616ad82c32b5728d8a0f894c5e602b24">AP News (16 Jul)</a> ·
+              <a target="_blank" href="https://apnews.com/article/1e9b9ddbdd2a8963cccc707aee0d362e">AP News (15 Jul)</a> ·
+              <a target="_blank" href="https://www.theguardian.com/us-news/2026/jul/16/texas-flooding-emergency-latest">The Guardian (16 Jul)</a> ·
+              <a target="_blank" href="https://transcripts.cnn.com/show/sitroom/date/2026-07-16/segment/01">CNN Transcript (16 Jul)</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="event escalate">
+            <div class="top">
+              <div class="title">Pengshui County, Chongqing, China — Deadly Landslide</div>
+              <div class="priority escalate">ESCALATE</div>
+            </div>
+            <div class="muted">8 dead; 34 missing; >1,100 evacuated; utilities disrupted; multiple structures buried/damaged.</div>
+            <div class="sources tiny">
+              Sources: <a target="_blank" href="https://apnews.com/article/127e504babcf9d70773e4ec67af34952">AP News (17 Jul)</a> ·
+              <a target="_blank" href="https://www.aljazeera.com/news/2026/7/17/eight-killed-at-least-34-missing-after-landslide-in-chinas-chongqing">Al Jazeera (17 Jul)</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="event escalate">
+            <div class="top">
+              <div class="title">Mozambique — Multi‑province Flooding, 594,000+ affected</div>
+              <div class="priority escalate">ESCALATE</div>
+            </div>
+            <div class="muted">306,000+ children among those affected; displacement concerns and operational strain ongoing.</div>
+            <div class="sources tiny">
+              Source: <a target="_blank" href="https://www.unicef.org/mozambique/en/reports/mozambique-flash-update-1">UNICEF Flash Update (Date: Unknown)</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Humanitarian Impact and Infrastructure -->
+    <section class="section">
+      <h2>Humanitarian Impact</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <ul>
+            <li>Catastrophic mortality in Venezuela and Europe (heat) underscores urgent health, shelter, and WASH requirements.</li>
+            <li>U.S. flash floods: rapid-onset rescues, evacuations, and fatalities in Texas and the Northeast highlight high exposure along rivers and low-water crossings.</li>
+            <li>Children and refugees disproportionately affected: >306,000 children in Mozambique’s floods; deadly slides in Cox’s Bazar refugee camps.</li>
+            <li>Wildfire impacts spanning evacuation, injury, and displacement: 12–13 fatalities in southern Spain; evacuations near Paris; smoke-related respiratory risk across U.S. regions.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Infrastructure Concerns</h3>
+          <ul>
+            <li>Road washouts, highway closures, and submerged intersections in Texas; isolation of communities and constrained ingress/egress.</li>
+            <li>Structural collapse (Missouri campground building); widespread quake damage in Venezuela; building damage in Peru.</li>
+            <li>Chongqing slide cut water/electricity/gas; multiple structures buried/damaged.</li>
+            <li>Rail and motorway disruption near Paris due to wildfire; air-quality related service constraints across smoke-affected U.S. regions.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Regional and Hazard Trends -->
+    <section class="section">
+      <h2>Regional and Hazard Trends</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <h4>Americas</h4>
+          <ul>
+            <li>Texas flood cluster with repeated rescues and declarations; localized deadly flooding in the Northeast.</li>
+            <li>North American wildfire smoke continues to degrade air quality; remote-area evacuations in Minnesota.</li>
+            <li>Peru earthquake with fatalities and displacement; Venezuela quake with mass casualties and prolonged relief needs.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Europe</h4>
+          <ul>
+            <li>Persistent extreme heat linked to high excess mortality; elevated wildfire risk.</li>
+            <li>Fatal wildfire in southern Spain; evacuations and transport disruption near Paris.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Africa & Asia</h4>
+          <ul>
+            <li>Mozambique flooding affecting >594,000 people across multiple provinces.</li>
+            <li>Monsoon-driven landslide and flood risk elevated in South/East Asia; deadly landslide in Chongqing and in Cox’s Bazar camps.</li>
+            <li>Tropical Storm Maysak flooding impacts in southern China with dozens of deaths.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Next 72-hour Outlook -->
+    <section class="section">
+      <h2>Next 72‑Hour Outlook</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <ul>
+            <li>U.S. Gulf Coast: Tropical storm approaching Florida Panhandle and Alabama Gulf Coast may bring heavy rain, storm surge, and localized flooding; coastal preparedness (sandbagging, surge zones) underway.</li>
+            <li>Texas Hill Country/South Texas: Saturated soils and elevated river stages sustain flash‑flood potential during any additional heavy rainfall.</li>
+            <li>Northeastern U.S.: Intermittent heavy rain may trigger localized flash flooding where soils remain wet.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <ul>
+            <li>Europe: Heat episodes keep wildfire risk elevated and continue to strain health services, especially among vulnerable groups.</li>
+            <li>South/East Asia: Rain‑saturated slopes pose further landslide risk; response operations continue in Chongqing and Cox’s Bazar.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recommended Monitoring Priorities -->
+    <section class="section">
+      <h2>Recommended Monitoring Priorities</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <ul>
+            <li>Venezuela earthquake: track casualty updates, aid access, WASH/health surveillance, and displacement dynamics.</li>
+            <li>Texas: real‑time river gauges (e.g., Guadalupe, Pedernales), flash‑flood warnings, shelter capacities, and high‑water closure maps.</li>
+            <li>Europe heat: mortality surveillance, hospital load, cooling‑center coverage, and wildfire watch indices.</li>
+            <li>Mozambique: logistical access, shelter and WASH gaps, and disease outbreak early warning (cholera, diarrheal disease).</li>
+          </ul>
+        </div>
+        <div class="card">
+          <ul>
+            <li>Chongqing landslide: search‑and‑rescue tempo, missing persons status, utility restoration timelines, slope stability under continued rain.</li>
+            <li>Cox’s Bazar: slope stabilization, drainage, relocations for highest‑risk shelters, child protection support.</li>
+            <li>North American smoke: AQI trends, respiratory ER visits, targeted advisories for sensitive groups.</li>
+            <li>Gulf Coast storm: NHC advisories, surge-prone zones, localized flash‑flood triggers, and power outage probabilities.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Event Cards by Decision Level -->
+    <section class="section">
+      <h2>Event Cards by Decision Level</h2>
+
+      <!-- ESCALATE -->
+      <h3><span class="pill"><span class="dot red"></span> ESCALATE</span></h3>
+      <div class="grid cols-2">
+        <!-- Venezuela Earthquake -->
+        <div class="card event escalate">
+          <div class="top">
+            <div class="title">Earthquake — Venezuela</div>
+            <div class="priority escalate">ESCALATE</div>
+          </div>
+          <div class="divider"></div>
+          <ul>
+            <li>People impact: Reported death toll >5,000; significant child protection, shelter, WASH, and medical needs.</li>
+            <li>Infrastructure: Widespread structural collapse and prolonged emergency aid operations.</li>
+            <li>Uncertainty: Figures may evolve as recovery proceeds.</li>
+          </ul>
+          <div class="sources tiny">
+            Sources:
+            <a target="_blank" href="https://www.aljazeera.com/news/2026/7/18/venezuela-quake-death-toll-tops-5000-as-imf-releases-emergency-aid">Al Jazeera (18 Jul)</a> ·
+            <a target="_blank" href="https://www.unicef.org/emergencies/venezuela-earthquakes">UNICEF (24 Jun)</a>
+          </div>
+        </div>
+
+        <!-- Europe Heat -->
+        <div class="card event escalate">
+          <div class="top">
+            <div class="title">Extreme Heat — Multiple countries in Europe</div>
+            <div class="priority escalate">ESCALATE</div>
+          </div>
+          <div class="divider"></div>
+          <ul>
+            <li>People impact: Excess mortality may exceed 10,000; elderly and medically vulnerable at highest risk.</li>
+            <li>Infrastructure: Health system strain; heat is the primary driver rather than physical damage.</li>
+          </ul>
+          <div class="sources tiny">
+            Source: <a target="_blank" href="https://apnews.com/article/af0dbdc06870732e52f8d10bcebb5385">AP News (17 Jul)</a>
+          </div>
+        </div>
+
+        <!-- Texas Floods -->
+        <div class="card event escalate">
+          <div class="top">
+            <div class="title">Flash Floods — Texas Hill Country & South Texas, USA</div>
+            <div class="priority escalate">ESCALATE</div>
+          </div>
+          <div class="chips">
+            <span class="chip">2+ deaths</span>
+            <span class="chip">200+ rescues</span>
+            <span class="chip">Evacuations</span>
+          </div>
+          <div class="divider"></div>
+          <ul>
+            <li>People impact: At least two fatalities; widespread water rescues and evacuations across multiple counties. Reporting varies by source and locality.</li>
+            <li>Infrastructure: Washed‑out highways, submerged intersections, rising rivers (e.g., Guadalupe, Pedernales), disaster declarations across affected areas.</li>
+          </ul>
+          <div class="sources tiny">
+            Sources:
+            <a target="_blank" href="https://apnews.com/article/616ad82c32b5728d8a0f894c5e602b24">AP News (16 Jul)</a> ·
+            <a target="_blank" href="https://apnews.com/article/1e9b9ddbdd2a8963cccc707aee0d362e">AP News (15 Jul)</a> ·
+            <a target="_blank" href="https://www.theguardian.com/us-news/2026/jul/16/texas-flooding-emergency-latest">The Guardian (16 Jul)</a> ·
+            <a target="_blank" href="https://transcripts.cnn.com/show/sitroom/date/2026-07-16/segment/01">CNN Transcript (16 Jul)</a>
+          </div>
+        </div>
+
+        <!-- Missouri Floods -->
+        <div class="card event escalate">
+          <div class="top">
+            <div class="title">Floods — Missouri, USA</div>
+            <div class="priority escalate">ESCALATE</div>
+          </div>
+          <div class="chips">
+            <span class="chip">200+ airlifted</span>
+            <span class="chip">Camp building collapse</span>
+          </div>
+          <div class="divider"></div>
+          <ul>
+            <li>People impact: >200 children and staff airlifted from a summer camp; additional rescues reported.</li>
+            <li>Infrastructure: Camp facility collapse; state emergency response measures activated.</li>
+          </ul>
+          <div class="sources tiny">
+            Sources:
+            <a target="_blank" href="https://www.theguardian.com/us-news/2026/jul/11/missouri-flooding-airlift-rescue">The Guardian (11 Jul)</a> ·
+            <a target="_blank" href="https://www.theguardian.com/us-news/2026/jul/10/missouri-state-of-emergency-floods">The Guardian (10 Jul)</a>
+          </div>
+        </div>
+
+        <!-- Mozambique Floods -->
+        <div class="card event escalate">
+          <div class="top">
+            <div class="title">Floods — Mozambique (multi‑province)</div>
+            <div class="priority escalate">ESCALATE</div>
+          </div>
+          <div class="chips">
+            <span class="chip">594,681 affected</span>
+            <span class="chip">306,000+ children</span>
+          </div>
+          <div class="divider"></div>
+          <ul>
+            <li>People impact: Large affected population with ongoing displacement concerns and needs for essential services.</li>
+            <li>Infrastructure: Strained service delivery and humanitarian operations across several provinces.</li>
+          </ul>
+          <div class="sources tiny">
+            Source: <a target="_blank" href="https://www.unicef.org/mozambique/en/reports/mozambique-flash-update-1">UNICEF Flash Update (Date: Unknown)</a>
+          </div>
+        </div>
+
+        <!-- Chongqing Landslide -->
+        <div class="card event escalate">
+          <div class="top">
+            <div class="title">Landslide — Pengshui County, Chongqing, China</div>
+            <div class="priority escalate">ESCALATE</div>
+          </div>
+          <div class="chips">
+            <span class="chip">8 dead</span>
+            <span class="chip">34 missing</span>
+            <span class="chip">1,100+ evacuated</span>
+          </div>
+          <div class="divider"></div>
+          <ul>
+            <li>People impact: Fatalities, missing persons, and evacuations following homes buried by slides.</li>
+            <li>Infrastructure: Multiple buildings affected; water, electricity, and gas disrupted in the area.</li>
+          </ul>
+          <div class="sources tiny">
+            Sources:
+            <a target="_blank" href="https://apnews.com/article/127e504babcf9d70773e4ec67af34952">AP News (17 Jul)</a> ·
+            <a target="_blank" href="https://www.aljazeera.com/news/2026/7/17/eight-killed-at-least-34-missing-after-landslide-in-chinas-chongqing">Al Jazeera (17 Jul)</a>
+          </div>
+        </div>
+
+        <!-- Cox's Bazar Landslides -->
+        <div class="card event escalate">
+          <div class="top">
+            <div class="title">Landslides & Flash Floods — Rohingya Camps, Cox’s Bazar, Bangladesh</div>
+            <div class="priority escalate">ESCALATE</div>
+          </div>
+          <div class="divider"></div>
+          <ul>
+            <li>People impact: Fatalities, including children; highly vulnerable displaced population at risk.</li>
+            <li>Infrastructure: Camp conditions destabilized; humanitarian partners coordinating emergency response.</li>
+          </ul>
+          <div class="sources tiny">
+            Source: <a target="_blank" href="https://www.unicef.org/bangladesh/en/press-releases/statement-unicef-landslides-rohingya-refugee-camps-coxs-bazar">UNICEF (9 Jul)</a>
+          </div>
+        </div>
+
+        <!-- France Wildfire -->
+        <div class="card event escalate">
+          <div class="top">
+            <div class="title">Wildfire — Fontainebleau, near Paris, France</div>
+            <div class="priority escalate">ESCALATE</div>
+          </div>
+          <div class="divider"></div>
+          <ul>
+            <li>People impact: Residential evacuations due to wildfire threat during a regional heat emergency.</li>
+            <li>Infrastructure: Disrupted train lines; partial closure of A6 motorway.</li>
+          </ul>
+          <div class="sources tiny">
+            Sources:
+            <a target="_blank" href="https://apnews.com/article/9231f354a12af0d1fd40aff4f759240b">AP News (13 Jul)</a> ·
+            <a target="_blank" href="https://www.aljazeera.com/news/2026/7/13/wildfires-near-paris-force-evacuations-disrupt-train-lines-and-motorway">Al Jazeera (13 Jul)</a>
+          </div>
+        </div>
+
+        <!-- Spain Wildfire -->
+        <div class="card event escalate">
+          <div class="top">
+            <div class="title">Wildfire — Almería Province, Southern Spain</div>
+            <div class="priority escalate">ESCALATE</div>
+          </div>
+          <div class="chips">
+            <span class="chip">12–13 deaths (reports vary)</span>
+            <span class="chip">1,400+ evacuated</span>
+          </div>
+          <div class="divider"></div>
+          <ul>
+            <li>People impact: Multiple fatalities; burn injuries reported; evacuations across affected communities.</li>
+            <li>Infrastructure: >6,000 hectares burned; homes and communities threatened.</li>
+            <li>Uncertainty: Fatality counts vary across reporting cycles.</li>
+          </ul>
+          <div class="sources tiny">
+            Sources:
+            <a target="_blank" href="https://www.theguardian.com/world/2026/jul/10/wildfire-southern-spain-temperatures-almeria-los-gallardos-bedar">The Guardian (10 Jul)</a> ·
+            <a target="_blank" href="https://www.theguardian.com/world/2026/jul/12/uk-couple-burned-semi-conscious-almeria-spanish-wildfires">The Guardian (12 Jul)</a> ·
+            <a target="_blank" href="https://apnews.com/article/bd2e57363665a66e18b73ea5806501d0">AP News (15 Jul)</a>
+          </div>
+        </div>
+
+        <!-- Peru Earthquake -->
+        <div class="card event escalate">
+          <div class="top">
+            <div class="title">Earthquake — Near Sicaya, Peru</div>
+            <div class="priority escalate">ESCALATE</div>
+          </div>
+          <div class="divider"></div>
+          <ul>
+            <li>People impact: At least six dead; >30 injured; ~300 displaced.</li>
+            <li>Infrastructure: Building collapses in affected area.</li>
+          </ul>
+          <div class="sources tiny">
+            Source:
+            <a target="_blank" href="https://www.theguardian.com/world/natural--disasters">The Guardian (19 Jul)</a>
+          </div>
+        </div>
+
+        <!-- Northeast US Flash Floods -->
+        <div class="card event escalate">
+          <div class="top">
+            <div class="title">Flash Floods — Northeastern United States</div>
+            <div class="priority escalate">ESCALATE</div>
+          </div>
+          <div class="divider"></div>
+          <ul>
+            <li>People impact: At least two deaths; hundreds of rescues during torrential rain.</li>
+            <li>Infrastructure: Flash‑flood warnings and flooding across multiple communities.</li>
+          </ul>
+          <div class="sources tiny">
+            Source:
+            <a target="_blank" href="https://www.theguardian.com/us-news/2026/jul/18/flash-flood-weather-north-east-us">The Guardian (18 Jul)</a>
+          </div>
+        </div>
+
+        <!-- Southern China Flooding -->
+        <div class="card event escalate">
+          <div class="top">
+            <div class="title">Flooding — Southern China (Tropical Storm Maysak)</div>
+            <div class="priority escalate">ESCALATE</div>
+          </div>
+          <div class="divider"></div>
+          <ul>
+            <li>People impact: 39 deaths reported.</li>
+            <li>Infrastructure: Mud and debris require extensive cleanup and disinfection.</li>
+          </ul>
+          <div class="sources tiny">
+            Source:
+            <a target="_blank" href="https://www.aljazeera.com/amp/news/2026/7/9/flooding-from-tropical-storm-maysak-kills-39-in-southern-china">Al Jazeera (9 Jul)</a>
+          </div>
+        </div>
+
+        <!-- North America Wildfire Smoke -->
+        <div class="card event escalate">
+          <div class="top">
+            <div class="title">Wildfire & Smoke — Minnesota wilderness; Midwest–Northeast U.S.; Ontario, Canada</div>
+            <div class="priority escalate">ESCALATE</div>
+          </div>
+          <div class="chips">
+            <span class="chip">Evacuations</span>
+            <span class="chip">Unhealthy air quality</span>
+          </div>
+          <div class="divider"></div>
+          <ul>
+            <li>People impact: Thousands evacuated from a remote Minnesota wilderness; unhealthy smoke exposure across multiple U.S. states.</li>
+            <li>Infrastructure: Remote access constraints complicate evacuation; broad air‑quality degradation affects daily life.</li>
+          </ul>
+          <div class="sources tiny">
+            Sources:
+            <a target="_blank" href="https://apnews.com/article/08d3fb58a434a5d42803ab1c2bbda0b3">AP News (15 Jul)</a> ·
+            <a target="_blank" href="https://apnews.com/article/21b616e6fef1af907abef4aba6f5dfb4">AP News (18 Jul)</a> ·
+            <a target="_blank" href="https://www.investing.com/news/world-news/canada-prepares-to-evacuate-ontario-community-as-wildfire-smoke-chokes-us-4799628">Investing.com (18 Jul)</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- MONITOR -->
+      <h3><span class="pill"><span class="dot orange"></span> MONITOR</span></h3>
+      <div class="grid cols-2">
+        <!-- Tropical Storm Gulf Coast -->
+        <div class="card event monitor">
+          <div class="top">
+            <div class="title">Tropical Storm — Florida Panhandle & Alabama Gulf Coast, USA</div>
+            <div class="priority monitor">MONITOR</div>
+          </div>
+          <div class="divider"></div>
+          <ul>
+            <li>Outlook: Heavy rain, storm surge, and damaging wind possible; preparedness actions (sandbags, coastal advisories) underway.</li>
+            <li>Action: Track NHC advisories; monitor surge zones and low‑lying communities.</li>
+          </ul>
+          <div class="sources tiny">
+            Source:
+            <a target="_blank" href="https://apnews.com/article/f77a94b86d8c87b4825cad82185f4a13">AP News (21 Jul)</a>
+          </div>
+        </div>
+
+        <!-- Mexico-Guatemala Quake (limited damage) -->
+        <div class="card event monitor">
+          <div class="top">
+            <div class="title">Earthquake — Chiapas–Guatemala Border Region</div>
+            <div class="priority monitor">MONITOR</div>
+          </div>
+          <div class="divider"></div>
+          <ul>
+            <li>Impact: Evacuations and limited injuries reported; no major structural damage confirmed.</li>
+            <li>Action: Monitor aftershocks, landslide‑prone corridors, and cross‑border impact on services.</li>
+          </ul>
+          <div class="sources tiny">
+            Source:
+            <a target="_blank" href="https://apnews.com/article/5fd814654cc71416982a2b3b5e85aea6">AP News (17 Jul)</a>
+          </div>
+        </div>
+
+        <!-- U.S. Heat Dome -->
+        <div class="card event monitor">
+          <div class="top">
+            <div class="title">Heatwave — United States</div>
+            <div class="priority monitor">MONITOR</div>
+          </div>
+          <div class="divider"></div>
+          <ul>
+            <li>Outlook: Prolonged dangerous heat and elevated overnight temperatures increase health risk for millions.</li>
+            <li>Action: Expand cooling access and risk communications for sensitive groups.</li>
+          </ul>
+          <div class="sources tiny">
+            Source:
+            <a target="_blank" href="https://apnews.com/article/808787f73a64aecbffb334b4fcbf33b6">AP News (11 Jul)</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- IGNORE -->
+      <h3><span class="pill"><span class="dot green"></span> IGNORE</span></h3>
+      <div class="card">
+        <div class="tiny">No IGNORE‑level incidents designated this cycle. Items previously labeled “ignore” were consolidated into monitoring where situational awareness remains warranted.</div>
+      </div>
+    </section>
+
+    <!-- Source Reference Section -->
+    <section class="section">
+      <h2>Source References</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <h4>Al Jazeera</h4>
+          <ul class="tiny">
+            <li><a target="_blank" href="https://www.aljazeera.com/news/2026/7/18/venezuela-quake-death-toll-tops-5000-as-imf-releases-emergency-aid">Venezuela quake death toll tops 5,000 (18 Jul)</a></li>
+            <li><a target="_blank" href="https://www.aljazeera.com/news/2026/7/17/eight-killed-at-least-34-missing-after-landslide-in-chinas-chongqing">Landslide in Chongqing (17 Jul)</a></li>
+            <li><a target="_blank" href="https://www.aljazeera.com/news/2026/7/13/wildfires-near-paris-force-evacuations-disrupt-train-lines-and-motorway">Wildfires near Paris (13 Jul)</a></li>
+            <li><a target="_blank" href="https://www.aljazeera.com/amp/news/2026/7/9/flooding-from-tropical-storm-maysak-kills-39-in-southern-china">Tropical Storm Maysak flooding (9 Jul)</a></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>AP News</h4>
+          <ul class="tiny">
+            <li><a target="_blank" href="https://apnews.com/article/af0dbdc06870732e52f8d10bcebb5385">Europe heatwave excess mortality (17 Jul)</a></li>
+            <li><a target="_blank" href="https://apnews.com/article/616ad82c32b5728d8a0f894c5e602b24">Texas Hill Country floods (16 Jul)</a></li>
+            <li><a target="_blank" href="https://apnews.com/article/1e9b9ddbdd2a8963cccc707aee0d362e">South Texas flooding rescues, evacuations (15 Jul)</a></li>
+            <li><a target="_blank" href="https://apnews.com/article/127e504babcf9d70773e4ec67af34952">Chongqing landslide update (17 Jul)</a></li>
+            <li><a target="_blank" href="https://apnews.com/article/9231f354a12af0d1fd40aff4f759240b">Wildfire near Paris disrupts transport (13 Jul)</a></li>
+            <li><a target="_blank" href="https://apnews.com/article/08d3fb58a434a5d42803ab1c2bbda0b3">Minnesota wilderness evacuations; smoke (15 Jul)</a></li>
+            <li><a target="_blank" href="https://apnews.com/article/bd2e57363665a66e18b73ea5806501d0">Southern Spain wildfire fatalities identified (15 Jul)</a></li>
+            <li><a target="_blank" href="https://apnews.com/article/21b616e6fef1af907abef4aba6f5dfb4">Unhealthy air warnings; Canada evacuations (18 Jul)</a></li>
+            <li><a target="_blank" href="https://apnews.com/article/f77a94b86d8c87b4825cad82185f4a13">Tropical storm prep Gulf Coast (21 Jul)</a></li>
+            <li><a target="_blank" href="https://apnews.com/article/5fd814654cc71416982a2b3b5e85aea6">M7.3 quake Mexico–Guatemala border (17 Jul)</a></li>
+            <li><a target="_blank" href="https://apnews.com/article/808787f73a64aecbffb334b4fcbf33b6">U.S. heat dome (11 Jul)</a></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>The Guardian</h4>
+          <ul class="tiny">
+            <li><a target="_blank" href="https://www.theguardian.com/us-news/2026/jul/16/texas-flooding-emergency-latest">Texas flooding emergency (16 Jul)</a></li>
+            <li><a target="_blank" href="https://www.theguardian.com/us-news/2026/jul/11/missouri-flooding-airlift-rescue">Missouri camp airlift & rescues (11 Jul)</a></li>
+            <li><a target="_blank" href="https://www.theguardian.com/us-news/2026/jul/10/missouri-state-of-emergency-floods">Missouri state of emergency (10 Jul)</a></li>
+            <li><a target="_blank" href="https://www.theguardian.com/world/2026/jul/10/wildfire-southern-spain-temperatures-almeria-los-gallardos-bedar">Southern Spain wildfire (10 Jul)</a></li>
+            <li><a target="_blank" href="https://www.theguardian.com/world/2026/jul/12/uk-couple-burned-semi-conscious-almeria-spanish-wildfires">Spain wildfire injuries (12 Jul)</a></li>
+            <li><a target="_blank" href="https://www.theguardian.com/us-news/2026/jul/18/flash-flood-weather-north-east-us">Northeast U.S. flash floods (18 Jul)</a></li>
+            <li><a target="_blank" href="https://www.theguardian.com/world/natural--disasters">Peru quake tag page (19 Jul)</a></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>UNICEF</h4>
+          <ul class="tiny">
+            <li><a target="_blank" href="https://www.unicef.org/emergencies/venezuela-earthquakes">Venezuela earthquakes (24 Jun)</a></li>
+            <li><a target="_blank" href="https://www.unicef.org/mozambique/en/reports/mozambique-flash-update-1">Mozambique floods flash update (Date: Unknown)</a></li>
+            <li><a target="_blank" href="https://www.unicef.org/bangladesh/en/press-releases/statement-unicef-landslides-rohingya-refugee-camps-coxs-bazar">Cox’s Bazar landslides statement (9 Jul)</a></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Other</h4>
+          <ul class="tiny">
+            <li><a target="_blank" href="https://transcripts.cnn.com/show/sitroom/date/2026-07-16/segment/01">CNN Transcript: Texas flooding (16 Jul)</a></li>
+            <li><a target="_blank" href="https://www.investing.com/news/world-news/canada-prepares-to-evacuate-ontario-community-as-wildfire-smoke-chokes-us-4799628">Investing.com: Ontario wildfire smoke (18 Jul)</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      Open Source Intelligence Assessment — Generated from AI‑assisted RSS intelligence analysis. Links provided for source verification.
+    </footer>
+  </div>
+</body>
+</html>

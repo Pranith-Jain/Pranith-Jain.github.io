@@ -1,0 +1,167 @@
+{
+  "category": "URL",
+  "count": 23,
+  "feeds": [
+    {
+      "vendor": "Abuse.ch",
+      "description": "Recent Payload delivery domains and Botnet C2 domains",
+      "category": "URL",
+      "url": "https://threatfox.abuse.ch/export/csv/urls/recent/",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Github",
+      "description": "APT Notes",
+      "category": "URL",
+      "url": "https://raw.githubusercontent.com/aptnotes/data/master/APTnotes.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "drb-ra",
+      "description": "domainC2swithURLwithIP-30day-filter-abused",
+      "category": "URL",
+      "url": "https://github.com/drb-ra/C2IntelFeeds/blob/master/feeds/domainC2swithURLwithIP-30day-filter-abused.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "drb-ra",
+      "description": "domainC2s",
+      "category": "URL",
+      "url": "https://github.com/drb-ra/C2IntelFeeds/blob/master/feeds/domainC2s.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Abuse.ch",
+      "description": "Recent Malware URLs",
+      "category": "URL",
+      "url": "https://urlhaus.abuse.ch/downloads/csv_recent/",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Phishing Army",
+      "description": "The Blocklist to filter Phishing",
+      "category": "URL",
+      "url": "https://phishing.army/download/phishing_army_blocklist.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Phishing Army",
+      "description": "The Blocklist to filter Phishing. This is the extended version also contains domains without subdomains.",
+      "category": "URL",
+      "url": "https://phishing.army/download/phishing_army_blocklist_extended.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Today)",
+      "category": "URL",
+      "url": "https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/today.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Week)",
+      "category": "URL",
+      "url": "https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/week.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Month)",
+      "category": "URL",
+      "url": "https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/month.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Year)",
+      "category": "URL",
+      "url": "https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/year.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "OpenPhish",
+      "description": "Phishing URLs",
+      "category": "URL",
+      "url": "https://openphish.com/feed.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "PhishTank",
+      "description": "Phishing URLs",
+      "category": "URL",
+      "url": "http://data.phishtank.com/data/online-valid.json",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "Cert.PL",
+      "description": "Recent Phishing Domains",
+      "category": "URL",
+      "url": "https://hole.cert.pl/domains/domains.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "CyberCure",
+      "description": "Blocked URL Feed",
+      "category": "URL",
+      "url": "https://api.cybercure.ai/feed/get_url?type=csv",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "ThreatMon",
+      "description": "The Daily C2 Feed is a community contribution provided by ThreatMon Cyber Threat Intelligence under the name TM Threat Intelligence, which provides users with command-and-control (C2) servers that malware uses to exfiltrate data from the computer infected with the malware, limited for everyone's safety. Note that the file changes every day.",
+      "category": "URL",
+      "url": "https://github.com/ThreatMon/ThreatMon-Daily-C2-Feeds",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "urlabuse",
+      "description": "URL ABUSE BLACKLIST FEED BY URLABUSE.COM",
+      "category": "URL",
+      "url": "https://urlabuse.com/public/data/data.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "urlabuse",
+      "description": "Malware Domain Feed APK",
+      "category": "URL",
+      "url": "https://urlabuse.com/public/data/malware_url.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "urlabuse",
+      "description": "Phishing URL feed",
+      "category": "URL",
+      "url": "https://urlabuse.com/public/data/phishing_url.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "urlabuse",
+      "description": "Hacked URL feed",
+      "category": "URL",
+      "url": "https://urlabuse.com/public/data/hacked_url.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "urlabuse",
+      "description": "Malware Domain Feed APK",
+      "category": "URL",
+      "url": "https://urlabuse.com/public/data/malware_url.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "DigitalSide Threat-Intel",
+      "description": "DigitalSide Threat-Intel URLs last 7 days",
+      "category": "URL",
+      "url": "https://osint.digitalside.it/Threat-Intel/lists/latesturls.txt",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "threatview.io",
+      "description": "URL Blocklist Malicious URL's serving malware, phishing, botnets and C2",
+      "category": "URL",
+      "url": "https://threatview.io/Downloads/URL-High-Confidence-Feed.txt",
+      "feedStatus": "Active"
+    }
+  ]
+}

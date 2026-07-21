@@ -21,7 +21,7 @@ interface ChatSession {
 }
 
 function generateId(): string {
-  return `chat_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
+  return `chat_${Date.now()}_${crypto.randomUUID()}`;
 }
 
 const CVE_ANYWHERE = /CVE-\d{4}-\d{4,}/i;

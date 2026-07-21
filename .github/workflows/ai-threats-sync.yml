@@ -1,0 +1,67 @@
+name: AI Threat Actors sync (weekly)
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch: {}
+
+concurrency:
+  group: ai-threats-sync
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install
+        run: npm ci --no-fund || npm install --no-fund
+
+      - name: Sync upstream (Cybershujin tracker)
+        run: node scripts/sync-ai-threats.mjs
+
+      - name: Build manifest
+        run: node scripts/build-ai-threats.mjs
+
+      - name: Show diff stat
+        run: |
+          echo "=== public/data/ai-threats/ changed files ==="
+          git status --short public/data/ai-threats/ | head -40
+          echo "=== staging folder size ==="
+          du -sh ai-threats-staging/ || true
+
+      - name: Open PR if data changed
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore(ai-threats): sync AI threat actors from Cybershujin tracker"
+          title: "AI Threat Actors upstream sync — ${{ github.event.schedule || 'manual' }}"
+          body: |
+            Automated weekly sync of AI threat actor intelligence data.
+
+            Re-runs `scripts/sync-ai-threats.mjs` (Cybershujin tracker) and
+            `scripts/build-ai-threats.mjs` (manifest rebuild). Review the diff
+            in `public/data/ai-threats/` and merge if the data looks correct.
+
+            Source: https://cybershujin.github.io/Threat-Actors-use-of-Artifical-Intelligence/
+
+            Trigger: `${{ github.event_name }}`
+            Run:     `${{ github.run_id }}`
+          branch: chore/ai-threats-sync
+          delete-branch: true
+          add-paths: |
+            public/data/ai-threats/
+            ai-threats-staging/

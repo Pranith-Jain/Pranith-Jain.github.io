@@ -1,15 +1,15 @@
 {
   "slug": "qilin-cafar-2026-07-17",
   "title": "Cafar",
-  "group": "Qilin",
-  "discovered": "2026-07-17T00:00:00.000Z",
+  "group": "qilin",
+  "discovered": "2026-07-17T16:57:50.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": "Argentina",
+  "country": "AR",
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated in ransomware attack",
-  "source_url": "https://recentbreaches.com/breach/cafar-qilin-2026-07",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/09d16a9d-32b4-43ec-8fb7-a660ef0af6d0",
   "groupAliases": [],
   "activity": "Agriculture and Food Production",
-  "references": ["RecentBreaches.com"]
+  "references": ["Darkfield"]
 }

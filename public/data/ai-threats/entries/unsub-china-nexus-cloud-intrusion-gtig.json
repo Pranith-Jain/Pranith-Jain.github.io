@@ -1,0 +1,13 @@
+{
+  "slug": "unsub-china-nexus-cloud-intrusion-gtig",
+  "name": "UnSub (China-nexus, cloud intrusion) — GTIG",
+  "akas": "UnSub",
+  "brief": "Suspected China-nexus actor leveraged Gemini across intrusion stages — reconnaissance, phishing/payload-delivery research, lateral movement, in-victim C2 support, and data-exfiltration help — including on unfamiliar surfaces (AWS, vSphere, Kubernetes). GTIG",
+  "ttps": ["T1021", "T1071", "T1567", "T1590"],
+  "categories": ["LLM-informed reconnaissance"],
+  "reported": "Nov 2025",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 257,
+  "ttpMd": "**LLM-informed reconnaissance** T1590 - Gather Victim Network Information<br><br>T1021 - Remote Services (lateral movement)<br><br>T1071 - Application Layer Protocol (C2)<br><br>T1567 - Exfiltration Over Web Service"
+}

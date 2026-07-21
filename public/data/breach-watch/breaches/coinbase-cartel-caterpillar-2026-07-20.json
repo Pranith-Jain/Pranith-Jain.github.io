@@ -1,0 +1,15 @@
+{
+  "slug": "coinbase-cartel-caterpillar-2026-07-20",
+  "title": "Caterpillar",
+  "group": "coinbase cartel",
+  "discovered": "2026-07-20T20:56:13.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Manufacturing - $67 Billion",
+  "source_url": "https://www.ransomlook.io/screenshots/coinbase cartel/Caterpillar.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

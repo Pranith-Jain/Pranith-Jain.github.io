@@ -1,15 +1,15 @@
 {
   "slug": "qilin-powder-river-heating-air-conditioning-2026-07-18",
   "title": "Powder River Heating & Air Conditioning",
-  "group": "Qilin",
-  "discovered": "2026-07-18T00:00:00.000Z",
+  "group": "qilin",
+  "discovered": "2026-07-18T00:06:49.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": "United States",
+  "country": "US",
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated in ransomware attack",
-  "source_url": "https://recentbreaches.com/breach/powder-river-heating-air-conditioning-qilin-2026-07",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/015943b1-e669-408b-9c40-90eea94d4602",
   "groupAliases": [],
   "activity": "Consumer Services",
-  "references": ["RecentBreaches.com"]
+  "references": ["Darkfield"]
 }

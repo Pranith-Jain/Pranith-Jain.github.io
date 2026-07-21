@@ -12,7 +12,9 @@ export function sseStream<T>(producer: (write: (event: string, data: T) => void)
         const errorPayload = `event: error\ndata: ${JSON.stringify({ message: err instanceof Error ? err.message : String(err) })}\n\n`;
         try {
           controller.enqueue(encoder.encode(errorPayload));
-        } catch {}
+        } catch (e) {
+          console.warn(JSON.stringify({ error: e instanceof Error ? e.message : String(e) }));
+        }
       } finally {
         controller.close();
       }

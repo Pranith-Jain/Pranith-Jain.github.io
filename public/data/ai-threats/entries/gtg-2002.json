@@ -1,0 +1,18 @@
+{
+  "slug": "gtg-2002",
+  "name": "GTG-2002",
+  "akas": "\"vibe hacking\" data-extortion actor (Anthropic)",
+  "brief": "Used Claude Code as an active operational agent across at least 17 organizations (healthcare, emergency services, government, religious) in roughly a month: automated reconnaissance, credential harvesting, and network penetration, then analyzed exfiltrated data to size ransom demands ($75K–$500K+ in BTC) and generated per-victim custom HTML ransom notes. First confirmed AI-run extortion operation. Anthropic",
+  "ttps": ["T1567", "T1587.001", "T1657"],
+  "categories": [
+    "LLM-orchestrated operations",
+    "LLM-aided development",
+    "LLM-enhanced extortion/negotiation",
+    "LLM-directed Automated Collection"
+  ],
+  "reported": "Aug 2025",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 410,
+  "ttpMd": "**LLM-orchestrated operations** TA0002 - Execution<br><br>**LLM-aided development** T1587.001 - Develop Capabilities: Malware<br><br>**LLM-enhanced extortion/negotiation** T1657 - Financial Theft<br><br>**LLM-directed Automated Collection** T1567 - Exfiltration Over Web Service"
+}

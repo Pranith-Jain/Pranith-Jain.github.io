@@ -1,0 +1,13 @@
+{
+  "slug": "unsub-china-nexus-ctf-pretext-gtig",
+  "name": "UnSub (China-nexus, CTF-pretext) — GTIG",
+  "akas": "UnSub",
+  "brief": "Misused Gemini to craft lures, build infrastructure, and develop data-exfiltration tooling; when refused, reframed prompts as a \"capture-the-flag (CTF) exercise\" to defeat guardrails, then applied the pretext to advance phishing, exploitation, and web-shell development. GTIG",
+  "ttps": ["T1505.003", "T1566"],
+  "categories": ["LLM-supported social engineering"],
+  "reported": "Nov 2025",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 275,
+  "ttpMd": "**LLM-supported social engineering** T1566 - Phishing<br><br>T1505.003 - Server Software Component: Web Shell"
+}

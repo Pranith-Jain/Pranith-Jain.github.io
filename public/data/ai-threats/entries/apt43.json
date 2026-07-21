@@ -1,0 +1,19 @@
+{
+  "slug": "apt43",
+  "name": "APT43",
+  "akas": "Lazarus, Emerald Sleet, Velvet Chollima, Kimsuky, TA406, Thallium",
+  "brief": "North Korean threat actor with recent operations relied on spear-phishing emails to compromise and gather intelligence from prominent individuals with expertise on North Korea. Microsoft observed Emerald Sleet impersonating reputable academic institutions and NGOs to lure victims into replying with expert insights and commentary about foreign policies related to North Korea. Emerald Sleet’s use of LLMs has been in support of this activity and involved research into think tanks and experts on North Korea, as well as the generation of content likely to be used in spear-phishing campaigns. Emerald Sleet also interacted with LLMs to understand publicly known vulnerabilities, to troubleshoot technical issues, and for assistance with using various web technologies. Microsoft This account of the use of AI was also reported by Mandiant in their 23-00016993 and 24-00002657 reports. Mandiant's 2024 reporting also mentions APT43 purchasing WormGPT in August 2023. Reports from Feb 2024 APT43 was observed on forums discussing ChatGPT along a topic about (toughly translated) \"North Korean nuclear solution\" In another report, Mandiant describes, \"We identified indications of North Korean cyber espionage actor APT43 interest in LLMs, specifically Mandiant observed evidence suggesting the group has logged on to widely available LLM tools. The group may potentially leverage LLMs to enable their operations, however the intended purpose is unclear. \" Source [Update 2026-03] Microsoft (with OpenAI) observed Emerald Sleet using LLMs to research the publicly reported vulnerability CVE-2022-30190 (MSDT \"Follina\"). Microsoft",
+  "ttps": ["T1566", "T1588", "T1588.006", "T1592"],
+  "categories": [
+    "LLM-assisted  vulnerability research",
+    "LLM-enhanced scripting techniques",
+    "LLM-supported social engineering",
+    "LLM-informed reconnaissance",
+    "DeepFake for Impersonation"
+  ],
+  "reported": "Feb 2024",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 1627,
+  "ttpMd": "**LLM-assisted  vulnerability research**   T1588.006 Obtain Capabilities: Vulnerabilities   <br><br>   **LLM-enhanced scripting techniques**   T1588 - Develop Capabilities: Tool  <br><br>    **LLM-supported social engineering**   T1566 - Phishing   <br><br>   **LLM-informed reconnaissance**   T1592 - Gather Victim Org Information      Based on Mandiants 24-00002657 report, <br><br>**DeepFake for Impersonation** (TTP  unknown, not clear how actors used generated images from MaxAi[.]me and ZMO  AI"
+}

@@ -1,0 +1,18 @@
+{
+  "slug": "multiple-unsub-trend-micro",
+  "name": "Multiple Unsub - Trend Micro",
+  "akas": "unknown akas",
+  "brief": "Criminals are using generative AI capabilities for two purposes: To support the development of malware or malicious tools...To improve their social engineering tricks. Trend Micro",
+  "ttps": ["T1059", "T1566", "T1588"],
+  "categories": [
+    "LLM-enhanced scripting techniques",
+    "LLM-supported social engineering",
+    "LLM-enhanced scripting techniques:",
+    "DeepFake for Impersonation (Fraud):"
+  ],
+  "reported": "May 2024",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 179,
+  "ttpMd": "**LLM-enhanced scripting techniques**   T1588 - Develop Capabilities: Tool<br><br> **LLM-supported social engineering**   T1566 - Phishing <br><br> **LLM-enhanced scripting techniques:** Execution through Windows Management Instrumentation (WMI) or PowerShell (T1059)   <br><br> **DeepFake for Impersonation (Fraud):** Where generative AI is used to make audio, video or photographic media used to impersonate individuals"
+}

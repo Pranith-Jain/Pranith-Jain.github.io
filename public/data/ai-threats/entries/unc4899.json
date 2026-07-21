@@ -1,0 +1,13 @@
+{
+  "slug": "unc4899",
+  "name": "UNC4899",
+  "akas": "PUKCHONG (DPRK; supply-chain compromise, TraderTraitor/Lazarus cluster)",
+  "brief": "Used Gemini to develop code, research exploits (with a focus on edge devices and modern browsers), and improve tooling. GTIG",
+  "ttps": ["T1195", "T1587.001", "T1588.006"],
+  "categories": ["LLM-assisted vulnerability research", "LLM-aided development"],
+  "reported": "Nov 2025",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 124,
+  "ttpMd": "**LLM-assisted vulnerability research** T1588.006 - Obtain Capabilities: Vulnerabilities<br><br>**LLM-aided development** T1587.001 - Develop Capabilities: Malware<br><br>T1195 - Supply Chain Compromise"
+}

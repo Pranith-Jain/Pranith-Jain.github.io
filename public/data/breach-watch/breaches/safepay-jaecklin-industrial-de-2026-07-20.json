@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-jaecklin-industrial-de-2026-07-20",
+  "title": "jaecklin-industrial.de",
+  "group": "safepay",
+  "discovered": "2026-07-20T19:06:29.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/f655c30e-9112-4e6f-bcd3-485cfc52c479",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["Darkfield"]
+}

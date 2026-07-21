@@ -120,7 +120,13 @@ export const siEdgeToolsRouter = new Hono<{ Bindings: Env }>();
 
 // PARSE-X
 siEdgeToolsRouter.post('/si/parse', async (c) => {
-  const body = await c.req.json().catch(() => null);
+  let body: unknown;
+  try {
+    body = await c.req.json();
+  } catch (e) {
+    console.warn('parse body failed:', e instanceof Error ? e.message : String(e));
+    return c.json({ error: 'invalid_json_body' }, 400);
+  }
   const parsed = ParseRequestSchema.safeParse(body);
   if (!parsed.success) return badRequest(c, `invalid_body: ${parsed.error.message}`);
   try {
@@ -140,7 +146,13 @@ siEdgeToolsRouter.post('/si/parse', async (c) => {
 
 // MAILSCOPE
 siEdgeToolsRouter.post('/si/mailscope', async (c) => {
-  const body = await c.req.json().catch(() => null);
+  let body: unknown;
+  try {
+    body = await c.req.json();
+  } catch (e) {
+    console.warn('parse body failed:', e instanceof Error ? e.message : String(e));
+    return c.json({ error: 'invalid_json_body' }, 400);
+  }
   const parsed = MailScopeRequestSchema.safeParse(body);
   if (!parsed.success) return badRequest(c, `invalid_body: ${parsed.error.message}`);
   try {
@@ -175,7 +187,13 @@ siEdgeToolsRouter.get('/si/shiftlog', async (c) => {
 });
 
 siEdgeToolsRouter.post('/si/shiftlog', async (c) => {
-  const body = await c.req.json().catch(() => null);
+  let body: unknown;
+  try {
+    body = await c.req.json();
+  } catch (e) {
+    console.warn('parse body failed:', e instanceof Error ? e.message : String(e));
+    return c.json({ error: 'invalid_json_body' }, 400);
+  }
   const parsed = ShiftLogCreateSchema.safeParse(body);
   if (!parsed.success) return badRequest(c, `invalid_body: ${parsed.error.message}`);
   try {
@@ -203,7 +221,13 @@ siEdgeToolsRouter.get('/si/shiftlog/:id', async (c) => {
 
 siEdgeToolsRouter.patch('/si/shiftlog/:id', async (c) => {
   const id = c.req.param('id');
-  const body = await c.req.json().catch(() => null);
+  let body: unknown;
+  try {
+    body = await c.req.json();
+  } catch (e) {
+    console.warn('parse body failed:', e instanceof Error ? e.message : String(e));
+    return c.json({ error: 'invalid_json_body' }, 400);
+  }
   const parsed = ShiftLogUpdateSchema.safeParse(body);
   if (!parsed.success) return badRequest(c, `invalid_body: ${parsed.error.message}`);
   try {
@@ -219,7 +243,13 @@ siEdgeToolsRouter.patch('/si/shiftlog/:id', async (c) => {
 
 siEdgeToolsRouter.post('/si/shiftlog/:id/close', async (c) => {
   const id = c.req.param('id');
-  const body = await c.req.json().catch(() => ({}));
+  let body: unknown;
+  try {
+    body = await c.req.json();
+  } catch (e) {
+    console.warn('parse body failed:', e instanceof Error ? e.message : String(e));
+    return c.json({ error: 'invalid_json_body' }, 400);
+  }
   const endedAt = (body as { endedAt?: string })?.endedAt;
   try {
     const mod = await loadShiftLogMod();
@@ -234,7 +264,13 @@ siEdgeToolsRouter.post('/si/shiftlog/:id/close', async (c) => {
 
 // HYPOS
 siEdgeToolsRouter.post('/si/hypos', async (c) => {
-  const body = await c.req.json().catch(() => null);
+  let body: unknown;
+  try {
+    body = await c.req.json();
+  } catch (e) {
+    console.warn('parse body failed:', e instanceof Error ? e.message : String(e));
+    return c.json({ error: 'invalid_json_body' }, 400);
+  }
   const parsed = HyposRequestSchema.safeParse(body);
   if (!parsed.success) return badRequest(c, `invalid_body: ${parsed.error.message}`);
   try {
@@ -287,7 +323,13 @@ siEdgeToolsRouter.get('/si/promptvault/:slug', async (c) => {
 });
 
 siEdgeToolsRouter.post('/si/promptvault', async (c) => {
-  const body = await c.req.json().catch(() => null);
+  let body: unknown;
+  try {
+    body = await c.req.json();
+  } catch (e) {
+    console.warn('parse body failed:', e instanceof Error ? e.message : String(e));
+    return c.json({ error: 'invalid_json_body' }, 400);
+  }
   const parsed = PromptVaultCreateSchema.safeParse(body);
   if (!parsed.success) return badRequest(c, `invalid_body: ${parsed.error.message}`);
   try {
@@ -302,7 +344,13 @@ siEdgeToolsRouter.post('/si/promptvault', async (c) => {
 
 siEdgeToolsRouter.post('/si/promptvault/:slug/rate', async (c) => {
   const slug = c.req.param('slug');
-  const body = await c.req.json().catch(() => null);
+  let body: unknown;
+  try {
+    body = await c.req.json();
+  } catch (e) {
+    console.warn('parse body failed:', e instanceof Error ? e.message : String(e));
+    return c.json({ error: 'invalid_json_body' }, 400);
+  }
   const parsed = PromptVaultRateSchema.safeParse(body);
   if (!parsed.success) return badRequest(c, `invalid_body: ${parsed.error.message}`);
   try {

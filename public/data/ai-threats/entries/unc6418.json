@@ -1,0 +1,13 @@
+{
+  "slug": "unc6418",
+  "name": "UNC6418",
+  "akas": "UnSub (GTIG; targets Ukraine/defense)",
+  "brief": "Misused Gemini for targeted intelligence gathering — hunting sensitive account credentials and email addresses — after which GTIG observed those same accounts hit in a phishing campaign against Ukraine and the defense sector. GTIG",
+  "ttps": ["T1566", "T1589"],
+  "categories": ["LLM-informed reconnaissance", "LLM-supported social engineering"],
+  "reported": "Feb 2026",
+  "activity": "Q4 2025 (Oct-Dec 2025)",
+  "table": "main",
+  "sizeBytes": 230,
+  "ttpMd": "**LLM-informed reconnaissance** T1589 - Gather Victim Identity Information<br><br>**LLM-supported social engineering** T1566 - Phishing"
+}

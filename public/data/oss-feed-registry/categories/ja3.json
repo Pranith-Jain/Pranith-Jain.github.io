@@ -1,0 +1,13 @@
+{
+  "category": "JA3",
+  "count": 1,
+  "feeds": [
+    {
+      "vendor": "Abuse.ch",
+      "description": "JA3 Fingerprints",
+      "category": "JA3",
+      "url": "https://sslbl.abuse.ch/blacklist/ja3_fingerprints.csv",
+      "feedStatus": "Active"
+    }
+  ]
+}

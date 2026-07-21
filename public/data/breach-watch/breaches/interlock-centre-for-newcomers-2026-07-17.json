@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "CA",
   "sizeBytes": 0,
-  "description": "The Newcomers Center provides immigration services aimed at supporting newcomers and creating a welcoming community. They maintain complete information about their clients in their databases, but they fail to ensure the security of this data. Due to their negligence toward their clients and employees, this data has been compromised. We offer you 380 GB of personal client data, company financial information, its current status and reporting, and human resources planning and policies.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/370532bc-79df-442e-967f-0323f334a4c2",
   "groupAliases": [],
   "activity": "Public Sector",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

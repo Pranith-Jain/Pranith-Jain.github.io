@@ -1,0 +1,15 @@
+{
+  "slug": "nova-jrd-logistics-2026-07-20",
+  "title": "Jrd logistics",
+  "group": "nova",
+  "discovered": "2026-07-20T15:05:13.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/d08cd9bc-ebc5-4812-91f1-471266880628",
+  "groupAliases": [],
+  "activity": "Transportation/Logistics",
+  "references": ["Darkfield"]
+}

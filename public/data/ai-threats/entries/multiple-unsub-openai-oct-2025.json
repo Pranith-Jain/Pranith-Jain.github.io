@@ -1,0 +1,13 @@
+{
+  "slug": "multiple-unsub-openai-oct-2025",
+  "name": "Multiple UnSub — OpenAI (Oct 2025)",
+  "akas": "RU-, KR-, CN-language clusters",
+  "brief": "OpenAI disrupted accounts where (a) Russian-language actors refined malware including RATs and credential stealers plus evasion; (b) Korean-language operators developed C2 systems; and (c) alleged China-linked actors crafted phishing and debugged malware targeting Taiwan's semiconductor sector, US academia and political groups. OpenAI's framing: actors \"bolt AI onto old playbooks,\" gaining no novel capability. OpenAI",
+  "ttps": ["T1059", "T1071", "T1566", "T1587.001"],
+  "categories": ["LLM-aided development", "LLM-supported social engineering", "LLM-enhanced scripting techniques"],
+  "reported": "Oct 2025",
+  "activity": "2025",
+  "table": "main",
+  "sizeBytes": 420,
+  "ttpMd": "**LLM-aided development** T1587.001 - Develop Capabilities: Malware<br><br>T1071 - Application Layer Protocol (C2 development)<br><br>**LLM-supported social engineering** T1566 - Phishing<br><br>**LLM-enhanced scripting techniques** T1059 - Command and Scripting Interpreter"
+}

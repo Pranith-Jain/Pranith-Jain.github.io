@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-synergy-products-2026-07-19",
+  "title": "Synergy Products",
+  "group": "qilin",
+  "discovered": "2026-07-19T18:09:22.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "TR",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/ba7e1672-ab3e-4e2c-b4c6-9d5e5587b10f",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["Darkfield"]
+}

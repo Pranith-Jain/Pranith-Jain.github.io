@@ -1,0 +1,13 @@
+{
+  "slug": "unsub-huntress-ai-generated-ad-recon",
+  "name": "UnSub — Huntress (AI-generated AD recon)",
+  "akas": "UnSub",
+  "brief": "An unnamed actor deployed an AI-generated PowerShell script (self-labeled \"100% Working AD Information Gathering Script - FULLY FIXED\") to enumerate Active Directory, alongside s5cmd and SharpShares. Huntress via The Hacker News",
+  "ttps": ["T1059.001", "T1069", "T1087"],
+  "categories": ["LLM-enhanced scripting techniques"],
+  "reported": "Jul 2026",
+  "activity": "Jun 2026",
+  "table": "main",
+  "sizeBytes": 228,
+  "ttpMd": "**LLM-enhanced scripting techniques** T1059.001 - Command and Scripting Interpreter: PowerShell<br><br>T1087 - Account Discovery<br><br>T1069 - Permission Groups Discovery"
+}

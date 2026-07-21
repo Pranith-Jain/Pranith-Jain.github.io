@@ -136,6 +136,15 @@ export const HUB_META: readonly HubMeta[] = [
         keywords: ['x', 'twitter', 'verdict', 'consensus'],
       },
       {
+        path: '/dfir/oss-feeds',
+        tabId: 'oss-feeds',
+        label: 'OSS Feed Registry',
+        desc: 'Curated catalog of 145+ free open-source threat intel feeds — IP, DNS, URL, hash, CVE, JA3, and more. Search by vendor, category, or keyword.',
+        compVar: 'OssFeeds',
+        badge: 'new',
+        keywords: ['feed', 'ioc', 'threat intel', 'open source', 'catalog', 'ip', 'dns', 'url', 'hash', 'cve', 'ja3'],
+      },
+      {
         path: '/dfir/orkl',
         tabId: 'orkl',
         label: 'ORKL Library Search',
@@ -1051,6 +1060,15 @@ export const HUB_META: readonly HubMeta[] = [
         label: 'Agent Map',
         desc: "Visualise an agent's reachable tools and data sources",
         compVar: 'AgentMap',
+      },
+      {
+        path: '/dfir/ai-threats',
+        tabId: 'ai-threats',
+        label: 'AI Threat Actors',
+        desc: 'Tracked real-world threat-actor uses of AI/LLMs — 79 entries, MITRE ATT&CK mapped, from the Cybershujin tracker.',
+        compVar: 'AIThreats',
+        badge: 'new',
+        keywords: ['ai', 'llm', 'threat actor', 'apt', 'ttps', 'cybershujin'],
       },
       {
         path: '/dfir/insight-ai',

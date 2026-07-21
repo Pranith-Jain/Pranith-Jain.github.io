@@ -1,0 +1,15 @@
+{
+  "slug": "akira-novasport-s-r-o-2026-07-21",
+  "title": "Novasport s.r.o.",
+  "group": "Akira",
+  "discovered": "2026-07-21T00:00:00.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "Czech Republic",
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated in ransomware attack",
+  "source_url": "https://recentbreaches.com/breach/novasport-s-r-o-akira-2026-07",
+  "groupAliases": ["Megazord"],
+  "activity": "Consumer Services",
+  "references": ["RecentBreaches.com"]
+}

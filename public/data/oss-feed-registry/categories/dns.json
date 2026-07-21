@@ -1,0 +1,118 @@
+{
+  "category": "DNS",
+  "count": 16,
+  "feeds": [
+    {
+      "vendor": "Abuse.ch",
+      "description": "The host file below contains the following datasets observed in the past 6 month: Payload delivery domains and Botnet C2 domains",
+      "category": "DNS",
+      "url": "https://threatfox.abuse.ch/downloads/hostfile/",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "mrlooquer",
+      "description": "Mr. Looquer IOC Feed",
+      "category": "DNS",
+      "url": "https://iocfeed.mrlooquer.com/feed.csv",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Today)",
+      "category": "DNS",
+      "url": "https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/today.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Week)",
+      "category": "DNS",
+      "url": "https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/week.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Month)",
+      "category": "DNS",
+      "url": "https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/month.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Year)",
+      "category": "DNS",
+      "url": "https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/year.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Botvrij.eu",
+      "description": "Blacklist Domain",
+      "category": "DNS",
+      "url": "https://www.botvrij.eu/data/blocklist/blocklist_domain.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "NetCraft",
+      "description": "Cybercrime on Top Level Domains",
+      "category": "DNS",
+      "url": "https://trends.netcraft.com/cybercrime/tlds",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tsirolnik",
+      "description": "Spam Domains",
+      "category": "DNS",
+      "url": "https://raw.githubusercontent.com/tsirolnik/spam-domains-list/master/spamdomains.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "DigitalSide Threat-Intel",
+      "description": "DigitalSide Threat-Intel DNS last 7 days",
+      "category": "DNS",
+      "url": "https://osint.digitalside.it/Threat-Intel/lists/latestdomains.txt",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "virtualfabric",
+      "description": "Domains (pihole, diversion, pfblockerng, personalblocklist, personaldnsfilter) via CDN",
+      "category": "DNS",
+      "url": "https://nocdn.nrd-list.com/0/nrd-list-32-days.txt",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "virtualfabric",
+      "description": "Domains (pihole, diversion, pfblockerng, personalblocklist, personaldnsfilter) direct",
+      "category": "DNS",
+      "url": "https://nocdn.threat-list.com/0/domains.txt",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "virtualfabric",
+      "description": "Adblock Plus Filter List (adguard. adguardhome, ublockorigin, adblockplus, adnauseum, adblock, opera, vivaldi)",
+      "category": "DNS",
+      "url": "https://nocdn.threat-list.com/1/domains.txt",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "threatview.io",
+      "description": "C2 Hunt Feed Infrastructure hosting Command & Control Servers found during Proactive Hunt by Threatview.io",
+      "category": "DNS",
+      "url": "https://threatview.io/Downloads/High-Confidence-CobaltStrike-C2%20-Feeds.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "threatview.io",
+      "description": "Domain Blocklist Malicious Domains identified for phishing/ serving malware/ command and control",
+      "category": "DNS",
+      "url": "https://threatview.io/Downloads/DOMAIN-High-Confidence-Feed.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "ThreatCluster",
+      "description": "High-confidence malicious domains extracted from threat intel reports as they are published",
+      "category": "DNS",
+      "url": "https://threatcluster.io/api/iocs/public/feed.txt",
+      "feedStatus": "Active"
+    }
+  ]
+}

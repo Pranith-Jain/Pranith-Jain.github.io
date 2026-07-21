@@ -1,0 +1,13 @@
+{
+  "slug": "apt27",
+  "name": "APT27",
+  "akas": "Emissary Panda, Iron Tiger, LuckyMouse, Budworm, Bronze Union (PRC)",
+  "brief": "PRC-nexus APT27 leveraged Gemini to accelerate development of a fleet-management application likely to support the operation of an operational relay box (ORB) network (samples had hardcoded maxHops and device-type support). GTIG",
+  "ttps": ["T1583", "T1587.001"],
+  "categories": ["LLM-aided development"],
+  "reported": "May 2026",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 228,
+  "ttpMd": "**LLM-aided development** T1587.001 - Develop Capabilities: Malware<br><br>T1583 - Acquire Infrastructure (ORB network)"
+}

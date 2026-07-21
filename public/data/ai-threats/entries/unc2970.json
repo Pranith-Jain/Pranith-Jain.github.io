@@ -1,0 +1,13 @@
+{
+  "slug": "unc2970",
+  "name": "UNC2970",
+  "akas": "DPRK; \"Operation Dream Job\" recruiter-impersonation cluster (Lazarus-adjacent)",
+  "brief": "Used Gemini to synthesize OSINT and profile high-value targets for campaign planning — searching information on major cybersecurity/defense firms and mapping specific technical job roles and salary data (consistent with fake-recruiter tradecraft). GTIG",
+  "ttps": ["T1566.003", "T1589", "T1591"],
+  "categories": ["LLM-informed reconnaissance"],
+  "reported": "Feb 2026",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 252,
+  "ttpMd": "**LLM-informed reconnaissance** T1591 - Gather Victim Org Information<br><br>T1589 - Gather Victim Identity Information<br><br>Supports T1566.003 - Spearphishing via Service"
+}

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { getJson, postJson, postJsonWithBody } from './adminApi';
+import { SearchFilter } from './SearchFilter';
 
 interface Candidate {
   key: string;
@@ -215,122 +216,142 @@ export default function PendingTab() {
     );
 
   return (
-    <div className="overflow-x-auto">
-      <div className="flex items-center justify-between mb-2">
-        {actionMsg ? <p className="text-xs font-mono text-slate-500 dark:text-slate-400">{actionMsg}</p> : <span />}
-        <button
-          onClick={() => void clearAll()}
-          className="px-2 py-1 border border-rose-200 dark:border-rose-700/60 text-rose-700 dark:text-rose-300 rounded text-xs hover:bg-rose-50 dark:hover:bg-rose-900/30"
-        >
-          Clear all
-        </button>
-      </div>
-      <table className="w-full text-sm">
-        <thead className="text-left text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-          <tr>
-            <th scope="col" className="py-2 pr-4">
-              Type
-            </th>
-            <th scope="col" className="py-2 pr-4">
-              Title
-            </th>
-            <th scope="col" className="py-2 pr-4">
-              Score
-            </th>
-            <th scope="col" className="py-2 pr-4">
-              Rationale
-            </th>
-            <th scope="col" className="py-2 pr-4">
-              Source
-            </th>
-            <th scope="col" className="py-2 pr-4">
-              Discovered
-            </th>
-            <th scope="col" className="py-2">
-              Actions
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {pending.map((c) => {
-            return (
-              <tr
-                key={`${c.type}:${c.key}`}
-                className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] align-top"
+    <SearchFilter
+      items={pending.map((c) => ({ slug: c.key, title: c.title, type: c.type }))}
+      placeholder="Filter pending candidates…"
+    >
+      {(filtered) => {
+        const filteredKeys = new Set(filtered.map((f) => f.slug));
+        const shown = pending.filter((c) => filteredKeys.has(c.key));
+        return (
+          <div className="overflow-x-auto">
+            <div className="flex items-center justify-between mb-2">
+              {actionMsg ? (
+                <p className="text-xs font-mono text-slate-500 dark:text-slate-400">{actionMsg}</p>
+              ) : (
+                <span />
+              )}
+              <button
+                onClick={() => void clearAll()}
+                className="px-2 py-1 border border-rose-200 dark:border-rose-700/60 text-rose-700 dark:text-rose-300 rounded text-xs hover:bg-rose-50 dark:hover:bg-rose-900/30"
               >
-                <td className="py-2 pr-4 text-slate-500 dark:text-slate-400 uppercase text-xs">{c.type}</td>
-                <td className="py-2 pr-4 text-slate-900 dark:text-slate-100">{c.title}</td>
-                <td className="py-2 pr-4 text-slate-700 dark:text-slate-300 tabular-nums">{c.score.toFixed(2)}</td>
-                <td className="py-2 pr-4 text-slate-500 dark:text-slate-400 max-w-md">{c.rationale}</td>
-                <td className="py-2 pr-4 text-xs max-w-[12rem]">
-                  {(() => {
-                    const links = sourceLinksFrom(c.evidence);
-                    if (links.length === 0) return <span className="text-slate-400 dark:text-slate-400">—</span>;
-                    return (
-                      <div className="flex flex-col gap-0.5">
-                        {links.map((u) => {
-                          const st = linkStatusFor(c.evidence, u);
+                Clear all
+              </button>
+            </div>
+            <table className="w-full text-sm">
+              <thead className="text-left text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+                <tr>
+                  <th scope="col" className="py-2 pr-4">
+                    Type
+                  </th>
+                  <th scope="col" className="py-2 pr-4">
+                    Title
+                  </th>
+                  <th scope="col" className="py-2 pr-4">
+                    Score
+                  </th>
+                  <th scope="col" className="py-2 pr-4">
+                    Rationale
+                  </th>
+                  <th scope="col" className="py-2 pr-4">
+                    Source
+                  </th>
+                  <th scope="col" className="py-2 pr-4">
+                    Discovered
+                  </th>
+                  <th scope="col" className="py-2">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {shown.map((c) => {
+                  return (
+                    <tr
+                      key={`${c.type}:${c.key}`}
+                      className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] align-top"
+                    >
+                      <td className="py-2 pr-4 text-slate-500 dark:text-slate-400 uppercase text-xs">{c.type}</td>
+                      <td className="py-2 pr-4 text-slate-900 dark:text-slate-100">{c.title}</td>
+                      <td className="py-2 pr-4 text-slate-700 dark:text-slate-300 tabular-nums">
+                        {c.score.toFixed(2)}
+                      </td>
+                      <td className="py-2 pr-4 text-slate-500 dark:text-slate-400 max-w-md">{c.rationale}</td>
+                      <td className="py-2 pr-4 text-xs max-w-[12rem]">
+                        {(() => {
+                          const links = sourceLinksFrom(c.evidence);
+                          if (links.length === 0) return <span className="text-slate-400 dark:text-slate-400">—</span>;
                           return (
-                            <span key={u} className="flex items-center gap-1 truncate">
-                              <span className={`shrink-0 ${statusColor(st)} cursor-default`} title={statusTitle(st)}>
-                                {statusBadge(st)}
-                              </span>
-                              <a
-                                href={u}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                title={u}
-                                className="text-blue-600 dark:text-blue-400 hover:underline truncate"
-                              >
-                                {hostOf(u)}
-                              </a>
-                            </span>
+                            <div className="flex flex-col gap-0.5">
+                              {links.map((u) => {
+                                const st = linkStatusFor(c.evidence, u);
+                                return (
+                                  <span key={u} className="flex items-center gap-1 truncate">
+                                    <span
+                                      className={`shrink-0 ${statusColor(st)} cursor-default`}
+                                      title={statusTitle(st)}
+                                    >
+                                      {statusBadge(st)}
+                                    </span>
+                                    <a
+                                      href={u}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      title={u}
+                                      className="text-blue-600 dark:text-blue-400 hover:underline truncate"
+                                    >
+                                      {hostOf(u)}
+                                    </a>
+                                  </span>
+                                );
+                              })}
+                            </div>
                           );
-                        })}
-                      </div>
-                    );
-                  })()}
-                </td>
-                <td className="py-2 pr-4 text-slate-600 dark:text-slate-500 text-xs whitespace-nowrap">
-                  {new Date(c.discoveredAt).toLocaleString()}
-                </td>
-                <td className="py-2 whitespace-nowrap">
-                  <div className="flex flex-wrap gap-1">
-                    <button
-                      onClick={() => approve(c.key, c.type)}
-                      className="px-2 py-1 bg-emerald-100 dark:bg-emerald-700/40 border border-emerald-200 dark:border-emerald-600/60 rounded text-xs hover:bg-emerald-200 dark:hover:bg-emerald-700/60"
-                    >
-                      Approve
-                    </button>
-                    <button
-                      onClick={() => skip(c.key, c.type)}
-                      className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
-                    >
-                      Skip
-                    </button>
-                    <GenerateBtn
-                      label="LI"
-                      title="Generate a LinkedIn draft from this candidate"
-                      busy={generating[`${c.key}:linkedin`]}
-                      ok={genResults[`${c.key}:linkedin`]?.ok as boolean | undefined}
-                      onClick={() => generate(c, 'linkedin')}
-                    />
-                    <GenerateBtn
-                      label="X"
-                      title="Generate an X / Twitter draft from this candidate"
-                      busy={generating[`${c.key}:twitter`]}
-                      ok={genResults[`${c.key}:twitter`]?.ok as boolean | undefined}
-                      onClick={() => generate(c, 'twitter')}
-                    />
-                  </div>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      {socialPreview && <SocialPreviewPanel preview={socialPreview} onClose={() => setSocialPreview(null)} />}
-    </div>
+                        })()}
+                      </td>
+                      <td className="py-2 pr-4 text-slate-600 dark:text-slate-500 text-xs whitespace-nowrap">
+                        {new Date(c.discoveredAt).toLocaleString()}
+                      </td>
+                      <td className="py-2 whitespace-nowrap">
+                        <div className="flex flex-wrap gap-1">
+                          <button
+                            onClick={() => approve(c.key, c.type)}
+                            className="px-2 py-1 bg-emerald-100 dark:bg-emerald-700/40 border border-emerald-200 dark:border-emerald-600/60 rounded text-xs hover:bg-emerald-200 dark:hover:bg-emerald-700/60"
+                          >
+                            Approve
+                          </button>
+                          <button
+                            onClick={() => skip(c.key, c.type)}
+                            className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
+                          >
+                            Skip
+                          </button>
+                          <GenerateBtn
+                            label="LI"
+                            title="Generate a LinkedIn draft from this candidate"
+                            busy={generating[`${c.key}:linkedin`]}
+                            ok={genResults[`${c.key}:linkedin`]?.ok as boolean | undefined}
+                            onClick={() => generate(c, 'linkedin')}
+                          />
+                          <GenerateBtn
+                            label="X"
+                            title="Generate an X / Twitter draft from this candidate"
+                            busy={generating[`${c.key}:twitter`]}
+                            ok={genResults[`${c.key}:twitter`]?.ok as boolean | undefined}
+                            onClick={() => generate(c, 'twitter')}
+                          />
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+            {socialPreview && <SocialPreviewPanel preview={socialPreview} onClose={() => setSocialPreview(null)} />}
+          </div>
+        );
+      }}
+    </SearchFilter>
   );
 }
 

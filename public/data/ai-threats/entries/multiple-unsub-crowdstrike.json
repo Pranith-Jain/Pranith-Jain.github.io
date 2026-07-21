@@ -1,0 +1,13 @@
+{
+  "slug": "multiple-unsub-crowdstrike",
+  "name": "Multiple UnSub — CrowdStrike",
+  "akas": "UnSub (eCrime)",
+  "brief": "CrowdStrike's 2026 Global Threat Report: adversaries exploited legitimate GenAI tools at 90+ organizations by injecting malicious prompts to generate commands used to steal credentials and cryptocurrency (no named actor). CrowdStrike also reports ChatGPT referenced in criminal forums 550% more than any other model, and an 89% YoY rise in AI-enabled operations. *Bias note: vendor sells EDR/identity products.* CrowdStrike",
+  "ttps": ["T1059", "T1555", "T1657"],
+  "categories": ["LLM-enhanced scripting techniques"],
+  "reported": "Feb 2026",
+  "activity": "2025",
+  "table": "main",
+  "sizeBytes": 423,
+  "ttpMd": "**LLM-enhanced scripting techniques** T1059 - Command and Scripting Interpreter<br><br>T1555 - Credentials from Password Stores<br><br>T1657 - Financial Theft"
+}

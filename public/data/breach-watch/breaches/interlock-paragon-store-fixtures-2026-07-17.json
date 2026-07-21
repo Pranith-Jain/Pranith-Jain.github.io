@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Paragon Store Fixtures specializes in custom display cases, retail fixtures, and interior design elements for luxury stores, beauty salons, offices, restaurants, and entertainment venues. A security breach resulted in the breach of partnership agreements, resulting in the intellectual property of both the company and its clients. Internal design files were exposed, including work completed for clients in the high-end retail sector and luxury brands. Due to the company's negligence, contracts, architectural plans, and confidential design documentation became public. The identities of clients and projects have now been revealed.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/f580615f-e057-4795-9f33-c94a0b36c86e",
   "groupAliases": [],
   "activity": "Manufacturing",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

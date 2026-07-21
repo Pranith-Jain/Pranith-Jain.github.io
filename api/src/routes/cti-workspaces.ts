@@ -6,7 +6,7 @@ import type { D1Database } from '@cloudflare/workers-types';
 // ─── Helpers ──────────────────────────────────────────────────────────
 
 function genId(prefix: string): string {
-  return `${prefix}_${Math.random().toString(36).slice(2, 10)}`;
+  return `${prefix}_${crypto.randomUUID()}`;
 }
 
 async function ensureWorkspaceTables(db: D1Database): Promise<void> {

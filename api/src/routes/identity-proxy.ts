@@ -37,6 +37,8 @@ export async function identityProxyHandler(c: Context<{ Bindings: Env }>): Promi
     return c.json(null);
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'upstream fetch failed' }, 502);
+    return c.json({ error: e instanceof Error ? e.message : 'upstream fetch failed' }, 502, {
+      'Cache-Control': 'no-store',
+    });
   }
 }

@@ -1,0 +1,15 @@
+{
+  "slug": "anubis-fairlife-coca-cola-2026-07-20",
+  "title": "Fairlife / Coca-Cola",
+  "group": "anubis",
+  "discovered": "2026-07-20T15:23:28.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/d72085da-de5d-4686-bb2c-d9d21dfab0cb",
+  "groupAliases": [],
+  "activity": "Agriculture and Food Production",
+  "references": ["Darkfield"]
+}

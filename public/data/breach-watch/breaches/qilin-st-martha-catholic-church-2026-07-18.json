@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-st-martha-catholic-church-2026-07-18",
+  "title": "St Martha Catholic Church",
+  "group": "qilin",
+  "discovered": "2026-07-18T13:35:16.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/b4bf0d3d-4eab-4a52-860a-48ff46fbbba8",
+  "groupAliases": [],
+  "activity": "Consumer Services",
+  "references": ["Darkfield"]
+}

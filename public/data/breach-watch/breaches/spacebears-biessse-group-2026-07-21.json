@@ -1,0 +1,15 @@
+{
+  "slug": "spacebears-biessse-group-2026-07-21",
+  "title": "BiesSse Group",
+  "group": "spacebears",
+  "discovered": "2026-07-21T09:07:52.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/cb4b560b-be5b-4230-ae28-8bfb8294a74f",
+  "groupAliases": ["space bears"],
+  "activity": "Business Services",
+  "references": ["Darkfield"]
+}

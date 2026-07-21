@@ -1,0 +1,13 @@
+{
+  "slug": "promptflux",
+  "name": "PROMPTFLUX",
+  "akas": "UnSub (GTIG; likely financially motivated)",
+  "brief": "Experimental VBScript dropper with a \"Thinking Robot\" module that calls the Gemini API at runtime to request VBScript obfuscation/evasion techniques for \"just-in-time\" self-modification, rewriting its own source into the Startup folder; spreads via removable drives and network shares. GTIG assesses it experimental and not yet observed deployed in operations. GTIG",
+  "ttps": ["T1027", "T1059.005", "T1547.001"],
+  "categories": ["LLM-embedded malware (runtime generation)"],
+  "reported": "Nov 2025",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 365,
+  "ttpMd": "**LLM-embedded malware (runtime generation)** T1027 - Obfuscated Files/Information<br><br>T1059.005 - Command and Scripting Interpreter: Visual Basic<br><br>T1547.001 - Registry Run Keys / Startup Folder"
+}

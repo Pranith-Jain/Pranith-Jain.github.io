@@ -1,0 +1,13 @@
+{
+  "slug": "jadepuffer",
+  "name": "JADEPUFFER",
+  "akas": "\"Agentic Threat Actor (ATA)\" (Sysdig)",
+  "brief": "Sysdig's Threat Research Team documented what it assesses as the first fully agentic ransomware operation — an extortion campaign driven end-to-end by an LLM agent. The agent gained initial access to an internet-facing Langflow instance (CVE-2025-3248, unauthenticated Python execution), then autonomously ran reconnaissance, harvested credentials (LLM API keys, cloud, database, crypto wallets), moved laterally (MinIO default credentials, Nacos compromise), established persistence (a crontab beacon every 30 minutes), and executed impact — AES-encrypting 1,342 Nacos configurations, dropping database tables, and writing a ransom note — across 600+ coordinated payloads. Sysdig's evidence that it was LLM-driven: self-narrating payload commentary, machine-speed error diagnosis/correction (a failed Nacos login was root-caused and fixed in 31 seconds), natural-language context comprehension, and structured task-completion markers. *Bias note: Sysdig sells cloud/runtime security.* Sysdig",
+  "ttps": ["T1190", "T1486", "T1552", "T1657"],
+  "categories": ["LLM-orchestrated operations", "LLM-enhanced extortion/negotiation"],
+  "reported": "Jul 2026",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 992,
+  "ttpMd": "**LLM-orchestrated operations** TA0002 - Execution (full end-to-end kill-chain)<br><br>T1190 - Exploit Public-Facing Application<br><br>T1552 - Unsecured Credentials<br><br>T1486 - Data Encrypted for Impact<br><br>**LLM-enhanced extortion/negotiation** T1657 - Financial Theft"
+}

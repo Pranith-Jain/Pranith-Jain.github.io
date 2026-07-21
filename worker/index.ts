@@ -74,7 +74,9 @@ export default {
         const h = new Headers(ogRes.headers);
         h.set('x-request-id', requestId);
         return withSecurityHeaders(
-          new Response(ogRes.body, { status: ogRes.status, statusText: ogRes.statusText, headers: h })
+          new Response(ogRes.body, { status: ogRes.status, statusText: ogRes.statusText, headers: h }),
+          undefined,
+          url.origin
         );
       } catch (err) {
         console.error('handleOgImage failed', err);
@@ -86,7 +88,7 @@ export default {
     if (url.pathname.startsWith('/api/v1/blog-image/')) {
       try {
         const imgRes = await handleBlogImage(url, env);
-        return withSecurityHeaders(imgRes);
+        return withSecurityHeaders(imgRes, undefined, url.origin);
       } catch (err) {
         console.error('handleBlogImage failed', err);
         return new Response('internal error', { status: 500, headers: { 'x-request-id': requestId } });
@@ -131,7 +133,9 @@ export default {
             status: apiRes.status,
             statusText: apiRes.statusText,
             headers: h,
-          })
+          }),
+          undefined,
+          url.origin
         );
       } catch (err) {
         console.error('apiApp.fetch failed', err);
@@ -148,10 +152,11 @@ export default {
         const body = injectScriptNonce(await assetRes.text(), nonce);
         return withSecurityHeaders(
           new Response(body, { headers: { 'content-type': 'text/html;charset=UTF-8' } }),
-          nonce
+          nonce,
+          url.origin
         );
       }
-      return withSecurityHeaders(assetRes);
+      return withSecurityHeaders(assetRes, undefined, url.origin);
     }
 
     // SPA shell fallback — serve prerendered HTML or the shell for client routing
@@ -171,7 +176,8 @@ export default {
         statusText: html.statusText,
         headers: h,
       }),
-      nonce
+      nonce,
+      url.origin
     );
   },
 

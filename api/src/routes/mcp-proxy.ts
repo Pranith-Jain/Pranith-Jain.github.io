@@ -89,7 +89,7 @@ export async function mcpProxyHandler(c: Context<{ Bindings: Env }>): Promise<Re
   // Build the upstream request. jsonrpc id is required for the
   // initialize handshake; subsequent calls can omit it (they become
   // notifications). We let the client decide.
-  const id = body.method === 'initialize' ? 1 : Math.floor(Math.random() * 1e9);
+  const id = body.method === 'initialize' ? 1 : crypto.randomUUID();
   const upstreamBody: Record<string, unknown> = {
     jsonrpc: '2.0',
     id,

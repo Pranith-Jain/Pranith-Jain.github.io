@@ -122,7 +122,7 @@ function deriveId(url: string): string {
   }
   host = host.replace(/^www\./, '').replace(/[^a-z0-9.-]+/g, '');
   const base = host.split('.').slice(0, -1).join('-') || host || 'entry';
-  const suffix = Math.random().toString(36).slice(2, 6);
+  const suffix = crypto.randomUUID().slice(0, 8);
   return `${base}-${suffix}`
     .replace(/[^a-z0-9-]+/g, '-')
     .replace(/-+/g, '-')

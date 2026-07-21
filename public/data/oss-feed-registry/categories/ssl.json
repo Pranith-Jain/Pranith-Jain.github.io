@@ -1,0 +1,13 @@
+{
+  "category": "SSL",
+  "count": 1,
+  "feeds": [
+    {
+      "vendor": "Abuse.ch",
+      "description": "SSL Certificate Blacklist",
+      "category": "SSL",
+      "url": "https://sslbl.abuse.ch/blacklist/sslblacklist.csv",
+      "feedStatus": "Active"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "slug": "multiple-unsub-fbi-ic3",
+  "name": "Multiple UnSub — FBI/IC3",
+  "akas": "",
+  "brief": "FBI PSA: actors sent AI-generated voice messages (vishing) plus smishing impersonating senior US officials (White House, Cabinet, Congress, state) to build rapport and phish targets onto attacker-controlled platforms.",
+  "ttps": [],
+  "categories": ["DeepFake for Impersonation"],
+  "reported": "Dec 2025",
+  "activity": "2023 – Dec 2025",
+  "table": "deepfake",
+  "sizeBytes": 217,
+  "ttpMd": "**DeepFake for Impersonation**<br><br>Financial/credential fraud"
+}

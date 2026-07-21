@@ -134,9 +134,9 @@ export default function HealthTab() {
       </div>
       {badges.length > 0 && (
         <div className="mt-4 flex flex-wrap gap-2">
-          {badges.map((b, i) => (
+          {badges.map((b) => (
             <span
-              key={i}
+              key={b.text}
               className={
                 b.tone === 'ok'
                   ? 'px-2 py-1 rounded text-xs border border-emerald-700/50 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300'

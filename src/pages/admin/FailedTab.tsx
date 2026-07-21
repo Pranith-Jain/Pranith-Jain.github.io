@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { getJson, postJson } from './adminApi';
+import { SearchFilter } from './SearchFilter';
 
 interface FailureRecord {
   slotId: string;
@@ -88,73 +89,85 @@ export default function FailedTab() {
     );
 
   return (
-    <div>
-      <div className="flex items-center justify-between mb-3">
-        {actionMsg ? (
-          <p className="text-xs font-mono text-slate-500 dark:text-slate-400">{actionMsg}</p>
-        ) : (
-          <p className="text-xs font-mono text-slate-600 dark:text-slate-500">{failures.length} failure(s) recorded</p>
-        )}
-        <button
-          type="button"
-          onClick={() => void clearAll()}
-          disabled={busy !== null}
-          className="px-2.5 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
-        >
-          {busy === '__all' ? 'Clearing…' : 'Clear all'}
-        </button>
-      </div>
-      <div className="overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead className="text-left text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-            <tr>
-              <th scope="col" className="py-2 pr-4">
-                Slot ID
-              </th>
-              <th scope="col" className="py-2 pr-4">
-                Candidate ID
-              </th>
-              <th scope="col" className="py-2 pr-4">
-                Error
-              </th>
-              <th scope="col" className="py-2 pr-4">
-                Failed at
-              </th>
-              <th scope="col" className="py-2 pr-4">
-                Retries
-              </th>
-              <th scope="col" className="py-2">
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {failures.map((f) => (
-              <tr
-                key={`${f.slotId}-${f.failedAt}`}
-                className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] align-top"
+    <SearchFilter items={failures.map((f) => ({ slug: f.slotId, title: f.error }))} placeholder="Filter failures…">
+      {(filtered) => {
+        const filteredKeys = new Set(filtered.map((f) => f.slug));
+        const shown = failures.filter((f) => filteredKeys.has(f.slotId));
+        return (
+          <div>
+            <div className="flex items-center justify-between mb-3">
+              {actionMsg ? (
+                <p className="text-xs font-mono text-slate-500 dark:text-slate-400">{actionMsg}</p>
+              ) : (
+                <p className="text-xs font-mono text-slate-600 dark:text-slate-500">
+                  {failures.length} failure(s) recorded
+                </p>
+              )}
+              <button
+                type="button"
+                onClick={() => void clearAll()}
+                disabled={busy !== null}
+                className="px-2.5 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
               >
-                <td className="py-2 pr-4 font-mono text-xs text-slate-500 dark:text-slate-400">{f.slotId}</td>
-                <td className="py-2 pr-4 font-mono text-xs text-slate-500 dark:text-slate-400">{f.candidateId}</td>
-                <td className="py-2 pr-4 text-rose-700 dark:text-rose-300 max-w-md break-words">{f.error}</td>
-                <td className="py-2 pr-4 text-slate-600 dark:text-slate-500 text-xs whitespace-nowrap">
-                  {new Date(f.failedAt).toLocaleString()}
-                </td>
-                <td className="py-2 pr-4 text-slate-700 dark:text-slate-300 tabular-nums">{f.retries}</td>
-                <td className="py-2">
-                  <button
-                    onClick={() => clearOne(f.slotId)}
-                    disabled={busy === f.slotId}
-                    className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
-                  >
-                    {busy === f.slotId ? '…' : 'Clear'}
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
+                {busy === '__all' ? 'Clearing…' : 'Clear all'}
+              </button>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead className="text-left text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+                  <tr>
+                    <th scope="col" className="py-2 pr-4">
+                      Slot ID
+                    </th>
+                    <th scope="col" className="py-2 pr-4">
+                      Candidate ID
+                    </th>
+                    <th scope="col" className="py-2 pr-4">
+                      Error
+                    </th>
+                    <th scope="col" className="py-2 pr-4">
+                      Failed at
+                    </th>
+                    <th scope="col" className="py-2 pr-4">
+                      Retries
+                    </th>
+                    <th scope="col" className="py-2">
+                      Actions
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {shown.map((f) => (
+                    <tr
+                      key={`${f.slotId}-${f.failedAt}`}
+                      className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] align-top"
+                    >
+                      <td className="py-2 pr-4 font-mono text-xs text-slate-500 dark:text-slate-400">{f.slotId}</td>
+                      <td className="py-2 pr-4 font-mono text-xs text-slate-500 dark:text-slate-400">
+                        {f.candidateId}
+                      </td>
+                      <td className="py-2 pr-4 text-rose-700 dark:text-rose-300 max-w-md break-words">{f.error}</td>
+                      <td className="py-2 pr-4 text-slate-600 dark:text-slate-500 text-xs whitespace-nowrap">
+                        {new Date(f.failedAt).toLocaleString()}
+                      </td>
+                      <td className="py-2 pr-4 text-slate-700 dark:text-slate-300 tabular-nums">{f.retries}</td>
+                      <td className="py-2">
+                        <button
+                          onClick={() => clearOne(f.slotId)}
+                          disabled={busy === f.slotId}
+                          className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
+                        >
+                          {busy === f.slotId ? '…' : 'Clear'}
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        );
+      }}
+    </SearchFilter>
   );
 }

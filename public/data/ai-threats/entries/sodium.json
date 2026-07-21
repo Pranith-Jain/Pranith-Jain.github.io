@@ -1,0 +1,18 @@
+{
+  "slug": "sodium",
+  "name": "Sodium",
+  "akas": "Salmon Typhoon, Samurai Panda, Maverick Panda, APT4",
+  "brief": "Sophisticated Chinese state-affiliated threat actor with a history of targeting US defense contractors, government agencies, and entities within the cryptographic technology sector. This threat actor has demonstrated its capabilities through the deployment of malware, such as Win32/Wkysol, to maintain remote access to compromised systems. With over a decade of operations marked by intermittent periods of dormancy and resurgence. (Sodium's) interactions with LLMs throughout 2023 appear exploratory and suggest that this threat actor is evaluating the effectiveness of LLMs in sourcing information on potentially sensitive topics, high profile individuals, regional geopolitics, US influence, and internal affairs. This tentative engagement with LLMs could reflect both a broadening of their intelligence-gathering toolkit and an experimental phase in assessing the capabilities of emerging technologies. Microsoft",
+  "ttps": ["T1564", "T1587.001", "T1593"],
+  "categories": [
+    "LLM-informed  reconnaissance",
+    "LLM-enhanced scripting techniques",
+    "LLM-refined operational command techniques",
+    "LLM-Aided technical translation and explanation"
+  ],
+  "reported": "Feb 2024",
+  "activity": "2023",
+  "table": "main",
+  "sizeBytes": 917,
+  "ttpMd": "**LLM-informed  reconnaissance**   T1593 - Search Open Websites/Domains      <br><br>**LLM-enhanced scripting techniques**   T1587.001 - Develop Capabilities: Malware  <br><br>    **LLM-refined operational command techniques**   T1564 - Hide Artifacts   <br><br>   **LLM-Aided technical translation and explanation**   T1593 - Search Open Websites/Domains"
+}

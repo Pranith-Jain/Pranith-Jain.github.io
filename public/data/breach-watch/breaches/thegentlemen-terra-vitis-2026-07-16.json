@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "FR",
   "sizeBytes": 0,
-  "description": "***.com zoominfo.com/c/terra-vitis/447256156 French national certification for sustainable and responsible winegrowing, founded in 1998 by a group of committed Beaujolais winegrowers. It is the only national certification specifically dedicated to the wine sector and is officially recognized by the French Ministry of Agriculture and Food. The association unites nearly 2,000 members across France, guaranteeing environmentally friendly, socially responsible, and economically viable practices from vine to wine glass through strict annual audits",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/8ddbddfd-066d-4423-8e51-99082fecdf22",
   "groupAliases": ["the gentlemen"],
   "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

@@ -55,7 +55,7 @@ const INDEX_CACHE_KEY = 'https://ptm-index-cache.internal/v1';
 const INDEX_CACHE_TTL = 30;
 
 function makeId(): string {
-  return Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8);
+  return Date.now().toString(36) + '-' + crypto.randomUUID().slice(0, 8);
 }
 
 async function loadAll<T>(env: Env, type: string): Promise<T[]> {

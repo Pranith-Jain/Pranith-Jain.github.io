@@ -1,0 +1,15 @@
+{
+  "slug": "payload-ckr-consulting-engineers-2026-07-20",
+  "title": "CKR Consulting Engineers",
+  "group": "payload",
+  "discovered": "2026-07-20T20:56:41.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "CKR Consulting Engineers is a prominent South African engineering consultancy firm headquartered in Johannesburg, established under its current name in 2001. The company provides comprehensive multi-disciplinary services, specializing in electrical, electronic, mechanical, renewable energy, and civil engineering.",
+  "source_url": "https://www.ransomlook.io/screenshots/payload/CKR Consulting Engineers.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

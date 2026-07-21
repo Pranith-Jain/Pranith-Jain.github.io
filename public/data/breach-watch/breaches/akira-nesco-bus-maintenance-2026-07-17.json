@@ -1,15 +1,15 @@
 {
   "slug": "akira-nesco-bus-maintenance-2026-07-17",
   "title": "Nesco Bus Maintenance",
-  "group": "Akira",
-  "discovered": "2026-07-17T00:00:00.000Z",
+  "group": "akira",
+  "discovered": "2026-07-17T12:22:42.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": "United States",
+  "country": null,
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated in ransomware attack",
-  "source_url": "https://recentbreaches.com/breach/nesco-bus-maintenance-akira-2026-07",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/89e50270-4d75-4ce5-b655-1c478a9cc270",
   "groupAliases": ["Megazord"],
   "activity": "Transportation/Logistics",
-  "references": ["RecentBreaches.com"]
+  "references": ["Darkfield"]
 }

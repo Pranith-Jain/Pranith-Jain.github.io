@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "VantagePoint Capital Partners is a global venture investor established in 1996, focusing on energy innovation and efficiency. With over $4 billion under management, the company supports start-up to scale-up companies by providing capital, strategic resources, and partnership alliances. Headquartered in Silicon Valley, VantagePoint also has offices in Beijing, China, and maintains strategic partnerships worldwide. Their diverse portfolio includes a range of entrepreneurs and companies in the energy sector.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/cbe2634c-bf41-4c12-8763-02bc3a014a1d",
   "groupAliases": ["inc ransom", "INC"],
   "activity": "Financial Services",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

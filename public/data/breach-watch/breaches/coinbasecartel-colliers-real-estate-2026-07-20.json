@@ -1,0 +1,15 @@
+{
+  "slug": "coinbasecartel-colliers-real-estate-2026-07-20",
+  "title": "Colliers Real Estate",
+  "group": "coinbasecartel",
+  "discovered": "2026-07-20T14:56:19.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/ea2071df-7b18-4c1a-af04-9031c52978f4",
+  "groupAliases": ["coinbase cartel"],
+  "activity": "Business Services",
+  "references": ["Darkfield"]
+}

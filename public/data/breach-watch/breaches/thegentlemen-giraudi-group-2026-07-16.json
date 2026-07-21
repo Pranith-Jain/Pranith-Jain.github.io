@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "IT",
   "sizeBytes": 0,
-  "description": "***.com zoominfo.com/c/giraudi-group/1157060956v Monaco-based company founded in 1968, specializing in the import, export, and distribution of premium meats, including exclusive Japanese Kobe and certified Black Angus beef. Under the leadership of Riccardo Giraudi, the group has expanded into a comprehensive hospitality and lifestyle brand, owning and managing over 35 restaurants worldwide, most notably the famous Beefbar. The company also operates in the lifestyle sector with fashion, art, and premium spirits, while providing global consulting and franchising services for the food and beverage industry",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/8d7a1afd-328c-4492-bdab-663a9d1d15b9",
   "groupAliases": ["the gentlemen"],
   "activity": "Manufacturing",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

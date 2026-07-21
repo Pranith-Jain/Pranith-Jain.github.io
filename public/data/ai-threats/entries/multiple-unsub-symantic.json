@@ -1,0 +1,17 @@
+{
+  "slug": "multiple-unsub-symantic",
+  "name": "Multiple Unsub - Symantic",
+  "akas": "Unknown",
+  "brief": "Recent malware campaigns observed by Symantec involved phishing emails containing code used to download various payloads, including Rhadamanthys, NetSupport, CleanUpLoader (Broomstick, Oyster), ModiLoader (DBatLoader), LokiBot, and Dunihi (H-Worm). Analysis of the scripts used to deliver malware in these attacks suggests they were generated using LLMs. Symantec",
+  "ttps": ["T1059", "T1566", "T1588"],
+  "categories": [
+    "LLM-enhanced scripting techniques",
+    "LLM-supported social engineering",
+    "LLM-enhanced scripting techniques:"
+  ],
+  "reported": "Jul 2024",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 363,
+  "ttpMd": "**LLM-enhanced scripting techniques**   T1588 - Develop Capabilities: Tool<br><br> **LLM-supported social engineering**   T1566 - Phishing <br><br> **LLM-enhanced scripting techniques:** Execution through Windows Management Instrumentation (WMI) or PowerShell (T1059)"
+}

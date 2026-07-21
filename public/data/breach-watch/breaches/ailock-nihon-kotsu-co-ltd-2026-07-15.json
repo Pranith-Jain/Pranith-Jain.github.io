@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "JP",
   "sizeBytes": 0,
-  "description": "Nihon Kotsu Co., Ltd. is the largest taxi and limousine operator in Japan. For the fiscal year ending May 2025, the company reported an annual consolidated revenue of ¥103.445 billion, with group and partner company sales reaching ¥155.457 billion.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/efbb85c7-be35-4f53-9d8c-554b4173c5ef",
   "groupAliases": [],
   "activity": "Transportation/Logistics",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

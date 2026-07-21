@@ -1,15 +1,15 @@
 {
   "slug": "the-gentlemen-sunway-scientific-2026-07-17",
   "title": "Sunway Scientific",
-  "group": "The Gentlemen",
-  "discovered": "2026-07-17T00:00:00.000Z",
+  "group": "the gentlemen",
+  "discovered": "2026-07-17T19:04:28.000Z",
   "category": "data_breach",
   "severity": "high",
-  "country": "Taiwan",
+  "country": null,
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated in ransomware attack",
-  "source_url": "https://recentbreaches.com/breach/sunway-scientific-thegentlemen-2026-07",
+  "description": "sun-way.com.tw zoominfo.com/c/sunway-scientific-corp/456158414 SUNWAY Co., Ltd., a leading Taiwanese distributor and exclusive agent for international scientific and laboratory equipment brands (such as HETTICH, EYELA, JASCO, and SHASHIN KAGAKU).\nThe company specializes in providing advanced laboratory solutions, including centrifuges, freeze dryers, spectrometers, and cell disruptors for research, biotech, and chemical industries.",
+  "source_url": "https://www.ransomlook.io/recent",
   "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["RecentBreaches.com"]
+  "activity": null,
+  "references": ["ransomlook.io"]
 }

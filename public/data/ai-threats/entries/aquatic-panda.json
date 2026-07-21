@@ -1,0 +1,17 @@
+{
+  "slug": "aquatic-panda",
+  "name": "Aquatic Panda",
+  "akas": "Charcoal Typhoon, ControlX, RedHotel, Bronze University, Red Scully, Chromium",
+  "brief": "Chinese state-affiliated threat actor with a broad operational scope. Activities have predominantly focused on entities within Taiwan, Thailand, Mongolia, Malaysia, France, and Nepal, with observed interests extending to institutions and individuals globally who oppose China’s policies. In recent operations, this actor group has been observed interacting with LLMs in ways that suggest a limited exploration of how LLMs can augment their technical operations. This has consisted of using LLMs to support tooling development, scripting, understanding various commodity cybersecurity tools, and for generating content that could be used to social engineer targets. Microsoft",
+  "ttps": ["T1587", "T1588.006"],
+  "categories": [
+    "LLM-informed  reconnaissance",
+    "LLM-enhanced scripting techniques",
+    "LLM-refined operational command techniques"
+  ],
+  "reported": "Feb 2024",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 674,
+  "ttpMd": "**LLM-informed  reconnaissance**   T1588.006 Obtain Capabilities: Vulnerabilities  <br><br>    **LLM-enhanced scripting techniques**   T1587 - Develop Capabilities     <br><br> **LLM-refined operational command techniques**   TA0003 - Persistence and TA004 Privilege Escalation"
+}

@@ -1,0 +1,13 @@
+{
+  "slug": "unc1069-masan",
+  "name": "UNC1069 (MASAN)",
+  "akas": "",
+  "brief": "A victim reported that during a call they were shown a deepfake video of a CEO from another cryptocurrency company, used to lure them into installing the BIGMACHO backdoor (disguised as a Zoom SDK).",
+  "ttps": [],
+  "categories": ["DeepFake for Impersonation"],
+  "reported": "Nov 2025",
+  "activity": "Unknown",
+  "table": "deepfake",
+  "sizeBytes": 198,
+  "ttpMd": "**DeepFake for Impersonation**<br><br>Financial fraud (crypto)"
+}

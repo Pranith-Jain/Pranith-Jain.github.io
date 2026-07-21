@@ -1,0 +1,13 @@
+{
+  "slug": "temp-zagros",
+  "name": "TEMP.Zagros",
+  "akas": "MUDDYCOAST, MuddyWater, Mango Sandstorm, Static Kitten, Seedworm (Iran)",
+  "brief": "Used Gemini to research and support development of custom malware (a Python C2 server and web shells) — an evolution in the group's capability — using social-engineering pretexts (posing as a student on a final-year project or a paper author) to bypass Gemini's safety guardrails. GTIG",
+  "ttps": ["T1505.003", "T1587.001"],
+  "categories": ["LLM-aided development"],
+  "reported": "Nov 2025",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 285,
+  "ttpMd": "**LLM-aided development** T1587.001 - Develop Capabilities: Malware<br><br>T1505.003 - Server Software Component: Web Shell"
+}

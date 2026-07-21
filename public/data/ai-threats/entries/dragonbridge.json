@@ -1,0 +1,13 @@
+{
+  "slug": "dragonbridge",
+  "name": "DragonBridge",
+  "akas": "",
+  "brief": "In March 2023, DRAGONBRIDGE leveraged several AI-generated images in order to support narratives negatively portraying U.S. leaders. One such image used by DRAGONBRIDGE was originally produced by the journalist Eliot Higgins, who stated in a tweet that he used Midjourney to generate the images, suggesting that he did so to demonstrate the tool’s potential uses.",
+  "ttps": [],
+  "categories": ["DeepFake for Influence Operations"],
+  "reported": "Aug 2023",
+  "activity": "Mar 2023",
+  "table": "deepfake",
+  "sizeBytes": 363,
+  "ttpMd": "**DeepFake for Influence Operations**"
+}

@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "V&P Nurseries is an Arizona-based wholesale grower specializing in drought-tolerant, subtropical, and desert-adapted plants for landscapes across the Southwest. Established in 1978, the company operates production facilities and a tissue culture lab focused on sustainable, water-conservative horticulture. For more information,",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/8121ae0c-10f4-4b16-912b-09a2393a43de",
   "groupAliases": ["inc ransom", "INC"],
   "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

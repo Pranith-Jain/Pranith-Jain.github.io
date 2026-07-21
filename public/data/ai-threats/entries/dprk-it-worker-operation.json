@@ -1,0 +1,13 @@
+{
+  "slug": "dprk-it-worker-operation",
+  "name": "DPRK IT-worker operation",
+  "akas": "",
+  "brief": "DPRK operatives use AI-generated résumés/personas, AI profile photos, and real-time deepfake video to pass job interviews, and Claude to pass coding assessments and perform the work while fraudulently employed, funneling wages to the regime. CrowdStrike (FAMOUS CHOLLIMA) tracked 320+ infiltrated firms (+220% YoY); Microsoft names Jasper Sleet using the Faceswap app to insert workers' faces into stolen IDs; Anthropic confirmed Claude-enabled employment fraud; Amazon reported blocking 1,800+ suspected operatives in 2025.",
+  "ttps": [],
+  "categories": ["DeepFake for Impersonation", "DeepFake for Synthetic Identity"],
+  "reported": "Aug 2025 – Mar 2026",
+  "activity": "Aug 2025 – 2026",
+  "table": "deepfake",
+  "sizeBytes": 524,
+  "ttpMd": "**DeepFake for Impersonation**<br><br>Employment/Hiring fraud<br><br>**DeepFake for Synthetic Identity**"
+}

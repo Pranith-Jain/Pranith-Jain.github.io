@@ -1,0 +1,13 @@
+{
+  "slug": "unknown",
+  "name": "unknown",
+  "akas": "",
+  "brief": "In March 2022, following the Russian invasion of Ukraine, an information operation promoted a fabricated message alleging Ukraine's capitulation to Russia through various means, including via a deepfake video of Ukrainian President Volodymyr Zelensky",
+  "ttps": [],
+  "categories": ["DeepFake for Influence Operations"],
+  "reported": "Aug 2023",
+  "activity": "Mar 2022",
+  "table": "deepfake",
+  "sizeBytes": 250,
+  "ttpMd": "**DeepFake for Influence Operations**"
+}

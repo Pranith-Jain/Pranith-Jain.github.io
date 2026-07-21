@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-city-ambulance-service-2026-07-19",
+  "title": "City Ambulance Service",
+  "group": "qilin",
+  "discovered": "2026-07-19T09:06:42.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/cde60486-cd1b-4bf3-920f-6ea8ba20917a",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["Darkfield"]
+}

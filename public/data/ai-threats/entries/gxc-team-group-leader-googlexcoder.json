@@ -1,0 +1,19 @@
+{
+  "slug": "gxc-team-group-leader-googlexcoder",
+  "name": "GXC Team group leader: googleXcoder",
+  "akas": "",
+  "brief": "Resecurity has uncovered a cybercriminal group known as \"GXC Team\", which specializes in crafting tools for online banking theft, ecommerce fraud, and internet scams. Around November 11th, 2023, the group's leader, operating under the alias \"googleXcoder\", made multiple announcements on the Dark Web. These posts introduced a new tool that incorporates Artificial Intelligence (AI) for creating fraudulent invoices used for wire fraud and Business E-Mail Compromise (BEC) scams. This tool employs proprietary algorithms to scrutinize compromised emails through POP3/IMAP4 protocols, identifying messages that either mention invoices or include attachments with payment details. Upon detection, the tool alters the banking information of the intended recipient (like the victim's supplier) to details specified by the perpetrator. The altered invoice is then either replaced in the original message or sent to a predetermined list of contacts. These methods are commonly employed in wire fraud and well-known bogus invoice scams. Often, accountants and staff in victimized companies do not thoroughly check invoices that appear familiar or nearly genuine, leading to unverified payments. The tool's multi-language capability enables the automatic scanning of messages without any manual intervention, providing the actors with significant advantages. The tool's interface includes options to configure simple mail transfer protocol (SMTP) settings for sending out emails with the fabricated invoices it generates. Moreover, the tool includes a feature that sends reports to a designated Telegram channel, serving as an alternative to traditional command-and-control (C2C) communication. This functionality also extends to providing details about the generated invoices.",
+  "ttps": ["T1114", "T1565", "T1566", "T1588", "T1592", "T1657"],
+  "categories": [
+    "LLM-informed  reconnaissance",
+    "LLM-enhanced scripting techniques",
+    "LLM-supported social engineering",
+    "LLM-directed Automated Collection",
+    "LLM-enhanced data manipulation"
+  ],
+  "reported": "Jan 2024",
+  "activity": "Nov 2023 – Dec 2023",
+  "table": "main",
+  "sizeBytes": 1769,
+  "ttpMd": "**LLM-informed  reconnaissance**   <br>T1592 - Gather Victim Org Information <br/><br/>     **LLM-enhanced scripting techniques**  <br> T1588 - Develop Capabilities: Tool<br/><br/>**LLM-supported social engineering**  <br> T1566 - Phishing   <br/><br/>**LLM-directed Automated Collection**<br>T1114 Email Collection<br><br>**LLM-enhanced data manipulation**<br>T1565 Data Manipulation<br>T1657 Financial Theft<br><br>"
+}

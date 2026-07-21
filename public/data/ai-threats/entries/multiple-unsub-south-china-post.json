@@ -1,0 +1,13 @@
+{
+  "slug": "multiple-unsub-south-china-post",
+  "name": "Multiple UnSub - South China Post",
+  "akas": "",
+  "brief": "Four cyber attackers in China have been arrested for developing ransomware...The attack was first reported by an unidentified company in Hangzhou, capital of eastern Zhejiang province, which had its systems blocked by ransomware, according to a Thursday report by state-run Xinhua News Agency. The hackers demanded 20,000 Tether, a cryptocurrency stablecoin pegged one-to-one to the US dollar, to restore access....The police in late November arrested two suspects in Beijing and two others in Inner Mongolia, who admitted to “writing versions of ransomware, optimising the program with the help of ChatGPT, conducting vulnerability scans, gaining access through infiltration, implanting ransomware, and carrying out extortion”, the report said.",
+  "ttps": ["T1587"],
+  "categories": ["LLM-aided development"],
+  "reported": "Dec 2023",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 745,
+  "ttpMd": "**LLM-aided development**   T1587 - Develop Capabilities: Malware     <br/><br/>"
+}

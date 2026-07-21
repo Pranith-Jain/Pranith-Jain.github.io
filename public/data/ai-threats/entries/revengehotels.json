@@ -1,0 +1,13 @@
+{
+  "slug": "revengehotels",
+  "name": "RevengeHotels",
+  "akas": "TA558 (Kaspersky)",
+  "brief": "Summer-2025 campaigns against Brazilian and Spanish-speaking hotels in which a significant portion of the initial-infector and downloader code appears LLM-generated (clean structure, placeholder variables, verbose per-action comments), delivering VenomRAT (HVNC, stealer, reverse proxy, UAC bypass). *Analyst note: LLM authorship inferred from code style, not captured model logs.* Kaspersky",
+  "ttps": ["T1059", "T1566.001", "T1587.001"],
+  "categories": ["LLM-enhanced scripting techniques", "LLM-aided development"],
+  "reported": "Sep 2025",
+  "activity": "Summer 2025 (Jun-Aug 2025)",
+  "table": "main",
+  "sizeBytes": 391,
+  "ttpMd": "**LLM-enhanced scripting techniques** T1059 - Command and Scripting Interpreter<br><br>**LLM-aided development** T1587.001 - Develop Capabilities: Malware<br><br>T1566.001 - Spearphishing Attachment"
+}

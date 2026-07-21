@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "***.com zoominfo.com/c/advantage-home-health-care-inc/357944466 Advantage Home Health Care, a leading Indiana-owned provider of in-home care services with over 30 years of experience.The company operates multiple locations across Indiana, serving dozens of counties with post-procedure recovery and long-term home assistance.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/dca0dfa4-5352-485f-98cd-31fff7b68c15",
   "groupAliases": ["the gentlemen"],
   "activity": "Healthcare",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

@@ -31,7 +31,7 @@ interface FeedbackAgg {
 const KV_PREFIX = 'feedback:v1';
 
 function generateId(): string {
-  return `fb-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+  return `fb-${Date.now()}-${crypto.randomUUID().slice(0, 8)}`;
 }
 
 /**

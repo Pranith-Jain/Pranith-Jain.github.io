@@ -1,0 +1,13 @@
+{
+  "slug": "unsub1-kaspersky",
+  "name": "Unsub1 - Kaspersky",
+  "akas": "N/A",
+  "brief": "Using fake sites, they hosted “GPT chats” supposedly capable of diagnosing computer problems, making money and such. In fact, the site deployed no AI models, but only used the topic to stir interest with potential victims and make a bigger killing. One such page mimicking the Microsoft website warned visitors that their computer was infected with a Trojan. To avoid losing data, they were advised not to reboot or turn off the device until the issue was resolved. Two options were offered: call a hotline or chat with Lucy, an AI chatbot. In the second case, you had to choose a method of diagnosing the device, after which the bot said it was unable to solve the problem and recommended calling support. Naturally, professional scammers, not Microsoft engineers, were waiting at the other end of the line. *Analyst note: This sounds like Bazacall like activity* Source",
+  "ttps": ["T1583"],
+  "categories": ["Lookalike  LLM"],
+  "reported": "Mar 2024",
+  "activity": "2023",
+  "table": "main",
+  "sizeBytes": 871,
+  "ttpMd": "**Lookalike  LLM**   T1583 Acquire Infrastructure"
+}

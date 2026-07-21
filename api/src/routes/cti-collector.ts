@@ -172,7 +172,13 @@ export async function ctiMutateHandler(c: Context<{ Bindings: Env }>) {
   if (!db) return c.json({ error: 'database unavailable' }, 503);
   if (!ai) return c.json({ error: 'AI binding unavailable' }, 503);
 
-  const body: Record<string, unknown> = await c.req.json().catch(() => ({}));
+  let body: Record<string, unknown>;
+  try {
+    body = await c.req.json<Record<string, unknown>>();
+  } catch (e) {
+    console.warn('parse body failed:', e instanceof Error ? e.message : String(e));
+    return c.json({ error: 'invalid_json_body' }, 400);
+  }
   const input = String(body.input || '');
   if (!input) return c.json({ error: 'input is required' }, 400);
 

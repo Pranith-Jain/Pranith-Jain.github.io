@@ -1,0 +1,15 @@
+{
+  "slug": "nova-t-rra-aventura-2026-07-21",
+  "title": "Tèrra Aventura",
+  "group": "Nova",
+  "discovered": "2026-07-21T00:00:00.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "Portugal",
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated in ransomware attack",
+  "source_url": "https://recentbreaches.com/breach/t-rra-aventura-nova-2026-07",
+  "groupAliases": [],
+  "activity": "Hospitality and Tourism",
+  "references": ["RecentBreaches.com"]
+}

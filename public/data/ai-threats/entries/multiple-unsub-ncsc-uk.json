@@ -1,0 +1,18 @@
+{
+  "slug": "multiple-unsub-ncsc-uk",
+  "name": "Multiple Unsub - NCSC UK",
+  "akas": "N/A",
+  "brief": "Threat actors, including ransomware actors, are already using AI to increase the efficiency and effectiveness of aspects of cyber operations, such as reconnaissance, phishing and coding Source",
+  "ttps": ["T1566", "T1587", "T1593"],
+  "categories": [
+    "LLM-informed  reconnaissance",
+    "LLM-supported social engineering",
+    "LLM-aided development",
+    "LLM-enhanced scripting techniques"
+  ],
+  "reported": "Jan 2024",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 192,
+  "ttpMd": "**LLM-informed  reconnaissance**   T1593 - Search Open Websites/Domains      <br><br>**LLM-supported social engineering**   T1566 - Phishing      <br><br>**LLM-aided development**   T1587 - Develop Capabilities: Tool      <br><br>**LLM-aided development**   T1587 - Develop Capabilities: Malware     <br><br> **LLM-enhanced scripting techniques**   T1587 - Develop Capabilities"
+}

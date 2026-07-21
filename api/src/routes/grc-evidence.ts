@@ -46,7 +46,7 @@ const INDEX_CACHE_KEY = 'https://grc-index-cache.internal/v1';
 const INDEX_CACHE_TTL = 30;
 
 function makeId(): string {
-  return Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8);
+  return Date.now().toString(36) + '-' + crypto.randomUUID().slice(0, 8);
 }
 
 function clampPct(v: number): number {

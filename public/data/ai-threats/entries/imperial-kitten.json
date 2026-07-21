@@ -1,0 +1,17 @@
+{
+  "slug": "imperial-kitten",
+  "name": "Imperial Kitten",
+  "akas": "Crimson Sandstorm, Yellowliderc, Tortoiseshell",
+  "brief": "Iranian threat actor assessed to be connected to the Islamic Revolutionary Guard Corps (IRGC). This actor has targeted multiple sectors, including defense, maritime shipping, transportation, healthcare, and technology. These operations have frequently relied on watering hole attacks and social engineering to deliver custom .NET malware. Prior research also identified custom Crimson Sandstorm malware using email-based command-and-control (C2) channels. The use of LLMs by Crimson Sandstorm has reflected the broader behaviors that the security community has observed from this threat actor. Interactions have involved requests for support around social engineering, assistance in troubleshooting errors, .NET development, and ways in which an attacker might evade detection when on a compromised machine. Microsoft",
+  "ttps": ["T1562.001", "T1566", "T1588"],
+  "categories": [
+    "LLM-supported  social engineering",
+    "LLM-enhanced scripting techniques",
+    "LLM-enhanced anomaly detection evasion"
+  ],
+  "reported": "Feb 2024",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 817,
+  "ttpMd": "**LLM-supported  social engineering**   T1566 - Phishing   <br><br>   **LLM-enhanced scripting techniques**   T1588 - Develop Capabilities: Tool   <br><br>   **LLM-enhanced anomaly detection evasion**   T1562.001 - Impair Defenses: Disable or Modify Tools"
+}

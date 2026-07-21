@@ -59,7 +59,7 @@ interface VeraSession {
 }
 
 function generateId(): string {
-  return `vera_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
+  return `vera_${Date.now()}_${crypto.randomUUID()}`;
 }
 
 function isValidMode(m: unknown): m is VeraMode {

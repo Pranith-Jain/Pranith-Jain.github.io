@@ -72,10 +72,14 @@ export function createIocController(): IocController {
             doubles: [composite.score, composite.contributing],
             indexes: [visitorCountry(c.req.raw)],
           });
-        } catch {}
+        } catch (e) {
+          console.warn(JSON.stringify({ error: e instanceof Error ? e.message : String(e) }));
+        }
         try {
           c.executionCtx.waitUntil(slot.release());
-        } catch {}
+        } catch (e) {
+          console.warn(JSON.stringify({ error: e instanceof Error ? e.message : String(e) }));
+        }
       });
     },
   };

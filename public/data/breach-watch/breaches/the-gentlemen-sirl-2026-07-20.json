@@ -1,0 +1,15 @@
+{
+  "slug": "the-gentlemen-sirl-2026-07-20",
+  "title": "Sirl",
+  "group": "the gentlemen",
+  "discovered": "2026-07-20T20:29:52.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "sirl.pt zoominfo.com/c/sirl/372746430 Portuguese manufacturing company founded in 1988 and headquartered in Penela, Coimbra. It specializes in producing and selling machinery and tools for the civil construction industry.Their flagship products are concrete mixers, complemented by various other construction equipment and welding tools. The company employs 51–200 people and is a recognized supplier in the European construction machinery sector",
+  "source_url": "https://www.ransomlook.io/recent",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

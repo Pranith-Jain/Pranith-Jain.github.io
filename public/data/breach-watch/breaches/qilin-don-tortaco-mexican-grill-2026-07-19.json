@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-don-tortaco-mexican-grill-2026-07-19",
+  "title": "Don Tortaco Mexican Grill",
+  "group": "qilin",
+  "discovered": "2026-07-19T16:05:26.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/e6ae8004-4895-4009-a35c-70d51a4d96af",
+  "groupAliases": [],
+  "activity": "Hospitality and Tourism",
+  "references": ["Darkfield"]
+}

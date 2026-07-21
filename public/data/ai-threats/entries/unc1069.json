@@ -1,0 +1,18 @@
+{
+  "slug": "unc1069",
+  "name": "UNC1069",
+  "akas": "MASAN, CryptoCore (DPRK; BlueNoroff/Lazarus-adjacent)",
+  "brief": "Used Gemini for cryptocurrency research and reconnaissance on where victims' wallet application data is stored, generated multilingual lures, and attempted crypto-theft code. Separately used AI-generated deepfake images/video (including a deepfaked crypto-company CEO on a Zoom call) to lure victims into installing the BIGMACHO backdoor disguised as a Zoom SDK. GTIG (see also the deepfake table below)",
+  "ttps": ["T1566", "T1587", "T1593", "T1656"],
+  "categories": [
+    "LLM-informed reconnaissance",
+    "LLM-supported social engineering",
+    "LLM-aided development",
+    "DeepFake for Impersonation"
+  ],
+  "reported": "Nov 2025",
+  "activity": "2025",
+  "table": "main",
+  "sizeBytes": 403,
+  "ttpMd": "**LLM-informed reconnaissance** T1593 - Search Open Websites/Domains<br><br>**LLM-supported social engineering** T1566 - Phishing<br><br>**LLM-aided development** T1587 - Develop Capabilities<br><br>**DeepFake for Impersonation** T1656 - Impersonation"
+}

@@ -1,0 +1,13 @@
+{
+  "slug": "bitter-apt",
+  "name": "Bitter APT",
+  "akas": "APT-C-08, Aramanberry",
+  "brief": "the group used the online IDE platform Replit to build phishing websites Source",
+  "ttps": ["T1566"],
+  "categories": ["LLM-supported social engineering"],
+  "reported": "Unknown",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 79,
+  "ttpMd": "TA1588.007 - Artifical Intelligence  <br><br> **LLM-supported social engineering**   T1566 - Phishing"
+}

@@ -1,0 +1,396 @@
+{
+  "type": "cyber",
+  "date": "2026-07-20",
+  "threatLevel": "Overall OT Cyber Threat Level: CRITICAL",
+  "executiveSummary": "Multiple, concurrent threats elevate OT/ICS risk to critical. Actively exploited perimeter flaws (Check Point IKEv1 auth bypass; widespread Fortinet credential compromise) and nation‑state activity (PRC covert device networks; Iranian PLC intrusions; pro‑Russia VNC abuse) create credible, near‑term pathways into industrial environments. OT vendors released impactful advisories (Rockwell MNRF controller fault; Rockwell EN2/EN3 DoS; Siemens SICAM 8 issues; SALTO ProAccess escalation), while actively exploited enterprise vectors (Microsoft AD FS/SharePoint; WordPress “WP2Shell”; GeoServer RCE) increase pivot risk to OT. EV charging, building automation, and industrial data acquisition platforms show critical vulnerabilities in recent CISA bulletins. Immediate actions: Disable IKEv1; rotate FortiGate creds; remove OT from internet Prioritize: Rockwell/Siemens patching; SharePoint/AD FS; WordPress Harden: VNC, VPN, identity, and DMZ boundaries",
+  "keyFindings": [
+    {
+      "title": "Perimeter Access Under Active Abuse",
+      "summary": "Check Point IKEv1 auth bypass (CVE-2026-50751) is exploited; FortiGate credentials at scale are compromised (“FortiBleed”), enabling VPN/session hijack and AD credential theft."
+    },
+    {
+      "title": "OT Equipment Disruption Paths",
+      "summary": "Rockwell PLCs susceptible to controller fault (MNRF) and EN2/EN3 DoS; Siemens SICAM 8 DoS-class issues; EV chargers (EVbee DC-80) allow unauth RCE and unsigned firmware."
+    },
+    {
+      "title": "Nation‑State Pre‑Positioning",
+      "summary": "PRC actors leverage covert SOHO/IoT networks; Iranian‑linked actors exploit internet‑exposed PLCs; pro‑Russia hacktivists brute‑force VNC to HMI/SCADA."
+    }
+  ],
+  "dashboard": {
+    "kpis": [
+      { "value": "18", "label": "High‑priority ESCALATE events" },
+      { "value": "30+", "label": "Additional MONITOR items (patching/hardening)" },
+      { "value": "10", "label": "Low‑value/IGNORED items (vendor/promotional)" }
+    ],
+    "activelyExploited": [
+      "Check Point IKEv1 (CVE‑2026‑50751)",
+      "MS SharePoint/AD FS zero‑days",
+      "WordPress “WP2Shell”",
+      "GeoServer CVE‑2024‑36401",
+      "Cisco IOS web UI (CVE‑2008‑4128)"
+    ],
+    "vendors": [
+      "Rockwell Automation",
+      "Siemens SICAM",
+      "SALTO Systems",
+      "Delta Electronics PLC",
+      "PcVue",
+      "ibaPDA",
+      "EVbee",
+      "Rockwell Automation (Logix, EN2/EN3)",
+      "Siemens SICAM 8",
+      "SALTO ProAccess Space",
+      "Delta Electronics PLC / DTMSoft",
+      "PcVue (arcinfo)",
+      "ibaPDA / ibaDatCoordinator",
+      "EVbee DC‑80 EVSE",
+      "Check Point Security Gateways",
+      "Fortinet FortiGate / FortiSandbox",
+      "Palo Alto Networks PAN‑OS (CAS)",
+      "Microsoft AD FS / SharePoint / Exchange / M365 Graph",
+      "WordPress Core",
+      "GeoServer",
+      "Grafana (Snowflake connector)",
+      "Hikvision ISAPI"
+    ],
+    "sectors": [
+      "Energy & Power",
+      "Water/Wastewater",
+      "Critical Manufacturing",
+      "Transportation",
+      "Building Automation",
+      "Food & Agriculture",
+      "Energy (generation, transmission, substations)",
+      "Food & Agriculture (processing)",
+      "Building Automation / Access Control",
+      "Communications"
+    ]
+  },
+  "topThreats": [
+    {
+      "title": "1) Check Point VPN IKEv1 Authentication Bypass (Active)",
+      "action": "Disable IKEv1 for Remote/Mobile Access, patch per vendor JHF guidance, rotate VPN creds/secrets, and review logs from May 7 onward for anomalous RA sessions."
+    },
+    {
+      "title": "2) Fortinet FortiGate Credential Compromise at Scale",
+      "action": "Rotate all FortiGate admin/VPN/API credentials; restrict admin access; validate configs for rogue accounts; investigate AD for credential theft and lateral movement."
+    },
+    {
+      "title": "3) Iranian Actors Targeting PLCs",
+      "action": "Remove PLC internet exposure; enforce OT DMZ and DPI firewalls on CIP/Modbus; lock mode switches; enable engineering authentication and monitor project downloads."
+    },
+    {
+      "title": "4) PRC Covert Networks for Pre‑Positioning",
+      "action": "Patch edge devices (Ivanti, PAN‑OS, Cisco); harden AAA; audit tunnels and SNMP/TACACS+/RADIUS; restrict management to OOB and verify image integrity."
+    },
+    {
+      "title": "5) WordPress Core Pre‑Auth RCE (WP2Shell) — Exploitation Underway",
+      "action": "Update to fixed WordPress versions, deploy WAF rules, hunt for webshells/new admins, restrict egress from web hosts, and isolate DMZ from enterprise/OT."
+    },
+    {
+      "title": "Runner‑up: Rockwell Controller MNRF Fault",
+      "action": "Patch impacted Logix families, enforce RUN keyswitch during operations, restrict programming traffic, and exercise controller recovery runbooks."
+    }
+  ],
+  "threatActors": [
+    { "category": "Nation‑state & APT", "items": [] },
+    { "category": "Hacktivists & Crime", "items": [] },
+    { "category": "Phishing/Social Engineering", "items": [] }
+  ],
+  "cveWatch": [
+    { "category": "Perimeter/Identity", "items": [] },
+    { "category": "OT/ICS", "items": [] },
+    { "category": "Web/DMZ", "items": [] }
+  ],
+  "events": [
+    {
+      "title": "Perimeter Breach Risk: Check Point IKEv1 auth bypass and FortiGate credential compromise",
+      "severity": "red",
+      "text": "Active exploitation of Check Point VPN (CVE‑2026‑50751) enables unauthorized Remote Access sessions when IKEv1 is enabled. Separately, attacker‑controlled databases hold credentials for ~86k FortiGate devices with evidence of mass config exports and offline hash cracking, enabling VPN takeover and AD credential theft. Disable IKEv1; enforce IKEv2 + MFA Rotate FortiGate admin/VPN/API creds Restrict admin plane to OOB/VPN Sources: JPCERT/CC: Check Point CVE‑2026‑50751 JPCERT/CC: Fortinet credential leak",
+      "chips": [
+        "Disable IKEv1; enforce IKEv2 + MFA",
+        "Rotate FortiGate admin/VPN/API creds",
+        "Restrict admin plane to OOB/VPN"
+      ],
+      "sources": [
+        { "url": "https://www.jpcert.or.jp/at/2026/at260016.html", "label": "JPCERT/CC: Check Point CVE‑2026‑50751" },
+        { "url": "https://www.jpcert.or.jp/at/2026/at260019.html", "label": "JPCERT/CC: Fortinet credential leak" }
+      ]
+    },
+    {
+      "title": "Nation‑state Pre‑positioning: PRC covert device networks",
+      "severity": "red",
+      "text": "Coordinated advisory details PRC‑nexus actors routing ops through large covert botnets of compromised SOHO routers/IoT to pre‑position in CNI, increasing risk to OT networks via trusted links. Patch edge CVEs (Ivanti, PAN‑OS, Cisco) Audit tunnels/AAA; enforce SNMPv3 Segment IT↔OT with DPI firewalls Source: CISA AA26‑113a",
+      "chips": [
+        "Patch edge CVEs (Ivanti, PAN‑OS, Cisco)",
+        "Audit tunnels/AAA; enforce SNMPv3",
+        "Segment IT↔OT with DPI firewalls"
+      ],
+      "sources": [
+        { "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-113a", "label": "CISA AA26‑113a" }
+      ]
+    },
+    {
+      "title": "Iranian‑linked PLC intrusions across US critical infrastructure",
+      "severity": "red",
+      "text": "Actors accessed Rockwell/Unitronics PLCs over the internet, deployed Dropbear, manipulated HMI/SCADA, and exfiltrated project files, causing operational impacts in Water/Wastewater and Energy. Remove PLC internet exposure DPI firewalls on 44818/2222/502/102 Lock RUN keyswitch; monitor downloads Source: CISA AA26‑097a",
+      "chips": [
+        "Remove PLC internet exposure",
+        "DPI firewalls on 44818/2222/502/102",
+        "Lock RUN keyswitch; monitor downloads"
+      ],
+      "sources": [
+        { "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-097a", "label": "CISA AA26‑097a" }
+      ]
+    },
+    {
+      "title": "Pro‑Russia hacktivists abusing exposed VNC to HMI/SCADA",
+      "severity": "red",
+      "text": "Opportunistic attacks brute‑force VNC (5900–5910), change parameters, suppress alarms, and lock operators out, causing loss of view and downtime in Water, Food & Ag, and Energy sectors. Eliminate VNC exposure; require VPN+MFA Account lockout/rate limits Continuous external surface monitoring Source: CISA AA25‑343a",
+      "chips": [
+        "Eliminate VNC exposure; require VPN+MFA",
+        "Account lockout/rate limits",
+        "Continuous external surface monitoring"
+      ],
+      "sources": [
+        { "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa25-343a", "label": "CISA AA25‑343a" }
+      ]
+    },
+    {
+      "title": "WordPress Core “WP2Shell” exploitation underway",
+      "severity": "red",
+      "text": "Pre‑auth SQLi→RCE chain is actively exploited to deploy webshells and create admin users on public sites — common in CI operators’ DMZ — enabling staging and potential enterprise/OT pivot. Update to fixed core versions WAF virtual patching; IOC hunts Restrict egress from web hosts Sources: SANS ISC: Exploitation Underway Infosecurity: Researchers build exploit heise: Nextcloud incident (WordPress)",
+      "chips": ["Update to fixed core versions", "WAF virtual patching; IOC hunts", "Restrict egress from web hosts"],
+      "sources": [
+        { "url": "https://isc.sans.edu/diary/rss/33168", "label": "SANS ISC: Exploitation Underway" },
+        {
+          "url": "https://www.infosecurity-magazine.com/news/researchers-wordpress-exploit/",
+          "label": "Infosecurity: Researchers build exploit"
+        },
+        {
+          "url": "https://www.heise.de/news/Nextcloud-Cyberangriff-auf-Webserver-mit-ungeschickter-Kommunikation-11371959.html",
+          "label": "heise: Nextcloud incident (WordPress)"
+        }
+      ]
+    },
+    {
+      "title": "Rockwell Logix families — Major Non‑Recoverable Fault (MNRF)",
+      "severity": "red",
+      "text": "Invalid project load can fault controllers (halt). Patches available for 5370/5570/5380/5480/5580 lines. Limit programming access and rehearse recovery. Patch controllers & recovery images RUN keyswitch during ops Monitor for program load attempts Source: CISA ICSA‑26‑197‑06",
+      "chips": ["Patch controllers & recovery images", "RUN keyswitch during ops", "Monitor for program load attempts"],
+      "sources": [
+        { "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-197-06", "label": "CISA ICSA‑26‑197‑06" }
+      ]
+    },
+    {
+      "title": "Critical OT/Embedded vulnerabilities (CISA weekly bulletins)",
+      "severity": "red",
+      "text": "Highlights include Delta PLC unauth Modbus/DoS, EIPStackGroup OpENer CPF DoS, ibaPDA RCE, EVbee DC‑80 unauth RCE/unsigned firmware, PcVue credential weaknesses, and multiple gateway/proxy issues. Segment PLC/EVSE networks DPI filtering on CIP/Modbus Apply vendor firmware updates Sources: CISA SB26‑187 CISA SB26‑201 CISA SB26‑173 CISA SB26‑180",
+      "chips": ["Segment PLC/EVSE networks", "DPI filtering on CIP/Modbus", "Apply vendor firmware updates"],
+      "sources": [
+        { "url": "https://www.cisa.gov/news-events/bulletins/sb26-187", "label": "CISA SB26‑187" },
+        { "url": "https://www.cisa.gov/news-events/bulletins/sb26-201", "label": "CISA SB26‑201" },
+        { "url": "https://www.cisa.gov/news-events/bulletins/sb26-173", "label": "CISA SB26‑173" },
+        { "url": "https://www.cisa.gov/news-events/bulletins/sb26-180", "label": "CISA SB26‑180" }
+      ]
+    },
+    {
+      "title": "Microsoft July cycle — AD FS/SharePoint zero‑days and hardening",
+      "severity": "red",
+      "text": "Record Patch Tuesday includes actively exploited AD FS and SharePoint flaws. CISA urges SharePoint hardening and added multiple CVEs to KEV. Treat enterprise identity and collaboration tiers as potential pivot points to OT. Patch now (AD FS/SharePoint) AMSI Full Mode + webshell hunts Restrict external exposure Sources: KrebsOnSecurity CISA SharePoint hardening CISA KEV additions (4)",
+      "chips": ["Patch now (AD FS/SharePoint)", "AMSI Full Mode + webshell hunts", "Restrict external exposure"],
+      "sources": [
+        {
+          "url": "https://krebsonsecurity.com/2026/07/microsoft-patches-a-record-570-security-flaws/",
+          "label": "KrebsOnSecurity"
+        },
+        {
+          "url": "https://www.cisa.gov/news-events/alerts/2026/07/14/cisa-urges-sharepoint-hardening-after-new-exploitations",
+          "label": "CISA SharePoint hardening"
+        },
+        {
+          "url": "https://www.cisa.gov/news-events/alerts/2026/07/14/cisa-adds-four-known-exploited-vulnerabilities-catalog",
+          "label": "CISA KEV additions (4)"
+        }
+      ]
+    },
+    {
+      "title": "GeoServer RCE exploited at a US agency — lateral movement observed",
+      "severity": "red",
+      "text": "Unauth RCE used to deploy webshells and pivot to databases and web servers with Stowaway, BITS, PowerShell, and brute‑force activity. Patch CVE‑2024‑36401 Block admin from internet EDR on internet‑facing hosts Source: CISA AA25‑266a",
+      "chips": ["Patch CVE‑2024‑36401", "Block admin from internet", "EDR on internet‑facing hosts"],
+      "sources": [
+        { "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa25-266a", "label": "CISA AA25‑266a" }
+      ]
+    },
+    {
+      "title": "HelloNet APT abusing ViPNet updates for persistence and C2",
+      "severity": "red",
+      "text": "DLL sideloading into ViPNet update service with multiple modules (HelloInjector/Proxy/Backdoor) enabling injection, tunneling, and exfiltration; targets include government, energy, transport, industry. Re‑validate ViPNet binaries/signatures Egress controls on 5003/5060/443 Hunt for svchost injections Source: Kaspersky: HelloNet",
+      "chips": [
+        "Re‑validate ViPNet binaries/signatures",
+        "Egress controls on 5003/5060/443",
+        "Hunt for svchost injections"
+      ],
+      "sources": [{ "url": "https://securelist.com/tr/hellonet-vipnet/120700/", "label": "Kaspersky: HelloNet" }]
+    },
+    {
+      "title": "KEV surge: Fortinet FortiSandbox and MS SharePoint — active exploitation",
+      "severity": "red",
+      "text": "CISA adds FortiSandbox OS command injection CVEs and SharePoint deserialization to KEV; immediate patching and compromise checks are required, especially for exposed assets. Source: CISA KEV additions (3)",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.cisa.gov/news-events/alerts/2026/07/16/cisa-adds-three-known-exploited-vulnerabilities-catalog",
+          "label": "CISA KEV additions (3)"
+        }
+      ]
+    },
+    {
+      "title": "Ransomware halts fairlife (Food & Ag) US production",
+      "severity": "red",
+      "text": "Regulatory filing confirms production disruption; actor claims 1 TB data exfiltration. Validate OT segmentation and restore plans; monitor for lateral movement into plant networks. Source: heise Security",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.heise.de/news/Coca-Cola-Molkereisparte-fairlife-stellt-Produktion-nach-Cyberangriff-ein-11371577.html",
+          "label": "heise Security"
+        }
+      ]
+    },
+    {
+      "title": "JadePuffer ransomware wipes AI/ML artifacts; container escape via Docker socket",
+      "severity": "red",
+      "text": "Exploits Langflow CVE to gain RCE, then abuses mounted Docker socket to encrypt host filesystem and destroy models/datasets — service degradation risk where AI supports operations. Patch Langflow Remove /var/run/docker.sock mounts Immutable offline model backups Source: Infosecurity Magazine Event Cards — MONITOR (Orange)",
+      "chips": ["Patch Langflow", "Remove /var/run/docker.sock mounts", "Immutable offline model backups"],
+      "sources": [
+        {
+          "url": "https://www.infosecurity-magazine.com/news/jadepuffer-ai-model-ransomware/",
+          "label": "Infosecurity Magazine"
+        }
+      ]
+    },
+    {
+      "title": "PAN‑OS Cloud Authentication Service (CVE‑2026‑0265) — VPN auth bypass risk",
+      "severity": "orange",
+      "text": "When CAS is enabled and assigned to login interfaces, GlobalProtect MFA can be bypassed. Patch per vendor; consider disabling CAS on GP portals/gateways until remediated. Source: JPCERT/CC",
+      "chips": [],
+      "sources": [{ "url": "https://www.jpcert.or.jp/at/2026/at260015.html", "label": "JPCERT/CC" }]
+    },
+    {
+      "title": "OT advisories: Rockwell DataMosaix XSS; Siemens SICAM 8 DoS; Rockwell EN2/EN3 DoS",
+      "severity": "orange",
+      "text": "Apply vendor fixes; enforce least privilege and segmentation. For ENBT (discontinued), plan replacement. Sources: CISA: Rockwell DataMosaix CISA: Siemens SICAM 8 CISA: Rockwell 1756‑EN2/EN3/ENBT",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-197-09",
+          "label": "CISA: Rockwell DataMosaix"
+        },
+        { "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-197-05", "label": "CISA: Siemens SICAM 8" },
+        {
+          "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-197-02",
+          "label": "CISA: Rockwell 1756‑EN2/EN3/ENBT"
+        }
+      ]
+    },
+    {
+      "title": "Microsoft patching cadence — June/July updates and KEV adds",
+      "severity": "orange",
+      "text": "JPCERT/CC highlights exploited Exchange (June) and AD FS/SharePoint (July). Prioritize patching of internet‑facing systems; segment identity tiers from OT. Sources: JPCERT/CC: June MS updates JPCERT/CC: July MS updates CISA KEV: Joomla extensions",
+      "chips": [],
+      "sources": [
+        { "url": "https://www.jpcert.or.jp/at/2026/at260017.html", "label": "JPCERT/CC: June MS updates" },
+        { "url": "https://www.jpcert.or.jp/at/2026/at260020.html", "label": "JPCERT/CC: July MS updates" },
+        {
+          "url": "https://www.cisa.gov/news-events/alerts/2026/07/10/cisa-adds-two-known-exploited-vulnerabilities-catalog",
+          "label": "CISA KEV: Joomla extensions"
+        }
+      ]
+    },
+    {
+      "title": "M365 Graph/Outlook calendar abuse for C2",
+      "severity": "orange",
+      "text": "Project CAV3RN/HollowGraph use calendar events/attachments and OAuth apps for covert C2. Harden consent and monitor far‑future calendar patterns and non‑interactive Graph use. Sources: Kaspersky: CAV3RN Group‑IB via Infosecurity",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://securelist.com/project-cav3rn-cyberespionage-framework-using-outlook-and-dns/120757/",
+          "label": "Kaspersky: CAV3RN"
+        },
+        {
+          "url": "https://www.infosecurity-magazine.com/news/hollowgraph-microsoft-calendars/",
+          "label": "Group‑IB via Infosecurity"
+        }
+      ]
+    },
+    {
+      "title": "Exposure hygiene: Hikvision ISAPI scans; NetNut/Popa residential proxies",
+      "severity": "orange",
+      "text": "Remove CCTV internet exposure; enforce TLS and strong creds. Block residential proxy infrastructure used for spraying/ATO; segment IoT/TVs from corporate/OT. Sources: SANS ISC: Hikvision ISAPI scans Krebs: NetNut takedown Krebs: Popa botnet linkage",
+      "chips": [],
+      "sources": [
+        { "url": "https://isc.sans.edu/diary/rss/33164", "label": "SANS ISC: Hikvision ISAPI scans" },
+        {
+          "url": "https://krebsonsecurity.com/2026/07/fbi-seizes-netnut-proxy-platform-popa-botnet/",
+          "label": "Krebs: NetNut takedown"
+        },
+        {
+          "url": "https://krebsonsecurity.com/2026/06/popa-botnet-linked-to-publicly-traded-israeli-firm/",
+          "label": "Krebs: Popa botnet linkage"
+        }
+      ]
+    },
+    {
+      "title": "Enterprise app/web hardening: Grafana, GeoServer (patch), TeamViewer governance",
+      "severity": "orange",
+      "text": "Grafana Snowflake connector exfil risk; ensure least‑privilege query access and rotate creds. TeamViewer fined over disclosure — review remote access policy and logging. Sources: heise: Grafana CVE‑2026‑28381 heise: TeamViewer governance Event Cards — IGNORE (Green)",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.heise.de/news/Sicherheitspatch-Grafana-Angreifer-koennen-sensible-Daten-abgreifen-11371859.html",
+          "label": "heise: Grafana CVE‑2026‑28381"
+        },
+        {
+          "url": "https://www.heise.de/news/TeamViewer-BaFin-verhaengt-Bussgeld-nach-Cyberangriff-11371639.html",
+          "label": "heise: TeamViewer governance"
+        }
+      ]
+    },
+    {
+      "title": "Vendor announcements and non‑actionable policy overviews",
+      "severity": "green",
+      "text": "Partnerships/certifications and high‑level policy/education items (e.g., AI initiatives, passkeys explainer, generic sector briefs) provide minimal operational intelligence. Monitor for future technical outputs with concrete IOCs/TTPs. Examples: IndustrialCyber: Bastazo/Nozomi AI NCSC UK: Commercial cyber proliferation heise: Passkeys architecture",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://industrialcyber.co/news/bastazo-nozomi-integrate-ai-to-prioritize-ot-vulnerabilities-streamline-vulnerability-prioritization-and-remediation/",
+          "label": "IndustrialCyber: Bastazo/Nozomi AI"
+        },
+        {
+          "url": "https://www.ncsc.gov.uk/report/commercial-cyber-proliferation-assessment",
+          "label": "NCSC UK: Commercial cyber proliferation"
+        },
+        {
+          "url": "https://www.heise.de/hintergrund/Passkeys-in-der-Praxis-Teil-1-Die-Architektur-von-Passkeys-11364345.html",
+          "label": "heise: Passkeys architecture"
+        }
+      ]
+    }
+  ],
+  "ttps": {
+    "descriptions": [
+      "Exploit Public‑Facing Application (T1190): WordPress, GeoServer, SharePoint.",
+      "Valid Accounts (T1078), Brute Force (T1110): VNC, VPN password spraying via residential proxies.",
+      "External Remote Services (T1133): Unauthorized RA via IKEv1 bypass; exposed VNC.",
+      "Abuse of Cloud APIs: Microsoft Graph/Outlook calendar for C2; OAuth device code flow phishing.",
+      "DLL Sideloading (T1574.002): ViPNet update abuse.",
+      "Command and Scripting (T1059), BITS (LOLBins): GeoServer incident, Stowaway tunnels.",
+      "Denial of Service on Controllers: Rockwell MNRF; EN2/EN3 DoS; SICAM 8 DoS."
+    ],
+    "mitreIds": ["T1190", "T1078", "T1110", "T1133", "T1574.002", "T1059"]
+  },
+  "outlook72h": "Perimeter: Disable IKEv1 on Check Point gateways immediately; apply vendor fixes; rotate/revoke VPN creds; review RA logs since 2026‑05‑07. Fortinet: Rotate all FortiGate admin/VPN/API credentials and FortiClient secrets; remove internet admin exposure; validate configs against gold standards. Microsoft: Patch AD FS and SharePoint; enable AMSI Full Mode; run compromise assessments aligned to CISA guidance; monitor for MDAV/AMSI detections. WordPress: Confirm core versions at fixed builds; implement virtual patching; IOC hunt for “wp2shell” indicators; reimage if integrity uncertain. OT Patch Windows: Update Rockwell PLC families (MNRF) and 1756‑EN2/EN3 (V12.002); schedule Siemens SICAM firmware updates. Exposure: Enumerate and quarantine internet‑exposed VNC/HMI endpoints; enforce VPN/MFA and bastions; review Shodan/Censys footprint. GeoServer: Patch CVE‑2024‑36401; block admin from internet; hunt for webshells, Stowaway tunnels, and BITS jobs. EV/BMS/CCTV: Segment EVbee chargers; enforce OCPP hardening; remove Hikvision internet exposure; enforce strong auth and TLS.",
+  "rawMarkdown": "Cyber Threat Intelligence Brief — Open Source Intelligence Assessment Open Source Intelligence Assessment Cyber Threat Intelligence Brief Tuesday, July 21, 2026 Overall OT Cyber Threat Level: CRITICAL Executive Summary Multiple, concurrent threats elevate OT/ICS risk to critical. Actively exploited perimeter flaws (Check Point IKEv1 auth bypass; widespread Fortinet credential compromise) and nation‑state activity (PRC covert device networks; Iranian PLC intrusions; pro‑Russia VNC abuse) create credible, near‑term pathways into industrial environments. OT vendors released impactful advisories (Rockwell MNRF controller fault; Rockwell EN2/EN3 DoS; Siemens SICAM 8 issues; SALTO ProAccess escalation), while actively exploited enterprise vectors (Microsoft AD FS/SharePoint; WordPress “WP2Shell”; GeoServer RCE) increase pivot risk to OT. EV charging, building automation, and industrial data acquisition platforms show critical vulnerabilities in recent CISA bulletins. Immediate actions: Disable IKEv1; rotate FortiGate creds; remove OT from internet Prioritize: Rockwell/Siemens patching; SharePoint/AD FS; WordPress Harden: VNC, VPN, identity, and DMZ boundaries Key Findings Perimeter Access Under Active Abuse Check Point IKEv1 auth bypass (CVE-2026-50751) is exploited; FortiGate credentials at scale are compromised (“FortiBleed”), enabling VPN/session hijack and AD credential theft. OT Equipment Disruption Paths Rockwell PLCs susceptible to controller fault (MNRF) and EN2/EN3 DoS; Siemens SICAM 8 DoS-class issues; EV chargers (EVbee DC-80) allow unauth RCE and unsigned firmware. Nation‑State Pre‑Positioning PRC actors leverage covert SOHO/IoT networks; Iranian‑linked actors exploit internet‑exposed PLCs; pro‑Russia hacktivists brute‑force VNC to HMI/SCADA. Threat Dashboard 18 High‑priority ESCALATE events 30+ Additional MONITOR items (patching/hardening) 10 Low‑value/IGNORED items (vendor/promotional) Actively Exploited Check Point IKEv1 (CVE‑2026‑50751) MS SharePoint/AD FS zero‑days WordPress “WP2Shell” GeoServer CVE‑2024‑36401 Cisco IOS web UI (CVE‑2008‑4128) OT Vendors Impacted Rockwell Automation Siemens SICAM SALTO Systems Delta Electronics PLC PcVue ibaPDA EVbee Primary Sectors at Risk Energy & Power Water/Wastewater Critical Manufacturing Transportation Building Automation Food & Agriculture Top Five Priority Threats 1) Check Point VPN IKEv1 Authentication Bypass (Active) Disable IKEv1 for Remote/Mobile Access, patch per vendor JHF guidance, rotate VPN creds/secrets, and review logs from May 7 onward for anomalous RA sessions. 2) Fortinet FortiGate Credential Compromise at Scale Rotate all FortiGate admin/VPN/API credentials; restrict admin access; validate configs for rogue accounts; investigate AD for credential theft and lateral movement. 3) Iranian Actors Targeting PLCs Remove PLC internet exposure; enforce OT DMZ and DPI firewalls on CIP/Modbus; lock mode switches; enable engineering authentication and monitor project downloads. 4) PRC Covert Networks for Pre‑Positioning Patch edge devices (Ivanti, PAN‑OS, Cisco); harden AAA; audit tunnels and SNMP/TACACS+/RADIUS; restrict management to OOB and verify image integrity. 5) WordPress Core Pre‑Auth RCE (WP2Shell) — Exploitation Underway Update to fixed WordPress versions, deploy WAF rules, hunt for webshells/new admins, restrict egress from web hosts, and isolate DMZ from enterprise/OT. Runner‑up: Rockwell Controller MNRF Fault Patch impacted Logix families, enforce RUN keyswitch during operations, restrict programming traffic, and exercise controller recovery runbooks. OT/ICS Relevance Assessment Direct OT impact: Rockwell controller MNRF and EN2/EN3 DoS; Siemens SICAM 8 DoS; SALTO ProAccess partition privilege escalation; Delta PLC Modbus exposure; EVbee DC‑80 EVSE RCE; ibaPDA RCE/deserialization. Enterprise‑to‑OT pivot risk: Microsoft SharePoint/AD FS exploitation; WordPress core RCE; GeoServer RCE; residential proxy botnets for password spraying; M365 Graph/Calendar C2 (CAV3RN/HollowGraph). Operator tooling risks: Grafana Snowflake connector credential exfil; TeamViewer vendor governance concerns; Hikvision ISAPI reconnaissance. Conclusion: Multiple confirmed enterprise edge and web compromises can bridge into OT without strict segmentation and identity controls. Several OT vendor advisories require expedited patching and access hardening. Threat Actor Activity Nation‑state & APT PRC‑nexus covert device networks for pre‑positioning across CNI. Iranian‑affiliated actors exploiting Rockwell/Unitronics PLCs causing OT disruptions. OilRig‑linked module (Project CAV3RN) and HollowGraph abusing Microsoft Graph/Outlook calendars for C2. HelloNet campaign abusing ViPNet update system; suspected Chinese‑speaking APT. Hacktivists & Crime Pro‑Russia groups brute‑forcing VNC to HMI/SCADA, locking operators out and changing setpoints. JadePuffer ransomware wiping AI/ML artifacts; container escape via Docker socket. Residential proxy botnets (“Popa”/NetNut) supporting password spraying and ATO. Scattered Spider plea confirms SIM‑swap, vishing, identity‑centric tradecraft. Phishing/Social Engineering Device Code Flow phishing via legitimate Microsoft URLs for persistent cloud access. “ClickFix/ClickFake” recruiter lures delivering RATs targeting crypto/Web3 roles. Vulnerability and CVE Watch Perimeter/Identity Check Point IKEv1 RA bypass (CVE‑2026‑50751) — actively exploited. Fortinet FortiSandbox OS command injection; KEV additions (active). Microsoft SharePoint (CVE‑2026‑56164) and AD FS (CVE‑2026‑56155) — active exploitation. Cisco IOS web UI CSRF (CVE‑2008‑4128) — KEV item, exploited. OT/ICS Rockwell Logix MNRF fault (controller halt) — patch available. Rockwell 1756‑EN2/EN3 DoS (CVE‑2026‑9653) — patch to V12.002. Siemens SICAM 8 DoS‑class; firmware updates available. SALTO ProAccess Space privilege escalation (CVE‑2026‑11889) — patch to 6.13. ibaPDA/ibaDatCoordinator deserialization RCE (CVE‑2026‑8024) — isolate and patch. EVbee DC‑80 EVSE: multiple unauth RCE/unsigned firmware issues. Web/DMZ WordPress Core SQLi→RCE chain (CVE‑2026‑63030, CVE‑2026‑60137) — active. GeoServer RCE (CVE‑2024‑36401) — active exploitation at US agency. Grafana Snowflake connector (CVE‑2026‑28381) — credential theft. Joomla extensions (iCagenda, Balbooa Forms) — in KEV; file uploads → webshell. Defensive Mitigation Priorities Identity, Perimeter, and Remote Access Immediately disable IKEv1 on Check Point; enforce IKEv2‑only with MFA and device certificates; patch to vendor JHF. Rotate FortiGate admin/VPN/API creds; restrict admin plane to OOB; audit logs for config exports and rogue accounts; upgrade to FortiOS builds enforcing PBKDF2. Patch Microsoft AD FS and SharePoint; enable AMSI Full Mode; hunt for webshells, machine key theft, and anomalous token grants. OT Network Controls Remove PLCs/HMIs from the internet; place OT behind an ICS DMZ with DPI firewalls; restrict CIP/Modbus/S7 ports (44818/2222/502/102). Enforce controller RUN keyswitch; lock panels; require authenticated, least‑privilege downloads; monitor for program load attempts. Patch Rockwell/Siemens advisories; validate backups and recovery images; maintain spares for critical controllers. DMZ/Web and Cloud Patch WordPress to fixed versions; deploy WAF rules; hunt for shells in wp‑content/cache and unauthorized admin users. Patch/segregate GeoServer; restrict admin/UI exposure; disable xp_cmdshell on SQL Server; monitor BITS/PowerShell abuse. Harden M365: restrict OAuth consent; monitor Graph calendar create/update with attachments and far‑future events; review service principals. Device & Edge Hygiene Patch edge devices (Ivanti, PAN‑OS, Cisco); audit tunnels, ACLs, SNMP/TACACS+/RADIUS; enforce SNMPv3 and CoPP; disable Smart Install. Discover and close exposed VNC (5900–5910); require VPN/MFA and jump hosts; enforce account lockouts and rate‑limits. Segment EVSE, CCTV, and BMS onto dedicated VLANs; enforce mutual TLS on OCPP; disable unused APIs (Hikvision ISAPI) and remote management. Next 72‑Hour Outlook Perimeter: Disable IKEv1 on Check Point gateways immediately; apply vendor fixes; rotate/revoke VPN creds; review RA logs since 2026‑05‑07. Fortinet: Rotate all FortiGate admin/VPN/API credentials and FortiClient secrets; remove internet admin exposure; validate configs against gold standards. Microsoft: Patch AD FS and SharePoint; enable AMSI Full Mode; run compromise assessments aligned to CISA guidance; monitor for MDAV/AMSI detections. WordPress: Confirm core versions at fixed builds; implement virtual patching; IOC hunt for “wp2shell” indicators; reimage if integrity uncertain. OT Patch Windows: Update Rockwell PLC families (MNRF) and 1756‑EN2/EN3 (V12.002); schedule Siemens SICAM firmware updates. Exposure: Enumerate and quarantine internet‑exposed VNC/HMI endpoints; enforce VPN/MFA and bastions; review Shodan/Censys footprint. GeoServer: Patch CVE‑2024‑36401; block admin from internet; hunt for webshells, Stowaway tunnels, and BITS jobs. EV/BMS/CCTV: Segment EVbee chargers; enforce OCPP hardening; remove Hikvision internet exposure; enforce strong auth and TLS. Event Cards — ESCALATE (Red) Perimeter Breach Risk: Check Point IKEv1 auth bypass and FortiGate credential compromise Escalate Active exploitation of Check Point VPN (CVE‑2026‑50751) enables unauthorized Remote Access sessions when IKEv1 is enabled. Separately, attacker‑controlled databases hold credentials for ~86k FortiGate devices with evidence of mass config exports and offline hash cracking, enabling VPN takeover and AD credential theft. Disable IKEv1; enforce IKEv2 + MFA Rotate FortiGate admin/VPN/API creds Restrict admin plane to OOB/VPN Sources: JPCERT/CC: Check Point CVE‑2026‑50751 JPCERT/CC: Fortinet credential leak Nation‑state Pre‑positioning: PRC covert device networks Escalate Coordinated advisory details PRC‑nexus actors routing ops through large covert botnets of compromised SOHO routers/IoT to pre‑position in CNI, increasing risk to OT networks via trusted links. Patch edge CVEs (Ivanti, PAN‑OS, Cisco) Audit tunnels/AAA; enforce SNMPv3 Segment IT↔OT with DPI firewalls Source: CISA AA26‑113a Iranian‑linked PLC intrusions across US critical infrastructure Escalate Actors accessed Rockwell/Unitronics PLCs over the internet, deployed Dropbear, manipulated HMI/SCADA, and exfiltrated project files, causing operational impacts in Water/Wastewater and Energy. Remove PLC internet exposure DPI firewalls on 44818/2222/502/102 Lock RUN keyswitch; monitor downloads Source: CISA AA26‑097a Pro‑Russia hacktivists abusing exposed VNC to HMI/SCADA Escalate Opportunistic attacks brute‑force VNC (5900–5910), change parameters, suppress alarms, and lock operators out, causing loss of view and downtime in Water, Food & Ag, and Energy sectors. Eliminate VNC exposure; require VPN+MFA Account lockout/rate limits Continuous external surface monitoring Source: CISA AA25‑343a WordPress Core “WP2Shell” exploitation underway Escalate Pre‑auth SQLi→RCE chain is actively exploited to deploy webshells and create admin users on public sites — common in CI operators’ DMZ — enabling staging and potential enterprise/OT pivot. Update to fixed core versions WAF virtual patching; IOC hunts Restrict egress from web hosts Sources: SANS ISC: Exploitation Underway Infosecurity: Researchers build exploit heise: Nextcloud incident (WordPress) Rockwell Logix families — Major Non‑Recoverable Fault (MNRF) Escalate Invalid project load can fault controllers (halt). Patches available for 5370/5570/5380/5480/5580 lines. Limit programming access and rehearse recovery. Patch controllers & recovery images RUN keyswitch during ops Monitor for program load attempts Source: CISA ICSA‑26‑197‑06 Critical OT/Embedded vulnerabilities (CISA weekly bulletins) Escalate Highlights include Delta PLC unauth Modbus/DoS, EIPStackGroup OpENer CPF DoS, ibaPDA RCE, EVbee DC‑80 unauth RCE/unsigned firmware, PcVue credential weaknesses, and multiple gateway/proxy issues. Segment PLC/EVSE networks DPI filtering on CIP/Modbus Apply vendor firmware updates Sources: CISA SB26‑187 CISA SB26‑201 CISA SB26‑173 CISA SB26‑180 Microsoft July cycle — AD FS/SharePoint zero‑days and hardening Escalate Record Patch Tuesday includes actively exploited AD FS and SharePoint flaws. CISA urges SharePoint hardening and added multiple CVEs to KEV. Treat enterprise identity and collaboration tiers as potential pivot points to OT. Patch now (AD FS/SharePoint) AMSI Full Mode + webshell hunts Restrict external exposure Sources: KrebsOnSecurity CISA SharePoint hardening CISA KEV additions (4) GeoServer RCE exploited at a US agency — lateral movement observed Escalate Unauth RCE used to deploy webshells and pivot to databases and web servers with Stowaway, BITS, PowerShell, and brute‑force activity. Patch CVE‑2024‑36401 Block admin from internet EDR on internet‑facing hosts Source: CISA AA25‑266a HelloNet APT abusing ViPNet updates for persistence and C2 Escalate DLL sideloading into ViPNet update service with multiple modules (HelloInjector/Proxy/Backdoor) enabling injection, tunneling, and exfiltration; targets include government, energy, transport, industry. Re‑validate ViPNet binaries/signatures Egress controls on 5003/5060/443 Hunt for svchost injections Source: Kaspersky: HelloNet KEV surge: Fortinet FortiSandbox and MS SharePoint — active exploitation Escalate CISA adds FortiSandbox OS command injection CVEs and SharePoint deserialization to KEV; immediate patching and compromise checks are required, especially for exposed assets. Source: CISA KEV additions (3) Ransomware halts fairlife (Food & Ag) US production Escalate Regulatory filing confirms production disruption; actor claims 1 TB data exfiltration. Validate OT segmentation and restore plans; monitor for lateral movement into plant networks. Source: heise Security JadePuffer ransomware wipes AI/ML artifacts; container escape via Docker socket Escalate Exploits Langflow CVE to gain RCE, then abuses mounted Docker socket to encrypt host filesystem and destroy models/datasets — service degradation risk where AI supports operations. Patch Langflow Remove /var/run/docker.sock mounts Immutable offline model backups Source: Infosecurity Magazine Event Cards — MONITOR (Orange) PAN‑OS Cloud Authentication Service (CVE‑2026‑0265) — VPN auth bypass risk Monitor When CAS is enabled and assigned to login interfaces, GlobalProtect MFA can be bypassed. Patch per vendor; consider disabling CAS on GP portals/gateways until remediated. Source: JPCERT/CC OT advisories: Rockwell DataMosaix XSS; Siemens SICAM 8 DoS; Rockwell EN2/EN3 DoS Monitor Apply vendor fixes; enforce least privilege and segmentation. For ENBT (discontinued), plan replacement. Sources: CISA: Rockwell DataMosaix CISA: Siemens SICAM 8 CISA: Rockwell 1756‑EN2/EN3/ENBT Microsoft patching cadence — June/July updates and KEV adds Monitor JPCERT/CC highlights exploited Exchange (June) and AD FS/SharePoint (July). Prioritize patching of internet‑facing systems; segment identity tiers from OT. Sources: JPCERT/CC: June MS updates JPCERT/CC: July MS updates CISA KEV: Joomla extensions M365 Graph/Outlook calendar abuse for C2 Monitor Project CAV3RN/HollowGraph use calendar events/attachments and OAuth apps for covert C2. Harden consent and monitor far‑future calendar patterns and non‑interactive Graph use. Sources: Kaspersky: CAV3RN Group‑IB via Infosecurity Exposure hygiene: Hikvision ISAPI scans; NetNut/Popa residential proxies Monitor Remove CCTV internet exposure; enforce TLS and strong creds. Block residential proxy infrastructure used for spraying/ATO; segment IoT/TVs from corporate/OT. Sources: SANS ISC: Hikvision ISAPI scans Krebs: NetNut takedown Krebs: Popa botnet linkage Enterprise app/web hardening: Grafana, GeoServer (patch), TeamViewer governance Monitor Grafana Snowflake connector exfil risk; ensure least‑privilege query access and rotate creds. TeamViewer fined over disclosure — review remote access policy and logging. Sources: heise: Grafana CVE‑2026‑28381 heise: TeamViewer governance Event Cards — IGNORE (Green) Vendor announcements and non‑actionable policy overviews Ignore Partnerships/certifications and high‑level policy/education items (e.g., AI initiatives, passkeys explainer, generic sector briefs) provide minimal operational intelligence. Monitor for future technical outpu"
+}

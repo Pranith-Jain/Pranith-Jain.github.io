@@ -1,0 +1,13 @@
+{
+  "slug": "multiple-unsubs",
+  "name": "Multiple UnSubs",
+  "akas": "",
+  "brief": "Complaints report the use of voice spoofing, or potentially voice deepfakes, during online interviews of the potential applicants. In these interviews, the actions and lip movement of the person seen interviewed on-camera do not completely coordinate with the audio of the person speaking. At times, actions such as coughing, sneezing, or other auditory actions are not aligned with what is presented visually.",
+  "ttps": [],
+  "categories": ["DeepFake for Impersonation"],
+  "reported": "Jun 2022",
+  "activity": "Jun 2022",
+  "table": "deepfake",
+  "sizeBytes": 410,
+  "ttpMd": "**DeepFake for Impersonation**<br><br>Employment/Hiring fraud"
+}

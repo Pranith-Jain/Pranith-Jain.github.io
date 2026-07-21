@@ -1,0 +1,13 @@
+{
+  "slug": "apt45",
+  "name": "APT45",
+  "akas": "DPRK state-sponsored (GTIG/Mandiant)",
+  "brief": "GTIG observed APT45 sending thousands of repetitive prompts that recursively analyze different CVEs and validate PoC exploits — scaled, automated AI-assisted vulnerability research — and experimenting with agentic tooling. GTIG",
+  "ttps": ["T1587.004", "T1588.006"],
+  "categories": ["LLM-assisted vulnerability research"],
+  "reported": "May 2026",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 227,
+  "ttpMd": "**LLM-assisted vulnerability research** T1588.006 - Obtain Capabilities: Vulnerabilities<br><br>T1587.004 - Develop Capabilities: Exploits"
+}

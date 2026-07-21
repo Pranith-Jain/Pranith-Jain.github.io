@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-synergy-products-2026-07-20",
+  "title": "Synergy Products",
+  "group": "qilin",
+  "discovered": "2026-07-20T20:56:43.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Home Improvement & Hardware Retail",
+  "source_url": "https://www.ransomlook.io/screenshots/qilin/Synergy Products.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

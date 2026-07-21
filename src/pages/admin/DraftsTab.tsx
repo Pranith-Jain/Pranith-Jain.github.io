@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { getJson, postJson, postJsonWithBody } from './adminApi';
+import { SearchFilter } from './SearchFilter';
 
 /**
  * Drafts queue — populated by the publisher when BLOG_APPROVAL_REQUIRED
@@ -22,6 +23,7 @@ interface DraftEntry {
   excerpt: string;
   publishedAt: string;
   tags: string[];
+  candidateId?: string;
 }
 
 interface DraftPreview {
@@ -200,16 +202,9 @@ export default function DraftsTab() {
   }
 
   async function generateSocial(slug: string, platform: string) {
-    // TODO(#4): The correct call for a draft is:
-    //   POST /candidates/<candidateId>/generate?type=<type>  { formats: [platform] }
-    // because /social/<slug>/<platform> reads the published `posts:<slug>` KV key
-    // which doesn't exist yet for a draft, causing a 404.
-    // DraftEntry from GET /drafts does not include candidateId or the original
-    // candidate type. The backend /drafts list response needs to expose
-    // candidateId (and type) before this can be fixed here without an extra
-    // round-trip. Until then this endpoint will 404 when BLOG_APPROVAL_REQUIRED
-    // is on — the LI/Tw buttons in the Published tab work correctly once
-    // the draft is approved.
+    // The backend /social/:slug/:platform endpoint uses getPostOrDraft which
+    // reads from BOTH posts:<slug> and drafts:<slug> KV keys, so this works
+    // for drafts too. No candidateId lookup needed.
     const key = `${slug}:${platform}`;
     setSocialGen((prev) => ({ ...prev, [key]: 'busy' }));
     setActionMsg(null);
@@ -219,11 +214,7 @@ export default function DraftsTab() {
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e);
       console.error('generateSocial failed:', msg);
-      setActionMsg(
-        msg.includes('404')
-          ? `${platform} not available for drafts yet — publish first, then generate.`
-          : `${platform} failed: ${msg}`
-      );
+      setActionMsg(`${platform} failed: ${msg}`);
     } finally {
       setSocialGen((prev) => ({ ...prev, [key]: '' }));
     }
@@ -271,90 +262,97 @@ export default function DraftsTab() {
       {drafts.length === 0 ? (
         <p className="text-slate-500 dark:text-slate-400">No drafts pending.</p>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead className="text-left text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-              <tr>
-                <th scope="col" className="py-2 pr-4">
-                  Type
-                </th>
-                <th scope="col" className="py-2 pr-4">
-                  Title
-                </th>
-                <th scope="col" className="py-2 pr-4">
-                  Generated
-                </th>
-                <th scope="col" className="py-2 pr-4">
-                  Slug
-                </th>
-                <th scope="col" className="py-2">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {drafts.map((d) => {
-                const isPreviewing = preview?.post.slug === d.slug;
-                const previewBusy = previewLoading === d.slug;
-                const approveBusy = actionBusy === `approve:${d.slug}`;
-                const rejectBusy = actionBusy === `reject:${d.slug}`;
-                return (
-                  <tr key={d.slug} className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] align-top">
-                    <td className="py-2 pr-4 text-slate-500 dark:text-slate-400 uppercase text-xs">{d.type}</td>
-                    <td className="py-2 pr-4 text-slate-900 dark:text-slate-100">{d.title}</td>
-                    <td className="py-2 pr-4 text-slate-600 dark:text-slate-500 text-xs whitespace-nowrap">
-                      {new Date(d.publishedAt).toLocaleString()}
-                    </td>
-                    <td className="py-2 pr-4 font-mono text-xs text-slate-500 dark:text-slate-400 break-all">
-                      {d.slug}
-                    </td>
-                    <td className="py-2">
-                      <div className="flex flex-wrap gap-1.5">
-                        <button
-                          onClick={() => (isPreviewing ? setPreview(null) : void loadPreview(d.slug))}
-                          disabled={previewBusy}
-                          className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
-                        >
-                          {previewBusy ? '…' : isPreviewing ? 'Hide' : 'Preview'}
-                        </button>
-                        <button
-                          onClick={() => void approve(d.slug)}
-                          disabled={approveBusy || rejectBusy}
-                          className="px-2 py-1 border border-emerald-200 dark:border-emerald-800 rounded text-xs text-emerald-700 dark:text-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 disabled:opacity-50"
-                        >
-                          {approveBusy ? '…' : 'Approve'}
-                        </button>
-                        <button
-                          onClick={() => void reject(d.slug)}
-                          disabled={approveBusy || rejectBusy}
-                          className="px-2 py-1 border border-rose-200 dark:border-rose-900 rounded text-xs text-rose-700 dark:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-900/30 disabled:opacity-50"
-                        >
-                          {rejectBusy ? '…' : 'Reject'}
-                        </button>
-                        <RegenMenu
-                          slug={d.slug}
-                          busy={actionBusy === `regen:${d.slug}`}
-                          disabled={approveBusy || rejectBusy || actionBusy === `regen:${d.slug}`}
-                          onRegen={(mode, notes) => void regenerate(d.slug, mode, notes)}
-                        />
-                        <SocialBtn
-                          label="LI"
-                          busy={socialGen[`${d.slug}:linkedin`]}
-                          onClick={() => void generateSocial(d.slug, 'linkedin')}
-                        />
-                        <SocialBtn
-                          label="Tw"
-                          busy={socialGen[`${d.slug}:twitter`]}
-                          onClick={() => void generateSocial(d.slug, 'twitter')}
-                        />
-                      </div>
-                    </td>
+        <SearchFilter items={drafts} placeholder="Filter drafts…">
+          {(filtered) => (
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead className="text-left text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+                  <tr>
+                    <th scope="col" className="py-2 pr-4">
+                      Type
+                    </th>
+                    <th scope="col" className="py-2 pr-4">
+                      Title
+                    </th>
+                    <th scope="col" className="py-2 pr-4">
+                      Generated
+                    </th>
+                    <th scope="col" className="py-2 pr-4">
+                      Slug
+                    </th>
+                    <th scope="col" className="py-2">
+                      Actions
+                    </th>
                   </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+                </thead>
+                <tbody>
+                  {filtered.map((d) => {
+                    const isPreviewing = preview?.post.slug === d.slug;
+                    const previewBusy = previewLoading === d.slug;
+                    const approveBusy = actionBusy === `approve:${d.slug}`;
+                    const rejectBusy = actionBusy === `reject:${d.slug}`;
+                    return (
+                      <tr
+                        key={d.slug}
+                        className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] align-top"
+                      >
+                        <td className="py-2 pr-4 text-slate-500 dark:text-slate-400 uppercase text-xs">{d.type}</td>
+                        <td className="py-2 pr-4 text-slate-900 dark:text-slate-100">{d.title}</td>
+                        <td className="py-2 pr-4 text-slate-600 dark:text-slate-500 text-xs whitespace-nowrap">
+                          {new Date(d.publishedAt).toLocaleString()}
+                        </td>
+                        <td className="py-2 pr-4 font-mono text-xs text-slate-500 dark:text-slate-400 break-all">
+                          {d.slug}
+                        </td>
+                        <td className="py-2">
+                          <div className="flex flex-wrap gap-1.5">
+                            <button
+                              onClick={() => (isPreviewing ? setPreview(null) : void loadPreview(d.slug))}
+                              disabled={previewBusy}
+                              className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
+                            >
+                              {previewBusy ? '…' : isPreviewing ? 'Hide' : 'Preview'}
+                            </button>
+                            <button
+                              onClick={() => void approve(d.slug)}
+                              disabled={approveBusy || rejectBusy}
+                              className="px-2 py-1 border border-emerald-200 dark:border-emerald-800 rounded text-xs text-emerald-700 dark:text-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 disabled:opacity-50"
+                            >
+                              {approveBusy ? '…' : 'Approve'}
+                            </button>
+                            <button
+                              onClick={() => void reject(d.slug)}
+                              disabled={approveBusy || rejectBusy}
+                              className="px-2 py-1 border border-rose-200 dark:border-rose-900 rounded text-xs text-rose-700 dark:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-900/30 disabled:opacity-50"
+                            >
+                              {rejectBusy ? '…' : 'Reject'}
+                            </button>
+                            <RegenMenu
+                              slug={d.slug}
+                              busy={actionBusy === `regen:${d.slug}`}
+                              disabled={approveBusy || rejectBusy || actionBusy === `regen:${d.slug}`}
+                              onRegen={(mode, notes) => void regenerate(d.slug, mode, notes)}
+                            />
+                            <SocialBtn
+                              label="LI"
+                              busy={socialGen[`${d.slug}:linkedin`]}
+                              onClick={() => void generateSocial(d.slug, 'linkedin')}
+                            />
+                            <SocialBtn
+                              label="Tw"
+                              busy={socialGen[`${d.slug}:twitter`]}
+                              onClick={() => void generateSocial(d.slug, 'twitter')}
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </SearchFilter>
       )}
 
       {preview && (
@@ -391,6 +389,12 @@ function DraftPreviewPanel({
   const rejectBusy = actionBusy === `reject:${post.slug}`;
   const regenBusy = actionBusy === `regen:${post.slug}`;
 
+  // Inline editing state
+  const [editing, setEditing] = useState(false);
+  const [editTitle, setEditTitle] = useState(post.title);
+  const [editBody, setEditBody] = useState(post.body);
+  const [saving, setSaving] = useState(false);
+
   // Re-sanitize the server-rendered HTML in the browser before injecting it —
   // defense-in-depth matching the public BlogPost path, rather than trusting
   // the server regex sanitizer as the only layer. DOMPurify is loaded lazily
@@ -411,6 +415,39 @@ function DraftPreviewPanel({
       cancelled = true;
     };
   }, [bodyHtml]);
+
+  // Reset edit state when preview changes
+  useEffect(() => {
+    setEditTitle(post.title);
+    setEditBody(post.body);
+    setEditing(false);
+  }, [post.title, post.body]);
+
+  async function saveEdit() {
+    setSaving(true);
+    try {
+      const r = await postJsonWithBody<{
+        ok: boolean;
+        slug: string;
+        body: string;
+        bodyHtml: string;
+        qa?: { total: number };
+      }>(`/drafts/${encodeURIComponent(post.slug)}/edit`, { title: editTitle, body: editBody });
+      if (r.ok) {
+        setEditing(false);
+        // Re-fetch the draft preview to get fresh QA + rendered HTML
+        const fresh = await getJson<DraftPreview>(`/drafts/${encodeURIComponent(post.slug)}`);
+        if (fresh) {
+          Object.assign(preview, fresh);
+        }
+      }
+    } catch (e) {
+      console.error('saveEdit failed:', e instanceof Error ? e.message : String(e));
+    } finally {
+      setSaving(false);
+    }
+  }
+
   return (
     <div className="mt-6 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
       <div className="flex items-center justify-between mb-3">
@@ -423,66 +460,122 @@ function DraftPreviewPanel({
             {post.sources.length > 0 && <> · {post.sources.length} sources</>}
           </p>
         </div>
-        <button
-          onClick={onClose}
-          className="text-xs text-slate-600 dark:text-slate-500 hover:text-slate-900 dark:hover:text-slate-300"
-        >
-          Close
-        </button>
+        <div className="flex items-center gap-2">
+          {!editing && (
+            <button
+              onClick={() => setEditing(true)}
+              className="text-xs text-slate-600 dark:text-slate-500 hover:text-slate-900 dark:hover:text-slate-300"
+            >
+              Edit
+            </button>
+          )}
+          <button
+            onClick={onClose}
+            className="text-xs text-slate-600 dark:text-slate-500 hover:text-slate-900 dark:hover:text-slate-300"
+          >
+            Close
+          </button>
+        </div>
       </div>
 
-      <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-1">{post.title}</h1>
-      <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
-        <span className="font-mono text-micro uppercase tracking-wider text-slate-400 mr-1.5">Excerpt</span>
-        {post.excerpt}
-      </p>
-
-      {/* Rendered preview — exactly what /blog/:slug would serve once
-          approved. Inline styles cover the essentials (headings + links
-          + code) without the Tailwind typography plugin, which isn't
-          installed in this project. The container gets a contrasting
-          dark background so visiting links / headings read cleanly. */}
-      <div
-        className={
-          'mb-4 bg-white dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded p-4 max-h-[60vh] overflow-y-auto text-sm leading-relaxed text-slate-700 dark:text-slate-300 ' +
-          '[&_h1]:text-xl [&_h1]:font-bold [&_h1]:text-slate-900 dark:[&_h1]:text-slate-100 [&_h1]:mt-4 [&_h1]:mb-2 ' +
-          '[&_h2]:text-lg [&_h2]:font-bold [&_h2]:text-slate-900 dark:[&_h2]:text-slate-100 [&_h2]:mt-5 [&_h2]:mb-2 ' +
-          '[&_h3]:text-base [&_h3]:font-semibold [&_h3]:text-slate-900 dark:[&_h3]:text-slate-100 [&_h3]:mt-4 [&_h3]:mb-2 ' +
-          '[&_p]:mb-3 ' +
-          '[&_a]:text-blue-600 dark:[&_a]:text-blue-400 [&_a]:underline [&_a:hover]:text-blue-700 dark:[&_a:hover]:text-blue-300 ' +
-          '[&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mb-3 ' +
-          '[&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:mb-3 ' +
-          '[&_li]:mb-1 ' +
-          '[&_code]:font-mono [&_code]:text-[0.85em] [&_code]:bg-slate-100 dark:[&_code]:bg-slate-900 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded ' +
-          '[&_pre]:bg-slate-100 dark:[&_pre]:bg-slate-900 [&_pre]:p-3 [&_pre]:rounded [&_pre]:overflow-x-auto [&_pre]:mb-3 ' +
-          '[&_strong]:text-slate-800 dark:[&_strong]:text-slate-100 [&_strong]:font-semibold ' +
-          '[&_blockquote]:border-l-2 [&_blockquote]:border-slate-200 dark:[&_blockquote]:border-slate-700 [&_blockquote]:pl-3 [&_blockquote]:text-slate-500 dark:[&_blockquote]:text-slate-400 [&_blockquote]:my-3'
-        }
-        // Server runs renderMarkdown → DOMPurify, and we re-sanitize here too
-        // (see safeHtml above) so the admin preview matches the public path.
-        dangerouslySetInnerHTML={{ __html: safeHtml }}
-      />
+      {editing ? (
+        <div className="mb-4 space-y-3">
+          <div>
+            <label className="block text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
+              Title
+            </label>
+            <input
+              type="text"
+              value={editTitle}
+              onChange={(e) => setEditTitle(e.target.value)}
+              className="w-full px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-slate-900 dark:text-slate-100"
+            />
+          </div>
+          <div>
+            <label className="block text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
+              Body (markdown)
+            </label>
+            <textarea
+              value={editBody}
+              onChange={(e) => setEditBody(e.target.value)}
+              rows={20}
+              className="w-full bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded p-3 text-xs font-mono text-slate-700 dark:text-slate-300 leading-relaxed resize-y"
+            />
+          </div>
+        </div>
+      ) : (
+        <>
+          <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-1">{post.title}</h1>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
+            <span className="font-mono text-micro uppercase tracking-wider text-slate-400 mr-1.5">Excerpt</span>
+            {post.excerpt}
+          </p>
+          <div
+            className={
+              'mb-4 bg-white dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded p-4 max-h-[60vh] overflow-y-auto text-sm leading-relaxed text-slate-700 dark:text-slate-300 ' +
+              '[&_h1]:text-xl [&_h1]:font-bold [&_h1]:text-slate-900 dark:[&_h1]:text-slate-100 [&_h1]:mt-4 [&_h1]:mb-2 ' +
+              '[&_h2]:text-lg [&_h2]:font-bold [&_h2]:text-slate-900 dark:[&_h2]:text-slate-100 [&_h2]:mt-5 [&_h2]:mb-2 ' +
+              '[&_h3]:text-base [&_h3]:font-semibold [&_h3]:text-slate-900 dark:[&_h3]:text-slate-100 [&_h3]:mt-4 [&_h3]:mb-2 ' +
+              '[&_p]:mb-3 ' +
+              '[&_a]:text-blue-600 dark:[&_a]:text-blue-400 [&_a]:underline [&_a:hover]:text-blue-700 dark:[&_a:hover]:text-blue-300 ' +
+              '[&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mb-3 ' +
+              '[&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:mb-3 ' +
+              '[&_li]:mb-1 ' +
+              '[&_code]:font-mono [&_code]:text-[0.85em] [&_code]:bg-slate-100 dark:[&_code]:bg-slate-900 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded ' +
+              '[&_pre]:bg-slate-100 dark:[&_pre]:bg-slate-900 [&_pre]:p-3 [&_pre]:rounded [&_pre]:overflow-x-auto [&_pre]:mb-3 ' +
+              '[&_strong]:text-slate-800 dark:[&_strong]:text-slate-100 [&_strong]:font-semibold ' +
+              '[&_blockquote]:border-l-2 [&_blockquote]:border-slate-200 dark:[&_blockquote]:border-slate-700 [&_blockquote]:pl-3 [&_blockquote]:text-slate-500 dark:[&_blockquote]:text-slate-400 [&_blockquote]:my-3'
+            }
+            dangerouslySetInnerHTML={{ __html: safeHtml }}
+          />
+        </>
+      )}
 
       <div className="flex flex-wrap items-center gap-2">
-        <button
-          onClick={onApprove}
-          disabled={approveBusy || rejectBusy}
-          className="px-3 py-1.5 border border-emerald-200 dark:border-emerald-700 rounded text-sm text-emerald-700 dark:text-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 disabled:opacity-50"
-        >
-          {approveBusy ? 'Approving…' : 'Approve & publish'}
-        </button>
-        <button
-          onClick={onReject}
-          disabled={approveBusy || rejectBusy || !!regenBusy}
-          className="px-3 py-1.5 border border-rose-200 dark:border-rose-900 rounded text-sm text-rose-700 dark:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-900/30 disabled:opacity-50"
-        >
-          {rejectBusy ? 'Rejecting…' : 'Reject & delete'}
-        </button>
-        <RegenInline
-          busy={regenBusy}
-          disabled={approveBusy || rejectBusy || !!regenBusy}
-          onRegen={(mode, notes) => onRegenerate(mode, notes)}
-        />
+        {editing ? (
+          <>
+            <button
+              onClick={() => void saveEdit()}
+              disabled={saving}
+              className="px-3 py-1.5 border border-brand-500 rounded text-sm text-white bg-brand-500 hover:bg-brand-600 disabled:opacity-50"
+            >
+              {saving ? 'Saving…' : 'Save'}
+            </button>
+            <button
+              onClick={() => {
+                setEditing(false);
+                setEditTitle(post.title);
+                setEditBody(post.body);
+              }}
+              disabled={saving}
+              className="px-3 py-1.5 border border-slate-300 dark:border-[rgb(var(--border-500))] rounded text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
+            >
+              Cancel
+            </button>
+          </>
+        ) : (
+          <>
+            <button
+              onClick={onApprove}
+              disabled={approveBusy || rejectBusy}
+              className="px-3 py-1.5 border border-emerald-200 dark:border-emerald-700 rounded text-sm text-emerald-700 dark:text-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 disabled:opacity-50"
+            >
+              {approveBusy ? 'Approving…' : 'Approve & publish'}
+            </button>
+            <button
+              onClick={onReject}
+              disabled={approveBusy || rejectBusy || !!regenBusy}
+              className="px-3 py-1.5 border border-rose-200 dark:border-rose-900 rounded text-sm text-rose-700 dark:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-900/30 disabled:opacity-50"
+            >
+              {rejectBusy ? 'Rejecting…' : 'Reject & delete'}
+            </button>
+            <RegenInline
+              busy={regenBusy}
+              disabled={approveBusy || rejectBusy || !!regenBusy}
+              onRegen={(mode, notes) => onRegenerate(mode, notes)}
+            />
+          </>
+        )}
       </div>
     </div>
   );

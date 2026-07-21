@@ -1,0 +1,13 @@
+{
+  "slug": "unsub-iranian-nexus-developer-unit-42",
+  "name": "UnSub (Iranian-nexus developer) — Unit 42",
+  "akas": "TuxBot v3; Keksec-ecosystem-adjacent IoT botnet",
+  "brief": "Unit 42 recovered a multi-architecture IoT botnet (Telnet/SSH scanner with 1,496 credential pairs, persistence, C2) whose developer relied heavily on LLM-generated code throughout — bot modules, C2 server code, and porting a public ADB exploit into a custom format — with verbatim LLM chain-of-thought comments left in the source files. Live since Jan 2026 (first VirusTotal submission), with fresh April 2026 samples and active C2 telemetry (Xpanse). A leaked build hostname on Iran's ArvanCloud CDN ties development to an Iran-hosted workstation. *Analyst note: the LLM hallucinated an Argon2id implementation (silently fell back to SHA256 while keeping Argon2id-labeled comments) and left boilerplate \"for educational and authorized security research only\" disclaimers in the malware source.* Unit 42",
+  "ttps": ["T1584", "T1587.001", "T1587.004"],
+  "categories": ["LLM-aided development", "LLM-assisted vulnerability research"],
+  "reported": "Jul 2026",
+  "activity": "Jan 2025 – Apr 2026",
+  "table": "main",
+  "sizeBytes": 803,
+  "ttpMd": "**LLM-aided development** T1587.001 - Develop Capabilities: Malware<br><br>**LLM-assisted vulnerability research** T1587.004 - Develop Capabilities: Exploits (ADB exploit porting)<br><br>T1584 - Compromise Infrastructure (botnet build/C2)"
+}

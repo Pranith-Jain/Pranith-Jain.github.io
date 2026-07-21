@@ -293,4 +293,10 @@ export interface Env {
   /** Have I Been Pwned API key (paid). Set via `wrangler secret put HIBP_API_KEY`.
    *  Required for account/paste search; breach list endpoints work without. */
   HIBP_API_KEY?: string;
+  /** Discord webhook URL for case-study pipeline notifications (publish, fail,
+   *  draft-ready events). Set via `wrangler secret put DISCORD_WEBHOOK_URL`. */
+  DISCORD_WEBHOOK_URL?: string;
+  /** Slack webhook URL for case-study pipeline notifications (publish, fail,
+   *  draft-ready events). Set via `wrangler secret put SLACK_WEBHOOK_URL`. */
+  SLACK_WEBHOOK_URL?: string;
 }

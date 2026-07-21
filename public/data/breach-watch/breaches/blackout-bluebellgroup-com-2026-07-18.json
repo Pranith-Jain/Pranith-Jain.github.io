@@ -1,0 +1,15 @@
+{
+  "slug": "blackout-bluebellgroup-com-2026-07-18",
+  "title": "bluebellgroup.com",
+  "group": "blackout",
+  "discovered": "2026-07-18T22:56:15.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Bluebell Group is a Hong Kong-based, family-owned omnichannel brand curat...5",
+  "source_url": "https://www.ransomlook.io/screenshots/blackout/bluebellgroupcom.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

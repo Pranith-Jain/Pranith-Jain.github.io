@@ -1,0 +1,15 @@
+{
+  "slug": "titan-pertinent-healthcare-business-solutions-private-limited-2026-07-21",
+  "title": "PERTINENT HEALTHCARE BUSINESS SOLUTIONS PRIVATE LIMITED",
+  "group": "titan",
+  "discovered": "2026-07-21T10:09:59.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "IN",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/ff083d37-6bed-4dcd-919d-b48072978b3f",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["Darkfield"]
+}

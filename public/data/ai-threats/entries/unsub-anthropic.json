@@ -1,0 +1,13 @@
+{
+  "slug": "unsub-anthropic",
+  "name": "UnSub — Anthropic",
+  "akas": "",
+  "brief": "Operator ran a Telegram-based scam-assistance bot powered by Claude — generating high-EQ replies, producing/enhancing images for fake profiles, emotional-manipulation scripts, and multi-language support to widen targeting.",
+  "ttps": [],
+  "categories": ["DeepFake for Impersonation"],
+  "reported": "Aug 2025",
+  "activity": "2025",
+  "table": "deepfake",
+  "sizeBytes": 222,
+  "ttpMd": "**DeepFake for Impersonation**<br><br>(GenAI image + text; romance fraud)"
+}

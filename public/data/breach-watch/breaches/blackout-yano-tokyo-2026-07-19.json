@@ -1,0 +1,15 @@
+{
+  "slug": "blackout-yano-tokyo-2026-07-19",
+  "title": "yano.tokyo",
+  "group": "blackout",
+  "discovered": "2026-07-19T12:22:39.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "JP",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/8065f76c-3e22-4780-8b5c-7ee3a31c93b8",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["Darkfield"]
+}

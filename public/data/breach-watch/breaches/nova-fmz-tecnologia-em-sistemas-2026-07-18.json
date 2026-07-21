@@ -1,0 +1,15 @@
+{
+  "slug": "nova-fmz-tecnologia-em-sistemas-2026-07-18",
+  "title": "FMZ Tecnologia em Sistemas",
+  "group": "nova",
+  "discovered": "2026-07-18T14:27:42.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "BR",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/5df175ca-3dfc-4982-9487-c308e477fb71",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["Darkfield"]
+}

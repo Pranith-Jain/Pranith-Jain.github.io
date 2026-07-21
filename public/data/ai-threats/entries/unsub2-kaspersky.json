@@ -1,0 +1,13 @@
+{
+  "slug": "unsub2-kaspersky",
+  "name": "Unsub2 - Kaspersky",
+  "akas": "N/A",
+  "brief": "“Smart chatbots” were also used as “consultants” on making money online. On one site a bot pretending to be an Elon Musk design advertised investment services. After telling the new “client” that it could make them rich quickly, the robot asked about their education, income level, and investment experience. Regardless of the answers, the bot informed the client that it would do all the earning. Next, it demonstrated an amount it could offer and prompted the user to register simply by providing their contact details. Events then likely unfolded as in other similar schemes: The “AI” asked for a small fee in recognition of its intellectual abilities, and then simply vanished into the ether. Source",
+  "ttps": ["T1566", "T1583"],
+  "categories": ["Lookalike  LLM", "LLM-supported social engineering"],
+  "reported": "Mar 2024",
+  "activity": "Jan 2023 – Dec 2023",
+  "table": "main",
+  "sizeBytes": 703,
+  "ttpMd": "**Lookalike  LLM**   T1583 Acquire Infrastructure<br><br>      **LLM-supported social engineering**   T1566 - Phishing"
+}

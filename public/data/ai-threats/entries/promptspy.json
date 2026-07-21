@@ -1,0 +1,13 @@
+{
+  "slug": "promptspy",
+  "name": "PROMPTSPY",
+  "akas": "UnSub (GTIG; ESET-identified Android backdoor)",
+  "brief": "Android backdoor (identified with ESET) that embeds an autonomous Gemini-API agent to navigate the device UI and drive on-device data theft. GTIG assesses it experimental and unattributed. *Analyst note: included alongside PROMPTFLUX as experimental, unattributed AI-embedded malware.* GTIG",
+  "ttps": ["T1059", "T1119"],
+  "categories": ["LLM-embedded malware (runtime generation)", "LLM-directed Automated Collection"],
+  "reported": "May 2026",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 290,
+  "ttpMd": "**LLM-embedded malware (runtime generation)** T1059 - Command and Scripting Interpreter<br><br>**LLM-directed Automated Collection** T1119 - Automated Collection"
+}

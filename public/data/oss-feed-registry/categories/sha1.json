@@ -1,0 +1,34 @@
+{
+  "category": "SHA1",
+  "count": 4,
+  "feeds": [
+    {
+      "vendor": "Abuse.ch",
+      "description": "SHA1 hashes: Recent additions",
+      "category": "SHA1",
+      "url": "https://bazaar.abuse.ch/export/txt/sha1/recent/",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Github",
+      "description": "APT Notes",
+      "category": "SHA1",
+      "url": "https://raw.githubusercontent.com/aptnotes/data/master/APTnotes.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Botvrij.eu",
+      "description": "IOC List SHA1",
+      "category": "SHA1",
+      "url": "https://www.botvrij.eu/data/ioclist.md5",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "threatview.io",
+      "description": "SHA File Hash Blocklist SHA hashes of files known or linked with malware execution",
+      "category": "SHA1",
+      "url": "https://threatview.io/Downloads/SHA-HASH-FEED.txt",
+      "feedStatus": "Active"
+    }
+  ]
+}

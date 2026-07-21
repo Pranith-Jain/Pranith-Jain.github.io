@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "MX",
   "sizeBytes": 0,
-  "description": "Asimar | Asian Marine Service PCL is a leading shipyard in Thailand with over 35 years of experience in the shipbuilding and repair industry. The company specializes in ship repair, ship building, steel fabrication, and engineering services for marine, offshore, and onshore sectors. Committed to quality and timely delivery, Asimar aims to achieve ultimate client satisfaction while adhering to classification society standards. Established in 1981, Asimar has evolved from a marine survey company to a prominent player in the ship repair services market.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/d184c1eb-7e13-4e1c-be15-4dc535ce373f",
   "groupAliases": ["DRAGON FORCE"],
   "activity": "Not Found",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { postJson, probeAuth } from './adminApi';
+import { getJson, postJson, probeAuth } from './adminApi';
 import { readAdminToken, clearAdminToken } from '../../lib/admin-token';
 import AdminLogin from './AdminLogin';
 import PendingTab from './PendingTab';
@@ -142,6 +142,12 @@ function PipelineBar() {
 export default function AdminApp() {
   const [authStatus, setAuthStatus] = useState<'probing' | 'unauthed' | 'authed'>('probing');
   const [active, setActive] = useState<TabKey>('pending');
+  const [inferenceStats, setInferenceStats] = useState<{
+    calls: number;
+    totalTokens: number;
+    estimatedCostCents: number;
+    overCap: boolean;
+  } | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -162,6 +168,14 @@ export default function AdminApp() {
       cancelled = true;
     };
   }, []);
+
+  // Fetch inference cost stats on auth (best-effort)
+  useEffect(() => {
+    if (authStatus !== 'authed') return;
+    getJson<{ calls: number; totalTokens: number; estimatedCostCents: number; overCap: boolean }>('/inference-stats')
+      .then(setInferenceStats)
+      .catch(() => {});
+  }, [authStatus]);
 
   function logout() {
     clearAdminToken();
@@ -190,6 +204,18 @@ export default function AdminApp() {
           </p>
         </div>
         <div className="flex items-center gap-3">
+          {inferenceStats && (
+            <span
+              className={`px-2 py-1 rounded text-micro font-mono border ${
+                inferenceStats.overCap
+                  ? 'bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-300 border-rose-200 dark:border-rose-700/50'
+                  : 'bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-slate-500 dark:text-slate-400 border-slate-200 dark:border-[rgb(var(--border-400))]'
+              }`}
+              title={`${inferenceStats.calls} calls · ${inferenceStats.totalTokens.toLocaleString()} tokens`}
+            >
+              ${inferenceStats.estimatedCostCents.toFixed(2)} this month
+            </span>
+          )}
           <a
             href="/admin/analytics"
             className="px-3 py-1.5 border border-slate-300 dark:border-[rgb(var(--border-500))] rounded text-sm text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] hover:text-slate-900 dark:hover:text-white transition-colors"

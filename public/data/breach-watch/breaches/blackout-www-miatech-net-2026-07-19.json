@@ -1,0 +1,15 @@
+{
+  "slug": "blackout-www-miatech-net-2026-07-19",
+  "title": "www.miatech.net",
+  "group": "blackout",
+  "discovered": "2026-07-19T12:22:05.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/8a5decb3-253a-464b-880a-a7acd3e24b0d",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["Darkfield"]
+}

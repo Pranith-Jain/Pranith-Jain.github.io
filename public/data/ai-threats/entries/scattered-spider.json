@@ -1,0 +1,13 @@
+{
+  "slug": "scattered-spider",
+  "name": "Scattered Spider",
+  "akas": "UNC3944, Storm-0875",
+  "brief": "In the second half of 2023, SCATTERED SPIDER used the Azure AD PowerShell module to download all Entra ID user immutable IDs at a North American financial services victim. Using its Entra ID backdoor, the adversary could log in as any of the downloaded users. The PowerShell used to download the users’ immutable IDs resembled large language model (LLM) outputs such as those from ChatGPT. In particular, the pattern of one comment, the actual command and then a new line for each command matches the Llama 2 70B model output. Source",
+  "ttps": ["T1588"],
+  "categories": ["LLM-enhanced  scripting techniques"],
+  "reported": "Feb 2024",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 533,
+  "ttpMd": "**LLM-enhanced  scripting techniques**   T1588 - Develop Capabilities: Tool"
+}

@@ -1,0 +1,13 @@
+{
+  "slug": "gtg-5004",
+  "name": "GTG-5004",
+  "akas": "UnSub RaaS developer (Anthropic)",
+  "brief": "A low-skill criminal, apparently dependent on the model, used Claude to build, market, and sell a ransomware-as-a-service line (ChaCha20 encryption, anti-EDR, anti-recovery, Windows-internals exploitation), sold since ~January 2025 on Dread, CryptBB and Nulled at ~$400 (DLL/exe) / ~$800 (full RaaS kit with PHP console + C2) / ~$1,200 (FUD crypter). Anthropic",
+  "ttps": ["T1027", "T1490", "T1562.001", "T1587.001"],
+  "categories": ["LLM-aided development", "LLM-optimized payload crafting", "LLM-enhanced anomaly detection evasion"],
+  "reported": "Aug 2025",
+  "activity": "Jan 2025 – Aug 2025",
+  "table": "main",
+  "sizeBytes": 360,
+  "ttpMd": "**LLM-aided development** T1587.001 - Develop Capabilities: Malware<br><br>**LLM-optimized payload crafting** T1027 - Obfuscated Files/Information (FUD crypter)<br><br>**LLM-enhanced anomaly detection evasion** T1562.001 - Impair Defenses (anti-EDR)<br><br>T1490 - Inhibit System Recovery"
+}

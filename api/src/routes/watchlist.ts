@@ -22,7 +22,7 @@ import { badRequest, internalError, notFound, serviceUnavailable } from '../lib/
 // ── Helpers ────────────────────────────────────────────────────────────
 
 function generateId(): string {
-  return `wl_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+  return `wl_${Date.now()}_${crypto.randomUUID().slice(0, 8)}`;
 }
 
 const ACTOR_EXAMPLES = ['LockBit', 'BlackCat', 'Lazarus', 'Scattered Spider', 'CL0P', 'APT29', 'Kimsuky', 'PLAY'];

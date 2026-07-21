@@ -610,12 +610,17 @@ export async function pruneEmptyBriefingsHandler(c: AdminCtx) {
   const auth = requireAdmin(c);
   if ('error' in auth) return auth.error;
 
-  const where = "type IN ('daily','weekly') AND json_extract(stats_json,'$.findings') = 0";
   try {
-    const found = await db.prepare(`SELECT slug FROM briefings WHERE ${where}`).all<{ slug: string }>();
+    const found = await db
+      .prepare("SELECT slug FROM briefings WHERE type IN (?, ?) AND json_extract(stats_json,'$.findings') = 0")
+      .bind('daily', 'weekly')
+      .all<{ slug: string }>();
     const slugs = (found.results ?? []).map((r) => r.slug);
     if (slugs.length > 0) {
-      await db.prepare(`DELETE FROM briefings WHERE ${where}`).run();
+      await db
+        .prepare("DELETE FROM briefings WHERE type IN (?, ?) AND json_extract(stats_json,'$.findings') = 0")
+        .bind('daily', 'weekly')
+        .run();
       await Promise.all(slugs.map((s) => purgeBriefingDetailCache(s)));
     }
     return c.json({ ok: true, deleted: slugs }, 200);

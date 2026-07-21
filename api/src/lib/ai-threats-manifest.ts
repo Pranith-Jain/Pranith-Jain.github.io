@@ -1,0 +1,1 @@
+../../../worker/lib/ai-threats-manifest.ts

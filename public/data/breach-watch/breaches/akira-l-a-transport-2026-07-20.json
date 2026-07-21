@@ -1,0 +1,15 @@
+{
+  "slug": "akira-l-a-transport-2026-07-20",
+  "title": "L&A Transport",
+  "group": "akira",
+  "discovered": "2026-07-20T13:53:07.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/0ca7afcf-5a1c-40f9-af21-f3dda46cba79",
+  "groupAliases": ["Megazord"],
+  "activity": "Transportation/Logistics",
+  "references": ["Darkfield"]
+}

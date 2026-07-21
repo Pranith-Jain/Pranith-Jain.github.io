@@ -1,0 +1,13 @@
+{
+  "slug": "multiple-unsub-proofpoint",
+  "name": "Multiple UnSub — Proofpoint",
+  "akas": "UnSub (multiple operators)",
+  "brief": "Cybercriminals abused Lovable (an AI site-builder) to mass-produce credential-phishing pages (Microsoft/bank spoofs behind CAPTCHA), fraud sites funneling to Telegram, crypto-wallet-draining DeFi clones, and redirectors delivering zgRAT/DOILoader — tens of thousands of malicious Lovable URLs per month since February 2025, affecting 5,000+ organizations. *Bias note: vendor sells email/URL security.* Proofpoint",
+  "ttps": ["T1566", "T1583.001", "T1608", "T1657"],
+  "categories": ["AI-generated attack infrastructure (app-builder abuse)", "LLM-supported social engineering"],
+  "reported": "Aug 2025",
+  "activity": "Feb 2025 – Jul 2025",
+  "table": "main",
+  "sizeBytes": 412,
+  "ttpMd": "**AI-generated attack infrastructure (app-builder abuse)** T1583.001 - Acquire Infrastructure / T1608 - Stage Capabilities<br><br>**LLM-supported social engineering** T1566 - Phishing<br><br>T1657 - Financial Theft"
+}

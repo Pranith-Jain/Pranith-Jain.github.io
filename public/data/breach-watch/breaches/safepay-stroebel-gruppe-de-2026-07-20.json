@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-stroebel-gruppe-de-2026-07-20",
+  "title": "stroebel-gruppe.de",
+  "group": "SafePay",
+  "discovered": "2026-07-20T00:00:00.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "Germany",
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated in ransomware attack",
+  "source_url": "https://recentbreaches.com/breach/stroebel-gruppe-de-safepay-2026-07",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["RecentBreaches.com"]
+}

@@ -1,0 +1,13 @@
+{
+  "slug": "unsub-suspected-prc-nexus-agentic-frameworks-gtig",
+  "name": "UnSub (suspected PRC-nexus, agentic frameworks) — GTIG",
+  "akas": "UnSub",
+  "brief": "A suspected PRC-nexus actor deployed agentic offensive-security frameworks (Hexstrike, Strix) against a Japanese technology firm and an East Asian cybersecurity platform — confirmed AI-as-tool use across the intrusion, though GTIG did not assign a named cluster. GTIG",
+  "ttps": ["T1595"],
+  "categories": ["LLM-orchestrated operations", "LLM-assisted vulnerability research"],
+  "reported": "May 2026",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 267,
+  "ttpMd": "**LLM-orchestrated operations** TA0002 - Execution (agentic offensive frameworks)<br><br>**LLM-assisted vulnerability research** T1595 - Active Scanning"
+}

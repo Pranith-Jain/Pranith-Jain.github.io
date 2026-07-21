@@ -80,8 +80,7 @@ export interface WsTimelineEvent {
 }
 
 function genId(prefix: string): string {
-  const rand = Math.random().toString(36).slice(2, 10);
-  return `${prefix}_${rand}`;
+  return `${prefix}_${crypto.randomUUID()}`;
 }
 
 // ─── Workspace CRUD ───

@@ -1,0 +1,13 @@
+{
+  "slug": "unc5673",
+  "name": "UNC5673",
+  "akas": "PRC-nexus; notable overlaps with TEMP.Hex (GTIG)",
+  "brief": "PRC-nexus UNC5673 built obfuscated, scalable LLM-abuse infrastructure — account pooling and cost-sharing proxy middleware (Claude-Relay-Service, CLI-Proxy-API) fronting Gemini/Claude/OpenAI — while targeting government sectors in South and Southeast Asia. GTIG",
+  "ttps": ["T1090", "T1583.003", "T1585"],
+  "categories": ["LLM-advised resource development"],
+  "reported": "May 2026",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 260,
+  "ttpMd": "**LLM-advised resource development** T1585 - Establish Accounts<br><br>T1090 - Proxy<br><br>T1583.003 - Acquire Infrastructure: Virtual Private Server"
+}

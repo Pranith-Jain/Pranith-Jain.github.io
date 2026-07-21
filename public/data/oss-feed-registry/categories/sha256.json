@@ -1,0 +1,55 @@
+{
+  "category": "SHA256",
+  "count": 7,
+  "feeds": [
+    {
+      "vendor": "Abuse.ch",
+      "description": "SHA256 hashes: Recent additions",
+      "category": "SHA256",
+      "url": "https://bazaar.abuse.ch/export/txt/sha256/recent/",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Abuse.ch",
+      "description": "Recent found malicious files on C2",
+      "category": "SHA256",
+      "url": "https://threatfox.abuse.ch/export/csv/sha256/recent/",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Today)",
+      "category": "SHA256",
+      "url": "https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/today.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Week)",
+      "category": "SHA256",
+      "url": "https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/week.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Month)",
+      "category": "SHA256",
+      "url": "https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/month.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Year)",
+      "category": "SHA256",
+      "url": "https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/year.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Botvrij.eu",
+      "description": "IOC List SHA256",
+      "category": "SHA256",
+      "url": "https://www.botvrij.eu/data/ioclist.sha256",
+      "feedStatus": "Active"
+    }
+  ]
+}

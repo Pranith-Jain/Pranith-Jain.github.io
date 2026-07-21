@@ -29,6 +29,7 @@ import {
   type TiSeverity,
   type TiIocIndexEntry,
 } from './lib/threat-intel-manifest';
+import { loadDbIndex, getDbBrief, filterBriefs, dbCacheStats, type DbBriefType } from './lib/daily-briefs-manifest';
 import {
   loadWinRegIndex,
   getWinRegArtifact,
@@ -36,6 +37,20 @@ import {
   winRegCacheStats,
   type WinRegListOptions,
 } from './lib/winreg-manifest';
+import {
+  loadAiThreatsIndex,
+  getAiThreat,
+  filterThreats,
+  aiThreatsCacheStats,
+  type AiThreatListOptions,
+} from './lib/ai-threats-manifest';
+import {
+  loadOssFeedsIndex,
+  getOssFeedsByCategory,
+  filterFeeds,
+  ossFeedsCacheStats,
+  type OssFeedListOptions,
+} from './lib/oss-feeds-manifest';
 import { loadBwIndex, getBwBreach, filterBreaches, listGroups, bwCacheStats } from './lib/breach-watch-manifest';
 import {
   loadActorIndex,
@@ -2101,6 +2116,74 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         }
       );
 
+      // ── Daily Briefs (DB) tools ─────────────────────────────────────
+      // AI-generated intelligence briefs: OT/ICS cyber, deepfake/GenAI,
+      // and global disaster assessments. Data from
+      // agentic-ai-daily-reports.netlify.app, parsed into
+      // public/data/daily-briefs/.
+
+      this.tools(
+        'db_list_briefs',
+        'List available daily intelligence briefs by type (cyber, deepfake, disaster). Returns dates and metadata. Use db_get_brief to retrieve the full brief body.',
+        {
+          type: z.enum(['cyber', 'deepfake', 'disaster']).optional().describe('Filter by brief type'),
+          dateFrom: z.string().optional().describe('Start date filter (YYYY-MM-DD)'),
+          dateTo: z.string().optional().describe('End date filter (YYYY-MM-DD)'),
+          limit: z.number().int().min(1).max(365).optional().describe('Max briefs to return (default 50)'),
+        },
+        async ({ type, dateFrom, dateTo, limit }) => {
+          const idx = await loadDbIndex(ASSETS);
+          const briefs = filterBriefs(idx, {
+            type: type as DbBriefType | undefined,
+            dateFrom,
+            dateTo,
+            limit: limit ?? 50,
+          });
+          return untrustedToolResult({
+            counts: idx.counts,
+            returned: briefs.length,
+            briefs,
+          });
+        }
+      );
+
+      this.tools(
+        'db_get_brief',
+        'Return the full daily intelligence brief for a given type and date. Includes executive summary, key findings, events/incidents, and structured data. Use db_list_briefs to discover available dates.',
+        {
+          type: z.enum(['cyber', 'deepfake', 'disaster']).describe('Brief type'),
+          date: z.string().describe('Brief date (YYYY-MM-DD). Get available dates from db_list_briefs.'),
+        },
+        async ({ type, date }) => {
+          const body = await getDbBrief(ASSETS, type as DbBriefType, date);
+          if (!body) {
+            return untrustedToolResult({
+              error: 'brief_not_found',
+              type,
+              date,
+              hint: 'Call db_list_briefs to see available dates.',
+            });
+          }
+          return untrustedToolResult(body);
+        }
+      );
+
+      this.tools(
+        'db_stats',
+        'Return cache + manifest stats for the Daily Briefs data: index loaded, body-cache sizes and hit ratios. Useful for diagnosing cold-start latency.',
+        {},
+        async () => {
+          const idx = await loadDbIndex(ASSETS);
+          return untrustedToolResult({
+            counts: idx.counts,
+            source: idx.source,
+            license: idx.license,
+            generatedAt: idx.generatedAt,
+            cache: dbCacheStats(),
+          });
+        }
+      );
+
       // ── Live Threat Intel Enrichment ──────────────────────────────
       // Query-specific search tools that hit OTX, ThreatFox, MalwareBazaar,
       // and ransomware.live in real time. Unlike get_live_iocs (aggregated
@@ -3198,6 +3281,141 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
               message: e instanceof Error ? e.message : String(e),
             });
           }
+        }
+      );
+
+      // ── AI Threat Actors: Cybershujin tracker ──────────────────────────
+      this.tools(
+        'ai_threats_list',
+        'List AI-capable threat actors from the Cybershujin tracker (79 entries, MIT). Each entry documents real-world confirmed use of AI/LLMs by threat actors. Filter by table (main/deepfake), category, TTP, or keyword.',
+        {
+          table: z.enum(['main', 'deepfake']).optional().describe('Filter by tracker table'),
+          category: z
+            .string()
+            .optional()
+            .describe('Filter by AI-use category (e.g. "LLM-enhanced scripting techniques")'),
+          ttp: z.string().optional().describe('Filter by MITRE ATT&CK TTP ID (e.g. "T1588")'),
+          keyword: z
+            .string()
+            .optional()
+            .describe('Case-insensitive search across name, aliases, brief, TTPs, categories'),
+          limit: z.number().int().min(1).max(200).optional().describe('Max entries to return (default 79)'),
+        },
+        async ({ table, category, ttp, keyword, limit }) => {
+          const idx = await loadAiThreatsIndex(ASSETS);
+          const entries = filterThreats(idx, {
+            table,
+            category,
+            ttp,
+            keyword,
+            limit: limit ?? 200,
+          });
+          return untrustedToolResult({
+            total: idx.counts.total,
+            returned: entries.length,
+            lastSyncedAt: idx.lastSyncedAt,
+            entries,
+          });
+        }
+      );
+
+      this.tools(
+        'ai_threats_get',
+        'Return the full entry body for an AI-capable threat actor — includes full brief, aliases, raw TTP markdown, reported/activity dates, and MITRE technique IDs. Use ai_threats_list first to discover slugs.',
+        {
+          slug: z.string().describe('Entry slug, e.g. "fancy-bear". Get these from ai_threats_list.'),
+        },
+        async ({ slug }) => {
+          const body = await getAiThreat(ASSETS, slug);
+          if (!body) {
+            return untrustedToolResult({
+              error: 'entry_not_found',
+              slug,
+              hint: 'Call ai_threats_list to see available entries.',
+            });
+          }
+          return untrustedToolResult(body);
+        }
+      );
+
+      this.tools(
+        'ai_threats_stats',
+        'Return cache + manifest stats for the AI Threat Actors data: total entries, index load state, body-cache hit ratios.',
+        {},
+        async () => {
+          const idx = await loadAiThreatsIndex(ASSETS);
+          return untrustedToolResult({
+            counts: idx.counts,
+            source: idx.source,
+            license: idx.license,
+            replicatedAt: idx.replicatedAt,
+            lastSyncedAt: idx.lastSyncedAt,
+            cache: aiThreatsCacheStats(),
+          });
+        }
+      );
+
+      // ── OSS Feed Registry: Bert-JanP feed catalog ──────────────────
+      this.tools(
+        'oss_feeds_list',
+        'List open-source threat intel feeds from the curated catalog (145+ feeds, BSD-3-Clause). Filter by vendor, category, status, or keyword. Each entry shows vendor, description, category, and feed status.',
+        {
+          vendor: z.string().optional().describe('Filter by vendor name (case-insensitive substring)'),
+          category: z
+            .string()
+            .optional()
+            .describe('Filter by IOC type: IP, DNS, URL, MD5, SHA1, SHA256, CVEID, SSL, JA3, NamePipe, RANSOMWARELEAK'),
+          status: z.string().optional().describe('Filter by feed status: Active or Offline'),
+          keyword: z.string().optional().describe('Case-insensitive search across vendor, description, category'),
+          limit: z.number().int().min(1).max(200).optional().describe('Max feeds to return (default 145)'),
+        },
+        async ({ vendor, category, status, keyword, limit }) => {
+          const idx = await loadOssFeedsIndex(ASSETS);
+          const feeds = filterFeeds(idx, { vendor, category, status, keyword, limit: limit ?? 200 });
+          return untrustedToolResult({
+            total: idx.counts.total,
+            returned: feeds.length,
+            categories: idx.categories,
+            feeds,
+          });
+        }
+      );
+
+      this.tools(
+        'oss_feeds_get_category',
+        'Return all feeds in a specific category with full URLs. Use oss_feeds_list first to discover category names.',
+        {
+          category: z
+            .string()
+            .describe('Category slug, e.g. "ip", "dns", "url", "cveid". Get from oss_feeds_list categories.'),
+        },
+        async ({ category }) => {
+          const body = await getOssFeedsByCategory(ASSETS, category);
+          if (!body) {
+            return untrustedToolResult({
+              error: 'category_not_found',
+              category,
+              hint: 'Call oss_feeds_list to see available categories.',
+            });
+          }
+          return untrustedToolResult(body);
+        }
+      );
+
+      this.tools(
+        'oss_feeds_stats',
+        'Return cache + manifest stats for the OSS Feed Registry: total feeds, category breakdown, status breakdown, cache state.',
+        {},
+        async () => {
+          const idx = await loadOssFeedsIndex(ASSETS);
+          return untrustedToolResult({
+            counts: idx.counts,
+            source: idx.source,
+            license: idx.license,
+            replicatedAt: idx.replicatedAt,
+            lastSyncedAt: idx.lastSyncedAt,
+            cache: ossFeedsCacheStats(),
+          });
         }
       );
     }

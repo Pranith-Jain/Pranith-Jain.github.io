@@ -82,7 +82,9 @@ export async function handleArgusApi(
       new Response(JSON.stringify({ error: 'api key required' }), {
         status: 401,
         headers: { 'content-type': 'application/json' },
-      })
+      }),
+      undefined,
+      url.origin
     );
   }
   const user = await validateRawKey(env.BRIEFINGS_DB, rawKey);
@@ -91,7 +93,9 @@ export async function handleArgusApi(
       new Response(JSON.stringify({ error: 'invalid api key' }), {
         status: 403,
         headers: { 'content-type': 'application/json' },
-      })
+      }),
+      undefined,
+      url.origin
     );
   }
   return proxyToOrigin(request, ARGUS_ORIGIN, url.pathname + url.search, requestId);

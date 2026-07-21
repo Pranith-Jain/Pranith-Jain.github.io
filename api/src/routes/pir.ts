@@ -526,7 +526,7 @@ export async function pirDetailHandler(c: Context<{ Bindings: Env }>): Promise<R
 // ── CRUD endpoints ───────────────────────────────────────────────────────
 
 function generatePirId(): string {
-  return `pir-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`;
+  return `pir-${Date.now().toString(36)}-${crypto.randomUUID().slice(0, 8)}`;
 }
 
 async function loadPirs(env: Env): Promise<Pir[]> {

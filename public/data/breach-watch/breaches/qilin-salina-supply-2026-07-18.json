@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-salina-supply-2026-07-18",
+  "title": "Salina Supply",
+  "group": "qilin",
+  "discovered": "2026-07-18T13:36:52.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/733bc8f3-7a4d-4877-b9bc-abd96dfd8846",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["Darkfield"]
+}

@@ -1,0 +1,13 @@
+{
+  "slug": "unc5356",
+  "name": "UNC5356",
+  "akas": "Financially motivated (GTIG); COINBAIT phishing kit",
+  "brief": "Built the COINBAIT phishing kit using the AI app-builder platform Lovable AI (evidenced by the lovableSupabase client and lovable.app image hosting in samples). GTIG",
+  "ttps": ["T1566", "T1583.001", "T1608"],
+  "categories": ["AI-generated attack infrastructure (app-builder abuse)", "LLM-supported social engineering"],
+  "reported": "Feb 2026",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 165,
+  "ttpMd": "**AI-generated attack infrastructure (app-builder abuse)** T1583.001 - Acquire Infrastructure / T1608 - Stage Capabilities<br><br>**LLM-supported social engineering** T1566 - Phishing"
+}

@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "***.com zoominfo.com/c/military-sealift-command/149045906 We attempted to contact the managers regarding the leaked documents (ITAR documentation, personal data, cargo manifests—including ESSM shipments—vessel blueprints, and both disclosed and undisclosed information)/ We managed to reach only Jennifer Miller , Todd Phillips and Dain Costlow However, these individuals dismissed the entire matter as a joke, ignoring all warnings about leaks and the importance of internal documents, and refused to provide any contact details for anyone authorized to handle such issues or to pass the information on to management, despite the availability of conclusive evidence. If you do not get in touch in the near future, the data will be published.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/aea499a3-3e0a-4441-8d56-e637a231b9a5",
   "groupAliases": ["the gentlemen"],
   "activity": "Transportation/Logistics",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

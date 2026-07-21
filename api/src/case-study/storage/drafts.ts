@@ -35,6 +35,7 @@ function toIndexEntry(p: Post): PostIndexEntry {
     excerpt: p.excerpt,
     publishedAt: p.publishedAt,
     tags: p.tags,
+    candidateId: p.candidateId,
   };
 }
 

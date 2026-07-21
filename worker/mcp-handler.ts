@@ -21,7 +21,9 @@ export async function handleMcp(request: Request, env: Env, ctx: ExecutionContex
         new Response(JSON.stringify({ error: 'api key required for MCP — provide via Authorization: Bearer' }), {
           status: 401,
           headers: { 'content-type': 'application/json', 'www-authenticate': 'Bearer' },
-        })
+        }),
+        undefined,
+        url.origin
       );
     }
   }
@@ -30,5 +32,5 @@ export async function handleMcp(request: Request, env: Env, ctx: ExecutionContex
   const mcpRes = isSse
     ? await DfirMcpServer.serveSSE('/api/mcp/sse', { binding: 'DFIR_MCP' }).fetch(request, env, ctx)
     : await DfirMcpServer.serve('/api/mcp', { binding: 'DFIR_MCP' }).fetch(request, env, ctx);
-  return withSecurityHeaders(mcpRes);
+  return withSecurityHeaders(mcpRes, undefined, url.origin);
 }

@@ -1,0 +1,13 @@
+{
+  "slug": "unc795",
+  "name": "UNC795",
+  "akas": "PRC (GTIG designator)",
+  "brief": "Relied heavily on Gemini across the full attack lifecycle — engaging multiple days a week to troubleshoot code, research, and generate technical capabilities for intrusion activity, including interest in AI-integrated (agentic) code-auditing. GTIG",
+  "ttps": ["T1059", "T1587.001"],
+  "categories": ["LLM-aided development", "LLM-enhanced scripting techniques"],
+  "reported": "Feb 2026",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 247,
+  "ttpMd": "**LLM-aided development** T1587.001 - Develop Capabilities: Malware<br><br>**LLM-enhanced scripting techniques** T1059 - Command and Scripting Interpreter"
+}

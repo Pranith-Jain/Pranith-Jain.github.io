@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "NL",
   "sizeBytes": 0,
-  "description": "Netherlands",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/a85fc473-dbc7-4dfd-a2bf-a5b9beeef57e",
   "groupAliases": ["PlayCrypt"],
   "activity": "Manufacturing",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

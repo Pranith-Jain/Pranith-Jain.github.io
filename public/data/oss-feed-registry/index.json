@@ -1,0 +1,584 @@
+{
+  "source": "Bert-JanP/Open-Source-Threat-Intel-Feeds",
+  "sourceUrl": "https://github.com/Bert-JanP/Open-Source-Threat-Intel-Feeds",
+  "license": "BSD-3-Clause",
+  "replicatedAt": "2026-07-21",
+  "lastSyncedAt": "2026-07-21T17:40:21.743Z",
+  "counts": {
+    "total": 145,
+    "byCategory": {
+      "DNS": 16,
+      "IP": 76,
+      "MD5": 11,
+      "SHA1": 4,
+      "SHA256": 7,
+      "SSL": 1,
+      "URL": 23,
+      "CVEID": 4,
+      "RANSOMWARELEAK": 1,
+      "JA3": 1,
+      "NamePipe": 1
+    },
+    "byStatus": { "Active": 111, "Offline": 34 }
+  },
+  "categories": [
+    { "category": "DNS", "count": 16, "slug": "dns" },
+    { "category": "IP", "count": 76, "slug": "ip" },
+    { "category": "MD5", "count": 11, "slug": "md5" },
+    { "category": "SHA1", "count": 4, "slug": "sha1" },
+    { "category": "SHA256", "count": 7, "slug": "sha256" },
+    { "category": "SSL", "count": 1, "slug": "ssl" },
+    { "category": "URL", "count": 23, "slug": "url" },
+    { "category": "CVEID", "count": 4, "slug": "cveid" },
+    { "category": "RANSOMWARELEAK", "count": 1, "slug": "ransomwareleak" },
+    { "category": "JA3", "count": 1, "slug": "ja3" },
+    { "category": "NamePipe", "count": 1, "slug": "namepipe" }
+  ],
+  "feedIndex": [
+    {
+      "vendor": "Abuse.ch",
+      "description": "The host file below contains the following datasets observed in the past 6 month: Payload delivery domains and Botnet…",
+      "category": "DNS",
+      "feedStatus": "Active"
+    },
+    { "vendor": "Abuse.ch", "description": "Botnet C2 IP Blacklist", "category": "IP", "feedStatus": "Active" },
+    { "vendor": "Abuse.ch", "description": "Botnet C2 IP Blacklist", "category": "IP", "feedStatus": "Active" },
+    {
+      "vendor": "Abuse.ch",
+      "description": "Botnet C2 IP Blacklist aggressive",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Abuse.ch",
+      "description": "Botnet C2 IP Blacklist aggressive",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Blocklist.de",
+      "description": "All IP addresses that have attacked one of our customers/servers in the last 48 hours.",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Blocklist.de",
+      "description": "All IP addresses which have been reported within the last 48 hours as having run attacks on the service SSH",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Blocklist.de",
+      "description": "All IP addresses which have been reported within the last 48 hours as having run attacks on the service Mail, Postfix.",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Blocklist.de",
+      "description": "All IP addresses which have been reported within the last 48 hours as having run attacks on the service Apache, Apach…",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Blocklist.de",
+      "description": "All IP addresses which have been reported within the last 48 hours for attacks on the Service imap, sasl, pop3",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Blocklist.de",
+      "description": "All IP addresses which have been reported within the last 48 hours as having run attacks attacks on the RFI-Attacks, …",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Blocklist.de",
+      "description": "All IPs which attacks Joomlas, Wordpress and other Web-Logins with Brute-Force Logins.",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Blocklist.de",
+      "description": "All IPs which are older then 2 month and have more then 5.000 attacks.",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Abuse.ch",
+      "description": "Botnet C2 Indicators Of Compromise",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Abuse.ch",
+      "description": "all botnet C2s Feodo Tracker has ever seen",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    { "vendor": "Abuse.ch", "description": "MD5 hashes: Recent additions", "category": "MD5", "feedStatus": "Active" },
+    {
+      "vendor": "Abuse.ch",
+      "description": "Recent found malicious files on C2",
+      "category": "MD5",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Abuse.ch",
+      "description": "SHA1 hashes: Recent additions",
+      "category": "SHA1",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Abuse.ch",
+      "description": "SHA256 hashes: Recent additions",
+      "category": "SHA256",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Abuse.ch",
+      "description": "Recent found malicious files on C2",
+      "category": "SHA256",
+      "feedStatus": "Active"
+    },
+    { "vendor": "Abuse.ch", "description": "SSL Certificate Blacklist", "category": "SSL", "feedStatus": "Active" },
+    {
+      "vendor": "Abuse.ch",
+      "description": "Recent Payload delivery domains and Botnet C2 domains",
+      "category": "URL",
+      "feedStatus": "Active"
+    },
+    { "vendor": "Alienvault", "description": "Alienvault IP Reputation", "category": "IP", "feedStatus": "Active" },
+    { "vendor": "Cisco Talos", "description": "Talos IP Blacklist", "category": "IP", "feedStatus": "Offline" },
+    { "vendor": "Github", "description": "APT Notes", "category": "SHA1", "feedStatus": "Active" },
+    { "vendor": "Github", "description": "APT Notes", "category": "URL", "feedStatus": "Active" },
+    {
+      "vendor": "Binarydefense",
+      "description": "Binary Defense Systems Artillery Threat Intelligence Feed and Banlist Feed",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    { "vendor": "Github", "description": "Fox-IT Cobalt Strike Servers", "category": "IP", "feedStatus": "Active" },
+    {
+      "vendor": "CISA",
+      "description": "KNOWN EXPLOITED VULNERABILITIES CATALOG (CSV)",
+      "category": "CVEID",
+      "feedStatus": "Active"
+    },
+    { "vendor": "MISP Feed CERT-FR", "description": "MISP Feed CERT-FR", "category": "MD5", "feedStatus": "Active" },
+    { "vendor": "Carbon Black", "description": "Cobalt Strike Lucky Mouse", "category": "IP", "feedStatus": "Active" },
+    { "vendor": "Carbon Black", "description": "Cobalt Strike Pyxie", "category": "IP", "feedStatus": "Active" },
+    { "vendor": "Carbon Black", "description": "ShadowPad IOC", "category": "IP", "feedStatus": "Offline" },
+    { "vendor": "mrlooquer", "description": "Mr. Looquer IOC Feed", "category": "IP", "feedStatus": "Offline" },
+    { "vendor": "mrlooquer", "description": "Mr. Looquer IOC Feed", "category": "DNS", "feedStatus": "Offline" },
+    {
+      "vendor": "Ipsum",
+      "description": "Malicious and/or suspicious ip adrresses",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Ipsum",
+      "description": "Malicious and/or suspicious ip adrresses",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Ipsum",
+      "description": "Malicious and/or suspicious ip adrresses",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Ipsum",
+      "description": "Malicious and/or suspicious ip adrresses",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Ipsum",
+      "description": "Malicious and/or suspicious ip adrresses",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Ipsum",
+      "description": "Malicious and/or suspicious ip adrresses",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Ipsum",
+      "description": "Malicious and/or suspicious ip adrresses",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Ipsum",
+      "description": "Malicious and/or suspicious ip adrresses",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "eCrimeLabs",
+      "description": "Vulnerabilities with Metasploit exploit available",
+      "category": "CVEID",
+      "feedStatus": "Active"
+    },
+    { "vendor": "drb-ra", "description": "IPC2s-30day", "category": "IP", "feedStatus": "Active" },
+    {
+      "vendor": "drb-ra",
+      "description": "domainC2swithURLwithIP-30day-filter-abused",
+      "category": "URL",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "drb-ra",
+      "description": "domainC2swithURLwithIP-30day-filter-abused",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    { "vendor": "drb-ra", "description": "domainC2s", "category": "URL", "feedStatus": "Active" },
+    { "vendor": "montysecurity", "description": "Ratel C2", "category": "IP", "feedStatus": "Offline" },
+    { "vendor": "montysecurity", "description": "Cobalt Strike", "category": "IP", "feedStatus": "Offline" },
+    { "vendor": "montysecurity", "description": "Sliver C2", "category": "IP", "feedStatus": "Offline" },
+    { "vendor": "montysecurity", "description": "Posh C2", "category": "IP", "feedStatus": "Offline" },
+    { "vendor": "montysecurity", "description": "MetaSploit C2", "category": "IP", "feedStatus": "Offline" },
+    { "vendor": "montysecurity", "description": "Havoc C2", "category": "IP", "feedStatus": "Offline" },
+    { "vendor": "SNORT", "description": "IP Blocklist", "category": "IP", "feedStatus": "Active" },
+    { "vendor": "Abuse.ch", "description": "Recent Malware URLs", "category": "URL", "feedStatus": "Active" },
+    { "vendor": "CyberCure", "description": "Bad Hash Feed", "category": "MD5", "feedStatus": "Offline" },
+    {
+      "vendor": "Phishing Army",
+      "description": "The Blocklist to filter Phishing",
+      "category": "URL",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Phishing Army",
+      "description": "The Blocklist to filter Phishing. This is the extended version also contains domains without subdomains.",
+      "category": "URL",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Today)",
+      "category": "URL",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Today)",
+      "category": "DNS",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Today)",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Today)",
+      "category": "SHA256",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Today)",
+      "category": "MD5",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Week)",
+      "category": "URL",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Week)",
+      "category": "DNS",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Week)",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Week)",
+      "category": "SHA256",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Week)",
+      "category": "MD5",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Month)",
+      "category": "URL",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Month)",
+      "category": "DNS",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Month)",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Month)",
+      "category": "SHA256",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Month)",
+      "category": "MD5",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Year)",
+      "category": "URL",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Year)",
+      "category": "DNS",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Year)",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Year)",
+      "category": "SHA256",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Year)",
+      "category": "MD5",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Proofpoint",
+      "description": "Compromised IP addresses List",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    { "vendor": "OpenPhish", "description": "Phishing URLs", "category": "URL", "feedStatus": "Active" },
+    { "vendor": "Botvrij.eu", "description": "Blacklist Domain", "category": "DNS", "feedStatus": "Active" },
+    { "vendor": "Botvrij.eu", "description": "IOC List MD5", "category": "MD5", "feedStatus": "Active" },
+    { "vendor": "Botvrij.eu", "description": "IOC List SHA1", "category": "SHA1", "feedStatus": "Active" },
+    { "vendor": "Botvrij.eu", "description": "IOC List SHA256", "category": "SHA256", "feedStatus": "Active" },
+    { "vendor": "Botvrij.eu", "description": "OSINT MD5 Hashes", "category": "MD5", "feedStatus": "Active" },
+    { "vendor": "PhishTank", "description": "Phishing URLs", "category": "URL", "feedStatus": "Offline" },
+    { "vendor": "Cert.PL", "description": "Recent Phishing Domains", "category": "URL", "feedStatus": "Active" },
+    { "vendor": "AlienVault", "description": "IP Reputation Generic", "category": "IP", "feedStatus": "Active" },
+    { "vendor": "GreenSnow", "description": "IP Blocklist", "category": "IP", "feedStatus": "Active" },
+    { "vendor": "CINSscore", "description": "Bad IP list", "category": "IP", "feedStatus": "Active" },
+    { "vendor": "CyberCure", "description": "Blocked URL Feed", "category": "URL", "feedStatus": "Offline" },
+    { "vendor": "CyberCure", "description": "BLocked IP Feed", "category": "IP", "feedStatus": "Offline" },
+    { "vendor": "fireho", "description": "level1", "category": "IP", "feedStatus": "Active" },
+    {
+      "vendor": "ThreatMon",
+      "description": "The Daily C2 Feed is a community contribution provided by ThreatMon Cyber Threat Intelligence under the name TM Threa…",
+      "category": "URL",
+      "feedStatus": "Active"
+    },
+    { "vendor": "NIST", "description": "National Vulnerability Database", "category": "CVEID", "feedStatus": "Active" },
+    { "vendor": "Ellio", "description": "Firewall Threat List", "category": "IP", "feedStatus": "Active" },
+    {
+      "vendor": "NetCraft",
+      "description": "Cybercrime on Top Level Domains",
+      "category": "DNS",
+      "feedStatus": "Active"
+    },
+    { "vendor": "montysecurity", "description": "BurpSuite IPs", "category": "IP", "feedStatus": "Offline" },
+    { "vendor": "montysecurity", "description": "Deimos IPs", "category": "IP", "feedStatus": "Offline" },
+    { "vendor": "montysecurity", "description": "GoPhish IPs", "category": "IP", "feedStatus": "Offline" },
+    { "vendor": "montysecurity", "description": "Gotham Stealer IPs", "category": "IP", "feedStatus": "Offline" },
+    {
+      "vendor": "montysecurity",
+      "description": "Hashcat Cracking Tool IPs",
+      "category": "IP",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "montysecurity",
+      "description": "MetaSploit Framework C2 IPs",
+      "category": "IP",
+      "feedStatus": "Offline"
+    },
+    { "vendor": "montysecurity", "description": "Mythic C2 IPs", "category": "IP", "feedStatus": "Offline" },
+    { "vendor": "montysecurity", "description": "NimPlant C2 IPs", "category": "IP", "feedStatus": "Offline" },
+    { "vendor": "montysecurity", "description": "Panda C2 IPs", "category": "IP", "feedStatus": "Offline" },
+    { "vendor": "montysecurity", "description": "Posh C2 IPs", "category": "IP", "feedStatus": "Offline" },
+    { "vendor": "montysecurity", "description": "PowerSploit IPs", "category": "IP", "feedStatus": "Offline" },
+    {
+      "vendor": "montysecurity",
+      "description": "XMRig Monero CryptoMiner IPs",
+      "category": "IP",
+      "feedStatus": "Offline"
+    },
+    { "vendor": "montysecurity", "description": "All Malicious IPs", "category": "IP", "feedStatus": "Offline" },
+    {
+      "vendor": "urlabuse",
+      "description": "URL ABUSE BLACKLIST FEED BY URLABUSE.COM",
+      "category": "URL",
+      "feedStatus": "Active"
+    },
+    { "vendor": "urlabuse", "description": "Malware Domain Feed APK", "category": "URL", "feedStatus": "Active" },
+    { "vendor": "urlabuse", "description": "Phishing URL feed", "category": "URL", "feedStatus": "Active" },
+    { "vendor": "urlabuse", "description": "Hacked URL feed", "category": "URL", "feedStatus": "Active" },
+    { "vendor": "urlabuse", "description": "Malware Domain Feed APK", "category": "URL", "feedStatus": "Active" },
+    { "vendor": "tsirolnik", "description": "Spam Domains", "category": "DNS", "feedStatus": "Active" },
+    { "vendor": "drb-ra", "description": "Unverified C2 IPs", "category": "IP", "feedStatus": "Active" },
+    {
+      "vendor": "DigitalSide Threat-Intel",
+      "description": "DigitalSide Threat-Intel URLs last 7 days",
+      "category": "URL",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "DigitalSide Threat-Intel",
+      "description": "DigitalSide Threat-Intel IPs last 7 days",
+      "category": "IP",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "DigitalSide Threat-Intel",
+      "description": "DigitalSide Threat-Intel DNS last 7 days",
+      "category": "DNS",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "virtualfabric",
+      "description": "Domains (pihole, diversion, pfblockerng, personalblocklist, personaldnsfilter) via CDN",
+      "category": "DNS",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "virtualfabric",
+      "description": "Domains (pihole, diversion, pfblockerng, personalblocklist, personaldnsfilter) direct",
+      "category": "DNS",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "virtualfabric",
+      "description": "Adblock Plus Filter List (adguard. adguardhome, ublockorigin, adblockplus, adnauseum, adblock, opera, vivaldi)",
+      "category": "DNS",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "CISA",
+      "description": "KNOWN EXPLOITED VULNERABILITIES CATALOG (JSON)",
+      "category": "CVEID",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "threatview.io",
+      "description": "OSINT Threat Feed Malicious indicators of compromise gathered from OSINT Source - Twitter and Pastebin",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "threatview.io",
+      "description": "C2 Hunt Feed Infrastructure hosting Command & Control Servers found during Proactive Hunt by Threatview.io",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "threatview.io",
+      "description": "C2 Hunt Feed Infrastructure hosting Command & Control Servers found during Proactive Hunt by Threatview.io",
+      "category": "DNS",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "threatview.io",
+      "description": "IP Blocklist Malicious IP Blocklist for known Bad IP addresses",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "threatview.io",
+      "description": "All IP addresses which have been reported within the last 48 hours as having run attacks on the service FTP.",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "threatview.io",
+      "description": "Domain Blocklist Malicious Domains identified for phishing/ serving malware/ command and control",
+      "category": "DNS",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "threatview.io",
+      "description": "MD5 Hash Blocklist: MD5 hashes of malicious files or associated with - malware, ransomware, hack tools, bots etc.",
+      "category": "MD5",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "threatview.io",
+      "description": "URL Blocklist Malicious URL's serving malware, phishing, botnets and C2",
+      "category": "URL",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "threatview.io",
+      "description": "SHA File Hash Blocklist SHA hashes of files known or linked with malware execution",
+      "category": "SHA1",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "ransomware.live",
+      "description": "Returns all victims mentioned on ransomware leaked sites",
+      "category": "RANSOMWARELEAK",
+      "feedStatus": "Active"
+    },
+    { "vendor": "Abuse.ch", "description": "JA3 Fingerprints", "category": "JA3", "feedStatus": "Active" },
+    {
+      "vendor": "cydave",
+      "description": "List of observed SSH authentication attempts, last 24 hours",
+      "category": "IP",
+      "feedStatus": "Offline"
+    },
+    { "vendor": "X4BNet", "description": "VPN IPs", "category": "IP", "feedStatus": "Active" },
+    { "vendor": "mthcht", "description": "Suspicious Named Pipes", "category": "NamePipe", "feedStatus": "Active" },
+    { "vendor": "mthcht", "description": "Nord VPN IP List", "category": "IP", "feedStatus": "Active" },
+    { "vendor": "mthcht", "description": "Proton VPN IP List", "category": "IP", "feedStatus": "Active" },
+    { "vendor": "Daniel Austin MBCS", "description": "TOR Exit Nodes", "category": "IP", "feedStatus": "Active" },
+    { "vendor": "Daniel Austin MBCS", "description": "TOR All Nodes", "category": "IP", "feedStatus": "Active" },
+    {
+      "vendor": "Spamhaus Project",
+      "description": "Don't Route Or Peer Lists (DROP)",
+      "category": "IP",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "ThreatCluster",
+      "description": "High-confidence malicious domains extracted from threat intel reports as they are published",
+      "category": "DNS",
+      "feedStatus": "Active"
+    }
+  ]
+}

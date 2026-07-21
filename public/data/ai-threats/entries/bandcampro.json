@@ -1,0 +1,17 @@
+{
+  "slug": "bandcampro",
+  "name": "bandcampro",
+  "akas": "UnSub (Russian-speaking; Trend Micro designation)",
+  "brief": "Trend Micro/TrendAI recovered captured Gemini CLI session logs showing bandcampro used a jailbroken Gemini (posing as an \"authorized penetration tester\" to suppress safety disclaimers) for an estimated ~90% of a fraud operation — writing and deploying C2 server code, migrating botnet infrastructure to a new VPS behind a Cloudflare tunnel in 6 minutes, running multithreaded credential/password scanning, processing infostealer dumps, and self-diagnosing its own C2 bugs (\"Bro, I solved the riddle!\"). Compromised 8 machines at a US dental clinic (accessing its Open Dental database) and targeted individuals for crypto-wallet theft. Trend Micro/TrendAI via The Register",
+  "ttps": ["T1119", "T1583", "T1587.001"],
+  "categories": [
+    "LLM-orchestrated operations (Agentic AI attack orchestration)",
+    "LLM-aided development",
+    "LLM-directed Automated Collection"
+  ],
+  "reported": "Jul 2026",
+  "activity": "Mar 2026 – Apr 2026",
+  "table": "main",
+  "sizeBytes": 671,
+  "ttpMd": "**LLM-orchestrated operations (Agentic AI attack orchestration)** TA0002 - Execution (~90% of operation AI-driven)<br><br>**LLM-aided development** T1587.001 - Develop Capabilities: Malware (C2 server code)<br><br>**LLM-directed Automated Collection** T1119 - Automated Collection (infostealer-dump processing)<br><br>T1583 - Acquire Infrastructure (C2 migration)"
+}

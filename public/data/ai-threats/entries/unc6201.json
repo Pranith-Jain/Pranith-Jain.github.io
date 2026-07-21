@@ -1,0 +1,13 @@
+{
+  "slug": "unc6201",
+  "name": "UNC6201",
+  "akas": "PRC-nexus (GTIG)",
+  "brief": "PRC-nexus UNC6201 attempted to use a public GitHub Python script that automatically registers and immediately cancels premium LLM accounts at scale (across Gemini, Claude and OpenAI) to obtain anonymized premium model access. GTIG",
+  "ttps": ["T1583.003", "T1585"],
+  "categories": ["LLM-advised resource development"],
+  "reported": "May 2026",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 230,
+  "ttpMd": "**LLM-advised resource development** T1585 - Establish Accounts<br><br>T1583.003 - Acquire Infrastructure: Virtual Private Server"
+}

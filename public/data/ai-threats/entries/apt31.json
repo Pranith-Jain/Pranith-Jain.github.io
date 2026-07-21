@@ -1,0 +1,13 @@
+{
+  "slug": "apt31",
+  "name": "APT31",
+  "akas": "Zirconium, Judgment Panda, Violet Typhoon (PRC)",
+  "brief": "Prompted Gemini with an expert-cybersecurity persona to automate vulnerability analysis and generate targeted testing plans — in one case trialing Hexstrike MCP tooling and directing the model to analyze RCE, WAF-bypass, and SQL-injection results against specific US targets. GTIG",
+  "ttps": ["T1587.004", "T1595"],
+  "categories": ["LLM-assisted vulnerability research"],
+  "reported": "Feb 2026",
+  "activity": "Oct 2025 – Dec 2025 (report-wide observation window)",
+  "table": "main",
+  "sizeBytes": 280,
+  "ttpMd": "**LLM-assisted vulnerability research** T1595 - Active Scanning<br><br>T1587.004 - Develop Capabilities: Exploits<br><br>Agentic/MCP-assisted offensive testing"
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "nova-rumah-sakit-universitas-indonesia-rsui-2026-07-20",
+  "title": "Rumah Sakit Universitas Indonesia (RSUI)",
+  "group": "nova",
+  "discovered": "2026-07-20T15:04:05.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "ID",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/8c444425-be54-4f24-ad2d-f5189f20fd87",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["Darkfield"]
+}

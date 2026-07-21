@@ -1,0 +1,83 @@
+{
+  "category": "MD5",
+  "count": 11,
+  "feeds": [
+    {
+      "vendor": "Abuse.ch",
+      "description": "MD5 hashes: Recent additions",
+      "category": "MD5",
+      "url": "https://bazaar.abuse.ch/export/txt/md5/recent/",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Abuse.ch",
+      "description": "Recent found malicious files on C2",
+      "category": "MD5",
+      "url": "https://threatfox.abuse.ch/export/csv/md5/recent/",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "MISP Feed CERT-FR",
+      "description": "MISP Feed CERT-FR",
+      "category": "MD5",
+      "url": "https://misp.cert.ssi.gouv.fr/feed-misp/hashes.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "CyberCure",
+      "description": "Bad Hash Feed",
+      "category": "MD5",
+      "url": "https://api.cybercure.ai/feed/get_hash?type=csv",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Today)",
+      "category": "MD5",
+      "url": "https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/today.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Week)",
+      "category": "MD5",
+      "url": "https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/week.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Month)",
+      "category": "MD5",
+      "url": "https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/month.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Year)",
+      "category": "MD5",
+      "url": "https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/year.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Botvrij.eu",
+      "description": "IOC List MD5",
+      "category": "MD5",
+      "url": "https://www.botvrij.eu/data/ioclist.md5",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Botvrij.eu",
+      "description": "OSINT MD5 Hashes",
+      "category": "MD5",
+      "url": "https://www.botvrij.eu/data/feed-osint/hashes.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "threatview.io",
+      "description": "MD5 Hash Blocklist: MD5 hashes of malicious files or associated with - malware, ransomware, hack tools, bots etc.",
+      "category": "MD5",
+      "url": "https://threatview.io/Downloads/MD5-HASH-ALL.txt",
+      "feedStatus": "Active"
+    }
+  ]
+}

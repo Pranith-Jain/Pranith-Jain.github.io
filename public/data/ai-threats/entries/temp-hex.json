@@ -1,0 +1,13 @@
+{
+  "slug": "temp-hex",
+  "name": "Temp.HEX",
+  "akas": "PRC (Mustang Panda / TA416 reporting overlap)",
+  "brief": "Misused Gemini and other AI tools to compile detailed dossiers on specific individuals (including targets in Pakistan) and collect operational and structural data on separatist organizations in multiple countries. GTIG",
+  "ttps": ["T1589", "T1591"],
+  "categories": ["LLM-informed reconnaissance"],
+  "reported": "Feb 2026",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 218,
+  "ttpMd": "**LLM-informed reconnaissance** T1591 - Gather Victim Org Information<br><br>T1589 - Gather Victim Identity Information"
+}

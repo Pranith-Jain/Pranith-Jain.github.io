@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-wdk-de-2026-07-20",
+  "title": "wdk.de",
+  "group": "safepay",
+  "discovered": "2026-07-20T19:07:03.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/ca90c5a8-9e94-49bc-9c9c-8b6e88cc2000",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["Darkfield"]
+}

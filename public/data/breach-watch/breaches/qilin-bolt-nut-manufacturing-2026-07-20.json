@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-bolt-nut-manufacturing-2026-07-20",
+  "title": "Bolt & Nut Manufacturing",
+  "group": "qilin",
+  "discovered": "2026-07-20T09:41:37.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/d5c073c0-d85d-4a21-9a62-baac6067da06",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["Darkfield"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "akira-mckeever-varga-senko-2026-07-20",
+  "title": "McKeever , Varga & Senko",
+  "group": "akira",
+  "discovered": "2026-07-20T13:53:28.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/847fe3d7-5aac-454c-874a-dbdf303ab10b",
+  "groupAliases": ["Megazord"],
+  "activity": "Business Services",
+  "references": ["Darkfield"]
+}

@@ -1,0 +1,13 @@
+{
+  "slug": "global-group",
+  "name": "Global Group",
+  "akas": "RaaS (SentinelLABS)",
+  "brief": "From mid-2025 advertised an \"AI-Assisted Chat\" negotiation feature to affiliates that analyzes victim-company data (revenue, public behavior) to tailor extortion communications and pressure victims — AI operationalized in the extortion/negotiation phase. SentinelLABS",
+  "ttps": ["T1591", "T1657"],
+  "categories": ["LLM-enhanced extortion/negotiation", "LLM-informed reconnaissance"],
+  "reported": "Dec 2025",
+  "activity": "Mid 2025",
+  "table": "main",
+  "sizeBytes": 267,
+  "ttpMd": "**LLM-enhanced extortion/negotiation** T1657 - Financial Theft<br><br>**LLM-informed reconnaissance** T1591 - Gather Victim Org Information"
+}

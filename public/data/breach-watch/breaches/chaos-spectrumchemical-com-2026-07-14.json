@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Public Notice: Final Ultimatum to Spectrum Chemical Management\n\nTo the Management of Spectrum Chemical:\n\nWe have provided you with sufficient time to engage in a productive dialogue regarding the security breach of your infrastructure. Your refusal to communicate and your attempt to ignore the sever…",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/32610e2a-7d41-4c77-8045-4d8764d2eb26",
   "groupAliases": [],
   "activity": "Manufacturing",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

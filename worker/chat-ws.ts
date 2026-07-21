@@ -119,7 +119,7 @@ export async function handleChatWebSocket(request: Request, env: Env): Promise<R
 
       if (!session) {
         session = {
-          id: `chat_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`,
+          id: `chat_${Date.now()}_${crypto.randomUUID()}`,
           messages: [],
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString(),

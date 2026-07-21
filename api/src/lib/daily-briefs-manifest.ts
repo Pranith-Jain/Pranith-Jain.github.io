@@ -1,0 +1,1 @@
+../../../worker/lib/daily-briefs-manifest.ts

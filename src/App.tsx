@@ -36,6 +36,9 @@ const Experience = lazy(() => import('./pages/Experience'));
 const McpCatalog = lazy(() => import('./pages/McpCatalog'));
 const Status = lazy(() => import('./pages/Status'));
 const ThreatIntel = lazy(() => import('./pages/ThreatIntel'));
+const DailyBriefs = lazy(() => import('./pages/DailyBriefs'));
+const AIThreats = lazy(() => import('./pages/AIThreats'));
+const OssFeeds = lazy(() => import('./pages/OssFeeds'));
 const WinReg = lazy(() => import('./pages/WinReg'));
 const Aptmap = lazy(() => import('./pages/Aptmap'));
 const ETDAActors = lazy(() => import('./pages/ETDAActors'));
@@ -392,6 +395,7 @@ const ArgusPage = lazy(() => import('./pages/Argus'));
 const CtiDashboard = lazy(() => import('./pages/threatintel/CtiDashboard'));
 const TiDashboard = lazy(() => import('./pages/TiDashboard'));
 const ThreatIntelDashboard = lazy(() => import('./pages/threatintel/ThreatIntelDashboard'));
+const CommandCenter = lazy(() => import('./pages/cti/CommandCenter'));
 
 /**
  * /dfir/file?h=<hash> is the legacy entry point for the standalone hash
@@ -438,7 +442,11 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/snapshots', Component: Snapshots },
   { path: '/mcp', Component: McpCatalog },
   { path: '/status', Component: Status },
+  { path: '/cti', Component: CommandCenter },
   { path: '/threat-intel', Component: ThreatIntel },
+  { path: '/daily-briefs', Component: DailyBriefs },
+  { path: '/dfir/ai-threats', Component: AIThreats },
+  { path: '/dfir/oss-feeds', Component: OssFeeds },
   { path: '/dfir/winreg', Component: WinReg },
   { path: '/dfir/traceix', Component: Traceix },
   { path: '/dfir/whoxy', Component: Whoxy },

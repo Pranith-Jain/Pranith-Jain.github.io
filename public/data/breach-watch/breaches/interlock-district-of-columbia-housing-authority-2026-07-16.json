@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "US",
   "sizeBytes": 0,
-  "description": "DC Housing, the organization entrusted with the powers of the District of Columbia Housing Authority, was completely compromised due to its negligence and greed in security, and all confidential information, databases, passports, and personal data of clients were stolen. We offer you 1.6 TB of confidential information, including all data of District residents and large databases.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/42d2eb70-0b35-4e75-aa8e-4e370c09977c",
   "groupAliases": [],
   "activity": "Public Sector",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

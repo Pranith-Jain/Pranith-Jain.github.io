@@ -1,0 +1,15 @@
+{
+  "slug": "nova-koplarla-2026-07-20",
+  "title": "Koplarla",
+  "group": "nova",
+  "discovered": "2026-07-20T10:42:07.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "ID",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/f7849baa-dccd-4c90-a671-9b47611d186f",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["Darkfield"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "kairos-college-osullivan-de-qu-bec-2026-07-20",
+  "title": "College O'Sullivan de Québec",
+  "group": "kairos",
+  "discovered": "2026-07-20T18:58:30.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "CA",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/7c51ea76-6241-4313-9ec7-7ba7b883c557",
+  "groupAliases": [],
+  "activity": "Education",
+  "references": ["Darkfield"]
+}

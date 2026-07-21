@@ -1,0 +1,13 @@
+{
+  "slug": "multiple-unsub-north-korea-us-national-security-advisor",
+  "name": "Multiple Unsub North Korea - US National Security Advisor",
+  "akas": "N/A",
+  "brief": "On Oct. 18, 2023 U.S. Deputy National Security Advisor Anne Neuberger said that North Korea's use of artificial intelligence (AI) is enhancing the country's cyber capabilities, which puts enterprises around the globe at significant risk. Neuberger said, \"We have observed some North Korean and other nation-state and criminal actors try to use AI models to help accelerate writing malicious software and finding systems to exploit.\"",
+  "ttps": ["T1588", "T1588.006"],
+  "categories": ["LLM-assisted  vulnerability research", "LLM-enhanced scripting techniques"],
+  "reported": "Oct 2023",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 432,
+  "ttpMd": "**LLM-assisted  vulnerability research**   T1588.006 Obtain Capabilities: Vulnerabilities     <br><br> **LLM-enhanced scripting techniques**   T1588 - Develop Capabilities: Tool"
+}

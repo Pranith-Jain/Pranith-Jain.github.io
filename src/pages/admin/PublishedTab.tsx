@@ -11,6 +11,7 @@ import {
 import type { SocialQueueItem, SocialQueueResponse } from './adminApi';
 import { bestTimeHint, type SocialPlatform } from './socialHints';
 import { splitSocial } from '../../lib/social-parts';
+import { SearchFilter } from './SearchFilter';
 
 interface ScheduleEntry {
   scheduledAt?: string;
@@ -269,94 +270,98 @@ export default function PublishedTab() {
       {actionMsg && <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-2">{actionMsg}</p>}
       <SocialQueueAgenda />
       <p className="text-xs text-slate-600 dark:text-slate-500 mb-4">Click a row to expand/collapse social content.</p>
-      <div className="overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead className="text-left text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-            <tr>
-              <th scope="col" className="py-2 pr-4">
-                Type
-              </th>
-              <th scope="col" className="py-2 pr-4">
-                Title
-              </th>
-              <th scope="col" className="py-2 pr-4">
-                Published
-              </th>
-              <th scope="col" className="py-2 pr-4">
-                Slug
-              </th>
-              <th scope="col" className="py-2 pr-4">
-                Social
-              </th>
-              <th scope="col" className="py-2">
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {posts.map((p) => {
-              const s = social[p.slug];
-              const hasTwitter = !!s?.hasTwitter;
-              const hasLinkedin = !!s?.hasLinkedin;
-              const hasAny = hasTwitter || hasLinkedin;
-              const isExpanded = expanded === p.slug;
-              return (
-                <tr key={p.slug} className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                  <td className="py-2 pr-4 text-slate-500 dark:text-slate-400 uppercase text-xs">{p.type}</td>
-                  <td className="py-2 pr-4 text-slate-900 dark:text-slate-100">{p.title}</td>
-                  <td className="py-2 pr-4 text-slate-600 dark:text-slate-500 text-xs whitespace-nowrap">
-                    {new Date(p.publishedAt).toLocaleString()}
-                  </td>
-                  <td className="py-2 pr-4">
-                    <a
-                      href={`/blog/${p.slug}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="font-mono text-xs text-slate-700 dark:text-slate-300 hover:underline"
-                    >
-                      {p.slug}
-                    </a>
-                  </td>
-                  <td className="py-2 pr-4">
-                    <div className="flex flex-wrap gap-1.5">
-                      <button
-                        onClick={() => generateTwitter(p.slug)}
-                        disabled={s?.loadingTwitter}
-                        className={`px-2 py-1 border rounded text-xs disabled:opacity-50 ${hasTwitter ? 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]' : 'border-emerald-200 dark:border-emerald-800 hover:bg-emerald-50 dark:hover:bg-emerald-900/30'}`}
-                      >
-                        {s?.loadingTwitter ? '…' : hasTwitter ? 'Re-Tweet' : 'Tweet'}
-                      </button>
-                      <button
-                        onClick={() => generateLinkedin(p.slug)}
-                        disabled={s?.loadingLinkedin}
-                        className={`px-2 py-1 border rounded text-xs disabled:opacity-50 ${hasLinkedin ? 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]' : 'border-blue-200 dark:border-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/30'}`}
-                      >
-                        {s?.loadingLinkedin ? '…' : hasLinkedin ? 'Re-LinkedIn' : 'LinkedIn'}
-                      </button>
-                      {hasAny && (
+      <SearchFilter items={posts} placeholder="Filter published posts…">
+        {(filtered) => (
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead className="text-left text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+                <tr>
+                  <th scope="col" className="py-2 pr-4">
+                    Type
+                  </th>
+                  <th scope="col" className="py-2 pr-4">
+                    Title
+                  </th>
+                  <th scope="col" className="py-2 pr-4">
+                    Published
+                  </th>
+                  <th scope="col" className="py-2 pr-4">
+                    Slug
+                  </th>
+                  <th scope="col" className="py-2 pr-4">
+                    Social
+                  </th>
+                  <th scope="col" className="py-2">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {filtered.map((p) => {
+                  const s = social[p.slug];
+                  const hasTwitter = !!s?.hasTwitter;
+                  const hasLinkedin = !!s?.hasLinkedin;
+                  const hasAny = hasTwitter || hasLinkedin;
+                  const isExpanded = expanded === p.slug;
+                  return (
+                    <tr key={p.slug} className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+                      <td className="py-2 pr-4 text-slate-500 dark:text-slate-400 uppercase text-xs">{p.type}</td>
+                      <td className="py-2 pr-4 text-slate-900 dark:text-slate-100">{p.title}</td>
+                      <td className="py-2 pr-4 text-slate-600 dark:text-slate-500 text-xs whitespace-nowrap">
+                        {new Date(p.publishedAt).toLocaleString()}
+                      </td>
+                      <td className="py-2 pr-4">
+                        <a
+                          href={`/blog/${p.slug}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-mono text-xs text-slate-700 dark:text-slate-300 hover:underline"
+                        >
+                          {p.slug}
+                        </a>
+                      </td>
+                      <td className="py-2 pr-4">
+                        <div className="flex flex-wrap gap-1.5">
+                          <button
+                            onClick={() => generateTwitter(p.slug)}
+                            disabled={s?.loadingTwitter}
+                            className={`px-2 py-1 border rounded text-xs disabled:opacity-50 ${hasTwitter ? 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]' : 'border-emerald-200 dark:border-emerald-800 hover:bg-emerald-50 dark:hover:bg-emerald-900/30'}`}
+                          >
+                            {s?.loadingTwitter ? '…' : hasTwitter ? 'Re-Tweet' : 'Tweet'}
+                          </button>
+                          <button
+                            onClick={() => generateLinkedin(p.slug)}
+                            disabled={s?.loadingLinkedin}
+                            className={`px-2 py-1 border rounded text-xs disabled:opacity-50 ${hasLinkedin ? 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]' : 'border-blue-200 dark:border-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/30'}`}
+                          >
+                            {s?.loadingLinkedin ? '…' : hasLinkedin ? 'Re-LinkedIn' : 'LinkedIn'}
+                          </button>
+                          {hasAny && (
+                            <button
+                              onClick={() => void viewSocial(p.slug)}
+                              className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
+                            >
+                              {isExpanded ? 'Hide' : 'View'}
+                            </button>
+                          )}
+                        </div>
+                      </td>
+                      <td className="py-2 flex gap-2">
                         <button
-                          onClick={() => void viewSocial(p.slug)}
+                          onClick={() => unpublish(p.slug)}
                           className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
                         >
-                          {isExpanded ? 'Hide' : 'View'}
+                          Unpublish
                         </button>
-                      )}
-                    </div>
-                  </td>
-                  <td className="py-2 flex gap-2">
-                    <button
-                      onClick={() => unpublish(p.slug)}
-                      className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
-                    >
-                      Unpublish
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </SearchFilter>
 
       {expanded && social[expanded]?.data && (
         <SocialContentPanel
@@ -572,6 +577,17 @@ function SocialContentPanel({
         Generated {new Date(data.generatedAt).toLocaleString()}
       </p>
 
+      {data.hooks && data.hooks.length > 0 && (
+        <HookSelector
+          hooks={data.hooks}
+          slug={data.slug}
+          onHookSelected={() => {
+            // After selecting a hook, refresh social data
+            setSchedRefresh((n) => n + 1);
+          }}
+        />
+      )}
+
       <SchedulePanel slug={data.slug} refreshTrigger={schedRefresh} />
 
       <SocialSection
@@ -755,7 +771,11 @@ function InstagramSection({
                 const isError = url === 'error';
                 const isLoading = url === null || url === undefined;
                 return (
-                  <div key={i} role="listitem" className="flex-shrink-0 flex flex-col items-center gap-1">
+                  <div
+                    key={`${slug}-${slide.index}`}
+                    role="listitem"
+                    className="flex-shrink-0 flex flex-col items-center gap-1"
+                  >
                     {!isLoading && !isError && url ? (
                       <img
                         src={url}
@@ -905,6 +925,96 @@ function SocialSection({
             : `Post failed: ${postResult.error ?? 'unknown error'}`}
         </div>
       )}
+    </div>
+  );
+}
+
+/** A/B hook selection panel. Shows alternative opening hooks generated by the
+ *  LLM and lets the operator pick one to regenerate the social copy with. */
+function HookSelector({ hooks, slug, onHookSelected }: { hooks: string[]; slug: string; onHookSelected: () => void }) {
+  const [selected, setSelected] = useState<number | null>(null);
+  const [regenerating, setRegenerating] = useState<number | null>(null);
+  const [result, setResult] = useState<string | null>(null);
+
+  async function applyHook(index: number) {
+    setRegenerating(index);
+    setResult(null);
+    try {
+      const r = await postJsonWithBody<{ ok: boolean; social: { twitter: string; linkedin: string } }>(
+        `/social/${encodeURIComponent(slug)}/use-hook`,
+        { hook: hooks[index] }
+      );
+      if (r.ok) {
+        setSelected(index);
+        setResult('Social copy regenerated with this hook');
+        onHookSelected();
+      } else {
+        setResult('Failed to apply hook');
+      }
+    } catch (e) {
+      setResult(`Error: ${e instanceof Error ? e.message : String(e)}`);
+    } finally {
+      setRegenerating(null);
+    }
+  }
+
+  // Reset when hooks change (e.g. after full regeneration)
+  const hooksKey = hooks.join('|');
+  useEffect(() => {
+    setSelected(null);
+    setResult(null);
+  }, [hooksKey]);
+
+  return (
+    <div className="mb-6 rounded border border-amber-200 dark:border-amber-700/50 bg-amber-50/50 dark:bg-amber-900/10 p-3">
+      <div className="flex items-center justify-between mb-2">
+        <h4 className="text-mini font-semibold uppercase tracking-wider text-amber-700 dark:text-amber-400">
+          A/B Hook Selection
+        </h4>
+        {result && <span className="text-micro text-slate-600 dark:text-slate-500">{result}</span>}
+      </div>
+      <p className="text-micro text-slate-500 dark:text-slate-400 mb-2">
+        Pick an alternative opening hook. The social copy will be regenerated with the chosen angle as a strong
+        preference.
+      </p>
+      <div className="space-y-1.5">
+        {hooks.map((hook, i) => (
+          <div
+            key={`${slug}-${i}`}
+            className={`flex items-start gap-2 p-2 rounded text-xs border cursor-pointer transition-colors ${
+              selected === i
+                ? 'bg-amber-100 dark:bg-amber-900/30 border-amber-400 dark:border-amber-600'
+                : 'bg-white dark:bg-[rgb(var(--surface-100))] border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-amber-300 dark:hover:border-amber-700'
+            }`}
+            onClick={() => void applyHook(i)}
+          >
+            <span
+              className={`inline-flex items-center justify-center w-4 h-4 mt-0.5 rounded-full text-[9px] font-bold ${
+                selected === i
+                  ? 'bg-amber-500 text-white'
+                  : 'bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400'
+              }`}
+            >
+              {i + 1}
+            </span>
+            <span className="flex-1 text-slate-700 dark:text-slate-300 leading-relaxed">{hook}</span>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                void applyHook(i);
+              }}
+              disabled={regenerating === i}
+              className={`px-2 py-0.5 rounded text-[10px] border whitespace-nowrap ${
+                selected === i
+                  ? 'bg-amber-500 text-white border-amber-500'
+                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
+              } disabled:opacity-50`}
+            >
+              {regenerating === i ? '…' : selected === i ? 'Active' : 'Use'}
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

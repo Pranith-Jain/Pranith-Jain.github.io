@@ -1,0 +1,538 @@
+{
+  "category": "IP",
+  "count": 76,
+  "feeds": [
+    {
+      "vendor": "Abuse.ch",
+      "description": "Botnet C2 IP Blacklist",
+      "category": "IP",
+      "url": "https://sslbl.abuse.ch/blacklist/sslipblacklist.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Abuse.ch",
+      "description": "Botnet C2 IP Blacklist",
+      "category": "IP",
+      "url": "https://sslbl.abuse.ch/blacklist/sslipblacklist.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Abuse.ch",
+      "description": "Botnet C2 IP Blacklist aggressive",
+      "category": "IP",
+      "url": "https://sslbl.abuse.ch/blacklist/sslipblacklist_aggressive.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Abuse.ch",
+      "description": "Botnet C2 IP Blacklist aggressive",
+      "category": "IP",
+      "url": "https://sslbl.abuse.ch/blacklist/sslipblacklist_aggressive.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Blocklist.de",
+      "description": "All IP addresses that have attacked one of our customers/servers in the last 48 hours.",
+      "category": "IP",
+      "url": "https://lists.blocklist.de/lists/all.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Blocklist.de",
+      "description": "All IP addresses which have been reported within the last 48 hours as having run attacks on the service SSH",
+      "category": "IP",
+      "url": "https://lists.blocklist.de/lists/ssh.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Blocklist.de",
+      "description": "All IP addresses which have been reported within the last 48 hours as having run attacks on the service Mail, Postfix.",
+      "category": "IP",
+      "url": "https://lists.blocklist.de/lists/mail.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Blocklist.de",
+      "description": "All IP addresses which have been reported within the last 48 hours as having run attacks on the service Apache, Apache-DDOS, RFI-Attacks.",
+      "category": "IP",
+      "url": "https://lists.blocklist.de/lists/apache.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Blocklist.de",
+      "description": "All IP addresses which have been reported within the last 48 hours for attacks on the Service imap, sasl, pop3",
+      "category": "IP",
+      "url": "https://lists.blocklist.de/lists/imap.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Blocklist.de",
+      "description": "All IP addresses which have been reported within the last 48 hours as having run attacks attacks on the RFI-Attacks, REG-Bots, IRC-Bots or BadBots (BadBots = he has posted a Spam-Comment on a open Forum or Wiki).",
+      "category": "IP",
+      "url": "https://lists.blocklist.de/lists/bots.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Blocklist.de",
+      "description": "All IPs which attacks Joomlas, Wordpress and other Web-Logins with Brute-Force Logins.",
+      "category": "IP",
+      "url": "https://lists.blocklist.de/lists/bruteforcelogin.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Blocklist.de",
+      "description": "All IPs which are older then 2 month and have more then 5.000 attacks.",
+      "category": "IP",
+      "url": "https://lists.blocklist.de/lists/strongips.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Abuse.ch",
+      "description": "Botnet C2 Indicators Of Compromise",
+      "category": "IP",
+      "url": "https://feodotracker.abuse.ch/downloads/ipblocklist.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Abuse.ch",
+      "description": "all botnet C2s Feodo Tracker has ever seen",
+      "category": "IP",
+      "url": "https://feodotracker.abuse.ch/blocklist/",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Alienvault",
+      "description": "Alienvault IP Reputation",
+      "category": "IP",
+      "url": "http://reputation.alienvault.com/reputation.data",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Cisco Talos",
+      "description": "Talos IP Blacklist",
+      "category": "IP",
+      "url": "http://www.talosintelligence.com/documents/ip-blacklist",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "Binarydefense",
+      "description": "Binary Defense Systems Artillery Threat Intelligence Feed and Banlist Feed",
+      "category": "IP",
+      "url": "https://www.binarydefense.com/banlist.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Github",
+      "description": "Fox-IT Cobalt Strike Servers",
+      "category": "IP",
+      "url": "https://raw.githubusercontent.com/fox-it/cobaltstrike-extraneous-space/master/cobaltstrike-servers.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Carbon Black",
+      "description": "Cobalt Strike Lucky Mouse",
+      "category": "IP",
+      "url": "https://github.com/carbonblack/active_c2_ioc_public/blob/main/cobaltstrike/actor-specific/cobaltstrike_luckymouse_ta428.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Carbon Black",
+      "description": "Cobalt Strike Pyxie",
+      "category": "IP",
+      "url": "https://github.com/carbonblack/active_c2_ioc_public/blob/main/cobaltstrike/actor-specific/cobaltstrike_pyxie.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Carbon Black",
+      "description": "ShadowPad IOC",
+      "category": "IP",
+      "url": "https://github.com/carbonblack/active_c2_ioc_public/blob/main/shadowpad/shadowpad_202209.tsv",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "mrlooquer",
+      "description": "Mr. Looquer IOC Feed",
+      "category": "IP",
+      "url": "https://iocfeed.mrlooquer.com/feed.csv",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "Ipsum",
+      "description": "Malicious and/or suspicious ip adrresses",
+      "category": "IP",
+      "url": "https://raw.githubusercontent.com/stamparm/ipsum/master/levels/1.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Ipsum",
+      "description": "Malicious and/or suspicious ip adrresses",
+      "category": "IP",
+      "url": "https://raw.githubusercontent.com/stamparm/ipsum/master/levels/2.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Ipsum",
+      "description": "Malicious and/or suspicious ip adrresses",
+      "category": "IP",
+      "url": "https://raw.githubusercontent.com/stamparm/ipsum/master/levels/3.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Ipsum",
+      "description": "Malicious and/or suspicious ip adrresses",
+      "category": "IP",
+      "url": "https://raw.githubusercontent.com/stamparm/ipsum/master/levels/4.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Ipsum",
+      "description": "Malicious and/or suspicious ip adrresses",
+      "category": "IP",
+      "url": "https://raw.githubusercontent.com/stamparm/ipsum/master/levels/5.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Ipsum",
+      "description": "Malicious and/or suspicious ip adrresses",
+      "category": "IP",
+      "url": "https://raw.githubusercontent.com/stamparm/ipsum/master/levels/6.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Ipsum",
+      "description": "Malicious and/or suspicious ip adrresses",
+      "category": "IP",
+      "url": "https://raw.githubusercontent.com/stamparm/ipsum/master/levels/7.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Ipsum",
+      "description": "Malicious and/or suspicious ip adrresses",
+      "category": "IP",
+      "url": "https://raw.githubusercontent.com/stamparm/ipsum/master/levels/8.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "drb-ra",
+      "description": "IPC2s-30day",
+      "category": "IP",
+      "url": "https://github.com/drb-ra/C2IntelFeeds/blob/master/feeds/IPC2s-30day.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "drb-ra",
+      "description": "domainC2swithURLwithIP-30day-filter-abused",
+      "category": "IP",
+      "url": "https://github.com/drb-ra/C2IntelFeeds/blob/master/feeds/domainC2swithURLwithIP-30day-filter-abused.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "montysecurity",
+      "description": "Ratel C2",
+      "category": "IP",
+      "url": "https://github.com/montysecurity/C2-Tracker/blob/main/data/Brute%20Ratel%20C4%20IPs.txt",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "montysecurity",
+      "description": "Cobalt Strike",
+      "category": "IP",
+      "url": "https://github.com/montysecurity/C2-Tracker/blob/main/data/Brute%20Ratel%20C4%20IPs.txt",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "montysecurity",
+      "description": "Sliver C2",
+      "category": "IP",
+      "url": "https://github.com/montysecurity/C2-Tracker/blob/main/data/Sliver%20C2%20IPs.txt",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "montysecurity",
+      "description": "Posh C2",
+      "category": "IP",
+      "url": "https://github.com/montysecurity/C2-Tracker/blob/main/data/Posh%20C2%20IPs.txt",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "montysecurity",
+      "description": "MetaSploit C2",
+      "category": "IP",
+      "url": "https://github.com/montysecurity/C2-Tracker/blob/main/data/Metasploit%20Framework%20C2%20IPs.txt",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "montysecurity",
+      "description": "Havoc C2",
+      "category": "IP",
+      "url": "https://github.com/montysecurity/C2-Tracker/blob/main/data/Havoc%20C2%20IPs.txt",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "SNORT",
+      "description": "IP Blocklist",
+      "category": "IP",
+      "url": "https://snort.org/downloads/ip-block-list",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Today)",
+      "category": "IP",
+      "url": "https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/today.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Week)",
+      "category": "IP",
+      "url": "https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/week.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Month)",
+      "category": "IP",
+      "url": "https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/month.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "tweetfeed.live",
+      "description": "TweetFeed collects Indicators of Compromise (IOCs) shared by the infosec community at Twitter. (Year)",
+      "category": "IP",
+      "url": "https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/year.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Proofpoint",
+      "description": "Compromised IP addresses List",
+      "category": "IP",
+      "url": "https://rules.emergingthreats.net/blockrules/compromised-ips.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "AlienVault",
+      "description": "IP Reputation Generic",
+      "category": "IP",
+      "url": "https://reputation.alienvault.com/reputation.generic",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "GreenSnow",
+      "description": "IP Blocklist",
+      "category": "IP",
+      "url": "https://blocklist.greensnow.co/greensnow.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "CINSscore",
+      "description": "Bad IP list",
+      "category": "IP",
+      "url": "https://cinsscore.com/list/ci-badguys.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "CyberCure",
+      "description": "BLocked IP Feed",
+      "category": "IP",
+      "url": "https://api.cybercure.ai/feed/get_ips?type=csv",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "fireho",
+      "description": "level1",
+      "category": "IP",
+      "url": "https://raw.githubusercontent.com/ktsaou/blocklist-ipsets/master/firehol_level1.netset",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Ellio",
+      "description": "Firewall Threat List",
+      "category": "IP",
+      "url": "https://cdn.ellio.tech/community-feed",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "montysecurity",
+      "description": "BurpSuite IPs",
+      "category": "IP",
+      "url": "https://raw.githubusercontent.com/montysecurity/C2-Tracker/main/data/BurpSuite%20IPs.txt",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "montysecurity",
+      "description": "Deimos IPs",
+      "category": "IP",
+      "url": "https://raw.githubusercontent.com/montysecurity/C2-Tracker/main/data/Deimos%20C2%20IPs.txt",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "montysecurity",
+      "description": "GoPhish IPs",
+      "category": "IP",
+      "url": "https://raw.githubusercontent.com/montysecurity/C2-Tracker/main/data/GoPhish%20IPs.txt",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "montysecurity",
+      "description": "Gotham Stealer IPs",
+      "category": "IP",
+      "url": "https://raw.githubusercontent.com/montysecurity/C2-Tracker/main/data/Gotham%20Stealer%20IPs.txt",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "montysecurity",
+      "description": "Hashcat Cracking Tool IPs",
+      "category": "IP",
+      "url": "https://raw.githubusercontent.com/montysecurity/C2-Tracker/main/data/Hachcat%20Cracking%20Tool%20IPs.txt",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "montysecurity",
+      "description": "MetaSploit Framework C2 IPs",
+      "category": "IP",
+      "url": "https://raw.githubusercontent.com/montysecurity/C2-Tracker/main/data/Metasploit%20Framework%20C2%20IPs.txt",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "montysecurity",
+      "description": "Mythic C2 IPs",
+      "category": "IP",
+      "url": "https://raw.githubusercontent.com/montysecurity/C2-Tracker/main/data/Mythic%20C2%20IPs.txt",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "montysecurity",
+      "description": "NimPlant C2 IPs",
+      "category": "IP",
+      "url": "https://raw.githubusercontent.com/montysecurity/C2-Tracker/main/data/NimPlant%20C2%20IPs.txt",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "montysecurity",
+      "description": "Panda C2 IPs",
+      "category": "IP",
+      "url": "https://raw.githubusercontent.com/montysecurity/C2-Tracker/main/data/PANDA%20C2%20IPs.txt",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "montysecurity",
+      "description": "Posh C2 IPs",
+      "category": "IP",
+      "url": "https://raw.githubusercontent.com/montysecurity/C2-Tracker/main/data/Posh%20C2%20IPs.txt",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "montysecurity",
+      "description": "PowerSploit IPs",
+      "category": "IP",
+      "url": "https://raw.githubusercontent.com/montysecurity/C2-Tracker/main/data/PowerSploit%20IPs.txt",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "montysecurity",
+      "description": "XMRig Monero CryptoMiner IPs",
+      "category": "IP",
+      "url": "https://raw.githubusercontent.com/montysecurity/C2-Tracker/main/data/XMRig%20Monero%20Cryptominer%20IPs.txt",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "montysecurity",
+      "description": "All Malicious IPs",
+      "category": "IP",
+      "url": "https://raw.githubusercontent.com/montysecurity/C2-Tracker/main/data/all.txt",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "drb-ra",
+      "description": "Unverified C2 IPs",
+      "category": "IP",
+      "url": "https://github.com/drb-ra/C2IntelFeeds/blob/master/feeds/unverified/IPC2s.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "DigitalSide Threat-Intel",
+      "description": "DigitalSide Threat-Intel IPs last 7 days",
+      "category": "IP",
+      "url": "https://osint.digitalside.it/Threat-Intel/lists/latesturls.txt",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "threatview.io",
+      "description": "OSINT Threat Feed Malicious indicators of compromise gathered from OSINT Source - Twitter and Pastebin",
+      "category": "IP",
+      "url": "https://threatview.io/Downloads/Experimental-IOC-Tweets.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "threatview.io",
+      "description": "C2 Hunt Feed Infrastructure hosting Command & Control Servers found during Proactive Hunt by Threatview.io",
+      "category": "IP",
+      "url": "https://threatview.io/Downloads/High-Confidence-CobaltStrike-C2%20-Feeds.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "threatview.io",
+      "description": "IP Blocklist Malicious IP Blocklist for known Bad IP addresses",
+      "category": "IP",
+      "url": "https://threatview.io/Downloads/IP-High-Confidence-Feed.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "threatview.io",
+      "description": "All IP addresses which have been reported within the last 48 hours as having run attacks on the service FTP.",
+      "category": "IP",
+      "url": "https://lists.blocklist.de/lists/ftp.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "cydave",
+      "description": "List of observed SSH authentication attempts, last 24 hours",
+      "category": "IP",
+      "url": "https://blocklists.0dave.ch/ssh.txt",
+      "feedStatus": "Offline"
+    },
+    {
+      "vendor": "X4BNet",
+      "description": "VPN IPs",
+      "category": "IP",
+      "url": "https://github.com/X4BNet/lists_vpn/blob/main/output/vpn/ipv4.txt",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "mthcht",
+      "description": "Nord VPN IP List",
+      "category": "IP",
+      "url": "https://github.com/mthcht/awesome-lists/blob/main/Lists/VPN/NordVPN/nordvpn_ips_list.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "mthcht",
+      "description": "Proton VPN IP List",
+      "category": "IP",
+      "url": "https://github.com/mthcht/awesome-lists/blob/main/Lists/VPN/ProtonVPN/protonvpn_ip_list.csv",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Daniel Austin MBCS",
+      "description": "TOR Exit Nodes",
+      "category": "IP",
+      "url": "https://www.dan.me.uk/torlist/?exit",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Daniel Austin MBCS",
+      "description": "TOR All Nodes",
+      "category": "IP",
+      "url": "https://www.dan.me.uk/torlist/?full",
+      "feedStatus": "Active"
+    },
+    {
+      "vendor": "Spamhaus Project",
+      "description": "Don't Route Or Peer Lists (DROP)",
+      "category": "IP",
+      "url": "https://www.spamhaus.org/drop/drop_v4.json",
+      "feedStatus": "Active"
+    }
+  ]
+}

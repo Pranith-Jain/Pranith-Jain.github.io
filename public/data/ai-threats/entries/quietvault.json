@@ -1,0 +1,13 @@
+{
+  "slug": "quietvault",
+  "name": "QUIETVAULT",
+  "akas": "UnSub (GTIG); JS credential stealer",
+  "brief": "A credential/token stealer (GitHub/npm tokens) that, beyond its primary targets, invokes AI prompts and on-host installed AI CLI tools to search the infected system for additional secrets, then exfiltrates via attacker-created public GitHub repos. Novel abuse of the victim's own AI tooling. GTIG",
+  "ttps": ["T1119", "T1552", "T1567"],
+  "categories": ["LL Models used for backdoor deployment"],
+  "reported": "Nov 2025",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 296,
+  "ttpMd": "**LL Models used for backdoor deployment** (on-host AI abused for collection) T1552 - Unsecured Credentials<br><br>T1119 - Automated Collection<br><br>T1567 - Exfiltration Over Web Service"
+}

@@ -1,15 +1,15 @@
 {
   "slug": "nova-phi-2026-07-17",
   "title": "Phi",
-  "group": "Nova",
-  "discovered": "2026-07-17T00:00:00.000Z",
+  "group": "nova",
+  "discovered": "2026-07-17T01:32:34.000Z",
   "category": "ransomware",
   "severity": "high",
   "country": null,
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated in ransomware attack",
-  "source_url": "https://recentbreaches.com/breach/phi-nova-2026-07",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/c66881cc-6574-4ff7-9bc7-f1a13463cd37",
   "groupAliases": [],
   "activity": "Not Found",
-  "references": ["RecentBreaches.com"]
+  "references": ["Darkfield"]
 }

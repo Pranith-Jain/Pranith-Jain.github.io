@@ -41,13 +41,15 @@ const HOOK_SYSTEM =
 /**
  * Generate up to 3 distinct opening hooks for a story. Best-effort: returns []
  * on any failure (hook variants are a nice-to-have, never block generation).
+ * Optionally accepts a performanceNote from the analytics feedback loop.
  */
 export async function generateHookVariants(
   src: HookSource,
   ai: Ai,
   groqKey?: string,
   googleKey?: string,
-  nvidiaKey?: string
+  nvidiaKey?: string,
+  performanceNote?: string
 ): Promise<string[]> {
   try {
     const res = await runCompletion(
@@ -58,7 +60,8 @@ export async function generateHookVariants(
           `Write 3 DISTINCT opening hooks for this story — each a different angle: ` +
           `(1) a hard-number data shock, (2) a contrarian read, (3) a curiosity gap. ` +
           `Each <= 200 chars, grounded in the facts below, no hashtags or emoji.\n\n` +
-          `Title: ${src.title}\n\nFacts:\n${src.body.slice(0, 3000)}`,
+          `Title: ${src.title}\n\nFacts:\n${src.body.slice(0, 3000)}` +
+          (performanceNote ?? ''),
         temperature: 0.9,
         maxTokens: 400,
       },

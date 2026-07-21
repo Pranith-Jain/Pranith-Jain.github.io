@@ -1,0 +1,13 @@
+{
+  "slug": "unsub-ai-developed-zero-day-gtig",
+  "name": "UnSub (AI-developed zero-day) — GTIG",
+  "akas": "UnSub (cybercrime)",
+  "brief": "GTIG assessed with high confidence that an actor leveraged an AI model (assessed NOT to be Gemini) to support discovery and weaponization of a zero-day 2FA-bypass in a popular open-source web-based sysadmin tool — GTIG's first observed AI-developed zero-day; planned mass-exploitation was likely disrupted by proactive counter-discovery. Code carried LLM-characteristic docstrings and a hallucinated CVSS score. GTIG",
+  "ttps": ["T1587.004", "T1588.006"],
+  "categories": ["LLM-assisted vulnerability research"],
+  "reported": "May 2026",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 416,
+  "ttpMd": "**LLM-assisted vulnerability research** T1588.006 - Obtain Capabilities: Vulnerabilities<br><br>T1587.004 - Develop Capabilities: Exploits"
+}

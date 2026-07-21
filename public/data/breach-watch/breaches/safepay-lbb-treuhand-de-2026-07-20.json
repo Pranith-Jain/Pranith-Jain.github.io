@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-lbb-treuhand-de-2026-07-20",
+  "title": "lbb-treuhand.de",
+  "group": "safepay",
+  "discovered": "2026-07-20T19:05:53.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/f550f57a-99f5-4a13-aa9c-46197c4b5d5f",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["Darkfield"]
+}

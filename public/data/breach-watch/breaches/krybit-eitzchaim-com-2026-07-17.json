@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "IL",
   "sizeBytes": 0,
-  "description": "Eitz Chaim Schools (Hebrew: ישיבת עץ חיים — Yeshivas Eitz Chaim) is a private Orthodox Jewish elementary sc...",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/11c14c50-cfcb-4f2b-89bf-9e490831936e",
   "groupAliases": [],
   "activity": "Not Found",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

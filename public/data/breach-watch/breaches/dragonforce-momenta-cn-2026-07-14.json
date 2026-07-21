@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "CN",
   "sizeBytes": 0,
-  "description": "Momenta is an AI and autonomous-driving company.\nAll source code, financial documents, configuration files, employee database, and more were stolen.\nServers and workstations were encrypted.\nMomenta is trying to hide everything from Chinese regulators, the HKEX commission, and investors while reporting a $751M profit from its recent IPO.\nWith a $9B+ market capitalization, this amounts to one of the largest financial frauds in Chinese history.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/914aee01-5f3b-4025-8659-3ac05d680057",
   "groupAliases": ["DRAGON FORCE"],
   "activity": "Technology",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

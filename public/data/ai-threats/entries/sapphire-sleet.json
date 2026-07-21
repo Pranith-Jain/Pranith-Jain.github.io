@@ -1,0 +1,13 @@
+{
+  "slug": "sapphire-sleet",
+  "name": "Sapphire Sleet",
+  "akas": "DPRK (crypto-theft / fake-recruiter cluster)",
+  "brief": "Develops fake digital personas using AI to support social-engineering campaigns targeting employment/recruitment opportunities. Microsoft",
+  "ttps": ["T1566.003", "T1585"],
+  "categories": ["LLM-supported social engineering"],
+  "reported": "Mar 2026",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 137,
+  "ttpMd": "**LLM-supported social engineering** T1585 - Establish Accounts (AI personas)<br><br>T1566.003 - Spearphishing via Service"
+}

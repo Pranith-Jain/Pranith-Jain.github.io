@@ -121,6 +121,10 @@ export interface PostIndexEntry {
   excerpt: string;
   publishedAt: string;
   tags: string[];
+  /** Stable key of the originating candidate. Set for drafts; may be absent
+   *  for legacy published posts. Used by the Drafts tab to generate social
+   *  copy from the candidate path when BLOG_APPROVAL_REQUIRED is on. */
+  candidateId?: string;
 }
 
 export interface DedupRecord {

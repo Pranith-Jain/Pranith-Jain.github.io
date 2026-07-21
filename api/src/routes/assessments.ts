@@ -43,7 +43,7 @@ function cacheApi(): Cache | null {
 }
 
 function generateId(): string {
-  return `asmt-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`;
+  return `asmt-${Date.now().toString(36)}-${crypto.randomUUID().slice(0, 8)}`;
 }
 
 async function loadAll(env: Env): Promise<Assessment[]> {

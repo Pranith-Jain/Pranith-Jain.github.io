@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-kld-labs-2026-07-18",
+  "title": "KLD Labs",
+  "group": "qilin",
+  "discovered": "2026-07-18T11:38:41.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/1d30008e-4db4-465c-acbd-0e23f3d100ef",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["Darkfield"]
+}

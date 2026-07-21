@@ -15,7 +15,7 @@ import { parseBooleanQuery } from '../lib/tg-boolean-search';
 import type { D1Database } from '@cloudflare/workers-types';
 
 function genId(prefix: string): string {
-  return `${prefix}_${Math.random().toString(36).slice(2, 10)}`;
+  return `${prefix}_${crypto.randomUUID()}`;
 }
 
 async function ensureTables(db: D1Database): Promise<void> {

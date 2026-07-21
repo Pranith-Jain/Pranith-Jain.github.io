@@ -1,0 +1,13 @@
+{
+  "slug": "unc2814",
+  "name": "UNC2814",
+  "akas": "GTIG vulnerability-research cluster",
+  "brief": "In GTIG's May 2026 tracker, UNC2814 used \"expert persona\" prompting — directing Gemini to act as a senior security auditor / C-C++ binary security expert — to drive vulnerability research on embedded devices (router firmware, hunting pre-auth RCE). GTIG",
+  "ttps": ["T1587.004", "T1588.006"],
+  "categories": ["LLM-assisted vulnerability research"],
+  "reported": "May 2026",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 253,
+  "ttpMd": "**LLM-assisted vulnerability research** T1588.006 - Obtain Capabilities: Vulnerabilities<br><br>T1587.004 - Develop Capabilities: Exploits"
+}

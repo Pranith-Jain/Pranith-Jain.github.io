@@ -1,0 +1,13 @@
+{
+  "slug": "apt41",
+  "name": "APT41",
+  "akas": "Wicked Panda, BARIUM, Winnti, Double Dragon (PRC)",
+  "brief": "Through August 2025, GTIG observed APT41 using Gemini for C++/Golang code development on multiple tools — including a C2 framework the actor called OSSTUN — and for code-obfuscation help using public obfuscation libraries. GTIG",
+  "ttps": ["T1027", "T1071", "T1587.001"],
+  "categories": ["LLM-aided development", "LLM-optimized payload crafting"],
+  "reported": "Nov 2025",
+  "activity": "Aug 2025",
+  "table": "main",
+  "sizeBytes": 227,
+  "ttpMd": "**LLM-aided development** T1587.001 - Develop Capabilities: Malware<br><br>**LLM-optimized payload crafting** T1027 - Obfuscated Files/Information<br><br>T1071 - Application Layer Protocol (C2 development)"
+}

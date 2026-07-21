@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-mende-grundbesitz-de-2026-07-20",
+  "title": "mende-grundbesitz.de",
+  "group": "safepay",
+  "discovered": "2026-07-20T19:02:23.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/f3509caa-c140-4f8f-9cdf-87ab5a050628",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["Darkfield"]
+}

@@ -1,0 +1,13 @@
+{
+  "slug": "armored-likho",
+  "name": "Armored Likho",
+  "akas": "Eagle Werewolf (Kaspersky)",
+  "brief": "Spear-phishing espionage against government and electric-power targets in Russia, Kazakhstan and Brazil; loader source shows verbose comments, bullet-point emoji, and redundant blocks that Kaspersky attributes to LLM generation, deploying the new Python BusySnake Stealer (PyArmor-obfuscated; credential/cookie theft, reverse SSH). *Analyst note: LLM authorship inferred from code style.* Kaspersky",
+  "ttps": ["T1027", "T1566.001", "T1587.001"],
+  "categories": ["LLM-aided development"],
+  "reported": "Jul 2026",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 398,
+  "ttpMd": "**LLM-aided development** T1587.001 - Develop Capabilities: Malware<br><br>T1566.001 - Spearphishing Attachment<br><br>T1027 - Obfuscated Files/Information"
+}

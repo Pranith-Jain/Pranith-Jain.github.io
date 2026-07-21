@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Built on a family legacy of proud steamfitters dating back to over 100 years, Heritage Mechanical was established in 2012 to provide quality mechanical service to the commercial construction industry. Opening its doors with only three employees and a master plan, the company has since grown rapidly to become one of the fastest growing mechanical construction firms serving the DMV.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/9de03104-7454-458d-bdb9-159470f21b5a",
   "groupAliases": ["DRAGON FORCE"],
   "activity": "Business Services",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

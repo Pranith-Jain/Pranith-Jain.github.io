@@ -1,0 +1,13 @@
+{
+  "slug": "unsub-financially-motivated-sygnia",
+  "name": "UnSub (financially motivated) — Sygnia",
+  "akas": "UnSub",
+  "brief": "Sygnia incident response on a breached AWS environment found behavioral evidence consistent with agentic-AI-assisted execution — four access keys from four separately compromised accounts used from the same source IP/user-agent within the same second, checklist-style rapid technique execution across newly discovered surfaces, and cross-credential \"operational memory\" spanning dozens of identities. The actor progressed from initial access to broad cloud takeover in ~72 hours (credential/secrets harvesting, new IAM users, reverse shells, RDS data exfiltration). *Analyst note: the AI-involvement evidence is behavioral/inferential (speed, parallelism, code style) — Sygnia does not claim to have captured LLM prompts or recovered agent tooling directly, and is appropriately hedged in its own language; vendor sells IR/cloud-security services.* Sygnia",
+  "ttps": ["T1136", "T1552", "T1567"],
+  "categories": ["LLM-orchestrated operations (Agentic AI attack orchestration)"],
+  "reported": "Jun 2026",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 855,
+  "ttpMd": "**LLM-orchestrated operations (Agentic AI attack orchestration)** TA0002 - Execution (parallel, cross-identity)<br><br>T1552 - Unsecured Credentials<br><br>T1136 - Create Account (IAM users)<br><br>T1567 - Exfiltration Over Web Service (RDS data)"
+}

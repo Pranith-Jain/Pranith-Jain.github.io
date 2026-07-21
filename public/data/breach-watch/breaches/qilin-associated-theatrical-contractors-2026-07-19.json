@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-associated-theatrical-contractors-2026-07-19",
+  "title": "Associated Theatrical Contractors",
+  "group": "qilin",
+  "discovered": "2026-07-19T16:04:28.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/ff23ecdc-d1a8-4ac4-8dfa-515c0f634832",
+  "groupAliases": [],
+  "activity": "Business Services",
+  "references": ["Darkfield"]
+}

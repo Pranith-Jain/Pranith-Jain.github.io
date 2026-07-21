@@ -1,0 +1,13 @@
+{
+  "slug": "unsubs-mandiant",
+  "name": "UnSubs - Mandiant",
+  "akas": "N/A but described as \"actors aligned with nation-states including Russia, the People's Republic of China (PRC), Iran, Ethiopia, Indonesia, Cuba, Argentina, Mexico, Ecuador, and El Salvador, along with non-state actors such as individuals on the 4chan forum.\"",
+  "brief": "Since 2019, Mandiant has identified numerous instances of information operations leveraging GANs, typically for use in profile photos of inauthentic personas, including by actors aligned with nation-states including Russia, the People's Republic of China (PRC), Iran, Ethiopia, Indonesia, Cuba, Argentina, Mexico, Ecuador, and El Salvador, along with non-state actors such as individuals on the 4chan forum. We judge that the publicly available nature of GAN-generated image tools such as the website thispersondoesnotexist.com has likely contributed to their frequent usage in information operations (Figure 2). Actors have also taken steps to obfuscate the AI-generated origin of their profile photos through tactics like adding filters or retouching facial features...Mandiant has noted evidence of financially motivated actors using manipulated video and voice content in business email compromise (BEC) scams, North Korean cyber espionage actors using manipulated images to defeat know your customer (KYC) requirements, and voice changing technology used in social engineering targeting Israeli soldiers. Source",
+  "ttps": ["T1587"],
+  "categories": ["DeepFake  for Impersonation"],
+  "reported": "Aug 2023",
+  "activity": "2019 – Aug 2023",
+  "table": "main",
+  "sizeBytes": 1116,
+  "ttpMd": "**DeepFake  for Impersonation**   T1587 - Develop capabilities"
+}

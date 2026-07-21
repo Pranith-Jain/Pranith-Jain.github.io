@@ -1,0 +1,13 @@
+{
+  "slug": "salt-typhoon",
+  "name": "Salt Typhoon",
+  "akas": "GhostEmperor, FamousSparrow, Earth Estries, UNC2286",
+  "brief": "WSJ- \"The group used sophisticated methods to infiltrate American telecom infrastructure through vulnerabilities including Cisco Systems routers, and investigators suspect the hackers relied on artificial intelligence or machine learning to further their espionage operations , people familiar with the matter said.\" InfoSec Magazine - \"Salt Typhoon’s methods included advanced use of artificial intelligence to enhance their access and intelligence-gathering efforts.\"",
+  "ttps": [],
+  "categories": [],
+  "reported": "Nov 2024",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 469,
+  "ttpMd": "Unknown TTPs"
+}

@@ -954,6 +954,9 @@ import {
 } from './routes/security-investigator';
 import { siEdgeToolsRouter } from './routes/si-edge-tools';
 import { threatIntelRouter } from './routes/threat-intel-edge-tools';
+import { dailyBriefsRouter } from './routes/daily-briefs-edge-tools';
+import { aiThreatsRouter } from './routes/ai-threats-edge-tools';
+import { ossFeedsRouter } from './routes/oss-feeds-edge-tools';
 import { winRegRouter } from './routes/winreg-edge-tools';
 import { breachWatchRouter } from './routes/breach-watch-edge-tools';
 import { osintRouter } from './routes/osint-edge-tools';
@@ -1876,9 +1879,22 @@ app.get('/api/v1/si/routing-prompt', siRoutingPromptHandler);
 app.get('/api/v1/si/scripts', siScriptsHandler);
 app.get('/api/v1/si/scripts/:name', siScriptHandler);
 
+// AI Threat Actors tracker — confirmed real-world threat-actor uses of AI/LLMs.
+// Data from github.com/cybershujin/Threat-Actors-use-of-Artifical-Intelligence (MIT).
+// Source: https://cybershujin.github.io/Threat-Actors-use-of-Artifical-Intelligence/
+app.route('/api/v1', aiThreatsRouter);
+
+// OSS Feed Registry — curated catalog of 145+ free open-source threat intel feeds.
+// Data from github.com/Bert-JanP/Open-Source-Threat-Intel-Feeds (BSD-3-Clause).
+app.route('/api/v1', ossFeedsRouter);
+
 // Threat Intel vertical (OpenThreat + cyber_threat_intel + Daily-Hunt references).
 // CVE/KEV/IOC/sector briefs served from public/data/threat-intel/ via env.ASSETS.
 app.route('/api/v1', threatIntelRouter);
+
+// Daily Briefs — AI-generated intelligence briefs (cyber, deepfake, disaster).
+// Data from agentic-ai-daily-reports.netlify.app, parsed into public/data/daily-briefs/.
+app.route('/api/v1', dailyBriefsRouter);
 
 // WinReg DFIR vertical — Windows Registry forensic artifact reference.
 // Data from github.com/dfir-scripts/dfir-scripts.github.io (MIT).
