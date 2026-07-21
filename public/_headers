@@ -34,3 +34,13 @@
   Cache-Control: public, max-age=86400
 /og-*.svg
   Cache-Control: public, max-age=86400
+
+# PowerShell scripts — serve inline as text, not as downloads.
+# Google Safe Browsing flags .ps1 files served without Content-Type
+# as "harmful downloads". Setting text/plain prevents the download prompt.
+/*.ps1
+  Content-Type: text/plain; charset=utf-8
+  X-Content-Type-Options: nosniff
+/data/si/scripts/*
+  Content-Type: text/plain; charset=utf-8
+  X-Content-Type-Options: nosniff

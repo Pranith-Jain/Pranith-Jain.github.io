@@ -21,6 +21,8 @@ Disallow: /resume.docx
 Disallow: /*.docx
 Disallow: /*.gz
 Disallow: /*.wasm
+Disallow: /*.ps1
+Disallow: /data/si/scripts/
 
 # Malware/sample-related pages — Google Safe Browsing flags these as
 # "uncommon download" or "malware" warnings. These are analysis tools,
