@@ -1,12 +1,13 @@
-name: Daily Briefs sync (twice weekly)
+name: Daily Briefs sync (daily)
 
 # Fetches OT/ICS cyber, deepfake, and disaster intelligence briefs from
 # agentic-ai-daily-reports.netlify.app, then rebuilds the
 # public/data/daily-briefs/ manifest. If data changed, opens a PR.
+# Runs daily at 06:00 UTC to accumulate historical briefs.
 
 on:
   schedule:
-    - cron: "0 6 * * 1,4"
+    - cron: "0 6 * * *"
   workflow_dispatch: {}
 
 concurrency:

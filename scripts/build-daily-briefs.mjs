@@ -11,7 +11,7 @@
  *
  * Parses HTML using regex — no external dependencies.
  */
-import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
 const ROOT = process.cwd();
@@ -423,13 +423,20 @@ if (!existsSync(STAGING)) {
   process.exit(1);
 }
 
-// Wipe and rebuild
-if (existsSync(OUT)) rmSync(OUT, { recursive: true });
+// Ensure output directories exist (don't wipe — preserve historical data)
 for (const t of BRIEF_TYPES) mkdirSync(join(OUT, t), { recursive: true });
+
+// Load existing index to merge with new data
+let existingIndex = { briefs: [] };
+const indexPath = join(OUT, 'index.json');
+if (existsSync(indexPath)) {
+  try { existingIndex = JSON.parse(readFileSync(indexPath, 'utf8')); } catch { /* ignore corrupt index */ }
+}
+const existingBriefs = new Map((existingIndex.briefs ?? []).map((b) => [`${b.type}:${b.date}`, b]));
 
 const parsers = { cyber: parseCyberBrief, deepfake: parseDeepfakeBrief, disaster: parseDisasterBrief };
 const briefCounts = { cyber: 0, deepfake: 0, disaster: 0 };
-const briefIndex = [];
+const mergedBriefs = new Map(existingBriefs);
 
 for (const type of BRIEF_TYPES) {
   const htmlPath = join(STAGING, `${type}.html`);
@@ -441,24 +448,36 @@ for (const type of BRIEF_TYPES) {
   const date = dateFromContent(html);
   const parsed = parsers[type](html, date);
   const outPath = join(OUT, type, `${date}.json`);
+  const newSize = JSON.stringify(parsed).length;
+
+  // Skip write if file exists and size hasn't changed (same content)
+  const existing = mergedBriefs.get(`${type}:${date}`);
+  if (existing && existing.sizeBytes === newSize) {
+    console.log(`  ─ ${type} ${date} (unchanged, ${newSize} bytes)`);
+    briefCounts[type]++;
+    continue;
+  }
+
   writeFileSync(outPath, JSON.stringify(parsed));
+  mergedBriefs.set(`${type}:${date}`, { type, date, sizeBytes: newSize });
   briefCounts[type]++;
-  briefIndex.push({ type, date, sizeBytes: JSON.stringify(parsed).length });
-  console.log(`  ✔ ${type} ${date} (${JSON.stringify(parsed).length} bytes)`);
+  console.log(`  ✔ ${type} ${date} (${newSize} bytes)`);
 }
 
-// Write index
+// Write merged index (preserve all historical briefs)
+const allBriefs = [...mergedBriefs.values()].sort((a, b) => b.date.localeCompare(a.date));
 const index = {
   source: 'agentic-ai-daily-reports.netlify.app',
   license: 'MIT',
   generatedAt: new Date().toISOString().slice(0, 10),
   counts: briefCounts,
-  briefs: briefIndex,
+  briefs: allBriefs,
 };
 writeFileSync(join(OUT, 'index.json'), JSON.stringify(index));
 
 console.log('\n✔ Built:');
 for (const t of BRIEF_TYPES) {
-  console.log(`    ${briefCounts[t]} ${t} brief(s)`);
+  console.log(`    ${briefCounts[t]} ${t} brief(s) new/updated`);
 }
+console.log(`    ${allBriefs.length} total briefs in index`);
 console.log(`    1 index (public/data/daily-briefs/index.json)`);
