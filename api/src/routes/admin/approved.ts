@@ -5,6 +5,8 @@ import { unapprove, listApproved, getApproved } from '../../case-study/storage/a
 import { touchDedup } from '../../case-study/storage/dedup';
 import { removeSlot } from '../../case-study/storage/schedule';
 import { putPost } from '../../case-study/storage/posts';
+import { renderRss } from '../../case-study/rendering/rss';
+import { getSiteUrl } from '../../lib/site-config';
 import { kv as csKvKeys } from '../../case-study/kv-keys';
 import { generatePost } from '../../case-study/generation';
 import { generateSocialForPost, type CaseStudyEnv } from '../../case-study/run';

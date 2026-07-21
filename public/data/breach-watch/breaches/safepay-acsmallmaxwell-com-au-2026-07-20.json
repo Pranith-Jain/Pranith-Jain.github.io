@@ -1,15 +1,15 @@
 {
   "slug": "safepay-acsmallmaxwell-com-au-2026-07-20",
   "title": "acsmallmaxwell.com.au",
-  "group": "safepay",
-  "discovered": "2026-07-20T19:02:56.000Z",
+  "group": "SafePay",
+  "discovered": "2026-07-20T00:00:00.000Z",
   "category": "ransomware",
   "severity": "high",
-  "country": "AU",
+  "country": "Australia",
   "sizeBytes": 0,
-  "description": "Founded in 1916 by Ambrose Cecil Small, the firm has provided professional accounting and financial services to businesses and individuals …",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Internal files exfiltrated in ransomware attack",
+  "source_url": "https://recentbreaches.com/breach/acsmallmaxwell-com-au-safepay-2026-07",
   "groupAliases": [],
   "activity": "Business Services",
-  "references": ["ransomware.live"]
+  "references": ["RecentBreaches.com"]
 }

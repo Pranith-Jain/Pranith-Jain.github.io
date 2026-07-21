@@ -10,15 +10,21 @@
  */
 
 import {
+  Activity,
+  Activity as ActivityIcon,
   AlertOctagon,
   AlertTriangle,
-  Compass,
+  Award,
+  BarChart as BarChartIcon,
+  Beaker as BeakerIcon,
+  Bell,
   BookOpen,
   Brain,
-  Activity,
-  Bell,
   Bug,
+  Camera as CameraIcon,
   Cloud,
+  Code as CodeIcon,
+  Compass,
   Crosshair,
   Database,
   ExternalLink,
@@ -29,16 +35,23 @@ import {
   FolderTree,
   GitBranch,
   Globe,
+  Grid3x3 as GridIcon,
+  Key as KeyIcon,
   KeyRound,
   Layers,
   LayoutDashboard,
   LineChart,
+  Link as LinkIcon,
   List,
+  Lock as LockIcon,
   Map,
+  MapPin as MapPinIcon,
   MessageSquare,
   Network,
+  Network as NetworkIcon,
   Newspaper,
   Package,
+  Plug as PlugIcon,
   Radar,
   Radio,
   Repeat2,
@@ -51,16 +64,21 @@ import {
   Shield,
   ShieldAlert,
   ShieldCheck,
+  ShoppingBag as ShoppingBagIcon,
   Sparkles,
+  Star as StarIcon,
+  Store as StoreIcon,
+  Sword as SwordIcon,
+  Tag as TagIcon,
   Target,
   Telescope,
   Terminal,
+  Timer as TimerIcon,
   TrendingUp,
   UserSearch,
   Users,
   Wallet,
   Wifi,
-  Award,
   Wrench,
   Zap,
   type LucideIcon,
@@ -419,67 +437,3 @@ export const PAGE_TITLES: Record<string, string> = (() => {
   }
   return out;
 })();
-
-/* ------------------------------------------------------------------ */
-/*  Icon imports — all the icons used in the override map above.       */
-/*  Kept inline so this file remains the single source of truth.      */
-/* ------------------------------------------------------------------ */
-
-// (Icons already imported at the top of the file.)
-
-// Local alias so the import-only icons at the top are referenced —
-// keeps the type checker happy about unused-imports while making
-// the file self-contained.
-const _ = {
-  ActivityIcon,
-  AlertOctagon,
-  BarChartIcon,
-  BeakerIcon,
-  BellIcon,
-  CameraIcon,
-  CodeIcon,
-  Database,
-  FolderTree,
-  GridIcon,
-  KeyIcon,
-  Layers,
-  LinkIcon,
-  LockIcon,
-  MapPinIcon,
-  MonitorIcon,
-  NetworkIcon,
-  Package,
-  PlugIcon,
-  Repeat2,
-  ShoppingBagIcon,
-  StarIcon,
-  StoreIcon,
-  SwordIcon,
-  TagIcon,
-  TimerIcon,
-};
-void _;
-
-// Local icon aliases (used in the override map)
-import {
-  Activity as ActivityIcon,
-  BarChart as BarChartIcon,
-  Beaker as BeakerIcon,
-  Bell as BellIcon,
-  Camera as CameraIcon,
-  Code as CodeIcon,
-  Grid3x3 as GridIcon,
-  Key as KeyIcon,
-  Link as LinkIcon,
-  Lock as LockIcon,
-  MapPin as MapPinIcon,
-  Monitor as MonitorIcon,
-  Network as NetworkIcon,
-  Plug as PlugIcon,
-  ShoppingBag as ShoppingBagIcon,
-  Star as StarIcon,
-  Store as StoreIcon,
-  Sword as SwordIcon,
-  Tag as TagIcon,
-  Timer as TimerIcon,
-} from 'lucide-react';

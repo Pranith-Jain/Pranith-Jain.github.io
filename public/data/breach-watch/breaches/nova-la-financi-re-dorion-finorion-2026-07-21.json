@@ -2,14 +2,14 @@
   "slug": "nova-la-financi-re-dorion-finorion-2026-07-21",
   "title": "La Financière d'Orion (finorion)",
   "group": "nova",
-  "discovered": "2026-07-21T15:07:10.000Z",
+  "discovered": "2026-07-21T18:09:05.000Z",
   "category": "ransomware",
   "severity": "high",
-  "country": null,
+  "country": "FR",
   "sizeBytes": 0,
-  "description": null,
-  "source_url": "http://pifk3xu3vad6cuxsjll4qjomyaaaoyvnyqppro75pazadzctrrvpdnyd.onion/#la-financi-re-d-orion-finorion",
+  "description": "Since 2009, we have been helping to create a privileged relationship between wealth professionals and their clients. The wealth of our experience allows us to deploy innovative, coherent financial engineering levers that are perfectly tailored to your aspirations and objectives - Nova have 20GB of clients documents data and company finance informations, for example convestion ERES.pdf, secrets is here, Contact us for more details, Nova Provide tree and samples from stolen data to the company when its get in touch with support department.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
-  "activity": null,
-  "references": ["CTI.FYI"]
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
 }

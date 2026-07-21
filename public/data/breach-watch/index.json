@@ -1,12 +1,12 @@
 {
   "source": "ransomware.live + ransomlook.io + Darkfield + RecentBreaches.com + CTI.FYI + XposedOrNot",
   "license": "CC0 — public data from open trackers",
-  "replicatedAt": "2026-07-21T18:07:18.062Z",
-  "counts": { "breaches": 2486, "groups": 100, "categories": 3 },
-  "lastSyncedAt": "2026-07-21T18:07:18.062Z",
+  "replicatedAt": "2026-07-21T19:29:11.650Z",
+  "counts": { "breaches": 2491, "groups": 100, "categories": 3 },
+  "lastSyncedAt": "2026-07-21T19:29:11.650Z",
   "categories": [
-    { "key": "ransomware", "label": "Ransomware", "count": 1995 },
-    { "key": "data_breach", "label": "Data Breach", "count": 489 },
+    { "key": "ransomware", "label": "Ransomware", "count": 1996 },
+    { "key": "data_breach", "label": "Data Breach", "count": 493 },
     { "key": "credential_leak", "label": "Credential Leak", "count": 2 }
   ],
   "groups": [
@@ -24,7 +24,7 @@
     { "name": "Unattributed", "count": 51, "topCategory": "data_breach" },
     { "name": "nightspire", "count": 48, "topCategory": "ransomware" },
     { "name": "payoutsking", "count": 45, "topCategory": "ransomware" },
-    { "name": "play", "count": 43, "topCategory": "ransomware" },
+    { "name": "play", "count": 44, "topCategory": "ransomware" },
     { "name": "shinyhunters", "count": 38, "topCategory": "ransomware" },
     { "name": "cmdorganization", "count": 37, "topCategory": "ransomware" },
     { "name": "genesis", "count": 36, "topCategory": "ransomware" },
@@ -58,6 +58,7 @@
     { "name": "Icarus", "count": 11, "topCategory": "data_breach" },
     { "name": "shadowbyt3$", "count": 11, "topCategory": "data_breach" },
     { "name": "AuditTeam", "count": 10, "topCategory": "data_breach" },
+    { "name": "0day Syndicate", "count": 9, "topCategory": "data_breach" },
     { "name": "the gentlemen", "count": 9, "topCategory": "data_breach" },
     { "name": "kairos", "count": 9, "topCategory": "data_breach" },
     { "name": "LeakBazaar", "count": 9, "topCategory": "data_breach" },
@@ -77,7 +78,6 @@
     { "name": "rhysida", "count": 5, "topCategory": "ransomware" },
     { "name": "ULose", "count": 5, "topCategory": "data_breach" },
     { "name": "killsec", "count": 5, "topCategory": "data_breach" },
-    { "name": "0day Syndicate", "count": 5, "topCategory": "data_breach" },
     { "name": "blackout", "count": 4, "topCategory": "data_breach" },
     { "name": "securotrop", "count": 4, "topCategory": "data_breach" },
     { "name": "cloak", "count": 4, "topCategory": "data_breach" },
@@ -88,8 +88,8 @@
     { "name": "moneymessage", "count": 3, "topCategory": "data_breach" },
     { "name": "abyss", "count": 3, "topCategory": "ransomware" },
     { "name": "mnt6", "count": 3, "topCategory": "data_breach" },
-    { "name": "Akira", "count": 2, "topCategory": "ransomware" },
     { "name": "Qilin", "count": 2, "topCategory": "ransomware" },
+    { "name": "Akira", "count": 2, "topCategory": "ransomware" },
     { "name": "Nova", "count": 2, "topCategory": "ransomware" },
     { "name": "coinbase cartel", "count": 2, "topCategory": "data_breach" },
     { "name": "funksec", "count": 2, "topCategory": "data_breach" },
@@ -112,6 +112,66 @@
     { "name": "tridentlocker", "count": 1, "topCategory": "data_breach" }
   ],
   "breachIndex": [
+    {
+      "slug": "0day-syndicate-gokids-gokidspublishing-com-dev-redpilotstudio-com-gokidsmobile-com-2026-07-21",
+      "title": "gokids gokidspublishing.com dev.redpilotstudio.com gokidsmobile.com",
+      "group": "0day Syndicate",
+      "discovered": "2026-07-21T18:31:17.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": null,
+      "sizeBytes": 508
+    },
+    {
+      "slug": "0day-syndicate-xgenize-com-2026-07-21",
+      "title": "xgenize.com",
+      "group": "0day Syndicate",
+      "discovered": "2026-07-21T18:31:17.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": null,
+      "sizeBytes": 397
+    },
+    {
+      "slug": "0day-syndicate-braincell-braincell-sa-rfcargo-braincell-solutions-rf-braincell-solutions-governata-com-2026-07-21",
+      "title": "Braincell Braincell.sa rfcargo.braincell.solutions rf.braincell.solutions governata.com",
+      "group": "0day Syndicate",
+      "discovered": "2026-07-21T18:31:17.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": null,
+      "sizeBytes": 551
+    },
+    {
+      "slug": "0day-syndicate-xl-africa-group-2026-07-21",
+      "title": "xl africa group",
+      "group": "0day Syndicate",
+      "discovered": "2026-07-21T18:31:17.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": null,
+      "sizeBytes": 411
+    },
+    {
+      "slug": "play-kreysler-associates-2026-07-21",
+      "title": "Kreysler & Associates",
+      "group": "play",
+      "discovered": "2026-07-21T18:10:23.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": "US",
+      "sizeBytes": 375
+    },
+    {
+      "slug": "nova-la-financi-re-dorion-finorion-2026-07-21",
+      "title": "La Financière d'Orion (finorion)",
+      "group": "nova",
+      "discovered": "2026-07-21T18:09:05.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": "FR",
+      "sizeBytes": 913
+    },
     {
       "slug": "chaos-argonautms-com-2026-07-21",
       "title": "argonautms.com",
@@ -161,16 +221,6 @@
       "severity": "high",
       "country": "ID",
       "sizeBytes": 792
-    },
-    {
-      "slug": "nova-la-financi-re-dorion-finorion-2026-07-21",
-      "title": "La Financière d'Orion (finorion)",
-      "group": "nova",
-      "discovered": "2026-07-21T15:07:10.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 421
     },
     {
       "slug": "ransomhouse-nichirei-2026-07-21",
@@ -303,26 +353,6 @@
       "sizeBytes": 356
     },
     {
-      "slug": "akira-finer-finer-2026-07-21",
-      "title": "Finer & Finer",
-      "group": "Akira",
-      "discovered": "2026-07-21T00:00:00.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 428
-    },
-    {
-      "slug": "dragonforce-one-community-fcu-2026-07-21",
-      "title": "One Community FCU",
-      "group": "DragonForce",
-      "discovered": "2026-07-21T00:00:00.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": "United States",
-      "sizeBytes": 478
-    },
-    {
       "slug": "qilin-postres-reina-2026-07-21",
       "title": "Postres Reina",
       "group": "Qilin",
@@ -333,24 +363,24 @@
       "sizeBytes": 439
     },
     {
-      "slug": "nova-koperasi-karyawan-pt-aplikanusa-lintasarta-2026-07-21",
-      "title": "Koperasi Karyawan PT Aplikanusa Lintasarta",
-      "group": "Nova",
-      "discovered": "2026-07-21T00:00:00.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "Indonesia",
-      "sizeBytes": 509
-    },
-    {
-      "slug": "qilin-rehavital-gesundheitsservice-gmbh-2026-07-21",
-      "title": "RehaVital Gesundheitsservice GmbH",
-      "group": "Qilin",
+      "slug": "akira-finer-finer-2026-07-21",
+      "title": "Finer & Finer",
+      "group": "Akira",
       "discovered": "2026-07-21T00:00:00.000Z",
       "category": "ransomware",
       "severity": "critical",
-      "country": "Germany",
-      "sizeBytes": 480
+      "country": null,
+      "sizeBytes": 428
+    },
+    {
+      "slug": "akira-novasport-s-r-o-2026-07-21",
+      "title": "Novasport s.r.o.",
+      "group": "Akira",
+      "discovered": "2026-07-21T00:00:00.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": "Czech Republic",
+      "sizeBytes": 451
     },
     {
       "slug": "nova-t-rra-aventura-2026-07-21",
@@ -363,14 +393,34 @@
       "sizeBytes": 431
     },
     {
-      "slug": "akira-novasport-s-r-o-2026-07-21",
-      "title": "Novasport s.r.o.",
-      "group": "Akira",
+      "slug": "qilin-rehavital-gesundheitsservice-gmbh-2026-07-21",
+      "title": "RehaVital Gesundheitsservice GmbH",
+      "group": "Qilin",
       "discovered": "2026-07-21T00:00:00.000Z",
       "category": "ransomware",
       "severity": "critical",
-      "country": "Czech Republic",
-      "sizeBytes": 451
+      "country": "Germany",
+      "sizeBytes": 480
+    },
+    {
+      "slug": "nova-koperasi-karyawan-pt-aplikanusa-lintasarta-2026-07-21",
+      "title": "Koperasi Karyawan PT Aplikanusa Lintasarta",
+      "group": "Nova",
+      "discovered": "2026-07-21T00:00:00.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": "Indonesia",
+      "sizeBytes": 509
+    },
+    {
+      "slug": "dragonforce-one-community-fcu-2026-07-21",
+      "title": "One Community FCU",
+      "group": "DragonForce",
+      "discovered": "2026-07-21T00:00:00.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": "United States",
+      "sizeBytes": 478
     },
     {
       "slug": "inc-ransom-ali-monde-2026-07-20",
@@ -753,16 +803,6 @@
       "sizeBytes": 637
     },
     {
-      "slug": "safepay-industriesjaro-com-2026-07-20",
-      "title": "industriesjaro.com",
-      "group": "SafePay",
-      "discovered": "2026-07-20T00:00:00.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "Canada",
-      "sizeBytes": 439
-    },
-    {
       "slug": "safepay-mende-grundbesitz-de-2026-07-20",
       "title": "mende-grundbesitz.de",
       "group": "SafePay",
@@ -781,6 +821,16 @@
       "severity": "high",
       "country": "Germany",
       "sizeBytes": 452
+    },
+    {
+      "slug": "safepay-acsmallmaxwell-com-au-2026-07-20",
+      "title": "acsmallmaxwell.com.au",
+      "group": "SafePay",
+      "discovered": "2026-07-20T00:00:00.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": "Australia",
+      "sizeBytes": 455
     },
     {
       "slug": "doommageddon-reni-farm-cias-associadas-2026-07-19",
@@ -12203,24 +12253,14 @@
       "sizeBytes": 372
     },
     {
-      "slug": "ulose-hize-aero-2026-06-09",
-      "title": "HIZE Aero",
+      "slug": "ulose-handok-2026-06-09",
+      "title": "HanDok",
       "group": "ULose",
       "discovered": "2026-06-09T00:00:00.000Z",
       "category": "data_breach",
       "severity": "high",
       "country": "KR",
-      "sizeBytes": 431
-    },
-    {
-      "slug": "ulose-kyungrok-2026-06-09",
-      "title": "KyungRok",
-      "group": "ULose",
-      "discovered": "2026-06-09T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "KR",
-      "sizeBytes": 402
+      "sizeBytes": 388
     },
     {
       "slug": "ulose-nrcapital-2026-06-09",
@@ -12233,6 +12273,16 @@
       "sizeBytes": 409
     },
     {
+      "slug": "ulose-hize-aero-2026-06-09",
+      "title": "HIZE Aero",
+      "group": "ULose",
+      "discovered": "2026-06-09T00:00:00.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "KR",
+      "sizeBytes": 431
+    },
+    {
       "slug": "ulose-msicapital-2026-06-09",
       "title": "MSICapital",
       "group": "ULose",
@@ -12243,14 +12293,14 @@
       "sizeBytes": 333
     },
     {
-      "slug": "ulose-handok-2026-06-09",
-      "title": "HanDok",
+      "slug": "ulose-kyungrok-2026-06-09",
+      "title": "KyungRok",
       "group": "ULose",
       "discovered": "2026-06-09T00:00:00.000Z",
       "category": "data_breach",
       "severity": "high",
       "country": "KR",
-      "sizeBytes": 388
+      "sizeBytes": 402
     },
     {
       "slug": "termite-wiese-usa-2026-06-08",

@@ -1,0 +1,15 @@
+{
+  "slug": "0day-syndicate-xl-africa-group-2026-07-21",
+  "title": "xl africa group",
+  "group": "0day Syndicate",
+  "discovered": "2026-07-21T18:31:17.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "http://odaygplp3zhyx7zl45egetl6dzc4reduisnoyym34rjdmaryfaz5doqd.onion/detail.php?id=0day-xlafricagroup",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["CTI.FYI"]
+}
