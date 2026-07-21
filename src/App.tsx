@@ -402,6 +402,15 @@ const ThreatActorDirectory = lazy(() => import('./pages/cti/ThreatActorDirectory
 const VictimTracker = lazy(() => import('./pages/cti/VictimTracker'));
 const ReputationCheck = lazy(() => import('./pages/cti/ReputationCheck'));
 const IntelFeed = lazy(() => import('./pages/cti/IntelFeed'));
+const MalwareDatabase = lazy(() => import('./pages/cti/MalwareDatabase'));
+const CampaignTracker = lazy(() => import('./pages/cti/CampaignTracker'));
+const HoneypotTelemetry = lazy(() => import('./pages/cti/HoneypotTelemetry'));
+const WeeklyReports = lazy(() => import('./pages/cti/WeeklyReports'));
+const Geopolitics = lazy(() => import('./pages/cti/Geopolitics'));
+const DarkWebMarkets = lazy(() => import('./pages/cti/DarkWebMarkets'));
+const CorrelationGraph = lazy(() => import('./pages/cti/CorrelationGraph'));
+const SecurityAlerts = lazy(() => import('./pages/cti/SecurityAlerts'));
+const ThreatAiChat = lazy(() => import('./pages/cti/ThreatAiChat'));
 
 /**
  * /dfir/file?h=<hash> is the legacy entry point for the standalone hash
@@ -455,6 +464,15 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/cti/victims', Component: VictimTracker },
   { path: '/cti/check', Component: ReputationCheck },
   { path: '/cti/articles', Component: IntelFeed },
+  { path: '/cti/malware', Component: MalwareDatabase },
+  { path: '/cti/campaigns', Component: CampaignTracker },
+  { path: '/cti/honeypot', Component: HoneypotTelemetry },
+  { path: '/cti/reports', Component: WeeklyReports },
+  { path: '/cti/geopolitics', Component: Geopolitics },
+  { path: '/cti/markets', Component: DarkWebMarkets },
+  { path: '/cti/intelligence', Component: CorrelationGraph },
+  { path: '/cti/alerts', Component: SecurityAlerts },
+  { path: '/cti/ask', Component: ThreatAiChat },
   { path: '/threat-intel', Component: ThreatIntel },
   { path: '/daily-briefs', Component: DailyBriefs },
   { path: '/dfir/ai-threats', Component: AIThreats },

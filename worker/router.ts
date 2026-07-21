@@ -499,6 +499,8 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/quicktrace', '/__prerendered/dfir__quicktrace'],
   ['/dfir/phishops', '/__prerendered/dfir__phishops'],
   ['/dfir/phishbook', '/__prerendered/dfir__phishbook'],
+  ['/dfir/ai-threats', '/__prerendered/dfir__ai-threats'],
+  ['/dfir/oss-feeds', '/__prerendered/dfir__oss-feeds'],
 
   // ── ThreatIntel: real pages, not redirects (28) ──────────────
   ['/threatintel/ach', '/__prerendered/threatintel__ach'],

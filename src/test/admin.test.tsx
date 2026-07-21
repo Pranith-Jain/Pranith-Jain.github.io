@@ -92,8 +92,8 @@ describe('AdminApp', () => {
           })
         );
       }
-      if (u.includes('/health')) {
-        return new Response(JSON.stringify({ ok: true }));
+      if (u.includes('/inference-stats')) {
+        return new Response(JSON.stringify({ calls: 0, totalTokens: 0, estimatedCostCents: 0, overCap: false }));
       }
       return new Response(JSON.stringify({ pending: [] }));
     }) as unknown as typeof fetch;

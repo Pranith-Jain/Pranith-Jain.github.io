@@ -1,18 +1,6 @@
 import { useEffect, useState, useCallback, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  ArrowLeft,
-  Bug,
-  ChevronLeft,
-  ChevronRight,
-  ExternalLink,
-  Filter,
-  RefreshCw,
-  Search,
-  Shield,
-  ShieldAlert,
-  X,
-} from 'lucide-react';
+import { ArrowLeft, Bug, ChevronLeft, ChevronRight, ExternalLink, RefreshCw, Search, Shield, X } from 'lucide-react';
 import { PageMeta } from '../../components/PageMeta';
 
 const API = '/api/v1';
