@@ -31,10 +31,25 @@ export default function ThreatActorDirectory() {
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/v1/threat-intel/stats');
+      const res = await fetch('/data/threat-intel/index.json');
       if (res.ok) {
         const data = await res.json();
-        if (data.actors?.items) setActors(data.actors.items);
+        if (data.iocIndex) {
+          const actorData = data.iocIndex
+            .filter((i: Record<string, unknown>) => i.type === 'actor')
+            .map((a: Record<string, unknown>) => ({
+              name: (a.value as string) || '',
+              aliases: [],
+              country: '',
+              motivation: '',
+              description: (a.context as string) || '',
+              malware: [],
+              techniques: [],
+              lastActive: (a.observed_at as string) || '',
+              source: (a.source as string) || '',
+            }));
+          setActors(actorData);
+        }
       }
     } catch (e) {
       console.error(e);

@@ -18,11 +18,7 @@ export default function DarkWebMarkets() {
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/v1/threat-intel/stats');
-      if (res.ok) {
-        const data = await res.json();
-        if (data.markets?.items) setMarkets(data.markets.items);
-      }
+      setMarkets([]);
     } catch (e) {
       console.error(e);
     }

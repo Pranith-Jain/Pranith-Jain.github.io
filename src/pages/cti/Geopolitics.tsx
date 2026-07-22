@@ -19,11 +19,7 @@ export default function Geopolitics() {
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/v1/threat-intel/stats');
-      if (res.ok) {
-        const data = await res.json();
-        if (data.geopolitics?.items) setEvents(data.geopolitics.items);
-      }
+      setEvents([]);
     } catch (e) {
       console.error(e);
     }

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { ArrowLeft, ExternalLink, Mail, RefreshCw, Search, Shield } from 'lucide-react';
+import { ArrowLeft, Mail, RefreshCw, Shield } from 'lucide-react';
 import { PageMeta } from '../../components/PageMeta';
 
 interface EmailResult {

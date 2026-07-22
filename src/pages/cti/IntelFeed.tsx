@@ -32,10 +32,21 @@ export default function IntelFeed() {
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/v1/threat-intel/stats');
+      const res = await fetch('/data/threat-intel/index.json');
       if (res.ok) {
         const data = await res.json();
-        if (data.articles?.items) setArticles(data.articles.items);
+        if (data.cveIndex) {
+          const articleData = data.cveIndex.slice(0, 50).map((c: Record<string, unknown>) => ({
+            title: `${c.cveId} - ${((c.cvssV3Severity as string) || '').toUpperCase()} vulnerability`,
+            url: `https://nvd.nist.gov/vuln/detail/${c.cveId}`,
+            source: 'NVD',
+            published: (c.publishedAt as string) || '',
+            summary: (c.description as string) || '',
+            tags: ['CVE', c.inKev ? 'KEV' : '', (c.cvssV3Severity as string) || ''].filter(Boolean),
+            severity: c.cvssV3Severity as string,
+          }));
+          setArticles(articleData);
+        }
       }
     } catch (e) {
       console.error(e);

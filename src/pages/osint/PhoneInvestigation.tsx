@@ -1,18 +1,20 @@
 import { useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { ArrowLeft, ExternalLink, RefreshCw, User } from 'lucide-react';
+import { ArrowLeft, Phone, RefreshCw } from 'lucide-react';
 import { PageMeta } from '../../components/PageMeta';
 
-interface UsernameResult {
-  username: string;
-  found: Array<{ platform: string; url: string; status: string }>;
-  notFound: string[];
+interface PhoneResult {
+  number: string;
+  valid: boolean;
+  country?: string;
+  carrier?: string;
+  lineType?: string;
 }
 
-export default function UsernameOsint() {
+export default function PhoneInvestigation() {
   const [params] = useSearchParams();
   const [query, setQuery] = useState(params.get('q') || '');
-  const [result, setResult] = useState<UsernameResult | null>(null);
+  const [result, setResult] = useState<PhoneResult | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -22,7 +24,7 @@ export default function UsernameOsint() {
     setError('');
     setResult(null);
     try {
-      const res = await fetch(`/api/v1/username-osint?q=${encodeURIComponent(query.trim())}`);
+      const res = await fetch(`/api/v1/phone-osint?q=${encodeURIComponent(query.trim())}`);
       if (res.ok) {
         const data = await res.json();
         setResult(data);
@@ -38,9 +40,9 @@ export default function UsernameOsint() {
   return (
     <>
       <PageMeta
-        title="Username OSINT"
-        description="Check a username across 400+ platforms."
-        canonicalPath="/osint/username"
+        title="Phone OSINT"
+        description="Phone number validation, carrier lookup, and line type detection."
+        canonicalPath="/osint/phone"
       />
       <div className="min-h-screen bg-[rgb(var(--surface-100))]">
         <div className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
@@ -52,10 +54,10 @@ export default function UsernameOsint() {
               >
                 <ArrowLeft size={16} className="text-slate-600" />
               </Link>
-              <div className="w-10 h-10 rounded-lg bg-violet-600 flex items-center justify-center">
-                <User size={20} className="text-white" />
+              <div className="w-10 h-10 rounded-lg bg-emerald-600 flex items-center justify-center">
+                <Phone size={20} className="text-white" />
               </div>
-              <h1 className="text-xl font-bold text-slate-900 dark:text-white">Username OSINT</h1>
+              <h1 className="text-xl font-bold text-slate-900 dark:text-white">Phone OSINT</h1>
             </div>
             <div className="flex gap-2">
               <input
@@ -63,7 +65,7 @@ export default function UsernameOsint() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                placeholder="Enter username"
+                placeholder="Enter phone number (e.g., +1 555 123 4567)"
                 className="flex-1 px-4 py-2.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
               />
               <button
@@ -71,7 +73,7 @@ export default function UsernameOsint() {
                 disabled={loading || !query.trim()}
                 className="px-4 py-2.5 rounded-lg bg-brand-600 text-white text-sm font-medium hover:bg-brand-700 disabled:opacity-50"
               >
-                {loading ? 'Searching...' : 'Search'}
+                {loading ? 'Looking up...' : 'Investigate'}
               </button>
             </div>
           </div>
@@ -86,34 +88,36 @@ export default function UsernameOsint() {
             </div>
           )}
           {result && (
-            <div className="space-y-4">
-              <div className="rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-5">
-                <h2 className="text-lg font-bold text-slate-800 dark:text-slate-200 mb-2">@{result.username}</h2>
-                <p className="text-sm text-slate-500">
-                  {result.found.length} profiles found · {result.notFound.length} not found
-                </p>
-              </div>
-              {result.found.length > 0 && (
-                <div className="rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-5">
-                  <h3 className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-500 mb-3">
-                    Found On
-                  </h3>
-                  <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-2">
-                    {result.found.map((f) => (
-                      <a
-                        key={f.platform}
-                        href={f.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center justify-between p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
-                      >
-                        <span className="text-sm text-slate-700 dark:text-slate-300">{f.platform}</span>
-                        <ExternalLink size={12} className="text-slate-400" />
-                      </a>
-                    ))}
-                  </div>
+            <div className="rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-5">
+              <h2 className="text-lg font-bold text-slate-800 dark:text-slate-200 mb-4 flex items-center gap-2">
+                <Phone size={18} /> {result.number}
+              </h2>
+              <div className="grid md:grid-cols-2 gap-4 text-sm">
+                <div>
+                  <label className="text-[10px] font-mono uppercase text-slate-400">Valid</label>
+                  <p className={result.valid ? 'text-emerald-600 font-semibold' : 'text-rose-600 font-semibold'}>
+                    {result.valid ? 'Yes' : 'No'}
+                  </p>
                 </div>
-              )}
+                {result.country && (
+                  <div>
+                    <label className="text-[10px] font-mono uppercase text-slate-400">Country</label>
+                    <p className="text-slate-700 dark:text-slate-300">{result.country}</p>
+                  </div>
+                )}
+                {result.carrier && (
+                  <div>
+                    <label className="text-[10px] font-mono uppercase text-slate-400">Carrier</label>
+                    <p className="text-slate-700 dark:text-slate-300">{result.carrier}</p>
+                  </div>
+                )}
+                {result.lineType && (
+                  <div>
+                    <label className="text-[10px] font-mono uppercase text-slate-400">Line Type</label>
+                    <p className="text-slate-700 dark:text-slate-300">{result.lineType}</p>
+                  </div>
+                )}
+              </div>
             </div>
           )}
         </div>

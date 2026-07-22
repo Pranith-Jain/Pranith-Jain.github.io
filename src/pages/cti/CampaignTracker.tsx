@@ -31,10 +31,26 @@ export default function CampaignTracker() {
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/v1/threat-intel/stats');
+      const res = await fetch('/data/threat-intel/index.json');
       if (res.ok) {
         const data = await res.json();
-        if (data.campaigns?.items) setCampaigns(data.campaigns.items);
+        if (data.iocIndex) {
+          const campaignData = data.iocIndex
+            .filter((i: Record<string, unknown>) => i.type === 'campaign')
+            .map((c: Record<string, unknown>) => ({
+              name: (c.value as string) || '',
+              type: 'ransomware' as const,
+              status: 'active' as const,
+              country: '',
+              motivation: 'financial',
+              victims: 0,
+              sectors: [],
+              startDate: (c.observed_at as string) || '',
+              lastActivity: (c.observed_at as string) || '',
+              description: (c.context as string) || '',
+            }));
+          setCampaigns(campaignData);
+        }
       }
     } catch (e) {
       console.error(e);

@@ -22,10 +22,23 @@ export default function VictimTracker() {
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/v1/threat-intel/stats');
+      const res = await fetch('/data/threat-intel/index.json');
       if (res.ok) {
         const data = await res.json();
-        if (data.victims?.items) setVictims(data.victims.items);
+        if (data.iocIndex) {
+          const victimData = data.iocIndex
+            .filter((i: Record<string, unknown>) => i.type === 'victim')
+            .map((v: Record<string, unknown>) => ({
+              name: (v.value as string) || '',
+              group: (v.source as string) || '',
+              country: '',
+              sector: '',
+              date: (v.observed_at as string) || '',
+              url: '',
+              description: (v.context as string) || '',
+            }));
+          setVictims(victimData);
+        }
       }
     } catch (e) {
       console.error(e);

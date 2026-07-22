@@ -513,7 +513,7 @@ export default function GlobalPulse(): JSX.Element {
   const { connected: wsConnected, generatedAt: wsGeneratedAt } = useGlobalPulse();
 
   // Activity tracking for gamification
-  const { trackActivity } = useActivityTracker();
+  useActivityTracker();
 
   // Infrastructure search (Overpass API + Nominatim, inspired by Sightline MIT)
   const [infraQuery, setInfraQuery] = useState('');
@@ -704,25 +704,63 @@ export default function GlobalPulse(): JSX.Element {
     setLoading(true);
     setError(null);
     try {
-      const r = await fetch('/api/v1/global-pulse');
+      const r = await fetch('/data/threat-intel/index.json');
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
-      const json = (await r.json()) as GlobalPulseResponse;
+      const tiData = await r.json();
+      const cveIndex = tiData.cveIndex || [];
+      const iocIndex = tiData.iocIndex || [];
+
+      const events: PulseEvent[] = [];
+
+      for (const cve of cveIndex.slice(0, 50)) {
+        events.push({
+          id: cve.cveId,
+          kind: 'cve' as PulseKind,
+          title: cve.cveId,
+          description: (cve.description as string) || '',
+          lat: 0,
+          lng: 0,
+          severity: (cve.cvssV3Severity as 'critical' | 'high' | 'medium' | 'low') || 'medium',
+          source: 'NVD',
+          timestamp: (cve.publishedAt as string) || new Date().toISOString(),
+        });
+      }
+
+      for (const ioc of iocIndex.slice(0, 30)) {
+        events.push({
+          id: `ioc-${ioc.value}`,
+          kind: 'ioc_activity' as PulseKind,
+          title: String(ioc.value || ''),
+          description: (ioc.context as string) || '',
+          lat: 0,
+          lng: 0,
+          severity: 'medium',
+          source: String(ioc.source || ''),
+          timestamp: (ioc.observed_at as string) || new Date().toISOString(),
+        });
+      }
+
+      const layers: Record<string, number> = {};
+      for (const e of events) {
+        layers[e.kind] = (layers[e.kind] || 0) + 1;
+      }
+
+      const json: GlobalPulseResponse = {
+        generated_at: new Date().toISOString(),
+        total_events: events.length,
+        events,
+        layers: layers as Record<PulseKind, number>,
+      };
+
       if (loadIdRef.current === myId) {
         setData(json);
         setLastUpdated(new Date().toISOString());
-        // Track activity for gamification (once per load, not spammy)
-        trackActivity('check-pulse', { eventCount: json.total_events });
-        // Cache the last-good response so the next visit paints instantly
-        // instead of waiting on the (cold ~10-20s) build behind a spinner.
         try {
           localStorage.setItem('gp:last', JSON.stringify(json));
-        } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-          /* quota / private mode — non-fatal */
-        }
+        } catch {}
       }
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      console.error('GlobalPulse load failed:', e instanceof Error ? e.message : String(e));
       if (loadIdRef.current === myId) setError((e as Error).message);
     } finally {
       if (loadIdRef.current === myId) setLoading(false);

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { ArrowLeft, ExternalLink, RefreshCw, Search, Server, Shield, MapPin, Wifi } from 'lucide-react';
+import { ArrowLeft, ExternalLink, RefreshCw, Server } from 'lucide-react';
 import { PageMeta } from '../../components/PageMeta';
 
 interface IpResult {

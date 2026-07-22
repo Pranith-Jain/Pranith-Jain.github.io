@@ -27,11 +27,7 @@ export default function AlertFeed() {
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/v1/threat-intel/stats');
-      if (res.ok) {
-        const data = await res.json();
-        if (data.alerts?.items) setAlerts(data.alerts.items);
-      }
+      setAlerts([]);
     } catch (e) {
       console.error(e);
     }

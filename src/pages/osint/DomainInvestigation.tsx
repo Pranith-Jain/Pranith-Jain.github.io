@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { ArrowLeft, ExternalLink, Globe, RefreshCw, Search, Shield, Server, Calendar, Lock } from 'lucide-react';
+import { ArrowLeft, Globe, RefreshCw, Server } from 'lucide-react';
 import { PageMeta } from '../../components/PageMeta';
 
 interface DomainResult {

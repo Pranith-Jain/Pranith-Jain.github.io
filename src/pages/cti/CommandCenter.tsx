@@ -26,8 +26,6 @@ import {
 } from 'lucide-react';
 import { PageMeta } from '../../components/PageMeta';
 
-const API = '/api/v1';
-
 interface GlobalStats {
   iocs: { total: number; active: number; byType: Record<string, number>; bySource: Record<string, number> };
   cves: { total: number; critical: number; high: number; kev: number; exploitable: number };
@@ -45,14 +43,6 @@ interface RecentCve {
   kev: boolean;
   exploitStatus: string;
   published: string;
-}
-
-interface RecentVictim {
-  name: string;
-  group: string;
-  country: string;
-  sector: string;
-  date: string;
 }
 
 const SEVERITY_COLORS: Record<string, string> = {
@@ -76,7 +66,6 @@ const IOC_TYPE_ICONS: Record<string, typeof Globe> = {
 export default function CommandCenter() {
   const [stats, setStats] = useState<GlobalStats | null>(null);
   const [recentCves, setRecentCves] = useState<RecentCve[]>([]);
-  const [recentVictims, setRecentVictims] = useState<RecentVictim[]>([]);
   const [loading, setLoading] = useState(true);
   const [lastSync, setLastSync] = useState<string>('');
   const [reloadKey, setReloadKey] = useState(0);
@@ -84,59 +73,59 @@ export default function CommandCenter() {
   const fetchAll = useCallback(async () => {
     setLoading(true);
     try {
-      const [iocsRes, cvesRes, victimsRes, feedsRes] = await Promise.allSettled([
-        fetch(`${API}/live-iocs/summary`).then((r) => (r.ok ? r.json() : null)),
-        fetch(`${API}/cisa-kev`).then((r) => (r.ok ? r.json() : null)),
-        fetch(`${API}/threat-intel/stats`).then((r) => (r.ok ? r.json() : null)),
-        fetch(`${API}/feed-status`).then((r) => (r.ok ? r.json() : null)),
-      ]);
+      const tiRes = await fetch('/data/threat-intel/index.json');
+      const tiData = tiRes.ok ? await tiRes.json() : null;
 
-      const iocs = iocsRes.status === 'fulfilled' ? iocsRes.value : null;
-      const cves = cvesRes.status === 'fulfilled' ? cvesRes.value : null;
-      const tiStats = victimsRes.status === 'fulfilled' ? victimsRes.value : null;
-      const feeds = feedsRes.status === 'fulfilled' ? feedsRes.value : null;
+      if (tiData) {
+        const cveIndex = tiData.cveIndex || [];
+        const iocIndex = tiData.iocIndex || [];
 
-      setStats({
-        iocs: {
-          total: iocs?.total || iocs?.count || 0,
-          active: iocs?.active || 0,
-          byType: iocs?.byType || iocs?.type_breakdown || {},
-          bySource: iocs?.bySource || iocs?.source_breakdown || {},
-        },
-        cves: {
-          total: tiStats?.cves?.total || 0,
-          critical: tiStats?.cves?.critical || 0,
-          high: tiStats?.cves?.high || 0,
-          kev: tiStats?.kev?.count || cves?.count || 0,
-          exploitable: tiStats?.cves?.exploitable || 0,
-        },
-        actors: {
-          total: tiStats?.actors?.total || 0,
-          apt: tiStats?.actors?.apt || 0,
-          malware: tiStats?.actors?.malware || 0,
-          ransomware: tiStats?.actors?.ransomware || 0,
-        },
-        victims: {
-          total: tiStats?.victims?.total || 0,
-          thisWeek: tiStats?.victims?.thisWeek || 0,
-          byCountry: tiStats?.victims?.byCountry || {},
-          byGroup: tiStats?.victims?.byGroup || {},
-        },
-        campaigns: {
-          active: tiStats?.campaigns?.active || 0,
-          ransomware: tiStats?.campaigns?.ransomware || 0,
-          apt: tiStats?.campaigns?.apt || 0,
-        },
-        feeds: {
-          total: feeds?.total || feeds?.sources?.length || 0,
-          ok: feeds?.ok || feeds?.healthy || 0,
-          stale: feeds?.stale || 0,
-          down: feeds?.down || feeds?.error || 0,
-        },
-      });
+        const cveCounts = { total: cveIndex.length, critical: 0, high: 0, kev: 0, exploitable: 0 };
+        for (const cve of cveIndex) {
+          if (cve.cvssV3Severity === 'critical') cveCounts.critical++;
+          if (cve.cvssV3Severity === 'high') cveCounts.high++;
+          if (cve.inKev) cveCounts.kev++;
+          if (cve.priorityScore && cve.priorityScore > 80) cveCounts.exploitable++;
+        }
 
-      if (tiStats?.recentCves) setRecentCves(tiStats.recentCves.slice(0, 5));
-      if (tiStats?.recentVictims) setRecentVictims(tiStats.recentVictims.slice(0, 5));
+        const iocCounts: Record<string, number> = {};
+        for (const ioc of iocIndex) {
+          const kind = ioc.type || 'unknown';
+          iocCounts[kind] = (iocCounts[kind] || 0) + 1;
+        }
+
+        setStats({
+          iocs: { total: iocIndex.length, active: iocIndex.length, byType: iocCounts, bySource: {} },
+          cves: cveCounts,
+          actors: { total: 0, apt: 0, malware: 0, ransomware: 0 },
+          victims: { total: 0, thisWeek: 0, byCountry: {}, byGroup: {} },
+          campaigns: { active: 0, ransomware: 0, apt: 0 },
+          feeds: { total: 0, ok: 0, stale: 0, down: 0 },
+        });
+
+        setRecentCves(
+          cveIndex
+            .filter((c: { inKev?: boolean }) => c.inKev)
+            .slice(0, 5)
+            .map(
+              (c: {
+                cveId: string;
+                cvssV3Score: number;
+                cvssV3Severity: string;
+                description: string;
+                inKev: boolean;
+              }) => ({
+                id: c.cveId,
+                cvss: c.cvssV3Score,
+                severity: (c.cvssV3Severity || '').toUpperCase(),
+                description: c.description || '',
+                kev: c.inKev,
+                exploitStatus: c.inKev ? 'in_the_wild' : 'none',
+                published: '',
+              })
+            )
+        );
+      }
 
       setLastSync(new Date().toISOString());
     } catch (e) {
@@ -441,34 +430,9 @@ export default function CommandCenter() {
                     View all <ArrowRight size={10} />
                   </Link>
                 </div>
-                {recentVictims.length === 0 ? (
-                  <p className="text-xs text-slate-400 dark:text-slate-500 font-mono py-4 text-center">
-                    Loading victim data...
-                  </p>
-                ) : (
-                  <div className="space-y-2">
-                    {recentVictims.map((v, i) => (
-                      <div
-                        key={i}
-                        className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
-                      >
-                        <div className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-[rgb(var(--surface-300))] flex items-center justify-center text-xs font-bold text-slate-500">
-                          {v.country || '?'}
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="text-sm font-medium text-slate-700 dark:text-slate-300 truncate">
-                            {v.name}
-                          </div>
-                          <div className="flex items-center gap-2 text-[11px] text-slate-400 dark:text-slate-500">
-                            <span className="font-mono">{v.group}</span>
-                            {v.sector && <span>· {v.sector}</span>}
-                          </div>
-                        </div>
-                        <span className="text-[10px] font-mono text-slate-400 shrink-0">{v.date}</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
+                <p className="text-xs text-slate-400 dark:text-slate-500 font-mono py-4 text-center">
+                  Victim data available in the full CTI dashboard.
+                </p>
               </div>
 
               {/* IOC Type Distribution */}

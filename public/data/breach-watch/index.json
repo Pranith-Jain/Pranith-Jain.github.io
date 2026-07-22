@@ -1,19 +1,19 @@
 {
   "source": "ransomware.live + ransomlook.io + Darkfield + RecentBreaches.com + CTI.FYI + XposedOrNot",
   "license": "CC0 — public data from open trackers",
-  "replicatedAt": "2026-07-21T19:29:11.650Z",
-  "counts": { "breaches": 2491, "groups": 100, "categories": 3 },
-  "lastSyncedAt": "2026-07-21T19:29:11.650Z",
+  "replicatedAt": "2026-07-21T20:07:16.264Z",
+  "counts": { "breaches": 2489, "groups": 101, "categories": 3 },
+  "lastSyncedAt": "2026-07-21T20:07:16.264Z",
   "categories": [
-    { "key": "ransomware", "label": "Ransomware", "count": 1996 },
+    { "key": "ransomware", "label": "Ransomware", "count": 1994 },
     { "key": "data_breach", "label": "Data Breach", "count": 493 },
     { "key": "credential_leak", "label": "Credential Leak", "count": 2 }
   ],
   "groups": [
     { "name": "qilin", "count": 324, "topCategory": "ransomware" },
     { "name": "thegentlemen", "count": 279, "topCategory": "ransomware" },
-    { "name": "dragonforce", "count": 131, "topCategory": "ransomware" },
-    { "name": "incransom", "count": 103, "topCategory": "ransomware" },
+    { "name": "dragonforce", "count": 130, "topCategory": "ransomware" },
+    { "name": "incransom", "count": 102, "topCategory": "ransomware" },
     { "name": "akira", "count": 96, "topCategory": "ransomware" },
     { "name": "lockbit5", "count": 90, "topCategory": "ransomware" },
     { "name": "apt73", "count": 80, "topCategory": "data_breach" },
@@ -82,7 +82,7 @@
     { "name": "securotrop", "count": 4, "topCategory": "data_breach" },
     { "name": "cloak", "count": 4, "topCategory": "data_breach" },
     { "name": "direwolf", "count": 4, "topCategory": "data_breach" },
-    { "name": "SafePay", "count": 3, "topCategory": "ransomware" },
+    { "name": "Nova", "count": 3, "topCategory": "ransomware" },
     { "name": "unsafe", "count": 3, "topCategory": "data_breach" },
     { "name": "D1R", "count": 3, "topCategory": "ransomware" },
     { "name": "moneymessage", "count": 3, "topCategory": "data_breach" },
@@ -90,7 +90,6 @@
     { "name": "mnt6", "count": 3, "topCategory": "data_breach" },
     { "name": "Qilin", "count": 2, "topCategory": "ransomware" },
     { "name": "Akira", "count": 2, "topCategory": "ransomware" },
-    { "name": "Nova", "count": 2, "topCategory": "ransomware" },
     { "name": "coinbase cartel", "count": 2, "topCategory": "data_breach" },
     { "name": "funksec", "count": 2, "topCategory": "data_breach" },
     { "name": "Blackfield", "count": 2, "topCategory": "data_breach" },
@@ -100,8 +99,10 @@
     { "name": "nitrogen", "count": 2, "topCategory": "data_breach" },
     { "name": "beast", "count": 2, "topCategory": "data_breach" },
     { "name": "clop", "count": 2, "topCategory": "ransomware" },
+    { "name": "Play", "count": 1, "topCategory": "ransomware" },
     { "name": "DragonForce", "count": 1, "topCategory": "ransomware" },
     { "name": "doommageddon", "count": 1, "topCategory": "data_breach" },
+    { "name": "SafePay", "count": 1, "topCategory": "ransomware" },
     { "name": "black x", "count": 1, "topCategory": "data_breach" },
     { "name": "cry0", "count": 1, "topCategory": "data_breach" },
     { "name": "ransomexx", "count": 1, "topCategory": "data_breach" },
@@ -353,6 +354,26 @@
       "sizeBytes": 356
     },
     {
+      "slug": "play-kreysler-associates-2026-07-21",
+      "title": "Kreysler & Associates",
+      "group": "Play",
+      "discovered": "2026-07-21T00:00:00.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": "United States",
+      "sizeBytes": 461
+    },
+    {
+      "slug": "dragonforce-one-community-fcu-2026-07-21",
+      "title": "One Community FCU",
+      "group": "DragonForce",
+      "discovered": "2026-07-21T00:00:00.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": "United States",
+      "sizeBytes": 478
+    },
+    {
       "slug": "qilin-postres-reina-2026-07-21",
       "title": "Postres Reina",
       "group": "Qilin",
@@ -393,14 +414,14 @@
       "sizeBytes": 431
     },
     {
-      "slug": "qilin-rehavital-gesundheitsservice-gmbh-2026-07-21",
-      "title": "RehaVital Gesundheitsservice GmbH",
-      "group": "Qilin",
+      "slug": "nova-la-financi-re-dorion-finorion-2026-07-21",
+      "title": "La Financière d'Orion (finorion)",
+      "group": "Nova",
       "discovered": "2026-07-21T00:00:00.000Z",
       "category": "ransomware",
-      "severity": "critical",
-      "country": "Germany",
-      "sizeBytes": 480
+      "severity": "high",
+      "country": "France",
+      "sizeBytes": 473
     },
     {
       "slug": "nova-koperasi-karyawan-pt-aplikanusa-lintasarta-2026-07-21",
@@ -413,14 +434,14 @@
       "sizeBytes": 509
     },
     {
-      "slug": "dragonforce-one-community-fcu-2026-07-21",
-      "title": "One Community FCU",
-      "group": "DragonForce",
+      "slug": "qilin-rehavital-gesundheitsservice-gmbh-2026-07-21",
+      "title": "RehaVital Gesundheitsservice GmbH",
+      "group": "Qilin",
       "discovered": "2026-07-21T00:00:00.000Z",
       "category": "ransomware",
       "severity": "critical",
-      "country": "United States",
-      "sizeBytes": 478
+      "country": "Germany",
+      "sizeBytes": 480
     },
     {
       "slug": "inc-ransom-ali-monde-2026-07-20",
@@ -803,34 +824,14 @@
       "sizeBytes": 637
     },
     {
-      "slug": "safepay-mende-grundbesitz-de-2026-07-20",
-      "title": "mende-grundbesitz.de",
+      "slug": "safepay-timetex-de-2026-07-20",
+      "title": "timetex.de",
       "group": "SafePay",
       "discovered": "2026-07-20T00:00:00.000Z",
       "category": "ransomware",
       "severity": "high",
       "country": "Germany",
-      "sizeBytes": 450
-    },
-    {
-      "slug": "safepay-jaecklin-industrial-de-2026-07-20",
-      "title": "jaecklin-industrial.de",
-      "group": "SafePay",
-      "discovered": "2026-07-20T00:00:00.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "Germany",
-      "sizeBytes": 452
-    },
-    {
-      "slug": "safepay-acsmallmaxwell-com-au-2026-07-20",
-      "title": "acsmallmaxwell.com.au",
-      "group": "SafePay",
-      "discovered": "2026-07-20T00:00:00.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "Australia",
-      "sizeBytes": 455
+      "sizeBytes": 420
     },
     {
       "slug": "doommageddon-reni-farm-cias-associadas-2026-07-19",
@@ -12253,24 +12254,14 @@
       "sizeBytes": 372
     },
     {
-      "slug": "ulose-handok-2026-06-09",
-      "title": "HanDok",
+      "slug": "ulose-msicapital-2026-06-09",
+      "title": "MSICapital",
       "group": "ULose",
       "discovered": "2026-06-09T00:00:00.000Z",
       "category": "data_breach",
       "severity": "high",
       "country": "KR",
-      "sizeBytes": 388
-    },
-    {
-      "slug": "ulose-nrcapital-2026-06-09",
-      "title": "NRCapital",
-      "group": "ULose",
-      "discovered": "2026-06-09T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "KR",
-      "sizeBytes": 409
+      "sizeBytes": 333
     },
     {
       "slug": "ulose-hize-aero-2026-06-09",
@@ -12283,14 +12274,24 @@
       "sizeBytes": 431
     },
     {
-      "slug": "ulose-msicapital-2026-06-09",
-      "title": "MSICapital",
+      "slug": "ulose-nrcapital-2026-06-09",
+      "title": "NRCapital",
       "group": "ULose",
       "discovered": "2026-06-09T00:00:00.000Z",
       "category": "data_breach",
       "severity": "high",
       "country": "KR",
-      "sizeBytes": 333
+      "sizeBytes": 409
+    },
+    {
+      "slug": "ulose-handok-2026-06-09",
+      "title": "HanDok",
+      "group": "ULose",
+      "discovered": "2026-06-09T00:00:00.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "KR",
+      "sizeBytes": 388
     },
     {
       "slug": "ulose-kyungrok-2026-06-09",
@@ -25001,26 +25002,6 @@
       "severity": "high",
       "country": "US",
       "sizeBytes": 593
-    },
-    {
-      "slug": "incransom-krwlawyers-com-2026-04-22",
-      "title": "krwlawyers.com",
-      "group": "incransom",
-      "discovered": "2026-04-22T19:52:26.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": "US",
-      "sizeBytes": 1036
-    },
-    {
-      "slug": "dragonforce-incyte-2026-04-22",
-      "title": "INCYTE",
-      "group": "dragonforce",
-      "discovered": "2026-04-22T19:49:18.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": "US",
-      "sizeBytes": 813
     }
   ]
 }

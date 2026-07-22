@@ -20,8 +20,6 @@ import {
 } from 'lucide-react';
 import { PageMeta } from '../../components/PageMeta';
 
-const API = '/api/v1';
-
 type IocKind = 'ip' | 'domain' | 'url' | 'hash' | 'email' | 'wallet';
 
 interface LiveIoc {
@@ -100,10 +98,21 @@ export default function IocBrowser() {
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${API}/live-iocs`);
+      const res = await fetch('/data/threat-intel/index.json');
       if (res.ok) {
-        const json = await res.json();
-        setData(json);
+        const data = await res.json();
+        if (data.iocIndex) {
+          const items = data.iocIndex.map((i: Record<string, unknown>) => ({
+            value: (i.value as string) || '',
+            kind: (i.type as string) || 'unknown',
+            source: (i.source as string) || 'unknown',
+            context: (i.context as string) || '',
+            observed_at: (i.observed_at as string) || '',
+            confidence: i.confidence as number | undefined,
+            tags: (i.tags as string[]) || [],
+          }));
+          setData({ generated_at: new Date().toISOString(), sources: [], total: items.length, items });
+        }
       }
     } catch (e) {
       console.error('IoC fetch failed:', e);

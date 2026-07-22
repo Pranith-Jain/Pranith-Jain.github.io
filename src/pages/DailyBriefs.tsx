@@ -136,33 +136,28 @@ export default function DailyBriefs() {
   const [tab, setTab] = useState<Tab>('cyber');
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
-  const { data: indexData } = useDataFetch<DbIndexSummary>({ url: '/api/v1/daily-briefs/' });
-  const { data: cyberList, loading: cyberLoading } = useDataFetch<{ briefs: BriefEntry[] }>({
-    url: '/api/v1/daily-briefs/cyber',
+  const { data: indexData, loading: indexLoading } = useDataFetch<DbIndexSummary & { briefs: BriefEntry[] }>({
+    url: '/data/daily-briefs/index.json',
   });
-  const { data: deepfakeList, loading: deepfakeLoading } = useDataFetch<{ briefs: BriefEntry[] }>({
-    url: '/api/v1/daily-briefs/deepfake',
-  });
-  const { data: disasterList, loading: disasterLoading } = useDataFetch<{ briefs: BriefEntry[] }>({
-    url: '/api/v1/daily-briefs/disaster',
-  });
+
+  const cyberBriefs = useMemo(() => indexData?.briefs?.filter((b) => b.type === 'cyber') ?? [], [indexData]);
+  const deepfakeBriefs = useMemo(() => indexData?.briefs?.filter((b) => b.type === 'deepfake') ?? [], [indexData]);
+  const disasterBriefs = useMemo(() => indexData?.briefs?.filter((b) => b.type === 'disaster') ?? [], [indexData]);
+
+  const currentList = tab === 'cyber' ? cyberBriefs : tab === 'deepfake' ? deepfakeBriefs : disasterBriefs;
 
   const currentDate = useMemo(() => {
-    const list = tab === 'cyber' ? cyberList : tab === 'deepfake' ? deepfakeList : disasterList;
     if (selectedDate) return selectedDate;
-    return list?.briefs?.[0]?.date ?? null;
-  }, [tab, selectedDate, cyberList, deepfakeList, disasterList]);
+    return currentList[0]?.date ?? null;
+  }, [selectedDate, currentList]);
 
   const { data: brief, loading: briefLoading } = useDataFetch<CyberBrief | DeepfakeBrief | DisasterBrief>({
-    url: currentDate ? `/api/v1/daily-briefs/${tab}/${currentDate}` : '',
+    url: currentDate ? `/data/daily-briefs/${tab}/${currentDate}.json` : '',
   });
 
-  const availableDates = useMemo(() => {
-    const list = tab === 'cyber' ? cyberList : tab === 'deepfake' ? deepfakeList : disasterList;
-    return list?.briefs?.map((b: BriefEntry) => b.date) ?? [];
-  }, [tab, cyberList, deepfakeList, disasterList]);
+  const availableDates = useMemo(() => currentList.map((b) => b.date), [currentList]);
 
-  const isLoading = tab === 'cyber' ? cyberLoading : tab === 'deepfake' ? deepfakeLoading : disasterLoading;
+  const isLoading = indexLoading || briefLoading;
 
   return (
     <DataPageLayout

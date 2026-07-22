@@ -1,19 +1,5 @@
 import { Link } from 'react-router-dom';
-import {
-  ArrowRight,
-  AtSign,
-  Domain,
-  FileText,
-  Globe,
-  Hash,
-  Mail,
-  MapPin,
-  Phone,
-  Search,
-  Server,
-  Shield,
-  User,
-} from 'lucide-react';
+import { ArrowRight, FileText, Globe, Hash, Mail, MapPin, Phone, Search, Server, Shield, User } from 'lucide-react';
 import { PageMeta } from '../../components/PageMeta';
 
 const OSINT_TOOLS = [
@@ -76,7 +62,7 @@ const OSINT_TOOLS = [
   {
     id: 'subdomain',
     label: 'Subdomain Discovery',
-    icon: Domain,
+    icon: Globe,
     href: '/osint/subdomain',
     desc: 'Subdomain enumeration, takeover checks',
     color: 'bg-indigo-600',

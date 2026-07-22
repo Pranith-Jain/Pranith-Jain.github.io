@@ -20,11 +20,7 @@ export default function WeeklyReports() {
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/v1/threat-intel/stats');
-      if (res.ok) {
-        const data = await res.json();
-        if (data.reports?.items) setReports(data.reports.items);
-      }
+      setReports([]);
     } catch (e) {
       console.error(e);
     }

@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft, Bug, ChevronLeft, ChevronRight, ExternalLink, RefreshCw, Search, Shield, X } from 'lucide-react';
 import { PageMeta } from '../../components/PageMeta';
 
-const API = '/api/v1';
-
 interface CveEntry {
   id: string;
   cvss: number;
@@ -47,13 +45,28 @@ export default function CveBrowser() {
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${API}/threat-intel/stats`);
+      const res = await fetch('/data/threat-intel/index.json');
       if (res.ok) {
         const data = await res.json();
-        if (data.cves?.items) setCves(data.cves.items);
+        if (data.cveIndex) {
+          setCves(
+            data.cveIndex.map((c: Record<string, unknown>) => ({
+              id: c.cveId as string,
+              cvss: c.cvssV3Score as number,
+              severity: ((c.cvssV3Severity as string) || '').toUpperCase(),
+              description: (c.description as string) || '',
+              kev: c.inKev as boolean,
+              exploitStatus: c.inKev ? 'in_the_wild' : 'none',
+              published: (c.publishedAt as string) || '',
+              cwe: c.cwe as string[] | undefined,
+              products: c.product ? [c.product as string] : undefined,
+              epss: c.argusHypeScore as number | undefined,
+            }))
+          );
+        }
       }
     } catch (e) {
-      console.error('CVE fetch failed:', e);
+      console.error(e);
     }
     setLoading(false);
   }, []);

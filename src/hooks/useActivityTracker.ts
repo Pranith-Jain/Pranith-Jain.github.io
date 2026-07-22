@@ -9,7 +9,13 @@ import { useAuth } from '../contexts/AuthContext';
  *   trackActivity('view-report', { reportId: '123' });
  */
 export function useActivityTracker() {
-  const { user } = useAuth();
+  let user: { id: string } | null = null;
+  try {
+    const auth = useAuth();
+    user = auth.user;
+  } catch {
+    // SSR has no AuthProvider — silently degrade
+  }
 
   const trackActivity = useCallback(
     async (action: string, metadata?: Record<string, unknown>) => {

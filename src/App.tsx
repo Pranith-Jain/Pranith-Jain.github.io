@@ -412,6 +412,17 @@ const CorrelationGraph = lazy(() => import('./pages/cti/CorrelationGraph'));
 const SecurityAlerts = lazy(() => import('./pages/cti/SecurityAlerts'));
 const ThreatAiChat = lazy(() => import('./pages/cti/ThreatAiChat'));
 
+const OsintHub = lazy(() => import('./pages/osint/OsintHub'));
+const DomainInvestigation = lazy(() => import('./pages/osint/DomainInvestigation'));
+const IpInvestigation = lazy(() => import('./pages/osint/IpInvestigation'));
+const UsernameOsint = lazy(() => import('./pages/osint/UsernameOsint'));
+const EmailInvestigation = lazy(() => import('./pages/osint/EmailInvestigation'));
+const PhoneInvestigation = lazy(() => import('./pages/osint/PhoneInvestigation'));
+const ReconToolkit = lazy(() => import('./pages/osint/ReconToolkit'));
+const DnsInvestigation = lazy(() => import('./pages/osint/DnsInvestigation'));
+const SubdomainDiscovery = lazy(() => import('./pages/osint/SubdomainDiscovery'));
+const WhoisHistoryOsint = lazy(() => import('./pages/osint/WhoisHistory'));
+
 /**
  * /dfir/file?h=<hash> is the legacy entry point for the standalone hash
  * analyser. The page was merged into the IOC checker; this redirect rewrites
@@ -473,6 +484,17 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/cti/intelligence', Component: CorrelationGraph },
   { path: '/cti/alerts', Component: SecurityAlerts },
   { path: '/cti/ask', Component: ThreatAiChat },
+
+  { path: '/osint', Component: OsintHub },
+  { path: '/osint/domain', Component: DomainInvestigation },
+  { path: '/osint/ip', Component: IpInvestigation },
+  { path: '/osint/username', Component: UsernameOsint },
+  { path: '/osint/email', Component: EmailInvestigation },
+  { path: '/osint/phone', Component: PhoneInvestigation },
+  { path: '/osint/recon', Component: ReconToolkit },
+  { path: '/osint/dns', Component: DnsInvestigation },
+  { path: '/osint/subdomain', Component: SubdomainDiscovery },
+  { path: '/osint/whois', Component: WhoisHistoryOsint },
   { path: '/threat-intel', Component: ThreatIntel },
   { path: '/daily-briefs', Component: DailyBriefs },
   { path: '/dfir/ai-threats', Component: AIThreats },

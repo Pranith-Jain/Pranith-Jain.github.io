@@ -4,8 +4,8 @@
   "generatedAt": "2026-07-21",
   "counts": { "cyber": 1, "deepfake": 1, "disaster": 1 },
   "briefs": [
+    { "type": "disaster", "date": "2026-07-21", "sizeBytes": 20257 },
     { "type": "cyber", "date": "2026-07-20", "sizeBytes": 37065 },
-    { "type": "deepfake", "date": "2026-07-20", "sizeBytes": 47745 },
-    { "type": "disaster", "date": "2026-07-21", "sizeBytes": 20257 }
+    { "type": "deepfake", "date": "2026-07-20", "sizeBytes": 47745 }
   ]
 }
