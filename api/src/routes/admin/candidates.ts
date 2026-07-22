@@ -52,7 +52,8 @@ candidatesRouter.post('/candidates/:id/approve', async (c) => {
       found = cand;
       foundType = typeHint as CaseStudyType;
     }
-  } else {
+  }
+  if (!found || !foundType) {
     for (const t of TYPES) {
       const cand = await getCandidate(c.env.CASE_STUDIES, t, id);
       if (cand) {
@@ -62,7 +63,7 @@ candidatesRouter.post('/candidates/:id/approve', async (c) => {
       }
     }
   }
-  if (!found || !foundType) return c.json({ error: 'not found' }, 404);
+  if (!found || !foundType) return c.json({ error: `not found: ${id}` }, 404);
   await approve(c.env.CASE_STUDIES, found);
   await deleteCandidate(c.env.CASE_STUDIES, foundType, id);
   return c.json({ ok: true, approved: id });
@@ -70,9 +71,18 @@ candidatesRouter.post('/candidates/:id/approve', async (c) => {
 
 candidatesRouter.post('/candidates/:id/skip', async (c) => {
   const id = c.req.param('id');
-  const type = (c.req.query('type') ?? '') as CaseStudyType;
-  if (!TYPES.includes(type)) return c.json({ error: 'type required' }, 400);
-  await deleteCandidate(c.env.CASE_STUDIES, type, id);
+  const typeHint = (c.req.query('type') ?? '') as CaseStudyType;
+  if (typeHint && TYPES.includes(typeHint)) {
+    await deleteCandidate(c.env.CASE_STUDIES, typeHint, id);
+  } else {
+    for (const t of TYPES) {
+      const cnd = await getCandidate(c.env.CASE_STUDIES, t, id);
+      if (cnd) {
+        await deleteCandidate(c.env.CASE_STUDIES, t, id);
+        break;
+      }
+    }
+  }
   const until = new Date(Date.now() + 30 * 24 * 3600 * 1000);
   await suppressDedupMany(c.env.CASE_STUDIES, [id], until);
   return c.json({ ok: true });
@@ -95,13 +105,14 @@ candidatesRouter.post('/candidates/:key/generate', async (c) => {
 
   if (typeHint && TYPES.includes(typeHint)) {
     candidate = await getCandidate(c.env.CASE_STUDIES, typeHint, key);
-  } else {
+  }
+  if (!candidate) {
     for (const t of TYPES) {
       candidate = await getCandidate(c.env.CASE_STUDIES, t, key);
       if (candidate) break;
     }
   }
-  if (!candidate) return c.json({ error: 'candidate not found' }, 404);
+  if (!candidate) return c.json({ error: `candidate not found: ${key}` }, 404);
 
   const now = new Date();
   const result: Record<string, unknown> = {};

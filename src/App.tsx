@@ -262,7 +262,7 @@ const FeedScheduler = lazy(() => import('./pages/threatintel/FeedScheduler'));
 const FeedSources = lazy(() => import('./pages/threatintel/FeedSources'));
 
 const GithubAdvisories = lazy(() => import('./pages/threatintel/GithubAdvisories'));
-const GlobalPulse = lazy(() => import('./pages/threatintel/GlobalPulse'));
+const GlobalPulse = lazy(() => import('./pages/threatintel/GlobalPulseWrapper'));
 const Infostealer = lazy(() => import('./pages/threatintel/Infostealer'));
 const InfraIntel = lazy(() => import('./pages/threatintel/InfraIntel'));
 const InsiderThreatMatrix = lazy(() => import('./pages/threatintel/InsiderThreatMatrix'));

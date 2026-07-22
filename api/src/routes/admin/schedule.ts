@@ -54,7 +54,7 @@ scheduleRouter.post('/schedule/:candidateId/publish-now', async (c) => {
       await markSlotStatus(c.env.CASE_STUDIES, candidateId, 'published', { publishedSlug: dedup.publishedSlug });
       return c.json({ ok: true, slug: dedup.publishedSlug, title: dedup.publishedSlug });
     }
-    return c.json({ error: 'approved candidate not found' }, 404);
+    return c.json({ error: `approved candidate not found: ${candidateId}` }, 404);
   }
 
   const now = new Date();
