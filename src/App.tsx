@@ -395,23 +395,6 @@ const ArgusPage = lazy(() => import('./pages/Argus'));
 const CtiDashboard = lazy(() => import('./pages/threatintel/CtiDashboard'));
 const TiDashboard = lazy(() => import('./pages/TiDashboard'));
 const ThreatIntelDashboard = lazy(() => import('./pages/threatintel/ThreatIntelDashboard'));
-const CommandCenter = lazy(() => import('./pages/cti/CommandCenter'));
-const IocBrowser = lazy(() => import('./pages/cti/IocBrowser'));
-const CveBrowser = lazy(() => import('./pages/cti/CveBrowser'));
-const ThreatActorDirectory = lazy(() => import('./pages/cti/ThreatActorDirectory'));
-const VictimTracker = lazy(() => import('./pages/cti/VictimTracker'));
-const ReputationCheck = lazy(() => import('./pages/cti/ReputationCheck'));
-const IntelFeed = lazy(() => import('./pages/cti/IntelFeed'));
-const MalwareDatabase = lazy(() => import('./pages/cti/MalwareDatabase'));
-const CampaignTracker = lazy(() => import('./pages/cti/CampaignTracker'));
-const HoneypotTelemetry = lazy(() => import('./pages/cti/HoneypotTelemetry'));
-const WeeklyReports = lazy(() => import('./pages/cti/WeeklyReports'));
-const Geopolitics = lazy(() => import('./pages/cti/Geopolitics'));
-const DarkWebMarkets = lazy(() => import('./pages/cti/DarkWebMarkets'));
-const CorrelationGraph = lazy(() => import('./pages/cti/CorrelationGraph'));
-const SecurityAlerts = lazy(() => import('./pages/cti/SecurityAlerts'));
-const ThreatAiChat = lazy(() => import('./pages/cti/ThreatAiChat'));
-
 const OsintHub = lazy(() => import('./pages/osint/OsintHub'));
 const DomainInvestigation = lazy(() => import('./pages/osint/DomainInvestigation'));
 const IpInvestigation = lazy(() => import('./pages/osint/IpInvestigation'));
@@ -468,23 +451,6 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/snapshots', Component: Snapshots },
   { path: '/mcp', Component: McpCatalog },
   { path: '/status', Component: Status },
-  { path: '/cti', Component: CommandCenter },
-  { path: '/cti/iocs', Component: IocBrowser },
-  { path: '/cti/vulnerabilities', Component: CveBrowser },
-  { path: '/cti/threats', Component: ThreatActorDirectory },
-  { path: '/cti/victims', Component: VictimTracker },
-  { path: '/cti/check', Component: ReputationCheck },
-  { path: '/cti/articles', Component: IntelFeed },
-  { path: '/cti/malware', Component: MalwareDatabase },
-  { path: '/cti/campaigns', Component: CampaignTracker },
-  { path: '/cti/honeypot', Component: HoneypotTelemetry },
-  { path: '/cti/reports', Component: WeeklyReports },
-  { path: '/cti/geopolitics', Component: Geopolitics },
-  { path: '/cti/markets', Component: DarkWebMarkets },
-  { path: '/cti/intelligence', Component: CorrelationGraph },
-  { path: '/cti/alerts', Component: SecurityAlerts },
-  { path: '/cti/ask', Component: ThreatAiChat },
-
   { path: '/osint', Component: OsintHub },
   { path: '/osint/domain', Component: DomainInvestigation },
   { path: '/osint/ip', Component: IpInvestigation },

@@ -32,12 +32,6 @@ class GlobalPulseErrorBoundary extends Component<Props, State> {
           <div className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
             <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6">
               <div className="flex items-center gap-3">
-                <Link
-                  to="/cti"
-                  className="p-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-50"
-                >
-                  <Globe size={16} className="text-slate-600" />
-                </Link>
                 <div className="w-10 h-10 rounded-lg bg-cyan-600 flex items-center justify-center">
                   <Globe size={20} className="text-white" />
                 </div>
@@ -62,10 +56,10 @@ class GlobalPulseErrorBoundary extends Component<Props, State> {
                 <RefreshCw size={14} /> Try Again
               </button>
               <Link
-                to="/cti"
+                to="/threatintel"
                 className="px-4 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-sm text-slate-600 dark:text-slate-400 hover:bg-slate-50"
               >
-                Command Center
+                Threat Intel Home
               </Link>
             </div>
           </div>
