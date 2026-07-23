@@ -898,6 +898,28 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
               logCronFail('phishing-scan')(e);
             }
           }
+
+          // === Daily Briefs sync (every 6 hours) ==============================
+          // Fetches from agentic-ai-daily-reports.netlify.app, parses the HTML
+          // (regex-based — no external deps), and stores structured JSON in KV
+          // Cache. The fetch handler serves KV first, falling back to ASSETS.
+          if (csNow.getUTCHours() % 6 === 0) {
+            try {
+              const { syncDailyBriefs } = await import('./lib/daily-briefs-sync');
+              const result = await syncDailyBriefs(env as any);
+              if (result.types.length > 0 || result.errors.length > 0) {
+                console.log(
+                  JSON.stringify({
+                    job: 'daily-briefs-sync',
+                    types: result.types,
+                    errors: result.errors,
+                  })
+                );
+              }
+            } catch (e) {
+              logCronFail('daily-briefs-sync')(e);
+            }
+          }
         } finally {
           clearInterval(heartbeatInt);
         }

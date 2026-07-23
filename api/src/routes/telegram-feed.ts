@@ -223,6 +223,13 @@ const CHANNELS: ChannelSpec[] = [
     blurb: 'Malware analysis reports, sample drops, and reverse-engineering write-ups',
     topic: 'malware',
   },
+  // CTI watch — curated threat intelligence firehose
+  {
+    handle: 'ctiwatch',
+    name: 'CTI Watch',
+    blurb: 'Curated threat intelligence watch — IOCs, TTPs, and incident tracking',
+    topic: 'osint',
+  },
 ];
 
 interface ParsedMessage {

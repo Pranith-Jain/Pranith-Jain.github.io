@@ -159,6 +159,33 @@ export default {
       return withSecurityHeaders(assetRes, undefined, url.origin);
     }
 
+    // Daily Briefs — serve from KV Cache if available (fresh data from Worker cron),
+    // fall back to ASSETS (committed static files from the build pipeline).
+    if (url.pathname.startsWith('/data/daily-briefs/') && env.KV_CACHE) {
+      try {
+        let kvKey: string | undefined;
+        if (url.pathname === '/data/daily-briefs/index.json') {
+          kvKey = 'db:index';
+        } else {
+          const m = url.pathname.match(/^\/data\/daily-briefs\/(cyber|deepfake|disaster)\/(\d{4}-\d{2}-\d{2})\.json$/);
+          if (m) kvKey = `db:body:${m[1]}:${m[2]}`;
+        }
+        if (kvKey) {
+          const kvData = await env.KV_CACHE.get(kvKey, 'json');
+          if (kvData) {
+            const h = new Headers({
+              'content-type': 'application/json',
+              'x-source': 'kv-cache',
+              'x-request-id': requestId,
+            });
+            return withSecurityHeaders(new Response(JSON.stringify(kvData), { headers: h }), undefined, url.origin);
+          }
+        }
+      } catch {
+        // KV miss or error — fall through to ASSETS
+      }
+    }
+
     // SPA shell fallback — serve prerendered HTML or the shell for client routing
     const nonce = generateNonce();
     let html: Response;
