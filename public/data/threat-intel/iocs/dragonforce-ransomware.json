@@ -7,7 +7,7 @@
   "mitreTechniques": [],
   "indicatorCount": 93,
   "description": "DRAGONFORCE INTEL🐲🔍",
-  "sizeBytes": 4982,
+  "sizeBytes": 5056,
   "indicators": [
     { "type": "md5", "value": "c478fa00c91d85a8bc73f219b1845508", "firstSeen": null, "confidence": "medium" },
     { "type": "md5", "value": "d44071f255785c73909d64f824331ebf", "firstSeen": null, "confidence": "medium" },

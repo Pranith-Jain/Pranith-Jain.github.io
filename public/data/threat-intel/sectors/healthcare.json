@@ -1,66 +1,66 @@
 {
   "sector": "healthcare",
   "title": "Healthcare sector brief",
-  "generatedAt": "2026-07-11",
+  "generatedAt": "2026-07-23",
   "topCount": 8,
-  "preview": "CVE-2026-48558 (critical) leads with priority 99.",
-  "sizeBytes": 2820,
+  "preview": "CVE-2025-48595 (high) leads with priority 90.",
+  "sizeBytes": 2691,
   "executiveSummary": "Brief generation runs as a separate step (see scripts/render-threat-intel-briefs.mjs).",
   "topThreats": [
     {
-      "cveId": "CVE-2026-48558",
-      "title": "SimpleHelp versions 5.5.15 and prior and 6.0 pre-release versions contain an authentication bypass vulnerability in the ",
+      "cveId": "CVE-2025-48595",
+      "title": "In multiple locations, there is a possible way to achieve code execution due to an integer overflow. This could lead to ",
       "relevance": "broadly-critical",
-      "risk": "CVSS 10; actively exploited.",
+      "risk": "CVSS 8.4; actively exploited.",
       "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
     },
     {
-      "cveId": "CVE-2026-34910",
-      "title": "A malicious actor with access to the network could exploit an Improper Input Validation vulnerability found in UniFi OS ",
-      "relevance": "broadly-critical",
-      "risk": "CVSS 10; actively exploited.",
-      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
-    },
-    {
-      "cveId": "CVE-2026-34909",
-      "title": "A malicious actor with access to the network could exploit a Path Traversal vulnerability found in UniFi OS devices to a",
-      "relevance": "broadly-critical",
-      "risk": "CVSS 10; actively exploited.",
-      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
-    },
-    {
-      "cveId": "CVE-2026-34908",
-      "title": "A malicious actor with access to the network could exploit an Improper Access Control vulnerability found in UniFi OS de",
-      "relevance": "broadly-critical",
-      "risk": "CVSS 10; actively exploited.",
-      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
-    },
-    {
-      "cveId": "CVE-2026-12569",
-      "title": "A critical remote code execution (RCE) vulnerability has been reported in PTC Windchill PDMlink and PTC FlexPLM. The vul",
+      "cveId": "CVE-2026-39808",
+      "title": "A improper neutralization of special elements used in an os command ('os command injection') vulnerability in Fortinet F",
       "relevance": "broadly-critical",
       "risk": "CVSS 9.8; actively exploited.",
       "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
     },
     {
-      "cveId": "CVE-2026-42208",
-      "title": "LiteLLM is a proxy server (AI Gateway) to call LLM APIs in OpenAI (or native) format. From version 1.81.16 to before ver",
+      "cveId": "CVE-2026-46817",
+      "title": "Vulnerability in the Oracle Payments product of Oracle E-Business Suite (component: File Transmission).  Supported versi",
       "relevance": "broadly-critical",
       "risk": "CVSS 9.8; actively exploited.",
       "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
     },
     {
-      "cveId": "CVE-2025-67038",
-      "title": "An issue was discovered in Lantronix EDS5000 2.1.0.0R3. The HTTP RPC module executes a shell command to write logs when ",
+      "cveId": "CVE-2026-0770",
+      "title": "Langflow exec_globals Inclusion of Functionality from Untrusted Control Sphere Remote Code Execution Vulnerability. This",
       "relevance": "broadly-critical",
       "risk": "CVSS 9.8; actively exploited.",
       "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
     },
     {
-      "cveId": "CVE-2026-42271",
-      "title": "LiteLLM is a proxy server (AI Gateway) to call LLM APIs in OpenAI (or native) format. From version 1.74.2 to before vers",
+      "cveId": "CVE-2026-28318",
+      "title": "SolarWinds Serv-U is susceptible to specially crafted POST requests that crash the Serv-U service without authentication",
       "relevance": "broadly-critical",
-      "risk": "CVSS 8.8; actively exploited.",
+      "risk": "CVSS 7.5; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2026-20230",
+      "title": "A vulnerability in Cisco Unified Communications Manager (Unified CM) and Cisco Unified Communications Manager Session Ma",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 8.6; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2024-35250",
+      "title": "Windows Kernel-Mode Driver Elevation of Privilege Vulnerability",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 7.8; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2024-30088",
+      "title": "Windows Kernel Elevation of Privilege Vulnerability",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 7; actively exploited.",
       "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
     }
   ]
