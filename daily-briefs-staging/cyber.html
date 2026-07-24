@@ -2,896 +2,524 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<title>OT/ICS Cyber Threat Intelligence Brief</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cyber Threat Intelligence Brief — Open Source Intelligence Assessment</title>
 <style>
   :root{
-    --bg:#0b0f17;
-    --panel:#111827;
-    --panel-2:#0f1623;
-    --text:#e5e7eb;
-    --muted:#9ca3af;
-    --accent:#60a5fa;
-    --good:#16a34a;
-    --warn:#f59e0b;
-    --bad:#ef4444;
-    --border:#1f2937;
-    --chip:#0b1322;
+    --bg:#0e1217;
+    --panel:#151a21;
+    --muted:#96a0ad;
+    --text:#e5eef6;
+    --accent:#5aa9ff;
+    --accent-2:#9cf0ff;
+    --danger:#ff4d4f;
+    --warn:#ffb020;
+    --ok:#34c759;
+    --chip:#1c2430;
+    --border:#253140;
+    --card:#11161d;
   }
-  *{box-sizing:border-box}
-  html,body{margin:0;background:var(--bg);color:var(--text);font:14.5px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,"Apple Color Emoji","Segoe UI Emoji"}
-  a{color:#93c5fd;text-decoration:none}
-  a:hover{text-decoration:underline}
-  .wrap{max-width:1200px;margin:0 auto;padding:20px}
-  header.masthead{
-    background:linear-gradient(180deg, #121a2a 0%, #0d1422 100%);
-    border:1px solid var(--border);
-    border-radius:14px;
-    padding:26px 22px;
-    box-shadow:0 10px 30px rgba(0,0,0,.35);
-    margin-bottom:22px;
-  }
-  .mast-grid{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:end}
-  .title{font-size:26px;font-weight:800;letter-spacing:.3px}
-  .subtitle{color:var(--muted);font-size:14px}
-  .doctag{font-size:12px;background:var(--chip);padding:6px 10px;border:1px solid var(--border);border-radius:999px;color:#c7d2fe}
-  .date{font-size:16px;color:#cbd5e1;margin-top:6px}
-  .tl{display:inline-flex;align-items:center;gap:8px;background:#1b2436;border:1px solid var(--border);padding:8px 12px;border-radius:10px}
-  .pill{font-size:12px;padding:4px 8px;border-radius:999px;border:1px solid var(--border);background:var(--panel)}
-  .pill.crit{background:rgba(239,68,68,.12);border-color:#7f1d1d;color:#fecaca}
-  h2{margin:22px 0 10px 0;font-size:18px}
-  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-  .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-  .grid-auto{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
-  .card{
-    background:var(--panel);
-    border:1px solid var(--border);
-    border-radius:12px;
-    padding:14px;
-  }
-  .card h3{margin:0 0 6px 0;font-size:15.5px}
-  .card p{margin:6px 0 0 0;color:#cbd5e1}
-  .kpi{display:flex;align-items:baseline;gap:10px}
-  .kpi .n{font-size:28px;font-weight:800}
-  .kpi .l{font-size:12px;color:var(--muted)}
-  .chip-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
-  .chip{font-size:11.5px;padding:4px 8px;border-radius:999px;background:var(--chip);border:1px solid var(--border);color:#cbd5e1}
-  .note{color:var(--muted);font-size:12.5px}
-  /* Event cards */
-  .event{
-    background:var(--panel);
-    border:1px solid var(--border);
-    border-radius:12px;
-    overflow:hidden;
-  }
-  .event .head{
-    display:flex;justify-content:space-between;gap:10px;align-items:center;
-    padding:12px 14px;border-bottom:1px solid var(--border);background:var(--panel-2)
-  }
-  .event .sev{font-size:11px;padding:4px 8px;border-radius:999px;border:1px solid var(--border);text-transform:uppercase;letter-spacing:.6px}
-  .sev.red{background:rgba(239,68,68,.12);border-color:#7f1d1d;color:#fecaca}
-  .sev.orange{background:rgba(245,158,11,.12);border-color:#7c2d12;color:#fcd34d}
-  .sev.green{background:rgba(22,163,74,.12);border-color:#14532d;color:#bbf7d0}
-  .event .body{padding:12px 14px}
-  .srcs{margin-top:8px}
-  .srcs a{display:inline-block;margin-right:10px;margin-top:6px;font-size:12.5px}
-  .taglist{margin-top:8px}
-  /* Section wrappers */
-  section{margin:18px 0}
-  .group-title{font-weight:800;margin:6px 0 10px 0;font-size:16px}
-  ul{margin:8px 0 0 18px}
-  li{margin:6px 0}
-  footer{
-    margin:30px 0 10px 0;color:#9aa4b2;font-size:12px;text-align:center
-  }
-  @media (max-width:900px){
-    .grid-3{grid-template-columns:1fr 1fr}
-    .grid-2{grid-template-columns:1fr}
-    .mast-grid{grid-template-columns:1fr}
-  }
-  @media (max-width:640px){
-    .grid-3{grid-template-columns:1fr}
-  }
+  html,body{background:var(--bg);color:var(--text);font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;margin:0}
+  a{color:var(--accent)}
+  .source-link{color:var(--accent-2);text-decoration:none;border-bottom:1px dashed rgba(156,240,255,.5)}
+  .wrap{max-width:1200px;margin:0 auto;padding:24px}
+  .masthead{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:20px}
+  .title{font-size:28px;font-weight:700}
+  .meta{color:var(--muted);font-size:14px}
+  .threat-level{padding:8px 14px;border-radius:8px;border:1px solid var(--border);background:linear-gradient(180deg,#1c232d,#131a22)}
+  .threat-level.high{box-shadow:0 0 0 1px rgba(255,77,79,.2) inset;color:#fff}
+  .grid{display:grid;gap:16px}
+  .grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  @media(max-width:1024px){.grid.cols-3,.grid.cols-2{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:16px}
+  .card h3,.card h4{margin:0 0 10px 0}
+  .tag{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:var(--chip);border:1px solid var(--border);color:var(--muted);font-size:12px;margin-right:6px}
+  .pill{padding:4px 10px;border-radius:8px;font-size:12px;border:1px solid var(--border);background:var(--chip);color:var(--muted);display:inline-block;margin:2px 6px 2px 0}
+  .kpi{display:flex;align-items:center;justify-content:space-between;padding:12px;border-radius:10px;background:var(--card);border:1px solid var(--border)}
+  .kpi .val{font-size:22px;font-weight:700}
+  .kpi small{color:var(--muted)}
+  .kpi.red{box-shadow:0 0 0 1px rgba(255,77,79,.18) inset}
+  .kpi.orange{box-shadow:0 0 0 1px rgba(255,176,32,.18) inset}
+  .kpi.green{box-shadow:0 0 0 1px rgba(52,199,89,.18) inset}
+  .section{margin:20px 0}
+  .section h2{font-size:20px;margin:0 0 12px 0}
+  .priority{border-left:4px solid var(--accent);padding-left:12px;margin-bottom:12px}
+  .priority.crit{border-color:var(--danger)}
+  .priority.high{border-color:var(--warn)}
+  .priority.mod{border-color:var(--accent)}
+  .event{border:1px solid var(--border);background:var(--card);border-radius:12px;padding:14px;margin-bottom:12px}
+  .event .hdr{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+  .event .hdr .lvl{font-weight:700;font-size:12px;padding:4px 8px;border-radius:6px}
+  .lvl.escalate{background:rgba(255,77,79,.15);color:#ffbcbc;border:1px solid rgba(255,77,79,.25)}
+  .lvl.monitor{background:rgba(255,176,32,.12);color:#ffd9a1;border:1px solid rgba(255,176,32,.25)}
+  .lvl.ignore{background:rgba(52,199,89,.12);color:#c8f3d3;border:1px solid rgba(52,199,89,.25)}
+  .event .srcs{margin-top:8px}
+  .event .srcs a{margin-right:10px}
+  .bullets{margin:0;padding-left:18px}
+  .chips{margin-top:6px}
+  .muted{color:var(--muted)}
+  .divider{height:1px;background:var(--border);margin:14px 0}
+  .foot{color:var(--muted);font-size:12px;text-align:center;margin-top:22px;padding-top:16px;border-top:1px solid var(--border)}
 </style>
 </head>
 <body>
-<div class="wrap">
-
-  <!-- Masthead -->
-  <header class="masthead">
-    <div class="mast-grid">
+  <div class="wrap">
+    <div class="masthead">
       <div>
-        <div class="doctag">Open Source Intelligence Assessment</div>
-        <div class="title">Cyber Threat Intelligence Brief</div>
-        <div class="date">Tuesday, July 21, 2026</div>
+        <div class="title">OT/ICS Cyber Threat Intelligence Brief</div>
+        <div class="meta">Report date: 2026-07-23</div>
       </div>
-      <div class="tl">
-        <span class="pill crit">Overall OT Cyber Threat Level: CRITICAL</span>
+      <div class="threat-level high">
+        Overall OT cyber threat level: HIGH
       </div>
     </div>
-  </header>
 
-  <!-- Executive Summary -->
-  <section>
-    <h2>Executive Summary</h2>
-    <div class="card">
-      <p>
-        Multiple, concurrent threats elevate OT/ICS risk to critical. Actively exploited perimeter flaws (Check Point IKEv1 auth bypass; widespread Fortinet credential compromise) and nation‑state activity (PRC covert device networks; Iranian PLC intrusions; pro‑Russia VNC abuse) create credible, near‑term pathways into industrial environments. OT vendors released impactful advisories (Rockwell MNRF controller fault; Rockwell EN2/EN3 DoS; Siemens SICAM 8 issues; SALTO ProAccess escalation), while actively exploited enterprise vectors (Microsoft AD FS/SharePoint; WordPress “WP2Shell”; GeoServer RCE) increase pivot risk to OT. EV charging, building automation, and industrial data acquisition platforms show critical vulnerabilities in recent CISA bulletins.
-      </p>
-      <div class="chip-row">
-        <span class="chip">Immediate actions: Disable IKEv1; rotate FortiGate creds; remove OT from internet</span>
-        <span class="chip">Prioritize: Rockwell/Siemens patching; SharePoint/AD FS; WordPress</span>
-        <span class="chip">Harden: VNC, VPN, identity, and DMZ boundaries</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- Key Findings -->
-  <section>
-    <h2>Key Findings</h2>
-    <div class="grid-3">
-      <div class="card">
-        <h3>Perimeter Access Under Active Abuse</h3>
-        <p>Check Point IKEv1 auth bypass (CVE-2026-50751) is exploited; FortiGate credentials at scale are compromised (“FortiBleed”), enabling VPN/session hijack and AD credential theft.</p>
-      </div>
-      <div class="card">
-        <h3>OT Equipment Disruption Paths</h3>
-        <p>Rockwell PLCs susceptible to controller fault (MNRF) and EN2/EN3 DoS; Siemens SICAM 8 DoS-class issues; EV chargers (EVbee DC-80) allow unauth RCE and unsigned firmware.</p>
-      </div>
-      <div class="card">
-        <h3>Nation‑State Pre‑Positioning</h3>
-        <p>PRC actors leverage covert SOHO/IoT networks; Iranian‑linked actors exploit internet‑exposed PLCs; pro‑Russia hacktivists brute‑force VNC to HMI/SCADA.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Threat Dashboard -->
-  <section>
-    <h2>Threat Dashboard</h2>
-    <div class="grid-3">
-      <div class="card kpi">
-        <div class="n">18</div>
-        <div class="l">High‑priority ESCALATE events</div>
-      </div>
-      <div class="card kpi">
-        <div class="n">30+</div>
-        <div class="l">Additional MONITOR items (patching/hardening)</div>
-      </div>
-      <div class="card kpi">
-        <div class="n">10</div>
-        <div class="l">Low‑value/IGNORED items (vendor/promotional)</div>
-      </div>
-    </div>
-    <div class="grid-3" style="margin-top:14px">
-      <div class="card">
-        <h3>Actively Exploited</h3>
-        <div class="chip-row">
-          <span class="chip">Check Point IKEv1 (CVE‑2026‑50751)</span>
-          <span class="chip">MS SharePoint/AD FS zero‑days</span>
-          <span class="chip">WordPress “WP2Shell”</span>
-          <span class="chip">GeoServer CVE‑2024‑36401</span>
-          <span class="chip">Cisco IOS web UI (CVE‑2008‑4128)</span>
+    <div class="grid cols-3 section">
+      <div class="kpi red">
+        <div>
+          <div class="val">17</div>
+          <small>C:ESCALATE events</small>
         </div>
+        <span class="tag">Immediate action</span>
       </div>
-      <div class="card">
-        <h3>OT Vendors Impacted</h3>
-        <div class="chip-row">
-          <span class="chip">Rockwell Automation</span>
-          <span class="chip">Siemens SICAM</span>
-          <span class="chip">SALTO Systems</span>
-          <span class="chip">Delta Electronics PLC</span>
-          <span class="chip">PcVue</span>
-          <span class="chip">ibaPDA</span>
-          <span class="chip">EVbee</span>
+      <div class="kpi orange">
+        <div>
+          <div class="val">28</div>
+          <small>B:MONITOR events</small>
         </div>
+        <span class="tag">Heightened vigilance</span>
       </div>
-      <div class="card">
-        <h3>Primary Sectors at Risk</h3>
-        <div class="chip-row">
-          <span class="chip">Energy & Power</span>
-          <span class="chip">Water/Wastewater</span>
-          <span class="chip">Critical Manufacturing</span>
-          <span class="chip">Transportation</span>
-          <span class="chip">Building Automation</span>
-          <span class="chip">Food & Agriculture</span>
+      <div class="kpi green">
+        <div>
+          <div class="val">10</div>
+          <small>A:IGNORE or low-operational-value items</small>
         </div>
+        <span class="tag">No action</span>
       </div>
     </div>
-  </section>
 
-  <!-- Top Five Priority Threats -->
-  <section>
-    <h2>Top Five Priority Threats</h2>
-    <div class="grid-2">
-      <div class="card">
-        <h3>1) Check Point VPN IKEv1 Authentication Bypass (Active)</h3>
-        <p>Disable IKEv1 for Remote/Mobile Access, patch per vendor JHF guidance, rotate VPN creds/secrets, and review logs from May 7 onward for anomalous RA sessions.</p>
-      </div>
-      <div class="card">
-        <h3>2) Fortinet FortiGate Credential Compromise at Scale</h3>
-        <p>Rotate all FortiGate admin/VPN/API credentials; restrict admin access; validate configs for rogue accounts; investigate AD for credential theft and lateral movement.</p>
-      </div>
-      <div class="card">
-        <h3>3) Iranian Actors Targeting PLCs</h3>
-        <p>Remove PLC internet exposure; enforce OT DMZ and DPI firewalls on CIP/Modbus; lock mode switches; enable engineering authentication and monitor project downloads.</p>
-      </div>
-      <div class="card">
-        <h3>4) PRC Covert Networks for Pre‑Positioning</h3>
-        <p>Patch edge devices (Ivanti, PAN‑OS, Cisco); harden AAA; audit tunnels and SNMP/TACACS+/RADIUS; restrict management to OOB and verify image integrity.</p>
-      </div>
-      <div class="card">
-        <h3>5) WordPress Core Pre‑Auth RCE (WP2Shell) — Exploitation Underway</h3>
-        <p>Update to fixed WordPress versions, deploy WAF rules, hunt for webshells/new admins, restrict egress from web hosts, and isolate DMZ from enterprise/OT.</p>
-      </div>
-      <div class="card">
-        <h3>Runner‑up: Rockwell Controller MNRF Fault</h3>
-        <p>Patch impacted Logix families, enforce RUN keyswitch during operations, restrict programming traffic, and exercise controller recovery runbooks.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- OT/ICS Relevance Assessment -->
-  <section>
-    <h2>OT/ICS Relevance Assessment</h2>
-    <div class="card">
-      <ul>
-        <li>Direct OT impact: Rockwell controller MNRF and EN2/EN3 DoS; Siemens SICAM 8 DoS; SALTO ProAccess partition privilege escalation; Delta PLC Modbus exposure; EVbee DC‑80 EVSE RCE; ibaPDA RCE/deserialization.</li>
-        <li>Enterprise‑to‑OT pivot risk: Microsoft SharePoint/AD FS exploitation; WordPress core RCE; GeoServer RCE; residential proxy botnets for password spraying; M365 Graph/Calendar C2 (CAV3RN/HollowGraph).</li>
-        <li>Operator tooling risks: Grafana Snowflake connector credential exfil; TeamViewer vendor governance concerns; Hikvision ISAPI reconnaissance.</li>
-      </ul>
-      <div class="note">Conclusion: Multiple confirmed enterprise edge and web compromises can bridge into OT without strict segmentation and identity controls. Several OT vendor advisories require expedited patching and access hardening.</div>
-    </div>
-  </section>
-
-  <!-- Threat Actor Activity -->
-  <section>
-    <h2>Threat Actor Activity</h2>
-    <div class="grid-3">
-      <div class="card">
-        <h3>Nation‑state & APT</h3>
-        <ul>
-          <li>PRC‑nexus covert device networks for pre‑positioning across CNI.</li>
-          <li>Iranian‑affiliated actors exploiting Rockwell/Unitronics PLCs causing OT disruptions.</li>
-          <li>OilRig‑linked module (Project CAV3RN) and HollowGraph abusing Microsoft Graph/Outlook calendars for C2.</li>
-          <li>HelloNet campaign abusing ViPNet update system; suspected Chinese‑speaking APT.</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Hacktivists & Crime</h3>
-        <ul>
-          <li>Pro‑Russia groups brute‑forcing VNC to HMI/SCADA, locking operators out and changing setpoints.</li>
-          <li>JadePuffer ransomware wiping AI/ML artifacts; container escape via Docker socket.</li>
-          <li>Residential proxy botnets (“Popa”/NetNut) supporting password spraying and ATO.</li>
-          <li>Scattered Spider plea confirms SIM‑swap, vishing, identity‑centric tradecraft.</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Phishing/Social Engineering</h3>
-        <ul>
-          <li>Device Code Flow phishing via legitimate Microsoft URLs for persistent cloud access.</li>
-          <li>“ClickFix/ClickFake” recruiter lures delivering RATs targeting crypto/Web3 roles.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- Vulnerability and CVE Watch -->
-  <section>
-    <h2>Vulnerability and CVE Watch</h2>
-    <div class="grid-auto">
-      <div class="card">
-        <h3>Perimeter/Identity</h3>
-        <ul>
-          <li>Check Point IKEv1 RA bypass (CVE‑2026‑50751) — actively exploited.</li>
-          <li>Fortinet FortiSandbox OS command injection; KEV additions (active).</li>
-          <li>Microsoft SharePoint (CVE‑2026‑56164) and AD FS (CVE‑2026‑56155) — active exploitation.</li>
-          <li>Cisco IOS web UI CSRF (CVE‑2008‑4128) — KEV item, exploited.</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>OT/ICS</h3>
-        <ul>
-          <li>Rockwell Logix MNRF fault (controller halt) — patch available.</li>
-          <li>Rockwell 1756‑EN2/EN3 DoS (CVE‑2026‑9653) — patch to V12.002.</li>
-          <li>Siemens SICAM 8 DoS‑class; firmware updates available.</li>
-          <li>SALTO ProAccess Space privilege escalation (CVE‑2026‑11889) — patch to 6.13.</li>
-          <li>ibaPDA/ibaDatCoordinator deserialization RCE (CVE‑2026‑8024) — isolate and patch.</li>
-          <li>EVbee DC‑80 EVSE: multiple unauth RCE/unsigned firmware issues.</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Web/DMZ</h3>
-        <ul>
-          <li>WordPress Core SQLi→RCE chain (CVE‑2026‑63030, CVE‑2026‑60137) — active.</li>
-          <li>GeoServer RCE (CVE‑2024‑36401) — active exploitation at US agency.</li>
-          <li>Grafana Snowflake connector (CVE‑2026‑28381) — credential theft.</li>
-          <li>Joomla extensions (iCagenda, Balbooa Forms) — in KEV; file uploads → webshell.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- Defensive Mitigation Priorities -->
-  <section>
-    <h2>Defensive Mitigation Priorities</h2>
-    <div class="grid-2">
-      <div class="card">
-        <h3>Identity, Perimeter, and Remote Access</h3>
-        <ul>
-          <li>Immediately disable IKEv1 on Check Point; enforce IKEv2‑only with MFA and device certificates; patch to vendor JHF.</li>
-          <li>Rotate FortiGate admin/VPN/API creds; restrict admin plane to OOB; audit logs for config exports and rogue accounts; upgrade to FortiOS builds enforcing PBKDF2.</li>
-          <li>Patch Microsoft AD FS and SharePoint; enable AMSI Full Mode; hunt for webshells, machine key theft, and anomalous token grants.</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>OT Network Controls</h3>
-        <ul>
-          <li>Remove PLCs/HMIs from the internet; place OT behind an ICS DMZ with DPI firewalls; restrict CIP/Modbus/S7 ports (44818/2222/502/102).</li>
-          <li>Enforce controller RUN keyswitch; lock panels; require authenticated, least‑privilege downloads; monitor for program load attempts.</li>
-          <li>Patch Rockwell/Siemens advisories; validate backups and recovery images; maintain spares for critical controllers.</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>DMZ/Web and Cloud</h3>
-        <ul>
-          <li>Patch WordPress to fixed versions; deploy WAF rules; hunt for shells in wp‑content/cache and unauthorized admin users.</li>
-          <li>Patch/segregate GeoServer; restrict admin/UI exposure; disable xp_cmdshell on SQL Server; monitor BITS/PowerShell abuse.</li>
-          <li>Harden M365: restrict OAuth consent; monitor Graph calendar create/update with attachments and far‑future events; review service principals.</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Device & Edge Hygiene</h3>
-        <ul>
-          <li>Patch edge devices (Ivanti, PAN‑OS, Cisco); audit tunnels, ACLs, SNMP/TACACS+/RADIUS; enforce SNMPv3 and CoPP; disable Smart Install.</li>
-          <li>Discover and close exposed VNC (5900–5910); require VPN/MFA and jump hosts; enforce account lockouts and rate‑limits.</li>
-          <li>Segment EVSE, CCTV, and BMS onto dedicated VLANs; enforce mutual TLS on OCPP; disable unused APIs (Hikvision ISAPI) and remote management.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- Next 72-hour Outlook -->
-  <section>
-    <h2>Next 72‑Hour Outlook</h2>
-    <div class="card">
-      <ul>
-        <li>Perimeter: Disable IKEv1 on Check Point gateways immediately; apply vendor fixes; rotate/revoke VPN creds; review RA logs since 2026‑05‑07.</li>
-        <li>Fortinet: Rotate all FortiGate admin/VPN/API credentials and FortiClient secrets; remove internet admin exposure; validate configs against gold standards.</li>
-        <li>Microsoft: Patch AD FS and SharePoint; enable AMSI Full Mode; run compromise assessments aligned to CISA guidance; monitor for MDAV/AMSI detections.</li>
-        <li>WordPress: Confirm core versions at fixed builds; implement virtual patching; IOC hunt for “wp2shell” indicators; reimage if integrity uncertain.</li>
-        <li>OT Patch Windows: Update Rockwell PLC families (MNRF) and 1756‑EN2/EN3 (V12.002); schedule Siemens SICAM firmware updates.</li>
-        <li>Exposure: Enumerate and quarantine internet‑exposed VNC/HMI endpoints; enforce VPN/MFA and bastions; review Shodan/Censys footprint.</li>
-        <li>GeoServer: Patch CVE‑2024‑36401; block admin from internet; hunt for webshells, Stowaway tunnels, and BITS jobs.</li>
-        <li>EV/BMS/CCTV: Segment EVbee chargers; enforce OCPP hardening; remove Hikvision internet exposure; enforce strong auth and TLS.</li>
+    <div class="section card">
+      <h2>Executive Summary</h2>
+      <ul class="bullets">
+        <li>Active OT targeting by Iranian‑affiliated actors is exploiting internet‑exposed PLCs (Rockwell, Schneider, Siemens), causing operational disruption across Water, Energy, and Government Services. Remove direct internet access, validate controller logic integrity, and enforce access controls immediately. <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-097a" target="_blank" rel="noopener noreferrer" class="source-link">Security Advisory</a></li>
+        <li>Rapid exploitation of on‑prem Microsoft SharePoint deserialization flaws enables machine‑key theft and RCE, with CISA urging hardening and patching; multiple SharePoint and ADFS items are now in KEV. Expect lateral movement toward OT via identity compromise. <a href="https://www.cisa.gov/news-events/alerts/2026/07/14/cisa-urges-sharepoint-hardening-after-new-exploitations" target="_blank" rel="noopener noreferrer" class="source-link">Security Advisory</a> <a href="https://www.cisa.gov/news-events/alerts/2026/07/21/cisa-adds-four-known-exploited-vulnerabilities-catalog" target="_blank" rel="noopener noreferrer" class="source-link">KEV Update</a></li>
+        <li>Authentication bypasses on critical VPN gateways (Check Point Remote Access; PAN‑OS GlobalProtect CAS profiles) risk direct ingress to enterprise and potentially OT networks. Disable legacy/profiles and patch urgently. <a href="https://www.jpcert.or.jp/at/2026/at260016.html" target="_blank" rel="noopener noreferrer" class="source-link">Alert</a> <a href="https://www.jpcert.or.jp/at/2026/at260015.html" target="_blank" rel="noopener noreferrer" class="source-link">Alert</a></li>
+        <li>EV charging infrastructure (EVbee DC‑80) has multiple unauthenticated RCE/command injection paths (web, Bluetooth, OCPP), creating safety and grid‑impact risk; immediate isolation and hardening are required. <a href="https://www.cisa.gov/news-events/bulletins/sb26-201" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+        <li>Nation‑state and proxy infrastructure: China‑nexus actors (incl. Volt Typhoon) are leveraging covert SOHO/IoT proxy networks for CNI pre‑positioning; allied advisory urges urgent edge hardening and egress controls. <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-113a" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></li>
+        <li>CERT Polska disclosed critical flaws in ICU Scandinavia Boomerang monitoring: plaintext credentials via HTTP and unauthorized sensor DB writes—patch and rotate creds immediately. <a href="https://cert.pl/en/posts/2026/07/CVE-2026-46458/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+        <li>Multiple ICS‑relevant CVEs (Delta PLC Modbus, PcVue credentials, DAQFactory RCE, EIP/CIP stack DoS) raise near‑term risk to manufacturing and water sector operations. <a href="https://www.cisa.gov/news-events/bulletins/sb26-187" target="_blank" rel="noopener noreferrer" class="source-link">CVE Summary</a> <a href="https://www.cisa.gov/news-events/bulletins/sb26-194" target="_blank" rel="noopener noreferrer" class="source-link">CVE Summary</a></li>
+        <li>Fortinet perimeter exposure: large‑scale FortiGate credential leakage (“FortiBleed”) with continued validity in some cases—rotate secrets, review logs, and enforce PBKDF2 hashing. <a href="https://www.jpcert.or.jp/at/2026/at260019.html" target="_blank" rel="noopener noreferrer" class="source-link">Alert</a></li>
       </ul>
     </div>
-  </section>
 
-  <!-- Event Cards: ESCALATE -->
-  <section>
-    <div class="group-title">Event Cards — ESCALATE (Red)</div>
-
-    <!-- Perimeter: Check Point + Fortinet -->
-    <div class="event" style="margin-bottom:12px">
-      <div class="head">
-        <div><strong>Perimeter Breach Risk: Check Point IKEv1 auth bypass and FortiGate credential compromise</strong></div>
-        <div class="sev red">Escalate</div>
+    <div class="section grid cols-2">
+      <div class="card">
+        <h2>Key Findings</h2>
+        <ul class="bullets">
+          <li>OT‑native threat: Direct PLC tampering and HMI data manipulation confirmed across U.S. critical sectors; actors abused native engineering tools and exposed services. <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-097a" target="_blank" rel="noopener noreferrer" class="source-link">Security Advisory</a></li>
+          <li>Perimeter auth bypasses on enterprise VPN/portals (Check Point, PAN‑OS) create low‑friction paths to OT via IT gateways and jump hosts. <a href="https://www.jpcert.or.jp/at/2026/at260016.html" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a> <a href="https://www.jpcert.or.jp/at/2026/at260015.html" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+          <li>EV infrastructure is exploitable at multiple layers (OCPP, firmware, Bluetooth), enabling unsafe charging control and charger outages. <a href="https://www.cisa.gov/news-events/bulletins/sb26-201" target="_blank" rel="noopener noreferrer" class="source-link">CVE Bulletin</a></li>
+          <li>SharePoint on‑prem RCE is being exploited in the wild to steal IIS machine keys and persist via deserialization paths—hardening and credential rotation are essential. <a href="https://www.cisa.gov/news-events/alerts/2026/07/14/cisa-urges-sharepoint-hardening-after-new-exploitations" target="_blank" rel="noopener noreferrer" class="source-link">Security Advisory</a></li>
+          <li>Facility monitoring software (ICU Boomerang) exposes plaintext credentials and unauth write access to sensor databases, risking plant data integrity. <a href="https://cert.pl/en/posts/2026/07/CVE-2026-46458/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+        </ul>
       </div>
-      <div class="body">
-        <p>Active exploitation of Check Point VPN (CVE‑2026‑50751) enables unauthorized Remote Access sessions when IKEv1 is enabled. Separately, attacker‑controlled databases hold credentials for ~86k FortiGate devices with evidence of mass config exports and offline hash cracking, enabling VPN takeover and AD credential theft.</p>
-        <div class="chip-row">
-          <span class="chip">Disable IKEv1; enforce IKEv2 + MFA</span>
-          <span class="chip">Rotate FortiGate admin/VPN/API creds</span>
-          <span class="chip">Restrict admin plane to OOB/VPN</span>
+      <div class="card">
+        <h2>Threat Dashboard</h2>
+        <div class="kpi red" style="margin-bottom:10px">
+          <div>
+            <div class="val">5</div>
+            <small>Actively exploited KEV items affecting edge/identity</small>
+          </div>
+          <span class="tag">KEV focus</span>
         </div>
-        <div class="srcs">
-          Sources:
-          <a href="https://www.jpcert.or.jp/at/2026/at260016.html" target="_blank">JPCERT/CC: Check Point CVE‑2026‑50751</a>
-          <a href="https://www.jpcert.or.jp/at/2026/at260019.html" target="_blank">JPCERT/CC: Fortinet credential leak</a>
+        <div class="kpi orange" style="margin-bottom:10px">
+          <div>
+            <div class="val">9</div>
+            <small>OT/ICS vendor advisories of note</small>
+          </div>
+          <span class="tag">Patch planning</span>
+        </div>
+        <div class="kpi" style="margin-bottom:10px">
+          <div>
+            <div class="val">3</div>
+            <small>Nation‑state activity clusters (recent)</small>
+          </div>
+          <span class="tag">Watchlisted</span>
         </div>
       </div>
     </div>
 
-    <!-- Nation-state advisories -->
-    <div class="event" style="margin-bottom:12px">
-      <div class="head">
-        <div><strong>Nation‑state Pre‑positioning: PRC covert device networks</strong></div>
-        <div class="sev red">Escalate</div>
+    <div class="section card">
+      <h2>Top Five Priority Threats</h2>
+      <div class="priority crit">
+        <strong>1) Iranian‑affiliated actors exploiting internet‑exposed PLCs (Rockwell, Schneider, Siemens)</strong> — Immediate removal from internet, logic integrity validation, and strict access controls are required to prevent further tampering and service disruption.
+        <div><a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-097a" target="_blank" rel="noopener noreferrer" class="source-link">Security Advisory</a></div>
       </div>
-      <div class="body">
-        <p>Coordinated advisory details PRC‑nexus actors routing ops through large covert botnets of compromised SOHO routers/IoT to pre‑position in CNI, increasing risk to OT networks via trusted links.</p>
-        <div class="chip-row">
-          <span class="chip">Patch edge CVEs (Ivanti, PAN‑OS, Cisco)</span>
-          <span class="chip">Audit tunnels/AAA; enforce SNMPv3</span>
-          <span class="chip">Segment IT↔OT with DPI firewalls</span>
-        </div>
-        <div class="srcs">
-          Source:
-          <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-113a" target="_blank">CISA AA26‑113a</a>
-        </div>
+      <div class="priority high">
+        <strong>2) Check Point RA/Mobile Access CVE‑2026‑50751 (active exploitation)</strong> — Disable IKEv1 and legacy clients, require machine certificates, patch to fixed releases, and hunt for suspicious RA logins.
+        <div><a href="https://www.jpcert.or.jp/at/2026/at260016.html" target="_blank" rel="noopener noreferrer" class="source-link">Alert</a></div>
       </div>
-    </div>
-
-    <div class="event" style="margin-bottom:12px">
-      <div class="head">
-        <div><strong>Iranian‑linked PLC intrusions across US critical infrastructure</strong></div>
-        <div class="sev red">Escalate</div>
+      <div class="priority high">
+        <strong>3) PAN‑OS GlobalProtect CAS auth bypass CVE‑2026‑0265</strong> — Remove CAS auth profiles from login interfaces until patched; restrict public exposure and enforce device certificates/MFA.
+        <div><a href="https://www.jpcert.or.jp/at/2026/at260015.html" target="_blank" rel="noopener noreferrer" class="source-link">Alert</a></div>
       </div>
-      <div class="body">
-        <p>Actors accessed Rockwell/Unitronics PLCs over the internet, deployed Dropbear, manipulated HMI/SCADA, and exfiltrated project files, causing operational impacts in Water/Wastewater and Energy.</p>
-        <div class="chip-row">
-          <span class="chip">Remove PLC internet exposure</span>
-          <span class="chip">DPI firewalls on 44818/2222/502/102</span>
-          <span class="chip">Lock RUN keyswitch; monitor downloads</span>
-        </div>
-        <div class="srcs">
-          Source:
-          <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-097a" target="_blank">CISA AA26‑097a</a>
-        </div>
+      <div class="priority high">
+        <strong>4) SharePoint on‑prem RCE/deserialization (multiple CVEs; active exploitation)</strong> — Patch immediately, enable AMSI Full Mode, rotate machine keys/service creds, hunt for webshells.
+        <div><a href="https://www.cisa.gov/news-events/alerts/2026/07/14/cisa-urges-sharepoint-hardening-after-new-exploitations" target="_blank" rel="noopener noreferrer" class="source-link">Security Advisory</a></div>
+      </div>
+      <div class="priority high">
+        <strong>5) EV charging infrastructure (EVbee DC‑80) multi‑vector compromise</strong> — Isolate chargers, enforce mutual TLS/OCPP controls, disable unsigned firmware updates, and monitor for OCPP DataTransfer abuse.
+        <div><a href="https://www.cisa.gov/news-events/bulletins/sb26-201" target="_blank" rel="noopener noreferrer" class="source-link">CVE Bulletin</a></div>
       </div>
     </div>
 
-    <div class="event" style="margin-bottom:12px">
-      <div class="head">
-        <div><strong>Pro‑Russia hacktivists abusing exposed VNC to HMI/SCADA</strong></div>
-        <div class="sev red">Escalate</div>
+    <div class="section grid cols-2">
+      <div class="card">
+        <h2>OT/ICS Relevance Assessment</h2>
+        <ul class="bullets">
+          <li>Direct ICS impact confirmed (AA26‑097a): controller logic edits, AOI tampering, and HMI manipulation in multiple sectors.</li>
+          <li>Perimeter to OT pivot risk remains elevated: active exploitation of SharePoint/ADFS and VPN auth bypasses can bridge to industrial DMZs and jump hosts.</li>
+          <li>ICS protocol exposure persists (Modbus/CIP/S7): new PLC/stack CVEs and misconfigurations raise DoS and unauthorized command risk.</li>
+          <li>Supply chain and remote‑service dependencies (EV charging, RUGGEDCOM APE + Virtual NGFW) can undermine OT perimeters if not segmented and hardened.</li>
+        </ul>
       </div>
-      <div class="body">
-        <p>Opportunistic attacks brute‑force VNC (5900–5910), change parameters, suppress alarms, and lock operators out, causing loss of view and downtime in Water, Food & Ag, and Energy sectors.</p>
-        <div class="chip-row">
-          <span class="chip">Eliminate VNC exposure; require VPN+MFA</span>
-          <span class="chip">Account lockout/rate limits</span>
-          <span class="chip">Continuous external surface monitoring</span>
-        </div>
-        <div class="srcs">
-          Source:
-          <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa25-343a" target="_blank">CISA AA25‑343a</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- WordPress -->
-    <div class="event" style="margin-bottom:12px">
-      <div class="head">
-        <div><strong>WordPress Core “WP2Shell” exploitation underway</strong></div>
-        <div class="sev red">Escalate</div>
-      </div>
-      <div class="body">
-        <p>Pre‑auth SQLi→RCE chain is actively exploited to deploy webshells and create admin users on public sites — common in CI operators’ DMZ — enabling staging and potential enterprise/OT pivot.</p>
-        <div class="chip-row">
-          <span class="chip">Update to fixed core versions</span>
-          <span class="chip">WAF virtual patching; IOC hunts</span>
-          <span class="chip">Restrict egress from web hosts</span>
-        </div>
-        <div class="srcs">
-          Sources:
-          <a href="https://isc.sans.edu/diary/rss/33168" target="_blank">SANS ISC: Exploitation Underway</a>
-          <a href="https://www.infosecurity-magazine.com/news/researchers-wordpress-exploit/" target="_blank">Infosecurity: Researchers build exploit</a>
-          <a href="https://www.heise.de/news/Nextcloud-Cyberangriff-auf-Webserver-mit-ungeschickter-Kommunikation-11371959.html" target="_blank">heise: Nextcloud incident (WordPress)</a>
-        </div>
+      <div class="card">
+        <h2>Threat Actor Activity</h2>
+        <ul class="bullets">
+          <li>Iran‑affiliated groups targeting U.S. OT via exposed PLCs; use of leased infra and native vendor tools. <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-097a" target="_blank" rel="noopener noreferrer" class="source-link">Security Advisory</a></li>
+          <li>China‑nexus (Volt Typhoon et al.) leveraging SOHO/IoT proxy fleets for CNI pre‑positioning. <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-113a" target="_blank" rel="noopener noreferrer" class="source-link">Advisory</a></li>
+          <li>OilRig/APT34 “Project CAV3RN” abusing Microsoft Graph calendar events and DNS AAAA for C2—stealthy persistence in M365 estates. <a href="https://securelist.com/project-cav3rn-cyberespionage-framework-using-outlook-and-dns/120757/" target="_blank" rel="noopener noreferrer" class="source-link">Research</a></li>
+          <li>Pro‑Russia hacktivists exploiting exposed VNC to deface/alter HMI setpoints (loss of view). <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa25-343a" target="_blank" rel="noopener noreferrer" class="source-link">Advisory</a></li>
+          <li>State exploitation of network edge/routers (PRC; FSB Center 16) to exfiltrate configs, harvest credentials, and mirror traffic. <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa25-239a" target="_blank" rel="noopener noreferrer" class="source-link">CSA</a> <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-194a" target="_blank" rel="noopener noreferrer" class="source-link">CSA</a></li>
+        </ul>
       </div>
     </div>
 
-    <!-- Rockwell MNRF -->
-    <div class="event" style="margin-bottom:12px">
-      <div class="head">
-        <div><strong>Rockwell Logix families — Major Non‑Recoverable Fault (MNRF)</strong></div>
-        <div class="sev red">Escalate</div>
-      </div>
-      <div class="body">
-        <p>Invalid project load can fault controllers (halt). Patches available for 5370/5570/5380/5480/5580 lines. Limit programming access and rehearse recovery.</p>
-        <div class="chip-row">
-          <span class="chip">Patch controllers & recovery images</span>
-          <span class="chip">RUN keyswitch during ops</span>
-          <span class="chip">Monitor for program load attempts</span>
-        </div>
-        <div class="srcs">
-          Source:
-          <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-197-06" target="_blank">CISA ICSA‑26‑197‑06</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- CISA bulletins OT/embedded -->
-    <div class="event" style="margin-bottom:12px">
-      <div class="head">
-        <div><strong>Critical OT/Embedded vulnerabilities (CISA weekly bulletins)</strong></div>
-        <div class="sev red">Escalate</div>
-      </div>
-      <div class="body">
-        <p>Highlights include Delta PLC unauth Modbus/DoS, EIPStackGroup OpENer CPF DoS, ibaPDA RCE, EVbee DC‑80 unauth RCE/unsigned firmware, PcVue credential weaknesses, and multiple gateway/proxy issues.</p>
-        <div class="chip-row">
-          <span class="chip">Segment PLC/EVSE networks</span>
-          <span class="chip">DPI filtering on CIP/Modbus</span>
-          <span class="chip">Apply vendor firmware updates</span>
-        </div>
-        <div class="srcs">
-          Sources:
-          <a href="https://www.cisa.gov/news-events/bulletins/sb26-187" target="_blank">CISA SB26‑187</a>
-          <a href="https://www.cisa.gov/news-events/bulletins/sb26-201" target="_blank">CISA SB26‑201</a>
-          <a href="https://www.cisa.gov/news-events/bulletins/sb26-173" target="_blank">CISA SB26‑173</a>
-          <a href="https://www.cisa.gov/news-events/bulletins/sb26-180" target="_blank">CISA SB26‑180</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Microsoft enterprise -->
-    <div class="event" style="margin-bottom:12px">
-      <div class="head">
-        <div><strong>Microsoft July cycle — AD FS/SharePoint zero‑days and hardening</strong></div>
-        <div class="sev red">Escalate</div>
-      </div>
-      <div class="body">
-        <p>Record Patch Tuesday includes actively exploited AD FS and SharePoint flaws. CISA urges SharePoint hardening and added multiple CVEs to KEV. Treat enterprise identity and collaboration tiers as potential pivot points to OT.</p>
-        <div class="chip-row">
-          <span class="chip">Patch now (AD FS/SharePoint)</span>
-          <span class="chip">AMSI Full Mode + webshell hunts</span>
-          <span class="chip">Restrict external exposure</span>
-        </div>
-        <div class="srcs">
-          Sources:
-          <a href="https://krebsonsecurity.com/2026/07/microsoft-patches-a-record-570-security-flaws/" target="_blank">KrebsOnSecurity</a>
-          <a href="https://www.cisa.gov/news-events/alerts/2026/07/14/cisa-urges-sharepoint-hardening-after-new-exploitations" target="_blank">CISA SharePoint hardening</a>
-          <a href="https://www.cisa.gov/news-events/alerts/2026/07/14/cisa-adds-four-known-exploited-vulnerabilities-catalog" target="_blank">CISA KEV additions (4)</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- GeoServer -->
-    <div class="event" style="margin-bottom:12px">
-      <div class="head">
-        <div><strong>GeoServer RCE exploited at a US agency — lateral movement observed</strong></div>
-        <div class="sev red">Escalate</div>
-      </div>
-      <div class="body">
-        <p>Unauth RCE used to deploy webshells and pivot to databases and web servers with Stowaway, BITS, PowerShell, and brute‑force activity.</p>
-        <div class="chip-row">
-          <span class="chip">Patch CVE‑2024‑36401</span>
-          <span class="chip">Block admin from internet</span>
-          <span class="chip">EDR on internet‑facing hosts</span>
-        </div>
-        <div class="srcs">
-          Source:
-          <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa25-266a" target="_blank">CISA AA25‑266a</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- HelloNet -->
-    <div class="event" style="margin-bottom:12px">
-      <div class="head">
-        <div><strong>HelloNet APT abusing ViPNet updates for persistence and C2</strong></div>
-        <div class="sev red">Escalate</div>
-      </div>
-      <div class="body">
-        <p>DLL sideloading into ViPNet update service with multiple modules (HelloInjector/Proxy/Backdoor) enabling injection, tunneling, and exfiltration; targets include government, energy, transport, industry.</p>
-        <div class="chip-row">
-          <span class="chip">Re‑validate ViPNet binaries/signatures</span>
-          <span class="chip">Egress controls on 5003/5060/443</span>
-          <span class="chip">Hunt for svchost injections</span>
-        </div>
-        <div class="srcs">
-          Source:
-          <a href="https://securelist.com/tr/hellonet-vipnet/120700/" target="_blank">Kaspersky: HelloNet</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- KEV additions (Fortinet/SharePoint) -->
-    <div class="event" style="margin-bottom:12px">
-      <div class="head">
-        <div><strong>KEV surge: Fortinet FortiSandbox and MS SharePoint — active exploitation</strong></div>
-        <div class="sev red">Escalate</div>
-      </div>
-      <div class="body">
-        <p>CISA adds FortiSandbox OS command injection CVEs and SharePoint deserialization to KEV; immediate patching and compromise checks are required, especially for exposed assets.</p>
-        <div class="srcs">
-          Source:
-          <a href="https://www.cisa.gov/news-events/alerts/2026/07/16/cisa-adds-three-known-exploited-vulnerabilities-catalog" target="_blank">CISA KEV additions (3)</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- fairlife ransomware -->
-    <div class="event" style="margin-bottom:12px">
-      <div class="head">
-        <div><strong>Ransomware halts fairlife (Food & Ag) US production</strong></div>
-        <div class="sev red">Escalate</div>
-      </div>
-      <div class="body">
-        <p>Regulatory filing confirms production disruption; actor claims 1 TB data exfiltration. Validate OT segmentation and restore plans; monitor for lateral movement into plant networks.</p>
-        <div class="srcs">
-          Source:
-          <a href="https://www.heise.de/news/Coca-Cola-Molkereisparte-fairlife-stellt-Produktion-nach-Cyberangriff-ein-11371577.html" target="_blank">heise Security</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- JadePuffer AI model ransomware -->
-    <div class="event" style="margin-bottom:12px">
-      <div class="head">
-        <div><strong>JadePuffer ransomware wipes AI/ML artifacts; container escape via Docker socket</strong></div>
-        <div class="sev red">Escalate</div>
-      </div>
-      <div class="body">
-        <p>Exploits Langflow CVE to gain RCE, then abuses mounted Docker socket to encrypt host filesystem and destroy models/datasets — service degradation risk where AI supports operations.</p>
-        <div class="chip-row">
-          <span class="chip">Patch Langflow</span>
-          <span class="chip">Remove /var/run/docker.sock mounts</span>
-          <span class="chip">Immutable offline model backups</span>
-        </div>
-        <div class="srcs">
-          Source:
-          <a href="https://www.infosecurity-magazine.com/news/jadepuffer-ai-model-ransomware/" target="_blank">Infosecurity Magazine</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Event Cards: MONITOR -->
-  <section>
-    <div class="group-title">Event Cards — MONITOR (Orange)</div>
-
-    <div class="event" style="margin-bottom:12px">
-      <div class="head">
-        <div><strong>PAN‑OS Cloud Authentication Service (CVE‑2026‑0265) — VPN auth bypass risk</strong></div>
-        <div class="sev orange">Monitor</div>
-      </div>
-      <div class="body">
-        <p>When CAS is enabled and assigned to login interfaces, GlobalProtect MFA can be bypassed. Patch per vendor; consider disabling CAS on GP portals/gateways until remediated.</p>
-        <div class="srcs">
-          Source:
-          <a href="https://www.jpcert.or.jp/at/2026/at260015.html" target="_blank">JPCERT/CC</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="event" style="margin-bottom:12px">
-      <div class="head">
-        <div><strong>OT advisories: Rockwell DataMosaix XSS; Siemens SICAM 8 DoS; Rockwell EN2/EN3 DoS</strong></div>
-        <div class="sev orange">Monitor</div>
-      </div>
-      <div class="body">
-        <p>Apply vendor fixes; enforce least privilege and segmentation. For ENBT (discontinued), plan replacement.</p>
-        <div class="srcs">
-          Sources:
-          <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-197-09" target="_blank">CISA: Rockwell DataMosaix</a>
-          <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-197-05" target="_blank">CISA: Siemens SICAM 8</a>
-          <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-197-02" target="_blank">CISA: Rockwell 1756‑EN2/EN3/ENBT</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="event" style="margin-bottom:12px">
-      <div class="head">
-        <div><strong>Microsoft patching cadence — June/July updates and KEV adds</strong></div>
-        <div class="sev orange">Monitor</div>
-      </div>
-      <div class="body">
-        <p>JPCERT/CC highlights exploited Exchange (June) and AD FS/SharePoint (July). Prioritize patching of internet‑facing systems; segment identity tiers from OT.</p>
-        <div class="srcs">
-          Sources:
-          <a href="https://www.jpcert.or.jp/at/2026/at260017.html" target="_blank">JPCERT/CC: June MS updates</a>
-          <a href="https://www.jpcert.or.jp/at/2026/at260020.html" target="_blank">JPCERT/CC: July MS updates</a>
-          <a href="https://www.cisa.gov/news-events/alerts/2026/07/10/cisa-adds-two-known-exploited-vulnerabilities-catalog" target="_blank">CISA KEV: Joomla extensions</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="event" style="margin-bottom:12px">
-      <div class="head">
-        <div><strong>M365 Graph/Outlook calendar abuse for C2</strong></div>
-        <div class="sev orange">Monitor</div>
-      </div>
-      <div class="body">
-        <p>Project CAV3RN/HollowGraph use calendar events/attachments and OAuth apps for covert C2. Harden consent and monitor far‑future calendar patterns and non‑interactive Graph use.</p>
-        <div class="srcs">
-          Sources:
-          <a href="https://securelist.com/project-cav3rn-cyberespionage-framework-using-outlook-and-dns/120757/" target="_blank">Kaspersky: CAV3RN</a>
-          <a href="https://www.infosecurity-magazine.com/news/hollowgraph-microsoft-calendars/" target="_blank">Group‑IB via Infosecurity</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="event" style="margin-bottom:12px">
-      <div class="head">
-        <div><strong>Exposure hygiene: Hikvision ISAPI scans; NetNut/Popa residential proxies</strong></div>
-        <div class="sev orange">Monitor</div>
-      </div>
-      <div class="body">
-        <p>Remove CCTV internet exposure; enforce TLS and strong creds. Block residential proxy infrastructure used for spraying/ATO; segment IoT/TVs from corporate/OT.</p>
-        <div class="srcs">
-          Sources:
-          <a href="https://isc.sans.edu/diary/rss/33164" target="_blank">SANS ISC: Hikvision ISAPI scans</a>
-          <a href="https://krebsonsecurity.com/2026/07/fbi-seizes-netnut-proxy-platform-popa-botnet/" target="_blank">Krebs: NetNut takedown</a>
-          <a href="https://krebsonsecurity.com/2026/06/popa-botnet-linked-to-publicly-traded-israeli-firm/" target="_blank">Krebs: Popa botnet linkage</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="event" style="margin-bottom:12px">
-      <div class="head">
-        <div><strong>Enterprise app/web hardening: Grafana, GeoServer (patch), TeamViewer governance</strong></div>
-        <div class="sev orange">Monitor</div>
-      </div>
-      <div class="body">
-        <p>Grafana Snowflake connector exfil risk; ensure least‑privilege query access and rotate creds. TeamViewer fined over disclosure — review remote access policy and logging.</p>
-        <div class="srcs">
-          Sources:
-          <a href="https://www.heise.de/news/Sicherheitspatch-Grafana-Angreifer-koennen-sensible-Daten-abgreifen-11371859.html" target="_blank">heise: Grafana CVE‑2026‑28381</a>
-          <a href="https://www.heise.de/news/TeamViewer-BaFin-verhaengt-Bussgeld-nach-Cyberangriff-11371639.html" target="_blank">heise: TeamViewer governance</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Event Cards: IGNORE -->
-  <section>
-    <div class="group-title">Event Cards — IGNORE (Green)</div>
-    <div class="event" style="margin-bottom:12px">
-      <div class="head">
-        <div><strong>Vendor announcements and non‑actionable policy overviews</strong></div>
-        <div class="sev green">Ignore</div>
-      </div>
-      <div class="body">
-        <p>Partnerships/certifications and high‑level policy/education items (e.g., AI initiatives, passkeys explainer, generic sector briefs) provide minimal operational intelligence. Monitor for future technical outputs with concrete IOCs/TTPs.</p>
-        <div class="srcs">
-          Examples:
-          <a href="https://industrialcyber.co/news/bastazo-nozomi-integrate-ai-to-prioritize-ot-vulnerabilities-streamline-vulnerability-prioritization-and-remediation/" target="_blank">IndustrialCyber: Bastazo/Nozomi AI</a>
-          <a href="https://www.ncsc.gov.uk/report/commercial-cyber-proliferation-assessment" target="_blank">NCSC UK: Commercial cyber proliferation</a>
-          <a href="https://www.heise.de/hintergrund/Passkeys-in-der-Praxis-Teil-1-Die-Architektur-von-Passkeys-11364345.html" target="_blank">heise: Passkeys architecture</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Affected Vendors and Technologies -->
-  <section>
-    <h2>Affected Vendors and Technologies</h2>
-    <div class="card">
-      <div class="chip-row">
-        <span class="chip">Rockwell Automation (Logix, EN2/EN3)</span>
-        <span class="chip">Siemens SICAM 8</span>
-        <span class="chip">SALTO ProAccess Space</span>
-        <span class="chip">Delta Electronics PLC / DTMSoft</span>
-        <span class="chip">PcVue (arcinfo)</span>
-        <span class="chip">ibaPDA / ibaDatCoordinator</span>
-        <span class="chip">EVbee DC‑80 EVSE</span>
-        <span class="chip">Check Point Security Gateways</span>
-        <span class="chip">Fortinet FortiGate / FortiSandbox</span>
-        <span class="chip">Palo Alto Networks PAN‑OS (CAS)</span>
-        <span class="chip">Microsoft AD FS / SharePoint / Exchange / M365 Graph</span>
-        <span class="chip">WordPress Core</span>
-        <span class="chip">GeoServer</span>
-        <span class="chip">Grafana (Snowflake connector)</span>
-        <span class="chip">Hikvision ISAPI</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- Sectors -->
-  <section>
-    <h2>Affected Sectors</h2>
-    <div class="card">
-      <div class="chip-row">
-        <span class="chip">Energy (generation, transmission, substations)</span>
-        <span class="chip">Water/Wastewater</span>
-        <span class="chip">Critical Manufacturing</span>
-        <span class="chip">Transportation</span>
-        <span class="chip">Food & Agriculture (processing)</span>
-        <span class="chip">Building Automation / Access Control</span>
-        <span class="chip">Communications</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- TTPs and ATT&CK -->
-  <section>
-    <h2>TTPs and ATT&CK Observations</h2>
-    <div class="card">
-      <ul>
-        <li>Exploit Public‑Facing Application (T1190): WordPress, GeoServer, SharePoint.</li>
-        <li>Valid Accounts (T1078), Brute Force (T1110): VNC, VPN password spraying via residential proxies.</li>
-        <li>External Remote Services (T1133): Unauthorized RA via IKEv1 bypass; exposed VNC.</li>
-        <li>Abuse of Cloud APIs: Microsoft Graph/Outlook calendar for C2; OAuth device code flow phishing.</li>
-        <li>DLL Sideloading (T1574.002): ViPNet update abuse.</li>
-        <li>Command and Scripting (T1059), BITS (LOLBins): GeoServer incident, Stowaway tunnels.</li>
-        <li>Denial of Service on Controllers: Rockwell MNRF; EN2/EN3 DoS; SICAM 8 DoS.</li>
+    <div class="section card">
+      <h2>Vulnerability and CVE Watch</h2>
+      <ul class="bullets">
+        <li>Delta DVP12SE PLC Modbus unauth access/DoS; DTMSoft unsafe deserialization (RCE). <a href="https://www.cisa.gov/news-events/bulletins/sb26-187" target="_blank" rel="noopener noreferrer" class="source-link">CVE Summary</a></li>
+        <li>PcVue (<17) insecure built‑in credentials (local privilege escalation on HMI workstations). <a href="https://www.cisa.gov/news-events/bulletins/sb26-194" target="_blank" rel="noopener noreferrer" class="source-link">CVE Summary</a></li>
+        <li>EVbee DC‑80 multiple CVEs (web/Bluetooth/OCPP/firmware) enabling RCE and operational control. <a href="https://www.cisa.gov/news-events/bulletins/sb26-201" target="_blank" rel="noopener noreferrer" class="source-link">CVE Summary</a></li>
+        <li>PAN‑OS CVE‑2026‑0265 (CAS) and Check Point CVE‑2026‑50751 (RA) — active/in‑scope auth bypasses. <a href="https://www.jpcert.or.jp/at/2026/at260015.html" target="_blank" rel="noopener noreferrer" class="source-link">PAN‑OS Alert</a> <a href="https://www.jpcert.or.jp/at/2026/at260016.html" target="_blank" rel="noopener noreferrer" class="source-link">Check Point Alert</a></li>
+        <li>SharePoint/ADFS multiple CVEs under active exploitation; machine‑key theft and RCE observed. <a href="https://www.cisa.gov/news-events/alerts/2026/07/14/cisa-urges-sharepoint-hardening-after-new-exploitations" target="_blank" rel="noopener noreferrer" class="source-link">CISA</a></li>
+        <li>Tycon TPDIN‑Monitor‑WEB2 auth bypass/cleartext secrets; Siemens SIDIS SmartPlug critical vulns. <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-202-01" target="_blank" rel="noopener noreferrer" class="source-link">ICS Advisory</a> <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-202-04" target="_blank" rel="noopener noreferrer" class="source-link">ICS Advisory</a></li>
+        <li>ICU Scandinavia Boomerang (≤2.4.18.028) plaintext credentials and unauthorized writes. <a href="https://cert.pl/en/posts/2026/07/CVE-2026-46458/" target="_blank" rel="noopener noreferrer" class="source-link">CERT Advisory</a></li>
       </ul>
     </div>
-  </section>
 
-  <!-- Defensive Mitigation Priorities (Condensed) -->
-  <section>
-    <h2>Defensive Mitigation Priorities (Condensed Checklist)</h2>
-    <div class="grid-3">
-      <div class="card">
-        <h3>Identity & Access</h3>
-        <ul>
-          <li>Enforce phishing‑resistant MFA for VPN/jump hosts/admins.</li>
-          <li>Harden AD FS/SharePoint; rotate service credentials; restrict exposure.</li>
-          <li>Govern OAuth apps and consent in Entra ID; monitor device code grants.</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Network & Segmentation</h3>
-        <ul>
-          <li>Strict IT–OT segmentation; DPI firewalling for CIP/Modbus/S7.</li>
-          <li>Remove direct internet exposure for PLC/HMI/VNC; OOB admin networks.</li>
-          <li>Audit tunnels, GRE/ERSPAN, AAA servers; SNMPv3 only.</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Patching & Hardening</h3>
-        <ul>
-          <li>Prioritize KEV items and OT advisories (Rockwell/Siemens/SALTO).</li>
-          <li>Update WordPress core; patch GeoServer; update ViPNet/Grafana.</li>
-          <li>Disable IKEv1 on Check Point; patch Fortinet; rotate creds.</li>
-        </ul>
+    <div class="section card">
+      <h2>Affected Vendors and Technologies</h2>
+      <div class="chips">
+        <span class="pill">Rockwell Automation / Schneider Electric / Siemens PLCs</span>
+        <span class="pill">Palo Alto Networks PAN‑OS (GlobalProtect CAS)</span>
+        <span class="pill">Check Point Security Gateways (RA/Mobile Access)</span>
+        <span class="pill">Microsoft SharePoint / ADFS / IIS</span>
+        <span class="pill">ICU Scandinavia Boomerang</span>
+        <span class="pill">EVbee DC‑80 (OCPP/firmware/Bluetooth)</span>
+        <span class="pill">Delta Electronics PLC & Tools</span>
+        <span class="pill">PcVue HMI/SCADA</span>
+        <span class="pill">Siemens RUGGEDCOM APE + Virtual NGFW</span>
+        <span class="pill">Siemens SIDIS Secured SmartPlug</span>
+        <span class="pill">Tycon TPDIN‑Monitor‑WEB2</span>
+        <span class="pill">GeoServer (CVE‑2024‑36401)</span>
+        <span class="pill">Fortinet FortiGate / FortiSandbox</span>
       </div>
     </div>
-  </section>
 
-  <!-- Source References -->
-  <section>
-    <h2>Source References</h2>
-    <div class="card">
-      <ul>
-        <li>CISA Advisories and Bulletins:
-          <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-113a" target="_blank">AA26‑113a</a>,
-          <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-097a" target="_blank">AA26‑097a</a>,
-          <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa25-266a" target="_blank">AA25‑266a</a>,
-          <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa25-343a" target="_blank">AA25‑343a</a>,
-          <a href="https://www.cisa.gov/news-events/bulletins/sb26-187" target="_blank">SB26‑187</a>,
-          <a href="https://www.cisa.gov/news-events/bulletins/sb26-201" target="_blank">SB26‑201</a>,
-          <a href="https://www.cisa.gov/news-events/bulletins/sb26-173" target="_blank">SB26‑173</a>,
-          <a href="https://www.cisa.gov/news-events/bulletins/sb26-180" target="_blank">SB26‑180</a>
-        </li>
-        <li>JPCERT/CC:
-          <a href="https://www.jpcert.or.jp/at/2026/at260016.html" target="_blank">Check Point CVE‑2026‑50751</a>,
-          <a href="https://www.jpcert.or.jp/at/2026/at260019.html" target="_blank">Fortinet credential leak</a>,
-          <a href="https://www.jpcert.or.jp/at/2026/at260015.html" target="_blank">PAN‑OS CAS CVE‑2026‑0265</a>,
-          <a href="https://www.jpcert.or.jp/at/2026/at260017.html" target="_blank">Microsoft June</a>,
-          <a href="https://www.jpcert.or.jp/at/2026/at260020.html" target="_blank">Microsoft July</a>
-        </li>
-        <li>Rockwell/Siemens ICS Advisories via CISA:
-          <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-197-06" target="_blank">Rockwell MNRF</a>,
-          <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-197-02" target="_blank">Rockwell EN2/EN3/ENBT</a>,
-          <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-197-09" target="_blank">Rockwell DataMosaix</a>,
-          <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-197-05" target="_blank">Siemens SICAM 8</a>
-        </li>
-        <li>SANS ISC:
-          <a href="https://isc.sans.edu/diary/rss/33168" target="_blank">WordPress exploitation</a>,
-          <a href="https://isc.sans.edu/diary/rss/33164" target="_blank">Hikvision ISAPI scans</a>
-        </li>
-        <li>Kaspersky / Securelist:
-          <a href="https://securelist.com/project-cav3rn-cyberespionage-framework-using-outlook-and-dns/120757/" target="_blank">Project CAV3RN</a>,
-          <a href="https://securelist.com/tr/hellonet-vipnet/120700/" target="_blank">HelloNet ViPNet</a>
-        </li>
-        <li>Infosecurity Magazine:
-          <a href="https://www.infosecurity-magazine.com/news/researchers-wordpress-exploit/" target="_blank">WP2Shell</a>,
-          <a href="https://www.infosecurity-magazine.com/news/jadepuffer-ai-model-ransomware/" target="_blank">JadePuffer</a>
-        </li>
-        <li>KrebsOnSecurity:
-          <a href="https://krebsonsecurity.com/2026/07/microsoft-patches-a-record-570-security-flaws/" target="_blank">Microsoft Patch Tuesday</a>,
-          <a href="https://krebsonsecurity.com/2026/07/fbi-seizes-netnut-proxy-platform-popa-botnet/" target="_blank">NetNut takedown</a>,
-          <a href="https://krebsonsecurity.com/2026/06/popa-botnet-linked-to-publicly-traded-israeli-firm/" target="_blank">Popa botnet</a>
-        </li>
-        <li>heise Security:
-          <a href="https://www.heise.de/news/Sicherheitspatch-Grafana-Angreifer-koennen-sensible-Daten-abgreifen-11371859.html" target="_blank">Grafana CVE</a>,
-          <a href="https://www.heise.de/news/TeamViewer-BaFin-verhaengt-Bussgeld-nach-Cyberangriff-11371639.html" target="_blank">TeamViewer fine</a>,
-          <a href="https://www.heise.de/news/Coca-Cola-Molkereisparte-fairlife-stellt-Produktion-nach-Cyberangriff-ein-11371577.html" target="_blank">fairlife ransomware</a>,
-          <a href="https://www.heise.de/news/Nextcloud-Cyberangriff-auf-Webserver-mit-ungeschickter-Kommunikation-11371959.html" target="_blank">Nextcloud outage</a>
-        </li>
+    <div class="section card">
+      <h2>Affected Sectors</h2>
+      <ul class="bullets">
+        <li>Water and Wastewater Systems; Energy (generation, T&D); Government Services and Facilities</li>
+        <li>Transportation (EV charging infrastructure, telecom backbones); Critical Manufacturing</li>
+        <li>Building Automation (KNX), Biometric/Facility systems</li>
+        <li>Public sector GIS (GeoServer) supporting utilities and emergency services</li>
       </ul>
-      <div class="note">This section lists representative sources cited in event analyses. Additional trusted CERT/CSIRT and vendor advisories informed prioritization.</div>
     </div>
-  </section>
 
-  <footer>
-    Generated from AI‑assisted RSS OT/ICS cyber threat intelligence analysis. URLs remain the authoritative sources. No exploit code or offensive guidance is included.
-  </footer>
+    <div class="section card">
+      <h2>TTPs and MITRE ATT&CK-style observations</h2>
+      <ul class="bullets">
+        <li>Initial Access: VPN auth bypass (T1133 External Remote Services), Exploit Public‑Facing App (T1190), Exposed VNC/HMI (T1021.001)</li>
+        <li>Execution/Persistence: Webshells on SharePoint/GeoServer (T1505.003), Scheduled Tasks (T1053), DLL search‑order hijacking (Windows) (T1574.001)</li>
+        <li>Defense Evasion: OAuth/Service Principal abuse in M365 Graph (T1550.001/T1098.001), AMSI/WAF evasion via deserialization</li>
+        <li>Command & Control: DNS tunneling/AAAA channeling (T1071.004), Covert SOHO/IoT proxy chains</li>
+        <li>ICS‑Specific: Unauthorized Modbus/CIP commands, PLC mode changes, AOI tampering; OCPP DataTransfer injection</li>
+      </ul>
+    </div>
 
-</div>
+    <div class="section card">
+      <h2>Defensive Mitigation Priorities</h2>
+      <ul class="bullets">
+        <li>Remove OT devices from direct internet exposure; enforce industrial DMZ segmentation and monitored jump hosts. <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-097a" target="_blank" rel="noopener noreferrer" class="source-link">Security Advisory</a></li>
+        <li>Patch and harden SharePoint/ADFS; enable AMSI Full Mode; rotate machine keys and service credentials; hunt for webshells. <a href="https://www.cisa.gov/news-events/alerts/2026/07/14/cisa-urges-sharepoint-hardening-after-new-exploitations" target="_blank" rel="noopener noreferrer" class="source-link">Security Advisory</a></li>
+        <li>Disable legacy RA settings and patch VPN gateways (Check Point IKEv1; PAN‑OS CAS). Gate remote access with phishing‑resistant MFA. <a href="https://www.jpcert.or.jp/at/2026/at260016.html" target="_blank" rel="noopener noreferrer" class="source-link">JPCERT</a> <a href="https://www.jpcert.or.jp/at/2026/at260015.html" target="_blank" rel="noopener noreferrer" class="source-link">JPCERT</a></li>
+        <li>Isolate and harden EV charging/OCPP networks; enforce mTLS, disable unsigned firmware, and monitor for DataTransfer abuse. <a href="https://www.cisa.gov/news-events/bulletins/sb26-201" target="_blank" rel="noopener noreferrer" class="source-link">CISA Bulletin</a></li>
+        <li>Rotate Fortinet/FortiGate credentials; upgrade to PBKDF2 hashing; audit for config exports and anomalous admin access. <a href="https://www.jpcert.or.jp/at/2026/at260019.html" target="_blank" rel="noopener noreferrer" class="source-link">JPCERT</a></li>
+        <li>Apply ICS advisories for Tycon TPDIN‑Monitor‑WEB2 and Siemens SIDIS SmartPlug; remove default accounts and minimize exposure. <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-202-01" target="_blank" rel="noopener noreferrer" class="source-link">ICS Advisory</a> <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-202-04" target="_blank" rel="noopener noreferrer" class="source-link">ICS Advisory</a></li>
+        <li>Patch ICU Boomerang to ≥2.4.18.029; rotate all exposed service/SMTP creds; restrict static file exposure. <a href="https://cert.pl/en/posts/2026/07/CVE-2026-46458/" target="_blank" rel="noopener noreferrer" class="source-link">CERT Advisory</a></li>
+      </ul>
+    </div>
+
+    <div class="section card">
+      <h2>Next 72‑Hour Outlook</h2>
+      <ul class="bullets">
+        <li>Expect continued automated probing of SharePoint endpoints following PoC circulation; prioritize patch/validation and WAF rulesets on exposed portals.</li>
+        <li>Monitor GlobalProtect and Check Point RA auth logs for anomalous sessions; temporarily restrict access to allow‑listed IPs where feasible.</li>
+        <li>Increase OT perimeter monitoring for Modbus/CIP anomalies and VNC scans; enforce account lockouts and credential rotation on internet‑facing services.</li>
+        <li>EV charging/OCPP operators should deploy emergency ACLs and mTLS enforcement; review firmware signing policies.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Event Cards</h2>
+
+      <div class="section">
+        <h3 class="muted">C:ESCALATE</h3>
+
+        <div class="event">
+          <div class="hdr">
+            <div><span class="lvl escalate">C:ESCALATE</span> Iranian‑Affiliated Actors Exploiting PLCs Across U.S. CNI</div>
+            <div class="tag">THREAT: 5</div>
+          </div>
+          Actors tampered with PLC logic and HMI data, causing operational impacts. Immediate actions: remove internet exposure, validate logic integrity, enforce change management, and segment OT.
+          <div class="chips">
+            <span class="pill">Rockwell / Schneider / Siemens</span><span class="pill">Ports 44818/2222/102/502</span>
+          </div>
+          <div class="srcs"><a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-097a" target="_blank" rel="noopener noreferrer" class="source-link">Security Advisory</a></div>
+        </div>
+
+        <div class="event">
+          <div class="hdr">
+            <div><span class="lvl escalate">C:ESCALATE</span> SharePoint RCE & Machine‑Key Theft (Active)</div>
+            <div class="tag">THREAT: 4</div>
+          </div>
+          Active exploitation enables deserialization‑based RCE and key theft with persistent access and lateral movement potential. Patch, enable AMSI Full Mode, hunt for webshells, and rotate secrets.
+          <div class="chips">
+            <span class="pill">Microsoft SharePoint</span><span class="pill">Webshells</span><span class="pill">AMSI</span>
+          </div>
+          <div class="srcs">
+            <a href="https://www.cisa.gov/news-events/alerts/2026/07/14/cisa-urges-sharepoint-hardening-after-new-exploitations" target="_blank" rel="noopener noreferrer" class="source-link">Security Advisory</a>
+          </div>
+        </div>
+
+        <div class="event">
+          <div class="hdr">
+            <div><span class="lvl escalate">C:ESCALATE</span> Check Point RA/Mobile Access CVE‑2026‑50751 (Active Bypass)</div>
+            <div class="tag">THREAT: 5</div>
+          </div>
+          Disable IKEv1 and legacy clients, require machine certificates, and patch. Hunt for suspicious RA logins since at least 2026‑05‑07.
+          <div class="chips">
+            <span class="pill">Remote Access</span><span class="pill">IKEv1</span>
+          </div>
+          <div class="srcs"><a href="https://www.jpcert.or.jp/at/2026/at260016.html" target="_blank" rel="noopener noreferrer" class="source-link">JPCERT Alert</a></div>
+        </div>
+
+        <div class="event">
+          <div class="hdr">
+            <div><span class="lvl escalate">C:ESCALATE</span> PAN‑OS GlobalProtect CAS Authentication Bypass CVE‑2026‑0265</div>
+            <div class="tag">THREAT: 4</div>
+          </div>
+          Remove CAS profiles from all login interfaces until patched; restrict exposure; enforce MFA or device certs; monitor anomalous VPN sessions.
+          <div class="chips"><span class="pill">Palo Alto Networks</span><span class="pill">GlobalProtect</span></div>
+          <div class="srcs"><a href="https://www.jpcert.or.jp/at/2026/at260015.html" target="_blank" rel="noopener noreferrer" class="source-link">JPCERT Alert</a></div>
+        </div>
+
+        <div class="event">
+          <div class="hdr"><div><span class="lvl escalate">C:ESCALATE</span> EVbee DC‑80 EV Chargers: Multi‑Vector RCE/Control</div><div class="tag">THREAT: 5</div></div>
+          Unauthenticated web/Bluetooth control, unsigned firmware, and OCPP injection enable root RCE and unsafe operations. Isolate chargers and enforce OCPP/mTLS hardening.
+          <div class="chips"><span class="pill">OCPP</span><span class="pill">Firmware Signing</span></div>
+          <div class="srcs"><a href="https://www.cisa.gov/news-events/bulletins/sb26-201" target="_blank" rel="noopener noreferrer" class="source-link">CISA Bulletin</a></div>
+        </div>
+
+        <div class="event">
+          <div class="hdr"><div><span class="lvl escalate">C:ESCALATE</span> ICU Scandinavia Boomerang (Monitoring) Critical Flaws</div><div class="tag">THREAT: 4</div></div>
+          Plaintext service/SMTP creds via HTTP and unauthorized writes to sensor DBs risk data integrity and disruption. Upgrade ≥2.4.18.029 and rotate all credentials.
+          <div class="chips"><span class="pill">Credential Exposure</span><span class="pill">Config Leakage</span></div>
+          <div class="srcs"><a href="https://cert.pl/en/posts/2026/07/CVE-2026-46458/" target="_blank" rel="noopener noreferrer" class="source-link">CERT Polska</a></div>
+        </div>
+
+        <div class="event">
+          <div class="hdr"><div><span class="lvl escalate">C:ESCALATE</span> China‑Nexus Covert Networks (SOHO/IoT Proxies)</div><div class="tag">THREAT: 4</div></div>
+          Nation‑state actors route ops via compromised edge devices for stealthy CNI access. Harden routers/IoT, enable egress controls and NetFlow/NDR.
+          <div class="chips"><span class="pill">Volt Typhoon</span><span class="pill">Egress Filtering</span></div>
+          <div class="srcs"><a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-113a" target="_blank" rel="noopener noreferrer" class="source-link">Joint Advisory</a></div>
+        </div>
+
+        <div class="event">
+          <div class="hdr"><div><span class="lvl escalate">C:ESCALATE</span> FortiGate Credential Leak (“FortiBleed”)</div><div class="tag">THREAT: 4</div></div>
+          Credentials for >86k devices circulating; evidence of valid reuse. Rotate secrets, enforce PBKDF2, audit for config exports and AD abuse.
+          <div class="srcs"><a href="https://www.jpcert.or.jp/at/2026/at260019.html" target="_blank" rel="noopener noreferrer" class="source-link">JPCERT Alert</a></div>
+        </div>
+
+        <div class="event">
+          <div class="hdr"><div><span class="lvl escalate">C:ESCALATE</span> Nation‑State Campaigns Targeting Routers/Edges</div><div class="tag">THREAT: 5</div></div>
+          PRC and Russian operations modify ACLs, enable unusual mgmt ports, abuse tunnels, and capture AAA creds on Cisco/others—risk of OT pivoting.
+          <div class="chips"><span class="pill">Cisco IOS/IOS‑XE</span><span class="pill">AAA Harvesting</span></div>
+          <div class="srcs">
+            <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa25-239a" target="_blank" rel="noopener noreferrer" class="source-link">CSA (PRC)</a>
+            <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-194a" target="_blank" rel="noopener noreferrer" class="source-link">CSA (FSB)</a>
+          </div>
+        </div>
+
+        <div class="event">
+          <div class="hdr"><div><span class="lvl escalate">C:ESCALATE</span> KEV Updates: SonicWall SMA1000, ADFS, SharePoint</div><div class="tag">THREAT: 4</div></div>
+          Actively exploited edge/identity CVEs; isolate, patch, validate pre‑patch compromise.
+          <div class="srcs"><a href="https://www.cisa.gov/news-events/alerts/2026/07/14/cisa-adds-four-known-exploited-vulnerabilities-catalog" target="_blank" rel="noopener noreferrer" class="source-link">CISA KEV</a></div>
+        </div>
+
+        <div class="event">
+          <div class="hdr"><div><span class="lvl escalate">C:ESCALATE</span> KEV: FortiSandbox (Cmd Injection) & SharePoint</div><div class="tag">THREAT: 4</div></div>
+          Patch Fortinet appliances; restrict admin exposure; hunt for web‑to‑process activity on SharePoint.
+          <div class="srcs"><a href="https://www.cisa.gov/news-events/alerts/2026/07/16/cisa-adds-three-known-exploited-vulnerabilities-catalog" target="_blank" rel="noopener noreferrer" class="source-link">CISA KEV</a></div>
+        </div>
+
+        <div class="event">
+          <div class="hdr"><div><span class="lvl escalate">C:ESCALATE</span> KEV: KNX (Building Automation) & Oracle EBS</div><div class="tag">THREAT: 4</div></div>
+          Segment KNX/IP, enable KNX Secure; apply Oracle CPU; hunt for privilege abuse.
+          <div class="srcs"><a href="https://www.cisa.gov/news-events/alerts/2026/07/15/cisa-adds-two-known-exploited-vulnerabilities-catalog" target="_blank" rel="noopener noreferrer" class="source-link">CISA KEV</a></div>
+        </div>
+
+        <div class="event">
+          <div class="hdr"><div><span class="lvl escalate">C:ESCALATE</span> GeoServer RCE—Gov’t Incident Lessons & Active Botnet Abuse</div><div class="tag">THREAT: 4</div></div>
+          Exploited CVE‑2024‑36401 used for webshells and lateral movement; Rondo botnet activity observed in the wild.
+          <div class="srcs">
+            <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa25-266a" target="_blank" rel="noopener noreferrer" class="source-link">CISA Advisory</a>
+            <a href="https://isc.sans.edu/diary/rss/33176" target="_blank" rel="noopener noreferrer" class="source-link">SANS ISC</a>
+          </div>
+        </div>
+
+        <div class="event">
+          <div class="hdr"><div><span class="lvl escalate">C:ESCALATE</span> ICS‑Relevant Weekly CVE Summaries</div><div class="tag">THREAT: 4–5</div></div>
+          Multiple OT/ICS CVEs (Delta PLC, OpENer, PcVue, DAQFactory). Prioritize patch planning and segmentation.
+          <div class="srcs">
+            <a href="https://www.cisa.gov/news-events/bulletins/sb26-187" target="_blank" rel="noopener noreferrer" class="source-link">SB26‑187</a>
+            <a href="https://www.cisa.gov/news-events/bulletins/sb26-194" target="_blank" rel="noopener noreferrer" class="source-link">SB26‑194</a>
+            <a href="https://www.cisa.gov/news-events/bulletins/sb26-180" target="_blank" rel="noopener noreferrer" class="source-link">SB26‑180</a>
+          </div>
+        </div>
+
+        <div class="event">
+          <div class="hdr"><div><span class="lvl escalate">C:ESCALATE</span> OilRig/APT34 “Project CAV3RN” (Graph Calendar C2)</div><div class="tag">THREAT: 4</div></div>
+          Abuse of Outlook calendar events and DNS AAAA for stealthy C2; rotate service principals and hunt for calendar anomalies.
+          <div class="srcs"><a href="https://securelist.com/project-cav3rn-cyberespionage-framework-using-outlook-and-dns/120757/" target="_blank" rel="noopener noreferrer" class="source-link">Kaspersky GReAT</a></div>
+        </div>
+
+        <div class="event">
+          <div class="hdr"><div><span class="lvl escalate">C:ESCALATE</span> Fortinet/SharePoint: Additional KEV Items</div><div class="tag">THREAT: 3–4</div></div>
+          New KEV entries mandate rapid remediation and compromise checks per BOD 26‑04.
+          <div class="srcs"><a href="https://www.cisa.gov/news-events/alerts/2026/07/21/cisa-adds-four-known-exploited-vulnerabilities-catalog" target="_blank" rel="noopener noreferrer" class="source-link">CISA KEV</a></div>
+        </div>
+
+        <div class="event">
+          <div class="hdr"><div><span class="lvl escalate">C:ESCALATE</span> Pro‑Russia Hacktivists Target Exposed VNC on OT/HMI</div><div class="tag">THREAT: 4</div></div>
+          Opportunistic setpoint changes and alarm suppression. Remove VNC exposure; require VPN+MFA for remote ops.
+          <div class="srcs"><a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa25-343a" target="_blank" rel="noopener noreferrer" class="source-link">Joint Advisory</a></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3 class="muted">B:MONITOR</h3>
+
+        <div class="event">
+          <div class="hdr"><div><span class="lvl monitor">B:MONITOR</span> Siemens RUGGEDCOM APE1808 hosting PAN‑OS Issues</div><div class="tag">THREAT: 3</div></div>
+          PAN‑OS vulnerabilities affect virtual NGFW on APE; patch per Palo Alto advisories; restrict mgmt exposure.
+          <div class="srcs"><a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-202-02" target="_blank" rel="noopener noreferrer" class="source-link">ICS Advisory</a></div>
+        </div>
+
+        <div class="event">
+          <div class="hdr"><div><span class="lvl monitor">B:MONITOR</span> Siemens SIDIS Secured SmartPlug Critical Vulns</div><div class="tag">THREAT: 4</div></div>
+          Upgrade to v7.26.0310; segment and restrict SSH/TLS management; rotate keys post‑update.
+          <div class="srcs"><a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-202-04" target="_blank" rel="noopener noreferrer" class="source-link">ICS Advisory</a></div>
+        </div>
+
+        <div class="event">
+          <div class="hdr"><div><span class="lvl monitor">B:MONITOR</span> Tycon TPDIN‑Monitor‑WEB2 Auth Bypass/Cleartext Secrets</div><div class="tag">THREAT: 3</div></div>
+          Remove public web access, rotate device credentials, and apply vendor mitigations.
+          <div class="srcs"><a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-202-01" target="_blank" rel="noopener noreferrer" class="source-link">ICS Advisory</a></div>
+        </div>
+
+        <div class="event">
+          <div class="hdr"><div><span class="lvl monitor">B:MONITOR</span> TrickBot Variant Using DNS Tunneling C2</div><div class="tag">THREAT: 3</div></div>
+          Inspect DNS egress, restrict public resolvers, and monitor scheduled task/ADS abuse tied to ransomware operators.
+          <div class="srcs"><a href="https://www.infosecurity-magazine.com/news/trickbot-dns-tunneling-c2/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></div>
+        </div>
+
+        <div class="event">
+          <div class="hdr"><div><span class="lvl monitor">B:MONITOR</span> Ubuntu snap‑confine LPE (CVE‑2026‑8933)</div><div class="tag">THREAT: 3</div></div>
+          Patch snapd packages; watch /run/udev rules and FUSE mounts; LPE can convert phishing footholds to root on jump hosts.
+          <div class="srcs"><a href="https://www.heise.de/news/Rechteausweitungsluecke-in-Ubuntu-durch-snap-11375280.html" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></div>
+        </div>
+
+        <div class="event">
+          <div class="hdr"><div><span class="lvl monitor">B:MONITOR</span> FBI/IRS‑CI Seize NetNut; TV Proxy Botnet Disrupted</div><div class="tag">THREAT: 3</div></div>
+          Block residential proxy exits; monitor auth anomalies; proxy capacity may reconstitute via resellers.
+          <div class="srcs"><a href="https://krebsonsecurity.com/2026/07/fbi-seizes-netnut-proxy-platform-popa-botnet/" target="_blank" rel="noopener noreferrer" class="source-link">KrebsOnSecurity</a></div>
+        </div>
+
+        <div class="event">
+          <div class="hdr"><div><span class="lvl monitor">B:MONITOR</span> Atlassian Stack: Multiple Critical/High Fixes</div><div class="tag">THREAT: 3</div></div>
+          Patch Bamboo/Bitbucket/Confluence/Jira; protect CI/CD tokens to prevent supply‑chain impact on OT gateways.
+          <div class="srcs"><a href="https://www.heise.de/news/Atlassian-Schadcode-Luecken-bedrohen-Bamboo-und-Bitbucket-11375008.html" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></div>
+        </div>
+
+        <div class="event">
+          <div class="hdr"><div><span class="lvl monitor">B:MONITOR</span> HelloNet Campaign via ViPNet Update System</div><div class="tag">THREAT: 4</div></div>
+          DLL sideloading/injection to svchost; rotate Entra/app creds; segment ViPNet bridges to OT.
+          <div class="srcs"><a href="https://securelist.com/tr/hellonet-vipnet/120700/" target="_blank" rel="noopener noreferrer" class="source-link">Kaspersky</a></div>
+        </div>
+
+        <div class="event">
+          <div class="hdr"><div><span class="lvl monitor">B:MONITOR</span> Kaspersky ICS Q1‑2026 Telemetry</div><div class="tag">THREAT: 3</div></div>
+          Elevated exposure for electric power, construction, building automation; emphasize email/web filtering and AutoCAD controls.
+          <div class="srcs"><a href="https://securelist.com/industrial-threat-report-q1-2026/120643/" target="_blank" rel="noopener noreferrer" class="source-link">ICS CERT Report</a></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3 class="muted">A:IGNORE</h3>
+
+        <div class="event">
+          <div class="hdr"><div><span class="lvl ignore">A:IGNORE</span> NCSC Policy/AI Overviews (No OT Indicators)</div><div class="tag">THREAT: 1</div></div>
+          High‑level guidance without actionable IOCs or OT/ICS relevance.
+          <div class="srcs">
+            <a href="https://www.ncsc.gov.uk/report/impact-ai-cyber-threat-now-2027" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+            <a href="https://www.ncsc.gov.uk/report/a-method-to-assess-forgivable-vs-unforgivable-vulnerabilities" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+          </div>
+        </div>
+
+        <div class="event">
+          <div class="hdr"><div><span class="lvl ignore">A:IGNORE</span> Captive Portal Detection Traffic Explained</div><div class="tag">THREAT: 1</div></div>
+          Benign OS/browser connectivity checks; allowlist known endpoints to reduce false positives.
+          <div class="srcs"><a href="https://isc.sans.edu/diary/rss/33172" target="_blank" rel="noopener noreferrer" class="source-link">SANS ISC</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section card">
+      <h2>Source References</h2>
+      <ul class="bullets">
+        <li>AA26‑097a: Iranian‑Affiliated Cyber Actors Exploit PLCs — <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-097a" target="_blank" rel="noopener noreferrer" class="source-link">Security Advisory</a></li>
+        <li>SharePoint Hardening/Exploitation — <a href="https://www.cisa.gov/news-events/alerts/2026/07/14/cisa-urges-sharepoint-hardening-after-new-exploitations" target="_blank" rel="noopener noreferrer" class="source-link">CISA Alert</a></li>
+        <li>Check Point RA CVE‑2026‑50751 — <a href="https://www.jpcert.or.jp/at/2026/at260016.html" target="_blank" rel="noopener noreferrer" class="source-link">JPCERT</a></li>
+        <li>PAN‑OS CAS CVE‑2026‑0265 — <a href="https://www.jpcert.or.jp/at/2026/at260015.html" target="_blank" rel="noopener noreferrer" class="source-link">JPCERT</a></li>
+        <li>EVbee DC‑80 — <a href="https://www.cisa.gov/news-events/bulletins/sb26-201" target="_blank" rel="noopener noreferrer" class="source-link">CISA Bulletin</a></li>
+        <li>ICU Boomerang — <a href="https://cert.pl/en/posts/2026/07/CVE-2026-46458/" target="_blank" rel="noopener noreferrer" class="source-link">CERT Polska</a></li>
+        <li>China‑Nexus Covert Networks — <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-113a" target="_blank" rel="noopener noreferrer" class="source-link">Joint Advisory</a></li>
+        <li>FortiBleed — <a href="https://www.jpcert.or.jp/at/2026/at260019.html" target="_blank" rel="noopener noreferrer" class="source-link">JPCERT</a></li>
+        <li>Router/Edge CSAs — <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa25-239a" target="_blank" rel="noopener noreferrer" class="source-link">PRC CSA</a> | <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-194a" target="_blank" rel="noopener noreferrer" class="source-link">FSB CSA</a></li>
+        <li>KEV Updates (7/14, 7/15, 7/16, 7/21, 7/22) — <a href="https://www.cisa.gov/news-events/alerts/2026/07/14/cisa-adds-four-known-exploited-vulnerabilities-catalog" target="_blank" rel="noopener noreferrer" class="source-link">7/14</a> <a href="https://www.cisa.gov/news-events/alerts/2026/07/15/cisa-adds-two-known-exploited-violations-catalog" target="_blank" rel="noopener noreferrer" class="source-link">7/15</a> <a href="https://www.cisa.gov/news-events/alerts/2026/07/16/cisa-adds-three-known-exploited-vulnerabilities-catalog" target="_blank" rel="noopener noreferrer" class="source-link">7/16</a> <a href="https://www.cisa.gov/news-events/alerts/2026/07/21/cisa-adds-four-known-exploited-vulnerabilities-catalog" target="_blank" rel="noopener noreferrer" class="source-link">7/21</a> <a href="https://www.cisa.gov/news-events/alerts/2026/07/22/cisa-adds-two-known-exploited-vulnerabilities-catalog" target="_blank" rel="noopener noreferrer" class="source-link">7/22</a></li>
+        <li>ICS CVE Summaries — <a href="https://www.cisa.gov/news-events/bulletins/sb26-187" target="_blank" rel="noopener noreferrer" class="source-link">SB26‑187</a> <a href="https://www.cisa.gov/news-events/bulletins/sb26-180" target="_blank" rel="noopener noreferrer" class="source-link">SB26‑180</a> <a href="https://www.cisa.gov/news-events/bulletins/sb26-194" target="_blank" rel="noopener noreferrer" class="source-link">SB26‑194</a></li>
+        <li>Tycon / Siemens ICS Advisories — <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-202-01" target="_blank" rel="noopener noreferrer" class="source-link">Tycon</a> <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-202-04" target="_blank" rel="noopener noreferrer" class="source-link">Siemens SIDIS</a> <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-202-02" target="_blank" rel="noopener noreferrer" class="source-link">Siemens APE1808</a> <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-202-05" target="_blank" rel="noopener noreferrer" class="source-link">Siemens IAM Client</a></li>
+        <li>GeoServer IR & SANS Botnet Activity — <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa25-266a" target="_blank" rel="noopener noreferrer" class="source-link">CISA</a> <a href="https://isc.sans.edu/diary/rss/33176" target="_blank" rel="noopener noreferrer" class="source-link">SANS ISC</a></li>
+        <li>APT34 CAV3RN (Kaspersky) — <a href="https://securelist.com/project-cav3rn-cyberespionage-framework-using-outlook-and-dns/120757/" target="_blank" rel="noopener noreferrer" class="source-link">Securelist</a></li>
+      </ul>
+    </div>
+
+    <div class="foot">
+      Generated from AI-assisted RSS OT/ICS cyber threat intelligence analysis. All source URLs preserved and linked in-line.
+    </div>
+  </div>
 </body>
 </html>
