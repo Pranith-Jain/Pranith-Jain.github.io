@@ -6,7 +6,7 @@
  * Uses system/user prompt separation for more reliable verification.
  */
 import type { Ai } from '@cloudflare/workers-types';
-import { runCompletion, type CompletionInput } from '../../case-study/generation/ai-client';
+import { runCompletion, type CompletionInput, isRateLimited } from '../../case-study/generation/ai-client';
 import type { AgentStep } from './types';
 import { neutralizeUntrusted } from '../prompt-fence';
 import { QaOutputSchema, parseWithErrors, type QaOutputValidated } from './schemas';
@@ -29,6 +29,9 @@ export interface QaResult {
  * Verify a synthesized report against the collected investigation data.
  * Returns a corrected report with hallucinations removed and missing
  * facts added.
+ *
+ * If all LLM providers are exhausted (rate-limited/timed out), skips
+ * verification gracefully and returns the original report unchanged.
  */
 export async function verifyReport(
   ai: Ai,
@@ -47,37 +50,54 @@ export async function verifyReport(
   const user = buildQaUserPrompt(query, originalReport, dataSummary);
   const input: CompletionInput = { system, user, maxTokens: 4000, temperature: 0.1 };
 
-  const MAX_RETRIES = 2;
-  let lastErrors = '';
+  const MAX_RETRIES = 1;
+  let lastErr = '';
   let modelUsed = '';
+  let allProvidersExhausted = false;
 
   for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
-    const result = await runCompletion(ai, input, {
-      groqKey: opts.groqKey,
-      nvidiaKey: opts.nvidiaKey,
-      quality: true,
-      role: 'qa-verifier',
-    });
-    modelUsed = result.modelUsed;
+    try {
+      const result = await runCompletion(ai, input, {
+        groqKey: opts.groqKey,
+        nvidiaKey: opts.nvidiaKey,
+        quality: true,
+        role: 'qa-verifier',
+      });
+      modelUsed = result.modelUsed;
 
-    const parsed = parseWithErrors(result.text, QaOutputSchema);
-    if (parsed.ok) {
-      // Apply corrections and return
-      return applyCorrections(parsed.data, originalReport, modelUsed);
-    }
+      const parsed = parseWithErrors(result.text, QaOutputSchema);
+      if (parsed.ok) {
+        return applyCorrections(parsed.data, originalReport, modelUsed);
+      }
 
-    lastErrors = parsed.errors;
-    if (attempt < MAX_RETRIES) {
-      input.user = `${user}\n\nIMPORTANT: Respond with ONLY valid JSON matching the required schema. Errors to fix:\n${lastErrors}`;
+      lastErr = parsed.errors;
+      if (attempt < MAX_RETRIES) {
+        input.user = `${user}\n\nIMPORTANT: Respond with ONLY valid JSON matching the required schema. Errors to fix:\n${lastErr}`;
+      }
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      lastErr = msg;
+
+      // If all providers are exhausted, don't retry — it won't help
+      if (isRateLimited(err) || msg.includes('All LLM providers exhausted') || msg.includes('timeout')) {
+        allProvidersExhausted = true;
+        console.warn(`qa-verifier: providers exhausted on attempt ${attempt + 1}, skipping`);
+        break;
+      }
     }
   }
 
-  console.warn('qa-verifier: validation failed after retries, returning unchanged', lastErrors);
+  if (allProvidersExhausted) {
+    console.warn('qa-verifier: all providers exhausted, returning unchanged report');
+  } else {
+    console.warn('qa-verifier: validation failed after retries, returning unchanged', lastErr);
+  }
+
   return {
     verifiedReport: originalReport,
     flaggedClaims: [],
     missingFacts: [],
-    qualityScore: 50,
+    qualityScore: allProvidersExhausted ? -1 : 50,
     modelUsed,
   };
 }
@@ -89,14 +109,17 @@ function buildDataSummary(steps: AgentStep[]): string {
     for (const r of step.results) {
       if (r.status !== 'ok' || !r.data) continue;
       const json = JSON.stringify(r.data);
-      // Truncate large results but keep enough for fact-checking
-      const truncated = json.length > 1500 ? json.slice(0, 1500) + '...' : json;
+      // Truncate large results to fit provider token limits.
+      // 800 chars per tool keeps total prompt under ~4K tokens.
+      const truncated = json.length > 800 ? json.slice(0, 800) + '...' : json;
       // Tool data is untrusted — neutralize so it cannot forge the
       // </collected_data> delimiter or inject QA instructions.
       lines.push(`[${r.tool}] ${neutralizeUntrusted(truncated)}`);
     }
   }
-  return lines.join('\n\n');
+  // Cap total data summary at ~3200 chars to stay within provider limits
+  const joined = lines.join('\n\n');
+  return joined.length > 3200 ? joined.slice(0, 3200) + '\n...(truncated)' : joined;
 }
 
 function buildQaUserPrompt(query: string, report: string, dataSummary: string): string {

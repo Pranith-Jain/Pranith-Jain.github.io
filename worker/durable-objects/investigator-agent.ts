@@ -669,6 +669,7 @@ export class InvestigatorAgentDO {
         // ── SELF-CORRECTION LOOP ──────────────────────────────────────
         // If QA score is low and there are fixable issues, re-synthesize
         // with the QA feedback and re-verify. Max 1 retry to avoid loops.
+        // Skip if QA returned -1 (providers exhausted — retrying won't help).
         let finalReport = result.report;
         let finalActionCard = result.actionCard;
         let finalModelUsed = `${result.modelUsed} → QA:${qa.modelUsed}`;
@@ -678,7 +679,10 @@ export class InvestigatorAgentDO {
           missingFacts: qa.missingFacts,
         };
 
-        if (shouldRetry(qa.qualityScore, qa.flaggedClaims.length, qa.missingFacts.length, stepNum, state.maxSteps)) {
+        if (
+          qa.qualityScore >= 0 &&
+          shouldRetry(qa.qualityScore, qa.flaggedClaims.length, qa.missingFacts.length, stepNum, state.maxSteps)
+        ) {
           const workingMem = this.buildWorkingMemory(state);
           const memStr = memoryToPrompt(workingMem);
           const correctionPrompt = buildSelfCorrectionPrompt(
@@ -724,7 +728,10 @@ export class InvestigatorAgentDO {
             qaStep.observation = `QA complete. Self-correction did not improve (${qa.qualityScore}→${qa2.qualityScore}). Keeping original.`;
           }
         } else {
-          qaStep.observation = `QA complete. Score: ${qa.qualityScore}/100. Flagged: ${qa.flaggedClaims.length} claims. Missing: ${qa.missingFacts.length} facts.`;
+          qaStep.observation =
+            qa.qualityScore < 0
+              ? `QA skipped — all LLM providers exhausted. Original report preserved.`
+              : `QA complete. Score: ${qa.qualityScore}/100. Flagged: ${qa.flaggedClaims.length} claims. Missing: ${qa.missingFacts.length} facts.`;
         }
 
         // Use the verified report (hallucinations removed, facts added).
