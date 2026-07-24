@@ -4,6 +4,8 @@
  * and scores the report quality.
  *
  * Uses system/user prompt separation for more reliable verification.
+ * Supports ensemble mode: when multiple providers are available, runs
+ * QA on multiple models and takes the consensus score.
  */
 import type { Ai } from '@cloudflare/workers-types';
 import { runCompletion, type CompletionInput, isRateLimited } from '../../case-study/generation/ai-client';
@@ -11,6 +13,7 @@ import type { AgentStep } from './types';
 import { neutralizeUntrusted } from '../prompt-fence';
 import { QaOutputSchema, parseWithErrors, type QaOutputValidated } from './schemas';
 import { buildQaSystemPrompt } from './agent-framework';
+import { ensembleVerifyReport } from './ensemble-qa';
 
 export interface QaResult {
   /** The verified/corrected report (may differ from original) */
@@ -34,6 +37,36 @@ export interface QaResult {
  * verification gracefully and returns the original report unchanged.
  */
 export async function verifyReport(
+  ai: Ai,
+  query: string,
+  queryType: string,
+  originalReport: string,
+  steps: AgentStep[],
+  opts: { groqKey?: string; nvidiaKey?: string; googleKey?: string }
+): Promise<QaResult> {
+  // Use ensemble mode when multiple providers are available (Gemini + Groq)
+  // This runs QA on multiple models and takes the consensus for higher accuracy
+  if (opts.googleKey && opts.groqKey) {
+    try {
+      const ensemble = await ensembleVerifyReport(ai, query, queryType, originalReport, steps, opts);
+      return {
+        verifiedReport: ensemble.verifiedReport,
+        flaggedClaims: ensemble.flaggedClaims,
+        missingFacts: ensemble.missingFacts,
+        qualityScore: ensemble.qualityScore,
+        modelUsed: ensemble.modelUsed,
+      };
+    } catch (err) {
+      // Ensemble failed — fall back to single-model QA
+      console.warn('qa-verifier: ensemble failed, falling back to single model', err);
+    }
+  }
+
+  // Single-model fallback (original logic)
+  return singleModelVerifyReport(ai, query, queryType, originalReport, steps, opts);
+}
+
+async function singleModelVerifyReport(
   ai: Ai,
   query: string,
   queryType: string,
