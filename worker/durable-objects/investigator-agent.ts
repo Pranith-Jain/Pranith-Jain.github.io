@@ -218,6 +218,7 @@ export class InvestigatorAgentDO {
             modelUsed: next.modelUsed,
             qa: next.qa,
             actionCard: next.actionCard,
+            sources: next.sources,
           });
         } else {
           // Schedule next step with a small delay to avoid burst
@@ -609,6 +610,23 @@ export class InvestigatorAgentDO {
         state.actionCard = result.actionCard;
         state.modelUsed = result.modelUsed;
       }
+
+      // Derive source badges from tool results
+      const toolCounts = new Map<string, number>();
+      for (const s of state.steps) {
+        for (const r of s.results) {
+          if (r.status === 'ok' && r.data) {
+            const count = (toolCounts.get(r.tool) ?? 0) + 1;
+            toolCounts.set(r.tool, count);
+          }
+        }
+      }
+      state.sources = [...toolCounts.entries()]
+        .map(([name, items]) => ({
+          name: name.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
+          items,
+        }))
+        .sort((a, b) => b.items - a.items);
 
       state.steps.push(synthesizeStep);
       state.steps.push(qaStep);

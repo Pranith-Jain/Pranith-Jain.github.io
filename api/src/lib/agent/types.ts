@@ -85,6 +85,12 @@ export interface AgentState {
   actionCard?: ReportActionCard;
   /** Structured investigation log for observability. */
   log?: InvestigationLogEntry[];
+  /**
+   * Source metadata derived from tool results — produced by doSynthesize().
+   * Each entry aggregates all results from one tool, giving the UI a
+   * "badge bar" of the data sources that fed the report.
+   */
+  sources?: Array<{ name: string; items: number }>;
 }
 
 /** Structured log entry for the investigation loop. */

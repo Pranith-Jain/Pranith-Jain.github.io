@@ -285,7 +285,13 @@ import {
   getVaultTagsHandler,
 } from './routes/malware-vault';
 import { copilotInvestigateHandler } from './routes/copilot';
-import { copilotChatHandler, copilotChatStreamHandler, copilotChatHistoryHandler } from './routes/copilot-chat';
+import {
+  copilotChatHandler,
+  copilotChatStreamHandler,
+  copilotChatHistoryHandler,
+  copilotChatListHandler,
+  copilotChatDeleteHandler,
+} from './routes/copilot-chat';
 import { ssvcTriageHandler, ssvcGetHandler, ssvcStatsHandler } from './routes/ssvc-triage';
 import { dossierHandler, dossierGetHandler } from './routes/dossier';
 import {
@@ -1489,8 +1495,10 @@ app.post('/api/v1/saved-reports/correlate', correlateIocs);
 app.post('/api/v1/copilot/investigate', validate('json', copilotInvestigateSchema), copilotInvestigateHandler);
 app.get('/api/v1/copilot/investigate', copilotInvestigateHandler);
 app.post('/api/v1/copilot/chat', copilotChatHandler);
+app.get('/api/v1/copilot/chat/sessions', copilotChatListHandler);
 app.get('/api/v1/copilot/chat/:sessionId/stream', copilotChatStreamHandler);
 app.get('/api/v1/copilot/chat/:sessionId', copilotChatHistoryHandler);
+app.delete('/api/v1/copilot/chat/:sessionId', copilotChatDeleteHandler);
 // Vera — multi-mode conversational CTI (4 chat modes: Ask, Investigate, Draft, Challenge)
 app.post('/api/v1/agents/chat', veraChatHandler);
 app.get('/api/v1/agents/chat/modes', veraChatModesHandler);

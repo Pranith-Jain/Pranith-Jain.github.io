@@ -11,10 +11,13 @@ export interface ChatMessage {
   query_type?: string;
   model_used?: string;
   processed_at?: string;
+  sources?: Array<{ name: string; items: number }>;
+  _meta?: { total_sources: number; total_items: number };
 }
 
 interface ChatSession {
   id: string;
+  title?: string;
   messages: ChatMessage[];
   created_at: string;
   updated_at: string;
@@ -68,22 +71,33 @@ function getLastSubstantiveQueryType(messages: ChatMessage[]): string | null {
   return null;
 }
 
+function truncate(s: string, max: number): string {
+  if (s.length <= max) return s;
+  return s.slice(0, max) + '…';
+}
+
 async function ensureTable(db: D1Database): Promise<void> {
   await db
     .prepare(
       `CREATE TABLE IF NOT EXISTS copilot_sessions (
         id TEXT PRIMARY KEY,
+        title TEXT NOT NULL DEFAULT '',
         messages_json TEXT NOT NULL DEFAULT '[]',
         created_at TEXT NOT NULL DEFAULT (datetime('now')),
         updated_at TEXT NOT NULL DEFAULT (datetime('now'))
       )`
     )
     .run();
+  await db
+    .prepare(`ALTER TABLE copilot_sessions ADD COLUMN title TEXT NOT NULL DEFAULT ''`)
+    .run()
+    .catch(() => {});
 }
 
 async function loadSession(db: D1Database, id: string): Promise<ChatSession | null> {
   const row = await db.prepare('SELECT * FROM copilot_sessions WHERE id = ?').bind(id).first<{
     id: string;
+    title: string;
     messages_json: string;
     created_at: string;
     updated_at: string;
@@ -91,6 +105,7 @@ async function loadSession(db: D1Database, id: string): Promise<ChatSession | nu
   if (!row) return null;
   return {
     id: row.id,
+    title: row.title,
     messages: JSON.parse(row.messages_json) as ChatMessage[],
     created_at: row.created_at,
     updated_at: row.updated_at,
@@ -100,12 +115,50 @@ async function loadSession(db: D1Database, id: string): Promise<ChatSession | nu
 async function saveSession(db: D1Database, session: ChatSession): Promise<void> {
   await db
     .prepare(
-      `INSERT INTO copilot_sessions (id, messages_json, created_at, updated_at)
-       VALUES (?, ?, ?, ?)
-       ON CONFLICT(id) DO UPDATE SET messages_json = excluded.messages_json, updated_at = excluded.updated_at`
+      `INSERT INTO copilot_sessions (id, title, messages_json, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?)
+       ON CONFLICT(id) DO UPDATE SET title = excluded.title, messages_json = excluded.messages_json, updated_at = excluded.updated_at`
     )
-    .bind(session.id, JSON.stringify(session.messages), session.created_at, new Date().toISOString())
+    .bind(
+      session.id,
+      session.title ?? '',
+      JSON.stringify(session.messages),
+      session.created_at,
+      new Date().toISOString()
+    )
     .run();
+}
+
+export async function copilotChatListHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  try {
+    const db = c.env.BRIEFINGS_DB as D1Database | undefined;
+    if (!db) return internalError(c, new Error('BRIEFINGS_DB not bound'));
+    await ensureTable(db);
+    const rows = await db
+      .prepare(
+        'SELECT id, title, messages_json, created_at, updated_at FROM copilot_sessions ORDER BY updated_at DESC LIMIT 50'
+      )
+      .all<{ id: string; title: string; messages_json: string; created_at: string; updated_at: string }>();
+    const sessions = (rows.results ?? [])
+      .map((row) => {
+        const msgs = JSON.parse(row.messages_json) as ChatMessage[];
+        const userCount = msgs.filter((m) => m.role === 'user').length;
+        const firstUser = msgs.find((m) => m.role === 'user');
+        const title = row.title || (firstUser ? truncate(firstUser.content, 55) : 'Untitled');
+        return {
+          id: row.id,
+          title,
+          messageCount: userCount,
+          created_at: row.created_at,
+          updated_at: row.updated_at,
+        };
+      })
+      .filter((s) => s.messageCount > 0);
+    return c.json({ sessions });
+  } catch (e) {
+    console.error('copilotChatListHandler failed:', e instanceof Error ? e.message : String(e));
+    return internalError(c, e);
+  }
 }
 
 export async function copilotChatHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
@@ -124,6 +177,7 @@ export async function copilotChatHandler(c: Context<{ Bindings: Env }>): Promise
     await ensureTable(db);
 
     let session: ChatSession;
+    let isNewSession = false;
     if (body.sessionId) {
       const existing = await loadSession(db, body.sessionId);
       if (!existing) return notFound(c, 'session not found');
@@ -135,6 +189,11 @@ export async function copilotChatHandler(c: Context<{ Bindings: Env }>): Promise
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       };
+      isNewSession = true;
+    }
+
+    if (!session.title) {
+      session.title = truncate(query, 55);
     }
 
     const queryType = detectType(query) as string;
@@ -176,7 +235,7 @@ export async function copilotChatHandler(c: Context<{ Bindings: Env }>): Promise
     session.messages.push({ role: 'system', content: '', agent_id: agentId });
     await saveSession(db, session);
 
-    return c.json({ sessionId: session.id, agentId });
+    return c.json({ sessionId: session.id, agentId, isNewSession });
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, e);
@@ -247,14 +306,22 @@ export async function copilotChatStreamHandler(c: Context<{ Bindings: Env }>): P
             const errMsg = state.status === 'error' ? (state.error ?? 'Unknown error') : null;
 
             if (report) {
-              session.messages.push({
+              const assistantMsg: ChatMessage = {
                 role: 'assistant',
                 content: report,
                 agent_id: agentId,
                 query_type: state.queryType,
                 model_used: state.modelUsed ?? undefined,
                 processed_at: state.completedAt ?? new Date().toISOString(),
-              });
+              };
+              if (state.sources) {
+                assistantMsg.sources = state.sources;
+                assistantMsg._meta = {
+                  total_sources: state.sources.length,
+                  total_items: state.sources.reduce((n, s) => n + s.items, 0),
+                };
+              }
+              session.messages.push(assistantMsg);
 
               const maxHistory = 20;
               if (session.messages.length > maxHistory) {
@@ -265,7 +332,6 @@ export async function copilotChatStreamHandler(c: Context<{ Bindings: Env }>): P
                 await saveSession(db, session);
               } catch (_catchErr) {
                 console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-                /* non-fatal */
               }
             }
 
@@ -275,6 +341,13 @@ export async function copilotChatStreamHandler(c: Context<{ Bindings: Env }>): P
                 report,
                 error: errMsg,
                 modelUsed: state.modelUsed,
+                sources: state.sources,
+                _meta: state.sources
+                  ? {
+                      total_sources: state.sources.length,
+                      total_items: state.sources.reduce((n, s) => n + s.items, 0),
+                    }
+                  : undefined,
               })
             );
 
@@ -283,12 +356,10 @@ export async function copilotChatStreamHandler(c: Context<{ Bindings: Env }>): P
               controller.close();
             } catch (_catchErr) {
               console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-              /* already closed */
             }
           }
         } catch (_catchErr) {
           console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-          /* poll */
         }
       }, 800);
 
@@ -307,7 +378,6 @@ export async function copilotChatStreamHandler(c: Context<{ Bindings: Env }>): P
             controller.close();
           } catch (_catchErr) {
             console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-            /* already closed */
           }
         }
       }, 120_000);
@@ -321,7 +391,6 @@ export async function copilotChatStreamHandler(c: Context<{ Bindings: Env }>): P
           controller.close();
         } catch (_catchErr) {
           console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-          /* already closed */
         }
       });
     },
@@ -334,6 +403,26 @@ export async function copilotChatStreamHandler(c: Context<{ Bindings: Env }>): P
       connection: 'keep-alive',
     },
   });
+}
+
+export async function copilotChatDeleteHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  try {
+    const sessionId = c.req.param('sessionId');
+    if (!sessionId) return badRequest(c, 'sessionId required');
+
+    const db = c.env.BRIEFINGS_DB as D1Database | undefined;
+    if (!db) return internalError(c, new Error('BRIEFINGS_DB not bound'));
+
+    await ensureTable(db);
+    const existing = await loadSession(db, sessionId);
+    if (!existing) return notFound(c, 'session not found');
+
+    await db.prepare('DELETE FROM copilot_sessions WHERE id = ?').bind(sessionId).run();
+    return c.json({ deleted: true });
+  } catch (e) {
+    console.error('copilotChatDeleteHandler failed:', e instanceof Error ? e.message : String(e));
+    return internalError(c, e);
+  }
 }
 
 export async function copilotChatHistoryHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
@@ -350,6 +439,7 @@ export async function copilotChatHistoryHandler(c: Context<{ Bindings: Env }>): 
 
     return c.json({
       sessionId: session.id,
+      title: session.title,
       messages: session.messages,
       created_at: session.created_at,
       updated_at: session.updated_at,

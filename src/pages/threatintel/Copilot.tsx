@@ -19,6 +19,16 @@ import {
   Target,
   Brain,
   BarChart3,
+  Plus,
+  MessageSquare,
+  Check,
+  Copy,
+  Edit3,
+  Download,
+  PanelLeftClose,
+  Clock,
+  Trash2,
+  List,
 } from 'lucide-react';
 import { FeedbackWidget } from '../../components/FeedbackWidget';
 import { BackLink } from '../../components/BackLink';
@@ -30,7 +40,7 @@ import { ReportView } from '../../components/threatintel/ReportView';
 interface Source {
   name: string;
   items: number;
-  data: unknown[];
+  data?: unknown[];
 }
 
 interface CopilotResponse {
@@ -51,11 +61,48 @@ interface CopilotResponse {
   };
 }
 
+interface ChatMessage {
+  role: 'user' | 'assistant' | 'system';
+  content: string;
+  agent_id?: string;
+  query_type?: string;
+  model_used?: string;
+  processed_at?: string;
+  sources?: Source[];
+  _meta?: { total_sources: number; total_items: number };
+  confidence?: CopilotResponse['confidence'];
+}
+
+interface AgentStep {
+  stepNumber: number;
+  name: string;
+  status: 'running' | 'done' | 'error';
+  result?: string;
+  duration?: number;
+}
+
+interface SessionItem {
+  id: string;
+  title: string;
+  messageCount: number;
+  created_at: string;
+  updated_at: string;
+}
+
 const QUERY_EXAMPLES = [
-  { label: 'CVE-2024-1709', type: 'CVE investigation', query: 'CVE-2024-1709' },
-  { label: 'LockBit', type: 'Ransomware group', query: 'LockBit' },
-  { label: 'Scattered Spider', type: 'Threat actor', query: 'Scattered Spider' },
-  { label: '8.8.8.8', type: 'IP address', query: '8.8.8.8' },
+  { label: 'CVE-2024-1709', desc: 'CVE investigation', query: 'CVE-2024-1709' },
+  { label: 'LockBit', desc: 'Ransomware group', query: 'LockBit' },
+  { label: 'Scattered Spider', desc: 'Threat actor', query: 'Scattered Spider' },
+  { label: '8.8.8.8', desc: 'IP address', query: '8.8.8.8' },
+];
+
+const CHAT_STARTERS = [
+  'What are the latest critical CVEs?',
+  'Which ransomware groups are most active this month?',
+  'Tell me about APT29 tactics and techniques',
+  'What IoCs are associated with LockBit?',
+  'Summarize recent threat activity in the financial sector',
+  'Are there any active exploits for CVE-2025-?',
 ];
 
 const TYPE_BADGES: Record<string, { label: string; color: string }> = {
@@ -83,20 +130,8 @@ const CAPABILITY_GRID = [
 
 type AnalystRole = 'ciso' | 'detection' | 'ir' | 'cti';
 const ROLES: { id: AnalystRole; label: string; icon: typeof Shield; desc: string; color: string }[] = [
-  {
-    id: 'ciso',
-    label: 'CISO',
-    icon: BarChart3,
-    desc: 'Risk posture & strategic trends',
-    color: 'bg-emerald-600',
-  },
-  {
-    id: 'detection',
-    label: 'Detection',
-    icon: Search,
-    desc: 'TTPs, detections & rule ideas',
-    color: 'bg-brand-600',
-  },
+  { id: 'ciso', label: 'CISO', icon: BarChart3, desc: 'Risk posture & strategic trends', color: 'bg-emerald-600' },
+  { id: 'detection', label: 'Detection', icon: Search, desc: 'TTPs, detections & rule ideas', color: 'bg-brand-600' },
   {
     id: 'ir',
     label: 'Incident Response',
@@ -104,18 +139,9 @@ const ROLES: { id: AnalystRole; label: string; icon: typeof Shield; desc: string
     desc: 'IOCs & behaviors for rapid triage',
     color: 'bg-severity-critical',
   },
-  {
-    id: 'cti',
-    label: 'Threat Intel',
-    icon: Brain,
-    desc: 'Contextual analysis & relationships',
-    color: 'bg-brand-700',
-  },
+  { id: 'cti', label: 'Threat Intel', icon: Brain, desc: 'Contextual analysis & relationships', color: 'bg-brand-700' },
 ];
 
-// Pure regex markdown renderer. Receives an ALREADY-sanitized string — the
-// DOMPurify strip happens in the effect below via dynamic import (see the
-// no-restricted-imports rule: isomorphic-dompurify must not be static).
 function renderMarkdown(safeMd: string): string {
   let html = safeMd
     .replace(/### (.+)/g, '<h3 class="text-base font-semibold mt-4 mb-1.5">$1</h3>')
@@ -130,12 +156,9 @@ function renderMarkdown(safeMd: string): string {
     .replace(/^- (.+)$/gm, '<li class="ml-4 list-disc text-sm">$1</li>')
     .replace(/^\d+\.\s(.+)$/gm, '<li class="ml-4 list-decimal text-sm">$1</li>')
     .replace(/(<li.*<\/li>\n?)+/g, function (match) {
-      if (match.includes('list-decimal')) {
-        return `<ol class="space-y-1 my-1.5">${match}</ol>`;
-      }
+      if (match.includes('list-decimal')) return `<ol class="space-y-1 my-1.5">${match}</ol>`;
       return `<ul class="space-y-0.5 my-1.5">${match}</ul>`;
     });
-
   html = html
     .split(/\n\n+/)
     .map((block) => {
@@ -154,9 +177,89 @@ function renderMarkdown(safeMd: string): string {
   return html;
 }
 
+const ACCENT_STEPS = ['bg-brand-600', 'bg-blue-500', 'bg-violet-500', 'bg-amber-500', 'bg-rose-500', 'bg-emerald-500'];
+
+function StepIndicator({ steps, currentStep }: { steps: AgentStep[]; currentStep: number }) {
+  if (steps.length === 0) return null;
+  return (
+    <div className="flex flex-wrap gap-1.5 mb-3">
+      {steps.map((s, i) => {
+        const isActive = s.stepNumber === currentStep && s.status === 'running';
+        const isDone = s.status === 'done';
+        const isError = s.status === 'error';
+        return (
+          <div
+            key={s.stepNumber}
+            className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-mono transition-all ${
+              isDone
+                ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300'
+                : isError
+                  ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300'
+                  : isActive
+                    ? 'bg-brand-100 text-brand-700 dark:bg-brand-900/30 dark:text-brand-300 ring-1 ring-brand-500/50'
+                    : 'bg-slate-100 text-slate-400 dark:bg-slate-800 dark:text-slate-500'
+            }`}
+          >
+            {isDone ? (
+              <Check size={10} />
+            ) : isActive ? (
+              <Loader2 size={10} className="animate-spin" />
+            ) : (
+              <span className={`w-1.5 h-1.5 rounded-full ${ACCENT_STEPS[i % ACCENT_STEPS.length]}`} />
+            )}
+            {s.name}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function generateFollowUps(content: string): string[] {
+  const result: string[] = [];
+  const lower = content.toLowerCase();
+  if (/cve-\d{4}/i.test(content)) {
+    result.push('What exploits are available for this CVE?');
+    result.push('Which threat actors are associated with this vulnerability?');
+    result.push('What is the CVSS score and EPSS percentile?');
+  } else if (/ransom/i.test(lower) || /lockbit|blackcat|clop|alphv/i.test(content)) {
+    result.push('What are the latest IoCs for this ransomware?');
+    result.push('Which sectors are most targeted by this group?');
+    result.push('What TTPs does this ransomware use?');
+  } else if (/apt\d+|group|actor|threat.*group/i.test(content)) {
+    result.push('What TTPs are associated with this threat actor?');
+    result.push('What campaigns have they been linked to recently?');
+    result.push('What industries do they typically target?');
+  } else if (/ip|domain|hash|ioc|indicator/i.test(lower)) {
+    result.push('What other IoCs are related to this?');
+    result.push('What threat actor is associated with this indicator?');
+    result.push('What campaigns have used this indicator?');
+  }
+  if (result.length === 0) {
+    result.push('Tell me more about the sources');
+    result.push('What should I prioritize?');
+  }
+  return result.slice(0, 3);
+}
+
+function formatTime(iso: string): string {
+  const d = new Date(iso);
+  const now = new Date();
+  const diffMs = now.getTime() - d.getTime();
+  const diffMins = Math.floor(diffMs / 60000);
+  if (diffMins < 1) return 'Just now';
+  if (diffMins < 60) return `${diffMins}m ago`;
+  const diffHours = Math.floor(diffMins / 60);
+  if (diffHours < 24) return `${diffHours}h ago`;
+  const diffDays = Math.floor(diffHours / 24);
+  if (diffDays < 7) return `${diffDays}d ago`;
+  return d.toLocaleDateString();
+}
+
 export default function Copilot(): JSX.Element {
   const location = useLocation();
   const isStandalone = location.pathname === '/copilot';
+
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -165,13 +268,93 @@ export default function Copilot(): JSX.Element {
   const [saved, setSaved] = useState(false);
   const [role, setRole] = useState<AnalystRole>('cti');
   const inputRef = useRef<HTMLInputElement>(null);
+  const chatEndRef = useRef<HTMLDivElement>(null);
 
-  // ── Full-report mode (heavyweight DO-backed pipeline) ──
-  const [mode, setMode] = useState<'quick' | 'report'>('quick');
+  const [mode, setMode] = useState<'chat' | 'quick' | 'report'>('chat');
   const [template, setTemplate] = useState<string>('auto');
   const [tlp, setTlp] = useState<string>('AMBER');
   const [progress, setProgress] = useState<Progress | null>(null);
   const [report, setReport] = useState<Report | null>(null);
+
+  const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
+  const [sessionId, setSessionId] = useState<string | null>(null);
+  const [streaming, setStreaming] = useState(false);
+  const [agentSteps, setAgentSteps] = useState<AgentStep[]>([]);
+  const [streamingContent, setStreamingContent] = useState('');
+
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sessions, setSessions] = useState<SessionItem[]>([]);
+  const [loadingSessions, setLoadingSessions] = useState(false);
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+  const [, setEditingIndex] = useState<number | null>(null);
+
+  const fetchSessions = useCallback(async () => {
+    setLoadingSessions(true);
+    try {
+      const res = await fetch('/api/v1/copilot/chat/sessions', {
+        headers: adminAuthHeaders(),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setSessions(data.sessions ?? []);
+      }
+    } catch {
+      /* ignore */
+    } finally {
+      setLoadingSessions(false);
+    }
+  }, []);
+
+  const loadSession = useCallback(async (id: string) => {
+    try {
+      const res = await fetch(`/api/v1/copilot/chat/${encodeURIComponent(id)}`, {
+        headers: adminAuthHeaders(),
+      });
+      if (!res.ok) return;
+      const data = await res.json();
+      setChatMessages(data.messages ?? []);
+      setSessionId(id);
+      sessionStorage.setItem('copilot_session_id', id);
+      setError(null);
+      setStreaming(false);
+      setAgentSteps([]);
+    } catch {
+      /* ignore */
+    }
+  }, []);
+
+  const startNewChat = useCallback(() => {
+    setChatMessages([]);
+    setSessionId(null);
+    setStreaming(false);
+    setAgentSteps([]);
+    setStreamingContent('');
+    setError(null);
+    setEditingIndex(null);
+    sessionStorage.removeItem('copilot_session_id');
+    document.title = 'Investigation Copilot';
+    inputRef.current?.focus();
+  }, []);
+
+  const deleteSession = useCallback(
+    async (id: string) => {
+      try {
+        const res = await fetch(`/api/v1/copilot/chat/${encodeURIComponent(id)}`, {
+          method: 'DELETE',
+          headers: adminAuthHeaders(),
+        });
+        if (res.ok) {
+          setSessions((prev) => prev.filter((s) => s.id !== id));
+          if (sessionId === id) {
+            startNewChat();
+          }
+        }
+      } catch {
+        /* ignore */
+      }
+    },
+    [sessionId, startNewChat]
+  );
 
   const runReport = useCallback(
     async (q: string) => {
@@ -185,7 +368,6 @@ export default function Copilot(): JSX.Element {
         setReport(r);
         setProgress(null);
       } catch (e) {
-        console.error('Copilot failed:', e instanceof Error ? e.message : String(e));
         setError(e instanceof Error ? e.message : String(e));
         setProgress(null);
       }
@@ -193,31 +375,50 @@ export default function Copilot(): JSX.Element {
     [template, tlp]
   );
 
-  const submit = useCallback(
-    (q: string) => {
-      if (mode === 'report') void runReport(q);
-      else void investigate(q);
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [mode, runReport]
-  );
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [chatMessages, streamingContent]);
 
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
 
-  // Pre-seed the input from ?q= — used by the "Ask the CTI Copilot" and
-  // agent-investigator drill-down handoffs (these previously targeted the
-  // now-removed Copilot Chat). The query lands in the input; the user hits
-  // enter to run it.
   useEffect(() => {
     const q = new URLSearchParams(location.search).get('q');
     if (q) setQuery(q);
   }, [location.search]);
 
-  // isomorphic-dompurify is heavy (pulls jsdom on SSR), so load it lazily and
-  // only when there's a narrative to sanitize — mirrors the dynamic-import
-  // pattern in CaseStudy/WikiArticle so dompurify stays in its own async chunk.
+  useEffect(() => {
+    const storedId = sessionStorage.getItem('copilot_session_id');
+    if (storedId) {
+      setSessionId(storedId);
+      fetch(`/api/v1/copilot/chat/${encodeURIComponent(storedId)}`, { headers: adminAuthHeaders() })
+        .then((r) => (r.ok ? r.json() : null))
+        .then((data) => {
+          if (data?.messages) setChatMessages(data.messages);
+        })
+        .catch(() => {});
+    }
+  }, []);
+
+  useEffect(() => {
+    void fetchSessions();
+  }, [fetchSessions, sessionId]);
+
+  const updateDocTitle = useCallback((messages: ChatMessage[]) => {
+    const firstUser = messages.find((m) => m.role === 'user');
+    if (firstUser) {
+      const title = firstUser.content.slice(0, 50);
+      document.title = `${title}${firstUser.content.length > 50 ? '…' : ''} - Copilot`;
+    } else {
+      document.title = 'Investigation Copilot';
+    }
+  }, []);
+
+  useEffect(() => {
+    if (chatMessages.length > 0) updateDocTitle(chatMessages);
+  }, [chatMessages, updateDocTitle]);
+
   const [narrativeHtml, setNarrativeHtml] = useState('');
   useEffect(() => {
     const md = result?.narrative;
@@ -228,10 +429,6 @@ export default function Copilot(): JSX.Element {
     let cancelled = false;
     void (async () => {
       const { default: DOMPurify } = await import('isomorphic-dompurify');
-      // 1) strip ALL model-emitted HTML to plain text, 2) render our trusted
-      // markdown subset, 3) sanitize the RESULT. The final pass is defense in
-      // depth: if renderMarkdown ever emits an attacker-influenced attribute
-      // (e.g. a future link rule), it gets stripped before it reaches the DOM.
       const safeMd = DOMPurify.sanitize(md, { ALLOWED_TAGS: [] });
       const safe = await sanitizeAiHtml(renderMarkdown(safeMd));
       if (!cancelled) setNarrativeHtml(safe);
@@ -240,6 +437,102 @@ export default function Copilot(): JSX.Element {
       cancelled = true;
     };
   }, [result?.narrative]);
+
+  const submitChat = useCallback(
+    async (q: string) => {
+      if (!q.trim() || streaming) return;
+      setError(null);
+      setStreaming(true);
+      setAgentSteps([]);
+      setStreamingContent('');
+
+      const userMsg: ChatMessage = { role: 'user', content: q.trim() };
+      setChatMessages((prev) => [...prev, userMsg]);
+      setChatMessages((prev) => [...prev, { role: 'assistant', content: '' }]);
+
+      try {
+        const res = await fetch('/api/v1/copilot/chat', {
+          method: 'POST',
+          signal: AbortSignal.timeout(15_000),
+          headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
+          body: JSON.stringify({ sessionId, query: q.trim() }),
+        });
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.message ?? err.error ?? 'Chat failed');
+        }
+        const { sessionId: newId } = await res.json();
+        setSessionId(newId);
+        sessionStorage.setItem('copilot_session_id', newId);
+
+        const streamRes = await fetch(`/api/v1/copilot/chat/${encodeURIComponent(newId)}/stream`);
+        if (!streamRes.ok || !streamRes.body) throw new Error('Stream unavailable');
+
+        const reader = streamRes.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split('\n');
+          buffer = lines.pop() ?? '';
+
+          for (const line of lines) {
+            if (!line.startsWith('data: ')) continue;
+            try {
+              const data = JSON.parse(line.slice(6));
+              if (data.type === 'heartbeat') continue;
+              if (data.type === 'step' && data.step) {
+                setAgentSteps((prev) => {
+                  const exists = prev.find((s) => s.stepNumber === data.step.stepNumber);
+                  if (exists) return prev;
+                  return [...prev, data.step];
+                });
+              }
+              if (data.type === 'done' && data.report) {
+                const assistantMsg: ChatMessage = {
+                  role: 'assistant',
+                  content: data.report,
+                  model_used: data.modelUsed,
+                  processed_at: new Date().toISOString(),
+                  sources: data.sources,
+                  _meta: data._meta,
+                };
+                setChatMessages((prev) => {
+                  const next = [...prev];
+                  next[next.length - 1] = assistantMsg;
+                  return next;
+                });
+                setStreamingContent('');
+              }
+              if (data.type === 'error') {
+                throw new Error(data.error ?? 'Investigation failed');
+              }
+            } catch {
+              /* skip malformed */
+            }
+          }
+        }
+      } catch (e) {
+        const msg = e instanceof Error ? e.message : String(e);
+        setError(msg);
+        setChatMessages((prev) => {
+          const next = [...prev];
+          const last = next[next.length - 1];
+          if (last && last.role === 'assistant' && !last.content) {
+            next.pop();
+          }
+          return next;
+        });
+      } finally {
+        setStreaming(false);
+        setAgentSteps([]);
+      }
+    },
+    [sessionId, streaming]
+  );
 
   const investigate = useCallback(
     async (q: string) => {
@@ -260,7 +553,6 @@ export default function Copilot(): JSX.Element {
         }
         setResult(await res.json());
       } catch (e) {
-        console.error('handler failed:', e instanceof Error ? e.message : String(e));
         setError(e instanceof Error ? e.message : String(e));
       } finally {
         setLoading(false);
@@ -269,11 +561,84 @@ export default function Copilot(): JSX.Element {
     [role]
   );
 
+  const submit = useCallback(
+    (q: string) => {
+      if (mode === 'chat') void submitChat(q);
+      else if (mode === 'report') void runReport(q);
+      else void investigate(q);
+    },
+    [mode, submitChat, runReport, investigate]
+  );
+
+  const handleEditMessage = useCallback(
+    (index: number) => {
+      const msg = chatMessages[index];
+      if (!msg || msg.role !== 'user') return;
+      setQuery(msg.content);
+      setChatMessages((prev) => prev.slice(0, index));
+      setEditingIndex(index);
+      setTimeout(() => inputRef.current?.focus(), 50);
+    },
+    [chatMessages]
+  );
+
+  const exportConversation = useCallback(() => {
+    const lines: string[] = [];
+    for (const msg of chatMessages) {
+      if (msg.role === 'user') lines.push(`## User\n\n${msg.content}\n`);
+      else if (msg.role === 'assistant' && msg.content) lines.push(`## Assistant\n\n${msg.content}\n`);
+    }
+    const markdown = lines.join('---\n\n');
+    const blob = new Blob([markdown], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const firstUser = chatMessages.find((m) => m.role === 'user');
+    const name = firstUser ? firstUser.content.replace(/[^a-zA-Z0-9]/g, '_').slice(0, 40) : 'copilot_export';
+    a.href = url;
+    a.download = `${name}.md`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }, [chatMessages]);
+
   const badge = result?.query_type ? TYPE_BADGES[result.query_type] : null;
-  const hasResults = !!(result || report || loading || progress || error);
+
+  const currentSteps = agentSteps;
+  const currentStepNum =
+    currentSteps.filter((s) => s.status === 'running').length > 0
+      ? Math.max(...currentSteps.filter((s) => s.status === 'running').map((s) => s.stepNumber))
+      : currentSteps.length;
+  const hasResults = !!(result || report || loading || progress || error || chatMessages.length > 0 || streaming);
+
+  const currentTitle = chatMessages.find((m) => m.role === 'user')?.content;
 
   return (
     <div className="min-h-[calc(100vh-64px)] px-4 py-12 sm:py-16 text-slate-900 dark:text-white">
+      {/* Session sidebar */}
+      <SessionSidebar
+        open={sidebarOpen}
+        sessions={sessions}
+        loading={loadingSessions}
+        activeId={sessionId}
+        onSelect={(id) => {
+          loadSession(id);
+          setSidebarOpen(false);
+        }}
+        onDelete={deleteSession}
+        onNew={startNewChat}
+        onClose={() => setSidebarOpen(false)}
+      />
+
+      {/* Sidebar toggle */}
+      {mode === 'chat' && (
+        <button
+          onClick={() => setSidebarOpen(true)}
+          className="fixed left-4 top-24 z-30 flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-400 shadow-sm transition-colors hover:border-brand-400 hover:text-brand-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-500 dark:hover:border-brand-400 dark:hover:text-brand-400"
+          aria-label="Open conversation history"
+        >
+          <List size={15} />
+        </button>
+      )}
+
       {!isStandalone && (
         <BackLink
           to="/threatintel"
@@ -283,13 +648,21 @@ export default function Copilot(): JSX.Element {
         </BackLink>
       )}
 
-      {/* ── Hero (radar-style) ──────────────────────────────────────────── */}
-      <div className="mx-auto flex w-full max-w-3xl flex-col items-center gap-8">
+      <div className="mx-auto flex w-full max-w-4xl flex-col items-center gap-8">
+        {/* Hero */}
         <div className="flex flex-col items-center gap-4 text-center">
           <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-brand-600/10">
             <Sparkles className="h-8 w-8 text-brand-600" />
           </div>
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Investigation Copilot</h1>
+          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+            {mode === 'chat' && currentTitle ? (
+              <span className="animate-[textReveal_0.4s_ease-out]">
+                {currentTitle.length > 40 ? currentTitle.slice(0, 40) + '…' : currentTitle}
+              </span>
+            ) : (
+              'Investigation Copilot'
+            )}
+          </h1>
           <p className="max-w-xl text-base text-slate-500 dark:text-slate-400">
             AI-powered investigation of CVEs, threat actors, ransomware groups, IPs, and domains. Ask in plain English —
             get a sourced, structured report.
@@ -299,6 +672,14 @@ export default function Copilot(): JSX.Element {
         {/* Mode + template + TLP */}
         <div className="flex w-full flex-wrap items-center justify-center gap-2">
           <div className="inline-flex overflow-hidden rounded-xl border border-slate-200 text-xs font-mono dark:border-[rgb(var(--border-400))]">
+            <button
+              onClick={() => setMode('chat')}
+              aria-pressed={mode === 'chat'}
+              className={`px-3 py-1.5 transition-colors ${mode === 'chat' ? 'bg-brand-600 text-white' : 'bg-white text-slate-600 hover:bg-slate-50 dark:bg-[rgb(var(--surface-200))] dark:text-slate-300 dark:hover:bg-[rgb(var(--surface-300))]'}`}
+            >
+              <MessageSquare size={13} className="inline mr-1 -mt-0.5" />
+              Chat
+            </button>
             <button
               onClick={() => setMode('quick')}
               aria-pressed={mode === 'quick'}
@@ -366,95 +747,276 @@ export default function Copilot(): JSX.Element {
           })}
         </div>
 
-        {/* Search input */}
-        <div className="flex w-full flex-col gap-3">
-          <div className="relative">
-            <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
-            <input
-              ref={inputRef}
-              type="text"
-              aria-label="Investigation query"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && submit(query)}
-              placeholder={
-                mode === 'report'
-                  ? 'Subject for a full report (group, actor, CVE, or IOC)…'
-                  : 'Ask about any CVE, threat actor, ransomware group, IP, or domain…'
-              }
-              className="h-14 w-full rounded-xl border border-slate-200 bg-white pl-12 pr-14 text-base text-slate-900 shadow-e1 transition-colors placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-white dark:placeholder:text-slate-500 dark:focus:border-brand-400"
-              disabled={loading || !!progress}
-            />
-            <button
-              onClick={() => submit(query)}
-              aria-label={loading || progress ? 'Submitting query' : 'Submit query'}
-              disabled={loading || !!progress || !query.trim()}
-              className="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-xl bg-brand-600 text-white transition-all hover:bg-brand-700 disabled:opacity-30 disabled:cursor-not-allowed"
-            >
-              {loading || progress ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
-            </button>
-          </div>
-          {error && (
-            <div
-              role="alert"
-              className="flex items-center justify-between gap-3 rounded-xl border border-rose-300 bg-rose-50/50 px-4 py-3 text-sm text-rose-700 dark:border-rose-800 dark:bg-rose-950/30 dark:text-rose-300"
-            >
-              <span className="font-mono">
-                <AlertTriangle size={14} className="mr-1 inline" /> {error}
-              </span>
-              <button
-                onClick={() => investigate(query)}
-                className="shrink-0 rounded border border-rose-400/60 px-3 py-1 font-mono text-xs text-rose-700 hover:bg-rose-500/10 dark:text-rose-300"
-              >
-                retry
-              </button>
-            </div>
-          )}
-        </div>
+        {/* Chat interface */}
+        {mode === 'chat' && (
+          <>
+            {chatMessages.length > 0 && (
+              <div className="w-full space-y-4">
+                {chatMessages.map((msg, i) =>
+                  msg.role === 'user' ? (
+                    <div key={i} className="flex justify-end group">
+                      <div className="relative max-w-[80%]">
+                        <div className="rounded-2xl bg-brand-600 px-4 py-2.5 text-sm text-white shadow-sm">
+                          {msg.content}
+                        </div>
+                        <button
+                          onClick={() => handleEditMessage(i)}
+                          className="absolute -left-7 top-1/2 -translate-y-1/2 opacity-0 transition-opacity group-hover:opacity-100"
+                          aria-label="Edit message"
+                        >
+                          <Edit3 size={12} className="text-slate-400 hover:text-brand-600" />
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div key={i} className="flex justify-start">
+                      <div className="w-full max-w-[90%] rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
+                        {i === chatMessages.length - 1 && streaming && currentSteps.length > 0 && (
+                          <StepIndicator steps={currentSteps} currentStep={currentStepNum} />
+                        )}
+                        {msg.content ? (
+                          <div className="animate-[textReveal_0.5s_ease-out]">
+                            <ChatNarrative markdown={msg.content} />
+                          </div>
+                        ) : streaming && i === chatMessages.length - 1 ? (
+                          <div className="flex items-center gap-2 py-2">
+                            <div className="flex gap-1">
+                              <span
+                                className="h-2 w-2 animate-bounce rounded-full bg-brand-500"
+                                style={{ animationDelay: '0ms' }}
+                              />
+                              <span
+                                className="h-2 w-2 animate-bounce rounded-full bg-brand-500"
+                                style={{ animationDelay: '150ms' }}
+                              />
+                              <span
+                                className="h-2 w-2 animate-bounce rounded-full bg-brand-500"
+                                style={{ animationDelay: '300ms' }}
+                              />
+                            </div>
+                            <span className="font-mono text-xs text-slate-400">Investigating</span>
+                          </div>
+                        ) : null}
+                        {msg.sources && msg.sources.length > 0 && (
+                          <div className="mt-3 flex flex-wrap gap-1.5">
+                            {msg.sources.map((s) => (
+                              <span
+                                key={s.name}
+                                className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-slate-50 px-2.5 py-0.5 font-mono text-[11px] text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400"
+                              >
+                                {s.name}
+                                <span className="text-slate-400">({s.items})</span>
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                        <div className="mt-2 flex items-center justify-between border-t border-slate-100 pt-2 dark:border-[rgb(var(--border-400))]">
+                          <div className="flex items-center gap-2">
+                            {msg.model_used && (
+                              <span className="font-mono text-[11px] text-slate-400">via {msg.model_used}</span>
+                            )}
+                          </div>
+                          {msg.content && (
+                            <div className="flex items-center gap-1.5">
+                              <button
+                                onClick={() => {
+                                  navigator.clipboard.writeText(msg.content).catch(() => {});
+                                  setCopiedIndex(i);
+                                  setTimeout(() => setCopiedIndex(null), 1500);
+                                }}
+                                className="text-slate-400 hover:text-brand-600 transition-colors"
+                                aria-label="Copy response"
+                              >
+                                {copiedIndex === i ? (
+                                  <Check size={12} className="text-emerald-500" />
+                                ) : (
+                                  <Copy size={12} />
+                                )}
+                              </button>
+                            </div>
+                          )}
+                        </div>
+                        {/* Follow-up suggestions (last assistant messages only) */}
+                        {msg.content && i === chatMessages.length - 1 && !streaming && (
+                          <FollowUpSuggestions
+                            content={msg.content}
+                            onSubmit={(q) => {
+                              setQuery(q);
+                              void submitChat(q);
+                            }}
+                          />
+                        )}
+                      </div>
+                    </div>
+                  )
+                )}
+                <div ref={chatEndRef} />
+              </div>
+            )}
 
-        {/* Quick examples (radar-style chips) */}
-        {!hasResults && (
-          <div className="flex w-full flex-col items-center gap-3">
-            <p className="text-xs font-medium uppercase tracking-wider text-slate-400 flex items-center gap-2">
-              <Lightbulb size={12} /> Try an example
-            </p>
-            <div className="flex flex-wrap justify-center gap-2">
-              {QUERY_EXAMPLES.map((ex) => (
+            {chatMessages.length === 0 && !streaming && (
+              <div className="w-full space-y-4">
+                <div className="flex flex-col items-center gap-3">
+                  <p className="flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-slate-400">
+                    <Lightbulb size={12} /> Try an example
+                  </p>
+                  <div className="flex flex-wrap justify-center gap-2">
+                    {QUERY_EXAMPLES.map((ex) => (
+                      <button
+                        key={ex.label}
+                        onClick={() => {
+                          setQuery(ex.query);
+                          void submitChat(ex.query);
+                        }}
+                        className="rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-200 dark:hover:bg-[rgb(var(--surface-300))]"
+                      >
+                        <span className="text-slate-400">{ex.desc}:</span> <span className="font-mono">{ex.label}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div className="flex flex-wrap justify-center gap-1.5">
+                  {CHAT_STARTERS.map((starter) => (
+                    <button
+                      key={starter}
+                      onClick={() => {
+                        setQuery(starter);
+                        void submitChat(starter);
+                      }}
+                      className="rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] font-mono text-slate-500 transition-colors hover:border-brand-400 hover:text-brand-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400 dark:hover:border-brand-400 dark:hover:text-brand-400"
+                    >
+                      {starter}
+                    </button>
+                  ))}
+                </div>
+                <div className="mt-2 grid w-full grid-cols-2 gap-4 sm:grid-cols-4">
+                  {CAPABILITY_GRID.map(({ icon: Icon, label, desc }) => (
+                    <div
+                      key={label}
+                      className="flex flex-col items-center gap-2 rounded-xl border border-slate-100 bg-slate-50/50 p-4 text-center dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-100))]"
+                    >
+                      <Icon className="h-5 w-5 text-brand-500" />
+                      <span className="text-sm font-medium">{label}</span>
+                      <span className="text-xs text-slate-500 dark:text-slate-400">{desc}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {chatMessages.length > 0 && (
+              <div className="flex w-full flex-wrap justify-center gap-3">
                 <button
-                  key={ex.label}
-                  onClick={() => {
-                    setQuery(ex.query);
-                    investigate(ex.query);
-                  }}
-                  className="rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-200 dark:hover:bg-[rgb(var(--surface-300))]"
+                  onClick={startNewChat}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 px-4 py-2 font-mono text-xs text-slate-500 transition-colors hover:border-brand-400 hover:text-brand-600 dark:border-[rgb(var(--border-400))] dark:text-slate-400 dark:hover:border-brand-400 dark:hover:text-brand-400"
                 >
-                  <span className="text-slate-400">{ex.type}:</span> <span className="font-mono">{ex.label}</span>
+                  <Plus size={12} />
+                  New conversation
                 </button>
-              ))}
-            </div>
-          </div>
+                {chatMessages.length > 2 && (
+                  <button
+                    onClick={exportConversation}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 px-4 py-2 font-mono text-xs text-slate-500 transition-colors hover:border-brand-400 hover:text-brand-600 dark:border-[rgb(var(--border-400))] dark:text-slate-400 dark:hover:border-brand-400 dark:hover:text-brand-400"
+                  >
+                    <Download size={12} />
+                    Export thread
+                  </button>
+                )}
+              </div>
+            )}
+          </>
         )}
 
-        {/* Capability grid (radar-style) */}
-        {!hasResults && (
-          <div className="mt-4 grid w-full grid-cols-2 gap-4 sm:grid-cols-4">
-            {CAPABILITY_GRID.map(({ icon: Icon, label, desc }) => (
-              <div
-                key={label}
-                className="flex flex-col items-center gap-2 rounded-xl border border-slate-100 bg-slate-50/50 p-4 text-center dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-100))]"
-              >
-                <Icon className="h-5 w-5 text-brand-500" />
-                <span className="text-sm font-medium">{label}</span>
-                <span className="text-xs text-slate-500 dark:text-slate-400">{desc}</span>
+        {/* Quick answer mode */}
+        {(mode === 'quick' || mode === 'report') && (
+          <>
+            <div className="flex w-full flex-col gap-3">
+              <div className="relative">
+                <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+                <input
+                  ref={inputRef}
+                  type="text"
+                  aria-label="Investigation query"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && submit(query)}
+                  placeholder={
+                    mode === 'report'
+                      ? 'Subject for a full report (group, actor, CVE, or IOC)…'
+                      : 'Ask about any CVE, threat actor, ransomware group, IP, or domain…'
+                  }
+                  className="h-14 w-full rounded-xl border border-slate-200 bg-white pl-12 pr-14 text-base text-slate-900 shadow-e1 transition-colors placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-white dark:placeholder:text-slate-500 dark:focus:border-brand-400"
+                  disabled={loading || !!progress}
+                />
+                <button
+                  onClick={() => submit(query)}
+                  aria-label={loading || progress ? 'Submitting query' : 'Submit query'}
+                  disabled={loading || !!progress || !query.trim()}
+                  className="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-xl bg-brand-600 text-white transition-all hover:bg-brand-700 disabled:opacity-30 disabled:cursor-not-allowed"
+                >
+                  {loading || progress ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
+                </button>
               </div>
-            ))}
-          </div>
+              {error && (
+                <div
+                  role="alert"
+                  className="flex items-center justify-between gap-3 rounded-xl border border-rose-300 bg-rose-50/50 px-4 py-3 text-sm text-rose-700 dark:border-rose-800 dark:bg-rose-950/30 dark:text-rose-300"
+                >
+                  <span className="font-mono">
+                    <AlertTriangle size={14} className="mr-1 inline" /> {error}
+                  </span>
+                  <button
+                    onClick={() => submit(query)}
+                    className="shrink-0 rounded border border-rose-400/60 px-3 py-1 font-mono text-xs text-rose-700 hover:bg-rose-500/10 dark:text-rose-300"
+                  >
+                    retry
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {!hasResults && (
+              <div className="flex w-full flex-col items-center gap-3">
+                <p className="flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-slate-400">
+                  <Lightbulb size={12} /> Try an example
+                </p>
+                <div className="flex flex-wrap justify-center gap-2">
+                  {QUERY_EXAMPLES.map((ex) => (
+                    <button
+                      key={ex.label}
+                      onClick={() => {
+                        setQuery(ex.query);
+                        void investigate(ex.query);
+                      }}
+                      className="rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-200 dark:hover:bg-[rgb(var(--surface-300))]"
+                    >
+                      <span className="text-slate-400">{ex.desc}:</span> <span className="font-mono">{ex.label}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {!hasResults && (
+              <div className="mt-4 grid w-full grid-cols-2 gap-4 sm:grid-cols-4">
+                {CAPABILITY_GRID.map(({ icon: Icon, label, desc }) => (
+                  <div
+                    key={label}
+                    className="flex flex-col items-center gap-2 rounded-xl border border-slate-100 bg-slate-50/50 p-4 text-center dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-100))]"
+                  >
+                    <Icon className="h-5 w-5 text-brand-500" />
+                    <span className="text-sm font-medium">{label}</span>
+                    <span className="text-xs text-slate-500 dark:text-slate-400">{desc}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </>
         )}
       </div>
 
-      {/* ── Results (flow below the hero) ────────────────────────────────── */}
+      {/* Results area */}
       <div className="mx-auto mt-12 w-full max-w-4xl space-y-6">
-        {/* Report build progress */}
         {progress && !report && (
           <section
             role="status"
@@ -474,10 +1036,8 @@ export default function Copilot(): JSX.Element {
           </section>
         )}
 
-        {/* Rendered report */}
         {report && <ReportView report={report} onExportPdf={() => void exportReportPdf(report)} />}
 
-        {/* Loading (quick mode) */}
         {loading && !progress && (
           <div className="py-16 text-center">
             <Loader2 size={32} className="mx-auto mb-4 animate-spin text-brand-500" />
@@ -488,10 +1048,19 @@ export default function Copilot(): JSX.Element {
           </div>
         )}
 
-        {/* Quick result */}
-        {result && !loading && !report && (
+        {mode === 'chat' && error && (
+          <div
+            role="alert"
+            className="flex items-center justify-between gap-3 rounded-xl border border-rose-300 bg-rose-50/50 px-4 py-3 text-sm text-rose-700 dark:border-rose-800 dark:bg-rose-950/30 dark:text-rose-300"
+          >
+            <span className="font-mono">
+              <AlertTriangle size={14} className="mr-1 inline" /> {error}
+            </span>
+          </div>
+        )}
+
+        {mode !== 'chat' && result && !loading && !report && (
           <div className="space-y-6">
-            {/* Header */}
             <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-e1 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
               <div className="mb-3 flex items-start justify-between gap-4">
                 <div className="flex flex-wrap items-center gap-3">
@@ -562,7 +1131,6 @@ export default function Copilot(): JSX.Element {
               )}
             </div>
 
-            {/* Narrative */}
             <div className="overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
               <div className="flex items-center gap-2 border-b border-slate-100 bg-slate-50/80 px-6 py-3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.4)]">
                 <FileText size={15} className="text-brand-600 dark:text-brand-400" />
@@ -582,7 +1150,6 @@ export default function Copilot(): JSX.Element {
               </div>
             </div>
 
-            {/* Source details (collapsed) */}
             <details className="group">
               <summary className="flex cursor-pointer items-center gap-2 text-sm font-medium text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300">
                 <ExternalLink size={14} />
@@ -605,7 +1172,6 @@ export default function Copilot(): JSX.Element {
               </div>
             </details>
 
-            {/* Actions */}
             <div className="flex flex-wrap gap-2">
               <button
                 onClick={async () => {
@@ -634,7 +1200,6 @@ export default function Copilot(): JSX.Element {
                     if (!res.ok) throw new Error('Failed to save');
                     setSaved(true);
                   } catch (e) {
-                    console.error('handler failed:', e instanceof Error ? e.message : String(e));
                     setError(e instanceof Error ? e.message : 'Failed to save assessment');
                   } finally {
                     setSaving(false);
@@ -669,6 +1234,189 @@ export default function Copilot(): JSX.Element {
           </div>
         )}
       </div>
+
+      {/* Chat input bar */}
+      {mode === 'chat' && (
+        <div className="fixed bottom-0 left-0 right-0 border-t border-slate-200 bg-white/80 backdrop-blur-lg dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))/0.8]">
+          <div className="mx-auto flex max-w-4xl items-center gap-2 px-4 py-3">
+            <div className="relative flex-1">
+              <input
+                ref={inputRef}
+                type="text"
+                aria-label="Ask a follow-up"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    if (query.trim()) {
+                      const q = query;
+                      setQuery('');
+                      void submitChat(q);
+                    }
+                  }
+                }}
+                placeholder={
+                  streaming
+                    ? 'Waiting for response…'
+                    : chatMessages.length > 0
+                      ? 'Ask a follow-up question…'
+                      : 'Ask about any CVE, threat actor, ransomware group, IP, or domain…'
+                }
+                className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-4 pr-12 text-sm text-slate-900 shadow-sm transition-colors placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-white dark:placeholder:text-slate-500"
+                disabled={streaming}
+              />
+              <button
+                onClick={() => {
+                  if (query.trim()) {
+                    const q = query;
+                    setQuery('');
+                    void submitChat(q);
+                  }
+                }}
+                aria-label="Send message"
+                disabled={streaming || !query.trim()}
+                className="absolute right-1.5 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-lg bg-brand-600 text-white transition-all hover:bg-brand-700 disabled:opacity-30 disabled:cursor-not-allowed"
+              >
+                {streaming ? <Loader2 size={15} className="animate-spin" /> : <Send size={15} />}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
+  );
+}
+
+function ChatNarrative({ markdown }: { markdown: string }) {
+  const [html, setHtml] = useState('');
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      const { default: DOMPurify } = await import('isomorphic-dompurify');
+      const safeMd = DOMPurify.sanitize(markdown, { ALLOWED_TAGS: [] });
+      const rendered = renderMarkdown(safeMd);
+      const safe = await sanitizeAiHtml(rendered);
+      if (!cancelled) setHtml(safe);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [markdown]);
+  return (
+    <div
+      className="text-slate-800 dark:text-slate-200 [&_h2]:text-base [&_h2]:font-bold [&_h2]:mt-4 [&_h2]:mb-1.5 [&_h3]:text-sm [&_h3]:font-semibold [&_h3]:mt-3 [&_h3]:mb-1 [&_p]:text-sm [&_p]:leading-relaxed [&_p]:mb-2 [&_p]:text-slate-700 [&_p]:dark:text-slate-300 [&_ul]:space-y-0.5 [&_ul]:my-1 [&_ol]:space-y-1 [&_ol]:my-1 [&_li]:ml-4 [&_li]:pl-1 [&_li]:text-sm [&_li]:text-slate-700 [&_li]:dark:text-slate-300 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:bg-slate-100 [&_code]:dark:bg-[rgb(var(--surface-200))] [&_code]:text-xs [&_code]:font-mono [&_code]:text-brand-700 [&_code]:dark:text-brand-300"
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
+  );
+}
+
+function FollowUpSuggestions({ content, onSubmit }: { content: string; onSubmit: (q: string) => void }) {
+  const suggestions = generateFollowUps(content);
+  return (
+    <div className="mt-3 flex flex-wrap gap-1.5 border-t border-slate-100 pt-3 dark:border-[rgb(var(--border-400))]">
+      {suggestions.map((s) => (
+        <button
+          key={s}
+          onClick={() => onSubmit(s)}
+          className="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-[11px] font-mono text-slate-500 transition-colors hover:border-brand-400 hover:text-brand-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400 dark:hover:border-brand-400 dark:hover:text-brand-400"
+        >
+          {s}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function SessionSidebar({
+  open,
+  sessions,
+  loading,
+  activeId,
+  onSelect,
+  onDelete,
+  onNew,
+  onClose,
+}: {
+  open: boolean;
+  sessions: SessionItem[];
+  loading: boolean;
+  activeId: string | null;
+  onSelect: (id: string) => void;
+  onDelete: (id: string) => void;
+  onNew: () => void;
+  onClose: () => void;
+}) {
+  return (
+    <>
+      {open && <div className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm" onClick={onClose} />}
+      <div
+        className={`fixed left-0 top-0 z-50 flex h-full w-80 flex-col border-r border-slate-200 bg-white shadow-xl transition-transform duration-300 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] ${
+          open ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        <div className="flex items-center justify-between border-b border-slate-100 px-4 py-3 dark:border-[rgb(var(--border-400))]">
+          <h2 className="text-sm font-semibold text-slate-700 dark:text-slate-300">Conversations</h2>
+          <div className="flex items-center gap-1">
+            <button
+              onClick={onNew}
+              className="flex items-center gap-1 rounded-lg px-2 py-1 text-xs font-mono text-slate-500 hover:text-brand-600 transition-colors"
+            >
+              <Plus size={13} />
+              New
+            </button>
+            <button
+              onClick={onClose}
+              className="rounded-lg p-1 text-slate-400 hover:text-slate-600 transition-colors"
+              aria-label="Close sidebar"
+            >
+              <PanelLeftClose size={16} />
+            </button>
+          </div>
+        </div>
+        <div className="flex-1 overflow-y-auto">
+          {loading && (
+            <div className="flex items-center justify-center py-8">
+              <Loader2 size={16} className="animate-spin text-slate-400" />
+            </div>
+          )}
+          {!loading && sessions.length === 0 && (
+            <div className="px-4 py-8 text-center font-mono text-xs text-slate-400">No conversations yet</div>
+          )}
+          {!loading &&
+            sessions.map((s) => (
+              <div
+                key={s.id}
+                className={`group flex items-center gap-2 border-b border-slate-50 px-4 py-2.5 cursor-pointer transition-colors hover:bg-slate-50 dark:border-[rgb(var(--border-400))/0.3] dark:hover:bg-[rgb(var(--surface-300))] ${
+                  s.id === activeId ? 'bg-brand-50 dark:bg-brand-900/20' : ''
+                }`}
+                onClick={() => onSelect(s.id)}
+              >
+                <MessageSquare size={14} className="shrink-0 text-slate-400" />
+                <div className="min-w-0 flex-1">
+                  <div className="truncate text-sm font-medium text-slate-700 dark:text-slate-300">{s.title}</div>
+                  <div className="flex items-center gap-2 text-[11px] font-mono text-slate-400">
+                    <Clock size={10} />
+                    <span>{formatTime(s.updated_at)}</span>
+                    <span>
+                      · {s.messageCount} {s.messageCount === 1 ? 'turn' : 'turns'}
+                    </span>
+                  </div>
+                </div>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onDelete(s.id);
+                  }}
+                  className="shrink-0 rounded p-1 text-slate-300 opacity-0 transition-opacity hover:text-rose-500 group-hover:opacity-100"
+                  aria-label="Delete conversation"
+                >
+                  <Trash2 size={12} />
+                </button>
+              </div>
+            ))}
+        </div>
+      </div>
+    </>
   );
 }
