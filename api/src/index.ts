@@ -296,11 +296,7 @@ import {
 import { copilotPivotHandler } from './routes/copilot-pivots';
 import { copilotFollowUpsHandler } from './routes/copilot-followups';
 import { copilotBulkIocHandler } from './routes/copilot-bulk-ioc';
-import {
-  copilotRulesSaveHandler,
-  copilotRulesListHandler,
-  copilotRulesDeleteHandler,
-} from './routes/copilot-rules';
+import { copilotRulesSaveHandler, copilotRulesListHandler, copilotRulesDeleteHandler } from './routes/copilot-rules';
 import { ssvcTriageHandler, ssvcGetHandler, ssvcStatsHandler } from './routes/ssvc-triage';
 import { dossierHandler, dossierGetHandler } from './routes/dossier';
 import {
@@ -1169,6 +1165,19 @@ app.get('/api/v1/crypto-monitor/alerts', cryptoAlertsHandler);
 app.get('/api/v1/wayback/cdx', validate('query', waybackSchema), waybackCdxHandler);
 app.get('/api/v1/threat-pulse', threatPulseHandler);
 app.get('/api/v1/firms-ukmto', firmsUkmtoHandler);
+// Split routes for global-pulse handler (expects separate endpoints)
+app.get('/api/v1/firms-fires', async (c) => {
+  const res = await firmsUkmtoHandler(c);
+  if (!res.ok) return res;
+  const data = (await res.json()) as { fires: unknown[] };
+  return c.json({ fires: data.fires ?? [] });
+});
+app.get('/api/v1/ukmto-incidents', async (c) => {
+  const res = await firmsUkmtoHandler(c);
+  if (!res.ok) return res;
+  const data = (await res.json()) as { incidents: unknown[] };
+  return c.json({ incidents: data.incidents ?? [] });
+});
 app.get('/api/v1/ip-geo', validate('query', ipGeoSchema), ipGeoHandler);
 app.get('/api/v1/stix/fetch', stixFetchHandler);
 app.get('/api/v1/cert-search', certSearchHandler);

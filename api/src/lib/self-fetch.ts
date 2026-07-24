@@ -28,7 +28,7 @@ const CALLER = 'cron';
 export async function selfFetchJson<T>(self: SelfFetcher | undefined, path: string, env?: TokenEnv): Promise<T | null> {
   if (!self) return null;
   try {
-    const url = `https://pranithjain.qzz.io${path}`;
+    const url = `https://self${path}`;
     const tokenSecret = env?.INTERNAL_TOKEN_SECRET;
     if (!tokenSecret) return null;
     const token = await signInternalToken(CALLER, tokenSecret);

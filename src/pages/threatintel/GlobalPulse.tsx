@@ -715,67 +715,13 @@ export default function GlobalPulse(): JSX.Element {
     setLoading(true);
     setError(null);
     try {
-      let cveIndex: Array<Record<string, unknown>> = [];
-      let iocIndex: Array<Record<string, unknown>> = [];
-      try {
-        const r = await fetch('/data/threat-intel/index.json');
-        if (r.ok) {
-          const ct = r.headers.get('content-type') ?? '';
-          if (ct.includes('application/json')) {
-            const tiData = await r.json();
-            cveIndex = tiData.cveIndex || [];
-            iocIndex = tiData.iocIndex || [];
-          }
-        }
-      } catch {
-        // static file missing — degrade gracefully
-      }
-
-      const events: PulseEvent[] = [];
-
-      for (const cve of cveIndex.slice(0, 50)) {
-        events.push({
-          id: cve.cveId as string,
-          kind: 'cve' as PulseKind,
-          title: cve.cveId as string,
-          description: (cve.description as string) || '',
-          lat: 0,
-          lng: 0,
-          severity: (cve.cvssV3Severity as 'critical' | 'high' | 'medium' | 'low') || 'medium',
-          source: 'NVD',
-          timestamp: (cve.publishedAt as string) || new Date().toISOString(),
-        });
-      }
-
-      for (const ioc of iocIndex.slice(0, 30)) {
-        events.push({
-          id: `ioc-${ioc.value}`,
-          kind: 'ioc_activity' as PulseKind,
-          title: String(ioc.value || ''),
-          description: (ioc.context as string) || '',
-          lat: 0,
-          lng: 0,
-          severity: 'medium',
-          source: String(ioc.source || ''),
-          timestamp: (ioc.observed_at as string) || new Date().toISOString(),
-        });
-      }
-
-      const layers: Record<string, number> = {};
-      for (const e of events) {
-        layers[e.kind] = (layers[e.kind] || 0) + 1;
-      }
-
-      const json: GlobalPulseResponse = {
-        generated_at: new Date().toISOString(),
-        total_events: events.length,
-        events,
-        layers: layers as Record<PulseKind, number>,
-      };
+      const r = await fetch('/api/v1/global-pulse');
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      const json: GlobalPulseResponse = await r.json();
 
       if (loadIdRef.current === myId) {
         setData(json);
-        setLastUpdated(new Date().toISOString());
+        setLastUpdated(json.generated_at);
         try {
           localStorage.setItem('gp:last', JSON.stringify(json));
         } catch {}
@@ -1079,18 +1025,18 @@ export default function GlobalPulse(): JSX.Element {
       maxWidthClass="max-w-7xl"
     >
       {data && (
-        <div className="space-y-4">
+        <div className="space-y-5">
           {/* ─── Top Stats Bar ─── */}
-          <div className="grid grid-cols-2 lg:grid-cols-5 gap-3">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
             {/* Total events */}
-            <div className="surface-card/60 shadow-e1 p-4">
-              <div className="flex items-center justify-between gap-2 mb-2">
-                <span className="flex items-center gap-1.5 text-eyebrow uppercase text-slate-500">
-                  <Activity size={12} className="text-slate-400" /> Total Events
+            <div className="relative rounded-2xl border border-slate-200/60 dark:border-white/[0.06] bg-white dark:bg-white/[0.02] p-4 shadow-sm">
+              <div className="flex items-center justify-between gap-2 mb-3">
+                <span className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                  <Activity size={13} className="text-slate-400" /> Total Events
                 </span>
                 {totalDelta !== 0 && (
                   <span
-                    className={`inline-flex items-center text-micro font-mono px-1.5 py-0.5 rounded-full ${
+                    className={`inline-flex items-center text-[10px] font-mono px-1.5 py-0.5 rounded-full ${
                       totalDelta > 0
                         ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10'
                         : 'text-slate-500 bg-slate-500/10'
@@ -1109,24 +1055,26 @@ export default function GlobalPulse(): JSX.Element {
                 {trend.length > 1 && (
                   <Sparkline
                     values={trend.map((t) => t.total)}
-                    className="text-brand-600/70 dark:text-brand-400/70 mb-0.5"
+                    className="text-brand-500/60 dark:text-brand-400/60 mb-0.5"
                   />
                 )}
               </div>
-              <div className="text-micro font-mono text-slate-500 mt-1.5">{geoPoints.length} geo-located</div>
+              <div className="text-[11px] font-mono text-slate-400 dark:text-slate-500 mt-2">
+                {geoPoints.length} geo-located
+              </div>
             </div>
 
             {/* Critical — the hero metric */}
-            <div className="rounded-xl border border-severity-critical/30 bg-severity-critical/5 p-4 ring-1 ring-severity-critical/10 shadow-e1 shadow-severity-critical/10">
-              <div className="flex items-center justify-between gap-2 mb-2">
-                <span className="flex items-center gap-1.5 text-eyebrow uppercase text-severity-critical">
-                  <AlertTriangle size={12} /> Critical
+            <div className="relative rounded-2xl border border-rose-500/20 dark:border-rose-500/10 bg-gradient-to-br from-rose-500/[0.04] to-transparent p-4 shadow-sm">
+              <div className="flex items-center justify-between gap-2 mb-3">
+                <span className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-rose-500 dark:text-rose-400">
+                  <AlertTriangle size={13} /> Critical
                 </span>
                 {criticalDelta !== 0 && (
                   <span
-                    className={`inline-flex items-center text-micro font-mono px-1.5 py-0.5 rounded-full ${
+                    className={`inline-flex items-center text-[10px] font-mono px-1.5 py-0.5 rounded-full ${
                       criticalDelta > 0
-                        ? 'text-severity-critical bg-severity-critical/15'
+                        ? 'text-rose-600 dark:text-rose-400 bg-rose-500/15'
                         : 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10'
                     }`}
                   >
@@ -1137,57 +1085,61 @@ export default function GlobalPulse(): JSX.Element {
               </div>
               <CountUp
                 to={kpis.critical}
-                className="block text-3xl font-display font-bold text-severity-critical tabular-nums leading-none"
+                className="block text-3xl font-display font-bold text-rose-600 dark:text-rose-400 tabular-nums leading-none"
               />
               {(() => {
                 const bs = stats?.bySeverity ?? { critical: 0, high: 0, medium: 0, low: 0 };
                 const tot = bs.critical + bs.high + bs.medium + bs.low || 1;
                 return (
-                  <div className="mt-2 flex h-1 gap-px overflow-hidden rounded-full bg-slate-200/50 dark:bg-[rgb(var(--surface-300))]">
-                    <div className="bg-severity-critical" style={{ width: `${(bs.critical / tot) * 100}%` }} />
-                    <div className="bg-severity-high" style={{ width: `${(bs.high / tot) * 100}%` }} />
-                    <div className="bg-severity-medium" style={{ width: `${(bs.medium / tot) * 100}%` }} />
-                    <div className="bg-severity-low" style={{ width: `${(bs.low / tot) * 100}%` }} />
+                  <div className="mt-3 flex h-1.5 gap-px overflow-hidden rounded-full bg-slate-200/60 dark:bg-white/[0.06]">
+                    <div className="bg-rose-500" style={{ width: `${(bs.critical / tot) * 100}%` }} />
+                    <div className="bg-orange-500" style={{ width: `${(bs.high / tot) * 100}%` }} />
+                    <div className="bg-amber-500" style={{ width: `${(bs.medium / tot) * 100}%` }} />
+                    <div className="bg-emerald-500" style={{ width: `${(bs.low / tot) * 100}%` }} />
                   </div>
                 );
               })()}
-              <div className="text-micro font-mono text-severity-critical/70 mt-1.5">
+              <div className="text-[11px] font-mono text-rose-400/70 dark:text-rose-400/60 mt-2">
                 {stats?.bySeverity.high ?? 0} high severity
               </div>
             </div>
 
             {/* Active layers */}
-            <div className="surface-card/60 shadow-e1 p-4">
-              <div className="flex items-center gap-1.5 text-eyebrow uppercase text-slate-500 mb-2">
-                <Layers size={12} className="text-slate-400" /> Active Layers
+            <div className="relative rounded-2xl border border-slate-200/60 dark:border-white/[0.06] bg-white dark:bg-white/[0.02] p-4 shadow-sm">
+              <div className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-3">
+                <Layers size={13} className="text-slate-400" /> Active Layers
               </div>
               <CountUp
                 to={activeLayers.size}
                 className="block text-3xl font-display font-bold text-slate-900 dark:text-white tabular-nums leading-none"
               />
-              <div className="text-micro font-mono text-slate-500 mt-1.5">
+              <div className="text-[11px] font-mono text-slate-400 dark:text-slate-500 mt-2">
                 {ALL_KINDS.length - activeLayers.size} hidden
               </div>
             </div>
 
             {/* Live status */}
-            <div className="surface-card/60 shadow-e1 p-4">
-              <div className="flex items-center gap-1.5 text-eyebrow uppercase text-slate-500 mb-2">
-                <Clock size={12} className="text-slate-400" /> Last Update
+            <div className="relative rounded-2xl border border-slate-200/60 dark:border-white/[0.06] bg-white dark:bg-white/[0.02] p-4 shadow-sm">
+              <div className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-3">
+                <Clock size={13} className="text-slate-400" /> Last Update
               </div>
-              <div className="text-xl font-display font-bold text-slate-900 dark:text-white tabular-nums leading-none">
+              <div className="text-2xl font-display font-bold text-slate-900 dark:text-white tabular-nums leading-none">
                 {lastUpdated ? formatTime(lastUpdated) : data ? formatTime(data.generated_at) : '—'}
               </div>
-              <div className="mt-2">
+              <div className="mt-2.5">
                 {loading && data ? (
                   <span className="inline-flex items-center gap-1.5" aria-label="Syncing latest data">
                     <RefreshCw size={11} className="animate-spin text-brand-500" />
-                    <span className="text-eyebrow text-brand-600 dark:text-brand-400">SYNCING</span>
+                    <span className="text-[11px] font-semibold uppercase tracking-wider text-brand-600 dark:text-brand-400">
+                      SYNCING
+                    </span>
                   </span>
                 ) : wsConnected ? (
                   <span className="inline-flex items-center gap-1.5" aria-label="Connected via WebSocket — real-time">
                     <Wifi size={11} className="text-emerald-500" />
-                    <span className="text-eyebrow text-emerald-600 dark:text-emerald-400">REAL-TIME</span>
+                    <span className="text-[11px] font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
+                      REAL-TIME
+                    </span>
                   </span>
                 ) : autoRefresh ? (
                   <span className="inline-flex items-center gap-1.5" aria-label="Live — polling">
@@ -1195,45 +1147,22 @@ export default function GlobalPulse(): JSX.Element {
                       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
                       <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
                     </span>
-                    <span className="text-eyebrow text-emerald-600 dark:text-emerald-400">LIVE</span>
+                    <span className="text-[11px] font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
+                      LIVE
+                    </span>
                   </span>
                 ) : (
                   <span className="inline-flex items-center gap-1.5" aria-label="Paused">
                     <WifiOff size={11} className="text-slate-400" />
-                    <span className="text-eyebrow text-slate-500">PAUSED</span>
+                    <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">PAUSED</span>
                   </span>
                 )}
               </div>
             </div>
-
-            {/* OSINT Country Map source */}
-            <div className="surface-card/60 shadow-e1 p-4">
-              <div className="flex items-center gap-1.5 text-eyebrow uppercase text-slate-500 mb-2">
-                <Globe size={12} className="text-slate-400" /> OSINT Map Source
-              </div>
-              <div className="flex items-center gap-2">
-                <a
-                  href="/threatintel/osint-map"
-                  className="inline-flex items-center gap-1 text-sm font-medium text-brand-600 dark:text-brand-400 hover:underline"
-                >
-                  Country Resources
-                </a>
-                <span className="text-slate-300 dark:text-slate-400">·</span>
-                <a
-                  href="https://map.wddadk.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-sm font-medium text-brand-600 dark:text-brand-400 hover:underline"
-                >
-                  map.wddadk.com <ExternalLink size={10} />
-                </a>
-              </div>
-              <div className="text-micro font-mono text-slate-500 mt-1.5">247 countries, 1,535 OSINT resources</div>
-            </div>
           </div>
 
           {/* ─── Controls Bar ─── */}
-          <div className="flex items-center gap-2 flex-wrap">
+          <div className="flex items-center gap-2.5 flex-wrap">
             {/* Search Bar */}
             <div className="relative flex-1 min-w-[200px] max-w-md">
               <input
@@ -1242,10 +1171,10 @@ export default function GlobalPulse(): JSX.Element {
                 aria-label="Search events"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-8 pr-3 py-2 text-xs font-mono surface-card text-slate-700 dark:text-slate-300 placeholder-slate-400 focus:outline-none focus:border-brand-500/50"
+                className="w-full pl-9 pr-3 py-2.5 text-xs font-mono rounded-xl border border-slate-200/60 dark:border-white/[0.08] bg-white dark:bg-white/[0.03] text-slate-700 dark:text-slate-300 placeholder-slate-400 focus:outline-none focus:border-brand-500/40 focus:ring-1 focus:ring-brand-500/20 transition-colors"
               />
               <svg
-                className="absolute left-2.5 top-2.5 w-3.5 h-3.5 text-slate-400"
+                className="absolute left-3 top-2.5 w-4 h-4 text-slate-400"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -1263,14 +1192,14 @@ export default function GlobalPulse(): JSX.Element {
                   type="button"
                   onClick={() => setSearchQuery('')}
                   aria-label="Clear event search"
-                  className="absolute right-2 top-2 text-slate-400 hover:text-slate-600"
+                  className="absolute right-2.5 top-2.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
                 >
                   <X size={14} />
                 </button>
               )}
             </div>
 
-            {/* Infrastructure Search (Overpass API + Nominatim) */}
+            {/* Infrastructure Search */}
             <div className="relative flex-1 min-w-[200px] max-w-sm">
               <input
                 type="text"
@@ -1285,9 +1214,9 @@ export default function GlobalPulse(): JSX.Element {
                     if (!activeLayers.has('infrastructure')) toggleLayer('infrastructure');
                   }
                 }}
-                className="w-full pl-8 pr-8 py-2 text-xs font-mono rounded-xl border border-teal-500/30 dark:border-teal-500/20 bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 text-slate-700 dark:text-slate-300 placeholder-slate-400 focus:outline-none focus:border-teal-500/50"
+                className="w-full pl-9 pr-8 py-2.5 text-xs font-mono rounded-xl border border-teal-500/20 dark:border-teal-500/10 bg-white dark:bg-white/[0.03] text-slate-700 dark:text-slate-300 placeholder-slate-400 focus:outline-none focus:border-teal-500/40 focus:ring-1 focus:ring-teal-500/20 transition-colors"
               />
-              <Building2 size={13} className="absolute left-2.5 top-2.5 text-teal-600 dark:text-teal-400" />
+              <Building2 size={14} className="absolute left-3 top-2.5 text-teal-500/60 dark:text-teal-400/60" />
               {infraQuery && (
                 <button
                   onClick={() => {
@@ -1295,28 +1224,30 @@ export default function GlobalPulse(): JSX.Element {
                     setInfraResults([]);
                     setInfraError(null);
                   }}
-                  className="absolute right-2 top-2 text-slate-400 hover:text-slate-600"
+                  className="absolute right-2.5 top-2.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
                 >
                   <X size={14} />
                 </button>
               )}
               {infraLoading && (
-                <span className="absolute right-2 top-2">
-                  <RefreshCw size={12} className="animate-spin text-teal-600 dark:text-teal-400" />
+                <span className="absolute right-2.5 top-2.5">
+                  <RefreshCw size={12} className="animate-spin text-teal-500" />
                 </span>
               )}
             </div>
             {infraResults.length > 0 && (
-              <span className="text-mini font-mono text-teal-500 dark:text-teal-400">{infraResults.length} infra</span>
+              <span className="text-[10px] font-mono text-teal-500 dark:text-teal-400">
+                {infraResults.length} infra
+              </span>
             )}
             {infraError && (
-              <span className="text-mini font-mono text-rose-500" title={infraError}>
+              <span className="text-[10px] font-mono text-rose-500" title={infraError}>
                 infra error
               </span>
             )}
 
             {/* Time Range Filter */}
-            <div className="inline-flex rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden">
+            <div className="inline-flex rounded-xl border border-slate-200/60 dark:border-white/[0.08] overflow-hidden">
               {[
                 { hours: 0, label: 'All' },
                 { hours: 1, label: '1h' },
@@ -1328,10 +1259,10 @@ export default function GlobalPulse(): JSX.Element {
                   key={t.hours}
                   type="button"
                   onClick={() => setTimeRange(t.hours)}
-                  className={`text-mini font-mono px-2.5 py-2 transition-colors ${
+                  className={`text-[10px] font-mono px-2.5 py-2 transition-colors ${
                     timeRange === t.hours
-                      ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                      : 'bg-white dark:bg-[rgb(var(--surface-200))] text-slate-500 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]'
+                      ? 'bg-brand-500/10 text-brand-600 dark:text-brand-400'
+                      : 'bg-white dark:bg-white/[0.02] text-slate-500 hover:bg-slate-50 dark:hover:bg-white/[0.04]'
                   }`}
                 >
                   {t.label}
@@ -1340,28 +1271,28 @@ export default function GlobalPulse(): JSX.Element {
             </div>
 
             {/* Map Mode Toggle */}
-            <div className="inline-flex rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden">
+            <div className="inline-flex rounded-xl border border-slate-200/60 dark:border-white/[0.08] overflow-hidden">
               <button
                 type="button"
                 onClick={() => setMapMode('3d')}
                 className={`inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 transition-colors ${
                   mapMode === '3d'
-                    ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                    : 'bg-white dark:bg-[rgb(var(--surface-200))] text-slate-500 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]'
+                    ? 'bg-brand-500/10 text-brand-600 dark:text-brand-400'
+                    : 'bg-white dark:bg-white/[0.02] text-slate-500 hover:bg-slate-50 dark:hover:bg-white/[0.04]'
                 }`}
               >
-                <Box size={14} /> 3D Globe
+                <Box size={14} /> 3D
               </button>
               <button
                 type="button"
                 onClick={() => setMapMode('2d')}
                 className={`inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 transition-colors ${
                   mapMode === '2d'
-                    ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                    : 'bg-white dark:bg-[rgb(var(--surface-200))] text-slate-500 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]'
+                    ? 'bg-brand-500/10 text-brand-600 dark:text-brand-400'
+                    : 'bg-white dark:bg-white/[0.02] text-slate-500 hover:bg-slate-50 dark:hover:bg-white/[0.04]'
                 }`}
               >
-                <Map size={14} /> 2D Map
+                <Map size={14} /> 2D
               </button>
             </div>
 
@@ -1372,8 +1303,8 @@ export default function GlobalPulse(): JSX.Element {
                 onClick={() => setAutoPan((p) => !p)}
                 className={`inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded-xl border transition-colors ${
                   autoPan
-                    ? 'border-indigo-500/50 bg-indigo-500/10 text-indigo-700 dark:text-indigo-300'
-                    : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]'
+                    ? 'border-indigo-500/40 bg-indigo-500/10 text-indigo-600 dark:text-indigo-400'
+                    : 'border-slate-200/60 dark:border-white/[0.08] text-slate-500 hover:bg-slate-50 dark:hover:bg-white/[0.04]'
                 }`}
                 title="Auto-rotate globe"
               >
@@ -1388,14 +1319,14 @@ export default function GlobalPulse(): JSX.Element {
               onClick={() => setShowFilters(!showFilters)}
               className={`inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded-xl border transition-colors ${
                 showFilters
-                  ? 'border-brand-500/50 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]'
+                  ? 'border-brand-500/40 bg-brand-500/10 text-brand-600 dark:text-brand-400'
+                  : 'border-slate-200/60 dark:border-white/[0.08] text-slate-500 hover:bg-slate-50 dark:hover:bg-white/[0.04]'
               }`}
             >
               <Filter size={14} />
               Filters
               {activeLayers.size < ALL_KINDS.length && (
-                <span className="ml-1 px-1.5 py-0.5 text-micro rounded-full bg-brand-500/20 text-brand-600 dark:text-brand-400">
+                <span className="ml-1 px-1.5 py-0.5 text-[10px] rounded-full bg-brand-500/15 text-brand-600 dark:text-brand-400">
                   {activeLayers.size}
                 </span>
               )}
@@ -1411,9 +1342,9 @@ export default function GlobalPulse(): JSX.Element {
                 className={`inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-xl border transition-colors ${
                   autoRefresh
                     ? wsConnected
-                      ? 'border-emerald-500/60 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
-                      : 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500'
+                      ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
+                      : 'border-brand-500/40 bg-brand-500/10 text-brand-600 dark:text-brand-400'
+                    : 'border-slate-200/60 dark:border-white/[0.08] text-slate-500'
                 }`}
               >
                 {autoRefresh ? (
@@ -1434,16 +1365,15 @@ export default function GlobalPulse(): JSX.Element {
                 type="button"
                 onClick={load}
                 disabled={loading}
-                className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors disabled:opacity-50"
+                className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-xl border border-slate-200/60 dark:border-white/[0.08] text-slate-500 hover:bg-slate-50 dark:hover:bg-white/[0.04] transition-colors disabled:opacity-50"
               >
                 <RefreshCw size={12} className={loading ? 'animate-spin' : ''} />
                 Refresh
               </button>
-              {/* Fullscreen */}
               <button
                 type="button"
                 onClick={toggleFullscreen}
-                className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-xl border border-slate-200/60 dark:border-white/[0.08] text-slate-500 hover:bg-slate-50 dark:hover:bg-white/[0.04] transition-colors"
                 title="Toggle fullscreen (F)"
               >
                 {isFullscreen ? (
@@ -1462,11 +1392,10 @@ export default function GlobalPulse(): JSX.Element {
                 )}
                 {isFullscreen ? 'Exit' : 'Full'}
               </button>
-              {/* Export */}
               <button
                 type="button"
                 onClick={exportToCsv}
-                className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-xl border border-slate-200/60 dark:border-white/[0.08] text-slate-500 hover:bg-slate-50 dark:hover:bg-white/[0.04] transition-colors"
                 title="Export to CSV"
               >
                 <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -1484,10 +1413,12 @@ export default function GlobalPulse(): JSX.Element {
 
           {/* ─── Filters Panel ─── */}
           {showFilters && (
-            <div className="surface-card/60 shadow-e1 p-4 animate-fade-in">
+            <div className="rounded-2xl border border-slate-200/60 dark:border-white/[0.06] bg-white dark:bg-white/[0.02] p-5 animate-fade-in">
               {/* Severity Filter */}
-              <div className="mb-4">
-                <h4 className="text-micro font-mono uppercase text-slate-500 mb-2">Severity</h4>
+              <div className="mb-5">
+                <h4 className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2.5">
+                  Severity
+                </h4>
                 <div className="flex gap-2">
                   {(['critical', 'high', 'medium', 'low'] as const).map((sev) => {
                     const config = SEVERITY_CONFIG[sev];
@@ -1504,13 +1435,13 @@ export default function GlobalPulse(): JSX.Element {
                             return next;
                           });
                         }}
-                        className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-mono rounded-xl border transition-all ${
+                        className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-mono rounded-lg border transition-all ${
                           active
                             ? `${config.bg} border-current ${config.text}`
-                            : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-400 opacity-60'
+                            : 'border-slate-200/60 dark:border-white/[0.06] text-slate-400 opacity-60'
                         }`}
                       >
-                        <span className={`w-2 h-2 rounded-full ${active ? config.dot : 'bg-slate-400'}`} />
+                        <span className={`w-1.5 h-1.5 rounded-full ${active ? config.dot : 'bg-slate-400'}`} />
                         {sev}
                       </button>
                     );
@@ -1524,12 +1455,12 @@ export default function GlobalPulse(): JSX.Element {
                 const activeCount = layers.filter((l) => l.active).length;
                 const groupLabels = { geo: 'Geospatial', intel: 'Threat Intel', social: 'Social / OSINT' };
                 return (
-                  <div key={group} className="mb-4 last:mb-0">
-                    <div className="flex items-center justify-between mb-2">
-                      <h4 className="text-micro font-mono uppercase text-slate-500">
+                  <div key={group} className="mb-5 last:mb-0">
+                    <div className="flex items-center justify-between mb-2.5">
+                      <h4 className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
                         {groupLabels[group]}
-                        <span className="ml-2 text-slate-400">
-                          ({activeCount}/{layers.length})
+                        <span className="ml-2 text-slate-400/70 dark:text-slate-500/70">
+                          {activeCount}/{layers.length}
                         </span>
                       </h4>
                       <button
@@ -1545,7 +1476,7 @@ export default function GlobalPulse(): JSX.Element {
                             return next;
                           });
                         }}
-                        className="text-micro font-mono text-brand-500 hover:text-brand-600"
+                        className="text-[10px] font-mono text-brand-500 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                       >
                         {activeCount === layers.length ? 'Clear' : 'Select All'}
                       </button>
@@ -1556,18 +1487,18 @@ export default function GlobalPulse(): JSX.Element {
                           key={kind}
                           type="button"
                           onClick={() => toggleLayer(kind)}
-                          className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-mono rounded-xl border transition-all ${
+                          className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-[10px] font-mono rounded-lg border transition-all ${
                             active
                               ? count > 0
                                 ? `${def.bgColor} ${def.color} border-current`
-                                : 'border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-100 dark:bg-[rgb(var(--surface-300)/0.5)] text-slate-400'
-                              : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-400 opacity-50'
+                                : 'border-slate-200/60 dark:border-white/[0.06] bg-slate-50 dark:bg-white/[0.02] text-slate-400'
+                              : 'border-slate-200/60 dark:border-white/[0.06] text-slate-400 opacity-50'
                           }`}
                         >
                           <span className={active && count > 0 ? def.color : 'text-slate-400'}>{def.icon}</span>
                           {def.shortLabel}
                           {count > 0 && (
-                            <span className={`text-micro ${active ? 'opacity-70' : 'opacity-40'}`}>{count}</span>
+                            <span className={`text-[9px] ${active ? 'opacity-70' : 'opacity-40'}`}>{count}</span>
                           )}
                         </button>
                       ))}
@@ -1577,7 +1508,7 @@ export default function GlobalPulse(): JSX.Element {
               })}
 
               {/* Preset Buttons */}
-              <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
+              <div className="flex flex-wrap items-center gap-2 pt-4 border-t border-slate-100 dark:border-white/[0.04]">
                 <button
                   type="button"
                   onClick={() => {
@@ -1611,7 +1542,7 @@ export default function GlobalPulse(): JSX.Element {
                     setCtiFilter('all');
                     setRegionFilter('all');
                   }}
-                  className="text-micro font-mono px-2.5 py-1.5 rounded-xl bg-brand-500/10 text-brand-600 dark:text-brand-400 hover:bg-brand-500/20 border border-brand-500/20 transition-colors"
+                  className="text-[10px] font-mono px-3 py-1.5 rounded-lg bg-brand-500/10 text-brand-600 dark:text-brand-400 hover:bg-brand-500/20 border border-brand-500/20 transition-colors"
                 >
                   CTI Defaults
                 </button>
@@ -1636,7 +1567,7 @@ export default function GlobalPulse(): JSX.Element {
                     setFocus({ lat: 30, lng: 45 });
                     setMapMode('3d');
                   }}
-                  className="text-micro font-mono px-2.5 py-1.5 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 hover:bg-amber-500/20 border border-amber-500/20 transition-colors"
+                  className="text-[10px] font-mono px-3 py-1.5 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 hover:bg-amber-500/20 border border-amber-500/20 transition-colors"
                 >
                   MENA Focus
                 </button>
@@ -1649,7 +1580,7 @@ export default function GlobalPulse(): JSX.Element {
                     setRegionFilter('all');
                     setMapMode('2d');
                   }}
-                  className="text-micro font-mono px-2.5 py-1.5 rounded-xl bg-rose-500/10 text-rose-600 dark:text-rose-400 hover:bg-rose-500/20 border border-rose-500/20 transition-colors"
+                  className="text-[10px] font-mono px-3 py-1.5 rounded-lg bg-rose-500/10 text-rose-600 dark:text-rose-400 hover:bg-rose-500/20 border border-rose-500/20 transition-colors"
                 >
                   Conflict Zones
                 </button>
@@ -1658,31 +1589,28 @@ export default function GlobalPulse(): JSX.Element {
           )}
 
           {/* ─── Main Content: Globe + Feed ─── */}
-          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_420px] gap-5">
+          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_380px] gap-4">
             {/* Globe/Map Container */}
             <div
               ref={globeContainerRef}
-              /* v5 — same as Facilities.tsx: token-driven map
-                 container bg. The globe composite renders on top
-                 so the underlying color only matters at the
-                 container's edge; the new value is within 3
-                 hex units of the old #0a0f1a. */
-              className="relative rounded-xl overflow-hidden border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]"
+              className="relative rounded-2xl overflow-hidden border border-slate-200/60 dark:border-white/[0.06] bg-slate-100 dark:bg-[#080c14]"
               style={{ minHeight: '600px', maxHeight: isFullscreen ? '100vh' : '750px' }}
             >
               {/* Globe Status Badge */}
-              <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
+              <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5">
                 {regionFilter === 'mena' && (
-                  <div className="bg-amber-500/20 rounded-xl border border-amber-500/50 px-3 py-1.5 flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-                    <span className="text-micro font-mono text-amber-700 dark:text-amber-300">MENA</span>
+                  <div className="bg-amber-500/15 backdrop-blur-sm rounded-lg border border-amber-500/30 px-2.5 py-1.5 flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                    <span className="text-[10px] font-semibold uppercase tracking-wider text-amber-600 dark:text-amber-400">
+                      MENA
+                    </span>
                   </div>
                 )}
-                <div className="dark:bg-[rgb(var(--input-200)/0.8)] bg-slate-50/80 rounded-xl border border-slate-600/50 px-3 py-1.5 flex items-center gap-2">
+                <div className="backdrop-blur-sm bg-white/80 dark:bg-white/[0.06] rounded-lg border border-slate-200/50 dark:border-white/[0.08] px-2.5 py-1.5 flex items-center gap-1.5">
                   <span
-                    className={`w-2 h-2 rounded-full ${mapMode === '3d' ? 'bg-brand-500 animate-pulse' : 'bg-emerald-500'}`}
+                    className={`w-1.5 h-1.5 rounded-full ${mapMode === '3d' ? 'bg-brand-500 animate-pulse' : 'bg-emerald-500'}`}
                   />
-                  <span className="text-micro font-mono text-slate-400">
+                  <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                     {mapMode === '3d' ? '3D Globe' : '2D Map'}
                   </span>
                 </div>
@@ -1691,18 +1619,20 @@ export default function GlobalPulse(): JSX.Element {
               {/* Empty State */}
               {geoPoints.length === 0 && (
                 <div className="absolute inset-0 z-10 flex items-center justify-center">
-                  <div className="dark:bg-[rgb(var(--input-200)/0.9)] bg-white/90 rounded-xl px-8 py-6 text-center border border-slate-600/50 max-w-sm">
-                    <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-slate-800/50 flex items-center justify-center">
-                      <Crosshair size={28} className="text-slate-500" />
+                  <div className="backdrop-blur-xl bg-white/80 dark:bg-white/[0.04] rounded-2xl px-10 py-8 text-center border border-slate-200/50 dark:border-white/[0.08] max-w-sm">
+                    <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-slate-100 dark:bg-white/[0.04] flex items-center justify-center">
+                      <Crosshair size={24} className="text-slate-400" />
                     </div>
-                    <p className="text-sm font-medium text-slate-800 dark:text-slate-300 mb-1">No Geolocated Events</p>
-                    <p className="text-xs text-slate-500 mb-4">
+                    <p className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-1">
+                      No Geolocated Events
+                    </p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">
                       Enable more layers in the Filters panel to see points on the globe
                     </p>
                     <button
                       type="button"
                       onClick={() => setShowFilters(true)}
-                      className="text-xs font-mono px-4 py-2 rounded-xl bg-brand-500/10 text-brand-400 hover:bg-brand-500/20 border border-brand-500/30 transition-colors"
+                      className="text-xs font-mono px-4 py-2 rounded-xl bg-brand-500/10 text-brand-600 dark:text-brand-400 hover:bg-brand-500/20 border border-brand-500/20 transition-colors"
                     >
                       Open Filters
                     </button>
@@ -1765,15 +1695,15 @@ export default function GlobalPulse(): JSX.Element {
               )}
 
               {/* Legend Overlay */}
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent px-4 py-3">
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent px-4 py-3">
                 <div className="flex items-center gap-4">
                   {(['critical', 'high', 'medium', 'low'] as const).map((sev) => (
                     <div key={sev} className="flex items-center gap-1.5">
-                      <span className={`w-2.5 h-2.5 rounded-full ${SEVERITY_CONFIG[sev].dot}`} />
-                      <span className="text-mini font-mono text-slate-400 capitalize">{sev}</span>
+                      <span className={`w-2 h-2 rounded-full ${SEVERITY_CONFIG[sev].dot}`} />
+                      <span className="text-[10px] font-mono text-white/70 capitalize">{sev}</span>
                     </div>
                   ))}
-                  <span className="text-mini font-mono text-slate-500 ml-auto">
+                  <span className="text-[10px] font-mono text-white/40 ml-auto">
                     {geoPoints.length} points · {globeArcs.length} arcs
                   </span>
                 </div>
@@ -1782,19 +1712,22 @@ export default function GlobalPulse(): JSX.Element {
 
             {/* Event Feed */}
             <aside
-              className="flex flex-col surface-card/40 shadow-e1 overflow-hidden"
+              className="flex flex-col rounded-2xl border border-slate-200/60 dark:border-white/[0.06] bg-white dark:bg-white/[0.02] shadow-sm overflow-hidden"
               style={{ minHeight: '600px', maxHeight: '750px' }}
             >
               {/* Feed Header */}
-              <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+              <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100 dark:border-white/[0.06]">
                 <div className="flex items-center gap-2">
-                  <Radio size={14} className="text-rose-600 dark:text-rose-400 animate-pulse" />
-                  <h3 className="text-sm font-semibold font-mono text-slate-700 dark:text-slate-300">CTI Live Feed</h3>
-                  <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
-                    ({filteredEvents.length})
+                  <span className="relative flex h-2 w-2">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-rose-400 opacity-60" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-rose-500" />
+                  </span>
+                  <h3 className="text-xs font-semibold text-slate-700 dark:text-slate-300">Live Feed</h3>
+                  <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500">
+                    {filteredEvents.length}
                   </span>
                 </div>
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-1">
                   {(() => {
                     const ransomCount = filteredEvents.filter((e) => e.kind === 'ransomware').length;
                     const cveCount = filteredEvents.filter((e) => e.cti === 'cve').length;
@@ -1802,17 +1735,17 @@ export default function GlobalPulse(): JSX.Element {
                     return (
                       <>
                         {ransomCount > 0 && (
-                          <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-rose-500/10 text-rose-600 dark:text-rose-400">
+                          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-md bg-rose-500/10 text-rose-600 dark:text-rose-400">
                             R{ransomCount}
                           </span>
                         )}
                         {cveCount > 0 && (
-                          <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400">
+                          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-md bg-amber-500/10 text-amber-600 dark:text-amber-400">
                             C{cveCount}
                           </span>
                         )}
                         {iocCount > 0 && (
-                          <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-sky-500/10 text-sky-600 dark:text-sky-400">
+                          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-md bg-sky-500/10 text-sky-600 dark:text-sky-400">
                             I{iocCount}
                           </span>
                         )}
@@ -1823,21 +1756,21 @@ export default function GlobalPulse(): JSX.Element {
               </div>
 
               {/* CTI Quick Filters */}
-              <div className="flex items-center gap-1.5 px-4 py-2 border-b border-slate-100 dark:border-[rgb(var(--border-400))]/50">
+              <div className="flex items-center gap-1 px-4 py-2 border-b border-slate-100 dark:border-white/[0.04]">
                 {[
-                  { key: 'all' as const, label: 'All CTI' },
-                  { key: 'ransomware' as const, label: 'Ransomware', icon: <Skull size={12} /> },
-                  { key: 'cve' as const, label: 'CVEs', icon: <Bug size={12} /> },
-                  { key: 'ioc' as const, label: 'IOCs', icon: <Zap size={12} /> },
+                  { key: 'all' as const, label: 'All' },
+                  { key: 'ransomware' as const, label: 'Ransomware', icon: <Skull size={11} /> },
+                  { key: 'cve' as const, label: 'CVEs', icon: <Bug size={11} /> },
+                  { key: 'ioc' as const, label: 'IOCs', icon: <Zap size={11} /> },
                 ].map((pill) => (
                   <button
                     key={pill.key}
                     type="button"
                     onClick={() => setCtiFilter(pill.key)}
-                    className={`inline-flex items-center gap-1 px-2 py-1 text-micro font-mono rounded border transition-colors ${
+                    className={`inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono rounded-md transition-colors ${
                       ctiFilter === pill.key
-                        ? 'bg-brand-500/10 border-brand-500/40 text-brand-600 dark:text-brand-400'
-                        : 'border-transparent text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
+                        ? 'bg-brand-500/10 text-brand-600 dark:text-brand-400'
+                        : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/[0.04]'
                     }`}
                   >
                     {pill.icon}
@@ -1848,9 +1781,9 @@ export default function GlobalPulse(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => setCtiFilter('all')}
-                    className="ml-auto text-micro font-mono text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+                    className="ml-auto text-[10px] font-mono text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
                   >
-                    <X size={12} />
+                    <X size={11} />
                   </button>
                 )}
               </div>
@@ -1862,22 +1795,22 @@ export default function GlobalPulse(): JSX.Element {
                 </span>
                 {filteredEvents.length === 0 ? (
                   <div className="flex flex-col items-center justify-center py-16 text-center px-4">
-                    <Filter size={32} className="text-slate-300 dark:text-slate-400 mb-4" />
-                    <p className="text-sm text-slate-400 font-medium">No events match filters</p>
-                    <p className="text-xs text-slate-500 mt-1">Adjust layers or severity filters above</p>
+                    <Filter size={28} className="text-slate-300 dark:text-slate-500 mb-4" />
+                    <p className="text-xs font-medium text-slate-500 dark:text-slate-400">No events match filters</p>
+                    <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-1">Adjust layers or severity</p>
                     <button
                       type="button"
                       onClick={() => {
                         setActiveLayers(new Set(ALL_KINDS));
                         setSeverityFilter(new Set(['critical', 'high', 'medium', 'low']));
                       }}
-                      className="mt-4 text-xs font-mono px-4 py-2 rounded-xl bg-brand-500/10 text-brand-600 dark:text-brand-400 hover:bg-brand-500/20 transition-colors"
+                      className="mt-4 text-[11px] font-mono px-3 py-1.5 rounded-lg bg-brand-500/10 text-brand-600 dark:text-brand-400 hover:bg-brand-500/20 transition-colors"
                     >
-                      Reset All Filters
+                      Reset Filters
                     </button>
                   </div>
                 ) : (
-                  <div className="divide-y divide-slate-100 dark:divide-slate-800/50">
+                  <div className="divide-y divide-slate-100/80 dark:divide-white/[0.04]">
                     {filteredEvents.slice(0, 80).map((ev) => {
                       const def = LAYER_DEFS[ev.kind];
                       const sevConfig = SEVERITY_CONFIG[ev.severity];
@@ -1901,56 +1834,60 @@ export default function GlobalPulse(): JSX.Element {
                             setSelectedEvent(isSelected ? null : ev);
                             if (hasGeo) setFocus({ lat: ev.lat, lng: ev.lng });
                           }}
-                          className={`w-full text-left px-4 py-3 border-l-2 transition-colors ${
+                          className={`w-full text-left px-4 py-3 border-l-2 transition-all ${
                             isSelected
                               ? 'bg-brand-500/5 border-l-brand-500'
-                              : `hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.3)] ${ctiBorder}`
+                              : `hover:bg-slate-50/80 dark:hover:bg-white/[0.02] ${ctiBorder}`
                           }`}
                         >
-                          <div className="flex items-start gap-3">
-                            {/* Severity + Icon */}
-                            <div className="shrink-0 mt-0.5 relative">
-                              <span className={`w-3 h-3 rounded-full block ${sevConfig.dot}`} />
+                          <div className="flex items-start gap-2.5">
+                            {/* Severity dot */}
+                            <div className="shrink-0 mt-1 relative">
+                              <span className={`w-2 h-2 rounded-full block ${sevConfig.dot}`} />
                               {sevConfig.pulse && (
-                                <span className="absolute inset-0 w-3 h-3 rounded-full bg-rose-500 animate-ping opacity-40" />
+                                <span className="absolute inset-0 w-2 h-2 rounded-full bg-rose-500 animate-ping opacity-40" />
                               )}
                             </div>
 
                             {/* Content */}
                             <div className="min-w-0 flex-1">
-                              <div className="flex items-center gap-2 mb-1">
+                              <div className="flex items-center gap-1.5 mb-0.5">
                                 <span className={def?.color ?? 'text-slate-400'}>{def?.icon}</span>
-                                <span className="text-micro font-mono uppercase text-slate-500">{def?.shortLabel}</span>
-                                <span className="text-micro font-mono text-slate-400 ml-auto">
+                                <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                                  {def?.shortLabel}
+                                </span>
+                                <span className="text-[10px] font-mono text-slate-400/70 dark:text-slate-500/70 ml-auto">
                                   {formatTime(ev.timestamp)}
                                 </span>
                               </div>
-                              <p className="text-xs font-medium text-slate-800 dark:text-slate-200 line-clamp-1">
+                              <p className="text-[11px] font-medium text-slate-800 dark:text-slate-200 line-clamp-1">
                                 {ev.title}
                               </p>
-                              <p className="text-mini text-slate-500 dark:text-slate-400 line-clamp-1 mt-0.5">
+                              <p className="text-[10px] text-slate-500 dark:text-slate-400 line-clamp-1 mt-0.5">
                                 {ev.description}
                               </p>
-                              <div className="flex items-center gap-2 mt-1.5">
-                                <span className="text-micro font-mono text-slate-400">{ev.source}</span>
+                              <div className="flex items-center gap-1.5 mt-1">
+                                <span className="text-[10px] font-mono text-slate-400/70 dark:text-slate-500/70">
+                                  {ev.source}
+                                </span>
                                 {isCti && (
                                   <span
-                                    className={`text-micro font-mono ${
+                                    className={`text-[10px] font-mono ${
                                       ev.cti === 'ransomware'
-                                        ? 'text-rose-600 dark:text-rose-400'
+                                        ? 'text-rose-500'
                                         : ev.cti === 'cve'
-                                          ? 'text-amber-600 dark:text-amber-400'
+                                          ? 'text-amber-500'
                                           : ev.cti === 'ioc'
-                                            ? 'text-sky-600 dark:text-sky-400'
+                                            ? 'text-sky-500'
                                             : 'text-slate-400'
                                     }`}
                                   >
-                                    ● {ev.cti}
+                                    {ev.cti}
                                   </span>
                                 )}
                                 {hasGeo && (
-                                  <span className="text-micro font-mono text-brand-500 flex items-center gap-0.5">
-                                    <Crosshair size={8} /> geo
+                                  <span className="text-[10px] font-mono text-brand-500/60 flex items-center gap-0.5">
+                                    <Crosshair size={7} /> geo
                                   </span>
                                 )}
                                 {ev.url && (
@@ -1959,9 +1896,9 @@ export default function GlobalPulse(): JSX.Element {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     onClick={(e) => e.stopPropagation()}
-                                    className="text-micro font-mono text-brand-500 hover:underline ml-auto flex items-center gap-0.5"
+                                    className="text-[10px] font-mono text-brand-500/60 hover:text-brand-500 hover:underline ml-auto flex items-center gap-0.5"
                                   >
-                                    <ExternalLink size={10} />
+                                    <ExternalLink size={9} />
                                   </a>
                                 )}
                               </div>
@@ -1978,95 +1915,109 @@ export default function GlobalPulse(): JSX.Element {
 
           {/* ─── Selected Event Detail ─── */}
           {selectedEvent && (
-            <div className="rounded-xl border border-brand-500/30 bg-brand-500/5 p-5 animate-fade-in">
+            <div className="rounded-2xl border border-slate-200/60 dark:border-white/[0.06] bg-white dark:bg-white/[0.02] p-5 animate-fade-in">
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-3">
+                  <div className="flex items-center gap-2.5 mb-3">
                     <span className={LAYER_DEFS[selectedEvent.kind]?.color}>
                       {LAYER_DEFS[selectedEvent.kind]?.icon}
                     </span>
-                    <h3 className="text-base font-bold text-slate-900 dark:text-white">{selectedEvent.title}</h3>
+                    <h3 className="text-sm font-bold text-slate-900 dark:text-white">{selectedEvent.title}</h3>
                     <SeverityPill severity={selectedEvent.severity} />
                   </div>
-                  <p className="text-sm text-muted leading-relaxed mb-4">{selectedEvent.description}</p>
+                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                    {selectedEvent.description}
+                  </p>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                     <div>
-                      <span className="text-micro font-mono uppercase text-slate-500 block">Source</span>
-                      <span className="text-xs font-mono text-slate-700 dark:text-slate-300">
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 block mb-0.5">
+                        Source
+                      </span>
+                      <span className="text-[11px] font-mono text-slate-700 dark:text-slate-300">
                         {selectedEvent.source}
                       </span>
                     </div>
                     <div>
-                      <span className="text-micro font-mono uppercase text-slate-500 block">Type</span>
-                      <span className="text-xs font-mono text-slate-700 dark:text-slate-300">
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 block mb-0.5">
+                        Type
+                      </span>
+                      <span className="text-[11px] font-mono text-slate-700 dark:text-slate-300">
                         {LAYER_DEFS[selectedEvent.kind]?.label ?? selectedEvent.kind}
                       </span>
                     </div>
                     <div>
-                      <span className="text-micro font-mono uppercase text-slate-500 block">Time</span>
-                      <span className="text-xs font-mono text-slate-700 dark:text-slate-300">
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 block mb-0.5">
+                        Time
+                      </span>
+                      <span className="text-[11px] font-mono text-slate-700 dark:text-slate-300">
                         {formatTimeFull(selectedEvent.timestamp)}
                       </span>
                     </div>
                     {selectedEvent.country && (
                       <div>
-                        <span className="text-micro font-mono uppercase text-slate-500 block">Country</span>
-                        <span className="text-xs font-mono text-slate-700 dark:text-slate-300">
+                        <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 block mb-0.5">
+                          Country
+                        </span>
+                        <span className="text-[11px] font-mono text-slate-700 dark:text-slate-300">
                           {selectedEvent.country}
                         </span>
                       </div>
                     )}
                     {(selectedEvent.lat !== 0 || selectedEvent.lng !== 0) && (
                       <div>
-                        <span className="text-micro font-mono uppercase text-slate-500 block">Coordinates</span>
-                        <span className="text-xs font-mono text-slate-700 dark:text-slate-300">
+                        <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 block mb-0.5">
+                          Coordinates
+                        </span>
+                        <span className="text-[11px] font-mono text-slate-700 dark:text-slate-300">
                           {selectedEvent.lat.toFixed(4)}, {selectedEvent.lng.toFixed(4)}
                         </span>
                       </div>
                     )}
                     {selectedEvent.magnitude != null && (
                       <div>
-                        <span className="text-micro font-mono uppercase text-slate-500 block">Magnitude</span>
-                        <span className="text-xs font-mono text-slate-700 dark:text-slate-300">
+                        <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 block mb-0.5">
+                          Magnitude
+                        </span>
+                        <span className="text-[11px] font-mono text-slate-700 dark:text-slate-300">
                           {selectedEvent.magnitude.toFixed(1)}
                         </span>
                       </div>
                     )}
                   </div>
-                  <div className="flex items-center gap-3 mt-4">
+                  <div className="flex items-center gap-2 mt-4">
                     {selectedEvent.url && (
                       <a
                         href={sanitizeUrl(selectedEvent.url) || undefined}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                        className="inline-flex items-center gap-1.5 text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline"
                       >
-                        <ExternalLink size={12} /> View source
+                        <ExternalLink size={11} /> View source
                       </a>
                     )}
                     <button
                       type="button"
                       onClick={() => setShowAiAnalysis((p) => !p)}
-                      className={`inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${
+                      className={`inline-flex items-center gap-1.5 text-[11px] font-mono px-3 py-1.5 rounded-lg border transition-colors ${
                         showAiAnalysis
-                          ? 'border-brand-500/50 bg-brand-500/10 text-brand-600 dark:text-brand-400'
-                          : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]'
+                          ? 'border-brand-500/40 bg-brand-500/10 text-brand-600 dark:text-brand-400'
+                          : 'border-slate-200/60 dark:border-white/[0.08] text-slate-500 hover:bg-slate-50 dark:hover:bg-white/[0.04]'
                       }`}
                     >
-                      <Brain size={12} />
+                      <Brain size={11} />
                       {showAiAnalysis ? 'Hide Analysis' : 'AI Analysis'}
                     </button>
                     {selectedEvent.country && (
                       <button
                         type="button"
                         onClick={() => setShowCountryIntel((p) => !p)}
-                        className={`inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${
+                        className={`inline-flex items-center gap-1.5 text-[11px] font-mono px-3 py-1.5 rounded-lg border transition-colors ${
                           showCountryIntel
-                            ? 'border-purple-500/50 bg-purple-500/10 text-purple-600 dark:text-purple-400'
-                            : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]'
+                            ? 'border-purple-500/40 bg-purple-500/10 text-purple-600 dark:text-purple-400'
+                            : 'border-slate-200/60 dark:border-white/[0.08] text-slate-500 hover:bg-slate-50 dark:hover:bg-white/[0.04]'
                         }`}
                       >
-                        <Globe size={12} />
+                        <Globe size={11} />
                         {showCountryIntel ? 'Hide Intel' : `${selectedEvent.country} Intel`}
                       </button>
                     )}
@@ -2078,9 +2029,9 @@ export default function GlobalPulse(): JSX.Element {
                     setSelectedEvent(null);
                     setShowAiAnalysis(false);
                   }}
-                  className="shrink-0 p-1.5 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                  className="shrink-0 p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/[0.04] transition-colors"
                 >
-                  <X size={16} />
+                  <X size={14} />
                 </button>
               </div>
             </div>

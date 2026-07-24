@@ -12,6 +12,7 @@ import { GP_FEEDS, gpWarmKey, GLOBAL_PULSE_CACHE, CACHE_TTL } from './config';
 import { listBriefings } from '../../lib/briefing-builder';
 import { readKvJson } from './shared';
 import { selfFetchJson } from '../../lib/self-fetch';
+import { signInternalToken } from '../../lib/internal-token';
 import {
   iocFromThreatMap,
   fromReddit,
@@ -53,6 +54,31 @@ import {
   fetchUrlhaus,
 } from './fetchers';
 import { getTechInfrastructureEvents, getGeopoliticalEvents, getCableEvents, getFinancialEvents } from './static-data';
+
+/* ─── Signed self-fetch helper ──────────────────────────────────────────── */
+// Retry fallbacks need to call SELF.fetch() with an internal token so the
+// auth middleware lets them through. Signs once per handler invocation.
+async function signedSelfFetch(
+  self: { fetch: (req: RequestInfo, init?: RequestInit) => Promise<Response> } | undefined,
+  path: string,
+  env: { INTERNAL_TOKEN_SECRET?: string },
+  timeoutMs = 10_000
+): Promise<Response | null> {
+  if (!self) return null;
+  const tokenSecret = env.INTERNAL_TOKEN_SECRET;
+  if (!tokenSecret) return null;
+  try {
+    const token = await signInternalToken('cron', tokenSecret);
+    return await self.fetch(
+      new Request(`https://self${path}`, {
+        headers: { 'x-internal-token': token },
+        signal: AbortSignal.timeout(timeoutMs),
+      })
+    );
+  } catch {
+    return null;
+  }
+}
 
 /* ─── Handler ───────────────────────────────────────────────────────────── */
 
@@ -118,6 +144,11 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     const finalIocCorr = warm.iocc ?? null;
     const finalFirms = warm.firms ?? null;
     const finalUkmto = warm.ukmto ?? null;
+    const finalSecretLeaks = warm.secretleaks ?? null;
+    const finalMalpkg = warm.malpkg ?? null;
+    const finalExploit = warm.exploit ?? null;
+    const finalGhsa = warm.ghsa ?? null;
+    const finalKev = warm.kev ?? null;
 
     // ── Direct endpoint fallback for still-missing layers ─────────────
     // Fetch ALL missing endpoints via SELF binding (in-process, no loopback).
@@ -147,6 +178,11 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     if (!finalIocCorr) missing.push(['/api/v1/ioc-correlation', 'iocc']);
     if (!finalFirms) missing.push(['/api/v1/firms-fires', 'firms']);
     if (!finalUkmto) missing.push(['/api/v1/ukmto-incidents', 'ukmto']);
+    if (!finalSecretLeaks) missing.push(['/api/v1/secret-leaks', 'secretleaks']);
+    if (!finalMalpkg) missing.push(['/api/v1/malicious-packages', 'malpkg']);
+    if (!finalExploit) missing.push(['/api/v1/exploit-db?latest=1', 'exploit']);
+    if (!finalGhsa) missing.push(['/api/v1/github-security?ecosystem=npm', 'ghsa']);
+    if (!finalKev) missing.push(['/api/v1/cisa-kev?days=30', 'kev']);
 
     // Fetch all missing in parallel (Workers subrequest limit is 50)
     const directResults = await Promise.all(missing.map(([path]) => fetchDirect(path)));
@@ -177,6 +213,11 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     const mergedIocCorr = finalIocCorr ?? (direct.iocc as typeof finalIocCorr);
     const mergedFirms = finalFirms ?? (direct.firms as typeof finalFirms);
     const mergedUkmto = finalUkmto ?? (direct.ukmto as typeof finalUkmto);
+    const mergedSecretLeaks = finalSecretLeaks ?? (direct.secretleaks as typeof finalSecretLeaks);
+    const mergedMalpkg = finalMalpkg ?? (direct.malpkg as typeof finalMalpkg);
+    const mergedExploit = finalExploit ?? (direct.exploit as typeof finalExploit);
+    const mergedGhsa = finalGhsa ?? (direct.ghsa as typeof finalGhsa);
+    const mergedKev = finalKev ?? (direct.kev as typeof finalKev);
 
     // ── Convert → events ───────────────────────────────────────────────
     const safe = <T>(fn: () => T): T => {
@@ -195,12 +236,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     let finalIocEvents = iocEvents;
     if (finalIocEvents.length === 0) {
       try {
-        const tmRes = await self.fetch(
-          new Request('https://self/api/v1/threat-map', {
-            signal: AbortSignal.timeout(10000),
-          })
-        );
-        if (tmRes.ok) {
+        const tmRes = await signedSelfFetch(self, '/api/v1/threat-map', c.env);
+        if (tmRes && tmRes.ok) {
           const tmData = (await tmRes.json()) as Parameters<typeof iocFromThreatMap>[0];
           finalIocEvents = safe(() => iocFromThreatMap(tmData));
         }
@@ -221,18 +258,18 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     const ransomwareEvents = safe(() => (mergedRansom ? fromRansomware(mergedRansom) : []));
     // ── New CTI feed layers (warm-only; populated by the gp:warm cron) ──
     const secretLeakEvents = safe(() =>
-      warm.secretleaks ? fromSecretLeaks(warm.secretleaks as Parameters<typeof fromSecretLeaks>[0]) : []
+      mergedSecretLeaks ? fromSecretLeaks(mergedSecretLeaks as Parameters<typeof fromSecretLeaks>[0]) : []
     );
     const malpkgEvents = safe(() =>
-      warm.malpkg ? fromMaliciousPackages(warm.malpkg as Parameters<typeof fromMaliciousPackages>[0]) : []
+      mergedMalpkg ? fromMaliciousPackages(mergedMalpkg as Parameters<typeof fromMaliciousPackages>[0]) : []
     );
     const exploitEvents = safe(() =>
-      warm.exploit ? fromExploitDb(warm.exploit as Parameters<typeof fromExploitDb>[0]) : []
+      mergedExploit ? fromExploitDb(mergedExploit as Parameters<typeof fromExploitDb>[0]) : []
     );
     const ghsaEvents = safe(() =>
-      warm.ghsa ? fromGithubAdvisories(warm.ghsa as Parameters<typeof fromGithubAdvisories>[0]) : []
+      mergedGhsa ? fromGithubAdvisories(mergedGhsa as Parameters<typeof fromGithubAdvisories>[0]) : []
     );
-    const kevEvents = safe(() => (warm.kev ? fromCisaKev(warm.kev as Parameters<typeof fromCisaKev>[0]) : []));
+    const kevEvents = safe(() => (mergedKev ? fromCisaKev(mergedKev as Parameters<typeof fromCisaKev>[0]) : []));
     const firmsEvents = safe(() => fromFirms((mergedFirms ?? null) as Parameters<typeof fromFirms>[0])) as PulseEvent[];
     const ukmtoEvents = safe(() => fromUkmto((mergedUkmto ?? null) as Parameters<typeof fromUkmto>[0])) as PulseEvent[];
     const cybercrimeEvents = safe(() => (finalCybercrime ? fromCybercrime(finalCybercrime) : []));
@@ -251,14 +288,9 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     let finalCveEvents = cveEvents;
     if (finalCveEvents.length === 0) {
       try {
-        // cve-recent aggregates NVD + cvefeed and can take ~12s cold — the
-        // generic 10s fetchDirect above times out, so give this retry 20s.
-        const cveRes = await self.fetch(
-          new Request('https://self/api/v1/cve-recent?days=7', {
-            signal: AbortSignal.timeout(20000),
-          })
-        );
-        if (cveRes.ok) {
+        // cve-recent aggregates NVD + cvefeed and can take ~12s cold — give it 20s.
+        const cveRes = await signedSelfFetch(self, '/api/v1/cve-recent?days=7', c.env, 20000);
+        if (cveRes && cveRes.ok) {
           const cveData = (await cveRes.json()) as Parameters<typeof fromCveRecent>[0];
           finalCveEvents = safe(() => fromCveRecent(cveData));
         }
@@ -272,12 +304,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     let finalRansomwareEvents = ransomwareEvents;
     if (finalRansomwareEvents.length === 0) {
       try {
-        const ransomRes = await self.fetch(
-          new Request('https://self/api/v1/ransomware-recent?days=7', {
-            signal: AbortSignal.timeout(10000),
-          })
-        );
-        if (ransomRes.ok) {
+        const ransomRes = await signedSelfFetch(self, '/api/v1/ransomware-recent?days=7', c.env);
+        if (ransomRes && ransomRes.ok) {
           const ransomData = (await ransomRes.json()) as Parameters<typeof fromRansomware>[0];
           finalRansomwareEvents = safe(() => fromRansomware(ransomData));
         }
@@ -291,12 +319,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     let finalLiveIocEvents = liveIocEvents;
     if (finalLiveIocEvents.length === 0) {
       try {
-        const iocRes = await self.fetch(
-          new Request('https://self/api/v1/live-iocs', {
-            signal: AbortSignal.timeout(10000),
-          })
-        );
-        if (iocRes.ok) {
+        const iocRes = await signedSelfFetch(self, '/api/v1/live-iocs', c.env);
+        if (iocRes && iocRes.ok) {
           const iocData = (await iocRes.json()) as Parameters<typeof fromLiveIocs>[0];
           finalLiveIocEvents = safe(() => fromLiveIocs(iocData));
         }
@@ -310,12 +334,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     let finalPhishingEvents = phishingEvents;
     if (finalPhishingEvents.length === 0) {
       try {
-        const phishRes = await self.fetch(
-          new Request('https://self/api/v1/phishing-urls', {
-            signal: AbortSignal.timeout(10000),
-          })
-        );
-        if (phishRes.ok) {
+        const phishRes = await signedSelfFetch(self, '/api/v1/phishing-urls', c.env);
+        if (phishRes && phishRes.ok) {
           const phishData = (await phishRes.json()) as Parameters<typeof fromPhishing>[0];
           finalPhishingEvents = safe(() => fromPhishing(phishData));
         }
@@ -329,12 +349,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     let finalMalwareEvents = malwareEvents;
     if (finalMalwareEvents.length === 0) {
       try {
-        const malRes = await self.fetch(
-          new Request('https://self/api/v1/malware-samples', {
-            signal: AbortSignal.timeout(10000),
-          })
-        );
-        if (malRes.ok) {
+        const malRes = await signedSelfFetch(self, '/api/v1/malware-samples', c.env);
+        if (malRes && malRes.ok) {
           const malData = (await malRes.json()) as Parameters<typeof fromMalware>[0];
           finalMalwareEvents = safe(() => fromMalware(malData));
         }
@@ -348,12 +364,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     let finalRedditEvents = redditEvents;
     if (finalRedditEvents.length === 0) {
       try {
-        const res = await self.fetch(
-          new Request('https://self/api/v1/reddit-feed', {
-            signal: AbortSignal.timeout(10000),
-          })
-        );
-        if (res.ok) {
+        const res = await signedSelfFetch(self, '/api/v1/reddit-feed', c.env);
+        if (res && res.ok) {
           const data = (await res.json()) as Parameters<typeof fromReddit>[0];
           finalRedditEvents = safe(() => fromReddit(data));
         }
@@ -420,12 +432,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     // Fetch X/Telegram directly if empty
     if (finalTelegramEvents.length === 0) {
       try {
-        const res = await self.fetch(
-          new Request('https://self/api/v1/telegram-feed', {
-            signal: AbortSignal.timeout(10000),
-          })
-        );
-        if (res.ok) {
+        const res = await signedSelfFetch(self, '/api/v1/telegram-feed', c.env);
+        if (res && res.ok) {
           const data = (await res.json()) as Parameters<typeof fromTelegram>[0];
           finalTelegramEvents = safe(() => fromTelegram(data));
         }
@@ -439,12 +447,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     let finalScamEvents = scamEvents;
     if (finalScamEvents.length === 0) {
       try {
-        const res = await self.fetch(
-          new Request('https://self/api/v1/crypto-scam-feed', {
-            signal: AbortSignal.timeout(10000),
-          })
-        );
-        if (res.ok) {
+        const res = await signedSelfFetch(self, '/api/v1/crypto-scam-feed', c.env);
+        if (res && res.ok) {
           const data = (await res.json()) as Parameters<typeof fromScam>[0];
           finalScamEvents = safe(() => fromScam(data));
         }
@@ -457,12 +461,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     // Fetch phishing directly if empty
     if (finalPhishingEvents.length === 0) {
       try {
-        const res = await self.fetch(
-          new Request('https://self/api/v1/phishing-urls', {
-            signal: AbortSignal.timeout(10000),
-          })
-        );
-        if (res.ok) {
+        const res = await signedSelfFetch(self, '/api/v1/phishing-urls', c.env);
+        if (res && res.ok) {
           const data = (await res.json()) as Parameters<typeof fromPhishing>[0];
           finalPhishingEvents = safe(() => fromPhishing(data));
         }
@@ -475,12 +475,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     // Fetch infostealer directly if empty
     if (finalInfostealerEvents.length === 0) {
       try {
-        const res = await self.fetch(
-          new Request('https://self/api/v1/stealer-forum-intel', {
-            signal: AbortSignal.timeout(10000),
-          })
-        );
-        if (res.ok) {
+        const res = await signedSelfFetch(self, '/api/v1/stealer-forum-intel', c.env);
+        if (res && res.ok) {
           const data = (await res.json()) as Parameters<typeof fromStealerForum>[0];
           finalInfostealerEvents = safe(() => fromStealerForum(data));
         }
@@ -493,12 +489,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     // Fetch cybercrime directly if empty
     if (finalCybercrimeEvents.length === 0) {
       try {
-        const res = await self.fetch(
-          new Request('https://self/api/v1/cyber-crime', {
-            signal: AbortSignal.timeout(10000),
-          })
-        );
-        if (res.ok) {
+        const res = await signedSelfFetch(self, '/api/v1/cyber-crime', c.env);
+        if (res && res.ok) {
           const data = (await res.json()) as Parameters<typeof fromCybercrime>[0];
           finalCybercrimeEvents = safe(() => fromCybercrime(data));
         }
@@ -511,16 +503,84 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     // Fetch research/writeups directly if empty
     if (finalResearchEvents.length === 0) {
       try {
-        const res = await self.fetch(
-          new Request('https://self/api/v1/writeups', { signal: AbortSignal.timeout(10000) })
-        );
-        if (res.ok) {
+        const res = await signedSelfFetch(self, '/api/v1/writeups', c.env);
+        if (res && res.ok) {
           const data = (await res.json()) as Parameters<typeof fromWriteups>[0];
           finalResearchEvents = safe(() => fromWriteups(data));
         }
       } catch (_catchErr) {
         console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* degraded */
+      }
+    }
+
+    // Fetch secret leaks directly if empty
+    let finalSecretLeakEvents = secretLeakEvents;
+    if (finalSecretLeakEvents.length === 0) {
+      try {
+        const res = await signedSelfFetch(self, '/api/v1/secret-leaks', c.env);
+        if (res && res.ok) {
+          const data = (await res.json()) as Parameters<typeof fromSecretLeaks>[0];
+          finalSecretLeakEvents = safe(() => fromSecretLeaks(data));
+        }
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      }
+    }
+
+    // Fetch malicious packages directly if empty
+    let finalMalpkgEvents = malpkgEvents;
+    if (finalMalpkgEvents.length === 0) {
+      try {
+        const res = await signedSelfFetch(self, '/api/v1/malicious-packages', c.env);
+        if (res && res.ok) {
+          const data = (await res.json()) as Parameters<typeof fromMaliciousPackages>[0];
+          finalMalpkgEvents = safe(() => fromMaliciousPackages(data));
+        }
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      }
+    }
+
+    // Fetch exploit DB directly if empty
+    let finalExploitEvents = exploitEvents;
+    if (finalExploitEvents.length === 0) {
+      try {
+        const res = await signedSelfFetch(self, '/api/v1/exploit-db?latest=1', c.env);
+        if (res && res.ok) {
+          const data = (await res.json()) as Parameters<typeof fromExploitDb>[0];
+          finalExploitEvents = safe(() => fromExploitDb(data));
+        }
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      }
+    }
+
+    // Fetch GitHub advisories directly if empty
+    let finalGhsaEvents = ghsaEvents;
+    if (finalGhsaEvents.length === 0) {
+      try {
+        const res = await signedSelfFetch(self, '/api/v1/github-security?ecosystem=npm', c.env);
+        if (res && res.ok) {
+          const data = (await res.json()) as Parameters<typeof fromGithubAdvisories>[0];
+          finalGhsaEvents = safe(() => fromGithubAdvisories(data));
+        }
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      }
+    }
+
+    // Fetch CISA KEV directly if empty
+    let finalKevEvents = kevEvents;
+    if (finalKevEvents.length === 0) {
+      try {
+        const res = await signedSelfFetch(self, '/api/v1/cisa-kev?days=30', c.env);
+        if (res && res.ok) {
+          const data = (await res.json()) as Parameters<typeof fromCisaKev>[0];
+          finalKevEvents = safe(() => fromCisaKev(data));
+        }
+      } catch (_catchErr) {
+        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       }
     }
 
@@ -594,11 +654,11 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       ...tagAll(xClaimsEvents),
       ...tagAll(actorEvents),
       ...tagAll(iocCorrEvents),
-      ...tagAll(secretLeakEvents),
-      ...tagAll(malpkgEvents),
-      ...tagAll(exploitEvents),
-      ...tagAll(ghsaEvents),
-      ...tagAll(kevEvents),
+      ...tagAll(finalSecretLeakEvents),
+      ...tagAll(finalMalpkgEvents),
+      ...tagAll(finalExploitEvents),
+      ...tagAll(finalGhsaEvents),
+      ...tagAll(finalKevEvents),
       ...tagAll(firmsEvents),
       ...tagAll(ukmtoEvents),
     ].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
@@ -640,11 +700,11 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
         cve: finalCveEvents.length,
         actor_sighting: actorEvents.length,
         ioc_correlation: iocCorrEvents.length,
-        secret_leak: secretLeakEvents.length,
-        malicious_package: malpkgEvents.length,
-        exploit: exploitEvents.length,
-        github_advisory: ghsaEvents.length,
-        kev: kevEvents.length,
+        secret_leak: finalSecretLeakEvents.length,
+        malicious_package: finalMalpkgEvents.length,
+        exploit: finalExploitEvents.length,
+        github_advisory: finalGhsaEvents.length,
+        kev: finalKevEvents.length,
         firm: firmsEvents.length,
         maritime: ukmtoEvents.length,
       },
