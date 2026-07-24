@@ -37,6 +37,7 @@ import {
   costSummary,
   type InvestigationCost,
 } from '../../api/src/lib/agent/cost-tracker';
+import { checkDuplicate, registerInvestigation } from '../../api/src/lib/agent/request-dedup';
 
 /** Truncate JSON-serializable data to a max char length. Returns valid JSON. */
 function truncateData(data: unknown, maxChars: number): unknown {
@@ -100,6 +101,12 @@ export class InvestigatorAgentDO {
         rolePreamble?: string;
         responseFormat?: string;
       };
+      // Check for duplicate investigation
+      const existingId = await checkDuplicate(body.query);
+      if (existingId) {
+        return Response.json({ id: existingId, status: 'running', duplicate: true });
+      }
+
       const state: AgentState = {
         id: body.id,
         query: body.query,
@@ -120,6 +127,8 @@ export class InvestigatorAgentDO {
       };
       await this.ctx.storage.put(`state:${body.id}`, state);
       await this.persist(state);
+      // Register for dedup tracking
+      await registerInvestigation(body.query, body.id);
       // Kick off the first step immediately
       await this.ctx.storage.setAlarm(Date.now() + 1);
       return Response.json({ id: body.id, status: 'running' });
