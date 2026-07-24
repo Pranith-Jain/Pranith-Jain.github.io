@@ -1,4 +1,15 @@
-import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState, type JSX } from 'react';
+import {
+  lazy,
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  Component,
+  type JSX,
+  type ErrorInfo,
+} from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import {
   Activity,
@@ -459,6 +470,44 @@ function formatTimeFull(ts: string): string {
 
 const ALL_KINDS = Object.keys(LAYER_DEFS) as PulseKind[];
 
+/* ─── Globe Error Boundary (auto-falls back to 2D) ─────────────────────── */
+
+interface GlobeBoundaryProps {
+  onFallback: () => void;
+  children: ReactNode;
+}
+
+interface GlobeBoundaryState {
+  hasError: boolean;
+}
+
+class GlobeErrorBoundary extends Component<GlobeBoundaryProps, GlobeBoundaryState> {
+  state: GlobeBoundaryState = { hasError: false };
+
+  static getDerivedStateFromError(): GlobeBoundaryState {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: Error, info: ErrorInfo) {
+    console.error('CtiGlobe error:', error, info);
+    setTimeout(() => this.props.onFallback(), 0);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="flex items-center justify-center h-full w-full bg-[#0a0f1a]">
+          <div className="text-center p-6 max-w-sm">
+            <p className="text-sm font-medium text-slate-300 mb-1">Globe Unavailable</p>
+            <p className="text-xs text-slate-500 mb-4">Switching to 2D map…</p>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 /* ─── Component ─────────────────────────────────────────────────────────── */
 
 export default function GlobalPulse(): JSX.Element {
@@ -704,19 +753,29 @@ export default function GlobalPulse(): JSX.Element {
     setLoading(true);
     setError(null);
     try {
-      const r = await fetch('/data/threat-intel/index.json');
-      if (!r.ok) throw new Error(`HTTP ${r.status}`);
-      const tiData = await r.json();
-      const cveIndex = tiData.cveIndex || [];
-      const iocIndex = tiData.iocIndex || [];
+      let cveIndex: Array<Record<string, unknown>> = [];
+      let iocIndex: Array<Record<string, unknown>> = [];
+      try {
+        const r = await fetch('/data/threat-intel/index.json');
+        if (r.ok) {
+          const ct = r.headers.get('content-type') ?? '';
+          if (ct.includes('application/json')) {
+            const tiData = await r.json();
+            cveIndex = tiData.cveIndex || [];
+            iocIndex = tiData.iocIndex || [];
+          }
+        }
+      } catch {
+        // static file missing — degrade gracefully
+      }
 
       const events: PulseEvent[] = [];
 
       for (const cve of cveIndex.slice(0, 50)) {
         events.push({
-          id: cve.cveId,
+          id: cve.cveId as string,
           kind: 'cve' as PulseKind,
-          title: cve.cveId,
+          title: cve.cveId as string,
           description: (cve.description as string) || '',
           lat: 0,
           lng: 0,
@@ -1707,13 +1766,15 @@ export default function GlobalPulse(): JSX.Element {
                     </div>
                   }
                 >
-                  <CtiGlobe
-                    arcs={globeArcs}
-                    points={globePoints}
-                    focus={focus}
-                    onPointClick={handlePointClick}
-                    autoRotate={autoPan}
-                  />
+                  <GlobeErrorBoundary onFallback={() => setMapMode('2d')}>
+                    <CtiGlobe
+                      arcs={globeArcs}
+                      points={globePoints}
+                      focus={focus}
+                      onPointClick={handlePointClick}
+                      autoRotate={autoPan}
+                    />
+                  </GlobeErrorBoundary>
                 </Suspense>
               ) : (
                 <Suspense
