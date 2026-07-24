@@ -1,1 +1,15 @@
-{"slug":"the-gentlemen-herbahaz-2026-07-23","title":"Herbahaz","group":"the gentlemen","discovered":"2026-07-23T11:24:37.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"herbahaz.hu zoominfo.com/c/bennovum-kft/535573660 Herbaház is a Hungarian health and wellness specialty retail chain operating multiple stores nationwide alongside an online shop. The company specializes in dietary supplements, medicinal herbs, vitamins, and a wide range of organic, vegan, and \"free-from\" health foods. Their mission is to promote conscious, healthy living by providing a comprehensive, one-stop destination for natural health products and wellness solutions.","source_url":"https://www.ransomlook.io/recent","groupAliases":[],"activity":null,"references":["ransomlook.io"]}
+{
+  "slug": "the-gentlemen-herbahaz-2026-07-23",
+  "title": "Herbahaz",
+  "group": "The Gentlemen",
+  "discovered": "2026-07-23T00:00:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "Hungary",
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated in ransomware attack",
+  "source_url": "https://recentbreaches.com/breach/herbahaz-thegentlemen-2026-07",
+  "groupAliases": [],
+  "activity": "Agriculture and Food Production",
+  "references": ["RecentBreaches.com"]
+}

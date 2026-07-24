@@ -1,1 +1,15 @@
-{"slug":"the-gentlemen-optiforms-2026-07-23","title":"Optiforms","group":"the gentlemen","discovered":"2026-07-23T11:38:18.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"optiforms.com zoominfo.com/c/optiforms-inc/67340558 Optiforms, Inc. is a precision manufacturing company based in Temecula, California, specializing in electroforming, CNC machining, and enhanced surface finishes. Founded in 1984, the company produces custom metal components and high-performance optical coatings for demanding applications. They primarily serve the aerospace, defense, medical, semiconductor, and specialty lighting sectors with advanced, vertically integrated manufacturing solutions.","source_url":"https://www.ransomlook.io/recent","groupAliases":[],"activity":null,"references":["ransomlook.io"]}
+{
+  "slug": "the-gentlemen-optiforms-2026-07-23",
+  "title": "Optiforms",
+  "group": "The Gentlemen",
+  "discovered": "2026-07-23T00:00:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "United States",
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated in ransomware attack",
+  "source_url": "https://recentbreaches.com/breach/optiforms-thegentlemen-2026-07",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["RecentBreaches.com"]
+}

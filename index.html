@@ -200,6 +200,52 @@
     <!-- Main app root -->
     <div id="root"></div>
 
+    <!-- SSR safety net: force-reveal hidden Suspense content if React
+         hydration fails to do so (e.g. lazy chunk error or hydration
+         error in a child component). Runs once after a short delay to
+         give React time to hydrate. -->
+    <script>
+      (function ssrSafetyNet() {
+        var maxAttempts = 5;
+        var delayMs = 200;
+        function reveal() {
+          var hidden = document.querySelectorAll('div[hidden][id^="S:"]');
+          if (hidden.length === 0) return;
+          hidden.forEach(function (el) {
+            el.removeAttribute('hidden');
+            // Remove surrounding loading fallback (Suspense boundary)
+            var prev = el.previousElementSibling;
+            if (prev && (prev.tagName === 'TEMPLATE' || prev.classList.contains('min-h-\\[200px\\]'))) {
+              var fallback = prev.parentNode;
+              while (fallback && fallback.nodeType === 1) {
+                var marker = fallback.previousSibling;
+                if (marker && marker.nodeType === 8 && marker.textContent.indexOf('$?') !== -1) {
+                  fallback.remove();
+                  break;
+                }
+                fallback = fallback.parentNode;
+              }
+            }
+          });
+        }
+        var attempts = 0;
+        function tryReveal() {
+          attempts++;
+          reveal();
+          if (attempts < maxAttempts && document.querySelector('div[hidden][id^="S:"]')) {
+            setTimeout(tryReveal, delayMs);
+          }
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', function () { setTimeout(tryReveal, delayMs); });
+        } else {
+          setTimeout(tryReveal, delayMs);
+        }
+        // Backup: also try after full load
+        window.addEventListener('load', function () { setTimeout(tryReveal, 500); });
+      })();
+    </script>
+
     <!-- App script -->
     <script type="module" src="/src/main.tsx"></script>
 

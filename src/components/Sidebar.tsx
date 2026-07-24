@@ -39,27 +39,29 @@ function toneClasses(tone: 'brand' | 'rose' = 'brand') {
   };
 }
 
-function useExpandedGroups(pathname: string): [Set<string>, (title: string) => void] {
+function useExpandedGroups(
+  pathname: string,
+  groups: { title: string; items: { href: string }[] }[]
+): [Set<string>, (title: string) => void] {
   const [expanded, setExpanded] = useState<Set<string>>(() => {
-    if (typeof window === 'undefined') return new Set();
-    try {
-      const raw = window.localStorage.getItem(GROUPS_KEY);
-      if (raw) return new Set(JSON.parse(raw));
-    } catch {
-      /* ignore */
+    // Compute initial state from localStorage (client) or route match (SSR)
+    if (typeof window !== 'undefined') {
+      try {
+        const raw = window.localStorage.getItem(GROUPS_KEY);
+        if (raw) return new Set(JSON.parse(raw));
+      } catch {
+        /* ignore */
+      }
     }
-    return new Set();
+    // Auto-expand the group containing the active page
+    const active = new Set<string>();
+    for (const group of groups) {
+      if (group.items.some((item) => isActive(pathname, item.href))) {
+        active.add(group.title);
+      }
+    }
+    return active;
   });
-
-  // Auto-expand the group containing the active page
-  useEffect(() => {
-    setExpanded((prev) => {
-      const next = new Set(prev);
-      // Find which group has the active item — always expand it
-      // This is done by the caller passing the groups config
-      return next;
-    });
-  }, [pathname]);
 
   const toggle = (title: string) => {
     setExpanded((prev) => {
@@ -86,7 +88,7 @@ export function SidebarContent({ config }: { config: SidebarConfig }): JSX.Eleme
   const location = useLocation();
   const totalItems = useMemo(() => config.groups.reduce((n, g) => n + g.items.length, 0), [config]);
   const { activeBg, activeIcon, activeDot, focusRing } = toneClasses(config.tone);
-  const [expanded, toggle] = useExpandedGroups(location.pathname);
+  const [expanded, toggle] = useExpandedGroups(location.pathname, config.groups);
 
   // Auto-expand group containing active page
   useEffect(() => {

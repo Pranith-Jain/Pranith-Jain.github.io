@@ -1,1 +1,15 @@
-{"slug":"the-gentlemen-henry-frerk-sons-2026-07-23","title":"Henry Frerk Sons","group":"the gentlemen","discovered":"2026-07-23T11:21:21.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"hfsmaterials.com zoominfo.com/c/henry-frerk-sons-inc/44255454 Henry Frerk Sons (HFS Materials) is a premier masonry and plaster restoration supplier based in the Chicago region, with over 140 years of history. They specialize in custom matching and blending of historic mortars, concrete, and stone patching materials, alongside offering on-site volumetric ready-mix concrete services. The company provides a comprehensive range of building materials, including natural hydraulic lime, specialized cleaners, sealers, and preblended mortars for both historic preservation and new construction projects","source_url":"https://www.ransomlook.io/recent","groupAliases":[],"activity":null,"references":["ransomlook.io"]}
+{
+  "slug": "the-gentlemen-henry-frerk-sons-2026-07-23",
+  "title": "Henry Frerk Sons",
+  "group": "The Gentlemen",
+  "discovered": "2026-07-23T00:00:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "United States",
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated in ransomware attack",
+  "source_url": "https://recentbreaches.com/breach/henry-frerk-sons-thegentlemen-2026-07",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["RecentBreaches.com"]
+}

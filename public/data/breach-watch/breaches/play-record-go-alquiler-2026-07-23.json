@@ -1,1 +1,15 @@
-{"slug":"play-record-go-alquiler-2026-07-23","title":"Record Go Alquiler","group":"Play","discovered":"2026-07-23T00:00:00.000Z","category":"ransomware","severity":"critical","country":"Spain","sizeBytes":0,"description":"Internal files exfiltrated in ransomware attack","source_url":"https://recentbreaches.com/breach/record-go-alquiler-play-2026-07","groupAliases":["PlayCrypt"],"activity":"Hospitality","references":["RecentBreaches.com"]}
+{
+  "slug": "play-record-go-alquiler-2026-07-23",
+  "title": "Record Go Alquiler",
+  "group": "play",
+  "discovered": "2026-07-23T20:29:56.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "ES",
+  "sizeBytes": 0,
+  "description": "Spain",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["PlayCrypt"],
+  "activity": "Hospitality",
+  "references": ["ransomware.live"]
+}

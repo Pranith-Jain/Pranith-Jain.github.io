@@ -1,1 +1,15 @@
-{"slug":"the-gentlemen-vpcgroup-com-customfoam-com-2026-07-23","title":"vpcgroup.com customfoam.com","group":"The Gentlemen","discovered":"2026-07-23T00:00:00.000Z","category":"data_breach","severity":"high","country":"United States","sizeBytes":0,"description":"Internal files exfiltrated in ransomware attack","source_url":"https://recentbreaches.com/breach/vpcgroup-com-customfoam-com-thegentlemen-2026-07","groupAliases":[],"activity":"Manufacturing","references":["RecentBreaches.com"]}
+{
+  "slug": "the-gentlemen-vpcgroup-com-customfoam-com-2026-07-23",
+  "title": "vpcgroup.com customfoam.com",
+  "group": "the gentlemen",
+  "discovered": "2026-07-23T11:38:19.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "customfoam.com vpcgroup.com zoominfo.com/c/custom-foam-systems-ltd/31526090 Custom Foam Systems (CFS) is a leading Canadian manufacturer of fabricated and molded custom polyurethane foam components, founded in 1973 and based in Kitchener, Ontario. The company specializes in serving the automotive, healthcare, and furniture industries across North America with over 45 years of manufacturing excellence. CFS operates under ISO 9001:2015 and FDA standards, utilizing advanced product development processes and lean manufacturing systems to deliver exceptional quality and on-time performance. As a family-owned business, they have built a strong reputation for innovation, reliability, and their commitment that \"every component matters.\"",
+  "source_url": "https://www.ransomlook.io/recent",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

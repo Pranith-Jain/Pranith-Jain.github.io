@@ -1,1 +1,15 @@
-{"slug":"the-gentlemen-decoupe-laser-services-2026-07-23","title":"Decoupe Laser Services","group":"the gentlemen","discovered":"2026-07-23T10:51:59.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"dls-laser.com DLS (Découpe Laser Services) is a French laser cutting specialist based in La Ravoire, specializing in precision laser cutting of steel, stainless steel, and aluminum. The company offers comprehensive metal finishing services including deburring, bending, surface treatment, tapping, and milling. With large-format cutting capabilities (6000mm x 2000mm) and over 200 tons of material stock, DLS handles everything from prototypes to very large industrial production runs. They pride themselves on reactivity and flexibility, providing quotes within 24 hours.","source_url":"https://www.ransomlook.io/recent","groupAliases":[],"activity":null,"references":["ransomlook.io"]}
+{
+  "slug": "the-gentlemen-decoupe-laser-services-2026-07-23",
+  "title": "Decoupe Laser Services",
+  "group": "The Gentlemen",
+  "discovered": "2026-07-23T00:00:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "France",
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated in ransomware attack",
+  "source_url": "https://recentbreaches.com/breach/decoupe-laser-services-thegentlemen-2026-07",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["RecentBreaches.com"]
+}

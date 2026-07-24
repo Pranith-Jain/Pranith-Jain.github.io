@@ -1,1 +1,15 @@
-{"slug":"the-gentlemen-mk-jewelry-2026-07-23","title":"MK Jewelry","group":"the gentlemen","discovered":"2026-07-23T10:39:06.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"mkjewel.com zoominfo.com/c/mk-jewelry-inc/346982894 MK Jewelry, Inc. is a fine jewelry manufacturing and distribution company based in Midtown Manhattan, established in 1986. They specialize in producing and supplying a wide range of jewelry, including bridal and bridge collections. The company serves both independent and major retailers across the US, Canada, and the Caribbean. As a premier industry supplier, they offer extensive private label and branded diamond jewelry lines","source_url":"https://www.ransomlook.io/recent","groupAliases":[],"activity":null,"references":["ransomlook.io"]}
+{
+  "slug": "the-gentlemen-mk-jewelry-2026-07-23",
+  "title": "MK Jewelry",
+  "group": "The Gentlemen",
+  "discovered": "2026-07-23T00:00:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "MK",
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated in ransomware attack",
+  "source_url": "https://recentbreaches.com/breach/mk-jewelry-thegentlemen-2026-07",
+  "groupAliases": [],
+  "activity": "Retail & E-Commerce",
+  "references": ["RecentBreaches.com"]
+}

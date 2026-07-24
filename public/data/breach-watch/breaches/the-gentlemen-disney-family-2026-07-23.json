@@ -1,1 +1,15 @@
-{"slug":"the-gentlemen-disney-family-2026-07-23","title":"Disney Family","group":"The Gentlemen","discovered":"2026-07-23T00:00:00.000Z","category":"data_breach","severity":"high","country":"United States","sizeBytes":0,"description":"Internal files exfiltrated in ransomware attack","source_url":"https://recentbreaches.com/breach/disney-family-thegentlemen-2026-07","groupAliases":[],"activity":"Financial Services","references":["RecentBreaches.com"]}
+{
+  "slug": "the-gentlemen-disney-family-2026-07-23",
+  "title": "Disney Family",
+  "group": "the gentlemen",
+  "discovered": "2026-07-23T06:27:10.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "This critical data breach involves Disney Family / Shamrock Holdings, the private investment firm and family office established by Roy E. Disney to manage the wealth of the Disney family branch, rather than the public Walt Disney Company. The compromised dataset, totaling over 800 GB and spanning from the 1980s to June 2026, exposes highly sensitive information across 14 critical categories, including family trusts, tax administration, and private equity fund management. Key victims include prominent figures such as Abigail Disney, Roy P. Disney, and Stanley Gold, whose personal financial records, passports, and KYC documents were leaked alongside detailed trust instruments for the \"Disney Grandchildren Trusts.\" The breach reveals active operational data, including recent payroll records, bank reconciliations with CNB, and subscription agreements for funds like the Shamrock Israel Growth Fund. With unencrypted databases, embedded ERP credentials etc..",
+  "source_url": "https://www.ransomlook.io/recent",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

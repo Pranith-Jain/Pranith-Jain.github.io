@@ -1,1 +1,15 @@
-{"slug":"the-gentlemen-affinity-designs-2026-07-23","title":"Affinity Designs","group":"the gentlemen","discovered":"2026-07-23T11:21:18.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"affinitydesignsllc.com zoominfo.com/c/affinity-designs/374939106 Affinity Designs LLC is a fine jewelry wholesaler and manufacturer based in New York, specializing in the design, production, and marketing of elegant gemstone jewelry collections. The company offers a wide range of high-quality pieces crafted in 925 Sterling Silver and 10K, 14K, or 18K gold. Led by CEO Meir Sanandaji, who brings over 40 years of industry experience, the business caters to retailers seeking premium, trend-forward jewelry lines","source_url":"https://www.ransomlook.io/recent","groupAliases":[],"activity":null,"references":["ransomlook.io"]}
+{
+  "slug": "the-gentlemen-affinity-designs-2026-07-23",
+  "title": "Affinity Designs",
+  "group": "The Gentlemen",
+  "discovered": "2026-07-23T00:00:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "United States",
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated in ransomware attack",
+  "source_url": "https://recentbreaches.com/breach/affinity-designs-thegentlemen-2026-07",
+  "groupAliases": [],
+  "activity": "Other",
+  "references": ["RecentBreaches.com"]
+}

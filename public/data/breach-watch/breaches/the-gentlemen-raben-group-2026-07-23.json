@@ -1,1 +1,15 @@
-{"slug":"the-gentlemen-raben-group-2026-07-23","title":"Raben Group","group":"The Gentlemen","discovered":"2026-07-23T00:00:00.000Z","category":"data_breach","severity":"high","country":"Poland","sizeBytes":0,"description":"Internal files exfiltrated in ransomware attack","source_url":"https://recentbreaches.com/breach/raben-group-thegentlemen-2026-07","groupAliases":[],"activity":"Transportation","references":["RecentBreaches.com"]}
+{
+  "slug": "the-gentlemen-raben-group-2026-07-23",
+  "title": "Raben Group",
+  "group": "the gentlemen",
+  "discovered": "2026-07-23T11:21:22.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "raben-group.com zoominfo.com/c/raben-group/350966506 Raben Group is a leading European logistics provider with Dutch roots, founded in 1931 and currently headquartered in Poznań, Poland. The company offers comprehensive transport and warehousing solutions, including road transport, contract logistics, and supply chain management across 17 European countries. With over 90 years of experience and a workforce of approximately 12,200 employees, Raben Group is recognized as a market leader focused on sustainable and efficient logistics operations",
+  "source_url": "https://www.ransomlook.io/recent",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

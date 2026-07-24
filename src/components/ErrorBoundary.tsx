@@ -11,14 +11,20 @@ import { AlertTriangle, RefreshCw, Home, ChevronDown, ChevronUp, Download } from
  */
 function isChunkLoadError(err: Error): boolean {
   const msg = `${err.name} ${err.message}`.toLowerCase();
-  return (
+  if (
     msg.includes('dynamically imported module') ||
-    msg.includes('failed to fetch dynamically imported module') ||
     msg.includes('importing a module script failed') ||
     msg.includes('chunkloaderror') ||
     msg.includes('loading chunk') ||
     msg.includes('loading css chunk')
-  );
+  ) {
+    return true;
+  }
+  if (msg.includes('failed to fetch')) {
+    const stack = (err.stack ?? '').toLowerCase();
+    return stack.includes('/assets/') || stack.includes('.js:') || stack.includes('.mjs:');
+  }
+  return false;
 }
 
 interface Props {

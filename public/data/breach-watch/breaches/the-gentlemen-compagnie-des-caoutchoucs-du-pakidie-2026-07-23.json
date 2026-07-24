@@ -1,1 +1,15 @@
-{"slug":"the-gentlemen-compagnie-des-caoutchoucs-du-pakidie-2026-07-23","title":"Compagnie des Caoutchoucs du Pakidie","group":"The Gentlemen","discovered":"2026-07-23T00:00:00.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"Internal files exfiltrated in ransomware attack","source_url":"https://recentbreaches.com/breach/compagnie-des-caoutchoucs-du-pakidie-thegentlemen-2026-07","groupAliases":[],"activity":"Manufacturing","references":["RecentBreaches.com"]}
+{
+  "slug": "the-gentlemen-compagnie-des-caoutchoucs-du-pakidie-2026-07-23",
+  "title": "Compagnie des Caoutchoucs du Pakidie",
+  "group": "the gentlemen",
+  "discovered": "2026-07-23T11:21:25.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "pakidie.com Compagnie des Caoutchoucs du Pakidié (CCP) is a pioneering Ivorian company established in 1960, specializing in the farming, production, and processing of natural rubber. Based in Abidjan, Côte d'Ivoire, it holds the historical distinction of being the country's first entirely private rubber enterprise and currently ranks as the second-largest national producer. The company is committed to sustainable practices, exporting its high-quality rubber to major international clients while prioritizing environmental and social responsibility.",
+  "source_url": "https://www.ransomlook.io/recent",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}
