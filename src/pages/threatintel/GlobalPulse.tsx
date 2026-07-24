@@ -500,7 +500,18 @@ export default function GlobalPulse(): JSX.Element {
   // recruiter-facing first impression). It's lazy-loaded (globe.gl/three.js,
   // ~506KB gz, route-split to THIS page only) and renders behind a skeleton while
   // the chunk streams in. Switch to '2d' (PulseMap, ~2.3KB) via the toggle / '2'.
-  const [mapMode, setMapMode] = useState<'2d' | '3d'>('3d');
+  // Auto-fallback to 2D if WebGL is unavailable (prevents globe.gl crash).
+  const [mapMode, setMapMode] = useState<'2d' | '3d'>(() => {
+    if (typeof document === 'undefined') return '3d';
+    try {
+      const c = document.createElement('canvas');
+      const gl = c.getContext('webgl2') || c.getContext('webgl');
+      if (!gl) return '2d';
+    } catch {
+      return '2d';
+    }
+    return '3d';
+  });
   const [focus, setFocus] = useState<{ lat: number; lng: number } | null>(null);
   const [lastUpdated, setLastUpdated] = useState<string | null>(null);
   const [showFilters, setShowFilters] = useState(false);

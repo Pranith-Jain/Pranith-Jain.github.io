@@ -1,0 +1,35 @@
+{
+  "source": "synthetic (OpenThreat + cyber_threat_intel + Daily-Hunt references)",
+  "license": "MIT",
+  "replicatedAt": "2026-07-24",
+  "counts": { "cves": 0, "iocs": 0, "sectors": 3, "kevTotal": 1653 },
+  "lastSyncedAt": "2026-07-24T07:08:05.367Z",
+  "cveIndex": [],
+  "iocIndex": [],
+  "sectors": [
+    {
+      "sector": "financial",
+      "title": "Financial sector brief",
+      "generatedAt": "2026-07-24",
+      "topCount": 0,
+      "preview": "No KEV-flagged CVEs in the current window.",
+      "sizeBytes": 288
+    },
+    {
+      "sector": "healthcare",
+      "title": "Healthcare sector brief",
+      "generatedAt": "2026-07-24",
+      "topCount": 0,
+      "preview": "No KEV-flagged CVEs in the current window.",
+      "sizeBytes": 290
+    },
+    {
+      "sector": "government",
+      "title": "Government sector brief",
+      "generatedAt": "2026-07-24",
+      "topCount": 0,
+      "preview": "No KEV-flagged CVEs in the current window.",
+      "sizeBytes": 290
+    }
+  ]
+}

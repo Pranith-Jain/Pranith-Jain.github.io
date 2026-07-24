@@ -1,0 +1,10 @@
+{
+  "sector": "healthcare",
+  "title": "Healthcare sector brief",
+  "generatedAt": "2026-07-24",
+  "topCount": 0,
+  "preview": "No KEV-flagged CVEs in the current window.",
+  "sizeBytes": 290,
+  "executiveSummary": "Brief generation runs as a separate step (see scripts/render-threat-intel-briefs.mjs).",
+  "topThreats": []
+}
