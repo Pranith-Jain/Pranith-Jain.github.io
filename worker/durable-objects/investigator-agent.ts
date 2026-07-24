@@ -28,6 +28,15 @@ import {
   type WorkingMemory,
 } from '../../api/src/lib/agent/agent-framework';
 import { getCachedResult, setCachedResult } from '../../api/src/lib/agent/agent-cache';
+import { suggestAlternative } from '../../api/src/lib/agent/tool-retry';
+import { saveInvestigationMemory } from '../../api/src/lib/agent/investigation-memory';
+import {
+  createCostTracker,
+  recordCompletion,
+  isOverBudget,
+  costSummary,
+  type InvestigationCost,
+} from '../../api/src/lib/agent/cost-tracker';
 
 /** Truncate JSON-serializable data to a max char length. Returns valid JSON. */
 function truncateData(data: unknown, maxChars: number): unknown {
@@ -63,6 +72,8 @@ export class InvestigatorAgentDO {
   /** Tracks which agentId each WebSocket session is watching. */
   private sessionAgentIds = new Map<string, string>();
   private ipConnections = new Map<string, number>();
+  /** Per-investigation cost trackers. */
+  private costTrackers = new Map<string, InvestigationCost>();
 
   constructor(ctx: DurableObjectState, env: Env) {
     this.ctx = ctx;
@@ -304,6 +315,26 @@ export class InvestigatorAgentDO {
     // so the planner has full context for better tool selection.
     let workingMemory = this.buildWorkingMemory(state);
 
+    // ── COST TRACKING ────────────────────────────────────────────────
+    // Track token usage and costs per investigation.
+    const costTracker = this.costTrackers.get(state.id) ?? createCostTracker();
+    this.costTrackers.set(state.id, costTracker);
+
+    // Check budget before proceeding
+    if (isOverBudget(costTracker)) {
+      console.warn(`agent ${state.id}: budget exceeded (${costSummary(costTracker)}), synthesizing early`);
+      return await this.doSynthesize(
+        state,
+        ai,
+        groqKey,
+        googleKey,
+        nvidiaKey,
+        stepNum,
+        stepStart,
+        'Budget exceeded — synthesizing with collected data.'
+      );
+    }
+
     // ── DECIDE (pre-plan) ─────────────────────────────────────────────
     const exit = evaluateCtiExit(view);
     if (exit) {
@@ -527,6 +558,8 @@ export class InvestigatorAgentDO {
   ): Promise<AgentToolResult[]> {
     const toolMap = new Map(tools.map((t) => [t.name, t]));
     const results: AgentToolResult[] = [];
+    const allToolNames = new Set(tools.map((t) => t.name));
+    const calledKeys = new Set(calls.map((c) => `${c.tool}:${JSON.stringify(c.args)}`));
 
     const promises = calls.map(async (call): Promise<AgentToolResult> => {
       const tool = toolMap.get(call.tool);
@@ -548,8 +581,6 @@ export class InvestigatorAgentDO {
       const start = Date.now();
       try {
         // Per-tool timeout: 20s for most tools, 40s for heavy fan-outs
-        // (enrich_actor, check_ioc, enrich_ioc_deep) that hit multiple
-        // external APIs in parallel.
         const isHeavyFanout = [
           'enrich_actor',
           'check_ioc',
@@ -576,6 +607,27 @@ export class InvestigatorAgentDO {
 
         return { tool: call.tool, args: call.args, status: 'ok', data, durationMs: Date.now() - start };
       } catch (err) {
+        // Tool retry: try an alternative tool if available
+        const alt = suggestAlternative(call, allToolNames, calledKeys);
+        if (alt) {
+          const altTool = toolMap.get(alt.tool);
+          if (altTool) {
+            try {
+              const altStart = Date.now();
+              const altData = await Promise.race([
+                altTool.execute(alt.args),
+                new Promise<never>((_, reject) => {
+                  setTimeout(() => reject(new Error('Alt tool timeout')), 20_000);
+                }),
+              ]);
+              await setCachedResult(alt.tool, alt.args, altData);
+              return { tool: alt.tool, args: alt.args, status: 'ok', data: altData, durationMs: Date.now() - altStart };
+            } catch {
+              // Alt also failed — fall through to error
+            }
+          }
+        }
+
         console.error('handler failed:', err instanceof Error ? err.message : String(err));
         return {
           tool: call.tool,
@@ -807,6 +859,27 @@ export class InvestigatorAgentDO {
       state.currentStep = qaStepNum;
       state.status = 'done';
       state.completedAt = new Date().toISOString();
+
+      // Save investigation memory for cross-session context
+      const db = (this.env as unknown as ApiEnv).BRIEFINGS_DB;
+      if (db) {
+        const mem = this.buildWorkingMemory(state);
+        await saveInvestigationMemory(db, {
+          query: state.query,
+          queryType: state.queryType,
+          iocs: mem.iocs.map((i) => ({ type: i.type, value: i.value, confidence: i.confidence })),
+          actors: mem.actors,
+          mitre: mem.mitre.map((m) => m.id),
+          cves: mem.cves,
+          keyFindings: mem.keyFacts.slice(0, 10),
+          qualityScore: state.qa?.qualityScore ?? 0,
+          modelUsed: state.modelUsed ?? '',
+          completedAt: state.completedAt,
+        });
+      }
+
+      // Clean up cost tracker
+      this.costTrackers.delete(state.id);
     } catch (err) {
       console.error('handler failed:', err instanceof Error ? err.message : String(err));
       synthesizeStep.status = 'error';

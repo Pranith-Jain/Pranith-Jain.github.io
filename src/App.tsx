@@ -130,6 +130,7 @@ const Quicktrace = lazy(() => import('./pages/dfir/Quicktrace'));
 const PowershellDeobf = lazy(() => import('./pages/dfir/PowershellDeobf'));
 const AgentMap = lazy(() => import('./pages/dfir/AgentMap'));
 const AgentInvestigator = lazy(() => import('./pages/dfir/AgentInvestigator'));
+const InvestigationHistory = lazy(() => import('./pages/threatintel/InvestigationHistory'));
 const Tabletop = lazy(() => import('./pages/dfir/Tabletop'));
 const DetectionChokepointsHub = lazy(() => import('./pages/dfir/DetectionChokepointsHub'));
 const Grc = lazy(() => import('./pages/dfir/Grc'));
@@ -324,6 +325,7 @@ const ThreatLandscapeStix = lazy(() => import('./pages/threatintel/ThreatLandsca
 const ThreatLandscapeIocs = lazy(() => import('./pages/threatintel/ThreatLandscapeIocs'));
 const SupplyChainAttacks = lazy(() => import('./pages/threatintel/SupplyChainAttacks'));
 const SupplyChainIntelligence = lazy(() => import('./pages/threatintel/SupplyChainIntelligence'));
+const SupplyChainFeed = lazy(() => import('./pages/threatintel/SupplyChainFeed'));
 const TechAiNews = lazy(() => import('./pages/dfir/TechAiNews'));
 
 const ThreatActorCatalog = lazy(() => import('./pages/threatintel/ThreatActorCatalog'));
@@ -578,6 +580,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/powershell-deobf', Component: PowershellDeobf },
   { path: '/dfir/agent-map', Component: AgentMap },
   { path: '/dfir/agent', Component: AgentInvestigator },
+  { path: '/dfir/agent-history', Component: InvestigationHistory },
   { path: '/dfir/agent-enrich', Component: TieEnrich },
   { path: '/dfir/tabletop', Component: Tabletop },
   { path: '/dfir/detection-chokepoints', Component: DetectionChokepointsHub },
@@ -707,6 +710,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/phishing/scam', Component: ScamWatch },
   { path: '/threatintel/external/external', Component: ExternalResources },
   { path: '/threatintel/external/supply', Component: SupplyChainIntelligence },
+  { path: '/threatintel/depx', Component: SupplyChainFeed },
   { path: '/threatintel/external/awesome', Component: AwesomeLists },
   { path: '/threatintel/feeds/catalog', Component: FeedCatalog },
   { path: '/threatintel/feeds/sources', Component: FeedSources },

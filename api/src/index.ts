@@ -315,6 +315,8 @@ import {
   veraChatStreamHandler,
   veraChatHistoryHandler,
   veraSessionsListHandler,
+  veraChatDeleteHandler,
+  veraChatCancelHandler,
 } from './routes/vera';
 import { stixBundlesHandler } from './routes/stix-bundles';
 import { actionableIocsHandler, createIocTypeHandler } from './routes/actionable-iocs';
@@ -452,6 +454,7 @@ import {
 } from './routes/campaigns';
 import { maltrailSyncHandler, listSkeletonActorsHandler, getSkeletonActorHandler } from './routes/maltrail-sync';
 import { maliciousPackagesHandler } from './routes/malicious-packages';
+import { depxFeedHandler, depxFeedStatsHandler, depxCheckHandler } from './routes/depx';
 import { packageVerdictHandler } from './routes/package-verdict';
 import { secretLeaksHandler } from './routes/secret-leaks';
 import { feedQualityHandler as tifceFeedQualityHandler } from './routes/tifce';
@@ -463,6 +466,7 @@ import {
   agentSessionsHandler,
   agentDeleteHandler,
 } from './routes/agent';
+import { agentHistoryHandler } from './routes/agent-history';
 import { tieEnrichHandler, tieEnrichStateHandler, tieEnrichStreamHandler } from './routes/tie-enrich';
 import { attackNavigatorHandler } from './routes/attack-navigator';
 import { a3mMatrixHandler } from './routes/a3m-matrix';
@@ -979,6 +983,7 @@ import { fullhuntRouter } from './routes/fullhunt';
 import { opensanctionsRouter } from './routes/opensanctions';
 import { dehashRouter } from './routes/dehash';
 import { darknetIntelRouter } from './routes/darknet-intel-tools';
+import { darkwebOsintRouter } from './routes/darkweb-osint';
 import { fbiWantedRouter } from './routes/fbi-wanted';
 import { interpolRouter } from './routes/interpol';
 import { mozillaTlsRouter } from './routes/mozilla-tls';
@@ -1318,6 +1323,7 @@ app.get('/api/v1/agent/debug-llm', agentDebugLlmHandler);
 app.post('/api/v1/agent/investigate', validate('json', agentInvestigateSchema), agentInvestigateHandler);
 app.delete('/api/v1/agent/:id', agentDeleteHandler);
 app.get('/api/v1/agent/sessions', agentSessionsHandler);
+app.get('/api/v1/agent/history', agentHistoryHandler);
 app.get('/api/v1/agent/:id/stream', agentStreamHandler);
 app.get('/api/v1/agent/:id', agentStateHandler);
 app.post('/api/v1/tie/enrich', tieEnrichHandler);
@@ -1461,6 +1467,10 @@ app.get('/api/v1/skeleton-actors', listSkeletonActorsHandler);
 app.get('/api/v1/skeleton-actors/:slug', getSkeletonActorHandler);
 app.get('/api/v1/malicious-packages', maliciousPackagesHandler);
 app.get('/api/v1/package-verdict', packageVerdictHandler);
+// depx — supply-chain intelligence feed (OpenSSF malicious packages)
+app.get('/api/v1/depx/feed', depxFeedHandler);
+app.get('/api/v1/depx/feed/stats', depxFeedStatsHandler);
+app.get('/api/v1/depx/feed/check', depxCheckHandler);
 app.get('/api/v1/x-tweets', xTweetsHandler);
 app.get('/api/v1/x-live', xLiveHandler);
 app.get('/api/v1/x-firehose', xFirehoseHandler);
@@ -1531,6 +1541,8 @@ app.get('/api/v1/agents/chat/roles', veraChatRolesHandler);
 app.get('/api/v1/agents/chat/:sessionId/stream', veraChatStreamHandler);
 app.get('/api/v1/agents/chat/:sessionId', veraChatHistoryHandler);
 app.get('/api/v1/agents/chat/sessions', veraSessionsListHandler);
+app.delete('/api/v1/agents/chat/:sessionId', veraChatDeleteHandler);
+app.post('/api/v1/agents/chat/:sessionId/cancel', veraChatCancelHandler);
 
 // ── Threat Landscape-style APIs ─────────────────────────────────
 // STIX Bundles (PostgREST-style): /api/v1/stix_bundles
@@ -1991,6 +2003,10 @@ app.route('/api/v1', dehashRouter);
 // deep ransomware, HIBP, abuse.ch, OTX, Hybrid Analysis.
 // Partially key-gated (see source-status endpoint for details).
 app.route('/api/v1', darknetIntelRouter);
+
+// Dark Web OSINT — native TorBot + darkdump equivalents.
+// Multi-engine search, depth-limited crawl, link tree, email harvesting.
+app.route('/api/v1', darkwebOsintRouter);
 
 // FBI Wanted — search the FBI wanted persons database.
 // No API key required (public government API).
