@@ -133,6 +133,9 @@ export async function tieEnrichStreamHandler(c: Context<{ Bindings: Env }>): Pro
                 report: state.report,
                 error: state.error,
                 modelUsed: state.modelUsed,
+                qa: state.qa,
+                actionCard: state.actionCard,
+                steps: state.steps,
               })
             );
             clearInterval(interval);

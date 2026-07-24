@@ -1,6 +1,7 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
-import { Shield, Search, Globe, Link, FileDigit, AlertTriangle } from 'lucide-react';
+import { ReportView, type ReportActionCard } from '../../components/dfir/ReportView';
+import { Shield, Search, Globe, Link, FileDigit, AlertTriangle, Download, Loader2, Terminal } from 'lucide-react';
 
 type IocType = 'ip' | 'hash' | 'domain' | 'url';
 
@@ -26,6 +27,10 @@ interface EnrichResult {
   diagnostics: Array<{ provider: string; status: string; ms: number; error?: string }>;
   report?: string;
   status?: string;
+  modelUsed?: string;
+  qa?: { qualityScore: number; flaggedClaims: string[]; missingFacts: string[] };
+  actionCard?: ReportActionCard;
+  steps?: Array<{ stepNumber: number; plan: string; status: string; observation?: string }>;
 }
 
 function JsonBlock({ label, data }: { label: string; data: unknown }) {
@@ -60,6 +65,16 @@ function DiagnosticBadge({ d }: { d: { provider: string; status: string; ms: num
   );
 }
 
+function downloadFile(name: string, content: string, mime: string) {
+  const blob = new Blob([content], { type: mime });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = name;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
 const IOC_LABELS: Record<IocType, string> = { ip: 'IP Address', hash: 'File Hash', domain: 'Domain', url: 'URL' };
 const IOC_ICONS: Record<IocType, typeof Search> = { ip: Globe, hash: FileDigit, domain: Link, url: AlertTriangle };
 
@@ -73,71 +88,102 @@ export default function TieEnrich() {
 
   const submitRef = useRef<AbortController | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!ioc.trim()) return;
-    submitRef.current?.abort();
-    const ctrl = new AbortController();
-    submitRef.current = ctrl;
-    setLoading(true);
-    setError('');
-    setResult(null);
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
+      if (!ioc.trim()) return;
+      submitRef.current?.abort();
+      const ctrl = new AbortController();
+      submitRef.current = ctrl;
+      setLoading(true);
+      setError('');
+      setResult(null);
 
-    try {
-      const res = await fetch('/api/v1/tie/enrich', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ ioc: ioc.trim(), ioc_type: iocType, deep }),
-        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(30_000)]),
-      });
-      if (ctrl.signal.aborted) return;
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({ error: 'Unknown error' }));
-        throw new Error(err.error || `HTTP ${res.status}`);
-      }
-      const data = await res.json();
+      try {
+        const res = await fetch('/api/v1/tie/enrich', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ ioc: ioc.trim(), ioc_type: iocType, deep }),
+          signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(30_000)]),
+        });
+        if (ctrl.signal.aborted) return;
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({ error: 'Unknown error' }));
+          throw new Error(err.error || `HTTP ${res.status}`);
+        }
+        const data = await res.json();
 
-      if (deep && data.id) {
-        setResult({ ioc: ioc.trim(), iocType, status: 'running', diagnostics: [] });
-        const evtSource = new EventSource(`/api/v1/tie/enrich/${data.id}/stream`);
-        evtSource.onmessage = (ev) => {
-          try {
-            const msg = JSON.parse(ev.data);
-            if (msg.type === 'done') {
-              setResult({
-                ioc: ioc.trim(),
-                iocType,
-                status: 'done',
-                report: msg.report,
-                diagnostics: [],
-              });
-              evtSource.close();
-            } else if (msg.type === 'error') {
-              setError(msg.error);
-              evtSource.close();
+        if (deep && data.id) {
+          setResult({ ioc: ioc.trim(), iocType, status: 'running', diagnostics: [] });
+          const evtSource = new EventSource(`/api/v1/tie/enrich/${data.id}/stream`);
+          evtSource.onmessage = (ev) => {
+            try {
+              const msg = JSON.parse(ev.data);
+              if (msg.type === 'done') {
+                setResult({
+                  ioc: ioc.trim(),
+                  iocType,
+                  status: 'done',
+                  report: msg.report,
+                  modelUsed: msg.modelUsed,
+                  qa: msg.qa,
+                  actionCard: msg.actionCard,
+                  diagnostics: [],
+                });
+                evtSource.close();
+              } else if (msg.type === 'error') {
+                setError(msg.error);
+                evtSource.close();
+              }
+            } catch (_catchErr) {
+              console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
             }
-          } catch (_catchErr) {
-            console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-            /* ignore parse errors */
-          }
-        };
-        evtSource.onerror = () => {
-          setError('Stream connection lost');
-          evtSource.close();
-        };
-        setLoading(false);
-        return;
-      }
+          };
+          evtSource.onerror = () => {
+            setError('Stream connection lost');
+            evtSource.close();
+          };
+          setLoading(false);
+          return;
+        }
 
-      setResult(data);
-    } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
-      if (ctrl.signal.aborted) return;
-      setError(err instanceof Error ? err.message : String(err));
-    } finally {
-      if (!ctrl.signal.aborted) setLoading(false);
-    }
-  };
+        setResult(data);
+      } catch (err) {
+        console.error('handler failed:', err instanceof Error ? err.message : String(err));
+        if (ctrl.signal.aborted) return;
+        setError(err instanceof Error ? err.message : String(err));
+      } finally {
+        if (!ctrl.signal.aborted) setLoading(false);
+      }
+    },
+    [ioc, iocType, deep]
+  );
+
+  const handleDownload = useCallback(
+    (format: 'md' | 'stix') => {
+      if (!result?.report) return;
+      if (format === 'md') {
+        downloadFile(`enrich-${result.ioc.slice(0, 20)}.md`, result.report, 'text/markdown');
+      } else {
+        const stix = {
+          type: 'bundle',
+          id: `bundle--${crypto.randomUUID()}`,
+          spec_version: '2.1',
+          objects: [
+            {
+              type: 'report',
+              id: `report--${crypto.randomUUID()}`,
+              name: `Enrichment: ${result.ioc}`,
+              created: new Date().toISOString(),
+              object_refs: [],
+            },
+          ],
+        };
+        downloadFile(`enrich-${result.ioc.slice(0, 20)}.stix.json`, JSON.stringify(stix, null, 2), 'application/json');
+      }
+    },
+    [result]
+  );
 
   const Icon = IOC_ICONS[iocType];
 
@@ -146,7 +192,7 @@ export default function TieEnrich() {
       backTo="/dfir"
       icon={<Shield size={28} />}
       title="Threat Intel Enrichment Agent"
-      description="Enrich any IOC (IP, hash, domain, or URL) using 30+ threat intel providers. Fast deterministic mode for quick checks, deep autonomous mode for full investigation with report generation."
+      description="Enrich any IOC using 30+ providers. Fast mode for quick checks, deep autonomous mode for full investigation with structured report."
       maxWidthClass="max-w-4xl"
     >
       <form onSubmit={handleSubmit} className="mb-6 space-y-4">
@@ -188,13 +234,13 @@ export default function TieEnrich() {
         </div>
         <label className="flex items-center gap-2 text-xs text-slate-500">
           <input type="checkbox" checked={deep} onChange={(e) => setDeep(e.target.checked)} className="rounded" />
-          Deep analysis (autonomous investigator — runs 3-5 steps, 10-30s, generates full report)
+          Deep analysis (autonomous investigator — runs 3-5 steps, generates structured report with QA verification)
         </label>
       </form>
 
       {loading && !deep && (
         <div className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-[rgb(var(--surface-200))]">
-          <div className="h-5 w-5 animate-spin rounded-full border-2 border-cyan-600 border-t-transparent" />
+          <Loader2 size={16} className="animate-spin text-cyan-600" />
           <span className="text-sm text-slate-500">Running enrichment across providers...</span>
         </div>
       )}
@@ -206,28 +252,101 @@ export default function TieEnrich() {
         </div>
       )}
 
+      {/* Deep analysis: structured report with ReportView */}
       {result && result.status === 'done' && result.report && (
-        <div className="rounded-xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-[rgb(var(--surface-200))]">
-          <h2 className="mb-4 text-lg font-semibold text-slate-800 dark:text-slate-200">Investigation Report</h2>
-          <div className="prose prose-sm max-w-none dark:prose-invert">
-            {result.report.split('\n').map((line, i) => (
-              <p key={i} className="text-sm text-slate-700 dark:text-slate-300">
-                {line || '\u00A0'}
-              </p>
-            ))}
+        <section className="surface-card p-6 mb-6 animate-fade-in-up">
+          <div className="flex items-center gap-2 mb-4 flex-wrap">
+            <Shield size={16} className="text-emerald-600" />
+            <h2 className="text-lg font-display font-bold">Investigation Report</h2>
+            {result.modelUsed && (
+              <span className="text-micro font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500">
+                {result.modelUsed}
+              </span>
+            )}
+            {result.qa && (
+              <span
+                className={`text-micro font-mono px-2 py-0.5 rounded border ${
+                  result.qa.qualityScore >= 80
+                    ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-600'
+                    : result.qa.qualityScore >= 60
+                      ? 'border-amber-500/40 bg-amber-500/10 text-amber-600'
+                      : 'border-rose-500/40 bg-rose-500/10 text-rose-600'
+                }`}
+              >
+                QA: {result.qa.qualityScore}/100
+              </span>
+            )}
+            <div className="ml-auto flex gap-2">
+              <button
+                onClick={() => handleDownload('md')}
+                className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-cyan-500/40 text-muted"
+              >
+                <Download size={12} /> .md
+              </button>
+              <button
+                onClick={() => handleDownload('stix')}
+                className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded border border-emerald-500/40 bg-emerald-500/5 hover:bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
+              >
+                <Download size={12} /> STIX 2.1
+              </button>
+            </div>
           </div>
-        </div>
+
+          {/* QA Details */}
+          {result.qa && (result.qa.flaggedClaims.length > 0 || result.qa.missingFacts.length > 0) && (
+            <details className="mb-4 rounded border border-amber-500/30 bg-amber-500/5 p-3">
+              <summary className="text-xs font-mono font-bold text-amber-700 dark:text-amber-300 cursor-pointer">
+                QA Notes ({result.qa.flaggedClaims.length} flagged, {result.qa.missingFacts.length} added)
+              </summary>
+              {result.qa.flaggedClaims.length > 0 && (
+                <ul className="mt-2 space-y-1">
+                  {result.qa.flaggedClaims.map((c, i) => (
+                    <li key={i} className="text-micro font-mono text-amber-700 dark:text-amber-300">
+                      • {c}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {result.qa.missingFacts.length > 0 && (
+                <ul className="mt-2 space-y-1">
+                  {result.qa.missingFacts.map((f, i) => (
+                    <li key={i} className="text-micro font-mono text-amber-700 dark:text-amber-300">
+                      + {f}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </details>
+          )}
+
+          <ReportView report={result.report} actionCard={result.actionCard} query={result.ioc} />
+        </section>
       )}
 
+      {/* Deep analysis: running */}
       {result && result.status === 'running' && (
-        <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-[rgb(var(--surface-200))]">
-          <div className="flex items-center gap-2 text-sm text-slate-500">
-            <div className="h-4 w-4 animate-spin rounded-full border-2 border-cyan-600 border-t-transparent" />
+        <div className="rounded-xl border border-cyan-200 bg-cyan-50 p-4 dark:border-cyan-800 dark:bg-cyan-900/20">
+          <div className="flex items-center gap-2 text-sm text-cyan-700 dark:text-cyan-300">
+            <Loader2 size={16} className="animate-spin" />
             Investigation in progress...
           </div>
+          {result.steps && result.steps.length > 0 && (
+            <div className="mt-3 space-y-1">
+              {result.steps.map((s) => (
+                <div key={s.stepNumber} className="flex items-center gap-2 text-xs font-mono text-slate-500">
+                  <Terminal size={12} />
+                  <span className={s.status === 'done' ? 'text-emerald-600' : 'text-cyan-600'}>
+                    Step {s.stepNumber}
+                  </span>
+                  <span className="truncate">{s.plan?.slice(0, 60)}</span>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
 
+      {/* Fast enrichment: structured results */}
       {result && !result.report && result.status !== 'running' && (
         <div className="space-y-4">
           <div className="flex items-center gap-2">
@@ -275,15 +394,10 @@ export default function TieEnrich() {
           )}
 
           {result.phantomcandle ? <JsonBlock label="PhantomCandle Attribution" data={result.phantomcandle} /> : null}
-
           {result.domainIntel ? <JsonBlock label="Domain Intelligence" data={result.domainIntel} /> : null}
-
           {result.phishingAnalysis ? <JsonBlock label="Phishing URL Analysis" data={result.phishingAnalysis} /> : null}
-
           {result.malpedia ? <JsonBlock label="Malpedia Lookup" data={result.malpedia} /> : null}
-
           {result.reputation ? <JsonBlock label="IOC Reputation (30+ providers)" data={result.reputation} /> : null}
-
           {result.mitre ? <JsonBlock label="MITRE ATT&CK Mapping" data={result.mitre} /> : null}
         </div>
       )}
