@@ -1,15 +1,1 @@
-{
-  "slug": "krybit-moscati-org-2026-07-01",
-  "title": "moscati.org",
-  "group": "krybit",
-  "discovered": "2026-07-01T13:55:04.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "IT",
-  "sizeBytes": 0,
-  "description": "Hôpital Catholique Saint Joseph Moscati (***.org) is a Catholic hospital operating under the motto \"Foi et charité...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"krybit-moscati-org-2026-07-01","title":"moscati.org","group":"krybit","discovered":"2026-07-01T13:55:04.000Z","category":"ransomware","severity":"high","country":"IT","sizeBytes":0,"description":"Hôpital Catholique Saint Joseph Moscati (***.org) is a Catholic hospital operating under the motto \"Foi et charité...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

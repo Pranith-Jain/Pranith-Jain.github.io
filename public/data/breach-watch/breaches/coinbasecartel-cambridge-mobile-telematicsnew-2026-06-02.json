@@ -1,15 +1,1 @@
-{
-  "slug": "coinbasecartel-cambridge-mobile-telematicsnew-2026-06-02",
-  "title": "Cambridge Mobile TelematicsNEW",
-  "group": "coinbasecartel",
-  "discovered": "2026-06-02T12:21:09.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "[AI generated] Cambridge Mobile Telematics (CMT) is a US-based technology company headquartered in Cambridge, Massachusetts. It operates in the telematics and insurtech industry, providing mobile sensing and data analytics solutions. CMT specializes in measuring driving behavior using smartphone sensors and AI to help insurers, fleets, and enterprises improve road safety and reduce risk through usage-based insurance and driver safety programs.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["coinbase cartel"],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"coinbasecartel-cambridge-mobile-telematicsnew-2026-06-02","title":"Cambridge Mobile TelematicsNEW","group":"coinbasecartel","discovered":"2026-06-02T12:21:09.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"[AI generated] Cambridge Mobile Telematics (CMT) is a US-based technology company headquartered in Cambridge, Massachusetts. It operates in the telematics and insurtech industry, providing mobile sensing and data analytics solutions. CMT specializes in measuring driving behavior using smartphone sensors and AI to help insurers, fleets, and enterprises improve road safety and reduce risk through usage-based insurance and driver safety programs.","source_url":"https://www.ransomware.live/","groupAliases":["coinbase cartel"],"activity":"Technology","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "anubis-colorado-dental-wellness-center-2026-05-01",
-  "title": "Colorado Dental Wellness Center",
-  "group": "anubis",
-  "discovered": "2026-05-01T01:21:24.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Clients’ medical data breach.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"anubis-colorado-dental-wellness-center-2026-05-01","title":"Colorado Dental Wellness Center","group":"anubis","discovered":"2026-05-01T01:21:24.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Clients’ medical data breach.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "payoutsking-sofinter-s-p-a-2026-04-30",
-  "title": "Sofinter S.p.a",
-  "group": "payoutsking",
-  "discovered": "2026-04-30T00:41:22.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "IT",
-  "sizeBytes": 0,
-  "description": "[AI generated] Sofinter S.p.A. is an Italian industrial company specializing in the design and manufacturing of heat recovery systems, boilers, and thermal energy equipment. Operating in the energy and power generation sector, it serves industries including oil and gas, petrochemical, and power plants. Headquartered in Italy, Sofinter provides engineering solutions focused on steam generation and waste heat recovery, supporting both domestic and international markets.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"payoutsking-sofinter-s-p-a-2026-04-30","title":"Sofinter S.p.a","group":"payoutsking","discovered":"2026-04-30T00:41:22.000Z","category":"ransomware","severity":"high","country":"IT","sizeBytes":0,"description":"[AI generated] Sofinter S.p.A. is an Italian industrial company specializing in the design and manufacturing of heat recovery systems, boilers, and thermal energy equipment. Operating in the energy and power generation sector, it serves industries including oil and gas, petrochemical, and power plants. Headquartered in Italy, Sofinter provides engineering solutions focused on steam generation and waste heat recovery, supporting both domestic and international markets.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

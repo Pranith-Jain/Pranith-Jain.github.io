@@ -1,15 +1,1 @@
-{
-  "slug": "leakbazaar-omax-autos-2026-05-10",
-  "title": "Omax Autos",
-  "group": "LeakBazaar",
-  "discovered": "2026-05-10T08:55:19.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "IN",
-  "sizeBytes": 0,
-  "description": "OMAX Autos Limited is a leading manufacturer of sheet metal components, specializing in the production of auto and non-auto components.\n\n1. CALCULATION COST OF PRODUCTION (1001Mb); Price: $1000 - one hands / $500 - many hands.\n\n2. CONFIDENTIAL DATA (2.6Gb); Price: $2000 - one hands / $1000 - many hands.\n\n3. DIVIDENDS (145Mb); Price: $500 - one hands / $250 - many hands.\n\n4. FINANCE (2Gb); Price: $1500 - one hands / 750 - many hands.\n\n5. GUIDANCE (25Gb); Price: $2500 - one hands / $1250 - many hands.\n\n6. MERGERS AND ACQUISITIONS (95 Mb); Price: $300 - one hands / $150 - many hands.\n\n7. POSSIBLE VIOLATIONS (500Mb); Price: $1000 - one hands / $500 - many hands.\n\n8. QUARTERLY REPORTS(1.3 GB); Price: $1500 - one hands / $750 - many hands.\n\n9. RESEARCH REPORTS(1.7 GB) Price: $1800 - one hands / $900 - many hands.\n\n10. SANCTIONS(3.7 MB) Price: $100 - one hands / $50 - many hands.\n\n11. SECURITY REPORTS(9.7 GB) Price: $5000 - one hands / $2500 - many hands.\n\n12. SUPPLIERS BUYERS(794 MB) Price: $3000 - one hands / $1500 - many hands.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["leak bazaar"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"leakbazaar-omax-autos-2026-05-10","title":"Omax Autos","group":"LeakBazaar","discovered":"2026-05-10T08:55:19.000Z","category":"data_breach","severity":"high","country":"IN","sizeBytes":0,"description":"OMAX Autos Limited is a leading manufacturer of sheet metal components, specializing in the production of auto and non-auto components.\n\n1. CALCULATION COST OF PRODUCTION (1001Mb); Price: $1000 - one hands / $500 - many hands.\n\n2. CONFIDENTIAL DATA (2.6Gb); Price: $2000 - one hands / $1000 - many hands.\n\n3. DIVIDENDS (145Mb); Price: $500 - one hands / $250 - many hands.\n\n4. FINANCE (2Gb); Price: $1500 - one hands / 750 - many hands.\n\n5. GUIDANCE (25Gb); Price: $2500 - one hands / $1250 - many hands.\n\n6. MERGERS AND ACQUISITIONS (95 Mb); Price: $300 - one hands / $150 - many hands.\n\n7. POSSIBLE VIOLATIONS (500Mb); Price: $1000 - one hands / $500 - many hands.\n\n8. QUARTERLY REPORTS(1.3 GB); Price: $1500 - one hands / $750 - many hands.\n\n9. RESEARCH REPORTS(1.7 GB) Price: $1800 - one hands / $900 - many hands.\n\n10. SANCTIONS(3.7 MB) Price: $100 - one hands / $50 - many hands.\n\n11. SECURITY REPORTS(9.7 GB) Price: $5000 - one hands / $2500 - many hands.\n\n12. SUPPLIERS BUYERS(794 MB) Price: $3000 - one hands / $1500 - many hands.","source_url":"https://www.ransomware.live/","groupAliases":["leak bazaar"],"activity":"Manufacturing","references":["ransomware.live"]}

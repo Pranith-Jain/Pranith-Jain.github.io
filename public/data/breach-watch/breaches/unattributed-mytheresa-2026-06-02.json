@@ -1,15 +1,1 @@
-{
-  "slug": "unattributed-mytheresa-2026-06-02",
-  "title": "Mytheresa",
-  "group": "Unattributed",
-  "discovered": "2026-06-02T11:02:16.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Mytheresa, a luxury fashion e-commerce platform, was targeted by the ShinyHunters group in April 2026, with data later released publicly exposing 84k unique email addresses along with names, phone numbers, physical addresses, purchase records, and partial payment card details including card type, last four digits, and expiry date.",
-  "source_url": "https://xposedornot.com/breach/Mytheresa",
-  "groupAliases": [],
-  "activity": "Retail",
-  "references": ["XposedOrNot"]
-}
+{"slug":"unattributed-mytheresa-2026-06-02","title":"Mytheresa","group":"Unattributed","discovered":"2026-06-02T11:02:16.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"Mytheresa, a luxury fashion e-commerce platform, was targeted by the ShinyHunters group in April 2026, with data later released publicly exposing 84k unique email addresses along with names, phone numbers, physical addresses, purchase records, and partial payment card details including card type, last four digits, and expiry date.","source_url":"https://xposedornot.com/breach/Mytheresa","groupAliases":[],"activity":"Retail","references":["XposedOrNot"]}

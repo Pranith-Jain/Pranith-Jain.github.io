@@ -1,15 +1,1 @@
-{
-  "slug": "ailock-wbf-construction-2026-07-14",
-  "title": "WBF Construction",
-  "group": "AiLock",
-  "discovered": "2026-07-14T12:20:12.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "WBF Construction LLC is a company that operates in the Commercial & Residential Construction industry. It employs 1to4 people and has under500K of revenue. The company is headquartered in New Haven, Connecticut.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Construction",
-  "references": ["ransomware.live"]
-}
+{"slug":"ailock-wbf-construction-2026-07-14","title":"WBF Construction","group":"AiLock","discovered":"2026-07-14T12:20:12.000Z","category":"ransomware","severity":"high","country":null,"sizeBytes":0,"description":"WBF Construction LLC is a company that operates in the Commercial & Residential Construction industry. It employs 1to4 people and has under500K of revenue. The company is headquartered in New Haven, Connecticut.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "blackout-yano-tokyo-2026-07-19",
-  "title": "yano.tokyo",
-  "group": "blackout",
-  "discovered": "2026-07-19T12:22:39.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "JP",
-  "sizeBytes": 0,
-  "description": "Yano Electronics Ltd. is a company in the field of microelectronics, we p...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"blackout-yano-tokyo-2026-07-19","title":"yano.tokyo","group":"blackout","discovered":"2026-07-19T12:22:39.000Z","category":"data_breach","severity":"high","country":"JP","sizeBytes":0,"description":"Yano Electronics Ltd. is a company in the field of microelectronics, we p...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

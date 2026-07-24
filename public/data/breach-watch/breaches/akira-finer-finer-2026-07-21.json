@@ -1,15 +1,1 @@
-{
-  "slug": "akira-finer-finer-2026-07-21",
-  "title": "Finer & Finer",
-  "group": "Akira",
-  "discovered": "2026-07-21T00:00:00.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Internal files exfiltrated in ransomware attack",
-  "source_url": "https://recentbreaches.com/breach/finer-finer-akira-2026-07",
-  "groupAliases": ["Megazord"],
-  "activity": "Consumer Services",
-  "references": ["RecentBreaches.com"]
-}
+{"slug":"akira-finer-finer-2026-07-21","title":"Finer & Finer","group":"akira","discovered":"2026-07-21T11:53:10.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Finer & Finer CPA is a leading accounting firm based in Randolph, MA, offering a wide range of \r\nservices including tax preparation, personal financial planning, and business accounting. They \r\ncater to business owners, executives, and independent professionals, providing personalized and\r\nprofessional attention to each client.\r\n\r\nWe will upload 50gb corporate data soon. Employee information (personal docs and health informa\r\ntion, tests and so on), contracts, client information and other internal information.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

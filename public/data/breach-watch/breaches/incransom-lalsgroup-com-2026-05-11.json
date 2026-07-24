@@ -1,15 +1,1 @@
-{
-  "slug": "incransom-lalsgroup-com-2026-05-11",
-  "title": "lalsgroup.com",
-  "group": "incransom",
-  "discovered": "2026-05-11T20:22:07.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "AE",
-  "sizeBytes": 0,
-  "description": "Lals Group is a large UAE-based family business group operating in retail, FMCG, distribution, home goods, and lifestyle brands across the GCC region. Founded in 1979, the company manages well-known brands and retail chains including Homes r Us, Daiso Japan, Carter’s, Mom Store, and others. Lals Group operates across the UAE, Qatar, Bahrain, Oman, Kuwait, and Saudi Arabia, with activities spanning retail stores, shopping malls, and logistics services.\r --\r 400 gb",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["inc ransom", "INC"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"incransom-lalsgroup-com-2026-05-11","title":"lalsgroup.com","group":"incransom","discovered":"2026-05-11T20:22:07.000Z","category":"ransomware","severity":"critical","country":"AE","sizeBytes":0,"description":"Lals Group is a large UAE-based family business group operating in retail, FMCG, distribution, home goods, and lifestyle brands across the GCC region. Founded in 1979, the company manages well-known brands and retail chains including Homes r Us, Daiso Japan, Carter’s, Mom Store, and others. Lals Group operates across the UAE, Qatar, Bahrain, Oman, Kuwait, and Saudi Arabia, with activities spanning retail stores, shopping malls, and logistics services.\r --\r 400 gb","source_url":"https://www.ransomware.live/","groupAliases":["inc ransom","INC"],"activity":"Other","references":["ransomware.live"]}

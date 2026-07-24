@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-ontario-home-builders-association-2026-06-05",
-  "title": "Ontario Home Builders' Association",
-  "group": "qilin",
-  "discovered": "2026-06-05T10:54:10.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "CA",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Construction",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-ontario-home-builders-association-2026-06-05","title":"Ontario Home Builders' Association","group":"qilin","discovered":"2026-06-05T10:54:10.000Z","category":"ransomware","severity":"critical","country":"CA","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

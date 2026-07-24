@@ -1,15 +1,1 @@
-{
-  "slug": "anubis-singing-river-health-system-2026-06-03",
-  "title": "Singing River Health System",
-  "group": "anubis",
-  "discovered": "2026-06-03T20:20:52.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "New data breach at a large health system provider.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"anubis-singing-river-health-system-2026-06-03","title":"Singing River Health System","group":"anubis","discovered":"2026-06-03T20:20:52.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"New data breach at a large health system provider.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

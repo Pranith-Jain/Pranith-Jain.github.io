@@ -1,15 +1,1 @@
-{
-  "slug": "lamashtu-parle-agro-2026-05-16",
-  "title": "Parle Agro",
-  "group": "lamashtu",
-  "discovered": "2026-05-16T19:22:52.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "IN",
-  "sizeBytes": 0,
-  "description": "Parle Agro — an Indian company that makes non‑alcoholic beverages and packaged foods (brands: Frooti, Appy/Appy Fizz, Bailley, Hippo).",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
-}
+{"slug":"lamashtu-parle-agro-2026-05-16","title":"Parle Agro","group":"lamashtu","discovered":"2026-05-16T19:22:52.000Z","category":"data_breach","severity":"high","country":"IN","sizeBytes":0,"description":"Parle Agro — an Indian company that makes non‑alcoholic beverages and packaged foods (brands: Frooti, Appy/Appy Fizz, Bailley, Hippo).","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Agriculture and Food Production","references":["ransomware.live"]}

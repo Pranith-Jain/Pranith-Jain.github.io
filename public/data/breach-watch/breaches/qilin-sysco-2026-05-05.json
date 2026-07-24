@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-sysco-2026-05-05",
-  "title": "Sysco",
-  "group": "qilin",
-  "discovered": "2026-05-05T23:24:22.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-sysco-2026-05-05","title":"Sysco","group":"qilin","discovered":"2026-05-05T23:24:22.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Agriculture and Food Production","references":["ransomware.live"]}

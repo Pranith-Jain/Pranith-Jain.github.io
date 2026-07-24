@@ -1,15 +1,1 @@
-{
-  "slug": "coinbasecartel-pragmatic-solutions-2026-05-30",
-  "title": "Pragmatic Solutions",
-  "group": "coinbasecartel",
-  "discovered": "2026-05-30T14:24:15.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "[AI generated] N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["coinbase cartel"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"coinbasecartel-pragmatic-solutions-2026-05-30","title":"Pragmatic Solutions","group":"coinbasecartel","discovered":"2026-05-30T14:24:15.000Z","category":"ransomware","severity":"high","country":null,"sizeBytes":0,"description":"[AI generated] N/A","source_url":"https://www.ransomware.live/","groupAliases":["coinbase cartel"],"activity":"Professional Services","references":["ransomware.live"]}

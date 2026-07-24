@@ -1,15 +1,1 @@
-{
-  "slug": "ailock-ferrovial-2026-07-15",
-  "title": "Ferrovial",
-  "group": "AiLock",
-  "discovered": "2026-07-15T09:20:09.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "ES",
-  "sizeBytes": 0,
-  "description": "Headquartered in Ferrovial operates as a global infrastructure and mobility operator. The company's services include the design and construction of public and private projects, and development, finance, and operation of toll road concessions.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Construction",
-  "references": ["ransomware.live"]
-}
+{"slug":"ailock-ferrovial-2026-07-15","title":"Ferrovial","group":"AiLock","discovered":"2026-07-15T09:20:09.000Z","category":"ransomware","severity":"high","country":"ES","sizeBytes":0,"description":"Headquartered in Ferrovial operates as a global infrastructure and mobility operator. The company's services include the design and construction of public and private projects, and development, finance, and operation of toll road concessions.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Transportation","references":["ransomware.live"]}

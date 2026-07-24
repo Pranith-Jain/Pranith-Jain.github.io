@@ -1,15 +1,1 @@
-{
-  "slug": "akira-abi-and-ideal-tape-2026-05-06",
-  "title": "ABI and Ideal Tape",
-  "group": "akira",
-  "discovered": "2026-05-06T12:20:25.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "From the creation of our very first line of friction tapes in 1908, we have stuck to our belief\nin developing quality products, holding ourselves to the highest standards. ABI Tapes products\nare primarily sold through a worldwide network of select industry-focused distributors and con\nverters. ABI and Ideal Tape are subsidiaries of American Biltrite Inc.\n\nWe will upload 11gb of corporate data soon. Employee personal information, customer files, proj\nects, contracts, internal confidential files, etc.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Megazord"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"akira-abi-and-ideal-tape-2026-05-06","title":"ABI and Ideal Tape","group":"akira","discovered":"2026-05-06T12:20:25.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"From the creation of our very first line of friction tapes in 1908, we have stuck to our belief\nin developing quality products, holding ourselves to the highest standards. ABI Tapes products\nare primarily sold through a worldwide network of select industry-focused distributors and con\nverters. ABI and Ideal Tape are subsidiaries of American Biltrite Inc.\n\nWe will upload 11gb of corporate data soon. Employee personal information, customer files, proj\nects, contracts, internal confidential files, etc.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Manufacturing","references":["ransomware.live"]}

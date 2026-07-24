@@ -1,15 +1,1 @@
-{
-  "slug": "payoutsking-h-o-2026-04-30",
-  "title": "H****o",
-  "group": "payoutsking",
-  "discovered": "2026-04-30T00:24:51.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": null,
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"payoutsking-h-o-2026-04-30","title":"H****o","group":"payoutsking","discovered":"2026-04-30T00:24:51.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":null,"source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Not Found","references":["ransomware.live"]}

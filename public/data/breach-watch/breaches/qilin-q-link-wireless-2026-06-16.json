@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-q-link-wireless-2026-06-16",
-  "title": "Q Link Wireless",
-  "group": "qilin",
-  "discovered": "2026-06-16T01:56:56.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Telecommunication",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-q-link-wireless-2026-06-16","title":"Q Link Wireless","group":"qilin","discovered":"2026-06-16T01:56:56.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

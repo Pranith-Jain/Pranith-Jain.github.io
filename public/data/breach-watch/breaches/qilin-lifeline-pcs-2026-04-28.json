@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-lifeline-pcs-2026-04-28",
-  "title": "Lifeline PCS",
-  "group": "qilin",
-  "discovered": "2026-04-28T03:50:15.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Telecommunication",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-lifeline-pcs-2026-04-28","title":"Lifeline PCS","group":"qilin","discovered":"2026-04-28T03:50:15.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

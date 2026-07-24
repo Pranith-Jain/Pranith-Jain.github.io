@@ -1,15 +1,1 @@
-{
-  "slug": "shinyhunters-dentaquest-llc-2026-05-28",
-  "title": "DentaQuest, LLC",
-  "group": "shinyhunters",
-  "discovered": "2026-05-28T07:23:39.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "You wouldn't want us to describe what data and how much data was compromised. It is in your best interests to reply to us or we are leaking it all by the deadline. This is a final warning to reach out by 29 May 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. Pay or Leak. | Updated: 28 May 2026 | Warning: FINAL WARNING PAY OR LEAK",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"shinyhunters-dentaquest-llc-2026-05-28","title":"DentaQuest, LLC","group":"shinyhunters","discovered":"2026-05-28T07:23:39.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"You wouldn't want us to describe what data and how much data was compromised. It is in your best interests to reply to us or we are leaking it all by the deadline. This is a final warning to reach out by 29 May 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. Pay or Leak. | Updated: 28 May 2026 | Warning: FINAL WARNING PAY OR LEAK","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

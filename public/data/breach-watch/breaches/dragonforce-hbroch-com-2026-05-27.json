@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-hbroch-com-2026-05-27",
-  "title": "hbroch.com",
-  "group": "dragonforce",
-  "discovered": "2026-05-27T12:53:31.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "Founded in 1941, Henry Broch Foods is an American international food ingredient manufacturer, processor, and packaging company, sourcing high-quality natural ingredients from producers worldwide.\nOur suppliers produce vegetables, fruits, herbs, spices, and natural colors, which are then concentrated, dehydrated, frozen, extracted, or pasteurized.\nThe company's products are used in a wide range of applications, including: spice and seasoning blends,\nbatters and coatings, bakery mixes, sauces, soups, salad dressings, flavorings,\nextracts and colors, fruit juices, flavored beverages, jams and jellies,\nready-to-eat meats, entrees, ethnic dishes, pasta,\nrice and grains, pizza, and snack foods.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-hbroch-com-2026-05-27","title":"hbroch.com","group":"dragonforce","discovered":"2026-05-27T12:53:31.000Z","category":"ransomware","severity":"critical","country":"DE","sizeBytes":0,"description":"Founded in 1941, Henry Broch Foods is an American international food ingredient manufacturer, processor, and packaging company, sourcing high-quality natural ingredients from producers worldwide.\nOur suppliers produce vegetables, fruits, herbs, spices, and natural colors, which are then concentrated, dehydrated, frozen, extracted, or pasteurized.\nThe company's products are used in a wide range of applications, including: spice and seasoning blends,\nbatters and coatings, bakery mixes, sauces, soups, salad dressings, flavorings,\nextracts and colors, fruit juices, flavored beverages, jams and jellies,\nready-to-eat meats, entrees, ethnic dishes, pasta,\nrice and grains, pizza, and snack foods.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Professional Services","references":["ransomware.live"]}

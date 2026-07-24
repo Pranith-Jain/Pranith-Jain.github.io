@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-allianceadjustment-com-2026-05-25",
-  "title": "allianceadjustment.com",
-  "group": "dragonforce",
-  "discovered": "2026-05-25T11:55:10.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Alliance Adjustment Group is a leading independent insurance claims adjuster serving Pennsylvania and New Jersey, specializing in handling a variety of insurance claims, including water damage, fire, storm damage, theft, and vandalism.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-allianceadjustment-com-2026-05-25","title":"allianceadjustment.com","group":"dragonforce","discovered":"2026-05-25T11:55:10.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Alliance Adjustment Group is a leading independent insurance claims adjuster serving Pennsylvania and New Jersey, specializing in handling a variety of insurance claims, including water damage, fire, storm damage, theft, and vandalism.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Professional Services","references":["ransomware.live"]}

@@ -5,8 +5,11 @@ import { badRequest, notFound, serviceUnavailable } from '../lib/api-error';
 import { ensureGraphTables, upsertNode, type NodeType } from './threat-graph';
 import { recordIocObservation } from './ioc-lifecycle';
 import { pinnedFetchFollow } from '../lib/ssrf-guard';
-import { safeNull, safeNullLog } from '../lib/safe-catch';
+import { safeNull } from '../lib/safe-catch';
 import type { D1Database } from '@cloudflare/workers-types';
+
+const FEED_JOBS_TABLE = 'feed_jobs';
+const FEED_HISTORY_TABLE = 'feed_run_history';
 
 interface FeedJob {
   id: string;
@@ -32,13 +35,11 @@ interface FeedRunHistory {
   error: string | null;
 }
 
-const JOBS_KV_KEY = 'feed-scheduler:jobs:v1';
 const JOBS_CACHE_KEY = 'https://feed-jobs-cache.internal/v1';
 // Backstop TTL only — every saveJobs() write-throughs this Cache-API entry, so
 // it stays coherent regardless of TTL. 300s (was 30s) cuts KV reads from an
 // admin dashboard that polls the jobs list.
 const JOBS_CACHE_TTL = 300;
-const HISTORY_ALL_KV_KEY = 'feed-scheduler:history:all';
 const MAX_HISTORY = 20;
 
 function cacheApi(): Cache | null {
@@ -78,17 +79,39 @@ async function writeJobsCache(jobs: FeedJob[]): Promise<void> {
   }
 }
 
-async function listJobs(kv: KVNamespace): Promise<FeedJob[]> {
+async function listJobs(db: D1Database): Promise<FeedJob[]> {
   const cached = await readJobsCached();
   if (cached) return cached;
-  const raw = await safeNullLog('kv-get-feed-jobs', kv.get(JOBS_KV_KEY, 'json'));
-  const jobs = (raw as FeedJob[]) ?? [];
+  const { results } = await db.prepare(`SELECT * FROM ${FEED_JOBS_TABLE} ORDER BY created_at DESC`).all<FeedJob>();
+  const jobs = (results ?? []).map((r) => ({ ...r, tags: JSON.parse(r.tags as unknown as string ?? '[]') }));
   await writeJobsCache(jobs);
   return jobs;
 }
 
-async function saveJobs(kv: KVNamespace, jobs: FeedJob[]): Promise<void> {
-  await kv.put(JOBS_KV_KEY, JSON.stringify(jobs));
+async function saveJobs(db: D1Database, jobs: FeedJob[]): Promise<void> {
+  for (const job of jobs) {
+    await db
+      .prepare(
+        `INSERT OR REPLACE INTO ${FEED_JOBS_TABLE}
+         (id, name, source_url, interval_minutes, parser, enabled, created_at, last_run_at, last_status, last_item_count, last_error, tags)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+      )
+      .bind(
+        job.id,
+        job.name,
+        job.source_url,
+        job.interval_minutes,
+        job.parser,
+        job.enabled ? 1 : 0,
+        job.created_at,
+        job.last_run_at,
+        job.last_status,
+        job.last_item_count,
+        job.last_error,
+        JSON.stringify(job.tags)
+      )
+      .run();
+  }
   await writeJobsCache(jobs);
 }
 
@@ -96,41 +119,67 @@ export type { FeedJob, FeedRunHistory };
 export { listJobs, saveJobs };
 
 /**
- * Append a run to the combined history blob so getFeedJobsHistoryAllHandler
- * can serve all histories with 1 KV read instead of 1 + N reads for N jobs.
- * Reads the existing blob, updates the per-job array, and writes it back.
+ * Read run history for a specific job from D1.
  */
-async function readCombinedHistory(kv: KVNamespace): Promise<Record<string, FeedRunHistory[]>> {
-  try {
-    const raw = (await kv.get(HISTORY_ALL_KV_KEY, 'json')) as Record<string, FeedRunHistory[]> | null;
-    return raw ?? {};
-  } catch (_catchErr) {
-    console.error('readCombinedHistory failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    return {};
-  }
+async function readJobHistory(db: D1Database, jobId: string): Promise<FeedRunHistory[]> {
+  const { results } = await db
+    .prepare(`SELECT * FROM ${FEED_HISTORY_TABLE} WHERE job_id = ? ORDER BY started_at DESC LIMIT ?`)
+    .bind(jobId, MAX_HISTORY)
+    .all<FeedRunHistory>();
+  return results ?? [];
 }
 
 /**
- * Update the combined history blob for a single job. Called after every per-job
- * history write so getFeedJobsHistoryAllHandler reads 1 KV key instead of N+1.
- * Reuses the already-computed hist array to avoid re-reading per-job history.
+ * Append a run history entry to D1.
  */
-async function writeCombinedHistoryForJob(kv: KVNamespace, jobId: string, hist: FeedRunHistory[]): Promise<void> {
-  try {
-    const raw = (await safeNullLog('kv-get-feed-combined-history', kv.get(HISTORY_ALL_KV_KEY, 'json'))) as Record<
-      string,
-      FeedRunHistory[]
-    > | null;
-    const all = raw ?? {};
-    all[jobId] = hist;
-    await kv.put(HISTORY_ALL_KV_KEY, JSON.stringify(all));
-  } catch (_catchErr) {
-    console.error(
-      'writeCombinedHistoryForJob failed:',
-      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-    );
-    /* best-effort */
+async function appendJobHistory(db: D1Database, history: FeedRunHistory): Promise<void> {
+  await db
+    .prepare(
+      `INSERT INTO ${FEED_HISTORY_TABLE} (job_id, started_at, finished_at, status, item_count, error)
+       VALUES (?, ?, ?, ?, ?, ?)`
+    )
+    .bind(history.job_id, history.started_at, history.finished_at, history.status, history.item_count, history.error)
+    .run();
+  // Prune old entries beyond MAX_HISTORY for this job
+  await db
+    .prepare(
+      `DELETE FROM ${FEED_HISTORY_TABLE} WHERE job_id = ? AND id NOT IN (
+        SELECT id FROM ${FEED_HISTORY_TABLE} WHERE job_id = ? ORDER BY started_at DESC LIMIT ?
+      )`
+    )
+    .bind(history.job_id, history.job_id, MAX_HISTORY)
+    .run();
+}
+
+/**
+ * Read all job histories from D1 (for the all-history endpoint).
+ */
+async function readAllHistories(db: D1Database): Promise<Record<string, FeedRunHistory[]>> {
+  const { results } = await db
+    .prepare(
+      `SELECT h.* FROM ${FEED_HISTORY_TABLE} h
+       INNER JOIN (
+         SELECT job_id, MAX(started_at) as max_started
+         FROM ${FEED_HISTORY_TABLE}
+         GROUP BY job_id
+       ) latest ON h.job_id = latest.job_id
+       ORDER BY h.started_at DESC`
+    )
+    .all<FeedRunHistory>();
+  const grouped: Record<string, FeedRunHistory[]> = {};
+  for (const row of results ?? []) {
+    const arr = grouped[row.job_id] ?? [];
+    if (arr.length < MAX_HISTORY) arr.push(row);
+    grouped[row.job_id] = arr;
   }
+  return grouped;
+}
+
+/**
+ * Delete a job's history from D1.
+ */
+async function deleteJobHistory(db: D1Database, jobId: string): Promise<void> {
+  await db.prepare(`DELETE FROM ${FEED_HISTORY_TABLE} WHERE job_id = ?`).bind(jobId).run();
 }
 
 function now(): string {
@@ -206,15 +255,15 @@ const PRESETS: { id: string; name: string; source_url: string; parser: FeedJob['
 ];
 
 export async function listFeedJobsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const kv = c.env.KV_CACHE;
-  if (!kv) return serviceUnavailable(c, 'KV not available');
-  const jobs = await listJobs(kv);
+  const db = c.env.BRIEFINGS_DB;
+  if (!db) return serviceUnavailable(c, 'database not available');
+  const jobs = await listJobs(db);
   return c.json({ jobs, presets: PRESETS }, 200, { 'Cache-Control': 'no-store' });
 }
 
 export async function createFeedJobHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const kv = c.env.KV_CACHE;
-  if (!kv) return serviceUnavailable(c, 'KV not available');
+  const db = c.env.BRIEFINGS_DB;
+  if (!db) return serviceUnavailable(c, 'database not available');
 
   const parsed = await safeJsonBody<{
     name: string;
@@ -257,15 +306,15 @@ export async function createFeedJobHandler(c: Context<{ Bindings: Env }>): Promi
     tags: body.tags ?? [],
   };
 
-  const jobs = await listJobs(kv);
+  const jobs = await listJobs(db);
   jobs.push(job);
-  await saveJobs(kv, jobs);
+  await saveJobs(db, jobs);
   return c.json({ job }, 201);
 }
 
 export async function updateFeedJobHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const kv = c.env.KV_CACHE;
-  if (!kv) return serviceUnavailable(c, 'KV not available');
+  const db = c.env.BRIEFINGS_DB;
+  if (!db) return serviceUnavailable(c, 'database not available');
 
   const id = c.req.param('id');
   if (!id) return badRequest(c, 'id required');
@@ -274,7 +323,7 @@ export async function updateFeedJobHandler(c: Context<{ Bindings: Env }>): Promi
   if ('error' in parsed) return parsed.error;
   const body = parsed.value;
 
-  const jobs = await listJobs(kv);
+  const jobs = await listJobs(db);
   const idx = jobs.findIndex((j) => j.id === id);
   if (idx < 0) return notFound(c, 'job not found');
 
@@ -297,52 +346,36 @@ export async function updateFeedJobHandler(c: Context<{ Bindings: Env }>): Promi
   if (body.tags !== undefined) job.tags = body.tags;
 
   jobs[idx] = job;
-  await saveJobs(kv, jobs);
+  await saveJobs(db, jobs);
   return c.json({ job });
 }
 
 export async function deleteFeedJobHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const kv = c.env.KV_CACHE;
-  if (!kv) return serviceUnavailable(c, 'KV not available');
+  const db = c.env.BRIEFINGS_DB;
+  if (!db) return serviceUnavailable(c, 'database not available');
 
   const id = c.req.param('id');
   if (!id) return badRequest(c, 'id required');
 
-  const jobs = await listJobs(kv);
+  const jobs = await listJobs(db);
   const idx = jobs.findIndex((j) => j.id === id);
   if (idx < 0) return notFound(c, 'job not found');
 
   jobs.splice(idx, 1);
-  await saveJobs(kv, jobs);
-
-  const historyKey = `feed-scheduler:history:${id}`;
-  safeNullLog('kv-delete-feed-history', kv.delete(historyKey));
-  // Remove job's history from the combined blob
-  try {
-    const raw = (await safeNullLog('kv-get-feed-history-remove', kv.get(HISTORY_ALL_KV_KEY, 'json'))) as Record<
-      string,
-      FeedRunHistory[]
-    > | null;
-    if (raw && raw[id]) {
-      delete raw[id];
-      await kv.put(HISTORY_ALL_KV_KEY, JSON.stringify(raw));
-    }
-  } catch (_catchErr) {
-    console.error('deleteFeedJobHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    /* best-effort */
-  }
+  await saveJobs(db, jobs);
+  await deleteJobHistory(db, id);
 
   return c.json({ ok: true });
 }
 
 export async function runFeedJobHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const kv = c.env.KV_CACHE;
-  if (!kv) return serviceUnavailable(c, 'KV not available');
+  const db = c.env.BRIEFINGS_DB;
+  if (!db) return serviceUnavailable(c, 'database not available');
 
   const id = c.req.param('id');
   if (!id) return badRequest(c, 'id required');
 
-  const jobs = await listJobs(kv);
+  const jobs = await listJobs(db);
   const idx = jobs.findIndex((j) => j.id === id);
   if (idx < 0) return notFound(c, 'job not found');
 
@@ -351,7 +384,7 @@ export async function runFeedJobHandler(c: Context<{ Bindings: Env }>): Promise<
   job.last_status = 'running';
   job.last_run_at = startedAt;
   jobs[idx] = job;
-  await saveJobs(kv, jobs);
+  await saveJobs(db, jobs);
 
   try {
     // SSRF-guarded: validates + pins the host and re-validates each redirect
@@ -368,7 +401,7 @@ export async function runFeedJobHandler(c: Context<{ Bindings: Env }>): Promise<
     job.last_item_count = count;
     job.last_error = null;
     jobs[idx] = job;
-    await saveJobs(kv, jobs);
+    await saveJobs(db, jobs);
 
     const finishedAt = now();
     const history: FeedRunHistory = {
@@ -380,11 +413,7 @@ export async function runFeedJobHandler(c: Context<{ Bindings: Env }>): Promise<
       error: null,
     };
 
-    const historyKey = `feed-scheduler:history:${id}`;
-    const existing = (await safeNullLog('kv-get-feed-run-ok', kv.get(historyKey, 'json'))) as FeedRunHistory[] | null;
-    const hist = [history, ...(existing ?? [])].slice(0, MAX_HISTORY);
-    await kv.put(historyKey, JSON.stringify(hist));
-    await writeCombinedHistoryForJob(kv, id, hist);
+    await appendJobHistory(db, history);
 
     return c.json({ job, run: history });
   } catch (err) {
@@ -393,7 +422,7 @@ export async function runFeedJobHandler(c: Context<{ Bindings: Env }>): Promise<
     job.last_status = 'error';
     job.last_error = errMsg;
     jobs[idx] = job;
-    await saveJobs(kv, jobs);
+    await saveJobs(db, jobs);
 
     const finishedAt = now();
     const history: FeedRunHistory = {
@@ -405,33 +434,28 @@ export async function runFeedJobHandler(c: Context<{ Bindings: Env }>): Promise<
       error: errMsg,
     };
 
-    const historyKey = `feed-scheduler:history:${id}`;
-    const existing = (await safeNullLog('kv-get-feed-run-err', kv.get(historyKey, 'json'))) as FeedRunHistory[] | null;
-    const hist = [history, ...(existing ?? [])].slice(0, MAX_HISTORY);
-    await kv.put(historyKey, JSON.stringify(hist));
-    await writeCombinedHistoryForJob(kv, id, hist);
+    await appendJobHistory(db, history);
 
     return c.json({ job, run: history }, 200);
   }
 }
 
 export async function getFeedJobHistoryHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const kv = c.env.KV_CACHE;
-  if (!kv) return serviceUnavailable(c, 'KV not available');
+  const db = c.env.BRIEFINGS_DB;
+  if (!db) return serviceUnavailable(c, 'database not available');
 
   const id = c.req.param('id');
   if (!id) return badRequest(c, 'id required');
 
-  const historyKey = `feed-scheduler:history:${id}`;
-  const history = (await safeNullLog('kv-get-feed-history-get', kv.get(historyKey, 'json'))) as FeedRunHistory[] | null;
-  return c.json({ history: history ?? [] }, 200, { 'Cache-Control': 'no-store' });
+  const history = await readJobHistory(db, id);
+  return c.json({ history }, 200, { 'Cache-Control': 'no-store' });
 }
 
 export async function getFeedJobsHistoryAllHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const kv = c.env.KV_CACHE;
-  if (!kv) return serviceUnavailable(c, 'KV not available');
+  const db = c.env.BRIEFINGS_DB;
+  if (!db) return serviceUnavailable(c, 'database not available');
 
-  const allHistory = await readCombinedHistory(kv);
+  const allHistory = await readAllHistories(db);
   return c.json({ history: allHistory }, 200, { 'Cache-Control': 'no-store' });
 }
 
@@ -441,10 +465,9 @@ export async function getFeedJobsHistoryAllHandler(c: Context<{ Bindings: Env }>
  * Saves fetched IOCs to graph_nodes D1 table.
  */
 export async function autoRunFeedJobs(
-  kv: KVNamespace,
   db: D1Database
 ): Promise<{ ran: number; saved: number; skipped: number }> {
-  const jobs = await listJobs(kv);
+  const jobs = await listJobs(db);
   const nowMs = Date.now();
   const due = jobs.filter((j) => {
     if (!j.enabled) return false;
@@ -468,7 +491,7 @@ export async function autoRunFeedJobs(
   const jobsClone = [...jobs];
   const idx = jobsClone.findIndex((j) => j.id === job.id);
   if (idx >= 0) jobsClone[idx] = job;
-  await saveJobs(kv, jobsClone);
+  await saveJobs(db, jobsClone);
 
   let savedCount = 0;
   try {
@@ -544,14 +567,13 @@ export async function autoRunFeedJobs(
     job.last_item_count = 0;
   }
 
-  const finalJobs = await listJobs(kv);
+  const finalJobs = await listJobs(db);
   const finalIdx = finalJobs.findIndex((j) => j.id === job.id);
   if (finalIdx >= 0) {
     finalJobs[finalIdx] = job;
-    await saveJobs(kv, finalJobs);
+    await saveJobs(db, finalJobs);
   }
 
-  const historyKey = `feed-scheduler:history:${job.id}`;
   const history: FeedRunHistory = {
     job_id: job.id,
     started_at: startedAt,
@@ -560,11 +582,7 @@ export async function autoRunFeedJobs(
     item_count: job.last_item_count ?? 0,
     error: job.last_error,
   };
-  const existing = (await safeNullLog('kv-get-feed-run-history', kv.get(historyKey, 'json'))) as
-    FeedRunHistory[] | null;
-  const hist = [history, ...(existing ?? [])].slice(0, MAX_HISTORY);
-  await kv.put(historyKey, JSON.stringify(hist));
-  await writeCombinedHistoryForJob(kv, job.id, hist);
+  await appendJobHistory(db, history);
 
   return { ran: 1, saved: savedCount, skipped: due.length - 1 };
 }

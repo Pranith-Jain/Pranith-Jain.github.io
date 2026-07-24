@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-erh-co-uk-2026-05-27",
-  "title": "erh.co.uk",
-  "group": "dragonforce",
-  "discovered": "2026-05-27T14:53:58.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "GB",
-  "sizeBytes": 0,
-  "description": "ERH is a leading provider of traffic management solutions, offering installation, maintenance and commissioning services throughout the UK.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-erh-co-uk-2026-05-27","title":"erh.co.uk","group":"dragonforce","discovered":"2026-05-27T14:53:58.000Z","category":"ransomware","severity":"critical","country":"GB","sizeBytes":0,"description":"ERH is a leading provider of traffic management solutions, offering installation, maintenance and commissioning services throughout the UK.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Professional Services","references":["ransomware.live"]}

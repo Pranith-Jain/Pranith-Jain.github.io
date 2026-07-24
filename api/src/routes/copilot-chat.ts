@@ -282,26 +282,30 @@ export async function copilotChatStreamHandler(c: Context<{ Bindings: Env }>): P
         }
       };
 
-      const interval = setInterval(async () => {
-        if (closed) {
-          clearInterval(interval);
-          return;
-        }
+      let pollDelay = 400;
+      const MAX_POLL_DELAY = 4000;
+      const pollTimeout = (delay: number) => new Promise((resolve) => setTimeout(resolve, delay));
+
+      const poll = async () => {
+        if (closed) return;
         try {
           const res = await stub.fetch(`https://agent/state?id=${encodeURIComponent(agentId)}`);
-          if (!res.ok) return;
+          if (!res.ok) { scheduleNext(pollDelay); return; }
           const state = (await res.json()) as AgentState;
 
+          let hasNew = false;
           for (const step of state.steps) {
             if (step.stepNumber > lastStep) {
               send(JSON.stringify({ type: 'step', step }));
               lastStep = step.stepNumber;
+              hasNew = true;
             }
           }
 
-          if (state.status === 'done' || state.status === 'error') {
-            clearInterval(interval);
+          if (hasNew) pollDelay = 400; // reset on activity
 
+          if (state.status === 'done' || state.status === 'error') {
+            cleanup();
             const report = state.status === 'done' ? (state.report ?? 'Investigation completed.') : null;
             const errMsg = state.status === 'error' ? (state.error ?? 'Unknown error') : null;
 
@@ -323,9 +327,11 @@ export async function copilotChatStreamHandler(c: Context<{ Bindings: Env }>): P
               }
               session.messages.push(assistantMsg);
 
-              const maxHistory = 20;
+              const maxHistory = 50;
               if (session.messages.length > maxHistory) {
-                session.messages = session.messages.slice(-maxHistory);
+                const systemMsgs = session.messages.filter((m) => m.role === 'system');
+                const recent = session.messages.slice(-maxHistory + systemMsgs.length);
+                session.messages = [...systemMsgs, ...recent.slice(-maxHistory)];
               }
 
               try {
@@ -357,21 +363,29 @@ export async function copilotChatStreamHandler(c: Context<{ Bindings: Env }>): P
             } catch (_catchErr) {
               console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
             }
+            return;
           }
+
+          scheduleNext(hasNew ? 400 : Math.min(pollDelay * 1.5, MAX_POLL_DELAY));
         } catch (_catchErr) {
           console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          scheduleNext(pollDelay);
         }
-      }, 800);
+      };
 
-      const heartbeat = setInterval(() => {
+      const scheduleNext = (delay: number) => {
+        pollDelay = delay;
+        if (!closed) pollTimeout(delay).then(poll);
+      };
+
+      const heartbeatInterval = setInterval(() => {
         if (!closed) send(JSON.stringify({ type: 'heartbeat' }));
-        else clearInterval(heartbeat);
+        else clearInterval(heartbeatInterval);
       }, 15000);
 
-      const timeout = setTimeout(() => {
+      const timeoutTimer = setTimeout(() => {
         if (!closed) {
-          clearInterval(interval);
-          clearInterval(heartbeat);
+          cleanup();
           closed = true;
           send(JSON.stringify({ type: 'error', error: 'Stream timed out after 120s' }));
           try {
@@ -382,17 +396,25 @@ export async function copilotChatStreamHandler(c: Context<{ Bindings: Env }>): P
         }
       }, 120_000);
 
+      let cleanupRan = false;
+      const cleanup = () => {
+        if (cleanupRan) return;
+        cleanupRan = true;
+        clearInterval(heartbeatInterval);
+        clearTimeout(timeoutTimer);
+      };
+
       c.req.raw.signal.addEventListener('abort', () => {
+        cleanup();
         closed = true;
-        clearInterval(interval);
-        clearInterval(heartbeat);
-        clearTimeout(timeout);
         try {
           controller.close();
         } catch (_catchErr) {
           console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         }
-      });
+      }, { once: true });
+
+      poll(); // start first poll
     },
   });
 
@@ -403,6 +425,36 @@ export async function copilotChatStreamHandler(c: Context<{ Bindings: Env }>): P
       connection: 'keep-alive',
     },
   });
+}
+
+export async function copilotChatCancelHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  try {
+    const sessionId = c.req.param('sessionId');
+    if (!sessionId) return badRequest(c, 'sessionId required');
+
+    const db = c.env.BRIEFINGS_DB as D1Database | undefined;
+    if (!db) return internalError(c, new Error('BRIEFINGS_DB not bound'));
+
+    const doNamespace = c.env.INVESTIGATOR_AGENT;
+    if (!doNamespace) return serviceUnavailable(c, 'Agent not configured');
+
+    const session = await loadSession(db, sessionId);
+    if (!session) return notFound(c, 'session not found');
+
+    const systemMsg = [...session.messages].reverse().find((m) => m.role === 'system' && m.agent_id);
+    const agentId = systemMsg?.agent_id;
+    if (!agentId) return badRequest(c, 'no active investigation');
+
+    const doId = doNamespace.idFromName(agentId);
+    const stub = doNamespace.get(doId);
+    const res = await stub.fetch(`https://agent/cancel?id=${encodeURIComponent(agentId)}`, { method: 'DELETE' });
+    if (!res.ok) return internalError(c, new Error('Failed to cancel investigation'));
+
+    return c.json({ cancelled: true });
+  } catch (e) {
+    console.error('copilotChatCancelHandler failed:', e instanceof Error ? e.message : String(e));
+    return internalError(c, e);
+  }
 }
 
 export async function copilotChatDeleteHandler(c: Context<{ Bindings: Env }>): Promise<Response> {

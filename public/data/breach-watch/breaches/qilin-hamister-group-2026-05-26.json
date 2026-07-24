@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-hamister-group-2026-05-26",
-  "title": "Hamister Group",
-  "group": "qilin",
-  "discovered": "2026-05-26T12:55:07.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "RU",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-hamister-group-2026-05-26","title":"Hamister Group","group":"qilin","discovered":"2026-05-26T12:55:07.000Z","category":"ransomware","severity":"critical","country":"RU","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

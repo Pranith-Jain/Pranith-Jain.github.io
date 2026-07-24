@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-hong-kong-parkview-2026-06-11",
-  "title": "Hong Kong Parkview",
-  "group": "dragonforce",
-  "discovered": "2026-06-11T15:22:16.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "HK",
-  "sizeBytes": 0,
-  "description": "Hong Kong Parkview offers over 200 luxury serviced apartments and a private clubhouse featuring recreational and dining facilities. Located within Tai Tam Country Park, it provides a tranquil living experience just minutes from the city center. The complex includes amenities such as a fitness center, swimming pools, themed playrooms, and various dining options. Targeting both long-term residents and short-term guests, it serves as an ideal home away from home.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Hospitality and Tourism",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-hong-kong-parkview-2026-06-11","title":"Hong Kong Parkview","group":"dragonforce","discovered":"2026-06-11T15:22:16.000Z","category":"ransomware","severity":"critical","country":"HK","sizeBytes":0,"description":"Hong Kong Parkview offers over 200 luxury serviced apartments and a private clubhouse featuring recreational and dining facilities. Located within Tai Tam Country Park, it provides a tranquil living experience just minutes from the city center. The complex includes amenities such as a fitness center, swimming pools, themed playrooms, and various dining options. Targeting both long-term residents and short-term guests, it serves as an ideal home away from home.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Hospitality","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "ailock-hokua-2026-06-26",
-  "title": "Hokua",
-  "group": "AiLock",
-  "discovered": "2026-06-26T08:50:06.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "CL",
-  "sizeBytes": 0,
-  "description": "Hokua Suites is a luxury resort-style residential condominium located in Honolulu, Hawaii. The complex offers upscale apartments with ocean views and a full range of premium amenities.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"ailock-hokua-2026-06-26","title":"Hokua","group":"AiLock","discovered":"2026-06-26T08:50:06.000Z","category":"ransomware","severity":"high","country":"CL","sizeBytes":0,"description":"Hokua Suites is a luxury resort-style residential condominium located in Honolulu, Hawaii. The complex offers upscale apartments with ocean views and a full range of premium amenities.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

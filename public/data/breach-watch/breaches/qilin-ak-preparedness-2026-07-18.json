@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-ak-preparedness-2026-07-18",
-  "title": "AK Preparedness",
-  "group": "qilin",
-  "discovered": "2026-07-18T10:38:39.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-ak-preparedness-2026-07-18","title":"AK Preparedness","group":"qilin","discovered":"2026-07-18T10:38:39.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-skupina-don-don-2026-06-04",
-  "title": "SKUPINA Don Don",
-  "group": "qilin",
-  "discovered": "2026-06-04T22:57:24.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "SI",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-skupina-don-don-2026-06-04","title":"SKUPINA Don Don","group":"qilin","discovered":"2026-06-04T22:57:24.000Z","category":"ransomware","severity":"critical","country":"SI","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

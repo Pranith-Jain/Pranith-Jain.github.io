@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-bekman-marder-hopper-malarkey-perlin-2026-06-10",
-  "title": "Bekman Marder Hopper Malarkey & Perlin",
-  "group": "qilin",
-  "discovered": "2026-06-10T21:55:30.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "MD",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-bekman-marder-hopper-malarkey-perlin-2026-06-10","title":"Bekman Marder Hopper Malarkey & Perlin","group":"qilin","discovered":"2026-06-10T21:55:30.000Z","category":"ransomware","severity":"critical","country":"MD","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

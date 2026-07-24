@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-linnecken-partner-2026-06-15",
-  "title": "Linnecken Partner",
-  "group": "thegentlemen",
-  "discovered": "2026-06-15T13:00:58.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "***.de zoominfo.com/c/linnecken--partner/509433943 Linnecken & Partner is a renowned German tax and legal advisory firm based in Wentorf near Hamburg, proudly serving clients since 1977. They specialize exclusively in providing comprehensive tax consulting, financial planning, and legal services tailored specifically for healthcare professionals, doctors, and medical centers. With decades of niche expertise, the firm ensures that medical practitioners receive reliable support in navigating complex medical law, employment regulations, and business management",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-linnecken-partner-2026-06-15","title":"Linnecken Partner","group":"thegentlemen","discovered":"2026-06-15T13:00:58.000Z","category":"ransomware","severity":"critical","country":"DE","sizeBytes":0,"description":"***.de zoominfo.com/c/linnecken--partner/509433943 Linnecken & Partner is a renowned German tax and legal advisory firm based in Wentorf near Hamburg, proudly serving clients since 1977. They specialize exclusively in providing comprehensive tax consulting, financial planning, and legal services tailored specifically for healthcare professionals, doctors, and medical centers. With decades of niche expertise, the firm ensures that medical practitioners receive reliable support in navigating complex medical law, employment regulations, and business management","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Professional Services","references":["ransomware.live"]}

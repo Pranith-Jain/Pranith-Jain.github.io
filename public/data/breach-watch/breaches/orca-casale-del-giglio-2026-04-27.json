@@ -1,15 +1,1 @@
-{
-  "slug": "orca-casale-del-giglio-2026-04-27",
-  "title": "Casale Del Giglio",
-  "group": "orca",
-  "discovered": "2026-04-27T15:44:53.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "IT",
-  "sizeBytes": 0,
-  "description": "Casale del Giglio was founded in 1967 by Dr. Berardino Santarelli, a native of t...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
-}
+{"slug":"orca-casale-del-giglio-2026-04-27","title":"Casale Del Giglio","group":"orca","discovered":"2026-04-27T15:44:53.000Z","category":"data_breach","severity":"high","country":"IT","sizeBytes":0,"description":"Casale del Giglio was founded in 1967 by Dr. Berardino Santarelli, a native of t...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Agriculture and Food Production","references":["ransomware.live"]}

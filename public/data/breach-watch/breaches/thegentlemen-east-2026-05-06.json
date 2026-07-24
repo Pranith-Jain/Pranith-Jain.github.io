@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-east-2026-05-06",
-  "title": "East",
-  "group": "thegentlemen",
-  "discovered": "2026-05-06T10:07:33.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "JP",
-  "sizeBytes": 0,
-  "description": "east-inc.jp zoominfo.com/c/east/5000054099 East Inc. is a Japanese company headquartered in Tokyo that provides comprehensive outsourcing services for commercial facilities — shopping malls, outlet parks, and office complexes — covering everything from day-to-day operations to system development, website management, and information services. The company has an impressive track record of over 800 commercial facilities nationwide across Japan, with clients including Roppongi Hills, Nihonbashi Takashimaya S.C., Mitsui Outlet Parks, and Ebisu Garden Place. Since 2007, East Inc. has also been supporting Japanese companies expanding into China, offering systems and operational know-how for overseas operations",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-east-2026-05-06","title":"East","group":"thegentlemen","discovered":"2026-05-06T10:07:33.000Z","category":"ransomware","severity":"critical","country":"JP","sizeBytes":0,"description":"east-inc.jp zoominfo.com/c/east/5000054099 East Inc. is a Japanese company headquartered in Tokyo that provides comprehensive outsourcing services for commercial facilities — shopping malls, outlet parks, and office complexes — covering everything from day-to-day operations to system development, website management, and information services. The company has an impressive track record of over 800 commercial facilities nationwide across Japan, with clients including Roppongi Hills, Nihonbashi Takashimaya S.C., Mitsui Outlet Parks, and Ebisu Garden Place. Since 2007, East Inc. has also been supporting Japanese companies expanding into China, offering systems and operational know-how for overseas operations","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Not Found","references":["ransomware.live"]}

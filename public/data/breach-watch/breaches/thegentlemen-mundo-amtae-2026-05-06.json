@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-mundo-amtae-2026-05-06",
-  "title": "Mundo Amtae",
-  "group": "thegentlemen",
-  "discovered": "2026-05-06T13:33:45.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "MX",
-  "sizeBytes": 0,
-  "description": "mundoamtae.com zoominfo.com/c/mundo-amtae/372405633 Mundo AMTAE (Asociacion Mutual de Trabajadores Estatales) is one of Argentina's top 5 mutual aid organizations, founded in 1987 and headquartered at Lavalle 3155, Buenos Aires. With over 30 years of experience and 100,000 members spread across 20 branches nationwide, the organization provides a broad range of social, health, and financial services to state workers, retirees, and the general public. Its core offerings include medical consultations across all specialties, dental care, clinical analysis, physiotherapy, home medical visits, 24/7 ambulance service, and optical coverage. AMTAE also offers loan programs and financial assistance, with tiered membership plans (Plata, Dorado, Platino) covering varying levels of healthcare and personal accident protection",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-mundo-amtae-2026-05-06","title":"Mundo Amtae","group":"thegentlemen","discovered":"2026-05-06T13:33:45.000Z","category":"ransomware","severity":"critical","country":"MX","sizeBytes":0,"description":"mundoamtae.com zoominfo.com/c/mundo-amtae/372405633 Mundo AMTAE (Asociacion Mutual de Trabajadores Estatales) is one of Argentina's top 5 mutual aid organizations, founded in 1987 and headquartered at Lavalle 3155, Buenos Aires. With over 30 years of experience and 100,000 members spread across 20 branches nationwide, the organization provides a broad range of social, health, and financial services to state workers, retirees, and the general public. Its core offerings include medical consultations across all specialties, dental care, clinical analysis, physiotherapy, home medical visits, 24/7 ambulance service, and optical coverage. AMTAE also offers loan programs and financial assistance, with tiered membership plans (Plata, Dorado, Platino) covering varying levels of healthcare and personal accident protection","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Not Found","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "worldleaks-tata-electronics-2026-06-10",
-  "title": "Tata Electronics",
-  "group": "worldleaks",
-  "discovered": "2026-06-10T09:27:11.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "IN",
-  "sizeBytes": 0,
-  "description": "[AI generated] Tata Electronics is an Indian manufacturing company and a subsidiary of the Tata Group. It operates in the electronics manufacturing and precision engineering industry, producing components for consumer electronics, including iPhone parts for Apple. The company has facilities across India and plays a significant role in advancing the country's domestic electronics manufacturing capabilities and supply chain.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"worldleaks-tata-electronics-2026-06-10","title":"Tata Electronics","group":"worldleaks","discovered":"2026-06-10T09:27:11.000Z","category":"ransomware","severity":"high","country":"IN","sizeBytes":0,"description":"[AI generated] Tata Electronics is an Indian manufacturing company and a subsidiary of the Tata Group. It operates in the electronics manufacturing and precision engineering industry, producing components for consumer electronics, including iPhone parts for Apple. The company has facilities across India and plays a significant role in advancing the country's domestic electronics manufacturing capabilities and supply chain.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

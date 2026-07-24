@@ -1,15 +1,1 @@
-{
-  "slug": "krybit-eurohold-bg-2026-07-19",
-  "title": "eurohold.bg",
-  "group": "krybit",
-  "discovered": "2026-07-19T18:03:26.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "BG",
-  "sizeBytes": 0,
-  "description": "Eurohold Bulgaria AD (Еврохолд България АД) is a leading Bulgarian integrated holding company founded ...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Financial Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"krybit-eurohold-bg-2026-07-19","title":"eurohold.bg","group":"krybit","discovered":"2026-07-19T18:03:26.000Z","category":"ransomware","severity":"high","country":"BG","sizeBytes":0,"description":"Eurohold Bulgaria AD (Еврохолд България АД) is a leading Bulgarian integrated holding company founded ...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Financial Services","references":["ransomware.live"]}

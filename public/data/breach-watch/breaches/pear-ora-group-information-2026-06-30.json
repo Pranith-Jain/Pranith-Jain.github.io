@@ -1,15 +1,1 @@
-{
-  "slug": "pear-ora-group-information-2026-06-30",
-  "title": "ORA Group Information",
-  "group": "pear",
-  "discovered": "2026-06-30T12:29:09.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "FR",
-  "sizeBytes": 0,
-  "description": "Specializing in retail and the point-of-sale experience",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"pear-ora-group-information-2026-06-30","title":"ORA Group Information","group":"pear","discovered":"2026-06-30T12:29:09.000Z","category":"ransomware","severity":"high","country":"FR","sizeBytes":0,"description":"Specializing in retail and the point-of-sale experience","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

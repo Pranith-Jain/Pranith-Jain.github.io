@@ -1,15 +1,1 @@
-{
-  "slug": "settra-infinedi-net-2026-06-30",
-  "title": "infinedi.net",
-  "group": "settra",
-  "discovered": "2026-06-30T11:01:20.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Clearinghouse The company doctors pay to keep their patients' data safe. This article presents only ...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"settra-infinedi-net-2026-06-30","title":"infinedi.net","group":"settra","discovered":"2026-06-30T11:01:20.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"Clearinghouse The company doctors pay to keep their patients' data safe. This article presents only ...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-miseric-rdia-de-santo-tirso-2026-06-16",
-  "title": "Misericórdia de Santo Tirso",
-  "group": "qilin",
-  "discovered": "2026-06-16T01:57:31.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "PT",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-miseric-rdia-de-santo-tirso-2026-06-16","title":"Misericórdia de Santo Tirso","group":"qilin","discovered":"2026-06-16T01:57:31.000Z","category":"ransomware","severity":"critical","country":"PT","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

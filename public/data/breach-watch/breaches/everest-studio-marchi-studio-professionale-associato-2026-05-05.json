@@ -1,15 +1,1 @@
-{
-  "slug": "everest-studio-marchi-studio-professionale-associato-2026-05-05",
-  "title": "Studio Marchi - Studio Professionale Associato",
-  "group": "everest",
-  "discovered": "2026-05-05T00:21:51.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "IT",
-  "sizeBytes": 0,
-  "description": "[AI generated] N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"everest-studio-marchi-studio-professionale-associato-2026-05-05","title":"Studio Marchi - Studio Professionale Associato","group":"everest","discovered":"2026-05-05T00:21:51.000Z","category":"ransomware","severity":"critical","country":"IT","sizeBytes":0,"description":"[AI generated] N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

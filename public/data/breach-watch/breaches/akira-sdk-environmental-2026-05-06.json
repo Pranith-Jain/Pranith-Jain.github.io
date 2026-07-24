@@ -1,15 +1,1 @@
-{
-  "slug": "akira-sdk-environmental-2026-05-06",
-  "title": "SDK Environmental",
-  "group": "akira",
-  "discovered": "2026-05-06T14:20:20.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "GB",
-  "sizeBytes": 0,
-  "description": "SDK Environmental is a long-established UK company specializing in environmental services, prim\narily catering to local authorities, housing associations, and corporate clients. Their offerin\ngs include corporate pest control, business-to-business pest control, direct pest control, anim\nal warden services, and dog collection services.\n\nWe will upload 10gb of corporate data soon. Employee personal information, client financials an\nd other documents, contracts and agreements, projects, and so on.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Megazord"],
-  "activity": "Energy",
-  "references": ["ransomware.live"]
-}
+{"slug":"akira-sdk-environmental-2026-05-06","title":"SDK Environmental","group":"akira","discovered":"2026-05-06T14:20:20.000Z","category":"ransomware","severity":"critical","country":"GB","sizeBytes":0,"description":"SDK Environmental is a long-established UK company specializing in environmental services, prim\narily catering to local authorities, housing associations, and corporate clients. Their offerin\ngs include corporate pest control, business-to-business pest control, direct pest control, anim\nal warden services, and dog collection services.\n\nWe will upload 10gb of corporate data soon. Employee personal information, client financials an\nd other documents, contracts and agreements, projects, and so on.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Energy & Utilities","references":["ransomware.live"]}

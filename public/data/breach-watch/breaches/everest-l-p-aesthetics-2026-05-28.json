@@ -1,15 +1,1 @@
-{
-  "slug": "everest-l-p-aesthetics-2026-05-28",
-  "title": "L&P Aesthetics",
-  "group": "everest",
-  "discovered": "2026-05-28T12:51:44.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "[AI generated] N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"everest-l-p-aesthetics-2026-05-28","title":"L&P Aesthetics","group":"everest","discovered":"2026-05-28T12:51:44.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"[AI generated] N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

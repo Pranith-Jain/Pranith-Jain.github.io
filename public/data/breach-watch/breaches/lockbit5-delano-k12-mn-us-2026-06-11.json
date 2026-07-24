@@ -1,15 +1,1 @@
-{
-  "slug": "lockbit5-delano-k12-mn-us-2026-06-11",
-  "title": "delano.k12.mn.us",
-  "group": "lockbit5",
-  "discovered": "2026-06-11T07:12:09.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Delano Public Schools is dedicated to providing systemic growth toward educational excellence for ev...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Education",
-  "references": ["ransomware.live"]
-}
+{"slug":"lockbit5-delano-k12-mn-us-2026-06-11","title":"delano.k12.mn.us","group":"lockbit5","discovered":"2026-06-11T07:12:09.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Delano Public Schools is dedicated to providing systemic growth toward educational excellence for ev...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Education","references":["ransomware.live"]}

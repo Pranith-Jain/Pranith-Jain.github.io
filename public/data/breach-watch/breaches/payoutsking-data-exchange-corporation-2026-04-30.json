@@ -1,15 +1,1 @@
-{
-  "slug": "payoutsking-data-exchange-corporation-2026-04-30",
-  "title": "Data Exchange Corporation",
-  "group": "payoutsking",
-  "discovered": "2026-04-30T00:27:10.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "[AI generated] N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"payoutsking-data-exchange-corporation-2026-04-30","title":"Data Exchange Corporation","group":"payoutsking","discovered":"2026-04-30T00:27:10.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"[AI generated] N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

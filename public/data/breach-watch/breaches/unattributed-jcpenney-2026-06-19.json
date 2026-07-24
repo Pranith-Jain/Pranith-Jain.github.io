@@ -1,15 +1,1 @@
-{
-  "slug": "unattributed-jcpenney-2026-06-19",
-  "title": "JCPenney",
-  "group": "Unattributed",
-  "discovered": "2026-06-19T13:33:30.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "JCPenney, a retail department store chain, was allegedly breached in June 2026 as part of the ShinyHunters \"pay or leak\" campaign, exposing 879k unique email addresses along with names, phone numbers, physical addresses, genders, dates of birth, and ethnicities.",
-  "source_url": "https://xposedornot.com/breach/JCPenney",
-  "groupAliases": [],
-  "activity": "Retail",
-  "references": ["XposedOrNot"]
-}
+{"slug":"unattributed-jcpenney-2026-06-19","title":"JCPenney","group":"Unattributed","discovered":"2026-06-19T13:33:30.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"JCPenney, a retail department store chain, was allegedly breached in June 2026 as part of the ShinyHunters \"pay or leak\" campaign, exposing 879k unique email addresses along with names, phone numbers, physical addresses, genders, dates of birth, and ethnicities.","source_url":"https://xposedornot.com/breach/JCPenney","groupAliases":[],"activity":"Retail","references":["XposedOrNot"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "cmdorganization-zampell-2026-05-02",
-  "title": "Zampell",
-  "group": "cmdorganization",
-  "discovered": "2026-05-02T08:53:32.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "IT",
-  "sizeBytes": 0,
-  "description": "Zampell Ltd is a leading provider of refractory services, offering comprehensive solutions from design to ongoing maintenance. They cater to various industries, including power generation, biomass, fossil fuel, and petrochemicals, ensuring safety and efficiency in their operations. The company specializes in both standard and bespoke refractory products, delivering tailored services to meet client needs. With a commitment to quality and safety, Zampell aims to exceed customer expectations in all aspects of their service.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["cmd organization"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"cmdorganization-zampell-2026-05-02","title":"Zampell","group":"cmdorganization","discovered":"2026-05-02T08:53:32.000Z","category":"ransomware","severity":"high","country":"IT","sizeBytes":0,"description":"Zampell Ltd is a leading provider of refractory services, offering comprehensive solutions from design to ongoing maintenance. They cater to various industries, including power generation, biomass, fossil fuel, and petrochemicals, ensuring safety and efficiency in their operations. The company specializes in both standard and bespoke refractory products, delivering tailored services to meet client needs. With a commitment to quality and safety, Zampell aims to exceed customer expectations in all aspects of their service.","source_url":"https://www.ransomware.live/","groupAliases":["cmd organization"],"activity":"Manufacturing","references":["ransomware.live"]}

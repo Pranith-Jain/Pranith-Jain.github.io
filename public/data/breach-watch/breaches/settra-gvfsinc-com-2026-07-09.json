@@ -1,15 +1,1 @@
-{
-  "slug": "settra-gvfsinc-com-2026-07-09",
-  "title": "gvfsinc.com",
-  "group": "settra",
-  "discovered": "2026-07-09T11:58:49.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "GREEN VALLEY: SELF-LEASE SCHEME How a California agricultural distributor pays rent to companies con...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"settra-gvfsinc-com-2026-07-09","title":"gvfsinc.com","group":"settra","discovered":"2026-07-09T11:58:49.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"GREEN VALLEY: SELF-LEASE SCHEME How a California agricultural distributor pays rent to companies con...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

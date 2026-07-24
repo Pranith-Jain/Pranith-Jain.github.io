@@ -1,15 +1,1 @@
-{
-  "slug": "payoutsking-powell-electronics-2026-04-30",
-  "title": "Powell Electronics",
-  "group": "payoutsking",
-  "discovered": "2026-04-30T00:38:03.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "[AI generated] Powell Electronics is a US-based authorized distributor of electronic components and assemblies. Founded in 1946 and headquartered in Camp Hill, Pennsylvania, the company serves aerospace, defense, industrial, and commercial markets. It supplies connectors, cables, electromechanical components, and custom assemblies from leading manufacturers, offering supply chain solutions, engineering support, and value-added services to customers across North America.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"payoutsking-powell-electronics-2026-04-30","title":"Powell Electronics","group":"payoutsking","discovered":"2026-04-30T00:38:03.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"[AI generated] Powell Electronics is a US-based authorized distributor of electronic components and assemblies. Founded in 1946 and headquartered in Camp Hill, Pennsylvania, the company serves aerospace, defense, industrial, and commercial markets. It supplies connectors, cables, electromechanical components, and custom assemblies from leading manufacturers, offering supply chain solutions, engineering support, and value-added services to customers across North America.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

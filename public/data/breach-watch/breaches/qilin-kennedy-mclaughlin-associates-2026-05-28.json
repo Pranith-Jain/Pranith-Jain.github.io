@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-kennedy-mclaughlin-associates-2026-05-28",
-  "title": "Kennedy, McLaughlin & Associates",
-  "group": "qilin",
-  "discovered": "2026-05-28T13:38:02.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "AU",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-kennedy-mclaughlin-associates-2026-05-28","title":"Kennedy, McLaughlin & Associates","group":"qilin","discovered":"2026-05-28T13:38:02.000Z","category":"ransomware","severity":"critical","country":"AU","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

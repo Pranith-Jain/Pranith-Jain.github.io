@@ -1,15 +1,1 @@
-{
-  "slug": "pear-b-b-trading-2026-06-18",
-  "title": "B & B Trading",
-  "group": "pear",
-  "discovered": "2026-06-18T14:28:18.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Largest independent food wholesale distributors in New England",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"pear-b-b-trading-2026-06-18","title":"B & B Trading","group":"pear","discovered":"2026-06-18T14:28:18.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Largest independent food wholesale distributors in New England","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "deadlock-schlenker-and-cantwell-p-a-2026-07-10",
-  "title": "Schlenker and Cantwell, P.A.",
-  "group": "Deadlock",
-  "discovered": "2026-07-10T13:13:45.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Schlenker & Cantwell, P.A. is a certified public accounting firm based in the USA, offering services such as tax preparation and planning, auditing and assurance, bookkeeping, payroll, financial reporting, consulting, and estate-trust management.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"deadlock-schlenker-and-cantwell-p-a-2026-07-10","title":"Schlenker and Cantwell, P.A.","group":"Deadlock","discovered":"2026-07-10T13:13:45.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Schlenker & Cantwell, P.A. is a certified public accounting firm based in the USA, offering services such as tax preparation and planning, auditing and assurance, bookkeeping, payroll, financial reporting, consulting, and estate-trust management.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

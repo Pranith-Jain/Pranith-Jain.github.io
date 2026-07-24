@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-ltj-industrial-services-2026-05-13",
-  "title": "LTJ Industrial Services",
-  "group": "qilin",
-  "discovered": "2026-05-13T17:59:32.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "GB",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-ltj-industrial-services-2026-05-13","title":"LTJ Industrial Services","group":"qilin","discovered":"2026-05-13T17:59:32.000Z","category":"ransomware","severity":"critical","country":"GB","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

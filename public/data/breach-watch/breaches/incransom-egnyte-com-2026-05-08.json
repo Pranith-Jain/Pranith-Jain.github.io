@@ -1,15 +1,1 @@
-{
-  "slug": "incransom-egnyte-com-2026-05-08",
-  "title": "egnyte.com",
-  "group": "incransom",
-  "discovered": "2026-05-08T07:31:03.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "development department  EU  pl",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["inc ransom", "INC"],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"incransom-egnyte-com-2026-05-08","title":"egnyte.com","group":"incransom","discovered":"2026-05-08T07:31:03.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"development department  EU  pl","source_url":"https://www.ransomware.live/","groupAliases":["inc ransom","INC"],"activity":"Technology","references":["ransomware.live"]}

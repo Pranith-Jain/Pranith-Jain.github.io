@@ -1,15 +1,1 @@
-{
-  "slug": "medusalocker-strategic-imports-2026-05-05",
-  "title": "Strategic Imports",
-  "group": "medusalocker",
-  "discovered": "2026-05-05T20:35:09.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "AU",
-  "sizeBytes": 0,
-  "description": "Australian auto parts/batteries importer. Brands: Strategic Imports, Auto Parts Now, Discount Batteries Now. User: bstuart (Brad Stuart). QNAP NAS (CACHEDEV1_DATA).",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"medusalocker-strategic-imports-2026-05-05","title":"Strategic Imports","group":"medusalocker","discovered":"2026-05-05T20:35:09.000Z","category":"ransomware","severity":"high","country":"AU","sizeBytes":0,"description":"Australian auto parts/batteries importer. Brands: Strategic Imports, Auto Parts Now, Discount Batteries Now. User: bstuart (Brad Stuart). QNAP NAS (CACHEDEV1_DATA).","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

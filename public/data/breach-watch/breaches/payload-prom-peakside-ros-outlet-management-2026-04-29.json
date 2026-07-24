@@ -1,15 +1,1 @@
-{
-  "slug": "payload-prom-peakside-ros-outlet-management-2026-04-29",
-  "title": "PROM (Peakside Ros Outlet Management)",
-  "group": "payload",
-  "discovered": "2026-04-29T21:58:18.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "PROM (Peakside Ros Outlet Management) is a joint venture established by the investment firm Peakside Capital and the operator Ros Retail to manage outlet centers across Europe. The organization specializes in the strategic development of retail real estate, handling the full lifecycle from brand acquisition to operational marketing. Its primary objective is to maximize asset value and performance by implementing international management standards within the outlet sector.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"payload-prom-peakside-ros-outlet-management-2026-04-29","title":"PROM (Peakside Ros Outlet Management)","group":"payload","discovered":"2026-04-29T21:58:18.000Z","category":"ransomware","severity":"high","country":null,"sizeBytes":0,"description":"PROM (Peakside Ros Outlet Management) is a joint venture established by the investment firm Peakside Capital and the operator Ros Retail to manage outlet centers across Europe. The organization specializes in the strategic development of retail real estate, handling the full lifecycle from brand acquisition to operational marketing. Its primary objective is to maximize asset value and performance by implementing international management standards within the outlet sector.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

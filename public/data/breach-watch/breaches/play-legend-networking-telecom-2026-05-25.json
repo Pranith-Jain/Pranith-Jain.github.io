@@ -1,15 +1,1 @@
-{
-  "slug": "play-legend-networking-telecom-2026-05-25",
-  "title": "Legend Networking & Telecom",
-  "group": "play",
-  "discovered": "2026-05-25T20:24:06.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "United States",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["PlayCrypt"],
-  "activity": "Telecommunication",
-  "references": ["ransomware.live"]
-}
+{"slug":"play-legend-networking-telecom-2026-05-25","title":"Legend Networking & Telecom","group":"play","discovered":"2026-05-25T20:24:06.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"United States","source_url":"https://www.ransomware.live/","groupAliases":["PlayCrypt"],"activity":"Technology","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "shadowbyt3-powercampus-2026-05-14",
-  "title": "PowerCampus",
-  "group": "shadowbyt3$",
-  "discovered": "2026-05-14T19:49:40.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "IN",
-  "sizeBytes": 0,
-  "description": "Cloud-based school management and collaboration platform targeting educational institutes in India, covering online fee payments, exam management, online admissions, teacher-parent communication, and e-learning continuity.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Education",
-  "references": ["ransomware.live"]
-}
+{"slug":"shadowbyt3-powercampus-2026-05-14","title":"PowerCampus","group":"shadowbyt3$","discovered":"2026-05-14T19:49:40.000Z","category":"data_breach","severity":"high","country":"IN","sizeBytes":0,"description":"Cloud-based school management and collaboration platform targeting educational institutes in India, covering online fee payments, exam management, online admissions, teacher-parent communication, and e-learning continuity.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Education","references":["ransomware.live"]}

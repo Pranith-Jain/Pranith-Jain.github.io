@@ -1,8 +1,8 @@
-import { describe, it, expect, vi, afterEach } from 'vitest';
+import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest';
 import { Hono } from 'hono';
 import { scrapedintelUsernamesHandler } from '../../src/routes/scrapedintel-usernames';
 import {
-  budgetWindowKey,
+  budgetWindowCacheKey,
   lastGoodKey,
   SCRAPEDINTEL_SOURCE_URL,
   type ScrapedIntelSearchResponse,
@@ -14,8 +14,7 @@ function app() {
   return a;
 }
 
-// Minimal in-memory KV so budget + last-good assertions are deterministic and
-// isolated from the shared test-wrangler binding.
+// Minimal in-memory KV for last-good assertions
 function memKV(seed: Record<string, string> = {}): any {
   const m = new Map(Object.entries(seed));
   return {
@@ -26,21 +25,52 @@ function memKV(seed: Record<string, string> = {}): any {
   };
 }
 
+// Mock Cache-API for budget window
+function mockCache(seed: Record<string, string> = {}): Cache & { _store: Map<string, string> } {
+  const store = new Map(Object.entries(seed));
+  return {
+    _store: store,
+    match: async (req: Request | string) => {
+      const key = typeof req === 'string' ? req : req.url;
+      const val = store.get(key);
+      if (val === undefined) return undefined;
+      return new Response(val);
+    },
+    put: async (req: Request | string, res: Response) => {
+      const key = typeof req === 'string' ? req : req.url;
+      const body = await res.text();
+      store.set(key, body);
+    },
+    delete: async (req: Request | string) => {
+      const key = typeof req === 'string' ? req : req.url;
+      store.delete(key);
+    },
+    add: async () => {},
+    addAll: async () => {},
+  } as unknown as Cache & { _store: Map<string, string> };
+}
+
 const env = (kv: any = memKV()): any => ({ KV_CACHE: kv });
 
 function upstream(body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json' } });
 }
 
-/** Seed a KV so the egress budget is exhausted regardless of minute boundary. */
-function budgetExhausted(extra: Record<string, string> = {}): any {
+/** Seed the mock cache so the egress budget is exhausted regardless of minute boundary. */
+function budgetExhausted(): Cache & { _store: Map<string, string> } {
   const now = Date.now();
-  return memKV({
-    [budgetWindowKey(now)]: '9',
-    [budgetWindowKey(now + 60_000)]: '9',
-    ...extra,
+  return mockCache({
+    [budgetWindowCacheKey(now).url]: '9',
+    [budgetWindowCacheKey(now + 60_000).url]: '9',
   });
 }
+
+let fakeCache: ReturnType<typeof mockCache>;
+
+beforeEach(() => {
+  fakeCache = mockCache();
+  vi.stubGlobal('caches', { default: fakeCache });
+});
 
 afterEach(() => vi.restoreAllMocks());
 
@@ -75,7 +105,6 @@ describe('scrapedintel-usernames route', () => {
     expect(body.results[0]!.username).toBe('LockBitSupp');
     expect(body.results[0]!.forum_count).toBe(2);
     expect(body.source_url).toBe(SCRAPEDINTEL_SOURCE_URL);
-    // upstream URL is the fixed host with the encoded query (no SSRF surface)
     const calledUrl = String(fetchMock.mock.calls[0]![0]);
     expect(calledUrl.startsWith(`${SCRAPEDINTEL_SOURCE_URL}/api/search?q=`)).toBe(true);
     expect(fetchMock).toHaveBeenCalledTimes(1);
@@ -104,7 +133,11 @@ describe('scrapedintel-usernames route', () => {
       source: 'threatactorusernames.com',
       source_url: SCRAPEDINTEL_SOURCE_URL,
     };
-    const kv = budgetExhausted({ [lastGoodKey('staleguy')]: JSON.stringify(seeded) });
+    // Seed the mock cache with budget exhaustion
+    const exhausted = budgetExhausted();
+    vi.stubGlobal('caches', { default: exhausted });
+    // Seed KV with last-good
+    const kv = memKV({ [lastGoodKey('staleguy')]: JSON.stringify(seeded) });
     const fetchMock = vi.spyOn(globalThis, 'fetch');
     const r = await app().request('/api/v1/scrapedintel-usernames?q=staleguy', {}, env(kv));
     expect(r.status).toBe(200);
@@ -115,8 +148,10 @@ describe('scrapedintel-usernames route', () => {
   });
 
   it('429 rate_limited when over budget with no last-good — no upstream call', async () => {
+    const exhausted = budgetExhausted();
+    vi.stubGlobal('caches', { default: exhausted });
     const fetchMock = vi.spyOn(globalThis, 'fetch');
-    const r = await app().request('/api/v1/scrapedintel-usernames?q=busyguy', {}, env(budgetExhausted()));
+    const r = await app().request('/api/v1/scrapedintel-usernames?q=busyguy', {}, env());
     expect(r.status).toBe(429);
     const body = (await r.json()) as ScrapedIntelSearchResponse;
     expect(body.rate_limited).toBe(true);

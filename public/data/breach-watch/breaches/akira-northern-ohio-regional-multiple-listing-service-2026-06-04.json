@@ -1,15 +1,1 @@
-{
-  "slug": "akira-northern-ohio-regional-multiple-listing-service-2026-06-04",
-  "title": "Northern Ohio Regional Multiple Listing Service",
-  "group": "akira",
-  "discovered": "2026-06-04T13:21:44.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "MLS Now operates on advanced technology to provide members with timely, accurate, and meaningfu\nl data and services. The company offers hands-on education, extensive online documentation, and\na robust support help desk staffed by local professionals.\n\nWe will upload corporate data soon. Board members information, contracts, NDAs, detailed financ\nials, confidential files, and so on.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Megazord"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"akira-northern-ohio-regional-multiple-listing-service-2026-06-04","title":"Northern Ohio Regional Multiple Listing Service","group":"akira","discovered":"2026-06-04T13:21:44.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"MLS Now operates on advanced technology to provide members with timely, accurate, and meaningfu\nl data and services. The company offers hands-on education, extensive online documentation, and\na robust support help desk staffed by local professionals.\n\nWe will upload corporate data soon. Board members information, contracts, NDAs, detailed financ\nials, confidential files, and so on.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Professional Services","references":["ransomware.live"]}

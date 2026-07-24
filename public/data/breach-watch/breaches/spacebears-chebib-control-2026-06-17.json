@@ -1,15 +1,1 @@
-{
-  "slug": "spacebears-chebib-control-2026-06-17",
-  "title": "Chebib Control",
-  "group": "spacebears",
-  "discovered": "2026-06-17T11:59:58.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "BR",
-  "sizeBytes": 0,
-  "description": "Chebib Control is a company specializing in the development of management systems and intelligent automation for the hospitality industry. For over 20 years, it has been helping optimize the operations of motels, hotels, and condominiums across the country.Serving over 1,000 active clients in over 500 municipalities in Brazil.Core product: Offers property management systems (PMS) and automation solutions that help automate daily operations, enhance security, and improve the guest experience.One of its key features is integration with IP cameras for photographic recording of vehicle entry and exit, which, according to customers, serves as an effective fraud prevention tool.- SQL database tables- Client data (names, booking dates, hotel names, email addresses, CPFs, phone numbers, and other metadata) https://***.com.br/",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["space bears"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"spacebears-chebib-control-2026-06-17","title":"Chebib Control","group":"spacebears","discovered":"2026-06-17T11:59:58.000Z","category":"data_breach","severity":"high","country":"BR","sizeBytes":0,"description":"Chebib Control is a company specializing in the development of management systems and intelligent automation for the hospitality industry. For over 20 years, it has been helping optimize the operations of motels, hotels, and condominiums across the country.Serving over 1,000 active clients in over 500 municipalities in Brazil.Core product: Offers property management systems (PMS) and automation solutions that help automate daily operations, enhance security, and improve the guest experience.One of its key features is integration with IP cameras for photographic recording of vehicle entry and exit, which, according to customers, serves as an effective fraud prevention tool.- SQL database tables- Client data (names, booking dates, hotel names, email addresses, CPFs, phone numbers, and other metadata) https://***.com.br/","source_url":"https://www.ransomware.live/","groupAliases":["space bears"],"activity":"Professional Services","references":["ransomware.live"]}

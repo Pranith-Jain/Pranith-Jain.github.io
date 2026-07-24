@@ -1,15 +1,1 @@
-{
-  "slug": "spacebears-filab-2026-05-26",
-  "title": "Filabé",
-  "group": "spacebears",
-  "discovered": "2026-05-26T06:26:58.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "CH",
-  "sizeBytes": 0,
-  "description": "Filabé of Switzerland is a skincare company that uses a unique, additive-free technology to treat skin problems. Developed alongside dermatologists and pharmacists in Switzerland, the brand focuses on a science-based approach to skincare. In 2025, they won a PETA Award for \"Best Vegan Innovation\" due to their animal-friendly cosmetic concepts -Personal information of employees and clients -Financial documents -Other files   https://www.filabe.ch/",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["space bears"],
-  "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
-}
+{"slug":"spacebears-filab-2026-05-26","title":"Filabé","group":"spacebears","discovered":"2026-05-26T06:26:58.000Z","category":"data_breach","severity":"high","country":"CH","sizeBytes":0,"description":"Filabé of Switzerland is a skincare company that uses a unique, additive-free technology to treat skin problems. Developed alongside dermatologists and pharmacists in Switzerland, the brand focuses on a science-based approach to skincare. In 2025, they won a PETA Award for \"Best Vegan Innovation\" due to their animal-friendly cosmetic concepts -Personal information of employees and clients -Financial documents -Other files   https://www.filabe.ch/","source_url":"https://www.ransomware.live/","groupAliases":["space bears"],"activity":"Agriculture and Food Production","references":["ransomware.live"]}

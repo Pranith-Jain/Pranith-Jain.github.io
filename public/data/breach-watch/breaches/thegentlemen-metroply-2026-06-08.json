@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-metroply-2026-06-08",
-  "title": "Metroply",
-  "group": "thegentlemen",
-  "discovered": "2026-06-08T09:58:04.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "***.com zoominfo.com/c/metroply/353622883 Metroply is one of the largest wood-based panel manufacturers in Thailand and Southeast Asia, boasting over 70 years of industry experience. The company specializes in producing a comprehensive range of engineered wood products, including particle board, MDF, plywood, hardboard, and doors. Utilizing reliable automated technology, Metroply is recognized as a regional leader in delivering world-class quality wood substitutes and building materials",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-metroply-2026-06-08","title":"Metroply","group":"thegentlemen","discovered":"2026-06-08T09:58:04.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"***.com zoominfo.com/c/metroply/353622883 Metroply is one of the largest wood-based panel manufacturers in Thailand and Southeast Asia, boasting over 70 years of industry experience. The company specializes in producing a comprehensive range of engineered wood products, including particle board, MDF, plywood, hardboard, and doors. Utilizing reliable automated technology, Metroply is recognized as a regional leader in delivering world-class quality wood substitutes and building materials","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Not Found","references":["ransomware.live"]}

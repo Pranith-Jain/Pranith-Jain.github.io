@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-droguer-a-martorani-2026-07-18",
-  "title": "Droguería Martorani",
-  "group": "qilin",
-  "discovered": "2026-07-18T00:06:10.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "AR",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-droguer-a-martorani-2026-07-18","title":"Droguería Martorani","group":"qilin","discovered":"2026-07-18T00:06:10.000Z","category":"ransomware","severity":"critical","country":"AR","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

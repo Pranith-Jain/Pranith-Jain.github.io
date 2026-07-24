@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-henry-molded-products-likely-to-engage-tag-2026-05-29",
-  "title": "Henry Molded Products Likely to Engage tag.",
-  "group": "dragonforce",
-  "discovered": "2026-05-29T21:51:27.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Henry Molded Products specializes in the manufacturing of custom molded pulp fiber products and packaging solutions. The company is recognized for its eco-friendly offerings, which are biodegradable, compostable, and recyclable, catering to a growing demand for sustainable packaging. Their products are designed for various clients, including government, industry, and environmentally conscious consumers. Henry Molded Products is committed to providing cost-effective solutions while leading in technology, design, and engineering in the molded fiber sector.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-henry-molded-products-likely-to-engage-tag-2026-05-29","title":"Henry Molded Products Likely to Engage tag.","group":"dragonforce","discovered":"2026-05-29T21:51:27.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Henry Molded Products specializes in the manufacturing of custom molded pulp fiber products and packaging solutions. The company is recognized for its eco-friendly offerings, which are biodegradable, compostable, and recyclable, catering to a growing demand for sustainable packaging. Their products are designed for various clients, including government, industry, and environmentally conscious consumers. Henry Molded Products is committed to providing cost-effective solutions while leading in technology, design, and engineering in the molded fiber sector.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Manufacturing","references":["ransomware.live"]}

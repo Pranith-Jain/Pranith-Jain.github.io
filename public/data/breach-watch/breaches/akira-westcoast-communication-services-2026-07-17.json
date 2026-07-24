@@ -1,15 +1,1 @@
-{
-  "slug": "akira-westcoast-communication-services-2026-07-17",
-  "title": "Westcoast Communication Services",
-  "group": "akira",
-  "discovered": "2026-07-17T12:51:00.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Westcoast Communication Services is a leading expert in low voltage and structured cabling, spe\ncializing in voice and data cabling solutions across Florida. They offer a range of services in\ncluding network integration, telecommunication networks, and access control systems. \n\nWe will upload 20gb of corporate data soon. Employee personal information (DL, passports, SS ca\nrd scans and so on), contracts and agreements, customer info, financials, confidential agreemen\nts, etc.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Megazord"],
-  "activity": "Telecommunication",
-  "references": ["ransomware.live"]
-}
+{"slug":"akira-westcoast-communication-services-2026-07-17","title":"Westcoast Communication Services","group":"akira","discovered":"2026-07-17T12:51:00.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Westcoast Communication Services is a leading expert in low voltage and structured cabling, spe\ncializing in voice and data cabling solutions across Florida. They offer a range of services in\ncluding network integration, telecommunication networks, and access control systems. \n\nWe will upload 20gb of corporate data soon. Employee personal information (DL, passports, SS ca\nrd scans and so on), contracts and agreements, customer info, financials, confidential agreemen\nts, etc.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Technology","references":["ransomware.live"]}

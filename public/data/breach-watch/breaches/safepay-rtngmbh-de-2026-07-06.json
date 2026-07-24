@@ -1,15 +1,1 @@
-{
-  "slug": "safepay-rtngmbh-de-2026-07-06",
-  "title": "rtngmbh.de",
-  "group": "safepay",
-  "discovered": "2026-07-06T19:40:44.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "Founded in 2015, the company specializes in the construction, installation, maintenance, and rehabilitation of underground utility networks and civil engineering …",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"safepay-rtngmbh-de-2026-07-06","title":"rtngmbh.de","group":"safepay","discovered":"2026-07-06T19:40:44.000Z","category":"ransomware","severity":"high","country":"DE","sizeBytes":0,"description":"Founded in 2015, the company specializes in the construction, installation, maintenance, and rehabilitation of underground utility networks and civil engineering …","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

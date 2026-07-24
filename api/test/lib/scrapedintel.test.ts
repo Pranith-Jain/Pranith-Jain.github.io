@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import {
   normalizeScrapedIntel,
   isHandleShaped,
-  budgetWindowKey,
+  budgetWindowCacheKey,
   SCRAPEDINTEL_SOURCE,
   SCRAPEDINTEL_SOURCE_URL,
   MAX_RESULTS,
@@ -111,12 +111,12 @@ describe('isHandleShaped', () => {
   });
 });
 
-describe('budgetWindowKey', () => {
+describe('budgetWindowCacheKey', () => {
   it('is stable within a minute window and changes across windows', () => {
     const base = 60_000 * 28_333_333; // aligned to a window start
-    expect(budgetWindowKey(base)).toBe(budgetWindowKey(base + 59_000)); // same window
-    expect(budgetWindowKey(base)).not.toBe(budgetWindowKey(base + 60_000)); // next window
-    expect(budgetWindowKey(base)).toContain('si:budget:');
+    expect(budgetWindowCacheKey(base).url).toBe(budgetWindowCacheKey(base + 59_000).url); // same window
+    expect(budgetWindowCacheKey(base).url).not.toBe(budgetWindowCacheKey(base + 60_000).url); // next window
+    expect(budgetWindowCacheKey(base).url).toContain('si-budget.internal');
   });
 });
 

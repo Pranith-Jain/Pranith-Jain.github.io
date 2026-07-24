@@ -1,15 +1,1 @@
-{
-  "slug": "pear-south-plains-rural-health-services-inc-2026-07-15",
-  "title": "South Plains Rural Health Services, Inc.",
-  "group": "pear",
-  "discovered": "2026-07-15T10:59:27.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Comprehensive and family care in West Texas",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"pear-south-plains-rural-health-services-inc-2026-07-15","title":"South Plains Rural Health Services, Inc.","group":"pear","discovered":"2026-07-15T10:59:27.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Comprehensive and family care in West Texas","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

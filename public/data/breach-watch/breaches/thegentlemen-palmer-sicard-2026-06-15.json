@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-palmer-sicard-2026-06-15",
-  "title": "Palmer Sicard",
-  "group": "thegentlemen",
-  "discovered": "2026-06-15T13:01:19.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "***.com zoominfo.com/c/palmer--sicard-inc/43926372 Palmer & Sicard is a premier, 100% employee-owned mechanical contractor established in 1954 and headquartered in Exeter, New Hampshire. For over 70 years, they have proudly served Northern New England, specializing in comprehensive HVAC systems, commercial plumbing, and custom sheet metal fabrication. Driven by a commitment to excellence, this trusted team delivers dependable, top-tier mechanical solutions from initial project conception through final installation and ongoing service",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-palmer-sicard-2026-06-15","title":"Palmer Sicard","group":"thegentlemen","discovered":"2026-06-15T13:01:19.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"***.com zoominfo.com/c/palmer--sicard-inc/43926372 Palmer & Sicard is a premier, 100% employee-owned mechanical contractor established in 1954 and headquartered in Exeter, New Hampshire. For over 70 years, they have proudly served Northern New England, specializing in comprehensive HVAC systems, commercial plumbing, and custom sheet metal fabrication. Driven by a commitment to excellence, this trusted team delivers dependable, top-tier mechanical solutions from initial project conception through final installation and ongoing service","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Professional Services","references":["ransomware.live"]}

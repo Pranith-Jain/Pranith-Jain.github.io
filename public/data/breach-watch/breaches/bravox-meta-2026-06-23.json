@@ -1,15 +1,1 @@
-{
-  "slug": "bravox-meta-2026-06-23",
-  "title": "Meta",
-  "group": "bravox",
-  "discovered": "2026-06-23T23:20:59.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "BR",
-  "sizeBytes": 0,
-  "description": "Occupational health services, workplace safety, ergonomics, preventive healthcare.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"bravox-meta-2026-06-23","title":"Meta","group":"bravox","discovered":"2026-06-23T23:20:59.000Z","category":"data_breach","severity":"high","country":"BR","sizeBytes":0,"description":"Occupational health services, workplace safety, ergonomics, preventive healthcare.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

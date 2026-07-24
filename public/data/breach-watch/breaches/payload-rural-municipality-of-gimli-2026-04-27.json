@@ -1,15 +1,1 @@
-{
-  "slug": "payload-rural-municipality-of-gimli-2026-04-27",
-  "title": "Rural Municipality of Gimli",
-  "group": "payload",
-  "discovered": "2026-04-27T08:16:47.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "CA",
-  "sizeBytes": 0,
-  "description": "The Rural Municipality of Gimli is a local government district in the province of Manitoba, Canada. Situated on the western shore of Lake Winnipeg, it administers a region known for its Icelandic heritage, recreational tourism, and lakefront economy. Gimli serves as both a residential community and a cultural hub for the Interlake area.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Public Sector",
-  "references": ["ransomware.live"]
-}
+{"slug":"payload-rural-municipality-of-gimli-2026-04-27","title":"Rural Municipality of Gimli","group":"payload","discovered":"2026-04-27T08:16:47.000Z","category":"ransomware","severity":"high","country":"CA","sizeBytes":0,"description":"The Rural Municipality of Gimli is a local government district in the province of Manitoba, Canada. Situated on the western shore of Lake Winnipeg, it administers a region known for its Icelandic heritage, recreational tourism, and lakefront economy. Gimli serves as both a residential community and a cultural hub for the Interlake area.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Government & Defense","references":["ransomware.live"]}

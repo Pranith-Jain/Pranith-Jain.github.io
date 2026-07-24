@@ -1,15 +1,1 @@
-{
-  "slug": "unattributed-baydoner-2026-05-01",
-  "title": "Baydoner",
-  "group": "Unattributed",
-  "discovered": "2026-05-01T12:11:04.000Z",
-  "category": "data_breach",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Baydöner, a Turkish restaurant chain, was compromised in March 2026 with data later published on a public hacking forum, exposing over 1.2M unique email addresses along with names, phone numbers, cities of residence, plaintext passwords, and in some cases national ID numbers and dates of birth.",
-  "source_url": "https://xposedornot.com/breach/Baydoner",
-  "groupAliases": [],
-  "activity": "Food",
-  "references": ["XposedOrNot"]
-}
+{"slug":"unattributed-baydoner-2026-05-01","title":"Baydoner","group":"Unattributed","discovered":"2026-05-01T12:11:04.000Z","category":"data_breach","severity":"critical","country":null,"sizeBytes":0,"description":"Baydöner, a Turkish restaurant chain, was compromised in March 2026 with data later published on a public hacking forum, exposing over 1.2M unique email addresses along with names, phone numbers, cities of residence, plaintext passwords, and in some cases national ID numbers and dates of birth.","source_url":"https://xposedornot.com/breach/Baydoner","groupAliases":[],"activity":"Food","references":["XposedOrNot"]}

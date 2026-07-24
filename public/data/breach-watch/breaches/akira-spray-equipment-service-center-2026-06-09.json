@@ -1,15 +1,1 @@
-{
-  "slug": "akira-spray-equipment-service-center-2026-06-09",
-  "title": "Spray Equipment & Service Center",
-  "group": "akira",
-  "discovered": "2026-06-09T14:50:21.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Spray Equipment & Service Center is a leading provider of consultation, turnkey industrial fini\nshing equipment, and training services for coating applications. They cater to clients seeking \nefficient and high-performance coating solutions, enhancing product quality and streamlining pr\noduction processes.\n\nWe will upload 26gb of corporate data soon. Employee personal information (DLs, w-9 forms and s\no on), financials, contracts, projects info, drawings, partners information, etc.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Megazord"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"akira-spray-equipment-service-center-2026-06-09","title":"Spray Equipment & Service Center","group":"akira","discovered":"2026-06-09T14:50:21.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"Spray Equipment & Service Center is a leading provider of consultation, turnkey industrial fini\nshing equipment, and training services for coating applications. They cater to clients seeking \nefficient and high-performance coating solutions, enhancing product quality and streamlining pr\noduction processes.\n\nWe will upload 26gb of corporate data soon. Employee personal information (DLs, w-9 forms and s\no on), financials, contracts, projects info, drawings, partners information, etc.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Professional Services","references":["ransomware.live"]}

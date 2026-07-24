@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-openmind-networks-2026-05-24",
-  "title": "Openmind Networks",
-  "group": "thegentlemen",
-  "discovered": "2026-05-24T09:00:34.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "openmindnetworks.com zoominfo.com/c/openmind-networks-ltd/351059313 Dublin-based independent technology firm with 20+ years of expertise in mobile messaging infrastructure. Delivers advanced software solutions for telecom operators: intelligent message routing, AI-powered fraud prevention, and RCS business messaging platforms for the 5G era. Processes over 1.5 billion messages daily for a global clientele of leading mobile carriers and wholesale aggregators, with annual revenue of approximately $20.1 million",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-openmind-networks-2026-05-24","title":"Openmind Networks","group":"thegentlemen","discovered":"2026-05-24T09:00:34.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"openmindnetworks.com zoominfo.com/c/openmind-networks-ltd/351059313 Dublin-based independent technology firm with 20+ years of expertise in mobile messaging infrastructure. Delivers advanced software solutions for telecom operators: intelligent message routing, AI-powered fraud prevention, and RCS business messaging platforms for the 5G era. Processes over 1.5 billion messages daily for a global clientele of leading mobile carriers and wholesale aggregators, with annual revenue of approximately $20.1 million","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Technology","references":["ransomware.live"]}

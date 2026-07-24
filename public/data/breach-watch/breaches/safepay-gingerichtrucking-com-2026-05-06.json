@@ -1,15 +1,1 @@
-{
-  "slug": "safepay-gingerichtrucking-com-2026-05-06",
-  "title": "gingerichtrucking.com",
-  "group": "safepay",
-  "discovered": "2026-05-06T21:24:21.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Is a U.S.-based freight transportation company operating primarily in interstate logistics. The company specializes in hauling general freight, agricultural products …",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Transportation/Logistics",
-  "references": ["ransomware.live"]
-}
+{"slug":"safepay-gingerichtrucking-com-2026-05-06","title":"gingerichtrucking.com","group":"safepay","discovered":"2026-05-06T21:24:21.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Is a U.S.-based freight transportation company operating primarily in interstate logistics. The company specializes in hauling general freight, agricultural products …","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Transportation","references":["ransomware.live"]}

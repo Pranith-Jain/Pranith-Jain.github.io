@@ -1,15 +1,1 @@
-{
-  "slug": "lynx-csb-battery-com-2026-05-10",
-  "title": "csb-battery.com",
-  "group": "lynx",
-  "discovered": "2026-05-10T08:25:50.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "TW",
-  "sizeBytes": 0,
-  "description": "CSB Energy Technology Co., Ltd. is a leading global manufacturer of Valve-Regulated Lead-Acid (VRLA) batteries, serving a diverse range of applications including stationary power, data center UPS, renewable energy, general purpose, e-mobility, and telecommunications. Their products are utilized in over 100 countries, supported by a trusted partner network for distribution and customer service. The company is committed to providing high-quality battery solutions to meet the needs of various industries. CSB Energy Technology aims to enhance user experience and technical support through their dedicated customer service team.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"lynx-csb-battery-com-2026-05-10","title":"csb-battery.com","group":"lynx","discovered":"2026-05-10T08:25:50.000Z","category":"data_breach","severity":"high","country":"TW","sizeBytes":0,"description":"CSB Energy Technology Co., Ltd. is a leading global manufacturer of Valve-Regulated Lead-Acid (VRLA) batteries, serving a diverse range of applications including stationary power, data center UPS, renewable energy, general purpose, e-mobility, and telecommunications. Their products are utilized in over 100 countries, supported by a trusted partner network for distribution and customer service. The company is committed to providing high-quality battery solutions to meet the needs of various industries. CSB Energy Technology aims to enhance user experience and technical support through their dedicated customer service team.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "payoutsking-v-fraas-2026-04-30",
-  "title": "V. FRAAS",
-  "group": "payoutsking",
-  "discovered": "2026-04-30T00:58:12.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "[AI generated] V. Fraas is a German textile manufacturer specializing in scarves, shawls, blankets, and accessories. Founded in 1880 and headquartered in Helmbrechts, Bavaria, Germany, the company is known for producing high-quality woven and knitted textiles. It operates in the fashion and home textile industry, serving both retail and wholesale markets globally. V. Fraas is recognized for its craftsmanship and broad range of seasonal accessories.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"payoutsking-v-fraas-2026-04-30","title":"V. FRAAS","group":"payoutsking","discovered":"2026-04-30T00:58:12.000Z","category":"ransomware","severity":"high","country":"DE","sizeBytes":0,"description":"[AI generated] V. Fraas is a German textile manufacturer specializing in scarves, shawls, blankets, and accessories. Founded in 1880 and headquartered in Helmbrechts, Bavaria, Germany, the company is known for producing high-quality woven and knitted textiles. It operates in the fashion and home textile industry, serving both retail and wholesale markets globally. V. Fraas is recognized for its craftsmanship and broad range of seasonal accessories.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

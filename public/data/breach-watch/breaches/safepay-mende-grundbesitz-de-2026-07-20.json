@@ -1,15 +1,1 @@
-{
-  "slug": "safepay-mende-grundbesitz-de-2026-07-20",
-  "title": "mende-grundbesitz.de",
-  "group": "safepay",
-  "discovered": "2026-07-20T19:02:23.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "Founded in 1994, the company specializes in the professional administration of residential, commercial, and mixed-use real estate throughout the Berlin …",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"safepay-mende-grundbesitz-de-2026-07-20","title":"mende-grundbesitz.de","group":"safepay","discovered":"2026-07-20T19:02:23.000Z","category":"ransomware","severity":"high","country":"DE","sizeBytes":0,"description":"Founded in 1994, the company specializes in the professional administration of residential, commercial, and mixed-use real estate throughout the Berlin …","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

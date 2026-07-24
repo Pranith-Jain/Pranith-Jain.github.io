@@ -1,15 +1,1 @@
-{
-  "slug": "cmdorganization-medlink-georgia-2026-06-30",
-  "title": "Medlink Georgia",
-  "group": "cmdorganization",
-  "discovered": "2026-06-30T08:20:17.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "We have proudly been serving northeast Georgia since 1976. As a federally qualified health center, we are able to offer uninsured and underinsured patients a sliding fee scale. No one is denied services due to lack of income or insurance status.At MedLink Georgia, we strive to provide comprehensive, coordinated, and continuous care to all our patients. We offer a broad array of primary and preventive care services for patients of all ages, including screening, diagnosis, and management of chronic illnesses.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["cmd organization"],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"cmdorganization-medlink-georgia-2026-06-30","title":"Medlink Georgia","group":"cmdorganization","discovered":"2026-06-30T08:20:17.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"We have proudly been serving northeast Georgia since 1976. As a federally qualified health center, we are able to offer uninsured and underinsured patients a sliding fee scale. No one is denied services due to lack of income or insurance status.At MedLink Georgia, we strive to provide comprehensive, coordinated, and continuous care to all our patients. We offer a broad array of primary and preventive care services for patients of all ages, including screening, diagnosis, and management of chronic illnesses.","source_url":"https://www.ransomware.live/","groupAliases":["cmd organization"],"activity":"Healthcare","references":["ransomware.live"]}

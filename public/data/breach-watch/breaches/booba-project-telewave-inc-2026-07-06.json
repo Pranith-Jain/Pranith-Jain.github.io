@@ -1,15 +1,1 @@
-{
-  "slug": "booba-project-telewave-inc-2026-07-06",
-  "title": "Telewave, Inc.",
-  "group": "Booba Project",
-  "discovered": "2026-07-06T06:31:40.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Telecommunications Stolen data: 37 GB Telewave.io will exhibit at Booth #1146 at APCO 2026 – Association of Public Safety Communications Officials in San Antonio, Texas! They will have what to tell about.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Telecommunication",
-  "references": ["ransomware.live"]
-}
+{"slug":"booba-project-telewave-inc-2026-07-06","title":"Telewave, Inc.","group":"Booba Project","discovered":"2026-07-06T06:31:40.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Telecommunications Stolen data: 37 GB Telewave.io will exhibit at Booth #1146 at APCO 2026 – Association of Public Safety Communications Officials in San Antonio, Texas! They will have what to tell about.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

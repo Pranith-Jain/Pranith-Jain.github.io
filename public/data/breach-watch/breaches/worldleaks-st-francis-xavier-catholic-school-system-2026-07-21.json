@@ -1,15 +1,1 @@
-{
-  "slug": "worldleaks-st-francis-xavier-catholic-school-system-2026-07-21",
-  "title": "St. Francis Xavier Catholic School System",
-  "group": "worldleaks",
-  "discovered": "2026-07-21T09:11:00.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "[AI generated] St. Francis Xavier Catholic School System is a private religious educational organization operating in the United States. It provides Catholic-based primary and secondary education, integrating faith formation with academic instruction. Operating under the Roman Catholic Church's educational mission, it serves students across multiple grade levels, emphasizing values-based learning, community involvement, and spiritual development alongside standard curriculum requirements.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Education",
-  "references": ["ransomware.live"]
-}
+{"slug":"worldleaks-st-francis-xavier-catholic-school-system-2026-07-21","title":"St. Francis Xavier Catholic School System","group":"worldleaks","discovered":"2026-07-21T09:11:00.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"[AI generated] St. Francis Xavier Catholic School System is a private religious educational organization operating in the United States. It provides Catholic-based primary and secondary education, integrating faith formation with academic instruction. Operating under the Roman Catholic Church's educational mission, it serves students across multiple grade levels, emphasizing values-based learning, community involvement, and spiritual development alongside standard curriculum requirements.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Education","references":["ransomware.live"]}

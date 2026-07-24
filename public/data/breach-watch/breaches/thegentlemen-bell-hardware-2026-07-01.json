@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-bell-hardware-2026-07-01",
-  "title": "Bell Hardware",
-  "group": "thegentlemen",
-  "discovered": "2026-07-01T22:21:48.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "***.com zoominfo.com/c/bell-hardware/353995383 Bell Hardware is a premier supplier of premium commercial doors, frames, and architectural hardware, operating out of seven locations across Oregon and Northern California.They act as a comprehensive one-stop shop for contractors, providing high-quality building products alongside expert on-site installation and modification services.Furthermore, the company partners with design and construction teams during the early planning stages to evaluate project elements and streamline the building process",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-bell-hardware-2026-07-01","title":"Bell Hardware","group":"thegentlemen","discovered":"2026-07-01T22:21:48.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"***.com zoominfo.com/c/bell-hardware/353995383 Bell Hardware is a premier supplier of premium commercial doors, frames, and architectural hardware, operating out of seven locations across Oregon and Northern California.They act as a comprehensive one-stop shop for contractors, providing high-quality building products alongside expert on-site installation and modification services.Furthermore, the company partners with design and construction teams during the early planning stages to evaluate project elements and streamline the building process","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

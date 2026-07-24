@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-farmers-association-of-iceland-2026-05-06",
-  "title": "Farmers Association of Iceland",
-  "group": "thegentlemen",
-  "discovered": "2026-05-06T10:07:02.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "IS",
-  "sizeBytes": 0,
-  "description": "bondi.is Farmers Association of Iceland, is Iceland's primary agricultural interest organization representing approximately 3,000 people employed in farming and agriculture-related jobs across the country. The association acts as the official advocate for Icelandic farmers in public forums, protecting their interests in matters of policy, economics, and sustainability, while also developing climate action roadmaps for sustainable farm management. Headquartered in Borgartún 25 in Reykjavík, BÍ publishes agricultural statistics, supports farm productivity improvement, and bridges the gap between society and food producers",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-farmers-association-of-iceland-2026-05-06","title":"Farmers Association of Iceland","group":"thegentlemen","discovered":"2026-05-06T10:07:02.000Z","category":"ransomware","severity":"critical","country":"IS","sizeBytes":0,"description":"bondi.is Farmers Association of Iceland, is Iceland's primary agricultural interest organization representing approximately 3,000 people employed in farming and agriculture-related jobs across the country. The association acts as the official advocate for Icelandic farmers in public forums, protecting their interests in matters of policy, economics, and sustainability, while also developing climate action roadmaps for sustainable farm management. Headquartered in Borgartún 25 in Reykjavík, BÍ publishes agricultural statistics, supports farm productivity improvement, and bridges the gap between society and food producers","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Agriculture and Food Production","references":["ransomware.live"]}

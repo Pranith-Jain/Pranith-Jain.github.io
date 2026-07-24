@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-sponseller-group-2026-05-24",
-  "title": "Sponseller Group",
-  "group": "qilin",
-  "discovered": "2026-05-24T18:24:00.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-sponseller-group-2026-05-24","title":"Sponseller Group","group":"qilin","discovered":"2026-05-24T18:24:00.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

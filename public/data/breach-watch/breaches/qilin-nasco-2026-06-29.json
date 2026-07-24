@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-nasco-2026-06-29",
-  "title": "NASCO",
-  "group": "qilin",
-  "discovered": "2026-06-29T03:25:58.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-nasco-2026-06-29","title":"NASCO","group":"qilin","discovered":"2026-06-29T03:25:58.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Agriculture and Food Production","references":["ransomware.live"]}

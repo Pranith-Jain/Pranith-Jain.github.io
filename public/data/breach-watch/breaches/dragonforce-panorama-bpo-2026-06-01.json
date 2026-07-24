@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-panorama-bpo-2026-06-01",
-  "title": "Panorama BPO",
-  "group": "dragonforce",
-  "discovered": "2026-06-01T14:22:45.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "PH",
-  "sizeBytes": 0,
-  "description": "Panorama BPO is a large international company specializing in business process outsourcing (BPO) and providing comprehensive operational services for businesses.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-panorama-bpo-2026-06-01","title":"Panorama BPO","group":"dragonforce","discovered":"2026-06-01T14:22:45.000Z","category":"ransomware","severity":"critical","country":"PH","sizeBytes":0,"description":"Panorama BPO is a large international company specializing in business process outsourcing (BPO) and providing comprehensive operational services for businesses.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Professional Services","references":["ransomware.live"]}

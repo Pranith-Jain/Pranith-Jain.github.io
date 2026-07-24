@@ -1,15 +1,1 @@
-{
-  "slug": "medusalocker-bd-2026-07-01",
-  "title": "Bd",
-  "group": "medusalocker",
-  "discovered": "2026-07-01T22:29:28.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "CH",
-  "sizeBytes": 0,
-  "description": "Organization with 772 emails extracted. Domain: bd.zh.ch",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"medusalocker-bd-2026-07-01","title":"Bd","group":"medusalocker","discovered":"2026-07-01T22:29:28.000Z","category":"ransomware","severity":"high","country":"CH","sizeBytes":0,"description":"Organization with 772 emails extracted. Domain: bd.zh.ch","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

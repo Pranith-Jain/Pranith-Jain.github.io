@@ -1,15 +1,1 @@
-{
-  "slug": "payoutsking-ufp-technologies-2026-04-30",
-  "title": "UFP Technologies",
-  "group": "payoutsking",
-  "discovered": "2026-04-30T00:55:05.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "[AI generated] UFP Technologies is a US-based company specializing in the design and manufacturing of highly engineered custom packaging, components, and specialty products. Operating in the advanced materials and manufacturing industry, it serves sectors including medical, automotive, aerospace, and consumer goods. The company uses materials such as foam, plastics, and composites to create protective and functional solutions for its clients.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"payoutsking-ufp-technologies-2026-04-30","title":"UFP Technologies","group":"payoutsking","discovered":"2026-04-30T00:55:05.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"[AI generated] UFP Technologies is a US-based company specializing in the design and manufacturing of highly engineered custom packaging, components, and specialty products. Operating in the advanced materials and manufacturing industry, it serves sectors including medical, automotive, aerospace, and consumer goods. The company uses materials such as foam, plastics, and composites to create protective and functional solutions for its clients.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

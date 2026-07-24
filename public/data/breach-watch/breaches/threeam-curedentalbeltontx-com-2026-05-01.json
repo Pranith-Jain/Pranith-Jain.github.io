@@ -1,15 +1,1 @@
-{
-  "slug": "threeam-curedentalbeltontx-com-2026-05-01",
-  "title": "curedentalbeltontx.com",
-  "group": "threeam",
-  "discovered": "2026-05-01T13:34:20.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Cure Dental is a company that operates in the Dental Offices industry. It employs 10to19 people and has 1Mto5M of revenue. The company is headquartered in Belton, Texas.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"threeam-curedentalbeltontx-com-2026-05-01","title":"curedentalbeltontx.com","group":"threeam","discovered":"2026-05-01T13:34:20.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Cure Dental is a company that operates in the Dental Offices industry. It employs 10to19 people and has 1Mto5M of revenue. The company is headquartered in Belton, Texas.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

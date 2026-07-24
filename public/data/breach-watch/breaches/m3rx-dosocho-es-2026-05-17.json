@@ -1,15 +1,1 @@
-{
-  "slug": "m3rx-dosocho-es-2026-05-17",
-  "title": "dosocho.es",
-  "group": "m3rx",
-  "discovered": "2026-05-17T14:54:18.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "ES",
-  "sizeBytes": 0,
-  "description": "+34 918 264 028. Recambios Generales del Automóvil Dosocho S.L. is a Madrid-based Spanish company specializing in the retail and e-commerce distribution of brand-new automotive spare parts and accessories. Operating through its dedicated platforms like dosochoauto.es, the company provides a comprehensive catalog of high-quality components tailored for various vehicle repairs and maintenance Stolen: 50gb 28k files",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"m3rx-dosocho-es-2026-05-17","title":"dosocho.es","group":"m3rx","discovered":"2026-05-17T14:54:18.000Z","category":"ransomware","severity":"high","country":"ES","sizeBytes":0,"description":"+34 918 264 028. Recambios Generales del Automóvil Dosocho S.L. is a Madrid-based Spanish company specializing in the retail and e-commerce distribution of brand-new automotive spare parts and accessories. Operating through its dedicated platforms like dosochoauto.es, the company provides a comprehensive catalog of high-quality components tailored for various vehicle repairs and maintenance Stolen: 50gb 28k files","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Not Found","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-modern-display-2026-05-18",
-  "title": "Modern Display",
-  "group": "thegentlemen",
-  "discovered": "2026-05-18T18:53:36.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "moderndisplay.com zoominfo.com/c/modern-display/25347032 odern Display is a beloved family-owned retail destination in Salt Lake City, Utah, founded in 1946 and specializing in seasonal décor, holiday treasures, and home accents. With 150+ team members and a 300,000 sq. ft. facility, they offer everything from Christmas trees and patriotic flags to floral arrangements and parade float supplies. Beyond retail, they power expo services, wholesale floral, and graphic design—helping customers celebrate life's special moments with beauty and joy for nearly 80 years",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-modern-display-2026-05-18","title":"Modern Display","group":"thegentlemen","discovered":"2026-05-18T18:53:36.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"moderndisplay.com zoominfo.com/c/modern-display/25347032 odern Display is a beloved family-owned retail destination in Salt Lake City, Utah, founded in 1946 and specializing in seasonal décor, holiday treasures, and home accents. With 150+ team members and a 300,000 sq. ft. facility, they offer everything from Christmas trees and patriotic flags to floral arrangements and parade float supplies. Beyond retail, they power expo services, wholesale floral, and graphic design—helping customers celebrate life's special moments with beauty and joy for nearly 80 years","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Manufacturing","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "genesis-dicon-2026-07-05",
-  "title": "DICON",
-  "group": "genesis",
-  "discovered": "2026-07-05T13:56:30.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "A general contracting construction firm",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"genesis-dicon-2026-07-05","title":"DICON","group":"genesis","discovered":"2026-07-05T13:56:30.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"A general contracting construction firm","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

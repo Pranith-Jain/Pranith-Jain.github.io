@@ -1,15 +1,1 @@
-{
-  "slug": "akira-greenwoods-dental-centre-2026-05-08",
-  "title": "Greenwoods Dental Centre",
-  "group": "akira",
-  "discovered": "2026-05-08T14:20:19.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Greenwoods Dental & Surgical Centre has been a cornerstone of dental care in Winnipeg.\n\nWe will upload 90gb of corporate data soon. Detailed employee personal information (passport, D\nLs and other personal information), financials, patient information, payment details, NDAs and \nso on.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Megazord"],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"akira-greenwoods-dental-centre-2026-05-08","title":"Greenwoods Dental Centre","group":"akira","discovered":"2026-05-08T14:20:19.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Greenwoods Dental & Surgical Centre has been a cornerstone of dental care in Winnipeg.\n\nWe will upload 90gb of corporate data soon. Detailed employee personal information (passport, D\nLs and other personal information), financials, patient information, payment details, NDAs and \nso on.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Healthcare","references":["ransomware.live"]}

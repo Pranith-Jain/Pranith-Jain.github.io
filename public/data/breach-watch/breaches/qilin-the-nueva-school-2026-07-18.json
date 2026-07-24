@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-the-nueva-school-2026-07-18",
-  "title": "The Nueva School",
-  "group": "qilin",
-  "discovered": "2026-07-18T13:34:28.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Education",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-the-nueva-school-2026-07-18","title":"The Nueva School","group":"qilin","discovered":"2026-07-18T13:34:28.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Education","references":["ransomware.live"]}

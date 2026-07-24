@@ -1,15 +1,1 @@
-{
-  "slug": "apt73-medikaplaza-com-2026-04-27",
-  "title": "medikaplaza.com",
-  "group": "apt73",
-  "discovered": "2026-04-27T16:36:54.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "PK",
-  "sizeBytes": 0,
-  "description": "Medika Plaza is a healthcare company in Indonesia that provides medical services, corporate medic...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Eraleign"],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"apt73-medikaplaza-com-2026-04-27","title":"medikaplaza.com","group":"apt73","discovered":"2026-04-27T16:36:54.000Z","category":"data_breach","severity":"high","country":"PK","sizeBytes":0,"description":"Medika Plaza is a healthcare company in Indonesia that provides medical services, corporate medic...","source_url":"https://www.ransomware.live/","groupAliases":["Eraleign"],"activity":"Healthcare","references":["ransomware.live"]}

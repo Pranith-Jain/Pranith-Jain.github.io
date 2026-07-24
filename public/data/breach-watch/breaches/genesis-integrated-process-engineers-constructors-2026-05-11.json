@@ -1,15 +1,1 @@
-{
-  "slug": "genesis-integrated-process-engineers-constructors-2026-05-11",
-  "title": "Integrated Process Engineers & Constructors.",
-  "group": "genesis",
-  "discovered": "2026-05-11T23:24:14.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Specializes in custom modular process systems, offering a wide range of products including bioreactors, filtration systems, and utility stations.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Construction",
-  "references": ["ransomware.live"]
-}
+{"slug":"genesis-integrated-process-engineers-constructors-2026-05-11","title":"Integrated Process Engineers & Constructors.","group":"genesis","discovered":"2026-05-11T23:24:14.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Specializes in custom modular process systems, offering a wide range of products including bioreactors, filtration systems, and utility stations.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "braincipher-endeavourautomotive-co-uk-2026-05-01",
-  "title": "endeavourautomotive.co.uk",
-  "group": "BrainCipher",
-  "discovered": "2026-05-01T09:55:24.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "GB",
-  "sizeBytes": 0,
-  "description": "[AI generated] Endeavour Automotive is a UK-based car dealership group operating across England. The company sells new and used vehicles from multiple mainstream and premium brands, including Ford, Nissan, and others. It also provides vehicle servicing, parts, and aftersales support. Operating within the automotive retail industry, Endeavour Automotive runs several dealership locations primarily in the south and east of England.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["brain cipher"],
-  "activity": "Transportation/Logistics",
-  "references": ["ransomware.live"]
-}
+{"slug":"braincipher-endeavourautomotive-co-uk-2026-05-01","title":"endeavourautomotive.co.uk","group":"BrainCipher","discovered":"2026-05-01T09:55:24.000Z","category":"ransomware","severity":"critical","country":"GB","sizeBytes":0,"description":"[AI generated] Endeavour Automotive is a UK-based car dealership group operating across England. The company sells new and used vehicles from multiple mainstream and premium brands, including Ford, Nissan, and others. It also provides vehicle servicing, parts, and aftersales support. Operating within the automotive retail industry, Endeavour Automotive runs several dealership locations primarily in the south and east of England.","source_url":"https://www.ransomware.live/","groupAliases":["brain cipher"],"activity":"Transportation","references":["ransomware.live"]}

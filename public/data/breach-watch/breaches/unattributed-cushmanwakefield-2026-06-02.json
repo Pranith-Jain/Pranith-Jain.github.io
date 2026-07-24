@@ -1,15 +1,1 @@
-{
-  "slug": "unattributed-cushmanwakefield-2026-06-02",
-  "title": "CushmanWakefield",
-  "group": "Unattributed",
-  "discovered": "2026-06-02T11:02:15.000Z",
-  "category": "data_breach",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Cushman & Wakefield, a real estate services firm, was targeted by the ShinyHunters group in May 2026, with data later published exposing corporate contact records including email addresses, names, job titles, company addresses, and phone numbers.",
-  "source_url": "https://xposedornot.com/breach/CushmanWakefield",
-  "groupAliases": [],
-  "activity": "Finance",
-  "references": ["XposedOrNot"]
-}
+{"slug":"unattributed-cushmanwakefield-2026-06-02","title":"CushmanWakefield","group":"Unattributed","discovered":"2026-06-02T11:02:15.000Z","category":"data_breach","severity":"critical","country":null,"sizeBytes":0,"description":"Cushman & Wakefield, a real estate services firm, was targeted by the ShinyHunters group in May 2026, with data later published exposing corporate contact records including email addresses, names, job titles, company addresses, and phone numbers.","source_url":"https://xposedornot.com/breach/CushmanWakefield","groupAliases":[],"activity":"Finance","references":["XposedOrNot"]}

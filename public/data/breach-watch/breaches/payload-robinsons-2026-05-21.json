@@ -1,15 +1,1 @@
-{
-  "slug": "payload-robinsons-2026-05-21",
-  "title": "Robinsons",
-  "group": "payload",
-  "discovered": "2026-05-21T10:26:06.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "SG",
-  "sizeBytes": 0,
-  "description": "Founded in 1858, Robinsons established itself to become a household name in Singapore, and as a mecca for elevated shopper experiences with their extraordinary product and service innovations. The first flagship - Robinsons The Heeren - opened in November 1858, redefined a new standard for retail experiences in Singapore.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"payload-robinsons-2026-05-21","title":"Robinsons","group":"payload","discovered":"2026-05-21T10:26:06.000Z","category":"ransomware","severity":"high","country":"SG","sizeBytes":0,"description":"Founded in 1858, Robinsons established itself to become a household name in Singapore, and as a mecca for elevated shopper experiences with their extraordinary product and service innovations. The first flagship - Robinsons The Heeren - opened in November 1858, redefined a new standard for retail experiences in Singapore.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

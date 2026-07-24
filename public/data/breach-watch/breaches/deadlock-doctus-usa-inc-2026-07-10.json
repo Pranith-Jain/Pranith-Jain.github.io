@@ -1,15 +1,1 @@
-{
-  "slug": "deadlock-doctus-usa-inc-2026-07-10",
-  "title": "DOCTUS USA Inc",
-  "group": "Deadlock",
-  "discovered": "2026-07-10T13:12:11.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Doctus offers top-tier medical records services in the USA, specializing in the management and organization of medical documentation.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"deadlock-doctus-usa-inc-2026-07-10","title":"DOCTUS USA Inc","group":"Deadlock","discovered":"2026-07-10T13:12:11.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Doctus offers top-tier medical records services in the USA, specializing in the management and organization of medical documentation.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "unattributed-woflow-2026-06-22",
-  "title": "WoFlow",
-  "group": "Unattributed",
-  "discovered": "2026-06-22T15:18:44.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Woflow, an AI-driven merchant data platform, was allegedly breached by the ShinyHunters group in March 2026, with attackers claiming to have stolen hundreds of millions of records and later publishing large volumes of data containing email addresses, names, phone numbers, physical addresses, transaction data, and internal corporate information.",
-  "source_url": "https://xposedornot.com/breach/WoFlow",
-  "groupAliases": [],
-  "activity": "Information Technology",
-  "references": ["XposedOrNot"]
-}
+{"slug":"unattributed-woflow-2026-06-22","title":"WoFlow","group":"Unattributed","discovered":"2026-06-22T15:18:44.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"Woflow, an AI-driven merchant data platform, was allegedly breached by the ShinyHunters group in March 2026, with attackers claiming to have stolen hundreds of millions of records and later publishing large volumes of data containing email addresses, names, phone numbers, physical addresses, transaction data, and internal corporate information.","source_url":"https://xposedornot.com/breach/WoFlow","groupAliases":[],"activity":"Information Technology","references":["XposedOrNot"]}

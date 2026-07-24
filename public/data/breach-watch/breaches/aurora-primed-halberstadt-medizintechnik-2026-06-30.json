@@ -1,15 +1,1 @@
-{
-  "slug": "aurora-primed-halberstadt-medizintechnik-2026-06-30",
-  "title": "Primed Halberstadt Medizintechnik",
-  "group": "aurora",
-  "discovered": "2026-06-30T19:51:25.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "[manufacturer] *** GmbH — a German manufacturer of medical devices founded in 1946 and now part of the PE-backed PP Medtech group (Wiesmann & Co. KG).\n\nThe exfiltration captured four entire server volumes:\n\nDaten (883 GB) — File server: 289 employee home directories (547 GB), Czech subsidiary data (66 GB), production processes (162 GB), machine configurations (81 GB)\nEE (807 GB) — Enterprise system: Apollo ERP, VBANK banking (8 accounts), complete database backup (100.6 GB, dated June 3), product images\nWINDVSW1 (344 GB) — Windows server: DATEV accounting (115+ data directories including LODAS payroll), bank transfers, DMS exports\ndmsscan (12 GB) — Scanned documents from 51+ employee DMS mailboxes\nA database backup (spiel.zip.001–010, 100.6 GB) was created on 2026-06-03",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"aurora-primed-halberstadt-medizintechnik-2026-06-30","title":"Primed Halberstadt Medizintechnik","group":"aurora","discovered":"2026-06-30T19:51:25.000Z","category":"data_breach","severity":"high","country":"DE","sizeBytes":0,"description":"[manufacturer] *** GmbH — a German manufacturer of medical devices founded in 1946 and now part of the PE-backed PP Medtech group (Wiesmann & Co. KG).\n\nThe exfiltration captured four entire server volumes:\n\nDaten (883 GB) — File server: 289 employee home directories (547 GB), Czech subsidiary data (66 GB), production processes (162 GB), machine configurations (81 GB)\nEE (807 GB) — Enterprise system: Apollo ERP, VBANK banking (8 accounts), complete database backup (100.6 GB, dated June 3), product images\nWINDVSW1 (344 GB) — Windows server: DATEV accounting (115+ data directories including LODAS payroll), bank transfers, DMS exports\ndmsscan (12 GB) — Scanned documents from 51+ employee DMS mailboxes\nA database backup (spiel.zip.001–010, 100.6 GB) was created on 2026-06-03","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

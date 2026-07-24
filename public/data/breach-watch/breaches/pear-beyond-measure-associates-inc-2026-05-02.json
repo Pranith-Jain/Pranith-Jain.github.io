@@ -1,15 +1,1 @@
-{
-  "slug": "pear-beyond-measure-associates-inc-2026-05-02",
-  "title": "Beyond Measure & Associates, Inc.",
-  "group": "pear",
-  "discovered": "2026-05-02T10:25:34.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Church Design, Engineering, Financial & Construction Services",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"pear-beyond-measure-associates-inc-2026-05-02","title":"Beyond Measure & Associates, Inc.","group":"pear","discovered":"2026-05-02T10:25:34.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Church Design, Engineering, Financial & Construction Services","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

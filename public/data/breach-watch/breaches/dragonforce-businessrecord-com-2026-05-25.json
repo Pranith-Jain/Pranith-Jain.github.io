@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-businessrecord-com-2026-05-25",
-  "title": "businessrecord.com",
-  "group": "dragonforce",
-  "discovered": "2026-05-25T11:51:42.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "BusinessRecord.com provides RSS feeds free of charge for personal, non-commercial use. If you embed an RSS feed on a personal website, please include a link back to Business Record. Business Record reserves the right to request that you cease distributing these feeds at any time and for any reason.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-businessrecord-com-2026-05-25","title":"businessrecord.com","group":"dragonforce","discovered":"2026-05-25T11:51:42.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"BusinessRecord.com provides RSS feeds free of charge for personal, non-commercial use. If you embed an RSS feed on a personal website, please include a link back to Business Record. Business Record reserves the right to request that you cease distributing these feeds at any time and for any reason.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Professional Services","references":["ransomware.live"]}

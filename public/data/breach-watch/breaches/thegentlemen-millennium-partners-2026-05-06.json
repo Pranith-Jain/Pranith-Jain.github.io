@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-millennium-partners-2026-05-06",
-  "title": "Millennium Partners",
-  "group": "thegentlemen",
-  "discovered": "2026-05-06T10:07:30.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "millenniumptrs.com zoominfo.com/c/millennium-partners-inc/483051874 Millennium Partners is a premier luxury real estate developer founded in 1991 and headquartered in New York City, with over three decades of transforming urban neighborhoods through landmark mixed-use developments in gateway cities such as New York, Boston, San Francisco, and Washington D.C.. The company has pioneered the luxury branded residential experience by forging first-of-their-kind partnerships with Ritz-Carlton and Four Seasons, and today owns a portfolio worth over $5 billion encompassing 3,200+ condominiums, 10 hotels, 2 million sq ft of office space, and 1 million sq ft of retail. In 2023, Millennium Partners opened Winthrop Center in Boston — the world's largest Passive House office building — setting a new global benchmark for sustainability and human-centered design",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Financial Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-millennium-partners-2026-05-06","title":"Millennium Partners","group":"thegentlemen","discovered":"2026-05-06T10:07:30.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"millenniumptrs.com zoominfo.com/c/millennium-partners-inc/483051874 Millennium Partners is a premier luxury real estate developer founded in 1991 and headquartered in New York City, with over three decades of transforming urban neighborhoods through landmark mixed-use developments in gateway cities such as New York, Boston, San Francisco, and Washington D.C.. The company has pioneered the luxury branded residential experience by forging first-of-their-kind partnerships with Ritz-Carlton and Four Seasons, and today owns a portfolio worth over $5 billion encompassing 3,200+ condominiums, 10 hotels, 2 million sq ft of office space, and 1 million sq ft of retail. In 2023, Millennium Partners opened Winthrop Center in Boston — the world's largest Passive House office building — setting a new global benchmark for sustainability and human-centered design","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Financial Services","references":["ransomware.live"]}

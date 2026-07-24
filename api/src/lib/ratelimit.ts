@@ -1,7 +1,5 @@
 import type { Context, Next } from 'hono';
 import type { Env } from '../env';
-
-type KvNamespace = import('@cloudflare/workers-types').KVNamespace;
 import { safeNullLog } from './safe-catch';
 
 const LIMIT = 30; // keyless (website / anonymous) requests per minute per IP/colo
@@ -268,15 +266,9 @@ export async function rateLimit(c: Context<{ Bindings: Env }>, next: Next): Prom
         adminCount = doCount - 1;
         adminViaDO = true;
       } else {
-        // DO unavailable — fall back to KV (global-ish) / Cache API.
-        const kv = (c.env as unknown as Record<string, unknown>).KV_CACHE as KvNamespace | undefined;
-        if (kv) {
-          const adminHit = await kv.get(`rl:admin:${ip}:${bucket}`);
-          if (adminHit) adminCount = parseInt(adminHit, 10) || 0;
-        } else {
-          const adminHit = await cache.match(adminKey);
-          if (adminHit) adminCount = parseInt(await adminHit.text(), 10) || 0;
-        }
+        // DO unavailable — fall back to per-colo Cache API (free, no KV quota).
+        const adminHit = await cache.match(adminKey);
+        if (adminHit) adminCount = parseInt(await adminHit.text(), 10) || 0;
       }
     }
   } catch {
@@ -332,28 +324,19 @@ export async function rateLimit(c: Context<{ Bindings: Env }>, next: Next): Prom
   );
   if (adminKey && !adminViaDO) {
     // Legacy admin write — only when the atomic DO path was NOT used (the DO
-    // already incremented its own counter). KV gives a global-ish count;
-    // admin endpoints see orders of magnitude less traffic than public ones.
-    const kv = (c.env as unknown as Record<string, unknown>).KV_CACHE as KvNamespace | undefined;
-    if (kv) {
-      c.executionCtx.waitUntil(
-        kv
-          .put(`rl:admin:${ip}:${bucket}`, String(adminCount + 1), { expirationTtl: WINDOW_SEC * 2 })
-          .catch(() => undefined)
-      );
-    } else {
-      // Fall back to per-colo Cache API when KV is not bound.
-      c.executionCtx.waitUntil(
-        cache
-          .put(
-            adminKey,
-            new Response(String(adminCount + 1), {
-              headers: { 'cache-control': `max-age=${WINDOW_SEC}` },
-            })
-          )
-          .catch(() => undefined)
-      );
-    }
+    // already incremented its own counter). Per-colo Cache API (free, no KV
+    // quota). Admin endpoints see orders of magnitude less traffic than public
+    // ones, so per-colo counting is acceptable.
+    c.executionCtx.waitUntil(
+      cache
+        .put(
+          adminKey,
+          new Response(String(adminCount + 1), {
+            headers: { 'cache-control': `max-age=${WINDOW_SEC}` },
+          })
+        )
+        .catch(() => undefined)
+    );
   }
 
   return next();

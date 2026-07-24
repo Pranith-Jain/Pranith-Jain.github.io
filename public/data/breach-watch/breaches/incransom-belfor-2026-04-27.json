@@ -1,15 +1,1 @@
-{
-  "slug": "incransom-belfor-2026-04-27",
-  "title": "BELFOR",
-  "group": "incransom",
-  "discovered": "2026-04-27T13:57:55.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "SG",
-  "sizeBytes": 0,
-  "description": "BELFOR (Asia) Pte Ltd, Singapore.\r RecoveryPro Ltd, Japan.\r Country list: Singapore, Japan, Korea, Taiwan, Thailand, Malaysia.\r \r Total Data: 430GB\r \r Data: \r Confidential (Classified) - non-disclosure agreements (NDA's), Personal scan passports, Employee Privacy, Employment contracts, Employment Records, Health Information.\r Finance Department - Salary & Bonus structures, Internal audit reports, Insurance contracts & payments, Payroll Reports, Benefits & pension details, Internal investigations, Partners agreements, Balance sheets, Budget reports, Credit agreements, Tax filings, Marketing plans.\r IT Department - IT network infrastructure, Research and development data, SDLC documentation.\r Other - All projects report & files, Buildings drawings, Object Photo, Photo of damages, Object plans, a lot of internal documentation.\r \r Clients: Mitsubishi, Samsung, Toyota, Kawasaki Motors, Sony Technology, Fujifilm Business Innovation, Siemens, Seiko, Nissan and many other.\r \r Full data release coming soon!!!",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["inc ransom", "INC"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"incransom-belfor-2026-04-27","title":"BELFOR","group":"incransom","discovered":"2026-04-27T13:57:55.000Z","category":"ransomware","severity":"critical","country":"SG","sizeBytes":0,"description":"BELFOR (Asia) Pte Ltd, Singapore.\r RecoveryPro Ltd, Japan.\r Country list: Singapore, Japan, Korea, Taiwan, Thailand, Malaysia.\r \r Total Data: 430GB\r \r Data: \r Confidential (Classified) - non-disclosure agreements (NDA's), Personal scan passports, Employee Privacy, Employment contracts, Employment Records, Health Information.\r Finance Department - Salary & Bonus structures, Internal audit reports, Insurance contracts & payments, Payroll Reports, Benefits & pension details, Internal investigations, Partners agreements, Balance sheets, Budget reports, Credit agreements, Tax filings, Marketing plans.\r IT Department - IT network infrastructure, Research and development data, SDLC documentation.\r Other - All projects report & files, Buildings drawings, Object Photo, Photo of damages, Object plans, a lot of internal documentation.\r \r Clients: Mitsubishi, Samsung, Toyota, Kawasaki Motors, Sony Technology, Fujifilm Business Innovation, Siemens, Seiko, Nissan and many other.\r \r Full data release coming soon!!!","source_url":"https://www.ransomware.live/","groupAliases":["inc ransom","INC"],"activity":"Professional Services","references":["ransomware.live"]}

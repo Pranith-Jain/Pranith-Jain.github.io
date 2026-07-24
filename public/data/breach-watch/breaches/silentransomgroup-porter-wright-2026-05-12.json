@@ -1,15 +1,1 @@
-{
-  "slug": "silentransomgroup-porter-wright-2026-05-12",
-  "title": "Porter Wright",
-  "group": "SilentRansomGroup",
-  "discovered": "2026-05-12T22:20:24.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Founded in 1846, Porter Wright is a full-service law firm offering legal helo for the community specia…",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"silentransomgroup-porter-wright-2026-05-12","title":"Porter Wright","group":"SilentRansomGroup","discovered":"2026-05-12T22:20:24.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Founded in 1846, Porter Wright is a full-service law firm offering legal helo for the community specia…","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "braincipher-bridgeway-consulting-co-uk-2026-05-01",
-  "title": "bridgeway-consulting.co.uk",
-  "group": "BrainCipher",
-  "discovered": "2026-05-01T09:54:53.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "GB",
-  "sizeBytes": 0,
-  "description": "[AI generated] N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["brain cipher"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"braincipher-bridgeway-consulting-co-uk-2026-05-01","title":"bridgeway-consulting.co.uk","group":"BrainCipher","discovered":"2026-05-01T09:54:53.000Z","category":"ransomware","severity":"critical","country":"GB","sizeBytes":0,"description":"[AI generated] N/A","source_url":"https://www.ransomware.live/","groupAliases":["brain cipher"],"activity":"Professional Services","references":["ransomware.live"]}

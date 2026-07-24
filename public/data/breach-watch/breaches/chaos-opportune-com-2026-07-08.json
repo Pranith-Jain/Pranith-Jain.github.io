@@ -1,15 +1,1 @@
-{
-  "slug": "chaos-opportune-com-2026-07-08",
-  "title": "opportune.com",
-  "group": "chaos",
-  "discovered": "2026-07-08T07:22:55.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "DATA EXPOSURE: Opportune LLP – Full Operational Transparency\n\nWe are officially announcing that our security team has successfully breached the internal network of Opportune LLP. As of this moment, we are in possession of the entire Opportune internal data environment—an massive archive containi…",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"chaos-opportune-com-2026-07-08","title":"opportune.com","group":"chaos","discovered":"2026-07-08T07:22:55.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"DATA EXPOSURE: Opportune LLP – Full Operational Transparency\n\nWe are officially announcing that our security team has successfully breached the internal network of Opportune LLP. As of this moment, we are in possession of the entire Opportune internal data environment—an massive archive containi…","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

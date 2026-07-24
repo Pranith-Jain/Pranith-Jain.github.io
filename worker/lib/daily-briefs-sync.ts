@@ -19,6 +19,12 @@ const BASE_URL = 'https://agentic-ai-daily-reports.netlify.app';
 
 const KV_PREFIX_INDEX = 'db:index';
 const KV_PREFIX_BODY = 'db:body';
+/** 30 days — daily briefs are useful for a month, then the static
+ *  manifest in public/data/daily-briefs/ has the historical copy. */
+const BODY_TTL_S = 30 * 24 * 3600;
+/** 7 days — the index is rewritten every sync; TTL prevents
+ *  orphaned keys if the sync stops running. */
+const INDEX_TTL_S = 7 * 24 * 3600;
 
 function stripTags(html: string): string {
   return html
@@ -508,8 +514,8 @@ export async function syncDailyBriefs(env: SyncEnv): Promise<{ types: string[]; 
         continue;
       }
 
-      // Write body to KV
-      await env.KV_CACHE.put(`${KV_PREFIX_BODY}:${type}:${date}`, bodyStr);
+      // Write body to KV (with TTL — static manifest is the long-term archive)
+      await env.KV_CACHE.put(`${KV_PREFIX_BODY}:${type}:${date}`, bodyStr, { expirationTtl: BODY_TTL_S });
       mergedBriefs.set(`${type}:${date}`, { type: type as DbBriefType, date, sizeBytes });
       counted[type] = (counted[type] || 0) + 1;
       types.push(type);
@@ -527,7 +533,7 @@ export async function syncDailyBriefs(env: SyncEnv): Promise<{ types: string[]; 
     counts: { cyber: counted['cyber'] || 0, deepfake: counted['deepfake'] || 0, disaster: counted['disaster'] || 0 },
     briefs: allBriefs,
   };
-  await env.KV_CACHE.put(KV_PREFIX_INDEX, JSON.stringify(index));
+  await env.KV_CACHE.put(KV_PREFIX_INDEX, JSON.stringify(index), { expirationTtl: INDEX_TTL_S });
 
   return { types, errors };
 }

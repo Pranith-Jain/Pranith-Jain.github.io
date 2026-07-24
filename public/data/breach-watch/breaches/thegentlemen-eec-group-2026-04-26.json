@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-eec-group-2026-04-26",
-  "title": "EEC Group",
-  "group": "thegentlemen",
-  "discovered": "2026-04-26T15:52:07.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "EG",
-  "sizeBytes": 0,
-  "description": "eecegypt.com zoominfo.com/c/eec-group/372746808 EEC Group (Engineering Enterprises for Civil & Steel Constructions S.A.E.) is an Egyptian engineering and construction conglomerate headquartered at EEC Tower, Sheraton Heliopolis, Cairo. Founded in 1977 as a construction company, it expanded into steel structure manufacturing in 1983 and became a telecom infrastructure turnkey contractor from 1996 onwards",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-eec-group-2026-04-26","title":"EEC Group","group":"thegentlemen","discovered":"2026-04-26T15:52:07.000Z","category":"ransomware","severity":"critical","country":"EG","sizeBytes":0,"description":"eecegypt.com zoominfo.com/c/eec-group/372746808 EEC Group (Engineering Enterprises for Civil & Steel Constructions S.A.E.) is an Egyptian engineering and construction conglomerate headquartered at EEC Tower, Sheraton Heliopolis, Cairo. Founded in 1977 as a construction company, it expanded into steel structure manufacturing in 1983 and became a telecom infrastructure turnkey contractor from 1996 onwards","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Professional Services","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-diviso-grupo-financiero-2026-05-06",
-  "title": "Diviso Grupo Financiero",
-  "group": "thegentlemen",
-  "discovered": "2026-05-06T10:07:10.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "PE",
-  "sizeBytes": 0,
-  "description": "diviso.pe zoominfo.com/c/diviso-grupo-financiero-sa/372139811 Diviso Grupo Financiero S.A. is a Lima-based financial holding company founded in 2003 (formerly NCF Inversiones SA, rebranded in November 2013). With around 1,000–5,000 employees and led by CEO José Romero Tapia, it offers a comprehensive portfolio of capital market services through its two main subsidiaries — DIVISO Fondos (mutual and investment funds) and DIVISO Bolsa (stock brokerage). The group holds strategic stakes in major regional exchanges, including the Lima Stock Exchange (BVL), CAVALI, and the Chilean Products Exchange. It is publicly traded on the Lima Stock Exchange under ticker DIVIC1 with a market cap of ~313 million PEN",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Financial Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-diviso-grupo-financiero-2026-05-06","title":"Diviso Grupo Financiero","group":"thegentlemen","discovered":"2026-05-06T10:07:10.000Z","category":"ransomware","severity":"critical","country":"PE","sizeBytes":0,"description":"diviso.pe zoominfo.com/c/diviso-grupo-financiero-sa/372139811 Diviso Grupo Financiero S.A. is a Lima-based financial holding company founded in 2003 (formerly NCF Inversiones SA, rebranded in November 2013). With around 1,000–5,000 employees and led by CEO José Romero Tapia, it offers a comprehensive portfolio of capital market services through its two main subsidiaries — DIVISO Fondos (mutual and investment funds) and DIVISO Bolsa (stock brokerage). The group holds strategic stakes in major regional exchanges, including the Lima Stock Exchange (BVL), CAVALI, and the Chilean Products Exchange. It is publicly traded on the Lima Stock Exchange under ticker DIVIC1 with a market cap of ~313 million PEN","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Financial Services","references":["ransomware.live"]}

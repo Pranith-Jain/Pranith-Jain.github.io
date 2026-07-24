@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-arsenalscaffold-com-2026-05-25",
-  "title": "arsenalscaffold.com",
-  "group": "dragonforce",
-  "discovered": "2026-05-25T11:22:05.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "GB",
-  "sizeBytes": 0,
-  "description": "Founded in 1998, Arsenal Scaffold Inc. specializes in providing professional scaffolding and vertical access solutions, including tubular and system scaffolding, formwork, and construction hoists.\nThe company is committed to exceptional service, safety, and quality workmanship, ensuring every project meets the highest industry standards.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Construction",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-arsenalscaffold-com-2026-05-25","title":"arsenalscaffold.com","group":"dragonforce","discovered":"2026-05-25T11:22:05.000Z","category":"ransomware","severity":"critical","country":"GB","sizeBytes":0,"description":"Founded in 1998, Arsenal Scaffold Inc. specializes in providing professional scaffolding and vertical access solutions, including tubular and system scaffolding, formwork, and construction hoists.\nThe company is committed to exceptional service, safety, and quality workmanship, ensuring every project meets the highest industry standards.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Manufacturing","references":["ransomware.live"]}

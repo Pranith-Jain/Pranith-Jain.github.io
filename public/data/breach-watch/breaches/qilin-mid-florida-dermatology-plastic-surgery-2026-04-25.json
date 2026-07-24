@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-mid-florida-dermatology-plastic-surgery-2026-04-25",
-  "title": "Mid Florida Dermatology & Plastic Surgery",
-  "group": "qilin",
-  "discovered": "2026-04-25T14:45:59.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": null,
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-mid-florida-dermatology-plastic-surgery-2026-04-25","title":"Mid Florida Dermatology & Plastic Surgery","group":"qilin","discovered":"2026-04-25T14:45:59.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":null,"source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

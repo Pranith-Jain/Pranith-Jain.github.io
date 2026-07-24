@@ -1,15 +1,1 @@
-{
-  "slug": "chaos-roofdepot-com-2026-06-25",
-  "title": "roofdepot.com",
-  "group": "chaos",
-  "discovered": "2026-06-25T15:46:31.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Founded in 1998 and headquartered in Alpharetta, GA, Roof Depot is a roofing manufacturer that specializes in roof installation, repairs & replacement",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Construction",
-  "references": ["ransomware.live"]
-}
+{"slug":"chaos-roofdepot-com-2026-06-25","title":"roofdepot.com","group":"chaos","discovered":"2026-06-25T15:46:31.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Founded in 1998 and headquartered in Alpharetta, GA, Roof Depot is a roofing manufacturer that specializes in roof installation, repairs & replacement","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

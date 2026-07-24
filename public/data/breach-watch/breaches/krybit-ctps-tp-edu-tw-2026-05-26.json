@@ -1,15 +1,1 @@
-{
-  "slug": "krybit-ctps-tp-edu-tw-2026-05-26",
-  "title": "ctps.tp.edu.tw",
-  "group": "krybit",
-  "discovered": "2026-05-26T13:53:14.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "TW",
-  "sizeBytes": 0,
-  "description": "ctps.tp.edu.tw — Taiwanese Public Elementary School\n\nctps.tp.edu.tw is the official website of 臺北市南港區成...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Education",
-  "references": ["ransomware.live"]
-}
+{"slug":"krybit-ctps-tp-edu-tw-2026-05-26","title":"ctps.tp.edu.tw","group":"krybit","discovered":"2026-05-26T13:53:14.000Z","category":"ransomware","severity":"high","country":"TW","sizeBytes":0,"description":"ctps.tp.edu.tw — Taiwanese Public Elementary School\n\nctps.tp.edu.tw is the official website of 臺北市南港區成...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Education","references":["ransomware.live"]}

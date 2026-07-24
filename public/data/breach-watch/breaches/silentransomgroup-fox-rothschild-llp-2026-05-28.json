@@ -1,15 +1,1 @@
-{
-  "slug": "silentransomgroup-fox-rothschild-llp-2026-05-28",
-  "title": "Fox Rothschild LLP",
-  "group": "SilentRansomGroup",
-  "discovered": "2026-05-28T18:20:23.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "[AI generated] Fox Rothschild LLP is a national law firm headquartered in the United States. Founded in 1907, it operates across numerous offices throughout the country, providing legal services in areas including corporate law, litigation, employment law, real estate, and finance. The firm serves a broad range of clients, from individuals and startups to large corporations, operating within the legal services industry in the United States.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"silentransomgroup-fox-rothschild-llp-2026-05-28","title":"Fox Rothschild LLP","group":"SilentRansomGroup","discovered":"2026-05-28T18:20:23.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"[AI generated] Fox Rothschild LLP is a national law firm headquartered in the United States. Founded in 1907, it operates across numerous offices throughout the country, providing legal services in areas including corporate law, litigation, employment law, real estate, and finance. The firm serves a broad range of clients, from individuals and startups to large corporations, operating within the legal services industry in the United States.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

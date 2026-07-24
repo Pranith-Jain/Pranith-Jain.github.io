@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-fibrenoire-2026-06-04",
-  "title": "Fibrenoire",
-  "group": "thegentlemen",
-  "discovered": "2026-06-04T09:10:06.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "CA",
-  "sizeBytes": 0,
-  "description": "***.ca ***.com/c/fibrenoire-inc/347982087 Fibrenoire is a premier Canadian telecommunications provider specializing exclusively in high-speed, fiber-optic connectivity solutions tailored for business environments. Operating primarily across Quebec and Ontario as part of Videotron Business, they deliver mission-critical services including dedicated internet, private networks, VoIP, and cloud infrastructure. With an avant-garde approach, the company focuses on building robust, scalable, and secure networks that empower enterprises to thrive in a demanding digital landscape",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-fibrenoire-2026-06-04","title":"Fibrenoire","group":"thegentlemen","discovered":"2026-06-04T09:10:06.000Z","category":"ransomware","severity":"critical","country":"CA","sizeBytes":0,"description":"***.ca ***.com/c/fibrenoire-inc/347982087 Fibrenoire is a premier Canadian telecommunications provider specializing exclusively in high-speed, fiber-optic connectivity solutions tailored for business environments. Operating primarily across Quebec and Ontario as part of Videotron Business, they deliver mission-critical services including dedicated internet, private networks, VoIP, and cloud infrastructure. With an avant-garde approach, the company focuses on building robust, scalable, and secure networks that empower enterprises to thrive in a demanding digital landscape","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Manufacturing","references":["ransomware.live"]}

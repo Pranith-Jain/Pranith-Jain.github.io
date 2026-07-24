@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-alexander-buch-bilanzbuchhalter-2026-06-20",
-  "title": "Alexander Buch Bilanzbuchhalter",
-  "group": "thegentlemen",
-  "discovered": "2026-06-20T08:53:41.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "***.de Alexander Buch is a certified accountant (Bilanzbuchhalter) based in Herne, Germany, offering professional financial services to both businesses and individuals. His practice specializes in ongoing bookkeeping, payroll accounting, commercial consulting, and comprehensive support for startup founders. Additionally, he provides dedicated tax assistance services, helping clients efficiently manage their financial obligations and regulatory requirements",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-alexander-buch-bilanzbuchhalter-2026-06-20","title":"Alexander Buch Bilanzbuchhalter","group":"thegentlemen","discovered":"2026-06-20T08:53:41.000Z","category":"ransomware","severity":"critical","country":"DE","sizeBytes":0,"description":"***.de Alexander Buch is a certified accountant (Bilanzbuchhalter) based in Herne, Germany, offering professional financial services to both businesses and individuals. His practice specializes in ongoing bookkeeping, payroll accounting, commercial consulting, and comprehensive support for startup founders. Additionally, he provides dedicated tax assistance services, helping clients efficiently manage their financial obligations and regulatory requirements","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Professional Services","references":["ransomware.live"]}

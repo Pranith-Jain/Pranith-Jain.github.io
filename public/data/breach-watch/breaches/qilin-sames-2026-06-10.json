@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-sames-2026-06-10",
-  "title": "SAMES",
-  "group": "qilin",
-  "discovered": "2026-06-10T20:53:48.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-sames-2026-06-10","title":"SAMES","group":"qilin","discovered":"2026-06-10T20:53:48.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Other","references":["ransomware.live"]}

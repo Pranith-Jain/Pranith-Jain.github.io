@@ -1,15 +1,1 @@
-{
-  "slug": "pear-office-furniture-group-2026-05-09",
-  "title": "Office Furniture Group",
-  "group": "pear",
-  "discovered": "2026-05-09T08:55:13.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Interior workplace solutions provider",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"pear-office-furniture-group-2026-05-09","title":"Office Furniture Group","group":"pear","discovered":"2026-05-09T08:55:13.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Interior workplace solutions provider","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

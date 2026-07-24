@@ -1,15 +1,1 @@
-{
-  "slug": "bravox-select-wines-2026-06-18",
-  "title": "SELECT WINES",
-  "group": "bravox",
-  "discovered": "2026-06-18T13:51:06.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "CA",
-  "sizeBytes": 0,
-  "description": "The company is engaged in importing and distributing premium wines, supplying restaurants, hotels, and retail, and representing international wine brands in the Canadian market.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
-}
+{"slug":"bravox-select-wines-2026-06-18","title":"SELECT WINES","group":"bravox","discovered":"2026-06-18T13:51:06.000Z","category":"data_breach","severity":"high","country":"CA","sizeBytes":0,"description":"The company is engaged in importing and distributing premium wines, supplying restaurants, hotels, and retail, and representing international wine brands in the Canadian market.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Agriculture and Food Production","references":["ransomware.live"]}

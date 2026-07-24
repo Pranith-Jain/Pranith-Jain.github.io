@@ -1,15 +1,1 @@
-{
-  "slug": "safepay-hoodriversheriff-com-2026-06-15",
-  "title": "hoodriversheriff.com",
-  "group": "safepay",
-  "discovered": "2026-06-15T19:24:24.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Headquartered in Hood River, the organization provides a broad range of services, including patrol operations, criminal investigations, emergency communications, search …",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Public Sector",
-  "references": ["ransomware.live"]
-}
+{"slug":"safepay-hoodriversheriff-com-2026-06-15","title":"hoodriversheriff.com","group":"safepay","discovered":"2026-06-15T19:24:24.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Headquartered in Hood River, the organization provides a broad range of services, including patrol operations, criminal investigations, emergency communications, search …","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Government & Defense","references":["ransomware.live"]}

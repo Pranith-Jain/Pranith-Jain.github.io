@@ -1,15 +1,1 @@
-{
-  "slug": "wallstreet-asisken-2026-07-04",
-  "title": "Asisken",
-  "group": "Wallstreet",
-  "discovered": "2026-07-04T18:20:32.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "EC",
-  "sizeBytes": 0,
-  "description": "Asisken (asisken.com) is a medical assistance/health insurance company offering prepaid medical coverage and member support services, with a hospital network in Ecuador (and Colombia).",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"wallstreet-asisken-2026-07-04","title":"Asisken","group":"Wallstreet","discovered":"2026-07-04T18:20:32.000Z","category":"data_breach","severity":"high","country":"EC","sizeBytes":0,"description":"Asisken (asisken.com) is a medical assistance/health insurance company offering prepaid medical coverage and member support services, with a hospital network in Ecuador (and Colombia).","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Not Found","references":["ransomware.live"]}

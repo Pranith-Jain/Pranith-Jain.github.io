@@ -1,15 +1,1 @@
-{
-  "slug": "akira-hrc-sicherheitsdienste-2026-06-08",
-  "title": "HRC Sicherheitsdienste",
-  "group": "akira",
-  "discovered": "2026-06-08T13:50:21.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "HRC Sicherheitsdienste is a family-owned security service provider with over 45 years of experi\nence, offering a wide range of security solutions including object protection, construction sit\ne monitoring, reception services, and event security. They cater to various clients such as hos\npitals, supermarkets, and museums, ensuring tailored security packages to meet specific needs.\n\nWe will upload 24gb of corporate data soon. Employee information (German passports, IDs and so \non), credit cards, payment details, financials, lots of agreements and contracts, confidential \nagreements and so on.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Megazord"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"akira-hrc-sicherheitsdienste-2026-06-08","title":"HRC Sicherheitsdienste","group":"akira","discovered":"2026-06-08T13:50:21.000Z","category":"ransomware","severity":"critical","country":"DE","sizeBytes":0,"description":"HRC Sicherheitsdienste is a family-owned security service provider with over 45 years of experi\nence, offering a wide range of security solutions including object protection, construction sit\ne monitoring, reception services, and event security. They cater to various clients such as hos\npitals, supermarkets, and museums, ensuring tailored security packages to meet specific needs.\n\nWe will upload 24gb of corporate data soon. Employee information (German passports, IDs and so \non), credit cards, payment details, financials, lots of agreements and contracts, confidential \nagreements and so on.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Professional Services","references":["ransomware.live"]}

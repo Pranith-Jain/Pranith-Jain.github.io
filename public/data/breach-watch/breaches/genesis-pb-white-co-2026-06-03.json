@@ -1,15 +1,1 @@
-{
-  "slug": "genesis-pb-white-co-2026-06-03",
-  "title": "PB White & Co",
-  "group": "genesis",
-  "discovered": "2026-06-03T20:27:54.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "A provider of financial services",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"genesis-pb-white-co-2026-06-03","title":"PB White & Co","group":"genesis","discovered":"2026-06-03T20:27:54.000Z","category":"ransomware","severity":"high","country":null,"sizeBytes":0,"description":"A provider of financial services","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

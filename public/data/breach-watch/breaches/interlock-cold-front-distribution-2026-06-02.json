@@ -1,15 +1,1 @@
-{
-  "slug": "interlock-cold-front-distribution-2026-06-02",
-  "title": "Cold Front Distribution",
-  "group": "interlock",
-  "discovered": "2026-06-02T13:53:56.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Cold Front Distribution is a leading DSD supplier specializing in grocery and foodservice supply chain solutions across a fifteen-state region. Due to their negligence in the area of security, we are providing you with a complete set of confidential documents, specifically the pricing grids of major partners sold through the Cold Front system, discount agreements, information on new product launches, and other confidential partner documents, as well as personal information about employees and the companys financial status...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Transportation/Logistics",
-  "references": ["ransomware.live"]
-}
+{"slug":"interlock-cold-front-distribution-2026-06-02","title":"Cold Front Distribution","group":"interlock","discovered":"2026-06-02T13:53:56.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Cold Front Distribution is a leading DSD supplier specializing in grocery and foodservice supply chain solutions across a fifteen-state region. Due to their negligence in the area of security, we are providing you with a complete set of confidential documents, specifically the pricing grids of major partners sold through the Cold Front system, discount agreements, information on new product launches, and other confidential partner documents, as well as personal information about employees and the companys financial status...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Transportation","references":["ransomware.live"]}

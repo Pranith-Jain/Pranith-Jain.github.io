@@ -1,15 +1,1 @@
-{
-  "slug": "nova-amaccao-2026-05-22",
-  "title": "AMACCAO",
-  "group": "nova",
-  "discovered": "2026-05-22T19:26:07.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "VN",
-  "sizeBytes": 0,
-  "description": "AMACCAO Group is a reputable and strong multi-industry corporation in Vietnam with 30 years of experience. The company is a pioneer in various fields including energy and environmental investment, real estate investment, industrial production, consumer goods manufacturing, and education and training. AMACCAO aims to serve a diverse clientele through its commitment to sustainable development and innovative solutions. The group also engages in construction and installation services, contributing to the infrastructure and economic growth of the region - Nova Provide tree and samples from stolen data to the company when its get in touch with support department.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"nova-amaccao-2026-05-22","title":"AMACCAO","group":"nova","discovered":"2026-05-22T19:26:07.000Z","category":"ransomware","severity":"high","country":"VN","sizeBytes":0,"description":"AMACCAO Group is a reputable and strong multi-industry corporation in Vietnam with 30 years of experience. The company is a pioneer in various fields including energy and environmental investment, real estate investment, industrial production, consumer goods manufacturing, and education and training. AMACCAO aims to serve a diverse clientele through its commitment to sustainable development and innovative solutions. The group also engages in construction and installation services, contributing to the infrastructure and economic growth of the region - Nova Provide tree and samples from stolen data to the company when its get in touch with support department.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Other","references":["ransomware.live"]}

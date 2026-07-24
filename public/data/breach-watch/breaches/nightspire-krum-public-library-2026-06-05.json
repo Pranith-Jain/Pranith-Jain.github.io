@@ -1,15 +1,1 @@
-{
-  "slug": "nightspire-krum-public-library-2026-06-05",
-  "title": "Krum Public Library",
-  "group": "nightspire",
-  "discovered": "2026-06-05T13:24:15.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "- Financial Documents- HR Data- Supervisor's Information",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["NIGHT SPIRE"],
-  "activity": "Public Sector",
-  "references": ["ransomware.live"]
-}
+{"slug":"nightspire-krum-public-library-2026-06-05","title":"Krum Public Library","group":"nightspire","discovered":"2026-06-05T13:24:15.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"- Financial Documents- HR Data- Supervisor's Information","source_url":"https://www.ransomware.live/","groupAliases":["NIGHT SPIRE"],"activity":"Government & Defense","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "threeam-wyomingcountyny-gov-2026-05-01",
-  "title": "wyomingcountyny.gov",
-  "group": "threeam",
-  "discovered": "2026-05-01T13:35:05.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Wyoming County provides various government services to its residents, including job opportunities, economic development initiatives, and electronic forms for managing county affairs. The county actively organizes community events, such as pop-up f",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Public Sector",
-  "references": ["ransomware.live"]
-}
+{"slug":"threeam-wyomingcountyny-gov-2026-05-01","title":"wyomingcountyny.gov","group":"threeam","discovered":"2026-05-01T13:35:05.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Wyoming County provides various government services to its residents, including job opportunities, economic development initiatives, and electronic forms for managing county affairs. The county actively organizes community events, such as pop-up f","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Government & Defense","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-otthon-centrum-2026-05-27",
-  "title": "Otthon Centrum",
-  "group": "qilin",
-  "discovered": "2026-05-27T22:29:09.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "HU",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-otthon-centrum-2026-05-27","title":"Otthon Centrum","group":"qilin","discovered":"2026-05-27T22:29:09.000Z","category":"ransomware","severity":"critical","country":"HU","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

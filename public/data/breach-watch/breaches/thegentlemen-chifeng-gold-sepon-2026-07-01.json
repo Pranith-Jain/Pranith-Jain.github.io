@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-chifeng-gold-sepon-2026-07-01",
-  "title": "CHIFENG GOLD SEPON",
-  "group": "thegentlemen",
-  "discovered": "2026-07-01T22:21:45.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "LA",
-  "sizeBytes": 0,
-  "description": "***.la zoominfo.com/c/lane-xang-minerals-ltd/1311794256 which operates the major Sepon open-pit and underground gold and copper mine in Savannakhet Province, Laos.As a significant regional employer, the company heavily invests in local workforce development, with 95% of its staff being Lao nationals \n\nWILL BE UPDATED!",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Energy",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-chifeng-gold-sepon-2026-07-01","title":"CHIFENG GOLD SEPON","group":"thegentlemen","discovered":"2026-07-01T22:21:45.000Z","category":"ransomware","severity":"critical","country":"LA","sizeBytes":0,"description":"***.la zoominfo.com/c/lane-xang-minerals-ltd/1311794256 which operates the major Sepon open-pit and underground gold and copper mine in Savannakhet Province, Laos.As a significant regional employer, the company heavily invests in local workforce development, with 95% of its staff being Lao nationals \n\nWILL BE UPDATED!","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Energy & Utilities","references":["ransomware.live"]}

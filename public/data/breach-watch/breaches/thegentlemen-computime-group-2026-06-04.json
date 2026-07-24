@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-computime-group-2026-06-04",
-  "title": "Computime Group",
-  "group": "thegentlemen",
-  "discovered": "2026-06-04T09:09:55.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "HK",
-  "sizeBytes": 0,
-  "description": "***.com ***.com/c/computime-group-ltd/9208093 Computime is a global electronics engineering and manufacturing partner that has been pioneering intelligent control solutions since 1974. Delivering end-to-end services from initial concept to final delivery, the company specializes in designing advanced electronic controls for the appliance, HVAC, smart home, and medical industries. With a strong commitment to innovation, Computime empowers brands worldwide with cutting-edge technology that enables smarter and more sustainable living",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-computime-group-2026-06-04","title":"Computime Group","group":"thegentlemen","discovered":"2026-06-04T09:09:55.000Z","category":"ransomware","severity":"critical","country":"HK","sizeBytes":0,"description":"***.com ***.com/c/computime-group-ltd/9208093 Computime is a global electronics engineering and manufacturing partner that has been pioneering intelligent control solutions since 1974. Delivering end-to-end services from initial concept to final delivery, the company specializes in designing advanced electronic controls for the appliance, HVAC, smart home, and medical industries. With a strong commitment to innovation, Computime empowers brands worldwide with cutting-edge technology that enables smarter and more sustainable living","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Technology","references":["ransomware.live"]}

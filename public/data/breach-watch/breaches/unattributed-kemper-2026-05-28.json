@@ -1,15 +1,1 @@
-{
-  "slug": "unattributed-kemper-2026-05-28",
-  "title": "Kemper",
-  "group": "Unattributed",
-  "discovered": "2026-05-28T13:51:57.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Kemper Corporation, an American insurance holding company, was targeted by the ShinyHunters group in April 2026, with data later published exposing 255K unique email addresses along with names, phone numbers, and physical addresses.",
-  "source_url": "https://xposedornot.com/breach/Kemper",
-  "groupAliases": [],
-  "activity": "Finance",
-  "references": ["XposedOrNot"]
-}
+{"slug":"unattributed-kemper-2026-05-28","title":"Kemper","group":"Unattributed","discovered":"2026-05-28T13:51:57.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"Kemper Corporation, an American insurance holding company, was targeted by the ShinyHunters group in April 2026, with data later published exposing 255K unique email addresses along with names, phone numbers, and physical addresses.","source_url":"https://xposedornot.com/breach/Kemper","groupAliases":[],"activity":"Finance","references":["XposedOrNot"]}

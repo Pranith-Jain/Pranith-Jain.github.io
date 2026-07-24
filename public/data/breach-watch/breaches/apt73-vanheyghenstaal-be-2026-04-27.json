@@ -1,15 +1,1 @@
-{
-  "slug": "apt73-vanheyghenstaal-be-2026-04-27",
-  "title": "vanheyghenstaal.be",
-  "group": "apt73",
-  "discovered": "2026-04-27T16:43:27.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "BE",
-  "sizeBytes": 0,
-  "description": "Van Heyghen Staal is a metallurgical company in Belgium, which is engaged in the processing and r...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Eraleign"],
-  "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
-}
+{"slug":"apt73-vanheyghenstaal-be-2026-04-27","title":"vanheyghenstaal.be","group":"apt73","discovered":"2026-04-27T16:43:27.000Z","category":"data_breach","severity":"high","country":"BE","sizeBytes":0,"description":"Van Heyghen Staal is a metallurgical company in Belgium, which is engaged in the processing and r...","source_url":"https://www.ransomware.live/","groupAliases":["Eraleign"],"activity":"Agriculture and Food Production","references":["ransomware.live"]}

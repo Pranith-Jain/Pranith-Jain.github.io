@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-danzo-group-2026-06-08",
-  "title": "Danzo Group",
-  "group": "thegentlemen",
-  "discovered": "2026-06-08T09:56:27.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "JP",
-  "sizeBytes": 0,
-  "description": "***.com zoominfo.com/c/danzo-group-inc/437505508 Danzo Group is a premier commercial and residential contracting company based in the Los Angeles area, specializing in custom cabinetry and high-end woodworking solutions. Founded in 2005 and operating from a 7,000-square-foot facility in Pomona, California, the company delivers bespoke millwork, custom furniture, and interior storage systems. With a strong focus on fine craftsmanship, they serve diverse clients by providing comprehensive general contracting and tailored design services",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-danzo-group-2026-06-08","title":"Danzo Group","group":"thegentlemen","discovered":"2026-06-08T09:56:27.000Z","category":"ransomware","severity":"critical","country":"JP","sizeBytes":0,"description":"***.com zoominfo.com/c/danzo-group-inc/437505508 Danzo Group is a premier commercial and residential contracting company based in the Los Angeles area, specializing in custom cabinetry and high-end woodworking solutions. Founded in 2005 and operating from a 7,000-square-foot facility in Pomona, California, the company delivers bespoke millwork, custom furniture, and interior storage systems. With a strong focus on fine craftsmanship, they serve diverse clients by providing comprehensive general contracting and tailored design services","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Other","references":["ransomware.live"]}

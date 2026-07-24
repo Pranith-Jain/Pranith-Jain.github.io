@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-ontario-physiotherapy-association-2026-05-06",
-  "title": "Ontario Physiotherapy Association",
-  "group": "thegentlemen",
-  "discovered": "2026-05-06T10:07:27.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "CA",
-  "sizeBytes": 0,
-  "description": "opa.on.ca zoominfo.com/c/ontario-physiotherapy-association/130548231 The Ontario Physiotherapy Association (OPA) is a non-profit, physiotherapist-led professional association representing over 5,500 physiotherapists, physiotherapist assistants (PTAs), and students across Ontario, Canada. Its core mission is to provide leadership, advocacy, professional development, and career support to ensure accessible, high-quality physiotherapy services throughout the province. Founded over 60 years ago, OPA has a well-documented history of advocacy wins — from expanding PT scopes of practice to supporting virtual care access and removing referral requirements from physicians",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-ontario-physiotherapy-association-2026-05-06","title":"Ontario Physiotherapy Association","group":"thegentlemen","discovered":"2026-05-06T10:07:27.000Z","category":"ransomware","severity":"critical","country":"CA","sizeBytes":0,"description":"opa.on.ca zoominfo.com/c/ontario-physiotherapy-association/130548231 The Ontario Physiotherapy Association (OPA) is a non-profit, physiotherapist-led professional association representing over 5,500 physiotherapists, physiotherapist assistants (PTAs), and students across Ontario, Canada. Its core mission is to provide leadership, advocacy, professional development, and career support to ensure accessible, high-quality physiotherapy services throughout the province. Founded over 60 years ago, OPA has a well-documented history of advocacy wins — from expanding PT scopes of practice to supporting virtual care access and removing referral requirements from physicians","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Healthcare","references":["ransomware.live"]}

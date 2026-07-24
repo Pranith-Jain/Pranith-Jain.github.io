@@ -1,15 +1,1 @@
-{
-  "slug": "akira-ddc-domus-design-collection-2026-06-12",
-  "title": "DDC Domus Design Collection",
-  "group": "akira",
-  "discovered": "2026-06-12T12:50:21.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Founded in 1991 and headquartered in New York City, New York, DDC Domus Design Collection is a \ncompany that manufactures as well as sell furniture items.\n\nWe will upload 55gb of corporate data soon. Detailed financials, employee personal information \n(passports, addresses, phones, emails and so on), credit cards information, projects, clients i\nnfo, etc.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Megazord"],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"akira-ddc-domus-design-collection-2026-06-12","title":"DDC Domus Design Collection","group":"akira","discovered":"2026-06-12T12:50:21.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"Founded in 1991 and headquartered in New York City, New York, DDC Domus Design Collection is a \ncompany that manufactures as well as sell furniture items.\n\nWe will upload 55gb of corporate data soon. Detailed financials, employee personal information \n(passports, addresses, phones, emails and so on), credit cards information, projects, clients i\nnfo, etc.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

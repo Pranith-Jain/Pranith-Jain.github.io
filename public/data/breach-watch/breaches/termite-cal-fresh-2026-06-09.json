@@ -1,15 +1,1 @@
-{
-  "slug": "termite-cal-fresh-2026-06-09",
-  "title": "Cal Fresh",
-  "group": "termite",
-  "discovered": "2026-06-09T21:54:52.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "CA",
-  "sizeBytes": 0,
-  "description": "The California Association of Food Banks (CAFB) is committed to ending hunger in California and aims to provide clear, up-to-date information about CalFresh for people who are interested in applying. Since 2003, CAFB has partnered with food banks and other community-based organizations throughout the state to educate consumers about CalFresh and provide application assistance.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
-}
+{"slug":"termite-cal-fresh-2026-06-09","title":"Cal Fresh","group":"termite","discovered":"2026-06-09T21:54:52.000Z","category":"data_breach","severity":"high","country":"CA","sizeBytes":0,"description":"The California Association of Food Banks (CAFB) is committed to ending hunger in California and aims to provide clear, up-to-date information about CalFresh for people who are interested in applying. Since 2003, CAFB has partnered with food banks and other community-based organizations throughout the state to educate consumers about CalFresh and provide application assistance.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Agriculture and Food Production","references":["ransomware.live"]}

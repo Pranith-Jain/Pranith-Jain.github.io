@@ -1,15 +1,1 @@
-{
-  "slug": "cmdorganization-capital-family-physicians-2026-05-29",
-  "title": "Capital Family Physicians",
-  "group": "cmdorganization",
-  "discovered": "2026-05-29T15:20:11.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Capital Family Physicians provides quality healthcare services for families, focusing on comprehensive care for all ages. They offer same-day appointments and a patient portal for convenient access to medical records and billing. The practice emphasizes pediatric services, ensuring that children's health is prioritized. With over 15 years of experience, they are dedicated to supporting patients through every stage of life.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["cmd organization"],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"cmdorganization-capital-family-physicians-2026-05-29","title":"Capital Family Physicians","group":"cmdorganization","discovered":"2026-05-29T15:20:11.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Capital Family Physicians provides quality healthcare services for families, focusing on comprehensive care for all ages. They offer same-day appointments and a patient portal for convenient access to medical records and billing. The practice emphasizes pediatric services, ensuring that children's health is prioritized. With over 15 years of experience, they are dedicated to supporting patients through every stage of life.","source_url":"https://www.ransomware.live/","groupAliases":["cmd organization"],"activity":"Healthcare","references":["ransomware.live"]}

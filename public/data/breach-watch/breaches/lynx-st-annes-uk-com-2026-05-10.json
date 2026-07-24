@@ -1,15 +1,1 @@
-{
-  "slug": "lynx-st-annes-uk-com-2026-05-10",
-  "title": "st-annes.uk.com",
-  "group": "lynx",
-  "discovered": "2026-05-10T09:53:16.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "GB",
-  "sizeBytes": 0,
-  "description": "St Anne's Catholic School & Sixth Form College is a distinguished educational institution in Southampton, dedicated to providing a strong moral and academic foundation for students aged 11 to 18. The school emphasizes a Catholic ethos and offers a girls' school environment at Key Stages 3 and 4, transitioning to a mixed Sixth Form College. With a commitment to excellence, St Anne's has consistently received outstanding ratings from Ofsted and focuses on personal development, community involvement, and academic achievement. The institution aims to support both students and parents through various programs, activities, and resources.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Education",
-  "references": ["ransomware.live"]
-}
+{"slug":"lynx-st-annes-uk-com-2026-05-10","title":"st-annes.uk.com","group":"lynx","discovered":"2026-05-10T09:53:16.000Z","category":"data_breach","severity":"high","country":"GB","sizeBytes":0,"description":"St Anne's Catholic School & Sixth Form College is a distinguished educational institution in Southampton, dedicated to providing a strong moral and academic foundation for students aged 11 to 18. The school emphasizes a Catholic ethos and offers a girls' school environment at Key Stages 3 and 4, transitioning to a mixed Sixth Form College. With a commitment to excellence, St Anne's has consistently received outstanding ratings from Ofsted and focuses on personal development, community involvement, and academic achievement. The institution aims to support both students and parents through various programs, activities, and resources.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Education","references":["ransomware.live"]}

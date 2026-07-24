@@ -1,15 +1,1 @@
-{
-  "slug": "incransom-obrieneng-com-2026-06-05",
-  "title": "obrieneng.com",
-  "group": "incransom",
-  "discovered": "2026-06-05T20:23:40.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "contract nda confidential   gov\\dot\\military\\va\\sam.gov other",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["inc ransom", "INC"],
-  "activity": "Construction",
-  "references": ["ransomware.live"]
-}
+{"slug":"incransom-obrieneng-com-2026-06-05","title":"obrieneng.com","group":"incransom","discovered":"2026-06-05T20:23:40.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"contract nda confidential   gov\\dot\\military\\va\\sam.gov other","source_url":"https://www.ransomware.live/","groupAliases":["inc ransom","INC"],"activity":"Manufacturing","references":["ransomware.live"]}

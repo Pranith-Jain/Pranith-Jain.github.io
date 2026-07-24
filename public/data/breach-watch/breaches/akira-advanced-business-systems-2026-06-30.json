@@ -1,15 +1,1 @@
-{
-  "slug": "akira-advanced-business-systems-2026-06-30",
-  "title": "Advanced Business Systems",
-  "group": "akira",
-  "discovered": "2026-06-30T11:50:46.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Advanced Business Systems, Inc. is a locally owned business serving the Quad Cities area, speci\nalizing in a wide range of office products and solutions including copiers, printers, IT servic\nes, phone systems, and furniture.\n\nWe will upload 31gb of corporate data soon. Employee personal information (88 SSNs, passports a\nnd other docs), NDA, projects, contracts and agreements, customer information and so on.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Megazord"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"akira-advanced-business-systems-2026-06-30","title":"Advanced Business Systems","group":"akira","discovered":"2026-06-30T11:50:46.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"Advanced Business Systems, Inc. is a locally owned business serving the Quad Cities area, speci\nalizing in a wide range of office products and solutions including copiers, printers, IT servic\nes, phone systems, and furniture.\n\nWe will upload 31gb of corporate data soon. Employee personal information (88 SSNs, passports a\nnd other docs), NDA, projects, contracts and agreements, customer information and so on.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Professional Services","references":["ransomware.live"]}

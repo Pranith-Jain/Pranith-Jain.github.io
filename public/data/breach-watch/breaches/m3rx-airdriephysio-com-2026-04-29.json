@@ -1,15 +1,1 @@
-{
-  "slug": "m3rx-airdriephysio-com-2026-04-29",
-  "title": "airdriephysio.com",
-  "group": "m3rx",
-  "discovered": "2026-04-29T10:09:42.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "GB",
-  "sizeBytes": 0,
-  "description": "Airdrie Physiotherapy & Massage is a multi-disciplinary clinic located in Airdrie, Alberta, offering a range of services including physiotherapy, massage therapy, acupuncture, and laser therapy Stolen: 54gb 116k files",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"m3rx-airdriephysio-com-2026-04-29","title":"airdriephysio.com","group":"m3rx","discovered":"2026-04-29T10:09:42.000Z","category":"ransomware","severity":"high","country":"GB","sizeBytes":0,"description":"Airdrie Physiotherapy & Massage is a multi-disciplinary clinic located in Airdrie, Alberta, offering a range of services including physiotherapy, massage therapy, acupuncture, and laser therapy Stolen: 54gb 116k files","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

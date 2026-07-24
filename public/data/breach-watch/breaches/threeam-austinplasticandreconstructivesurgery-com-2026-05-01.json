@@ -1,15 +1,1 @@
-{
-  "slug": "threeam-austinplasticandreconstructivesurgery-com-2026-05-01",
-  "title": "austinplasticandreconstructivesurgery.com",
-  "group": "threeam",
-  "discovered": "2026-05-01T13:34:01.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Austin Plastic Reconstructive Surgery, led by Board-Certified Plastic Surgeon Dr. Christine Fisher, specializes in breast reconstruction and a variety of cosmetic surgery procedures. The clinic caters to individuals seeking to enhance their beauty",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"threeam-austinplasticandreconstructivesurgery-com-2026-05-01","title":"austinplasticandreconstructivesurgery.com","group":"threeam","discovered":"2026-05-01T13:34:01.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Austin Plastic Reconstructive Surgery, led by Board-Certified Plastic Surgeon Dr. Christine Fisher, specializes in breast reconstruction and a variety of cosmetic surgery procedures. The clinic caters to individuals seeking to enhance their beauty","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

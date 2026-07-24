@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-la-kaffa-international-2026-05-06",
-  "title": "La Kaffa International",
-  "group": "thegentlemen",
-  "discovered": "2026-05-06T10:07:07.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "IT",
-  "sizeBytes": 0,
-  "description": "lakaffagroup.com zoominfo.com/c/la-kaffa-international-co-ltd/426003975 La Kaffa International is a publicly listed Taiwanese multinational food and beverage group (Taiwan Stock Exchange, code: 2732), founded in 2004 and headquartered in Zhubei City, Hsinchu County, Taiwan, with over 663 employees and annual revenues around $46 million. The company is best known as the parent brand of Chatime — the world-famous bubble tea chain expanded to 50+ countries across 6 continents, making it the top takeout tea brand in Australia, Southeast Asia, and beyond. Beyond Chatime, La Kaffa manages a multi-brand portfolio of 9+ F&B concepts including ZenQ Dessert, Bake Code Bakery, ChunSun Cake, La Kaffa Cafe, Wagokoro Tonkatsu, and Osaka Ohsho Taiwan, with over 1,100 outlets in China alone",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-la-kaffa-international-2026-05-06","title":"La Kaffa International","group":"thegentlemen","discovered":"2026-05-06T10:07:07.000Z","category":"ransomware","severity":"critical","country":"IT","sizeBytes":0,"description":"lakaffagroup.com zoominfo.com/c/la-kaffa-international-co-ltd/426003975 La Kaffa International is a publicly listed Taiwanese multinational food and beverage group (Taiwan Stock Exchange, code: 2732), founded in 2004 and headquartered in Zhubei City, Hsinchu County, Taiwan, with over 663 employees and annual revenues around $46 million. The company is best known as the parent brand of Chatime — the world-famous bubble tea chain expanded to 50+ countries across 6 continents, making it the top takeout tea brand in Australia, Southeast Asia, and beyond. Beyond Chatime, La Kaffa manages a multi-brand portfolio of 9+ F&B concepts including ZenQ Dessert, Bake Code Bakery, ChunSun Cake, La Kaffa Cafe, Wagokoro Tonkatsu, and Osaka Ohsho Taiwan, with over 1,100 outlets in China alone","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Agriculture and Food Production","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "krybit-bomuhospital-org-2026-05-01",
-  "title": "bomuhospital.org",
-  "group": "krybit",
-  "discovered": "2026-05-01T17:23:06.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "KE",
-  "sizeBytes": 0,
-  "description": "Bomu Hospital is a social enterprise dedicated to providing access to quality healthcare for all individuals, regardless...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"krybit-bomuhospital-org-2026-05-01","title":"bomuhospital.org","group":"krybit","discovered":"2026-05-01T17:23:06.000Z","category":"ransomware","severity":"high","country":"KE","sizeBytes":0,"description":"Bomu Hospital is a social enterprise dedicated to providing access to quality healthcare for all individuals, regardless...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

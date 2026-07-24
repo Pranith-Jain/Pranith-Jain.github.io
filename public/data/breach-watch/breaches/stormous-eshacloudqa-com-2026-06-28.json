@@ -1,15 +1,1 @@
-{
-  "slug": "stormous-eshacloudqa-com-2026-06-28",
-  "title": "eshacloudqa.com",
-  "group": "stormous",
-  "discovered": "2026-06-28T21:29:38.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "We have breached ESHA Research / ESHA Cloud Services and compromised their core product development databases. The exfiltrated data includes highly confidential industry secrets and formulation data Complete intellectual property containing secret product designs, manufacturing blueprints, and recipes (⁠SupplementFormula⁠, ⁠PureFood⁠, ⁠FoodGroup⁠).Deep laboratory data, nutritional testing breakdowns, and allergen classification records (⁠SupplementIngredient⁠, ⁠Analysis⁠, ⁠AllergenGroup⁠, Sensitive registries containing client profiles, user metrics, and market consumer data (⁠Consumer⁠, ⁠Activity⁠).",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"stormous-eshacloudqa-com-2026-06-28","title":"eshacloudqa.com","group":"stormous","discovered":"2026-06-28T21:29:38.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"We have breached ESHA Research / ESHA Cloud Services and compromised their core product development databases. The exfiltrated data includes highly confidential industry secrets and formulation data Complete intellectual property containing secret product designs, manufacturing blueprints, and recipes (⁠SupplementFormula⁠, ⁠PureFood⁠, ⁠FoodGroup⁠).Deep laboratory data, nutritional testing breakdowns, and allergen classification records (⁠SupplementIngredient⁠, ⁠Analysis⁠, ⁠AllergenGroup⁠, Sensitive registries containing client profiles, user metrics, and market consumer data (⁠Consumer⁠, ⁠Activity⁠).","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

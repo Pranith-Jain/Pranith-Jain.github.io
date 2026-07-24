@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-ce-ratp-comite-d-entreprise-ratp-2026-07-07",
-  "title": "Ce Ratp Comite D entreprise Ratp",
-  "group": "thegentlemen",
-  "discovered": "2026-07-07T18:33:15.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "FR",
-  "sizeBytes": 0,
-  "description": "***.fr zoominfo.com/c/ce-ratp-comité-dentreprise-ratp/1315531566 digital platform of the RATP Works Council, dedicated exclusively to employees of the Paris public transport operator and their beneficiaries.It provides comprehensive services for social and cultural activities, allowing members to book vacations, register for summer camps, and access exclusive leisure events.Based in Fontenay-sous-Bois, the platform serves as a central hub for managing employee benefits and corporate perks",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Transportation/Logistics",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-ce-ratp-comite-d-entreprise-ratp-2026-07-07","title":"Ce Ratp Comite D entreprise Ratp","group":"thegentlemen","discovered":"2026-07-07T18:33:15.000Z","category":"ransomware","severity":"critical","country":"FR","sizeBytes":0,"description":"***.fr zoominfo.com/c/ce-ratp-comité-dentreprise-ratp/1315531566 digital platform of the RATP Works Council, dedicated exclusively to employees of the Paris public transport operator and their beneficiaries.It provides comprehensive services for social and cultural activities, allowing members to book vacations, register for summer camps, and access exclusive leisure events.Based in Fontenay-sous-Bois, the platform serves as a central hub for managing employee benefits and corporate perks","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Transportation","references":["ransomware.live"]}

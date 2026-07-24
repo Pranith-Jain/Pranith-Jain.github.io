@@ -1,15 +1,1 @@
-{
-  "slug": "anubis-ktr-real-estate-advisors-2026-06-19",
-  "title": "KTR Real Estate Advisors",
-  "group": "anubis",
-  "discovered": "2026-06-19T13:51:25.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Real estate client database exposed.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Financial Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"anubis-ktr-real-estate-advisors-2026-06-19","title":"KTR Real Estate Advisors","group":"anubis","discovered":"2026-06-19T13:51:25.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Real estate client database exposed.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Financial Services","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "lapsus-axcera-trading-2026-05-10",
-  "title": "AXCERA TRADING",
-  "group": "lapsus$",
-  "discovered": "2026-05-10T13:22:49.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Trading Algorithms, Client Portfolios, KYC Data & Financial Logs",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"lapsus-axcera-trading-2026-05-10","title":"AXCERA TRADING","group":"lapsus$","discovered":"2026-05-10T13:22:49.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Trading Algorithms, Client Portfolios, KYC Data & Financial Logs","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

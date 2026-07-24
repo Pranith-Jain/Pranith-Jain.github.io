@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-jens-jensen-2026-05-28",
-  "title": "Jens Jensen",
-  "group": "qilin",
-  "discovered": "2026-05-28T13:31:15.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "DK",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-jens-jensen-2026-05-28","title":"Jens Jensen","group":"qilin","discovered":"2026-05-28T13:31:15.000Z","category":"ransomware","severity":"critical","country":"DK","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Other","references":["ransomware.live"]}

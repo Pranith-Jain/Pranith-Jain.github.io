@@ -1,15 +1,1 @@
-{
-  "slug": "threeam-townofnorwell-net-2026-05-01",
-  "title": "townofnorwell.net",
-  "group": "threeam",
-  "discovered": "2026-05-01T13:34:35.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "The Town of Norwell MA offers a variety of municipal services including animal control, building permits, health clinics, and recreational programs. It serves the residents of Norwell by ensuring public safety, facilitating community events, and p",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Public Sector",
-  "references": ["ransomware.live"]
-}
+{"slug":"threeam-townofnorwell-net-2026-05-01","title":"townofnorwell.net","group":"threeam","discovered":"2026-05-01T13:34:35.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"The Town of Norwell MA offers a variety of municipal services including animal control, building permits, health clinics, and recreational programs. It serves the residents of Norwell by ensuring public safety, facilitating community events, and p","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Government & Defense","references":["ransomware.live"]}

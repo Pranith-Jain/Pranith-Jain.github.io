@@ -1,15 +1,1 @@
-{
-  "slug": "safepay-timetex-de-2026-07-20",
-  "title": "timetex.de",
-  "group": "SafePay",
-  "discovered": "2026-07-20T00:00:00.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "Germany",
-  "sizeBytes": 0,
-  "description": "Internal files exfiltrated in ransomware attack",
-  "source_url": "https://recentbreaches.com/breach/timetex-de-safepay-2026-07",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["RecentBreaches.com"]
-}
+{"slug":"safepay-timetex-de-2026-07-20","title":"timetex.de","group":"safepay","discovered":"2026-07-20T19:05:19.000Z","category":"ransomware","severity":"high","country":"DE","sizeBytes":0,"description":"The company traces its origins to 1991, when the TimeTEX brand was acquired and expanded into a comprehensive supplier of …","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

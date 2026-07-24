@@ -1,15 +1,1 @@
-{
-  "slug": "black-x-sanaa-2026-07-16",
-  "title": "sanaa",
-  "group": "Black X",
-  "discovered": "2026-07-16T13:24:36.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "YE",
-  "sizeBytes": 0,
-  "description": "[AI generated] N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"black-x-sanaa-2026-07-16","title":"sanaa","group":"Black X","discovered":"2026-07-16T13:24:36.000Z","category":"data_breach","severity":"high","country":"YE","sizeBytes":0,"description":"[AI generated] N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Other","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "incransom-lopezlawfl-com-2026-05-10",
-  "title": "lopezlawfl.com",
-  "group": "incransom",
-  "discovered": "2026-05-10T03:22:09.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "full data",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["inc ransom", "INC"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"incransom-lopezlawfl-com-2026-05-10","title":"lopezlawfl.com","group":"incransom","discovered":"2026-05-10T03:22:09.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"full data","source_url":"https://www.ransomware.live/","groupAliases":["inc ransom","INC"],"activity":"Professional Services","references":["ransomware.live"]}

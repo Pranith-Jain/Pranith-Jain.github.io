@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-silicon-alley-2026-04-28",
-  "title": "Silicon Alley",
-  "group": "qilin",
-  "discovered": "2026-04-28T18:56:00.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "GB",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-silicon-alley-2026-04-28","title":"Silicon Alley","group":"qilin","discovered":"2026-04-28T18:56:00.000Z","category":"ransomware","severity":"critical","country":"GB","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

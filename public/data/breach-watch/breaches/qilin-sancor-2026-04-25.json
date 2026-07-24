@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-sancor-2026-04-25",
-  "title": "SanCor",
-  "group": "qilin",
-  "discovered": "2026-04-25T14:47:30.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "AR",
-  "sizeBytes": 0,
-  "description": null,
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-sancor-2026-04-25","title":"SanCor","group":"qilin","discovered":"2026-04-25T14:47:30.000Z","category":"ransomware","severity":"critical","country":"AR","sizeBytes":0,"description":null,"source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Agriculture and Food Production","references":["ransomware.live"]}

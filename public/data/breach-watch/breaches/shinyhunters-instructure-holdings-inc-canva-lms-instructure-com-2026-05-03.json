@@ -1,15 +1,1 @@
-{
-  "slug": "shinyhunters-instructure-holdings-inc-canva-lms-instructure-com-2026-05-03",
-  "title": "Instructure Holdings, Inc. (Canva LMS, instructure.com)",
-  "group": "shinyhunters",
-  "discovered": "2026-05-03T17:23:58.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Nearly 9,000 schools worldwide affected. 275 million individuals data ranging from students, teachers, and other staff containing PII. Several billions of private messages among students and teachers and students and other students involved, containing personal conversations and other PII. Your Salesforce instance was also breached and a lot more other data is involved. Pay or Leak. This is a final warning to reach out by 6 May 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Size: 3.65TB+ (uncompressed) | Updated: 3 May 2026 | Warning: FINAL WARNING PAY OR LEAK",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Education",
-  "references": ["ransomware.live"]
-}
+{"slug":"shinyhunters-instructure-holdings-inc-canva-lms-instructure-com-2026-05-03","title":"Instructure Holdings, Inc. (Canva LMS, instructure.com)","group":"shinyhunters","discovered":"2026-05-03T17:23:58.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Nearly 9,000 schools worldwide affected. 275 million individuals data ranging from students, teachers, and other staff containing PII. Several billions of private messages among students and teachers and students and other students involved, containing personal conversations and other PII. Your Salesforce instance was also breached and a lot more other data is involved. Pay or Leak. This is a final warning to reach out by 6 May 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Size: 3.65TB+ (uncompressed) | Updated: 3 May 2026 | Warning: FINAL WARNING PAY OR LEAK","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Education","references":["ransomware.live"]}

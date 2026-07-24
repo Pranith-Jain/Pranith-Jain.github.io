@@ -1,15 +1,1 @@
-{
-  "slug": "shinyhunters-fluke-corporation-2026-07-01",
-  "title": "Fluke Corporation",
-  "group": "shinyhunters",
-  "discovered": "2026-07-01T10:29:35.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Over 21 million Salesforce records containing some PII were compromised. The Company failed to reach an agreement with us despite our incredible patience, all the chances and offers we made. They don't care. | Size: 100GB+ | Updated: 02 July 2026 | SHA256: 6ee9bd06756efceb56e5c56fd4e8ab3a8006b9cb80e7c0b4405ed15b996c05fe",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"shinyhunters-fluke-corporation-2026-07-01","title":"Fluke Corporation","group":"shinyhunters","discovered":"2026-07-01T10:29:35.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Over 21 million Salesforce records containing some PII were compromised. The Company failed to reach an agreement with us despite our incredible patience, all the chances and offers we made. They don't care. | Size: 100GB+ | Updated: 02 July 2026 | SHA256: 6ee9bd06756efceb56e5c56fd4e8ab3a8006b9cb80e7c0b4405ed15b996c05fe","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

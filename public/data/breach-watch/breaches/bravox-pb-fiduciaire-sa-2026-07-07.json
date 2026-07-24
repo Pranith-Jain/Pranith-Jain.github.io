@@ -1,15 +1,1 @@
-{
-  "slug": "bravox-pb-fiduciaire-sa-2026-07-07",
-  "title": "PB Fiduciaire SA",
-  "group": "bravox",
-  "discovered": "2026-07-07T09:52:22.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "CH",
-  "sizeBytes": 0,
-  "description": "Accounting, taxation, auditing, financial consulting for businesses.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Financial Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"bravox-pb-fiduciaire-sa-2026-07-07","title":"PB Fiduciaire SA","group":"bravox","discovered":"2026-07-07T09:52:22.000Z","category":"data_breach","severity":"high","country":"CH","sizeBytes":0,"description":"Accounting, taxation, auditing, financial consulting for businesses.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Financial Services","references":["ransomware.live"]}

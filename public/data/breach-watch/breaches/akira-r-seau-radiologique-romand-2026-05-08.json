@@ -1,15 +1,1 @@
-{
-  "slug": "akira-r-seau-radiologique-romand-2026-05-08",
-  "title": "Réseau Radiologique Romand",
-  "group": "akira",
-  "discovered": "2026-05-08T15:20:17.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "CH",
-  "sizeBytes": 0,
-  "description": "3R - R©seau Radiologique Romand is a Swiss medical imaging network that helps patients get clea\r\nr, comfortable medical scans. They work with local hospitals and medical groups, using advanced\r\ntechnology to quickly share detailed images with doctors.\r\n\r\nWe will upload 48gb of corporate data soon. Detailed employee personal information (passport, D\r\nLs, IDs and other personal information), patient information (phone, addresses, medical info an\r\nd so on), payment details, NDAs and so on.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Megazord"],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"akira-r-seau-radiologique-romand-2026-05-08","title":"Réseau Radiologique Romand","group":"akira","discovered":"2026-05-08T15:20:17.000Z","category":"ransomware","severity":"critical","country":"CH","sizeBytes":0,"description":"3R - R©seau Radiologique Romand is a Swiss medical imaging network that helps patients get clea\r\nr, comfortable medical scans. They work with local hospitals and medical groups, using advanced\r\ntechnology to quickly share detailed images with doctors.\r\n\r\nWe will upload 48gb of corporate data soon. Detailed employee personal information (passport, D\r\nLs, IDs and other personal information), patient information (phone, addresses, medical info an\r\nd so on), payment details, NDAs and so on.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Healthcare","references":["ransomware.live"]}

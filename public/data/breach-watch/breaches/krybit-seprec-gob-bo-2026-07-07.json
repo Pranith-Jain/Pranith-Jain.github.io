@@ -1,15 +1,1 @@
-{
-  "slug": "krybit-seprec-gob-bo-2026-07-07",
-  "title": "seprec.gob.bo",
-  "group": "krybit",
-  "discovered": "2026-07-07T14:26:14.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "BO",
-  "sizeBytes": 0,
-  "description": "SEPREC (Servicio Plurinacional de Registro de Comercio / Plurinational Commercial Registry Service) is a Bolivian decent...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Public Sector",
-  "references": ["ransomware.live"]
-}
+{"slug":"krybit-seprec-gob-bo-2026-07-07","title":"seprec.gob.bo","group":"krybit","discovered":"2026-07-07T14:26:14.000Z","category":"ransomware","severity":"high","country":"BO","sizeBytes":0,"description":"SEPREC (Servicio Plurinacional de Registro de Comercio / Plurinational Commercial Registry Service) is a Bolivian decent...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Government & Defense","references":["ransomware.live"]}

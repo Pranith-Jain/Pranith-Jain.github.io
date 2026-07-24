@@ -1,15 +1,1 @@
-{
-  "slug": "everest-liberty-mutual-insurance-2026-04-30",
-  "title": "Liberty Mutual Insurance",
-  "group": "everest",
-  "discovered": "2026-04-30T16:53:12.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "[AI generated] Liberty Mutual Insurance is a leading American insurance company headquartered in Boston, Massachusetts. Founded in 1912, it operates in the property and casualty insurance industry, offering products such as auto, home, life, and commercial insurance. The company serves individuals and businesses across the United States and internationally, making it one of the largest global insurers by premium revenue.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Financial Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"everest-liberty-mutual-insurance-2026-04-30","title":"Liberty Mutual Insurance","group":"everest","discovered":"2026-04-30T16:53:12.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"[AI generated] Liberty Mutual Insurance is a leading American insurance company headquartered in Boston, Massachusetts. Founded in 1912, it operates in the property and casualty insurance industry, offering products such as auto, home, life, and commercial insurance. The company serves individuals and businesses across the United States and internationally, making it one of the largest global insurers by premium revenue.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Financial Services","references":["ransomware.live"]}

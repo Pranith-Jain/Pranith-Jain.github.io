@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-corniche-hotel-abu-dhabi-2026-06-12",
-  "title": "Corniche Hotel Abu Dhabi",
-  "group": "dragonforce",
-  "discovered": "2026-06-12T12:52:46.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "AE",
-  "sizeBytes": 0,
-  "description": "At the heart of the Central Business District. Situated along the stunning Corniche stretch, our hotel’s 305 luxurious guest rooms offer breathtaking views of the Capital Garden and sparkling turquoise waters of the Arabian Gulf. There’s something here for everyone. Busy executives will appreciate our first-class business centre and car rental services, and families will love our childcare and babysitting services. Our health and fitness center, with sauna and steam room, will delight any globetrotter recovering from jet lag. And our wheelchair accessible rooms and public areas are a comfort for the physically impaired. Sightseeing couldn’t be simpler. Our hotel offers free scheduled pick up and drop off to the city’s main attractions: Yas Waterworld, Ferrari World, Corniche Public Beach, and World Trade Centre Mall.\n\nBook here for our Best Price Guarantee promise. Earn and spend loyalty points on all qualifying stays. The level of points, benefits and privileges are subject to availability and may vary at certain participating hotels.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Hospitality and Tourism",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-corniche-hotel-abu-dhabi-2026-06-12","title":"Corniche Hotel Abu Dhabi","group":"dragonforce","discovered":"2026-06-12T12:52:46.000Z","category":"ransomware","severity":"critical","country":"AE","sizeBytes":0,"description":"At the heart of the Central Business District. Situated along the stunning Corniche stretch, our hotel’s 305 luxurious guest rooms offer breathtaking views of the Capital Garden and sparkling turquoise waters of the Arabian Gulf. There’s something here for everyone. Busy executives will appreciate our first-class business centre and car rental services, and families will love our childcare and babysitting services. Our health and fitness center, with sauna and steam room, will delight any globetrotter recovering from jet lag. And our wheelchair accessible rooms and public areas are a comfort for the physically impaired. Sightseeing couldn’t be simpler. Our hotel offers free scheduled pick up and drop off to the city’s main attractions: Yas Waterworld, Ferrari World, Corniche Public Beach, and World Trade Centre Mall.\n\nBook here for our Best Price Guarantee promise. Earn and spend loyalty points on all qualifying stays. The level of points, benefits and privileges are subject to availability and may vary at certain participating hotels.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Hospitality","references":["ransomware.live"]}

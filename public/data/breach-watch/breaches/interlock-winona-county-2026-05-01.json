@@ -1,15 +1,1 @@
-{
-  "slug": "interlock-winona-county-2026-05-01",
-  "title": "Winona County",
-  "group": "interlock",
-  "discovered": "2026-05-01T10:51:49.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Winona County is located in the Mississippi River blufflands of southeastern Minnesota. They have been negligent regarding security and the data they store, which has resulted in a breach and the public disclosure of all the confidential data they held. As a result, we are now able to offer you a large database containing resident records, tax and budget documents, police records, and data from other institutions.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Public Sector",
-  "references": ["ransomware.live"]
-}
+{"slug":"interlock-winona-county-2026-05-01","title":"Winona County","group":"interlock","discovered":"2026-05-01T10:51:49.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Winona County is located in the Mississippi River blufflands of southeastern Minnesota. They have been negligent regarding security and the data they store, which has resulted in a breach and the public disclosure of all the confidential data they held. As a result, we are now able to offer you a large database containing resident records, tax and budget documents, police records, and data from other institutions.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Government & Defense","references":["ransomware.live"]}

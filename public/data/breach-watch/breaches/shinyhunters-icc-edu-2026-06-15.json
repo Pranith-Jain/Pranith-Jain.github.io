@@ -1,15 +1,1 @@
-{
-  "slug": "shinyhunters-icc-edu-2026-06-15",
-  "title": "icc.edu",
-  "group": "shinyhunters",
-  "discovered": "2026-06-15T19:28:42.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Over 28 gigabytes of Illinois Central College data (122,000+ files) was compromised across PeopleSoft Campus Solutions and Human Resources (ICC, SURS pension reporting, Workday costing, and ICCB curriculum systems), including 9,200+ employee payslip PDFs, 500+ SURS payroll files with Social Security numbers, direct deposit records with bank account and routing numbers, student financial aid and grade roster exports, enrollment CSVs with @icc.edu accounts, and Workday salary allocation data spanning 2021 through June 2026. This is a final warning to reach out by 18 June 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 16 June 2026 | Warning: FINAL WARNING PAY OR LEAK",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Education",
-  "references": ["ransomware.live"]
-}
+{"slug":"shinyhunters-icc-edu-2026-06-15","title":"icc.edu","group":"shinyhunters","discovered":"2026-06-15T19:28:42.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Over 28 gigabytes of Illinois Central College data (122,000+ files) was compromised across PeopleSoft Campus Solutions and Human Resources (ICC, SURS pension reporting, Workday costing, and ICCB curriculum systems), including 9,200+ employee payslip PDFs, 500+ SURS payroll files with Social Security numbers, direct deposit records with bank account and routing numbers, student financial aid and grade roster exports, enrollment CSVs with @icc.edu accounts, and Workday salary allocation data spanning 2021 through June 2026. This is a final warning to reach out by 18 June 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 16 June 2026 | Warning: FINAL WARNING PAY OR LEAK","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Education","references":["ransomware.live"]}

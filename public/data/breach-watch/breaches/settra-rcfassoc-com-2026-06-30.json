@@ -1,15 +1,1 @@
-{
-  "slug": "settra-rcfassoc-com-2026-06-30",
-  "title": "rcfassoc.com",
-  "group": "settra",
-  "discovered": "2026-06-30T12:03:22.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "R.C. FIELDS &amp; ASSOCIATES: Client Data, Hidden Development Risks, and Uninvestigated Security Inc...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"settra-rcfassoc-com-2026-06-30","title":"rcfassoc.com","group":"settra","discovered":"2026-06-30T12:03:22.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"R.C. FIELDS &amp; ASSOCIATES: Client Data, Hidden Development Risks, and Uninvestigated Security Inc...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

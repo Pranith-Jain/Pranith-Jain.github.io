@@ -1,15 +1,1 @@
-{
-  "slug": "lockbit5-sra-nl-2026-06-20",
-  "title": "sra.nl",
-  "group": "lockbit5",
-  "discovered": "2026-06-20T09:20:35.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "NL",
-  "sizeBytes": 0,
-  "description": "With this new dossier, SRA helps you make inclusivity practical, with extra attention to neurodiverg...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"lockbit5-sra-nl-2026-06-20","title":"sra.nl","group":"lockbit5","discovered":"2026-06-20T09:20:35.000Z","category":"ransomware","severity":"high","country":"NL","sizeBytes":0,"description":"With this new dossier, SRA helps you make inclusivity practical, with extra attention to neurodiverg...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

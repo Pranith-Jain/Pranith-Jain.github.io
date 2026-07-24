@@ -1,15 +1,1 @@
-{
-  "slug": "coinbasecartel-alpinion-2026-05-11",
-  "title": "Alpinion",
-  "group": "coinbasecartel",
-  "discovered": "2026-05-11T13:52:01.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "KR",
-  "sizeBytes": 0,
-  "description": "[AI generated] Alpinion is a South Korean medical device company specializing in the development and manufacture of ultrasound imaging systems and transducers. Founded in 2010 as a spin-off from Samsung, the company serves healthcare providers globally, offering diagnostic ultrasound solutions for radiology, cardiology, and point-of-care applications. Alpinion is headquartered in Seoul, South Korea, and operates internationally across multiple markets.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["coinbase cartel"],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"coinbasecartel-alpinion-2026-05-11","title":"Alpinion","group":"coinbasecartel","discovered":"2026-05-11T13:52:01.000Z","category":"ransomware","severity":"high","country":"KR","sizeBytes":0,"description":"[AI generated] Alpinion is a South Korean medical device company specializing in the development and manufacture of ultrasound imaging systems and transducers. Founded in 2010 as a spin-off from Samsung, the company serves healthcare providers globally, offering diagnostic ultrasound solutions for radiology, cardiology, and point-of-care applications. Alpinion is headquartered in Seoul, South Korea, and operates internationally across multiple markets.","source_url":"https://www.ransomware.live/","groupAliases":["coinbase cartel"],"activity":"Healthcare","references":["ransomware.live"]}

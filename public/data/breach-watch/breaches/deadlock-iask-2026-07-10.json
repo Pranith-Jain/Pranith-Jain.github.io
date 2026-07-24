@@ -1,15 +1,1 @@
-{
-  "slug": "deadlock-iask-2026-07-10",
-  "title": "iASK",
-  "group": "Deadlock",
-  "discovered": "2026-07-10T12:55:07.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "HU",
-  "sizeBytes": 0,
-  "description": "The Institute of Advanced Studies Kőszeg is a Hungarian research center focusing on interdisciplinary studies, regional transformation in Central/Southeastern Europe, and sustainability. It operates as a hub for research, hosting an annual International Summer University and maintaining specialized collections at the Festetics Palace.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"deadlock-iask-2026-07-10","title":"iASK","group":"Deadlock","discovered":"2026-07-10T12:55:07.000Z","category":"ransomware","severity":"critical","country":"HU","sizeBytes":0,"description":"The Institute of Advanced Studies Kőszeg is a Hungarian research center focusing on interdisciplinary studies, regional transformation in Central/Southeastern Europe, and sustainability. It operates as a hub for research, hosting an annual International Summer University and maintaining specialized collections at the Festetics Palace.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

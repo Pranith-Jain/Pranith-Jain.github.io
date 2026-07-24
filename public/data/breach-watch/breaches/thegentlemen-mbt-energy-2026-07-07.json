@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-mbt-energy-2026-07-07",
-  "title": "MBT Energy",
-  "group": "thegentlemen",
-  "discovered": "2026-07-07T18:29:49.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "***.com zoominfo.com/c/mibet-energy/357309481 Xiamen Mibet New Energy Co., Ltd., is a high-tech enterprise based in China that specializes in one-stop solar mounting solutions and PV racking systems.The company manufactures a comprehensive range of structures for ground, rooftop, floating, tracking, carport, and agricultural solar applications. Holding over 200 global patents and an annual production capacity of 20GW+, Mibet exports its internationally certified products to more than 100 countries worldwide",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Energy",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-mbt-energy-2026-07-07","title":"MBT Energy","group":"thegentlemen","discovered":"2026-07-07T18:29:49.000Z","category":"ransomware","severity":"critical","country":"DE","sizeBytes":0,"description":"***.com zoominfo.com/c/mibet-energy/357309481 Xiamen Mibet New Energy Co., Ltd., is a high-tech enterprise based in China that specializes in one-stop solar mounting solutions and PV racking systems.The company manufactures a comprehensive range of structures for ground, rooftop, floating, tracking, carport, and agricultural solar applications. Holding over 200 global patents and an annual production capacity of 20GW+, Mibet exports its internationally certified products to more than 100 countries worldwide","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Energy & Utilities","references":["ransomware.live"]}

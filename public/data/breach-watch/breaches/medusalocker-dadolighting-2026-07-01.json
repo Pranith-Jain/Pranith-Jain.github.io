@@ -1,15 +1,1 @@
-{
-  "slug": "medusalocker-dadolighting-2026-07-01",
-  "title": "Dadolighting",
-  "group": "medusalocker",
-  "discovered": "2026-07-01T22:32:21.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Organization with 17 emails extracted. Domain: dadolighting.com",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"medusalocker-dadolighting-2026-07-01","title":"Dadolighting","group":"medusalocker","discovered":"2026-07-01T22:32:21.000Z","category":"ransomware","severity":"high","country":null,"sizeBytes":0,"description":"Organization with 17 emails extracted. Domain: dadolighting.com","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

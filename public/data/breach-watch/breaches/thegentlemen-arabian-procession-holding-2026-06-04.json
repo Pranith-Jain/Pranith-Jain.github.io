@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-arabian-procession-holding-2026-06-04",
-  "title": "Arabian Procession Holding",
-  "group": "thegentlemen",
-  "discovered": "2026-06-04T09:10:12.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "SA",
-  "sizeBytes": 0,
-  "description": "***.com.sa ***.com/c/arabian-procession-holding/483326397 Established in 1989, Arabian Procession Holding (APH) is a prominent family-owned investment firm based in Riyadh, Saudi Arabia, managing a diversified portfolio across the aviation, real estate, contracting, and retail sectors. Over the past three decades, the company has expanded its strategic footprint, notably operating duty-free shops in Saudi international airports through high-profile joint ventures. Driven by a commitment to sustainable growth, APH continues to develop local and global brands, delivering exceptional value to businesses and consumers alike",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-arabian-procession-holding-2026-06-04","title":"Arabian Procession Holding","group":"thegentlemen","discovered":"2026-06-04T09:10:12.000Z","category":"ransomware","severity":"critical","country":"SA","sizeBytes":0,"description":"***.com.sa ***.com/c/arabian-procession-holding/483326397 Established in 1989, Arabian Procession Holding (APH) is a prominent family-owned investment firm based in Riyadh, Saudi Arabia, managing a diversified portfolio across the aviation, real estate, contracting, and retail sectors. Over the past three decades, the company has expanded its strategic footprint, notably operating duty-free shops in Saudi international airports through high-profile joint ventures. Driven by a commitment to sustainable growth, APH continues to develop local and global brands, delivering exceptional value to businesses and consumers alike","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Professional Services","references":["ransomware.live"]}

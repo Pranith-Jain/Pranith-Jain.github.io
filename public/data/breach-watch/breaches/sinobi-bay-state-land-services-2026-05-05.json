@@ -1,15 +1,1 @@
-{
-  "slug": "sinobi-bay-state-land-services-2026-05-05",
-  "title": "Bay State Land Services",
-  "group": "sinobi",
-  "discovered": "2026-05-05T19:54:27.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Bay State Land Services Inc is a company that operates in the Architecture, Engineering & Design industry.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Construction",
-  "references": ["ransomware.live"]
-}
+{"slug":"sinobi-bay-state-land-services-2026-05-05","title":"Bay State Land Services","group":"sinobi","discovered":"2026-05-05T19:54:27.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Bay State Land Services Inc is a company that operates in the Architecture, Engineering & Design industry.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

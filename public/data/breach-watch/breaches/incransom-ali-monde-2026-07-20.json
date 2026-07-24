@@ -1,15 +1,1 @@
-{
-  "slug": "incransom-ali-monde-2026-07-20",
-  "title": "Ali-Monde",
-  "group": "incransom",
-  "discovered": "2026-07-20T18:02:51.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Ali-Monde is a food production and distribution company that's been around for over 50 years. They've got 5 of their own brands and an impressive lineup of 800+ dry, organic, and gluten-free products. Based just south of Montreal, they distribute food across Quebec, Ontario, New Brunswick, and parts of Western Canada. Ali-Monde is all about giving customers exactly what they want - tasty, diverse food products that meet different dietary needs.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["inc ransom", "INC"],
-  "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
-}
+{"slug":"incransom-ali-monde-2026-07-20","title":"Ali-Monde","group":"incransom","discovered":"2026-07-20T18:02:51.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Ali-Monde is a food production and distribution company that's been around for over 50 years. They've got 5 of their own brands and an impressive lineup of 800+ dry, organic, and gluten-free products. Based just south of Montreal, they distribute food across Quebec, Ontario, New Brunswick, and parts of Western Canada. Ali-Monde is all about giving customers exactly what they want - tasty, diverse food products that meet different dietary needs.","source_url":"https://www.ransomware.live/","groupAliases":["inc ransom","INC"],"activity":"Agriculture and Food Production","references":["ransomware.live"]}

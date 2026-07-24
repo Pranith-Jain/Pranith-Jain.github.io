@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-rolser-com-2026-05-25",
-  "title": "rolser.com",
-  "group": "dragonforce",
-  "discovered": "2026-05-25T11:57:13.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "ES",
-  "sizeBytes": 0,
-  "description": "Rolser specializes in producing a variety of eco-friendly and practical products, including folding and non-folding shopping carts, eco-friendly ironing boards, stylish shopping bags, and versatile aluminum ladders. The product range meets a variety of customer needs, including families with children, eco-conscious consumers, and those seeking convenient home solutions. Rolser emphasizes innovation and quality, offering special edition series and accessories to enhance the user experience.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-rolser-com-2026-05-25","title":"rolser.com","group":"dragonforce","discovered":"2026-05-25T11:57:13.000Z","category":"ransomware","severity":"critical","country":"ES","sizeBytes":0,"description":"Rolser specializes in producing a variety of eco-friendly and practical products, including folding and non-folding shopping carts, eco-friendly ironing boards, stylish shopping bags, and versatile aluminum ladders. The product range meets a variety of customer needs, including families with children, eco-conscious consumers, and those seeking convenient home solutions. Rolser emphasizes innovation and quality, offering special edition series and accessories to enhance the user experience.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

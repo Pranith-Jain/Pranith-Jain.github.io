@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-grupo-indi-2026-06-15",
-  "title": "Grupo Indi",
-  "group": "qilin",
-  "discovered": "2026-06-15T17:23:54.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "MX",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-grupo-indi-2026-06-15","title":"Grupo Indi","group":"qilin","discovered":"2026-06-15T17:23:54.000Z","category":"ransomware","severity":"critical","country":"MX","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

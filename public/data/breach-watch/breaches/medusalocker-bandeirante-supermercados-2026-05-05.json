@@ -1,15 +1,1 @@
-{
-  "slug": "medusalocker-bandeirante-supermercados-2026-05-05",
-  "title": "Bandeirante Supermercados",
-  "group": "medusalocker",
-  "discovered": "2026-05-05T20:35:24.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "BR",
-  "sizeBytes": 0,
-  "description": "Brazilian supermarket chain.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"medusalocker-bandeirante-supermercados-2026-05-05","title":"Bandeirante Supermercados","group":"medusalocker","discovered":"2026-05-05T20:35:24.000Z","category":"ransomware","severity":"high","country":"BR","sizeBytes":0,"description":"Brazilian supermarket chain.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

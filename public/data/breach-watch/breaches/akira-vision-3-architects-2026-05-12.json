@@ -1,15 +1,1 @@
-{
-  "slug": "akira-vision-3-architects-2026-05-12",
-  "title": "Vision 3 Architects",
-  "group": "akira",
-  "discovered": "2026-05-12T12:20:20.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Vision 3 Architects is a collaborative and responsive design studio specializing in architectur\ne and interior design projects. They focus on crafting spaces that reflect each client's vision\nand values, ensuring a design environment that fosters creativity and collaboration.\n\nWe will upload 31gb of corporate data soon. Detailed employee personal information (passports, \nDLs, SSNs and so on), contracts and agreements, client information, projects, NDAs, etc.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Megazord"],
-  "activity": "Construction",
-  "references": ["ransomware.live"]
-}
+{"slug":"akira-vision-3-architects-2026-05-12","title":"Vision 3 Architects","group":"akira","discovered":"2026-05-12T12:20:20.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Vision 3 Architects is a collaborative and responsive design studio specializing in architectur\ne and interior design projects. They focus on crafting spaces that reflect each client's vision\nand values, ensuring a design environment that fosters creativity and collaboration.\n\nWe will upload 31gb of corporate data soon. Detailed employee personal information (passports, \nDLs, SSNs and so on), contracts and agreements, client information, projects, NDAs, etc.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Professional Services","references":["ransomware.live"]}

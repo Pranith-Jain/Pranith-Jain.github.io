@@ -1,15 +1,1 @@
-{
-  "slug": "incransom-callhorton-com-2026-06-26",
-  "title": "callhorton.com",
-  "group": "incransom",
-  "discovered": "2026-06-26T20:27:02.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Horton Personal Injury Lawyers is the premier law firm at not protecting it's clients confidential data.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["inc ransom", "INC"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"incransom-callhorton-com-2026-06-26","title":"callhorton.com","group":"incransom","discovered":"2026-06-26T20:27:02.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Horton Personal Injury Lawyers is the premier law firm at not protecting it's clients confidential data.","source_url":"https://www.ransomware.live/","groupAliases":["inc ransom","INC"],"activity":"Professional Services","references":["ransomware.live"]}

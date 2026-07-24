@@ -1,15 +1,1 @@
-{
-  "slug": "ailock-artso-international-inc-2026-05-24",
-  "title": "Artso International, Inc.",
-  "group": "AiLock",
-  "discovered": "2026-05-24T09:20:05.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "TW",
-  "sizeBytes": 0,
-  "description": "Artso is a Taiwan-based premium ergonomic furniture brand specializing in SOHO furniture, children's growth desks, and cypress wood home furnishings, operating ~30 counters in major department stores since 2004.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"ailock-artso-international-inc-2026-05-24","title":"Artso International, Inc.","group":"AiLock","discovered":"2026-05-24T09:20:05.000Z","category":"ransomware","severity":"high","country":"TW","sizeBytes":0,"description":"Artso is a Taiwan-based premium ergonomic furniture brand specializing in SOHO furniture, children's growth desks, and cypress wood home furnishings, operating ~30 counters in major department stores since 2004.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

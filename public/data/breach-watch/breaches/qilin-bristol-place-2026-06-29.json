@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-bristol-place-2026-06-29",
-  "title": "Bristol Place",
-  "group": "qilin",
-  "discovered": "2026-06-29T13:31:30.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "GB",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-bristol-place-2026-06-29","title":"Bristol Place","group":"qilin","discovered":"2026-06-29T13:31:30.000Z","category":"ransomware","severity":"critical","country":"GB","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Other","references":["ransomware.live"]}

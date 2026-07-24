@@ -1,15 +1,1 @@
-{
-  "slug": "safepay-verzolla-com-2026-06-01",
-  "title": "verzolla.com",
-  "group": "safepay",
-  "discovered": "2026-06-01T19:23:38.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "IT",
-  "sizeBytes": 0,
-  "description": "Founded in 1958 (with the current corporate structure established in 2007), the company specializes in supplying industrial components, automation systems, …",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"safepay-verzolla-com-2026-06-01","title":"verzolla.com","group":"safepay","discovered":"2026-06-01T19:23:38.000Z","category":"ransomware","severity":"high","country":"IT","sizeBytes":0,"description":"Founded in 1958 (with the current corporate structure established in 2007), the company specializes in supplying industrial components, automation systems, …","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

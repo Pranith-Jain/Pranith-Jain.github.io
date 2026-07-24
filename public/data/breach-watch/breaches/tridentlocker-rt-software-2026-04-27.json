@@ -1,15 +1,1 @@
-{
-  "slug": "tridentlocker-rt-software-2026-04-27",
-  "title": "RT Software",
-  "group": "tridentlocker",
-  "discovered": "2026-04-27T07:58:18.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "GB",
-  "sizeBytes": 0,
-  "description": "[AI generated] RT Software is a UK-based company specializing in real-time graphics and virtual studio technology for the broadcast television industry. Founded in the 1990s, it develops software solutions including tOG (The Output Generator), used for live on-air graphics, augmented reality, and virtual set production. Its clients include major broadcasters and sports networks worldwide. The company operates primarily in the media and entertainment technology sector.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"tridentlocker-rt-software-2026-04-27","title":"RT Software","group":"tridentlocker","discovered":"2026-04-27T07:58:18.000Z","category":"data_breach","severity":"high","country":"GB","sizeBytes":0,"description":"[AI generated] RT Software is a UK-based company specializing in real-time graphics and virtual studio technology for the broadcast television industry. Founded in the 1990s, it develops software solutions including tOG (The Output Generator), used for live on-air graphics, augmented reality, and virtual set production. Its clients include major broadcasters and sports networks worldwide. The company operates primarily in the media and entertainment technology sector.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

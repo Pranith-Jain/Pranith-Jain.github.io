@@ -1,15 +1,1 @@
-{
-  "slug": "apt73-ires-ma-2026-04-27",
-  "title": "ires.ma",
-  "group": "apt73",
-  "discovered": "2026-04-27T16:41:59.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "MA",
-  "sizeBytes": 0,
-  "description": "Institut Royal des Études Stratégiques is a state—owned analytical center in Morocco, which i...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Eraleign"],
-  "activity": "Public Sector",
-  "references": ["ransomware.live"]
-}
+{"slug":"apt73-ires-ma-2026-04-27","title":"ires.ma","group":"apt73","discovered":"2026-04-27T16:41:59.000Z","category":"data_breach","severity":"high","country":"MA","sizeBytes":0,"description":"Institut Royal des Études Stratégiques is a state—owned analytical center in Morocco, which i...","source_url":"https://www.ransomware.live/","groupAliases":["Eraleign"],"activity":"Government & Defense","references":["ransomware.live"]}

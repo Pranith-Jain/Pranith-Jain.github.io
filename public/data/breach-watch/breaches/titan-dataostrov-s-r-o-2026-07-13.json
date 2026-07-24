@@ -1,15 +1,1 @@
-{
-  "slug": "titan-dataostrov-s-r-o-2026-07-13",
-  "title": "DataOstrov s.r.o.",
-  "group": "titan",
-  "discovered": "2026-07-13T20:34:28.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "CZ",
-  "sizeBytes": 0,
-  "description": "[AI generated] N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"titan-dataostrov-s-r-o-2026-07-13","title":"DataOstrov s.r.o.","group":"titan","discovered":"2026-07-13T20:34:28.000Z","category":"ransomware","severity":"high","country":"CZ","sizeBytes":0,"description":"[AI generated] N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

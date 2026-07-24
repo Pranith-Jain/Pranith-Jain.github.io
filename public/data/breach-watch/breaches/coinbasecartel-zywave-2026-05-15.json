@@ -1,15 +1,1 @@
-{
-  "slug": "coinbasecartel-zywave-2026-05-15",
-  "title": "Zywave",
-  "group": "coinbasecartel",
-  "discovered": "2026-05-15T20:57:53.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "[AI generated] Zywave is a US-based software company headquartered in Milwaukee, Wisconsin. It operates in the insurance technology sector, providing cloud-based software solutions to insurance brokers, carriers, and agencies. Its platform offers tools for sales enablement, client delivery, analytics, and agency management. Zywave serves thousands of insurance professionals across North America, helping them streamline operations and improve client engagement.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["coinbase cartel"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"coinbasecartel-zywave-2026-05-15","title":"Zywave","group":"coinbasecartel","discovered":"2026-05-15T20:57:53.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"[AI generated] Zywave is a US-based software company headquartered in Milwaukee, Wisconsin. It operates in the insurance technology sector, providing cloud-based software solutions to insurance brokers, carriers, and agencies. Its platform offers tools for sales enablement, client delivery, analytics, and agency management. Zywave serves thousands of insurance professionals across North America, helping them streamline operations and improve client engagement.","source_url":"https://www.ransomware.live/","groupAliases":["coinbase cartel"],"activity":"Professional Services","references":["ransomware.live"]}

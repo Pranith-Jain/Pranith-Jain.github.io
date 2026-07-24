@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-zfg-altherm-engineering-2026-05-19",
-  "title": "ZFG ALTHERM Engineering",
-  "group": "dragonforce",
-  "discovered": "2026-05-19T17:52:57.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "AT",
-  "sizeBytes": 0,
-  "description": "ZFG ALTHERM Engineering GmbH specializes in engineering services for technical building equipment. The company focuses on providing high-quality planning and consulting solutions tailored to complex and technically demanding projects. With a commitment to precision, know-how, and experience, they strive to develop individualized solutions for each client. Their target clients include those seeking specialized engineering services in the field of technical building infrastructure.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-zfg-altherm-engineering-2026-05-19","title":"ZFG ALTHERM Engineering","group":"dragonforce","discovered":"2026-05-19T17:52:57.000Z","category":"ransomware","severity":"critical","country":"AT","sizeBytes":0,"description":"ZFG ALTHERM Engineering GmbH specializes in engineering services for technical building equipment. The company focuses on providing high-quality planning and consulting solutions tailored to complex and technically demanding projects. With a commitment to precision, know-how, and experience, they strive to develop individualized solutions for each client. Their target clients include those seeking specialized engineering services in the field of technical building infrastructure.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Manufacturing","references":["ransomware.live"]}

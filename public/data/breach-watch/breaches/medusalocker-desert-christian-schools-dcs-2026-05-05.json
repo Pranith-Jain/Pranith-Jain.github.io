@@ -1,15 +1,1 @@
-{
-  "slug": "medusalocker-desert-christian-schools-dcs-2026-05-05",
-  "title": "Desert Christian Schools (DCS)",
-  "group": "medusalocker",
-  "discovered": "2026-05-05T20:33:55.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "K-12 Christian school affiliated with First Baptist Church of Lancaster, CA. ADP payroll, DCFS childcare program, City of Lancaster Water Safety program. Financial docs: P&L, Balance Sheet, Trial Balance, 1099s. School Board minutes 2025.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Education",
-  "references": ["ransomware.live"]
-}
+{"slug":"medusalocker-desert-christian-schools-dcs-2026-05-05","title":"Desert Christian Schools (DCS)","group":"medusalocker","discovered":"2026-05-05T20:33:55.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"K-12 Christian school affiliated with First Baptist Church of Lancaster, CA. ADP payroll, DCFS childcare program, City of Lancaster Water Safety program. Financial docs: P&L, Balance Sheet, Trial Balance, 1099s. School Board minutes 2025.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Education","references":["ransomware.live"]}

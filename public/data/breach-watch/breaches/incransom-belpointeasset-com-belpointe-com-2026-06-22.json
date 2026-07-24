@@ -1,15 +1,1 @@
-{
-  "slug": "incransom-belpointeasset-com-belpointe-com-2026-06-22",
-  "title": "belpointeasset.com \\ belpointe.com",
-  "group": "incransom",
-  "discovered": "2026-06-22T23:32:10.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "400gb",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["inc ransom", "INC"],
-  "activity": "Financial Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"incransom-belpointeasset-com-belpointe-com-2026-06-22","title":"belpointeasset.com \\ belpointe.com","group":"incransom","discovered":"2026-06-22T23:32:10.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"400gb","source_url":"https://www.ransomware.live/","groupAliases":["inc ransom","INC"],"activity":"Financial Services","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "krybit-www-progress-security-com-2026-06-12",
-  "title": "www.progress-security.com",
-  "group": "krybit",
-  "discovered": "2026-06-12T06:54:50.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "Progress Security Systems is a leading UAE-based provider of enterprise-grade security solutions, headquartered in Abu D...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"krybit-www-progress-security-com-2026-06-12","title":"www.progress-security.com","group":"krybit","discovered":"2026-06-12T06:54:50.000Z","category":"ransomware","severity":"high","country":"DE","sizeBytes":0,"description":"Progress Security Systems is a leading UAE-based provider of enterprise-grade security solutions, headquartered in Abu D...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

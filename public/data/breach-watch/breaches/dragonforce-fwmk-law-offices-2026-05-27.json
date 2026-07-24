@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-fwmk-law-offices-2026-05-27",
-  "title": "FWMK Law Offices",
-  "group": "dragonforce",
-  "discovered": "2026-05-27T13:53:12.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "IL",
-  "sizeBytes": 0,
-  "description": "FWMK Law Offices is a full-service law firm known for its deep expertise in various legal areas, including high tech, mergers and acquisitions, and real estate. The firm provides top-quality legal advice and representation to a diverse clientele, including international clients, private investors, and public companies. With a team of highly skilled and responsive attorneys, FWMK emphasizes a professional yet friendly approach to client relations. Their commitment to excellence and understanding of business needs positions them as a trusted partner for organizations navigating the complexities of the legal landscape.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-fwmk-law-offices-2026-05-27","title":"FWMK Law Offices","group":"dragonforce","discovered":"2026-05-27T13:53:12.000Z","category":"ransomware","severity":"critical","country":"IL","sizeBytes":0,"description":"FWMK Law Offices is a full-service law firm known for its deep expertise in various legal areas, including high tech, mergers and acquisitions, and real estate. The firm provides top-quality legal advice and representation to a diverse clientele, including international clients, private investors, and public companies. With a team of highly skilled and responsive attorneys, FWMK emphasizes a professional yet friendly approach to client relations. Their commitment to excellence and understanding of business needs positions them as a trusted partner for organizations navigating the complexities of the legal landscape.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Professional Services","references":["ransomware.live"]}

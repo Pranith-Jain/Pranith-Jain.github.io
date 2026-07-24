@@ -1,15 +1,1 @@
-{
-  "slug": "krybit-shelby-com-mx-2026-07-08",
-  "title": "shelby.com.mx",
-  "group": "krybit",
-  "discovered": "2026-07-08T14:54:47.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "MX",
-  "sizeBytes": 0,
-  "description": "Shelby Manufacturing de México, S.A. de C.V. is a Mexican maquiladora company specializing in the manufacturing of sewi...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"krybit-shelby-com-mx-2026-07-08","title":"shelby.com.mx","group":"krybit","discovered":"2026-07-08T14:54:47.000Z","category":"ransomware","severity":"high","country":"MX","sizeBytes":0,"description":"Shelby Manufacturing de México, S.A. de C.V. is a Mexican maquiladora company specializing in the manufacturing of sewi...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

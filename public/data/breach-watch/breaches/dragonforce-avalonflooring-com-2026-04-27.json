@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-avalonflooring-com-2026-04-27",
-  "title": "avalonflooring.com",
-  "group": "dragonforce",
-  "discovered": "2026-04-27T13:52:01.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Avalon Flooring, founded in 1958 and located in Cherry Hill, New Jersey,\nspecializes in installing flooring in both residential and commercial spaces.\nIn addition to flooring installation services, Avalon also specializes in window treatments and the fabrication of bathroom vanities.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-avalonflooring-com-2026-04-27","title":"avalonflooring.com","group":"dragonforce","discovered":"2026-04-27T13:52:01.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Avalon Flooring, founded in 1958 and located in Cherry Hill, New Jersey,\nspecializes in installing flooring in both residential and commercial spaces.\nIn addition to flooring installation services, Avalon also specializes in window treatments and the fabrication of bathroom vanities.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

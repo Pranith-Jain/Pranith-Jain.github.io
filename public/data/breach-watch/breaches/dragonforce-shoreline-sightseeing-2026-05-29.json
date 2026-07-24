@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-shoreline-sightseeing-2026-05-29",
-  "title": "Shoreline Sightseeing",
-  "group": "dragonforce",
-  "discovered": "2026-05-29T21:52:06.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Shoreline Sightseeing offers guided boat tours and water taxi services in Chicago, focusing on architecture and skyline views. Their popular tours include the Architecture River Tour, Skyline Lake Cruise, and Fireworks Tour, showcasing over 40 landmarks. The company caters to tourists looking for unique perspectives of the city and offers packages like the Chicago CityPASS for additional savings on attractions. Established in 1939, Shoreline operates the largest and most diverse fleet of cruise boats in Chicago",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Hospitality and Tourism",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-shoreline-sightseeing-2026-05-29","title":"Shoreline Sightseeing","group":"dragonforce","discovered":"2026-05-29T21:52:06.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Shoreline Sightseeing offers guided boat tours and water taxi services in Chicago, focusing on architecture and skyline views. Their popular tours include the Architecture River Tour, Skyline Lake Cruise, and Fireworks Tour, showcasing over 40 landmarks. The company caters to tourists looking for unique perspectives of the city and offers packages like the Chicago CityPASS for additional savings on attractions. Established in 1939, Shoreline operates the largest and most diverse fleet of cruise boats in Chicago","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Hospitality","references":["ransomware.live"]}

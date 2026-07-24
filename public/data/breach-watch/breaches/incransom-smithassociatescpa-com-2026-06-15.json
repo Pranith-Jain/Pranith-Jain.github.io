@@ -1,15 +1,1 @@
-{
-  "slug": "incransom-smithassociatescpa-com-2026-06-15",
-  "title": "smithassociatescpa.com",
-  "group": "incransom",
-  "discovered": "2026-06-15T20:54:30.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "smithassociatescpa.com\r\n \r\n \r\n Smith and Associates is a Certified Public Accounting Firm based in Maine, offering a comprehensive range of services including accounting, auditing, tax planning, and management advisory services. The firm caters to a diverse clientele, including individuals, corporations, partnerships, and non-profits in Maine and New Hampshire. They provide specialized support for business start-ups and QuickBooks, along with professional consulting in various areas of tax and accounting practices. Established in 1987, Smith and Associates is committed to being personable, knowledgeable, and responsive to their clients' needs.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["inc ransom", "INC"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"incransom-smithassociatescpa-com-2026-06-15","title":"smithassociatescpa.com","group":"incransom","discovered":"2026-06-15T20:54:30.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"smithassociatescpa.com\r\n \r\n \r\n Smith and Associates is a Certified Public Accounting Firm based in Maine, offering a comprehensive range of services including accounting, auditing, tax planning, and management advisory services. The firm caters to a diverse clientele, including individuals, corporations, partnerships, and non-profits in Maine and New Hampshire. They provide specialized support for business start-ups and QuickBooks, along with professional consulting in various areas of tax and accounting practices. Established in 1987, Smith and Associates is committed to being personable, knowledgeable, and responsive to their clients' needs.","source_url":"https://www.ransomware.live/","groupAliases":["inc ransom","INC"],"activity":"Professional Services","references":["ransomware.live"]}

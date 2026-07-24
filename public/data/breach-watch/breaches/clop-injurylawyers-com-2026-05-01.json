@@ -1,15 +1,1 @@
-{
-  "slug": "clop-injurylawyers-com-2026-05-01",
-  "title": "INJURYLAWYERS.COM",
-  "group": "clop",
-  "discovered": "2026-05-01T18:19:36.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "[AI generated] INJURYLAWYERS.COM is a US-based legal services platform that connects individuals who have suffered personal injuries with qualified attorneys. Operating in the legal referral and marketing industry, the platform helps accident victims find representation for cases involving car accidents, workplace injuries, medical malpractice, and similar claims. It primarily serves clients across the United States.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Cl0p"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"clop-injurylawyers-com-2026-05-01","title":"INJURYLAWYERS.COM","group":"clop","discovered":"2026-05-01T18:19:36.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"[AI generated] INJURYLAWYERS.COM is a US-based legal services platform that connects individuals who have suffered personal injuries with qualified attorneys. Operating in the legal referral and marketing industry, the platform helps accident victims find representation for cases involving car accidents, workplace injuries, medical malpractice, and similar claims. It primarily serves clients across the United States.","source_url":"https://www.ransomware.live/","groupAliases":["Cl0p"],"activity":"Professional Services","references":["ransomware.live"]}

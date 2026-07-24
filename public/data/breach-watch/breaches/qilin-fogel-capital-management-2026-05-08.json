@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-fogel-capital-management-2026-05-08",
-  "title": "Fogel Capital Management",
-  "group": "qilin",
-  "discovered": "2026-05-08T18:45:47.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Financial Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-fogel-capital-management-2026-05-08","title":"Fogel Capital Management","group":"qilin","discovered":"2026-05-08T18:45:47.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Financial Services","references":["ransomware.live"]}

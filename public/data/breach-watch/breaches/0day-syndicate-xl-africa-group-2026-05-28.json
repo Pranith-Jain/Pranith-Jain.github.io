@@ -1,15 +1,1 @@
-{
-  "slug": "0day-syndicate-xl-africa-group-2026-05-28",
-  "title": "xl africa group",
-  "group": "0day Syndicate",
-  "discovered": "2026-05-28T09:04:10.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "GH",
-  "sizeBytes": 0,
-  "description": "XL Africa Group provides outsourcing services like HR, logistics, security, and cash management to other companies across Africa.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"0day-syndicate-xl-africa-group-2026-05-28","title":"xl africa group","group":"0day Syndicate","discovered":"2026-05-28T09:04:10.000Z","category":"data_breach","severity":"high","country":"GH","sizeBytes":0,"description":"XL Africa Group provides outsourcing services like HR, logistics, security, and cash management to other companies across Africa.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

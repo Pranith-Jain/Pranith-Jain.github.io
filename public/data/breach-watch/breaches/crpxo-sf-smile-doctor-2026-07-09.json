@@ -1,15 +1,1 @@
-{
-  "slug": "crpxo-sf-smile-doctor-2026-07-09",
-  "title": "SF Smile Doctor",
-  "group": "CRPxO",
-  "discovered": "2026-07-09T06:42:39.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Sector: Medical | Data leaked: 100.0 GB",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"crpxo-sf-smile-doctor-2026-07-09","title":"SF Smile Doctor","group":"CRPxO","discovered":"2026-07-09T06:42:39.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Sector: Medical | Data leaked: 100.0 GB","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

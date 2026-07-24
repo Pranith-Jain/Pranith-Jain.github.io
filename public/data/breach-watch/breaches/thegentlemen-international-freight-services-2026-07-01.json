@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-international-freight-services-2026-07-01",
-  "title": "International Freight Services",
-  "group": "thegentlemen",
-  "discovered": "2026-07-01T22:24:32.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "***.com zoominfo.com/c/ifs-sfocom/348198952 IFS (International Freight Services, Inc.) is a logistics company headquartered at San Francisco International Airport (SFO). It provides international air and ocean freight forwarding, customs brokerage, warehousing, and end-to-end supply chain solutions. With decades of experience, IFS specializes in time-critical and high-touch cargo, serving industries from technology and life sciences to automotive and retail",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Transportation/Logistics",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-international-freight-services-2026-07-01","title":"International Freight Services","group":"thegentlemen","discovered":"2026-07-01T22:24:32.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"***.com zoominfo.com/c/ifs-sfocom/348198952 IFS (International Freight Services, Inc.) is a logistics company headquartered at San Francisco International Airport (SFO). It provides international air and ocean freight forwarding, customs brokerage, warehousing, and end-to-end supply chain solutions. With decades of experience, IFS specializes in time-critical and high-touch cargo, serving industries from technology and life sciences to automotive and retail","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Transportation","references":["ransomware.live"]}

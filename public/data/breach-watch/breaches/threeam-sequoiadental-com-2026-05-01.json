@@ -1,15 +1,1 @@
-{
-  "slug": "threeam-sequoiadental-com-2026-05-01",
-  "title": "sequoiadental.com",
-  "group": "threeam",
-  "discovered": "2026-05-01T13:34:50.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Sequoia Dental Office provides a wide range of dental services including general, cosmetic, orthodontic, and restorative dentistry. Located in Visalia, CA, they are dedicated to patient comfort and use advanced technology to enhance care, offering",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"threeam-sequoiadental-com-2026-05-01","title":"sequoiadental.com","group":"threeam","discovered":"2026-05-01T13:34:50.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Sequoia Dental Office provides a wide range of dental services including general, cosmetic, orthodontic, and restorative dentistry. Located in Visalia, CA, they are dedicated to patient comfort and use advanced technology to enhance care, offering","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

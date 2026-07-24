@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-dhc-corporation-2026-07-01",
-  "title": "DHC Corporation",
-  "group": "thegentlemen",
-  "discovered": "2026-07-01T22:20:46.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "JP",
-  "sizeBytes": 0,
-  "description": "***.co.jp zoominfo.com/c/dhc-corp/372590440  DHC Corporation, a major Japanese health and beauty company renowned for its dietary supplements, skincare, and cosmetics. The brand is especially famous for its olive oil-based beauty products and high-quality, affordable nutritional supplements. The site serves as a primary hub for consumers to purchase their popular health, wellness, and beauty essentials",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-dhc-corporation-2026-07-01","title":"DHC Corporation","group":"thegentlemen","discovered":"2026-07-01T22:20:46.000Z","category":"ransomware","severity":"critical","country":"JP","sizeBytes":0,"description":"***.co.jp zoominfo.com/c/dhc-corp/372590440  DHC Corporation, a major Japanese health and beauty company renowned for its dietary supplements, skincare, and cosmetics. The brand is especially famous for its olive oil-based beauty products and high-quality, affordable nutritional supplements. The site serves as a primary hub for consumers to purchase their popular health, wellness, and beauty essentials","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Healthcare","references":["ransomware.live"]}

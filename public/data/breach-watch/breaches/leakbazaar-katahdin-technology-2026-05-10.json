@@ -1,15 +1,1 @@
-{
-  "slug": "leakbazaar-katahdin-technology-2026-05-10",
-  "title": "Katahdin Technology",
-  "group": "LeakBazaar",
-  "discovered": "2026-05-10T08:56:39.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Katahdin Technology offers reliable managed IT services tailored for small businesses in Maine. Their services include disaster recovery, network design, cloud solutions, and IT vendor management, all aimed at providing cost-effective and customized IT solutions. With over 20 years of experience, they focus on securing, protecting, and enhancing their clients' IT infrastructure. The company is known for its trustworthy, responsive, and easy-to-work-with approach, ensuring a strong track record of success.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["leak bazaar"],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"leakbazaar-katahdin-technology-2026-05-10","title":"Katahdin Technology","group":"LeakBazaar","discovered":"2026-05-10T08:56:39.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Katahdin Technology offers reliable managed IT services tailored for small businesses in Maine. Their services include disaster recovery, network design, cloud solutions, and IT vendor management, all aimed at providing cost-effective and customized IT solutions. With over 20 years of experience, they focus on securing, protecting, and enhancing their clients' IT infrastructure. The company is known for its trustworthy, responsive, and easy-to-work-with approach, ensuring a strong track record of success.","source_url":"https://www.ransomware.live/","groupAliases":["leak bazaar"],"activity":"Technology","references":["ransomware.live"]}

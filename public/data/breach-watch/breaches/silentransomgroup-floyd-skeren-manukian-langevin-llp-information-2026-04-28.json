@@ -1,15 +1,1 @@
-{
-  "slug": "silentransomgroup-floyd-skeren-manukian-langevin-llp-information-2026-04-28",
-  "title": "Floyd Skeren Manukian Langevin, LLP Information",
-  "group": "SilentRansomGroup",
-  "discovered": "2026-04-28T03:49:13.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Floyd Skeren Manukian Langevin, LLP is a multi-service law firm with ten offices throughout California…",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"silentransomgroup-floyd-skeren-manukian-langevin-llp-information-2026-04-28","title":"Floyd Skeren Manukian Langevin, LLP Information","group":"SilentRansomGroup","discovered":"2026-04-28T03:49:13.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"Floyd Skeren Manukian Langevin, LLP is a multi-service law firm with ten offices throughout California…","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

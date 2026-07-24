@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-shamrock-holdings-inc-2026-07-07",
-  "title": "Shamrock Holdings Inc.",
-  "group": "thegentlemen",
-  "discovered": "2026-07-07T18:35:04.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "https://en.wikipedia.org/wiki/Shamrock_Holdings https://www.***.com/c/shamrock-holdings-inc/102187761 https://www.***.com/c/shamrock-capital-advisors-llc/80380310 https://www.shamrock.com/ Shamrock Holdings, Inc. is an investment firm founded by Roy E. Disney in 1978, primarily serving the investment needs of the Disney Family. The company emphasizes integrity, responsibility, and transparency in its operations. In addition to its investment activities, Shamrock manages various real estate investment programs through a subsidiary. Its intended clients include members of the Roy E. Disney Family and other potential investors in real estate. Assets Under Management: The firm manages over $6.6B in assets across entertainment IP, media rights, and private equity . Included 2021-2026 Stanley Gold inbox(80778) and sent(21617)",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-shamrock-holdings-inc-2026-07-07","title":"Shamrock Holdings Inc.","group":"thegentlemen","discovered":"2026-07-07T18:35:04.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"https://en.wikipedia.org/wiki/Shamrock_Holdings https://www.***.com/c/shamrock-holdings-inc/102187761 https://www.***.com/c/shamrock-capital-advisors-llc/80380310 https://www.shamrock.com/ Shamrock Holdings, Inc. is an investment firm founded by Roy E. Disney in 1978, primarily serving the investment needs of the Disney Family. The company emphasizes integrity, responsibility, and transparency in its operations. In addition to its investment activities, Shamrock manages various real estate investment programs through a subsidiary. Its intended clients include members of the Roy E. Disney Family and other potential investors in real estate. Assets Under Management: The firm manages over $6.6B in assets across entertainment IP, media rights, and private equity . Included 2021-2026 Stanley Gold inbox(80778) and sent(21617)","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Other","references":["ransomware.live"]}

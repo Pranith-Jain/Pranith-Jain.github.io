@@ -1,15 +1,1 @@
-{
-  "slug": "threeam-mgrlaw-com-2026-06-12",
-  "title": "mgrlaw.com",
-  "group": "threeam",
-  "discovered": "2026-06-12T19:59:43.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Mogren, Glessner & Ahrens Law Firm is a full-service law firm located in King County, specializing in family law, divorce, probate, wills, criminal defense, personal injury, and adoption. Established in 1942, the firm is dedicated to providing com",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"threeam-mgrlaw-com-2026-06-12","title":"mgrlaw.com","group":"threeam","discovered":"2026-06-12T19:59:43.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Mogren, Glessner & Ahrens Law Firm is a full-service law firm located in King County, specializing in family law, divorce, probate, wills, criminal defense, personal injury, and adoption. Established in 1942, the firm is dedicated to providing com","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

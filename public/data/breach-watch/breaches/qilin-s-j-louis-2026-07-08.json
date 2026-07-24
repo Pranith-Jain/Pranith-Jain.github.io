@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-s-j-louis-2026-07-08",
-  "title": "S.J. Louis",
-  "group": "qilin",
-  "discovered": "2026-07-08T15:26:34.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "BR",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-s-j-louis-2026-07-08","title":"S.J. Louis","group":"qilin","discovered":"2026-07-08T15:26:34.000Z","category":"ransomware","severity":"critical","country":"BR","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Not Found","references":["ransomware.live"]}

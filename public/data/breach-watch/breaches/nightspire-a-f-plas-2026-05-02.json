@@ -1,15 +1,1 @@
-{
-  "slug": "nightspire-a-f-plas-2026-05-02",
-  "title": "A**** F***** Plas****",
-  "group": "nightspire",
-  "discovered": "2026-05-02T06:54:43.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Data is not available now.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["NIGHT SPIRE"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"nightspire-a-f-plas-2026-05-02","title":"A**** F***** Plas****","group":"nightspire","discovered":"2026-05-02T06:54:43.000Z","category":"ransomware","severity":"high","country":null,"sizeBytes":0,"description":"Data is not available now.","source_url":"https://www.ransomware.live/","groupAliases":["NIGHT SPIRE"],"activity":"Manufacturing","references":["ransomware.live"]}

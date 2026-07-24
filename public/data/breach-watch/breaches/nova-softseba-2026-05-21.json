@@ -1,15 +1,1 @@
-{
-  "slug": "nova-softseba-2026-05-21",
-  "title": "Softseba",
-  "group": "nova",
-  "discovered": "2026-05-21T14:25:09.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "BD",
-  "sizeBytes": 0,
-  "description": "a leading software provider with 5 years of experience in developing and delivering high-quality software solutions to businesses of all sizes. We have a team of experienced and skilled software developers who are passionate about creating 1 innovative and user-friendly software products. Our expertise lies in a wide range of technologies, including web development, mobile app development, cloud computing, and artificial intelligence. We have a proven track record of delivering successful software projects on time and within budget. Our commitment to customer satisfaction and our ability to provide tailored solutions have earned us a reputation as a trusted and reliable software provider. Whether you are a startup or an established enterprise, we can help you leverage the power of software to achieve your business goals.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"nova-softseba-2026-05-21","title":"Softseba","group":"nova","discovered":"2026-05-21T14:25:09.000Z","category":"ransomware","severity":"high","country":"BD","sizeBytes":0,"description":"a leading software provider with 5 years of experience in developing and delivering high-quality software solutions to businesses of all sizes. We have a team of experienced and skilled software developers who are passionate about creating 1 innovative and user-friendly software products. Our expertise lies in a wide range of technologies, including web development, mobile app development, cloud computing, and artificial intelligence. We have a proven track record of delivering successful software projects on time and within budget. Our commitment to customer satisfaction and our ability to provide tailored solutions have earned us a reputation as a trusted and reliable software provider. Whether you are a startup or an established enterprise, we can help you leverage the power of software to achieve your business goals.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "cmdorganization-raise-the-bottom-2026-05-15",
-  "title": "Raise the Bottom",
-  "group": "cmdorganization",
-  "discovered": "2026-05-15T17:50:09.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Raise The Bottom is an opioid treatment center in Idaho, offering outpatient medication-assisted treatment (MAT) programs and therapy. The center provides services including Suboxone, Methadone, and Vivitrol, with locations in Boise, Nampa, and Pocatello. Their mission is to support Idaho residents in reclaiming their lives from opioid addiction through comprehensive care that involves family and community. With a focus on personalized treatment and a whole-person approach, Raise The Bottom aims to foster lasting recovery and stability for individuals and their families.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["cmd organization"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"cmdorganization-raise-the-bottom-2026-05-15","title":"Raise the Bottom","group":"cmdorganization","discovered":"2026-05-15T17:50:09.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Raise The Bottom is an opioid treatment center in Idaho, offering outpatient medication-assisted treatment (MAT) programs and therapy. The center provides services including Suboxone, Methadone, and Vivitrol, with locations in Boise, Nampa, and Pocatello. Their mission is to support Idaho residents in reclaiming their lives from opioid addiction through comprehensive care that involves family and community. With a focus on personalized treatment and a whole-person approach, Raise The Bottom aims to foster lasting recovery and stability for individuals and their families.","source_url":"https://www.ransomware.live/","groupAliases":["cmd organization"],"activity":"Professional Services","references":["ransomware.live"]}

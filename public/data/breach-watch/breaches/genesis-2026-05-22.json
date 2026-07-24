@@ -1,15 +1,1 @@
-{
-  "slug": "genesis-2026-05-22",
-  "title": "**** & ********",
-  "group": "genesis",
-  "discovered": "2026-05-22T23:51:57.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "A legal firm dedicated to safeguard the rights of its clients",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"genesis-2026-05-22","title":"**** & ********","group":"genesis","discovered":"2026-05-22T23:51:57.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"A legal firm dedicated to safeguard the rights of its clients","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Not Found","references":["ransomware.live"]}

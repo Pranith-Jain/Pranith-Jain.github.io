@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-answer-precision-tool-2026-07-06",
-  "title": "Answer Precision Tool",
-  "group": "qilin",
-  "discovered": "2026-07-06T14:01:31.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-answer-precision-tool-2026-07-06","title":"Answer Precision Tool","group":"qilin","discovered":"2026-07-06T14:01:31.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

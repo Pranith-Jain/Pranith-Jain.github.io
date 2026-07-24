@@ -1,15 +1,1 @@
-{
-  "slug": "blackout-www-miatech-net-2026-07-19",
-  "title": "www.miatech.net",
-  "group": "blackout",
-  "discovered": "2026-07-19T12:22:05.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Miatech is a US-based company that provides passenger travel services for...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"blackout-www-miatech-net-2026-07-19","title":"www.miatech.net","group":"blackout","discovered":"2026-07-19T12:22:05.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Miatech is a US-based company that provides passenger travel services for...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

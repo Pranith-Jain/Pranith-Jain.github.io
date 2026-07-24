@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-xtr-global-de-2026-05-25",
-  "title": "xtr-global.de",
-  "group": "dragonforce",
-  "discovered": "2026-05-25T11:54:27.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "Xchange Technology Rentals is a leading provider of IT and audiovisual equipment rental services for businesses, offering a wide range of devices with professional support and a focus on sustainability.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-xtr-global-de-2026-05-25","title":"xtr-global.de","group":"dragonforce","discovered":"2026-05-25T11:54:27.000Z","category":"ransomware","severity":"critical","country":"DE","sizeBytes":0,"description":"Xchange Technology Rentals is a leading provider of IT and audiovisual equipment rental services for businesses, offering a wide range of devices with professional support and a focus on sustainability.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Professional Services","references":["ransomware.live"]}

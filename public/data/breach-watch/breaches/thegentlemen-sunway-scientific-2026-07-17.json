@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-sunway-scientific-2026-07-17",
-  "title": "Sunway Scientific",
-  "group": "thegentlemen",
-  "discovered": "2026-07-17T19:19:19.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "TW",
-  "sizeBytes": 0,
-  "description": "***.com.tw zoominfo.com/c/sunway-scientific-corp/456158414 SUNWAY Co., Ltd., a leading Taiwanese distributor and exclusive agent for international scientific and laboratory equipment brands (such as HETTICH, EYELA, JASCO, and SHASHIN KAGAKU).\nThe company specializes in providing advanced laboratory solutions, including centrifuges, freeze dryers, spectrometers, and cell disruptors for research, biotech, and chemical industries.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-sunway-scientific-2026-07-17","title":"Sunway Scientific","group":"thegentlemen","discovered":"2026-07-17T19:19:19.000Z","category":"ransomware","severity":"critical","country":"TW","sizeBytes":0,"description":"***.com.tw zoominfo.com/c/sunway-scientific-corp/456158414 SUNWAY Co., Ltd., a leading Taiwanese distributor and exclusive agent for international scientific and laboratory equipment brands (such as HETTICH, EYELA, JASCO, and SHASHIN KAGAKU).\nThe company specializes in providing advanced laboratory solutions, including centrifuges, freeze dryers, spectrometers, and cell disruptors for research, biotech, and chemical industries.","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Manufacturing","references":["ransomware.live"]}

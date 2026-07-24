@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-hemmersbach-gmbh-co-kg-2026-06-30",
-  "title": "Hemmersbach GmbH & Co. KG",
-  "group": "qilin",
-  "discovered": "2026-06-30T12:30:59.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-hemmersbach-gmbh-co-kg-2026-06-30","title":"Hemmersbach GmbH & Co. KG","group":"qilin","discovered":"2026-06-30T12:30:59.000Z","category":"ransomware","severity":"critical","country":"DE","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

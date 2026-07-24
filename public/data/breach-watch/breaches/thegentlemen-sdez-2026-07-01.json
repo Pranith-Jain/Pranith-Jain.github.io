@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-sdez-2026-07-01",
-  "title": "SDEZ",
-  "group": "thegentlemen",
-  "discovered": "2026-07-01T22:16:54.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "FR",
-  "sizeBytes": 0,
-  "description": "***.fr SDEZ is a historic French family-owned company founded in 1816, specializing in the rental and maintenance of professional linen, workwear, and hygiene equipment.Operating a national network of industrial laundries across France and Belgium, it has become one of the leading textile service providers in the region.The company serves thousands of business clients and employs over 700 people to deliver comprehensive laundry and hygiene solution",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-sdez-2026-07-01","title":"SDEZ","group":"thegentlemen","discovered":"2026-07-01T22:16:54.000Z","category":"ransomware","severity":"critical","country":"FR","sizeBytes":0,"description":"***.fr SDEZ is a historic French family-owned company founded in 1816, specializing in the rental and maintenance of professional linen, workwear, and hygiene equipment.Operating a national network of industrial laundries across France and Belgium, it has become one of the leading textile service providers in the region.The company serves thousands of business clients and employs over 700 people to deliver comprehensive laundry and hygiene solution","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Other","references":["ransomware.live"]}

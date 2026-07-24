@@ -1,15 +1,1 @@
-{
-  "slug": "0day-syndicate-dxon-com-br-2026-05-28",
-  "title": "dxon.com.br",
-  "group": "0day Syndicate",
-  "discovered": "2026-05-28T09:04:35.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "BR",
-  "sizeBytes": 0,
-  "description": "DXON is a Brazilian company that provides data intelligence and fraud prevention solutions.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"0day-syndicate-dxon-com-br-2026-05-28","title":"dxon.com.br","group":"0day Syndicate","discovered":"2026-05-28T09:04:35.000Z","category":"data_breach","severity":"high","country":"BR","sizeBytes":0,"description":"DXON is a Brazilian company that provides data intelligence and fraud prevention solutions.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

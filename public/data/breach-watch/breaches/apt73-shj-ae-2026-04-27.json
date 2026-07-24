@@ -1,15 +1,1 @@
-{
-  "slug": "apt73-shj-ae-2026-04-27",
-  "title": "shj.ae",
-  "group": "apt73",
-  "discovered": "2026-04-27T16:44:09.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "AE",
-  "sizeBytes": 0,
-  "description": "Sharjah Electricity, Water, and Gas Authority (sec.shj.ae) is a government-owned utility in Sharj...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Eraleign"],
-  "activity": "Energy",
-  "references": ["ransomware.live"]
-}
+{"slug":"apt73-shj-ae-2026-04-27","title":"shj.ae","group":"apt73","discovered":"2026-04-27T16:44:09.000Z","category":"data_breach","severity":"high","country":"AE","sizeBytes":0,"description":"Sharjah Electricity, Water, and Gas Authority (sec.shj.ae) is a government-owned utility in Sharj...","source_url":"https://www.ransomware.live/","groupAliases":["Eraleign"],"activity":"Energy & Utilities","references":["ransomware.live"]}

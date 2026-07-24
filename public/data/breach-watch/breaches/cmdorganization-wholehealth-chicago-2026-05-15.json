@@ -1,15 +1,1 @@
-{
-  "slug": "cmdorganization-wholehealth-chicago-2026-05-15",
-  "title": "WholeHealth Chicago",
-  "group": "cmdorganization",
-  "discovered": "2026-05-15T11:50:08.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "WholeHealth Chicago is a leading healthcare practice specializing in integrative, functional, and alternative medicine. They offer a wide range of services including internal medicine, chiropractic care, nutritional counseling, and various therapies aimed at promoting overall health and well-being. Their intended clients include individuals seeking personalized and holistic approaches to health, particularly those interested in combining conventional and alternative treatments. The practice is known for its patient-centered care, where providers work collaboratively with patients to develop tailored treatment plans.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["cmd organization"],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"cmdorganization-wholehealth-chicago-2026-05-15","title":"WholeHealth Chicago","group":"cmdorganization","discovered":"2026-05-15T11:50:08.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"WholeHealth Chicago is a leading healthcare practice specializing in integrative, functional, and alternative medicine. They offer a wide range of services including internal medicine, chiropractic care, nutritional counseling, and various therapies aimed at promoting overall health and well-being. Their intended clients include individuals seeking personalized and holistic approaches to health, particularly those interested in combining conventional and alternative treatments. The practice is known for its patient-centered care, where providers work collaboratively with patients to develop tailored treatment plans.","source_url":"https://www.ransomware.live/","groupAliases":["cmd organization"],"activity":"Healthcare","references":["ransomware.live"]}

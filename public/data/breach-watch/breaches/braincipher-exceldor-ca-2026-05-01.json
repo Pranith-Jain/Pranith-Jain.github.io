@@ -1,15 +1,1 @@
-{
-  "slug": "braincipher-exceldor-ca-2026-05-01",
-  "title": "exceldor.ca",
-  "group": "BrainCipher",
-  "discovered": "2026-05-01T09:55:56.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "CA",
-  "sizeBytes": 0,
-  "description": "[AI generated] Exceldor is a Canadian agricultural cooperative specializing in poultry production and processing. headquartered in Quebec, Canada, the company produces and distributes chicken and turkey products under various brands. It operates processing facilities across Quebec and Ontario, supplying retail, foodservice, and industrial customers throughout Canada. Exceldor is one of the largest poultry cooperatives in the country, known for its focus on quality and sustainable farming practices.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["brain cipher"],
-  "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
-}
+{"slug":"braincipher-exceldor-ca-2026-05-01","title":"exceldor.ca","group":"BrainCipher","discovered":"2026-05-01T09:55:56.000Z","category":"ransomware","severity":"critical","country":"CA","sizeBytes":0,"description":"[AI generated] Exceldor is a Canadian agricultural cooperative specializing in poultry production and processing. headquartered in Quebec, Canada, the company produces and distributes chicken and turkey products under various brands. It operates processing facilities across Quebec and Ontario, supplying retail, foodservice, and industrial customers throughout Canada. Exceldor is one of the largest poultry cooperatives in the country, known for its focus on quality and sustainable farming practices.","source_url":"https://www.ransomware.live/","groupAliases":["brain cipher"],"activity":"Agriculture and Food Production","references":["ransomware.live"]}

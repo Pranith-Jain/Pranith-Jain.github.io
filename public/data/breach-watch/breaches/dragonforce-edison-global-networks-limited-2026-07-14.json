@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-edison-global-networks-limited-2026-07-14",
-  "title": "Edison Global Networks Limited",
-  "group": "dragonforce",
-  "discovered": "2026-07-14T13:54:57.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "HK",
-  "sizeBytes": 0,
-  "description": "Edison Global Networks Limited is a Hong Kong-based IT system integrator and managed service provider with regional offices in Shenzhen, Shanghai, and Beijing. They specialize in cloud solutions, network infrastructure, disaster recovery, global data center services, and communication systems.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Telecommunication",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-edison-global-networks-limited-2026-07-14","title":"Edison Global Networks Limited","group":"dragonforce","discovered":"2026-07-14T13:54:57.000Z","category":"ransomware","severity":"critical","country":"HK","sizeBytes":0,"description":"Edison Global Networks Limited is a Hong Kong-based IT system integrator and managed service provider with regional offices in Shenzhen, Shanghai, and Beijing. They specialize in cloud solutions, network infrastructure, disaster recovery, global data center services, and communication systems.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Technology","references":["ransomware.live"]}

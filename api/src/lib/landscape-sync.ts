@@ -37,6 +37,11 @@ export const CURATED_TOOLBOX_KV_KEY = 'curated-toolbox:v1';
 export const CURATED_TOOLBOX_META_KEY = 'curated-toolbox:meta:v1';
 export const CURATED_CERTS_KV_KEY = 'curated-certs:v1';
 export const CURATED_CERTS_META_KEY = 'curated-certs:meta:v1';
+/** 30 days — landscape data is overwritten by daily cron, but a stale
+ *  key is still useful fallback. Prevents orphaned keys if sync stops. */
+const DATA_TTL_S = 30 * 24 * 3600;
+/** 7 days — meta is rewritten every sync; TTL prevents orphaned keys. */
+const META_TTL_S = 7 * 24 * 3600;
 
 /**
  * Per-source start.me mirror configuration. Two parallel mirrors live in
@@ -280,9 +285,9 @@ export async function syncOwaspAiLandscape(
       // in KV -- the OWASP upstream updates ~once/day, but the hourly cron
       // re-fetches it. Without this guard we burn a free-tier write every
       // tick (1 read + 1 write = 1 wasted write 23 hours out of 24).
-      await kvPutIfChanged(env.KV_CACHE, OWASP_AI_LANDSCAPE_KV_KEY, JSON.stringify(payload));
+      await kvPutIfChanged(env.KV_CACHE, OWASP_AI_LANDSCAPE_KV_KEY, JSON.stringify(payload), { expirationTtl: DATA_TTL_S });
       const meta: OwaspMeta = { source: OWASP_RAW_URL, fetchedAt: payload.fetchedAt, ok: true, counts };
-      await env.KV_CACHE.put(OWASP_AI_LANDSCAPE_META_KEY, JSON.stringify(meta));
+      await env.KV_CACHE.put(OWASP_AI_LANDSCAPE_META_KEY, JSON.stringify(meta), { expirationTtl: META_TTL_S });
       // Write-through to the per-colo cache shadow so readers in colos that
       // already have a stale L1 entry pick up the new value on the next
       // request (instead of serving stale for up to CACHE_MAX_AGE_S).
@@ -314,7 +319,7 @@ export async function syncOwaspAiLandscape(
         ok: false,
         error: msg,
       };
-      await env.KV_CACHE.put(OWASP_AI_LANDSCAPE_META_KEY, JSON.stringify(meta));
+      await env.KV_CACHE.put(OWASP_AI_LANDSCAPE_META_KEY, JSON.stringify(meta), { expirationTtl: META_TTL_S });
     }
     return { ok: false, error: msg };
   } finally {
@@ -854,7 +859,7 @@ export async function syncCuratedMirror(
     if (env.KV_CACHE) {
       // Same no-op guard as OWASP above. The startme page is updated
       // ~weekly; the hourly jina fetch should not cost a write on every run.
-      await kvPutIfChanged(env.KV_CACHE, config.kvKey, JSON.stringify(payload));
+      await kvPutIfChanged(env.KV_CACHE, config.kvKey, JSON.stringify(payload), { expirationTtl: DATA_TTL_S });
       const meta: CuratedMeta = {
         source: 'jina',
         sourceUrl: config.startmeUrl,
@@ -863,7 +868,7 @@ export async function syncCuratedMirror(
         totalTools: payload.totalTools,
         totalSections: payload.totalSections,
       };
-      await env.KV_CACHE.put(config.metaKey, JSON.stringify(meta));
+      await env.KV_CACHE.put(config.metaKey, JSON.stringify(meta), { expirationTtl: META_TTL_S });
       // Write-through to per-colo cache shadow (see OWASP handler above).
       try {
         const cache = (caches as unknown as { default: Cache }).default;
@@ -896,7 +901,7 @@ export async function syncCuratedMirror(
         totalTools: 0,
         totalSections: 0,
       };
-      await env.KV_CACHE.put(config.metaKey, JSON.stringify(meta));
+      await env.KV_CACHE.put(config.metaKey, JSON.stringify(meta), { expirationTtl: META_TTL_S });
     }
     return { ok: false, error: msg };
   } finally {

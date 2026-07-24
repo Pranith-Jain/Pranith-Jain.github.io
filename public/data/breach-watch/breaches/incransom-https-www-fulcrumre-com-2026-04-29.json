@@ -1,15 +1,1 @@
-{
-  "slug": "incransom-https-www-fulcrumre-com-2026-04-29",
-  "title": "https://www.fulcrumre.com/",
-  "group": "incransom",
-  "discovered": "2026-04-29T02:23:08.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "2tb data all company data",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["inc ransom", "INC"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"incransom-https-www-fulcrumre-com-2026-04-29","title":"https://www.fulcrumre.com/","group":"incransom","discovered":"2026-04-29T02:23:08.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"2tb data all company data","source_url":"https://www.ransomware.live/","groupAliases":["inc ransom","INC"],"activity":"Professional Services","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "chaos-powerhousenow-com-2026-05-28",
-  "title": "powerhousenow.com",
-  "group": "chaos",
-  "discovered": "2026-05-28T21:51:47.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "STATUS: PENDING PUBLICATION | TIME REMAINING: 72 HOURS\nENTITY: Powerhouse (powerhousenow.com)\nTHE REALITY OF POWERHOUSE\n\nWe have been in possession of your internal data for some time. We have attempted to engage with your management to resolve this incident professionally, but their silence speaks…",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"chaos-powerhousenow-com-2026-05-28","title":"powerhousenow.com","group":"chaos","discovered":"2026-05-28T21:51:47.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"STATUS: PENDING PUBLICATION | TIME REMAINING: 72 HOURS\nENTITY: Powerhouse (powerhousenow.com)\nTHE REALITY OF POWERHOUSE\n\nWe have been in possession of your internal data for some time. We have attempted to engage with your management to resolve this incident professionally, but their silence speaks…","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

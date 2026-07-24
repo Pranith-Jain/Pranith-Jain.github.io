@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-enciso-ltda-2026-06-15",
-  "title": "Enciso Ltda",
-  "group": "thegentlemen",
-  "discovered": "2026-06-15T13:03:07.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "CL",
-  "sizeBytes": 0,
-  "description": "***.com zoominfo.com/c/enciso-ltda/425799840 Enciso Ltda is a trusted Colombian company founded in 1999, specializing in the distribution of industrial safety equipment, medical supplies, and road signaling. Operating from Dosquebradas with four regional branches, they proudly serve over 5,000 clients nationwide. Their core mission is safeguarding workers' health and lives through premium protective equipment and reliable safety solutions",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-enciso-ltda-2026-06-15","title":"Enciso Ltda","group":"thegentlemen","discovered":"2026-06-15T13:03:07.000Z","category":"ransomware","severity":"critical","country":"CL","sizeBytes":0,"description":"***.com zoominfo.com/c/enciso-ltda/425799840 Enciso Ltda is a trusted Colombian company founded in 1999, specializing in the distribution of industrial safety equipment, medical supplies, and road signaling. Operating from Dosquebradas with four regional branches, they proudly serve over 5,000 clients nationwide. Their core mission is safeguarding workers' health and lives through premium protective equipment and reliable safety solutions","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Professional Services","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-musashino-university-2026-06-29",
-  "title": "Musashino University",
-  "group": "qilin",
-  "discovered": "2026-06-29T16:34:51.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "JP",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Education",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-musashino-university-2026-06-29","title":"Musashino University","group":"qilin","discovered":"2026-06-29T16:34:51.000Z","category":"ransomware","severity":"critical","country":"JP","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Education","references":["ransomware.live"]}

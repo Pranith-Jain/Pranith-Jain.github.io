@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-jyharn-electronic-2026-06-08",
-  "title": "Jyharn Electronic",
-  "group": "thegentlemen",
-  "discovered": "2026-06-08T09:57:38.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "TW",
-  "sizeBytes": 0,
-  "description": "***.com zoominfo.com/c/jyharn-electronic-tech-co-ltd/370944477 Jyharn Electronic Tech. Co., Ltd. is a professional electronic components distributor founded in 1992, headquartered in Taiwan with branch operations in Shenzhen. The company specializes in supplying a wide range of semiconductor and optoelectronic parts, representing major industry brands such as LITEON, FITIPOWER, UTC, and Lattice. With decades of experience, Jyharn delivers comprehensive component solutions, including power management ICs, LEDs, and diodes, to support global manufacturing and technology clients",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-jyharn-electronic-2026-06-08","title":"Jyharn Electronic","group":"thegentlemen","discovered":"2026-06-08T09:57:38.000Z","category":"ransomware","severity":"critical","country":"TW","sizeBytes":0,"description":"***.com zoominfo.com/c/jyharn-electronic-tech-co-ltd/370944477 Jyharn Electronic Tech. Co., Ltd. is a professional electronic components distributor founded in 1992, headquartered in Taiwan with branch operations in Shenzhen. The company specializes in supplying a wide range of semiconductor and optoelectronic parts, representing major industry brands such as LITEON, FITIPOWER, UTC, and Lattice. With decades of experience, Jyharn delivers comprehensive component solutions, including power management ICs, LEDs, and diodes, to support global manufacturing and technology clients","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Manufacturing","references":["ransomware.live"]}

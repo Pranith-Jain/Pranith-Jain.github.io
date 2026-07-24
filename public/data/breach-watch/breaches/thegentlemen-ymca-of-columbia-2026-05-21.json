@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-ymca-of-columbia-2026-05-21",
-  "title": "YMCA of Columbia",
-  "group": "thegentlemen",
-  "discovered": "2026-05-21T09:53:15.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "columbiaymca.org zoominfo.com/c/ymca-of-columbia/8912958 Founded in 1854, the YMCA of Columbia is a cornerstone charitable organization dedicated to building healthy spirit, mind, and body for all across South Carolina's Midlands. Through five community branches, they deliver impactful youth development, wellness programs, and social responsibility initiatives rooted in Christian values of caring, respect, and inclusion. Every day, the Y empowers neighbors of all ages and backgrounds to learn, grow, and thrive together",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-ymca-of-columbia-2026-05-21","title":"YMCA of Columbia","group":"thegentlemen","discovered":"2026-05-21T09:53:15.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"columbiaymca.org zoominfo.com/c/ymca-of-columbia/8912958 Founded in 1854, the YMCA of Columbia is a cornerstone charitable organization dedicated to building healthy spirit, mind, and body for all across South Carolina's Midlands. Through five community branches, they deliver impactful youth development, wellness programs, and social responsibility initiatives rooted in Christian values of caring, respect, and inclusion. Every day, the Y empowers neighbors of all ages and backgrounds to learn, grow, and thrive together","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

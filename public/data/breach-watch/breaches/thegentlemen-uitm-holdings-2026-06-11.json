@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-uitm-holdings-2026-06-11",
-  "title": "UiTM Holdings",
-  "group": "thegentlemen",
-  "discovered": "2026-06-11T17:28:57.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "MY",
-  "sizeBytes": 0,
-  "description": "***.com zoominfo.com/c/ui-holdings-sdn-bhd/390203835 UiTM Holdings is the investment holding arm of Universiti Teknologi MARA (UiTM), Malaysia’s largest university. It commercialises the university’s assets and expertise across property, healthcare, education, and technology. Its primary mission is to generate sustainable revenue to support UiTM’s academic and research programmes",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Education",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-uitm-holdings-2026-06-11","title":"UiTM Holdings","group":"thegentlemen","discovered":"2026-06-11T17:28:57.000Z","category":"ransomware","severity":"critical","country":"MY","sizeBytes":0,"description":"***.com zoominfo.com/c/ui-holdings-sdn-bhd/390203835 UiTM Holdings is the investment holding arm of Universiti Teknologi MARA (UiTM), Malaysia’s largest university. It commercialises the university’s assets and expertise across property, healthcare, education, and technology. Its primary mission is to generate sustainable revenue to support UiTM’s academic and research programmes","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Education","references":["ransomware.live"]}

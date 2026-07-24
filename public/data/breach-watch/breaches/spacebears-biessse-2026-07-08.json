@@ -1,15 +1,1 @@
-{
-  "slug": "spacebears-biessse-2026-07-08",
-  "title": "Biessse",
-  "group": "spacebears",
-  "discovered": "2026-07-08T05:34:16.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "IT",
-  "sizeBytes": 0,
-  "description": "The BiesSse group, which has been operating on the global market for over 40 years, specializes in the production and conversion of highly performing technical adhesive tapes. The BiesSse Tape production plant covers a surface area of over 11,000 sq.mt. and is equipped with modern and advanced installations, in line with lean manufacturing practices. The BiesSse group operates worldwide through its subsidiaries in Austria, Brazil, China and Mexico, availing itself of a professional and strongly committed local workforce. The direct presence on the ground makes it possible to quickly and efficiently respond to customers’ demands and to ensure on-going assistance and support.-Personal information of employees and clients -Financial documents-SQL DB https://www.***.com/",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["space bears"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"spacebears-biessse-2026-07-08","title":"Biessse","group":"spacebears","discovered":"2026-07-08T05:34:16.000Z","category":"data_breach","severity":"high","country":"IT","sizeBytes":0,"description":"The BiesSse group, which has been operating on the global market for over 40 years, specializes in the production and conversion of highly performing technical adhesive tapes. The BiesSse Tape production plant covers a surface area of over 11,000 sq.mt. and is equipped with modern and advanced installations, in line with lean manufacturing practices. The BiesSse group operates worldwide through its subsidiaries in Austria, Brazil, China and Mexico, availing itself of a professional and strongly committed local workforce. The direct presence on the ground makes it possible to quickly and efficiently respond to customers’ demands and to ensure on-going assistance and support.-Personal information of employees and clients -Financial documents-SQL DB https://www.***.com/","source_url":"https://www.ransomware.live/","groupAliases":["space bears"],"activity":"Manufacturing","references":["ransomware.live"]}

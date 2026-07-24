@@ -1,15 +1,1 @@
-{
-  "slug": "kairos-commune-de-camiers-2026-05-29",
-  "title": "Commune De Camiers",
-  "group": "kairos",
-  "discovered": "2026-05-29T19:51:56.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "FR",
-  "sizeBytes": 0,
-  "description": "Commune De Camiers is a company that operates in the Government industry. It employs 10to19 people and has 1Mto5M of revenue. The company is headquartered in Camiers, Hauts-de-France, France.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Public Sector",
-  "references": ["ransomware.live"]
-}
+{"slug":"kairos-commune-de-camiers-2026-05-29","title":"Commune De Camiers","group":"kairos","discovered":"2026-05-29T19:51:56.000Z","category":"data_breach","severity":"high","country":"FR","sizeBytes":0,"description":"Commune De Camiers is a company that operates in the Government industry. It employs 10to19 people and has 1Mto5M of revenue. The company is headquartered in Camiers, Hauts-de-France, France.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Government & Defense","references":["ransomware.live"]}

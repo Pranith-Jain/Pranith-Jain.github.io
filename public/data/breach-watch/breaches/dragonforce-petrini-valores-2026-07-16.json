@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-petrini-valores-2026-07-16",
-  "title": "Petrini Valores",
-  "group": "dragonforce",
-  "discovered": "2026-07-16T12:25:41.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "AR",
-  "sizeBytes": 0,
-  "description": "Petrini Valores S.A. specializes in personalized wealth management and financial planning, offering tailored financial solutions for individuals, families, and businesses. They provide private banking services, corporate solutions, and sales & trading expertise, ensuring clients can access both local and international markets. The company focuses on creating customized portfolios aligned with clients' profiles and objectives, utilizing innovative strategies and technology. With a commitment to exploring capital market opportunities, Petrini Valores aims to deliver flexible and disruptive financial strategies.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Financial Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-petrini-valores-2026-07-16","title":"Petrini Valores","group":"dragonforce","discovered":"2026-07-16T12:25:41.000Z","category":"ransomware","severity":"critical","country":"AR","sizeBytes":0,"description":"Petrini Valores S.A. specializes in personalized wealth management and financial planning, offering tailored financial solutions for individuals, families, and businesses. They provide private banking services, corporate solutions, and sales & trading expertise, ensuring clients can access both local and international markets. The company focuses on creating customized portfolios aligned with clients' profiles and objectives, utilizing innovative strategies and technology. With a commitment to exploring capital market opportunities, Petrini Valores aims to deliver flexible and disruptive financial strategies.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Financial Services","references":["ransomware.live"]}

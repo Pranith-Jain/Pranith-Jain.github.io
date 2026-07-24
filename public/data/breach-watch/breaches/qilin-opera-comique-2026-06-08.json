@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-opera-comique-2026-06-08",
-  "title": "Opera Comique",
-  "group": "qilin",
-  "discovered": "2026-06-08T16:54:43.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "FR",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Hospitality and Tourism",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-opera-comique-2026-06-08","title":"Opera Comique","group":"qilin","discovered":"2026-06-08T16:54:43.000Z","category":"ransomware","severity":"critical","country":"FR","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Hospitality","references":["ransomware.live"]}

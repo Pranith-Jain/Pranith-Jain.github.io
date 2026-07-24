@@ -1,15 +1,1 @@
-{
-  "slug": "shinyhunters-hccs-edu-2026-06-15",
-  "title": "hccs.edu",
-  "group": "shinyhunters",
-  "discovered": "2026-06-15T14:24:26.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Hundreds of thousands of student records containing full name, home address, phone, email, date of birth, gender, ethnicity, enrollment status, GPA, major, and student ID across all campuses. Daily and full student roster exports library credentials, PINs, and @student[.hccs[.edu accounts. Over 12,000 financial aid and bursar reports including FAFSA/ISIR suspense data with names, birthdates, emails, phones, and home addresses. Class rosters with birthdates, grades, academic programs, and contact information for tens of thousands of enrolled students per term. Over 344,000 international student documents including SEVIS I-20 forms, visa applications, passports, bank statements, tax returns, immigration affidavits, and acceptance letters. Over 14,000 student immunization and vaccination records including meningitis compliance documentation. Over 15,000 additional health and immunization documents across report archives and A LOT more was compromised. This is a final warning to reach out by 18 June 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 16 June 2026 | Warning: FINAL WARNING PAY OR LEAK",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Education",
-  "references": ["ransomware.live"]
-}
+{"slug":"shinyhunters-hccs-edu-2026-06-15","title":"hccs.edu","group":"shinyhunters","discovered":"2026-06-15T14:24:26.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Hundreds of thousands of student records containing full name, home address, phone, email, date of birth, gender, ethnicity, enrollment status, GPA, major, and student ID across all campuses. Daily and full student roster exports library credentials, PINs, and @student[.hccs[.edu accounts. Over 12,000 financial aid and bursar reports including FAFSA/ISIR suspense data with names, birthdates, emails, phones, and home addresses. Class rosters with birthdates, grades, academic programs, and contact information for tens of thousands of enrolled students per term. Over 344,000 international student documents including SEVIS I-20 forms, visa applications, passports, bank statements, tax returns, immigration affidavits, and acceptance letters. Over 14,000 student immunization and vaccination records including meningitis compliance documentation. Over 15,000 additional health and immunization documents across report archives and A LOT more was compromised. This is a final warning to reach out by 18 June 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 16 June 2026 | Warning: FINAL WARNING PAY OR LEAK","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Education","references":["ransomware.live"]}

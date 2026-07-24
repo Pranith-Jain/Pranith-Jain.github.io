@@ -1,15 +1,1 @@
-{
-  "slug": "cmdorganization-penneastern-architects-2026-05-08",
-  "title": "PennEastern Architects",
-  "group": "cmdorganization",
-  "discovered": "2026-05-08T07:50:10.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "The principals of PennEastern Engineers, LLC are Paul Pasonick, Andrew Pasonick, Michael Amato and Daryl Pawlush. All principals have extensive experience in commercial and residential land developments, municipal projects, sanitary sewer projects, storm water projects, pavement projects, flood control projects and soil erosion and sedimentation control plans. In addition, each has assisted in design, specification writing, cost estimating, project bidding and bid review, construction observation and project management of the various projects. The Principals of PennEastern Architects, LLC are Andrew Pasonick, Emil Jarolen and Norman Manovsky. Design Principal Emil Jarolen has been practicing Architecture since 1974 and has been a Registered Architect in the State of Pennsylvania since 1978. In addition, Mr. Jarolen is Registered as an Architect in the States of Maryland, New York, New Jersey and the District of Columbia.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["cmd organization"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"cmdorganization-penneastern-architects-2026-05-08","title":"PennEastern Architects","group":"cmdorganization","discovered":"2026-05-08T07:50:10.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"The principals of PennEastern Engineers, LLC are Paul Pasonick, Andrew Pasonick, Michael Amato and Daryl Pawlush. All principals have extensive experience in commercial and residential land developments, municipal projects, sanitary sewer projects, storm water projects, pavement projects, flood control projects and soil erosion and sedimentation control plans. In addition, each has assisted in design, specification writing, cost estimating, project bidding and bid review, construction observation and project management of the various projects. The Principals of PennEastern Architects, LLC are Andrew Pasonick, Emil Jarolen and Norman Manovsky. Design Principal Emil Jarolen has been practicing Architecture since 1974 and has been a Registered Architect in the State of Pennsylvania since 1978. In addition, Mr. Jarolen is Registered as an Architect in the States of Maryland, New York, New Jersey and the District of Columbia.","source_url":"https://www.ransomware.live/","groupAliases":["cmd organization"],"activity":"Professional Services","references":["ransomware.live"]}

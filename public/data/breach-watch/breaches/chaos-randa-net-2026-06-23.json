@@ -1,15 +1,1 @@
-{
-  "slug": "chaos-randa-net-2026-06-23",
-  "title": "randa.net",
-  "group": "chaos",
-  "discovered": "2026-06-23T05:20:58.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Randa Apparel & Accessories is a global powerhouse and one of the world's leading apparel and lifestyle accessories companies, headquartered in New York City at 417 Fifth Avenue, 11th Floor. Founded in 1910, with the founder's family having been in the neckwear business since that time and the curre…",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"chaos-randa-net-2026-06-23","title":"randa.net","group":"chaos","discovered":"2026-06-23T05:20:58.000Z","category":"ransomware","severity":"high","country":null,"sizeBytes":0,"description":"Randa Apparel & Accessories is a global powerhouse and one of the world's leading apparel and lifestyle accessories companies, headquartered in New York City at 417 Fifth Avenue, 11th Floor. Founded in 1910, with the founder's family having been in the neckwear business since that time and the curre…","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Not Found","references":["ransomware.live"]}

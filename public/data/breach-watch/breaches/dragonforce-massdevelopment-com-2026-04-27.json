@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-massdevelopment-com-2026-04-27",
-  "title": "massdevelopment.com",
-  "group": "dragonforce",
-  "discovered": "2026-04-27T13:50:24.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "MassDevelopment, a state agency for finance and development, partners with businesses, \nnonprofit organizations, financial institutions, and local communities to stimulate economic \ngrowth throughout the state. In fiscal year 2017, MassDevelopment financed or managed 377 projects, \nwhich attracted more than $4 billion in investment to the Massachusetts economy. These projects are expected \nto create approximately 9,488 jobs and build or renovate approximately 1,863 housing units.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-massdevelopment-com-2026-04-27","title":"massdevelopment.com","group":"dragonforce","discovered":"2026-04-27T13:50:24.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"MassDevelopment, a state agency for finance and development, partners with businesses, \nnonprofit organizations, financial institutions, and local communities to stimulate economic \ngrowth throughout the state. In fiscal year 2017, MassDevelopment financed or managed 377 projects, \nwhich attracted more than $4 billion in investment to the Massachusetts economy. These projects are expected \nto create approximately 9,488 jobs and build or renovate approximately 1,863 housing units.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Professional Services","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "krybit-frey-com-2026-06-14",
-  "title": "frey.com",
-  "group": "krybit",
-  "discovered": "2026-06-14T20:22:26.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "CH",
-  "sizeBytes": 0,
-  "description": "FREY (Frey Brothers, Inc.) is an American eco-friendly laundry care products company founded in 2017 by brothers Erin an...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"krybit-frey-com-2026-06-14","title":"frey.com","group":"krybit","discovered":"2026-06-14T20:22:26.000Z","category":"ransomware","severity":"high","country":"CH","sizeBytes":0,"description":"FREY (Frey Brothers, Inc.) is an American eco-friendly laundry care products company founded in 2017 by brothers Erin an...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

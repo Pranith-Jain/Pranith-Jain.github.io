@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-armara-2026-07-18",
-  "title": "Armara",
-  "group": "qilin",
-  "discovered": "2026-07-18T11:37:51.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "FR",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-armara-2026-07-18","title":"Armara","group":"qilin","discovered":"2026-07-18T11:37:51.000Z","category":"ransomware","severity":"critical","country":"FR","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Agriculture and Food Production","references":["ransomware.live"]}

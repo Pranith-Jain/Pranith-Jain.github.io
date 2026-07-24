@@ -1,15 +1,1 @@
-{
-  "slug": "lockbit5-irestal-com-2026-05-01",
-  "title": "irestal.com",
-  "group": "lockbit5",
-  "discovered": "2026-05-01T12:46:07.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "ES",
-  "sizeBytes": 0,
-  "description": "Irestal Group has over 80 years of experience providing stainless steel solutions, with a service ce...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"lockbit5-irestal-com-2026-05-01","title":"irestal.com","group":"lockbit5","discovered":"2026-05-01T12:46:07.000Z","category":"ransomware","severity":"high","country":"ES","sizeBytes":0,"description":"Irestal Group has over 80 years of experience providing stainless steel solutions, with a service ce...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

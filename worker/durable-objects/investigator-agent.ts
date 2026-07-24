@@ -112,6 +112,23 @@ export class InvestigatorAgentDO {
       return state ? Response.json(state) : Response.json({ error: 'not found' }, { status: 404 });
     }
 
+    // DELETE /cancel — mark an investigation as cancelled
+    if (url.pathname === '/cancel' && request.method === 'DELETE') {
+      const id = url.searchParams.get('id') ?? '';
+      if (!id) return Response.json({ error: 'id required' }, { status: 400 });
+      const state = await this.ctx.storage.get<AgentState>(`state:${id}`);
+      if (!state) return Response.json({ error: 'not found' }, { status: 404 });
+      if (state.status === 'running') {
+        state.status = 'error';
+        state.error = 'Cancelled by user';
+        state.completedAt = new Date().toISOString();
+        await this.ctx.storage.put(`state:${id}`, state);
+        await this.persist(state);
+        this.broadcast({ type: 'error', error: 'Cancelled by user', agentId: id });
+      }
+      return Response.json({ ok: true, status: state.status });
+    }
+
     // DELETE /delete — clean up DO storage
     if (url.pathname === '/delete' && request.method === 'DELETE') {
       const id = url.searchParams.get('id') ?? '';

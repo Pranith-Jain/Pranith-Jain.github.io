@@ -1,15 +1,1 @@
-{
-  "slug": "deadlock-elmoris-2026-07-10",
-  "title": "Elmoris",
-  "group": "Deadlock",
-  "discovered": "2026-07-10T13:04:57.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "LT",
-  "sizeBytes": 0,
-  "description": "Founded in 1996 in Vilnius, Lithuania, UAB Elmoris is a major manufacturer specializing in light metal packaging and \"twist-off\" lug caps for the food industry. The company is noted for producing PVC-free, environmentally friendly caps and providing metal printing services, holding AEO certification for international trade.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"deadlock-elmoris-2026-07-10","title":"Elmoris","group":"Deadlock","discovered":"2026-07-10T13:04:57.000Z","category":"ransomware","severity":"critical","country":"LT","sizeBytes":0,"description":"Founded in 1996 in Vilnius, Lithuania, UAB Elmoris is a major manufacturer specializing in light metal packaging and \"twist-off\" lug caps for the food industry. The company is noted for producing PVC-free, environmentally friendly caps and providing metal printing services, holding AEO certification for international trade.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Not Found","references":["ransomware.live"]}

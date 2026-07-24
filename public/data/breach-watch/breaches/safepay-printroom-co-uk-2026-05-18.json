@@ -1,15 +1,1 @@
-{
-  "slug": "safepay-printroom-co-uk-2026-05-18",
-  "title": "printroom.co.uk",
-  "group": "safepay",
-  "discovered": "2026-05-18T19:55:43.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "GB",
-  "sizeBytes": 0,
-  "description": "Founded in 1977, the company has evolved from a small blueprint-printing business into a large multi-service print agency serving corporate, …",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"safepay-printroom-co-uk-2026-05-18","title":"printroom.co.uk","group":"safepay","discovered":"2026-05-18T19:55:43.000Z","category":"ransomware","severity":"high","country":"GB","sizeBytes":0,"description":"Founded in 1977, the company has evolved from a small blueprint-printing business into a large multi-service print agency serving corporate, …","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

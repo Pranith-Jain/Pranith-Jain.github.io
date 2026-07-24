@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-athens-orthopedic-clinic-2026-06-20",
-  "title": "Athens Orthopedic Clinic",
-  "group": "thegentlemen",
-  "discovered": "2026-06-20T08:50:10.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "***.com zoominfo.com/c/athens-orthopedic-clinic-greensboro/351501009 Athens Orthopedic Clinic, founded in 1966, is a leading specialized medical practice based in Athens, Georgia.The clinic provides specialized orthopedic care, including joint and spine treatments, imaging, and urgent care across multiple local facilities.It is widely recognized for its innovative solutions and patient-centered approach, actively serving the Northeast Georgia community",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-athens-orthopedic-clinic-2026-06-20","title":"Athens Orthopedic Clinic","group":"thegentlemen","discovered":"2026-06-20T08:50:10.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"***.com zoominfo.com/c/athens-orthopedic-clinic-greensboro/351501009 Athens Orthopedic Clinic, founded in 1966, is a leading specialized medical practice based in Athens, Georgia.The clinic provides specialized orthopedic care, including joint and spine treatments, imaging, and urgent care across multiple local facilities.It is widely recognized for its innovative solutions and patient-centered approach, actively serving the Northeast Georgia community","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Healthcare","references":["ransomware.live"]}

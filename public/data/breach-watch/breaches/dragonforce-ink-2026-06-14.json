@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-ink-2026-06-14",
-  "title": "Ink",
-  "group": "dragonforce",
-  "discovered": "2026-06-14T10:53:39.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "GB",
-  "sizeBytes": 0,
-  "description": "(including internal documentation, counterparties, contractors, software, correspondence, and the like) INK is an award-winning production studio based in London specialising in CGI, Animation and Retouching. We combine the technical and the beautiful to bring ideas to life across film, print and interactive platforms.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-ink-2026-06-14","title":"Ink","group":"dragonforce","discovered":"2026-06-14T10:53:39.000Z","category":"ransomware","severity":"critical","country":"GB","sizeBytes":0,"description":"(including internal documentation, counterparties, contractors, software, correspondence, and the like) INK is an award-winning production studio based in London specialising in CGI, Animation and Retouching. We combine the technical and the beautiful to bring ideas to life across film, print and interactive platforms.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Professional Services","references":["ransomware.live"]}

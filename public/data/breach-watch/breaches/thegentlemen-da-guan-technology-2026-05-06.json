@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-da-guan-technology-2026-05-06",
-  "title": "Da Guan Technology",
-  "group": "thegentlemen",
-  "discovered": "2026-05-06T13:36:03.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "TW",
-  "sizeBytes": 0,
-  "description": "daguan-tech.com.tw Da Guan Technology serves as the official distributor of two major brands: Mitsubishi Electric (Japan) and Lifegear (Taiwan) — offering a full range of products including heat recovery ventilators (HRV), bathroom warm-air dryers, ultra-quiet exhaust fans, circulation fans, and fresh-air systems. Their primary sales channels include construction companies, interior designers, plumbing distributors, and premium bathroom retailers",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-da-guan-technology-2026-05-06","title":"Da Guan Technology","group":"thegentlemen","discovered":"2026-05-06T13:36:03.000Z","category":"ransomware","severity":"critical","country":"TW","sizeBytes":0,"description":"daguan-tech.com.tw Da Guan Technology serves as the official distributor of two major brands: Mitsubishi Electric (Japan) and Lifegear (Taiwan) — offering a full range of products including heat recovery ventilators (HRV), bathroom warm-air dryers, ultra-quiet exhaust fans, circulation fans, and fresh-air systems. Their primary sales channels include construction companies, interior designers, plumbing distributors, and premium bathroom retailers","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Technology","references":["ransomware.live"]}

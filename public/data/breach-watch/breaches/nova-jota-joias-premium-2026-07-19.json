@@ -1,15 +1,1 @@
-{
-  "slug": "nova-jota-joias-premium-2026-07-19",
-  "title": "Jota Joias Premium",
-  "group": "nova",
-  "discovered": "2026-07-19T18:07:22.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "BR",
-  "sizeBytes": 0,
-  "description": "Jota Joias Premium is a Brazilian online jewelry retailer specializing in 18K gold jewelry, wedding rings, watches, silver accessories, and luxury gifts - Nova Provide tree and samples from stolen data to the company when its get in touch with support department.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"nova-jota-joias-premium-2026-07-19","title":"Jota Joias Premium","group":"nova","discovered":"2026-07-19T18:07:22.000Z","category":"ransomware","severity":"high","country":"BR","sizeBytes":0,"description":"Jota Joias Premium is a Brazilian online jewelry retailer specializing in 18K gold jewelry, wedding rings, watches, silver accessories, and luxury gifts - Nova Provide tree and samples from stolen data to the company when its get in touch with support department.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

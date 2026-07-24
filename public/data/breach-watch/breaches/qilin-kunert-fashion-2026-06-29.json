@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-kunert-fashion-2026-06-29",
-  "title": "Kunert Fashion",
-  "group": "qilin",
-  "discovered": "2026-06-29T17:34:03.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-kunert-fashion-2026-06-29","title":"Kunert Fashion","group":"qilin","discovered":"2026-06-29T17:34:03.000Z","category":"ransomware","severity":"critical","country":"DE","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

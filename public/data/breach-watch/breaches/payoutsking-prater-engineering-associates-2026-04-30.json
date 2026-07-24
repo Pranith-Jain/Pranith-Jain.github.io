@@ -1,15 +1,1 @@
-{
-  "slug": "payoutsking-prater-engineering-associates-2026-04-30",
-  "title": "Prater Engineering Associates",
-  "group": "payoutsking",
-  "discovered": "2026-04-30T00:56:29.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "[AI generated] N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"payoutsking-prater-engineering-associates-2026-04-30","title":"Prater Engineering Associates","group":"payoutsking","discovered":"2026-04-30T00:56:29.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"[AI generated] N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

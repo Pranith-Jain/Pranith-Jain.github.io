@@ -1,15 +1,1 @@
-{
-  "slug": "akira-nesco-bus-maintenance-2026-07-17",
-  "title": "Nesco Bus Maintenance",
-  "group": "akira",
-  "discovered": "2026-07-17T12:22:42.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Nesco Bus specializes in manufacturing and maintaining a wide range of buses, including school,\nchildcare, activity, commercial, and specialty buses. With over three decades of experience, t\nhey are committed to providing exceptional customer support and ensuring the safety and comfort\nof their passengers.\n\nWe will upload 26gb of corporate data soon. Employee personal information (DL scans and so on),\ncontracts and agreements, customer info, payment details and other financial docs, etc.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Megazord"],
-  "activity": "Transportation/Logistics",
-  "references": ["ransomware.live"]
-}
+{"slug":"akira-nesco-bus-maintenance-2026-07-17","title":"Nesco Bus Maintenance","group":"akira","discovered":"2026-07-17T12:22:42.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Nesco Bus specializes in manufacturing and maintaining a wide range of buses, including school,\nchildcare, activity, commercial, and specialty buses. With over three decades of experience, t\nhey are committed to providing exceptional customer support and ensuring the safety and comfort\nof their passengers.\n\nWe will upload 26gb of corporate data soon. Employee personal information (DL scans and so on),\ncontracts and agreements, customer info, payment details and other financial docs, etc.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Transportation","references":["ransomware.live"]}

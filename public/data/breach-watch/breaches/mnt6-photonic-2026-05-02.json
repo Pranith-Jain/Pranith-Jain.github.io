@@ -1,15 +1,1 @@
-{
-  "slug": "mnt6-photonic-2026-05-02",
-  "title": "Photonic",
-  "group": "mnt6",
-  "discovered": "2026-05-02T19:54:41.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "CA",
-  "sizeBytes": 0,
-  "description": "Photonic is delivering scalable, distributed, and fault-tolerant quantum computing and networking technologies. With proven silicon spin qubits, and a native telecom networking interface, Photonic will deliver solutions for previously intractable problems –and unlock solutions for tomorrow’s problem sets. [Revenue: $32.6M]",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"mnt6-photonic-2026-05-02","title":"Photonic","group":"mnt6","discovered":"2026-05-02T19:54:41.000Z","category":"data_breach","severity":"high","country":"CA","sizeBytes":0,"description":"Photonic is delivering scalable, distributed, and fault-tolerant quantum computing and networking technologies. With proven silicon spin qubits, and a native telecom networking interface, Photonic will deliver solutions for previously intractable problems –and unlock solutions for tomorrow’s problem sets. [Revenue: $32.6M]","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

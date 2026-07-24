@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-heritage-mechanical-llc-2026-07-15",
-  "title": "Heritage Mechanical LLC",
-  "group": "dragonforce",
-  "discovered": "2026-07-15T13:53:20.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Built on a family legacy of proud steamfitters dating back to over 100 years, Heritage Mechanical was established in 2012 to provide quality mechanical service to the commercial construction industry. Opening its doors with only three employees and a master plan, the company has since grown rapidly to become one of the fastest growing mechanical construction firms serving the DMV.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-heritage-mechanical-llc-2026-07-15","title":"Heritage Mechanical LLC","group":"dragonforce","discovered":"2026-07-15T13:53:20.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Built on a family legacy of proud steamfitters dating back to over 100 years, Heritage Mechanical was established in 2012 to provide quality mechanical service to the commercial construction industry. Opening its doors with only three employees and a master plan, the company has since grown rapidly to become one of the fastest growing mechanical construction firms serving the DMV.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Professional Services","references":["ransomware.live"]}

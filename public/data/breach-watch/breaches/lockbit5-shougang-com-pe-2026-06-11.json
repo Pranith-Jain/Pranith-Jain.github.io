@@ -1,15 +1,1 @@
-{
-  "slug": "lockbit5-shougang-com-pe-2026-06-11",
-  "title": "shougang.com.pe",
-  "group": "lockbit5",
-  "discovered": "2026-06-11T07:21:49.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "PE",
-  "sizeBytes": 0,
-  "description": "SHOUGANG HIERRO PERU S.A.A. is a civil association focused on iron production. The company is involv...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"lockbit5-shougang-com-pe-2026-06-11","title":"shougang.com.pe","group":"lockbit5","discovered":"2026-06-11T07:21:49.000Z","category":"ransomware","severity":"high","country":"PE","sizeBytes":0,"description":"SHOUGANG HIERRO PERU S.A.A. is a civil association focused on iron production. The company is involv...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

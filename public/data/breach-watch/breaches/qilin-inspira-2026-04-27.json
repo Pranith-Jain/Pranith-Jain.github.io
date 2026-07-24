@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-inspira-2026-04-27",
-  "title": "Inspira",
-  "group": "qilin",
-  "discovered": "2026-04-27T07:48:31.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "PR",
-  "sizeBytes": 0,
-  "description": null,
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-inspira-2026-04-27","title":"Inspira","group":"qilin","discovered":"2026-04-27T07:48:31.000Z","category":"ransomware","severity":"critical","country":"PR","sizeBytes":0,"description":null,"source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

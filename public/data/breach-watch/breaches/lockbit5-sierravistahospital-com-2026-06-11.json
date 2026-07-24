@@ -1,15 +1,1 @@
-{
-  "slug": "lockbit5-sierravistahospital-com-2026-06-11",
-  "title": "sierravistahospital.com",
-  "group": "lockbit5",
-  "discovered": "2026-06-11T07:13:50.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Sierra Vista Hospital is a private behavioral health facility located in Sacramento, California, off...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"lockbit5-sierravistahospital-com-2026-06-11","title":"sierravistahospital.com","group":"lockbit5","discovered":"2026-06-11T07:13:50.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Sierra Vista Hospital is a private behavioral health facility located in Sacramento, California, off...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

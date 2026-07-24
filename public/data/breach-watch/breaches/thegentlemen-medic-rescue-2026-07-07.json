@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-medic-rescue-2026-07-07",
-  "title": "Medic Rescue",
-  "group": "thegentlemen",
-  "discovered": "2026-07-07T18:34:56.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "https://www.***.org/ https://www.zoominfo.com/c/medic-rescue/47367866 Medic Rescue Services has been providing trusted emergency medical services to Beaver County since 1978. They offer a range of services including on-site emergency care, non-emergency transports, stretcher van trips, and wheelchair van services, all available 24/7. Their dedicated team and extensive fleet ensure swift and effective responses to medical needs. Medic Rescue aims to prioritize health and safety while fostering community trust through their reliable service",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-medic-rescue-2026-07-07","title":"Medic Rescue","group":"thegentlemen","discovered":"2026-07-07T18:34:56.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"https://www.***.org/ https://www.zoominfo.com/c/medic-rescue/47367866 Medic Rescue Services has been providing trusted emergency medical services to Beaver County since 1978. They offer a range of services including on-site emergency care, non-emergency transports, stretcher van trips, and wheelchair van services, all available 24/7. Their dedicated team and extensive fleet ensure swift and effective responses to medical needs. Medic Rescue aims to prioritize health and safety while fostering community trust through their reliable service","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Healthcare","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "spacebears-smilepoint-dental-group-2026-05-12",
-  "title": "SmilePoint Dental Group",
-  "group": "spacebears",
-  "discovered": "2026-05-12T04:55:31.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "SmilePoint Dental Group is a fast-growing dental organization operating 26–28 offices across Texas and New Mexico.The group runs multiple family dental clinics and orthodontics practices in smaller communities under various brands such as Crosby Family Dental, Liberty Family Dental, Jasper Family Dental, SmilePoint Dental, and others.They offer comprehensive services including general dentistry, orthodontics, cosmetic care, implants, and preventive treatments with modern equipment.- Patient database with social security numbers and medical histories- Access to the local EagleSoft database- Financial reportsThe data provided will allow you to deploy the company's database on any PC with full access to SmilePoint's EagleSoft functionality. https://www.smilepoint.us",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["space bears"],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"spacebears-smilepoint-dental-group-2026-05-12","title":"SmilePoint Dental Group","group":"spacebears","discovered":"2026-05-12T04:55:31.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"SmilePoint Dental Group is a fast-growing dental organization operating 26–28 offices across Texas and New Mexico.The group runs multiple family dental clinics and orthodontics practices in smaller communities under various brands such as Crosby Family Dental, Liberty Family Dental, Jasper Family Dental, SmilePoint Dental, and others.They offer comprehensive services including general dentistry, orthodontics, cosmetic care, implants, and preventive treatments with modern equipment.- Patient database with social security numbers and medical histories- Access to the local EagleSoft database- Financial reportsThe data provided will allow you to deploy the company's database on any PC with full access to SmilePoint's EagleSoft functionality. https://www.smilepoint.us","source_url":"https://www.ransomware.live/","groupAliases":["space bears"],"activity":"Healthcare","references":["ransomware.live"]}

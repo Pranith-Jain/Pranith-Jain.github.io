@@ -1,15 +1,1 @@
-{
-  "slug": "pear-indian-creek-valley-water-authority-2026-05-20",
-  "title": "Indian Creek Valley Water Authority",
-  "group": "pear",
-  "discovered": "2026-05-20T13:25:27.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Indian Creek Valley Water Authority",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Public Sector",
-  "references": ["ransomware.live"]
-}
+{"slug":"pear-indian-creek-valley-water-authority-2026-05-20","title":"Indian Creek Valley Water Authority","group":"pear","discovered":"2026-05-20T13:25:27.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Indian Creek Valley Water Authority","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Government & Defense","references":["ransomware.live"]}

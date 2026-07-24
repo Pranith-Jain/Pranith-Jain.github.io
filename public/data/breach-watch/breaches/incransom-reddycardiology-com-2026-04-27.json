@@ -1,15 +1,1 @@
-{
-  "slug": "incransom-reddycardiology-com-2026-04-27",
-  "title": "reddycardiology.com",
-  "group": "incransom",
-  "discovered": "2026-04-27T07:38:14.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Reddy Cardiology provides comprehensive cardiovascular care and diabetes management services in Sugar Land, TX. The clinic specializes in the prevention and treatment of heart disease, high blood pressure, and diabetes, utilizing state-of-the-art technology and personalized treatment plans. Their intended clients include adult patients referred by primary physicians for various cardiac symptoms and those seeking preventive care. Reddy Cardiology also offers a unique diet plan, the Reddy Diet, aimed at promoting heart health and managing diabetes.\r Employees: 50\r Revenue: $5 Million\r Industry: Hospitals & Physicians Clinics\r Phone Number: (281) 491-0044",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["inc ransom", "INC"],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"incransom-reddycardiology-com-2026-04-27","title":"reddycardiology.com","group":"incransom","discovered":"2026-04-27T07:38:14.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Reddy Cardiology provides comprehensive cardiovascular care and diabetes management services in Sugar Land, TX. The clinic specializes in the prevention and treatment of heart disease, high blood pressure, and diabetes, utilizing state-of-the-art technology and personalized treatment plans. Their intended clients include adult patients referred by primary physicians for various cardiac symptoms and those seeking preventive care. Reddy Cardiology also offers a unique diet plan, the Reddy Diet, aimed at promoting heart health and managing diabetes.\r Employees: 50\r Revenue: $5 Million\r Industry: Hospitals & Physicians Clinics\r Phone Number: (281) 491-0044","source_url":"https://www.ransomware.live/","groupAliases":["inc ransom","INC"],"activity":"Healthcare","references":["ransomware.live"]}

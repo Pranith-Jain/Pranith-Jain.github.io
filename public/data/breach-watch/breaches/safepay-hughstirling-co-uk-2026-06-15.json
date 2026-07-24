@@ -1,15 +1,1 @@
-{
-  "slug": "safepay-hughstirling-co-uk-2026-06-15",
-  "title": "hughstirling.co.uk",
-  "group": "safepay",
-  "discovered": "2026-06-15T19:27:35.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "Headquartered in Goslar, Lower Saxony, the firm has been operating since 1975 and has expanded its presence through additional offices …",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"safepay-hughstirling-co-uk-2026-06-15","title":"hughstirling.co.uk","group":"safepay","discovered":"2026-06-15T19:27:35.000Z","category":"ransomware","severity":"high","country":"DE","sizeBytes":0,"description":"Headquartered in Goslar, Lower Saxony, the firm has been operating since 1975 and has expanded its presence through additional offices …","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

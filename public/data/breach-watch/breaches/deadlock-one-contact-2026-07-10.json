@@ -1,15 +1,1 @@
-{
-  "slug": "deadlock-one-contact-2026-07-10",
-  "title": "ONE Contact",
-  "group": "Deadlock",
-  "discovered": "2026-07-10T13:04:35.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "SE",
-  "sizeBytes": 0,
-  "description": "ONE Contact is a Swedish-managed contact center located in Barcelona, Spain, offering customer service, telemarketing, and retention strategies targeted at the Scandinavian market. Services include 1st/2nd line support and digital customer service solutions, with a physical office located on Calle Padilla in Barcelona.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"deadlock-one-contact-2026-07-10","title":"ONE Contact","group":"Deadlock","discovered":"2026-07-10T13:04:35.000Z","category":"ransomware","severity":"critical","country":"SE","sizeBytes":0,"description":"ONE Contact is a Swedish-managed contact center located in Barcelona, Spain, offering customer service, telemarketing, and retention strategies targeted at the Scandinavian market. Services include 1st/2nd line support and digital customer service solutions, with a physical office located on Calle Padilla in Barcelona.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "anubis-jeffrey-burr-2026-06-05",
-  "title": "Jeffrey Burr",
-  "group": "anubis",
-  "discovered": "2026-06-05T22:20:38.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "[www.jeffreyburr.com]",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"anubis-jeffrey-burr-2026-06-05","title":"Jeffrey Burr","group":"anubis","discovered":"2026-06-05T22:20:38.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"[www.jeffreyburr.com]","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

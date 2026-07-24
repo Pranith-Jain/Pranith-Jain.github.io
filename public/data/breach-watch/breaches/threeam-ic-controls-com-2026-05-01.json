@@ -1,15 +1,1 @@
-{
-  "slug": "threeam-ic-controls-com-2026-05-01",
-  "title": "ic-controls.com",
-  "group": "threeam",
-  "discovered": "2026-05-01T13:32:59.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "Industrial Controls SAC, desde 1994 ofrece a nivel nacional, desarrollo e implementación de proyectos integrales y soluciones en electricidad, instrumentación, neumática y automatización industrial.\nDe la mano con nuestros socios de negocios brind",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"threeam-ic-controls-com-2026-05-01","title":"ic-controls.com","group":"threeam","discovered":"2026-05-01T13:32:59.000Z","category":"ransomware","severity":"high","country":"DE","sizeBytes":0,"description":"Industrial Controls SAC, desde 1994 ofrece a nivel nacional, desarrollo e implementación de proyectos integrales y soluciones en electricidad, instrumentación, neumática y automatización industrial.\nDe la mano con nuestros socios de negocios brind","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

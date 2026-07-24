@@ -1,15 +1,1 @@
-{
-  "slug": "gunra-somafix-2026-05-29",
-  "title": "SOMAFIX",
-  "group": "gunra",
-  "discovered": "2026-05-29T11:53:33.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "FR",
-  "sizeBytes": 0,
-  "description": "[AI generated] N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["ransomware.live"]
-}
+{"slug":"gunra-somafix-2026-05-29","title":"SOMAFIX","group":"gunra","discovered":"2026-05-29T11:53:33.000Z","category":"data_breach","severity":"high","country":"FR","sizeBytes":0,"description":"[AI generated] N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

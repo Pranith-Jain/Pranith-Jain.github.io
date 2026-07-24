@@ -1,15 +1,1 @@
-{
-  "slug": "braincipher-robroy-com-2026-07-09",
-  "title": "robroy.com",
-  "group": "BrainCipher",
-  "discovered": "2026-07-09T15:21:13.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "[AI generated] Rob Roy Industries, operating through robroy.com, is a US-based manufacturer specializing in electrical conduit systems and enclosures. The company produces PVC-coated steel conduit, fiberglass conduit, and industrial enclosures used in corrosive and hazardous environments. Headquartered in Verona, Pennsylvania, Rob Roy serves industries such as oil and gas, chemical processing, wastewater treatment, and utilities, providing durable electrical protection solutions across North America.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["brain cipher"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"braincipher-robroy-com-2026-07-09","title":"robroy.com","group":"BrainCipher","discovered":"2026-07-09T15:21:13.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"[AI generated] Rob Roy Industries, operating through robroy.com, is a US-based manufacturer specializing in electrical conduit systems and enclosures. The company produces PVC-coated steel conduit, fiberglass conduit, and industrial enclosures used in corrosive and hazardous environments. Headquartered in Verona, Pennsylvania, Rob Roy serves industries such as oil and gas, chemical processing, wastewater treatment, and utilities, providing durable electrical protection solutions across North America.","source_url":"https://www.ransomware.live/","groupAliases":["brain cipher"],"activity":"Manufacturing","references":["ransomware.live"]}

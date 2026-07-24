@@ -1,15 +1,1 @@
-{
-  "slug": "krybit-weiss-pm-de-2026-04-30",
-  "title": "weiss-pm.de",
-  "group": "krybit",
-  "discovered": "2026-04-30T14:23:41.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "WEISS PM: The ideal company for tailored recruitment solutions. For nearly 40 years, WEISS PM has been a trusted partner...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"krybit-weiss-pm-de-2026-04-30","title":"weiss-pm.de","group":"krybit","discovered":"2026-04-30T14:23:41.000Z","category":"ransomware","severity":"high","country":"DE","sizeBytes":0,"description":"WEISS PM: The ideal company for tailored recruitment solutions. For nearly 40 years, WEISS PM has been a trusted partner...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

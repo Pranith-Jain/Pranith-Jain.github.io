@@ -1,15 +1,1 @@
-{
-  "slug": "cmdorganization-houston-eye-associates-2026-05-14",
-  "title": "Houston Eye Associates",
-  "group": "cmdorganization",
-  "discovered": "2026-05-14T20:20:09.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Houston Eye Associates is a team of board-certified ophthalmologists and board-licensed optometrists with advanced fellowship and specialty training in the fields of ophthalmology and optometry. With 20 locations across Greater Houston, there is a location near you.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["cmd organization"],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"cmdorganization-houston-eye-associates-2026-05-14","title":"Houston Eye Associates","group":"cmdorganization","discovered":"2026-05-14T20:20:09.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Houston Eye Associates is a team of board-certified ophthalmologists and board-licensed optometrists with advanced fellowship and specialty training in the fields of ophthalmology and optometry. With 20 locations across Greater Houston, there is a location near you.","source_url":"https://www.ransomware.live/","groupAliases":["cmd organization"],"activity":"Healthcare","references":["ransomware.live"]}

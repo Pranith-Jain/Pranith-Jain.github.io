@@ -1,15 +1,1 @@
-{
-  "slug": "threeam-jastrebarsko-hr-2026-06-12",
-  "title": "jastrebarsko.hr",
-  "group": "threeam",
-  "discovered": "2026-06-12T20:06:29.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "HR",
-  "sizeBytes": 0,
-  "description": "Town of Jastrebarsko, a historic city in Central Croatia located between Zagreb and Karlovac.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"threeam-jastrebarsko-hr-2026-06-12","title":"jastrebarsko.hr","group":"threeam","discovered":"2026-06-12T20:06:29.000Z","category":"ransomware","severity":"high","country":"HR","sizeBytes":0,"description":"Town of Jastrebarsko, a historic city in Central Croatia located between Zagreb and Karlovac.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Government & Defense","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "safepay-jaecklin-industrial-de-2026-07-20",
-  "title": "jaecklin-industrial.de",
-  "group": "safepay",
-  "discovered": "2026-07-20T19:06:29.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "Founded in 1935 by Julius Jäcklin, the company has developed from a regional machine repair workshop into a globally recognized …",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"safepay-jaecklin-industrial-de-2026-07-20","title":"jaecklin-industrial.de","group":"safepay","discovered":"2026-07-20T19:06:29.000Z","category":"ransomware","severity":"high","country":"DE","sizeBytes":0,"description":"Founded in 1935 by Julius Jäcklin, the company has developed from a regional machine repair workshop into a globally recognized …","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

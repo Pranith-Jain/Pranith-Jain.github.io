@@ -1,15 +1,1 @@
-{
-  "slug": "krybit-theorangeblowfish-com-2026-06-15",
-  "title": "theorangeblowfish.com",
-  "group": "krybit",
-  "discovered": "2026-06-15T11:52:22.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "The Orangeblowfish is an award-winning independent creative and branding agency founded in 2012 by Natalie Lowe, headqua...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"krybit-theorangeblowfish-com-2026-06-15","title":"theorangeblowfish.com","group":"krybit","discovered":"2026-06-15T11:52:22.000Z","category":"ransomware","severity":"high","country":null,"sizeBytes":0,"description":"The Orangeblowfish is an award-winning independent creative and branding agency founded in 2012 by Natalie Lowe, headqua...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

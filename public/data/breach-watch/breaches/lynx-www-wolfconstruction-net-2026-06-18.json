@@ -1,15 +1,1 @@
-{
-  "slug": "lynx-www-wolfconstruction-net-2026-06-18",
-  "title": "www.wolfconstruction.net",
-  "group": "lynx",
-  "discovered": "2026-06-18T05:53:31.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Wolf Construction Services, Inc specializes in commercial wood framing, framing carpentry, wood trims, trim carpentry, and pitched roofing. The company also offers residential re-roofing services in Des Moines and Central Iowa. Their intended clients include both commercial and residential property owners seeking quality construction services. Wolf Construction is currently hiring to expand their team.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Construction",
-  "references": ["ransomware.live"]
-}
+{"slug":"lynx-www-wolfconstruction-net-2026-06-18","title":"www.wolfconstruction.net","group":"lynx","discovered":"2026-06-18T05:53:31.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Wolf Construction Services, Inc specializes in commercial wood framing, framing carpentry, wood trims, trim carpentry, and pitched roofing. The company also offers residential re-roofing services in Des Moines and Central Iowa. Their intended clients include both commercial and residential property owners seeking quality construction services. Wolf Construction is currently hiring to expand their team.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

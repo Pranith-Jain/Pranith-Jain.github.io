@@ -1,15 +1,1 @@
-{
-  "slug": "braincipher-printronix-com-2026-07-01",
-  "title": "printronix.com",
-  "group": "BrainCipher",
-  "discovered": "2026-07-01T15:50:32.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "[AI generated] Printronix is a US-based company specializing in industrial printing solutions. Founded in 1974 and headquartered in Irvine, California, it manufactures line matrix printers, thermal printers, and related accessories primarily for enterprise and industrial environments. Its products serve industries such as manufacturing, logistics, and supply chain management, offering high-volume, mission-critical printing capabilities used in warehouses and distribution centers worldwide.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["brain cipher"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"braincipher-printronix-com-2026-07-01","title":"printronix.com","group":"BrainCipher","discovered":"2026-07-01T15:50:32.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"[AI generated] Printronix is a US-based company specializing in industrial printing solutions. Founded in 1974 and headquartered in Irvine, California, it manufactures line matrix printers, thermal printers, and related accessories primarily for enterprise and industrial environments. Its products serve industries such as manufacturing, logistics, and supply chain management, offering high-volume, mission-critical printing capabilities used in warehouses and distribution centers worldwide.","source_url":"https://www.ransomware.live/","groupAliases":["brain cipher"],"activity":"Manufacturing","references":["ransomware.live"]}

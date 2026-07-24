@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-le-perreux-sur-marne-2026-05-24",
-  "title": "Le Perreux sur Marne",
-  "group": "thegentlemen",
-  "discovered": "2026-05-24T09:01:59.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "FR",
-  "sizeBytes": 0,
-  "description": "leperreux94.fr official municipal portal of this Parisian suburb, offering residents access to e-services: ID appointment booking, local event calendars, transport schedules, and social programs. The site serves as a central hub for citizen engagement with local government and real-time community updates",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-le-perreux-sur-marne-2026-05-24","title":"Le Perreux sur Marne","group":"thegentlemen","discovered":"2026-05-24T09:01:59.000Z","category":"ransomware","severity":"critical","country":"FR","sizeBytes":0,"description":"leperreux94.fr official municipal portal of this Parisian suburb, offering residents access to e-services: ID appointment booking, local event calendars, transport schedules, and social programs. The site serves as a central hub for citizen engagement with local government and real-time community updates","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Government & Defense","references":["ransomware.live"]}

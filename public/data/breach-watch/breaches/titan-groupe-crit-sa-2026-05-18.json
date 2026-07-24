@@ -1,15 +1,1 @@
-{
-  "slug": "titan-groupe-crit-sa-2026-05-18",
-  "title": "Groupe CRIT SA",
-  "group": "titan",
-  "discovered": "2026-05-18T17:57:18.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "FR",
-  "sizeBytes": 0,
-  "description": "[AI generated] Groupe CRIT SA is a French multinational staffing and recruitment company headquartered in Paris, France. Founded in 1962, it operates in the human resources and temporary employment industry, providing workforce solutions including temporary staffing, permanent recruitment, and outsourcing services. The group serves various sectors such as industry, transport, logistics, and construction, operating across France and internationally in several European and African markets.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"titan-groupe-crit-sa-2026-05-18","title":"Groupe CRIT SA","group":"titan","discovered":"2026-05-18T17:57:18.000Z","category":"ransomware","severity":"high","country":"FR","sizeBytes":0,"description":"[AI generated] Groupe CRIT SA is a French multinational staffing and recruitment company headquartered in Paris, France. Founded in 1962, it operates in the human resources and temporary employment industry, providing workforce solutions including temporary staffing, permanent recruitment, and outsourcing services. The group serves various sectors such as industry, transport, logistics, and construction, operating across France and internationally in several European and African markets.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

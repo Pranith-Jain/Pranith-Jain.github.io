@@ -1,15 +1,1 @@
-{
-  "slug": "deadlock-weinberg-93-p-t-kft-2026-07-10",
-  "title": "Weinberg ''93 Építő Kft.",
-  "group": "Deadlock",
-  "discovered": "2026-07-10T13:14:50.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "HU",
-  "sizeBytes": 0,
-  "description": "Weinberg ''93 Építő Kft., a prominent Hungarian construction and steel fabrication company. Overview: Founded in 1993 and headquartered in Sбrospatak, it is a 100% privately owned Hungarian company. Core Services: The firm specializes in general contracting and the manufacture of complex steel structures. Major Projects: They have handled significant industrial developments, including: - Volvo Trucks Hungary: Completed a 5,500 mІ advanced truck center in Ecser. - Continental Automotive: Construction of electronics manufacturing plants. - East Gate PRO Business Park: Developed BREEAM-certified sustainable warehouses. - Becton Dickinson: Expansion of a major syringe factory in Hungary. Recognitions: The company has received numerous awards, such as the Lechner Цdцn Award (2024) and the Steel Structure Award (2022). Over 650 gigabytes of sensitive internal data were stolen from this company: all commercial information about contractors, information about specialized construction technologies and metal structure production, internal financial transactions, and operations demonstrating corruption in construction projects. We invite all journalists, lawyers, and law enforcement agencies to review this information.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Construction",
-  "references": ["ransomware.live"]
-}
+{"slug":"deadlock-weinberg-93-p-t-kft-2026-07-10","title":"Weinberg ''93 Építő Kft.","group":"Deadlock","discovered":"2026-07-10T13:14:50.000Z","category":"ransomware","severity":"critical","country":"HU","sizeBytes":0,"description":"Weinberg ''93 Építő Kft., a prominent Hungarian construction and steel fabrication company. Overview: Founded in 1993 and headquartered in Sбrospatak, it is a 100% privately owned Hungarian company. Core Services: The firm specializes in general contracting and the manufacture of complex steel structures. Major Projects: They have handled significant industrial developments, including: - Volvo Trucks Hungary: Completed a 5,500 mІ advanced truck center in Ecser. - Continental Automotive: Construction of electronics manufacturing plants. - East Gate PRO Business Park: Developed BREEAM-certified sustainable warehouses. - Becton Dickinson: Expansion of a major syringe factory in Hungary. Recognitions: The company has received numerous awards, such as the Lechner Цdцn Award (2024) and the Steel Structure Award (2022). Over 650 gigabytes of sensitive internal data were stolen from this company: all commercial information about contractors, information about specialized construction technologies and metal structure production, internal financial transactions, and operations demonstrating corruption in construction projects. We invite all journalists, lawyers, and law enforcement agencies to review this information.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

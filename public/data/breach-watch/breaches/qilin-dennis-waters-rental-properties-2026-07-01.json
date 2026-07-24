@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-dennis-waters-rental-properties-2026-07-01",
-  "title": "Dennis Waters Rental Properties",
-  "group": "qilin",
-  "discovered": "2026-07-01T13:18:51.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "GB",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-dennis-waters-rental-properties-2026-07-01","title":"Dennis Waters Rental Properties","group":"qilin","discovered":"2026-07-01T13:18:51.000Z","category":"ransomware","severity":"critical","country":"GB","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

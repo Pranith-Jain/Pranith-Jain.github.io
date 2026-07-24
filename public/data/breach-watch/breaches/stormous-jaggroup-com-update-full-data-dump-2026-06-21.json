@@ -1,15 +1,1 @@
-{
-  "slug": "stormous-jaggroup-com-update-full-data-dump-2026-06-21",
-  "title": "jaggroup.com UPDATE-FULL DATA DUMP",
-  "group": "stormous",
-  "discovered": "2026-06-21T13:36:57.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Full database containing corporate emails (⁠@jaggroup.com⁠), Active Directory domain logins, and clear plain-text passwords.Complete Microsoft Dynamics GP databases, software license keys, financial reports, and system configuration Multiple compressed archives (⁠zBackups.zip⁠, ⁠wetransfer⁠ packages), SQL server connection data, and ⁠IM.mdb⁠ database files.Internal project management sheets (⁠Jag Project.xlsx⁠), user listings, purchasing, and sales import logs.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"stormous-jaggroup-com-update-full-data-dump-2026-06-21","title":"jaggroup.com UPDATE-FULL DATA DUMP","group":"stormous","discovered":"2026-06-21T13:36:57.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"Full database containing corporate emails (⁠@jaggroup.com⁠), Active Directory domain logins, and clear plain-text passwords.Complete Microsoft Dynamics GP databases, software license keys, financial reports, and system configuration Multiple compressed archives (⁠zBackups.zip⁠, ⁠wetransfer⁠ packages), SQL server connection data, and ⁠IM.mdb⁠ database files.Internal project management sheets (⁠Jag Project.xlsx⁠), user listings, purchasing, and sales import logs.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Not Found","references":["ransomware.live"]}

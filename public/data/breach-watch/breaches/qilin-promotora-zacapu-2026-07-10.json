@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-promotora-zacapu-2026-07-10",
-  "title": "Promotora Zacapu",
-  "group": "qilin",
-  "discovered": "2026-07-10T13:26:34.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "MX",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-promotora-zacapu-2026-07-10","title":"Promotora Zacapu","group":"qilin","discovered":"2026-07-10T13:26:34.000Z","category":"ransomware","severity":"critical","country":"MX","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Agriculture and Food Production","references":["ransomware.live"]}

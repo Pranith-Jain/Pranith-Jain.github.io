@@ -1,15 +1,1 @@
-{
-  "slug": "nova-alejandria-2026-06-24",
-  "title": "alejandria",
-  "group": "nova",
-  "discovered": "2026-06-24T14:53:39.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Alexandria is a platform that facilitates the development and implementation of well-designed teleinformation systems from the point of view of Information Architecture, which arises from the fusion of knowledge of information sciences (library science, archival science, document management, information networks, etc.)",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"nova-alejandria-2026-06-24","title":"alejandria","group":"nova","discovered":"2026-06-24T14:53:39.000Z","category":"ransomware","severity":"high","country":null,"sizeBytes":0,"description":"Alexandria is a platform that facilitates the development and implementation of well-designed teleinformation systems from the point of view of Information Architecture, which arises from the fusion of knowledge of information sciences (library science, archival science, document management, information networks, etc.)","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Not Found","references":["ransomware.live"]}

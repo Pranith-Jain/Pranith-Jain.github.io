@@ -1,15 +1,1 @@
-{
-  "slug": "moneymessage-x-copper-professional-2026-07-02",
-  "title": "X-Copper Professional",
-  "group": "moneymessage",
-  "discovered": "2026-07-02T09:55:44.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "[AI generated] X-Copper Professional is a Canadian legal and paralegal services firm specializing in traffic ticket defense and driving-related legal matters. Based in Ontario, Canada, the company represents clients facing speeding tickets, careless driving charges, and other Highway Traffic Act violations. It employs licensed paralegals and lawyers to help clients reduce or dismiss charges, minimizing fines, demerit points, and insurance premium impacts.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["money message"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"moneymessage-x-copper-professional-2026-07-02","title":"X-Copper Professional","group":"moneymessage","discovered":"2026-07-02T09:55:44.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"[AI generated] X-Copper Professional is a Canadian legal and paralegal services firm specializing in traffic ticket defense and driving-related legal matters. Based in Ontario, Canada, the company represents clients facing speeding tickets, careless driving charges, and other Highway Traffic Act violations. It employs licensed paralegals and lawyers to help clients reduce or dismiss charges, minimizing fines, demerit points, and insurance premium impacts.","source_url":"https://www.ransomware.live/","groupAliases":["money message"],"activity":"Manufacturing","references":["ransomware.live"]}

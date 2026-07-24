@@ -1,15 +1,1 @@
-{
-  "slug": "nova-digipro-2026-07-17",
-  "title": "Digipro",
-  "group": "nova",
-  "discovered": "2026-07-17T01:31:23.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "VN",
-  "sizeBytes": 0,
-  "description": "digipro.com.vn appears to be the website of DIGIPRO TECH JSC (Công ty Cổ phần Phát triển Công nghệ DIGIPRO), a Vietnamese IT company. According to its own website, the company was established in 2020 and is based in Hanoi, Vietnam - Nova Provide tree and samples from stolen data to the company when its get in touch with support department.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"nova-digipro-2026-07-17","title":"Digipro","group":"nova","discovered":"2026-07-17T01:31:23.000Z","category":"ransomware","severity":"high","country":"VN","sizeBytes":0,"description":"digipro.com.vn appears to be the website of DIGIPRO TECH JSC (Công ty Cổ phần Phát triển Công nghệ DIGIPRO), a Vietnamese IT company. According to its own website, the company was established in 2020 and is based in Hanoi, Vietnam - Nova Provide tree and samples from stolen data to the company when its get in touch with support department.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

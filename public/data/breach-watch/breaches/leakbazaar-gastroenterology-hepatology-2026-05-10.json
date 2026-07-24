@@ -1,15 +1,1 @@
-{
-  "slug": "leakbazaar-gastroenterology-hepatology-2026-05-10",
-  "title": "Gastroenterology & Hepatology",
-  "group": "LeakBazaar",
-  "discovered": "2026-05-10T08:57:34.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Full database for sale — 167,303 patients, 124,761 SSN, 49,798 with sensitive diagnoses:\n- 167,303 patients — 124,761 with SSN, 166,402 (99%) with address, 164,296 (98%) with phone, 85,318 (51%) with email\n- 1,093,863 diagnoses (ICD-10), 1,547,142 medications, 186,246 pathology specimens with narrative reports\n- Sensitive (dx + meds): 49,798 patients — 44,861 with SSN. Mental health: 43,902 | Substance/Alcohol: 5,111 | STIs: 2,779 | Cancer: 2,708 | Hepatitis C: 1,906\n- Includes notable individuals (politicians, business people, public figures)",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["leak bazaar"],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"leakbazaar-gastroenterology-hepatology-2026-05-10","title":"Gastroenterology & Hepatology","group":"LeakBazaar","discovered":"2026-05-10T08:57:34.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Full database for sale — 167,303 patients, 124,761 SSN, 49,798 with sensitive diagnoses:\n- 167,303 patients — 124,761 with SSN, 166,402 (99%) with address, 164,296 (98%) with phone, 85,318 (51%) with email\n- 1,093,863 diagnoses (ICD-10), 1,547,142 medications, 186,246 pathology specimens with narrative reports\n- Sensitive (dx + meds): 49,798 patients — 44,861 with SSN. Mental health: 43,902 | Substance/Alcohol: 5,111 | STIs: 2,779 | Cancer: 2,708 | Hepatitis C: 1,906\n- Includes notable individuals (politicians, business people, public figures)","source_url":"https://www.ransomware.live/","groupAliases":["leak bazaar"],"activity":"Healthcare","references":["ransomware.live"]}

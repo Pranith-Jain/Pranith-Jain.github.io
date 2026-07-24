@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-amstel-securities-2026-05-12",
-  "title": "Amstel Securities",
-  "group": "thegentlemen",
-  "discovered": "2026-05-12T19:28:04.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "NL",
-  "sizeBytes": 0,
-  "description": "amstelsecurities.com zoominfo.com/c/amstel-securities-llp/353641962 Amstel Securities is a premier independent brokerage firm founded in 1989, connecting Asian and global markets with 35+ years of expertise in fixed income, equities, and derivatives. As a trusted agency and matched-principal broker, they specialize in Southeast Asian domestic currency bonds, high-yield credit, and G7 markets, serving institutional clients with unbiased execution and deep liquidity. Backed by strategic partnerships with BNY Mellon's Pershing for clearing and custody, they deliver secure, efficient solutions for wealth managers, family offices, and accredited investors worldwide",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Financial Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-amstel-securities-2026-05-12","title":"Amstel Securities","group":"thegentlemen","discovered":"2026-05-12T19:28:04.000Z","category":"ransomware","severity":"critical","country":"NL","sizeBytes":0,"description":"amstelsecurities.com zoominfo.com/c/amstel-securities-llp/353641962 Amstel Securities is a premier independent brokerage firm founded in 1989, connecting Asian and global markets with 35+ years of expertise in fixed income, equities, and derivatives. As a trusted agency and matched-principal broker, they specialize in Southeast Asian domestic currency bonds, high-yield credit, and G7 markets, serving institutional clients with unbiased execution and deep liquidity. Backed by strategic partnerships with BNY Mellon's Pershing for clearing and custody, they deliver secure, efficient solutions for wealth managers, family offices, and accredited investors worldwide","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Financial Services","references":["ransomware.live"]}

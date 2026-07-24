@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-thl-2026-07-14",
-  "title": "THL",
-  "group": "qilin",
-  "discovered": "2026-07-14T19:31:28.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "FI",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-thl-2026-07-14","title":"THL","group":"qilin","discovered":"2026-07-14T19:31:28.000Z","category":"ransomware","severity":"critical","country":"FI","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Not Found","references":["ransomware.live"]}

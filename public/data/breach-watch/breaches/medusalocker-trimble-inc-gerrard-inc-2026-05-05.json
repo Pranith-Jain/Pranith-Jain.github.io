@@ -1,15 +1,1 @@
-{
-  "slug": "medusalocker-trimble-inc-gerrard-inc-2026-05-05",
-  "title": "Trimble Inc / Gerrard Inc",
-  "group": "medusalocker",
-  "discovered": "2026-05-05T20:34:36.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Technology company Trimble (trimble.com) and Gerrard Inc (gerrardinc.com). ~18 Trimble email addresses.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"medusalocker-trimble-inc-gerrard-inc-2026-05-05","title":"Trimble Inc / Gerrard Inc","group":"medusalocker","discovered":"2026-05-05T20:34:36.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Technology company Trimble (trimble.com) and Gerrard Inc (gerrardinc.com). ~18 Trimble email addresses.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

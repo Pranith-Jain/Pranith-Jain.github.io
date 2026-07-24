@@ -1,15 +1,1 @@
-{
-  "slug": "anubis-nachlass-nord-2026-06-25",
-  "title": "Nachlass Nord",
-  "group": "anubis",
-  "discovered": "2026-06-25T17:50:46.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "Inheritance lawyers expose IDs, estate records, and client data.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"anubis-nachlass-nord-2026-06-25","title":"Nachlass Nord","group":"anubis","discovered":"2026-06-25T17:50:46.000Z","category":"ransomware","severity":"high","country":"DE","sizeBytes":0,"description":"Inheritance lawyers expose IDs, estate records, and client data.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

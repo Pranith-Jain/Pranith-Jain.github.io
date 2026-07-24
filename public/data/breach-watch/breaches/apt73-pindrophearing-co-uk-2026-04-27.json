@@ -1,15 +1,1 @@
-{
-  "slug": "apt73-pindrophearing-co-uk-2026-04-27",
-  "title": "pindrophearing.co.uk",
-  "group": "apt73",
-  "discovered": "2026-04-27T16:55:22.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "GB",
-  "sizeBytes": 0,
-  "description": "We’re specialists in the diagnosis and treatment of hearing conditions, but just as important i...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Eraleign"],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"apt73-pindrophearing-co-uk-2026-04-27","title":"pindrophearing.co.uk","group":"apt73","discovered":"2026-04-27T16:55:22.000Z","category":"data_breach","severity":"high","country":"GB","sizeBytes":0,"description":"We’re specialists in the diagnosis and treatment of hearing conditions, but just as important i...","source_url":"https://www.ransomware.live/","groupAliases":["Eraleign"],"activity":"Healthcare","references":["ransomware.live"]}

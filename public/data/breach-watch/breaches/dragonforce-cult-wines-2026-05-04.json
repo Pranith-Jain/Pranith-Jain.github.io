@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-cult-wines-2026-05-04",
-  "title": "Cult Wines",
-  "group": "dragonforce",
-  "discovered": "2026-05-04T11:21:51.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "GB",
-  "sizeBytes": 0,
-  "description": "Cult Wines is revolutionizing the fine wine industry by leveraging expertise, digital platforms, and innovative technology to enhance the buying, selling, investing, and collecting experience for producers and consumers. Their services support the entire life cycle of fine wine, ensuring transparency and secure transactions. Recognizing fine wine as a unique investment, Cult Wine Investment provides clients with a wealth of possibilities, combining heritage with cutting-edge technology to enrich portfolios and enhance lives. Targeting both new generations of wine drinkers and seasoned collectors, Cult Wines aims to build a global community around fine wine appreciation.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Hospitality and Tourism",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-cult-wines-2026-05-04","title":"Cult Wines","group":"dragonforce","discovered":"2026-05-04T11:21:51.000Z","category":"ransomware","severity":"critical","country":"GB","sizeBytes":0,"description":"Cult Wines is revolutionizing the fine wine industry by leveraging expertise, digital platforms, and innovative technology to enhance the buying, selling, investing, and collecting experience for producers and consumers. Their services support the entire life cycle of fine wine, ensuring transparency and secure transactions. Recognizing fine wine as a unique investment, Cult Wine Investment provides clients with a wealth of possibilities, combining heritage with cutting-edge technology to enrich portfolios and enhance lives. Targeting both new generations of wine drinkers and seasoned collectors, Cult Wines aims to build a global community around fine wine appreciation.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Hospitality","references":["ransomware.live"]}

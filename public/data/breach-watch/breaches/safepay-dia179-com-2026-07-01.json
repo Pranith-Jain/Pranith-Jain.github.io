@@ -1,15 +1,1 @@
-{
-  "slug": "safepay-dia179-com-2026-07-01",
-  "title": "dia179.com",
-  "group": "safepay",
-  "discovered": "2026-07-01T20:35:34.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "Founded in 2007, the firm specializes in industrial architecture, logistics facilities, research centers, production plants, and corporate office buildings. Unlike …",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"safepay-dia179-com-2026-07-01","title":"dia179.com","group":"safepay","discovered":"2026-07-01T20:35:34.000Z","category":"ransomware","severity":"high","country":"DE","sizeBytes":0,"description":"Founded in 2007, the firm specializes in industrial architecture, logistics facilities, research centers, production plants, and corporate office buildings. Unlike …","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Not Found","references":["ransomware.live"]}

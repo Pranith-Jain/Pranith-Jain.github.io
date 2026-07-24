@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-delonhampton-com-2026-04-27",
-  "title": "delonhampton.com",
-  "group": "dragonforce",
-  "discovered": "2026-04-27T13:55:01.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "GB",
-  "sizeBytes": 0,
-  "description": "An engineering and consulting firm specializing in civil and structural engineering, program management, and construction, delivering complex infrastructure projects across various sectors, from aviation and roads to water treatment facilities.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-delonhampton-com-2026-04-27","title":"delonhampton.com","group":"dragonforce","discovered":"2026-04-27T13:55:01.000Z","category":"ransomware","severity":"critical","country":"GB","sizeBytes":0,"description":"An engineering and consulting firm specializing in civil and structural engineering, program management, and construction, delivering complex infrastructure projects across various sectors, from aviation and roads to water treatment facilities.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Professional Services","references":["ransomware.live"]}

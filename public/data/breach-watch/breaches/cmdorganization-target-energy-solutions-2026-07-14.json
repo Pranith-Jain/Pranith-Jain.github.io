@@ -1,15 +1,1 @@
-{
-  "slug": "cmdorganization-target-energy-solutions-2026-07-14",
-  "title": "Target Energy Solutions",
-  "group": "cmdorganization",
-  "discovered": "2026-07-14T07:20:25.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "TARGET is a rapidly growing digital oilfield services and solutions company, providing advanced web-based visualization, collaboration and workflow tools to the petrotechnical community. The MEERA platform and its associated products set a new benchmark for the industry, giving teams the ability to work effectively together using the same data sources, regardless of their device, location or domain.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["cmd organization"],
-  "activity": "Energy",
-  "references": ["ransomware.live"]
-}
+{"slug":"cmdorganization-target-energy-solutions-2026-07-14","title":"Target Energy Solutions","group":"cmdorganization","discovered":"2026-07-14T07:20:25.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"TARGET is a rapidly growing digital oilfield services and solutions company, providing advanced web-based visualization, collaboration and workflow tools to the petrotechnical community. The MEERA platform and its associated products set a new benchmark for the industry, giving teams the ability to work effectively together using the same data sources, regardless of their device, location or domain.","source_url":"https://www.ransomware.live/","groupAliases":["cmd organization"],"activity":"Energy & Utilities","references":["ransomware.live"]}

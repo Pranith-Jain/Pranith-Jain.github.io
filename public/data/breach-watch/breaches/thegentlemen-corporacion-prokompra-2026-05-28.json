@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-corporacion-prokompra-2026-05-28",
-  "title": "Corporacion Prokompra",
-  "group": "thegentlemen",
-  "discovered": "2026-05-28T18:53:58.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "VE",
-  "sizeBytes": 0,
-  "description": "***.com/business-directory/company-profiles.corporacion_prokompra_2020_ca.cafb282c8025c52485cccb47942fa6b9.html Corporacion Prokompra 2020, C.A. is a Venezuelan retail company based in Caracas, operating in the department store and general merchandise sector. The company is led by key principal Tsvi Kornbluth Seinfeld and focuses on home products, cosmetics, sporting goods, and novelty items. Registered in the Mercantile Registry of Caracas, it serves local consumers through traditional retail channels. The business combines regional market knowledge with diversified product offerings to meet everyday consumer needs in Venezuela",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-corporacion-prokompra-2026-05-28","title":"Corporacion Prokompra","group":"thegentlemen","discovered":"2026-05-28T18:53:58.000Z","category":"ransomware","severity":"critical","country":"VE","sizeBytes":0,"description":"***.com/business-directory/company-profiles.corporacion_prokompra_2020_ca.cafb282c8025c52485cccb47942fa6b9.html Corporacion Prokompra 2020, C.A. is a Venezuelan retail company based in Caracas, operating in the department store and general merchandise sector. The company is led by key principal Tsvi Kornbluth Seinfeld and focuses on home products, cosmetics, sporting goods, and novelty items. Registered in the Mercantile Registry of Caracas, it serves local consumers through traditional retail channels. The business combines regional market knowledge with diversified product offerings to meet everyday consumer needs in Venezuela","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Professional Services","references":["ransomware.live"]}

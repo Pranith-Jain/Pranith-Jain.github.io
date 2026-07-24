@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-techmar-2026-05-28",
-  "title": "Techmar",
-  "group": "thegentlemen",
-  "discovered": "2026-05-28T18:54:37.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "GB",
-  "sizeBytes": 0,
-  "description": "techmar.com https://www.zoominfo.com/c/techmar-inc/37699777 is a Dutch company specializing in 12 Volt outdoor lighting solutions since 2002. Headquartered in Hengelo, Netherlands, it designs, produces, and supplies lighting fixtures globally.Products serve gardens, landscapes, and commercial applications with a focus on quality and innovation.The brand emphasizes in-house development, sustainability, and reliable low-voltage technology",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-techmar-2026-05-28","title":"Techmar","group":"thegentlemen","discovered":"2026-05-28T18:54:37.000Z","category":"ransomware","severity":"critical","country":"GB","sizeBytes":0,"description":"techmar.com https://www.zoominfo.com/c/techmar-inc/37699777 is a Dutch company specializing in 12 Volt outdoor lighting solutions since 2002. Headquartered in Hengelo, Netherlands, it designs, produces, and supplies lighting fixtures globally.Products serve gardens, landscapes, and commercial applications with a focus on quality and innovation.The brand emphasizes in-house development, sustainability, and reliable low-voltage technology","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Technology","references":["ransomware.live"]}

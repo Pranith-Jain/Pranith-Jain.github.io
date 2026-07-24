@@ -1,15 +1,1 @@
-{
-  "slug": "nightspire-unique-litho-inc-2026-06-08",
-  "title": "Unique Litho, Inc",
-  "group": "nightspire",
-  "discovered": "2026-06-08T12:59:56.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Data is not available now.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["NIGHT SPIRE"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"nightspire-unique-litho-inc-2026-06-08","title":"Unique Litho, Inc","group":"nightspire","discovered":"2026-06-08T12:59:56.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Data is not available now.","source_url":"https://www.ransomware.live/","groupAliases":["NIGHT SPIRE"],"activity":"Manufacturing","references":["ransomware.live"]}

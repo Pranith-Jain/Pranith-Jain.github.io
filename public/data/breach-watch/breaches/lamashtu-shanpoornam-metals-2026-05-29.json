@@ -1,15 +1,1 @@
-{
-  "slug": "lamashtu-shanpoornam-metals-2026-05-29",
-  "title": "Shanpoornam Metals",
-  "group": "lamashtu",
-  "discovered": "2026-05-29T11:23:32.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "MY",
-  "sizeBytes": 0,
-  "description": "Shanpoornam Metals is a metal trading and fabrication company supplying a range of raw and processed metal products to manufacturers and construction firms. They provide custom cutting, processing, and distribution services to meet industrial.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"lamashtu-shanpoornam-metals-2026-05-29","title":"Shanpoornam Metals","group":"lamashtu","discovered":"2026-05-29T11:23:32.000Z","category":"data_breach","severity":"high","country":"MY","sizeBytes":0,"description":"Shanpoornam Metals is a metal trading and fabrication company supplying a range of raw and processed metal products to manufacturers and construction firms. They provide custom cutting, processing, and distribution services to meet industrial.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

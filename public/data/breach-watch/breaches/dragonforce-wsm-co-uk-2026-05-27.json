@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-wsm-co-uk-2026-05-27",
-  "title": "wsm.co.uk",
-  "group": "dragonforce",
-  "discovered": "2026-05-27T15:51:48.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "GB",
-  "sizeBytes": 0,
-  "description": "The firm's core business is focused on UK tax services, which are provided to clients seeking an advisor with not only in-depth knowledge to navigate the country's complex tax system,\nbut also impeccable integrity to ensure optimal tax results.\n\nAt the core of the company is an experienced team of professionals providing expert knowledge and advice on UK tax matters to private and corporate clients – both local, national, and international.\n\nIn the current climate of tightening anti-tax evasion measures, WSM specialists firmly believe in the ethical right of taxpayers to manage their financial affairs – strictly within the law – in a way that minimizes their tax liabilities.\nIn addition to tax services, the firm offers accounting, auditing, insolvency (bankruptcy) support,\ndue diligence, and consulting. Additionally, through its European partner network, Europe Fides,\nthe company assists clients seeking complex, often multi-jurisdictional, advice in developing their overall strategic plans.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-wsm-co-uk-2026-05-27","title":"wsm.co.uk","group":"dragonforce","discovered":"2026-05-27T15:51:48.000Z","category":"ransomware","severity":"critical","country":"GB","sizeBytes":0,"description":"The firm's core business is focused on UK tax services, which are provided to clients seeking an advisor with not only in-depth knowledge to navigate the country's complex tax system,\nbut also impeccable integrity to ensure optimal tax results.\n\nAt the core of the company is an experienced team of professionals providing expert knowledge and advice on UK tax matters to private and corporate clients – both local, national, and international.\n\nIn the current climate of tightening anti-tax evasion measures, WSM specialists firmly believe in the ethical right of taxpayers to manage their financial affairs – strictly within the law – in a way that minimizes their tax liabilities.\nIn addition to tax services, the firm offers accounting, auditing, insolvency (bankruptcy) support,\ndue diligence, and consulting. Additionally, through its European partner network, Europe Fides,\nthe company assists clients seeking complex, often multi-jurisdictional, advice in developing their overall strategic plans.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Professional Services","references":["ransomware.live"]}

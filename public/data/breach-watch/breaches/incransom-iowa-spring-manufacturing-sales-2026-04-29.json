@@ -1,15 +1,1 @@
-{
-  "slug": "incransom-iowa-spring-manufacturing-sales-2026-04-29",
-  "title": "Iowa Spring Manufacturing & Sales",
-  "group": "incransom",
-  "discovered": "2026-04-29T23:23:27.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Iowa Spring \r\n \r\n is a well-established manufacturer specializing in a variety of springs, including those for overhead garage doors, mechanical applications, and agricultural equipment. Founded in 1977 and based in Adel, Iowa, the company has built a strong reputation for quality and reliability in the spring manufacturing industry.\r\n \r\n 2112 Greene Street\r\n P.O. Box 130\r\n Adel, IA 50003, US\r\n \r\n www.iowaspring.com\r\n \r\n Leaked data: 49,4Gb \r\n Accounting, product development and testing, laboratory defect analysis, supply logistics, contracts, NDA, financial indicators, corporate information, and much more",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["inc ransom", "INC"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"incransom-iowa-spring-manufacturing-sales-2026-04-29","title":"Iowa Spring Manufacturing & Sales","group":"incransom","discovered":"2026-04-29T23:23:27.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Iowa Spring \r\n \r\n is a well-established manufacturer specializing in a variety of springs, including those for overhead garage doors, mechanical applications, and agricultural equipment. Founded in 1977 and based in Adel, Iowa, the company has built a strong reputation for quality and reliability in the spring manufacturing industry.\r\n \r\n 2112 Greene Street\r\n P.O. Box 130\r\n Adel, IA 50003, US\r\n \r\n www.iowaspring.com\r\n \r\n Leaked data: 49,4Gb \r\n Accounting, product development and testing, laboratory defect analysis, supply logistics, contracts, NDA, financial indicators, corporate information, and much more","source_url":"https://www.ransomware.live/","groupAliases":["inc ransom","INC"],"activity":"Manufacturing","references":["ransomware.live"]}

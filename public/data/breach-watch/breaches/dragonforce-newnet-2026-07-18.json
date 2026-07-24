@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-newnet-2026-07-18",
-  "title": "NewNet",
-  "group": "dragonforce",
-  "discovered": "2026-07-18T11:59:18.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "SA",
-  "sizeBytes": 0,
-  "description": "NewNet S.A. is a Colombian company specializing in managing IT risks, offering advanced and personalized data protection services. Their extensive range of services includes information security, cybersecurity, business continuity, and governance, risk, and compliance (GRC) solutions. They cater to various sectors, providing consulting, technology, and managed services to ensure optimal IT operations for their clients. With a commitment to quality and collaboration with recognized manufacturers, NewNet S.A. has been delivering reliable and secure technology solutions since 1996",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Telecommunication",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-newnet-2026-07-18","title":"NewNet","group":"dragonforce","discovered":"2026-07-18T11:59:18.000Z","category":"ransomware","severity":"critical","country":"SA","sizeBytes":0,"description":"NewNet S.A. is a Colombian company specializing in managing IT risks, offering advanced and personalized data protection services. Their extensive range of services includes information security, cybersecurity, business continuity, and governance, risk, and compliance (GRC) solutions. They cater to various sectors, providing consulting, technology, and managed services to ensure optimal IT operations for their clients. With a commitment to quality and collaboration with recognized manufacturers, NewNet S.A. has been delivering reliable and secure technology solutions since 1996","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Technology","references":["ransomware.live"]}

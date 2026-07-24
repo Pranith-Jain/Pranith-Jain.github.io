@@ -1,15 +1,1 @@
-{
-  "slug": "shinyhunters-zayo-com-allstream-com-2026-06-12",
-  "title": "Zayo.com & Allstream.com",
-  "group": "shinyhunters",
-  "discovered": "2026-06-12T06:57:10.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "You wouldn't want us to describe what data was taken from you publicly here. A fair assessment of this breach in terms of criticality is a 9/10. We urge you to reach out. Read our emails. Failure to do so will result in the full publication and we very much intend to carry that out if you do not engage with us. This is a final warning to reach out by 16 June 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 12 June 2026 | Warning: FINAL WARNING PAY OR LEAK",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Telecommunication",
-  "references": ["ransomware.live"]
-}
+{"slug":"shinyhunters-zayo-com-allstream-com-2026-06-12","title":"Zayo.com & Allstream.com","group":"shinyhunters","discovered":"2026-06-12T06:57:10.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"You wouldn't want us to describe what data was taken from you publicly here. A fair assessment of this breach in terms of criticality is a 9/10. We urge you to reach out. Read our emails. Failure to do so will result in the full publication and we very much intend to carry that out if you do not engage with us. This is a final warning to reach out by 16 June 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 12 June 2026 | Warning: FINAL WARNING PAY OR LEAK","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

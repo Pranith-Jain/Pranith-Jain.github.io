@@ -1,15 +1,1 @@
-{
-  "slug": "crpxo-amhwa-biopharm-co-ltd-2026-07-09",
-  "title": "AMHWA Biopharm Co., Ltd.",
-  "group": "CRPxO",
-  "discovered": "2026-07-09T06:43:20.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "CN",
-  "sizeBytes": 0,
-  "description": "Sector: Biopharmaceutical | Data leaked: 37.0 GB",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"crpxo-amhwa-biopharm-co-ltd-2026-07-09","title":"AMHWA Biopharm Co., Ltd.","group":"CRPxO","discovered":"2026-07-09T06:43:20.000Z","category":"data_breach","severity":"high","country":"CN","sizeBytes":0,"description":"Sector: Biopharmaceutical | Data leaked: 37.0 GB","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

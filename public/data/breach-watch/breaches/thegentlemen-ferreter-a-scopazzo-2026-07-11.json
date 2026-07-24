@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-ferreter-a-scopazzo-2026-07-11",
-  "title": "Ferretería Scopazzo",
-  "group": "thegentlemen",
-  "discovered": "2026-07-11T07:23:28.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "AR",
-  "sizeBytes": 0,
-  "description": "***.com.ar rocketreach.co/ferreteria-scopazzo-profile_b7dd5f00c0ca3ccc Ferretería Scopazzo is a prominent family-owned hardware and industrial tools retailer based in Buenos Aires, Argentina, boasting over 60 years of market experience.They specialize in supplying electrical, pneumatic, and household equipment from major global brands like Makita, DeWalt, and Bosch to both individuals and businesses",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-ferreter-a-scopazzo-2026-07-11","title":"Ferretería Scopazzo","group":"thegentlemen","discovered":"2026-07-11T07:23:28.000Z","category":"ransomware","severity":"critical","country":"AR","sizeBytes":0,"description":"***.com.ar rocketreach.co/ferreteria-scopazzo-profile_b7dd5f00c0ca3ccc Ferretería Scopazzo is a prominent family-owned hardware and industrial tools retailer based in Buenos Aires, Argentina, boasting over 60 years of market experience.They specialize in supplying electrical, pneumatic, and household equipment from major global brands like Makita, DeWalt, and Bosch to both individuals and businesses","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

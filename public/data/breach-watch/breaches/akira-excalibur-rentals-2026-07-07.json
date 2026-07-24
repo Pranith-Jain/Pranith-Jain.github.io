@@ -1,15 +1,1 @@
-{
-  "slug": "akira-excalibur-rentals-2026-07-07",
-  "title": "Excalibur Rentals",
-  "group": "akira",
-  "discovered": "2026-07-07T13:22:44.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Excalibur Rentals is dedicated to providing reliable rental equipment services, ensuring that c\nlients can complete their jobs safely, on time, and within budget. They offer a range of equipm\nent including boom lifts, telehandlers, and light towers.\n\nWe will upload 45gb of corporate data soon. Employee personal information (name, addresses, SSN\ns and so on), contracts and agreements, a bit of financials, customers info, etc.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Megazord"],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"akira-excalibur-rentals-2026-07-07","title":"Excalibur Rentals","group":"akira","discovered":"2026-07-07T13:22:44.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"Excalibur Rentals is dedicated to providing reliable rental equipment services, ensuring that c\nlients can complete their jobs safely, on time, and within budget. They offer a range of equipm\nent including boom lifts, telehandlers, and light towers.\n\nWe will upload 45gb of corporate data soon. Employee personal information (name, addresses, SSN\ns and so on), contracts and agreements, a bit of financials, customers info, etc.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

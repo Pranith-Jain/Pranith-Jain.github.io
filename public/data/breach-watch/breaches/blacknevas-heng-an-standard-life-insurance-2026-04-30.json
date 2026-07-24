@@ -1,15 +1,1 @@
-{
-  "slug": "blacknevas-heng-an-standard-life-insurance-2026-04-30",
-  "title": "Heng An Standard Life Insurance",
-  "group": "blacknevas",
-  "discovered": "2026-04-30T23:17:11.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "HK",
-  "sizeBytes": 0,
-  "description": "Downloaded:Complete Client Database: Unencrypted records containing full names, addresses, scanned identification documents (passports, driver’s licenses), and biometric facial data.Corporate Intellectual Property: All proprietary IT solutions, source code repositories, and internal development tools.Executive Correspondence: The complete archive of the Board of Directors meetings, including minutes, strategic plans, and the entirety of internal email correspondence among top management.We offer all data for purchase.The company's management concealed the fact of the leak.Heng An Standard Life Insurance is a major insurance company specializing in life insurance, operating primarily in the Asian region.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["black nevas"],
-  "activity": "Financial Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"blacknevas-heng-an-standard-life-insurance-2026-04-30","title":"Heng An Standard Life Insurance","group":"blacknevas","discovered":"2026-04-30T23:17:11.000Z","category":"ransomware","severity":"high","country":"HK","sizeBytes":0,"description":"Downloaded:Complete Client Database: Unencrypted records containing full names, addresses, scanned identification documents (passports, driver’s licenses), and biometric facial data.Corporate Intellectual Property: All proprietary IT solutions, source code repositories, and internal development tools.Executive Correspondence: The complete archive of the Board of Directors meetings, including minutes, strategic plans, and the entirety of internal email correspondence among top management.We offer all data for purchase.The company's management concealed the fact of the leak.Heng An Standard Life Insurance is a major insurance company specializing in life insurance, operating primarily in the Asian region.","source_url":"https://www.ransomware.live/","groupAliases":["black nevas"],"activity":"Financial Services","references":["ransomware.live"]}

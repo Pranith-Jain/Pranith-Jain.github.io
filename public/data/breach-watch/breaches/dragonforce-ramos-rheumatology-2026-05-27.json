@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-ramos-rheumatology-2026-05-27",
-  "title": "Ramos Rheumatology",
-  "group": "dragonforce",
-  "discovered": "2026-05-27T13:52:33.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Ramos Rheumatology is a leading care center in Avoca, PA, specializing in the diagnosis and treatment of autoimmune diseases such as lupus, rheumatoid arthritis, and fibromyalgia. The practice emphasizes personalized care, ensuring that each patient receives tailored treatment plans in a compassionate environment. Their team, including local specialists, collaborates closely with primary care providers to deliver comprehensive rheumatology services. With a commitment to patient autonomy and immediate appointment availability for emergencies, Ramos Rheumatology prioritizes the well-being of its clients",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-ramos-rheumatology-2026-05-27","title":"Ramos Rheumatology","group":"dragonforce","discovered":"2026-05-27T13:52:33.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Ramos Rheumatology is a leading care center in Avoca, PA, specializing in the diagnosis and treatment of autoimmune diseases such as lupus, rheumatoid arthritis, and fibromyalgia. The practice emphasizes personalized care, ensuring that each patient receives tailored treatment plans in a compassionate environment. Their team, including local specialists, collaborates closely with primary care providers to deliver comprehensive rheumatology services. With a commitment to patient autonomy and immediate appointment availability for emergencies, Ramos Rheumatology prioritizes the well-being of its clients","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Healthcare","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "spacebears-fitcrunch-2026-07-07",
-  "title": "Fitcrunch",
-  "group": "spacebears",
-  "discovered": "2026-07-07T01:32:21.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "FITCRUNCH® makes getting protein more enjoyable than ever before. Satisfy your cravings with a variety of delicious chef-inspired products from co-founder and owner Robert Irvine.Find the perfect fit with our baked protein bars, wafer bars, protein powder, and more-Personal information of employees and clients -Financial documents -Other files https://***.com/",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["space bears"],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"spacebears-fitcrunch-2026-07-07","title":"Fitcrunch","group":"spacebears","discovered":"2026-07-07T01:32:21.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"FITCRUNCH® makes getting protein more enjoyable than ever before. Satisfy your cravings with a variety of delicious chef-inspired products from co-founder and owner Robert Irvine.Find the perfect fit with our baked protein bars, wafer bars, protein powder, and more-Personal information of employees and clients -Financial documents -Other files https://***.com/","source_url":"https://www.ransomware.live/","groupAliases":["space bears"],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

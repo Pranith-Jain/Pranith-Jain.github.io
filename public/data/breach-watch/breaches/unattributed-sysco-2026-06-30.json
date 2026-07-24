@@ -1,15 +1,1 @@
-{
-  "slug": "unattributed-sysco-2026-06-30",
-  "title": "Sysco",
-  "group": "Unattributed",
-  "discovered": "2026-06-30T08:53:52.000Z",
-  "category": "data_breach",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Sysco, a food distribution company, was targeted by ShinyHunters in June 2026, with data later published online exposing 2.7M unique email addresses along with names, phone numbers, physical addresses, internal job titles, and other corporate contact information belonging to staff and customers.",
-  "source_url": "https://xposedornot.com/breach/Sysco",
-  "groupAliases": [],
-  "activity": "Food",
-  "references": ["XposedOrNot"]
-}
+{"slug":"unattributed-sysco-2026-06-30","title":"Sysco","group":"Unattributed","discovered":"2026-06-30T08:53:52.000Z","category":"data_breach","severity":"critical","country":null,"sizeBytes":0,"description":"Sysco, a food distribution company, was targeted by ShinyHunters in June 2026, with data later published online exposing 2.7M unique email addresses along with names, phone numbers, physical addresses, internal job titles, and other corporate contact information belonging to staff and customers.","source_url":"https://xposedornot.com/breach/Sysco","groupAliases":[],"activity":"Food","references":["XposedOrNot"]}

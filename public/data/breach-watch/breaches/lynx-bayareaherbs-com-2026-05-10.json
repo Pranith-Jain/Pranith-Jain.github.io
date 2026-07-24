@@ -1,15 +1,1 @@
-{
-  "slug": "lynx-bayareaherbs-com-2026-05-10",
-  "title": "bayareaherbs.com",
-  "group": "lynx",
-  "discovered": "2026-05-10T09:52:49.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Bay Area Herbs & Specialties is a leading supplier of fresh culinary herbs and specialty produce, serving the US market for nearly 20 years. They collaborate with top growers to provide high-quality products to retailers, foodservice distributors, and wholesalers. The company is committed to sustainability and innovative packaging, ensuring efficient delivery and customer satisfaction. Their expertise in the specialty produce category positions them as a trusted partner for chefs and businesses alike.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"lynx-bayareaherbs-com-2026-05-10","title":"bayareaherbs.com","group":"lynx","discovered":"2026-05-10T09:52:49.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Bay Area Herbs & Specialties is a leading supplier of fresh culinary herbs and specialty produce, serving the US market for nearly 20 years. They collaborate with top growers to provide high-quality products to retailers, foodservice distributors, and wholesalers. The company is committed to sustainability and innovative packaging, ensuring efficient delivery and customer satisfaction. Their expertise in the specialty produce category positions them as a trusted partner for chefs and businesses alike.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

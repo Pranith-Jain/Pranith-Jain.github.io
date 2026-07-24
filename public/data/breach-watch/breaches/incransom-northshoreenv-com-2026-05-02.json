@@ -1,15 +1,1 @@
-{
-  "slug": "incransom-northshoreenv-com-2026-05-02",
-  "title": "northshoreenv.com",
-  "group": "incransom",
-  "discovered": "2026-05-02T00:23:41.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "North Shore Environmental Consultants is a progressive environmental company that provides a wide range of environmental management and consulting services to help clients navigate complex environmental and regulatory challenges. With over 20 years of experience, they offer solutions in areas such as remediation, emergency spill response, air quality, and corporate consulting. Their client base spans various industries across western Canada, and they are recognized for their innovative operational programs and commitment to client satisfaction. North Shore is dedicated to fostering a sustainable future while continuously expanding their expertise and services.\r Employees: 200\r Revenue: $23.5 Million\r Industry: Business Services\r Phone Number: (780) 467-3354",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["inc ransom", "INC"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"incransom-northshoreenv-com-2026-05-02","title":"northshoreenv.com","group":"incransom","discovered":"2026-05-02T00:23:41.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"North Shore Environmental Consultants is a progressive environmental company that provides a wide range of environmental management and consulting services to help clients navigate complex environmental and regulatory challenges. With over 20 years of experience, they offer solutions in areas such as remediation, emergency spill response, air quality, and corporate consulting. Their client base spans various industries across western Canada, and they are recognized for their innovative operational programs and commitment to client satisfaction. North Shore is dedicated to fostering a sustainable future while continuously expanding their expertise and services.\r Employees: 200\r Revenue: $23.5 Million\r Industry: Business Services\r Phone Number: (780) 467-3354","source_url":"https://www.ransomware.live/","groupAliases":["inc ransom","INC"],"activity":"Professional Services","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-acosol-2026-07-17",
-  "title": "Acosol",
-  "group": "qilin",
-  "discovered": "2026-07-17T14:58:06.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "ES",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-acosol-2026-07-17","title":"Acosol","group":"qilin","discovered":"2026-07-17T14:58:06.000Z","category":"ransomware","severity":"critical","country":"ES","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Energy & Utilities","references":["ransomware.live"]}

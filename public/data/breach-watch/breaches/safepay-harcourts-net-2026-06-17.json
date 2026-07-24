@@ -1,15 +1,1 @@
-{
-  "slug": "safepay-harcourts-net-2026-06-17",
-  "title": "harcourts.net",
-  "group": "safepay",
-  "discovered": "2026-06-17T20:25:47.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "AU",
-  "sizeBytes": 0,
-  "description": "Founded in 1888 in Wellington, New Zealand, the company has grown from a local real estate agency into a global …",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"safepay-harcourts-net-2026-06-17","title":"harcourts.net","group":"safepay","discovered":"2026-06-17T20:25:47.000Z","category":"ransomware","severity":"high","country":"AU","sizeBytes":0,"description":"Founded in 1888 in Wellington, New Zealand, the company has grown from a local real estate agency into a global …","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

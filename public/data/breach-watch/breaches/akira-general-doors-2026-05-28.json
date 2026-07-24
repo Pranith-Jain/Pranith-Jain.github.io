@@ -1,15 +1,1 @@
-{
-  "slug": "akira-general-doors-2026-05-28",
-  "title": "General Doors",
-  "group": "akira",
-  "discovered": "2026-05-28T12:20:50.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "General Doors Corporation has been manufacturing overhead sectional garage doors since 1947, or\niginally focusing on wood doors before expanding to commercial and residential steel doors.\n\nWe will upload corporate data soon.Financials, a bit of projects info and other files etc.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Megazord"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"akira-general-doors-2026-05-28","title":"General Doors","group":"akira","discovered":"2026-05-28T12:20:50.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"General Doors Corporation has been manufacturing overhead sectional garage doors since 1947, or\niginally focusing on wood doors before expanding to commercial and residential steel doors.\n\nWe will upload corporate data soon.Financials, a bit of projects info and other files etc.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Manufacturing","references":["ransomware.live"]}

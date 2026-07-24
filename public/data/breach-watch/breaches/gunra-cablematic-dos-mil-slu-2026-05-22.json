@@ -1,15 +1,1 @@
-{
-  "slug": "gunra-cablematic-dos-mil-slu-2026-05-22",
-  "title": "Cablematic Dos Mil SLU",
-  "group": "gunra",
-  "discovered": "2026-05-22T15:22:25.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "ES",
-  "sizeBytes": 0,
-  "description": "[AI generated] Cablematic Dos Mil SLU is a Spanish company operating in the electronics and technology distribution sector. Based in Spain, it specializes in the wholesale and retail distribution of networking equipment, cables, connectors, computer peripherals, and audiovisual accessories. The company supplies both professional and consumer markets, offering a wide catalog of hardware components and connectivity solutions across Europe, primarily through e-commerce channels.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"gunra-cablematic-dos-mil-slu-2026-05-22","title":"Cablematic Dos Mil SLU","group":"gunra","discovered":"2026-05-22T15:22:25.000Z","category":"data_breach","severity":"high","country":"ES","sizeBytes":0,"description":"[AI generated] Cablematic Dos Mil SLU is a Spanish company operating in the electronics and technology distribution sector. Based in Spain, it specializes in the wholesale and retail distribution of networking equipment, cables, connectors, computer peripherals, and audiovisual accessories. The company supplies both professional and consumer markets, offering a wide catalog of hardware components and connectivity solutions across Europe, primarily through e-commerce channels.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

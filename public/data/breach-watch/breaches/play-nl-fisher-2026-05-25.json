@@ -1,15 +1,1 @@
-{
-  "slug": "play-nl-fisher-2026-05-25",
-  "title": "NL Fisher",
-  "group": "play",
-  "discovered": "2026-05-25T20:24:56.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "NL",
-  "sizeBytes": 0,
-  "description": "Canada",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["PlayCrypt"],
-  "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
-}
+{"slug":"play-nl-fisher-2026-05-25","title":"NL Fisher","group":"play","discovered":"2026-05-25T20:24:56.000Z","category":"ransomware","severity":"critical","country":"NL","sizeBytes":0,"description":"Canada","source_url":"https://www.ransomware.live/","groupAliases":["PlayCrypt"],"activity":"Agriculture and Food Production","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "killsec-csinsurance-mx-2026-06-03",
-  "title": "csinsurance.mx",
-  "group": "killsec",
-  "discovered": "2026-06-03T00:26:52.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "MX",
-  "sizeBytes": 0,
-  "description": "Price ??? Disclosures 0/1",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Financial Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"killsec-csinsurance-mx-2026-06-03","title":"csinsurance.mx","group":"killsec","discovered":"2026-06-03T00:26:52.000Z","category":"data_breach","severity":"high","country":"MX","sizeBytes":0,"description":"Price ??? Disclosures 0/1","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Financial Services","references":["ransomware.live"]}

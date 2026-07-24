@@ -1,15 +1,1 @@
-{
-  "slug": "booba-project-fonsan-2026-07-06",
-  "title": "Fonsan",
-  "group": "Booba Project",
-  "discovered": "2026-07-06T06:31:19.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "ES",
-  "sizeBytes": 0,
-  "description": "Construction Stolen data: 23.4 GB",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"booba-project-fonsan-2026-07-06","title":"Fonsan","group":"Booba Project","discovered":"2026-07-06T06:31:19.000Z","category":"ransomware","severity":"high","country":"ES","sizeBytes":0,"description":"Construction Stolen data: 23.4 GB","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Not Found","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-hillebrand-home-health-2026-07-13",
-  "title": "Hillebrand Home Health",
-  "group": "qilin",
-  "discovered": "2026-07-13T19:57:03.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-hillebrand-home-health-2026-07-13","title":"Hillebrand Home Health","group":"qilin","discovered":"2026-07-13T19:57:03.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

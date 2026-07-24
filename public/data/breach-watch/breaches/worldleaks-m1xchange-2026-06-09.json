@@ -1,15 +1,1 @@
-{
-  "slug": "worldleaks-m1xchange-2026-06-09",
-  "title": "M1xchange",
-  "group": "worldleaks",
-  "discovered": "2026-06-09T17:55:22.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "IN",
-  "sizeBytes": 0,
-  "description": "[AI generated] M1xchange is an Indian trade receivables discounting platform operated by Mynd Solutions. It functions as an online marketplace where micro, small, and medium enterprises can auction their unpaid invoices to financiers, improving cash flow and working capital access. Operating under the Reserve Bank of India's TReDS framework, it serves the MSME financing sector across India.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"worldleaks-m1xchange-2026-06-09","title":"M1xchange","group":"worldleaks","discovered":"2026-06-09T17:55:22.000Z","category":"ransomware","severity":"high","country":"IN","sizeBytes":0,"description":"[AI generated] M1xchange is an Indian trade receivables discounting platform operated by Mynd Solutions. It functions as an online marketplace where micro, small, and medium enterprises can auction their unpaid invoices to financiers, improving cash flow and working capital access. Operating under the Reserve Bank of India's TReDS framework, it serves the MSME financing sector across India.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

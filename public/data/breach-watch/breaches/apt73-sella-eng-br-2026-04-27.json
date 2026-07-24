@@ -1,15 +1,1 @@
-{
-  "slug": "apt73-sella-eng-br-2026-04-27",
-  "title": "sella.eng.br",
-  "group": "apt73",
-  "discovered": "2026-04-27T16:51:44.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "BR",
-  "sizeBytes": 0,
-  "description": "mentoring programs for managers. Internal and personal docs. 0.3 GB",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Eraleign"],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"apt73-sella-eng-br-2026-04-27","title":"sella.eng.br","group":"apt73","discovered":"2026-04-27T16:51:44.000Z","category":"data_breach","severity":"high","country":"BR","sizeBytes":0,"description":"mentoring programs for managers. Internal and personal docs. 0.3 GB","source_url":"https://www.ransomware.live/","groupAliases":["Eraleign"],"activity":"Technology","references":["ransomware.live"]}

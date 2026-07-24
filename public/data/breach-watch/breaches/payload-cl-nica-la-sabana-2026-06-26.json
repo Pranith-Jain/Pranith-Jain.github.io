@@ -1,15 +1,1 @@
-{
-  "slug": "payload-cl-nica-la-sabana-2026-06-26",
-  "title": "Clínica La Sabana",
-  "group": "payload",
-  "discovered": "2026-06-26T10:59:54.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "CR",
-  "sizeBytes": 0,
-  "description": "Clínica La Sabana (clinicalasabana.com) is a medical institution located in Bogotá, Colombia, specializing in the provision of comprehensive healthcare services. The company offers outpatient care, specialist consultations, surgical procedures, and physical therapy. Its primary areas of expertise include orthopedics, traumatology, otolaryngology, and diagnostic radiology.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"payload-cl-nica-la-sabana-2026-06-26","title":"Clínica La Sabana","group":"payload","discovered":"2026-06-26T10:59:54.000Z","category":"ransomware","severity":"high","country":"CR","sizeBytes":0,"description":"Clínica La Sabana (clinicalasabana.com) is a medical institution located in Bogotá, Colombia, specializing in the provision of comprehensive healthcare services. The company offers outpatient care, specialist consultations, surgical procedures, and physical therapy. Its primary areas of expertise include orthopedics, traumatology, otolaryngology, and diagnostic radiology.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

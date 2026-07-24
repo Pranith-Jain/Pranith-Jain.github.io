@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-pacific-lamp-supply-2026-06-20",
-  "title": "Pacific Lamp & Supply",
-  "group": "qilin",
-  "discovered": "2026-06-20T15:33:44.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-pacific-lamp-supply-2026-06-20","title":"Pacific Lamp & Supply","group":"qilin","discovered":"2026-06-20T15:33:44.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

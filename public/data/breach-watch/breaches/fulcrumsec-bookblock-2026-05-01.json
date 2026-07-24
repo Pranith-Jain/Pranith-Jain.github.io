@@ -1,15 +1,1 @@
-{
-  "slug": "fulcrumsec-bookblock-2026-05-01",
-  "title": "BookBlock",
-  "group": "fulcrumsec",
-  "discovered": "2026-05-01T16:49:24.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "GB",
-  "sizeBytes": 0,
-  "description": "[AI generated] BookBlock is a UK-based premium printing and bookbinding company specializing in high-quality custom notebooks, journals, books, and printed products. It serves both businesses and individual consumers, offering bespoke design and manufacturing services. Operating in the print and publishing industry, BookBlock is known for its craftsmanship and attention to detail, producing products for corporate clients, publishers, and retail customers across the United Kingdom and internationally.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"fulcrumsec-bookblock-2026-05-01","title":"BookBlock","group":"fulcrumsec","discovered":"2026-05-01T16:49:24.000Z","category":"ransomware","severity":"high","country":"GB","sizeBytes":0,"description":"[AI generated] BookBlock is a UK-based premium printing and bookbinding company specializing in high-quality custom notebooks, journals, books, and printed products. It serves both businesses and individual consumers, offering bespoke design and manufacturing services. Operating in the print and publishing industry, BookBlock is known for its craftsmanship and attention to detail, producing products for corporate clients, publishers, and retail customers across the United Kingdom and internationally.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "akira-nijborg-staal-2026-05-11",
-  "title": "Nijborg Staal",
-  "group": "akira",
-  "discovered": "2026-05-11T12:20:29.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "NL",
-  "sizeBytes": 0,
-  "description": "Nijborg Staal B.V. specializes in the delivery and installation of steel constructions, stairs,\nand railings, as well as various special metal works. The company prides itself on being a rel\niable, flexible, and service-oriented partner, ensuring high-quality standards in all projects.\n\nWe will upload 10gb of corporate data soon. Employee personal information (passports, ID cards \nand so on), contracts, projects information (drawings, specifications, etc), financials and so \non.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Megazord"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"akira-nijborg-staal-2026-05-11","title":"Nijborg Staal","group":"akira","discovered":"2026-05-11T12:20:29.000Z","category":"ransomware","severity":"critical","country":"NL","sizeBytes":0,"description":"Nijborg Staal B.V. specializes in the delivery and installation of steel constructions, stairs,\nand railings, as well as various special metal works. The company prides itself on being a rel\niable, flexible, and service-oriented partner, ensuring high-quality standards in all projects.\n\nWe will upload 10gb of corporate data soon. Employee personal information (passports, ID cards \nand so on), contracts, projects information (drawings, specifications, etc), financials and so \non.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Manufacturing","references":["ransomware.live"]}

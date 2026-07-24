@@ -1,15 +1,1 @@
-{
-  "slug": "genesis-a-roettgers-2026-05-30",
-  "title": "A Roettgers",
-  "group": "genesis",
-  "discovered": "2026-05-30T18:52:17.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Fuel distributor and gas station operator",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"genesis-a-roettgers-2026-05-30","title":"A Roettgers","group":"genesis","discovered":"2026-05-30T18:52:17.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Fuel distributor and gas station operator","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

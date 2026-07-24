@@ -1,15 +1,1 @@
-{
-  "slug": "akira-chisholm-persson-ball-2026-07-07",
-  "title": "Chisholm Persson & Ball",
-  "group": "akira",
-  "discovered": "2026-07-07T13:51:34.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Chisholm, Persson & Ball, PC is a law firm located in Laconia, NH, specializing in various lega\nl services including Estate Planning, Probate Administration, Family Law, Business Law, and Civ\nil Litigation. The firm has been recognized for its excellence, winning multiple awards in the \nLakes Region for Best Law Firm and other categories.\n\nWe will upload 45gb of corporate data soon. Client and employee personal information (client pa\nssports, visas, DLs, SSNs and so on), confidential client docs, financial, contracts and agreem\nents,  court files, police reports and other legal files.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Megazord"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"akira-chisholm-persson-ball-2026-07-07","title":"Chisholm Persson & Ball","group":"akira","discovered":"2026-07-07T13:51:34.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"Chisholm, Persson & Ball, PC is a law firm located in Laconia, NH, specializing in various lega\nl services including Estate Planning, Probate Administration, Family Law, Business Law, and Civ\nil Litigation. The firm has been recognized for its excellence, winning multiple awards in the \nLakes Region for Best Law Firm and other categories.\n\nWe will upload 45gb of corporate data soon. Client and employee personal information (client pa\nssports, visas, DLs, SSNs and so on), confidential client docs, financial, contracts and agreem\nents,  court files, police reports and other legal files.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Professional Services","references":["ransomware.live"]}

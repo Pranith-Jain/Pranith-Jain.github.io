@@ -1,15 +1,1 @@
-{
-  "slug": "krybit-zsiclife-co-zm-2026-04-29",
-  "title": "zsiclife.co.zm",
-  "group": "krybit",
-  "discovered": "2026-04-29T21:53:51.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "ZM",
-  "sizeBytes": 0,
-  "description": "ZSIC Life Plc is a leading assurance, savings, and wealth management company in Zambia, offering a diverse range of life...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"krybit-zsiclife-co-zm-2026-04-29","title":"zsiclife.co.zm","group":"krybit","discovered":"2026-04-29T21:53:51.000Z","category":"ransomware","severity":"high","country":"ZM","sizeBytes":0,"description":"ZSIC Life Plc is a leading assurance, savings, and wealth management company in Zambia, offering a diverse range of life...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

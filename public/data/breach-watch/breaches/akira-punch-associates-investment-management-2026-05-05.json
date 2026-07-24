@@ -1,15 +1,1 @@
-{
-  "slug": "akira-punch-associates-investment-management-2026-05-05",
-  "title": "Punch & Associates Investment Management",
-  "group": "akira",
-  "discovered": "2026-05-05T15:20:14.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Punch & Associates is a boutique investment advisory firm based in Edina, MN. They offer specia\nlized investment advisory services tailored for private clients and institutions. The firm focu\nses on providing personalized financial strategies to meet the unique needs of their clients. W\nith a commitment to excellence, Punch & Associates aims to help clients achieve their financial\ngoals.\n\nWe will upload 10gb of corporate data soon. Detailed client personal information (passports, SS\nNs, DLs and so on for almost 80 ppl), employee personal files, lots of confidential files (fina\nncials and personal docs), contracts and agreements, projects, NDAs, etc.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Megazord"],
-  "activity": "Financial Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"akira-punch-associates-investment-management-2026-05-05","title":"Punch & Associates Investment Management","group":"akira","discovered":"2026-05-05T15:20:14.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Punch & Associates is a boutique investment advisory firm based in Edina, MN. They offer specia\nlized investment advisory services tailored for private clients and institutions. The firm focu\nses on providing personalized financial strategies to meet the unique needs of their clients. W\nith a commitment to excellence, Punch & Associates aims to help clients achieve their financial\ngoals.\n\nWe will upload 10gb of corporate data soon. Detailed client personal information (passports, SS\nNs, DLs and so on for almost 80 ppl), employee personal files, lots of confidential files (fina\nncials and personal docs), contracts and agreements, projects, NDAs, etc.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Financial Services","references":["ransomware.live"]}

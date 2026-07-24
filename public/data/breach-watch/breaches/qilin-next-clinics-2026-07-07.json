@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-next-clinics-2026-07-07",
-  "title": "Next Clinics",
-  "group": "qilin",
-  "discovered": "2026-07-07T17:31:47.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "CZ",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-next-clinics-2026-07-07","title":"Next Clinics","group":"qilin","discovered":"2026-07-07T17:31:47.000Z","category":"ransomware","severity":"critical","country":"CZ","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

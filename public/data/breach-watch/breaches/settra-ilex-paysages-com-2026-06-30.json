@@ -1,15 +1,1 @@
-{
-  "slug": "settra-ilex-paysages-com-2026-06-30",
-  "title": "ilex-paysages.com",
-  "group": "settra",
-  "discovered": "2026-06-30T11:31:04.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "FR",
-  "sizeBytes": 0,
-  "description": "LANDSCAPE ARCHIVE: How Ilex Paysages et Urbanisme Stores Its Own — and Others' — Secrets PROLOGUE Th...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Construction",
-  "references": ["ransomware.live"]
-}
+{"slug":"settra-ilex-paysages-com-2026-06-30","title":"ilex-paysages.com","group":"settra","discovered":"2026-06-30T11:31:04.000Z","category":"data_breach","severity":"high","country":"FR","sizeBytes":0,"description":"LANDSCAPE ARCHIVE: How Ilex Paysages et Urbanisme Stores Its Own — and Others' — Secrets PROLOGUE Th...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Agriculture and Food Production","references":["ransomware.live"]}

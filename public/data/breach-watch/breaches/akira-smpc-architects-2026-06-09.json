@@ -1,15 +1,1 @@
-{
-  "slug": "akira-smpc-architects-2026-06-09",
-  "title": "SMPC Architects",
-  "group": "akira",
-  "discovered": "2026-06-09T13:50:21.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "SMPC Architects is an architecture firm based in Albuquerque, New Mexico, specializing in creat\ning innovative and sustainable spaces. The firm focuses on community-oriented projects and coll\naborates closely with clients to meet their needs.\n\nWe will upload 163gb of corporate data soon. Employee personal information (passports, DLs, SSN\ncards and so on), financials, lots of contracts and confidential settlements, NDAs, clients an\nd partners information, etc.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Megazord"],
-  "activity": "Construction",
-  "references": ["ransomware.live"]
-}
+{"slug":"akira-smpc-architects-2026-06-09","title":"SMPC Architects","group":"akira","discovered":"2026-06-09T13:50:21.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"SMPC Architects is an architecture firm based in Albuquerque, New Mexico, specializing in creat\ning innovative and sustainable spaces. The firm focuses on community-oriented projects and coll\naborates closely with clients to meet their needs.\n\nWe will upload 163gb of corporate data soon. Employee personal information (passports, DLs, SSN\ncards and so on), financials, lots of contracts and confidential settlements, NDAs, clients an\nd partners information, etc.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Professional Services","references":["ransomware.live"]}

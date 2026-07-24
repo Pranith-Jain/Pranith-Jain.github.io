@@ -1,15 +1,1 @@
-{
-  "slug": "apt73-servicepower-com-2026-04-27",
-  "title": "servicepower.com",
-  "group": "apt73",
-  "discovered": "2026-04-27T16:56:19.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "GB",
-  "sizeBytes": 0,
-  "description": "Large software development company Service Power. Great Britain. Documents of internal systems, c...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Eraleign"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"apt73-servicepower-com-2026-04-27","title":"servicepower.com","group":"apt73","discovered":"2026-04-27T16:56:19.000Z","category":"data_breach","severity":"high","country":"GB","sizeBytes":0,"description":"Large software development company Service Power. Great Britain. Documents of internal systems, c...","source_url":"https://www.ransomware.live/","groupAliases":["Eraleign"],"activity":"Professional Services","references":["ransomware.live"]}

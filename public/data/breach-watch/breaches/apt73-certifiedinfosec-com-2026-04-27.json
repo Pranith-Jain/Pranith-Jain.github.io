@@ -1,15 +1,1 @@
-{
-  "slug": "apt73-certifiedinfosec-com-2026-04-27",
-  "title": "certifiedinfosec.com",
-  "group": "apt73",
-  "discovered": "2026-04-27T16:50:28.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Certified Information Security is a registered trade name for Certified Tech Trainers (CTT) (D-U-...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Eraleign"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"apt73-certifiedinfosec-com-2026-04-27","title":"certifiedinfosec.com","group":"apt73","discovered":"2026-04-27T16:50:28.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Certified Information Security is a registered trade name for Certified Tech Trainers (CTT) (D-U-...","source_url":"https://www.ransomware.live/","groupAliases":["Eraleign"],"activity":"Professional Services","references":["ransomware.live"]}

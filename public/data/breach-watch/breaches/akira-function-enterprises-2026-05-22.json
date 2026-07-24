@@ -1,15 +1,1 @@
-{
-  "slug": "akira-function-enterprises-2026-05-22",
-  "title": "Function Enterprises",
-  "group": "akira",
-  "discovered": "2026-05-22T12:50:20.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Function Enterprises, Inc. is a trusted roofing company based in Springfield, VA, offering a ra\nnge of services including roofing construction, commercial roofing, infrared inspection, and du\nmpster rentals. They prioritize client trust and satisfaction, providing a free one-hour consul\ntation for new clients.\n\nWe will upload corporate data soon. Employee personal information (passports, DLs), contracts a\nnd agreements, clients info, financials, projects, etc.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Megazord"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"akira-function-enterprises-2026-05-22","title":"Function Enterprises","group":"akira","discovered":"2026-05-22T12:50:20.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"Function Enterprises, Inc. is a trusted roofing company based in Springfield, VA, offering a ra\nnge of services including roofing construction, commercial roofing, infrared inspection, and du\nmpster rentals. They prioritize client trust and satisfaction, providing a free one-hour consul\ntation for new clients.\n\nWe will upload corporate data soon. Employee personal information (passports, DLs), contracts a\nnd agreements, clients info, financials, projects, etc.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Not Found","references":["ransomware.live"]}

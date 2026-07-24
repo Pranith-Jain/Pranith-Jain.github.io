@@ -1,15 +1,1 @@
-{
-  "slug": "shinyhunters-houghton-mifflin-harcourt-company-2026-05-09",
-  "title": "Houghton Mifflin Harcourt Company",
-  "group": "shinyhunters",
-  "discovered": "2026-05-09T08:56:53.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Your data was compromised in several of our campaigns throughout the past few months. We urge you to engage with us, it is in your best interests. This is a final warning to reach out by 12 May 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 9 May 2026 | Warning: FINAL WARNING PAY OR LEAK",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Education",
-  "references": ["ransomware.live"]
-}
+{"slug":"shinyhunters-houghton-mifflin-harcourt-company-2026-05-09","title":"Houghton Mifflin Harcourt Company","group":"shinyhunters","discovered":"2026-05-09T08:56:53.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Your data was compromised in several of our campaigns throughout the past few months. We urge you to engage with us, it is in your best interests. This is a final warning to reach out by 12 May 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 9 May 2026 | Warning: FINAL WARNING PAY OR LEAK","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Education","references":["ransomware.live"]}

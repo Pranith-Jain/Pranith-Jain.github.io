@@ -1,15 +1,1 @@
-{
-  "slug": "arcusmedia-i-fitness-2026-07-14",
-  "title": "I-FITNESS",
-  "group": "arcusmedia",
-  "discovered": "2026-07-14T20:09:51.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "NG",
-  "sizeBytes": 0,
-  "description": "i-Fitness Gym & Wellness Centres is Nigeria’s leading gym and fitness chain, off Deadline: 2026-07-21 18:51:00.000000",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["arcus media"],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"arcusmedia-i-fitness-2026-07-14","title":"I-FITNESS","group":"arcusmedia","discovered":"2026-07-14T20:09:51.000Z","category":"ransomware","severity":"high","country":"NG","sizeBytes":0,"description":"i-Fitness Gym & Wellness Centres is Nigeria’s leading gym and fitness chain, off Deadline: 2026-07-21 18:51:00.000000","source_url":"https://www.ransomware.live/","groupAliases":["arcus media"],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

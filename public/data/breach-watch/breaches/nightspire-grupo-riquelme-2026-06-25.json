@@ -1,15 +1,1 @@
-{
-  "slug": "nightspire-grupo-riquelme-2026-06-25",
-  "title": "Grupo Riquelme",
-  "group": "nightspire",
-  "discovered": "2026-06-25T21:25:04.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "PY",
-  "sizeBytes": 0,
-  "description": "- Full Database Backup- Banking & Financial Data- Accounting & Ledger Records- Customer Databases- HR / Workforce Data- User, Role & Permission data- ERP & Critical Business Application Data",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["NIGHT SPIRE"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"nightspire-grupo-riquelme-2026-06-25","title":"Grupo Riquelme","group":"nightspire","discovered":"2026-06-25T21:25:04.000Z","category":"ransomware","severity":"high","country":"PY","sizeBytes":0,"description":"- Full Database Backup- Banking & Financial Data- Accounting & Ledger Records- Customer Databases- HR / Workforce Data- User, Role & Permission data- ERP & Critical Business Application Data","source_url":"https://www.ransomware.live/","groupAliases":["NIGHT SPIRE"],"activity":"Agriculture and Food Production","references":["ransomware.live"]}

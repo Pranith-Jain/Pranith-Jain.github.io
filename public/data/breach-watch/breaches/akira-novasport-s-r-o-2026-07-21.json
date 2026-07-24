@@ -1,15 +1,1 @@
-{
-  "slug": "akira-novasport-s-r-o-2026-07-21",
-  "title": "Novasport s.r.o.",
-  "group": "Akira",
-  "discovered": "2026-07-21T00:00:00.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "Czech Republic",
-  "sizeBytes": 0,
-  "description": "Internal files exfiltrated in ransomware attack",
-  "source_url": "https://recentbreaches.com/breach/novasport-s-r-o-akira-2026-07",
-  "groupAliases": ["Megazord"],
-  "activity": "Consumer Services",
-  "references": ["RecentBreaches.com"]
-}
+{"slug":"akira-novasport-s-r-o-2026-07-21","title":"Novasport s.r.o.","group":"akira","discovered":"2026-07-21T12:53:20.000Z","category":"ransomware","severity":"critical","country":"CZ","sizeBytes":0,"description":"Novasport spol. s r.o. We are a global manufacturer of LEKI brand ski, hiking, and Nordic walki\nng poles. Novasport was founded in 1992 by Klaus Lenhart, the owner of the LEKI brand. LEKI has\na long history of collaborating with the world’s top athletes.\n\nWe will upload 17gb corporate data soon. Detailed employee information (passports and other inf\normation), projects, contracts, financials, clients information and so on.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

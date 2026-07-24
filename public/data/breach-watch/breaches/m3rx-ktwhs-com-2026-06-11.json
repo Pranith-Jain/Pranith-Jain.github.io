@@ -1,15 +1,1 @@
-{
-  "slug": "m3rx-ktwhs-com-2026-06-11",
-  "title": "ktwhs.com",
-  "group": "m3rx",
-  "discovered": "2026-06-11T17:55:27.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "CA",
-  "sizeBytes": 0,
-  "description": "+1 (514) 333-5402. KT Group is a leader in Quebec's transport industry, providing live information linked from all rail and port terminals since the 1960s. They offer comprehensive services including local and national container distribution, secure storage, and sufferance warehousing. Utilizing advanced technology, they provide instant updates on cargo status and delivery proof, ensuring a seamless experience for their clients. Their commitment to best-in-class service makes them a reliable choice for businesses looking to ship, store, and transport cargo efficiently. Stolen: --",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"m3rx-ktwhs-com-2026-06-11","title":"ktwhs.com","group":"m3rx","discovered":"2026-06-11T17:55:27.000Z","category":"ransomware","severity":"high","country":"CA","sizeBytes":0,"description":"+1 (514) 333-5402. KT Group is a leader in Quebec's transport industry, providing live information linked from all rail and port terminals since the 1960s. They offer comprehensive services including local and national container distribution, secure storage, and sufferance warehousing. Utilizing advanced technology, they provide instant updates on cargo status and delivery proof, ensuring a seamless experience for their clients. Their commitment to best-in-class service makes them a reliable choice for businesses looking to ship, store, and transport cargo efficiently. Stolen: --","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Not Found","references":["ransomware.live"]}

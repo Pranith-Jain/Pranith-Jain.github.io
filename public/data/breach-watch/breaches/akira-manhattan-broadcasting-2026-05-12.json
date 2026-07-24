@@ -1,15 +1,1 @@
-{
-  "slug": "akira-manhattan-broadcasting-2026-05-12",
-  "title": "Manhattan Broadcasting",
-  "group": "akira",
-  "discovered": "2026-05-12T12:50:25.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Manhattan Broadcasting Company is a leading source of local and regional news, sports, weather,\nand entertainment in Northeast Kansas, engaging over 100,000 listeners weekly.\n\nWe will upload of corporate data soon. Employee personal informatics, contracts, lots of pictur\nes and other files.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Megazord"],
-  "activity": "Telecommunication",
-  "references": ["ransomware.live"]
-}
+{"slug":"akira-manhattan-broadcasting-2026-05-12","title":"Manhattan Broadcasting","group":"akira","discovered":"2026-05-12T12:50:25.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Manhattan Broadcasting Company is a leading source of local and regional news, sports, weather,\nand entertainment in Northeast Kansas, engaging over 100,000 listeners weekly.\n\nWe will upload of corporate data soon. Employee personal informatics, contracts, lots of pictur\nes and other files.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Technology","references":["ransomware.live"]}

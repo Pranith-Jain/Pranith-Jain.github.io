@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-eduporium-2026-04-29",
-  "title": "Eduporium",
-  "group": "qilin",
-  "discovered": "2026-04-29T21:59:41.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Education",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-eduporium-2026-04-29","title":"Eduporium","group":"qilin","discovered":"2026-04-29T21:59:41.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Education","references":["ransomware.live"]}

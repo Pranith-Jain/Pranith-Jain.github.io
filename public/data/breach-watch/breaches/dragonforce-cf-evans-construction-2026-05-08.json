@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-cf-evans-construction-2026-05-08",
-  "title": "CF Evans Construction",
-  "group": "dragonforce",
-  "discovered": "2026-05-08T21:23:28.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "A recognized leader in the multi-family housing construction industry, CF Evans Construction provides a product for developers. The company has thrived amid six decades.\nThe data of this company includes:\n    Corporate correspondence of senior executives\n    Financial documents\n    HR documents\n    Accounting documents\n    Certificates, contracts, passwords, databases, and much more.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Construction",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-cf-evans-construction-2026-05-08","title":"CF Evans Construction","group":"dragonforce","discovered":"2026-05-08T21:23:28.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"A recognized leader in the multi-family housing construction industry, CF Evans Construction provides a product for developers. The company has thrived amid six decades.\nThe data of this company includes:\n    Corporate correspondence of senior executives\n    Financial documents\n    HR documents\n    Accounting documents\n    Certificates, contracts, passwords, databases, and much more.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Manufacturing","references":["ransomware.live"]}

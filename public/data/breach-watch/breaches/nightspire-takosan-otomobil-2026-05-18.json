@@ -1,15 +1,1 @@
-{
-  "slug": "nightspire-takosan-otomobil-2026-05-18",
-  "title": "TAKOSAN OTOMOBIL",
-  "group": "nightspire",
-  "discovered": "2026-05-18T18:23:59.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "TR",
-  "sizeBytes": 0,
-  "description": "- Technical Documents- Financial Sheets- Contracts & Invoices- Business strategy files",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["NIGHT SPIRE"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"nightspire-takosan-otomobil-2026-05-18","title":"TAKOSAN OTOMOBIL","group":"nightspire","discovered":"2026-05-18T18:23:59.000Z","category":"ransomware","severity":"high","country":"TR","sizeBytes":0,"description":"- Technical Documents- Financial Sheets- Contracts & Invoices- Business strategy files","source_url":"https://www.ransomware.live/","groupAliases":["NIGHT SPIRE"],"activity":"Manufacturing","references":["ransomware.live"]}

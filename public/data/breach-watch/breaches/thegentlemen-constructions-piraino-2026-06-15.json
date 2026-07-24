@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-constructions-piraino-2026-06-15",
-  "title": "Constructions Piraino",
-  "group": "thegentlemen",
-  "discovered": "2026-06-15T12:57:30.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "FR",
-  "sizeBytes": 0,
-  "description": "***.fr zoominfo.com/c/constructions-piraino/459764727 Constructions Piraino is a premier custom home builder based in Wasquehal, proudly serving the Nord and Pas-de-Calais regions of France. Specializing in the design and construction of individual residential homes, they are driven by a passion for turning their clients' architectural dreams into reality. With a dedicated team of professionals, the company delivers high-quality, tailored housing solutions that perfectly blend modern comfort with personalized design across the Hauts-de-France area",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Construction",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-constructions-piraino-2026-06-15","title":"Constructions Piraino","group":"thegentlemen","discovered":"2026-06-15T12:57:30.000Z","category":"ransomware","severity":"critical","country":"FR","sizeBytes":0,"description":"***.fr zoominfo.com/c/constructions-piraino/459764727 Constructions Piraino is a premier custom home builder based in Wasquehal, proudly serving the Nord and Pas-de-Calais regions of France. Specializing in the design and construction of individual residential homes, they are driven by a passion for turning their clients' architectural dreams into reality. With a dedicated team of professionals, the company delivers high-quality, tailored housing solutions that perfectly blend modern comfort with personalized design across the Hauts-de-France area","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Manufacturing","references":["ransomware.live"]}

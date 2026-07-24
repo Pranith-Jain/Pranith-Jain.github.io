@@ -1,15 +1,1 @@
-{
-  "slug": "apt73-legilog-fr-2026-04-27",
-  "title": "legilog.fr",
-  "group": "apt73",
-  "discovered": "2026-04-27T16:54:26.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "FR",
-  "sizeBytes": 0,
-  "description": "Management software for culture, businesses, religion and bishoprics.\n10 GBs\ncrm systems / expo...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Eraleign"],
-  "activity": "Transportation/Logistics",
-  "references": ["ransomware.live"]
-}
+{"slug":"apt73-legilog-fr-2026-04-27","title":"legilog.fr","group":"apt73","discovered":"2026-04-27T16:54:26.000Z","category":"data_breach","severity":"high","country":"FR","sizeBytes":0,"description":"Management software for culture, businesses, religion and bishoprics.\n10 GBs\ncrm systems / expo...","source_url":"https://www.ransomware.live/","groupAliases":["Eraleign"],"activity":"Transportation","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "threeam-palmero-com-2026-06-12",
-  "title": "palmero.com",
-  "group": "threeam",
-  "discovered": "2026-06-12T20:05:59.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Palmero is a company dedicated to the manufacturing and marketing of capital goods, providing comprehensive solutions across various segments including energy, oil and gas, mining, agriculture, and construction. With 75 years of presence in Argent",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"threeam-palmero-com-2026-06-12","title":"palmero.com","group":"threeam","discovered":"2026-06-12T20:05:59.000Z","category":"ransomware","severity":"high","country":null,"sizeBytes":0,"description":"Palmero is a company dedicated to the manufacturing and marketing of capital goods, providing comprehensive solutions across various segments including energy, oil and gas, mining, agriculture, and construction. With 75 years of presence in Argent","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Not Found","references":["ransomware.live"]}

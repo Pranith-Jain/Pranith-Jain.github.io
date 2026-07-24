@@ -1,15 +1,1 @@
-{
-  "slug": "silentransomgroup-ropers-majeski-2026-05-06",
-  "title": "Ropers Majeski",
-  "group": "SilentRansomGroup",
-  "discovered": "2026-05-06T01:20:10.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "[AI generated] Ropers Majeski is a law firm based in the United States, operating primarily in California. The firm provides legal services across a range of practice areas including litigation, insurance defense, business law, employment law, and professional liability. It serves corporate clients, insurers, and individuals, with offices in multiple California cities. The firm is known for its work in complex civil litigation and risk management counsel.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"silentransomgroup-ropers-majeski-2026-05-06","title":"Ropers Majeski","group":"SilentRansomGroup","discovered":"2026-05-06T01:20:10.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"[AI generated] Ropers Majeski is a law firm based in the United States, operating primarily in California. The firm provides legal services across a range of practice areas including litigation, insurance defense, business law, employment law, and professional liability. It serves corporate clients, insurers, and individuals, with offices in multiple California cities. The firm is known for its work in complex civil litigation and risk management counsel.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

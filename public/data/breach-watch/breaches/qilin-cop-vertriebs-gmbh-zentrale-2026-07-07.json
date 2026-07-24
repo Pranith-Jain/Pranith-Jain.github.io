@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-cop-vertriebs-gmbh-zentrale-2026-07-07",
-  "title": "COP® Vertriebs-GmbH Zentrale",
-  "group": "qilin",
-  "discovered": "2026-07-07T18:28:52.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-cop-vertriebs-gmbh-zentrale-2026-07-07","title":"COP® Vertriebs-GmbH Zentrale","group":"qilin","discovered":"2026-07-07T18:28:52.000Z","category":"ransomware","severity":"critical","country":"DE","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

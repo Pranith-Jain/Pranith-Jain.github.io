@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-lindabury-2026-05-09",
-  "title": "Lindabury",
-  "group": "qilin",
-  "discovered": "2026-05-09T08:55:42.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Financial Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-lindabury-2026-05-09","title":"Lindabury","group":"qilin","discovered":"2026-05-09T08:55:42.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Financial Services","references":["ransomware.live"]}

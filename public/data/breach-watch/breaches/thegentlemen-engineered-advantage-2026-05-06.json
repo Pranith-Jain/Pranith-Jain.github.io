@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-engineered-advantage-2026-05-06",
-  "title": "Engineered Advantage",
-  "group": "thegentlemen",
-  "discovered": "2026-05-06T10:07:42.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "eapsc.net zoominfo.com/c/engineered-advantage/1292942990 Engineered Advantage, PSC (EA) is a multidisciplinary architecture and engineering (A/E) firm founded in 2011 and headquartered in San Juan, Puerto Rico, serving both public and private sector clients. The company's expertise spans architecture, civil and structural engineering, forensic engineering, water resources, field inspections, damage assessments, and construction management. EA operates across Puerto Rico, Florida, and the U.S. Virgin Islands, and notably provided post-hurricane recovery engineering services following Hurricanes Irma and Maria in St. Thomas, St. Croix, and St. Maarten",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-engineered-advantage-2026-05-06","title":"Engineered Advantage","group":"thegentlemen","discovered":"2026-05-06T10:07:42.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"eapsc.net zoominfo.com/c/engineered-advantage/1292942990 Engineered Advantage, PSC (EA) is a multidisciplinary architecture and engineering (A/E) firm founded in 2011 and headquartered in San Juan, Puerto Rico, serving both public and private sector clients. The company's expertise spans architecture, civil and structural engineering, forensic engineering, water resources, field inspections, damage assessments, and construction management. EA operates across Puerto Rico, Florida, and the U.S. Virgin Islands, and notably provided post-hurricane recovery engineering services following Hurricanes Irma and Maria in St. Thomas, St. Croix, and St. Maarten","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Professional Services","references":["ransomware.live"]}

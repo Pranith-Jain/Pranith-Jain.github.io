@@ -1,15 +1,1 @@
-{
-  "slug": "payload-preferred-properties-2026-06-20",
-  "title": "Preferred Properties",
-  "group": "payload",
-  "discovered": "2026-06-20T15:04:30.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Preferred Properties, Inc. is a dynamic and progressive housing development and property management company based in Toledo, Ohio. We specialize in the development of affordable and accessible housing opportunities, and to create integrated housing options for persons living with disabilities. Our development program reflects where we are today with programs under management, and new projects in development.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"payload-preferred-properties-2026-06-20","title":"Preferred Properties","group":"payload","discovered":"2026-06-20T15:04:30.000Z","category":"ransomware","severity":"high","country":null,"sizeBytes":0,"description":"Preferred Properties, Inc. is a dynamic and progressive housing development and property management company based in Toledo, Ohio. We specialize in the development of affordable and accessible housing opportunities, and to create integrated housing options for persons living with disabilities. Our development program reflects where we are today with programs under management, and new projects in development.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

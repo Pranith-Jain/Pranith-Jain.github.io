@@ -6,15 +6,15 @@ import { badRequest, notFound, serviceUnavailable } from '../lib/api-error';
 import { assertPublicHost } from '../lib/ssrf-guard';
 
 export async function listWatchesHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const kv = c.env.KV_CACHE;
-  if (!kv) return serviceUnavailable(c, 'KV not available');
-  const watches = await listWatches(kv, c.env.BRIEFINGS_DB);
+  const db = c.env.BRIEFINGS_DB;
+  if (!db) return serviceUnavailable(c, 'database not available');
+  const watches = await listWatches(db);
   return c.json({ watches }, 200, { 'Cache-Control': 'no-store' });
 }
 
 export async function createWatchHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const kv = c.env.KV_CACHE;
-  if (!kv) return serviceUnavailable(c, 'KV not available');
+  const db = c.env.BRIEFINGS_DB;
+  if (!db) return serviceUnavailable(c, 'database not available');
 
   const parsed = await safeJsonBody<{ label: string; type: Watch['type']; value: string; webhook: string }>(c, {
     maxBytes: 4 * 1024,
@@ -54,13 +54,13 @@ export async function createWatchHandler(c: Context<{ Bindings: Env }>): Promise
     last_triggered: null,
   };
 
-  await saveWatch(kv, watch, c.env.BRIEFINGS_DB);
+  await saveWatch(db, watch);
   return c.json({ watch }, 201);
 }
 
 export async function updateWatchHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const kv = c.env.KV_CACHE;
-  if (!kv) return serviceUnavailable(c, 'KV not available');
+  const db = c.env.BRIEFINGS_DB;
+  if (!db) return serviceUnavailable(c, 'database not available');
 
   const id = c.req.param('id');
   if (!id) return badRequest(c, 'id required');
@@ -68,7 +68,7 @@ export async function updateWatchHandler(c: Context<{ Bindings: Env }>): Promise
   const parsed = await safeJsonBody<Partial<Watch>>(c, { maxBytes: 4 * 1024, maxDepth: 4 });
   if ('error' in parsed) return parsed.error;
   const body = parsed.value;
-  let watches = await listWatches(kv, c.env.BRIEFINGS_DB);
+  let watches = await listWatches(db);
   const idx = watches.findIndex((w) => w.id === id);
   if (idx < 0) return notFound(c, 'watch not found');
 
@@ -98,24 +98,24 @@ export async function updateWatchHandler(c: Context<{ Bindings: Env }>): Promise
   }
 
   watches = watches.map((w) => (w.id === id ? watch : w));
-  await saveWatch(kv, watch, c.env.BRIEFINGS_DB);
+  await saveWatch(db, watch);
   return c.json({ watch });
 }
 
 export async function deleteWatchHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const kv = c.env.KV_CACHE;
-  if (!kv) return serviceUnavailable(c, 'KV not available');
+  const db = c.env.BRIEFINGS_DB;
+  if (!db) return serviceUnavailable(c, 'database not available');
 
   const id = c.req.param('id');
   if (!id) return badRequest(c, 'id required');
 
-  await deleteWatch(kv, id, c.env.BRIEFINGS_DB);
+  await deleteWatch(db, id);
   return c.json({ ok: true });
 }
 
 export async function alertLogHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const kv = c.env.KV_CACHE;
-  if (!kv) return serviceUnavailable(c, 'KV not available');
-  const log = await getAlertLog(kv, c.env.BRIEFINGS_DB);
+  const db = c.env.BRIEFINGS_DB;
+  if (!db) return serviceUnavailable(c, 'database not available');
+  const log = await getAlertLog(db);
   return c.json({ alerts: log }, 200, { 'Cache-Control': 'no-store' });
 }

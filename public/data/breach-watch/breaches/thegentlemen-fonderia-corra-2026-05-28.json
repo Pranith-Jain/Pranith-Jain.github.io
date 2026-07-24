@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-fonderia-corra-2026-05-28",
-  "title": "Fonderia Corra",
-  "group": "thegentlemen",
-  "discovered": "2026-05-28T18:54:25.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "IT",
-  "sizeBytes": 0,
-  "description": "fonderiacorra.com zoominfo.com/c/fonderia-corrà/371359796 Fonderia Corra is an Italian foundry founded in 1946, specializing in high-precision cast iron components for industrial sectors like railway, energy, and machinery. With over 70 years of expertise, they offer in-house services from design optimization to final finishing, ensuring quality, waste reduction, and ISO 9001 certification. The company operates two plants in Thiene and Montebelluna, producing lamellar and spheroidal graphite cast iron using advanced automation and skilled professionals. Family-led since its founding, Fonderia Corra combines tradition, innovation, and passion to shape metal into core elements for demanding global industries",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-fonderia-corra-2026-05-28","title":"Fonderia Corra","group":"thegentlemen","discovered":"2026-05-28T18:54:25.000Z","category":"ransomware","severity":"critical","country":"IT","sizeBytes":0,"description":"fonderiacorra.com zoominfo.com/c/fonderia-corrà/371359796 Fonderia Corra is an Italian foundry founded in 1946, specializing in high-precision cast iron components for industrial sectors like railway, energy, and machinery. With over 70 years of expertise, they offer in-house services from design optimization to final finishing, ensuring quality, waste reduction, and ISO 9001 certification. The company operates two plants in Thiene and Montebelluna, producing lamellar and spheroidal graphite cast iron using advanced automation and skilled professionals. Family-led since its founding, Fonderia Corra combines tradition, innovation, and passion to shape metal into core elements for demanding global industries","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Manufacturing","references":["ransomware.live"]}

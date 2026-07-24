@@ -1,15 +1,1 @@
-{
-  "slug": "incransom-signazon-usa-2026-06-11",
-  "title": "Signazon_USA",
-  "group": "incransom",
-  "discovered": "2026-06-11T18:52:27.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Signazon.com was founded with the mission of providing the company's customers with the very best in printing. It's one thing to print fast and cheap - it's another thing to do that and do it well. The company believes in getting the little details right. From asking the company's customers the right questions to picking out different weights of paper, fine-tuning the company's printers for optimal quality to hand-checking every order several times throughout the production process, no stone is left unturned. And the company works hard every day to make sure that each and every customer gets the highest-quality, personalized products and service. With thousands of customers around the country, ranging from Fortune 500 companies to small business owners and even personal consumers, we've embraced the company's place as leaders at the innovative edge of the industry. We're constantly looking to improve and grow by streamlining the company's website, adding new products, and more.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["inc ransom", "INC"],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"incransom-signazon-usa-2026-06-11","title":"Signazon_USA","group":"incransom","discovered":"2026-06-11T18:52:27.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Signazon.com was founded with the mission of providing the company's customers with the very best in printing. It's one thing to print fast and cheap - it's another thing to do that and do it well. The company believes in getting the little details right. From asking the company's customers the right questions to picking out different weights of paper, fine-tuning the company's printers for optimal quality to hand-checking every order several times throughout the production process, no stone is left unturned. And the company works hard every day to make sure that each and every customer gets the highest-quality, personalized products and service. With thousands of customers around the country, ranging from Fortune 500 companies to small business owners and even personal consumers, we've embraced the company's place as leaders at the innovative edge of the industry. We're constantly looking to improve and grow by streamlining the company's website, adding new products, and more.","source_url":"https://www.ransomware.live/","groupAliases":["inc ransom","INC"],"activity":"Technology","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-pou-sheng-international-2026-07-01",
-  "title": "Pou Sheng International",
-  "group": "thegentlemen",
-  "discovered": "2026-07-01T22:16:34.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "TW",
-  "sizeBytes": 0,
-  "description": "***.com zoominfo.com/c/pou-sheng-international/352458448 They serve as a key distributor and exclusive agent for major global sportswear brands like Nike, adidas, PUMA, and Under Armour. The company operates a comprehensive online and offline sales network across the country to provide a full sports and lifestyle experience.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-pou-sheng-international-2026-07-01","title":"Pou Sheng International","group":"thegentlemen","discovered":"2026-07-01T22:16:34.000Z","category":"ransomware","severity":"critical","country":"TW","sizeBytes":0,"description":"***.com zoominfo.com/c/pou-sheng-international/352458448 They serve as a key distributor and exclusive agent for major global sportswear brands like Nike, adidas, PUMA, and Under Armour. The company operates a comprehensive online and offline sales network across the country to provide a full sports and lifestyle experience.","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

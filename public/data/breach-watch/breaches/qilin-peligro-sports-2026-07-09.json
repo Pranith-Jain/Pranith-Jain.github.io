@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-peligro-sports-2026-07-09",
-  "title": "Peligro Sports",
-  "group": "qilin",
-  "discovered": "2026-07-09T05:27:52.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-peligro-sports-2026-07-09","title":"Peligro Sports","group":"qilin","discovered":"2026-07-09T05:27:52.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

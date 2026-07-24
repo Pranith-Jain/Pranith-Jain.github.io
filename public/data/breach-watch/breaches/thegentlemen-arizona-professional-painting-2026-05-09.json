@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-arizona-professional-painting-2026-05-09",
-  "title": "Arizona Professional Painting",
-  "group": "thegentlemen",
-  "discovered": "2026-05-09T09:16:22.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "azpropaint.com Arizona Professional Painting is a family-owned and operated commercial and industrial painting contractor established in 1994, based in Phoenix, Arizona. The company specializes in diverse sectors including data centers, healthcare facilities, sports facilities, industrial projects, and tenant improvements across the state. With SBE, WBE, MBE, and DBE certifications, they maintain an exceptional safety record with a .66 EMR rating and zero recordable on-the-job incidents. Their experienced team provides comprehensive interior and exterior painting, industrial coatings, floor coatings, and ongoing facility maintenance services.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Construction",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-arizona-professional-painting-2026-05-09","title":"Arizona Professional Painting","group":"thegentlemen","discovered":"2026-05-09T09:16:22.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"azpropaint.com Arizona Professional Painting is a family-owned and operated commercial and industrial painting contractor established in 1994, based in Phoenix, Arizona. The company specializes in diverse sectors including data centers, healthcare facilities, sports facilities, industrial projects, and tenant improvements across the state. With SBE, WBE, MBE, and DBE certifications, they maintain an exceptional safety record with a .66 EMR rating and zero recordable on-the-job incidents. Their experienced team provides comprehensive interior and exterior painting, industrial coatings, floor coatings, and ongoing facility maintenance services.","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Professional Services","references":["ransomware.live"]}

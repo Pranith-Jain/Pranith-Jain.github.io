@@ -1,15 +1,1 @@
-{
-  "slug": "genesis-palo-2026-05-11",
-  "title": "Palo",
-  "group": "genesis",
-  "discovered": "2026-05-11T23:23:13.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Architecture and Planning.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"genesis-palo-2026-05-11","title":"Palo","group":"genesis","discovered":"2026-05-11T23:23:13.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Architecture and Planning.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

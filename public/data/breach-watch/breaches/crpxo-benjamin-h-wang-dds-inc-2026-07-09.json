@@ -1,15 +1,1 @@
-{
-  "slug": "crpxo-benjamin-h-wang-dds-inc-2026-07-09",
-  "title": "Benjamin H. Wang DDS Inc.",
-  "group": "CRPxO",
-  "discovered": "2026-07-09T06:40:37.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Sector: Medical | Data leaked: 1.2 GB",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"crpxo-benjamin-h-wang-dds-inc-2026-07-09","title":"Benjamin H. Wang DDS Inc.","group":"CRPxO","discovered":"2026-07-09T06:40:37.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Sector: Medical | Data leaked: 1.2 GB","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

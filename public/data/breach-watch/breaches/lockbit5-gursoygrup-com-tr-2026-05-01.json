@@ -1,15 +1,1 @@
-{
-  "slug": "lockbit5-gursoygrup-com-tr-2026-05-01",
-  "title": "gursoygrup.com.tr",
-  "group": "lockbit5",
-  "discovered": "2026-05-01T12:46:21.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "TR",
-  "sizeBytes": 0,
-  "description": "Gürsoy Grup is a leading company in Turkey with over 30 years of experience, operating in seven sect...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"lockbit5-gursoygrup-com-tr-2026-05-01","title":"gursoygrup.com.tr","group":"lockbit5","discovered":"2026-05-01T12:46:21.000Z","category":"ransomware","severity":"high","country":"TR","sizeBytes":0,"description":"Gürsoy Grup is a leading company in Turkey with over 30 years of experience, operating in seven sect...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

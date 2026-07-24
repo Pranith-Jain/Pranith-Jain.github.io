@@ -1,15 +1,1 @@
-{
-  "slug": "lynx-lifelongaccess-org-2026-05-10",
-  "title": "lifelongaccess.org",
-  "group": "lynx",
-  "discovered": "2026-05-10T09:53:44.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Lifelong Access is a dedicated organization that supports individuals with disabilities through a wide range of specialized programs tailored to their unique needs. Serving clients from birth to the end of life, it focuses on empowering individuals and breaking down barriers, ensuring they have access to resources that foster thriving lives. The company excels in pediatric therapy and adult services, offering therapies, community day services, behavioral health clinics, and supported employment opportunities. With over 70 years of experience and a team of over 200 professionals, Lifelong Access continues to expand its impact in the McLean County community.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"lynx-lifelongaccess-org-2026-05-10","title":"lifelongaccess.org","group":"lynx","discovered":"2026-05-10T09:53:44.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Lifelong Access is a dedicated organization that supports individuals with disabilities through a wide range of specialized programs tailored to their unique needs. Serving clients from birth to the end of life, it focuses on empowering individuals and breaking down barriers, ensuring they have access to resources that foster thriving lives. The company excels in pediatric therapy and adult services, offering therapies, community day services, behavioral health clinics, and supported employment opportunities. With over 70 years of experience and a team of over 200 professionals, Lifelong Access continues to expand its impact in the McLean County community.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

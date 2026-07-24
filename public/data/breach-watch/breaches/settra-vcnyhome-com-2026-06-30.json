@@ -1,15 +1,1 @@
-{
-  "slug": "settra-vcnyhome-com-2026-06-30",
-  "title": "vcnyhome.com",
-  "group": "settra",
-  "discovered": "2026-06-30T11:02:32.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "THE VCNY HOME ARCHIVE The company that sells home comfort failed to protect its own home — its inter...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"settra-vcnyhome-com-2026-06-30","title":"vcnyhome.com","group":"settra","discovered":"2026-06-30T11:02:32.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"THE VCNY HOME ARCHIVE The company that sells home comfort failed to protect its own home — its inter...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-foot-solutions-2026-05-15",
-  "title": "Foot Solutions",
-  "group": "qilin",
-  "discovered": "2026-05-15T16:54:20.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-foot-solutions-2026-05-15","title":"Foot Solutions","group":"qilin","discovered":"2026-05-15T16:54:20.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "genesis-prescott-holden-2026-05-09",
-  "title": "Prescott & Holden",
-  "group": "genesis",
-  "discovered": "2026-05-09T10:23:20.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "A legal firm dedicated to safeguard the rights of its clients",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"genesis-prescott-holden-2026-05-09","title":"Prescott & Holden","group":"genesis","discovered":"2026-05-09T10:23:20.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"A legal firm dedicated to safeguard the rights of its clients","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "lockbit5-hollandbulbfarms-com-2026-06-11",
-  "title": "hollandbulbfarms.com",
-  "group": "lockbit5",
-  "discovered": "2026-06-11T07:15:52.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Holland Bulb Farms is an online store specializing in bulbs, rhizomes, and seedlings The downloaded...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
-}
+{"slug":"lockbit5-hollandbulbfarms-com-2026-06-11","title":"hollandbulbfarms.com","group":"lockbit5","discovered":"2026-06-11T07:15:52.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Holland Bulb Farms is an online store specializing in bulbs, rhizomes, and seedlings The downloaded...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Agriculture and Food Production","references":["ransomware.live"]}

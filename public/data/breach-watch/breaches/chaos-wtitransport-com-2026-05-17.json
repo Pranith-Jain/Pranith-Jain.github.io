@@ -1,15 +1,1 @@
-{
-  "slug": "chaos-wtitransport-com-2026-05-17",
-  "title": "wtitransport.com",
-  "group": "chaos",
-  "discovered": "2026-05-17T19:51:51.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "Company management has exactly 72 hours to contact us. Otherwise, the organization’s data—which contains confidential information—will be published on our public platform, and the possibility of further negotiations will be ruled out.\n\nWTI Transport is a flatbed trucking company headquartered…",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Transportation/Logistics",
-  "references": ["ransomware.live"]
-}
+{"slug":"chaos-wtitransport-com-2026-05-17","title":"wtitransport.com","group":"chaos","discovered":"2026-05-17T19:51:51.000Z","category":"ransomware","severity":"high","country":"DE","sizeBytes":0,"description":"Company management has exactly 72 hours to contact us. Otherwise, the organization’s data—which contains confidential information—will be published on our public platform, and the possibility of further negotiations will be ruled out.\n\nWTI Transport is a flatbed trucking company headquartered…","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Transportation","references":["ransomware.live"]}

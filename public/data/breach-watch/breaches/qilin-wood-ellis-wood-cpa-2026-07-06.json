@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-wood-ellis-wood-cpa-2026-07-06",
-  "title": "Wood Ellis & Wood CPA",
-  "group": "qilin",
-  "discovered": "2026-07-06T13:00:30.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-wood-ellis-wood-cpa-2026-07-06","title":"Wood Ellis & Wood CPA","group":"qilin","discovered":"2026-07-06T13:00:30.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

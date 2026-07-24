@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-expocredit-2026-05-24",
-  "title": "ExpoCredit",
-  "group": "qilin",
-  "discovered": "2026-05-24T17:53:39.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "CZ",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Financial Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-expocredit-2026-05-24","title":"ExpoCredit","group":"qilin","discovered":"2026-05-24T17:53:39.000Z","category":"ransomware","severity":"critical","country":"CZ","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Financial Services","references":["ransomware.live"]}

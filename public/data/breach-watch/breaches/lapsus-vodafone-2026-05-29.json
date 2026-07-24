@@ -1,15 +1,1 @@
-{
-  "slug": "lapsus-vodafone-2026-05-29",
-  "title": "VODAFONE",
-  "group": "lapsus$",
-  "discovered": "2026-05-29T22:52:45.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "Full Infrastructure, Source Code, GitHub Tree & Internal Network Maps",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Telecommunication",
-  "references": ["ransomware.live"]
-}
+{"slug":"lapsus-vodafone-2026-05-29","title":"VODAFONE","group":"lapsus$","discovered":"2026-05-29T22:52:45.000Z","category":"data_breach","severity":"high","country":"DE","sizeBytes":0,"description":"Full Infrastructure, Source Code, GitHub Tree & Internal Network Maps","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "pear-carient-heart-vascular-2026-07-15",
-  "title": "Carient Heart & Vascular",
-  "group": "pear",
-  "discovered": "2026-07-15T11:00:03.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Expert resource for heart and vascular care in Northern Virginia",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"pear-carient-heart-vascular-2026-07-15","title":"Carient Heart & Vascular","group":"pear","discovered":"2026-07-15T11:00:03.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Expert resource for heart and vascular care in Northern Virginia","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

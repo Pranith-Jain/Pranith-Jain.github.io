@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-excel-cell-electronic-2026-07-07",
-  "title": "Excel Cell Electronic",
-  "group": "thegentlemen",
-  "discovered": "2026-07-07T18:31:12.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "TW",
-  "sizeBytes": 0,
-  "description": "***.com.tw zoominfo.com/c/excel-cell-electronic-co-ltd/372144382 Excel Cell Electronic Co., Ltd. (ECE), founded in 1981 and headquartered in Taichung, Taiwan, is a prominent manufacturer of electronic components.The publicly traded company specializes in producing DIP switches, micro switches, relays, terminal blocks, connectors, and resettable fuses for global markets.ECE focuses heavily on product innovation and process integration to serve as a reliable strategic partner in the fast-paced electronics industry",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-excel-cell-electronic-2026-07-07","title":"Excel Cell Electronic","group":"thegentlemen","discovered":"2026-07-07T18:31:12.000Z","category":"ransomware","severity":"critical","country":"TW","sizeBytes":0,"description":"***.com.tw zoominfo.com/c/excel-cell-electronic-co-ltd/372144382 Excel Cell Electronic Co., Ltd. (ECE), founded in 1981 and headquartered in Taichung, Taiwan, is a prominent manufacturer of electronic components.The publicly traded company specializes in producing DIP switches, micro switches, relays, terminal blocks, connectors, and resettable fuses for global markets.ECE focuses heavily on product innovation and process integration to serve as a reliable strategic partner in the fast-paced electronics industry","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Manufacturing","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "stormous-arc-reins-com-fidelityunited-ae-2026-05-02",
-  "title": "arc-reins.com + fidelityunited.ae",
-  "group": "stormous",
-  "discovered": "2026-05-02T08:23:31.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "AE",
-  "sizeBytes": 0,
-  "description": "We have gained full control over 700 GB of data, which includes: meticulous compliance audit data, complete Bank details for ARC, legal licenses, tax documents, and official contracts, as well as KYC and KYC TOBA files for all partners.Additionally, personal data for all employees has been extracted, including passports, ID cards, emails, career details, personal documents, and contracts for managers and internal communications. The breach also covers the marine insurance archive with all its deals in the Middle East, property insurance, civil liability, and risk insurance, in addition to monthly and annual quality control reports and collective agreements with major international partners.We have full control over administrative data, business travel logs, passwords, and DC client lists, along with all internal correspondence, digital identities, and official company signatures. The data also includes a list of major clients and thousands of personal information records for Fidelity and ARC brokers, including their full personal details. All of this and more, totaling 600 GB of secrets.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Financial Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"stormous-arc-reins-com-fidelityunited-ae-2026-05-02","title":"arc-reins.com + fidelityunited.ae","group":"stormous","discovered":"2026-05-02T08:23:31.000Z","category":"ransomware","severity":"critical","country":"AE","sizeBytes":0,"description":"We have gained full control over 700 GB of data, which includes: meticulous compliance audit data, complete Bank details for ARC, legal licenses, tax documents, and official contracts, as well as KYC and KYC TOBA files for all partners.Additionally, personal data for all employees has been extracted, including passports, ID cards, emails, career details, personal documents, and contracts for managers and internal communications. The breach also covers the marine insurance archive with all its deals in the Middle East, property insurance, civil liability, and risk insurance, in addition to monthly and annual quality control reports and collective agreements with major international partners.We have full control over administrative data, business travel logs, passwords, and DC client lists, along with all internal correspondence, digital identities, and official company signatures. The data also includes a list of major clients and thousands of personal information records for Fidelity and ARC brokers, including their full personal details. All of this and more, totaling 600 GB of secrets.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Financial Services","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "ailock-accretech-america-inc-2026-05-11",
-  "title": "Accretech America Inc.",
-  "group": "AiLock",
-  "discovered": "2026-05-11T07:20:06.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Accretech America Inc. is the U.S. division of Tokyo Seimitsu Co., Ltd. of Japan, a Japanese corporation specialising in semiconductor equipment and precision instrumentation.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"ailock-accretech-america-inc-2026-05-11","title":"Accretech America Inc.","group":"AiLock","discovered":"2026-05-11T07:20:06.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Accretech America Inc. is the U.S. division of Tokyo Seimitsu Co., Ltd. of Japan, a Japanese corporation specialising in semiconductor equipment and precision instrumentation.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "akira-karlin-foods-2026-05-22",
-  "title": "Karlin Foods",
-  "group": "akira",
-  "discovered": "2026-05-22T15:20:22.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Karlin Foods is a private label food manufacturer that offers a wide range of products includin\ng potato and rice side dishes, skillet dinners, dips, sauces, and premium items.\n\nWe will upload corporate data soon. Employee and clients, contracts and agreements, financials,\nprojects, etc.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Megazord"],
-  "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
-}
+{"slug":"akira-karlin-foods-2026-05-22","title":"Karlin Foods","group":"akira","discovered":"2026-05-22T15:20:22.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Karlin Foods is a private label food manufacturer that offers a wide range of products includin\ng potato and rice side dishes, skillet dinners, dips, sauces, and premium items.\n\nWe will upload corporate data soon. Employee and clients, contracts and agreements, financials,\nprojects, etc.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Agriculture and Food Production","references":["ransomware.live"]}

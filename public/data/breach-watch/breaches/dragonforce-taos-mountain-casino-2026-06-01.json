@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-taos-mountain-casino-2026-06-01",
-  "title": "Taos Mountain Casino",
-  "group": "dragonforce",
-  "discovered": "2026-06-01T14:23:27.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Taos Mountain Casino is a Native American gaming casino located in Taos, New Mexico. It is owned and operated by the Taos Pueblo, a federally recognized tribe known for its ancient, historic adobe pueblo.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Hospitality and Tourism",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-taos-mountain-casino-2026-06-01","title":"Taos Mountain Casino","group":"dragonforce","discovered":"2026-06-01T14:23:27.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Taos Mountain Casino is a Native American gaming casino located in Taos, New Mexico. It is owned and operated by the Taos Pueblo, a federally recognized tribe known for its ancient, historic adobe pueblo.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Hospitality","references":["ransomware.live"]}

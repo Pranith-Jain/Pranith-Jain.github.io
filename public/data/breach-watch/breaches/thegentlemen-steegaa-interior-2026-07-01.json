@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-steegaa-interior-2026-07-01",
-  "title": "Steegaa Interior",
-  "group": "thegentlemen",
-  "discovered": "2026-07-01T22:20:41.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "AE",
-  "sizeBytes": 0,
-  "description": "***.com zoominfo.com/c/steegaa/408684474 Steegaa Interior, a Dutch company based in Helmond specializing in high-end custom interior design and construction.Established in 2000, the firm focuses on designing, manufacturing, and installing bespoke interiors for both private and commercial clients.They are highly regarded for their exceptional craftsmanship, attention to detail, and ability to deliver complete, turnkey interior solutions.Additionally, the company operates as a recognized training center, offering apprenticeships to foster the next generation of skilled interior builders",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-steegaa-interior-2026-07-01","title":"Steegaa Interior","group":"thegentlemen","discovered":"2026-07-01T22:20:41.000Z","category":"ransomware","severity":"critical","country":"AE","sizeBytes":0,"description":"***.com zoominfo.com/c/steegaa/408684474 Steegaa Interior, a Dutch company based in Helmond specializing in high-end custom interior design and construction.Established in 2000, the firm focuses on designing, manufacturing, and installing bespoke interiors for both private and commercial clients.They are highly regarded for their exceptional craftsmanship, attention to detail, and ability to deliver complete, turnkey interior solutions.Additionally, the company operates as a recognized training center, offering apprenticeships to foster the next generation of skilled interior builders","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

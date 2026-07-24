@@ -1,15 +1,1 @@
-{
-  "slug": "sinobi-positiwise-infotech-pvt-2026-05-05",
-  "title": "Positiwise Infotech Pvt",
-  "group": "sinobi",
-  "discovered": "2026-05-05T19:55:13.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "IN",
-  "sizeBytes": 0,
-  "description": "Positiwise Software Pvt Ltd is a software development company based in India and the USA, specializing in a wide range of services including web development, eCommerce solutions, mobile app development, and custom software development. They cater to various industries such as healthcare, retail, real estate, finance, and hospitality, providing tailored solutions to meet specific business needs. With over two decades of experience, their team of top-tier developers is dedicated to delivering high-quality, scalable, and innovative software solutions. Positiwise aims to help businesses digitize their operations effectively while ensuring data security and timely project delivery.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"sinobi-positiwise-infotech-pvt-2026-05-05","title":"Positiwise Infotech Pvt","group":"sinobi","discovered":"2026-05-05T19:55:13.000Z","category":"data_breach","severity":"high","country":"IN","sizeBytes":0,"description":"Positiwise Software Pvt Ltd is a software development company based in India and the USA, specializing in a wide range of services including web development, eCommerce solutions, mobile app development, and custom software development. They cater to various industries such as healthcare, retail, real estate, finance, and hospitality, providing tailored solutions to meet specific business needs. With over two decades of experience, their team of top-tier developers is dedicated to delivering high-quality, scalable, and innovative software solutions. Positiwise aims to help businesses digitize their operations effectively while ensuring data security and timely project delivery.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

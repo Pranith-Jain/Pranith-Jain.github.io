@@ -1,15 +1,1 @@
-{
-  "slug": "krybit-euroins-bg-2026-07-18",
-  "title": "euroins.bg",
-  "group": "krybit",
-  "discovered": "2026-07-18T16:26:43.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "BG",
-  "sizeBytes": 0,
-  "description": "Euroins Insurance Company AD (Застрахователна компания Евроинс АД) is one of the first a...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Financial Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"krybit-euroins-bg-2026-07-18","title":"euroins.bg","group":"krybit","discovered":"2026-07-18T16:26:43.000Z","category":"ransomware","severity":"high","country":"BG","sizeBytes":0,"description":"Euroins Insurance Company AD (Застрахователна компания Евроинс АД) is one of the first a...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Financial Services","references":["ransomware.live"]}

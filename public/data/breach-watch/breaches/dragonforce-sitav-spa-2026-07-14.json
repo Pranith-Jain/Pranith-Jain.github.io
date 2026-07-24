@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-sitav-spa-2026-07-14",
-  "title": "SITAV SpA",
-  "group": "dragonforce",
-  "discovered": "2026-07-14T13:54:31.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "IT",
-  "sizeBytes": 0,
-  "description": "SITAV specializes in the construction, maintenance, revision, and restoration of trains and railway vehicles, ensuring maximum efficiency for high-speed trains, regional transport carriages, trams, and subways. The company has been operational since its founding, providing corrective and ordinary maintenance services primarily for Trenitalia. With a focus on innovation and safety, SITAV employs a team of experts and advanced technologies to guarantee that every vehicle is in perfect operational condition. Their services also include revamping, which modernizes existing trains to enhance the travel experience.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-sitav-spa-2026-07-14","title":"SITAV SpA","group":"dragonforce","discovered":"2026-07-14T13:54:31.000Z","category":"ransomware","severity":"critical","country":"IT","sizeBytes":0,"description":"SITAV specializes in the construction, maintenance, revision, and restoration of trains and railway vehicles, ensuring maximum efficiency for high-speed trains, regional transport carriages, trams, and subways. The company has been operational since its founding, providing corrective and ordinary maintenance services primarily for Trenitalia. With a focus on innovation and safety, SITAV employs a team of experts and advanced technologies to guarantee that every vehicle is in perfect operational condition. Their services also include revamping, which modernizes existing trains to enhance the travel experience.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Manufacturing","references":["ransomware.live"]}

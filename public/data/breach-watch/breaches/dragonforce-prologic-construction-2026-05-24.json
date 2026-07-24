@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-prologic-construction-2026-05-24",
-  "title": "Prologic Construction",
-  "group": "dragonforce",
-  "discovered": "2026-05-24T09:51:34.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "CA",
-  "sizeBytes": 0,
-  "description": "Prologic Construction is a trusted general contractor based in Alberta, specializing in high-quality construction solutions for both public and private sectors since 1999. The company offers a full range of services including commercial, institutional, and municipal projects, ensuring timely completion and adherence to budget. With a commitment to quality craftsmanship and competitive pricing, Prologic Construction has built a strong reputation for reliability and expertise. Their portfolio includes various projects such as school modernizations, arena renovations, and healthcare facilities, reflecting their dedication to excellence and community development",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Construction",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-prologic-construction-2026-05-24","title":"Prologic Construction","group":"dragonforce","discovered":"2026-05-24T09:51:34.000Z","category":"ransomware","severity":"critical","country":"CA","sizeBytes":0,"description":"Prologic Construction is a trusted general contractor based in Alberta, specializing in high-quality construction solutions for both public and private sectors since 1999. The company offers a full range of services including commercial, institutional, and municipal projects, ensuring timely completion and adherence to budget. With a commitment to quality craftsmanship and competitive pricing, Prologic Construction has built a strong reputation for reliability and expertise. Their portfolio includes various projects such as school modernizations, arena renovations, and healthcare facilities, reflecting their dedication to excellence and community development","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Manufacturing","references":["ransomware.live"]}

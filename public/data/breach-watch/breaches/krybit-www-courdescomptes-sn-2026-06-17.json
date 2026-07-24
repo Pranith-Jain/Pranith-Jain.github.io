@@ -1,15 +1,1 @@
-{
-  "slug": "krybit-www-courdescomptes-sn-2026-06-17",
-  "title": "www.courdescomptes.sn",
-  "group": "krybit",
-  "discovered": "2026-06-17T10:24:06.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "SN",
-  "sizeBytes": 0,
-  "description": "La Cour des Comptes du Sénégal (The Court of Auditors of Senegal) is an independent supreme audit institution of Seneg...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Public Sector",
-  "references": ["ransomware.live"]
-}
+{"slug":"krybit-www-courdescomptes-sn-2026-06-17","title":"www.courdescomptes.sn","group":"krybit","discovered":"2026-06-17T10:24:06.000Z","category":"ransomware","severity":"high","country":"SN","sizeBytes":0,"description":"La Cour des Comptes du Sénégal (The Court of Auditors of Senegal) is an independent supreme audit institution of Seneg...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Government & Defense","references":["ransomware.live"]}

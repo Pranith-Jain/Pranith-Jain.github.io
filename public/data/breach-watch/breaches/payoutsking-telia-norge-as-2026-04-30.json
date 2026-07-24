@@ -1,15 +1,1 @@
-{
-  "slug": "payoutsking-telia-norge-as-2026-04-30",
-  "title": "Telia Norge AS",
-  "group": "payoutsking",
-  "discovered": "2026-04-30T00:56:56.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "NO",
-  "sizeBytes": 0,
-  "description": "[AI generated] Telia Norge AS is a Norwegian telecommunications company and a subsidiary of the Swedish Telia Company group. Operating in Norway, it provides mobile and fixed-line services, broadband internet, and TV solutions to both consumer and business customers. The company is a major player in the Norwegian telecom market, competing with providers like Telenor and Ice, and operates infrastructure supporting voice, data, and digital services across the country.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Telecommunication",
-  "references": ["ransomware.live"]
-}
+{"slug":"payoutsking-telia-norge-as-2026-04-30","title":"Telia Norge AS","group":"payoutsking","discovered":"2026-04-30T00:56:56.000Z","category":"ransomware","severity":"high","country":"NO","sizeBytes":0,"description":"[AI generated] Telia Norge AS is a Norwegian telecommunications company and a subsidiary of the Swedish Telia Company group. Operating in Norway, it provides mobile and fixed-line services, broadband internet, and TV solutions to both consumer and business customers. The company is a major player in the Norwegian telecom market, competing with providers like Telenor and Ice, and operates infrastructure supporting voice, data, and digital services across the country.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-sivatel-bangkok-2026-06-21",
-  "title": "Sivatel Bangkok",
-  "group": "qilin",
-  "discovered": "2026-06-21T18:04:09.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "TH",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Telecommunication",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-sivatel-bangkok-2026-06-21","title":"Sivatel Bangkok","group":"qilin","discovered":"2026-06-21T18:04:09.000Z","category":"ransomware","severity":"critical","country":"TH","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

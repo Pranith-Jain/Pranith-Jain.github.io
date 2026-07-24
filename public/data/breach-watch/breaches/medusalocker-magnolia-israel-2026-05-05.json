@@ -1,15 +1,1 @@
-{
-  "slug": "medusalocker-magnolia-israel-2026-05-05",
-  "title": "Magnolia (Israel)",
-  "group": "medusalocker",
-  "discovered": "2026-05-05T20:34:51.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "IL",
-  "sizeBytes": 0,
-  "description": "Israeli jewelry company. Silver & accessories, participates in Vicenza jewelry fair (2025/2026). Sells via buyme.co.il gift cards. ~38k files, invoices in Hebrew (SI/IN/OV prefix).",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"medusalocker-magnolia-israel-2026-05-05","title":"Magnolia (Israel)","group":"medusalocker","discovered":"2026-05-05T20:34:51.000Z","category":"ransomware","severity":"high","country":"IL","sizeBytes":0,"description":"Israeli jewelry company. Silver & accessories, participates in Vicenza jewelry fair (2025/2026). Sells via buyme.co.il gift cards. ~38k files, invoices in Hebrew (SI/IN/OV prefix).","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-saver-nl-2026-05-25",
-  "title": "saver.nl",
-  "group": "dragonforce",
-  "discovered": "2026-05-25T11:53:43.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "NL",
-  "sizeBytes": 0,
-  "description": "Saver NV operates in waste management, environmental services, and recycling. It employs 20 to 49 people and generates revenues of $5 to $10 million. The company is headquartered in Roosendaal, Noord-Brabant, the Netherlands.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-saver-nl-2026-05-25","title":"saver.nl","group":"dragonforce","discovered":"2026-05-25T11:53:43.000Z","category":"ransomware","severity":"critical","country":"NL","sizeBytes":0,"description":"Saver NV operates in waste management, environmental services, and recycling. It employs 20 to 49 people and generates revenues of $5 to $10 million. The company is headquartered in Roosendaal, Noord-Brabant, the Netherlands.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

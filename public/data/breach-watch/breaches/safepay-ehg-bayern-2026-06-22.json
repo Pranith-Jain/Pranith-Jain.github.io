@@ -1,15 +1,1 @@
-{
-  "slug": "safepay-ehg-bayern-2026-06-22",
-  "title": "ehg.bayern",
-  "group": "safepay",
-  "discovered": "2026-06-22T21:34:49.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "Founded in 1991, the company has evolved from a regional waste management enterprise into a specialized provider of infrastructure operations, …",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"safepay-ehg-bayern-2026-06-22","title":"ehg.bayern","group":"safepay","discovered":"2026-06-22T21:34:49.000Z","category":"ransomware","severity":"high","country":"DE","sizeBytes":0,"description":"Founded in 1991, the company has evolved from a regional waste management enterprise into a specialized provider of infrastructure operations, …","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Other","references":["ransomware.live"]}

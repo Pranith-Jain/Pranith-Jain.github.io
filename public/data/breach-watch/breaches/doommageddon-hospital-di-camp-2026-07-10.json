@@ -1,15 +1,1 @@
-{
-  "slug": "doommageddon-hospital-di-camp-2026-07-10",
-  "title": "Hospital Di Camp",
-  "group": "Doommageddon",
-  "discovered": "2026-07-10T08:20:29.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Status: upcoming | Data size: N/A | Files: 0 files | Deadline: 2026-07-21T00:00:00Z",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"doommageddon-hospital-di-camp-2026-07-10","title":"Hospital Di Camp","group":"Doommageddon","discovered":"2026-07-10T08:20:29.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"Status: upcoming | Data size: N/A | Files: 0 files | Deadline: 2026-07-21T00:00:00Z","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

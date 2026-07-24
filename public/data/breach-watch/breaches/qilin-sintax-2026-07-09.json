@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-sintax-2026-07-09",
-  "title": "Sintax",
-  "group": "qilin",
-  "discovered": "2026-07-09T10:31:38.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "BE",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-sintax-2026-07-09","title":"Sintax","group":"qilin","discovered":"2026-07-09T10:31:38.000Z","category":"ransomware","severity":"critical","country":"BE","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

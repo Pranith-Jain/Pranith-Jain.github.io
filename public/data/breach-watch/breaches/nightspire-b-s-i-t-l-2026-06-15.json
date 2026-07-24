@@ -1,15 +1,1 @@
-{
-  "slug": "nightspire-b-s-i-t-l-2026-06-15",
-  "title": "B****S I******t***l",
-  "group": "nightspire",
-  "discovered": "2026-06-15T18:55:36.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Data is not available now.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["NIGHT SPIRE"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"nightspire-b-s-i-t-l-2026-06-15","title":"B****S I******t***l","group":"nightspire","discovered":"2026-06-15T18:55:36.000Z","category":"ransomware","severity":"high","country":null,"sizeBytes":0,"description":"Data is not available now.","source_url":"https://www.ransomware.live/","groupAliases":["NIGHT SPIRE"],"activity":"Professional Services","references":["ransomware.live"]}

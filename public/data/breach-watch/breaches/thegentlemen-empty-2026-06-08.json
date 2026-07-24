@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-empty-2026-06-08",
-  "title": "Empty",
-  "group": "thegentlemen",
-  "discovered": "2026-06-08T09:57:46.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "ES",
-  "sizeBytes": 0,
-  "description": "***.es zoominfo.com/c/empty/439336503 Empty is a prominent Spanish construction and architecture firm headquartered in Madrid, specializing in the execution of complex architectural, museum, and exhibition projects. With a team of over 50 professionals and offices in Madrid, Barcelona, and Paris, the company excels in mobilizing technical resources to deliver high-profile builds, such as the Spanish Pavilion at Expo Dubai 2020 and BBVA’s \"La Vela\" headquarters. Founded with the vision of redefining the construction industry, Empty acts as a comprehensive partner for drafting and executing large-scale, sophisticated structures",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-empty-2026-06-08","title":"Empty","group":"thegentlemen","discovered":"2026-06-08T09:57:46.000Z","category":"ransomware","severity":"critical","country":"ES","sizeBytes":0,"description":"***.es zoominfo.com/c/empty/439336503 Empty is a prominent Spanish construction and architecture firm headquartered in Madrid, specializing in the execution of complex architectural, museum, and exhibition projects. With a team of over 50 professionals and offices in Madrid, Barcelona, and Paris, the company excels in mobilizing technical resources to deliver high-profile builds, such as the Spanish Pavilion at Expo Dubai 2020 and BBVA’s \"La Vela\" headquarters. Founded with the vision of redefining the construction industry, Empty acts as a comprehensive partner for drafting and executing large-scale, sophisticated structures","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Not Found","references":["ransomware.live"]}

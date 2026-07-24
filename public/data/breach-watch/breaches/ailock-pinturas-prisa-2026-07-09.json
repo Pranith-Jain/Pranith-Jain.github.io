@@ -1,15 +1,1 @@
-{
-  "slug": "ailock-pinturas-prisa-2026-07-09",
-  "title": "Pinturas Prisa",
-  "group": "AiLock",
-  "discovered": "2026-07-09T08:20:07.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "MX",
-  "sizeBytes": 0,
-  "description": "Pinturas PRISA is a Mexican company from the state of Jalisco with nearly 80 years of history, specializing in the production of high-quality paints and coatings for industrial sectors (automotive, woodworking, manufacturing) and retail customers.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"ailock-pinturas-prisa-2026-07-09","title":"Pinturas Prisa","group":"AiLock","discovered":"2026-07-09T08:20:07.000Z","category":"ransomware","severity":"high","country":"MX","sizeBytes":0,"description":"Pinturas PRISA is a Mexican company from the state of Jalisco with nearly 80 years of history, specializing in the production of high-quality paints and coatings for industrial sectors (automotive, woodworking, manufacturing) and retail customers.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

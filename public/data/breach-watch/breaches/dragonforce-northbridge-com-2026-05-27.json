@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-northbridge-com-2026-05-27",
-  "title": "northbridge.com",
-  "group": "dragonforce",
-  "discovered": "2026-05-27T15:52:27.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "CA",
-  "sizeBytes": 0,
-  "description": "North Bridge Venture Partners invests in outstanding individuals\nwhose innovative ideas have the potential to transform entire industries.\n\nThe firm provides funding from seed to growth stages,\nhelping these ideas grow into successful companies.\n\nTheir goal is to transform startups into market leaders. They work with clients\nseeking investment and support for their entrepreneurial projects.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-northbridge-com-2026-05-27","title":"northbridge.com","group":"dragonforce","discovered":"2026-05-27T15:52:27.000Z","category":"ransomware","severity":"critical","country":"CA","sizeBytes":0,"description":"North Bridge Venture Partners invests in outstanding individuals\nwhose innovative ideas have the potential to transform entire industries.\n\nThe firm provides funding from seed to growth stages,\nhelping these ideas grow into successful companies.\n\nTheir goal is to transform startups into market leaders. They work with clients\nseeking investment and support for their entrepreneurial projects.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Technology","references":["ransomware.live"]}

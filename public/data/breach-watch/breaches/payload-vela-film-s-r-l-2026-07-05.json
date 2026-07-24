@@ -1,15 +1,1 @@
-{
-  "slug": "payload-vela-film-s-r-l-2026-07-05",
-  "title": "Vela Film S.r.l.",
-  "group": "payload",
-  "discovered": "2026-07-05T14:04:22.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "IT",
-  "sizeBytes": 0,
-  "description": "Vela Film S.r.l. is an Italian production company based in Rome, specializing in the cinema and television industry. The company is involved in creating and producing various media projects, including well-known Italian TV series like “La porta rossa” and “Volevo fare la rockstar”. It actively collaborates with local directors and regional film commissions to organize and execute shootings across Italy.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"payload-vela-film-s-r-l-2026-07-05","title":"Vela Film S.r.l.","group":"payload","discovered":"2026-07-05T14:04:22.000Z","category":"ransomware","severity":"high","country":"IT","sizeBytes":0,"description":"Vela Film S.r.l. is an Italian production company based in Rome, specializing in the cinema and television industry. The company is involved in creating and producing various media projects, including well-known Italian TV series like “La porta rossa” and “Volevo fare la rockstar”. It actively collaborates with local directors and regional film commissions to organize and execute shootings across Italy.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

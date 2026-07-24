@@ -1,15 +1,1 @@
-{
-  "slug": "blackfield-ccic-com-tw-2026-06-29",
-  "title": "ccic.com.tw",
-  "group": "Blackfield",
-  "discovered": "2026-06-29T08:27:21.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "TW",
-  "sizeBytes": 0,
-  "description": "Nidec Chaun-Choung Technology Corporation (CCIC) is a Taiwan-based company specializing in the d...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"blackfield-ccic-com-tw-2026-06-29","title":"ccic.com.tw","group":"Blackfield","discovered":"2026-06-29T08:27:21.000Z","category":"data_breach","severity":"high","country":"TW","sizeBytes":0,"description":"Nidec Chaun-Choung Technology Corporation (CCIC) is a Taiwan-based company specializing in the d...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

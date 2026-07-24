@@ -1,15 +1,1 @@
-{
-  "slug": "morpheus-kyowa-singapore-pte-ltd-2026-07-21",
-  "title": "Kyowa Singapore Pte Ltd",
-  "group": "morpheus",
-  "discovered": "2026-07-21T11:29:27.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "SG",
-  "sizeBytes": 0,
-  "description": "**Website**: kyowasingapore.com\n\n**Revenue**: $15 Million\n\nFounded in 1979 and headquartered at Benoi Road, Singapore, they primarily supply global consumer electronics, grooming, and automotive indus",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"morpheus-kyowa-singapore-pte-ltd-2026-07-21","title":"Kyowa Singapore Pte Ltd","group":"morpheus","discovered":"2026-07-21T11:29:27.000Z","category":"data_breach","severity":"high","country":"SG","sizeBytes":0,"description":"**Website**: kyowasingapore.com\n\n**Revenue**: $15 Million\n\nFounded in 1979 and headquartered at Benoi Road, Singapore, they primarily supply global consumer electronics, grooming, and automotive indus","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

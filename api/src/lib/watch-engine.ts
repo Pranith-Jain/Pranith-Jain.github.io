@@ -5,7 +5,6 @@ import type { D1Database } from '@cloudflare/workers-types';
 import { LIVE_IOCS_CACHE_KEY } from '../routes/live-iocs';
 import { RANSOMWARE_RECENT_CACHE_KEY } from '../routes/ransomware-recent';
 import { pinnedFetch } from './ssrf-guard';
-import { safeNullLog } from './safe-catch';
 
 export interface Watch {
   id: string;
@@ -26,9 +25,6 @@ export interface AlertEvent {
   match: string;
   detail?: string;
 }
-
-const WATCHES_KV_KEY = 'watches:v1';
-const ALERT_LOG_KV_KEY = 'alert-log:v1';
 
 async function ensureWatchTables(db: D1Database): Promise<void> {
   await db
@@ -61,95 +57,46 @@ async function ensureWatchTables(db: D1Database): Promise<void> {
   await db.prepare('CREATE INDEX IF NOT EXISTS idx_alert_logs_matched ON alert_logs(matched_at)').run();
 }
 
-export async function listWatches(kv: KVNamespace, db?: D1Database): Promise<Watch[]> {
-  if (db) {
-    try {
-      await ensureWatchTables(db);
-      const rows = await db.prepare('SELECT * FROM watches ORDER BY created_at DESC').all<Watch>();
-      if (rows.results && rows.results.length > 0) return rows.results;
-    } catch {
-      /* fall through to KV */
-    }
-  }
-  const raw = await safeNullLog('kv-get-watches', kv.get(WATCHES_KV_KEY, 'json'));
-  return (raw as Watch[]) ?? [];
+export async function listWatches(db: D1Database): Promise<Watch[]> {
+  await ensureWatchTables(db);
+  const rows = await db.prepare('SELECT * FROM watches ORDER BY created_at DESC').all<Watch>();
+  return rows.results ?? [];
 }
 
-export async function saveWatch(kv: KVNamespace, watch: Watch, db?: D1Database): Promise<void> {
-  if (db) {
-    try {
-      await ensureWatchTables(db);
-      await db
-        .prepare(
-          `INSERT OR REPLACE INTO watches (id, label, type, value, webhook, created_at, last_triggered)
-        VALUES (?, ?, ?, ?, ?, ?, ?)`
-        )
-        .bind(watch.id, watch.label, watch.type, watch.value, watch.webhook, watch.created_at, watch.last_triggered)
-        .run();
-      return;
-    } catch {
-      /* fall through to KV */
-    }
-  }
-  const watches = await listWatches(kv);
-  const idx = watches.findIndex((w) => w.id === watch.id);
-  if (idx >= 0) watches[idx] = watch;
-  else watches.push(watch);
-  await kv.put(WATCHES_KV_KEY, JSON.stringify(watches));
+export async function saveWatch(db: D1Database, watch: Watch): Promise<void> {
+  await ensureWatchTables(db);
+  await db
+    .prepare(
+      `INSERT OR REPLACE INTO watches (id, label, type, value, webhook, created_at, last_triggered)
+    VALUES (?, ?, ?, ?, ?, ?, ?)`
+    )
+    .bind(watch.id, watch.label, watch.type, watch.value, watch.webhook, watch.created_at, watch.last_triggered)
+    .run();
 }
 
-export async function deleteWatch(kv: KVNamespace, id: string, db?: D1Database): Promise<void> {
-  if (db) {
-    try {
-      await ensureWatchTables(db);
-      await db.prepare('DELETE FROM watches WHERE id = ?').bind(id).run();
-      return;
-    } catch {
-      /* fall through to KV */
-    }
-  }
-  const watches = await listWatches(kv);
-  await kv.put(WATCHES_KV_KEY, JSON.stringify(watches.filter((w) => w.id !== id)));
+export async function deleteWatch(db: D1Database, id: string): Promise<void> {
+  await ensureWatchTables(db);
+  await db.prepare('DELETE FROM watches WHERE id = ?').bind(id).run();
 }
 
-export async function appendAlertLog(kv: KVNamespace, event: AlertEvent, db?: D1Database): Promise<void> {
-  if (db) {
-    try {
-      await ensureWatchTables(db);
-      await db
-        .prepare(
-          `INSERT INTO alert_logs (watch_id, label, type, value, matched_at, match, detail)
-        VALUES (?, ?, ?, ?, ?, ?, ?)`
-        )
-        .bind(event.watch_id, event.label, event.type, event.value, event.matched_at, event.match, event.detail ?? null)
-        .run();
-      return;
-    } catch {
-      /* fall through to KV */
-    }
-  }
-  const raw = await safeNullLog('kv-get-alert-log', kv.get(ALERT_LOG_KV_KEY, 'json'));
-  const log = (raw as AlertEvent[]) ?? [];
-  log.unshift(event);
-  if (log.length > 200) log.length = 200;
-  await kv.put(ALERT_LOG_KV_KEY, JSON.stringify(log));
+export async function appendAlertLog(db: D1Database, event: AlertEvent): Promise<void> {
+  await ensureWatchTables(db);
+  await db
+    .prepare(
+      `INSERT INTO alert_logs (watch_id, label, type, value, matched_at, match, detail)
+    VALUES (?, ?, ?, ?, ?, ?, ?)`
+    )
+    .bind(event.watch_id, event.label, event.type, event.value, event.matched_at, event.match, event.detail ?? null)
+    .run();
 }
 
-export async function getAlertLog(kv: KVNamespace, db?: D1Database, limit: number = 100): Promise<AlertEvent[]> {
-  if (db) {
-    try {
-      await ensureWatchTables(db);
-      const rows = await db
-        .prepare('SELECT * FROM alert_logs ORDER BY matched_at DESC LIMIT ?')
-        .bind(limit)
-        .all<AlertEvent>();
-      if (rows.results && rows.results.length > 0) return rows.results;
-    } catch {
-      /* fall through to KV */
-    }
-  }
-  const raw = await safeNullLog('kv-get-alert-log-list', kv.get(ALERT_LOG_KV_KEY, 'json'));
-  return (raw as AlertEvent[]) ?? [];
+export async function getAlertLog(db: D1Database, limit: number = 100): Promise<AlertEvent[]> {
+  await ensureWatchTables(db);
+  const rows = await db
+    .prepare('SELECT * FROM alert_logs ORDER BY matched_at DESC LIMIT ?')
+    .bind(limit)
+    .all<AlertEvent>();
+  return rows.results ?? [];
 }
 
 async function readCachedJson<T>(cacheKey: string): Promise<T | null> {
@@ -163,8 +110,8 @@ async function readCachedJson<T>(cacheKey: string): Promise<T | null> {
   return null;
 }
 
-export async function checkWatches(kv: KVNamespace, now: string, db?: D1Database): Promise<AlertEvent[]> {
-  const watches = await listWatches(kv, db);
+export async function checkWatches(db: D1Database, now: string): Promise<AlertEvent[]> {
+  const watches = await listWatches(db);
   if (watches.length === 0) return [];
 
   const alerts: AlertEvent[] = [];
@@ -269,54 +216,36 @@ export async function checkWatches(kv: KVNamespace, now: string, db?: D1Database
     }
   }
 
-  // Batch-persist — D1 primary, KV fallback
+  // Batch-persist via D1
   if (alerts.length > 0) {
     try {
-      if (db) {
-        await ensureWatchTables(db);
-        for (const w of watches) {
-          await db
-            .prepare(
-              `INSERT OR REPLACE INTO watches (id, label, type, value, webhook, created_at, last_triggered)
-            VALUES (?, ?, ?, ?, ?, ?, ?)`
-            )
-            .bind(w.id, w.label, w.type, w.value, w.webhook, w.created_at, w.last_triggered)
-            .run();
-        }
-        for (const event of alerts) {
-          await db
-            .prepare(
-              `INSERT INTO alert_logs (watch_id, label, type, value, matched_at, match, detail)
-            VALUES (?, ?, ?, ?, ?, ?, ?)`
-            )
-            .bind(
-              event.watch_id,
-              event.label,
-              event.type,
-              event.value,
-              event.matched_at,
-              event.match,
-              event.detail ?? null
-            )
-            .run();
-        }
+      await ensureWatchTables(db);
+      for (const w of watches) {
+        await db
+          .prepare(
+            `INSERT OR REPLACE INTO watches (id, label, type, value, webhook, created_at, last_triggered)
+          VALUES (?, ?, ?, ?, ?, ?, ?)`
+          )
+          .bind(w.id, w.label, w.type, w.value, w.webhook, w.created_at, w.last_triggered)
+          .run();
       }
-    } catch {
-      /* non-fatal */
-    }
-
-    try {
-      await kv.put(WATCHES_KV_KEY, JSON.stringify(watches));
-    } catch {
-      /* non-fatal */
-    }
-
-    try {
-      const raw = await safeNullLog('kv-get-alert-log-trigger', kv.get(ALERT_LOG_KV_KEY, 'json'));
-      const log = (raw as AlertEvent[]) ?? [];
-      for (const event of alerts) log.unshift(event);
-      if (log.length > 200) log.length = 200;
-      await kv.put(ALERT_LOG_KV_KEY, JSON.stringify(log));
+      for (const event of alerts) {
+        await db
+          .prepare(
+            `INSERT INTO alert_logs (watch_id, label, type, value, matched_at, match, detail)
+          VALUES (?, ?, ?, ?, ?, ?, ?)`
+          )
+          .bind(
+            event.watch_id,
+            event.label,
+            event.type,
+            event.value,
+            event.matched_at,
+            event.match,
+            event.detail ?? null
+          )
+          .run();
+      }
     } catch {
       /* non-fatal */
     }

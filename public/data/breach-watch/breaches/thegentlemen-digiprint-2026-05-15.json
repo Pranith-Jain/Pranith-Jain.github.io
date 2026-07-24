@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-digiprint-2026-05-15",
-  "title": "Digiprint",
-  "group": "thegentlemen",
-  "discovered": "2026-05-15T10:52:44.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "PL",
-  "sizeBytes": 0,
-  "description": "digiprint.pl zoominfo.com/c/digiprint/372856266 leading Polish company established in 2000 that delivers innovative solutions for the printing industry. They specialize in digital and flexographic printing technologies, wide-format production, and packaging design, partnering with global brands like HP Indigo and Esko. Beyond equipment sales, Digiprint provides expert installation, training, and after-sales support to help print businesses thrive in a digital era",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-digiprint-2026-05-15","title":"Digiprint","group":"thegentlemen","discovered":"2026-05-15T10:52:44.000Z","category":"ransomware","severity":"critical","country":"PL","sizeBytes":0,"description":"digiprint.pl zoominfo.com/c/digiprint/372856266 leading Polish company established in 2000 that delivers innovative solutions for the printing industry. They specialize in digital and flexographic printing technologies, wide-format production, and packaging design, partnering with global brands like HP Indigo and Esko. Beyond equipment sales, Digiprint provides expert installation, training, and after-sales support to help print businesses thrive in a digital era","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Manufacturing","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "shadowbyt3-stride-learning-2026-05-14",
-  "title": "Stride Learning",
-  "group": "shadowbyt3$",
-  "discovered": "2026-05-14T16:47:59.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Stride Learning Should've Paid the ransom. We were only asking $500,000 in bitcoin or monero it's not that hard. This is a warning to all companies that if you don't pay it will get leaked. If you pay you have are word that it's deleted also with a picture before and after. If you want we will also take a video.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Education",
-  "references": ["ransomware.live"]
-}
+{"slug":"shadowbyt3-stride-learning-2026-05-14","title":"Stride Learning","group":"shadowbyt3$","discovered":"2026-05-14T16:47:59.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Stride Learning Should've Paid the ransom. We were only asking $500,000 in bitcoin or monero it's not that hard. This is a warning to all companies that if you don't pay it will get leaked. If you pay you have are word that it's deleted also with a picture before and after. If you want we will also take a video.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Education","references":["ransomware.live"]}

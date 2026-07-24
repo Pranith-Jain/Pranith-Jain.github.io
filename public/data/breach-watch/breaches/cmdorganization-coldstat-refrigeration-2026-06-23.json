@@ -1,15 +1,1 @@
-{
-  "slug": "cmdorganization-coldstat-refrigeration-2026-06-23",
-  "title": "Coldstat Refrigeration",
-  "group": "cmdorganization",
-  "discovered": "2026-06-23T19:20:24.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "GB",
-  "sizeBytes": 0,
-  "description": "Coldstat Refrigeration offers a full range of industry-proven refrigeration services. From large restaurant chains to individual stores and cafes—Coldstat is ready to meet all your needs. The company’s qualified staff will help you determine the best solution based on your individual needs. Coldstat’s refrigeration services include: sales of commercial refrigeration equipment, installation, maintenance and repair, layout planning, custom system design, and removal of old equipment.Translated with DeepL.com (free version)",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["cmd organization"],
-  "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
-}
+{"slug":"cmdorganization-coldstat-refrigeration-2026-06-23","title":"Coldstat Refrigeration","group":"cmdorganization","discovered":"2026-06-23T19:20:24.000Z","category":"ransomware","severity":"high","country":"GB","sizeBytes":0,"description":"Coldstat Refrigeration offers a full range of industry-proven refrigeration services. From large restaurant chains to individual stores and cafes—Coldstat is ready to meet all your needs. The company’s qualified staff will help you determine the best solution based on your individual needs. Coldstat’s refrigeration services include: sales of commercial refrigeration equipment, installation, maintenance and repair, layout planning, custom system design, and removal of old equipment.Translated with DeepL.com (free version)","source_url":"https://www.ransomware.live/","groupAliases":["cmd organization"],"activity":"Agriculture and Food Production","references":["ransomware.live"]}

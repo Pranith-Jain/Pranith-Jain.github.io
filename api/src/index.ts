@@ -291,7 +291,16 @@ import {
   copilotChatHistoryHandler,
   copilotChatListHandler,
   copilotChatDeleteHandler,
+  copilotChatCancelHandler,
 } from './routes/copilot-chat';
+import { copilotPivotHandler } from './routes/copilot-pivots';
+import { copilotFollowUpsHandler } from './routes/copilot-followups';
+import { copilotBulkIocHandler } from './routes/copilot-bulk-ioc';
+import {
+  copilotRulesSaveHandler,
+  copilotRulesListHandler,
+  copilotRulesDeleteHandler,
+} from './routes/copilot-rules';
 import { ssvcTriageHandler, ssvcGetHandler, ssvcStatsHandler } from './routes/ssvc-triage';
 import { dossierHandler, dossierGetHandler } from './routes/dossier';
 import {
@@ -1499,6 +1508,13 @@ app.get('/api/v1/copilot/chat/sessions', copilotChatListHandler);
 app.get('/api/v1/copilot/chat/:sessionId/stream', copilotChatStreamHandler);
 app.get('/api/v1/copilot/chat/:sessionId', copilotChatHistoryHandler);
 app.delete('/api/v1/copilot/chat/:sessionId', copilotChatDeleteHandler);
+app.post('/api/v1/copilot/chat/:sessionId/cancel', copilotChatCancelHandler);
+app.post('/api/v1/copilot/pivots', copilotPivotHandler);
+app.post('/api/v1/copilot/follow-ups', copilotFollowUpsHandler);
+app.post('/api/v1/copilot/bulk-ioc', copilotBulkIocHandler);
+app.post('/api/v1/copilot/rules', copilotRulesSaveHandler);
+app.get('/api/v1/copilot/rules', copilotRulesListHandler);
+app.delete('/api/v1/copilot/rules/:id', copilotRulesDeleteHandler);
 // Vera — multi-mode conversational CTI (4 chat modes: Ask, Investigate, Draft, Challenge)
 app.post('/api/v1/agents/chat', veraChatHandler);
 app.get('/api/v1/agents/chat/modes', veraChatModesHandler);

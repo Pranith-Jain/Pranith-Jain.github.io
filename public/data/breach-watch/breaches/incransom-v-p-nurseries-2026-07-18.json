@@ -1,15 +1,1 @@
-{
-  "slug": "incransom-v-p-nurseries-2026-07-18",
-  "title": "V&P Nurseries",
-  "group": "incransom",
-  "discovered": "2026-07-18T02:00:14.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "V&P Nurseries is an Arizona-based wholesale grower specializing in drought-tolerant, subtropical, and desert-adapted plants for landscapes across the Southwest. Established in 1978, the company operates production facilities and a tissue culture lab focused on sustainable, water-conservative horticulture. For more information,",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["inc ransom", "INC"],
-  "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
-}
+{"slug":"incransom-v-p-nurseries-2026-07-18","title":"V&P Nurseries","group":"incransom","discovered":"2026-07-18T02:00:14.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"V&P Nurseries is an Arizona-based wholesale grower specializing in drought-tolerant, subtropical, and desert-adapted plants for landscapes across the Southwest. Established in 1978, the company operates production facilities and a tissue culture lab focused on sustainable, water-conservative horticulture. For more information,","source_url":"https://www.ransomware.live/","groupAliases":["inc ransom","INC"],"activity":"Agriculture and Food Production","references":["ransomware.live"]}

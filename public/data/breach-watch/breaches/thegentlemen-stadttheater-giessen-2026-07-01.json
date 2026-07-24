@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-stadttheater-giessen-2026-07-01",
-  "title": "Stadttheater Giessen",
-  "group": "thegentlemen",
-  "discovered": "2026-07-01T22:22:09.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "***.de rocketreach.co/stadttheater-giessen-gmbh-profile_b40b4590ff936dde Stadttheater Gießen is a prominent multi-genre municipal theatre in Germany, renowned for its striking Art Nouveau (Jugendstil) building constructed in 1907. As the cultural heart of the Mittelhessen region, it offers a diverse repertoire encompassing opera, musicals, drama, and classical concerts. The theatre is celebrated for its high-quality productions, blending traditional classics with innovative contemporary works for audiences of all ages",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Hospitality and Tourism",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-stadttheater-giessen-2026-07-01","title":"Stadttheater Giessen","group":"thegentlemen","discovered":"2026-07-01T22:22:09.000Z","category":"ransomware","severity":"critical","country":"DE","sizeBytes":0,"description":"***.de rocketreach.co/stadttheater-giessen-gmbh-profile_b40b4590ff936dde Stadttheater Gießen is a prominent multi-genre municipal theatre in Germany, renowned for its striking Art Nouveau (Jugendstil) building constructed in 1907. As the cultural heart of the Mittelhessen region, it offers a diverse repertoire encompassing opera, musicals, drama, and classical concerts. The theatre is celebrated for its high-quality productions, blending traditional classics with innovative contemporary works for audiences of all ages","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Hospitality","references":["ransomware.live"]}

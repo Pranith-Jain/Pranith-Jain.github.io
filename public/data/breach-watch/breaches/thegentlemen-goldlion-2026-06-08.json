@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-goldlion-2026-06-08",
-  "title": "Goldlion",
-  "group": "thegentlemen",
-  "discovered": "2026-06-08T09:56:40.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "HK",
-  "sizeBytes": 0,
-  "description": "***.com zoominfo.com/c/goldlion-holdings/43517873 Goldlion is a prominent Hong Kong-based investment holding company listed on the HKEX, primarily engaged in the design, manufacturing, and distribution of premium men's apparel and accessories. Operating under the renowned Goldlion brand, the company specializes in high-quality business formalwear, including ties, shirts, and leather goods, across mainland China, Hong Kong, and Singapore. With decades of industry presence, it remains a preferred choice for contemporary men's fashion and professional lifestyle products",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-goldlion-2026-06-08","title":"Goldlion","group":"thegentlemen","discovered":"2026-06-08T09:56:40.000Z","category":"ransomware","severity":"critical","country":"HK","sizeBytes":0,"description":"***.com zoominfo.com/c/goldlion-holdings/43517873 Goldlion is a prominent Hong Kong-based investment holding company listed on the HKEX, primarily engaged in the design, manufacturing, and distribution of premium men's apparel and accessories. Operating under the renowned Goldlion brand, the company specializes in high-quality business formalwear, including ties, shirts, and leather goods, across mainland China, Hong Kong, and Singapore. With decades of industry presence, it remains a preferred choice for contemporary men's fashion and professional lifestyle products","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

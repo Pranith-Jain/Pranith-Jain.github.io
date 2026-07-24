@@ -1,15 +1,1 @@
-{
-  "slug": "safepay-cenesco-de-2026-07-20",
-  "title": "cenesco.de",
-  "group": "safepay",
-  "discovered": "2026-07-20T19:03:29.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "Founded in 1998, the company provides comprehensive information technology solutions for small and medium-sized enterprises (SMEs), helping organizations modernize their …",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"safepay-cenesco-de-2026-07-20","title":"cenesco.de","group":"safepay","discovered":"2026-07-20T19:03:29.000Z","category":"ransomware","severity":"high","country":"DE","sizeBytes":0,"description":"Founded in 1998, the company provides comprehensive information technology solutions for small and medium-sized enterprises (SMEs), helping organizations modernize their …","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Other","references":["ransomware.live"]}

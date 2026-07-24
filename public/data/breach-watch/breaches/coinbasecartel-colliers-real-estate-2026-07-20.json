@@ -1,15 +1,1 @@
-{
-  "slug": "coinbasecartel-colliers-real-estate-2026-07-20",
-  "title": "Colliers Real Estate",
-  "group": "coinbasecartel",
-  "discovered": "2026-07-20T14:56:19.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "[AI generated] Colliers International is a global commercial real estate services company headquartered in Toronto, Canada. It operates across more than 60 countries, offering services including property management, investment sales, leasing, valuation, and advisory. The firm serves corporate, institutional, and private clients across office, industrial, retail, and residential property sectors, making it one of the largest real estate services firms worldwide.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["coinbase cartel"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"coinbasecartel-colliers-real-estate-2026-07-20","title":"Colliers Real Estate","group":"coinbasecartel","discovered":"2026-07-20T14:56:19.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"[AI generated] Colliers International is a global commercial real estate services company headquartered in Toronto, Canada. It operates across more than 60 countries, offering services including property management, investment sales, leasing, valuation, and advisory. The firm serves corporate, institutional, and private clients across office, industrial, retail, and residential property sectors, making it one of the largest real estate services firms worldwide.","source_url":"https://www.ransomware.live/","groupAliases":["coinbase cartel"],"activity":"Professional Services","references":["ransomware.live"]}

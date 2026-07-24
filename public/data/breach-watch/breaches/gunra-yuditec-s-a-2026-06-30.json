@@ -1,15 +1,1 @@
-{
-  "slug": "gunra-yuditec-s-a-2026-06-30",
-  "title": "Yuditec S.A.",
-  "group": "gunra",
-  "discovered": "2026-06-30T12:24:42.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "UY",
-  "sizeBytes": 0,
-  "description": "[AI generated] N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"gunra-yuditec-s-a-2026-06-30","title":"Yuditec S.A.","group":"gunra","discovered":"2026-06-30T12:24:42.000Z","category":"data_breach","severity":"high","country":"UY","sizeBytes":0,"description":"[AI generated] N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

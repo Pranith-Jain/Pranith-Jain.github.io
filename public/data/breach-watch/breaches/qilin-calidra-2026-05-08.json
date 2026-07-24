@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-calidra-2026-05-08",
-  "title": "Calidra",
-  "group": "qilin",
-  "discovered": "2026-05-08T18:45:21.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "CL",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-calidra-2026-05-08","title":"Calidra","group":"qilin","discovered":"2026-05-08T18:45:21.000Z","category":"ransomware","severity":"critical","country":"CL","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

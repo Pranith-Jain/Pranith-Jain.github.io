@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-internet-ag-2026-07-11",
-  "title": "INTERNET AG",
-  "group": "thegentlemen",
-  "discovered": "2026-07-11T07:20:41.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "***.de zoominfo.com/c/inet/429716454 INTERNET AG is a professional German IT service provider specializing in reliable, sustainable, and flexible hosting and server solutions. The company delivers customized IT infrastructures, managed services, and global network connectivity tailored to complex business needs. Alongside its partner INTERNIC GmbH, it offers comprehensive enterprise software and secure digital operations for corporate clients",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-internet-ag-2026-07-11","title":"INTERNET AG","group":"thegentlemen","discovered":"2026-07-11T07:20:41.000Z","category":"ransomware","severity":"critical","country":"DE","sizeBytes":0,"description":"***.de zoominfo.com/c/inet/429716454 INTERNET AG is a professional German IT service provider specializing in reliable, sustainable, and flexible hosting and server solutions. The company delivers customized IT infrastructures, managed services, and global network connectivity tailored to complex business needs. Alongside its partner INTERNIC GmbH, it offers comprehensive enterprise software and secure digital operations for corporate clients","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Technology","references":["ransomware.live"]}

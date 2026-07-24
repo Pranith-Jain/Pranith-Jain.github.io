@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-armstrong-george-cohen-will-ophthalmology-2026-05-02",
-  "title": "Armstrong George Cohen Will Ophthalmology",
-  "group": "qilin",
-  "discovered": "2026-05-02T18:09:40.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-armstrong-george-cohen-will-ophthalmology-2026-05-02","title":"Armstrong George Cohen Will Ophthalmology","group":"qilin","discovered":"2026-05-02T18:09:40.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

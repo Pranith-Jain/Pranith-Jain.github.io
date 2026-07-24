@@ -1,15 +1,1 @@
-{
-  "slug": "unattributed-canadalife-2026-05-15",
-  "title": "CanadaLife",
-  "group": "Unattributed",
-  "discovered": "2026-05-15T05:29:02.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Canada Life, an insurance and financial services company, was targeted by the ShinyHunters group in April 2026, with data later published exposing over 238k unique email addresses along with names, phone numbers, physical addresses, and some customer support tickets.",
-  "source_url": "https://xposedornot.com/breach/CanadaLife",
-  "groupAliases": [],
-  "activity": "Finance",
-  "references": ["XposedOrNot"]
-}
+{"slug":"unattributed-canadalife-2026-05-15","title":"CanadaLife","group":"Unattributed","discovered":"2026-05-15T05:29:02.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"Canada Life, an insurance and financial services company, was targeted by the ShinyHunters group in April 2026, with data later published exposing over 238k unique email addresses along with names, phone numbers, physical addresses, and some customer support tickets.","source_url":"https://xposedornot.com/breach/CanadaLife","groupAliases":[],"activity":"Finance","references":["XposedOrNot"]}

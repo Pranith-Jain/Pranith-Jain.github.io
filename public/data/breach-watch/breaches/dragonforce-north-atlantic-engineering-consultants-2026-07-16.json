@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-north-atlantic-engineering-consultants-2026-07-16",
-  "title": "North Atlantic Engineering Consultants",
-  "group": "dragonforce",
-  "discovered": "2026-07-16T10:26:07.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "BW",
-  "sizeBytes": 0,
-  "description": "Established in the early 1980's North Atlantic Engineering Consultants has since inception conscientiously led the way with holistic sustainable energy solutions and responsible engineering practice. With a human resource base of professionals of the highest calibre, who are qualified and experienced in project design, co-ordination and management, the firm has grown steadily over the years with a steadfast commitment to quality and cutting-edge design, establishing itself as a trend setter in the field of sustainable building services engineering.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-north-atlantic-engineering-consultants-2026-07-16","title":"North Atlantic Engineering Consultants","group":"dragonforce","discovered":"2026-07-16T10:26:07.000Z","category":"ransomware","severity":"critical","country":"BW","sizeBytes":0,"description":"Established in the early 1980's North Atlantic Engineering Consultants has since inception conscientiously led the way with holistic sustainable energy solutions and responsible engineering practice. With a human resource base of professionals of the highest calibre, who are qualified and experienced in project design, co-ordination and management, the firm has grown steadily over the years with a steadfast commitment to quality and cutting-edge design, establishing itself as a trend setter in the field of sustainable building services engineering.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Professional Services","references":["ransomware.live"]}

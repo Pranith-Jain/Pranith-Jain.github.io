@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-natren-2026-07-01",
-  "title": "Natren",
-  "group": "thegentlemen",
-  "discovered": "2026-07-01T22:21:28.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "***.com zoominfo.com/c/natren-inc/26870087 Natren is a leading manufacturer of premium probiotic supplements with over 30 years of experience, dedicated to improving gut health and overall well-being.Based in California, the company offers a comprehensive range of natural, non-GMO formulas tailored for men, women, children, and even pets.They are highly regarded for their flagship \"Healthy Trinity\" 3-in-1 system and their strict cold-chain shipping process, which guarantees 100% potency through the expiration date",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-natren-2026-07-01","title":"Natren","group":"thegentlemen","discovered":"2026-07-01T22:21:28.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"***.com zoominfo.com/c/natren-inc/26870087 Natren is a leading manufacturer of premium probiotic supplements with over 30 years of experience, dedicated to improving gut health and overall well-being.Based in California, the company offers a comprehensive range of natural, non-GMO formulas tailored for men, women, children, and even pets.They are highly regarded for their flagship \"Healthy Trinity\" 3-in-1 system and their strict cold-chain shipping process, which guarantees 100% potency through the expiration date","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Healthcare","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "settra-va-glass-com-2026-06-28",
-  "title": "va-glass.com",
-  "group": "settra",
-  "discovered": "2026-06-28T19:52:07.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "VA",
-  "sizeBytes": 0,
-  "description": "THE TRANSPARENT MIRROR A company that sells people glass and reflections failed to protect its own r...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"settra-va-glass-com-2026-06-28","title":"va-glass.com","group":"settra","discovered":"2026-06-28T19:52:07.000Z","category":"data_breach","severity":"high","country":"VA","sizeBytes":0,"description":"THE TRANSPARENT MIRROR A company that sells people glass and reflections failed to protect its own r...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

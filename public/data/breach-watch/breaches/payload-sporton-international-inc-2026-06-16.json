@@ -1,15 +1,1 @@
-{
-  "slug": "payload-sporton-international-inc-2026-06-16",
-  "title": "SPORTON International Inc.",
-  "group": "payload",
-  "discovered": "2026-06-16T05:54:32.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "TW",
-  "sizeBytes": 0,
-  "description": "Founded in 1986 and headquartered in Taiwan, Sporton International is a Taiwan-based company principally engaged in the provision of testing and certification services for wireless communications and mobile communications products.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"payload-sporton-international-inc-2026-06-16","title":"SPORTON International Inc.","group":"payload","discovered":"2026-06-16T05:54:32.000Z","category":"ransomware","severity":"high","country":"TW","sizeBytes":0,"description":"Founded in 1986 and headquartered in Taiwan, Sporton International is a Taiwan-based company principally engaged in the provision of testing and certification services for wireless communications and mobile communications products.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

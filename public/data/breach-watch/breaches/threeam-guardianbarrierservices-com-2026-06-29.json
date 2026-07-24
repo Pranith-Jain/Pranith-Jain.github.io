@@ -1,15 +1,1 @@
-{
-  "slug": "threeam-guardianbarrierservices-com-2026-06-29",
-  "title": "guardianbarrierservices.com",
-  "group": "threeam",
-  "discovered": "2026-06-29T21:51:33.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "GB",
-  "sizeBytes": 0,
-  "description": "Guardian Barrier Services provides a wide range of products and services for events, including crowd control barriers, cable ramps, truss structures, and temporary flooring. Their experienced team supports clients from the planning stage to the ex",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"threeam-guardianbarrierservices-com-2026-06-29","title":"guardianbarrierservices.com","group":"threeam","discovered":"2026-06-29T21:51:33.000Z","category":"ransomware","severity":"high","country":"GB","sizeBytes":0,"description":"Guardian Barrier Services provides a wide range of products and services for events, including crowd control barriers, cable ramps, truss structures, and temporary flooring. Their experienced team supports clients from the planning stage to the ex","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

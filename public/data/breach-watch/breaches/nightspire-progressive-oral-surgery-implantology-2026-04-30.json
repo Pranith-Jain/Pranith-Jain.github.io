@@ -1,15 +1,1 @@
-{
-  "slug": "nightspire-progressive-oral-surgery-implantology-2026-04-30",
-  "title": "Progressive Oral Surgery & Implantology",
-  "group": "nightspire",
-  "discovered": "2026-04-30T17:25:17.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Data is not available now.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["NIGHT SPIRE"],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"nightspire-progressive-oral-surgery-implantology-2026-04-30","title":"Progressive Oral Surgery & Implantology","group":"nightspire","discovered":"2026-04-30T17:25:17.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Data is not available now.","source_url":"https://www.ransomware.live/","groupAliases":["NIGHT SPIRE"],"activity":"Healthcare","references":["ransomware.live"]}

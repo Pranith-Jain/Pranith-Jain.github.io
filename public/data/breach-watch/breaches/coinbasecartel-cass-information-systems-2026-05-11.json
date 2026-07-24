@@ -1,15 +1,1 @@
-{
-  "slug": "coinbasecartel-cass-information-systems-2026-05-11",
-  "title": "Cass information Systems",
-  "group": "coinbasecartel",
-  "discovered": "2026-05-11T13:51:08.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "[AI generated] Cass Information Systems is a US-based company specializing in payment and information services. It provides freight invoice processing, auditing, and payment solutions, along with utility and telecom expense management. Operating primarily in the financial technology and business process outsourcing industry, Cass serves large corporations across North America and globally, helping clients manage and analyze invoice data to optimize spending and operational efficiency.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["coinbase cartel"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"coinbasecartel-cass-information-systems-2026-05-11","title":"Cass information Systems","group":"coinbasecartel","discovered":"2026-05-11T13:51:08.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"[AI generated] Cass Information Systems is a US-based company specializing in payment and information services. It provides freight invoice processing, auditing, and payment solutions, along with utility and telecom expense management. Operating primarily in the financial technology and business process outsourcing industry, Cass serves large corporations across North America and globally, helping clients manage and analyze invoice data to optimize spending and operational efficiency.","source_url":"https://www.ransomware.live/","groupAliases":["coinbase cartel"],"activity":"Professional Services","references":["ransomware.live"]}

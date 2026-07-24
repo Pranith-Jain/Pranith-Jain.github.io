@@ -1,15 +1,1 @@
-{
-  "slug": "termite-ramar-foods-international-2026-05-16",
-  "title": "RAMAR FOODS INTERNATIONAL",
-  "group": "termite",
-  "discovered": "2026-05-16T18:54:03.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Ramar Foods is a leading manufacturer and distributor of Filipino frozen food products, established in 1969. The company is committed to bringing the flavors of the Philippines to consumers through its portfolio of brands, which include iconic offerings like Magnolia, Orientex, Manila Gold, and Frescano.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
-}
+{"slug":"termite-ramar-foods-international-2026-05-16","title":"RAMAR FOODS INTERNATIONAL","group":"termite","discovered":"2026-05-16T18:54:03.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Ramar Foods is a leading manufacturer and distributor of Filipino frozen food products, established in 1969. The company is committed to bringing the flavors of the Philippines to consumers through its portfolio of brands, which include iconic offerings like Magnolia, Orientex, Manila Gold, and Frescano.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Agriculture and Food Production","references":["ransomware.live"]}

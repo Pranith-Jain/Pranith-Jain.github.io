@@ -1,15 +1,1 @@
-{
-  "slug": "braincipher-flbgroup-com-2026-05-01",
-  "title": "flbgroup.com",
-  "group": "BrainCipher",
-  "discovered": "2026-05-01T09:57:18.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "GB",
-  "sizeBytes": 0,
-  "description": "[AI generated] N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["brain cipher"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"braincipher-flbgroup-com-2026-05-01","title":"flbgroup.com","group":"BrainCipher","discovered":"2026-05-01T09:57:18.000Z","category":"ransomware","severity":"critical","country":"GB","sizeBytes":0,"description":"[AI generated] N/A","source_url":"https://www.ransomware.live/","groupAliases":["brain cipher"],"activity":"Professional Services","references":["ransomware.live"]}

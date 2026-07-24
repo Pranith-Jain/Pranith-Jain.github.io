@@ -1,15 +1,1 @@
-{
-  "slug": "ulose-msicapital-2026-06-09",
-  "title": "MSICapital",
-  "group": "ULose",
-  "discovered": "2026-06-09T00:00:00.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "KR",
-  "sizeBytes": 0,
-  "description": null,
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Financial Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"ulose-msicapital-2026-06-09","title":"MSICapital","group":"ULose","discovered":"2026-06-09T00:00:00.000Z","category":"data_breach","severity":"high","country":"KR","sizeBytes":0,"description":null,"source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Financial Services","references":["ransomware.live"]}

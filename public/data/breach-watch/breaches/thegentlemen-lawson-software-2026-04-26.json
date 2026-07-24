@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-lawson-software-2026-04-26",
-  "title": "Lawson Software",
-  "group": "thegentlemen",
-  "discovered": "2026-04-26T15:51:57.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "TH",
-  "sizeBytes": 0,
-  "description": "lawson.co.th zoominfo.com/c/lawson-software-co-ltd/454540883 Lawson Software (Thailand) Co., Ltd. is a Bangkok-based IT consulting firm specializing in ERP (Enterprise Resource Planning) implementation and business software solutions, founded in 1999. The company is headquartered at Gypsum Metropolitan Tower, Si Ayutthaya Road, Ratchathewi, Bangkok, and has a team of 11–50 employees",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-lawson-software-2026-04-26","title":"Lawson Software","group":"thegentlemen","discovered":"2026-04-26T15:51:57.000Z","category":"ransomware","severity":"critical","country":"TH","sizeBytes":0,"description":"lawson.co.th zoominfo.com/c/lawson-software-co-ltd/454540883 Lawson Software (Thailand) Co., Ltd. is a Bangkok-based IT consulting firm specializing in ERP (Enterprise Resource Planning) implementation and business software solutions, founded in 1999. The company is headquartered at Gypsum Metropolitan Tower, Si Ayutthaya Road, Ratchathewi, Bangkok, and has a team of 11–50 employees","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Professional Services","references":["ransomware.live"]}

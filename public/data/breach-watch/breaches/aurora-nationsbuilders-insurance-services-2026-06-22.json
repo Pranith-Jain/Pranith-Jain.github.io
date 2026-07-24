@@ -1,15 +1,1 @@
-{
-  "slug": "aurora-nationsbuilders-insurance-services-2026-06-22",
-  "title": "NationsBuilders Insurance Services",
-  "group": "aurora",
-  "discovered": "2026-06-22T09:22:20.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "[insurance] *** (NBIS) is the premier US underwriter of crane & rigging, concrete-pumping, heavy-haul, and residential-builder insurance — a specialty managing general underwriter founded in Atlanta in 2001, acquired by Align Financial / DUAL North America (Howden Group) in August 2021. 2,748,845 filetree entries across 24 shares (AIM, IMAGERIGHT, the claims and policy-admin stores, HR, finance, IT, and a decade of M&A diligence rooms).",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Financial Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"aurora-nationsbuilders-insurance-services-2026-06-22","title":"NationsBuilders Insurance Services","group":"aurora","discovered":"2026-06-22T09:22:20.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"[insurance] *** (NBIS) is the premier US underwriter of crane & rigging, concrete-pumping, heavy-haul, and residential-builder insurance — a specialty managing general underwriter founded in Atlanta in 2001, acquired by Align Financial / DUAL North America (Howden Group) in August 2021. 2,748,845 filetree entries across 24 shares (AIM, IMAGERIGHT, the claims and policy-admin stores, HR, finance, IT, and a decade of M&A diligence rooms).","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Financial Services","references":["ransomware.live"]}

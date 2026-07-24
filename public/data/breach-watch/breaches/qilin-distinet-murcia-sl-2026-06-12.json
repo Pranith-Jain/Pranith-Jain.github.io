@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-distinet-murcia-sl-2026-06-12",
-  "title": "DISTINET MURCIA SL",
-  "group": "qilin",
-  "discovered": "2026-06-12T12:55:52.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "ES",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-distinet-murcia-sl-2026-06-12","title":"DISTINET MURCIA SL","group":"qilin","discovered":"2026-06-12T12:55:52.000Z","category":"ransomware","severity":"critical","country":"ES","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

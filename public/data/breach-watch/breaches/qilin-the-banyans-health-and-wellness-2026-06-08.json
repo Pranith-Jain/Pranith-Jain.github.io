@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-the-banyans-health-and-wellness-2026-06-08",
-  "title": "The Banyans Health and Wellness",
-  "group": "qilin",
-  "discovered": "2026-06-08T22:55:44.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "AU",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-the-banyans-health-and-wellness-2026-06-08","title":"The Banyans Health and Wellness","group":"qilin","discovered":"2026-06-08T22:55:44.000Z","category":"ransomware","severity":"critical","country":"AU","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

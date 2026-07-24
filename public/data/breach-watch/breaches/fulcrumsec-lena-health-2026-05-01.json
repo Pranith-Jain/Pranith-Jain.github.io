@@ -1,15 +1,1 @@
-{
-  "slug": "fulcrumsec-lena-health-2026-05-01",
-  "title": "Lena Health",
-  "group": "fulcrumsec",
-  "discovered": "2026-05-01T17:11:53.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "[AI generated] N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"fulcrumsec-lena-health-2026-05-01","title":"Lena Health","group":"fulcrumsec","discovered":"2026-05-01T17:11:53.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"[AI generated] N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

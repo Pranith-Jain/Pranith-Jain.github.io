@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-jakn-com-2026-05-25",
-  "title": "jakn.com",
-  "group": "dragonforce",
-  "discovered": "2026-05-25T11:55:49.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "JAKN Network Support & Services LLC operates in the custom software development and IT services industry. It employs 10 to 19 people and generates revenues of $5 million to $10 million.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-jakn-com-2026-05-25","title":"jakn.com","group":"dragonforce","discovered":"2026-05-25T11:55:49.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"JAKN Network Support & Services LLC operates in the custom software development and IT services industry. It employs 10 to 19 people and generates revenues of $5 million to $10 million.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Not Found","references":["ransomware.live"]}

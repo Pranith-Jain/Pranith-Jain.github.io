@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-internet-technologies-designs-2026-05-18",
-  "title": "Internet Technologies Designs",
-  "group": "thegentlemen",
-  "discovered": "2026-05-18T18:54:18.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "FR",
-  "sizeBytes": 0,
-  "description": "itd-system.com zoominfo.com/c/internet-technologies-designs/529178114 ITD System is a French IT solutions integrator founded in 1994, specializing in adaptable digital tools for business productivity. They deliver customized software, VoIP telephony, CRM integration, and secure infrastructure services tailored to SMEs. With offices in Mâcon, Moulins, and Paray-le-Monial, the company combines local proximity with technical expertise to support digital transformation",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-internet-technologies-designs-2026-05-18","title":"Internet Technologies Designs","group":"thegentlemen","discovered":"2026-05-18T18:54:18.000Z","category":"ransomware","severity":"critical","country":"FR","sizeBytes":0,"description":"itd-system.com zoominfo.com/c/internet-technologies-designs/529178114 ITD System is a French IT solutions integrator founded in 1994, specializing in adaptable digital tools for business productivity. They deliver customized software, VoIP telephony, CRM integration, and secure infrastructure services tailored to SMEs. With offices in Mâcon, Moulins, and Paray-le-Monial, the company combines local proximity with technical expertise to support digital transformation","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Technology","references":["ransomware.live"]}

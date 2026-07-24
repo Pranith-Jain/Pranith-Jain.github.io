@@ -1,15 +1,1 @@
-{
-  "slug": "safepay-shuttlemeadowcc-com-2026-07-13",
-  "title": "shuttlemeadowcc.com",
-  "group": "safepay",
-  "discovered": "2026-07-13T16:58:29.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Founded in 1917, the club is one of the oldest and most prestigious private golf clubs in New England. It …",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"safepay-shuttlemeadowcc-com-2026-07-13","title":"shuttlemeadowcc.com","group":"safepay","discovered":"2026-07-13T16:58:29.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Founded in 1917, the club is one of the oldest and most prestigious private golf clubs in New England. It …","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

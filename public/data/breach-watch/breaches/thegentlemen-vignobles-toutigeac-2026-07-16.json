@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-vignobles-toutigeac-2026-07-16",
-  "title": "Vignobles Toutigeac",
-  "group": "thegentlemen",
-  "discovered": "2026-07-16T12:57:51.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "FR",
-  "sizeBytes": 0,
-  "description": "***.com zoominfo.com/c/vignobles-toutigeac/456813413 Vignobles Toutigeac family-run wine estate located in Targon, within the Bordeaux and Entre-Deux-Mers appellations in France. Originally an ecclesiastical property managed by monks, the estate now spans approximately 42 hectares of vineyards under the guidance of Oriane and Philippe Mazeau. The winery produces classic red and white Bordeaux wines, recognized for their smooth tannins and balanced fruit profiles, successfully blending historical tradition with modern winemaking practices",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-vignobles-toutigeac-2026-07-16","title":"Vignobles Toutigeac","group":"thegentlemen","discovered":"2026-07-16T12:57:51.000Z","category":"ransomware","severity":"critical","country":"FR","sizeBytes":0,"description":"***.com zoominfo.com/c/vignobles-toutigeac/456813413 Vignobles Toutigeac family-run wine estate located in Targon, within the Bordeaux and Entre-Deux-Mers appellations in France. Originally an ecclesiastical property managed by monks, the estate now spans approximately 42 hectares of vineyards under the guidance of Oriane and Philippe Mazeau. The winery produces classic red and white Bordeaux wines, recognized for their smooth tannins and balanced fruit profiles, successfully blending historical tradition with modern winemaking practices","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Agriculture and Food Production","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "nova-ftl-fast-transit-line-2026-06-23",
-  "title": "FTL-Fast Transit Line",
-  "group": "nova",
-  "discovered": "2026-06-23T10:01:48.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "BE",
-  "sizeBytes": 0,
-  "description": "FTL International N.V. specializes in shipping, consolidation, forwarding, and groupage services, with a strong presence in major Northern European ports and an office in Colombo, Sri Lanka. With over 25 years of experience, they offer cost-effective port-to-port and door-to-door logistics solutions, including air freight and cargo insurance. Their services cater to a wide range of clients looking for reliable shipping options across the globe. FTL is committed to exceptional personalized attention and efficient shipment handling, embodying their motto 'Experience the Difference - Data included sales data, invoices and costumers full names and phones etc; Nova Provide tree and samples from stolen data to the company when its get in touch with support department.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Transportation/Logistics",
-  "references": ["ransomware.live"]
-}
+{"slug":"nova-ftl-fast-transit-line-2026-06-23","title":"FTL-Fast Transit Line","group":"nova","discovered":"2026-06-23T10:01:48.000Z","category":"ransomware","severity":"high","country":"BE","sizeBytes":0,"description":"FTL International N.V. specializes in shipping, consolidation, forwarding, and groupage services, with a strong presence in major Northern European ports and an office in Colombo, Sri Lanka. With over 25 years of experience, they offer cost-effective port-to-port and door-to-door logistics solutions, including air freight and cargo insurance. Their services cater to a wide range of clients looking for reliable shipping options across the globe. FTL is committed to exceptional personalized attention and efficient shipment handling, embodying their motto 'Experience the Difference - Data included sales data, invoices and costumers full names and phones etc; Nova Provide tree and samples from stolen data to the company when its get in touch with support department.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Transportation","references":["ransomware.live"]}

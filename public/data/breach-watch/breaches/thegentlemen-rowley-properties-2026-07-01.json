@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-rowley-properties-2026-07-01",
-  "title": "Rowley Properties",
-  "group": "thegentlemen",
-  "discovered": "2026-07-01T22:23:34.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "GB",
-  "sizeBytes": 0,
-  "description": "***.com zoominfo.com/c/rowley-properties/1117416022 Rowley Properties is a multi-generational, family-owned real estate company based in Issaquah, Washington, founded in 1954. The firm specializes in owning, developing, and managing approximately 80 acres of commercial and residential properties, including office spaces, apartments, and storage facilities in downtown Issaquah. They are deeply committed to local community development, focusing on long-term projects that help businesses succeed and families thrive",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-rowley-properties-2026-07-01","title":"Rowley Properties","group":"thegentlemen","discovered":"2026-07-01T22:23:34.000Z","category":"ransomware","severity":"critical","country":"GB","sizeBytes":0,"description":"***.com zoominfo.com/c/rowley-properties/1117416022 Rowley Properties is a multi-generational, family-owned real estate company based in Issaquah, Washington, founded in 1954. The firm specializes in owning, developing, and managing approximately 80 acres of commercial and residential properties, including office spaces, apartments, and storage facilities in downtown Issaquah. They are deeply committed to local community development, focusing on long-term projects that help businesses succeed and families thrive","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Professional Services","references":["ransomware.live"]}

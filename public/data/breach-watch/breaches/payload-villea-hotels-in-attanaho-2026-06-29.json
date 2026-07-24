@@ -1,15 +1,1 @@
-{
-  "slug": "payload-villea-hotels-in-attanaho-2026-06-29",
-  "title": "Villea Hotels in AttanaHo",
-  "group": "payload",
-  "discovered": "2026-06-29T05:25:23.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "[AI generated] N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Hospitality and Tourism",
-  "references": ["ransomware.live"]
-}
+{"slug":"payload-villea-hotels-in-attanaho-2026-06-29","title":"Villea Hotels in AttanaHo","group":"payload","discovered":"2026-06-29T05:25:23.000Z","category":"ransomware","severity":"high","country":null,"sizeBytes":0,"description":"[AI generated] N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Hospitality","references":["ransomware.live"]}

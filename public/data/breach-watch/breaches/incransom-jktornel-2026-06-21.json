@@ -1,15 +1,1 @@
-{
-  "slug": "incransom-jktornel-2026-06-21",
-  "title": "jktornel",
-  "group": "incransom",
-  "discovered": "2026-06-21T12:37:29.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "MX",
-  "sizeBytes": 0,
-  "description": "Unauthorized access has been gained to the company's confidential files, including client data, proprietary R&D, and financial documentation.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["inc ransom", "INC"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"incransom-jktornel-2026-06-21","title":"jktornel","group":"incransom","discovered":"2026-06-21T12:37:29.000Z","category":"ransomware","severity":"critical","country":"MX","sizeBytes":0,"description":"Unauthorized access has been gained to the company's confidential files, including client data, proprietary R&D, and financial documentation.","source_url":"https://www.ransomware.live/","groupAliases":["inc ransom","INC"],"activity":"Not Found","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-dunasgroen-nl-2026-05-27",
-  "title": "dunasgroen.nl",
-  "group": "dragonforce",
-  "discovered": "2026-05-27T15:53:07.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "NL",
-  "sizeBytes": 0,
-  "description": "Landscape design supplies store.The company operates very economically and claims to be located on Dunas Groen. You can contact us only through the contact form or by phone: 06-52452889.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-dunasgroen-nl-2026-05-27","title":"dunasgroen.nl","group":"dragonforce","discovered":"2026-05-27T15:53:07.000Z","category":"ransomware","severity":"critical","country":"NL","sizeBytes":0,"description":"Landscape design supplies store.The company operates very economically and claims to be located on Dunas Groen. You can contact us only through the contact form or by phone: 06-52452889.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Agriculture and Food Production","references":["ransomware.live"]}

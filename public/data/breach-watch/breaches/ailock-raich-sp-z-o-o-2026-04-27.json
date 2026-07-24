@@ -1,15 +1,1 @@
-{
-  "slug": "ailock-raich-sp-z-o-o-2026-04-27",
-  "title": "Raich Sp. z o.o.",
-  "group": "AiLock",
-  "discovered": "2026-04-27T15:34:22.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "PL",
-  "sizeBytes": 0,
-  "description": "Raich Sp. z o.o. is an enterprise in Poland, with the main office in Warsaw. The company operates in the Wired Telecommunications Carriers industry.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"ailock-raich-sp-z-o-o-2026-04-27","title":"Raich Sp. z o.o.","group":"AiLock","discovered":"2026-04-27T15:34:22.000Z","category":"ransomware","severity":"high","country":"PL","sizeBytes":0,"description":"Raich Sp. z o.o. is an enterprise in Poland, with the main office in Warsaw. The company operates in the Wired Telecommunications Carriers industry.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

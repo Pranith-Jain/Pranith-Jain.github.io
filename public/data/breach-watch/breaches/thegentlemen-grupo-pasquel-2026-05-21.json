@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-grupo-pasquel-2026-05-21",
-  "title": "Grupo Pasquel",
-  "group": "thegentlemen",
-  "discovered": "2026-05-21T09:53:23.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "EC",
-  "sizeBytes": 0,
-  "description": "grupopasquel.com zoominfo.com/c/grupo-pasquel/430007218 Grupo Pasquel is a well-established Ecuadorian enterprise from Quito, with over three decades of excellence in construction and hardware retail. Through its Mi Ferre brand, it delivers quality products and integrated solutions, empowering builders and DIY enthusiasts nationwide with trusted service and logistics",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-grupo-pasquel-2026-05-21","title":"Grupo Pasquel","group":"thegentlemen","discovered":"2026-05-21T09:53:23.000Z","category":"ransomware","severity":"critical","country":"EC","sizeBytes":0,"description":"grupopasquel.com zoominfo.com/c/grupo-pasquel/430007218 Grupo Pasquel is a well-established Ecuadorian enterprise from Quito, with over three decades of excellence in construction and hardware retail. Through its Mi Ferre brand, it delivers quality products and integrated solutions, empowering builders and DIY enthusiasts nationwide with trusted service and logistics","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Agriculture and Food Production","references":["ransomware.live"]}

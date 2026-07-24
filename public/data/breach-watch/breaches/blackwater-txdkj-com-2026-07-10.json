@@ -1,15 +1,1 @@
-{
-  "slug": "blackwater-txdkj-com-2026-07-10",
-  "title": "txdkj.com",
-  "group": "blackwater",
-  "discovered": "2026-07-10T10:53:44.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "CN",
-  "sizeBytes": 0,
-  "description": "Confidential data will be released soon.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["BLACK WATER"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"blackwater-txdkj-com-2026-07-10","title":"txdkj.com","group":"blackwater","discovered":"2026-07-10T10:53:44.000Z","category":"data_breach","severity":"high","country":"CN","sizeBytes":0,"description":"Confidential data will be released soon.","source_url":"https://www.ransomware.live/","groupAliases":["BLACK WATER"],"activity":"Not Found","references":["ransomware.live"]}

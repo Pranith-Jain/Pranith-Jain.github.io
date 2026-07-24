@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-pro-tech-technology-2026-07-07",
-  "title": "Pro-Tech Technology",
-  "group": "thegentlemen",
-  "discovered": "2026-07-07T18:29:29.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "HK",
-  "sizeBytes": 0,
-  "description": "***.com Pro-Tech Technology (Asia) Limited,leading IT solutions provider established in 2004 with offices in Hong Kong.Operating in the Information Technology & Services industry, the company focuses on delivering secure, effective, and cost-effective IT solutions and services to its clients .With a workforce of up to 200 employees, PTT strives to provide stable technological infrastructure and support across the Asian marke",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-pro-tech-technology-2026-07-07","title":"Pro-Tech Technology","group":"thegentlemen","discovered":"2026-07-07T18:29:29.000Z","category":"ransomware","severity":"critical","country":"HK","sizeBytes":0,"description":"***.com Pro-Tech Technology (Asia) Limited,leading IT solutions provider established in 2004 with offices in Hong Kong.Operating in the Information Technology & Services industry, the company focuses on delivering secure, effective, and cost-effective IT solutions and services to its clients .With a workforce of up to 200 employees, PTT strives to provide stable technological infrastructure and support across the Asian marke","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Technology","references":["ransomware.live"]}

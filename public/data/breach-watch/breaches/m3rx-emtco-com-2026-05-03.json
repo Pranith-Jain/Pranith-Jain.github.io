@@ -1,15 +1,1 @@
-{
-  "slug": "m3rx-emtco-com-2026-05-03",
-  "title": "emtco.com",
-  "group": "m3rx",
-  "discovered": "2026-05-03T04:26:21.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "+1 3169426147 . Engineered Machine Tool, Inc., based in Wichita, Kansas, specializes in providing manufacturing firms with custom machinery and tooling designed to enhance production efficiency. Since 1987, the company has developed a range of automated machines and equipment, including Automatic Storage and Retrieval Systems and Large Tool Palletizing Systems. EMT offers comprehensive services from initial concept through to complete installation, ensuring tailored solutions for their clients' specific needs. Their focus is on delivering high-performance automation tools for various industrial applications Stolen: 180gb 698k files",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"m3rx-emtco-com-2026-05-03","title":"emtco.com","group":"m3rx","discovered":"2026-05-03T04:26:21.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"+1 3169426147 . Engineered Machine Tool, Inc., based in Wichita, Kansas, specializes in providing manufacturing firms with custom machinery and tooling designed to enhance production efficiency. Since 1987, the company has developed a range of automated machines and equipment, including Automatic Storage and Retrieval Systems and Large Tool Palletizing Systems. EMT offers comprehensive services from initial concept through to complete installation, ensuring tailored solutions for their clients' specific needs. Their focus is on delivering high-performance automation tools for various industrial applications Stolen: 180gb 698k files","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

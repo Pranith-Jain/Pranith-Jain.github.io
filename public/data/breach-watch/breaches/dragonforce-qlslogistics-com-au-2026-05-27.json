@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-qlslogistics-com-au-2026-05-27",
-  "title": "qlslogistics.com.au",
-  "group": "dragonforce",
-  "discovered": "2026-05-27T12:22:59.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "AU",
-  "sizeBytes": 0,
-  "description": "QLS Group is Australia's leading supplier of large domestic appliances,\nserving the retail and consumer markets. Last year, the company shipped over 4 million appliances,\nincluding 1.4 million televisions, accounting for 65% of the Australian TV market. The company also operates\nEcycle Solutions Pty Ltd, which provides recycling services for discarded televisions,\ncomputers, and polystyrene, demonstrating a strong commitment to sustainability.\nWith a nationwide network and a focus on logistics, warehousing, and distribution,\nQLS Group offers reliable and comprehensive solutions throughout Australia.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Transportation/Logistics",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-qlslogistics-com-au-2026-05-27","title":"qlslogistics.com.au","group":"dragonforce","discovered":"2026-05-27T12:22:59.000Z","category":"ransomware","severity":"critical","country":"AU","sizeBytes":0,"description":"QLS Group is Australia's leading supplier of large domestic appliances,\nserving the retail and consumer markets. Last year, the company shipped over 4 million appliances,\nincluding 1.4 million televisions, accounting for 65% of the Australian TV market. The company also operates\nEcycle Solutions Pty Ltd, which provides recycling services for discarded televisions,\ncomputers, and polystyrene, demonstrating a strong commitment to sustainability.\nWith a nationwide network and a focus on logistics, warehousing, and distribution,\nQLS Group offers reliable and comprehensive solutions throughout Australia.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Transportation","references":["ransomware.live"]}

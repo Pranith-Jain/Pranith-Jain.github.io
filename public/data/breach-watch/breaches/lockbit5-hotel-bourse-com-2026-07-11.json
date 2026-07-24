@@ -1,15 +1,1 @@
-{
-  "slug": "lockbit5-hotel-bourse-com-2026-07-11",
-  "title": "hotel-bourse.com",
-  "group": "lockbit5",
-  "discovered": "2026-07-11T07:27:57.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "FR",
-  "sizeBytes": 0,
-  "description": "14 rue de la Bourse 68100 Mulhouse info@hotel-bourse.com +33 3 89 56 18 44",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Hospitality and Tourism",
-  "references": ["ransomware.live"]
-}
+{"slug":"lockbit5-hotel-bourse-com-2026-07-11","title":"hotel-bourse.com","group":"lockbit5","discovered":"2026-07-11T07:27:57.000Z","category":"ransomware","severity":"high","country":"FR","sizeBytes":0,"description":"14 rue de la Bourse 68100 Mulhouse info@hotel-bourse.com +33 3 89 56 18 44","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Hospitality","references":["ransomware.live"]}

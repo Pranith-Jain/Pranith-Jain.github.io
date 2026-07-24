@@ -1,15 +1,1 @@
-{
-  "slug": "incransom-meirc-training-and-consulting-2026-05-25",
-  "title": "Meirc training and consulting",
-  "group": "incransom",
-  "discovered": "2026-05-25T03:22:15.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "AE",
-  "sizeBytes": 0,
-  "description": "Meirc offer a wide range of training programs across various categories, including accounting, finance, artificial intelligence, project management.\r They is recognized as a \"trusted\" training and consulting partner.\r \r We accessed the entire MEIRC network and downloaded 1TB of data\r - accounting\r - internal mail\r -planning\r - budgets\r - all personal information of all employees of the company\r \r In a week everything will be in the public domain.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["inc ransom", "INC"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"incransom-meirc-training-and-consulting-2026-05-25","title":"Meirc training and consulting","group":"incransom","discovered":"2026-05-25T03:22:15.000Z","category":"ransomware","severity":"critical","country":"AE","sizeBytes":0,"description":"Meirc offer a wide range of training programs across various categories, including accounting, finance, artificial intelligence, project management.\r They is recognized as a \"trusted\" training and consulting partner.\r \r We accessed the entire MEIRC network and downloaded 1TB of data\r - accounting\r - internal mail\r -planning\r - budgets\r - all personal information of all employees of the company\r \r In a week everything will be in the public domain.","source_url":"https://www.ransomware.live/","groupAliases":["inc ransom","INC"],"activity":"Professional Services","references":["ransomware.live"]}

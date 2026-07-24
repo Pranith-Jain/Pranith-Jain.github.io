@@ -1,15 +1,1 @@
-{
-  "slug": "deadlock-afworkshop-2026-07-10",
-  "title": "AFWorkshop",
-  "group": "Deadlock",
-  "discovered": "2026-07-10T12:54:26.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "SG",
-  "sizeBytes": 0,
-  "description": "AFW an international architectural and design firm based in Singapore. Formerly known as Andy Fisher Workshop, the firm has been operating since 2004. They are a multi-disciplinary practice that works on a variety of large-scale and boutique projects across Asia and beyond.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"deadlock-afworkshop-2026-07-10","title":"AFWorkshop","group":"Deadlock","discovered":"2026-07-10T12:54:26.000Z","category":"ransomware","severity":"critical","country":"SG","sizeBytes":0,"description":"AFW an international architectural and design firm based in Singapore. Formerly known as Andy Fisher Workshop, the firm has been operating since 2004. They are a multi-disciplinary practice that works on a variety of large-scale and boutique projects across Asia and beyond.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-media-consulting-2026-05-06",
-  "title": "Media Consulting",
-  "group": "thegentlemen",
-  "discovered": "2026-05-06T10:07:54.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "IT",
-  "sizeBytes": 0,
-  "description": "mconweb.it zoominfo.com/c/media-consulting-srl/372633129 Media Consulting is an Italian web agency based in Cesena that designs and develops custom responsive websites. They offer a full range of digital services including Social Media Marketing, Web Marketing (Google Ads, Email Marketing, Analytics), and graphic design. The agency also provides web marketing training for teams and assists businesses in accessing public funding grants",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-media-consulting-2026-05-06","title":"Media Consulting","group":"thegentlemen","discovered":"2026-05-06T10:07:54.000Z","category":"ransomware","severity":"critical","country":"IT","sizeBytes":0,"description":"mconweb.it zoominfo.com/c/media-consulting-srl/372633129 Media Consulting is an Italian web agency based in Cesena that designs and develops custom responsive websites. They offer a full range of digital services including Social Media Marketing, Web Marketing (Google Ads, Email Marketing, Analytics), and graphic design. The agency also provides web marketing training for teams and assists businesses in accessing public funding grants","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Professional Services","references":["ransomware.live"]}

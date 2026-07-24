@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-centro-cient-fico-e-cultural-de-macau-2026-07-13",
-  "title": "Centro Científico e Cultural de Macau",
-  "group": "qilin",
-  "discovered": "2026-07-13T21:01:42.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "PT",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Education",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-centro-cient-fico-e-cultural-de-macau-2026-07-13","title":"Centro Científico e Cultural de Macau","group":"qilin","discovered":"2026-07-13T21:01:42.000Z","category":"ransomware","severity":"critical","country":"PT","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Education","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "genesis-ben-f-barcus-and-associates-pllc-2026-05-11",
-  "title": "Ben F. Barcus and associates pllc",
-  "group": "genesis",
-  "discovered": "2026-05-11T23:23:39.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "A law firm from Tacoma, WA.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"genesis-ben-f-barcus-and-associates-pllc-2026-05-11","title":"Ben F. Barcus and associates pllc","group":"genesis","discovered":"2026-05-11T23:23:39.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"A law firm from Tacoma, WA.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

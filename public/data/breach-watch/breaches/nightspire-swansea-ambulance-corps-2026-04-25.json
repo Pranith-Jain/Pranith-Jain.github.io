@@ -1,15 +1,1 @@
-{
-  "slug": "nightspire-swansea-ambulance-corps-2026-04-25",
-  "title": "Swansea Ambulance Corps",
-  "group": "nightspire",
-  "discovered": "2026-04-25T13:35:13.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "GB",
-  "sizeBytes": 0,
-  "description": "Data is not available now.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["NIGHT SPIRE"],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"nightspire-swansea-ambulance-corps-2026-04-25","title":"Swansea Ambulance Corps","group":"nightspire","discovered":"2026-04-25T13:35:13.000Z","category":"ransomware","severity":"high","country":"GB","sizeBytes":0,"description":"Data is not available now.","source_url":"https://www.ransomware.live/","groupAliases":["NIGHT SPIRE"],"activity":"Healthcare","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "bravox-salvation-army-2026-05-23",
-  "title": "Salvation Army",
-  "group": "bravox",
-  "discovered": "2026-05-23T21:21:03.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "CA",
-  "sizeBytes": 0,
-  "description": "Provides social services, emergency aid, rehabilitation, and community support.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"bravox-salvation-army-2026-05-23","title":"Salvation Army","group":"bravox","discovered":"2026-05-23T21:21:03.000Z","category":"data_breach","severity":"high","country":"CA","sizeBytes":0,"description":"Provides social services, emergency aid, rehabilitation, and community support.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

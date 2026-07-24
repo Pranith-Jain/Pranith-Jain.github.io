@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-eana-2026-07-19",
-  "title": "Eana",
-  "group": "qilin",
-  "discovered": "2026-07-19T18:10:04.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "AR",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-eana-2026-07-19","title":"Eana","group":"qilin","discovered":"2026-07-19T18:10:04.000Z","category":"ransomware","severity":"critical","country":"AR","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Not Found","references":["ransomware.live"]}

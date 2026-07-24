@@ -1,15 +1,1 @@
-{
-  "slug": "kairos-mortensenlawoffices-2026-06-01",
-  "title": "Mortensenlawoffices",
-  "group": "kairos",
-  "discovered": "2026-06-01T15:53:42.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Mortensen Law Offices, PLLC\noffers legal services, particularly bankruptcy, and provides consultations via Zoom, phone, or in-office for clients in the Phoenix/Mesa and Tucson areas, focusing on clear, empathetic guidance.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"kairos-mortensenlawoffices-2026-06-01","title":"Mortensenlawoffices","group":"kairos","discovered":"2026-06-01T15:53:42.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Mortensen Law Offices, PLLC\noffers legal services, particularly bankruptcy, and provides consultations via Zoom, phone, or in-office for clients in the Phoenix/Mesa and Tucson areas, focusing on clear, empathetic guidance.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

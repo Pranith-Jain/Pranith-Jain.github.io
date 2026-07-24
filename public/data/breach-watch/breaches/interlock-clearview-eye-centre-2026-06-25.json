@@ -1,15 +1,1 @@
-{
-  "slug": "interlock-clearview-eye-centre-2026-06-25",
-  "title": "Clearview Eye Centre",
-  "group": "interlock",
-  "discovered": "2026-06-25T15:48:47.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "CA",
-  "sizeBytes": 0,
-  "description": "Clearview Eye Centre is a state-of-the-art ophthalmology clinic run by doctors Faisal Adatia and Ryan Yau in Calgary, Alberta. They disregard security regulations and medical confidentiality, show no respect for their clients' privacy, and make no attempt to protect the information stored in their databases. Their practices are extremely lax, resulting in client information including medical records, personal data, incident reports, and financial and tax information being exposed to you.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"interlock-clearview-eye-centre-2026-06-25","title":"Clearview Eye Centre","group":"interlock","discovered":"2026-06-25T15:48:47.000Z","category":"data_breach","severity":"high","country":"CA","sizeBytes":0,"description":"Clearview Eye Centre is a state-of-the-art ophthalmology clinic run by doctors Faisal Adatia and Ryan Yau in Calgary, Alberta. They disregard security regulations and medical confidentiality, show no respect for their clients' privacy, and make no attempt to protect the information stored in their databases. Their practices are extremely lax, resulting in client information including medical records, personal data, incident reports, and financial and tax information being exposed to you.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

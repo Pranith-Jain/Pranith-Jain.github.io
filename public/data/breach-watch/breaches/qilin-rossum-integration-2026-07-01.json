@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-rossum-integration-2026-07-01",
-  "title": "Rossum Integration",
-  "group": "qilin",
-  "discovered": "2026-07-01T13:16:37.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "SK",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-rossum-integration-2026-07-01","title":"Rossum Integration","group":"qilin","discovered":"2026-07-01T13:16:37.000Z","category":"ransomware","severity":"critical","country":"SK","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-calipage-humblet-2026-06-15",
-  "title": "Calipage Humblet",
-  "group": "thegentlemen",
-  "discovered": "2026-06-15T13:02:02.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "BE",
-  "sizeBytes": 0,
-  "description": "***.calipage.be  Papeterie Humblet is a historic Belgian family business founded in 1910 that specializes in comprehensive office and school supplies. Beyond retail, the company provides professional printing and copy services to its local customers. Operating primarily in the Herstal and Blegny regions, they serve as a dedicated partner within the Calipage Benelux network",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-calipage-humblet-2026-06-15","title":"Calipage Humblet","group":"thegentlemen","discovered":"2026-06-15T13:02:02.000Z","category":"ransomware","severity":"critical","country":"BE","sizeBytes":0,"description":"***.calipage.be  Papeterie Humblet is a historic Belgian family business founded in 1910 that specializes in comprehensive office and school supplies. Beyond retail, the company provides professional printing and copy services to its local customers. Operating primarily in the Herstal and Blegny regions, they serve as a dedicated partner within the Calipage Benelux network","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Not Found","references":["ransomware.live"]}

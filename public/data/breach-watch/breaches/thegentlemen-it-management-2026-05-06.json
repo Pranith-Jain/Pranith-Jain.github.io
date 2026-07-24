@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-it-management-2026-05-06",
-  "title": "IT Management",
-  "group": "thegentlemen",
-  "discovered": "2026-05-06T10:08:35.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "TH",
-  "sizeBytes": 0,
-  "description": "itmanagement.co.th zoominfo.com/c/it-management-co-ltd/446178193 IT Management Co., Ltd. is a small local IT company based in Bangkok, Thailand, located at 562 Dindaeng Road, Din Daeng district. The company specializes in network intelligence and IT infrastructure solutions, assembling teams capable of handling a full range of networking functions. It appears to be a boutique-sized local business with a modest online presence",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-it-management-2026-05-06","title":"IT Management","group":"thegentlemen","discovered":"2026-05-06T10:08:35.000Z","category":"ransomware","severity":"critical","country":"TH","sizeBytes":0,"description":"itmanagement.co.th zoominfo.com/c/it-management-co-ltd/446178193 IT Management Co., Ltd. is a small local IT company based in Bangkok, Thailand, located at 562 Dindaeng Road, Din Daeng district. The company specializes in network intelligence and IT infrastructure solutions, assembling teams capable of handling a full range of networking functions. It appears to be a boutique-sized local business with a modest online presence","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Technology","references":["ransomware.live"]}

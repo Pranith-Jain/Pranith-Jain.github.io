@@ -1,15 +1,1 @@
-{
-  "slug": "everest-2026-05-29",
-  "title": "ЕРМ",
-  "group": "everest",
-  "discovered": "2026-05-29T01:51:53.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "[AI generated] N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"everest-2026-05-29","title":"ЕРМ","group":"everest","discovered":"2026-05-29T01:51:53.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"[AI generated] N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

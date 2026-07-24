@@ -1,15 +1,1 @@
-{
-  "slug": "deadlock-cad93-2026-06-15",
-  "title": "CAD93",
-  "group": "Deadlock",
-  "discovered": "2026-06-15T18:24:38.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "IT",
-  "sizeBytes": 0,
-  "description": "C.A.D. 93 S.r.l. is a Prato-based firm of authorized customs brokers specializing in international trade, compliance, and import/export documentation. The agency provides comprehensive consulting services from its headquarters in Italy.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"deadlock-cad93-2026-06-15","title":"CAD93","group":"Deadlock","discovered":"2026-06-15T18:24:38.000Z","category":"ransomware","severity":"critical","country":"IT","sizeBytes":0,"description":"C.A.D. 93 S.r.l. is a Prato-based firm of authorized customs brokers specializing in international trade, compliance, and import/export documentation. The agency provides comprehensive consulting services from its headquarters in Italy.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

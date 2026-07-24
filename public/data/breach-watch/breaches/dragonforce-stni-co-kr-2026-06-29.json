@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-stni-co-kr-2026-06-29",
-  "title": "stni.co.kr",
-  "group": "dragonforce",
-  "discovered": "2026-06-29T12:54:14.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "KR",
-  "sizeBytes": 0,
-  "description": "Creating accurate virtual replicas involves production facilities, workshops, and equipment for modeling, testing, and optimizing technological processes.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-stni-co-kr-2026-06-29","title":"stni.co.kr","group":"dragonforce","discovered":"2026-06-29T12:54:14.000Z","category":"ransomware","severity":"critical","country":"KR","sizeBytes":0,"description":"Creating accurate virtual replicas involves production facilities, workshops, and equipment for modeling, testing, and optimizing technological processes.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Not Found","references":["ransomware.live"]}

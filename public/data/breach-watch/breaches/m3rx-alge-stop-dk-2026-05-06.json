@@ -1,15 +1,1 @@
-{
-  "slug": "m3rx-alge-stop-dk-2026-05-06",
-  "title": "alge-stop.dk",
-  "group": "m3rx",
-  "discovered": "2026-05-06T21:53:57.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "DK",
-  "sizeBytes": 0,
-  "description": "+45 22100211 . Alge-Stop helps homeowners and businesses keep their outdoor surfaces clean and protected. They remove algae and moss from roofs, walls, tiles, and paving stones, making surfaces look fresh and new. With their special treatment and cleaning process, Alge-Stop offers up to 20 years of protection, helping customers maintain the beauty and integrity of their property Stolen: 73gb 7100 files",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"m3rx-alge-stop-dk-2026-05-06","title":"alge-stop.dk","group":"m3rx","discovered":"2026-05-06T21:53:57.000Z","category":"ransomware","severity":"high","country":"DK","sizeBytes":0,"description":"+45 22100211 . Alge-Stop helps homeowners and businesses keep their outdoor surfaces clean and protected. They remove algae and moss from roofs, walls, tiles, and paving stones, making surfaces look fresh and new. With their special treatment and cleaning process, Alge-Stop offers up to 20 years of protection, helping customers maintain the beauty and integrity of their property Stolen: 73gb 7100 files","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

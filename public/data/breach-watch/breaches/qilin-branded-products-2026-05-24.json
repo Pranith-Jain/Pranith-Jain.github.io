@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-branded-products-2026-05-24",
-  "title": "Branded Products",
-  "group": "qilin",
-  "discovered": "2026-05-24T18:23:29.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "AU",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-branded-products-2026-05-24","title":"Branded Products","group":"qilin","discovered":"2026-05-24T18:23:29.000Z","category":"ransomware","severity":"critical","country":"AU","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

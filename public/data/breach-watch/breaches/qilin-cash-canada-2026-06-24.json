@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-cash-canada-2026-06-24",
-  "title": "Cash Canada",
-  "group": "qilin",
-  "discovered": "2026-06-24T11:26:25.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "CA",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Financial Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-cash-canada-2026-06-24","title":"Cash Canada","group":"qilin","discovered":"2026-06-24T11:26:25.000Z","category":"ransomware","severity":"critical","country":"CA","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Financial Services","references":["ransomware.live"]}

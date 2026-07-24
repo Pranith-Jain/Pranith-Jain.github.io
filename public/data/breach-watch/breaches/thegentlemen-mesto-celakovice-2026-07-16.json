@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-mesto-celakovice-2026-07-16",
-  "title": "Mesto Celakovice",
-  "group": "thegentlemen",
-  "discovered": "2026-07-16T12:56:29.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "CZ",
-  "sizeBytes": 0,
-  "description": "***.cz zoominfo.com/c/město-čelákovice/426355970 town in the Central Bohemian Region of the Czech Republic, situated on the Elbe River approximately 27 kilometers from Prague. With a population of around 12,000 residents, it serves as a local administrative and cultural hub. The official website functions as the primary municipal portal, offering citizens and visitors essential information, administrative services, news, and contact details for the local government",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-mesto-celakovice-2026-07-16","title":"Mesto Celakovice","group":"thegentlemen","discovered":"2026-07-16T12:56:29.000Z","category":"ransomware","severity":"critical","country":"CZ","sizeBytes":0,"description":"***.cz zoominfo.com/c/město-čelákovice/426355970 town in the Central Bohemian Region of the Czech Republic, situated on the Elbe River approximately 27 kilometers from Prague. With a population of around 12,000 residents, it serves as a local administrative and cultural hub. The official website functions as the primary municipal portal, offering citizens and visitors essential information, administrative services, news, and contact details for the local government","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Manufacturing","references":["ransomware.live"]}

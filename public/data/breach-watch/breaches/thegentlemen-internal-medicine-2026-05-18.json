@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-internal-medicine-2026-05-18",
-  "title": "Internal Medicine",
-  "group": "thegentlemen",
-  "discovered": "2026-05-18T18:54:53.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "internalmedicineofswf.com zoominfo.com/c/internal-medicine-of-southwest-florida/559515842 a private, physician-owned primary care practice founded in 1998 and located in Fort Myers, FL . The site provides patient resources, contact information, office hours, and details about their proactive, preventative healthcare services. They focus on quality, patient-centric care for both wellness visits and urgent medical needs",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-internal-medicine-2026-05-18","title":"Internal Medicine","group":"thegentlemen","discovered":"2026-05-18T18:54:53.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"internalmedicineofswf.com zoominfo.com/c/internal-medicine-of-southwest-florida/559515842 a private, physician-owned primary care practice founded in 1998 and located in Fort Myers, FL . The site provides patient resources, contact information, office hours, and details about their proactive, preventative healthcare services. They focus on quality, patient-centric care for both wellness visits and urgent medical needs","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Healthcare","references":["ransomware.live"]}

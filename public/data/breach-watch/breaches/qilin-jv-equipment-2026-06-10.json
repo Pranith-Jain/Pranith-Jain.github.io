@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-jv-equipment-2026-06-10",
-  "title": "JV Equipment",
-  "group": "qilin",
-  "discovered": "2026-06-10T20:54:23.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-jv-equipment-2026-06-10","title":"JV Equipment","group":"qilin","discovered":"2026-06-10T20:54:23.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "stormous-ams-group-co-uk-full-data-dump-33gb-2026-05-10",
-  "title": "ams-group.co.uk FULL DATA DUMP 33GB",
-  "group": "stormous",
-  "discovered": "2026-05-10T00:26:33.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "GB",
-  "sizeBytes": 0,
-  "description": "The extracted data comprises administrative and financial records, payroll sheets, and client and partner directories, alongside technical and engineering specifications, employee records, and business plans. It also includes architectural designs, official contracts, detailed engineering reports, and construction site maps, as well as risk assessments, internal correspondence, and tax and legal information.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"stormous-ams-group-co-uk-full-data-dump-33gb-2026-05-10","title":"ams-group.co.uk FULL DATA DUMP 33GB","group":"stormous","discovered":"2026-05-10T00:26:33.000Z","category":"ransomware","severity":"critical","country":"GB","sizeBytes":0,"description":"The extracted data comprises administrative and financial records, payroll sheets, and client and partner directories, alongside technical and engineering specifications, employee records, and business plans. It also includes architectural designs, official contracts, detailed engineering reports, and construction site maps, as well as risk assessments, internal correspondence, and tax and legal information.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

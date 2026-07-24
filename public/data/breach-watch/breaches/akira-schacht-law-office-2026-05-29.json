@@ -1,15 +1,1 @@
-{
-  "slug": "akira-schacht-law-office-2026-05-29",
-  "title": "Schacht Law Office",
-  "group": "akira",
-  "discovered": "2026-05-29T14:20:18.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Schacht Law Office specializes in intellectual property legal services, focusing on the protect\nion of patents, trademarks, copyrights, and trade secrets. They assist clients in defining and \nsafeguarding their ideas to ensure the prosperity of their intellectual property and brand.\n\nWe will upload 20gb of corporate data soon. Lots of clients data (credit cards, name, addresses\n, phones and so on), contracts and agreements, NDAs, projects, etc.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Megazord"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"akira-schacht-law-office-2026-05-29","title":"Schacht Law Office","group":"akira","discovered":"2026-05-29T14:20:18.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"Schacht Law Office specializes in intellectual property legal services, focusing on the protect\nion of patents, trademarks, copyrights, and trade secrets. They assist clients in defining and \nsafeguarding their ideas to ensure the prosperity of their intellectual property and brand.\n\nWe will upload 20gb of corporate data soon. Lots of clients data (credit cards, name, addresses\n, phones and so on), contracts and agreements, NDAs, projects, etc.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Professional Services","references":["ransomware.live"]}

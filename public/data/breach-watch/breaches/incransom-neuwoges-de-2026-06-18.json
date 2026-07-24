@@ -1,15 +1,1 @@
-{
-  "slug": "incransom-neuwoges-de-2026-06-18",
-  "title": "neuwoges.de",
-  "group": "incransom",
-  "discovered": "2026-06-18T00:25:22.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "The Neubrandenburger Wohnungsgesellschaft mbH (NEUWOGES), a municipal housing company and subsidiary of the Vier-Tore-Stadt Neubrandenburg in Mecklenburg-Western Pomerania, Germany. It is one of the largest regional housing providers, managing around 12,000 apartments alongside commercial units and care facilities.\r It’s no secret that the company was subjected to a cyberattack and that data was stolen. But let’s pull back the curtain a bit. At first, the company’s leadership cut costs on proper IT infrastructure, and after the attack they continued to do so—this time at the expense of the security of their clients, employees, vendors, etc. Relying on the supervisory board, they attempted to obtain more information about the compromised data in order to protect themselves. Now you’re learning about this for free. Stay tuned.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["inc ransom", "INC"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"incransom-neuwoges-de-2026-06-18","title":"neuwoges.de","group":"incransom","discovered":"2026-06-18T00:25:22.000Z","category":"ransomware","severity":"critical","country":"DE","sizeBytes":0,"description":"The Neubrandenburger Wohnungsgesellschaft mbH (NEUWOGES), a municipal housing company and subsidiary of the Vier-Tore-Stadt Neubrandenburg in Mecklenburg-Western Pomerania, Germany. It is one of the largest regional housing providers, managing around 12,000 apartments alongside commercial units and care facilities.\r It’s no secret that the company was subjected to a cyberattack and that data was stolen. But let’s pull back the curtain a bit. At first, the company’s leadership cut costs on proper IT infrastructure, and after the attack they continued to do so—this time at the expense of the security of their clients, employees, vendors, etc. Relying on the supervisory board, they attempted to obtain more information about the compromised data in order to protect themselves. Now you’re learning about this for free. Stay tuned.","source_url":"https://www.ransomware.live/","groupAliases":["inc ransom","INC"],"activity":"Other","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "pear-langenberg-strubberg-arand-king-llc-2026-05-10",
-  "title": "Langenberg, Strubberg, Arand & King, LLC",
-  "group": "pear",
-  "discovered": "2026-05-10T07:56:26.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Firm that specializes in providing accounting, tax, and advisory services",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"pear-langenberg-strubberg-arand-king-llc-2026-05-10","title":"Langenberg, Strubberg, Arand & King, LLC","group":"pear","discovered":"2026-05-10T07:56:26.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Firm that specializes in providing accounting, tax, and advisory services","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

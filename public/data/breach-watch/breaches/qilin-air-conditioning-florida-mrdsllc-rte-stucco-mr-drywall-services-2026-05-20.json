@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-air-conditioning-florida-mrdsllc-rte-stucco-mr-drywall-services-2026-05-20",
-  "title": "Air Conditioning Florida & Mrdsllc & RTE Stucco & MR Drywall Services",
-  "group": "qilin",
-  "discovered": "2026-05-20T14:55:11.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Construction",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-air-conditioning-florida-mrdsllc-rte-stucco-mr-drywall-services-2026-05-20","title":"Air Conditioning Florida & Mrdsllc & RTE Stucco & MR Drywall Services","group":"qilin","discovered":"2026-05-20T14:55:11.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "krybit-www-mupras-com-2026-06-19",
-  "title": "www.mupras.com",
-  "group": "krybit",
-  "discovered": "2026-06-19T21:00:59.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "BR",
-  "sizeBytes": 0,
-  "description": "MUPRAS RAM (Mutuelle de Prévoyance et d'Actions Sociales de Royal Air Maroc) is a Moroccan mutual aid and social welfar...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"krybit-www-mupras-com-2026-06-19","title":"www.mupras.com","group":"krybit","discovered":"2026-06-19T21:00:59.000Z","category":"ransomware","severity":"high","country":"BR","sizeBytes":0,"description":"MUPRAS RAM (Mutuelle de Prévoyance et d'Actions Sociales de Royal Air Maroc) is a Moroccan mutual aid and social welfar...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

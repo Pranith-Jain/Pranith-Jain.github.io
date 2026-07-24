@@ -1,15 +1,1 @@
-{
-  "slug": "apt73-providentgh-com-2026-04-27",
-  "title": "providentgh.com",
-  "group": "apt73",
-  "discovered": "2026-04-27T16:36:37.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "GH",
-  "sizeBytes": 0,
-  "description": "Provident Insurance Limited Company is an insurance company in Ghana that provides insurance (aut...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Eraleign"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"apt73-providentgh-com-2026-04-27","title":"providentgh.com","group":"apt73","discovered":"2026-04-27T16:36:37.000Z","category":"data_breach","severity":"high","country":"GH","sizeBytes":0,"description":"Provident Insurance Limited Company is an insurance company in Ghana that provides insurance (aut...","source_url":"https://www.ransomware.live/","groupAliases":["Eraleign"],"activity":"Professional Services","references":["ransomware.live"]}

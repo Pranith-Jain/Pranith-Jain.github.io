@@ -1,15 +1,1 @@
-{
-  "slug": "shinyhunters-coe-int-2026-06-14",
-  "title": "coe.int",
-  "group": "shinyhunters",
-  "discovered": "2026-06-14T00:54:51.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "FR",
-  "sizeBytes": 0,
-  "description": "Over 297 GB of Council of Europe HR and payroll data (429,000+ files) was compromised across the Secretariat, Directorate of Human Resources, Parliamentary Assembly, EDQM, permanent and temporary staff, interpreters, conference services, language booth units, and payroll administration, including 409,000+ payslips for 10,000+ staff from 2011 to 2026, 14,000+ CVs and 3,700+ in-house personnel files, 10,700+ per-employee document stores, contract and purchase order records, mission travel overpayments, interpreter scheduling and 2026 salary scales, Blue List rosters, absence and illness reports, bank account and URSSAF payroll data, performance evaluations, and payroll exports, covering full names, employee IDs, home addresses, phone numbers, dates of birth, salaries, bank details, tax and social security information, medical and absence records, mission references, and other internal institutional data. This is a final warning to reach out by 16 June 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 14 June 2026 | Warning: FINAL WARNING PAY OR LEAK",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"shinyhunters-coe-int-2026-06-14","title":"coe.int","group":"shinyhunters","discovered":"2026-06-14T00:54:51.000Z","category":"ransomware","severity":"critical","country":"FR","sizeBytes":0,"description":"Over 297 GB of Council of Europe HR and payroll data (429,000+ files) was compromised across the Secretariat, Directorate of Human Resources, Parliamentary Assembly, EDQM, permanent and temporary staff, interpreters, conference services, language booth units, and payroll administration, including 409,000+ payslips for 10,000+ staff from 2011 to 2026, 14,000+ CVs and 3,700+ in-house personnel files, 10,700+ per-employee document stores, contract and purchase order records, mission travel overpayments, interpreter scheduling and 2026 salary scales, Blue List rosters, absence and illness reports, bank account and URSSAF payroll data, performance evaluations, and payroll exports, covering full names, employee IDs, home addresses, phone numbers, dates of birth, salaries, bank details, tax and social security information, medical and absence records, mission references, and other internal institutional data. This is a final warning to reach out by 16 June 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 14 June 2026 | Warning: FINAL WARNING PAY OR LEAK","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Government & Defense","references":["ransomware.live"]}

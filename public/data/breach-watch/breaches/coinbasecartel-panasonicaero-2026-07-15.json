@@ -1,15 +1,1 @@
-{
-  "slug": "coinbasecartel-panasonicaero-2026-07-15",
-  "title": "PanasonicAero",
-  "group": "coinbasecartel",
-  "discovered": "2026-07-15T17:01:52.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "JP",
-  "sizeBytes": 0,
-  "description": "[AI generated] Panasonic Avionics Corporation, commonly known as Panasonic Aero, is a US-based subsidiary of Panasonic Corporation specializing in in-flight entertainment and connectivity systems for commercial airlines. The company designs and supplies seatback screens, Wi-Fi connectivity, and cabin management solutions. Headquartered in Lake Forest, California, it serves major global airlines and operates within the aerospace and aviation technology industry.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["coinbase cartel"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"coinbasecartel-panasonicaero-2026-07-15","title":"PanasonicAero","group":"coinbasecartel","discovered":"2026-07-15T17:01:52.000Z","category":"ransomware","severity":"high","country":"JP","sizeBytes":0,"description":"[AI generated] Panasonic Avionics Corporation, commonly known as Panasonic Aero, is a US-based subsidiary of Panasonic Corporation specializing in in-flight entertainment and connectivity systems for commercial airlines. The company designs and supplies seatback screens, Wi-Fi connectivity, and cabin management solutions. Headquartered in Lake Forest, California, it serves major global airlines and operates within the aerospace and aviation technology industry.","source_url":"https://www.ransomware.live/","groupAliases":["coinbase cartel"],"activity":"Manufacturing","references":["ransomware.live"]}

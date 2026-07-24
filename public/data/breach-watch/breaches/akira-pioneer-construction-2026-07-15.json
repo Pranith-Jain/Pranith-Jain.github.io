@@ -1,15 +1,1 @@
-{
-  "slug": "akira-pioneer-construction-2026-07-15",
-  "title": "Pioneer Construction",
-  "group": "akira",
-  "discovered": "2026-07-15T13:21:00.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Established in 1933, Pioneer Construction is headquartered in Grand Rapids, Michigan. They prov\nide construction solutions throughout the United States including general contracting, crane se\nrvices, program management, and more.\n\nWe will upload 168gb of corporate data soon. Scanned employee personal documents (passports, DL\ns and other docs), projects information, detailed financials, client internal information, cont\nracts and agreements, confidential correspondence and other files, NDAs and so on.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Megazord"],
-  "activity": "Construction",
-  "references": ["ransomware.live"]
-}
+{"slug":"akira-pioneer-construction-2026-07-15","title":"Pioneer Construction","group":"akira","discovered":"2026-07-15T13:21:00.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"Established in 1933, Pioneer Construction is headquartered in Grand Rapids, Michigan. They prov\nide construction solutions throughout the United States including general contracting, crane se\nrvices, program management, and more.\n\nWe will upload 168gb of corporate data soon. Scanned employee personal documents (passports, DL\ns and other docs), projects information, detailed financials, client internal information, cont\nracts and agreements, confidential correspondence and other files, NDAs and so on.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Manufacturing","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-levante-living-2026-05-06",
-  "title": "Levante Living",
-  "group": "thegentlemen",
-  "discovered": "2026-05-06T10:07:24.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "IT",
-  "sizeBytes": 0,
-  "description": "levanteliving.com zoominfo.com/c/levante-living-lp/388951109 Levante Living is a Canadian-owned senior living enterprise founded in 2016 by Michael Petersen and Jim MacDonald, and headquartered in Toronto, Ontario, focused on acquiring, managing, and redeveloping senior housing across North America. The company currently operates 24 retirement residences across Ontario, employs over 600 team members, and manages approximately 1,600 investors with over $175 million in senior living assets. Its service offerings span the full care spectrum — independent living, assisted living, memory care, respite care, and long-term care — guided by the values of dignity, compassion, integrity, and excellence",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-levante-living-2026-05-06","title":"Levante Living","group":"thegentlemen","discovered":"2026-05-06T10:07:24.000Z","category":"ransomware","severity":"critical","country":"IT","sizeBytes":0,"description":"levanteliving.com zoominfo.com/c/levante-living-lp/388951109 Levante Living is a Canadian-owned senior living enterprise founded in 2016 by Michael Petersen and Jim MacDonald, and headquartered in Toronto, Ontario, focused on acquiring, managing, and redeveloping senior housing across North America. The company currently operates 24 retirement residences across Ontario, employs over 600 team members, and manages approximately 1,600 investors with over $175 million in senior living assets. Its service offerings span the full care spectrum — independent living, assisted living, memory care, respite care, and long-term care — guided by the values of dignity, compassion, integrity, and excellence","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

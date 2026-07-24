@@ -1,15 +1,1 @@
-{
-  "slug": "nightspire-silsbee-police-department-2026-06-14",
-  "title": "Silsbee Police Department",
-  "group": "nightspire",
-  "discovered": "2026-06-14T11:23:11.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Court Information",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["NIGHT SPIRE"],
-  "activity": "Public Sector",
-  "references": ["ransomware.live"]
-}
+{"slug":"nightspire-silsbee-police-department-2026-06-14","title":"Silsbee Police Department","group":"nightspire","discovered":"2026-06-14T11:23:11.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Court Information","source_url":"https://www.ransomware.live/","groupAliases":["NIGHT SPIRE"],"activity":"Government & Defense","references":["ransomware.live"]}

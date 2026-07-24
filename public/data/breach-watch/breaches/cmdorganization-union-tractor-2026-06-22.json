@@ -1,15 +1,1 @@
-{
-  "slug": "cmdorganization-union-tractor-2026-06-22",
-  "title": "Union Tractor",
-  "group": "cmdorganization",
-  "discovered": "2026-06-22T10:50:19.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Union Tractor Ltd. is an independent business selling aftermarket parts and accessories for construction and transportation equipment. It engages in the distribution of undercarriage components, ground engaging tools, engine and drive train parts, hydraulic system parts, exchange compoUnion Tractor Ltd. is an independent business selling aftermarket parts and accessories for construction and transportation equipment. It engages in the distribution of undercarriage components, ground engaging tools, engine and drive train parts, hydraulic system parts, exchange components, and used parts. The company was founded in 1927 and is headquartered in Nisku, Canada.nents, and used parts. The company was founded in 1927 and is headquartered in Nisku, Canada.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["cmd organization"],
-  "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
-}
+{"slug":"cmdorganization-union-tractor-2026-06-22","title":"Union Tractor","group":"cmdorganization","discovered":"2026-06-22T10:50:19.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Union Tractor Ltd. is an independent business selling aftermarket parts and accessories for construction and transportation equipment. It engages in the distribution of undercarriage components, ground engaging tools, engine and drive train parts, hydraulic system parts, exchange compoUnion Tractor Ltd. is an independent business selling aftermarket parts and accessories for construction and transportation equipment. It engages in the distribution of undercarriage components, ground engaging tools, engine and drive train parts, hydraulic system parts, exchange components, and used parts. The company was founded in 1927 and is headquartered in Nisku, Canada.nents, and used parts. The company was founded in 1927 and is headquartered in Nisku, Canada.","source_url":"https://www.ransomware.live/","groupAliases":["cmd organization"],"activity":"Agriculture and Food Production","references":["ransomware.live"]}

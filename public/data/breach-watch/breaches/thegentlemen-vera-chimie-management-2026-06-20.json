@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-vera-chimie-management-2026-06-20",
-  "title": "Vera Chimie Management",
-  "group": "thegentlemen",
-  "discovered": "2026-06-20T08:54:02.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "FR",
-  "sizeBytes": 0,
-  "description": "***.fr zoominfo.com/c/vera-chimie-management/458572585 Vera Chimie is a French chemical manufacturing company based in Irigny with over 30 years of industry experience.They specialize in custom formulation, manufacturing, and packaging of liquid and powder chemicals for various industrial sectors.The company operates primarily on a subcontracting basis, delivering tailored chemical solutions with a strong focus on environmental standards and client confidentiality",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-vera-chimie-management-2026-06-20","title":"Vera Chimie Management","group":"thegentlemen","discovered":"2026-06-20T08:54:02.000Z","category":"ransomware","severity":"critical","country":"FR","sizeBytes":0,"description":"***.fr zoominfo.com/c/vera-chimie-management/458572585 Vera Chimie is a French chemical manufacturing company based in Irigny with over 30 years of industry experience.They specialize in custom formulation, manufacturing, and packaging of liquid and powder chemicals for various industrial sectors.The company operates primarily on a subcontracting basis, delivering tailored chemical solutions with a strong focus on environmental standards and client confidentiality","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Manufacturing","references":["ransomware.live"]}

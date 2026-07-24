@@ -1,15 +1,1 @@
-{
-  "slug": "akira-institute-of-private-enterprise-development-2026-05-13",
-  "title": "Institute of Private Enterprise Development",
-  "group": "akira",
-  "discovered": "2026-05-13T13:20:20.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "The Institute of Private Enterprise Development focuses on improving the livelihoods of micro a\nnd small entrepreneurs by offering loans ranging from $40,000 to $7,500,000 GYD. Their services\nare designed to support individuals looking to start or grow their businesses, with a signific\nant emphasis on female and youth entrepreneurs, as well as those in rural areas.\n\nWe will upload 55gb of corporate data soon. Detailed clients and employee personal information \n(passports, DLs, SSNs, ID cards, financial information, credit card details and so on), NDAs , \netc.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Megazord"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"akira-institute-of-private-enterprise-development-2026-05-13","title":"Institute of Private Enterprise Development","group":"akira","discovered":"2026-05-13T13:20:20.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"The Institute of Private Enterprise Development focuses on improving the livelihoods of micro a\nnd small entrepreneurs by offering loans ranging from $40,000 to $7,500,000 GYD. Their services\nare designed to support individuals looking to start or grow their businesses, with a signific\nant emphasis on female and youth entrepreneurs, as well as those in rural areas.\n\nWe will upload 55gb of corporate data soon. Detailed clients and employee personal information \n(passports, DLs, SSNs, ID cards, financial information, credit card details and so on), NDAs , \netc.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Professional Services","references":["ransomware.live"]}

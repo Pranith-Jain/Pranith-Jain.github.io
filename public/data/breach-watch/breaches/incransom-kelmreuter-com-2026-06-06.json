@@ -1,15 +1,1 @@
-{
-  "slug": "incransom-kelmreuter-com-2026-06-06",
-  "title": "kelmreuter.com",
-  "group": "incransom",
-  "discovered": "2026-06-06T12:22:30.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "www.personadental.com\r \r Persona Dental offers personalized dental care for families in Sartell, MN, focusing on both general and specialized services such as cosmetic dentistry, dental implants, and solutions for snoring and sleep apnea. The clinic prides itself on creating a comfortable environment and empowering patients to make informed decisions about their dental health. With a friendly and experienced team, they provide comprehensive care under one roof, ensuring convenience for their clients. Persona Dental is dedicated to building confidence and achieving the best smiles for their patients",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["inc ransom", "INC"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"incransom-kelmreuter-com-2026-06-06","title":"kelmreuter.com","group":"incransom","discovered":"2026-06-06T12:22:30.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"www.personadental.com\r \r Persona Dental offers personalized dental care for families in Sartell, MN, focusing on both general and specialized services such as cosmetic dentistry, dental implants, and solutions for snoring and sleep apnea. The clinic prides itself on creating a comfortable environment and empowering patients to make informed decisions about their dental health. With a friendly and experienced team, they provide comprehensive care under one roof, ensuring convenience for their clients. Persona Dental is dedicated to building confidence and achieving the best smiles for their patients","source_url":"https://www.ransomware.live/","groupAliases":["inc ransom","INC"],"activity":"Professional Services","references":["ransomware.live"]}

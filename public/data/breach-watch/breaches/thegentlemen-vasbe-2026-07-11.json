@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-vasbe-2026-07-11",
-  "title": "VASBE",
-  "group": "thegentlemen",
-  "discovered": "2026-07-11T07:19:14.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "RU",
-  "sizeBytes": 0,
-  "description": "***.com zoominfo.com/c/vigilantes-asociados-al-servicio-de-banca-y-empresas-vasbe-sl/458305259 VASBE Vigilantes Asociados Al Servicio De Banca Y Empresas Vasbe is a well-established Spanish private security and surveillance company with over 30 years of industry experience. Based primarily in the Salamanca region, they provide comprehensive protection solutions including physical guarding, 24/7 central alarm monitoring, and advanced video surveillance. The company specializes in designing customized security plans to safeguard businesses, financial institutions, and valuable assets around the clock.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-vasbe-2026-07-11","title":"VASBE","group":"thegentlemen","discovered":"2026-07-11T07:19:14.000Z","category":"ransomware","severity":"critical","country":"RU","sizeBytes":0,"description":"***.com zoominfo.com/c/vigilantes-asociados-al-servicio-de-banca-y-empresas-vasbe-sl/458305259 VASBE Vigilantes Asociados Al Servicio De Banca Y Empresas Vasbe is a well-established Spanish private security and surveillance company with over 30 years of industry experience. Based primarily in the Salamanca region, they provide comprehensive protection solutions including physical guarding, 24/7 central alarm monitoring, and advanced video surveillance. The company specializes in designing customized security plans to safeguard businesses, financial institutions, and valuable assets around the clock.","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Professional Services","references":["ransomware.live"]}

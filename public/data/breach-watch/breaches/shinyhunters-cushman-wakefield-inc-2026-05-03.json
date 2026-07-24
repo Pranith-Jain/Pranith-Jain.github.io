@@ -1,15 +1,1 @@
-{
-  "slug": "shinyhunters-cushman-wakefield-inc-2026-05-03",
-  "title": "Cushman & Wakefield Inc.",
-  "group": "shinyhunters",
-  "discovered": "2026-05-03T03:25:36.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Over 500k Salesforce records containing PII and other internal corporate data have been compromised. This is a final warning to reach out by 6 May 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 3 May 2026 | Warning: FINAL WARNING",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"shinyhunters-cushman-wakefield-inc-2026-05-03","title":"Cushman & Wakefield Inc.","group":"shinyhunters","discovered":"2026-05-03T03:25:36.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Over 500k Salesforce records containing PII and other internal corporate data have been compromised. This is a final warning to reach out by 6 May 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 3 May 2026 | Warning: FINAL WARNING","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

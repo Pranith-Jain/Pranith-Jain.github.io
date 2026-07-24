@@ -1,15 +1,1 @@
-{
-  "slug": "ransomhouse-nichirei-2026-07-21",
-  "title": "Nichirei",
-  "group": "ransomhouse",
-  "discovered": "2026-07-21T14:07:01.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "JP",
-  "sizeBytes": 0,
-  "description": "Nichirei Corporation is a premier Japanese holding company that has established itself as a market leader by pioneering the frozen food industry and providing end-to-end temperature-controlled logistics solutions. With a clear mission to deliver true satisfaction the Group leverages its integrated capabilities across food procurement, processing, and logistics to optimize the supply chain and support the nation's food culture. As Japan's number one frozen food producer and the holder of the largest refrigerated warehouse capacity in the country, Nichirei combines advanced R&D with a robust global network to ensure quality and consistency. The company's business portfolio extends from processed foods and marine products to bioscience and logistics, serving as a critical social infrastructure for food distribution. By adapting to changing social needs and economic environments, Nichirei continues to create sustainable value and strengthen its position as a cornerstone of the food industry.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["RANSOM HOUSE"],
-  "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
-}
+{"slug":"ransomhouse-nichirei-2026-07-21","title":"Nichirei","group":"ransomhouse","discovered":"2026-07-21T14:07:01.000Z","category":"ransomware","severity":"high","country":"JP","sizeBytes":0,"description":"Nichirei Corporation is a premier Japanese holding company that has established itself as a market leader by pioneering the frozen food industry and providing end-to-end temperature-controlled logistics solutions. With a clear mission to deliver true satisfaction the Group leverages its integrated capabilities across food procurement, processing, and logistics to optimize the supply chain and support the nation's food culture. As Japan's number one frozen food producer and the holder of the largest refrigerated warehouse capacity in the country, Nichirei combines advanced R&D with a robust global network to ensure quality and consistency. The company's business portfolio extends from processed foods and marine products to bioscience and logistics, serving as a critical social infrastructure for food distribution. By adapting to changing social needs and economic environments, Nichirei continues to create sustainable value and strengthen its position as a cornerstone of the food industry.","source_url":"https://www.ransomware.live/","groupAliases":["RANSOM HOUSE"],"activity":"Agriculture and Food Production","references":["ransomware.live"]}

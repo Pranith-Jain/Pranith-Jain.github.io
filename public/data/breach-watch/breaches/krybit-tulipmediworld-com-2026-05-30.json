@@ -1,15 +1,1 @@
-{
-  "slug": "krybit-tulipmediworld-com-2026-05-30",
-  "title": "tulipmediworld.com",
-  "group": "krybit",
-  "discovered": "2026-05-30T21:54:27.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "IN",
-  "sizeBytes": 0,
-  "description": "A complete data breach has occurred at Tulip Mediworld Hospital, a multi-specialty hospital located on GS Road, Rukmini ...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"krybit-tulipmediworld-com-2026-05-30","title":"tulipmediworld.com","group":"krybit","discovered":"2026-05-30T21:54:27.000Z","category":"ransomware","severity":"high","country":"IN","sizeBytes":0,"description":"A complete data breach has occurred at Tulip Mediworld Hospital, a multi-specialty hospital located on GS Road, Rukmini ...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

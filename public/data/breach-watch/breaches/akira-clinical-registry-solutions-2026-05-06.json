@@ -1,15 +1,1 @@
-{
-  "slug": "akira-clinical-registry-solutions-2026-05-06",
-  "title": "Clinical Registry Solutions",
-  "group": "akira",
-  "discovered": "2026-05-06T14:50:18.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Clinical Registry Solutions (CRS) is a healthcare data management company based in New York, Un\nited States, formerly operating as Cardiac Registry Support. The company specializes in clinica\nl data abstraction, medical record abstraction, and registry support services for hospitals, he\nalth systems, contract research organizations, and clinical staffing firms across the United St\nates and Canada.\n\nWe will upload 41gb of corporate data soon. Detailed employee personal information (passports, \nDLs, SSNs, health information, and other docs), client documents and personal information, fina\nncials, payment details, contracts and agreements, NDAs, and so on.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Megazord"],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"akira-clinical-registry-solutions-2026-05-06","title":"Clinical Registry Solutions","group":"akira","discovered":"2026-05-06T14:50:18.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Clinical Registry Solutions (CRS) is a healthcare data management company based in New York, Un\nited States, formerly operating as Cardiac Registry Support. The company specializes in clinica\nl data abstraction, medical record abstraction, and registry support services for hospitals, he\nalth systems, contract research organizations, and clinical staffing firms across the United St\nates and Canada.\n\nWe will upload 41gb of corporate data soon. Detailed employee personal information (passports, \nDLs, SSNs, health information, and other docs), client documents and personal information, fina\nncials, payment details, contracts and agreements, NDAs, and so on.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Healthcare","references":["ransomware.live"]}

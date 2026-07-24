@@ -1,15 +1,1 @@
-{
-  "slug": "rhysida-lawson-roofing-2026-06-18",
-  "title": "Lawson Roofing",
-  "group": "rhysida",
-  "discovered": "2026-06-18T14:29:21.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Lawson Roofing",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Construction",
-  "references": ["ransomware.live"]
-}
+{"slug":"rhysida-lawson-roofing-2026-06-18","title":"Lawson Roofing","group":"rhysida","discovered":"2026-06-18T14:29:21.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"Lawson Roofing","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

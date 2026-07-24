@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-devo-tech-2026-05-18",
-  "title": "DEVO-Tech",
-  "group": "thegentlemen",
-  "discovered": "2026-05-18T18:53:51.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "CH",
-  "sizeBytes": 0,
-  "description": "devo-tech.ch zoominfo.com/c/devo-tech-ag/430812943 DEVO-Tech AG is a Swiss family-owned engineering company from Ziefen, specializing in custom mechanical solutions for apparatus engineering, vacuum lifting technology, and tunnel construction since 1997. With 25+ years of expertise and a team of 30+ professionals, they deliver high-precision, flexible manufacturing and full-cycle project support — from planning to production. Their innovations serve clients in 45+ countries, combining Swiss quality, sustainability, and reliable partnership for complex industrial challenges",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-devo-tech-2026-05-18","title":"DEVO-Tech","group":"thegentlemen","discovered":"2026-05-18T18:53:51.000Z","category":"ransomware","severity":"critical","country":"CH","sizeBytes":0,"description":"devo-tech.ch zoominfo.com/c/devo-tech-ag/430812943 DEVO-Tech AG is a Swiss family-owned engineering company from Ziefen, specializing in custom mechanical solutions for apparatus engineering, vacuum lifting technology, and tunnel construction since 1997. With 25+ years of expertise and a team of 30+ professionals, they deliver high-precision, flexible manufacturing and full-cycle project support — from planning to production. Their innovations serve clients in 45+ countries, combining Swiss quality, sustainability, and reliable partnership for complex industrial challenges","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Technology","references":["ransomware.live"]}

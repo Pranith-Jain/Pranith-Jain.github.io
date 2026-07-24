@@ -1,15 +1,1 @@
-{
-  "slug": "lockbit5-stahlwille-nl-2026-06-11",
-  "title": "stahlwille.nl",
-  "group": "lockbit5",
-  "discovered": "2026-06-11T07:21:24.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "NL",
-  "sizeBytes": 0,
-  "description": "Stahlwille BV is a company that operates in the Investment Banking industry. It employs 100to249 peo...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"lockbit5-stahlwille-nl-2026-06-11","title":"stahlwille.nl","group":"lockbit5","discovered":"2026-06-11T07:21:24.000Z","category":"ransomware","severity":"high","country":"NL","sizeBytes":0,"description":"Stahlwille BV is a company that operates in the Investment Banking industry. It employs 100to249 peo...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-leroy-surveyors-engineers-2026-05-15",
-  "title": "LeRoy Surveyors & Engineers",
-  "group": "dragonforce",
-  "discovered": "2026-05-15T17:51:49.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "LeRoy Surveyors & Engineers, INC. specializes in property boundary surveying, topographic surveys, and subdivision surveys, primarily serving clients in the Puyallup area. With a commitment to quality and a history of excellence since 1958, they provide comprehensive surveying and engineering services to both public and private sectors. Their expertise includes civil engineering, geotechnical services, and environmental engineering, ensuring compliance with local regulations and effective project planning. The company aims to support architects, engineers, developers, and municipalities in making informed decisions about land development.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-leroy-surveyors-engineers-2026-05-15","title":"LeRoy Surveyors & Engineers","group":"dragonforce","discovered":"2026-05-15T17:51:49.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"LeRoy Surveyors & Engineers, INC. specializes in property boundary surveying, topographic surveys, and subdivision surveys, primarily serving clients in the Puyallup area. With a commitment to quality and a history of excellence since 1958, they provide comprehensive surveying and engineering services to both public and private sectors. Their expertise includes civil engineering, geotechnical services, and environmental engineering, ensuring compliance with local regulations and effective project planning. The company aims to support architects, engineers, developers, and municipalities in making informed decisions about land development.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Professional Services","references":["ransomware.live"]}

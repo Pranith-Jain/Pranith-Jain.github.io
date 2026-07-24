@@ -1,15 +1,1 @@
-{
-  "slug": "unattributed-madisonsquaregardensports-2026-06-23",
-  "title": "MadisonSquareGardenSports",
-  "group": "Unattributed",
-  "discovered": "2026-06-23T14:22:43.000Z",
-  "category": "data_breach",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Madison Square Garden Sports Corp., a professional sports and entertainment company, was allegedly breached in June 2026, exposing 9.8M unique email addresses along with customer personally identifiable information and internal corporate data from a dataset reportedly containing more than 26M records.",
-  "source_url": "https://xposedornot.com/breach/MadisonSquareGardenSports",
-  "groupAliases": [],
-  "activity": "Sports",
-  "references": ["XposedOrNot"]
-}
+{"slug":"unattributed-madisonsquaregardensports-2026-06-23","title":"MadisonSquareGardenSports","group":"Unattributed","discovered":"2026-06-23T14:22:43.000Z","category":"data_breach","severity":"critical","country":null,"sizeBytes":0,"description":"Madison Square Garden Sports Corp., a professional sports and entertainment company, was allegedly breached in June 2026, exposing 9.8M unique email addresses along with customer personally identifiable information and internal corporate data from a dataset reportedly containing more than 26M records.","source_url":"https://xposedornot.com/breach/MadisonSquareGardenSports","groupAliases":[],"activity":"Sports","references":["XposedOrNot"]}

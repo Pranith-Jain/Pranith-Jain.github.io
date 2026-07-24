@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-burris-macomber-2026-06-20",
-  "title": "Burris MacOmber",
-  "group": "thegentlemen",
-  "discovered": "2026-06-20T08:51:35.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "***.com zoominfo.com/c/burris--macomber-pllc/368834075 Burris & MacOmber, PLLC is a reputable law firm based in Tucson, Arizona, recognized for its commitment to excellence and integrity in legal practice. The firm provides a comprehensive range of services, including civil litigation, international business law, real estate transactions, and estate planning. Backed by a team of experienced attorneys and knowledgeable support staff, they deliver tailored legal solutions to effectively meet their clients' diverse needs",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-burris-macomber-2026-06-20","title":"Burris MacOmber","group":"thegentlemen","discovered":"2026-06-20T08:51:35.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"***.com zoominfo.com/c/burris--macomber-pllc/368834075 Burris & MacOmber, PLLC is a reputable law firm based in Tucson, Arizona, recognized for its commitment to excellence and integrity in legal practice. The firm provides a comprehensive range of services, including civil litigation, international business law, real estate transactions, and estate planning. Backed by a team of experienced attorneys and knowledgeable support staff, they deliver tailored legal solutions to effectively meet their clients' diverse needs","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Professional Services","references":["ransomware.live"]}

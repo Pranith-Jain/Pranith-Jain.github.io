@@ -1,15 +1,1 @@
-{
-  "slug": "ailock-richmont-graduate-university-2026-07-07",
-  "title": "Richmont Graduate University",
-  "group": "AiLock",
-  "discovered": "2026-07-07T08:20:11.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Richmont Graduate University is a Christian graduate institution offering master's programs in counseling and ministry, available both online and on-campus.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Education",
-  "references": ["ransomware.live"]
-}
+{"slug":"ailock-richmont-graduate-university-2026-07-07","title":"Richmont Graduate University","group":"AiLock","discovered":"2026-07-07T08:20:11.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Richmont Graduate University is a Christian graduate institution offering master's programs in counseling and ministry, available both online and on-campus.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Education","references":["ransomware.live"]}

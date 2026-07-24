@@ -1,15 +1,1 @@
-{
-  "slug": "akira-interstate-roofing-2026-05-29",
-  "title": "Interstate Roofing",
-  "group": "akira",
-  "discovered": "2026-05-29T12:50:20.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Interstate Roofing brings its customers the best in quality and service. Since 1988, Interstate\nhas established itself as one of the largest and most trusted exterior-improvement companies i\nn the Northwest.\n\nWe will upload 16gb of corporate data soon. Employee personal docs (scanned passports and LDs, \n60  SSNs and so on), contracts and agreements, clients info, projects, etc.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Megazord"],
-  "activity": "Construction",
-  "references": ["ransomware.live"]
-}
+{"slug":"akira-interstate-roofing-2026-05-29","title":"Interstate Roofing","group":"akira","discovered":"2026-05-29T12:50:20.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Interstate Roofing brings its customers the best in quality and service. Since 1988, Interstate\nhas established itself as one of the largest and most trusted exterior-improvement companies i\nn the Northwest.\n\nWe will upload 16gb of corporate data soon. Employee personal docs (scanned passports and LDs, \n60  SSNs and so on), contracts and agreements, clients info, projects, etc.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Manufacturing","references":["ransomware.live"]}

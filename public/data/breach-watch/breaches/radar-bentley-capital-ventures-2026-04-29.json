@@ -1,15 +1,1 @@
-{
-  "slug": "radar-bentley-capital-ventures-2026-04-29",
-  "title": "Bentley Capital Ventures",
-  "group": "radar",
-  "discovered": "2026-04-29T21:59:49.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "https://www.linkedin.com/company/bentley-capital-ventures\nWe started  Bentley Capital Ventures in 2012 to facilitate small business owners across the country in the process of obtaining capital.  We know a simple trip to the local bank doesnt always provide the results many are looking for and as business owners ourselves we know how challenging it can be to obtain capital when you dont fit within the guidelines of the traditional banking world.\n\nAt Bentley Capital we use the relationships we have built over the last 25 years in both the consumer and commercial banking markets to provide our clients with the very best options available for their specific situation.\n\nWhether you have perfect or less than perfect credit our goal will always be to provide you with options that promote growth and properity for your business.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Financial Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"radar-bentley-capital-ventures-2026-04-29","title":"Bentley Capital Ventures","group":"radar","discovered":"2026-04-29T21:59:49.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"https://www.linkedin.com/company/bentley-capital-ventures\nWe started  Bentley Capital Ventures in 2012 to facilitate small business owners across the country in the process of obtaining capital.  We know a simple trip to the local bank doesnt always provide the results many are looking for and as business owners ourselves we know how challenging it can be to obtain capital when you dont fit within the guidelines of the traditional banking world.\n\nAt Bentley Capital we use the relationships we have built over the last 25 years in both the consumer and commercial banking markets to provide our clients with the very best options available for their specific situation.\n\nWhether you have perfect or less than perfect credit our goal will always be to provide you with options that promote growth and properity for your business.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Financial Services","references":["ransomware.live"]}

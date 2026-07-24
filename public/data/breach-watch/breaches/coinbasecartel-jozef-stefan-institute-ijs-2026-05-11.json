@@ -1,15 +1,1 @@
-{
-  "slug": "coinbasecartel-jozef-stefan-institute-ijs-2026-05-11",
-  "title": "Jozef Stefan Institute (IJS)",
-  "group": "coinbasecartel",
-  "discovered": "2026-05-11T13:52:21.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "SI",
-  "sizeBytes": 0,
-  "description": "[AI generated] Jozef Stefan Institute (IJS) is Slovenia's leading research institution, headquartered in Ljubljana. It operates across multiple scientific disciplines including physics, chemistry, biochemistry, electronics, information technology, and environmental sciences. Founded in 1949, it conducts fundamental and applied research, hosts numerous national and international projects, and collaborates with academic and industrial partners. It also plays a key role in educating postgraduate researchers in Slovenia.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["coinbase cartel"],
-  "activity": "Education",
-  "references": ["ransomware.live"]
-}
+{"slug":"coinbasecartel-jozef-stefan-institute-ijs-2026-05-11","title":"Jozef Stefan Institute (IJS)","group":"coinbasecartel","discovered":"2026-05-11T13:52:21.000Z","category":"ransomware","severity":"high","country":"SI","sizeBytes":0,"description":"[AI generated] Jozef Stefan Institute (IJS) is Slovenia's leading research institution, headquartered in Ljubljana. It operates across multiple scientific disciplines including physics, chemistry, biochemistry, electronics, information technology, and environmental sciences. Founded in 1949, it conducts fundamental and applied research, hosts numerous national and international projects, and collaborates with academic and industrial partners. It also plays a key role in educating postgraduate researchers in Slovenia.","source_url":"https://www.ransomware.live/","groupAliases":["coinbase cartel"],"activity":"Education","references":["ransomware.live"]}

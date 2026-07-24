@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-sinai-grand-casino-2026-07-16",
-  "title": "Sinai Grand Casino",
-  "group": "dragonforce",
-  "discovered": "2026-07-16T12:24:46.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "EG",
-  "sizeBytes": 0,
-  "description": "Sinai Grand Casino is the premier casino in the Middle East, offering a luxurious gaming experience with a variety of games including roulette, blackjack, and poker. The casino provides 24/7 services, entertainment shows, and dining options, making it a top destination for visitors in Sharm El Sheikh. It caters primarily to international tourists, as Egyptian nationals are not permitted to enter due to government regulations. With a commitment to exceptional customer service, Sinai Grand Casino also offers complimentary transportation for qualified players and guests.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Hospitality and Tourism",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-sinai-grand-casino-2026-07-16","title":"Sinai Grand Casino","group":"dragonforce","discovered":"2026-07-16T12:24:46.000Z","category":"ransomware","severity":"critical","country":"EG","sizeBytes":0,"description":"Sinai Grand Casino is the premier casino in the Middle East, offering a luxurious gaming experience with a variety of games including roulette, blackjack, and poker. The casino provides 24/7 services, entertainment shows, and dining options, making it a top destination for visitors in Sharm El Sheikh. It caters primarily to international tourists, as Egyptian nationals are not permitted to enter due to government regulations. With a commitment to exceptional customer service, Sinai Grand Casino also offers complimentary transportation for qualified players and guests.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Hospitality","references":["ransomware.live"]}

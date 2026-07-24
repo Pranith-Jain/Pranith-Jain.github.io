@@ -1,15 +1,1 @@
-{
-  "slug": "unattributed-zara-2026-05-28",
-  "title": "Zara",
-  "group": "Unattributed",
-  "discovered": "2026-05-28T13:51:57.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Zara, a fashion retailer, was targeted by the ShinyHunters group in April 2026 following an alleged compromise linked to the Anodot analytics platform, with data later published exposing 197k unique email addresses alongside support ticket records, product SKUs, order IDs, and market information.",
-  "source_url": "https://xposedornot.com/breach/Zara",
-  "groupAliases": [],
-  "activity": "Retail",
-  "references": ["XposedOrNot"]
-}
+{"slug":"unattributed-zara-2026-05-28","title":"Zara","group":"Unattributed","discovered":"2026-05-28T13:51:57.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"Zara, a fashion retailer, was targeted by the ShinyHunters group in April 2026 following an alleged compromise linked to the Anodot analytics platform, with data later published exposing 197k unique email addresses alongside support ticket records, product SKUs, order IDs, and market information.","source_url":"https://xposedornot.com/breach/Zara","groupAliases":[],"activity":"Retail","references":["XposedOrNot"]}

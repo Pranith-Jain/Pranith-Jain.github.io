@@ -1,15 +1,1 @@
-{
-  "slug": "medusalocker-sit-group-robusta-2026-05-05",
-  "title": "SIT Group / Robusta",
-  "group": "medusalocker",
-  "discovered": "2026-05-05T20:34:09.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "IT",
-  "sizeBytes": 0,
-  "description": "Italian company SIT Group (sitgroup.it) and Bulgarian Robusta (robusta.bg). Also abv.bg emails.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"medusalocker-sit-group-robusta-2026-05-05","title":"SIT Group / Robusta","group":"medusalocker","discovered":"2026-05-05T20:34:09.000Z","category":"ransomware","severity":"high","country":"IT","sizeBytes":0,"description":"Italian company SIT Group (sitgroup.it) and Bulgarian Robusta (robusta.bg). Also abv.bg emails.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

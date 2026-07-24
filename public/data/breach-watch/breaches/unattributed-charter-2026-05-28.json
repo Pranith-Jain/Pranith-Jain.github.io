@@ -1,15 +1,1 @@
-{
-  "slug": "unattributed-charter-2026-05-28",
-  "title": "Charter",
-  "group": "Unattributed",
-  "discovered": "2026-05-28T13:51:57.000Z",
-  "category": "data_breach",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Charter Communications, a telecommunications company, was allegedly targeted by the ShinyHunters group in May 2026, exposing customer data including email addresses, phone numbers, usernames, physical addresses, purchase records, dates of birth, and geographic locations.",
-  "source_url": "https://xposedornot.com/breach/Charter",
-  "groupAliases": [],
-  "activity": "Telecommunication",
-  "references": ["XposedOrNot"]
-}
+{"slug":"unattributed-charter-2026-05-28","title":"Charter","group":"Unattributed","discovered":"2026-05-28T13:51:57.000Z","category":"data_breach","severity":"critical","country":null,"sizeBytes":0,"description":"Charter Communications, a telecommunications company, was allegedly targeted by the ShinyHunters group in May 2026, exposing customer data including email addresses, phone numbers, usernames, physical addresses, purchase records, dates of birth, and geographic locations.","source_url":"https://xposedornot.com/breach/Charter","groupAliases":[],"activity":"Telecommunication","references":["XposedOrNot"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-mahajak-development-2026-06-15",
-  "title": "Mahajak Development",
-  "group": "thegentlemen",
-  "discovered": "2026-06-15T13:02:24.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "TH",
-  "sizeBytes": 0,
-  "description": "***.com zoominfo.com/c/mahajak-development-co-ltd/346627274 Mahajak Development Co., Ltd. is a leading Thai technology provider established in 1971, headquartered in Bangkok. Evolving from an automotive air-conditioning distributor, they are now a premier supplier of Mitsubishi Heavy Duty climate systems, smart home automation, and professional audio-visual solutions. The company delivers comprehensive consulting, design, and installation services for commercial projects and government facilities across Thailand",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Construction",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-mahajak-development-2026-06-15","title":"Mahajak Development","group":"thegentlemen","discovered":"2026-06-15T13:02:24.000Z","category":"ransomware","severity":"critical","country":"TH","sizeBytes":0,"description":"***.com zoominfo.com/c/mahajak-development-co-ltd/346627274 Mahajak Development Co., Ltd. is a leading Thai technology provider established in 1971, headquartered in Bangkok. Evolving from an automotive air-conditioning distributor, they are now a premier supplier of Mitsubishi Heavy Duty climate systems, smart home automation, and professional audio-visual solutions. The company delivers comprehensive consulting, design, and installation services for commercial projects and government facilities across Thailand","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Other","references":["ransomware.live"]}

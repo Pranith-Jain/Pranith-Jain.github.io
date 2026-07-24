@@ -1,15 +1,1 @@
-{
-  "slug": "apt73-trinitesolutions-com-2026-04-27",
-  "title": "trinitesolutions.com",
-  "group": "apt73",
-  "discovered": "2026-04-27T16:53:45.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Trinite Solutions was established in 2003. Its mission is to develop, market and implement busine...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Eraleign"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"apt73-trinitesolutions-com-2026-04-27","title":"trinitesolutions.com","group":"apt73","discovered":"2026-04-27T16:53:45.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Trinite Solutions was established in 2003. Its mission is to develop, market and implement busine...","source_url":"https://www.ransomware.live/","groupAliases":["Eraleign"],"activity":"Professional Services","references":["ransomware.live"]}

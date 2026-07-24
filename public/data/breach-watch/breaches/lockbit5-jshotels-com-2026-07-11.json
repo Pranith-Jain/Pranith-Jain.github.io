@@ -1,15 +1,1 @@
-{
-  "slug": "lockbit5-jshotels-com-2026-07-11",
-  "title": "jshotels.com",
-  "group": "lockbit5",
-  "discovered": "2026-07-11T07:28:30.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "JO",
-  "sizeBytes": 0,
-  "description": "JS Hotels owns and manages ten hotel properties scattered all over Majorca. We pride ourselves on cu...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Hospitality and Tourism",
-  "references": ["ransomware.live"]
-}
+{"slug":"lockbit5-jshotels-com-2026-07-11","title":"jshotels.com","group":"lockbit5","discovered":"2026-07-11T07:28:30.000Z","category":"ransomware","severity":"high","country":"JO","sizeBytes":0,"description":"JS Hotels owns and manages ten hotel properties scattered all over Majorca. We pride ourselves on cu...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Hospitality","references":["ransomware.live"]}

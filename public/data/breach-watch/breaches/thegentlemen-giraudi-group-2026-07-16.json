@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-giraudi-group-2026-07-16",
-  "title": "Giraudi Group",
-  "group": "thegentlemen",
-  "discovered": "2026-07-16T12:56:50.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "IT",
-  "sizeBytes": 0,
-  "description": "***.com zoominfo.com/c/giraudi-group/1157060956v Monaco-based company founded in 1968, specializing in the import, export, and distribution of premium meats, including exclusive Japanese Kobe and certified Black Angus beef. Under the leadership of Riccardo Giraudi, the group has expanded into a comprehensive hospitality and lifestyle brand, owning and managing over 35 restaurants worldwide, most notably the famous Beefbar. The company also operates in the lifestyle sector with fashion, art, and premium spirits, while providing global consulting and franchising services for the food and beverage industry",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-giraudi-group-2026-07-16","title":"Giraudi Group","group":"thegentlemen","discovered":"2026-07-16T12:56:50.000Z","category":"ransomware","severity":"critical","country":"IT","sizeBytes":0,"description":"***.com zoominfo.com/c/giraudi-group/1157060956v Monaco-based company founded in 1968, specializing in the import, export, and distribution of premium meats, including exclusive Japanese Kobe and certified Black Angus beef. Under the leadership of Riccardo Giraudi, the group has expanded into a comprehensive hospitality and lifestyle brand, owning and managing over 35 restaurants worldwide, most notably the famous Beefbar. The company also operates in the lifestyle sector with fashion, art, and premium spirits, while providing global consulting and franchising services for the food and beverage industry","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Manufacturing","references":["ransomware.live"]}

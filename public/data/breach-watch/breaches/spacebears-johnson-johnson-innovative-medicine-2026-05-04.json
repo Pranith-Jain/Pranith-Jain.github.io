@@ -1,15 +1,1 @@
-{
-  "slug": "spacebears-johnson-johnson-innovative-medicine-2026-05-04",
-  "title": "Johnson & Johnson Innovative Medicine",
-  "group": "spacebears",
-  "discovered": "2026-05-04T13:26:45.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Johnson & Johnson Innovative Medicine (formerly known as Janssen Pharmaceuticals) is the pharmaceutical division of the American corporation Johnson & Johnson, specializing in the development and production of revolutionary medicines. The company focuses on creating treatments for the most complex diseases, transforming the future of healthcare.-CAR-T Research https://www.jnj.com/innovativemedicine/",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["space bears"],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"spacebears-johnson-johnson-innovative-medicine-2026-05-04","title":"Johnson & Johnson Innovative Medicine","group":"spacebears","discovered":"2026-05-04T13:26:45.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Johnson & Johnson Innovative Medicine (formerly known as Janssen Pharmaceuticals) is the pharmaceutical division of the American corporation Johnson & Johnson, specializing in the development and production of revolutionary medicines. The company focuses on creating treatments for the most complex diseases, transforming the future of healthcare.-CAR-T Research https://www.jnj.com/innovativemedicine/","source_url":"https://www.ransomware.live/","groupAliases":["space bears"],"activity":"Healthcare","references":["ransomware.live"]}

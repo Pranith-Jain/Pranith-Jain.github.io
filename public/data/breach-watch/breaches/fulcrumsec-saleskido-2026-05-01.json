@@ -1,15 +1,1 @@
-{
-  "slug": "fulcrumsec-saleskido-2026-05-01",
-  "title": "Saleskido",
-  "group": "fulcrumsec",
-  "discovered": "2026-05-01T16:50:59.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "IN",
-  "sizeBytes": 0,
-  "description": "[AI generated] N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"fulcrumsec-saleskido-2026-05-01","title":"Saleskido","group":"fulcrumsec","discovered":"2026-05-01T16:50:59.000Z","category":"ransomware","severity":"high","country":"IN","sizeBytes":0,"description":"[AI generated] N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

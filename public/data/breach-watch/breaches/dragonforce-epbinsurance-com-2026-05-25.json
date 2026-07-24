@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-epbinsurance-com-2026-05-25",
-  "title": "epbinsurance.com",
-  "group": "dragonforce",
-  "discovered": "2026-05-25T11:56:31.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Ekblad, Pardee & Bewell, Inc. is an independent insurance agency licensed in Minnesota, Wisconsin, South Dakota, and Arizona, offering a wide range of insurance products including auto, home, life, health, and business insurance.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Financial Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-epbinsurance-com-2026-05-25","title":"epbinsurance.com","group":"dragonforce","discovered":"2026-05-25T11:56:31.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Ekblad, Pardee & Bewell, Inc. is an independent insurance agency licensed in Minnesota, Wisconsin, South Dakota, and Arizona, offering a wide range of insurance products including auto, home, life, health, and business insurance.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Financial Services","references":["ransomware.live"]}

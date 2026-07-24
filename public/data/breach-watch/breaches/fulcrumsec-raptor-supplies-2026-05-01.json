@@ -1,15 +1,1 @@
-{
-  "slug": "fulcrumsec-raptor-supplies-2026-05-01",
-  "title": "Raptor Supplies",
-  "group": "fulcrumsec",
-  "discovered": "2026-05-01T16:50:14.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "NL",
-  "sizeBytes": 0,
-  "description": "[AI generated] Raptor Supplies is an online industrial and commercial supplies distributor operating in the United Kingdom and Europe. The company offers a broad catalogue of products including tools, safety equipment, electrical components, storage solutions, and maintenance supplies. It serves businesses across various sectors such as manufacturing, construction, and facilities management, providing procurement solutions for industrial and workplace needs.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"fulcrumsec-raptor-supplies-2026-05-01","title":"Raptor Supplies","group":"fulcrumsec","discovered":"2026-05-01T16:50:14.000Z","category":"ransomware","severity":"high","country":"NL","sizeBytes":0,"description":"[AI generated] Raptor Supplies is an online industrial and commercial supplies distributor operating in the United Kingdom and Europe. The company offers a broad catalogue of products including tools, safety equipment, electrical components, storage solutions, and maintenance supplies. It serves businesses across various sectors such as manufacturing, construction, and facilities management, providing procurement solutions for industrial and workplace needs.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

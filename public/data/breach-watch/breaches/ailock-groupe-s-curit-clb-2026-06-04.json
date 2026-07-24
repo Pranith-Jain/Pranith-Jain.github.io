@@ -1,15 +1,1 @@
-{
-  "slug": "ailock-groupe-s-curit-clb-2026-06-04",
-  "title": "Groupe Sécurité CLB",
-  "group": "AiLock",
-  "discovered": "2026-06-04T19:50:05.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "FR",
-  "sizeBytes": 0,
-  "description": "Groupe Sécurité CLB specializes in providing comprehensive football score tracking and prediction services. Their offerings include historical score queries, live score updates, and match predictions for various leagues, including European and Asian football.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"ailock-groupe-s-curit-clb-2026-06-04","title":"Groupe Sécurité CLB","group":"AiLock","discovered":"2026-06-04T19:50:05.000Z","category":"ransomware","severity":"high","country":"FR","sizeBytes":0,"description":"Groupe Sécurité CLB specializes in providing comprehensive football score tracking and prediction services. Their offerings include historical score queries, live score updates, and match predictions for various leagues, including European and Asian football.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

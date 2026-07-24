@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-alpha-group-holdings-2026-05-24",
-  "title": "Alpha Group Holdings",
-  "group": "qilin",
-  "discovered": "2026-05-24T17:55:01.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "NZ",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-alpha-group-holdings-2026-05-24","title":"Alpha Group Holdings","group":"qilin","discovered":"2026-05-24T17:55:01.000Z","category":"ransomware","severity":"critical","country":"NZ","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

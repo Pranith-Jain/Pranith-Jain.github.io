@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-keystone-homes-2026-07-06",
-  "title": "Keystone Homes",
-  "group": "qilin",
-  "discovered": "2026-07-06T14:02:56.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Construction",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-keystone-homes-2026-07-06","title":"Keystone Homes","group":"qilin","discovered":"2026-07-06T14:02:56.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "incransom-bradley-law-firm-2026-06-01",
-  "title": "Bradley law firm",
-  "group": "incransom",
-  "discovered": "2026-06-01T12:23:35.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Bradley Law Personal Injury Lawyers is a law firm dedicated to representing clients who have suffered injuries due to accidents, medical malpractice, and other forms of negligence. With over 30 years of experience, they have successfully recovered more than $100 million in settlements and verdicts for their clients across Missouri and Illinois. Their services include free case consultations and a commitment to fight for maximum compensation on behalf of accident victims. The firm is known for its expertise in personal injury law, including vehicle accidents, workplace injuries, and wrongful death cases.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["inc ransom", "INC"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"incransom-bradley-law-firm-2026-06-01","title":"Bradley law firm","group":"incransom","discovered":"2026-06-01T12:23:35.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Bradley Law Personal Injury Lawyers is a law firm dedicated to representing clients who have suffered injuries due to accidents, medical malpractice, and other forms of negligence. With over 30 years of experience, they have successfully recovered more than $100 million in settlements and verdicts for their clients across Missouri and Illinois. Their services include free case consultations and a commitment to fight for maximum compensation on behalf of accident victims. The firm is known for its expertise in personal injury law, including vehicle accidents, workplace injuries, and wrongful death cases.","source_url":"https://www.ransomware.live/","groupAliases":["inc ransom","INC"],"activity":"Professional Services","references":["ransomware.live"]}

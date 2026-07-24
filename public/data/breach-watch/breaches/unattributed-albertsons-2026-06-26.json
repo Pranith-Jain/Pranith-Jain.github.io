@@ -1,15 +1,1 @@
-{
-  "slug": "unattributed-albertsons-2026-06-26",
-  "title": "Albertsons",
-  "group": "Unattributed",
-  "discovered": "2026-06-26T11:37:28.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Albertsons, a grocery retail chain, had data allegedly exfiltrated from its Salesforce environment and published in October 2025, exposing over 151k unique email addresses along with dates of birth, genders, names, phone numbers, and physical addresses.",
-  "source_url": "https://xposedornot.com/breach/Albertsons",
-  "groupAliases": [],
-  "activity": "Retail",
-  "references": ["XposedOrNot"]
-}
+{"slug":"unattributed-albertsons-2026-06-26","title":"Albertsons","group":"Unattributed","discovered":"2026-06-26T11:37:28.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"Albertsons, a grocery retail chain, had data allegedly exfiltrated from its Salesforce environment and published in October 2025, exposing over 151k unique email addresses along with dates of birth, genders, names, phone numbers, and physical addresses.","source_url":"https://xposedornot.com/breach/Albertsons","groupAliases":[],"activity":"Retail","references":["XposedOrNot"]}

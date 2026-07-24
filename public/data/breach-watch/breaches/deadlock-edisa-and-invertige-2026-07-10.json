@@ -1,15 +1,1 @@
-{
-  "slug": "deadlock-edisa-and-invertige-2026-07-10",
-  "title": "EDISA and INVERTIGE",
-  "group": "Deadlock",
-  "discovered": "2026-07-10T12:52:39.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Estudios de Investigación Servicio SL (also known commercially in some rankings as EDISA ) is a Limited liability company of a patrimonial and real estate nature with headquarters in Valencia, Spain.Although its corporate name includes the words \"research studies\", its real corporate purpose and main activities are focused on asset management, investment in other companies and real estate development. INVERTIGE SL is a Spanish company headquartered in ValenciaThe company is registered for central management functions and consultancy , with a focus on the administration and governance of other companies, and has an annual turnover of around EUR 1.9 million.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"deadlock-edisa-and-invertige-2026-07-10","title":"EDISA and INVERTIGE","group":"Deadlock","discovered":"2026-07-10T12:52:39.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"Estudios de Investigación Servicio SL (also known commercially in some rankings as EDISA ) is a Limited liability company of a patrimonial and real estate nature with headquarters in Valencia, Spain.Although its corporate name includes the words \"research studies\", its real corporate purpose and main activities are focused on asset management, investment in other companies and real estate development. INVERTIGE SL is a Spanish company headquartered in ValenciaThe company is registered for central management functions and consultancy , with a focus on the administration and governance of other companies, and has an annual turnover of around EUR 1.9 million.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

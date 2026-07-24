@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-plan-2026-05-17",
-  "title": "Plan",
-  "group": "dragonforce",
-  "discovered": "2026-05-17T14:52:04.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Founded in 2013, Plan.com works with businesses using their platform to find telecom solutions. They are headquartered in Douglas, Isle of Man",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-plan-2026-05-17","title":"Plan","group":"dragonforce","discovered":"2026-05-17T14:52:04.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Founded in 2013, Plan.com works with businesses using their platform to find telecom solutions. They are headquartered in Douglas, Isle of Man","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Not Found","references":["ransomware.live"]}

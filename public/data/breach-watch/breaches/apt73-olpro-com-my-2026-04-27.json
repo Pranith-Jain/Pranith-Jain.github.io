@@ -1,15 +1,1 @@
-{
-  "slug": "apt73-olpro-com-my-2026-04-27",
-  "title": "olpro.com.my",
-  "group": "apt73",
-  "discovered": "2026-04-27T16:40:01.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "MY",
-  "sizeBytes": 0,
-  "description": "OLPRO Engineering Sdn Bhd is an engineering company in Malaysia that designs and manufactures ind...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Eraleign"],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"apt73-olpro-com-my-2026-04-27","title":"olpro.com.my","group":"apt73","discovered":"2026-04-27T16:40:01.000Z","category":"data_breach","severity":"high","country":"MY","sizeBytes":0,"description":"OLPRO Engineering Sdn Bhd is an engineering company in Malaysia that designs and manufactures ind...","source_url":"https://www.ransomware.live/","groupAliases":["Eraleign"],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

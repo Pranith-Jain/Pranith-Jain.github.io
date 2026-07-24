@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-one-community-fcu-2026-07-21",
-  "title": "One Community FCU",
-  "group": "DragonForce",
-  "discovered": "2026-07-21T00:00:00.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "United States",
-  "sizeBytes": 0,
-  "description": "Internal files exfiltrated in ransomware attack",
-  "source_url": "https://recentbreaches.com/breach/one-community-fcu-dragonforce-2026-07",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Financial Services",
-  "references": ["RecentBreaches.com"]
-}
+{"slug":"dragonforce-one-community-fcu-2026-07-21","title":"One Community FCU","group":"dragonforce","discovered":"2026-07-21T16:00:47.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"One Community FCU offers a range of financial services including loans, savings accounts, and online banking solutions. Their products cater to individuals seeking personal, auto, mortgage, and credit card loans, as well as those interested in savings and checking accounts. In this release we provide a portion of the documentation we obtained from the company: databases, internal documentation, client data, client documents, client financial information (including statements that clients supplied to One Community FCU from other banks), documentation on delinquent payments. Additionally, the release contains reports and documentation produced by TraceSecurity LLC (6300 Corporate Blvd, Suite 200, Baton Rouge, LA 70809). TraceSecurity LLC handled security matters for One Community FCU. In our view, that work was performed very poorly. These shortcomings contributed to the data breach, though they were not the sole cause, so we believe it is necessary to publish them.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Financial Services","references":["ransomware.live"]}

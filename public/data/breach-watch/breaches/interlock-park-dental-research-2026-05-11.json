@@ -1,15 +1,1 @@
-{
-  "slug": "interlock-park-dental-research-2026-05-11",
-  "title": "Park Dental Research",
-  "group": "interlock",
-  "discovered": "2026-05-11T13:54:29.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Park Dental Research is a supplier of technologies and materials for dental laboratories and orthodontic clinics; however, when it comes to security, it has proven to be an unreliable partner. As a result of its negligence, partner and customer data, financial documents, and login credentials for various web resources were compromised and made publicly available on the Internet.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"interlock-park-dental-research-2026-05-11","title":"Park Dental Research","group":"interlock","discovered":"2026-05-11T13:54:29.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Park Dental Research is a supplier of technologies and materials for dental laboratories and orthodontic clinics; however, when it comes to security, it has proven to be an unreliable partner. As a result of its negligence, partner and customer data, financial documents, and login credentials for various web resources were compromised and made publicly available on the Internet.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

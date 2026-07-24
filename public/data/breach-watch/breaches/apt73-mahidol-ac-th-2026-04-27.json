@@ -1,15 +1,1 @@
-{
-  "slug": "apt73-mahidol-ac-th-2026-04-27",
-  "title": "mahidol.ac.th",
-  "group": "apt73",
-  "discovered": "2026-04-27T16:47:44.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "TH",
-  "sizeBytes": 0,
-  "description": "Mahidol University is a major public research university established in Thailand with deep histor...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Eraleign"],
-  "activity": "Education",
-  "references": ["ransomware.live"]
-}
+{"slug":"apt73-mahidol-ac-th-2026-04-27","title":"mahidol.ac.th","group":"apt73","discovered":"2026-04-27T16:47:44.000Z","category":"data_breach","severity":"high","country":"TH","sizeBytes":0,"description":"Mahidol University is a major public research university established in Thailand with deep histor...","source_url":"https://www.ransomware.live/","groupAliases":["Eraleign"],"activity":"Education","references":["ransomware.live"]}

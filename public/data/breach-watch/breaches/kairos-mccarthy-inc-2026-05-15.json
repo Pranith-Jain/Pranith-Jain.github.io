@@ -1,15 +1,1 @@
-{
-  "slug": "kairos-mccarthy-inc-2026-05-15",
-  "title": "McCarthy Inc",
-  "group": "kairos",
-  "discovered": "2026-05-15T14:24:10.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "McCarthy, Inc., based in Savannah, Georgia, has been providing quality doors, frames, hardware, and related products since 1955. The company specializes in metal and wood doors, including architectural-grade flush doors and custom stile and rail units, along with a variety of specialty items. McCarthy, Inc. offers comprehensive services from project inception to completion, aiming to build lasting relationships with clients across various industries such as healthcare, education, and hospitality. Their commitment to customer satisfaction is reflected in their extensive product offerings and dedicated service.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Construction",
-  "references": ["ransomware.live"]
-}
+{"slug":"kairos-mccarthy-inc-2026-05-15","title":"McCarthy Inc","group":"kairos","discovered":"2026-05-15T14:24:10.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"McCarthy, Inc., based in Savannah, Georgia, has been providing quality doors, frames, hardware, and related products since 1955. The company specializes in metal and wood doors, including architectural-grade flush doors and custom stile and rail units, along with a variety of specialty items. McCarthy, Inc. offers comprehensive services from project inception to completion, aiming to build lasting relationships with clients across various industries such as healthcare, education, and hospitality. Their commitment to customer satisfaction is reflected in their extensive product offerings and dedicated service.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

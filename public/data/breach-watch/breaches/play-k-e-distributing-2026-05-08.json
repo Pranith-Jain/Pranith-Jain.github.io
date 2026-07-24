@@ -1,15 +1,1 @@
-{
-  "slug": "play-k-e-distributing-2026-05-08",
-  "title": "K & E Distributing",
-  "group": "play",
-  "discovered": "2026-05-08T07:26:32.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "United States",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["PlayCrypt"],
-  "activity": "Transportation/Logistics",
-  "references": ["ransomware.live"]
-}
+{"slug":"play-k-e-distributing-2026-05-08","title":"K & E Distributing","group":"play","discovered":"2026-05-08T07:26:32.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"United States","source_url":"https://www.ransomware.live/","groupAliases":["PlayCrypt"],"activity":"Transportation","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-arabia-falcon-insurance-company-saog-2026-07-07",
-  "title": "Arabia Falcon Insurance Company SAOG",
-  "group": "thegentlemen",
-  "discovered": "2026-07-07T18:33:36.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "OM",
-  "sizeBytes": 0,
-  "description": "***.om zoominfo.com/c/arabia-falcon-insurance-company-saog/447137751 Arabia Falcon Insurance Company (AFIC), is a leading insurance provider in Oman formed by the historic merger of two successful local insurers.The company underwrites a comprehensive range of general, motor, medical, and life insurance products for individuals and businesses.Headquartered in Muscat, AFIC has firmly established itself as a trusted and prominent name in the Sultanate's insurance sector",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Financial Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-arabia-falcon-insurance-company-saog-2026-07-07","title":"Arabia Falcon Insurance Company SAOG","group":"thegentlemen","discovered":"2026-07-07T18:33:36.000Z","category":"ransomware","severity":"critical","country":"OM","sizeBytes":0,"description":"***.om zoominfo.com/c/arabia-falcon-insurance-company-saog/447137751 Arabia Falcon Insurance Company (AFIC), is a leading insurance provider in Oman formed by the historic merger of two successful local insurers.The company underwrites a comprehensive range of general, motor, medical, and life insurance products for individuals and businesses.Headquartered in Muscat, AFIC has firmly established itself as a trusted and prominent name in the Sultanate's insurance sector","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Financial Services","references":["ransomware.live"]}

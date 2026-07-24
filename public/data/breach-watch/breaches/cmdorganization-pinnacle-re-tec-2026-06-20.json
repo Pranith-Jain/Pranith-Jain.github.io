@@ -1,15 +1,1 @@
-{
-  "slug": "cmdorganization-pinnacle-re-tec-2026-06-20",
-  "title": "Pinnacle Re-Tec",
-  "group": "cmdorganization",
-  "discovered": "2026-06-20T10:50:16.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Pinnacle Re-Tec Ltd is a UK-based company specializing in the service, maintenance, repair, reverse engineering, and supply of spare parts for centrifugal pumps and gearboxes. With over 16 years of experience, they provide bespoke solutions focused on cost efficiency and quality assurance across various industries, including oil and gas, power, petrochemical, and water. Their services include pump repairs, testing, and commissioning, catering to both domestic and international clients. Pinnacle Re-Tec is committed to delivering independent advice and support for all brands and types of industrial pumps.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["cmd organization"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"cmdorganization-pinnacle-re-tec-2026-06-20","title":"Pinnacle Re-Tec","group":"cmdorganization","discovered":"2026-06-20T10:50:16.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Pinnacle Re-Tec Ltd is a UK-based company specializing in the service, maintenance, repair, reverse engineering, and supply of spare parts for centrifugal pumps and gearboxes. With over 16 years of experience, they provide bespoke solutions focused on cost efficiency and quality assurance across various industries, including oil and gas, power, petrochemical, and water. Their services include pump repairs, testing, and commissioning, catering to both domestic and international clients. Pinnacle Re-Tec is committed to delivering independent advice and support for all brands and types of industrial pumps.","source_url":"https://www.ransomware.live/","groupAliases":["cmd organization"],"activity":"Professional Services","references":["ransomware.live"]}

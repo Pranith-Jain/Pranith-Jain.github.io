@@ -1,15 +1,1 @@
-{
-  "slug": "m3rx-rotak-it-2026-04-29",
-  "title": "rotak.it",
-  "group": "m3rx",
-  "discovered": "2026-04-29T10:09:07.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "IT",
-  "sizeBytes": 0,
-  "description": "Rotak (specifically in the context of Rotak Instruments) focuses on the distribution of specialized medical and analytical instrumentation, with related entities in industrial engineering and automation Stolen: 22.5gb 20k files",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"m3rx-rotak-it-2026-04-29","title":"rotak.it","group":"m3rx","discovered":"2026-04-29T10:09:07.000Z","category":"ransomware","severity":"high","country":"IT","sizeBytes":0,"description":"Rotak (specifically in the context of Rotak Instruments) focuses on the distribution of specialized medical and analytical instrumentation, with related entities in industrial engineering and automation Stolen: 22.5gb 20k files","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "braincipher-eggetttax-ca-2026-06-22",
-  "title": "eggetttax.ca",
-  "group": "BrainCipher",
-  "discovered": "2026-06-22T19:50:47.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "CA",
-  "sizeBytes": 0,
-  "description": "[AI generated] N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["brain cipher"],
-  "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
-}
+{"slug":"braincipher-eggetttax-ca-2026-06-22","title":"eggetttax.ca","group":"BrainCipher","discovered":"2026-06-22T19:50:47.000Z","category":"ransomware","severity":"critical","country":"CA","sizeBytes":0,"description":"[AI generated] N/A","source_url":"https://www.ransomware.live/","groupAliases":["brain cipher"],"activity":"Agriculture and Food Production","references":["ransomware.live"]}

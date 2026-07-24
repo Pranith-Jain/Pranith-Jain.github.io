@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-mediapost-spain-2026-05-12",
-  "title": "Mediapost Spain",
-  "group": "qilin",
-  "discovered": "2026-05-12T13:23:27.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "ES",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-mediapost-spain-2026-05-12","title":"Mediapost Spain","group":"qilin","discovered":"2026-05-12T13:23:27.000Z","category":"ransomware","severity":"critical","country":"ES","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

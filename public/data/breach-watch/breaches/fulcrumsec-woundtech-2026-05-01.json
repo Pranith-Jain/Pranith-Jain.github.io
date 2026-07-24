@@ -1,15 +1,1 @@
-{
-  "slug": "fulcrumsec-woundtech-2026-05-01",
-  "title": "Woundtech",
-  "group": "fulcrumsec",
-  "discovered": "2026-05-01T17:11:24.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "[AI generated] Woundtech is a US-based healthcare company specializing in advanced wound care management services. It provides in-home and facility-based wound care treatment to patients, primarily serving Medicare and Medicaid populations. The company employs clinicians who deliver specialized wound care directly to patients in skilled nursing facilities and home settings, focusing on chronic and complex wound treatment across the United States.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"fulcrumsec-woundtech-2026-05-01","title":"Woundtech","group":"fulcrumsec","discovered":"2026-05-01T17:11:24.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"[AI generated] Woundtech is a US-based healthcare company specializing in advanced wound care management services. It provides in-home and facility-based wound care treatment to patients, primarily serving Medicare and Medicaid populations. The company employs clinicians who deliver specialized wound care directly to patients in skilled nursing facilities and home settings, focusing on chronic and complex wound treatment across the United States.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

@@ -226,33 +226,6 @@ function StepIndicator({ steps, currentStep }: { steps: AgentStep[]; currentStep
   );
 }
 
-function generateFollowUps(content: string): string[] {
-  const result: string[] = [];
-  const lower = content.toLowerCase();
-  if (/cve-\d{4}/i.test(content)) {
-    result.push('What exploits are available for this CVE?');
-    result.push('Which threat actors are associated with this vulnerability?');
-    result.push('What is the CVSS score and EPSS percentile?');
-  } else if (/ransom/i.test(lower) || /lockbit|blackcat|clop|alphv/i.test(content)) {
-    result.push('What are the latest IoCs for this ransomware?');
-    result.push('Which sectors are most targeted by this group?');
-    result.push('What TTPs does this ransomware use?');
-  } else if (/apt\d+|group|actor|threat.*group/i.test(content)) {
-    result.push('What TTPs are associated with this threat actor?');
-    result.push('What campaigns have they been linked to recently?');
-    result.push('What industries do they typically target?');
-  } else if (/ip|domain|hash|ioc|indicator/i.test(lower)) {
-    result.push('What other IoCs are related to this?');
-    result.push('What threat actor is associated with this indicator?');
-    result.push('What campaigns have used this indicator?');
-  }
-  if (result.length === 0) {
-    result.push('Tell me more about the sources');
-    result.push('What should I prioritize?');
-  }
-  return result.slice(0, 3);
-}
-
 function formatTime(iso: string): string {
   const d = new Date(iso);
   const now = new Date();
@@ -977,6 +950,7 @@ export default function Copilot(): JSX.Element {
                             <>
                               <FollowUpSuggestions
                                 content={msg.content}
+                                query={i > 0 && chatMessages[i - 1]?.role === 'user' ? chatMessages[i - 1]!.content : undefined}
                                 onSubmit={(q) => {
                                   setQuery(q);
                                   void submitChat(q);
@@ -1400,8 +1374,47 @@ function ChatNarrative({ markdown }: { markdown: string }) {
   );
 }
 
-function FollowUpSuggestions({ content, onSubmit }: { content: string; onSubmit: (q: string) => void }) {
-  const suggestions = generateFollowUps(content);
+function FollowUpSuggestions({ content, query, onSubmit }: { content: string; query?: string; onSubmit: (q: string) => void }) {
+  const [suggestions, setSuggestions] = useState<string[] | null>(null);
+  const [loadingFU, setLoadingFU] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    setSuggestions(null);
+    setLoadingFU(true);
+    void (async () => {
+      try {
+        const res = await fetch('/api/v1/copilot/follow-ups', {
+          method: 'POST',
+          headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
+          body: JSON.stringify({ query: query ?? '', responseContent: content }),
+          signal: AbortSignal.timeout(8000),
+        });
+        if (!res.ok) return;
+        const data = await res.json() as { suggestions: string[] };
+        if (!cancelled && data.suggestions?.length > 0) {
+          setSuggestions(data.suggestions);
+        }
+      } catch {
+        /* fall back to nothing */
+      } finally {
+        if (!cancelled) setLoadingFU(false);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [content, query]);
+
+  if (loadingFU) {
+    return (
+      <div className="mt-3 flex items-center gap-2 border-t border-slate-100 pt-3 dark:border-[rgb(var(--border-400))]">
+        <Loader2 size={11} className="animate-spin text-slate-400" />
+        <span className="font-mono text-[11px] text-slate-400">Suggesting follow-ups…</span>
+      </div>
+    );
+  }
+
+  if (!suggestions || suggestions.length === 0) return null;
+
   return (
     <div className="mt-3 flex flex-wrap gap-1.5 border-t border-slate-100 pt-3 dark:border-[rgb(var(--border-400))]">
       {suggestions.map((s) => (

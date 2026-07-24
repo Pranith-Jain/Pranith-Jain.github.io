@@ -1,15 +1,1 @@
-{
-  "slug": "funksec-funksecsekgasgjqlzzkmcnutrrrafavpszijoilbd6z3dkbzvqu43id-onion-2026-07-20",
-  "title": "funksecsekgasgjqlzzkmcnutrrrafavpszijoilbd6z3dkbzvqu43id.onion",
-  "group": "funksec",
-  "discovered": "2026-07-20T19:03:28.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": null,
-  "source_url": "http://funksecsekgasgjqlzzkmcnutrrrafavpszijoilbd6z3dkbzvqu43id.onion/",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["CTI.FYI"]
-}
+{"slug":"funksec-funksecsekgasgjqlzzkmcnutrrrafavpszijoilbd6z3dkbzvqu43id-onion-2026-07-20","title":"funksecsekgasgjqlzzkmcnutrrrafavpszijoilbd6z3dkbzvqu43id.onion","group":"funksec","discovered":"2026-07-20T19:03:28.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":null,"source_url":"http://funksecsekgasgjqlzzkmcnutrrrafavpszijoilbd6z3dkbzvqu43id.onion/","groupAliases":[],"activity":null,"references":["CTI.FYI"]}

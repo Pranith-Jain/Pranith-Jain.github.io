@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-pamil-modulsystem-2026-05-13",
-  "title": "Pamil Modulsystem",
-  "group": "dragonforce",
-  "discovered": "2026-05-13T17:52:49.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "SE",
-  "sizeBytes": 0,
-  "description": "Pamil Modulsystem specializes in renting flexible modular buildings tailored for various needs, including offices and schools. Established in 1963, the company focuses on providing high-quality, customizable solutions that enhance work and learning environments. They manage the entire process from planning and construction to maintenance, ensuring a seamless experience for their clients. Committed to sustainability, Pamil emphasizes circular building practices by renovating returned modules for future use.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-pamil-modulsystem-2026-05-13","title":"Pamil Modulsystem","group":"dragonforce","discovered":"2026-05-13T17:52:49.000Z","category":"ransomware","severity":"critical","country":"SE","sizeBytes":0,"description":"Pamil Modulsystem specializes in renting flexible modular buildings tailored for various needs, including offices and schools. Established in 1963, the company focuses on providing high-quality, customizable solutions that enhance work and learning environments. They manage the entire process from planning and construction to maintenance, ensuring a seamless experience for their clients. Committed to sustainability, Pamil emphasizes circular building practices by renovating returned modules for future use.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Manufacturing","references":["ransomware.live"]}

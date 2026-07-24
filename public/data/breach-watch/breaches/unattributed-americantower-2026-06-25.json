@@ -1,15 +1,1 @@
-{
-  "slug": "unattributed-americantower-2026-06-25",
-  "title": "AmericanTower",
-  "group": "Unattributed",
-  "discovered": "2026-06-25T15:45:07.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "American Tower, a telecommunications infrastructure company, was allegedly breached in June 2026, exposing 152k unique email addresses along with names, phone numbers, and physical addresses.",
-  "source_url": "https://xposedornot.com/breach/AmericanTower",
-  "groupAliases": [],
-  "activity": "Telecommunication",
-  "references": ["XposedOrNot"]
-}
+{"slug":"unattributed-americantower-2026-06-25","title":"AmericanTower","group":"Unattributed","discovered":"2026-06-25T15:45:07.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"American Tower, a telecommunications infrastructure company, was allegedly breached in June 2026, exposing 152k unique email addresses along with names, phone numbers, and physical addresses.","source_url":"https://xposedornot.com/breach/AmericanTower","groupAliases":[],"activity":"Telecommunication","references":["XposedOrNot"]}

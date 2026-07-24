@@ -1,15 +1,1 @@
-{
-  "slug": "genesis-bri-tech-inc-2026-07-05",
-  "title": "Bri-Tech, Inc",
-  "group": "genesis",
-  "discovered": "2026-07-05T13:57:47.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "A technology design and integration firm",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"genesis-bri-tech-inc-2026-07-05","title":"Bri-Tech, Inc","group":"genesis","discovered":"2026-07-05T13:57:47.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"A technology design and integration firm","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

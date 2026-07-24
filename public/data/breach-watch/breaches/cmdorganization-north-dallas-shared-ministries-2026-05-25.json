@@ -1,15 +1,1 @@
-{
-  "slug": "cmdorganization-north-dallas-shared-ministries-2026-05-25",
-  "title": "North Dallas Shared Ministries",
-  "group": "cmdorganization",
-  "discovered": "2026-05-25T18:50:16.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Now-Forward is a non-profit organization based in Dallas that provides a range of essential services such as financial aid, medical and dental care, food, clothing, and ESL classes to low-income families. Established to effectively serve the urgent needs of the community, they have been a trusted resource for over 40 years, assisting residents facing unexpected life challenges. The organization supports their mission through donations, volunteer work, and partnerships with local entities, ensuring that 96% of their funds are directed toward client services. Their extensive offerings also include tax preparation and school supply assistance, enabling families to achieve greater stability and self-sufficiency.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["cmd organization"],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"cmdorganization-north-dallas-shared-ministries-2026-05-25","title":"North Dallas Shared Ministries","group":"cmdorganization","discovered":"2026-05-25T18:50:16.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Now-Forward is a non-profit organization based in Dallas that provides a range of essential services such as financial aid, medical and dental care, food, clothing, and ESL classes to low-income families. Established to effectively serve the urgent needs of the community, they have been a trusted resource for over 40 years, assisting residents facing unexpected life challenges. The organization supports their mission through donations, volunteer work, and partnerships with local entities, ensuring that 96% of their funds are directed toward client services. Their extensive offerings also include tax preparation and school supply assistance, enabling families to achieve greater stability and self-sufficiency.","source_url":"https://www.ransomware.live/","groupAliases":["cmd organization"],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

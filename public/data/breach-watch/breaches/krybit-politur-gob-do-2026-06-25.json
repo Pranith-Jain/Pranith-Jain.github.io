@@ -1,15 +1,1 @@
-{
-  "slug": "krybit-politur-gob-do-2026-06-25",
-  "title": "politur.gob.do",
-  "group": "krybit",
-  "discovered": "2026-06-25T20:55:07.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "DO",
-  "sizeBytes": 0,
-  "description": "POLITUR (Dirección Central de Policía de Turismo / Central Directorate of Tourism Police), now also known as CESTUR (C...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Public Sector",
-  "references": ["ransomware.live"]
-}
+{"slug":"krybit-politur-gob-do-2026-06-25","title":"politur.gob.do","group":"krybit","discovered":"2026-06-25T20:55:07.000Z","category":"ransomware","severity":"high","country":"DO","sizeBytes":0,"description":"POLITUR (Dirección Central de Policía de Turismo / Central Directorate of Tourism Police), now also known as CESTUR (C...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Government & Defense","references":["ransomware.live"]}

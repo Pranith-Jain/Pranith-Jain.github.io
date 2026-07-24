@@ -1,15 +1,1 @@
-{
-  "slug": "lapsus-aya-bank-2026-06-23",
-  "title": "AYA BANK",
-  "group": "lapsus$",
-  "discovered": "2026-06-23T19:52:36.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "MM",
-  "sizeBytes": 0,
-  "description": "Everything for the main platform is there. Full dump and PII data's. If AYA Bank dont contact us or pay the ransom we will start sale",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Financial Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"lapsus-aya-bank-2026-06-23","title":"AYA BANK","group":"lapsus$","discovered":"2026-06-23T19:52:36.000Z","category":"data_breach","severity":"high","country":"MM","sizeBytes":0,"description":"Everything for the main platform is there. Full dump and PII data's. If AYA Bank dont contact us or pay the ransom we will start sale","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Financial Services","references":["ransomware.live"]}

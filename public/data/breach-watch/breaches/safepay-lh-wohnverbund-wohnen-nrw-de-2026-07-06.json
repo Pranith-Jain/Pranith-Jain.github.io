@@ -1,15 +1,1 @@
-{
-  "slug": "safepay-lh-wohnverbund-wohnen-nrw-de-2026-07-06",
-  "title": "lh-wohnverbund-wohnen-nrw.de",
-  "group": "safepay",
-  "discovered": "2026-07-06T19:39:39.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "They specialize in providing residential care, supported living, and social assistance for children, adolescents, and adults with intellectual and developmental …",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"safepay-lh-wohnverbund-wohnen-nrw-de-2026-07-06","title":"lh-wohnverbund-wohnen-nrw.de","group":"safepay","discovered":"2026-07-06T19:39:39.000Z","category":"ransomware","severity":"high","country":"DE","sizeBytes":0,"description":"They specialize in providing residential care, supported living, and social assistance for children, adolescents, and adults with intellectual and developmental …","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

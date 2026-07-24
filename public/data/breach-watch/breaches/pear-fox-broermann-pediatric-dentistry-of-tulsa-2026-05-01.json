@@ -1,15 +1,1 @@
-{
-  "slug": "pear-fox-broermann-pediatric-dentistry-of-tulsa-2026-05-01",
-  "title": "Fox Broermann Pediatric Dentistry of Tulsa",
-  "group": "pear",
-  "discovered": "2026-05-01T10:06:21.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Pediatric dentistry of Tulsa",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"pear-fox-broermann-pediatric-dentistry-of-tulsa-2026-05-01","title":"Fox Broermann Pediatric Dentistry of Tulsa","group":"pear","discovered":"2026-05-01T10:06:21.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Pediatric dentistry of Tulsa","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

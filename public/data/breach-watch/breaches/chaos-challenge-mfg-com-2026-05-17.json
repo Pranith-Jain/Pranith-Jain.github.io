@@ -1,15 +1,1 @@
-{
-  "slug": "chaos-challenge-mfg-com-2026-05-17",
-  "title": "challenge-mfg.com",
-  "group": "chaos",
-  "discovered": "2026-05-17T19:52:16.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Company management has exactly 72 hours to contact us. Otherwise, the organization’s data—which contains confidential information—will be published on our public platform, and the possibility of further negotiations will be ruled out.\n\nChallenge Manufacturing is a leading Tier 1 automotive sup…",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"chaos-challenge-mfg-com-2026-05-17","title":"challenge-mfg.com","group":"chaos","discovered":"2026-05-17T19:52:16.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Company management has exactly 72 hours to contact us. Otherwise, the organization’s data—which contains confidential information—will be published on our public platform, and the possibility of further negotiations will be ruled out.\n\nChallenge Manufacturing is a leading Tier 1 automotive sup…","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "chaos-argonautms-com-2026-07-21",
-  "title": "argonautms.com",
-  "group": "chaos",
-  "discovered": "2026-07-21T17:57:41.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "RU",
-  "sizeBytes": 0,
-  "description": "Target Organization: argonautms.com (Argonaut Manufacturing Services)\n\nStatus: Unauthorized Access & Data Exfiltration Confirmed\n\nVolume: 295 GB of Critical Corporate, Technical & Operational Data\n\nCountdown: 48 Hours to establish contact before public release.\nExecutive Summary\n\nThe internal infras…",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"chaos-argonautms-com-2026-07-21","title":"argonautms.com","group":"chaos","discovered":"2026-07-21T17:57:41.000Z","category":"ransomware","severity":"high","country":"RU","sizeBytes":0,"description":"Target Organization: argonautms.com (Argonaut Manufacturing Services)\n\nStatus: Unauthorized Access & Data Exfiltration Confirmed\n\nVolume: 295 GB of Critical Corporate, Technical & Operational Data\n\nCountdown: 48 Hours to establish contact before public release.\nExecutive Summary\n\nThe internal infras…","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

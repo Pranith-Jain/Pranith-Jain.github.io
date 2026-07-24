@@ -1,15 +1,1 @@
-{
-  "slug": "incransom-https-www-wilkemgroup-com-2026-05-04",
-  "title": "https://www.wilkemgroup.com/",
-  "group": "incransom",
-  "discovered": "2026-05-04T04:24:00.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "BS",
-  "sizeBytes": 0,
-  "description": "wilkemsolutions.com wilkemgroup.com 400gb gov contract etc",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["inc ransom", "INC"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"incransom-https-www-wilkemgroup-com-2026-05-04","title":"https://www.wilkemgroup.com/","group":"incransom","discovered":"2026-05-04T04:24:00.000Z","category":"ransomware","severity":"critical","country":"BS","sizeBytes":0,"description":"wilkemsolutions.com wilkemgroup.com 400gb gov contract etc","source_url":"https://www.ransomware.live/","groupAliases":["inc ransom","INC"],"activity":"Manufacturing","references":["ransomware.live"]}

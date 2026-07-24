@@ -1,15 +1,1 @@
-{
-  "slug": "lockbit5-uni-china-com-2026-06-11",
-  "title": "uni-china.com",
-  "group": "lockbit5",
-  "discovered": "2026-06-11T07:10:58.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "CN",
-  "sizeBytes": 0,
-  "description": "Uni-China Group is a Hong Kong-based conglomerate with a history spanning more than 25 years. It spe...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"lockbit5-uni-china-com-2026-06-11","title":"uni-china.com","group":"lockbit5","discovered":"2026-06-11T07:10:58.000Z","category":"ransomware","severity":"high","country":"CN","sizeBytes":0,"description":"Uni-China Group is a Hong Kong-based conglomerate with a history spanning more than 25 years. It spe...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

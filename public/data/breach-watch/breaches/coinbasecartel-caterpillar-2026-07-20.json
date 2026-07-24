@@ -1,15 +1,1 @@
-{
-  "slug": "coinbasecartel-caterpillar-2026-07-20",
-  "title": "Caterpillar",
-  "group": "coinbasecartel",
-  "discovered": "2026-07-20T17:56:27.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "[AI generated] Caterpillar Inc. is an American multinational corporation headquartered in Irving, Texas. It is the world's leading manufacturer of construction and mining equipment, diesel and natural gas engines, industrial gas turbines, and diesel-electric locomotives. Operating in over 190 countries, Caterpillar serves industries including construction, mining, energy, and transportation through its equipment, financial services, and aftermarket parts divisions.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["coinbase cartel"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"coinbasecartel-caterpillar-2026-07-20","title":"Caterpillar","group":"coinbasecartel","discovered":"2026-07-20T17:56:27.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"[AI generated] Caterpillar Inc. is an American multinational corporation headquartered in Irving, Texas. It is the world's leading manufacturer of construction and mining equipment, diesel and natural gas engines, industrial gas turbines, and diesel-electric locomotives. Operating in over 190 countries, Caterpillar serves industries including construction, mining, energy, and transportation through its equipment, financial services, and aftermarket parts divisions.","source_url":"https://www.ransomware.live/","groupAliases":["coinbase cartel"],"activity":"Manufacturing","references":["ransomware.live"]}

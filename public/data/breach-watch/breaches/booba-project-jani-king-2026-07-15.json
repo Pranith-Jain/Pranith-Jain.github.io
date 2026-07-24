@@ -1,15 +1,1 @@
-{
-  "slug": "booba-project-jani-king-2026-07-15",
-  "title": "Jani-King",
-  "group": "Booba Project",
-  "discovered": "2026-07-15T12:20:24.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Facilities Services Stolen data: 12 GB.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"booba-project-jani-king-2026-07-15","title":"Jani-King","group":"Booba Project","discovered":"2026-07-15T12:20:24.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Facilities Services Stolen data: 12 GB.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

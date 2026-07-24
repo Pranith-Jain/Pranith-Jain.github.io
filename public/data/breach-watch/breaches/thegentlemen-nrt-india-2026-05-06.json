@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-nrt-india-2026-05-06",
-  "title": "Nrt India",
-  "group": "thegentlemen",
-  "discovered": "2026-05-06T13:36:18.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "IN",
-  "sizeBytes": 0,
-  "description": "nrtindia.com zoominfo.com/c/nrt-india/372321597 NRT India is a premier IIT-JEE and NEET coaching institute headquartered in Lucknow, Uttar Pradesh, India. It was originally founded in 1997 by Shree Indu Shekhar Shukla under the name \"NRT,\" and re-established on August 30–31, 2010 by Sir A.N. Pandey, who previously served as Head of Department of Physics at the same institute. The institute now operates study centers in Lucknow, Barabanki, Dehradun, and Pratapgarh",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Business Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-nrt-india-2026-05-06","title":"Nrt India","group":"thegentlemen","discovered":"2026-05-06T13:36:18.000Z","category":"ransomware","severity":"critical","country":"IN","sizeBytes":0,"description":"nrtindia.com zoominfo.com/c/nrt-india/372321597 NRT India is a premier IIT-JEE and NEET coaching institute headquartered in Lucknow, Uttar Pradesh, India. It was originally founded in 1997 by Shree Indu Shekhar Shukla under the name \"NRT,\" and re-established on August 30–31, 2010 by Sir A.N. Pandey, who previously served as Head of Department of Physics at the same institute. The institute now operates study centers in Lucknow, Barabanki, Dehradun, and Pratapgarh","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Professional Services","references":["ransomware.live"]}

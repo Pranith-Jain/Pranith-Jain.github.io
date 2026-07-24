@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-nova-medical-products-2026-06-02",
-  "title": "Nova Medical Products",
-  "group": "qilin",
-  "discovered": "2026-06-02T14:53:31.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-nova-medical-products-2026-06-02","title":"Nova Medical Products","group":"qilin","discovered":"2026-06-02T14:53:31.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

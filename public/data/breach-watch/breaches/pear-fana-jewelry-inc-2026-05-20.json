@@ -1,15 +1,1 @@
-{
-  "slug": "pear-fana-jewelry-inc-2026-05-20",
-  "title": "Fana Jewelry Inc",
-  "group": "pear",
-  "discovered": "2026-05-20T13:25:43.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Crafting jewelry for countless generations",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"pear-fana-jewelry-inc-2026-05-20","title":"Fana Jewelry Inc","group":"pear","discovered":"2026-05-20T13:25:43.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Crafting jewelry for countless generations","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

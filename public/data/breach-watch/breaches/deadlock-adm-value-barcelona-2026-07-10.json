@@ -1,15 +1,1 @@
-{
-  "slug": "deadlock-adm-value-barcelona-2026-07-10",
-  "title": "ADM Value Barcelona",
-  "group": "Deadlock",
-  "discovered": "2026-07-10T13:03:51.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "ES",
-  "sizeBytes": 0,
-  "description": "ADM Value is a leading international company specializing in outsourced customer relationship management (CRM) and Business Process Outsourcing (BPO)",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
-}
+{"slug":"deadlock-adm-value-barcelona-2026-07-10","title":"ADM Value Barcelona","group":"Deadlock","discovered":"2026-07-10T13:03:51.000Z","category":"ransomware","severity":"critical","country":"ES","sizeBytes":0,"description":"ADM Value is a leading international company specializing in outsourced customer relationship management (CRM) and Business Process Outsourcing (BPO)","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Agriculture and Food Production","references":["ransomware.live"]}

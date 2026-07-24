@@ -1,15 +1,1 @@
-{
-  "slug": "morpheus-hdfc-fund-2026-06-10",
-  "title": "HDFC FUND",
-  "group": "morpheus",
-  "discovered": "2026-06-10T08:22:31.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "IN",
-  "sizeBytes": 0,
-  "description": "**Website**: hdfcfund.com\n\n**Revenue**: $427.8 Million\n\nHDFC Asset Management Company Limited (HDFC AMC) is a leading publicly traded investment manager in India, operating as the asset management arm",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Financial Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"morpheus-hdfc-fund-2026-06-10","title":"HDFC FUND","group":"morpheus","discovered":"2026-06-10T08:22:31.000Z","category":"data_breach","severity":"high","country":"IN","sizeBytes":0,"description":"**Website**: hdfcfund.com\n\n**Revenue**: $427.8 Million\n\nHDFC Asset Management Company Limited (HDFC AMC) is a leading publicly traded investment manager in India, operating as the asset management arm","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Financial Services","references":["ransomware.live"]}

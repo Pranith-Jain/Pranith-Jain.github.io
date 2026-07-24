@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-advancedhealth-2026-05-16",
-  "title": "AdvancedHEALTH",
-  "group": "dragonforce",
-  "discovered": "2026-05-16T09:21:42.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "The leak contains 2,300,000 Lines of FULL patient data, partner agreements, management, payroll and HR files.\nScreenshot attached :)\n\nWe Will Leak 1,000 Lines of patient data a day, until we've been paid or the timer hits 0. Check this description for Fresh leaks everyday.\n\nDay 1 :  https://temp.sh/aLnBB/ADI-Day1.zip\nDay 2 : Expect it around 5PM UTC",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-advancedhealth-2026-05-16","title":"AdvancedHEALTH","group":"dragonforce","discovered":"2026-05-16T09:21:42.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"The leak contains 2,300,000 Lines of FULL patient data, partner agreements, management, payroll and HR files.\nScreenshot attached :)\n\nWe Will Leak 1,000 Lines of patient data a day, until we've been paid or the timer hits 0. Check this description for Fresh leaks everyday.\n\nDay 1 :  https://temp.sh/aLnBB/ADI-Day1.zip\nDay 2 : Expect it around 5PM UTC","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Healthcare","references":["ransomware.live"]}

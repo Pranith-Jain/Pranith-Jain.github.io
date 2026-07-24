@@ -1,15 +1,1 @@
-{
-  "slug": "akira-pipestone-2026-05-05",
-  "title": "Pipestone",
-  "group": "akira",
-  "discovered": "2026-05-05T14:50:17.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "ATF Aerospace specializes in aerospace manufacturing and distribution, offering high-quality me\nchanical and electrical components sourced from leading manufacturers. Their manufacturing capa\nbilities focus on CNC milling and lathe operations, emphasizing short runs and quick turnaround\nprojects.\n\nWe will upload 137gb of corporate data soon. Detailed client and employee personal documents (p\nassports, SSNs, DLs, financial and medical information), DBs with personal info, litigation doc\ns, contracts and agreements, insurance files, NDAs, etc.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Megazord"],
-  "activity": "Energy",
-  "references": ["ransomware.live"]
-}
+{"slug":"akira-pipestone-2026-05-05","title":"Pipestone","group":"akira","discovered":"2026-05-05T14:50:17.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"ATF Aerospace specializes in aerospace manufacturing and distribution, offering high-quality me\nchanical and electrical components sourced from leading manufacturers. Their manufacturing capa\nbilities focus on CNC milling and lathe operations, emphasizing short runs and quick turnaround\nprojects.\n\nWe will upload 137gb of corporate data soon. Detailed client and employee personal documents (p\nassports, SSNs, DLs, financial and medical information), DBs with personal info, litigation doc\ns, contracts and agreements, insurance files, NDAs, etc.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Energy & Utilities","references":["ransomware.live"]}

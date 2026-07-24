@@ -1,15 +1,1 @@
-{
-  "slug": "threeam-tws-tac-net-2026-07-18",
-  "title": "tws-tac.net",
-  "group": "threeam",
-  "discovered": "2026-07-18T09:58:50.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "While ownership has changed over the years, the company has remained locally owned for over 65 years and family-owned for almost 40 years. The company is proud of the company's history and look forward to the future as the company continue to serv",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"threeam-tws-tac-net-2026-07-18","title":"tws-tac.net","group":"threeam","discovered":"2026-07-18T09:58:50.000Z","category":"ransomware","severity":"high","country":"DE","sizeBytes":0,"description":"While ownership has changed over the years, the company has remained locally owned for over 65 years and family-owned for almost 40 years. The company is proud of the company's history and look forward to the future as the company continue to serv","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Not Found","references":["ransomware.live"]}

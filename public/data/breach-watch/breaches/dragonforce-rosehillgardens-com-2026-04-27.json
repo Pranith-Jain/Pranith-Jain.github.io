@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-rosehillgardens-com-2026-04-27",
-  "title": "rosehillgardens.com",
-  "group": "dragonforce",
-  "discovered": "2026-04-27T13:51:01.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Rosehill Gardens is a professional landscaping company based in Kansas City, employing over 150 specialists in landscape design, maintenance, irrigation, lighting, and the wholesale of gardening supplies.\nThey serve both residential and commercial clients, offering services such as snow removal, garden center supplies, and event space at their winery.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Consumer Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-rosehillgardens-com-2026-04-27","title":"rosehillgardens.com","group":"dragonforce","discovered":"2026-04-27T13:51:01.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Rosehill Gardens is a professional landscaping company based in Kansas City, employing over 150 specialists in landscape design, maintenance, irrigation, lighting, and the wholesale of gardening supplies.\nThey serve both residential and commercial clients, offering services such as snow removal, garden center supplies, and event space at their winery.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

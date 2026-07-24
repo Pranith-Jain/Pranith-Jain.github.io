@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-mbm-corp-2026-05-21",
-  "title": "MBM Corp",
-  "group": "thegentlemen",
-  "discovered": "2026-05-21T09:53:20.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "mbmcorp.com rocketreach.co/mbm-corp-profile_b5efe288f42e7251 MBM Corporation, founded in 1936 and headquartered in Charleston, South Carolina, is a trusted leader in professional print finishing and document security solutions. Renowned for Destroyit® shredders, Triumph™ cutters, and AeroCut® digital finishing systems, MBM empowers print shops and businesses with precision-engineered equipment backed by expert support and industry-leading warranties",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-mbm-corp-2026-05-21","title":"MBM Corp","group":"thegentlemen","discovered":"2026-05-21T09:53:20.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"mbmcorp.com rocketreach.co/mbm-corp-profile_b5efe288f42e7251 MBM Corporation, founded in 1936 and headquartered in Charleston, South Carolina, is a trusted leader in professional print finishing and document security solutions. Renowned for Destroyit® shredders, Triumph™ cutters, and AeroCut® digital finishing systems, MBM empowers print shops and businesses with precision-engineered equipment backed by expert support and industry-leading warranties","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Not Found","references":["ransomware.live"]}

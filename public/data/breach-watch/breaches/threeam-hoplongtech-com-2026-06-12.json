@@ -1,15 +1,1 @@
-{
-  "slug": "threeam-hoplongtech-com-2026-06-12",
-  "title": "hoplongtech.com",
-  "group": "threeam",
-  "discovered": "2026-06-12T20:00:34.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "VN",
-  "sizeBytes": 0,
-  "description": "Công ty Cổ phần Công Nghệ Hợp Long is a leading distributor of automation equipment and industrial robotics solutions in Vietnam, representing brands such as Schneider Electric, Siemens, Omron, Veichi, NiSTRO, Leipole, and Universal Robots. They o",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"threeam-hoplongtech-com-2026-06-12","title":"hoplongtech.com","group":"threeam","discovered":"2026-06-12T20:00:34.000Z","category":"ransomware","severity":"high","country":"VN","sizeBytes":0,"description":"Công ty Cổ phần Công Nghệ Hợp Long is a leading distributor of automation equipment and industrial robotics solutions in Vietnam, representing brands such as Schneider Electric, Siemens, Omron, Veichi, NiSTRO, Leipole, and Universal Robots. They o","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "apt73-arrawdah-org-sa-2026-04-27",
-  "title": "arrawdah.org.sa",
-  "group": "apt73",
-  "discovered": "2026-04-27T16:38:54.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "SA",
-  "sizeBytes": 0,
-  "description": "Al Rawdah Cooperative Society is a cooperative organization in Saudi Arabia that provides social ...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Eraleign"],
-  "activity": "Public Sector",
-  "references": ["ransomware.live"]
-}
+{"slug":"apt73-arrawdah-org-sa-2026-04-27","title":"arrawdah.org.sa","group":"apt73","discovered":"2026-04-27T16:38:54.000Z","category":"data_breach","severity":"high","country":"SA","sizeBytes":0,"description":"Al Rawdah Cooperative Society is a cooperative organization in Saudi Arabia that provides social ...","source_url":"https://www.ransomware.live/","groupAliases":["Eraleign"],"activity":"Government & Defense","references":["ransomware.live"]}

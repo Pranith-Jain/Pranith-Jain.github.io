@@ -1,15 +1,1 @@
-{
-  "slug": "cmdorganization-kohinoor-mills-2026-06-26",
-  "title": "Kohinoor Mills",
-  "group": "cmdorganization",
-  "discovered": "2026-06-26T07:51:01.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "IN",
-  "sizeBytes": 0,
-  "description": "Kohinoor Mills Limited is a leading textile manufacturer in Pakistan, established in 1948, specializing in premium fabrics for global brands. The company offers a diverse range of products including western, ethnic, workwear, technical textiles, and upholstery, all produced with a commitment to sustainability and ethical practices. With innovative solutions like 'Showroom in a Box' and the 'FabriK' app, they provide clients with easy access to their extensive fabric library. Kohinoor Mills is dedicated to responsible production, ensuring high-quality standards while advancing sustainability initiatives.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["cmd organization"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"cmdorganization-kohinoor-mills-2026-06-26","title":"Kohinoor Mills","group":"cmdorganization","discovered":"2026-06-26T07:51:01.000Z","category":"ransomware","severity":"high","country":"IN","sizeBytes":0,"description":"Kohinoor Mills Limited is a leading textile manufacturer in Pakistan, established in 1948, specializing in premium fabrics for global brands. The company offers a diverse range of products including western, ethnic, workwear, technical textiles, and upholstery, all produced with a commitment to sustainability and ethical practices. With innovative solutions like 'Showroom in a Box' and the 'FabriK' app, they provide clients with easy access to their extensive fabric library. Kohinoor Mills is dedicated to responsible production, ensuring high-quality standards while advancing sustainability initiatives.","source_url":"https://www.ransomware.live/","groupAliases":["cmd organization"],"activity":"Manufacturing","references":["ransomware.live"]}

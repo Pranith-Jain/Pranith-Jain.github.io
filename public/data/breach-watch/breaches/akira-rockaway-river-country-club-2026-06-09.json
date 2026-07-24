@@ -1,15 +1,1 @@
-{
-  "slug": "akira-rockaway-river-country-club-2026-06-09",
-  "title": "Rockaway River Country Club",
-  "group": "akira",
-  "discovered": "2026-06-09T14:20:20.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Rockaway River Country Club is a premier country club located in Denville, NJ, offering a range\nof amenities including golf, dining, and facilities for racquets and aquatics. The club has a \nrich history of excellence, celebrating 100 years of service to its members.\n\nWe will upload 25gb of corporate data soon. Employee personal information (DLs and other docs, \ncontracts with personal information), financials, contracts and agreements, projects info, draw\nings, clients and partners information, etc.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["Megazord"],
-  "activity": "Hospitality and Tourism",
-  "references": ["ransomware.live"]
-}
+{"slug":"akira-rockaway-river-country-club-2026-06-09","title":"Rockaway River Country Club","group":"akira","discovered":"2026-06-09T14:20:20.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"Rockaway River Country Club is a premier country club located in Denville, NJ, offering a range\nof amenities including golf, dining, and facilities for racquets and aquatics. The club has a \nrich history of excellence, celebrating 100 years of service to its members.\n\nWe will upload 25gb of corporate data soon. Employee personal information (DLs and other docs, \ncontracts with personal information), financials, contracts and agreements, projects info, draw\nings, clients and partners information, etc.","source_url":"https://www.ransomware.live/","groupAliases":["Megazord"],"activity":"Hospitality","references":["ransomware.live"]}

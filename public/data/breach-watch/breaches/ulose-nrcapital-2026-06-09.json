@@ -1,15 +1,1 @@
-{
-  "slug": "ulose-nrcapital-2026-06-09",
-  "title": "NRCapital",
-  "group": "ULose",
-  "discovered": "2026-06-09T00:00:00.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "KR",
-  "sizeBytes": 0,
-  "description": "We have all data of nrcapital company. 1TB. country: South Korea status: private",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Financial Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"ulose-nrcapital-2026-06-09","title":"NRCapital","group":"ULose","discovered":"2026-06-09T00:00:00.000Z","category":"data_breach","severity":"high","country":"KR","sizeBytes":0,"description":"We have all data of nrcapital company. 1TB. country: South Korea status: private","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Financial Services","references":["ransomware.live"]}
