@@ -70,7 +70,14 @@ export function useWebSocket<T = unknown>(
 
     setState(reconnectAttempts.current > 0 ? 'reconnecting' : 'connecting');
 
-    const ws = protocols ? new WebSocket(url, protocols) : new WebSocket(url);
+    let ws: WebSocket;
+    try {
+      ws = protocols ? new WebSocket(url, protocols) : new WebSocket(url);
+    } catch {
+      if (!mountedRef.current) return;
+      setState('closed');
+      return;
+    }
     socketRef.current = ws;
 
     ws.onopen = () => {
