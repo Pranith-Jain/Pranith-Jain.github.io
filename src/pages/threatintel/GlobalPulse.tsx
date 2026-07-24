@@ -1,15 +1,4 @@
-import {
-  lazy,
-  Suspense,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-  Component,
-  type JSX,
-  type ErrorInfo,
-} from 'react';
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState, type JSX } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import {
   Activity,
@@ -469,44 +458,6 @@ function formatTimeFull(ts: string): string {
 }
 
 const ALL_KINDS = Object.keys(LAYER_DEFS) as PulseKind[];
-
-/* ─── Globe Error Boundary (auto-falls back to 2D) ─────────────────────── */
-
-interface GlobeBoundaryProps {
-  onFallback: () => void;
-  children: ReactNode;
-}
-
-interface GlobeBoundaryState {
-  hasError: boolean;
-}
-
-class GlobeErrorBoundary extends Component<GlobeBoundaryProps, GlobeBoundaryState> {
-  state: GlobeBoundaryState = { hasError: false };
-
-  static getDerivedStateFromError(): GlobeBoundaryState {
-    return { hasError: true };
-  }
-
-  componentDidCatch(error: Error, info: ErrorInfo) {
-    console.error('CtiGlobe error:', error, info);
-    setTimeout(() => this.props.onFallback(), 0);
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return (
-        <div className="flex items-center justify-center h-full w-full bg-[#0a0f1a]">
-          <div className="text-center p-6 max-w-sm">
-            <p className="text-sm font-medium text-slate-300 mb-1">Globe Unavailable</p>
-            <p className="text-xs text-slate-500 mb-4">Switching to 2D map…</p>
-          </div>
-        </div>
-      );
-    }
-    return this.props.children;
-  }
-}
 
 /* ─── Component ─────────────────────────────────────────────────────────── */
 
@@ -1766,15 +1717,13 @@ export default function GlobalPulse(): JSX.Element {
                     </div>
                   }
                 >
-                  <GlobeErrorBoundary onFallback={() => setMapMode('2d')}>
-                    <CtiGlobe
-                      arcs={globeArcs}
-                      points={globePoints}
-                      focus={focus}
-                      onPointClick={handlePointClick}
-                      autoRotate={autoPan}
-                    />
-                  </GlobeErrorBoundary>
+                  <CtiGlobe
+                    arcs={globeArcs}
+                    points={globePoints}
+                    focus={focus}
+                    onPointClick={handlePointClick}
+                    autoRotate={autoPan}
+                  />
                 </Suspense>
               ) : (
                 <Suspense
