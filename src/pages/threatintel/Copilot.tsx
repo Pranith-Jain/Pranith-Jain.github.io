@@ -1293,8 +1293,13 @@ function ChatNarrative({ markdown }: { markdown: string }) {
   useEffect(() => {
     let cancelled = false;
     void (async () => {
+      const cleaned = markdown
+        .replace(/\n*```(?:report-header|action-card|json|stix)\s*\n[\s\S]*?\n```\s*/g, '')
+        .replace(/\n*:::handoff\s*[\s\S]*?:::/g, '')
+        .replace(/\{\s*"severity"\s*:\s*"[^"]*"\s*,\s*"[^}]*"\s*\}/g, '')
+        .trim();
       const { default: DOMPurify } = await import('isomorphic-dompurify');
-      const safeMd = DOMPurify.sanitize(markdown, { ALLOWED_TAGS: [] });
+      const safeMd = DOMPurify.sanitize(cleaned, { ALLOWED_TAGS: [] });
       const rendered = renderMarkdown(safeMd);
       const safe = await sanitizeAiHtml(rendered);
       if (!cancelled) setHtml(safe);

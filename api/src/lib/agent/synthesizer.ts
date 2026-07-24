@@ -148,7 +148,7 @@ export function splitSynthOutput(raw: string): {
   reportHeader?: ReportHeader;
 } {
   // Pull out the report-header JSON block (machine-readable BLUF) first.
-  const headerMatch = raw.match(/```report-header\s*\n([\s\S]*?)\n```/);
+  const headerMatch = raw.match(/```(?:report-header|json)\s*\n([\s\S]*?)\n```/);
   let reportHeader: ReportHeader | undefined;
   if (headerMatch && headerMatch[1]) {
     try {
@@ -164,7 +164,7 @@ export function splitSynthOutput(raw: string): {
   }
 
   // Pull out the action-card JSON block first.
-  const cardMatch = raw.match(/```action-card\s*\n([\s\S]*?)\n```\s*$/);
+  const cardMatch = raw.match(/```(?:action-card|json)\s*\n([\s\S]*?)\n```\s*$/);
   const cardJson = cardMatch?.[1]?.trim() ?? '';
   let body = raw;
   if (cardMatch && cardMatch.index !== undefined) {
@@ -177,12 +177,21 @@ export function splitSynthOutput(raw: string): {
   }
 
   // Then the :::handoff block (just before the action-card).
-  const handoffMatch = body.match(/:::handoff\s*\n([\s\S]*?)\n:::\s*$/);
+  const handoffMultiline = body.match(/:::handoff\s*\n([\s\S]*?)\n:::\s*$/);
+  const handoffSingleline = body.match(/:::handoff\s+([\s\S]*?)\s*:::\s*$/);
+  const handoffMatch = handoffMultiline ?? handoffSingleline;
   let handoff: { next_stages: string[]; analyst_approval_required: boolean } | undefined;
   if (handoffMatch && handoffMatch[1]) {
     handoff = parseHandoff(handoffMatch[1]);
     body = body.slice(0, handoffMatch.index ?? 0);
   }
+
+  // Strip any remaining stray structured blocks that might have leaked
+  body = body
+    .replace(/\n*```(?:report-header|action-card|json|stix)\s*\n[\s\S]*?\n```\s*/g, '')
+    .replace(/\n*:::handoff\s*[\s\S]*?:::/g, '')
+    .replace(/\{\s*"severity"\s*:\s*"[^"]*"\s*,\s*"[^}]*"\s*\}/g, '')
+    .trim();
 
   // Trim trailing whitespace on the prose.
   const prose = body.replace(/\n+$/, '');
