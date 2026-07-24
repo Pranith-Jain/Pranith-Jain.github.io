@@ -1,5 +1,5 @@
-import { useCallback } from 'react';
-import { useAuth } from '../contexts/AuthContext';
+import { useCallback, useContext } from 'react';
+import { AuthContext } from '../contexts/AuthContext';
 
 /**
  * Hook for recording user activities for gamification XP.
@@ -9,17 +9,12 @@ import { useAuth } from '../contexts/AuthContext';
  *   trackActivity('view-report', { reportId: '123' });
  */
 export function useActivityTracker() {
-  let user: { id: string } | null = null;
-  try {
-    const auth = useAuth();
-    user = auth.user;
-  } catch {
-    // SSR has no AuthProvider — silently degrade
-  }
+  const auth = useContext(AuthContext);
+  const user = auth?.user ?? null;
 
   const trackActivity = useCallback(
     async (action: string, metadata?: Record<string, unknown>) => {
-      if (!user) return; // Only track for logged-in users
+      if (!user) return;
 
       try {
         await fetch('/api/v1/leaderboard/activity', {
