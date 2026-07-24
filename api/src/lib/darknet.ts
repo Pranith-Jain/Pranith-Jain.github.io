@@ -283,12 +283,35 @@ export async function torSearchOnion(query: string, limit = 20): Promise<AhmiaRe
   return results.slice(0, limit);
 }
 
-export async function torExitNodes(limit?: number): Promise<string[]> {
-  const res = await fetch(TOR_BULK_EXIT_URL, {
-    headers: { 'User-Agent': UA },
-  });
-  if (!res.ok) throw new Error(`Tor exit list failed: HTTP ${res.status}`);
-  const text = await res.text();
+const TOR_EXIT_CACHE_KEY = 'tor:exit:nodes';
+const TOR_EXIT_CACHE_TTL_S = 3600;
+
+export async function torExitNodes(limit?: number, kv?: KVNamespace): Promise<string[]> {
+  if (kv) {
+    try {
+      const cached = await kv.get(TOR_EXIT_CACHE_KEY, 'json');
+      if (Array.isArray(cached) && cached.length > 0) {
+        return limit ? cached.slice(0, limit) : cached;
+      }
+    } catch {
+      /* fall through to fetch */
+    }
+  }
+  let text: string;
+  try {
+    const res = await fetch(TOR_BULK_EXIT_URL, {
+      headers: { 'User-Agent': UA },
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    text = await res.text();
+  } catch {
+    const fallback = await fetch(
+      'https://raw.githubusercontent.com/CriticalPathSecurity/Public-Intelligence-Feeds/master/tor-exit.txt',
+      { headers: { 'User-Agent': UA } }
+    );
+    if (!fallback.ok) throw new Error(`Tor exit list failed: both upstreams unreachable`);
+    text = await fallback.text();
+  }
   const ips = [
     ...new Set(
       text
@@ -297,14 +320,17 @@ export async function torExitNodes(limit?: number): Promise<string[]> {
         .filter((l) => l.length > 0 && !l.startsWith('#'))
     ),
   ];
+  if (kv) {
+    kv.put(TOR_EXIT_CACHE_KEY, JSON.stringify(ips), { expirationTtl: TOR_EXIT_CACHE_TTL_S }).catch(() => {});
+  }
   return limit ? ips.slice(0, limit) : ips;
 }
 
-export async function torExitCheck(ip: string): Promise<TorExitCheckResult> {
+export async function torExitCheck(ip: string, kv?: KVNamespace): Promise<TorExitCheckResult> {
   const ipv4Ok = /^(\d{1,3}\.){3}\d{1,3}$/.test(ip);
   const ipv6Ok = /^[0-9a-fA-F:]+$/.test(ip);
   if (!ipv4Ok && !ipv6Ok) throw new Error(`Invalid IP address format: ${ip}`);
-  const exitIps = await torExitNodes();
+  const exitIps = await torExitNodes(undefined, kv);
   return { isTorExit: exitIps.includes(ip), ip };
 }
 

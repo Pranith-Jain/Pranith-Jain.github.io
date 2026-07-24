@@ -455,7 +455,6 @@ import {
 import { maltrailSyncHandler, listSkeletonActorsHandler, getSkeletonActorHandler } from './routes/maltrail-sync';
 import { maliciousPackagesHandler } from './routes/malicious-packages';
 import { depxFeedHandler, depxFeedStatsHandler, depxCheckHandler } from './routes/depx';
-import { entityGraphHandler } from './routes/entity-graph';
 import { packageVerdictHandler } from './routes/package-verdict';
 import { secretLeaksHandler } from './routes/secret-leaks';
 import { feedQualityHandler as tifceFeedQualityHandler } from './routes/tifce';
@@ -696,6 +695,36 @@ app.get('/api/v1/ironsight/markets', ironsightMarketsHandler);
 app.get('/api/v1/ironsight/crypto', ironsightCryptoHandler);
 app.get('/api/v1/ironsight/polymarket', ironsightPolymarketHandler);
 app.get('/api/v1/ironsight/fires', ironsightFiresHandler);
+
+// ── Dark Web OSINT (public, no auth — tor2web gateways are open) ──────────
+app.use(
+  '/api/v1/darkweb-osint/*',
+  cors({
+    origin: (_, c) => getSiteUrl(c.env as { SITE_URL?: string }),
+    allowHeaders: ['Content-Type'],
+    allowMethods: ['GET', 'OPTIONS'],
+    maxAge: 300,
+  })
+);
+app.use('/api/v1/darkweb-osint/*', requestId);
+app.use('/api/v1/darkweb-osint/*', csrfGuard);
+app.use('/api/v1/darkweb-osint/*', looseValidation());
+app.route('/api/v1', darkwebOsintRouter);
+
+// ── Daily Briefs (public, no auth — read-only intelligence briefs) ──────
+app.use(
+  '/api/v1/daily-briefs/*',
+  cors({
+    origin: (_, c) => getSiteUrl(c.env as { SITE_URL?: string }),
+    allowHeaders: ['Content-Type'],
+    allowMethods: ['GET', 'OPTIONS'],
+    maxAge: 300,
+  })
+);
+app.use('/api/v1/daily-briefs/*', requestId);
+app.use('/api/v1/daily-briefs/*', csrfGuard);
+app.use('/api/v1/daily-briefs/*', looseValidation());
+app.route('/api/v1', dailyBriefsRouter);
 
 app.use(
   '/api/v1/*',
@@ -1472,8 +1501,6 @@ app.get('/api/v1/package-verdict', packageVerdictHandler);
 app.get('/api/v1/depx/feed', depxFeedHandler);
 app.get('/api/v1/depx/feed/stats', depxFeedStatsHandler);
 app.get('/api/v1/depx/feed/check', depxCheckHandler);
-// Entity relationship graph — global topology
-app.get('/api/v1/threat-intel/entity-graph', entityGraphHandler);
 app.get('/api/v1/x-tweets', xTweetsHandler);
 app.get('/api/v1/x-live', xLiveHandler);
 app.get('/api/v1/x-firehose', xFirehoseHandler);
@@ -1940,9 +1967,7 @@ app.route('/api/v1', ossFeedsRouter);
 // CVE/KEV/IOC/sector briefs served from public/data/threat-intel/ via env.ASSETS.
 app.route('/api/v1', threatIntelRouter);
 
-// Daily Briefs — AI-generated intelligence briefs (cyber, deepfake, disaster).
-// Data from agentic-ai-daily-reports.netlify.app, parsed into public/data/daily-briefs/.
-app.route('/api/v1', dailyBriefsRouter);
+// (daily-briefs routes registered before global auth — see public routes section above)
 
 // WinReg DFIR vertical — Windows Registry forensic artifact reference.
 // Data from github.com/dfir-scripts/dfir-scripts.github.io (MIT).
@@ -2007,9 +2032,7 @@ app.route('/api/v1', dehashRouter);
 // Partially key-gated (see source-status endpoint for details).
 app.route('/api/v1', darknetIntelRouter);
 
-// Dark Web OSINT — native TorBot + darkdump equivalents.
-// Multi-engine search, depth-limited crawl, link tree, email harvesting.
-app.route('/api/v1', darkwebOsintRouter);
+// (darkweb-osint routes registered before global auth — see public routes section above)
 
 // FBI Wanted — search the FBI wanted persons database.
 // No API key required (public government API).

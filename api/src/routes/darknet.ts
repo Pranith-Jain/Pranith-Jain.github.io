@@ -44,15 +44,34 @@ export async function torSearchOnionHandler(c: Context<{ Bindings: Env }>) {
 export async function torExitNodesHandler(c: Context<{ Bindings: Env }>) {
   const limitStr = c.req.query('limit');
   const limit = limitStr ? parseInt(limitStr, 10) : undefined;
-  const ips = await torExitNodes(isNaN(limit ?? 0) ? undefined : limit);
-  return c.json({ count: ips.length, ips });
+  try {
+    const ips = await torExitNodes(isNaN(limit ?? 0) ? undefined : limit, c.env.KV_CACHE);
+    return c.json({ count: ips.length, ips });
+  } catch (err) {
+    return c.json(
+      {
+        error: 'upstream_unavailable',
+        message: `Tor exit list unavailable: ${err instanceof Error ? err.message : 'unknown'}`,
+      },
+      502
+    );
+  }
 }
 
 export async function torExitCheckHandler(c: Context<{ Bindings: Env }>) {
   const ip = c.req.query('ip');
   if (!ip) return c.json({ error: 'missing_ip', message: '?ip= parameter is required' }, 400);
-  const r = await torExitCheck(ip);
-  return c.json(r);
+  try {
+    const r = await torExitCheck(ip, c.env.KV_CACHE);
+    return c.json(r);
+  } catch (err) {
+    return c.json({
+      isTorExit: false,
+      ip,
+      error: 'upstream_unavailable',
+      message: `Tor exit list temporarily unavailable: ${err instanceof Error ? err.message : 'unknown'}`,
+    });
+  }
 }
 
 export async function torExitDetailsHandler(c: Context<{ Bindings: Env }>) {

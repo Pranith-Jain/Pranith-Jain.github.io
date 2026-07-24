@@ -138,9 +138,14 @@ darkwebOsintRouter.get('/darkweb-osint/tor-exit', async (c) => {
   const ip = c.req.query('ip');
   if (!ip) return c.json({ error: 'ip parameter required' }, 400);
   try {
-    const result = await torExitCheck(ip);
+    const result = await torExitCheck(ip, c.env.KV_CACHE);
     return c.json(result);
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'exit check failed' }, 500);
+    return c.json({
+      isTorExit: false,
+      ip,
+      error: 'upstream_unavailable',
+      message: `Tor exit list temporarily unavailable: ${e instanceof Error ? e.message : 'unknown'}`,
+    });
   }
 });

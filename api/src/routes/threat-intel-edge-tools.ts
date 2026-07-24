@@ -365,3 +365,7 @@ threatIntelRouter.get('/threat-intel/search/ransomware-live', async (c) => {
     return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
   }
 });
+
+// ── Entity relationship graph ──────────────────────────────────────────
+import { registerEntityGraphRoute } from './entity-graph';
+registerEntityGraphRoute(threatIntelRouter as any);

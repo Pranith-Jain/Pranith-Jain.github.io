@@ -2931,7 +2931,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
           if (since) params.set('since', since);
           if (ecosystem) params.set('ecosystem', ecosystem);
           if (limit) params.set('limit', String(limit));
-          const r = await this.apiFetch(`/api/v1/depx/feed?${params}`);
+          const r = await apiFetch(this.env.SELF, `/api/v1/depx/feed?${params}`, this.apiKey);
           return untrustedToolResult(r);
         }
       );
@@ -2954,7 +2954,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             params.set('ecosystem', ecosystem);
             params.set('package', pkg);
           }
-          const r = await this.apiFetch(`/api/v1/depx/feed/check?${params}`);
+          const r = await apiFetch(this.env.SELF, `/api/v1/depx/feed/check?${params}`, this.apiKey);
           return untrustedToolResult(r);
         }
       );
@@ -2964,7 +2964,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         'Supply-chain intelligence statistics — ecosystem breakdown, recent advisory counts, and disclosure trends from the OpenSSF Malicious Packages database.',
         {},
         async () => {
-          const r = await this.apiFetch('/api/v1/depx/feed/stats');
+          const r = await apiFetch(this.env.SELF, '/api/v1/depx/feed/stats', this.apiKey);
           return untrustedToolResult(r);
         }
       );

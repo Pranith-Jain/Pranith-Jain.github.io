@@ -785,7 +785,7 @@ export class InvestigatorAgentDO {
           );
 
           // Re-synthesize with the correction prompt appended
-          const { text: correctedText, modelUsed: correctedModel } = await synthesizeReport(
+          const { report: correctedText, modelUsed: correctedModel } = await synthesizeReport(
             ai,
             correctionPrompt,
             state.queryType,

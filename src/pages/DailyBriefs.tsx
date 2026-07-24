@@ -137,7 +137,7 @@ export default function DailyBriefs() {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
   const { data: indexData, loading: indexLoading } = useDataFetch<DbIndexSummary & { briefs: BriefEntry[] }>({
-    url: '/data/daily-briefs/index.json',
+    url: '/api/v1/daily-briefs/',
   });
 
   const cyberBriefs = useMemo(() => indexData?.briefs?.filter((b) => b.type === 'cyber') ?? [], [indexData]);
@@ -152,7 +152,7 @@ export default function DailyBriefs() {
   }, [selectedDate, currentList]);
 
   const { data: brief, loading: briefLoading } = useDataFetch<CyberBrief | DeepfakeBrief | DisasterBrief>({
-    url: currentDate ? `/data/daily-briefs/${tab}/${currentDate}.json` : '',
+    url: currentDate ? `/api/v1/daily-briefs/${tab}/${currentDate}` : '',
   });
 
   const availableDates = useMemo(() => currentList.map((b) => b.date), [currentList]);
