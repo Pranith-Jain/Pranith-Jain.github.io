@@ -44,7 +44,7 @@
  * Last reviewed: alongside the Unified Search omnibox rebuild.
  */
 
-export type PageGroup = 'portfolio' | 'dfir' | 'threatintel' | 'admin' | 'blog' | 'case-study';
+export type PageGroup = 'portfolio' | 'dfir' | 'threatintel' | 'admin' | 'blog' | 'case-study' | 'osint';
 
 export interface PageEntry {
   /** URL path the search result navigates to. Can include `:param`. */
@@ -270,6 +270,87 @@ const PORTFOLIO_PAGES: readonly PageEntry[] = [
     sectionLabel: 'Threat Intel',
     group: 'threatintel',
     keywords: ['threatmon', 'infostealer', 'stealer', 'credentials', 'compromised', 'malware', 'intelhub'],
+  },
+  // OSINT investigation tools
+  {
+    path: '/osint',
+    label: 'OSINT Hub',
+    description: 'Central hub for OSINT investigation tools.',
+    sectionLabel: 'OSINT',
+    group: 'osint',
+    keywords: ['osint', 'investigation', 'tools', 'hub', 'overview'],
+  },
+  {
+    path: '/osint/domain',
+    label: 'Domain Investigation',
+    description: 'Investigate domains — WHOIS, DNS, certificates, and reputation.',
+    sectionLabel: 'OSINT',
+    group: 'osint',
+    keywords: ['domain', 'whois', 'dns', 'certificate', 'reputation', 'investigation'],
+  },
+  {
+    path: '/osint/ip',
+    label: 'IP Investigation',
+    description: 'Investigate IP addresses — geolocation, ASN, reputation, and threat intelligence.',
+    sectionLabel: 'OSINT',
+    group: 'osint',
+    keywords: ['ip', 'address', 'geolocation', 'asn', 'reputation', 'threat'],
+  },
+  {
+    path: '/osint/username',
+    label: 'Username OSINT',
+    description: 'Search for usernames across platforms and forums.',
+    sectionLabel: 'OSINT',
+    group: 'osint',
+    keywords: ['username', 'handle', 'social', 'forum', 'search'],
+  },
+  {
+    path: '/osint/email',
+    label: 'Email Investigation',
+    description: 'Investigate email addresses — breach data, accounts, and identity.',
+    sectionLabel: 'OSINT',
+    group: 'osint',
+    keywords: ['email', 'breach', 'account', 'identity', 'investigation'],
+  },
+  {
+    path: '/osint/phone',
+    label: 'Phone Investigation',
+    description: 'Investigate phone numbers — carrier, location, and reputation.',
+    sectionLabel: 'OSINT',
+    group: 'osint',
+    keywords: ['phone', 'number', 'carrier', 'location', 'reputation'],
+  },
+  {
+    path: '/osint/recon',
+    label: 'Recon Toolkit',
+    description: 'Reconnaissance toolkit for OSINT gathering and surface mapping.',
+    sectionLabel: 'OSINT',
+    group: 'osint',
+    keywords: ['recon', 'reconnaissance', 'surface', 'mapping', 'toolkit'],
+  },
+  {
+    path: '/osint/dns',
+    label: 'DNS Investigation',
+    description: 'DNS lookup and investigation — records, resolution, and history.',
+    sectionLabel: 'OSINT',
+    group: 'osint',
+    keywords: ['dns', 'lookup', 'record', 'resolution', 'history'],
+  },
+  {
+    path: '/osint/subdomain',
+    label: 'Subdomain Discovery',
+    description: 'Discover subdomains for a domain — enumeration and analysis.',
+    sectionLabel: 'OSINT',
+    group: 'osint',
+    keywords: ['subdomain', 'enumeration', 'discovery', 'domain'],
+  },
+  {
+    path: '/osint/whois',
+    label: 'WHOIS History',
+    description: 'Historical WHOIS records and ownership tracking.',
+    sectionLabel: 'OSINT',
+    group: 'osint',
+    keywords: ['whois', 'history', 'ownership', 'record', 'domain'],
   },
 ];
 

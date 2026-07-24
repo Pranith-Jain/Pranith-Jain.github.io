@@ -46,7 +46,7 @@ describe('pages-index', () => {
       expect(p.label.length, `label empty for ${p.path}`).toBeGreaterThan(0);
       expect(p.description.length, `description empty for ${p.path}`).toBeGreaterThan(0);
       expect(p.sectionLabel.length, `sectionLabel empty for ${p.path}`).toBeGreaterThan(0);
-      expect(['portfolio', 'dfir', 'threatintel', 'admin', 'blog', 'case-study']).toContain(p.group);
+      expect(['portfolio', 'dfir', 'threatintel', 'admin', 'blog', 'case-study', 'osint']).toContain(p.group);
     }
   });
 

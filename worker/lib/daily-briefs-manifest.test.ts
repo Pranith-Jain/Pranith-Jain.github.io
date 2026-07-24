@@ -35,6 +35,7 @@ const MOCK_CYBER: DbBriefBody = {
   events: [],
   ttps: { descriptions: [], mitreIds: ['T1190'] },
   outlook72h: 'Test outlook',
+  relatedCves: [],
   rawMarkdown: 'test',
 };
 
@@ -96,7 +97,9 @@ describe('daily-briefs-manifest', () => {
     const brief = await getDbBrief(assets, 'cyber', '2026-07-20');
     expect(brief).not.toBeNull();
     expect(brief!.type).toBe('cyber');
-    expect(brief!.threatLevel).toBe('CRITICAL');
+    if (brief && brief.type === 'cyber') {
+      expect(brief.threatLevel).toBe('CRITICAL');
+    }
   });
 
   it('getDbBrief returns null for missing date', async () => {

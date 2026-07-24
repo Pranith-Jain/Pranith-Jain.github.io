@@ -16,21 +16,21 @@
  * `diagnostics` array so the LLM client knows WHY a field is empty
  * (vs. "the provider returned nothing").
  *
- * Strategy: fixed-window counter in `KV_CACHE`. Per-provider, per-window
- * key like `rl:abuseipdb:2026-06-13`. We `getWithMetadata` first to read
- * the count, then `put` the incremented value with a TTL slightly
- * longer than the window. This is the cheapest correct approach for
- * Cloudflare KV (read-modify-write is eventually-consistent, but the
- * free-tier caps are loose enough that brief over-counting is harmless).
+ * Strategy: fixed-window counter in `caches.default`. Per-provider,
+ * per-window key like `rl:abuseipdb:2026-06-13`. Cache-API is free,
+ * per-colo, and survives across invocations. The trade-off vs KV is
+ * that each colo tracks its own counter — the effective limit is
+ * ~maxPerWindow per colo, not globally. This is acceptable because:
+ *   - The quotas are daily (1000/day abuseipdb), not per-second
+ *   - Each colo sees a subset of traffic
+ *   - Worst case: slight over-counting, which is fine for loose daily caps
  *
- * NOTE: For higher-precision, this could be backed by the CRON_LOCK_DO
- * Durable Object (which is the platform's atomic-counter primitive),
- * but KV suffices for IP-enrichment because the underlying limits are
- * loose (1000/day is ~12/minute, and we already serialise calls per
- * Durable Object instance).
+ * Migrated from KV on 2026-07-24 to drop 1 KV read + 1 KV write per
+ * enrichment call (the single biggest KV consumer in the SI pipeline).
  */
 
-export type RateLimitedProvider = 'ipinfo' | 'ipqs' | 'abuseipdb' | 'shodan' | 'shodan-internetdb' | 'vpnapi' | 'phantomcandle';
+export type RateLimitedProvider =
+  'ipinfo' | 'ipqs' | 'abuseipdb' | 'shodan' | 'shodan-internetdb' | 'vpnapi' | 'phantomcandle';
 
 export interface ProviderQuota {
   /** Provider identifier (matches the keys in env / diagnostics). */
@@ -105,18 +105,34 @@ function retryAfter(now: number, ws: number, wms: number): number {
   return Math.max(1, Math.ceil((ws + wms - now) / 1000));
 }
 
-async function readCount(kv: KVNamespace, key: string): Promise<number> {
-  const raw = await kv.get(key);
-  if (!raw) return 0;
-  const n = Number(raw);
-  return Number.isFinite(n) && n > 0 ? Math.floor(n) : 0;
+function cacheApi(): Cache | null {
+  try {
+    return (caches as unknown as { default: Cache }).default;
+  } catch {
+    return null;
+  }
 }
 
-export function createSiRateLimiter(kv: KVNamespace | undefined, now: () => number = () => Date.now()): SiRateLimiter {
+function cacheKey(provider: string, ws: number): Request {
+  return new Request(`https://si-rl.internal/v1/${provider}/${ws}`);
+}
+
+async function readCount(cache: Cache, provider: string, ws: number): Promise<number> {
+  try {
+    const hit = await cache.match(cacheKey(provider, ws));
+    if (!hit) return 0;
+    const n = parseInt(await hit.text(), 10);
+    return Number.isFinite(n) && n > 0 ? n : 0;
+  } catch {
+    return 0;
+  }
+}
+
+export function createSiRateLimiter(_kv?: unknown, now: () => number = () => Date.now()): SiRateLimiter {
+  // _kv is accepted for backwards compatibility but ignored — we use Cache-API
   return {
     async consume(provider) {
       const q = PROVIDER_QUOTAS[provider];
-      // Early return for disabled providers — no KV access needed
       if (!q.enabled) {
         return {
           allowed: true,
@@ -128,7 +144,9 @@ export function createSiRateLimiter(kv: KVNamespace | undefined, now: () => numb
           remaining: Number.MAX_SAFE_INTEGER,
         };
       }
-      if (!kv) {
+      const cache = cacheApi();
+      if (!cache) {
+        // Cache unavailable — fail open
         return {
           allowed: true,
           count: 0,
@@ -140,8 +158,7 @@ export function createSiRateLimiter(kv: KVNamespace | undefined, now: () => numb
         };
       }
       const ws = windowStart(now(), q.windowMs);
-      const key = `rl:${provider}:${ws}`;
-      const prev = await readCount(kv, key);
+      const prev = await readCount(cache, provider, ws);
       const next = prev + 1;
       if (next > q.maxPerWindow) {
         return {
@@ -154,7 +171,19 @@ export function createSiRateLimiter(kv: KVNamespace | undefined, now: () => numb
           remaining: 0,
         };
       }
-      await kv.put(key, String(next), { expirationTtl: Math.ceil(q.windowMs / 1000) + 3600 });
+      // Best-effort increment. max-age expires the entry at the end of the
+      // window so the bucket resets without a TTL sweep.
+      const windowSec = Math.ceil(q.windowMs / 1000);
+      try {
+        await cache.put(
+          cacheKey(provider, ws),
+          new Response(String(next), {
+            headers: { 'cache-control': `max-age=${windowSec}` },
+          })
+        );
+      } catch {
+        /* best-effort — a write failure doesn't block the request */
+      }
       return {
         allowed: true,
         count: next,
@@ -168,7 +197,8 @@ export function createSiRateLimiter(kv: KVNamespace | undefined, now: () => numb
 
     async peek(provider) {
       const q = PROVIDER_QUOTAS[provider];
-      if (!q.enabled || !kv) {
+      const cache = cacheApi();
+      if (!q.enabled || !cache) {
         return {
           count: 0,
           limit: q.maxPerWindow,
@@ -179,8 +209,7 @@ export function createSiRateLimiter(kv: KVNamespace | undefined, now: () => numb
         };
       }
       const ws = windowStart(now(), q.windowMs);
-      const key = `rl:${provider}:${ws}`;
-      const count = await readCount(kv, key);
+      const count = await readCount(cache, provider, ws);
       return {
         count,
         limit: q.maxPerWindow,
@@ -192,16 +221,21 @@ export function createSiRateLimiter(kv: KVNamespace | undefined, now: () => numb
     },
 
     async reset(provider) {
-      if (!kv) return;
+      const cache = cacheApi();
+      if (!cache) return;
       const q = PROVIDER_QUOTAS[provider];
       if (!q.enabled) return;
       const ws = windowStart(now(), q.windowMs);
-      // Batch delete current and previous window in parallel
-      await Promise.all([kv.delete(`rl:${provider}:${ws}`), kv.delete(`rl:${provider}:${ws - q.windowMs}`)]);
+      // Best-effort delete current and previous window
+      try {
+        await Promise.all([cache.delete(cacheKey(provider, ws)), cache.delete(cacheKey(provider, ws - q.windowMs))]);
+      } catch {
+        /* best-effort */
+      }
     },
   };
 }
 
 export interface RateLimitEnv {
-  KV_CACHE?: KVNamespace;
+  KV_CACHE?: unknown;
 }

@@ -590,23 +590,21 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           // is more reliable than warming 26 endpoints within the 10ms CPU budget.)
 
           // === Watch engine ===
-          try {
-            const watchAlerts = await checkWatches(
-              env.KV_CACHE as unknown as KVNamespace,
-              new Date().toISOString(),
-              db
-            );
-            if (watchAlerts.length > 0) {
-              console.log(
-                JSON.stringify({
-                  job: 'watch-engine',
-                  triggered: watchAlerts.length,
-                  alerts: watchAlerts.map((a) => ({ label: a.label, type: a.type, match: a.match })),
-                })
-              );
+          if (db) {
+            try {
+              const watchAlerts = await checkWatches(db, new Date().toISOString());
+              if (watchAlerts.length > 0) {
+                console.log(
+                  JSON.stringify({
+                    job: 'watch-engine',
+                    triggered: watchAlerts.length,
+                    alerts: watchAlerts.map((a) => ({ label: a.label, type: a.type, match: a.match })),
+                  })
+                );
+              }
+            } catch (e) {
+              console.error(JSON.stringify({ job: 'watch-engine', error: e instanceof Error ? e.message : String(e) }));
             }
-          } catch (e) {
-            console.error(JSON.stringify({ job: 'watch-engine', error: e instanceof Error ? e.message : String(e) }));
           }
 
           // === Crypto address monitor (Phase E) ===
@@ -748,7 +746,7 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           // === Auto-run due feed jobs (every hour, 1 job max) ===
           try {
             if (env.KV_CACHE && db) {
-              const fr = await autoRunFeedJobs(env.KV_CACHE, db);
+              const fr = await autoRunFeedJobs(db);
               if (fr.ran > 0) {
                 console.log(
                   JSON.stringify({ job: 'feed-scheduler-auto', ran: fr.ran, saved: fr.saved, skipped: fr.skipped })

@@ -123,9 +123,12 @@ export function isHandleShaped(q: string): boolean {
   return /^[A-Za-z0-9][A-Za-z0-9_.-]{1,79}$/.test(q);
 }
 
-/** KV key for the global per-minute egress counter bounding upstream calls. */
-export function budgetWindowKey(nowMs: number): string {
-  return `si:budget:${Math.floor(nowMs / 60_000)}`;
+/** Cache-API key for the per-colo per-minute egress counter bounding upstream calls.
+ *  Per-colo (not global) — acceptable because the budget is already soft (3/min with
+ *  overshoot tolerance), and each colo sees a subset of traffic. Migrated from KV
+ *  2026-07-24 to drop 1 KV read + 1 KV write per live fetch. */
+export function budgetWindowCacheKey(nowMs: number): Request {
+  return new Request(`https://si-budget.internal/v1/${Math.floor(nowMs / 60_000)}`);
 }
 
 /** KV key holding the last successful response for a query (graceful fallback). */
@@ -209,6 +212,7 @@ export async function lookupHandle(
   const norm = q.trim();
   const lower = norm.toLowerCase();
   const cache = (caches as unknown as { default: Cache }).default;
+  const kv = env.KV_CACHE;
   const cacheKey = cacheKeyFor(lower);
 
   // 1. Per-query Cache-API hit — costs no egress budget.
@@ -219,21 +223,24 @@ export async function lookupHandle(
     /* cold cache */
   }
 
-  // A live upstream call REQUIRES KV to coordinate the global egress budget. When the
-  // caller forbids live (omnibox intent) OR KV is unbound, degrade to cache-only — never
-  // an un-throttled proxy to a 4/min source. (This guard also narrows `kv` below.)
-  const kv = env.KV_CACHE;
-  if (!allowLive || !kv) return ok(emptyResponse(norm), 60);
+  // A live upstream call REQUIRES the egress budget to stay under the source's 4/min limit.
+  // When the caller forbids live (omnibox intent), degrade to cache-only.
+  if (!allowLive) return ok(emptyResponse(norm), 60);
 
-  // 2. Global per-minute egress budget. Best-effort: the KV get→put is non-atomic and
-  // eventually consistent, so a concurrent burst of distinct (uncached) handles can
-  // overshoot by ~the in-flight concurrency (worst-case egress ≈ cap + burst). Cap 3
-  // leaves headroom under the source's hard 4/min for the common low-concurrency case;
-  // an upstream 429 falls through to last-good (we don't retry it), so overshoot self-heals.
-  const bkey = budgetWindowKey(now);
-  const used = parseInt((await kv.get(bkey)) ?? '0', 10) || 0;
+  // 2. Per-colo per-minute egress budget via Cache-API (free, no KV quota).
+  // Best-effort: the Cache-API get→put is non-atomic, so a concurrent burst
+  // can overshoot by ~the in-flight concurrency. Cap 3 leaves headroom under
+  // the source's hard 4/min; an upstream 429 falls through to last-good.
+  const budgetKey = budgetWindowCacheKey(now);
+  let used = 0;
+  try {
+    const hit = await cache.match(budgetKey);
+    if (hit) used = parseInt(await hit.text(), 10) || 0;
+  } catch {
+    /* best-effort */
+  }
   if (used >= EGRESS_BUDGET_PER_MIN) {
-    const lg = await readLastGood(kv, norm);
+    const lg = kv ? await readLastGood(kv, norm) : null;
     if (lg) return ok({ ...lg, stale: true }, STALE_CACHE_TTL_SECONDS);
     return {
       data: emptyResponse(norm, { rate_limited: true, warning: 'rate limited — try again shortly' }),
@@ -242,7 +249,16 @@ export async function lookupHandle(
     };
   }
   // Reserve a slot before the upstream call.
-  await kv.put(bkey, String(used + 1), { expirationTtl: BUDGET_WINDOW_TTL_SECONDS });
+  try {
+    await cache.put(
+      budgetKey,
+      new Response(String(used + 1), {
+        headers: { 'cache-control': `max-age=${BUDGET_WINDOW_TTL_SECONDS}` },
+      })
+    );
+  } catch {
+    /* best-effort */
+  }
 
   // 3. ONE fetch to the FIXED upstream host (no SSRF surface). Single attempt: a retry
   // would stack timeouts (worst case 2×timeoutMs) and could blow the omnibox's 12s
@@ -260,7 +276,7 @@ export async function lookupHandle(
   }
 
   if (!res || !res.ok) {
-    const lg = await readLastGood(kv, norm);
+    const lg = kv ? await readLastGood(kv, norm) : null;
     if (lg) return ok({ ...lg, stale: true }, STALE_CACHE_TTL_SECONDS);
     return {
       data: emptyResponse(norm, { warning: 'source unavailable' }),
@@ -300,7 +316,7 @@ export async function lookupHandle(
     /* cache write best-effort */
   }
   try {
-    await kv.put(lastGoodKey(norm), body, { expirationTtl: LAST_GOOD_TTL_SECONDS });
+    if (kv) await kv.put(lastGoodKey(norm), body, { expirationTtl: LAST_GOOD_TTL_SECONDS });
   } catch {
     /* best-effort */
   }

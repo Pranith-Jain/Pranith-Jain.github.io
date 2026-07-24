@@ -1079,6 +1079,13 @@ export const SECTIONS: Section[] = [
         icon: Plug,
       },
       {
+        path: '/dfir/agent-enrich',
+        useCase: 'Enrich any IOC (IP, hash, domain, URL) using 30+ threat intel providers.',
+        label: 'Agent Enrich',
+        desc: 'Fast deterministic IOC enrichment across 30+ providers · deep autonomous mode for full investigation with report',
+        icon: Shield,
+      },
+      {
         path: '/dfir/agent-map',
         useCase: 'Map an AI agent attack surface.',
         label: 'AI Agent Attack-Surface Mapper',

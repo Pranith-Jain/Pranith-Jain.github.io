@@ -1151,16 +1151,27 @@ export async function copilotInvestigateHandler(c: Context<{ Bindings: Env }>): 
       const system = buildSystemPrompt(query.trim(), queryType, confidence, role);
       const user = buildUserPrompt(query.trim(), queryType, allSources, ragContext);
 
-      let narrative: string;
-      let modelUsed: string;
+      let narrative = '';
+      let modelUsed = '';
 
-      try {
-        narrative = await callGroq(c.env, system, user);
-        modelUsed = 'groq:openai/gpt-oss-120b';
-      } catch (e) {
-        console.error('handler failed:', e instanceof Error ? e.message : String(e));
-        throw new Error(`All LLM providers failed: ${e instanceof Error ? e.message : 'unknown'}`);
+      const providerChain = [
+        { name: 'Groq', call: () => callGroq(c.env, system, user), label: 'groq:openai/gpt-oss-120b' },
+        { name: 'Workers AI', call: () => callWorkersAi(c.env, system, user), label: 'workers-ai' },
+        { name: 'Nvidia', call: () => callNvidia(c.env, system, user), label: 'nvidia' },
+      ];
+      let lastErr: Error | null = null;
+      for (const provider of providerChain) {
+        try {
+          narrative = await provider.call();
+          modelUsed = provider.label;
+          lastErr = null;
+          break;
+        } catch (e) {
+          lastErr = e instanceof Error ? e : new Error(String(e));
+          console.error(`copilot ${provider.name} failed:`, lastErr.message);
+        }
       }
+      if (lastErr) throw new Error(`All LLM providers failed: ${lastErr.message}`);
 
       // ── Post-process validation: ground claims, strip fabrications ────
       const sourceData = allSources.map((s) => JSON.stringify(s.data)).join('\n');

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useCallback, type JSX } from 'react';
 import { useLocation } from 'react-router-dom';
 import { sanitizeAiHtml } from '../../lib/sanitize-html';
 import {
@@ -26,9 +26,9 @@ import {
   Edit3,
   Download,
   PanelLeftClose,
+  PanelLeftOpen,
   Clock,
   Trash2,
-  List,
 } from 'lucide-react';
 import { FeedbackWidget } from '../../components/FeedbackWidget';
 import { BackLink } from '../../components/BackLink';
@@ -36,6 +36,9 @@ import { adminAuthHeaders } from '../../lib/admin-token';
 import { buildReport, pollReport, type Report, type Progress } from '../../lib/threatintel/report-client';
 import { exportReportPdf } from '../../lib/threatintel/report-pdf';
 import { ReportView } from '../../components/threatintel/ReportView';
+import { PivotSuggestions } from '../../components/threatintel/PivotSuggestions';
+import { DetectionGenerate } from '../../components/threatintel/DetectionGenerate';
+import { BulkIocInput } from '../../components/threatintel/BulkIocInput';
 
 interface Source {
   name: string;
@@ -143,7 +146,15 @@ const ROLES: { id: AnalystRole; label: string; icon: typeof Shield; desc: string
 ];
 
 function renderMarkdown(safeMd: string): string {
-  let html = safeMd
+  let html = safeMd;
+  // Fenced code blocks — render before other markdown to protect content
+  html = html.replace(/```(\w*)\s*\n([\s\S]*?)```/g, (_match, lang, code) => {
+    const trimmed = (code as string).replace(/\n$/, '');
+    const escaped = (trimmed as string).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const langAttr = lang ? ` data-language="${lang}"` : '';
+    return `<pre class="overflow-x-auto rounded-lg bg-slate-100 p-3 my-2 dark:bg-[rgb(var(--surface-300))]"${langAttr}><code class="text-xs font-mono leading-relaxed text-slate-800 dark:text-slate-200">${escaped}</code></pre>`;
+  });
+  html = html
     .replace(/### (.+)/g, '<h3 class="text-base font-semibold mt-4 mb-1.5">$1</h3>')
     .replace(/## (.+)/g, '<h2 class="text-lg font-bold mt-5 mb-2">$1</h2>')
     .replace(/# (.+)/g, '<h1 class="text-xl font-bold mt-5 mb-2">$1</h1>')
@@ -288,6 +299,10 @@ export default function Copilot(): JSX.Element {
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const [, setEditingIndex] = useState<number | null>(null);
 
+  const submitChatRef = useRef<((q: string) => Promise<void>) | null>(null);
+  const abortControllerRef = useRef<AbortController | null>(null);
+  // submitChatRef.current set after submitChat is defined below
+
   const fetchSessions = useCallback(async () => {
     setLoadingSessions(true);
     try {
@@ -395,10 +410,95 @@ export default function Copilot(): JSX.Element {
       fetch(`/api/v1/copilot/chat/${encodeURIComponent(storedId)}`, { headers: adminAuthHeaders() })
         .then((r) => (r.ok ? r.json() : null))
         .then((data) => {
-          if (data?.messages) setChatMessages(data.messages);
+          if (!data?.messages) return;
+          setChatMessages(data.messages);
+          // Check for orphaned investigation: system msg with agent_id
+          // but last assistant msg has no content (stream interrupted)
+          const hasAgent = data.messages.some((m: ChatMessage) => m.role === 'system' && m.agent_id);
+          if (!hasAgent) return;
+          const lastAssistant = [...data.messages].reverse().find((m: ChatMessage) => m.role === 'assistant');
+          if (lastAssistant && lastAssistant.content) return; // completed
+          // Orphaned — reconnect to the stream
+          const agentMsg = data.messages.find((m: ChatMessage) => m.role === 'system' && m.agent_id);
+          if (agentMsg?.agent_id) {
+            reconnectToStream(storedId);
+          }
         })
         .catch(() => {});
     }
+  }, []);
+
+  const reconnectToStream = useCallback(async (sid: string) => {
+    setStreaming(true);
+    setAgentSteps([]);
+    setStreamingContent('');
+    const ac = new AbortController();
+    abortControllerRef.current = ac;
+    try {
+      const streamRes = await fetch(`/api/v1/copilot/chat/${encodeURIComponent(sid)}/stream`, {
+        headers: adminAuthHeaders(),
+        signal: ac.signal,
+      });
+      if (!streamRes.ok || !streamRes.body) {
+        setStreaming(false);
+        return;
+      }
+      const reader = streamRes.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop() ?? '';
+        for (const line of lines) {
+          if (!line.startsWith('data: ')) continue;
+          try {
+            const d = JSON.parse(line.slice(6));
+            if (d.type === 'heartbeat') continue;
+            if (d.type === 'step' && d.step) {
+              setAgentSteps((prev) => {
+                if (prev.find((s) => s.stepNumber === d.step.stepNumber)) return prev;
+                return [...prev, d.step];
+              });
+            }
+            if (d.type === 'done' && d.report) {
+              const assistantMsg: ChatMessage = {
+                role: 'assistant',
+                content: d.report,
+                model_used: d.modelUsed,
+                processed_at: new Date().toISOString(),
+                sources: d.sources,
+                _meta: d._meta,
+              };
+              setChatMessages((prev) => {
+                const next = [...prev];
+                const last = next[next.length - 1];
+                if (last && last.role === 'assistant') {
+                  next[next.length - 1] = assistantMsg;
+                } else {
+                  next.push(assistantMsg);
+                }
+                return next;
+              });
+              setStreamingContent('');
+            }
+            if (d.type === 'error') {
+              setStreaming(false);
+              setAgentSteps([]);
+              return;
+            }
+          } catch {
+            /* skip */
+          }
+        }
+      }
+    } catch {
+      /* stream failed — session may have expired */
+    }
+    setStreaming(false);
+    setAgentSteps([]);
   }, []);
 
   useEffect(() => {
@@ -450,10 +550,13 @@ export default function Copilot(): JSX.Element {
       setChatMessages((prev) => [...prev, userMsg]);
       setChatMessages((prev) => [...prev, { role: 'assistant', content: '' }]);
 
+      const ac = new AbortController();
+      abortControllerRef.current = ac;
+
       try {
         const res = await fetch('/api/v1/copilot/chat', {
           method: 'POST',
-          signal: AbortSignal.timeout(15_000),
+          signal: AbortSignal.timeout(30_000),
           headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
           body: JSON.stringify({ sessionId, query: q.trim() }),
         });
@@ -465,7 +568,10 @@ export default function Copilot(): JSX.Element {
         setSessionId(newId);
         sessionStorage.setItem('copilot_session_id', newId);
 
-        const streamRes = await fetch(`/api/v1/copilot/chat/${encodeURIComponent(newId)}/stream`);
+        const streamRes = await fetch(`/api/v1/copilot/chat/${encodeURIComponent(newId)}/stream`, {
+          headers: adminAuthHeaders(),
+          signal: ac.signal,
+        });
         if (!streamRes.ok || !streamRes.body) throw new Error('Stream unavailable');
 
         const reader = streamRes.body.getReader();
@@ -527,12 +633,31 @@ export default function Copilot(): JSX.Element {
           return next;
         });
       } finally {
+        abortControllerRef.current = null;
         setStreaming(false);
         setAgentSteps([]);
       }
     },
     [sessionId, streaming]
   );
+  submitChatRef.current = submitChat;
+
+  const cancelInvestigation = useCallback(async () => {
+    if (!sessionId || !streaming) return;
+    abortControllerRef.current?.abort();
+    try {
+      await fetch(`/api/v1/copilot/chat/${encodeURIComponent(sessionId)}/cancel`, {
+        method: 'POST',
+        headers: adminAuthHeaders(),
+        signal: AbortSignal.timeout(5000),
+      });
+    } catch {
+      /* best-effort */
+    }
+    setError('Investigation cancelled');
+    setStreaming(false);
+    setAgentSteps([]);
+  }, [sessionId, streaming]);
 
   const investigate = useCallback(
     async (q: string) => {
@@ -611,9 +736,12 @@ export default function Copilot(): JSX.Element {
 
   const currentTitle = chatMessages.find((m) => m.role === 'user')?.content;
 
+  const hasMessages = chatMessages.length > 0;
+  const isReporting = mode === 'report' || mode === 'quick';
+
   return (
-    <div className="min-h-[calc(100vh-64px)] px-4 py-12 sm:py-16 text-slate-900 dark:text-white">
-      {/* Session sidebar */}
+    <div className="flex h-[calc(100vh-64px)] overflow-hidden text-slate-900 dark:text-white">
+      {/* Persistent sidebar (desktop) + overlay (mobile) */}
       <SessionSidebar
         open={sidebarOpen}
         sessions={sessions}
@@ -626,237 +754,359 @@ export default function Copilot(): JSX.Element {
         onDelete={deleteSession}
         onNew={startNewChat}
         onClose={() => setSidebarOpen(false)}
+        mode={mode}
+        role={role}
+        roles={ROLES}
+        onModeChange={setMode}
+        onRoleChange={setRole}
+        onTemplateChange={setTemplate}
+        onTlpChange={setTlp}
+        template={template}
+        tlp={tlp}
       />
 
-      {/* Sidebar toggle */}
-      {mode === 'chat' && (
-        <button
-          onClick={() => setSidebarOpen(true)}
-          className="fixed left-4 top-24 z-30 flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-400 shadow-sm transition-colors hover:border-brand-400 hover:text-brand-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-500 dark:hover:border-brand-400 dark:hover:text-brand-400"
-          aria-label="Open conversation history"
-        >
-          <List size={15} />
-        </button>
-      )}
-
-      {!isStandalone && (
-        <BackLink
-          to="/threatintel"
-          className="mx-auto mb-8 flex max-w-3xl items-center gap-2 text-sm text-slate-500 hover:text-brand-600 dark:text-slate-400 dark:hover:text-brand-400 font-mono"
-        >
-          back
-        </BackLink>
-      )}
-
-      <div className="mx-auto flex w-full max-w-4xl flex-col items-center gap-8">
-        {/* Hero */}
-        <div className="flex flex-col items-center gap-4 text-center">
-          <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-brand-600/10">
-            <Sparkles className="h-8 w-8 text-brand-600" />
-          </div>
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            {mode === 'chat' && currentTitle ? (
-              <span className="animate-[textReveal_0.4s_ease-out]">
-                {currentTitle.length > 40 ? currentTitle.slice(0, 40) + '…' : currentTitle}
-              </span>
-            ) : (
-              'Investigation Copilot'
-            )}
-          </h1>
-          <p className="max-w-xl text-base text-slate-500 dark:text-slate-400">
-            AI-powered investigation of CVEs, threat actors, ransomware groups, IPs, and domains. Ask in plain English —
-            get a sourced, structured report.
-          </p>
-        </div>
-
-        {/* Mode + template + TLP */}
-        <div className="flex w-full flex-wrap items-center justify-center gap-2">
-          <div className="inline-flex overflow-hidden rounded-xl border border-slate-200 text-xs font-mono dark:border-[rgb(var(--border-400))]">
-            <button
-              onClick={() => setMode('chat')}
-              aria-pressed={mode === 'chat'}
-              className={`px-3 py-1.5 transition-colors ${mode === 'chat' ? 'bg-brand-600 text-white' : 'bg-white text-slate-600 hover:bg-slate-50 dark:bg-[rgb(var(--surface-200))] dark:text-slate-300 dark:hover:bg-[rgb(var(--surface-300))]'}`}
+      {/* Main content area */}
+      <div className="flex min-w-0 flex-1 flex-col">
+        {/* Top bar */}
+        <div className="flex items-center gap-3 border-b border-slate-200 bg-white/80 px-4 py-2.5 backdrop-blur-lg dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))/0.8]">
+          <button
+            onClick={() => setSidebarOpen((p) => !p)}
+            className="flex h-7 w-7 items-center justify-center rounded-md text-slate-400 hover:bg-slate-100 hover:text-brand-600 lg:hidden dark:hover:bg-[rgb(var(--surface-300))]"
+            aria-label="Toggle sidebar"
+          >
+            <PanelLeftOpen size={15} />
+          </button>
+          {!isStandalone && (
+            <BackLink
+              to="/threatintel"
+              className="flex items-center gap-1 text-xs font-mono text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 shrink-0"
             >
-              <MessageSquare size={13} className="inline mr-1 -mt-0.5" />
-              Chat
-            </button>
-            <button
-              onClick={() => setMode('quick')}
-              aria-pressed={mode === 'quick'}
-              className={`px-3 py-1.5 transition-colors ${mode === 'quick' ? 'bg-brand-600 text-white' : 'bg-white text-slate-600 hover:bg-slate-50 dark:bg-[rgb(var(--surface-200))] dark:text-slate-300 dark:hover:bg-[rgb(var(--surface-300))]'}`}
-            >
-              Quick answer
-            </button>
-            <button
-              onClick={() => setMode('report')}
-              aria-pressed={mode === 'report'}
-              className={`px-3 py-1.5 transition-colors ${mode === 'report' ? 'bg-brand-600 text-white' : 'bg-white text-slate-600 hover:bg-slate-50 dark:bg-[rgb(var(--surface-200))] dark:text-slate-300 dark:hover:bg-[rgb(var(--surface-300))]'}`}
-            >
-              Full report
-            </button>
-          </div>
-          {mode === 'report' && (
-            <>
-              <select
-                value={template}
-                onChange={(e) => setTemplate(e.target.value)}
-                aria-label="Report template"
-                className="rounded border border-slate-200 bg-white px-2 py-1.5 text-xs font-mono text-slate-700 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-300"
-              >
-                <option value="auto">Auto template</option>
-                <option value="ransomware-group">Ransomware Group</option>
-                <option value="threat-actor">Threat Actor</option>
-                <option value="cve">CVE / Vulnerability</option>
-                <option value="ioc">IOC Dossier</option>
-              </select>
-              <select
-                value={tlp}
-                onChange={(e) => setTlp(e.target.value)}
-                aria-label="TLP classification"
-                className="rounded border border-slate-200 bg-white px-2 py-1.5 text-xs font-mono text-slate-700 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-300"
-              >
-                <option value="CLEAR">TLP:CLEAR</option>
-                <option value="GREEN">TLP:GREEN</option>
-                <option value="AMBER">TLP:AMBER</option>
-                <option value="RED">TLP:RED</option>
-              </select>
-            </>
+              back
+            </BackLink>
           )}
+          <div className="flex min-w-0 flex-1 items-center gap-2">
+            {hasMessages ? (
+              <>
+                <MessageSquare size={14} className="shrink-0 text-brand-500" />
+                <span className="truncate text-sm font-medium text-slate-700 dark:text-slate-200">
+                  {currentTitle ?? 'Investigation Copilot'}
+                </span>
+                <span className="shrink-0 rounded bg-slate-100 px-1.5 py-0.5 font-mono text-[10px] text-slate-500 dark:bg-[rgb(var(--surface-300))]">
+                  {chatMessages.length} msgs
+                </span>
+              </>
+            ) : (
+              <span className="text-sm font-medium text-slate-500 dark:text-slate-400">Investigation Copilot</span>
+            )}
+          </div>
+          <div className="flex items-center gap-1.5">
+            {mode === 'chat' && hasMessages && (
+              <>
+                <button
+                  onClick={exportConversation}
+                  className="flex h-7 w-7 items-center justify-center rounded-md text-slate-400 hover:bg-slate-100 hover:text-brand-600 dark:hover:bg-[rgb(var(--surface-300))]"
+                  aria-label="Export conversation"
+                >
+                  <Download size={13} />
+                </button>
+                <BulkIocInput
+                  onSubmit={(q) => {
+                    startNewChat();
+                    setTimeout(() => submitChatRef.current?.(q), 50);
+                  }}
+                />
+              </>
+            )}
+          </div>
         </div>
 
-        {/* Role selector */}
-        <div className="flex w-full flex-wrap justify-center gap-1.5">
-          <span className="text-[10px] text-slate-400 self-center mr-1 font-medium uppercase tracking-wider">As:</span>
-          {ROLES.map((r) => {
-            const RIcon = r.icon;
-            return (
-              <button
-                key={r.id}
-                onClick={() => setRole(r.id)}
-                aria-pressed={role === r.id}
-                className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-mono transition-all ${
-                  role === r.id
-                    ? `${r.color} text-white shadow-sm`
-                    : 'bg-slate-100 text-slate-500 hover:bg-slate-200 dark:bg-slate-700 dark:text-slate-400 dark:hover:bg-slate-600'
-                }`}
-              >
-                <RIcon size={12} />
-                {r.label}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Chat interface */}
-        {mode === 'chat' && (
-          <>
-            {chatMessages.length > 0 && (
-              <div className="w-full space-y-4">
-                {chatMessages.map((msg, i) =>
-                  msg.role === 'user' ? (
-                    <div key={i} className="flex justify-end group">
-                      <div className="relative max-w-[80%]">
-                        <div className="rounded-2xl bg-brand-600 px-4 py-2.5 text-sm text-white shadow-sm">
-                          {msg.content}
-                        </div>
-                        <button
-                          onClick={() => handleEditMessage(i)}
-                          className="absolute -left-7 top-1/2 -translate-y-1/2 opacity-0 transition-opacity group-hover:opacity-100"
-                          aria-label="Edit message"
-                        >
-                          <Edit3 size={12} className="text-slate-400 hover:text-brand-600" />
-                        </button>
+        {/* Scrollable chat area */}
+        <div className="flex-1 overflow-y-auto">
+          {mode === 'chat' && (
+            <div className="mx-auto max-w-4xl px-4 py-6">
+              {/* Hero — only show when no messages */}
+              {!hasMessages && !streaming && (
+                <div className="mb-8 flex flex-col items-center gap-3 text-center">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-brand-600/10">
+                    <Sparkles className="h-7 w-7 text-brand-600" />
+                  </div>
+                  <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Investigation Copilot</h1>
+                  <p className="max-w-lg text-sm text-slate-500 dark:text-slate-400">
+                    Ask about any CVE, threat actor, ransomware group, IP, or domain.
+                  </p>
+                  <div className="flex flex-wrap items-center justify-center gap-2">
+                    {QUERY_EXAMPLES.map((ex) => (
+                      <button
+                        key={ex.label}
+                        onClick={() => {
+                          setQuery(ex.query);
+                          void submitChat(ex.query);
+                        }}
+                        className="rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-200"
+                      >
+                        <span className="text-slate-400">{ex.desc}:</span> <span className="font-mono">{ex.label}</span>
+                      </button>
+                    ))}
+                  </div>
+                  <div className="flex flex-wrap justify-center gap-1.5">
+                    {CHAT_STARTERS.slice(0, 4).map((starter) => (
+                      <button
+                        key={starter}
+                        onClick={() => {
+                          setQuery(starter);
+                          void submitChat(starter);
+                        }}
+                        className="rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] font-mono text-slate-500 transition-colors hover:border-brand-400 hover:text-brand-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400"
+                      >
+                        {starter}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="mt-1 grid w-full grid-cols-2 gap-3 sm:grid-cols-4">
+                    {CAPABILITY_GRID.map(({ icon: Icon, label, desc }) => (
+                      <div
+                        key={label}
+                        className="flex flex-col items-center gap-1.5 rounded-xl border border-slate-100 bg-slate-50/50 p-3 text-center dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-100))]"
+                      >
+                        <Icon className="h-4 w-4 text-brand-500" />
+                        <span className="text-xs font-medium">{label}</span>
+                        <span className="text-[11px] text-slate-500 dark:text-slate-400">{desc}</span>
                       </div>
-                    </div>
-                  ) : (
-                    <div key={i} className="flex justify-start">
-                      <div className="w-full max-w-[90%] rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
-                        {i === chatMessages.length - 1 && streaming && currentSteps.length > 0 && (
-                          <StepIndicator steps={currentSteps} currentStep={currentStepNum} />
-                        )}
-                        {msg.content ? (
-                          <div className="animate-[textReveal_0.5s_ease-out]">
-                            <ChatNarrative markdown={msg.content} />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Messages */}
+              {hasMessages && (
+                <div className="space-y-4">
+                  {chatMessages.map((msg, i) =>
+                    msg.role === 'user' ? (
+                      <div key={i} className="flex justify-end group">
+                        <div className="relative max-w-[85%] sm:max-w-[70%]">
+                          <div className="rounded-2xl bg-brand-600 px-4 py-2.5 text-sm text-white shadow-sm">
+                            {msg.content}
                           </div>
-                        ) : streaming && i === chatMessages.length - 1 ? (
-                          <div className="flex items-center gap-2 py-2">
-                            <div className="flex gap-1">
-                              <span
-                                className="h-2 w-2 animate-bounce rounded-full bg-brand-500"
-                                style={{ animationDelay: '0ms' }}
-                              />
-                              <span
-                                className="h-2 w-2 animate-bounce rounded-full bg-brand-500"
-                                style={{ animationDelay: '150ms' }}
-                              />
-                              <span
-                                className="h-2 w-2 animate-bounce rounded-full bg-brand-500"
-                                style={{ animationDelay: '300ms' }}
-                              />
+                          <button
+                            onClick={() => handleEditMessage(i)}
+                            className="absolute -left-7 top-1/2 -translate-y-1/2 opacity-0 transition-opacity group-hover:opacity-100"
+                            aria-label="Edit message"
+                          >
+                            <Edit3 size={12} className="text-slate-400 hover:text-brand-600" />
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <div key={i} className="flex justify-start">
+                        <div className="w-full max-w-[95%] sm:max-w-[85%] rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
+                          {i === chatMessages.length - 1 && streaming && currentSteps.length > 0 && (
+                            <StepIndicator steps={currentSteps} currentStep={currentStepNum} />
+                          )}
+                          {msg.content ? (
+                            <div className="animate-[textReveal_0.5s_ease-out]">
+                              <ChatNarrative markdown={msg.content} />
                             </div>
-                            <span className="font-mono text-xs text-slate-400">Investigating</span>
-                          </div>
-                        ) : null}
-                        {msg.sources && msg.sources.length > 0 && (
-                          <div className="mt-3 flex flex-wrap gap-1.5">
-                            {msg.sources.map((s) => (
-                              <span
-                                key={s.name}
-                                className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-slate-50 px-2.5 py-0.5 font-mono text-[11px] text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400"
-                              >
-                                {s.name}
-                                <span className="text-slate-400">({s.items})</span>
-                              </span>
-                            ))}
-                          </div>
-                        )}
-                        <div className="mt-2 flex items-center justify-between border-t border-slate-100 pt-2 dark:border-[rgb(var(--border-400))]">
-                          <div className="flex items-center gap-2">
-                            {msg.model_used && (
-                              <span className="font-mono text-[11px] text-slate-400">via {msg.model_used}</span>
-                            )}
-                          </div>
-                          {msg.content && (
-                            <div className="flex items-center gap-1.5">
+                          ) : streaming && i === chatMessages.length - 1 ? (
+                            <div className="flex items-center gap-3 py-2">
+                              <div className="flex items-center gap-2">
+                                <div className="flex gap-1">
+                                  <span
+                                    className="h-2 w-2 animate-bounce rounded-full bg-brand-500"
+                                    style={{ animationDelay: '0ms' }}
+                                  />
+                                  <span
+                                    className="h-2 w-2 animate-bounce rounded-full bg-brand-500"
+                                    style={{ animationDelay: '150ms' }}
+                                  />
+                                  <span
+                                    className="h-2 w-2 animate-bounce rounded-full bg-brand-500"
+                                    style={{ animationDelay: '300ms' }}
+                                  />
+                                </div>
+                                <span className="font-mono text-xs text-slate-400">Investigating</span>
+                              </div>
                               <button
-                                onClick={() => {
-                                  navigator.clipboard.writeText(msg.content).catch(() => {});
-                                  setCopiedIndex(i);
-                                  setTimeout(() => setCopiedIndex(null), 1500);
-                                }}
-                                className="text-slate-400 hover:text-brand-600 transition-colors"
-                                aria-label="Copy response"
+                                onClick={cancelInvestigation}
+                                className="inline-flex items-center gap-1 rounded-md border border-rose-200 bg-rose-50 px-2 py-1 text-[11px] font-mono text-rose-600 transition-colors hover:bg-rose-100 dark:border-rose-800/50 dark:bg-rose-950/20 dark:text-rose-400"
+                                aria-label="Cancel investigation"
                               >
-                                {copiedIndex === i ? (
-                                  <Check size={12} className="text-emerald-500" />
-                                ) : (
-                                  <Copy size={12} />
-                                )}
+                                Cancel
                               </button>
                             </div>
+                          ) : null}
+                          {msg.sources && msg.sources.length > 0 && (
+                            <div className="mt-3 flex flex-wrap gap-1.5">
+                              {msg.sources.map((s) => (
+                                <span
+                                  key={s.name}
+                                  className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-slate-50 px-2.5 py-0.5 font-mono text-[11px] text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400"
+                                >
+                                  {s.name}
+                                  <span className="text-slate-400">({s.items})</span>
+                                </span>
+                              ))}
+                            </div>
+                          )}
+                          <div className="mt-2 flex items-center justify-between border-t border-slate-100 pt-2 dark:border-[rgb(var(--border-400))]">
+                            <div className="flex items-center gap-2">
+                              {msg.model_used && (
+                                <span className="font-mono text-[11px] text-slate-400">via {msg.model_used}</span>
+                              )}
+                            </div>
+                            {msg.content && (
+                              <div className="flex items-center gap-1.5">
+                                <button
+                                  onClick={() => {
+                                    navigator.clipboard.writeText(msg.content).catch(() => {});
+                                    setCopiedIndex(i);
+                                    setTimeout(() => setCopiedIndex(null), 1500);
+                                  }}
+                                  className="text-slate-400 hover:text-brand-600 transition-colors"
+                                  aria-label="Copy response"
+                                >
+                                  {copiedIndex === i ? (
+                                    <Check size={12} className="text-emerald-500" />
+                                  ) : (
+                                    <Copy size={12} />
+                                  )}
+                                </button>
+                              </div>
+                            )}
+                          </div>
+                          {msg.content && i === chatMessages.length - 1 && !streaming && (
+                            <>
+                              <FollowUpSuggestions
+                                content={msg.content}
+                                onSubmit={(q) => {
+                                  setQuery(q);
+                                  void submitChat(q);
+                                }}
+                              />
+                              {(() => {
+                                const userMsg = i > 0 ? chatMessages[i - 1] : null;
+                                return userMsg?.role === 'user' ? (
+                                  <PivotSuggestions
+                                    query={userMsg.content}
+                                    responseContent={msg.content ?? ''}
+                                    responseSources={msg.sources}
+                                    onSubmit={(q) => {
+                                      setQuery(q);
+                                      void submitChat(q);
+                                    }}
+                                  />
+                                ) : null;
+                              })()}
+                              <DetectionGenerate context={msg.content ?? ''} />
+                            </>
                           )}
                         </div>
-                        {/* Follow-up suggestions (last assistant messages only) */}
-                        {msg.content && i === chatMessages.length - 1 && !streaming && (
-                          <FollowUpSuggestions
-                            content={msg.content}
-                            onSubmit={(q) => {
-                              setQuery(q);
-                              void submitChat(q);
-                            }}
-                          />
-                        )}
                       </div>
-                    </div>
-                  )
-                )}
-                <div ref={chatEndRef} />
-              </div>
-            )}
+                    )
+                  )}
+                  <div ref={chatEndRef} />
+                </div>
+              )}
 
-            {chatMessages.length === 0 && !streaming && (
-              <div className="w-full space-y-4">
-                <div className="flex flex-col items-center gap-3">
+              {error && (
+                <div
+                  role="alert"
+                  className="mt-4 flex items-center justify-between gap-3 rounded-xl border border-rose-300 bg-rose-50/50 px-4 py-3 text-sm text-rose-700 dark:border-rose-800 dark:bg-rose-950/30 dark:text-rose-300"
+                >
+                  <span className="font-mono">
+                    <AlertTriangle size={14} className="mr-1 inline" /> {error}
+                  </span>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Quick/Report mode */}
+          {isReporting && (
+            <div className="mx-auto max-w-4xl px-4 py-8">
+              <div className="flex flex-col items-center gap-4 text-center mb-6">
+                <h1 className="text-2xl font-bold tracking-tight">
+                  {mode === 'report' ? 'Full Report' : 'Quick Answer'}
+                </h1>
+                <p className="text-sm text-slate-500 dark:text-slate-400">
+                  {mode === 'report'
+                    ? 'Generate a structured CTI report'
+                    : 'Get a sourced intelligence brief in seconds'}
+                </p>
+              </div>
+              <div className="flex w-full flex-col gap-3">
+                {mode === 'report' && (
+                  <div className="flex flex-wrap items-center justify-center gap-2 mb-2">
+                    <select
+                      value={template}
+                      onChange={(e) => setTemplate(e.target.value)}
+                      aria-label="Report template"
+                      className="rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-mono text-slate-600 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-300"
+                    >
+                      <option value="auto">Auto template</option>
+                      <option value="ransomware-group">Ransomware Group</option>
+                      <option value="threat-actor">Threat Actor</option>
+                      <option value="cve">CVE / Vulnerability</option>
+                      <option value="ioc">IOC Dossier</option>
+                    </select>
+                    <select
+                      value={tlp}
+                      onChange={(e) => setTlp(e.target.value)}
+                      aria-label="TLP classification"
+                      className="rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-mono text-slate-600 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-300"
+                    >
+                      <option value="CLEAR">TLP:CLEAR</option>
+                      <option value="GREEN">TLP:GREEN</option>
+                      <option value="AMBER">TLP:AMBER</option>
+                      <option value="RED">TLP:RED</option>
+                    </select>
+                  </div>
+                )}
+                <div className="relative">
+                  <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    aria-label="Investigation query"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && submit(query)}
+                    placeholder={
+                      mode === 'report'
+                        ? 'Subject for a full report (group, actor, CVE, or IOC)…'
+                        : 'Ask about any CVE, threat actor, ransomware group, IP, or domain…'
+                    }
+                    className="h-14 w-full rounded-xl border border-slate-200 bg-white pl-12 pr-14 text-base text-slate-900 shadow-sm transition-colors placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-white dark:placeholder:text-slate-500"
+                    disabled={loading || !!progress}
+                  />
+                  <button
+                    onClick={() => submit(query)}
+                    aria-label="Submit query"
+                    disabled={loading || !!progress || !query.trim()}
+                    className="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-xl bg-brand-600 text-white transition-all hover:bg-brand-700 disabled:opacity-30 disabled:cursor-not-allowed"
+                  >
+                    {loading || progress ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
+                  </button>
+                </div>
+                {error && (
+                  <div
+                    role="alert"
+                    className="flex items-center justify-between gap-3 rounded-xl border border-rose-300 bg-rose-50/50 px-4 py-3 text-sm text-rose-700 dark:border-rose-800 dark:bg-rose-950/30 dark:text-rose-300"
+                  >
+                    <span className="font-mono">
+                      <AlertTriangle size={14} className="mr-1 inline" /> {error}
+                    </span>
+                    <button
+                      onClick={() => submit(query)}
+                      className="shrink-0 rounded border border-rose-400/60 px-3 py-1 font-mono text-xs text-rose-700 hover:bg-rose-500/10 dark:text-rose-300"
+                    >
+                      retry
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {!hasResults && !loading && !progress && !report && (
+                <div className="mt-6 flex flex-col items-center gap-3">
                   <p className="flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-slate-400">
                     <Lightbulb size={12} /> Try an example
                   </p>
@@ -866,424 +1116,258 @@ export default function Copilot(): JSX.Element {
                         key={ex.label}
                         onClick={() => {
                           setQuery(ex.query);
-                          void submitChat(ex.query);
+                          void investigate(ex.query);
                         }}
-                        className="rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-200 dark:hover:bg-[rgb(var(--surface-300))]"
+                        className="rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-200"
                       >
                         <span className="text-slate-400">{ex.desc}:</span> <span className="font-mono">{ex.label}</span>
                       </button>
                     ))}
                   </div>
                 </div>
-                <div className="flex flex-wrap justify-center gap-1.5">
-                  {CHAT_STARTERS.map((starter) => (
-                    <button
-                      key={starter}
-                      onClick={() => {
-                        setQuery(starter);
-                        void submitChat(starter);
-                      }}
-                      className="rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] font-mono text-slate-500 transition-colors hover:border-brand-400 hover:text-brand-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400 dark:hover:border-brand-400 dark:hover:text-brand-400"
-                    >
-                      {starter}
-                    </button>
-                  ))}
-                </div>
-                <div className="mt-2 grid w-full grid-cols-2 gap-4 sm:grid-cols-4">
-                  {CAPABILITY_GRID.map(({ icon: Icon, label, desc }) => (
-                    <div
-                      key={label}
-                      className="flex flex-col items-center gap-2 rounded-xl border border-slate-100 bg-slate-50/50 p-4 text-center dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-100))]"
-                    >
-                      <Icon className="h-5 w-5 text-brand-500" />
-                      <span className="text-sm font-medium">{label}</span>
-                      <span className="text-xs text-slate-500 dark:text-slate-400">{desc}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
+              )}
 
-            {chatMessages.length > 0 && (
-              <div className="flex w-full flex-wrap justify-center gap-3">
-                <button
-                  onClick={startNewChat}
-                  className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 px-4 py-2 font-mono text-xs text-slate-500 transition-colors hover:border-brand-400 hover:text-brand-600 dark:border-[rgb(var(--border-400))] dark:text-slate-400 dark:hover:border-brand-400 dark:hover:text-brand-400"
-                >
-                  <Plus size={12} />
-                  New conversation
-                </button>
-                {chatMessages.length > 2 && (
-                  <button
-                    onClick={exportConversation}
-                    className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 px-4 py-2 font-mono text-xs text-slate-500 transition-colors hover:border-brand-400 hover:text-brand-600 dark:border-[rgb(var(--border-400))] dark:text-slate-400 dark:hover:border-brand-400 dark:hover:text-brand-400"
+              {/* Results */}
+              <div className="mt-8 space-y-6">
+                {progress && !report && (
+                  <section
+                    role="status"
+                    aria-live="polite"
+                    className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
                   >
-                    <Download size={12} />
-                    Export thread
-                  </button>
+                    <div className="mb-2 flex items-center justify-between font-mono text-xs text-slate-500 dark:text-slate-400">
+                      <span className="inline-flex items-center gap-2">
+                        <Loader2 size={13} className="animate-spin text-brand-500" /> {progress.phase}
+                      </span>
+                      <span>{progress.pct}%</span>
+                    </div>
+                    <div className="h-1.5 overflow-hidden rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))]">
+                      <div className="h-full bg-brand-500 transition-all" style={{ width: `${progress.pct}%` }} />
+                    </div>
+                    <p className="mt-2 font-mono text-xs text-slate-500 dark:text-slate-400">{progress.detail}</p>
+                  </section>
+                )}
+
+                {report && <ReportView report={report} onExportPdf={() => void exportReportPdf(report)} />}
+
+                {loading && !progress && (
+                  <div className="py-16 text-center">
+                    <Loader2 size={32} className="mx-auto mb-4 animate-spin text-brand-500" />
+                    <p className="font-mono text-sm text-slate-500 dark:text-slate-400">Gathering intelligence…</p>
+                  </div>
+                )}
+
+                {result && !loading && !report && (
+                  <div className="space-y-6">
+                    <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
+                      <div className="mb-3 flex items-start justify-between gap-4">
+                        <div className="flex flex-wrap items-center gap-3">
+                          <h2 className="text-lg font-bold">{result.query}</h2>
+                          {badge && (
+                            <span className={`rounded px-2 py-0.5 text-[10px] font-semibold uppercase ${badge.color}`}>
+                              {badge.label}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-xs text-slate-400">
+                        <span>model: {result.model_used}</span>
+                        {result._meta && (
+                          <span>
+                            {result._meta.total_sources} sources · {result._meta.total_items} data points
+                          </span>
+                        )}
+                        {result.confidence && (
+                          <span
+                            className={`rounded px-1.5 py-0.5 ${result.confidence.score >= 70 ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300' : result.confidence.score >= 40 ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300' : 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300'}`}
+                            title={result.confidence.reasoning}
+                          >
+                            confidence: {result.confidence.score}/100 ({result.confidence.level})
+                          </span>
+                        )}
+                        <span>{new Date(result.processed_at).toLocaleString()}</span>
+                      </div>
+                      {result.sources.length > 0 ? (
+                        <div className="mt-3 border-t border-slate-100 pt-3 dark:border-[rgb(var(--border-400))]">
+                          <div className="flex flex-wrap gap-1.5">
+                            {result.sources.map((s, i) => (
+                              <span
+                                key={s.name}
+                                className="inline-flex items-center gap-1 rounded border border-slate-200 bg-slate-50 px-2 py-0.5 font-mono text-[11px] text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400"
+                              >
+                                <span className="font-bold text-slate-400">{i + 1}.</span>
+                                {s.name}
+                                <span className="text-slate-400">({s.items})</span>
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="mt-3 border-t border-slate-100 pt-3 text-xs text-amber-600 dark:border-[rgb(var(--border-400))] dark:text-amber-400">
+                          No structured sources — report based on general knowledge.
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
+                      <div className="flex items-center gap-2 border-b border-slate-100 bg-slate-50/80 px-6 py-3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.4)]">
+                        <FileText size={15} className="text-brand-600 dark:text-brand-400" />
+                        <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                          Investigation Report
+                        </span>
+                        {result._meta && (
+                          <span className="ml-auto font-mono text-[11px] text-slate-400">
+                            {result._meta.total_items} data points across {result._meta.total_sources} sources
+                          </span>
+                        )}
+                      </div>
+                      <div
+                        className="px-6 py-5 text-slate-800 dark:text-slate-200 [&_h2]:text-lg [&_h2]:font-bold [&_h2]:mt-6 [&_h2]:mb-2 [&_h2]:pb-1 [&_h2]:border-b [&_h2]:border-slate-100 [&_h2]:dark:border-[rgb(var(--border-400))] [&_h3]:text-base [&_h3]:font-semibold [&_h3]:mt-4 [&_h3]:mb-1.5 [&_p]:text-sm [&_p]:leading-relaxed [&_p]:mb-2 [&_p]:text-slate-700 [&_p]:dark:text-slate-300 [&_ul]:space-y-0.5 [&_ul]:my-1.5 [&_ol]:space-y-1 [&_ol]:my-1.5 [&_li]:ml-4 [&_li]:pl-1 [&_li]:text-sm [&_li]:text-slate-700 [&_li]:dark:text-slate-300 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:bg-slate-100 [&_code]:dark:bg-[rgb(var(--surface-200))] [&_code]:text-xs [&_code]:font-mono [&_code]:text-brand-700 [&_code]:dark:text-brand-300"
+                        dangerouslySetInnerHTML={{ __html: narrativeHtml }}
+                      />
+                      <div className="border-t border-slate-100 px-6 pb-4 pt-2 dark:border-[rgb(var(--border-400))]">
+                        <FeedbackWidget targetType="copilot" targetId={query} compact />
+                      </div>
+                    </div>
+
+                    <details className="group">
+                      <summary className="flex cursor-pointer items-center gap-2 text-sm font-medium text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300">
+                        <ExternalLink size={14} />
+                        Raw source data ({result.sources.length} sources)
+                      </summary>
+                      <div className="mt-3 space-y-3">
+                        {result.sources.map((s) => (
+                          <details
+                            key={s.name}
+                            className="rounded-xl border border-slate-200 bg-slate-50 p-3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.3)]"
+                          >
+                            <summary className="cursor-pointer text-xs font-medium">
+                              {s.name} ({s.items} items)
+                            </summary>
+                            <pre className="mt-2 max-h-48 overflow-auto overflow-x-auto rounded bg-slate-100 p-2 font-mono text-[11px] dark:bg-[rgb(var(--surface-200))]">
+                              {JSON.stringify(s.data, null, 2)}
+                            </pre>
+                          </details>
+                        ))}
+                      </div>
+                    </details>
+
+                    <div className="flex flex-wrap gap-2">
+                      <button
+                        onClick={async () => {
+                          if (!result) return;
+                          setSaving(true);
+                          try {
+                            const res = await fetch('/api/v1/threat-intel/assessments', {
+                              method: 'POST',
+                              signal: AbortSignal.timeout(30_000),
+                              headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
+                              body: JSON.stringify({
+                                title: `Copilot: ${result.query}`,
+                                type:
+                                  result.query_type === 'cve'
+                                    ? 'cve'
+                                    : result.query_type === 'actor' || result.query_type === 'ransomware'
+                                      ? 'actor'
+                                      : 'general',
+                                topic: result.query,
+                                body: result.narrative,
+                                sources: result.sources.map((s) => s.name),
+                                confidence_score: result.confidence?.score ?? 0,
+                                confidence_level: result.confidence?.level ?? 'unassessed',
+                              }),
+                            });
+                            if (!res.ok) throw new Error('Failed to save');
+                            setSaved(true);
+                          } catch (e) {
+                            setError(e instanceof Error ? e.message : 'Failed to save assessment');
+                          } finally {
+                            setSaving(false);
+                          }
+                        }}
+                        disabled={saving || saved}
+                        className="inline-flex items-center gap-1.5 rounded border border-slate-200 px-3 py-2 font-mono text-xs transition-colors hover:border-brand-500/40 disabled:opacity-50 dark:border-[rgb(var(--border-400))]"
+                      >
+                        <Save size={12} /> {saved ? 'Saved' : saving ? 'Saving…' : 'Save as Assessment'}
+                      </button>
+                      <button
+                        onClick={() => {
+                          const blob = new Blob([result.narrative], { type: 'text/markdown' });
+                          const url = URL.createObjectURL(blob);
+                          const a = document.createElement('a');
+                          a.href = url;
+                          a.download = `${result.query.replace(/[^a-zA-Z0-9]/g, '_')}.md`;
+                          a.click();
+                          URL.revokeObjectURL(url);
+                        }}
+                        className="inline-flex items-center gap-1.5 rounded border border-slate-200 px-3 py-2 font-mono text-xs transition-colors hover:border-brand-500/40 dark:border-[rgb(var(--border-400))]"
+                      >
+                        <FileText size={12} /> download .md
+                      </button>
+                      <button
+                        onClick={() => void investigate(query)}
+                        className="inline-flex items-center gap-1.5 rounded border border-slate-200 px-3 py-2 font-mono text-xs transition-colors hover:border-brand-500/40 dark:border-[rgb(var(--border-400))]"
+                      >
+                        <RefreshCw size={12} /> re-investigate
+                      </button>
+                    </div>
+                  </div>
                 )}
               </div>
-            )}
-          </>
-        )}
+            </div>
+          )}
+        </div>
 
-        {/* Quick answer mode */}
-        {(mode === 'quick' || mode === 'report') && (
-          <>
-            <div className="flex w-full flex-col gap-3">
-              <div className="relative">
-                <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+        {/* Chat input bar — fixed bottom */}
+        {mode === 'chat' && (
+          <div className="shrink-0 border-t border-slate-200 bg-white/80 backdrop-blur-lg dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))/0.8]">
+            <div className="mx-auto flex max-w-4xl items-center gap-2 px-4 py-3">
+              <div className="relative flex-1">
                 <input
                   ref={inputRef}
                   type="text"
-                  aria-label="Investigation query"
+                  aria-label="Ask a follow-up"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && submit(query)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault();
+                      if (query.trim()) {
+                        const q = query;
+                        setQuery('');
+                        void submitChat(q);
+                      }
+                    }
+                  }}
                   placeholder={
-                    mode === 'report'
-                      ? 'Subject for a full report (group, actor, CVE, or IOC)…'
-                      : 'Ask about any CVE, threat actor, ransomware group, IP, or domain…'
+                    streaming
+                      ? 'Waiting for response…'
+                      : hasMessages
+                        ? 'Ask a follow-up question…'
+                        : 'Ask about any CVE, threat actor, ransomware group, IP, or domain…'
                   }
-                  className="h-14 w-full rounded-xl border border-slate-200 bg-white pl-12 pr-14 text-base text-slate-900 shadow-e1 transition-colors placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-white dark:placeholder:text-slate-500 dark:focus:border-brand-400"
-                  disabled={loading || !!progress}
+                  className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-4 pr-12 text-sm text-slate-900 shadow-sm transition-colors placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-white dark:placeholder:text-slate-500"
+                  disabled={streaming}
                 />
                 <button
-                  onClick={() => submit(query)}
-                  aria-label={loading || progress ? 'Submitting query' : 'Submit query'}
-                  disabled={loading || !!progress || !query.trim()}
-                  className="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-xl bg-brand-600 text-white transition-all hover:bg-brand-700 disabled:opacity-30 disabled:cursor-not-allowed"
-                >
-                  {loading || progress ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
-                </button>
-              </div>
-              {error && (
-                <div
-                  role="alert"
-                  className="flex items-center justify-between gap-3 rounded-xl border border-rose-300 bg-rose-50/50 px-4 py-3 text-sm text-rose-700 dark:border-rose-800 dark:bg-rose-950/30 dark:text-rose-300"
-                >
-                  <span className="font-mono">
-                    <AlertTriangle size={14} className="mr-1 inline" /> {error}
-                  </span>
-                  <button
-                    onClick={() => submit(query)}
-                    className="shrink-0 rounded border border-rose-400/60 px-3 py-1 font-mono text-xs text-rose-700 hover:bg-rose-500/10 dark:text-rose-300"
-                  >
-                    retry
-                  </button>
-                </div>
-              )}
-            </div>
-
-            {!hasResults && (
-              <div className="flex w-full flex-col items-center gap-3">
-                <p className="flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-slate-400">
-                  <Lightbulb size={12} /> Try an example
-                </p>
-                <div className="flex flex-wrap justify-center gap-2">
-                  {QUERY_EXAMPLES.map((ex) => (
-                    <button
-                      key={ex.label}
-                      onClick={() => {
-                        setQuery(ex.query);
-                        void investigate(ex.query);
-                      }}
-                      className="rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-200 dark:hover:bg-[rgb(var(--surface-300))]"
-                    >
-                      <span className="text-slate-400">{ex.desc}:</span> <span className="font-mono">{ex.label}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {!hasResults && (
-              <div className="mt-4 grid w-full grid-cols-2 gap-4 sm:grid-cols-4">
-                {CAPABILITY_GRID.map(({ icon: Icon, label, desc }) => (
-                  <div
-                    key={label}
-                    className="flex flex-col items-center gap-2 rounded-xl border border-slate-100 bg-slate-50/50 p-4 text-center dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-100))]"
-                  >
-                    <Icon className="h-5 w-5 text-brand-500" />
-                    <span className="text-sm font-medium">{label}</span>
-                    <span className="text-xs text-slate-500 dark:text-slate-400">{desc}</span>
-                  </div>
-                ))}
-              </div>
-            )}
-          </>
-        )}
-      </div>
-
-      {/* Results area */}
-      <div className="mx-auto mt-12 w-full max-w-4xl space-y-6">
-        {progress && !report && (
-          <section
-            role="status"
-            aria-live="polite"
-            className="rounded-xl border border-slate-200 bg-white p-5 shadow-e1 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
-          >
-            <div className="mb-2 flex items-center justify-between font-mono text-xs text-slate-500 dark:text-slate-400">
-              <span className="inline-flex items-center gap-2">
-                <Loader2 size={13} className="animate-spin text-brand-500" /> {progress.phase}
-              </span>
-              <span>{progress.pct}%</span>
-            </div>
-            <div className="h-1.5 overflow-hidden rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))]">
-              <div className="h-full bg-brand-500 transition-all" style={{ width: `${progress.pct}%` }} />
-            </div>
-            <p className="mt-2 font-mono text-xs text-slate-500 dark:text-slate-400">{progress.detail}</p>
-          </section>
-        )}
-
-        {report && <ReportView report={report} onExportPdf={() => void exportReportPdf(report)} />}
-
-        {loading && !progress && (
-          <div className="py-16 text-center">
-            <Loader2 size={32} className="mx-auto mb-4 animate-spin text-brand-500" />
-            <p className="font-mono text-sm text-slate-500 dark:text-slate-400">Gathering intelligence…</p>
-            <p className="mt-1 font-mono text-xs text-slate-500 dark:text-slate-500">
-              Querying threat data sources and generating narrative
-            </p>
-          </div>
-        )}
-
-        {mode === 'chat' && error && (
-          <div
-            role="alert"
-            className="flex items-center justify-between gap-3 rounded-xl border border-rose-300 bg-rose-50/50 px-4 py-3 text-sm text-rose-700 dark:border-rose-800 dark:bg-rose-950/30 dark:text-rose-300"
-          >
-            <span className="font-mono">
-              <AlertTriangle size={14} className="mr-1 inline" /> {error}
-            </span>
-          </div>
-        )}
-
-        {mode !== 'chat' && result && !loading && !report && (
-          <div className="space-y-6">
-            <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-e1 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
-              <div className="mb-3 flex items-start justify-between gap-4">
-                <div className="flex flex-wrap items-center gap-3">
-                  <h2 className="text-lg font-bold">{result.query}</h2>
-                  {badge && (
-                    <span className={`rounded px-2 py-0.5 text-[10px] font-semibold uppercase ${badge.color}`}>
-                      {badge.label}
-                    </span>
-                  )}
-                  {(() => {
-                    const activeRole = ROLES.find((r) => r.id === role);
-                    if (!activeRole) return null;
-                    const RIcon = activeRole.icon;
-                    return (
-                      <span
-                        className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold text-white ${activeRole.color}`}
-                      >
-                        <RIcon size={10} />
-                        {activeRole.label}
-                      </span>
-                    );
-                  })()}
-                </div>
-              </div>
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-xs text-slate-400">
-                <span>model: {result.model_used}</span>
-                {result._meta && (
-                  <span>
-                    {result._meta.total_sources} sources · {result._meta.total_items} data points
-                  </span>
-                )}
-                {result.confidence && (
-                  <span
-                    className={`rounded px-1.5 py-0.5 ${
-                      result.confidence.score >= 70
-                        ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300'
-                        : result.confidence.score >= 40
-                          ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300'
-                          : 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300'
-                    }`}
-                    title={result.confidence.reasoning}
-                  >
-                    confidence: {result.confidence.score}/100 ({result.confidence.level})
-                  </span>
-                )}
-                <span>{new Date(result.processed_at).toLocaleString()}</span>
-              </div>
-
-              {result.sources.length > 0 ? (
-                <div className="mt-3 border-t border-slate-100 pt-3 dark:border-[rgb(var(--border-400))]">
-                  <div className="flex flex-wrap gap-1.5">
-                    {result.sources.map((s, i) => (
-                      <span
-                        key={s.name}
-                        className="inline-flex items-center gap-1 rounded border border-slate-200 bg-slate-50 px-2 py-0.5 font-mono text-[11px] text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400"
-                      >
-                        <span className="font-bold text-slate-400">{i + 1}.</span>
-                        {s.name}
-                        <span className="text-slate-400">({s.items})</span>
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ) : (
-                <div className="mt-3 border-t border-slate-100 pt-3 text-xs text-amber-600 dark:border-[rgb(var(--border-400))] dark:text-amber-400">
-                  No structured sources — report based on general knowledge.
-                </div>
-              )}
-            </div>
-
-            <div className="overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
-              <div className="flex items-center gap-2 border-b border-slate-100 bg-slate-50/80 px-6 py-3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.4)]">
-                <FileText size={15} className="text-brand-600 dark:text-brand-400" />
-                <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">Investigation Report</span>
-                {result._meta && (
-                  <span className="ml-auto font-mono text-[11px] text-slate-400">
-                    {result._meta.total_items} data points across {result._meta.total_sources} sources
-                  </span>
-                )}
-              </div>
-              <div
-                className="px-6 py-5 text-slate-800 dark:text-slate-200 [&_h2]:text-lg [&_h2]:font-bold [&_h2]:mt-6 [&_h2]:mb-2 [&_h2]:pb-1 [&_h2]:border-b [&_h2]:border-slate-100 [&_h2]:dark:border-[rgb(var(--border-400))] [&_h3]:text-base [&_h3]:font-semibold [&_h3]:mt-4 [&_h3]:mb-1.5 [&_p]:text-sm [&_p]:leading-relaxed [&_p]:mb-2 [&_p]:text-slate-700 [&_p]:dark:text-slate-300 [&_ul]:space-y-0.5 [&_ul]:my-1.5 [&_ol]:space-y-1 [&_ol]:my-1.5 [&_li]:ml-4 [&_li]:pl-1 [&_li]:text-sm [&_li]:text-slate-700 [&_li]:dark:text-slate-300 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:bg-slate-100 [&_code]:dark:bg-[rgb(var(--surface-200))] [&_code]:text-xs [&_code]:font-mono [&_code]:text-brand-700 [&_code]:dark:text-brand-300"
-                dangerouslySetInnerHTML={{ __html: narrativeHtml }}
-              />
-              <div className="border-t border-slate-100 px-6 pb-4 pt-2 dark:border-[rgb(var(--border-400))]">
-                <FeedbackWidget targetType="copilot" targetId={query} compact />
-              </div>
-            </div>
-
-            <details className="group">
-              <summary className="flex cursor-pointer items-center gap-2 text-sm font-medium text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300">
-                <ExternalLink size={14} />
-                Raw source data ({result.sources.length} sources)
-              </summary>
-              <div className="mt-3 space-y-3">
-                {result.sources.map((s) => (
-                  <details
-                    key={s.name}
-                    className="rounded-xl border border-slate-200 bg-slate-50 p-3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.3)]"
-                  >
-                    <summary className="cursor-pointer text-xs font-medium">
-                      {s.name} ({s.items} items)
-                    </summary>
-                    <pre className="mt-2 max-h-48 overflow-auto overflow-x-auto rounded bg-slate-100 p-2 font-mono text-[11px] dark:bg-[rgb(var(--surface-200))]">
-                      {JSON.stringify(s.data, null, 2)}
-                    </pre>
-                  </details>
-                ))}
-              </div>
-            </details>
-
-            <div className="flex flex-wrap gap-2">
-              <button
-                onClick={async () => {
-                  if (!result) return;
-                  setSaving(true);
-                  try {
-                    const res = await fetch('/api/v1/threat-intel/assessments', {
-                      method: 'POST',
-                      signal: AbortSignal.timeout(30_000),
-                      headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
-                      body: JSON.stringify({
-                        title: `Copilot: ${result.query}`,
-                        type:
-                          result.query_type === 'cve'
-                            ? 'cve'
-                            : result.query_type === 'actor' || result.query_type === 'ransomware'
-                              ? 'actor'
-                              : 'general',
-                        topic: result.query,
-                        body: result.narrative,
-                        sources: result.sources.map((s) => s.name),
-                        confidence_score: result.confidence?.score ?? 0,
-                        confidence_level: result.confidence?.level ?? 'unassessed',
-                      }),
-                    });
-                    if (!res.ok) throw new Error('Failed to save');
-                    setSaved(true);
-                  } catch (e) {
-                    setError(e instanceof Error ? e.message : 'Failed to save assessment');
-                  } finally {
-                    setSaving(false);
-                  }
-                }}
-                disabled={saving || saved}
-                className="inline-flex items-center gap-1.5 rounded border border-slate-200 px-3 py-2 font-mono text-xs transition-colors hover:border-brand-500/40 disabled:opacity-50 dark:border-[rgb(var(--border-400))]"
-              >
-                <Save size={12} /> {saved ? 'Saved' : saving ? 'Saving…' : 'Save as Assessment'}
-              </button>
-              <button
-                onClick={() => {
-                  const blob = new Blob([result.narrative], { type: 'text/markdown' });
-                  const url = URL.createObjectURL(blob);
-                  const a = document.createElement('a');
-                  a.href = url;
-                  a.download = `${result.query.replace(/[^a-zA-Z0-9]/g, '_')}.md`;
-                  a.click();
-                  URL.revokeObjectURL(url);
-                }}
-                className="inline-flex items-center gap-1.5 rounded border border-slate-200 px-3 py-2 font-mono text-xs transition-colors hover:border-brand-500/40 dark:border-[rgb(var(--border-400))]"
-              >
-                <FileText size={12} /> download .md
-              </button>
-              <button
-                onClick={() => void investigate(query)}
-                className="inline-flex items-center gap-1.5 rounded border border-slate-200 px-3 py-2 font-mono text-xs transition-colors hover:border-brand-500/40 dark:border-[rgb(var(--border-400))]"
-              >
-                <RefreshCw size={12} /> re-investigate
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Chat input bar */}
-      {mode === 'chat' && (
-        <div className="fixed bottom-0 left-0 right-0 border-t border-slate-200 bg-white/80 backdrop-blur-lg dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))/0.8]">
-          <div className="mx-auto flex max-w-4xl items-center gap-2 px-4 py-3">
-            <div className="relative flex-1">
-              <input
-                ref={inputRef}
-                type="text"
-                aria-label="Ask a follow-up"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
+                  onClick={() => {
                     if (query.trim()) {
                       const q = query;
                       setQuery('');
                       void submitChat(q);
                     }
-                  }
-                }}
-                placeholder={
-                  streaming
-                    ? 'Waiting for response…'
-                    : chatMessages.length > 0
-                      ? 'Ask a follow-up question…'
-                      : 'Ask about any CVE, threat actor, ransomware group, IP, or domain…'
-                }
-                className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-4 pr-12 text-sm text-slate-900 shadow-sm transition-colors placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-white dark:placeholder:text-slate-500"
-                disabled={streaming}
-              />
-              <button
-                onClick={() => {
-                  if (query.trim()) {
-                    const q = query;
-                    setQuery('');
-                    void submitChat(q);
-                  }
-                }}
-                aria-label="Send message"
-                disabled={streaming || !query.trim()}
-                className="absolute right-1.5 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-lg bg-brand-600 text-white transition-all hover:bg-brand-700 disabled:opacity-30 disabled:cursor-not-allowed"
-              >
-                {streaming ? <Loader2 size={15} className="animate-spin" /> : <Send size={15} />}
-              </button>
+                  }}
+                  aria-label="Send message"
+                  disabled={streaming || !query.trim()}
+                  className="absolute right-1.5 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-lg bg-brand-600 text-white transition-all hover:bg-brand-700 disabled:opacity-30 disabled:cursor-not-allowed"
+                >
+                  {streaming ? <Loader2 size={15} className="animate-spin" /> : <Send size={15} />}
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
@@ -1342,6 +1426,15 @@ function SessionSidebar({
   onDelete,
   onNew,
   onClose,
+  mode,
+  role,
+  roles,
+  onModeChange,
+  onRoleChange,
+  onTemplateChange,
+  onTlpChange,
+  template,
+  tlp,
 }: {
   open: boolean;
   sessions: SessionItem[];
@@ -1351,6 +1444,15 @@ function SessionSidebar({
   onDelete: (id: string) => void;
   onNew: () => void;
   onClose: () => void;
+  mode?: 'chat' | 'quick' | 'report';
+  role?: string;
+  roles?: { id: string; label: string; icon: typeof import('lucide-react').Shield; desc: string; color: string }[];
+  onModeChange?: (m: 'chat' | 'quick' | 'report') => void;
+  onRoleChange?: (r: AnalystRole) => void;
+  onTemplateChange?: (t: string) => void;
+  onTlpChange?: (t: string) => void;
+  template?: string;
+  tlp?: string;
 }) {
   return (
     <>
@@ -1420,6 +1522,77 @@ function SessionSidebar({
                 </button>
               </div>
             ))}
+        </div>
+
+        {/* Settings footer */}
+        <div className="border-t border-slate-100 p-3 dark:border-[rgb(var(--border-400))]">
+          {onModeChange && mode && (
+            <div className="mb-2">
+              <label className="mb-1 block text-[11px] font-mono font-medium text-slate-400">Mode</label>
+              <div className="flex gap-1">
+                {(['chat', 'quick', 'report'] as const).map((m) => (
+                  <button
+                    key={m}
+                    onClick={() => onModeChange(m)}
+                    className={`flex-1 rounded px-2 py-1 text-xs font-mono transition-colors ${
+                      mode === m
+                        ? 'bg-brand-500 text-white'
+                        : 'bg-slate-100 text-slate-500 hover:bg-slate-200 dark:bg-[rgb(var(--surface-300))]'
+                    }`}
+                  >
+                    {m}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+          {role && roles && onRoleChange && (
+            <div className="mb-2">
+              <label className="mb-1 block text-[11px] font-mono font-medium text-slate-400">Role</label>
+              <select
+                value={role}
+                onChange={(e) => onRoleChange(e.target.value as AnalystRole)}
+                className="w-full rounded border border-slate-200 px-2 py-1 text-xs font-mono bg-white dark:bg-[rgb(var(--surface-300))] dark:border-[rgb(var(--border-400))]"
+              >
+                {roles.map((r) => (
+                  <option key={r.id} value={r.id}>
+                    {r.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+          <div className="flex gap-2">
+            {onTemplateChange && (
+              <div className="flex-1">
+                <label className="mb-1 block text-[11px] font-mono font-medium text-slate-400">Template</label>
+                <select
+                  value={template}
+                  onChange={(e) => onTemplateChange(e.target.value)}
+                  className="w-full rounded border border-slate-200 px-2 py-1 text-xs font-mono bg-white dark:bg-[rgb(var(--surface-300))] dark:border-[rgb(var(--border-400))]"
+                >
+                  <option value="auto">Auto</option>
+                  <option value="standard">Standard</option>
+                  <option value="deep">Deep Dive</option>
+                </select>
+              </div>
+            )}
+            {onTlpChange && (
+              <div className="flex-1">
+                <label className="mb-1 block text-[11px] font-mono font-medium text-slate-400">TLP</label>
+                <select
+                  value={tlp}
+                  onChange={(e) => onTlpChange(e.target.value)}
+                  className="w-full rounded border border-slate-200 px-2 py-1 text-xs font-mono bg-white dark:bg-[rgb(var(--surface-300))] dark:border-[rgb(var(--border-400))]"
+                >
+                  <option value="WHITE">WHITE</option>
+                  <option value="GREEN">GREEN</option>
+                  <option value="AMBER">AMBER</option>
+                  <option value="RED">RED</option>
+                </select>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </>
