@@ -16,6 +16,19 @@ const NVIDIA_URL = 'https://integrate.api.nvidia.com/v1/chat/completions';
 const NVIDIA_MODEL = 'meta/llama-3.3-70b-instruct';
 const NVIDIA_TIMEOUT_MS = 20_000;
 
+// Provider health tracking — imported dynamically to avoid circular deps
+let _providerHealth: typeof import('../../lib/agent/provider-health') | null = null;
+async function getProviderHealth() {
+  if (!_providerHealth) {
+    try {
+      _providerHealth = await import('../../lib/agent/provider-health');
+    } catch {
+      /* optional */
+    }
+  }
+  return _providerHealth;
+}
+
 export interface CompletionInput {
   system: string;
   user: string;
@@ -189,6 +202,7 @@ export async function runCompletion(
 ): Promise<CompletionOutput> {
   const errors: string[] = [];
   const groqKey = opts.groqKey;
+  const health = await getProviderHealth();
 
   // When preferProvider is set, try that provider first (or exclusively)
   const providers: Array<'groq' | 'gemini' | 'nvidia'> = opts.preferProvider
@@ -196,36 +210,51 @@ export async function runCompletion(
     : ['groq', 'gemini', 'nvidia'];
 
   for (const provider of providers) {
+    // Skip providers that are rate-limited or circuit-broken
+    if (health && !(await health.isProviderHealthy(provider))) {
+      errors.push(`${provider}: skipped (rate-limited or circuit-broken)`);
+      continue;
+    }
+
     if (provider === 'groq' && groqKey) {
       const groqModels = [GROQ_MODEL, GROQ_MODEL_FALLBACK, GROQ_MODEL_DEEP, 'llama-3.1-8b-instant'];
       for (const model of groqModels) {
+        const startMs = Date.now();
         try {
           const text = await runGroq(groqKey, input, model);
+          if (health) await health.recordSuccess('groq', Date.now() - startMs);
           return { text, modelUsed: `groq:${model}` };
         } catch (err) {
           const errMsg = err instanceof Error ? err.message : String(err);
           console.error(`runCompletion groq:${model} failed: ${errMsg.slice(0, 200)}`);
           errors.push(`groq:${model}: ${errMsg.slice(0, 80)}`);
+          if (health) await health.recordFailure('groq', isRateLimited(err));
           if (isAuthError(err)) break;
         }
       }
     } else if (provider === 'gemini' && opts.googleKey) {
+      const startMs = Date.now();
       try {
         const text = await runGemini(opts.googleKey, input);
+        if (health) await health.recordSuccess('gemini', Date.now() - startMs);
         return { text, modelUsed: `gemini:${GEMINI_MODEL}` };
       } catch (err) {
         const errMsg = err instanceof Error ? err.message : String(err);
         console.error(`runCompletion gemini failed: ${errMsg.slice(0, 200)}`);
         errors.push(`gemini: ${errMsg.slice(0, 80)}`);
+        if (health) await health.recordFailure('gemini', isRateLimited(err));
       }
     } else if (provider === 'nvidia' && opts.nvidiaKey) {
+      const startMs = Date.now();
       try {
         const text = await runNvidia(opts.nvidiaKey, input);
+        if (health) await health.recordSuccess('nvidia', Date.now() - startMs);
         return { text, modelUsed: `nvidia:${NVIDIA_MODEL}` };
       } catch (err) {
         const errMsg = err instanceof Error ? err.message : String(err);
         console.error(`runCompletion nvidia failed: ${errMsg.slice(0, 200)}`);
         errors.push(`nvidia: ${errMsg.slice(0, 80)}`);
+        if (health) await health.recordFailure('nvidia', isRateLimited(err));
       }
     }
   }

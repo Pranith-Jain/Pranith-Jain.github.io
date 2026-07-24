@@ -27,6 +27,7 @@ import {
   buildSelfCorrectionPrompt,
   type WorkingMemory,
 } from '../../api/src/lib/agent/agent-framework';
+import { getCachedResult, setCachedResult } from '../../api/src/lib/agent/agent-cache';
 
 /** Truncate JSON-serializable data to a max char length. Returns valid JSON. */
 function truncateData(data: unknown, maxChars: number): unknown {
@@ -519,7 +520,7 @@ export class InvestigatorAgentDO {
     return state;
   }
 
-  /** Execute tool calls in parallel, collecting results. */
+  /** Execute tool calls in parallel, collecting results. Uses cache for repeat calls. */
   private async executeTools(
     calls: AgentToolCall[],
     tools: ReturnType<typeof buildToolRegistry>
@@ -537,6 +538,12 @@ export class InvestigatorAgentDO {
           error: `Unknown tool: ${call.tool}`,
           durationMs: 0,
         };
+
+      // Check cache first — skip API call if we have a fresh result
+      const cached = await getCachedResult(call.tool, call.args);
+      if (cached !== null) {
+        return { tool: call.tool, args: call.args, status: 'ok', data: cached, durationMs: 0 };
+      }
 
       const start = Date.now();
       try {
@@ -563,6 +570,10 @@ export class InvestigatorAgentDO {
             timer = setTimeout(() => reject(new Error(`Tool timeout (${timeoutMs / 1000}s)`)), timeoutMs);
           }),
         ]);
+
+        // Cache successful results for future calls
+        await setCachedResult(call.tool, call.args, data);
+
         return { tool: call.tool, args: call.args, status: 'ok', data, durationMs: Date.now() - start };
       } catch (err) {
         console.error('handler failed:', err instanceof Error ? err.message : String(err));
@@ -610,7 +621,7 @@ export class InvestigatorAgentDO {
     return mem;
   }
 
-  /** Synthesize the final report and mark the investigation done. */
+  /** Synthesize the final report and mark the investigation done. Streams progress to WebSocket clients. */
   private async doSynthesize(
     state: AgentState,
     ai: ApiEnv['AI'],
@@ -629,6 +640,12 @@ export class InvestigatorAgentDO {
       status: 'running',
       startedAt: stepStart,
     };
+
+    // Stream synthesis progress to WebSocket clients
+    this.broadcast({
+      type: 'step',
+      step: { ...synthesizeStep, observation: 'Synthesizing report from collected data…' },
+    });
 
     try {
       // Assess data quality before synthesis
@@ -659,6 +676,12 @@ export class InvestigatorAgentDO {
         startedAt: new Date().toISOString(),
       };
 
+      // Stream QA progress
+      this.broadcast({
+        type: 'step',
+        step: { ...qaStep, observation: 'Running QA verification against collected data…' },
+      });
+
       try {
         const qa = await verifyReport(ai, state.query, state.queryType, result.report, state.steps, {
           groqKey,
@@ -683,6 +706,12 @@ export class InvestigatorAgentDO {
           qa.qualityScore >= 0 &&
           shouldRetry(qa.qualityScore, qa.flaggedClaims.length, qa.missingFacts.length, stepNum, state.maxSteps)
         ) {
+          // Stream self-correction progress
+          this.broadcast({
+            type: 'step',
+            step: { ...qaStep, observation: `QA score ${qa.qualityScore}/100 — running self-correction…` },
+          });
+
           const workingMem = this.buildWorkingMemory(state);
           const memStr = memoryToPrompt(workingMem);
           const correctionPrompt = buildSelfCorrectionPrompt(
