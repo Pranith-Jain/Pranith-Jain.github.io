@@ -35,6 +35,8 @@ export interface CompletionOpts {
   quality?: boolean;
   role?: string;
   preferGroq?: boolean;
+  /** Skip directly to a specific provider (e.g. 'gemini' for large-context QA). */
+  preferProvider?: 'groq' | 'gemini' | 'nvidia';
 }
 
 export class RateLimitError extends Error {
@@ -188,50 +190,44 @@ export async function runCompletion(
   const errors: string[] = [];
   const groqKey = opts.groqKey;
 
-  // Try Groq first when key is available
-  if (groqKey) {
-    const groqModels = [GROQ_MODEL, GROQ_MODEL_FALLBACK, GROQ_MODEL_DEEP, 'llama-3.1-8b-instant'];
-    for (const model of groqModels) {
+  // When preferProvider is set, try that provider first (or exclusively)
+  const providers: Array<'groq' | 'gemini' | 'nvidia'> = opts.preferProvider
+    ? [opts.preferProvider, ...(['groq', 'gemini', 'nvidia'] as const).filter((p) => p !== opts.preferProvider)]
+    : ['groq', 'gemini', 'nvidia'];
+
+  for (const provider of providers) {
+    if (provider === 'groq' && groqKey) {
+      const groqModels = [GROQ_MODEL, GROQ_MODEL_FALLBACK, GROQ_MODEL_DEEP, 'llama-3.1-8b-instant'];
+      for (const model of groqModels) {
+        try {
+          const text = await runGroq(groqKey, input, model);
+          return { text, modelUsed: `groq:${model}` };
+        } catch (err) {
+          const errMsg = err instanceof Error ? err.message : String(err);
+          console.error(`runCompletion groq:${model} failed: ${errMsg.slice(0, 200)}`);
+          errors.push(`groq:${model}: ${errMsg.slice(0, 80)}`);
+          if (isAuthError(err)) break;
+        }
+      }
+    } else if (provider === 'gemini' && opts.googleKey) {
       try {
-        const text = await runGroq(groqKey, input, model);
-        return { text, modelUsed: `groq:${model}` };
+        const text = await runGemini(opts.googleKey, input);
+        return { text, modelUsed: `gemini:${GEMINI_MODEL}` };
       } catch (err) {
         const errMsg = err instanceof Error ? err.message : String(err);
-        console.error(`runCompletion groq:${model} failed: ${errMsg.slice(0, 200)}`);
-        errors.push(`groq:${model}: ${errMsg.slice(0, 80)}`);
-        if (isAuthError(err)) break;
+        console.error(`runCompletion gemini failed: ${errMsg.slice(0, 200)}`);
+        errors.push(`gemini: ${errMsg.slice(0, 80)}`);
+      }
+    } else if (provider === 'nvidia' && opts.nvidiaKey) {
+      try {
+        const text = await runNvidia(opts.nvidiaKey, input);
+        return { text, modelUsed: `nvidia:${NVIDIA_MODEL}` };
+      } catch (err) {
+        const errMsg = err instanceof Error ? err.message : String(err);
+        console.error(`runCompletion nvidia failed: ${errMsg.slice(0, 200)}`);
+        errors.push(`nvidia: ${errMsg.slice(0, 80)}`);
       }
     }
-  } else {
-    errors.push('groq: no key configured');
-  }
-
-  // Fallback to Google Gemini
-  if (opts.googleKey) {
-    try {
-      const text = await runGemini(opts.googleKey, input);
-      return { text, modelUsed: `gemini:${GEMINI_MODEL}` };
-    } catch (err) {
-      const errMsg = err instanceof Error ? err.message : String(err);
-      console.error(`runCompletion gemini failed: ${errMsg.slice(0, 200)}`);
-      errors.push(`gemini: ${errMsg.slice(0, 80)}`);
-    }
-  } else {
-    errors.push('gemini: no key configured');
-  }
-
-  // Fallback to NVIDIA
-  if (opts.nvidiaKey) {
-    try {
-      const text = await runNvidia(opts.nvidiaKey, input);
-      return { text, modelUsed: `nvidia:${NVIDIA_MODEL}` };
-    } catch (err) {
-      const errMsg = err instanceof Error ? err.message : String(err);
-      console.error(`runCompletion nvidia failed: ${errMsg.slice(0, 200)}`);
-      errors.push(`nvidia: ${errMsg.slice(0, 80)}`);
-    }
-  } else {
-    errors.push('nvidia: no key configured');
   }
 
   throw new Error(`All LLM providers exhausted. Errors:\n${errors.map((e) => `  - ${e}`).join('\n')}`);

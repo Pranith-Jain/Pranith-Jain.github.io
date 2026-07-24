@@ -60,8 +60,10 @@ export async function verifyReport(
       const result = await runCompletion(ai, input, {
         groqKey: opts.groqKey,
         nvidiaKey: opts.nvidiaKey,
+        googleKey: opts.googleKey,
         quality: true,
         role: 'qa-verifier',
+        preferProvider: 'gemini', // Gemini has 1M context — best for long report verification
       });
       modelUsed = result.modelUsed;
 
