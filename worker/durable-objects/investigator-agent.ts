@@ -32,7 +32,6 @@ import { suggestAlternative } from '../../api/src/lib/agent/tool-retry';
 import { saveInvestigationMemory } from '../../api/src/lib/agent/investigation-memory';
 import {
   createCostTracker,
-  recordCompletion,
   isOverBudget,
   costSummary,
   type InvestigationCost,
@@ -883,6 +882,22 @@ export class InvestigatorAgentDO {
           keyFindings: mem.keyFacts.slice(0, 10),
           qualityScore: state.qa?.qualityScore ?? 0,
           modelUsed: state.modelUsed ?? '',
+          completedAt: state.completedAt,
+        });
+
+        // Record metrics for observability
+        const { recordMetrics } = await import('../../api/src/lib/agent/observability');
+        const durationMs = new Date(state.completedAt).getTime() - new Date(state.startedAt).getTime();
+        const toolsUsed = [...new Set(state.steps.flatMap((s) => s.results.map((r) => r.tool)))];
+        await recordMetrics(db, {
+          query: state.query,
+          status: state.status,
+          totalSteps: state.steps.length,
+          durationMs,
+          qualityScore: state.qa?.qualityScore ?? 0,
+          modelUsed: state.modelUsed ?? '',
+          toolsUsed,
+          error: state.error ?? undefined,
           completedAt: state.completedAt,
         });
       }
