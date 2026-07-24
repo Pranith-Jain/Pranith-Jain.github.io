@@ -592,11 +592,12 @@ ${omitNote}
 </data_availability>
 
 CRITICAL RULES:
-- "OK (has data)" = tool returned actual results. You may cite its data.
-- "OK (empty result)" = tool ran but found nothing. Do NOT cite findings from it.
-- "ERROR" = tool failed. Do NOT cite findings from it.
+- "OK (has data)" = tool returned actual results. You MUST cite its data in the appropriate section — do not omit facts the tools provided.
+- "OK (empty result)" = tool ran but found nothing. Do NOT cite findings from it. Mention it only in Methodology as a gap.
+- "ERROR" = tool failed. Do NOT cite findings from it. Note the failure in Methodology.
 - Tools NOT listed were never called. Do NOT mention them at all — do not say "not called" or "not available".
-- If most tools returned OK (has data), write a normal report about what they found.
+- INCORPORATE EVERY FACT: For each "OK (has data)" tool result, extract the specific values (actor names, aliases, CVE IDs, CVSS scores, IP addresses, domains, hashes, MITRE technique IDs, dates, sector targets) and place them in the correct report section. Do NOT summarize away specifics — exact values matter for downstream detection engineering.
+- If most tools returned OK (has data), write a thorough report about what they found.
 - If most tools returned ERROR or empty, write only what you have — brief is honest.
 
 <investigation_data>

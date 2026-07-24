@@ -19,6 +19,7 @@ import {
   getToolsForSpecialist,
   type SpecialistRole,
 } from '../../api/src/lib/agent/specialist-types';
+import { createWorkingMemory, mergeIntoMemory, type WorkingMemory } from '../../api/src/lib/agent/agent-framework';
 
 /** Truncate JSON-serializable data to a max char length. Returns valid JSON. */
 function truncateData(data: unknown, maxChars: number): unknown {
@@ -266,6 +267,8 @@ export class InvestigatorAgentDO {
    * 2. ACT: Execute tools in parallel
    * 3. OBSERVE: Summarize results
    * 4. DECIDE: Continue with current specialist, switch specialist, or synthesize
+   *
+   * Uses working memory to carry intelligence across steps for better reasoning.
    */
   private async advanceOneStep(state: AgentState): Promise<AgentState> {
     const apiEnv = this.env as unknown as ApiEnv;
@@ -286,6 +289,12 @@ export class InvestigatorAgentDO {
     const stepNum = state.currentStep + 1;
     const stepStart = new Date().toISOString();
     const view = { stepNum, maxSteps: state.maxSteps, steps: state.steps };
+
+    // ── WORKING MEMORY ────────────────────────────────────────────────
+    // Build or restore working memory from previous steps.
+    // This carries IOCs, MITRE techniques, key facts, and gaps across steps
+    // so the planner has full context for better tool selection.
+    let workingMemory = this.buildWorkingMemory(state);
 
     // ── DECIDE (pre-plan) ─────────────────────────────────────────────
     const exit = evaluateCtiExit(view);
@@ -368,6 +377,7 @@ export class InvestigatorAgentDO {
           googleKey,
           nvidiaKey,
           specialistContext,
+          workingMemory,
         }
       );
 
@@ -421,6 +431,18 @@ export class InvestigatorAgentDO {
       step.nextAction = 'continue';
       step.status = 'done';
 
+      // Update working memory with observer findings
+      workingMemory = mergeIntoMemory(workingMemory, stepNum, [
+        {
+          tool: plan.toolCalls[0]?.tool ?? 'unknown',
+          iocs: observation.iocs,
+          mitre: observation.mitre,
+          keyFacts: observation.keyFacts,
+          confidence: observation.confidence,
+          gaps: observation.gaps,
+        },
+      ]);
+
       state.steps.push(step);
       state.currentStep = stepNum;
 
@@ -440,6 +462,7 @@ export class InvestigatorAgentDO {
         groqKey,
         googleKey,
         nvidiaKey,
+        workingMemory,
       }
     );
 
@@ -470,6 +493,18 @@ export class InvestigatorAgentDO {
     step.observation = observation.observation;
     step.nextAction = 'continue';
     step.status = 'done';
+
+    // Update working memory with observer findings
+    workingMemory = mergeIntoMemory(workingMemory, stepNum, [
+      {
+        tool: plan.toolCalls[0]?.tool ?? 'unknown',
+        iocs: observation.iocs,
+        mitre: observation.mitre,
+        keyFacts: observation.keyFacts,
+        confidence: observation.confidence,
+        gaps: observation.gaps,
+      },
+    ]);
 
     state.steps.push(step);
     state.currentStep = stepNum;
@@ -543,6 +578,29 @@ export class InvestigatorAgentDO {
       );
     }
     return results;
+  }
+
+  /**
+   * Build working memory from the current state's steps.
+   * Extracts IOCs, MITRE techniques, key facts, and gaps from observer outputs.
+   */
+  private buildWorkingMemory(state: AgentState): WorkingMemory {
+    let mem = createWorkingMemory();
+    for (const step of state.steps) {
+      if (!step.results) continue;
+      const toolData = step.results
+        .filter((r) => r.status === 'ok')
+        .map((r) => ({
+          tool: r.tool,
+          iocs: (r.data as Record<string, unknown>)?.iocs as string[] | undefined,
+          mitre: (r.data as Record<string, unknown>)?.mitre as string[] | undefined,
+          keyFacts: (r.data as Record<string, unknown>)?.keyFacts as string[] | undefined,
+          confidence: (r.data as Record<string, unknown>)?.confidence as string | undefined,
+          gaps: (r.data as Record<string, unknown>)?.gaps as string[] | undefined,
+        }));
+      mem = mergeIntoMemory(mem, step.stepNumber, toolData);
+    }
+    return mem;
   }
 
   /** Synthesize the final report and mark the investigation done. */

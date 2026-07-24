@@ -3,6 +3,8 @@
  * step history into a CTI report following the Zeltser template
  * (https://zeltser.com/cyber-threat-intel-report-template) + structured
  * action card.
+ *
+ * Uses system/user prompt separation for better output quality.
  */
 import type { Ai } from '@cloudflare/workers-types';
 import { runCompletion, type CompletionInput } from '../../case-study/generation/ai-client';
@@ -16,7 +18,8 @@ import type {
   ReportActionCard,
   SynthesizerOutput,
 } from './types';
-import { buildSynthesizerPrompt, buildSynthesizerUserPrompt, buildMinimalSynthesizerPrompt } from './prompts';
+import { buildSynthesizerSystemPrompt } from './agent-framework';
+import { buildSynthesizerUserPrompt, buildMinimalSynthesizerPrompt } from './prompts';
 import { ReportHeaderSchema } from './schemas';
 
 interface DataQuality {
@@ -56,14 +59,16 @@ export async function synthesizeReport(
     dataWarning = `\n\nWARNING: ${dq.emptyResults} of ${dq.totalOk} tool results were nearly empty. Be honest about what is actually known.`;
   }
 
-  const currentDate = new Date().toISOString().split('T')[0];
+  const currentDate = new Date().toISOString().split('T')[0] ?? new Date().toISOString().slice(0, 10);
   // Use minimal prompt only when ALL tools failed AND no rich data exists.
   // A single tool with substantive data (e.g. lookup_cve returning full
   // CVE details, CVSS, CWE, references) should use the full template.
   const useMinimal = dq.totalOk <= 1 && !hasRichData;
+  // System prompt: report production standards, role, constraints (stable)
+  // User prompt: investigation data, tool results, quality warnings (dynamic)
   const system = useMinimal
     ? buildMinimalSynthesizerPrompt(currentDate)
-    : buildSynthesizerPrompt(query, queryType, currentDate);
+    : buildSynthesizerSystemPrompt(queryType, currentDate);
   const user = useMinimal
     ? buildSynthesizerUserPrompt(query, queryType, steps)
     : buildSynthesizerUserPrompt(query, queryType, steps) + dataWarning;

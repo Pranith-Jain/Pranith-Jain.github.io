@@ -1,13 +1,16 @@
 /**
  * CTI Agent QA Verifier — fact-checks the synthesized report against
- * collected tool data. Removes hallucinated claims, adds missing context,
+ * collected tool data. Removes hallucinations, adds missing context,
  * and scores the report quality.
+ *
+ * Uses system/user prompt separation for more reliable verification.
  */
 import type { Ai } from '@cloudflare/workers-types';
 import { runCompletion, type CompletionInput } from '../../case-study/generation/ai-client';
 import type { AgentStep } from './types';
-import { neutralizeUntrusted, UNTRUSTED_DATA_SYSTEM_NOTE } from '../prompt-fence';
+import { neutralizeUntrusted } from '../prompt-fence';
 import { QaOutputSchema, parseWithErrors, type QaOutputValidated } from './schemas';
+import { buildQaSystemPrompt } from './agent-framework';
 
 export interface QaResult {
   /** The verified/corrected report (may differ from original) */
@@ -38,7 +41,9 @@ export async function verifyReport(
   // Build a compact summary of all collected data for fact-checking
   const dataSummary = buildDataSummary(steps);
 
-  const system = buildQaPrompt(queryType);
+  // System prompt: verification standards, scoring rubric (stable)
+  // User prompt: report to verify, collected data (dynamic)
+  const system = buildQaSystemPrompt();
   const user = buildQaUserPrompt(query, originalReport, dataSummary);
   const input: CompletionInput = { system, user, maxTokens: 4000, temperature: 0.1 };
 
@@ -92,56 +97,6 @@ function buildDataSummary(steps: AgentStep[]): string {
     }
   }
   return lines.join('\n\n');
-}
-
-function buildQaPrompt(_queryType: string): string {
-  return `<role>You are a CTI report quality assurance analyst. Your job is to verify every claim in an intelligence report against the actual data collected during the investigation.</role>
-
-<task>
-You will receive:
-1. An intelligence report to verify
-2. The raw data collected from investigation tools
-
-Your job:
-1. FACT-CHECK every claim — does the data actually support it?
-2. FLAG hallucinations — claims not supported by any data (invented CVEs, fake scores, fabricated IOCs)
-3. FLAG misattributions — claims that attribute data to the wrong source or wrong entity
-4. ADD missing facts — important data from the tools that the report omitted
-5. CORRECT errors — wrong numbers, dates, names, or technical details
-6. SCORE quality — 0-100 based on accuracy, completeness, and actionability
-</task>
-
-<verification_rules>
-- A claim is SUPPORTED if it directly matches data from a tool result
-- A claim is UNSUPPORTED if no tool result contains the information
-- A claim is MISATTRIBUTED if the data exists but is attributed to wrong entity/source
-- A claim is INCORRECT if it contradicts the tool data
-- CVE IDs must EXACTLY match the tool data — no approximation. CVSS scores may be rounded to 1 decimal place (standard presentation) or match exactly. EPSS values must match within 1% of tool data.
-- Actor names, aliases, and MITRE IDs must match tool data exactly
-- IOCs (IPs, domains, hashes) must appear in tool results — not invented
-- If a tool returned 0 results or errored, the report MUST NOT cite findings from it
-- IMPORTANT: Claims about which tools succeeded, which failed, or that a tool "returned no data" are DIAGNOSTIC statements about the investigation itself. These are SUPPORTED if they match the tool result status (ok/error) in the collected data — do NOT flag them as unsupported.
-- IMPORTANT: A statement like "only breach_check returned data" or "no other enrichment tools returned results" is a DIAGNOSTIC claim about tool statuses, NOT an inventing fact. These are correct when they accurately describe what tools were called and what they returned.
-</verification_rules>
-
-<output_format>
-Respond with ONLY valid JSON:
-{
-  "flagged_claims": [
-    {"claim": "exact claim text", "reason": "hallucinated|unsupported|misattributed|incorrect", "evidence": "why it's wrong"}
-  ],
-  "missing_facts": [
-    {"fact": "important fact from data", "source": "which tool", "importance": "high|medium|low"}
-  ],
-  "corrections": [
-    {"original": "wrong text", "corrected": "correct text", "reason": "why"}
-  ],
-  "quality_score": 85,
-  "quality_notes": "Brief assessment of overall report quality"
-}
-</output_format>
-
-<security>${UNTRUSTED_DATA_SYSTEM_NOTE}</security>`;
 }
 
 function buildQaUserPrompt(query: string, report: string, dataSummary: string): string {
