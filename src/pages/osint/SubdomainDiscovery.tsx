@@ -111,7 +111,7 @@ export default function SubdomainDiscovery() {
                           <td className="px-4 py-2.5 font-mono text-xs text-slate-500">{s.ip || '—'}</td>
                           <td className="px-4 py-2.5">
                             <span
-                              className={`px-2 py-0.5 text-[10px] font-mono rounded ${s.status === 'alive' ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-500'}`}
+                              className={`px-2 py-0.5 text-micro font-mono rounded ${s.status === 'alive' ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-500'}`}
                             >
                               {s.status || 'unknown'}
                             </span>

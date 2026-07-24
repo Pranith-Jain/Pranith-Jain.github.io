@@ -83,6 +83,8 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/phishing/scam', '/__prerendered/threatintel__phishing__scam'],
   ['/threatintel/external/external', '/__prerendered/threatintel__external__external'],
   ['/threatintel/external/supply', '/__prerendered/threatintel__external__supply'],
+  ['/threatintel/depx', '/__prerendered/threatintel__depx'],
+  ['/threatintel/entity-graph', '/__prerendered/threatintel__entity-graph'],
   ['/threatintel/external/awesome', '/__prerendered/threatintel__external__awesome'],
   ['/threatintel/feeds/catalog', '/__prerendered/threatintel__feeds__catalog'],
   ['/threatintel/feeds/sources', '/__prerendered/threatintel__feeds__sources'],

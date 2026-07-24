@@ -1,0 +1,15 @@
+{
+  "slug": "apt73-metrabyte-cloud-2026-07-24",
+  "title": "metrabyte.cloud",
+  "group": "apt73",
+  "discovered": "2026-07-24T09:52:11.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "metrabyte.cloud is the website of Metrabyte Cloud Co., Ltd., a cloud service provider from Thaila...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Eraleign"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

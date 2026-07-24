@@ -408,7 +408,7 @@ function FilterPill({
     >
       {label}
       <span
-        className={`rounded-full px-1.5 py-0.5 text-[10px] font-mono ${
+        className={`rounded-full px-1.5 py-0.5 text-micro font-mono ${
           active ? 'bg-current/15' : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))]'
         }`}
       >

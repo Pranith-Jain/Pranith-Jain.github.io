@@ -10,7 +10,8 @@ interface ParsedIoc {
 const CVE_RE = /\bCVE-\d{4}-\d{4,}\b/i;
 const IP_RE = /\b(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)\b/;
 const HASH_RE = /\b[a-fA-F0-9]{32,64}\b/;
-const DOMAIN_RE = /\b(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+(?:com|org|net|io|co|ru|cn|onion|dev|app|gov|edu|info|biz)\b/;
+const DOMAIN_RE =
+  /\b(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+(?:com|org|net|io|co|ru|cn|onion|dev|app|gov|edu|info|biz)\b/;
 const URL_RE = /\bhttps?:\/\/[^\s<>"']+/i;
 const EMAIL_RE = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/;
 
@@ -82,7 +83,9 @@ export function BulkIocInput({ onSubmit }: BulkIocInputProps) {
       if (values.length <= 3) {
         parts.push(`${type.toUpperCase()}: ${values.join(', ')}`);
       } else {
-        parts.push(`${type.toUpperCase()} (${values.length} total): ${values.slice(0, 3).join(', ')} and ${values.length - 3} more`);
+        parts.push(
+          `${type.toUpperCase()} (${values.length} total): ${values.slice(0, 3).join(', ')} and ${values.length - 3} more`
+        );
       }
     }
 
@@ -107,10 +110,20 @@ export function BulkIocInput({ onSubmit }: BulkIocInputProps) {
         signal: AbortSignal.timeout(30_000),
       });
       if (!res.ok) throw new Error('Enrichment failed');
-      const data = await res.json() as { results: BulkIocResult[] };
+      const data = (await res.json()) as { results: BulkIocResult[] };
       setEnrichResults(data.results ?? []);
     } catch (e) {
-      setEnrichResults([{ value: '', type: 'error', verdict: 'error', score: 0, tags: [], source: '', error: e instanceof Error ? e.message : 'Enrichment failed' }]);
+      setEnrichResults([
+        {
+          value: '',
+          type: 'error',
+          verdict: 'error',
+          score: 0,
+          tags: [],
+          source: '',
+          error: e instanceof Error ? e.message : 'Enrichment failed',
+        },
+      ]);
     } finally {
       setEnriching(false);
     }
@@ -119,7 +132,10 @@ export function BulkIocInput({ onSubmit }: BulkIocInputProps) {
   return (
     <>
       <button
-        onClick={() => { setOpen(!open); if (!open) setEnrichResults(null); }}
+        onClick={() => {
+          setOpen(!open);
+          if (!open) setEnrichResults(null);
+        }}
         className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 px-3 py-1.5 font-mono text-xs text-slate-500 transition-colors hover:border-brand-400 hover:text-brand-600 dark:border-[rgb(var(--border-400))] dark:text-slate-400 dark:hover:border-brand-400 dark:hover:text-brand-400"
       >
         <Upload size={12} />
@@ -160,14 +176,19 @@ export function BulkIocInput({ onSubmit }: BulkIocInputProps) {
                     unknown: 'bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-300',
                   };
                   for (const ioc of parsed) {
-                    if (!counts[ioc.type]) counts[ioc.type] = { count: 0, color: typeColors[ioc.type] || 'bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-300' };
+                    if (!counts[ioc.type])
+                      counts[ioc.type] = {
+                        count: 0,
+                        color:
+                          typeColors[ioc.type] || 'bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-300',
+                      };
                     const entry = counts[ioc.type]!;
                     entry.count++;
                   }
                   return Object.entries(counts).map(([type, { count, color }]) => (
                     <span
                       key={type}
-                      className={`inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-[10px] font-semibold ${color}`}
+                      className={`inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-micro font-semibold ${color}`}
                     >
                       {type} <span className="opacity-70">({count})</span>
                     </span>
@@ -190,10 +211,19 @@ export function BulkIocInput({ onSubmit }: BulkIocInputProps) {
                   </div>
                 ) : (
                   enrichResults.slice(0, 20).map((r, i) => (
-                    <div key={i} className="flex items-center gap-2 rounded border border-slate-100 bg-slate-50/50 px-2 py-1 text-xs dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))/0.3]">
+                    <div
+                      key={i}
+                      className="flex items-center gap-2 rounded border border-slate-100 bg-slate-50/50 px-2 py-1 text-xs dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))/0.3]"
+                    >
                       <span
-                        className={`inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-[8px] font-bold text-white ${
-                          r.verdict === 'malicious' ? 'bg-rose-500' : r.verdict === 'suspicious' ? 'bg-amber-500' : r.verdict === 'clean' ? 'bg-emerald-500' : 'bg-slate-400'
+                        className={`inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-micro font-bold text-white ${
+                          r.verdict === 'malicious'
+                            ? 'bg-rose-500'
+                            : r.verdict === 'suspicious'
+                              ? 'bg-amber-500'
+                              : r.verdict === 'clean'
+                                ? 'bg-emerald-500'
+                                : 'bg-slate-400'
                         }`}
                       >
                         {r.verdict === 'malicious' ? '!' : r.verdict === 'clean' ? <Check size={8} /> : '?'}
@@ -210,7 +240,12 @@ export function BulkIocInput({ onSubmit }: BulkIocInputProps) {
             )}
             <div className="mt-3 flex justify-end gap-2">
               <button
-                onClick={() => { setOpen(false); setText(''); setParsed([]); setEnrichResults(null); }}
+                onClick={() => {
+                  setOpen(false);
+                  setText('');
+                  setParsed([]);
+                  setEnrichResults(null);
+                }}
                 className="rounded-lg border border-slate-200 px-3 py-1.5 font-mono text-xs text-slate-500 hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:text-slate-400"
               >
                 Cancel

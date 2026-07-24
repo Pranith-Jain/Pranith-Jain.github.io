@@ -98,7 +98,7 @@ export default function ThreatMonInfostealer() {
                 className="text-center p-3 rounded-xl border border-[rgb(var(--border-400))] bg-[rgb(var(--surface-200))] hover:bg-[rgb(var(--surface-300))]/50 transition-colors"
               >
                 <div className={`text-sm font-bold font-mono ${s.color}`}>{s.value}</div>
-                <div className="text-[10px] text-muted uppercase tracking-wider mt-0.5">{s.label}</div>
+                <div className="text-micro text-muted uppercase tracking-wider mt-0.5">{s.label}</div>
               </div>
             ))}
           </div>
@@ -136,7 +136,7 @@ export default function ThreatMonInfostealer() {
             {HASHTAGS.map((t) => (
               <span
                 key={t}
-                className="inline-flex items-center gap-1 px-2 py-0.5 rounded border border-[rgb(var(--border-400))] bg-[rgb(var(--surface-200))] text-[10px] font-mono text-muted"
+                className="inline-flex items-center gap-1 px-2 py-0.5 rounded border border-[rgb(var(--border-400))] bg-[rgb(var(--surface-200))] text-micro font-mono text-muted"
               >
                 <Hash className="h-2.5 w-2.5" />
                 {t}
@@ -176,7 +176,7 @@ export default function ThreatMonInfostealer() {
                   record{(data.totalCount ?? 0) === 1 ? '' : 's'} found
                 </div>
                 {data.records.length > 0 && (
-                  <div className="flex items-center gap-3 text-[11px] text-muted">
+                  <div className="flex items-center gap-3 text-mini text-muted">
                     {employeeCount > 0 && (
                       <span className="inline-flex items-center gap-1">
                         <span className="w-1.5 h-1.5 rounded-full bg-rose-500" />
@@ -221,11 +221,11 @@ export default function ThreatMonInfostealer() {
                         </div>
                         <div className="flex items-center gap-2 mt-1">
                           {r.isEmployee ? (
-                            <span className="inline-flex items-center gap-1 text-[11px] text-rose-500 dark:text-rose-400 font-semibold">
+                            <span className="inline-flex items-center gap-1 text-mini text-rose-500 dark:text-rose-400 font-semibold">
                               <User className="h-3 w-3" /> Employee
                             </span>
                           ) : (
-                            <span className="inline-flex items-center gap-1 text-[11px] text-muted">
+                            <span className="inline-flex items-center gap-1 text-mini text-muted">
                               <User className="h-3 w-3" /> User
                             </span>
                           )}

@@ -262,14 +262,14 @@ export default function ThreatLandscapeStix(): JSX.Element {
                       className="border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50"
                     >
                       <td
-                        className="px-3 py-2 font-mono text-[10px] text-slate-500 max-w-[200px] truncate"
+                        className="px-3 py-2 font-mono text-micro text-slate-500 max-w-[200px] truncate"
                         title={row.bundle_id}
                       >
                         {row.bundle_id}
                       </td>
                       <td className="px-3 py-2">
                         <span
-                          className={`px-1.5 py-0.5 rounded-full text-[10px] ${row.source_type === 'darknet' ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300' : 'bg-sky-100 text-sky-700 dark:bg-sky-900/30 dark:text-sky-300'}`}
+                          className={`px-1.5 py-0.5 rounded-full text-micro ${row.source_type === 'darknet' ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300' : 'bg-sky-100 text-sky-700 dark:bg-sky-900/30 dark:text-sky-300'}`}
                         >
                           {row.source_type}
                         </span>
@@ -290,7 +290,7 @@ export default function ThreatLandscapeStix(): JSX.Element {
             </div>
           )}
           {data && (
-            <p className="text-[10px] text-slate-400 mt-2">
+            <p className="text-micro text-slate-400 mt-2">
               {data.length} bundle{data.length !== 1 ? 's' : ''}
             </p>
           )}

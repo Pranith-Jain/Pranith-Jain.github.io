@@ -158,7 +158,7 @@ function MiniLineChart({
         ))}
       </svg>
       {/* X-axis labels */}
-      <div className="absolute inset-x-0 -bottom-4 flex justify-between text-[9px] text-slate-400 dark:text-slate-500">
+      <div className="absolute inset-x-0 -bottom-4 flex justify-between text-micro text-slate-400 dark:text-slate-500">
         {points.map((p, i) => (
           <span key={i} className={i === 0 ? 'text-left' : i === points.length - 1 ? 'text-right' : 'text-center'}>
             {p.label.replace('th', '').replace('st', '').replace('nd', '').replace('rd', '')}

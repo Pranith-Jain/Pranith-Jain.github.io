@@ -359,7 +359,7 @@ export function McpSearchWorkbench(props: {
             <div className="flex flex-wrap items-center gap-2">
               <div className="flex items-center gap-1.5">
                 <Calendar className="h-3 w-3 text-slate-400" />
-                <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500">date</span>
+                <span className="text-micro font-mono uppercase tracking-wider text-slate-500">date</span>
               </div>
               <div className="flex flex-wrap gap-1">
                 {(['', '24h', '7d', '30d', '90d'] as TimeRange[]).map((tr) => (
@@ -376,7 +376,7 @@ export function McpSearchWorkbench(props: {
                           .finally(() => setBusy(false));
                       }
                     }}
-                    className={`text-[10px] font-mono px-2 py-0.5 rounded-full border transition-colors ${
+                    className={`text-micro font-mono px-2 py-0.5 rounded-full border transition-colors ${
                       timeRange === tr
                         ? 'border-brand-400 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300 font-medium'
                         : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-brand-400/50 hover:text-brand-600 dark:hover:text-brand-400'
@@ -392,7 +392,7 @@ export function McpSearchWorkbench(props: {
             <div className="flex flex-wrap items-center gap-2">
               <div className="flex items-center gap-1.5">
                 <Shield className="h-3 w-3 text-slate-400" />
-                <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500">severity</span>
+                <span className="text-micro font-mono uppercase tracking-wider text-slate-500">severity</span>
               </div>
               <div className="flex flex-wrap gap-1">
                 {SEVERITY_ORDER.map((sev) => {
@@ -409,7 +409,7 @@ export function McpSearchWorkbench(props: {
                           return next;
                         });
                       }}
-                      className={`text-[10px] font-mono px-2 py-0.5 rounded-full border transition-colors ${
+                      className={`text-micro font-mono px-2 py-0.5 rounded-full border transition-colors ${
                         active
                           ? SEVERITY_PILL[sev] + ' font-medium'
                           : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-300'
@@ -421,7 +421,7 @@ export function McpSearchWorkbench(props: {
                 })}
               </div>
               {filterBusy && (
-                <span className="flex items-center gap-1 text-[10px] text-slate-500 ml-1">
+                <span className="flex items-center gap-1 text-micro text-slate-500 ml-1">
                   <Loader2 className="h-3 w-3 animate-spin" /> loading…
                 </span>
               )}
@@ -429,7 +429,7 @@ export function McpSearchWorkbench(props: {
 
             {/* Row 3: Summary + clear */}
             <div className="flex items-center justify-between gap-2 pt-1 border-t border-slate-200/60 dark:border-[rgb(var(--border-400))/0.6]">
-              <div className="flex items-center gap-1.5 text-[10px] font-mono text-slate-500 dark:text-slate-400">
+              <div className="flex items-center gap-1.5 text-micro font-mono text-slate-500 dark:text-slate-400">
                 <Filter className="h-3 w-3" />
                 <span>
                   {hasFilters ? (
@@ -462,7 +462,7 @@ export function McpSearchWorkbench(props: {
                     setTimeRange('');
                     setSeverityFilter(new Set());
                   }}
-                  className="text-[10px] font-mono text-slate-400 hover:text-rose-500 transition-colors"
+                  className="text-micro font-mono text-slate-400 hover:text-rose-500 transition-colors"
                 >
                   clear all
                 </button>
@@ -483,7 +483,7 @@ export function McpSearchWorkbench(props: {
             <div className="min-w-0 flex-1">
               <p className="font-mono font-semibold">MCP connection error</p>
               {statusMsg && (
-                <p className="mt-0.5 font-mono text-[11px] text-rose-700/80 dark:text-rose-300/80 break-words">
+                <p className="mt-0.5 font-mono text-mini text-rose-700/80 dark:text-rose-300/80 break-words">
                   {statusMsg}
                 </p>
               )}
@@ -497,7 +497,7 @@ export function McpSearchWorkbench(props: {
 
         {props.showHistory !== false && history.length > 0 && (
           <div className="mt-3 flex flex-wrap items-center gap-1.5">
-            <span className="text-[10px] font-mono uppercase text-slate-500 mr-1">recent:</span>
+            <span className="text-micro font-mono uppercase text-slate-500 mr-1">recent:</span>
             {history.map((h) => (
               <button
                 key={h}
@@ -509,7 +509,7 @@ export function McpSearchWorkbench(props: {
                   setQ(text);
                   void run(text);
                 }}
-                className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] px-2 py-0.5 text-[10px] font-mono text-slate-600 dark:text-slate-300 hover:border-brand-400"
+                className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] px-2 py-0.5 text-micro font-mono text-slate-600 dark:text-slate-300 hover:border-brand-400"
                 title={h}
               >
                 {h}
@@ -521,7 +521,7 @@ export function McpSearchWorkbench(props: {
                 setHistory([]);
                 saveHistory([]);
               }}
-              className="text-[10px] text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400"
+              className="text-micro text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400"
             >
               clear
             </button>
@@ -583,26 +583,26 @@ function IocHitCard({
     <div className="surface-card overflow-hidden">
       <div className="flex items-center justify-between gap-2 px-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.3)] border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
         <div className="flex items-center gap-2 min-w-0">
-          <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300">
+          <span className="text-micro font-mono uppercase tracking-wider text-slate-500 px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300">
             IOC
           </span>
           <span className="text-sm font-mono font-semibold text-slate-800 dark:text-slate-200 truncate">
             {hit.ioc_value}
           </span>
           {hit.ioc_type && (
-            <span className="shrink-0 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5 text-[10px] font-mono text-slate-500">
+            <span className="shrink-0 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5 text-micro font-mono text-slate-500">
               {hit.ioc_type}
             </span>
           )}
         </div>
         <span
-          className={`shrink-0 text-[10px] font-mono px-1.5 py-0.5 rounded ${total > 0 ? 'bg-rose-100 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300' : 'text-slate-500'}`}
+          className={`shrink-0 text-micro font-mono px-1.5 py-0.5 rounded ${total > 0 ? 'bg-rose-100 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300' : 'text-slate-500'}`}
         >
           {total} report{total === 1 ? '' : 's'}
         </span>
       </div>
       <div className="p-3">
-        <div className="flex flex-wrap gap-3 text-[10px] font-mono text-slate-500 dark:text-slate-400 mb-2">
+        <div className="flex flex-wrap gap-3 text-micro font-mono text-slate-500 dark:text-slate-400 mb-2">
           {hit.first_seen && <span>first seen: {hit.first_seen}</span>}
           {hit.last_seen && <span>last seen: {hit.last_seen}</span>}
         </div>
@@ -640,17 +640,17 @@ function CveHitCard({ hit }: { hit: CveSearchResult }): JSX.Element {
         </div>
         <div className="flex items-center gap-2 shrink-0">
           {typeof hit.cvss_score === 'number' && (
-            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-300">
+            <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-300">
               CVSS {hit.cvss_score.toFixed(1)}
             </span>
           )}
           {typeof hit.epss_score === 'number' && (
-            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-300">
+            <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-300">
               EPSS {(hit.epss_score * 100).toFixed(1)}%
             </span>
           )}
           {hit.exploited && (
-            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 font-medium">
+            <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 font-medium">
               KEV
             </span>
           )}
@@ -662,25 +662,25 @@ function CveHitCard({ hit }: { hit: CveSearchResult }): JSX.Element {
         )}
         {(hit.affected_products?.length ?? 0) > 0 && (
           <div>
-            <p className="text-[10px] font-mono uppercase text-slate-500 mb-1">affected</p>
+            <p className="text-micro font-mono uppercase text-slate-500 mb-1">affected</p>
             <div className="flex flex-wrap gap-1">
               {hit.affected_products!.slice(0, 6).map((p, i) => (
                 <span
                   key={i}
-                  className="rounded bg-orange-100 dark:bg-orange-950/30 px-1.5 py-0.5 text-[10px] font-mono text-orange-700 dark:text-orange-300"
+                  className="rounded bg-orange-100 dark:bg-orange-950/30 px-1.5 py-0.5 text-micro font-mono text-orange-700 dark:text-orange-300"
                 >
                   {p}
                 </span>
               ))}
               {hit.affected_products!.length > 6 && (
-                <span className="text-[10px] text-slate-500">+{hit.affected_products!.length - 6}</span>
+                <span className="text-micro text-slate-500">+{hit.affected_products!.length - 6}</span>
               )}
             </div>
           </div>
         )}
         {(hit.references?.length ?? 0) > 0 && (
           <div>
-            <p className="text-[10px] font-mono uppercase text-slate-500 mb-1">references</p>
+            <p className="text-micro font-mono uppercase text-slate-500 mb-1">references</p>
             <div className="flex flex-wrap gap-1.5">
               {hit.references!.slice(0, 4).map((ref, i) => (
                 <a
@@ -688,7 +688,7 @@ function CveHitCard({ hit }: { hit: CveSearchResult }): JSX.Element {
                   href={ref}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-0.5 text-[10px] font-mono text-brand-600 dark:text-brand-400 hover:underline truncate max-w-[18rem]"
+                  className="inline-flex items-center gap-0.5 text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline truncate max-w-[18rem]"
                 >
                   <ExternalLink className="h-2.5 w-2.5 shrink-0" />
                   {ref.replace(/^https?:\/\//, '').slice(0, 60)}
@@ -726,12 +726,12 @@ function ReportsHitCard({
         <div className="flex items-center gap-2">
           <FileText className="h-4 w-4 text-blue-500" />
           <span className="text-xs font-semibold text-slate-800 dark:text-slate-200">Reports</span>
-          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-blue-100 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300">
+          <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-blue-100 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300">
             {reports.length}
           </span>
         </div>
         {typeof hit.total === 'number' && hit.total !== reports.length && (
-          <span className="text-[10px] font-mono text-slate-500">of {hit.total} total</span>
+          <span className="text-micro font-mono text-slate-500">of {hit.total} total</span>
         )}
       </div>
       <div className="p-3">
@@ -780,7 +780,7 @@ function ReportDetailPanel({
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0 flex-1">
           <p className="text-xs font-semibold text-slate-900 dark:text-slate-100 line-clamp-2">{report.title || rid}</p>
-          <div className="flex flex-wrap items-center gap-2 mt-1 text-[10px] font-mono text-slate-500 dark:text-slate-400">
+          <div className="flex flex-wrap items-center gap-2 mt-1 text-micro font-mono text-slate-500 dark:text-slate-400">
             {report.source && <span>{report.source}</span>}
             {report.published_at && <span>· {report.published_at}</span>}
             {report.actor && <span className="text-rose-600 dark:text-rose-400">actor: {report.actor}</span>}
@@ -791,7 +791,7 @@ function ReportDetailPanel({
             href={sourceUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="shrink-0 inline-flex items-center gap-1 text-[10px] text-brand-600 dark:text-brand-400 hover:underline"
+            className="shrink-0 inline-flex items-center gap-1 text-micro text-brand-600 dark:text-brand-400 hover:underline"
           >
             <ExternalLink className="h-3 w-3" /> source
           </a>
@@ -799,7 +799,7 @@ function ReportDetailPanel({
       </div>
 
       {busy && (
-        <div className="flex items-center gap-1.5 text-[10px] text-slate-500">
+        <div className="flex items-center gap-1.5 text-micro text-slate-500">
           <Loader2 className="h-3 w-3 animate-spin" /> Loading details…
         </div>
       )}
@@ -807,7 +807,7 @@ function ReportDetailPanel({
       {!busy && detail && (
         <>
           {detail.summary && (
-            <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">{detail.summary}</p>
+            <p className="text-mini text-slate-600 dark:text-slate-400 leading-relaxed">{detail.summary}</p>
           )}
 
           <DetailSection label="IOCs" items={detail.iocs?.map((i) => i.value)} color="rose" />
@@ -815,7 +815,7 @@ function ReportDetailPanel({
           <DetailSection label="CVEs" items={detail.cves} color="orange" />
           <DetailSection label="Malware" items={detail.malware} color="emerald" />
 
-          <div className="flex flex-wrap items-center gap-3 pt-1 text-[10px] font-mono text-slate-500">
+          <div className="flex flex-wrap items-center gap-3 pt-1 text-micro font-mono text-slate-500">
             {detail.severity && <span>severity: {detail.severity}</span>}
             {typeof detail.cvss === 'number' && <span>CVSS {detail.cvss.toFixed(1)}</span>}
             {typeof detail.epss === 'number' && <span>EPSS {(detail.epss * 100).toFixed(1)}%</span>}
@@ -824,7 +824,7 @@ function ReportDetailPanel({
       )}
 
       {!busy && !detail && summary && (
-        <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-6">{summary}</p>
+        <p className="text-mini text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-6">{summary}</p>
       )}
     </div>
   );
@@ -848,16 +848,16 @@ function DetailSection({
   };
   return (
     <div>
-      <p className="text-[10px] font-mono uppercase text-slate-500 mb-0.5">
+      <p className="text-micro font-mono uppercase text-slate-500 mb-0.5">
         {label} · {items.length}
       </p>
       <div className="flex flex-wrap gap-1">
         {items.slice(0, 12).map((item, i) => (
-          <span key={i} className={`rounded px-1.5 py-0.5 text-[10px] font-mono ${colorCls[color] ?? ''}`}>
+          <span key={i} className={`rounded px-1.5 py-0.5 text-micro font-mono ${colorCls[color] ?? ''}`}>
             {item}
           </span>
         ))}
-        {items.length > 12 && <span className="text-[10px] text-slate-500">+{items.length - 12}</span>}
+        {items.length > 12 && <span className="text-micro text-slate-500">+{items.length - 12}</span>}
       </div>
     </div>
   );
@@ -870,7 +870,7 @@ function BriefingsHitCard({ briefings }: { briefings: BriefingSummary[] }): JSX.
     <div className="surface-card overflow-hidden">
       <div className="flex items-center gap-2 px-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.3)] border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
         <span className="text-xs font-semibold text-slate-800 dark:text-slate-200">Briefings</span>
-        <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-purple-100 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300">
+        <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-purple-100 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300">
           {briefings.length}
         </span>
       </div>
@@ -890,12 +890,10 @@ function BriefingInline({ hit }: { hit: BriefingSummary }): JSX.Element {
     <div className="flex items-start gap-2">
       <div className="min-w-0 flex-1">
         <p className="text-xs font-medium text-slate-800 dark:text-slate-200">{hit.title ?? hit.briefing_id}</p>
-        <p className="text-[10px] font-mono uppercase text-slate-500 dark:text-slate-400">
+        <p className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">
           {hit.type ?? 'briefing'} · {hit.date ?? '—'}
         </p>
-        {hit.summary && (
-          <p className="mt-1 text-[11px] text-slate-600 dark:text-slate-400 line-clamp-3">{hit.summary}</p>
-        )}
+        {hit.summary && <p className="mt-1 text-mini text-slate-600 dark:text-slate-400 line-clamp-3">{hit.summary}</p>}
       </div>
     </div>
   );
@@ -905,10 +903,10 @@ function BriefingRow({ hit }: { hit: BriefingSummary }): JSX.Element {
   return (
     <li className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-2.5 py-1.5">
       <p className="text-xs font-medium text-slate-800 dark:text-slate-200">{hit.title ?? hit.briefing_id}</p>
-      <p className="text-[10px] font-mono uppercase text-slate-500 dark:text-slate-400">
+      <p className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">
         {hit.type ?? 'briefing'} · {hit.date ?? '—'}
       </p>
-      {hit.summary && <p className="mt-1 text-[11px] text-slate-600 dark:text-slate-400 line-clamp-2">{hit.summary}</p>}
+      {hit.summary && <p className="mt-1 text-mini text-slate-600 dark:text-slate-400 line-clamp-2">{hit.summary}</p>}
     </li>
   );
 }
@@ -953,7 +951,7 @@ function ReportRow({
           </a>
         )}
       </div>
-      <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 mt-0.5 text-[10px] font-mono uppercase text-slate-500 dark:text-slate-400">
+      <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 mt-0.5 text-micro font-mono uppercase text-slate-500 dark:text-slate-400">
         {r.source && <span>{r.source}</span>}
         {r.published_at && <span>· {r.published_at}</span>}
         {r.actor && <span className="text-rose-600 dark:text-rose-400">actor: {r.actor}</span>}
@@ -971,14 +969,14 @@ function ReportRow({
         )}
       </div>
       {r.summary && !selected && (
-        <p className="mt-1 text-[11px] text-slate-600 dark:text-slate-400 line-clamp-2">{r.summary}</p>
+        <p className="mt-1 text-mini text-slate-600 dark:text-slate-400 line-clamp-2">{r.summary}</p>
       )}
       {r.tags && r.tags.length > 0 && !selected && (
         <div className="mt-1 flex flex-wrap gap-1">
           {r.tags.slice(0, 4).map((tag) => (
             <span
               key={tag}
-              className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 text-[9px] font-mono text-slate-500 dark:text-slate-400"
+              className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 text-micro font-mono text-slate-500 dark:text-slate-400"
             >
               {tag}
             </span>
@@ -1001,5 +999,5 @@ function SeverityBadge({ severity }: { severity: string }): JSX.Element {
         : s === 'medium'
           ? 'bg-amber-100 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-300 dark:border-amber-800'
           : 'bg-slate-100 dark:bg-slate-950/40 text-slate-600 dark:text-slate-400 border-slate-300 dark:border-slate-700';
-  return <span className={`rounded px-1.5 py-0.5 text-[10px] font-mono border ${cls}`}>{severity}</span>;
+  return <span className={`rounded px-1.5 py-0.5 text-micro font-mono border ${cls}`}>{severity}</span>;
 }

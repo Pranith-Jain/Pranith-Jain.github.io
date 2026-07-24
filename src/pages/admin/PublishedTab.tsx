@@ -989,7 +989,7 @@ function HookSelector({ hooks, slug, onHookSelected }: { hooks: string[]; slug: 
             onClick={() => void applyHook(i)}
           >
             <span
-              className={`inline-flex items-center justify-center w-4 h-4 mt-0.5 rounded-full text-[9px] font-bold ${
+              className={`inline-flex items-center justify-center w-4 h-4 mt-0.5 rounded-full text-micro font-bold ${
                 selected === i
                   ? 'bg-amber-500 text-white'
                   : 'bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400'
@@ -1004,7 +1004,7 @@ function HookSelector({ hooks, slug, onHookSelected }: { hooks: string[]; slug: 
                 void applyHook(i);
               }}
               disabled={regenerating === i}
-              className={`px-2 py-0.5 rounded text-[10px] border whitespace-nowrap ${
+              className={`px-2 py-0.5 rounded text-micro border whitespace-nowrap ${
                 selected === i
                   ? 'bg-amber-500 text-white border-amber-500'
                   : 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'

@@ -1,15 +1,15 @@
 {
   "slug": "qilin-cano-industrial-2026-07-23",
   "title": "Cano Industrial",
-  "group": "qilin",
-  "discovered": "2026-07-23T08:30:46.000Z",
+  "group": "Qilin",
+  "discovered": "2026-07-23T00:00:00.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": "MX",
+  "country": "Mexico",
   "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Internal files exfiltrated in ransomware attack",
+  "source_url": "https://recentbreaches.com/breach/cano-industrial-qilin-2026-07",
   "groupAliases": [],
   "activity": "Manufacturing",
-  "references": ["ransomware.live"]
+  "references": ["RecentBreaches.com"]
 }

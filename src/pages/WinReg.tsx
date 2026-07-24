@@ -106,7 +106,7 @@ function ArtifactDetail({ body, onClose }: { body: ArtifactBody; onClose: () => 
         )}
         <div className="flex flex-wrap gap-2">
           {body.hive.map((h) => (
-            <span key={h} className={`font-mono text-[10px] font-bold px-2 py-0.5 rounded border ${hiveColor(h)}`}>
+            <span key={h} className={`font-mono text-micro font-bold px-2 py-0.5 rounded border ${hiveColor(h)}`}>
               {hiveLabel(h)}
             </span>
           ))}
@@ -123,7 +123,7 @@ function ArtifactDetail({ body, onClose }: { body: ArtifactBody; onClose: () => 
                   href={`https://attack.mitre.org/techniques/${t.replace('.', '/')}/`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 font-mono text-[10px] font-bold text-orange-700 dark:text-orange-300 bg-orange-50 dark:bg-orange-950/40 border border-orange-300 dark:border-orange-800 px-2 py-0.5 rounded hover:bg-orange-100 dark:hover:bg-orange-950/60"
+                  className="inline-flex items-center gap-1 font-mono text-micro font-bold text-orange-700 dark:text-orange-300 bg-orange-50 dark:bg-orange-950/40 border border-orange-300 dark:border-orange-800 px-2 py-0.5 rounded hover:bg-orange-100 dark:hover:bg-orange-950/60"
                 >
                   {t} <ExternalLink size={10} />
                 </a>
@@ -140,7 +140,7 @@ function ArtifactDetail({ body, onClose }: { body: ArtifactBody; onClose: () => 
               {body.parsers.map((p, i) => (
                 <span
                   key={i}
-                  className="font-mono text-[10px] text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-slate-700 px-2 py-0.5 rounded"
+                  className="font-mono text-micro text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-slate-700 px-2 py-0.5 rounded"
                 >
                   {p}
                 </span>
@@ -148,7 +148,7 @@ function ArtifactDetail({ body, onClose }: { body: ArtifactBody; onClose: () => 
             </div>
           </div>
         )}
-        <div className="text-[10px] text-slate-500 dark:text-slate-500 pt-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-micro text-slate-500 dark:text-slate-500 pt-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
           Data from{' '}
           <a
             href={body.sourceUrl}
@@ -275,7 +275,7 @@ export default function WinReg() {
             <button
               key={h}
               onClick={() => setSelectedHive(selectedHive === h ? null : h)}
-              className={`font-mono text-[10px] font-bold px-2 py-0.5 rounded border transition-colors ${selectedHive === h ? 'ring-1 ring-brand-500' : ''} ${hiveColor(h)}`}
+              className={`font-mono text-micro font-bold px-2 py-0.5 rounded border transition-colors ${selectedHive === h ? 'ring-1 ring-brand-500' : ''} ${hiveColor(h)}`}
             >
               {h}
             </button>
@@ -308,7 +308,7 @@ export default function WinReg() {
                   {art.hive.map((h) => (
                     <span
                       key={h}
-                      className={`font-mono text-[9px] font-bold px-1.5 py-0.5 rounded border ${hiveColor(h)}`}
+                      className={`font-mono text-micro font-bold px-1.5 py-0.5 rounded border ${hiveColor(h)}`}
                     >
                       {hiveLabel(h)}
                     </span>
@@ -319,18 +319,18 @@ export default function WinReg() {
                     {art.techniques.slice(0, 3).map((t) => (
                       <span
                         key={t}
-                        className="font-mono text-[9px] text-orange-600 dark:text-orange-400/70 bg-orange-50 dark:bg-orange-950/20 border border-orange-200 dark:border-orange-800/30 px-1.5 py-0.5 rounded"
+                        className="font-mono text-micro text-orange-600 dark:text-orange-400/70 bg-orange-50 dark:bg-orange-950/20 border border-orange-200 dark:border-orange-800/30 px-1.5 py-0.5 rounded"
                       >
                         {t}
                       </span>
                     ))}
                     {art.techniques.length > 3 && (
-                      <span className="font-mono text-[9px] text-slate-400">+{art.techniques.length - 3}</span>
+                      <span className="font-mono text-micro text-slate-400">+{art.techniques.length - 3}</span>
                     )}
                   </div>
                 )}
                 {art.tool.length > 0 && (
-                  <div className="mt-2 text-[10px] text-slate-400 dark:text-slate-500 truncate">
+                  <div className="mt-2 text-micro text-slate-400 dark:text-slate-500 truncate">
                     {art.tool.slice(0, 2).join(', ')}
                   </div>
                 )}

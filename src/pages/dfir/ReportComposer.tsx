@@ -412,7 +412,7 @@ export default function ReportComposer(): JSX.Element {
                     <option value="Medium">Medium</option>
                     <option value="Low">Low</option>
                   </select>
-                  <span className={`text-[10px] font-mono ${CONFIDENCE_COLORS[f.confidence]}`}>
+                  <span className={`text-micro font-mono ${CONFIDENCE_COLORS[f.confidence]}`}>
                     {f.confidence} confidence
                   </span>
                   <button

@@ -1,1 +1,15 @@
-{"slug":"the-gentlemen-hbs-group-2026-07-23","title":"HBS Group","group":"the gentlemen","discovered":"2026-07-23T11:21:24.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"hbsgroup.com.au zoominfo.com/c/hbs-group-pty-ltd/356757625 HBS Group is a privately owned Australian company specializing in heritage restoration, conservation, and remedial construction projects. Based in Alphington, Victoria, they have over 15 years of experience delivering complex construction and stonemasonry solutions nationwide. The company is recognized as an industry leader in preserving historical buildings and executing high-quality restoration work across major Australian cities","source_url":"https://www.ransomlook.io/recent","groupAliases":[],"activity":null,"references":["ransomlook.io"]}
+{
+  "slug": "the-gentlemen-hbs-group-2026-07-23",
+  "title": "HBS Group",
+  "group": "The Gentlemen",
+  "discovered": "2026-07-23T00:00:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "Australia",
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated in ransomware attack",
+  "source_url": "https://recentbreaches.com/breach/hbs-group-thegentlemen-2026-07",
+  "groupAliases": [],
+  "activity": "Professional Services",
+  "references": ["RecentBreaches.com"]
+}

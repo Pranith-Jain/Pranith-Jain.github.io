@@ -201,7 +201,7 @@ function StepIndicator({ steps, currentStep }: { steps: AgentStep[]; currentStep
         return (
           <div
             key={s.stepNumber}
-            className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-mono transition-all ${
+            className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-mini font-mono transition-all ${
               isDone
                 ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300'
                 : isError
@@ -764,7 +764,7 @@ export default function Copilot(): JSX.Element {
                 <span className="truncate text-sm font-medium text-slate-700 dark:text-slate-200">
                   {currentTitle ?? 'Investigation Copilot'}
                 </span>
-                <span className="shrink-0 rounded bg-slate-100 px-1.5 py-0.5 font-mono text-[10px] text-slate-500 dark:bg-[rgb(var(--surface-300))]">
+                <span className="shrink-0 rounded bg-slate-100 px-1.5 py-0.5 font-mono text-micro text-slate-500 dark:bg-[rgb(var(--surface-300))]">
                   {chatMessages.length} msgs
                 </span>
               </>
@@ -829,7 +829,7 @@ export default function Copilot(): JSX.Element {
                           setQuery(starter);
                           void submitChat(starter);
                         }}
-                        className="rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] font-mono text-slate-500 transition-colors hover:border-brand-400 hover:text-brand-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400"
+                        className="rounded-full border border-slate-200 bg-white px-3 py-1 text-mini font-mono text-slate-500 transition-colors hover:border-brand-400 hover:text-brand-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400"
                       >
                         {starter}
                       </button>
@@ -843,7 +843,7 @@ export default function Copilot(): JSX.Element {
                       >
                         <Icon className="h-4 w-4 text-brand-500" />
                         <span className="text-xs font-medium">{label}</span>
-                        <span className="text-[11px] text-slate-500 dark:text-slate-400">{desc}</span>
+                        <span className="text-mini text-slate-500 dark:text-slate-400">{desc}</span>
                       </div>
                     ))}
                   </div>
@@ -900,7 +900,7 @@ export default function Copilot(): JSX.Element {
                               </div>
                               <button
                                 onClick={cancelInvestigation}
-                                className="inline-flex items-center gap-1 rounded-md border border-rose-200 bg-rose-50 px-2 py-1 text-[11px] font-mono text-rose-600 transition-colors hover:bg-rose-100 dark:border-rose-800/50 dark:bg-rose-950/20 dark:text-rose-400"
+                                className="inline-flex items-center gap-1 rounded-md border border-rose-200 bg-rose-50 px-2 py-1 text-mini font-mono text-rose-600 transition-colors hover:bg-rose-100 dark:border-rose-800/50 dark:bg-rose-950/20 dark:text-rose-400"
                                 aria-label="Cancel investigation"
                               >
                                 Cancel
@@ -912,7 +912,7 @@ export default function Copilot(): JSX.Element {
                               {msg.sources.map((s) => (
                                 <span
                                   key={s.name}
-                                  className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-slate-50 px-2.5 py-0.5 font-mono text-[11px] text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400"
+                                  className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-slate-50 px-2.5 py-0.5 font-mono text-mini text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400"
                                 >
                                   {s.name}
                                   <span className="text-slate-400">({s.items})</span>
@@ -923,7 +923,7 @@ export default function Copilot(): JSX.Element {
                           <div className="mt-2 flex items-center justify-between border-t border-slate-100 pt-2 dark:border-[rgb(var(--border-400))]">
                             <div className="flex items-center gap-2">
                               {msg.model_used && (
-                                <span className="font-mono text-[11px] text-slate-400">via {msg.model_used}</span>
+                                <span className="font-mono text-mini text-slate-400">via {msg.model_used}</span>
                               )}
                             </div>
                             {msg.content && (
@@ -1142,7 +1142,7 @@ export default function Copilot(): JSX.Element {
                         <div className="flex flex-wrap items-center gap-3">
                           <h2 className="text-lg font-bold">{result.query}</h2>
                           {badge && (
-                            <span className={`rounded px-2 py-0.5 text-[10px] font-semibold uppercase ${badge.color}`}>
+                            <span className={`rounded px-2 py-0.5 text-micro font-semibold uppercase ${badge.color}`}>
                               {badge.label}
                             </span>
                           )}
@@ -1171,7 +1171,7 @@ export default function Copilot(): JSX.Element {
                             {result.sources.map((s, i) => (
                               <span
                                 key={s.name}
-                                className="inline-flex items-center gap-1 rounded border border-slate-200 bg-slate-50 px-2 py-0.5 font-mono text-[11px] text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400"
+                                className="inline-flex items-center gap-1 rounded border border-slate-200 bg-slate-50 px-2 py-0.5 font-mono text-mini text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400"
                               >
                                 <span className="font-bold text-slate-400">{i + 1}.</span>
                                 {s.name}
@@ -1194,7 +1194,7 @@ export default function Copilot(): JSX.Element {
                           Investigation Report
                         </span>
                         {result._meta && (
-                          <span className="ml-auto font-mono text-[11px] text-slate-400">
+                          <span className="ml-auto font-mono text-mini text-slate-400">
                             {result._meta.total_items} data points across {result._meta.total_sources} sources
                           </span>
                         )}
@@ -1222,7 +1222,7 @@ export default function Copilot(): JSX.Element {
                             <summary className="cursor-pointer text-xs font-medium">
                               {s.name} ({s.items} items)
                             </summary>
-                            <pre className="mt-2 max-h-48 overflow-auto overflow-x-auto rounded bg-slate-100 p-2 font-mono text-[11px] dark:bg-[rgb(var(--surface-200))]">
+                            <pre className="mt-2 max-h-48 overflow-auto overflow-x-auto rounded bg-slate-100 p-2 font-mono text-mini dark:bg-[rgb(var(--surface-200))]">
                               {JSON.stringify(s.data, null, 2)}
                             </pre>
                           </details>
@@ -1422,7 +1422,7 @@ function FollowUpSuggestions({
     return (
       <div className="mt-3 flex items-center gap-2 border-t border-slate-100 pt-3 dark:border-[rgb(var(--border-400))]">
         <Loader2 size={11} className="animate-spin text-slate-400" />
-        <span className="font-mono text-[11px] text-slate-400">Suggesting follow-ups…</span>
+        <span className="font-mono text-mini text-slate-400">Suggesting follow-ups…</span>
       </div>
     );
   }
@@ -1435,7 +1435,7 @@ function FollowUpSuggestions({
         <button
           key={s}
           onClick={() => onSubmit(s)}
-          className="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-[11px] font-mono text-slate-500 transition-colors hover:border-brand-400 hover:text-brand-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400 dark:hover:border-brand-400 dark:hover:text-brand-400"
+          className="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-mini font-mono text-slate-500 transition-colors hover:border-brand-400 hover:text-brand-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400 dark:hover:border-brand-400 dark:hover:text-brand-400"
         >
           {s}
         </button>
@@ -1531,7 +1531,7 @@ function SessionSidebar({
                 <MessageSquare size={14} className="shrink-0 text-slate-400" />
                 <div className="min-w-0 flex-1">
                   <div className="truncate text-sm font-medium text-slate-700 dark:text-slate-300">{s.title}</div>
-                  <div className="flex items-center gap-2 text-[11px] font-mono text-slate-400">
+                  <div className="flex items-center gap-2 text-mini font-mono text-slate-400">
                     <Clock size={10} />
                     <span>{formatTime(s.updated_at)}</span>
                     <span>
@@ -1557,7 +1557,7 @@ function SessionSidebar({
         <div className="border-t border-slate-100 p-3 dark:border-[rgb(var(--border-400))]">
           {onModeChange && mode && (
             <div className="mb-2">
-              <label className="mb-1 block text-[11px] font-mono font-medium text-slate-400">Mode</label>
+              <label className="mb-1 block text-mini font-mono font-medium text-slate-400">Mode</label>
               <div className="flex gap-1">
                 {(['chat', 'quick', 'report'] as const).map((m) => (
                   <button
@@ -1577,7 +1577,7 @@ function SessionSidebar({
           )}
           {role && roles && onRoleChange && (
             <div className="mb-2">
-              <label className="mb-1 block text-[11px] font-mono font-medium text-slate-400">Role</label>
+              <label className="mb-1 block text-mini font-mono font-medium text-slate-400">Role</label>
               <select
                 value={role}
                 onChange={(e) => onRoleChange(e.target.value as AnalystRole)}
@@ -1594,7 +1594,7 @@ function SessionSidebar({
           <div className="flex gap-2">
             {onTemplateChange && (
               <div className="flex-1">
-                <label className="mb-1 block text-[11px] font-mono font-medium text-slate-400">Template</label>
+                <label className="mb-1 block text-mini font-mono font-medium text-slate-400">Template</label>
                 <select
                   value={template}
                   onChange={(e) => onTemplateChange(e.target.value)}
@@ -1608,7 +1608,7 @@ function SessionSidebar({
             )}
             {onTlpChange && (
               <div className="flex-1">
-                <label className="mb-1 block text-[11px] font-mono font-medium text-slate-400">TLP</label>
+                <label className="mb-1 block text-mini font-mono font-medium text-slate-400">TLP</label>
                 <select
                   value={tlp}
                   onChange={(e) => onTlpChange(e.target.value)}

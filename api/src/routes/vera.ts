@@ -521,3 +521,61 @@ export async function veraSessionsListHandler(c: Context<{ Bindings: Env }>): Pr
     return internalError(c, e);
   }
 }
+
+/**
+ * DELETE /api/v1/agents/chat/:sessionId
+ * Delete a Vera session.
+ */
+export async function veraChatDeleteHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  try {
+    const sessionId = c.req.param('sessionId');
+    if (!sessionId) return badRequest(c, 'sessionId required');
+
+    const db = c.env.BRIEFINGS_DB as D1Database | undefined;
+    if (!db) return internalError(c, new Error('BRIEFINGS_DB not bound'));
+
+    await ensureTable(db);
+    const existing = await loadSession(db, sessionId);
+    if (!existing) return notFound(c, 'session not found');
+
+    await db.prepare('DELETE FROM vera_sessions WHERE id = ?').bind(sessionId).run();
+    return c.json({ deleted: true });
+  } catch (e) {
+    console.error('vera chat delete handler failed:', e instanceof Error ? e.message : String(e));
+    return internalError(c, e);
+  }
+}
+
+/**
+ * POST /api/v1/agents/chat/:sessionId/cancel
+ * Cancel an active Vera investigation.
+ */
+export async function veraChatCancelHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  try {
+    const sessionId = c.req.param('sessionId');
+    if (!sessionId) return badRequest(c, 'sessionId required');
+
+    const db = c.env.BRIEFINGS_DB as D1Database | undefined;
+    if (!db) return internalError(c, new Error('BRIEFINGS_DB not bound'));
+
+    const doNamespace = c.env.INVESTIGATOR_AGENT;
+    if (!doNamespace) return serviceUnavailable(c, 'Agent not configured');
+
+    const session = await loadSession(db, sessionId);
+    if (!session) return notFound(c, 'session not found');
+
+    const systemMsg = [...session.messages].reverse().find((m) => m.role === 'system' && m.agent_id);
+    const agentId = systemMsg?.agent_id;
+    if (!agentId) return badRequest(c, 'no active investigation');
+
+    const doId = doNamespace.idFromName(agentId);
+    const stub = doNamespace.get(doId);
+    const res = await stub.fetch(`https://agent/cancel?id=${encodeURIComponent(agentId)}`, { method: 'DELETE' });
+    if (!res.ok) return internalError(c, new Error('Failed to cancel investigation'));
+
+    return c.json({ cancelled: true });
+  } catch (e) {
+    console.error('vera chat cancel handler failed:', e instanceof Error ? e.message : String(e));
+    return internalError(c, e);
+  }
+}

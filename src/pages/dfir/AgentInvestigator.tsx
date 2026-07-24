@@ -739,7 +739,7 @@ function StepCard({ step, prevStep }: { step: AgentStep; prevStep?: AgentStep })
           ) : specialistIcon ? (
             <>
               {React.createElement(specialistIcon, { size: 14, className: 'shrink-0' })}
-              <span className="text-[8px] leading-none mt-0.5 opacity-70">{step.stepNumber}</span>
+              <span className="text-micro leading-none mt-0.5 opacity-70">{step.stepNumber}</span>
             </>
           ) : (
             step.stepNumber

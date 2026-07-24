@@ -96,25 +96,25 @@ export default function WhoisHistory() {
               <div className="grid md:grid-cols-2 gap-4 text-sm">
                 {result.registrar && (
                   <div>
-                    <label className="text-[10px] font-mono uppercase text-slate-400">Registrar</label>
+                    <label className="text-micro font-mono uppercase text-slate-400">Registrar</label>
                     <p className="text-slate-700 dark:text-slate-300">{result.registrar}</p>
                   </div>
                 )}
                 {result.registrationDate && (
                   <div>
-                    <label className="text-[10px] font-mono uppercase text-slate-400">Registered</label>
+                    <label className="text-micro font-mono uppercase text-slate-400">Registered</label>
                     <p className="text-slate-700 dark:text-slate-300">{result.registrationDate}</p>
                   </div>
                 )}
                 {result.expirationDate && (
                   <div>
-                    <label className="text-[10px] font-mono uppercase text-slate-400">Expires</label>
+                    <label className="text-micro font-mono uppercase text-slate-400">Expires</label>
                     <p className="text-slate-700 dark:text-slate-300">{result.expirationDate}</p>
                   </div>
                 )}
                 {result.updatedDate && (
                   <div>
-                    <label className="text-[10px] font-mono uppercase text-slate-400">Last Updated</label>
+                    <label className="text-micro font-mono uppercase text-slate-400">Last Updated</label>
                     <p className="text-slate-700 dark:text-slate-300">{result.updatedDate}</p>
                   </div>
                 )}
@@ -127,19 +127,19 @@ export default function WhoisHistory() {
                   <div className="grid md:grid-cols-2 gap-3 text-sm">
                     {result.registrant.name && (
                       <div>
-                        <label className="text-[10px] font-mono uppercase text-slate-400">Name</label>
+                        <label className="text-micro font-mono uppercase text-slate-400">Name</label>
                         <p className="text-slate-700 dark:text-slate-300">{result.registrant.name}</p>
                       </div>
                     )}
                     {result.registrant.organization && (
                       <div>
-                        <label className="text-[10px] font-mono uppercase text-slate-400">Organization</label>
+                        <label className="text-micro font-mono uppercase text-slate-400">Organization</label>
                         <p className="text-slate-700 dark:text-slate-300">{result.registrant.organization}</p>
                       </div>
                     )}
                     {result.registrant.country && (
                       <div>
-                        <label className="text-[10px] font-mono uppercase text-slate-400">Country</label>
+                        <label className="text-micro font-mono uppercase text-slate-400">Country</label>
                         <p className="text-slate-700 dark:text-slate-300">{result.registrant.country}</p>
                       </div>
                     )}

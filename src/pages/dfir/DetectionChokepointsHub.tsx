@@ -771,16 +771,16 @@ export default function DetectionChokepointsHub() {
                   <h3 className="font-mono text-sm font-semibold text-slate-900 dark:text-white">{c.name}</h3>
                   <div className="flex gap-1.5 shrink-0">
                     <span
-                      className={`text-[10px] font-mono px-1.5 py-0.5 rounded border ${PRIORITY_STYLES[c.priority]}`}
+                      className={`text-micro font-mono px-1.5 py-0.5 rounded border ${PRIORITY_STYLES[c.priority]}`}
                     >
                       {c.priority}
                     </span>
                     <span
-                      className={`text-[10px] font-mono px-1.5 py-0.5 rounded border ${MATURITY_STYLES[c.maturity]}`}
+                      className={`text-micro font-mono px-1.5 py-0.5 rounded border ${MATURITY_STYLES[c.maturity]}`}
                     >
                       {c.maturity}
                     </span>
-                    <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded border ${FP_STYLES[c.fpLevel]}`}>
+                    <span className={`text-micro font-mono px-1.5 py-0.5 rounded border ${FP_STYLES[c.fpLevel]}`}>
                       {c.fpLevel}
                     </span>
                   </div>
@@ -790,7 +790,7 @@ export default function DetectionChokepointsHub() {
                   {c.techniques.map((t) => (
                     <span
                       key={t}
-                      className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-400"
+                      className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-400"
                     >
                       {t}
                     </span>
@@ -1060,11 +1060,11 @@ export default function DetectionChokepointsHub() {
                               <span className="font-mono text-xs font-semibold text-slate-900 dark:text-white">
                                 {v.name}
                               </span>
-                              <span className="text-[10px] font-mono px-1 py-0.5 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-400">
+                              <span className="text-micro font-mono px-1 py-0.5 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-400">
                                 {v.mitre}
                               </span>
                             </div>
-                            <ul className="text-[10px] text-muted space-y-0.5">
+                            <ul className="text-micro text-muted space-y-0.5">
                               {v.signals.map((s) => (
                                 <li key={s}>· {s}</li>
                               ))}

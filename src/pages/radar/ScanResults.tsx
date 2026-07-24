@@ -401,7 +401,7 @@ function EndpointsPanel({ data }: { data: ScanData }) {
         {data.endpoints.map((ep, i) => (
           <div key={i} className="flex items-center gap-3 px-4 py-2.5 text-sm">
             <span
-              className={`inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-bold ${
+              className={`inline-flex items-center rounded px-1.5 py-0.5 text-micro font-bold ${
                 ep.method === 'GET'
                   ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'
                   : ep.method === 'POST'
@@ -489,7 +489,7 @@ function VulnerabilitiesPanel({ data }: { data: ScanData }) {
         <div key={i} className="rounded-xl border border-slate-200 p-3 dark:border-[rgb(var(--border-400))]">
           <div className="flex items-center gap-2">
             <span
-              className={`inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-bold ${sevColor(v.severity)}`}
+              className={`inline-flex items-center rounded px-1.5 py-0.5 text-micro font-bold ${sevColor(v.severity)}`}
             >
               {v.severity.toUpperCase()}
             </span>
@@ -634,7 +634,7 @@ function LinksPanel({ data }: { data: ScanData }) {
             <Link2 className="h-4 w-4 shrink-0 text-slate-400" />
             <span className="truncate text-slate-700 dark:text-slate-300">{link.text || link.href}</span>
             {link.rel && (
-              <span className="ml-auto shrink-0 rounded bg-slate-100 px-1.5 py-0.5 text-[10px] text-slate-500 dark:bg-[rgb(var(--surface-300))]">
+              <span className="ml-auto shrink-0 rounded bg-slate-100 px-1.5 py-0.5 text-micro text-slate-500 dark:bg-[rgb(var(--surface-300))]">
                 {link.rel}
               </span>
             )}
@@ -658,7 +658,7 @@ function AwsAssetsPanel({ data }: { data: ScanData }) {
             <span className="truncate font-mono text-slate-700 dark:text-slate-300">{a.url}</span>
             {a.status && (
               <span
-                className={`ml-auto rounded px-1.5 py-0.5 text-[10px] font-bold ${a.status === 200 ? 'bg-rose-100 text-rose-700' : 'bg-amber-100 text-amber-700'}`}
+                className={`ml-auto rounded px-1.5 py-0.5 text-micro font-bold ${a.status === 200 ? 'bg-rose-100 text-rose-700' : 'bg-amber-100 text-amber-700'}`}
               >
                 {a.status === 200 ? 'OPEN' : '403'}
               </span>
@@ -897,7 +897,7 @@ export default function ScanResults() {
                 className={`flex flex-1 items-center justify-center gap-1.5 border-b-2 px-3 py-3 text-xs font-semibold transition-colors ${activeTab === 'recon' ? 'border-brand-500 text-brand-600 dark:text-brand-400' : 'border-transparent text-slate-500 hover:text-slate-700'}`}
               >
                 <Globe className="h-3.5 w-3.5" /> Reconnaissance
-                <span className="rounded-full bg-brand-50 px-1.5 py-0.5 text-[10px] font-bold text-brand-600 dark:bg-brand-900/30 dark:text-brand-400">
+                <span className="rounded-full bg-brand-50 px-1.5 py-0.5 text-micro font-bold text-brand-600 dark:bg-brand-900/30 dark:text-brand-400">
                   {CATEGORIES.reduce((s, c) => s + catCount(c.id), 0)}
                 </span>
               </button>
@@ -923,7 +923,7 @@ export default function ScanResults() {
                       {cat.label}
                     </span>
                     {count > 0 && (
-                      <span className="rounded-full bg-slate-100 px-1.5 py-0.5 text-[10px] font-semibold text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400">
+                      <span className="rounded-full bg-slate-100 px-1.5 py-0.5 text-micro font-semibold text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400">
                         {count}
                       </span>
                     )}

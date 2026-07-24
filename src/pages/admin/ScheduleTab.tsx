@@ -311,7 +311,7 @@ export default function ScheduleTab() {
             {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((d) => (
               <div
                 key={d}
-                className="text-center text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400 py-1"
+                className="text-center text-micro uppercase tracking-wider text-slate-500 dark:text-slate-400 py-1"
               >
                 {d}
               </div>
@@ -345,7 +345,7 @@ export default function ScheduleTab() {
                   } ${cell.isCurrent ? 'cursor-pointer hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]' : 'opacity-40'}`}
                 >
                   <span
-                    className={`inline-block w-5 h-5 text-center leading-5 rounded-full text-[10px] ${
+                    className={`inline-block w-5 h-5 text-center leading-5 rounded-full text-micro ${
                       isToday ? 'bg-brand-500 text-white font-bold' : 'text-slate-700 dark:text-slate-300'
                     }`}
                   >
@@ -385,8 +385,8 @@ export default function ScheduleTab() {
                   <div className="flex items-center gap-2">
                     <span className={`w-2 h-2 rounded-full ${STATUS_COLORS[s.status] ?? 'bg-slate-300'}`} />
                     <span className="text-xs font-mono text-slate-700 dark:text-slate-300">{s.candidateId}</span>
-                    <span className="text-[10px] uppercase text-slate-500 dark:text-slate-400">{s.status}</span>
-                    <span className="text-[10px] text-slate-400 dark:text-slate-500">
+                    <span className="text-micro uppercase text-slate-500 dark:text-slate-400">{s.status}</span>
+                    <span className="text-micro text-slate-400 dark:text-slate-500">
                       {new Date(s.slotAt).toLocaleTimeString()}
                     </span>
                   </div>
@@ -396,13 +396,13 @@ export default function ScheduleTab() {
                         <button
                           onClick={() => publishNow(s.candidateId)}
                           disabled={publishing === s.candidateId}
-                          className="px-2 py-0.5 text-[10px] border border-emerald-700 rounded hover:bg-emerald-50 dark:hover:bg-emerald-900/30 disabled:opacity-50"
+                          className="px-2 py-0.5 text-micro border border-emerald-700 rounded hover:bg-emerald-50 dark:hover:bg-emerald-900/30 disabled:opacity-50"
                         >
                           {publishing === s.candidateId ? '…' : 'Publish'}
                         </button>
                         <button
                           onClick={() => reschedule(s.candidateId)}
-                          className="px-2 py-0.5 text-[10px] border border-sky-700 rounded hover:bg-sky-50 dark:hover:bg-sky-900/30"
+                          className="px-2 py-0.5 text-micro border border-sky-700 rounded hover:bg-sky-50 dark:hover:bg-sky-900/30"
                         >
                           Move
                         </button>
@@ -411,14 +411,14 @@ export default function ScheduleTab() {
                     {s.status === 'published' && s.publishedSlug && (
                       <a
                         href={`/blog/${s.publishedSlug}`}
-                        className="px-2 py-0.5 text-[10px] text-slate-500 underline"
+                        className="px-2 py-0.5 text-micro text-slate-500 underline"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
                         View
                       </a>
                     )}
-                    {s.status === 'draft' && <span className="text-[10px] text-slate-400">Awaiting approval</span>}
+                    {s.status === 'draft' && <span className="text-micro text-slate-400">Awaiting approval</span>}
                   </div>
                 </div>
               ))}

@@ -189,14 +189,14 @@ export default function SocAutomation(): JSX.Element {
           <button
             type="button"
             onClick={() => setTab('playbooks')}
-            className={`text-[10px] font-mono px-3 py-1 rounded ${tab === 'playbooks' ? 'bg-brand-600 text-white' : 'text-slate-500 hover:text-slate-700'}`}
+            className={`text-micro font-mono px-3 py-1 rounded ${tab === 'playbooks' ? 'bg-brand-600 text-white' : 'text-slate-500 hover:text-slate-700'}`}
           >
             Playbooks
           </button>
           <button
             type="button"
             onClick={() => setTab('runs')}
-            className={`text-[10px] font-mono px-3 py-1 rounded ${tab === 'runs' ? 'bg-brand-600 text-white' : 'text-slate-500 hover:text-slate-700'}`}
+            className={`text-micro font-mono px-3 py-1 rounded ${tab === 'runs' ? 'bg-brand-600 text-white' : 'text-slate-500 hover:text-slate-700'}`}
           >
             Run History
           </button>
@@ -284,23 +284,23 @@ export default function SocAutomation(): JSX.Element {
                             )}
                           </button>
                           <span
-                            className={`text-[10px] font-mono px-1.5 py-0.5 rounded border ${pb.enabled ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300' : 'border-slate-500/30 bg-slate-500/10 text-slate-700 dark:text-slate-300'}`}
+                            className={`text-micro font-mono px-1.5 py-0.5 rounded border ${pb.enabled ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300' : 'border-slate-500/30 bg-slate-500/10 text-slate-700 dark:text-slate-300'}`}
                           >
                             {pb.enabled ? 'Enabled' : 'Disabled'}
                           </span>
-                          <span className="text-[10px] font-mono text-slate-500">
+                          <span className="text-micro font-mono text-slate-500">
                             {TRIGGER_LABELS[pb.trigger] ?? pb.trigger}
                           </span>
                           {pb.last_run_status && (
                             <span
-                              className={`text-[10px] font-mono ${pb.last_run_status === 'completed' ? 'text-emerald-500' : pb.last_run_status === 'failed' ? 'text-rose-500' : 'text-amber-500'}`}
+                              className={`text-micro font-mono ${pb.last_run_status === 'completed' ? 'text-emerald-500' : pb.last_run_status === 'failed' ? 'text-rose-500' : 'text-amber-500'}`}
                             >
                               Last: {pb.last_run_status}
                             </span>
                           )}
                         </div>
                         <div className="font-mono text-xs font-semibold truncate">{pb.name}</div>
-                        <div className="flex items-center gap-3 text-[10px] text-slate-400 font-mono mt-0.5">
+                        <div className="flex items-center gap-3 text-micro text-slate-400 font-mono mt-0.5">
                           <span>{pb.actions.length} actions</span>
                           <span>{pb.run_count} runs</span>
                           <span>{pb.avg_duration_ms}ms avg</span>
@@ -311,14 +311,14 @@ export default function SocAutomation(): JSX.Element {
                         <button
                           type="button"
                           onClick={() => handleExecute(pb.id)}
-                          className="text-[10px] font-mono px-2 py-1 rounded bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 inline-flex items-center gap-1.5"
+                          className="text-micro font-mono px-2 py-1 rounded bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 inline-flex items-center gap-1.5"
                         >
                           <Play size={10} /> Run
                         </button>
                         <button
                           type="button"
                           onClick={() => handleToggleEnabled(pb.id, !pb.enabled)}
-                          className={`text-[10px] font-mono px-2 py-1 rounded border ${pb.enabled ? 'border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300' : 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'}`}
+                          className={`text-micro font-mono px-2 py-1 rounded border ${pb.enabled ? 'border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300' : 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'}`}
                         >
                           {pb.enabled ? 'Disable' : 'Enable'}
                         </button>
@@ -327,13 +327,13 @@ export default function SocAutomation(): JSX.Element {
 
                     {isExpanded && (
                       <div className="mt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-3 space-y-3 bg-slate-50/50 dark:bg-[rgb(var(--surface-100))]/50">
-                        <p className="text-[11px] text-slate-500 font-mono">{pb.description}</p>
+                        <p className="text-mini text-slate-500 font-mono">{pb.description}</p>
                         {pb.tags.length > 0 && (
                           <div className="flex gap-1 flex-wrap">
                             {pb.tags.map((t) => (
                               <span
                                 key={t}
-                                className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-500"
+                                className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-500"
                               >
                                 {t}
                               </span>
@@ -345,13 +345,13 @@ export default function SocAutomation(): JSX.Element {
                             Actions
                           </span>
                           {pb.actions.length === 0 && (
-                            <p className="text-[10px] text-slate-400 italic font-mono">
+                            <p className="text-micro text-slate-400 italic font-mono">
                               No actions yet. Edit the playbook to add steps.
                             </p>
                           )}
                           {pb.actions.map((a, i) => (
-                            <div key={a.id} className="flex items-center gap-2 text-[10px] font-mono text-slate-500">
-                              <span className="w-4 h-4 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-[8px] font-bold">
+                            <div key={a.id} className="flex items-center gap-2 text-micro font-mono text-slate-500">
+                              <span className="w-4 h-4 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-micro font-bold">
                                 {i + 1}
                               </span>
                               <span className="text-brand-600">{a.type}</span>
@@ -378,16 +378,16 @@ export default function SocAutomation(): JSX.Element {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
                     <span
-                      className={`text-[10px] font-mono px-1.5 py-0.5 rounded border ${r.status === 'completed' ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300' : r.status === 'failed' ? 'border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300' : r.status === 'running' ? 'border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300' : 'border-slate-500/30 bg-slate-500/10 text-slate-700 dark:text-slate-300'}`}
+                      className={`text-micro font-mono px-1.5 py-0.5 rounded border ${r.status === 'completed' ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300' : r.status === 'failed' ? 'border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300' : r.status === 'running' ? 'border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300' : 'border-slate-500/30 bg-slate-500/10 text-slate-700 dark:text-slate-300'}`}
                     >
                       {r.status}
                     </span>
-                    <span className="text-[10px] font-mono text-slate-500">{r.playbook_name}</span>
-                    <span className="text-[10px] font-mono text-slate-400">
+                    <span className="text-micro font-mono text-slate-500">{r.playbook_name}</span>
+                    <span className="text-micro font-mono text-slate-400">
                       {TRIGGER_LABELS[r.trigger] ?? r.trigger}
                     </span>
                   </div>
-                  <div className="flex items-center gap-3 text-[10px] text-slate-400 font-mono mt-0.5">
+                  <div className="flex items-center gap-3 text-micro text-slate-400 font-mono mt-0.5">
                     <span>Started {new Date(r.started_at).toLocaleString()}</span>
                     {r.completed_at && <span>Completed {new Date(r.completed_at).toLocaleString()}</span>}
                     {r.duration_ms && <span>{r.duration_ms}ms</span>}
@@ -397,7 +397,7 @@ export default function SocAutomation(): JSX.Element {
               {r.action_results.length > 0 && (
                 <div className="mt-2 space-y-1 border-t border-slate-100 dark:border-[rgb(var(--border-300))] pt-2">
                   {r.action_results.map((ar, i) => (
-                    <div key={i} className="flex items-center gap-2 text-[10px] font-mono">
+                    <div key={i} className="flex items-center gap-2 text-micro font-mono">
                       {ar.status === 'success' ? (
                         <CheckCircle size={10} className="text-emerald-500" />
                       ) : (
@@ -409,7 +409,7 @@ export default function SocAutomation(): JSX.Element {
                   ))}
                 </div>
               )}
-              {r.error && <p className="text-[10px] font-mono text-rose-500 mt-1">Error: {r.error}</p>}
+              {r.error && <p className="text-micro font-mono text-rose-500 mt-1">Error: {r.error}</p>}
             </div>
           ))}
           {runs.length === 0 && (

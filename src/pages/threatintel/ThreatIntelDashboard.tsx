@@ -134,7 +134,7 @@ function StatCard({
       <div className={`rounded-lg p-2 ${color}`}>{icon}</div>
       <div>
         <div className="text-xl font-bold text-slate-900 dark:text-slate-100">{value}</div>
-        <div className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">{label}</div>
+        <div className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">{label}</div>
       </div>
     </div>
   );
@@ -145,12 +145,12 @@ function DataSummaryTable({ data, label }: { data: Array<{ name: string; count: 
   return (
     <div className={`${CARD} overflow-hidden mt-4`}>
       <div className="px-4 py-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-        <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+        <span className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
           Data Summary
         </span>
       </div>
       <table className="w-full text-sm">
-        <thead className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] text-left text-[11px] uppercase tracking-wider text-slate-500 dark:text-slate-400">
+        <thead className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] text-left text-mini uppercase tracking-wider text-slate-500 dark:text-slate-400">
           <tr>
             <th className="py-2 px-4 font-medium">{label}</th>
             <th className="py-2 px-4 font-medium text-right">Count</th>
@@ -196,9 +196,7 @@ function DataSummaryTable({ data, label }: { data: Array<{ name: string; count: 
 function PieView({ data, title }: { data: Array<{ name: string; count: number }>; title: string }) {
   return (
     <div>
-      <h3 className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4">
-        {title}
-      </h3>
+      <h3 className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4">{title}</h3>
       <div className="flex justify-center">
         <ResponsiveContainer width="100%" height={350}>
           <PieChart>
@@ -241,9 +239,7 @@ function BarView({
 }) {
   return (
     <div>
-      <h3 className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4">
-        {title}
-      </h3>
+      <h3 className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4">{title}</h3>
       <ResponsiveContainer width="100%" height={Math.max(350, data.length * 28 + 50)}>
         <BarChart
           data={data}
@@ -306,9 +302,7 @@ function LineView({
   const lines = ['Critical', 'Important', 'Moderate', 'Low'];
   return (
     <div>
-      <h3 className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4">
-        {title}
-      </h3>
+      <h3 className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4">{title}</h3>
       <ResponsiveContainer width="100%" height={380}>
         <LineChart data={data} margin={{ left: 10, right: 10, top: 5, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(148,163,184,0.15)" />
@@ -631,7 +625,7 @@ export default function ThreatIntelDashboard() {
 
       {/* Live feed status */}
       {connected && feeds.size > 0 && (
-        <div className="flex flex-wrap items-center gap-3 mb-4 text-[11px] font-mono text-slate-500 dark:text-slate-400">
+        <div className="flex flex-wrap items-center gap-3 mb-4 text-mini font-mono text-slate-500 dark:text-slate-400">
           <span className="inline-flex items-center gap-1.5">
             <span className="relative inline-flex h-1.5 w-1.5">
               <span className="absolute inset-0 rounded-full bg-emerald-500 live-pulse" />
@@ -657,7 +651,7 @@ export default function ThreatIntelDashboard() {
             key={t.id}
             type="button"
             onClick={() => setView(t.id)}
-            className={`inline-flex items-center gap-1.5 text-[11px] font-mono rounded-full border px-2.5 py-1 transition-colors ${view === t.id ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'}`}
+            className={`inline-flex items-center gap-1.5 text-mini font-mono rounded-full border px-2.5 py-1 transition-colors ${view === t.id ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'}`}
           >
             {t.label}
           </button>
@@ -694,7 +688,7 @@ export default function ThreatIntelDashboard() {
                   key={sev}
                   type="button"
                   onClick={() => setSevFilter((p) => (active ? p.filter((s) => s !== sev) : [...p, sev]))}
-                  className={`px-2 py-0.5 rounded-full text-[11px] font-mono border transition-colors ${active ? cls : 'bg-transparent text-slate-500 dark:text-slate-400 border-slate-300 dark:border-[rgb(var(--border-400))]'}`}
+                  className={`px-2 py-0.5 rounded-full text-mini font-mono border transition-colors ${active ? cls : 'bg-transparent text-slate-500 dark:text-slate-400 border-slate-300 dark:border-[rgb(var(--border-400))]'}`}
                 >
                   {sev}
                 </button>
@@ -704,14 +698,14 @@ export default function ThreatIntelDashboard() {
             <button
               type="button"
               onClick={() => setExploitedOnly((p) => !p)}
-              className={`px-2 py-0.5 rounded-full text-[11px] font-mono border transition-colors ${exploitedOnly ? 'bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800' : 'bg-transparent text-slate-500 dark:text-slate-400 border-slate-300 dark:border-[rgb(var(--border-400))]'}`}
+              className={`px-2 py-0.5 rounded-full text-mini font-mono border transition-colors ${exploitedOnly ? 'bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800' : 'bg-transparent text-slate-500 dark:text-slate-400 border-slate-300 dark:border-[rgb(var(--border-400))]'}`}
             >
               Exploited only
             </button>
             <button
               type="button"
               onClick={() => setKevOnly((p) => !p)}
-              className={`px-2 py-0.5 rounded-full text-[11px] font-mono border transition-colors ${kevOnly ? 'bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800' : 'bg-transparent text-slate-500 dark:text-slate-400 border-slate-300 dark:border-[rgb(var(--border-400))]'}`}
+              className={`px-2 py-0.5 rounded-full text-mini font-mono border transition-colors ${kevOnly ? 'bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800' : 'bg-transparent text-slate-500 dark:text-slate-400 border-slate-300 dark:border-[rgb(var(--border-400))]'}`}
             >
               On KEV only
             </button>
@@ -719,7 +713,7 @@ export default function ThreatIntelDashboard() {
             <select
               value={topN}
               onChange={(e) => setTopN(Number(e.target.value))}
-              className="rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1 text-[11px] font-mono text-slate-700 dark:text-slate-300"
+              className="rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1 text-mini font-mono text-slate-700 dark:text-slate-300"
             >
               <option value={10}>Top 10</option>
               <option value={20}>Top 20</option>
@@ -750,7 +744,7 @@ export default function ThreatIntelDashboard() {
                   setExploitedOnly(false);
                   setKevOnly(false);
                 }}
-                className="text-[11px] text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 ml-1"
+                className="text-mini text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 ml-1"
               >
                 Clear
               </button>
@@ -764,7 +758,7 @@ export default function ThreatIntelDashboard() {
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{titleText}</h3>
           <div className="flex items-center gap-3">
-            <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
+            <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
               {filtered.length.toLocaleString()} CVEs in scope
             </span>
             {viewData && viewData.length > 0 && (
@@ -785,7 +779,7 @@ export default function ThreatIntelDashboard() {
                   a.click();
                   URL.revokeObjectURL(url);
                 }}
-                className="text-[11px] font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 border border-slate-300 dark:border-[rgb(var(--border-400))] rounded px-2 py-0.5 transition-colors"
+                className="text-mini font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 border border-slate-300 dark:border-[rgb(var(--border-400))] rounded px-2 py-0.5 transition-colors"
               >
                 ↓ CSV
               </button>

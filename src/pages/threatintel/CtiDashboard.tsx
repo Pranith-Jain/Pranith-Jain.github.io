@@ -338,7 +338,7 @@ export default function CtiDashboard(): JSX.Element {
                       className="flex items-center justify-between py-1.5 border-b border-slate-100 dark:border-[rgb(var(--border-400))] last:border-0"
                     >
                       <span
-                        className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-mono border ${TYPE_PILL[type] || 'border-slate-300 bg-slate-100 text-slate-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-400'}`}
+                        className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-mini font-mono border ${TYPE_PILL[type] || 'border-slate-300 bg-slate-100 text-slate-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-400'}`}
                       >
                         {type}
                       </span>
@@ -403,7 +403,7 @@ export default function CtiDashboard(): JSX.Element {
                           </td>
                           <td className="py-2">
                             <span
-                              className={`inline-flex px-1.5 py-0.5 rounded text-[10px] font-mono border ${TYPE_PILL[t.type] || 'border-slate-300 bg-slate-100 text-slate-600'}`}
+                              className={`inline-flex px-1.5 py-0.5 rounded text-micro font-mono border ${TYPE_PILL[t.type] || 'border-slate-300 bg-slate-100 text-slate-600'}`}
                             >
                               {t.type}
                             </span>
@@ -449,7 +449,7 @@ export default function CtiDashboard(): JSX.Element {
                   <div key={p.prediction_id} className="surface-card/60 p-5">
                     <div className="flex items-start justify-between gap-3 mb-2">
                       <div className="min-w-0">
-                        <span className="text-[11px] font-mono text-slate-400 dark:text-slate-500">
+                        <span className="text-mini font-mono text-slate-400 dark:text-slate-500">
                           {p.prediction_id}
                         </span>
                         <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mt-0.5 leading-snug">
@@ -458,27 +458,25 @@ export default function CtiDashboard(): JSX.Element {
                       </div>
                       <div className="flex items-center gap-2 flex-shrink-0">
                         <span
-                          className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-mono border ${THREAT_PILL[p.threat_level] || THREAT_PILL.MEDIUM}`}
+                          className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-mini font-mono border ${THREAT_PILL[p.threat_level] || THREAT_PILL.MEDIUM}`}
                         >
                           {p.threat_level}
                         </span>
-                        <span className="text-[11px] font-mono text-slate-400 dark:text-slate-500">
-                          {p.confidence}%
-                        </span>
+                        <span className="text-mini font-mono text-slate-400 dark:text-slate-500">{p.confidence}%</span>
                       </div>
                     </div>
                     <p className="text-xs text-slate-600 dark:text-slate-400 mb-3 leading-relaxed">{p.summary}</p>
 
                     {p.attack_flow?.length > 0 && (
                       <div className="mb-3">
-                        <h4 className="text-[11px] font-mono font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5">
+                        <h4 className="text-mini font-mono font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5">
                           ATT&amp;CK Kill Chain
                         </h4>
                         <div className="flex flex-wrap gap-1.5">
                           {p.attack_flow.map((phase, i) => (
                             <span
                               key={i}
-                              className="inline-flex items-center gap-1 px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)] text-[11px] font-mono text-slate-600 dark:text-slate-400"
+                              className="inline-flex items-center gap-1 px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)] text-mini font-mono text-slate-600 dark:text-slate-400"
                             >
                               <span className="text-brand-600 dark:text-brand-400">{phase.technique_id}</span>
                               <span className="text-slate-400 dark:text-slate-500">→</span>
@@ -489,7 +487,7 @@ export default function CtiDashboard(): JSX.Element {
                       </div>
                     )}
 
-                    <div className="flex flex-wrap gap-3 text-[11px] font-mono text-slate-400 dark:text-slate-500">
+                    <div className="flex flex-wrap gap-3 text-mini font-mono text-slate-400 dark:text-slate-500">
                       {p.target_sectors?.length > 0 && <span>Targets: {p.target_sectors.join(', ')}</span>}
                       {p.defensive_recommendations?.length > 0 && (
                         <span className="text-emerald-600 dark:text-emerald-400">
@@ -559,29 +557,29 @@ export default function CtiDashboard(): JSX.Element {
                   <div key={v.variant_id} className="surface-card/60 p-4">
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0">
-                        <span className="text-[11px] font-mono text-slate-400 dark:text-slate-500">{v.variant_id}</span>
+                        <span className="text-mini font-mono text-slate-400 dark:text-slate-500">{v.variant_id}</span>
                         <h4 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mt-0.5 leading-snug">
                           {v.title}
                         </h4>
                         {v.seed_name && (
-                          <p className="text-[11px] font-mono text-slate-400 dark:text-slate-500 mt-0.5">
+                          <p className="text-mini font-mono text-slate-400 dark:text-slate-500 mt-0.5">
                             Seed: {v.seed_name}
                           </p>
                         )}
                       </div>
                       <div className="flex items-center gap-2 flex-shrink-0">
                         <span
-                          className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-mono border ${THREAT_PILL[v.threat_level] || THREAT_PILL.MEDIUM}`}
+                          className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-mini font-mono border ${THREAT_PILL[v.threat_level] || THREAT_PILL.MEDIUM}`}
                         >
                           {v.threat_level}
                         </span>
-                        <span className="text-[11px] font-mono text-slate-400 dark:text-slate-500">
+                        <span className="text-mini font-mono text-slate-400 dark:text-slate-500">
                           Score: {v.combined_score}
                         </span>
                       </div>
                     </div>
                     <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">{v.summary}</p>
-                    <span className="inline-block mt-2 px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-[11px] font-mono text-slate-500 dark:text-slate-400">
+                    <span className="inline-block mt-2 px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-mini font-mono text-slate-500 dark:text-slate-400">
                       {v.mutation_type.replace(/_/g, ' ')}
                     </span>
                   </div>
@@ -622,7 +620,7 @@ export default function CtiDashboard(): JSX.Element {
                       <h4 className="text-sm font-medium text-slate-800 dark:text-slate-200 flex-1 leading-snug line-clamp-2">
                         {String(n.title)}
                       </h4>
-                      <span className="text-[11px] font-mono text-slate-400 dark:text-slate-500 whitespace-nowrap flex-shrink-0">
+                      <span className="text-mini font-mono text-slate-400 dark:text-slate-500 whitespace-nowrap flex-shrink-0">
                         {String(n.source)}
                       </span>
                     </div>
@@ -657,9 +655,7 @@ function StatCard({
     <div className="surface-card/60 p-4">
       <div className="flex items-center gap-1.5 mb-1">
         {icon && <span className={accent}>{icon}</span>}
-        <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-          {label}
-        </span>
+        <span className="text-mini font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">{label}</span>
       </div>
       <span className={`text-xl font-bold font-mono ${accent}`}>{value.toLocaleString()}</span>
     </div>

@@ -108,7 +108,7 @@ export default function Cerast() {
                 key={ex}
                 type="button"
                 onClick={() => runExample(ex)}
-                className="px-2.5 py-1 rounded border border-[rgb(var(--border-400))] bg-[rgb(var(--surface-200))] text-[11px] font-mono text-muted hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-[rgb(var(--surface-300))] transition-all"
+                className="px-2.5 py-1 rounded border border-[rgb(var(--border-400))] bg-[rgb(var(--surface-200))] text-mini font-mono text-muted hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-[rgb(var(--surface-300))] transition-all"
               >
                 {ex}
               </button>
@@ -142,7 +142,7 @@ export default function Cerast() {
                   )}
                 </div>
                 {data.results.length > 0 && (
-                  <div className="flex items-center gap-1.5 text-[11px] text-muted">
+                  <div className="flex items-center gap-1.5 text-mini text-muted">
                     <Shield className="h-3 w-3" />
                     {data.results.filter((r) => r.impact === 'HIGH').length} high ·{' '}
                     {data.results.filter((r) => r.impact === 'MEDIUM').length} medium
@@ -164,22 +164,22 @@ export default function Cerast() {
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="border-b border-[rgb(var(--border-400))] bg-[rgb(var(--surface-300))]/50">
-                        <th className="text-left px-4 py-2.5 text-[10px] uppercase tracking-wider text-muted font-semibold">
+                        <th className="text-left px-4 py-2.5 text-micro uppercase tracking-wider text-muted font-semibold">
                           Domain
                         </th>
-                        <th className="text-left px-4 py-2.5 text-[10px] uppercase tracking-wider text-muted font-semibold">
+                        <th className="text-left px-4 py-2.5 text-micro uppercase tracking-wider text-muted font-semibold">
                           Path
                         </th>
-                        <th className="text-left px-4 py-2.5 text-[10px] uppercase tracking-wider text-muted font-semibold">
+                        <th className="text-left px-4 py-2.5 text-micro uppercase tracking-wider text-muted font-semibold">
                           Category
                         </th>
-                        <th className="text-left px-4 py-2.5 text-[10px] uppercase tracking-wider text-muted font-semibold">
+                        <th className="text-left px-4 py-2.5 text-micro uppercase tracking-wider text-muted font-semibold">
                           Impact
                         </th>
-                        <th className="text-right px-4 py-2.5 text-[10px] uppercase tracking-wider text-muted font-semibold">
+                        <th className="text-right px-4 py-2.5 text-micro uppercase tracking-wider text-muted font-semibold">
                           Score
                         </th>
-                        <th className="text-left px-4 py-2.5 text-[10px] uppercase tracking-wider text-muted font-semibold">
+                        <th className="text-left px-4 py-2.5 text-micro uppercase tracking-wider text-muted font-semibold">
                           First Seen
                         </th>
                       </tr>
@@ -201,7 +201,7 @@ export default function Cerast() {
                               {r.domain}
                             </span>
                             {r.multihost && (
-                              <span className="ml-1.5 text-[9px] uppercase tracking-wider text-muted border border-dashed border-[rgb(var(--border-400))] rounded-full px-1.5 py-0.5">
+                              <span className="ml-1.5 text-micro uppercase tracking-wider text-muted border border-dashed border-[rgb(var(--border-400))] rounded-full px-1.5 py-0.5">
                                 multihost
                               </span>
                             )}
@@ -222,13 +222,13 @@ export default function Cerast() {
                             )}
                           </td>
                           <td className="px-4 py-2.5">
-                            <span className="px-2 py-0.5 rounded-full border border-[rgb(var(--border-400))] bg-[rgb(var(--surface-300))]/50 text-[11px] text-muted">
+                            <span className="px-2 py-0.5 rounded-full border border-[rgb(var(--border-400))] bg-[rgb(var(--surface-300))]/50 text-mini text-muted">
                               {r.category}
                             </span>
                           </td>
                           <td className="px-4 py-2.5">
                             <span
-                              className={`px-2 py-0.5 rounded-full border text-[11px] font-semibold ${IMPACT_CLS[r.impact] ?? IMPACT_CLS.LOW}`}
+                              className={`px-2 py-0.5 rounded-full border text-mini font-semibold ${IMPACT_CLS[r.impact] ?? IMPACT_CLS.LOW}`}
                             >
                               {r.impact}
                             </span>
@@ -248,7 +248,7 @@ export default function Cerast() {
 
               {/* Diagnostics */}
               {data.diagnostics.length > 0 && (
-                <div className="text-[11px] text-muted space-y-1 pl-1">
+                <div className="text-mini text-muted space-y-1 pl-1">
                   {data.diagnostics.map((d, i) => (
                     <div key={i} className="font-mono">
                       <span className="text-foreground/60">{d.provider}</span>: {d.status}{' '}

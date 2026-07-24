@@ -458,7 +458,7 @@ function GraphCluster({
                   className={`px-3 py-2 rounded-xl border text-left transition-all ${getNodeColor(n.type)} ${isDimmed(n.id) ? 'opacity-20' : 'hover:scale-105'} ${highlightNode === n.id ? 'ring-2 ring-brand-500' : ''}`}
                 >
                   <div className="text-xs font-mono font-bold">{n.label}</div>
-                  {n.subtitle && <div className="text-[10px] opacity-70 mt-0.5">{n.subtitle}</div>}
+                  {n.subtitle && <div className="text-micro opacity-70 mt-0.5">{n.subtitle}</div>}
                 </button>
               ))}
             </div>
@@ -470,7 +470,7 @@ function GraphCluster({
                   return (
                     <div
                       key={`${e.source}-${e.target}`}
-                      className={`flex items-center gap-2 text-[11px] font-mono transition-opacity ${getEdgeOpacity(e.source, e.target)}`}
+                      className={`flex items-center gap-2 text-mini font-mono transition-opacity ${getEdgeOpacity(e.source, e.target)}`}
                     >
                       <span className="text-slate-500">{n.label}</span>
                       <span className="text-slate-400">── {e.label} ──</span>
@@ -513,9 +513,9 @@ function RelationCard({
             if (!source || !target) return null;
             return (
               <div key={`${e.source}-${e.target}-${i}`} className="flex items-center gap-2 text-xs font-mono">
-                <span className={`px-1.5 py-0.5 rounded text-[10px] ${getNodeColor(source.type)}`}>{source.label}</span>
-                <span className="text-slate-400 text-[10px]">→</span>
-                <span className={`px-1.5 py-0.5 rounded text-[10px] ${getNodeColor(target.type)}`}>{target.label}</span>
+                <span className={`px-1.5 py-0.5 rounded text-micro ${getNodeColor(source.type)}`}>{source.label}</span>
+                <span className="text-slate-400 text-micro">→</span>
+                <span className={`px-1.5 py-0.5 rounded text-micro ${getNodeColor(target.type)}`}>{target.label}</span>
               </div>
             );
           })}

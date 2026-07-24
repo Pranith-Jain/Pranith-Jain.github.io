@@ -455,6 +455,7 @@ import {
 import { maltrailSyncHandler, listSkeletonActorsHandler, getSkeletonActorHandler } from './routes/maltrail-sync';
 import { maliciousPackagesHandler } from './routes/malicious-packages';
 import { depxFeedHandler, depxFeedStatsHandler, depxCheckHandler } from './routes/depx';
+import { entityGraphHandler } from './routes/entity-graph';
 import { packageVerdictHandler } from './routes/package-verdict';
 import { secretLeaksHandler } from './routes/secret-leaks';
 import { feedQualityHandler as tifceFeedQualityHandler } from './routes/tifce';
@@ -1471,6 +1472,8 @@ app.get('/api/v1/package-verdict', packageVerdictHandler);
 app.get('/api/v1/depx/feed', depxFeedHandler);
 app.get('/api/v1/depx/feed/stats', depxFeedStatsHandler);
 app.get('/api/v1/depx/feed/check', depxCheckHandler);
+// Entity relationship graph — global topology
+app.get('/api/v1/threat-intel/entity-graph', entityGraphHandler);
 app.get('/api/v1/x-tweets', xTweetsHandler);
 app.get('/api/v1/x-live', xLiveHandler);
 app.get('/api/v1/x-firehose', xFirehoseHandler);

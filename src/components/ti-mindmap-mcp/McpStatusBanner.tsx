@@ -75,7 +75,7 @@ export function McpStatusBanner({
       />
       <p className="font-mono">
         <span className="font-semibold">{headline}</span>
-        <span className="ml-2 text-[10px] opacity-80">{hint}</span>
+        <span className="ml-2 text-micro opacity-80">{hint}</span>
       </p>
       <div className="ml-auto flex items-center gap-2">
         {children}
@@ -83,7 +83,7 @@ export function McpStatusBanner({
           <button
             type="button"
             onClick={() => void reprobe()}
-            className="inline-flex items-center gap-1 rounded border border-current/40 px-2 py-0.5 font-mono text-[10px] hover:bg-white/40 dark:hover:bg-black/20"
+            className="inline-flex items-center gap-1 rounded border border-current/40 px-2 py-0.5 font-mono text-micro hover:bg-white/40 dark:hover:bg-black/20"
           >
             <Settings2 className="h-3 w-3" /> retry
           </button>

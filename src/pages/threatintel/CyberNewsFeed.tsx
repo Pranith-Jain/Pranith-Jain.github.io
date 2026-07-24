@@ -144,12 +144,12 @@ export default function CyberNewsFeed(): JSX.Element {
                       )}
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center gap-2 mb-1">
-                          <span className={`px-1.5 py-0.5 text-[10px] font-medium rounded border ${tier.color}`}>
+                          <span className={`px-1.5 py-0.5 text-micro font-medium rounded border ${tier.color}`}>
                             {tier.label}
                           </span>
-                          <span className="text-[11px] text-slate-500 dark:text-slate-500">{article.source}</span>
+                          <span className="text-mini text-slate-500 dark:text-slate-500">{article.source}</span>
                           {article.pub_date && (
-                            <span className="text-[11px] text-slate-400 dark:text-slate-500">
+                            <span className="text-mini text-slate-400 dark:text-slate-500">
                               {relativeAgo(article.pub_date)}
                             </span>
                           )}

@@ -66,7 +66,7 @@ function ToolCard({ tool, isExpanded, onToggle }: { tool: McpTool; isExpanded: b
         onClick={onToggle}
         className="w-full text-left p-3 flex items-start gap-3 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-100))] transition-colors"
       >
-        <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded border shrink-0 mt-0.5 ${catCls}`}>
+        <span className={`text-micro font-mono px-1.5 py-0.5 rounded border shrink-0 mt-0.5 ${catCls}`}>
           {tool.category}
         </span>
         <div className="flex-1 min-w-0">
@@ -96,14 +96,14 @@ function ToolCard({ tool, isExpanded, onToggle }: { tool: McpTool; isExpanded: b
         <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] p-3 space-y-2">
           <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">{tool.description}</p>
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-mono text-slate-400">MCP name:</span>
-            <code className="text-[11px] font-mono bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded px-1.5 py-0.5 text-slate-700 dark:text-slate-300">
+            <span className="text-micro font-mono text-slate-400">MCP name:</span>
+            <code className="text-mini font-mono bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded px-1.5 py-0.5 text-slate-700 dark:text-slate-300">
               {tool.name}
             </code>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-mono text-slate-400">Category:</span>
-            <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded border ${catCls}`}>{tool.category}</span>
+            <span className="text-micro font-mono text-slate-400">Category:</span>
+            <span className={`text-micro font-mono px-1.5 py-0.5 rounded border ${catCls}`}>{tool.category}</span>
           </div>
         </div>
       )}
@@ -206,7 +206,7 @@ export default function McpToolsExplorer() {
         <button
           type="button"
           onClick={() => setActiveCategory(null)}
-          className={`text-[11px] font-mono rounded-full border px-2.5 py-1 transition-colors ${activeCategory === null ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'}`}
+          className={`text-mini font-mono rounded-full border px-2.5 py-1 transition-colors ${activeCategory === null ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'}`}
         >
           All ({manifest?.toolCount ?? 0})
         </button>
@@ -215,7 +215,7 @@ export default function McpToolsExplorer() {
             key={cat}
             type="button"
             onClick={() => setActiveCategory(activeCategory === cat ? null : cat)}
-            className={`text-[11px] font-mono rounded-full border px-2.5 py-1 transition-colors ${activeCategory === cat ? `${CATEGORY_COLORS[cat] ?? CATEGORY_COLORS.other} border-current` : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'}`}
+            className={`text-mini font-mono rounded-full border px-2.5 py-1 transition-colors ${activeCategory === cat ? `${CATEGORY_COLORS[cat] ?? CATEGORY_COLORS.other} border-current` : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'}`}
           >
             {cat} ({count})
           </button>
@@ -231,7 +231,7 @@ export default function McpToolsExplorer() {
           <button
             type="button"
             onClick={expandAll}
-            className="text-[11px] font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+            className="text-mini font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
           >
             Expand all
           </button>
@@ -239,7 +239,7 @@ export default function McpToolsExplorer() {
           <button
             type="button"
             onClick={collapseAll}
-            className="text-[11px] font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+            className="text-mini font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
           >
             Collapse all
           </button>

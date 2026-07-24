@@ -84,7 +84,7 @@ function SeverityBar({ counts }: { counts: Record<string, number> }) {
           <div
             key={b.sev}
             style={{ width: `${b.pct}%` }}
-            className={`${(SEVERITY_COLORS[b.sev] || 'bg-slate-300').split(' ')[0]} flex items-center justify-center text-[10px] font-bold text-white transition-all`}
+            className={`${(SEVERITY_COLORS[b.sev] || 'bg-slate-300').split(' ')[0]} flex items-center justify-center text-micro font-bold text-white transition-all`}
             title={`${b.sev}: ${b.count.toLocaleString()} (${b.pct.toFixed(1)}%)`}
           >
             {b.pct > 8 ? b.count.toLocaleString() : ''}
@@ -108,7 +108,7 @@ function SeverityBar({ counts }: { counts: Record<string, number> }) {
 function SeverityBadge({ severity }: { severity: string | null }) {
   const s = severity || '(none)';
   const cls = SEVERITY_PILL[s] || SEVERITY_PILL['(none)'];
-  return <span className={`inline-block text-[11px] font-semibold px-2 py-0.5 rounded-full border ${cls}`}>{s}</span>;
+  return <span className={`inline-block text-mini font-semibold px-2 py-0.5 rounded-full border ${cls}`}>{s}</span>;
 }
 
 const PAGE_SIZES = [25, 50, 100];
@@ -364,7 +364,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
                   <td className="px-3 py-2">
                     <SeverityBadge severity={v.severity} />
                     {v.cvss_score != null && (
-                      <span className="ml-1.5 text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+                      <span className="ml-1.5 text-mini text-slate-500 dark:text-slate-400 font-mono">
                         {v.cvss_score.toFixed(1)}
                       </span>
                     )}

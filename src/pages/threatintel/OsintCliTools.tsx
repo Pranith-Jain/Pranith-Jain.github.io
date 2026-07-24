@@ -116,15 +116,15 @@ function ToolCard({ tool }: { tool: CliTool }): JSX.Element {
       </div>
       <p className="text-xs text-muted leading-relaxed mb-3 line-clamp-2">{tool.desc}</p>
       <div className="flex items-center gap-2 flex-wrap">
-        <span className="text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 uppercase tracking-wider">
+        <span className="text-micro font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 uppercase tracking-wider">
           {CATEGORY_LABELS[tool.category]}
         </span>
         {tool.lang && (
-          <span className="text-[10px] font-mono px-2 py-0.5 rounded border border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300">
+          <span className="text-micro font-mono px-2 py-0.5 rounded border border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300">
             {tool.lang}
           </span>
         )}
-        {tool.stars && <span className="text-[10px] font-mono text-amber-600 dark:text-amber-400">★ {tool.stars}</span>}
+        {tool.stars && <span className="text-micro font-mono text-amber-600 dark:text-amber-400">★ {tool.stars}</span>}
       </div>
     </a>
   );

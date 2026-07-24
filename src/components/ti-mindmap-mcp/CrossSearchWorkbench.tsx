@@ -203,7 +203,7 @@ export function CrossSearchWorkbench(props: { showHeader?: boolean }): JSX.Eleme
       } catch {
         // summary content may not be available for all reports
       }
-    } catch (e) {
+    } catch {
       // details fetch failed
     }
     setReportDetailBusy(false);
@@ -349,7 +349,7 @@ export function CrossSearchWorkbench(props: { showHeader?: boolean }): JSX.Eleme
         </form>
 
         {q && (
-          <p className="mt-1.5 text-[10px] font-mono uppercase text-slate-500 dark:text-slate-400">
+          <p className="mt-1.5 text-micro font-mono uppercase text-slate-500 dark:text-slate-400">
             {MODE_LABEL[mode]} — fires {mode === 'general' ? '5 parallel' : '1'} tool call
             {mode === 'general' ? 's' : ''}
           </p>
@@ -392,7 +392,7 @@ export function CrossSearchWorkbench(props: { showHeader?: boolean }): JSX.Eleme
             <AlertTriangle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
             <div>
               <p className="font-semibold">MCP connection error</p>
-              <p className="mt-0.5 text-[11px] break-words">Add a valid API key above or re-enter your key.</p>
+              <p className="mt-0.5 text-mini break-words">Add a valid API key above or re-enter your key.</p>
             </div>
           </div>
         )}
@@ -424,9 +424,9 @@ export function CrossSearchWorkbench(props: { showHeader?: boolean }): JSX.Eleme
               <div className="px-4 pb-2 grid grid-cols-1 sm:grid-cols-2 gap-1">
                 {cat.tools.map((t) => (
                   <div key={t.name} className="rounded px-2 py-1 bg-slate-50 dark:bg-[rgb(var(--input-200))]">
-                    <p className="text-[11px] font-mono font-medium text-slate-800 dark:text-slate-200">{t.name}</p>
+                    <p className="text-mini font-mono font-medium text-slate-800 dark:text-slate-200">{t.name}</p>
                     {t.description && (
-                      <p className="text-[10px] text-slate-500 dark:text-slate-400 line-clamp-2">{t.description}</p>
+                      <p className="text-micro text-slate-500 dark:text-slate-400 line-clamp-2">{t.description}</p>
                     )}
                   </div>
                 ))}
@@ -516,7 +516,7 @@ export function CrossSearchWorkbench(props: { showHeader?: boolean }): JSX.Eleme
               <div className="flex items-center gap-2 mb-2">
                 <Map className="h-4 w-4 text-cyan-600 dark:text-cyan-400" />
                 <span className="text-xs font-semibold text-slate-900 dark:text-slate-100">{selectedEntity.name}</span>
-                <span className="text-[10px] font-mono text-slate-500">{selectedEntity.entity_type}</span>
+                <span className="text-micro font-mono text-slate-500">{selectedEntity.entity_type}</span>
                 <button
                   onClick={() => {
                     setSelectedEntity(null);
@@ -530,31 +530,31 @@ export function CrossSearchWorkbench(props: { showHeader?: boolean }): JSX.Eleme
               </div>
               {entityCluster?.entities != null && entityCluster.entities.length > 0 && (
                 <div className="mb-2">
-                  <p className="text-[10px] font-mono uppercase text-slate-500 mb-1">
+                  <p className="text-micro font-mono uppercase text-slate-500 mb-1">
                     Local Graph — {entityCluster.entities.length} entities
                   </p>
                   <div className="flex flex-wrap gap-1">
                     {entityCluster.entities.slice(0, 8).map((e) => (
                       <span
                         key={e.canon_id}
-                        className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5 text-[10px]"
+                        className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5 text-micro"
                       >
                         <span className="font-mono text-slate-500">{e.entity_type}</span>{' '}
                         <span className="text-slate-800 dark:text-slate-200">{e.name}</span>
                       </span>
                     ))}
                     {entityCluster.entities.length > 8 && (
-                      <span className="text-[10px] text-slate-500">+{entityCluster.entities.length - 8} more</span>
+                      <span className="text-micro text-slate-500">+{entityCluster.entities.length - 8} more</span>
                     )}
                   </div>
                 </div>
               )}
               {entityTimeline?.timeline?.length ? (
                 <div>
-                  <p className="text-[10px] font-mono uppercase text-slate-500 mb-1">Timeline</p>
+                  <p className="text-micro font-mono uppercase text-slate-500 mb-1">Timeline</p>
                   <div className="space-y-1 max-h-40 overflow-y-auto">
                     {entityTimeline.timeline.slice(0, 6).map((entry, i) => (
-                      <div key={i} className="text-[11px] text-slate-600 dark:text-slate-400">
+                      <div key={i} className="text-mini text-slate-600 dark:text-slate-400">
                         <span className="font-mono text-slate-500">{entry.date ?? '?'}</span> {entry.title}
                       </div>
                     ))}
@@ -674,7 +674,7 @@ function ReportRow({
       }`}
     >
       <p className="text-xs font-medium text-slate-800 dark:text-slate-200 line-clamp-2">{r.title || '-'}</p>
-      <p className="mt-0.5 text-[10px] font-mono uppercase text-slate-500">
+      <p className="mt-0.5 text-micro font-mono uppercase text-slate-500">
         {r.source ?? '?'}
         {r.published_at ? ` · ${r.published_at}` : ''}
         {r.actor && <span className="ml-2 text-rose-600 dark:text-rose-400">actor: {r.actor}</span>}
@@ -684,7 +684,7 @@ function ReportRow({
       </p>
 
       {selected && detailBusy && (
-        <div className="mt-2 flex items-center gap-1.5 text-[10px] text-slate-500">
+        <div className="mt-2 flex items-center gap-1.5 text-micro text-slate-500">
           <Loader2 className="h-3 w-3 animate-spin" /> Loading details...
         </div>
       )}
@@ -692,12 +692,12 @@ function ReportRow({
       {selected && detail && (
         <div className="mt-2 space-y-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-2">
           {detail.summary && (
-            <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">{detail.summary}</p>
+            <p className="text-mini text-slate-600 dark:text-slate-400 leading-relaxed">{detail.summary}</p>
           )}
 
           {content && (
             <div className="rounded bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)] p-2 max-h-40 overflow-y-auto">
-              <pre className="text-[10px] text-slate-600 dark:text-slate-400 whitespace-pre-wrap font-sans leading-relaxed">
+              <pre className="text-micro text-slate-600 dark:text-slate-400 whitespace-pre-wrap font-sans leading-relaxed">
                 {content}
               </pre>
             </div>
@@ -705,18 +705,18 @@ function ReportRow({
 
           {detail.iocs?.length ? (
             <div>
-              <p className="text-[10px] font-mono uppercase text-slate-500 mb-0.5">IOCs</p>
+              <p className="text-micro font-mono uppercase text-slate-500 mb-0.5">IOCs</p>
               <div className="flex flex-wrap gap-1">
                 {detail.iocs.slice(0, 10).map((ioc, i) => (
                   <span
                     key={i}
-                    className="rounded bg-rose-100 dark:bg-rose-950/30 px-1 py-0.5 text-[10px] font-mono text-rose-700 dark:text-rose-300"
+                    className="rounded bg-rose-100 dark:bg-rose-950/30 px-1 py-0.5 text-micro font-mono text-rose-700 dark:text-rose-300"
                   >
                     {ioc.value}
                   </span>
                 ))}
                 {detail.iocs.length > 10 && (
-                  <span className="text-[10px] text-slate-500">+{detail.iocs.length - 10} more</span>
+                  <span className="text-micro text-slate-500">+{detail.iocs.length - 10} more</span>
                 )}
               </div>
             </div>
@@ -724,12 +724,12 @@ function ReportRow({
 
           {detail.ttps?.length ? (
             <div>
-              <p className="text-[10px] font-mono uppercase text-slate-500 mb-0.5">TTPs</p>
+              <p className="text-micro font-mono uppercase text-slate-500 mb-0.5">TTPs</p>
               <div className="flex flex-wrap gap-1">
                 {detail.ttps.slice(0, 6).map((ttp, i) => (
                   <span
                     key={i}
-                    className="rounded bg-violet-100 dark:bg-violet-950/30 px-1 py-0.5 text-[10px] font-mono text-violet-700 dark:text-violet-300"
+                    className="rounded bg-violet-100 dark:bg-violet-950/30 px-1 py-0.5 text-micro font-mono text-violet-700 dark:text-violet-300"
                   >
                     {ttp.name ?? ttp.id}
                   </span>
@@ -740,12 +740,12 @@ function ReportRow({
 
           {detail.cves?.length ? (
             <div>
-              <p className="text-[10px] font-mono uppercase text-slate-500 mb-0.5">CVEs</p>
+              <p className="text-micro font-mono uppercase text-slate-500 mb-0.5">CVEs</p>
               <div className="flex flex-wrap gap-1">
                 {detail.cves.slice(0, 5).map((cve, i) => (
                   <span
                     key={i}
-                    className="rounded bg-orange-100 dark:bg-orange-950/30 px-1 py-0.5 text-[10px] font-mono text-orange-700 dark:text-orange-300"
+                    className="rounded bg-orange-100 dark:bg-orange-950/30 px-1 py-0.5 text-micro font-mono text-orange-700 dark:text-orange-300"
                   >
                     {cve}
                   </span>
@@ -756,12 +756,12 @@ function ReportRow({
 
           {detail.malware?.length ? (
             <div>
-              <p className="text-[10px] font-mono uppercase text-slate-500 mb-0.5">Malware</p>
+              <p className="text-micro font-mono uppercase text-slate-500 mb-0.5">Malware</p>
               <div className="flex flex-wrap gap-1">
                 {detail.malware.map((m, i) => (
                   <span
                     key={i}
-                    className="rounded bg-emerald-100 dark:bg-emerald-950/30 px-1 py-0.5 text-[10px] font-mono text-emerald-700 dark:text-emerald-300"
+                    className="rounded bg-emerald-100 dark:bg-emerald-950/30 px-1 py-0.5 text-micro font-mono text-emerald-700 dark:text-emerald-300"
                   >
                     {m}
                   </span>
@@ -776,16 +776,16 @@ function ReportRow({
                 href={detail.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-[10px] text-brand-600 dark:text-brand-400 hover:underline"
+                className="inline-flex items-center gap-1 text-micro text-brand-600 dark:text-brand-400 hover:underline"
               >
                 <ExternalLink className="h-3 w-3" /> View on TI-Mindmap-Hub
               </a>
             )}
             {detail.severity && (
-              <span className="text-[10px] font-mono text-slate-500">severity: {detail.severity}</span>
+              <span className="text-micro font-mono text-slate-500">severity: {detail.severity}</span>
             )}
             {typeof detail.cvss === 'number' && (
-              <span className="text-[10px] font-mono text-slate-500">CVSS {detail.cvss.toFixed(1)}</span>
+              <span className="text-micro font-mono text-slate-500">CVSS {detail.cvss.toFixed(1)}</span>
             )}
           </div>
         </div>
@@ -801,12 +801,12 @@ function CveRow({ cve }: { cve: CveSummary }): JSX.Element {
         <span className="text-xs font-mono font-semibold text-slate-800 dark:text-slate-200">{cve.cve_id}</span>
         {cve.severity && <SeverityBadge severity={cve.severity} />}
         {typeof cve.cvss_score === 'number' && (
-          <span className="text-[10px] font-mono text-slate-500">CVSS {cve.cvss_score.toFixed(1)}</span>
+          <span className="text-micro font-mono text-slate-500">CVSS {cve.cvss_score.toFixed(1)}</span>
         )}
-        {cve.exploited && <span className="text-[10px] font-mono text-rose-600 dark:text-rose-400">KEV</span>}
+        {cve.exploited && <span className="text-micro font-mono text-rose-600 dark:text-rose-400">KEV</span>}
       </div>
       {cve.description && (
-        <p className="mt-0.5 text-[11px] text-slate-600 dark:text-slate-400 line-clamp-2">{cve.description}</p>
+        <p className="mt-0.5 text-mini text-slate-600 dark:text-slate-400 line-clamp-2">{cve.description}</p>
       )}
     </div>
   );
@@ -819,18 +819,18 @@ function CveDetailRow({ hit }: { hit: CveSearchResult }): JSX.Element {
         <span className="text-xs font-mono font-semibold text-slate-800 dark:text-slate-200">{hit.cve_id}</span>
         {hit.severity && <SeverityBadge severity={hit.severity} />}
         {typeof hit.cvss_score === 'number' && (
-          <span className="text-[10px] font-mono">CVSS {hit.cvss_score.toFixed(1)}</span>
+          <span className="text-micro font-mono">CVSS {hit.cvss_score.toFixed(1)}</span>
         )}
         {typeof hit.epss_score === 'number' && (
-          <span className="text-[10px] font-mono text-slate-500">EPSS {(hit.epss_score * 100).toFixed(1)}%</span>
+          <span className="text-micro font-mono text-slate-500">EPSS {(hit.epss_score * 100).toFixed(1)}%</span>
         )}
-        {hit.exploited && <span className="text-[10px] text-rose-600 dark:text-rose-400 font-mono">KEV</span>}
+        {hit.exploited && <span className="text-micro text-rose-600 dark:text-rose-400 font-mono">KEV</span>}
       </div>
       {hit.description && (
-        <p className="mt-0.5 text-[11px] text-slate-600 dark:text-slate-400 line-clamp-3">{hit.description}</p>
+        <p className="mt-0.5 text-mini text-slate-600 dark:text-slate-400 line-clamp-3">{hit.description}</p>
       )}
       {hit.affected_products?.length ? (
-        <p className="mt-0.5 text-[10px] font-mono text-slate-500">
+        <p className="mt-0.5 text-micro font-mono text-slate-500">
           affected: {hit.affected_products.slice(0, 4).join(', ')}
         </p>
       ) : null}
@@ -842,7 +842,7 @@ function CveDetailRow({ hit }: { hit: CveSearchResult }): JSX.Element {
               href={ref}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[10px] text-brand-600 dark:text-brand-400 hover:underline truncate max-w-[16rem]"
+              className="text-micro text-brand-600 dark:text-brand-400 hover:underline truncate max-w-[16rem]"
             >
               {ref}
             </a>
@@ -859,14 +859,14 @@ function IocRow({ hit }: { hit: IocSearchResult }): JSX.Element {
     <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-2.5 py-1.5">
       <div className="flex items-center gap-2">
         <span className="text-xs font-mono font-semibold text-slate-800 dark:text-slate-200">{hit.ioc_value}</span>
-        {hit.ioc_type && <span className="text-[10px] font-mono text-slate-500">{hit.ioc_type}</span>}
-        <span className="text-[10px] font-mono text-slate-500">{reports.length} reports</span>
-        {hit.last_seen && <span className="text-[10px] text-slate-500">last {hit.last_seen}</span>}
+        {hit.ioc_type && <span className="text-micro font-mono text-slate-500">{hit.ioc_type}</span>}
+        <span className="text-micro font-mono text-slate-500">{reports.length} reports</span>
+        {hit.last_seen && <span className="text-micro text-slate-500">last {hit.last_seen}</span>}
       </div>
       {reports.length > 0 && (
         <ul className="mt-1 space-y-0.5">
           {reports.slice(0, 4).map((r) => (
-            <li key={idForReport(r)} className="text-[10px] text-slate-600 dark:text-slate-400 truncate">
+            <li key={idForReport(r)} className="text-micro text-slate-600 dark:text-slate-400 truncate">
               {r.title}
             </li>
           ))}
@@ -884,14 +884,14 @@ function KgEntityRow({ entity, onDrill }: { entity: KgEntity; onDrill?: (e: KgEn
     >
       <div className="flex items-center gap-2">
         <span className="text-xs font-semibold text-slate-800 dark:text-slate-200">{entity.name}</span>
-        <span className="text-[10px] font-mono text-slate-500">{entity.entity_type}</span>
-        {onDrill && <span className="ml-auto text-[10px] text-brand-600 dark:text-brand-400">drill →</span>}
+        <span className="text-micro font-mono text-slate-500">{entity.entity_type}</span>
+        {onDrill && <span className="ml-auto text-micro text-brand-600 dark:text-brand-400">drill →</span>}
       </div>
       {entity.description && (
-        <p className="mt-0.5 text-[11px] text-slate-600 dark:text-slate-400 line-clamp-2">{entity.description}</p>
+        <p className="mt-0.5 text-mini text-slate-600 dark:text-slate-400 line-clamp-2">{entity.description}</p>
       )}
       {entity.aliases?.length ? (
-        <p className="mt-0.5 text-[10px] font-mono text-slate-500">aliases: {entity.aliases.slice(0, 4).join(', ')}</p>
+        <p className="mt-0.5 text-micro font-mono text-slate-500">aliases: {entity.aliases.slice(0, 4).join(', ')}</p>
       ) : null}
     </div>
   );
@@ -901,13 +901,11 @@ function BriefingRow({ hit }: { hit: BriefingSummary }): JSX.Element {
   return (
     <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-2.5 py-1.5">
       <p className="text-xs font-medium text-slate-800 dark:text-slate-200">{hit.title ?? hit.briefing_id}</p>
-      <p className="text-[10px] font-mono text-slate-500">
+      <p className="text-micro font-mono text-slate-500">
         {hit.type ?? 'briefing'}
         {hit.date ? ` · ${hit.date}` : ''}
       </p>
-      {hit.summary && (
-        <p className="mt-0.5 text-[11px] text-slate-600 dark:text-slate-400 line-clamp-2">{hit.summary}</p>
-      )}
+      {hit.summary && <p className="mt-0.5 text-mini text-slate-600 dark:text-slate-400 line-clamp-2">{hit.summary}</p>}
     </div>
   );
 }
@@ -916,7 +914,7 @@ function StixRow({ bundle }: { bundle: StixBundleSummary }): JSX.Element {
   return (
     <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-2.5 py-1.5">
       <p className="text-xs font-medium text-slate-800 dark:text-slate-200">{bundle.title ?? bundle.article_id}</p>
-      <p className="text-[10px] font-mono text-slate-500">
+      <p className="text-micro font-mono text-slate-500">
         {bundle.stix_size ? `${bundle.stix_size} objects` : ''}
         {bundle.created_at ? ` · ${bundle.created_at}` : ''}
       </p>
@@ -934,5 +932,5 @@ function SeverityBadge({ severity }: { severity: string }): JSX.Element {
         : s === 'medium'
           ? 'bg-amber-100 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-300 dark:border-amber-800'
           : 'bg-slate-100 dark:bg-slate-950/40 text-slate-600 dark:text-slate-400 border-slate-300 dark:border-slate-700';
-  return <span className={`rounded px-1 py-0.5 text-[10px] font-mono border ${cls}`}>{severity}</span>;
+  return <span className={`rounded px-1 py-0.5 text-micro font-mono border ${cls}`}>{severity}</span>;
 }

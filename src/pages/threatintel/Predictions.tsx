@@ -79,7 +79,7 @@ function MarketCard({ m }: { m: PredictionMarket }): JSX.Element {
     >
       <div className="flex items-start justify-between gap-3 mb-3">
         <span
-          className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-mono border ${meta.accent}`}
+          className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-mini font-mono border ${meta.accent}`}
         >
           <meta.icon size={11} /> {meta.label}
         </span>
@@ -101,7 +101,7 @@ function MarketCard({ m }: { m: PredictionMarket }): JSX.Element {
       <div className="h-1.5 w-full rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
         <div className={`h-full rounded-full ${meta.bar}`} style={{ width: `${Math.min(100, Math.max(2, pct))}%` }} />
       </div>
-      <div className="mt-3 text-[11px] font-mono text-slate-400 dark:text-slate-500">
+      <div className="mt-3 text-mini font-mono text-slate-400 dark:text-slate-500">
         resolves {formatEndDate(m.end_date)}
       </div>
     </a>

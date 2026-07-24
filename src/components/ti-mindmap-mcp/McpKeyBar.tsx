@@ -131,12 +131,12 @@ export function McpKeyBar({ className = '' }: { className?: string }): JSX.Eleme
             }
           />
           {status === 'error' && statusMsg && (
-            <p className="mt-2 text-[10px] text-rose-600 dark:text-rose-400 font-mono break-words">
+            <p className="mt-2 text-micro text-rose-600 dark:text-rose-400 font-mono break-words">
               last probe: {statusMsg}
             </p>
           )}
           <div className="mt-2 flex items-start justify-between gap-2">
-            <p className="text-[10px] text-slate-500 dark:text-slate-400 flex-1">
+            <p className="text-micro text-slate-500 dark:text-slate-400 flex-1">
               Keys stay in your browser (localStorage) and never reach our backend. Get one at{' '}
               <a
                 href="https://ti-mindmap-hub.com/settings"
@@ -151,7 +151,7 @@ export function McpKeyBar({ className = '' }: { className?: string }): JSX.Eleme
               type="button"
               onClick={() => void reprobe()}
               disabled={status === 'probing' || !apiKey}
-              className="inline-flex items-center gap-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5 text-[10px] font-mono text-slate-600 dark:text-slate-300 hover:border-brand-400 disabled:opacity-50 shrink-0"
+              className="inline-flex items-center gap-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5 text-micro font-mono text-slate-600 dark:text-slate-300 hover:border-brand-400 disabled:opacity-50 shrink-0"
               title="Re-run the MCP initialize handshake with the stored key"
             >
               <RefreshCw className={`h-3 w-3 ${status === 'probing' ? 'animate-spin' : ''}`} /> re-probe

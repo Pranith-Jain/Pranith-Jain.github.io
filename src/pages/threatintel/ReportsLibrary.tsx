@@ -248,10 +248,10 @@ function ReportCard({ report }: { report: ReportEntry }) {
       className="group block surface-card p-4 hover:border-brand-500/40 hover:shadow-e2 transition-all"
     >
       <div className="flex flex-wrap items-center gap-2 mb-2">
-        <span className="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+        <span className="text-micro font-mono font-semibold px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 uppercase tracking-wider">
           {CATEGORY_LABELS[report.category] ?? report.category}
         </span>
-        <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--input-200))] text-slate-500 dark:text-slate-400">
+        <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--input-200))] text-slate-500 dark:text-slate-400">
           {report.year}
         </span>
       </div>
@@ -263,7 +263,7 @@ function ReportCard({ report }: { report: ReportEntry }) {
       <p className="text-xs text-muted leading-relaxed mb-3 line-clamp-2">{report.description}</p>
 
       <div className="flex items-center justify-between">
-        <span className="inline-flex items-center gap-1 text-[10px] font-mono px-1.5 py-0.5 rounded bg-brand-500/10 text-brand-700 dark:text-brand-300">
+        <span className="inline-flex items-center gap-1 text-micro font-mono px-1.5 py-0.5 rounded bg-brand-500/10 text-brand-700 dark:text-brand-300">
           {report.publisher}
           <ExternalLink className="h-2.5 w-2.5" />
         </span>
@@ -274,7 +274,7 @@ function ReportCard({ report }: { report: ReportEntry }) {
           {report.tags.map((tag) => (
             <span
               key={tag}
-              className="text-[9px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400"
+              className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400"
             >
               {tag}
             </span>

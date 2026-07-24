@@ -164,7 +164,7 @@ export default function AIThreats() {
                   <span className="text-sm font-semibold">{entry.name}</span>
                   {entry.akas && <span className="truncate text-xs text-muted">{entry.akas}</span>}
                   <span
-                    className={`rounded-full border px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider ${TABLE_STYLES[entry.table as keyof typeof TABLE_STYLES] ?? TABLE_STYLES.main}`}
+                    className={`rounded-full border px-2 py-0.5 text-micro font-medium uppercase tracking-wider ${TABLE_STYLES[entry.table as keyof typeof TABLE_STYLES] ?? TABLE_STYLES.main}`}
                   >
                     {entry.table}
                   </span>
@@ -175,15 +175,15 @@ export default function AIThreats() {
                     {entry.ttps.slice(0, 5).map((ttp) => (
                       <span
                         key={ttp}
-                        className={`rounded px-1.5 py-0.5 text-[10px] font-mono font-medium ${ttpColor(ttp)}`}
+                        className={`rounded px-1.5 py-0.5 text-micro font-mono font-medium ${ttpColor(ttp)}`}
                       >
                         {ttp}
                       </span>
                     ))}
-                    {entry.ttps.length > 5 && <span className="text-[10px] text-muted">+{entry.ttps.length - 5}</span>}
+                    {entry.ttps.length > 5 && <span className="text-micro text-muted">+{entry.ttps.length - 5}</span>}
                   </div>
                 )}
-                <div className="mt-1.5 flex items-center gap-3 text-[10px] text-muted">
+                <div className="mt-1.5 flex items-center gap-3 text-micro text-muted">
                   {entry.reported && (
                     <span className="flex items-center gap-1">
                       <AlertTriangle size={10} />
@@ -215,7 +215,7 @@ export default function AIThreats() {
                     <div>
                       <div className="mb-1 font-medium text-muted">TTP Mapping</div>
                       <div
-                        className="rounded-lg bg-slate-50 dark:bg-slate-900/50 p-3 font-mono text-[11px] leading-relaxed whitespace-pre-wrap"
+                        className="rounded-lg bg-slate-50 dark:bg-slate-900/50 p-3 font-mono text-mini leading-relaxed whitespace-pre-wrap"
                         dangerouslySetInnerHTML={{
                           __html: entryDetail.ttpMd
                             .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
@@ -231,7 +231,7 @@ export default function AIThreats() {
                         {entryDetail.ttps.map((ttp) => (
                           <span
                             key={ttp}
-                            className={`rounded px-1.5 py-0.5 text-[10px] font-mono font-medium ${ttpColor(ttp)}`}
+                            className={`rounded px-1.5 py-0.5 text-micro font-mono font-medium ${ttpColor(ttp)}`}
                           >
                             {ttp}
                           </span>

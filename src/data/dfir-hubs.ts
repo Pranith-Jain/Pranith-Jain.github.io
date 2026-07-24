@@ -1252,6 +1252,13 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'Pivex',
         keywords: ['pivot', 'explorer', 'graph'],
       },
+      {
+        path: '/dfir/agent-history',
+        tabId: 'agent-history',
+        label: 'Agent History',
+        desc: 'AI agent investigation sessions — quality scores, IOCs, and key findings.',
+        compVar: 'InvestigationHistory',
+      },
     ],
   },
   {

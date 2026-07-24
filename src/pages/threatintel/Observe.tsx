@@ -248,7 +248,7 @@ export default function Observe(): JSX.Element {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">
                   <h2 className="text-xl font-bold font-mono truncate">{data.query}</h2>
-                  <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${entityColor}`}>
+                  <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${entityColor}`}>
                     {data.entity_type}
                   </span>
                 </div>
@@ -348,7 +348,7 @@ export default function Observe(): JSX.Element {
                     <Users size={16} className="text-brand-600 dark:text-brand-400" />
                     <span className="font-semibold text-sm">Entity Profile</span>
                   </div>
-                  <span className="text-[10px] font-mono text-slate-400">
+                  <span className="text-micro font-mono text-slate-400">
                     confidence: {Math.round((data.profile.entity.confidence ?? 0) * 100)}%
                   </span>
                 </div>
@@ -378,7 +378,7 @@ export default function Observe(): JSX.Element {
                         {data.profile.techniques.slice(0, 6).map((t, i) => (
                           <span
                             key={i}
-                            className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted"
+                            className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted"
                           >
                             {t.id}
                           </span>
@@ -394,7 +394,7 @@ export default function Observe(): JSX.Element {
                           <Link
                             key={i}
                             to={`/dfir/cve?q=${c}`}
-                            className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 hover:underline"
+                            className="text-micro font-mono px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 hover:underline"
                           >
                             {c}
                           </Link>
@@ -428,7 +428,7 @@ export default function Observe(): JSX.Element {
                     >
                       <p className="text-sm font-medium">{a.title}</p>
                       <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-1">{a.description}</p>
-                      <span className="text-[10px] font-mono text-slate-400">{a.category}</span>
+                      <span className="text-micro font-mono text-slate-400">{a.category}</span>
                     </Link>
                   ))}
                 </div>

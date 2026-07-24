@@ -316,12 +316,12 @@ export default function TelegramFirehose(): JSX.Element {
             </h2>
             <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mt-1.5 max-w-2xl leading-relaxed">
               Unified cross-source stream merging{' '}
-              <code className="text-[11px] bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
+              <code className="text-mini bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
                 t.me/s
               </code>{' '}
               firehose (curated public channels, 30d window), leak-monitor entries (critical/high credentials + domains)
               and live-IOCs with{' '}
-              <code className="text-[11px] bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
+              <code className="text-mini bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
                 telegram-leak
               </code>{' '}
               source. Newest first.
@@ -433,7 +433,7 @@ export default function TelegramFirehose(): JSX.Element {
           ))}
         </ul>
         {filtered.length > visible.length && (
-          <p className="mt-3 text-[11px] font-mono text-slate-500 text-center">
+          <p className="mt-3 text-mini font-mono text-slate-500 text-center">
             ... {filtered.length - visible.length} more -- refine filters to narrow ...
           </p>
         )}

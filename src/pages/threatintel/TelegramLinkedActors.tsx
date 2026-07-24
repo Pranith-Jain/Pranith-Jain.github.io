@@ -319,15 +319,15 @@ export default function TelegramLinkedActors(): JSX.Element {
         </h2>
         <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mt-1.5 max-w-3xl leading-relaxed">
           For a given Telegram handle, surface every known attribution: the in-repo{' '}
-          <code className="text-[11px] bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
+          <code className="text-mini bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
             threat-actor-catalog
           </code>{' '}
           (operator-curated), deepdarkCTI&apos;s{' '}
-          <code className="text-[11px] bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
+          <code className="text-mini bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
             telegram_threat_actors.md
           </code>
           , and MISP Galaxy&apos;s{' '}
-          <code className="text-[11px] bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
+          <code className="text-mini bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
             associated-telegram-handle
           </code>{' '}
           custom field — cross-referenced with leak-monitor activity in the last 30 days.
@@ -402,15 +402,15 @@ export default function TelegramLinkedActors(): JSX.Element {
             <p className="text-sm font-mono text-slate-600 dark:text-slate-300">
               <strong>@{standaloneHandle}</strong> is not in the catalog or in the recent leak feed. Try a known handle
               (e.g.{' '}
-              <code className="text-[11px] bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
+              <code className="text-mini bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
                 apt28world
               </code>
               ,{' '}
-              <code className="text-[11px] bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
+              <code className="text-mini bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
                 lockbitsupport
               </code>
               ,{' '}
-              <code className="text-[11px] bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
+              <code className="text-mini bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
                 alphvteam
               </code>
               ) or use the Channel Search tab to find new candidates.
@@ -456,7 +456,7 @@ function CatalogStat({
   };
   return (
     <div className={`rounded border p-3 ${tones[tone]}`}>
-      <p className="text-[10px] font-mono uppercase tracking-wider opacity-80">{label}</p>
+      <p className="text-micro font-mono uppercase tracking-wider opacity-80">{label}</p>
       <p className="mt-1 font-mono text-2xl font-semibold">{value.toLocaleString()}</p>
     </div>
   );
@@ -530,7 +530,7 @@ function PivotCard({ pivot, onClearFilter }: { pivot: HandlePivot; onClearFilter
             <button
               type="button"
               onClick={onClearFilter}
-              className="text-[10px] font-mono text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+              className="text-micro font-mono text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
             >
               clear
             </button>
@@ -563,10 +563,10 @@ function PivotCard({ pivot, onClearFilter }: { pivot: HandlePivot; onClearFilter
                   {a.country && <span className="text-slate-500">· {a.country}</span>}
                 </div>
                 {a.mitreGroups.length > 0 && (
-                  <p className="font-mono text-[11px] text-slate-500 mt-0.5">MITRE: {a.mitreGroups.join(', ')}</p>
+                  <p className="font-mono text-mini text-slate-500 mt-0.5">MITRE: {a.mitreGroups.join(', ')}</p>
                 )}
                 {a.malware.length > 0 && (
-                  <p className="font-mono text-[11px] text-slate-500">
+                  <p className="font-mono text-mini text-slate-500">
                     malware: {a.malware.slice(0, 3).join(', ')}
                     {a.malware.length > 3 ? ` +${a.malware.length - 3}` : ''}
                   </p>

@@ -414,7 +414,7 @@ export default function F3ead(): JSX.Element {
                 </button>
                 {/* Loop arrow back to Find on the last card. */}
                 {isLast && (
-                  <div className="hidden lg:flex absolute -bottom-3 left-1/2 -translate-x-1/2 items-center gap-1 text-[10px] font-mono uppercase tracking-wider text-indigo-600 dark:text-indigo-300 bg-white dark:bg-[rgb(var(--surface-200))] px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))]">
+                  <div className="hidden lg:flex absolute -bottom-3 left-1/2 -translate-x-1/2 items-center gap-1 text-micro font-mono uppercase tracking-wider text-indigo-600 dark:text-indigo-300 bg-white dark:bg-[rgb(var(--surface-200))] px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))]">
                     <Sparkles className="h-3 w-3" /> loops back to Find
                   </div>
                 )}
@@ -531,7 +531,7 @@ export default function F3ead(): JSX.Element {
                   key={i}
                   type="button"
                   onClick={() => setWalkStep(i)}
-                  className={`inline-flex items-center gap-1.5 rounded border px-2 py-1 text-[11px] font-mono transition-colors ${
+                  className={`inline-flex items-center gap-1.5 rounded border px-2 py-1 text-mini font-mono transition-colors ${
                     active
                       ? 'border-brand-400 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
                       : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-muted hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]'
@@ -550,7 +550,7 @@ export default function F3ead(): JSX.Element {
               <WalkIcon className="h-5 w-5 text-slate-700 dark:text-slate-200" />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 Step {walkStep + 1} of {WALK.length} &middot; {currentPhase.name}
               </p>
               <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100 mt-0.5">{currentWalk.title}</h3>
@@ -559,7 +559,7 @@ export default function F3ead(): JSX.Element {
           </div>
 
           <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
-            <p className="text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
+            <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
               Artifacts produced at this step
             </p>
             <ul className="space-y-1">
@@ -581,7 +581,7 @@ export default function F3ead(): JSX.Element {
             >
               &larr; previous
             </button>
-            <p className="text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
               {walkStep < WALK.length - 1
                 ? `next: ${PHASES.find((p) => p.id === WALK[walkStep + 1]!.phase)!.name}`
                 : 'cycle complete -- loops back to Find'}
@@ -645,7 +645,7 @@ export default function F3ead(): JSX.Element {
                   </td>
                   <td className="px-3 py-2">
                     <span
-                      className={`inline-block rounded border px-1.5 py-0.5 text-[10px] font-mono uppercase tracking-wider ${
+                      className={`inline-block rounded border px-1.5 py-0.5 text-micro font-mono uppercase tracking-wider ${
                         row.kind === 'process'
                           ? 'border-indigo-300 dark:border-indigo-700 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300'
                           : 'border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-300'

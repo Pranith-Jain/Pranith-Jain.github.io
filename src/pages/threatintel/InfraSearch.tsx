@@ -276,7 +276,7 @@ export default function InfraSearch(): JSX.Element {
                 <div className="flex flex-wrap gap-1">
                   <button
                     onClick={() => setCatFilter('All')}
-                    className={`text-[11px] font-mono px-2 py-0.5 rounded border transition ${
+                    className={`text-mini font-mono px-2 py-0.5 rounded border transition ${
                       catFilter === 'All'
                         ? 'bg-brand-600 text-white border-brand-600'
                         : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
@@ -291,7 +291,7 @@ export default function InfraSearch(): JSX.Element {
                       <button
                         key={cat}
                         onClick={() => setCatFilter(cat)}
-                        className={`text-[11px] font-mono px-2 py-0.5 rounded border transition inline-flex items-center gap-1 ${
+                        className={`text-mini font-mono px-2 py-0.5 rounded border transition inline-flex items-center gap-1 ${
                           catFilter === cat
                             ? 'bg-brand-600 text-white border-brand-600'
                             : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
@@ -325,14 +325,14 @@ export default function InfraSearch(): JSX.Element {
                         style={{ background: CATEGORY_COLORS[r.category] ?? '#6366f1' }}
                       />
                       <div className="flex-1 min-w-0">
-                        <div className="font-medium truncate text-slate-900 dark:text-slate-100 text-[13px]">
+                        <div className="font-medium truncate text-slate-900 dark:text-slate-100 text-tool">
                           {r.name}
                         </div>
-                        <div className="text-[11px] text-slate-400 font-mono">
+                        <div className="text-mini text-slate-400 font-mono">
                           {r.lat.toFixed(4)}, {r.lon.toFixed(4)}
                         </div>
                       </div>
-                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500 shrink-0">
+                      <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500 shrink-0">
                         {r.category}
                       </span>
                     </div>
@@ -340,7 +340,7 @@ export default function InfraSearch(): JSX.Element {
                 </div>
                 {filtered.length > 200 && (
                   <div className="px-4 py-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
-                    <p className="text-[11px] text-slate-400 font-mono">
+                    <p className="text-mini text-slate-400 font-mono">
                       Showing 200 of {filtered.length} · map shows all
                     </p>
                   </div>

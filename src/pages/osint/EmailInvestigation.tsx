@@ -96,13 +96,13 @@ export default function EmailInvestigation() {
                 </h2>
                 <div className="grid md:grid-cols-2 gap-4 text-sm">
                   <div>
-                    <label className="text-[10px] font-mono uppercase text-slate-400">Valid</label>
+                    <label className="text-micro font-mono uppercase text-slate-400">Valid</label>
                     <p className={result.valid ? 'text-emerald-600 font-semibold' : 'text-rose-600 font-semibold'}>
                       {result.valid ? 'Yes' : 'No'}
                     </p>
                   </div>
                   <div>
-                    <label className="text-[10px] font-mono uppercase text-slate-400">Disposable</label>
+                    <label className="text-micro font-mono uppercase text-slate-400">Disposable</label>
                     <p
                       className={
                         result.disposable ? 'text-amber-600 font-semibold' : 'text-slate-700 dark:text-slate-300'
@@ -113,7 +113,7 @@ export default function EmailInvestigation() {
                   </div>
                   {result.provider && (
                     <div>
-                      <label className="text-[10px] font-mono uppercase text-slate-400">Provider</label>
+                      <label className="text-micro font-mono uppercase text-slate-400">Provider</label>
                       <p className="text-slate-700 dark:text-slate-300">{result.provider}</p>
                     </div>
                   )}

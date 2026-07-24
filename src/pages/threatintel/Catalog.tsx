@@ -198,7 +198,7 @@ function CategoryPill({
     >
       {label}
       <span
-        className={`rounded-full px-1.5 py-0.5 text-[10px] font-mono ${
+        className={`rounded-full px-1.5 py-0.5 text-micro font-mono ${
           active ? 'bg-current/15' : 'bg-slate-100 dark:bg-[rgb(var(--surface-200))]'
         }`}
       >
@@ -253,7 +253,7 @@ function CatalogCard({ entry, hubIcon }: { entry: HubPage; hubIcon: LucideIcon }
           />
           {entry.badge && (
             <span
-              className={`rounded border px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider ${BADGE_STYLES[entry.badge]}`}
+              className={`rounded border px-1.5 py-0.5 font-mono text-micro uppercase tracking-wider ${BADGE_STYLES[entry.badge]}`}
             >
               {entry.badge}
             </span>
@@ -263,7 +263,7 @@ function CatalogCard({ entry, hubIcon }: { entry: HubPage; hubIcon: LucideIcon }
           {entry.label}
         </h3>
         <p className="mt-0.5 line-clamp-2 text-tool text-slate-500 dark:text-slate-400">{entry.desc}</p>
-        <div className="mt-2 flex items-center justify-between gap-2 font-mono text-[10px] text-slate-400">
+        <div className="mt-2 flex items-center justify-between gap-2 font-mono text-micro text-slate-400">
           <code className="truncate font-mono">{entry.path}</code>
           <span className="inline-flex items-center gap-0.5 text-rose-600 dark:text-rose-400 opacity-0 transition-opacity group-hover:opacity-100">
             open <ArrowRight size={10} />

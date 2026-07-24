@@ -416,14 +416,14 @@ export default function AiHoneypotObservatory(): JSX.Element {
                       <td className="px-3 py-2 font-mono text-slate-800 dark:text-slate-200">{entry.value}</td>
                       <td className="px-3 py-2">
                         <span
-                          className={`px-1.5 py-0.5 text-[10px] font-medium rounded border ${cfg?.color ?? 'bg-slate-500/10 text-slate-700 dark:text-slate-400 border-slate-500/20'}`}
+                          className={`px-1.5 py-0.5 text-micro font-medium rounded border ${cfg?.color ?? 'bg-slate-500/10 text-slate-700 dark:text-slate-400 border-slate-500/20'}`}
                         >
                           {cfg?.label ?? entry.actor_category}
                         </span>
                       </td>
                       <td className="px-3 py-2">
                         <span
-                          className={`px-1.5 py-0.5 text-[10px] font-medium rounded ${CONFIDENCE_COLORS[entry.confidence] ?? 'bg-slate-500/20 text-slate-700 dark:text-slate-400'}`}
+                          className={`px-1.5 py-0.5 text-micro font-medium rounded ${CONFIDENCE_COLORS[entry.confidence] ?? 'bg-slate-500/20 text-slate-700 dark:text-slate-400'}`}
                         >
                           {entry.confidence}
                         </span>
@@ -448,7 +448,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
                           colSpan={6}
                           className="px-4 py-3 bg-slate-50 dark:bg-[rgb(var(--surface-100))] border-b border-slate-100 dark:border-[rgb(var(--border-400))]"
                         >
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[11px]">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-mini">
                             <div>
                               <span className="font-semibold text-slate-700 dark:text-slate-300">TTPs:</span>{' '}
                               <span className="font-mono text-slate-600 dark:text-slate-400">
@@ -499,7 +499,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
                                 <span className="font-semibold text-slate-700 dark:text-slate-300">
                                   Sample Prompts:
                                 </span>
-                                <div className="mt-1 max-h-24 overflow-y-auto rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] p-2 font-mono text-[10px] text-slate-600 dark:text-slate-400 whitespace-pre-wrap">
+                                <div className="mt-1 max-h-24 overflow-y-auto rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] p-2 font-mono text-micro text-slate-600 dark:text-slate-400 whitespace-pre-wrap">
                                   {entry.sample_prompts[0]}
                                 </div>
                               </div>
@@ -533,7 +533,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
                     {cfg?.label ?? key}
                     {count > 0 && <span className="ml-1.5 text-slate-500 dark:text-slate-500">({count})</span>}
                   </div>
-                  <div className="text-[11px] text-slate-600 dark:text-slate-500 mt-0.5">{desc}</div>
+                  <div className="text-mini text-slate-600 dark:text-slate-500 mt-0.5">{desc}</div>
                 </div>
               </div>
             );
@@ -547,7 +547,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
           <h3 className="text-xs font-semibold text-slate-700 dark:text-slate-300 mb-2">Confidence Levels</h3>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             {Object.entries(feed.taxonomy.confidence_levels).map(([level, desc]) => (
-              <div key={level} className="text-[11px]">
+              <div key={level} className="text-mini">
                 <span
                   className={`px-1.5 py-0.5 font-medium rounded ${CONFIDENCE_COLORS[level] ?? 'bg-slate-500/20 text-slate-700 dark:text-slate-400'}`}
                 >
@@ -577,7 +577,7 @@ function StatCard({
   return (
     <div className="surface-card p-3 text-center">
       <div className={`text-xl font-bold ${color}`}>{displayValue ?? formatHits(value)}</div>
-      <div className="text-[10px] font-mono uppercase tracking-wider text-slate-600 dark:text-slate-500 mt-0.5">
+      <div className="text-micro font-mono uppercase tracking-wider text-slate-600 dark:text-slate-500 mt-0.5">
         {label}
       </div>
     </div>

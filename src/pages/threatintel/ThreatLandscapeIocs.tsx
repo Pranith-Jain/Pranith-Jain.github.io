@@ -224,11 +224,11 @@ export default function ThreatLandscapeIocs(): JSX.Element {
                       className="border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50"
                     >
                       <td className="px-3 py-2">
-                        <span className={`px-1.5 py-0.5 rounded-full text-[10px] ${iocTypeColor(row.ioc_type)}`}>
+                        <span className={`px-1.5 py-0.5 rounded-full text-micro ${iocTypeColor(row.ioc_type)}`}>
                           {IOC_LABELS[row.ioc_type] ?? row.ioc_type}
                         </span>
                       </td>
-                      <td className="px-3 py-2 font-mono text-[11px] max-w-[280px] truncate" title={row.ioc_value}>
+                      <td className="px-3 py-2 font-mono text-mini max-w-[280px] truncate" title={row.ioc_value}>
                         {row.ioc_value}
                       </td>
                       <td className="px-3 py-2 text-slate-500">
@@ -243,7 +243,7 @@ export default function ThreatLandscapeIocs(): JSX.Element {
                         )}
                       </td>
                       <td
-                        className="px-3 py-2 font-mono text-[10px] text-slate-400 max-w-[150px] truncate"
+                        className="px-3 py-2 font-mono text-micro text-slate-400 max-w-[150px] truncate"
                         title={row.source_bundle_id ?? ''}
                       >
                         {row.source_bundle_id ?? '-'}
@@ -259,7 +259,7 @@ export default function ThreatLandscapeIocs(): JSX.Element {
             </div>
           )}
           {data && (
-            <p className="text-[10px] text-slate-400 mt-2">
+            <p className="text-micro text-slate-400 mt-2">
               {data.length} IOC{data.length !== 1 ? 's' : ''}
             </p>
           )}

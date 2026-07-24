@@ -704,6 +704,13 @@ const DFIR_PAGES: readonly PageEntry[] = [
     group: 'dfir',
   },
   {
+    path: '/dfir/agent-history',
+    label: 'Agent History',
+    description: 'AI agent investigation sessions — quality scores, IOCs, and key findings.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
     path: '/dfir/copilot',
     label: 'DFIR Copilot',
     description: 'Conversational DFIR assistant — ask follow-up questions, summarize IOCs, draft pivots.',
@@ -2649,6 +2656,22 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     description: 'Malicious-package feed — typosquats, backdoored deps, and supply-chain attacks.',
     sectionLabel: 'Threat Intel · Detection',
     group: 'threatintel',
+  },
+  {
+    path: '/threatintel/depx',
+    label: 'Supply-Chain Feed',
+    description: 'depx-style malicious package intelligence — recently disclosed supply-chain threats from OpenSSF.',
+    sectionLabel: 'Threat Intel · Detection',
+    group: 'threatintel',
+    keywords: ['depx', 'supply-chain', 'malicious', 'package', 'npm', 'pypi', 'openssf'],
+  },
+  {
+    path: '/threatintel/entity-graph',
+    label: 'Entity Graph',
+    description: 'Interactive topology of CVEs, actors, IOCs, sectors, and techniques — relationship visualization.',
+    sectionLabel: 'Threat Intel · Tools',
+    group: 'threatintel',
+    keywords: ['entity', 'graph', 'topology', 'relationship', 'visualization', 'network'],
   },
   {
     path: '/threatintel/malware/supply-chain',

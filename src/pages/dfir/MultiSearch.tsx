@@ -554,7 +554,7 @@ function PlatformCard({
             <span className="font-medium text-sm truncate">{platform.name}</span>
             {isManual && (
               <span
-                className="text-[9px] font-mono px-1 rounded bg-amber-500/20 text-amber-700 dark:text-amber-300"
+                className="text-micro font-mono px-1 rounded bg-amber-500/20 text-amber-700 dark:text-amber-300"
                 title="Manually toggled"
               >
                 manual
@@ -572,7 +572,7 @@ function PlatformCard({
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-snug">{platform.description}</p>
           {hasUnfilled && (
-            <p className="text-[10px] font-mono text-amber-600 dark:text-amber-400 mt-1">
+            <p className="text-micro font-mono text-amber-600 dark:text-amber-400 mt-1">
               missing:{' '}
               {Array.from(url.matchAll(/\{(\w+)\}/g))
                 .map((m) => m[1])

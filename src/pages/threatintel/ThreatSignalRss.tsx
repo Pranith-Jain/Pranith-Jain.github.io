@@ -395,18 +395,18 @@ export default function ThreatSignalRss(): JSX.Element {
               >
                 <div className="flex items-center gap-2">
                   <span
-                    className={`inline-flex items-center px-1.5 py-0.5 text-[10px] font-mono rounded border ${ACCENT_PILL[s.source.accent]}`}
+                    className={`inline-flex items-center px-1.5 py-0.5 text-micro font-mono rounded border ${ACCENT_PILL[s.source.accent]}`}
                   >
                     {s.source.name}
                   </span>
                   {s.stale && (
-                    <span className="inline-flex items-center gap-0.5 text-[10px] font-mono text-amber-500">
+                    <span className="inline-flex items-center gap-0.5 text-micro font-mono text-amber-500">
                       <AlertTriangle size={9} /> stale
                     </span>
                   )}
                   <ExternalLink size={10} className="ml-auto text-slate-400 group-hover:text-brand-500" />
                 </div>
-                <div className="flex items-center gap-3 text-[10px] font-mono text-slate-500 dark:text-slate-400">
+                <div className="flex items-center gap-3 text-micro font-mono text-slate-500 dark:text-slate-400">
                   <span>{stats?.count ?? 0} posts</span>
                   <span>·</span>
                   <span>cached {relativeDate(s.cachedAt)}</span>
@@ -437,7 +437,7 @@ export default function ThreatSignalRss(): JSX.Element {
                 className="pl-7 pr-2 py-1 text-xs rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] w-48"
               />
             </div>
-            <label className="ml-auto inline-flex items-center gap-1 px-2 py-1 text-[11px] rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 cursor-pointer">
+            <label className="ml-auto inline-flex items-center gap-1 px-2 py-1 text-mini rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 cursor-pointer">
               <input type="checkbox" checked={freshOnly} onChange={(e) => setFreshOnly(e.target.checked)} />
               fresh this week
             </label>
@@ -449,7 +449,7 @@ export default function ThreatSignalRss(): JSX.Element {
           {/* Source pills */}
           {agg.sources.length > 0 && (
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-[10px] font-mono uppercase text-slate-500 dark:text-slate-400">Sources:</span>
+              <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">Sources:</span>
               {agg.sources.map((s) => {
                 const active = activeSources.has(s.source.id);
                 return (
@@ -464,7 +464,7 @@ export default function ThreatSignalRss(): JSX.Element {
                         return next;
                       });
                     }}
-                    className={`inline-flex items-center gap-1 px-2 py-1 text-[11px] rounded border transition-colors ${
+                    className={`inline-flex items-center gap-1 px-2 py-1 text-mini rounded border transition-colors ${
                       active
                         ? ACCENT_PILL[s.source.accent]
                         : 'bg-transparent text-slate-500 dark:text-slate-400 border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-slate-500'
@@ -479,7 +479,7 @@ export default function ThreatSignalRss(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setActiveSources(new Set())}
-                  className="text-[10px] font-mono text-slate-500 hover:text-brand-500 underline"
+                  className="text-micro font-mono text-slate-500 hover:text-brand-500 underline"
                 >
                   clear
                 </button>
@@ -490,7 +490,7 @@ export default function ThreatSignalRss(): JSX.Element {
           {/* Category pills (only show if any items have categories) */}
           {categories.length > 0 && (
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-[10px] font-mono uppercase text-slate-500 dark:text-slate-400">Categories:</span>
+              <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">Categories:</span>
               {categories.map((cat) => {
                 const meta = categoryStyle(cat);
                 const active = activeCategories.has(cat);
@@ -506,7 +506,7 @@ export default function ThreatSignalRss(): JSX.Element {
                         return next;
                       });
                     }}
-                    className={`inline-flex items-center gap-1 px-2 py-1 text-[11px] rounded border transition-colors ${
+                    className={`inline-flex items-center gap-1 px-2 py-1 text-mini rounded border transition-colors ${
                       active
                         ? meta.className
                         : 'bg-transparent text-slate-500 dark:text-slate-400 border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-slate-500'
@@ -521,7 +521,7 @@ export default function ThreatSignalRss(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setActiveCategories(new Set())}
-                  className="text-[10px] font-mono text-slate-500 hover:text-brand-500 underline"
+                  className="text-micro font-mono text-slate-500 hover:text-brand-500 underline"
                 >
                   clear
                 </button>
@@ -586,28 +586,28 @@ function PostCard({ item, summary }: { item: RssItem; summary?: string }): JSX.E
       <div className="flex flex-wrap items-center gap-2 mt-auto pt-2">
         {/* Source pill */}
         <span
-          className={`inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-mono rounded border ${ACCENT_PILL[item.sourceAccent]}`}
+          className={`inline-flex items-center gap-1 px-1.5 py-0.5 text-micro font-mono rounded border ${ACCENT_PILL[item.sourceAccent]}`}
         >
           {item.sourceName}
         </span>
         {/* Category pill (only if present) */}
         {item.category && (
           <span
-            className={`inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-mono rounded border ${cat.className}`}
+            className={`inline-flex items-center gap-1 px-1.5 py-0.5 text-micro font-mono rounded border ${cat.className}`}
           >
             <Tag size={9} />
             {cat.label}
           </span>
         )}
         <span
-          className="inline-flex items-center gap-1 text-[10px] font-mono text-slate-500 dark:text-slate-400"
+          className="inline-flex items-center gap-1 text-micro font-mono text-slate-500 dark:text-slate-400"
           title={fullDate(item.pubDate)}
         >
           <Clock size={9} />
           {relativeDate(item.pubDate)}
         </span>
-        {item.author && <span className="text-[10px] font-mono text-slate-400">· {item.author}</span>}
-        <span className="ml-auto inline-flex items-center gap-0.5 text-[10px] font-mono text-slate-400 group-hover:text-brand-500">
+        {item.author && <span className="text-micro font-mono text-slate-400">· {item.author}</span>}
+        <span className="ml-auto inline-flex items-center gap-0.5 text-micro font-mono text-slate-400 group-hover:text-brand-500">
           read <ChevronRight size={10} />
         </span>
       </div>
@@ -634,7 +634,7 @@ function StatCard({ label, value, accent = 'brand', small = false }: StatCardPro
           : 'text-brand-500 dark:text-brand-400';
   return (
     <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/40 dark:bg-[rgb(var(--surface-200))]/40 px-3 py-2">
-      <div className="text-[10px] uppercase tracking-wide text-slate-500 dark:text-slate-400 font-mono">{label}</div>
+      <div className="text-micro uppercase tracking-wide text-slate-500 dark:text-slate-400 font-mono">{label}</div>
       <div className={`font-bold font-mono ${color} ${small ? 'text-sm' : 'text-2xl'}`}>{value}</div>
     </div>
   );

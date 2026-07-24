@@ -122,6 +122,26 @@ export default {
       return new Response('internal error', { status: 500, headers: { 'x-request-id': requestId } });
     }
 
+    // .well-known/security.txt — serve with explicit Content-Type for scanners
+    if (url.pathname === '/.well-known/security.txt') {
+      try {
+        const assetRes = await env.ASSETS.fetch(request);
+        if (assetRes.ok) {
+          const body = await assetRes.text();
+          return new Response(body, {
+            status: 200,
+            headers: {
+              'content-type': 'text/plain; charset=utf-8',
+              'cache-control': 'public, max-age=86400',
+              'strict-transport-security': 'max-age=63072000; includeSubDomains; preload',
+            },
+          });
+        }
+      } catch {
+        // fall through
+      }
+    }
+
     // Forward /api/* and legacy /blog/rss.xml to the API app
     if (url.pathname.startsWith('/api/') || url.pathname === '/blog/rss.xml') {
       try {

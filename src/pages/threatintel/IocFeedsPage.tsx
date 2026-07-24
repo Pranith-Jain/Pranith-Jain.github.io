@@ -128,7 +128,7 @@ export default function IocFeedsPage(): JSX.Element {
               >
                 <td className="px-4 py-3">
                   <span
-                    className={`inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded border uppercase tracking-wider ${SEV_COLORS[feed.severity]}`}
+                    className={`inline-flex items-center gap-1 text-micro font-semibold px-2 py-0.5 rounded border uppercase tracking-wider ${SEV_COLORS[feed.severity]}`}
                   >
                     {feed.severity === 'critical' && <AlertTriangle size={9} />}
                     {feed.severity === 'high' && <Shield size={9} />}
@@ -144,7 +144,7 @@ export default function IocFeedsPage(): JSX.Element {
                     {feed.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="text-[9px] px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
+                        className="text-micro px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
                       >
                         {tag}
                       </span>
@@ -156,7 +156,7 @@ export default function IocFeedsPage(): JSX.Element {
                   <div className="flex items-center justify-end gap-1.5">
                     <button
                       onClick={() => copyUrl(feed)}
-                      className="inline-flex items-center gap-1 text-[10px] px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                      className="inline-flex items-center gap-1 text-micro px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                     >
                       {copiedId === feed.id ? '✓' : <Filter size={9} />}
                       {copiedId === feed.id ? 'Copied' : 'Copy URL'}
@@ -165,7 +165,7 @@ export default function IocFeedsPage(): JSX.Element {
                       href={sanitizeUrl(feed.downloadUrl)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-[10px] px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                      className="inline-flex items-center gap-1 text-micro px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                     >
                       <Download size={9} /> Download
                     </a>

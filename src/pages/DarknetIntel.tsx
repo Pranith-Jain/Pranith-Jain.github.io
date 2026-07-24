@@ -128,12 +128,12 @@ function ToolForm({
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{description}</p>
           </div>
           <div className="flex items-center gap-2 shrink-0">
-            {ageText && <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500">{ageText}</span>}
+            {ageText && <span className="text-micro font-mono text-slate-400 dark:text-slate-500">{ageText}</span>}
             {examples && (
               <button
                 type="button"
                 onClick={applyExample}
-                className="text-[10px] font-mono text-brand-600 dark:text-brand-400 border border-brand-200 dark:border-brand-800 rounded px-1.5 py-0.5 hover:bg-brand-50 dark:hover:bg-brand-950/40 transition-colors"
+                className="text-micro font-mono text-brand-600 dark:text-brand-400 border border-brand-200 dark:border-brand-800 rounded px-1.5 py-0.5 hover:bg-brand-50 dark:hover:bg-brand-950/40 transition-colors"
               >
                 Try it
               </button>
@@ -233,11 +233,11 @@ function ProvidersTab() {
           <div className="flex items-start justify-between">
             <h4 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{s.name}</h4>
             {s.free ? (
-              <span className="text-[10px] font-medium px-1.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+              <span className="text-micro font-medium px-1.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
                 FREE
               </span>
             ) : (
-              <span className="text-[10px] font-medium px-1.5 py-0.5 rounded-full bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
+              <span className="text-micro font-medium px-1.5 py-0.5 rounded-full bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
                 PAID
               </span>
             )}
@@ -253,12 +253,12 @@ function ProvidersTab() {
             ) : (
               <Key className="h-3.5 w-3.5 text-rose-500" />
             )}
-            <span className="text-[11px] text-slate-500 dark:text-slate-400">
+            <span className="text-mini text-slate-500 dark:text-slate-400">
               {s.auth === 'none' ? 'No key needed' : s.auth === 'optional' ? 'Key optional' : `Key: ${s.key_env}`}
             </span>
             {s.auth !== 'none' && keyStatus[s.name] && (
               <span
-                className={`text-[10px] font-mono px-1 py-0.5 rounded ${
+                className={`text-micro font-mono px-1 py-0.5 rounded ${
                   keyStatus[s.name] === 'configured'
                     ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400'
                     : keyStatus[s.name] === 'missing'

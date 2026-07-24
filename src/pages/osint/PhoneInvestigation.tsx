@@ -94,26 +94,26 @@ export default function PhoneInvestigation() {
               </h2>
               <div className="grid md:grid-cols-2 gap-4 text-sm">
                 <div>
-                  <label className="text-[10px] font-mono uppercase text-slate-400">Valid</label>
+                  <label className="text-micro font-mono uppercase text-slate-400">Valid</label>
                   <p className={result.valid ? 'text-emerald-600 font-semibold' : 'text-rose-600 font-semibold'}>
                     {result.valid ? 'Yes' : 'No'}
                   </p>
                 </div>
                 {result.country && (
                   <div>
-                    <label className="text-[10px] font-mono uppercase text-slate-400">Country</label>
+                    <label className="text-micro font-mono uppercase text-slate-400">Country</label>
                     <p className="text-slate-700 dark:text-slate-300">{result.country}</p>
                   </div>
                 )}
                 {result.carrier && (
                   <div>
-                    <label className="text-[10px] font-mono uppercase text-slate-400">Carrier</label>
+                    <label className="text-micro font-mono uppercase text-slate-400">Carrier</label>
                     <p className="text-slate-700 dark:text-slate-300">{result.carrier}</p>
                   </div>
                 )}
                 {result.lineType && (
                   <div>
-                    <label className="text-[10px] font-mono uppercase text-slate-400">Line Type</label>
+                    <label className="text-micro font-mono uppercase text-slate-400">Line Type</label>
                     <p className="text-slate-700 dark:text-slate-300">{result.lineType}</p>
                   </div>
                 )}

@@ -191,13 +191,13 @@ export function Projects({ projects }: ProjectsProps) {
                       {cs.tags.slice(0, 4).map((tag) => (
                         <span
                           key={tag}
-                          className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
+                          className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
                         >
                           {tag}
                         </span>
                       ))}
                       {cs.tags.length > 4 && (
-                        <span className="text-[10px] font-mono text-slate-400">+{cs.tags.length - 4}</span>
+                        <span className="text-micro font-mono text-slate-400">+{cs.tags.length - 4}</span>
                       )}
                     </div>
                   )}

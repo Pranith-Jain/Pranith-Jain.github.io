@@ -247,7 +247,7 @@ export default function FusionExposure(): JSX.Element {
                   >
                     {item.fusion_score}
                   </span>
-                  <span className="text-[9px] font-mono text-slate-400 uppercase mt-0.5">score</span>
+                  <span className="text-micro font-mono text-slate-400 uppercase mt-0.5">score</span>
                 </div>
 
                 {/* Fusion score bar */}
@@ -329,7 +329,7 @@ export default function FusionExposure(): JSX.Element {
                             style={{ width: `${d.score}%` }}
                           />
                         </div>
-                        <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400 truncate">
+                        <p className="text-micro font-mono text-slate-500 dark:text-slate-400 truncate">
                           weight {(d.weight * 100).toFixed(0)}% · {d.signals[0] ?? ''}
                         </p>
                       </div>

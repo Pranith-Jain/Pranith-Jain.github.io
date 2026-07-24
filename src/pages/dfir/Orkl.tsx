@@ -207,7 +207,7 @@ export default function Orkl(): JSX.Element {
           ].map((s) => (
             <div key={s.label}>
               <div className="text-2xl font-bold text-slate-800 dark:text-slate-200">{s.value}</div>
-              <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mt-0.5">{s.label}</div>
+              <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mt-0.5">{s.label}</div>
             </div>
           ))}
         </div>
@@ -246,7 +246,7 @@ export default function Orkl(): JSX.Element {
           {/* Results list */}
           {results !== null && results.length > 0 && (
             <div className={`space-y-2 ${selected ? 'lg:col-span-1' : 'lg:col-span-3'}`}>
-              <div className="text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-400 mb-2">
+              <div className="text-micro font-mono font-semibold uppercase tracking-wider text-slate-400 mb-2">
                 {results.length} result{results.length !== 1 ? 's' : ''}
               </div>
               {results.map((entry) => (
@@ -262,7 +262,7 @@ export default function Orkl(): JSX.Element {
                   <div className="text-sm font-semibold text-slate-800 dark:text-slate-200 leading-snug line-clamp-2">
                     {entry.llm_title || entry.title || 'Untitled'}
                   </div>
-                  <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 mt-1.5 text-[11px] font-mono text-slate-500">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 mt-1.5 text-mini font-mono text-slate-500">
                     {entry.authors && (
                       <span className="inline-flex items-center gap-1">
                         <User size={10} /> {entry.authors}
@@ -291,12 +291,12 @@ export default function Orkl(): JSX.Element {
                 </h2>
 
                 {selected.sha1_hash && (
-                  <div className="flex items-center gap-1.5 text-[11px] font-mono text-slate-400 mb-2">
+                  <div className="flex items-center gap-1.5 text-mini font-mono text-slate-400 mb-2">
                     <Hash size={10} /> {selected.sha1_hash}
                   </div>
                 )}
 
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-4 text-[11px] font-mono">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-4 text-mini font-mono">
                   {selected.authors && (
                     <div>
                       <span className="text-slate-500">Authors</span>
@@ -347,7 +347,7 @@ export default function Orkl(): JSX.Element {
                     {selected.threat_actors.map((ta) => (
                       <span
                         key={ta.id}
-                        className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300"
+                        className="text-micro font-mono px-1.5 py-0.5 rounded border border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300"
                       >
                         {ta.main_name}
                       </span>
@@ -382,7 +382,7 @@ export default function Orkl(): JSX.Element {
 
               {/* Plain text */}
               <div className="surface-card p-4">
-                <h3 className="text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-400 mb-3">
+                <h3 className="text-micro font-mono font-semibold uppercase tracking-wider text-slate-400 mb-3">
                   Full Text
                 </h3>
                 {detailLoading ? (

@@ -261,7 +261,7 @@ export default function DfirCopilot(): JSX.Element {
           </button>
         </div>
         {iocType !== 'unknown' && (
-          <div className="mt-2 text-[11px] font-mono text-slate-500">
+          <div className="mt-2 text-mini font-mono text-slate-500">
             Detected: <span className={IOC_COLORS[iocType]}>{iocType.toUpperCase()}</span>
           </div>
         )}
@@ -270,7 +270,7 @@ export default function DfirCopilot(): JSX.Element {
       {/* Quick examples */}
       {!result && !loading && (
         <div className="mb-6">
-          <div className="text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-400 mb-2">
+          <div className="text-micro font-mono font-semibold uppercase tracking-wider text-slate-400 mb-2">
             Quick examples
           </div>
           <div className="flex flex-wrap gap-2">
@@ -316,7 +316,7 @@ export default function DfirCopilot(): JSX.Element {
               <div className="flex flex-wrap items-center gap-3">
                 <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">{result.query}</h2>
                 {badge && (
-                  <span className={`rounded px-2 py-0.5 text-[10px] font-semibold uppercase ${badge.color}`}>
+                  <span className={`rounded px-2 py-0.5 text-micro font-semibold uppercase ${badge.color}`}>
                     {badge.label}
                   </span>
                 )}
@@ -351,7 +351,7 @@ export default function DfirCopilot(): JSX.Element {
                   {result.sources.map((s, i) => (
                     <span
                       key={s.name}
-                      className="inline-flex items-center gap-1 rounded border border-slate-200 bg-slate-50 px-2 py-0.5 font-mono text-[11px] text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400"
+                      className="inline-flex items-center gap-1 rounded border border-slate-200 bg-slate-50 px-2 py-0.5 font-mono text-mini text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400"
                     >
                       <span className="font-bold text-slate-400">{i + 1}.</span>
                       {s.name}
@@ -369,7 +369,7 @@ export default function DfirCopilot(): JSX.Element {
               <FileText size={15} className="text-brand-600 dark:text-brand-400" />
               <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">Investigation Report</span>
               {result._meta && (
-                <span className="ml-auto font-mono text-[11px] text-slate-400">
+                <span className="ml-auto font-mono text-mini text-slate-400">
                   {result._meta.total_items} data points across {result._meta.total_sources} sources
                 </span>
               )}
@@ -396,7 +396,7 @@ export default function DfirCopilot(): JSX.Element {
                     <summary className="cursor-pointer text-xs font-medium">
                       {s.name} ({s.items} items)
                     </summary>
-                    <pre className="mt-2 max-h-48 overflow-auto overflow-x-auto rounded bg-slate-100 p-2 font-mono text-[11px] dark:bg-[rgb(var(--surface-200))]">
+                    <pre className="mt-2 max-h-48 overflow-auto overflow-x-auto rounded bg-slate-100 p-2 font-mono text-mini dark:bg-[rgb(var(--surface-200))]">
                       {JSON.stringify(s.data, null, 2)}
                     </pre>
                   </details>
@@ -406,7 +406,7 @@ export default function DfirCopilot(): JSX.Element {
           )}
 
           {/* Metadata */}
-          <div className="text-[11px] font-mono text-slate-500 flex items-center gap-2">
+          <div className="text-mini font-mono text-slate-500 flex items-center gap-2">
             <Info size={12} />
             Investigated at {result.processed_at} · IOC type: {result.query_type} · Model: {result.model_used}
           </div>

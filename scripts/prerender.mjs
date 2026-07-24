@@ -97,6 +97,8 @@ const ROUTES = [
   '/threatintel/external/awesome',
   '/threatintel/external/external',
   '/threatintel/external/supply',
+  '/threatintel/depx',
+  '/threatintel/entity-graph',
   '/threatintel/feeds/catalog',
   '/threatintel/feeds/mythreatintel',
   '/threatintel/feeds/quality',

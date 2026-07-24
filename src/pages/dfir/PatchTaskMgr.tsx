@@ -212,14 +212,14 @@ export default function PatchTaskMgr(): JSX.Element {
           <button
             type="button"
             onClick={() => setTab('patches')}
-            className={`text-[10px] font-mono px-3 py-1 rounded ${tab === 'patches' ? 'bg-brand-600 text-white' : 'text-slate-500 hover:text-slate-700'}`}
+            className={`text-micro font-mono px-3 py-1 rounded ${tab === 'patches' ? 'bg-brand-600 text-white' : 'text-slate-500 hover:text-slate-700'}`}
           >
             Patches
           </button>
           <button
             type="button"
             onClick={() => setTab('windows')}
-            className={`text-[10px] font-mono px-3 py-1 rounded ${tab === 'windows' ? 'bg-brand-600 text-white' : 'text-slate-500 hover:text-slate-700'}`}
+            className={`text-micro font-mono px-3 py-1 rounded ${tab === 'windows' ? 'bg-brand-600 text-white' : 'text-slate-500 hover:text-slate-700'}`}
           >
             Maintenance Windows
           </button>
@@ -320,20 +320,20 @@ export default function PatchTaskMgr(): JSX.Element {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
                       <span
-                        className={`text-[10px] font-mono px-1.5 py-0.5 rounded border ${SEVERITY_TONES[p.severity]}`}
+                        className={`text-micro font-mono px-1.5 py-0.5 rounded border ${SEVERITY_TONES[p.severity]}`}
                       >
                         {p.severity.toUpperCase()}
                       </span>
-                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-400">
+                      <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-400">
                         {p.vendor}
                       </span>
-                      <span className="text-[10px] font-mono text-slate-500">{p.status.replace(/_/g, ' ')}</span>
+                      <span className="text-micro font-mono text-slate-500">{p.status.replace(/_/g, ' ')}</span>
                       {p.cvss_score !== undefined && (
-                        <span className="text-[10px] font-mono text-slate-500">CVSS {p.cvss_score}</span>
+                        <span className="text-micro font-mono text-slate-500">CVSS {p.cvss_score}</span>
                       )}
                     </div>
                     <div className="font-mono text-xs font-semibold truncate">{p.title}</div>
-                    <div className="flex flex-wrap items-center gap-2 text-[10px] text-slate-400 font-mono mt-0.5">
+                    <div className="flex flex-wrap items-center gap-2 text-micro text-slate-400 font-mono mt-0.5">
                       <span>Released {new Date(p.release_date).toLocaleDateString()}</span>
                       {p.cve_ids.length > 0 && <span>{p.cve_ids.join(', ')}</span>}
                       {p.assigned_to && <span>Assigned: {p.assigned_to}</span>}
@@ -342,7 +342,7 @@ export default function PatchTaskMgr(): JSX.Element {
                   <select
                     value={p.status}
                     onChange={(e) => handlePatchStatus(p.id, e.target.value as PatchStatus)}
-                    className="text-[10px] font-mono px-1.5 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]"
+                    className="text-micro font-mono px-1.5 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]"
                   >
                     <option value="pending_review">Review</option>
                     <option value="scheduled">Scheduled</option>
@@ -423,17 +423,17 @@ export default function PatchTaskMgr(): JSX.Element {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
                       <span
-                        className={`text-[10px] font-mono px-1.5 py-0.5 rounded border ${w.status === 'completed' ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300' : w.status === 'in_progress' ? 'border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300' : w.status === 'approved' ? 'border-blue-500/30 bg-blue-500/10 text-blue-700 dark:text-blue-300' : w.status === 'proposed' ? 'border-slate-500/30 bg-slate-500/10 text-slate-700 dark:text-slate-300' : 'border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300'}`}
+                        className={`text-micro font-mono px-1.5 py-0.5 rounded border ${w.status === 'completed' ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300' : w.status === 'in_progress' ? 'border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300' : w.status === 'approved' ? 'border-blue-500/30 bg-blue-500/10 text-blue-700 dark:text-blue-300' : w.status === 'proposed' ? 'border-slate-500/30 bg-slate-500/10 text-slate-700 dark:text-slate-300' : 'border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300'}`}
                       >
                         {w.status}
                       </span>
-                      <span className="text-[10px] font-mono text-slate-500">
+                      <span className="text-micro font-mono text-slate-500">
                         <Calendar size={10} className="inline mr-1" />
                         {new Date(w.start_time).toLocaleString()} – {new Date(w.end_time).toLocaleString()}
                       </span>
                     </div>
                     <div className="font-mono text-xs font-semibold truncate">{w.title}</div>
-                    <div className="flex items-center gap-2 text-[10px] text-slate-400 font-mono mt-0.5">
+                    <div className="flex items-center gap-2 text-micro text-slate-400 font-mono mt-0.5">
                       <span>{w.affected_systems.length} systems</span>
                       {w.approver && <span>Approver: {w.approver}</span>}
                       {w.patch_ids.length > 0 && <span>{w.patch_ids.length} patches</span>}
@@ -442,7 +442,7 @@ export default function PatchTaskMgr(): JSX.Element {
                   <select
                     value={w.status}
                     onChange={(e) => handleWindowStatus(w.id, e.target.value as MwStatus)}
-                    className="text-[10px] font-mono px-1.5 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]"
+                    className="text-micro font-mono px-1.5 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]"
                   >
                     <option value="proposed">Proposed</option>
                     <option value="approved">Approved</option>

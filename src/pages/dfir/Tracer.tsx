@@ -451,21 +451,21 @@ export default function Tracer(): JSX.Element {
           </div>
           <div className="grid grid-cols-3 gap-2">
             <button
-              className="rounded border border-slate-600 p-1 text-[10px] hover:bg-slate-800 disabled:opacity-40"
+              className="rounded border border-slate-600 p-1 text-micro hover:bg-slate-800 disabled:opacity-40"
               disabled={!graph}
               onClick={() => void exportTrace('json')}
             >
               JSON
             </button>
             <button
-              className="rounded border border-slate-600 p-1 text-[10px] hover:bg-slate-800 disabled:opacity-40"
+              className="rounded border border-slate-600 p-1 text-micro hover:bg-slate-800 disabled:opacity-40"
               disabled={!graph}
               onClick={() => void exportTrace('csv')}
             >
               CSV
             </button>
             <button
-              className="rounded border border-slate-600 p-1 text-[10px] hover:bg-slate-800 disabled:opacity-40"
+              className="rounded border border-slate-600 p-1 text-micro hover:bg-slate-800 disabled:opacity-40"
               disabled={!graph}
               onClick={() => void exportTrace('png')}
             >
@@ -574,16 +574,16 @@ export default function Tracer(): JSX.Element {
                   <ul className="mt-1 space-y-1">
                     {incidentEdges.map((e) => (
                       <li key={e.id} className="flex items-center justify-between gap-2">
-                        <span className="truncate font-mono text-[10px] text-slate-400">{e.tx_hash.slice(0, 14)}…</span>
+                        <span className="truncate font-mono text-micro text-slate-400">{e.tx_hash.slice(0, 14)}…</span>
                         <button
-                          className="rounded border border-slate-600 px-1 text-[10px] hover:bg-slate-800 disabled:opacity-40"
+                          className="rounded border border-slate-600 px-1 text-micro hover:bg-slate-800 disabled:opacity-40"
                           disabled={selected.chain === 'btc' || selected.chain === 'solana' || calldataLoading}
                           onClick={() => void inspectCalldata(e.tx_hash, selected.chain)}
                         >
                           Inspect calldata
                         </button>
                         <button
-                          className="rounded border border-slate-600 px-1 text-[10px] hover:bg-slate-800"
+                          className="rounded border border-slate-600 px-1 text-micro hover:bg-slate-800"
                           onClick={() => void pinToInvestigation(e.tx_hash, 'tx-hash')}
                         >
                           pin
@@ -625,7 +625,7 @@ export default function Tracer(): JSX.Element {
                     <div className="mt-1 border-t border-slate-700 pt-1">
                       Cross-chain pointer →{' '}
                       {calldata.resolved_pointer.found ? `${calldata.resolved_pointer.chain} (resolved)` : 'unresolved'}
-                      <div className="break-all font-mono text-[10px] text-slate-500">
+                      <div className="break-all font-mono text-micro text-slate-500">
                         {calldata.resolved_pointer.value}
                       </div>
                     </div>
@@ -640,9 +640,9 @@ export default function Tracer(): JSX.Element {
                   <ul className="mt-1 space-y-1">
                     {cluster.slice(0, 8).map((c) => (
                       <li key={c.address} className="flex items-center justify-between gap-2">
-                        <span className="truncate font-mono text-[10px]">{c.address}</span>
+                        <span className="truncate font-mono text-micro">{c.address}</span>
                         <button
-                          className="rounded border border-slate-600 px-1 text-[10px] hover:bg-slate-800"
+                          className="rounded border border-slate-600 px-1 text-micro hover:bg-slate-800"
                           onClick={() => setSeed(c.address)}
                         >
                           seed
@@ -663,22 +663,22 @@ export default function Tracer(): JSX.Element {
                       href={d.webUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="rounded border border-slate-600 px-1 text-[10px] hover:bg-slate-800"
+                      className="rounded border border-slate-600 px-1 text-micro hover:bg-slate-800"
                     >
                       {d.label}
                     </a>
                   ))}
                 </div>
                 <button
-                  className="mt-1 w-full rounded border border-slate-600 p-1 text-[10px] hover:bg-slate-800"
+                  className="mt-1 w-full rounded border border-slate-600 p-1 text-micro hover:bg-slate-800"
                   onClick={() => void runUnifiedSearch(selected.address)}
                 >
                   Run unified search
                 </button>
-                {unifiedResult ? <p className="mt-1 text-[10px] text-slate-400">{unifiedResult}</p> : null}
+                {unifiedResult ? <p className="mt-1 text-micro text-slate-400">{unifiedResult}</p> : null}
                 {selected.chain === 'evm' && !selected.label && !ensName ? (
                   <button
-                    className="mt-1 w-full rounded border border-slate-600 p-1 text-[10px] hover:bg-slate-800"
+                    className="mt-1 w-full rounded border border-slate-600 p-1 text-micro hover:bg-slate-800"
                     onClick={() => void resolveEns(selected.address)}
                   >
                     Resolve ENS
@@ -696,7 +696,7 @@ export default function Tracer(): JSX.Element {
                         {links.map((l) => (
                           <li key={l.label}>
                             <a
-                              className="text-[10px] text-brand-400 hover:underline"
+                              className="text-micro text-brand-400 hover:underline"
                               href={l.apiPath}
                               target="_blank"
                               rel="noreferrer"
@@ -729,7 +729,7 @@ export default function Tracer(): JSX.Element {
                 </div>
                 {alerts ? (
                   alerts.length ? (
-                    <ul className="mt-1 space-y-1 text-[10px]">
+                    <ul className="mt-1 space-y-1 text-micro">
                       {alerts.slice(0, 8).map((al, i) => (
                         <li key={i} className="text-slate-400">
                           <span className="font-semibold text-amber-400">{al.alert_type}</span> ·{' '}
@@ -738,7 +738,7 @@ export default function Tracer(): JSX.Element {
                       ))}
                     </ul>
                   ) : (
-                    <p className="mt-1 text-[10px] text-slate-500">no alerts yet</p>
+                    <p className="mt-1 text-micro text-slate-500">no alerts yet</p>
                   )
                 ) : null}
               </div>

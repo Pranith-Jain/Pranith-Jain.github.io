@@ -418,7 +418,7 @@ export default function RiskRegister(): JSX.Element {
                   >
                     {entry.priority_score}
                   </span>
-                  <span className="text-[9px] font-mono text-slate-400 uppercase mt-0.5">priority</span>
+                  <span className="text-micro font-mono text-slate-400 uppercase mt-0.5">priority</span>
                 </div>
 
                 {/* Info */}

@@ -162,6 +162,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [TRACEPULSE](https://pranithjain.qzz.io/dfir/tracepulse) (dfir): Real-time crypto flow monitor — alerts on suspicious wallet activity.
 - [QUICKTRACE](https://pranithjain.qzz.io/dfir/quicktrace) (dfir): Quick lookup for a crypto address or transaction hash.
 - [PIVEX](https://pranithjain.qzz.io/dfir/pivex) (dfir): Pivot explorer — graph-style pivots from any entity.
+- [Agent History](https://pranithjain.qzz.io/dfir/agent-history) (dfir): AI agent investigation sessions — quality scores, IOCs, and key findings.
 - [Report Analyzer](https://pranithjain.qzz.io/dfir/report-analyzer) (dfir): AI summary — IOC extraction — MITRE TTP mapping — STIX bundle.
 - [Report Composer](https://pranithjain.qzz.io/dfir/report-composer) (dfir): Cover — summary — findings — IOCs — sources — TLP — export to PDF/DOCX.
 - [Export Hub](https://pranithjain.qzz.io/dfir/export-hub) (dfir): Export IOCs to STIX 2.1, MISP, Sigma, YARA, Snort, Suricata, CSV.
@@ -228,6 +229,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Malware Sandbox](https://pranithjain.qzz.io/threatintel/malware/sandbox) (threatintel): Hash lookup across 10+ sandbox platforms — consensus verdict.
 - [Malicious Packages](https://pranithjain.qzz.io/threatintel/malware/packages) (threatintel): Malicious package tracking — npm, PyPI, RubyGems, Maven, NuGet.
 - [Supply-Chain Incidents](https://pranithjain.qzz.io/threatintel/malware/supply-chain) (threatintel): Confirmed supply-chain compromise incidents — npm · PyPI · containers · AI agents. Data: supplychainattack.org.
+- [Supply-Chain Feed](https://pranithjain.qzz.io/threatintel/depx) (threatintel): Malicious package intelligence from OpenSSF — ecosystem breakdown, package verdicts, and advisory tracking.
 - [Malpedia](https://pranithjain.qzz.io/threatintel/malware/malpedia) (threatintel): Malpedia malware encyclopedia — families, YARA, references.
 - [Maltrail Trails](https://pranithjain.qzz.io/threatintel/malware/maltrail) (threatintel): Maltrail detection trails for known malware.
 - [Feed Catalog](https://pranithjain.qzz.io/threatintel/feeds/catalog) (threatintel): Feed file browser with format and sample preview.
@@ -313,6 +315,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [SecOps Tools](https://pranithjain.qzz.io/threatintel/osint/secops) (threatintel): SecOps tools catalog — SIEM, EDR, SOAR, log shippers.
 - [OSINT Portal Directory](https://pranithjain.qzz.io/threatintel/osint/directory) (threatintel): Curated directory of 40 OSINT portals and resources filtered by category.
 - [Threat Intel Copilot](https://pranithjain.qzz.io/threatintel/tools/copilot) (threatintel): AI copilot — ask, pivot, summarize, draft.
+- [Entity Graph](https://pranithjain.qzz.io/threatintel/entity-graph) (threatintel): Interactive topology of CVEs, actors, IOCs, sectors, and techniques.
 - [Vera](https://pranithjain.qzz.io/threatintel/vera) (threatintel): Vera — AI-powered investigative assistant for threat intelligence workflows.
 - [MCP Search · TI Mindmap Hub](https://pranithjain.qzz.io/threatintel/tools/mcp) (threatintel): Search 1,628+ reports, CVEs, IOCs, briefings, STIX bundles, and knowledge graph via 25 MCP tools on ti-mindmap-hub.com.
 - [MISP Browser](https://pranithjain.qzz.io/threatintel/tools/misp) (threatintel): MISP galaxy and event browser.
@@ -388,6 +391,9 @@ Drop-in configs: https://pranithjain.qzz.io/mcp/{claude-desktop,cursor,vscode-mc
 - [db_list_briefs](https://pranithjain.qzz.io/mcp) (mcp:other): List available daily intelligence briefs by type (cyber, deepfake, disaster). Returns dates and metadata. Use db_get_brief to retrieve the full brief body.
 - [db_stats](https://pranithjain.qzz.io/mcp) (mcp:other): Return cache + manifest stats for the Daily Briefs data: index loaded, body-cache sizes and hit ratios. Useful for diagnosing cold-start latency.
 - [dehash_lookup](https://pranithjain.qzz.io/mcp) (mcp:other): Look up a cryptographic hash (md5/sha1/sha256/sha384/sha512) against Dehash.lt to find its plaintext value. Useful for cracking password hashes or identifying known hash values. No API key required.
+- [depx_check](https://pranithjain.qzz.io/mcp) (mcp:other): Check if a specific package is known-malicious. Queries the OpenSSF Malicious Packages database and OSV. Returns verdict (clean/malicious/unknown) with advisory details. Inspired by projectdiscovery/depx.
+- [depx_feed](https://pranithjain.qzz.io/mcp) (mcp:other): Feed of recently disclosed malicious packages from the OpenSSF Malicious Packages database. Returns packages disclosed within the time window, with ecosystem breakdown and disclosure age. Inspired by projectdiscovery/depx.
+- [depx_stats](https://pranithjain.qzz.io/mcp) (mcp:other): Supply-chain intelligence statistics — ecosystem breakdown, recent advisory counts, and disclosure trends from the OpenSSF Malicious Packages database.
 - [dn_abuseipdb_blacklist](https://pranithjain.qzz.io/mcp) (mcp:other): Get AbuseIPDB blacklist of the most reported malicious IP addresses. Requires ABUSEIPDB_API_KEY.
 - [dn_abuseipdb_check](https://pranithjain.qzz.io/mcp) (mcp:other): Check an IP address on AbuseIPDB for abuse reports: confidence score, ISP, country, report count, categories. Requires ABUSEIPDB_API_KEY.
 - [dn_abuseipdb_check_block](https://pranithjain.qzz.io/mcp) (mcp:other): Check an entire CIDR network block for abuse reports on AbuseIPDB. Requires ABUSEIPDB_API_KEY.

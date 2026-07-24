@@ -4,3 +4,4 @@ Expires: 2027-06-15T00:00:00Z
 Preferred-Languages: en
 Canonical: https://pranithjain.qzz.io/.well-known/security.txt
 Policy: https://pranithjain.qzz.io/.well-known/security.txt
+Acknowledgments: https://github.com/Pranith-Jain/Pranith-Jain.github.io/security/advisories

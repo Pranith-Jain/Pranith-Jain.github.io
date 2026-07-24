@@ -282,7 +282,7 @@ export default function TelegramHub(): JSX.Element {
             Search
           </button>
         </form>
-        <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-2">
+        <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-2">
           Hits <code>/api/v1/telegram-search</code> (tgstat-backed channel discovery) and{' '}
           <code>/api/v1/telegram-leaks/search</code> (D1 leak text) in parallel.
         </p>
@@ -327,7 +327,7 @@ export default function TelegramHub(): JSX.Element {
                             @{c.handle}
                             <ExternalLink size={11} />
                           </a>
-                          <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
+                          <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
                             {formatSubs(c.subscribers)} subs · {c.posts_per_day ?? '—'} posts/day
                           </span>
                         </div>
@@ -335,7 +335,7 @@ export default function TelegramHub(): JSX.Element {
                           {c.description || c.name}
                         </p>
                         {c.category && (
-                          <span className="inline-block mt-1 text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400">
+                          <span className="inline-block mt-1 text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400">
                             {c.category}
                           </span>
                         )}
@@ -369,7 +369,7 @@ export default function TelegramHub(): JSX.Element {
                             @{l.channel_handle}
                           </Link>
                           <span
-                            className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${severityTone(
+                            className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${severityTone(
                               l.severity
                             )}`}
                           >
@@ -379,7 +379,7 @@ export default function TelegramHub(): JSX.Element {
                         <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-2">
                           {(l.message_text ?? '').slice(0, 220) || '—'}
                         </p>
-                        <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mt-1">
+                        <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-1">
                           {l.discovered_at} · {l.leak_type}
                         </p>
                       </li>
@@ -415,13 +415,13 @@ export default function TelegramHub(): JSX.Element {
           </div>
           {kpis.topDomains.length > 0 && (
             <div className="mt-3 flex flex-wrap gap-1.5">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mr-1">
+              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mr-1">
                 Top domains:
               </span>
               {kpis.topDomains.map((d) => (
                 <span
                   key={d}
-                  className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400"
+                  className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400"
                 >
                   {d}
                 </span>
@@ -449,7 +449,7 @@ export default function TelegramHub(): JSX.Element {
                   {card.title}
                 </span>
                 {card.badge && (
-                  <span className="text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-brand-600 dark:bg-brand-500 text-white">
+                  <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-brand-600 dark:bg-brand-500 text-white">
                     {card.badge}
                   </span>
                 )}
@@ -462,7 +462,7 @@ export default function TelegramHub(): JSX.Element {
 
       {/* Source provenance footer */}
       <footer className="mt-8 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
-        <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
+        <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
           Sources: tgstat.com (HTML scrape, 12h cache) · telegram.me/s/ previews (hourly poll) · D1 leak store ·
           cross-source IOC consensus. All free-tier, no API keys.
         </p>
@@ -492,7 +492,7 @@ function KpiTile({
       : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200)/0.4)] text-slate-700 dark:text-slate-300';
   return (
     <div className={`rounded border p-3 ${accent}`}>
-      <div className="flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-wider opacity-80">
+      <div className="flex items-center gap-1.5 text-micro font-mono uppercase tracking-wider opacity-80">
         {icon}
         {label}
       </div>

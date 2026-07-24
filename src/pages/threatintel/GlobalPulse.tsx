@@ -1031,12 +1031,12 @@ export default function GlobalPulse(): JSX.Element {
             {/* Total events */}
             <div className="relative rounded-2xl border border-slate-200/60 dark:border-white/[0.06] bg-white dark:bg-white/[0.02] p-4 shadow-sm">
               <div className="flex items-center justify-between gap-2 mb-3">
-                <span className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                <span className="flex items-center gap-1.5 text-mini font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
                   <Activity size={13} className="text-slate-400" /> Total Events
                 </span>
                 {totalDelta !== 0 && (
                   <span
-                    className={`inline-flex items-center text-[10px] font-mono px-1.5 py-0.5 rounded-full ${
+                    className={`inline-flex items-center text-micro font-mono px-1.5 py-0.5 rounded-full ${
                       totalDelta > 0
                         ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10'
                         : 'text-slate-500 bg-slate-500/10'
@@ -1059,7 +1059,7 @@ export default function GlobalPulse(): JSX.Element {
                   />
                 )}
               </div>
-              <div className="text-[11px] font-mono text-slate-400 dark:text-slate-500 mt-2">
+              <div className="text-mini font-mono text-slate-400 dark:text-slate-500 mt-2">
                 {geoPoints.length} geo-located
               </div>
             </div>
@@ -1067,12 +1067,12 @@ export default function GlobalPulse(): JSX.Element {
             {/* Critical — the hero metric */}
             <div className="relative rounded-2xl border border-rose-500/20 dark:border-rose-500/10 bg-gradient-to-br from-rose-500/[0.04] to-transparent p-4 shadow-sm">
               <div className="flex items-center justify-between gap-2 mb-3">
-                <span className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-rose-500 dark:text-rose-400">
+                <span className="flex items-center gap-1.5 text-mini font-semibold uppercase tracking-wider text-rose-500 dark:text-rose-400">
                   <AlertTriangle size={13} /> Critical
                 </span>
                 {criticalDelta !== 0 && (
                   <span
-                    className={`inline-flex items-center text-[10px] font-mono px-1.5 py-0.5 rounded-full ${
+                    className={`inline-flex items-center text-micro font-mono px-1.5 py-0.5 rounded-full ${
                       criticalDelta > 0
                         ? 'text-rose-600 dark:text-rose-400 bg-rose-500/15'
                         : 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10'
@@ -1099,28 +1099,28 @@ export default function GlobalPulse(): JSX.Element {
                   </div>
                 );
               })()}
-              <div className="text-[11px] font-mono text-rose-400/70 dark:text-rose-400/60 mt-2">
+              <div className="text-mini font-mono text-rose-400/70 dark:text-rose-400/60 mt-2">
                 {stats?.bySeverity.high ?? 0} high severity
               </div>
             </div>
 
             {/* Active layers */}
             <div className="relative rounded-2xl border border-slate-200/60 dark:border-white/[0.06] bg-white dark:bg-white/[0.02] p-4 shadow-sm">
-              <div className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-3">
+              <div className="flex items-center gap-1.5 text-mini font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-3">
                 <Layers size={13} className="text-slate-400" /> Active Layers
               </div>
               <CountUp
                 to={activeLayers.size}
                 className="block text-3xl font-display font-bold text-slate-900 dark:text-white tabular-nums leading-none"
               />
-              <div className="text-[11px] font-mono text-slate-400 dark:text-slate-500 mt-2">
+              <div className="text-mini font-mono text-slate-400 dark:text-slate-500 mt-2">
                 {ALL_KINDS.length - activeLayers.size} hidden
               </div>
             </div>
 
             {/* Live status */}
             <div className="relative rounded-2xl border border-slate-200/60 dark:border-white/[0.06] bg-white dark:bg-white/[0.02] p-4 shadow-sm">
-              <div className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-3">
+              <div className="flex items-center gap-1.5 text-mini font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-3">
                 <Clock size={13} className="text-slate-400" /> Last Update
               </div>
               <div className="text-2xl font-display font-bold text-slate-900 dark:text-white tabular-nums leading-none">
@@ -1130,14 +1130,14 @@ export default function GlobalPulse(): JSX.Element {
                 {loading && data ? (
                   <span className="inline-flex items-center gap-1.5" aria-label="Syncing latest data">
                     <RefreshCw size={11} className="animate-spin text-brand-500" />
-                    <span className="text-[11px] font-semibold uppercase tracking-wider text-brand-600 dark:text-brand-400">
+                    <span className="text-mini font-semibold uppercase tracking-wider text-brand-600 dark:text-brand-400">
                       SYNCING
                     </span>
                   </span>
                 ) : wsConnected ? (
                   <span className="inline-flex items-center gap-1.5" aria-label="Connected via WebSocket — real-time">
                     <Wifi size={11} className="text-emerald-500" />
-                    <span className="text-[11px] font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
+                    <span className="text-mini font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
                       REAL-TIME
                     </span>
                   </span>
@@ -1147,14 +1147,14 @@ export default function GlobalPulse(): JSX.Element {
                       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
                       <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
                     </span>
-                    <span className="text-[11px] font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
+                    <span className="text-mini font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
                       LIVE
                     </span>
                   </span>
                 ) : (
                   <span className="inline-flex items-center gap-1.5" aria-label="Paused">
                     <WifiOff size={11} className="text-slate-400" />
-                    <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">PAUSED</span>
+                    <span className="text-mini font-semibold uppercase tracking-wider text-slate-500">PAUSED</span>
                   </span>
                 )}
               </div>
@@ -1236,12 +1236,10 @@ export default function GlobalPulse(): JSX.Element {
               )}
             </div>
             {infraResults.length > 0 && (
-              <span className="text-[10px] font-mono text-teal-500 dark:text-teal-400">
-                {infraResults.length} infra
-              </span>
+              <span className="text-micro font-mono text-teal-500 dark:text-teal-400">{infraResults.length} infra</span>
             )}
             {infraError && (
-              <span className="text-[10px] font-mono text-rose-500" title={infraError}>
+              <span className="text-micro font-mono text-rose-500" title={infraError}>
                 infra error
               </span>
             )}
@@ -1259,7 +1257,7 @@ export default function GlobalPulse(): JSX.Element {
                   key={t.hours}
                   type="button"
                   onClick={() => setTimeRange(t.hours)}
-                  className={`text-[10px] font-mono px-2.5 py-2 transition-colors ${
+                  className={`text-micro font-mono px-2.5 py-2 transition-colors ${
                     timeRange === t.hours
                       ? 'bg-brand-500/10 text-brand-600 dark:text-brand-400'
                       : 'bg-white dark:bg-white/[0.02] text-slate-500 hover:bg-slate-50 dark:hover:bg-white/[0.04]'
@@ -1326,7 +1324,7 @@ export default function GlobalPulse(): JSX.Element {
               <Filter size={14} />
               Filters
               {activeLayers.size < ALL_KINDS.length && (
-                <span className="ml-1 px-1.5 py-0.5 text-[10px] rounded-full bg-brand-500/15 text-brand-600 dark:text-brand-400">
+                <span className="ml-1 px-1.5 py-0.5 text-micro rounded-full bg-brand-500/15 text-brand-600 dark:text-brand-400">
                   {activeLayers.size}
                 </span>
               )}
@@ -1416,7 +1414,7 @@ export default function GlobalPulse(): JSX.Element {
             <div className="rounded-2xl border border-slate-200/60 dark:border-white/[0.06] bg-white dark:bg-white/[0.02] p-5 animate-fade-in">
               {/* Severity Filter */}
               <div className="mb-5">
-                <h4 className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2.5">
+                <h4 className="text-mini font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2.5">
                   Severity
                 </h4>
                 <div className="flex gap-2">
@@ -1435,7 +1433,7 @@ export default function GlobalPulse(): JSX.Element {
                             return next;
                           });
                         }}
-                        className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-mono rounded-lg border transition-all ${
+                        className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-mini font-mono rounded-lg border transition-all ${
                           active
                             ? `${config.bg} border-current ${config.text}`
                             : 'border-slate-200/60 dark:border-white/[0.06] text-slate-400 opacity-60'
@@ -1457,7 +1455,7 @@ export default function GlobalPulse(): JSX.Element {
                 return (
                   <div key={group} className="mb-5 last:mb-0">
                     <div className="flex items-center justify-between mb-2.5">
-                      <h4 className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                      <h4 className="text-mini font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
                         {groupLabels[group]}
                         <span className="ml-2 text-slate-400/70 dark:text-slate-500/70">
                           {activeCount}/{layers.length}
@@ -1476,7 +1474,7 @@ export default function GlobalPulse(): JSX.Element {
                             return next;
                           });
                         }}
-                        className="text-[10px] font-mono text-brand-500 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                        className="text-micro font-mono text-brand-500 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                       >
                         {activeCount === layers.length ? 'Clear' : 'Select All'}
                       </button>
@@ -1487,7 +1485,7 @@ export default function GlobalPulse(): JSX.Element {
                           key={kind}
                           type="button"
                           onClick={() => toggleLayer(kind)}
-                          className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-[10px] font-mono rounded-lg border transition-all ${
+                          className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-micro font-mono rounded-lg border transition-all ${
                             active
                               ? count > 0
                                 ? `${def.bgColor} ${def.color} border-current`
@@ -1498,7 +1496,7 @@ export default function GlobalPulse(): JSX.Element {
                           <span className={active && count > 0 ? def.color : 'text-slate-400'}>{def.icon}</span>
                           {def.shortLabel}
                           {count > 0 && (
-                            <span className={`text-[9px] ${active ? 'opacity-70' : 'opacity-40'}`}>{count}</span>
+                            <span className={`text-micro ${active ? 'opacity-70' : 'opacity-40'}`}>{count}</span>
                           )}
                         </button>
                       ))}
@@ -1542,7 +1540,7 @@ export default function GlobalPulse(): JSX.Element {
                     setCtiFilter('all');
                     setRegionFilter('all');
                   }}
-                  className="text-[10px] font-mono px-3 py-1.5 rounded-lg bg-brand-500/10 text-brand-600 dark:text-brand-400 hover:bg-brand-500/20 border border-brand-500/20 transition-colors"
+                  className="text-micro font-mono px-3 py-1.5 rounded-lg bg-brand-500/10 text-brand-600 dark:text-brand-400 hover:bg-brand-500/20 border border-brand-500/20 transition-colors"
                 >
                   CTI Defaults
                 </button>
@@ -1567,7 +1565,7 @@ export default function GlobalPulse(): JSX.Element {
                     setFocus({ lat: 30, lng: 45 });
                     setMapMode('3d');
                   }}
-                  className="text-[10px] font-mono px-3 py-1.5 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 hover:bg-amber-500/20 border border-amber-500/20 transition-colors"
+                  className="text-micro font-mono px-3 py-1.5 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 hover:bg-amber-500/20 border border-amber-500/20 transition-colors"
                 >
                   MENA Focus
                 </button>
@@ -1580,7 +1578,7 @@ export default function GlobalPulse(): JSX.Element {
                     setRegionFilter('all');
                     setMapMode('2d');
                   }}
-                  className="text-[10px] font-mono px-3 py-1.5 rounded-lg bg-rose-500/10 text-rose-600 dark:text-rose-400 hover:bg-rose-500/20 border border-rose-500/20 transition-colors"
+                  className="text-micro font-mono px-3 py-1.5 rounded-lg bg-rose-500/10 text-rose-600 dark:text-rose-400 hover:bg-rose-500/20 border border-rose-500/20 transition-colors"
                 >
                   Conflict Zones
                 </button>
@@ -1601,7 +1599,7 @@ export default function GlobalPulse(): JSX.Element {
                 {regionFilter === 'mena' && (
                   <div className="bg-amber-500/15 backdrop-blur-sm rounded-lg border border-amber-500/30 px-2.5 py-1.5 flex items-center gap-1.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-                    <span className="text-[10px] font-semibold uppercase tracking-wider text-amber-600 dark:text-amber-400">
+                    <span className="text-micro font-semibold uppercase tracking-wider text-amber-600 dark:text-amber-400">
                       MENA
                     </span>
                   </div>
@@ -1610,7 +1608,7 @@ export default function GlobalPulse(): JSX.Element {
                   <span
                     className={`w-1.5 h-1.5 rounded-full ${mapMode === '3d' ? 'bg-brand-500 animate-pulse' : 'bg-emerald-500'}`}
                   />
-                  <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                  <span className="text-micro font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                     {mapMode === '3d' ? '3D Globe' : '2D Map'}
                   </span>
                 </div>
@@ -1700,10 +1698,10 @@ export default function GlobalPulse(): JSX.Element {
                   {(['critical', 'high', 'medium', 'low'] as const).map((sev) => (
                     <div key={sev} className="flex items-center gap-1.5">
                       <span className={`w-2 h-2 rounded-full ${SEVERITY_CONFIG[sev].dot}`} />
-                      <span className="text-[10px] font-mono text-white/70 capitalize">{sev}</span>
+                      <span className="text-micro font-mono text-white/70 capitalize">{sev}</span>
                     </div>
                   ))}
-                  <span className="text-[10px] font-mono text-white/40 ml-auto">
+                  <span className="text-micro font-mono text-white/40 ml-auto">
                     {geoPoints.length} points · {globeArcs.length} arcs
                   </span>
                 </div>
@@ -1723,7 +1721,7 @@ export default function GlobalPulse(): JSX.Element {
                     <span className="relative inline-flex h-2 w-2 rounded-full bg-rose-500" />
                   </span>
                   <h3 className="text-xs font-semibold text-slate-700 dark:text-slate-300">Live Feed</h3>
-                  <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500">
+                  <span className="text-micro font-mono text-slate-400 dark:text-slate-500">
                     {filteredEvents.length}
                   </span>
                 </div>
@@ -1735,17 +1733,17 @@ export default function GlobalPulse(): JSX.Element {
                     return (
                       <>
                         {ransomCount > 0 && (
-                          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-md bg-rose-500/10 text-rose-600 dark:text-rose-400">
+                          <span className="text-micro font-mono px-1.5 py-0.5 rounded-md bg-rose-500/10 text-rose-600 dark:text-rose-400">
                             R{ransomCount}
                           </span>
                         )}
                         {cveCount > 0 && (
-                          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-md bg-amber-500/10 text-amber-600 dark:text-amber-400">
+                          <span className="text-micro font-mono px-1.5 py-0.5 rounded-md bg-amber-500/10 text-amber-600 dark:text-amber-400">
                             C{cveCount}
                           </span>
                         )}
                         {iocCount > 0 && (
-                          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-md bg-sky-500/10 text-sky-600 dark:text-sky-400">
+                          <span className="text-micro font-mono px-1.5 py-0.5 rounded-md bg-sky-500/10 text-sky-600 dark:text-sky-400">
                             I{iocCount}
                           </span>
                         )}
@@ -1767,7 +1765,7 @@ export default function GlobalPulse(): JSX.Element {
                     key={pill.key}
                     type="button"
                     onClick={() => setCtiFilter(pill.key)}
-                    className={`inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono rounded-md transition-colors ${
+                    className={`inline-flex items-center gap-1 px-2 py-1 text-micro font-mono rounded-md transition-colors ${
                       ctiFilter === pill.key
                         ? 'bg-brand-500/10 text-brand-600 dark:text-brand-400'
                         : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/[0.04]'
@@ -1781,7 +1779,7 @@ export default function GlobalPulse(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => setCtiFilter('all')}
-                    className="ml-auto text-[10px] font-mono text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+                    className="ml-auto text-micro font-mono text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
                   >
                     <X size={11} />
                   </button>
@@ -1797,14 +1795,14 @@ export default function GlobalPulse(): JSX.Element {
                   <div className="flex flex-col items-center justify-center py-16 text-center px-4">
                     <Filter size={28} className="text-slate-300 dark:text-slate-500 mb-4" />
                     <p className="text-xs font-medium text-slate-500 dark:text-slate-400">No events match filters</p>
-                    <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-1">Adjust layers or severity</p>
+                    <p className="text-mini text-slate-400 dark:text-slate-500 mt-1">Adjust layers or severity</p>
                     <button
                       type="button"
                       onClick={() => {
                         setActiveLayers(new Set(ALL_KINDS));
                         setSeverityFilter(new Set(['critical', 'high', 'medium', 'low']));
                       }}
-                      className="mt-4 text-[11px] font-mono px-3 py-1.5 rounded-lg bg-brand-500/10 text-brand-600 dark:text-brand-400 hover:bg-brand-500/20 transition-colors"
+                      className="mt-4 text-mini font-mono px-3 py-1.5 rounded-lg bg-brand-500/10 text-brand-600 dark:text-brand-400 hover:bg-brand-500/20 transition-colors"
                     >
                       Reset Filters
                     </button>
@@ -1853,26 +1851,26 @@ export default function GlobalPulse(): JSX.Element {
                             <div className="min-w-0 flex-1">
                               <div className="flex items-center gap-1.5 mb-0.5">
                                 <span className={def?.color ?? 'text-slate-400'}>{def?.icon}</span>
-                                <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                                <span className="text-micro font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500">
                                   {def?.shortLabel}
                                 </span>
-                                <span className="text-[10px] font-mono text-slate-400/70 dark:text-slate-500/70 ml-auto">
+                                <span className="text-micro font-mono text-slate-400/70 dark:text-slate-500/70 ml-auto">
                                   {formatTime(ev.timestamp)}
                                 </span>
                               </div>
-                              <p className="text-[11px] font-medium text-slate-800 dark:text-slate-200 line-clamp-1">
+                              <p className="text-mini font-medium text-slate-800 dark:text-slate-200 line-clamp-1">
                                 {ev.title}
                               </p>
-                              <p className="text-[10px] text-slate-500 dark:text-slate-400 line-clamp-1 mt-0.5">
+                              <p className="text-micro text-slate-500 dark:text-slate-400 line-clamp-1 mt-0.5">
                                 {ev.description}
                               </p>
                               <div className="flex items-center gap-1.5 mt-1">
-                                <span className="text-[10px] font-mono text-slate-400/70 dark:text-slate-500/70">
+                                <span className="text-micro font-mono text-slate-400/70 dark:text-slate-500/70">
                                   {ev.source}
                                 </span>
                                 {isCti && (
                                   <span
-                                    className={`text-[10px] font-mono ${
+                                    className={`text-micro font-mono ${
                                       ev.cti === 'ransomware'
                                         ? 'text-rose-500'
                                         : ev.cti === 'cve'
@@ -1886,7 +1884,7 @@ export default function GlobalPulse(): JSX.Element {
                                   </span>
                                 )}
                                 {hasGeo && (
-                                  <span className="text-[10px] font-mono text-brand-500/60 flex items-center gap-0.5">
+                                  <span className="text-micro font-mono text-brand-500/60 flex items-center gap-0.5">
                                     <Crosshair size={7} /> geo
                                   </span>
                                 )}
@@ -1896,7 +1894,7 @@ export default function GlobalPulse(): JSX.Element {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     onClick={(e) => e.stopPropagation()}
-                                    className="text-[10px] font-mono text-brand-500/60 hover:text-brand-500 hover:underline ml-auto flex items-center gap-0.5"
+                                    className="text-micro font-mono text-brand-500/60 hover:text-brand-500 hover:underline ml-auto flex items-center gap-0.5"
                                   >
                                     <ExternalLink size={9} />
                                   </a>
@@ -1930,55 +1928,55 @@ export default function GlobalPulse(): JSX.Element {
                   </p>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                     <div>
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 block mb-0.5">
+                      <span className="text-micro font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 block mb-0.5">
                         Source
                       </span>
-                      <span className="text-[11px] font-mono text-slate-700 dark:text-slate-300">
+                      <span className="text-mini font-mono text-slate-700 dark:text-slate-300">
                         {selectedEvent.source}
                       </span>
                     </div>
                     <div>
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 block mb-0.5">
+                      <span className="text-micro font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 block mb-0.5">
                         Type
                       </span>
-                      <span className="text-[11px] font-mono text-slate-700 dark:text-slate-300">
+                      <span className="text-mini font-mono text-slate-700 dark:text-slate-300">
                         {LAYER_DEFS[selectedEvent.kind]?.label ?? selectedEvent.kind}
                       </span>
                     </div>
                     <div>
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 block mb-0.5">
+                      <span className="text-micro font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 block mb-0.5">
                         Time
                       </span>
-                      <span className="text-[11px] font-mono text-slate-700 dark:text-slate-300">
+                      <span className="text-mini font-mono text-slate-700 dark:text-slate-300">
                         {formatTimeFull(selectedEvent.timestamp)}
                       </span>
                     </div>
                     {selectedEvent.country && (
                       <div>
-                        <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 block mb-0.5">
+                        <span className="text-micro font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 block mb-0.5">
                           Country
                         </span>
-                        <span className="text-[11px] font-mono text-slate-700 dark:text-slate-300">
+                        <span className="text-mini font-mono text-slate-700 dark:text-slate-300">
                           {selectedEvent.country}
                         </span>
                       </div>
                     )}
                     {(selectedEvent.lat !== 0 || selectedEvent.lng !== 0) && (
                       <div>
-                        <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 block mb-0.5">
+                        <span className="text-micro font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 block mb-0.5">
                           Coordinates
                         </span>
-                        <span className="text-[11px] font-mono text-slate-700 dark:text-slate-300">
+                        <span className="text-mini font-mono text-slate-700 dark:text-slate-300">
                           {selectedEvent.lat.toFixed(4)}, {selectedEvent.lng.toFixed(4)}
                         </span>
                       </div>
                     )}
                     {selectedEvent.magnitude != null && (
                       <div>
-                        <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 block mb-0.5">
+                        <span className="text-micro font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 block mb-0.5">
                           Magnitude
                         </span>
-                        <span className="text-[11px] font-mono text-slate-700 dark:text-slate-300">
+                        <span className="text-mini font-mono text-slate-700 dark:text-slate-300">
                           {selectedEvent.magnitude.toFixed(1)}
                         </span>
                       </div>
@@ -1990,7 +1988,7 @@ export default function GlobalPulse(): JSX.Element {
                         href={sanitizeUrl(selectedEvent.url) || undefined}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                        className="inline-flex items-center gap-1.5 text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline"
                       >
                         <ExternalLink size={11} /> View source
                       </a>
@@ -1998,7 +1996,7 @@ export default function GlobalPulse(): JSX.Element {
                     <button
                       type="button"
                       onClick={() => setShowAiAnalysis((p) => !p)}
-                      className={`inline-flex items-center gap-1.5 text-[11px] font-mono px-3 py-1.5 rounded-lg border transition-colors ${
+                      className={`inline-flex items-center gap-1.5 text-mini font-mono px-3 py-1.5 rounded-lg border transition-colors ${
                         showAiAnalysis
                           ? 'border-brand-500/40 bg-brand-500/10 text-brand-600 dark:text-brand-400'
                           : 'border-slate-200/60 dark:border-white/[0.08] text-slate-500 hover:bg-slate-50 dark:hover:bg-white/[0.04]'
@@ -2011,7 +2009,7 @@ export default function GlobalPulse(): JSX.Element {
                       <button
                         type="button"
                         onClick={() => setShowCountryIntel((p) => !p)}
-                        className={`inline-flex items-center gap-1.5 text-[11px] font-mono px-3 py-1.5 rounded-lg border transition-colors ${
+                        className={`inline-flex items-center gap-1.5 text-mini font-mono px-3 py-1.5 rounded-lg border transition-colors ${
                           showCountryIntel
                             ? 'border-purple-500/40 bg-purple-500/10 text-purple-600 dark:text-purple-400'
                             : 'border-slate-200/60 dark:border-white/[0.08] text-slate-500 hover:bg-slate-50 dark:hover:bg-white/[0.04]'

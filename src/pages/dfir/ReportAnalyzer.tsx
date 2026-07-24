@@ -270,7 +270,7 @@ function MindmapNode({ data }: { data: { label: string; kind: MindmapNode['kind'
     >
       <Handle type="target" position={Position.Top} style={{ background: s.ring, width: 6, height: 6 }} />
       <div className="font-semibold leading-tight">{data.label}</div>
-      {data.subtitle && <div className="text-[10px] opacity-70 mt-0.5">{data.subtitle}</div>}
+      {data.subtitle && <div className="text-micro opacity-70 mt-0.5">{data.subtitle}</div>}
       <Handle type="source" position={Position.Bottom} style={{ background: s.ring, width: 6, height: 6 }} />
     </div>
   );
@@ -560,7 +560,7 @@ export default function ReportAnalyzer(): JSX.Element {
               placeholder="https://example.com/report"
               className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
             />
-            <p className="mt-1 text-[11px] text-slate-400 dark:text-slate-500 leading-snug">
+            <p className="mt-1 text-mini text-slate-400 dark:text-slate-500 leading-snug">
               Works best with server-rendered pages (Arctic Wolf, vendor blogs). JS-rendered sites (CISA, Mandiant,
               CrowdStrike) may return minimal content — paste the text directly for best results.
             </p>
@@ -1167,7 +1167,7 @@ function DiamondTab({ diamond }: { diamond: DiamondModel | null }): JSX.Element 
                 title={c.tactic}
               >
                 {c.id.startsWith('T') && /^T\d{4}(\.\d{3})?$/.test(c.id) ? (
-                  <span className="text-[10px] text-slate-500">{c.id}</span>
+                  <span className="text-micro text-slate-500">{c.id}</span>
                 ) : null}
                 <span className="truncate max-w-[180px]">{c.name}</span>
               </span>
@@ -1259,7 +1259,7 @@ function AttackFlowTab({ phases }: { phases: AttackFlowPhase[] }): JSX.Element {
           <ul className="divide-y divide-slate-100 dark:divide-slate-800/60">
             {p.techniques.map((t) => (
               <li key={t.id} className="flex items-start gap-3 px-4 py-2.5">
-                <span className="mt-0.5 inline-flex h-5 items-center rounded border border-violet-300 dark:border-violet-800 bg-violet-50 dark:bg-violet-950/40 px-1.5 text-[10px] font-mono uppercase tracking-wider text-violet-700 dark:text-violet-300">
+                <span className="mt-0.5 inline-flex h-5 items-center rounded border border-violet-300 dark:border-violet-800 bg-violet-50 dark:bg-violet-950/40 px-1.5 text-micro font-mono uppercase tracking-wider text-violet-700 dark:text-violet-300">
                   {t.id}
                 </span>
                 <div className="min-w-0 flex-1">
@@ -1642,7 +1642,7 @@ function HeatmapTab({ ttp }: { ttp: TtpHit[] }) {
       </div>
 
       {/* Confidence legend */}
-      <div className="flex items-center gap-3 mb-4 text-[10px] font-mono">
+      <div className="flex items-center gap-3 mb-4 text-micro font-mono">
         <span className="text-slate-500 dark:text-slate-400">Confidence:</span>
         <span className="flex items-center gap-1">
           <span className="h-2.5 w-2.5 rounded bg-rose-400" /> high
@@ -1674,10 +1674,10 @@ function HeatmapTab({ ttp }: { ttp: TtpHit[] }) {
               }}
             >
               <div className="px-2 py-1.5 bg-slate-100 dark:bg-[rgb(var(--surface-200))]/60 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                <div className="text-[9px] font-mono font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300 truncate">
+                <div className="text-micro font-mono font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300 truncate">
                   {tactic}
                 </div>
-                <div className="text-[8px] font-mono text-slate-400 dark:text-slate-500">
+                <div className="text-micro font-mono text-slate-400 dark:text-slate-500">
                   {hits.length} technique{hits.length !== 1 ? 's' : ''}
                 </div>
               </div>
@@ -1688,7 +1688,7 @@ function HeatmapTab({ ttp }: { ttp: TtpHit[] }) {
                     <div
                       key={t.id}
                       title={`${t.id}: ${t.name}\n${t.evidence || ''}`}
-                      className={`rounded border px-1.5 py-0.5 text-[9px] font-mono leading-tight cursor-default transition-opacity hover:opacity-80 ${CONFIDENCE_BG[t.confidence]} ${isSub ? 'ml-2 border-l-2' : ''}`}
+                      className={`rounded border px-1.5 py-0.5 text-micro font-mono leading-tight cursor-default transition-opacity hover:opacity-80 ${CONFIDENCE_BG[t.confidence]} ${isSub ? 'ml-2 border-l-2' : ''}`}
                     >
                       <span className="font-semibold">{t.id}</span>
                       <span className="ml-1 opacity-70 truncate">{t.name}</span>
@@ -1703,14 +1703,14 @@ function HeatmapTab({ ttp }: { ttp: TtpHit[] }) {
 
       {/* Technique density bar chart */}
       <div className="mt-4 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
-        <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mb-2">Technique Density by Tactic</div>
+        <div className="text-micro font-mono text-slate-500 dark:text-slate-400 mb-2">Technique Density by Tactic</div>
         <div className="space-y-1">
           {[...activeTactics, ...otherTactics].map((tactic) => {
             const hits = grouped.get(tactic)!;
             const maxHits = Math.max(...Array.from(grouped.values()).map((v) => v.length));
             const pct = maxHits > 0 ? (hits.length / maxHits) * 100 : 0;
             return (
-              <div key={tactic} className="flex items-center gap-2 text-[10px]">
+              <div key={tactic} className="flex items-center gap-2 text-micro">
                 <span className="w-24 truncate font-mono text-slate-500 dark:text-slate-400">{tactic}</span>
                 <div className="flex-1 h-2 bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded overflow-hidden">
                   <div
@@ -1882,7 +1882,7 @@ function TimelineTab() {
                   </div>
 
                   {/* Stats */}
-                  <div className="flex flex-wrap gap-1.5 mb-2 text-[10px] font-mono">
+                  <div className="flex flex-wrap gap-1.5 mb-2 text-micro font-mono">
                     <span className="rounded bg-sky-100 dark:bg-sky-900/40 px-1.5 py-0.5 text-sky-700 dark:text-sky-300">
                       {report.ioc_count} IOCs
                     </span>
@@ -1907,7 +1907,7 @@ function TimelineTab() {
                         return (
                           <span
                             key={ioc.value}
-                            className={`inline-flex items-center rounded px-1.5 py-0.5 text-[9px] font-mono ${
+                            className={`inline-flex items-center rounded px-1.5 py-0.5 text-micro font-mono ${
                               isShared
                                 ? 'border border-amber-400 dark:border-amber-600 bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-200 font-semibold'
                                 : 'border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-400'
@@ -1919,7 +1919,7 @@ function TimelineTab() {
                         );
                       })}
                       {report.iocs.length > 8 && (
-                        <span className="text-[9px] text-slate-400 dark:text-slate-500 self-center">
+                        <span className="text-micro text-slate-400 dark:text-slate-500 self-center">
                           +{report.iocs.length - 8} more
                         </span>
                       )}

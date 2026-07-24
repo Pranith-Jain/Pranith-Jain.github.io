@@ -41,7 +41,7 @@ export function DetectionGenerate({ context }: DetectionGenerateProps) {
         const err = await res.json().catch(() => ({ error: 'Generation failed' }));
         throw new Error(err.error ?? 'Generation failed');
       }
-      const data = await res.json() as { rule_content?: string; rule_name?: string };
+      const data = (await res.json()) as { rule_content?: string; rule_name?: string };
       setResult(data.rule_content ?? 'No content generated');
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Generation failed');
@@ -87,7 +87,7 @@ export function DetectionGenerate({ context }: DetectionGenerateProps) {
     <div className="mt-2 border-t border-slate-100 pt-2 dark:border-[rgb(var(--border-400))]">
       <button
         onClick={() => setOpen(!open)}
-        className="inline-flex items-center gap-1.5 rounded-lg px-2 py-1 text-[11px] font-mono text-slate-500 hover:text-brand-600 hover:bg-slate-50 transition-colors dark:hover:bg-[rgb(var(--surface-200))]"
+        className="inline-flex items-center gap-1.5 rounded-lg px-2 py-1 text-mini font-mono text-slate-500 hover:text-brand-600 hover:bg-slate-50 transition-colors dark:hover:bg-[rgb(var(--surface-200))]"
       >
         <Shield size={12} />
         Generate detection rule
@@ -96,12 +96,12 @@ export function DetectionGenerate({ context }: DetectionGenerateProps) {
       {open && (
         <div className="mt-2 space-y-2 rounded-lg border border-slate-200 bg-slate-50/50 p-3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))/0.3]">
           <div className="flex items-center gap-1.5">
-            <span className="text-[11px] font-medium text-slate-600 dark:text-slate-300">Format:</span>
+            <span className="text-mini font-medium text-slate-600 dark:text-slate-300">Format:</span>
             {RULE_TYPES.map((r) => (
               <button
                 key={r.id}
                 onClick={() => setRuleType(r.id)}
-                className={`rounded px-1.5 py-0.5 text-[10px] font-semibold transition-colors ${
+                className={`rounded px-1.5 py-0.5 text-micro font-semibold transition-colors ${
                   ruleType === r.id
                     ? r.color
                     : 'bg-slate-100 text-slate-500 hover:bg-slate-200 dark:bg-slate-700 dark:text-slate-400'
@@ -122,20 +122,20 @@ export function DetectionGenerate({ context }: DetectionGenerateProps) {
             <button
               onClick={generate}
               disabled={loading}
-              className="shrink-0 rounded bg-brand-600 px-2.5 py-1 text-[11px] font-medium text-white hover:bg-brand-700 disabled:opacity-50 transition-colors"
+              className="shrink-0 rounded bg-brand-600 px-2.5 py-1 text-mini font-medium text-white hover:bg-brand-700 disabled:opacity-50 transition-colors"
             >
               {loading ? <Loader2 size={12} className="animate-spin" /> : 'Generate'}
             </button>
           </div>
           {error && (
-            <div className="flex items-center gap-1.5 text-[11px] text-rose-600 dark:text-rose-400">
+            <div className="flex items-center gap-1.5 text-mini text-rose-600 dark:text-rose-400">
               <AlertTriangle size={11} />
               {error}
             </div>
           )}
           {result && (
             <div className="relative">
-              <pre className="max-h-48 overflow-auto rounded border border-slate-200 bg-slate-100 p-2 font-mono text-[11px] dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))]">
+              <pre className="max-h-48 overflow-auto rounded border border-slate-200 bg-slate-100 p-2 font-mono text-mini dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))]">
                 {result}
               </pre>
               <div className="absolute right-1.5 top-1.5 flex gap-1">

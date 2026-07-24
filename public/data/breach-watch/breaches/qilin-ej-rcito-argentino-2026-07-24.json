@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-ej-rcito-argentino-2026-07-24",
+  "title": "Ejército Argentino",
+  "group": "Qilin",
+  "discovered": "2026-07-24T00:00:00.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "Argentina",
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated in ransomware attack",
+  "source_url": "https://recentbreaches.com/breach/ej-rcito-argentino-qilin-2026-07",
+  "groupAliases": [],
+  "activity": "Government & Defense",
+  "references": ["RecentBreaches.com"]
+}

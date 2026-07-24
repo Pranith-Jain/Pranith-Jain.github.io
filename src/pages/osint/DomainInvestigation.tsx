@@ -101,25 +101,25 @@ export default function DomainInvestigation() {
                 <div className="grid md:grid-cols-2 gap-4 text-sm">
                   {result.registrar && (
                     <div>
-                      <label className="text-[10px] font-mono uppercase text-slate-400">Registrar</label>
+                      <label className="text-micro font-mono uppercase text-slate-400">Registrar</label>
                       <p className="text-slate-700 dark:text-slate-300">{result.registrar}</p>
                     </div>
                   )}
                   {result.registrationDate && (
                     <div>
-                      <label className="text-[10px] font-mono uppercase text-slate-400">Registered</label>
+                      <label className="text-micro font-mono uppercase text-slate-400">Registered</label>
                       <p className="text-slate-700 dark:text-slate-300">{result.registrationDate}</p>
                     </div>
                   )}
                   {result.expirationDate && (
                     <div>
-                      <label className="text-[10px] font-mono uppercase text-slate-400">Expires</label>
+                      <label className="text-micro font-mono uppercase text-slate-400">Expires</label>
                       <p className="text-slate-700 dark:text-slate-300">{result.expirationDate}</p>
                     </div>
                   )}
                   {result.dnssec !== undefined && (
                     <div>
-                      <label className="text-[10px] font-mono uppercase text-slate-400">DNSSEC</label>
+                      <label className="text-micro font-mono uppercase text-slate-400">DNSSEC</label>
                       <p className="text-slate-700 dark:text-slate-300">{result.dnssec ? 'Enabled' : 'Disabled'}</p>
                     </div>
                   )}

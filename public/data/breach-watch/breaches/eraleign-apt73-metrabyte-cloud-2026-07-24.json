@@ -1,0 +1,15 @@
+{
+  "slug": "eraleign-apt73-metrabyte-cloud-2026-07-24",
+  "title": "metrabyte.cloud",
+  "group": "eraleign (apt73)",
+  "discovered": "2026-07-24T11:59:48.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "metrabyte.cloud is the website of Metrabyte Cloud Co., Ltd., a cloud service provider from Thaila...",
+  "source_url": "https://www.ransomlook.io/screenshots/eraleign (apt73)/metrabytecloud.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

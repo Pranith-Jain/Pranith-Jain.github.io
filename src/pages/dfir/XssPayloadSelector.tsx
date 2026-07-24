@@ -684,11 +684,11 @@ export default function XssPayloadSelector(): JSX.Element {
                   <div className="flex items-center gap-2 flex-wrap">
                     <span className="text-sm font-semibold">{p.name}</span>
                     <span
-                      className={`px-1.5 py-0.5 rounded text-[10px] font-mono uppercase ${SEVERITY_COLORS[p.severity]}`}
+                      className={`px-1.5 py-0.5 rounded text-micro font-mono uppercase ${SEVERITY_COLORS[p.severity]}`}
                     >
                       {p.severity}
                     </span>
-                    <span className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-400">
+                    <span className="px-1.5 py-0.5 rounded text-micro font-mono bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-400">
                       {p.context}
                     </span>
                   </div>
@@ -711,7 +711,7 @@ export default function XssPayloadSelector(): JSX.Element {
                       {p.bypasses.map((b) => (
                         <span
                           key={b}
-                          className="px-1.5 py-0.5 rounded text-[10px] bg-amber-500/10 text-amber-600 dark:text-amber-400"
+                          className="px-1.5 py-0.5 rounded text-micro bg-amber-500/10 text-amber-600 dark:text-amber-400"
                         >
                           bypasses: {b}
                         </span>
@@ -723,7 +723,7 @@ export default function XssPayloadSelector(): JSX.Element {
                       {p.tags.map((t) => (
                         <span
                           key={t}
-                          className="px-1.5 py-0.5 rounded text-[10px] bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-500 dark:text-slate-400"
+                          className="px-1.5 py-0.5 rounded text-micro bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-500 dark:text-slate-400"
                         >
                           #{t}
                         </span>

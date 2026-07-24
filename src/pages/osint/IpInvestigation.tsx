@@ -103,37 +103,37 @@ export default function IpInvestigation() {
                 <div className="grid md:grid-cols-2 gap-4 text-sm">
                   {result.country && (
                     <div>
-                      <label className="text-[10px] font-mono uppercase text-slate-400">Country</label>
+                      <label className="text-micro font-mono uppercase text-slate-400">Country</label>
                       <p className="text-slate-700 dark:text-slate-300">{result.country}</p>
                     </div>
                   )}
                   {result.city && (
                     <div>
-                      <label className="text-[10px] font-mono uppercase text-slate-400">City</label>
+                      <label className="text-micro font-mono uppercase text-slate-400">City</label>
                       <p className="text-slate-700 dark:text-slate-300">{result.city}</p>
                     </div>
                   )}
                   {result.org && (
                     <div>
-                      <label className="text-[10px] font-mono uppercase text-slate-400">Organization</label>
+                      <label className="text-micro font-mono uppercase text-slate-400">Organization</label>
                       <p className="text-slate-700 dark:text-slate-300">{result.org}</p>
                     </div>
                   )}
                   {result.isp && (
                     <div>
-                      <label className="text-[10px] font-mono uppercase text-slate-400">ISP</label>
+                      <label className="text-micro font-mono uppercase text-slate-400">ISP</label>
                       <p className="text-slate-700 dark:text-slate-300">{result.isp}</p>
                     </div>
                   )}
                   {result.asn && (
                     <div>
-                      <label className="text-[10px] font-mono uppercase text-slate-400">ASN</label>
+                      <label className="text-micro font-mono uppercase text-slate-400">ASN</label>
                       <p className="font-mono text-slate-700 dark:text-slate-300">{result.asn}</p>
                     </div>
                   )}
                   {result.abuseConfidence !== undefined && (
                     <div>
-                      <label className="text-[10px] font-mono uppercase text-slate-400">Abuse Confidence</label>
+                      <label className="text-micro font-mono uppercase text-slate-400">Abuse Confidence</label>
                       <p
                         className={`font-mono font-bold ${result.abuseConfidence > 50 ? 'text-rose-600' : result.abuseConfidence > 20 ? 'text-amber-600' : 'text-emerald-600'}`}
                       >
@@ -143,7 +143,7 @@ export default function IpInvestigation() {
                   )}
                   {result.isTor !== undefined && (
                     <div>
-                      <label className="text-[10px] font-mono uppercase text-slate-400">Tor Exit Node</label>
+                      <label className="text-micro font-mono uppercase text-slate-400">Tor Exit Node</label>
                       <p className="text-slate-700 dark:text-slate-300">{result.isTor ? 'Yes' : 'No'}</p>
                     </div>
                   )}

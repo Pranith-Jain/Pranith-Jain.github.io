@@ -282,7 +282,7 @@ function StixTab({ data }: { data: AnalyzerOutput }): JSX.Element {
           <summary className="cursor-pointer text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 font-mono">
             show raw JSON
           </summary>
-          <pre className="mt-2 max-h-96 overflow-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 text-[11px] text-slate-700 dark:text-slate-300">
+          <pre className="mt-2 max-h-96 overflow-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 text-mini text-slate-700 dark:text-slate-300">
             {JSON.stringify(data.stix.bundle, null, 2)}
           </pre>
         </details>
@@ -570,7 +570,7 @@ function AttackFlowTabView({ phases }: { phases: AttackFlowPhase[] }): JSX.Eleme
           <ul className="divide-y divide-slate-100 dark:divide-slate-800/60">
             {p.techniques.map((t) => (
               <li key={t.id} className="flex items-start gap-3 px-4 py-2.5">
-                <span className="mt-0.5 inline-flex h-5 items-center rounded border border-violet-300 dark:border-violet-800 bg-violet-50 dark:bg-violet-950/40 px-1.5 text-[10px] font-mono uppercase tracking-wider text-violet-700 dark:text-violet-300">
+                <span className="mt-0.5 inline-flex h-5 items-center rounded border border-violet-300 dark:border-violet-800 bg-violet-50 dark:bg-violet-950/40 px-1.5 text-micro font-mono uppercase tracking-wider text-violet-700 dark:text-violet-300">
                   {t.id}
                 </span>
                 <div className="min-w-0 flex-1">
@@ -817,7 +817,7 @@ function CveHitCard({ hit }: { hit: CveSearchResult }): JSX.Element {
       {hit.references && hit.references.length > 0 && (
         <ul className="mt-2 space-y-0.5">
           {hit.references.slice(0, 3).map((ref, i) => (
-            <li key={i} className="text-[10px] text-slate-500 dark:text-slate-400 truncate font-mono">
+            <li key={i} className="text-micro text-slate-500 dark:text-slate-400 truncate font-mono">
               <LinkIcon className="inline h-2.5 w-2.5 mr-1" />
               {ref}
             </li>
@@ -855,7 +855,7 @@ function ReportRow({ r }: { r: TiReportSummary }): JSX.Element {
   return (
     <li className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-2.5 py-1.5">
       <p className="text-xs font-medium text-slate-800 dark:text-slate-200 line-clamp-2">{r.title ?? r.report_id}</p>
-      <p className="mt-0.5 text-[10px] font-mono uppercase text-slate-500 dark:text-slate-400">
+      <p className="mt-0.5 text-micro font-mono uppercase text-slate-500 dark:text-slate-400">
         {r.source ?? 'unknown'} {r.published_at ? `· ${r.published_at}` : ''}
         {r.actor && <span className="ml-2 text-rose-600 dark:text-rose-400">actor: {r.actor}</span>}
         {r.cves && r.cves.length > 0 && (
@@ -865,7 +865,7 @@ function ReportRow({ r }: { r: TiReportSummary }): JSX.Element {
           </span>
         )}
       </p>
-      {r.summary && <p className="mt-1 text-[11px] text-muted line-clamp-2">{r.summary}</p>}
+      {r.summary && <p className="mt-1 text-mini text-muted line-clamp-2">{r.summary}</p>}
     </li>
   );
 }

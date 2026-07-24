@@ -1,0 +1,15 @@
+{
+  "slug": "pear-metropolitan-construction-systems-2026-07-24",
+  "title": "Metropolitan Construction Systems",
+  "group": "pear",
+  "discovered": "2026-07-24T12:33:31.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Leading commercial roofing company based in New York City",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

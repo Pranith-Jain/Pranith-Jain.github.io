@@ -107,7 +107,7 @@ function ActorCard({
             <h3 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 truncate">
               {actor.name}
             </h3>
-            <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded-full border ${statusCls}`}>
+            <span className={`text-micro font-mono px-1.5 py-0.5 rounded-full border ${statusCls}`}>
               {actor.status}
             </span>
           </div>
@@ -125,13 +125,13 @@ function ActorCard({
               {actor.aliases.slice(0, isExpanded ? undefined : 3).map((alias) => (
                 <span
                   key={alias}
-                  className="text-[10px] font-mono text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded px-1.5 py-0.5"
+                  className="text-micro font-mono text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded px-1.5 py-0.5"
                 >
                   {alias}
                 </span>
               ))}
               {!isExpanded && actor.aliases.length > 3 && (
-                <span className="text-[10px] font-mono text-slate-400">+{actor.aliases.length - 3}</span>
+                <span className="text-micro font-mono text-slate-400">+{actor.aliases.length - 3}</span>
               )}
             </div>
           )}
@@ -152,7 +152,7 @@ function ActorCard({
 
           {/* Motivation */}
           <div>
-            <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            <span className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
               Motivation
             </span>
             <p className="text-sm text-slate-700 dark:text-slate-300 mt-0.5">{actor.motivation}</p>
@@ -161,7 +161,7 @@ function ActorCard({
           {/* Malware & Tools */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              <span className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 Associated Malware
               </span>
               <div className="flex flex-wrap gap-1.5 mt-1.5">
@@ -182,7 +182,7 @@ function ActorCard({
               </div>
             </div>
             <div>
-              <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              <span className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 Tools
               </span>
               <div className="flex flex-wrap gap-1.5 mt-1.5">
@@ -201,7 +201,7 @@ function ActorCard({
 
           {/* Targeted Sectors */}
           <div>
-            <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            <span className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
               Targeted Sectors
             </span>
             <div className="flex flex-wrap gap-1.5 mt-1.5">
@@ -224,7 +224,7 @@ function ActorCard({
           {/* TTPs */}
           {actor.ttps.length > 0 && (
             <div>
-              <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              <span className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 Key TTPs
               </span>
               <div className="flex flex-wrap gap-1.5 mt-1.5">
@@ -243,7 +243,7 @@ function ActorCard({
           {/* Campaigns */}
           {actor.campaigns.length > 0 && (
             <div>
-              <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              <span className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 Notable Campaigns
               </span>
               <ul className="mt-1.5 space-y-1">
@@ -260,7 +260,7 @@ function ActorCard({
           {/* MITRE Groups */}
           {actor.mitreGroups.length > 0 && (
             <div>
-              <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              <span className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 MITRE ATT&CK Groups
               </span>
               <div className="flex gap-2 mt-1.5">
@@ -282,7 +282,7 @@ function ActorCard({
           {/* Telegram handles */}
           {actor.telegram_handles && actor.telegram_handles.length > 0 && (
             <div>
-              <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              <span className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 Telegram Channels
               </span>
               <div className="flex flex-wrap gap-1.5 mt-1.5">
@@ -299,7 +299,7 @@ function ActorCard({
                 ))}
               </div>
               {actor.telegram_handles_source && (
-                <p className="text-[10px] text-slate-400 mt-1">Source: {actor.telegram_handles_source.join('; ')}</p>
+                <p className="text-micro text-slate-400 mt-1">Source: {actor.telegram_handles_source.join('; ')}</p>
               )}
             </div>
           )}
@@ -422,7 +422,7 @@ export default function ActorProfiles() {
         <button
           type="button"
           onClick={() => setActiveType(null)}
-          className={`inline-flex items-center gap-1.5 text-[11px] font-mono rounded-full border px-2.5 py-1 transition-colors ${
+          className={`inline-flex items-center gap-1.5 text-mini font-mono rounded-full border px-2.5 py-1 transition-colors ${
             activeType === null
               ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
               : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'
@@ -435,7 +435,7 @@ export default function ActorProfiles() {
             key={t}
             type="button"
             onClick={() => setActiveType(activeType === t ? null : t)}
-            className={`inline-flex items-center gap-1.5 text-[11px] font-mono rounded-full border px-2.5 py-1 transition-colors ${
+            className={`inline-flex items-center gap-1.5 text-mini font-mono rounded-full border px-2.5 py-1 transition-colors ${
               activeType === t
                 ? `${TYPE_COLORS[t]} border-current`
                 : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'
@@ -448,9 +448,7 @@ export default function ActorProfiles() {
 
       {/* Status filter pills */}
       <div className="flex flex-wrap items-center gap-2 mb-4">
-        <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-          Status:
-        </span>
+        <span className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">Status:</span>
         {(['active', 'dormant', 'defunct'] as ActorStatus[]).map((s) => {
           const count = THREAT_ACTORS.filter((a) => a.status === s).length;
           if (count === 0) return null;
@@ -459,7 +457,7 @@ export default function ActorProfiles() {
               key={s}
               type="button"
               onClick={() => setActiveStatus(activeStatus === s ? null : s)}
-              className={`px-2 py-0.5 rounded-full text-[11px] font-mono border transition-colors ${
+              className={`px-2 py-0.5 rounded-full text-mini font-mono border transition-colors ${
                 activeStatus === s
                   ? `${STATUS_PILL[s]} border-current`
                   : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'
@@ -470,7 +468,7 @@ export default function ActorProfiles() {
           );
         })}
         <div className="w-px h-5 bg-slate-200 dark:bg-[rgb(var(--border-400))]" />
-        <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+        <span className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
           Country:
         </span>
         {Object.entries(countryCounts)
@@ -484,7 +482,7 @@ export default function ActorProfiles() {
                 key={cc}
                 type="button"
                 onClick={() => setActiveCountry(activeCountry === cc ? null : cc)}
-                className={`px-2 py-0.5 rounded-full text-[11px] font-mono border transition-colors ${
+                className={`px-2 py-0.5 rounded-full text-mini font-mono border transition-colors ${
                   activeCountry === cc
                     ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
                     : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'
@@ -500,7 +498,7 @@ export default function ActorProfiles() {
               setActiveStatus(null);
               setActiveCountry(null);
             }}
-            className="text-[11px] text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 ml-1"
+            className="text-mini text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 ml-1"
           >
             Clear
           </button>
@@ -510,13 +508,13 @@ export default function ActorProfiles() {
       {/* Active filter chips */}
       {(activeMalware || activeSector) && (
         <div className="flex flex-wrap items-center gap-2 mb-3">
-          <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          <span className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
             Filtered by:
           </span>
           {activeMalware && (
             <button
               onClick={() => setActiveMalware(null)}
-              className="inline-flex items-center gap-1 text-[11px] font-mono bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800 rounded-full px-2 py-0.5"
+              className="inline-flex items-center gap-1 text-mini font-mono bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800 rounded-full px-2 py-0.5"
             >
               Malware: {activeMalware} ×
             </button>
@@ -524,7 +522,7 @@ export default function ActorProfiles() {
           {activeSector && (
             <button
               onClick={() => setActiveSector(null)}
-              className="inline-flex items-center gap-1 text-[11px] font-mono bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300 border border-brand-200 dark:border-brand-800 rounded-full px-2 py-0.5"
+              className="inline-flex items-center gap-1 text-mini font-mono bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300 border border-brand-200 dark:border-brand-800 rounded-full px-2 py-0.5"
             >
               Sector: {activeSector} ×
             </button>
@@ -541,7 +539,7 @@ export default function ActorProfiles() {
           <button
             type="button"
             onClick={expandAll}
-            className="text-[11px] font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+            className="text-mini font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
           >
             Expand all
           </button>
@@ -549,7 +547,7 @@ export default function ActorProfiles() {
           <button
             type="button"
             onClick={collapseAll}
-            className="text-[11px] font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+            className="text-mini font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
           >
             Collapse all
           </button>

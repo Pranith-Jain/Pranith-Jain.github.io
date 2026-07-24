@@ -1,5 +1,19 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
-import { Crosshair, Loader2, AlertTriangle, Search, Shield, Bug, Globe, Cpu, Target, BarChart3, FileText, ChevronRight, type LucideIcon } from 'lucide-react';
+import {
+  Crosshair,
+  Loader2,
+  AlertTriangle,
+  Search,
+  Shield,
+  Bug,
+  Globe,
+  Cpu,
+  Target,
+  BarChart3,
+  FileText,
+  ChevronRight,
+  type LucideIcon,
+} from 'lucide-react';
 import { adminAuthHeaders } from '../../lib/admin-token';
 
 export interface PivotSuggestion {
@@ -79,7 +93,7 @@ export function PivotSuggestions({
         const err = await res.json().catch(() => ({ message: 'Failed to load pivots' }));
         throw new Error(err.message ?? 'Failed to load pivots');
       }
-      const data = await res.json() as { suggestions: PivotSuggestion[] };
+      const data = (await res.json()) as { suggestions: PivotSuggestion[] };
       setSuggestions(data.suggestions ?? []);
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Failed to load pivots');
@@ -99,7 +113,7 @@ export function PivotSuggestions({
     return (
       <div className="mt-3 flex items-center gap-2 border-t border-slate-100 pt-3 dark:border-[rgb(var(--border-400))]">
         <Loader2 size={12} className="animate-spin text-brand-500" />
-        <span className="font-mono text-[11px] text-slate-400">Suggesting pivots…</span>
+        <span className="font-mono text-mini text-slate-400">Suggesting pivots…</span>
       </div>
     );
   }
@@ -108,8 +122,11 @@ export function PivotSuggestions({
     return (
       <div className="mt-3 flex items-center gap-2 border-t border-slate-100 pt-3 dark:border-[rgb(var(--border-400))]">
         <AlertTriangle size={11} className="text-amber-500 shrink-0" />
-        <span className="font-mono text-[11px] text-amber-600 dark:text-amber-400">{error}</span>
-        <button onClick={fetchPivots} className="ml-auto font-mono text-[11px] text-brand-600 hover:text-brand-700 dark:text-brand-400">
+        <span className="font-mono text-mini text-amber-600 dark:text-amber-400">{error}</span>
+        <button
+          onClick={fetchPivots}
+          className="ml-auto font-mono text-mini text-brand-600 hover:text-brand-700 dark:text-brand-400"
+        >
           retry
         </button>
       </div>
@@ -122,7 +139,9 @@ export function PivotSuggestions({
     <div className="mt-3 border-t border-slate-100 pt-2.5 dark:border-[rgb(var(--border-400))]">
       <div className="mb-2 flex items-center gap-1.5">
         <Crosshair size={11} className="text-brand-500" />
-        <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Investigation pivots</span>
+        <span className="text-mini font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          Investigation pivots
+        </span>
       </div>
       <div className="space-y-1.5">
         {suggestions.map((s, i) => {
@@ -134,17 +153,22 @@ export function PivotSuggestions({
               onClick={() => onSubmit(s.query)}
               className="group flex w-full items-start gap-2 rounded-lg border border-slate-100 bg-slate-50/50 px-2.5 py-2 text-left transition-all hover:border-brand-300 hover:bg-brand-50/50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))/0.3] dark:hover:border-brand-400/30 dark:hover:bg-brand-900/10"
             >
-              <span className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md ${CATEGORY_COLORS[s.category] ?? 'text-slate-600 bg-slate-50 dark:text-slate-400 dark:bg-slate-950/20'}`}>
+              <span
+                className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md ${CATEGORY_COLORS[s.category] ?? 'text-slate-600 bg-slate-50 dark:text-slate-400 dark:bg-slate-950/20'}`}
+              >
                 <Icon size={12} />
               </span>
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
                   <span className="text-xs font-medium text-slate-700 dark:text-slate-200">{s.label}</span>
-                  <span className={`font-mono text-[10px] ${conf.color}`}>{conf.label}</span>
+                  <span className={`font-mono text-micro ${conf.color}`}>{conf.label}</span>
                 </div>
-                <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-tight">{s.rationale}</p>
+                <p className="text-mini text-slate-500 dark:text-slate-400 leading-tight">{s.rationale}</p>
               </div>
-              <ChevronRight size={13} className="mt-1 shrink-0 text-slate-300 transition-all group-hover:text-brand-500 group-hover:translate-x-0.5 dark:text-slate-500" />
+              <ChevronRight
+                size={13}
+                className="mt-1 shrink-0 text-slate-300 transition-all group-hover:text-brand-500 group-hover:translate-x-0.5 dark:text-slate-500"
+              />
             </button>
           );
         })}

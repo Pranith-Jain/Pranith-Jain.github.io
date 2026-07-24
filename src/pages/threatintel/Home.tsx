@@ -347,7 +347,7 @@ export default function ThreatIntelHome(): JSX.Element {
                       <Link to={t.path} className="group block h-full surface-card card-hover p-4">
                         <div className="flex items-start justify-between gap-2 mb-2">
                           <Icon size={16} className="mt-0.5 shrink-0 text-brand-600 dark:text-brand-400" />
-                          <span className="font-mono text-[10px] uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                          <span className="font-mono text-micro uppercase tracking-wider text-slate-400 dark:text-slate-500">
                             {category.label}
                           </span>
                         </div>
@@ -487,7 +487,7 @@ export default function ThreatIntelHome(): JSX.Element {
                             {cat.label}
                           </h3>
                           {cat.highlight === 'live' && (
-                            <span className="ml-auto inline-flex items-center gap-1 font-mono text-[9px] uppercase tracking-wider text-brand-600 dark:text-brand-400">
+                            <span className="ml-auto inline-flex items-center gap-1 font-mono text-micro uppercase tracking-wider text-brand-600 dark:text-brand-400">
                               <span className="relative inline-flex h-1 w-1">
                                 <span
                                   className="absolute inset-0 rounded-full bg-brand-500 live-pulse"
@@ -502,7 +502,7 @@ export default function ThreatIntelHome(): JSX.Element {
                         <p className="mt-2 text-xs leading-relaxed text-slate-600 dark:text-slate-400 line-clamp-2 min-h-[2.5rem]">
                           {cat.description}
                         </p>
-                        <dl className="mt-3 flex items-center justify-between border-t border-[rgb(var(--border-400))] pt-2 font-mono text-[10px]">
+                        <dl className="mt-3 flex items-center justify-between border-t border-[rgb(var(--border-400))] pt-2 font-mono text-micro">
                           <div className="flex items-center gap-1.5 text-slate-500">
                             <dt className="uppercase tracking-wider opacity-70">pages</dt>
                             <dd className="font-semibold tabular-nums text-slate-700 dark:text-slate-300">

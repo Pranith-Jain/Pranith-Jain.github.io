@@ -128,7 +128,7 @@ function ActorCard({
           <h3 className="font-mono font-semibold text-sm text-slate-900 dark:text-slate-100 leading-snug mb-1">
             {actor.name}
           </h3>
-          <div className="flex items-center gap-3 text-[11px] font-mono text-slate-500 flex-wrap">
+          <div className="flex items-center gap-3 text-mini font-mono text-slate-500 flex-wrap">
             <span className={`font-semibold ${STATUS_COLORS[actor.status]}`}>{actor.status}</span>
             <span>·</span>
             <span>{TYPE_LABELS[actor.type]}</span>
@@ -156,7 +156,7 @@ function ActorCard({
               {actor.aliases.map((a) => (
                 <span
                   key={a}
-                  className="text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
+                  className="text-micro font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
                 >
                   {a}
                 </span>
@@ -168,7 +168,7 @@ function ActorCard({
             {actor.malware.map((m) => (
               <span
                 key={m}
-                className="text-[10px] font-mono px-2 py-0.5 rounded border border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300"
+                className="text-micro font-mono px-2 py-0.5 rounded border border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300"
               >
                 {m}
               </span>
@@ -179,7 +179,7 @@ function ActorCard({
             {actor.tools.map((t) => (
               <span
                 key={t}
-                className="text-[10px] font-mono px-2 py-0.5 rounded border border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300"
+                className="text-micro font-mono px-2 py-0.5 rounded border border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300"
               >
                 {t}
               </span>
@@ -190,7 +190,7 @@ function ActorCard({
             {actor.ttps.map((t) => (
               <span
                 key={t}
-                className="text-[10px] font-mono px-2 py-0.5 rounded border border-blue-500/30 bg-blue-500/10 text-blue-700 dark:text-blue-300"
+                className="text-micro font-mono px-2 py-0.5 rounded border border-blue-500/30 bg-blue-500/10 text-blue-700 dark:text-blue-300"
               >
                 {t}
               </span>
@@ -199,7 +199,7 @@ function ActorCard({
               actor.mitreGroups.map((g) => (
                 <span
                   key={g}
-                  className="text-[10px] font-mono px-2 py-0.5 rounded border border-purple-500/30 bg-purple-500/10 text-purple-700 dark:text-purple-300"
+                  className="text-micro font-mono px-2 py-0.5 rounded border border-purple-500/30 bg-purple-500/10 text-purple-700 dark:text-purple-300"
                 >
                   {g}
                 </span>
@@ -210,7 +210,7 @@ function ActorCard({
             {actor.campaigns.map((c) => (
               <span
                 key={c}
-                className="text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted"
+                className="text-micro font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted"
               >
                 {c}
               </span>
@@ -221,14 +221,14 @@ function ActorCard({
             {actor.targets.map((t) => (
               <span
                 key={t}
-                className="text-[10px] font-mono px-2 py-0.5 rounded border border-cyan-500/30 bg-cyan-500/10 text-sky-700 dark:text-sky-300"
+                className="text-micro font-mono px-2 py-0.5 rounded border border-cyan-500/30 bg-cyan-500/10 text-sky-700 dark:text-sky-300"
               >
                 {t}
               </span>
             ))}
           </Section>
 
-          <div className="mt-3 text-[11px] font-mono text-slate-500">
+          <div className="mt-3 text-mini font-mono text-slate-500">
             <span className="text-slate-400">Motivation:</span> {actor.motivation}
           </div>
         </div>
@@ -240,7 +240,7 @@ function ActorCard({
 function Section({ title, children }: { title: string; children: React.ReactNode }): JSX.Element {
   return (
     <div className="mb-3">
-      <h4 className="text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-400 mb-1.5">{title}</h4>
+      <h4 className="text-micro font-mono font-semibold uppercase tracking-wider text-slate-400 mb-1.5">{title}</h4>
       <div className="flex flex-wrap gap-1.5">{children}</div>
     </div>
   );

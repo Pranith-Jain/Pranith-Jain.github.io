@@ -2911,6 +2911,64 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         }
       );
 
+      // ── depx — supply-chain malicious package intelligence ──────
+      this.tools(
+        'depx_feed',
+        'Feed of recently disclosed malicious packages from the OpenSSF Malicious Packages database. Returns packages disclosed within the time window, with ecosystem breakdown and disclosure age. Inspired by projectdiscovery/depx.',
+        {
+          since: z
+            .string()
+            .optional()
+            .describe('Time window: "24h", "7d" (default), "30d". E.g. "3d" for last 3 days.'),
+          ecosystem: z
+            .string()
+            .optional()
+            .describe('Filter by ecosystem: npm, pypi, maven, go, rubygems, crates.io, nuget, packagist.'),
+          limit: z.number().optional().describe('Max entries (default 100, max 500).'),
+        },
+        async ({ since, ecosystem, limit }) => {
+          const params = new URLSearchParams();
+          if (since) params.set('since', since);
+          if (ecosystem) params.set('ecosystem', ecosystem);
+          if (limit) params.set('limit', String(limit));
+          const r = await this.apiFetch(`/api/v1/depx/feed?${params}`);
+          return untrustedToolResult(r);
+        }
+      );
+
+      this.tools(
+        'depx_check',
+        'Check if a specific package is known-malicious. Queries the OpenSSF Malicious Packages database and OSV. Returns verdict (clean/malicious/unknown) with advisory details. Inspired by projectdiscovery/depx.',
+        {
+          ref: z
+            .string()
+            .optional()
+            .describe('Package reference in ecosystem:name format, e.g. "npm:lodash" or "pypi:requests".'),
+          ecosystem: z.string().optional().describe('Ecosystem: npm, pypi, maven, go, rubygems, crates.io.'),
+          package: z.string().optional().describe('Package name to check.'),
+        },
+        async ({ ref, ecosystem, package: pkg }) => {
+          const params = new URLSearchParams();
+          if (ref) params.set('ref', ref);
+          else if (ecosystem && pkg) {
+            params.set('ecosystem', ecosystem);
+            params.set('package', pkg);
+          }
+          const r = await this.apiFetch(`/api/v1/depx/feed/check?${params}`);
+          return untrustedToolResult(r);
+        }
+      );
+
+      this.tools(
+        'depx_stats',
+        'Supply-chain intelligence statistics — ecosystem breakdown, recent advisory counts, and disclosure trends from the OpenSSF Malicious Packages database.',
+        {},
+        async () => {
+          const r = await this.apiFetch('/api/v1/depx/feed/stats');
+          return untrustedToolResult(r);
+        }
+      );
+
       // ── FullHunt — attack surface discovery ────────────────────
       this.tools(
         'fullhunt_domain',

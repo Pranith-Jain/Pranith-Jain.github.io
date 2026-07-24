@@ -179,7 +179,7 @@ export default function OssFeeds() {
                   <div className="flex items-center gap-2">
                     <span className="font-medium">{feed.vendor}</span>
                     <span
-                      className={`rounded px-1.5 py-0.5 text-[10px] font-medium ${feed.feedStatus === 'Active' ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40' : 'text-rose-600 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40'}`}
+                      className={`rounded px-1.5 py-0.5 text-micro font-medium ${feed.feedStatus === 'Active' ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40' : 'text-rose-600 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40'}`}
                     >
                       {feed.feedStatus}
                     </span>
@@ -189,7 +189,7 @@ export default function OssFeeds() {
                     href={feed.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-0.5 inline-flex items-center gap-1 font-mono text-[10px] text-brand-600 dark:text-brand-400 hover:underline break-all"
+                    className="mt-0.5 inline-flex items-center gap-1 font-mono text-micro text-brand-600 dark:text-brand-400 hover:underline break-all"
                   >
                     {feed.url}
                     <ExternalLink size={10} />
@@ -218,12 +218,12 @@ export default function OssFeeds() {
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-semibold">{feed.vendor}</span>
                   <span
-                    className={`rounded-full border px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider ${catColor(feed.category)}`}
+                    className={`rounded-full border px-2 py-0.5 text-micro font-medium uppercase tracking-wider ${catColor(feed.category)}`}
                   >
                     {feed.category}
                   </span>
                   <span
-                    className={`rounded px-1.5 py-0.5 text-[10px] font-medium ${feed.feedStatus === 'Active' ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40' : 'text-rose-600 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40'}`}
+                    className={`rounded px-1.5 py-0.5 text-micro font-medium ${feed.feedStatus === 'Active' ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40' : 'text-rose-600 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40'}`}
                   >
                     {feed.feedStatus}
                   </span>

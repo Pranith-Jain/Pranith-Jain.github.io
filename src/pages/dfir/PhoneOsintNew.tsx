@@ -141,13 +141,13 @@ export default function PhoneOsintNew() {
         </div>
 
         {/* Status bar */}
-        <div className="flex items-center justify-between text-[13px] pb-3.5 mb-5 border-b border-[rgb(var(--border-400))] gap-3 flex-wrap">
+        <div className="flex items-center justify-between text-tool pb-3.5 mb-5 border-b border-[rgb(var(--border-400))] gap-3 flex-wrap">
           <span className="text-muted">AI-Powered OSINT</span>
           <div className="flex items-center gap-2">
-            <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-[rgb(var(--surface-100))] text-brand-400 border border-[rgb(var(--border-400))]">
+            <span className="text-mini font-semibold px-2.5 py-1 rounded-full bg-[rgb(var(--surface-100))] text-brand-400 border border-[rgb(var(--border-400))]">
               Remaining: 100 of 100
             </span>
-            <span className="text-[10px] font-bold tracking-wider px-3 py-1 rounded-full animate-pulse bg-emerald-500 text-slate-950">
+            <span className="text-micro font-bold tracking-wider px-3 py-1 rounded-full animate-pulse bg-emerald-500 text-slate-950">
               LIVE
             </span>
           </div>
@@ -278,7 +278,7 @@ export default function PhoneOsintNew() {
                             {result.breach.checked ? (found ? `EXPOSED (${entries.length})` : 'CLEAN') : 'NOT CHECKED'}
                           </span>
                         </div>
-                        {!result.breach.checked && <div className="text-[11px] text-muted">{result.breach.reason}</div>}
+                        {!result.breach.checked && <div className="text-mini text-muted">{result.breach.reason}</div>}
                         {found && families.length > 0 && (
                           <div className="text-xs mt-1 text-muted">Stealer families: {families.join(', ')}</div>
                         )}
@@ -302,12 +302,12 @@ export default function PhoneOsintNew() {
                           <span className="text-sm shrink-0">{CATEGORY_ICONS[l.category] || 'Link'}</span>
                           <div className="flex-1 min-w-0">
                             <div className="text-xs font-medium truncate text-slate-100">{l.service}</div>
-                            <div className="text-[10px] truncate text-muted">
+                            <div className="text-micro truncate text-muted">
                               {CATEGORY_LABELS[l.category] || l.category}
                             </div>
                           </div>
                           {l.free && (
-                            <span className="text-[9px] px-1.5 py-0.5 rounded-full shrink-0 bg-emerald-500/20 text-emerald-500">
+                            <span className="text-micro px-1.5 py-0.5 rounded-full shrink-0 bg-emerald-500/20 text-emerald-500">
                               FREE
                             </span>
                           )}
@@ -331,7 +331,7 @@ export default function PhoneOsintNew() {
                           rel="noopener noreferrer"
                           className="flex items-center justify-between gap-3 p-2.5 rounded-lg transition hover:bg-[rgb(var(--hover-100))] bg-[rgb(var(--surface-100))] border border-[rgb(var(--border-400))]"
                         >
-                          <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-[rgb(var(--surface-300))] text-brand-400">
+                          <span className="text-micro font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-[rgb(var(--surface-300))] text-brand-400">
                             {d.engine}
                           </span>
                           <span className="text-xs font-mono truncate flex-1 text-muted">{d.query}</span>
@@ -460,9 +460,9 @@ export default function PhoneOsintNew() {
       {/* Scan History */}
       {history.length > 0 && (
         <div className="mt-4 p-5 rounded-lg bg-[rgb(var(--surface-200))] border border-[rgb(var(--border-400))]">
-          <div className="text-[13px] font-semibold mb-3 flex items-center justify-between text-muted">
+          <div className="text-tool font-semibold mb-3 flex items-center justify-between text-muted">
             <span>Scan History ({history.length})</span>
-            <button onClick={() => setHistory([])} className="text-[11px] hover:text-white transition text-muted">
+            <button onClick={() => setHistory([])} className="text-mini hover:text-white transition text-muted">
               <Trash2 size={12} /> Clear
             </button>
           </div>
@@ -474,9 +474,9 @@ export default function PhoneOsintNew() {
               >
                 <div>
                   <div className="text-xs font-medium font-mono text-slate-100">{scan.number}</div>
-                  <div className="text-[10px] text-muted">{new Date(scan.timestamp).toLocaleTimeString()}</div>
+                  <div className="text-micro text-muted">{new Date(scan.timestamp).toLocaleTimeString()}</div>
                 </div>
-                <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-500">
+                <span className="text-micro font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-500">
                   ✓
                 </span>
               </div>
@@ -486,7 +486,7 @@ export default function PhoneOsintNew() {
       )}
 
       {/* Footer */}
-      <div className="mt-6 pt-4 text-center text-[12px] text-slate-500">
+      <div className="mt-6 pt-4 text-center text-meta text-slate-500">
         <a href="/dfir/phone-osint" className="text-muted">
           Legal Policy · Privacy · Terms
         </a>

@@ -1,15 +1,15 @@
 {
   "slug": "play-restaurant-depot-2026-07-23",
   "title": "Restaurant Depot",
-  "group": "Play",
-  "discovered": "2026-07-23T00:00:00.000Z",
+  "group": "play",
+  "discovered": "2026-07-23T20:29:22.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": "United States",
+  "country": "US",
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated in ransomware attack",
-  "source_url": "https://recentbreaches.com/breach/restaurant-depot-play-2026-07",
+  "description": "United States",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["PlayCrypt"],
   "activity": "Retail & E-Commerce",
-  "references": ["RecentBreaches.com"]
+  "references": ["ransomware.live"]
 }

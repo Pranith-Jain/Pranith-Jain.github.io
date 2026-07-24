@@ -426,6 +426,13 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'SupplyChainAttacks',
       },
       {
+        path: '/threatintel/depx',
+        tabId: 'depx',
+        label: 'Supply-Chain Feed',
+        desc: 'Malicious package intelligence from OpenSSF — ecosystem breakdown, package verdicts, and advisory tracking.',
+        compVar: 'SupplyChainFeed',
+      },
+      {
         path: '/threatintel/malware/malpedia',
         tabId: 'malpedia',
         label: 'Malpedia',
@@ -1137,6 +1144,14 @@ export const HUB_META: readonly HubMeta[] = [
         label: 'Threat Intel Copilot',
         desc: 'AI copilot — ask, pivot, summarize, draft.',
         compVar: 'Copilot',
+        badge: 'new',
+      },
+      {
+        path: '/threatintel/entity-graph',
+        tabId: 'entity-graph',
+        label: 'Entity Graph',
+        desc: 'Interactive topology of CVEs, actors, IOCs, sectors, and techniques.',
+        compVar: 'EntityGraphPage',
         badge: 'new',
       },
       {

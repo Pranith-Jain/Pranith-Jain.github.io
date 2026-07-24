@@ -87,9 +87,9 @@ function CategoryLegend({ categories }: { categories: string[] }) {
   if (categories.length === 0) return null;
   return (
     <div className="absolute bottom-2 left-2 z-[1000] bg-white/90 dark:bg-[rgb(var(--surface-200)/0.9)] backdrop-blur rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-2 max-w-[200px] max-h-[180px] overflow-y-auto">
-      <div className="text-[10px] font-mono font-semibold text-slate-500 mb-1">Legend</div>
+      <div className="text-micro font-mono font-semibold text-slate-500 mb-1">Legend</div>
       {categories.map((cat) => (
-        <div key={cat} className="flex items-center gap-1.5 text-[10px] font-mono text-muted py-0.5">
+        <div key={cat} className="flex items-center gap-1.5 text-micro font-mono text-muted py-0.5">
           <span className="w-2 h-2 rounded-full shrink-0" style={{ background: CATEGORY_COLORS[cat] ?? '#6366f1' }} />
           <span className="truncate">{cat}</span>
         </div>
@@ -171,21 +171,21 @@ export default function InfraMap({
             <div className="text-sm font-sans">
               <div className="font-semibold text-slate-900">{r.name}</div>
               <div className="text-xs text-slate-500 mt-0.5">{r.category}</div>
-              <div className="text-[11px] font-mono text-slate-400 mt-1">
+              <div className="text-mini font-mono text-slate-400 mt-1">
                 {r.lat.toFixed(5)}, {r.lon.toFixed(5)}
               </div>
               {r.tags.operator && (
-                <div className="text-[11px] text-slate-600 mt-1">
+                <div className="text-mini text-slate-600 mt-1">
                   <span className="text-slate-400">Operator:</span> {r.tags.operator}
                 </div>
               )}
               {r.tags.man_made && (
-                <div className="text-[11px] text-slate-600">
+                <div className="text-mini text-slate-600">
                   <span className="text-slate-400">Type:</span> {r.tags.man_made}
                 </div>
               )}
               {r.tags.amenity && (
-                <div className="text-[11px] text-slate-600">
+                <div className="text-mini text-slate-600">
                   <span className="text-slate-400">Amenity:</span> {r.tags.amenity}
                 </div>
               )}
@@ -194,7 +194,7 @@ export default function InfraMap({
                   href={r.tags.website}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[11px] text-brand-600 hover:underline mt-1 block"
+                  className="text-mini text-brand-600 hover:underline mt-1 block"
                 >
                   Website ↗
                 </a>

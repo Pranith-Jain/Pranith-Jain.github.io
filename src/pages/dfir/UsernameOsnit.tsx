@@ -166,7 +166,7 @@ export default function UsernameOsnit(): JSX.Element {
                     <span className="text-emerald-500">✓</span>
                     <span className="font-medium text-slate-900 dark:text-slate-100">{r.name}</span>
                     <span
-                      className={`text-[10px] px-1.5 py-0.5 rounded border ${CATEGORY_CLS[r.category] ?? CATEGORY_CLS.other}`}
+                      className={`text-micro px-1.5 py-0.5 rounded border ${CATEGORY_CLS[r.category] ?? CATEGORY_CLS.other}`}
                     >
                       {r.category}
                     </span>

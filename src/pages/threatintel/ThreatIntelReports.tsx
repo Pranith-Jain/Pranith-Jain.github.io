@@ -130,7 +130,7 @@ function ReportCard({
     <div className="surface-card overflow-hidden transition-all hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]">
       <button type="button" onClick={onToggle} className="w-full text-left p-4 flex items-start gap-4">
         <span
-          className={`inline-flex items-center gap-1 text-[10px] font-mono font-semibold px-2 py-1 rounded border uppercase tracking-wider ${SEVERITY_COLORS[report.severity]}`}
+          className={`inline-flex items-center gap-1 text-micro font-mono font-semibold px-2 py-1 rounded border uppercase tracking-wider ${SEVERITY_COLORS[report.severity]}`}
         >
           {report.severity === 'critical' && <AlertTriangle size={10} />}
           {report.severity === 'high' && <Shield size={10} />}
@@ -140,7 +140,7 @@ function ReportCard({
           <h3 className="font-mono font-semibold text-sm text-slate-900 dark:text-slate-100 leading-snug mb-1">
             {report.title}
           </h3>
-          <div className="flex items-center gap-3 text-[11px] font-mono text-slate-500">
+          <div className="flex items-center gap-3 text-mini font-mono text-slate-500">
             <span>{report.date}</span>
             <span>·</span>
             <span>{report.source}</span>
@@ -173,7 +173,7 @@ function ReportCard({
             {report.tags.map((tag) => (
               <span
                 key={tag}
-                className="text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
+                className="text-micro font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
               >
                 {tag}
               </span>
@@ -182,7 +182,7 @@ function ReportCard({
 
           {report.iocs && report.iocs.length > 0 && (
             <div className="mb-4">
-              <h4 className="text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-400 mb-2">
+              <h4 className="text-micro font-mono font-semibold uppercase tracking-wider text-slate-400 mb-2">
                 Indicators
               </h4>
               <div className="bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded-xl p-3 font-mono text-xs space-y-1">
@@ -198,14 +198,14 @@ function ReportCard({
 
           {report.detections && report.detections.length > 0 && (
             <div className="mb-4">
-              <h4 className="text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-400 mb-2">
+              <h4 className="text-micro font-mono font-semibold uppercase tracking-wider text-slate-400 mb-2">
                 Detection Rules
               </h4>
               <div className="flex flex-wrap gap-1.5">
                 {report.detections.map((det, i) => (
                   <span
                     key={i}
-                    className={`text-[10px] font-mono px-2 py-0.5 rounded border ${
+                    className={`text-micro font-mono px-2 py-0.5 rounded border ${
                       det.type === 'sigma'
                         ? 'border-blue-500/30 bg-blue-500/10 text-blue-700 dark:text-blue-300'
                         : det.type === 'yara'

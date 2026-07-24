@@ -303,7 +303,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
             {brief.topThreats.map((t, i) => (
               <div key={i} className="rounded-lg border border-slate-200 p-3 dark:border-slate-700">
                 <div className="flex items-center gap-2">
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose-100 text-[11px] font-bold text-rose-700 dark:bg-rose-950/60 dark:text-rose-300">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose-100 text-mini font-bold text-rose-700 dark:bg-rose-950/60 dark:text-rose-300">
                     {i + 1}
                   </span>
                   <h3 className="text-sm font-semibold text-slate-900 dark:text-white">{t.title}</h3>
@@ -472,7 +472,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
               <Expandable key={i} title={ev.title} defaultOpen={ev.severity === 'red' && i < 3}>
                 <div className="flex items-center gap-2 mb-2">
                   <span
-                    className={`rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider border ${sevPill(ev.severity)}`}
+                    className={`rounded-full px-2.5 py-0.5 text-micro font-bold uppercase tracking-wider border ${sevPill(ev.severity)}`}
                   >
                     {ev.severity}
                   </span>
@@ -483,7 +483,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
                     {ev.chips.map((c, j) => (
                       <span
                         key={j}
-                        className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] text-slate-600 dark:bg-slate-800 dark:text-slate-400"
+                        className="rounded-full bg-slate-100 px-2 py-0.5 text-micro text-slate-600 dark:bg-slate-800 dark:text-slate-400"
                       >
                         {c}
                       </span>
@@ -498,7 +498,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
                         href={s.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-[10px] text-blue-600 hover:underline dark:text-blue-400"
+                        className="inline-flex items-center gap-1 text-micro text-blue-600 hover:underline dark:text-blue-400"
                       >
                         {s.label || s.url.slice(0, 50)} <ExternalLink size={10} />
                       </a>
@@ -576,7 +576,7 @@ function DeepfakeBriefView({ brief }: { brief: DeepfakeBrief }) {
                   {inc.badges.map((b, j) => (
                     <span
                       key={j}
-                      className={`whitespace-nowrap rounded-full px-2 py-0.5 text-[10px] font-bold uppercase border ${sevPill(b.toLowerCase())}`}
+                      className={`whitespace-nowrap rounded-full px-2 py-0.5 text-micro font-bold uppercase border ${sevPill(b.toLowerCase())}`}
                     >
                       {b}
                     </span>
@@ -603,7 +603,7 @@ function DeepfakeBriefView({ brief }: { brief: DeepfakeBrief }) {
                         href={s.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-[10px] text-blue-600 hover:underline dark:text-blue-400"
+                        className="inline-flex items-center gap-1 text-micro text-blue-600 hover:underline dark:text-blue-400"
                       >
                         {s.label || s.url.slice(0, 50)} <ExternalLink size={10} />
                       </a>
@@ -705,7 +705,7 @@ function DisasterBriefView({ brief }: { brief: DisasterBrief }) {
                 <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3 dark:border-slate-700">
                   <span className="text-sm font-semibold text-slate-900 dark:text-white">{ev.title}</span>
                   <span
-                    className={`rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider border ${sevPill(ev.severity)}`}
+                    className={`rounded-full px-2.5 py-0.5 text-micro font-bold uppercase tracking-wider border ${sevPill(ev.severity)}`}
                   >
                     {ev.severity}
                   </span>
@@ -720,7 +720,7 @@ function DisasterBriefView({ brief }: { brief: DisasterBrief }) {
                           href={s.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-[10px] text-blue-600 hover:underline dark:text-blue-400"
+                          className="inline-flex items-center gap-1 text-micro text-blue-600 hover:underline dark:text-blue-400"
                         >
                           {s.label || s.url.slice(0, 50)} <ExternalLink size={10} />
                         </a>
@@ -756,7 +756,7 @@ function DisasterBriefView({ brief }: { brief: DisasterBrief }) {
                         href={s.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-[10px] text-blue-600 hover:underline dark:text-blue-400"
+                        className="inline-flex items-center gap-1 text-micro text-blue-600 hover:underline dark:text-blue-400"
                       >
                         {s.label || s.url.slice(0, 50)} <ExternalLink size={10} />
                       </a>
@@ -791,7 +791,7 @@ function DisasterBriefView({ brief }: { brief: DisasterBrief }) {
                         href={s.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-[10px] text-blue-600 hover:underline dark:text-blue-400"
+                        className="inline-flex items-center gap-1 text-micro text-blue-600 hover:underline dark:text-blue-400"
                       >
                         {s.label || s.url.slice(0, 50)} <ExternalLink size={10} />
                       </a>

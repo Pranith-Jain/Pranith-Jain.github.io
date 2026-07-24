@@ -156,7 +156,7 @@ upstream sync is no longer needed (the data is now in `public/data/si/`).
 
 **Stale comment fixed**: `worker/lib/si-svg-renderer.ts` header now says "Supports 14 widget types" with the full enumerated list (was "6 widget types").
 
-**MCP tool inventory (final)**: 67 tools total — 46 pre-existing DFIR / threat-intel tools + 21 SI tools (`si_list_skills`, `si_get_skill`, `si_list_queries`, `si_get_query`, `si_get_automation`, `si_stats`, `si_render_svg_dashboard`, `si_list_docs`, `si_get_doc`, `si_get_routing_prompt`, `si_list_ref`, `si_get_ref`, `si_enrich_ip`, `si_enrich_ip_batch`, `si_enrich_ip_stix`, `si_enrich_ip_stix_batch`, `si_kql_to_ah_url`, `si_list_scripts`, `si_get_script`, `si_render_svg`, `si_render_png`).
+**MCP tool inventory (final)**: 70 tools total — 46 pre-existing DFIR / threat-intel tools + 21 SI tools (`si_list_skills`, `si_get_skill`, `si_list_queries`, `si_get_query`, `si_get_automation`, `si_stats`, `si_render_svg_dashboard`, `si_list_docs`, `si_get_doc`, `si_get_routing_prompt`, `si_list_ref`, `si_get_ref`, `si_enrich_ip`, `si_enrich_ip_batch`, `si_enrich_ip_stix`, `si_enrich_ip_stix_batch`, `si_kql_to_ah_url`, `si_list_scripts`, `si_get_script`, `si_render_svg`, `si_render_png`) + 3 depx tools (`depx_feed`, `depx_check`, `depx_stats`).
 
 **Verification (final)**:
 
@@ -266,3 +266,32 @@ keyword. Costs $0.01/query (paid, no free tier).
 - `src/pages/Whoxy.tsx` — SPA page at `/dfir/whoxy`
 
 **Secret**: `WHOXY_API_KEY` (`wrangler secret put WHOXY_API_KEY`)
+
+## depx — Supply-Chain Intelligence
+
+A supply-chain intelligence vertical replicating the depx pattern — recently
+disclosed malicious packages from the [OpenSSF Malicious Packages](https://github.com/ossf/malicious-packages)
+database. Fetches recently disclosed malicious packages via GitHub Commits API
+and returns them in a depx-style feed format with ecosystem breakdown, disclosure
+age, and package verdicts.
+
+**Files**:
+
+- `api/src/routes/depx.ts` — 3 route handlers: feed, stats, check
+- `worker/mcp-server.ts` — 3 MCP tools: `depx_feed`, `depx_check`, `depx_stats`
+- `src/pages/threatintel/SupplyChainFeed.tsx` — SPA page at `/threatintel/depx`
+
+**REST routes** (under `/api/v1/depx/`):
+
+- `GET /api/v1/depx/feed?since=7d&ecosystem=npm&limit=100` — recently disclosed malicious packages
+- `GET /api/v1/depx/feed/stats` — 30-day ecosystem breakdown
+- `GET /api/v1/depx/feed/check?ecosystem=npm&package=lodash` — package verdict (clean/malicious/unknown)
+
+**MCP tools** (registered on `DFIR_MCP`):
+
+- `depx_feed` — list recently disclosed malicious packages
+- `depx_check` — check if a package is known-malicious
+- `depx_stats` — ecosystem breakdown and feed statistics
+
+**Data flow**: OSSF GitHub Commits API → Cache-API L1 + KV last-good fallback.
+No sync scripts needed — live data on each request with aggressive caching.

@@ -357,16 +357,16 @@ export default function Notebooks() {
                         {nb.description && <p className="text-xs text-muted truncate ml-5">{nb.description}</p>}
                         <div className="flex items-center gap-2 mt-2 ml-5 flex-wrap">
                           <span
-                            className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-medium ${STATUS_COLORS[nb.status]}`}
+                            className={`px-2 py-0.5 rounded-full text-micro font-mono font-medium ${STATUS_COLORS[nb.status]}`}
                           >
                             {nb.status}
                           </span>
                           <span
-                            className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-medium ${SEVERITY_COLORS[nb.severity]}`}
+                            className={`px-2 py-0.5 rounded-full text-micro font-mono font-medium ${SEVERITY_COLORS[nb.severity]}`}
                           >
                             {nb.severity}
                           </span>
-                          <span className="text-[10px] text-muted font-mono flex items-center gap-1">
+                          <span className="text-micro text-muted font-mono flex items-center gap-1">
                             <Clock size={10} />
                             {timeAgo(nb.updated_at)}
                           </span>
@@ -582,7 +582,7 @@ export default function Notebooks() {
                             <span className="text-xs font-mono font-medium text-muted uppercase">
                               {entry.entry_type}
                             </span>
-                            <span className="text-[10px] font-mono text-muted">{timeAgo(entry.created_at)}</span>
+                            <span className="text-micro font-mono text-muted">{timeAgo(entry.created_at)}</span>
                           </div>
                           <button
                             onClick={() => deleteEntry(entry.id)}

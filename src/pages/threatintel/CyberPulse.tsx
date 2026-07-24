@@ -508,7 +508,7 @@ export default function CyberPulse(): JSX.Element {
                       title={`${d.day}: ${d.count}`}
                     >
                       <div className="w-full bg-blue-500/40 rounded-t" style={{ height: barPx }} />
-                      <span className="text-[9px] text-slate-600 dark:text-slate-500 font-mono leading-none mt-0.5">
+                      <span className="text-micro text-slate-600 dark:text-slate-500 font-mono leading-none mt-0.5">
                         {d.day.slice(5)}
                       </span>
                     </div>
@@ -527,7 +527,7 @@ function StatCard({ label, value, color }: { label: string; value: number; color
   return (
     <div className="surface-card p-3 text-center">
       <div className={`text-xl font-bold ${color}`}>{formatNumber(value)}</div>
-      <div className="text-[10px] font-mono uppercase tracking-wider text-slate-600 dark:text-slate-500 mt-0.5">
+      <div className="text-micro font-mono uppercase tracking-wider text-slate-600 dark:text-slate-500 mt-0.5">
         {label}
       </div>
     </div>
@@ -610,16 +610,16 @@ function IncidentCard({ incident: inc, postSummary }: { incident: Incident; post
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap mb-1">
             <span
-              className={`px-1.5 py-0.5 text-[10px] font-semibold uppercase rounded border ${SEVERITY_COLORS[inc.severity] ?? 'bg-slate-500/20 text-slate-600 dark:text-slate-400 border-slate-500/30'}`}
+              className={`px-1.5 py-0.5 text-micro font-semibold uppercase rounded border ${SEVERITY_COLORS[inc.severity] ?? 'bg-slate-500/20 text-slate-600 dark:text-slate-400 border-slate-500/30'}`}
             >
               {inc.severity}
             </span>
             <span
-              className={`px-1.5 py-0.5 text-[10px] font-medium uppercase rounded border ${TYPE_COLORS[inc.incident_type]?.split(' ').slice(0, 2).join(' ') ?? 'bg-slate-500/10 text-slate-600 dark:text-slate-400 border-slate-500/20'}`}
+              className={`px-1.5 py-0.5 text-micro font-medium uppercase rounded border ${TYPE_COLORS[inc.incident_type]?.split(' ').slice(0, 2).join(' ') ?? 'bg-slate-500/10 text-slate-600 dark:text-slate-400 border-slate-500/20'}`}
             >
               {TYPE_LABELS[inc.incident_type] ?? inc.incident_type}
             </span>
-            <span className="text-[10px] text-slate-600 dark:text-slate-500 font-mono">
+            <span className="text-micro text-slate-600 dark:text-slate-500 font-mono">
               {PLATFORM_LABELS[inc.source_platform] ?? inc.source_platform}
             </span>
           </div>
@@ -652,12 +652,12 @@ function IncidentCard({ incident: inc, postSummary }: { incident: Incident; post
             {tags.slice(0, 5).map((tag) => (
               <span
                 key={tag}
-                className="px-1.5 py-0.5 text-[10px] rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-500"
+                className="px-1.5 py-0.5 text-micro rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-500"
               >
                 {tag}
               </span>
             ))}
-            <span className="text-[10px] text-slate-600 dark:text-slate-600 ml-auto">
+            <span className="text-micro text-slate-600 dark:text-slate-600 ml-auto">
               {relativeTime(inc.discovered_at)}
             </span>
             {inc.source_url && (

@@ -82,20 +82,19 @@ export default function ETDAActorsPage() {
   const [categoryFilter, setCategoryFilter] = useState<string | null>(null);
   const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
 
-  const { data: indexData, loading: indexLoading, error: indexError } =
-    useDataFetch<ActorIndexResponse>({ url: '/api/v1/apt-actors/' });
+  const {
+    data: indexData,
+    loading: indexLoading,
+    error: indexError,
+  } = useDataFetch<ActorIndexResponse>({ url: '/api/v1/apt-actors/' });
 
-  const { data: listData, loading: listLoading } =
-    useDataFetch<ActorListResponse>({
-      url: categoryFilter
-        ? `/api/v1/apt-actors/actors?category=${categoryFilter}`
-        : '/api/v1/apt-actors/actors',
-    });
+  const { data: listData, loading: listLoading } = useDataFetch<ActorListResponse>({
+    url: categoryFilter ? `/api/v1/apt-actors/actors?category=${categoryFilter}` : '/api/v1/apt-actors/actors',
+  });
 
-  const { data: detailData } =
-    useDataFetch<ActorBody>({
-      url: selectedSlug ? `/api/v1/apt-actors/actors/${selectedSlug}` : null,
-    });
+  const { data: detailData } = useDataFetch<ActorBody>({
+    url: selectedSlug ? `/api/v1/apt-actors/actors/${selectedSlug}` : null,
+  });
 
   const filteredActors = useMemo(() => {
     if (!listData?.actors) return [];
@@ -144,7 +143,7 @@ export default function ETDAActorsPage() {
               <button
                 key={cat}
                 onClick={() => setCategoryFilter(categoryFilter === cat ? null : cat)}
-                className={`font-mono text-[11px] font-semibold px-2.5 py-1 rounded-full border transition-colors ${
+                className={`font-mono text-mini font-semibold px-2.5 py-1 rounded-full border transition-colors ${
                   categoryFilter === cat
                     ? CATEGORY_BADGE[cat]
                     : 'bg-[rgb(var(--surface-200))] border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-500'
@@ -160,19 +159,27 @@ export default function ETDAActorsPage() {
         {indexData && (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             <div className="bg-[rgb(var(--surface-200))] rounded-xl border border-[rgb(var(--border-400))] p-3">
-              <div className="font-mono text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wider">Total Actors</div>
+              <div className="font-mono text-micro text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                Total Actors
+              </div>
               <div className="text-lg font-semibold text-slate-900 dark:text-slate-100">{indexData.counts.actors}</div>
             </div>
             <div className="bg-[rgb(var(--surface-200))] rounded-xl border border-[rgb(var(--border-400))] p-3">
-              <div className="font-mono text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wider">APT Groups</div>
+              <div className="font-mono text-micro text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                APT Groups
+              </div>
               <div className="text-lg font-semibold text-rose-400">{indexData.counts.apt}</div>
             </div>
             <div className="bg-[rgb(var(--surface-200))] rounded-xl border border-[rgb(var(--border-400))] p-3">
-              <div className="font-mono text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wider">With MITRE</div>
+              <div className="font-mono text-micro text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                With MITRE
+              </div>
               <div className="text-lg font-semibold text-brand-400">{indexData.counts.withMitre}</div>
             </div>
             <div className="bg-[rgb(var(--surface-200))] rounded-xl border border-[rgb(var(--border-400))] p-3">
-              <div className="font-mono text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wider">Sectors</div>
+              <div className="font-mono text-micro text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                Sectors
+              </div>
               <div className="text-lg font-semibold text-amber-400">{indexData.counts.totalSectors}</div>
             </div>
           </div>
@@ -194,32 +201,39 @@ export default function ETDAActorsPage() {
                 <div className="min-w-0">
                   <div className="font-medium text-slate-900 dark:text-slate-100 truncate">{actor.name}</div>
                   {actor.aliases.length > 0 && (
-                    <div className="font-mono text-[10px] text-slate-500 dark:text-slate-400 truncate mt-0.5">{actor.aliases.slice(0, 3).join(', ')}</div>
+                    <div className="font-mono text-micro text-slate-500 dark:text-slate-400 truncate mt-0.5">
+                      {actor.aliases.slice(0, 3).join(', ')}
+                    </div>
                   )}
                 </div>
-                <span className={`shrink-0 font-mono text-[10px] font-bold px-2 py-0.5 rounded border ${CATEGORY_BADGE[actor.category] || ''}`}>
+                <span
+                  className={`shrink-0 font-mono text-micro font-bold px-2 py-0.5 rounded border ${CATEGORY_BADGE[actor.category] || ''}`}
+                >
                   {CATEGORY_LABELS[actor.category] || actor.category}
                 </span>
               </div>
               <div className="flex flex-wrap gap-x-3 gap-y-0.5 mt-2">
                 {actor.country && (
-                  <span className="inline-flex items-center gap-1 font-mono text-[10px] text-slate-500 dark:text-slate-400">
+                  <span className="inline-flex items-center gap-1 font-mono text-micro text-slate-500 dark:text-slate-400">
                     <Globe className="w-3 h-3" />
-                    {actor.country.length === 2 ? getCountryFlag(actor.country) + ' ' : ''}{actor.country}
+                    {actor.country.length === 2 ? getCountryFlag(actor.country) + ' ' : ''}
+                    {actor.country}
                   </span>
                 )}
                 {actor.toolCount > 0 && (
-                  <span className="inline-flex items-center gap-1 font-mono text-[10px] text-slate-500 dark:text-slate-400">
+                  <span className="inline-flex items-center gap-1 font-mono text-micro text-slate-500 dark:text-slate-400">
                     <Wrench className="w-3 h-3" /> {actor.toolCount} tools
                   </span>
                 )}
                 {actor.sectorCount > 0 && (
-                  <span className="inline-flex items-center gap-1 font-mono text-[10px] text-slate-500 dark:text-slate-400">
+                  <span className="inline-flex items-center gap-1 font-mono text-micro text-slate-500 dark:text-slate-400">
                     <Crosshair className="w-3 h-3" /> {actor.sectorCount} sectors
                   </span>
                 )}
                 {actor.firstSeen && (
-                  <span className="font-mono text-[10px] text-slate-500 dark:text-slate-500">since {actor.firstSeen}</span>
+                  <span className="font-mono text-micro text-slate-500 dark:text-slate-500">
+                    since {actor.firstSeen}
+                  </span>
                 )}
               </div>
               {actor.description && (
@@ -257,7 +271,10 @@ export default function ETDAActorsPage() {
                     </p>
                   )}
                 </div>
-                <button onClick={() => setSelectedSlug(null)} className="shrink-0 text-slate-500 dark:text-slate-500 hover:text-slate-900 dark:text-slate-100 p-1">
+                <button
+                  onClick={() => setSelectedSlug(null)}
+                  className="shrink-0 text-slate-500 dark:text-slate-500 hover:text-slate-900 dark:text-slate-100 p-1"
+                >
                   <X size={20} />
                 </button>
               </div>
@@ -268,27 +285,36 @@ export default function ETDAActorsPage() {
                 <div className="grid grid-cols-2 gap-3">
                   {detailData.country && (
                     <div className="bg-[rgb(var(--surface-200))] rounded-xl p-3">
-                      <p className="font-mono text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wider">Country</p>
+                      <p className="font-mono text-micro text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                        Country
+                      </p>
                       <p className="font-medium text-slate-900 dark:text-slate-100 mt-0.5">{detailData.country}</p>
                     </div>
                   )}
                   {detailData.sponsor && (
                     <div className="bg-[rgb(var(--surface-200))] rounded-xl p-3">
-                      <p className="font-mono text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wider">Sponsor</p>
+                      <p className="font-mono text-micro text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                        Sponsor
+                      </p>
                       <p className="font-medium text-slate-900 dark:text-slate-100 mt-0.5">{detailData.sponsor}</p>
                     </div>
                   )}
                   {detailData.motivation && (
                     <div className="bg-[rgb(var(--surface-200))] rounded-xl p-3">
-                      <p className="font-mono text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wider">Motivation</p>
+                      <p className="font-mono text-micro text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                        Motivation
+                      </p>
                       <p className="font-medium text-slate-900 dark:text-slate-100 mt-0.5">{detailData.motivation}</p>
                     </div>
                   )}
                   {detailData.firstSeen && (
                     <div className="bg-[rgb(var(--surface-200))] rounded-xl p-3">
-                      <p className="font-mono text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wider">Active Period</p>
+                      <p className="font-mono text-micro text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                        Active Period
+                      </p>
                       <p className="font-medium text-slate-900 dark:text-slate-100 mt-0.5">
-                        {detailData.firstSeen}{detailData.lastSeen ? ` — ${detailData.lastSeen}` : ''}
+                        {detailData.firstSeen}
+                        {detailData.lastSeen ? ` — ${detailData.lastSeen}` : ''}
                       </p>
                     </div>
                   )}
@@ -297,18 +323,27 @@ export default function ETDAActorsPage() {
                 {/* Description */}
                 {detailData.fullDescription && (
                   <div className="bg-[rgb(var(--surface-200))] rounded-xl p-4">
-                    <p className="font-mono text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Description</p>
-                    <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{detailData.fullDescription}</p>
+                    <p className="font-mono text-micro text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
+                      Description
+                    </p>
+                    <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                      {detailData.fullDescription}
+                    </p>
                   </div>
                 )}
 
                 {/* Sectors */}
                 {detailData.sectors.length > 0 && (
                   <div>
-                  <p className="font-mono text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Target Sectors</p>
+                    <p className="font-mono text-micro text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
+                      Target Sectors
+                    </p>
                     <div className="flex flex-wrap gap-1.5">
                       {detailData.sectors.map((s: string) => (
-                        <span key={s} className="font-mono text-[10px] font-bold text-cyan-400 bg-cyan-950/30 border border-cyan-800/40 px-2 py-0.5 rounded">
+                        <span
+                          key={s}
+                          className="font-mono text-micro font-bold text-cyan-400 bg-cyan-950/30 border border-cyan-800/40 px-2 py-0.5 rounded"
+                        >
                           {s}
                         </span>
                       ))}
@@ -319,17 +354,22 @@ export default function ETDAActorsPage() {
                 {/* Tools */}
                 {detailData.toolsUsed.length > 0 && (
                   <div>
-                    <p className="font-mono text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
+                    <p className="font-mono text-micro text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
                       Tools ({detailData.toolCount})
                     </p>
                     <div className="flex flex-wrap gap-1.5">
                       {detailData.toolsUsed.slice(0, 30).map((t: string) => (
-                        <span key={t} className="font-mono text-[10px] font-bold text-amber-400 bg-amber-950/30 border border-amber-800/40 px-2 py-0.5 rounded">
+                        <span
+                          key={t}
+                          className="font-mono text-micro font-bold text-amber-400 bg-amber-950/30 border border-amber-800/40 px-2 py-0.5 rounded"
+                        >
                           {t}
                         </span>
                       ))}
                       {detailData.toolsUsed.length > 30 && (
-                        <span className="font-mono text-[10px] text-slate-500 dark:text-slate-500 self-center">+{detailData.toolsUsed.length - 30} more</span>
+                        <span className="font-mono text-micro text-slate-500 dark:text-slate-500 self-center">
+                          +{detailData.toolsUsed.length - 30} more
+                        </span>
                       )}
                     </div>
                   </div>
@@ -338,21 +378,28 @@ export default function ETDAActorsPage() {
                 {/* Operations */}
                 {detailData.operations.length > 0 && (
                   <div>
-                    <p className="font-mono text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
+                    <p className="font-mono text-micro text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
                       Operations ({detailData.operations.length})
                     </p>
                     <ul className="space-y-1">
-                      {detailData.operations.slice(0, 10).map((op: { title: string; url: string | null }, i: number) => (
-                        <li key={i} className="font-mono text-xs">
-                          {op.url ? (
-                            <a href={op.url} target="_blank" rel="noopener noreferrer" className="text-brand-400 hover:underline inline-flex items-center gap-1">
-                            {op.title} <ExternalLink className="w-3 h-3" />
-                          </a>
-                          ) : (
-                            <span className="text-slate-700 dark:text-slate-300">{op.title}</span>
-                          )}
-                        </li>
-                      ))}
+                      {detailData.operations
+                        .slice(0, 10)
+                        .map((op: { title: string; url: string | null }, i: number) => (
+                          <li key={i} className="font-mono text-xs">
+                            {op.url ? (
+                              <a
+                                href={op.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-brand-400 hover:underline inline-flex items-center gap-1"
+                              >
+                                {op.title} <ExternalLink className="w-3 h-3" />
+                              </a>
+                            ) : (
+                              <span className="text-slate-700 dark:text-slate-300">{op.title}</span>
+                            )}
+                          </li>
+                        ))}
                     </ul>
                   </div>
                 )}
@@ -360,11 +407,14 @@ export default function ETDAActorsPage() {
                 {/* Subgroups */}
                 {detailData.subgroups.length > 0 && (
                   <div>
-                    <p className="font-mono text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Subgroups</p>
+                    <p className="font-mono text-micro text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
+                      Subgroups
+                    </p>
                     <div className="space-y-1">
                       {detailData.subgroups.map((sg: { name: string; period: string | null }, i: number) => (
                         <div key={i} className="font-mono text-xs text-slate-700 dark:text-slate-300">
-                          {sg.name}{sg.period ? ` (${sg.period})` : ''}
+                          {sg.name}
+                          {sg.period ? ` (${sg.period})` : ''}
                         </div>
                       ))}
                     </div>
@@ -386,11 +436,18 @@ export default function ETDAActorsPage() {
                 {/* Information links */}
                 {detailData.informationLinks.length > 0 && (
                   <div className="pt-3 border-t border-[rgb(var(--border-400))]">
-                    <p className="font-mono text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">References</p>
+                    <p className="font-mono text-micro text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
+                      References
+                    </p>
                     <ul className="space-y-0.5">
                       {detailData.informationLinks.map((url: string, i: number) => (
                         <li key={i}>
-                          <a href={url} target="_blank" rel="noopener noreferrer" className="font-mono text-xs text-brand-400 hover:underline inline-flex items-center gap-1">
+                          <a
+                            href={url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-mono text-xs text-brand-400 hover:underline inline-flex items-center gap-1"
+                          >
                             <ExternalLink className="w-3 h-3" /> {new URL(url).hostname}
                           </a>
                         </li>
@@ -411,7 +468,11 @@ export default function ETDAActorsPage() {
               <> &middot; Last synced: {new Date(indexData.lastSyncedAt).toLocaleDateString()}</>
             )}
             {indexData.aptmap && (
-              <> &middot; APTmap: {indexData.aptmap.aptNodes} groups, {indexData.aptmap.nodes} nodes, {indexData.aptmap.links} edges</>
+              <>
+                {' '}
+                &middot; APTmap: {indexData.aptmap.aptNodes} groups, {indexData.aptmap.nodes} nodes,{' '}
+                {indexData.aptmap.links} edges
+              </>
             )}
           </div>
         )}

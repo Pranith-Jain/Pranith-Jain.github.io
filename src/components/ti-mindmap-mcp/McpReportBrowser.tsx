@@ -155,7 +155,7 @@ export function McpReportBrowser(props: {
           </button>
         </form>
         {search && (
-          <p className="mt-2 text-[10px] font-mono uppercase text-slate-500 dark:text-slate-400">
+          <p className="mt-2 text-micro font-mono uppercase text-slate-500 dark:text-slate-400">
             filter: <span className="text-slate-700 dark:text-slate-300">{search}</span>
             <button
               type="button"
@@ -197,7 +197,7 @@ export function McpReportBrowser(props: {
       {reports.length === 0 && !busy && status === 'error' && (
         <div className="p-4 text-xs text-rose-700 dark:text-rose-300 space-y-1.5">
           <p className="font-semibold">Could not load the catalog.</p>
-          {statusMsg && <p className="font-mono text-[11px] break-words">{statusMsg}</p>}
+          {statusMsg && <p className="font-mono text-mini break-words">{statusMsg}</p>}
           <p>Click the MCP pill in the header to edit the key, then hit re-probe.</p>
         </div>
       )}
@@ -220,7 +220,7 @@ export function McpReportBrowser(props: {
                 <p className="text-sm font-medium text-slate-800 dark:text-slate-200 line-clamp-2">
                   {r.title ?? r.report_id}
                 </p>
-                <p className="mt-0.5 text-[10px] font-mono uppercase text-slate-500 dark:text-slate-400">
+                <p className="mt-0.5 text-micro font-mono uppercase text-slate-500 dark:text-slate-400">
                   {r.source ?? 'unknown'}
                   {r.published_at ? ` · ${r.published_at}` : ''}
                   {r.actor && <span className="ml-2 text-rose-600 dark:text-rose-400">actor: {r.actor}</span>}

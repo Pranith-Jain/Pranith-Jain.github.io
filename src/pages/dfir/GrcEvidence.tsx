@@ -253,7 +253,7 @@ export default function GrcEvidence(): JSX.Element {
                 <div className="flex items-center justify-between mb-1">
                   <span className="font-semibold text-sm font-mono">{fw.name}</span>
                   <span
-                    className={`text-[10px] px-1.5 py-0.5 rounded text-white ${FRAMEWORKS_COLORS[fw.category] ?? 'bg-slate-500'}`}
+                    className={`text-micro px-1.5 py-0.5 rounded text-white ${FRAMEWORKS_COLORS[fw.category] ?? 'bg-slate-500'}`}
                   >
                     {fw.version}
                   </span>
@@ -334,21 +334,21 @@ export default function GrcEvidence(): JSX.Element {
                         </div>
                         <div className="flex items-center gap-2 mt-0.5">
                           <span
-                            className={`text-[10px] font-mono px-1.5 py-0.5 rounded border ${CONTROL_STATUS_TONES[ctrl.status] ?? CONTROL_STATUS_TONES.not_assessed}`}
+                            className={`text-micro font-mono px-1.5 py-0.5 rounded border ${CONTROL_STATUS_TONES[ctrl.status] ?? CONTROL_STATUS_TONES.not_assessed}`}
                           >
                             {ctrl.status}
                           </span>
-                          <span className="text-[10px] text-slate-400">{ctrl.category}</span>
-                          {ctrl.owner && <span className="text-[10px] text-slate-400">Owner: {ctrl.owner}</span>}
+                          <span className="text-micro text-slate-400">{ctrl.category}</span>
+                          {ctrl.owner && <span className="text-micro text-slate-400">Owner: {ctrl.owner}</span>}
                         </div>
                       </div>
                       <div className="flex items-center gap-1 shrink-0">
-                        <span className="text-[10px] text-slate-400">{ctrl.evidence_count} evidence</span>
+                        <span className="text-micro text-slate-400">{ctrl.evidence_count} evidence</span>
                         <select
                           value={ctrl.status}
                           onClick={(e) => e.stopPropagation()}
                           onChange={(e) => handleUpdateStatus(ctrl.id, e.target.value)}
-                          className="text-[10px] font-mono px-1.5 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]"
+                          className="text-micro font-mono px-1.5 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]"
                         >
                           <option value="not_assessed">Not Assessed</option>
                           <option value="pass">Pass</option>
@@ -360,9 +360,9 @@ export default function GrcEvidence(): JSX.Element {
 
                     {isExpanded && (
                       <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] px-4 py-3 space-y-3 bg-slate-50/50 dark:bg-[rgb(var(--surface-100))]/50">
-                        <p className="text-[11px] text-slate-500 font-mono">{ctrl.description}</p>
+                        <p className="text-mini text-slate-500 font-mono">{ctrl.description}</p>
                         {ctrl.notes && (
-                          <p className="text-[10px] text-slate-400 font-mono italic">Notes: {ctrl.notes}</p>
+                          <p className="text-micro text-slate-400 font-mono italic">Notes: {ctrl.notes}</p>
                         )}
 
                         <div className="flex items-center justify-between mt-2">
@@ -372,14 +372,14 @@ export default function GrcEvidence(): JSX.Element {
                           <button
                             type="button"
                             onClick={() => handleAddEvidence(ctrl.id)}
-                            className="inline-flex items-center gap-1.5 text-[10px] font-mono text-brand-600 hover:text-brand-700"
+                            className="inline-flex items-center gap-1.5 text-micro font-mono text-brand-600 hover:text-brand-700"
                           >
                             <Plus size={10} /> Add Evidence
                           </button>
                         </div>
 
                         {ctrlEvidence.length === 0 && (
-                          <p className="text-[10px] text-slate-400 font-mono italic">No evidence collected yet.</p>
+                          <p className="text-micro text-slate-400 font-mono italic">No evidence collected yet.</p>
                         )}
                         {ctrlEvidence.map((ev) => (
                           <div
@@ -387,15 +387,15 @@ export default function GrcEvidence(): JSX.Element {
                             className="flex items-center justify-between py-1 border-b border-slate-100 dark:border-[rgb(var(--border-300))] last:border-0"
                           >
                             <div className="min-w-0">
-                              <div className="text-[11px] font-mono truncate">{ev.title}</div>
-                              <div className="flex items-center gap-2 text-[9px] text-slate-400">
+                              <div className="text-mini font-mono truncate">{ev.title}</div>
+                              <div className="flex items-center gap-2 text-micro text-slate-400">
                                 <span>{ev.source_type}</span>
                                 {ev.collected_by && <span>by {ev.collected_by}</span>}
                                 {ev.collected_at && <span>{new Date(ev.collected_at).toLocaleDateString()}</span>}
                               </div>
                             </div>
                             <span
-                              className={`text-[10px] font-mono ${EVIDENCE_STATUS_TONES[ev.status] ?? 'text-slate-400'}`}
+                              className={`text-micro font-mono ${EVIDENCE_STATUS_TONES[ev.status] ?? 'text-slate-400'}`}
                             >
                               {ev.status}
                             </span>

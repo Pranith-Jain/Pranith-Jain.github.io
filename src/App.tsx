@@ -326,6 +326,7 @@ const ThreatLandscapeIocs = lazy(() => import('./pages/threatintel/ThreatLandsca
 const SupplyChainAttacks = lazy(() => import('./pages/threatintel/SupplyChainAttacks'));
 const SupplyChainIntelligence = lazy(() => import('./pages/threatintel/SupplyChainIntelligence'));
 const SupplyChainFeed = lazy(() => import('./pages/threatintel/SupplyChainFeed'));
+const EntityGraphPage = lazy(() => import('./pages/threatintel/EntityGraphPage'));
 const TechAiNews = lazy(() => import('./pages/dfir/TechAiNews'));
 
 const ThreatActorCatalog = lazy(() => import('./pages/threatintel/ThreatActorCatalog'));
@@ -711,6 +712,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/external/external', Component: ExternalResources },
   { path: '/threatintel/external/supply', Component: SupplyChainIntelligence },
   { path: '/threatintel/depx', Component: SupplyChainFeed },
+  { path: '/threatintel/entity-graph', Component: EntityGraphPage },
   { path: '/threatintel/external/awesome', Component: AwesomeLists },
   { path: '/threatintel/feeds/catalog', Component: FeedCatalog },
   { path: '/threatintel/feeds/sources', Component: FeedSources },
@@ -956,7 +958,7 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   // ── Malware Hub ─────────────────────────────────────────────────
   { path: '/threatintel/malware-iocs', to: '/threatintel/malware/iocs' },
   { path: '/threatintel/malware-vault', to: '/threatintel/malware/vault' },
-  { path: '/threatintel/malicious-packages', to: '/threatintel/malware/packages' },
+  { path: '/threatintel/malicious-packages', to: '/threatintel/depx' },
   { path: '/threatintel/malpedia', to: '/threatintel/malware/malpedia' },
   { path: '/threatintel/maltrail', to: '/threatintel/malware/maltrail' },
   { path: '/threatintel/malware-sandbox', to: '/threatintel/malware/sandbox' },

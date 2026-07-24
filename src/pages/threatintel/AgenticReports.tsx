@@ -87,12 +87,12 @@ export default function AgenticReports(): JSX.Element {
               {r.tags.slice(0, 5).map((t) => (
                 <span
                   key={t}
-                  className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-slate-500 dark:text-slate-400"
+                  className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-slate-500 dark:text-slate-400"
                 >
                   {t}
                 </span>
               ))}
-              {r.tags.length > 5 && <span className="text-[10px] font-mono text-slate-400">+{r.tags.length - 5}</span>}
+              {r.tags.length > 5 && <span className="text-micro font-mono text-slate-400">+{r.tags.length - 5}</span>}
             </div>
           </button>
         ))}

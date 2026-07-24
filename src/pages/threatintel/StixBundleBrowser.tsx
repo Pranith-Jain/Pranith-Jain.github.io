@@ -136,7 +136,7 @@ function BundleCard({ bundle }: { bundle: StixBundleEntry }): JSX.Element {
     <div className="surface-card p-4 transition-all hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))] hover:shadow-e3 hover:shadow-slate-200/50 dark:hover:shadow-slate-900/50">
       <div className="flex items-start gap-4">
         <span
-          className={`inline-flex items-center gap-1 text-[10px] font-mono font-semibold px-2 py-1 rounded border uppercase tracking-wider flex-shrink-0 ${SEVERITY_COLORS[bundle.severity]}`}
+          className={`inline-flex items-center gap-1 text-micro font-mono font-semibold px-2 py-1 rounded border uppercase tracking-wider flex-shrink-0 ${SEVERITY_COLORS[bundle.severity]}`}
         >
           {bundle.severity === 'critical' && <AlertTriangle size={10} />}
           {bundle.severity === 'high' && <Shield size={10} />}
@@ -150,7 +150,7 @@ function BundleCard({ bundle }: { bundle: StixBundleEntry }): JSX.Element {
           <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-2 line-clamp-2">
             {bundle.description}
           </p>
-          <div className="flex items-center gap-3 text-[11px] font-mono text-slate-500 mb-2">
+          <div className="flex items-center gap-3 text-mini font-mono text-slate-500 mb-2">
             <span>{bundle.date}</span>
             <span>·</span>
             <span>{bundle.objectCount} objects</span>
@@ -163,7 +163,7 @@ function BundleCard({ bundle }: { bundle: StixBundleEntry }): JSX.Element {
             {bundle.tags.map((tag) => (
               <span
                 key={tag}
-                className="text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
+                className="text-micro font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
               >
                 {tag}
               </span>
@@ -176,13 +176,13 @@ function BundleCard({ bundle }: { bundle: StixBundleEntry }): JSX.Element {
             href={sanitizeUrl(bundle.downloadUrl)}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-[11px] font-mono px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+            className="inline-flex items-center gap-1.5 text-mini font-mono px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
           >
             <Download size={11} /> JSON
           </a>
           <a
             href={sanitizeUrl(bundle.viewerPath)}
-            className="inline-flex items-center gap-1.5 text-[11px] font-mono px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+            className="inline-flex items-center gap-1.5 text-mini font-mono px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
           >
             <Eye size={11} /> View
           </a>

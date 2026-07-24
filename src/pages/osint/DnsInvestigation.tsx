@@ -92,7 +92,7 @@ export default function DnsInvestigation() {
                 <h2 className="text-lg font-bold text-slate-800 dark:text-slate-200 mb-4">{result.domain}</h2>
                 {result.a && result.a.length > 0 && (
                   <div className="mb-3">
-                    <label className="text-[10px] font-mono uppercase text-slate-400">A Records</label>
+                    <label className="text-micro font-mono uppercase text-slate-400">A Records</label>
                     <div className="flex flex-wrap gap-2 mt-1">
                       {result.a.map((a) => (
                         <span
@@ -107,7 +107,7 @@ export default function DnsInvestigation() {
                 )}
                 {result.ns && result.ns.length > 0 && (
                   <div className="mb-3">
-                    <label className="text-[10px] font-mono uppercase text-slate-400">NS Records</label>
+                    <label className="text-micro font-mono uppercase text-slate-400">NS Records</label>
                     <div className="space-y-1 mt-1">
                       {result.ns.map((ns) => (
                         <p key={ns} className="font-mono text-sm text-slate-700 dark:text-slate-300">
@@ -119,7 +119,7 @@ export default function DnsInvestigation() {
                 )}
                 {result.mx && result.mx.length > 0 && (
                   <div className="mb-3">
-                    <label className="text-[10px] font-mono uppercase text-slate-400">MX Records</label>
+                    <label className="text-micro font-mono uppercase text-slate-400">MX Records</label>
                     <div className="space-y-1 mt-1">
                       {result.mx.map((mx) => (
                         <p key={mx.host} className="font-mono text-sm text-slate-700 dark:text-slate-300">
@@ -131,7 +131,7 @@ export default function DnsInvestigation() {
                 )}
                 {result.txt && result.txt.length > 0 && (
                   <div>
-                    <label className="text-[10px] font-mono uppercase text-slate-400">TXT Records</label>
+                    <label className="text-micro font-mono uppercase text-slate-400">TXT Records</label>
                     <div className="space-y-1 mt-1">
                       {result.txt.map((t, i) => (
                         <p key={i} className="font-mono text-xs text-slate-600 dark:text-slate-400 break-all">

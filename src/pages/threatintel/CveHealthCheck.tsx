@@ -81,7 +81,7 @@ export default function CveHealthCheck({ bare }: CveHealthCheckProps): JSX.Eleme
               </div>
               <p className="text-xs text-slate-600 dark:text-slate-400 mt-1 ml-6">{check.message}</p>
               {check.details && (
-                <pre className="mt-2 ml-6 p-2 bg-slate-50 dark:bg-[rgb(var(--surface-300))] rounded-xl text-[11px] font-mono text-slate-600 dark:text-slate-400 overflow-x-auto border border-slate-100 dark:border-[rgb(var(--border-400))]">
+                <pre className="mt-2 ml-6 p-2 bg-slate-50 dark:bg-[rgb(var(--surface-300))] rounded-xl text-mini font-mono text-slate-600 dark:text-slate-400 overflow-x-auto border border-slate-100 dark:border-[rgb(var(--border-400))]">
                   {JSON.stringify(check.details, null, 2)}
                 </pre>
               )}

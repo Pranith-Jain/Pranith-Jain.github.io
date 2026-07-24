@@ -404,10 +404,10 @@ export default function AttackPathGraph(): JSX.Element {
                         {p.total_score}
                       </span>
                     </div>
-                    <div className="text-[10px] text-slate-400">
+                    <div className="text-micro text-slate-400">
                       {p.hop_count} hops · {p.hops[0]} → {p.hops[p.hops.length - 1]}
                     </div>
-                    <div className="text-[9px] text-slate-400 mt-0.5 truncate">{p.hops.join(' → ')}</div>
+                    <div className="text-micro text-slate-400 mt-0.5 truncate">{p.hops.join(' → ')}</div>
                   </button>
                 ))}
                 {data.paths.length > 15 && (
@@ -455,7 +455,7 @@ export default function AttackPathGraph(): JSX.Element {
                   <p>
                     Score: <strong>{selectedPathData.total_score}</strong> · {selectedPathData.hop_count} hops
                   </p>
-                  <div className="flex flex-wrap items-center gap-1 text-[10px]">
+                  <div className="flex flex-wrap items-center gap-1 text-micro">
                     {selectedPathData.hops.map((hop, i) => (
                       <span key={i}>
                         <span className="px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/40">{hop}</span>

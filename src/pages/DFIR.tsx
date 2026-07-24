@@ -391,7 +391,7 @@ export default function DFIRPage(): JSX.Element {
                   Continue where you left off
                 </h2>
               </div>
-              <span className="font-mono text-[10px] text-slate-400 dark:text-slate-500">
+              <span className="font-mono text-micro text-slate-400 dark:text-slate-500">
                 {recentTools.length} recent
               </span>
             </div>
@@ -474,7 +474,7 @@ export default function DFIRPage(): JSX.Element {
                       <Link to={t.path} className="group block h-full surface-card card-hover p-4">
                         <div className="flex items-start justify-between gap-2 mb-2">
                           <Icon size={16} className="mt-0.5 shrink-0 text-brand-600 dark:text-brand-400" />
-                          <span className="font-mono text-[10px] uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                          <span className="font-mono text-micro uppercase tracking-wider text-slate-400 dark:text-slate-500">
                             {category.label}
                           </span>
                         </div>
@@ -578,7 +578,7 @@ export default function DFIRPage(): JSX.Element {
                         <p className="mt-2 text-xs leading-relaxed text-slate-600 dark:text-slate-400 line-clamp-2 min-h-[2.5rem]">
                           {cat.description}
                         </p>
-                        <dl className="mt-auto pt-3 flex items-center justify-between border-t border-[rgb(var(--border-400))] font-mono text-[10px]">
+                        <dl className="mt-auto pt-3 flex items-center justify-between border-t border-[rgb(var(--border-400))] font-mono text-micro">
                           <div className="flex items-center gap-1.5 text-slate-500">
                             <dt className="uppercase tracking-wider opacity-70">tools</dt>
                             <dd className="font-semibold tabular-nums text-slate-700 dark:text-slate-300">
@@ -665,7 +665,7 @@ export default function DFIRPage(): JSX.Element {
                         {tc.tools.map((t) => (
                           <span
                             key={t.path}
-                            className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-brand-500/30 text-brand-600 dark:text-brand-400"
+                            className="text-micro font-mono px-1.5 py-0.5 rounded border border-brand-500/30 text-brand-600 dark:text-brand-400"
                           >
                             {t.label}
                           </span>
