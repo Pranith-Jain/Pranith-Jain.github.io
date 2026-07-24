@@ -19,7 +19,14 @@ import {
   getToolsForSpecialist,
   type SpecialistRole,
 } from '../../api/src/lib/agent/specialist-types';
-import { createWorkingMemory, mergeIntoMemory, type WorkingMemory } from '../../api/src/lib/agent/agent-framework';
+import {
+  createWorkingMemory,
+  mergeIntoMemory,
+  memoryToPrompt,
+  shouldRetry,
+  buildSelfCorrectionPrompt,
+  type WorkingMemory,
+} from '../../api/src/lib/agent/agent-framework';
 
 /** Truncate JSON-serializable data to a max char length. Returns valid JSON. */
 function truncateData(data: unknown, maxChars: number): unknown {
@@ -659,19 +666,75 @@ export class InvestigatorAgentDO {
           nvidiaKey,
         });
 
-        // Use the verified report (hallucinations removed, facts added).
-        // Re-split the QA'd text so we can carry the action card through state.
-        const { report: proseOnly, actionCard: qaCard } = splitSynthOutput(qa.verifiedReport);
-        state.report = proseOnly;
-        state.actionCard = qaCard ?? result.actionCard;
-        state.modelUsed = `${result.modelUsed} → QA:${qa.modelUsed}`;
-        state.qa = {
+        // ── SELF-CORRECTION LOOP ──────────────────────────────────────
+        // If QA score is low and there are fixable issues, re-synthesize
+        // with the QA feedback and re-verify. Max 1 retry to avoid loops.
+        let finalReport = result.report;
+        let finalActionCard = result.actionCard;
+        let finalModelUsed = `${result.modelUsed} → QA:${qa.modelUsed}`;
+        let finalQa = {
           qualityScore: qa.qualityScore,
           flaggedClaims: qa.flaggedClaims,
           missingFacts: qa.missingFacts,
         };
 
-        qaStep.observation = `QA complete. Score: ${qa.qualityScore}/100. Flagged: ${qa.flaggedClaims.length} claims. Missing: ${qa.missingFacts.length} facts.`;
+        if (shouldRetry(qa.qualityScore, qa.flaggedClaims.length, qa.missingFacts.length, stepNum, state.maxSteps)) {
+          const workingMem = this.buildWorkingMemory(state);
+          const memStr = memoryToPrompt(workingMem);
+          const correctionPrompt = buildSelfCorrectionPrompt(
+            result.report,
+            {
+              flaggedClaims: qa.flaggedClaims,
+              missingFacts: qa.missingFacts,
+              qualityNotes: '',
+            },
+            memStr
+          );
+
+          // Re-synthesize with the correction prompt appended
+          const { text: correctedText, modelUsed: correctedModel } = await synthesizeReport(
+            ai,
+            correctionPrompt,
+            state.queryType,
+            state.steps,
+            { groqKey, googleKey, nvidiaKey, dataQuality: { totalOk, totalErr, emptyResults } }
+          );
+
+          const { report: correctedProse, actionCard: correctedCard } = splitSynthOutput(correctedText);
+
+          // Re-verify the corrected report
+          const qa2 = await verifyReport(ai, state.query, state.queryType, correctedProse, state.steps, {
+            groqKey,
+            googleKey,
+            nvidiaKey,
+          });
+
+          // Use the corrected version only if it scored higher
+          if (qa2.qualityScore > qa.qualityScore) {
+            finalReport = qa2.verifiedReport;
+            finalActionCard = correctedCard ?? result.actionCard;
+            finalModelUsed = `${result.modelUsed} → QA:${qa.modelUsed} → retry:${correctedModel} → QA:${qa2.modelUsed}`;
+            finalQa = {
+              qualityScore: qa2.qualityScore,
+              flaggedClaims: qa2.flaggedClaims,
+              missingFacts: qa2.missingFacts,
+            };
+            qaStep.observation = `QA complete (with self-correction). Score improved: ${qa.qualityScore}→${qa2.qualityScore}/100.`;
+          } else {
+            qaStep.observation = `QA complete. Self-correction did not improve (${qa.qualityScore}→${qa2.qualityScore}). Keeping original.`;
+          }
+        } else {
+          qaStep.observation = `QA complete. Score: ${qa.qualityScore}/100. Flagged: ${qa.flaggedClaims.length} claims. Missing: ${qa.missingFacts.length} facts.`;
+        }
+
+        // Use the verified report (hallucinations removed, facts added).
+        // Re-split the QA'd text so we can carry the action card through state.
+        const { report: proseOnly, actionCard: qaCard } = splitSynthOutput(finalReport);
+        state.report = proseOnly;
+        state.actionCard = qaCard ?? finalActionCard;
+        state.modelUsed = finalModelUsed;
+        state.qa = finalQa;
+
         qaStep.status = 'done';
         qaStep.completedAt = new Date().toISOString();
       } catch (qaErr) {
