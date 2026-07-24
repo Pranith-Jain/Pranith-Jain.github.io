@@ -123,9 +123,19 @@ function buildDataSummary(steps: AgentStep[]): string {
 }
 
 function buildQaUserPrompt(query: string, report: string, dataSummary: string): string {
+  // Truncate report to fit within provider token limits.
+  // Groq models have ~8K context; system prompt is ~800 tokens, data summary
+  // is ~3200 chars (~800 tokens), leaving ~6400 tokens for the report (~4800 chars).
+  // Cap at 4000 chars to leave room for the instruction tail.
+  const MAX_REPORT_CHARS = 4000;
+  const truncatedReport =
+    report.length > MAX_REPORT_CHARS
+      ? report.slice(0, MAX_REPORT_CHARS) + '\n...(truncated for QA verification)'
+      : report;
+
   return `<report_to_verify>
 Query: ${neutralizeUntrusted(query)}
-${report}
+${truncatedReport}
 </report_to_verify>
 
 <collected_data>
