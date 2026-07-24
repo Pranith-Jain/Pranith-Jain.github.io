@@ -1,15 +1,15 @@
 {
   "slug": "qilin-sunway-berhad-2026-07-23",
   "title": "Sunway Berhad",
-  "group": "Qilin",
-  "discovered": "2026-07-23T00:00:00.000Z",
+  "group": "qilin",
+  "discovered": "2026-07-23T04:28:45.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": "Malaysia",
+  "country": "MY",
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated in ransomware attack",
-  "source_url": "https://recentbreaches.com/breach/sunway-berhad-qilin-2026-07",
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
-  "activity": "Hospitality and Tourism",
-  "references": ["RecentBreaches.com"]
+  "activity": "Hospitality",
+  "references": ["ransomware.live"]
 }

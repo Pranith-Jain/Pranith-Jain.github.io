@@ -1,1 +1,15 @@
-{"slug":"the-gentlemen-clarke-radiology-2026-07-23","title":"Clarke Radiology","group":"the gentlemen","discovered":"2026-07-23T10:51:56.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"clarkeradiology.com zoominfo.com/c/clarke-medical-imaging-center/370367094 Clarke Radiology (Clarke Medical Imaging Center) is a well-established medical imaging facility based in Montreal, Quebec, with over 40 years of experience. They provide a comprehensive range of diagnostic imaging services, including X-rays, MRI, ultrasound, mammography, bone density scans, and cortisone injections. The center is recognized for its top-of-the-line technology, rapid reporting (within 4 hours), and strong commitment to patient safety and accredited care standards","source_url":"https://www.ransomlook.io/recent","groupAliases":[],"activity":null,"references":["ransomlook.io"]}
+{
+  "slug": "the-gentlemen-clarke-radiology-2026-07-23",
+  "title": "Clarke Radiology",
+  "group": "The Gentlemen",
+  "discovered": "2026-07-23T00:00:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "Australia",
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated in ransomware attack",
+  "source_url": "https://recentbreaches.com/breach/clarke-radiology-thegentlemen-2026-07",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["RecentBreaches.com"]
+}

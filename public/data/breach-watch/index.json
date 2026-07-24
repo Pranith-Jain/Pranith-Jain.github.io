@@ -1,12 +1,12 @@
 {
   "source": "ransomware.live + ransomlook.io + Darkfield + RecentBreaches.com + CTI.FYI + XposedOrNot",
   "license": "CC0 — public data from open trackers",
-  "replicatedAt": "2026-07-24T07:13:48.998Z",
-  "counts": { "breaches": 2556, "groups": 104, "categories": 3 },
-  "lastSyncedAt": "2026-07-24T07:13:48.998Z",
+  "replicatedAt": "2026-07-24T08:45:19.994Z",
+  "counts": { "breaches": 2552, "groups": 105, "categories": 3 },
+  "lastSyncedAt": "2026-07-24T08:45:19.994Z",
   "categories": [
-    { "key": "ransomware", "label": "Ransomware", "count": 2028 },
-    { "key": "data_breach", "label": "Data Breach", "count": 526 },
+    { "key": "ransomware", "label": "Ransomware", "count": 2027 },
+    { "key": "data_breach", "label": "Data Breach", "count": 523 },
     { "key": "credential_leak", "label": "Credential Leak", "count": 2 }
   ],
   "groups": [
@@ -50,7 +50,6 @@
     { "name": "titan", "count": 16, "topCategory": "ransomware" },
     { "name": "blacknevas", "count": 15, "topCategory": "ransomware" },
     { "name": "interlock", "count": 15, "topCategory": "data_breach" },
-    { "name": "The Gentlemen", "count": 13, "topCategory": "data_breach" },
     { "name": "ransomhouse", "count": 12, "topCategory": "ransomware" },
     { "name": "lynx", "count": 12, "topCategory": "data_breach" },
     { "name": "gunra", "count": 11, "topCategory": "data_breach" },
@@ -59,6 +58,7 @@
     { "name": "shadowbyt3$", "count": 11, "topCategory": "data_breach" },
     { "name": "bravox", "count": 10, "topCategory": "data_breach" },
     { "name": "AuditTeam", "count": 10, "topCategory": "data_breach" },
+    { "name": "The Gentlemen", "count": 9, "topCategory": "data_breach" },
     { "name": "kairos", "count": 9, "topCategory": "data_breach" },
     { "name": "0day Syndicate", "count": 9, "topCategory": "data_breach" },
     { "name": "LeakBazaar", "count": 9, "topCategory": "data_breach" },
@@ -78,7 +78,6 @@
     { "name": "rhysida", "count": 5, "topCategory": "ransomware" },
     { "name": "ULose", "count": 5, "topCategory": "data_breach" },
     { "name": "moneymessage", "count": 4, "topCategory": "data_breach" },
-    { "name": "Qilin", "count": 4, "topCategory": "ransomware" },
     { "name": "securotrop", "count": 4, "topCategory": "data_breach" },
     { "name": "insomnia", "count": 4, "topCategory": "data_breach" },
     { "name": "cloak", "count": 4, "topCategory": "data_breach" },
@@ -91,6 +90,8 @@
     { "name": "abyss", "count": 3, "topCategory": "ransomware" },
     { "name": "mnt6", "count": 3, "topCategory": "data_breach" },
     { "name": "inc ransom", "count": 2, "topCategory": "data_breach" },
+    { "name": "INC Ransom", "count": 2, "topCategory": "data_breach" },
+    { "name": "Play", "count": 2, "topCategory": "ransomware" },
     { "name": "funksec", "count": 2, "topCategory": "data_breach" },
     { "name": "Blackfield", "count": 2, "topCategory": "data_breach" },
     { "name": "embargo", "count": 2, "topCategory": "data_breach" },
@@ -99,9 +100,9 @@
     { "name": "nitrogen", "count": 2, "topCategory": "data_breach" },
     { "name": "clop", "count": 2, "topCategory": "ransomware" },
     { "name": "Nova", "count": 1, "topCategory": "ransomware" },
-    { "name": "INC Ransom", "count": 1, "topCategory": "data_breach" },
     { "name": "cmd organization", "count": 1, "topCategory": "data_breach" },
     { "name": "money message", "count": 1, "topCategory": "data_breach" },
+    { "name": "Qilin", "count": 1, "topCategory": "ransomware" },
     { "name": "brain cipher", "count": 1, "topCategory": "data_breach" },
     { "name": "leaknet", "count": 1, "topCategory": "data_breach" },
     { "name": "coinbase cartel", "count": 1, "topCategory": "data_breach" },
@@ -157,16 +158,6 @@
       "sizeBytes": 669
     },
     {
-      "slug": "nova-digital-edge-2026-07-24",
-      "title": "Digital Edge",
-      "group": "Nova",
-      "discovered": "2026-07-24T00:00:00.000Z",
-      "category": "ransomware",
-      "severity": "high",
-      "country": "Singapore",
-      "sizeBytes": 412
-    },
-    {
       "slug": "inc-ransom-autismuslink-ch-2026-07-24",
       "title": "autismuslink.ch",
       "group": "INC Ransom",
@@ -175,6 +166,16 @@
       "severity": "high",
       "country": "Switzerland",
       "sizeBytes": 441
+    },
+    {
+      "slug": "nova-digital-edge-2026-07-24",
+      "title": "Digital Edge",
+      "group": "Nova",
+      "discovered": "2026-07-24T00:00:00.000Z",
+      "category": "ransomware",
+      "severity": "high",
+      "country": "Singapore",
+      "sizeBytes": 412
     },
     {
       "slug": "inc-ransom-cabincreekhealth-com-2026-07-23",
@@ -1097,6 +1098,26 @@
       "sizeBytes": 336
     },
     {
+      "slug": "play-restaurant-depot-2026-07-23",
+      "title": "Restaurant Depot",
+      "group": "Play",
+      "discovered": "2026-07-23T00:00:00.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": "United States",
+      "sizeBytes": 452
+    },
+    {
+      "slug": "the-gentlemen-tikona-infinet-2026-07-23",
+      "title": "Tikona Infinet",
+      "group": "The Gentlemen",
+      "discovered": "2026-07-23T00:00:00.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "India",
+      "sizeBytes": 441
+    },
+    {
       "slug": "the-gentlemen-affinity-designs-2026-07-23",
       "title": "Affinity Designs",
       "group": "The Gentlemen",
@@ -1107,39 +1128,79 @@
       "sizeBytes": 450
     },
     {
-      "slug": "the-gentlemen-herbahaz-2026-07-23",
-      "title": "Herbahaz",
+      "slug": "play-the-debruler-2026-07-23",
+      "title": "The DeBruler",
+      "group": "Play",
+      "discovered": "2026-07-23T00:00:00.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": "United States",
+      "sizeBytes": 430
+    },
+    {
+      "slug": "the-gentlemen-wunschkind-klinik-dr-brunbauer-2026-07-23",
+      "title": "Wunschkind Klinik Dr Brunbauer",
       "group": "The Gentlemen",
       "discovered": "2026-07-23T00:00:00.000Z",
       "category": "data_breach",
       "severity": "high",
-      "country": "Hungary",
-      "sizeBytes": 446
+      "country": "Austria",
+      "sizeBytes": 491
     },
     {
-      "slug": "the-gentlemen-daynday-2026-07-23",
-      "title": "DayNDay",
+      "slug": "qilin-abm-enviro-2026-07-23",
+      "title": "ABM Enviro",
+      "group": "Qilin",
+      "discovered": "2026-07-23T00:00:00.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": "Canada",
+      "sizeBytes": 421
+    },
+    {
+      "slug": "the-gentlemen-thialf-2026-07-23",
+      "title": "Thialf",
       "group": "The Gentlemen",
       "discovered": "2026-07-23T00:00:00.000Z",
       "category": "data_breach",
       "severity": "high",
-      "country": "India",
-      "sizeBytes": 415
+      "country": "Netherlands",
+      "sizeBytes": 431
     },
     {
-      "slug": "the-gentlemen-agapit-2026-07-23",
-      "title": "Agapit",
+      "slug": "the-gentlemen-clarke-radiology-2026-07-23",
+      "title": "Clarke Radiology",
       "group": "The Gentlemen",
       "discovered": "2026-07-23T00:00:00.000Z",
       "category": "data_breach",
       "severity": "high",
-      "country": "Poland",
-      "sizeBytes": 413
+      "country": "Australia",
+      "sizeBytes": 451
     },
     {
-      "slug": "the-gentlemen-henry-frerk-sons-2026-07-23",
-      "title": "Henry Frerk Sons",
+      "slug": "the-gentlemen-smrtr-2026-07-23",
+      "title": "Smrtr",
       "group": "The Gentlemen",
+      "discovered": "2026-07-23T00:00:00.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "United States",
+      "sizeBytes": 422
+    },
+    {
+      "slug": "the-gentlemen-gloria-maris-groupe-2026-07-23",
+      "title": "Gloria Maris Groupe",
+      "group": "The Gentlemen",
+      "discovered": "2026-07-23T00:00:00.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "France",
+      "sizeBytes": 478
+    },
+    {
+      "slug": "inc-ransom-cabincreekhealth-com-2026-07-23",
+      "title": "cabincreekhealth.com",
+      "group": "INC Ransom",
       "discovered": "2026-07-23T00:00:00.000Z",
       "category": "data_breach",
       "severity": "high",
@@ -1157,114 +1218,14 @@
       "sizeBytes": 423
     },
     {
-      "slug": "the-gentlemen-optiforms-2026-07-23",
-      "title": "Optiforms",
+      "slug": "the-gentlemen-velum-2026-07-23",
+      "title": "Velum",
       "group": "The Gentlemen",
       "discovered": "2026-07-23T00:00:00.000Z",
       "category": "data_breach",
       "severity": "high",
-      "country": "United States",
-      "sizeBytes": 437
-    },
-    {
-      "slug": "the-gentlemen-guerreiros-seguros-2026-07-23",
-      "title": "GUERREIROS seguros",
-      "group": "The Gentlemen",
-      "discovered": "2026-07-23T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "Portugal",
-      "sizeBytes": 464
-    },
-    {
-      "slug": "the-gentlemen-european-design-2026-07-23",
-      "title": "European Design",
-      "group": "The Gentlemen",
-      "discovered": "2026-07-23T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "Canada",
-      "sizeBytes": 440
-    },
-    {
-      "slug": "the-gentlemen-tikona-infinet-2026-07-23",
-      "title": "Tikona Infinet",
-      "group": "The Gentlemen",
-      "discovered": "2026-07-23T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "India",
-      "sizeBytes": 441
-    },
-    {
-      "slug": "the-gentlemen-mk-jewelry-2026-07-23",
-      "title": "MK Jewelry",
-      "group": "The Gentlemen",
-      "discovered": "2026-07-23T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "MK",
-      "sizeBytes": 435
-    },
-    {
-      "slug": "the-gentlemen-title-resources-2026-07-23",
-      "title": "Title Resources",
-      "group": "The Gentlemen",
-      "discovered": "2026-07-23T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "Australia",
-      "sizeBytes": 456
-    },
-    {
-      "slug": "the-gentlemen-decoupe-laser-services-2026-07-23",
-      "title": "Decoupe Laser Services",
-      "group": "The Gentlemen",
-      "discovered": "2026-07-23T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "France",
-      "sizeBytes": 469
-    },
-    {
-      "slug": "qilin-sunway-berhad-2026-07-23",
-      "title": "Sunway Berhad",
-      "group": "Qilin",
-      "discovered": "2026-07-23T00:00:00.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": "Malaysia",
-      "sizeBytes": 434
-    },
-    {
-      "slug": "qilin-wellperf-2026-07-23",
-      "title": "WellPerf",
-      "group": "Qilin",
-      "discovered": "2026-07-23T00:00:00.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": "United Kingdom",
-      "sizeBytes": 412
-    },
-    {
-      "slug": "qilin-cano-industrial-2026-07-23",
-      "title": "Cano Industrial",
-      "group": "Qilin",
-      "discovered": "2026-07-23T00:00:00.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": "Mexico",
-      "sizeBytes": 428
-    },
-    {
-      "slug": "qilin-corporate-360-business-solutions-2026-07-23",
-      "title": "Corporate 360 Business Solutions",
-      "group": "Qilin",
-      "discovered": "2026-07-23T00:00:00.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": "Canada",
-      "sizeBytes": 487
+      "country": null,
+      "sizeBytes": 411
     },
     {
       "slug": "kairos-lr-reed-2026-07-22",
@@ -13427,16 +13388,6 @@
       "sizeBytes": 376
     },
     {
-      "slug": "ulose-kyungrok-2026-06-09",
-      "title": "KyungRok",
-      "group": "ULose",
-      "discovered": "2026-06-09T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "KR",
-      "sizeBytes": 402
-    },
-    {
       "slug": "ulose-hize-aero-2026-06-09",
       "title": "HIZE Aero",
       "group": "ULose",
@@ -13447,14 +13398,24 @@
       "sizeBytes": 431
     },
     {
-      "slug": "ulose-handok-2026-06-09",
-      "title": "HanDok",
+      "slug": "ulose-kyungrok-2026-06-09",
+      "title": "KyungRok",
       "group": "ULose",
       "discovered": "2026-06-09T00:00:00.000Z",
       "category": "data_breach",
       "severity": "high",
       "country": "KR",
-      "sizeBytes": 388
+      "sizeBytes": 402
+    },
+    {
+      "slug": "ulose-nrcapital-2026-06-09",
+      "title": "NRCapital",
+      "group": "ULose",
+      "discovered": "2026-06-09T00:00:00.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "KR",
+      "sizeBytes": 409
     },
     {
       "slug": "ulose-msicapital-2026-06-09",
@@ -13467,14 +13428,14 @@
       "sizeBytes": 333
     },
     {
-      "slug": "ulose-nrcapital-2026-06-09",
-      "title": "NRCapital",
+      "slug": "ulose-handok-2026-06-09",
+      "title": "HanDok",
       "group": "ULose",
       "discovered": "2026-06-09T00:00:00.000Z",
       "category": "data_breach",
       "severity": "high",
       "country": "KR",
-      "sizeBytes": 409
+      "sizeBytes": 388
     },
     {
       "slug": "termite-wiese-usa-2026-06-08",

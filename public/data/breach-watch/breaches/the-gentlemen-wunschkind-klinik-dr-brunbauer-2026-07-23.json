@@ -1,15 +1,15 @@
 {
   "slug": "the-gentlemen-wunschkind-klinik-dr-brunbauer-2026-07-23",
   "title": "Wunschkind Klinik Dr Brunbauer",
-  "group": "the gentlemen",
-  "discovered": "2026-07-23T12:40:26.000Z",
+  "group": "The Gentlemen",
+  "discovered": "2026-07-23T00:00:00.000Z",
   "category": "data_breach",
   "severity": "high",
-  "country": null,
+  "country": "Austria",
   "sizeBytes": 0,
-  "description": "wunschkind.at zoominfo.com/c/wunschkind-klinik-dr-brunbauer/1320140781 We have hundreds of gigabytes of your files, including database projects, client contracts, \npersonal data and documents, medical data, medical histories, treatment records, medical reports, and more—all of which constitute critically important information. \nIf you do not want to face the consequences of a data breach, please contact us; otherwise, everything will be published. fertility clinic in Vienna, Austria, led by Dr. Brunbauer. Located in the city center, the clinic specializes in fertility treatments including IVF, insemination, diagnostics, hormone therapy, egg donation, and cryopreservation. It is a recognized partner clinic of Austria's IVF-Fonds program.",
-  "source_url": "https://www.ransomlook.io/recent",
+  "description": "Internal files exfiltrated in ransomware attack",
+  "source_url": "https://recentbreaches.com/breach/wunschkind-klinik-dr-brunbauer-thegentlemen-2026-07",
   "groupAliases": [],
-  "activity": null,
-  "references": ["ransomlook.io"]
+  "activity": "Healthcare",
+  "references": ["RecentBreaches.com"]
 }

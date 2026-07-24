@@ -950,7 +950,11 @@ export default function Copilot(): JSX.Element {
                             <>
                               <FollowUpSuggestions
                                 content={msg.content}
-                                query={i > 0 && chatMessages[i - 1]?.role === 'user' ? chatMessages[i - 1]!.content : undefined}
+                                query={
+                                  i > 0 && chatMessages[i - 1]?.role === 'user'
+                                    ? chatMessages[i - 1]!.content
+                                    : undefined
+                                }
                                 onSubmit={(q) => {
                                   setQuery(q);
                                   void submitChat(q);
@@ -1374,7 +1378,15 @@ function ChatNarrative({ markdown }: { markdown: string }) {
   );
 }
 
-function FollowUpSuggestions({ content, query, onSubmit }: { content: string; query?: string; onSubmit: (q: string) => void }) {
+function FollowUpSuggestions({
+  content,
+  query,
+  onSubmit,
+}: {
+  content: string;
+  query?: string;
+  onSubmit: (q: string) => void;
+}) {
   const [suggestions, setSuggestions] = useState<string[] | null>(null);
   const [loadingFU, setLoadingFU] = useState(false);
 
@@ -1391,7 +1403,7 @@ function FollowUpSuggestions({ content, query, onSubmit }: { content: string; qu
           signal: AbortSignal.timeout(8000),
         });
         if (!res.ok) return;
-        const data = await res.json() as { suggestions: string[] };
+        const data = (await res.json()) as { suggestions: string[] };
         if (!cancelled && data.suggestions?.length > 0) {
           setSuggestions(data.suggestions);
         }
@@ -1401,7 +1413,9 @@ function FollowUpSuggestions({ content, query, onSubmit }: { content: string; qu
         if (!cancelled) setLoadingFU(false);
       }
     })();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [content, query]);
 
   if (loadingFU) {
@@ -1469,10 +1483,12 @@ function SessionSidebar({
 }) {
   return (
     <>
-      {open && <div className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm" onClick={onClose} />}
+      {open && <div className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm lg:hidden" onClick={onClose} />}
       <div
-        className={`fixed left-0 top-0 z-50 flex h-full w-80 flex-col border-r border-slate-200 bg-white shadow-xl transition-transform duration-300 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] ${
-          open ? 'translate-x-0' : '-translate-x-full'
+        className={`w-80 shrink-0 flex-col border-r border-slate-200 bg-white dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] lg:sticky lg:top-0 lg:h-full lg:translate-x-0 lg:z-10 ${
+          open
+            ? 'fixed inset-y-0 left-0 z-50 translate-x-0 shadow-xl transition-transform duration-300 lg:relative lg:shadow-none'
+            : 'fixed -translate-x-full lg:relative lg:translate-x-0'
         }`}
       >
         <div className="flex items-center justify-between border-b border-slate-100 px-4 py-3 dark:border-[rgb(var(--border-400))]">

@@ -1,1 +1,15 @@
-{"slug":"the-gentlemen-gloria-maris-groupe-2026-07-23","title":"Gloria Maris Groupe","group":"the gentlemen","discovered":"2026-07-23T11:21:26.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"gloriamaris.com zoominfo.com/c/gloria-maris-groupe/552388964 Gloria Maris is a premium aquaculture company based in France and Sardinia, specializing in the sustainable farming of high-quality fish. With facilities in Corsica, Côte d'Opale, Gravelines, and Sardinia, the company focuses on traceability, environmental respect, and controlled growth in natural marine ecosystems. They produce around 3,800 tons of responsibly farmed fish and 35 million fry annually, exporting their products to over 25 countries worldwide","source_url":"https://www.ransomlook.io/recent","groupAliases":[],"activity":null,"references":["ransomlook.io"]}
+{
+  "slug": "the-gentlemen-gloria-maris-groupe-2026-07-23",
+  "title": "Gloria Maris Groupe",
+  "group": "The Gentlemen",
+  "discovered": "2026-07-23T00:00:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "France",
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated in ransomware attack",
+  "source_url": "https://recentbreaches.com/breach/gloria-maris-groupe-thegentlemen-2026-07",
+  "groupAliases": [],
+  "activity": "Agriculture and Food Production",
+  "references": ["RecentBreaches.com"]
+}
