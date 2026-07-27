@@ -38,7 +38,7 @@ export async function xSearchHandler(c: Context<{ Bindings: Env }>): Promise<Res
   // Status probe — let the FE check service availability.
   if (c.req.query('status') !== undefined) {
     try {
-      readAuthCookies(c.env);
+      await resolveAuthCookies(c.env);
       return c.json({ ok: true, configured: true });
     } catch (_catchErr) {
       console.error('xSearchHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));

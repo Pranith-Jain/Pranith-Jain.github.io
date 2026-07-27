@@ -621,37 +621,6 @@ export const PROBES: FeedProbeSpec[] = [
     },
   },
   {
-    id: 'af-defacements',
-    label: 'AF Defacements',
-    page_path: '/threatintel/live-iocs',
-    api_path: '/api/v1/live-iocs',
-    cache_key: LIVE_IOCS_CACHE_KEY,
-    // Same AndreaFortuna scrape as datamarkets; same C (secondary) grade.
-    reliability: 'C',
-    category: 'secondary',
-    evaluate: (body) => {
-      const sources = (
-        body as {
-          sources?: Array<{ id?: string; ok?: boolean; count?: number; stale?: boolean; newest_observation?: string }>;
-        }
-      )?.sources;
-      const row = Array.isArray(sources) ? sources.find((s) => s.id === 'andreafortuna-defacements') : undefined;
-      if (!row) return { status: 'cold' as const, reason: 'no AF row in live-iocs cache' };
-      if (row.ok && !row.stale) {
-        return {
-          status: 'ok' as const,
-          reason: `${row.count ?? 0} items`,
-          metrics: { items: row.count ?? 0 },
-          ageS: row.newest_observation
-            ? Math.max(0, Math.round((Date.now() - Date.parse(row.newest_observation)) / 1000))
-            : undefined,
-        };
-      }
-      if (row.ok && row.stale) return { status: 'degraded' as const, reason: 'serving stale (last-good fallback)' };
-      return { status: 'down' as const, reason: 'upstream failed; no fallback' };
-    },
-  },
-  {
     id: 'deepdarkcti',
     label: 'deepdarkCTI Index',
     page_path: '/threatintel/deepdarkcti',

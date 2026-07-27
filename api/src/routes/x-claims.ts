@@ -3,6 +3,7 @@ import type { Env } from '../env';
 import { fetchAuthedTimeline } from '../lib/twitter-auth-graphql';
 import { classifySocialClaim } from '../lib/social-claim-parser';
 import { classifySector } from '../lib/sector-classifier';
+import { CTI_CLAIM_HANDLES as CLAIM_HANDLES } from '../lib/x-handles';
 import type { RansomwareVictim } from './ransomware-recent';
 
 /**
@@ -31,25 +32,6 @@ export const X_CLAIMS_CACHE_KEY = 'https://x-claims-cache.internal/v2';
 // 1h — matches the hourly cron warm so the ransomware-recent cache-only read
 // stays populated between fires (a shorter TTL left a dead window each hour).
 const CACHE_TTL_SECONDS = 3600;
-
-/** Curated handles that report ransomware leak-site listings + breach claims. */
-const CLAIM_HANDLES = [
-  'FalconFeedsio',
-  'DailyDarkWeb',
-  'DarkWebInformer',
-  'ransomnews',
-  'LeakRadario',
-  'MonThreat',
-  'VivekIntel',
-  'DarkForumss',
-  'VulnCheckAI',
-  'etugenio',
-  'drb_ra',
-  '3xp0rtblog',
-  'alphahunt_io',
-  'CTI__Updates',
-  'spchainattack',
-];
 
 export interface BreachClaim {
   victim?: string;

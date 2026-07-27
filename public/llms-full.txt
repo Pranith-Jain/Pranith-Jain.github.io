@@ -140,11 +140,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Agent Enrich](https://pranithjain.qzz.io/dfir/agent-enrich) (dfir): Enrich agent observables with external threat intel
 - [Agent Map](https://pranithjain.qzz.io/dfir/agent-map) (dfir): 
 - [AI Threat Actors](https://pranithjain.qzz.io/dfir/ai-threats) (dfir): Tracked real-world threat-actor uses of AI/LLMs - 79 entries, MITRE ATT&CK mapped, from the Cybershujin tracker.
-- [INSIGHT-AI](https://pranithjain.qzz.io/dfir/insight-ai) (dfir): AI-assisted incident summarisation and pattern detection.
-- [QUERYCRAFT-AI](https://pranithjain.qzz.io/dfir/querycraft-ai) (dfir): AI-assisted KQL / SPL / Lucene generation.
-- [CHRONO-AI](https://pranithjain.qzz.io/dfir/chrono-ai) (dfir): AI-assisted timeline reconstruction from logs + reports.
-- [MALBRIEF-AI](https://pranithjain.qzz.io/dfir/malbrief-ai) (dfir): AI-assisted malware family briefing from sample + sandbox output.
-- [VERDIKT-AI](https://pranithjain.qzz.io/dfir/verdikt-ai) (dfir): AI-assisted IOC verdict - explain cross-source disagreement.
+- [AI Suite](https://pranithjain.qzz.io/dfir/ai-suite) (dfir): AI-assisted investigation - incident summarisation, query generation, timeline reconstruction, malware briefing, and IOC verdicts.
 - [OpenAPI Auditor](https://pranithjain.qzz.io/dfir/openapi-audit) (dfir): Lint an OpenAPI spec - missing auth, schema issues, PII exposure.
 - [GraphQL Auditor](https://pranithjain.qzz.io/dfir/graphql-audit) (dfir): Introspection + query depth/complexity + authz analysis.
 - [JWT Inspector](https://pranithjain.qzz.io/dfir/jwt) (dfir): Decode - verify - alg-confusion check - claim analysis.
@@ -161,8 +157,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Crypto Tracer](https://pranithjain.qzz.io/dfir/crypto-tracer) (dfir): Cross-chain transaction tracing, real-time flow monitoring, and quick address lookups for AML and ransomware investigations.
 - [PIVEX](https://pranithjain.qzz.io/dfir/pivex) (dfir): Pivot explorer - graph-style pivots from any entity.
 - [Agent History](https://pranithjain.qzz.io/dfir/agent-history) (dfir): AI agent investigation sessions - quality scores, IOCs, and key findings.
-- [Report Analyzer](https://pranithjain.qzz.io/dfir/report-analyzer) (dfir): AI summary - IOC extraction - MITRE TTP mapping - STIX bundle.
-- [Report Composer](https://pranithjain.qzz.io/dfir/report-composer) (dfir): Cover - summary - findings - IOCs - sources - TLP - export to PDF/DOCX.
+- [Report Hub](https://pranithjain.qzz.io/dfir/report-hub) (dfir): Analyze external reports and compose investigation reports - AI summarisation, IOC extraction, MITRE mapping, PDF/DOCX export.
 - [Export Hub](https://pranithjain.qzz.io/dfir/export-hub) (dfir): Export IOCs to STIX 2.1, MISP, Sigma, YARA, Snort, Suricata, CSV.
 - [Blocklist Export](https://pranithjain.qzz.io/dfir/blocklists) (dfir): Generate network blocklists (pfSense, MikroTik, Cisco) from IOCs.
 - [Investigation Notebooks](https://pranithjain.qzz.io/dfir/notebooks) (dfir): Persistent notes, IOC snapshots, and findings for DFIR investigations.

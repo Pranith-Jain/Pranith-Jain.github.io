@@ -411,7 +411,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
           <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">Malicious Packages</div>
           <div className="text-xs text-slate-500">Full OSSF directory browser</div>
         </a>
-        <a href="/threatintel/external/supply" className="surface-card/50 p-4 hover:shadow-e1 transition text-center">
+        <a href="/threatintel/supply-chain" className="surface-card/50 p-4 hover:shadow-e1 transition text-center">
           <AlertOctagon className="w-6 h-6 text-amber-500 mx-auto mb-2" />
           <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">Supply Chain Attacks</div>
           <div className="text-xs text-slate-500">Incident catalog from supplychainattack.org</div>

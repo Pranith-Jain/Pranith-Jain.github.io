@@ -2,9 +2,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { isBenign, refang, scoreConfidence } from '../lib/ioc-normalize';
 import type { D1Database, Queue } from '@cloudflare/workers-types';
-import { shouldWriteLastGood } from '../lib/lastgood-debounce';
 import { safeNullLog } from '../lib/safe-catch';
-import { readLastGood } from '../lib/lastgood';
 import { concurrentMap } from '../lib/concurrent-map';
 import { readSlice, type FeedQueueMessage } from '../lib/live-iocs-slices';
 import {
@@ -15,7 +13,6 @@ import {
   parseThreatfox,
   parsePlainTextIps,
   parseAlienVaultReputation,
-  parseSslblC2,
   parsePhishingArmy,
   parseViriback,
   parseThreatviewDomains,
@@ -24,8 +21,6 @@ import { fetchMalwareSamplesCached } from './malware-samples';
 import { fetchPhishingUrlsCached } from './phishing-urls';
 import { fetchCryptoScamCached } from './crypto-scam-feed';
 import { trackEvent, visitorCountry } from '../lib/analytics';
-import { fetchAFDefacements } from '../lib/andreafortuna-feeds';
-import { fetchMtiSource, type MtiIoc } from '../lib/mythreatintel-api';
 
 /**
  * Live IOC stream — unified, time-ordered, per-entry-attributed.
@@ -59,8 +54,6 @@ const CACHE_TTL_SECONDS = 30 * 60;
 const DEGRADED_TTL_SECONDS = 5 * 60;
 const FETCH_TIMEOUT_MS = 30_000;
 const PER_FEED_CAP = 300;
-const AF_DEFACEMENTS_LASTGOOD_KEY = 'live-iocs/af-defacements-lastgood/v1';
-const LASTGOOD_TTL_SECONDS = 24 * 60 * 60;
 // Ceiling = PER_FEED_CAP × source-count. Previously 400 — small enough that
 // the sort (timestamped-first, no-timestamp tail) silently dropped every
 // untimestamped source (c2-intel, emerging-threats, otx-reputation, openphish)
@@ -304,15 +297,12 @@ const FEED_SOURCE_DEBUG_URLS: Record<string, { url: string; fallbackUrls?: strin
   urlhaus: { url: 'https://urlhaus.abuse.ch/downloads/csv_recent/' },
   'emerging-threats': { url: 'https://rules.emergingthreats.net/blockrules/compromised-ips.txt' },
   'otx-reputation': { url: 'https://reputation.alienvault.com/reputation.generic' },
-  'sslbl-c2': { url: 'https://sslbl.abuse.ch/blacklist/sslipblacklist.csv' },
-  botvrij: { url: 'https://www.botvrij.eu/data/ioclist.domain' },
   threatfox: { url: 'https://threatfox.abuse.ch/export/csv/recent/' },
   malwarebazaar: { url: 'https://mb-api.abuse.ch/api/v1/' },
   phishing: { url: 'https://data.phishtank.com/data/online-valid.json' },
   'crypto-scam': {
     url: 'https://raw.githubusercontent.com/spmedia/Crypto-Scam-and-Crypto-Phishing-Threat-Intel-Feed/main/detected_urls.json',
   },
-  'andreafortuna-defacements': { url: 'https://ctifeeds.andreafortuna.org/recent_defacements.json' },
   binarydefense: {
     url: 'https://raw.githubusercontent.com/CriticalPathSecurity/Public-Intelligence-Feeds/master/binarydefense.txt',
     fallbackUrls: ['https://www.binarydefense.com/banlist.txt'],
@@ -391,7 +381,6 @@ const FEED_SOURCE_DEBUG_URLS: Record<string, { url: string; fallbackUrls?: strin
   },
   // mythreatintel + openphish are handled by named sources with internal
   // fetch helpers; their URLs are in the helpers themselves.
-  mythreatintel: { url: 'https://api.mythreatintel.com/v1/iocs' },
   openphish: { url: 'https://openphish.com/feed.txt' },
 };
 
@@ -564,10 +553,13 @@ const malwarebazaarSource: FeedSource = {
   },
 };
 
-/** PhishTank + OpenPhish: one fetch, two source entries (per-entry reporter). */
+/** PhishTank + OpenPhish: one fetch, two source entries (per-entry reporter).
+ *  PhishTank requires an API key — when not configured, only OpenPhish is
+ *  emitted so the feed doesn't advertise a permanently-dead source row. */
 const phishingSource: FeedSource = {
   id: 'phishing',
   run: async ({ executionCtx, kv, env }) => {
+    const hasPtKey = Boolean(env?.PHISHTANK_API_KEY);
     const phishingResult = await safeNullLog(
       'fetch-phishing',
       fetchPhishingUrlsCached(executionCtx, kv, env?.PHISHTANK_API_KEY)
@@ -576,10 +568,12 @@ const phishingSource: FeedSource = {
     if (!phishingResult) {
       return {
         items,
-        sources: [
-          { id: 'phishtank', ok: false, count: 0 },
-          { id: 'openphish', ok: false, count: 0 },
-        ],
+        sources: hasPtKey
+          ? [
+              { id: 'phishtank', ok: false, count: 0 },
+              { id: 'openphish', ok: false, count: 0 },
+            ]
+          : [{ id: 'openphish', ok: false, count: 0 }],
       };
     }
     let openphishCount = 0;
@@ -600,10 +594,12 @@ const phishingSource: FeedSource = {
     }
     return {
       items,
-      sources: [
-        { id: 'phishtank', ok: phishtankCount > 0, count: phishtankCount },
-        { id: 'openphish', ok: openphishCount > 0, count: openphishCount },
-      ],
+      sources: hasPtKey
+        ? [
+            { id: 'phishtank', ok: phishtankCount > 0, count: phishtankCount },
+            { id: 'openphish', ok: openphishCount > 0, count: openphishCount },
+          ]
+        : [{ id: 'openphish', ok: openphishCount > 0, count: openphishCount }],
     };
   },
 };
@@ -628,103 +624,6 @@ const cryptoScamSource: FeedSource = {
   },
 };
 
-/** Andrea Fortuna defacements: pre-built LiveIoc[] + KV last-good fallback. */
-const andreafortunaSource: FeedSource = {
-  id: 'andreafortuna-defacements',
-  run: async ({ executionCtx, kv }) => {
-    const afDefacementsRaw = await fetchAFDefacements().catch(() => [] as LiveIoc[]);
-    let afDefacements = afDefacementsRaw ?? [];
-    let afDefacementsOk = afDefacements.length > 0;
-    let afDefacementsStale = false;
-
-    if (afDefacementsOk && kv) {
-      executionCtx?.waitUntil(
-        (async () => {
-          if (await shouldWriteLastGood('live-iocs:af-defacements')) {
-            await kv.put(
-              AF_DEFACEMENTS_LASTGOOD_KEY,
-              JSON.stringify({ items: afDefacements, refreshed_at: new Date().toISOString() }),
-              { expirationTtl: LASTGOOD_TTL_SECONDS }
-            );
-          }
-        })()
-      );
-    } else if (!afDefacementsOk && kv) {
-      try {
-        const parsed = await readLastGood<{ items: typeof afDefacements }>(
-          { KV_CACHE: kv },
-          AF_DEFACEMENTS_LASTGOOD_KEY,
-          { keyPrefix: '' }
-        );
-        if (parsed && Array.isArray(parsed.items) && parsed.items.length > 0) {
-          afDefacements = parsed.items;
-          afDefacementsOk = true;
-          afDefacementsStale = true;
-        }
-      } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-        /* leave ok = false */
-      }
-    }
-
-    const items: LiveIoc[] = [];
-    for (const e of afDefacements) items.push(e);
-
-    const newestAf = afDefacements
-      .map((i) => i.observed_at)
-      .filter((t): t is string => Boolean(t))
-      .sort()
-      .pop();
-
-    return {
-      items,
-      sources: [
-        {
-          id: 'andreafortuna-defacements',
-          ok: afDefacementsOk,
-          count: afDefacements.length,
-          ...(newestAf ? { newest_observation: newestAf } : {}),
-          ...(afDefacementsStale ? { stale: true } : {}),
-        },
-      ],
-    };
-  },
-};
-
-/** MyThreatIntel REST API: sha256 IOCs + family/tags (token-gated via env). */
-const mythreatintelSource: FeedSource = {
-  id: 'mythreatintel',
-  run: async ({ env }) => {
-    const mtiIocResult = env
-      ? await safeNullLog('fetch-mti-iocs', fetchMtiSource(env, 'iocs', { limit: PER_FEED_CAP }))
-      : null;
-    const items: LiveIoc[] = [];
-    if (!(mtiIocResult && mtiIocResult.ok && mtiIocResult.items.length > 0)) {
-      return { items, sources: [{ id: 'mythreatintel', ok: false, count: 0 }] };
-    }
-    let count = 0;
-    for (const raw of mtiIocResult.items.slice(0, PER_FEED_CAP)) {
-      const r = raw as MtiIoc;
-      if (!r.sha256) continue;
-      const context =
-        [r.signature, r.file_name, r.tags, r.type]
-          .map((x) => x?.trim())
-          .filter((x): x is string => Boolean(x) && x !== 'N/D')
-          .join(' | ') || undefined;
-      items.push({
-        value: r.sha256,
-        kind: 'hash',
-        source: 'mythreatintel',
-        reporter: 'MyThreatIntel',
-        context,
-        observed_at: isoFromLoose(r.date),
-      });
-      count++;
-    }
-    return { items, sources: [{ id: 'mythreatintel', ok: count > 0, count }] };
-  },
-};
-
 // Registry, ordered exactly as the original sequential blocks pushed sources —
 // concurrentMap preserves input order, so the flattened sources/items keep this
 // order (the post-sort and per-source recount depend only on it being stable).
@@ -742,7 +641,6 @@ const FEED_SOURCES: FeedSource[] = [
   textFeedSource({
     id: 'c2-intel',
     url: 'https://raw.githubusercontent.com/drb-ra/C2IntelFeeds/master/feeds/IPC2s.csv',
-    fallbackUrls: ['https://sslbl.abuse.ch/blacklist/sslipblacklist.csv'],
     parse: parseC2IntelFeeds,
     kind: 'ip',
     reporter: 'drb-ra/C2IntelFeeds',
@@ -775,15 +673,6 @@ const FEED_SOURCES: FeedSource[] = [
     context: entryContext,
   }),
   textFeedSource({
-    id: 'sslbl-c2',
-    url: 'https://sslbl.abuse.ch/blacklist/sslipblacklist.csv',
-    parse: parseSslblC2,
-    kind: 'ip',
-    reporter: 'abuse.ch SSLBL',
-    context: entryContext,
-    withTimestamp: true,
-  }),
-  textFeedSource({
     id: 'threatfox',
     url: 'https://threatfox.abuse.ch/export/csv/recent/',
     parse: parseThreatfox,
@@ -795,7 +684,6 @@ const FEED_SOURCES: FeedSource[] = [
   malwarebazaarSource,
   phishingSource,
   cryptoScamSource,
-  andreafortunaSource,
   textFeedSource({
     id: 'binarydefense',
     url: `${CPS_BASE}/binarydefense.txt`,
@@ -850,7 +738,6 @@ const FEED_SOURCES: FeedSource[] = [
     reporter: 'CINSscore',
     context: 'suspicious/malicious IP',
   }),
-  mythreatintelSource,
   textFeedSource({
     id: 'bbcan177-ips',
     url: 'https://gist.githubusercontent.com/BBcan177/bf29d47ea04391cb3eb0/raw/',
@@ -967,7 +854,7 @@ const FEED_SOURCES: FeedSource[] = [
 
 /**
  * Registry source ids — the per-source runner units the queue fan-out
- * enqueues. NB: this is the FeedSource.id set (28 entries, incl. the
+ * enqueues. NB: this is the FeedSource.id set (25 entries, incl. the
  * 'phishing' wrapper that emits phishtank + openphish), NOT the response
  * source-id set. It excludes 'feed-scheduler' (a compose-time D1 read that
  * bypasses the staleness filter — see fetchLiveIocs).

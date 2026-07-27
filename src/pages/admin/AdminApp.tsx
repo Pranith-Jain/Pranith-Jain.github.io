@@ -12,6 +12,7 @@ import HealthTab from './HealthTab';
 import ManualTab from './ManualTab';
 import IntelBundleTab from './IntelBundleTab';
 import ApiKeysTab from './ApiKeysTab';
+import XCookiesTab from './XCookiesTab';
 import RetentionTab from './RetentionTab';
 import BriefingsTab from './BriefingsTab';
 import AnalyticsTab from './AnalyticsTab';
@@ -27,6 +28,7 @@ type TabKey =
   | 'manual'
   | 'intel'
   | 'apikeys'
+  | 'xcookies'
   | 'briefings'
   | 'retention'
   | 'analytics';
@@ -42,6 +44,7 @@ const TABS: Array<{ key: TabKey; label: string }> = [
   { key: 'health', label: 'Health' },
   { key: 'intel', label: 'Intel bundle' },
   { key: 'apikeys', label: 'API Keys' },
+  { key: 'xcookies', label: 'X Cookies' },
   { key: 'briefings', label: 'Briefings' },
   { key: 'retention', label: 'Retention' },
   { key: 'analytics', label: 'Analytics' },
@@ -262,6 +265,7 @@ export default function AdminApp() {
         {active === 'manual' && <ManualTab />}
         {active === 'intel' && <IntelBundleTab />}
         {active === 'apikeys' && <ApiKeysTab />}
+        {active === 'xcookies' && <XCookiesTab />}
         {active === 'briefings' && <BriefingsTab />}
         {active === 'retention' && <RetentionTab />}
         {active === 'analytics' && <AnalyticsTab />}

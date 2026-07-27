@@ -53,7 +53,7 @@ import { enqueueGpFeeds } from '../api/src/routes/global-pulse';
 import { scanForPhishingDomains, type PassiveDnsEnv } from '../api/src/lib/passive-dns';
 import { runCyberPulseIngestion } from '../api/src/routes/cyberpulse-ingest';
 import { fetchXClaims } from '../api/src/routes/x-claims';
-import { readAuthCookies, XAuthMissingError } from '../api/src/lib/twitter-auth-graphql';
+import { checkXHealth } from '../api/src/lib/twitter-auth-graphql';
 import { fetchRedditFeed } from '../api/src/routes/reddit-feed';
 import type { D1Database, ScheduledEvent, ExecutionContext } from '@cloudflare/workers-types';
 import { acquireCronLease, releaseCronLease, heartbeatCronLease } from './durable-objects/cron-lock';
@@ -257,12 +257,20 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
             );
           }
 
-          // ── X auth diagnostic ──────────────────────────────────────────────
+          // ── X auth + query-ID diagnostic ───────────────────────────────────
+          // Live canary fetch each tick so expired cookies (auth=expired) and
+          // rotated GraphQL query IDs (qids=stale) surface in the logs instead
+          // of waiting for an analyst to notice dead feeds.
           try {
-            readAuthCookies(env);
+            const health = await checkXHealth(env);
+            const healthy = health.auth === 'ok' && health.qids !== 'stale';
+            const line = JSON.stringify({ job: 'x-health-diagnostic', ...health });
+            if (healthy) console.log(line);
+            else console.warn(line);
           } catch (e) {
-            const reason = e instanceof XAuthMissingError ? 'missing' : e instanceof Error ? e.message : String(e);
-            console.warn(JSON.stringify({ job: 'x-auth-diagnostic', status: 'unavailable', reason }));
+            console.warn(
+              JSON.stringify({ job: 'x-health-diagnostic', status: 'error', reason: e instanceof Error ? e.message : String(e) })
+            );
           }
 
           // ── Pre-warm x-claims so CyberPulse gets breach/ransomware claims

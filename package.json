@@ -27,6 +27,7 @@
     "smoke": "node scripts/smoke.mjs",
     "smoke:slow": "node scripts/smoke.mjs --slow",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 244",
+    "lint:changed": "node scripts/lint-changed.mjs",
     "lint:fix": "eslint . --fix",
     "typecheck": "node node_modules/typescript/bin/tsc --noEmit --skipLibCheck",
     "typecheck:api": "node node_modules/typescript/bin/tsc --noEmit --skipLibCheck -p api/tsconfig.json",

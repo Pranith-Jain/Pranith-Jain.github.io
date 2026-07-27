@@ -28,7 +28,7 @@ const PAGES = [
   },
   { path: '/dfir/ioc-check', name: 'IOC Checker', desc: 'Check any indicator across 24 sources instantly.' },
   {
-    path: '/threatintel/actors/directory',
+    path: '/threatintel/actors/hub',
     name: 'Threat Actor Database',
     desc: 'Research APT groups, criminal orgs, and threat actors.',
   },

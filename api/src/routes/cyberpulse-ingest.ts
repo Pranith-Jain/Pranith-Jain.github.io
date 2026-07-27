@@ -12,11 +12,12 @@
 import type { D1Database } from '@cloudflare/workers-types';
 import {
   fetchAuthedTimeline,
-  readAuthCookies,
+  resolveAuthCookies,
   XAuthMissingError,
   XAuthInvalidError,
   XAuthRateLimitedError,
 } from '../lib/twitter-auth-graphql';
+import { X_ACCOUNTS, CLAIM_HANDLES_LOWER } from '../lib/x-handles';
 import { fetchUserTimeline } from '../lib/twitter-graphql';
 import { fetchTelegramFeed, type TelegramFeedItem } from './telegram-feed';
 import { fetchXFeed, type XFeedItem } from './x-feed';
@@ -849,24 +850,6 @@ export interface RawPost {
   views: number;
 }
 
-const CLAIM_HANDLES_LOWER = new Set([
-  'falconfeedsio',
-  'dailydarkweb',
-  'darkwebinformer',
-  'ransomnews',
-  'leakradario',
-  'monthreat',
-  'vivekintel',
-  'darkforumss',
-  'vulncheckai',
-  'etugenio',
-  'drb_ra',
-  '3xp0rtblog',
-  'alphahunt_io',
-  'cti__updates',
-  'spchainattack',
-]);
-
 /** Fetch recent posts from X accounts. Tries auth first, falls back to anonymous. */
 export async function fetchXAccountPosts(
   env: Env,
@@ -926,7 +909,7 @@ export async function fetchXAccountPosts(
 
   let authed = true;
   try {
-    readAuthCookies(env);
+    await resolveAuthCookies(env);
   } catch (e) {
     authed = false;
     if (e instanceof XAuthMissingError) {
@@ -1278,39 +1261,7 @@ async function fetchRedditBreachFeed(items?: RedditFeedItem[], fetched?: boolean
 
 // ─── Main ingestion pipeline ────────────────────────────────────────────────
 
-export const X_ACCOUNTS = [
-  'FalconFeedsIO',
-  'RansomLook',
-  'BleepinComputer',
-  'TheHackerNews',
-  'ido_cohen2',
-  'MalwareTechBlog',
-  'TalosSecurity',
-  'unit42',
-  'Mandiant',
-  'RecordedFuture',
-  'FlashpointIntel',
-  'SOCRadar',
-  'GroupIB',
-  'intel471',
-  'darkleaks',
-  'dnaborhacks',
-  'paborhack',
-  'dailydarkweb',
-  'DarkWebInformer',
-  'ransomnews',
-  'LeakRadario',
-  'MonThreat',
-  'VivekIntel',
-  'DarkForumss',
-  'VulnCheckAI',
-  'etugenio',
-  'drb_ra',
-  '3xp0rtblog',
-  'alphahunt_io',
-  'CTI__Updates',
-  'spchainattack',
-];
+export { X_ACCOUNTS };
 
 /** Full ingestion pass — called by the hourly cron. */
 export async function runCyberPulseIngestion(

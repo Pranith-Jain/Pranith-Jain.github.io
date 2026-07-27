@@ -439,6 +439,7 @@ import {
 } from './routes/admin-keys';
 import { purgeCacheHandler } from './routes/admin-purge';
 import { runRetentionHandler, telegramCleanupHandler } from './routes/admin-retention';
+import { getXCookiesHandler, setXCookiesHandler, clearXCookiesHandler } from './routes/admin-x-cookies';
 import { malpediaActorHandler, malpediaFamilyHandler, malpediaSearchHandler } from './routes/malpedia';
 import { maltrailListHandler, maltrailFetchHandler } from './routes/maltrail';
 import { actorEnrichHandler } from './routes/actor-enrich';
@@ -862,6 +863,7 @@ app.use('/api/v1/admin/keys', requireAdminMiddleware);
 app.use('/api/v1/admin/keys/*', requireAdminMiddleware);
 app.use('/api/v1/admin/purge', requireAdminMiddleware);
 app.use('/api/v1/admin/retention/*', requireAdminMiddleware);
+app.use('/api/v1/admin/x-cookies', requireAdminMiddleware);
 // maltrail-sync writes KV-backed actor records and fans out to the GitHub API;
 // it is an operator-only mutation, not a public/readonly-key endpoint.
 app.use('/api/v1/maltrail-sync', requireAdminMiddleware);
@@ -1479,6 +1481,9 @@ app.delete('/api/v1/admin/session', deleteSessionHandler);
 app.post('/api/v1/admin/purge', validate('json', adminPurgeSchema), purgeCacheHandler);
 app.post('/api/v1/admin/retention/run', validate('json', adminRetentionSchema), runRetentionHandler);
 app.post('/api/v1/admin/retention/telegram-cleanup', telegramCleanupHandler);
+app.get('/api/v1/admin/x-cookies', getXCookiesHandler);
+app.post('/api/v1/admin/x-cookies', setXCookiesHandler);
+app.delete('/api/v1/admin/x-cookies', clearXCookiesHandler);
 registerAdminRoutes(app);
 app.get('/api/v1/malpedia/actor', malpediaActorHandler);
 app.get('/api/v1/malpedia/family', malpediaFamilyHandler);

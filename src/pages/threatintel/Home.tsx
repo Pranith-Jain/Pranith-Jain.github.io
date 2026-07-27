@@ -396,7 +396,7 @@ export default function ThreatIntelHome(): JSX.Element {
                   {
                     label: 'Actor KB',
                     desc: 'Threat actor profiles',
-                    href: '/threatintel/actors/directory',
+                    href: '/threatintel/actors/hub',
                     icon: Users,
                   },
                 ].map((item) => {

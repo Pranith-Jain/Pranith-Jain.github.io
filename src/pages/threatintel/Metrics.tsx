@@ -1456,7 +1456,7 @@ export default function Metrics(): JSX.Element {
             Cross-source IOC correlation →
           </Link>
           <Link
-            to="/threatintel/actors/timeline"
+            to="/threatintel/actors/hub"
             className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-slate-700 dark:text-slate-300"
           >
             Actor activity timeline + MITRE TTPs →

@@ -330,7 +330,7 @@ export default function DarkWeb(): JSX.Element {
             breach disclosures
           </Link>
           ,{' '}
-          <Link to="/threatintel/darkweb/forums" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/threatintel/breach-hub" className="text-brand-600 dark:text-brand-400 hover:underline">
             breach / leak-forum tracker
           </Link>{' '}
           - live as their own pages.

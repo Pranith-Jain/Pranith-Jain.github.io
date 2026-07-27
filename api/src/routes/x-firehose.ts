@@ -3,6 +3,7 @@ import type { Env } from '../env';
 import {
   fetchAuthedTimeline,
   resolveAuthCookies,
+  checkXHealth,
   XAuthMissingError,
   XAuthInvalidError,
   XAuthRateLimitedError,
@@ -36,6 +37,14 @@ export async function xFirehoseHandler(c: Context<{ Bindings: Env }>): Promise<R
   // Status probe — let the FE check service availability without
   // attempting a fetch first.
   if (c.req.query('status') !== undefined) {
+    // Deep probe: live canary fetch that classifies auth + query-ID health.
+    // Opt-in (?status=deep) so the cheap config-only probe stays the default
+    // for the XWatch mount check and adds no upstream rate-limit pressure.
+    if (c.req.query('status') === 'deep') {
+      const health = await checkXHealth(c.env);
+      const ok = health.auth === 'ok' && health.qids !== 'stale';
+      return c.json({ ok, configured: health.auth !== 'missing', ...health }, 200, { 'cache-control': 'no-store' });
+    }
     try {
       await resolveAuthCookies(c.env);
       return c.json({ ok: true, configured: true });

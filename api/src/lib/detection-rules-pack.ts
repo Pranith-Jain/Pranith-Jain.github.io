@@ -11,8 +11,8 @@ import type { DetectionRule } from './detection-engine';
  *   - Regexes are author-controlled and ReDoS-safe (no nested quantifiers).
  *   - Source ids must match the `source` tags emitted by fetchLiveIocs:
  *     tweetfeed, sans-isc, c2-intel, urlhaus, emerging-threats,
- *     otx-reputation, threatfox, malwarebazaar, phishtank, openphish,
- *     sslbl-c2, botvrij, andreafortuna-defacements, mythreatintel.
+ *     otx-reputation, threatfox, malwarebazaar, openphish,
+ *     botvrij.
  */
 export const DETECTION_RULES_PACK: DetectionRule[] = [
   {
@@ -76,7 +76,7 @@ export const DETECTION_RULES_PACK: DetectionRule[] = [
     name: 'Classified malware sample',
     severity: 'medium',
     description:
-      'File hash carrying a recognised malware family / class signature from MalwareBazaar / ThreatFox / MyThreatIntel — aggregates by signature so the rule fires when 3+ samples of the same family are observed in-window.',
+      'File hash carrying a recognised malware family / class signature from MalwareBazaar / ThreatFox — aggregates by signature so the rule fires when 3+ samples of the same family are observed in-window.',
     match: {
       kind: 'hash',
       // Explicit allowlist of malware classes and high-prevalence family names.
@@ -93,7 +93,7 @@ export const DETECTION_RULES_PACK: DetectionRule[] = [
     severity: 'medium',
     description:
       'Several distinct phishing URLs impersonating the same brand within the live window — indicative of an active campaign rather than a one-off.',
-    match: { kind: 'url', source: ['phishtank', 'openphish'], contextRegex: '^brand:' },
+    match: { kind: 'url', source: 'openphish', contextRegex: '^brand:' },
     aggregate: { groupBy: 'context', minCount: 4 },
   },
   {
@@ -104,15 +104,6 @@ export const DETECTION_RULES_PACK: DetectionRule[] = [
       'IP reported by the SANS ISC sensor network and corroborated by at least one other feed — actively scanning/attacking and externally confirmed.',
     match: { kind: 'ip', source: ['sans-isc', 'emerging-threats', 'otx-reputation', 'c2-intel'] },
     aggregate: { groupBy: 'value', minCount: 2, distinctBy: 'source' },
-  },
-  {
-    id: 'tls-c2-infrastructure',
-    name: 'SSL/TLS-fingerprinted botnet C2',
-    severity: 'high',
-    description:
-      'IP on abuse.ch SSLBL — its TLS certificate fingerprint matches known botnet command-and-control. High-confidence proactive block.',
-    match: { kind: 'ip', source: 'sslbl-c2' },
-    minMatches: 1,
   },
   {
     id: 'anonymizer-abuse',
@@ -135,20 +126,11 @@ export const DETECTION_RULES_PACK: DetectionRule[] = [
     minMatches: 1,
   },
   {
-    id: 'website-defacement',
-    name: 'Active website defacement',
-    severity: 'low',
-    description:
-      'URL reported as a live defacement (Andrea Fortuna mirror). Indicates a compromised, publicly-facing web asset.',
-    match: { kind: 'url', source: 'andreafortuna-defacements' },
-    minMatches: 1,
-  },
-  {
     id: 'hash-multi-source-consensus',
     name: 'File hash confirmed across malware feeds',
     severity: 'high',
     description:
-      'Same file hash independently present in 2+ malware-sample feeds (MalwareBazaar / ThreatFox / MyThreatIntel) — corroborated malicious sample.',
+      'Same file hash independently present in 2+ malware-sample feeds (MalwareBazaar / ThreatFox) — corroborated malicious sample.',
     match: { kind: 'hash' },
     aggregate: { groupBy: 'value', minCount: 2, distinctBy: 'source' },
   },

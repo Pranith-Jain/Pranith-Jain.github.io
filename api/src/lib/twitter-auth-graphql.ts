@@ -677,3 +677,79 @@ export async function fetchSearchTimeline(
   }
   return body;
 }
+
+/* ─── Auth + query-ID health probe ─────────────────────────────────────────── */
+
+export interface XHealthStatus {
+  auth: 'ok' | 'missing' | 'expired';
+  qids: 'ok' | 'stale' | 'unknown';
+  rateLimited: boolean;
+  handle: string;
+  detail?: string;
+  checkedAt: string;
+}
+
+/** Stable, high-profile account used as a live canary for the health probe. */
+const HEALTH_CANARY_HANDLE = 'twitter';
+
+/**
+ * Live health probe for the X integration. Distinguishes the three failure
+ * modes an operator actually hits:
+ *   - auth `missing` — no cookies configured (KV override or worker secrets)
+ *   - auth `expired` — cookies present but X returns 401/403 (~30-day rotation)
+ *   - qids `stale`   — X rotated the GraphQL query IDs (HTTP 200 + errors field)
+ *
+ * Does a single small canary timeline fetch via the existing authed path, so it
+ * reuses the 30-min edge cache: a warm cache costs zero upstream calls, a cold
+ * one costs 1-2. Safe to run on the hourly cron for log-based alerting and
+ * on-demand from the admin UI.
+ */
+export async function checkXHealth(env: Env): Promise<XHealthStatus> {
+  const checkedAt = new Date().toISOString();
+  try {
+    await resolveAuthCookies(env);
+  } catch (e) {
+    return {
+      auth: 'missing',
+      qids: 'unknown',
+      rateLimited: false,
+      handle: HEALTH_CANARY_HANDLE,
+      detail: e instanceof Error ? e.message : String(e),
+      checkedAt,
+    };
+  }
+
+  try {
+    await fetchAuthedTimeline(env, HEALTH_CANARY_HANDLE, {
+      count: 1,
+      sinceDays: 1,
+      includePinned: false,
+      includeReplies: false,
+    });
+    return { auth: 'ok', qids: 'ok', rateLimited: false, handle: HEALTH_CANARY_HANDLE, checkedAt };
+  } catch (e) {
+    if (e instanceof XAuthRateLimitedError) {
+      return { auth: 'ok', qids: 'unknown', rateLimited: true, handle: HEALTH_CANARY_HANDLE, checkedAt };
+    }
+    if (e instanceof XAuthInvalidError) {
+      return {
+        auth: 'expired',
+        qids: 'unknown',
+        rateLimited: false,
+        handle: HEALTH_CANARY_HANDLE,
+        detail: `HTTP ${e.status}`,
+        checkedAt,
+      };
+    }
+    const msg = e instanceof Error ? e.message : String(e);
+    const stale = /GraphQL error|could not resolve|no result/i.test(msg);
+    return {
+      auth: 'ok',
+      qids: stale ? 'stale' : 'unknown',
+      rateLimited: false,
+      handle: HEALTH_CANARY_HANDLE,
+      detail: msg,
+      checkedAt,
+    };
+  }
+}

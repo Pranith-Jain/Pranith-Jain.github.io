@@ -37,12 +37,15 @@ describe('runFeedSourceById', () => {
 });
 
 describe('FEED_SOURCE_IDS', () => {
-  it('lists the 35 runner units in registry order', () => {
-    expect(FEED_SOURCE_IDS).toHaveLength(35);
+  it('lists the 27 runner units in registry order', () => {
+    expect(FEED_SOURCE_IDS).toHaveLength(27);
     expect(FEED_SOURCE_IDS[0]).toBe('tweetfeed');
     expect(FEED_SOURCE_IDS).toContain('emerging-threats');
-    expect(FEED_SOURCE_IDS).toContain('mythreatintel');
     expect(FEED_SOURCE_IDS).toContain('crypto-scam');
+    // Removed dead sources
+    expect(FEED_SOURCE_IDS).not.toContain('sslbl-c2');
+    expect(FEED_SOURCE_IDS).not.toContain('andreafortuna-defacements');
+    expect(FEED_SOURCE_IDS).not.toContain('mythreatintel');
   });
 
   it("uses the 'phishing' runner label, not its response ids", () => {

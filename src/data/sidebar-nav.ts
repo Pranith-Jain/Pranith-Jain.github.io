@@ -116,13 +116,9 @@ export interface SidebarConfig {
  */
 const PAGE_ICON_OVERRIDES: Record<string, LucideIcon> = {
   // Actors
-  '/threatintel/actors/directory': Users,
-  '/threatintel/actors/timeline': ScrollText,
-  '/threatintel/actors/dna': Share2,
-  '/threatintel/actors/usernames': UserSearch,
+  '/threatintel/actors/hub': Users,
   '/threatintel/actors/attribution': Telescope,
   '/threatintel/actors/catalog': BookOpen,
-  '/threatintel/actors/graph': Share2,
   '/threatintel/apt-actors': Shield,
   '/threatintel/aptmap': Crosshair,
   // Campaigns
@@ -170,13 +166,12 @@ const PAGE_ICON_OVERRIDES: Record<string, LucideIcon> = {
   // Dark web
   '/threatintel/darkweb/watch': Globe,
   '/threatintel/darkweb/markets': StoreIcon,
-  '/threatintel/darkweb/forums': MessageSquare,
+  '/threatintel/breach-hub': MessageSquare,
   '/threatintel/darkweb/deepdark': NetworkIcon,
   '/threatintel/darkweb/crime': ShoppingBagIcon,
   '/threatintel/darkweb/bitcoin': AlertOctagon,
   '/threatintel/darkweb/infostealer': KeyRound,
   '/threatintel/darkweb/leaks': LockIcon,
-  '/threatintel/darkweb/disclosures': FileText,
   '/threatintel/darkweb/ransom-report': FileText,
   '/threatintel/darkweb/ransom-activity': Flame,
   '/threatintel/darkweb/ransom-map': MapPinIcon,
@@ -237,7 +232,7 @@ const PAGE_ICON_OVERRIDES: Record<string, LucideIcon> = {
   '/threatintel/tools/darknet-intel': Shield,
   // External
   '/threatintel/external/external': ExternalLink,
-  '/threatintel/external/supply': Package,
+  '/threatintel/supply-chain': Package,
   '/threatintel/external/awesome': StarIcon,
   // Predictive
   '/threatintel/predictive/dashboard': LayoutDashboard,
