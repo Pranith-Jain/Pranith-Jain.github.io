@@ -7,6 +7,7 @@ interface PulseSnapshot {
 }
 
 const GP_CACHE_KEY = 'https://global-pulse-cache.internal/v22-cyber-tech-geo';
+const GP_KV_KEY = 'gp:response:v1';
 const MAX_CONNECTIONS = 50;
 
 export class GlobalPulseDO {
@@ -89,12 +90,30 @@ export class GlobalPulseDO {
   }
 
   private async pollFeeds(): Promise<void> {
-    const cache = caches.default;
     try {
+      // Try Cache API first (per-colo, fast). Fall back to KV (global) if
+      // the cache entry expired — the handler writes to both, but the
+      // Cache API entry has a 300s TTL and may be cold if no request has
+      // triggered a rebuild recently. Without this KV fallback, the DO
+      // silently stops broadcasting once the cache expires, making the
+      // page appear "stuck at 1 hour ago".
+      const cache = caches.default;
       const cached = await cache.match(new Request(GP_CACHE_KEY));
-      if (!cached) return;
+      let bodyText: string | null = null;
 
-      const body = (await cached.json()) as {
+      if (cached) {
+        bodyText = await cached.text();
+      } else {
+        // KV fallback — global, so any colo can read the last successful build.
+        const kv = (this.env as { KV_CACHE?: KVNamespace }).KV_CACHE;
+        if (kv) {
+          bodyText = await kv.get(GP_KV_KEY, 'text');
+        }
+      }
+
+      if (!bodyText) return;
+
+      const body = JSON.parse(bodyText) as {
         generated_at: string;
         events: Array<{
           id: string;

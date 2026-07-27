@@ -926,12 +926,17 @@ export default function GlobalPulse(): JSX.Element {
       load();
     }
   }, [wsConnected, wsGeneratedAt, autoRefresh, load]);
+  // Polling fallback — always poll every 60s when autoRefresh is on, even
+  // if the WS is connected. The DO only broadcasts when the cache
+  // generated_at changes; if the cache rebuild is delayed or the DO's
+  // alarm isn't firing, the page would otherwise appear "stuck at 1 hour
+  // ago". This guarantees the data stays fresh regardless of WS state.
   useEffect(() => {
-    if (!autoRefresh || wsConnected) {
+    if (!autoRefresh) {
       if (intervalRef.current) clearInterval(intervalRef.current);
       return;
     }
-    intervalRef.current = setInterval(load, 30_000);
+    intervalRef.current = setInterval(load, 60_000);
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
