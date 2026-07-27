@@ -191,7 +191,7 @@ export default {
           if (m) kvKey = `db:body:${m[1]}:${m[2]}`;
         }
         if (kvKey) {
-          const kvData = await env.KV_CACHE.get(kvKey, 'json');
+          const kvData = (await env.KV_CACHE.get(kvKey, 'json')) as { briefs?: unknown[] } | null;
           // For the index, skip KV if it's empty (stale/cleared) so the
           // committed static manifest in ASSETS is used as fallback.
           const useKv = kvData && (kvKey !== 'db:index' || (Array.isArray(kvData.briefs) && kvData.briefs.length > 0));

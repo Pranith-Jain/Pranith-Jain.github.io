@@ -22,6 +22,11 @@ const FALLBACK: Record<OgImageType, string> = {
   blog: '/og-image.png',
 };
 
+/** Global-KV TTL for a rendered card. Cards are slug-stable, so a long TTL
+ *  keeps cross-colo reads cheap; 7 days bounds KV storage to recently-shared
+ *  posts while covering the window a post is actively circulating. */
+const OG_KV_TTL_SECONDS = 7 * 24 * 3600;
+
 function pngResponse(bytes: BodyInit, longLived: boolean): Response {
   return new Response(bytes, {
     headers: {
@@ -55,12 +60,38 @@ export async function handleOgImage(request: Request, env: Env, url: URL, ctx: E
   const cached = await caches.default.match(cacheKey);
   if (cached) return cached;
 
+  // Global KV cache. The Cache-API entry above is per-colo, so a crawler in a
+  // cold colo would otherwise re-run the resvg-wasm rasterisation — whose
+  // cold-start (wasm instantiate + 2 font fetches + render) can exceed the
+  // Worker CPU budget and return HTTP 503, which X/LinkedIn read as "no card"
+  // (the isolate is killed before the static fallback can run). KV is global,
+  // so once ANY colo has rendered the card, every colo serves these bytes with
+  // one cheap read and zero rasterisation. Rewritten on every successful render.
+  const kvKey = `og:png:v2:${type}:${slug}`;
+  if (env.KV_CACHE) {
+    const kvPng = (await env.KV_CACHE.get(kvKey, 'arrayBuffer').catch(() => null)) as ArrayBuffer | null;
+    if (kvPng && kvPng.byteLength > 0) {
+      const res = pngResponse(kvPng, true);
+      // Warm the per-colo Cache-API too, so repeat crawls in this colo skip KV.
+      ctx.waitUntil(caches.default.put(cacheKey, res.clone()).catch(() => {}));
+      return res;
+    }
+  }
+
   try {
     const data = await loadOgData(env, type, slug);
     if (!data) return staticFallback(env, type);
     const png = await svgToPng(env, generateOgSvg(data));
     const res = pngResponse(png, true);
     ctx.waitUntil(caches.default.put(cacheKey, res.clone()).catch((e) => console.warn('og-cache put failed:', e)));
+    // Publish to global KV so other colos serve it without re-rasterising.
+    if (env.KV_CACHE) {
+      ctx.waitUntil(
+        env.KV_CACHE.put(kvKey, png as unknown as ArrayBuffer, { expirationTtl: OG_KV_TTL_SECONDS }).catch((e) =>
+          console.warn('og-kv put failed:', e)
+        )
+      );
+    }
     return res;
   } catch (err) {
     console.error('og-image render failed:', err instanceof Error ? err.message : String(err));

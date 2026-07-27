@@ -34,6 +34,15 @@ export interface RunPublisherDeps {
    * When false, behaviour is identical to the previous auto-publish flow.
    */
   requireApproval?: boolean;
+  /**
+   * Optional best-effort OG-card pre-warm, called once a post is public.
+   * Renders + caches the post's social share image (global KV + per-colo
+   * Cache-API) so the first X/LinkedIn crawl gets a cached PNG instead of
+   * triggering a cold resvg-wasm rasterisation that can exceed the Worker
+   * CPU budget and 503 (which the platforms read as "no card"). Failures
+   * are swallowed — warming is an optimisation, never a publish blocker.
+   */
+  warmOg?: (slug: string) => Promise<void>;
 }
 
 export async function runPublisher(deps: RunPublisherDeps): Promise<{ published: number; slug?: string }> {
@@ -98,6 +107,15 @@ export async function runPublisher(deps: RunPublisherDeps): Promise<{ published:
     await deps.unapprove(candidate.key);
     await deps.touchDedup(candidate.key, deps.now, post.slug);
     await deps.markSlotStatus(slot.candidateId, 'published', { publishedSlug: post.slug });
+
+    // Pre-warm the social share image now that the post is public, so the
+    // first X/LinkedIn crawl hits a cached PNG (global KV) rather than a
+    // cold rasterisation that can 503. Best-effort — never blocks publishing.
+    if (deps.warmOg) {
+      await deps
+        .warmOg(post.slug)
+        .catch((e) => console.warn('og warm failed:', e instanceof Error ? e.message : String(e)));
+    }
 
     console.log(
       JSON.stringify({

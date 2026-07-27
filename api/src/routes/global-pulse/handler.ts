@@ -8,10 +8,9 @@ import type {
   ActorTimelineResponse,
   IocCorrelationResponse,
 } from './types';
-import { GP_FEEDS, gpWarmKey, GLOBAL_PULSE_CACHE, CACHE_TTL } from './config';
+import { GP_FEEDS, gpWarmKey, GLOBAL_PULSE_CACHE, CACHE_TTL, GP_RESPONSE_KEY } from './config';
 import { listBriefings } from '../../lib/briefing-builder';
 import { readKvJson } from './shared';
-import { selfFetchJson } from '../../lib/self-fetch';
 import { signInternalToken } from '../../lib/internal-token';
 import {
   iocFromThreatMap,
@@ -91,6 +90,24 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
 
     const kv = c.env.KV_CACHE;
 
+    // Global full-response cache (KV is global; the Cache-API above is per-colo).
+    // A reader in a colo that hasn't built the response recently serves the last
+    // successful build with ONE cheap KV read instead of re-running the whole
+    // multi-source build — which on a cold cache can exceed the Free-plan
+    // 50-subrequest cap and return HTTP 503. Rewritten at the end of every build.
+    if (kv) {
+      const kvBody = await kv.get(GP_RESPONSE_KEY);
+      if (kvBody) {
+        return new Response(kvBody, {
+          headers: {
+            'content-type': 'application/json',
+            'cache-control': `public, max-age=${CACHE_TTL}`,
+            'access-control-allow-origin': '*',
+          },
+        });
+      }
+    }
+
     // ── Per-source data sources ───────────────────────────────────────
     // NOTE: the per-source Cache-API entries (CACHE_KEYS.*) are NEVER written —
     // only the full-response cache (GLOBAL_PULSE_CACHE) and the cron's `gp:*` KV
@@ -157,45 +174,20 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     // returned null for every feed when KV was cold — making every page visit
     // a fresh invocation with no data. SELF.fetch() avoids the loopback.
     const self = c.env.SELF;
-    const fetchDirect = async (path: string): Promise<unknown | null> => {
-      return selfFetchJson<unknown>(self, path, c.env);
-    };
 
-    // Build list of all missing endpoints — fetch them all in parallel
-    const missing: Array<[string, string]> = [];
-    if (!finalTm) missing.push(['/api/v1/threat-map', 'tm']);
-    if (!finalReddit) missing.push(['/api/v1/reddit-feed', 'reddit']);
-    if (!finalX) missing.push(['/api/v1/x-feed', 'x']);
-    if (!finalCve) missing.push(['/api/v1/cve-recent?days=7', 'cve']);
-    if (!finalRansom) missing.push(['/api/v1/ransomware-recent?days=7', 'ransom']);
-    if (!finalBreach) missing.push(['/api/v1/breach-disclosures', 'breach']);
-    if (!finalIoc) missing.push(['/api/v1/live-iocs', 'ioc']);
-    if (!finalPhishing) missing.push(['/api/v1/phishing-urls', 'phishing']);
-    if (!finalMalware) missing.push(['/api/v1/malware-samples', 'malware']);
-    if (!finalScam) missing.push(['/api/v1/crypto-scam-feed', 'scam']);
-    if (!finalXClaims) missing.push(['/api/v1/x-claims', 'xclaims']);
-    if (!finalActor) missing.push(['/api/v1/actor-timeline', 'actor']);
-    if (!finalIocCorr) missing.push(['/api/v1/ioc-correlation', 'iocc']);
-    if (!finalFirms) missing.push(['/api/v1/firms-fires', 'firms']);
-    if (!finalUkmto) missing.push(['/api/v1/ukmto-incidents', 'ukmto']);
-    if (!finalSecretLeaks) missing.push(['/api/v1/secret-leaks', 'secretleaks']);
-    if (!finalMalpkg) missing.push(['/api/v1/malicious-packages', 'malpkg']);
-    if (!finalExploit) missing.push(['/api/v1/exploit-db?latest=1', 'exploit']);
-    if (!finalGhsa) missing.push(['/api/v1/github-security?ecosystem=npm', 'ghsa']);
-    if (!finalKev) missing.push(['/api/v1/cisa-kev?days=30', 'kev']);
-
-    // Fetch all missing in parallel (Workers subrequest limit is 50)
-    const directResults = await Promise.all(missing.map(([path]) => fetchDirect(path)));
-
-    // Apply direct results to fill in all gaps
+    // The warm KV slices (gp:warm:<key>, warmed globally by the queue consumer
+    // — one feed per invocation, 90-min TTL) are the read source for feed data.
+    //
+    // The previous fallback fanned out to ~20 SELF service-binding calls here
+    // (one per feed missing from warm KV). Each call re-entered a feed handler
+    // that does its OWN upstream fetches, so a cold-cache rebuild spent
+    // 20 service-binding subrequests + their internal fetches + the 22 KV reads
+    // + the 10 external layers below — well past the Free-plan 50-subrequest
+    // cap — and Cloudflare returned HTTP 503 ("Couldn't load this"). Removed:
+    // when a feed is absent from warm KV we skip that layer (a degraded map,
+    // not a failed page). The conditional signedSelfFetch calls further down
+    // still top up the highest-value feeds within budget.
     const direct: Record<string, unknown> = {};
-    for (let i = 0; i < missing.length; i++) {
-      const entry = missing[i];
-      if (!entry) continue;
-      const [, key] = entry;
-      const data = directResults[i];
-      if (data) direct[key] = data;
-    }
 
     // Final merged data — cache/KV takes priority, direct is fallback
     const mergedTm = finalTm ?? (direct.tm as typeof finalTm);
@@ -719,6 +711,13 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       },
     });
     c.executionCtx.waitUntil(cache.put(cacheReq, response.clone()));
+    // Also publish the full response to global KV so readers in other colos
+    // serve it cheaply (see the read at the top of this handler) instead of
+    // each colo re-running the build. Best-effort: a KV write failure must not
+    // fail the response that's already built.
+    if (kv) {
+      c.executionCtx.waitUntil(kv.put(GP_RESPONSE_KEY, json, { expirationTtl: CACHE_TTL }).catch(() => {}));
+    }
 
     // NOTE: global-pulse does NOT write the warm keys. A Worker can't fetch its
     // own public endpoints (loopback fails), so this handler's direct-fetch

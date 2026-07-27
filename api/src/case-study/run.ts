@@ -527,6 +527,17 @@ export async function runPublisherNow(env: CaseStudyEnv, now: Date) {
     recordFailure: (rec) => recordFailure(env.CASE_STUDIES, rec),
     now,
     requireApproval,
+    // Pre-warm the post's social share image at publish time. The SELF-fetch
+    // routes to the worker's /api/v1/og-image handler, which renders the card
+    // and caches it in global KV + per-colo Cache-API — so the first X/LinkedIn
+    // crawl gets a cached PNG instead of a cold resvg-wasm rasterisation that
+    // can exceed the Worker CPU budget and 503 ("no card" on the share).
+    warmOg: env.SELF
+      ? (slug) =>
+          env
+            .SELF!.fetch(new Request(`https://self/api/v1/og-image/blog/${encodeURIComponent(slug)}.png`))
+            .then(() => {})
+      : undefined,
   });
 
   // Fire-and-forget auto-generation of social copy when a post was published
