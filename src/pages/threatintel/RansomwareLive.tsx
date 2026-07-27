@@ -23,7 +23,7 @@ import { ClusterTabs, RANSOMWARE_TABS } from '../../components/threatintel/Clust
 import { useSearchParams } from 'react-router-dom';
 
 /**
- * ransomware.live PRO surface — 7 purpose-built tabs consuming the
+ * ransomware.live PRO surface - 7 purpose-built tabs consuming the
  * server-side authenticated proxy at /api/v1/rl/* plus the KQL scraper
  * and the existing ransomware-map country aggregation.
  *
@@ -157,9 +157,15 @@ function useFetch<T>(
   const [error, setError] = useState<string | null>(null);
   const [tick, setTick] = useState(0);
   const fetchedRef = useRef(false);
+  const fetchedUrlRef = useRef<string | null>(null);
 
   useEffect(() => {
     if (!url) return;
+    // Reset the fetched flag when the URL changes so each tab gets its own fetch.
+    if (fetchedUrlRef.current !== url) {
+      fetchedRef.current = false;
+      fetchedUrlRef.current = url;
+    }
     if (fetchedRef.current && tick === 0) {
       setError(null);
       setLoading(false);
@@ -255,7 +261,7 @@ function GroupsView({ data }: { data: unknown }): JSX.Element {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="filter groups…"
-            className="w-full pl-7 pr-2 py-1.5 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-transparent text-sm font-mono focus:border-rose-500/40 outline-none"
+            className="w-full pl-7 pr-2 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-transparent text-sm font-mono focus:border-rose-500/40 outline-none"
           />
         </div>
         <span className="font-mono text-micro text-slate-400">{filtered.length} groups</span>
@@ -423,7 +429,7 @@ function InfostealerView({ data }: { data: unknown }): JSX.Element {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="filter victims…"
-            className="w-full pl-7 pr-2 py-1.5 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-transparent text-sm font-mono focus:border-rose-500/40 outline-none"
+            className="w-full pl-7 pr-2 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-transparent text-sm font-mono focus:border-rose-500/40 outline-none"
           />
         </div>
         <span className="font-mono text-micro text-slate-400">{filtered.length} victims</span>
@@ -479,12 +485,12 @@ function InfostealerView({ data }: { data: unknown }): JSX.Element {
                     src={screenshot}
                     alt={`${victim} leak screenshot`}
                     loading="lazy"
-                    className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] max-h-32 w-full object-cover"
+                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] max-h-32 w-full object-cover"
                   />
                 </a>
               )}
               {hasInfostealer && isRecord(infostealer) && (
-                <div className="mt-2 rounded-lg border border-amber-500/30 bg-amber-500/5 p-2">
+                <div className="mt-2 rounded-xl border border-amber-500/30 bg-amber-500/5 p-2">
                   <div className="text-micro font-mono text-amber-700 dark:text-amber-300 mb-1">
                     HudsonRock Infostealer
                   </div>
@@ -518,7 +524,7 @@ function YaraView({ data }: { data: unknown }): JSX.Element {
       <div className="grid gap-2 md:grid-cols-2 lg:grid-cols-3">
         {rows.map((r, i) => {
           const name = pick(r, ['group', 'name']) ?? `#${i + 1}`;
-          const count = pick(r, ['rules', 'count', 'total']);
+          const count = pick(r, ['yara_count', 'rules', 'count', 'total']);
           return (
             <button
               key={name}
@@ -601,9 +607,13 @@ function IocView({ data }: { data: unknown }): JSX.Element {
       <div className="grid gap-2 md:grid-cols-2 lg:grid-cols-3">
         {rows.map((r, i) => {
           const name = pick(r, ['group', 'name']) ?? `#${i + 1}`;
-          const typeEntries = Object.entries(r).filter(
-            ([k, v]) => k !== 'group' && k !== 'name' && (typeof v === 'number' || Array.isArray(v))
-          );
+          // IoC list nests type counts under `ioc_types` (e.g. {md5: 4, btc: 7}).
+          const iocTypes = isRecord(r.ioc_types) ? r.ioc_types : null;
+          const typeEntries = iocTypes
+            ? Object.entries(iocTypes).filter(([, v]) => typeof v === 'number')
+            : Object.entries(r).filter(
+                ([k, v]) => k !== 'group' && k !== 'name' && (typeof v === 'number' || Array.isArray(v))
+              );
           const total = typeEntries.reduce(
             (s, [, v]) => s + (typeof v === 'number' ? v : Array.isArray(v) ? v.length : 0),
             0
@@ -678,7 +688,7 @@ function IocValues({ group, onBack }: { group: string; onBack: () => void }): JS
                   {copied ? <Check size={10} /> : <Copy size={10} />} copy all
                 </button>
               </div>
-              <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] p-2 max-h-48 overflow-auto">
+              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] p-2 max-h-48 overflow-auto">
                 {arr.slice(0, 200).map((v, i) => (
                   <div key={i} className="font-mono text-mini text-slate-600 dark:text-slate-400 py-0.5 break-all">
                     {typeof v === 'string' ? v : JSON.stringify(v)}
@@ -755,7 +765,7 @@ function KqlView(): JSX.Element | null {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="filter by title, group, MITRE…"
-            className="w-full pl-7 pr-2 py-1.5 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-transparent text-sm font-mono focus:border-rose-500/40 outline-none"
+            className="w-full pl-7 pr-2 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-transparent text-sm font-mono focus:border-rose-500/40 outline-none"
           />
         </div>
         <span className="font-mono text-micro text-slate-400">
@@ -879,7 +889,7 @@ function CountryMapView(): JSX.Element | null {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="filter countries…"
-            className="w-full pl-7 pr-2 py-1.5 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-transparent text-sm font-mono focus:border-rose-500/40 outline-none"
+            className="w-full pl-7 pr-2 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-transparent text-sm font-mono focus:border-rose-500/40 outline-none"
           />
         </div>
       </div>
