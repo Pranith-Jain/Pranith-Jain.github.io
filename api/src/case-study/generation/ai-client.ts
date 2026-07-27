@@ -91,6 +91,62 @@ export function isAuthError(err: unknown): boolean {
   );
 }
 
+/**
+ * A 413 / "request too large" means THIS prompt exceeds the model's input
+ * window — it is NOT a provider-health signal. Distinguished so the circuit
+ * breaker isn't tripped by one oversized prompt (which would wrongly skip the
+ * provider for every subsequent, possibly smaller, request).
+ */
+export function isRequestTooLarge(err: unknown): boolean {
+  const msg = (err instanceof Error ? err.message : String(err)).toLowerCase();
+  return msg.includes('413') || msg.includes('too large') || msg.includes('request too large');
+}
+
+// ── Workers AI fallback ─────────────────────────────────────────────────
+// Always available on the Worker (no external API key, no shared quota) and
+// large-context, so it neither 413s on a big prompt nor trips the same rate
+// limits as the external providers. The last line of defence when Groq,
+// Gemini, and NVIDIA are all rate-limited / circuit-broken / oversized /
+// timed out. Model order mirrors the proven chain in routes/agent.ts.
+const WORKERS_AI_MODELS = [
+  '@cf/meta/llama-3.3-70b-instruct-fp8-fast',
+  '@cf/qwen/qwen3-30b-a3b-fp8',
+  '@cf/openai/gpt-oss-120b',
+  '@cf/meta/llama-3.1-8b-instruct',
+];
+
+interface WorkersAiBinding {
+  run: (model: string, input: Record<string, unknown>) => Promise<unknown>;
+}
+
+function isWorkersAi(ai: unknown): ai is WorkersAiBinding {
+  return !!ai && typeof ai === 'object' && typeof (ai as { run?: unknown }).run === 'function';
+}
+
+async function runWorkersAI(ai: WorkersAiBinding, input: CompletionInput): Promise<{ text: string; model: string }> {
+  let lastErr = 'no model attempted';
+  for (const model of WORKERS_AI_MODELS) {
+    try {
+      const res = (await ai.run(model, {
+        messages: [
+          { role: 'system', content: input.system },
+          { role: 'user', content: input.user },
+        ],
+        max_tokens: input.maxTokens ?? 4000,
+        temperature: input.temperature ?? 0.5,
+      })) as { response?: string; choices?: Array<{ message?: { content?: string } }> };
+      const text =
+        (typeof res?.response === 'string' ? res.response : undefined) ?? res?.choices?.[0]?.message?.content;
+      if (typeof text === 'string' && text.trim()) return { text, model };
+      lastErr = `${model}: empty response`;
+    } catch (err) {
+      lastErr = `${model}: ${err instanceof Error ? err.message : String(err)}`;
+      console.error(`runWorkersAI ${lastErr.slice(0, 200)}`);
+    }
+  }
+  throw new Error(`workers-ai exhausted: ${lastErr}`);
+}
+
 async function runGroq(key: string, input: CompletionInput, model?: string): Promise<string> {
   let res: Response;
   try {
@@ -228,6 +284,12 @@ export async function runCompletion(
           const errMsg = err instanceof Error ? err.message : String(err);
           console.error(`runCompletion groq:${model} failed: ${errMsg.slice(0, 200)}`);
           errors.push(`groq:${model}: ${errMsg.slice(0, 80)}`);
+          // A 413 means THIS prompt is too big for Groq's models — the remaining
+          // Groq models will also 413 on the same input, and it isn't a provider-
+          // health signal, so bail without tripping the circuit breaker (which
+          // would wrongly skip Groq for later, smaller requests). Fall through to
+          // gemini/nvidia/workers-ai, which have larger input windows.
+          if (isRequestTooLarge(err)) break;
           if (health) await health.recordFailure('groq', isRateLimited(err));
           if (isAuthError(err)) break;
         }
@@ -256,6 +318,20 @@ export async function runCompletion(
         errors.push(`nvidia: ${errMsg.slice(0, 80)}`);
         if (health) await health.recordFailure('nvidia', isRateLimited(err));
       }
+    }
+  }
+
+  // Final fallback: Workers AI — always available on the Worker, large-context
+  // (won't 413 on a big LinkedIn prompt), and not subject to the external
+  // providers' rate limits. This is what closes the
+  // "All LLM providers exhausted" failure when Groq/Gemini/NVIDIA are all
+  // rate-limited, circuit-broken, oversized, or timed out.
+  if (isWorkersAi(_ai)) {
+    try {
+      const { text, model } = await runWorkersAI(_ai, input);
+      return { text, modelUsed: `workers-ai:${model.split('/').pop()}` };
+    } catch (err) {
+      errors.push(`workers-ai: ${(err instanceof Error ? err.message : String(err)).slice(0, 80)}`);
     }
   }
 
