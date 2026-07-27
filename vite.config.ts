@@ -124,6 +124,9 @@ const clientResolveAlias = {
   'react-dom': 'preact/compat',
   'react-dom/test-utils': 'preact/test-utils',
   'react/jsx-runtime': 'preact/jsx-runtime',
+  // react-simple-maps ships a UMD "browser" build that references prop-types
+  // as a bare external — rolldown can't resolve it. Force the ESM build.
+  'react-simple-maps': 'react-simple-maps/dist/index.es.js',
 };
 
 export default defineConfig(({ mode }) => ({

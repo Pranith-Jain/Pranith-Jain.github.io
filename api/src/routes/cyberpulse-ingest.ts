@@ -1155,6 +1155,7 @@ const TELEGRAM_BREACH_CHANNELS = new Set([
   'secharvester',
   'ctinow',
   'ctiwatch',
+  'FSECINTELES2',
   'BleepingComputer',
   'TheHackerNews',
   'cyber_security_channel',

@@ -64,7 +64,7 @@ interface ChannelSpec {
 /**
  * Curated channel set. Each handle is liveness-probed before inclusion —
  * we only ship channels that (a) expose t.me/s/<handle> previews and
- * (b) have posted within the last ~30 days. Last verified 2026-05-12.
+ * (b) have posted within the last ~30 days. Last verified 2026-07-27.
  *
  * Channels we used to carry but had to drop because they went silent or
  * disabled previews (kept here as a "do not re-add without re-checking"
@@ -228,6 +228,13 @@ const CHANNELS: ChannelSpec[] = [
     handle: 'ctiwatch',
     name: 'CTI Watch',
     blurb: 'Curated threat intelligence watch — IOCs, TTPs, and incident tracking',
+    topic: 'osint',
+  },
+  // FSEC INTELS — threat intelligence firehose (IOCs, breach/leak alerts, actor tracking)
+  {
+    handle: 'FSECINTELES2',
+    name: 'FSEC Intel',
+    blurb: 'FSEC threat-intelligence firehose — IOCs, breach alerts, and actor tracking',
     topic: 'osint',
   },
 ];
@@ -905,7 +912,7 @@ export async function fetchTelegramFeed(kv?: KVNamespace, env?: Env): Promise<Te
 /** Exported so /api/v1/snapshot can read the same cached payload directly. */
 // Bumped v8 → v9 alongside MAX_MESSAGES_PER_CHANNEL 8→20 and the 7d filter
 // so the next request abandons any cached payload built under the old caps.
-export const TELEGRAM_FEED_CACHE_KEY = 'https://telegram-feed-cache.internal/v12-telegram-me';
+export const TELEGRAM_FEED_CACHE_KEY = 'https://telegram-feed-cache.internal/v13-telegram-me';
 
 // Bump value is read on every TG feed visit to invalidate the cache
 // when custom channels change. Shadow it in caches.default with a 60s
