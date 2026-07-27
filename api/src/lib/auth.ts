@@ -63,7 +63,12 @@ function clearFailedAuth(ip: string): void {
  */
 export function valveOpenUntilMs(raw: string | undefined | null): number | null {
   const v = (raw ?? '').trim();
-  if (v === '' || v.toLowerCase() === 'true') return null;
+  if (v === '') return null;
+  // Legacy 'true' / 'yes' / 'on' → open indefinitely (no expiry). Represent
+  // as Number.MAX_SAFE_INTEGER so the `Date.now() < openUntil` check always
+  // passes. Returning null here (the old behaviour) was interpreted by the
+  // caller as "valve closed", which silently broke the emergency valve.
+  if (/^(true|yes|on)$/i.test(v)) return Number.POSITIVE_INFINITY;
   if (/^\d{10,}$/.test(v)) {
     const ms = Number(v);
     return Number.isFinite(ms) && ms > Date.now() ? ms : null;
@@ -272,7 +277,7 @@ export function authenticate(mode: boolean | 'external-only'): MiddlewareHandler
             message: 'OPEN_PUBLIC_READS valve open — keyless reads allowed until expiry.',
             path: new URL(c.req.url).pathname,
             method: c.req.method,
-            open_until: new Date(openUntil).toISOString(),
+            open_until: openUntil === Number.POSITIVE_INFINITY ? 'indefinite' : new Date(openUntil).toISOString(),
           })
         );
         return next();

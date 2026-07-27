@@ -205,10 +205,16 @@ export class InvestigatorAgentDO {
       if (cleaned) return;
       cleaned = true;
       this.sessions.delete(sessionId);
+      const agentId = this.sessionAgentIds.get(sessionId);
       this.sessionAgentIds.delete(sessionId);
       const remaining = this.ipConnections.get(clientIp) ?? 1;
       if (remaining <= 1) this.ipConnections.delete(clientIp);
       else this.ipConnections.set(clientIp, remaining - 1);
+      // Evict the cost tracker for the agent this session was watching so
+      // abandoned/crashed investigations don't leak memory. Completed
+      // investigations delete their own entry (line ~906), but a client
+      // disconnecting mid-investigation would otherwise leave it behind.
+      if (agentId) this.costTrackers.delete(agentId);
     };
     server.addEventListener('close', cleanup);
     server.addEventListener('error', cleanup);
