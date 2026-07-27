@@ -136,6 +136,14 @@ export const SOURCE_RELIABILITY_REGISTRY: Record<string, SourceReliabilityEntry>
     category: 'secondary',
     description: 'Breach aggregation service — community-sourced corpus',
   },
+  breachvip: {
+    id: 'breachvip',
+    name: 'BreachVIP',
+    reliability: 'C',
+    category: 'secondary',
+    description: 'Free breach search engine — 10B+ records across 1000+ datasets',
+    known_bias: 'Aggregated from public dumps; coverage skews toward widely-circulated breaches',
+  },
 
   // ── Secondary sources ───────────────────────────────────────────────────
   'telegram-feed': {

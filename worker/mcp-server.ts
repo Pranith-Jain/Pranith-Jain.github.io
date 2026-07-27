@@ -789,6 +789,106 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       }
     );
 
+    // ── BreachVIP search (direct, full field set) ──────────────────────
+    // Calls the BreachVIP API (https://breach.vip/api/search) directly so an
+    // MCP client can query the 10B+ record corpus across ALL supported fields
+    // (email, username, domain, ip, phone, password, name, uuid, steamid,
+    // discordid) — not just the email/domain subset that /api/v1/breach/* fans
+    // out. Returns metadata-only grouped results (breach name + record count +
+    // exposed data classes); raw credential values are never surfaced.
+    this.tools(
+      'breach_vip_search',
+      'Search the BreachVIP breach corpus (10B+ records, 1000+ datasets) directly. Supports 10 field types (email, username, domain, ip, phone, password, name, uuid, steamid, discordid). Returns grouped metadata: breach name, record count, and exposed data classes — raw credentials are never surfaced.',
+      {
+        term: z.string().min(1).max(100).describe('Search term (e.g. an email, domain, username, or IP)'),
+        fields: z
+          .array(
+            z.enum(['email', 'password', 'domain', 'username', 'ip', 'name', 'uuid', 'steamid', 'phone', 'discordid'])
+          )
+          .min(1)
+          .max(10)
+          .describe('Field(s) to search the term against'),
+        wildcard: z.boolean().optional().describe('Treat * and ? in the term as wildcard operators (default false)'),
+        case_sensitive: z.boolean().optional().describe('Case-sensitive search (default false)'),
+      },
+      async ({ term, fields, wildcard, case_sensitive }) => {
+        const UA = 'Mozilla/5.0 (compatible; pranithjain-dfir/1.0; +https://pranithjain.qzz.io)';
+        const body = JSON.stringify({
+          term,
+          fields,
+          ...(wildcard !== undefined ? { wildcard } : {}),
+          ...(case_sensitive !== undefined ? { case_sensitive } : {}),
+        });
+        try {
+          const res = await fetch('https://breach.vip/api/search', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json', accept: 'application/json', 'user-agent': UA },
+            body,
+            signal: AbortSignal.timeout(10000),
+          });
+          if (!res.ok) {
+            return untrustedToolResult({
+              error: `breach.vip returned HTTP ${res.status}`,
+              note: 'The site sits behind a Cloudflare managed challenge that may block server-side egress.',
+            });
+          }
+          const ct = res.headers.get('content-type') ?? '';
+          if (!ct.includes('json')) {
+            return untrustedToolResult({
+              error: 'breach.vip returned a non-JSON response (likely a Cloudflare challenge page)',
+              results: [],
+            });
+          }
+          const data = (await res.json()) as { results?: Array<{ source: string; [k: string]: unknown }> };
+          const results = data.results ?? [];
+          // Group by breach source — same metadata-only approach as the route.
+          const FIELD_LABELS: Record<string, string> = {
+            email: 'Email addresses',
+            password: 'Passwords',
+            username: 'Usernames',
+            name: 'Names',
+            phone: 'Phone numbers',
+            domain: 'Domains',
+            ip: 'IP addresses',
+            uuid: 'Minecraft UUIDs',
+            steamid: 'Steam IDs',
+            discordid: 'Discord IDs',
+          };
+          const groups = new Map<string, { count: number; fields: Set<string> }>();
+          for (const r of results) {
+            const name = r.source || 'Unknown';
+            const g = groups.get(name) ?? { count: 0, fields: new Set<string>() };
+            g.count++;
+            for (const key of Object.keys(r)) {
+              if (key !== 'source' && key !== 'categories' && FIELD_LABELS[key]) g.fields.add(key);
+            }
+            groups.set(name, g);
+          }
+          const grouped = Array.from(groups.entries())
+            .sort((a, b) => b[1].count - a[1].count)
+            .slice(0, 50)
+            .map(([name, g]) => ({
+              breach: name,
+              record_count: g.count,
+              data_classes: Array.from(g.fields)
+                .map((f) => FIELD_LABELS[f])
+                .filter((v): v is string => Boolean(v)),
+            }));
+          return untrustedToolResult({
+            total_records: results.length,
+            breaches_returned: grouped.length,
+            breaches: grouped,
+            note: 'Metadata only — record counts and data-class labels. Raw credential values are never surfaced. BreachVIP rate limit: 15 req/min.',
+          });
+        } catch (err) {
+          return untrustedToolResult({
+            error: `breach.vip request failed: ${err instanceof Error ? err.message : String(err)}`,
+            results: [],
+          });
+        }
+      }
+    );
+
     // ── Feed Status ──────────────────────────────────────────────────────
     this.tools(
       'get_feed_status',

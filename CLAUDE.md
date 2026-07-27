@@ -248,6 +248,29 @@ Returns per-engine antivirus/reputation verdicts (Safe/Malicious/Unknown/Failed)
 
 **Secret**: `TRACEIX_API_KEY` (`wrangler secret put TRACEIX_API_KEY`)
 
+## BreachVIP — Breach Database Search
+
+A breach data source integrated into the existing `/dfir/breach` checker.
+[BreachVIP](https://breach.vip) is a free, keyless breach search engine with
+10B+ records across 1000+ breach datasets. Searches by email, username,
+domain, IP, phone, password, name, Minecraft UUID, Steam ID, or Discord ID.
+
+**API**: `POST https://breach.vip/api/search` — `{term, fields, categories?, wildcard?, case_sensitive?}`.
+Rate-limited to 15 req/min. The site sits behind a Cloudflare managed challenge
+that may block server-side egress; the helpers degrade gracefully to `[]` on
+non-JSON/403 responses (same pattern as every other source helper).
+
+**Files**:
+
+- `api/src/routes/breach.ts` — `queryBreachVipEmail` / `queryBreachVipDomain` + `groupBreachVipResults` (groups raw records by breach source into metadata-only entries: record count + data-class labels; raw credentials never surfaced)
+- `worker/mcp-server.ts` — `breach_vip_search` MCP tool (direct API call, full 10-field set)
+- `api/src/lib/confidence.ts` — `breachvip` source reliability entry (C / secondary)
+- `src/pages/dfir/Breach.tsx` — `breachvip` source label/color + privacy notices
+- `src/components/dfir/BreachDatabasesPanel.tsx` — BreachVIP external catalog entry
+- `api/test/routes/breach.test.ts` — 5 tests (email grouping, empty, CF challenge; domain grouping, non-JSON)
+
+**No secret required** — free, keyless API.
+
 ## Whoxy — Reverse WHOIS Lookup
 
 A live enrichment provider for reverse WHOIS lookups against
