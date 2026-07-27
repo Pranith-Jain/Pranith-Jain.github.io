@@ -54,6 +54,15 @@ const clientBuild = {
         if (id.includes('node_modules/react-simple-maps')) {
           return 'vendor-maps';
         }
+        if (id.includes('node_modules/recharts') || id.includes('node_modules/d3-')) {
+          return 'vendor-charts';
+        }
+        if (id.includes('node_modules/jspdf') || id.includes('node_modules/@cantoo')) {
+          return 'vendor-pdf';
+        }
+        if (id.includes('node_modules/tesseract.js')) {
+          return 'vendor-ocr';
+        }
         if (id.includes('node_modules/marked') || id.includes('node_modules/isomorphic-dompurify')) {
           return 'vendor-md';
         }
