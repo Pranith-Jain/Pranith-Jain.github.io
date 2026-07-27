@@ -12,10 +12,11 @@ import {
   Globe,
   Loader2,
   ExternalLink,
+  List as ListIcon,
 } from 'lucide-react';
 
 interface TiIndexSummary {
-  counts: { cves: number; iocs: number; sectors: number; kevTotal: number };
+  counts: { cves: number; iocs: number; sectors: number; kevTotal: number; lists?: number };
   source: string;
   license: string;
   lastSyncedAt: string | null;
@@ -75,7 +76,32 @@ interface SectorEntry {
   preview: string;
 }
 
-type Tab = 'cves' | 'kev' | 'iocs' | 'sectors' | 'search' | 'darkweb';
+interface DetectionListEntry {
+  slug: string;
+  title: string;
+  category: string;
+  entryCount: number;
+  description: string;
+}
+
+interface DetectionListDetail {
+  slug: string;
+  title: string;
+  category: string;
+  description: string;
+  valueColumn: string;
+  totalEntries: number;
+  entries: Array<{
+    value: string;
+    description?: string;
+    tool?: string;
+    severity?: string;
+    category?: string;
+    metadata: Record<string, string>;
+  }>;
+}
+
+type Tab = 'cves' | 'kev' | 'iocs' | 'sectors' | 'lists' | 'search' | 'darkweb';
 
 type DarkwebTool = 'multi-search' | 'onion-lookup' | 'crawl' | 'scrape-deep' | 'tor-exit';
 
@@ -139,6 +165,15 @@ export default function ThreatIntel() {
   });
   const { data: sectorsData, loading: sectorsLoading } = useDataFetch<{ sectors: SectorEntry[] }>({
     url: '/api/v1/threat-intel/sectors',
+  });
+  const { data: listsData, loading: listsLoading } = useDataFetch<{ lists: DetectionListEntry[] }>({
+    url: '/api/v1/threat-intel/lists?limit=100',
+  });
+
+  const [selectedList, setSelectedList] = useState<string | null>(null);
+  const [listFilter, setListFilter] = useState('');
+  const { data: listDetail, loading: listDetailLoading } = useDataFetch<DetectionListDetail>({
+    url: selectedList ? `/api/v1/threat-intel/lists/${selectedList}?limit=500` : '',
   });
 
   const { data: iocDetail, loading: iocDetailLoading } = useDataFetch<IocDetail>({
@@ -214,7 +249,7 @@ export default function ThreatIntel() {
           id: indId,
           created: now,
           modified: now,
-          name: `${body.family} — ${ind.type}`,
+          name: `${body.family} - ${ind.type}`,
           description: `IOC from ${body.family}`,
           pattern: stixPattern(stixType, ind.value),
           pattern_type: 'stix',
@@ -232,7 +267,7 @@ export default function ThreatIntel() {
         id: reportId,
         created: now,
         modified: now,
-        name: `${body.family} — STIX Export`,
+        name: `${body.family} - STIX Export`,
         published: now,
         created_by_ref: identityId,
         object_refs: objectRefs,
@@ -324,7 +359,7 @@ export default function ThreatIntel() {
       : cvesData.cves;
   }, [cvesData, cveFilter]);
 
-  const anyLoading = cvesLoading || kevLoading || iocsLoading || sectorsLoading;
+  const anyLoading = cvesLoading || kevLoading || iocsLoading || sectorsLoading || listsLoading;
 
   return (
     <DataPageLayout
@@ -350,6 +385,11 @@ export default function ThreatIntel() {
             <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono">
               {indexData.counts.sectors} sectors
             </span>
+            {typeof indexData.counts.lists === 'number' && (
+              <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono">
+                {indexData.counts.lists} lists
+              </span>
+            )}
           </div>
         )
       }
@@ -361,6 +401,7 @@ export default function ThreatIntel() {
           { key: 'kev' as Tab, label: 'KEV', icon: Shield, count: kevData?.entries?.length },
           { key: 'iocs' as Tab, label: 'IOC Families', icon: Link2, count: iocsData?.iocs?.length },
           { key: 'sectors' as Tab, label: 'Sector Briefs', icon: Globe2, count: sectorsData?.sectors?.length },
+          { key: 'lists' as Tab, label: 'Detection Lists', icon: ListIcon, count: listsData?.lists?.length },
           { key: 'search' as Tab, label: 'Live Search', icon: SearchIcon },
           { key: 'darkweb' as Tab, label: 'Dark Web', icon: Globe },
         ].map((t) => {
@@ -427,7 +468,7 @@ export default function ThreatIntel() {
                     )}
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className="w-24 h-1.5 bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded-full overflow-hidden">
+                    <div className="w-24 h-1.5 bg-slate-100 dark:bg-[rgb(var(--input-200))] rounded-full overflow-hidden">
                       <div
                         className={`h-full rounded-full ${priorityBar(cve.priorityScore)}`}
                         style={{ width: `${Math.min(100, cve.priorityScore)}%` }}
@@ -466,7 +507,7 @@ export default function ThreatIntel() {
               </div>
               <p className="text-sm text-slate-700 dark:text-slate-200 mb-1">{entry.shortDescription || entry.name}</p>
               <p className="text-xs text-slate-500 dark:text-slate-400">
-                {entry.vendor} / {entry.product} — Due: {entry.dueDate || 'N/A'}
+                {entry.vendor} / {entry.product} - Due: {entry.dueDate || 'N/A'}
               </p>
             </div>
           ))}
@@ -486,7 +527,7 @@ export default function ThreatIntel() {
             onChange={(e) => setIocFilter(e.target.value)}
             className="w-full mb-4 px-3 py-2 rounded-xl text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
           />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {filteredIocs.map((ioc) => (
               <div
                 key={ioc.slug}
@@ -497,7 +538,7 @@ export default function ThreatIntel() {
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-semibold text-violet-600 dark:text-violet-400">{ioc.family}</span>
                     <ChevronRight
-                      className={`h-3 w-3 text-slate-400 transition-transform ${selectedIoc === ioc.slug ? 'rotate-90' : ''}`}
+                      className={`h-3 w-3 text-slate-500 dark:text-slate-400 transition-transform ${selectedIoc === ioc.slug ? 'rotate-90' : ''}`}
                     />
                   </div>
                   <span className="text-micro font-mono uppercase tracking-wider bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-500 dark:text-slate-400 px-1.5 py-0.5 rounded">
@@ -515,7 +556,7 @@ export default function ThreatIntel() {
                 {selectedIoc === ioc.slug && (
                   <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
                     {iocDetailLoading ? (
-                      <p className="text-xs text-slate-400">Loading indicators…</p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400">Loading indicators…</p>
                     ) : iocDetail ? (
                       <div>
                         <div className="flex items-center justify-between mb-2">
@@ -557,7 +598,9 @@ export default function ThreatIntel() {
                             </div>
                           ))}
                           {iocDetail.indicators.length > 15 && (
-                            <p className="text-xs text-slate-400">…and {iocDetail.indicators.length - 15} more</p>
+                            <p className="text-xs text-slate-500 dark:text-slate-400">
+                              …and {iocDetail.indicators.length - 15} more
+                            </p>
                           )}
                         </div>
                         {/* MITRE techniques */}
@@ -579,7 +622,7 @@ export default function ThreatIntel() {
                         )}
                       </div>
                     ) : (
-                      <p className="text-xs text-slate-400">No detail available</p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400">No detail available</p>
                     )}
                   </div>
                 )}
@@ -594,7 +637,7 @@ export default function ThreatIntel() {
 
       {/* Sectors tab */}
       {tab === 'sectors' && (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {sectorsData?.sectors?.map((s) => (
             <div key={s.sector} className={`${CARD} p-4`}>
               <h3 className="text-lg font-semibold text-brand-600 dark:text-brand-400 mb-1 capitalize">{s.sector}</h3>
@@ -605,6 +648,113 @@ export default function ThreatIntel() {
           ))}
           {!sectorsLoading && (!sectorsData?.sectors || sectorsData.sectors.length === 0) && (
             <div className={`${CARD} p-8 text-center text-sm text-slate-500 dark:text-slate-400`}>No sector briefs</div>
+          )}
+        </div>
+      )}
+
+      {/* Detection Lists tab */}
+      {tab === 'lists' && (
+        <div>
+          <input
+            type="text"
+            placeholder="Filter by list title or keyword…"
+            value={listFilter}
+            onChange={(e) => setListFilter(e.target.value)}
+            className="w-full mb-4 px-3 py-2 rounded-xl text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+          />
+          <div className="grid gap-2 md:grid-cols-2">
+            {(listsData?.lists ?? [])
+              .filter(
+                (l) =>
+                  !listFilter ||
+                  `${l.title} ${l.category} ${l.description}`.toLowerCase().includes(listFilter.toLowerCase())
+              )
+              .map((list) => (
+                <button
+                  key={list.slug}
+                  type="button"
+                  onClick={() => setSelectedList(list.slug)}
+                  className={`text-left ${CARD} p-3 transition-colors ${
+                    selectedList === list.slug ? 'border-brand-500 ring-1 ring-brand-500' : 'hover:border-slate-400'
+                  }`}
+                >
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="font-mono text-sm font-semibold text-slate-800 dark:text-slate-100">
+                      {list.title}
+                    </span>
+                    <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
+                      {list.entryCount} entries
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2">{list.description}</p>
+                  <span className="inline-block mt-1 text-xs font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400">
+                    {list.category}
+                  </span>
+                </button>
+              ))}
+            {!listsLoading && (listsData?.lists ?? []).length === 0 && (
+              <div className={`${CARD} p-8 text-center text-sm text-slate-500 dark:text-slate-400 md:col-span-2`}>
+                No detection lists found
+              </div>
+            )}
+          </div>
+
+          {selectedList && (
+            <div className="mt-6">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-200">
+                  {listDetail?.title ?? selectedList}
+                </h3>
+                <button
+                  onClick={() => setSelectedList(null)}
+                  className="text-xs text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+                >
+                  close
+                </button>
+              </div>
+              {listDetailLoading && (
+                <div className={`${CARD} p-4 text-sm text-slate-500 dark:text-slate-400`}>Loading entries…</div>
+              )}
+              {listDetail && !listDetailLoading && (
+                <div className="space-y-1.5 max-h-[60vh] overflow-y-auto">
+                  {listDetail.entries.map((entry, i) => (
+                    <div key={i} className={`${CARD} p-2.5`}>
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="min-w-0 flex-1">
+                          <code className="text-xs font-mono text-slate-800 dark:text-slate-100 break-all">
+                            {entry.value}
+                          </code>
+                          {entry.description && (
+                            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-2">
+                              {entry.description}
+                            </p>
+                          )}
+                        </div>
+                        <div className="flex flex-wrap gap-1 shrink-0">
+                          {entry.severity && (
+                            <span
+                              className={`text-xs font-mono px-1.5 py-0.5 rounded border ${severityPill(entry.severity)}`}
+                            >
+                              {entry.severity.toUpperCase()}
+                            </span>
+                          )}
+                          {entry.tool && (
+                            <span className="text-xs font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400">
+                              {entry.tool}
+                            </span>
+                          )}
+                          {entry.category && (
+                            <span className="text-xs font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400">
+                              {entry.category}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           )}
         </div>
       )}
@@ -623,7 +773,7 @@ export default function ThreatIntel() {
                 <button
                   key={p.key}
                   onClick={() => setSearchProvider(p.key)}
-                  className={`text-xs font-mono px-3 py-1.5 rounded-lg border transition-colors ${
+                  className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${
                     searchProvider === p.key
                       ? 'border-violet-500 bg-violet-50 dark:bg-violet-950/40 text-violet-700 dark:text-violet-300'
                       : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'
@@ -662,7 +812,7 @@ export default function ThreatIntel() {
               <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-200 mb-3">
                 Results from {searchProvider === 'ransomware' ? 'ransomware.live' : searchProvider}
               </h3>
-              <pre className="text-xs text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-[rgb(var(--surface-100))] rounded-lg p-3 overflow-x-auto max-h-96 overflow-y-auto">
+              <pre className="text-xs text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-[rgb(var(--surface-100))] rounded-xl p-3 overflow-x-auto max-h-96 overflow-y-auto">
                 {JSON.stringify(searchResults, null, 2)}
               </pre>
             </div>
@@ -681,7 +831,7 @@ export default function ThreatIntel() {
         <div>
           <div className={`${CARD} p-4 mb-4`}>
             <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 font-mono">
-              Native TorBot + darkdump tools — multi-engine .onion search, depth-limited crawl with link tree, deep
+              Native TorBot + darkdump tools - multi-engine .onion search, depth-limited crawl with link tree, deep
               scraping with email/metadata harvest, onion service lookup.
             </p>
             <div className="flex flex-wrap gap-2 mb-3">
@@ -701,7 +851,7 @@ export default function ThreatIntel() {
                     setDwResults(null);
                     setDwError(null);
                   }}
-                  className={`text-xs font-mono px-3 py-1.5 rounded-lg border transition-colors ${
+                  className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${
                     dwTool === t.id
                       ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300'
                       : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'
@@ -828,23 +978,23 @@ export default function ThreatIntel() {
           {!dwLoading && !dwResults && !dwError && (
             <div className={`${CARD} p-8 text-center text-sm text-slate-500 dark:text-slate-400`}>
               <p className="mb-2">
-                <strong>Multi-Engine Search</strong> — query Ahmia, OnionLand, Tor66, DarkWebLink simultaneously (like
+                <strong>Multi-Engine Search</strong> - query Ahmia, OnionLand, Tor66, DarkWebLink simultaneously (like
                 darkdump).
               </p>
               <p className="mb-2">
-                <strong>Crawl & Link Tree</strong> — BFS crawl starting from a .onion URL, builds link tree with email
+                <strong>Crawl & Link Tree</strong> - BFS crawl starting from a .onion URL, builds link tree with email
                 harvesting (TorBot core).
               </p>
               <p className="mb-2">
-                <strong>Deep Scrape</strong> — fetch a single .onion page with full metadata, email extraction, keyword
+                <strong>Deep Scrape</strong> - fetch a single .onion page with full metadata, email extraction, keyword
                 parsing (darkdump -s).
               </p>
               <p className="mb-2">
-                <strong>Onion Lookup</strong> — CIRCL AIL metadata for hidden services (status, tags, ports, BTC
+                <strong>Onion Lookup</strong> - CIRCL AIL metadata for hidden services (status, tags, ports, BTC
                 addresses).
               </p>
               <p>
-                <strong>Tor Exit Check</strong> — verify if an IP is a known Tor exit node.
+                <strong>Tor Exit Check</strong> - verify if an IP is a known Tor exit node.
               </p>
             </div>
           )}
@@ -925,7 +1075,7 @@ function DarkwebMultiSearchResults({
             {r.description && (
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">{r.description}</p>
             )}
-            <p className="text-xs text-slate-400 dark:text-slate-500 mt-1 truncate font-mono">{r.url}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 truncate font-mono">{r.url}</p>
           </div>
         ))
       )}
@@ -1004,7 +1154,7 @@ function DarkwebCrawlResults({
             {data.link_tree.map((node, i) => (
               <div key={i} className="text-xs">
                 <span className="text-emerald-600 dark:text-emerald-400 font-mono">{node.parent}</span>
-                <span className="text-slate-400 mx-1">→</span>
+                <span className="text-slate-500 dark:text-slate-400 mx-1">→</span>
                 <span className="text-slate-500 dark:text-slate-400">
                   {node.children.length} child{node.children.length !== 1 ? 'ren' : ''}
                 </span>
@@ -1014,7 +1164,7 @@ function DarkwebCrawlResults({
                   </div>
                 ))}
                 {node.children.length > 3 && (
-                  <div className="ml-4 text-slate-400">…and {node.children.length - 3} more</div>
+                  <div className="ml-4 text-slate-500 dark:text-slate-400">…and {node.children.length - 3} more</div>
                 )}
               </div>
             ))}
@@ -1028,7 +1178,7 @@ function DarkwebCrawlResults({
           <div className="flex items-center justify-between mb-1">
             <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">{page.title || 'Untitled'}</span>
             <div className="flex items-center gap-2">
-              <span className="text-micro font-mono text-slate-400">depth {page.depth}</span>
+              <span className="text-micro font-mono text-slate-500 dark:text-slate-400">depth {page.depth}</span>
               <span
                 className={`text-xs font-mono px-1.5 py-0.5 rounded ${
                   page.status_code >= 200 && page.status_code < 300
@@ -1040,7 +1190,7 @@ function DarkwebCrawlResults({
               </span>
             </div>
           </div>
-          <p className="text-xs text-slate-400 dark:text-slate-500 font-mono truncate mb-1">{page.url}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 font-mono truncate mb-1">{page.url}</p>
           {page.emails.length > 0 && (
             <div className="flex flex-wrap gap-1 mb-1">
               {page.emails.map((e) => (
@@ -1094,7 +1244,7 @@ function DarkwebScrapeDeepResults({
           </span>
         </div>
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-1">{data.url}</p>
-        <p className="text-xs text-slate-400 dark:text-slate-500 font-mono">Fetched via: {data.fetched_via}</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">Fetched via: {data.fetched_via}</p>
       </div>
 
       {/* Metadata */}
@@ -1103,17 +1253,17 @@ function DarkwebScrapeDeepResults({
           <h4 className="text-xs font-semibold text-slate-600 dark:text-slate-300 mb-2">Metadata</h4>
           {data.metadata.og_title && (
             <p className="text-xs text-slate-600 dark:text-slate-300 mb-1">
-              <span className="text-slate-400">og:title:</span> {data.metadata.og_title}
+              <span className="text-slate-500 dark:text-slate-400">og:title:</span> {data.metadata.og_title}
             </p>
           )}
           {data.metadata.description && (
             <p className="text-xs text-slate-600 dark:text-slate-300 mb-1 line-clamp-2">
-              <span className="text-slate-400">description:</span> {data.metadata.description}
+              <span className="text-slate-500 dark:text-slate-400">description:</span> {data.metadata.description}
             </p>
           )}
           {data.metadata.og_description && (
             <p className="text-xs text-slate-600 dark:text-slate-300 mb-1 line-clamp-2">
-              <span className="text-slate-400">og:desc:</span> {data.metadata.og_description}
+              <span className="text-slate-500 dark:text-slate-400">og:desc:</span> {data.metadata.og_description}
             </p>
           )}
           {data.metadata.keywords.length > 0 && (
@@ -1154,7 +1304,7 @@ function DarkwebScrapeDeepResults({
       {data.body_text && (
         <div className={`${CARD} p-3`}>
           <h4 className="text-xs font-semibold text-slate-600 dark:text-slate-300 mb-2">
-            Page content <span className="font-normal text-slate-400">(truncated)</span>
+            Page content <span className="font-normal text-slate-500 dark:text-slate-400">(truncated)</span>
           </h4>
           <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-8 whitespace-pre-wrap">
             {data.body_text}
@@ -1166,7 +1316,7 @@ function DarkwebScrapeDeepResults({
       {data.links.length > 0 && (
         <div className={`${CARD} p-3`}>
           <h4 className="text-xs font-semibold text-slate-600 dark:text-slate-300 mb-2">
-            Links <span className="font-normal text-slate-400">({data.links.length})</span>
+            Links <span className="font-normal text-slate-500 dark:text-slate-400">({data.links.length})</span>
           </h4>
           <div className="space-y-1 max-h-48 overflow-y-auto">
             {data.links.slice(0, 30).map((link, i) => (
@@ -1177,12 +1327,12 @@ function DarkwebScrapeDeepResults({
                   </span>
                 )}
                 <span className="text-slate-500 dark:text-slate-400 truncate max-w-[200px]">{link.text}</span>
-                <span className="text-slate-400 dark:text-slate-500">→</span>
+                <span className="text-slate-500 dark:text-slate-400">→</span>
                 <span className="text-emerald-600 dark:text-emerald-400 font-mono truncate">{link.href}</span>
               </div>
             ))}
             {data.links.length > 30 && (
-              <p className="text-xs text-slate-400">…and {data.links.length - 30} more links</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">…and {data.links.length - 30} more links</p>
             )}
           </div>
         </div>
@@ -1301,7 +1451,7 @@ function DarkwebTorExitResult({ data }: { data: { isTorExit: boolean; ip: string
     <div className={`${CARD} p-4`}>
       <div className="flex items-center gap-3">
         <span
-          className={`text-sm font-mono px-3 py-1 rounded-lg ${
+          className={`text-sm font-mono px-3 py-1 rounded-xl ${
             data.isTorExit
               ? 'bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border border-rose-300 dark:border-rose-800'
               : 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800'

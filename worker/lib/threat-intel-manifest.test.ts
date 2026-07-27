@@ -11,9 +11,12 @@ import {
   getTiCve,
   getTiIoc,
   getTiSector,
+  getTiList,
   loadKevSnapshot,
   filterCves,
   filterIocs,
+  filterLists,
+  searchListEntries,
   computePriorityScore,
   tiCacheStats,
   _resetTiCacheForTests,
@@ -23,6 +26,7 @@ import {
   type TiIocBody,
   type TiSectorBody,
   type TiKevEntry,
+  type TiDetectionListBody,
 } from './threat-intel-manifest';
 
 function makeAssetsFixture() {
@@ -31,7 +35,7 @@ function makeAssetsFixture() {
     source: 'test',
     license: 'MIT',
     replicatedAt: '2026-06-29',
-    counts: { cves: 2, iocs: 1, sectors: 1, kevTotal: 1 },
+    counts: { cves: 2, iocs: 1, sectors: 1, kevTotal: 1, lists: 1 },
     lastSyncedAt: '2026-06-29T00:00:00Z',
     cveIndex: [
       {
@@ -90,6 +94,18 @@ function makeAssetsFixture() {
         sizeBytes: 80,
       },
     ],
+    listsIndex: [
+      {
+        slug: 'suspicious-named-pipes',
+        title: 'Suspicious Named Pipes',
+        category: 'windows',
+        sourceFile: 'suspicious_named_pipe_list.csv',
+        valueColumn: 'pipe_name',
+        entryCount: 2,
+        sizeBytes: 200,
+        description: 'Named pipes used by malware and offensive tools.',
+      },
+    ],
   };
   data.set('/data/threat-intel/index.json', idx);
 
@@ -127,6 +143,28 @@ function makeAssetsFixture() {
     ],
   };
   data.set('/data/threat-intel/sectors/financial.json', sector);
+
+  const list: TiDetectionListBody = {
+    ...idx.listsIndex[0]!,
+    columns: ['pipe_name', 'metadata_description', 'metadata_tool', 'metadata_severity'],
+    entries: [
+      {
+        value: '\\WCEServicePipe',
+        description: 'Windows Credential Editor (WCE) default named pipe',
+        tool: 'WCE',
+        severity: 'critical',
+        metadata: {},
+      },
+      {
+        value: '\\hashdump',
+        description: 'cobaltstrike pipe names',
+        tool: 'CobaltStrike',
+        severity: 'critical',
+        metadata: {},
+      },
+    ],
+  };
+  data.set('/data/threat-intel/lists/suspicious-named-pipes.json', list);
 
   const kev: TiKevEntry[] = [
     {
@@ -371,7 +409,13 @@ describe('computePriorityScore', () => {
     const now = Date.parse('2026-06-29T00:00:00Z');
     const old = '2025-06-29T00:00:00Z';
     // argusHypeScore null — original formula: 0.55 + 0 + 0 = 55
-    const score = computePriorityScore({ cvssV3Score: 10, inKev: false, publishedAt: old, nowMs: now, argusHypeScore: null });
+    const score = computePriorityScore({
+      cvssV3Score: 10,
+      inKev: false,
+      publishedAt: old,
+      nowMs: now,
+      argusHypeScore: null,
+    });
     expect(score).toBe(55);
   });
 
@@ -401,6 +445,69 @@ describe('severityFromScore', () => {
     expect(severityFromScore(8.9)).toBe('high');
     expect(severityFromScore(9.0)).toBe('critical');
     expect(severityFromScore(10)).toBe('critical');
+  });
+});
+
+describe('getTiList / filterLists / searchListEntries', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  it('returns a detection list body for a known slug', async () => {
+    const { assets } = makeAssetsFixture();
+    const body = await getTiList(assets, 'suspicious-named-pipes');
+    expect(body).not.toBeNull();
+    expect(body!.entries).toHaveLength(2);
+    expect(body!.entries[0]!.value).toBe('\\WCEServicePipe');
+    expect(body!.columns).toContain('pipe_name');
+  });
+
+  it('returns null for an unknown slug', async () => {
+    const { assets } = makeAssetsFixture();
+    expect(await getTiList(assets, 'nope')).toBeNull();
+  });
+
+  it('caches list bodies on subsequent calls', async () => {
+    const { assets } = makeAssetsFixture();
+    await getTiList(assets, 'suspicious-named-pipes');
+    await getTiList(assets, 'suspicious-named-pipes');
+    const stats = tiCacheStats();
+    expect(stats.lists.size).toBe(1);
+    expect(stats.lists.hits).toBe(1);
+    expect(stats.lists.misses).toBe(1);
+  });
+
+  it('filterLists filters by category', async () => {
+    const { assets } = makeAssetsFixture();
+    const idx = await loadTiIndex(assets);
+    expect(filterLists(idx, { category: 'windows' })).toHaveLength(1);
+    expect(filterLists(idx, { category: 'network' })).toHaveLength(0);
+  });
+
+  it('filterLists filters by keyword', async () => {
+    const { assets } = makeAssetsFixture();
+    const idx = await loadTiIndex(assets);
+    expect(filterLists(idx, { keyword: 'pipe' })[0]!.slug).toBe('suspicious-named-pipes');
+    expect(filterLists(idx, { keyword: 'nope' })).toHaveLength(0);
+  });
+
+  it('searchListEntries filters by keyword across value/description/tool', async () => {
+    const { assets } = makeAssetsFixture();
+    const body = await getTiList(assets, 'suspicious-named-pipes');
+    expect(searchListEntries(body!, { keyword: 'cobaltstrike' })).toHaveLength(1);
+    expect(searchListEntries(body!, { keyword: 'WCE' })[0]!.value).toBe('\\WCEServicePipe');
+    expect(searchListEntries(body!, { keyword: 'nonexistent' })).toHaveLength(0);
+  });
+
+  it('searchListEntries filters by severity', async () => {
+    const { assets } = makeAssetsFixture();
+    const body = await getTiList(assets, 'suspicious-named-pipes');
+    expect(searchListEntries(body!, { severity: 'critical' })).toHaveLength(2);
+    expect(searchListEntries(body!, { severity: 'low' })).toHaveLength(0);
+  });
+
+  it('searchListEntries respects limit', async () => {
+    const { assets } = makeAssetsFixture();
+    const body = await getTiList(assets, 'suspicious-named-pipes');
+    expect(searchListEntries(body!, { limit: 1 })).toHaveLength(1);
   });
 });
 

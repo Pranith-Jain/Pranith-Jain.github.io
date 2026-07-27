@@ -10,6 +10,8 @@
  *   GET  /threat-intel/iocs/:slug      — full IOC family body
  *   GET  /threat-intel/sectors         — list available sectors
  *   GET  /threat-intel/sectors/:sector — sector brief
+ *   GET  /threat-intel/lists           — list detection lists (awesome-lists)
+ *   GET  /threat-intel/lists/:slug     — full detection list with entries
  *   GET  /threat-intel/stats           — cache + manifest stats
  *
  * The actual logic lives in worker/lib/threat-intel-manifest.ts (symlinked).
@@ -186,6 +188,58 @@ threatIntelRouter.get('/threat-intel/stats', async (c) => {
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
     return internalError(c, `ti_stats_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+// ─── List detection lists ──────────────────────────────────────────────
+threatIntelRouter.get('/threat-intel/lists', async (c) => {
+  try {
+    const mod = await loadTiMod();
+    const idx = await mod.loadTiIndex(c.env.ASSETS);
+    const category = c.req.query('category');
+    const keyword = c.req.query('q');
+    const limit = c.req.query('limit') ? Math.min(100, Math.max(1, Number(c.req.query('limit')))) : undefined;
+
+    const lists = mod.filterLists(idx, {
+      category: category || undefined,
+      keyword: keyword || undefined,
+      limit,
+    });
+    return c.json({ total: idx.counts.lists ?? 0, returned: lists.length, lists });
+  } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    return internalError(c, `ti_lists_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+// ─── Single detection list ─────────────────────────────────────────────
+threatIntelRouter.get('/threat-intel/lists/:slug', async (c) => {
+  const slug = c.req.param('slug');
+  try {
+    const mod = await loadTiMod();
+    const body = await mod.getTiList(c.env.ASSETS, slug);
+    if (!body) return notFound(c, `detection_list_not_found: ${slug}`);
+    const keyword = c.req.query('q');
+    const severity = c.req.query('severity');
+    const limit = c.req.query('limit') ? Math.min(2000, Math.max(1, Number(c.req.query('limit')))) : undefined;
+    const entries = mod.searchListEntries(body, {
+      keyword: keyword || undefined,
+      severity: severity || undefined,
+      limit,
+    });
+    return c.json({
+      slug: body.slug,
+      title: body.title,
+      category: body.category,
+      description: body.description,
+      valueColumn: body.valueColumn,
+      totalEntries: body.entryCount,
+      returned: entries.length,
+      entries,
+    });
+  } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    return internalError(c, `ti_list_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
 

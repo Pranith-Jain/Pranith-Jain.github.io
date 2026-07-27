@@ -77,14 +77,50 @@ export interface TiSectorEntry {
   sizeBytes: number;
 }
 
+export interface TiDetectionListIndexEntry {
+  slug: string;
+  title: string;
+  category: string;
+  sourceFile: string;
+  valueColumn: string;
+  entryCount: number;
+  sizeBytes: number;
+  description: string;
+}
+
+export interface TiDetectionListEntry {
+  value: string;
+  description?: string;
+  tool?: string;
+  category?: string;
+  severity?: string;
+  priority?: string;
+  fpRisk?: string;
+  link?: string;
+  reference?: string;
+  regex?: string;
+  comment?: string;
+  confidence?: string;
+  toolType?: string;
+  usage?: string;
+  detectionType?: string;
+  metadata: Record<string, string>;
+}
+
+export interface TiDetectionListBody extends TiDetectionListIndexEntry {
+  columns: string[];
+  entries: TiDetectionListEntry[];
+}
+
 export interface TiIndex {
   source: string;
   license: string;
   replicatedAt: string;
-  counts: { cves: number; iocs: number; sectors: number; kevTotal: number };
+  counts: { cves: number; iocs: number; sectors: number; kevTotal: number; lists: number };
   lastSyncedAt: string | null;
   cveIndex: TiCveIndexEntry[];
   iocIndex: TiIocIndexEntry[];
+  listsIndex: TiDetectionListIndexEntry[];
   sectors: TiSectorEntry[];
 }
 
@@ -128,6 +164,7 @@ interface BodyCache<T> {
 const cveBodyCache: BodyCache<TiCveBody> = { map: new Map(), hits: 0, misses: 0 };
 const iocBodyCache: BodyCache<TiIocBody> = { map: new Map(), hits: 0, misses: 0 };
 const sectorBodyCache: BodyCache<TiSectorBody> = { map: new Map(), hits: 0, misses: 0 };
+const listBodyCache: BodyCache<TiDetectionListBody> = { map: new Map(), hits: 0, misses: 0 };
 let cachedIndex: TiIndex | null = null;
 let cachedIndexAt: number | null = null;
 let cachedKev: TiKevEntry[] | null = null;
@@ -205,6 +242,15 @@ export async function getTiSector(assets: Fetcher, sector: string): Promise<TiSe
   const body = await fetchJson<TiSectorBody>(assets, `${DATA_PREFIX}/sectors/${safeFilename(key)}.json`);
   if (!body) return null;
   return recordHit(sectorBodyCache, key, body);
+}
+
+export async function getTiList(assets: Fetcher, slug: string): Promise<TiDetectionListBody | null> {
+  const key = slug.toLowerCase();
+  const hit = trackHit(listBodyCache, key);
+  if (hit) return hit;
+  const body = await fetchJson<TiDetectionListBody>(assets, `${DATA_PREFIX}/lists/${safeFilename(key)}.json`);
+  if (!body) return null;
+  return recordHit(listBodyCache, key, body);
 }
 
 export async function loadKevSnapshot(assets: Fetcher, opts: { forceRefresh?: boolean } = {}): Promise<TiKevEntry[]> {
@@ -292,6 +338,54 @@ export function filterIocs(idx: TiIndex, opts: TiListIocsOptions = {}): TiIocInd
   return out;
 }
 
+export interface TiListListsOptions {
+  category?: string;
+  keyword?: string;
+  limit?: number;
+}
+
+export function filterLists(idx: TiIndex, opts: TiListListsOptions = {}): TiDetectionListIndexEntry[] {
+  const { category, keyword, limit = 100 } = opts;
+  const needle = keyword?.toLowerCase();
+  const out: TiDetectionListIndexEntry[] = [];
+  for (const l of idx.listsIndex ?? []) {
+    if (category && l.category !== category) continue;
+    if (needle) {
+      const hay = `${l.slug} ${l.title} ${l.description}`.toLowerCase();
+      if (!hay.includes(needle)) continue;
+    }
+    out.push(l);
+    if (out.length >= limit) break;
+  }
+  return out;
+}
+
+export interface TiSearchListEntriesOptions {
+  keyword?: string;
+  severity?: string;
+  limit?: number;
+}
+
+export function searchListEntries(
+  body: TiDetectionListBody,
+  opts: TiSearchListEntriesOptions = {}
+): TiDetectionListEntry[] {
+  const { keyword, severity, limit = 500 } = opts;
+  const needle = keyword?.toLowerCase();
+  const sevNeedle = severity?.toLowerCase();
+  const out: TiDetectionListEntry[] = [];
+  for (const e of body.entries) {
+    if (sevNeedle && (e.severity ?? '').toLowerCase() !== sevNeedle) continue;
+    if (needle) {
+      const hay = `${e.value} ${e.description ?? ''} ${e.tool ?? ''} ${e.category ?? ''}`.toLowerCase();
+      if (!hay.includes(needle)) continue;
+    }
+    out.push(e);
+    if (out.length >= limit) break;
+  }
+  return out;
+}
+
 // ─── Priority scoring ───────────────────────────────────────────────────
 
 /**
@@ -344,6 +438,7 @@ export function tiCacheStats(): {
   cves: { size: number; hits: number; misses: number };
   iocs: { size: number; hits: number; misses: number };
   sectors: { size: number; hits: number; misses: number };
+  lists: { size: number; hits: number; misses: number };
 } {
   return {
     indexLoaded: cachedIndex !== null,
@@ -353,6 +448,7 @@ export function tiCacheStats(): {
     cves: { size: cveBodyCache.map.size, hits: cveBodyCache.hits, misses: cveBodyCache.misses },
     iocs: { size: iocBodyCache.map.size, hits: iocBodyCache.hits, misses: iocBodyCache.misses },
     sectors: { size: sectorBodyCache.map.size, hits: sectorBodyCache.hits, misses: sectorBodyCache.misses },
+    lists: { size: listBodyCache.map.size, hits: listBodyCache.hits, misses: listBodyCache.misses },
   };
 }
 
@@ -360,9 +456,11 @@ export function _resetTiCacheForTests(): void {
   cveBodyCache.map.clear();
   iocBodyCache.map.clear();
   sectorBodyCache.map.clear();
+  listBodyCache.map.clear();
   cveBodyCache.hits = cveBodyCache.misses = 0;
   iocBodyCache.hits = iocBodyCache.misses = 0;
   sectorBodyCache.hits = sectorBodyCache.misses = 0;
+  listBodyCache.hits = listBodyCache.misses = 0;
   cachedIndex = null;
   cachedIndexAt = null;
   cachedKev = null;

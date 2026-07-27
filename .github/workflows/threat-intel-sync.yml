@@ -35,7 +35,7 @@ jobs:
       - name: Install
         run: npm ci --no-fund || npm install --no-fund
 
-      - name: Sync upstream (NVD + CISA KEV + Daily-Hunt)
+      - name: Sync upstream (NVD + CISA KEV + Daily-Hunt + awesome-lists)
         run: node scripts/sync-threat-intel.mjs
 
       - name: Build manifest
@@ -57,14 +57,16 @@ jobs:
             Automated weekly sync of threat intelligence data.
 
             Re-runs `scripts/sync-threat-intel.mjs` (NVD recent + CISA KEV +
-            Daily-Hunt sparse git clone) and `scripts/build-threat-intel.mjs`
-            (manifest rebuild). Review the diff in `public/data/threat-intel/`
-            and merge if the data looks correct.
+            Daily-Hunt sparse git clone + mthcht/awesome-lists detection CSVs)
+            and `scripts/build-threat-intel.mjs` (manifest rebuild). Review the
+            diff in `public/data/threat-intel/` and merge if the data looks
+            correct.
 
             Sources:
             - NVD (recent CVEs, last 7 days)
             - CISA Known Exploited Vulnerabilities catalog
             - TheRavenFile/Daily-Hunt (IOC family files)
+            - mthcht/awesome-lists (SOC/DFIR detection-list CSVs)
 
             Trigger: `${{ github.event_name }}`
             Run:     `${{ github.run_id }}`

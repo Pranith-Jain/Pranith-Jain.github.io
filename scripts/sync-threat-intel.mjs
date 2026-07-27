@@ -15,6 +15,8 @@
  *     https://services.nvd.nist.gov/rest/json/cves/2.0?lastModStartDate=...&lastModEndDate=...
  *   - TheRavenFile/Daily-Hunt IOC families (sparse git clone)
  *     https://github.com/TheRavenFile/Daily-Hunt
+ *   - mthcht/awesome-lists detection-list CSVs (raw download)
+ *     https://github.com/mthcht/awesome-lists
  *
  * Note: OpenThreat (AGPL-3.0) is a design reference only — we re-derive
  * the priority scoring formula independently in the build script.
@@ -24,12 +26,14 @@
 import { execSync, spawnSync } from 'node:child_process';
 import { existsSync, rmSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { AWESOME_LISTS_RAW_BASE, DETECTION_LISTS } from './threat-intel-lists.config.mjs';
 
 const ROOT = process.cwd();
 const STAGING = join(ROOT, 'threat-intel-staging');
 const KEVPATH = join(STAGING, 'kev.json');
 const NVDPATH = join(STAGING, 'nvd-recent.json');
 const DAILY_HUNT = join(STAGING, 'daily-hunt');
+const AWESOME_LISTS = join(STAGING, 'awesome-lists');
 
 const NVD_LOOKBACK_DAYS = 7;
 const NVD_API = 'https://services.nvd.nist.gov/rest/json/cves/2.0';
@@ -94,6 +98,34 @@ function fetchDailyHunt() {
   });
 }
 
+async function fetchAwesomeLists() {
+  console.log(`• mthcht/awesome-lists detection CSVs (${DETECTION_LISTS.length} lists)`);
+  mkdirSync(AWESOME_LISTS, { recursive: true });
+  let ok = 0;
+  let fail = 0;
+  for (const { sourceFile } of DETECTION_LISTS) {
+    const url = `${AWESOME_LISTS_RAW_BASE}/${sourceFile}`;
+    const dest = join(AWESOME_LISTS, sourceFile);
+    try {
+      const res = await fetch(url, {
+        headers: { 'user-agent': 'pranithjain-threat-intel-sync/1.0 (+https://pranithjain.qzz.io)' },
+      });
+      if (!res.ok) {
+        console.warn(`  ⚠ ${sourceFile} → ${res.status}`);
+        fail += 1;
+        continue;
+      }
+      const text = await res.text();
+      writeFileSync(dest, text);
+      ok += 1;
+    } catch (err) {
+      console.warn(`  ⚠ ${sourceFile} fetch failed: ${err instanceof Error ? err.message : err}`);
+      fail += 1;
+    }
+  }
+  console.log(`    ${ok} downloaded, ${fail} failed`);
+}
+
 async function fetchArgusTrending() {
   console.log('• Argus trending feed');
   // Optional — Argus may be unreachable; we continue with partial data.
@@ -119,12 +151,14 @@ async function main() {
   console.log('Threat Intel sync — staging into', STAGING);
   ensureStaging();
 
-  // Order: CISA KEV (small, fast) → NVD (rate-limited, slow) → Daily-Hunt (git) → Argus trending.
+  // Order: CISA KEV (small, fast) → NVD (rate-limited, slow) → Daily-Hunt (git)
+  //        → awesome-lists CSVs → Argus trending.
   // If any fails, the user keeps the previous good data because the
   // build script reads from staging only when it exists.
   await fetchKev();
   await fetchNvdRecent();
   fetchDailyHunt();
+  await fetchAwesomeLists();
   await fetchArgusTrending();
 
   console.log('\n✔ Staged. Next: node scripts/build-threat-intel.mjs');

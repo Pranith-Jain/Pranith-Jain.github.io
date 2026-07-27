@@ -23,8 +23,11 @@ import {
   getTiCve,
   getTiIoc,
   getTiSector,
+  getTiList,
   filterCves,
   filterIocs,
+  filterLists,
+  searchListEntries,
   tiCacheStats,
   type TiSeverity,
   type TiIocIndexEntry,
@@ -347,22 +350,6 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
    */
   private rateLimit(): void {
     this.checkRateLimit();
-  }
-
-  /**
-   * Register a tool with automatic rate limiting. Wraps the handler to
-   * call `this.rateLimit()` before executing the actual logic.
-   */
-  private tool<A extends Record<string, z.ZodTypeAny>>(
-    name: string,
-    description: string,
-    schema: A,
-    handler: (args: { [K in keyof A]: z.infer<A[K]> }) => Promise<{ content: Array<{ type: string; text: string }> }>
-  ): void {
-    this.tools(name, description, schema, async (args) => {
-      this.rateLimit();
-      return handler(args);
-    });
   }
 
   /**
@@ -2112,6 +2099,68 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             replicatedAt: idx.replicatedAt,
             lastSyncedAt: idx.lastSyncedAt,
             cache: tiCacheStats(),
+          });
+        }
+      );
+
+      this.tools(
+        'ti_list_detection_lists',
+        'List SOC/DFIR detection lists (suspicious named pipes, ports, user-agents, mutexes, ransomware extensions, etc.) sourced from mthcht/awesome-lists. Each list is a curated CSV of indicators with metadata (tool, severity, category, reference). Filter by category or keyword.',
+        {
+          category: z
+            .string()
+            .optional()
+            .describe('Filter by list category: windows, network, ransomware, hardware, cloud, general'),
+          keyword: z
+            .string()
+            .optional()
+            .describe('Case-insensitive substring match against slug / title / description'),
+          limit: z.number().int().min(1).max(100).optional().describe('Max lists to return (default 50)'),
+        },
+        async ({ category, keyword, limit }) => {
+          const idx = await loadTiIndex(ASSETS);
+          const lists = filterLists(idx, { category, keyword, limit: limit ?? 50 });
+          return untrustedToolResult({
+            total: idx.counts.lists,
+            returned: lists.length,
+            lists,
+          });
+        }
+      );
+
+      this.tools(
+        'ti_get_detection_list',
+        'Return the full detection list body with all entries (indicator values + metadata: description, tool, severity, category, reference, regex). Optionally search within the list by keyword or severity. Use ti_list_detection_lists first to discover slugs.',
+        {
+          slug: z
+            .string()
+            .describe('Detection list slug, e.g. "suspicious-named-pipes". Get these from ti_list_detection_lists.'),
+          keyword: z
+            .string()
+            .optional()
+            .describe('Case-insensitive substring match against entry value / description / tool / category'),
+          severity: z.string().optional().describe('Filter entries by severity (critical, high, medium, low, info)'),
+          limit: z.number().int().min(1).max(2000).optional().describe('Max entries to return (default 500)'),
+        },
+        async ({ slug, keyword, severity, limit }) => {
+          const body = await getTiList(ASSETS, slug);
+          if (!body) {
+            return untrustedToolResult({
+              error: 'detection_list_not_found',
+              slug,
+              hint: 'Call ti_list_detection_lists to see available lists.',
+            });
+          }
+          const entries = searchListEntries(body, { keyword, severity, limit: limit ?? 500 });
+          return untrustedToolResult({
+            slug: body.slug,
+            title: body.title,
+            category: body.category,
+            description: body.description,
+            valueColumn: body.valueColumn,
+            totalEntries: body.entryCount,
+            returned: entries.length,
+            entries,
           });
         }
       );

@@ -9,6 +9,7 @@
  *   public/data/threat-intel/cves/kev.json       (CISA KEV snapshot)
  *   public/data/threat-intel/iocs/<slug>.json    (one per IOC family)
  *   public/data/threat-intel/sectors/<name>.json (one per sector brief)
+ *   public/data/threat-intel/lists/<slug>.json   (one per detection list)
  *
  * Scoring lives in worker/lib/threat-intel-manifest.ts (TypeScript) so
  * runtime reads + build reads share the same formula. We duplicate the
@@ -17,6 +18,7 @@
  */
 import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
+import { DETECTION_LISTS } from './threat-intel-lists.config.mjs';
 
 const ROOT = process.cwd();
 const STAGING = join(ROOT, 'threat-intel-staging');
@@ -62,7 +64,14 @@ function safeFilename(slug) {
 
 function readJsonIfExists(p) {
   if (!existsSync(p)) return null;
-  return JSON.parse(readFileSync(p, 'utf8'));
+  try {
+    return JSON.parse(readFileSync(p, 'utf8'));
+  } catch {
+    // A malformed staging file (e.g. an upstream HTML error page written by a
+    // sync) must not crash the whole build — treat it as absent.
+    console.warn(`  ⚠ invalid JSON in ${p} — ignoring`);
+    return null;
+  }
 }
 
 function shortDesc(desc) {
@@ -215,6 +224,7 @@ if (existsSync(OUT)) rmSync(OUT, { recursive: true });
 ensureDir(join(OUT, 'cves'));
 ensureDir(join(OUT, 'iocs'));
 ensureDir(join(OUT, 'sectors'));
+ensureDir(join(OUT, 'lists'));
 
 // ─── CISA KEV ──────────────────────────────────────────────────────────
 const kevJson = readJsonIfExists(join(STAGING, 'kev.json'));
@@ -390,6 +400,113 @@ for (const sector of SECTORS) {
   writeFileSync(join(OUT, 'sectors', `${sector}.json`), JSON.stringify(body));
 }
 
+// ─── Detection lists (mthcht/awesome-lists) ────────────────────────────
+// Each upstream CSV has the indicator value in the first column and
+// metadata_* columns for the rest. We parse with a minimal RFC-4180
+// parser (handles quoted fields with embedded commas/newlines), then
+// normalise into {value, description, tool, category, severity, …}.
+
+function parseCsv(text) {
+  const rows = [];
+  let row = [];
+  let field = '';
+  let inQuotes = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (inQuotes) {
+      if (ch === '"') {
+        if (text[i + 1] === '"') { field += '"'; i++; }
+        else { inQuotes = false; }
+      } else {
+        field += ch;
+      }
+    } else {
+      if (ch === '"') { inQuotes = true; }
+      else if (ch === ',') { row.push(field); field = ''; }
+      else if (ch === '\n') { row.push(field); rows.push(row); row = []; field = ''; }
+      else if (ch === '\r') { /* skip — handled by \n */ }
+      else { field += ch; }
+    }
+  }
+  // last field/row if file doesn't end with newline
+  if (field.length > 0 || row.length > 0) { row.push(field); rows.push(row); }
+  return rows;
+}
+
+// Normalise a metadata column name: strip metadata_/metatada_ prefix,
+// lower-case, camelCase-ish. e.g. "metadata_fp_risk" → "fpRisk".
+function normaliseMetaKey(col) {
+  let k = col.replace(/^meta[dt]ata_/, '');
+  // Convert snake_case to camelCase
+  k = k.replace(/_([a-z])/g, (_, c) => c.toUpperCase());
+  return k;
+}
+
+// Known metadata fields we promote to top-level keys on each entry.
+const META_PROMOTE = new Set([
+  'description', 'tool', 'category', 'severity', 'priority', 'fpRisk',
+  'link', 'reference', 'regex', 'comment', 'confidence', 'toolType',
+  'usage', 'detectionType',
+]);
+
+const listsIndex = [];
+const listsRoot = join(STAGING, 'awesome-lists');
+for (const cfg of DETECTION_LISTS) {
+  const csvPath = join(listsRoot, cfg.sourceFile);
+  if (!existsSync(csvPath)) {
+    console.warn(`  ⚠ ${cfg.sourceFile} not in staging — skipping`);
+    continue;
+  }
+  const raw = readFileSync(csvPath, 'utf8');
+  const rows = parseCsv(raw);
+  if (rows.length < 2) {
+    console.warn(`  ⚠ ${cfg.sourceFile} has no data rows — skipping`);
+    continue;
+  }
+  const headers = rows[0];
+  const dataRows = rows.slice(1).filter((r) => r.some((c) => c.trim() !== ''));
+  const entries = dataRows.map((r) => {
+    const value = (r[0] ?? '').trim();
+    const entry = { value };
+    const metadata = {};
+    for (let c = 1; c < headers.length; c++) {
+      const key = normaliseMetaKey(headers[c] ?? `col${c}`);
+      const val = (r[c] ?? '').trim();
+      if (val === '') continue;
+      if (META_PROMOTE.has(key)) entry[key] = val;
+      else metadata[key] = val;
+    }
+    entry.metadata = metadata;
+    return entry;
+  });
+
+  const body = {
+    slug: cfg.slug,
+    title: cfg.title,
+    category: cfg.category,
+    sourceFile: cfg.sourceFile,
+    valueColumn: cfg.valueColumn,
+    description: cfg.description,
+    entryCount: entries.length,
+    sizeBytes: 0,
+    columns: headers,
+    entries,
+  };
+  body.sizeBytes = JSON.stringify(body).length;
+  writeFileSync(join(OUT, 'lists', `${safeFilename(cfg.slug)}.json`), JSON.stringify(body));
+  listsIndex.push({
+    slug: cfg.slug,
+    title: cfg.title,
+    category: cfg.category,
+    sourceFile: cfg.sourceFile,
+    valueColumn: cfg.valueColumn,
+    entryCount: entries.length,
+    sizeBytes: body.sizeBytes,
+    description: cfg.description,
+  });
+  console.log(`    ${cfg.slug}: ${entries.length} entries`);
+}
+
 // ─── Index ─────────────────────────────────────────────────────────────
 const index = {
   source: 'synthetic (OpenThreat + cyber_threat_intel + Daily-Hunt references)',
@@ -400,10 +517,12 @@ const index = {
     iocs: iocIndex.length,
     sectors: SECTORS.length,
     kevTotal: kevList.length,
+    lists: listsIndex.length,
   },
   lastSyncedAt: new Date().toISOString(),
   cveIndex,
   iocIndex,
+  listsIndex,
   sectors: SECTORS.map((s) => {
     const body = JSON.parse(readFileSync(join(OUT, 'sectors', `${s}.json`), 'utf8'));
     return {
@@ -422,5 +541,6 @@ console.log('✔ Built:');
 console.log(`    ${cveIndex.length} CVEs       (public/data/threat-intel/cves/)`);
 console.log(`    ${kevList.length} KEV       (public/data/threat-intel/cves/kev.json)`);
 console.log(`    ${iocIndex.length} IOC families (public/data/threat-intel/iocs/)`);
+console.log(`    ${listsIndex.length} detection lists (public/data/threat-intel/lists/)`);
 console.log(`    ${SECTORS.length} sector briefs (public/data/threat-intel/sectors/)`);
 console.log(`    1 slim index              (public/data/threat-intel/index.json)`);
