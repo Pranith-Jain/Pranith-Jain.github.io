@@ -192,7 +192,10 @@ export default {
         }
         if (kvKey) {
           const kvData = await env.KV_CACHE.get(kvKey, 'json');
-          if (kvData) {
+          // For the index, skip KV if it's empty (stale/cleared) so the
+          // committed static manifest in ASSETS is used as fallback.
+          const useKv = kvData && (kvKey !== 'db:index' || (Array.isArray(kvData.briefs) && kvData.briefs.length > 0));
+          if (useKv) {
             const h = new Headers({
               'content-type': 'application/json',
               'x-source': 'kv-cache',

@@ -34,7 +34,12 @@ async function loadIndex(kv?: KVNamespace, assets?: Fetcher): Promise<DbIndex | 
   if (kv) {
     try {
       const raw = await kv.get(KV_INDEX_KEY, 'json');
-      if (raw && typeof raw === 'object' && 'briefs' in (raw as DbIndex)) return raw as DbIndex;
+      if (raw && typeof raw === 'object' && 'briefs' in (raw as DbIndex)) {
+        const idx = raw as DbIndex;
+        // If KV has a non-empty index, use it. If KV is empty (stale/cleared),
+        // fall through to ASSETS which has the committed static manifest.
+        if (idx.briefs && idx.briefs.length > 0) return idx;
+      }
     } catch {
       /* fall through */
     }
