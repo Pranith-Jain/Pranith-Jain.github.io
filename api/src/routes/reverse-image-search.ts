@@ -80,7 +80,7 @@ export async function reverseImageSearchHandler(c: Context<{ Bindings: Env }>): 
   let contentLength: number | undefined;
 
   try {
-    const resp = await fetch(url, { method: 'HEAD', redirect: 'follow' });
+    const resp = await fetch(url, { method: 'HEAD', redirect: 'follow', signal: AbortSignal.timeout(6000) });
     reachable = resp.ok;
     contentType = resp.headers.get('content-type') ?? undefined;
     contentLength = resp.headers.get('content-length') ? Number(resp.headers.get('content-length')) : undefined;

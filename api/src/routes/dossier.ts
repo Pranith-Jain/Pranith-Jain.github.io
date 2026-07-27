@@ -238,7 +238,7 @@ async function enrichEntity(c: Context<{ Bindings: Env }>, entity: DossierEntity
   try {
     const searchRes = await fetch(
       `${c.env.SELF ? 'http://self' : ''}/api/v1/unified-search?q=${encodeURIComponent(entity.value)}&limit=5`,
-      { headers: { 'x-internal-agent': 'true' } }
+      { headers: { 'x-internal-agent': 'true' }, signal: AbortSignal.timeout(10000) }
     );
     if (searchRes.ok) {
       const searchData = (await searchRes.json()) as { results?: unknown[] };

@@ -140,6 +140,7 @@ async function resolveSubdomains(domain: string): Promise<string[]> {
     try {
       const response = await fetch(`https://dns.google/resolve?name=${prefix}.${domain}&type=A`, {
         headers: { Accept: 'application/json' },
+        signal: AbortSignal.timeout(6000),
       });
       const data = (await response.json()) as { Status: number; Answer?: Array<{ data: string }> };
       if (data.Status === 0 && data.Answer?.length) {

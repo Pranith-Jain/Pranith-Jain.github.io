@@ -806,7 +806,8 @@ async function tryNumVerify(digits: string, env: Env): Promise<Record<string, st
   if (!apiKey) return null;
   try {
     const res = await fetch(
-      `https://apilayer.net/api/validate?access_key=${apiKey}&number=${digits}&country_code=&format=1`
+      `https://apilayer.net/api/validate?access_key=${apiKey}&number=${digits}&country_code=&format=1`,
+      { signal: AbortSignal.timeout(8000) }
     );
     if (!res.ok) return null;
     const data = (await res.json()) as Record<string, unknown>;

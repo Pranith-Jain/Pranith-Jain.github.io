@@ -23,6 +23,7 @@ traceixRouter.get('/traceix/lookup', async (c) => {
       method: 'POST',
       headers: { 'content-type': 'application/json', 'x-api-key': apiKey },
       body: JSON.stringify({ sha256: hash }),
+      signal: AbortSignal.timeout(8000),
     });
     const body = await res.json<{
       success: boolean;
