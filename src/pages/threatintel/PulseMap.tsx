@@ -71,6 +71,7 @@ const KIND_COLORS: Record<string, string> = {
   military_base: '#22c55e',
   fire_detection: '#f97316',
   nuclear_facility: '#eab308',
+  cyberpulse: '#d946ef',
 };
 
 const KIND_LABELS: Record<string, string> = {
@@ -105,6 +106,7 @@ const KIND_LABELS: Record<string, string> = {
   military_base: 'Military Base',
   fire_detection: 'Fire Detection',
   nuclear_facility: 'Nuclear Facility',
+  cyberpulse: 'CyberPulse Incident',
 };
 
 export default function PulseMap({ markers, onMarkerClick, terminatorPolygon }: PulseMapProps): JSX.Element {
@@ -234,7 +236,9 @@ export default function PulseMap({ markers, onMarkerClick, terminatorPolygon }: 
           <div className="bg-slate-900/95 rounded-xl border border-slate-700/50 px-3 py-2 shadow-e3 max-w-xs">
             <div className="flex items-center gap-2 mb-1">
               <span className="w-2 h-2 rounded-full" style={{ backgroundColor: KIND_COLORS[hoveredMarker.kind] }} />
-              <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">{KIND_LABELS[hoveredMarker.kind]}</span>
+              <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">
+                {KIND_LABELS[hoveredMarker.kind]}
+              </span>
             </div>
             {hoveredMarker.title && (
               <p className="text-xs font-medium text-slate-200 line-clamp-2">{hoveredMarker.title}</p>

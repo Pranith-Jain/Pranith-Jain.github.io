@@ -38,6 +38,7 @@ import {
   fromIocCorrelation,
   fromFirms,
   fromUkmto,
+  fromCyberPulse,
 } from './converters';
 import {
   fetchEarthquakes,
@@ -434,6 +435,20 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
           /* degraded */
         }
 
+        // CyberPulse incidents (D1 — breach/leak/extortion incidents from
+        // social-media firehose ingestion). Same DB as briefings, different table.
+        let cyberpulseEvents: PulseEvent[] = [];
+        try {
+          const cpRes = await signedSelfFetch(self, '/api/v1/cyberpulse/incidents?days=7&limit=30', c.env);
+          if (cpRes && cpRes.ok) {
+            const cpData = (await cpRes.json()) as Parameters<typeof fromCyberPulse>[0];
+            cyberpulseEvents = safe(() => fromCyberPulse(cpData));
+          }
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          /* degraded */
+        }
+
         // Direct fetches for remaining cache-dependent sources
         let finalTelegramEvents = telegramEvents;
         let finalInfostealerEvents = infostealerEvents;
@@ -623,6 +638,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
               return 'threat';
             case 'ioc_correlation':
               return 'ioc';
+            case 'cyberpulse':
+              return 'threat';
             default:
               return 'other';
           }
@@ -672,6 +689,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
           ...tagAll(finalKevEvents),
           ...tagAll(firmsEvents),
           ...tagAll(ukmtoEvents),
+          ...tagAll(cyberpulseEvents),
         ].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
 
         const result: GlobalPulseResponse = {
@@ -718,6 +736,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
             kev: finalKevEvents.length,
             firm: firmsEvents.length,
             maritime: ukmtoEvents.length,
+            cyberpulse: cyberpulseEvents.length,
           },
         };
 

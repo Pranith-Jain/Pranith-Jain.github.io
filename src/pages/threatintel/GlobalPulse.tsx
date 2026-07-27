@@ -87,7 +87,8 @@ type PulseKind =
   | 'infrastructure'
   | 'military_base'
   | 'fire_detection'
-  | 'nuclear_facility';
+  | 'nuclear_facility'
+  | 'cyberpulse';
 
 interface PulseEvent {
   id: string;
@@ -404,6 +405,14 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     bgColor: 'bg-amber-500/10 border-amber-500/20',
     group: 'geo',
   },
+  cyberpulse: {
+    label: 'CyberPulse Incidents',
+    shortLabel: 'CP',
+    icon: <Radio size={14} />,
+    color: 'text-fuchsia-600 dark:text-fuchsia-400',
+    bgColor: 'bg-fuchsia-500/10 border-fuchsia-500/20',
+    group: 'intel',
+  },
 };
 
 /* ─── Helpers ───────────────────────────────────────────────────────────── */
@@ -490,6 +499,7 @@ export default function GlobalPulse(): JSX.Element {
       'military_base',
       'nuclear_facility',
       'fire_detection',
+      'cyberpulse',
     ])
   );
   const [autoRefresh, setAutoRefresh] = useState(true);
@@ -1493,7 +1503,9 @@ export default function GlobalPulse(): JSX.Element {
                               : 'border-slate-200/60 dark:border-white/[0.06] text-slate-500 dark:text-slate-400 opacity-50'
                           }`}
                         >
-                          <span className={active && count > 0 ? def.color : 'text-slate-500 dark:text-slate-400'}>{def.icon}</span>
+                          <span className={active && count > 0 ? def.color : 'text-slate-500 dark:text-slate-400'}>
+                            {def.icon}
+                          </span>
                           {def.shortLabel}
                           {count > 0 && (
                             <span className={`text-micro ${active ? 'opacity-70' : 'opacity-40'}`}>{count}</span>
@@ -1868,6 +1880,21 @@ export default function GlobalPulse(): JSX.Element {
                                 <span className="text-micro font-mono text-slate-500 dark:text-slate-400/70 dark:text-slate-500/70">
                                   {ev.source}
                                 </span>
+                                {ev.kind === 'cve' && ev.magnitude != null && (
+                                  <span
+                                    className={`text-micro font-mono font-bold px-1 rounded ${
+                                      ev.magnitude >= 9.0
+                                        ? 'bg-rose-500/15 text-rose-600 dark:text-rose-400'
+                                        : ev.magnitude >= 7.0
+                                          ? 'bg-orange-500/15 text-orange-600 dark:text-orange-400'
+                                          : ev.magnitude >= 4.0
+                                            ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400'
+                                            : 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
+                                    }`}
+                                  >
+                                    CVSS {ev.magnitude.toFixed(1)}
+                                  </span>
+                                )}
                                 {isCti && (
                                   <span
                                     className={`text-micro font-mono ${

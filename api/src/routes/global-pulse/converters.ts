@@ -449,23 +449,41 @@ export function fromCveRecent(data: {
     description?: string;
   }>;
 }): PulseEvent[] {
-  return (data.cves ?? []).slice(0, 20).map((c) => ({
-    id: `cve-${c.id}`,
-    kind: 'cve' as const,
-    title: c.id,
-    description: c.description?.slice(0, 120) || `CVSS ${c.score ?? 'N/A'} · ${c.kev ? 'KEV' : 'NVD'}`,
-    lat: 0,
-    lng: 0,
-    timestamp: c.published || new Date().toISOString(),
-    severity:
-      c.severity === 'CRITICAL'
-        ? ('critical' as const)
+  return (data.cves ?? []).slice(0, 20).map((c) => {
+    // Derive severity from the CVSS score when available — more granular
+    // than the upstream severity string (which only has CRITICAL/HIGH/MEDIUM/LOW).
+    // Falls back to the string if the score is null/0 (unscored CVEs).
+    const score = typeof c.score === 'number' && c.score > 0 ? c.score : null;
+    const severity: Sev = score
+      ? score >= 9.0
+        ? 'critical'
+        : score >= 7.0
+          ? 'high'
+          : score >= 4.0
+            ? 'medium'
+            : 'low'
+      : c.severity === 'CRITICAL'
+        ? 'critical'
         : c.severity === 'HIGH'
-          ? ('high' as const)
-          : ('medium' as const),
-    source: c.kev ? 'CISA KEV' : 'NVD',
-    url: `https://nvd.nist.gov/vuln/detail/${c.id}`,
-  }));
+          ? 'high'
+          : c.severity === 'MEDIUM'
+            ? 'medium'
+            : 'low';
+    const scoreLabel = score ? score.toFixed(1) : 'N/A';
+    return {
+      id: `cve-${c.id}`,
+      kind: 'cve' as const,
+      title: c.id,
+      description: c.description?.slice(0, 100) || `CVSS ${scoreLabel} · ${c.kev ? 'CISA KEV' : 'NVD'}`,
+      lat: 0,
+      lng: 0,
+      magnitude: score ?? undefined,
+      timestamp: c.published || new Date().toISOString(),
+      severity,
+      source: c.kev ? 'CISA KEV' : 'NVD',
+      url: `https://nvd.nist.gov/vuln/detail/${c.id}`,
+    };
+  });
 }
 
 /* ─── X Claims (ransomware claims from Twitter) ──────────────────────────── */
@@ -647,6 +665,61 @@ export function fromUkmto(data: { incidents?: UkmtoIncidentLike[] } | null | und
       timestamp: ts,
       severity,
       source: 'UKMTO',
+    };
+  });
+}
+
+/* ─── CyberPulse incidents (D1-backed breach/leak tracker) ────────────────── */
+
+export function fromCyberPulse(data: {
+  incidents?: Array<{
+    id: string;
+    incident_type: string;
+    severity: string;
+    title: string;
+    description?: string;
+    victim_name?: string;
+    victim_country?: string;
+    victim_sector?: string;
+    threat_actor?: string;
+    records_count?: number;
+    source_platform?: string;
+    discovered_at?: string;
+    url?: string;
+  }>;
+}): PulseEvent[] {
+  return (data.incidents ?? []).slice(0, 30).map((inc) => {
+    // Geo-locate by victim country code if we have coords for it.
+    const coords = inc.victim_country ? COUNTRY_COORDS[inc.victim_country] : undefined;
+    const jitterLat = coords ? (Math.random() - 0.5) * 2 : 0;
+    const jitterLng = coords ? (Math.random() - 0.5) * 4 : 0;
+
+    const sev: Sev =
+      inc.severity === 'critical'
+        ? 'critical'
+        : inc.severity === 'high'
+          ? 'high'
+          : inc.severity === 'low' || inc.severity === 'info'
+            ? 'low'
+            : 'medium';
+
+    const actor = inc.threat_actor ? ` · ${inc.threat_actor}` : '';
+    const records =
+      inc.records_count && inc.records_count > 0 ? ` · ${inc.records_count.toLocaleString('en-US')} records` : '';
+    const sector = inc.victim_sector ? ` · ${inc.victim_sector}` : '';
+
+    return {
+      id: `cp-${inc.id}`,
+      kind: 'cyberpulse' as const,
+      title: inc.victim_name || inc.title?.slice(0, 60) || 'Unknown incident',
+      description: `${inc.incident_type}${sector}${actor}${records}`.slice(0, 140),
+      lat: coords ? coords[0] + jitterLat : 0,
+      lng: coords ? coords[1] + jitterLng : 0,
+      timestamp: inc.discovered_at || new Date().toISOString(),
+      severity: sev,
+      source: inc.source_platform || 'CyberPulse',
+      country: inc.victim_country,
+      url: inc.url,
     };
   });
 }

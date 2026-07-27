@@ -33,7 +33,8 @@ export type PulseKind =
   | 'supply_chain_attacks'
   | 'kev'
   | 'firm'
-  | 'maritime';
+  | 'maritime'
+  | 'cyberpulse';
 
 export interface PulseEvent {
   id: string;
