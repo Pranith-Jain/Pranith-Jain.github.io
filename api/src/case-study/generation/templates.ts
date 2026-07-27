@@ -8,12 +8,14 @@ const SYSTEM_PROMPT =
   COPYWRITING_RULES +
   `\n\n` +
   `<structure>\n` +
-  `- Open with a hook paragraph BEFORE the first section heading, constructed from THIS case's specific facts. Lead with the stake (who is hit, what breaks, why it matters now). Select a FRAMEWORK from the #FRAMEWORKS block above that fits the data's angle. The form must match the angle, never a fixed formula. 80-200 words.\n` +
+  `- Open with a hook paragraph BEFORE the first section heading, constructed from THIS case's specific facts. Lead with the stake (who is hit, what breaks, why it matters now). Select a FRAMEWORK from the #FRAMEWORKS block above that fits the data's angle — when the data has a real detection, dwell-time, or attacker-incentive angle, prefer the security-native frameworks (Detection-First, Assume-Breach, Attacker Economics). The form must match the angle, never a fixed formula. 80-200 words. The hook's first word is the SUBJECT, never "You"/"Your"/"If you".\n` +
   `- Then real analysis: the pattern or contrast in the data, TTPs, attribution, campaign context. Note confidence ("likely", "consistent with"). Call out gaps.\n` +
   `- Go as deep as the facts support — CVSS vector, CWE, exploit chain, affected versions, detection logic, victimology — only where the data actually has it. Don't pad thin sections.\n` +
   `- Section order should follow the angle the data suggested. Don't force a fixed skeleton. But every section must add NEW information — never repeat the same recommendation across sections.\n` +
+  `- Bake in a SAVE MAGNET when the facts allow it: a copy-pasteable detection artifact, a real indicator sample (then the total), a reusable framework, or a hard quotable number. Reusable beats merely interesting.\n` +
   `- Keep every specific number tied to the GROUND TRUTH DATA. Never invent CVEs, scores, versions, or IOCs.\n` +
   `- A CVE id, score, or IOC may appear ONLY if it is in the GROUND TRUTH DATA. You may reference a well-known historical CVE for CONTRAST/CONTEXT, but explicitly frame it as context ("for context, ... like CVE-XXXX") — never as a finding of this case.\n` +
+  `- Close on the MONDAY-MORNING TEST: the final bolded paragraph hands a defender a concrete next step tied to the facts (a hunt to run, a setting to verify, a detection to write), never "stay vigilant" or an engagement plea.\n` +
   `</structure>\n\n` +
   `<grounding>\n` +
   `- Treat the REFERENCE URLS as the authoritative threat-intel sources for this case. Base concrete claims on them and the GROUND TRUTH DATA, not memory.\n` +
@@ -51,6 +53,7 @@ const SYSTEM_PROMPT =
   `- Where the data supports a detection, include ONE named, copy-pasteable artifact in a fenced code block labelled with its language: a Sigma rule, a KQL/SPL hunting query, or a YARA signature. Only when the facts justify it, never fabricate a rule or IOC you do not have.\n` +
   `- The "## FAQ" before References: 4-6 questions a defender would genuinely ask about THIS case. Format each as a "### " question heading (phrased as a real search query, ending in "?") followed by a self-contained 40-60 word answer paragraph. This exact shape lets the page emit FAQ structured data.\n` +
   `- Optional but high-value: a "## Pop Quiz" after References (before the closing paragraph). Include 3-4 questions that test the reader's understanding of the key takeaways. Format each question as "### " heading, then wrap the answer in a <details><summary>Show answer</summary>Answer text here</details> HTML block on the next line. Questions should be substantive, not trivia — test whether the reader understood the implications.\n` +
+  `- Answer-engine trust (E-E-A-T): write from demonstrated practitioner experience, ground every claim in the cited primary sources, and label confidence explicitly. Answer engines and analysts quote pages that are precise, sourced, and unafraid to say "unconfirmed" or "the data doesn't show". A page that hedges everything or overclaims gets neither citation nor trust.\n` +
   `</answer-engine>\n\n` +
   `<rich-content>\n` +
   `- Every post must feel deep, not thin. Include at least 3 of these:\n` +

@@ -491,6 +491,7 @@ function buildTwitterPrompt(src: SocialSource, includeLink = true): string {
     `- At most ONE hashtag (if genuinely specific)${
       src.hashtags?.length ? `; if you use one, prefer: ${src.hashtags.slice(0, 3).join(' ')}` : ''
     }. At most ONE warning-level emoji (🔴 ⚠️), never decorative.\n` +
+    `- X algorithm 2026: bookmarks and substantive replies are the strongest ranking signals (worth far more than likes). Engineer tweet 2-4 to be BOOKMARKED (the IOC list, the CVE list, the affected versions — the reusable data) and tweet 6 to demand a real answer, not a "thoughts?" reflex. The hook (tweet 1) leads with the SUBJECT and a hard fact — never "You", "Your", or "If you".\n` +
     `- CRITICAL: Every CVE ID, statistic, and IOC must come from the input data. Do not invent.\n` +
     `</format>\n\n` +
     `<examples>\n` +
@@ -528,6 +529,7 @@ function buildLinkedinPrompt(src: SocialSource, includeLink = true): string {
     `- THE FOLD (first 3 lines, <= 210 characters) determines 70% of read-through rate. It MUST contain a COMPLETE, standalone point — NOT a teaser. A reader who never clicks "see more" should still learn one specific thing. Lead with a named entity + hard number + sharp contrast from THIS case.\n` +
     `- DWELL TIME is the #1 ranking signal. Posts holding attention 31-60 seconds get maximum distribution. Format for scanning: short paragraphs, generous whitespace, bullet points for ANY list of 3+ items. No walls of text.\n` +
     `- SAVES are 5x more valuable than likes. Create bookmarkable content: frameworks, data points, concrete facts the reader can reference later.\n` +
+    `- THOUGHT LEADERSHIP wins: first-person practitioner analysis earns ~6x the engagement of generic corporate posts. Have a take the data supports — that's the whole point of this voice.\n` +
     `- COMMENTS of 15+ words carry 2.5x more weight than short ones. The closing question must demand a substantive answer, not "thoughts?" or "what do you think?".\n` +
     `- MAX 3 HASHTAGS. More than 3 reduces reach 71%. Specific to the case — never generic stacks like #CyberSecurity #InfoSec.\n` +
     (includeLink
@@ -542,10 +544,10 @@ function buildLinkedinPrompt(src: SocialSource, includeLink = true): string {
     `- Every CVE id, statistic, named victim, and named entity MUST come from the input data. Inventing a number is the fastest way to lose credibility.\n` +
     `\n` +
     `STRUCTURE — four blocks, each earns its place. Use a single blank line between blocks:\n` +
-    `  1. HOOK (first 1-2 lines, <= 210 chars, entirely inside THE FOLD): a specific fact, a hard number, a sharp contrast, or a contrarian read, taken from THIS case. NOT a teaser. The reader should be able to stop here and still have learned something concrete. Do not reuse a hook shape you would use on another post.\n` +
+    `  1. HOOK (first 1-2 lines, <= 210 chars, entirely inside THE FOLD): a specific fact, a hard number, a sharp contrast, or a contrarian read, taken from THIS case. NOT a teaser. The reader should be able to stop here and still have learned something concrete. Lead with the SUBJECT — never open on "You", "Your", or "If you". Do not reuse a hook shape you would use on another post.\n` +
     `  2. STORY OR INSIGHT (1-2 paragraphs, the analytical core): the pattern, the contrast, the technical detail other coverage missed. Lead with the take, then support it with data. Include a scannable 4-8 item bulleted list of concrete facts (named CVE / vendor / version / sector / IOC). One bullet = one fact. This block drives SAVES and SHARES.\n` +
     `  3. CLOSE (1-2 lines): the takeaway and one substantive practitioner question — the kind a SOC lead or IR consultant would actually answer. Not "Thoughts?" or "What do you think?". The question must demand a substantive (15+ word) response to optimize for the comment-weighting algorithm.\n` +
-    `  4. CAROUSEL OUTLINE: — optional but highest engagement format (24.42% vs 6.67% for text). When the case is a meaty technical breakdown (CVE chain, IOC dump, APT tradecraft, threat-actor profile), append a separate block on its own line: "CAROUSEL OUTLINE:" followed by 7-10 one-line slide titles (slide 1 = the hook, slides 2-8 = one specific idea each, slide 9-10 = the takeaway + CTA). Carousels get 4x the engagement of text posts. Skip the block entirely for thin or breaking items.\n` +
+    `  4. CAROUSEL OUTLINE: — optional but the single highest-engagement format on LinkedIn in 2026 (document carousels earn ~6x the engagement of a text-only post, and ~3x even video). When the case is a meaty technical breakdown (CVE chain, IOC dump, APT tradecraft, threat-actor profile), append a separate block on its own line: "CAROUSEL OUTLINE:" followed by 7-10 one-line slide titles (slide 1 = the hook, slides 2-8 = one specific idea each, slide 9-10 = the takeaway + CTA). Skip the block entirely for thin or breaking items.\n` +
     (includeLink
       ? `End the post (after any carousel block) with the FIRST COMMENT link and the hashtags:\nFIRST COMMENT: ${postUrl}\n\n`
       : `End the post with the hashtags on their own line.\n`) +
